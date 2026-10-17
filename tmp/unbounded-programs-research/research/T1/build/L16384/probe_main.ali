@@ -1,0 +1,133 @@
+V "GNAT Lib v16"
+M P W=b
+A -gnat2022
+A -gnata
+A -gnato
+A -g
+P SS ZX
+
+RN
+RV NO_ALLOCATORS
+RV NO_CALENDAR
+RV NO_DELAY
+RV NO_FIXED_POINT
+RV NO_IO
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_LOCAL_ALLOCATORS
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_ALLOCATORS_AFTER_ELABORATION
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_STREAMS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+
+U probe_main%b		probe_main.adb		0d7a6b21 NE OO SU
+W ada%s			ada.ads			ada.ali
+W ada.calendar%s	a-calend.adb		a-calend.ali
+W ada.command_line%s	a-comlin.adb		a-comlin.ali
+W ada.streams%s		a-stream.adb		a-stream.ali
+W ada.streams.stream_io%s  a-ststio.adb		a-ststio.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+Z interfaces%s		interfac.ads		interfac.ali
+W silver_output_profile%s  silver_output_profile.adb  silver_output_profile.ali
+Z system.concat_2%s	s-conca2.adb		s-conca2.ali
+Z system.img_fixed_64%s	s-imfi64.ads		s-imfi64.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+Z system.strings.stream_ops%s  s-ststop.adb	s-ststop.ali
+
+D ada.ads		20260430083320 76789da1 ada%s
+D a-calend.ads		20260430083320 bf7f3cc9 ada.calendar%s
+D a-comlin.ads		20260430083320 4aa66568 ada.command_line%s
+D a-except.ads		20260430083320 8699d7ff ada.exceptions%s
+D a-ioexce.ads		20260430083320 40018c65 ada.io_exceptions%s
+D a-stream.ads		20260430083320 cb01a8f8 ada.streams%s
+D a-ststio.ads		20260430083320 13ffc4d2 ada.streams.stream_io%s
+D a-string.ads		20260430083320 90ac6797 ada.strings%s
+D a-sttebu.ads		20260430083320 f1ad67a2 ada.strings.text_buffers%s
+D a-stuten.ads		20260430083320 c6ced0ae ada.strings.utf_encoding%s
+D a-tags.ads		20260430083320 2dbf449c ada.tags%s
+D a-textio.ads		20260430083320 34ef47de ada.text_io%s
+D a-unccon.ads		20260430083320 0e9b276f ada.unchecked_conversion%s
+D a-uncdea.ads		20260430083320 c3a8ac65 ada.unchecked_deallocation%s
+D interfac.ads		20260430083320 9111f9c1 interfaces%s
+D i-cstrea.ads		20260430083320 ffd01b9d interfaces.c_streams%s
+D probe_main.adb	20261017131118 8dd56dd0 probe_main%b
+D silver_output_profile.ads  20261017131118 5266dc5c silver_output_profile%s
+D silver_profile.ads	20261017131118 dd1333fb silver_profile%s
+D system.ads		20260430083320 e2b7c99d system%s
+D s-arit64.ads		20260430083320 60e313f7 system.arith_64%s
+D s-conca2.ads		20260430083320 b5fb73f7 system.concat_2%s
+D s-crtl.ads		20260430083320 823b6536 system.crtl%s
+D s-exctab.ads		20260430083320 91bef6ef system.exception_table%s
+D s-ficobl.ads		20260430083320 dc5161d4 system.file_control_block%s
+D s-imagef.ads		20260430083320 08b63c8e system.image_f%s
+D s-imfi64.ads		20260430083320 99ebeefa system.img_fixed_64%s
+D s-parame.ads		20260430083320 a1aeab5c system.parameters%s
+D s-putima.ads		20260430083320 1b989439 system.put_images%s
+D s-secsta.ads		20260430083320 578279f5 system.secondary_stack%s
+D s-soflin.ads		20260430083320 5d88fdea system.soft_links%s
+D s-stache.ads		20260430083320 0b81c1fe system.stack_checking%s
+D s-stalib.ads		20260430083320 1c9580f6 system.standard_library%s
+D s-stoele.ads		20260430083320 ccded4e8 system.storage_elements%s
+D s-string.ads		20260430083320 582aac7d system.strings%s
+D s-ststop.ads		20260430083320 c569db7c system.strings.stream_ops%s
+D s-traent.ads		20260430083320 c81cbf8c system.traceback_entries%s
+D s-unstyp.ads		20260430083320 fa2a7f59 system.unsigned_types%s
+D s-wchcon.ads		20260430083320 d9032363 system.wch_con%s
+G a e
+G c Z b b [probe_main standard 6 11 none]
+G r c none [probe_main standard 6 11 none] [accepts silver_output_profile 72 13 none]
+G r c none [probe_main standard 6 11 none] [uses_assignment silver_output_profile 64 13 none]
+G r c none [probe_main standard 6 11 none] [uses_arguments silver_output_profile 59 13 none]
+X 1 ada.ads
+18K9*Ada 22e8 17|1r6 2r6 3r6 4r6 7r8 8r13 10r30 12r22 18r12 23r13 31r7 31r82
+X 2 a-calend.ads
+36K13*Calendar 440e17 17|4w10 8r17 18r16 23r17 31r86
+42I9*Time<226I9> 17|8r26 18r25
+56V13*Clock{42I9} 17|23s26 31s95
+112V14*"-"{duration} 17|31s101
+226I9 Time_Rep<long_long_integer>
+X 3 a-comlin.ads
+40K13*Command_Line 148e21 17|1w10 10r34 12r26
+56V13*Argument{string} 17|10s47 12s39
+X 6 a-stream.ads
+36K13*Streams 90e16 17|2r10 7r12
+44I9*Stream_Element_Offset<long_long_integer>
+X 7 a-ststio.ads
+39K21*Stream_IO 225e26 17|2w18 7r20
+42P9*Stream_Access(6|39R9) 17|17r11
+44P9*File_Type 17|9r8
+48n23*In_File{48E9} 17|12r13
+59I9*Count<6|44I9>
+75U14*Open 17|12s4
+81U14*Close 17|22s7
+93V13*Stream{42P9} 17|17s28
+126V13*Size{59I9} 17|14s40
+X 12 a-textio.ads
+58K13*Text_IO 785e16 17|3w10 31r11
+565U14*Put_Line 17|31s19
+X 15 interfac.ads
+68I9*Integer_64<long_long_integer>
+95M9*Unsigned_64
+X 17 probe_main.adb
+6U11*Probe_Main 6b11 33l5 33t15
+9p4 F{7|44P9} 12m10 12r10 14r46 17r36 22m14 22r14
+10a4 Mode{string} 24r10
+14i7 N{natural} 16r57
+15P12 String_Access(string) 16r23
+16p7 Text{15P12} 21r23 25r46 27r46 28r60 29r61
+17p7 S{7|42P9} 21r20
+18i7 T0{2|42I9} 23m7 31r103
+19b7 R{boolean} 25m10 27m10 31r33
+X 18 silver_output_profile.ads
+3K9*Silver_Output_Profile 17|5w6 25r15 27r15 28r22 29r22 18|75e26
+59V13*Uses_Arguments{boolean} 17|28s44
+64V13*Uses_Assignment{boolean} 17|29s44
+72V13*Accepts{boolean} 17|25s37 27s37
+X 21 s-arit64.ads
+48I12*Int64{15|68I9}
+74V13*Multiply_With_Ovflo_Check64{48I12} 75i<c,__gnat_mulv64>22
+158M12*Uns64{15|95M9}
+180V13*Uns_Multiply_With_Ovflo_Check64{158M12} 181i<c,__gnat_uns_mulv64>22
+

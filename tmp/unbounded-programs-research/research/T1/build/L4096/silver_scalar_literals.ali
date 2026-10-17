@@ -1,0 +1,145 @@
+V "GNAT Lib v16"
+A -gnat2022
+A -gnata
+A -gnato
+A -g
+P ZX
+
+RN
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_LONG_LONG_INTEGERS
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U silver_scalar_literals%b  silver_scalar_literals.adb  0db70d7c NE OO PK
+Z system.assertions%s	s-assert.adb		s-assert.ali
+
+U silver_scalar_literals%s  silver_scalar_literals.ads  4aeb4770 EE NE OO PK
+W silver_profile%s	silver_profile.adb	silver_profile.ali
+
+D ada.ads		20260430083320 76789da1 ada%s
+D a-assert.ads		20260430083320 ba465f5c ada.assertions%s
+D a-unccon.ads		20260430083320 0e9b276f ada.unchecked_conversion%s
+D silver_profile.ads	20261017131118 5649a64c silver_profile%s
+D silver_scalar_literals.ads  20261017131118 1ca2e13c silver_scalar_literals%s
+D silver_scalar_literals.adb  20261017131118 1115ec40 silver_scalar_literals%b
+D system.ads		20260430083320 e2b7c99d system%s
+D s-assert.ads		20260430083320 9c4520c7 system.assertions%s
+D s-exctab.ads		20260430083320 91bef6ef system.exception_table%s
+D s-stalib.ads		20260430083320 1c9580f6 system.standard_library%s
+G a e
+G c Z s s [literal_resultIP silver_scalar_literals 10 9 none]
+G c Z s b [model silver_scalar_literals 18 13 none]
+G c Z s b [read_integer silver_scalar_literals 28 13 none]
+G c Z b b [digit silver_scalar_literals 2 13 none]
+G c Z b b [numeral_tail silver_scalar_literals 8 13 none]
+G c Z b b [numeral_model silver_scalar_literals 33 13 none]
+G c Z b b [numeral silver_scalar_literals 45 13 none]
+G c Z b b [mantissa_resultIP silver_scalar_literals 86 9 none]
+G c Z b b [mantissa_model silver_scalar_literals 93 13 none]
+G c Z b b [read_mantissa silver_scalar_literals 116 13 none]
+G c Z b b [scale_resultIP silver_scalar_literals 145 9 none]
+G c Z b b [scale_model silver_scalar_literals 151 13 none]
+G c Z b b [power silver_scalar_literals 160 13 none]
+G c Z b b [exponent_start silver_scalar_literals 178 13 none]
+G c Z b b [exponent_model silver_scalar_literals 186 13 none]
+G c Z b b [read_exponent silver_scalar_literals 201 13 none]
+G r c none [model silver_scalar_literals 18 13 none] [is_identifier_character silver_profile 20 13 none]
+X 4 silver_profile.ads
+1K9*Silver_Profile 94e19 5|1w6 4r8
+4i4*Max_Source_Length{positive} 5|5r51 21r59 31r59 6|12r59 36r59 48r59 95r59
+. 118r59 180r59 188r59 203r59
+20V13*Is_Identifier_Character{boolean} 6|232s48 244s48
+X 5 silver_scalar_literals.ads
+3K9*Silver_Scalar_Literals 37l5 37e27 6|1b14 249l5 249t27
+5I12*Literal_Position{natural} 11r15 18r46 28r53 6|9r54 20r54 33r54 41r54
+. 45r48 54r48 56r14 87r15 93r55 100r55 116r54 124r54 178r55 178r80 183r55
+. 183r80 227r46 235r53
+6N4*Max_Magnitude 8r58 6|25r22 69r25 157r21 172r22
+7N4*Max_Exponent 6|196r64 215r60
+8I12*Literal_Value{long_long_integer} 12r15 6|10r15 21r15 57r15 88r15 147r15
+. 151r65 154r65 160r59 162r59 163r16
+9I12*Literal_Base{long_long_integer} 6|9r29 20r29 33r79 41r79 45r73 54r73
+. 89r14 107r36 131r34 151r33 154r33 160r27 162r27
+10R9*Literal_Result 13e14 14r23 19r14 29r14 6|10r59 21r59 34r14 42r14 46r14
+. 55r14 101r34 108r41 125r26 133r31 186r77 192r77 194r38 201r76 208r76 212r33
+. 227r71 230r36 236r14 241r28
+11i7*After{5I12} 14m42 33r48 34r39 35r41 6|14r36 15r39 16r61 17r47 23m43
+. 31m46 38r37 39r40 40r42 50r43 51r34 52r36 83m15 103r20 104r23 104r65 105r39
+. 105r69 106r36 109r46 110r32 111r30 111r69 111r93 113r39 114r32 127r18 128r18
+. 128r60 129r37 129r67 130r34 133r72 135r23 136r23 136r62 136r86 139r37 142r32
+. 190r38 191r40 196r29 198m59 198r77 199m13 205r49 206r39 215r25 220m24 220r42
+. 224m15 231r27 232r20 232r86 243r20 244r20 244r86
+12i7*Value{8I12} 14m54 6|23m62 31m65 83m30 107r23 109r65 113r66 113r89 114r56
+. 131r21 133r91 139r64 139r87 142r56 196r56 197r104 198m84 199m36 215r52
+. 217r93 220m49 224m38
+14r4*Invalid{10R9} 6|23r29 25r75 29r29 31r32 43r28 60r31 70r23 75r39 82r33
+. 196r82 198r45 215r85 219r48 229r39 233r17 239r39 245r22
+28V13*Read_Integer{10R9} 28>27 28>42 33r28 34r19 35r21 36r20 6|235b13
+28a27 Text{string} 31r15 31r39 32r31 35r50 36r49 6|235b27 237r59 241r61 244r29
+. 244r73
+28i42 Position{5I12} 32r19 34r47 36r55 6|235b42 237r65
+X 6 silver_scalar_literals.adb
+2V13 Digit{long_long_integer} 2b13 2>20 24s13 25s38 27s27 68s13 69s41 72s37
+2e20 Item{character} 3r10 3r49 4r13 4r53 5r13 5r53
+45V13 Numeral{5|10R9} 45>22 45>37 45>66 50r28 51r19 52r21 53r20 54b13 125s44
+. 133s49 213s15
+45a22 Text{string} 48r15 48r39 49r31 52r45 53r52 54b22 61r21 62r53 65r58
+. 66r28 68r20 69r48 72r44 74r16
+45i37 Position{5|5I12} 49r19 51r42 53r58 54b37 56r34 62r41 63r40 63r64 64r43
+. 65r64
+45i66 Base{5|9I12} 53r68 54b66 65r74 66r34 68r35 69r64 72r30
+56i7 Next{5|5I12} 60r10 61r13 62r33 63r33 63r57 64r36 66r40 67r44 68r26 69r54
+. 72r50 74r22 80m10 80r18 83r24
+57i7 Value{5|8I12} 66r46 69r16 72m13 72r22 83r39
+58b7 Need_Digit{boolean} 64r57 66r53 73m13 75r16 76m13 82r10
+86R9 Mantissa_Result 90e14 91r32 93r80 100r80 116r79 124r79 186r53 192r53
+. 201r52 208r52 228r33 237r25
+87i7*After{5|5I12} 91m52 97r38 98r41 99r43 113m23 114m15 120r49 121r40 122r42
+. 139m21 142m15 189r26 191r56 193r17 193r58 195r62 199r29 204r26 206r55 210r17
+. 210r58 213r59 224r31 229r24 239r17
+88i7*Value{5|8I12} 91m64 113m50 114m39 139m48 142m39 197r88 199r52 217r77
+. 224r54
+89i7*Base{5|9I12} 91m76 113m73 114m63 139m71 142m63 197r75 217r64
+91r4 Invalid_Mantissa{86R9} 103r35 107r54 110r47 112r22 127r40 131r59 135r45
+. 137r23
+101r15 Leading{5|10R9} 103r12 104r15 104r57 105r31 105r61 106r28 107r15 109r38
+. 109r57 111r85 113r81 114r24 114r48
+108r23 Number{5|10R9} 110r25 111r23 111r62 113r32 113r59
+116V13 Read_Mantissa{86R9} 116>28 116>43 120r28 121r19 122r21 123r20 124b13
+. 237s44
+116a28 Text{string} 118r15 118r39 119r31 122r51 123r59 124b28 125r53 128r27
+. 128r46 129r23 129r75 130r20 133r58 136r31 136r49 136r72
+116i43 Position{5|5I12} 119r19 121r48 123r65 124b43 125r59
+125r7 Leading{5|10R9} 127r10 128r10 128r52 129r29 129r59 130r26 131r13 133r64
+. 133r83 136r78 139r79 142r24 142r48
+133r13 Number{5|10R9} 135r16 136r16 136r55 139r30 139r57
+145R9 Scale_Result 148e14 149r29 151r87 154r87 160r81 162r81 197r39 217r34
+146b7*Valid{boolean} 149m46 155m47 166m18 175m15 198r34 219r30
+147i7*Value{5|8I12} 149m62 155m62 166m33 175m30 198r100 220r65
+149r4 Invalid_Scale{145R9} 156r32 157r47 168r36 172r55
+160V13 Power{145R9} 160>20 160>41 160>48 161r46 162b13 176l8 176t13 217s50
+160i20 Base{5|9I12} 161r74 162b20 170r56 171r27 172r38 173r29
+160i41 Value{5|8I12} 161r80 162b41 163r33 165r31 166r42 170r62
+160i48 Exponent{5|8I12} 161r87 162b48 165r10 168r10 169r25 170r69 171r42
+163i7 Result{5|8I12} 171r33 172r13 173m10 173r20 175r39
+169i11 Index{long_long_integer} 171r53
+178V13 Exponent_Start{5|5I12} 178>29 178>44 182r16 183b13 195s33 213s30
+178a29 Text{string} 180r15 180r39 181r36 182r53 184r22 184r41
+178i44 Position{5|5I12} 181r19 182r41 184r10 184r47 184r68 184r86
+194r18 Exponent{5|10R9} 196r20 196r47 197r95 198r68
+197r21 Scaled{145R9} 198r27 198r93
+201V13 Read_Exponent{5|10R9} 201>28 201>43 205r28 206r18 207r20 208b13 241s46
+201a28 Text{string} 203r15 203r39 204r40 206r64 207r59 208b28 210r26 210r45
+. 213r24 213r46
+201r43 Number{86R9} 204r19 206r48 207r65 208b43 210r10 210r51 213r52 217r57
+. 217r70 224r24 224r47
+212r13 Exponent{5|10R9} 215r16 215r43 217r84 220r33
+217r16 Scaled{145R9} 219r23 220r58
+228r15 Number{86R9} 229r17 230r76
+230r18 Result{5|10R9} 231r20 232r13 232r79 233r30
+237r7 Number{86R9} 239r10 241r67
+241r10 Result{5|10R9} 243r13 244r13 244r79 246r17
+

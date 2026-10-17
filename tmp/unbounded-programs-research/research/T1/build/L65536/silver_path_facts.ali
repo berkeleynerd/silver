@@ -1,0 +1,163 @@
+V "GNAT Lib v16"
+A -gnat2022
+A -gnata
+A -gnato
+A -g
+P ZX
+
+RN
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+RV NO_IMPLICIT_LOOPS
+
+U silver_path_facts%s	silver_path_facts.ads	8e62dfb5 NE OO PK
+Z system.assertions%s	s-assert.adb		s-assert.ali
+
+D ada.ads		20260430083320 76789da1 ada%s
+D a-assert.ads		20260430083320 ba465f5c ada.assertions%s
+D a-unccon.ads		20260430083320 0e9b276f ada.unchecked_conversion%s
+D silver_path_facts.ads	20261017131118 8e62dfb5 silver_path_facts%s
+D system.ads		20260430083320 e2b7c99d system%s
+D s-assert.ads		20260430083320 9c4520c7 system.assertions%s
+D s-exctab.ads		20260430083320 91bef6ef system.exception_table%s
+D s-stalib.ads		20260430083320 1c9580f6 system.standard_library%s
+G a e
+G c Z s s [compare silver_path_facts 10 13 none]
+G c Z s s [complement silver_path_facts 19 13 none]
+G c Z s s [swap silver_path_facts 24 13 none]
+G c Z s s [contextIP silver_path_facts 32 9 none]
+G c Z s s [initial silver_path_facts 37 13 none]
+G c Z s s [ceiling silver_path_facts 39 13 none]
+G c Z s s [assume_valid silver_path_facts 41 13 none]
+G c Z s s [assume_invalid silver_path_facts 43 13 none]
+G c Z s s [rejected silver_path_facts 45 13 none]
+G c Z s s [completed silver_path_facts 47 13 none]
+G c Z s s [keep_if silver_path_facts 49 13 none]
+G c Z s s [intersect silver_path_facts 52 13 none]
+G c Z s s [join silver_path_facts 63 13 none]
+G c Z s s [below silver_path_facts 76 13 none]
+G c Z s s [above silver_path_facts 78 13 none]
+G c Z s s [refine_input_true silver_path_facts 80 13 none]
+G c Z s s [refine_input silver_path_facts 90 13 none]
+G c Z s s [refine_bounds silver_path_facts 100 13 none]
+G c Z s s [length_at silver_path_facts 113 13 none]
+G c Z s s [fits silver_path_facts 116 13 none]
+G c Z s s [same_length silver_path_facts 119 13 none]
+G c Z s s [equal_increasing silver_path_facts 128 13 none]
+G c Z s s [summaryIP silver_path_facts 109 9 none]
+G c Z s s [refine_equal silver_path_facts 139 13 none]
+G c Z s s [boundIP silver_path_facts 96 9 none]
+X 4 silver_path_facts.ads
+1K9*Silver_Path_Facts 144l5 144e22
+4N4*Max_Length 5r47 7r57 38r29 117r76 118r77
+5I12*Length_Value{natural} 33r22 39r46 66r22 69r22 76r49 78r49 81r59 91r59
+. 97r23 110r23 113r56 132r31 135r31
+6I12*Operand_Count{natural} 111r23
+7I12*Expression_Length{natural} 10r59 114r14
+9E9*Comparison 9e81 10r33 19r36 19r55 24r30 24r49 81r35 91r35 101r35
+9n24*Equal{9E9} 13r14 21r14 21r48 26r14 26r23 84r14
+9n31*Unequal{9E9} 14r14 21r23 21r37 26r35 26r46 85r14
+9n40*Less{9E9} 15r14 22r14 23r59 27r14 28r25 86r14
+9n46*Less_Equal{9E9} 16r14 22r42 23r25 27r36 28r53 87r14
+9n58*Greater{9E9} 17r14 22r56 23r14 27r22 28r14 88r14
+9n67*Greater_Equal{9E9} 18r14 22r22 23r42 27r50 28r36 89r14
+10V13*Compare{boolean} 10b13 10>22 10>45 10>51 104s25 107s28
+10e22 Operator{9E9} 12r12
+10i45 Left{7I12} 13r23 14r25 15r22 16r28 17r25 18r31
+10i51 Right{7I12} 13r30 14r33 15r29 16r36 17r32 18r39
+19V13*Complement{9E9} 19b13 19>25 94s46
+19e25 Operator{9E9} 20r12
+24V13*Swap{9E9} 24b13 24>19 106s53
+24e19 Operator{9E9} 25r12
+32R9*Context 35e14 36r29 37r50 39r30 41r35 41r51 43r37 43r53 45r31 45r47
+. 47r32 49r30 49r67 52r32 52r72 63r33 63r49 76r28 76r70 78r28 78r70 81r15
+. 82r14 91r15 92r14 101r15 102r14 116r27 119r34 128r39 128r78 130r39 130r78
+. 139r35 139r74
+33i7*Lower{5I12} 54r55 58m10 64m7 64r56 65r59 66r45 66r58 125r33 125r66
+33i14*Upper{5I12} 40r43 55r56 59m10 67m7 67r56 68r59 69r45 69r58 117r66 126r42
+. 126r75
+34b7*Valid_Reachable{boolean} 40r16 56r44 59m48 64r29 65r33 67r29 68r33 70m7
+. 70r31 70r61 117r18 124r27
+34b24*Invalid_Reachable{boolean} 48r17 60m10 60r37 71m7 71r33 71r65 73r19
+. 74r29 118r27 127r27
+34b43*Invalid_Rejected{boolean} 48r49 61m10 61r36 72m7 73r50 74r61
+36r4*Empty_Context{32R9} 50r36 77r29
+37V13*Initial{32R9} 37b13 37>22
+37b22 Arguments{boolean} 38r14 38r55
+39V13*Ceiling{5I12} 39b13 39>22 79s40 89s60
+39r22 Facts{32R9} 40r10 40r37
+41V13*Assume_Valid{32R9} 41b13 41>27
+41r27 Facts{32R9} 42r7
+43V13*Assume_Invalid{32R9} 43b13 43>29
+43r29 Facts{32R9} 44r7
+45V13*Rejected{32R9} 45b13 45>23
+45r23 Facts{32R9} 46r7
+47V13*Completed{boolean} 47b13 47>24
+47r24 Facts{32R9} 48r11 48r43
+49V13*Keep_If{32R9} 49b13 49>22 49>39 104s9 107s12 137s13 141s9
+49r22 Facts{32R9} 50r25
+49b39 Condition{boolean} 50r10
+52V13*Intersect{32R9} 52b13 52>24 52>41 52>48 77s48 79s7 84s23 87s28 89s31
+. 137s22
+52r24 Facts{32R9} 54r49 55r50 56r38 60r31 61r30
+52i41 Lower{natural} 54r62 60r64
+52i48 Upper{natural} 55r63
+54i10 Low{natural} 56r69 58r34
+55i10 High{natural} 56r76 59r34
+56b10 Valid{boolean} 58r23 59r23 59r67
+63V13*Join{32R9} 63b13 63>19 63>25 85s25
+63r19 Left{32R9} 64r24 65r54 66r40 67r24 68r54 69r40 70r26 71r28 73r14 73r45
+63r25 Right{32R9} 64r50 65r27 66r52 67r50 68r27 69r52 70r55 71r59 74r23 74r55
+76V13*Below{32R9} 76b13 76>20 76>37 85s31 86s22
+76r20 Facts{32R9} 77r59
+76i37 Threshold{5I12} 77r10 77r69
+78V13*Above{32R9} 78b13 78>20 78>37 85s57 88s25
+78r20 Facts{32R9} 79r18 79r49
+78i37 Threshold{5I12} 79r25
+80V13*Refine_Input_True{32R9} 80b13 81>7 81>24 81>47 93s7
+81r7 Facts{32R9} 84r34 85r38 85r64 86r29 87r39 88r32 89r42 89r69
+81e24 Operator{9E9} 83r12
+81i47 Threshold{5I12} 84r41 84r52 85r45 85r71 86r36 87r49 88r39 89r49
+90V13*Refine_Input{32R9} 90b13 91>7 91>24 91>47 91>73 105s31 106s32
+91r7 Facts{32R9} 94r10
+91e24 Operator{9E9} 94r32 94r58
+91i47 Threshold{5I12} 94r70
+91b73 Truth{boolean} 94r21
+96R9*Bound 99e14 101r61
+97i7*Static_Length{5I12} 105r68 106r75 107r52 107r73
+98b7*Dynamic{boolean} 103r15 103r38 105r18 106r19
+100V13*Refine_Bounds{32R9} 100b13 101>7 101>24 101>47 101>53 101>68
+101r7 Facts{32R9} 104r18 105r45 106r46 107r21
+101e24 Operator{9E9} 104r34 105r52 106r59 107r37
+101r47 Left{96R9} 103r10 105r13 106r70 107r47
+101r53 Right{96R9} 103r32 105r62 106r13 107r67
+101b68 Truth{boolean} 104r52 105r83 106r90 107r90
+109R9*Summary 112e14 113r32 116r44 119r57 128r62 130r62 139r58
+110i7*Static_Length{5I12} 115r13 121r22 121r45 123r25 123r47 133r22 133r44
+. 134r24 134r45 141r30 141r52
+111i7*Dynamic_Count{6I12} 115r35 120r14 122r25 129r23 129r45 136r30 136r52
+. 140r15 140r37 142r18 142r40
+113V13*Length_At{7I12} 113b13 113>24 113>41 117s42 118s53 125s10 125s42 126s19
+. 126s51 127s53 127s75 138s21 138s51
+113r24 Value{109R9} 115r7 115r29
+113i41 Input_Length{5I12} 115r51
+116V13*Fits{boolean} 116b13 116>19 116>36
+116r19 Facts{32R9} 117r12 117r60 118r21
+116r36 Value{109R9} 117r53 118r64
+119V13*Same_Length{boolean} 119b13 119>26 119>43 119>49
+119r26 Facts{32R9} 124r21 125r27 125r60 126r36 126r69 127r21
+119r43 Left{109R9} 121r17 122r20 123r20 125r21 126r30 127r64
+119r49 Right{109R9} 120r8 121r39 123r41 125r53 126r62 127r86
+128V13*Equal_Increasing{32R9} 128>31 128>48 128>54 130b13 142s59 143s12
+128r31 Facts{32R9} 137r33
+128r48 Left{109R9} 129r18 133r39 134r40 136r25 138r32
+128r54 Right{109R9} 129r39 133r16 134r18 136r46 138r62
+132i10 Numerator{5I12} 136r12
+135i10 Candidate{5I12} 137r40 137r51 138r38 138r69
+139V13*Refine_Equal{32R9} 139b13 139>27 139>44 139>50
+139r27 Facts{32R9} 141r18 142r77 143r30
+139r44 Left{109R9} 140r10 141r25 142r13 142r84 143r44
+139r50 Right{109R9} 140r31 141r46 142r34 142r90 143r37
+

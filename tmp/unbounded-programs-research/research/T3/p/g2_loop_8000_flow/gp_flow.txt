@@ -1,0 +1,25 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
++===========================GNAT BUG DETECTED==============================+
+| 1.0 (spark) Storage_Error stack overflow or erroneous memory access      |
+| Error detected at main.adb:4873:21                                       |
+| Compiling /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/g2_loop_8000_flow/main.adb|
+| Please submit a bug report at the SPARK issue tracker:                   |
+| https://github.com/AdaCore/spark2014 .                                   |
+| Use a subject line meaningful to you and us to track the bug.            |
+| Include the entire contents of this bug box in the report.               |
+| Include the exact command that you entered.                              |
+| Also include sources listed below.                                       |
++==========================================================================+
+
+Please include these source files with error report
+Note that list may not be accurate in some cases,
+so please double check that the problem can still
+be reproduced with the set of files listed.
+Consider also -gnatd.n switch (see debug.adb).
+
+/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/g2_loop_8000_flow/main.adb
+/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/g2_loop_8000_flow/silver_io.ads
+
+compilation abandoned
+gnatprove: error during generation of Global contracts

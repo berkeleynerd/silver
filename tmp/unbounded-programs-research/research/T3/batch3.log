@@ -1,0 +1,7 @@
+stmts n=32000 size=256135 full-O0: rc=0 wall=3.63s maxrss=77.2MB | 
+puts n=8000 size=288077 full-O0: rc=0 wall=9.49s maxrss=210.5MB | 
+puts n=32000 size=1152077 full-O0: rc=0 wall=244.56s maxrss=736.8MB | 
+stmts n=128000 size=1024135 full-O0: rc=0 wall=60.74s maxrss=190.8MB | 
+decls n=100000 size=2288973 full-O0: rc=0 wall=4.43s maxrss=231.9MB | 
+puts n=128000 size=4608077 full-O0: 
+DONE

@@ -1,0 +1,1 @@
+65143 /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc -c -O0 -gnat2022 -gnata -gnato main.adb

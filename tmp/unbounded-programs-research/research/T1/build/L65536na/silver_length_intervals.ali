@@ -1,0 +1,86 @@
+V "GNAT Lib v16"
+A -gnat2022
+A -gnato
+A -g
+P ZX
+
+RN
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+
+U silver_length_intervals%b  silver_length_intervals.adb  643525bd NE OO PK
+
+U silver_length_intervals%s  silver_length_intervals.ads  3dddb734 EE NE OO PK
+W silver_path_facts%s	silver_path_facts.ads	silver_path_facts.ali
+
+D silver_length_intervals.ads  20261017131706 b3bf6881 silver_length_intervals%s
+D silver_length_intervals.adb  20261017131706 d78a4d3c silver_length_intervals%b
+D silver_path_facts.ads	20261017131706 8e62dfb5 silver_path_facts%s
+D system.ads		20260430083320 e2b7c99d system%s
+G a e
+G c Z s s [summaryIP silver_length_intervals 8 9 none]
+G c Z s s [is_empty silver_length_intervals 15 13 none]
+G c Z s s [lower silver_length_intervals 16 13 none]
+G c Z s s [upper silver_length_intervals 18 13 none]
+G c Z s b [fits silver_length_intervals 21 13 none]
+G c Z s b [same_length silver_length_intervals 26 13 none]
+G c Z s b [refine_equal silver_length_intervals 29 13 none]
+G r c none [fits silver_length_intervals 21 13 none] [fits silver_path_facts 116 13 none]
+G r c none [same_length silver_length_intervals 26 13 none] [same_length silver_path_facts 119 13 none]
+G r c none [refine_equal silver_length_intervals 29 13 none] [keep_if silver_path_facts 49 13 none]
+G r c none [refine_equal silver_length_intervals 29 13 none] [intersect silver_path_facts 52 13 none]
+X 1 silver_length_intervals.ads
+3K9*Silver_Length_Intervals 32l5 32e28 2|1b14 36l5 36t28
+4K12*Paths=4:26 9r39 10r23 16r44 18r44 21r27 26r34 29r35 30r14 2|2r27 3r30
+. 4r42 6r34 9r12 10r18 12r39 13r14 16r39 17r14 18r57 26r16 28r35 29r14 30r56
+. 32r9
+8R9*Summary 12e14 13r29 15r31 16r28 18r28 21r50 26r63 29r64 2|2r50 6r63 12r68
+. 16r68 28r64
+9i7*Minimum_Length{3|5I12} 17r13 2|8r47 18r37 22r25 23r27 25r68 32r36 33r26
+9i23*Static_Length{3|5I12} 19r13 2|3r13 8r71 18r16 22r47 23r49 25r47 32r60
+. 33r49
+10i7*Dynamic_Count{3|6I12} 17r35 19r34 2|8r15 15r20 15r42 20r52 20r74 31r18
+. 31r40 34r18 34r40
+11b7*Empty_Value{boolean} 15r65
+13r4*Empty_Summary{8R9}
+15V13*Is_Empty{boolean} 15b13 15>23 2|4s17 7s10 7s34 30s10 30s34
+15r23 Value{8R9} 15r59
+16V13*Lower{3|109R9} 16b13 16>20 2|9s38 10s58
+16r20 Value{8R9} 17r7 17r29
+18V13*Upper{3|109R9} 18b13 18>20 2|4s61 9s52 10s44
+18r20 Value{8R9} 19r7 19r28
+21V13*Fits{boolean} 21>19 21>42 2|2b13
+21r19 Facts{3|32R9} 2|4r54
+21r42 Value{8R9} 2|3r7 4r27 4r68
+26V13*Same_Length{boolean} 26>26 26>49 26>55 2|6b13
+26r26 Facts{3|32R9} 2|9r31 10r37
+26r49 Left{8R9} 2|7r20 8r42 9r45 10r51
+26r55 Right{8R9} 2|7r44 8r9 8r65 9r59 10r65
+29V13*Refine_Equal{3|32R9} 29>27 29>50 29>56 2|28b13
+29r27 Facts{3|32R9} 2|32r24 34r77 35r30
+29r50 Left{8R9} 2|30r20 31r13 32r31 33r44 34r13 34r84 35r44
+29r56 Right{8R9} 2|30r44 31r34 32r54 33r20 34r34 34r90 35r37
+X 2 silver_length_intervals.adb
+12V13 Equal_Increasing{3|32R9} 12>31 12>54 12>60 16b13 34s59 35s12
+12r31 Facts{3|32R9} 26r33
+12r54 Left{1|8R9} 15r15 18r32 20r47 22r42 23r44 25r63
+12r60 Right{1|8R9} 15r36 18r10 20r68 22r19 23r21 25r41
+20i13 Difference{positive} 24r53 24r72 25r86
+21i13 Numerator{natural} 24r41
+24i13 Low{natural} 26r40
+25i13 High{natural} 26r45
+X 3 silver_path_facts.ads
+1K9*Silver_Path_Facts 1|1w6 4r26 3|144e22
+4N4*Max_Length 2|3r36
+5I12*Length_Value{natural} 1|9r45
+6I12*Operand_Count{natural} 1|10r29
+32R9*Context 1|21r33 26r40 29r41 30r20 2|2r33 6r40 12r45 13r20 16r45 17r20
+. 28r41 29r20 3|35e14
+36r4*Empty_Context{32R9} 2|18r63 30r62
+49V13*Keep_If{32R9} 2|32s15
+52V13*Intersect{32R9} 2|26s22
+109R9*Summary 1|16r50 18r50 3|112e14
+116V13*Fits{boolean} 2|4s48
+119V13*Same_Length{boolean} 2|9s18 10s24
+

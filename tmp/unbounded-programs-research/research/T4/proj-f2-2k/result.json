@@ -1,0 +1,190 @@
+{
+ "name": "f2-2k",
+ "source": "/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/progs/f2-2048.adb",
+ "source_bytes": 1876,
+ "lines": 117,
+ "statements": 115,
+ "steps": "100000",
+ "memlimit": "1000",
+ "command": "cd /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/toolchain && unset ALR_CONFIG GPR_CONFIG GPR_PROJECT_PATH GPR_PROJECT_PATH_FILE ADA_PROJECT_PATH && ALIRE_SETTINGS_DIR=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/settings /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alr/bin/alr -n exec -- /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove -P /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f2-2k/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j8 --no-loop-unrolling",
+ "exit": 0,
+ "stopped": null,
+ "wall_s": 39.3,
+ "peak_tree_rss_bytes": 580849664,
+ "peak_tree_rss_gib": 0.54,
+ "peak_by_comm": {
+  "gnatwhy3": 0.197,
+  "z3": 0.031,
+  "gnat2why": 0.027,
+  "alt-ergo": 0.025,
+  "alr": 0.024,
+  "cvc5": 0.023,
+  "gnatprove": 0.02,
+  "gprbuild": 0.012
+ },
+ "max_procs": 21,
+ "min_mem_available_gib": 24.7,
+ "pre": {
+  "mem_available_gb": 28.59,
+  "foreign_heavy": [
+   [
+    65235,
+    "lean",
+    1583341568,
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean/bin/lean /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/researc"
+   ],
+   [
+    66034,
+    "gnatprove",
+    21929984,
+    "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove -P /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/sc"
+   ],
+   [
+    66054,
+    "gnat2why",
+    170258432,
+    "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/tmp/claude-1000/-home-canto-src-gith"
+   ]
+  ]
+ },
+ "imagews_created": [],
+ "imagews_removed": [],
+ "samples": [
+  [
+   0,
+   3104768,
+   30700081152
+  ],
+  [
+   30,
+   355958784,
+   28521861120
+  ]
+ ],
+ "report_bytes": 122930,
+ "report": {
+  "checks": 42,
+  "flow": 94,
+  "flow_sev": {
+   "warning": 94
+  },
+  "severity": {
+   "info": 42
+  },
+  "unproved": [],
+  "how": {
+   "prover": 42
+  },
+  "rules": {
+   "VC_RANGE_CHECK": 28,
+   "VC_LENGTH_CHECK": 14
+  },
+  "winning_prover": {
+   "Z3": 42,
+   "altergo": 2
+  },
+  "attempt_results": {
+   "CVC5:Valid": 98,
+   "Z3:Valid": 98,
+   "altergo:Valid": 97,
+   "altergo:High failure (signaled)": 1
+  },
+  "win_steps": {
+   "max": 147,
+   "p50": 1,
+   "p90": 1,
+   "p99": 147,
+   "mean": 5.9
+  },
+  "win_time": {
+   "max": 0.132039994001389,
+   "p50": 0.0356829985976219,
+   "p90": 0.0720819979906082,
+   "p99": 0.132039994001389,
+   "sum": 1.7
+  },
+  "attempt_time": {
+   "max": 1.12544,
+   "p50": 0.292028,
+   "p90": 0.540542,
+   "sum": 13.6
+  },
+  "attempt_steps_max": 1219,
+  "vcs_total": 98,
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+   " 1": {
+    "gnat2why.vc_generation": 0.0114529998973012,
+    "gnatwhy3.init": 1.3271210193634,
+    "gnatwhy3.register_vcs": 3.44531798362732,
+    "gnatwhy3.run_vcs": 0.000571999000385404,
+    "gnatwhy3.save_session": 0.623565018177032,
+    "gnatwhy3.schedule_vcs": 12.5675201416016,
+    "gnatwhy3.transformations.counterexamples_dependent_intros": 1.43132102489471,
+    "gnatwhy3.transformations.detect_polymorphism": 0.390839993953705,
+    "gnatwhy3.transformations.discriminate_if_poly": 0.00152299902401865,
+    "gnatwhy3.transformations.eliminate_algebraic": 1.10783100128174,
+    "gnatwhy3.transformations.eliminate_algebraic_if_poly": 1.70504796504974,
+    "gnatwhy3.transformations.eliminate_builtin": 0.487635999917984,
+    "gnatwhy3.transformations.eliminate_definition_conditionally": 0.148558005690575,
+    "gnatwhy3.transformations.eliminate_epsilon": 1.17131304740906,
+    "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 1.12469804286957,
+    "gnatwhy3.transformations.eliminate_inductive": 0.500352025032043,
+    "gnatwhy3.transformations.eliminate_literal": 1.25384604930878,
+    "gnatwhy3.transformations.eliminate_projections_sums": 0.211613997817039,
+    "gnatwhy3.transformations.eliminate_recursion": 0.106536999344826,
+    "gnatwhy3.transformations.encoding_smt_if_poly": 0.000750000006519258,
+    "gnatwhy3.transformations.inline_trivial": 7.64898681640625,
+    "gnatwhy3.transformations.introduce_premises": 1.61219596862793,
+    "gnatwhy3.transformations.monomorphise_goal": 0.140158995985985,
+    "gnatwhy3.transformations.remove_unused": 3.526211977005,
+    "gnatwhy3.transformations.simplify_formula": 1.9269210100174,
+    "gnatwhy3.transformations.split_goal_wp_conj": 1.88161897659302,
+    "gnatwhy3.transformations.split_premise_right": 0.56905597448349
+   },
+   "global": {
+    "flow analysis": 0.0288319997489452,
+    "globals (advanced)": 0.0147989997640252,
+    "globals (basic)": 0.0241390001028776,
+    "init_why_sections": 0.00219899998046458,
+    "marking": 0.00107700005173683,
+    "properties (advanced)": 0.000203999996301718,
+    "translation of standard": 0.00199800007976592
+   }
+  },
+  "by_position_quartile": [
+   {
+    "quartile": 1,
+    "n": 10,
+    "mean_win_steps": 21.6,
+    "max_win_steps": 147,
+    "mean_att_time": 0.131,
+    "max_att_time": 0.2
+   },
+   {
+    "quartile": 2,
+    "n": 11,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.3,
+    "max_att_time": 0.564
+   },
+   {
+    "quartile": 3,
+    "n": 10,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.358,
+    "max_att_time": 0.617
+   },
+   {
+    "quartile": 4,
+    "n": 11,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.489,
+    "max_att_time": 1.125
+   }
+  ]
+ }
+}

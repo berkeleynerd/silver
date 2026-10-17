@@ -1,0 +1,9 @@
+parens 100000 size=205141 gnatc: rc=0 wall=0.22s maxrss=78.9MB | 
+decls 100000 size=2288973 gnatc: rc=0 wall=1.08s maxrss=74.6MB | 
+elsif 100000 size=2889065 gnatc: rc=0 wall=2.19s maxrss=88.0MB | 
+stmts 100000 size=800135 gnatc: rc=0 wall=30.89s maxrss=54.7MB | 
+concat 100000 size=405119 gnatc: rc=0 wall=88.41s maxrss=36.2MB | 
+plus 100000 size=405142 gnatc: rc=0 wall=160.21s maxrss=91.3MB | 
+if 100000 size=2200143 gnatc: rc=0 wall=237.78s maxrss=113.8MB | 
+loop 100000 size=3589033 gnatc: 
+DONE

@@ -1,0 +1,60 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: analysis of data and information flow ...
+ info: implicit aspect Always_Terminates on "Is_Message" has been proved, subprogram will terminate
+--> silver_arguments.adb:5:13
+
+ info: implicit aspect Always_Terminates on "Input_Is_Valid" has been proved, subprogram will terminate
+--> silver_arguments.ads:9:13
+
+ info: data dependencies proved
+--> silver_arguments.ads:9:48
+
+ info: implicit aspect Always_Terminates on "First_Or_Default" has been proved, subprogram will terminate
+--> silver_arguments.ads:13:13
+
+ info: data dependencies proved
+--> silver_arguments.ads:14:11
+
+ info: aspect Always_Terminates on "Reject" has been proved, subprogram will terminate
+--> silver_arguments.ads:21:14
+
+ info: data dependencies proved
+--> silver_arguments.ads:22:11
+ info: initialization of "Status" proved
+--> silver_io.adb:7:07
+
+ info: initialization of "Status" proved
+--> silver_io.adb:50:07
+
+ info: data dependencies proved
+--> silver_io.ads:19:11
+
+ info: initialization of "Written_Bytes" proved
+--> silver_io.ads:20:33
+
+ info: initialization of "Written_Count" proved
+--> silver_io.ads:20:48
+
+ info: initialization of "Flushed" proved
+--> silver_io.ads:20:63
+
+ info: initialization of "Succeeded" proved
+--> silver_io.ads:20:72
+
+ info: data dependencies proved
+--> silver_io.ads:30:11
+
+ info: initialization of "Written_Bytes" proved
+--> silver_io.ads:31:33
+
+ info: initialization of "Written_Count" proved
+--> silver_io.ads:31:48
+
+ info: initialization of "Flushed" proved
+--> silver_io.ads:31:63
+
+ info: initialization of "Succeeded" proved
+--> silver_io.ads:31:72
+Success: all checks proved (19 checks).
+Summary logged in /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/gpid_str_4096/obj/gnatprove/gnatprove.out

@@ -1,0 +1,1934 @@
+[
+ [
+  "Silver.Admission",
+  "CUR",
+  {
+   "maxSourceLength": 3,
+   "maxBindings": 0,
+   "lit4096": 2,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ArgumentsAdmission",
+  "CUR",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ArgumentsEquations",
+  "FULL",
+  {
+   "maxSourceLength": 4,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ArgumentsExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 17,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 4,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ArgumentsRuntime",
+  "CUR",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 3,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ArgumentsSemantics",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.AssignmentAdmission",
+  "FULL",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.AssignmentEquations",
+  "FULL",
+  {
+   "maxSourceLength": 6,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.AssignmentExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 6,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.AssignmentSemantics",
+  "FULL",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.Bindings",
+  "CUR",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 2,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.BranchingAdmission",
+  "FULL",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.BranchingExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 3,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.BranchingSemantics",
+  "FULL",
+  {
+   "maxSourceLength": 3,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeAdmission",
+  "CUR",
+  {
+   "maxSourceLength": 7,
+   "maxBindings": 7,
+   "lit4096": 0,
+   "maxOperands": 1,
+   "maxConc": 2,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeBounds",
+  "CUR",
+  {
+   "maxSourceLength": 10,
+   "maxBindings": 3,
+   "lit4096": 0,
+   "maxOperands": 2,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeContracts",
+  "CUR",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 2,
+   "lit4096": 0,
+   "maxOperands": 1,
+   "maxConc": 1,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeDeclarations",
+  "CUR",
+  {
+   "maxSourceLength": 13,
+   "maxBindings": 3,
+   "lit4096": 0,
+   "maxOperands": 1,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeDecode",
+  "CUR",
+  {
+   "maxSourceLength": 3,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 1,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeEquations",
+  "FULL",
+  {
+   "maxSourceLength": 6,
+   "maxBindings": 15,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 2,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeEvaluation",
+  "FULL",
+  {
+   "maxSourceLength": 4,
+   "maxBindings": 3,
+   "lit4096": 0,
+   "maxOperands": 2,
+   "maxConc": 3,
+   "maxExponent": 0,
+   "maxLength": 2,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeExamples",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 2,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeExpression",
+  "CUR",
+  {
+   "maxSourceLength": 7,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 1,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeExpressions",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 8,
+   "lit4096": 0,
+   "maxOperands": 7,
+   "maxConc": 7,
+   "maxExponent": 0,
+   "maxLength": 10,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeFrozenSemantics",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeGrammar",
+  "CUR",
+  {
+   "maxSourceLength": 8,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeLexical",
+  "FULL",
+  {
+   "maxSourceLength": 31,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeMain",
+  "CUR",
+  {
+   "maxSourceLength": 14,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeModelEquations",
+  "FULL",
+  {
+   "maxSourceLength": 4,
+   "maxBindings": 9,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 1,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeModelLegal",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 1,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 1,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeModelRecursion",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 1,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeObligations",
+  "CUR",
+  {
+   "maxSourceLength": 12,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeRecognitionEquations",
+  "FULL",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 2,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeScalarDeclarations",
+  "CUR",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 2,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeScalarDenotations",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 1,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeSemantics",
+  "CUR",
+  {
+   "maxSourceLength": 6,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 8,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeSourceChecks",
+  "FULL",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 2,
+   "lit4096": 0,
+   "maxOperands": 2,
+   "maxConc": 2,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ComposeStateBounds",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 6,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ConcatAdmission",
+  "FULL",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ConcatEquations",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ConcatExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 8,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ConcatSemantics",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.Current",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.Cursor",
+  "CUR",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.Expressions",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 4,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.GuardedAdmission",
+  "CUR",
+  {
+   "maxSourceLength": 6,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.GuardedDecimal",
+  "CUR",
+  {
+   "maxSourceLength": 15,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.GuardedEquations",
+  "FULL",
+  {
+   "maxSourceLength": 14,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.GuardedExamples",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 2,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.GuardedExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 39,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 10,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.GuardedObligations",
+  "CUR",
+  {
+   "maxSourceLength": 14,
+   "maxBindings": 0,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 9
+  }
+ ],
+ [
+  "Silver.GuardedSemantics",
+  "CUR",
+  {
+   "maxSourceLength": 4,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.IntegerLiteral",
+  "CUR",
+  {
+   "maxSourceLength": 27,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.IntegerLiteralEquations",
+  "FULL",
+  {
+   "maxSourceLength": 16,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.IntegerLiteralExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 6,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.IntegerLiteralSourceChecks",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.LengthIntervalExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 4,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.LengthIntervalModel",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.LengthIntervalPrecedence",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 2,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.NamedAdmission",
+  "CUR",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.NamedEquations",
+  "FULL",
+  {
+   "maxSourceLength": 10,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.NamedExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 8,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.NamedSemantics",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.NamesEquations",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.NamesSourceChecks",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.OutputAdmission",
+  "CUR",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.OutputEquations",
+  "FULL",
+  {
+   "maxSourceLength": 4,
+   "maxBindings": 0,
+   "lit4096": 11,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.OutputExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 6,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.OutputRuntime",
+  "CUR",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 10,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.OutputSourceBridge",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 2,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 2,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PathBounds",
+  "CUR",
+  {
+   "maxSourceLength": 6,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PathFactsSourceBridge",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PathFactsSourceChecks",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PathFactsSourceShape",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PathNativeExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 6,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PathNativeModel",
+  "FULL",
+  {
+   "maxSourceLength": 4,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PathNativePrecedence",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 1,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateAdapter",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 2,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateAdapterEnvironment",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 4,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateBodyAdmission",
+  "CUR",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 1,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateBodyControls",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateChecking",
+  "CUR",
+  {
+   "maxSourceLength": 10,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateComposition",
+  "CUR",
+  {
+   "maxSourceLength": 4,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateCorrespondence",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateExecution",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateGrammar",
+  "CUR",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 2,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateHeader",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateHeaderDecode",
+  "CUR",
+  {
+   "maxSourceLength": 4,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateLoopImports",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 3,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateLoopNative",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 2,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateObligations",
+  "CUR",
+  {
+   "maxSourceLength": 3,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateOuterEquations",
+  "FULL",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 1,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateOuterExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateSemantics",
+  "CUR",
+  {
+   "maxSourceLength": 6,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateShell",
+  "CUR",
+  {
+   "maxSourceLength": 3,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateSourceRequirements",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateStatements",
+  "CUR",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 1,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.PredicateSyntax",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 2,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.RecursiveBridge",
+  "FULL",
+  {
+   "maxSourceLength": 3,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 3,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ReviewedOutputShape",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 2,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ReviewedSourceShape",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 2,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarEnvironmentSourceBridge",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 17,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarExpression",
+  "CUR",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 3,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarExpressionAdmission",
+  "CUR",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 2,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarExpressionBounds",
+  "CUR",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 1,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarExpressionEnvironment",
+  "CUR",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 4,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarExpressionNativeAlgebra",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 8,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarExpressionNativeDenotations",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 1,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarExpressionNativeExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 6,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarExpressionNativeModel",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 2,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarExpressionNativeRecursion",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 1,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarExpressionNativeTypes",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 3,
+   "maxOperands": 1,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarLiteral",
+  "CUR",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 8,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarLiteralEquations",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 2,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarLiteralExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 6,
+   "maxLength": 6,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarLiteralSourceChecks",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 2,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.ScalarLiteralSourceShape",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceAdmission",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceBasics",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceConditionValidity",
+  "FULL",
+  {
+   "maxSourceLength": 6,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceConditions",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceEffects",
+  "CUR",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceEquations",
+  "FULL",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 1,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceExecution",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceExpressions",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceHeader",
+  "FULL",
+  {
+   "maxSourceLength": 4,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceInitializerTrace",
+  "CUR",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceMain",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceNativeState",
+  "FULL",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceObligations",
+  "FULL",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceSemantics",
+  "CUR",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceShell",
+  "FULL",
+  {
+   "maxSourceLength": 3,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceSyntax",
+  "CUR",
+  {
+   "maxSourceLength": 4,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SequenceTokens",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.SourceBridge",
+  "FULL",
+  {
+   "maxSourceLength": 0,
+   "maxBindings": 0,
+   "lit4096": 1,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.StringExecution",
+  "CUR",
+  {
+   "maxSourceLength": 4,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.StringFreezing",
+  "CUR",
+  {
+   "maxSourceLength": 1,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 1,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ],
+ [
+  "Silver.StringLengths",
+  "CUR",
+  {
+   "maxSourceLength": 2,
+   "maxBindings": 0,
+   "lit4096": 0,
+   "maxOperands": 0,
+   "maxConc": 0,
+   "maxExponent": 0,
+   "maxLength": 0,
+   "guaranteedIntegerLast": 0
+  }
+ ]
+]

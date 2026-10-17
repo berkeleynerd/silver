@@ -1,0 +1,173 @@
+{
+ "name": "f3-8k-memprobe",
+ "source": "/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/progs/f3-8192.adb",
+ "source_bytes": 8188,
+ "lines": 1352,
+ "statements": 1350,
+ "steps": "100000",
+ "memlimit": "1000",
+ "command": "cd /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/toolchain && unset ALR_CONFIG GPR_CONFIG GPR_PROJECT_PATH GPR_PROJECT_PATH_FILE ADA_PROJECT_PATH && ALIRE_SETTINGS_DIR=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/settings /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alr/bin/alr -n exec -- /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove -P /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f3-8k-memprobe/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j8 --no-loop-unrolling",
+ "exit": -15,
+ "stopped": "memory_guard_tree_above_14.0GiB",
+ "wall_s": 263.3,
+ "peak_tree_rss_bytes": 15145406464,
+ "peak_tree_rss_gib": 14.11,
+ "peak_by_comm": {
+  "gnatwhy3": 14.0,
+  "gnat2why": 0.043,
+  "alr": 0.024,
+  "alt-ergo": 0.023,
+  "cvc5": 0.021,
+  "gnatprove": 0.02,
+  "gprbuild": 0.012,
+  "z3": 0.01
+ },
+ "max_procs": 21,
+ "min_mem_available_gib": 16.12,
+ "pre": {
+  "mem_available_gb": 30.18,
+  "foreign_heavy": []
+ },
+ "imagews_created": [
+  "imagews-n5nSxf"
+ ],
+ "imagews_removed": [],
+ "samples": [
+  [
+   0,
+   1019904,
+   32406859776
+  ],
+  [
+   10,
+   491753472,
+   31612567552
+  ],
+  [
+   20,
+   529420288,
+   31697457152
+  ],
+  [
+   30,
+   3292577792,
+   28955013120
+  ],
+  [
+   40,
+   3301769216,
+   28987224064
+  ],
+  [
+   50,
+   3308437504,
+   29027651584
+  ],
+  [
+   60,
+   3314925568,
+   29057134592
+  ],
+  [
+   70,
+   4695285760,
+   27668033536
+  ],
+  [
+   80,
+   5704359936,
+   26679799808
+  ],
+  [
+   90,
+   6730915840,
+   25665564672
+  ],
+  [
+   100,
+   6825893888,
+   25562710016
+  ],
+  [
+   110,
+   7620861952,
+   24753500160
+  ],
+  [
+   120,
+   8029081600,
+   24375623680
+  ],
+  [
+   130,
+   8639680512,
+   23763570688
+  ],
+  [
+   140,
+   8935247872,
+   23489093632
+  ],
+  [
+   150,
+   9721384960,
+   22711484416
+  ],
+  [
+   160,
+   9721384960,
+   22708588544
+  ],
+  [
+   170,
+   10949070848,
+   21493170176
+  ],
+  [
+   180,
+   10949070848,
+   21487042560
+  ],
+  [
+   190,
+   11561472000,
+   20875251712
+  ],
+  [
+   200,
+   12328144896,
+   20107808768
+  ],
+  [
+   210,
+   12328144896,
+   20110839808
+  ],
+  [
+   220,
+   13067964416,
+   19368849408
+  ],
+  [
+   230,
+   13878611968,
+   18560065536
+  ],
+  [
+   240,
+   13878611968,
+   18554904576
+  ],
+  [
+   250,
+   14087671808,
+   18377269248
+  ]
+ ],
+ "tool_cmdlines": {
+  "gnatwhy3": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1298 /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f3-8k-memprobe/obj/gnatprove/silver_io__put_line.gnat-json ",
+  "z3": "",
+  "alt-ergo": "alt-ergo --steps-bound 100000 --max-split 5 --disable-weaks /tmp/why_b5e2ee_silver_io-T-defqtvc.psmt2 ",
+  "cvc5": "cvc5 --rlimit=3515000 --prenex-quant=none --stats-internal /tmp/why_7895f5_silver_io-T-defqtvc.smt2 "
+ }
+}

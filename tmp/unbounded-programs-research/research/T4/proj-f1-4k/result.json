@@ -1,0 +1,165 @@
+{
+ "name": "f1-4k",
+ "source": "progs/f1-4096.adb",
+ "source_bytes": 4021,
+ "lines": 173,
+ "statements": 131,
+ "steps": "100000",
+ "memlimit": "1000",
+ "command": "cd /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/toolchain && unset ALR_CONFIG GPR_CONFIG GPR_PROJECT_PATH GPR_PROJECT_PATH_FILE ADA_PROJECT_PATH && ALIRE_SETTINGS_DIR=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/settings /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alr/bin/alr -n exec -- /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove -P /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f1-4k/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j8 --no-loop-unrolling",
+ "exit": 0,
+ "stopped": null,
+ "wall_s": 16.0,
+ "peak_tree_rss_bytes": 486612992,
+ "peak_tree_rss_gib": 0.45,
+ "peak_by_comm": {
+  "gnatwhy3": 0.191,
+  "z3": 0.031,
+  "alt-ergo": 0.03,
+  "gnat2why": 0.029,
+  "cvc5": 0.028,
+  "alr": 0.024,
+  "gnatprove": 0.02,
+  "gprbuild": 0.012
+ },
+ "max_procs": 21,
+ "min_mem_available_gib": 29.53,
+ "pre": {
+  "mem_available_gb": 29.76,
+  "foreign_heavy": []
+ },
+ "imagews_created": [],
+ "imagews_removed": [],
+ "samples": [
+  [
+   0,
+   3264512,
+   31953195008
+  ]
+ ],
+ "report_bytes": 77787,
+ "report": {
+  "checks": 16,
+  "flow": 92,
+  "flow_sev": {
+   "warning": 92
+  },
+  "severity": {
+   "info": 16
+  },
+  "unproved": [],
+  "how": {
+   "prover": 16
+  },
+  "rules": {
+   "VC_OVERFLOW_CHECK": 8,
+   "VC_RANGE_CHECK": 8
+  },
+  "winning_prover": {
+   "Z3": 16
+  },
+  "attempt_results": {
+   "CVC5:Valid": 32,
+   "Z3:Valid": 32,
+   "altergo:Valid": 31,
+   "altergo:High failure (signaled)": 1
+  },
+  "win_steps": {
+   "max": 1,
+   "p50": 1,
+   "p90": 1,
+   "p99": 1,
+   "mean": 1
+  },
+  "win_time": {
+   "max": 0.0414640009403229,
+   "p50": 0.0220180004835129,
+   "p90": 0.03974299877882,
+   "p99": 0.0414640009403229,
+   "sum": 0.4
+  },
+  "attempt_time": {
+   "max": 0.29986,
+   "p50": 0.148259,
+   "p90": 0.295593,
+   "sum": 2.5
+  },
+  "attempt_steps_max": 1286,
+  "vcs_total": 32,
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+   " 1": {
+    "gnat2why.vc_generation": 0.017170999199152,
+    "gnatwhy3.init": 1.02700901031494,
+    "gnatwhy3.register_vcs": 1.23718297481537,
+    "gnatwhy3.run_vcs": 9.69989996519871e-05,
+    "gnatwhy3.save_session": 0.201718002557755,
+    "gnatwhy3.schedule_vcs": 3.58890390396118,
+    "gnatwhy3.transformations.counterexamples_dependent_intros": 0.42442598938942,
+    "gnatwhy3.transformations.detect_polymorphism": 0.101556003093719,
+    "gnatwhy3.transformations.discriminate_if_poly": 0.000201000002562068,
+    "gnatwhy3.transformations.eliminate_algebraic": 0.26112300157547,
+    "gnatwhy3.transformations.eliminate_algebraic_if_poly": 0.462942004203796,
+    "gnatwhy3.transformations.eliminate_builtin": 0.148673996329308,
+    "gnatwhy3.transformations.eliminate_definition_conditionally": 0.0374430008232594,
+    "gnatwhy3.transformations.eliminate_epsilon": 0.310288995504379,
+    "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 0.27981099486351,
+    "gnatwhy3.transformations.eliminate_inductive": 0.133981004357338,
+    "gnatwhy3.transformations.eliminate_literal": 0.335877001285553,
+    "gnatwhy3.transformations.eliminate_projections_sums": 0.0521660000085831,
+    "gnatwhy3.transformations.eliminate_recursion": 0.0238760001957417,
+    "gnatwhy3.transformations.encoding_smt_if_poly": 9.89990003290586e-05,
+    "gnatwhy3.transformations.inline_trivial": 1.84065699577332,
+    "gnatwhy3.transformations.introduce_premises": 0.444191008806229,
+    "gnatwhy3.transformations.monomorphise_goal": 0.0307650007307529,
+    "gnatwhy3.transformations.remove_unused": 0.773006975650787,
+    "gnatwhy3.transformations.simplify_formula": 0.462130010128021,
+    "gnatwhy3.transformations.split_goal_wp_conj": 0.80248099565506,
+    "gnatwhy3.transformations.split_premise_right": 0.141849994659424
+   },
+   "global": {
+    "flow analysis": 0.0265970006585121,
+    "globals (advanced)": 0.0106640001758933,
+    "globals (basic)": 0.0223149992525578,
+    "init_why_sections": 0.00109999999403954,
+    "marking": 0.000818000000435859,
+    "properties (advanced)": 0.000132000001030974,
+    "translation of standard": 0.00165200000628829
+   }
+  },
+  "by_position_quartile": [
+   {
+    "quartile": 1,
+    "n": 4,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.074,
+    "max_att_time": 0.129
+   },
+   {
+    "quartile": 2,
+    "n": 4,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.126,
+    "max_att_time": 0.187
+   },
+   {
+    "quartile": 3,
+    "n": 4,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.174,
+    "max_att_time": 0.248
+   },
+   {
+    "quartile": 4,
+    "n": 4,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.242,
+    "max_att_time": 0.3
+   }
+  ]
+ }
+}

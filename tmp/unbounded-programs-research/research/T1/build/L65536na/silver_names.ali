@@ -1,0 +1,154 @@
+V "GNAT Lib v16"
+A -gnat2022
+A -gnato
+A -g
+P SS ZX
+
+RN
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLICIT_LOOPS
+
+U silver_names%b	silver_names.adb	35019943 NE OO PK
+Z system.assertions%s	s-assert.adb		s-assert.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U silver_names%s	silver_names.ads	f2273161 EE NE OO PK
+W silver_output_lexical%s  silver_output_lexical.adb  silver_output_lexical.ali
+W silver_profile%s	silver_profile.adb	silver_profile.ali
+
+D ada.ads		20260430083320 76789da1 ada%s
+D a-assert.ads		20260430083320 ba465f5c ada.assertions%s
+D a-unccon.ads		20260430083320 0e9b276f ada.unchecked_conversion%s
+D silver_names.ads	20261017131706 b768e5d8 silver_names%s
+D silver_names.adb	20261017131706 82697c9b silver_names%b
+D silver_output_lexical.ads  20261017131706 1130a44b silver_output_lexical%s
+D silver_profile.ads	20261017131706 547f70f2 silver_profile%s
+D system.ads		20260430083320 e2b7c99d system%s
+D s-assert.ads		20260430083320 9c4520c7 system.assertions%s
+D s-exctab.ads		20260430083320 91bef6ef system.exception_table%s
+D s-parame.ads		20260430083320 a1aeab5c system.parameters%s
+D s-secsta.ads		20260430083320 578279f5 system.secondary_stack%s
+D s-stalib.ads		20260430083320 1c9580f6 system.standard_library%s
+D s-stoele.ads		20260430083320 ccded4e8 system.storage_elements%s
+G a e
+G c Z s s [context_resultIP silver_names 12 9 none]
+G c Z s b [context_model silver_names 19 13 none]
+G c Z s b [read_context silver_names 24 13 none]
+G c Z s b [context_after silver_names 30 13 none]
+G c Z s b [operation_after silver_names 37 13 none]
+G c Z s b [association_after silver_names 49 13 none]
+G c Z b b [fixed_after silver_names 2 13 none]
+G c Z b b [take silver_names 18 13 none]
+G c Z b b [context_stateIP silver_names 51 9 none]
+G c Z b b [context_step silver_names 61 13 none]
+G c Z b b [context_tail silver_names 106 13 none]
+G c Z b b [operation_name silver_names 142 13 none]
+G r c none [fixed_after silver_names 2 13 none] [trivia_end silver_output_lexical 28 13 none]
+G r c none [fixed_after silver_names 2 13 none] [token_at silver_output_lexical 48 13 none]
+X 4 silver_names.ads
+4K9*Silver_Names 56l5 56e17 5|1b14 175l5 175t17
+8E9*Operation_Kind 8e104 38r63 5|142r41 145r41 154r63
+8n28*Output_Call{8E9} 5|147r13 158r33 160r33 163r35
+8n41*Partial_Output_Call{8E9} 5|148r13 158r65 160r65 163r67
+8n62*Argument_Call{8E9} 5|149r13
+8n77*Validity_Call{8E9} 5|150r13
+8n92*Reject_Call{8E9} 5|151r13
+12R9*Context_Result 15e14 16r31 19r50 24r49 5|52r17 106r72 113r72 121r50
+. 124r49 138r34 156r34
+13i7*After{6|73I12} 17m7 22r37 27r48 5|57m19 64r33 65r44 66r48 68r48 68r70
+. 70r24 73r77 74r77 81r77 82r77 89m13 97r77 98r77 109r33 110r36 111r76 114r24
+. 118r33 127r27 128r47 130r58 134r32 140r22 164r25
+14b7*IO_With{boolean} 5|85r48 90m13 90r38 139r25 158r98
+14b16*Arguments_With{boolean} 5|86r56 91m13 91r45 139r50 158r119
+14b32*IO_Use{boolean} 5|92m13 92r37 160r98
+14b40*Arguments_Use{boolean} 5|93m13 93r44 160r118
+16r4*Invalid_Context{12R9} 5|59r18 114r39 118r48 134r47
+24V13*Read_Context{12R9} 24>27 27r28 28r20 5|124b13 138s52 156s52
+24a27 Text{string} 26r15 26r39 27r57 28r57 5|124b27 128r56 129r58 129r80
+. 132r33
+30V13*Context_After{6|73I12} 30>28 30>43 33r16 5|137b13
+30a28 Text{string} 32r15 32r39 33r40 5|138r66
+30b43 Arguments{boolean} 5|139r67
+37V13*Operation_After{6|73I12} 38>7 38>22 38>51 39>7 43r16 44r18 5|153b13
+38a7 Text{string} 41r15 41r39 42r31 44r60 5|156r66 161r62 162r23 165r41 166r51
+38i22 Position{6|73I12} 42r19 44r44 5|162r29 166r57
+38e51 Operation{8E9} 5|158r21 158r53 160r21 160r53 163r23 163r55 165r74 166r83
+39b7 Hidden{boolean} 5|166r33
+49V13*Association_After{6|73I12} 50>7 50>22 50>51 55r16 5|169b13
+50a7 Text{string} 53r15 53r39 54r31 55r56 5|172r58 173r15
+50i22 Position{6|73I12} 54r19 55r44 5|173r21 174r44
+50b51 Default{boolean} 5|173r35
+X 5 silver_names.adb
+18V13 Take{6|73I12} 19>7 19>22 19>51 19>66 25r28 26r18 27r20 28b13 73s51
+. 74s51 81s51 82s51 97s51 98s51 161s56 162s17 165s35 166s45 172s52 173s9
+19a7 Text{string} 22r15 22r39 23r31 26r49 27r47 29b7 35r20 36r25 40r25 41r24
+. 43r49 44r43
+19i22 Position{6|73I12} 23r19 26r33 27r53 29b22 33r10 34r15
+19a51 Word{string} 23r54 24r19 27r63 29b51 36r10 37r20 39r33 40r57 41r54
+. 43r34 44r56 46r21
+19b66 Is_Word{boolean} 27r69 29b66 43r10
+31i7 Next{6|8I12} 34m7 35m26 35r26 36r37 40r32 41r31 43r27 44r49 46r14
+37i11 Index{integer} 39r47 41r38 41r60
+39i21 Previous{integer} 40r39 40r63
+49E9 Context_Mode 50e72 53r14
+50n7 Clause_Start{49E9} 57r57 59r43 72r26 100r88
+50n21 With_Name{49E9} 76r88 80r27 90r84 91r98 94r37 103r59
+50n32 Use_Name{49E9} 78r88 80r39 84r29 92r82 93r96 103r74
+50n42 With_Separator{49E9} 94r52 103r39
+50n58 Use_Separator{49E9} 94r72
+51R9 Context_State 55e14 56r29 58r29 61r50 61r72 69r50 69r72 106r50 113r50
+. 117r34 125r15
+52r7*Context{4|12R9} 57m7 59m7 64r25 65r36 66r40 68r40 68r62 70r16 73r69
+. 74r69 76r48 78r48 81r69 82r69 85r40 86r48 88m16 90r30 91r37 92r29 93r36
+. 97r69 98r69 100r48 102r48 109r25 111r68 114r16 115r39 118r25 127r19 128r39
+. 130r50 134r24 134r74
+53e7*Mode{49E9} 57m49 59m35 72r19 80r19 84r22 90r77 91r91 92r75 93r89 94m12
+. 94r30 103r32
+54b7*Complete{boolean} 57m71 59m57 67r40 71r19 95m12 112r33 115r19 127r57
+. 131r35
+56r4 Initial_State{51R9} 122r27 125r32
+58r4 Invalid_State{51R9} 70r39 83r46 87r15 104r15
+61V13 Context_Step{51R9} 61>27 61>42 65r16 66r20 67r20 68r20 69b13 117s51
+. 132s19
+61a27 Text{string} 63r15 63r39 64r42 65r53 73r57 74r57 81r57 82r57 97r57
+. 98r57
+61r42 State{51R9} 64r19 68r56 70r10 71r13 71r33 72r13 73r63 74r63 76r13 76r42
+. 78r13 78r42 79r16 80r13 81r63 82r63 84r16 85r34 86r42 90r24 90r71 91r31
+. 91r85 92r23 92r69 93r30 93r83 94r24 97r63 98r63 100r13 100r42 102r13 102r42
+. 103r26
+73i18 W{6|73I12} 75r20 76r76
+74i18 U{6|73I12} 77r16 78r76
+81i18 I{6|73I12} 83r20 85r14 89r26 89r38 90r55 92r53
+82i18 A{6|73I12} 83r35 86r22 89r45 91r69 93r67
+97i18 S{6|73I12} 99r20 100r76
+98i18 C{6|73I12} 101r16 102r76
+117r18 Next{51R9} 118r20 119r37
+125r7 State{51R9} 127r13 127r51 128r33 129r86 130r44 131r29 132m10 132r39
+. 134r18 134r68
+138r15 Context{4|12R9} 139r17 139r42 140r14
+142V13 Operation_Name{string} 142>29 144r16 144r57 145b13 165s58 166s67
+142e29 Operation{4|8E9} 146r12
+156r15 Context{4|12R9} 158r90 158r111 160r90 160r110 164r17
+157b15 Visible{boolean} 164r47
+159b15 Used{boolean} 166r15
+161i15 Qualified{6|73I12} 165r15 165r47
+172i15 Named{6|73I12} 174r17 174r33
+X 6 silver_output_lexical.ads
+3K9*Silver_Output_Lexical 4|2w6 6r8 6|400e26
+8I12*Cursor{positive} 5|31r14
+73I12*Literal_Position{natural} 4|13r15 30r71 38r33 39r32 50r33 51r14 5|3r33
+. 4r14 12r33 13r14 19r33 20r14 29r33 30r14 73r31 74r31 81r31 82r31 97r31
+. 98r31 137r71 154r33 155r32 161r36 170r33 171r14 172r32
+369U14*Skip_Trivia 5|35s7
+X 7 silver_profile.ads
+1K9*Silver_Profile 4|1w6 5r8 7|94e19
+4i4*Max_Source_Length{positive} 4|21r59 26r59 32r59 41r59 53r59 5|6r59 22r59
+. 63r59 108r59
+20V13*Is_Identifier_Character{boolean} 5|44s18
+31V13*Lowercase{character} 5|40s14 41s13
+

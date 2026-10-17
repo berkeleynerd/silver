@@ -1,0 +1,2191 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: implicit aspect Always_Terminates on "Is_Message" has been proved, subprogram will terminate
+--> silver_arguments.adb:5:13
+
+ info: range check proved
+--> silver_arguments.adb:6:11
+
+ info: precondition proved
+--> silver_arguments.adb:14:43
+
+ info: range check proved
+--> silver_arguments.adb:26:20
+
+ info: range check proved
+--> silver_arguments.adb:26:49
+
+ info: length check proved
+--> silver_arguments.adb:26:61
+
+ info: precondition proved
+--> silver_arguments.adb:30:53
+
+ info: range check proved
+--> silver_arguments.adb:33:23
+
+ info: range check proved
+--> silver_arguments.adb:33:49
+
+ info: length check proved
+--> silver_arguments.adb:33:61
+
+ info: implicit aspect Always_Terminates on "Input_Is_Valid" has been proved, subprogram will terminate
+--> silver_arguments.ads:9:13
+
+ info: data dependencies proved
+--> silver_arguments.ads:9:48
+
+ info: implicit aspect Always_Terminates on "First_Or_Default" has been proved, subprogram will terminate
+--> silver_arguments.ads:13:13
+
+ info: data dependencies proved
+--> silver_arguments.ads:14:11
+
+ info: postcondition proved
+--> silver_arguments.ads:15:19
+
+ info: range check proved
+--> silver_arguments.ads:16:45
+
+ info: aspect Always_Terminates on "Reject" has been proved, subprogram will terminate
+--> silver_arguments.ads:21:14
+
+ info: data dependencies proved
+--> silver_arguments.ads:22:11
+ info: initialization of "Status" proved
+--> silver_io.adb:7:07
+
+ info: range check proved
+--> silver_io.adb:13:14
+
+ info: loop invariant initialization proved
+--> silver_io.adb:19:43
+
+ info: loop invariant preservation proved
+--> silver_io.adb:19:43
+
+ info: overflow check proved
+--> silver_io.adb:19:65
+
+ info: loop invariant initialization proved
+--> silver_io.adb:21:23
+
+ info: loop invariant preservation proved
+--> silver_io.adb:21:23
+
+ info: index check proved
+--> silver_io.adb:22:30
+
+ info: overflow check proved
+--> silver_io.adb:22:57
+
+ info: index check proved
+--> silver_io.adb:22:57
+
+ info: range check proved
+--> silver_io.adb:29:41
+
+ info: index check proved
+--> silver_io.adb:30:25
+
+ info: range check proved
+--> silver_io.adb:37:38
+
+ info: index check proved
+--> silver_io.adb:38:22
+
+ info: initialization of "Status" proved
+--> silver_io.adb:50:07
+
+ info: range check proved
+--> silver_io.adb:56:14
+
+ info: loop invariant initialization proved
+--> silver_io.adb:62:43
+
+ info: loop invariant preservation proved
+--> silver_io.adb:62:43
+
+ info: overflow check proved
+--> silver_io.adb:62:65
+
+ info: loop invariant initialization proved
+--> silver_io.adb:64:23
+
+ info: loop invariant preservation proved
+--> silver_io.adb:64:23
+
+ info: index check proved
+--> silver_io.adb:65:30
+
+ info: overflow check proved
+--> silver_io.adb:65:57
+
+ info: index check proved
+--> silver_io.adb:65:57
+
+ info: range check proved
+--> silver_io.adb:72:41
+
+ info: index check proved
+--> silver_io.adb:73:25
+
+ info: data dependencies proved
+--> silver_io.ads:19:11
+
+ info: initialization of "Written_Bytes" proved
+--> silver_io.ads:20:33
+
+ info: initialization of "Written_Count" proved
+--> silver_io.ads:20:48
+
+ info: initialization of "Flushed" proved
+--> silver_io.ads:20:63
+
+ info: initialization of "Succeeded" proved
+--> silver_io.ads:20:72
+
+ info: postcondition proved
+--> silver_io.ads:22:30
+
+ info: range check proved
+--> silver_io.ads:23:45
+
+ info: range check proved
+--> silver_io.ads:24:44
+
+ info: overflow check proved
+--> silver_io.ads:24:52
+
+ info: range check proved
+--> silver_io.ads:25:24
+
+ info: range check proved
+--> silver_io.ads:25:48
+
+ info: index check proved
+--> silver_io.ads:26:39
+
+ info: data dependencies proved
+--> silver_io.ads:30:11
+
+ info: initialization of "Written_Bytes" proved
+--> silver_io.ads:31:33
+
+ info: initialization of "Written_Count" proved
+--> silver_io.ads:31:48
+
+ info: initialization of "Flushed" proved
+--> silver_io.ads:31:63
+
+ info: initialization of "Succeeded" proved
+--> silver_io.ads:31:72
+
+ info: postcondition proved
+--> silver_io.ads:33:30
+
+ info: range check proved
+--> silver_io.ads:34:45
+
+ info: range check proved
+--> silver_io.ads:35:44
+
+ info: range check proved
+--> silver_io.ads:36:24
+
+ info: range check proved
+--> silver_io.ads:36:48
+ info: length check proved
+--> main.adb:7:04
+
+ info: length check proved
+--> main.adb:8:02
+
+ info: length check proved
+--> main.adb:9:04
+
+ info: length check proved
+--> main.adb:10:02
+
+ info: length check proved
+--> main.adb:11:04
+
+ info: length check proved
+--> main.adb:12:02
+
+ info: length check proved
+--> main.adb:13:04
+
+ info: length check proved
+--> main.adb:14:02
+
+ info: length check proved
+--> main.adb:15:04
+
+ info: length check proved
+--> main.adb:16:02
+
+ info: length check proved
+--> main.adb:17:04
+
+ info: length check proved
+--> main.adb:18:02
+
+ info: length check proved
+--> main.adb:19:04
+
+ info: length check proved
+--> main.adb:20:02
+
+ info: length check proved
+--> main.adb:21:04
+
+ info: length check proved
+--> main.adb:22:02
+
+ info: length check proved
+--> main.adb:23:04
+
+ info: length check proved
+--> main.adb:24:02
+
+ info: length check proved
+--> main.adb:25:04
+
+ info: length check proved
+--> main.adb:26:02
+
+ info: length check proved
+--> main.adb:27:04
+
+ info: length check proved
+--> main.adb:28:02
+
+ info: length check proved
+--> main.adb:29:04
+
+ info: length check proved
+--> main.adb:30:02
+
+ info: length check proved
+--> main.adb:31:04
+
+ info: length check proved
+--> main.adb:32:02
+
+ info: length check proved
+--> main.adb:33:04
+
+ info: length check proved
+--> main.adb:34:02
+
+ info: length check proved
+--> main.adb:35:04
+
+ info: length check proved
+--> main.adb:36:02
+
+ info: length check proved
+--> main.adb:37:04
+
+ info: length check proved
+--> main.adb:38:02
+
+ info: length check proved
+--> main.adb:39:04
+
+ info: length check proved
+--> main.adb:40:02
+
+ info: length check proved
+--> main.adb:41:04
+
+ info: length check proved
+--> main.adb:42:02
+
+ info: length check proved
+--> main.adb:43:04
+
+ info: length check proved
+--> main.adb:44:02
+
+ info: length check proved
+--> main.adb:45:04
+
+ info: length check proved
+--> main.adb:46:02
+
+ info: length check proved
+--> main.adb:47:04
+
+ info: length check proved
+--> main.adb:48:02
+
+ info: length check proved
+--> main.adb:49:04
+
+ info: length check proved
+--> main.adb:50:02
+
+ info: length check proved
+--> main.adb:51:04
+
+ info: length check proved
+--> main.adb:52:02
+
+ info: length check proved
+--> main.adb:53:04
+
+ info: length check proved
+--> main.adb:54:02
+
+ info: length check proved
+--> main.adb:55:04
+
+ info: length check proved
+--> main.adb:56:02
+
+ info: length check proved
+--> main.adb:57:04
+
+ info: length check proved
+--> main.adb:58:02
+
+ info: length check proved
+--> main.adb:59:04
+
+ info: length check proved
+--> main.adb:60:02
+
+ info: length check proved
+--> main.adb:61:04
+
+ info: length check proved
+--> main.adb:62:02
+
+ info: length check proved
+--> main.adb:63:04
+
+ info: length check proved
+--> main.adb:64:02
+
+ info: length check proved
+--> main.adb:65:04
+
+ info: length check proved
+--> main.adb:66:02
+
+ info: length check proved
+--> main.adb:67:04
+
+ info: length check proved
+--> main.adb:68:02
+
+ info: length check proved
+--> main.adb:69:04
+
+ info: length check proved
+--> main.adb:70:02
+
+ info: length check proved
+--> main.adb:71:04
+
+ info: length check proved
+--> main.adb:72:02
+
+ info: length check proved
+--> main.adb:73:04
+
+ info: length check proved
+--> main.adb:74:02
+
+ info: length check proved
+--> main.adb:75:04
+
+ info: length check proved
+--> main.adb:76:02
+
+ info: length check proved
+--> main.adb:77:04
+
+ info: length check proved
+--> main.adb:78:02
+
+ info: length check proved
+--> main.adb:79:04
+
+ info: length check proved
+--> main.adb:80:02
+
+ info: length check proved
+--> main.adb:81:04
+
+ info: length check proved
+--> main.adb:82:02
+
+ info: length check proved
+--> main.adb:83:04
+
+ info: length check proved
+--> main.adb:84:02
+
+ info: length check proved
+--> main.adb:85:04
+
+ info: length check proved
+--> main.adb:86:02
+
+ info: length check proved
+--> main.adb:87:04
+
+ info: length check proved
+--> main.adb:88:02
+
+ info: length check proved
+--> main.adb:89:04
+
+ info: length check proved
+--> main.adb:90:02
+
+ info: length check proved
+--> main.adb:91:04
+
+ info: length check proved
+--> main.adb:92:02
+
+ info: length check proved
+--> main.adb:93:04
+
+ info: length check proved
+--> main.adb:94:02
+
+ info: length check proved
+--> main.adb:95:04
+
+ info: length check proved
+--> main.adb:96:02
+
+ info: length check proved
+--> main.adb:97:04
+
+ info: length check proved
+--> main.adb:98:02
+
+ info: length check proved
+--> main.adb:99:04
+
+ info: length check proved
+--> main.adb:100:02
+
+ info: length check proved
+--> main.adb:101:04
+
+ info: length check proved
+--> main.adb:102:02
+
+ info: length check proved
+--> main.adb:103:04
+
+ info: length check proved
+--> main.adb:104:02
+
+ info: length check proved
+--> main.adb:105:04
+
+ info: length check proved
+--> main.adb:106:02
+
+ info: length check proved
+--> main.adb:107:04
+
+ info: length check proved
+--> main.adb:108:02
+
+ info: length check proved
+--> main.adb:109:04
+
+ info: length check proved
+--> main.adb:110:02
+
+ info: length check proved
+--> main.adb:111:04
+
+ info: length check proved
+--> main.adb:112:02
+
+ info: length check proved
+--> main.adb:113:04
+
+ info: length check proved
+--> main.adb:114:02
+
+ info: length check proved
+--> main.adb:115:04
+
+ info: length check proved
+--> main.adb:116:02
+
+ info: length check proved
+--> main.adb:117:04
+
+ info: length check proved
+--> main.adb:118:02
+
+ info: length check proved
+--> main.adb:119:04
+
+ info: length check proved
+--> main.adb:120:02
+
+ info: length check proved
+--> main.adb:121:04
+
+ info: length check proved
+--> main.adb:122:02
+
+ info: length check proved
+--> main.adb:123:04
+
+ info: length check proved
+--> main.adb:124:02
+
+ info: length check proved
+--> main.adb:125:04
+
+ info: length check proved
+--> main.adb:126:02
+
+ info: length check proved
+--> main.adb:127:04
+
+ info: length check proved
+--> main.adb:128:02
+
+ info: length check proved
+--> main.adb:129:04
+
+ info: length check proved
+--> main.adb:130:02
+
+ info: length check proved
+--> main.adb:131:04
+
+ info: length check proved
+--> main.adb:132:02
+
+ info: length check proved
+--> main.adb:133:04
+
+ info: length check proved
+--> main.adb:134:02
+
+ info: length check proved
+--> main.adb:135:04
+
+ info: length check proved
+--> main.adb:136:02
+
+ info: length check proved
+--> main.adb:137:04
+
+ info: length check proved
+--> main.adb:138:02
+
+ info: length check proved
+--> main.adb:139:04
+
+ info: length check proved
+--> main.adb:140:02
+
+ info: length check proved
+--> main.adb:141:04
+
+ info: length check proved
+--> main.adb:142:02
+
+ info: length check proved
+--> main.adb:143:04
+
+ info: length check proved
+--> main.adb:144:02
+
+ info: length check proved
+--> main.adb:145:04
+
+ info: length check proved
+--> main.adb:146:02
+
+ info: length check proved
+--> main.adb:147:04
+
+ info: length check proved
+--> main.adb:148:02
+
+ info: length check proved
+--> main.adb:149:04
+
+ info: length check proved
+--> main.adb:150:02
+
+ info: length check proved
+--> main.adb:151:04
+
+ info: length check proved
+--> main.adb:152:02
+
+ info: length check proved
+--> main.adb:153:04
+
+ info: length check proved
+--> main.adb:154:02
+
+ info: length check proved
+--> main.adb:155:04
+
+ info: length check proved
+--> main.adb:156:02
+
+ info: length check proved
+--> main.adb:157:04
+
+ info: length check proved
+--> main.adb:158:02
+
+ info: length check proved
+--> main.adb:159:04
+
+ info: length check proved
+--> main.adb:160:02
+
+ info: length check proved
+--> main.adb:161:04
+
+ info: length check proved
+--> main.adb:162:02
+
+ info: length check proved
+--> main.adb:163:04
+
+ info: length check proved
+--> main.adb:164:02
+
+ info: length check proved
+--> main.adb:165:04
+
+ info: length check proved
+--> main.adb:166:02
+
+ info: length check proved
+--> main.adb:167:04
+
+ info: length check proved
+--> main.adb:168:02
+
+ info: length check proved
+--> main.adb:169:04
+
+ info: length check proved
+--> main.adb:170:02
+
+ info: length check proved
+--> main.adb:171:04
+
+ info: length check proved
+--> main.adb:172:02
+
+ info: length check proved
+--> main.adb:173:04
+
+ info: length check proved
+--> main.adb:174:02
+
+ info: length check proved
+--> main.adb:175:04
+
+ info: length check proved
+--> main.adb:176:02
+
+ info: length check proved
+--> main.adb:177:04
+
+ info: length check proved
+--> main.adb:178:02
+
+ info: length check proved
+--> main.adb:179:04
+
+ info: length check proved
+--> main.adb:180:02
+
+ info: length check proved
+--> main.adb:181:04
+
+ info: length check proved
+--> main.adb:182:02
+
+ info: length check proved
+--> main.adb:183:04
+
+ info: length check proved
+--> main.adb:184:02
+
+ info: length check proved
+--> main.adb:185:04
+
+ info: length check proved
+--> main.adb:186:02
+
+ info: length check proved
+--> main.adb:187:04
+
+ info: length check proved
+--> main.adb:188:02
+
+ info: length check proved
+--> main.adb:189:04
+
+ info: length check proved
+--> main.adb:190:02
+
+ info: length check proved
+--> main.adb:191:04
+
+ info: length check proved
+--> main.adb:192:02
+
+ info: length check proved
+--> main.adb:193:04
+
+ info: length check proved
+--> main.adb:194:02
+
+ info: length check proved
+--> main.adb:195:04
+
+ info: length check proved
+--> main.adb:196:02
+
+ info: length check proved
+--> main.adb:197:04
+
+ info: length check proved
+--> main.adb:198:02
+
+ info: length check proved
+--> main.adb:199:04
+
+ info: length check proved
+--> main.adb:200:02
+
+ info: length check proved
+--> main.adb:201:04
+
+ info: length check proved
+--> main.adb:202:02
+
+ info: length check proved
+--> main.adb:203:04
+
+ info: length check proved
+--> main.adb:204:02
+
+ info: length check proved
+--> main.adb:205:04
+
+ info: length check proved
+--> main.adb:206:02
+
+ info: length check proved
+--> main.adb:207:04
+
+ info: length check proved
+--> main.adb:208:02
+
+ info: length check proved
+--> main.adb:209:04
+
+ info: length check proved
+--> main.adb:210:02
+
+ info: length check proved
+--> main.adb:211:04
+
+ info: length check proved
+--> main.adb:212:02
+
+ info: length check proved
+--> main.adb:213:04
+
+ info: length check proved
+--> main.adb:214:02
+
+ info: length check proved
+--> main.adb:215:04
+
+ info: length check proved
+--> main.adb:216:02
+
+ info: length check proved
+--> main.adb:217:04
+
+ info: length check proved
+--> main.adb:218:02
+
+ info: length check proved
+--> main.adb:219:04
+
+ info: length check proved
+--> main.adb:220:02
+
+ info: length check proved
+--> main.adb:221:04
+
+ info: length check proved
+--> main.adb:222:02
+
+ info: length check proved
+--> main.adb:223:04
+
+ info: length check proved
+--> main.adb:224:02
+
+ info: length check proved
+--> main.adb:225:04
+
+ info: length check proved
+--> main.adb:226:02
+
+ info: length check proved
+--> main.adb:227:04
+
+ info: length check proved
+--> main.adb:228:02
+
+ info: length check proved
+--> main.adb:229:04
+
+ info: length check proved
+--> main.adb:230:02
+
+ info: length check proved
+--> main.adb:231:04
+
+ info: length check proved
+--> main.adb:232:02
+
+ info: length check proved
+--> main.adb:233:04
+
+ info: length check proved
+--> main.adb:234:02
+
+ info: length check proved
+--> main.adb:235:04
+
+ info: length check proved
+--> main.adb:236:02
+
+ info: length check proved
+--> main.adb:237:04
+
+ info: length check proved
+--> main.adb:238:02
+
+ info: length check proved
+--> main.adb:239:04
+
+ info: length check proved
+--> main.adb:240:02
+
+ info: length check proved
+--> main.adb:241:04
+
+ info: length check proved
+--> main.adb:242:02
+
+ info: length check proved
+--> main.adb:243:04
+
+ info: length check proved
+--> main.adb:244:02
+
+ info: length check proved
+--> main.adb:245:04
+
+ info: length check proved
+--> main.adb:246:02
+
+ info: length check proved
+--> main.adb:247:04
+
+ info: length check proved
+--> main.adb:248:02
+
+ info: length check proved
+--> main.adb:249:04
+
+ info: length check proved
+--> main.adb:250:02
+
+ info: length check proved
+--> main.adb:251:04
+
+ info: length check proved
+--> main.adb:252:02
+
+ info: length check proved
+--> main.adb:253:04
+
+ info: length check proved
+--> main.adb:254:02
+
+ info: length check proved
+--> main.adb:255:04
+
+ info: length check proved
+--> main.adb:256:02
+
+ info: length check proved
+--> main.adb:257:04
+
+ info: length check proved
+--> main.adb:258:02
+
+ info: length check proved
+--> main.adb:259:04
+
+ info: length check proved
+--> main.adb:260:02
+
+ info: length check proved
+--> main.adb:261:04
+
+ info: length check proved
+--> main.adb:262:02
+
+ info: length check proved
+--> main.adb:263:04
+
+ info: length check proved
+--> main.adb:264:02
+
+ info: length check proved
+--> main.adb:265:04
+
+ info: length check proved
+--> main.adb:266:02
+
+ info: length check proved
+--> main.adb:267:04
+
+ info: length check proved
+--> main.adb:268:02
+
+ info: length check proved
+--> main.adb:269:04
+
+ info: length check proved
+--> main.adb:270:02
+
+ info: length check proved
+--> main.adb:271:04
+
+ info: length check proved
+--> main.adb:272:02
+
+ info: length check proved
+--> main.adb:273:04
+
+ info: length check proved
+--> main.adb:274:02
+
+ info: length check proved
+--> main.adb:275:04
+
+ info: length check proved
+--> main.adb:276:02
+
+ info: length check proved
+--> main.adb:277:04
+
+ info: length check proved
+--> main.adb:278:02
+
+ info: length check proved
+--> main.adb:279:04
+
+ info: length check proved
+--> main.adb:280:02
+
+ info: length check proved
+--> main.adb:281:04
+
+ info: length check proved
+--> main.adb:282:02
+
+ info: length check proved
+--> main.adb:283:04
+
+ info: length check proved
+--> main.adb:284:02
+
+ info: length check proved
+--> main.adb:285:04
+
+ info: length check proved
+--> main.adb:286:02
+
+ info: length check proved
+--> main.adb:287:04
+
+ info: length check proved
+--> main.adb:288:02
+
+ info: length check proved
+--> main.adb:289:04
+
+ info: length check proved
+--> main.adb:290:02
+
+ info: length check proved
+--> main.adb:291:04
+
+ info: length check proved
+--> main.adb:292:02
+
+ info: length check proved
+--> main.adb:293:04
+
+ info: length check proved
+--> main.adb:294:02
+
+ info: length check proved
+--> main.adb:295:04
+
+ info: length check proved
+--> main.adb:296:02
+
+ info: length check proved
+--> main.adb:297:04
+
+ info: length check proved
+--> main.adb:298:02
+
+ info: length check proved
+--> main.adb:299:04
+
+ info: length check proved
+--> main.adb:300:02
+
+ info: length check proved
+--> main.adb:301:04
+
+ info: length check proved
+--> main.adb:302:02
+
+ info: length check proved
+--> main.adb:303:04
+
+ info: length check proved
+--> main.adb:304:02
+
+ info: length check proved
+--> main.adb:305:04
+
+ info: length check proved
+--> main.adb:306:02
+
+ info: length check proved
+--> main.adb:307:04
+
+ info: length check proved
+--> main.adb:308:02
+
+ info: length check proved
+--> main.adb:309:04
+
+ info: length check proved
+--> main.adb:310:02
+
+ info: length check proved
+--> main.adb:311:04
+
+ info: length check proved
+--> main.adb:312:02
+
+ info: length check proved
+--> main.adb:313:04
+
+ info: length check proved
+--> main.adb:314:02
+
+ info: length check proved
+--> main.adb:315:04
+
+ info: length check proved
+--> main.adb:316:02
+
+ info: length check proved
+--> main.adb:317:04
+
+ info: length check proved
+--> main.adb:318:02
+
+ info: length check proved
+--> main.adb:319:04
+
+ info: length check proved
+--> main.adb:320:02
+
+ info: length check proved
+--> main.adb:321:04
+
+ info: length check proved
+--> main.adb:322:02
+
+ info: length check proved
+--> main.adb:323:04
+
+ info: length check proved
+--> main.adb:324:02
+
+ info: length check proved
+--> main.adb:325:04
+
+ info: length check proved
+--> main.adb:326:02
+
+ info: length check proved
+--> main.adb:327:04
+
+ info: length check proved
+--> main.adb:328:02
+
+ info: length check proved
+--> main.adb:329:04
+
+ info: length check proved
+--> main.adb:330:02
+
+ info: length check proved
+--> main.adb:331:04
+
+ info: length check proved
+--> main.adb:332:02
+
+ info: length check proved
+--> main.adb:333:04
+
+ info: length check proved
+--> main.adb:334:02
+
+ info: length check proved
+--> main.adb:335:04
+
+ info: length check proved
+--> main.adb:336:02
+
+ info: length check proved
+--> main.adb:337:04
+
+ info: length check proved
+--> main.adb:338:02
+
+ info: length check proved
+--> main.adb:339:04
+
+ info: length check proved
+--> main.adb:340:02
+
+ info: length check proved
+--> main.adb:341:04
+
+ info: length check proved
+--> main.adb:342:02
+
+ info: length check proved
+--> main.adb:343:04
+
+ info: length check proved
+--> main.adb:344:02
+
+ info: length check proved
+--> main.adb:345:04
+
+ info: length check proved
+--> main.adb:346:02
+
+ info: length check proved
+--> main.adb:347:04
+
+ info: length check proved
+--> main.adb:348:02
+
+ info: length check proved
+--> main.adb:349:04
+
+ info: length check proved
+--> main.adb:350:02
+
+ info: length check proved
+--> main.adb:351:04
+
+ info: length check proved
+--> main.adb:352:02
+
+ info: length check proved
+--> main.adb:353:04
+
+ info: length check proved
+--> main.adb:354:02
+
+ info: length check proved
+--> main.adb:355:04
+
+ info: length check proved
+--> main.adb:356:02
+
+ info: length check proved
+--> main.adb:357:04
+
+ info: length check proved
+--> main.adb:358:02
+
+ info: length check proved
+--> main.adb:359:04
+
+ info: length check proved
+--> main.adb:360:02
+
+ info: length check proved
+--> main.adb:361:04
+
+ info: length check proved
+--> main.adb:362:02
+
+ info: length check proved
+--> main.adb:363:04
+
+ info: length check proved
+--> main.adb:364:02
+
+ info: length check proved
+--> main.adb:365:04
+
+ info: length check proved
+--> main.adb:366:02
+
+ info: length check proved
+--> main.adb:367:04
+
+ info: length check proved
+--> main.adb:368:02
+
+ info: length check proved
+--> main.adb:369:04
+
+ info: length check proved
+--> main.adb:370:02
+
+ info: length check proved
+--> main.adb:371:04
+
+ info: length check proved
+--> main.adb:372:02
+
+ info: length check proved
+--> main.adb:373:04
+
+ info: length check proved
+--> main.adb:374:02
+
+ info: length check proved
+--> main.adb:375:04
+
+ info: length check proved
+--> main.adb:376:02
+
+ info: length check proved
+--> main.adb:377:04
+
+ info: length check proved
+--> main.adb:378:02
+
+ info: length check proved
+--> main.adb:379:04
+
+ info: length check proved
+--> main.adb:380:02
+
+ info: length check proved
+--> main.adb:381:04
+
+ info: length check proved
+--> main.adb:382:02
+
+ info: length check proved
+--> main.adb:383:04
+
+ info: length check proved
+--> main.adb:384:02
+
+ info: length check proved
+--> main.adb:385:04
+
+ info: length check proved
+--> main.adb:386:02
+
+ info: length check proved
+--> main.adb:387:04
+
+ info: length check proved
+--> main.adb:388:02
+
+ info: length check proved
+--> main.adb:389:04
+
+ info: length check proved
+--> main.adb:390:02
+
+ info: length check proved
+--> main.adb:391:04
+
+ info: length check proved
+--> main.adb:392:02
+
+ info: length check proved
+--> main.adb:393:04
+
+ info: length check proved
+--> main.adb:394:02
+
+ info: length check proved
+--> main.adb:395:04
+
+ info: length check proved
+--> main.adb:396:02
+
+ info: length check proved
+--> main.adb:397:04
+
+ info: length check proved
+--> main.adb:398:02
+
+ info: length check proved
+--> main.adb:399:04
+
+ info: length check proved
+--> main.adb:400:02
+
+ info: length check proved
+--> main.adb:401:04
+
+ info: length check proved
+--> main.adb:402:02
+
+ info: length check proved
+--> main.adb:403:04
+
+ info: length check proved
+--> main.adb:404:02
+
+ info: length check proved
+--> main.adb:405:04
+
+ info: length check proved
+--> main.adb:406:02
+
+ info: length check proved
+--> main.adb:407:04
+
+ info: length check proved
+--> main.adb:408:02
+
+ info: length check proved
+--> main.adb:409:04
+
+ info: length check proved
+--> main.adb:410:02
+
+ info: length check proved
+--> main.adb:411:04
+
+ info: length check proved
+--> main.adb:412:02
+
+ info: length check proved
+--> main.adb:413:04
+
+ info: length check proved
+--> main.adb:414:02
+
+ info: length check proved
+--> main.adb:415:04
+
+ info: length check proved
+--> main.adb:416:02
+
+ info: length check proved
+--> main.adb:417:04
+
+ info: length check proved
+--> main.adb:418:02
+
+ info: length check proved
+--> main.adb:419:04
+
+ info: length check proved
+--> main.adb:420:02
+
+ info: length check proved
+--> main.adb:421:04
+
+ info: length check proved
+--> main.adb:422:02
+
+ info: length check proved
+--> main.adb:423:04
+
+ info: length check proved
+--> main.adb:424:02
+
+ info: length check proved
+--> main.adb:425:04
+
+ info: length check proved
+--> main.adb:426:02
+
+ info: length check proved
+--> main.adb:427:04
+
+ info: length check proved
+--> main.adb:428:02
+
+ info: length check proved
+--> main.adb:429:04
+
+ info: length check proved
+--> main.adb:430:02
+
+ info: length check proved
+--> main.adb:431:04
+
+ info: length check proved
+--> main.adb:432:02
+
+ info: length check proved
+--> main.adb:433:04
+
+ info: length check proved
+--> main.adb:434:02
+
+ info: length check proved
+--> main.adb:435:04
+
+ info: length check proved
+--> main.adb:436:02
+
+ info: length check proved
+--> main.adb:437:04
+
+ info: length check proved
+--> main.adb:438:02
+
+ info: length check proved
+--> main.adb:439:04
+
+ info: length check proved
+--> main.adb:440:02
+
+ info: length check proved
+--> main.adb:441:04
+
+ info: length check proved
+--> main.adb:442:02
+
+ info: length check proved
+--> main.adb:443:04
+
+ info: length check proved
+--> main.adb:444:02
+
+ info: length check proved
+--> main.adb:445:04
+
+ info: length check proved
+--> main.adb:446:02
+
+ info: length check proved
+--> main.adb:447:04
+
+ info: length check proved
+--> main.adb:448:02
+
+ info: length check proved
+--> main.adb:449:04
+
+ info: length check proved
+--> main.adb:450:02
+
+ info: length check proved
+--> main.adb:451:04
+
+ info: length check proved
+--> main.adb:452:02
+
+ info: length check proved
+--> main.adb:453:04
+
+ info: length check proved
+--> main.adb:454:02
+
+ info: length check proved
+--> main.adb:455:04
+
+ info: length check proved
+--> main.adb:456:02
+
+ info: length check proved
+--> main.adb:457:04
+
+ info: length check proved
+--> main.adb:458:02
+
+ info: length check proved
+--> main.adb:459:04
+
+ info: length check proved
+--> main.adb:460:02
+
+ info: length check proved
+--> main.adb:461:04
+
+ info: length check proved
+--> main.adb:462:02
+
+ info: length check proved
+--> main.adb:463:04
+
+ info: length check proved
+--> main.adb:464:02
+
+ info: length check proved
+--> main.adb:465:04
+
+ info: length check proved
+--> main.adb:466:02
+
+ info: length check proved
+--> main.adb:467:04
+
+ info: length check proved
+--> main.adb:468:02
+
+ info: length check proved
+--> main.adb:469:04
+
+ info: length check proved
+--> main.adb:470:02
+
+ info: length check proved
+--> main.adb:471:04
+
+ info: length check proved
+--> main.adb:472:02
+
+ info: length check proved
+--> main.adb:473:04
+
+ info: length check proved
+--> main.adb:474:02
+
+ info: length check proved
+--> main.adb:475:04
+
+ info: length check proved
+--> main.adb:476:02
+
+ info: length check proved
+--> main.adb:477:04
+
+ info: length check proved
+--> main.adb:478:02
+
+ info: length check proved
+--> main.adb:479:04
+
+ info: length check proved
+--> main.adb:480:02
+
+ info: length check proved
+--> main.adb:481:04
+
+ info: length check proved
+--> main.adb:482:02
+
+ info: length check proved
+--> main.adb:483:04
+
+ info: length check proved
+--> main.adb:484:02
+
+ info: length check proved
+--> main.adb:485:04
+
+ info: length check proved
+--> main.adb:486:02
+
+ info: length check proved
+--> main.adb:487:04
+
+ info: length check proved
+--> main.adb:488:02
+
+ info: length check proved
+--> main.adb:489:04
+
+ info: length check proved
+--> main.adb:490:02
+
+ info: length check proved
+--> main.adb:491:04
+
+ info: length check proved
+--> main.adb:492:02
+
+ info: length check proved
+--> main.adb:493:04
+
+ info: length check proved
+--> main.adb:494:02
+
+ info: length check proved
+--> main.adb:495:04
+
+ info: length check proved
+--> main.adb:496:02
+
+ info: length check proved
+--> main.adb:497:04
+
+ info: length check proved
+--> main.adb:498:02
+
+ info: length check proved
+--> main.adb:499:04
+
+ info: length check proved
+--> main.adb:500:02
+
+ info: length check proved
+--> main.adb:501:04
+
+ info: length check proved
+--> main.adb:502:02
+
+ info: length check proved
+--> main.adb:503:04
+
+ info: length check proved
+--> main.adb:504:02
+
+ info: length check proved
+--> main.adb:505:04
+
+ info: length check proved
+--> main.adb:506:02
+
+ info: length check proved
+--> main.adb:507:04
+
+ info: length check proved
+--> main.adb:508:02
+
+ info: length check proved
+--> main.adb:509:04
+
+ info: length check proved
+--> main.adb:510:02
+
+ info: length check proved
+--> main.adb:511:04
+
+ info: length check proved
+--> main.adb:512:02
+
+ info: length check proved
+--> main.adb:513:04
+
+ info: length check proved
+--> main.adb:514:02
+
+ info: length check proved
+--> main.adb:515:04
+
+ info: length check proved
+--> main.adb:516:02
+
+ info: length check proved
+--> main.adb:517:04
+
+ info: length check proved
+--> main.adb:518:02
+
+ info: length check proved
+--> main.adb:519:04
+
+ info: length check proved
+--> main.adb:520:02
+
+ info: length check proved
+--> main.adb:521:04
+
+ info: length check proved
+--> main.adb:522:02
+
+ info: length check proved
+--> main.adb:523:04
+
+ info: length check proved
+--> main.adb:524:02
+
+ info: length check proved
+--> main.adb:525:04
+
+ info: length check proved
+--> main.adb:526:02
+
+ info: length check proved
+--> main.adb:527:04
+
+ info: length check proved
+--> main.adb:528:02
+
+ info: length check proved
+--> main.adb:529:04
+
+ info: length check proved
+--> main.adb:530:02
+
+ info: length check proved
+--> main.adb:531:04
+
+ info: length check proved
+--> main.adb:532:02
+
+ info: length check proved
+--> main.adb:533:04
+
+ info: length check proved
+--> main.adb:534:02
+
+ info: length check proved
+--> main.adb:535:04
+
+ info: length check proved
+--> main.adb:536:02
+
+ info: length check proved
+--> main.adb:537:04
+
+ info: length check proved
+--> main.adb:538:02
+
+ info: length check proved
+--> main.adb:539:04
+
+ info: length check proved
+--> main.adb:540:02
+
+ info: length check proved
+--> main.adb:541:04
+
+ info: length check proved
+--> main.adb:542:02
+
+ info: length check proved
+--> main.adb:543:04
+
+ info: length check proved
+--> main.adb:544:02
+
+ info: length check proved
+--> main.adb:545:04
+
+ info: length check proved
+--> main.adb:546:02
+
+ info: length check proved
+--> main.adb:547:04
+
+ info: length check proved
+--> main.adb:548:02
+
+ info: length check proved
+--> main.adb:549:04
+
+ info: length check proved
+--> main.adb:550:02
+
+ info: length check proved
+--> main.adb:551:04
+
+ info: length check proved
+--> main.adb:552:02
+
+ info: length check proved
+--> main.adb:553:04
+
+ info: length check proved
+--> main.adb:554:02
+
+ info: length check proved
+--> main.adb:555:04
+
+ info: length check proved
+--> main.adb:556:02
+
+ info: length check proved
+--> main.adb:557:04
+
+ info: length check proved
+--> main.adb:558:02
+
+ info: length check proved
+--> main.adb:559:04
+
+ info: length check proved
+--> main.adb:560:02
+
+ info: length check proved
+--> main.adb:561:04
+
+ info: length check proved
+--> main.adb:562:02
+
+ info: length check proved
+--> main.adb:563:04
+
+ info: length check proved
+--> main.adb:564:02
+
+ info: length check proved
+--> main.adb:565:04
+
+ info: length check proved
+--> main.adb:566:02
+
+ info: length check proved
+--> main.adb:567:04
+
+ info: length check proved
+--> main.adb:568:02
+
+ info: length check proved
+--> main.adb:569:04
+
+ info: length check proved
+--> main.adb:570:02
+
+ info: length check proved
+--> main.adb:571:04
+
+ info: length check proved
+--> main.adb:572:02
+
+ info: length check proved
+--> main.adb:573:04
+
+ info: length check proved
+--> main.adb:574:02
+
+ info: length check proved
+--> main.adb:575:04
+
+ info: length check proved
+--> main.adb:576:02
+
+ info: length check proved
+--> main.adb:577:04
+
+ info: length check proved
+--> main.adb:578:02
+
+ info: length check proved
+--> main.adb:579:04
+
+ info: length check proved
+--> main.adb:580:02
+
+ info: length check proved
+--> main.adb:581:04
+
+ info: length check proved
+--> main.adb:582:02
+
+ info: length check proved
+--> main.adb:583:04
+
+ info: length check proved
+--> main.adb:584:02
+
+ info: length check proved
+--> main.adb:585:04
+
+ info: length check proved
+--> main.adb:586:02
+
+ info: length check proved
+--> main.adb:587:04
+
+ info: length check proved
+--> main.adb:588:02
+
+ info: length check proved
+--> main.adb:589:04
+
+ info: length check proved
+--> main.adb:590:02
+
+ info: length check proved
+--> main.adb:591:04
+
+ info: length check proved
+--> main.adb:592:02
+
+ info: length check proved
+--> main.adb:593:04
+
+ info: length check proved
+--> main.adb:594:02
+
+ info: length check proved
+--> main.adb:595:04
+
+ info: length check proved
+--> main.adb:596:02
+
+ info: length check proved
+--> main.adb:597:04
+
+ info: length check proved
+--> main.adb:598:02
+
+ info: length check proved
+--> main.adb:599:04
+
+ info: length check proved
+--> main.adb:600:02
+
+ info: length check proved
+--> main.adb:601:04
+
+ info: length check proved
+--> main.adb:602:02
+
+ info: length check proved
+--> main.adb:603:04
+
+ info: length check proved
+--> main.adb:604:02
+
+ info: length check proved
+--> main.adb:605:04
+
+ info: length check proved
+--> main.adb:606:02
+
+ info: length check proved
+--> main.adb:607:04
+
+ info: length check proved
+--> main.adb:608:02
+
+ info: length check proved
+--> main.adb:609:04
+
+ info: length check proved
+--> main.adb:610:02
+
+ info: length check proved
+--> main.adb:611:04
+
+ info: length check proved
+--> main.adb:612:02
+
+ info: length check proved
+--> main.adb:613:04
+
+ info: length check proved
+--> main.adb:614:02
+
+ info: length check proved
+--> main.adb:615:04
+
+ info: length check proved
+--> main.adb:616:02
+
+ info: length check proved
+--> main.adb:617:04
+
+ info: length check proved
+--> main.adb:618:02
+
+ info: length check proved
+--> main.adb:619:04
+
+ info: length check proved
+--> main.adb:620:02
+
+ info: length check proved
+--> main.adb:621:04
+
+ info: length check proved
+--> main.adb:622:02
+
+ info: length check proved
+--> main.adb:623:04
+
+ info: length check proved
+--> main.adb:624:02
+
+ info: length check proved
+--> main.adb:625:04
+
+ info: length check proved
+--> main.adb:626:02
+
+ info: length check proved
+--> main.adb:627:04
+
+ info: length check proved
+--> main.adb:628:02
+
+ info: length check proved
+--> main.adb:629:04
+
+ info: length check proved
+--> main.adb:630:02
+
+ info: length check proved
+--> main.adb:631:04
+
+ info: length check proved
+--> main.adb:632:02
+
+ info: length check proved
+--> main.adb:633:04
+
+ info: length check proved
+--> main.adb:634:02
+
+ info: length check proved
+--> main.adb:635:04
+
+ info: length check proved
+--> main.adb:636:02
+
+ info: length check proved
+--> main.adb:637:04
+
+ info: length check proved
+--> main.adb:638:02
+
+ info: length check proved
+--> main.adb:639:04
+
+ info: length check proved
+--> main.adb:640:02
+
+ info: length check proved
+--> main.adb:641:04
+
+ info: length check proved
+--> main.adb:642:02
+
+ info: length check proved
+--> main.adb:643:04
+
+ info: length check proved
+--> main.adb:644:02
+
+ info: length check proved
+--> main.adb:645:04
+
+ info: length check proved
+--> main.adb:646:02
+
+ info: length check proved
+--> main.adb:647:04
+
+ info: length check proved
+--> main.adb:648:02
+
+ info: length check proved
+--> main.adb:649:04
+
+ info: length check proved
+--> main.adb:650:02
+
+ info: length check proved
+--> main.adb:651:04
+
+ info: length check proved
+--> main.adb:652:02
+
+ info: length check proved
+--> main.adb:653:04
+
+ info: length check proved
+--> main.adb:654:02
+
+ info: length check proved
+--> main.adb:655:04
+
+ info: length check proved
+--> main.adb:656:02
+
+ info: length check proved
+--> main.adb:657:04
+
+ info: length check proved
+--> main.adb:658:02
+
+ info: length check proved
+--> main.adb:659:04
+
+ info: length check proved
+--> main.adb:660:02
+
+ info: length check proved
+--> main.adb:661:04
+
+ info: length check proved
+--> main.adb:662:02
+
+ info: length check proved
+--> main.adb:663:04
+
+ info: length check proved
+--> main.adb:664:02
+
+ info: length check proved
+--> main.adb:665:04
+
+ info: length check proved
+--> main.adb:666:02
+
+ info: length check proved
+--> main.adb:667:04
+
+ warning: unused assignment
+--> main.adb:668:02
+  668 |    B:=A;
+      |    ~^~~
+
+ info: length check proved
+--> main.adb:668:02
+Success: all checks proved (728 checks).
+Summary logged in /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f3-4k/obj/gnatprove/gnatprove.out

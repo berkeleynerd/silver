@@ -1,0 +1,458 @@
+{
+ "name": "f2-8k",
+ "source": "/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/progs/f2-8192.adb",
+ "source_bytes": 8043,
+ "lines": 469,
+ "statements": 467,
+ "steps": "100000",
+ "memlimit": "1000",
+ "command": "cd /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/toolchain && unset ALR_CONFIG GPR_CONFIG GPR_PROJECT_PATH GPR_PROJECT_PATH_FILE ADA_PROJECT_PATH && ALIRE_SETTINGS_DIR=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/settings /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alr/bin/alr -n exec -- /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove -P /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f2-8k/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j8 --no-loop-unrolling",
+ "exit": 0,
+ "stopped": null,
+ "wall_s": 575.1,
+ "peak_tree_rss_bytes": 1506402304,
+ "peak_tree_rss_gib": 1.4,
+ "peak_by_comm": {
+  "gnatwhy3": 1.187,
+  "alt-ergo": 0.093,
+  "gnat2why": 0.039,
+  "cvc5": 0.036,
+  "z3": 0.033,
+  "alr": 0.024,
+  "gnatprove": 0.02,
+  "gprbuild": 0.012
+ },
+ "max_procs": 19,
+ "min_mem_available_gib": 21.71,
+ "pre": {
+  "mem_available_gb": 28.54,
+  "foreign_heavy": [
+   [
+    77520,
+    "lean",
+    2975887360,
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean/bin/lean /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/researc"
+   ]
+  ]
+ },
+ "imagews_created": [],
+ "imagews_removed": [],
+ "samples": [
+  [
+   0,
+   970752,
+   30648000512
+  ],
+  [
+   10,
+   263389184,
+   29762260992
+  ],
+  [
+   20,
+   619954176,
+   29743308800
+  ],
+  [
+   30,
+   825229312,
+   28675002368
+  ],
+  [
+   40,
+   973193216,
+   27570139136
+  ],
+  [
+   50,
+   1119956992,
+   28136677376
+  ],
+  [
+   60,
+   1170960384,
+   29164335104
+  ],
+  [
+   70,
+   1172942848,
+   29134065664
+  ],
+  [
+   80,
+   1178169344,
+   28705943552
+  ],
+  [
+   90,
+   1178365952,
+   26868166656
+  ],
+  [
+   100,
+   1268658176,
+   25328443392
+  ],
+  [
+   110,
+   1313869824,
+   23996739584
+  ],
+  [
+   120,
+   1312247808,
+   23510302720
+  ],
+  [
+   130,
+   1357381632,
+   29000531968
+  ],
+  [
+   140,
+   1416163328,
+   29132058624
+  ],
+  [
+   150,
+   1316958208,
+   29009944576
+  ],
+  [
+   160,
+   1359466496,
+   29030805504
+  ],
+  [
+   170,
+   1376522240,
+   27555545088
+  ],
+  [
+   180,
+   1382715392,
+   25961861120
+  ],
+  [
+   190,
+   1351200768,
+   24542175232
+  ],
+  [
+   200,
+   1399123968,
+   23370006528
+  ],
+  [
+   210,
+   1351380992,
+   23380459520
+  ],
+  [
+   220,
+   1351380992,
+   28761264128
+  ],
+  [
+   230,
+   1351380992,
+   28444045312
+  ],
+  [
+   240,
+   1377026048,
+   29123780608
+  ],
+  [
+   250,
+   1381634048,
+   27802660864
+  ],
+  [
+   260,
+   1411661824,
+   28053725184
+  ],
+  [
+   270,
+   1383976960,
+   27119706112
+  ],
+  [
+   281,
+   1351380992,
+   29184135168
+  ],
+  [
+   291,
+   1450127360,
+   28614909952
+  ],
+  [
+   301,
+   1465348096,
+   28480274432
+  ],
+  [
+   311,
+   1351380992,
+   28614369280
+  ],
+  [
+   321,
+   1351380992,
+   28734681088
+  ],
+  [
+   331,
+   1409961984,
+   30739615744
+  ],
+  [
+   341,
+   1412829184,
+   30708326400
+  ],
+  [
+   351,
+   1371721728,
+   30646267904
+  ],
+  [
+   361,
+   1377308672,
+   30733307904
+  ],
+  [
+   371,
+   1383616512,
+   30745518080
+  ],
+  [
+   381,
+   1402220544,
+   30759956480
+  ],
+  [
+   391,
+   1390530560,
+   30827536384
+  ],
+  [
+   401,
+   1385738240,
+   30792638464
+  ],
+  [
+   411,
+   1399656448,
+   30838476800
+  ],
+  [
+   421,
+   1366519808,
+   30574575616
+  ],
+  [
+   431,
+   1396232192,
+   30579519488
+  ],
+  [
+   441,
+   1387581440,
+   30633537536
+  ],
+  [
+   451,
+   1394790400,
+   30515748864
+  ],
+  [
+   461,
+   1393709056,
+   29223301120
+  ],
+  [
+   471,
+   1395150848,
+   30159400960
+  ],
+  [
+   481,
+   1366880256,
+   30435237888
+  ],
+  [
+   491,
+   1382199296,
+   29121462272
+  ],
+  [
+   501,
+   1382199296,
+   27397120000
+  ],
+  [
+   511,
+   1412534272,
+   25740869632
+  ],
+  [
+   530,
+   1412632576,
+   29765689344
+  ],
+  [
+   540,
+   1413894144,
+   30299422720
+  ],
+  [
+   550,
+   1382199296,
+   30034849792
+  ],
+  [
+   560,
+   1382199296,
+   29711052800
+  ],
+  [
+   570,
+   1382199296,
+   29697843200
+  ]
+ ],
+ "tool_cmdlines": {
+  "gnatwhy3": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 844 /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f2-8k/obj/gnatprove/silver_arguments__is_message.gnat-json ",
+  "cvc5": "cvc5 --rlimit=3515000 --prenex-quant=none --stats-internal /tmp/why_10d00d_silver_io-T-defqtvc.smt2 ",
+  "z3": "z3 rlimit=80450000 -smt2 -st smt.arith.solver=6 /tmp/why_6e244f_silver_arguments-T-defqtvc.smt2 ",
+  "alt-ergo": "alt-ergo --steps-bound 100000 --max-split 5 --disable-weaks /tmp/why_16b25d_silver_arguments-T-defqtvc.psmt2 "
+ },
+ "report_bytes": 505981,
+ "report": {
+  "checks": 174,
+  "flow": 402,
+  "flow_sev": {
+   "warning": 402
+  },
+  "severity": {
+   "info": 174
+  },
+  "unproved": [],
+  "how": {
+   "prover": 174
+  },
+  "rules": {
+   "VC_RANGE_CHECK": 116,
+   "VC_LENGTH_CHECK": 58
+  },
+  "winning_prover": {
+   "Z3": 174,
+   "CVC5": 3
+  },
+  "attempt_results": {
+   "CVC5:Valid": 406,
+   "Z3:Valid": 406,
+   "altergo:Valid": 406
+  },
+  "win_steps": {
+   "max": 743,
+   "p50": 1,
+   "p90": 1,
+   "p99": 413,
+   "mean": 8.0
+  },
+  "win_time": {
+   "max": 0.105074003338814,
+   "p50": 0.0279419999569654,
+   "p90": 0.0439779981970787,
+   "p99": 0.09740100055933,
+   "sum": 5.3
+  },
+  "attempt_time": {
+   "max": 2.74955,
+   "p50": 0.629805,
+   "p90": 1.79829,
+   "sum": 140.6
+  },
+  "attempt_steps_max": 15195,
+  "vcs_total": 406,
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+   " 1": {
+    "gnat2why.vc_generation": 0.0327860005199909,
+    "gnatwhy3.init": 6.94878578186035,
+    "gnatwhy3.register_vcs": 71.7756805419922,
+    "gnatwhy3.run_vcs": 0.00182100001256913,
+    "gnatwhy3.save_session": 16.6457862854004,
+    "gnatwhy3.schedule_vcs": 199.150497436523,
+    "gnatwhy3.transformations.counterexamples_dependent_intros": 36.0519180297852,
+    "gnatwhy3.transformations.detect_polymorphism": 8.05642223358154,
+    "gnatwhy3.transformations.discriminate_if_poly": 0.00462500005960464,
+    "gnatwhy3.transformations.eliminate_algebraic": 19.9911651611328,
+    "gnatwhy3.transformations.eliminate_algebraic_if_poly": 44.1627388000488,
+    "gnatwhy3.transformations.eliminate_builtin": 9.7199182510376,
+    "gnatwhy3.transformations.eliminate_definition_conditionally": 2.19104409217834,
+    "gnatwhy3.transformations.eliminate_epsilon": 30.1557083129883,
+    "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 26.4548454284668,
+    "gnatwhy3.transformations.eliminate_inductive": 9.53980731964111,
+    "gnatwhy3.transformations.eliminate_literal": 30.5456619262695,
+    "gnatwhy3.transformations.eliminate_projections_sums": 4.14618110656738,
+    "gnatwhy3.transformations.eliminate_recursion": 1.93588805198669,
+    "gnatwhy3.transformations.encoding_smt_if_poly": 0.00234899902716279,
+    "gnatwhy3.transformations.inline_trivial": 90.1318206787109,
+    "gnatwhy3.transformations.introduce_premises": 28.4150218963623,
+    "gnatwhy3.transformations.monomorphise_goal": 2.69780206680298,
+    "gnatwhy3.transformations.remove_unused": 37.5127792358398,
+    "gnatwhy3.transformations.simplify_formula": 27.0741519927979,
+    "gnatwhy3.transformations.split_goal_wp_conj": 37.3356590270996,
+    "gnatwhy3.transformations.split_premise_right": 6.752760887146
+   },
+   "global": {
+    "flow analysis": 0.165966004133224,
+    "globals (advanced)": 0.0110370004549623,
+    "globals (basic)": 0.0204840004444122,
+    "init_why_sections": 0.00265899999067187,
+    "marking": 0.00192199996672571,
+    "properties (advanced)": 0.000136999995447695,
+    "translation of standard": 0.00181699998211116
+   }
+  },
+  "by_position_quartile": [
+   {
+    "quartile": 1,
+    "n": 43,
+    "mean_win_steps": 2.7,
+    "max_win_steps": 72,
+    "mean_att_time": 0.27,
+    "max_att_time": 0.58
+   },
+   {
+    "quartile": 2,
+    "n": 44,
+    "mean_win_steps": 10.4,
+    "max_win_steps": 413,
+    "mean_att_time": 0.571,
+    "max_att_time": 1.226
+   },
+   {
+    "quartile": 3,
+    "n": 43,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.895,
+    "max_att_time": 2.002
+   },
+   {
+    "quartile": 4,
+    "n": 44,
+    "mean_win_steps": 17.9,
+    "max_win_steps": 743,
+    "mean_att_time": 1.487,
+    "max_att_time": 2.75
+   }
+  ]
+ }
+}

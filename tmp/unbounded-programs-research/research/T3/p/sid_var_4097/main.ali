@@ -1,0 +1,8 @@
+V "GNAT Lib v16"
+M P W=b
+A -O0
+A -gnat2022
+A -gnata
+A -gnato
+A -mtune=generic
+A -march=x86-64

@@ -1,0 +1,136 @@
+V "GNAT Lib v16"
+A -gnat2022
+A -gnata
+A -gnato
+A -g
+P ZX
+
+RN
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_LONG_LONG_INTEGERS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+RV NO_IMPLICIT_LOOPS
+
+U silver_scalars%s	silver_scalars.ads	0c7bc18e NE OO PK
+
+D silver_scalars.ads	20261017131118 0c7bc18e silver_scalars%s
+D system.ads		20260430083320 e2b7c99d system%s
+G a e
+G c Z s s [intervalIP silver_scalars 9 9 none]
+G c Z s s [is_empty silver_scalars 14 13 none]
+G c Z s s [contains silver_scalars 16 13 none]
+G c Z s s [singleton silver_scalars 18 13 none]
+G c Z s s [normalize silver_scalars 19 13 none]
+G c Z s s [join silver_scalars 21 13 none]
+G c Z s s [intersect silver_scalars 26 13 none]
+G c Z s s [compare silver_scalars 31 13 none]
+G c Z s s [complement silver_scalars 39 13 none]
+G c Z s s [swap silver_scalars 44 13 none]
+G c Z s s [below silver_scalars 49 13 none]
+G c Z s s [above silver_scalars 52 13 none]
+G c Z s s [refine_true silver_scalars 55 13 none]
+G c Z s s [refine silver_scalars 65 13 none]
+G c Z s s [check_resultIP silver_scalars 71 9 none]
+G c Z s s [in_range silver_scalars 77 13 none]
+G c Z s s [checked silver_scalars 82 13 none]
+G c Z s s [add silver_scalars 86 13 none]
+G c Z s s [subtract silver_scalars 90 13 none]
+G c Z s s [negate silver_scalars 94 13 none]
+G c Z s s [product_minimum silver_scalars 97 13 none]
+G c Z s s [product_maximum silver_scalars 102 13 none]
+G c Z s s [multiply silver_scalars 107 13 none]
+X 1 silver_scalars.ads
+1K9*Silver_Scalars 110l5 110e19
+4I12*Value{integer} 10r22 13r33 13r46 16r49 18r31 24r13 25r13 27r19 28r19
+. 31r59 49r51 50r22 51r32 52r51 53r22 54r47 56r61 62r48 64r62 66r61 85r20
+. 85r35
+5I12*Wide{long_long_integer} 6r23 7r23 77r30 82r37 88r21 88r41 89r21 89r41
+. 92r21 92r41 93r21 93r41 96r22 96r45 97r61 98r7 98r17 98r27 98r47 99r26
+. 99r46 100r17 100r27 100r47 101r26 101r46 102r61 103r7 103r17 103r27 103r47
+. 104r26 104r46 105r17 105r27 105r47 106r26 106r46
+6i4*Minimum{5I12} 78r15
+7i4*Maximum{5I12} 78r40
+9R9*Interval 11e14 12r21 13r20 14r32 16r32 18r45 19r33 19r50 21r33 21r50
+. 26r38 26r55 49r29 49r65 52r29 52r65 56r16 57r14 66r16 67r14 73r16 86r32
+. 90r37 94r31 97r44 102r44 107r37
+10i7*Lower{4I12} 15r14 17r22 24r29 24r42 27r35 27r48 88r32 88r53 92r32 93r53
+. 96r59 98r38 98r59 99r37 100r59 103r38 103r59 104r37 105r59
+10i14*Upper{4I12} 15r29 17r52 25r29 25r42 28r35 28r48 89r32 89r53 92r53 93r32
+. 96r36 99r58 100r38 101r37 101r58 104r58 105r38 106r37 106r58
+12r4*Empty{9R9} 20r33 50r39 53r38 75r47 76r50
+13r4*Full{9R9}
+14V13*Is_Empty{boolean} 14b13 14>23 20s10 22s10 23s13 87s10 87s34 91s10 91s34
+. 95s10 108s10 108s34
+14r23 Bounds{9R9} 15r7 15r22
+16V13*Contains{boolean} 16b13 16>23 16>42
+16r23 Bounds{9R9} 17r15 17r45
+16i42 Item{4I12} 17r7 17r37
+18V13*Singleton{9R9} 18b13 18>24 59s42
+18i24 Item{4I12} 18r59 18r65
+19V13*Normalize{9R9} 19b13 19>24 22s31 27s7
+19r24 Bounds{9R9} 20r20 20r44
+21V13*Join{9R9} 21b13 21>19 21>25 60s25
+21r19 Left{9R9} 22r20 23r35 24r24 25r24
+21r25 Right{9R9} 22r42 23r23 24r36 25r36
+26V13*Intersect{9R9} 26b13 26>24 26>30 51s12 54s12 59s23 62s28 64s31
+26r24 Left{9R9} 27r30 28r30
+26r30 Right{9R9} 27r42 28r42
+30E9*Comparison 30e81 31r33 39r36 39r55 44r30 44r49 56r37 66r37
+30n24*Equal{30E9} 33r14 41r14 41r48 46r14 46r23 59r14
+30n31*Unequal{30E9} 34r14 41r23 41r37 46r35 46r46 60r14
+30n40*Less{30E9} 35r14 42r14 43r59 47r14 48r25 61r14
+30n46*Less_Equal{30E9} 36r14 42r42 43r25 47r36 48r53 62r14
+30n58*Greater{30E9} 37r14 42r56 43r14 47r22 48r14 63r14
+30n67*Greater_Equal{30E9} 38r14 42r22 43r42 47r50 48r36 64r14
+31V13*Compare{boolean} 31b13 31>22 31>45 31>51
+31e22 Operator{30E9} 32r12
+31i45 Left{4I12} 33r23 34r25 35r22 36r28 37r25 38r31
+31i51 Right{4I12} 33r30 34r33 35r29 36r36 37r32 38r39
+39V13*Complement{30E9} 39b13 39>25 69s47
+39e25 Operator{30E9} 40r12
+44V13*Swap{30E9} 44b13 44>19
+44e19 Operator{30E9} 45r12
+49V13*Below{9R9} 49b13 49>20 49>39 60s31 61s22
+49r20 Bounds{9R9} 51r23
+49i39 Threshold{4I12} 50r10 51r45
+52V13*Above{9R9} 52b13 52>20 52>39 60s58 63s25
+52r20 Bounds{9R9} 54r23
+52i39 Threshold{4I12} 53r10 54r32
+55V13*Refine_True{9R9} 55b13 56>7 56>26 56>49 68s7
+56r7 Bounds{9R9} 59r34 60r38 60r65 61r29 62r39 63r32 64r42
+56e26 Operator{30E9} 58r12
+56i49 Threshold{4I12} 59r53 60r46 60r73 61r37 62r61 63r40 64r51
+65V13*Refine{9R9} 65b13 66>7 66>26 66>49 66>68
+66r7 Bounds{9R9} 69r10
+66e26 Operator{30E9} 69r33 69r59
+66i49 Threshold{4I12} 69r71
+66b68 Truth{boolean} 69r22
+71R9*Check_Result 74e14 75r23 76r27 82r50 86r49 90r54 94r48 107r54
+72b7*Safe{boolean}
+73r7*Bounds{9R9}
+75r4*Invalid{71R9} 85r56
+76r4*Unreachable{71R9} 83r29 87r56 91r56 95r34 108r56
+77V13*In_Range{boolean} 77b13 77>23 84s13 84s39
+77i23 Item{5I12} 78r7 78r32
+82V13*Checked{71R9} 82b13 82>22 82>29 88s12 92s12 96s12 109s12
+82i22 Lower{5I12} 83r10 84r23 85r27
+82i29 Upper{5I12} 83r18 84r49 85r42
+86V13*Add{71R9} 86b13 86>18 86>24
+86r18 Left{9R9} 87r20 88r27 89r27
+86r24 Right{9R9} 87r44 88r47 89r47
+90V13*Subtract{71R9} 90b13 90>23 90>29
+90r23 Left{9R9} 91r20 92r27 93r27
+90r29 Right{9R9} 91r44 92r47 93r47
+94V13*Negate{71R9} 94b13 94>21
+94r21 Operand{9R9} 95r20 96r28 96r51
+97V13*Product_Minimum{5I12} 97b13 97>30 97>36 109s21
+97r30 Left{9R9} 98r33 99r32 100r33 101r32
+97r36 Right{9R9} 98r53 99r52 100r53 101r52
+102V13*Product_Maximum{5I12} 102b13 102>30 102>36 109s52
+102r30 Left{9R9} 103r33 104r32 105r33 106r32
+102r36 Right{9R9} 103r53 104r52 105r53 106r52
+107V13*Multiply{71R9} 107b13 107>23 107>29
+107r23 Left{9R9} 108r20 109r38 109r69
+107r29 Right{9R9} 108r44 109r44 109r75
+

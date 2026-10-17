@@ -1,0 +1,32 @@
+with Ada.Text_IO;
+procedure Main is
+   C0 : constant String := "x";
+   C1 : constant String := C0 & C0;
+   C2 : constant String := C1 & C1;
+   C3 : constant String := C2 & C2;
+   C4 : constant String := C3 & C3;
+   C5 : constant String := C4 & C4;
+   C6 : constant String := C5 & C5;
+   C7 : constant String := C6 & C6;
+   C8 : constant String := C7 & C7;
+   C9 : constant String := C8 & C8;
+   C10 : constant String := C9 & C9;
+   C11 : constant String := C10 & C10;
+   C12 : constant String := C11 & C11;
+   C13 : constant String := C12 & C12;
+   C14 : constant String := C13 & C13;
+   C15 : constant String := C14 & C14;
+   C16 : constant String := C15 & C15;
+   C17 : constant String := C16 & C16;
+   C18 : constant String := C17 & C17;
+   C19 : constant String := C18 & C18;
+   C20 : constant String := C19 & C19;
+   C21 : constant String := C20 & C20;
+   C22 : constant String := C21 & C21;
+   C23 : constant String := C22 & C22;
+   C24 : constant String := C23 & C23;
+   C25 : constant String := C24 & C24;
+   C26 : constant String := C25 & C25;
+begin
+   Ada.Text_IO.Put_Line (C26);
+end Main;

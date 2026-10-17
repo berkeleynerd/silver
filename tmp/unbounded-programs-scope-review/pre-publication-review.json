@@ -1,0 +1,484 @@
+[
+ {
+  "key": "accuracy",
+  "lens": "factual accuracy",
+  "summary": "Almost all figures, file:line references, constant names, catalogue fields, anchors, Lean names and Oracle quotations check out against the retained research and current main (041acd08fb). Seven things are materially wrong or overstated.\n(1) The scope's \"Goal\" section restates the owner's bar (\"research can prove is tractable in every case\") as the weaker \"research shows is tractable\". It also never reports the full_stops that T1, T3 and T4 recorded.\n(2) The proof-run count is double-counted. The \"pipeline smoke\" is f1-1k, so the record has 17 runs with 16 completed, not 18 and 17.\n(3) \"No crash\" hides per-prover \"High failure\" attempts. These appear in 11 of 16 runs, including at 570 bytes and with --memlimit=16000.\n(4) The node-id counter is said to be kept out of reach \"by the rules above\". The source rules do not do that; only resource exhaustion does.\n(5) Two report-side limits that survive the redesign are not listed: retained reports capped at Natural'Last \u2212 1, which the envelope keeps within reach only up to 587,402 source bytes, and the unverified producer premise behind it. The 16 MiB source-read bound is also missing; today it ends in Rejected, status 2.\n(6) The Lean lifting row marks an observed classification as \"Proved\".\n(7) \"Unreachable\" is claimed for GNAT tables that were never probed.\nSmaller issues: tab-evidence wording, a MiB conversion, the \"largest value tested\" phrasing, two-point exponent fits, and E2BIG status mapping inconsistent between B, G and the scope.",
+  "findings": [
+   {
+    "severity": "high",
+    "location": "docs/unbounded-programs.md:23-25 (also docs/session-memory.md new entry, para 3 'The research found no Oracle amendment necessary')",
+    "problem": "The scope restates the owner's criterion more weakly than the owner's own words recorded in session memory. It also does not report the research full_stops, although the owner asked for any full stop to be reported.",
+    "evidence": "Session memory quotes the owner: \"the most expansive, expensive, and best option research can prove is tractable in every case. If anything requires a full stop then let me know.\" The scope says \"the most expansive option that research shows is tractable\". The T4 verdict says: \"None of this proves completion 'in every case'. The evidence is observed, not proved\". Recorded full_stops: T1 (\"Accepting that guarantee on an unverifiable premise over an infinite family is an assurance-policy choice ... Default: keep the 4096-byte, 64-leaf and 63-operator membership limits\"); T3 (frontend rules described as \"an Oracle/language amendment\" needing owner approval); T4 (the determinism policy choice between --steps=0, escalation, or keeping the cap). The scope removes those limits and picks --steps=0 without mentioning any of these entries.",
+    "proposed_fix": "Replace lines 23-25 with: \"The owner asked for 'the most expansive, expensive, and best option research can prove is tractable in every case', without option menus, and for any full stop to be reported. Research does not prove solver completion for every admitted program: it is an explicit premise (see [trusted premises](#trusted-premises)). The research tracks recorded three full-stop items, resolved here as follows: T1's gate on removing the 4096/64/63 limits rests on the solver premise; T3's frontend rules are explicit pre-1.0 language rules, not an Oracle change; T4's reproducibility choice is resolved by uncapped confirmation (--steps=0), which no longer gates builds.\" Then have the owner confirm this reading as part of the 'proceed'."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:189; docs/evidence/unbounded-programs/scoping-research.json:71-74 and 273-277",
+    "problem": "The proof-run count double-counts one run. The 'pipeline smoke (one f1 block)' in other_completed_runs is the same run as f1-1k in the runs table. There were 17 recorded runs: 16 completed and 1 stopped, not 18 and 17.",
+    "evidence": "T4/pids.log and T4/results.jsonl each hold exactly 17 runs, and 16 of them have exit 0. T4 experiments[0] is 'Pipeline smoke test' with setup 'f1-1k (570 B, 1 block)', result '2 Main checks ... whole project 68 checks proved'; proj-f1-1k/proof.log says 'Success: all checks proved (68 checks)'. The T4 summary's own split ('Fifteen were scaling runs' plus 3) does not add up either: there are 14 scaling runs.",
+    "proposed_fix": "Scope line 189: \"17 production-configuration proof runs on admitted-style programs; all 16 that completed proved every check, ...\". JSON: \"runs_total\": 17, \"runs_completed\": 16. Delete the pipeline-smoke entry, or replace it with a note that f1-1k served as the pipeline smoke. Set runs_note to \"runs lists the 14 fitted scaling runs (f1-1k doubled as the pipeline smoke); other_completed_runs lists the 2 option smokes; 14 + 2 = 16 completed, plus 1 stopped = 17\"."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:189 ('no unproved check, crash, hard error or all-provers-failed check'); scoping-research.json proof_scaling (no per-prover failure record)",
+    "problem": "'No crash' is misleading. Individual losing-prover attempts ended in 'High failure' in most runs. The evidence record leaves them out, and the T4 verdict it copies attributes them to the 1,000 MiB cap, which the data do not support.",
+    "evidence": "proj-*/result.json attempt_results: 'High failure (signaled)' appears in 11 of the 16 completed runs. These include f1-1k (3 alt-ergo, plus 1 Z3 'unrecognized prover answer'), f2-1k-m16000 (memlimit 16000) and f2-1k-s0m0. f1-32k has 8 alt-ergo 'High failure (unrecognized prover answer)'. f2-16k has 1 CVC5 and 1 alt-ergo signaled. Because signaled failures occur at 570 bytes and with a 16 GB memlimit, they are not size- or memlimit-driven (racing interruption is plausible). T4 itself marks the memlimit attribution 'plausible but not verified'.",
+    "proposed_fix": "Line 189: \"...; no unproved check, tool crash, hard error or check where every prover failed. Losing-prover attempts ended as 'High failure' in 11 of 16 runs, at every size and also with --memlimit=16000. Another prover always proved those checks.\" Add to the JSON proof_scaling: \"losing_prover_failures\": \"High failure (signaled) in 11/16 completed runs at all sizes, including f2-1k-m16000; 8 alt-ergo 'unrecognized prover answer' at f1-32k; cause not diagnosed\"."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:144-146",
+    "problem": "The text says the source rules keep the producer's 2^31\u22121 Image node counter out of reach. They do not. The source rule allows nearly 2^31 bytes, and the counter is reached at a 40\u201380 MB source; only resource exhaustion (a model over 100 GB) prevents it. Research classifies it as a producer premise.",
+    "evidence": "T4 item 'Image adapter gnat-json node-id bound': about 25\u201352 ids per source byte, '2^31 needs a 40-80 MB source and a model of more than 100 GB; gnatwhy3 would exhaust memory first. Strictly, it is still a fixed cap'. T1 premises: 'PREMISE (tool, documented): the Image producer's serialization counter is a Natural (<= 2^31-1)'.",
+    "proposed_fix": "\"The producer's Image node counter (2^31 \u2212 1) is a fixed producer structure. Admitted sources can in principle reach it (about 25\u201352 node ids per source byte, so 40\u201380 MB of source), but only through a model of more than 100 GB, so host memory runs out first. It is recorded as a pinned-tool premise. The JSON nesting depth (64) is a producer-schema limit that does not grow with program size. #{D} widens the adapter's own node identifier to the 63-bit byte-count range.\" Also add the node-counter premise to the Trusted premises list."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:119 and 130-146 (kept limits/premises); docs/session-memory.md new entry para 3; roadmap.md new section ('Only limits ... remain')",
+    "problem": "Two report-side limits are omitted, although research found both survive the redesign. Retained reports stay capped at Natural'Last \u2212 1, and the documented envelope keeps them within that cap only for sources up to 587,402 bytes. That cap rests on an unverified premise that the producer's .spark writer is Natural-indexed. The 'kept limits' statements in the scope, session memory and roadmap list only the frontend and Ada limits.",
+    "evidence": "T1 notes \u00a73(b): 'The envelope gives S <= 587,402 within Natural'Last - 1; measured reports are about 490 B per source byte. Beyond 2 GiB, use 64-bit-indexed byte arrays (L) or streaming (XL).' T1 verdict: 'retained reports up to Natural'Last - 1 ... Removing even this needs 64-bit byte arrays.' T1 premises: 'PREMISE (tool, unverified): the producer writes .spark through Natural-indexed strings ... then Natural'Last - 1 retained-report capacity never binds.'",
+    "proposed_fix": "Add a Trusted premises bullet: \"**Report size.** Retained reports are bounded by `Natural'Last \u2212 1` bytes. Under the documented envelope that covers sources up to 587,402 bytes (measured reports run about 490 bytes per source byte). Beyond that, the bound relies on the unverified premise that the producer writes .spark text through Natural-indexed strings. A larger report needs 64-bit or streaming storage.\" Mention the same premise in the session-memory and roadmap summaries."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:185 (Class column)",
+    "problem": "Classification overstated. Only the lifted declarations were kernel-checked. The statement that the failures are not decidability, termination, uniqueness or fuel arguments is a manual classification that T2 labels 'Observed'. Also, failed declarations were re-added unchecked, so downstream successes are conditional on them.",
+    "evidence": "T2 premises: 'Proved by lifting (each lifted declaration kernel-checked; failed ones re-added unchecked so later roots are independent)'; 'Observed (classification of the failing existing proof terms, conditional on their dependencies generalizing): none of the failures is a decidability, termination, uniqueness or fuel argument'. The actual ratios are 95.6%, 95.5%, 96.1% and 97.1%.",
+    "proposed_fix": "Split the row. Row a: \"About 96% of the affected Lean declaration groups lift to a symbolic bound unchanged (for example 4,154 of 4,347); failed declarations were re-added unchecked, so dependants are checked conditionally\", class \"Proved by kernel-checking each lifted declaration\". Row b: \"None of the failures is a decidability, termination, uniqueness or fuel argument\", class \"Observed: manual classification of the failing proof terms\"."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:160-164; C.md line 11",
+    "problem": "'They were unreachable on the 31 GB research host' presents an untested extrapolation as an observation. T3 never probed the table caps. It also warns that a cap is logically reachable within 2 GiB of source and that a much larger host could hit a cap before running out of memory. The 'minimum source bytes per table entry' route in #{C} is flagged by T3 as not established.",
+    "evidence": "T3 item 'GNAT fixed internal table capacities': evidence 'Source-reasoned only; not probed'. Risks: 'Within 2 GiB a cap is logically reachable: 8-byte Put (\"\"); statements give ~1e8 String_Ids ... On this host memory or time runs out first; on a much larger host a cap could fail first.' Unbounded_replacement: 'only if every entity costs at least one source byte, which is not proved for internally created lists and strings'; proof_impact: 'A rigorous derived bound would need per-construct entity-count analysis of the frontend, which is not tractable cheaply.' T3 also lists Elmt (1e8) and Uint (~1.5e9) tables.",
+    "proposed_fix": "\"**GNAT internal tables.** The fixed capacities (100,000,000 Names, Lists, Elists, Elmts, Strings and Ureal entries; about 1.5e9 Uints; 2,000,000,000 nodes) were not probed. Source analysis and scaling runs suggest time or memory runs out first on the 31 GB research host, for example because sequence analysis is quadratic. A much larger host could reach a cap first, since some cap is logically reachable within 2 GiB of source. #{C} either derives a rigorous source bound, which needs a per-construct entity-count analysis of the frontend, or records this premise.\""
+   },
+   {
+    "severity": "medium",
+    "location": "G.md line 11; B.md line 13 ('as the scope specifies'); docs/unbounded-programs.md:73-74",
+    "problem": "Status mapping is inconsistent and unspecified. G sends a spawn E2BIG to the 'infrastructure outcome', which the scope's table puts at status 3. The scope's status 4 covers 'operating-system limits', and the T5 research lists E2BIG among status-4 triggers. B defers the errno and signal mapping to 'as the scope specifies', but the scope gives no per-errno or per-signal mapping.",
+    "evidence": "Scope status table: 3 = '...implementation or infrastructure failure...'; 4 = '...process or operating-system limits'. T5 recommendation: 'Triggers: child tool killed by SIGKILL, SIGXCPU or SIGXFSZ; ENOMEM, ENOSPC, EMFILE or E2BIG from Silver's own calls'. G.md: 'silver run reports a spawn E2BIG as an infrastructure outcome'.",
+    "proposed_fix": "Add to the scope after the status table: \"Status 4 covers child-tool deaths by SIGKILL, SIGXCPU or SIGXFSZ, `Storage_Error`, and ENOMEM, ENOSPC, EMFILE or E2BIG from Silver's own calls, including a `silver run` spawn that exceeds the OS argument limit. Other signals and errors are status 3.\" In G.md, replace 'reports a spawn `E2BIG` as an infrastructure outcome' with 'reports a spawn `E2BIG` as resource exhaustion (status 4)'."
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:119 (Removed limits table) and line 115",
+    "problem": "The removed-limits inventory leaves out the 16 MiB file-read bound. Today it turns an oversized source into 'Rejected' (status 2). T1 and T5 identify it as a bound that scales with the program and that would make capacity look like nonmembership once the cap is lifted. D.md covers it only implicitly ('Source reads ... growable').",
+    "evidence": "src/silver_platform.ads:9 'Max_File_Length : constant Positive := 16_777_216'; src/silver.adb:441-447 'if Too_Long then Failure (\"Rejected: source is outside the Silver catalogue.\", 2)'. T5 experiment: '17,825,901-byte source ... Rejected (status 2) ... would turn capacity into rejection, violating oracle.md:1 and :10'.",
+    "proposed_fix": "Add row: \"| 16 MiB file reads; an oversized source reports Rejected | `Silver_Platform.Max_File_Length`, `src/silver.adb` Too_Long path | Growable reads; no read or size failure maps to status 2 | #{B}, #{D} |\"."
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:125-127",
+    "problem": "'A single constant, 4096' is inaccurate. Several independent constants each equal 4096, and only one Lean tie is mechanical.",
+    "evidence": "src/silver_profile.ads:4 and src/silver_output_profile.ads:6 Max_Source_Length; src/silver_io.ads:5 Max_Length (used by silver_arguments.adb:6); src/silver_path_facts.ads:4 Max_Length; silver_scalar_literals.ads:7 Max_Exponent. T2: 'Ties ... are mechanical only for Output.Runtime.maxLength'.",
+    "proposed_fix": "\"Today the value 4096 serves the source, String value, argument, output and length-literal roles through several constants that are not tied to one another (`Max_Source_Length` in both profiles, `Silver_IO.Max_Length`, `Silver_Path_Facts.Max_Length`). The String value domain is enforced partly through `Max_Source_Length` itself.\""
+   },
+   {
+    "severity": "low",
+    "location": "E.md line 10 ('Split roles') and line 9 ('This is the only change to what is true')",
+    "problem": "E.md mislists the roles of `maxSourceLength`. In Lean it serves source length, the String value domain and the length-literal domain. Argument and per-call output use the separate `Output.Runtime.maxLength`; the exponent uses `maxExponent`; there is no identifier constant. E.md also says the range schema is the only truth-dependent change, but T2 also lists the domain-coupling lemmas.",
+    "evidence": "T2 items: 'Output.Runtime.maxLength (IO per-call and argument domain) 4096 (separate constant)'; 'proof/Silver/ScalarLiteral.lean:12 (maxExponent, 16 uses)'. T2 summary: 'Domain coupling: healthy_effect, selected_domain and the default_is_message lemmas are true only because the source/value bound and the IO/argument Max_Length happen to both be 4096'.",
+    "proposed_fix": "Line 10: \"**Split roles.** Separate the source-length, String-value and length-literal roles of `maxSourceLength`. Relate them to `Output.Runtime.maxLength` (argument and per-call output) and `maxExponent` with order lemmas, and add an identifier-length constant.\" Line 9: \"Apart from the domain-coupling lemmas (`healthy_effect`, `selected_domain`, `default_is_message`), this is the only change to what is true: ...\""
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:187-188 (Class column)",
+    "problem": "The provenance of the tool-limit and configuration rows is overstated. Line width, exponent and total size were observed with gcc -gnatc only (plus a 100 MB -O0 build); only the identifier limit was tested in GNATprove modes. Racing, '-j0 in turn' and the 5,368,146 threshold come from producer source and a formula, not from session files.",
+    "evidence": "T3 experiments: line width 'gcc -c -gnatc'; size 'gcc -gnatc (and 100 MB full -O0 -g)'. T1 exponent bisection uses gnatc probes in gnat/. T3 coverage gaps: 'The racing scheduler and interrupt-on-Valid are source-reasoned plus a small observation'. Z3 wrap: observed by running Z3 directly on trivial goals; the threshold is derived from gnat_config.ml '450000+800s'.",
+    "proposed_fix": "Row 187 class: \"Observed with `gcc -gnatc` (identifier length also with `-O0` builds and GNATprove check, flow and proof modes; total size also with a 100 MB `-O0` build) and confirmed against GNAT source\". Row 188 class: \"Observed in session files and direct Z3 runs; the step threshold, racing and the `gave_up` mapping are derived from producer source\"."
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:141; C.md line 10",
+    "problem": "'The largest value tested' is wrong. Larger sizes were tested and failed (2,147,483,647 and 2^31). The intended meaning is the largest size tested and accepted.",
+    "evidence": "T3 experiment: 'gen_big.py ... 2,130,706,432, 2,147,483,647 and 2,147,483,648 bytes'. The evidence JSON key is 'largest_tested_accepted'.",
+    "proposed_fix": "Line 141: \"Below 2^31; 2,130,706,432 bytes (2^31 \u2212 2^24) is the largest accepted size tested\". C.md: \"2,130,706,432 bytes (2^31 \u2212 2^24) is the largest size so far shown to be accepted; 2,147,483,647 crashes `gnat1`.\""
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:140",
+    "problem": "'In every base and mantissa' overstates the exponent probes. Only bases 2, 10 and 16 were tested, with a few mantissas.",
+    "evidence": "T1 premises: 'rejects numeric exponents >= 800000 ... for bases 2, 10 and 16 and any mantissa'; probes 0E799999, 16#0#E799999, 2#0#E799999, 2#0#E800000, 16#0#E800000. The evidence JSON says 'every tested base and mantissa'.",
+    "proposed_fix": "\"800,000 gives 'exponent too large' in every tested base (2, 10 and 16) and mantissa; the GNAT scanner source (scng.adb) confirms the check\"."
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:100-101; B.md line 10",
+    "problem": "'Silently becomes tiny' holds only just above the threshold. Above it, the Z3 limit wraps modulo 2^32 to an arbitrary, usually much smaller, value.",
+    "evidence": "Z3 raw rlimit = 450000 + 800\u00b7steps (gnat_config.ml). At steps = 10,000,000 the raw value 8,000,450,000 wraps to 3,705,482,704. T3 observed rlimit 4294967297 behaves like 1.",
+    "proposed_fix": "\"A finite `--steps` must never exceed 5,368,146: above that, Z3's resource limit wraps modulo 2^32 and silently becomes a different, usually much smaller, limit.\""
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:95-96",
+    "problem": "'Without --level, --memlimit=0 imposes none' leaves out an observed exception. It was also observed only on a tiny null program.",
+    "evidence": "T3 item: 'No --level with --memlimit=0: memlimit=\"0\" (plus one trivial-goal attempt that always records 1000)'. Setup: 'Tiny null program'. T4: '--level=0..4 variants and removing --level were not tried'.",
+    "proposed_fix": "\"...; without `--level`, `--memlimit=0` removed the limit in a small probe, except for one trivial-goal attempt that still recorded 1,000 MiB. #{B} confirms this on real programs.\""
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:190 and 243",
+    "problem": "The 'fitted exponents' for dense String copies (F3, wall 1.92 and memory 1.98) come from only two points. The 90 GiB projection rests on them. The timings were also taken under concurrent load.",
+    "evidence": "fit.txt fits runs of 1.5 KB or more: F3 uses only f3-2k and f3-4k (f3-1k is 1,024 B); F2 uses 4 points; F1 uses 5. T4 premises: 'Timings are contaminated and are not benchmarks'.",
+    "proposed_fix": "Line 190: append \"(F3 from two sizes only; timings under concurrent research load)\". Line 243: \"dense 16 KB code projects near 90 GiB (a two-point extrapolation)\"."
+   },
+   {
+    "severity": "low",
+    "location": "docs/evidence/unbounded-programs/scoping-research.json:27",
+    "problem": "The tab evidence is misstated. The bisection was over total line bytes (39 code bytes plus tabs), not over the number of tabs.",
+    "evidence": "T3 notes lines 37-38: '(39 bytes) + tabs: 4130-byte line accepted, 4131-byte line rejected (expanded width 41+8*(L-40) > 32766 exactly at L = 4131)'.",
+    "proposed_fix": "\"...; a line of 39 code bytes followed by tabs is accepted at 4,130 bytes and rejected at 4,131 bytes; a 4,095-byte all-tab line is accepted and a 4,096-byte one rejected\""
+   },
+   {
+    "severity": "low",
+    "location": "docs/evidence/unbounded-programs/scoping-research.json:319",
+    "problem": "Unit conversion error: the minimum stack measured was 16,352 KiB, which is about 16.0 MiB, not 16.35 MiB.",
+    "evidence": "T1 notes \u00a72: '8142 levels (16,384 bytes) 32.0 s, min stack 16,352 KiB'.",
+    "proposed_fix": "\"8,142 levels take 32 s and a minimum of 16,352 KiB (about 16.0 MiB) of stack at a 16 KiB limit\""
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:116-117, 121",
+    "problem": "The Location column is incomplete. The 64-leaf String limit is `Max_Expression_Operands`, with `Max_Operands` covering scalars, and the catalogue fields `max_operands` and `max_dynamic_references` are left out. The exponent limit also applies to scalar numerals, not only length-predicate literals.",
+    "evidence": "src/silver_output_profile.ads:7 'Max_Expression_Operands : constant Positive := 64'; src/silver_scalar_expressions.ads:9 'Max_Operands'; catalogue/silver.json:214,217 max_operands/max_dynamic_references 64; language.md:252-253 'The exponent remains nonnegative and at most 4096, even for zero' (scalar numerals); src/silver_scalar_literals.ads:7 Max_Exponent.",
+    "proposed_fix": "Row 117 location: \"`Max_Expression_Operands`, `Max_Operands`, catalogue `max_expression_operands`, `max_operands`, `max_dynamic_references`\". Row 121 location: \"[language.md](../language.md#integer-objects-expressions-and-comparisons), [length literals](../language.md#integer-literals-in-length-predicates), `Max_Exponent`\". Mirror these field names in F.md line 12."
+   },
+   {
+    "severity": "low",
+    "location": "roadmap.md new section ('a failure is a defect report'); A.md line 6; B.md line 6",
+    "problem": "These summaries say every confirmation failure is a defect report. The scope instead classifies resource-limited outcomes as 'Inconclusive' (status 4, environmental), not as defects.",
+    "evidence": "docs/unbounded-programs.md:82-83: Inconclusive = 'Some check ended only through resource limits ... Status 4 ...; environmental'; Defect = definite non-proof with resources remaining, or audit rejection.",
+    "proposed_fix": "Roadmap: \"a definite non-proof or rejected report is a defect report, while a resource-limited confirmation is inconclusive\". Apply the same wording in A.md and B.md ('whose definite failures are defect reports')."
+   },
+   {
+    "severity": "low",
+    "location": "A.md line 12",
+    "problem": "The class list in the completion criterion omits 'derived', a class the scope actually uses (line 193).",
+    "evidence": "docs/unbounded-programs.md:193 class 'Derived from the documented envelope'.",
+    "proposed_fix": "\"the research evidence by class (proved, observed, derived, premise)\""
+   }
+  ],
+  "verified": [
+   "MANIFEST.json SHA-256 7848544990640d8609ed9d2b445417b19b432973d5597465cdb3adf705af9a63 matches the evidence record; 2,154 files; 20 large or session paths skipped",
+   "The five track_verdicts in scoping-research.json are byte-identical to the research-results.json verdicts",
+   "The 14-row runs table (bytes, statements, checks, wall time, gnatwhy3 and tree GiB, attempt time and steps, winning steps, report bytes) matches T4/fit.txt and results.jsonl exactly",
+   "Fitted exponents: wall 1.82/1.99/1.92, memory 1.00/1.43/1.98, report and checks about 1.0; f3-4k 1,376.7 s (about 23 min) and 5.863 GiB; f3-8k stopped at 263.3 s by the 14 GiB guard, projected 23 GiB and 85 min; solver 51 s of 1,377 s; winning steps 1,021 in these runs and 1,340 in earlier reports",
+   "Proof command in src/silver.adb:117-123 (current main 041acd08fb): --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0; -gnata -gnato at :114",
+   "src/silver_library_reports.adb:1213 and :2088 still hold the +4_096 name bound (executable and raw policies); scripts/check_evidence.py:484 holds the +4096 bound",
+   "Constants still present on main: Silver_Profile and Silver_Output_Profile Max_Source_Length 4_096, Max_Bindings = Max_Source_Length / 12 in silver_output_profile.ads:13 and silver_scalar_expressions.ads:8, Max_Operands 64, Max_Expression_Operands 64, Max_Concatenations 63, Work_Tail/Within_Work_Budget, Silver_IO.Max_Length 4_096, Silver_Path_Facts.Max_Length 4_096, Max_Report_Length 16_777_216, Silver_Report_Storage, Original_Node_Id 0..2_147_483_647",
+   "Catalogue field names max_source_bytes, max_program_operators, max_expression_operands, max_argument_bytes, exponent_range and exponent_bound_purpose exist in catalogue/silver.json",
+   "Anchors resolve: language.md#source-and-lexical-rules, #common-string-expressions, #integer-literals-in-length-predicates; development.md#proof-loop-and-validation; review-b79b986403.md B1 anchor; session-memory and roadmap anchors; scope section anchors used by issues B\u2013H",
+   "Lean names exist: Current.uniform_discharge, ToolContract, automatic_pipeline, workTail/withinWorkBudget, Guarded uniform_range_valid/uniform_discharge, the Refines schema",
+   "Oracle quotations are accurate ('must be proved for the language and its composition rules', 'completeness of automatic obligation discharge'); the paraphrases of oracle.md:14 and :19 are faithful",
+   "development.md:219-220 'remain mandatory and unchanged'; language.md:510 sufficient host resources is an operational premise; README:326-336 today's statuses 0/2/3 and status 1 overlap; trusted-boundary Storage_Error exit 1",
+   "Uniform schema bound 2L <= 32,767 (L <= 16,383) and the exact schema were proved in the T2 probes; lifting counts 4,154/4,347, 4,559/4,776, 2,524/2,627, 4,633/4,770 match",
+   "Z3 threshold arithmetic: 450000 + 800 x 5,368,146 = 4,294,966,800 < 2^32 and 5,368,147 exceeds it",
+   "T3 limits: 32,765/32,766 line width with the exact message, identifier 4,097 'Name buffer overflow; Max_Length = 4096' namet.adb:141, 2,130,706,432 accepted in 10.46 s / 2.16 GB, 2^31\u22121 SIGSEGV, 2^31 loop; Linux 131,071-byte argument and E2BIG, ARG_MAX 2,097,152; gnat2why 8 MiB flow failure between 1,000 and 2,000 nested loops",
+   "T1 figures: 29, 113 and 576 KiB per loop level; condition parentheses 1.73\u20131.88 s and 32 s; up to six parses; envelope above 4,502 bytes; Storage_Error exits with status 1; 20 GB disk for the static-data probe (T1 stage 4); macOS hard stack about 64 MiB (T5)",
+   "Retained workspace .silver/linux-x86_64/imagews-n5nSxf exists in the root checkout (17M); Lean toolchain v4.34.1 and tool versions match the repository records",
+   "Notes written to /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/scopereview/accuracy/notes.md and t3.txt"
+  ]
+ },
+ {
+  "key": "process",
+  "lens": "process, conventions and cross-document consistency",
+  "summary": "The planning set is mostly consistent. Package names, order and dependencies match across docs/unbounded-programs.md, the roadmap section, the session-memory entry and issues A-H. Every new relative link and anchor resolves in the worktree (script at /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/scopereview/process/links.py; the only failures are pre-existing historical session-memory anchors outside the diff). git diff --check is clean, the JSON is valid, titles follow '<milestone>: <work package>', and all labels come from the documented set. No blocker was found. Six medium findings: (1) issue A does not tie its own status or completion to the authorization reaching main, as planning.md requires. (2) The claim that only pinned-tool and inherited limits remain leaves out the Natural'Last-1 report storage and the other fixed capacities that T1 keeps. (3) How E2BIG and signal deaths map to exit status 4 or 3 is left unspecified, and G's wording contradicts the research. (4) The owner's 'full stop' question is never answered in so many words. (5) Making per-program proof non-gating turns the per-program producer/Image applicability premise into a trusted premise, and no document lists it. (6) C, D and E all claim the identifier constant while being allowed to overlap. The low findings are wording, precision and evidence-record accuracy. Owner quotes other than the two in the brief could not be verified offline.",
+  "findings": [
+   {
+    "severity": "medium",
+    "location": "Issue A completion criteria (A.md lines 10-16); session-memory entry docs/session-memory.md new lines 14-20",
+    "problem": "Issue A's own authorization is not tied to the session-memory entry reaching main. A also has no criterion to close it with a Fixes commit. planning.md says an authorization counts only when a dated entry on main states it, issue comments cite that commit, an item becomes Ready only once its authorization is on main, and the completing commit uses Fixes #n. Here the scope work is done on the branch before the record is on main, and A says 'in Backlog except this package' without stating A's own status path.",
+    "evidence": "docs/planning.md:47-54 ('counts as recorded only when a dated entry in the session memory on main states it ... record it on main the same way before claiming the work'); :95-97 (Fixes #n). Precedent: session-memory lines 181-189 record the scope-only authorization reaching main through PR #71 with commit hashes.",
+    "proposed_fix": "Add to A's completion criteria: '- Merge the scope documents and the session-memory entry to `main` through a pull request whose completing commit uses `Fixes #{A}`; comment on #{A}\u2013#{H} citing that commit. #{A} moves to Ready/In progress only once the entry is on `main`; #{B}\u2013#{H} stay Backlog.'"
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md lines 21-23 and 130-146; roadmap.md new lines 26-29; session-memory new lines 26-28",
+    "problem": "All three say that only pinned-frontend and inherited limits remain. Package D itself keeps report storage capped at Natural'Last - 1, a Silver-owned limit that comes from Ada String indexing of a Silver buffer. A report can reach it far below the kept source bound: f3 reports are about 350 bytes per source byte, so roughly 6 MB of dense source exceeds 2 GiB. T1 also keeps fixed-input capacities: the 262,144-byte runtime and null reports, 16,384-byte runtime library files, 4096-byte paths and 16,384-byte command text. None of these is listed or given a purpose, which oracle.md requires for implementation resource limits.",
+    "evidence": "Evidence record track_verdicts.T1: 'The only fixed bounds that must stay ... Ada's Natural/Positive String indexing, at about 2^31: retained reports up to Natural'Last - 1 ... Removing even this needs 64-bit byte arrays.' research-results.json items 'Runtime report 262,144 bytes; ...' (necessary: true) and 'Paths 4096, command text 16,384, Image theorem name 1..4096' (necessary: true). Evidence f3-4k: report_bytes 1,434,133 for 4,096 source bytes.",
+    "proposed_fix": "Add a subsection after the pinned-tool table: '### Retained implementation capacities\\n\\n| Capacity | Value | Purpose | Outcome when exceeded |\\n| --- | --- | --- | --- |\\n| Retained GNATprove report | `Natural'Last - 1` bytes | Ada String indexing of the audited report | Confirmation inconclusive (status 4), never rejection or defect; lifting it needs 64-bit storage or streaming |\\n| Runtime/null reports, runtime library files | 262,144 / 16,384 bytes | Fixed inputs that do not grow with the program | Re-derived when the runtime changes (#{G}) |\\n| Paths, command text | 4096 / 16,384 bytes | OS-derived infrastructure | Status 3, never membership |'. In the roadmap and session memory, change 'Only limits that the pinned GNAT 16.1 frontend imposes, or that Ada inherits, remain as explicit rules' to '... remain as language rules; the remaining fixed implementation capacities are listed with their purpose in the scope proposal'."
+   },
+   {
+    "severity": "medium",
+    "location": "Issue B line 13; Issue G line 11; docs/unbounded-programs.md lines 66-77",
+    "problem": "B says to map child-tool signal deaths and ENOMEM, ENOSPC, EMFILE and E2BIG 'to status 4 or 3 as the scope specifies', but the scope specifies no such mapping. G says a spawn E2BIG is 'an infrastructure outcome', and the scope's status table defines 'infrastructure failure' as status 3. The T5 research classifies E2BIG and SIGKILL/SIGXCPU/SIGXFSZ as status 4. The documents therefore disagree on the exit status for the same event.",
+    "evidence": "Scope status table: '3 | Defect: a toolchain, implementation or infrastructure failure'; '4 | Resource exhaustion: memory, time, disk, stack, process or operating-system limits'. research/T5/notes.md \u00a74: '4 (new) ... Triggers: child tool killed by SIGKILL/SIGXCPU/SIGXFSZ, ENOMEM/ENOSPC/EMFILE/E2BIG'. B's completion criteria test E2BIG.",
+    "proposed_fix": "Add below the scope's status table: 'Status 4 also covers a child tool ended by SIGKILL, SIGXCPU or SIGXFSZ and ENOMEM, ENOSPC, EMFILE or E2BIG from Silver's own I/O or process calls, including `silver run`'s spawn of the program. Other infrastructure failures are status 3.' In B, replace 'to status 4 or 3 as the scope specifies' with 'to status 4 as the scope's status table specifies'. In G, replace 'reports a spawn `E2BIG` as an infrastructure outcome' with 'reports a spawn `E2BIG` as resource exhaustion (status 4)'."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md lines 23-25 and 31-39; session-memory new lines 8 and 22-23; roadmap.md new section",
+    "problem": "The owner explicitly asked: 'If anything requires a full stop then let me know.' The session memory and the scope repeat the request, but no document states the answer. The only nearby statement is 'no Oracle amendment' needed. The solver-premise risk (a possible new assurance-motivated limit if a definite non-proof appears) is a conditional that the owner might count as a full stop.",
+    "evidence": "Scope line 24-25: 'and for any full stop to be reported' with no later finding. Evidence T3 verdict: 'No Oracle-level full stop comes from T3'; T5: 'with no hard stop'.",
+    "proposed_fix": "Add to the scope after line 39 and to the session-memory paragraph beginning 'The research found': 'The research found no full stop: no Oracle amendment is needed and every remaining fixed limit is a pinned-tool maximum or inherited Ada meaning. The one conditional is the solver premise: if an admitted shape yields a definite non-proof with resources remaining and the defect cannot be fixed, the owner will be asked to approve the narrowest assurance-motivated rule.'"
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md lines 148-171 (Trusted premises); Issue B line 14",
+    "problem": "Making per-program GNATprove non-gating changes the status of existing per-program premises. Today the gating proof and report audit check them on each program. After the change they become trusted for every program without a per-program check. The trusted-premises list names only four premises, and B's restatement list mentions only the solver row and the new resource premise. A reader could conclude that the guarantee rests only on those four.",
+    "evidence": "docs/trusted-boundary.md:339-341: 'This is a per-program producer applicability premise for complete automatic discharge'; :355-356: 'The per-program Main translation and original typed-context premises above remain required.' language.md: 'Faithful static evaluation, complete obligation/report generation, completeness of the accepted producer shapes ... remain explicit tool premises. Native examples corroborate them.'",
+    "proposed_fix": "Add to Trusted premises: '- **Existing producer premises.** Faithful static evaluation, complete obligation/report generation, accepted producer shapes and the per-program Image translation premises in [trusted-boundary.md](trusted-boundary.md) remain. They were previously checked for each program by the gating proof and report audit; afterwards confirmation checks them without gating, and a confirmation that contradicts one is a defect.' Add to B's restatement bullet: 'and state that the per-program producer and Image applicability premises are now checked by confirmation rather than by the build.'"
+   },
+   {
+    "severity": "medium",
+    "location": "Issue C line 9; Issue D line 8; Issue E line 8; roadmap.md new line ('Packages 3\u20135 may overlap after package 2')",
+    "problem": "Three packages that may run in parallel each claim the identifier-length constant and its Lean counterpart. C introduces it as 'an independent constant' and models it in Lean, D gives it 'their own named constant ... tied mechanically to its Lean counterpart', and E creates 'One named Lean constant per limit ... identifier'. Ownership is ambiguous and the work invites conflicting edits.",
+    "evidence": "C: 'Identifier length. At most 4,096 characters, an independent constant not tied to source length.' D: 'Source length, String value domain ..., identifier length and exponent each get their own named constant.' E: 'tied to the native tokens for the source length, value domain, identifier, exponent'.",
+    "proposed_fix": "Give the role separation to D and E only, and have C consume it. In C, replace 'an independent constant not tied to source length' with 'using the named identifier constant introduced by #{D} and #{E}'. Add to C's header: 'It depends on #{B}; its Lean modeling follows the constant separation in #{D} and #{E}.' Or change the roadmap to 'Packages 4\u20135 may overlap after package 2; package 3 follows their role separation.'"
+   },
+   {
+    "severity": "low",
+    "location": "docs/evidence/unbounded-programs/scoping-research.json, pinned_frontend_limits[0].evidence",
+    "problem": "The tab-expansion evidence is misstated. The research shows a 4,130-byte line (39 base bytes plus tabs) accepted and a 4,131-byte line rejected, not 4,130/4,131 tabs. The scope doc's '4,131-byte line' is correct, so the two disagree.",
+    "evidence": "research/T3/notes.md:37-38: '(39 bytes) + tabs: 4130-byte line accepted, 4131-byte line rejected ... A 4096-byte all-tab line is rejected; 4095 tabs accepted.'",
+    "proposed_fix": "Replace 'base 39 bytes plus 4,130 tabs accepted, 4,131 rejected' with 'a 39-byte program line padded with tabs is accepted at 4,130 bytes and rejected at 4,131 bytes; a 4,096-byte all-tab line is rejected and 4,095 tabs are accepted'."
+   },
+   {
+    "severity": "low",
+    "location": "docs/evidence/unbounded-programs/scoping-research.json, track_verdicts.T3 and T5",
+    "problem": "The verbatim track verdicts say the frontend rules and proof-limit change must go 'through the normal amendment path' and recommend an 'escalation ladder' to be applied 'after the B1/M1 checkpoint'. The scope says no Oracle amendment is needed, chooses a single uncapped racing run, and B1/M1 is already delivered (PR #86). Read on its own, the record looks contradictory.",
+    "evidence": "T3: 'language and assurance-text changes the lead must route through the normal amendment path.' T5: 'Make solver limits non-binding through an escalation ladder'; 'after the B1/M1 checkpoint is delivered'.",
+    "proposed_fix": "Add a top-level field: \"track_verdicts_note\": \"Verbatim track outputs. The scope proposal supersedes them where they differ: 'amendment path' in T3 means an explicit pre-1.0 language and assurance-text change, not an Oracle amendment; the escalation ladder is replaced by one uncapped racing run (-j at least 3); the B1/M1 checkpoint was delivered through PR #86.\""
+   },
+   {
+    "severity": "low",
+    "location": "Issues B, C, D, E, F, G, H, first line of each body",
+    "problem": "The Backlog notices say only 'recorded in session memory'. planning.md requires a dated entry on main, and the scope doc and A say so.",
+    "evidence": "B line 4: 'This package needs the owner's \"proceed\", recorded in session memory, before it starts.' Scope lines 9-11: 'a dated session-memory entry on `main` records it'.",
+    "proposed_fix": "Replace with: '**Backlog; not authorized.** This package needs the owner's \"proceed\", recorded in a dated session-memory entry on `main`, before it moves to Ready.'"
+   },
+   {
+    "severity": "low",
+    "location": "Issues C, D, E headers",
+    "problem": "F, G and H state their dependencies, but C, D and E do not state that they depend on #{B}, which the scope table and roadmap require.",
+    "evidence": "Scope table: C, D and E each 'Depends on #{B}'. F: 'It depends on #{C}, #{D} and #{E}.'",
+    "proposed_fix": "Add 'It depends on #{B}.' to C and D, and 'It depends on #{B} and shares source certificates with #{D}.' to E."
+   },
+   {
+    "severity": "low",
+    "location": "Issue A LABELS; Issue B LABELS",
+    "problem": "planning.md says area labels mark 'the part of the project an item changes'. A changes only docs and planning records, not language.md or assurance artifacts, yet it carries area: language and area: assurance and lacks area: docs. B edits language.md (resource premise, mandatory library obligations) and the user-visible CLI contract but lacks area: language.",
+    "evidence": "docs/planning.md:67. A's deliverables: docs/unbounded-programs.md, the evidence JSON, roadmap.md, session-memory.md. B line 14 lists language.md edits.",
+    "proposed_fix": "A: 'LABELS: type: work package, area: planning, area: docs'. B: 'LABELS: type: work package, area: compiler, area: assurance, area: language, area: tooling, area: docs'."
+   },
+   {
+    "severity": "low",
+    "location": "docs/session-memory.md new lines 21-23",
+    "problem": "The entry says AGENTS.md has 'wording that makes per-program proof a gate'. AGENTS.md only says complete obligation discharge must not be classified as optional hardening. The gate wording is in development.md ('remain mandatory and unchanged') and language.md. B describes the AGENTS.md change correctly as a clarification.",
+    "evidence": "AGENTS.md:25-26: 'do not classify source correspondence or complete obligation discharge as optional hardening.' development.md:219-220: 'The compiler's proof and report checks on each admitted user program remain mandatory and unchanged.'",
+    "proposed_fix": "Replace with: 'When they are authorized they will change the `development.md` and `language.md` wording that makes per-program proof a gate, and clarify in `AGENTS.md` that confirmation no longer gates the build.'"
+   },
+   {
+    "severity": "low",
+    "location": "Issue G line 6",
+    "problem": "The issue calls 2,147,483,647 'Ada's inherited bound'. Ada fixes the bound as Integer'Last, but this numeric value is the pinned GNAT target's choice. The oracle.md rule against presenting scope limits as Ada requirements calls for that precision.",
+    "evidence": "G: 'to Ada's inherited bound, `Integer'Last` (2,147,483,647)'. E correctly says 'using the pinned target's `Integer'Last`'.",
+    "proposed_fix": "Replace with: 'to the inherited Ada bound `Integer'Last`, which is 2,147,483,647 on the pinned target'."
+   },
+   {
+    "severity": "low",
+    "location": "Issue D line 4",
+    "problem": "The issue says D 'un-defers the recognizer stack redesign (review O1)'. O1 was deferred by an owner-authorized repair scope, and un-deferring it is an owner decision that only a recorded 'proceed' can make. D is Backlog, so the present tense overstates.",
+    "evidence": "docs/review-b79b986403-repairs.md:79: 'stack redesign and a new stack regression are deferred'. Session memory 2026-10-17: 'optional implementation redesigns remain deferred'.",
+    "proposed_fix": "Replace with: 'once authorized, it would take up the deferred recognizer stack redesign (review O1).'"
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md lines 54-56",
+    "problem": "The scope says the runtime library 'is proved once per release and bound to the compiler by identity, as bootstrap already does'. Silver has no releases before 1.0, and AGENTS.md rules out release gates. Bootstrap embeds the library sources (silver_library_sources.ads) but does not prove them; today the library reports are audited on every output compile.",
+    "evidence": "scripts/bootstrap.py:224-239 generates Silver_Library_Sources; language.md: 'Complete selected-library obligations remain mandatory for every output compile ... audits all four library-unit reports.'",
+    "proposed_fix": "Replace with: 'The runtime library is proved in project validation and its sources are embedded by bootstrap and identity-checked by the compiler, so it is no longer re-proved for every program.'"
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md line 189 and lines 248-249",
+    "problem": "Line 189 calls all 18 runs 'production-configuration', but the evidence record says they used -j8 instead of -j0, and two were option smokes with other limits. The build-cost claim '100,000 nested loops took more than 30 minutes' does not appear in the curated evidence record. It is only in the raw research-results.json.",
+    "evidence": "Evidence proof_scaling.command: 'production ... with -j8 instead of -j0; --steps=100000 --memlimit=1000 except the two option smokes'. research-results.json: 'nested loops 100k > 1,800 s' (gnatc).",
+    "proposed_fix": "Line 189: '18 proof runs in the production command (with -j8; two option smokes varied --steps/--memlimit) ...'. Add to native_compiler_observations or a new frontend_cost field: \"gcc -gnatc time is quadratic in sequence length and nesting: 100,000 nested loops exceeded the 1,800 s timeout\"."
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md line 225; Issue E line 17; Issue H line 10",
+    "problem": "The Lean hypothesis criterion is worded three ways: 'no size hypothesis beyond the derived source bound' (scope, H), 'no size hypothesis beyond the explicit limits' (E), and T2's side conditions (L \u2265 16, argument \u2264 value \u2264 IO, V \u2264 Integer'Last). C may also bisect rather than derive the source bound.",
+    "evidence": "Scope 225 and H 10 vs E 17; evidence T2 verdict side conditions.",
+    "proposed_fix": "Use one wording in all three places: 'Universal Lean theorems whose only size hypotheses are the explicit language limits and the side conditions recorded in the scope (minimum bounds, the order between the separate bounds, and V \u2264 the pinned Integer'Last).'"
+   }
+  ],
+  "verified": [
+   "Every new relative link and anchor in docs/unbounded-programs.md, the roadmap section and the session-memory entry resolves in the worktree, including #2026-10-17--unbounded-programs-scoping-requested, #unbounded-programs, language.md anchors, development.md#proof-loop-and-validation and the review B1 anchor. Issue blob/main links resolve against the worktree files (script: /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/scopereview/process/links.py).",
+   "git diff --check is clean, the new files have no trailing whitespace or tabs, and scoping-research.json is valid JSON.",
+   "Issue titles follow '<milestone>: <work package>' with the milestone named exactly as the roadmap heading 'Unbounded programs'. All labels are in planning.md's label set (type: work package plus area: language/assurance/compiler/runtime/tooling/docs/planning).",
+   "Package names, order (1-8) and dependencies agree across the scope table, the roadmap list and the issue headers (F on C/D/E, G on F, H on B-G).",
+   "Scope doc, roadmap, session memory and issue A all state that only scope work #{A} is authorized and #{B}-#{H} stay Backlog until a recorded 'proceed'. The roadmap keeps to direction and order with a 'Scoped; implementation not authorized' line, consistent with the earlier milestone sections.",
+   "Oracle quotations are accurate: 'must be proved for the language and its composition rules' and 'completeness of automatic obligation discharge' match oracle.md, and the paraphrases of defect-on-proof-failure and explicit resource limits are faithful.",
+   "The kept-limit values match the T3 research and the evidence record: 32,765 columns with tab expansion, identifier 4,096, exponent 799,999, source 2,130,706,432 tested and 2^31-1 crashing, 131,071-byte argument, Z3 wrap above 5,368,146, --level=2 keeping 1,000 MiB.",
+   "Scaling numbers in the scope match the evidence record: 17/18 runs completed, f1-32k 32,461 B with 1,011 statements, f2-16k 16,279 B, exponents 1.82-1.99 and 1.0/1.43/1.98, f3-4k 1,376.7 s at 5.863 GiB, 8k stopped at 263 s, report envelope above 4,502 B, Lean lift counts about 95%.",
+   "Cited source facts are correct: the current proof command in src/silver.adb:122 (--level=2 --steps=100000 --memlimit=1000 -j0), Max_Bindings = Max_Source_Length / 12 in both .ads files, Max_Operands 64, the 4_096 name bound at silver_library_reports.adb:1213 and :2088, and check_evidence.py:484.",
+   "The retained research manifest SHA-256 matches the evidence record (7848544990...af9a63), with 2,154 files. The retained workspace .silver/linux-x86_64/imagews-n5nSxf exists (17 MB).",
+   "No document presents a Silver capacity as an Ada/SPARK requirement, apart from the low-severity wording about the numeric Integer'Last in G. The kept-limits table labels tool-derived and inherited limits separately.",
+   "Not verifiable offline: the owner quotes other than the two given in the brief ('without unadjustable...', 'I don't want to make decisions...', 'thousand knobs')."
+  ]
+ },
+ {
+  "key": "technical",
+  "lens": "Technical soundness and completeness of the design and work plan (adversarial)",
+  "summary": "The core direction holds up against the sources. No Oracle sentence requires a per-program proof gate. The confirmation options are valid for pinned GNATprove 16.1, and the research figures cited in the scope match the T1\u2013T5 notes. However, five points would mislead the implementer or break a rule the plan itself states:\n(1) \"Runtime library proved once per release, as bootstrap already does\" is wrong. Bootstrap only embeds the library bytes. Today every output compile re-proves the library and audits four library reports. This also contradicts \"the report audit applies the existing exact policy\".\n(2) `silver confirm SOURCE` re-reads the user's path, so the confirmed bytes are not tied to the executable that was built (Oracle :11).\n(3) The status-4/3 mapping that issue B delegates to \"the scope\" is specified nowhere. With today's process boundary it cannot be observed: `system()` runs through sh and `alr exec`; GNAT `Spawn` returns status 1 for a failed exec (including E2BIG) and -1 for a signal; and SIGXCPU, SIGXFSZ or an OOM kill of silver itself bypass any handler.\n(4) The resource-failure test oracle (\"never status 0 \u2026 nothing published\") contradicts the confirm-after-build design.\n(5) The alternative \"GNAT tables premise\" contradicts T3: on hosts with more than about 44 GB the List cap is reached before memory, and overflow of these tables is unchecked.\nMedium gaps:\n- `run`'s confirmation behaviour is undefined, and `compile` can block indefinitely.\n- The 2^31 report-storage and producer node-counter bounds are hidden.\n- The 16 MiB `Silver_Platform.Max_File_Length` limit is omitted.\n- The \"exact\" total-source maximum depends on the sizes of the other units in the compilation.\n- Prover crashes are classified as environmental.\n- An application that exhausts its stack or memory under `run` still collides with Reject (status 1) or is labelled a defect (status 3).\n- Uncapped confirmation can trigger OOM-killer damage on a shared host.\n- The fallback \"new limit\" is not reported to the owner as a full stop.\n- Package order causes rework.\nNotes are at /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/scopereview/technical/notes.md.",
+  "findings": [
+   {
+    "severity": "high",
+    "location": "docs/unbounded-programs.md:54-56 (\"The runtime library is proved once per release and bound to the compiler by identity, as bootstrap already does\"); issue B line 9 and line 20 (\"The report audit applies the existing exact policy\"; \"The report policy and accepted diagnostics are unchanged\")",
+    "problem": "The text says bootstrap already proves the library and binds it by identity; it does not. Bootstrap only embeds the exact library bytes. Today the library is proved by the per-program `-U` GNATprove run, and every output compile audits four library reports. If confirmation proves only Main, the \"existing exact policy\" cannot apply unchanged. No mechanism is defined that records or checks a once-per-release library proof. \"Release\" is also undefined in a project that forbids release gates (AGENTS.md:22).",
+    "evidence": "scripts/bootstrap.py:204-225 runtime_source_configuration only embeds the bytes (\"Embed precisely the reviewed runtime source bytes\"). src/silver.adb:117-123 runs the proof with `-U`, and :356-361 calls `Silver_Libraries.Check_Proof_Evidence`, which audits the library reports. language.md:773 (\"Complete selected-library obligations remain mandatory for every output compile\") and :784 (\"checks their identity after proof and build, and audits all four library-unit reports\"). assurance.md:821 (\"Every fresh output compilation proves its selected libraries as well as Main\"). README.md:183. tests/test_samples.py:106-107 and :163-164 audit the per-program silver_io, silver_output_libc, silver_arguments and silver_runtime reports. Lean already models the library as a separate fixed step (Current.lean `verifyFixedLibrary`, `LibraryEvidence`).",
+    "proposed_fix": "Replace scope lines 54-56 with: \"Confirmation keeps today's `-U` project, so it still proves Main and the six identity-bound library files and audits the Main report and all four library-unit reports under the existing exact policy; only its result stops gating the build. Bootstrap continues to bind the library bytes to the compiler by embedding them; it does not prove them.\" Replace issue B line 9 with: \"Confirmation keeps the `-U` project and proves Main together with the six identity-bound library files, auditing all five reports under the existing exact policy; only the result stops gating the build. Restate language.md:773/:784, assurance.md:821 and README.md:183 accordingly.\" (Alternative, if the library proof must leave per-program runs: B must define the library evidence record, which exact bytes and tool identities it binds, where the compiler checks it, and the changes to `Check_Proof_Evidence`, the driver ghost contracts and tests/test_samples.py. In that case, drop \"existing exact policy\" and \"as bootstrap already does\".)"
+   },
+   {
+    "severity": "high",
+    "location": "docs/unbounded-programs.md:49 and :60-64; issue B line 8 (\"`silver confirm SOURCE` reruns confirmation\")",
+    "problem": "`silver confirm SOURCE` re-reads the user's source path. The file may have changed since the build, and nothing ties a separate confirmation to the bytes of the published executable. This breaks the scope's own statement that \"The admitted, built and confirmed bytes stay identical, as the Oracle requires\".",
+    "evidence": "oracle.md:11: \"The source admitted, proved and compiled must be the same source.\" Today, silver.adb:373-389 re-checks the snapshot (`Same_Source`) after proof and after build inside one workspace. A second invocation with SOURCE has no such link.",
+    "proposed_fix": "Scope line 49 cell: \"Confirmation (after the build by default, or `silver confirm WORKSPACE` on a printed build workspace)\". Add after line 64: \"`silver confirm` takes the workspace printed by `compile` and confirms its `main.adb` and library snapshots. It rechecks their identity with the compiler before and after GNATprove, so the confirmed bytes are the built bytes.\" In B line 8, replace \"`silver confirm SOURCE` reruns confirmation\" with \"`silver confirm WORKSPACE` reruns confirmation on the exact snapshot that was built, rechecking source and library identity before and after.\""
+   },
+   {
+    "severity": "high",
+    "location": "issue B line 13 (\"Map child-tool signal deaths and ENOMEM, ENOSPC, EMFILE and E2BIG to status 4 or 3 as the scope specifies\"); B line 19; G line 11; docs/unbounded-programs.md:68-77",
+    "problem": "The scope contains no mapping. Today's process boundary cannot observe the conditions the mapping needs:\n- Tools run through libc `system()` as `sh -c` and `alr exec`, and `Run` keeps only success = (status = 0).\n- GNAT `Spawn` reports a failed execve (including E2BIG) as exit status 1, the Reject status, and any signal death as -1.\n- Silver's own I/O never reads errno.\n- SIGXCPU (`ulimit -t`), SIGXFSZ (`ulimit -f`) and an OOM-killer SIGKILL delivered to silver itself kill it before any `Storage_Error` handler runs.\nB's tests for `-t`, `-f`, E2BIG and \"every exit status\", and G's \"`silver run` reports a spawn E2BIG as an infrastructure outcome\", therefore cannot pass without new mechanisms that are not planned. Each such mechanism would also be a new trusted-boundary import.",
+    "evidence": "src/silver_platform.adb:142-151 (`C_System`, Success := Status = 0). src/silver_process_runtime.ads:12-14 (`system__os_lib__spawn__2`). docs/trusted-boundary.md:171-176: \"The runtime can report status 1 both for an application exiting with 1 and for failure to execute the requested image \u2026 other returned results map to its infrastructure status 3\". README.md:329-334. src/silver_libc.ads has no errno, setrlimit or waitpid imports. research T1 notes (e) propose an \"optional supervisor mode \u2026 This covers the OOM killer\", which the scope does not adopt.",
+    "proposed_fix": "Add to scope \u00a7Outcomes a table of how each status-4 cause is observed, and replace B line 13 with: \"Exit statuses: 0 built or confirmed; 1 forwarded by `run` only; 2 rejection or usage; 3 defect; 4 resource exhaustion. Implement the observations explicitly. Decode `system()` wait statuses (WIFEXITED, WEXITSTATUS, WIFSIGNALED, WTERMSIG) and document how `/bin/sh` and `alr exec` propagate a child's signal. Read errno after Silver's own failed I/O to separate ENOSPC, EFBIG, ENOMEM and EMFILE. For `run`, replace or supplement GNAT `Spawn`, which reports a failed execve (including E2BIG) as 1 and a signal death as -1. Add a top-level `Storage_Error` handler to `silver.adb` and `silver_image_adapter.adb`. Either run the driver under a supervising parent that maps its own SIGKILL, SIGXCPU and SIGXFSZ deaths to 4, or document those deaths as uncaught environmental terminations. Classify an ambiguous tool failure (for example a GNAT bug box reporting `Storage_Error`) as 3 unless the rule marks it as resource exhaustion. List every new libc import in docs/trusted-boundary.md.\" In B line 19, test only the outcomes this mechanism can observe."
+   },
+   {
+    "severity": "high",
+    "location": "docs/unbounded-programs.md:236-237; issue H line 13 (\"never status 0 or 2, and nothing published\")",
+    "problem": "This test oracle contradicts the design. `compile` builds and publishes first and then confirms. Its status describes admission and build only, and a confirmation \"never removes or blocks the built executable\". When `ulimit -v` or `-t` exhausts only the confirmation, the correct result is status 0 with an executable and a not-confirmed report. As written, the test would push the implementer back toward gating the build on proof.",
+    "evidence": "Scope lines 49 and 60-64 (\"The compile and run statuses describe admission and build only\"). Scope row 74 for status 4.",
+    "proposed_fix": "Replace scope lines 236-237 and H line 13 with: \"Resource-failure tests under `ulimit -v`, `-s`, `-f` and `-t` and a full disk. When admission or build exhausts a resource, the command never returns 0 or 2 and publishes no executable. When only confirmation exhausts it, `compile` and `run` keep their build status and executable and report the confirmation as not confirmed, and `silver confirm` returns 4.\""
+   },
+   {
+    "severity": "high",
+    "location": "docs/unbounded-programs.md:160-164 (GNAT internal tables premise); issue C line 11 (\"Either derive \u2026 or record the explicit premise that they are exhausted only after host resources\")",
+    "problem": "The research contradicts the premise option. T3 estimates the 100,000,000-entry List cap at about 50 million elsif arms: a linear-time source of about 1.5 GB, below the 2,130,706,432-byte total rule, that needs about 44 GB. Any host with more memory than that reaches the cap before resource exhaustion. `table.adb` grows tables without checking the Id subtype, so overflow is a GNAT bug box \"or worse\", possibly silent corruption, not a resource outcome. \"Unreachable on the 31 GB research host\" is true, but it does not support a host-independent premise.",
+    "evidence": "research/T3/notes.md \u00a71.5: \"table.adb grows tables without checking the Id subtype; overflow therefore raises Constraint_Error (bug box) or worse \u2026 elsif chains are linear (100k branches 2.19 s, 88 MB => ~880 B/branch) but 50M branches need ~44 GB RAM before the List cap \u2026 On a much larger host the List/String caps are the first non-resource failure.\" Final results: \"1M elsif branches (29.9 MB): 25.3 s / 657 MB (linear)\".",
+    "proposed_fix": "Replace scope lines 160-164 with: \"**GNAT internal tables.** The fixed capacities (100,000,000 Names, Lists, Elists, Strings and Ureal entries; 2,000,000,000 nodes) are not reliably exhausted only after host resources. T3 places the List cap near 50 million elsif arms, a source of about 1.5 GB that needs about 44 GB, and `table.adb` does not check overflow. #{C} therefore derives a rigorous source bound from the maximum number of table entries per source byte and adopts it as the total-source rule. A premise is not acceptable.\" In C line 11, replace \"Either derive \u2026 or record the explicit premise \u2026\" with \"Derive a rigorous source bound from the maximum table entries per source byte and adopt it; T3's elsif-chain estimate rules out a host-independent premise.\" Add to the risks that this bound may be far below 2^31."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:49, :60-64, :243-247; issue B line 8",
+    "problem": "Three behaviours are unspecified.\n- Whether `silver run` confirms is never stated: before execution would make run wait for proof; after execution or never would mean it runs unconfirmed code. Today the SPARK `Publish` precondition statically requires audited proof before anything is printed or run.\n- With `--timeout=0 --steps=0 --memlimit=0`, a single check on which no prover finishes makes the default `silver compile` block indefinitely after the executable exists.\n- How an interrupted confirmation is reported is not defined.",
+    "evidence": "src/silver.adb:242-289 (Publish's Static precondition includes Proof_Returned_Success, Proof_Command_Matched and Application_Report_Policy; `Run_After` executes inside Publish). The work-package table at scope line 205 says \"compilation no longer waits for proof\". T4: dense 4 KB code takes 23 minutes. libc `system()` ignores SIGINT in the caller while the child runs.",
+    "proposed_fix": "Add after scope line 64: \"`silver run` admits, builds, prints the executable and executes it without confirming. `silver compile` prints the executable path before confirmation starts. Confirmation has no time limit. Because `system()` ignores SIGINT in the driver, an interrupt ends GNATprove, and the driver reports 'not confirmed' without changing the build status or executable. B replaces the Publish ghost contract with one stating that publication follows admission, build and identity checks, and that a 'confirmed' report follows only an audited report.\" Mirror this in B line 8."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:119 (\"Growable heap storage up to `Natural'Last - 1`\") and :144-146 (\"fixed producer structures that the rules above keep out of reach\"); issue D lines 9 and 11",
+    "problem": "Two 2^31 bounds remain hidden in confirmation, against Oracle :19 and the owner's 'no unnecessary limits'.\n- `Natural'Last - 1` report storage: by the documented envelope it is exceeded for sources above 587,402 bytes, and by the measured report ratios (19-350 bytes per source byte) between about 6 MB and 115 MB of source. All of these are far inside the total-source rule.\n- The producer's 2^31-1 Image node counter: at 25-52 identifiers per source byte it overflows near 40-80 MB of source.\nResource exhaustion, not \"the rules above\", keeps both out of reach. Widening the adapter's own Original_Node_Id does not lift the producer counter. As classified, exceeding the report bound would surface as a report-audit rejection, which is a false 'Defect'.",
+    "evidence": "research T1 notes 3(b): \"The envelope gives S <= 587,402 within Natural'Last - 1 \u2026 Beyond 2 GiB, use 64-bit-indexed byte arrays (L) or streaming (XL)\". T1 verdict lists \"The producer's 2^31-1 Image node counter\" and \"retained reports up to Natural'Last - 1\" among the bounds that must stay. T4 notes: \"~25-52 ids per source byte; 2^31 would need ~40-80 MB source \u2026 gnatwhy3 memory is exhausted long before\". T4 fit report bytes: f3-4k 1,434,133 / 4,096; f1-32k 602,954 / 32,461.",
+    "proposed_fix": "Replace scope lines 144-146 with: \"Two bounds of about 2^31 remain in confirmation only: Silver's retained report storage (`Natural'Last - 1` bytes; the envelope reaches it near 587 KB of source and measured reports between about 6 MB and 115 MB), and the producer's Image node counter (2^31 - 1, near 40-80 MB of source). Projected confirmation memory at those sizes, not the language rules, keeps them out of reach. Both are recorded as explicit confirmation limits with this purpose. Exceeding either is reported as not confirmed with the limit named, never as a definite non-proof. JSON nesting depth (64) is fixed by the report schema and does not grow with programs. #{D} widens the adapter's own node identifier to the 63-bit byte-count range.\" Alternatively, give #D 64-bit or streaming report storage (T1 sizes this L/XL) and drop the report bound."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:113-123 (Removed limits table); issue D line 9",
+    "problem": "The table omits `Silver_Platform.Max_File_Length` (16,777,216), together with its fixed 16 MiB+1 ghost `Read_Bytes` and `Written_Bytes` arrays and the explicit length check before the snapshot write. Once #F lifts the source cap, an admitted source above 16 MiB gets \"Implementation error: invalid build path or source length.\" (status 3), a Silver-owned limit rather than resource exhaustion. D mentions only \"Source reads\".",
+    "evidence": "src/silver_platform.ads:10-24 (Max_File_Length, Read_Bytes, Written_Bytes). Write_File Pre `Contents'Length <= Max_File_Length`. src/silver.adb:296-305. T1 notes 1b list \"Max_File_Length 16 MiB + ghost arrays | Yes for source reading\".",
+    "proposed_fix": "Add the row \"| 16 MiB file read/write bound and ghost arrays | `Silver_Platform.Max_File_Length`, `Read_File`/`Write_File`, the snapshot length check in `src/silver.adb` | Ghost sequences; bounded only by the total-source rule | #{D} |\". In D line 9, replace \"Source reads and GNATprove reports use growable heap storage\" with \"Source reads, the `main.adb` snapshot write and its re-reads (`Silver_Platform.Max_File_Length` and its fixed ghost arrays), and GNATprove reports use growable heap storage\"."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:141; issue C line 10 (\"At most the exact maximum the pinned frontend accepts. Bisect it \u2026\")",
+    "problem": "The exact maximum for main.adb is not a property of main.adb alone. GNAT places every unit of a compilation in one Source_Ptr space with 4 KiB alignment. The value therefore depends on the six runtime files (output mode versus null mode), the GNAT run-time specs, and the additional units gnat2why loads. #G regenerates the runtime library after #C bisects, so a bisected 'exact' value becomes stale and could admit sources that crash gnat1.",
+    "evidence": "research/T3/notes.md \u00a71.4: \"all source buffers of one compilation share the Source_Ptr space with 4 KiB alignment (types.ads:190, sinput-l.adb:224-233)\". Issue G line 9: \"regenerated library sources\".",
+    "proposed_fix": "Replace C line 10 with: \"**Total source length.** GNAT places every unit of one compilation in a single 2^31 source-position space with 4 KiB alignment, so the maximum for `main.adb` depends on the other units loaded. Define the rule as 2^31 - 1 minus a stated upper bound on all other units and alignment in either mode (the tested 2^31 - 2^24 = 2,130,706,432 leaves a 16 MiB margin). Confirm it with `gcc -gnatc`, full builds and GNATprove in null and output modes, and re-derive it whenever the runtime library (#{G}) or toolchain changes.\" Adjust scope line 141 to match."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:82-83 (outcome table); issue B line 12",
+    "problem": "Crashed provers are classified as Inconclusive, meaning environmental, status 4. A prover crash with resources remaining is a toolchain defect under Oracle :14, and the evidence shows crashes are not only resource deaths: T4 observed Alt-Ergo \"High failure (unrecognized prover answer)\". With `--memlimit=0` there is no RLIMIT_AS, and \"High failure (signaled)\" does not say which signal. Mixed outcomes are also unclassified (for example Unknown from one prover and an OOM kill of another), and no precedence is given when one check is a defect and another inconclusive.",
+    "evidence": "research/T3/notes.md \u00a73: \"Unknown/Invalid/Failure/HighFailure (prover crash or signal \u2026) -> Gave_up\". T4 notes f1-32k: \"alt-ergo had 8 'High failure (unrecognized prover answer)' + 1 'High failure (signaled)'\". oracle.md:14.",
+    "proposed_fix": "Replace the two rows with: \"| Inconclusive | Every unproved check ended only through host resource exhaustion that the driver can attribute (an OutOfMemory, Timeout or StepLimitExceeded answer, or a prover the driver observed killed by SIGKILL or SIGXCPU), or the run was interrupted | Status 4 from `silver confirm`; environmental |\" and \"| Defect | Any check whose attempts all ended without Valid, where at least one ended in Unknown or Invalid or in a crash not attributable to resources (High failure with an unrecognized answer or another signal), or the report audit rejected the report | Status 3 \u2026; a bug-report bundle \u2026 |\". Add: \"Defect takes precedence over inconclusive.\" Mirror this in B line 12."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:76-77; issue G (no bullet); scope status rows 1 and 3",
+    "problem": "Status 4 covers only the compiler's own resource exhaustion. Under #G, Main's String objects can approach Integer'Last but live on the caller's 8 MiB primary stack, so ordinary large values exhaust it. GNAT then exits 1, which `run` forwards and which matches Reject. An OOM-killed application returns -1 from `Spawn`, which becomes status 3, labelled 'Defect'. The scope raises RLIMIT_STACK only for GNATprove, GPRbuild and the Image adapter, not for the application. The T1 risk \"large dynamic Strings on the 8 MiB primary stack (environmental Storage_Error in the application)\" was dropped.",
+    "evidence": "src/silver.adb:276-285 (forwarding; Status not in 0..255 => Failure status 3). README.md:329-334. research T1 notes 3(d), risks list.",
+    "proposed_fix": "At scope line 77, replace \"status 4 removes that ambiguity\" with \"status 4 removes that ambiguity for the compiler; an application's own Storage_Error still exits 1 and is forwarded by `run`.\" Add to G: \"**Application resource outcomes.** Main's String objects use the caller's primary stack (8 MiB by default), so values far below `Integer'Last` exhaust it and GNAT exits 1. Specify and test the application's resource outcome under `run`: raise RLIMIT_STACK for the application as for the tools, map a signal death or `Storage_Error` exit to 4 where it can be observed, and document that a directly invoked executable inherits the caller's limits.\""
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:241-258 (Risks); issue B",
+    "problem": "With `--memlimit=0` and `-j` set to the CPU count, the default `silver compile` runs uncapped confirmation on a host that other agents share. The projections are 23 GiB at 8 KB of dense code and 90 GiB at 16 KB. The kernel OOM killer may kill an unrelated process (another agent's proof, an editor) instead of a prover, so the outcome is neither 'reported distinctly' nor confined to Silver. No risk or mitigation is recorded.",
+    "evidence": "T4 notes: f3-8k climbed about 50 MB/s to the 14 GiB guard. Scope lines 165-167 (\"That outcome is reported distinctly\"). The project's memory notes record concurrent agents on this host.",
+    "proposed_fix": "Add a Risks bullet: \"**Host safety.** Uncapped confirmation can drive a shared host into the kernel OOM killer, which may kill unrelated processes. On Linux the driver sets `oom_score_adj` to 1000 for confirmation children, which needs no privilege, so the kernel selects them first. This is not a limit and changes no outcome class.\" Add the same item to B."
+   },
+   {
+    "severity": "medium",
+    "location": "docs/unbounded-programs.md:250-255; issue F line 20",
+    "problem": "If an admitted shape yields a definite non-proof that cannot be fixed, the guarantee fails for the unbounded language. That is exactly the 'full stop' the owner asked to hear about. The plan pre-decides a new admission restriction instead of reporting it and recording the owner's decision. docs/planning.md classifies such a policy choice as a `type: decision` item.",
+    "evidence": "session-memory diff, owner: \"If anything requires a full stop then let me know.\" docs/planning.md label table: \"`type: decision` | A question that needs the owner: an Oracle amendment, an authorization or a policy choice\".",
+    "proposed_fix": "Replace F line 20 with: \"No incompleteness outcome (a definite non-proof with resources remaining) appears in the corpus or the ladder. If one appears, the defect is fixed. Failing that, stop and report it to the owner as a full stop, with the narrowest assurance-motivated rule (for example on non-static factors per product) as the proposed only new limit, and adopt it only after the owner's decision is recorded in session memory.\" Make the same change at scope lines 252-255."
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:204-211 and :213-216; roadmap order 3-5; issues C, D line 8, G",
+    "problem": "The order causes rework and one circular dependency.\n- #C has no technical dependency on #B. Its native rules land in the recognizer that #D then restructures (single scan, procedures, interning, new certificates). Its Lean modelling at the 4096 bound is redone when #E parameterizes.\n- D's criterion \"Each has one source of truth tied mechanically to its Lean counterpart\" needs #E's Lean constants.\n- #G needs only #D and #E (roles separated, exact schema), not #F.\n- #B's Current.lean changes are revisited by #E (`BoundedFragment` is parameterized).",
+    "evidence": "research T1 notes: \"Every restructuring needs new pins and reconstructions \u2026 This is the dominant cost (XL)\". Issue C completion: \"modeled in Lean with a fresh axiom audit\". Issue D line 8.",
+    "proposed_fix": "Set C's dependency to \"#{A}\" for its bisection and table evidence, and add: \"Its native rules follow #{D}'s recognizer restructuring, or live in a separate lexical pre-pass unit that #{D} does not rewrite, and its Lean rules are stated over #{E}'s symbolic limits.\" In D line 8, replace \"Each has one source of truth tied mechanically to its Lean counterpart\" with \"Each has one named native constant; #{E} ties each mechanically to its Lean counterpart.\" Optionally set G to depend on \"#{D}, #{E}\", with #F running in parallel."
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:97-99 (\"so an unlimited prover cannot block the rest\")",
+    "problem": "This holds only per check. Why3 runs at most -j attempts from a FIFO queue, and only a Valid result on the same goal interrupts the others. If no prover finishes on some check, its attempts hold slots indefinitely, the remaining checks can starve, and the confirmation never terminates; no report is produced for the other checks. Inconclusive then arises only through interruption or host limits.",
+    "evidence": "why3/src/gnat/gnat_checks.ml schedule_goal (parallel > 1: all provers scheduled; `C.interrupt_proof_attempts_for_goal` only on Valid). why3/src/session/controller_itp.ml:93-95 and :520-530 (max running provers; Queue.pop from scheduled_proof_attempts).",
+    "proposed_fix": "Replace with: \"An explicit `-j` of at least 3 lets the three provers race on each check, and the others are interrupted when one proves it, so a prover that never finishes cannot hold up a check that another prover proves. A check on which no prover finishes holds its slots indefinitely, so confirmation then ends only through interruption or host limits, as an inconclusive outcome. `-j0` would run the provers in turn on a single-CPU host.\""
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:87-93; issue B line 10 and completion criteria",
+    "problem": "The configuration block lists only the changed switches. It does not say that `-U --mode=all --report=all --warnings=error|continue --checks-as-errors=on --no-loop-unrolling` are kept. Existing tests and documents that pin the old configuration are not listed as work: tests/test_samples.py asserts `--level=2`, `--steps=100000`, `--memlimit=1000`, `-j0` and the why3session limits, and assurance.md and trusted-boundary.md quote the old command.",
+    "evidence": "src/silver.adb:117-123. tests/test_samples.py:18-56. docs/assurance.md:799-800, :809-819. docs/trusted-boundary.md:905-906, :933.",
+    "proposed_fix": "Scope line 87: \"Confirmation keeps `-U --mode=all --report=all --checks-as-errors=on --no-loop-unrolling` and the mode's `--warnings` setting, drops `--level`, and removes every per-check cap:\". Add to B's completion criteria: \"Update tests/test_samples.py's pinned options and why3session limits, docs/assurance.md:799-819 and docs/trusted-boundary.md:905-933.\""
+   },
+   {
+    "severity": "low",
+    "location": "issue B line 15 (\"Reinterpret `Current.ToolContract` and `automatic_pipeline` in Lean so build completion no longer depends on proof completion\")",
+    "problem": "The wording invites weakening the theorem that carries \"it proves\". In Lean, `buildCompletes` and `pipeline_preserves` already do not use proof. Only the `Pipeline` constructor bundles `tools.prove`. Oracle :27 requires Lean to establish automatic proof success, which `automatic_pipeline` and `admitted_assurance` provide under `boundedProofCompletes`.",
+    "evidence": "proof/Silver/Current.lean:213-226 (ToolContract), :259-266 (Pipeline), :274-287 (automatic_pipeline), :293-305 (pipeline_preserves uses only parsed, built and library). oracle.md:27.",
+    "proposed_fix": "Replace B line 15 with: \"Add a build-only pipeline (parse, fixed-library evidence, build) whose preservation and realization theorems do not use proof completion. Keep `automatic_pipeline` and `admitted_assurance` proving that every member's generated checks are discharged under `boundedProofCompletes`. No new axioms.\""
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:102-104; issue B line 11; issue D line 10",
+    "problem": "RLIMIT_STACK is raised only for children. The compiler's own recognizer still recurses once per nesting level: constant stack per level is still linear in depth. Under the 8 MiB soft limit, deep but admitted nesting therefore exhausts silver's own stack even when the hard limit is unlimited. Raising the soft limit after exec does not reliably extend the main thread's stack or GNAT's stack check; T1 proposed re-exec.",
+    "evidence": "research T1 notes 3(a)8: \"raise RLIMIT_STACK to the hard limit and re-exec at startup \u2026 or use explicit heap work stacks\". T1 measured 1-2 KiB per level after redesign.",
+    "proposed_fix": "Scope line 102: \"The driver re-executes itself once with RLIMIT_STACK raised to the hard limit (or the recognizer uses explicit heap work stacks), and GNATprove, GPRbuild and the Image adapter inherit that limit.\" Add the same to B line 11 or D line 10."
+   },
+   {
+    "severity": "low",
+    "location": "docs/unbounded-programs.md:68-74; issue B line 22",
+    "problem": "The status table gives no meaning for `check` or `catalogue` success (0). Row 3 includes \"a definite non-proof during confirmation\", but a non-proof during `compile`'s default confirmation does not change compile's status (line 62). B's \"No admitted or rejected program changes status\" is false for exit statuses: compiler `Storage_Error` moves from 1 to 4, and a proof failure under `compile` moves from 3 to 0.",
+    "evidence": "Scope lines 62-64. src/silver.adb:342-346. T1 notes (e).",
+    "proposed_fix": "Row 0: \"`check`/`catalogue`: admitted or exported; `compile`/`run`: admitted and built (`run` forwards the program's status after building); `confirm`: confirmed\". Row 3: \"\u2026 frontend rejection of admitted source, or a defect outcome from `silver confirm`\". B line 22: \"No source changes admission status (admitted or rejected).\""
+   },
+   {
+    "severity": "low",
+    "location": "issue B (no bullet); docs/unbounded-programs.md:264-270",
+    "problem": "Non-confirmed outcomes leave `program-*` and `imagews-*` workspaces behind. The adapter keeps its model whenever the vendor run does not return 0: 17 MB at 8 KB of dense source, growing about linearly. Inconclusive confirmations of large programs become routine, so retained workspaces can exhaust disk silently, and no work item covers their retention or reporting.",
+    "evidence": "research T4 notes: retained `.silver/linux-x86_64/imagews-n5nSxf` (17,238,137-byte original.gnat-json) after a guard stop. docs/trusted-boundary.md:234-242 (adapter retention).",
+    "proposed_fix": "Add to B: \"Specify retention and reporting of `program-*` and `imagews-*` workspaces after not-confirmed outcomes (print their paths and sizes), so repeated large confirmations do not exhaust disk unnoticed.\""
+   }
+  ],
+  "verified": [
+   "Pinned GNATprove 16.1 (`.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove --help`) accepts `--counterexamples=c` (default off), `--steps=nnn` (\"Use value 0 for no steps limit\"), `--memlimit=nnn` (0 means no limit when no level is set), `--timeout=0` and `-j N` (0 means all cores).",
+   "In producer configuration.adb, Set_Level_Timeout_Steps_Provers confirms the claims: `--level=2` sets memlimit 1000, an explicit `--memlimit=0` is ignored (`if CL_Switches.Memlimit = 0 then null`), and with no level an explicit `--steps=0` and `--memlimit=0` stay at 0. The proposed confirmation command is therefore valid.",
+   "The Z3 wrap threshold of 5,368,146 matches the T3 conversion 450000 + 800*s <= 2^32 - 1.",
+   "Per-check racing is correct: gnat_checks.ml schedule_goal schedules every prover when parallel > 1 and interrupts the others on Valid; with -j1 provers are tried in turn.",
+   "No Oracle sentence requires a per-program proof gate. The scope's quotations of oracle.md:12, :14, :19 and :26 are accurate. language.md:510 states the host-resource premise.",
+   "Current CLI behaviour matches the scope's baseline: statuses 0, 2 and 3; 'Accepted: silver.' printed before compile; `run` forwards 0..255 and maps anything else to 3; a compiler Storage_Error exits 1 (trusted-boundary.md:89-91; T1).",
+   "Lean ToolContract.boundedProofCompletes is existential with no numeric bound, buildCompletes does not depend on proof, and pipeline_preserves and pipeline_realizes do not use the proof premise.",
+   "The removed-limit locations are correct: src/silver_library_reports.adb:1213 and :2088 (+ 4_096 name bound), scripts/check_evidence.py:484, Silver_IO.Max_Length, Silver_Path_Facts.Max_Length, Silver_Scalar_Literals.Max_Exponent, and catalogue max_source_bytes, max_expression_operands, max_program_operators, max_argument_bytes and exponent_range.",
+   "The research figures in the scope and in the evidence JSON match T1, T3, T4 and T5: 32,765 columns; 4,096-character identifiers; exponent 799,999; 2,130,706,432 bytes; 131,071-byte arguments; the 4,502-byte envelope; fitted exponents 1.82-1.99; dense 4 KB in 23 minutes and 5.9 GiB; the 14 GiB guard at 263 s; 17 of 18 runs completed with every check proved.",
+   "E's description of the truth-dependent schema (uniform <L,L> is valid only when 2L <= 32,767) matches the T2 verdict and `guaranteedIntegerLast := 32767`.",
+   "Every label used in the issue drafts exists in the docs/planning.md label table.",
+   "The review b8f1d0b9a8 L1 operator-budget repair is complete (docs/review-b8f1d0b9a8-repairs.md, #51). The project's memory note is stale, and F's removal of Work_Tail does not conflict with a pending repair."
+  ]
+ }
+]

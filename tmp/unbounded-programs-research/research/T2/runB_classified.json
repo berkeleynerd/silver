@@ -1,0 +1,1109 @@
+{
+ "D-small-constant side condition (decimal overflow with L >= 9)": [
+  [
+   "Silver.GuardedDecimal",
+   "Silver.Guarded.decimalTail_complete",
+   "(kernel) application type mismatch   Silver.Guarded.decimalTail_complete._proof_1_4\u271d within argument has type   10 * start + (Silver.Cursor.byteAt text position - 48) \u2264 L but function has type   10 * start + (Silver.Cursor.byteAt text position - 48) \u2264 4096 \u2192     start > (4096 - (Silver.Cursor.byteAt text position - 48)) / 10 \u2192 False"
+  ],
+  [
+   "Silver.GuardedDecimal",
+   "Silver.Guarded.decimalTail_sound._unary",
+   "(kernel) application type mismatch   _lift._private.Silver.GuardedDecimal.0.Silver.Guarded.decimalTail_sound._proof_1_6 L text position value isDigit     overflow argument has type   \u00acvalue > (L - (Silver.Cursor.byteAt text position - 48)) / 10 but function has type   \u00acvalue > (4096 - (Silver.Cursor.byteAt text position - 48)) / 10 \u2192     \u00ac10 * value + (Silver.Cursor.byteAt text position - 48) \u2264 4096 \u2192 False"
+  ],
+  [
+   "Silver.GuardedEquations",
+   "Silver.Guarded.decimalTail_unique._unary",
+   "(kernel) application type mismatch   _lift._private.Silver.GuardedEquations.0.Silver.Guarded.decimalTail_unique._proof_1_1 L text position value h\u271d\u00b9 h\u271d argument has type   \u00acvalue > (L - (Silver.Cursor.byteAt text position - 48)) / 10 but function has type   \u00acvalue > (4096 - (Silver.Cursor.byteAt text position - 48)) / 10 \u2192     \u00ac10 * value + (Silver.Cursor.byteAt text position - 48) \u2264 4096 \u2192 False"
+  ]
+ ],
+ "B-concrete example (kernel decide; holds for L >= example size)": [
+  [
+   "Silver.BranchingExamples",
+   "_private.Silver.BranchingExamples.0.Silver.Branching.mismatched_reference_fails._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [[66]]             (let __src := Silver.Branching.exampleProgram;             { declared := __src.declared, defaultValue := __src.defaultValue, reference := [110],               comparison := __src.comparison, yesOutput := __src.yesOutput, noOutput := __src.noOutput }) =           none) =       true \u2192     decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [[66]]             (let __src := Silver.Branching.exampleProgram;             { declared := __src.declared, defa"
+  ],
+  [
+   "Silver.AssignmentExamples",
+   "_private.Silver.AssignmentExamples.0.Silver.Assignment.assignment_changes_output._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Assignment.execute L Silver.Assignment.healthyEnvironment             { declared := [109], initial := [65], assigned := [109], replacement := [66], reference := [109] } =           some { status := 0, accepted := [66, 10] }) =       true \u2192     decide         (_lift.Silver.Assignment.execute L Silver.Assignment.healthyEnvironment             { declared := [109], initial := [65], assigned := [109], replacement := [66], reference := [109] } =           some { status := 0, accepted := [66, 10] }) =       true"
+  ],
+  [
+   "Silver.ArgumentsExamples",
+   "_private.Silver.ArgumentsExamples.0.Silver.Arguments.example_current._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.named_unqualified_output_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.namedOutputSource = true) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.namedOutputSource = true) = true"
+  ],
+  [
+   "Silver.ArgumentsExamples",
+   "_private.Silver.ArgumentsExamples.0.Silver.Arguments.shadowed_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Arguments.accepts L Silver.Arguments.shadowedSource = false) = true \u2192     decide (_lift.Silver.Arguments.accepts L Silver.Arguments.shadowedSource = false) = true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.repeated_dynamic_fits_half_capacity._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Compose.fits L             (_lift.Silver.Compose.expressionAt L [78, 38, 78] 1 [{ first := 1, after := 2, dynamic := true }] [] false)             2048 =           true) =       true \u2192     decide         (_lift.Silver.Compose.fits L             (_lift.Silver.Compose.expressionAt L [78, 38, 78] 1 [{ first := 1, after := 2, dynamic := true }] [] false)             2048 =           true) =       true"
+  ],
+  [
+   "Silver.ArgumentsExamples",
+   "_private.Silver.ArgumentsExamples.0.Silver.Arguments.example_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Arguments.accepts L Silver.Arguments.exampleSource = true) = true \u2192     decide (_lift.Silver.Arguments.accepts L Silver.Arguments.exampleSource = true) = true"
+  ],
+  [
+   "Silver.GuardedExamples",
+   "_private.Silver.GuardedExamples.0.Silver.Guarded.example_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Guarded.accepts L Silver.Guarded.exampleSource = true) = true \u2192     decide (_lift.Silver.Guarded.accepts L Silver.Guarded.exampleSource = true) = true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.example_form_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Compose.formAccepts L Silver.Compose.exampleSource Silver.Compose.Form.guardedResult = true) =       true \u2192     decide (_lift.Silver.Compose.formAccepts L Silver.Compose.exampleSource Silver.Compose.Form.guardedResult = true) =       true"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.uncertainNestedAssignment_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.uncertainNestedAssignmentSource = true) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.uncertainNestedAssignmentSource = true) = true"
+  ],
+  [
+   "Silver.ArgumentsExamples",
+   "_private.Silver.ArgumentsExamples.0.Silver.Arguments.missing_uses_initialized_default._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Arguments.execute L Silver.Arguments.healthyEnvironment [] Silver.Arguments.exampleProgram =           some { status := 0, accepted := Silver.Arguments.exampleProgram.defaultValue ++ [10] }) =       true \u2192     decide         (_lift.Silver.Arguments.execute L Silver.Arguments.healthyEnvironment [] Silver.Arguments.exampleProgram =           some { status := 0, accepted := Silver.Arguments.exampleProgram.defaultValue ++ [10] }) =       true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.concatenated_initializer_assignment_and_output_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Compose.accepts L             (Silver.Compose.copyAssignmentSource \"(First & (\\\"\\\"))\" \"(\\\"\\\" & Second)\" \"((First) & Result)\") =           true) =       true \u2192     decide         (_lift.Silver.Compose.accepts L             (Silver.Compose.copyAssignmentSource \"(First & (\\\"\\\"))\" \"(\\\"\\\" & Second)\" \"((First) & Result)\") =           true) =       true"
+  ],
+  [
+   "Silver.ArgumentsExamples",
+   "_private.Silver.ArgumentsExamples.0.Silver.Arguments.swapped_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Arguments.accepts L Silver.Arguments.swappedSource = false) = true \u2192     decide (_lift.Silver.Arguments.accepts L Silver.Arguments.swappedSource = false) = true"
+  ],
+  [
+   "Silver.AssignmentExamples",
+   "_private.Silver.AssignmentExamples.0.Silver.Assignment.example_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Assignment.accepts L Silver.Assignment.exampleSource = true) = true \u2192     decide (_lift.Silver.Assignment.accepts L Silver.Assignment.exampleSource = true) = true"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.reverseNullLoop_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.reverseNullLoopSource = true) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.reverseNullLoopSource = true) = true"
+  ],
+  [
+   "Silver.AssignmentExamples",
+   "_private.Silver.AssignmentExamples.0.Silver.Assignment.example_current._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ],
+  [
+   "Silver.GuardedExamples",
+   "_private.Silver.GuardedExamples.0.Silver.Guarded.empty_argument_keeps_decorations._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Guarded.execute L Silver.Guarded.healthyEnvironment [[]] Silver.Guarded.exampleProgram =           some { status := 0, accepted := List.map Char.toNat \"Hello, !\\n\".toList }) =       true \u2192     decide         (_lift.Silver.Guarded.execute L Silver.Guarded.healthyEnvironment [[]] Silver.Guarded.exampleProgram =           some { status := 0, accepted := List.map Char.toNat \"Hello, !\\n\".toList }) =       true"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.triangle_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.triangleSource = true) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.triangleSource = true) = true"
+  ],
+  [
+   "Silver.GuardedExamples",
+   "_private.Silver.GuardedExamples.0.Silver.Guarded.swapped_literal_payloads_change_output._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Guarded.Main.Composition.execute L Silver.Guarded.Main.composition               Silver.Guarded.healthyEnvironment []               [Silver.Guarded.Event.declaration [110], Silver.Guarded.Event.literal [65] false,                 Silver.Guarded.Event.reference [110], Silver.Guarded.Event.capacity 4094,                 Silver.Guarded.Event.literal [66] true, Silver.Guarded.Event.reference [110],                 Silver.Guarded.Event.literal [67] true] =             some { status := 0, accepted := [66, 65, 67, 10] } \u2227           _lift.Silver.Guarded.Main.Com"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.missing_operand_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.countdown_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.countdownSource = true) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.countdownSource = true) = true"
+  ],
+  [
+   "Silver.NamedExamples",
+   "_private.Silver.NamedExamples.0.Silver.Named.example_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Named.accepts L Silver.Named.exampleSource = true) = true \u2192     decide (_lift.Silver.Named.accepts L Silver.Named.exampleSource = true) = true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.repeated_dynamic_overflow_at_new_limit._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   (decide         \u00ac(Silver.Compose.repeatedDynamic \u2260 [] \u2227             List.length Silver.Compose.repeatedDynamic \u2264 Silver.Compose.maxExpressionOperands \u2227               Silver.Compose.Expression.staticLength Silver.Bindings.emptyShape Silver.Compose.repeatedDynamic +                   Silver.Compose.Expression.dynamicCount Silver.Bindings.emptyShape Silver.Compose.repeatedDynamic *                     65 \u2264                 L)) =       true \u2192     (decide         \u00ac(Silver.Compose.repeatedDynamic \u2260 [] \u2227             List.length Silver.Compose.repeatedDynamic \u2264 Silver.Compose.maxExpressionOp"
+  ],
+  [
+   "Silver.ConcatExamples",
+   "_private.Silver.ConcatExamples.0.Silver.Concat.example_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Concat.accepts L Silver.Concat.exampleSource = true) = true \u2192     decide (_lift.Silver.Concat.accepts L Silver.Concat.exampleSource = true) = true"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.returning_reject_does_not_grant_validity._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.invalidOutputSource = false) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.invalidOutputSource = false) = true"
+  ],
+  [
+   "Silver.BranchingExamples",
+   "_private.Silver.BranchingExamples.0.Silver.Branching.unequal_lengths_select_no._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [[66, 66]]             Silver.Branching.exampleProgram =           some { status := 0, accepted := [110, 111, 10] }) =       true \u2192     decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [[66, 66]]             Silver.Branching.exampleProgram =           some { status := 0, accepted := [110, 111, 10] }) =       true"
+  ],
+  [
+   "Silver.BranchingExamples",
+   "_private.Silver.BranchingExamples.0.Silver.Branching.missing_selects_default_branch._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [] Silver.Branching.exampleProgram =           some { status := 0, accepted := [110, 111, 10] }) =       true \u2192     decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [] Silver.Branching.exampleProgram =           some { status := 0, accepted := [110, 111, 10] }) =       true"
+  ],
+  [
+   "Silver.ConcatExamples",
+   "_private.Silver.ConcatExamples.0.Silver.Concat.example_current._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ],
+  [
+   "Silver.AssignmentExamples",
+   "_private.Silver.AssignmentExamples.0.Silver.Assignment.unequal_source_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Assignment.unequalSource = false) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Assignment.unequalSource = false) = true"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.qualified_hidden_output_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.qualifiedHiddenOutputSource = true) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.qualifiedHiddenOutputSource = true) = true"
+  ],
+  [
+   "Silver.NamedExamples",
+   "_private.Silver.NamedExamples.0.Silver.Named.mismatched_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Named.accepts L Silver.Named.mismatchedSource = false) = true \u2192     decide (_lift.Silver.Named.accepts L Silver.Named.mismatchedSource = false) = true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.repeated_dynamic_exact_bound._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (Silver.Compose.repeatedDynamic \u2260 [] \u2227           List.length Silver.Compose.repeatedDynamic \u2264 Silver.Compose.maxExpressionOperands \u2227             Silver.Compose.Expression.staticLength Silver.Bindings.emptyShape Silver.Compose.repeatedDynamic +                 Silver.Compose.Expression.dynamicCount Silver.Bindings.emptyShape Silver.Compose.repeatedDynamic * 64 \u2264               L) =       true \u2192     decide         (Silver.Compose.repeatedDynamic \u2260 [] \u2227           List.length Silver.Compose.repeatedDynamic \u2264 Silver.Compose.maxExpressionOperands \u2227             Silver.Compose"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.hidden_unqualified_output_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.hiddenOutputSource = false) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.hiddenOutputSource = false) = true"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.qualified_hidden_partial_output_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.qualifiedHiddenPartialOutputSource = true) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.qualifiedHiddenPartialOutputSource = true) = true"
+  ],
+  [
+   "Silver.BranchingExamples",
+   "_private.Silver.BranchingExamples.0.Silver.Branching.example_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Branching.accepts L Silver.Branching.exampleSource = true) = true \u2192     decide (_lift.Silver.Branching.accepts L Silver.Branching.exampleSource = true) = true"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.invalid_input_has_zero_length._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.invalidAssignmentSource = true) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.invalidAssignmentSource = true) = true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.unused_assignment_target_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Compose.accepts L (Silver.Compose.copyAssignmentSource \"\\\"cd\\\"\" \"Second\" \"First & Second\") =           true) =       true \u2192     decide         (_lift.Silver.Compose.accepts L (Silver.Compose.copyAssignmentSource \"\\\"cd\\\"\" \"Second\" \"First & Second\") =           true) =       true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.ordered_snapshots_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Compose.formAccepts L Silver.Compose.snapshotSource Silver.Compose.Form.assignment = true) =       true \u2192     decide (_lift.Silver.Compose.formAccepts L Silver.Compose.snapshotSource Silver.Compose.Form.assignment = true) =       true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.two_constants_guarded_branch_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Compose.formAccepts L Silver.Compose.copiedBranchSource Silver.Compose.Form.guardedResult =           true) =       true \u2192     decide         (_lift.Silver.Compose.formAccepts L Silver.Compose.copiedBranchSource Silver.Compose.Form.guardedResult =           true) =       true"
+  ],
+  [
+   "Silver.ConcatExamples",
+   "_private.Silver.ConcatExamples.0.Silver.Concat.greeting_exact._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Concat.execute L Silver.Concat.healthyEnvironment Silver.Concat.exampleProgram =           some { status := 0, accepted := List.map Char.toNat \"Hello, world!\\n\".toList }) =       true \u2192     decide         (_lift.Silver.Concat.execute L Silver.Concat.healthyEnvironment Silver.Concat.exampleProgram =           some { status := 0, accepted := List.map Char.toNat \"Hello, world!\\n\".toList }) =       true"
+  ],
+  [
+   "Silver.BranchingExamples",
+   "_private.Silver.BranchingExamples.0.Silver.Branching.explicit_empty_compares_empty._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [[]]             (let __src := Silver.Branching.exampleProgram;             { declared := __src.declared, defaultValue := __src.defaultValue, reference := __src.reference,               comparison := [], yesOutput := __src.yesOutput, noOutput := __src.noOutput }) =           some { status := 0, accepted := [121, 101, 115, 10] }) =       true \u2192     decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [[]]             (let __src := Silver.Branching.exampleProgram;      "
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.computedStep_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.computedStepSource = true) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.computedStepSource = true) = true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.tighter_capacity_rejects_oversized_default._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Compose.Program.action L [] Silver.Compose.narrowDefault = Silver.Compose.Action.reject) = true \u2192     decide (_lift.Silver.Compose.Program.action L [] Silver.Compose.narrowDefault = Silver.Compose.Action.reject) = true"
+  ],
+  [
+   "Silver.AssignmentExamples",
+   "_private.Silver.AssignmentExamples.0.Silver.Assignment.escaped_length_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Assignment.accepts L Silver.Assignment.escapedSource = true) = true \u2192     decide (_lift.Silver.Assignment.accepts L Silver.Assignment.escapedSource = true) = true"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.expiredIndex_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.expiredIndexSource = false) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.expiredIndexSource = false) = true"
+  ],
+  [
+   "Silver.ConcatExamples",
+   "_private.Silver.ConcatExamples.0.Silver.Concat.repeated_reference_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Concat.repeatedReference = true) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Concat.repeatedReference = true) = true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.unfinished_parenthesis_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.hiddenOwnBound_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.hiddenOwnBoundSource = false) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.hiddenOwnBoundSource = false) = true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.example_current._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.length_branch_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.lengthBranchSource = true) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.lengthBranchSource = true) = true"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.integerHomonym_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.integerHomonymSource = false) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.integerHomonymSource = false) = true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.unequal_named_copy_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Compose.accepts L (Silver.Compose.copyAssignmentSource \"\\\"cde\\\"\" \"Second\" \"Result\") = false) =       true \u2192     decide (_lift.Silver.Compose.accepts L (Silver.Compose.copyAssignmentSource \"\\\"cde\\\"\" \"Second\" \"Result\") = false) =       true"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.hidden_partial_output_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.hiddenPartialOutputSource = false) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.hiddenPartialOutputSource = false) = true"
+  ],
+  [
+   "Silver.ArgumentsExamples",
+   "_private.Silver.ArgumentsExamples.0.Silver.Arguments.negated_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Arguments.accepts L Silver.Arguments.negatedSource = false) = true \u2192     decide (_lift.Silver.Arguments.accepts L Silver.Arguments.negatedSource = false) = true"
+  ],
+  [
+   "Silver.BranchingExamples",
+   "_private.Silver.BranchingExamples.0.Silver.Branching.example_current._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ],
+  [
+   "Silver.ConcatExamples",
+   "_private.Silver.ConcatExamples.0.Silver.Concat.wrong_reference_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Concat.wrongReference = false) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Concat.wrongReference = false) = true"
+  ],
+  [
+   "Silver.BranchingExamples",
+   "_private.Silver.BranchingExamples.0.Silver.Branching.matching_input_selects_yes._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [[66]] Silver.Branching.exampleProgram =           some { status := 0, accepted := [121, 101, 115, 10] }) =       true \u2192     decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [[66]] Silver.Branching.exampleProgram =           some { status := 0, accepted := [121, 101, 115, 10] }) =       true"
+  ],
+  [
+   "Silver.NamedExamples",
+   "_private.Silver.NamedExamples.0.Silver.Named.example_current._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ],
+  [
+   "Silver.BranchingExamples",
+   "_private.Silver.BranchingExamples.0.Silver.Branching.comparison_preserves_case._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [[98]] Silver.Branching.exampleProgram =           some { status := 0, accepted := [110, 111, 10] }) =       true \u2192     decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [[98]] Silver.Branching.exampleProgram =           some { status := 0, accepted := [110, 111, 10] }) =       true"
+  ],
+  [
+   "Silver.BranchingExamples",
+   "_private.Silver.BranchingExamples.0.Silver.Branching.swapped_literal_payloads_change_output._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Branching.Main.Composition.execute L Silver.Branching.Main.composition               Silver.Branching.healthyEnvironment [[66]]               [Silver.Named.Event.declaration [109], Silver.Named.Event.literal [65],                 Silver.Named.Event.reference [109], Silver.Named.Event.literal [66], Silver.Named.Event.literal [88],                 Silver.Named.Event.literal [89]] =             some { status := 0, accepted := [88, 10] } \u2227           _lift.Silver.Branching.Main.Composition.execute L Silver.Branching.Main.composition               Silver.Branc"
+  ],
+  [
+   "Silver.ConcatExamples",
+   "_private.Silver.ConcatExamples.0.Silver.Concat.shadowed_name_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Concat.shadowedName = false) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Concat.shadowedName = false) = true"
+  ],
+  [
+   "Silver.PredicateExamples",
+   "_private.Silver.PredicateExamples.0.Silver.Predicate.mixed_partial_output_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Current.accepts L Silver.Predicate.partialOutputSource = true) = true \u2192     decide (_lift.Silver.Current.accepts L Silver.Predicate.partialOutputSource = true) = true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.two_constants_copy_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Compose.formAccepts L             (Silver.Compose.copyAssignmentSource \"\\\"cd\\\"\" \"sEcOnD\" \"First & Result & Second\")             Silver.Compose.Form.assignment =           true) =       true \u2192     decide         (_lift.Silver.Compose.formAccepts L             (Silver.Compose.copyAssignmentSource \"\\\"cd\\\"\" \"sEcOnD\" \"First & Result & Second\")             Silver.Compose.Form.assignment =           true) =       true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.repeated_static_exact_bound._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (Silver.Compose.repeatedStatic \u2260 [] \u2227           List.length Silver.Compose.repeatedStatic \u2264 Silver.Compose.maxExpressionOperands \u2227             Silver.Compose.Expression.staticLength (Silver.Compose.fixedShape 64) Silver.Compose.repeatedStatic +                 Silver.Compose.Expression.dynamicCount (Silver.Compose.fixedShape 64) Silver.Compose.repeatedStatic *                   4096 \u2264               L) =       true \u2192     decide         (Silver.Compose.repeatedStatic \u2260 [] \u2227           List.length Silver.Compose.repeatedStatic \u2264 Silver.Compose.maxExpressionOperands \u2227     "
+  ],
+  [
+   "Silver.BranchingExamples",
+   "_private.Silver.BranchingExamples.0.Silver.Branching.invalid_input_never_uses_empty_fallback._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [[0]]             (let __src := Silver.Branching.exampleProgram;             { declared := __src.declared, defaultValue := __src.defaultValue, reference := __src.reference,               comparison := [], yesOutput := __src.yesOutput, noOutput := __src.noOutput }) =           some { status := 1, accepted := [] }) =       true \u2192     decide         (_lift.Silver.Branching.execute L Silver.Branching.healthyEnvironment [[0]]             (let __src := Silver.Branching.exampleProgram;             { declar"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.constant_alias_initializer_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Compose.accepts L (Silver.Compose.copyAssignmentSource \"First\" \"Second\" \"Result\") = true) =       true \u2192     decide (_lift.Silver.Compose.accepts L (Silver.Compose.copyAssignmentSource \"First\" \"Second\" \"Result\") = true) =       true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.mutable_copy_source_admitted._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Compose.accepts L (Silver.Compose.copyAssignmentSource \"\\\"cd\\\"\" \"Result\" \"Result\") = true) =       true \u2192     decide (_lift.Silver.Compose.accepts L (Silver.Compose.copyAssignmentSource \"\\\"cd\\\"\" \"Result\" \"Result\") = true) =       true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.grouped_literal_summary._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.repeated_static_overflow_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   (decide         \u00ac(Silver.Compose.repeatedStatic \u2260 [] \u2227             List.length Silver.Compose.repeatedStatic \u2264 Silver.Compose.maxExpressionOperands \u2227               Silver.Compose.Expression.staticLength (Silver.Compose.fixedShape 65) Silver.Compose.repeatedStatic +                   Silver.Compose.Expression.dynamicCount (Silver.Compose.fixedShape 65) Silver.Compose.repeatedStatic *                     4096 \u2264                 L)) =       true \u2192     (decide         \u00ac(Silver.Compose.repeatedStatic \u2260 [] \u2227             List.length Silver.Compose.repeatedStatic \u2264 Silver.Compose.maxExpressi"
+  ],
+  [
+   "Silver.GuardedExamples",
+   "_private.Silver.GuardedExamples.0.Silver.Guarded.argument_is_decorated._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Guarded.execute L Silver.Guarded.healthyEnvironment [List.map Char.toNat \"Ada\".toList]             Silver.Guarded.exampleProgram =           some { status := 0, accepted := List.map Char.toNat \"Hello, Ada!\\n\".toList }) =       true \u2192     decide         (_lift.Silver.Guarded.execute L Silver.Guarded.healthyEnvironment [List.map Char.toNat \"Ada\".toList]             Silver.Guarded.exampleProgram =           some { status := 0, accepted := List.map Char.toNat \"Hello, Ada!\\n\".toList }) =       true"
+  ],
+  [
+   "Silver.GuardedExamples",
+   "_private.Silver.GuardedExamples.0.Silver.Guarded.missing_prints_default._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Guarded.execute L Silver.Guarded.healthyEnvironment [] Silver.Guarded.exampleProgram =           some { status := 0, accepted := List.map Char.toNat \"Hello, world!\\n\".toList }) =       true \u2192     decide         (_lift.Silver.Guarded.execute L Silver.Guarded.healthyEnvironment [] Silver.Guarded.exampleProgram =           some { status := 0, accepted := List.map Char.toNat \"Hello, world!\\n\".toList }) =       true"
+  ],
+  [
+   "Silver.ComposeExamples",
+   "_private.Silver.ComposeExamples.0.Silver.Compose.repeated_dynamic_overflow_rejected._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide         (_lift.Silver.Compose.fits L             (_lift.Silver.Compose.expressionAt L [78, 38, 78] 1 [{ first := 1, after := 2, dynamic := true }] [] false)             2049 =           false) =       true \u2192     decide         (_lift.Silver.Compose.fits L             (_lift.Silver.Compose.expressionAt L [78, 38, 78] 1 [{ first := 1, after := 2, dynamic := true }] [] false)             2049 =           false) =       true"
+  ]
+ ],
+ "C-true for all L; proof unfolded constant": [
+  [
+   "Silver.ComposeStateBounds",
+   "Silver.Compose.Expressions.model_invalid_state_valid",
+   "(kernel) application type mismatch   congrArg And (Nat.zero_le._simp_1 341) argument has type   (0 \u2264 341) = True but function has type   (List.length Silver.Compose.invalidState.scalarNames \u2264 L / 12) = True \u2192     And (List.length Silver.Compose.invalidState.scalarNames \u2264 L / 12) = And True"
+  ],
+  [
+   "Silver.ComposeDecode",
+   "Silver.Compose.decode_complete_spec",
+   "(kernel) application type mismatch   And.intro (0 \u2264 L) (_lift.Silver.Compose.SafeExpression L value1 (Silver.Bindings.BindingEnvironment.shape names0) L)     (of_eq_true (Nat.zero_le._simp_1 4096)) argument has type   0 \u2264 4096 but function has type   0 \u2264 L \u2192     \u2200 (right : _lift.Silver.Compose.SafeExpression L value1 (Silver.Bindings.BindingEnvironment.shape names0) L),       0 \u2264 L \u2227 _lift.Silver.Compose.SafeExpression L value1 (Silver.Bindings.BindingEnvironment.shape names0) L"
+  ],
+  [
+   "Silver.PredicateGrammar",
+   "_private.Silver.PredicateGrammar.0.Silver.Predicate.initial_ranges",
+   "(kernel) application type mismatch   congrArg And (Nat.zero_le._simp_1 341) argument has type   (0 \u2264 341) = True but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ],
+  [
+   "Silver.PredicateAdapter",
+   "Silver.Predicate.Adapter.invalidScan_valid",
+   "(kernel) application type mismatch   congrArg And (Nat.zero_le._simp_1 341) argument has type   (0 \u2264 341) = True but function has type   (List.length Silver.Predicate.invalidScan.state.names \u2264 _lift.Silver.Compose.maxBindings L) = True \u2192     And (List.length Silver.Predicate.invalidScan.state.names \u2264 _lift.Silver.Compose.maxBindings L) = And True"
+  ],
+  [
+   "Silver.SequenceHeader",
+   "Silver.Sequence.prefix_decoded_valid",
+   "(kernel) application type mismatch   And.intro     (List.length         { declarations := values, names := names, fallback := [],             body := { shell := Silver.Sequence.Shell.static, statements := items } }.fallback \u2264       L)     (_lift.Silver.Sequence.Body.Valid L       { declarations := values, names := names, fallback := [],             body := { shell := Silver.Sequence.Shell.static, statements := items } }.names.shape       { declarations := values, names := names, fallback := [],           body := { shell := Silver.Sequence.Shell.static, statements := items } }.body)     (of_eq_true (Nat.zero_le._simp_1 4096)) argument has type   0 \u2264 4096 but function has type   List.length   "
+  ],
+  [
+   "Silver.ScalarExpressionEnvironment",
+   "Silver.ScalarExpression.validEnvironment_empty",
+   "(kernel) application type mismatch   congrArg And (Nat.zero_le._simp_1 341) argument has type   (0 \u2264 341) = True but function has type   ([].length \u2264 L / 12) = True \u2192 And ([].length \u2264 L / 12) = And True"
+  ],
+  [
+   "Silver.PredicateOuterEquations",
+   "_private.Silver.PredicateOuterEquations.0.Silver.Predicate.Outer.initial_valid",
+   "(kernel) application type mismatch   congrArg And (Nat.zero_le._simp_1 341) argument has type   (0 \u2264 341) = True but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ],
+  [
+   "Silver.PredicateHeaderDecode",
+   "Silver.Predicate.prefix_decoded_valid",
+   "(kernel) application type mismatch   And.intro (of_eq_true (Nat.zero_le._simp_1 4096)) argument has type   0 \u2264 4096 but function has type   List.length         { declarations := values, names := names, fallback := [], hasArguments := false,             statements := Silver.Predicate.lowerStatements items, integerDeclarations := integerDeclarations,             integerConstants := integerConstants, initializerChecks := initializerChecks }.fallback \u2264       L \u2192     ({ declarations := values, names := names, fallback := [], hasArguments := false,               statements := Silver.Predicate.lowerStatements items, integerDeclarations := integerDeclarations,               integerConstants := integ"
+  ],
+  [
+   "Silver.PredicateGrammar",
+   "_private.Silver.PredicateGrammar.0.Silver.Predicate.initialFacts_bounded",
+   "(kernel) application type mismatch   Eq.trans     (congrArg       (fun x =>         match x.validLengths with         | none => True         | some interval => interval.upper \u2264 L)       (ite_eq_right_of_eq_false (Silver.PathFacts.Context.initial L)         { validLengths := some { lower := 0, upper := 0 }, invalidReachable := false, invalidRejected := false }         Bool.false_eq_true))     (Nat.zero_le._simp_1 4096) argument has type   (0 \u2264 4096) = True but function has type   (match         { validLengths := some { lower := 0, upper := 0 }, invalidReachable := false,             invalidRejected := false }.validLengths with       | none => True       | some interval => interval.upper \u2264 L) "
+  ],
+  [
+   "Silver.SequenceEquations",
+   "_private.Silver.SequenceEquations.0.Silver.Sequence.Expressions.initial_valid",
+   "(kernel) application type mismatch   congrArg And (Nat.zero_le._simp_1 341) argument has type   (0 \u2264 341) = True but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ],
+  [
+   "Silver.ComposeRecognitionEquations",
+   "_private.Silver.ComposeRecognitionEquations.0.Silver.Compose.Expressions.initial_valid",
+   "(kernel) application type mismatch   congrArg And (Nat.zero_le._simp_1 341) argument has type   (0 \u2264 341) = True but function has type   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation)"
+  ]
+ ],
+ "E-hard-coded literal 4096/4097 elsewhere (mechanical rename)": [
+  [
+   "Silver.GuardedDecimal",
+   "Silver.Guarded.decimalAt_bounds",
+   "(kernel) application type mismatch   id (Decidable.byContradiction fun a => Silver.Guarded.decimalAt_bounds._proof_1_2\u271d bound a) argument has type   position < position + 1 \u2227 position + 1 \u2264 List.length text + 1 \u2227 0 \u2264 4096 but function has type   position < position + 1 \u2227 position + 1 \u2264 List.length text + 1 \u2227 0 \u2264 L \u2192     position < position + 1 \u2227 position + 1 \u2264 List.length text + 1 \u2227 0 \u2264 L"
+  ],
+  [
+   "Silver.ComposeDeclarations",
+   "Silver.Compose.expressionResult_coefficients",
+   "(kernel) application type mismatch   Silver.Compose.expressionResult_coefficients._proof_1_1\u271d bound argument has type   result.staticLength + result.dynamicCount * L \u2264 L but function has type   result.staticLength + result.dynamicCount * 4096 \u2264 4096 \u2192     \u00ac(result.dynamicCount \u2264 1 \u2227 (result.dynamicCount = 1 \u2192 result.staticLength = 0)) \u2192 False"
+  ],
+  [
+   "Silver.OutputEquations",
+   "Silver.Output.source_equations_reduce",
+   "(kernel) application type mismatch   _lift.Silver.Output.SourceEquations.suffix L calls primitives equations text positive bounded argument has type   List.length text \u2264 4096 but function has type   List.length text \u2264 L \u2192     \u2200 (position nextToken : Nat),       1 \u2264 position \u2192         position \u2264 List.length text + 1 \u2192           1 \u2264 nextToken \u2192             nextToken \u2264 Silver.Output.requiredTokens.length + 1 \u2192               calls.suffix text position nextToken =                 Silver.Output.suffixEquation (primitives.trivia text) (calls.literal text) (primitives.token text)                   (calls.suffix text) text position nextToken"
+  ],
+  [
+   "Silver.OutputExpressions",
+   "Silver.Output.Expressions.primitive_interpreted_equations",
+   "(kernel) application type mismatch   _lift.Silver.Output.Expressions.PrimitiveInterpretation.comment L calls primitives source text positive bounded argument has type   List.length text \u2264 4096 but function has type   List.length text \u2264 L \u2192     \u2200 (position : Nat),       1 \u2264 position \u2192         position \u2264 List.length text + 1 \u2192           \u2191(primitives.comment text position) =             _lift.Silver.Expressions.Number.evalWith L (Silver.Output.Expressions.memberCalls calls primitives)               { text := text, position := position } Silver.Expressions.commentBody"
+  ],
+  [
+   "Silver.OutputExpressions",
+   "Silver.Output.Expressions.interpreted_equations",
+   "(kernel) application type mismatch   _lift.Silver.Output.Expressions.InterpretedSource.literal L calls primitives source text positive bounded argument has type   List.length text \u2264 4096 but function has type   List.length text \u2264 L \u2192     \u2200 (position : Nat),       1 \u2264 position \u2192         position \u2264 List.length text + 1 \u2192           calls.literal text position =             Silver.Output.Expressions.Number.eval calls primitives { text := text, position := position }               Silver.Output.Expressions.literalBody"
+  ],
+  [
+   "Silver.ScalarExpressionNativeTypes",
+   "Silver.ScalarExpression.Native.invalid_type",
+   "(kernel) declaration type mismatch, '_lift.Silver.ScalarExpression.Native.invalid_type' has type   \u2200 (L : Nat),     Silver.ScalarExpression.invalid.after \u2264 4097 \u2227       Silver.ScalarExpression.invalid.bounds.Bounded \u2227         Silver.ScalarExpression.invalid.operands \u2264 Silver.ScalarExpression.maxOperands but it is expected to have type   (L : Nat) \u2192 _lift.Silver.ScalarExpression.Native.ResultType L Silver.ScalarExpression.invalid"
+  ],
+  [
+   "Silver.ScalarExpressionNativeTypes",
+   "Silver.ScalarExpression.Native.read_type",
+   "(kernel) application type mismatch   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation) argument has type   _lift.Silver.ScalarExpression.Native.ValidText L text but function has type   0 < List.length text \u2227 List.length text \u2264 4096 \u2192 List.length text \u2264 4096"
+  ],
+  [
+   "Silver.ComposeEquations",
+   "Silver.Compose.Expressions.interpreted_image",
+   "(kernel) application type mismatch   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation) argument has type   _lift.Silver.ScalarExpression.Native.ResultType L (Silver.ScalarExpression.read text parts.scalarPosition scalarNames) but function has type   (Silver.ScalarExpression.read text parts.scalarPosition scalarNames).after \u2264 4097 \u2227       (Silver.ScalarExpression.read text parts.scalarPosition scalarNames).bounds.Bounded \u2227         (Silver.ScalarExpression.read text parts.scalarPosition scalarNames).operands \u2264           Silver.ScalarExpression.maxOperands \u2192     (Silver.ScalarExpression.read text parts.scalarPosition scalarNames).bounds.Bounded \u2227    "
+  ],
+  [
+   "Silver.ComposeEquations",
+   "Silver.Compose.Expressions.interpreted_scalarConstraint",
+   "(kernel) application type mismatch   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation) argument has type   _lift.Silver.ScalarExpression.Native.ResultType L (Silver.ScalarExpression.read text rangeAfter names) but function has type   (Silver.ScalarExpression.read text rangeAfter names).after \u2264 4097 \u2227       (Silver.ScalarExpression.read text rangeAfter names).bounds.Bounded \u2227         (Silver.ScalarExpression.read text rangeAfter names).operands \u2264 Silver.ScalarExpression.maxOperands \u2192     (Silver.ScalarExpression.read text rangeAfter names).bounds.Bounded \u2227       (Silver.ScalarExpression.read text rangeAfter names).operands \u2264 Silver.ScalarExpression"
+  ],
+  [
+   "Silver.ComposeEquations",
+   "Silver.Compose.Expressions.interpreted_scalarDeclaration",
+   "(kernel) application type mismatch   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation) argument has type   _lift.Silver.ScalarExpression.Native.ResultType L (Silver.ScalarExpression.read text position state.scalarNames) but function has type   (Silver.ScalarExpression.read text position state.scalarNames).after \u2264 4097 \u2227       (Silver.ScalarExpression.read text position state.scalarNames).bounds.Bounded \u2227         (Silver.ScalarExpression.read text position state.scalarNames).operands \u2264 Silver.ScalarExpression.maxOperands \u2192     (Silver.ScalarExpression.read text position state.scalarNames).bounds.Bounded \u2227       (Silver.ScalarExpression.read text po"
+  ],
+  [
+   "Silver.ScalarExpressionNativeTypes",
+   "Silver.ScalarExpression.Native.unary_result_type",
+   "(kernel) application type mismatch   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation) argument has type   _lift.Silver.ScalarExpression.Native.ResultType L operand but function has type   operand.after \u2264 4097 \u2227 operand.bounds.Bounded \u2227 operand.operands \u2264 Silver.ScalarExpression.maxOperands \u2192     operand.after \u2264 4097"
+  ],
+  [
+   "Silver.ScalarExpressionNativeTypes",
+   "Silver.ScalarExpression.Native.literal_result_type",
+   "(kernel) application type mismatch   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation) argument has type   _lift.Silver.ScalarExpression.Native.LiteralType L number but function has type   number.after \u2264 4097 \u2227 number.value \u2264 Silver.ScalarLiteral.maxMagnitude \u2192 number.after \u2264 4097"
+  ],
+  [
+   "Silver.ScalarExpressionNativeTypes",
+   "Silver.ScalarExpression.Native.literal_read_type",
+   "(kernel) application type mismatch   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation) argument has type   _lift.Silver.ScalarExpression.Native.ValidText L text but function has type   0 < List.length text \u2227 List.length text \u2264 4096 \u2192 List.length text \u2264 4096"
+  ],
+  [
+   "Silver.ScalarExpressionNativeEquations",
+   "Silver.ScalarExpression.Native.signed_wide",
+   "(kernel) application type mismatch   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation) argument has type   _lift.Silver.ScalarExpression.Native.LiteralType L number but function has type   number.after \u2264 4097 \u2227 number.value \u2264 Silver.ScalarLiteral.maxMagnitude \u2192     number.value \u2264 Silver.ScalarLiteral.maxMagnitude"
+  ],
+  [
+   "Silver.ScalarExpressionNativeEquations",
+   "Silver.ScalarExpression.Native.interpreted_unary",
+   "(kernel) application type mismatch   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation) argument has type   _lift.Silver.ScalarExpression.Native.ResultType L operand but function has type   operand.after \u2264 4097 \u2227 operand.bounds.Bounded \u2227 operand.operands \u2264 Silver.ScalarExpression.maxOperands \u2192     operand.bounds.Bounded \u2227 operand.operands \u2264 Silver.ScalarExpression.maxOperands"
+  ],
+  [
+   "Silver.ScalarExpressionNativeTypes",
+   "Silver.ScalarExpression.Native.binary_result_type",
+   "(kernel) application type mismatch   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation) argument has type   _lift.Silver.ScalarExpression.Native.ResultType L right but function has type   right.after \u2264 4097 \u2227 right.bounds.Bounded \u2227 right.operands \u2264 Silver.ScalarExpression.maxOperands \u2192 right.after \u2264 4097"
+  ],
+  [
+   "Silver.ScalarExpressionNativeEquations",
+   "Silver.ScalarExpression.Native.interpreted_binary",
+   "(kernel) application type mismatch   failed to pretty print expression (use 'set_option pp.rawOnError true' for raw representation) argument has type   _lift.Silver.ScalarExpression.Native.ResultType L left but function has type   left.after \u2264 4097 \u2227 left.bounds.Bounded \u2227 left.operands \u2264 Silver.ScalarExpression.maxOperands \u2192     left.bounds.Bounded \u2227 left.operands \u2264 Silver.ScalarExpression.maxOperands"
+  ],
+  [
+   "Silver.OutputExpressions",
+   "Silver.Output.Expressions.model_interpreted",
+   "(kernel) application type mismatch   _lift.Silver.Output.Expressions.PrimitiveInterpretation.mk L (_lift.Silver.Output.Expressions.modelCalls L)     Silver.Output.Expressions.modelPrimitives \u22ef argument has type   \u2200 (text : Silver.Source),     0 < List.length text \u2192       List.length text \u2264 4096 \u2192         \u2200 (position : Nat),           1 \u2264 position \u2192             position \u2264 List.length text + 1 \u2192               \u2191(Silver.Cursor.commentPosition { text := text, position := position }.text                     { text := text, position := position }.position) =                 _lift.Silver.Expressions.Number.eval L { text := text, position := position }                   Silver.Expressions.commentBody"
+  ]
+ ],
+ "D-small-constant side condition (digit <= L)": [
+  [
+   "Silver.GuardedDecimal",
+   "Silver.Guarded.decimalAt_sound",
+   "(kernel) application type mismatch   id (Decidable.byContradiction fun a => Silver.Guarded.decimalAt_sound._proof_1_6\u271d text position digits a) argument has type   Silver.Cursor.byteAt text position - 48 \u2264 4096 but function has type   Silver.Cursor.byteAt text position - 48 \u2264 L \u2192 Silver.Cursor.byteAt text position - 48 \u2264 L"
+  ],
+  [
+   "Silver.GuardedExpressions",
+   "Silver.Guarded.Expressions.interpreted_decimal",
+   "(kernel) application type mismatch   id     (Decidable.byContradiction fun a =>       _lift._private.Silver.GuardedExpressions.0.Silver.Guarded.Expressions.interpreted_decimal._proof_1_1 L text         position h\u271d\u00b9 a) argument has type   Silver.Cursor.byteAt text position - 48 \u2264 4096 but function has type   Silver.Cursor.byteAt text position - 48 \u2264 L \u2192 Silver.Cursor.byteAt text position - 48 \u2264 L"
+  ],
+  [
+   "Silver.ComposeLexical",
+   "Silver.Compose.Lexical.interpreted_decimal",
+   "(kernel) application type mismatch   id     (Decidable.byContradiction fun a =>       _lift._private.Silver.ComposeLexical.0.Silver.Compose.Lexical.interpreted_decimal._proof_1_1 L text position h\u271d\u00b9         a) argument has type   Silver.Cursor.byteAt text position - 48 \u2264 4096 but function has type   Silver.Cursor.byteAt text position - 48 \u2264 L \u2192 Silver.Cursor.byteAt text position - 48 \u2264 L"
+  ]
+ ],
+ "I-needs manual review": [
+  [
+   "Silver.ComposeBounds",
+   "Silver.Compose.Expressions.model_image_valid",
+   "(kernel) application type mismatch   id     (id       (Decidable.byContradiction fun a =>         _lift._private.Silver.ComposeBounds.0.Silver.Compose.Expressions.model_image_valid._proof_1_6 L text position           scalarNames lengths following a)) argument has type   (Silver.Compose.imageParts text position scalarNames).following \u2264 List.length text + 1 \u2227     0 \u2264 List.length text + 1 \u2227       (Silver.Integer.Image.lengthBounds (Silver.Compose.imageParts text position scalarNames).scalar.bounds).snd \u2264           4096 \u2227         0 \u2264 _lift.Silver.Compose.maxBindings L \u2227           (Silver.Integer.Image.lengthBounds (Silver.Compose.imageParts text position scalarNames).scalar.bounds).fst \u2264       "
+  ],
+  [
+   "Silver.OutputExpressions",
+   "Silver.Output.Expressions.Condition.render._sparseCasesOn_1",
+   "(kernel) application type mismatch   Nat.ne_of_beq_eq_false (Eq.refl false) argument has type   false = false but function has type   (Nat.land 1 (L.shiftRight 0)).beq 1 = false \u2192 \u00acNat.land 1 (L.shiftRight 0) = 1"
+  ],
+  [
+   "Silver.OutputExpressions",
+   "Silver.Output.Expressions.Condition.render.match_1",
+   "(kernel) application type mismatch   @_lift.Silver.Output.Expressions.Condition.render._sparseCasesOn_1 L (fun x => motive x) no\u271d     (fun condition yes no => h_1 condition yes no) fun h => h_2 no\u271d argument has type   Nat.hasNotBit 4096 no\u271d.ctorIdx \u2192 motive no\u271d but function has type   (L.hasNotBit no\u271d.ctorIdx \u2192 (fun x => motive x) no\u271d) \u2192 (fun x => motive x) no\u271d"
+  ],
+  [
+   "Silver.ComposeModelEquations",
+   "_private.Silver.ComposeModelEquations.0.Silver.Compose.Expressions.model_definition_scalarDeclaration",
+   "(kernel) application type mismatch   id     (of_eq_true       (Eq.trans         (congr           (congrArg Eq             (ite_congr               (congrFun'                 (congrArg Eq                   (Eq.trans                     (Eq.trans                       (congr                         (congrArg or                           (Eq.trans                             (Eq.trans                               (congrFun'                                 (congrArg or                                   (Eq.trans                                     (Eq.trans                                       (congr                                         (congrArg or                                          "
+  ],
+  [
+   "Silver.OutputSourceBridge",
+   "Silver.Output.SourceBridge.actual_runtime_declarations",
+   "(kernel) application type mismatch   And.intro rfl argument has type   List.foldl (fun value digit => value * 10 + (digit.toNat - 48)) 0 (List.filter (fun x => x != '_') \"4_096\".toList) =     List.foldl (fun value digit => value * 10 + (digit.toNat - 48)) 0 (List.filter (fun x => x != '_') \"4_096\".toList) but function has type   List.foldl (fun value digit => value * 10 + (digit.toNat - 48)) 0 (List.filter (fun x => x != '_') \"4_096\".toList) =       L \u2192     Silver.Source.declaration \"written_bytes\" Silver.Source.ioSpecTokens =           some             (Silver.SourceBridge.expectedTokens               \"String (1 .. Max_Length + 1) := (others => Character'Val (0)) with Ghost => Static\") \u2227   "
+  ]
+ ],
+ "D-small-constant side condition (L >= c)": [
+  [
+   "Silver.ComposeStateBounds",
+   "Silver.Compose.Expressions.model_argument_valid",
+   "(kernel) let-declaration type mismatch 'room'"
+  ],
+  [
+   "Silver.IntegerLiteral",
+   "Silver.IntegerLiteral.digitsTail_sound._unary",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (16 \u2264 L) = true \u2192 decide (16 \u2264 L) = true"
+  ],
+  [
+   "Silver.IntegerLiteral",
+   "Silver.IntegerLiteral.digitsAt_complete",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (16 \u2264 L) = true \u2192 decide (16 \u2264 L) = true"
+  ],
+  [
+   "Silver.NamedEquations",
+   "_private.Silver.NamedEquations.0.Silver.Named.forbidden_word_bounds._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (\u2200 (word : Silver.Source), word \u2208 Silver.Named.forbiddenNames \u2192 0 < List.length word \u2227 List.length word \u2264 L) =       true \u2192     decide         (\u2200 (word : Silver.Source), word \u2208 Silver.Named.forbiddenNames \u2192 0 < List.length word \u2227 List.length word \u2264 L) =       true"
+  ],
+  [
+   "Silver.ComposeEquations",
+   "Silver.Compose.Expressions.interpreted_argument",
+   "(kernel) let-declaration type mismatch 'room'"
+  ],
+  [
+   "Silver.IntegerLiteralEquations",
+   "Silver.IntegerLiteral.Native.interpreted_tail._unary",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (16 \u2264 L) = true \u2192 decide (16 \u2264 L) = true"
+  ],
+  [
+   "Silver.ComposeLexical",
+   "Silver.Compose.Lexical.interpreted_argument_forbidden",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide ((List.map Char.toNat \"silver_arguments\".toList).length \u2264 L) = true \u2192     decide ((List.map Char.toNat \"silver_arguments\".toList).length \u2264 L) = true"
+  ],
+  [
+   "Silver.ArgumentsExpressions",
+   "Silver.Arguments.Expressions.interpreted_argument_forbidden",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide ((List.map Char.toNat \"silver_arguments\".toList).length \u2264 L) = true \u2192     decide ((List.map Char.toNat \"silver_arguments\".toList).length \u2264 L) = true"
+  ]
+ ],
+ "G-Integer'Last arithmetic (truth needs kL <= 32767)": [
+  [
+   "Silver.ComposeObligations",
+   "_private.Silver.ComposeObligations.0.Silver.Compose.uniform_range_valid._proof_1_3",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide ({ fixedLength := L, variableBound := L }.discharge = true) = true \u2192     decide ({ fixedLength := L, variableBound := L }.discharge = true) = true"
+  ],
+  [
+   "Silver.GuardedObligations",
+   "_private.Silver.GuardedObligations.0.Silver.Guarded.uniform_range_valid._proof_1_5",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide ({ fixedLength := L + L, variableBound := L }.discharge = true) = true \u2192     decide ({ fixedLength := L + L, variableBound := L }.discharge = true) = true"
+  ],
+  [
+   "Silver.GuardedObligations",
+   "_private.Silver.GuardedObligations.0.Silver.Guarded.uniform_range_valid._proof_1_4",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide ({ fixedLength := L, variableBound := L }.discharge = true) = true \u2192     decide ({ fixedLength := L, variableBound := L }.discharge = true) = true"
+  ],
+  [
+   "Silver.Current",
+   "_private.Silver.Current.0.Silver.Current.uniform_discharge._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (Silver.Semantics.discharge (_lift.Silver.Current.uniformObligations L) = true) = true \u2192     decide (Silver.Semantics.discharge (_lift.Silver.Current.uniformObligations L) = true) = true"
+  ],
+  [
+   "Silver.GuardedObligations",
+   "_private.Silver.GuardedObligations.0.Silver.Guarded.uniform_discharge._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (Silver.Semantics.discharge (_lift.Silver.Guarded.uniformObligations L) = true) = true \u2192     decide (Silver.Semantics.discharge (_lift.Silver.Guarded.uniformObligations L) = true) = true"
+  ]
+ ],
+ "A-artifact(compiled _unsafe_rec)": [
+  [
+   "Silver.ArgumentsSemantics",
+   "Silver.Arguments.Main.Expression.evaluate._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Arguments.Main.Expression.evaluate._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateSourceSyntax",
+   "Silver.Predicate.SourceStatementsWellFormed._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.SourceStatement.WellFormed._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateSourceSyntax",
+   "Silver.Predicate.SourceAlternative.WellFormed._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.SourceStatementsWellFormed._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateSourceSyntax",
+   "Silver.Predicate.SourceStatement.WellFormed._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.SourceStatementsWellFormed._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateAdmission",
+   "Silver.Predicate.conditionTail._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.readRelation._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateAdmission",
+   "Silver.Predicate.readCondition._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.readRelation._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateAdmission",
+   "Silver.Predicate.readPrimary._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.readCondition._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateAdmission",
+   "Silver.Predicate.readRelation._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.readPrimary._unsafe_rec'"
+  ],
+  [
+   "Silver.Expressions",
+   "Silver.Expressions.Number.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Expressions.Number.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.Expressions",
+   "Silver.Expressions.Condition.eval._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Expressions.Number.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceAdmission",
+   "Silver.Sequence.statementAt._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Sequence.conditionalAt._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceAdmission",
+   "Silver.Sequence.bodyTail._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Sequence.statementAt._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceAdmission",
+   "Silver.Sequence.readBody._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Sequence.statementAt._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceAdmission",
+   "Silver.Sequence.alternativeAt._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Sequence.readBody._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceAdmission",
+   "Silver.Sequence.conditionalAt._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Sequence.readBody._unsafe_rec'"
+  ],
+  [
+   "Silver.ArgumentsRuntime",
+   "Silver.Arguments.Runtime.Expr.evaluate._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Arguments.Runtime.Expr.evaluate._unsafe_rec'"
+  ],
+  [
+   "Silver.StringExecution",
+   "Silver.Compose.Expression.checkedEvaluate._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Compose.Expression.checkedEvaluate._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateBodyAdmission",
+   "Silver.Predicate.loopBody._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.readBody._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateBodyAdmission",
+   "Silver.Predicate.statementBody._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.conditionalBody._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateBodyAdmission",
+   "Silver.Predicate.bodyTail._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.statementBody._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateBodyAdmission",
+   "Silver.Predicate.readBody._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.statementBody._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateBodyAdmission",
+   "Silver.Predicate.alternativeBody._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.readBody._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateBodyAdmission",
+   "Silver.Predicate.conditionalBody._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.readBody._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceEffects",
+   "Silver.Sequence.executeEffects._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Sequence.executeEffects._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceExpressions",
+   "Silver.Sequence.Expressions.Command.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Sequence.Expressions.Command.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.GuardedDecimal",
+   "Silver.Guarded.decimalTail._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Guarded.decimalTail._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceSyntax",
+   "Silver.Sequence.Statement.Valid._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Sequence.StatementsValid._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceSyntax",
+   "Silver.Sequence.StatementsValid._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Sequence.Statement.Valid._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceSyntax",
+   "Silver.Sequence.Alternative.Valid._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Sequence.StatementsValid._unsafe_rec'"
+  ],
+  [
+   "Silver.ArgumentsSemantics",
+   "Silver.Arguments.Main.Statement.execute._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Arguments.Main.Statement.execute._unsafe_rec'"
+  ],
+  [
+   "Silver.ComposeEvaluation",
+   "Silver.Compose.Expressions.Expr.Legal._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Compose.Expressions.Expr.Legal._unsafe_rec'"
+  ],
+  [
+   "Silver.GuardedExpressions",
+   "Silver.Guarded.Expressions.Condition.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Guarded.Expressions.Number.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.GuardedExpressions",
+   "Silver.Guarded.Expressions.Number.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Guarded.Expressions.Number.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateExecution",
+   "Silver.Predicate.checkedStatements._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.Statement.checkedExecute._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateExecution",
+   "Silver.Predicate.Statement.checkedExecute._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.checkedStatements._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceAdmission",
+   "Silver.Sequence.scanSuffix._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Sequence.scanSuffix._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateShell",
+   "Silver.Predicate.scanTokens._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.scanTokens._unsafe_rec'"
+  ],
+  [
+   "Silver.IntegerLiteral",
+   "Silver.IntegerLiteral.scale._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.IntegerLiteral.scale._unsafe_rec'"
+  ],
+  [
+   "Silver.LengthIntervalExpressions",
+   "Silver.LengthIntervals.Native.Expr.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.LengthIntervals.Native.Expr.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.ComposeGrammar",
+   "Silver.Compose.StreamValid._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Compose.StreamValid._unsafe_rec'"
+  ],
+  [
+   "Silver.RecursiveBridge",
+   "Silver.Expressions.Number.evalWith._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Expressions.Number.evalWith._unsafe_rec'"
+  ],
+  [
+   "Silver.RecursiveBridge",
+   "Silver.Expressions.Condition.evalWith._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Expressions.Number.evalWith._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateStatements",
+   "Silver.Predicate.StatementsWellFormed._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.Statement.WellFormed._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateStatements",
+   "Silver.Predicate.Statement.WellFormed._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.StatementsWellFormed._unsafe_rec'"
+  ],
+  [
+   "Silver.ArgumentsRuntime",
+   "Silver.Arguments.Runtime.MessagePredicate.evaluate._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Arguments.Runtime.MessagePredicate.evaluate._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateAdapter",
+   "Silver.Predicate.Adapter.Expr.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.Adapter.Expr.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceNativeModel",
+   "Silver.Sequence.Native.modelRead._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Sequence.Native.modelStatement._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceNativeModel",
+   "Silver.Sequence.Native.modelAlternative._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Sequence.Native.modelRead._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceNativeModel",
+   "Silver.Sequence.Native.modelConditional._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Sequence.Native.modelRead._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceNativeModel",
+   "Silver.Sequence.Native.modelStatement._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Sequence.Native.modelConditional._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceNativeModel",
+   "Silver.Sequence.Native.modelTail._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Sequence.Native.modelStatement._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceExpressions",
+   "Silver.Sequence.Expressions.Expr.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Sequence.Expressions.Expr.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.SequenceExpressions",
+   "Silver.Sequence.Expressions.Condition.eval._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Sequence.Expressions.Expr.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.BranchingMain",
+   "Silver.Branching.Main.Expression.evaluate._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Branching.Main.Expression.evaluate._unsafe_rec'"
+  ],
+  [
+   "Silver.ComposeObligations",
+   "Silver.Compose.declarationRangeObligations._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Compose.declarationRangeObligations._unsafe_rec'"
+  ],
+  [
+   "Silver.PathNativeExpressions",
+   "Silver.PathFacts.Native.Expr.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.PathFacts.Native.Expr.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateStatements",
+   "Silver.Predicate.Statement.check._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.checkStatements._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateStatements",
+   "Silver.Predicate.checkStatements._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.Statement.check._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateSemantics",
+   "Silver.Predicate.Condition.checkedEvaluate._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.Condition.checkedEvaluate._unsafe_rec'"
+  ],
+  [
+   "Silver.ComposeAdmission",
+   "Silver.Compose.declarationsLoop._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Compose.declarationsLoop._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateOuterExpressions",
+   "Silver.Predicate.Outer.Expr.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.Outer.Expr.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateOuterExpressions",
+   "Silver.Predicate.Outer.Condition.eval._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.Outer.Expr.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.OutputExpressions",
+   "Silver.Output.Expressions.Condition.wellFormed._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Output.Expressions.Number.wellFormed._unsafe_rec'"
+  ],
+  [
+   "Silver.OutputExpressions",
+   "Silver.Output.Expressions.Number.wellFormed._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Output.Expressions.Number.wellFormed._unsafe_rec'"
+  ],
+  [
+   "Silver.ComposeExpressions",
+   "Silver.Compose.Expressions.Expr.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Compose.Expressions.Expr.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.GuardedMain",
+   "Silver.Guarded.Main.Statement.execute._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Guarded.Main.Statement.execute._unsafe_rec'"
+  ],
+  [
+   "Silver.GuardedExpressions",
+   "Silver.Guarded.Expressions.Decimal.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Guarded.Expressions.Decimal.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.ArgumentsExpressions",
+   "Silver.Arguments.Expressions.Number.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Arguments.Expressions.Number.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.ArgumentsExpressions",
+   "Silver.Arguments.Expressions.Condition.eval._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Arguments.Expressions.Number.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.GuardedMain",
+   "Silver.Guarded.Main.Expression.evaluate._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Guarded.Main.Expression.evaluate._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateObligations",
+   "Silver.Predicate.Statement.obligations._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.statementsObligations._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateObligations",
+   "Silver.Predicate.statementsObligations._unsafe_rec",
+   "(kernel) invalid declaration, safe declaration must not contain partial declaration '_lift.Silver.Predicate.Statement.obligations._unsafe_rec'"
+  ],
+  [
+   "Silver.GuardedAdmission",
+   "Silver.Guarded.suffixMatches._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Guarded.suffixMatches._unsafe_rec'"
+  ],
+  [
+   "Silver.ArgumentsRuntime",
+   "Silver.Arguments.Runtime.Statement.execute._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Arguments.Runtime.Statement.execute._unsafe_rec'"
+  ],
+  [
+   "Silver.OutputRuntime",
+   "Silver.Output.Runtime.execute._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Output.Runtime.execute._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateSemantics",
+   "Silver.Predicate.Condition.Safe._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.Condition.Safe._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateLoopNative",
+   "Silver.Predicate.LoopNative.Command.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.LoopNative.Command.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateBodyAdmission",
+   "Silver.Predicate.scanSuffix._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.scanSuffix._unsafe_rec'"
+  ],
+  [
+   "Silver.ComposeExecution",
+   "Silver.Compose.Main.Statement.execute._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Compose.Main.Statement.execute._unsafe_rec'"
+  ],
+  [
+   "Silver.IntegerLiteral",
+   "Silver.IntegerLiteral.digitsTail._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.IntegerLiteral.digitsTail._unsafe_rec'"
+  ],
+  [
+   "Silver.OutputExpressions",
+   "Silver.Output.Expressions.Condition.render._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Output.Expressions.Number.render._unsafe_rec'"
+  ],
+  [
+   "Silver.OutputExpressions",
+   "Silver.Output.Expressions.Number.render._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Output.Expressions.Number.render._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateLoopNative",
+   "Silver.Predicate.LoopNative.Command.evalWith._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.LoopNative.Command.evalWith._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateChecking",
+   "Silver.Predicate.Condition.checkBounds._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.Condition.checkBounds._unsafe_rec'"
+  ],
+  [
+   "Silver.IntegerLiteralExpressions",
+   "Silver.IntegerLiteral.Native.Expr.eval._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.IntegerLiteral.Native.Expr.eval._unsafe_rec'"
+  ],
+  [
+   "Silver.ComposeAdmission",
+   "Silver.Compose.suffixMatches._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Compose.suffixMatches._unsafe_rec'"
+  ],
+  [
+   "Silver.BranchingMain",
+   "Silver.Branching.Main.Statement.execute._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Branching.Main.Statement.execute._unsafe_rec'"
+  ],
+  [
+   "Silver.PredicateSyntax",
+   "Silver.Predicate.Condition.Readable._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Predicate.Condition.Readable._unsafe_rec'"
+  ],
+  [
+   "Silver.ComposeAdmission",
+   "Silver.Compose.expressionTail._unsafe_rec",
+   "(kernel) unknown constant '_lift.Silver.Compose.expressionTail._unsafe_rec'"
+  ]
+ ],
+ "H-decide on symbolic definitional fact (rfl suffices)": [
+  [
+   "Silver.ComposeSourceChecks",
+   "_private.Silver.ComposeSourceChecks.0.Silver.Compose.SourceBridge.declaration_fact_04._proof_1_1",
+   "(kernel) application type mismatch   id (Eq.refl true) argument has type   true = true but function has type   decide (_lift.Silver.Compose.maxBindings L = L / 12) = true \u2192     decide (_lift.Silver.Compose.maxBindings L = L / 12) = true"
+  ]
+ ],
+ "A-artifact(definitional eq lemma)": [
+  [
+   "Silver.ScalarExpressionEnvironment",
+   "Silver.ScalarExpression.maxBindings.eq_1",
+   "(kernel) declaration type mismatch, '_lift.Silver.ScalarExpression.maxBindings.eq_1' has type   \u2200 (L : Nat), L / 12 = L / 12 but it is expected to have type   \u2200 (L : Nat), L / 12 = 4096 / 12"
+  ],
+  [
+   "Silver.GuardedDecimal",
+   "Silver.maxSourceLength.eq_1",
+   "(kernel) declaration type mismatch, '_lift.Silver.maxSourceLength.eq_1' has type   \u2200 (L : Nat), L = L but it is expected to have type   \u2200 (L : Nat), L = 4096"
+  ]
+ ]
+}

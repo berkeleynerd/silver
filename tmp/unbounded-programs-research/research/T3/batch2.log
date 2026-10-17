@@ -1,0 +1,29 @@
+stmts n=8000 size=64135 check: rc=0 wall=1.30s maxrss=24.6MB | Phase 1 of 3: generation of  :: 
+stmts n=32000 size=256135 check: rc=0 wall=6.64s maxrss=31.0MB | Phase 1 of 3: generation of  :: 
+stmts n=128000 size=1024135 check: rc=0 wall=87.42s maxrss=57.8MB | Phase 1 of 3: generation of :: 
+puts n=2000 size=72077 check: rc=0 wall=1.08s maxrss=24.3MB | Phase 1 of 3: generation of  :: 
+puts n=8000 size=288077 check: rc=0 wall=1.57s maxrss=30.8MB | Phase 1 of 3: generation of  :: 
+puts n=32000 size=1152077 check: rc=0 wall=6.97s maxrss=57.0MB | Phase 1 of 3: generation of  :: 
+elsif n=2400 size=66261 check: rc=0 wall=0.98s maxrss=23.8MB | Phase 1 of 3: generation of  :: 
+elsif n=9000 size=251061 check: rc=0 wall=1.12s maxrss=27.1MB | Phase 1 of 3: generation of  :: 
+if n=3000 size=66143 check: rc=0 wall=1.31s maxrss=27.8MB | Phase 1 of 3: generation of  :: 
+if n=12000 size=264143 check: rc=1 wall=2.85s maxrss=33.7MB | Phase 1 of 3: generation of  :: +===========================GNAT BUG DETECTED==============================+|| 1.0 (spark) Storage_Error stack overflow or erroneous memory access      ||
+loop n=2000 size=69033 check: rc=0 wall=1.79s maxrss=29.5MB | Phase 1 of 3: generation of  :: 
+loop n=8000 size=279033 check: rc=1 wall=4.64s maxrss=44.4MB | Phase 1 of 3: generation of  :: +===========================GNAT BUG DETECTED==============================+|| 1.0 (spark) Storage_Error stack overflow or erroneous memory access      ||
+decls n=3000 size=64973 check: rc=0 wall=1.01s maxrss=24.8MB | Phase 1 of 3: generation of  :: 
+decls n=12000 size=264973 check: rc=0 wall=1.10s maxrss=31.9MB | Phase 1 of 3: generation of  :: 
+stmts n=8000 size=64135 flow: rc=0 wall=3.05s maxrss=200.2MB | Phase 1 of 3: generation of :: 
+stmts n=32000 size=256135 flow: rc=0 wall=14.24s maxrss=1057.9MB | Phase 1 of 3: generation  :: 
+stmts n=128000 size=1024135 flow: rc=0 wall=136.03s maxrss=4431.9MB | Phase 1 of 3: generation :: 
+puts n=2000 size=72077 flow: rc=0 wall=22.87s maxrss=283.2MB | Phase 1 of 3: generation o :: 
+puts n=8000 size=288077 flow: rc=0 wall=470.30s maxrss=1064.9MB | Phase 1 of 3: generation :: 
+puts n=32000 size=1152077 flow:  :: 
+elsif n=2400 size=66261 flow: rc=0 wall=5.30s maxrss=346.6MB | Phase 1 of 3: generation of :: 
+elsif n=9000 size=251061 flow: rc=0 wall=56.90s maxrss=3956.4MB | Phase 1 of 3: generation  :: 
+if n=3000 size=66143 flow: rc=1 wall=1.17s maxrss=36.5MB | Phase 1 of 3: generation of  :: +===========================GNAT BUG DETECTED==============================+|| 1.0 (spark) Storage_Error stack overflow or erroneous memory access      ||
+if n=12000 size=264143 flow: rc=1 wall=3.80s maxrss=33.4MB | Phase 1 of 3: generation of  :: +===========================GNAT BUG DETECTED==============================+|| 1.0 (spark) Storage_Error stack overflow or erroneous memory access      ||
+loop n=2000 size=69033 flow: rc=1 wall=1.25s maxrss=34.5MB | Phase 1 of 3: generation of  :: +===========================GNAT BUG DETECTED==============================+|| 1.0 (spark) Storage_Error stack overflow or erroneous memory access      ||
+loop n=8000 size=279033 flow: rc=1 wall=5.87s maxrss=44.0MB | Phase 1 of 3: generation of  :: +===========================GNAT BUG DETECTED==============================+|| 1.0 (spark) Storage_Error stack overflow or erroneous memory access      ||
+decls n=3000 size=64973 flow: rc=0 wall=22.04s maxrss=135.1MB | Phase 1 of 3: generation o :: 
+decls n=12000 size=264973 flow: rc=0 wall=510.23s maxrss=473.5MB | Phase 1 of 3: generation  :: 
+DONE

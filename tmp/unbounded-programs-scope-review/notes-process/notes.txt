@@ -1,0 +1,13 @@
+Process/conventions review of unbounded-programs scope (2026-10-17)
+Links: links.py run over scope doc, roadmap, session memory, issues A-H: all new links/anchors resolve
+(pre-existing historical session-memory anchors fail; not in diff). git diff --check clean; JSON valid.
+Findings summary:
+M1 A lacks main-recording/Fixes criteria (planning.md:47-54, 95-97)
+M2 kept-limits claim omits Natural'Last-1 report storage and fixed-input capacities (T1 verdict)
+M3 E2BIG / signal-death status mapping unspecified in scope; G says "infrastructure" (=3) vs T5 (=4)
+M4 owner's "full stop" question not explicitly answered
+M5 per-program producer/Image applicability premise moves from checked to trusted; not listed
+M6 identifier constant owned by C, D and E concurrently
+L: evidence tab numbers, T3 "amendment path" verdict, B-H "on main", labels, AGENTS characterization,
+   G "Ada's inherited bound" numeric value, D "un-defers O1", C/D/E missing dependency lines,
+   "proved once per release", Lean hypothesis wording, 100k loops claim not in evidence, "production-configuration" 18 runs.

@@ -1,0 +1,111 @@
+{
+ "milestone": 5,
+ "mapping": {
+  "A": "87",
+  "B": "88",
+  "D": "89",
+  "E": "90",
+  "C": "91",
+  "F": "92",
+  "G": "93",
+  "H": "94",
+  "MS": "5"
+ },
+ "created": {
+  "A": {
+   "number": "87",
+   "url": "https://github.com/berkeleynerd/silver/issues/87",
+   "title": "Unbounded programs: Scope and design",
+   "expected": "87",
+   "labels": [
+    "type: work package",
+    "area: planning",
+    "area: docs"
+   ]
+  },
+  "B": {
+   "number": "88",
+   "url": "https://github.com/berkeleynerd/silver/issues/88",
+   "title": "Unbounded programs: Proof confirmation and resource outcomes",
+   "expected": "88",
+   "labels": [
+    "type: work package",
+    "area: compiler",
+    "area: assurance",
+    "area: language",
+    "area: tooling",
+    "area: docs"
+   ]
+  },
+  "D": {
+   "number": "89",
+   "url": "https://github.com/berkeleynerd/silver/issues/89",
+   "title": "Unbounded programs: Compiler storage and complexity that scale with input",
+   "expected": "89",
+   "labels": [
+    "type: work package",
+    "area: compiler",
+    "area: assurance"
+   ]
+  },
+  "E": {
+   "number": "90",
+   "url": "https://github.com/berkeleynerd/silver/issues/90",
+   "title": "Unbounded programs: Parameterized Lean assurance",
+   "expected": "90",
+   "labels": [
+    "type: work package",
+    "area: assurance"
+   ]
+  },
+  "C": {
+   "number": "91",
+   "url": "https://github.com/berkeleynerd/silver/issues/91",
+   "title": "Unbounded programs: Pinned-frontend and derived source limits",
+   "expected": "91",
+   "labels": [
+    "type: work package",
+    "area: language",
+    "area: compiler",
+    "area: assurance"
+   ]
+  },
+  "F": {
+   "number": "92",
+   "url": "https://github.com/berkeleynerd/silver/issues/92",
+   "title": "Unbounded programs: Remove source, operator and expression caps",
+   "expected": "92",
+   "labels": [
+    "type: work package",
+    "area: language",
+    "area: compiler",
+    "area: assurance"
+   ]
+  },
+  "G": {
+   "number": "93",
+   "url": "https://github.com/berkeleynerd/silver/issues/93",
+   "title": "Unbounded programs: String and argument lengths up to Integer'Last",
+   "expected": "93",
+   "labels": [
+    "type: work package",
+    "area: language",
+    "area: runtime",
+    "area: assurance",
+    "area: compiler"
+   ]
+  },
+  "H": {
+   "number": "94",
+   "url": "https://github.com/berkeleynerd/silver/issues/94",
+   "title": "Unbounded programs: Validation, review and delivery",
+   "expected": "94",
+   "labels": [
+    "type: work package",
+    "area: assurance",
+    "area: docs",
+    "area: tooling"
+   ]
+  }
+ }
+}

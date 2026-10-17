@@ -1,0 +1,1314 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: analysis of data and information flow ...
+ info: implicit aspect Always_Terminates on "Is_Message" has been proved, subprogram will terminate
+--> silver_arguments.adb:5:13
+
+ info: implicit aspect Always_Terminates on "Input_Is_Valid" has been proved, subprogram will terminate
+--> silver_arguments.ads:9:13
+
+ info: data dependencies proved
+--> silver_arguments.ads:9:48
+
+ info: implicit aspect Always_Terminates on "First_Or_Default" has been proved, subprogram will terminate
+--> silver_arguments.ads:13:13
+
+ info: data dependencies proved
+--> silver_arguments.ads:14:11
+
+ info: aspect Always_Terminates on "Reject" has been proved, subprogram will terminate
+--> silver_arguments.ads:21:14
+
+ info: data dependencies proved
+--> silver_arguments.ads:22:11
+ info: initialization of "Status" proved
+--> silver_io.adb:7:07
+
+ info: initialization of "Status" proved
+--> silver_io.adb:50:07
+
+ info: data dependencies proved
+--> silver_io.ads:19:11
+
+ info: initialization of "Written_Bytes" proved
+--> silver_io.ads:20:33
+
+ info: initialization of "Written_Count" proved
+--> silver_io.ads:20:48
+
+ info: initialization of "Flushed" proved
+--> silver_io.ads:20:63
+
+ info: initialization of "Succeeded" proved
+--> silver_io.ads:20:72
+
+ info: data dependencies proved
+--> silver_io.ads:30:11
+
+ info: initialization of "Written_Bytes" proved
+--> silver_io.ads:31:33
+
+ info: initialization of "Written_Count" proved
+--> silver_io.ads:31:48
+
+ info: initialization of "Flushed" proved
+--> silver_io.ads:31:63
+
+ info: initialization of "Succeeded" proved
+--> silver_io.ads:31:72
+ warning: initialization of "X" has no effect
+--> main.adb:4:01
+    4 |    X : Integer := 0;
+      |    ^~~~~~~~~~~~~~~~
+
+ warning: statement has no effect
+--> main.adb:6:18
+    6 |    for I0 in 1 .. 1 loop
+      |                     ^~~~
+
+ warning: statement has no effect
+--> main.adb:7:18
+    7 |    for I1 in 1 .. 1 loop
+      |                     ^~~~
+
+ warning: statement has no effect
+--> main.adb:8:18
+    8 |    for I2 in 1 .. 1 loop
+      |                     ^~~~
+
+ warning: statement has no effect
+--> main.adb:9:18
+    9 |    for I3 in 1 .. 1 loop
+      |                     ^~~~
+
+ warning: statement has no effect
+--> main.adb:10:18
+   10 |    for I4 in 1 .. 1 loop
+      |                     ^~~~
+
+ warning: statement has no effect
+--> main.adb:11:18
+   11 |    for I5 in 1 .. 1 loop
+      |                     ^~~~
+
+ warning: statement has no effect
+--> main.adb:12:18
+   12 |    for I6 in 1 .. 1 loop
+      |                     ^~~~
+
+ warning: statement has no effect
+--> main.adb:13:18
+   13 |    for I7 in 1 .. 1 loop
+      |                     ^~~~
+
+ warning: statement has no effect
+--> main.adb:14:18
+   14 |    for I8 in 1 .. 1 loop
+      |                     ^~~~
+
+ warning: statement has no effect
+--> main.adb:15:18
+   15 |    for I9 in 1 .. 1 loop
+      |                     ^~~~
+
+ warning: statement has no effect
+--> main.adb:16:19
+   16 |    for I10 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:17:19
+   17 |    for I11 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:18:19
+   18 |    for I12 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:19:19
+   19 |    for I13 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:20:19
+   20 |    for I14 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:21:19
+   21 |    for I15 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:22:19
+   22 |    for I16 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:23:19
+   23 |    for I17 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:24:19
+   24 |    for I18 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:25:19
+   25 |    for I19 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:26:19
+   26 |    for I20 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:27:19
+   27 |    for I21 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:28:19
+   28 |    for I22 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:29:19
+   29 |    for I23 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:30:19
+   30 |    for I24 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:31:19
+   31 |    for I25 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:32:19
+   32 |    for I26 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:33:19
+   33 |    for I27 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:34:19
+   34 |    for I28 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:35:19
+   35 |    for I29 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:36:19
+   36 |    for I30 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:37:19
+   37 |    for I31 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:38:19
+   38 |    for I32 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:39:19
+   39 |    for I33 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:40:19
+   40 |    for I34 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:41:19
+   41 |    for I35 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:42:19
+   42 |    for I36 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:43:19
+   43 |    for I37 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:44:19
+   44 |    for I38 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:45:19
+   45 |    for I39 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:46:19
+   46 |    for I40 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:47:19
+   47 |    for I41 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:48:19
+   48 |    for I42 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:49:19
+   49 |    for I43 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:50:19
+   50 |    for I44 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:51:19
+   51 |    for I45 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:52:19
+   52 |    for I46 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:53:19
+   53 |    for I47 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:54:19
+   54 |    for I48 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:55:19
+   55 |    for I49 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:56:19
+   56 |    for I50 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:57:19
+   57 |    for I51 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:58:19
+   58 |    for I52 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:59:19
+   59 |    for I53 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:60:19
+   60 |    for I54 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:61:19
+   61 |    for I55 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:62:19
+   62 |    for I56 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:63:19
+   63 |    for I57 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:64:19
+   64 |    for I58 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:65:19
+   65 |    for I59 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:66:19
+   66 |    for I60 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:67:19
+   67 |    for I61 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:68:19
+   68 |    for I62 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:69:19
+   69 |    for I63 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:70:19
+   70 |    for I64 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:71:19
+   71 |    for I65 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:72:19
+   72 |    for I66 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:73:19
+   73 |    for I67 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:74:19
+   74 |    for I68 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:75:19
+   75 |    for I69 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:76:19
+   76 |    for I70 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:77:19
+   77 |    for I71 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:78:19
+   78 |    for I72 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:79:19
+   79 |    for I73 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:80:19
+   80 |    for I74 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:81:19
+   81 |    for I75 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:82:19
+   82 |    for I76 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:83:19
+   83 |    for I77 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:84:19
+   84 |    for I78 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:85:19
+   85 |    for I79 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:86:19
+   86 |    for I80 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:87:19
+   87 |    for I81 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:88:19
+   88 |    for I82 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:89:19
+   89 |    for I83 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:90:19
+   90 |    for I84 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:91:19
+   91 |    for I85 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:92:19
+   92 |    for I86 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:93:19
+   93 |    for I87 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:94:19
+   94 |    for I88 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:95:19
+   95 |    for I89 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:96:19
+   96 |    for I90 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:97:19
+   97 |    for I91 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:98:19
+   98 |    for I92 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:99:19
+   99 |    for I93 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:100:19
+  100 |    for I94 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:101:19
+  101 |    for I95 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:102:19
+  102 |    for I96 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:103:19
+  103 |    for I97 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:104:19
+  104 |    for I98 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:105:19
+  105 |    for I99 in 1 .. 1 loop
+      |                      ^~~~
+
+ warning: statement has no effect
+--> main.adb:106:20
+  106 |    for I100 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:107:20
+  107 |    for I101 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:108:20
+  108 |    for I102 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:109:20
+  109 |    for I103 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:110:20
+  110 |    for I104 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:111:20
+  111 |    for I105 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:112:20
+  112 |    for I106 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:113:20
+  113 |    for I107 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:114:20
+  114 |    for I108 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:115:20
+  115 |    for I109 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:116:20
+  116 |    for I110 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:117:20
+  117 |    for I111 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:118:20
+  118 |    for I112 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:119:20
+  119 |    for I113 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:120:20
+  120 |    for I114 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:121:20
+  121 |    for I115 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:122:20
+  122 |    for I116 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:123:20
+  123 |    for I117 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:124:20
+  124 |    for I118 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:125:20
+  125 |    for I119 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:126:20
+  126 |    for I120 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:127:20
+  127 |    for I121 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:128:20
+  128 |    for I122 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:129:20
+  129 |    for I123 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:130:20
+  130 |    for I124 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:131:20
+  131 |    for I125 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:132:20
+  132 |    for I126 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:133:20
+  133 |    for I127 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:134:20
+  134 |    for I128 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:135:20
+  135 |    for I129 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:136:20
+  136 |    for I130 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:137:20
+  137 |    for I131 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:138:20
+  138 |    for I132 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:139:20
+  139 |    for I133 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:140:20
+  140 |    for I134 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:141:20
+  141 |    for I135 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:142:20
+  142 |    for I136 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:143:20
+  143 |    for I137 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:144:20
+  144 |    for I138 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:145:20
+  145 |    for I139 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:146:20
+  146 |    for I140 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:147:20
+  147 |    for I141 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:148:20
+  148 |    for I142 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:149:20
+  149 |    for I143 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:150:20
+  150 |    for I144 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:151:20
+  151 |    for I145 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:152:20
+  152 |    for I146 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:153:20
+  153 |    for I147 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:154:20
+  154 |    for I148 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:155:20
+  155 |    for I149 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:156:20
+  156 |    for I150 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:157:20
+  157 |    for I151 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:158:20
+  158 |    for I152 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:159:20
+  159 |    for I153 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:160:20
+  160 |    for I154 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:161:20
+  161 |    for I155 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:162:20
+  162 |    for I156 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:163:20
+  163 |    for I157 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:164:20
+  164 |    for I158 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:165:20
+  165 |    for I159 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:166:20
+  166 |    for I160 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:167:20
+  167 |    for I161 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:168:20
+  168 |    for I162 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:169:20
+  169 |    for I163 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:170:20
+  170 |    for I164 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:171:20
+  171 |    for I165 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:172:20
+  172 |    for I166 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:173:20
+  173 |    for I167 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:174:20
+  174 |    for I168 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:175:20
+  175 |    for I169 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:176:20
+  176 |    for I170 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:177:20
+  177 |    for I171 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:178:20
+  178 |    for I172 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:179:20
+  179 |    for I173 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:180:20
+  180 |    for I174 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:181:20
+  181 |    for I175 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:182:20
+  182 |    for I176 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:183:20
+  183 |    for I177 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:184:20
+  184 |    for I178 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:185:20
+  185 |    for I179 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:186:20
+  186 |    for I180 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:187:20
+  187 |    for I181 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:188:20
+  188 |    for I182 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:189:20
+  189 |    for I183 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:190:20
+  190 |    for I184 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:191:20
+  191 |    for I185 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:192:20
+  192 |    for I186 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:193:20
+  193 |    for I187 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:194:20
+  194 |    for I188 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:195:20
+  195 |    for I189 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:196:20
+  196 |    for I190 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:197:20
+  197 |    for I191 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:198:20
+  198 |    for I192 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:199:20
+  199 |    for I193 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:200:20
+  200 |    for I194 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:201:20
+  201 |    for I195 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:202:20
+  202 |    for I196 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:203:20
+  203 |    for I197 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:204:20
+  204 |    for I198 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:205:20
+  205 |    for I199 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:206:20
+  206 |    for I200 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:207:20
+  207 |    for I201 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:208:20
+  208 |    for I202 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:209:20
+  209 |    for I203 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:210:20
+  210 |    for I204 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:211:20
+  211 |    for I205 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:212:20
+  212 |    for I206 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:213:20
+  213 |    for I207 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:214:20
+  214 |    for I208 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:215:20
+  215 |    for I209 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:216:20
+  216 |    for I210 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:217:20
+  217 |    for I211 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:218:20
+  218 |    for I212 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:219:20
+  219 |    for I213 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:220:20
+  220 |    for I214 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:221:20
+  221 |    for I215 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:222:20
+  222 |    for I216 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:223:20
+  223 |    for I217 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:224:20
+  224 |    for I218 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:225:20
+  225 |    for I219 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:226:20
+  226 |    for I220 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:227:20
+  227 |    for I221 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:228:20
+  228 |    for I222 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:229:20
+  229 |    for I223 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:230:20
+  230 |    for I224 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:231:20
+  231 |    for I225 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:232:20
+  232 |    for I226 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:233:20
+  233 |    for I227 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:234:20
+  234 |    for I228 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:235:20
+  235 |    for I229 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:236:20
+  236 |    for I230 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:237:20
+  237 |    for I231 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:238:20
+  238 |    for I232 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:239:20
+  239 |    for I233 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:240:20
+  240 |    for I234 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:241:20
+  241 |    for I235 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:242:20
+  242 |    for I236 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:243:20
+  243 |    for I237 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:244:20
+  244 |    for I238 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:245:20
+  245 |    for I239 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:246:20
+  246 |    for I240 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:247:20
+  247 |    for I241 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:248:20
+  248 |    for I242 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:249:20
+  249 |    for I243 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:250:20
+  250 |    for I244 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:251:20
+  251 |    for I245 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:252:20
+  252 |    for I246 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:253:20
+  253 |    for I247 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:254:20
+  254 |    for I248 in 1 .. 1 loop
+      |                       ^~~~
+
+ warning: statement has no effect
+--> main.adb:255:20
+  255 |    for I249 in 1 .. 1 loop
+      |                       ^~~~
+Success: all checks proved (19 checks).
+Summary logged in /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/fl_loop_250/obj/gnatprove/gnatprove.out

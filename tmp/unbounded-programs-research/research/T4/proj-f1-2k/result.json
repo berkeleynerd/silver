@@ -1,0 +1,165 @@
+{
+ "name": "f1-2k",
+ "source": "progs/f1-2048.adb",
+ "source_bytes": 1556,
+ "lines": 68,
+ "statements": 51,
+ "steps": "100000",
+ "memlimit": "1000",
+ "command": "cd /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/toolchain && unset ALR_CONFIG GPR_CONFIG GPR_PROJECT_PATH GPR_PROJECT_PATH_FILE ADA_PROJECT_PATH && ALIRE_SETTINGS_DIR=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/settings /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alr/bin/alr -n exec -- /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove -P /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f1-2k/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j8 --no-loop-unrolling",
+ "exit": 0,
+ "stopped": null,
+ "wall_s": 8.0,
+ "peak_tree_rss_bytes": 412893184,
+ "peak_tree_rss_gib": 0.38,
+ "peak_by_comm": {
+  "gnatwhy3": 0.124,
+  "z3": 0.03,
+  "gnat2why": 0.027,
+  "alr": 0.024,
+  "cvc5": 0.022,
+  "gnatprove": 0.02,
+  "alt-ergo": 0.019,
+  "gprbuild": 0.012
+ },
+ "max_procs": 19,
+ "min_mem_available_gib": 29.55,
+ "pre": {
+  "mem_available_gb": 30.12,
+  "foreign_heavy": []
+ },
+ "imagews_created": [],
+ "imagews_removed": [],
+ "samples": [
+  [
+   0,
+   1048576,
+   32346230784
+  ]
+ ],
+ "report_bytes": 30325,
+ "report": {
+  "checks": 6,
+  "flow": 32,
+  "flow_sev": {
+   "warning": 32
+  },
+  "severity": {
+   "info": 6
+  },
+  "unproved": [],
+  "how": {
+   "prover": 6
+  },
+  "rules": {
+   "VC_OVERFLOW_CHECK": 3,
+   "VC_RANGE_CHECK": 3
+  },
+  "winning_prover": {
+   "Z3": 6
+  },
+  "attempt_results": {
+   "CVC5:Valid": 12,
+   "Z3:Valid": 12,
+   "altergo:Valid": 11,
+   "altergo:High failure (signaled)": 1
+  },
+  "win_steps": {
+   "max": 1,
+   "p50": 1,
+   "p90": 1,
+   "p99": 1,
+   "mean": 1
+  },
+  "win_time": {
+   "max": 0.0419550016522408,
+   "p50": 0.0303399991244078,
+   "p90": 0.0419550016522408,
+   "p99": 0.0419550016522408,
+   "sum": 0.2
+  },
+  "attempt_time": {
+   "max": 0.129616,
+   "p50": 0.080901,
+   "p90": 0.129616,
+   "sum": 0.5
+  },
+  "attempt_steps_max": 328,
+  "vcs_total": 12,
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+   " 1": {
+    "gnat2why.vc_generation": 0.0203729998320341,
+    "gnatwhy3.init": 0.683031976222992,
+    "gnatwhy3.register_vcs": 0.210391998291016,
+    "gnatwhy3.run_vcs": 4.80000016978011e-05,
+    "gnatwhy3.save_session": 0.0317660011351109,
+    "gnatwhy3.schedule_vcs": 0.741355001926422,
+    "gnatwhy3.transformations.counterexamples_dependent_intros": 0.0594579987227917,
+    "gnatwhy3.transformations.detect_polymorphism": 0.0199790000915527,
+    "gnatwhy3.transformations.discriminate_if_poly": 8.70000003487803e-05,
+    "gnatwhy3.transformations.eliminate_algebraic": 0.0502609983086586,
+    "gnatwhy3.transformations.eliminate_algebraic_if_poly": 0.0737370029091835,
+    "gnatwhy3.transformations.eliminate_builtin": 0.0388620011508465,
+    "gnatwhy3.transformations.eliminate_definition_conditionally": 0.0115329986438155,
+    "gnatwhy3.transformations.eliminate_epsilon": 0.0514319986104965,
+    "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 0.0472920015454292,
+    "gnatwhy3.transformations.eliminate_inductive": 0.0269869994372129,
+    "gnatwhy3.transformations.eliminate_literal": 0.0589670017361641,
+    "gnatwhy3.transformations.eliminate_projections_sums": 0.0127600003033876,
+    "gnatwhy3.transformations.eliminate_recursion": 0.00468999892473221,
+    "gnatwhy3.transformations.encoding_smt_if_poly": 3.79990015062504e-05,
+    "gnatwhy3.transformations.inline_trivial": 0.327609986066818,
+    "gnatwhy3.transformations.introduce_premises": 0.0806220024824142,
+    "gnatwhy3.transformations.monomorphise_goal": 0.00496200006455183,
+    "gnatwhy3.transformations.remove_unused": 0.138477995991707,
+    "gnatwhy3.transformations.simplify_formula": 0.0946189984679222,
+    "gnatwhy3.transformations.split_goal_wp_conj": 0.124282002449036,
+    "gnatwhy3.transformations.split_premise_right": 0.0249739997088909
+   },
+   "global": {
+    "flow analysis": 0.0107939997687936,
+    "globals (advanced)": 0.0180149991065264,
+    "globals (basic)": 0.0314569994807243,
+    "init_why_sections": 0.00169900001492351,
+    "marking": 0.000532999983988702,
+    "properties (advanced)": 0.000132999994093552,
+    "translation of standard": 0.00271799997426569
+   }
+  },
+  "by_position_quartile": [
+   {
+    "quartile": 1,
+    "n": 1,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.055,
+    "max_att_time": 0.055
+   },
+   {
+    "quartile": 2,
+    "n": 2,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.1,
+    "max_att_time": 0.12
+   },
+   {
+    "quartile": 3,
+    "n": 1,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.065,
+    "max_att_time": 0.065
+   },
+   {
+    "quartile": 4,
+    "n": 2,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.103,
+    "max_att_time": 0.13
+   }
+  ]
+ }
+}

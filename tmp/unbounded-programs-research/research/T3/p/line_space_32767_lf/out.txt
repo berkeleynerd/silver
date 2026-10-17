@@ -1,0 +1,3 @@
+main.adb:1:01: error: this line is longer than 32766 characters
+main.adb:1:32767: error: this line is too long
+compilation abandoned

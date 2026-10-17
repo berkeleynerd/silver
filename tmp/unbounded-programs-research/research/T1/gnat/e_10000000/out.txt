@@ -1,0 +1,1 @@
+main.adb:3:28: error: exponent too large

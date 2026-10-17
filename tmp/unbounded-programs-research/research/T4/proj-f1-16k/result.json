@@ -1,0 +1,260 @@
+{
+ "name": "f1-16k",
+ "source": "/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/progs/f1-16384.adb",
+ "source_bytes": 15885,
+ "lines": 656,
+ "statements": 499,
+ "steps": "100000",
+ "memlimit": "1000",
+ "command": "cd /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/toolchain && unset ALR_CONFIG GPR_CONFIG GPR_PROJECT_PATH GPR_PROJECT_PATH_FILE ADA_PROJECT_PATH && ALIRE_SETTINGS_DIR=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/settings /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alr/bin/alr -n exec -- /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove -P /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f1-16k/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j8 --no-loop-unrolling",
+ "exit": 0,
+ "stopped": null,
+ "wall_s": 428.3,
+ "peak_tree_rss_bytes": 1298628608,
+ "peak_tree_rss_gib": 1.21,
+ "peak_by_comm": {
+  "gnatwhy3": 0.827,
+  "alt-ergo": 0.181,
+  "cvc5": 0.052,
+  "gnat2why": 0.04,
+  "z3": 0.038,
+  "alr": 0.024,
+  "gnatprove": 0.02,
+  "gprbuild": 0.012
+ },
+ "max_procs": 20,
+ "min_mem_available_gib": 19.0,
+ "pre": {
+  "mem_available_gb": 25.8,
+  "foreign_heavy": [
+   [
+    71499,
+    "lean",
+    1570742272,
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean/bin/lean /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/researc"
+   ],
+   [
+    71646,
+    "gnatprove",
+    21942272,
+    "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove -P /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/sc"
+   ],
+   [
+    71663,
+    "gnat2why",
+    2026766336,
+    "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/tmp/claude-1000/-home-canto-src-gith"
+   ]
+  ]
+ },
+ "imagews_created": [],
+ "imagews_removed": [],
+ "samples": [
+  [
+   0,
+   3612672,
+   27706585088
+  ],
+  [
+   30,
+   335810560,
+   24682381312
+  ],
+  [
+   60,
+   687214592,
+   28377665536
+  ],
+  [
+   90,
+   760565760,
+   28230283264
+  ],
+  [
+   121,
+   929009664,
+   25869377536
+  ],
+  [
+   151,
+   938430464,
+   21232574464
+  ],
+  [
+   181,
+   914485248,
+   22610571264
+  ],
+  [
+   210,
+   1143701504,
+   27106074624
+  ],
+  [
+   240,
+   965103616,
+   26905677824
+  ],
+  [
+   270,
+   1047998464,
+   26211946496
+  ],
+  [
+   301,
+   1089241088,
+   25042620416
+  ],
+  [
+   331,
+   965128192,
+   25683750912
+  ],
+  [
+   361,
+   1200357376,
+   24525430784
+  ],
+  [
+   390,
+   1094524928,
+   24519884800
+  ],
+  [
+   420,
+   995586048,
+   21425369088
+  ]
+ ],
+ "tool_cmdlines": {
+  "gnatwhy3": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1298 /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f1-16k/obj/gnatprove/silver_io__put_line.gnat-json ",
+  "cvc5": "cvc5 --rlimit=3515000 --prenex-quant=none --stats-internal /tmp/why_3ed111_silver_io-T-defqtvc.smt2 ",
+  "z3": "z3 rlimit 80450000 -smt2 -st smt.arith.solver 6 /tmp/why_dbee97_silver_io-T-defqtvc.smt2 ",
+  "alt-ergo": ""
+ },
+ "report_bytes": 297006,
+ "report": {
+  "checks": 62,
+  "flow": 368,
+  "flow_sev": {
+   "warning": 368
+  },
+  "severity": {
+   "info": 62
+  },
+  "unproved": [],
+  "how": {
+   "prover": 62
+  },
+  "rules": {
+   "VC_OVERFLOW_CHECK": 31,
+   "VC_RANGE_CHECK": 31
+  },
+  "winning_prover": {
+   "Z3": 62
+  },
+  "attempt_results": {
+   "CVC5:Valid": 124,
+   "Z3:Valid": 124,
+   "altergo:Valid": 123,
+   "altergo:High failure (signaled)": 1
+  },
+  "win_steps": {
+   "max": 222,
+   "p50": 1,
+   "p90": 84,
+   "p99": 222,
+   "mean": 19.8
+  },
+  "win_time": {
+   "max": 0.246921002864838,
+   "p50": 0.10402200371027,
+   "p90": 0.203664004802704,
+   "p99": 0.246921002864838,
+   "sum": 6.9
+  },
+  "attempt_time": {
+   "max": 6.94219,
+   "p50": 1.58839,
+   "p90": 4.31968,
+   "sum": 124.9
+  },
+  "attempt_steps_max": 9322,
+  "vcs_total": 124,
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+   " 1": {
+    "gnat2why.vc_generation": 0.0705080032348633,
+    "gnatwhy3.init": 13.3876991271973,
+    "gnatwhy3.register_vcs": 70.0849533081055,
+    "gnatwhy3.run_vcs": 0.00182799901813269,
+    "gnatwhy3.save_session": 11.5191497802734,
+    "gnatwhy3.schedule_vcs": 170.189544677734,
+    "gnatwhy3.transformations.counterexamples_dependent_intros": 21.4344177246094,
+    "gnatwhy3.transformations.detect_polymorphism": 5.64762878417969,
+    "gnatwhy3.transformations.discriminate_if_poly": 0.00296800001524389,
+    "gnatwhy3.transformations.eliminate_algebraic": 12.175651550293,
+    "gnatwhy3.transformations.eliminate_algebraic_if_poly": 30.0964031219482,
+    "gnatwhy3.transformations.eliminate_builtin": 7.10835695266724,
+    "gnatwhy3.transformations.eliminate_definition_conditionally": 1.51897501945496,
+    "gnatwhy3.transformations.eliminate_epsilon": 18.4123954772949,
+    "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 16.2542667388916,
+    "gnatwhy3.transformations.eliminate_inductive": 6.97484016418457,
+    "gnatwhy3.transformations.eliminate_literal": 19.7986392974854,
+    "gnatwhy3.transformations.eliminate_projections_sums": 3.11106300354004,
+    "gnatwhy3.transformations.eliminate_recursion": 1.23324298858643,
+    "gnatwhy3.transformations.encoding_smt_if_poly": 0.00183199904859066,
+    "gnatwhy3.transformations.inline_trivial": 63.455207824707,
+    "gnatwhy3.transformations.introduce_premises": 19.9407958984375,
+    "gnatwhy3.transformations.monomorphise_goal": 1.58221101760864,
+    "gnatwhy3.transformations.remove_unused": 29.3658218383789,
+    "gnatwhy3.transformations.simplify_formula": 19.8155841827393,
+    "gnatwhy3.transformations.split_goal_wp_conj": 42.1225204467773,
+    "gnatwhy3.transformations.split_premise_right": 5.5271167755127
+   },
+   "global": {
+    "flow analysis": 0.404460996389389,
+    "globals (advanced)": 0.028761999681592,
+    "globals (basic)": 0.0425800010561943,
+    "init_why_sections": 0.00359499990008771,
+    "marking": 0.00391800003126264,
+    "properties (advanced)": 0.000265999988187104,
+    "translation of standard": 0.00262699997983873
+   }
+  },
+  "by_position_quartile": [
+   {
+    "quartile": 1,
+    "n": 15,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.474,
+    "max_att_time": 0.914
+   },
+   {
+    "quartile": 2,
+    "n": 16,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 1.032,
+    "max_att_time": 1.796
+   },
+   {
+    "quartile": 3,
+    "n": 15,
+    "mean_win_steps": 4.1,
+    "max_win_steps": 36,
+    "mean_att_time": 2.122,
+    "max_att_time": 3.25
+   },
+   {
+    "quartile": 4,
+    "n": 16,
+    "mean_win_steps": 71,
+    "max_win_steps": 222,
+    "mean_att_time": 4.34,
+    "max_att_time": 6.942
+   }
+  ]
+ }
+}

@@ -1,0 +1,708 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: implicit aspect Always_Terminates on "Is_Message" has been proved, subprogram will terminate
+--> silver_arguments.adb:5:13
+
+ info: range check proved
+--> silver_arguments.adb:6:11
+
+ info: precondition proved
+--> silver_arguments.adb:14:43
+
+ info: range check proved
+--> silver_arguments.adb:26:20
+
+ info: range check proved
+--> silver_arguments.adb:26:49
+
+ info: length check proved
+--> silver_arguments.adb:26:61
+
+ info: precondition proved
+--> silver_arguments.adb:30:53
+
+ info: range check proved
+--> silver_arguments.adb:33:23
+
+ info: range check proved
+--> silver_arguments.adb:33:49
+
+ info: length check proved
+--> silver_arguments.adb:33:61
+
+ info: implicit aspect Always_Terminates on "Input_Is_Valid" has been proved, subprogram will terminate
+--> silver_arguments.ads:9:13
+
+ info: data dependencies proved
+--> silver_arguments.ads:9:48
+
+ info: implicit aspect Always_Terminates on "First_Or_Default" has been proved, subprogram will terminate
+--> silver_arguments.ads:13:13
+
+ info: data dependencies proved
+--> silver_arguments.ads:14:11
+
+ info: postcondition proved
+--> silver_arguments.ads:15:19
+
+ info: range check proved
+--> silver_arguments.ads:16:45
+
+ info: aspect Always_Terminates on "Reject" has been proved, subprogram will terminate
+--> silver_arguments.ads:21:14
+
+ info: data dependencies proved
+--> silver_arguments.ads:22:11
+ info: initialization of "Status" proved
+--> silver_io.adb:7:07
+
+ info: range check proved
+--> silver_io.adb:13:14
+
+ info: loop invariant initialization proved
+--> silver_io.adb:19:43
+
+ info: loop invariant preservation proved
+--> silver_io.adb:19:43
+
+ info: overflow check proved
+--> silver_io.adb:19:65
+
+ info: loop invariant initialization proved
+--> silver_io.adb:21:23
+
+ info: loop invariant preservation proved
+--> silver_io.adb:21:23
+
+ info: index check proved
+--> silver_io.adb:22:30
+
+ info: overflow check proved
+--> silver_io.adb:22:57
+
+ info: index check proved
+--> silver_io.adb:22:57
+
+ info: range check proved
+--> silver_io.adb:29:41
+
+ info: index check proved
+--> silver_io.adb:30:25
+
+ info: range check proved
+--> silver_io.adb:37:38
+
+ info: index check proved
+--> silver_io.adb:38:22
+
+ info: initialization of "Status" proved
+--> silver_io.adb:50:07
+
+ info: range check proved
+--> silver_io.adb:56:14
+
+ info: loop invariant initialization proved
+--> silver_io.adb:62:43
+
+ info: loop invariant preservation proved
+--> silver_io.adb:62:43
+
+ info: overflow check proved
+--> silver_io.adb:62:65
+
+ info: loop invariant initialization proved
+--> silver_io.adb:64:23
+
+ info: loop invariant preservation proved
+--> silver_io.adb:64:23
+
+ info: index check proved
+--> silver_io.adb:65:30
+
+ info: overflow check proved
+--> silver_io.adb:65:57
+
+ info: index check proved
+--> silver_io.adb:65:57
+
+ info: range check proved
+--> silver_io.adb:72:41
+
+ info: index check proved
+--> silver_io.adb:73:25
+
+ info: data dependencies proved
+--> silver_io.ads:19:11
+
+ info: initialization of "Written_Bytes" proved
+--> silver_io.ads:20:33
+
+ info: initialization of "Written_Count" proved
+--> silver_io.ads:20:48
+
+ info: initialization of "Flushed" proved
+--> silver_io.ads:20:63
+
+ info: initialization of "Succeeded" proved
+--> silver_io.ads:20:72
+
+ info: postcondition proved
+--> silver_io.ads:22:30
+
+ info: range check proved
+--> silver_io.ads:23:45
+
+ info: range check proved
+--> silver_io.ads:24:44
+
+ info: overflow check proved
+--> silver_io.ads:24:52
+
+ info: range check proved
+--> silver_io.ads:25:24
+
+ info: range check proved
+--> silver_io.ads:25:48
+
+ info: index check proved
+--> silver_io.ads:26:39
+
+ info: data dependencies proved
+--> silver_io.ads:30:11
+
+ info: initialization of "Written_Bytes" proved
+--> silver_io.ads:31:33
+
+ info: initialization of "Written_Count" proved
+--> silver_io.ads:31:48
+
+ info: initialization of "Flushed" proved
+--> silver_io.ads:31:63
+
+ info: initialization of "Succeeded" proved
+--> silver_io.ads:31:72
+
+ info: postcondition proved
+--> silver_io.ads:33:30
+
+ info: range check proved
+--> silver_io.ads:34:45
+
+ info: range check proved
+--> silver_io.ads:35:44
+
+ info: range check proved
+--> silver_io.ads:36:24
+
+ info: range check proved
+--> silver_io.ads:36:48
+ warning: initialization of "B0" has no effect
+--> main.adb:5:04
+    5 |       B0 : Integer range -5 .. 5 := 0;
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: initialization of "B1" has no effect
+--> main.adb:9:04
+    9 |       B1 : Integer range -5 .. 5 := 0;
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: initialization of "B2" has no effect
+--> main.adb:13:04
+   13 |       B2 : Integer range -5 .. 5 := 0;
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: initialization of "B3" has no effect
+--> main.adb:17:04
+   17 |       B3 : Integer range -5 .. 5 := 0;
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: initialization of "B4" has no effect
+--> main.adb:21:04
+   21 |       B4 : Integer range -5 .. 5 := 0;
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: initialization of "B5" has no effect
+--> main.adb:25:04
+   25 |       B5 : Integer range -5 .. 5 := 0;
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: initialization of "B6" has no effect
+--> main.adb:29:04
+   29 |       B6 : Integer range -5 .. 5 := 0;
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: initialization of "B7" has no effect
+--> main.adb:33:04
+   33 |       B7 : Integer range -5 .. 5 := 0;
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: unused assignment
+--> main.adb:38:07
+   38 |       B0 := (-B0);
+      |       ~~~^~~~~~~~
+
+ warning: unused assignment
+--> main.adb:42:10
+   42 |          B0 := 5;
+      |          ~~~^~~~
+
+ warning: "Flushed" is set by "Put" but not used after the call
+--> main.adb:48:19
+   48 |             Silver_IO.Put (Integer'Image ((I0 * J0)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put" but not used after the call
+--> main.adb:48:19
+   48 |             Silver_IO.Put (Integer'Image ((I0 * J0)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put" but not used after the call
+--> main.adb:48:19
+   48 |             Silver_IO.Put (Integer'Image ((I0 * J0)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put" but not used after the call
+--> main.adb:48:19
+   48 |             Silver_IO.Put (Integer'Image ((I0 * J0)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: overflow check proved
+--> main.adb:48:44
+
+ warning: unused assignment
+--> main.adb:52:07
+   52 |       A0 := 7;
+      |       ~~~^~~~
+
+ warning: "Flushed" is set by "Put_Line" but not used after the call
+--> main.adb:53:13
+   53 |       Silver_IO.Put_Line (S0 & Integer'Image (B0));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put_Line" but not used after the call
+--> main.adb:53:13
+   53 |       Silver_IO.Put_Line (S0 & Integer'Image (B0));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put_Line" but not used after the call
+--> main.adb:53:13
+   53 |       Silver_IO.Put_Line (S0 & Integer'Image (B0));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put_Line" but not used after the call
+--> main.adb:53:13
+   53 |       Silver_IO.Put_Line (S0 & Integer'Image (B0));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: range check proved
+--> main.adb:53:27
+
+ warning: unused assignment
+--> main.adb:55:07
+   55 |       B1 := (-B1);
+      |       ~~~^~~~~~~~
+
+ warning: unused assignment
+--> main.adb:59:10
+   59 |          B1 := 5;
+      |          ~~~^~~~
+
+ warning: "Flushed" is set by "Put" but not used after the call
+--> main.adb:65:19
+   65 |             Silver_IO.Put (Integer'Image ((I1 * J1)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put" but not used after the call
+--> main.adb:65:19
+   65 |             Silver_IO.Put (Integer'Image ((I1 * J1)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put" but not used after the call
+--> main.adb:65:19
+   65 |             Silver_IO.Put (Integer'Image ((I1 * J1)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put" but not used after the call
+--> main.adb:65:19
+   65 |             Silver_IO.Put (Integer'Image ((I1 * J1)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: overflow check proved
+--> main.adb:65:44
+
+ warning: unused assignment
+--> main.adb:69:07
+   69 |       A1 := 7;
+      |       ~~~^~~~
+
+ warning: "Flushed" is set by "Put_Line" but not used after the call
+--> main.adb:70:13
+   70 |       Silver_IO.Put_Line (S1 & Integer'Image (B1));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put_Line" but not used after the call
+--> main.adb:70:13
+   70 |       Silver_IO.Put_Line (S1 & Integer'Image (B1));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put_Line" but not used after the call
+--> main.adb:70:13
+   70 |       Silver_IO.Put_Line (S1 & Integer'Image (B1));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put_Line" but not used after the call
+--> main.adb:70:13
+   70 |       Silver_IO.Put_Line (S1 & Integer'Image (B1));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: range check proved
+--> main.adb:70:27
+
+ warning: unused assignment
+--> main.adb:72:07
+   72 |       B2 := (-B2);
+      |       ~~~^~~~~~~~
+
+ warning: unused assignment
+--> main.adb:76:10
+   76 |          B2 := 5;
+      |          ~~~^~~~
+
+ warning: "Flushed" is set by "Put" but not used after the call
+--> main.adb:82:19
+   82 |             Silver_IO.Put (Integer'Image ((I2 * J2)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put" but not used after the call
+--> main.adb:82:19
+   82 |             Silver_IO.Put (Integer'Image ((I2 * J2)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put" but not used after the call
+--> main.adb:82:19
+   82 |             Silver_IO.Put (Integer'Image ((I2 * J2)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put" but not used after the call
+--> main.adb:82:19
+   82 |             Silver_IO.Put (Integer'Image ((I2 * J2)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: overflow check proved
+--> main.adb:82:44
+
+ warning: unused assignment
+--> main.adb:86:07
+   86 |       A2 := 7;
+      |       ~~~^~~~
+
+ warning: "Flushed" is set by "Put_Line" but not used after the call
+--> main.adb:87:13
+   87 |       Silver_IO.Put_Line (S2 & Integer'Image (B2));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put_Line" but not used after the call
+--> main.adb:87:13
+   87 |       Silver_IO.Put_Line (S2 & Integer'Image (B2));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put_Line" but not used after the call
+--> main.adb:87:13
+   87 |       Silver_IO.Put_Line (S2 & Integer'Image (B2));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put_Line" but not used after the call
+--> main.adb:87:13
+   87 |       Silver_IO.Put_Line (S2 & Integer'Image (B2));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: range check proved
+--> main.adb:87:27
+
+ warning: unused assignment
+--> main.adb:89:07
+   89 |       B3 := (-B3);
+      |       ~~~^~~~~~~~
+
+ warning: unused assignment
+--> main.adb:93:10
+   93 |          B3 := 5;
+      |          ~~~^~~~
+
+ warning: "Flushed" is set by "Put" but not used after the call
+--> main.adb:99:19
+   99 |             Silver_IO.Put (Integer'Image ((I3 * J3)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put" but not used after the call
+--> main.adb:99:19
+   99 |             Silver_IO.Put (Integer'Image ((I3 * J3)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put" but not used after the call
+--> main.adb:99:19
+   99 |             Silver_IO.Put (Integer'Image ((I3 * J3)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put" but not used after the call
+--> main.adb:99:19
+   99 |             Silver_IO.Put (Integer'Image ((I3 * J3)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: overflow check proved
+--> main.adb:99:44
+
+ warning: unused assignment
+--> main.adb:103:07
+  103 |       A3 := 7;
+      |       ~~~^~~~
+
+ warning: "Flushed" is set by "Put_Line" but not used after the call
+--> main.adb:104:13
+  104 |       Silver_IO.Put_Line (S3 & Integer'Image (B3));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put_Line" but not used after the call
+--> main.adb:104:13
+  104 |       Silver_IO.Put_Line (S3 & Integer'Image (B3));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put_Line" but not used after the call
+--> main.adb:104:13
+  104 |       Silver_IO.Put_Line (S3 & Integer'Image (B3));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put_Line" but not used after the call
+--> main.adb:104:13
+  104 |       Silver_IO.Put_Line (S3 & Integer'Image (B3));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: range check proved
+--> main.adb:104:27
+
+ warning: unused assignment
+--> main.adb:106:07
+  106 |       B4 := (-B4);
+      |       ~~~^~~~~~~~
+
+ warning: unused assignment
+--> main.adb:110:10
+  110 |          B4 := 5;
+      |          ~~~^~~~
+
+ warning: "Flushed" is set by "Put" but not used after the call
+--> main.adb:116:19
+  116 |             Silver_IO.Put (Integer'Image ((I4 * J4)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put" but not used after the call
+--> main.adb:116:19
+  116 |             Silver_IO.Put (Integer'Image ((I4 * J4)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put" but not used after the call
+--> main.adb:116:19
+  116 |             Silver_IO.Put (Integer'Image ((I4 * J4)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put" but not used after the call
+--> main.adb:116:19
+  116 |             Silver_IO.Put (Integer'Image ((I4 * J4)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: overflow check proved
+--> main.adb:116:44
+
+ warning: unused assignment
+--> main.adb:120:07
+  120 |       A4 := 7;
+      |       ~~~^~~~
+
+ warning: "Flushed" is set by "Put_Line" but not used after the call
+--> main.adb:121:13
+  121 |       Silver_IO.Put_Line (S4 & Integer'Image (B4));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put_Line" but not used after the call
+--> main.adb:121:13
+  121 |       Silver_IO.Put_Line (S4 & Integer'Image (B4));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put_Line" but not used after the call
+--> main.adb:121:13
+  121 |       Silver_IO.Put_Line (S4 & Integer'Image (B4));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put_Line" but not used after the call
+--> main.adb:121:13
+  121 |       Silver_IO.Put_Line (S4 & Integer'Image (B4));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: range check proved
+--> main.adb:121:27
+
+ warning: unused assignment
+--> main.adb:123:07
+  123 |       B5 := (-B5);
+      |       ~~~^~~~~~~~
+
+ warning: unused assignment
+--> main.adb:127:10
+  127 |          B5 := 5;
+      |          ~~~^~~~
+
+ warning: "Flushed" is set by "Put" but not used after the call
+--> main.adb:133:19
+  133 |             Silver_IO.Put (Integer'Image ((I5 * J5)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put" but not used after the call
+--> main.adb:133:19
+  133 |             Silver_IO.Put (Integer'Image ((I5 * J5)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put" but not used after the call
+--> main.adb:133:19
+  133 |             Silver_IO.Put (Integer'Image ((I5 * J5)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put" but not used after the call
+--> main.adb:133:19
+  133 |             Silver_IO.Put (Integer'Image ((I5 * J5)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: overflow check proved
+--> main.adb:133:44
+
+ warning: unused assignment
+--> main.adb:137:07
+  137 |       A5 := 7;
+      |       ~~~^~~~
+
+ warning: "Flushed" is set by "Put_Line" but not used after the call
+--> main.adb:138:13
+  138 |       Silver_IO.Put_Line (S5 & Integer'Image (B5));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put_Line" but not used after the call
+--> main.adb:138:13
+  138 |       Silver_IO.Put_Line (S5 & Integer'Image (B5));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put_Line" but not used after the call
+--> main.adb:138:13
+  138 |       Silver_IO.Put_Line (S5 & Integer'Image (B5));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put_Line" but not used after the call
+--> main.adb:138:13
+  138 |       Silver_IO.Put_Line (S5 & Integer'Image (B5));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: range check proved
+--> main.adb:138:27
+
+ warning: unused assignment
+--> main.adb:140:07
+  140 |       B6 := (-B6);
+      |       ~~~^~~~~~~~
+
+ warning: unused assignment
+--> main.adb:144:10
+  144 |          B6 := 5;
+      |          ~~~^~~~
+
+ warning: "Flushed" is set by "Put" but not used after the call
+--> main.adb:150:19
+  150 |             Silver_IO.Put (Integer'Image ((I6 * J6)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put" but not used after the call
+--> main.adb:150:19
+  150 |             Silver_IO.Put (Integer'Image ((I6 * J6)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put" but not used after the call
+--> main.adb:150:19
+  150 |             Silver_IO.Put (Integer'Image ((I6 * J6)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put" but not used after the call
+--> main.adb:150:19
+  150 |             Silver_IO.Put (Integer'Image ((I6 * J6)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: overflow check proved
+--> main.adb:150:44
+
+ warning: unused assignment
+--> main.adb:154:07
+  154 |       A6 := 7;
+      |       ~~~^~~~
+
+ warning: "Flushed" is set by "Put_Line" but not used after the call
+--> main.adb:155:13
+  155 |       Silver_IO.Put_Line (S6 & Integer'Image (B6));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put_Line" but not used after the call
+--> main.adb:155:13
+  155 |       Silver_IO.Put_Line (S6 & Integer'Image (B6));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put_Line" but not used after the call
+--> main.adb:155:13
+  155 |       Silver_IO.Put_Line (S6 & Integer'Image (B6));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put_Line" but not used after the call
+--> main.adb:155:13
+  155 |       Silver_IO.Put_Line (S6 & Integer'Image (B6));
+      |       ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: range check proved
+--> main.adb:155:27
+
+ warning: unused assignment
+--> main.adb:157:07
+  157 |       B7 := (-B7);
+      |       ~~~^~~~~~~~
+
+ warning: unused assignment
+--> main.adb:161:10
+  161 |          B7 := 5;
+      |          ~~~^~~~
+
+ warning: "Flushed" is set by "Put" but not used after the call
+--> main.adb:167:19
+  167 |             Silver_IO.Put (Integer'Image ((I7 * J7)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Succeeded" is set by "Put" but not used after the call
+--> main.adb:167:19
+  167 |             Silver_IO.Put (Integer'Image ((I7 * J7)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Bytes" is set by "Put" but not used after the call
+--> main.adb:167:19
+  167 |             Silver_IO.Put (Integer'Image ((I7 * J7)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "Written_Count" is set by "Put" but not used after the call
+--> main.adb:167:19
+  167 |             Silver_IO.Put (Integer'Image ((I7 * J7)));
+      |             ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ info: overflow check proved
+--> main.adb:167:44
+
+ warning: unused assignment
+--> main.adb:171:07
+  171 |       A7 := 7;
+      |       ~~~^~~~
+
+ info: range check proved
+--> main.adb:172:27
+Success: all checks proved (82 checks).
+Summary logged in /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f1-4k/obj/gnatprove/gnatprove.out

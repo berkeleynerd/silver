@@ -1,0 +1,20 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: fast partial checking of SPARK legality rules ...
+ warning: no Global contract available for "Is_Message" [assumed-global-null]
+--> silver_arguments.adb:14:17
+   14 |             return Is_Message (Silver_Runtime.Argument (1));
+      |                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      + assuming "Is_Message" has no effect on global items
+
+ warning: no Global contract available for "Is_Message" [assumed-global-null]
+--> silver_arguments.adb:25:13
+   25 |             if Is_Message (Default) then
+      |                ^~~~~~~~~~~~~~~~~~~
+      + assuming "Is_Message" has no effect on global items
+
+ warning: no Global contract available for "Is_Message" [assumed-global-null]
+--> silver_arguments.adb:32:16
+   32 |                if Is_Message (Item) then
+      |                   ^~~~~~~~~~~~~~~~
+      + assuming "Is_Message" has no effect on global items

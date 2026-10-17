@@ -1,0 +1,11 @@
+# Accuracy review notes (scope worktree 041acd08fb + drafts A..H)
+- MANIFEST.json sha256 7848544990640d8609ed9d2b445417b19b432973d5597465cdb3adf705af9a63 matches; 2,154 files; 20 skipped.
+- track_verdicts T1..T5 == research-results.json verdicts (verbatim).
+- runs table == fit.txt (14 rows). results.jsonl/pids.log = 17 runs (16 exit 0 + f3-8k stopped). f1-1k IS the pipeline smoke (T4 experiments[0], proof.log 68 checks). => evidence JSON double counts (18/17 wrong; 17/16 right).
+- attempt_results: 'High failure (signaled)' in 11/16 completed runs incl. f1-1k and f2-1k-m16000; 8 alt-ergo 'unrecognized prover answer' at f1-32k; 1 Z3 unrecognized at f1-1k.
+- F3 exponents fitted from 2 points (f3-2k,f3-4k); F2 4 points; F1 5 points.
+- T3: tabs 4,130-byte line accepted / 4,131-byte rejected (39 code bytes + tabs), not '4,130 tabs'.
+- T3: GNAT tables source-reasoned only; risk notes cap logically reachable within 2 GiB; larger host could hit cap first.
+- T1: report envelope within Natural'Last-1 covers S <= 587,402; producer .spark Natural premise unverified; node counter producer premise; Max_File_Length 16 MiB source read -> Too_Long -> status 2 (silver.adb:441-447).
+- T2: failure classification is 'Observed (conditional)', not proved; truth-dependent = range schema + domain coupling.
+- Code: silver_library_reports.adb:1213/:2088 and check_evidence.py:484 hold at 041acd08fb; Max_Bindings/Max_Operands/Max_Concatenations/Max_Expression_Operands present; proof command silver.adb:117-123 (-j0, --level=2, steps 100000, memlimit 1000); -gnata -gnato at :114.

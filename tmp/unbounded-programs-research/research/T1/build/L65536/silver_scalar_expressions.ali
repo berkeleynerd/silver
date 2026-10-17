@@ -1,0 +1,265 @@
+V "GNAT Lib v16"
+A -gnat2022
+A -gnata
+A -gnato
+A -g
+P SS ZX
+
+RN
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLICIT_LOOPS
+RV NO_ELABORATION_CODE
+
+U silver_scalar_expressions%b  silver_scalar_expressions.adb  09f88a89 NE OO PK
+W silver_scalar_literals%s  silver_scalar_literals.adb  silver_scalar_literals.ali
+Z system.assertions%s	s-assert.adb		s-assert.ali
+
+U silver_scalar_expressions%s  silver_scalar_expressions.ads  fcf6617d EE OO PK
+W silver_output_lexical%s  silver_output_lexical.adb  silver_output_lexical.ali
+W silver_profile%s	silver_profile.adb	silver_profile.ali
+W silver_scalars%s	silver_scalars.ads	silver_scalars.ali
+Z system.assertions%s	s-assert.adb		s-assert.ali
+
+D ada.ads		20260430083320 76789da1 ada%s
+D a-assert.ads		20260430083320 ba465f5c ada.assertions%s
+D a-unccon.ads		20260430083320 0e9b276f ada.unchecked_conversion%s
+D silver_output_lexical.ads  20261017131118 1130a44b silver_output_lexical%s
+D silver_profile.ads	20261017131118 547f70f2 silver_profile%s
+D silver_scalar_expressions.ads  20261017131118 b5c2744a silver_scalar_expressions%s
+D silver_scalar_expressions.adb  20261017131118 a0981fff silver_scalar_expressions%b
+D silver_scalar_literals.ads  20261017131118 1ca2e13c silver_scalar_literals%s
+D silver_scalars.ads	20261017131118 0c7bc18e silver_scalars%s
+D system.ads		20260430083320 e2b7c99d system%s
+D s-assert.ads		20260430083320 9c4520c7 system.assertions%s
+D s-exctab.ads		20260430083320 91bef6ef system.exception_table%s
+D s-parame.ads		20260430083320 a1aeab5c system.parameters%s
+D s-secsta.ads		20260430083320 578279f5 system.secondary_stack%s
+D s-stalib.ads		20260430083320 1c9580f6 system.standard_library%s
+D s-stoele.ads		20260430083320 ccded4e8 system.storage_elements%s
+G a e
+G c Z s s [bindingIP silver_scalar_expressions 13 9 none]
+G c Z s s [Tbinding_arrayBIP silver_scalar_expressions 22 4 none]
+G c Z s s [environmentIP silver_scalar_expressions 23 9 none]
+G c Z s s [valid_environment silver_scalar_expressions 28 13 none]
+G c Z s b [lookup_model silver_scalar_expressions 36 13 none]
+G c Z s b [lookup silver_scalar_expressions 45 13 none]
+G c Z s s [append silver_scalar_expressions 54 13 none]
+G c Z s s [body_binding silver_scalar_expressions 61 13 none]
+G c Z s b [body_environment silver_scalar_expressions 64 13 none]
+G c Z s s [expression_resultIP silver_scalar_expressions 70 9 none]
+G c Z s b [read_expression silver_scalar_expressions 80 13 none]
+G c Z b b [skip silver_scalar_expressions 40 13 none]
+G c Z b b [symbol silver_scalar_expressions 57 13 none]
+G c Z b b [name_after silver_scalar_expressions 70 13 none]
+G c Z b b [literal_result silver_scalar_expressions 88 13 none]
+G c Z b b [unary_result silver_scalar_expressions 103 13 none]
+G c Z b b [binary_result silver_scalar_expressions 115 13 none]
+G c Z b b [close_result silver_scalar_expressions 134 13 none]
+G c Z b b [read_atom silver_scalar_expressions 145 13 none]
+G c Z b b [read_unary silver_scalar_expressions 178 13 none]
+G c Z b b [read_compound silver_scalar_expressions 201 13 none]
+G c Z b b [read_group silver_scalar_expressions 227 13 none]
+G r c none [valid_environment silver_scalar_expressions 28 13 none] [valid_name_state silver_output_lexical 268 13 none]
+G r c none [lookup_model silver_scalar_expressions 36 13 none] [equal_name silver_output_lexical 148 13 none]
+G r c none [lookup silver_scalar_expressions 45 13 none] [valid_name_state silver_output_lexical 268 13 none]
+G r c none [read_expression silver_scalar_expressions 80 13 none] [valid_name_state silver_output_lexical 268 13 none]
+G r c none [read_atom silver_scalar_expressions 145 13 none] [valid_name_state silver_output_lexical 268 13 none]
+G r c none [read_unary silver_scalar_expressions 178 13 none] [valid_name_state silver_output_lexical 268 13 none]
+G r c none [read_compound silver_scalar_expressions 201 13 none] [valid_name_state silver_output_lexical 268 13 none]
+G r c none [read_group silver_scalar_expressions 227 13 none] [valid_name_state silver_output_lexical 268 13 none]
+X 4 silver_output_lexical.ads
+3K9*Silver_Output_Lexical 400e26 6|2w6 7r8
+8I12*Cursor{positive} 7|49r14 79r14
+73I12*Literal_Position{natural} 6|14r22 37r58 46r58 71r15 81r33 82r20 82r56
+. 7|13r58 21r58 40r45 40r70 48r45 48r70 57r47 58r14 64r47 65r14 66r32 70r51
+. 70r76 78r51 78r76 142r32 146r33 147r32 157r33 158r32 160r32 161r32 179r33
+. 180r32 191r33 192r32 193r31 202r33 203r58 216r33 217r58 219r31 228r33 229r32
+. 239r33 240r32 241r32 249r33 250r20 250r56 252r32
+148V13*Equal_Name{boolean} 7|16s13 32s13 174s18
+268V13*Valid_Name_State{boolean} 6|34s18 88s19 7|152s19 185s19 208s19 233s19
+369U14*Skip_Trivia 7|53s7
+392U14*Match_Identifier 7|84s7
+X 5 silver_profile.ads
+1K9*Silver_Profile 94e19 6|1w6 6r8
+4i4*Max_Source_Length{positive} 6|8r40 30r59 40r59 49r59 86r59 7|42r59 60r59
+. 72r59 136r59 150r59 182r59 206r59 231r59
+X 6 silver_scalar_expressions.ads
+5K9*Silver_Scalar_Expressions 93l5 93e30 7|3b14 257l5 257t30
+8i4*Max_Bindings{positive} 10r48 11r49 57r32
+9i4*Max_Operands{positive} 12r48 7|130r40
+10I12*Binding_Count{natural} 24r15 38r15 38r37 47r14 7|14r15 14r37 22r14
+. 23r15 162r32
+11I12*Binding_Index{positive} 22r33 67r37 7|10r30
+12I12*Operand_Count{natural} 73r18
+13R9*Binding 19e14 20r29 22r51 54r49 61r34 61r50
+14i7*First{4|73I12} 33r29 35r38 7|16r51 32r51
+14i14*After{4|73I12} 35r65 7|16r78 32r78
+15r7*Bounds{9|9R9} 63r61 7|176r68
+16b7*Static{boolean} 7|176r100
+17r7*Declared_Bounds{9|9R9} 63r35
+18b7*Mutable{boolean} 63r17
+20r4*Empty_Binding{13R9} 27r63
+22A9*Binding_Array(13R9)<integer> 25r15
+23R9*Environment 26e14 27r33 28r55 31r55 37r30 46r30 54r29 54r65 64r39 64r59
+. 81r59 7|8r39 8r59 13r30 21r30 146r59 157r59 179r59 191r59 202r59 216r59
+. 228r59 239r59 249r59
+24i7*Count{10I12} 32r35 41r75 52r51 53r83 55m8 55r23 56r47 57r24 66r40 66r54
+. 7|9m7 9r22 23r38 27r48 29r59
+25a7*Items{22A9} 33r15 35r24 35r51 56m8 56r24 68r36 68r72 7|10m7 10r67 16r37
+. 16r64 32r37 32r64 176r54 176r86
+27r4*Empty_Environment{23R9}
+28V13*Valid_Environment{boolean} 28>32 28>47 31b13 41s19 50s19 87s54 7|151s54
+. 184s19 207s54 232s55
+28a32 Text{string} 30r15 30r39 35r12
+28r47 Names{23R9} 32r29 33r9 35r18 35r45
+32i15 Index{integer} 33r22 35r31 35r58
+45V13*Lookup{10I12} 46>7 46>22 46>43 46>50 52r28 53r20 7|20b13 162s49
+46a7 Text{string} 49r15 49r39 50r38 51r28 51r60 53r50 7|21b7 29r26 30r30
+. 32r25
+46r22 Names{23R9} 50r44 52r45 53r56 53r77 7|21b22 23r32 27r42 29r32 29r53
+. 30r36 32r31 32r58
+46i43 First{4|73I12} 51r19 53r63 7|21b43 25r10 25r37 29r39 30r43 33r25
+46i50 After{4|73I12} 51r51 53r70 7|21b50 25r28 29r46 30r50 33r32
+54V13*Append{23R9} 54b13 54>21 54>42
+54r21 Names{23R9} 55r17 56r18 56r41 57r18
+54r42 Item{13R9} 56r60
+61V13*Body_Binding{13R9} 61b13 61>27 68s52 7|10s47
+61r27 Item{13R9} 62r7 63r12 63r30 63r56
+64V13*Body_Environment{23R9} 64>31 66r16 68r12 7|8b13
+64r31 Names{23R9} 66r48 68r66 7|9r16 10r61
+67i28 Index{11I12} 68r43 68r79
+70R9*Expression_Result 75e14 76r23 84r14 7|90r14 96r14 103r37 104r14 108r37
+. 109r14 116r21 116r69 122r21 122r69 134r50 134r76 141r50 141r76 148r14 159r14
+. 180r57 192r57 203r14 204r14 217r14 218r14 229r57 240r57 251r44
+71i7*After{4|73I12} 89r39 90r42 7|91r41 92r39 105r39 106r37 106r53 112r25
+. 117r40 118r38 118r52 129r22 129r46 131r39 137r25 138r36 139r39 139r54 142r72
+. 153r33 154r36 186r34 187r37 209r25 210r18 211r37 212r40 219r68 234r34 235r37
+72r7*Bounds{9|9R9} 7|111r51 111r79 125r42 125r56 126r47 126r61 127r47 127r61
+73i7*Operands{12I12} 91r44 7|93r41 107r39 107r58 119r40 119r57 120r40 120r58
+. 130r29 130r61 131r67 131r84 140r41 140r58 155r38 188r39 210r71 213r42 236r39
+74b7*Static{boolean} 7|132r38 132r60
+76r4*Invalid{70R9} 7|100r64 112r65 131r19 143r32 164r54 166r36 175r21 221r52
+. 223r56 243r36 254r54
+80V13*Read_Expression{70R9} 81>7 81>22 81>51 82>7 82>43 83>7 89r16 90r19
+. 91r21 7|199s13 225s19 246s12 248b13
+81a7 Text{string} 86r15 86r39 87r31 87r73 88r37 90r67 92r45 7|252r58 254r39
+. 255r16 255r67 256r26
+81i22 Position{4|73I12} 87r19 90r51 92r62 7|252r64
+81r51 Names{23R9} 87r79 7|255r80 256r39
+82i7 Mask_First{4|73I12} 88r43 7|255r87 256r46
+82i43 Mask_After{4|73I12} 88r55 7|255r99 256r58
+83b7 Allow_Sign{boolean} 7|256r70
+X 7 silver_scalar_expressions.adb
+4K12 Scalars=4:28 5r13 97r34 97r58 110r34 111r27 123r34 125r24 126r24 127r24
+. 128r27 176r29
+10i21 Index{6|11I12} 10r74
+23i7 Index{6|10I12} 26r13 27r33 30r57 31r44 32r44 32r71 34r22 35m10 35r19
+40V13 Skip{4|73I12} 40>19 40>34 44r50 45r22 46r20 48b13 66s52 160s52 167s59
+. 193s51 219s51 241s52 252s52
+40a19 Text{string} 42r15 42r39 43r31 45r49 47r53 48b19 53r20
+40i34 Position{4|73I12} 43r19 44r32 45r37 47r16 47r59 48b34 51r10 52r15
+49i7 Next{4|8I12} 52m7 53m26 53r26 54r14
+57V13 Symbol{4|73I12} 57>21 57>36 57>65 62r16 63r18 64b13 142s52
+57a21 Text{string} 60r15 60r39 61r31 63r51 66r58 67r43 67r61
+57i36 Position{4|73I12} 61r19 63r35 66r64
+57e65 Item{character} 67r77
+66i15 First{4|73I12} 67r17 67r35 67r67 68r26
+70V13 Name_After{4|73I12} 70>25 70>40 74r28 75r18 76r20 78b13 161s52
+70a25 Text{string} 72r15 72r39 73r31 75r55 77r57 78b25 84r25
+70i40 Position{4|73I12} 73r19 75r39 77r16 77r63 78b40 82r10 83r15
+79i7 Next{4|8I12} 83m7 84m31 84r31 85r31
+80b7 Matched{boolean} 84m37 85r18
+88V13 Literal_Result{6|70R9} 89>7 89>55 91r19 92r17 93r19 94b13 166s49 172s42
+. 197s36
+89r7 Number{8|10R9} 92r47 98r29 98r47 99r29 99r47 100r17 101r20
+89b55 Negative{boolean} 98r14 99r14
+97r15 Checked{9|71R9} 100r46 101r34
+103V13 Unary_Result{6|70R9} 103>27 103>56 105r19 106r17 107r19 108b13 198s15
+103r27 Operand{6|70R9} 106r45 107r50 111r43 111r71 112r17 113r20
+103b56 Negative{boolean} 111r13
+110r15 Checked{9|71R9} 112r47 113r49
+115V13 Binary_Result{6|70R9} 116>7 116>13 116>40 117r19 118r17 119r19 120r19
+. 121b13 224s35
+116r7 Left{6|70R9} 119r52 125r37 126r42 127r42 129r17 130r24 131r62 132r33
+116r13 Right{6|70R9} 118r46 120r52 125r50 126r55 127r55 129r40 130r55 131r33
+. 131r78 132r54
+116e40 Operator{character} 124r15
+123r15 Checked{9|71R9} 129r68 131r46
+134V13 Close_Result{6|70R9} 134>27 134>42 138r16 139r19 140r21 141b13 196s13
+. 224s15
+134a27 Text{string} 136r15 136r39 137r34 139r67 142r60
+134r42 Value{6|70R9} 137r19 139r48 140r52 142r66 143r46
+142i15 After{4|73I12} 143r17 143r63 143r72
+145V13 Read_Atom{6|70R9} 146>7 146>22 146>51 147>7 147>19 147>50 153r16 154r19
+. 155r21 156b13 256s15
+146a7 Text{string} 150r15 150r39 151r31 151r73 152r37 154r61 160r58 161r64
+. 162r57 164r39 165r16 167r53 167r65 167r84 170r52 174r30
+146i22 Position{4|73I12} 151r19 154r45 160r64
+146r51 Names{6|23R9} 151r79 162r63 176r48 176r80
+147i7 Mask_First{4|73I12} 152r43 173r41 174r36
+147i19 Mask_After{4|73I12} 152r55 174r48
+147b50 Allow_Sign{boolean} 166r20
+160i15 First{4|73I12} 161r70 162r70 164r13 164r31 165r22 167r71 167r90 170r58
+. 174r60
+161i15 After{4|73I12} 162r77 174r67 176r22
+162i15 Index{6|10I12} 173r22 176r61 176r93
+169r21 Number{8|10R9} 172r19 172r58
+178V13 Read_Unary{6|70R9} 179>7 179>22 179>51 180>7 180>19 186r16 187r19
+. 188r21 190b13 244s47
+179a7 Text{string} 182r15 182r39 183r36 183r55 184r38 185r37 187r62 189r45
+. 193r57 195r54 196r27 197r60 199r30 199r81
+179i22 Position{4|73I12} 183r19 183r61 187r46 189r62 193r63 197r66 199r87
+179r51 Names{6|23R9} 184r44 199r42
+180i7 Mask_First{4|73I12} 185r43 199r49
+180i19 Mask_After{4|73I12} 185r55 199r61
+193i15 Next{4|73I12} 195r60 199r36
+194r15 Number{8|10R9} 197r13 197r52
+201V13 Read_Compound{6|70R9} 202>7 202>22 202>51 203>7 203>33 203>45 211r16
+. 212r19 213r21 215b13 245s15
+202a7 Text{string} 206r15 206r39 207r31 207r73 208r37 210r43 212r65 214r45
+. 219r57 221r37 222r16 223r16 224r29 225r36 225r91
+202i22 Position{4|73I12} 207r19 210r27 212r49 214r62
+202r51 Names{6|23R9} 207r79 225r52
+203r7 Left{6|70R9} 209r20 210r13 210r66 219r63 222r40 225r13
+203i33 Mask_First{4|73I12} 208r43 225r59
+203i45 Mask_After{4|73I12} 208r55 225r71
+219i15 Next{4|73I12} 221r13 221r30 222r22 222r65 223r22 225r42 225r97
+227V13 Read_Group{6|70R9} 228>7 228>22 228>51 229>7 229>19 234r16 235r19
+. 236r21 238b13 255s55
+228a7 Text{string} 231r15 231r39 232r36 232r74 233r37 235r62 237r45 241r58
+. 243r21 244r16 244r59 245r30 246r29
+228i22 Position{4|73I12} 232r19 235r46 237r62 241r64 245r36
+228r51 Names{6|23R9} 232r80 244r72 245r46 246r42
+229i7 Mask_First{4|73I12} 233r43 244r79 246r49 246r74
+229i19 Mask_After{4|73I12} 233r55 244r91 246r61 246r86
+241i15 First{4|73I12} 243r13 244r22 244r65 246r35
+252i15 First{4|73I12} 254r13 254r31 255r22 255r73 256r32
+X 8 silver_scalar_literals.ads
+3K9*Silver_Scalar_Literals 7|1w6 6r13 89r16 95r16 167r16 169r39 170r15 194r33
+. 195r17 8|37e27
+5I12*Literal_Position{natural}
+8I12*Literal_Value{long_long_integer} 7|6r36
+10R9*Literal_Result 7|89r39 95r39 169r62 194r56 8|13e14
+11i7*After{5I12} 7|92r54 100r24 101r27 172r26 197r20
+12i7*Value{8I12} 7|98r36 98r54 99r36 99r54
+28V13*Read_Integer{10R9} 7|167s39 170s38 195s40
+X 9 silver_scalars.ads
+1K9*Silver_Scalars 6|3w6 15r16 17r25 21r13 21r42 72r16 76r48 7|4r28 9|110e19
+5I12*Wide{long_long_integer} 7|5r21
+9R9*Interval 6|15r31 17r40 72r31 9|11e14
+12r4*Empty{9R9} 6|21r28 21r57 76r63
+19V13*Normalize{9R9} 7|176s37
+71R9*Check_Result 7|97r42 110r42 123r42 9|74e14
+72b7*Safe{boolean} 7|100r54 112r55 129r76
+73r7*Bounds{9R9} 7|101r42 113r57 131r54
+75r4*Invalid{71R9} 7|128r35
+82V13*Checked{71R9} 7|97s66
+86V13*Add{71R9} 7|125s32
+90V13*Subtract{71R9} 7|126s32
+94V13*Negate{71R9} 7|111s35
+107V13*Multiply{71R9} 7|127s32
+

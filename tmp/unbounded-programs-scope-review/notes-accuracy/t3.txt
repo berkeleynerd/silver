@@ -1,0 +1,295 @@
+T3-tool-hard-limits T3 — Hard (non-resource) limits in the pinned toolchain (GNAT 16.1 frontend/backend, GNATprove 16.1/Why3/CVC5/Z3 4.15.4/Alt-Ergo 2.6.1) and Linux OS
+I probed with gcc -gnatc and full -O0 compiles, gnatprove in check and flow mode, four tiny --mode=all runs to read the effective prover limits, kernel exec probes, and source reading of GCC 16.1 (gcc-mirror 6afcc4f6) and the spark2014/why3 producer (42554fc2). I found four limits that make an admitted program fail other than by resource exhaustion:
+(1) GNAT physical line width. After expanding each tab to the next multiple of 8 columns, a line can be at most 32,765 columns. 32,765 bytes passes and 32,766 fails, with or without a terminator. With tabs, a 4,131-byte line already fails.
+(2) Identifier length is at most 4,096 characters. 4,097 gives "GNAT BUG DETECTED Program_Error namet.adb:141 / Name buffer overflow; Max_Length = 4096" in every tested role and mode. This comes from namet.ads:144, where Bounded_String defaults to 2**12.
+(3) Total source size near 2^31 bytes. 2^31-2^24 passes (10.5 s, 2.16 GB). 2^31-1 crashes with SIGSEGV and heap corruption. 2^31 makes gnat1 loop forever inside errout.
+(4) In the proof configuration, --level=2 makes --memlimit=0 impossible: every prover process keeps a 1,000 MiB RLIMIT_AS (observed in why3session.xml). Dropping --level gives memlimit 0.
+Also: Z3's rlimit wraps modulo 2^32, so any finite --steps above 5,368,146 silently gives Z3 a tiny limit. Prover crashes ('High failure'), including resource kills, are reported as 'gave_up', the same as a genuine 'unknown'.
+Everything else I measured is resource-only: nesting depth, declaration and statement counts, total size up to 2 GB, backend size, and debug lines past 1.25M. The costs are stack, memory and time, mostly superlinear: gnatc time is quadratic in sequence length and nesting, and flow memory reaches 4.4 GB at 1 MB and 6.5 GB at 8,000 nested loops. Stack overflow appears as a GNAT bug box. gcc raises its own stack limit; gnat2why inherits 8 MiB and fails in flow mode between 1,000 and 2,000 nested loops (check mode between 2,000 and 8,000). All of these pass with an unlimited stack. OS limits are environmental: a single argument can be at most 131,071 bytes (one byte more gives E2BIG), and ARG_MAX is 2 MiB, set as stack/4.
+{
+ "name": "GNAT physical line width (tab-expanded)",
+ "current_bound": "Unreachable today: the 4096-byte source cannot contain a 4096-byte all-tab line plus program text. Frontend limit: tab-expanded width <= 32,765 columns; byte length <= 32,765.",
+ "locations": [
+  "gnatsrc/scng.adb:129-190 (Check_End_Of_Line: Len > Max_Line_Length -> 'this line is too long'; if Len >= 4096, tab walk Col > 32766 -> 'this line is longer than 32766 characters' + Unrecoverable_Error)",
+  "gnatsrc/hostparm.ads:43-44 (Max_Line_Length = Column_Number'Last - 1)",
+  "gnatsrc/types.ads:181 (Column_Number range 0 .. 32767, Size 16)",
+  "docs/trusted-boundary.md:54-59 (frontend premise)",
+  "language.md:46-49"
+ ],
+ "role": "The pinned frontend's representation of columns. It applies to gnat1 and to gnat2why, which uses the same scanner.",
+ "classification": "tool_hard_limit",
+ "necessary": true,
+ "unbounded_replacement": "None possible without patching GNAT or reflowing the source, which would break Sloc traceability. Minimal language rule: 'For every physical line (lines end at LF, CR or CRLF), the width after expanding each HT to the next column that is 1 more than a multiple of 8 is at most 32,765.' This implies at most 32,765 bytes per line. Literals and comments cannot span lines, so this rule also bounds them.",
+ "proof_impact": "Needs a lexical predicate in Lean Admission and in the SPARK recognizer. It is a linear scan with a tab rule, so it is cheap to prove. It replaces the current frontend premise 'every line fitting 4096 bytes' with an exact derived bound. The bound is observed on the pinned binary and matches the source; it is a premise, not proved.",
+ "effort": "S",
+ "risks": "The trigger is tab expansion, not byte count. A byte-only rule (<= 32,765) is wrong: a 4,131-byte line with tabs fails. The -gnatyM style switch would change the check; Silver passes no -gnaty. The source matches the fetched GCC tag, but binary identity is not attested.",
+ "evidence": "Observed, gcc -gnatc, p/line_*. 32,765 spaces, comment, ~32.7k-char string literal or numeric literal: accepted with LF, CRLF, CR or no terminator. 32,766: rc=1 'this line is longer than 32766 characters'. 32,767: also 'this line is too long'. Tabs: base(39 bytes)+tabs 4,130 accepted, 4,131 rejected (predicted 41+8*(L-40) > 32766). 4,096 all tabs rejected; 4,095 accepted."
+}
+{
+ "name": "GNAT identifier length",
+ "current_bound": "<= 4,096 characters accepted; 4,097 fails with a GNAT bug box. Today's maximum admitted identifier is ~4,020 characters, below the cap.",
+ "locations": [
+  "gnatsrc/namet.ads:144 (type Bounded_String (Max_Length : Natural := 2**12))",
+  "gnatsrc/namet.adb:132-145 (Append raises Program_Error on overflow)",
+  "gnatsrc/namet.adb:173 (Append_Decoded Temp : Bounded_String with default capacity); also stringt.adb:321,351, sinput.adb:272"
+ ],
+ "role": "Default-capacity name buffers inside the frontend.",
+ "classification": "tool_hard_limit",
+ "necessary": true,
+ "unbounded_replacement": "None without patching GNAT. Minimal rule: identifier length <= 4,096 characters. This is a fifth, independent '4096' domain and must not be tied to the source-length constant.",
+ "proof_impact": "Needs a per-token length predicate in the lexer/Admission model; cheap. The frontend premise in trusted-boundary.md must name it. The cap is observed only for the roles tested (object, constant, String object passed to Put_Line, assignment, for-loop parameter). Future constructs that append suffixes to names in default-capacity buffers could lower it.",
+ "effort": "S",
+ "risks": "The failure is Program_Error (a bug box), not a diagnostic, so it would show up as an infrastructure crash. Only today's identifier roles were covered.",
+ "evidence": "Observed in p/id_*, p/sid_*, p/gpid_*: 4,096-char identifiers pass gcc -gnatc, gcc -c -O0, gnatprove check, flow and tiny --mode=all, all rc=0. 4,097 fails every role and mode: 'Name buffer overflow; Max_Length = 4096' + 'GNAT BUG DETECTED 16.1.0 Program_Error namet.adb:141 explicit raise'. A warning naming a 4,096-char identifier prints in full (a 4,159-char line)."
+}
+{
+ "name": "GNAT total source size (Source_Ptr / Integer file length)",
+ "current_bound": "Just under 2^31 bytes, minus the 4 KiB-aligned space taken by the other units in the compilation. 2,130,706,432 passes; 2,147,483,647 crashes.",
+ "locations": [
+  "gnatsrc/types.ads:148 (Text_Ptr range -4 .. Int'Last), :190 (Source_Align 2**12)",
+  "gnatsrc/sinput-l.adb:224-233 (later buffers placed after the previous Source_Last, 4 KiB aligned)",
+  "gnatsrc/osint.adb Read_Source_File (Len : Integer -- 'assume no more than 2 gigabytes of source'; Len := Integer (File_Length (FD)))"
+ ],
+ "role": "All source text of one compilation shares one 32-bit Source_Ptr space.",
+ "classification": "tool_hard_limit",
+ "necessary": true,
+ "unbounded_replacement": "None (single-file Main). Minimal rule: source length <= a derived bound. 2,130,706,432 (2^31-2^24) is the largest tested-accepted value. A bisected exact value would be 2^31-1 minus the aligned sizes of every unit gnat1/gnat2why load (system, Ada.Text_IO closure, the six runtime files). Silver's own SPARK types (Natural-indexed strings) cap at 2^31-1 anyway.",
+ "proof_impact": "Replaces the 4096-byte source constant with a large derived constant. Every Lean and SPARK quantity derived from S (bindings, report envelope, operator budget) is another track's concern. The bound is observed plus source-reasoned; it is a premise.",
+ "effort": "S",
+ "risks": "The failure modes above the bound are dangerous, not diagnostic: SIGSEGV with heap corruption at 2^31-1, and an infinite loop at 2^31 (gnat1 spins in sinput.original_location <- errout.error_msg <- scn.scanner.scan). The exact boundary depends on the closure of loaded units.",
+ "evidence": "Observed, gcc -gnatc, comment-padded sources (p/big_*). 10 MB: 0.09 s / 34 MB. 100 MB: 0.30 s / 124 MB; full -O0 -g: 0.3 s / 138 MB, with DWARF line 1,250,006 correct. 2,130,706,432: rc=0, 10.46 s, 2.16 GB. 2,147,483,647: rc=-11 'malloc(): corrupted top size'. 2,147,483,648: no output after ~250 s at 99.8% CPU and 21 MB RSS; gdb backtrace captured; stopped through its own timeout wrapper."
+}
+{
+ "name": "GNAT fixed internal table capacities",
+ "current_bound": "Node_Id 0..1,999,999,999. List, Elist, Elmt, Names, Strings and Ureal: 100,000,000 ids each. Uint ~1.5e9.",
+ "locations": [
+  "gnatsrc/types.ads:300-363",
+  "gnatsrc/table.adb:166-226 (Reallocate grows without checking the Id subtype bound)"
+ ],
+ "role": "Fixed id ranges for frontend tables.",
+ "classification": "tool_hard_limit",
+ "necessary": false,
+ "unbounded_replacement": "State it as a pinned-tool premise next to solver completion. The alternative is a smaller derived source bound: S <= 2^26 bytes (64 MiB) would keep each count below 1e8 only if every entity costs at least one source byte, which is not proved for internally created lists and strings.",
+ "proof_impact": "None if stated as a premise. A rigorous derived bound would need per-construct entity-count analysis of the frontend, which is not tractable cheaply.",
+ "effort": "M",
+ "risks": "The overflow behavior is unobserved: likely Constraint_Error / bug box, possibly worse if gnat1 runs with checks suppressed. Within 2 GiB a cap is logically reachable: 8-byte 'Put (\"\");' statements give ~1e8 String_Ids and lists at ~800 MB, and elsif chains give ~2 lists per ~27 bytes. Reaching it is impractical: sequence analysis is quadratic (1M Put_Line > 1,200 s gnatc), and linear elsif chains cost ~880 B RSS per branch, so ~44 GB before the List cap. On this host memory or time runs out first; on a much larger host a cap could fail first.",
+ "evidence": "Source-reasoned only; not probed. Supporting scaling data: gnatc 1M elsif (29.9 MB source) 25.3 s / 657 MB; 1M declarations (23.9 MB) 10.2 s / 517 MB; 100k Put_Line 36 s / 119 MB; 1M Put_Line > 1,200 s (timeout)."
+}
+{
+ "name": "Frontend / gnat2why / backend recursion depth (stack)",
+ "current_bound": "No fixed cap; limited by the stack rlimit. gcc's gnat1 survives 100k nested parens at an 8 MiB soft limit (gcc raises its own soft stack; observed, the GCC source was not re-read) but overflows at 300k. gnat2why inherits 8 MiB: check mode overflows at 100k parens, 12k nested ifs and 8k nested loops; flow mode overflows at 2k-3k nested loops/ifs (1,000 loops pass).",
+ "locations": [
+  "docs/trusted-boundary.md:74-79",
+  "src/silver.adb:116-125 (system() proof/build commands inherit the driver's limits)"
+ ],
+ "role": "Recursive descent in the parser, semantics, flow analysis and gigi.",
+ "classification": "environmental",
+ "necessary": false,
+ "unbounded_replacement": "Engineering only. Before spawning gnatprove/gprbuild, the driver raises RLIMIT_STACK to the hard limit (unlimited on this host), e.g. via setrlimit or by prefixing the shell command with 'ulimit -s unlimited'. Report a Storage_Error bug box as resource exhaustion (infrastructure status), not as rejection.",
+ "proof_impact": "None (environmental premise). Classifying the outcome needs driver logic outside proofs.",
+ "effort": "S",
+ "risks": "The hard stack limit may be finite on other hosts. The bug-box text looks like a tool defect. Provers also inherit the stack; why3server sets only CPU, AS and CORE.",
+ "evidence": "Observed. gnatc parens 300k and 1M: 'Storage_Error stack overflow' at default; 1M passes with ulimit -s unlimited (0.98 s, 575 MB). gnatprove check parens 100k: Storage_Error at 8 MiB, passes unlimited (1.19 s; flow 1.16 s). check if-12k / loop-8k: fail at 8 MiB, pass unlimited (6.6 s / 13.6 s). flow loops 250/500/1000 pass at 8 MiB; 2000/8000 fail; unlimited: 2000 in 23 s / 484 MB, 8000 in 573 s / 6.54 GB."
+}
+{
+ "name": "Superlinear compile time/memory (frontend, flow, backend)",
+ "current_bound": "No cap. gnatc: assignments 10k 0.29 s -> 100k 30.9 s; X+X+... 100k 160 s; nested if 100k 238 s; nested loops 100k > 1,800 s. Flow: 128k assignments (1 MB) 136 s / 4.43 GB; Put_Line 2k 23 s -> 8k 470 s / 1.06 GB; elsif 9k 57 s / 3.96 GB; decls 12k 510 s. Full -O0: Put_Line 32k 245 s / 737 MB; 128k > 1,338 s; 10k nested loops 44.8 s / 1.45 GB.",
+ "locations": [
+  "language.md:466-500 (compile-cost paragraph)"
+ ],
+ "role": "Algorithmic cost in the pinned tools.",
+ "classification": "environmental",
+ "necessary": false,
+ "unbounded_replacement": "None needed. Document that compile cost is superlinear and may exhaust time or memory; the owner accepts this.",
+ "proof_impact": "None.",
+ "effort": "S",
+ "risks": "Timing was mildly perturbed by concurrent probes and, late on, another agent's gnatprove run.",
+ "evidence": "batch1.log, batch2.log, batch3.log and notes.md in the scratch dir. No hard error in any of these runs."
+}
+{
+ "name": "GNATprove --level=2 pins the per-prover memlimit at 1000 MiB (RLIMIT_AS)",
+ "current_bound": "memlimit 1000 MiB per prover process. The production command passes --memlimit=1000 explicitly, but --memlimit=0 would also yield 1000 under --level=2.",
+ "locations": [
+  "src/silver.adb:116-123",
+  "producer src/gnatprove/configuration.adb:2389-2395 (level 2: Timeout 5, Memlimit 1000, Steps 0, Counterexamples True), :2447-2456 ('if CL_Switches.Memlimit = 0 then null;' keeps the level value)",
+  "why3/src/server/server-unix.c:358-372 (memlimit -> RLIMIT_AS, timelimit -> RLIMIT_CPU, 0 = unset)",
+  "docs/trusted-boundary.md:41 ('1,000 MiB per prover process')"
+ ],
+ "role": "A prover that needs more than 1000 MiB gets OutOfMemory or crashes; the check is then reported unproved and the compile fails, not as host exhaustion.",
+ "classification": "arbitrary_policy",
+ "necessary": false,
+ "unbounded_replacement": "Remove --level=2 and pass '--prover=cvc5,z3,altergo --timeout=0 --memlimit=0 --steps=<S>' plus explicit -j (see the steps item), with --counterexamples=off for parity with the no-level default. With no --level, the default memlimit is 0, enforced by no RLIMIT_AS.",
+ "proof_impact": "The assurance premise text ('completion within 100,000 normalized steps and 1,000 MiB') changes to a steps-only or unbounded premise. No Lean theorem depends on 1000 MiB. Prior experiments that passed '--level=2 ... --memlimit=0' (e.g. tmp/larger-expressions-probes.py:55, tmp/partial-output-report-probes.py:63) actually ran at 1000 MiB; their records should be read that way.",
+ "effort": "S",
+ "risks": "Without a memlimit, one runaway prover can use host memory and trigger the OOM killer. Silver must then classify the prover's SIGKILL ('High failure') as resource exhaustion (see the reporting item).",
+ "evidence": "Observed in tiny --mode=all runs (p/mem_*), from why3session.xml for silver_io__put. --level=2 --memlimit=0: memlimit=\"1000\" on all three provers. --level=2 --memlimit=5000: memlimit=\"5000\". No --level with --memlimit=0: memlimit=\"0\" (plus one trivial-goal attempt that always records 1000). 'Success: all checks proved (66 checks)'."
+}
+{
+ "name": "Prover step limit (--steps=100000) and the Z3 32-bit rlimit ceiling",
+ "current_bound": "100,000 normalized steps, converted to cvc5 3,515,000 / z3 80,450,000 / alt-ergo 100,000 raw. The finite knob is capped at 5,368,146 for Z3. gnatprove --steps/--timeout/--memlimit are Ada Integers (<= 2^31-1).",
+ "locations": [
+  "src/silver.adb:122",
+  "producer why3/src/gnat/gnat_config.ml:589-596 (cvc5 15000+35s, z3 450000+800s, altergo s), :125-126 (steps <= 0 means no limit)",
+  "obj/gnatprove/why3.conf (z3 'rlimit=%S', cvc5 '--rlimit=%S', alt-ergo '--steps-bound %S')"
+ ],
+ "role": "Bounds solver work per VC. Exceeding it gives unproved, i.e. a compile failure.",
+ "classification": "arbitrary_policy",
+ "necessary": false,
+ "unbounded_replacement": "--steps=0 together with --timeout=0 and --memlimit=0 (no --level) removes every per-VC cap, so failure is only time or memory exhaustion. If a finite value is kept, it must stay <= 5,368,146: above that Z3's raw rlimit (450000+800s) passes 2^32 and wraps, silently giving Z3 a tiny limit. Run with -j >= 3 (explicit, not -j0) so the three provers race per VC and the others are interrupted on Valid. With -j1, or -j0 on a 1-CPU host, provers run sequentially and an unlimited first prover blocks the rest.",
+ "proof_impact": "Changes the 'bounded-fragment completion within 100,000 steps' premise to unbounded completion: true VCs eventually proved, or non-termination counted as time exhaustion. The expression-headroom results tied to 100k steps become sufficient rather than limiting. Nothing proved in Lean depends on the step value.",
+ "effort": "S",
+ "risks": "With no limits, a true VC that no prover can prove never finishes: the compile hangs instead of failing, and nondeterminism of interrupted races affects which prover is reported. Steps give reproducibility. If reproducibility is kept, a driver-side escalation loop (rerun unproved-with-limit checks at doubling steps up to 5,368,146, then steps=0) reaches the same end with progress reporting.",
+ "evidence": "Observed. why3session steplimit values 3515000/80450000/100000 for --steps=100000. Z3 4.15.4: rlimit=4294967297 behaves exactly like rlimit=1 (unknown, rlimit-count 16), so it wraps modulo 2^32; 4294967295 is fine. cvc5 accepts --rlimit up to 18446744073709551615, parse error beyond. alt-ergo --steps-bound up to 4611686018427387903. Scheduling read from gnat_checks.ml:1049-1080 and :714-725. With -j0 on 22 CPUs, each prover had 41 attempts in a tiny run, consistent with racing."
+}
+{
+ "name": "Prover crash/kill reported as 'gave_up' (no resource classification)",
+ "current_bound": "HighFailure (signal or crash, e.g. the observed CVC5 'High failure (signaled)'), Failure, Unknown and Invalid all map to Gave_up. Only Timeout, OutOfMemory and StepLimitExceeded map to Limit{time,memory,steps}.",
+ "locations": [
+  "producer why3/src/gnat/gnat_expl.ml:662-675 (compress)",
+  "why3/src/gnat/gnat_report.ml:168-183 (unproved_status JSON)",
+  "why3/src/gnat/gnat_main.ml:96-110"
+ ],
+ "role": "Determines whether Silver can tell resource exhaustion from a prover verdict.",
+ "classification": "inherited_semantics",
+ "necessary": false,
+ "unbounded_replacement": "The driver reads obj/gnatprove/*.spark: proof[].unproved_status {status, time, steps, memory} plus the per-prover check_tree[].proof_attempts.*.result text ('High failure', 'Out of memory', 'Step limit exceeded', 'Timeout', 'Unknown'). Limit and High failure become an infrastructure/resource outcome (status 3); only definitive prover answers count as unproved defects.",
+ "proof_impact": "Report-checker and driver logic (SPARK); trusts the evidence reported by GNATprove.",
+ "effort": "M",
+ "risks": "A prover segfault caused by a real bug is indistinguishable from an OOM or stack kill; both would be labelled resource.",
+ "evidence": "Observed with an overflow probe (p/unproved, --steps=1): main.spark contains \"unproved_status\": {\"memory\": false, \"status\": \"limit\", \"steps\": true, \"time\": false} and check_tree results 'Unknown\\n(sat)' and 'Step limit\\nexceeded'."
+}
+{
+ "name": "Linux exec argument limits",
+ "current_bound": "Single argument <= 131,071 bytes (MAX_ARG_STRLEN = PAGE_SIZE*32 = 131072 including NUL). Total argv+envp <= ARG_MAX = 2,097,152 here (RLIMIT_STACK/4).",
+ "locations": [
+  "/usr/include/linux/binfmts.h:15-16",
+  "language.md:688-689 (argument policy 0..4096 bytes)",
+  "catalogue max_argument_bytes 4096"
+ ],
+ "role": "The largest argument the OS can deliver to a Silver program.",
+ "classification": "environmental",
+ "necessary": false,
+ "unbounded_replacement": "The language argument domain can be unbounded, or bounded only by Ada's String length (Positive'Last). An argument the OS cannot deliver makes the caller's execve fail with E2BIG, which is environmental. The 'silver run' driver must report spawn E2BIG as an infrastructure error. macOS has a different, total-only ARG_MAX.",
+ "proof_impact": "Runtime Silver_Arguments and Silver_IO caps (another track) can drop 4096 without an OS-derived rule.",
+ "effort": "S",
+ "risks": "Per-platform differences. ARG_MAX moves with the stack rlimit.",
+ "evidence": "Observed. execve of /bin/true with a 131,071-byte argument: OK. 131,072: OSError E2BIG. 30x100 KB: E2BIG. getconf ARG_MAX 2097152. A GNAT-built program returns Ada.Command_Line.Argument of 131,071 bytes and an 8x concatenation of 1,048,568 bytes, even with a 1 MiB stack (p/argrt)."
+}
+{
+ "name": "Ada String length (Integer'Last)",
+ "current_bound": "Any String value or concatenation result <= 2^31-1 characters (index subtype Positive).",
+ "locations": [
+  "Ada RM String/Positive; Silver_IO.Max_Length (src/silver_io.ads:5) is the current policy cap"
+ ],
+ "role": "Bounds an otherwise unbounded runtime value domain.",
+ "classification": "inherited_semantics",
+ "necessary": true,
+ "unbounded_replacement": "State the String domain as 'at most Integer'Last characters'. GNATprove length and overflow checks discharge or reject constructions beyond it; host memory is the practical limit.",
+ "proof_impact": "Ghost observations (Written_Bytes array of Max_Length+1) cannot scale to 2^31. Another track must replace them with sequence/functional models.",
+ "effort": "M",
+ "risks": "None beyond those noted for the replacement ghost models (another track).",
+ "evidence": "Language definition; no probe needed."
+}
+[
+ {
+  "issue": "Three pinned-frontend limits must become explicit language rules once the 4096-byte source bound is lifted: tab-expanded line width <= 32,765; identifier length <= 4,096; source length <= a derived bound below 2^31 (2,130,706,432 tested).",
+  "why": "They are hard non-resource failures of the pinned GNAT 16.1 frontend: a diagnostic error, a Program_Error bug box, and SIGSEGV or an infinite loop. Without the rules, admitted programs would fail compilation. Changing the source/lexical rules and the frontend premise is an Oracle/language amendment.",
+  "owner_action": "Approve the three frontend-derived rules as part of the source-bound amendment (no design choice is left: each is the maximum the pinned tool supports). Optionally approve a bisection run to pin the exact source-size maximum."
+ },
+ {
+  "issue": "Changing the production proof limits: drop --level=2; use --memlimit=0 --timeout=0 and either --steps=0 or a finite value <= 5,368,146; set explicit -j>=3. This changes the documented assurance premise '100,000 normalized steps and 1,000 MiB per prover process'.",
+  "why": "The premise text is in docs/trusted-boundary.md:41 and docs/assurance.md. Removing the bounds trades a reproducible 'unproved under limit' failure for possible non-termination. That is acceptable under the owner's resource-exhaustion policy, but it is an assurance-text change.",
+  "owner_action": "Confirm the unbounded configuration (most expansive) is wanted. The owner's stated preference already implies yes. The lead should record that a non-terminating proof attempt counts as time exhaustion."
+ }
+]
+[
+ "GNAT 16.1 binary behavior matches gcc-mirror 6afcc4f6 and spark2014 42554fc2 sources (source-to-binary identity not attested; every hard limit above was also observed on the pinned binary except the 1e8 table caps)",
+ "GNAT internal table capacities (List/Elist/Elmt/Name/String/Ureal 1e8, Node 2e9) are not reached before resource exhaustion \u2014 source-reasoned, not probed",
+ "Sufficient stack: tools receive a stack rlimit large enough (unlimited on this host's hard limit); gnat2why and provers inherit it",
+ "Prover soundness and eventual completion of true VCs under unlimited steps/time/memory (replaces the bounded-fragment completion premise)",
+ "Kernel exec limits (MAX_ARG_STRLEN 131072, ARG_MAX = stack/4) are environmental and never a program-membership matter",
+ "Z3 rlimit is 32-bit and wraps (observed for 4.15.4); any finite --steps must stay <= 5,368,146"
+]
+[
+ {
+  "hypothesis": "GNAT's maximum line length is 32,765, and tabs reduce it",
+  "setup": "gen_line.py: space/comment/ident/string/number lines of 32,765, 32,766 and 32,767 bytes with none/LF/CRLF/CR terminators; tab lines of 4,095-5,000 bytes; gcc -c -gnatc",
+  "result": "32,765 accepted and 32,766 rejected for every terminator. Tab-expanded rejection at exactly 4,131 bytes (39 code bytes + tabs). A 4,096 all-tab line is rejected; 4,095 is accepted.",
+  "wall_seconds": 0.02,
+  "peak_memory": "21 MB",
+  "side_effects": "scratch only"
+ },
+ {
+  "hypothesis": "Identifier length has a hard cap",
+  "setup": "gen_ident.py / gen_sid.py: 4,000-16,000 chars; roles var/use/loop/str/const; gcc -gnatc, gcc -c -O0, gnatprove check/flow/all (tiny)",
+  "result": "4,096 passes everywhere. 4,097 gives 'Name buffer overflow; Max_Length = 4096' and a GNAT BUG box (Program_Error namet.adb:141) in every role and mode.",
+  "wall_seconds": 5.5,
+  "peak_memory": "127 MB (mode=all)",
+  "side_effects": "Tiny --mode=all gnatprove runs (deviation from check/flow-only allowance; trivial programs)"
+ },
+ {
+  "hypothesis": "Total source size is capped near 2^31",
+  "setup": "gen_big.py comment-padded sources: 10 MB, 100 MB, 2,130,706,432, 2,147,483,647 and 2,147,483,648 bytes; gcc -gnatc (and 100 MB full -O0 -g)",
+  "result": "Up to 2^31-2^24 accepted (10.5 s, 2.16 GB). 2^31-1: SIGSEGV with heap corruption. 2^31: infinite loop in errout/sinput (gdb backtrace), stopped after ~250 s.",
+  "wall_seconds": 10.5,
+  "peak_memory": "2.16 GB",
+  "side_effects": "Temporary 2 GB files in scratch, deleted. One spinning gnat1 terminated via its own timeout wrapper (pid 63883)."
+ },
+ {
+  "hypothesis": "Nesting and counts hit only resource limits in gcc",
+  "setup": "gen_nest.py: parens/if/loop/elsif/decls/stmts/concat/plus/puts at 1k/10k/100k (and 300k/1M parens, 1M elsif/decls/puts); gcc -gnatc and -O0",
+  "result": "No hard caps. Stack overflow (bug box) for deep parens beyond ~100k at default; passes with an unlimited stack. Time is quadratic for sequences, nesting and long expressions (100k loops > 1,800 s; 1M Put_Line > 1,200 s). Elsif and declarations are linear (1M: 25 s / 657 MB, 10 s / 517 MB).",
+  "wall_seconds": 1800,
+  "peak_memory": "1.45 GB (10k loops full -O0)",
+  "side_effects": "scratch only; two runs ended by their timeouts"
+ },
+ {
+  "hypothesis": "gnatprove check/flow have no hard size limits",
+  "setup": "gp.sh (production flags, check/flow) on 64 KB - 1.15 MB generated programs; stack-failing cases rerun under ulimit -s unlimited",
+  "result": "Only resource failures: stack overflow in gnat2why at 8 MiB (check: 100k parens, 12k if, 8k loops; flow: 2k loops, 3k if), all passing with an unlimited stack. Flow memory and time superlinear: 1 MB assignments 136 s / 4.43 GB; 8k nested loops 573 s / 6.54 GB.",
+  "wall_seconds": 573,
+  "peak_memory": "6.54 GB",
+  "side_effects": "32k Put_Line flow stopped by me at ~354 s / 3.93 GB (pid 70502 wrapper)"
+ },
+ {
+  "hypothesis": "--memlimit=0 removes the prover memory cap",
+  "setup": "Tiny null program, gnatprove --mode=all -f with --level=2 --memlimit=0, --level=2 --memlimit=5000, and no --level --memlimit=0; read why3session.xml",
+  "result": "With --level=2, --memlimit=0 still gives memlimit=1000. 5000 gives 5000. Without --level, 0 gives memlimit=0. Steplimits are 3,515,000 / 80,450,000 / 100,000 for --steps=100000.",
+  "wall_seconds": 7,
+  "peak_memory": "128 MB",
+  "side_effects": "scratch only"
+ },
+ {
+  "hypothesis": "Prover step-limit integer ranges",
+  "setup": "Bundled z3/cvc5/alt-ergo on trivial SMT/AE goals with huge limits",
+  "result": "Z3 rlimit wraps modulo 2^32 (4294967297 behaves like 1). cvc5 accepts uint64. alt-ergo accepts up to 2^62-1.",
+  "wall_seconds": 0.1,
+  "side_effects": "none"
+ },
+ {
+  "hypothesis": "Unproved-status JSON distinguishes resource limits",
+  "setup": "Integer'Last + 1 overflow program with --steps=1, --mode=all",
+  "result": "main.spark has unproved_status {status:'limit', steps:true} and per-prover result strings. Source shows HighFailure maps to 'gave_up'.",
+  "wall_seconds": 8,
+  "peak_memory": "128 MB",
+  "side_effects": "scratch only"
+ },
+ {
+  "hypothesis": "OS argument limits",
+  "setup": "python execve /bin/true with 131071/131072/1e6-byte args and 30x100 KB; GNAT program reading a 131,071-byte argument",
+  "result": "Per argument 131,071 OK and 131,072 E2BIG. ARG_MAX 2 MiB. GNAT runtime handles 131 KB arguments and 1 MB strings.",
+  "wall_seconds": 0.5,
+  "side_effects": "scratch only"
+ }
+]
+[
+ "Adopt the most expansive tool-derived lexical rules: (1) every physical line's tab-expanded width (tabs to the next multiple of 8) is at most 32,765 columns; (2) identifier length is at most 4,096 characters, a separate constant not tied to source length; (3) source length is at most a derived bound below 2^31. Use 2,130,706,432 unless a bisection run pins the exact value. Put all three in language.md and docs/trusted-boundary.md as pinned-frontend-derived rules, replacing the current 'every line fitting 4096 bytes' premise.",
+ "Proof command: drop --level=2 and pass --prover=cvc5,z3,altergo --timeout=0 --memlimit=0 --steps=0 --counterexamples=off -j<N>, with N >= 3 and explicit, never -j0 (a 1-CPU host would run provers sequentially). If reproducibility is wanted, use a driver escalation loop: steps doubling up to 5,368,146, then 0. Never use a finite --steps above 5,368,146 (Z3 rlimit wraps at 2^32).",
+ "Driver: raise RLIMIT_STACK to the hard limit before spawning gnatprove/gprbuild; gnat2why and provers inherit it, and gcc's own stack raise does not cover gnat2why. Also run Silver's own recursive recognizer with a sufficient stack. Map Storage_Error bug boxes, prover 'High failure', OutOfMemory/Timeout/StepLimit unproved_status, OOM kills and spawn E2BIG to the infrastructure/resource status (3), never to rejection or 'unproved'.",
+ "Read unproved_status together with check_tree prover result strings from obj/gnatprove/*.spark to classify outcomes, because HighFailure is folded into 'gave_up'.",
+ "State GNAT's 1e8/2e9 table capacities as a pinned-tool premise (practically unreachable before resource exhaustion), unless the owner prefers a much smaller, rigorously derived source bound.",
+ "Re-label prior evidence that used '--level=2 ... --memlimit=0' (e.g. tmp/larger-expressions-probes.py:55, tmp/partial-output-report-probes.py:63): those runs actually had 1000 MiB per prover.",
+ "Let the runtime String/argument domain be bounded only by Ada's Integer'Last (inherited) and host memory; kernel exec limits (131,071 bytes per argument on Linux) are environmental, so no language rule is needed for them.",
+ "Document in language.md's compile-cost paragraph that the pinned frontend, flow analysis and backend are superlinear (quadratic in sequence length and nesting), so large admitted programs fail by time or memory, which is acceptable."
+]
+["The exact source-size maximum between 2,130,706,432 and 2,147,483,647 was not bisected (each probe writes a 2 GB file). It depends on the closure of units gnat1/gnat2why load.","GNAT 1e8 table caps were not probed; their overflow behavior (Constraint_Error vs silent corruption) is unknown.","The identifier cap was tested only in today's roles (object, constant, String object, assignment, loop parameter). Other constructs that append suffixes in default-capacity Bounded_Strings could have lower effective caps.","No proof-mode (--mode=all) run on any non-trivial program (T4's scope), so prover behavior with unlimited steps/time/memory on large VCs is not measured here. The racing scheduler and interrupt-on-Valid are source-reasoned plus a small observation.","The GCC driver raising gnat1's soft stack limit is inferred from observation (100k parens pass at 8 MiB with ~79 MB RSS); toplev.cc was not re-read.","Prover-process stack limits and JSON/session nesting depth were not probed.","Recognizer and report-checker limits inside Silver itself are other tracks.","Only Linux x86_64 was examined; macOS ARG_MAX and stack defaults differ.","Late timings may be slightly perturbed by another agent's gnatprove run (alr exec, pid 74536 and children), which started near the end; it was not touched.","Notes: /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/notes.md; logs batch1.log, batch2.log, batch3.log; fetched GCC sources in gnatsrc/; probe cases in p/; scripts in scripts/."]

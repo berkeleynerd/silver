@@ -1,0 +1,187 @@
+{
+ "name": "f3-1k",
+ "source": "/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/progs/f3-1024.adb",
+ "source_bytes": 1024,
+ "lines": 158,
+ "statements": 156,
+ "steps": "100000",
+ "memlimit": "1000",
+ "command": "cd /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/toolchain && unset ALR_CONFIG GPR_CONFIG GPR_PROJECT_PATH GPR_PROJECT_PATH_FILE ADA_PROJECT_PATH && ALIRE_SETTINGS_DIR=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/settings /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alr/bin/alr -n exec -- /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove -P /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f3-1k/program.gpr -U --mode=all --report=all --warnings=continue --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j8 --no-loop-unrolling",
+ "exit": 0,
+ "stopped": null,
+ "wall_s": 88.2,
+ "peak_tree_rss_bytes": 609071104,
+ "peak_tree_rss_gib": 0.57,
+ "peak_by_comm": {
+  "gnatwhy3": 0.439,
+  "z3": 0.03,
+  "gnat2why": 0.027,
+  "alr": 0.024,
+  "alt-ergo": 0.023,
+  "cvc5": 0.022,
+  "gnatprove": 0.02,
+  "gprbuild": 0.012
+ },
+ "max_procs": 18,
+ "min_mem_available_gib": 27.58,
+ "pre": {
+  "mem_available_gb": 28.06,
+  "foreign_heavy": [
+   [
+    74478,
+    "lean",
+    1418891264,
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean/bin/lean /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/researc"
+   ]
+  ]
+ },
+ "imagews_created": [],
+ "imagews_removed": [],
+ "samples": [
+  [
+   0,
+   3395584,
+   30129422336
+  ],
+  [
+   30,
+   571637760,
+   31607689216
+  ],
+  [
+   60,
+   562675712,
+   31638437888
+  ]
+ ],
+ "tool_cmdlines": {
+  "gnatwhy3": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3 --timeout 0 --steps 100000 --ce-steps 0 --memlimit 1000 --prover cvc5,z3,altergo --proof per_check -j 8 --counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10 --entity 1012 /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f3-1k/obj/gnatprove/silver_arguments__input_is_valid.gnat-json ",
+  "alt-ergo": "alt-ergo --steps-bound 100000 --max-split 5 --disable-weaks /tmp/why_5ca387_silver_arguments-T-defqtvc.psmt2 ",
+  "cvc5": "cvc5 --rlimit=3515000 --prenex-quant=none --stats-internal /tmp/why_9a9322_silver_io-T-defqtvc.smt2 ",
+  "z3": "z3 rlimit 80450000 -smt2 -st smt.arith.solver 6 /tmp/why_3654df_silver_io-T-defqtvc.smt2 "
+ },
+ "report_bytes": 326887,
+ "report": {
+  "checks": 150,
+  "flow": 1,
+  "flow_sev": {
+   "warning": 1
+  },
+  "severity": {
+   "info": 150
+  },
+  "unproved": [],
+  "how": {
+   "prover": 150
+  },
+  "rules": {
+   "VC_LENGTH_CHECK": 150
+  },
+  "winning_prover": {
+   "Z3": 150,
+   "CVC5": 1
+  },
+  "attempt_results": {
+   "CVC5:Valid": 450,
+   "Z3:Valid": 450,
+   "altergo:Valid": 450
+  },
+  "win_steps": {
+   "max": 1,
+   "p50": 1,
+   "p90": 1,
+   "p99": 1,
+   "mean": 1
+  },
+  "win_time": {
+   "max": 0.0340499989688396,
+   "p50": 0.0128709999844432,
+   "p90": 0.0188989993184805,
+   "p99": 0.0316019989550114,
+   "sum": 2.0
+  },
+  "attempt_time": {
+   "max": 0.06866,
+   "p50": 0.036901,
+   "p90": 0.051508,
+   "sum": 5.6
+  },
+  "attempt_steps_max": 8,
+  "vcs_total": 450,
+  "stop_reason": "STOP_REASON_NONE",
+  "timings": {
+   " 1": {
+    "gnat2why.vc_generation": 0.0132210003212094,
+    "gnatwhy3.init": 1.05521404743195,
+    "gnatwhy3.register_vcs": 7.20274591445923,
+    "gnatwhy3.run_vcs": 0.0013899989426136,
+    "gnatwhy3.save_session": 1.62741100788116,
+    "gnatwhy3.schedule_vcs": 23.1466274261475,
+    "gnatwhy3.transformations.counterexamples_dependent_intros": 5.34006023406982,
+    "gnatwhy3.transformations.detect_polymorphism": 0.777121007442474,
+    "gnatwhy3.transformations.discriminate_if_poly": 0.00334300007671118,
+    "gnatwhy3.transformations.eliminate_algebraic": 2.4426109790802,
+    "gnatwhy3.transformations.eliminate_algebraic_if_poly": 3.9675350189209,
+    "gnatwhy3.transformations.eliminate_builtin": 1.09355401992798,
+    "gnatwhy3.transformations.eliminate_definition_conditionally": 0.235213994979858,
+    "gnatwhy3.transformations.eliminate_epsilon": 3.17384195327759,
+    "gnatwhy3.transformations.eliminate_gnatprove_guard_epsilon": 3.35024690628052,
+    "gnatwhy3.transformations.eliminate_inductive": 0.890703022480011,
+    "gnatwhy3.transformations.eliminate_literal": 3.13162589073181,
+    "gnatwhy3.transformations.eliminate_projections_sums": 0.444494009017944,
+    "gnatwhy3.transformations.eliminate_recursion": 0.254597008228302,
+    "gnatwhy3.transformations.encoding_smt_if_poly": 0.00155699905008078,
+    "gnatwhy3.transformations.inline_trivial": 11.1589756011963,
+    "gnatwhy3.transformations.introduce_premises": 7.64965486526489,
+    "gnatwhy3.transformations.monomorphise_goal": 0.407117009162903,
+    "gnatwhy3.transformations.remove_unused": 3.18109607696533,
+    "gnatwhy3.transformations.simplify_formula": 6.52121686935425,
+    "gnatwhy3.transformations.split_goal_wp_conj": 3.58338189125061,
+    "gnatwhy3.transformations.split_premise_right": 0.617320001125336
+   },
+   "global": {
+    "flow analysis": 0.0163640007376671,
+    "globals (advanced)": 0.0218560006469488,
+    "globals (basic)": 0.025127999484539,
+    "init_why_sections": 0.00243099988438189,
+    "marking": 0.00068300002021715,
+    "properties (advanced)": 0.000150000007124618,
+    "translation of standard": 0.00201399996876717
+   }
+  },
+  "by_position_quartile": [
+   {
+    "quartile": 1,
+    "n": 37,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.029,
+    "max_att_time": 0.053
+   },
+   {
+    "quartile": 2,
+    "n": 38,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.034,
+    "max_att_time": 0.052
+   },
+   {
+    "quartile": 3,
+    "n": 37,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.038,
+    "max_att_time": 0.047
+   },
+   {
+    "quartile": 4,
+    "n": 38,
+    "mean_win_steps": 1,
+    "max_win_steps": 1,
+    "mean_att_time": 0.048,
+    "max_att_time": 0.069
+   }
+  ]
+ }
+}

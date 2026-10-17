@@ -1,0 +1,41 @@
+V "GNAT Lib v16"
+A -gnat2022
+A -gnato
+A -g
+P ZX
+
+RN
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+
+U silver_integer_image%s  silver_integer_image.ads  062cd895 NE OO PK
+W silver_scalars%s	silver_scalars.ads	silver_scalars.ali
+
+D silver_integer_image.ads  20261017131706 0a57191b silver_integer_image%s
+D silver_scalars.ads	20261017131706 0c7bc18e silver_scalars%s
+D system.ads		20260430083320 e2b7c99d system%s
+G a e
+G c Z s s [length_of silver_integer_image 9 13 none]
+G c Z s s [minimum_length silver_integer_image 21 13 none]
+G c Z s s [maximum_length silver_integer_image 27 13 none]
+G r c none [minimum_length silver_integer_image 21 13 none] [is_empty silver_scalars 14 13 none]
+G r c none [maximum_length silver_integer_image 27 13 none] [is_empty silver_scalars 14 13 none]
+X 1 silver_integer_image.ads
+3K9*Silver_Integer_Image 31l5 31e25
+4I12*Image_Length{natural} 9r60 25r12 30r12
+5I12*Possible_Length{natural} 22r14 28r14
+9V13*Length_Of{4I12} 9b13 9>24 25s30 25s56 30s30 30s56
+9i24 Item{2|4I12} 10r10 10r30 11r13 11r34 12r13 12r36 13r13 13r37 14r13 14r38
+. 15r13 15r40 16r13 16r41 17r13 17r42 18r13 18r44
+21V13*Minimum_Length{5I12} 21b13 21>29
+21r29 Bounds{2|9R9} 23r35 24r13 24r40 25r41 25r67
+27V13*Maximum_Length{5I12} 27b13 27>29
+27r29 Bounds{2|9R9} 29r35 30r41 30r67
+X 2 silver_scalars.ads
+1K9*Silver_Scalars 1|1w6 9r31 21r38 23r10 27r38 29r10 2|110e19
+4I12*Value{integer} 1|9r46
+9R9*Interval 1|21r53 27r53 2|11e14
+10i7*Lower{4I12} 1|24r20 25r48 30r48
+10i14*Upper{4I12} 1|24r47 25r74 30r74
+14V13*Is_Empty{boolean} 1|23s25 29s25
+

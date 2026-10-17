@@ -1,0 +1,1793 @@
+[
+ {
+  "key": "T1-native-capacities",
+  "track": "T1 \u2014 Silver-owned fixed capacities and an unbounded implementation design",
+  "summary": "I inventoried every fixed bound in the Silver-owned SPARK sources (recognizers, driver, report pipeline, Image adapter, platform, libraries, runtime library), the generated packages and the script mirrors. I measured the production `silver check` and scratch rebuilds of the recognizer at 4/16/64 KiB source limits, plus cheap GNAT -gnatc probes.\n\n**4096 is four distinct domains, and the code conflates them.** Source length, String value length, argument length and length-literal value are all 4096. The String value domain is enforced through `Max_Source_Length` itself (`silver_output_profile.adb:593-594`, `Capacity_Value`, `Integer_Literals.Literal_Value`), and Lean's `maxSourceLength` serves both roles. Separating them is the first prerequisite.\n\n**The recognizer has real superlinear behaviour today (observed):**\n- **Nested-loop stack:** each nested loop copies two whole binding environments (29 KiB per level at 4096). In scratch builds this grows linearly with the source limit (113 KiB/level at 16 KiB, about 576 KiB/level at 64 KiB). Total stack is therefore O(S\u00b2): a 16 KiB nest needs about 64 MiB.\n- **Condition parentheses take quadratic time:**\n  - 1998 levels: 1.73\u20131.88 s at 4096 bytes.\n  - 8142 levels: 32 s at 16 KiB, with 16.35 MiB of stack.\n- **Base stack scales with the limit:** about 3.3 MiB at 64 KiB, before any nesting.\n- **Declarations scale quadratically:** 4.9 s for 4000 declarations at 64 KiB. About two thirds of that is runtime checking of quantified preconditions under `-gnata`.\n- **`compile` re-parses up to six times.**\n\nAll of this is fixable within SPARK. With run-time-sized environments, in-place loop-scope push/pop, procedure-based declarations, a bracket-matching table, name interning and a single scan, memory is O(S) and time O(S log S). Stack exhaustion then depends only on nesting depth (about 1\u20132 KiB per level). It can become memory exhaustion by raising RLIMIT_STACK to its hard limit (unlimited on this host) and re-executing, or by explicit heap work stacks.\n\n**Report audit.** The 16 MiB retained buffer only covers sources up to 4502 bytes under the documented envelope. A growable heap buffer, with `Max_Report_Length` set to `Natural'Last - 1`, keeps the proved policy unchanged; only its constant changes, and there is no Lean impact. Beyond 2 GiB would need 64-bit-indexed byte arrays or streaming.\n\n**Image adapter.** It has no Silver-chosen limit that grows with program size. Byte counts and depth are 63-bit. The only node-id cap is the producer's own 2^31\u22121 counter.\n\n**Runtime value domain.** It can move to Ada's natural bound (V = Integer'Last, no argument cap) using 64-bit admission arithmetic and ghost sequences in `Silver_IO`. Membership becomes a strict superset of today's. Two risks remain: static data near 2 GiB in the native toolchain, and large dynamic Strings on the application stack.\n\n**Resource failures are mis-reported today.** `Storage_Error` exits with status 1 in both `check` and `run`; in `run`, 1 is also the application's Reject status. I propose status 4 via a top-level SPARK `Storage_Error` handler, with an optional supervisor process.\n\n**Tool-forced bounds:**\n- **Exponent:** GNAT 16.1 rejects any exponent of 800,000 or more (\"exponent too large\"), in any base and with any mantissa. Silver's 4096 can rise to 799,999 but no further. Each literal at that limit costs 3.5\u201368 s of frontend CPU.\n- **Line length:** the GNAT line limit becomes a required per-line rule once the total cap goes.\n\n**Gate.** Whether the language may actually drop 4096, 64 and 63 is decided by T3/T4 evidence (frontend and solver completion), not by Silver code.",
+  "verdict": "Every Silver-owned fixed bound can be replaced so that the compiler fails only through resource exhaustion (heap, stack, time). This is tractable and provable in SPARK under the existing refinement pattern, at an XL cost dominated by redoing the Lean source certificates.\n\nThe only fixed bounds that must stay come from pinned tools or Ada itself:\n- GNAT's maximum line length (per-line rule).\n- GNAT's exponent limit: at most 799,999.\n- The producer's 2^31\u22121 Image node counter.\n- Ada's Natural/Positive String indexing, at about 2^31: retained reports up to `Natural'Last - 1`, values up to Integer'Last. Removing even this needs 64-bit byte arrays.\n\nThe 64-leaf and 63-operator budgets, and the 4096-byte source and value caps, are not needed by Silver's implementation. Whether membership may grow past them depends on external premises (T3 frontend capacity, T4 solver completion with no step or memory caps). Following the owner's rule, keep them until that research shows the larger language is tractable. Stages 0\u20132 below are safe now and change no membership.",
+  "items": [
+   {
+    "name": "Total source length 1..4096 bytes",
+    "current_bound": "4096 bytes (null and output profiles)",
+    "locations": [
+     "src/silver_profile.ads:4",
+     "src/silver_output_profile.ads:6",
+     "src/silver_output_lexical.ads:8,73,276 (Cursor, Literal_Position, Capacity_Value)",
+     "src/silver_profile.adb:4",
+     "src/silver.adb:126,420 (stack buffers), :444-447 (Too_Long -> 'Rejected', status 2)",
+     "proof/Silver/Admission.lean:103 (maxSourceLength; 471 uses in 100 modules)",
+     "catalogue max_source_bytes; src/silver_catalogue.adb:1040"
+    ],
+    "role": "Membership rule. It also implicitly bounds all recognizer storage, report size and VC size.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "No total cap; use Ada's natural bound Text'Length <= Positive'Last - 1 so the one-past cursor fits Natural. Read the source into a growable heap buffer; never reject on size. Replace with a per-line lexical bound forced by GNAT (separate item).",
+    "proof_impact": "About 300 SPARK preconditions `Text'Length in 1 .. Max_Source_Length` change constant only. Cursor/Literal_Position become Natural-based. The Lean membership definitions (`decide (0 < length \u2227 length \u2264 maxSourceLength)` in about 10 admission modules) change, and 471 Lean uses must be split into source vs value roles.",
+    "effort": "XL",
+    "risks": "Unlocks the recognizer hot spots (stack O(S\u00b2), time O(S\u00b2)). The report envelope passes 16 MiB at S = 4503. VC size and solver completion grow with source (T4). GNAT frontend capacity premises for big sources (T3).",
+    "evidence": "Lead facts. Stdout `Rejected` path at silver.adb:444-447. Scratch builds show base stack \u221d limit (L65536 about 3.3 MiB minimum)."
+   },
+   {
+    "name": "Per-line length (new rule required if total cap is removed)",
+    "current_bound": "Implicit; GNAT 16.1 rejects lines over its 32766-character limit",
+    "locations": [
+     "pinned GNAT frontend (lead probe)",
+     "docs/trusted-boundary.md:54-59 frontend premise"
+    ],
+    "role": "The pinned frontend must accept every admitted line. The Oracle forbids reformatting admitted source.",
+    "classification": "tool_hard_limit",
+    "necessary": true,
+    "unbounded_replacement": "None possible while GNAT 16.1 is pinned. Make it an explicit lexical rule: each line (bytes between LF/CR terminators) is at most GNAT's accepted maximum. Re-check on every toolchain change.",
+    "proof_impact": "New decidable lexical predicate in the SPARK recognizer (linear scan) and in Lean membership. Replaces the total-length conjunct.",
+    "effort": "M",
+    "risks": "Exact boundary and terminator semantics (CR, CRLF) must be pinned by T3 probes.",
+    "evidence": "Lead: 'this line is longer than 32766 characters'; a 16,384-byte single line is accepted."
+   },
+   {
+    "name": "String value / intermediate length domain 4096",
+    "current_bound": "Every expression and intermediate <= 4096 bytes",
+    "locations": [
+     "src/silver_output_profile.adb:593-594 (Expression_Step checks against Max_Source_Length)",
+     "src/silver_output_profile.adb:689-694 (Fits)",
+     "src/silver_path_facts.ads:4-7,113-118 (Max_Length, Expression_Length = 65*Max_Length, Length_At)",
+     "src/silver_length_intervals.ads",
+     "catalogue max_result_bytes / expression_bound (silver_catalogue.adb:256,287,378)",
+     "Lean maxSourceLength used as value bound (StringLengths, PathBounds, ComposeSemantics, PredicateChecking ...)"
+    ],
+    "role": "Membership rule tying admitted values to Silver_IO's 4096 domain.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "V = Integer'Last, Ada's natural bound for one-based Strings; all admitted operands are one-based, so concatenation cannot raise Constraint_Error below V. Use Long_Long_Integer for Static + K*d: Static <= V (checked before each add), K <= S < 2^31 and d < 2^31, so K*d < 2^62.",
+    "proof_impact": "Path_Facts/Length_Intervals subtypes become 64-bit. Recognizer value checks use a new Value_Limit constant, not Max_Source_Length. Lean needs a separate valueLimit, plus re-proof of every lemma that uses maxSourceLength as a value bound.",
+    "effort": "L",
+    "risks": "Native static data near 2 GiB is unprobed: GNAT folds static Strings (2^27: 548 MB RSS) and emits about 2x value size in .o; small-code-model/relocation limits may make this a tool hard limit. Large dynamic Strings sit on the 8 MiB primary stack (environmental Storage_Error at application run time).",
+    "evidence": "gnat/ static-doubling probes (-gnatc 2^20/2^24/2^27: 0.035/0.23/1.17 s, 28/89/548 MB RSS). Object 2^24 -> 33.5 MB .o, 2^26 -> 134 MB .o."
+   },
+   {
+    "name": "Command-line argument length 0..4096",
+    "current_bound": "Arguments longer than 4096 bytes reject (status 1)",
+    "locations": [
+     "src/silver_arguments.adb:6 (Is_Message)",
+     "src/silver_arguments.ads:16 (Post)",
+     "src/silver_path_facts.ads:37-38 (Initial Upper = Max_Length)",
+     "initializer C = 4096 (language.md)",
+     "catalogue max_argument_bytes (silver_catalogue.adb:1028)"
+    ],
+    "role": "Runtime input domain and admission's input interval.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "No Silver cap. Admission uses d in [0, Natural'Last] unless guarded; OS limits are environmental (Linux per-argument 131071 bytes observed, ARG_MAX 2 MiB here; macOS ARG_MAX about 1 MiB). Today's guarded programs stay admitted: N + K*min(C,4096) <= 4096 implies N + K*min(C, 2^31-1) <= 2^31-1.",
+    "proof_impact": "Silver_Arguments body/spec Post change; Main VCs rely on path guards, as now. Lean argument/path models generalize. Runtime report ledger re-derived.",
+    "effort": "M",
+    "risks": "Behaviour change: arguments of 4097..OS-limit bytes become valid input rather than Reject. Pre-1.0 permitted, but samples and tests change.",
+    "evidence": "Probe: /bin/true with a 131071-byte argument rc 0; 131072 -> E2BIG. getconf ARG_MAX 2097152."
+   },
+   {
+    "name": "Length-literal value 0..4096",
+    "current_bound": "0..Max_Source_Length",
+    "locations": [
+     "src/silver_integer_literals.ads:6",
+     "src/silver_integer_literals.adb:25,69,152,163",
+     "language.md 'Integer literals in length predicates'",
+     "Lean IntegerLiteral*.lean, GuardedDecimal.lean"
+    ],
+    "role": "Thresholds for Length predicates. The same subtype also bounds the exponent value.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "0..Natural'Last, matching the value domain. Give the exponent its own bound (next item).",
+    "proof_impact": "Overflow guards keep their shape with a larger constant. Lean literal lemmas generalize.",
+    "effort": "S",
+    "risks": "Power loop iterates Exponent times when the mantissa is 0; add a Value = 0 shortcut (the scalar version has one).",
+    "evidence": "silver_integer_literals.adb:147-166 (no zero shortcut) vs silver_scalar_literals.adb:178-191."
+   },
+   {
+    "name": "Numeric exponent <= 4096",
+    "current_bound": "4096 (scalar and length literals, including zero mantissa)",
+    "locations": [
+     "src/silver_scalar_literals.ads:7, adb:196,215",
+     "src/silver_integer_literals.ads:6 (via Literal_Value)",
+     "proof/Silver/ScalarLiteral.lean:12 (maxExponent, 16 uses)",
+     "catalogue exponent_bound_purpose (silver_catalogue.adb:574,612)"
+    ],
+    "role": "Documented as a 'frontend resource limit'.",
+    "classification": "tool_hard_limit",
+    "necessary": true,
+    "unbounded_replacement": "Raise to 799_999, the largest exponent pinned GNAT 16.1 accepts. GNAT rejects >= 800000 ('exponent too large') for bases 2, 10 and 16 and any mantissa. A bound must remain.",
+    "proof_impact": "Constant change in SPARK and Lean. The exponent numeral scan already uses the 2^31 magnitude guard.",
+    "effort": "S",
+    "risks": "GNAT computes base**exponent as a bignum even for a zero mantissa: 0E799999 took 34 s, 16#0#E799999 68 s and 2#0#E799999 3.5 s of -gnatc CPU. That cost is per frontend run (proof and build), so time is a resource; still finite. Re-probe on any toolchain change.",
+    "evidence": "gnat/ bisection: 0E799999 rc 0; 0E800000, 2#0#E800000, 16#0#E800000 and 0E+800000 'exponent too large'."
+   },
+   {
+    "name": "64 leaves per String expression",
+    "current_bound": "Max_Expression_Operands = 64",
+    "locations": [
+     "src/silver_output_profile.ads:7",
+     "src/silver_output_profile.adb:526,593",
+     "src/silver_path_facts.ads:6 (Operand_Count 0..64)",
+     "Lean maxExpressionOperands (24 uses / 13 files)",
+     "catalogue max_operands / max_dynamic_references"
+    ],
+    "role": "Proof-work policy bounding VC shape per expression.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Natural counts with 64-bit length products (see value domain).",
+    "proof_impact": "Small for SPARK. Lean expression and discharge schemas must generalize from a fixed leaf bound.",
+    "effort": "M",
+    "risks": "Silver-owned code does not need it. Removing it from membership depends on T4 solver completion without step caps: 64 leaves already needed more than 10k Z3 steps.",
+    "evidence": "docs/expression-headroom.md (10,738 and 11,609 Z3 steps)."
+   },
+   {
+    "name": "64 leaves per scalar expression",
+    "current_bound": "Silver_Scalar_Expressions.Max_Operands = 64",
+    "locations": [
+     "src/silver_scalar_expressions.ads:9,12",
+     "src/silver_scalar_expressions.adb:130",
+     "proof/Silver/ScalarExpression.lean:90 (33 uses / 11 files)"
+    ],
+    "role": "Proof-work policy.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Natural operand count; interval arithmetic already uses 64-bit Wide.",
+    "proof_impact": "Constant and subtype changes; Lean generalization.",
+    "effort": "S",
+    "risks": "Same T4 gate as the String leaf limit.",
+    "evidence": "Source read."
+   },
+   {
+    "name": "63 operators source-wide budget",
+    "current_bound": "Max_Concatenations = 63",
+    "locations": [
+     "src/silver_output_profile.ads:10",
+     "src/silver_output_profile.adb:383-438 (Work_Tail, Within_Work_Budget)",
+     "proof/Silver/ComposeAdmission.lean:204,242 (withinWorkBudget, 16 uses / 10 files)",
+     "docs/report-capacity.md envelope (63 range/overflow records)"
+    ],
+    "role": "Proof-work policy and report-envelope premise.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Delete the scan. Report storage becomes dynamic (separate item), so the envelope no longer needs it.",
+    "proof_impact": "Removes a decidable pre-pass and its Lean L1 token-boundary certificate.",
+    "effort": "M",
+    "risks": "Membership removal is gated by T4 (solver completion, proof time).",
+    "evidence": "report-capacity.md:206-226."
+   },
+   {
+    "name": "Binding capacity Max_Bindings = S/12 (two definitions)",
+    "current_bound": "341 String and 341 scalar slots; reaching the count returns Invalid",
+    "locations": [
+     "src/silver_output_profile.ads:13; adb:115-125,790,827,1571",
+     "src/silver_scalar_expressions.ads:8-12,22",
+     "proof/Silver/ComposeAdmission.lean:21; ScalarExpressionEnvironment.lean:9 (4096 / 12); ComposeSourceChecks.lean:309"
+    ],
+    "role": "Static array storage. Coded as a rejection, but unreachable within 4096.",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "Size environments at run time: count declarations in a pre-pass and allocate one discriminated record or heap array. No count-based rejection; allocation failure raises Storage_Error, never returns Invalid.",
+    "proof_impact": "Removes `Count < Max_Bindings` preconditions. If heap: SPARK ownership/borrowing proofs. Lean maxBindings (101 uses / 24 files) removed, and certificate shapes change.",
+    "effort": "L",
+    "risks": "If sized as S/12 on the stack, base stack \u221d S (L65536 already about 3.3 MiB).",
+    "evidence": "Scratch L65536 base stack about 3340 KiB vs 287 KiB at L4096."
+   },
+   {
+    "name": "Per-loop-level environment copy",
+    "current_bound": "About 29 KiB of stack per nested loop at 4096; \u221d S",
+    "locations": [
+     "src/silver_output_profile.adb:1561 (Inner : Body_Context := Context)",
+     "src/silver_output_profile.adb:1589 (Append copy)"
+    ],
+    "role": "Algorithmic hot spot: O(S\u00b2) stack.",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "In-place scope push/pop on a single environment: loop indexes are the only scoped bindings, so restore Count on exit.",
+    "proof_impact": "Refinement proof that the in-place environment equals the functional `Append` model; Lean certificate re-pin for Loop_Body.",
+    "effort": "M",
+    "risks": "Must preserve hiding rules (index hides outer names; own name masked in bounds).",
+    "evidence": "Production: 20/40/80/138 levels -> 783/1358/2525/4203 KiB; STORAGE_ERROR at 4187 KiB for 138 levels. Scratch L16384: 113 KiB/level (40->5242, 80->9766 KiB); 560 levels needed about 64 MiB."
+   },
+   {
+    "name": "Parser_State / Scan_Result by-value returns in declaration phase",
+    "current_bound": "O(S) bytes copied per declaration and per call",
+    "locations": [
+     "src/silver_output_profile.adb:697-835 (Add_Binding, Scalar/String_Declaration_At, Declaration_At, Read_Declarations)",
+     "src/silver_output_profile.adb:1004-1030 (Step), 1655-1676"
+    ],
+    "role": "Algorithmic hot spot: O(S\u00b2) time and O(S) stack per frame.",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "Procedures with `in out` environment; keep only small cursor/flag state in functional values.",
+    "proof_impact": "SPARK loop invariants relating to the ghost Declarations_At model; Lean certificate rework.",
+    "effort": "M",
+    "risks": "Large diff in the most heavily certified unit.",
+    "evidence": "Scratch L65536 declarations 1000/2000/4000: 0.80/1.27/4.92 s with -gnata; 0.54/1.59 s without."
+   },
+   {
+    "name": "Condition-parenthesis rescanning",
+    "current_bound": "O(d\u00b2) time for d nested condition parentheses",
+    "locations": [
+     "src/silver_output_profile.adb:1233-1240 (Read_Relation evaluates the length, scalar and String parsers at each level)",
+     "src/silver_output_profile.adb:1210-1232 (Read_Primary -> Read_Condition recursion)"
+    ],
+    "role": "Algorithmic hot spot.",
+    "classification": "other",
+    "necessary": false,
+    "unbounded_replacement": "One O(S) bracket-matching table; classify '(' by the token after its matching ')' in O(1), or memoize failed sub-parses.",
+    "proof_impact": "Ghost model unchanged. The executable gets a precomputed table with a proved matching invariant; Lean certificate rework.",
+    "effort": "M",
+    "risks": "Ambiguity cases ((A & B) = C vs (A = B)) must be classified exactly as the current grammar does.",
+    "evidence": "Production 125/250/500/1000/1998 levels: 0.035/0.052/0.14/0.46/1.73 s. Scratch L16384 2000/4000/8142: 2.44/7.6/32.0 s; 16,352 KiB stack at 8142 (about 2 KiB/level)."
+   },
+   {
+    "name": "Linear name lookup",
+    "current_bound": "O(bindings) per reference",
+    "locations": [
+     "src/silver_output_profile.adb:211-255 (Lookup_Name)",
+     "src/silver_scalar_expressions.adb:17-38 (Lookup)"
+    ],
+    "role": "Algorithmic hot spot: O(S\u00b2/12) worst case.",
+    "classification": "other",
+    "necessary": false,
+    "unbounded_replacement": "Intern identifiers once, by case-insensitive sort (O(S log S), simple to prove) or with SPARKlib formal hashed maps; a per-name innermost-binding table with a shadow stack for loop indexes.",
+    "proof_impact": "New sort/permutation proofs; equivalence to Lookup_From/Lookup_Model.",
+    "effort": "L",
+    "risks": "Case-insensitive equality and hiding semantics must be preserved exactly.",
+    "evidence": "Source read; declaration scaling above."
+   },
+   {
+    "name": "Runtime-checked quantified preconditions (-gnata)",
+    "current_bound": "O(bindings) evaluated on most parser calls",
+    "locations": [
+     "src/silver_output_profile.adb Valid_Names/Valid_State/Valid_Context Pre clauses",
+     "src/silver_scalar_expressions.ads Valid_Environment",
+     "silver.gpr -gnata"
+    ],
+    "role": "Assertion checking at run time multiplies cost.",
+    "classification": "other",
+    "necessary": false,
+    "unbounded_replacement": "Mark these assertions Static (they are proved), keeping -gnata for the rest; or a documented build-policy change.",
+    "proof_impact": "None to correctness; contract levels only.",
+    "effort": "S",
+    "risks": "trusted-boundary.md states compiler builds retain -gnata; prefer the Static-level route.",
+    "evidence": "Scratch L65536, 4000 declarations: 4.92 s with -gnata vs 1.59 s without."
+   },
+   {
+    "name": "Repeated full parses and source copies",
+    "current_bound": "Up to 6 Read_Form passes per compile; O(S) stack copy per pass",
+    "locations": [
+     "src/silver_output_profile.adb:1727-1810 (Accepts, Uses_Arguments, Uses_Assignment, Uses_Output)",
+     "src/silver_output_profile.adb:1739 and src/silver_profile.adb:266 (Normalized copies)",
+     "src/silver.adb:83-86"
+    ],
+    "role": "Constant-factor time; O(S) stack per pass.",
+    "classification": "other",
+    "necessary": false,
+    "unbounded_replacement": "Single scan returning membership and flags; require Source'First = 1 (the driver already supplies it) and drop the copies.",
+    "proof_impact": "Small: Static postconditions already equate the Uses_* functions with Form_Result flags.",
+    "effort": "S",
+    "risks": "None notable.",
+    "evidence": "Source read."
+   },
+   {
+    "name": "Recognizer recursion depth (stack)",
+    "current_bound": "About 1 KiB/level for ifs, about 2 KiB per condition paren, about 1 KiB per scalar paren; 8 MiB default stack",
+    "locations": [
+     "src/silver_output_profile.adb:1460-1660 (Statement_Body, Loop_Body, Conditional_Body, Alternative_Body, Body_Tail, Read_Body)",
+     "src/silver_scalar_expressions.adb:200-257"
+    ],
+    "role": "Stack is O(nesting) once frames are O(1).",
+    "classification": "environmental",
+    "necessary": false,
+    "unbounded_replacement": "At startup raise RLIMIT_STACK soft to hard (unlimited here) and re-exec, using trusted libc imports; or explicit heap work stacks with an iterative executable proved equal to the recursive ghost model.",
+    "proof_impact": "Rlimit route: trusted imports only. Iterative route: XL (continuation-stack invariants plus Lean).",
+    "effort": "S",
+    "risks": "GNAT's own recursive parser also bounds practical nesting (T3).",
+    "evidence": "Production min stack: 200 ifs 399 KiB; 1998 condition parens 4028 KiB; 2001 scalar parens 2173 KiB. ulimit -Hs unlimited."
+   },
+   {
+    "name": "Retained application report buffer 16 MiB",
+    "current_bound": "16,777,216 bytes of projected report",
+    "locations": [
+     "src/silver_library_reports.ads:8, adb:124 (Offset) and about 90 Pre clauses",
+     "src/silver_report_storage.ads:7",
+     "src/silver_report_reader.ads:14-16,29 (ghost Report_Bytes, Max_File_Length)",
+     "src/silver_report_projection_audit.ads:19",
+     "src/silver.adb:129,345-353"
+    ],
+    "role": "Audit storage. The envelope E(S) fits only S <= 4502 bytes.",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "Growable heap buffer under SPARK ownership (double, copy, free; carry Model.Matches across the copy). Set Max_Report_Length := Natural'Last - 1. Replace the ghost fixed array with the existing ghost sequence. Beyond 2 GiB: 64-bit-indexed byte array (L) or streaming audit (XL).",
+    "proof_impact": "Policy unchanged apart from the constant. Re-prove the correspondence lemmas; ownership proofs in the reader. No Lean impact (the report policy has no Lean model).",
+    "effort": "M",
+    "risks": "Envelope bound reaches Natural'Last at S = 587,402 (measured reports are about 490 B per source byte). The producer may itself write .spark through Natural-indexed strings (unverified premise).",
+    "evidence": "E(S) computed: 15,292,416 at 4096; max S within 16 MiB = 4502; within 2^31-2 = 587,402."
+   },
+   {
+    "name": "Runtime and null report buffers 262,144",
+    "current_bound": "262,144 bytes; report-sized stack buffers",
+    "locations": [
+     "src/silver_library_reports.ads:9",
+     "src/silver_libraries.adb:43 (stack buffer)",
+     "src/silver_reports.ads:2; adb:16,267 (stack Compact copy)"
+    ],
+    "role": "Audit storage for fixed runtime units and the null program.",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "Same growable buffer; drop the stack copies.",
+    "proof_impact": "Small.",
+    "effort": "S",
+    "risks": "Does not grow with program size today; changes only if Silver_IO/Arguments change.",
+    "evidence": "report-capacity.md runtime ledger (151,552 and 95,232 bytes)."
+   },
+   {
+    "name": "File buffer bound Max_File_Length 16 MiB",
+    "current_bound": "16,777,216 (+1) bytes; ghost Read_Bytes/Written_Bytes arrays",
+    "locations": [
+     "src/silver_platform.ads:10,15-20,46-56",
+     "src/silver.adb:441-447,493"
+    ],
+    "role": "Source/report read and snapshot write domain.",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "Ghost sequences; Natural'Last - 1; a growable source buffer; Same_Source as a streaming compare with no buffer.",
+    "proof_impact": "Small to medium (ghost model swap).",
+    "effort": "S",
+    "risks": "None notable.",
+    "evidence": "Source read."
+   },
+   {
+    "name": "Initializer-advisory identifier <= 4096 characters",
+    "current_bound": "Message length <= prefix + suffix + 4096",
+    "locations": [
+     "src/silver_library_reports.adb:1213 (executable policy)",
+     "src/silver_library_reports.adb:2088 (raw policy)",
+     "scripts/check_evidence.py:484"
+    ],
+    "role": "Report acceptance. Would reject genuine evidence once identifiers longer than 4096 are admitted.",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "Remove the upper bound; the span is already inside the report.",
+    "proof_impact": "Correspondence between the bounded and raw policies is re-proved; constant removal only.",
+    "effort": "S",
+    "risks": "Unbounded identifiers are capped in practice by GNAT's line limit anyway.",
+    "evidence": "Source read."
+   },
+   {
+    "name": "JSON nesting depth 64",
+    "current_bound": "64",
+    "locations": [
+     "src/silver_report_projection_types.ads:3-18",
+     "src/silver_report_observations.ads:38-40",
+     "src/silver_library_reports.adb:154-156"
+    ],
+    "role": "Audit traversal bound under the producer-schema premise.",
+    "classification": "proof_premise",
+    "necessary": false,
+    "unbounded_replacement": "Keep as a documented producer-format premise (independent of program size), or switch to a heap-backed stack.",
+    "proof_impact": "None if kept.",
+    "effort": "S",
+    "risks": "Must be revisited on producer change (already documented).",
+    "evidence": "report-capacity.md:30-42."
+   },
+   {
+    "name": "Proof command caps",
+    "current_bound": "--steps=100000 --memlimit=1000 --timeout=0 --level=2 -j0",
+    "locations": [
+     "src/silver.adb:116-123"
+    ],
+    "role": "Turns solver step or memory exhaustion into 'unproved', which is a defect, not an environmental failure.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Hand off to T4: --steps=0 and --memlimit=0 only if the pinned GNATprove honours them. expression-headroom.md reports that --memlimit=0 was internally mapped to 1000.",
+    "proof_impact": "None for SPARK. Shifts the solver-completion premise.",
+    "effort": "S",
+    "risks": "Nontermination or nondeterminism without steps; tool-internal caps.",
+    "evidence": "docs/expression-headroom.md 'Production adoption'."
+   },
+   {
+    "name": "Command text 16,384 and paths 4096",
+    "current_bound": "16,384-byte command; 4096-byte paths (adapter proof dir: 4096 - 64)",
+    "locations": [
+     "src/silver.adb:29-31",
+     "src/silver_platform.ads:9,23-24,26-28,49",
+     "src/silver_image_adapter.adb:217",
+     "scripts/bootstrap.py:178-179,260"
+    ],
+    "role": "Infrastructure, set by installation paths; does not grow with the program.",
+    "classification": "environmental",
+    "necessary": false,
+    "unbounded_replacement": "Ghost sequences for command observations. Paths mirror Linux PATH_MAX and may be left to fopen/system failure.",
+    "proof_impact": "Small.",
+    "effort": "S",
+    "risks": "None for programs.",
+    "evidence": "Source read."
+   },
+   {
+    "name": "Runtime library file 16,384",
+    "current_bound": "16,384 bytes per selected runtime source",
+    "locations": [
+     "src/silver_libraries.ads:7-14"
+    ],
+    "role": "Snapshot buffers for the six fixed runtime files.",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "Keep, or size from the generated Silver_Library_Sources lengths.",
+    "proof_impact": "None.",
+    "effort": "S",
+    "risks": "None; fixed inputs.",
+    "evidence": "Source read."
+   },
+   {
+    "name": "Silver_IO output domain 4096 and trace bound n*4097",
+    "current_bound": "Put/Put_Line fail (status 1) above 4096; ghost Written_Bytes (1 .. 4097)",
+    "locations": [
+     "src/silver_io.ads:5-12,25,34",
+     "src/silver_io.adb:13,56",
+     "proof/Silver/OutputRuntime.lean:92 (maxLength); OutputEquations.lean and OutputExpressions.lean hard-code 4096",
+     "generated silver_library_sources.ads (embedded runtime bytes)"
+    ],
+    "role": "Runtime value domain and output-effect specification.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "No length guard. Ghost observations as SPARK.Containers.Functional.Infinite_Sequences (already used in Silver_Image_Files and the report reader); ghost count as Big_Integer or 64-bit. Trace bound becomes Item'Length (+1) per call.",
+    "proof_impact": "Re-prove Silver_IO (36 registered check records today); re-derive the runtime report ledger; regenerate library sources; generalize Lean OutputRuntime/Output* modules.",
+    "effort": "L",
+    "risks": "Main VCs may carry SPARKlib sequence theories from callee postconditions (T4 proof-time risk). Large application Strings on the primary stack are environmental.",
+    "evidence": "Source read; report-capacity.md runtime ledger."
+   },
+   {
+    "name": "Image adapter model limits",
+    "current_bound": "Byte_Count 0..2^63-1; Original_Node_Id <= 2^31-1; inserted IDs 2^31..2^31+22",
+    "locations": [
+     "src/silver_image_model.ads:4-6",
+     "src/silver_image_model.adb:293,346-359",
+     "src/silver_image_files.adb (streaming)",
+     "docs/for-loops-image-schema.md:78-110"
+    ],
+    "role": "Streaming validation and splice of GNAT typed-JSON models.",
+    "classification": "tool_hard_limit",
+    "necessary": true,
+    "unbounded_replacement": "None needed: byte counts are 63-bit. The 2^31-1 node bound is the producer's own Natural serialization counter; overflow fails closed (exit 3).",
+    "proof_impact": "None.",
+    "effort": "S",
+    "risks": "A model with more than 2^31-1 serialized nodes would also wrap the producer's counter (premise). Failure is reported as an infrastructure error, not rejection.",
+    "evidence": "Source read and documentation."
+   },
+   {
+    "name": "Resource-failure reporting (Storage_Error exit 1)",
+    "current_bound": "Unhandled Storage_Error -> GNAT last-chance handler, exit 1",
+    "locations": [
+     "src/silver.adb (no handler; Failure defaults to status 3)",
+     "docs/trusted-boundary.md:74-79"
+    ],
+    "role": "In `run`, status 1 is indistinguishable from the application's Reject/output-failure status.",
+    "classification": "other",
+    "necessary": false,
+    "unbounded_replacement": "Top-level SPARK handler `exception when Storage_Error =>` (legal per SPARK RM exceptions.rst:9-21) printing 'Resource exhaustion (environmental): not a membership decision' with status 4; same in silver_image_adapter. Optional supervisor/worker mode maps a signal death (OOM kill) to 4. Report overflow gets capacity wording.",
+    "proof_impact": "Trivial. GNATprove may report the handler as unreachable; check the interaction with --warnings=error.",
+    "effort": "S",
+    "risks": "SIGKILL from the OOM killer needs the supervisor route.",
+    "evidence": "Observed: `silver check` and `silver run` on nested_loops_138 at ulimit -s 2000 print 'raised STORAGE_ERROR : stack overflow or erroneous memory access' and exit 1."
+   }
+  ],
+  "full_stops": [
+   {
+    "issue": "Admitting programs past 4096 bytes, 64 leaves or 63 operators makes the 'pinned solver completion' premise range over an infinite family of VC shapes. With a fixed --steps cap, a large enough admitted program would fail proof as a configured-cap defect, not through resource exhaustion.",
+    "why": "Solver completion cannot be proved in Lean or SPARK; it is a trusted premise (trusted-boundary.md first table). Silver-owned code can be made unbounded, but the language guarantee 'if it compiles, it proves' for unbounded programs rests on T4 evidence. Accepting that guarantee on an unverifiable premise over an infinite family is an assurance-policy choice.",
+    "owner_action": "No action needed under the stated rule (expand only as far as research shows is tractable). Default: keep the 4096-byte, 64-leaf and 63-operator membership limits until T3/T4 show frontend capacity and solver completion without step or memory caps. Act only if you want limits removed even where completion cannot be shown; that would be a deliberate widening of the documented premise."
+   }
+  ],
+  "premises": [
+   "PREMISE (tool): pinned GNAT 16.1 accepts every admitted source line up to its maximum line length (rejects lines over 32766 characters, lead); a per-line rule is required once the total cap is removed.",
+   "PREMISE (tool, OBSERVED): pinned GNAT 16.1 rejects numeric exponents >= 800000 ('exponent too large') for bases 2, 10 and 16 and any mantissa, and accepts 799999 (0E799999 34 s, 16#0#E799999 68 s, 2#0#E799999 3.5 s of -gnatc CPU on this host).",
+   "PREMISE (tool): GNATprove/gnat2why/gnatwhy3 and the solvers complete for VCs of admitted programs of any size, without step or memory caps (T4). Not provable in Lean or SPARK.",
+   "PREMISE (tool): GNAT frontend tables, recursion and other internal limits do not reject large admitted sources (T3).",
+   "PREMISE (tool, unverified): the producer writes .spark through Natural-indexed strings, so raw reports stay below 2^31 bytes; then Natural'Last - 1 retained-report capacity never binds.",
+   "PREMISE (tool, documented): the Image producer's serialization counter is a Natural (<= 2^31-1); the adapter fails closed above it.",
+   "PREMISE (tool, unprobed): the native toolchain (GCC small code model, assembler, linker) accepts static String data up to the chosen value bound V; near 2 GiB this may be a hard limit.",
+   "PREMISE (environment): heap, stack (RLIMIT_STACK; hard limit unlimited here), time and disk suffice. Exhaustion is reported distinctly and never as nonmembership.",
+   "PREMISE (environment, OBSERVED): the GNAT runtime on Linux turns stack overflow into Storage_Error ('stack overflow or erroneous memory access'), which a handler can map to a resource-exhaustion status.",
+   "PREMISE (OS, OBSERVED): Linux per-argument limit 131071 bytes and ARG_MAX 2 MiB on this host. With no Silver argument cap these are environmental input bounds, not language rules.",
+   "PROVED (SPARK, current): executable recognizer functions equal their Static ghost models; the report policy over the projected buffer equals the unbounded raw-sequence policy (Application/Runtime_Projection_Correspondence) for any projected length up to the constant. The proposed changes keep these theorem shapes and change constants and representations.",
+   "LEGAL (SPARK RM 16.1 exceptions.rst:9-21): exception handlers without a choice parameter are permitted; GNATprove assumes language checks do not raise, so a Storage_Error handler is unverified-but-legal environmental handling."
+  ],
+  "experiments": [
+   {
+    "hypothesis": "Production `silver check` at the 4096-byte maximum is fast for all shapes.",
+    "setup": "Generated maximal admitted programs (nested loops 138, nested ifs 200, condition parens 1998, scalar parens 2001, String parens 1999, String declarations 269, scalar declarations 269); `silver check` timed with fork/wait4 (scripts/run.py).",
+    "result": "All accepted. Wall 0.02-0.05 s except condition parens at 1.73-1.88 s. Max RSS 19-23 MB.",
+    "wall_seconds": 3,
+    "peak_memory": "23 MB RSS",
+    "side_effects": "None (check is admission-only); no program-* directories created."
+   },
+   {
+    "hypothesis": "Condition parenthesis parsing is superlinear.",
+    "setup": "Condition parens depth 125/250/500/1000/1998 with production silver check.",
+    "result": "0.035/0.052/0.14/0.46/1.73 s, about 4x per doubling (quadratic).",
+    "wall_seconds": 3,
+    "peak_memory": "23 MB",
+    "side_effects": "None"
+   },
+   {
+    "hypothesis": "Recognizer stack is dominated by per-loop environment copies.",
+    "setup": "Bisected the minimum RLIMIT_STACK (16 KiB resolution) for production silver check on nested loops 20/40/80/138 and the other maximal shapes.",
+    "result": "Loops 783/1358/2525/4203 KiB (29 KiB/level). Ifs 200: 399 KiB. Condition parens 1998: 4028 KiB. Scalar parens 2001: 2173 KiB. String parens/declarations: about 240-383 KiB baseline.",
+    "wall_seconds": 40,
+    "peak_memory": "23 MB",
+    "side_effects": "None"
+   },
+   {
+    "hypothesis": "Resource exhaustion is not distinguished from other outcomes.",
+    "setup": "silver check and silver run on nested_loops_138 under ulimit -s 2000.",
+    "result": "Both print 'raised STORAGE_ERROR : stack overflow or erroneous memory access' and exit 1, the same status `run` uses for an application Reject. No workspace created (308 program-* before and after).",
+    "wall_seconds": 0.1,
+    "peak_memory": "21 MB",
+    "side_effects": "None"
+   },
+   {
+    "hypothesis": "With the source limit raised, per-loop stack scales with the limit (O(S\u00b2) total).",
+    "setup": "Scratch copies of 13 recognizer units with only Max_Source_Length changed (4096/16384/65536), built with pinned GNAT `gnatmake -gnat2022 -gnata -gnato -g` in T1/build; probe driver calls Silver_Output_Profile.Accepts.",
+    "result": "Depth-20 loops: 783/2973/11764 KiB. L16384 depth 40/80: 5242/9766 KiB (113 KiB/level). Depth 560 (16,320 bytes) needs about 64 MiB. Ifs cost about 1 KiB/level at every L. Base stack at L65536 is about 3.3 MiB.",
+    "wall_seconds": 120,
+    "peak_memory": "66 MB RSS",
+    "side_effects": "Scratch binaries only (T1/build)."
+   },
+   {
+    "hypothesis": "Condition-paren cost stays quadratic beyond 4096.",
+    "setup": "L16384 scratch build; condition parens 2000/4000/8142 (16,384 bytes); min-stack bisection at 8142.",
+    "result": "2.44/7.6/32.0 s; minimum stack 16,352 KiB (about 2 KiB/level, independent of L).",
+    "wall_seconds": 420,
+    "peak_memory": "18.7 MB RSS",
+    "side_effects": "None"
+   },
+   {
+    "hypothesis": "Declaration processing is quadratic and partly due to runtime assertion checks.",
+    "setup": "L65536 scratch builds with and without -gnata; 1000/2000/4000 String declarations.",
+    "result": "With -gnata 0.80/1.27/4.92 s; without -gnata 0.54/1.59 s (2000/4000).",
+    "wall_seconds": 12,
+    "peak_memory": "9.3 MB RSS",
+    "side_effects": "None"
+   },
+   {
+    "hypothesis": "Silver's 4096 exponent bound protects against a GNAT limit.",
+    "setup": "gcc -c -gnatc probes of `A : constant Integer := <lit>` in T1/gnat; bisection of the zero-mantissa exponent.",
+    "result": "799999 accepted, 800000 rejected ('exponent too large'); also rejected for 2#0#E800000, 16#0#E800000 and 0E+800000. CPU at the limit: 0E799999 34 s, 16#0#E799999 68 s, 2#0#E799999 3.5 s, 0E00000000000799999 51 s; 1E799999 is a range error.",
+    "wall_seconds": 600,
+    "peak_memory": "27 MB RSS",
+    "side_effects": "Scratch files only."
+   },
+   {
+    "hypothesis": "Huge static String values cost resources in the native toolchain.",
+    "setup": "Static doubling constants C(k) = C(k-1) & C(k-1): -gnatc at 2^20/2^24/2^27, and -c -O0 with use at 2^24/2^26.",
+    "result": "-gnatc 0.035/0.23/1.17 s and 28/89/548 MB RSS. Object files 33.5 MB (2^24) and 134 MB (2^26), about 2x the value size; 7.6 s for 2^26. 1-2 GiB values not probed (8 GB disk free).",
+    "wall_seconds": 15,
+    "peak_memory": "563 MB RSS",
+    "side_effects": "Object files deleted after measurement."
+   },
+   {
+    "hypothesis": "OS argument limits bound valid input once the Silver cap is removed.",
+    "setup": "python subprocess /bin/true with a 131071- and a 131072-byte argument; getconf ARG_MAX; ulimit -Ss/-Hs.",
+    "result": "131071 ok, 131072 E2BIG. ARG_MAX 2097152. Stack soft 8192 KiB, hard unlimited.",
+    "wall_seconds": 0.1,
+    "peak_memory": "negligible",
+    "side_effects": "None"
+   }
+  ],
+  "recommendations": [
+   "Stage 0 (S, now, no membership change): add a top-level `when Storage_Error` handler to silver.adb and silver_image_adapter.adb printing 'Resource exhaustion (environmental); not a membership decision' with exit status 4. Document the status set (0 ok, 1 only forwarded from the application, 2 rejection/usage, 3 tool/implementation/infrastructure, 4 resource). Optionally add startup RLIMIT_STACK soft-to-hard plus re-exec (new trusted getrlimit/setrlimit/execv imports) and a supervisor/worker mode that maps signal deaths to 4. Update trusted-boundary.md:74-79, README and language.md:499-500.",
+   "Stage 1 (M, now, no membership change): make report and file storage unbounded. Growable heap buffer for application, runtime and null reports and for source reads (SPARK ownership: double, copy, free). Max_Report_Length and Max_File_Length become Natural'Last - 1. Replace fixed ghost arrays with ghost sequences. Remove the 4096 identifier cap from both policies and check_evidence.py. Remove report-sized stack copies. Prerequisite for any source growth: the envelope exceeds 16 MiB at 4503 bytes.",
+   "Stage 2 (L SPARK + XL Lean, no membership change): repair recognizer complexity at the current language:\n  - separate Value_Limit from Max_Source_Length (Capacity_Value, Integer_Literals.Literal_Value, Lean maxSourceLength);\n  - in-place loop-scope push/pop;\n  - procedure-based declarations;\n  - bracket-matching table for condition/expression classification;\n  - name interning;\n  - single scan for Accepts/Uses_*;\n  - no Normalized copies;\n  - Static-level quantified preconditions.\n  Re-pin and reconstruct the Lean certificates of the changed units. Regress with generated maximal shapes; acceptance criteria: identical membership, O(1) stack per nesting level, near-linear time.",
+   "Stage 3 (XL, gated by T3/T4): remove the total source cap.\n  - Text bounds become Positive'Last - 1.\n  - Environments are sized at run time (discriminated record or heap).\n  - Add a per-line rule equal to GNAT's accepted maximum.\n  - Raise Max_Exponent to 799_999 and add a zero-mantissa shortcut in Silver_Integer_Literals.Power.\n  - Rewrite Lean membership (100 modules use maxSourceLength), the catalogue (silver_catalogue.adb literals, catalogue/silver.json), spec and tests (108 literal 4096s).",
+   "Stage 4 (L SPARK + XL Lean, gated by the native static-data probe and T4): move the value and argument domains to Ada's natural bounds. V = Integer'Last, or the largest V shown to compile and link. No argument cap. Length literals 0..Natural'Last. 64-bit Path_Facts/Length_Intervals arithmetic. Silver_IO/Silver_Arguments ghost sequences, re-derived runtime ledger and regenerated Silver_Library_Sources. Lean OutputRuntime/Output*/PathBounds generalized. Before choosing V, probe static String data near 2 GiB on a host with at least 20 GB free disk.",
+   "Stage 5 (M SPARK + L Lean, gated entirely by T4): remove the 64-leaf and 63-operator budgets (Natural counts; delete Work_Tail/Within_Work_Budget) and the --steps/--memlimit caps, only if T4 shows the pinned GNATprove honours unlimited settings and completes. Otherwise keep the budgets, which per the owner's rule are then the only way.",
+   "Stage 6 (optional XL): iterative recognizer with explicit heap work stacks, if stack-limit raising is judged insufficient; mostly Lean correspondence cost.",
+   "Keep as documented tool limits: GNAT per-line maximum, exponent <= 799999, Image producer node counter 2^31-1, JSON nesting 64 (producer schema), Ada Integer semantics (magnitude 2^31, Image length 2..11). Re-probe the first two on every toolchain update."
+  ],
+  "coverage_gaps": "- **Report audit time:** not measured on reports in the hundreds of MB. The policy looked linear per alternative (up to 9 alternatives) on source reading, but large synthetic reports were not timed.\n- **Static data near 1\u20132 GiB:** not compiled or linked (disk-limited), so the code-model/relocation risk for V = Integer'Last is unverified.\n- **Producer `.spark` writer:** its Natural-indexed limit was not confirmed from source.\n- **Lean:** proofs were not inspected for enumeration-heavy tactics (e.g. `decide +kernel`) that would break under symbolic bounds; the Lean effort estimate rests on use counts, not proof review.\n- **Lookup-heavy shapes:** many references to late-declared bindings were not separately timed.\n- **Compile-mode re-parse overhead:** `Uses_*` was not measured.\n- **SPARK `Storage_Error` handler:** GNATprove's behaviour on it under `--warnings=error` was not checked (no GNATprove runs allowed in T1).\n- **macOS:** not examined (ARG_MAX, stack defaults, PATH_MAX 1024).\n- **GNAT frontend limits beyond line length and exponent:** names/node tables, nesting, column numbers are left to T3.\n- **Solver completion and proof-option semantics:** `--steps=0` / `--memlimit=0` left to T4.\n- **Scratch builds:** they copied 13 recognizer units with only the size constant changed. The value-domain constant (4096) was left as is, so the probes used small literals only. Results show scaling trends for the current algorithms, not a redesigned recognizer.\n- **Generated runtime sources:** the embedded copies in `silver_library_sources.ads` were only spot-checked.\n\nNotes and all probe artifacts are in `/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T1/` (`notes.md`, `scripts/`, `cases/`, `out/`, `build/`, `gnat/`)."
+ },
+ {
+  "key": "T2-lean-generalization",
+  "track": "T2 \u2014 Can the Lean assurance be generalized from the 4096-byte source/value bounds to unbounded or machine-bounded sources and values?",
+  "summary": "Yes, and the work is smaller than the 471 uses of `maxSourceLength` suggest. Almost no Lean proof uses the concrete value 4096. Only one group of theorems is actually true because of the bound: the conservative concatenation range schema checked against Ada's minimum Integer'Last of 32767.\n\nI measured this directly. Each dependency cone was rebuilt in memory with the constant replaced by a free parameter, and every rebuilt declaration was kernel-checked against the frozen build. When a declaration failed, it was still added (unchecked) so that later declarations could be tested independently.\n- **Run A** (`maxSourceLength := L`, `ScalarExpression.maxBindings := L/12`): 4,154 of 4,347 declaration groups check unchanged.\n- **Run B** (the IO/argument `Max_Length` and 43 hard-coded 4096/4097 literals also set to L): 4,559 of 4,776 check.\n- **Run C** (everything set to the concrete value 2,147,483,646, with Integer'Last := 2,147,483,647): 4,633 of 4,770 check. 67 of the 72 kernel-evaluated example theorems also pass at that size, so kernel computation does not grow with the bound.\n- **Run D** (operand 64, operator 63 and exponent 4096 set to a parameter P): 2,524 of 2,627 check. The only extra requirement is P \u2265 1.\n\nThe remaining failures fall into these groups:\n- **Compiler artifacts:** compiled `_unsafe_rec` copies and definitional `eq_1` lemmas.\n- **Concrete examples:** true for any L at least as large as the example.\n- **About 40 proofs that unfolded the constant:** they need only facts like 0 \u2264 L, 16 \u2264 L, 12 \u2264 L, or a digit \u2264 L.\n- **Hard-coded literal copies:** 4096/4097 written directly into the OutputEquations/OutputExpressions structures and into `ScalarExpression.Native.ValidText/ResultType/LiteralType`.\n- **Domain coupling:** `healthy_effect`, `selected_domain` and the `default_is_message` lemmas are true only because the source/value bound and the IO/argument `Max_Length` happen to both be 4096.\n- **Truth-dependent arithmetic (5 declarations):** the range schema itself.\n\nNo decidability, uniqueness, termination, recognizer-fuel or Lean discharge-checker argument depends on the bound being finite.\n\n`Current.ToolContract` contains no step, memory or time limit: `boundedProofCompletes` only asserts that some step count exists. The 100,000 steps and 1,000 MiB appear only in the driver (src/silver.adb:122) and the docs. So the Lean premise is already \"the solvers complete given sufficient resources\". The physical tool configuration is what narrows it.",
+  "verdict": "Generalizable without an Oracle amendment.\n- **What can be proved:** with a symbolic bound, every top-level theorem (membership, decidability, unique meaning, safety and discharge, execution, pipeline, source correspondence) can be restated. The only side conditions are small lower bounds (L \u2265 16), the order between the separate bounds (argument \u2264 value \u2264 IO per call), and one arithmetic condition, V \u2264 the target's Integer'Last. That last condition needs the exact range schema in place of today's uniform one; I proved the exact schema in a probe.\n- **Truth-dependent today:** the uniform range schema `\u27e8L,L\u27e9` against Integer'Last 32767 holds only for L \u2264 16,383. The historical Guarded schema `\u27e82L,L\u27e9` holds only for L \u2264 10,922. So even doubling the source bound to 16,384 makes `Current.uniform_discharge`, `automatic_discharge_complete` and `admitted_assurance` false unless the schema changes.\n- **Value domain up to Integer'Last:** tractable once the String length arithmetic uses the pinned target's Integer'Last (2,147,483,647, which the scalar fragment already uses) and the exact `S + K*C \u2264 V` schema.\n- **Unbounded source text:** tractable for the language theorems. The tied correspondence to the native compiler stays machine-bounded: an Ada `String` index is at most Integer'Last, and GNAT has its 32,766-character line limit and 32-bit source positions. Those are inherited or hard tool limits, not arbitrary policy.\n- **Solver resources:** removing or escalating the step and memory limits needs no Lean change.",
+  "items": [
+   {
+    "name": "Source-length role of Silver.maxSourceLength",
+    "current_bound": "1..4096 bytes (Member/accepts conjunct)",
+    "locations": [
+     "proof/Silver/Admission.lean:103-112,127-129",
+     "proof/Silver/ComposeBounds.lean:16",
+     "proof/Silver/PredicateBodyAdmission.lean:328",
+     "proof/Silver/SequenceAdmission.lean:204",
+     "~171 of 471 uses (`text/source.length \u2264 maxSourceLength`)"
+    ],
+    "role": "Bounds membership; the legal domain for native helper calls (`Text'Length in 1 .. Max_Source_Length`); fuel `2*maxBindings+1` (ComposeAdmission.lean:486)",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Short term: a symbolic S with side condition S \u2265 16. Fully unbounded: drop the conjunct from Member/accepts and take fuel and positions from text.length. Keep a machine-bounded legal domain (Text'Length \u2264 Integer'Last \u2212 1) only in the native-correspondence theorems, plus a decidable GNAT line-length rule (\u2264 32,765 characters) or a frontend premise.",
+    "proof_impact": "Runs A/B: 4,154 of 4,347 (then 4,559 of 4,776) cone groups kernel-check for symbolic L. The roots that remain are proof-local (C: 11, D: 14, H: 1). No termination, decidability or uniqueness proof depends on it. Truly unbounded S first needs S separated from the value domain V; in particular decode_complete_spec and prefix_decoded_valid use \"literal length \u2264 source length \u2264 4096\".",
+    "effort": "L",
+    "risks": "Places where source length implicitly bounds value lengths must become explicit admission checks against V. The native recognizer needs dynamic environment storage, and GNAT Source_Ptr/line limits must be restated. Re-elaborating tactics may show slowdowns not visible in the term-level lift.",
+    "evidence": "runA.log, runB.log; Probe3 cone = 4,629 declarations; top_roots.tsv maps every Current/PredicateSourceBridge top theorem to its proof-local roots only"
+   },
+   {
+    "name": "String value domain carried by maxSourceLength",
+    "current_bound": "4096 bytes per expression and intermediate",
+    "locations": [
+     "proof/Silver/StringExecution.lean:31,35",
+     "proof/Silver/PredicateObligations.lean:36-44",
+     "proof/Silver/PathBounds.lean:12,30",
+     "proof/Silver/PathNativeModel.lean:82-83",
+     "proof/Silver/PredicateChecking.lean:329-351",
+     "proof/Silver/LengthIntervalModel.lean:32"
+    ],
+    "role": "Evaluation returns none above the bound; the path range schema `\u2264 maxSourceLength`; admission's `N + K*C \u2264 4096`",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "A separate parameter V with V \u2264 the target's Integer'Last. Ada String is indexed by Positive, so the inherited maximum is Integer'Last = 2,147,483,647 on the pinned targets.",
+    "proof_impact": "Generic under lifting (runs A/B). Run C (V = 2,147,483,646) passes everything except the uniform range schema (2V > Integer'Last) and proof-local items.",
+    "effort": "M",
+    "risks": "The argument initializer capacity C = A forces S = 0, K \u2264 1 when A = V (inherent to the affine rule). Ada side: Silver_IO ghost Written_Bytes (1 .. Max_Length + 1), 65 * Max_Length, Natural counters all overflow.",
+    "evidence": "runC.log; Probe6 T2.exact_schema"
+   },
+   {
+    "name": "Conservative concatenation range schema and guaranteedIntegerLast = 32767",
+    "current_bound": "Uniform \u27e8L,L\u27e9 needs 2L \u2264 32767 (L \u2264 16,383); historical Guarded \u27e8L,L\u27e9,\u27e82L,L\u27e9 needs 3L \u2264 32767 (L \u2264 10,922)",
+    "locations": [
+     "proof/Silver/GuardedObligations.lean:24-37,60-62,77-82,113",
+     "proof/Silver/ComposeObligations.lean:42-47,289-291",
+     "proof/Silver/Current.lean:69-84",
+     "docs/assurance.md (Automatic completion: conservative bound fits 32767)"
+    ],
+    "role": "Range-check validity for predefined concatenation. Also defines Compose.Check.InFragment, so Current.BoundedFragment is relative to the bound.",
+    "classification": "proof_premise",
+    "necessary": false,
+    "unbounded_replacement": "Exact schema: admission already proves S + K*C \u2264 V, and range validity depends only on the sum, so refine by sum and require V \u2264 the target's Integer'Last (2,147,483,647, already the scalar premise; language.md:208-209). Delete or restate the historical Guarded uniform theorems.",
+    "proof_impact": "The only truth-dependent root failures: Compose.uniform_range_valid, Current.uniform_discharge (\u2192 automatic_discharge_complete, admitted_assurance), Guarded.uniform_range_valid \u00d72, Guarded.uniform_discharge. Probe6 proves the exact replacement and `uniform_iff`.",
+    "effort": "S",
+    "risks": "The portability claim narrows from \"any Ada Integer'Last \u2265 32767\" to the pinned targets. The external completion premise covers larger constants (same linear shape).",
+    "evidence": "Probe1: `(\u27e816384,16384\u27e9).discharge = false`; Probe6 T2.uniform_iff, T2.exact_schema (axioms propext/Quot.sound); runA G=5; runC G still fails with Integer'Last = 2^31\u22121 because 2N > Integer'Last"
+   },
+   {
+    "name": "Output.Runtime.maxLength (IO per-call and argument domain)",
+    "current_bound": "4096 (separate constant)",
+    "locations": [
+     "proof/Silver/OutputRuntime.lean:92,170,207,297",
+     "proof/Silver/ArgumentsRuntime.lean:28,36,297",
+     "proof/Silver/OutputSourceBridge.lean:84-86 (digit-fold tie to silver_io.ads:5)"
+    ],
+    "role": "Put/Put_Line returns failure above the bound; argument validity; the only constant with a mechanical numeric tie to its Ada token",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Relate the domains explicitly: argument bound A \u2264 V \u2264 IO bound P. Alternatively remove P by redesigning Silver_IO's ghost model (not a fixed array of Max_Length + 1).",
+    "proof_impact": "Run A: 7 domain-coupling roots (healthy_effect, healthy_execution, selected_domain, selected_range_bounds, 3\u00d7 default_is_message), which feed PredicateSourceBridge.executable_main_correct. Run B (unified with L): all 7 disappear.",
+    "effort": "M",
+    "risks": "A runtime semantics change (outputs and arguments over 4096 bytes currently fail or are rejected). The Ada ghost arrays and counters need 64-bit or sequence models.",
+    "evidence": "runA vs runB diff ('A-fixed' list)"
+   },
+   {
+    "name": "maxBindings (two definitions)",
+    "current_bound": "341 = 4096/12",
+    "locations": [
+     "proof/Silver/ComposeAdmission.lean:21 (maxSourceLength/12)",
+     "proof/Silver/ScalarExpressionEnvironment.lean:9 (literal 4096/12)",
+     "proof/Silver/ComposeSourceChecks.lean:269,309",
+     "src/silver_output_profile.ads:13",
+     "src/silver_scalar_expressions.ads:8"
+    ],
+    "role": "Environment array capacity derived from the 12-byte minimum declaration size",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "A single derived definition: ScalarExpression.maxBindings := maxSourceLength / 12, or text.length / 12 for unbounded sources",
+    "proof_impact": "Lifting with SE.maxBindings \u21a6 L/12: 11 category-C roots (`0 \u2264 341` unfolded); ComposeModelEquations.model_definition_scalarDeclaration unfolds both definitions; declaration_fact_04 needs rfl instead of decide",
+    "effort": "S",
+    "risks": "None in Lean; the Ada environments become dynamically sized",
+    "evidence": "runA_classified.json category C/H"
+   },
+   {
+    "name": "Hard-coded literal 4096/4097 legal-domain hypotheses",
+    "current_bound": "text.length \u2264 4096, after \u2264 4097",
+    "locations": [
+     "proof/Silver/OutputEquations.lean:134-157,208-256",
+     "proof/Silver/OutputExpressions.lean:244-294",
+     "proof/Silver/ScalarExpressionNativeTypes.lean:9-13",
+     "proof/Silver/Admission.lean:129",
+     "proof/Silver/OutputAdmission.lean:285"
+    ],
+    "role": "Restate native subtype ranges (Literal_Position 0 .. Max_Source_Length + 1) as the legal domains of interpreted helper equations",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "Use the named or symbolic bound (S, S + 1) instead of literals",
+    "proof_impact": "Run A: 21 roots in category E (literal coupled to the constant). Run B: 15 fixed by renaming. Run B/C: 17\u201318 remaining are native-type mirror proofs (ScalarExpression.Native.*_type, Output.Expressions.*) whose auxiliary lemmas embed 4097; mechanical.",
+    "effort": "S",
+    "risks": "Purely mechanical; needs re-elaboration",
+    "evidence": "literal_types.tsv (92 declarations with capacity literals in types/defs); runB_classified.json"
+   },
+   {
+    "name": "Length-literal domain and its exponent",
+    "current_bound": "Literal value 0..4096 via maxSourceLength; exponent numeral \u2264 4096",
+    "locations": [
+     "proof/Silver/IntegerLiteral.lean:33,65,101,125-190,340-365",
+     "proof/Silver/IntegerLiteralSourceChecks.lean:66",
+     "src/silver_integer_literals.ads:5-6"
+    ],
+    "role": "Length-predicate thresholds within the String domain; overflow-checked parse; `scale` recurses once per exponent unit",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Literal domain = V (or all of Integer with constant-result simplification); saturating exponent parse; a zero mantissa short-circuits, a nonzero mantissa overflows after \u2264 32 steps",
+    "proof_impact": "IntegerLiteral roots need only `16 \u2264 L` (digitsTail_sound, digitsAt_complete, interpreted_tail; meaning_unique and model_tool_contract depend on digitsAt_complete)",
+    "effort": "S",
+    "risks": "The native parser must not iterate the exponent value",
+    "evidence": "runA D-category; Probe7 top_roots.tsv"
+   },
+   {
+    "name": "Scalar literal exponent cap ScalarLiteral.maxExponent",
+    "current_bound": "4096",
+    "locations": [
+     "proof/Silver/ScalarLiteral.lean:12,82,452-482",
+     "proof/Silver/ScalarLiteralSourceChecks.lean:48",
+     "src/silver_scalar_literals.ads:6"
+    ],
+    "role": "Explicit frontend resource limit on E exponents",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Unbounded exponent with short-circuit evaluation (as above)",
+    "proof_impact": "Run D lifted it to P: zero root failures attributable to it",
+    "effort": "S",
+    "risks": "Ada-side loop design only",
+    "evidence": "runD.log"
+   },
+   {
+    "name": "Expression operand budget (64) and source operator budget (63)",
+    "current_bound": "64 leaves per expression; 63 operators per source",
+    "locations": [
+     "proof/Silver/Bindings.lean:181",
+     "proof/Silver/ScalarExpression.lean:90",
+     "proof/Silver/ComposeAdmission.lean:204,242",
+     "proof/Silver/ComposeSourceChecks.lean:268,288,306,366",
+     "proof/Silver/PredicateStatements.lean:27"
+    ],
+    "role": "Proof-work resource policy in membership (withinWorkBudget) and native counter ranges",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Remove from membership; widen native counters (or saturate); the range schema uses Nat K\u00b7C",
+    "proof_impact": "Run D: 2,524 of 2,627 groups generic; the roots are 5 proof-local items needing P \u2265 1 plus 2 source-pin decides (= 64, = 63); no truth dependence",
+    "effort": "M",
+    "risks": "Larger VCs strengthen the external solver-completion premise (time and memory scale); report capacity is native, not in Lean",
+    "evidence": "runD.log"
+   },
+   {
+    "name": "Source pins and generated certificates",
+    "current_bound": "Token spellings \"4_096\", \"64\", \"63\", \"max_source_length / 12\"",
+    "locations": [
+     "proof/generate_source_certificate.py (SOURCE_BINDINGS)",
+     "scripts/check_lean.py:486",
+     "proof/Silver/SourceBridge.lean:106",
+     "proof/Silver/PredicateSourceRequirements.lean:256-266",
+     "proof/Silver/ComposeSourceChecks.lean:266-366",
+     "proof/Silver/NamesSourceChecks.lean:56",
+     "proof/Silver/ScalarLiteralSourceChecks.lean:48,70",
+     "proof/Silver/PathFactsSourceChecks.lean:109,118",
+     "proof/Silver/PathFactsSourceBridge.lean:39,45",
+     "proof/Silver/ReviewedOutputShape.lean:10,18",
+     "proof/Silver/ReviewedSourceShape.lean:22,241",
+     "proof/Silver/ScalarLiteralSourceShape.lean:10",
+     "proof/Silver/PathFactsSourceShape.lean:9"
+    ],
+    "role": "Tie Lean to authoritative Ada bytes. The 28 certificates are regenerated by script and kernel-checked; the reviewed shapes and expectation strings are hand-maintained.",
+    "classification": "other",
+    "necessary": true,
+    "unbounded_replacement": "Keep, but add a mechanical digit-fold tie for every pinned constant (today only Runtime.maxLength has one). With a symbolic bound these become instantiation lemmas.",
+    "proof_impact": "Run B: OutputSourceBridge.actual_runtime_declarations fails under symbolic L (expected). Run D: declaration_fact_03/23 likewise.",
+    "effort": "S",
+    "risks": "Today a Lean/Ada value mismatch for maxSourceLength/64/63/maxExponent is caught only by review, not mechanically",
+    "evidence": "grep; runB/runD pin failures"
+   },
+   {
+    "name": "Solver completion premise (ToolContract.boundedProofCompletes)",
+    "current_bound": "No limit in Lean; the physical driver passes --steps=100000 --memlimit=1000 --timeout=0",
+    "locations": [
+     "proof/Silver/Current.lean:217-218,248,282",
+     "src/silver.adb:116-123",
+     "docs/assurance.md:591-592,794-801",
+     "docs/trusted-boundary.md:43,901-910"
+    ],
+    "role": "External premise: the pinned solvers complete every VC in BoundedFragment",
+    "classification": "proof_premise",
+    "necessary": true,
+    "unbounded_replacement": "No Lean change is needed: steps are existential. Optionally adopt the resource-indexed contract (Probe6 T2.ResourceContract: sound + eventually \u2203r\u2080 \u2200r\u2265r\u2080 proved; outcome_dichotomy proved/exhausted). Docs drop \"within 100,000 steps / 1,000 MiB\". The physical driver needs explicit large or escalating limits, because at level 2 GNATprove 16.1 treats --memlimit=0 as unset and applies 1,000 MiB.",
+    "proof_impact": "None for the existing proofs. Probe6 checks (no sorry) that the sharpened contract composes with Current.ToolContract and is inhabited.",
+    "effort": "S",
+    "risks": "Monotonicity of solver success in the allowance is a new observed premise. Without limits an incomplete solver run exhausts time or memory (acceptable per owner), so the compile does not terminate on its own unless the operator imposes a limit.",
+    "evidence": "grep (no 100000/memlimit in proof/Silver); Probe6 axioms propext/Classical.choice/Quot.sound"
+   },
+   {
+    "name": "Concrete example theorems (decide +kernel)",
+    "current_bound": "Specific sources at or around 4096",
+    "locations": [
+     "proof/Silver/*Examples.lean (8 modules)"
+    ],
+    "role": "Regression witnesses",
+    "classification": "other",
+    "necessary": false,
+    "unbounded_replacement": "Instantiate at concrete bounds, or state as \u2200 L \u2265 example size",
+    "proof_impact": "Symbolic: 56 (run A) / 72 (run B) fail as expected. Concrete 2,147,483,646: 67 of 72 pass; the 5 that fail test the 4096/32767 boundary by design, plus historical Guarded.example_admitted (capacity + decorations = maxSourceLength).",
+    "effort": "S",
+    "risks": "Boundary tests must move with the bound",
+    "evidence": "runC_classified.json B"
+   },
+   {
+    "name": "Inherited and pinned-tool caps that remain",
+    "current_bound": "Ada String index \u2264 Integer'Last (2,147,483,647 on pinned targets); GNAT 16.1 rejects lines \u2265 32,766 characters; GNAT 32-bit Source_Ptr",
+    "locations": [
+     "references/ada (RM String index Positive)",
+     "language.md:208-209",
+     "docs/trusted-boundary.md:54-59"
+    ],
+    "role": "Maximum value domain and maximum source representable by the native compiler and frontend",
+    "classification": "inherited_semantics",
+    "necessary": true,
+    "unbounded_replacement": "None without changing inherited Ada meaning (prohibited by the Oracle). The language should state a decidable line-length rule, or carry the frontend premise.",
+    "proof_impact": "Lean language theorems can be unbounded; the correspondence theorems keep the machine-bounded legal domain",
+    "effort": "M",
+    "risks": "A line-length membership rule changes the grammar text (spec, catalogue, Ada, Lean)",
+    "evidence": "lead fact (32,766 line error); Ada RM; Run C at Integer'Last \u2212 1"
+   }
+  ],
+  "full_stops": [
+   {
+    "issue": "A String value domain or source length above the pinned target's Integer'Last",
+    "why": "Ada `String` is indexed by Positive. Exceeding Integer'Last would change inherited Ada/SPARK meaning, which the Oracle forbids (\"without ... changing their meaning\"); the owner would have to amend the Oracle.",
+    "owner_action": "None recommended. Accept Integer'Last (2,147,483,647) as the inherited ceiling for String values and for the native source buffer. Nothing else in T2 requires an Oracle amendment or an owner decision."
+   }
+  ],
+  "premises": [
+   "Proved (kernel, in-memory probes): current uniform range schema \u27e8L,L\u27e9 is valid iff 2L \u2264 32767 (T2.uniform_iff); \u27e816384,16384\u27e9 is invalid; exact schema S'+K'\u00b7d \u2264 S+K\u00b7C \u2264 V \u2264 2,147,483,647 covers all intermediates (T2.exact_schema); resource-indexed contract composes with Current.ToolContract and is inhabited (T2.model_resource_contract, T2.resource_pipeline, T2.outcome_dichotomy); axioms only propext/Classical.choice/Quot.sound.",
+   "Proved by lifting (each lifted declaration kernel-checked; failed ones re-added unchecked so later roots are independent): 4,154/4,347 (A), 4,559/4,776 (B), 2,524/2,627 (D) declaration groups are valid for an arbitrary symbolic bound with no side condition; 4,633/4,770 valid at concrete 2,147,483,646 (C).",
+   "Observed (classification of the failing existing proof terms, conditional on their dependencies generalizing): none of the failures is a decidability, termination, uniqueness or fuel argument; truth-dependent items are only the range schema (G) and domain coupling (F).",
+   "Trusted premise retained: restricted Ada-to-Lean interpretation, extended to use the pinned target's Integer'Last for String index arithmetic if the exact schema is adopted (scalars already rely on 2,147,483,647).",
+   "Trusted premise retained and strengthened in scope: faithful/complete GNATprove generation and solver completion for BoundedFragment, which grows with the bound and with the operand/operator budgets.",
+   "New premise only if the resource-indexed contract is adopted: solver success is monotone in the resource allowance (deterministic resource-limited search). Observed, not proved.",
+   "Ties between Lean constants and Ada tokens are mechanical only for Output.Runtime.maxLength (OutputSourceBridge.lean:85-86); for maxSourceLength, 64, 63 and maxExponent the tie rests on review today.",
+   "The physical limits (--steps=100000, 1,000 MiB per prover, Why3 1,048,576,000-byte address space) are not represented in Lean."
+  ],
+  "experiments": [
+   {
+    "hypothesis": "Identify capacity-constant usage and cone size",
+    "setup": "Probe2 (reference counts) and Probe3 (transitive dependents of maxSourceLength) importing the frozen Silver build",
+    "result": "maxSourceLength appears in the type of 437 declarations and only in the value of 439 more. Cone = 4,629 declarations (852 defs, 3,254 theorems, 144 inductives, 235 ctors, 144 recursors), including Current.ToolContract.",
+    "wall_seconds": 99,
+    "peak_memory": "\u22481.4 GiB",
+    "side_effects": "none (no files outside scratch)"
+   },
+   {
+    "hypothesis": "Most proofs are parametric in maxSourceLength",
+    "setup": "Run A: lambda-lift the cone with maxSourceLength \u21a6 L and ScalarExpression.maxBindings \u21a6 L/12; kernel-check each declaration (probes/Lift.lean, RunA.lean)",
+    "result": "4,154 of 4,347 groups pass, 193 fail: 73 _unsafe_rec + 2 eq_1 artifacts, 56 examples, 11 C, 14 D, 21 E, 7 F (IO Max_Length coupling), 5 G (range schema truth), 1 H, 3 other",
+    "wall_seconds": 746,
+    "peak_memory": "5.8 GiB",
+    "side_effects": "none"
+   },
+   {
+    "hypothesis": "The F and E failures come only from separately defined 4096 copies",
+    "setup": "Run B: also Output.Runtime.maxLength \u21a6 L and literal 4096/4097 \u21a6 L/L+1 in the 43 declarations that hard-code them",
+    "result": "4,559 of 4,776 pass. All 7 F and 15 E roots fixed. The remaining roots are G (5), proof-local C/D/H, native-type 4097 mirrors, 72 examples and 1 expected digit-fold source-pin tie.",
+    "wall_seconds": 682,
+    "peak_memory": "5.8 GiB",
+    "side_effects": "none; another agent's gnatprove (\u22483.9 GB) ran concurrently, 24 GB free"
+   },
+   {
+    "hypothesis": "A concrete machine-maximum bound works and kernel computation does not scale with the bound",
+    "setup": "Run C: everything set to 2,147,483,646 and guaranteedIntegerLast := 2,147,483,647 (probes/LiftC.lean, RunC.lean)",
+    "result": "4,633 of 4,770 pass. 67 of 72 examples pass (slowest 54.5 s); the 5 failures are boundary tests about 4096/32767 and the historical guarded shell. G still fails (2N > Integer'Last), so the exact schema is needed. One proof-local mismatch took 456 s before failing.",
+    "wall_seconds": 1032,
+    "peak_memory": "15.3 GiB",
+    "side_effects": "none; 29 GB were available"
+   },
+   {
+    "hypothesis": "Operand 64, operator 63 and exponent 4096 are not truth-relevant",
+    "setup": "Run D: maxExpressionOperands, ScalarExpression.maxOperands \u21a6 P, maxConcatenations \u21a6 P\u22121, maxExponent \u21a6 P",
+    "result": "2,524 of 2,627 pass. Roots: 46 artifacts, 50 examples, 2 source-pin decides (=64, =63), and 5 proof-local items needing P \u2265 1. No root from the exponent.",
+    "wall_seconds": 390,
+    "peak_memory": "6.5 GiB",
+    "side_effects": "none; another agent's gnatprove was running, 28 GB available"
+   },
+   {
+    "hypothesis": "Top-level theorems depend only on proof-local roots",
+    "setup": "Probe7: for each top theorem, the transitive root failures from run A",
+    "result": "accepts_iff_member 8, member_has_meaning 11, meaning_unique 1, automatic_discharge_complete 9 (incl. uniform_discharge), admitted_assurance 13, automatic_pipeline 11, executable_main_correct 28 (incl. F roots), actual_source_correspondence 16. execution_specified, pipeline_preserves and the null theorem: 0.",
+    "wall_seconds": 52,
+    "peak_memory": "1.4 GiB",
+    "side_effects": "none"
+   },
+   {
+    "hypothesis": "Truth dependence is exactly 2L \u2264 32767; the exact schema and a resource-indexed contract are expressible",
+    "setup": "Probe1 and Probe6 importing Silver.Current",
+    "result": "All checked, no sorry; axioms propext/Classical.choice/Quot.sound",
+    "wall_seconds": 6,
+    "peak_memory": "0.8 GiB",
+    "side_effects": "none"
+   }
+  ],
+  "recommendations": [
+   "1. One source of truth (S). Derive ScalarExpression.maxBindings from the bound; replace the 43+ hard-coded 4096/4097 legal-domain literals (OutputEquations, OutputExpressions, ScalarExpressionNativeTypes, admitted_bounds, member_literal) with named constants; add digit-fold ties like OutputSourceBridge.lean:85-86 for max_source_length, max_expression_operands, max_concatenations, max_exponent and path-facts max_length.",
+   "2. Remove the only truth dependence (S). Replace the uniform \u27e8L,L\u27e9 range schema and coefficient-wise Refines with the exact sum schema (admission's S + K\u00b7C \u2264 V) and V \u2264 the pinned target's Integer'Last (2,147,483,647), documented as part of the frontend premise as for scalars. Delete or restate the historical Guarded.uniform* theorems (3L). Without this, any source/value bound \u2265 16,384 makes Current.uniform_discharge false.",
+   "3. Split the five roles of maxSourceLength (M): source S, String value V (also the length-literal domain), argument A, IO per-call P, exponent E. Prove A \u2264 V \u2264 P where needed (the F lemmas), or drop P with a Silver_IO ghost redesign.",
+   "4. Parameterize (M\u2013L). Theorems quantified over a capacity record with side conditions S \u2265 16 and P \u2265 1. Repair about 40 proof-local roots (C/D/H; mostly omega/decide on unfolded constants); instantiate the 56\u201372 examples at concrete values and keep the boundary examples next to the bound they test. The lifting runs show the rest of the 4.3\u20134.8 k-declaration cone needs no edit, with whole-cone kernel cost about 6\u201312 minutes and 6 GiB in one process.",
+   "5. Unbounded source (L, after 3\u20134). Drop the length conjunct from Member/accepts; fuel and positions from text.length; make every implicit \"literal \u2264 source \u2264 4096\" value bound an explicit admission check against V. Native correspondence keeps the machine legal domain Text'Length \u2264 Integer'Last \u2212 1, plus a GNAT line-length rule (\u2264 32,765 characters, decidable) or premise.",
+   "6. Remove operand/operator/exponent caps (M; language plus Ada work, Lean impact small per run D). Expect a larger external solver-completion scope, not a Lean change.",
+   "7. Solver resources (S). No Lean change is required. Update the assurance/trusted-boundary wording from 'within 100,000 steps and 1,000 MiB' to 'given sufficient resources'. Optionally adopt the Probe6 ResourceContract so 'exhaustion is the only non-completion outcome' is a stated premise. Coordinate with T4 on driver flags: at level 2, --memlimit=0 is treated as unset (1,000 MiB), so explicit large or escalating limits are needed.",
+   "Order: 1 \u2192 2 \u2192 3 \u2192 4 \u2192 (5, 6 in parallel) \u2192 7 (docs). Each step leaves the project valid; only step 2 changes what is true."
+  ],
+  "coverage_gaps": "- **Lifting tests existing proof terms only.** Failures show that a proof used the concrete value. Passes show that the term stays valid for a symbolic or huge bound. I did not re-elaborate edited sources, so tactic behaviour after editing (simp sets, omega, decide performance) is untested.\n- **The S/V role split was analysed statically** (pattern counts, specific lemmas), not lifted with two separate parameters.\n- **A few run B/C roots were classified heuristically.** These are the ScalarExpression.Native.* 4097-mirror theorems and the `_sparseCasesOn` false positives, where my literal replacement hit constructor-bitmask 4096s.\n- **Not covered in this track:** the Ada/SPARK side (native types, GNATprove proofs, Silver_IO ghost model, recognizer storage), macOS, and report capacity, which is not in Lean.\n- **Certificates and Image-adapter modules** are outside the maxSourceLength cone and were not lifted. They contain no semantic capacity constants, only tokens or unrelated 2^31 JSON identifiers.\n- **Monotonicity of solver success in the allowance** was not measured.\n- **Run C peaked at 15.3 GiB** because of one pathological mismatch. Memory was available and no unrelated proof load was affected.\n\nAll artifacts are in `/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T2`:\n- `notes.md`\n- `probes/*.lean`\n- `run{A,B,C,D}.log` and `run*.stats`\n- `run*_classified.json`\n- `top_roots.tsv`\n- `literal_types.tsv`\n- `scripts/`\n\nPIDs started: 64719 (died with its shell), 65114 (compile failure), 65235, 71369, 71499, 74451, 74478, 77520, 83750. None remain running. No files in the project or the review worktree were changed (`git status` in the worktree is clean)."
+ },
+ {
+  "key": "T3-tool-hard-limits",
+  "track": "T3 \u2014 Hard (non-resource) limits in the pinned toolchain (GNAT 16.1 frontend/backend, GNATprove 16.1/Why3/CVC5/Z3 4.15.4/Alt-Ergo 2.6.1) and Linux OS",
+  "summary": "I probed with gcc -gnatc and full -O0 compiles, gnatprove in check and flow mode, four tiny --mode=all runs to read the effective prover limits, kernel exec probes, and source reading of GCC 16.1 (gcc-mirror 6afcc4f6) and the spark2014/why3 producer (42554fc2). I found four limits that make an admitted program fail other than by resource exhaustion:\n(1) GNAT physical line width. After expanding each tab to the next multiple of 8 columns, a line can be at most 32,765 columns. 32,765 bytes passes and 32,766 fails, with or without a terminator. With tabs, a 4,131-byte line already fails.\n(2) Identifier length is at most 4,096 characters. 4,097 gives \"GNAT BUG DETECTED Program_Error namet.adb:141 / Name buffer overflow; Max_Length = 4096\" in every tested role and mode. This comes from namet.ads:144, where Bounded_String defaults to 2**12.\n(3) Total source size near 2^31 bytes. 2^31-2^24 passes (10.5 s, 2.16 GB). 2^31-1 crashes with SIGSEGV and heap corruption. 2^31 makes gnat1 loop forever inside errout.\n(4) In the proof configuration, --level=2 makes --memlimit=0 impossible: every prover process keeps a 1,000 MiB RLIMIT_AS (observed in why3session.xml). Dropping --level gives memlimit 0.\nAlso: Z3's rlimit wraps modulo 2^32, so any finite --steps above 5,368,146 silently gives Z3 a tiny limit. Prover crashes ('High failure'), including resource kills, are reported as 'gave_up', the same as a genuine 'unknown'.\nEverything else I measured is resource-only: nesting depth, declaration and statement counts, total size up to 2 GB, backend size, and debug lines past 1.25M. The costs are stack, memory and time, mostly superlinear: gnatc time is quadratic in sequence length and nesting, and flow memory reaches 4.4 GB at 1 MB and 6.5 GB at 8,000 nested loops. Stack overflow appears as a GNAT bug box. gcc raises its own stack limit; gnat2why inherits 8 MiB and fails in flow mode between 1,000 and 2,000 nested loops (check mode between 2,000 and 8,000). All of these pass with an unlimited stack. OS limits are environmental: a single argument can be at most 131,071 bytes (one byte more gives E2BIG), and ARG_MAX is 2 MiB, set as stack/4.",
+  "verdict": "Most of the expansive goal is reachable: everything I probed fails only through resources once the driver gives tools an unlimited stack and the proof command drops --level=2 (explicit provers, --memlimit=0, --timeout=0, --steps=0 or at most 5,368,146, -j at least 3). Three pinned-frontend limits are real hard tool limits and must become explicit, frontend-derived language rules once the 4096-byte source bound is lifted: (a) every physical line's tab-expanded width at most 32,765 columns; (b) identifier length at most 4,096 characters; (c) source length at most a derived bound below 2^31 (2,130,706,432 = 2^31-2^24 is the largest value tested). Ada String lengths at most Integer'Last are inherited semantics and must be a language bound as well. GNAT's fixed table capacities (Node_Id up to 2e9; List, Elist, Elmt, Name, String and Ureal ids 1e8 each) cannot be reached on this host before memory or time runs out. They should be stated as a tool premise; the only alternative is a much smaller source bound that I cannot derive rigorously. No Oracle-level full stop comes from T3 by itself, but the three frontend rules and the proof-limit change are language and assurance-text changes the lead must route through the normal amendment path.",
+  "items": [
+   {
+    "name": "GNAT physical line width (tab-expanded)",
+    "current_bound": "Unreachable today: the 4096-byte source cannot contain a 4096-byte all-tab line plus program text. Frontend limit: tab-expanded width <= 32,765 columns; byte length <= 32,765.",
+    "locations": [
+     "gnatsrc/scng.adb:129-190 (Check_End_Of_Line: Len > Max_Line_Length -> 'this line is too long'; if Len >= 4096, tab walk Col > 32766 -> 'this line is longer than 32766 characters' + Unrecoverable_Error)",
+     "gnatsrc/hostparm.ads:43-44 (Max_Line_Length = Column_Number'Last - 1)",
+     "gnatsrc/types.ads:181 (Column_Number range 0 .. 32767, Size 16)",
+     "docs/trusted-boundary.md:54-59 (frontend premise)",
+     "language.md:46-49"
+    ],
+    "role": "The pinned frontend's representation of columns. It applies to gnat1 and to gnat2why, which uses the same scanner.",
+    "classification": "tool_hard_limit",
+    "necessary": true,
+    "unbounded_replacement": "None possible without patching GNAT or reflowing the source, which would break Sloc traceability. Minimal language rule: 'For every physical line (lines end at LF, CR or CRLF), the width after expanding each HT to the next column that is 1 more than a multiple of 8 is at most 32,765.' This implies at most 32,765 bytes per line. Literals and comments cannot span lines, so this rule also bounds them.",
+    "proof_impact": "Needs a lexical predicate in Lean Admission and in the SPARK recognizer. It is a linear scan with a tab rule, so it is cheap to prove. It replaces the current frontend premise 'every line fitting 4096 bytes' with an exact derived bound. The bound is observed on the pinned binary and matches the source; it is a premise, not proved.",
+    "effort": "S",
+    "risks": "The trigger is tab expansion, not byte count. A byte-only rule (<= 32,765) is wrong: a 4,131-byte line with tabs fails. The -gnatyM style switch would change the check; Silver passes no -gnaty. The source matches the fetched GCC tag, but binary identity is not attested.",
+    "evidence": "Observed, gcc -gnatc, p/line_*. 32,765 spaces, comment, ~32.7k-char string literal or numeric literal: accepted with LF, CRLF, CR or no terminator. 32,766: rc=1 'this line is longer than 32766 characters'. 32,767: also 'this line is too long'. Tabs: base(39 bytes)+tabs 4,130 accepted, 4,131 rejected (predicted 41+8*(L-40) > 32766). 4,096 all tabs rejected; 4,095 accepted."
+   },
+   {
+    "name": "GNAT identifier length",
+    "current_bound": "<= 4,096 characters accepted; 4,097 fails with a GNAT bug box. Today's maximum admitted identifier is ~4,020 characters, below the cap.",
+    "locations": [
+     "gnatsrc/namet.ads:144 (type Bounded_String (Max_Length : Natural := 2**12))",
+     "gnatsrc/namet.adb:132-145 (Append raises Program_Error on overflow)",
+     "gnatsrc/namet.adb:173 (Append_Decoded Temp : Bounded_String with default capacity); also stringt.adb:321,351, sinput.adb:272"
+    ],
+    "role": "Default-capacity name buffers inside the frontend.",
+    "classification": "tool_hard_limit",
+    "necessary": true,
+    "unbounded_replacement": "None without patching GNAT. Minimal rule: identifier length <= 4,096 characters. This is a fifth, independent '4096' domain and must not be tied to the source-length constant.",
+    "proof_impact": "Needs a per-token length predicate in the lexer/Admission model; cheap. The frontend premise in trusted-boundary.md must name it. The cap is observed only for the roles tested (object, constant, String object passed to Put_Line, assignment, for-loop parameter). Future constructs that append suffixes to names in default-capacity buffers could lower it.",
+    "effort": "S",
+    "risks": "The failure is Program_Error (a bug box), not a diagnostic, so it would show up as an infrastructure crash. Only today's identifier roles were covered.",
+    "evidence": "Observed in p/id_*, p/sid_*, p/gpid_*: 4,096-char identifiers pass gcc -gnatc, gcc -c -O0, gnatprove check, flow and tiny --mode=all, all rc=0. 4,097 fails every role and mode: 'Name buffer overflow; Max_Length = 4096' + 'GNAT BUG DETECTED 16.1.0 Program_Error namet.adb:141 explicit raise'. A warning naming a 4,096-char identifier prints in full (a 4,159-char line)."
+   },
+   {
+    "name": "GNAT total source size (Source_Ptr / Integer file length)",
+    "current_bound": "Just under 2^31 bytes, minus the 4 KiB-aligned space taken by the other units in the compilation. 2,130,706,432 passes; 2,147,483,647 crashes.",
+    "locations": [
+     "gnatsrc/types.ads:148 (Text_Ptr range -4 .. Int'Last), :190 (Source_Align 2**12)",
+     "gnatsrc/sinput-l.adb:224-233 (later buffers placed after the previous Source_Last, 4 KiB aligned)",
+     "gnatsrc/osint.adb Read_Source_File (Len : Integer -- 'assume no more than 2 gigabytes of source'; Len := Integer (File_Length (FD)))"
+    ],
+    "role": "All source text of one compilation shares one 32-bit Source_Ptr space.",
+    "classification": "tool_hard_limit",
+    "necessary": true,
+    "unbounded_replacement": "None (single-file Main). Minimal rule: source length <= a derived bound. 2,130,706,432 (2^31-2^24) is the largest tested-accepted value. A bisected exact value would be 2^31-1 minus the aligned sizes of every unit gnat1/gnat2why load (system, Ada.Text_IO closure, the six runtime files). Silver's own SPARK types (Natural-indexed strings) cap at 2^31-1 anyway.",
+    "proof_impact": "Replaces the 4096-byte source constant with a large derived constant. Every Lean and SPARK quantity derived from S (bindings, report envelope, operator budget) is another track's concern. The bound is observed plus source-reasoned; it is a premise.",
+    "effort": "S",
+    "risks": "The failure modes above the bound are dangerous, not diagnostic: SIGSEGV with heap corruption at 2^31-1, and an infinite loop at 2^31 (gnat1 spins in sinput.original_location <- errout.error_msg <- scn.scanner.scan). The exact boundary depends on the closure of loaded units.",
+    "evidence": "Observed, gcc -gnatc, comment-padded sources (p/big_*). 10 MB: 0.09 s / 34 MB. 100 MB: 0.30 s / 124 MB; full -O0 -g: 0.3 s / 138 MB, with DWARF line 1,250,006 correct. 2,130,706,432: rc=0, 10.46 s, 2.16 GB. 2,147,483,647: rc=-11 'malloc(): corrupted top size'. 2,147,483,648: no output after ~250 s at 99.8% CPU and 21 MB RSS; gdb backtrace captured; stopped through its own timeout wrapper."
+   },
+   {
+    "name": "GNAT fixed internal table capacities",
+    "current_bound": "Node_Id 0..1,999,999,999. List, Elist, Elmt, Names, Strings and Ureal: 100,000,000 ids each. Uint ~1.5e9.",
+    "locations": [
+     "gnatsrc/types.ads:300-363",
+     "gnatsrc/table.adb:166-226 (Reallocate grows without checking the Id subtype bound)"
+    ],
+    "role": "Fixed id ranges for frontend tables.",
+    "classification": "tool_hard_limit",
+    "necessary": false,
+    "unbounded_replacement": "State it as a pinned-tool premise next to solver completion. The alternative is a smaller derived source bound: S <= 2^26 bytes (64 MiB) would keep each count below 1e8 only if every entity costs at least one source byte, which is not proved for internally created lists and strings.",
+    "proof_impact": "None if stated as a premise. A rigorous derived bound would need per-construct entity-count analysis of the frontend, which is not tractable cheaply.",
+    "effort": "M",
+    "risks": "The overflow behavior is unobserved: likely Constraint_Error / bug box, possibly worse if gnat1 runs with checks suppressed. Within 2 GiB a cap is logically reachable: 8-byte 'Put (\"\");' statements give ~1e8 String_Ids and lists at ~800 MB, and elsif chains give ~2 lists per ~27 bytes. Reaching it is impractical: sequence analysis is quadratic (1M Put_Line > 1,200 s gnatc), and linear elsif chains cost ~880 B RSS per branch, so ~44 GB before the List cap. On this host memory or time runs out first; on a much larger host a cap could fail first.",
+    "evidence": "Source-reasoned only; not probed. Supporting scaling data: gnatc 1M elsif (29.9 MB source) 25.3 s / 657 MB; 1M declarations (23.9 MB) 10.2 s / 517 MB; 100k Put_Line 36 s / 119 MB; 1M Put_Line > 1,200 s (timeout)."
+   },
+   {
+    "name": "Frontend / gnat2why / backend recursion depth (stack)",
+    "current_bound": "No fixed cap; limited by the stack rlimit. gcc's gnat1 survives 100k nested parens at an 8 MiB soft limit (gcc raises its own soft stack; observed, the GCC source was not re-read) but overflows at 300k. gnat2why inherits 8 MiB: check mode overflows at 100k parens, 12k nested ifs and 8k nested loops; flow mode overflows at 2k-3k nested loops/ifs (1,000 loops pass).",
+    "locations": [
+     "docs/trusted-boundary.md:74-79",
+     "src/silver.adb:116-125 (system() proof/build commands inherit the driver's limits)"
+    ],
+    "role": "Recursive descent in the parser, semantics, flow analysis and gigi.",
+    "classification": "environmental",
+    "necessary": false,
+    "unbounded_replacement": "Engineering only. Before spawning gnatprove/gprbuild, the driver raises RLIMIT_STACK to the hard limit (unlimited on this host), e.g. via setrlimit or by prefixing the shell command with 'ulimit -s unlimited'. Report a Storage_Error bug box as resource exhaustion (infrastructure status), not as rejection.",
+    "proof_impact": "None (environmental premise). Classifying the outcome needs driver logic outside proofs.",
+    "effort": "S",
+    "risks": "The hard stack limit may be finite on other hosts. The bug-box text looks like a tool defect. Provers also inherit the stack; why3server sets only CPU, AS and CORE.",
+    "evidence": "Observed. gnatc parens 300k and 1M: 'Storage_Error stack overflow' at default; 1M passes with ulimit -s unlimited (0.98 s, 575 MB). gnatprove check parens 100k: Storage_Error at 8 MiB, passes unlimited (1.19 s; flow 1.16 s). check if-12k / loop-8k: fail at 8 MiB, pass unlimited (6.6 s / 13.6 s). flow loops 250/500/1000 pass at 8 MiB; 2000/8000 fail; unlimited: 2000 in 23 s / 484 MB, 8000 in 573 s / 6.54 GB."
+   },
+   {
+    "name": "Superlinear compile time/memory (frontend, flow, backend)",
+    "current_bound": "No cap. gnatc: assignments 10k 0.29 s -> 100k 30.9 s; X+X+... 100k 160 s; nested if 100k 238 s; nested loops 100k > 1,800 s. Flow: 128k assignments (1 MB) 136 s / 4.43 GB; Put_Line 2k 23 s -> 8k 470 s / 1.06 GB; elsif 9k 57 s / 3.96 GB; decls 12k 510 s. Full -O0: Put_Line 32k 245 s / 737 MB; 128k > 1,338 s; 10k nested loops 44.8 s / 1.45 GB.",
+    "locations": [
+     "language.md:466-500 (compile-cost paragraph)"
+    ],
+    "role": "Algorithmic cost in the pinned tools.",
+    "classification": "environmental",
+    "necessary": false,
+    "unbounded_replacement": "None needed. Document that compile cost is superlinear and may exhaust time or memory; the owner accepts this.",
+    "proof_impact": "None.",
+    "effort": "S",
+    "risks": "Timing was mildly perturbed by concurrent probes and, late on, another agent's gnatprove run.",
+    "evidence": "batch1.log, batch2.log, batch3.log and notes.md in the scratch dir. No hard error in any of these runs."
+   },
+   {
+    "name": "GNATprove --level=2 pins the per-prover memlimit at 1000 MiB (RLIMIT_AS)",
+    "current_bound": "memlimit 1000 MiB per prover process. The production command passes --memlimit=1000 explicitly, but --memlimit=0 would also yield 1000 under --level=2.",
+    "locations": [
+     "src/silver.adb:116-123",
+     "producer src/gnatprove/configuration.adb:2389-2395 (level 2: Timeout 5, Memlimit 1000, Steps 0, Counterexamples True), :2447-2456 ('if CL_Switches.Memlimit = 0 then null;' keeps the level value)",
+     "why3/src/server/server-unix.c:358-372 (memlimit -> RLIMIT_AS, timelimit -> RLIMIT_CPU, 0 = unset)",
+     "docs/trusted-boundary.md:41 ('1,000 MiB per prover process')"
+    ],
+    "role": "A prover that needs more than 1000 MiB gets OutOfMemory or crashes; the check is then reported unproved and the compile fails, not as host exhaustion.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Remove --level=2 and pass '--prover=cvc5,z3,altergo --timeout=0 --memlimit=0 --steps=<S>' plus explicit -j (see the steps item), with --counterexamples=off for parity with the no-level default. With no --level, the default memlimit is 0, enforced by no RLIMIT_AS.",
+    "proof_impact": "The assurance premise text ('completion within 100,000 normalized steps and 1,000 MiB') changes to a steps-only or unbounded premise. No Lean theorem depends on 1000 MiB. Prior experiments that passed '--level=2 ... --memlimit=0' (e.g. tmp/larger-expressions-probes.py:55, tmp/partial-output-report-probes.py:63) actually ran at 1000 MiB; their records should be read that way.",
+    "effort": "S",
+    "risks": "Without a memlimit, one runaway prover can use host memory and trigger the OOM killer. Silver must then classify the prover's SIGKILL ('High failure') as resource exhaustion (see the reporting item).",
+    "evidence": "Observed in tiny --mode=all runs (p/mem_*), from why3session.xml for silver_io__put. --level=2 --memlimit=0: memlimit=\"1000\" on all three provers. --level=2 --memlimit=5000: memlimit=\"5000\". No --level with --memlimit=0: memlimit=\"0\" (plus one trivial-goal attempt that always records 1000). 'Success: all checks proved (66 checks)'."
+   },
+   {
+    "name": "Prover step limit (--steps=100000) and the Z3 32-bit rlimit ceiling",
+    "current_bound": "100,000 normalized steps, converted to cvc5 3,515,000 / z3 80,450,000 / alt-ergo 100,000 raw. The finite knob is capped at 5,368,146 for Z3. gnatprove --steps/--timeout/--memlimit are Ada Integers (<= 2^31-1).",
+    "locations": [
+     "src/silver.adb:122",
+     "producer why3/src/gnat/gnat_config.ml:589-596 (cvc5 15000+35s, z3 450000+800s, altergo s), :125-126 (steps <= 0 means no limit)",
+     "obj/gnatprove/why3.conf (z3 'rlimit=%S', cvc5 '--rlimit=%S', alt-ergo '--steps-bound %S')"
+    ],
+    "role": "Bounds solver work per VC. Exceeding it gives unproved, i.e. a compile failure.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "--steps=0 together with --timeout=0 and --memlimit=0 (no --level) removes every per-VC cap, so failure is only time or memory exhaustion. If a finite value is kept, it must stay <= 5,368,146: above that Z3's raw rlimit (450000+800s) passes 2^32 and wraps, silently giving Z3 a tiny limit. Run with -j >= 3 (explicit, not -j0) so the three provers race per VC and the others are interrupted on Valid. With -j1, or -j0 on a 1-CPU host, provers run sequentially and an unlimited first prover blocks the rest.",
+    "proof_impact": "Changes the 'bounded-fragment completion within 100,000 steps' premise to unbounded completion: true VCs eventually proved, or non-termination counted as time exhaustion. The expression-headroom results tied to 100k steps become sufficient rather than limiting. Nothing proved in Lean depends on the step value.",
+    "effort": "S",
+    "risks": "With no limits, a true VC that no prover can prove never finishes: the compile hangs instead of failing, and nondeterminism of interrupted races affects which prover is reported. Steps give reproducibility. If reproducibility is kept, a driver-side escalation loop (rerun unproved-with-limit checks at doubling steps up to 5,368,146, then steps=0) reaches the same end with progress reporting.",
+    "evidence": "Observed. why3session steplimit values 3515000/80450000/100000 for --steps=100000. Z3 4.15.4: rlimit=4294967297 behaves exactly like rlimit=1 (unknown, rlimit-count 16), so it wraps modulo 2^32; 4294967295 is fine. cvc5 accepts --rlimit up to 18446744073709551615, parse error beyond. alt-ergo --steps-bound up to 4611686018427387903. Scheduling read from gnat_checks.ml:1049-1080 and :714-725. With -j0 on 22 CPUs, each prover had 41 attempts in a tiny run, consistent with racing."
+   },
+   {
+    "name": "Prover crash/kill reported as 'gave_up' (no resource classification)",
+    "current_bound": "HighFailure (signal or crash, e.g. the observed CVC5 'High failure (signaled)'), Failure, Unknown and Invalid all map to Gave_up. Only Timeout, OutOfMemory and StepLimitExceeded map to Limit{time,memory,steps}.",
+    "locations": [
+     "producer why3/src/gnat/gnat_expl.ml:662-675 (compress)",
+     "why3/src/gnat/gnat_report.ml:168-183 (unproved_status JSON)",
+     "why3/src/gnat/gnat_main.ml:96-110"
+    ],
+    "role": "Determines whether Silver can tell resource exhaustion from a prover verdict.",
+    "classification": "inherited_semantics",
+    "necessary": false,
+    "unbounded_replacement": "The driver reads obj/gnatprove/*.spark: proof[].unproved_status {status, time, steps, memory} plus the per-prover check_tree[].proof_attempts.*.result text ('High failure', 'Out of memory', 'Step limit exceeded', 'Timeout', 'Unknown'). Limit and High failure become an infrastructure/resource outcome (status 3); only definitive prover answers count as unproved defects.",
+    "proof_impact": "Report-checker and driver logic (SPARK); trusts the evidence reported by GNATprove.",
+    "effort": "M",
+    "risks": "A prover segfault caused by a real bug is indistinguishable from an OOM or stack kill; both would be labelled resource.",
+    "evidence": "Observed with an overflow probe (p/unproved, --steps=1): main.spark contains \"unproved_status\": {\"memory\": false, \"status\": \"limit\", \"steps\": true, \"time\": false} and check_tree results 'Unknown\\n(sat)' and 'Step limit\\nexceeded'."
+   },
+   {
+    "name": "Linux exec argument limits",
+    "current_bound": "Single argument <= 131,071 bytes (MAX_ARG_STRLEN = PAGE_SIZE*32 = 131072 including NUL). Total argv+envp <= ARG_MAX = 2,097,152 here (RLIMIT_STACK/4).",
+    "locations": [
+     "/usr/include/linux/binfmts.h:15-16",
+     "language.md:688-689 (argument policy 0..4096 bytes)",
+     "catalogue max_argument_bytes 4096"
+    ],
+    "role": "The largest argument the OS can deliver to a Silver program.",
+    "classification": "environmental",
+    "necessary": false,
+    "unbounded_replacement": "The language argument domain can be unbounded, or bounded only by Ada's String length (Positive'Last). An argument the OS cannot deliver makes the caller's execve fail with E2BIG, which is environmental. The 'silver run' driver must report spawn E2BIG as an infrastructure error. macOS has a different, total-only ARG_MAX.",
+    "proof_impact": "Runtime Silver_Arguments and Silver_IO caps (another track) can drop 4096 without an OS-derived rule.",
+    "effort": "S",
+    "risks": "Per-platform differences. ARG_MAX moves with the stack rlimit.",
+    "evidence": "Observed. execve of /bin/true with a 131,071-byte argument: OK. 131,072: OSError E2BIG. 30x100 KB: E2BIG. getconf ARG_MAX 2097152. A GNAT-built program returns Ada.Command_Line.Argument of 131,071 bytes and an 8x concatenation of 1,048,568 bytes, even with a 1 MiB stack (p/argrt)."
+   },
+   {
+    "name": "Ada String length (Integer'Last)",
+    "current_bound": "Any String value or concatenation result <= 2^31-1 characters (index subtype Positive).",
+    "locations": [
+     "Ada RM String/Positive; Silver_IO.Max_Length (src/silver_io.ads:5) is the current policy cap"
+    ],
+    "role": "Bounds an otherwise unbounded runtime value domain.",
+    "classification": "inherited_semantics",
+    "necessary": true,
+    "unbounded_replacement": "State the String domain as 'at most Integer'Last characters'. GNATprove length and overflow checks discharge or reject constructions beyond it; host memory is the practical limit.",
+    "proof_impact": "Ghost observations (Written_Bytes array of Max_Length+1) cannot scale to 2^31. Another track must replace them with sequence/functional models.",
+    "effort": "M",
+    "risks": "None beyond those noted for the replacement ghost models (another track).",
+    "evidence": "Language definition; no probe needed."
+   }
+  ],
+  "full_stops": [
+   {
+    "issue": "Three pinned-frontend limits must become explicit language rules once the 4096-byte source bound is lifted: tab-expanded line width <= 32,765; identifier length <= 4,096; source length <= a derived bound below 2^31 (2,130,706,432 tested).",
+    "why": "They are hard non-resource failures of the pinned GNAT 16.1 frontend: a diagnostic error, a Program_Error bug box, and SIGSEGV or an infinite loop. Without the rules, admitted programs would fail compilation. Changing the source/lexical rules and the frontend premise is an Oracle/language amendment.",
+    "owner_action": "Approve the three frontend-derived rules as part of the source-bound amendment (no design choice is left: each is the maximum the pinned tool supports). Optionally approve a bisection run to pin the exact source-size maximum."
+   },
+   {
+    "issue": "Changing the production proof limits: drop --level=2; use --memlimit=0 --timeout=0 and either --steps=0 or a finite value <= 5,368,146; set explicit -j>=3. This changes the documented assurance premise '100,000 normalized steps and 1,000 MiB per prover process'.",
+    "why": "The premise text is in docs/trusted-boundary.md:41 and docs/assurance.md. Removing the bounds trades a reproducible 'unproved under limit' failure for possible non-termination. That is acceptable under the owner's resource-exhaustion policy, but it is an assurance-text change.",
+    "owner_action": "Confirm the unbounded configuration (most expansive) is wanted. The owner's stated preference already implies yes. The lead should record that a non-terminating proof attempt counts as time exhaustion."
+   }
+  ],
+  "premises": [
+   "GNAT 16.1 binary behavior matches gcc-mirror 6afcc4f6 and spark2014 42554fc2 sources (source-to-binary identity not attested; every hard limit above was also observed on the pinned binary except the 1e8 table caps)",
+   "GNAT internal table capacities (List/Elist/Elmt/Name/String/Ureal 1e8, Node 2e9) are not reached before resource exhaustion \u2014 source-reasoned, not probed",
+   "Sufficient stack: tools receive a stack rlimit large enough (unlimited on this host's hard limit); gnat2why and provers inherit it",
+   "Prover soundness and eventual completion of true VCs under unlimited steps/time/memory (replaces the bounded-fragment completion premise)",
+   "Kernel exec limits (MAX_ARG_STRLEN 131072, ARG_MAX = stack/4) are environmental and never a program-membership matter",
+   "Z3 rlimit is 32-bit and wraps (observed for 4.15.4); any finite --steps must stay <= 5,368,146"
+  ],
+  "experiments": [
+   {
+    "hypothesis": "GNAT's maximum line length is 32,765, and tabs reduce it",
+    "setup": "gen_line.py: space/comment/ident/string/number lines of 32,765, 32,766 and 32,767 bytes with none/LF/CRLF/CR terminators; tab lines of 4,095-5,000 bytes; gcc -c -gnatc",
+    "result": "32,765 accepted and 32,766 rejected for every terminator. Tab-expanded rejection at exactly 4,131 bytes (39 code bytes + tabs). A 4,096 all-tab line is rejected; 4,095 is accepted.",
+    "wall_seconds": 0.02,
+    "peak_memory": "21 MB",
+    "side_effects": "scratch only"
+   },
+   {
+    "hypothesis": "Identifier length has a hard cap",
+    "setup": "gen_ident.py / gen_sid.py: 4,000-16,000 chars; roles var/use/loop/str/const; gcc -gnatc, gcc -c -O0, gnatprove check/flow/all (tiny)",
+    "result": "4,096 passes everywhere. 4,097 gives 'Name buffer overflow; Max_Length = 4096' and a GNAT BUG box (Program_Error namet.adb:141) in every role and mode.",
+    "wall_seconds": 5.5,
+    "peak_memory": "127 MB (mode=all)",
+    "side_effects": "Tiny --mode=all gnatprove runs (deviation from check/flow-only allowance; trivial programs)"
+   },
+   {
+    "hypothesis": "Total source size is capped near 2^31",
+    "setup": "gen_big.py comment-padded sources: 10 MB, 100 MB, 2,130,706,432, 2,147,483,647 and 2,147,483,648 bytes; gcc -gnatc (and 100 MB full -O0 -g)",
+    "result": "Up to 2^31-2^24 accepted (10.5 s, 2.16 GB). 2^31-1: SIGSEGV with heap corruption. 2^31: infinite loop in errout/sinput (gdb backtrace), stopped after ~250 s.",
+    "wall_seconds": 10.5,
+    "peak_memory": "2.16 GB",
+    "side_effects": "Temporary 2 GB files in scratch, deleted. One spinning gnat1 terminated via its own timeout wrapper (pid 63883)."
+   },
+   {
+    "hypothesis": "Nesting and counts hit only resource limits in gcc",
+    "setup": "gen_nest.py: parens/if/loop/elsif/decls/stmts/concat/plus/puts at 1k/10k/100k (and 300k/1M parens, 1M elsif/decls/puts); gcc -gnatc and -O0",
+    "result": "No hard caps. Stack overflow (bug box) for deep parens beyond ~100k at default; passes with an unlimited stack. Time is quadratic for sequences, nesting and long expressions (100k loops > 1,800 s; 1M Put_Line > 1,200 s). Elsif and declarations are linear (1M: 25 s / 657 MB, 10 s / 517 MB).",
+    "wall_seconds": 1800,
+    "peak_memory": "1.45 GB (10k loops full -O0)",
+    "side_effects": "scratch only; two runs ended by their timeouts"
+   },
+   {
+    "hypothesis": "gnatprove check/flow have no hard size limits",
+    "setup": "gp.sh (production flags, check/flow) on 64 KB - 1.15 MB generated programs; stack-failing cases rerun under ulimit -s unlimited",
+    "result": "Only resource failures: stack overflow in gnat2why at 8 MiB (check: 100k parens, 12k if, 8k loops; flow: 2k loops, 3k if), all passing with an unlimited stack. Flow memory and time superlinear: 1 MB assignments 136 s / 4.43 GB; 8k nested loops 573 s / 6.54 GB.",
+    "wall_seconds": 573,
+    "peak_memory": "6.54 GB",
+    "side_effects": "32k Put_Line flow stopped by me at ~354 s / 3.93 GB (pid 70502 wrapper)"
+   },
+   {
+    "hypothesis": "--memlimit=0 removes the prover memory cap",
+    "setup": "Tiny null program, gnatprove --mode=all -f with --level=2 --memlimit=0, --level=2 --memlimit=5000, and no --level --memlimit=0; read why3session.xml",
+    "result": "With --level=2, --memlimit=0 still gives memlimit=1000. 5000 gives 5000. Without --level, 0 gives memlimit=0. Steplimits are 3,515,000 / 80,450,000 / 100,000 for --steps=100000.",
+    "wall_seconds": 7,
+    "peak_memory": "128 MB",
+    "side_effects": "scratch only"
+   },
+   {
+    "hypothesis": "Prover step-limit integer ranges",
+    "setup": "Bundled z3/cvc5/alt-ergo on trivial SMT/AE goals with huge limits",
+    "result": "Z3 rlimit wraps modulo 2^32 (4294967297 behaves like 1). cvc5 accepts uint64. alt-ergo accepts up to 2^62-1.",
+    "wall_seconds": 0.1,
+    "side_effects": "none"
+   },
+   {
+    "hypothesis": "Unproved-status JSON distinguishes resource limits",
+    "setup": "Integer'Last + 1 overflow program with --steps=1, --mode=all",
+    "result": "main.spark has unproved_status {status:'limit', steps:true} and per-prover result strings. Source shows HighFailure maps to 'gave_up'.",
+    "wall_seconds": 8,
+    "peak_memory": "128 MB",
+    "side_effects": "scratch only"
+   },
+   {
+    "hypothesis": "OS argument limits",
+    "setup": "python execve /bin/true with 131071/131072/1e6-byte args and 30x100 KB; GNAT program reading a 131,071-byte argument",
+    "result": "Per argument 131,071 OK and 131,072 E2BIG. ARG_MAX 2 MiB. GNAT runtime handles 131 KB arguments and 1 MB strings.",
+    "wall_seconds": 0.5,
+    "side_effects": "scratch only"
+   }
+  ],
+  "recommendations": [
+   "Adopt the most expansive tool-derived lexical rules: (1) every physical line's tab-expanded width (tabs to the next multiple of 8) is at most 32,765 columns; (2) identifier length is at most 4,096 characters, a separate constant not tied to source length; (3) source length is at most a derived bound below 2^31. Use 2,130,706,432 unless a bisection run pins the exact value. Put all three in language.md and docs/trusted-boundary.md as pinned-frontend-derived rules, replacing the current 'every line fitting 4096 bytes' premise.",
+   "Proof command: drop --level=2 and pass --prover=cvc5,z3,altergo --timeout=0 --memlimit=0 --steps=0 --counterexamples=off -j<N>, with N >= 3 and explicit, never -j0 (a 1-CPU host would run provers sequentially). If reproducibility is wanted, use a driver escalation loop: steps doubling up to 5,368,146, then 0. Never use a finite --steps above 5,368,146 (Z3 rlimit wraps at 2^32).",
+   "Driver: raise RLIMIT_STACK to the hard limit before spawning gnatprove/gprbuild; gnat2why and provers inherit it, and gcc's own stack raise does not cover gnat2why. Also run Silver's own recursive recognizer with a sufficient stack. Map Storage_Error bug boxes, prover 'High failure', OutOfMemory/Timeout/StepLimit unproved_status, OOM kills and spawn E2BIG to the infrastructure/resource status (3), never to rejection or 'unproved'.",
+   "Read unproved_status together with check_tree prover result strings from obj/gnatprove/*.spark to classify outcomes, because HighFailure is folded into 'gave_up'.",
+   "State GNAT's 1e8/2e9 table capacities as a pinned-tool premise (practically unreachable before resource exhaustion), unless the owner prefers a much smaller, rigorously derived source bound.",
+   "Re-label prior evidence that used '--level=2 ... --memlimit=0' (e.g. tmp/larger-expressions-probes.py:55, tmp/partial-output-report-probes.py:63): those runs actually had 1000 MiB per prover.",
+   "Let the runtime String/argument domain be bounded only by Ada's Integer'Last (inherited) and host memory; kernel exec limits (131,071 bytes per argument on Linux) are environmental, so no language rule is needed for them.",
+   "Document in language.md's compile-cost paragraph that the pinned frontend, flow analysis and backend are superlinear (quadratic in sequence length and nesting), so large admitted programs fail by time or memory, which is acceptable."
+  ],
+  "coverage_gaps": "[\"The exact source-size maximum between 2,130,706,432 and 2,147,483,647 was not bisected (each probe writes a 2 GB file). It depends on the closure of units gnat1/gnat2why load.\",\"GNAT 1e8 table caps were not probed; their overflow behavior (Constraint_Error vs silent corruption) is unknown.\",\"The identifier cap was tested only in today's roles (object, constant, String object, assignment, loop parameter). Other constructs that append suffixes in default-capacity Bounded_Strings could have lower effective caps.\",\"No proof-mode (--mode=all) run on any non-trivial program (T4's scope), so prover behavior with unlimited steps/time/memory on large VCs is not measured here. The racing scheduler and interrupt-on-Valid are source-reasoned plus a small observation.\",\"The GCC driver raising gnat1's soft stack limit is inferred from observation (100k parens pass at 8 MiB with ~79 MB RSS); toplev.cc was not re-read.\",\"Prover-process stack limits and JSON/session nesting depth were not probed.\",\"Recognizer and report-checker limits inside Silver itself are other tracks.\",\"Only Linux x86_64 was examined; macOS ARG_MAX and stack defaults differ.\",\"Late timings may be slightly perturbed by another agent's gnatprove run (alr exec, pid 74536 and children), which started near the end; it was not touched.\",\"Notes: /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/notes.md; logs batch1.log, batch2.log, batch3.log; fetched GCC sources in gnatsrc/; probe cases in p/; scripts in scripts/.\"]"
+ },
+ {
+  "key": "T4-proof-scaling",
+  "track": "T4 - Empirical proof scaling beyond 4096 bytes (production GNATprove via the Image adapter, -j8)",
+  "summary": "I ran 18 proof-mode GNATprove runs, one at a time, from 13:02 to 15:51. Each used the production Alire_Exec plus Image_Gnatprove command with -j8. Fifteen were scaling runs over three program families of 0.57 KB to 32.5 KB. F1 is mixed (loops, if/elsif, Image, concatenation). F2 is straight-line with context-dependent range and length checks. F3 is the known worst-case shape: dense String copies, one per line. Three more runs were small option smokes and an 8 KB dense memory probe. All 200 block instances, and every composite of 4096 bytes or less, printed \"Accepted: silver.\" from silver check. Every completed run proved every check: exit 0, no unproved check, no crash, no hard tool error, and no check where every prover failed. The only flow messages were INEFFECTIVE warnings.\n\nThe largest completed results:\n- f1-32k (32,461 bytes, 1,011 statements, 126 Main checks): 1,453 s, 5.15 GiB.\n- f2-16k (16,279 bytes, 348 checks): 3,330 s, 4.86 GiB.\n- f3-4k (4,096 bytes, 662 checks): 1,377 s, 5.86 GiB in gnatwhy3.\n\nThe 8 KB dense probe (f3-8k) was stopped by my own 14 GiB guard at 263 s while gnatwhy3 memory was still rising at about 50 MB/s. That is a resource stop, not a proof failure.\n\nGrowth exponents versus source size (log-log fit over runs of 1.5 KB or more):\n- Wall time: 1.82 (F1), 1.99 (F2), 1.92 (F3), so roughly quadratic.\n- gnatwhy3 peak memory: 1.00 (F1), 1.43 (F2), 1.98 (F3).\n- Report bytes and check counts: about 1.0.\n\nPer-check effort grows with program size because each check carries more context. Mean solver time per check rises steadily from the first to the last quartile of checks in every run. The worst single check took 0.06 s at 0.57 KB and 22.9 s at 32 KB. The largest step count from any prover rose from about 1.3k to 29k (F1, 4 KB to 32 KB) and to 54,409 (F2 16 KB). The winning prover (almost always Z3) used at most 1,021 steps (my runs) or 1,340 (earlier 4 KB reports). The 100,000-step budget therefore never bound.\n\nThe dominant cost is not solver search. It is the single-threaded vendor gnatwhy3 process, which processes every VC against the whole accumulated program context. CPU time roughly equals wall time, and solver time is small: 51 s of 1,377 s at f3-4k, 79 s of about 2,400 s in the earlier static800 report. Memory is allocated early and held. So -j has almost no effect, and the practical limit is time and RAM, which this profile accepts as resource exhaustion.\n\nTwo fixed caps showed up in the proof tool's own configuration:\n1. Prover memory limit. With --level=2, --memlimit=0 is not unlimited: the vendor gnatwhy3 still receives \"--memlimit 1000\". An explicit --memlimit=16000 is passed through unchanged. At 32 KB, alt-ergo reached a sampled 0.905 GiB against that 1000 MB limit and failed 9 attempts (\"High failure\"). Z3 and CVC5 proved those checks, so nothing was left unproved. This is a fixed prover cap that larger programs will eventually hit. It is not exhaustion of the host.\n2. Steps. --steps=0 is accepted and genuinely removes the step limit: provers run with no rlimit/steps-bound arguments.\n\nEscalation to --steps=1000000 or 0 was never needed, because nothing was unproved.\n\nAll of this is host-specific observation under contention from the T2/T3 tracks. It is not proof and not a universal bound.",
+  "verdict": "Within the tested range nothing failed except by resource use. Every admitted-style program up to 32 KB (F1) and 16 KB (F2) proved fully under the unchanged production step budget. Cost is roughly quadratic in size and is dominated by single-threaded gnatwhy3 time and memory, not by the prover step budget. Dense straight-line code is the binding case: 4 KB takes about 23 min and 5.9 GiB; 8 KB passed 14 GiB within 4.4 minutes (projected about 23 GiB and about 85 min); 16 KB is projected near 90 GiB. Those limits are environmental resource exhaustion, which the profile accepts.\n\nTo make \"fails only by resource exhaustion\" true of the proof step itself, two configuration changes are needed. Both are cheap and need no Oracle amendment:\n1. Replace the prover memory limit. --level=2 silently turns --memlimit=0 into 1000 MB. Pass an explicit large value, such as host physical memory, or an equivalent. The fixed 1000 MB is already making one of the three provers fail at 32 KB.\n2. Handle the step budget. Either set --steps=0, which is confirmed unlimited, or retry any unproved check with --steps=0. With --timeout=0 that leaves only time and memory as failure modes. The cost is that results no longer reproduce deterministically.\n\nNone of this proves completion \"in every case\". The evidence is observed, not proved, and per-check difficulty does grow with context, so some admitted program could still need more than any fixed budget. Treating that as a resource failure is a policy statement. The compiler can make it true only by removing the fixed knobs; no measurement can guarantee it.",
+  "items": [
+   {
+    "name": "GNATprove per-VC prover step budget (--steps=100000)",
+    "current_bound": "100,000 normalized steps per prover per VC (z3 rlimit 80,450,000; alt-ergo --steps-bound 100000; cvc5 --rlimit)",
+    "locations": [
+     "src/silver.adb:116-123 (Proof_Command)",
+     "docs/expression-headroom.md:10-30,77-78,132 (10k->100k adoption)"
+    ],
+    "role": "Bounds each prover's search per VC so proof results reproduce deterministically; a VC whose provers all hit it stays unproved and the compile fails",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "--steps=0, which the pinned gnatprove --help documents as 'no steps limit'; observed in run f2-1k-s0m0: gnatwhy3 got '--steps 0' and provers launched without rlimit/steps-bound. Alternative that keeps determinism for the common case: run at 100000, then rerun only unproved units/checks with --steps=0 (time-bounded only by the environment since --timeout=0).",
+    "proof_impact": "No Lean/SPARK theorem depends on the step value; it only affects whether a trusted external tool completes. Admission/membership is unchanged. Determinism of the proof outcome (a premise in evidence replay) weakens with --steps=0, because outcome then depends on time and memory.",
+    "effort": "S",
+    "risks": "With --steps=0 and --timeout=0, a prover that diverges on some VC never returns; the compile then ends only through an external time limit or user interrupt (acceptable as 'time exhaustion' per owner, but it becomes a hang rather than a diagnostic). Proof results can vary across hosts. A losing prover running for a long time can delay completion even when another prover has already proved the VC, depending on gnatwhy3 scheduling (all three provers were run on almost every VC in the observed reports).",
+    "evidence": "Winning steps were tiny in every run: max 1,021 (f1-32k), 743 (f2-8k), 708 (f3-4k), 1 (f2-16k). Pre-existing 4 KB reports re-analyzed: max 554 (static800), 10 (dynamic769), 1,239 (dense-distributed63), 1,340 (program-40oTy6). The largest losing-prover attempt grew with size: F1 51, 328, 1,286, 3,475, 9,322, 29,445 (0.57 to 32 KB); F2 16 KB 54,409. Fitted exponents 1.47-1.75. Extrapolation (not tested): a losing prover reaches 100k at roughly 25-60 KB, while Z3 stays far below it. No check was unproved, so the escalation path was never exercised."
+   },
+   {
+    "name": "Prover memory limit (--memlimit=1000; --memlimit=0 is overridden by --level=2)",
+    "current_bound": "1000 MB per prover process",
+    "locations": [
+     "src/silver.adb:121 (--memlimit=1000)",
+     "docs/expression-headroom.md:135-137 (already noted that --memlimit=0 still gives gnatwhy3 --memlimit 1000)"
+    ],
+    "role": "Kills a prover whose memory exceeds the limit; that attempt is reported as a 'High failure'. If every prover fails, the check stays unproved and the compile fails.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Pass an explicit large --memlimit, e.g. host MemTotal in MB, computed at bootstrap or run time (observed: --memlimit=16000 reaches gnatwhy3 as '--memlimit 16000'). Alternatively drop --level=2 and pass every level-2 option explicitly with memlimit 0; that was not tested, and the level's other settings (proof strategy, counterexamples) would need source review.",
+    "proof_impact": "None on the Lean/SPARK proofs; it only changes the trusted external prover's resource policy. Prover memory exhaustion then becomes host memory exhaustion (an environmental failure), not a fixed cap.",
+    "effort": "S",
+    "risks": "Several prover processes at large limits could oversubscribe host memory (with -j0 on 22 CPUs: up to about 22 concurrent provers). That still fails through the environment (OOM), which the owner accepts, but it can affect other work on the host. Choosing the value per host makes it host-dependent configuration rather than a constant.",
+    "evidence": "f1-32k: alt-ergo sampled peak 0.905 GiB (1 s RSS sampling may under-read the true peak); alt-ergo attempts gave 8 'High failure (unrecognized prover answer)' and 1 'High failure (signaled)'. f1-16k: alt-ergo 0.181 GiB, 1 signaled. f2-16k: alt-ergo 0.415 GiB, 1 CVC5 and 1 alt-ergo signaled. Every such check was proved by Z3. Attributing the failures to the memlimit is plausible (RSS near 1000 MB, failure type) but not verified. f2-1k-s0m0: vendor gnatwhy3 argv contained '--memlimit 1000' despite --memlimit=0. f2-1k-m16000: argv contained '--memlimit 16000'."
+   },
+   {
+    "name": "gnatwhy3 single-process VC generation and processing cost (time and RAM)",
+    "current_bound": "No cap; limited by host RAM and wall time. Observed: 5.86 GiB and 1,377 s for the dense 4 KB F3; 14 GiB within 258 s, still rising, for the dense 8 KB F3; 2.6 GiB and 1,453 s for F1 at 32 KB; 4.3 GiB and 3,330 s for F2 at 16 KB",
+    "locations": [
+     "vendor gnatwhy3 (alire gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3)",
+     "language.md:466-500 (4 KB compile-cost paragraph)"
+    ],
+    "role": "Generates and transforms per-check goals; each goal carries the whole accumulated straight-line context, so cost grows superlinearly in program size",
+    "classification": "environmental",
+    "necessary": true,
+    "unbounded_replacement": "Already unbounded; it fails only through resource exhaustion (OOM or time). Ways to push the envelope out without a cap: run on a larger host, or reduce per-goal context. One option is for Silver's emitter to insert context cuts (for example pragma Assert_And_Cut with the facts needed), at the cost of a new proof-preservation argument. Another is to split Main into local subprograms. Both are design changes, not limits.",
+    "proof_impact": "None on proofs; resource sufficiency stays an operational premise (language.md:499-500). Projections beyond the measured sizes are extrapolations, not bounds.",
+    "effort": "L",
+    "risks": "On this 31 GB host, a dense straight-line source of about 8 KB is near the memory ceiling (projected about 23 GiB) and 16 KB is far beyond it (projected about 90 GiB). Wall time at 8 KB dense is projected around 85 min. -j has almost no effect on this cost because it is one single-threaded process.",
+    "evidence": "Fitted wall exponents: F1 1.82, F2 1.99, F3 1.92. gnatwhy3 memory exponents: 1.00, 1.43, 1.98. Most time goes to gnatwhy3's internal steps; solver time is small. f3-4k: schedule_vcs 400 s, introduce_premises 163, inline_trivial 136, register_vcs 126, simplify_formula 125; solver attempts total 51 s. Earlier dense-distributed63: user CPU 3,140 s vs wall 3,219 s, single-process high-water mark 9.1 GB in gnatwhy3. Memory is allocated early and held (f3-4k reached 5.1 GiB by 90 s and stayed flat at about 5.96 GiB from 360 s). The f3-8k memory curve is in proj-f3-8k-memprobe/result.json."
+   },
+   {
+    "name": "Image adapter gnat-json node-id bound (Original_Node_Id)",
+    "current_bound": "0 .. 2,147,483,647; overflow makes Failed true, then Invalid_Model and an adapter error",
+    "locations": [
+     "src/silver_image_model.ads:5-6",
+     "src/silver_image_model.adb:352-360"
+    ],
+    "role": "Parses node ids of the GNAT typed-JSON model streamed through the adapter; ids from First_Inserted_Id = 2^31 up are reserved for nodes the adapter inserts",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "Widen the id type to the existing 63-bit Byte_Count range, or any wider integer type, and shift the inserted-id base accordingly",
+    "proof_impact": "Requires re-proving the adapter's SPARK model package and rechecking the Lean model-refinement correspondence (ImageModelRefinement); the structure of the argument is unchanged",
+    "effort": "M",
+    "risks": "Practically unreachable. Observed max ids were 217,003 (f1-32k, 9.0 MB model) and 427,951 (f3-8k, 17.2 MB model), about 25-52 ids per source byte, so 2^31 needs a 40-80 MB source and a model of more than 100 GB; gnatwhy3 would exhaust memory first. Strictly, it is still a fixed cap rather than resource exhaustion.",
+    "evidence": "Regex count of '[\"W_..\", id,' over proj-f1-32k/obj/gnatprove/main.gnat-json and .silver/linux-x86_64/imagews-n5nSxf/original.gnat-json"
+   },
+   {
+    "name": "Counterexample generation timeout (--ce-timeout 10, --counterexample on)",
+    "current_bound": "10 s per counterexample attempt (level-2 default seen in the gnatwhy3 argv)",
+    "locations": [
+     "vendor gnatwhy3 argv observed during every run (implied by --level=2)"
+    ],
+    "role": "Runs only after a check is unproved, to produce a diagnostic counterexample",
+    "classification": "inherited_semantics",
+    "necessary": false,
+    "unbounded_replacement": "Not needed for success: it does not affect whether a check is proved. It could be turned off (--counterexamples=off) to save time on failing runs.",
+    "proof_impact": "None",
+    "effort": "S",
+    "risks": "None for completion; affects diagnostics only",
+    "evidence": "gnatwhy3 argv in proj-*/result.json tool_cmdlines: '--counterexample on --giant-step-rac on --rac-prover cvc5 --warn-prover cvc5 --ce-timeout 10'"
+   }
+  ],
+  "full_stops": [
+   {
+    "issue": "Policy choice: whether to give up deterministic proof outcomes (fixed --steps) in exchange for 'fails only by resource exhaustion' (--steps=0 or an escalation ladder ending at 0, plus a host-sized --memlimit)",
+    "why": "This changes the production proof configuration and the evidence/replay premise that a given source proves the same way on every host. Whether that falls under the Oracle's proof-policy language or is an implementation choice needs the owner's reading. The research shows it is tractable and cheap, but not who has authority over it.",
+    "owner_action": "Decide between: (a) --steps=0 always; (b) 100000 first, then retry unproved checks with --steps=0; (c) keep the fixed budget and accept that rare large programs may fail on a fixed cap. In every case, replace --memlimit=1000 with an explicit host-derived value, because --memlimit=0 is not unlimited at --level=2."
+   },
+   {
+    "issue": "Retained Image-adapter workspace in the root checkout created by my capped probe: /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/imagews-n5nSxf (17 MB original.gnat-json)",
+    "why": "The adapter keeps its workspace by design when the vendor run does not exit 0, and my guard killed that run. My rules allow creating these directories but not deleting files in the root checkout.",
+    "owner_action": "Delete it at your discretion (rm -rf that exact directory); nothing references it"
+   }
+  ],
+  "premises": [
+   "Proof completion (gnatwhy3 plus cvc5/z3/alt-ergo) is a trusted external tool premise. Everything here is observation on one host (Linux x86_64, 22 CPUs, 31 GB, no swap) under concurrent load from the T2 (Lean, up to 15 GB) and T3 (flow-mode gnatprove, up to 3.8 GB) tracks. Timings are contaminated and are not benchmarks.",
+   "Programs larger than 4096 bytes are not admitted (silver check rejects them: 'source is outside the Silver catalogue'). They were built only from blocks that are admitted on their own, every block wrapped and checked (200 of 200 Accepted). The F3 block is validated by the accepted 1 KB, 2 KB and 4 KB F3 programs. The 4 KB-or-smaller composites f1-1024/2048/4096, f2-1024/2048/4096 and f3-1024/2048/4096 were accepted in full. The scaling results therefore represent the admitted fragment without the 4096-byte and 63-operator limits; they are not results about currently admitted programs.",
+   "The three families do not cover every admitted shape: no argument-input shell, no dynamic-length String guards, no maximal 64-leaf expressions at scale. Per-check difficulty for other shapes may grow differently.",
+   "The earlier 4 KB measurements I reused (static800, dynamic769, dense-distributed63, program-40oTy6) were made with -j0 and, for larger-expressions, the vendor gnatprove through dev.py rather than the Image adapter. Their report statistics (per-check steps and time) are comparable; their wall times are not directly comparable to mine.",
+   "Reading the alt-ergo/CVC5 'High failure' results as memory-limit kills is plausible but not verified (sampled RSS 0.905 GiB against a 1000 MB limit)."
+  ],
+  "experiments": [
+   {
+    "hypothesis": "Pipeline smoke test; F1 block check density",
+    "setup": "f1-1k (570 B, 1 block), production options, -j8, steps 100000, memlimit 1000",
+    "result": "exit 0; 2 Main checks (most checks removed by the GNAT frontend), 8 INEFFECTIVE flow warnings; whole project 68 checks proved",
+    "peak_memory": "0.40 GiB tree",
+    "side_effects": "proj-f1-1k in scratch; adapter imagews created and removed",
+    "wall_seconds": 8
+   },
+   {
+    "hypothesis": "F1 scaling: per-check effort and failures as the mixed fragment grows",
+    "setup": "f1-2k / f1-4k / f1-8k / f1-16k / f1-32k (1,556 / 4,021 / 8,115 / 15,885 / 32,461 B; 51 / 131 / 259 / 499 / 1,011 statements). The 4 KB-or-smaller programs are fully admitted.",
+    "result": "All proved. Main checks 6 / 16 / 32 / 62 / 126. Max per-check attempt time 0.13 / 0.30 / 1.62 / 6.94 / 22.9 s. Max winning steps 1 / 1 / 566 / 222 / 1,021. Max attempt steps (any prover) 328 / 1,286 / 3,475 / 9,322 / 29,445. Report bytes 30k / 78k / 154k / 297k / 603k. f1-32k: alt-ergo 8 'unrecognized prover answer' and 1 'signaled' failures, all checks proved by Z3 and CVC5. Fitted exponents: wall 1.82, gnatwhy3 memory 1.00.",
+    "peak_memory": "0.38 / 0.45 / 0.56 / 1.21 / 5.15 GiB tree (gnatwhy3 0.12 / 0.19 / 0.34 / 0.83 / 2.60; alt-ergo 0.905 at 32 KB)",
+    "side_effects": "none outside scratch",
+    "wall_seconds": 1453.3
+   },
+   {
+    "hypothesis": "F2 straight-line scaling with checks that depend on context (range checks needing declaration-time constant values; length checks)",
+    "setup": "f2-1k / 2k / 4k / 8k / 16k (848 / 1,876 / 4,067 / 8,043 / 16,279 B; 6 Main checks per block)",
+    "result": "All proved. Checks 18 / 42 / 90 / 174 / 348. Wall 11 / 39 / 229 / 575 / 3,330 s. Mean attempt time per quartile at 16 KB: 0.74 / 1.63 / 2.93 / 4.83 s (context growth). Max attempt steps 186 / 1,219 / 4,727 / 15,195 / 54,409; Z3 won every check at 16 KB with 1 step. Exponents: wall 1.99, memory 1.43.",
+    "peak_memory": "0.41 / 0.54 / 0.59 / 1.40 / 4.86 GiB tree (gnatwhy3 4.31 at 16 KB)",
+    "side_effects": "none outside scratch",
+    "wall_seconds": 3330.1
+   },
+   {
+    "hypothesis": "Dense straight-line String copies (known worst case) - growth rate of time and gnatwhy3 memory",
+    "setup": "f3-1k / 2k / 4k, multi-line 'A:=B;' / 'B:=A;' (1,024 / 2,044 / 4,096 B; 150 / 320 / 662 length checks), all admitted",
+    "result": "All proved. Wall 88 / 364 / 1,377 s. gnatwhy3 0.44 / 1.48 / 5.86 GiB. Solver time total only 51 s at 4 KB; gnatwhy3 internal phases dominate. Exponents: wall 1.92, memory 1.98.",
+    "peak_memory": "5.86 GiB gnatwhy3 at 4 KB (the earlier single-line 4 KB specimens reached 8.9-9.1 GB)",
+    "side_effects": "none outside scratch",
+    "wall_seconds": 1376.7
+   },
+   {
+    "hypothesis": "Dense 8 KB would exhaust a realistic host's memory",
+    "setup": "f3-8k (8,188 B, 1,344 copies, not admitted), cap 720 s, my tree-RSS guard 14 GiB",
+    "result": "Stopped by my guard at 263 s (SIGTERM, exit -15; a resource stop, not a proof failure). gnatwhy3 at 14.0 GiB and still rising about 50 MB/s; projected about 23 GiB peak and about 85 min.",
+    "peak_memory": "14.11 GiB tree",
+    "side_effects": "Adapter workspace retained: /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/imagews-n5nSxf (17 MB)",
+    "wall_seconds": 263.3
+   },
+   {
+    "hypothesis": "--steps=0 and --memlimit=0 are accepted and mean unlimited",
+    "setup": "f2-1k with --steps=0 --memlimit=0",
+    "result": "Accepted; all checks proved. gnatwhy3 argv '--steps 0' with provers launched without step arguments, so steps are unlimited. But the argv also had '--memlimit 1000', so memlimit 0 is replaced by the level-2 default and is not unlimited.",
+    "peak_memory": "0.44 GiB",
+    "side_effects": "none",
+    "wall_seconds": 10
+   },
+   {
+    "hypothesis": "An explicit large memlimit is passed through",
+    "setup": "f2-1k with --memlimit=16000",
+    "result": "gnatwhy3 argv '--memlimit 16000'. Step normalization also visible: z3 'rlimit 80450000', alt-ergo '--steps-bound 100000'.",
+    "peak_memory": "0.47 GiB",
+    "side_effects": "none",
+    "wall_seconds": 9
+   },
+   {
+    "hypothesis": "Existing 4 KB reports already show context growth without step pressure (re-analysis, no new proof)",
+    "setup": "tools/analyze.py over static800-retained, dynamic769-retained, dense-distributed63, program-40oTy6 main.spark files",
+    "result": "Mean attempt time per quartile rises roughly linearly (e.g. 0.037 / 0.067 / 0.115 / 0.178 s for static800). Max winning steps 554 / 10 / 1,239 / 1,340. gnatwhy3 internal timings of 2,400-3,965 s against solver totals of 79-611 s.",
+    "side_effects": "read-only"
+   }
+  ],
+  "recommendations": [
+   "Replace '--memlimit=1000' in src/silver.adb:121 with an explicit host-derived value, such as MemTotal in MB set at bootstrap in Silver_Build. Do not use --memlimit=0: at --level=2 it silently becomes 1000 MB. This removes a fixed prover cap that is already making alt-ergo fail at 32 KB.",
+   "Make the step budget non-binding: either '--steps=0' (confirmed unlimited) or a two-stage run that retries with --steps=0 only when the first run leaves checks unproved. Keep '--timeout=0'. Document that proof can then end only through time or memory exhaustion, and that results may differ by host.",
+   "Keep wording like language.md:499-500 ('sufficient host resources ... operational premises'). Add the measured scaling: roughly quadratic time, and quadratic gnatwhy3 memory for dense straight-line code. Add host guidance: a 31 GB host handles dense code up to roughly 8 KB, about 9 GB per dense 4 KB measured. Mixed or looping code reaches 32 KB in about 5 GB.",
+   "Note that -j has almost no effect on the dominant cost, because one gnatwhy3 process per subprogram does nearly all the work. To grow the envelope, consider later having the emitter cut the VC context (Assert_And_Cut, or splitting Main into local subprograms). That is a design change with its own proof obligations, not a limit.",
+   "Optionally widen Silver_Image_Model.Original_Node_Id (src/silver_image_model.ads:5) to the 63-bit Byte_Count range, so the adapter has no fixed parse cap that could in principle be reached before resource exhaustion.",
+   "The production compile's report reader has to handle main.spark sizes that grow linearly at about 1.4-2.2 KB per check: 1.43 MB at 4 KB dense and 1.01 MB at 16 KB F2. Coordinate with the report-capacity track: a fixed 16 MiB buffer would become the next fixed cap at larger sizes."
+  ],
+  "coverage_gaps": "- **Escalation path not exercised.** No check was ever unproved, so I could not test whether --steps=1000000 or 0 rescues a failure.\n- **Missing sizes.** No completed dense run above 4 KB: f3-8k was stopped by my 14 GiB guard because host headroom ruled out a full run. No F2 at 32 KB, and no F1 above 32 KB.\n- **Shapes not tested.** The argument-input shell, dynamic-length guards, 64-leaf expressions, deep nesting and Image-heavy output were not tested at scale.\n- **Prover failures not diagnosed.** The 'High failure' prover answers are only plausibly memlimit kills; I did not capture their stderr.\n- **Measurement quality.** Wall times are contaminated by concurrent T2/T3 load. Memory was sampled once a second, so short peaks (especially prover peaks) may be under-read.\n- **Production path not run end to end.** The silver compile path itself (report reading, auditor, build) was not run on sizes above 4 KB; only the proof step was measured. --level=0..4 variants and removing --level were not tried.\n- **Artifacts.** Notes, tools and raw results are in /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4: notes.md, fit.txt, results.jsonl, pids.log, precheck.log, and proj-*/result.json with main.spark and gnatprove.out."
+ },
+ {
+  "key": "T5-assurance-oracle",
+  "track": "T5 \u2014 Oracle, assurance and validation consequences of a resource-exhaustion failure model",
+  "summary": "I found no Oracle sentence that requires a size cap. oracle.md:19 only requires that any limit which exists be explicit and have a documented purpose. oracle.md:10 keeps rejection limited to explicit, decidable rules. oracle.md:11 and :25 let \"sufficient host resources\" stand as a documented assumption about trusted tools and the OS.\n\nSo the owner's model can be adopted without an Oracle amendment, provided three things hold:\n(a) Resource failure is never reported as rejection (status 2) or as success (status 0).\n(b) Every solver limit that Silver itself configures stops being binding. Today the 100,000-step and 1,000 MiB per-prover caps are Silver policy, so reaching them counts as a proof failure. Under oracle.md:14 that is an implementation defect, not an environmental outcome.\n(c) Real hard limits in the pinned tools stay as explicit language rules, following the B1 precedent.\n\nSource review and T3's gcc probes found three hard limits in GNAT 16.1. All are out of reach today only because of the 4096-byte source cap:\n- A line may be at most 32,765 columns after tab expansion (tab stops every 8).\n- An identifier longer than 4096 characters crashes GNAT (\"Name buffer overflow\", then a GNAT bug box).\n- An exponent of 800,000 or more is a hard error (\"exponent too large\").\n\nGNAT's fixed internal ID ranges (names, strings, nodes, source positions) also mean one source-size bound derived from the tool is needed. That bound replaces 4096; it is not an arbitrary knob.\n\nThe Lean ToolContract already states the weak premise. Current.lean:221 reads `boundedProofCompletes : \u2200 checks, BoundedFragment checks \u2192 \u2203 steps, tools.prove checks steps`, with no numeric bound. The numbers appear only in prose: assurance.md:590-592, trusted-boundary.md:43 and :901-907, and language.md:757-760.\n\nWhat changes for real:\n- **The premise gets stronger.** Under the 4096 cap the set of admitted programs, and so of proof goals, is finite. Without the cap, the completion premise covers infinitely many goals of unbounded size. It then rests on the solvers behaving as decision procedures for the generated fragment.\n- **Size-specific Lean proofs must become symbolic.** `uniformRangeObligations` is proved with `decide +kernel` at 4096, and `guaranteedIntegerLast` is 32767.\n- **The compiler must size its storage from the input.** Today a fixed buffer overflow is reported as \"Rejected\" (status 2).\n\nRecommended design:\n- **Escalating proof limits.** Geometric step and memory tiers, ending in a non-binding tier. A ladder is needed rather than one unlimited run because GNATprove tries its provers in turn, so one unlimited prover can starve the others. The ladder stops early only when every prover gives a definite non-resource answer. That outcome is prover incompleteness and remains a defect.\n- **A new exit status 4 for resource exhaustion**, separate from 2 (rejected) and 3 (defect).\n- **Validation by universal Lean proofs plus tool-limit boundary tests and scaling runs at several sizes**, instead of 4096 boundary tests.\n\nOrder: finish the B1/M1 repair (#77-#84; integrated checkpoint still pending) first, then the escalation and diagnostics work, explicit tool-derived rules, compiler internals that scale with input, Lean parameterisation, removal of the language caps, and finally the String value/argument domain. Lifting that domain to Integer'Last changes observable behaviour (4097-byte arguments are now rejected at runtime with status 1 and would become valid input). Oracle line 18 permits this as an explicit pre-1.0 change.",
+  "verdict": "Tractable without an Oracle amendment, with no hard stop. One procedural step remains: the owner gives an explicit \"proceed\" for a new limits milestone, recorded in session memory, after the B1/M1 checkpoint is delivered. The most expansive design that holds up is:\n- **Remove every cap that is only policy:** source 4096, operator budget 63, 64 leaves per expression, exponent 4096, the 4096-byte value and argument domain, and the fixed report and binding buffers.\n- **Keep only explicit rules derived from the pinned tools:**\n  - line width of at most 32,765 columns after tab expansion;\n  - identifiers of at most 4096 characters;\n  - exponents below 800,000;\n  - one source-size bound derived from GNAT's fixed ID ranges and source-position width (T3 to derive the value).\n- **Keep inherited Ada/SPARK semantics:** the Integer range, and Integer'Last as the bound on String length.\n- **Make solver limits non-binding** through an escalation ladder, and report resource exhaustion as its own outcome.\n\nProver incompleteness (an \"unknown\" answer with resources left) is still an implementation defect, not a resource outcome.",
+  "items": [
+   {
+    "name": "Complete-source length 1..4096 bytes",
+    "current_bound": "4096 bytes (lower bound 1 is implied by the grammar)",
+    "locations": [
+     "src/silver_profile.ads:4",
+     "src/silver_output_profile.ads:6",
+     "src/silver.adb:126-127 (Observed buffer)",
+     "src/silver.adb:444-447 (Too_Long -> Rejected status 2)",
+     "language.md:28-29",
+     "proof/Silver/Admission.lean:103 (maxSourceLength := 4096, ~471 uses)"
+    ],
+    "role": "Declared as an explicit resource policy (restrictions-capacity.md:32). It also keeps the admitted set finite, which makes every downstream capacity (report envelope, bindings, stack) a finite derived number. It keeps GNAT's 32,766 line limit unreachable (scng.adb:156-160: lines under 4096 physical characters cannot exceed it) and keeps identifiers under GNAT's 4096-character name buffer.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "No byte-count policy. Replace it with a single source-size bound derived from the pinned tools, sitting below every fixed GNAT capacity: Text_Ptr range -4..Int'Last; Names/Strings ID ranges of 100M each; Node_Id 0..1,999,999,999; plus Positive indexing in the SPARK compiler. Add the separate explicit line-width and identifier rules. The compiler must size every internal structure from the actual length.",
+    "proof_impact": "Large. ~471 uses of maxSourceLength in 100 non-certificate Lean modules. `decide +kernel` at the 4096 constant (ComposeObligations.lean:45-51) must become symbolic (omega) arithmetic. Source certificates and native correspondence must be rebuilt. The tool-completion premise becomes a claim over infinitely many goals.",
+    "effort": "XL",
+    "risks": "If the derived bound is replaced by an argument that memory runs out first, that argument depends on the host and could be false on a large-RAM host, letting an admitted program crash GNAT. Any fixed buffer left in place turns capacity into a rejection, which violates oracle.md:1 and :10.",
+    "evidence": "OBSERVED this track: 4096-byte source Accepted (0); 4097-byte source and 1 MiB / 17 MiB sources 'Rejected: source is outside the Silver catalogue.' (status 2). SOURCE-REVIEW of GNAT types.ads (T3 scratch): Text_Ptr range, table ID ranges."
+   },
+   {
+    "name": "Line width (tab-expanded) \u2014 new explicit rule",
+    "current_bound": "None explicit; out of reach because sources are at most 4096 bytes",
+    "locations": [
+     "GNAT scng.adb:129-190 (Check_End_Of_Line)",
+     "GNAT hostparm.ads:43 (Max_Line_Length = Column_Number'Last - 1 = 32766)",
+     "docs/trusted-boundary.md:54-60 (frontend premise)",
+     "language.md:46-49"
+    ],
+    "role": "Without it, a lifted source cap admits lines GNAT rejects ('this line is longer than 32766 characters', Unrecoverable_Error). The frontend would then reject an admitted program, breaking oracle.md:1 and :14.",
+    "classification": "tool_hard_limit",
+    "necessary": true,
+    "unbounded_replacement": "Explicit decidable rule: every line (ended by CR, LF, CRLF or EOF) has tab-expanded width of at most 32,765 columns, with tab stops every 8. This also caps each literal and numeral at under 32,766 bytes, because Ada tokens cannot span lines. State it as a pinned-tool limit, not an Ada requirement (oracle.md:19).",
+    "proof_impact": "Small addition to the lexical model and recognizer, plus a corresponding source-certificate update. Re-verify on macOS GNAT (same frontend source).",
+    "effort": "S",
+    "risks": "The rule must use GNAT's exact column algorithm (Col starts at 1; error when Col > 32766), not byte counts. Patch-level GNAT differences must be rechecked.",
+    "evidence": "T3 probes (OBSERVED by T3): 32,765 spaces accepted, 32,766 rejected (CR/LF/CRLF/none); 4095 tabs accepted, 4096 rejected; mixed tabs 4130 accepted, 4131 rejected. SOURCE-REVIEW scng.adb lines 146-149 and 175-183."
+   },
+   {
+    "name": "Identifier length \u2014 new explicit rule",
+    "current_bound": "'No additional identifier-length limit beyond the complete source bound' (language.md:162-164); in practice under ~4030 characters",
+    "locations": [
+     "GNAT namet.ads:144 (Bounded_String default Max_Length 2**12)",
+     "GNAT namet.adb:136-141 ('Name buffer overflow' -> Program_Error)",
+     "src/silver_library_reports.adb:1213 and :2088 (4096-character advisory name bound)"
+    ],
+    "role": "Identifiers over 4096 characters crash the pinned GNAT (GNAT BUG DETECTED). That is a hard tool failure, not resource exhaustion.",
+    "classification": "tool_hard_limit",
+    "necessary": true,
+    "unbounded_replacement": "Explicit rule: identifiers are at most 4096 characters, named as a pinned-tool limit. Bind the report-policy literal 4096 (silver_library_reports.adb:1213, :2088) to the same named constant, so its 4096 now follows from this rule rather than from the source bound.",
+    "proof_impact": "Small: recognizer and model rule; report-policy constant gets a new provenance. Reverify the exact threshold at the declaration, reference and loop-index positions.",
+    "effort": "S",
+    "risks": "Other GNAT Bounded_String or default-capacity paths (error messages, external names, string literals) may have their own thresholds. Systematic tool-limit discovery (T3) is required.",
+    "evidence": "T3 probes (OBSERVED by T3): id_4096 accepted; id_4097, id_8000 and id_16000 crash with 'Name buffer overflow; Max_Length = 4096' at namet.adb:141."
+   },
+   {
+    "name": "Numeric exponent at most 4096",
+    "current_bound": "4096 (zero mantissa included)",
+    "locations": [
+     "src/silver_scalar_literals.ads:7",
+     "language.md:245-250, 576-579",
+     "docs/trusted-boundary.md:540 ('to limit frontend work')"
+    ],
+    "role": "Documented as a frontend-work resource limit. With magnitude at most 2^31, only a zero mantissa can use large exponents.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Exponent below 800,000: GNAT's hard 'exponent too large' threshold (scng.adb:771-773, UI_Scale >= 800_000). Below it, the cost of computing 10**E is resource only. This is a tool-derived explicit rule.",
+    "proof_impact": "Small: change the constant in the native code and the Lean literal model; boundary regressions at 799,999 and 800,000.",
+    "effort": "S",
+    "risks": "Cost grows superlinearly as UI_Base ** UI_Scale nears 800,000 (Uint of about 2.6M bits); acceptable as a resource cost. The line-width rule also caps digit count.",
+    "evidence": "OBSERVED this track: 0E4096 Accepted (0), 0E4097 Rejected (2). SOURCE-REVIEW of GNAT scng.adb:766-773 (T3 scratch)."
+   },
+   {
+    "name": "String value / output / argument domain 0..4096",
+    "current_bound": "4096 bytes per value, per Put/Put_Line item and per argument; trace at most n*4097",
+    "locations": [
+     "src/silver_io.ads:5 (Max_Length) and ghost Written_Bytes 1..4097",
+     "src/silver_io.adb:13,56 (executable guards)",
+     "src/silver_arguments.ads:16, silver_arguments.adb:6",
+     "src/silver_path_facts.ads:4",
+     "src/silver_catalogue.adb:143,256,287,317,378,575,1028 (initializer_capacity, max_result_bytes, max_argument_bytes)",
+     "language.md:361-367, 688-689, 713-714",
+     "proof/Silver/GuardedObligations.lean:24 (guaranteedIntegerLast 32767)"
+    ],
+    "role": "Bounds every intermediate concatenation and output. Defines valid argument input (a 4097-byte argument triggers Reject, status 1). Lets the String arithmetic argument fit Ada's minimum Integer'Last of 32767 (assurance.md:552-556).",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Inherited Ada semantics: String length bounded by Integer'Last = 2,147,483,647 on the pinned targets (Positive index subtype), the same 32-bit assumption the scalar fragment already makes (language.md:208). Silver_IO ghost state becomes unbounded ghost sequences. Argument validity becomes 'exactly one printable argument'. Linux MAX_ARG_STRLEN (128 KiB) and ARG_MAX become environmental runtime limits (exec E2BIG).",
+    "proof_impact": "Large. Runtime library contracts and proofs change (bootstrap refresh, both runtime reports). The Lean String arithmetic argument moves from 32767 to the target Integer'Last. OutputEquations/OutputExpressions structure fields with hard-coded text.length <= 4096 must be parameterised separately from source length. Catalogue, tests and manifest must change.",
+    "effort": "L",
+    "risks": "Observable behaviour change for already-admitted programs: arguments of 4097 bytes up to the OS limit become valid, where today they are rejected at runtime (tests/test_arguments.py:106 expects b'x'*4097 invalid). The admitted-program set only grows (N + K*C <= Max, with C and Max raised together, leaves the unguarded K>=1 cases unchanged). Runtime storage exhaustion for huge strings is already documented as environmental (language.md:696-697, 718-719).",
+    "evidence": "Code and docs cited; reasoning on monotonicity. The pre-1.0 permission is oracle.md:18. Widening is not 'narrowing declared input domains' (oracle.md:13)."
+   },
+   {
+    "name": "Length-predicate integer literals 0..4096",
+    "current_bound": "0..4096",
+    "locations": [
+     "language.md:565-574",
+     "src/silver_catalogue.adb:516",
+     "docs/trusted-boundary.md:538"
+    ],
+    "role": "A scope limit that keeps thresholds inside the 4096 String-length domain.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "0..Integer'Last, an inherited bound: 'Length is Integer, and a static value beyond Integer'Last is illegal in Ada. Handle this in the value-domain milestone; it is a scope choice that follows the domain.",
+    "proof_impact": "Small to medium: literal model and path-fact arithmetic become symbolic.",
+    "effort": "S",
+    "risks": "Constant-result simplification for thresholds at or above the input domain produces GNAT DEAD_CODE/INEFFECTIVE advisories; the report policy must classify them.",
+    "evidence": "language.md:567-569 states it is a scope limit."
+   },
+   {
+    "name": "Source-wide operator budget (63 shared & / + / - / *)",
+    "current_bound": "63 per source",
+    "locations": [
+     "src/silver_output_profile.ads:10 (Max_Concatenations)",
+     "Work_Tail / Within_Work_Budget scanners",
+     "language.md:384-394",
+     "docs/report-capacity.md:220-233 (63 proof records)"
+    ],
+    "role": "An explicit proof-work and report-capacity policy (language.md:389-394), not an Ada rule. Bounds overflow/range sites and solver work, including the nonlinear degree of product chains.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Remove it. Make the report envelope charge per operator site, linear in S. Rely on the escalation ladder for solver work. Fallback, only if scaling probes show nonlinear product chains are not reliably discharged: an assurance-motivated restriction on non-static factors per product, documented as keeping goals in a fragment the solvers decide. That is not a size knob.",
+    "proof_impact": "Universal Lean composition and discharge proofs at symbolic operator counts; scanner correspondence (#51/L1 repair) simplifies or disappears.",
+    "effort": "M",
+    "risks": "Unbounded variable*variable chains produce bounded-box nonlinear integer goals whose solver cost may grow very fast. Deep left-nested trees also increase recursion depth in gnat1, gnat2why, Why3 and the solvers (stack).",
+    "evidence": "expression-headroom.md:63-84: 64-leaf failures at 10,000 steps had steps=true; Z3 proved them at 10,738 and 11,609 steps once the cap was 100,000."
+   },
+   {
+    "name": "Per-expression leaf limit (64 String leaves; 64 scalar leaves)",
+    "current_bound": "64 leaves",
+    "locations": [
+     "src/silver_output_profile.ads:7",
+     "src/silver_scalar_expressions.ads:9",
+     "language.md:237-238, 344",
+     "catalogue string_expression"
+    ],
+    "role": "Proof-work policy chosen as the largest expression proved under the step budget.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Remove it. Leaves are bounded only by source and line rules; the escalation ladder provides solver headroom.",
+    "proof_impact": "Expression schemas and Lean expression proofs become symbolic in leaf count.",
+    "effort": "M",
+    "risks": "The same solver and stack-depth risks as the operator budget.",
+    "evidence": "restrictions-capacity.md:243-250 (a 64-occurrence case left one goal unproved at 10,000 steps); expression-headroom.md results."
+   },
+   {
+    "name": "Binding slots Max_Bindings = Max_Source_Length/12 (341)",
+    "current_bound": "341, defined twice",
+    "locations": [
+     "src/silver_output_profile.ads:13",
+     "src/silver_scalar_expressions.ads:8",
+     "proof ScalarExpressionEnvironment.maxBindings := 4096/12",
+     "language.md:199-202"
+    ],
+    "role": "Capacity derived from the source bound (minimum 12-byte declaration); not a language count limit.",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "Size from the actual source length at runtime (S/12, or a growable structure); define once.",
+    "proof_impact": "Native SPARK environment types become dynamically sized; Lean maxBindings becomes symbolic.",
+    "effort": "M",
+    "risks": "Copying an environment per loop level is what makes stack growth quadratic; it must be fixed together with the recognizer stack item.",
+    "evidence": "Lead fact; language.md:200-202."
+   },
+   {
+    "name": "Recognizer stack (environment copied per Loop_Body)",
+    "current_bound": "Default OS stack (8 MiB Linux); macOS hard cap of about 64 MiB",
+    "locations": [
+     "docs/trusted-boundary.md:74-83",
+     "docs/reviews/review-b79b986403.md:444-454 (O1)",
+     "src/silver_output_profile.adb Loop_Body"
+    ],
+    "role": "Environmental (stack), but the growth is caused by the implementation: about 4.4 MiB for 143 nested loops at 4096 bytes, roughly quadratic in S.",
+    "classification": "environmental",
+    "necessary": false,
+    "unbounded_replacement": "Restructure into small per-level frames or an explicit heap work stack, so stack use is O(depth) and small, and stack exhaustion only happens at extreme depth. Optionally raise the stack limit for child tools in the command prefix on Linux.",
+    "proof_impact": "SPARK reproof of the recognizer plus Lean correspondence for the restructured recognizer.",
+    "effort": "L",
+    "risks": "Without the fix, ordinary programs of a few tens of KiB fail at the default stack. On macOS the 64 MiB hard cap cannot be raised. O1 was explicitly deferred by the 2026-10-17 authorization; it needs un-deferring.",
+    "evidence": "Lead measurement: STORAGE_ERROR at ulimit -s 4200, pass at 4600. Today Storage_Error exits with status 1, unmapped (trusted-boundary.md:79-81)."
+   },
+   {
+    "name": "Application report storage 16 MiB / file read buffer",
+    "current_bound": "16,777,216 bytes",
+    "locations": [
+     "src/silver_library_reports.ads:8",
+     "src/silver_platform.ads:10 (Max_File_Length)",
+     "src/silver.adb:348-351 (Report_Too_Long -> 'missing or incomplete proof evidence', status 3)",
+     "docs/report-capacity.md:321-330"
+    ],
+    "role": "Holds the projected Main report. Derived to fit E(4096) = 15,292,416 bytes.",
+    "classification": "derived_capacity",
+    "necessary": false,
+    "unbounded_replacement": "Size from E(S), computed symbolically and allocated at runtime, or change the auditor to stream records with source-position-keyed coverage. E(S) is about 3.7 KiB per source byte (30.3 MB at 8192, 60.2 MB at 16384).",
+    "proof_impact": "SPARK reader/auditor refinement proofs (report-capacity.md:354-373) must be redone for dynamic or streaming storage. The envelope derivation stays a producer premise.",
+    "effort": "L",
+    "risks": "If left fixed after the source cap is lifted, a valid large program fails with a 'defect' or turns into a rejection, which is not resource exhaustion.",
+    "evidence": "docs/report-capacity.md envelope; lead formula."
+   },
+   {
+    "name": "Runtime report 262,144 bytes; null raw report 262,144; JSON depth 64; runtime library files 16,384",
+    "current_bound": "Fixed",
+    "locations": [
+     "src/silver_library_reports.ads:9",
+     "src/silver_reports.ads:2",
+     "src/silver_report_projection_types.ads:3",
+     "src/silver_libraries.ads:7"
+    ],
+    "role": "Capacities for fixed inputs: the runtime sources, the null shape and the producer record structure. None grows with program size.",
+    "classification": "derived_capacity",
+    "necessary": true,
+    "unbounded_replacement": "Keep, with the existing derivations (report-capacity.md:120-199, :29-36). Revisit only when the runtime or producer changes.",
+    "proof_impact": "None.",
+    "effort": "S",
+    "risks": "Lifting the value domain changes the runtime sources, so their ledgers must be rederived.",
+    "evidence": "docs/report-capacity.md:161-199."
+   },
+   {
+    "name": "Paths 4096, command text 16,384, Image theorem name 1..4096",
+    "current_bound": "Fixed",
+    "locations": [
+     "src/silver_platform.ads:9, :23-24, :57",
+     "src/silver.adb:30",
+     "src/silver_image_runtime.ads:9"
+    ],
+    "role": "Infrastructure. Linux PATH_MAX is 4096 (macOS 1024). Failures are reported as 'Infrastructure error' (status 3), never as membership.",
+    "classification": "environmental",
+    "necessary": true,
+    "unbounded_replacement": "Keep as documented OS-derived infrastructure limits, or derive the command length from the path bound. They do not affect language membership.",
+    "proof_impact": "None.",
+    "effort": "S",
+    "risks": "None for the language goal.",
+    "evidence": "restrictions-capacity.md:120."
+   },
+   {
+    "name": "Solver step limit 100,000 (normalized)",
+    "current_bound": "--steps=100000 (Alt-Ergo 100,000; CVC5 3,515,000; Z3 80,450,000)",
+    "locations": [
+     "src/silver.adb:121",
+     "docs/trusted-boundary.md:876-910",
+     "docs/assurance.md:590-592",
+     "docs/expression-headroom.md:112-176"
+    ],
+    "role": "An implementation resource limit. If it binds on an admitted program, the result is a Silver-imposed proof failure, an implementation defect under oracle.md:14.",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "A geometric escalation ladder (S_k = 100,000 x r^k), rerunning only goals left unproved on resource flags, ending in an unlimited tier (steps=0, if GNATprove 16.1 treats 0 as unlimited at --level=2; T4 to confirm). A ladder is used because GNATprove tries the provers in turn, and one unlimited prover could starve the rest. Dovetailing guarantees a proof whenever any portfolio prover proves the goal in finite steps, assuming success is monotone in the step limit.",
+    "proof_impact": "Lean ToolContract unchanged: boundedProofCompletes is already existential (Current.lean:221). Prose premises change in trusted-boundary.md:43 and :901-907, assurance.md:590-592 and language.md:757-760. Optional new Lean lemma: dovetailing completeness over an abstract monotone portfolio.",
+    "effort": "M",
+    "risks": "Overflow of a solver's internal limit at high tiers (Z3 rlimit width UNVERIFIED). Final-report completeness when sessions are reused across tiers. Wall time.",
+    "evidence": "expression-headroom.md:70-84 (step-exhaustion failures fixed by the larger budget); development.md:233-234 (no fixed timeout or retry ceiling)."
+   },
+   {
+    "name": "Per-prover memory limit 1,000 MiB",
+    "current_bound": "--memlimit=1000 (Why3 RLIMIT_AS 1,048,576,000 bytes)",
+    "locations": [
+     "src/silver.adb:121",
+     "docs/trusted-boundary.md:901-907",
+     "docs/expression-headroom.md:135-137"
+    ],
+    "role": "An implementation resource limit, preserved from GNATprove's level-2 default. Alt-Ergo once ran out of memory on an admitted goal (trusted-boundary.md:911-912).",
+    "classification": "arbitrary_policy",
+    "necessary": false,
+    "unbounded_replacement": "Escalate with the step tiers up to a constant above any host's RAM (for example 1 TiB), so only host memory limits. Reduce -j at high tiers so parallel provers do not exhaust the host early. This is internal policy, not a user setting.",
+    "proof_impact": "Prose only.",
+    "effort": "S",
+    "risks": "Must check that an explicit large --memlimit propagates to gnatwhy3 at --level=2 (T4).",
+    "evidence": "expression-headroom.md: the internal gnatwhy3 command used --memlimit 1000 even with --memlimit=0."
+   },
+   {
+    "name": "Predefined Integer range and scalar literal magnitude",
+    "current_bound": "-2,147,483,648..2,147,483,647; magnitude at most 2,147,483,648",
+    "locations": [
+     "language.md:208-216, 245-249",
+     "src/silver_scalar_literals.ads:6"
+    ],
+    "role": "Inherited target semantics; the magnitude bound admits -2147483648.",
+    "classification": "inherited_semantics",
+    "necessary": true,
+    "unbounded_replacement": "None. Keep.",
+    "proof_impact": "None.",
+    "effort": "S",
+    "risks": "None.",
+    "evidence": "language.md:208."
+   },
+   {
+    "name": "B1 empty-interval Integer assignment restriction; final-'[' literal rule",
+    "current_bound": "Semantic restrictions",
+    "locations": [
+     "docs/review-b79b986403-repairs.md (B1 Option A, root HEAD)",
+     "language.md:148-153"
+    ],
+    "role": "Explicit rules derived from the pinned frontend; they prevent GNAT from rejecting admitted source.",
+    "classification": "tool_hard_limit",
+    "necessary": true,
+    "unbounded_replacement": "Keep. They are the template for the new tool-derived rules.",
+    "proof_impact": "None from limit removal.",
+    "effort": "S",
+    "risks": "None.",
+    "evidence": "Session memory 2026-10-17: 'intentional pre-1.0 language restriction required by the pinned frontend ... with no Oracle amendment'."
+   },
+   {
+    "name": "GNAT fixed internal capacities (Text_Ptr, Names, Strings, Nodes, Uint ID ranges)",
+    "current_bound": "Int'Last source positions; 100M names; 100M strings; 2G nodes; about 1.5G Uints",
+    "locations": [
+     "GNAT types.ads:148, 317-363 (T3 scratch)"
+    ],
+    "role": "Hard tool limits. Out of reach at 4096 bytes. Whether host memory runs out first depends on the host.",
+    "classification": "tool_hard_limit",
+    "necessary": true,
+    "unbounded_replacement": "Fold all of them into the single derived source-size bound (T3 to derive using reviewed expansion factors). Otherwise state an explicit premise that host memory is exhausted first, which is weaker and falsifiable.",
+    "proof_impact": "One symbolic hypothesis in Lean (source length at most B_tool).",
+    "effort": "M",
+    "risks": "Expansion factors (internal nodes and names per source byte) need GNAT source review.",
+    "evidence": "SOURCE-REVIEW of types.ads (T3 scratch)."
+   }
+  ],
+  "full_stops": [
+   {
+    "issue": "Authorization gate for a new 'remove capacity limits' milestone (procedural, not a content decision)",
+    "why": "development.md:3-5 says a roadmap entry alone does not authorize implementation. The 2026-10-17 B1 authorization 'does not authorize the next construct' and explicitly defers the stack redesign (O1), which this work needs.",
+    "owner_action": "After #77-#84 deliver, give an explicit 'proceed' for the milestone, including un-deferring O1. Record it in docs/session-memory.md. No Oracle change is involved."
+   },
+   {
+    "issue": "Optional Oracle clarification of compiler resource exhaustion (NOT required)",
+    "why": "The Oracle already supports the model (oracle.md:10, :11, :19, :25, with :21 as the analogy). An explicit sentence would remove reliance on interpretation, for example of :2 'without developer intervention' when a program needs a larger host. Any Oracle text change needs owner approval (:16).",
+    "owner_action": "None required. If wanted, approve a sentence such as: 'Exhaustion of host resources during compilation is an environmental outcome: it must not redefine membership, excuse obligations, or be reported as success.'"
+   }
+  ],
+  "premises": [
+   "Proposed GNATprove/solver row for trusted-boundary.md:43 (replacing the 100,000-step / 1,000 MiB wording): for every source schema accepted by Lean's endpoint-discharge checker, some prover in the pinned portfolio proves the generated goal within some finite step allowance, using memory the host provides. Success is monotone in the allowance. Silver's escalation schedule makes no configured limit binding. Lean proves neither solver completion nor any bound on solver work; no completeness claim is made for arbitrary SPARK.",
+   "This premise now covers infinitely many goals of unbounded size. Under the 4096 cap the set of goals was finite. It must be documented as a stronger assumption resting on the solvers acting as decision procedures for range, length and overflow schemas (QF_LIA over intervals, plus bounded-box nonlinear goals for products).",
+   "Lean ToolContract (proof/Silver/Current.lean:209-226) already has the weak shape: boundedProofCompletes : \u2200 checks, BoundedFragment checks \u2192 \u2203 steps, tools.prove checks steps. tools.prove is reinterpreted as completion of the whole escalation ladder; no structural change is needed.",
+   "Frontend premise (trusted-boundary.md:54-60, language.md:46-49) is restated: the pinned frontend accepts every source satisfying the explicit tool-derived rules (line width, identifier length, exponent, derived source bound, B1 and bracket rules). This is supported by GNAT source review and differential gcc -gnatc/gnatprove tests, not proved.",
+   "Resource premise: the compiler, the tools and the OS may exhaust memory, time, disk, stack or process limits. That outcome is environmental, reported distinctly, never nonmembership and never success. GNATprove proves the SPARK compiler free of every runtime error except Storage_Error, so an unhandled-exception exit from the compiler means either resource exhaustion or a defect in the trusted runtime.",
+   "Prover incompleteness \u2014 every prover giving a definite 'unknown' or 'invalid' with resources remaining on an admitted goal \u2014 is not covered by any resource premise. It remains an implementation/toolchain defect under oracle.md:14.",
+   "Report envelope E(S) stays a producer-structure premise from source review (report-capacity.md), linear in S; it is not a Lean theorem.",
+   "Platform: tool-derived limits come from platform-independent GNAT frontend source but must be rechecked on macOS. macOS's stack hard cap (about 64 MiB) and Linux MAX_ARG_STRLEN (128 KiB) are OS limits the owner treats as acceptable environmental outcomes."
+  ],
+  "experiments": [
+   {
+    "hypothesis": "Current admission boundaries: a source over 4096 bytes and an exponent above 4096 are rejected as nonmembership.",
+    "setup": "silver check (compiler/bin/silver) on src4096.adb (4096 B), src4097.adb (4097 B), exp4096.adb (X : Integer := 0E4096), exp4097.adb, in /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T5/probes",
+    "result": "src4096 Accepted (0); src4097 'Rejected: source is outside the Silver catalogue.' (2); exp4096 Accepted (0); exp4097 Rejected (2).",
+    "wall_seconds": 0.1,
+    "side_effects": "None outside scratch."
+   },
+   {
+    "hypothesis": "Capacity beyond the internal read buffer is currently indistinguishable from nonmembership.",
+    "setup": "silver check on generated 1 MiB and 17,825,901-byte sources (valid program followed by a long comment); files deleted afterwards.",
+    "result": "Both 'Rejected: source is outside the Silver catalogue.' (status 2), in 0.028 s and 0.040 s. Correct today because of the 4096 membership cap. Once the cap is lifted, the 16 MiB Read_File buffer (silver_platform.ads:10) and the Too_Long -> Rejected path (silver.adb:444-447) would turn capacity into rejection, violating oracle.md:1 and :10.",
+    "wall_seconds": 0.07,
+    "peak_memory": "not measured (/usr/bin/time absent); trivially small",
+    "side_effects": "None; temporary files removed."
+   }
+  ],
+  "recommendations": [
+   "Do not amend the Oracle. Restate language.md:499-500, assurance.md:605-612 and README.md:326-338 as follows. Exhaustion of host resources is an environmental outcome: never nonmembership, never success, no publication. Any definite non-resource failure of admitted source (prover incompleteness, frontend rejection, unexpected report shape, build failure, or a binding Silver-configured limit) remains a defect under oracle.md:14.",
+   "Increment 1 (no language change, lands first): an escalating proof ladder. Steps go 100,000 x r^k ending unlimited; per-prover memory escalates to a constant above any host's RAM; -j is reduced at high tiers. Rerun only goals unproved on resource flags. Stop with a status-3 'prover incompleteness' defect when every prover answers definitely without a resource flag. Print each tier on stderr. T4 must confirm: steps=0 means unlimited at level 2; an explicit memlimit propagates; Z3 rlimit width; the final report after session reuse is complete.",
+   "Add exit status 4, 'Resource exhaustion: <phase> stopped because host <memory|time|disk|stack|process> resources were exhausted; the source is admitted Silver, was not rejected, and nothing was verified or published.' Triggers: child tool killed by SIGKILL, SIGXCPU or SIGXFSZ; ENOMEM, ENOSPC, EMFILE or E2BIG from Silver's own calls; memory flags at the non-binding final tier. Document in-process Storage_Error (exit 1) and OOM kill (137) as environmental. Optionally add a SPARK-verified last-chance handler that maps Storage_Error to 4.",
+   "Turn the pinned-tool hard limits into explicit, decidable rules, each documented as a pinned-tool limit rather than an Ada rule: line width of at most 32,765 tab-expanded columns; identifiers of at most 4096 characters; exponent below 800,000; and one derived source-size bound below GNAT's fixed ID ranges (T3). Add them before or with lifting the source cap; at 4096 bytes they are already out of reach.",
+   "Make every compiler structure scale with input: binding environments sized from S (and defined once), a recognizer with small per-level frames or a heap work stack (O1), report storage sized from E(S) or a streaming auditor, and a source read sized from the file. No fixed buffer may stay on any path that reports 'Rejected'.",
+   "In Lean, separate three constants now merged in '4096': source length, String value length and identifier length. Replace `decide +kernel` at constants (ComposeObligations.lean:45-51) with symbolic proofs. Move guaranteedIntegerLast (GuardedObligations.lean:24) to the target Integer'Last when the value domain is lifted. Add an audit gate that no size literal remains in model modules other than named tool-derived constants.",
+   "Remove the operator budget (63) and leaf limits (64) only after the ladder is in place and scaling probes cover nonlinear product chains. If those chains show pathological solver growth, the only acceptable remaining rule is an assurance-motivated limit on non-static factors per product, documented as protecting automatic discharge.",
+   "Lift the String value/argument domain to Integer'Last as the last, explicit pre-1.0 change (oracle.md:18). Document the observable change: 4097-byte and longer arguments become valid input, and Linux MAX_ARG_STRLEN becomes the environmental cap. Update spec, catalogue fields, runtime contracts (ghost sequences), Lean, tests (tests/test_arguments.py:106 and others) and the manifest together.",
+   "Change the development.md checkpoint as follows:\n  - Replace 4096 boundary tests with tests at each explicit tool-derived limit (at the limit and limit+1).\n  - Require universal Lean proofs with no size hypothesis beyond the derived source bound.\n  - Run a geometric scaling ladder (for example 4 KiB to 1 MiB) for each cost-dominant shape, recording tier reached, maximum steps per goal, peak memory, time, report bytes against E(S), and stack. Record costs; do not use them as thresholds.\n  - Require zero incompleteness outcomes.\n  - Test the resource-failure contract under ulimit -v, -s, -f, -t and a full disk: never status 0 or 2, nothing published.",
+   "Sequence: (0) finish #77-#84, whose integrated checkpoint is pending; B1/M1 touch the same scalar source certificates that parameterisation will rebuild, and only one proof-workspace writer is allowed. (1) Ladder, diagnostics and premise prose. (2) Tool-derived rules. (3) Compiler internals scaling with input. (4) Lean parameterisation. (5) Remove source, operator and leaf caps. (6) Lift the value domain."
+  ],
+  "coverage_gaps": "- **No new GNATprove or gcc experiments.** My track was reading-only plus `silver check`. The GNAT limit facts (line columns, identifier crash, exponent threshold, ID ranges) come from T3's scratch: GNAT source excerpts and gcc probe outputs. I read them but did not reproduce them.\n- **Unconfirmed GNATprove/solver behaviour.** Not checked here, left to T4:\n  - whether `--steps=0` means unlimited at `--level=2`;\n  - whether an explicit large `--memlimit` reaches gnatwhy3;\n  - Z3 rlimit width;\n  - solver success being monotone in the step limit;\n  - completeness of the final report when sessions are reused across tiers.\n- **Source-size bound not derived.** I did not derive the value from GNAT's internal ID ranges and per-byte expansion factors (T3).\n- **Nonlinear goals not measured.** I did not measure how solvers scale on product chains beyond 63 operators, or how deep left-nested expression trees affect stack in gnat1, gnat2why, Why3 and the solvers.\n- **macOS not checked.** Tool limits and stack behaviour there are unverified.\n- **Lean parameterisation not sized.** Effort beyond the cited modules (OutputEquations/OutputExpressions fields, `uniformRangeObligations`, `guaranteedIntegerLast`) was not estimated module by module.\n- **No memory measurement.** `/usr/bin/time` is absent, so the `silver check` probes have no memory figures.\n\nNotes: /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T5/notes.md"
+ }
+]

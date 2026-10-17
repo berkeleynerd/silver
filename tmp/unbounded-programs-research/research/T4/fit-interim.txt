@@ -1,0 +1,19 @@
+f1
+   {'n': 'f1-1k', 'b': 570, 'st': 19, 'ch': 2, 'wall': 8.0, 'g3mem': 0.124, 'tree': 0.4, 'maxatt': 0.060795, 'attsteps': 51, 'winmax': 1, 'rep': 11577}
+   {'n': 'f1-2k', 'b': 1556, 'st': 51, 'ch': 6, 'wall': 8.0, 'g3mem': 0.124, 'tree': 0.38, 'maxatt': 0.129616, 'attsteps': 328, 'winmax': 1, 'rep': 30325}
+   {'n': 'f1-4k', 'b': 4021, 'st': 131, 'ch': 16, 'wall': 16.0, 'g3mem': 0.191, 'tree': 0.45, 'maxatt': 0.29986, 'attsteps': 1286, 'winmax': 1, 'rep': 77787}
+   {'n': 'f1-8k', 'b': 8115, 'st': 259, 'ch': 32, 'wall': 104.7, 'g3mem': 0.341, 'tree': 0.56, 'maxatt': 1.6205, 'attsteps': 3475, 'winmax': 566, 'rep': 154137}
+   {'n': 'f1-16k', 'b': 15885, 'st': 499, 'ch': 62, 'wall': 428.3, 'g3mem': 0.827, 'tree': 1.21, 'maxatt': 6.94219, 'attsteps': 9322, 'winmax': 222, 'rep': 297006}
+   {'n': 'f1-32k', 'b': 32461, 'st': 1011, 'ch': 126, 'wall': 1453.3, 'g3mem': 2.602, 'tree': 5.15, 'maxatt': 22.8824, 'attsteps': 29445, 'winmax': 1021, 'rep': 602954}
+   exponents (>=1.5KB): wall 1.82 gnatwhy3_mem 1.0 max_attempt_time 1.79 max_attempt_steps 1.47 report 0.98 checks 1.0
+f2
+   {'n': 'f2-1k', 'b': 848, 'st': 51, 'ch': 18, 'wall': 11.0, 'g3mem': 0.135, 'tree': 0.41, 'maxatt': 0.088129, 'attsteps': 186, 'winmax': 1, 'rep': 53375}
+   {'n': 'f2-2k', 'b': 1876, 'st': 115, 'ch': 42, 'wall': 39.3, 'g3mem': 0.197, 'tree': 0.54, 'maxatt': 1.12544, 'attsteps': 1219, 'winmax': 147, 'rep': 122930}
+   {'n': 'f2-4k', 'b': 4067, 'st': 243, 'ch': 90, 'wall': 229.4, 'g3mem': 0.419, 'tree': 0.59, 'maxatt': 1.7092, 'attsteps': 4727, 'winmax': 1, 'rep': 261826}
+   {'n': 'f2-8k', 'b': 8043, 'st': 467, 'ch': 174, 'wall': 575.1, 'g3mem': 1.187, 'tree': 1.4, 'maxatt': 2.74955, 'attsteps': 15195, 'winmax': 743, 'rep': 505981}
+   exponents (>=1.5KB): wall 1.85 gnatwhy3_mem 1.23 max_attempt_time 0.61 max_attempt_steps 1.73 report 0.97 checks 0.98
+f3
+   {'n': 'f3-1k', 'b': 1024, 'st': 156, 'ch': 150, 'wall': 88.2, 'g3mem': 0.439, 'tree': 0.57, 'maxatt': 0.06866, 'attsteps': 8, 'winmax': 1, 'rep': 326887}
+   {'n': 'f3-2k', 'b': 2044, 'st': 326, 'ch': 320, 'wall': 363.6, 'g3mem': 1.479, 'tree': 1.64, 'maxatt': 0.144616, 'attsteps': 351, 'winmax': 1, 'rep': 694059}
+   {'n': 'f3-4k', 'b': 4096, 'st': 668, 'ch': 662, 'wall': 1376.7, 'g3mem': 5.863, 'tree': 6.03, 'maxatt': 0.190779, 'attsteps': 1138, 'winmax': 708, 'rep': 1434133}
+   exponents (>=1.5KB): wall 1.92 gnatwhy3_mem 1.98 max_attempt_time 0.4 max_attempt_steps 1.69 report 1.04 checks 1.05

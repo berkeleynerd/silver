@@ -1,0 +1,655 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: implicit aspect Always_Terminates on "Is_Message" has been proved, subprogram will terminate
+--> silver_arguments.adb:5:13
+
+ info: range check proved
+--> silver_arguments.adb:6:11
+
+ info: precondition proved
+--> silver_arguments.adb:14:43
+
+ info: range check proved
+--> silver_arguments.adb:26:20
+
+ info: range check proved
+--> silver_arguments.adb:26:49
+
+ info: length check proved
+--> silver_arguments.adb:26:61
+
+ info: precondition proved
+--> silver_arguments.adb:30:53
+
+ info: range check proved
+--> silver_arguments.adb:33:23
+
+ info: range check proved
+--> silver_arguments.adb:33:49
+
+ info: length check proved
+--> silver_arguments.adb:33:61
+
+ info: implicit aspect Always_Terminates on "Input_Is_Valid" has been proved, subprogram will terminate
+--> silver_arguments.ads:9:13
+
+ info: data dependencies proved
+--> silver_arguments.ads:9:48
+
+ info: implicit aspect Always_Terminates on "First_Or_Default" has been proved, subprogram will terminate
+--> silver_arguments.ads:13:13
+
+ info: data dependencies proved
+--> silver_arguments.ads:14:11
+
+ info: postcondition proved
+--> silver_arguments.ads:15:19
+
+ info: range check proved
+--> silver_arguments.ads:16:45
+
+ info: aspect Always_Terminates on "Reject" has been proved, subprogram will terminate
+--> silver_arguments.ads:21:14
+
+ info: data dependencies proved
+--> silver_arguments.ads:22:11
+ info: initialization of "Status" proved
+--> silver_io.adb:7:07
+
+ info: range check proved
+--> silver_io.adb:13:14
+
+ info: loop invariant initialization proved
+--> silver_io.adb:19:43
+
+ info: loop invariant preservation proved
+--> silver_io.adb:19:43
+
+ info: overflow check proved
+--> silver_io.adb:19:65
+
+ info: loop invariant initialization proved
+--> silver_io.adb:21:23
+
+ info: loop invariant preservation proved
+--> silver_io.adb:21:23
+
+ info: index check proved
+--> silver_io.adb:22:30
+
+ info: overflow check proved
+--> silver_io.adb:22:57
+
+ info: index check proved
+--> silver_io.adb:22:57
+
+ info: range check proved
+--> silver_io.adb:29:41
+
+ info: index check proved
+--> silver_io.adb:30:25
+
+ info: range check proved
+--> silver_io.adb:37:38
+
+ info: index check proved
+--> silver_io.adb:38:22
+
+ info: initialization of "Status" proved
+--> silver_io.adb:50:07
+
+ info: range check proved
+--> silver_io.adb:56:14
+
+ info: loop invariant initialization proved
+--> silver_io.adb:62:43
+
+ info: loop invariant preservation proved
+--> silver_io.adb:62:43
+
+ info: overflow check proved
+--> silver_io.adb:62:65
+
+ info: loop invariant initialization proved
+--> silver_io.adb:64:23
+
+ info: loop invariant preservation proved
+--> silver_io.adb:64:23
+
+ info: index check proved
+--> silver_io.adb:65:30
+
+ info: overflow check proved
+--> silver_io.adb:65:57
+
+ info: index check proved
+--> silver_io.adb:65:57
+
+ info: range check proved
+--> silver_io.adb:72:41
+
+ info: index check proved
+--> silver_io.adb:73:25
+
+ info: data dependencies proved
+--> silver_io.ads:19:11
+
+ info: initialization of "Written_Bytes" proved
+--> silver_io.ads:20:33
+
+ info: initialization of "Written_Count" proved
+--> silver_io.ads:20:48
+
+ info: initialization of "Flushed" proved
+--> silver_io.ads:20:63
+
+ info: initialization of "Succeeded" proved
+--> silver_io.ads:20:72
+
+ info: postcondition proved
+--> silver_io.ads:22:30
+
+ info: range check proved
+--> silver_io.ads:23:45
+
+ info: range check proved
+--> silver_io.ads:24:44
+
+ info: overflow check proved
+--> silver_io.ads:24:52
+
+ info: range check proved
+--> silver_io.ads:25:24
+
+ info: range check proved
+--> silver_io.ads:25:48
+
+ info: index check proved
+--> silver_io.ads:26:39
+
+ info: data dependencies proved
+--> silver_io.ads:30:11
+
+ info: initialization of "Written_Bytes" proved
+--> silver_io.ads:31:33
+
+ info: initialization of "Written_Count" proved
+--> silver_io.ads:31:48
+
+ info: initialization of "Flushed" proved
+--> silver_io.ads:31:63
+
+ info: initialization of "Succeeded" proved
+--> silver_io.ads:31:72
+
+ info: postcondition proved
+--> silver_io.ads:33:30
+
+ info: range check proved
+--> silver_io.ads:34:45
+
+ info: range check proved
+--> silver_io.ads:35:44
+
+ info: range check proved
+--> silver_io.ads:36:24
+
+ info: range check proved
+--> silver_io.ads:36:48
+ info: length check proved
+--> main.adb:7:04
+
+ info: length check proved
+--> main.adb:8:02
+
+ info: length check proved
+--> main.adb:9:04
+
+ info: length check proved
+--> main.adb:10:02
+
+ info: length check proved
+--> main.adb:11:04
+
+ info: length check proved
+--> main.adb:12:02
+
+ info: length check proved
+--> main.adb:13:04
+
+ info: length check proved
+--> main.adb:14:02
+
+ info: length check proved
+--> main.adb:15:04
+
+ info: length check proved
+--> main.adb:16:02
+
+ info: length check proved
+--> main.adb:17:04
+
+ info: length check proved
+--> main.adb:18:02
+
+ info: length check proved
+--> main.adb:19:04
+
+ info: length check proved
+--> main.adb:20:02
+
+ info: length check proved
+--> main.adb:21:04
+
+ info: length check proved
+--> main.adb:22:02
+
+ info: length check proved
+--> main.adb:23:04
+
+ info: length check proved
+--> main.adb:24:02
+
+ info: length check proved
+--> main.adb:25:04
+
+ info: length check proved
+--> main.adb:26:02
+
+ info: length check proved
+--> main.adb:27:04
+
+ info: length check proved
+--> main.adb:28:02
+
+ info: length check proved
+--> main.adb:29:04
+
+ info: length check proved
+--> main.adb:30:02
+
+ info: length check proved
+--> main.adb:31:04
+
+ info: length check proved
+--> main.adb:32:02
+
+ info: length check proved
+--> main.adb:33:04
+
+ info: length check proved
+--> main.adb:34:02
+
+ info: length check proved
+--> main.adb:35:04
+
+ info: length check proved
+--> main.adb:36:02
+
+ info: length check proved
+--> main.adb:37:04
+
+ info: length check proved
+--> main.adb:38:02
+
+ info: length check proved
+--> main.adb:39:04
+
+ info: length check proved
+--> main.adb:40:02
+
+ info: length check proved
+--> main.adb:41:04
+
+ info: length check proved
+--> main.adb:42:02
+
+ info: length check proved
+--> main.adb:43:04
+
+ info: length check proved
+--> main.adb:44:02
+
+ info: length check proved
+--> main.adb:45:04
+
+ info: length check proved
+--> main.adb:46:02
+
+ info: length check proved
+--> main.adb:47:04
+
+ info: length check proved
+--> main.adb:48:02
+
+ info: length check proved
+--> main.adb:49:04
+
+ info: length check proved
+--> main.adb:50:02
+
+ info: length check proved
+--> main.adb:51:04
+
+ info: length check proved
+--> main.adb:52:02
+
+ info: length check proved
+--> main.adb:53:04
+
+ info: length check proved
+--> main.adb:54:02
+
+ info: length check proved
+--> main.adb:55:04
+
+ info: length check proved
+--> main.adb:56:02
+
+ info: length check proved
+--> main.adb:57:04
+
+ info: length check proved
+--> main.adb:58:02
+
+ info: length check proved
+--> main.adb:59:04
+
+ info: length check proved
+--> main.adb:60:02
+
+ info: length check proved
+--> main.adb:61:04
+
+ info: length check proved
+--> main.adb:62:02
+
+ info: length check proved
+--> main.adb:63:04
+
+ info: length check proved
+--> main.adb:64:02
+
+ info: length check proved
+--> main.adb:65:04
+
+ info: length check proved
+--> main.adb:66:02
+
+ info: length check proved
+--> main.adb:67:04
+
+ info: length check proved
+--> main.adb:68:02
+
+ info: length check proved
+--> main.adb:69:04
+
+ info: length check proved
+--> main.adb:70:02
+
+ info: length check proved
+--> main.adb:71:04
+
+ info: length check proved
+--> main.adb:72:02
+
+ info: length check proved
+--> main.adb:73:04
+
+ info: length check proved
+--> main.adb:74:02
+
+ info: length check proved
+--> main.adb:75:04
+
+ info: length check proved
+--> main.adb:76:02
+
+ info: length check proved
+--> main.adb:77:04
+
+ info: length check proved
+--> main.adb:78:02
+
+ info: length check proved
+--> main.adb:79:04
+
+ info: length check proved
+--> main.adb:80:02
+
+ info: length check proved
+--> main.adb:81:04
+
+ info: length check proved
+--> main.adb:82:02
+
+ info: length check proved
+--> main.adb:83:04
+
+ info: length check proved
+--> main.adb:84:02
+
+ info: length check proved
+--> main.adb:85:04
+
+ info: length check proved
+--> main.adb:86:02
+
+ info: length check proved
+--> main.adb:87:04
+
+ info: length check proved
+--> main.adb:88:02
+
+ info: length check proved
+--> main.adb:89:04
+
+ info: length check proved
+--> main.adb:90:02
+
+ info: length check proved
+--> main.adb:91:04
+
+ info: length check proved
+--> main.adb:92:02
+
+ info: length check proved
+--> main.adb:93:04
+
+ info: length check proved
+--> main.adb:94:02
+
+ info: length check proved
+--> main.adb:95:04
+
+ info: length check proved
+--> main.adb:96:02
+
+ info: length check proved
+--> main.adb:97:04
+
+ info: length check proved
+--> main.adb:98:02
+
+ info: length check proved
+--> main.adb:99:04
+
+ info: length check proved
+--> main.adb:100:02
+
+ info: length check proved
+--> main.adb:101:04
+
+ info: length check proved
+--> main.adb:102:02
+
+ info: length check proved
+--> main.adb:103:04
+
+ info: length check proved
+--> main.adb:104:02
+
+ info: length check proved
+--> main.adb:105:04
+
+ info: length check proved
+--> main.adb:106:02
+
+ info: length check proved
+--> main.adb:107:04
+
+ info: length check proved
+--> main.adb:108:02
+
+ info: length check proved
+--> main.adb:109:04
+
+ info: length check proved
+--> main.adb:110:02
+
+ info: length check proved
+--> main.adb:111:04
+
+ info: length check proved
+--> main.adb:112:02
+
+ info: length check proved
+--> main.adb:113:04
+
+ info: length check proved
+--> main.adb:114:02
+
+ info: length check proved
+--> main.adb:115:04
+
+ info: length check proved
+--> main.adb:116:02
+
+ info: length check proved
+--> main.adb:117:04
+
+ info: length check proved
+--> main.adb:118:02
+
+ info: length check proved
+--> main.adb:119:04
+
+ info: length check proved
+--> main.adb:120:02
+
+ info: length check proved
+--> main.adb:121:04
+
+ info: length check proved
+--> main.adb:122:02
+
+ info: length check proved
+--> main.adb:123:04
+
+ info: length check proved
+--> main.adb:124:02
+
+ info: length check proved
+--> main.adb:125:04
+
+ info: length check proved
+--> main.adb:126:02
+
+ info: length check proved
+--> main.adb:127:04
+
+ info: length check proved
+--> main.adb:128:02
+
+ info: length check proved
+--> main.adb:129:04
+
+ info: length check proved
+--> main.adb:130:02
+
+ info: length check proved
+--> main.adb:131:04
+
+ info: length check proved
+--> main.adb:132:02
+
+ info: length check proved
+--> main.adb:133:04
+
+ info: length check proved
+--> main.adb:134:02
+
+ info: length check proved
+--> main.adb:135:04
+
+ info: length check proved
+--> main.adb:136:02
+
+ info: length check proved
+--> main.adb:137:04
+
+ info: length check proved
+--> main.adb:138:02
+
+ info: length check proved
+--> main.adb:139:04
+
+ info: length check proved
+--> main.adb:140:02
+
+ info: length check proved
+--> main.adb:141:04
+
+ info: length check proved
+--> main.adb:142:02
+
+ info: length check proved
+--> main.adb:143:04
+
+ info: length check proved
+--> main.adb:144:02
+
+ info: length check proved
+--> main.adb:145:04
+
+ info: length check proved
+--> main.adb:146:02
+
+ info: length check proved
+--> main.adb:147:04
+
+ info: length check proved
+--> main.adb:148:02
+
+ info: length check proved
+--> main.adb:149:04
+
+ info: length check proved
+--> main.adb:150:02
+
+ info: length check proved
+--> main.adb:151:04
+
+ info: length check proved
+--> main.adb:152:02
+
+ info: length check proved
+--> main.adb:153:04
+
+ info: length check proved
+--> main.adb:154:02
+
+ info: length check proved
+--> main.adb:155:04
+
+ warning: unused assignment
+--> main.adb:156:02
+  156 |    B:=A;
+      |    ~^~~
+
+ info: length check proved
+--> main.adb:156:02
+Success: all checks proved (216 checks).
+Summary logged in /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T4/proj-f3-1k/obj/gnatprove/gnatprove.out

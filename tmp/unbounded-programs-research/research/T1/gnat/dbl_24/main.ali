@@ -1,0 +1,46 @@
+V "GNAT Lib v16"
+M P W=b
+A -gnatc
+A -gnat2022
+A -mtune=generic
+A -march=x86-64
+P NO
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_ELABORATION_CODE
+
+U main%b		main.adb		57ec0373 OO SU
+
+D main.adb		20261017132036 57ec0373 main%b
+D system.ads		20260430083320 e2b7c99d system%s
+G a e
+G c Z b b [main standard 1 11 none]
+X 1 main.adb
+1U11*Main 1b11 30l5 30t9
+3a4 C0{string} 4r28 4r33
+4a4 C1{string} 5r28 5r33
+5a4 C2{string} 6r28 6r33
+6a4 C3{string} 7r28 7r33
+7a4 C4{string} 8r28 8r33
+8a4 C5{string} 9r28 9r33
+9a4 C6{string} 10r28 10r33
+10a4 C7{string} 11r28 11r33
+11a4 C8{string} 12r28 12r33
+12a4 C9{string} 13r29 13r34
+13a4 C10{string} 14r29 14r35
+14a4 C11{string} 15r29 15r35
+15a4 C12{string} 16r29 16r35
+16a4 C13{string} 17r29 17r35
+17a4 C14{string} 18r29 18r35
+18a4 C15{string} 19r29 19r35
+19a4 C16{string} 20r29 20r35
+20a4 C17{string} 21r29 21r35
+21a4 C18{string} 22r29 22r35
+22a4 C19{string} 23r29 23r35
+23a4 C20{string} 24r29 24r35
+24a4 C21{string} 25r29 25r35
+25a4 C22{string} 26r29 26r35
+26a4 C23{string} 27r29 27r35
+27a4 C24{string}
+

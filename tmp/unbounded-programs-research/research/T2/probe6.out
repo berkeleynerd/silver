@@ -1,0 +1,5 @@
+/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T2/probes/Probe6.lean:94:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+'T2.resource_pipeline' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T2.model_resource_contract' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T2.exact_schema' depends on axioms: [propext, Quot.sound]
+'T2.uniform_iff' depends on axioms: [propext, Quot.sound]

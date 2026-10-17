@@ -1,0 +1,30 @@
+13:03:04 precheck f1-2k avail=30G foreign_heavy=0
+13:03:12 precheck f1-4k avail=29G foreign_heavy=0
+13:03:28 precheck f2-2k avail=29G foreign_heavy=2
+13:05:28 precheck f2-2k avail=29G foreign_heavy=2
+13:07:28 precheck f2-2k avail=29G foreign_heavy=16
+13:09:28 precheck f2-2k avail=29G foreign_heavy=4
+13:11:28 precheck f2-2k avail=29G foreign_heavy=3
+13:13:28 precheck f2-2k avail=28G foreign_heavy=31
+13:14:11 precheck f2-2k avail=28G need=14G foreign_heavy=0 foreign_all=[65233:bash:3MB 65234:python3:11MB 65235:lean:1511MB 66033:python3:11MB 66034:gnatprove:21MB 66040:gprbuild:13MB 66054:gnat2why:131MB ]
+13:14:50 precheck f2-4k avail=26G need=14G foreign_heavy=0 foreign_all=[65233:bash:3MB 65234:python3:11MB 65235:lean:2790MB 66033:python3:11MB 66034:gnatprove:21MB 66240:gprbuild:12MB 66274:gnat2why:1032MB ]
+13:18:40 precheck f1-8k avail=27G need=14G foreign_heavy=0 foreign_all=[65233:bash:3MB 65234:python3:11MB 65235:lean:1940MB 66033:python3:11MB 66034:gnatprove:21MB 66240:gprbuild:12MB 66274:gnat2why:1032MB ]
+13:20:25 precheck f1-16k avail=25G need=14G foreign_heavy=1 foreign_all=[65233:bash:3MB 65234:python3:11MB 65235:lean:3223MB 66033:python3:11MB 66034:gnatprove:21MB 66240:gprbuild:12MB 66274:gnat2why:1032MB ]
+13:22:25 precheck f1-16k avail=22G need=14G foreign_heavy=1 foreign_all=[65233:bash:3MB 65234:python3:11MB 65235:lean:4703MB 70508:python3:11MB 70509:gnatprove:20MB 70515:gprbuild:13MB 70529:gnat2why:2634MB ]
+13:24:25 precheck f1-16k avail=23G need=14G foreign_heavy=1 foreign_all=[65233:bash:3MB 65234:python3:11MB 65235:lean:1909MB 70508:python3:11MB 70509:gnatprove:20MB 70646:gprbuild:13MB 70660:gnat2why:3838MB ]
+13:26:25 precheck f1-16k avail=24G need=14G foreign_heavy=1 foreign_all=[70508:python3:11MB 70509:gnatprove:20MB 70646:gprbuild:13MB 70660:gnat2why:3838MB 71307:python3:11MB 71308:gnatprove:21MB 71332:gprbuild:12MB 71343:gnat2why:47MB ]
+13:28:25 precheck f1-16k avail=25G need=14G foreign_heavy=0 foreign_all=[71497:bash:3MB 71498:python3:11MB 71499:lean:1499MB 71645:python3:11MB 71646:gnatprove:21MB 71652:gprbuild:12MB 71663:gnat2why:1933MB ]
+13:35:43 precheck f3-1k avail=19G need=14G foreign_heavy=2 foreign_all=[71497:bash:3MB 71498:python3:11MB 71499:lean:5699MB 72668:python3:11MB 72676:gnatprove:20MB 72906:python3:11MB 72907:gnatprove:20MB 73180:gprbuild:12MB 73191:gnat2why:3789MB 73795:gprbuild:12MB 73807:gnat2why:341MB ]
+13:37:43 precheck f3-1k avail=20G need=14G foreign_heavy=1 foreign_all=[71497:bash:3MB 71498:python3:11MB 71499:lean:2818MB 72668:python3:11MB 72676:gnatprove:20MB 72906:python3:11MB 72907:gnatprove:20MB 73180:gprbuild:12MB 73191:gnat2why:6529MB 73795:gprbuild:12MB 73807:gnat2why:341MB ]
+13:39:43 precheck f3-1k avail=28G need=14G foreign_heavy=0 foreign_all=[74477:python3:11MB 74478:lean:1354MB ]
+13:41:11 precheck f2-1k-s0m0 avail=29G need=14G foreign_heavy=0 foreign_all=[]
+13:41:22 precheck f3-2k avail=29G need=14G foreign_heavy=0 foreign_all=[]
+13:47:25 precheck f2-8k avail=27G need=14G foreign_heavy=1 foreign_all=[77518:bash:3MB 77519:python3:11MB 77520:lean:3453MB ]
+13:49:25 precheck f2-8k avail=16G need=14G foreign_heavy=1 foreign_all=[77518:bash:3MB 77519:python3:11MB 77520:lean:14973MB ]
+13:51:25 precheck f2-8k avail=25G need=14G foreign_heavy=1 foreign_all=[77518:bash:3MB 77519:python3:11MB 77520:lean:6019MB ]
+13:53:25 precheck f2-8k avail=28G need=14G foreign_heavy=0 foreign_all=[77518:bash:3MB 77519:python3:11MB 77520:lean:2833MB ]
+14:03:01 precheck f1-32k avail=28G need=16G foreign_heavy=0 foreign_all=[83747:bash:3MB 83748:python3:11MB 83750:lean:2185MB ]
+14:27:39 precheck f2-1k-m16000 avail=30G need=14G foreign_heavy=0 foreign_all=[]
+14:27:48 precheck f3-4k avail=29G need=20G foreign_heavy=0 foreign_all=[]
+14:50:45 precheck f2-16k avail=30G need=16G foreign_heavy=0 foreign_all=[]
+15:46:32 precheck f3-8k-memprobe avail=30G need=26G foreign_heavy=0 foreign_all=[]

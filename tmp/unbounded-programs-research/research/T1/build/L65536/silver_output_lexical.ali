@@ -1,0 +1,273 @@
+V "GNAT Lib v16"
+A -gnat2022
+A -gnata
+A -gnato
+A -g
+P SS ZX
+
+RN
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLICIT_LOOPS
+
+U silver_output_lexical%b  silver_output_lexical.adb  f273558c NE OO PK
+W silver_profile%s	silver_profile.adb	silver_profile.ali
+Z system.assertions%s	s-assert.adb		s-assert.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U silver_output_lexical%s  silver_output_lexical.ads  454fd4b9 EE NE OO PK
+W silver_profile%s	silver_profile.adb	silver_profile.ali
+Z system.assertions%s	s-assert.adb		s-assert.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+D ada.ads		20260430083320 76789da1 ada%s
+D a-assert.ads		20260430083320 ba465f5c ada.assertions%s
+D a-unccon.ads		20260430083320 0e9b276f ada.unchecked_conversion%s
+D silver_output_lexical.ads  20261017131118 1130a44b silver_output_lexical%s
+D silver_output_lexical.adb  20261017131118 b73c8135 silver_output_lexical%b
+D silver_profile.ads	20261017131118 547f70f2 silver_profile%s
+D system.ads		20260430083320 e2b7c99d system%s
+D s-assert.ads		20260430083320 9c4520c7 system.assertions%s
+D s-exctab.ads		20260430083320 91bef6ef system.exception_table%s
+D s-parame.ads		20260430083320 a1aeab5c system.parameters%s
+D s-secsta.ads		20260430083320 578279f5 system.secondary_stack%s
+D s-stalib.ads		20260430083320 1c9580f6 system.standard_library%s
+D s-stoele.ads		20260430083320 ccded4e8 system.storage_elements%s
+G a e
+G c Z s s [comment_end silver_output_lexical 12 13 none]
+G c Z s s [trivia_end silver_output_lexical 28 13 none]
+G c Z s s [token_at silver_output_lexical 48 13 none]
+G c Z s s [literal_end silver_output_lexical 77 13 none]
+G c Z s s [is_letter silver_output_lexical 101 13 none]
+G c Z s s [identifier_tail silver_output_lexical 104 13 none]
+G c Z s s [identifier_end silver_output_lexical 123 13 none]
+G c Z s s [name_is silver_output_lexical 134 13 none]
+G c Z s s [equal_name silver_output_lexical 148 13 none]
+G c Z s b [forbidden_spelling silver_output_lexical 242 13 none]
+G c Z s s [forbidden_name silver_output_lexical 248 13 none]
+G c Z s s [forbidden_argument_name silver_output_lexical 257 13 none]
+G c Z s s [valid_name_state silver_output_lexical 268 13 none]
+G c Z s s [decimal_resultIP silver_output_lexical 277 9 none]
+G c Z s s [decimal_tail silver_output_lexical 283 13 none]
+G c Z s s [decimal_at silver_output_lexical 306 13 none]
+G c Z s s [literal_length silver_output_lexical 323 13 none]
+G c Z s b [read_capacity silver_output_lexical 339 13 none]
+G c Z s b [match_sized_literal silver_output_lexical 345 14 none]
+G c Z s b [skip_comment silver_output_lexical 360 14 none]
+G c Z s b [skip_trivia silver_output_lexical 369 14 none]
+G c Z s b [match_literal silver_output_lexical 378 14 none]
+G c Z s b [match_identifier silver_output_lexical 392 14 none]
+G r c none [comment_end silver_output_lexical 12 13 none] [is_comment_end silver_profile 27 13 none]
+G r c none [trivia_end silver_output_lexical 28 13 none] [is_whitespace silver_profile 8 13 none]
+G r c none [trivia_end silver_output_lexical 28 13 none] [is_comment_end silver_profile 27 13 none]
+G r c none [token_at silver_output_lexical 48 13 none] [is_identifier_character silver_profile 20 13 none]
+G r c none [literal_end silver_output_lexical 77 13 none] [is_identifier_character silver_profile 20 13 none]
+G r c none [identifier_tail silver_output_lexical 104 13 none] [is_identifier_character silver_profile 20 13 none]
+G r c none [identifier_end silver_output_lexical 123 13 none] [is_identifier_character silver_profile 20 13 none]
+G r c none [name_is silver_output_lexical 134 13 none] [lowercase silver_profile 31 13 none]
+G r c none [equal_name silver_output_lexical 148 13 none] [lowercase silver_profile 31 13 none]
+G r c none [forbidden_name silver_output_lexical 248 13 none] [lowercase silver_profile 31 13 none]
+G r c none [forbidden_argument_name silver_output_lexical 257 13 none] [lowercase silver_profile 31 13 none]
+G r c none [decimal_tail silver_output_lexical 283 13 none] [is_identifier_character silver_profile 20 13 none]
+G r c none [decimal_at silver_output_lexical 306 13 none] [is_identifier_character silver_profile 20 13 none]
+G r c none [read_capacity silver_output_lexical 339 13 none] [is_identifier_character silver_profile 20 13 none]
+G r c none [match_sized_literal silver_output_lexical 345 14 none] [is_identifier_character silver_profile 20 13 none]
+G r c none [skip_comment silver_output_lexical 360 14 none] [is_comment_end silver_profile 27 13 none]
+G r c none [skip_trivia silver_output_lexical 369 14 none] [is_whitespace silver_profile 8 13 none]
+G r c none [skip_trivia silver_output_lexical 369 14 none] [is_comment_end silver_profile 27 13 none]
+G r c none [match_literal silver_output_lexical 378 14 none] [is_identifier_character silver_profile 20 13 none]
+G r c none [match_identifier silver_output_lexical 392 14 none] [is_identifier_character silver_profile 20 13 none]
+X 4 silver_output_lexical.ads
+3K9*Silver_Output_Lexical 400l5 400e26 5|3b14 279l5 279t26
+8I12*Cursor{positive} 12r52 12r67 22r52 22r67 28r51 28r66 38r51 38r66 49r33
+. 61r33 77r52 86r52 105r33 115r33 123r55 130r55 135r37 142r37 149r73 157r73
+. 248r59 253r59 258r37 264r37 284r33 294r33 306r51 313r51 323r55 330r55 339r54
+. 346r40 360r61 369r60 379r40 393r40 5|90r54 92r14 131r40 134r24 173r61 175r35
+. 189r60 191r35 215r40 217r24 253r40 255r24
+66i18 Index{integer} 67r41 67r62
+73I12*Literal_Position{natural} 77r67 86r67 106r14 116r14 123r70 130r70 268r61
+. 272r61 278r15
+101V13*Is_Letter{boolean} 101b13 101>24 131s43 5|259s43
+101e24 Item{character} 102r7
+134V13*Name_Is{boolean} 135>7 135>22 135>29 135>45 141b13 255s9 266s15
+135a7 Text{string} 137r15 137r39 138r51 146r20
+135i22 First{8I12} 138r19 144r15 146r26
+135i29 After{8I12} 138r27 138r42 144r7
+135a45 Word{string} 139r19 139r43 144r23 145r40 146r45
+145i25 Offset{integer} 146r34 146r55
+148V13*Equal_Name{boolean} 149>7 149>22 149>34 149>46 149>59 156b13
+149a7 Text{string} 152r15 152r39 153r66 154r69 162r20 162r61
+149i22 Left_First{8I12} 153r19 160r20 161r54 162r26
+149i34 Left_After{8I12} 153r32 153r52 160r7 161r41
+149i46 Right_First{8I12} 154r19 160r47 162r67
+149i59 Right_After{8I12} 154r33 154r54 160r33
+161i25 Offset{integer} 162r39 162r81
+164E9*Forbidden_Kind 240e27 242r40 254r24 5|8r40
+165n7*Forbidden_abort{164E9} 5|11r15
+166n7*Forbidden_abs{164E9} 5|12r15
+167n7*Forbidden_abstract{164E9} 5|13r15
+168n7*Forbidden_accept{164E9} 5|14r15
+169n7*Forbidden_access{164E9} 5|15r15
+170n7*Forbidden_aliased{164E9} 5|16r15
+171n7*Forbidden_all{164E9} 5|17r15
+172n7*Forbidden_and{164E9} 5|18r15
+173n7*Forbidden_array{164E9} 5|19r15
+174n7*Forbidden_at{164E9} 5|20r15
+175n7*Forbidden_begin{164E9} 5|21r15
+176n7*Forbidden_body{164E9} 5|22r15
+177n7*Forbidden_case{164E9} 5|23r15
+178n7*Forbidden_constant{164E9} 5|24r15
+179n7*Forbidden_declare{164E9} 5|25r15
+180n7*Forbidden_delay{164E9} 5|26r15
+181n7*Forbidden_delta{164E9} 5|27r15
+182n7*Forbidden_digits{164E9} 5|28r15
+183n7*Forbidden_do{164E9} 5|29r15
+184n7*Forbidden_else{164E9} 5|30r15
+185n7*Forbidden_elsif{164E9} 5|31r15
+186n7*Forbidden_end{164E9} 5|32r15
+187n7*Forbidden_entry{164E9} 5|33r15
+188n7*Forbidden_exception{164E9} 5|34r15
+189n7*Forbidden_exit{164E9} 5|35r15
+190n7*Forbidden_for{164E9} 5|36r15
+191n7*Forbidden_function{164E9} 5|37r15
+192n7*Forbidden_generic{164E9} 5|38r15
+193n7*Forbidden_goto{164E9} 5|39r15
+194n7*Forbidden_if{164E9} 5|40r15
+195n7*Forbidden_in{164E9} 5|41r15
+196n7*Forbidden_interface{164E9} 5|42r15
+197n7*Forbidden_is{164E9} 5|43r15
+198n7*Forbidden_limited{164E9} 5|44r15
+199n7*Forbidden_loop{164E9} 5|45r15
+200n7*Forbidden_mod{164E9} 5|46r15
+201n7*Forbidden_new{164E9} 5|47r15
+202n7*Forbidden_not{164E9} 5|48r15
+203n7*Forbidden_null{164E9} 5|49r15
+204n7*Forbidden_of{164E9} 5|50r15
+205n7*Forbidden_or{164E9} 5|51r15
+206n7*Forbidden_others{164E9} 5|52r15
+207n7*Forbidden_out{164E9} 5|53r15
+208n7*Forbidden_overriding{164E9} 5|54r15
+209n7*Forbidden_package{164E9} 5|55r15
+210n7*Forbidden_parallel{164E9} 5|56r15
+211n7*Forbidden_pragma{164E9} 5|57r15
+212n7*Forbidden_private{164E9} 5|58r15
+213n7*Forbidden_procedure{164E9} 5|59r15
+214n7*Forbidden_protected{164E9} 5|60r15
+215n7*Forbidden_raise{164E9} 5|61r15
+216n7*Forbidden_range{164E9} 5|62r15
+217n7*Forbidden_record{164E9} 5|63r15
+218n7*Forbidden_rem{164E9} 5|64r15
+219n7*Forbidden_renames{164E9} 5|65r15
+220n7*Forbidden_requeue{164E9} 5|66r15
+221n7*Forbidden_return{164E9} 5|67r15
+222n7*Forbidden_reverse{164E9} 5|68r15
+223n7*Forbidden_select{164E9} 5|69r15
+224n7*Forbidden_separate{164E9} 5|70r15
+225n7*Forbidden_some{164E9} 5|71r15
+226n7*Forbidden_subtype{164E9} 5|72r15
+227n7*Forbidden_synchronized{164E9} 5|73r15
+228n7*Forbidden_tagged{164E9} 5|74r15
+229n7*Forbidden_task{164E9} 5|75r15
+230n7*Forbidden_terminate{164E9} 5|76r15
+231n7*Forbidden_then{164E9} 5|77r15
+232n7*Forbidden_type{164E9} 5|78r15
+233n7*Forbidden_until{164E9} 5|79r15
+234n7*Forbidden_use{164E9} 5|80r15
+235n7*Forbidden_when{164E9} 5|81r15
+236n7*Forbidden_while{164E9} 5|82r15
+237n7*Forbidden_with{164E9} 5|83r15
+238n7*Forbidden_xor{164E9} 5|84r15
+239n7*Forbidden_string{164E9} 5|85r15
+240n7*Forbidden_silver_io{164E9} 5|86r15
+242V13*Forbidden_Spelling{string} 242>33 244r16 245r19 255s38 5|8b13
+242e33 Word{164E9} 5|8b33 10r12
+248V13*Forbidden_Name{boolean} 248>29 248>44 248>51 253b13 265s7
+248a29 Text{string} 250r15 250r39 251r51 255r18
+248i44 First{8I12} 251r19 255r24
+248i51 After{8I12} 251r27 251r42 255r31
+254e16 Word{164E9} 255r58
+257V13*Forbidden_Argument_Name{boolean} 258>7 258>22 258>29 263b13
+258a7 Text{string} 260r15 260r39 261r51 265r23 266r24
+258i22 First{8I12} 261r19 265r29 266r30
+258i29 After{8I12} 261r27 261r42 265r36 266r37
+268V13*Valid_Name_State{boolean} 268>31 268>46 268>53 272b13
+268a31 Text{string} 270r15 270r39 274r67
+268i46 First{73I12} 273r8 274r16 274r35
+268i53 After{73I12} 273r27 274r43 274r58
+276I12*Capacity_Value{natural} 279r15 284r49 294r49 323r70 330r70 347r20
+. 5|93r15 132r20
+277R9*Decimal_Result 280e14 281r31 285r14 295r14 306r66 313r66 339r69 5|90r69
+278i7*After{73I12} 281m50 289r36 290r38 296m37 299m16 310r34 311r36 319m37
+. 5|102m18 115m21 127m15
+279i7*Value{276I12} 281m62 296m56 299m35 319m60 5|102m37 115m36 127m30
+281r4*Invalid_Decimal{277R9} 298r60 302r12 315r12 319r15 5|96r17 100r20 113r23
+. 121r23
+339V13*Read_Capacity{277R9} 339>28 339>43 343r27 5|90b13 128l8 128t21
+339a28 Text{string} 341r15 341r39 342r31 343r62 5|90b28 95r17 95r35 98r10
+. 99r20 99r64 104r31 106r21 107r57 109r24 109r56 111r13 112r41 118r56
+339i43 Position{8I12} 342r19 343r68 5|90b43 92r24 107r41 109r30
+345U14*Match_Sized_Literal 346>7 346=22 346<48 347<7 5|130b14 171l8 171t27
+346a7 Text{string} 349r15 349r39 350r31 351r39 353r29 354r22 355r35 357r36
+. 358r46 5|131b7 138r21 138r39 142r25 143r58 146r25 146r57 148r37 148r71
+. 150r13 151r27 151r46 159r16 159r63 160r21 161r46 164r16
+346i22 Position{8I12} 350r19 351r27 353r13 354r28 355r41 357r12 357r42 358r52
+. 5|131b22 134r34 138r10 138r45 141m7 141r19 142r13 143r33 144r44 146r63
+. 148r43 149r44 150r19 151r16 151r52 152m16 152r28 155m16 155r28 159r22 159r47
+. 160r27 161r52 164r22 165m13 165r25
+346b48 Matched{boolean} 352r19 356r23 5|131b48 136m7 156m16
+347i7 Length{276I12} 358r21 5|132b7 137m7 144r33 148r12 153m16 153r26 166m13
+. 166r23
+360U14*Skip_Comment 360>28 360=43 5|173b14 187l8 187t20 207s13
+360a28 Text{string} 363r15 364r19 365r31 366r55 367r43 5|173b28 177r25 178r38
+. 181r45 183r36 183r75
+360i43 Position{8I12} 365r19 366r27 366r39 367r19 367r49 5|173b43 175r45
+. 177r13 178r44 181r13 183r81 184r44 185m10 185r22
+369U14*Skip_Trivia 369>27 369=42 5|189b14 212l8 212t19
+369a27 Text{string} 372r15 373r19 374r31 375r55 376r42 5|189b27 193r25 195r45
+. 197r35 197r73 200r28 202r16 203r32 204r21 207r27
+369i42 Position{8I12} 374r19 375r27 375r39 376r19 376r48 5|189b42 191r45
+. 193r13 195r13 197r79 198r44 200r34 201m13 201r25 202r22 203r21 204r27 206m13
+. 206r25 207m33
+378U14*Match_Literal 379>7 379=22 379<48 5|214b14 250l8 250t21
+379a7 Text{string} 381r15 382r19 383r31 384r39 386r29 387r22 388r35 390r36
+. 5|215b7 220r21 220r39 224r25 225r58 227r25 227r57 229r13 230r27 231r24
+. 239r16 239r63 240r21 241r46 244r16
+379i22 Position{8I12} 383r19 384r27 386r13 387r28 388r41 390r12 390r42 5|215b22
+. 217r34 220r10 220r45 223m7 223r19 224r13 225r33 227r63 228r44 229r19 230r16
+. 231r30 233m16 233r28 235m16 235r28 239r22 239r47 240r27 241r52 244r22 245m13
+. 245r25
+379b48 Matched{boolean} 385r19 389r23 5|215b48 219m7 236m16
+392U14*Match_Identifier 393>7 393=22 393<48 5|252b14 278l8 278t24
+393a7 Text{string} 395r15 395r39 396r31 397r39 398r46 399r63 5|253b7 259r21
+. 259r54 263r25 263r69 264r58 266r29 267r33 269r13 272r33
+393i22 Position{8I12} 396r19 397r27 398r52 399r36 399r69 5|253b22 255r34
+. 259r10 259r60 262m7 262r19 263r13 263r75 264r33 267r39 268r44 269r19 272r39
+. 273m10 273r22
+393b48 Matched{boolean} 398r19 399r23 5|253b48 258m7 276m10
+X 5 silver_output_lexical.adb
+92i7 Next{4|8I12} 95r10 95r41 98r16 99r13 99r70 102r27 104r37 105m7 105r15
+. 106r13 107r33 109r62 110r44 111r19 112r47 115r30 118r62 125m10 125r18 127r24
+93i7 Value{4|276I12} 104m7 109r68 115r45 120r16 123m13 123r27 127r39
+118i13 Digit{natural} 120r45 123r35
+134i7 Start{4|8I12} 143r45 144r55 146r31 148r77
+175i7 Initial_Position{4|8I12} 181r25 183r42
+191i7 Initial_Position{4|8I12} 195r25 197r41
+217i7 Start{4|8I12} 225r45 227r31
+255i7 Start{4|8I12} 264r45 266r35
+256b7 Previous_Underscore{boolean} 267r49 269r44 272m10 275r14
+X 6 silver_profile.ads
+1K9*Silver_Profile 4|1w6 6r8 5|1w6 6r8 6|94e19
+4i4*Max_Source_Length{positive} 4|8r42 17r39 33r39 55r39 73r51 80r39 108r59
+. 125r59 137r59 139r63 152r59 250r59 260r59 270r59 276r49 287r59 300r22 308r59
+. 325r59 341r59 349r59 364r39 373r39 382r39 395r59 5|120r25
+5a4*Comment_Introducer{string} 4|42r31 44r40 5|202r34 204r43
+8V13*Is_Whitespace{boolean} 4|40s13 5|200s13
+20V13*Is_Identifier_Character{boolean} 4|71s22 95s18 118s43 298s13 318s21
+. 5|99s39 112s16 161s21 241s21 263s44
+27V13*Is_Comment_End{boolean} 4|24s17 5|178s22
+31V13*Lowercase{character} 4|67s12 146s9 162s9 162s50
+

@@ -1,0 +1,154 @@
+V "GNAT Lib v16"
+A -gnat2022
+A -gnata
+A -gnato
+A -g
+P SS ZX
+
+RN
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_RECURSION
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLICIT_LOOPS
+
+U silver_profile%b	silver_profile.adb	c5451c6b NE OO PK
+Z system.assertions%s	s-assert.adb		s-assert.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U silver_profile%s	silver_profile.ads	547f70f2 EE NE OO PK
+
+D ada.ads		20260430083320 76789da1 ada%s
+D a-assert.ads		20260430083320 ba465f5c ada.assertions%s
+D a-unccon.ads		20260430083320 0e9b276f ada.unchecked_conversion%s
+D silver_profile.ads	20261017131118 547f70f2 silver_profile%s
+D silver_profile.adb	20261017131118 913a6c99 silver_profile%b
+D system.ads		20260430083320 e2b7c99d system%s
+D s-assert.ads		20260430083320 9c4520c7 system.assertions%s
+D s-exctab.ads		20260430083320 91bef6ef system.exception_table%s
+D s-parame.ads		20260430083320 a1aeab5c system.parameters%s
+D s-secsta.ads		20260430083320 578279f5 system.secondary_stack%s
+D s-stalib.ads		20260430083320 1c9580f6 system.standard_library%s
+D s-stoele.ads		20260430083320 ccded4e8 system.storage_elements%s
+G a e
+G c Z s b [is_whitespace silver_profile 8 13 none]
+G c Z s b [is_allowed_character silver_profile 13 13 none]
+G c Z s b [is_identifier_character silver_profile 20 13 none]
+G c Z s b [is_comment_end silver_profile 27 13 none]
+G c Z s b [lowercase silver_profile 31 13 none]
+G c Z s b [is_word_token silver_profile 51 13 none]
+G c Z s s [token_sequenceIP silver_profile 55 9 none]
+G c Z s b [spelling silver_profile 76 13 none]
+G c Z s b [is_member silver_profile 83 13 none]
+G c Z s b [accepts silver_profile 91 13 none]
+G c Z b b [normalized silver_profile 47 13 none]
+G c Z b b [allowed_source silver_profile 60 13 none]
+G c Z b b [comment_end silver_profile 65 13 none]
+G c Z b b [trivia_end silver_profile 81 13 none]
+G c Z b b [token_at silver_profile 101 13 none]
+G c Z b b [suffix_matches silver_profile 128 13 none]
+G c Z b b [skip_comment silver_profile 161 14 none]
+G c Z b b [skip_trivia silver_profile 184 14 none]
+G c Z b b [match_token silver_profile 216 14 none]
+X 4 silver_profile.ads
+1K9*Silver_Profile 94l5 94e19 5|1b14 297l5 297t19
+4i4*Max_Source_Length{positive} 5|4r42 50r32 70r39 86r39 108r39 135r39 157r29
+. 165r39 188r39 222r39 261r52
+5a4*Comment_Introducer{string} 5|95r31 97r40 204r34 206r43
+8V13*Is_Whitespace{boolean} 8>28 10r19 5|24b13 31s34 93s13 202s13
+8e28 Item{character} 11r29 11r63 12r37 12r71 5|25r7 26r15 27r15 28r15
+13V13*Is_Allowed_Character{boolean} 13>35 15r19 5|30b13 61s31
+13e35 Item{character} 16r29 17r37 18r37 19r37 5|31r7 31r49
+20V13*Is_Identifier_Character{boolean} 20>38 22r19 5|36b13 124s22 250s18
+20e38 Item{character} 23r29 24r37 25r37 26r37 5|37r7 38r15 39r15 40r15
+27V13*Is_Comment_End{boolean} 27>29 29r19 5|33b13 77s17 173s22
+27e29 Item{character} 30r29 30r63 5|34r7 34r41
+31V13*Lowercase{character} 31>24 33r34 5|42b13 120s12 242s15 243s13
+31e24 Item{character} 34r32 35r34 35r65 5|43r10 44r42 45r12
+37E9*Token_Kind 49e17 51r36 53r43 55r56 76r31 5|6r36 9r31 217r56
+38n7*Procedure_Keyword{37E9} 60r7 5|7r16 11r15
+39n7*Main_Name{37E9} 61r7 73r7 5|12r15
+40n7*Is_Keyword{37E9} 62r7 5|13r15
+41n7*Pragma_Keyword{37E9} 63r7 5|14r15
+42n7*SPARK_Mode_Name{37E9} 64r7 5|15r15
+43n7*On_Name{37E9} 66r7 5|16r15
+44n7*Begin_Keyword{37E9} 69r7 5|17r15
+45n7*Null_Keyword{37E9} 70r7 5|18r15
+46n7*End_Keyword{37E9} 72r7 5|7r37 19r15
+47n7*Left_Parenthesis{37E9} 65r7 5|20r15
+48n7*Right_Parenthesis{37E9} 67r7 5|21r15
+49n7*Semicolon{37E9} 68r7 71r7 74r7 5|22r15
+51V13*Is_Word_Token{boolean} 51>28 53r19 5|6b13 149s12 227s13 248s10
+51e28 Token{37E9} 53r59 5|7r7
+55A9*Token_Sequence(37E9)<integer> 59r31
+59a4*Required_Tokens{55A9} 5|126r47 143r23 148r22 149r27 153r26 277r30 286r32
+76V13*Spelling{string} 76>23 78r19 79r22 5|9b13 148s12 153s16 226s33 229s55
+. 232s33
+76e23 Token{37E9} 5|10r12
+83V13*Is_Member{boolean} 83>24 93s36 5|156b13
+83a24 Source{string} 5|157r7 158r44 159r44
+91V13*Accepts{boolean} 91>22 93r19 5|259b13
+91a22 Source{string} 93r47 5|259b22 261r10 261r36 266r48
+X 5 silver_profile.adb
+4I12 Cursor{positive} 65r52 65r67 75r52 75r67 81r51 81r66 91r51 91r66 102r33
+. 114r33 129r33 140r33 161r61 170r35 184r60 193r35 217r40 267r21
+47V13 Normalized{string} 47b13 47>25 51r16 52r19 53r19 158s32 159s32 266s36
+47a25 Source{string} 50r15 52r46 53r39 55r36 55r54
+55a7 Text{string} 57r14
+60V13 Allowed_Source{boolean} 60b13 60>29 158s16 273s17
+60a29 Text{string} 61r23
+61e15 Item=61:23{character} 61r53
+65V13 Comment_End{4I12} 65>26 65>41 72r16 75b13 79s12 98s30 168s30 178s13
+. 178s52
+65a26 Text{string} 69r15 70r19 71r31 72r50 73r45 76r21 77r33 79r25
+65i41 Position{4I12} 71r19 72r38 73r62 76r10 77r39 78r12 79r31
+81V13 Trivia_End{4I12} 81>25 81>40 88r16 91b13 94s12 98s12 144s12 147s18
+. 152s12 191s30 199s13 199s51
+81a25 Text{string} 85r15 86r19 87r31 88r49 89r45 92r21 93r28 94r24 95r13
+. 96r29 97r18 98r24 98r43
+81i40 Position{4I12} 87r19 88r37 89r62 92r10 92r36 93r34 94r30 95r19 96r18
+. 97r24 98r49 99r12
+101V13 Token_At{boolean} 102>7 102>22 102>41 102>56 113b13 146s9 225s29
+102a7 Text{string} 107r15 108r19 109r31 117r23 120r23 123r43 124r47
+102i22 Position{4I12} 109r19 117r35 120r30 123r18 124r53
+102a41 Word{string} 110r19 111r19 117r7 119r27 120r56 123r29 124r64
+102b56 Is_Word{boolean} 122r14
+119i18 Index{integer} 120r41 120r62
+126I12 Token_Index{positive} 129r54 140r54 268r23
+128V13 Suffix_Matches{boolean} 129>7 129>22 129>41 139b13 150s18 159s16 280s16
+. 281s18
+129a7 Text{string} 134r15 135r19 136r31 144r24 144r42 147r12 147r30 151r12
+. 152r24
+129i22 Position{4I12} 136r19 144r30 147r36 152r30
+129i41 Next_Token{126I12} 137r44 143r10 148r39 149r44 153r43 154r12
+161U14 Skip_Comment 161b14 161>28 161=43 209s13
+161a28 Text{string} 164r15 165r19 166r31 167r44 168r43 172r25 173r38 176r45
+. 178r26 178r65
+161i43 Position{4I12} 166r19 167r16 167r28 168r19 168r49 170r45 172r13 173r44
+. 176r13 178r71 179r44 180m10 180r22
+170i7 Initial_Position{4I12} 176r25 178r32
+184U14 Skip_Trivia 184b14 184>27 184=42 284s13 293s10
+184a27 Text{string} 187r15 188r19 189r31 190r44 191r42 195r25 197r45 199r25
+. 199r63 202r28 204r16 205r32 206r21 209r27
+184i42 Position{4I12} 189r19 190r16 190r28 191r19 191r48 193r45 195r13 197r13
+. 199r69 200r44 202r34 203m13 203r25 204r22 205r21 206r27 208m13 208r25 209m33
+193i7 Initial_Position{4I12} 197r25 199r31
+216U14 Match_Token 216b14 217>7 217=22 217>48 218<7 285s13
+217a7 Text{string} 221r15 222r19 223r31 224r28 226r13 235r25 242r26 243r24
+. 249r44 250r43
+217i22 Position{4I12} 223r19 224r16 226r19 229r29 229r40 230r18 230r29 235r37
+. 242r33 243r31 249r18 250r49 255m7 255r19
+217e48 Token{4|37E9} 226r43 227r28 229r65 232r43 248r25
+218b7 Matched{boolean} 225r19 229r16 234m7 256m7
+232a7 Word{string} 235r10 239r20 241r33 242r62 243r58 249r29 250r60 255r30
+239i11 Index{integer} 241r47 243r42 243r64
+241i21 Previous{integer} 242r44 242r68
+266a10 Text{string} 273r33 278r48 280r32 281r34 284r26 286r16 293r23 294r28
+267i10 Position{4I12} 278r36 281r40 284m32 284r32 286m22 286r22 293m29 293r29
+. 294r17
+268i10 Next_Token{126I12} 277r16 281r50 282r47 286r49 290m13 290r27
+269b10 Matched{boolean} 286m62 287r20
+

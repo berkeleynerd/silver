@@ -1,0 +1,42 @@
+V "GNAT Lib v16"
+M P W=b
+A -gnatc
+A -gnat2022
+A -gnata
+A -gnato
+A -mtune=generic
+A -march=x86-64
+P NO
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_ELABORATION_CODE
+
+U main%b		main.adb		26324a12 OO SU
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W silver_io%s		silver_io.adb		silver_io.ali
+
+D ada.ads		20260430083320 76789da1 ada%s
+D a-ioexce.ads		20260430083320 40018c65 ada.io_exceptions%s
+D a-stream.ads		20260430083320 cb01a8f8 ada.streams%s
+D a-string.ads		20260430083320 90ac6797 ada.strings%s
+D a-sttebu.ads		20260430083320 f1ad67a2 ada.strings.text_buffers%s
+D a-stuten.ads		20260430083320 c6ced0ae ada.strings.utf_encoding%s
+D a-textio.ads		20260430083320 34ef47de ada.text_io%s
+D a-unccon.ads		20260430083320 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20260430083320 9111f9c1 interfaces%s
+D i-cstrea.ads		20260430083320 ffd01b9d interfaces.c_streams%s
+D main.adb		20261017130932 fcd943b4 main%b
+D silver_io.ads		20261017130932 daeb09a6 silver_io%s
+D system.ads		20260430083320 e2b7c99d system%s
+D s-crtl.ads		20260430083320 823b6536 system.crtl%s
+D s-ficobl.ads		20260430083320 dc5161d4 system.file_control_block%s
+D s-parame.ads		20260430083320 a1aeab5c system.parameters%s
+D s-wchcon.ads		20260430083320 d9032363 system.wch_con%s
+G a e
+G c Z b b [main standard 2 11 none]
+X 11 main.adb
+2U11*Main 2b11 125005l5 125005t9
+X 12 silver_io.ads
+2K9*Silver_IO 11|1w6 12|37e14
+

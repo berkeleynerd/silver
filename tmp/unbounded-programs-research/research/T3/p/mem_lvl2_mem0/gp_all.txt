@@ -1,0 +1,219 @@
+Phase 1 of 3: generation of data representation information ...
+gprbuild --subdirs=gnatprove/data_representation --no-object-check --restricted-to-languages=ada --target=x86_64-linux -s -v -j22 -f -U -c -P /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/program.gpr -cargs:Ada -S -gnatR2js -gnatws -gnatx -gnatis
+Phase 2 of 3: generation of Global contracts ...
+gprbuild --subdirs=gnatprove/phase1 --no-object-check --restricted-to-languages=ada --target=x86_64-linux --gnatprove -s -v -j22 -f -U -c -P /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/program.gpr --db /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/share/spark/config/frames -cargs:Ada -gnatc -gnates=/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/222c6913.tmp -gnatis
+object directory "/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/phase1" created for project Program
+exec directory "/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/bin/gnatprove/phase1" created for project Program
+Changing to object directory of "Program": "/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/phase1/"
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/222c6913.tmp -gnatis -gnatec=/tmp/GPR.60905/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.60905/GNAT-TEMP-000003.TMP /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/silver_io.adb
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/222c6913.tmp -gnatis -gnatec=/tmp/GPR.60905/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.60905/GNAT-TEMP-000004.TMP /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/main.adb
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/222c6913.tmp -gnatis -gnatec=/tmp/GPR.60905/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.60905/GNAT-TEMP-000005.TMP /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/silver_runtime.ads
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/222c6913.tmp -gnatis -gnatec=/tmp/GPR.60905/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.60905/GNAT-TEMP-000006.TMP /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/silver_output_libc.ads
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/222c6913.tmp -gnatis -gnatec=/tmp/GPR.60905/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.60905/GNAT-TEMP-000007.TMP /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/silver_arguments.adb
+Phase 3 of 3: flow analysis and proof ...
+gprbuild --subdirs=gnatprove/ --complete-output --restricted-to-languages=ada --target=x86_64-linux --gnatprove -s -v -j22 -f -U -c -P /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/program.gpr --db /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/share/spark/config/gnat2why -cargs:Ada -gnatc -gnates=/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/ae4072ee.tmp
+Changing to object directory of "Program": "/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/"
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/ae4072ee.tmp -gnatec=/tmp/GPR.60921/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.60921/GNAT-TEMP-000003.TMP /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/silver_io.adb -gnateO=/tmp/GPR.60921/GNAT-TEMP-000004.TMP
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/ae4072ee.tmp -gnatec=/tmp/GPR.60921/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.60921/GNAT-TEMP-000005.TMP /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/main.adb -gnateO=/tmp/GPR.60921/GNAT-TEMP-000004.TMP
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/ae4072ee.tmp -gnatec=/tmp/GPR.60921/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.60921/GNAT-TEMP-000006.TMP /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/silver_runtime.ads -gnateO=/tmp/GPR.60921/GNAT-TEMP-000004.TMP
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/ae4072ee.tmp -gnatec=/tmp/GPR.60921/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.60921/GNAT-TEMP-000007.TMP /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/silver_output_libc.ads -gnateO=/tmp/GPR.60921/GNAT-TEMP-000004.TMP
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/ae4072ee.tmp -gnatec=/tmp/GPR.60921/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.60921/GNAT-TEMP-000008.TMP /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/silver_arguments.adb -gnateO=/tmp/GPR.60921/GNAT-TEMP-000004.TMP
+ info: implicit aspect Always_Terminates on "Is_Message" has been proved, subprogram will terminate
+--> silver_arguments.adb:5:13
+
+ info: range check proved
+--> silver_arguments.adb:6:11
+
+ info: precondition proved
+--> silver_arguments.adb:14:43
+
+ info: range check proved
+--> silver_arguments.adb:26:20
+
+ info: range check proved
+--> silver_arguments.adb:26:49
+
+ info: length check proved
+--> silver_arguments.adb:26:61
+
+ info: precondition proved
+--> silver_arguments.adb:30:53
+
+ info: range check proved
+--> silver_arguments.adb:33:23
+
+ info: range check proved
+--> silver_arguments.adb:33:49
+
+ info: length check proved
+--> silver_arguments.adb:33:61
+
+ info: implicit aspect Always_Terminates on "Input_Is_Valid" has been proved, subprogram will terminate
+--> silver_arguments.ads:9:13
+
+ info: data dependencies proved
+--> silver_arguments.ads:9:48
+
+ info: implicit aspect Always_Terminates on "First_Or_Default" has been proved, subprogram will terminate
+--> silver_arguments.ads:13:13
+
+ info: data dependencies proved
+--> silver_arguments.ads:14:11
+
+ info: postcondition proved
+--> silver_arguments.ads:15:19
+
+ info: range check proved
+--> silver_arguments.ads:16:45
+
+ info: aspect Always_Terminates on "Reject" has been proved, subprogram will terminate
+--> silver_arguments.ads:21:14
+
+ info: data dependencies proved
+--> silver_arguments.ads:22:11
+ info: initialization of "Status" proved
+--> silver_io.adb:7:07
+
+ info: range check proved
+--> silver_io.adb:13:14
+
+ info: loop invariant initialization proved
+--> silver_io.adb:19:43
+
+ info: loop invariant preservation proved
+--> silver_io.adb:19:43
+
+ info: overflow check proved
+--> silver_io.adb:19:65
+
+ info: loop invariant initialization proved
+--> silver_io.adb:21:23
+
+ info: loop invariant preservation proved
+--> silver_io.adb:21:23
+
+ info: index check proved
+--> silver_io.adb:22:30
+
+ info: overflow check proved
+--> silver_io.adb:22:57
+
+ info: index check proved
+--> silver_io.adb:22:57
+
+ info: range check proved
+--> silver_io.adb:29:41
+
+ info: index check proved
+--> silver_io.adb:30:25
+
+ info: range check proved
+--> silver_io.adb:37:38
+
+ info: index check proved
+--> silver_io.adb:38:22
+
+ info: initialization of "Status" proved
+--> silver_io.adb:50:07
+
+ info: range check proved
+--> silver_io.adb:56:14
+
+ info: loop invariant initialization proved
+--> silver_io.adb:62:43
+
+ info: loop invariant preservation proved
+--> silver_io.adb:62:43
+
+ info: overflow check proved
+--> silver_io.adb:62:65
+
+ info: loop invariant initialization proved
+--> silver_io.adb:64:23
+
+ info: loop invariant preservation proved
+--> silver_io.adb:64:23
+
+ info: index check proved
+--> silver_io.adb:65:30
+
+ info: overflow check proved
+--> silver_io.adb:65:57
+
+ info: index check proved
+--> silver_io.adb:65:57
+
+ info: range check proved
+--> silver_io.adb:72:41
+
+ info: index check proved
+--> silver_io.adb:73:25
+
+ info: data dependencies proved
+--> silver_io.ads:19:11
+
+ info: initialization of "Written_Bytes" proved
+--> silver_io.ads:20:33
+
+ info: initialization of "Written_Count" proved
+--> silver_io.ads:20:48
+
+ info: initialization of "Flushed" proved
+--> silver_io.ads:20:63
+
+ info: initialization of "Succeeded" proved
+--> silver_io.ads:20:72
+
+ info: postcondition proved
+--> silver_io.ads:22:30
+
+ info: range check proved
+--> silver_io.ads:23:45
+
+ info: range check proved
+--> silver_io.ads:24:44
+
+ info: overflow check proved
+--> silver_io.ads:24:52
+
+ info: range check proved
+--> silver_io.ads:25:24
+
+ info: range check proved
+--> silver_io.ads:25:48
+
+ info: index check proved
+--> silver_io.ads:26:39
+
+ info: data dependencies proved
+--> silver_io.ads:30:11
+
+ info: initialization of "Written_Bytes" proved
+--> silver_io.ads:31:33
+
+ info: initialization of "Written_Count" proved
+--> silver_io.ads:31:48
+
+ info: initialization of "Flushed" proved
+--> silver_io.ads:31:63
+
+ info: initialization of "Succeeded" proved
+--> silver_io.ads:31:72
+
+ info: postcondition proved
+--> silver_io.ads:33:30
+
+ info: range check proved
+--> silver_io.ads:34:45
+
+ info: range check proved
+--> silver_io.ads:35:44
+
+ info: range check proved
+--> silver_io.ads:36:24
+
+ info: range check proved
+--> silver_io.ads:36:48
+spark_report /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/gnatprove.alfad
+Success: all checks proved (66 checks).
+Summary logged in /tmp/claude-1000/-home-canto-src-github-com-berkeleynerd-silver/958e8e62-f068-47ab-93b6-19b171d068b8/scratchpad/research/T3/p/mem_lvl2_mem0/obj/gnatprove/gnatprove.out
