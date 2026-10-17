@@ -1,0 +1,99 @@
+{
+  "target": "4073ab0820",
+  "source_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "source_files_verified": 30,
+  "reproduced_files": [
+    {
+      "file": "capture.py",
+      "sha256": "90fde33aba2c041d98fbd39e85ada79c22ceb55e9638f0dc1b0210237b9fe7ce"
+    },
+    {
+      "file": "checks.json",
+      "sha256": "a0f5cd3d7015b9fd7b9ab519403d217e8c54fbfb3d76392cc2138b33f7bc57a2"
+    },
+    {
+      "file": "retained-input.json",
+      "sha256": "2b89a6ecb6a5be16ae1f67514c0fa9d1da296984c69be568452ccdb4ee9666dd"
+    },
+    {
+      "file": "retained-literal-modules.json",
+      "sha256": "1a75441601f7ed84b22e908f8e3a255700dc927c0c21734093d66894224ff928"
+    },
+    {
+      "file": "retained-main.adb",
+      "sha256": "539889380a4d2fa473748a5e870103f2c1a7654cb6956c839a0731f6d2321df2"
+    },
+    {
+      "file": "source-archive-check.json",
+      "sha256": "3b9df10405e5d10f140b8e65a9cd06919ec20ba304c5d0ed9792b6733126e1dc"
+    },
+    {
+      "file": "source-excerpts.md",
+      "sha256": "bc9c5d9efdff81f8c022b7b4c92b8c00e77beb006158c234f03a782f51690bcc"
+    },
+    {
+      "file": "source-manifest.json",
+      "sha256": "9a70992ececbde0c12b8a97233d612e1ca61ae558ba5b2996bef07c35302bbc0"
+    }
+  ],
+  "independent_schema_reconstruction": {
+    "literal_fixed_nodes_lists_elements": [
+      22,
+      12,
+      10
+    ],
+    "literal_fixed_emitted_occurrences": 74,
+    "literal_use_nodes_lists_elements": [
+      9,
+      2,
+      3
+    ],
+    "literal_use_emitted_occurrences": 14,
+    "length_equality_nodes_lists_elements": [
+      12,
+      12,
+      16
+    ],
+    "length_equality_emitted_occurrences": 232,
+    "length_bound_reference_multiplicities": [
+      2,
+      2,
+      3,
+      3
+    ]
+  },
+  "reviewed_row_arithmetic": {
+    "array_conversion": [
+      47,
+      22,
+      31,
+      459
+    ],
+    "concat": [
+      60,
+      32,
+      49,
+      484
+    ],
+    "initializer_core": [
+      21,
+      8,
+      12,
+      116
+    ],
+    "assignment_pre_conversions": [
+      54,
+      17,
+      24,
+      329
+    ],
+    "assignment": [
+      148,
+      61,
+      86,
+      1247
+    ]
+  },
+  "scope": "Source/retained fixture/shape arithmetic only; no compiler or proofs",
+  "whole_producer_closed": false
+}
