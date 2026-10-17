@@ -1,0 +1,131 @@
+{
+  "review_target": "63b0c9671f9322c03f961b6df410ba87330bc1e8",
+  "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "host": "Linux x86_64",
+  "source_sha256": {
+    "atree.adb": "cb7804d95e680be6391cc1f2b4a22cb09de8eb7141d9084493e6c182e5c19e4f",
+    "atree.ads": "6dfb7c0879436641af4288e0ef4f97872f1becadb1d14c38533c2e227867dfdd",
+    "checks.adb": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c",
+    "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
+    "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
+    "expander.adb": "5cbfe2783201ea57d9d93290187daa0a24d71757b82b2a49c9280704b148b461",
+    "gen_il.ads": "fa20e97a7e94b488193439aa85108e614ebde80e9f9fdf81fba798c64691add5",
+    "gen_il-gen.adb": "c52ad207573f942a6bc32132a2d5b5e82e008b9a297c60a9e15670e10b24ed14",
+    "gen_il-internals.ads": "cd480e03f8a2ca7fb9dfd532dd5d4dafb1363a443e7e90b787df2c732882472d",
+    "hostparm.ads": "b2196c2e037f2f07f1cc885bef246c3f2b63cab5c6b908b3fe17c9f4a4031895",
+    "lib.adb": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e",
+    "namet.adb": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc",
+    "par-ch4.adb": "b6ea201b0bf99ddb4683ecc09ea65bf5009f249fbae7af71d00ec921bd0f79d7",
+    "scng.adb": "0989455192a510aff6227ac012b232f1497e219f294d277e7fb99c5bdb7c7db3",
+    "sem_attr.adb": "2186f019b336c853f7e3f5ae3a40fd91514ba188694c4fd592282c7ce63185d0",
+    "sem_ch3.adb": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
+    "sem_eval.adb": "0dfbf5f1bede0b9e011f21649c7f4d34851c6267cd72acebcb53e7a7fb4c7d30",
+    "sem_res.adb": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8",
+    "sem_util.adb": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4",
+    "sinput.adb": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8",
+    "sinput-l.adb": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd",
+    "stringt.adb": "9907f68178174b87a19a6d3871e5bc48e3a7471b3a4140f5e25bd900fcb84954",
+    "tbuild.adb": "db30e8c054e8e3f53af3a01f108f8bec563ce936ebe9988734bc007142643b2c",
+    "types.ads": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+    "uintp.adb": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
+    "uintp.ads": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
+    "validsw.ads": "79ecf115cfadb66ec6cba6d56980167b3f49c0bd594a342efc25ed7c209db2ee"
+  },
+  "reproductions": [
+    {
+      "file": "retained-value-capacity-20261017/components.json",
+      "sha256": "bf938677896d3230448255cf34d39f6f193702d023a73cd1bf07e90bd047c198",
+      "reproduced_byte_identically": true
+    },
+    {
+      "file": "retained-table-capacity-20261017/arithmetic-and-inventory.json",
+      "sha256": "03f848b803a0e4b9b9075fd462f2951ad85889158ba07e8cdb3a6499ec1228d8",
+      "reproduced_byte_identically": true
+    },
+    {
+      "file": "retained-native-expansion-20261017/local-envelope.json",
+      "sha256": "176273ec246874e0ae7dc6eebf0fb959fd318b7828acefc6bfccb8142a10f67c",
+      "reproduced_byte_identically": true
+    },
+    {
+      "file": "retained-frontend-entities-20261017/source-manifest.json",
+      "sha256": "da299c4c7c7de946620d03fb2a385ec275ec0618e50de3e417739e2bbd6bab70",
+      "reproduced_byte_identically": true
+    },
+    {
+      "file": "retained-frontend-entities-20261017/source-excerpts.md",
+      "sha256": "2cc53c703e4edb1a245e125d33bb69d98f1fd2906e99d9caf324051a4cebea84",
+      "reproduced_byte_identically": true
+    }
+  ],
+  "layout": {
+    "verified_inputs": 11,
+    "verified_retained_outputs": 11,
+    "independently_parsed_sizes": {
+      "node": {
+        "kinds": 242,
+        "min": 5,
+        "max": 12
+      },
+      "entity": {
+        "kinds": 78,
+        "min": 21,
+        "max": 64
+      }
+    },
+    "compiler_rerun": false
+  },
+  "arithmetic": {
+    "endpoint_and_digit_cases": 240100,
+    "column_recurrence_cases": 2047,
+    "last_line_capacity": 65536000,
+    "concat_rows": [
+      {
+        "operands": 2,
+        "ordinary_with_leaf_copies": 99,
+        "entities": 8,
+        "lists": 17
+      },
+      {
+        "operands": 3,
+        "ordinary_with_leaf_copies": 125,
+        "entities": 10,
+        "lists": 20
+      },
+      {
+        "operands": 9,
+        "ordinary_with_leaf_copies": 281,
+        "entities": 22,
+        "lists": 38
+      },
+      {
+        "operands": 10,
+        "ordinary_with_leaf_copies": 307,
+        "entities": 24,
+        "lists": 41
+      },
+      {
+        "operands": 11,
+        "ordinary_with_leaf_copies": 333,
+        "entities": 26,
+        "lists": 44
+      },
+      {
+        "operands": 1000,
+        "ordinary_with_leaf_copies": 26047,
+        "entities": 2004,
+        "lists": 3011
+      },
+      {
+        "operands": 1048576,
+        "ordinary_with_leaf_copies": 27263023,
+        "entities": 2097156,
+        "lists": 3145739
+      }
+    ],
+    "concat_magnitude_cases": 216
+  },
+  "native_inventory_form_feeds": 0,
+  "scope": "Local components only; no compiler/prover/Lean/full-suite run",
+  "whole_predicate_reviewed": false
+}
