@@ -27,6 +27,16 @@
       "occurrence_overhead_max": 27
     }
   },
+  "conditional_string_conversion": {
+    "dynamic_range_property_occurrences_max": 72,
+    "elements_max": 31,
+    "excludes": "input child, expected-type construction, symbol/memoized-module setup, invocation count",
+    "length_equality_occurrences_max": 232,
+    "lists_max": 22,
+    "nodes_max": 47,
+    "occurrence_overhead_max": 459,
+    "premise": "rank-one Character; static-constrained or unconstrained; no FLB/wrappers/predicates/qualification/element conversion"
+  },
   "limitation": "Arithmetic and retained-fixture checks; not whole-producer bound or source correspondence proof",
   "literal_component_examples": [
     {

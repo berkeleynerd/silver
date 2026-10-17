@@ -7547,9 +7547,97 @@
     95:       New_Node.Ada_Node := Empty;
 ```
 
-## src/why/why-gen-arrays.adb:311-448
+## src/why/why-gen-arrays.adb:223-448
 
 ```ada
+   223:    procedure Add_Map_Arg
+   224:      (Domain  : EW_Domain;
+   225:       Args    : in out W_Expr_Array;
+   226:       Expr    : W_Expr_Id;
+   227:       Arg_Ind : in out Positive)
+   228:    is
+   229:       W_Ty : constant W_Type_Id := Get_Type (Expr);
+   230:       Ty   : constant Entity_Id := Get_Ada_Node (+W_Ty);
+   231:    begin
+   232:       if Has_Static_Array_Type (Ty) then
+   233:          Args (Arg_Ind) := Expr;
+   234:       else
+   235:          Args (Arg_Ind) :=
+   236:            New_Call
+   237:              (Domain => Domain,
+   238:               Name   => E_Symb (Ty, WNE_To_Array, Is_Init_Wrapper_Type (W_Ty)),
+   239:               Args   => (1 => Expr),
+   240:               Typ    => EW_Split (Ty, Is_Init_Wrapper_Type (W_Ty)));
+   241:       end if;
+   242:       Arg_Ind := Arg_Ind + 1;
+   243:    end Add_Map_Arg;
+   244:
+   245:    ------------------
+   246:    -- Add_Attr_Arg --
+   247:    ------------------
+   248:
+   249:    procedure Add_Attr_Arg
+   250:      (Domain  : EW_Domain;
+   251:       Args    : in out W_Expr_Array;
+   252:       Expr    : W_Expr_Id;
+   253:       Attr    : Attribute_Id;
+   254:       Dim     : Positive;
+   255:       Arg_Ind : in out Positive) is
+   256:    begin
+   257:       Args (Arg_Ind) :=
+   258:         Insert_Conversion_To_Rep_No_Bool
+   259:           (Domain, +Get_Array_Attr (+Expr, Attr, Dim));
+   260:       Arg_Ind := Arg_Ind + 1;
+   261:    end Add_Attr_Arg;
+   262:
+   263:    procedure Add_Attr_Arg
+   264:      (Domain  : EW_Domain;
+   265:       Args    : in out W_Expr_Array;
+   266:       Ty      : Entity_Id;
+   267:       Attr    : Attribute_Id;
+   268:       Dim     : Positive;
+   269:       Arg_Ind : in out Positive;
+   270:       Params  : Transformation_Params := Body_Params) is
+   271:    begin
+   272:       Args (Arg_Ind) :=
+   273:         Insert_Conversion_To_Rep_No_Bool
+   274:           (Domain,
+   275:            +Get_Array_Attr (Term_Domain (Domain), Ty, Attr, Dim, Params));
+   276:       Arg_Ind := Arg_Ind + 1;
+   277:    end Add_Attr_Arg;
+   278:
+   279:    -------------------
+   280:    -- Add_Array_Arg --
+   281:    -------------------
+   282:
+   283:    procedure Add_Array_Arg
+   284:      (Domain  : EW_Domain;
+   285:       Args    : in out W_Expr_Array;
+   286:       Expr    : W_Expr_Id;
+   287:       Arg_Ind : in out Positive)
+   288:    is
+   289:       W_Ty : constant W_Type_Id := Get_Type (Expr);
+   290:       Ty   : constant Entity_Id := Get_Ada_Node (+W_Ty);
+   291:       Dim  : constant Positive := Positive (Number_Dimensions (Ty));
+   292:    begin
+   293:       Add_Map_Arg (Domain, Args, Expr, Arg_Ind);
+   294:       for I in 1 .. Dim loop
+   295:          Add_Attr_Arg (Domain, Args, Expr, Attribute_First, I, Arg_Ind);
+   296:          Add_Attr_Arg (Domain, Args, Expr, Attribute_Last, I, Arg_Ind);
+   297:       end loop;
+   298:    end Add_Array_Arg;
+   299:
+   300:    ----------------
+   301:    -- Append_Num --
+   302:    ----------------
+   303:
+   304:    function Append_Num (S : String; Count : Positive) return String
+   305:    is (if Count = 1 then S else S & "_" & Image (Count, 1));
+   306:
+   307:    -----------------------------
+   308:    -- Array_Convert_From_Base --
+   309:    -----------------------------
+   310:
    311:    function Array_Convert_From_Base
    312:      (Domain       : EW_Domain;
    313:       Args         : W_Expr_Array;
@@ -8115,6 +8203,91 @@
   1906:       Close_Theory (Th, Kind => Definition_Theory);
 ```
 
+## src/why/why-gen-arrays.adb:2813-2892
+
+```ada
+  2813:    function Get_Array_Attr
+  2814:      (Domain : EW_Terms;
+  2815:       Ty     : Entity_Id;
+  2816:       Attr   : Attribute_Id;
+  2817:       Dim    : Positive;
+  2818:       Params : Transformation_Params := Body_Params;
+  2819:       Typ    : W_Type_Id := EW_Int_Type) return W_Term_Id is
+  2820:    begin
+  2821:       if Attr in Attribute_First | Attribute_Last then
+  2822:          declare
+  2823:             Index_Type : constant Entity_Id := Nth_Index_Type (Ty, Dim);
+  2824:          begin
+  2825:             return
+  2826:               Insert_Simple_Conversion
+  2827:                 (Expr =>
+  2828:                    +New_Attribute_Expr
+  2829:                       (Ty     => Index_Type,
+  2830:                        Domain => Domain,
+  2831:                        Attr   => Attr,
+  2832:                        Params => Params),
+  2833:                  To   => Nth_Index_Rep_Type_No_Bool (Ty, Dim));
+  2834:          end;
+  2835:
+  2836:       elsif Is_Static_Array_Type (Ty) then
+  2837:          pragma Assert (Is_Constrained (Ty));
+  2838:          return
+  2839:            New_Discrete_Constant
+  2840:              (Value => Static_Array_Length (Ty, Dim), Typ => Typ);
+  2841:
+  2842:       else
+  2843:          pragma Assert (Is_Constrained (Ty));
+  2844:          return +Build_Length_Expr (Domain, Ty, Dim, Typ);
+  2845:       end if;
+  2846:    end Get_Array_Attr;
+  2847:
+  2848:    function Get_Array_Attr
+  2849:      (Expr : W_Term_Id;
+  2850:       Attr : Attribute_Id;
+  2851:       Dim  : Positive;
+  2852:       Typ  : W_Type_Id := EW_Int_Type) return W_Term_Id
+  2853:    is
+  2854:       W_Ty         : constant W_Type_Id := Get_Type (+Expr);
+  2855:       Ty           : constant Entity_Id := Get_Ada_Node (+W_Ty);
+  2856:       Relaxed_Init : constant Boolean := Is_Init_Wrapper_Type (W_Ty);
+  2857:    begin
+  2858:       --  If the type is constrained, just use the type information
+  2859:
+  2860:       if Is_Static_Array_Type (Ty) then
+  2861:          return Get_Array_Attr (EW_Term, Ty, Attr, Dim, Typ => Typ);
+  2862:
+  2863:       else
+  2864:          if Attr in Attribute_First | Attribute_Last then
+  2865:             declare
+  2866:                Enum : constant Why_Name_Enum :=
+  2867:                  (case Attr is
+  2868:                     when Attribute_First => WNE_Attr_First (Dim),
+  2869:                     when Attribute_Last  => WNE_Attr_Last (Dim),
+  2870:                     when others          => raise Program_Error);
+  2871:             begin
+  2872:                return
+  2873:                  New_Call
+  2874:                    (Name => E_Symb (Ty, Enum, Relaxed_Init),
+  2875:                     Args => (1 => +Expr),
+  2876:                     Typ  => Nth_Index_Rep_Type_No_Bool (Ty, Dim));
+  2877:             end;
+  2878:
+  2879:          elsif Typ = EW_Int_Type then
+  2880:             return
+  2881:               New_Call
+  2882:                 (Name => E_Symb (Ty, WNE_Attr_Length (Dim), Relaxed_Init),
+  2883:                  Args => (1 => +Expr),
+  2884:                  Typ  => EW_Int_Type);
+  2885:
+  2886:          else
+  2887:             return
+  2888:               +Build_Length_Expr
+  2889:                  (Domain => EW_Term, Expr => +Expr, Dim => Dim, Typ => Typ);
+  2890:          end if;
+  2891:       end if;
+  2892:    end Get_Array_Attr;
+```
+
 ## src/why/why-gen-arrays.adb:2990-3036
 
 ```ada
@@ -8207,6 +8380,279 @@
   3076:    --------------------------
   3077:    -- New_Array_Range_Expr --
   3078:    --------------------------
+```
+
+## src/why/why-gen-arrays.adb:3305-3363
+
+```ada
+  3305:    function New_Dynamic_Property
+  3306:      (Domain : EW_Domain;
+  3307:       Ty     : Entity_Id;
+  3308:       Args   : W_Expr_Array;
+  3309:       Params : Transformation_Params := Body_Params) return W_Expr_Id
+  3310:    is
+  3311:       Rep_Ty    : constant Entity_Id := Retysp (Ty);
+  3312:       Dim       : constant Positive := Positive (Number_Dimensions (Rep_Ty));
+  3313:       Call_Args : W_Expr_Array (1 .. 4 * Dim);
+  3314:
+  3315:    begin
+  3316:       pragma Assert (Args'Length = 2 * Dim);
+  3317:       for Count in 0 .. Dim - 1 loop
+  3318:          declare
+  3319:             W_Typ      : constant W_Type_Id :=
+  3320:               Nth_Index_Rep_Type_No_Bool (E => Rep_Ty, Dim => Count + 1);
+  3321:             First_Expr : constant W_Term_Id :=
+  3322:               Insert_Simple_Conversion
+  3323:                 (Expr =>
+  3324:                    Get_Array_Attr
+  3325:                      (Domain => Term_Domain (Domain),
+  3326:                       Ty     => Rep_Ty,
+  3327:                       Attr   => Attribute_First,
+  3328:                       Dim    => Count + 1,
+  3329:                       Params => Params),
+  3330:                  To   => W_Typ);
+  3331:             Last_Expr  : constant W_Term_Id :=
+  3332:               Insert_Simple_Conversion
+  3333:                 (Expr =>
+  3334:                    Get_Array_Attr
+  3335:                      (Domain => Term_Domain (Domain),
+  3336:                       Ty     => Rep_Ty,
+  3337:                       Attr   => Attribute_Last,
+  3338:                       Dim    => Count + 1,
+  3339:                       Params => Params),
+  3340:                  To   => W_Typ);
+  3341:             F_Expr     : constant W_Expr_Id :=
+  3342:               Insert_Simple_Conversion
+  3343:                 (Domain => Domain, Expr => Args (2 * Count + 1), To => W_Typ);
+  3344:             L_Expr     : constant W_Expr_Id :=
+  3345:               Insert_Simple_Conversion
+  3346:                 (Domain => Domain, Expr => Args (2 * Count + 2), To => W_Typ);
+  3347:          begin
+  3348:             Call_Args (4 * Count + 1) := +First_Expr;
+  3349:             Call_Args (4 * Count + 2) := +Last_Expr;
+  3350:             Call_Args (4 * Count + 3) := F_Expr;
+  3351:             Call_Args (4 * Count + 4) := L_Expr;
+  3352:          end;
+  3353:       end loop;
+  3354:
+  3355:       return
+  3356:         New_Call
+  3357:           (Domain => Domain,
+  3358:            Name   => Dynamic_Prop_Name (Rep_Ty),
+  3359:            Args   => Call_Args,
+  3360:            Typ    => EW_Bool_Type);
+  3361:    end New_Dynamic_Property;
+  3362:
+  3363:    ---------------------------
+```
+
+## src/why/why-gen-arrays.adb:3396-3599
+
+```ada
+  3396:    function New_Length_Equality
+  3397:      (L_First_E : W_Term_Id;
+  3398:       L_Last_E  : W_Term_Id;
+  3399:       R_First_E : W_Term_Id;
+  3400:       R_Last_E  : W_Term_Id;
+  3401:       Base_Ty   : W_Type_Id) return W_Pred_Id
+  3402:    is
+  3403:       Le_Op  : constant W_Identifier_Id :=
+  3404:         (if Base_Ty = EW_Int_Type
+  3405:          then Int_Infix_Le
+  3406:          elsif Why_Type_Is_BitVector (Base_Ty)
+  3407:          then MF_BVs (Base_Ty).Ule
+  3408:          else raise Program_Error);
+  3409:       Lt_Op  : constant W_Identifier_Id :=
+  3410:         (if Base_Ty = EW_Int_Type
+  3411:          then Int_Infix_Lt
+  3412:          elsif Why_Type_Is_BitVector (Base_Ty)
+  3413:          then MF_BVs (Base_Ty).Ult
+  3414:          else raise Program_Error);
+  3415:       Sub_Op : constant W_Identifier_Id :=
+  3416:         (if Base_Ty = EW_Int_Type
+  3417:          then Int_Infix_Subtr
+  3418:          elsif Why_Type_Is_BitVector (Base_Ty)
+  3419:          then MF_BVs (Base_Ty).Sub
+  3420:          else raise Program_Error);
+  3421:
+  3422:    begin
+  3423:       --  (if <left_arr>.first_I <= <left_arr>.last_I then
+  3424:       --     <right_arr>.first_I <= <right_arr>.last_I
+  3425:       --     /\ <left_arr>.last_I - <left_arr>.first_I =
+  3426:       --        <right_arr>.last_I - <right_arr>.first_I
+  3427:       --   else <right_arr>.last_I < <right_arr>.first_I)
+  3428:
+  3429:       return
+  3430:         New_Conditional
+  3431:           (Condition =>
+  3432:              New_Call
+  3433:                (Name => Le_Op,
+  3434:                 Args => [+L_First_E, +L_Last_E],
+  3435:                 Typ  => EW_Bool_Type),
+  3436:            Then_Part =>
+  3437:              New_And_Pred
+  3438:                (Left  =>
+  3439:                   New_Call
+  3440:                     (Name => Le_Op,
+  3441:                      Args => [+R_First_E, +R_Last_E],
+  3442:                      Typ  => EW_Bool_Type),
+  3443:                 Right =>
+  3444:                   New_Comparison
+  3445:                     (Symbol => Why_Eq,
+  3446:                      Left   =>
+  3447:                        New_Call
+  3448:                          (Name => Sub_Op,
+  3449:                           Args => [+L_Last_E, +L_First_E],
+  3450:                           Typ  => Base_Ty),
+  3451:                      Right  =>
+  3452:                        New_Call
+  3453:                          (Name => Sub_Op,
+  3454:                           Args => [+R_Last_E, +R_First_E],
+  3455:                           Typ  => Base_Ty))),
+  3456:            Else_Part =>
+  3457:              New_Call
+  3458:                (Name => Lt_Op,
+  3459:                 Args => [+R_Last_E, +R_First_E],
+  3460:                 Typ  => Base_Ty),
+  3461:            Typ       => EW_Bool_Type);
+  3462:    end New_Length_Equality;
+  3463:
+  3464:    function New_Length_Equality
+  3465:      (Left_Arr : W_Term_Id; Right_Arr : W_Term_Id; Dim : Positive)
+  3466:       return W_Pred_Id
+  3467:    is
+  3468:       L_Ty      : constant Entity_Id := Get_Ada_Node (+Get_Type (+Left_Arr));
+  3469:       R_Ty      : constant Entity_Id := Get_Ada_Node (+Get_Type (+Right_Arr));
+  3470:       Is_Static : constant Boolean :=
+  3471:         Has_Static_Array_Type (L_Ty) and then Has_Static_Array_Type (R_Ty);
+  3472:       Result    : W_Pred_Id := True_Pred;
+  3473:
+  3474:    begin
+  3475:       for I in 1 .. Dim loop
+  3476:
+  3477:          --  Do not issue checks for statically matching lengths
+  3478:
+  3479:          if not Is_Static
+  3480:            or else
+  3481:              Static_Array_Length (Retysp (L_Ty), I)
+  3482:              /= Static_Array_Length (Retysp (R_Ty), I)
+  3483:          then
+  3484:             declare
+  3485:                Base_Ty : constant W_Type_Id :=
+  3486:                  Nth_Index_Rep_Type_No_Bool (L_Ty, Dim);
+  3487:                pragma
+  3488:                  Assert (Base_Ty = Nth_Index_Rep_Type_No_Bool (R_Ty, Dim));
+  3489:
+  3490:                L_First_E : constant W_Term_Id :=
+  3491:                  Insert_Simple_Conversion
+  3492:                    (Expr =>
+  3493:                       Get_Array_Attr
+  3494:                         (Expr => Left_Arr, Attr => Attribute_First, Dim => I),
+  3495:                     To   => Base_Ty);
+  3496:                L_Last_E  : constant W_Term_Id :=
+  3497:                  Insert_Simple_Conversion
+  3498:                    (Expr =>
+  3499:                       Get_Array_Attr
+  3500:                         (Expr => Left_Arr, Attr => Attribute_Last, Dim => I),
+  3501:                     To   => Base_Ty);
+  3502:                R_First_E : constant W_Term_Id :=
+  3503:                  Insert_Simple_Conversion
+  3504:                    (Expr =>
+  3505:                       Get_Array_Attr
+  3506:                         (Expr => Right_Arr, Attr => Attribute_First, Dim => I),
+  3507:                     To   => Base_Ty);
+  3508:                R_Last_E  : constant W_Term_Id :=
+  3509:                  Insert_Simple_Conversion
+  3510:                    (Expr =>
+  3511:                       Get_Array_Attr
+  3512:                         (Expr => Right_Arr, Attr => Attribute_Last, Dim => I),
+  3513:                     To   => Base_Ty);
+  3514:             begin
+  3515:                Result :=
+  3516:                  New_And_Pred
+  3517:                    (Conjuncts =>
+  3518:                       (1 => Result,
+  3519:                        2 =>
+  3520:                          New_Length_Equality
+  3521:                            (L_First_E,
+  3522:                             L_Last_E,
+  3523:                             R_First_E,
+  3524:                             R_Last_E,
+  3525:                             Base_Ty)));
+  3526:             end;
+  3527:          end if;
+  3528:       end loop;
+  3529:
+  3530:       return +Result;
+  3531:    end New_Length_Equality;
+  3532:
+  3533:    function New_Length_Equality
+  3534:      (Left_Arr : W_Term_Id; Right : Entity_Id; Dim : Positive) return W_Pred_Id
+  3535:    is
+  3536:       L_Ty      : constant Entity_Id := Get_Ada_Node (+Get_Type (+Left_Arr));
+  3537:       Is_Static : constant Boolean :=
+  3538:         Has_Static_Array_Type (L_Ty) and then Has_Static_Array_Type (Right);
+  3539:       Result    : W_Pred_Id := True_Pred;
+  3540:
+  3541:    begin
+  3542:       for I in 1 .. Dim loop
+  3543:
+  3544:          --  Do not issue checks for statically matching lengths
+  3545:
+  3546:          if not Is_Static
+  3547:            or else
+  3548:              Static_Array_Length (Retysp (L_Ty), I)
+  3549:              /= Static_Array_Length (Retysp (Right), I)
+  3550:          then
+  3551:             declare
+  3552:                Base_Ty : constant W_Type_Id :=
+  3553:                  Nth_Index_Rep_Type_No_Bool (L_Ty, Dim);
+  3554:                pragma
+  3555:                  Assert (Base_Ty = Nth_Index_Rep_Type_No_Bool (Right, Dim));
+  3556:
+  3557:                L_First_E : constant W_Term_Id :=
+  3558:                  Insert_Simple_Conversion
+  3559:                    (Expr =>
+  3560:                       Get_Array_Attr
+  3561:                         (Expr => Left_Arr, Attr => Attribute_First, Dim => I),
+  3562:                     To   => Base_Ty);
+  3563:                L_Last_E  : constant W_Term_Id :=
+  3564:                  Insert_Simple_Conversion
+  3565:                    (Expr =>
+  3566:                       Get_Array_Attr
+  3567:                         (Expr => Left_Arr, Attr => Attribute_Last, Dim => I),
+  3568:                     To   => Base_Ty);
+  3569:                R_First_E : constant W_Term_Id :=
+  3570:                  Insert_Simple_Conversion
+  3571:                    (Expr =>
+  3572:                       Get_Array_Attr
+  3573:                         (Domain => EW_Term,
+  3574:                          Ty     => Right,
+  3575:                          Attr   => Attribute_First,
+  3576:                          Dim    => I),
+  3577:                     To   => Base_Ty);
+  3578:                R_Last_E  : constant W_Term_Id :=
+  3579:                  Insert_Simple_Conversion
+  3580:                    (Expr =>
+  3581:                       Get_Array_Attr
+  3582:                         (Domain => EW_Term,
+  3583:                          Ty     => Right,
+  3584:                          Attr   => Attribute_Last,
+  3585:                          Dim    => I),
+  3586:                     To   => Base_Ty);
+  3587:             begin
+  3588:                Result :=
+  3589:                  New_And_Pred
+  3590:                    (Conjuncts =>
+  3591:                       (1 => Result,
+  3592:                        2 =>
+  3593:                          New_Length_Equality
+  3594:                            (L_First_E,
+  3595:                             L_Last_E,
+  3596:                             R_First_E,
+  3597:                             R_Last_E,
+  3598:                             Base_Ty)));
+  3599:             end;
 ```
 
 ## src/why/why-gen-arrays.adb:3835-3848
@@ -8670,9 +9116,163 @@
    381:    --------------------------
 ```
 
-## src/why/why-gen-expr.adb:1136-1158
+## src/why/why-gen-expr.adb:982-1512
 
 ```ada
+   982:    function Insert_Array_Conversion
+   983:      (Domain         : EW_Domain;
+   984:       Ada_Node       : Node_Id := Empty;
+   985:       Expr           : W_Expr_Id;
+   986:       To             : W_Type_Id;
+   987:       Need_Check     : Boolean := False;
+   988:       Force_No_Slide : Boolean := False;
+   989:       Is_Qualif      : Boolean := False;
+   990:       No_Init        : Boolean := False) return W_Expr_Id
+   991:    is
+   992:       From     : constant W_Type_Id := Get_Type (Expr);
+   993:       To_Ent   : constant Entity_Id := Get_Ada_Node (+To);
+   994:       From_Ent : constant Entity_Id := Get_Ada_Node (+From);
+   995:       Dim      : constant Positive := Positive (Number_Dimensions (To_Ent));
+   996:
+   997:       function Insert_Array_Index_Check
+   998:         (Expr : W_Term_Id; To_Ent : Entity_Id) return W_Prog_Id;
+   999:
+  1000:       function Insert_Length_Check
+  1001:         (Expr : W_Term_Id; To_Ent : Entity_Id) return W_Prog_Id;
+  1002:
+  1003:       function Insert_Array_Range_Check
+  1004:         (Expr : W_Term_Id; To_Ent : Entity_Id) return W_Prog_Id;
+  1005:
+  1006:       ------------------------------
+  1007:       -- Insert_Array_Range_Check --
+  1008:       ------------------------------
+  1009:
+  1010:       function Insert_Array_Range_Check
+  1011:         (Expr : W_Term_Id; To_Ent : Entity_Id) return W_Prog_Id
+  1012:       is
+  1013:          Check : W_Pred_Id;
+  1014:
+  1015:       begin
+  1016:          pragma Assert (not Is_Static_Array_Type (To_Ent));
+  1017:
+  1018:          --  For dynamic types, use dynamic_property
+  1019:
+  1020:          Check :=
+  1021:            +New_Dynamic_Property
+  1022:               (Domain => EW_Pred, Ty => To_Ent, Expr => Expr);
+  1023:
+  1024:          return
+  1025:            New_Located_Assert (Ada_Node, Check, VC_Range_Check, EW_Assert);
+  1026:       end Insert_Array_Range_Check;
+  1027:
+  1028:       ------------------------------
+  1029:       -- Insert_Array_Index_Check --
+  1030:       ------------------------------
+  1031:
+  1032:       function Insert_Array_Index_Check
+  1033:         (Expr : W_Term_Id; To_Ent : Entity_Id) return W_Prog_Id
+  1034:       is
+  1035:          Constrained : constant Boolean := Is_Constrained (To_Ent);
+  1036:          Check       : W_Pred_Id;
+  1037:          Dim         : constant Positive :=
+  1038:            Positive (Number_Dimensions (To_Ent));
+  1039:          Eqs         : W_Pred_Array (1 .. 2 * Dim);
+  1040:          Count       : Natural := 0;
+  1041:          Check_Info  : Check_Info_Type := New_Check_Info;
+  1042:       begin
+  1043:          for I in 1 .. Dim loop
+  1044:
+  1045:             --  If To_Ent is constrained or the current index has a fixed
+  1046:             --  lower bound, add constraint on the first bound.
+  1047:
+  1048:             if Constrained
+  1049:               or else
+  1050:                 Is_Fixed_Lower_Bound_Index_Subtype (Nth_Index_Type (To_Ent, I))
+  1051:             then
+  1052:                Count := Count + 1;
+  1053:                Eqs (Count) :=
+  1054:                  New_Comparison
+  1055:                    (Symbol => Why_Eq,
+  1056:                     Left   =>
+  1057:                       Get_Array_Attr
+  1058:                         (Expr => Expr, Attr => Attribute_First, Dim => I),
+  1059:                     Right  =>
+  1060:                       Get_Array_Attr
+  1061:                         (Domain => EW_Term,
+  1062:                          Attr   => Attribute_First,
+  1063:                          Dim    => I,
+  1064:                          Ty     => To_Ent));
+  1065:             end if;
+  1066:
+  1067:             --  If To_Ent is constrained add constraint on the last bound
+  1068:
+  1069:             if Constrained then
+  1070:                Count := Count + 1;
+  1071:                Eqs (Count) :=
+  1072:                  New_Comparison
+  1073:                    (Symbol => Why_Eq,
+  1074:                     Left   =>
+  1075:                       Get_Array_Attr
+  1076:                         (Expr => Expr, Attr => Attribute_Last, Dim => I),
+  1077:                     Right  =>
+  1078:                       Get_Array_Attr
+  1079:                         (Domain => EW_Term,
+  1080:                          Attr   => Attribute_Last,
+  1081:                          Dim    => I,
+  1082:                          Ty     => To_Ent));
+  1083:             end if;
+  1084:          end loop;
+  1085:
+  1086:          Check := New_And_Pred (Eqs (1 .. Count));
+  1087:
+  1088:          --  For a simple one-dimensional array, record the index type used for
+  1089:          --  the index check associated with the Ada node.
+  1090:
+  1091:          if Dim = 1 then
+  1092:             Check_Info.Fix_Info.Range_Check_Ty := Nth_Index_Type (To_Ent, 1);
+  1093:          end if;
+  1094:
+  1095:          return
+  1096:            New_Located_Assert
+  1097:              (Ada_Node, Check, VC_Index_Check, EW_Assert, Check_Info);
+  1098:       end Insert_Array_Index_Check;
+  1099:
+  1100:       -------------------------
+  1101:       -- Insert_Length_Check --
+  1102:       -------------------------
+  1103:
+  1104:       function Insert_Length_Check
+  1105:         (Expr : W_Term_Id; To_Ent : Entity_Id) return W_Prog_Id
+  1106:       is
+  1107:          Check : constant W_Pred_Id :=
+  1108:            New_Length_Equality
+  1109:              (Left_Arr => Expr,
+  1110:               Right    => To_Ent,
+  1111:               Dim      => Positive (Number_Dimensions (To_Ent)));
+  1112:
+  1113:       begin
+  1114:          if Is_True_Boolean (+Check) then
+  1115:             return +Void;
+  1116:          else
+  1117:             return
+  1118:               New_Located_Assert (Ada_Node, Check, VC_Length_Check, EW_Assert);
+  1119:          end if;
+  1120:       end Insert_Length_Check;
+  1121:
+  1122:       Need_Slide : constant Boolean := Needs_Slide (From_Ent, To_Ent);
+  1123:       Sliding    : constant Boolean :=
+  1124:         not Force_No_Slide and then Need_Slide and then not Is_Qualif;
+  1125:       Arr_Init   : W_Expr_Id := Expr;
+  1126:       Arr_Expr   : W_Term_Id;
+  1127:       T          : W_Expr_Id;
+  1128:
+  1129:       Pred_Check : constant Boolean :=
+  1130:         Domain = EW_Prog
+  1131:         and then not No_Init
+  1132:         and then Need_Check
+  1133:         and then Has_Predicates (Get_Ada_Node (+To))
+  1134:         and then not Is_Call_Arg_To_Predicate_Function (Ada_Node);
+  1135:       Init_Check : constant Boolean :=
   1136:         Domain = EW_Prog
   1137:         and then not No_Init
   1138:         and then Need_Check
@@ -8696,6 +9296,360 @@
   1156:       if To_Ent = From_Ent
   1157:         and then Is_Init_Wrapper_Type (From) = Is_Init_Wrapper_Type (To)
   1158:       then
+  1159:
+  1160:          --  No range check needed
+  1161:
+  1162:          return Expr;
+  1163:       end if;
+  1164:
+  1165:       --  Check for initialization if needed
+  1166:
+  1167:       if Init_Check then
+  1168:          Arr_Init :=
+  1169:            Insert_Initialization_Check
+  1170:              (Ada_Node           => Ada_Node,
+  1171:               E                  => From_Ent,
+  1172:               Name               => Arr_Init,
+  1173:               Domain             => Domain,
+  1174:               Exclude_Components => Relaxed);
+  1175:       end if;
+  1176:
+  1177:       Arr_Expr := New_Temp_For_Expr (Arr_Init);
+  1178:
+  1179:       --  1 - Put array in split form. If reconstruction is needed, also store
+  1180:       --  appropriate bounds in Args.
+  1181:
+  1182:       declare
+  1183:          Args    : W_Expr_Array (1 .. 1 + 2 * Dim);
+  1184:          Arg_Ind : Positive := 1;
+  1185:
+  1186:          Split_T : W_Expr_Id;
+  1187:          --  Placeholder to store the value of T before reconstruction. It is
+  1188:          --  used to generate the predicate check.
+  1189:
+  1190:          Need_Elt_Conv : constant Boolean :=
+  1191:            Retysp (Component_Type (To_Ent))
+  1192:            /= Retysp (Component_Type (From_Ent));
+  1193:          --  We need an element conversion if To and From do not have the
+  1194:          --  same elements.
+  1195:
+  1196:       begin
+  1197:          --  Insert sliding if needed
+  1198:
+  1199:          if Sliding then
+  1200:             declare
+  1201:                Args    : W_Expr_Array (1 .. 1 + 2 * Dim);
+  1202:                Arg_Ind : Positive := 1;
+  1203:                To_Idx  : Entity_Id := First_Index (To_Ent);
+  1204:             begin
+  1205:                Add_Map_Arg (Domain, Args, +Arr_Expr, Arg_Ind);
+  1206:                for I in 1 .. Dim loop
+  1207:                   Add_Attr_Arg
+  1208:                     (Domain, Args, +Arr_Expr, Attribute_First, I, Arg_Ind);
+  1209:
+  1210:                   if Is_Constrained (To_Ent)
+  1211:                     or else Is_Fixed_Lower_Bound_Index_Subtype (Etype (To_Idx))
+  1212:                   then
+  1213:                      Add_Attr_Arg
+  1214:                        (Domain, Args, To_Ent, Attribute_First, I, Arg_Ind);
+  1215:                   else
+  1216:                      Add_Attr_Arg
+  1217:                        (Domain, Args, +Arr_Expr, Attribute_First, I, Arg_Ind);
+  1218:                   end if;
+  1219:
+  1220:                   Next_Index (To_Idx);
+  1221:                end loop;
+  1222:
+  1223:                T :=
+  1224:                  New_Call
+  1225:                    (Domain => Domain,
+  1226:                     Name   =>
+  1227:                       Get_Array_Theory (From_Ent, Is_Init_Wrapper_Type (From))
+  1228:                         .Slide,
+  1229:                     Args   => Args,
+  1230:                     Typ    => Get_Type (Args (1)));
+  1231:             end;
+  1232:
+  1233:             --  If To isn't a statically constrained array type, fill the Args
+  1234:             --  array to allow reconstruction.
+  1235:             --  Here, we must get attributes from the type as the slided
+  1236:             --  expression has no registered bounds.
+  1237:
+  1238:             if not Is_Static_Array_Type (To_Ent) then
+  1239:                Arg_Ind := 1;
+  1240:                Add_Map_Arg (Domain, Args, T, Arg_Ind);
+  1241:
+  1242:                for I in 1 .. Dim loop
+  1243:
+  1244:                   --  If To_Ent is constrained or its Ith index has a fixed
+  1245:                   --  lower bound, the index has been slided. Compute the
+  1246:                   --  bounds from the expected type.
+  1247:
+  1248:                   if Is_Constrained (To_Ent)
+  1249:                     or else
+  1250:                       Is_Fixed_Lower_Bound_Index_Subtype
+  1251:                         (Nth_Index_Type (To_Ent, I))
+  1252:                   then
+  1253:
+  1254:                      --  The first bound can be queried directly
+  1255:
+  1256:                      Add_Attr_Arg
+  1257:                        (Domain, Args, To_Ent, Attribute_First, I, Arg_Ind);
+  1258:
+  1259:                      --  If To_Ent is constrained the last bound can be queried
+  1260:                      --  directly.
+  1261:
+  1262:                      if Is_Constrained (To_Ent) then
+  1263:                         Add_Attr_Arg
+  1264:                           (Domain, Args, To_Ent, Attribute_Last, I, Arg_Ind);
+  1265:
+  1266:                      --  Otherwise, we recompute it from the first bound and
+  1267:                      --  the length of the converted array. A range check might
+  1268:                      --  be emitted if we are in the program domain.
+  1269:
+  1270:                      else
+  1271:                         declare
+  1272:                            Target      : constant Entity_Id :=
+  1273:                              Nth_Index_Type (To_Ent, I);
+  1274:                            Length_Expr : constant W_Expr_Id :=
+  1275:                              Build_Length_Expr (Domain, +Arr_Expr, I);
+  1276:                            First_Expr  : constant W_Expr_Id :=
+  1277:                              Args (Arg_Ind - 1);
+  1278:                            Last_Expr   : constant W_Expr_Id :=
+  1279:                              New_Discrete_Add
+  1280:                                (Domain => Domain,
+  1281:                                 Left   =>
+  1282:                                   New_Discrete_Substract
+  1283:                                     (Domain => Domain,
+  1284:                                      Left   => First_Expr,
+  1285:                                      Right  =>
+  1286:                                        New_Discrete_Constant
+  1287:                                          (Value => Uint_1, Typ => EW_Int_Type),
+  1288:                                      Typ    => EW_Int_Type),
+  1289:                                 Right  => Length_Expr,
+  1290:                                 Typ    => EW_Int_Type);
+  1291:                            --  Expression of the last index. Computation is
+  1292:                            --  done on mathematical integers to avoid overflows
+  1293:                            --  and wrap-arounds.
+  1294:
+  1295:                         begin
+  1296:                            --  Convert Last_Expr to the expected type
+  1297:
+  1298:                            Args (Arg_Ind) :=
+  1299:                              Insert_Simple_Conversion
+  1300:                                (Domain => Domain,
+  1301:                                 Expr   => Last_Expr,
+  1302:                                 To     => Get_Type (First_Expr));
+  1303:
+  1304:                            --  If we are in the EW_Prog domain, also introduce
+  1305:                            --  a range check to make sure that Last_Expr is
+  1306:                            --  in the expected type.
+  1307:
+  1308:                            if Domain = EW_Prog and then Need_Check then
+  1309:                               Args (Arg_Ind) :=
+  1310:                                 +Sequence
+  1311:                                    (New_Ignore
+  1312:                                       (Ada_Node => Ada_Node,
+  1313:                                        Prog     =>
+  1314:                                          New_Conditional
+  1315:                                            (Ada_Node  => Ada_Node,
+  1316:                                             Condition =>
+  1317:                                               +New_Comparison
+  1318:                                                  (Symbol => Int_Infix_Le,
+  1319:                                                   Domain => Domain,
+  1320:                                                   Left   =>
+  1321:                                                     +Insert_Scalar_Conversion
+  1322:                                                        (Domain => Domain,
+  1323:                                                         Expr   => First_Expr,
+  1324:                                                         To     => EW_Int_Type),
+  1325:                                                   Right  => Last_Expr),
+  1326:                                             Then_Part =>
+  1327:                                               Do_Range_Check
+  1328:                                                 (Ada_Node   => Ada_Node,
+  1329:                                                  Ty         => Target,
+  1330:                                                  W_Expr     => Last_Expr,
+  1331:                                                  Check_Kind => RCK_Range),
+  1332:                                             Else_Part =>
+  1333:                                               Do_Range_Check
+  1334:                                                 (Ada_Node   => Ada_Node,
+  1335:                                                  Ty         =>
+  1336:                                                    Base_Retysp (Target),
+  1337:                                                  W_Expr     => Last_Expr,
+  1338:                                                  Check_Kind => RCK_Range),
+  1339:                                             Typ       =>
+  1340:                                               Get_Type (First_Expr))),
+  1341:                                     +Args (Arg_Ind));
+  1342:                            end if;
+  1343:
+  1344:                            Arg_Ind := Arg_Ind + 1;
+  1345:                         end;
+  1346:                      end if;
+  1347:
+  1348:                   --  The index has not been slided, we keep the bounds of the
+  1349:                   --  converted expression.
+  1350:
+  1351:                   else
+  1352:                      Add_Attr_Arg
+  1353:                        (Domain, Args, +Arr_Expr, Attribute_First, I, Arg_Ind);
+  1354:                      Add_Attr_Arg
+  1355:                        (Domain, Args, +Arr_Expr, Attribute_Last, I, Arg_Ind);
+  1356:                   end if;
+  1357:                end loop;
+  1358:             end if;
+  1359:
+  1360:          --  If reconstruction is needed, fill the Args array. T is the
+  1361:          --  first element of Args.
+  1362:
+  1363:          elsif not Is_Static_Array_Type (To_Ent) then
+  1364:             Add_Array_Arg (Domain, Args, +Arr_Expr, Arg_Ind);
+  1365:             T := Args (1);
+  1366:
+  1367:          --  Both are statically constrained, T is Arr_Expr
+  1368:
+  1369:          elsif Is_Static_Array_Type (From_Ent) then
+  1370:             T := +Arr_Expr;
+  1371:
+  1372:          --  To is in constrained but not From. Convert From to base.
+  1373:
+  1374:          else
+  1375:             T := Array_Convert_To_Base (Domain => Domain, Ar => +Arr_Expr);
+  1376:          end if;
+  1377:
+  1378:          --  2. If From has relaxed initialization and we are not doing the
+  1379:          --  conversion on init wrappers, add a conversion from the wrapper
+  1380:          --  type.
+  1381:
+  1382:          if Is_Init_Wrapper_Type (From) and then not On_Wrapper then
+  1383:             T :=
+  1384:               New_Call
+  1385:                 (Ada_Node => Ada_Node,
+  1386:                  Domain   => Domain,
+  1387:                  Name     => Get_Array_Of_Wrapper_Name (From_Ent),
+  1388:                  Args     => (1 => T),
+  1389:                  Typ      => From_Split);
+  1390:          end if;
+  1391:
+  1392:          --  3. To_Ent and From_Ent do not have the same component type, apply
+  1393:          --  the appropriate conversion.
+  1394:
+  1395:          if Need_Elt_Conv then
+  1396:             T :=
+  1397:               Insert_Single_Conversion
+  1398:                 (Ada_Node => Empty,
+  1399:                  Domain   => Domain,
+  1400:                  To       => To_Split,
+  1401:                  Expr     => T);
+  1402:
+  1403:          --  No actual why call or conversion may have been inserted, but we
+  1404:          --  still need to change the type of the Why AST node. We do that by
+  1405:          --  adding a dummy node.
+  1406:
+  1407:          else
+  1408:             T :=
+  1409:               New_Label
+  1410:                 (Labels => Symbol_Sets.Empty_Set,
+  1411:                  Def    => T,
+  1412:                  Domain => Domain,
+  1413:                  Typ    => To_Split);
+  1414:          end if;
+  1415:
+  1416:          --  Store the split value of T before attempting reconstruction. To
+  1417:          --  avoid introducing duplicated checks, use a temporary.
+  1418:
+  1419:          T := New_Temp_For_Expr (T);
+  1420:          Split_T := T;
+  1421:
+  1422:          --  4. If To has relaxed initialization and the conversion is not done
+  1423:          --  on wrapper types, go to the wrapper now.
+  1424:
+  1425:          if Is_Init_Wrapper_Type (To) and then not On_Wrapper then
+  1426:             T :=
+  1427:               New_Call
+  1428:                 (Ada_Node => Ada_Node,
+  1429:                  Domain   => Domain,
+  1430:                  Name     => Get_Array_To_Wrapper_Name (To_Ent),
+  1431:                  Args     => (1 => T),
+  1432:                  Typ      => EW_Split (To_Ent, Relaxed_Init => True));
+  1433:          end if;
+  1434:
+  1435:          --  5. Reconstruct the array if needed
+  1436:
+  1437:          if not Is_Static_Array_Type (To_Ent) then
+  1438:             Args (1) := T;
+  1439:             T :=
+  1440:               New_Call
+  1441:                 (Domain => Domain,
+  1442:                  Name   =>
+  1443:                    E_Symb (To_Ent, WNE_Of_Array, Is_Init_Wrapper_Type (To)),
+  1444:                  Args   => Args,
+  1445:                  Typ    => To);
+  1446:          end if;
+  1447:
+  1448:          --  6. Insert length, range, index, and predicate check when necessary
+  1449:
+  1450:          if Domain = EW_Prog and then Need_Check then
+  1451:             declare
+  1452:                Check_Type : constant Entity_Id := To_Ent;
+  1453:             begin
+  1454:                if Is_Qualif and then Need_Slide then
+  1455:                   T :=
+  1456:                     +Sequence
+  1457:                        (Insert_Array_Index_Check (Arr_Expr, Check_Type), +T);
+  1458:                elsif Is_Constrained (Check_Type) then
+  1459:                   T :=
+  1460:                     +Sequence (Insert_Length_Check (Arr_Expr, Check_Type), +T);
+  1461:                elsif not Sliding then
+  1462:                   T :=
+  1463:                     +Sequence
+  1464:                        (Insert_Array_Range_Check (+Arr_Expr, Check_Type), +T);
+  1465:                else
+  1466:                   --  For FLB types, the check that the last bound is in the
+  1467:                   --  index type is performed during the sliding.
+  1468:
+  1469:                   pragma
+  1470:                     Assert (Is_Fixed_Lower_Bound_Array_Subtype (Check_Type));
+  1471:                end if;
+  1472:
+  1473:                --  If the target type has a direct or inherited predicate,
+  1474:                --  generate a corresponding check. Do not generate a predicate
+  1475:                --  check for an internal call to a parent predicate function
+  1476:                --  inside the definition of a predicate function.
+  1477:
+  1478:                if Pred_Check then
+  1479:
+  1480:                   Args (1) := Split_T;
+  1481:
+  1482:                   declare
+  1483:                      Rec_Tmp : constant W_Expr_Id :=
+  1484:                        (if not Is_Static_Array_Type (To_Ent)
+  1485:                         then
+  1486:                           New_Call
+  1487:                             (Domain => Domain,
+  1488:                              Name   =>
+  1489:                                E_Symb (To_Ent, WNE_Of_Array, On_Wrapper),
+  1490:                              Args   => Args,
+  1491:                              Typ    => EW_Abstract (To_Ent, On_Wrapper))
+  1492:                         else Args (1));
+  1493:                      --  If it is in split form, the array should be
+  1494:                      --  reconstructed.
+  1495:                   begin
+  1496:                      T :=
+  1497:                        +Sequence
+  1498:                           (New_Predicate_Check (Ada_Node, Check_Type, Rec_Tmp),
+  1499:                            +T);
+  1500:                   end;
+  1501:                end if;
+  1502:             end;
+  1503:          end if;
+  1504:
+  1505:          T :=
+  1506:            Binding_For_Temp (Domain => Domain, Tmp => Split_T, Context => T);
+  1507:       end;
+  1508:
+  1509:       T := Binding_For_Temp (Domain => Domain, Tmp => +Arr_Expr, Context => T);
+  1510:
+  1511:       return T;
+  1512:    end Insert_Array_Conversion;
 ```
 
 ## src/why/why-gen-expr.adb:1518-1648
@@ -9585,7 +10539,71 @@
   3050:       Need_Check : Boolean := False;
 ```
 
-## src/why/why-gen-expr.adb:3484-3596
+## src/why/why-gen-expr.adb:3219-3277
+
+```ada
+  3219:    function Needs_Slide (From_Ent, To_Ent : Entity_Id) return Boolean is
+  3220:
+  3221:       function First_Constrained_Parent (Ty : Entity_Id) return Entity_Id
+  3222:       with Pre => Is_Constrained (Ty);
+  3223:       --  Traverse the parents of Ty to find the first constrained type
+  3224:
+  3225:       ------------------------------
+  3226:       -- First_Constrained_Parent --
+  3227:       ------------------------------
+  3228:
+  3229:       function First_Constrained_Parent (Ty : Entity_Id) return Entity_Id is
+  3230:          Parent : Entity_Id := Ty;
+  3231:       begin
+  3232:          loop
+  3233:             declare
+  3234:                New_Parent : constant Entity_Id := Parent_Retysp (Parent);
+  3235:             begin
+  3236:                if No (New_Parent) or else not Is_Constrained (New_Parent) then
+  3237:                   return Parent;
+  3238:                else
+  3239:                   Parent := New_Parent;
+  3240:                end if;
+  3241:             end;
+  3242:          end loop;
+  3243:       end First_Constrained_Parent;
+  3244:
+  3245:       From_Rep         : constant Entity_Id := Retysp (From_Ent);
+  3246:       To_Rep           : constant Entity_Id := Retysp (To_Ent);
+  3247:       Dim              : constant Positive :=
+  3248:         Positive (Number_Dimensions (To_Rep));
+  3249:       To_Constrained   : constant Boolean := Is_Constrained (To_Rep);
+  3250:       From_Constrained : constant Boolean := Is_Constrained (From_Rep);
+  3251:    begin
+  3252:       --  Sliding is needed when we convert to a constrained type and the
+  3253:       --  'First of the From type is not known to be equal to the 'First
+  3254:       --  of the "To" type.
+  3255:
+  3256:       --  Sliding is only necessary when converting to a constrained array or
+  3257:       --  to a type with fixed lower bounds.
+  3258:
+  3259:       if not To_Constrained
+  3260:         and then not Is_Fixed_Lower_Bound_Array_Subtype (To_Rep)
+  3261:       then
+  3262:          return False;
+  3263:       end if;
+  3264:
+  3265:       --  When the "To" is constrained, sliding is always necessary when
+  3266:       --  converting from an unconstrained array without fixed lower bounds
+  3267:
+  3268:       if not From_Constrained
+  3269:         and then not Is_Fixed_Lower_Bound_Array_Subtype (From_Rep)
+  3270:       then
+  3271:          return True;
+  3272:       end if;
+  3273:
+  3274:       --  If "To" and "From" are derived from the same constrained type, no
+  3275:       --  sliding is needed.
+  3276:
+  3277:       if From_Constrained
+```
+
+## src/why/why-gen-expr.adb:3484-3997
 
 ```ada
   3484:
@@ -9701,11 +10719,163 @@
   3594:    end New_And_Then_Expr;
   3595:
   3596:    ------------------------
-```
-
-## src/why/why-gen-expr.adb:3754-3997
-
-```ada
+  3597:    -- New_Attribute_Expr --
+  3598:    ------------------------
+  3599:
+  3600:    function New_Attribute_Expr
+  3601:      (Ty     : Entity_Id;
+  3602:       Domain : EW_Domain;
+  3603:       Attr   : Supported_Attribute_Id;
+  3604:       Params : Transformation_Params := Body_Params) return W_Expr_Id
+  3605:    is
+  3606:       Subdomain : constant EW_Domain :=
+  3607:         (if Domain in EW_Prog | EW_Pterm then EW_Pterm else EW_Term);
+  3608:
+  3609:    begin
+  3610:       --  We do not generate axioms giving values to bounds of Itypes as they
+  3611:       --  may contain locally defined entities that are not detected by
+  3612:       --  Get_Variables ('Old, 'Loop_Entry, 'Return).
+  3613:
+  3614:       if Attr in Attribute_First | Attribute_Last
+  3615:         and then Type_Is_Modeled_As_Base (Ty)
+  3616:         and then Is_Itype (Ty)
+  3617:       then
+  3618:          --  Use expression for dynamic bounds
+  3619:
+  3620:          declare
+  3621:             Rng : constant Node_Id := Get_Range (Ty);
+  3622:             BT  : constant W_Type_Id :=
+  3623:               (if Is_Standard_Boolean_Type (Ty)
+  3624:                then EW_Int_Type
+  3625:                else Base_Why_Type (Ty));
+  3626:          begin
+  3627:             return
+  3628:               Transform_Expr
+  3629:                 ((if Attr = Attribute_First
+  3630:                   then Low_Bound (Rng)
+  3631:                   else High_Bound (Rng)),
+  3632:                  BT,
+  3633:                  Subdomain,
+  3634:                  Params);
+  3635:          end;
+  3636:
+  3637:       elsif Attr in Attribute_First | Attribute_Last
+  3638:         and then Type_Is_Modeled_As_Base (Ty)
+  3639:       then
+  3640:          --  Call predefind functions
+  3641:
+  3642:          declare
+  3643:             Rng : constant Node_Id := Get_Range (Ty);
+  3644:             BT  : constant W_Type_Id :=
+  3645:               (if Is_Standard_Boolean_Type (Ty)
+  3646:                then EW_Int_Type
+  3647:                else Base_Why_Type (Ty));
+  3648:             Bnd : constant Node_Id :=
+  3649:               (if Attr = Attribute_First
+  3650:                then Low_Bound (Rng)
+  3651:                else High_Bound (Rng));
+  3652:             Id  : constant W_Identifier_Id :=
+  3653:               (if Attr = Attribute_First
+  3654:                then E_Symb (Ty, WNE_Attr_First)
+  3655:                else E_Symb (Ty, WNE_Attr_Last));
+  3656:          begin
+  3657:             return
+  3658:               New_Call
+  3659:                 (Domain => Subdomain,
+  3660:                  Name   => Id,
+  3661:                  Args   =>
+  3662:                    Get_Args_From_Binders
+  3663:                      (To_Binder_Array
+  3664:                         (Get_Binders_From_Expression (Bnd),
+  3665:                          Keep_Const => Keep),
+  3666:                       Params.Ref_Allowed),
+  3667:                  Typ    => BT);
+  3668:          end;
+  3669:
+  3670:       elsif Attr in Attribute_First | Attribute_Last
+  3671:         and then Ekind (Ty) = E_String_Literal_Subtype
+  3672:       then
+  3673:          declare
+  3674:             BT : constant W_Type_Id := Nth_Index_Rep_Type_No_Bool (Ty, 1);
+  3675:          begin
+  3676:             case Attr is
+  3677:                when Attribute_First =>
+  3678:                   return
+  3679:                     New_Discrete_Constant
+  3680:                       (Value => Expr_Value (String_Literal_Low_Bound (Ty)),
+  3681:                        Typ   => BT);
+  3682:
+  3683:                when Attribute_Last  =>
+  3684:                   return
+  3685:                     New_Discrete_Constant
+  3686:                       (Value =>
+  3687:                          Expr_Value (String_Literal_Low_Bound (Ty))
+  3688:                          + String_Literal_Length (Ty)
+  3689:                          - 1,
+  3690:                        Typ   => BT);
+  3691:
+  3692:                when others          =>
+  3693:                   raise Program_Error;
+  3694:             end case;
+  3695:          end;
+  3696:
+  3697:       elsif Is_Standard_Boolean_Type (Ty) then
+  3698:          case Attr is
+  3699:             when Attribute_First =>
+  3700:                return +M_Boolean.First;
+  3701:
+  3702:             when Attribute_Last  =>
+  3703:                return +M_Boolean.Last;
+  3704:
+  3705:             when Attribute_Image =>
+  3706:                return +M_Boolean.Image;
+  3707:
+  3708:             when Attribute_Value =>
+  3709:                return +M_Boolean.Value;
+  3710:
+  3711:             when others          =>
+  3712:                raise Program_Error;
+  3713:          end case;
+  3714:
+  3715:       else
+  3716:          case Attr is
+  3717:             when Attribute_First                       =>
+  3718:                return +E_Symb (Ty, WNE_Attr_First);
+  3719:
+  3720:             when Attribute_Last                        =>
+  3721:                return +E_Symb (Ty, WNE_Attr_Last);
+  3722:
+  3723:             when Attribute_Alignment                   =>
+  3724:                return +E_Symb (Ty, WNE_Attr_Alignment);
+  3725:
+  3726:             when Attribute_Modulus                     =>
+  3727:                return +E_Symb (Ty, WNE_Attr_Modulus);
+  3728:
+  3729:             when Attribute_Constrained                 =>
+  3730:                return +E_Symb (Ty, WNE_Attr_Constrained);
+  3731:
+  3732:             when Attribute_Size | Attribute_Value_Size =>
+  3733:                return +E_Symb (Ty, WNE_Attr_Value_Size);
+  3734:
+  3735:             when Attribute_Tag                         =>
+  3736:                return +E_Symb (Ty, WNE_Attr_Tag);
+  3737:
+  3738:             when Attribute_Image                       =>
+  3739:                return +E_Symb (Ty, WNE_Attr_Image);
+  3740:
+  3741:             when Attribute_Value                       =>
+  3742:                return +E_Symb (Ty, WNE_Attr_Value);
+  3743:
+  3744:             when others                                =>
+  3745:                raise Program_Error;
+  3746:          end case;
+  3747:       end if;
+  3748:    end New_Attribute_Expr;
+  3749:
+  3750:    ------------------------
+  3751:    -- New_Binary_Op_Expr --
+  3752:    ------------------------
+  3753:
   3754:    function New_Binary_Op_Expr
   3755:      (Op          : N_Binary_Op;
   3756:       Left        : W_Expr_Id;
@@ -9952,7 +11122,7 @@
   3997:             end;
 ```
 
-## src/why/why-gen-expr.adb:4289-4355
+## src/why/why-gen-expr.adb:4289-4385
 
 ```ada
   4289:    function New_Comparison
@@ -10022,6 +11192,36 @@
   4353:          return
   4354:            New_Call
   4355:              (Domain => Domain,
+  4356:               Name   => Dynamic_Prop_Name (Ty),
+  4357:               Args   =>
+  4358:                 Args_For_Scalar_Dynamic_Property
+  4359:                   (Ty, +Expr, Term_Domain (Domain), Params),
+  4360:               Typ    => EW_Bool_Type);
+  4361:
+  4362:       elsif Is_Array_Type (Ty) and then not Is_Static_Array_Type (Ty) then
+  4363:          declare
+  4364:             Dim  : constant Positive := Positive (Number_Dimensions (Ty));
+  4365:             Args : W_Expr_Array (1 .. 2 * Dim);
+  4366:          begin
+  4367:             for Count in 0 .. Dim - 1 loop
+  4368:                declare
+  4369:                   F_Expr : constant W_Term_Id :=
+  4370:                     Get_Array_Attr
+  4371:                       (Expr => Expr,
+  4372:                        Attr => Attribute_First,
+  4373:                        Dim  => Count + 1);
+  4374:                   L_Expr : constant W_Term_Id :=
+  4375:                     Get_Array_Attr
+  4376:                       (Expr => Expr, Attr => Attribute_Last, Dim => Count + 1);
+  4377:                begin
+  4378:                   Args (2 * Count + 1) := +F_Expr;
+  4379:                   Args (2 * Count + 2) := +L_Expr;
+  4380:                end;
+  4381:             end loop;
+  4382:
+  4383:             return New_Dynamic_Property (Domain, Ty, Args, Params);
+  4384:          end;
+  4385:
 ```
 
 ## src/why/why-gen-expr.adb:4488-4535

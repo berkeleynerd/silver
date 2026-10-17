@@ -539,7 +539,81 @@ same-type return (`src/why/why-gen-expr.adb:1136–1158`). Even a conversion
 that returns its original expression can therefore allocate up to six fresh
 nodes, including two direct map modules, if both source and target are
 nonstatic array representations. Sliding, length/range checks and temporary
-bindings on the nontrivial path remain separate required costs.
+bindings on the nontrivial path are priced conditionally below; their
+frontend-shape premise remains to be connected to all reachable callers.
+
+### A conditional ordinary String conversion envelope
+
+The following closes `Insert_Array_Conversion` under an explicit frontend-shape
+premise: source/target are ordinary rank-one Character Strings, each either
+statically constrained (possibly null) or unconstrained; neither uses fixed
+lower bounds, initialization wrappers, user predicates or an element-type
+conversion. This is not yet promoted to an unconditional Main bound: the
+frontend correspondence must cover `Actual_Subtype` and any generated type
+reaching the caller, as well as source declarations. The call is not a qualified
+expression. Cached symbol/entity-module initialization and caller construction
+of the already-supplied expected type remain separate.
+
+First, on those shapes, a static type bound is either an existing bound symbol
+possibly converted to builtin Integer, or a compile-time-known bound/literal
+constant. It costs at most one new node/list/element and fourteen occurrences.
+A nonstatic array's first/last/length accessor on a cheap reference costs at
+most one node/list/element and eighteen occurrences: eight call overhead plus
+a reference of at most ten occurrences (`src/why/why-gen-arrays.adb:2813–2892`;
+`src/why/why-gen-expr.adb:3600–3749`). A cheap reference here is an identifier,
+dereference, or temporary identifier of the already supplied array type.
+
+`New_Length_Equality` has six calls, one conjunction and one conditional.
+Its two left bounds occur twice each and its two right bounds three times each;
+the bound expressions are allocated once and serialized repeatedly
+(`src/why/why-gen-arrays.adb:3396–3599`). Using the accessor maximum above gives
+**twelve fresh nodes, twelve lists, sixteen elements and 232 occurrences**,
+including four accessor constructions: `10*18 + 6*8 + 1 + 3` occurrences.
+Its outer conjunction with `True` allocates nothing. A located length assertion
+adds at most three nodes and five occurrences; sequencing that check with the
+converted value adds one node/list, two elements and one occurrence. Thus the
+whole length-check suffix is at most `16 / 13 / 18 / 238` in the order
+nodes/lists/elements/occurrences.
+
+An unconstrained-target range check is smaller. The dynamic-property helper
+uses two object bounds, two type bounds and one four-argument predicate call
+(`src/why/why-gen-expr.adb:4337–4385`;
+`src/why/why-gen-arrays.adb:3305–3363`): at most five nodes/lists, eight elements
+and `2*18 + 2*14 + 8 = 72` occurrences before the same assertion/sequence suffix.
+The larger length-check allowance covers it.
+
+The frontend-shape premise makes sliding possible only when the target is
+statically constrained (`src/why/why-gen-expr.adb:3219–3277`). Therefore the
+nonstatic-target sliding reconstruction and fixed-lower-bound range branches
+are absent. The remaining source path has this conservative accounting;
+mutually exclusive alternatives are deliberately added rather than minimized:
+
+| Conversion component | Nodes | Lists | Elements | Occurrences excluding original input |
+| --- | ---: | ---: | ---: | ---: |
+| Eager source/target split types | 6 | 0 | 0 | 0 |
+| Optional input temporary and binding | 3 | 0 | 0 | 9 |
+| Map/slide/accessor alternatives combined | 17 | 8 | 10 | 148 |
+| Split type label | 1 | 0 | 0 | 4 |
+| Split temporary and binding | 3 | 0 | 0 | 9 |
+| Optional three-argument reconstruction | 1 | 1 | 3 | 51 |
+| Larger check/sequence suffix | 16 | 13 | 18 | 238 |
+| **Total** | **47** | **22** | **31** | **459** |
+
+The map/slide row adds: sliding `7/4/6/62`, nonstatic-target argument packing
+`6/3/3/56`, static-to-static reference `0/0/0/10`, and conversion to a static
+map `4/1/1/20`. The reconstruction occurrence allowance deliberately also
+charges its two bound accessors even though argument packing already charges
+them. A temporary/binding costs three fresh nodes and at most nine emitted
+occurrences besides its definition/context. The supplied child occurs once
+as the input binding's definition if complex; otherwise all repeated uses
+have the cheap-reference bound already charged. Adding one full input cost
+therefore remains sound in both cases.
+
+The implementation is `src/why/why-gen-expr.adb:982–1512`. Empty/predicate
+branches and early returns can only reduce this envelope under the stated
+premises; the eager type allocations still count. This envelope prices one
+conversion invocation, not the number of caller invocations or the complete
+String expression language.
 
 ## Declaration, type and module caller closure
 
