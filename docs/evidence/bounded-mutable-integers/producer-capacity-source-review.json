@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "host": "linux-x86_64",
+  "state": "source_review_with_open_applicability_obligations",
+  "authorization_merge": "ed975942028e65045285d40d59ec99cd0053e7bd",
+  "work_package": 69,
+  "scope": "Read-only retained-source inspection; no compiler/prover/application/test execution; no binary-source attestation; conditional sizing is not a complete envelope or automatic-discharge proof.",
+  "baseline_review": "docs/for-loops-report-capacity.md",
+  "producer_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "recipe_revision": "0334dd54a2c479faa3dfad47a911373581b11739",
+  "frontend_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "retained_frontend_manifest": "tmp/frontend-capacity-20261016/fetch-manifest.json",
+  "retained_frontend_manifest_sha256": "a96759d2aa85e4078d836a6ead1752f97d04fadf518bce8cf04526def052c5e1",
+  "files": [
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/gnat2why-expr.adb",
+      "sha256": "750ed73091af62c0b522077c2e59e10f496b91a4bee323b3b822fba15094dd14",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-expr.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/why-gen-expr.adb",
+      "sha256": "9891d54331f76713685fce8f21501d549485a46c35593ac68ba572c9f0f5a432",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/why-gen-expr.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/gnat2why-driver.adb",
+      "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-driver.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/gnat2why-decls.adb",
+      "sha256": "0d98e1d1a86afe4a94a45752c9a11ecffd3f5d8218c9a28c3cd8449b65acdb43",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-decls.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/gnat2why-types.adb",
+      "sha256": "3b4b21d00eb4d14a4f7966c097f215217ea54183be4048a5d9bbd98ccdb3663d",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-types.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/flow/flow-analysis.adb",
+      "sha256": "10dab62c866ca03c5fd9dfefc2f70ea348797f18fb4703ffa69be1ceb9ff9c94",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/flow/flow-analysis.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/flow/flow-control_flow_graph.adb",
+      "sha256": "d6d903a8f15e645e1de51c2b74c8b61288885b34c88e9b2ac1f5469a801684b7",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/flow/flow-control_flow_graph.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/flow/flow-control_flow_graph-utility.adb",
+      "sha256": "a1a7024b4b54a05995e3be0fe4312a7a144da006ab0a07a703ceb705be158c29",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/flow/flow-control_flow_graph-utility.adb"
+    },
+    {
+      "path": "tmp/frontend-capacity-20261016/checks.adb",
+      "sha256": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c",
+      "source_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/checks.adb"
+    },
+    {
+      "path": "tmp/frontend-capacity-20261016/sem_ch3.adb",
+      "sha256": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
+      "source_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_ch3.adb"
+    },
+    {
+      "path": "tmp/frontend-capacity-20261016/sem_attr.adb",
+      "sha256": "2186f019b336c853f7e3f5ae3a40fd91514ba188694c4fd592282c7ce63185d0",
+      "source_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_attr.adb"
+    },
+    {
+      "path": "tmp/frontend-capacity-20261016/exp_spark.adb",
+      "sha256": "509e27a893828c31e7148f29470ab1fcbacd879242a1066dd22bdc3a6cf0fbfb",
+      "source_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/exp_spark.adb"
+    },
+    {
+      "path": "tmp/frontend-capacity-20261016/exp_util.adb",
+      "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
+      "source_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/exp_util.adb"
+    }
+  ],
+  "conditional_candidate": {
+    "bytes": 15292416,
+    "buffer_bytes": 16777216,
+    "conditional_headroom": 1484800,
+    "formula": "13064192 + (63 + floor(4096/13) + 2*floor(4096/18))*2048 + 2*floor(4096/16)*1024",
+    "established_universal_envelope": false,
+    "outstanding": [
+      "Actual static anonymous-subtype/IType mapping and traversal multiplicity",
+      "Genuine mutable report/advisory/Image-schema observations",
+      "Flow/name charge applicability across all compositions",
+      "Implicit subtype entity/dependency/timing metadata applicability",
+      "Image-copy/generated-action closure and combined source/producer assurance"
+    ]
+  }
+}

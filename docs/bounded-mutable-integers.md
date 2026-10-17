@@ -176,7 +176,7 @@ The implementation needs coordinated changes across these existing boundaries:
 | [Predicate execution](../proof/Silver/PredicateExecution.lean) and its checking/composition modules | Return and thread mutable scalar state through checked and ordinary execution; prove assignment safety, range preservation, finite-loop composition and agreement. The current evaluator carries a fixed scalar store and cannot simply be reused. |
 | Native equations, source certificates and whole-source bridges | Match every changed SPARK body to its semantic equations, extend declaration/statement decoding and correspondence, and review regenerated pins with those changes. |
 | [Image producer and consumer boundary](trusted-boundary.md#image-proof-adapter-boundary) | Re-establish applicability for mutable reads, declaration snapshots and constrained objects; verify the unchanged Image meaning, selected schemas and size-12 Main translation, or repair the owned connection if required. |
-| [Report capacity](report-capacity.md#for-loops-and-integers-extension) and report policy | Derive all new declaration/assignment/range-check and advisory charges from source/producer routes; cover every selected report and required obligation. |
+| [Report capacity](report-capacity.md#for-loops-and-integers-extension) and report policy | Derive all new declaration/assignment/range-check and advisory charges from source/producer routes; cover every selected report and required obligation. The [mutable producer review](bounded-mutable-report-capacity.md) identifies routes and remaining applicability checks; its candidate formula is not yet an established envelope. |
 
 The model must establish automatic-discharge schemas as well as safety and
 execution meaning. Native application evidence must use the actual submitted
@@ -232,14 +232,15 @@ remove a promised composition or weaken a guarantee.
 
 | Order | Package | Completion criterion |
 | --- | --- | --- |
-| 1 | [#67 Scope and automatic-proof design](https://github.com/berkeleynerd/silver/issues/67) | Record the driver, exact proposed rules, composition, exclusions, assurance boundaries, evidence plan and ordered issues; review and publish the scope. This is the presently authorized work. |
+| 1 | [#67 Scope and automatic-proof design](https://github.com/berkeleynerd/silver/issues/67) | Record the driver, exact proposed rules, composition, exclusions, assurance boundaries, evidence plan and ordered issues; review and publish the scope. Completed through PR #72. |
 | 2 | [#68 Native admission and regressions](https://github.com/berkeleynerd/silver/issues/68) | Resolve focused frontend/producer questions, implement verified SPARK declaration and assignment rules, preserve existing behavior, and retain boundary/composition regressions and genuine reports. |
 | 3 | [#69 Universal and actual-source assurance](https://github.com/berkeleynerd/silver/issues/69) | Establish mutable-store semantics, range preservation, complete safety/discharge composition, actual-source correspondence, Image applicability and the extended report envelope; validate every affected endpoint. Coordinate with #68. |
 | 4 | [#70 Validation, review and delivery](https://github.com/berkeleynerd/silver/issues/70) | Complete stable Linux validation and independent review of the integrated inputs, resolve findings, and synchronize language, catalogue, samples, capability, roadmap and Rosetta records before claiming support. |
 
-The proposed milestone completes only when all four packages complete. Closing
-the scope package leaves the capability unsupported and the other packages in
-Backlog until the owner authorizes implementation. Native macOS validation
+The milestone completes only when all four packages complete. Scope package
+#67 is complete. The owner has now authorized #68–#70 through implementation,
+assurance and delivery, as recorded by PR #73. The board carries their current
+claims; the capability remains unsupported until their required work is complete. Native macOS validation
 remains independent and nonblocking; hosted CI remains disabled.
 
 ## Exclusions and stage mapping
@@ -261,9 +262,9 @@ evidence. Stage #11 remains open for the unimplemented forms; procedures and
 arrays retain their later roadmap positions. Existing-language Rosetta sample
 work on #9 is independent of this milestone.
 
-## Scoping validation
+## Original scoping validation — 2026-10-17
 
-This proposal is based on read-only review of the current specification,
+The completed scoping checkpoint was based on read-only review of the current specification,
 implementation and assurance boundaries at `a6cc65112b`, with focused semantic
 and assurance reviews. No compiler, prover or application execution is claimed
 for the proposed source. The scoping change affects documentation and planning
