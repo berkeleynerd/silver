@@ -6,8 +6,14 @@ direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
 [Frontend representation research #113](https://github.com/berkeleynerd/silver/issues/113)
-now has a [concrete result](docs/research/frontend-representation-result.md)
-at an implementation stop; independent review and publication remain pending.
+has a [reviewed result](docs/research/frontend-representation-result.md)
+at an implementation stop. Publication is through
+[PR #116](https://github.com/berkeleynerd/silver/pull/116); live issues track merge
+and closure. The
+[independent review](docs/reviews/review-frontend-representation-0af844fb85.md)
+covers frozen technical target `0af844fb85`; its only low finding, L1
+[#115](https://github.com/berkeleynerd/silver/issues/115), is corrected and
+independently rechecked at integrated repair `042e35c40c`. No finding remains.
 Checked widening of the shared String pool and Ada/C descriptors is the preferred
 smaller frontend candidate, with a zero-mantissa scanner optimization. No inspected
 external GNAT/GNATprove pair supplies the changes, no fully verified SPARK-owned
@@ -15,7 +21,8 @@ route has been demonstrated, and the separate GNATprove producer still expands
 literal content per character. Neither non-gating confirmation nor calling a
 private compiler fork external resolves these obligations.
 
-The recommended [owner disposition](docs/unbounded-programs.md#frontend-representation-result-and-owner-disposition)
+The recommended [owner disposition](docs/unbounded-programs.md#frontend-representation-result-and-owner-disposition),
+tracked by Backlog [decision #117](https://github.com/berkeleynerd/silver/issues/117),
 retains the unchanged Oracle and seeks actually externally maintained paired
 frontend/producer support before commissioning implementation. Report this stop;
 do not automatically launch more research, contact maintainers, adopt a tool or

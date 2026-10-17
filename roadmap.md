@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Representation research reports an implementation stop; independent review pending.** The
+**Frontend representation research reviewed at a full stop; implementation unauthorized.** The
 [scope](docs/unbounded-programs.md) and
 [milestone 5](https://github.com/berkeleynerd/silver/milestone/5) pursue removal of
 unnecessary Silver capacity limits. The operational objective is resource-driven
@@ -63,10 +63,16 @@ The implementation stop is explicit: no inspected external GNAT/GNATprove pair
 supplies the changes, no fully verified SPARK-owned route has been demonstrated
 for all affected interfaces, and the separate GNATprove producer still expands
 literal content per character. Renaming a private compiler fork or making confirmation non-gating
-does not settle those requirements. Independent review and publication of #113
-remain pending.
+does not settle those requirements.
+[Independent review](docs/reviews/review-frontend-representation-0af844fb85.md)
+of frozen target `0af844fb85` is complete; low excerpt-generation finding L1
+[#115](https://github.com/berkeleynerd/silver/issues/115) is corrected and
+independently rechecked at repair `042e35c40c`. No finding remains. Publication
+is through [PR #116](https://github.com/berkeleynerd/silver/pull/116); live issues
+track merge and closure.
 
-The recommended [owner disposition](docs/unbounded-programs.md#frontend-representation-result-and-owner-disposition)
+The recommended [owner disposition](docs/unbounded-programs.md#frontend-representation-result-and-owner-disposition),
+tracked by Backlog [decision #117](https://github.com/berkeleynerd/silver/issues/117),
 retains the unchanged Oracle and seeks actually externally maintained paired
 frontend/producer support before commissioning implementation, using bounded
 widening as the concrete minimum frontend requirement. Report this stop rather

@@ -19,7 +19,8 @@ not an observed near-limit installed-tool failure. Non-gating confirmation canno
 establish the missing universal assurance. A privately maintained compiler fork
 does not escape the Oracle's verified-SPARK requirement by being called external.
 
-The [recommended owner disposition](unbounded-programs.md#frontend-representation-result-and-owner-disposition)
+The [recommended owner disposition](unbounded-programs.md#frontend-representation-result-and-owner-disposition),
+tracked by Backlog [decision #117](https://github.com/berkeleynerd/silver/issues/117),
 keeps the Oracle unchanged and seeks actually externally maintained paired
 frontend/producer support, using the bounded widening design as the minimum
 frontend requirement. Report the stop for that decision; do not automatically
@@ -27,8 +28,16 @@ begin another investigation, contact maintainers, submit patches or implement a
 private fork. A suitable external version change would not itself require an
 Oracle amendment. No lower domain cap, new membership rule or tool pin is adopted.
 
-Independent review and publication of this result remain pending. The completed
-earlier research and its review retain their original scopes. Authorization for
+[Independent review](reviews/review-frontend-representation-0af844fb85.md) of
+frozen technical target `0af844fb85b48155b38f237a5437bc27f71e8563` is complete.
+Its only low finding, L1 [#115](https://github.com/berkeleynerd/silver/issues/115),
+concerned form-feed-sensitive excerpt line splitting, not the documented source
+conclusion. Integrated repair `042e35c40c62997544a11abb44f4169f12d0f1bd` uses LF
+source lines and regenerates the evidence; independent rechecking found no
+remaining issue. Publication is through
+[PR #116](https://github.com/berkeleynerd/silver/pull/116); live issues track merge
+and closure of #113/#115. The completed earlier research and its review retain
+their original scopes. Authorization for
 #113 reached `main` through [PR #114](https://github.com/berkeleynerd/silver/pull/114),
 merge `b8e618c54592f66461b2a08023795f31c16a7d39`. The issue and board carry the
 current review/publication status. Implementation #88–#94 remains Backlog;

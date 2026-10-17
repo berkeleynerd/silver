@@ -8,8 +8,11 @@ selects [#113](https://github.com/berkeleynerd/silver/issues/113), scoped
 [below](#frontend-representation-feasibility-research), after the reviewed
 frontend stop. It authorizes research and publication, not production changes
 or implementation of #88–#94. Its [concrete result](research/frontend-representation-result.md)
-now reports an implementation stop; independent review and publication remain
-pending. The [owner disposition below](#frontend-representation-result-and-owner-disposition)
+reports an implementation stop; [independent review](reviews/review-frontend-representation-0af844fb85.md)
+is complete with its low excerpt-generation finding corrected and independently
+rechecked. Publication is through
+[PR #116](https://github.com/berkeleynerd/silver/pull/116); live issues track merge
+and closure. The [owner disposition below](#frontend-representation-result-and-owner-disposition)
 preserves that boundary. The earlier
 [planning-correction authorization](session-memory.md#2026-10-17--unbounded-programs-planning-corrections-authorized)
 authorized correction and publication. The subsequent
@@ -200,7 +203,8 @@ alone cannot remove that producer's representation limit. Non-gating confirmatio
 may report a reliably detected incomplete run; it cannot supply missing universal
 assurance or make a known finite representation bound a resource assumption.
 
-The recommendation for owner disposition is to **retain the unchanged Oracle and
+The recommendation in Backlog [decision #117](https://github.com/berkeleynerd/silver/issues/117)
+is to **retain the unchanged Oracle and
 seek actually externally maintained paired frontend/producer support before
 commissioning implementation**, using the bounded widening design as the minimum
 frontend requirement. An unmodified suitable external release can fit the
@@ -210,8 +214,15 @@ and maintenance, not a patch submission or Alire manifest. If that support canno
 be obtained, report the need for a different permissible route rather than
 silently maintaining unverified compiler bodies or lowering the domain.
 
-Independent review and publication of #113 remain pending. The next owner
-decision concerns the ownership route and producer scope; the research result
+[Independent review](reviews/review-frontend-representation-0af844fb85.md) of
+frozen technical target `0af844fb85b48155b38f237a5437bc27f71e8563` is complete.
+Its only low finding, L1 [#115](https://github.com/berkeleynerd/silver/issues/115),
+was an evidence excerpt line-convention defect. Integrated repair
+`042e35c40c62997544a11abb44f4169f12d0f1bd` and regenerated evidence were
+independently rechecked; no finding remains. Publication is through
+[PR #116](https://github.com/berkeleynerd/silver/pull/116), with merge and closure
+tracked on the live issues. Decision #117 concerns the ownership route and
+producer scope; the research result
 does not authorize another open-ended investigation, maintainer contact, patch
 submission, production changes, a new tool pin, an Oracle amendment or a smaller
 language domain. Packages #88–#94 remain Backlog, and milestone 5 remains incomplete.
