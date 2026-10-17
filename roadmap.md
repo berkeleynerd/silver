@@ -16,12 +16,14 @@ next capability while retaining full assurance for the current language.
 
 ### Review of For loops and integers
 
-**Authorized on 2026-10-16**, after the completed milestone below. The owner
-selected the recommended remediation of [review-b8f1d0b9a8](docs/reviews/review-b8f1d0b9a8.md).
-[Milestone 3](https://github.com/berkeleynerd/silver/milestone/3) uses its
-finding issues as the increments; the [repair record](docs/review-b8f1d0b9a8-repairs.md)
-contains completion criteria and evidence scope. Delivery of one increment
-does not complete the remaining work.
+**Implementation and validation complete on Linux x86_64, 2026-10-17**.
+[PR #66](https://github.com/berkeleynerd/silver/pull/66) tracks publication. The owner authorized
+the recommended remediation of [review-b8f1d0b9a8](docs/reviews/review-b8f1d0b9a8.md)
+on 2026-10-16, after the completed milestone below.
+[Milestone 3](https://github.com/berkeleynerd/silver/milestone/3) uses the
+finding issues as its increments. The [repair record](docs/review-b8f1d0b9a8-repairs.md)
+identifies implementation, exact native/Lean/test inputs, cache reuse and
+retained failures separately. The completed increments followed this order:
 
 1. **Recognizer and capacity premise:** L1 [#51](https://github.com/berkeleynerd/silver/issues/51),
    native token-boundary counting with its Lean mirror, source correspondence
@@ -29,18 +31,18 @@ does not complete the remaining work.
 2. **Batched evidence and boundary corrections:** L2–L7 #52–#57, L8 under
    existing #31, L9 #58 and L13 #62. Preserve historical evidence, disclose
    actual input/cache scope, correct handoff status and document producer and
-   invocation premises. This documentation stream can proceed alongside L1.
+   invocation premises. This documentation stream ran alongside L1.
 3. **Adapter operations:** L10 #59 and L12 #61, explicit workspace lifetime
    and retention plus useful fail-closed diagnostics, with affected assurance.
 4. **Regression coverage:** L14 #63, selected admission/composition cases and
    two native regressions, integrated with the preceding changes.
 5. **Separate proof follow-ups:** L11 #60 (internal template spelling/meaning
    determinism and stronger endpoints) and L15 #64 (representative
-   kernel-checked recognizer witnesses). Keep their completion separate.
-6. **Integration:** independent review and proportionate current-input native,
-   Lean and regression validation for the combined changes; exact scope and
-   retained failures remain in the repair record. No redundant parent ticket
-   or duplicate expensive success run is required.
+   kernel-checked recognizer witnesses), with separate focused proof evidence.
+6. **Integration:** independent review, complete cached native and Lean audits,
+   and focused regressions for the combined changes. The original failed
+   full suite and its focused repair remain separate history; no repeated
+   complete suite, clean build or independent kernel replay is claimed.
 
 No owner policy decision remains open for this scope. There is no new language
 construct, Oracle amendment, mandatory clean/replay run or generic provenance
@@ -76,8 +78,10 @@ Integer constants, fully grouped `+`, `-` and `*`, comparisons, scoped
 forward/reverse loops and standard Integer `'Image`, including Ada's leading
 space. These compose with the existing String, input, path and output rules.
 The [delivery evidence](docs/for-loops-integers.md#stable-delivery-evidence)
-records complete native proof/build/tests, the complete cached Lean build and
-fresh audit, source/semantic review and the exact validation inputs.
+records the complete cached native audit and build, the retained full-suite
+failure with its focused snapshot repair/recheck, and the complete cached Lean
+build with a fresh audit. It distinguishes actual input scopes and independent
+review; the regression evidence is not one clean passing full-suite run.
 
 The owner resumed this same unfinished goal on 2026-10-16 after the selected
 [review repairs](docs/review-343c2f8-repairs.md) and

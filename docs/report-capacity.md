@@ -203,8 +203,8 @@ adds checks per source byte, changes diagnostics, or selects a new runtime.
 
 ## For loops and integers extension
 
-The authorized For loops and integers implementation requires a new envelope
-before admission. The source review in
+The delivered For loops and integers fragment uses the extended envelope
+below, with the token-boundary repair described here. The source review in
 [the detailed capacity evidence](for-loops-report-capacity.md) extends the
 String-language baseline above. It uses the same `spark2014`/Why3 revisions,
 the GNAT-FSF `gnatprove-16.1.0-1` recipe at
@@ -223,7 +223,11 @@ Add the following independent charges to the baseline:
 | Image warnings | `2*floor(S/16)` warning records at 1024 bytes |
 
 The lexical work budget charges every `&`, unary/binary `+`/`-`, and `*` against
-one shared total of 63. A sign inside an exponent is literal syntax. The producer
+one shared total of 63. Both `Work_Tail` and `Within_Work_Budget` consume
+whole identifiers with `Name_After` before their numeric-token branch. Thus
+`N1E+1` contributes a binary `+`; the identifier suffix cannot be rescanned
+as the numeral `1E+1`. Genuine numeric exponent signs remain literal syntax,
+while signs outside numeric tokens are charged. The producer
 registers at most one overflow check per arithmetic operator; its operand
 translations target mathematical Integer and add no scalar range checks.
 Charging 63 again deliberately overcounts the shared concatenation/arithmetic
@@ -270,13 +274,28 @@ The extended Main bound is:
 ```
 
 This leaves 1,748,992 bytes of headroom without changing the buffer.
+
+The original delivered scanner at `b8f1d0b9a8` did not consume identifiers
+whole. It could treat a digit-`E` suffix followed by `+` as numeral exponent
+syntax and miss a binary operator. The original assertion that every operator
+was charged, and therefore the 15,028,224-byte derivation for that scanner,
+was not established. The [review disposition](reviews/review-b8f1d0b9a8.md#appended-disposition--2026-10-16)
+adds a conservative `floor(4096/6)*2048 = 1,396,736` bytes, giving
+16,424,960 bytes and 352,256 bytes of buffer headroom. That retrospective
+allowance supports buffer sufficiency without validating the smaller original
+bound. The [L1/#51 repair](review-b8f1d0b9a8-repairs.md) restores the shared
+63-operator premise through corresponding native and Lean token scans. Its
+source certificate, semantic equations and focused regressions are recorded
+separately from this original source-review argument.
+
 `tests/test_capacity.py` guards the extended formula and maximal fixed
-record schemas. The formula supports the authorized milestone; it does not
-by itself admit the language extension or establish automatic proof discharge.
-Both focused capacity tests passed on Linux x86_64 in managed run
-`20261016T163411-7b14b45862de`, including the existing dense-source admission
+record schemas. The formula does not by itself establish automatic proof
+discharge. Both original focused capacity tests passed on Linux x86_64 in
+managed run `20261016T163411-7b14b45862de`, including the existing dense-source admission
 regression. No unchanged compiler or Lean proof was repeated for this
-source-review and test-fixture update.
+source-review and test-fixture update. Those tests did not detect the later
+confirmed token-boundary defect and do not establish the repaired scanner
+premise by themselves.
 
 ## Storage placement and validation
 

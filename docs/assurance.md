@@ -89,17 +89,31 @@ normalized template matching and original insertion offsets. The full typed
 Integer, String and Image schemas are checked against the native template bytes;
 partial name or tag observations do not establish their meaning. Broad producer
 string spelling is handled before accepted-match liveness establishes ASCII.
-Equal valid normalized bytes are interpreted through the explicit external
-JSON parser soundness contract described in the [trusted boundary](trusted-boundary.md#image-proof-adapter-boundary),
-with semantic integer projection and successful parsing of the finite selected
-templates. It makes no universal success assumption for unbounded numbers. This is
-not an unrestricted injectivity claim about raw-number `Value.encode`.
+Equal valid normalized bytes determine equal values through the internal
+`JSON.Valid.encode_injective` theorem in
+[ImageModelCanonicalRead.lean](../proof/Silver/ImageModelCanonicalRead.lean),
+and `Valid.canonical_meaning_eq` supplies equal semantic projections. A
+terminating mathematical decoder proves the canonical round trip for
+independently valid ASCII integral JSON, including arrays, objects and valid
+signed integer tokens. It retains numeric token spelling, including negative
+zero. This is not unrestricted injectivity of arbitrary `Value.encode`, a
+runtime parser, or a proof that the external parser succeeds or is correct.
+The selected-schema and refinement endpoints no longer take external parser
+soundness or finite-template parsing-success hypotheses. The
+[consumer interpretation and original typed-context premises](trusted-boundary.md#image-proof-adapter-boundary)
+remain required. The [remediation record](review-b8f1d0b9a8-repairs.md#focused-proof-evidence)
+separately identifies the focused checks for this strengthening.
 
 The reverse connection covers every admitted program's generated model:
 unchanged or refinement, as appropriate. The
 [complete producer review](for-loops-image-producer-review.md) establishes the
 pinned source routes for exact selected templates whenever emitted, unique
 selected names, Image's Integer/String dependencies and broad document syntax.
+Complete automatic discharge also requires every admitted Main Integer Image
+occurrence to use the pinned size-12 `Standard_String__Img.to_string`
+translation. The scanner checks templates, not Main occurrences; this
+[producer applicability premise](trusted-boundary.md#image-proof-adapter-boundary)
+is rechecked when the producer pin or admitted Image form changes.
 `ProducerSchemas.envelope` derives scanner requirements using finite template
 validity and source-interpreted table bytes. `producer_finishes` and
 `FilesSource.native_producer_finishes` derive successful initialized scanning
@@ -392,10 +406,11 @@ startup remain trusted dependencies.
 A correct separate model or a matching source pin alone does not establish the
 required correspondence. The checked chain has these distinct parts:
 
-1. Seventeen handwritten source-binding modules fix `include_str` paths for the
-   specifications and bodies of both recognizers, both lexical-helper units,
-   the context/name and integer-literal helpers, the path-fact specification,
-   and the six selected runtime files.
+1. Handwritten source-binding modules fix `include_str` paths for the
+   authoritative recognizer, lexical/name/path, scalar/interval/Image, adapter
+   and runtime units. [AuthoritativeSource.lean](../proof/Silver/AuthoritativeSource.lean)
+   is the normative import list (32 bindings at the For loops and integers
+   delivery), paired with the lakefile's binary source dependencies.
    Generated candidates reconstruct their exact included bytes and checked
    tokens. The generator cannot select replacement source bindings. Source
    alphabet checks include comments and literals.

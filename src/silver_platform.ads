@@ -69,11 +69,14 @@ is
           Post => (Static => Status = Application_Status);
 
    Workspace_Prefix : constant String := Silver_Build.Root_Directory & "/program-";
+   Image_Workspace_Prefix : constant String := Silver_Build.Root_Directory & "/imagews-";
    subtype Workspace_Path is String (1 .. Workspace_Prefix'Length + 6);
-   procedure Create_Workspace (Name : out Workspace_Path; Success : out Boolean)
+   procedure Create_Workspace
+     (Name : out Workspace_Path; Success : out Boolean; For_Image : Boolean := False)
      with Global => (In_Out => Ada.Text_IO.File_System),
           Post => (if Success then Valid_Path (Name)
-                   and then Name (1 .. Workspace_Prefix'Length) = Workspace_Prefix
+                   and then Name (1 .. Workspace_Prefix'Length) =
+                     (if For_Image then Image_Workspace_Prefix else Workspace_Prefix)
                    and then (for all Index in Workspace_Prefix'Last + 1 .. Name'Last =>
                      Name (Index) in 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9'));
 end Silver_Platform;

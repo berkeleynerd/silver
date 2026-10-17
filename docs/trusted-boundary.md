@@ -231,27 +231,108 @@ Genuine matching executables, stable installations, Alire's environment and
 GNATprove's relative support-tool lookup remain external premises. The generated
 digest is evidence of selected configuration, not a runtime binary attestation.
 
+The adapter uses a distinct `.silver/<host>/imagews-XXXXXX/` namespace.
+After the synchronous vendor call returns status 0, it removes only the
+workspace created by that invocation, unless the exact inherited environment
+value `SILVER_KEEP_IMAGE_WORKSPACES=1` requests retention. Both Unchanged and
+Refine paths follow this rule. Status 0 means that the vendor process completed;
+its result JSON may still report failed proof obligations. Set the retention
+flag to keep scratch for diagnosing those results. Adapter errors and nonzero
+vendor statuses retain their workspaces. The original application model and
+proof report remain in the compile workspace. A caller-supplied proof directory and its theory, session
+and publication files are never cleanup targets; when the adapter creates
+its own proof directory inside the new workspace, those temporary files live
+through the vendor call and may be removed with it afterward. Existing
+historical workspaces are never selected for cleanup.
+
+`Silver_Image_Runtime.Environment_Value` imports the existing GNAT
+`Ada.Environment_Variables.Value (Name, Default)` through the Ada ABI symbol
+`ada__environment_variables__value__2`. Its contract relies on the stable
+inherited environment, the vendor's unconstrained-String return ABI and
+ordinary allocation/runtime behavior. The adapter does not mutate the
+environment; the reviewed pinned implementation is `a-envvar.adb:223–226`,
+and the selected runtime exports that symbol. This is a runtime boundary,
+not a new Silver-owned implementation body exempted from verification.
+
+Before cleanup, the adapter rechecks the full fixed Image-workspace prefix,
+NUL-free path and six alphanumeric suffix characters. Without a supplied proof
+directory it invokes `/bin/rm` with the direct argument vector `-rf`, `--`,
+and that exact new directory. With a supplied `--proof-dir`, it instead uses
+nonrecursive `-fd`, `--`, the two exact adapter snapshot paths
+(`original.gnat-json` and `refined.gnat-json`), and the new directory. The
+last removal succeeds only if the directory is empty. This preserves supplied
+proof artifacts even if the caller's path resolves inside, or to, the new
+adapter workspace; a nonempty directory remains. No shell or wildcard
+interprets a path. Normal filesystem semantics and absence of hostile
+concurrent replacement remain external premises. Cleanup failure retains
+remaining files and diagnostics on stderr without changing the completed
+native result or its JSON stream.
+
+Adapter failures emit a fixed step-specific JSON error with `internal: false`
+and exit status 3. These diagnostics identify argument, workspace, snapshot,
+proof-directory, theorem-installation, refinement or native-launch failures
+without asking the vendor to classify them as internal compiler bugs. All
+failure gates remain fail-closed; resource exceptions retain the general
+runtime boundary above. The [remediation record](review-b8f1d0b9a8-repairs.md)
+tracks the implementation and its separate validation.
+
+The adapter relies on the following invocation contract of pinned
+[spark2014 `42554fc241fc`](https://github.com/AdaCore/spark2014/tree/42554fc241fcd1fdf08d3a2feccb3f86912acbc0)
+and [Why3 `9390baf120ef`](https://github.com/AdaCore/why3/tree/9390baf120ef260547dfa14f08e11c890b203d9c):
+
+| Premise | Reviewed vendor source |
+| --- | --- |
+| The model filename ends in `.gnat-json` and is the last argument; the adapter's selected invocation path depends on that shape. | [`gnat2why-driver.adb:601`](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-driver.adb#L601) chooses the suffix; [`1247`](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-driver.adb#L1247) appends entity arguments and then the filename. |
+| A GNATprove-supplied `--proof-dir` occurs before the final model argument and names the proof directory whose theories/sessions remain available for the vendor invocation. | [`configuration.adb:3236`](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/gnatprove/configuration.adb#L3236) adds the directory; [`gnat_config.ml:729`](https://github.com/AdaCore/why3/blob/9390baf120ef260547dfa14f08e11c890b203d9c/src/gnat/gnat_config.ml#L729) derives session paths. The adapter supplies a private directory when none is given. |
+| GNATprove resolves `gnatwhy3` from its installation support path, allowing the selected overlay to choose the adapter. | [`configuration.adb:3177`](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/gnatprove/configuration.adb#L3177) names `gnatwhy3`; [`gnatprove.adb:908`](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/gnatprove/gnatprove.adb#L908) prepends support paths; [`configuration.ads:261`](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/gnatprove/configuration.ads#L261) derives them from the executable location; [`gnat2why-driver.adb:1224`](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-driver.adb#L1224) resolves the command on PATH. |
+| GNAT2Why consumes the captured structured result, rather than treating the child exit status alone as the result. | [`gnat2why-driver.adb:243`](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-driver.adb#L243) ignores `Wait_Process`'s success flag and parses the result file. Adapter failures must therefore preserve the expected JSON error protocol. |
+
+These are source-reviewed interface premises, not a binary-source attestation.
+Recheck them when the vendor pin or invocation path changes.
+
 The [producer/schema record](for-loops-image-schema.md) identifies the pinned
-serialization and consumer field order. The selected-schema argument uses the
-existing GNATprove/Why3 JSON parser-faithfulness boundary through the explicit
-`JSON.ParserSound` contract: every successful parse of an independently valid
-ASCII JSON spelling has its semantic projection, preserving decoded strings,
-ordered array fields and integer values. Parsing success with its specified
-meaning is required for the finite selected template encodings. The argument
-makes no universal parsing-success claim for unbounded integer tokens. Equal
-independently derived normalized bytes then yield equal semantic projections;
-unrestricted raw-number serialization is not assumed injective. Numeric fields
-consumed as OCaml integers must be representable, while arbitrary-precision
-producer numbers retain their quoted-string representation. Parser soundness
-assumes no matcher success, selected template identity, insertion position or
-desired Image theorem; those remain independently established premises or
-conclusions of the composition.
+serialization and consumer field order. The selected-schema argument now
+proves canonical determinism internally:
+`JSON.Valid.encode_injective` establishes equal values from equal encodings
+and independent validity witnesses for ASCII integral JSON.
+`Valid.canonical_meaning_eq` then establishes equal semantic projections,
+preserving decoded strings, ordered arrays and integer meaning. The proof
+uses a terminating mathematical decoder, covers arrays and objects, and
+retains valid signed integer token spelling, including negative zero. It
+does not assert injectivity for arbitrary raw-number `Value` constructors.
+
+The selected-schema and refinement endpoints require neither `JSON.ParserSound`
+nor finite-template parsing success. This proof machinery is not a runtime
+parser and establishes no native or external parser-correctness or
+parsing-success result. The external consumer boundary is unchanged:
+`ConsumerBoundary.InterpretedConsumer`, validity of the original typed context
+and identity of the installed theory source remain required. Numeric fields
+consumed as OCaml integers must still be representable, while arbitrary-precision
+producer numbers retain their quoted-string representation. Matcher success,
+selected template identity, insertion positions and the desired Image theorem
+remain independently established premises or conclusions of the composition.
+The [remediation record](review-b8f1d0b9a8-repairs.md#focused-proof-evidence)
+identifies the implementation and focused checks separately from the original
+delivery's external parser premise.
 
 Completeness additionally requires a precise pinned-producer contract for all
 admitted source forms: each selected Integer, String or Image theory has its
 fixed normalized content whenever emitted; selected names occur at most once;
-and Image's Integer and String dependencies are present. The contract describes
-producer output without assuming scanner success, matcher state or refinement.
+Image's Integer and String dependencies are present; and every admitted
+Integer Image occurrence uses the reviewed size-12 translation. The contract
+describes producer output without assuming scanner success, matcher state or
+refinement.
+
+Every admitted `Integer'Image (E)` in Main must also translate to
+`Standard_String__Img.to_string (Standard__integer.attr__ATTRIBUTE_IMAGE E) 12`.
+The pinned [Image translation](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-expr.adb#L20256)
+passes `Max_Size_Of_Img_Attr`; its [integer size calculation](https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/spark_atree-entities.adb#L593)
+gives 12 for the pinned signed-32-bit Integer type. The scanner validates
+selected theory templates, not every Main occurrence. This is a per-program
+producer applicability premise for complete automatic discharge; recheck it
+when the producer pin or admitted Image form changes. It does not assume
+scanner success or the validity of the inserted theorem.
+
 The complete source-route review below supplies these external properties;
 generic well-typed JSON and faithful parsing do not imply them.
 `ProducerSchemas.envelope`, `producer_finishes` and

@@ -204,11 +204,14 @@ positions. Integer arithmetic and String concatenation use one proof-work budget
 def maxConcatenations : Nat := 63
 
 /-- Count only operator tokens: trivia skips comments and a quoted literal is
-consumed whole, including doubled quotes. The extra decreasing test only makes
+consumed whole, including doubled quotes. Identifiers are consumed whole before
+numerals, so a suffix such as `1E` cannot hide the `+` following `N1E`.
+The extra decreasing test only makes
 this source scanner total outside the native routine's verified domains. -/
 def workTail (text : Source) (position remaining : Nat) : Bool :=
   let first := skipAt text position
   let quoted := literalAt text first
+  let afterName := nameAfter text first
   let number := ScalarLiteral.read text first
   if first = 0 then false
   else if first > text.length then true
@@ -216,6 +219,10 @@ def workTail (text : Source) (position remaining : Nat) : Bool :=
     if quoted.after = 0 then false
     else if _advancing : text.length + 1 - quoted.after < text.length + 1 - position then
       workTail text quoted.after remaining
+    else false
+  else if afterName ≠ 0 then
+    if _advancing : text.length + 1 - afterName < text.length + 1 - position then
+      workTail text afterName remaining
     else false
   else if number.after ≠ 0 then
     if _advancing : text.length + 1 - number.after < text.length + 1 - position then

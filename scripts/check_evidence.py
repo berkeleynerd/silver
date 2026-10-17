@@ -29,6 +29,8 @@ ROOT = Path(__file__).resolve().parents[1]
 # contract tokens (comments/whitespace excluded), not just their filenames.
 # Any interface change requires reviewing the external trust boundary again.
 TRUSTED_IMPORT_SPECS = {
+    # Existing Ada.Environment_Variables.Value (Name, Default), stable environment.
+    "silver_image_runtime.ads": "c0c23f506cf7729cdf3d25aa17947a3c38fd0de950121a33d34661c36147daba",
     # POSIX link: atomic publication without replacing an existing theorem file.
     "silver_image_libc.ads": "a238d42e792493f88179a0cb75bf21a55417911edc15f80726c86760fa48cd56",
     # fopen, fgetc, fputc, ferror, fclose, system, mkdir, mkdtemp
@@ -42,6 +44,7 @@ TRUSTED_IMPORT_SPECS = {
     "silver_output_libc.ads": "ca1aaff15cdf9a2c780f92f6cace9dd49903896b37ddfb01d65833c8333fdb13",
 }
 TRUSTED_IMPORT_ENTITIES = {
+    "silver_image_runtime": {"Silver_Image_Runtime.Environment_Value"},
     "silver_libc": {f"Silver_Libc.{name}" for name in
                     ("C_Open", "C_Get", "C_Put", "C_Error", "C_Close", "C_System", "C_Mkdir", "C_Mkdtemp")},
     "silver_runtime": {f"Silver_Runtime.{name}" for name in

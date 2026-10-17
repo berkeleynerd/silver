@@ -2,6 +2,9 @@ module
 
 public import Silver.Current
 
+-- Kernel-computed Image witnesses need the standard library digit definitions.
+import all Init.Data.Repr
+
 @[expose] public section
 
 /-! Small kernel-computed source witnesses exercise the integrated facade.
@@ -61,5 +64,58 @@ def qualifiedHiddenPartialOutputSource : Source := exampleBytes
   "with Silver_IO; use Silver_IO; procedure Main is pragma SPARK_Mode(On); Put:String:=\"\"; begin Silver_IO.Put(Item=>Put); end Main;"
 
 theorem qualified_hidden_partial_output_admitted : Current.accepts qualifiedHiddenPartialOutputSource = true := by decide +kernel
+
+
+/-! Integer/loop witnesses added for review L15 (#64). The first three
+literals retain the exact checked-in sample bytes. These inhabited examples
+corroborate admission; the imported universal theorems supply assurance. -/
+
+def triangleSource : Source := exampleBytes
+  "with Silver_IO;\nprocedure Main is\n   pragma SPARK_Mode (On);\nbegin\n   for I in 1 .. 5 loop\n      for J in 1 .. I loop\n         Silver_IO.Put (\"*\");\n      end loop;\n      Silver_IO.Put_Line (\"\");\n   end loop;\nend Main;\n"
+
+theorem triangle_admitted : Current.accepts triangleSource = true := by decide +kernel
+
+def computedStepSource : Source := exampleBytes
+  "with Silver_IO;\nprocedure Main is\n   pragma SPARK_Mode (On);\n   Step : constant Integer := 2;\nbegin\n   for I in 1 .. 5 loop\n      Silver_IO.Put_Line (Integer'Image ((I * Step)));\n   end loop;\nend Main;\n"
+
+theorem computedStep_admitted : Current.accepts computedStepSource = true := by decide +kernel
+
+def countdownSource : Source := exampleBytes
+  "with Silver_IO;\nprocedure Main is\n   pragma SPARK_Mode (On);\nbegin\n   for I in reverse 0 .. 10 loop\n      Silver_IO.Put_Line (Integer'Image (I));\n   end loop;\nend Main;\n"
+
+theorem countdown_admitted : Current.accepts countdownSource = true := by decide +kernel
+
+def reverseNullLoopSource : Source := exampleBytes
+  "with Silver_IO; procedure Main is pragma SPARK_Mode(On); begin for I in reverse 5..1 loop null;end loop;end Main;"
+
+theorem reverseNullLoop_admitted :
+    Current.accepts reverseNullLoopSource = true := by decide +kernel
+
+def uncertainNestedAssignmentSource : Source := exampleBytes
+  "with Silver_IO; procedure Main is pragma SPARK_Mode(On); S:String:=\" 0\";begin for I in 0..2 loop for J in 1..I loop S:=Integer'Image(J);end loop;end loop;Silver_IO.Put_Line(S);end Main;"
+
+theorem uncertainNestedAssignment_admitted :
+    Current.accepts uncertainNestedAssignmentSource = true := by decide +kernel
+
+def hiddenOwnBoundSource : Source := exampleBytes
+  "with Silver_IO; procedure Main is pragma SPARK_Mode(On); begin for I in 1..3 loop for I in 1..I loop null;end loop;end loop;end Main;"
+
+theorem hiddenOwnBound_rejected :
+    Current.accepts hiddenOwnBoundSource = false := by decide +kernel
+
+def expiredIndexSource : Source := exampleBytes
+  "with Silver_IO; procedure Main is pragma SPARK_Mode(On); begin for I in 1..3 loop null;end loop;Silver_IO.Put_Line(Integer'Image(I));end Main;"
+
+theorem expiredIndex_rejected :
+    Current.accepts expiredIndexSource = false := by decide +kernel
+
+def integerHomonymSource : Source := exampleBytes
+  "with Silver_IO; procedure Main is pragma SPARK_Mode(On); Integer:constant String:=Integer'Image(1);begin null;end Main;"
+
+theorem integerHomonym_rejected :
+    Current.accepts integerHomonymSource = false := by decide +kernel
+
+theorem countdown_automatic_discharge : Current.automaticDischarge countdownSource = some true :=
+  (Current.admitted_assurance ((Current.accepts_iff_member _).mp countdown_admitted)).1
 
 end Silver.Predicate

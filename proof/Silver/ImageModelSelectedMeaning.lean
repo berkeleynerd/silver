@@ -1,6 +1,7 @@
 module
 
-public import Silver.ImageModelJsonMeaning
+public import Silver.ImageModelCanonicalRead
+public import Silver.ImageModelTemplateValidity
 public import Silver.ImageModelTheorySpan
 public import Silver.ImageModelTemplateSchema
 
@@ -90,20 +91,19 @@ theorem list_counts_positive (kind : Native.Theory) :
   cases kind <;> decide +kernel
 
 /-- Actual selected normalization supplies syntax independently of matching.
-Complete canonical byte equality and the explicit external parser boundary then
-identify the entire erased semantic tree, including every nested typed field. -/
+Internal canonical-encoding injectivity identifies the entire erased semantic
+tree, including every nested typed field; external parser behavior is not a
+premise of this mathematical equality. -/
 theorem selected_meaning (span : JSON.TheorySpan) (kind : Native.Theory)
     (normal : JSON.NormalFields 0 true false span.spans span.normalized)
-    (matched : span.theory.value.eraseNodeIds.encode = (theoryValue kind).encode)
-    (parse : List Nat → Option JSON.Meaning) (sound : JSON.ParserSound parse)
-    (parsed : parse (theoryValue kind).encode = some (theoryValue kind).meaning) :
+    (matched : span.theory.value.eraseNodeIds.encode = (theoryValue kind).encode) :
     span.theory.value.eraseNodeIds.meaning = (theoryValue kind).meaning := by
   have valid : JSON.Valid (.array span.normalized) :=
     ⟨_, JSON.AsciiSpelling.array span.normalized _
       (JSON.NormalElements.canonical true false (span.spans.map JSON.FieldSpan.value)
         span.normalized (JSON.fieldsBytes span.spans) normal.to_elements)⟩
   rw [span.erasure normal] at valid
-  exact sound.canonical_eq valid parsed matched
+  exact valid.canonical_meaning_eq (TemplateValidity.theory_valid kind) matched
 
 /-- The selected schema determines both original node lists. Positivity is
 derived from the checked finite schemas, so `none`/`null` and empty arrays are
@@ -131,15 +131,13 @@ theorem selected_original_lists (span : JSON.TheorySpan) (kind : Native.Theory)
 
 theorem selected_schema_meaning (span : JSON.TheorySpan) (kind : Native.Theory)
     (normal : JSON.NormalFields 0 true false span.spans span.normalized)
-    (matched : span.theory.value.eraseNodeIds.encode = (theoryValue kind).encode)
-    (parse : List Nat → Option JSON.Meaning) (sound : JSON.ParserSound parse)
-    (parsed : parse (theoryValue kind).encode = some (theoryValue kind).meaning) :
+    (matched : span.theory.value.eraseNodeIds.encode = (theoryValue kind).encode) :
     span.theory.value.eraseNodeIds.meaning = (theoryValue kind).meaning ∧
       ∃ declarations includes : List JSON.Value,
         span.theory.declarations = some declarations ∧ span.theory.includes = some includes ∧
         declarations.length = declarationCount kind ∧ includes.length = includeCount kind ∧
         declarations ≠ [] ∧ includes ≠ [] := by
-  have equal := selected_meaning span kind normal matched parse sound parsed
+  have equal := selected_meaning span kind normal matched
   exact ⟨equal, selected_original_lists span kind equal⟩
 
 end Silver.ImageModel.Templates

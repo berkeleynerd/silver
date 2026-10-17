@@ -660,6 +660,7 @@ class ProofEvidenceTests(unittest.TestCase):
     def test_trusted_import_allowance_pins_symbols_and_contracts(self) -> None:
         root = Path(__file__).resolve().parents[1]
         for unit, symbols in (("silver_libc", ("fopen",)),
+                              ("silver_image_runtime", ("ada__environment_variables__value__2",)),
                               ("silver_runtime", ("__gnat_set_exit_status",)),
                               ("silver_output_libc", ("putchar",)),
                               ("silver_process_runtime", ("system__os_lib__spawn__2",

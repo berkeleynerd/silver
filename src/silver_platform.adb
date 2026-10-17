@@ -191,8 +191,11 @@ is
       pragma Assert (Args = null);
    end Run_Application;
 
-   procedure Create_Workspace (Name : out Workspace_Path; Success : out Boolean) is
-      Prefix : constant String := Workspace_Prefix;
+   procedure Create_Workspace
+     (Name : out Workspace_Path; Success : out Boolean; For_Image : Boolean := False)
+   is
+      Prefix : constant String :=
+        (if For_Image then Image_Workspace_Prefix else Workspace_Prefix);
       Template : Interfaces.C.char_array := Interfaces.C.To_C (Prefix & "XXXXXX");
       Result : System.Address;
       Status : Interfaces.C.int;
