@@ -45,8 +45,8 @@ def scalarAssignmentBody (text : Source) (context : ParseContext) (scan : BodySc
   let value := ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames
   let binding := ScalarExpression.binding context.scalarNames target
   if target = 0 ∨ !binding.mutable ∨ value.after ≤ scan.position ∨
-      (!value.bounds.isEmpty ∧ (value.bounds.lower < binding.declaredBounds.lower ∨
-        value.bounds.upper > binding.declaredBounds.upper))
+      value.bounds.isEmpty ∨ value.bounds.lower < binding.declaredBounds.lower ∨
+      value.bounds.upper > binding.declaredBounds.upper
   then invalidBody else {scan with position := value.after, assigned := true}
 
 inductive BasicKind | null | output | put | reject | scalarAssignment | assignment
