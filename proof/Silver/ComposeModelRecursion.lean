@@ -39,21 +39,26 @@ theorem model_workTail_equation (text : Source) (_valid : ValidText text)
           have quotedDecrease : text.length + 1 - (literalAt text (skipAt text position)).after <
               text.length + 1 - position := by omega
           simp [firstZero, finished, isQuote, absent, quotedDecrease]
-      · by_cases numberZero : (ScalarLiteral.read text (skipAt text position)).after = 0
-        · by_cases isOperator : Cursor.byteAt text (skipAt text position) = 38 ∨
-              Cursor.byteAt text (skipAt text position) = 43 ∨
-              Cursor.byteAt text (skipAt text position) = 45 ∨
-              Cursor.byteAt text (skipAt text position) = 42
-          · by_cases empty : remaining = 0
-            · simp [firstZero, finished, isQuote, numberZero, isOperator, empty]
-            · simp [firstZero, finished, isQuote, numberZero, isOperator, empty, plainDecrease]
-          · simp [firstZero, finished, isQuote, numberZero, isOperator, plainDecrease]
-        · have numberBounds := ScalarLiteral.integer_bounds
-            (ScalarLiteral.read_sound (model_skip_valid text position bound) numberZero)
-          have numberDecrease :
-              text.length + 1 - (ScalarLiteral.read text (skipAt text position)).after <
+      · by_cases nameZero : nameAfter text (skipAt text position) = 0
+        · by_cases numberZero : (ScalarLiteral.read text (skipAt text position)).after = 0
+          · by_cases isOperator : Cursor.byteAt text (skipAt text position) = 38 ∨
+                Cursor.byteAt text (skipAt text position) = 43 ∨
+                Cursor.byteAt text (skipAt text position) = 45 ∨
+                Cursor.byteAt text (skipAt text position) = 42
+            · by_cases empty : remaining = 0
+              · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, empty]
+              · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, empty, plainDecrease]
+            · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, plainDecrease]
+          · have numberBounds := ScalarLiteral.integer_bounds
+              (ScalarLiteral.read_sound (model_skip_valid text position bound) numberZero)
+            have numberDecrease :
+                text.length + 1 - (ScalarLiteral.read text (skipAt text position)).after <
+                  text.length + 1 - position := by omega
+            simp [firstZero, finished, isQuote, nameZero, numberZero, numberDecrease]
+        · have nameAdvance := model_name_advances text (skipAt text position) nameZero
+          have nameDecrease : text.length + 1 - nameAfter text (skipAt text position) <
                 text.length + 1 - position := by omega
-          simp [firstZero, finished, isQuote, numberZero, numberDecrease]
+          simp [firstZero, finished, isQuote, nameZero, nameDecrease]
 
 theorem model_tail_equation (ranges : RangeContracts modelCalls)
     (text : Source) (valid : ValidText text) (names : BindingEnvironment)

@@ -381,8 +381,9 @@ is
 
    subtype Concatenation_Count is Natural range 0 .. Max_Concatenations;
 
-   --  This independent lexical budget counts actual operators, not ampersands
-   --  inside literal bytes or comments. Body parsing still establishes syntax.
+   --  This independent lexical budget ignores literal bytes and comments.
+   --  Consume identifiers whole so N1E+1 cannot hide an operator in an exponent.
+   --  Body parsing still establishes syntax.
    function Work_Tail
      (Text : String; Position : Literal_Position; Remaining : Concatenation_Count)
       return Boolean
@@ -395,6 +396,7 @@ is
       return Boolean is
      (declare First : constant Literal_Position := Skip_At (Text, Position);
               Quoted : constant Value_Result := Literal_At (Text, First);
+              After_Name : constant Literal_Position := Name_After (Text, First);
               Number : constant Silver_Scalar_Literals.Literal_Result :=
                 Silver_Scalar_Literals.Read_Integer (Text, First);
       begin
@@ -402,6 +404,7 @@ is
          elsif First > Text'Last then True
          elsif Text (First) = Character'Val (34) then
            Quoted.After /= 0 and then Work_Tail (Text, Quoted.After, Remaining)
+         elsif After_Name /= 0 then Work_Tail (Text, After_Name, Remaining)
          elsif Number.After /= 0 then Work_Tail (Text, Number.After, Remaining)
          elsif Text (First) in '&' | '+' | '-' | '*' then
            Remaining /= 0 and then Work_Tail (Text, First + 1, Remaining - 1)
@@ -423,6 +426,7 @@ is
          declare
             First : constant Literal_Position := Skip_At (Text, Position);
             Quoted : constant Value_Result := Literal_At (Text, First);
+            After_Name : constant Literal_Position := Name_After (Text, First);
             Number : constant Silver_Scalar_Literals.Literal_Result :=
               Silver_Scalar_Literals.Read_Integer (Text, First);
          begin
@@ -431,6 +435,8 @@ is
             if Text (First) = Character'Val (34) then
                if Quoted.After = 0 then return False; end if;
                Position := Quoted.After;
+            elsif After_Name /= 0 then
+               Position := After_Name;
             elsif Number.After /= 0 then
                Position := Number.After;
             elsif Text (First) in '&' | '+' | '-' | '*' then

@@ -122,10 +122,13 @@ decreasing_by omega
   have quotedEq := interpreted_literal calls equations text valid (skipAt text position) firstBound
   have quotedBound := equations.ranges.literal text valid (skipAt text position) firstBound
   rw [quotedEq] at quotedBound
+  have nameEq := interpreted_name calls equations text valid (skipAt text position) firstBound
+  have nameBound := equations.ranges.name text valid (skipAt text position) firstBound
+  rw [nameEq] at nameBound
   have numberEq := equations.scalarLiteral text valid (skipAt text position) firstBound
   rw [equations.workTail text valid position remaining bound remainingBound]
   dsimp +instances only [workTailBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
-  simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte, firstEq, quotedEq, numberEq, decide_eq_true_eq]
+  simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte, firstEq, quotedEq, nameEq, numberEq, decide_eq_true_eq]
   simp only [List.mem_cons, List.not_mem_nil, or_false]
   rw [workTail]
   by_cases firstZero : skipAt text position = 0
@@ -145,23 +148,30 @@ decreasing_by omega
           simp only [firstZero, finished, isQuote, absent, quotedDecrease, ↓reduceIte, ↓reduceDIte,
             ne_eq, not_false_eq_true, decide_true, Bool.true_and]
           exact interpreted_workTail calls equations text valid _ remaining quotedBound.1 remainingBound
-      · by_cases numberNonzero : (ScalarLiteral.read text (skipAt text position)).after ≠ 0
-        · have numberBounds := ScalarLiteral.integer_bounds (ScalarLiteral.read_sound firstBound numberNonzero)
-          have numberDecrease : text.length + 1 - (ScalarLiteral.read text (skipAt text position)).after <
+      · by_cases nameNonzero : nameAfter text (skipAt text position) ≠ 0
+        · have nameAdvance := model_name_advances text (skipAt text position) nameNonzero
+          have nameDecrease : text.length + 1 - nameAfter text (skipAt text position) <
               text.length + 1 - position := by omega
-          simp only [firstZero, finished, isQuote, numberNonzero, numberDecrease, ↓reduceIte,
+          simp only [firstZero, finished, isQuote, nameNonzero, nameDecrease, ↓reduceIte,
             ↓reduceDIte, ne_eq, not_false_eq_true]
-          exact interpreted_workTail calls equations text valid _ remaining numberBounds.2.1 remainingBound
-        · by_cases isOperator : Cursor.byteAt text (skipAt text position) = 38 ∨
-              Cursor.byteAt text (skipAt text position) = 43 ∨ Cursor.byteAt text (skipAt text position) = 45 ∨
-              Cursor.byteAt text (skipAt text position) = 42
-          · by_cases empty : remaining = 0
-            · simp [firstZero, finished, isQuote, numberNonzero, isOperator, empty]
-            · simp only [firstZero, finished, isQuote, numberNonzero, isOperator, empty, plainDecrease,
-                ↓reduceIte, ↓reduceDIte, ne_eq, not_false_eq_true, decide_true, Bool.true_and]
-              exact interpreted_workTail calls equations text valid _ (remaining - 1) plainBound (by omega)
-          · simp only [firstZero, finished, isQuote, numberNonzero, isOperator, plainDecrease, ↓reduceIte, ↓reduceDIte]
-            exact interpreted_workTail calls equations text valid _ remaining plainBound remainingBound
+          exact interpreted_workTail calls equations text valid _ remaining nameBound remainingBound
+        · by_cases numberNonzero : (ScalarLiteral.read text (skipAt text position)).after ≠ 0
+          · have numberBounds := ScalarLiteral.integer_bounds (ScalarLiteral.read_sound firstBound numberNonzero)
+            have numberDecrease : text.length + 1 - (ScalarLiteral.read text (skipAt text position)).after <
+                text.length + 1 - position := by omega
+            simp only [firstZero, finished, isQuote, nameNonzero, numberNonzero, numberDecrease, ↓reduceIte,
+              ↓reduceDIte, ne_eq, not_false_eq_true]
+            exact interpreted_workTail calls equations text valid _ remaining numberBounds.2.1 remainingBound
+          · by_cases isOperator : Cursor.byteAt text (skipAt text position) = 38 ∨
+                Cursor.byteAt text (skipAt text position) = 43 ∨ Cursor.byteAt text (skipAt text position) = 45 ∨
+                Cursor.byteAt text (skipAt text position) = 42
+            · by_cases empty : remaining = 0
+              · simp [firstZero, finished, isQuote, nameNonzero, numberNonzero, isOperator, empty]
+              · simp only [firstZero, finished, isQuote, nameNonzero, numberNonzero, isOperator, empty, plainDecrease,
+                  ↓reduceIte, ↓reduceDIte, ne_eq, not_false_eq_true, decide_true, Bool.true_and]
+                exact interpreted_workTail calls equations text valid _ (remaining - 1) plainBound (by omega)
+            · simp only [firstZero, finished, isQuote, nameNonzero, numberNonzero, isOperator, plainDecrease, ↓reduceIte, ↓reduceDIte]
+              exact interpreted_workTail calls equations text valid _ remaining plainBound remainingBound
 
 termination_by text.length + 1 - position
  decreasing_by all_goals assumption

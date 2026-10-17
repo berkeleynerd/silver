@@ -793,17 +793,20 @@ def workTailBody : Expr .truth :=
   let text : Expr .source := .variable "text"
   let first : Expr .number := .variable "first"
   let quoted : Expr .value := .variable "quoted"
+  let afterName : Expr .number := .variable "after_name"
   let number : Expr .scalarLiteral := .variable "number"
   let remaining : Expr .number := .variable "remaining"
   let recurse (p r : Expr .number) := Expr.app (.app (.app (.function .workTail) text) p) r
   .locals <| .local "first" "literal_position" (.app (.app (.function .skip) text) (.variable "position")) <|
     .local "quoted" "value_result" (.app (.app (.function .literal) text) first) <|
+    .local "after_name" "literal_position" (.app (.app (.function .nameAfter) text) first) <|
     .local "number" "silver_scalar_literals.literal_result" (.app (.app (.function .scalarLiteral) text) first) <|
     .group <| .ite (.eq first (.number 0)) (.truth false) <|
     .elsif (.gt first (.sourceLast text)) (.truth true) <|
     .elsif (.eq (.byteAt text first) (.characterVal (.number 34)))
       (.andThen (.ne (.field .valueAfter quoted) (.number 0))
         (recurse (.field .valueAfter quoted) remaining)) <|
+    .elsif (.ne afterName (.number 0)) (recurse afterName remaining) <|
     .elsif (.ne (.field .scalarLiteralAfter number) (.number 0)) (recurse (.field .scalarLiteralAfter number) remaining) <|
     .elsif (.operatorByte (.byteAt text first))
       (.andThen (.ne remaining (.number 0))

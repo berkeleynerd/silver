@@ -107,6 +107,42 @@ class IntegerLoopsTests(unittest.TestCase):
         self.check(program(declarations, body + output(b'S&""')), 2)
         self.check(program(declarations, body + b'if (-N)<0 then null;end if;'), 2)
 
+    def test_shared_work_budget_counts_plus_after_digit_e_identifiers(self) -> None:
+        filler = b'if (+N)=1 then null;end if;'
+        for name in (b'N1E', b'I1e', b'X_1E'):
+            declarations = b'N:constant Integer:=1;' + name + b':constant Integer:=1;'
+            expression = b'(' + name + b'+1)'
+            placements = {
+                'predicate': (b'', b'if ' + expression + b'=2 then null;end if;'),
+                'loop_bound': (b'', b'for J in ' + expression + b'..2 loop null;end loop;'),
+                'initializer': (b'B:constant Integer:=' + expression + b';', b'null;'),
+            }
+            for position, (extra_declarations, body) in placements.items():
+                for preceding, status in ((62, 0), (63, 2)):
+                    with self.subTest(name=name, position=position, operators=preceding + 1):
+                        self.check(program(declarations + extra_declarations,
+                                           filler * preceding + body), status)
+
+    def test_shared_work_budget_is_independent_of_identifier_and_operator_spacing(self) -> None:
+        declarations = (b'N:constant Integer:=1;N1E:constant Integer:=1;'
+                        b'N1X:constant Integer:=1;')
+        filler = b'if (+N)=1 then null;end if;'
+        for expression in (b'(N1E + 1)', b'(N1E+ 1)', b'(N1E +1)',
+                           b'(N1E-- exponent-like 1E+1 & -*\n+1)',
+                           b'(N1E-1)', b'(N1E*1)', b'(N1E+N1E)', b'(N1X+1)'):
+            for preceding, status in ((62, 0), (63, 2)):
+                with self.subTest(expression=expression, operators=preceding + 1):
+                    self.check(program(declarations, filler * preceding + b'if '
+                                       + expression + b'>=0 then null;end if;'), status)
+
+    def test_shared_work_budget_ignores_real_exponents_and_quoted_or_comment_operators(self) -> None:
+        declarations = (b'N:constant Integer:=1;A:constant Integer:=1E+0;'
+                        b'B:constant Integer:=2#1#E+0;C:constant Integer:=2:1:E+0;'
+                        b'S:constant String:="N1E+1 & ""+"" -*";')
+        body = b'-- N1E+1 & -*\n' + b'if (+N)=1 then null;end if;' * 63
+        self.check(program(declarations, body))
+        self.check(program(declarations, body + b'if (+N)=1 then null;end if;'), 2)
+
     def test_native_triangle_and_reverse_composition(self) -> None:
         body = (b'for I in 1..5 loop for J in 1..I loop Silver_IO.Put("*");end loop;'
                 b'Silver_IO.Put_Line("");end loop;'
