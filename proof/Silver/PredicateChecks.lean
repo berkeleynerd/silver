@@ -69,7 +69,7 @@ def Check.toObligation (check : Check) : Semantics.Obligation := ⟨.runTimeSafe
 def Program.checks (program : Program) : List Check :=
   (declarationChecks program).map Check.declaration ++
     (integerDeclarationChecks program ++ program.initializerChecks).map Check.scalarDeclaration ++
-    (statementsObligations program.names.shape program.initialContext program.statements program.integerConstants.ranges).map Check.path
+    (statementsObligations program.names.shape program.initialContext program.statements program.bodyRanges program.bodyMutability).map Check.path
 
 theorem Program.declaration_checks_fragment {program : Program} (valid : program.Valid) :
     ∀ check ∈ declarationChecks program, check.InFragment := by

@@ -12,7 +12,7 @@ the returning-call trace model, including sticky failure and repeated output. -/
 
 namespace Silver.Predicate
 open Bindings Compose PathFacts
-open Sequence (Execution Effect EffectsValid)
+open Sequence (Effect EffectsValid)
 
 structure Program where
   declarations : List Declaration
@@ -41,17 +41,24 @@ def Program.initialValues (program : Program) (arguments : Arguments.Runtime.Arg
 def Program.initialIntegers (program : Program) : Integer.Store :=
   (Integer.executeDeclarations [] program.integerDeclarations).store
 
+def Program.bodyBindings (program : Program) : Integer.ObjectBindings :=
+  Integer.elaborate [] program.integerDeclarations
+
+def Program.bodyRanges (program : Program) : Integer.Ranges := program.bodyBindings.ranges
+
+def Program.bodyMutability (program : Program) : Integer.Mutability := program.bodyBindings.mutability
+
 def Program.checkBody (program : Program) : Option Context :=
   if Integer.checkDeclarations [] program.integerDeclarations = some program.integerConstants ∧
       Integer.discharged program.initializerChecks = true then
-    checkStatements program.names.shape program.initialContext program.statements program.integerConstants.ranges
+    checkStatements program.names.shape program.initialContext program.statements program.bodyRanges program.bodyMutability
   else none
 
 theorem Program.checkBody_iff (program : Program) (after : Context) :
     program.checkBody = some after ↔
       Integer.checkDeclarations [] program.integerDeclarations = some program.integerConstants ∧
       Integer.discharged program.initializerChecks = true ∧
-      checkStatements program.names.shape program.initialContext program.statements program.integerConstants.ranges = some after := by
+      checkStatements program.names.shape program.initialContext program.statements program.bodyRanges program.bodyMutability = some after := by
   simp only [checkBody]
   split <;> simp_all
 
@@ -113,9 +120,11 @@ theorem Program.initial_integers {program : Program} (valid : program.Valid) :
     Integer.declarations_preserve (by simp [Integer.Constants.Valid]) declarations⟩
 
 theorem Program.initial_integer_fits {program : Program} (valid : program.Valid) :
-    Integer.Fits program.integerConstants.ranges program.initialIntegers := by
-  rw [(program.initial_integers valid).1]
-  exact program.integerConstants.fits
+    Integer.Fits program.bodyRanges program.initialIntegers := by
+  obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
+  have declarations := ((program.checkBody_iff after).mp checked).1
+  rw [initialIntegers, Integer.elaborate_initial_store]
+  exact Integer.ObjectBindings.fits (Integer.elaborate_valid declarations)
 
 theorem Program.execution_sound {program : Program} (valid : program.Valid)
     (arguments : Arguments.Runtime.Arguments) :
@@ -128,6 +137,15 @@ theorem Program.execution_sound {program : Program} (valid : program.Valid)
     (program.initial_fits valid arguments) (program.input_domain arguments).2 (program.initial_allowed arguments)
     (program.initial_integer_fits valid)
   exact ⟨sound.state, sound.effects, sound.agreement⟩
+
+theorem Program.scalar_execution_invariant {program : Program} (valid : program.Valid)
+    (arguments : Arguments.Runtime.Arguments) :
+    Integer.Fits program.bodyRanges (program.execute arguments).integers := by
+  obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
+  have bodyChecked := ((program.checkBody_iff after).mp checked).2.2
+  exact (statements_execution_sound valid.2.2.2.2.1 bodyChecked
+    (program.initial_fits valid arguments) (program.input_domain arguments).2 (program.initial_allowed arguments)
+    (program.initial_integer_fits valid)).scalars
 
 theorem Program.invalid_trace {program : Program} (valid : program.Valid)
     (arguments : Arguments.Runtime.Arguments) (invalid : program.inputValid arguments = false) :
@@ -206,7 +224,7 @@ def scalarObligation (check : Integer.Obligation) : Semantics.Obligation :=
 def Program.obligations (program : Program) : List Semantics.Obligation :=
   (declarationChecks program).map Compose.Check.toObligation ++
     (integerDeclarationChecks program ++ program.initializerChecks).map scalarObligation ++
-    modeledObligations program.names.shape program.initialContext program.statements program.integerConstants.ranges
+    modeledObligations program.names.shape program.initialContext program.statements program.bodyRanges program.bodyMutability
 
 theorem Program.declaration_checks_valid {program : Program} (valid : program.Valid) :
     ∀ check ∈ declarationChecks program, check.Valid := by
@@ -253,7 +271,7 @@ without inventing an effect or bypassing the false path. -/
 theorem omitted_else_meaning (condition : Condition) (yes : List Statement)
     (input : Source) (valid : Bool) (values : Values) :
     (Statement.choice condition yes []).execute input valid values =
-      if condition.evaluate values input valid then executeStatements input valid values yes else ⟨values, []⟩ := by
+      if condition.evaluate values input valid then executeStatements input valid values yes else ⟨values, [], Integer.emptyStore⟩ := by
   simp only [Statement.execute, executeStatements]
 
 /-- An `elsif` tests its predicate only after all preceding tests were false;
