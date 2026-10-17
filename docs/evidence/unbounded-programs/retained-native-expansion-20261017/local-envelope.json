@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 14,
+  "source_files_verified": 25,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -15,7 +15,18 @@
     "types.ads": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
     "uintp.ads": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
     "uintp.adb": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
-    "gen_il-gen.adb": "c52ad207573f942a6bc32132a2d5b5e82e008b9a297c60a9e15670e10b24ed14"
+    "gen_il-gen.adb": "c52ad207573f942a6bc32132a2d5b5e82e008b9a297c60a9e15670e10b24ed14",
+    "exp_imgv.adb": "c9b2130f6c8dd9f42d48709e165ad190a570e01bd7960aabc04a6e600fa54de1",
+    "exp_put_image.adb": "c4b107bceb34e8d30d09d9b4474068d621b54f11787d4aa26e74d142d9d0be09",
+    "exp_ch2.adb": "ab1c41d4f8b813b7b391c2c237213a29732aecc9a914f039f8f319a732fae5ab",
+    "exp_ch3.adb": "559f0f1fae1c1f0783b4169c707c131d4e0420e988254617b57954b01d475f6e",
+    "exp_ch8.adb": "056480e05660cceab25424f6544f981d28dce6ec1e8b7fa5990439937e9d51bd",
+    "sem_ch4.adb": "19e5386e0a2535c501d41c1d2338760fb4b3c7acaecef614e9bdd4a0cf2fb555",
+    "sem_dim.adb": "5c9eb8bd75ed2b5c8784db7dffddc52158fe8c612713bb1b550fbdf4379f2035",
+    "rtsfind.ads": "d0c7311a9a008de335ffa77240839a5d369424f16654050b4afc36b7f4dcb0d3",
+    "elists.adb": "c3808beb8857481e1ef462529410997f43cc5a5a813f08040b4aa27c819669dc",
+    "libgnat/g-htable.ads": "05260b3914cb6dd7bced43716cf97ba80f1fc93e3d8c7f3f17eaed33bd3c2dc5",
+    "libgnat/s-htable.adb": "b734b51a0eba840292b2d2ac0ace88782bc713755cf020f97ef8fa08158b69f8"
   },
   "scope": "native String concat direct emitter and specified primitive helpers; not transitive closure",
   "ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers": {
@@ -329,6 +340,65 @@
       "including_index_helper_arithmetic_digit_words": 139586437020
     }
   ],
+  "decorated_copy_transfer": {
+    "premises": "no owned normal entities/actions/blocks/dimensions/packed/discriminated types; owned itypes only one-dimensional String array subtypes, signed scalar index subtypes and String-literal subtypes; default empty entity map",
+    "ordinary_nodes": "t + a + sum(r_j)",
+    "entities_and_names": "e",
+    "syntax_list_headers": "l + a + sum(s_j)",
+    "pending_itype_elist_headers": "q",
+    "pending_itype_elist_elements": "e",
+    "new_entity_hash_entries": "e",
+    "pending_itype_hash_entries": "q",
+    "growing_slot_events": 0,
+    "String_Uint_value_allocations": 0,
+    "hash_lifetime": "wrappers freed at next public copy reset; Elist headers/elements retained",
+    "examples": [
+      {
+        "shape": "scalar leaf",
+        "t": 1,
+        "l": 0,
+        "a": 0,
+        "sum_r": 0,
+        "sum_s": 0,
+        "e": 0,
+        "q": 0,
+        "ordinary_nodes": 1,
+        "syntax_lists": 0
+      },
+      {
+        "shape": "Image slice with simple bounds",
+        "t": 5,
+        "l": 0,
+        "a": 1,
+        "sum_r": 3,
+        "sum_s": 0,
+        "e": 2,
+        "q": 1,
+        "ordinary_nodes": 9,
+        "syntax_lists": 1
+      },
+      {
+        "shape": "First attribute of the same Image slice",
+        "t": 6,
+        "l": 0,
+        "a": 1,
+        "sum_r": 3,
+        "sum_s": 0,
+        "e": 2,
+        "q": 1,
+        "ordinary_nodes": 10,
+        "syntax_lists": 1
+      }
+    ]
+  },
+  "native_Image_shape": "Integer Image uses Image_Integer procedure plus Snn(1..Pnn), not Put_Image/unconstrained function call",
+  "concat_allocator_expansion": {
+    "runtime_entity": "RE_SS_Allocate",
+    "runtime_unit": "System.Secondary_Stack",
+    "ordinary_node_entity_list_allocations_in_Expand_N_Allocator": 0,
+    "premises": "generated named access to constrained uncontrolled String; expression subtype identifier; No_Initialization; not special return/coextension; Linux 64-bit address; no restrictive config diagnostic",
+    "not_included": "allocator semantic analysis, access-type declaration/freezing, RTE lookup/dependency loading, backend emission"
+  },
   "lexical_call_sites_not_a_reachable_call_graph": [
     {
       "line": 2829,

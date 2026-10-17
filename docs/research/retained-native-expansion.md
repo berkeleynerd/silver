@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records fourteen inspected files hash-checked against the complete source
+records twenty-five inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -218,6 +218,166 @@ separately. Negation returns before addition begins. `UI_Max` comparison uses
 at most two length-`k` vectors. Temporary arrays and retained pool demand are
 different. Semantic evaluation/generated-expression arithmetic is additional.
 
+## Closed copy transfer for decorated String views
+
+`New_Copy_Tree` can be bounded beyond scalar leaves without charging a general
+compiler run. The following transfer covers a specific finite decorated-tree
+class. The source analysis must derive the decoration summary below; it cannot
+obtain it by invoking the opaque compiler as its admission predicate.
+
+Assume the copied root has no defining normal entities, blocks, quantified
+expressions or expression actions, no dimension annotations, no entity-list
+fields, and no packed or discriminated types. Its owned itypes may only be:
+
+- One-dimensional `E_Array_Subtype` values with one index occurrence and
+  external base `Standard_String`.
+- Signed Integer index subtypes, each with one scalar-range tree and an external
+  predefined scalar base.
+- `E_String_Literal_Subtype` values with no `First_Index`; their literal bound
+  and length fields are shared, not copied by `Update_Semantic_Fields`.
+
+Here “owned” means the helper's actual test: the itype's associated node is
+inside the original root according to the `Parent` chain. `In_Subtree` follows
+that chain (`sem_util.adb:15031–15046`); it does not mean every type referenced
+by the expression. Referenced object entities, base types, scopes and linked
+entities remain external. The default entity map and new scope are empty.
+Include every itype reached while visiting the root and owned-type semantic
+fields; simply counting the root's `Etype` would miss its index subtype.
+
+Let `t,l` be the ordinary-node and syntax-list traversal counts for copying the
+root, following the helper's parent-owned fields. Let `a` be the owned array
+subtype count, and `r_j,s_j` the ordinary-node/list counts for each owned signed
+index subtype's scalar-range tree. These are occurrence counts: copying the
+same subtree through two roots incurs two charges. Let `e` be the total owned
+itype count and `q` their number of distinct associated ordinary nodes.
+
+The complete helper allocation transfer for this class is:
+
+| Representation | Additional demand |
+| --- | ---: |
+| Ordinary node identities | `t + a + sum(r_j)` |
+| Entity identities and internal names | `e` |
+| Syntax-list headers | `l + a + sum(s_j)` |
+| Pending-itype Elist headers | `q` |
+| Pending-itype Elist elements | `e` |
+| New-entity hash wrappers | `e` |
+| Pending-itype hash wrappers | `q` |
+| Growing-slot mutations | `0` |
+| String/Uint value allocations | `0` |
+
+Phase one deduplicates every owned itype before visiting its semantic fields,
+copies its entity once and creates one name (`sem_util.adb:25237–25348`). It
+groups pending types by associated node (`24341–24374`), so one Elist header
+is created per group and one unique element per copied type. Phase two first
+updates each copied entity exactly once (`24922–24940`). An array type copies
+its single-index list/identifier; a scalar type copies its scalar range
+(`24970–25051`). Its other relevant fields map entities rather than copying
+their declarations. The root is then copied once using `New_Copy` per ordinary
+node and `New_List` per list (`24603–24721,25597–25623`).
+
+This is why a final syntactic node count is insufficient but the transfer above
+is finite: copied semantic ranges are explicit additional roots, and owned
+entity visits are deduplicated. There is no semantic analysis, rewrite, numeric
+evaluation or new literal-pool materialization inside this transfer.
+`Copy_Dimensions` allocates only when an input carries dimensions, excluded by
+the class (`sem_dim.adb:2507–2520`). For the current Integer/String sources,
+no dimension aspect is admitted.
+
+Both NCT hash tables have 511 fixed buckets. `Simple_HTable.Set` allocates one
+wrapper for a new key, and `Reset` frees wrappers (`libgnat/s-htable.adb:357–385`;
+`GNAT.HTable` delegates to it). A new public copy resets prior map contents.
+**The Elist headers/elements are not freed by that reset**: they are allocated
+in the separate `Elists`/`Elmts` tables (`elists.adb:108–128,152–169,355–371`).
+Retain their cumulative charges across calls even when map-wrapper peak demand
+is bounded by one call. The existing node/list/name/table envelopes and shared
+unit serial checks apply to all these events.
+
+### Image slice and pure-view duplication
+
+Predefined `Integer'Image` does not take the Ada 2022 `Put_Image` route:
+`Image_Should_Call_Put_Image` returns False for a predefined scalar without a
+Put_Image aspect (`exp_put_image.adb:1247–1286`). Native expansion declares
+`Snn : String (1..Integer'Width)` and `Pnn : Natural`, invokes the
+`Image_Integer` procedure and rewrites the expression as `Snn(1..Pnn)`
+(`exp_imgv.adb:1113–1116,1265–1437`). Slice resolution can capture the mutable
+upper-bound identifier, leaving another scalar leaf; it does not turn this
+expression into an unconstrained function call.
+
+`Set_Slice_Subtype` creates one signed index itype and one array itype, both
+associated with the slice, and copies its range into the index's semantic
+range (`sem_res.adb:13145–13178`). For a resolved Image slice with ordinary
+identifier prefix and leaf bounds, `t=5,l=0,a=1,r_1=3,s_1=0,e=2,q=1`.
+The full `New_Copy_Tree` charge is therefore **9 ordinary nodes, 2 entities,
+2 internal names, 1 syntax list, 1 Elist header, 2 Elist elements and 3 hash
+wrappers**. No String or Uint value is copied. Copying a First/Last/Length
+attribute with that slice as prefix adds its attribute node, giving ten
+ordinary nodes when there is no explicit dimension-argument list.
+
+For a nonvolatile, already-analyzed tree of ordinary identifiers/literals,
+scalar arithmetic/comparisons/conditionals, bound attributes, conversions,
+explicit dereferences and slices, `Side_Effect_Free` is compositional when
+`Variable_Ref=False` (`exp_util.adb:14246–14678`). For scalar conditionals it
+checks all three children. For slices it checks the range and prefix; for
+dereferences it checks the pointer prefix. No expression action, function call,
+or unsafe unchecked conversion is included in this class.
+
+One additional guard is essential: exclude a non-entity expression whose
+`Original_Node` names a mutable object renaming of an indexed component or
+dereference. That special case is deliberately considered to have side effects
+(`exp_util.adb:14479–14514`). The freshly expanded Image slice has an Image
+attribute as its original node and passes this guard. Ordinary object-name
+nodes return earlier and also pass it. References expanded from mutable
+renamings need the separate capture analysis below.
+
+On this pure-view class, `Remove_Side_Effects` returns before generating any
+action (`12720–12725`), so `Duplicate_Subexpr` costs exactly the complete copy
+transfer above. In particular, duplicating a simple analyzed Image slice has
+the nine-node/two-entity charge, not a second Image procedure call or function
+result allocation. This discharges a real concat operand family; the full
+grammar-to-pure-view invariant remains a separate obligation.
+
+### Mutable renaming dereference capture
+
+For a nonvolatile explicit dereference that fails the special renaming guard,
+`Remove_Side_Effects` takes its dedicated pointer-capture branch
+(`exp_util.adb:12834–12850`). It creates one temporary pointer constant and
+rewrites the expression to its dereference. Before delegated analysis, this
+adds at most six ordinary nodes (including the relocated old prefix and saved
+old root), one entity/name and one insertion-wrapper list. The root rewrite
+has the same dereference kind, so it needs no growing slot event. The pointer
+initializer is moved, not recursively copied.
+
+This is an exact direct capture transfer, not yet the cost of analyzing its
+pointer declaration and final dereference. It introduces no new access type
+itself. It also does not justify assuming that a second duplication is free:
+the original mutable-renaming node can survive the rewrite, causing the same
+guard to fire again. Charge each direct duplication until the caller's
+post-analysis shape invariant establishes a tighter multiplicity.
+
+## Native generated allocator expansion
+
+The secondary-stack concat route sets `Associated_Storage_Pool` to
+`RE_SS_Pool`, creates `new ConstrT` with a subtype identifier, and sets
+`No_Initialization` (`exp_ch4.adb:3390–3402`). `ConstrT` is a constrained,
+untagged, uncontrolled String subtype, and the access type is named. It is not
+a qualified-expression allocator, coextension or special return object.
+
+For this exact shape on Linux x86_64, `Expand_N_Allocator` selects
+`RE_SS_Allocate` (`4637–4660`). It bypasses anonymous controlled collections,
+the 32-bit-address size check, qualified-expression expansion and all default
+initialization/task branches; the `No_Initialization` branch has no body unless
+this is a special return object (`4897–4902`). With the selected configuration
+and no restriction diagnostic, the expander itself adds **zero node, entity
+or list allocations** beyond runtime lookup, and leaves allocation to the
+backend.
+
+Both `RE_SS_Pool` and `RE_SS_Allocate` map to `System.Secondary_Stack`
+(`rtsfind.ads:3493–3498`). This path adds no Storage_Pools/Subpools helper seed.
+It does **not** cover allocator semantic analysis: even the subtype-identifier
+form creates an `E_Allocator_Type` itype (`sem_ch4.adb:728–733`). Access-type
+declaration/freezing, runtime lookup/loading and backend representations are
+additional. The helper-seed conclusion was passed to the source-closure lane.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
@@ -232,15 +392,16 @@ the secondary stack and `RE_SS_Pool` is available, GNAT generates a constrained
 subtype, access type, allocator-backed object and renaming (`3355–3419`).
 Otherwise it generates an ordinary constrained object (`3430–3433`). The author
 grammar's exclusion of access types does not exclude generated access types.
-Image/unconstrained function results can affect secondary-stack state. The
+The input initializer's unconstrained result can affect secondary-stack state. The
 secondary path additionally invokes `Freeze_Itype` and runtime lookup.
 
 `Duplicate_Subexpr` calls `Remove_Side_Effects` then `New_Copy_Tree`
 (`exp_util.adb:5323–5332`). `Name_Req => True` does not make it constant-cost:
 native side-effect removal can generate an access type, reference and object
 declaration for an unconstrained function result (`12984–13121`). GNATprove
-explicitly uses a different path. Repeated calls can become cheaper after
-capture; taking that saving requires an idempotence/result-shape invariant.
+explicitly uses a different path. This general branch is excluded for the
+resolved Image slice above, but further input/alias shape closure is required
+before excluding it for all generated concat operands.
 
 General `New_Copy_Tree` can clone associated itypes and entities in expression
 actions, then copy their semantic fields, array indices, scalar ranges, entity
@@ -263,8 +424,10 @@ The following missing addends prevent calling the native construct closed:
 
 - Bound incoming String subtype/operand shapes and values. Earlier semantic
   `Eval_Concatenation`/`Fold_Str` work needs its own String/Uint/node/entity costs.
-- Attach structural costs to `4*n+4` remaining direct copies and `2*n+2`
-  duplications, including side-effect-removal actions and semantic/itype copies.
+- Derive the decoration summaries for `4*n+4` remaining direct copies and
+  `2*n+2` duplications. The transfer and pure-view/Image cases above supply
+  their costs when the class invariant holds. Close mutable-renaming capture
+  declaration/reanalysis and any operands outside that invariant.
 - Close `2*n` collected declarations, `n+5` individual insertion calls, one
   explicit `Freeze_Itype`, up to two runtime-availability and two runtime-entity
   lookups, final analysis, value/comparison helpers and conditional error path.

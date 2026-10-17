@@ -23,7 +23,10 @@ assert manifest["commit"] == pin
 expected = {entry["path"]: entry for entry in manifest["files"]}
 files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_eval.adb", "tbuild.adb", "namet.adb", "lib.adb", "validsw.ads",
-         "atree.adb", "types.ads", "uintp.ads", "uintp.adb", "gen_il-gen.adb"]
+         "atree.adb", "types.ads", "uintp.ads", "uintp.adb", "gen_il-gen.adb",
+         "exp_imgv.adb", "exp_put_image.adb", "exp_ch2.adb", "exp_ch3.adb",
+         "exp_ch8.adb", "sem_ch4.adb", "sem_dim.adb", "rtsfind.ads",
+         "elists.adb", "libgnat/g-htable.ads", "libgnat/s-htable.adb"]
 sources = {}
 hashes = {}
 for name in files:
@@ -134,6 +137,37 @@ result = {
     "direct_uint_subtractions": {"n_coefficient": 2, "constant": 2},
     "Get_First_Index_Bounds_invocations": {"n_coefficient": 2, "constant": 0},
     "uint_arithmetic_examples_not_admission_thresholds": examples,
+    "decorated_copy_transfer": {
+        "premises": "no owned normal entities/actions/blocks/dimensions/packed/discriminated types; owned itypes only one-dimensional String array subtypes, signed scalar index subtypes and String-literal subtypes; default empty entity map",
+        "ordinary_nodes": "t + a + sum(r_j)",
+        "entities_and_names": "e",
+        "syntax_list_headers": "l + a + sum(s_j)",
+        "pending_itype_elist_headers": "q",
+        "pending_itype_elist_elements": "e",
+        "new_entity_hash_entries": "e",
+        "pending_itype_hash_entries": "q",
+        "growing_slot_events": 0,
+        "String_Uint_value_allocations": 0,
+        "hash_lifetime": "wrappers freed at next public copy reset; Elist headers/elements retained",
+        "examples": [
+            {"shape": "scalar leaf", "t": 1, "l": 0, "a": 0, "sum_r": 0,
+             "sum_s": 0, "e": 0, "q": 0, "ordinary_nodes": 1, "syntax_lists": 0},
+            {"shape": "Image slice with simple bounds", "t": 5, "l": 0, "a": 1,
+             "sum_r": 3, "sum_s": 0, "e": 2, "q": 1,
+             "ordinary_nodes": 9, "syntax_lists": 1},
+            {"shape": "First attribute of the same Image slice", "t": 6, "l": 0, "a": 1,
+             "sum_r": 3, "sum_s": 0, "e": 2, "q": 1,
+             "ordinary_nodes": 10, "syntax_lists": 1},
+        ],
+    },
+    "native_Image_shape": "Integer Image uses Image_Integer procedure plus Snn(1..Pnn), not Put_Image/unconstrained function call",
+    "concat_allocator_expansion": {
+        "runtime_entity": "RE_SS_Allocate",
+        "runtime_unit": "System.Secondary_Stack",
+        "ordinary_node_entity_list_allocations_in_Expand_N_Allocator": 0,
+        "premises": "generated named access to constrained uncontrolled String; expression subtype identifier; No_Initialization; not special return/coextension; Linux 64-bit address; no restrictive config diagnostic",
+        "not_included": "allocator semantic analysis, access-type declaration/freezing, RTE lookup/dependency loading, backend emission",
+    },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",
                     "no semantic/generated-action/recursive-copy closure", "no safe language threshold",
@@ -147,6 +181,9 @@ assert (result["list_headers_including_direct_Insert_Action_wrappers"]["n_coeffi
         result["list_headers_including_direct_Insert_Action_wrappers"]["constant"]) == (3, 11)
 assert (result["direct_New_Copy_Tree_invocations"]["n_coefficient"],
         result["direct_New_Copy_Tree_invocations"]["constant"]) == (5, 6)
+for case in result["decorated_copy_transfer"]["examples"]:
+    assert case["ordinary_nodes"] == case["t"] + case["a"] + case["sum_r"]
+    assert case["syntax_lists"] == case["l"] + case["a"] + case["sum_s"]
 args.output.write_text(json.dumps(result, indent=2) + "\n")
 print(json.dumps({"verified_sources": len(files), "lexical_call_sites": len(calls),
                   "ordinary_direct": "25*n+45", "whole_construct_closed": False}))
