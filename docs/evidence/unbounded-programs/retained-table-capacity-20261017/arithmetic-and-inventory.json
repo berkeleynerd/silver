@@ -1,0 +1,1042 @@
+{
+  "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_relation": "every inspected/inventoried file verified against retained pinned-tree manifest",
+  "source_files_verified": 474,
+  "source_hash_mismatches": 0,
+  "source_sha256": {
+    "table.ads": "e82f128c9e68d286d433c8848d81b00eb9b01f1fd75f3e5cee018223b9c4e5db",
+    "table.adb": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4",
+    "types.ads": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+    "alloc.ads": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d",
+    "atree.ads": "6dfb7c0879436641af4288e0ef4f97872f1becadb1d14c38533c2e227867dfdd",
+    "atree.adb": "cb7804d95e680be6391cc1f2b4a22cb09de8eb7141d9084493e6c182e5c19e4f",
+    "nlists.adb": "add9468f104be6152a61a52473fd869fd16f64f1a9456b47eccc60af9854c763",
+    "namet.ads": "129dcfd8cf6688ead4f5af052f80f8a86ad31f13ce36eb29d57c547d7b51efd8",
+    "namet.adb": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc",
+    "sinput.adb": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8",
+    "stringt.adb": "9907f68178174b87a19a6d3871e5bc48e3a7471b3a4140f5e25bd900fcb84954",
+    "uintp.adb": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
+    "exp_dbug.adb": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0"
+  },
+  "string_growth": {
+    "initial": 2500,
+    "increment_percent": 150,
+    "representable_length_sequence": [
+      2500,
+      6250,
+      15625,
+      39062,
+      97655,
+      244137,
+      610342,
+      1525855,
+      3814637,
+      9536592,
+      23841480,
+      59603700,
+      149009250,
+      372523125,
+      931307812
+    ],
+    "next_formula_result": 2328269530,
+    "scope": "Min=0; no release/reset; length arithmetic only"
+  },
+  "line_capacity_sequence": [
+    500,
+    1000,
+    2000,
+    4000,
+    8000,
+    16000,
+    32000,
+    64000,
+    128000,
+    256000,
+    512000,
+    1024000,
+    2048000,
+    4096000,
+    8192000,
+    16384000,
+    32768000,
+    65536000
+  ],
+  "next_line_capacity": 131072000,
+  "next_line_intermediate_bits": 4194304000,
+  "lexical_table_instance_count": 161,
+  "lexical_table_instances": [
+    {
+      "file": "ali-util.ads",
+      "line_lf": 95,
+      "package": "Source",
+      "actual_parameters": "Table_Component_Type => Source_Record,\n     Table_Index_Type     => Source_Id,\n     Table_Low_Bound      => First_Source_Entry,\n     Table_Initial        => 1000,\n     Table_Increment      => 200,\n     Table_Name           => \"Source\""
+    },
+    {
+      "file": "ali.adb",
+      "line_lf": 128,
+      "package": "Invocation_Constructs",
+      "actual_parameters": "Table_Index_Type     => Invocation_Construct_Id,\n      Table_Component_Type => Invocation_Construct_Record,\n      Table_Low_Bound      => First_Invocation_Construct,\n      Table_Initial        => 2500,\n      Table_Increment      => 200,\n      Table_Name           => \"Invocation_Constructs\""
+    },
+    {
+      "file": "ali.adb",
+      "line_lf": 136,
+      "package": "Invocation_Relations",
+      "actual_parameters": "Table_Index_Type     => Invocation_Relation_Id,\n      Table_Component_Type => Invocation_Relation_Record,\n      Table_Low_Bound      => First_Invocation_Relation,\n      Table_Initial        => 2500,\n      Table_Increment      => 200,\n      Table_Name           => \"Invocation_Relation\""
+    },
+    {
+      "file": "ali.adb",
+      "line_lf": 144,
+      "package": "Invocation_Signatures",
+      "actual_parameters": "Table_Index_Type     => Invocation_Signature_Id,\n      Table_Component_Type => Invocation_Signature_Record,\n      Table_Low_Bound      => First_Invocation_Signature,\n      Table_Initial        => 2500,\n      Table_Increment      => 200,\n      Table_Name           => \"Invocation_Signatures\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 297,
+      "package": "ALIs",
+      "actual_parameters": "Table_Component_Type => ALIs_Record,\n     Table_Index_Type     => ALI_Id,\n     Table_Low_Bound      => First_ALI_Entry,\n     Table_Initial        => 500,\n     Table_Increment      => 200,\n     Table_Name           => \"ALIs\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 318,
+      "package": "CUDA_Kernels",
+      "actual_parameters": "Table_Component_Type => CUDA_Kernel_Record,\n     Table_Index_Type     => CUDA_Kernel_Id'Base,\n     Table_Low_Bound      => CUDA_Kernel_Id'First,\n     Table_Initial        => 100,\n     Table_Increment      => 200,\n     Table_Name           => \"Cuda_Kernels\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 497,
+      "package": "Units",
+      "actual_parameters": "Table_Component_Type => Unit_Record,\n     Table_Index_Type     => Unit_Id,\n     Table_Low_Bound      => First_Unit_Entry,\n     Table_Initial        => 100,\n     Table_Increment      => 200,\n     Table_Name           => \"Unit\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 535,
+      "package": "Interrupt_States",
+      "actual_parameters": "Table_Component_Type => Interrupt_State_Record,\n     Table_Index_Type     => Interrupt_State_Id'Base,\n     Table_Low_Bound      => Interrupt_State_Id'First,\n     Table_Initial        => 100,\n     Table_Increment      => 200,\n     Table_Name           => \"Interrupt_States\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 569,
+      "package": "Specific_Dispatching",
+      "actual_parameters": "Table_Component_Type => Specific_Dispatching_Record,\n     Table_Index_Type     => Priority_Specific_Dispatching_Id'Base,\n     Table_Low_Bound      => Priority_Specific_Dispatching_Id'First,\n     Table_Initial        => 100,\n     Table_Increment      => 200,\n     Table_Name           => \"Priority_Specific_Dispatching\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 702,
+      "package": "Withs",
+      "actual_parameters": "Table_Component_Type => With_Record,\n     Table_Index_Type     => With_Id,\n     Table_Low_Bound      => First_With_Entry,\n     Table_Initial        => 5000,\n     Table_Increment      => 200,\n     Table_Name           => \"Withs\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 724,
+      "package": "Args",
+      "actual_parameters": "Table_Component_Type => String_Ptr,\n     Table_Index_Type     => Arg_Id,\n     Table_Low_Bound      => First_Arg_Entry,\n     Table_Initial        => 1000,\n     Table_Increment      => 100,\n     Table_Name           => \"Args\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 762,
+      "package": "Linker_Options",
+      "actual_parameters": "Table_Component_Type => Linker_Option_Record,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 200,\n     Table_Increment      => 400,\n     Table_Name           => \"Linker_Options\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 800,
+      "package": "Notes",
+      "actual_parameters": "Table_Component_Type => Notes_Record,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 200,\n     Table_Increment      => 400,\n     Table_Name           => \"Notes\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 850,
+      "package": "No_Deps",
+      "actual_parameters": "Table_Component_Type => No_Dep_Record,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 200,\n     Table_Increment      => 400,\n     Table_Name           => \"No_Deps\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 908,
+      "package": "Sdep",
+      "actual_parameters": "Table_Component_Type => Sdep_Record,\n     Table_Index_Type     => Sdep_Id,\n     Table_Low_Bound      => First_Sdep_Entry,\n     Table_Initial        => 5000,\n     Table_Increment      => 200,\n     Table_Name           => \"Sdep\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 950,
+      "package": "Xref_Section",
+      "actual_parameters": "Table_Component_Type => Xref_Section_Record,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 50,\n     Table_Increment      => 300,\n     Table_Name           => \"Xref_Section\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 1061,
+      "package": "Xref_Entity",
+      "actual_parameters": "Table_Component_Type => Xref_Entity_Record,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 500,\n     Table_Increment      => 300,\n     Table_Name           => \"Xref_Entity\""
+    },
+    {
+      "file": "ali.ads",
+      "line_lf": 1121,
+      "package": "Xref",
+      "actual_parameters": "Table_Component_Type => Xref_Record,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 2000,\n     Table_Increment      => 300,\n     Table_Name           => \"Xref\""
+    },
+    {
+      "file": "atree.adb",
+      "line_lf": 85,
+      "package": "Orig_Nodes",
+      "actual_parameters": "Table_Component_Type => Node_Id,\n      Table_Index_Type     => Node_Id'Base,\n      Table_Low_Bound      => First_Node_Id,\n      Table_Initial        => Alloc.Node_Offsets_Initial,\n      Table_Increment      => Alloc.Node_Offsets_Increment,\n      Table_Name           => \"Orig_Nodes\""
+    },
+    {
+      "file": "atree.adb",
+      "line_lf": 102,
+      "package": "Parents_Stack",
+      "actual_parameters": "Table_Component_Type => Node_Id,\n      Table_Index_Type     => Nat,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 256,\n      Table_Increment      => 100,\n      Table_Name           => \"Parents_Stack\""
+    },
+    {
+      "file": "atree.adb",
+      "line_lf": 131,
+      "package": "Paren_Counts",
+      "actual_parameters": "Table_Component_Type => Paren_Count_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 10,\n     Table_Increment      => 200,\n     Table_Name           => \"Paren_Counts\""
+    },
+    {
+      "file": "atree.ads",
+      "line_lf": 734,
+      "package": "Node_Offsets",
+      "actual_parameters": "Table_Component_Type => Node_Header,\n         Table_Index_Type     => Node_Id'Base,\n         Table_Low_Bound      => First_Node_Id,\n         Table_Initial        => Alloc.Node_Offsets_Initial,\n         Table_Increment      => Alloc.Node_Offsets_Increment,\n         Table_Name           => \"Node_Offsets\""
+    },
+    {
+      "file": "atree.ads",
+      "line_lf": 767,
+      "package": "Slots",
+      "actual_parameters": "Table_Component_Type => Slot,\n         Table_Index_Type     => Node_Offset'Base,\n         Table_Low_Bound      => Slots_Low_Bound,\n         Table_Initial        => Alloc.Slots_Initial,\n         Table_Increment      => Alloc.Slots_Increment,\n         Table_Name           => \"Slots\""
+    },
+    {
+      "file": "binde.adb",
+      "line_lf": 184,
+      "package": "Succ",
+      "actual_parameters": "Table_Component_Type => Successor_Link,\n      Table_Index_Type     => Successor_Id,\n      Table_Low_Bound      => Succ_First,\n      Table_Initial        => 500,\n      Table_Increment      => 200,\n      Table_Name           => \"Succ\""
+    },
+    {
+      "file": "binde.adb",
+      "line_lf": 205,
+      "package": "Elab_All_Entries",
+      "actual_parameters": "Table_Component_Type => Elab_All_Entry,\n      Table_Index_Type     => Elab_All_Id,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 2000,\n      Table_Increment      => 200,\n      Table_Name           => \"Elab_All_Entries\""
+    },
+    {
+      "file": "binde.adb",
+      "line_lf": 266,
+      "package": "UNR",
+      "actual_parameters": "Table_Component_Type => Unit_Node_Record,\n      Table_Index_Type     => Unit_Id,\n      Table_Low_Bound      => First_Unit_Entry,\n      Table_Initial        => 500,\n      Table_Increment      => 200,\n      Table_Name           => \"UNR\""
+    },
+    {
+      "file": "binde.adb",
+      "line_lf": 2262,
+      "package": "Closure_Sources",
+      "actual_parameters": "Table_Component_Type => File_Name_Type,\n         Table_Index_Type     => Natural,\n         Table_Low_Bound      => 1,\n         Table_Initial        => 10,\n         Table_Increment      => 100,\n         Table_Name           => \"Gnatbind.Closure_Sources\""
+    },
+    {
+      "file": "bindgen.adb",
+      "line_lf": 145,
+      "package": "IS_Pragma_Settings",
+      "actual_parameters": "Table_Component_Type => Character,\n      Table_Index_Type     => Int,\n      Table_Low_Bound      => 0,\n      Table_Initial        => 100,\n      Table_Increment      => 200,\n      Table_Name           => \"IS_Pragma_Settings\""
+    },
+    {
+      "file": "bindgen.adb",
+      "line_lf": 159,
+      "package": "PSD_Pragma_Settings",
+      "actual_parameters": "Table_Component_Type => Character,\n      Table_Index_Type     => Int,\n      Table_Low_Bound      => 0,\n      Table_Initial        => 100,\n      Table_Increment      => 200,\n      Table_Name           => \"PSD_Pragma_Settings\""
+    },
+    {
+      "file": "checks.ads",
+      "line_lf": 131,
+      "package": "Alignment_Warnings",
+      "actual_parameters": "Table_Component_Type => Alignment_Warnings_Record,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 10,\n     Table_Increment      => 200,\n     Table_Name           => \"Alignment_Warnings\""
+    },
+    {
+      "file": "checks.ads",
+      "line_lf": 977,
+      "package": "Check_Names",
+      "actual_parameters": "Table_Component_Type => Name_Id,\n     Table_Index_Type     => Check_Id,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 30,\n     Table_Increment      => 200,\n     Table_Name           => \"Name_Check_Names\""
+    },
+    {
+      "file": "clean.adb",
+      "line_lf": 78,
+      "package": "Sources",
+      "actual_parameters": "Table_Component_Type => File_Name_Type,\n      Table_Index_Type     => Natural,\n      Table_Low_Bound      => 0,\n      Table_Initial        => 10,\n      Table_Increment      => 100,\n      Table_Name           => \"Clean.Processed_Projects\""
+    },
+    {
+      "file": "elists.adb",
+      "line_lf": 83,
+      "package": "Elists",
+      "actual_parameters": "Table_Component_Type => Elist_Header,\n     Table_Index_Type     => Elist_Id'Base,\n     Table_Low_Bound      => First_Elist_Id,\n     Table_Initial        => Alloc.Elists_Initial,\n     Table_Increment      => Alloc.Elists_Increment,\n     Table_Name           => \"Elists\""
+    },
+    {
+      "file": "elists.adb",
+      "line_lf": 96,
+      "package": "Elmts",
+      "actual_parameters": "Table_Component_Type => Elmt_Item,\n     Table_Index_Type     => Elmt_Id'Base,\n     Table_Low_Bound      => First_Elmt_Id,\n     Table_Initial        => Alloc.Elmts_Initial,\n     Table_Increment      => Alloc.Elmts_Increment,\n     Table_Name           => \"Elmts\""
+    },
+    {
+      "file": "errout.adb",
+      "line_lf": 86,
+      "package": "Non_Instance_Msgs",
+      "actual_parameters": "Table_Component_Type => NIM_Record,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 100,\n     Table_Increment      => 100,\n     Table_Name           => \"Non_Instance_Msgs\""
+    },
+    {
+      "file": "errout.ads",
+      "line_lf": 653,
+      "package": "List_Pragmas",
+      "actual_parameters": "Table_Component_Type => List_Pragma_Record,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 50,\n     Table_Increment      => 200,\n     Table_Name           => \"List_Pragmas\""
+    },
+    {
+      "file": "erroutc.ads",
+      "line_lf": 212,
+      "package": "Locations",
+      "actual_parameters": "Table_Component_Type => Labeled_Span_Type,\n     Table_Index_Type     => Labeled_Span_Id,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 200,\n     Table_Increment      => 200,\n     Table_Name           => \"Location\""
+    },
+    {
+      "file": "erroutc.ads",
+      "line_lf": 233,
+      "package": "Edits",
+      "actual_parameters": "Table_Component_Type => Edit_Type,\n     Table_Index_Type     => Edit_Id,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 200,\n     Table_Increment      => 200,\n     Table_Name           => \"Edit\""
+    },
+    {
+      "file": "erroutc.ads",
+      "line_lf": 254,
+      "package": "Fixes",
+      "actual_parameters": "Table_Component_Type => Fix_Type,\n     Table_Index_Type     => Fix_Id,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 200,\n     Table_Increment      => 200,\n     Table_Name           => \"Fix\""
+    },
+    {
+      "file": "erroutc.ads",
+      "line_lf": 369,
+      "package": "Errors",
+      "actual_parameters": "Table_Component_Type => Error_Msg_Object,\n     Table_Index_Type     => Error_Msg_Id,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 200,\n     Table_Increment      => 200,\n     Table_Name           => \"Error\""
+    },
+    {
+      "file": "erroutc.ads",
+      "line_lf": 463,
+      "package": "Warnings",
+      "actual_parameters": "Table_Component_Type => Warnings_Entry,\n     Table_Index_Type     => Natural,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 100,\n     Table_Increment      => 200,\n     Table_Name           => \"Warnings\""
+    },
+    {
+      "file": "erroutc.ads",
+      "line_lf": 499,
+      "package": "Specific_Warnings",
+      "actual_parameters": "Table_Component_Type => Specific_Warning_Entry,\n     Table_Index_Type     => Natural,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 100,\n     Table_Increment      => 200,\n     Table_Name           => \"Specific_Warnings\""
+    },
+    {
+      "file": "exp_cg.adb",
+      "line_lf": 70,
+      "package": "Call_Graph_Nodes",
+      "actual_parameters": "Table_Component_Type => Node_Id,\n      Table_Index_Type     => Natural,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 50,\n      Table_Increment      => 100,\n      Table_Name           => \"Call_Graph_Nodes\""
+    },
+    {
+      "file": "exp_dbug.adb",
+      "line_lf": 53,
+      "package": "Name_Qualify_Units",
+      "actual_parameters": "Table_Component_Type => Node_Id,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => Alloc.Name_Qualify_Units_Initial,\n     Table_Increment      => Alloc.Name_Qualify_Units_Increment,\n     Table_Name           => \"Name_Qualify_Units\""
+    },
+    {
+      "file": "exp_unst.adb",
+      "line_lf": 92,
+      "package": "Calls",
+      "actual_parameters": "Table_Component_Type => Call_Entry,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 100,\n     Table_Increment      => 200,\n     Table_Name           => \"Unnest_Calls\""
+    },
+    {
+      "file": "exp_unst.adb",
+      "line_lf": 155,
+      "package": "Urefs",
+      "actual_parameters": "Table_Component_Type => Uref_Entry,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 100,\n     Table_Increment      => 200,\n     Table_Name           => \"Unnest_Urefs\""
+    },
+    {
+      "file": "exp_unst.ads",
+      "line_lf": 701,
+      "package": "Subps",
+      "actual_parameters": "Table_Component_Type => Subp_Entry,\n     Table_Index_Type     => SI_Type,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 1000,\n     Table_Increment      => 200,\n     Table_Name           => \"Unnest_Subps\""
+    },
+    {
+      "file": "expander.adb",
+      "line_lf": 65,
+      "package": "Expander_Flags",
+      "actual_parameters": "Table_Component_Type => Boolean,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 32,\n     Table_Increment      => 200,\n     Table_Name           => \"Expander_Flags\""
+    },
+    {
+      "file": "fmap.adb",
+      "line_lf": 58,
+      "package": "File_Mapping",
+      "actual_parameters": "Table_Component_Type => Mapping,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 1_000,\n     Table_Increment      => 1_000,\n     Table_Name           => \"Fmap.File_Mapping\""
+    },
+    {
+      "file": "fmap.adb",
+      "line_lf": 67,
+      "package": "Path_Mapping",
+      "actual_parameters": "Table_Component_Type => Mapping,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 1_000,\n     Table_Increment      => 1_000,\n     Table_Name           => \"Fmap.Path_Mapping\""
+    },
+    {
+      "file": "fname-uf.adb",
+      "line_lf": 51,
+      "package": "SFN_Table",
+      "actual_parameters": "Table_Component_Type => SFN_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.SFN_Table_Initial,\n     Table_Increment      => Alloc.SFN_Table_Increment,\n     Table_Name           => \"SFN_Table\""
+    },
+    {
+      "file": "fname-uf.adb",
+      "line_lf": 86,
+      "package": "SFN_Patterns",
+      "actual_parameters": "Table_Component_Type => SFN_Pattern_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 10,\n     Table_Increment      => 100,\n     Table_Name           => \"SFN_Patterns\""
+    },
+    {
+      "file": "ghost.adb",
+      "line_lf": 56,
+      "package": "Ignored_Ghost_Nodes",
+      "actual_parameters": "Table_Component_Type => Node_Id,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.Ignored_Ghost_Nodes_Initial,\n     Table_Increment      => Alloc.Ignored_Ghost_Nodes_Increment,\n     Table_Name           => \"Ignored_Ghost_Nodes\""
+    },
+    {
+      "file": "gnatcmd.adb",
+      "line_lf": 93,
+      "package": "First_Switches",
+      "actual_parameters": "Table_Component_Type => String_Access,\n      Table_Index_Type     => Integer,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 20,\n      Table_Increment      => 100,\n      Table_Name           => \"Gnatcmd.First_Switches\""
+    },
+    {
+      "file": "gnatcmd.adb",
+      "line_lf": 102,
+      "package": "Last_Switches",
+      "actual_parameters": "Table_Component_Type => String_Access,\n      Table_Index_Type     => Integer,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 20,\n      Table_Increment      => 100,\n      Table_Name           => \"Gnatcmd.Last_Switches\""
+    },
+    {
+      "file": "gnatlink.adb",
+      "line_lf": 66,
+      "package": "Gcc_Linker_Options",
+      "actual_parameters": "Table_Component_Type => String_Access,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Gnatlink.Gcc_Linker_Options\""
+    },
+    {
+      "file": "gnatlink.adb",
+      "line_lf": 75,
+      "package": "Libpath",
+      "actual_parameters": "Table_Component_Type => Character,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 4096,\n     Table_Increment      => 100,\n     Table_Name           => \"Gnatlink.Libpath\""
+    },
+    {
+      "file": "gnatlink.adb",
+      "line_lf": 84,
+      "package": "Linker_Options",
+      "actual_parameters": "Table_Component_Type => String_Access,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Gnatlink.Linker_Options\""
+    },
+    {
+      "file": "gnatlink.adb",
+      "line_lf": 93,
+      "package": "Linker_Objects",
+      "actual_parameters": "Table_Component_Type => String_Access,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Gnatlink.Linker_Objects\""
+    },
+    {
+      "file": "gnatlink.adb",
+      "line_lf": 109,
+      "package": "Response_File_Objects",
+      "actual_parameters": "Table_Component_Type => String_Access,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Gnatlink.Response_File_Objects\""
+    },
+    {
+      "file": "gnatlink.adb",
+      "line_lf": 120,
+      "package": "Binder_Options_From_ALI",
+      "actual_parameters": "Table_Component_Type => String_Access,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1, -- equals low bound of Argument_List for Spawn\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Gnatlink.Binder_Options_From_ALI\""
+    },
+    {
+      "file": "gnatlink.adb",
+      "line_lf": 130,
+      "package": "Binder_Options",
+      "actual_parameters": "Table_Component_Type => String_Access,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1, -- equals low bound of Argument_List for Spawn\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Gnatlink.Binder_Options\""
+    },
+    {
+      "file": "gnatname.adb",
+      "line_lf": 109,
+      "package": "Arguments",
+      "actual_parameters": "Table_Component_Type => Argument_Data,\n      Table_Index_Type     => Natural,\n      Table_Low_Bound      => 0,\n      Table_Initial        => 10,\n      Table_Increment      => 100,\n      Table_Name           => \"Gnatname.Arguments\""
+    },
+    {
+      "file": "gnatname.adb",
+      "line_lf": 118,
+      "package": "Preprocessor_Switches",
+      "actual_parameters": "Table_Component_Type => String_Access,\n      Table_Index_Type     => Natural,\n      Table_Low_Bound      => 0,\n      Table_Initial        => 10,\n      Table_Increment      => 100,\n      Table_Name           => \"Gnatname.Preprocessor_Switches\""
+    },
+    {
+      "file": "gnatname.adb",
+      "line_lf": 135,
+      "package": "Processed_Directories",
+      "actual_parameters": "Table_Component_Type => String_Access,\n      Table_Index_Type     => Natural,\n      Table_Low_Bound      => 0,\n      Table_Initial        => 10,\n      Table_Increment      => 100,\n      Table_Name           => \"Prj.Makr.Processed_Directories\""
+    },
+    {
+      "file": "gnatname.adb",
+      "line_lf": 145,
+      "package": "Sources",
+      "actual_parameters": "Table_Component_Type => Source,\n      Table_Index_Type     => Natural,\n      Table_Low_Bound      => 0,\n      Table_Initial        => 10,\n      Table_Increment      => 100,\n      Table_Name           => \"Gnatname.Sources\""
+    },
+    {
+      "file": "inline.adb",
+      "line_lf": 107,
+      "package": "Pending_Instantiations",
+      "actual_parameters": "Table_Component_Type => Pending_Body_Info,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.Pending_Instantiations_Initial,\n     Table_Increment      => Alloc.Pending_Instantiations_Increment,\n     Table_Name           => \"Pending_Instantiations\""
+    },
+    {
+      "file": "inline.adb",
+      "line_lf": 126,
+      "package": "Called_Pending_Instantiations",
+      "actual_parameters": "Table_Component_Type => Int,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.Pending_Instantiations_Initial,\n     Table_Increment      => Alloc.Pending_Instantiations_Increment,\n     Table_Name           => \"Called_Pending_Instantiations\""
+    },
+    {
+      "file": "inline.adb",
+      "line_lf": 178,
+      "package": "Inlined_Bodies",
+      "actual_parameters": "Table_Component_Type => Entity_Id,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.Inlined_Bodies_Initial,\n     Table_Increment      => Alloc.Inlined_Bodies_Increment,\n     Table_Name           => \"Inlined_Bodies\""
+    },
+    {
+      "file": "inline.adb",
+      "line_lf": 225,
+      "package": "Successors",
+      "actual_parameters": "Table_Component_Type => Succ_Info,\n      Table_Index_Type     => Succ_Index,\n      Table_Low_Bound      => 1,\n      Table_Initial        => Alloc.Successors_Initial,\n      Table_Increment      => Alloc.Successors_Increment,\n      Table_Name           => \"Successors\""
+    },
+    {
+      "file": "inline.adb",
+      "line_lf": 241,
+      "package": "Inlined",
+      "actual_parameters": "Table_Component_Type => Subp_Info,\n      Table_Index_Type     => Subp_Index,\n      Table_Low_Bound      => 1,\n      Table_Initial        => Alloc.Inlined_Initial,\n      Table_Increment      => Alloc.Inlined_Increment,\n      Table_Name           => \"Inlined\""
+    },
+    {
+      "file": "inline.adb",
+      "line_lf": 909,
+      "package": "Pending_Inlined",
+      "actual_parameters": "Table_Component_Type => Subp_Index,\n         Table_Index_Type     => Pending_Index,\n         Table_Low_Bound      => 1,\n         Table_Initial        => Alloc.Inlined_Initial,\n         Table_Increment      => Alloc.Inlined_Increment,\n         Table_Name           => \"Pending_Inlined\""
+    },
+    {
+      "file": "lib-writ.ads",
+      "line_lf": 1010,
+      "package": "Interrupt_States",
+      "actual_parameters": "Table_Component_Type => Interrupt_State_Entry,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 30,\n     Table_Increment      => 200,\n     Table_Name           => \"Name_Interrupt_States\""
+    },
+    {
+      "file": "lib-writ.ads",
+      "line_lf": 1040,
+      "package": "Specific_Dispatching",
+      "actual_parameters": "Table_Component_Type => Specific_Dispatching_Entry,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 10,\n     Table_Increment      => 100,\n     Table_Name           => \"Name_Priority_Specific_Dispatching\""
+    },
+    {
+      "file": "lib-xref-spark_specific.adb",
+      "line_lf": 64,
+      "package": "Drefs",
+      "actual_parameters": "Table_Component_Type => Xref_Entry,\n     Table_Index_Type     => Xref_Entry_Number,\n     Table_Low_Bound      => 1,\n     Table_Initial        => Alloc.Drefs_Initial,\n     Table_Increment      => Alloc.Drefs_Increment,\n     Table_Name           => \"Drefs\""
+    },
+    {
+      "file": "lib-xref.adb",
+      "line_lf": 116,
+      "package": "Xrefs",
+      "actual_parameters": "Table_Component_Type => Xref_Entry,\n     Table_Index_Type     => Xref_Entry_Number,\n     Table_Low_Bound      => 1,\n     Table_Initial        => Alloc.Xrefs_Initial,\n     Table_Increment      => Alloc.Xrefs_Increment,\n     Table_Name           => \"Xrefs\""
+    },
+    {
+      "file": "lib.ads",
+      "line_lf": 800,
+      "package": "Restriction_Set_Dependences",
+      "actual_parameters": "Table_Component_Type => Unit_Name_Type,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 10,\n     Table_Increment      => 100,\n     Table_Name           => \"Restriction_Attribute_Dependences\""
+    },
+    {
+      "file": "lib.ads",
+      "line_lf": 877,
+      "package": "Units",
+      "actual_parameters": "Table_Component_Type => Unit_Record,\n     Table_Index_Type     => Unit_Number_Type,\n     Table_Low_Bound      => Main_Unit,\n     Table_Initial        => Alloc.Units_Initial,\n     Table_Increment      => Alloc.Units_Increment,\n     Table_Name           => \"Units\""
+    },
+    {
+      "file": "lib.ads",
+      "line_lf": 927,
+      "package": "Linker_Option_Lines",
+      "actual_parameters": "Table_Component_Type => Linker_Option_Entry,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => Alloc.Linker_Option_Lines_Initial,\n     Table_Increment      => Alloc.Linker_Option_Lines_Increment,\n     Table_Name           => \"Linker_Option_Lines\""
+    },
+    {
+      "file": "lib.ads",
+      "line_lf": 937,
+      "package": "Notes",
+      "actual_parameters": "Table_Component_Type => Node_Id,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => Alloc.Notes_Initial,\n     Table_Increment      => Alloc.Notes_Increment,\n     Table_Name           => \"Notes\""
+    },
+    {
+      "file": "lib.ads",
+      "line_lf": 954,
+      "package": "Compilation_Switches",
+      "actual_parameters": "Table_Component_Type => String_Ptr,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 30,\n     Table_Increment      => 100,\n     Table_Name           => \"Compilation_Switches\""
+    },
+    {
+      "file": "lib.ads",
+      "line_lf": 983,
+      "package": "Load_Stack",
+      "actual_parameters": "Table_Component_Type => Load_Stack_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.Load_Stack_Initial,\n     Table_Increment      => Alloc.Load_Stack_Increment,\n     Table_Name           => \"Load_Stack\""
+    },
+    {
+      "file": "lib.ads",
+      "line_lf": 1000,
+      "package": "Version_Ref",
+      "actual_parameters": "Table_Component_Type => String_Id,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Version_Ref\""
+    },
+    {
+      "file": "make.adb",
+      "line_lf": 147,
+      "package": "Gcc_Switches",
+      "actual_parameters": "Table_Component_Type => String_Access,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Make.Gcc_Switches\""
+    },
+    {
+      "file": "make.adb",
+      "line_lf": 155,
+      "package": "Binder_Switches",
+      "actual_parameters": "Table_Component_Type => String_Access,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Make.Binder_Switches\""
+    },
+    {
+      "file": "make.adb",
+      "line_lf": 163,
+      "package": "Linker_Switches",
+      "actual_parameters": "Table_Component_Type => String_Access,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Make.Linker_Switches\""
+    },
+    {
+      "file": "make.adb",
+      "line_lf": 171,
+      "package": "Switches_To_Check",
+      "actual_parameters": "Table_Component_Type => String_Access,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Make.Switches_To_Check\""
+    },
+    {
+      "file": "make.adb",
+      "line_lf": 179,
+      "package": "Failed_Links",
+      "actual_parameters": "Table_Component_Type => File_Name_Type,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 10,\n     Table_Increment      => 100,\n     Table_Name           => \"Make.Failed_Links\""
+    },
+    {
+      "file": "make.adb",
+      "line_lf": 187,
+      "package": "Successful_Links",
+      "actual_parameters": "Table_Component_Type => File_Name_Type,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 10,\n     Table_Increment      => 100,\n     Table_Name           => \"Make.Successful_Links\""
+    },
+    {
+      "file": "make.adb",
+      "line_lf": 219,
+      "package": "Bad_Compilation",
+      "actual_parameters": "Table_Component_Type => Bad_Compilation_Info,\n     Table_Index_Type     => Natural,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Make.Bad_Compilation\""
+    },
+    {
+      "file": "make.adb",
+      "line_lf": 299,
+      "package": "Dependencies",
+      "actual_parameters": "Table_Component_Type => Dependency,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 100,\n     Table_Name           => \"Make.Dependencies\""
+    },
+    {
+      "file": "make.adb",
+      "line_lf": 586,
+      "package": "Temp_File_Paths",
+      "actual_parameters": "Table_Component_Type => Path_Name_Type,\n      Table_Index_Type     => Natural,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 4,\n      Table_Increment      => 100,\n      Table_Name           => \"Make.Temp_File_Paths\",\n      Release_Threshold    => 0"
+    },
+    {
+      "file": "make.adb",
+      "line_lf": 837,
+      "package": "T",
+      "actual_parameters": "<>"
+    },
+    {
+      "file": "make.adb",
+      "line_lf": 1682,
+      "package": "Good_ALI",
+      "actual_parameters": "Table_Component_Type => ALI_Id,\n        Table_Index_Type     => Natural,\n        Table_Low_Bound      => 1,\n        Table_Initial        => 50,\n        Table_Increment      => 100,\n        Table_Name           => \"Make.Good_ALI\""
+    },
+    {
+      "file": "make_util.adb",
+      "line_lf": 443,
+      "package": "Names",
+      "actual_parameters": "Table_Component_Type => Main_Info,\n         Table_Index_Type     => Integer,\n         Table_Low_Bound      => 1,\n         Table_Initial        => 10,\n         Table_Increment      => 100,\n         Table_Name           => \"Makeutl.Mains.Names\""
+    },
+    {
+      "file": "make_util.adb",
+      "line_lf": 707,
+      "package": "Q",
+      "actual_parameters": "Table_Component_Type => Q_Record,\n         Table_Index_Type     => Natural,\n         Table_Low_Bound      => 1,\n         Table_Initial        => 1000,\n         Table_Increment      => 100,\n         Table_Name           => \"Makeutl.Queue.Q\""
+    },
+    {
+      "file": "namet.ads",
+      "line_lf": 562,
+      "package": "Name_Chars",
+      "actual_parameters": "Table_Component_Type => Character,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.Name_Chars_Initial,\n     Table_Increment      => Alloc.Name_Chars_Increment,\n     Table_Name           => \"Name_Chars\""
+    },
+    {
+      "file": "namet.ads",
+      "line_lf": 626,
+      "package": "Name_Entries",
+      "actual_parameters": "Table_Component_Type => Name_Entry,\n     Table_Index_Type     => Valid_Name_Id'Base,\n     Table_Low_Bound      => First_Name_Id,\n     Table_Initial        => Alloc.Names_Initial,\n     Table_Increment      => Alloc.Names_Increment,\n     Table_Name           => \"Name_Entries\""
+    },
+    {
+      "file": "nlists.adb",
+      "line_lf": 62,
+      "package": "Lists",
+      "actual_parameters": "Table_Component_Type => List_Header,\n     Table_Index_Type     => List_Id'Base,\n     Table_Low_Bound      => First_List_Id,\n     Table_Initial        => Alloc.Lists_Initial,\n     Table_Increment      => Alloc.Lists_Increment,\n     Table_Name           => \"Lists\""
+    },
+    {
+      "file": "nlists.adb",
+      "line_lf": 82,
+      "package": "Next_Node",
+      "actual_parameters": "Table_Component_Type => Node_Or_Entity_Id,\n      Table_Index_Type     => Node_Or_Entity_Id'Base,\n      Table_Low_Bound      => First_Node_Id,\n      Table_Initial        => Alloc.Node_Offsets_Initial,\n      Table_Increment      => Alloc.Node_Offsets_Increment,\n      Table_Name           => \"Next_Node\""
+    },
+    {
+      "file": "nlists.adb",
+      "line_lf": 90,
+      "package": "Prev_Node",
+      "actual_parameters": "Table_Component_Type => Node_Or_Entity_Id,\n      Table_Index_Type     => Node_Or_Entity_Id'Base,\n      Table_Low_Bound      => First_Node_Id,\n      Table_Initial        => Alloc.Node_Offsets_Initial,\n      Table_Increment      => Alloc.Node_Offsets_Increment,\n      Table_Name           => \"Prev_Node\""
+    },
+    {
+      "file": "osint.adb",
+      "line_lf": 196,
+      "package": "File_Name_Chars",
+      "actual_parameters": "Table_Component_Type => Character,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 1,\n     Table_Initial        => Alloc.File_Name_Chars_Initial,\n     Table_Increment      => Alloc.File_Name_Chars_Increment,\n     Table_Name           => \"File_Name_Chars\""
+    },
+    {
+      "file": "osint.adb",
+      "line_lf": 220,
+      "package": "Src_Search_Directories",
+      "actual_parameters": "Table_Component_Type => String_Ptr,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => Primary_Directory,\n     Table_Initial        => 10,\n     Table_Increment      => 100,\n     Table_Name           => \"Osint.Src_Search_Directories\""
+    },
+    {
+      "file": "osint.adb",
+      "line_lf": 231,
+      "package": "Lib_Search_Directories",
+      "actual_parameters": "Table_Component_Type => String_Ptr,\n     Table_Index_Type     => Integer,\n     Table_Low_Bound      => Primary_Directory,\n     Table_Initial        => 10,\n     Table_Increment      => 100,\n     Table_Name           => \"Osint.Lib_Search_Directories\""
+    },
+    {
+      "file": "par.adb",
+      "line_lf": 547,
+      "package": "Scope",
+      "actual_parameters": "Table_Component_Type => Scope_Table_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 50,\n     Table_Increment      => 100,\n     Table_Name           => \"Scope\""
+    },
+    {
+      "file": "par.adb",
+      "line_lf": 606,
+      "package": "Suspicious_Labels",
+      "actual_parameters": "Table_Component_Type => Suspicious_Label_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 50,\n     Table_Increment      => 100,\n     Table_Name           => \"Suspicious_Labels\""
+    },
+    {
+      "file": "par_sco.adb",
+      "line_lf": 79,
+      "package": "SCO_Raw_Table",
+      "actual_parameters": "Table_Component_Type => SCO_Table_Entry,\n      Table_Index_Type     => Nat,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 500,\n      Table_Increment      => 300,\n      Table_Name           => \"Raw_Table\""
+    },
+    {
+      "file": "par_sco.adb",
+      "line_lf": 99,
+      "package": "SCO_Unit_Number_Table",
+      "actual_parameters": "Table_Component_Type => Unit_Number_Type,\n      Table_Index_Type     => SCO_Unit_Index,\n      Table_Low_Bound      => 0, -- see note above on sort\n      Table_Initial        => 20,\n      Table_Increment      => 200,\n      Table_Name           => \"SCO_Unit_Number_Entry\""
+    },
+    {
+      "file": "par_sco.adb",
+      "line_lf": 522,
+      "package": "Hash_Entries",
+      "actual_parameters": "Table_Component_Type => Hash_Entry,\n         Table_Index_Type     => Nat,\n         Table_Low_Bound      => 1,\n         Table_Initial        => 10,\n         Table_Increment      => 10,\n         Table_Name           => \"Hash_Entries\""
+    },
+    {
+      "file": "par_sco.adb",
+      "line_lf": 1375,
+      "package": "SC",
+      "actual_parameters": "Table_Component_Type => SC_Entry,\n      Table_Index_Type     => Nat,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 1000,\n      Table_Increment      => 200,\n      Table_Name           => \"SCO_SC\""
+    },
+    {
+      "file": "par_sco.adb",
+      "line_lf": 1408,
+      "package": "SD",
+      "actual_parameters": "Table_Component_Type => SD_Entry,\n      Table_Index_Type     => Nat,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 1000,\n      Table_Increment      => 200,\n      Table_Name           => \"SCO_SD\""
+    },
+    {
+      "file": "par_sco.adb",
+      "line_lf": 2622,
+      "package": "Pending_Decisions",
+      "actual_parameters": "Table_Component_Type => Decision,\n         Table_Index_Type     => Nat,\n         Table_Low_Bound      => 1,\n         Table_Initial        => 1000,\n         Table_Increment      => 200,\n         Table_Name           => \"Filter_Pending_Decisions\""
+    },
+    {
+      "file": "prep.adb",
+      "line_lf": 167,
+      "package": "Pp_States",
+      "actual_parameters": "Table_Component_Type => Pp_State,\n      Table_Index_Type     => Pp_Depth,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 10,\n      Table_Increment      => 100,\n      Table_Name           => \"Prep.Pp_States\""
+    },
+    {
+      "file": "prepcomp.adb",
+      "line_lf": 93,
+      "package": "Preproc_Data_Table",
+      "actual_parameters": "Table_Component_Type => Preproc_Data,\n      Table_Index_Type     => Int,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 5,\n      Table_Increment      => 100,\n      Table_Name           => \"Prepcomp.Preproc_Data_Table\""
+    },
+    {
+      "file": "prepcomp.adb",
+      "line_lf": 106,
+      "package": "Dependencies",
+      "actual_parameters": "Table_Component_Type => Source_File_Index,\n      Table_Index_Type     => Int,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 10,\n      Table_Increment      => 100,\n      Table_Name           => \"Prepcomp.Dependencies\""
+    },
+    {
+      "file": "repinfo-input.adb",
+      "line_lf": 55,
+      "package": "JSON_Entity_Table",
+      "actual_parameters": "Table_Component_Type => JSON_Entity_Node,\n      Table_Index_Type     => Nat,\n      Table_Low_Bound      => 1,\n      Table_Initial        => Alloc.Rep_JSON_Table_Initial,\n      Table_Increment      => Alloc.Rep_JSON_Table_Increment,\n      Table_Name           => \"JSON_Entity_Table\""
+    },
+    {
+      "file": "repinfo-input.adb",
+      "line_lf": 70,
+      "package": "JSON_Component_Table",
+      "actual_parameters": "Table_Component_Type => JSON_Component_Node,\n      Table_Index_Type     => Nat,\n      Table_Low_Bound      => 1,\n      Table_Initial        => Alloc.Rep_JSON_Table_Initial,\n      Table_Increment      => Alloc.Rep_JSON_Table_Increment,\n      Table_Name           => \"JSON_Component_Table\""
+    },
+    {
+      "file": "repinfo-input.adb",
+      "line_lf": 86,
+      "package": "JSON_Variant_Table",
+      "actual_parameters": "Table_Component_Type => JSON_Variant_Node,\n      Table_Index_Type     => Nat,\n      Table_Low_Bound      => 1,\n      Table_Initial        => Alloc.Rep_JSON_Table_Initial,\n      Table_Increment      => Alloc.Rep_JSON_Table_Increment,\n      Table_Name           => \"JSON_Variant_Table\""
+    },
+    {
+      "file": "repinfo.adb",
+      "line_lf": 79,
+      "package": "Rep_Table",
+      "actual_parameters": "Table_Component_Type => Exp_Node,\n      Table_Index_Type     => Nat,\n      Table_Low_Bound      => 1,\n      Table_Initial        => Alloc.Rep_Table_Initial,\n      Table_Increment      => Alloc.Rep_Table_Increment,\n      Table_Name           => \"BE_Rep_Table\""
+    },
+    {
+      "file": "repinfo.adb",
+      "line_lf": 91,
+      "package": "Dynamic_SO_Entity_Table",
+      "actual_parameters": "Table_Component_Type => Entity_Id,\n      Table_Index_Type     => Nat,\n      Table_Low_Bound      => 1,\n      Table_Initial        => Alloc.Rep_Table_Initial,\n      Table_Increment      => Alloc.Rep_Table_Increment,\n      Table_Name           => \"FE_Rep_Table\""
+    },
+    {
+      "file": "restrict.ads",
+      "line_lf": 182,
+      "package": "No_Dependences",
+      "actual_parameters": "Table_Component_Type => ND_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 200,\n     Table_Increment      => 200,\n     Table_Name           => \"Name_No_Dependences\""
+    },
+    {
+      "file": "restrict.ads",
+      "line_lf": 215,
+      "package": "No_Use_Of_Entity",
+      "actual_parameters": "Table_Component_Type => NE_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 200,\n     Table_Increment      => 200,\n     Table_Name           => \"Name_No_Use_Of_Entity\""
+    },
+    {
+      "file": "scos.ads",
+      "line_lf": 384,
+      "package": "SCO_Table",
+      "actual_parameters": "Table_Component_Type => SCO_Table_Entry,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 500,\n     Table_Increment      => 300,\n     Table_Name           => \"Table\""
+    },
+    {
+      "file": "scos.ads",
+      "line_lf": 532,
+      "package": "SCO_Unit_Table",
+      "actual_parameters": "Table_Component_Type => SCO_Unit_Table_Entry,\n     Table_Index_Type     => SCO_Unit_Index,\n     Table_Low_Bound      => 0, -- see note above on sorting\n     Table_Initial        => 20,\n     Table_Increment      => 200,\n     Table_Name           => \"Unit_Table\""
+    },
+    {
+      "file": "scos.ads",
+      "line_lf": 554,
+      "package": "SCO_Instance_Table",
+      "actual_parameters": "Table_Component_Type => SCO_Instance_Table_Entry,\n     Table_Index_Type     => SCO_Instance_Index,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 200,\n     Table_Name           => \"Instance_Table\""
+    },
+    {
+      "file": "sem.ads",
+      "line_lf": 590,
+      "package": "Scope_Stack",
+      "actual_parameters": "Table_Component_Type => Scope_Stack_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.Scope_Stack_Initial,\n     Table_Increment      => Alloc.Scope_Stack_Increment,\n     Table_Name           => \"Sem.Scope_Stack\""
+    },
+    {
+      "file": "sem_aux.ads",
+      "line_lf": 56,
+      "package": "Obsolescent_Warnings",
+      "actual_parameters": "Table_Component_Type => OWT_Record,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.Obsolescent_Warnings_Initial,\n     Table_Increment      => Alloc.Obsolescent_Warnings_Increment,\n     Table_Name           => \"Obsolescent_Warnings\""
+    },
+    {
+      "file": "sem_case.adb",
+      "line_lf": 1977,
+      "package": "Case_Bindings_Table",
+      "actual_parameters": "Table_Component_Type => Binding,\n               Table_Index_Type     => Binding_Index,\n               Table_Low_Bound      => 1,\n               Table_Initial        => 16,\n               Table_Increment      => 64,\n               Table_Name           => \"Composite_Case_Ops.Case_Bindings\""
+    },
+    {
+      "file": "sem_case.adb",
+      "line_lf": 2609,
+      "package": "Value_Index_Set_Table",
+      "actual_parameters": "Table_Component_Type => Value_Index_Set,\n               Table_Index_Type     => Value_Set,\n               Table_Low_Bound      => 1,\n               Table_Initial        => 16,\n               Table_Increment      => 100,\n               Table_Name           => \"Composite_Case_Ops.Value_Sets\""
+    },
+    {
+      "file": "sem_ch12.adb",
+      "line_lf": 1009,
+      "package": "Generic_Renamings",
+      "actual_parameters": "Table_Component_Type => Assoc,\n      Table_Index_Type     => Assoc_Ptr,\n      Table_Low_Bound      => 0,\n      Table_Initial        => 10,\n      Table_Increment      => 100,\n      Table_Name           => \"Generic_Renamings\""
+    },
+    {
+      "file": "sem_ch12.adb",
+      "line_lf": 1085,
+      "package": "Instance_Envs",
+      "actual_parameters": "Table_Component_Type => Instance_Env,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 32,\n     Table_Increment      => 100,\n     Table_Name           => \"Instance_Envs\""
+    },
+    {
+      "file": "sem_ch12.adb",
+      "line_lf": 1122,
+      "package": "Generic_Flags",
+      "actual_parameters": "Table_Component_Type => Boolean,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 32,\n     Table_Increment      => 200,\n     Table_Name           => \"Generic_Flags\""
+    },
+    {
+      "file": "sem_ch13.adb",
+      "line_lf": 403,
+      "package": "Unchecked_Conversions",
+      "actual_parameters": "Table_Component_Type => UC_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 50,\n     Table_Increment      => 200,\n     Table_Name           => \"Unchecked_Conversions\""
+    },
+    {
+      "file": "sem_ch13.adb",
+      "line_lf": 445,
+      "package": "Address_Clause_Checks",
+      "actual_parameters": "Table_Component_Type => Address_Clause_Check_Record,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 20,\n     Table_Increment      => 200,\n     Table_Name           => \"Address_Clause_Checks\""
+    },
+    {
+      "file": "sem_ch8.adb",
+      "line_lf": 346,
+      "package": "Urefs",
+      "actual_parameters": "Table_Component_Type => Uref_Entry,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 10,\n     Table_Increment      => 100,\n     Table_Name           => \"Urefs\""
+    },
+    {
+      "file": "sem_ch9.ads",
+      "line_lf": 84,
+      "package": "Lock_Free_Subprogram_Table",
+      "actual_parameters": "Table_Component_Type => Lock_Free_Subprogram,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 5,\n     Table_Increment      => 5,\n     Table_Name           => \"Lock_Free_Subprogram_Table\""
+    },
+    {
+      "file": "sem_dim.adb",
+      "line_lf": 140,
+      "package": "System_Table",
+      "actual_parameters": "Table_Component_Type => System_Type,\n     Table_Index_Type     => System_Id,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 5,\n     Table_Increment      => 5,\n     Table_Name           => \"System_Table\""
+    },
+    {
+      "file": "sem_elab.adb",
+      "line_lf": 1032,
+      "package": "Active_Scenario_Stack",
+      "actual_parameters": "Table_Index_Type     => Active_Scenario_Pos,\n         Table_Component_Type => Node_Id,\n         Table_Low_Bound      => 1,\n         Table_Initial        => 50,\n         Table_Increment      => 200,\n         Table_Name           => \"Active_Scenario_Stack\""
+    },
+    {
+      "file": "sem_elab.adb",
+      "line_lf": 7718,
+      "package": "Elaboration_Attributes",
+      "actual_parameters": "Table_Index_Type     => Elaboration_Attributes_Id,\n         Table_Component_Type => Elaboration_Attributes_Record,\n         Table_Low_Bound      => First_Elaboration_Attributes,\n         Table_Initial        => 250,\n         Table_Increment      => 200,\n         Table_Name           => \"Elaboration_Attributes\""
+    },
+    {
+      "file": "sem_elab.adb",
+      "line_lf": 10374,
+      "package": "Scenario_Reps",
+      "actual_parameters": "Table_Index_Type     => Scenario_Rep_Id,\n         Table_Component_Type => Scenario_Rep_Record,\n         Table_Low_Bound      => First_Scenario_Rep,\n         Table_Initial        => 1000,\n         Table_Increment      => 200,\n         Table_Name           => \"Scenario_Reps\""
+    },
+    {
+      "file": "sem_elab.adb",
+      "line_lf": 10384,
+      "package": "Target_Reps",
+      "actual_parameters": "Table_Index_Type     => Target_Rep_Id,\n         Table_Component_Type => Target_Rep_Record,\n         Table_Low_Bound      => First_Target_Rep,\n         Table_Initial        => 1000,\n         Table_Increment      => 200,\n         Table_Name           => \"Target_Reps\""
+    },
+    {
+      "file": "sem_elab.adb",
+      "line_lf": 16070,
+      "package": "Elab_Call",
+      "actual_parameters": "Table_Component_Type => Elab_Call_Element,\n      Table_Index_Type     => Int,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 50,\n      Table_Increment      => 100,\n      Table_Name           => \"Elab_Call\""
+    },
+    {
+      "file": "sem_elab.adb",
+      "line_lf": 16100,
+      "package": "Elab_Visited",
+      "actual_parameters": "Table_Component_Type => Visited_Element,\n      Table_Index_Type     => Int,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 200,\n      Table_Increment      => 100,\n      Table_Name           => \"Elab_Visited\""
+    },
+    {
+      "file": "sem_elab.adb",
+      "line_lf": 16143,
+      "package": "Delay_Check",
+      "actual_parameters": "Table_Component_Type => Delay_Element,\n      Table_Index_Type     => Int,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 1000,\n      Table_Increment      => 100,\n      Table_Name           => \"Delay_Check\""
+    },
+    {
+      "file": "sem_elim.adb",
+      "line_lf": 224,
+      "package": "Elim_Entities",
+      "actual_parameters": "Table_Component_Type => Elim_Entity_Entry,\n     Table_Index_Type     => Name_Id'Base,\n     Table_Low_Bound      => First_Name_Id,\n     Table_Initial        => 50,\n     Table_Increment      => 200,\n     Table_Name           => \"Elim_Entries\""
+    },
+    {
+      "file": "sem_prag.adb",
+      "line_lf": 142,
+      "package": "Assertion_Levels",
+      "actual_parameters": "Table_Component_Type => Entity_Id,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 30,\n     Table_Increment      => 200,\n     Table_Name           => \"Assertion_Levels\""
+    },
+    {
+      "file": "sem_prag.adb",
+      "line_lf": 282,
+      "package": "Externals",
+      "actual_parameters": "Table_Component_Type => Node_Id,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => 100,\n     Table_Increment      => 100,\n     Table_Name           => \"Name_Externals\""
+    },
+    {
+      "file": "sem_prag.adb",
+      "line_lf": 509,
+      "package": "Compile_Time_Warnings_Errors",
+      "actual_parameters": "Table_Component_Type => CTWE_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 1,\n     Table_Initial        => 50,\n     Table_Increment      => 200,\n     Table_Name           => \"Compile_Time_Warnings_Errors\""
+    },
+    {
+      "file": "sem_type.adb",
+      "line_lf": 84,
+      "package": "All_Interp",
+      "actual_parameters": "Table_Component_Type => Interp,\n     Table_Index_Type     => Interp_Index,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.All_Interp_Initial,\n     Table_Increment      => Alloc.All_Interp_Increment,\n     Table_Name           => \"All_Interp\""
+    },
+    {
+      "file": "sem_warn.adb",
+      "line_lf": 63,
+      "package": "Unreferenced_Entities",
+      "actual_parameters": "Table_Component_Type => Entity_Id,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => Alloc.Unreferenced_Entities_Initial,\n     Table_Increment      => Alloc.Unreferenced_Entities_Increment,\n     Table_Name           => \"Unreferenced_Entities\""
+    },
+    {
+      "file": "sem_warn.adb",
+      "line_lf": 81,
+      "package": "In_Out_Warnings",
+      "actual_parameters": "Table_Component_Type => Entity_Id,\n     Table_Index_Type     => Nat,\n     Table_Low_Bound      => 1,\n     Table_Initial        => Alloc.In_Out_Warnings_Initial,\n     Table_Increment      => Alloc.In_Out_Warnings_Increment,\n     Table_Name           => \"In_Out_Warnings\""
+    },
+    {
+      "file": "sem_warn.ads",
+      "line_lf": 56,
+      "package": "Warnings_Off_Pragmas",
+      "actual_parameters": "Table_Component_Type => Warnings_Off_Entry,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.Warnings_Off_Pragmas_Initial,\n     Table_Increment      => Alloc.Warnings_Off_Pragmas_Increment,\n     Table_Name           => \"Name_Warnings_Off_Pragmas\""
+    },
+    {
+      "file": "sinput.ads",
+      "line_lf": 842,
+      "package": "Source_File",
+      "actual_parameters": "Table_Component_Type => Source_File_Record,\n      Table_Index_Type     => Source_File_Index,\n      Table_Low_Bound      => 1,\n      Table_Initial        => Alloc.Source_File_Initial,\n      Table_Increment      => Alloc.Source_File_Increment,\n      Table_Name           => \"Source_File\""
+    },
+    {
+      "file": "sinput.ads",
+      "line_lf": 853,
+      "package": "Instances",
+      "actual_parameters": "Table_Component_Type => Source_Ptr,\n      Table_Index_Type     => Instance_Id,\n      Table_Low_Bound      => 0,\n      Table_Initial        => Alloc.Source_File_Initial,\n      Table_Increment      => Alloc.Source_File_Increment,\n      Table_Name           => \"Instances\""
+    },
+    {
+      "file": "stringt.adb",
+      "line_lf": 36,
+      "package": "String_Chars",
+      "actual_parameters": "Table_Component_Type => Char_Code,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.String_Chars_Initial,\n     Table_Increment      => Alloc.String_Chars_Increment,\n     Table_Name           => \"String_Chars\""
+    },
+    {
+      "file": "stringt.adb",
+      "line_lf": 53,
+      "package": "Strings",
+      "actual_parameters": "Table_Component_Type => String_Entry,\n     Table_Index_Type     => String_Id'Base,\n     Table_Low_Bound      => First_String_Id,\n     Table_Initial        => Alloc.Strings_Initial,\n     Table_Increment      => Alloc.Strings_Increment,\n     Table_Name           => \"Strings\""
+    },
+    {
+      "file": "switch-m.adb",
+      "line_lf": 35,
+      "package": "Normalized_Switches",
+      "actual_parameters": "Table_Component_Type => String_Access,\n      Table_Index_Type     => Integer,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 20,\n      Table_Increment      => 100,\n      Table_Name           => \"Switch.M.Normalized_Switches\""
+    },
+    {
+      "file": "uintp.ads",
+      "line_lf": 572,
+      "package": "Uints",
+      "actual_parameters": "Table_Component_Type => Uint_Entry,\n     Table_Index_Type     => Uint'Base,\n     Table_Low_Bound      => Uint_First_Entry,\n     Table_Initial        => Alloc.Uints_Initial,\n     Table_Increment      => Alloc.Uints_Increment,\n     Table_Name           => \"Uints\""
+    },
+    {
+      "file": "uintp.ads",
+      "line_lf": 580,
+      "package": "Udigits",
+      "actual_parameters": "Table_Component_Type => Int,\n     Table_Index_Type     => Int,\n     Table_Low_Bound      => 0,\n     Table_Initial        => Alloc.Udigits_Initial,\n     Table_Increment      => Alloc.Udigits_Increment,\n     Table_Name           => \"Udigits\""
+    },
+    {
+      "file": "urealp.adb",
+      "line_lf": 51,
+      "package": "Ureals",
+      "actual_parameters": "Table_Component_Type => Ureal_Entry,\n     Table_Index_Type     => Ureal'Base,\n     Table_Low_Bound      => Ureal_First_Entry,\n     Table_Initial        => Alloc.Ureals_Initial,\n     Table_Increment      => Alloc.Ureals_Increment,\n     Table_Name           => \"Ureals\""
+    },
+    {
+      "file": "vast.adb",
+      "line_lf": 117,
+      "package": "Node_Stack",
+      "actual_parameters": "Table_Component_Type => Node_Id,\n      Table_Index_Type     => Node_Stack_Index'Base,\n      Table_Low_Bound      => 1,\n      Table_Initial        => 1,\n      Table_Increment      => 100,\n      Table_Name           => \"Node_Stack\""
+    }
+  ],
+  "limitations": [
+    "no compiler run",
+    "no complete allocation-route closure",
+    "no whole-program upper bound",
+    "no safe language threshold",
+    "growth sequence excludes Release/Save/Restore and nonzero low bounds"
+  ]
+}
