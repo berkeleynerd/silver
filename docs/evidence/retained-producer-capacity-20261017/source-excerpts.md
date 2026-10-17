@@ -217,6 +217,111 @@
    232:      (Kind : Entity_Collection; C : Cursor) return Entity_Id;
 ```
 
+## src/spark/spark_util-types.adb:1521-1620
+
+```ada
+  1521:    function Invariant_Check_Needed
+  1522:      (Ty : Type_Kind_Id; Subp : Entity_Id := Empty; Scop : Entity_Id := Empty)
+  1523:       return Boolean
+  1524:    is
+  1525:       Rep_Ty  : constant Type_Kind_Id := Retysp (Ty);
+  1526:       Current : Type_Kind_Id := Rep_Ty;
+  1527:       Parent  : Type_Kind_Id;
+  1528:
+  1529:    begin
+  1530:       --  Check for invariants on the type and its ancestors. Do not consider
+  1531:       --  invariants which are assumed, globally or in Scop, and invariant
+  1532:       --  relaxed for Subp.
+  1533:
+  1534:       loop
+  1535:          if Has_Invariants_In_SPARK (Current)
+  1536:            and then not Invariant_Assumed_In_Main (Current)
+  1537:            and then
+  1538:              (No (Scop) or else not Invariant_Assumed_In_Scope (Current, Scop))
+  1539:            and then
+  1540:              (No (Subp)
+  1541:               or else not Invariant_Relaxed_For_Subprogram (Current, Subp))
+  1542:          then
+  1543:             return True;
+  1544:          end if;
+  1545:
+  1546:          Parent := Retysp (Etype (Current));
+  1547:          exit when Current = Parent;
+  1548:          Current := Parent;
+  1549:       end loop;
+  1550:
+  1551:       --  Check for invariants on components
+  1552:
+  1553:       if Is_Array_Type (Rep_Ty) then
+  1554:          return
+  1555:            Invariant_Check_Needed
+  1556:              (Component_Type (Rep_Ty), Subp => Subp, Scop => Scop);
+  1557:
+  1558:       elsif Is_Incomplete_Or_Private_Type (Rep_Ty)
+  1559:         or else Is_Record_Type (Rep_Ty)
+  1560:         or else Is_Concurrent_Type (Rep_Ty)
+  1561:       then
+  1562:          if Has_Discriminants (Rep_Ty) then
+  1563:             declare
+  1564:                Discr : Opt_E_Discriminant_Id := First_Discriminant (Rep_Ty);
+  1565:             begin
+  1566:                while Present (Discr) loop
+  1567:                   if Invariant_Check_Needed
+  1568:                        (Etype (Discr), Subp => Subp, Scop => Scop)
+  1569:                   then
+  1570:                      return True;
+  1571:                   end if;
+  1572:
+  1573:                   Discr := Next_Discriminant (Discr);
+  1574:                end loop;
+  1575:             end;
+  1576:          end if;
+  1577:
+  1578:          declare
+  1579:             Comp : Node_Id := First_Component (Rep_Ty);
+  1580:          begin
+  1581:             while Present (Comp) loop
+  1582:                if Ekind (Comp) = E_Component
+  1583:                  and then Entity_In_SPARK (Etype (Comp))
+  1584:                  and then
+  1585:                    Invariant_Check_Needed
+  1586:                      (Etype (Comp), Subp => Subp, Scop => Scop)
+  1587:                then
+  1588:                   return True;
+  1589:                end if;
+  1590:                Next_Component (Comp);
+  1591:             end loop;
+  1592:          end;
+  1593:
+  1594:       --  We stop the search at access-to-incomplete types, as they might
+  1595:       --  not be marked yet. This is possible because there is a tool
+  1596:       --  limitation which disallows access to incomplete types if they need
+  1597:       --  an invariant check.
+  1598:
+  1599:       elsif Is_Access_Type (Rep_Ty)
+  1600:         and then not Is_Access_Subprogram_Type (Rep_Ty)
+  1601:       then
+  1602:          declare
+  1603:             Des_Ty : constant Entity_Id :=
+  1604:               Directly_Designated_Type (Base_Retysp (Rep_Ty));
+  1605:             --  Use the base type as some subtypes of access to incomplete
+  1606:             --  types introduced by the frontend designate record subtypes
+  1607:             --  instead.
+  1608:          begin
+  1609:             return
+  1610:               not Acts_As_Incomplete_Type (Des_Ty)
+  1611:               and then
+  1612:                 Invariant_Check_Needed (Des_Ty, Subp => Subp, Scop => Scop);
+  1613:          end;
+  1614:       end if;
+  1615:       return False;
+  1616:    end Invariant_Check_Needed;
+  1617:
+  1618:    ---------------------------------------
+  1619:    --  Invariant_Relaxed_For_Subprogram --
+  1620:    ---------------------------------------
+```
+
 ## src/spark/spark_util-types.adb:3050-3064
 
 ```ada
@@ -3328,6 +3433,54 @@
   8916:             Pred :=
 ```
 
+## src/why/gnat2why-expr.adb:11736-11778
+
+```ada
+ 11736:             pragma Assert (Has_Scalar_Type (Typ));
+ 11737:             return True_Pred;
+ 11738:          end if;
+ 11739:       end Compute_Type_Invariant_For_Eq;
+ 11740:
+ 11741:       --  Start of processing for Insert_Invariant_Check_For_Eq
+ 11742:
+ 11743:    begin
+ 11744:       if Domain /= EW_Prog
+ 11745:         or else not Invariant_Check_Needed (Typ, Scop => Current_Subp)
+ 11746:       then
+ 11747:          return W_Expr;
+ 11748:
+ 11749:       else
+ 11750:          declare
+ 11751:             W_Tmp : constant W_Expr_Id := New_Temp_For_Expr (+W_Expr);
+ 11752:             Inv   : constant W_Pred_Id :=
+ 11753:               Compute_Type_Invariant_For_Eq
+ 11754:                 (Retysp (Typ), +W_Tmp, Skip_Top_Level => Force_Predefined);
+ 11755:          begin
+ 11756:             if Is_True_Boolean (+Inv) then
+ 11757:                return W_Expr;
+ 11758:             else
+ 11759:                return
+ 11760:                  +Binding_For_Temp
+ 11761:                     (Ada_Node => Ada_Node,
+ 11762:                      Tmp      => +W_Tmp,
+ 11763:                      Context  =>
+ 11764:                        Sequence
+ 11765:                          (New_Ignore
+ 11766:                             (Prog =>
+ 11767:                                New_Assert
+ 11768:                                  (Pred        =>
+ 11769:                                     New_VC_Pred
+ 11770:                                       (Ada_Node, Inv, VC_Invariant_Check),
+ 11771:                                   Assert_Kind => EW_Assert)),
+ 11772:                           +W_Tmp));
+ 11773:             end if;
+ 11774:          end;
+ 11775:       end if;
+ 11776:    end Insert_Invariant_Check_For_Eq;
+ 11777:
+ 11778:    -------------------------------
+```
+
 ## src/why/gnat2why-expr.adb:11961-12034
 
 ```ada
@@ -3650,6 +3803,200 @@
  14920:      (Pattern   : Item_Type;
 ```
 
+## src/why/gnat2why-expr.adb:18547-18735
+
+```ada
+ 18547:    function Transform_Array_Comparison
+ 18548:      (Op       : N_Op_Compare;
+ 18549:       Left     : W_Expr_Id;
+ 18550:       Right    : W_Expr_Id;
+ 18551:       Domain   : EW_Domain;
+ 18552:       Ada_Node : Node_Id) return W_Expr_Id
+ 18553:    is
+ 18554:       Subdomain : constant EW_Domain :=
+ 18555:         (if Domain = EW_Pred then EW_Term else Domain);
+ 18556:       Args      : W_Expr_Array (1 .. 6);
+ 18557:       T         : W_Expr_Id;
+ 18558:
+ 18559:       --  Check that operands are initialized
+ 18560:
+ 18561:       Left_Type  : constant Entity_Id := Etype (Left_Opnd (Ada_Node));
+ 18562:       Left_Expr  : constant W_Expr_Id :=
+ 18563:         New_Temp_For_Expr
+ 18564:           (Insert_Initialization_Check
+ 18565:              (Left_Opnd (Ada_Node),
+ 18566:               Left_Type,
+ 18567:               Left,
+ 18568:               Domain,
+ 18569:               Exclude_Components => None));
+ 18570:       Right_Expr : constant W_Expr_Id :=
+ 18571:         New_Temp_For_Expr
+ 18572:           (Insert_Initialization_Check
+ 18573:              (Right_Opnd (Ada_Node),
+ 18574:               Etype (Right_Opnd (Ada_Node)),
+ 18575:               Right,
+ 18576:               Domain,
+ 18577:               Exclude_Components => None));
+ 18578:       Arg_Ind    : Positive := 1;
+ 18579:    begin
+ 18580:       Add_Array_Arg (Subdomain, Args, Left_Expr, Arg_Ind);
+ 18581:       Add_Array_Arg (Subdomain, Args, Right_Expr, Arg_Ind);
+ 18582:
+ 18583:       --  Add conversions from wrapper types if needed. Initialization checks
+ 18584:       --  are inserted earlier.
+ 18585:
+ 18586:       if Is_Init_Wrapper_Type (Get_Type (Left_Expr)) then
+ 18587:          Args (1) :=
+ 18588:            New_Call
+ 18589:              (Ada_Node => Ada_Node,
+ 18590:               Domain   => Subdomain,
+ 18591:               Name     => Get_Array_Of_Wrapper_Name (Left_Type),
+ 18592:               Args     => (1 => Args (1)),
+ 18593:               Typ      => EW_Split (Left_Type));
+ 18594:       end if;
+ 18595:       if Is_Init_Wrapper_Type (Get_Type (Right_Expr)) then
+ 18596:          Args (4) :=
+ 18597:            New_Call
+ 18598:              (Ada_Node => Ada_Node,
+ 18599:               Domain   => Subdomain,
+ 18600:               Name     => Get_Array_Of_Wrapper_Name (Left_Type),
+ 18601:               Args     => (1 => Args (4)),
+ 18602:               Typ      => EW_Split (Left_Type));
+ 18603:       end if;
+ 18604:
+ 18605:       T :=
+ 18606:         New_Call
+ 18607:           (Ada_Node => Ada_Node,
+ 18608:            Domain   => Subdomain,
+ 18609:            Name     => Get_Array_Theory_1_Comp (Left_Type).Compare,
+ 18610:            Args     => Args,
+ 18611:            Typ      => EW_Int_Type);
+ 18612:       T := Binding_For_Temp (Domain => Domain, Tmp => Left_Expr, Context => T);
+ 18613:       T :=
+ 18614:         Binding_For_Temp (Domain => Domain, Tmp => Right_Expr, Context => T);
+ 18615:       T :=
+ 18616:         New_Comparison
+ 18617:           (Symbol => Transform_Compare_Op (Op, EW_Int_Type, Domain),
+ 18618:            Left   => T,
+ 18619:            Right  => New_Integer_Constant (Value => Uint_0),
+ 18620:            Domain => Domain);
+ 18621:       return T;
+ 18622:    end Transform_Array_Comparison;
+ 18623:
+ 18624:    ------------------------------
+ 18625:    -- Transform_Array_Equality --
+ 18626:    ------------------------------
+ 18627:
+ 18628:    function Transform_Array_Equality
+ 18629:      (Op        : N_Op_Compare;
+ 18630:       Left      : W_Expr_Id;
+ 18631:       Right     : W_Expr_Id;
+ 18632:       Left_Type : Type_Kind_Id;
+ 18633:       Domain    : EW_Domain;
+ 18634:       Ada_Node  : Node_Id) return W_Expr_Id
+ 18635:    is
+ 18636:       Dim        : constant Positive :=
+ 18637:         Positive (Number_Dimensions (Retysp (Left_Type)));
+ 18638:       Subdomain  : constant EW_Domain :=
+ 18639:         (if Domain = EW_Pred then EW_Term else Domain);
+ 18640:       Args       : W_Expr_Array (1 .. 4 * Dim + 2);
+ 18641:       T          : W_Expr_Id;
+ 18642:       Left_Expr  : W_Expr_Id;
+ 18643:       Right_Expr : W_Expr_Id;
+ 18644:       Arg_Ind    : Positive := 1;
+ 18645:    begin
+ 18646:
+ 18647:       --  Check that operands are initialized
+ 18648:
+ 18649:       Left_Expr :=
+ 18650:         Insert_Initialization_Check
+ 18651:           (Left_Opnd (Ada_Node),
+ 18652:            Left_Type,
+ 18653:            Left,
+ 18654:            Domain,
+ 18655:            Exclude_Components => For_Eq);
+ 18656:       Right_Expr :=
+ 18657:         Insert_Initialization_Check
+ 18658:           (Right_Opnd (Ada_Node),
+ 18659:            Etype (Right_Opnd (Ada_Node)),
+ 18660:            Right,
+ 18661:            Domain,
+ 18662:            Exclude_Components => For_Eq);
+ 18663:
+ 18664:       --  Potentially check invariants if subcomponents of the array type have
+ 18665:       --  a user-defined equality.
+ 18666:
+ 18667:       Left_Expr :=
+ 18668:         Insert_Invariant_Check_For_Eq
+ 18669:           (Left_Opnd (Ada_Node), Left_Type, Left_Expr, Domain);
+ 18670:       Right_Expr :=
+ 18671:         Insert_Invariant_Check_For_Eq
+ 18672:           (Right_Opnd (Ada_Node),
+ 18673:            Etype (Right_Opnd (Ada_Node)),
+ 18674:            Right_Expr,
+ 18675:            Domain);
+ 18676:
+ 18677:       Left_Expr := New_Temp_For_Expr (Left_Expr);
+ 18678:       Right_Expr := New_Temp_For_Expr (Right_Expr);
+ 18679:
+ 18680:       Add_Array_Arg (Subdomain, Args, Left_Expr, Arg_Ind);
+ 18681:       Add_Array_Arg (Subdomain, Args, Right_Expr, Arg_Ind);
+ 18682:
+ 18683:       --  Add conversions from wrapper types if needed. Initialization checks
+ 18684:       --  are inserted earlier.
+ 18685:
+ 18686:       if Is_Init_Wrapper_Type (Get_Type (Left_Expr)) then
+ 18687:          Args (1) :=
+ 18688:            New_Call
+ 18689:              (Ada_Node => Ada_Node,
+ 18690:               Domain   => Subdomain,
+ 18691:               Name     => Get_Array_Of_Wrapper_Name (Left_Type),
+ 18692:               Args     => (1 => Args (1)),
+ 18693:               Typ      => EW_Split (Left_Type));
+ 18694:       end if;
+ 18695:       if Is_Init_Wrapper_Type (Get_Type (Right_Expr)) then
+ 18696:          Args (2 + 2 * Dim) :=
+ 18697:            New_Call
+ 18698:              (Ada_Node => Ada_Node,
+ 18699:               Domain   => Subdomain,
+ 18700:               Name     => Get_Array_Of_Wrapper_Name (Left_Type),
+ 18701:               Args     => (1 => Args (2 + 2 * Dim)),
+ 18702:               Typ      => EW_Split (Left_Type));
+ 18703:       end if;
+ 18704:
+ 18705:       T :=
+ 18706:         New_Call
+ 18707:           (Ada_Node => Ada_Node,
+ 18708:            Domain   => Subdomain,
+ 18709:            Name     => Get_Array_Theory (Etype (Left_Opnd (Ada_Node))).Bool_Eq,
+ 18710:            Args     => Args,
+ 18711:            Typ      => EW_Bool_Type);
+ 18712:       T := Binding_For_Temp (Domain => Domain, Tmp => Left_Expr, Context => T);
+ 18713:       T :=
+ 18714:         Binding_For_Temp (Domain => Domain, Tmp => Right_Expr, Context => T);
+ 18715:       if Domain = EW_Pred then
+ 18716:          T :=
+ 18717:            New_Comparison
+ 18718:              (Symbol => Transform_Compare_Op (Op, EW_Bool_Type, Domain),
+ 18719:               Left   => T,
+ 18720:               Right  => New_Literal (Domain => Subdomain, Value => EW_True),
+ 18721:               Domain => Domain);
+ 18722:       elsif Op = N_Op_Ne then
+ 18723:          pragma
+ 18724:            Annotate (Xcov, Exempt_On, "A /= B is expanded into not (A = B)");
+ 18725:          T :=
+ 18726:            New_Call
+ 18727:              (Domain => Domain,
+ 18728:               Name   => M_Boolean.Notb,
+ 18729:               Args   => (1 => T),
+ 18730:               Typ    => EW_Bool_Type);
+ 18731:          pragma Annotate (Xcov, Exempt_Off);
+ 18732:       end if;
+ 18733:       return T;
+ 18734:    end Transform_Array_Equality;
+ 18735:
+```
+
 ## src/why/gnat2why-expr.adb:19042-19142
 
 ```ada
@@ -3867,6 +4214,56 @@
  19343:          end;
  19344:       end if;
  19345:
+```
+
+## src/why/gnat2why-expr.adb:20256-20300
+
+```ada
+ 20256:          when Attribute_Image | Attribute_Img                               =>
+ 20257:             declare
+ 20258:                Arg : constant Node_Id :=
+ 20259:                  (if Present (Expressions (Expr))
+ 20260:                   then First (Expressions (Expr))
+ 20261:                   else Var);
+ 20262:             begin
+ 20263:                T :=
+ 20264:                  New_Call
+ 20265:                    (Ada_Node => Expr,
+ 20266:                     Domain   => Domain,
+ 20267:                     Name     =>
+ 20268:                       +New_Attribute_Expr
+ 20269:                          (Etype (Var), Domain, Attribute_Image),
+ 20270:                     Args     =>
+ 20271:                       (1 =>
+ 20272:                          Transform_Expr
+ 20273:                            (Arg, Base_Why_Type (Var), Domain, Params)));
+ 20274:
+ 20275:                --  To_string takes as a second argument the maximum size of the
+ 20276:                --  image of the corresponding type.
+ 20277:
+ 20278:                T :=
+ 20279:                  New_Call
+ 20280:                    (Ada_Node => Expr,
+ 20281:                     Domain   => Domain,
+ 20282:                     Name     => To_String_Id,
+ 20283:                     Args     =>
+ 20284:                       (1 => T,
+ 20285:                        2 =>
+ 20286:                          New_Integer_Constant
+ 20287:                            (Value =>
+ 20288:                               Max_Size_Of_Img_Attr (Retysp (Etype (Var))))),
+ 20289:                     Typ      => EW_Abstract (Standard_String));
+ 20290:
+ 20291:                Warning_Msg_N
+ 20292:                  (Warn_Imprecise_Image,
+ 20293:                   Expr,
+ 20294:                   Create_N
+ 20295:                     (Warn_Imprecise_Image,
+ 20296:                      Names => [To_String (Aname, Sloc (Expr))]));
+ 20297:             end;
+ 20298:
+ 20299:          when Attribute_Size | Attribute_Value_Size | Attribute_Object_Size =>
+ 20300:
 ```
 
 ## src/why/gnat2why-expr.adb:21817-21972
@@ -7132,6 +7529,35 @@
    781:            Typ    => EW_Bool_Type,
 ```
 
+## src/why/why-atree-modules.adb:870-893
+
+```ada
+   870:       --  String image module
+   871:
+   872:       String_Image_Module :=
+   873:         New_Module
+   874:           (Ada_Node => Empty,
+   875:            File     => No_Symbol,
+   876:            Name     => "Standard_String__Img");
+   877:
+   878:       To_String_Id :=
+   879:         New_Identifier
+   880:           (Ada_Node => Standard_String,
+   881:            Domain   => EW_Term,
+   882:            Module   => String_Image_Module,
+   883:            Symb     => NID ("to_string"));
+   884:
+   885:       Of_String_Id :=
+   886:         New_Identifier
+   887:           (Ada_Node => Standard_String,
+   888:            Domain   => EW_Term,
+   889:            Module   => String_Image_Module,
+   890:            Symb     => NID ("from_string"));
+   891:
+   892:       --  Other identifiers
+   893:
+```
+
 ## src/why/why-atree-modules.adb:918-1047
 
 ```ada
@@ -7343,6 +7769,22 @@
   2745:            Symb   => NID ("length"),
   2746:            Typ    => EW_Int_Type);
   2747:    end Init_Integer_Module;
+```
+
+## src/why/why-atree-modules.adb:2765-2775
+
+```ada
+  2765:    procedure Init_Main_Module is
+  2766:       M : constant W_Module_Id :=
+  2767:         New_Module (File => Gnatprove_Standard_File, Name => "Main");
+  2768:    begin
+  2769:       M_Main.Module := M;
+  2770:       M_Main.String_Image_Type :=
+  2771:         New_Type
+  2772:           (Type_Kind  => EW_Abstract,
+  2773:            Name       => New_Name (Symb => NID ("__image"), Module => M),
+  2774:            Is_Mutable => False);
+  2775:
 ```
 
 ## src/why/why-atree-modules.adb:3297-3323
@@ -11651,6 +12093,64 @@
    309:       Check_Info : Check_Info_Type := New_Check_Info) return W_Prog_Id
    310:    is (+New_VC_Expr (Ada_Node, +Expr, Reason, EW_Prog, Check_Info));
    311:
+```
+
+## src/why/why-gen-init.adb:502-554
+
+```ada
+   502:    function Insert_Initialization_Check
+   503:      (Ada_Node           : Node_Id;
+   504:       E                  : Entity_Id;
+   505:       Name               : W_Expr_Id;
+   506:       Domain             : EW_Domain;
+   507:       Exclude_Components : Exclude_Components_Kind;
+   508:       No_Predicate_Check : Boolean := False) return W_Expr_Id
+   509:    is
+   510:       Tmp : constant W_Expr_Id := New_Temp_For_Expr (Name);
+   511:       T   : W_Expr_Id;
+   512:    begin
+   513:       --  We need initialization checking if either Name is an expression with
+   514:       --  relaxed initialization or if it contains subcomponents with
+   515:       --  relaxed initialization and checks should be introduced for
+   516:       --  these subcomponents (Exclude_Components is not Relaxed).
+   517:
+   518:       if Domain = EW_Prog
+   519:         and then
+   520:           (Is_Init_Wrapper_Type (Get_Type (Name))
+   521:            or else
+   522:              (Exclude_Components /= Relaxed
+   523:               and then Contains_Relaxed_Init_Parts (E, Ignore_Top => True)))
+   524:       then
+   525:          T :=
+   526:            +Sequence
+   527:               (Ada_Node => Get_Ada_Node (+Tmp),
+   528:                Left     =>
+   529:                  New_Located_Assert
+   530:                    (Ada_Node => Ada_Node,
+   531:                     Pred     =>
+   532:                       +Compute_Is_Initialized
+   533:                          (E,
+   534:                           +Tmp,
+   535:                           Params             => Body_Params,
+   536:                           Exclude_Components => Exclude_Components,
+   537:                           No_Predicate_Check => No_Predicate_Check,
+   538:                           Domain             => EW_Pred),
+   539:                     Reason   => VC_Initialization_Check,
+   540:                     Kind     => EW_Assert),
+   541:                Right    => +Tmp);
+   542:          T :=
+   543:            Binding_For_Temp
+   544:              (Ada_Node => Get_Ada_Node (+Tmp),
+   545:               Domain   => Domain,
+   546:               Tmp      => Tmp,
+   547:               Context  => T);
+   548:          return T;
+   549:       else
+   550:          return Name;
+   551:       end if;
+   552:    end Insert_Initialization_Check;
+   553:
+   554:    --------------------------
 ```
 
 ## src/why/why-gen-names.adb:162-352

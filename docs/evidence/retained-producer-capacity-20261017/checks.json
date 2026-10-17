@@ -185,6 +185,21 @@
       ]
     }
   ],
+  "string_comparison_and_image": {
+    "comparison": {
+      "elements_max": 14,
+      "lists_max": 8,
+      "nodes_max": 25,
+      "occurrence_overhead_max": 147
+    },
+    "excludes": "children, expected-type conversion, cached symbol/module setup, predicate pretty labels, adapter",
+    "image": {
+      "elements": 3,
+      "lists": 2,
+      "nodes": 5,
+      "occurrence_overhead_max": 18
+    }
+  },
   "string_representation_primitives": {
     "eager_array_conversion_split_type_nodes_max": 6,
     "excludes": "supplied children except in complete read, binder/symbol/memoized-module setup, expected-type conversion",

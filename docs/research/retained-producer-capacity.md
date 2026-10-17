@@ -679,6 +679,46 @@ components in the table. It does not count an enclosing expected-type array
 conversion, frontend-generated folded literal translation, or a second
 translation of an immutable initializer.
 
+### Ordinary String comparison and Integer Image wrappers
+
+Using the same String/accessor premises, the program/term String comparison
+wrappers also preserve each complex supplied operand once
+(`src/why/gnat2why-expr.adb:18547–18735`). Their initialization-check helper
+returns the original operand for ordinary initialized String/Character, but
+**first eagerly calls `New_Temp_For_Expr`**, allocating up to two discarded
+nodes per operand (`src/why/why-gen-init.adb:502–554`). These are in addition
+to the useful operand temporaries later created by the comparison itself.
+String/Character have no user type invariant, so the equality helper's
+invariant check returns before allocating a Why expression
+(`src/why/gnat2why-expr.adb:11736–11778`;
+`src/spark/spark_util-types.adb:1521–1620`).
+
+Both paths pack two array arguments, at most `12/6/6/112`, and add two useful
+temporary/binding pairs, at most six nodes and eighteen occurrences.
+The ordering path then calls the six-argument comparison function and compares
+its Integer result with one new zero. Equality calls the six-argument array
+equality function, with an optional one-argument Boolean negation for `/=`.
+Including the four discarded initialization-check nodes, the common wrapper
+allowance is **twenty-five nodes, eight lists, fourteen elements and 147
+emitted occurrences**, plus each supplied child once. The ordering maximum
+is `112 + 18 + 8 + 1 + 8` occurrences. This excludes enclosing expected-type
+conversions, symbol setup and predicate-domain pretty labels.
+
+`Integer'Image` translates its scalar argument once at builtin Integer, calls
+the existing image function, then calls `to_string` with that result and one
+new maximum-image-size constant (`src/why/gnat2why-expr.adb:20256–20300`).
+The returned `EW_Abstract(Standard_String)` adds two fresh nodes; the two
+calls and constant add three. Thus the Image core costs **five nodes, two
+lists, three elements and at most eighteen emitted occurrences**, excluding
+the scalar child and expected-type String conversion. The first call's
+identifier has at most six occurrences; allowing its optional type field
+three gives ten overhead. The outer call contributes at most eight:
+call, three-occurrence `To_String_Id`, three-occurrence String type and the
+constant. The relevant fixed symbols/types are in
+`src/why/why-atree-modules.adb:870–893, 2765–2775, 3962–3975`.
+Symbol/theory initialization and the later Image adapter remain separately
+accounted stages; this prices the retained producer's actual Image syntax.
+
 ## Declaration, type and module caller closure
 
 The following additional results close invocation multiplicities. They remain
