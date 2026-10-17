@@ -80,7 +80,8 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(catalogue["max_program_operators"], 63)
         self.assertTrue({"string_expression", "expression_output", "string_choice", "statement_sequence",
                          "length_predicate", "boolean_predicate", "integer_literal",
-                         "scalar_integer_literal", "named_integer_constant", "integer_expression",
+                         "scalar_integer_literal", "named_integer_constant", "named_integer_variable",
+                         "integer_range_constraint", "integer_assignment", "integer_expression",
                          "integer_comparison", "integer_image", "for_loop"} <= set(constructs))
         compositions = {item["name"]: item for item in catalogue["compositions"]}
         self.assertEqual(set(compositions), {"null", "static_statements", "argument_statements"})
@@ -125,7 +126,7 @@ class SilverIntegrationTests(unittest.TestCase):
                         ["own_binding_hides_unqualified_call"])
         sequence = constructs["statement_sequence"]["conditions"]
         self.assertEqual(sequence["minimum"], 1)
-        self.assertEqual(sequence["items"], ["null_statement", "string_assignment", "expression_output",
+        self.assertEqual(sequence["items"], ["null_statement", "string_assignment", "integer_assignment", "expression_output",
                                              "string_choice", "argument_rejection", "for_loop"])
         self.assertEqual(sequence["argument_rejection_context"], "argument-input shell only")
         self.assertFalse(sequence["output_required"])
@@ -147,7 +148,8 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertTrue(composition["context_is_exact_package_set"])
             declarations = composition["declaration_list"]
             self.assertEqual(declarations["items"],
-                             ["named_string_constant", "named_string_variable", "named_integer_constant"])
+                             ["named_string_constant", "named_string_variable", "named_integer_constant",
+                              "named_integer_variable"])
             self.assertEqual(declarations["minimum"], 0)
             self.assertEqual(declarations["count"], "finite_within_complete_source_bound")
             self.assertEqual(declarations["initializers"], [*initializers, "integer_expression"])

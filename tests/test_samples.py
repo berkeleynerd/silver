@@ -97,7 +97,8 @@ class SupportedSampleTests(unittest.TestCase):
                 self.assertEqual(len(snapshots), 1, "missing byte-identical proof/build source")
                 reports = list(workspace.rglob("gnatprove.sarif"))
                 self.assertEqual(len(reports), 1)
-                assignment = "string_assignment" in sample["capabilities"]
+                assignment = bool({"string_assignment", "integer_assignment"}
+                                  & set(sample["capabilities"]))
                 output = "runtime_context" in sample["capabilities"]
                 self.assert_application_proof_policy(reports[0], output=output)
                 units = {snapshots[0].stem}

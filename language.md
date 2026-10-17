@@ -7,7 +7,9 @@ Calls checkpoint](docs/names-and-calls.md). The [conditional-statement delivery
 record](docs/branches.md) records the completed Linux milestone, building on the
 earlier [sequencing checkpoint](docs/statement-sequencing.md). The [For loops and
 integers delivery record](docs/for-loops-integers.md) covers immutable Integer
-values, scoped loops and standard Integer Image. The [machine-readable
+values, scoped loops and standard Integer Image. The [bounded mutable Integer
+record](docs/bounded-mutable-integers.md) extends these rules with initialized
+mutable objects, object-local static ranges and scalar assignment. The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership
 depends on source bytes, never on prover success.
@@ -167,12 +169,15 @@ After the pragma, each nonargument output form has zero or more declarations:
 
 ```text
 declaration ::= name ":" [ "constant" ] "String" ":=" expression ";"
-              | name ":" "constant" "Integer" ":=" scalar_expression ";"
+              | name ":" [ "constant" ] "Integer"
+                [ "range" static_scalar_expression ".." static_scalar_expression ]
+                ":=" scalar_expression ";"
 ```
 
 Each declaration introduces exactly one name. Every initializer is required;
 a String initializer may read earlier String constants or mutable objects and
-use Integer Image; an Integer initializer may read earlier Integer constants.
+use Integer Image; an Integer initializer may read earlier initialized Integer
+constants or mutable objects.
 Forward, cyclic and self-initializer references are excluded. Each String
 initializer evaluates its literals, earlier names, images and concatenations
 immediately; parenthesized subexpressions preserve their grouping. A name
@@ -196,13 +201,28 @@ binding storage has `4096 / 12 = 341` slots because even `A:String:=B;` consumes
 twelve source bytes. This is capacity derived from the complete-source bound, not an
 independent declaration-count restriction.
 
-### Immutable Integer expressions and comparisons
+<a id="immutable-integer-expressions-and-comparisons"></a>
+
+### Integer objects, expressions and comparisons
 
 The predefined `Integer` range on the pinned native targets is -2147483648
-through 2147483647. Every Integer declaration is an initialized constant;
-mutable Integer objects, custom scalar types/subtypes and conversions are
-excluded. Constants and loop indexes are distinct from String values: there
-is no implicit conversion between the two types.
+through 2147483647. Every Integer declaration requires an initializer and may be
+constant or mutable. An optional object-local `range L .. U` constrains either
+kind of object; without it, the declared range is the full Integer range.
+Both endpoints must fit Integer and satisfy `L <= U`. They use the scalar
+expression grammar below, restricted to literals and earlier Ada-static Integer
+constants. Every bound-expression intermediate must fit Integer. Named scalar
+types/subtypes, dynamic range constraints and conversions remain excluded.
+Integer and String values are distinct, with no implicit conversion.
+
+Declaration elaboration computes each exact initial value in order and checks
+that it lies within the declared range. Later initializers capture that value:
+after `A : Integer range 0 .. 99 := 7`, `K : constant Integer := A` captures 7,
+and `S : String := Integer'Image (A)` captures ` 7`. A later assignment to A
+changes neither snapshot. Knowing the initial value does not make A or K
+Ada-static. Static range endpoints may use only constants whose subtype and
+initializer are recursively static under Ada RM 4.9; mutable objects, loop
+indexes and constants initialized from them cannot supply an endpoint.
 
 ```text
 scalar_expression ::= scalar_unsigned | sign scalar_integer_literal
@@ -214,7 +234,7 @@ scalar_operator   ::= "+" | "-" | "*"
 sign              ::= "+" | "-"
 ```
 
-Here `scalar_name` denotes a visible Integer constant or loop index. Each scalar
+Here `scalar_name` denotes a visible initialized Integer object or loop index. Each scalar
 expression has one through sixty-four literal/name leaves. Binary operations
 are fully parenthesized; `1 + 2` is excluded and `(1 + 2)` is admitted. A sign
 outside a group can prefix only a numeral: `-1` is admitted, while negating a
@@ -230,8 +250,10 @@ scalar value must still fit Integer. Thus `2147483648`, `+2147483648` and
 4096, even for zero. Division, `mod`, `rem`, `abs` and exponentiation as an
 expression operator are excluded.
 
-Admission propagates closed Integer intervals. Constants have singleton
-intervals; loop indexes use the intervals below. Addition and subtraction use
+Admission propagates closed Integer intervals. During declaration elaboration,
+earlier objects contribute their exact initial values. In the executable body,
+constants retain singleton intervals, mutable objects contribute their entire
+declared ranges, and loop indexes use the intervals below. Addition and subtraction use
 their endpoint bounds, multiplication uses the minimum and maximum of the four
 endpoint products, and negation reverses and negates the endpoints. Every
 intermediate result must fit Integer for the entire inferred interval. The
@@ -246,7 +268,7 @@ statically known. A guard such as `I < 10` therefore does not justify `(I + 1)`
 when the incoming index interval includes Integer's maximum.
 
 The type mark `Integer` must be visible in declarations and Image expressions.
-An Integer constant cannot itself be named `Integer`. A String object named
+An Integer object cannot itself be named `Integer`. A String object named
 `Integer` remains legal, but hides the type in its own initializer and later
 source; scalar declarations cannot use that hidden type mark.
 
@@ -260,14 +282,18 @@ for_loop ::= "for" index_name "in" [ "reverse" ]
 
 Bounds are evaluated once on loop entry. A forward loop visits the inclusive
 range in ascending order; `reverse` visits that same range in descending order.
+Assignments to objects used in the bounds do not change that iteration sequence.
+Each nested loop captures its bounds when entered. Scalar and String writes
+carry across iterations and remain visible after the loop; only the scoped
+index is removed on exit. An empty loop preserves both stores.
 A lower bound greater than the upper bound gives zero iterations in either
 direction. A body is nonempty and may contain any admitted statement, including
-nested loops, choices, String assignments, output and argument-shell Reject.
+nested loops, choices, String and Integer assignments, output and argument-shell Reject.
 The index is immutable and disappears on loop exit. Declarations stay in the
 single outer declaration region; `exit`, `while`, unconstrained loops and
 explicit iteration steps are excluded.
 
-Indexes may hide a String, an Integer constant, an enclosing index or a
+Indexes may hide a String, an Integer object, an enclosing index or a
 use-visible operation. The index's own name is hidden in both bounds: an inner
 `for I in 1 .. I` cannot use the outer `I`. Differently named enclosing indexes
 remain available, as in `for J in 1 .. I`. Sequential loops may reuse names.
@@ -357,7 +383,7 @@ Names, types, mutability and static scalar legality remain checked everywhere.
 
 The source has at most **63 operators shared by String concatenation and scalar
 arithmetic**: every `&`, unary or binary `+`/`-`, and `*` across declarations,
-loop bounds, all statements and predicate operands in every arm counts. Operator
+range constraints, loop bounds, all statements and predicate operands in every arm counts. Operator
 characters in literals/comments and a numeric exponent's `+` do not count.
 Copies, parentheses, comparisons and Image itself consume no operator budget.
 This explicit proof-work policy permits a maximal 64-leaf expression or the
@@ -378,6 +404,7 @@ basic_statements ::= basic_statement { basic_statement }
 basic_statement  ::= "null" ";"
                    | reject_name ";"
                    | mutable_name ":=" expression ";"
+                   | mutable_integer_name ":=" scalar_expression ";"
                    | output_name "(" [ "Item" "=>" ] expression ")" ";"
 string_choice    ::= "if" condition "then" statements
                      { "elsif" condition "then" statements }
@@ -389,7 +416,7 @@ names under the context and hiding rules above.
 
 The same sequence forms an argument-input body; its own predicates and rejection
 calls must meet the path rules below. Reject is available only in that shell.
-Statements execute in source order. Null does nothing. Assignment evaluates the
+Statements execute in source order. Null does nothing. String assignment evaluates the
 RHS using the current store, replaces the target's bytes and preserves its fixed
 bounds and every other object's value. Only initialized mutable names are targets;
 constants and the original argument binding cannot be assigned. Assignment
@@ -401,6 +428,18 @@ reachable-path equality rule.
 Empty values and self-copy are legal. For example, inside `if Input'Length = 3`,
 a variable initialized from Input can receive a three-byte static value. `:=` is one
 contiguous token.
+
+Integer assignment evaluates the RHS in the current scalar store and changes
+only its target. The target must be a visible mutable Integer object; constants,
+loop indexes and hidden outer objects cannot be assigned, including in empty
+loops or unreachable arms. Every RHS intermediate must fit Integer and its
+whole inferred interval must lie within the target's declared range. Assignment
+and scalar guards do not narrow mutable ranges. Thus `X : Integer range 0 .. 9
+:= 0` permits `X := (9 - X)`, but excludes `X := (X + 1)` even after a reset
+or under `X < 9`. This is a limit of Silver's interval analysis, not Ada syntax.
+Existing input-length facts remain valid across scalar writes. Image reads in
+the body use the current scalar value and its declared interval; equality to
+an earlier Image does not create a persistent fact about a mutable scalar.
 
 For example, snapshots remain unchanged across later updates:
 
@@ -606,7 +645,7 @@ The catalogue uses these construct identifiers:
 | `string_literal`, `named_string_constant`, `named_string_variable` | Restricted literals and ordered initialized constant/mutable declarations. |
 | `string_copy` | Snapshot initialization and current name reads for compatible assignments. |
 | `string_expression`, `string_concatenation` | One through sixty-four literal/name/Image leaves; sixty-three operators shared with scalar arithmetic. |
-| `scalar_integer_literal`, `named_integer_constant`, `integer_expression` | Scalar numerals, immutable Integer declarations and fully grouped checked interval arithmetic. |
+| `scalar_integer_literal`, `named_integer_constant`, `named_integer_variable`, `integer_range_constraint`, `integer_expression`, `integer_assignment` | Scalar numerals, initialized Integer objects, optional static object constraints, checked interval arithmetic and range-preserving assignments. |
 | `integer_comparison`, `integer_image`, `for_loop` | Scalar comparisons without refinement, standard decimal Image and scoped forward/reverse finite loops. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | First/unique immutable input with positional or `Default =>` literal, path-derived validity/capacity and returning rejection; existing calls follow the shared visibility rules. |
@@ -615,7 +654,8 @@ The catalogue uses these construct identifiers:
 | `string_assignment` | Fixed-bound assignment, including self-copy and path-established length equality. |
 | `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements; basic sequences contain null, assignment, output and argument-shell Reject; general sequences also contain choices and loops. |
 
-Everything else is excluded, including mutable Integers, other loop forms,
+Everything else is excluded, including named scalar types/subtypes, conversions,
+other loop forms,
 Boolean values outside the specified predicate grammar,
 additional declaration regions, resizable strings, other array
 operations, access types and file handles.
@@ -690,8 +730,9 @@ validity and output-domain bounds for `D` and its dynamic aliases. The universal
 must cover all admitted names, declarations, copies, argument vectors and paths.
 
 Literal/static expressions and plain name output may have no Main safety checks.
-Runtime concatenation can emit range checks; copied dynamic-length assignments can
-emit length checks; scalar arithmetic can emit overflow checks. Every emitted Main
+Runtime concatenation and constrained scalar initialization/assignment can emit
+range checks; copied dynamic-length assignments can emit length checks; scalar
+arithmetic can emit overflow checks. Every emitted Main
 safety record must be a proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK` or
 `VC_OVERFLOW_CHECK`, with complete coverage, approved dependencies and no
 suppression. Length checks require the fixed-bound argument; their absence through
@@ -739,8 +780,9 @@ greeting, assignment and branching samples remain instances of the complete shel
 above. Tests admit, prove, build and execute the samples; examples exercise the rules
 without replacing universal assurance. The [triangle](samples/for_loop_triangle.adb),
 [specified-step values](samples/for_loop_step.adb) and [reverse
-countdown](samples/for_loop_countdown.adb) exercise the new loop, immutable Integer
-and standard Image forms.
+countdown](samples/for_loop_countdown.adb) exercise loop, immutable Integer
+and standard Image forms. [Find square difference](samples/find_square_difference.adb)
+uses a constrained mutable result and prints the first satisfying index, 501.
 
 Language changes must specify exact syntax, restrictions, inherited semantics
 and compositions. Before 1.0, intentional changes are reflected consistently in
