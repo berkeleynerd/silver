@@ -369,38 +369,66 @@ def stringDeclarationAt (text : Source) (state : ParserState) (arguments : Bool)
       decide (parts.value.minimumLength ≠ parts.value.staticLength) then invalidState
   else addBinding state parts.first parts.after parts.value.value (decide (parts.constantAfter = 0)) parts.following
 
+structure ScalarConstraintResult where
+  after : Nat
+  bounds : Integer.Interval
+  deriving DecidableEq, Repr
+
+def scalarConstraintAt (text : Source) (position : Nat)
+    (names : ScalarExpression.Environment) : ScalarConstraintResult :=
+  let rangeAfter := fixedAfter text position "range" true
+  if rangeAfter = 0 then ⟨position, .full⟩ else
+    let lower := ScalarExpression.read text rangeAfter names
+    let upper := ScalarExpression.read text (fixedAfter text lower.after ".." false) names
+    if lower.after = 0 ∨ upper.after = 0 ∨ lower.isStatic = false ∨ upper.isStatic = false ∨
+        lower.bounds.isEmpty = true ∨ upper.bounds.isEmpty = true ∨
+        lower.bounds.lower ≠ lower.bounds.upper ∨ upper.bounds.lower ≠ upper.bounds.upper ∨
+        upper.bounds.lower < lower.bounds.lower
+    then ⟨0, .empty⟩ else ⟨upper.after, ⟨lower.bounds.lower, upper.bounds.lower⟩⟩
+
 structure ScalarDeclarationParts where
   first : Nat
   after : Nat
+  constantAfter : Nat
   typeFirst : Nat
   typeAfter : Nat
+  constraint : ScalarConstraintResult
   value : ScalarExpression.Result
   following : Nat
   deriving DecidableEq, Repr
 
 def scalarDeclarationTypeFirst (text : Source) (state : ParserState) : Nat :=
-  skipAt text (declarationConstantAfter text state)
+  skipAt text (if declarationConstantAfter text state ≠ 0 then declarationConstantAfter text state
+    else declarationColonAfter text state)
 
 def scalarDeclarationTypeAfter (text : Source) (state : ParserState) : Nat :=
   fixedAfter text (scalarDeclarationTypeFirst text state) "integer" true
 
 def scalarDeclarationValuePosition (text : Source) (state : ParserState) : Nat :=
-  fixedAfter text (scalarDeclarationTypeAfter text state) ":=" false
+  fixedAfter text (scalarConstraintAt text (scalarDeclarationTypeAfter text state) state.scalarNames).after ":=" false
 
 def scalarDeclarationParts (text : Source) (state : ParserState) : ScalarDeclarationParts :=
   let value := ScalarExpression.read text (scalarDeclarationValuePosition text state) state.scalarNames
-  ⟨declarationFirst text state, declarationAfter text state,
-    scalarDeclarationTypeFirst text state, scalarDeclarationTypeAfter text state, value,
+  ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
+    scalarDeclarationTypeFirst text state, scalarDeclarationTypeAfter text state,
+    scalarConstraintAt text (scalarDeclarationTypeAfter text state) state.scalarNames, value,
     fixedAfter text value.after ";" false⟩
 
 def addScalarBinding (state : ParserState) (parts : ScalarDeclarationParts) : ParserState :=
-  {state with position := parts.following, scalarNames := state.scalarNames ++ [⟨parts.first, parts.after, parts.value.bounds, true⟩]}
+  {state with position := parts.following, scalarNames := state.scalarNames ++
+    [⟨parts.first, parts.after, parts.value.bounds,
+      decide (parts.constantAfter ≠ 0) && parts.value.isStatic,
+      parts.constraint.bounds, decide (parts.constantAfter = 0)⟩]}
 
 def scalarDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := scalarDeclarationParts text state
   if !newNameAllowed text state parts.first parts.after arguments ||
-      decide (parts.typeAfter = 0 ∨ parts.following ≤ state.position ∨ state.scalarNames.length = maxBindings) ||
-      !parts.value.isStatic || parts.value.bounds.isEmpty ||
+      decide (parts.typeAfter = 0 ∨ parts.constraint.after = 0 ∨
+        parts.following ≤ state.position ∨ state.scalarNames.length = maxBindings) ||
+      parts.value.bounds.isEmpty ||
+      decide (parts.value.bounds.lower ≠ parts.value.bounds.upper ∨
+        parts.value.bounds.lower < parts.constraint.bounds.lower ∨
+        parts.constraint.bounds.upper < parts.value.bounds.upper) ||
       decide (fixedAfter text parts.first "integer" true = parts.after) ||
       decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
         ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0)
