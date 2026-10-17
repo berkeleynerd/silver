@@ -1,5 +1,42 @@
 # Session memory
 
+## 2026-10-17 — Bounded mutable integers scope completed
+
+The [scope proposal](bounded-mutable-integers.md) completes the authorized
+[scope/design package #67](https://github.com/berkeleynerd/silver/issues/67)
+under [milestone 4](https://github.com/berkeleynerd/silver/milestone/4). The
+owner's scope-only authorization reached `main` through
+[PR #71](https://github.com/berkeleynerd/silver/pull/71), commit
+`921e6f0d6d27161eef237222d9bde7121ee76c10`, merged as
+`916564a3e3582756771c8054faab99e8f835ff82`.
+
+Find square difference motivates initialized mutable Integer objects with
+optional object-local static ranges and range-preserving assignments. The design
+keeps exact declaration snapshots separate from Ada-staticness. Executable-body
+mutable reads use the full declared range; assignments and guards supply no
+narrower scalar facts. Loop bounds capture entry values, and Image/String
+composition retains the existing exact-length and snapshot requirements.
+Named subtype/type declarations and conversions remain outside this increment.
+
+The proposal records composition requirements, native/model/source boundaries,
+producer/report-capacity obligations, exclusions and a future evidence plan.
+These are design commitments and technical checks to establish during
+implementation, not new proof or support claims. The old constant-only report
+envelope does not cover mutable assignments by assumption. Two focused read-only
+reviews of the proposed semantics and assurance boundaries found no blockers.
+No builds, proof runs, tests or implementation experiments were performed for
+scoping.
+
+The milestone remains open: [#68](https://github.com/berkeleynerd/silver/issues/68),
+[#69](https://github.com/berkeleynerd/silver/issues/69) and
+[#70](https://github.com/berkeleynerd/silver/issues/70) stay Backlog and require a
+later owner instruction selecting implementation. Broad stage #11 remains
+unsupported and Backlog; the current language, catalogue, samples and Rosetta
+supported constructs are unchanged. No new Oracle policy decision was identified.
+The earlier harness goal remains complete and no new goal was requested.
+Routine publication remains authorized, hosted CI stays disabled and native
+macOS validation remains independent. CLI memory was unavailable and not updated.
+
 ## 2026-10-17 — Bounded mutable integers scoping authorized
 
 The owner said **“Proceed”** to the proposed next unit of work: scope bounded

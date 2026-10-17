@@ -16,47 +16,55 @@ next capability while retaining full assurance for the current language.
 
 ### Bounded mutable integers
 
-**Scope/design authorized on 2026-10-17; capability not yet supported.** The
-owner selected a concrete scope proposal under
-[stage #11](https://github.com/berkeleynerd/silver/issues/11), driven by
-[Find square difference](rosetta/f/find-square-difference/silver.md): a bounded
-mutable Integer result receives a loop index and is printed with Integer Image.
-The current task defines exact declaration/range and assignment rules,
-branch/loop state treatment, automatic range/overflow discharge, Image-length
-composition and producer/report capacity. The proposal is being prepared at
-`docs/bounded-mutable-integers.md`; the
-[dated authorization](docs/session-memory.md#2026-10-17--bounded-mutable-integers-scoping-authorized)
-limits current work to documentation and planning.
+**Scope/design complete on 2026-10-17; capability not yet supported.** The
+[scope proposal](docs/bounded-mutable-integers.md) defines the selected narrow
+increment under [stage #11](https://github.com/berkeleynerd/silver/issues/11),
+driven by [Find square difference](rosetta/f/find-square-difference/silver.md).
+An initialized mutable Integer result can receive a loop index and be printed
+with Integer Image. Optional object-local static ranges constrain initialization
+and assignments; named subtype/type declarations and conversions remain outside
+this increment.
+
+The design separates exact declaration snapshots from Ada-staticness. Every
+executable-body read of a mutable scalar uses its full declared range; neither
+assignments nor guards narrow that range. RHS interval inclusion preserves the
+target range, loop bounds are captured at entry, and Image lengths use the
+current expression interval. These are proposed admission rules, with the
+universal/native/producer arguments still to be established before admission.
 
 [Milestone 4](https://github.com/berkeleynerd/silver/milestone/4) contains all
-four planned work packages:
+four work packages, recorded together when scoping began:
 
 1. **Scope and automatic-proof design [#67](https://github.com/berkeleynerd/silver/issues/67):**
-   the currently authorized package. Resolve exact syntax, static bounds,
-   initialization/snapshots, state across choices and loops, visibility,
-   interval/discharge rules and all existing-feature interactions. Record
-   boundary cases, exclusions, proof obligations and the future validation plan.
+   complete through the scope proposal, including the driver, exact rules,
+   composition, exclusions, assurance boundaries and future evidence plan.
 2. **Native admission and regressions [#68](https://github.com/berkeleynerd/silver/issues/68):**
-   implement the selected rules in verified SPARK, with aligned language,
-   catalogue and samples plus boundary/composition regressions.
+   Backlog. Resolve the focused frontend/producer questions and implement the
+   selected rules in verified SPARK, with boundary/composition regressions.
 3. **Universal and actual-source assurance [#69](https://github.com/berkeleynerd/silver/issues/69):**
-   prove membership, semantics, finite execution and complete automatic discharge
-   with source correspondence. Reassess pinned producer obligations and retained
-   report capacity for mutation before admission. Coordinate this package with
-   native implementation; the old constant-only envelope is not sufficient by
-   assumption.
+   Backlog. Establish mutable-store semantics, membership, finite execution,
+   safety/discharge, source correspondence and Image applicability. Reassess
+   pinned producer obligations and derive a retained-report envelope for the
+   combined mutable fragment; the old constant-only bound does not establish
+   it. Coordinate this work with #68 before admission.
 4. **Validation, review and delivery [#70](https://github.com/berkeleynerd/silver/issues/70):**
-   review and validate the integrated actual inputs, record exact evidence,
-   publish consistent support records and update the narrow Rosetta mapping.
+   Backlog. Review and validate the integrated actual inputs, retain exact
+   evidence, publish consistent support records and update the narrow Rosetta
+   mapping only after complete assurance.
 
-Packages #68–#70 remain Backlog and require a later owner instruction selecting
-implementation. The scope package does not admit a construct or complete this
-milestone. No new harness goal was requested; the earlier goal remains complete.
+Only scope/design was authorized by the
+[dated owner instruction](docs/session-memory.md#2026-10-17--bounded-mutable-integers-scoping-authorized).
+Packages #68–#70 require a later owner instruction selecting implementation;
+completing #67 does not complete this milestone. No new Oracle policy decision
+is identified. Declaration/staticness correspondence, producer applicability,
+mutable-state discharge and the extended report envelope remain technical
+implementation obligations, not established guarantees.
+
+The current language, catalogue, samples and supported identifiers are unchanged.
 The broad stage retains its other mutable arithmetic, subtype/conversion, loop
-and scalar-Image forms until selected and justified. The current scope will
-make each inclusion and exclusion explicit. Existing-language Rosetta samples
-under #9 are separate work, not a prerequisite; procedures and arrays remain
-future direction. No Oracle amendment is proposed.
+and scalar-Image forms; this scope does not mark any of them supported. Existing
+Rosetta sample work #9 is separate, and procedures and arrays remain future
+direction. No new harness goal was requested; the earlier goal remains complete.
 
 ### Review of For loops and integers
 
