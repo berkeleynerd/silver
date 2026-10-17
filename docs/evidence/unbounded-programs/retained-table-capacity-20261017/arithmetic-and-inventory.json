@@ -16,7 +16,9 @@
     "sinput.adb": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8",
     "stringt.adb": "9907f68178174b87a19a6d3871e5bc48e3a7471b3a4140f5e25bd900fcb84954",
     "uintp.adb": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
-    "exp_dbug.adb": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0"
+    "exp_dbug.adb": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0",
+    "scng.adb": "0989455192a510aff6227ac012b232f1497e219f294d277e7fb99c5bdb7c7db3",
+    "hostparm.ads": "b2196c2e037f2f07f1cc885bef246c3f2b63cab5c6b908b3fe17c9f4a4031895"
   },
   "demand_envelope": {
     "kind": "sufficient backing-length bound; no whole-source demand established",
@@ -71,6 +73,51 @@
   ],
   "next_line_capacity": 131072000,
   "next_line_intermediate_bits": 4194304000,
+  "ascii_line_column_cases": [
+    {
+      "case": "32765 ASCII bytes",
+      "physical_bytes": 32765,
+      "final_column": 32766,
+      "passes_selected_line_checks": true,
+      "passes_sufficient_column_rule": true
+    },
+    {
+      "case": "32766 ASCII bytes",
+      "physical_bytes": 32766,
+      "final_column": 32767,
+      "passes_selected_line_checks": false,
+      "passes_sufficient_column_rule": false
+    },
+    {
+      "case": "4095 tabs",
+      "physical_bytes": 4095,
+      "final_column": 32761,
+      "passes_selected_line_checks": true,
+      "passes_sufficient_column_rule": true
+    },
+    {
+      "case": "4096 tabs",
+      "physical_bytes": 4096,
+      "final_column": 32769,
+      "passes_selected_line_checks": false,
+      "passes_sufficient_column_rule": false
+    },
+    {
+      "case": "4095 tabs and five bytes",
+      "physical_bytes": 4100,
+      "final_column": 32766,
+      "passes_selected_line_checks": true,
+      "passes_sufficient_column_rule": true
+    },
+    {
+      "case": "4095 tabs and six bytes",
+      "physical_bytes": 4101,
+      "final_column": 32767,
+      "passes_selected_line_checks": false,
+      "passes_sufficient_column_rule": false
+    }
+  ],
+  "line_rule_scope": "ASCII/HT between CR, LF, CRLF or EOF; selected no-style-check scan; final column <=32766 is a sufficient local rule, not whole-source admission",
   "lexical_table_instance_count": 161,
   "lexical_table_instances": [
     {

@@ -137,6 +137,52 @@ intermediate fits signed Int; the next multiplication is 4,194,304,000. This
 reproduces the earlier arithmetic hazard, not a measured line-count cutoff.
 Source lines, logical lines and every actual growth request still need coverage.
 
+### Main physical lines and column arithmetic
+
+For the ASCII/HT/CR/LF author alphabet, count CRLF as one separator and a lone
+CR or LF as one. If `t` is this separator count, `1+t` bounds the physical
+line-table entries for Main. The scanner starts with line 1, adds an entry when
+advancing to a non-EOF physical line, and adds it only when the new source
+position exceeds the last recorded position (`sinput-l.adb:518–540`;
+`sinput.adb:870–919`). Thus parser lookahead does not multiply line-table entries.
+Main cannot supply `Source_Reference` pragmas, so it adds no logical line table.
+Dependency/configuration files and virtual sharing remain separate contributions.
+
+With the selected factor 1, the allocated line capacity is the least member of
+`500 * 2^k` covering the entry demand. Checking that capacity times 32 fits signed
+Int covers the local allocation intermediate above. The capacity sequence has
+last locally valid member 65,536,000; this is a sufficient bound for this
+allocator only, not a source-size or language threshold.
+
+Columns require a separate per-line rule. `Column_Number` ends at 32767
+(`types.ads:181–187`), and `Hostparm.Max_Line_Length` is its predecessor
+(`hostparm.ads:42–50`). On each physical line, excluding its terminator, start
+`c=1` and process source bytes in order:
+
+```text
+HT:    c := 8 * floor((c - 1 + 8) / 8) + 1
+other: c := c + 1
+```
+
+Require the final `c <= 32766`. This ensures every earlier column fits, including
+the scanner's zero-based indentation accumulator (`scng.adb:2892–2936`). It
+also implies the physical byte-length check. EOF receives the same line check
+(`:1401–1404`); a final unterminated line is not exempt.
+
+The check is tighter than simply allowing 32766 printed characters. For lines
+of at least 4096 bytes, `Check_End_Of_Line` starts at column 1, increments after
+each character and rejects as soon as `c > 32766` (`scng.adb:129–195`). Consequently
+32765 ASCII characters end at 32766 and pass this local check; 32766 characters
+end at 32767 and fail. Likewise 4095 tabs end at 32761; five subsequent ordinary
+characters are allowed by the column check and a sixth is not. Lines shorter
+than 4096 bytes skip the expanded-column loop, but even all tabs then yield
+`c <= 32761`, so the sufficient rule excludes none on that account.
+
+The evidence reproduces these arithmetic discriminators without a compiler
+probe. They establish the local selected-source check, not legality of those
+byte sequences as complete programs. Every physical source buffer, generated
+source and other name/diagnostic buffer still needs its own capacity coverage.
+
 ## Nodes, slots and lists must compose
 
 `Atree.Allocate_New_Node` (`atree.adb:1157–1176`) allocates one node identity,

@@ -12,7 +12,7 @@ p.add_argument('output', type=Path)
 a = p.parse_args()
 files = ['table.ads', 'table.adb', 'types.ads', 'alloc.ads', 'atree.ads',
          'atree.adb', 'nlists.adb', 'namet.ads', 'namet.adb', 'sinput.adb',
-         'stringt.adb', 'uintp.adb', 'exp_dbug.adb']
+         'stringt.adb', 'uintp.adb', 'exp_dbug.adb', 'scng.adb', 'hostparm.ads']
 pin = '6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea'
 repository = Path(__file__).resolve().parents[4]
 manifest_path = repository / 'docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json'
@@ -80,6 +80,29 @@ for path in inventory_paths:
 line_sequence = [500]
 while line_sequence[-1] * 2 * 32 <= I:
     line_sequence.append(line_sequence[-1] * 2)
+
+def final_column(line):
+    """Exact selected ASCII recurrence in Scng.Check_End_Of_Line."""
+    column = 1
+    for byte in line:
+        assert byte == 9 or 32 <= byte <= 126
+        column = (column - 1 + 8) // 8 * 8 + 1 if byte == 9 else column + 1
+    return column
+
+column_cases = []
+for label, line in [('32765 ASCII bytes', b'x' * 32765),
+                    ('32766 ASCII bytes', b'x' * 32766),
+                    ('4095 tabs', b'\t' * 4095),
+                    ('4096 tabs', b'\t' * 4096),
+                    ('4095 tabs and five bytes', b'\t' * 4095 + b'xxxxx'),
+                    ('4095 tabs and six bytes', b'\t' * 4095 + b'xxxxxx')]:
+    column = final_column(line)
+    column_cases.append({'case': label, 'physical_bytes': len(line),
+                         'final_column': column,
+                         'passes_selected_line_checks':
+                         len(line) <= 32766 and (len(line) < 4096 or column <= 32766),
+                         'passes_sufficient_column_rule': column <= 32766})
+assert [case['passes_sufficient_column_rule'] for case in column_cases] == [True, False, True, False, True, False]
 result = {
     'source_commit': pin,
     'source_relation': 'every inspected/inventoried file verified against retained pinned-tree manifest',
@@ -98,6 +121,8 @@ result = {
     'line_capacity_sequence': line_sequence,
     'next_line_capacity': line_sequence[-1] * 2,
     'next_line_intermediate_bits': line_sequence[-1] * 2 * 32,
+    'ascii_line_column_cases': column_cases,
+    'line_rule_scope': 'ASCII/HT between CR, LF, CRLF or EOF; selected no-style-check scan; final column <=32766 is a sufficient local rule, not whole-source admission',
     'lexical_table_instance_count': len(instances),
     'lexical_table_instances': instances,
     'limitations': ['no compiler run', 'no complete allocation-route closure',

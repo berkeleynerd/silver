@@ -113,14 +113,16 @@ The current derivation has five reusable component records:
 | --- | --- | --- |
 | [Source ranges](retained-source-closure.md) | Physical-loader/allocation inventory, complete pinned runtime union and identified fixed virtual templates | Phase/configuration/request-name closure and all virtual multiplicities |
 | [Values and parsing](retained-value-capacity.md) | Local String/Uint charges; at most two scans per source literal in a valid Main parse | Fixed dependency parsing, semantic reentry and generated value events |
-| [Tables and nodes](retained-table-capacity.md) | Checked allocator transitions, a demand-only backing-capacity envelope, exact pinned-source node layout and node/slot/list coupling | Source-to-demand bounds and auxiliary representation coverage |
+| [Tables and nodes](retained-table-capacity.md) | Checked allocator transitions, a demand-only backing-capacity envelope, Main line/column charges, exact pinned-source node layout and node/slot/list coupling | Other source-to-demand bounds and auxiliary representation coverage |
 | [Main entities](retained-frontend-entities.md) | Source-sensitive generated entity/type/literal multiplicities under GNATprove light expansion | Fixed dependency entities, native expansion and actual allocation event counts |
 | [GNATprove producer](retained-producer-capacity.md) | Literal node/list/serialization charges, child/declaration/type multiplicities and entity/file/module-count components | Generated entity/type bounds, helper/lifetime costs and complete source correspondence |
 
 These are source-derived components with their own premises and review scope.
 They do not yet select a safe whole-program threshold or unlock production
-admission changes. The independent literal-scan review and generic-table
-envelope review do not establish the other components' complete soundness.
+admission changes. The independent literal-scan and generic-table envelope
+reviews, and the [entity/scalar review](../reviews/review-retained-entity-producer-e00109d8a8.md),
+cover their named frozen components. They do not establish complete soundness
+of the integrated predicate or later additions.
 
 Every grammar production and permitted composition needs a transfer with pinned
 source references or a justified reduction to another transfer. A coverage table

@@ -15,7 +15,7 @@ cmp docs/evidence/unbounded-programs/retained-table-capacity-20261017/arithmetic
 
 The generator verifies the top-level Ada source file set and SHA-256/Git blob
 hashes against the previously retained complete pinned-tree manifest. It rejects
-missing, added or altered inventory inputs. Thirteen directly cited files have
+missing, added or altered inventory inputs. Fifteen directly cited files have
 hashes repeated in its output; the other top-level files contribute to the lexical
 `Table.Table` inventory. LF determines source lines, including in files with form
 feeds. This textual inventory includes comments and is not a resolved call graph.
