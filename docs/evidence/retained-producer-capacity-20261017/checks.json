@@ -67,6 +67,14 @@
     "unary_minus_call_occurrence_overhead": 7,
     "unary_minus_with_overflow_occurrence_overhead_max": 19
   },
+  "ordinary_integer_leaf_and_boundary": {
+    "dereference_overhead": 3,
+    "excludes": "initial symbol/binder creation, caller-created expected type",
+    "identifier_occurrences_max": 5,
+    "normalized_identifier_occurrences_max": 11,
+    "static_boundary_overhead_max": 15,
+    "type_label_overhead": 3
+  },
   "representation_maxima": {
     "Why_Node_Counter_Last": 2147483647,
     "Why_Node_Id_Last": 1073741823

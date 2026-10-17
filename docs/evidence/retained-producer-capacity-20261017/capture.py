@@ -4,6 +4,7 @@
 import argparse
 import hashlib
 import json
+import tarfile
 from pathlib import Path
 
 
@@ -16,19 +17,19 @@ RANGES = {
     "src/why/xgen/xtree_builders.adb": [[200, 255]],
     "src/why/xgen/xtree_why_ast.adb": [[160, 245]],
     "src/why/xgen/why-atree-to_json.adb-tmpl": [[100, 160]],
-    "src/why/xgen/xtree_sinfo.adb": [[30, 145], [170, 245], [280, 350], [380, 440], [580, 615], [705, 738]],
+    "src/why/xgen/xtree_sinfo.adb": [[30, 145], [170, 245], [280, 350], [371, 440], [580, 615], [705, 738]],
     "src/why/gnat2why-driver.adb": [[274, 310], [507, 610], [1195, 1225], [1318, 1355], [1415, 1457], [1462, 1590]],
-    "src/why/gnat2why-util.adb": [[503, 540], [1126, 1201], [1347, 1454], [1609, 1615]],
+    "src/why/gnat2why-util.adb": [[503, 540], [1126, 1201], [1347, 1454], [1609, 1615], [1875, 1909]],
     "src/why/gnat2why-util.ads": [[570, 582]],
-    "src/why/why-inter.adb": [[354, 379], [387, 437], [550, 746], [836, 872], [943, 1017], [1160, 1224], [1260, 1285], [1547, 1577]],
-    "src/why/why-atree-modules.adb": [[297, 324], [465, 504], [703, 750], [918, 1047], [3962, 4006]],
+    "src/why/why-inter.adb": [[354, 379], [387, 437], [550, 746], [756, 799], [836, 872], [943, 1017], [1160, 1224], [1260, 1285], [1547, 1632]],
+    "src/why/why-atree-modules.adb": [[297, 324], [465, 504], [703, 756], [918, 1047], [3962, 4006]],
     "src/why/why-atree-modules.ads": [[819, 857]],
-    "src/why/why-gen-names.adb": [[162, 352], [786, 832]],
-    "src/why/why-gen-expr.adb": [[147, 157], [311, 348], [1518, 1648], [1956, 1983], [2399, 2910], [2916, 3050], [3533, 3569], [3754, 3858], [4289, 4355], [4488, 4535], [4883, 4922], [4962, 5010], [5282, 5323]],
+    "src/why/why-gen-names.adb": [[162, 352], [786, 832], [1182, 1220]],
+    "src/why/why-gen-expr.adb": [[147, 157], [311, 348], [1518, 1648], [1956, 1983], [2349, 2391], [2399, 2910], [2916, 3050], [3533, 3569], [3754, 3997], [4289, 4355], [4488, 4535], [4883, 4922], [4962, 5010], [5282, 5323]],
     "src/why/why-gen-expr.ads": [[305, 311]],
-    "src/why/why-gen-binders.adb": [[1260, 1310], [1392, 1415], [1626, 1640]],
+    "src/why/why-gen-binders.adb": [[448, 453], [745, 786], [1082, 1125], [1260, 1310], [1392, 1415], [1457, 1524], [1626, 1640]],
     "src/why/why-gen-arrays.adb": [[981, 1068], [1075, 1161], [1529, 1623], [1772, 1906], [2990, 3036], [3042, 3078], [3835, 3848]],
-    "src/why/gnat2why-expr.adb": [[1384, 1460], [1621, 1809], [2669, 2805], [2864, 2894], [12039, 12056], [14857, 14920], [19042, 19142], [21817, 21972], [21976, 22351], [22591, 22638], [23201, 23215], [23600, 23647], [23688, 23712], [24012, 24151], [24714, 24731], [25500, 25573], [25635, 25667], [29733, 29862], [30221, 30666], [31162, 31211]],
+    "src/why/gnat2why-expr.adb": [[1384, 1460], [1621, 1809], [2669, 2805], [2864, 2894], [12039, 12056], [14857, 14920], [19042, 19142], [21817, 21972], [21976, 22351], [22591, 22638], [23201, 23215], [23600, 23647], [23688, 23712], [24012, 24205], [24714, 24731], [25500, 25573], [25635, 25667], [26847, 27088], [29733, 29862], [30221, 30666], [31162, 31211]],
     "src/why/gnat2why-expr-loops.adb": [[500, 575], [787, 816], [1292, 1343], [1398, 1415], [1458, 1505], [1800, 1825], [1882, 1978], [2080, 2115], [2194, 2334]],
     "src/why/gnat2why-expr-loops-inv.adb": [[175, 198], [775, 815], [1079, 1398], [1704, 1745], [1940, 1976], [2291, 2350], [2398, 2408]],
     "src/why/why-gen-progs.adb": [[275, 280], [329, 364]],
@@ -102,6 +103,7 @@ def inspect_fixture(modules):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path)
+    parser.add_argument("--source-archive", type=Path)
     parser.add_argument("--retained-json", type=Path)
     parser.add_argument("--retained-source", type=Path)
     args = parser.parse_args()
@@ -126,6 +128,21 @@ def main():
              "line_definition": "LF-separated byte lines; one trailing empty segment excluded",
              "files": entries})
         (ROOT / "source-excerpts.md").write_text("".join(excerpts).rstrip("\n") + "\n")
+    if args.source_archive:
+        manifest = json.loads((ROOT / "source-manifest.json").read_text())
+        matched = []
+        with tarfile.open(args.source_archive, "r:gz") as archive:
+            for item in manifest["files"]:
+                member = "spark-source/" + item["path"]
+                raw = archive.extractfile(member).read()
+                assert sha(raw) == item["sha256"], member
+                matched.append({"path": item["path"], "sha256": sha(raw)})
+        dump(ROOT / "source-archive-check.json", {
+            "archive_sha256": sha(args.source_archive.read_bytes()),
+            "archive_member_prefix": "spark-source/",
+            "complete_files_matched": matched,
+            "scope": "Source-file equality only, not external binary attestation",
+        })
     if args.retained_json:
         assert args.retained_source
         raw = args.retained_json.read_bytes()
@@ -162,6 +179,14 @@ def main():
             "binary_with_overflow_occurrence_overhead_max": 20,
             "unary_minus_with_overflow_occurrence_overhead_max": 19,
             "excludes": "children, identifier leaves, surrounding subtype conversions, initial symbol setup",
+        },
+        "ordinary_integer_leaf_and_boundary": {
+            "identifier_occurrences_max": 1 + 1 + 1 + 2,
+            "dereference_overhead": 1 + 2,
+            "type_label_overhead": 1 + 2,
+            "normalized_identifier_occurrences_max": 11,
+            "static_boundary_overhead_max": 12 + 3,
+            "excludes": "initial symbol/binder creation, caller-created expected type",
         },
         "literal_component_examples": [
             {"length": length,

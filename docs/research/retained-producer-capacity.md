@@ -22,7 +22,10 @@ The [manifest](../evidence/retained-producer-capacity-20261017/source-manifest.j
 hashes complete source files; the
 [excerpts](../evidence/retained-producer-capacity-20261017/source-excerpts.md)
 retain numbered LF-based source ranges. References below are paths relative to
-that pinned source tree. No compiler invocation, proof invocation, installation,
+that pinned source tree. All twenty-eight complete files in the current manifest
+hash-match their copies in the previously retained source archive, checked by
+[`source-archive-check.json`](../evidence/retained-producer-capacity-20261017/source-archive-check.json).
+No compiler invocation, proof invocation, installation,
 or expensive validation was performed for this research.
 
 ## The producer has two different counting problems
@@ -257,12 +260,14 @@ setup separately. The separate pretty-printing label is only enabled in the
 predicate domain, so does not add overhead in the stated program/term scope
 (`src/why/gnat2why-expr.adb:23600–23647, 25500–25510`).
 
-`Transform_Expr` translates each operand of binary `+`/`-` once at the builtin
-Integer type (`src/why/gnat2why-expr.adb:24127–24151`).
+`Transform_Expr` translates each operand of binary `+`/`-`/`*` once at the builtin
+Integer type (`src/why/gnat2why-expr.adb:24127–24205`).
 `New_Binary_Op_Expr` then returns one call with those two operands
-(`src/why/why-gen-expr.adb:3754–3858`): its simple operand conversions see equal
+(`src/why/why-gen-expr.adb:3754–3997`): its simple operand conversions see equal
 base types, and `Apply_Modulus` immediately returns for a nonmodular type
-(`:147–157`). Unary minus similarly emits one call with its operand; unary plus
+(`:147–157`). Signed Integer multiplication has matching result and operand
+base types, so its additional final-conversion condition is false. Unary minus
+similarly emits one call with its operand; unary plus
 emits no core operation (`src/why/gnat2why-expr.adb:24012–24110`).
 
 An optional overflow check passes the whole expression once to `New_VC_Call`
@@ -279,17 +284,17 @@ subtype remains outside this component.
 The builtin Integer type has two serialized occurrences. A binary operator
 identifier has five (identifier, name, module, type and its name); unary minus
 has four because it has no module
-(`src/why/why-atree-modules.adb:703–750`). The ordinary signed range-check
+(`src/why/why-atree-modules.adb:703–756`). The ordinary signed range-check
 identifier also has five; its return type is the existing builtin Integer
 (`:3962–4006`; `src/why/why-inter.adb:943–1017`). The overflow wrapper therefore
 adds `8 + 3 + 1 = 12` occurrences: call, VC label with type, location label.
 
 | Core operation, excluding children/setup | Fresh nodes | Fresh lists | List elements | Serialized overhead |
 | --- | ---: | ---: | ---: | ---: |
-| Binary `+` or `-`, without overflow wrapper | 1 | 1 | 2 | 8 |
+| Binary `+`, `-` or `*`, without overflow wrapper | 1 | 1 | 2 | 8 |
 | Unary `-`, without overflow wrapper | 1 | 1 | 1 | 7 |
 | Optional overflow wrapper | at most 3 | 1 | 1 | at most 12 |
-| Binary `+`/`-`, allowing that wrapper | at most 4 | at most 2 | at most 3 | at most 20 |
+| Binary `+`/`-`/`*`, allowing that wrapper | at most 4 | at most 2 | at most 3 | at most 20 |
 | Unary `-`, allowing that wrapper | at most 4 | at most 2 | at most 2 | at most 19 |
 
 The term-domain case has no overflow wrapper. Compile-time-known discrete
@@ -298,6 +303,74 @@ arithmetic children (`src/why/gnat2why-expr.adb:23700–23710`); that simplifica
 does not enlarge these conservative per-tree bounds. This closes normalized
 arithmetic operator overhead, not the identifier, declaration-type, or String
 conversion costs needed by the complete language.
+
+### Ordinary Integer leaves and static subtype boundaries
+
+An ordinary Integer object or loop index uses a `Regular` binder whose type is
+`EW_Split`: `Mk_Item_Of_Entity` calls `Type_Of_Node` and the scalar split-form
+predicate is true (`src/why/why-gen-binders.adb:1082–1125`;
+`src/why/why-inter.adb:1579–1632`; `src/why/gnat2why-util.adb:1875–1883`).
+An Integer split type has two serialized occurrences, its type and the
+pre-existing builtin Integer name. Creating that type allocates one new node
+(`src/why/why-inter.adb:1195–1211`), which must be charged whenever the caller
+actually asks for a fresh type; reading a regular binder's existing type does
+not allocate one (`src/why/why-gen-binders.adb:448–453`).
+
+With no overlays, relaxed initialization, invalidity or volatile annotations,
+`Transform_Identifier` reconstructs the regular binder without further checks
+(`src/why/gnat2why-expr.adb:26847–27088`). `Reconstruct_Binder` returns the
+existing identifier, or adds one dereference for a mutable object with
+references enabled (`src/why/why-gen-binders.adb:1457–1524`). An identifier has
+at most five emitted occurrences, including an optional module; a dereference
+adds three. Normalizing an Integer split value to builtin `EW_Int_Type` adds
+at most one empty label with that builtin type, hence at most three more
+occurrences. The scalar conversion does not emit an actual conversion call:
+`Insert_Single_Conversion` compares the split type's builtin representation
+with the target and returns its input; the enclosing function may then add the
+label (`src/why/why-gen-expr.adb:2642–2910, 2988–3044`).
+
+A compile-time-known Integer expression instead creates one integer constant,
+with no type child and no Why list (`src/why/why-gen-expr.adb:4488–4501`;
+`src/why/xgen/xtree_sinfo.adb:371–381`). Thus the normalized leaf allowances,
+excluding initial symbol/binder creation, are:
+
+| Leaf | Fresh nodes | Fresh lists/elements | Total emitted occurrences |
+| --- | ---: | ---: | ---: |
+| Integer constant | 1 | 0 | 1 |
+| Ordinary Integer object/index, allowing mutable read | at most 2 | 0 | at most 11 |
+
+For a conversion between these Integer representations and an existing
+nonempty static Integer target subtype, allow one range-check wrapper and one
+type label: **at most four nodes, one list, one element and fifteen emitted
+occurrences**, excluding the child. `Type_Is_Modeled_As_Base` is false for
+that target shape; `Do_Range_Check` consequently passes the expression once to
+the existing range function (`src/why/why-gen-expr.adb:2349–2391`;
+`src/why/why-gen-names.adb:1182–1220`). The wrapper costs at most twelve as
+above; the final split-type label costs three. `Range_Check_Applied` prevents
+a second range check. No abstract conversion, predicate, initialization or
+cross-base conversion applies to these ordinary split Integer types.
+The expected-type node, if freshly constructed by a caller, remains a separate
+one-node allocation. Dynamic or empty target types require the separate
+dynamic-bound path and are not covered by this boundary component.
+
+For one normalized program/term translation of a scalar syntax tree containing
+`L` literal/name leaves and `O` unary/binary arithmetic operators, these
+components give the following conservative envelope:
+
+```text
+fresh nodes         <= 2L + 4O
+fresh lists         <= 2O
+fresh list elements <= 3O
+emitted occurrences <= 11L + 20O
+```
+
+Unary plus is covered by the operator allowance even though it has no core
+call. Compile-time folding can replace a subtree with one constant and does
+not enlarge the envelope. Charge each invocation separately, including the
+program/term endpoint and initializer multiplicities already described; add
+the static-subtype boundary charge when the expected type requires it. This
+closes the admitted scalar-expression core, not declaration wrappers, scalar
+comparison wrappers, String attributes or fixed-library translations.
 
 ## Declaration, type and module caller closure
 
@@ -464,6 +537,9 @@ python3 docs/evidence/retained-producer-capacity-20261017/capture.py
 To regenerate source excerpts, add `--source-root` pointing at the already
 archived SPARK source snapshot. `--retained-json` and `--retained-source` can
 re-extract the old fixture from paths recorded in `retained-input.json`.
+Add `--source-archive` with
+`docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz`
+to verify every manifest file against that retained archive.
 Outputs are deterministic; no toolchain or proof subprocess is launched.
 These checks validate the arithmetic and captured tree shapes, not a completed
 producer theorem or the whole application assurance argument.

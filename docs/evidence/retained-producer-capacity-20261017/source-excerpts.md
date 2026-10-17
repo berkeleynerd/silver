@@ -3827,7 +3827,7 @@
  23712:       --  Intrinsic operators should be translated as function calls in SPARK
 ```
 
-## src/why/gnat2why-expr.adb:24012-24151
+## src/why/gnat2why-expr.adb:24012-24205
 
 ```ada
  24012:             when N_Op_Minus                             =>
@@ -3970,6 +3970,60 @@
  24149:
  24150:             when N_Op_Multiply | N_Op_Divide            =>
  24151:                declare
+ 24152:                   Left           : constant N_Subexpr_Id := Left_Opnd (Expr);
+ 24153:                   Right          : constant N_Subexpr_Id := Right_Opnd (Expr);
+ 24154:                   L_Type, R_Type : W_Type_Id;
+ 24155:                   L_Why, R_Why   : W_Expr_Id;
+ 24156:                begin
+ 24157:                   if Has_Fixed_Point_Type (Etype (Left))
+ 24158:                     and then Has_Fixed_Point_Type (Etype (Right))
+ 24159:                   then
+ 24160:                      --  Multiplication/division between fixed-point types
+ 24161:                      --  requires the creation of a specific module.
+ 24162:
+ 24163:                      Create_Fixed_Point_Mult_Div_Theory_If_Needed
+ 24164:                        (Typ_Left   => Etype (Left),
+ 24165:                         Typ_Right  => Etype (Right),
+ 24166:                         Typ_Result => Expr_Type,
+ 24167:                         Expr       => Expr);
+ 24168:
+ 24169:                      L_Type := Base_Why_Type (Etype (Left));
+ 24170:                      R_Type := Base_Why_Type (Etype (Right));
+ 24171:
+ 24172:                   elsif Has_Fixed_Point_Type (Etype (Left)) then
+ 24173:                      L_Type := Base_Why_Type (Etype (Left));
+ 24174:                      R_Type := EW_Int_Type;
+ 24175:
+ 24176:                   elsif Nkind (Expr) = N_Op_Multiply
+ 24177:                     and then Has_Fixed_Point_Type (Etype (Right))
+ 24178:                   then
+ 24179:                      L_Type := EW_Int_Type;
+ 24180:                      R_Type := Base_Why_Type (Etype (Right));
+ 24181:
+ 24182:                   else
+ 24183:                      L_Type := Base_Why_Type (Left, Right);
+ 24184:                      R_Type := Base_Why_Type (Left, Right);
+ 24185:                   end if;
+ 24186:
+ 24187:                   L_Why := Transform_Expr (Left, L_Type, Domain, Local_Params);
+ 24188:                   R_Why :=
+ 24189:                     Transform_Expr (Right, R_Type, Domain, Local_Params);
+ 24190:
+ 24191:                   T :=
+ 24192:                     New_Binary_Op_Expr
+ 24193:                       (Op          => Nkind (Expr),
+ 24194:                        Left        => L_Why,
+ 24195:                        Right       => R_Why,
+ 24196:                        Left_Type   => Etype (Left),
+ 24197:                        Right_Type  => Etype (Right),
+ 24198:                        Return_Type => Expr_Type,
+ 24199:                        Domain      => Domain,
+ 24200:                        Ada_Node    => Expr);
+ 24201:                end;
+ 24202:
+ 24203:             when N_Op_Rem | N_Op_Mod                    =>
+ 24204:                declare
+ 24205:                   Left  : constant N_Subexpr_Id := Left_Opnd (Expr);
 ```
 
 ## src/why/gnat2why-expr.adb:24714-24731
@@ -4110,6 +4164,253 @@
  25665:
  25666:       return T;
  25667:    end Transform_Expr;
+```
+
+## src/why/gnat2why-expr.adb:26847-27088
+
+```ada
+ 26847:    function Transform_Identifier
+ 26848:      (Params            : Transformation_Params;
+ 26849:       Expr              : Node_Id;
+ 26850:       Ent               : Entity_Id;
+ 26851:       Domain            : EW_Domain;
+ 26852:       Selector          : Selection_Kind := Why.Inter.Standard;
+ 26853:       No_Init_Check     : Boolean := False;
+ 26854:       No_Validity_Check : Boolean := False) return W_Expr_Id
+ 26855:    is
+ 26856:       C : constant Ada_Ent_To_Why.Cursor :=
+ 26857:         Ada_Ent_To_Why.Find (Symbol_Table, Ent);
+ 26858:       T : W_Expr_Id;
+ 26859:
+ 26860:    begin
+ 26861:       --  Emit warning on constants declared before the loop invariant if their
+ 26862:       --  value might not be known precisely at the current program point.
+ 26863:
+ 26864:       if Imprecise_Constant_Value_In_Loop (Ent) then
+ 26865:          pragma Assert (Is_Loop_Entity (Ent));
+ 26866:          Warning_Msg_N (Warn_Loop_Entity, Expr, Names => [Ent]);
+ 26867:       end if;
+ 26868:
+ 26869:       --  The special cases of this function are:
+ 26870:       --  * parameters, whose names are stored in Params.Name_Map (these can
+ 26871:       --    also be refs)
+ 26872:       --    ??? Params has no Name_Map component
+ 26873:       --  * quantified variables (use local name instead of global name)
+ 26874:       --  * fields of protected objects
+ 26875:
+ 26876:       if Ada_Ent_To_Why.Has_Element (C) then
+ 26877:          declare
+ 26878:             E : constant Item_Type := Ada_Ent_To_Why.Element (C);
+ 26879:
+ 26880:          begin
+ 26881:             pragma
+ 26882:               Assert (if Selector /= Why.Inter.Standard then E.Kind = Subp);
+ 26883:
+ 26884:             --  If E is a subprogram, use tha appropriate symbol depending on
+ 26885:             --  the domain and the selector.
+ 26886:
+ 26887:             if E.Kind = Subp then
+ 26888:                case Selector is
+ 26889:                   when Why.Inter.Standard =>
+ 26890:                      if Domain = EW_Prog then
+ 26891:                         T := +E.For_Prog;
+ 26892:                      else
+ 26893:                         T := +E.For_Logic.Id;
+ 26894:                      end if;
+ 26895:
+ 26896:                   when Why.Inter.Dispatch =>
+ 26897:                      if Domain = EW_Prog then
+ 26898:                         T := +E.Dispatch_Prog.Id;
+ 26899:                      else
+ 26900:                         T := +E.Dispatch_Logic.Id;
+ 26901:                      end if;
+ 26902:
+ 26903:                   when Why.Inter.Refine   =>
+ 26904:                      if Domain = EW_Prog then
+ 26905:                         T := +E.Refine_Prog.Id;
+ 26906:                      else
+ 26907:                         T := +E.For_Logic.Id;
+ 26908:                      end if;
+ 26909:                end case;
+ 26910:             else
+ 26911:                declare
+ 26912:                   Alias : constant Opt_Object_Kind_Id :=
+ 26913:                     Ultimate_Overlaid_Entity (Ent);
+ 26914:                   Var   : constant W_Expr_Id :=
+ 26915:                     Reconstruct_Item
+ 26916:                       (E,
+ 26917:                        Domain,
+ 26918:                        Params.Ref_Allowed,
+ 26919:                        Alias =>
+ 26920:                          (if Present (Alias) and then Is_Mutable_In_Why (Ent)
+ 26921:                           then
+ 26922:                             Transform_Identifier (Params, Expr, Alias, Domain)
+ 26923:                           else Why_Empty));
+ 26924:                begin
+ 26925:                   T := Var;
+ 26926:
+ 26927:                   --  Introduce initialization check if the object has an
+ 26928:                   --  Init component or is ultimately a scalar. Check the
+ 26929:                   --  predicates on initialization wrappers if any.
+ 26930:
+ 26931:                   if Is_Object (Ent)
+ 26932:                     and then Domain = EW_Prog
+ 26933:                     and then not No_Init_Check
+ 26934:                   then
+ 26935:                      if E.Init.Present then
+ 26936:                         declare
+ 26937:                            Init_Flag : constant W_Expr_Id :=
+ 26938:                              (if Params.Ref_Allowed
+ 26939:                               then
+ 26940:                                 New_Deref
+ 26941:                                   (Right => E.Init.Id, Typ => EW_Bool_Type)
+ 26942:                               else +E.Init.Id);
+ 26943:                         begin
+ 26944:                            Prepend
+ 26945:                              (New_Assert
+ 26946:                                 (Pred        =>
+ 26947:                                    New_VC_Pred
+ 26948:                                      (Expr,
+ 26949:                                       Pred_Of_Boolean_Term (+Init_Flag),
+ 26950:                                       VC_Initialization_Check),
+ 26951:                                  Assert_Kind => EW_Assert),
+ 26952:                               T);
+ 26953:                         end;
+ 26954:
+ 26955:                      elsif Is_Init_Wrapper_Type (Get_Type (T)) then
+ 26956:
+ 26957:                         --  Skip the top level predicate for parameters of
+ 26958:                         --  predicate functions.
+ 26959:
+ 26960:                         declare
+ 26961:                            Top_Predicate : constant Boolean :=
+ 26962:                              Ekind (Ent) /= E_In_Parameter
+ 26963:                              or else
+ 26964:                                not Is_Predicate_Function
+ 26965:                                      (Enclosing_Unit (Ent));
+ 26966:                            Typ           : constant Entity_Id :=
+ 26967:                              Get_Ada_Type_From_Item (E);
+ 26968:                         begin
+ 26969:                            if Has_Scalar_Full_View (Typ) then
+ 26970:
+ 26971:                               --  Inputs of scalar types do not use the init
+ 26972:                               --  wrapper.
+ 26973:
+ 26974:                               pragma Assert (Top_Predicate);
+ 26975:
+ 26976:                               T :=
+ 26977:                                 Insert_Initialization_Check
+ 26978:                                   (Expr,
+ 26979:                                    Typ,
+ 26980:                                    T,
+ 26981:                                    Domain,
+ 26982:                                    Exclude_Components => Relaxed);
+ 26983:                            else
+ 26984:                               T :=
+ 26985:                                 +Insert_Predicate_Check
+ 26986:                                    (Expr, Typ, +T, Top_Predicate);
+ 26987:                            end if;
+ 26988:
+ 26989:                            --  The parameter of a "for of" quantification over
+ 26990:                            --  arrays is basically an indexed component.
+ 26991:                            --  Check initialization of access address or
+ 26992:                            --  mutable discriminants.
+ 26993:
+ 26994:                            if Is_Quantified_Param_Over_Array (Ent) then
+ 26995:                               T :=
+ 26996:                                 Insert_Top_Level_Init_Check
+ 26997:                                   (Expr, Typ, T, Domain);
+ 26998:                            end if;
+ 26999:                         end;
+ 27000:                      end if;
+ 27001:                   end if;
+ 27002:
+ 27003:                   --  Introduce a validity check if the object has a Valid flag
+ 27004:
+ 27005:                   if Object_Has_Valid_Id (Ent)
+ 27006:                     and then Domain = EW_Prog
+ 27007:                     and then not No_Validity_Check
+ 27008:                   then
+ 27009:                      declare
+ 27010:                         Tmp : constant W_Expr_Id := New_Temp_For_Expr (T);
+ 27011:                      begin
+ 27012:                         T :=
+ 27013:                           +Sequence
+ 27014:                              (New_Assert
+ 27015:                                 (Pred        =>
+ 27016:                                    New_VC_Pred
+ 27017:                                      (Expr,
+ 27018:                                       +New_Is_Valid_Call_For_Expr
+ 27019:                                          (Tree   =>
+ 27020:                                             +Get_Valid_Id_From_Object
+ 27021:                                                (Ent, Params.Ref_Allowed),
+ 27022:                                           Expr   => Tmp,
+ 27023:                                           Ty     => Etype (Ent),
+ 27024:                                           Domain => EW_Pred),
+ 27025:                                       VC_Validity_Check),
+ 27026:                                  Assert_Kind => EW_Assert),
+ 27027:                               +Tmp);
+ 27028:                         T :=
+ 27029:                           Binding_For_Temp
+ 27030:                             (Tmp => Tmp, Context => T, Domain => Domain);
+ 27031:                      end;
+ 27032:                   end if;
+ 27033:
+ 27034:                   --  If we have an object with Async_Writers, we must havoc it
+ 27035:                   --  before dereferencing it. Given a ref term t, this
+ 27036:                   --  produces the sequence:
+ 27037:                   --     (__havoc(t); !t)
+ 27038:                   --  It is sound (and necessary) to only do that in the
+ 27039:                   --  program domain. We can be sure that the relevant Ada code
+ 27040:                   --  will pass this point at least once in program domain.
+ 27041:                   --  No need to havoc anything for overlays, the alias is
+ 27042:                   --  havocked when it is translated as volatile parameter for
+ 27043:                   --  the function call.
+ 27044:
+ 27045:                   if Is_Object (Ent)
+ 27046:                     and then Has_Volatile (Ent)
+ 27047:                     and then Has_Volatile_Property (Ent, Pragma_Async_Writers)
+ 27048:                     and then Domain in EW_Prog | EW_Pterm
+ 27049:                     and then Params.Ref_Allowed
+ 27050:                     and then No (Alias)
+ 27051:                   then
+ 27052:                      pragma Assert (Is_Mutable_In_Why (Ent));
+ 27053:
+ 27054:                      --  Assume dynamic invariant of the object after havoc
+ 27055:
+ 27056:                      declare
+ 27057:                         Typ      : constant Entity_Id := Type_Of_Node (Ent);
+ 27058:                         Dyn_Prop : constant W_Pred_Id :=
+ 27059:                           Compute_Dynamic_Invariant
+ 27060:                             (Expr   => +Var,
+ 27061:                              Ty     => Typ,
+ 27062:                              Params => Params,
+ 27063:                              Valid  =>
+ 27064:                                Get_Valid_Id_From_Object
+ 27065:                                  (Ent, Params.Ref_Allowed));
+ 27066:                         Eff      : constant W_Effects_Id := New_Effects;
+ 27067:                         procedure Effects_Append_Binder_To_Writes is new
+ 27068:                           Effects_Append_Binder (Effects_Append_To_Writes);
+ 27069:                         Havoc    : W_Prog_Id := +Void;
+ 27070:
+ 27071:                      begin
+ 27072:                         Effects_Append_Binder_To_Writes (Eff, E);
+ 27073:                         Havoc := New_Havoc_Statement (Effects => Eff);
+ 27074:
+ 27075:                         if Dyn_Prop /= True_Pred then
+ 27076:                            Prepend
+ 27077:                              (New_Assume_Statement (Pred => Dyn_Prop), T);
+ 27078:                         end if;
+ 27079:
+ 27080:                         Prepend (Havoc, T);
+ 27081:                      end;
+ 27082:                   end if;
+ 27083:                end;
+ 27084:             end if;
+ 27085:          end;
+ 27086:
+ 27087:       --  Discriminals are not translated in Why3. Use their discriminal link
+ 27088:       --  instead.
 ```
 
 ## src/why/gnat2why-expr.adb:29733-29862
@@ -5507,6 +5808,46 @@
   1615:    end Type_Is_Modeled_As_Base;
 ```
 
+## src/why/gnat2why-util.adb:1875-1909
+
+```ada
+  1875:    -- Use_Split_Form_For_Type --
+  1876:    -----------------------------
+  1877:
+  1878:    function Use_Split_Form_For_Type (E : Type_Kind_Id) return Boolean is
+  1879:    begin
+  1880:       return
+  1881:         Is_Scalar_Type (Retysp (E))
+  1882:         and then not Is_Standard_Boolean_Type (Retysp (E));
+  1883:    end Use_Split_Form_For_Type;
+  1884:
+  1885:    ------------------------
+  1886:    -- Why_Type_Of_Entity --
+  1887:    ------------------------
+  1888:
+  1889:    function Why_Type_Of_Entity (E : Entity_Id) return W_Type_Id is
+  1890:    begin
+  1891:       --  Entities for ASCII characters are not translated. Instead we use
+  1892:       --  directly their integer translation.
+  1893:
+  1894:       if Sloc (E) = Standard_ASCII_Location then
+  1895:          return EW_Int_Type;
+  1896:       else
+  1897:          declare
+  1898:             Binder : constant Item_Type :=
+  1899:               Ada_Ent_To_Why.Element (Symbol_Table, E);
+  1900:          begin
+  1901:             return Get_Why_Type_From_Item (Binder);
+  1902:          end;
+  1903:       end if;
+  1904:    end Why_Type_Of_Entity;
+  1905:
+  1906:    ---------------------------
+  1907:    -- Why_Type_Is_BitVector --
+  1908:    ---------------------------
+  1909:
+```
+
 ## src/why/gnat2why-util.ads:570-582
 
 ```ada
@@ -5603,7 +5944,7 @@
    504:    end Hashconsed_Entity_Module;
 ```
 
-## src/why/why-atree-modules.adb:703-750
+## src/why/why-atree-modules.adb:703-756
 
 ```ada
    703:       --  Builtin unary minus and void
@@ -5654,6 +5995,12 @@
    748:       Int_Infix_Mult :=
    749:         New_Identifier
    750:           (Module => Int_Module,
+   751:            Domain => EW_Term,
+   752:            Symb   => NID ("*"),
+   753:            Typ    => EW_Int_Type,
+   754:            Infix  => True);
+   755:       Int_Infix_Le :=
+   756:         New_Identifier
 ```
 
 ## src/why/why-atree-modules.adb:918-1047
@@ -6464,6 +6811,113 @@
   3848:    -----------------------------------
 ```
 
+## src/why/why-gen-binders.adb:448-453
+
+```ada
+   448:    function Get_Why_Type_From_Item (B : Item_Type) return W_Type_Id is
+   449:    begin
+   450:       case B.Kind is
+   451:          when Regular | Concurrent_Self =>
+   452:             return Get_Typ (B.Main.B_Name);
+   453:
+```
+
+## src/why/why-gen-binders.adb:745-786
+
+```ada
+   745:    function Mk_Item_Of_Entity
+   746:      (E           : Entity_Id;
+   747:       Local       : Boolean := False;
+   748:       In_Fun_Decl : Boolean := False;
+   749:       Hide_Info   : Boolean := False) return Item_Type
+   750:    is
+   751:       Use_Ty : constant Entity_Id :=
+   752:         (if not In_Fun_Decl
+   753:            --  test when it is safe to call Actual_Subtype
+   754:            and then
+   755:              (Ekind (E) in E_Constant | E_Variable or else Is_Formal (E))
+   756:            and then Is_Mutable_In_Why (E)
+   757:            and then Present (Actual_Subtype (E))
+   758:            and then Entity_In_SPARK (Actual_Subtype (E))
+   759:          then Actual_Subtype (E)
+   760:          else Etype (E));
+   761:       --  If we are not in a function declaration, we use the actual subtype
+   762:       --  for the parameter if one is provided.
+   763:
+   764:       Spec_Ty          : constant Entity_Id :=
+   765:         (if Is_Type (Use_Ty) and then Is_Class_Wide_Type (Use_Ty)
+   766:          then Get_Specific_Type_From_Classwide (Use_Ty)
+   767:          else Use_Ty);
+   768:       Ty               : constant Entity_Id :=
+   769:         (if Is_Type (Spec_Ty) then Retysp (Spec_Ty) else Spec_Ty);
+   770:       Needs_Init_Flag  : constant Boolean :=
+   771:         Is_Object (E)
+   772:         and then Is_Mutable_In_Why (E)
+   773:         and then Is_Elementary_Type (Ty)
+   774:         and then Obj_Has_Relaxed_Init (E)
+   775:         and then Ekind (E) in E_Variable | E_Out_Parameter;
+   776:       --  We only need an initialization flag for variables and out parameters
+   777:       --  of elementary types.
+   778:       Needs_Valid_Flag : constant Boolean := Is_Potentially_Invalid (E);
+   779:       --  We only need a validity flag for potentially invalid objects
+   780:
+   781:       function New_Init_Id (Name : W_Identifier_Id) return Opt_Id
+   782:       is (if Needs_Init_Flag
+   783:           then (Present => True, Id => Init_Append (Name))
+   784:           else (Present => False));
+   785:
+   786:       function New_Is_Moved_Id (Name : W_Identifier_Id) return Opt_Id
+```
+
+## src/why/why-gen-binders.adb:1082-1125
+
+```ada
+  1082:                  and then Is_Standard_Boolean_Type (Ty)
+  1083:                then EW_Int_Type
+  1084:
+  1085:                --  Use an init wrapper type for objects with relaxed init
+  1086:
+  1087:                elsif Obj_Has_Relaxed_Init (E) and then not Is_Scalar_Type (Ty)
+  1088:                then EW_Init_Wrapper (Type_Of_Node (Ty))
+  1089:
+  1090:                --  Otherwise we use Why3 representation for the type
+  1091:
+  1092:                else Type_Of_Node (Ty));
+  1093:
+  1094:             pragma
+  1095:               Assert
+  1096:                 (if Is_Scalar_Type (Ty) and then Obj_Has_Relaxed_Init (E)
+  1097:                  then Needs_Init_Flag);
+  1098:             --  Scalar types are translated as split types. If they have
+  1099:             --  relaxed initialization, they should have a separate init
+  1100:             --  flag.
+  1101:
+  1102:             Name   : constant W_Identifier_Id :=
+  1103:               To_Why_Id (E => E, Typ => Typ, Local => Local, No_Comp => True);
+  1104:             Binder : constant Binder_Type :=
+  1105:               Binder_Type'
+  1106:                 (Ada_Node => E,
+  1107:                  B_Name   => Name,
+  1108:                  B_Ent    => Null_Entity_Name,
+  1109:                  Mutable  => Is_Mutable_In_Why (E),
+  1110:                  Labels   => <>);
+  1111:          begin
+  1112:             return
+  1113:               (Regular,
+  1114:                Local,
+  1115:                New_Init_Id (Name),
+  1116:                New_Is_Moved_Id (Name),
+  1117:                New_Valid_Id (Name),
+  1118:                Binder);
+  1119:          end;
+  1120:       end if;
+  1121:    end Mk_Item_Of_Entity;
+  1122:
+  1123:    ---------------------------------
+  1124:    -- New_Constant_Record_Binders --
+  1125:    ---------------------------------
+```
+
 ## src/why/why-gen-binders.adb:1260-1310
 
 ```ada
@@ -6547,6 +7001,79 @@
   1413:    -- Object_Has_Valid_Id --
   1414:    -------------------------
   1415:
+```
+
+## src/why/why-gen-binders.adb:1457-1524
+
+```ada
+  1457:    function Reconstruct_Binder
+  1458:      (Id          : W_Identifier_Id;
+  1459:       Mutable     : Boolean;
+  1460:       Domain      : EW_Domain;
+  1461:       Ref_Allowed : Boolean := True;
+  1462:       Alias       : W_Expr_Id := Why_Empty) return W_Expr_Id is
+  1463:    begin
+  1464:       if not Mutable then
+  1465:          return +Id;
+  1466:       elsif Present (Alias) then
+  1467:          return
+  1468:            New_Call
+  1469:              (Domain => Domain,
+  1470:               Name   => Id,
+  1471:               Args   => (1 => Alias),
+  1472:               Typ    => Get_Typ (Id));
+  1473:       elsif Ref_Allowed then
+  1474:          return
+  1475:            New_Deref
+  1476:              (Ada_Node => Get_Ada_Node (+Id),
+  1477:               Right    => Id,
+  1478:               Typ      => Get_Typ (Id));
+  1479:       else
+  1480:          return +Id;
+  1481:       end if;
+  1482:    end Reconstruct_Binder;
+  1483:
+  1484:    ----------------------
+  1485:    -- Reconstruct_Item --
+  1486:    ----------------------
+  1487:
+  1488:    function Reconstruct_Item
+  1489:      (E           : Item_Type;
+  1490:       Domain      : EW_Domain;
+  1491:       Ref_Allowed : Boolean := True;
+  1492:       Alias       : W_Expr_Id := Why_Empty) return W_Expr_Id
+  1493:    is
+  1494:       T : W_Expr_Id;
+  1495:    begin
+  1496:       case E.Kind is
+  1497:          when Subp                      =>
+  1498:             raise Program_Error;
+  1499:
+  1500:          when Regular | Concurrent_Self =>
+  1501:             T :=
+  1502:               Reconstruct_Binder
+  1503:                 (E.Main.B_Name, E.Main.Mutable, Domain, Ref_Allowed, Alias);
+  1504:
+  1505:          when UCArray                   =>
+  1506:             T := Array_From_Split_Form (E, Domain, Ref_Allowed, Alias);
+  1507:
+  1508:          when DRecord                   =>
+  1509:             T := Record_From_Split_Form (E, Domain, Ref_Allowed, Alias);
+  1510:
+  1511:          when Pointer                   =>
+  1512:             pragma Assert (No (Alias));
+  1513:
+  1514:             T := +Pointer_From_Split_Form (E, Ref_Allowed);
+  1515:
+  1516:       end case;
+  1517:
+  1518:       return T;
+  1519:    end Reconstruct_Item;
+  1520:
+  1521:    ---------------------
+  1522:    -- To_Binder_Array --
+  1523:    ---------------------
+  1524:
 ```
 
 ## src/why/why-gen-binders.adb:1626-1640
@@ -6795,6 +7322,54 @@
   1981:    end Insert_Cnt_Loc_Label;
   1982:
   1983:    --------------------------------------
+```
+
+## src/why/why-gen-expr.adb:2349-2391
+
+```ada
+  2349:       --  Range check does not come from a modular type. Everything is done in
+  2350:       --  the representation type, either int for scalar and fixed-point types
+  2351:       --  or real for floating-point types.
+  2352:
+  2353:       else
+  2354:          W_Fun := Range_Check_Name (Ty, Check_Kind);
+  2355:
+  2356:          --  If the bounds are dynamic, we need to retrieve them for the check,
+  2357:          --  by calling Args_For_Scalar_Dynamic_Property.
+  2358:
+  2359:          if Type_Is_Modeled_As_Base (Ty) then
+  2360:             declare
+  2361:                W_Tmp  : constant W_Expr_Id := New_Temp_For_Expr (W_Expr);
+  2362:                W_Args : constant W_Expr_Array :=
+  2363:                  Args_For_Scalar_Dynamic_Property (Ty, W_Tmp, EW_Pterm);
+  2364:             begin
+  2365:                Result :=
+  2366:                  New_VC_Call
+  2367:                    (Ada_Node   => Ada_Node,
+  2368:                     Name       => W_Fun,
+  2369:                     Progs      => W_Args,
+  2370:                     Reason     => Reason,
+  2371:                     Check_Info => Check_Info,
+  2372:                     Typ        => Get_Type (W_Expr));
+  2373:                Result :=
+  2374:                  +Binding_For_Temp
+  2375:                     (Domain => EW_Prog, Tmp => W_Tmp, Context => +Result);
+  2376:             end;
+  2377:
+  2378:          --  If the bounds are static, the range checking function knows them
+  2379:
+  2380:          else
+  2381:             Result :=
+  2382:               New_VC_Call
+  2383:                 (Ada_Node   => Ada_Node,
+  2384:                  Name       => W_Fun,
+  2385:                  Progs      => (1 => +W_Expr),
+  2386:                  Reason     => Reason,
+  2387:                  Check_Info => Check_Info,
+  2388:                  Typ        => Get_Type (W_Expr));
+  2389:          end if;
+  2390:       end if;
+  2391:
 ```
 
 ## src/why/why-gen-expr.adb:2399-2910
@@ -7496,7 +8071,7 @@
   3569:    end New_And_Pred;
 ```
 
-## src/why/why-gen-expr.adb:3754-3858
+## src/why/why-gen-expr.adb:3754-3997
 
 ```ada
   3754:    function New_Binary_Op_Expr
@@ -7604,6 +8179,145 @@
   3856:             begin
   3857:                --  Look for the appropriate base scalar type
   3858:
+  3859:                if Has_Fixed_Point_Type (Left_Type)
+  3860:                  and then Has_Fixed_Point_Type (Right_Type)
+  3861:                then
+  3862:                   L_Type := Base_Why_Type (Left_Type);
+  3863:                   R_Type := Base_Why_Type (Right_Type);
+  3864:                   Oper := WNE_Fixed_Point_Mult;
+  3865:
+  3866:                   if Has_Fixed_Point_Type (Return_Type) then
+  3867:                      Base := Base_Why_Type (Return_Type);
+  3868:                   else
+  3869:                      pragma Assert (Has_Integer_Type (Return_Type));
+  3870:                      Base := EW_Int_Type;
+  3871:                   end if;
+  3872:
+  3873:                elsif Has_Fixed_Point_Type (Left_Type) then
+  3874:                   L_Type := Base_Why_Type (Left_Type);
+  3875:                   R_Type := EW_Int_Type;
+  3876:                   Base := Base_Why_Type (Return_Type);
+  3877:                   Oper := WNE_Fixed_Point_Mult_Int;
+  3878:                   pragma Assert (L_Type = Base);
+  3879:
+  3880:                --  If multiplying an integer and a fixed-point, swap
+  3881:                --  arguments so that Left is the fixed-point one.
+  3882:
+  3883:                elsif Has_Fixed_Point_Type (Right_Type) then
+  3884:                   L_Type := Base_Why_Type (Right_Type);
+  3885:                   R_Type := EW_Int_Type;
+  3886:                   Left_Rep := Right;
+  3887:                   Right_Rep := Left;
+  3888:                   Base := Base_Why_Type (Return_Type);
+  3889:                   Oper := WNE_Fixed_Point_Mult_Int;
+  3890:                   pragma Assert (L_Type = Base);
+  3891:
+  3892:                else
+  3893:                   Base := Base_Why_Type (Left_Type, Right_Type);
+  3894:                   L_Type := Base;
+  3895:                   R_Type := Base;
+  3896:                   pragma Assert (not Has_Fixed_Point_Type (Return_Type));
+  3897:                end if;
+  3898:
+  3899:                Left_Rep :=
+  3900:                  Insert_Simple_Conversion
+  3901:                    (Ada_Node => Ada_Node,
+  3902:                     Domain   => Domain,
+  3903:                     Expr     => Left_Rep,
+  3904:                     To       => L_Type);
+  3905:                Right_Rep :=
+  3906:                  Insert_Simple_Conversion
+  3907:                    (Ada_Node => Ada_Node,
+  3908:                     Domain   => Domain,
+  3909:                     Expr     => Right_Rep,
+  3910:                     To       => R_Type);
+  3911:
+  3912:                --  Construct the operation
+  3913:
+  3914:                if Has_Fixed_Point_Type (Left_Type)
+  3915:                  or else Has_Fixed_Point_Type (Right_Type)
+  3916:                then
+  3917:                   declare
+  3918:                      pragma Assert (Oper /= WNE_Empty);
+  3919:                      Name : W_Identifier_Id;
+  3920:                   begin
+  3921:                      case Oper is
+  3922:                         when WNE_Fixed_Point_Mult     =>
+  3923:                            Name :=
+  3924:                              Get_Fixed_Point_Mult_Div_Theory
+  3925:                                (Typ_Left   => Left_Type,
+  3926:                                 Typ_Right  => Right_Type,
+  3927:                                 Typ_Result => Return_Type)
+  3928:                                .Mult;
+  3929:
+  3930:                         when WNE_Fixed_Point_Mult_Int =>
+  3931:                            Name :=
+  3932:                              Get_Fixed_Point_Theory (Typ => Return_Type)
+  3933:                                .Mult_Int;
+  3934:
+  3935:                         when others                   =>
+  3936:                            raise Program_Error;
+  3937:                      end case;
+  3938:
+  3939:                      T :=
+  3940:                        New_Call
+  3941:                          (Ada_Node => Ada_Node,
+  3942:                           Domain   => Domain,
+  3943:                           Name     => Name,
+  3944:                           Args     => (1 => Left_Rep, 2 => Right_Rep),
+  3945:                           Typ      => Base);
+  3946:                   end;
+  3947:
+  3948:                elsif Has_Modular_Integer_Type (Return_Type)
+  3949:                  and then
+  3950:                    not Has_No_Bitwise_Operations_Annotation (Return_Type)
+  3951:                  and then Non_Binary_Modulus (Return_Type)
+  3952:                then
+  3953:                   T :=
+  3954:                     Transform_Non_Binary_Modular_Operation
+  3955:                       (Ada_Node   => Ada_Node,
+  3956:                        Ada_Type   => Return_Type,
+  3957:                        Domain     => Domain,
+  3958:                        Op         => Op,
+  3959:                        Left_Opnd  => Left_Rep,
+  3960:                        Right_Opnd => Right_Rep,
+  3961:                        Rep_Type   => Base,
+  3962:                        Modulus    => Modulus (Return_Type));
+  3963:
+  3964:                else
+  3965:                   declare
+  3966:                      Name : constant W_Identifier_Id :=
+  3967:                        (if Base = EW_Int_Type
+  3968:                         then Int_Infix_Mult
+  3969:                         elsif Why_Type_Is_BitVector (Base)
+  3970:                         then MF_BVs (Base).Mult
+  3971:                         elsif Why_Type_Is_Fixed (Base)
+  3972:                         then Fixed_Infix_Mult
+  3973:                         else MF_Floats (Base).Mult);
+  3974:                   begin
+  3975:                      T :=
+  3976:                        New_Call
+  3977:                          (Ada_Node => Ada_Node,
+  3978:                           Domain   => Domain,
+  3979:                           Name     => Name,
+  3980:                           Args     => (1 => Left_Rep, 2 => Right_Rep),
+  3981:                           Typ      => Base);
+  3982:                   end;
+  3983:
+  3984:                   if not Check_No_Wrap_Around then
+  3985:                      T := Apply_Modulus (Op, Return_Type, T, Domain);
+  3986:                   end if;
+  3987:                end if;
+  3988:
+  3989:                if Base_Why_Type (Return_Type) /= Base then
+  3990:                   T :=
+  3991:                     Insert_Checked_Conversion
+  3992:                       (Ada_Node => Ada_Node,
+  3993:                        Domain   => Domain,
+  3994:                        Expr     => T,
+  3995:                        To       => Type_Of_Node (Base_Type (Return_Type)));
+  3996:                end if;
+  3997:             end;
 ```
 
 ## src/why/why-gen-expr.adb:4289-4355
@@ -8137,6 +8851,50 @@
    832:    end New_Module;
 ```
 
+## src/why/why-gen-names.adb:1182-1220
+
+```ada
+  1182:    function Range_Check_Name
+  1183:      (Ty : Entity_Id; R : Scalar_Check_Kind) return W_Identifier_Id is
+  1184:    begin
+  1185:       if Is_Standard_Boolean_Type (Ty) then
+  1186:          case R is
+  1187:             when RCK_Range_Not_First
+  1188:                | RCK_Overflow_Not_First
+  1189:                | RCK_FP_Overflow_Not_First =>
+  1190:                return M_Boolean.Check_Not_First;
+  1191:
+  1192:             when RCK_Range_Not_Last
+  1193:                | RCK_Overflow_Not_Last
+  1194:                | RCK_FP_Overflow_Not_Last  =>
+  1195:                return M_Boolean.Check_Not_Last;
+  1196:
+  1197:             when others                    =>
+  1198:                return M_Boolean.Range_Check;
+  1199:          end case;
+  1200:       else
+  1201:          declare
+  1202:             Name : constant Why_Name_Enum :=
+  1203:               (case R is
+  1204:                  when RCK_Range_Not_First
+  1205:                     | RCK_Overflow_Not_First
+  1206:                     | RCK_FP_Overflow_Not_First => WNE_Check_Not_First,
+  1207:                  when RCK_Range_Not_Last
+  1208:                     | RCK_Overflow_Not_Last
+  1209:                     | RCK_FP_Overflow_Not_Last  => WNE_Check_Not_Last,
+  1210:                  when others                    => WNE_Range_Check_Fun);
+  1211:
+  1212:          begin
+  1213:             return E_Symb (Ty, Name);
+  1214:          end;
+  1215:       end if;
+  1216:    end Range_Check_Name;
+  1217:
+  1218:    ---------------------
+  1219:    -- Range_Pred_Name --
+  1220:    ---------------------
+```
+
 ## src/why/why-gen-progs.adb:275-280
 
 ```ada
@@ -8478,6 +9236,55 @@
    746:          Why_Sections (Th.Section).Append (+Th_Id);
 ```
 
+## src/why/why-inter.adb:756-799
+
+```ada
+   756:    function Eq_Base (Left, Right : W_Type_Id) return Boolean is
+   757:    begin
+   758:       if Left = Right then
+   759:          return True;
+   760:
+   761:       --  Builtin nodes can be compared directly
+   762:
+   763:       elsif Get_Type_Kind (Left) in EW_Builtin then
+   764:          return False;
+   765:
+   766:       --  Two types with different kinds cannot be equal
+   767:
+   768:       elsif Get_Type_Kind (Left) /= Get_Type_Kind (Right) then
+   769:          return False;
+   770:
+   771:       --  If one is a wrapper and not the other, they are not equal
+   772:
+   773:       elsif Get_Relaxed_Init (Left) /= Get_Relaxed_Init (Right) then
+   774:          return False;
+   775:
+   776:       --  For EW_Abstract and EW_Split types, compare the Ada node
+   777:
+   778:       elsif Get_Type_Kind (Left) in EW_Abstract | EW_Split then
+   779:
+   780:          --  Dummy EW_Abstract types are introduced for record private parts.
+   781:          --  Eq_Base should only be called on such types if they are equal.
+   782:
+   783:          pragma
+   784:            Assert
+   785:              ((No (Get_Ada_Node (+Left))
+   786:                and then No (Get_Ada_Node (+Right))
+   787:                and then Get_Name (+Left) = Get_Name (+Right))
+   788:               or else
+   789:                 (Present (Get_Ada_Node (+Left))
+   790:                  and then Present (Get_Ada_Node (+Right))));
+   791:
+   792:          return Get_Ada_Node (+Left) = Get_Ada_Node (+Right);
+   793:       else
+   794:          raise Program_Error;
+   795:       end if;
+   796:    end Eq_Base;
+   797:
+   798:    ---------------
+   799:    -- Eq_In_Why --
+```
+
 ## src/why/why-inter.adb:836-872
 
 ```ada
@@ -8701,7 +9508,7 @@
   1285:    -- Process_Info_Hiding_For_VCs --
 ```
 
-## src/why/why-inter.adb:1547-1577
+## src/why/why-inter.adb:1547-1632
 
 ```ada
   1547:    function To_Why_Type
@@ -8735,6 +9542,61 @@
   1575:    ------------------
   1576:    -- Type_Of_Node --
   1577:    ------------------
+  1578:
+  1579:    function Type_Of_Node (N : Node_Id) return W_Type_Id is
+  1580:    begin
+  1581:       --  look through 'old and 'loop_entry
+  1582:
+  1583:       if Nkind (N) = N_Attribute_Reference
+  1584:         and then Attribute_Name (N) in Name_Loop_Entry | Name_Old
+  1585:       then
+  1586:          return Type_Of_Node (Prefix (N));
+  1587:
+  1588:       --  for objects, we want to look at the Why type of the Why object
+  1589:
+  1590:       elsif Nkind (N) in N_Identifier | N_Expanded_Name
+  1591:         and then Is_Object (Entity (N))
+  1592:         and then Ekind (Entity (N)) not in E_Discriminant | E_Component
+  1593:         and then not Is_Part_Of_Protected_Object (Entity (N))
+  1594:       then
+  1595:          return Why_Type_Of_Entity (Entity (N));
+  1596:       else
+  1597:          declare
+  1598:             E            : constant Entity_Id := Type_Of_Node (N);
+  1599:             Relaxed_Init : constant Boolean :=
+  1600:               (case Nkind (N) is
+  1601:                  when N_Entity                       =>
+  1602:                    (if Is_Type (N)
+  1603:                     then False
+  1604:                     elsif Is_Object (N)
+  1605:                     then Obj_Has_Relaxed_Init (N)
+  1606:                     elsif Ekind (N) = E_Function
+  1607:                     then Fun_Has_Relaxed_Init (N)
+  1608:                     else Has_Relaxed_Init (Etype (N))),
+  1609:                  when N_Identifier | N_Expanded_Name =>
+  1610:                    Is_Object (Entity (N))
+  1611:                    and then Obj_Has_Relaxed_Init (Entity (N)),
+  1612:                  when others                         =>
+  1613:                    Expr_Has_Relaxed_Init (N));
+  1614:          begin
+  1615:             --  If N might be partially initialized, use a wrapper type
+  1616:
+  1617:             if Relaxed_Init then
+  1618:                return EW_Abstract (E, Relaxed_Init => True);
+  1619:
+  1620:             --  Handle special cases boolean/real
+  1621:
+  1622:             elsif Is_Standard_Boolean_Type (E) then
+  1623:                return EW_Bool_Type;
+  1624:             elsif E = Universal_Fixed then
+  1625:                return EW_Real_Type;
+  1626:             elsif Is_Type (E) and then Use_Split_Form_For_Type (E) then
+  1627:                return EW_Split (E);
+  1628:             else
+  1629:                return EW_Abstract (E);
+  1630:             end if;
+  1631:          end;
+  1632:       end if;
 ```
 
 ## src/why/why-types.ads:30-60
@@ -9219,9 +10081,18 @@
    350:                  "Condition", "W_Expr", Id_One);
 ```
 
-## src/why/xgen/xtree_sinfo.adb:380-440
+## src/why/xgen/xtree_sinfo.adb:371-440
 
 ```ada
+   371:       -- W_Integer_Constant --
+   372:       ------------------------
+   373:
+   374:       New_Field (W_Integer_Constant, "Value", "Uint");
+   375:
+   376:       ----------------------
+   377:       -- W_Range_Constant --
+   378:       ----------------------
+   379:
    380:       New_Field (W_Range_Constant, "Value", "Uint");
    381:       New_Field (W_Range_Constant, "Typ", "W_Type", Id_One);
    382:
