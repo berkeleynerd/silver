@@ -1,0 +1,14 @@
+{
+  "README.md": {
+    "bytes": 3137,
+    "sha256": "d9747aae9e353a282c286f0c7560bc61b4c222a1f27cf22f3a92e44532e94793"
+  },
+  "collect.py": {
+    "bytes": 8366,
+    "sha256": "a01e2e691f15ccba2afc06aa1acb67c1cb399e379aec89012388ea1659287843"
+  },
+  "source-inventory.json": {
+    "bytes": 27349,
+    "sha256": "86cbdf1cc4396e2433068b804284d596e1c0e84429d719b166ea6ccdd3a81829"
+  }
+}
