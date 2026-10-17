@@ -74,7 +74,7 @@ fragment. The external premises below remain part of the assurance claim.
 The scalar grammar combines signed-32-bit Integer objects and scoped indexes
 with grouped arithmetic, comparisons and standard Integer Image. The
 [bounded mutable extension](bounded-mutable-integers.md#integrated-validation-and-review)
-has [authorized review repairs](review-b79b986403-repairs.md) pending after
+includes the [completed review repairs](review-b79b986403-repairs.md) for
 B1's frontend acceptance failure and M1's declared-range source-reading gap.
 The original checkpoint remains historical evidence. The selected model
 retains exact ordered initializer values separately from Ada-staticness,
@@ -112,9 +112,8 @@ equal to their evaluations in the elaboration store. This relation is required
 by `ScalarDeclarationAt`; `scalar_declaration_checked` consumes its endpoint
 meaning. `Sequence.scalar_tokens_source_bounds` carries the property through
 the parsed trace, and `Predicate.meaning_scalar_source_bounds` gives it for
-every decoded declaration at the program endpoint. These M1 repair proofs have
-focused validation; the [complete repair checkpoint](review-b79b986403-repairs.md)
-remains pending.
+every decoded declaration at the program endpoint. These M1 repair proofs passed
+focused validation and the [complete repair checkpoint](review-b79b986403-repairs.md).
 
 `Sequence.scalar_tokens_objects` connects the parsed declaration trace to
 ordered object elaboration, and `Predicate.form_reading_valid` connects that

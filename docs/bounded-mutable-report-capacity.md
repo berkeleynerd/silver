@@ -4,8 +4,8 @@ Source review on Linux x86_64, 2026-10-17, for
 [assurance package #69](https://github.com/berkeleynerd/silver/issues/69).
 Historical source-review record for the [selected scope](bounded-mutable-integers.md).
 Original delivery completed through PR #76; the later
-[review remediation](review-b79b986403-repairs.md) reopens the capability for
-B1/M1 without invalidating this source/producer capacity derivation.
+[review remediation](review-b79b986403-repairs.md) reopened the capability for
+B1/M1 and is now complete, without invalidating this capacity derivation.
 The initial planning review at `0685a58fd0` was read-only and left frontend,
 metadata, flow and Image applicability obligations open. The implementation-lane
 closure below resolves those source-review obligations and records separate
@@ -14,8 +14,8 @@ admission grammar, the retained Main envelope is **15,292,416 bytes**, within th
 existing 16,777,216-byte buffer. Source correspondence and complete native/Lean
 discharge are separate delivery obligations; the [original integrated checkpoint](bounded-mutable-integers.md#integrated-validation-and-review)
 records their 2026-10-17 validation. Neither this sizing argument nor passing
-examples establishes them, and the subsequent B1/M1 repairs need their own
-checkpoint.
+examples establishes them. The subsequent B1/M1 repairs passed their own
+[checkpoint](review-b79b986403-repairs.md#validation-and-handoff).
 
 ## Inputs and inherited baseline
 
@@ -218,5 +218,5 @@ No clean rebuild, independent kernel replay or native macOS validation is
 claimed. Delivery package #70 subsequently recorded complete integrated
 validation against the actual inputs in the [capability checkpoint](bounded-mutable-integers.md#integrated-validation-and-review)
 and [delivery evidence](evidence/bounded-mutable-integers/delivery-validation.json).
-That original completion is historical; the later B1/M1 review findings and
-required repair validation are tracked [separately](review-b79b986403-repairs.md).
+That original completion is historical; the later B1/M1 findings and completed
+repair validation are recorded [separately](review-b79b986403-repairs.md).

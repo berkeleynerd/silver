@@ -1,13 +1,15 @@
 # Bounded mutable integers
 
-**Original delivery reviewed; remediation pending on Linux x86_64, 2026-10-17.**
-The later [review-b79b986403](reviews/review-b79b986403.md) supersedes the
-completion claim for PR #76: B1 violates frontend acceptance and M1 leaves a
-declared-range source-reading gap. The owner authorized the
-[repair scope](review-b79b986403-repairs.md) before the next construct.
-Original delivery validation below remains historical evidence, not validation
-of the repair. The selected language rule below includes the authorized B1
-restriction; implementation and complete repair validation are pending.
+**Complete after review remediation on Linux x86_64, 2026-10-17.**
+[PR #86](https://github.com/berkeleynerd/silver/pull/86) delivers the repairs to
+[review-b79b986403](reviews/review-b79b986403.md): B1 explicitly rejects empty
+Integer-assignment RHS intervals, and M1 independently interprets declared range
+endpoints through the program source argument. The
+[repair record](review-b79b986403-repairs.md) and
+[repair evidence](evidence/bounded-mutable-integers/review-remediation-validation.json)
+identify combined implementation `78cf419452`, independent reviews, and the
+passing native, full-suite and complete cached Lean checkpoint. The original
+PR #76 evidence below remains history with its original failures and repairs.
 The owner authorized implementation through delivery after completion of
 [scope work #67](https://github.com/berkeleynerd/silver/issues/67).
 [Session memory](session-memory.md#2026-10-17--bounded-mutable-integers-implementation-authorized)
@@ -186,7 +188,7 @@ distinguishes focused development checks from the complete delivery checkpoint:
 | Boundary | Implementation and required guarantee |
 | --- | --- |
 | [Scalar expression environment](../src/silver_scalar_expressions.ads) and [native output profile](../src/silver_output_profile.adb) | Distinguish exact declaration values, Ada-staticness, mutability and declared ranges; recognize constrained objects and typed scalar assignments; establish native contracts and body-state rules. |
-| [Integer declarations](../proof/Silver/IntegerDeclarations.lean), [composition declarations](../proof/Silver/ComposeScalarDeclarations.lean) and [frozen semantics](../proof/Silver/ComposeFrozenSemantics.lean) | Specify initialization, snapshots, range inclusion, mutability and name resolution; the declaration-to-body abstraction preserves concrete values. M1 adds mandatory independent `ScalarConstraintAt` source readings and evaluated endpoint equality, carried to `Predicate.meaning_scalar_source_bounds`; complete repair validation is pending. The elaboration-store relation preserves stable identities across mutable and nonstatic snapshots. |
+| [Integer declarations](../proof/Silver/IntegerDeclarations.lean), [composition declarations](../proof/Silver/ComposeScalarDeclarations.lean) and [frozen semantics](../proof/Silver/ComposeFrozenSemantics.lean) | Specify initialization, snapshots, range inclusion, mutability and name resolution; the declaration-to-body abstraction preserves concrete values. M1 adds mandatory independent `ScalarConstraintAt` source readings and evaluated endpoint equality, carried to `Predicate.meaning_scalar_source_bounds`; complete repair validation passed as recorded separately. The elaboration-store relation preserves stable identities across mutable and nonstatic snapshots. |
 | [Predicate execution](../proof/Silver/PredicateExecution.lean) and its checking/composition modules | Return and thread mutable scalar state through checked and ordinary execution; prove assignment safety, range preservation, finite-loop composition and agreement. The evaluator now carries the mutable scalar store through each checked composition. |
 | Native equations, source certificates and whole-source bridges | Match every changed SPARK body to its semantic equations, extend declaration/statement decoding and correspondence, and review regenerated pins with those changes. |
 | [Image producer and consumer boundary](trusted-boundary.md#image-proof-adapter-boundary) | The source-route review preserves the Integer prefix and size-12 translation; the unchanged fixed-template semantic/consumer argument applies under the existing producer contract. Native model observations corroborate mutable reads, snapshots and constrained objects; they do not prove universal schema applicability. |
@@ -273,7 +275,8 @@ and assurance, with complete validation required before support.
 All four original packages were closed with PR #76. PR #73 recorded the
 authorization for #68–#70 through implementation, assurance and delivery.
 The later review reopened milestone 4 for [#77–#84](review-b79b986403-repairs.md);
-the board and issue handoffs track those repairs and restored completion. Native macOS validation remains independent and
+the completed repair record and issue handoffs track restored completion and
+publication. Native macOS validation remains independent and
 nonblocking; hosted CI remains disabled.
 
 ## Exclusions and stage mapping

@@ -8,8 +8,8 @@ attribution and the retained task revision are preserved. This is a targeted
 source review; it does not claim a completed integrated assurance checkpoint
 or reassess the remaining corpus. Dated completion pointer, 2026-10-17:
 PR #76 subsequently delivered the [integrated checkpoint](../docs/bounded-mutable-integers.md#integrated-validation-and-review).
-The later [B1/M1 repair](../docs/review-b79b986403-repairs.md) reopens capability
-completion; the motivating sample does not use an empty assignment interval
+The later [B1/M1 repair](../docs/review-b79b986403-repairs.md) reopened capability
+completion and has now passed its required checkpoint; the motivating sample does not use an empty assignment interval
 and its narrow Rosetta mapping remains applicable.
 
 The task asks for the least positive `N` whose consecutive-square difference
@@ -44,7 +44,7 @@ identifier does not admit declared scalar subtypes, conversions, general
 discrete loops, other scalar images, scalar guard refinement or assignment
 refinement. Adding it to `supported` and updating the assessment prompt are
 delivery edits. The original integrated evidence is linked above; restored
-capability completion awaits the subsequently authorized repair checkpoint.
+capability completion is recorded in the subsequent repair checkpoint.
 
 
 ## Review repair synchronization — 2026-10-17

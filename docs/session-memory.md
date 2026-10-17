@@ -1,5 +1,36 @@
 # Session memory
 
+## 2026-10-17 — Bounded mutable integers review repairs complete
+
+The owner-authorized repairs to [review-b79b986403](reviews/review-b79b986403.md)
+are implemented, independently reviewed and validated on Linux x86_64, with
+delivery through [PR #86](https://github.com/berkeleynerd/silver/pull/86).
+[Milestone 4](https://github.com/berkeleynerd/silver/milestone/4) tracks the
+findings #77–#84. The [repair record](review-b79b986403-repairs.md) and its
+[evidence](evidence/bounded-mutable-integers/review-remediation-validation.json)
+separate frozen source/proof/test inputs `78cf419452`, source-review targets,
+actual validation scopes, retained failures and cache reuse. The issues and
+board carry the final publication/closure handoff.
+
+B1 explicitly rejects every empty Integer-assignment RHS interval, including
+empty loops. Native and Lean rules, source correspondence, language, catalogue,
+regressions and Rosetta descriptions agree. M1 makes independent source endpoint
+readings mandatory and carries their evaluated bounds through the declaration
+trace to the final program endpoint. D1–D6 and minor records are corrected;
+Image producer premises and evidence classes remain explicit. O1's stack
+measurement is documented; optional implementation redesigns remain deferred.
+Original PR #76 results remain historical evidence, including the original
+suite's failures and focused repair. The combined native audit, full suite
+and complete cached Lean/fresh audit passed, with no remaining material finding.
+
+No Oracle amendment, next construct or new harness goal is included. The prior
+For loops and integers goal remains complete. Hosted CI remains disabled and
+native macOS validation remains independent and nonblocking. Final audited
+artifacts were returned to the idle root cache with replaced files backed up.
+Successful caches, failed evidence, worktrees, scratch and other-host artifacts
+are preserved. CLI memory was unavailable and was not updated; checked-in
+session memory is the durable handoff.
+
 ## 2026-10-17 — Bounded mutable integers review repairs authorized
 
 The owner said **“Proceed”** to the recommended remediation of

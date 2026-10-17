@@ -16,23 +16,19 @@ next capability while retaining full assurance for the current language.
 
 ### Bounded mutable integers
 
-**Review remediation authorized; milestone reopened, 2026-10-17.**
-The later [review](docs/reviews/review-b79b986403.md) found an admitted empty-loop
-Integer assignment rejected by the pinned frontend and an independent
-source-reading gap for declared ranges. The owner's
-[repair instruction](docs/session-memory.md#2026-10-17--bounded-mutable-integers-review-repairs-authorized)
-selects these before any next construct. The [repair record](docs/review-b79b986403-repairs.md)
-tracks the ordered increments: B1 [#77](https://github.com/berkeleynerd/silver/issues/77)
-and M1 [#78](https://github.com/berkeleynerd/silver/issues/78) together; D1–D6
-[#79–#84](https://github.com/berkeleynerd/silver/issues?q=is%3Aissue+milestone%3A%22Bounded+mutable+integers%22+is%3Aopen)
-with minor record corrections alongside; then one integrated native, full-suite
-and complete cached Lean/source checkpoint and independent review. No repair
-validation or restored completion is claimed yet. B1 explicitly requires a
-non-empty assignment RHS interval; M1 must connect independent endpoint readings
-to the declaration/source argument. No owner policy decision remains open.
+**Complete after review remediation on Linux x86_64, 2026-10-17.**
+[PR #86](https://github.com/berkeleynerd/silver/pull/86) delivers the owner's
+[authorized repairs](docs/session-memory.md#2026-10-17--bounded-mutable-integers-review-repairs-authorized)
+to [review-b79b986403](docs/reviews/review-b79b986403.md). B1 [#77](https://github.com/berkeleynerd/silver/issues/77)
+explicitly rejects empty Integer-assignment RHS intervals; M1 [#78](https://github.com/berkeleynerd/silver/issues/78)
+connects independent endpoint readings to declared-range semantics. D1–D6
+#79–#84 and minor record corrections are complete. The [repair record](docs/review-b79b986403-repairs.md)
+separates source/proof/test input commit `78cf419452`, bidirectional source
+reviews and the passing native, full-suite and complete cached Lean/source
+checkpoint. The original PR #76 delivery and its retained failures below remain
+historical evidence. Optional implementation improvements remain deferred;
+no next construct is authorized.
 
-The following describes the original delivery through PR #76 and its historical
-validation; its completion claim is superseded pending these repairs.
 The [capability record](docs/bounded-mutable-integers.md) defines the selected narrow
 increment under [stage #11](https://github.com/berkeleynerd/silver/issues/11),
 driven by [Find square difference](rosetta/f/find-square-difference/silver.md).
@@ -46,9 +42,9 @@ executable-body read of a mutable scalar uses its full declared range; neither
 assignments nor guards narrow that range. RHS interval inclusion preserves the
 target range, loop bounds are captured at entry, and Image lengths use the
 current expression interval. Scalar and String writes persist across iterations
-and after a loop; only its scoped index is removed. The universal, source and
-producer arguments passed the complete validation checkpoint under their
-documented assumptions.
+and after a loop; only its scoped index is removed. The universal and source arguments passed the repair checkpoint. Image
+applicability retains the source-route, fixed-template and native evidence
+classes under the documented producer/consumer assumptions.
 
 [Milestone 4](https://github.com/berkeleynerd/silver/milestone/4) contains all
 four work packages, recorded together when scoping began:
@@ -62,7 +58,9 @@ four work packages, recorded together when scoping began:
    full-suite execution with the focused snapshot repair are finished.
 3. **Universal and actual-source assurance [#69](https://github.com/berkeleynerd/silver/issues/69):**
    Complete: mutable-store semantics, membership, finite execution,
-   safety/discharge, source correspondence and Image applicability. The
+   safety/discharge and source correspondence, including the later M1 repair.
+   Image applicability retains the evidence classes and producer premises in
+   the capability record. The
    [mutable report envelope](docs/bounded-mutable-report-capacity.md) extends the
    source/producer derivation; the old constant-only bound is retained as history.
    Complete native validation and the complete cached Lean build with fresh

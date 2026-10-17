@@ -335,7 +335,7 @@ static constrained declarations and mutable assignments. The source-review
 bound is separate from complete obligation discharge and actual-source
 correspondence. The [original integrated checkpoint](bounded-mutable-integers.md#integrated-validation-and-review)
 records their 2026-10-17 validation; the subsequent
-[B1/M1 review repairs](review-b79b986403-repairs.md) have a separate pending
+[B1/M1 review repairs](review-b79b986403-repairs.md) passed their separate
 checkpoint. Those findings do not increase this capacity envelope.
 
 ## Storage placement and validation

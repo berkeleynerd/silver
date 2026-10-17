@@ -1474,7 +1474,7 @@
     "date": "2026-10-17",
     "review": "docs/reviews/review-b79b986403.md",
     "repair_record": "docs/review-b79b986403-repairs.md",
-    "scope": "Original run outcomes, artifact identities and comparisons are retained unchanged. This record is historical delivery evidence. B1 and M1 supersede the original capability completion claim pending separately recorded remediation.",
+    "scope": "Original run outcomes, artifact identities and comparisons are retained unchanged. This record is historical delivery evidence. B1 and M1 superseded the original capability completion claim and are repaired through PR #86; the completed remediation has a separate evidence record.",
     "native_timing": "The 129.8-second full native audit reused solver results; the review counted about 1,399 new cache entries against 82,979 recorded prover attempts. This is not fresh-proof timing.",
     "cache_provenance": "Named transfer manifests do not reconstruct every earlier object. Review traced 206 of 466 final objects to earlier-milestone workspaces through the ed975942 root cache, with content-consistent traces; none was a module changed by PR #76."
   }
