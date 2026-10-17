@@ -6481,6 +6481,18 @@
     "manifest_invariants": "passed",
     "retained_log_ledger_and_lean_evidence_hashes": "matched",
     "whitespace": "passed",
-    "scope": "Documentation and retained-record checks only; no additional native build, proof, test execution or kernel replay."
+    "scope": "Documentation and retained-record checks only; no additional native build, proof, test execution or kernel replay.",
+    "final_integration": {
+      "changed_markdown_files": 12,
+      "local_file_links": 652,
+      "new_proof_links_checked_in_integration": [],
+      "managed_runs": 28,
+      "distinct_passing_methods": 89,
+      "manifest_invariants": "passed",
+      "retained_log_ledger_and_lean_evidence_hashes": "matched",
+      "authoritative_native_inputs_matched": 141,
+      "synchronized_tracked_inputs_matched": 670,
+      "post_validation_changes": "Documentation only; source, scripts, proof, tests, catalogue and samples remain unchanged."
+    }
   }
 }

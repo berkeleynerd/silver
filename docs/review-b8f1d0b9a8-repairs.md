@@ -256,7 +256,7 @@ bind actual inputs, with final cross-workspace correspondence below.
 | Complete cached Lean check `20261017T001224-2650ccbec3a2` | `Silver.Audit` passed over 459 modules and 87,369 declarations; only `propext`, `Classical.choice` and `Quot.sound`. Four Lake workers, one thread per process; 547.865 managed / 548.301 evidence seconds, including 539.574 build and 3.878 fresh audit seconds. |
 | Focused operational, admission and evidence tests | 68 passed with zero skips: 3 adapter controls, 4 shared-budget methods, all 53 evidence tests and all 8 Image setup tests. |
 | Final synchronized tests | 21 more passed: the remaining adapter initializer method, all 9 Integer Image methods and all 11 Lean/source methods. Across the seven focused runs, all 89 distinct methods passed with zero skips or repeats, including exactly three native application compiles and all 26 certificate regeneration pairs. |
-| Documentation validation | All 487 local-file links across 11 changed Markdown files resolve; the new canonical proof link was checked in the integration tree. JSON invariants and retained ledger/log/Lean evidence hashes pass for 28 managed runs and 89 distinct passing methods. Whitespace checks pass. |
+| Documentation validation | Final integration checked all 652 local-file links across 12 changed Markdown files; all resolve. JSON invariants and retained ledger/log/Lean evidence hashes pass for 28 managed runs and 89 distinct passing methods. Whitespace checks pass. |
 
 The complete Lean input digest is
 `5e97df848181138ef18133d53f37b843520d16b9aeba762891f8de420667dea3`;

@@ -1,5 +1,30 @@
 # Session memory
 
+## 2026-10-17 — For loops and integers review remediation complete
+
+The owner-authorized L1–L15 repairs from
+[review-b8f1d0b9a8](reviews/review-b8f1d0b9a8.md) are implemented and validated
+on Linux x86_64, with delivery through
+[PR #66](https://github.com/berkeleynerd/silver/pull/66).
+[Milestone 3](https://github.com/berkeleynerd/silver/milestone/3) tracks #51–#64
+and the reused #31 for L8. The [repair record](review-b8f1d0b9a8-repairs.md)
+identifies the implementation, independent reviews and exact evidence separately
+from completion documentation. The repairs restore token-boundary operator
+counting, bound adapter scratch lifetime, improve diagnostics, strengthen
+internal JSON meaning proofs and add retained regression and kernel witnesses.
+Historical input, cache and assurance claims are corrected explicitly.
+
+The complete native audit, affected regressions, and complete cached Lean build
+with fresh whole-project auditing passed. Their actual inputs, cache transfers,
+retained failures and application-artifact limits are in the
+[validation record](evidence/for-loops-integers/review-remediation-validation.json).
+No unchanged successful native or test checkpoint was repeated for final
+documentation. The original For loops and integers milestone and harness goal
+remain complete; this remediation admits no new construct and authorizes no
+later capability. The Oracle is unchanged. Hosted CI remains disabled, and
+macOS validation remains independent. All prior worktrees, scratch and caches
+are preserved. CLI memory was unavailable and was not updated.
+
 ## 2026-10-16 — For loops and integers review remediation authorized
 
 The owner instructed, **“Proceed with the remediation you have recommended,”**
