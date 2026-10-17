@@ -1,0 +1,370 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "verified_against": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+  "scope": "Source identity/excerpts; no compiler/prover run",
+  "files": [
+    {
+      "path": "checks.adb",
+      "bytes": 408092,
+      "sha256": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c",
+      "ranges": [
+        [
+          3509,
+          3538
+        ],
+        [
+          11491,
+          11508
+        ]
+      ]
+    },
+    {
+      "path": "exp_ch4.adb",
+      "bytes": 574199,
+      "sha256": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
+      "ranges": [
+        [
+          10162,
+          10258
+        ]
+      ]
+    },
+    {
+      "path": "exp_spark.adb",
+      "bytes": 45004,
+      "sha256": "509e27a893828c31e7148f29470ab1fcbacd879242a1066dd22bdc3a6cf0fbfb",
+      "ranges": [
+        [
+          120,
+          213
+        ],
+        [
+          772,
+          881
+        ],
+        [
+          896,
+          946
+        ],
+        [
+          1008,
+          1023
+        ],
+        [
+          1073,
+          1106
+        ],
+        [
+          1138,
+          1254
+        ]
+      ]
+    },
+    {
+      "path": "exp_util.adb",
+      "bytes": 533310,
+      "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
+      "ranges": [
+        [
+          5864,
+          6012
+        ],
+        [
+          7221,
+          7243
+        ],
+        [
+          12619,
+          12723
+        ],
+        [
+          12761,
+          12824
+        ],
+        [
+          13102,
+          13116
+        ],
+        [
+          14429,
+          14457
+        ]
+      ]
+    },
+    {
+      "path": "expander.adb",
+      "bytes": 20912,
+      "sha256": "5cbfe2783201ea57d9d93290187daa0a24d71757b82b2a49c9280704b148b461",
+      "ranges": [
+        [
+          105,
+          127
+        ]
+      ]
+    },
+    {
+      "path": "gnat1drv.adb",
+      "bytes": 60186,
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173",
+      "ranges": [
+        [
+          511,
+          516
+        ]
+      ]
+    },
+    {
+      "path": "inline.adb",
+      "bytes": 187259,
+      "sha256": "e0c1b483ba6454870ee552f7dbfcf87012ce02ab109d06913caf66fdd40bb841",
+      "ranges": [
+        [
+          1950,
+          1993
+        ]
+      ]
+    },
+    {
+      "path": "itypes.adb",
+      "bytes": 4958,
+      "sha256": "1f1482d8147358ca0c8b1de6c665cd61584f3e08527729b92f058b7820cf2e9a",
+      "ranges": [
+        [
+          45,
+          85
+        ]
+      ]
+    },
+    {
+      "path": "par-ch4.adb",
+      "bytes": 143417,
+      "sha256": "b6ea201b0bf99ddb4683ecc09ea65bf5009f249fbae7af71d00ec921bd0f79d7",
+      "ranges": [
+        [
+          2561,
+          2660
+        ]
+      ]
+    },
+    {
+      "path": "sem_attr.adb",
+      "bytes": 481322,
+      "sha256": "2186f019b336c853f7e3f5ae3a40fd91514ba188694c4fd592282c7ce63185d0",
+      "ranges": [
+        [
+          1571,
+          1618
+        ],
+        [
+          8724,
+          8745
+        ],
+        [
+          9717,
+          9748
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch3.adb",
+      "bytes": 916035,
+      "sha256": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
+      "ranges": [
+        [
+          5138,
+          5145
+        ],
+        [
+          14339,
+          14477
+        ],
+        [
+          15317,
+          15498
+        ],
+        [
+          19080,
+          19214
+        ],
+        [
+          20712,
+          20761
+        ],
+        [
+          22704,
+          22719
+        ],
+        [
+          23008,
+          23038
+        ],
+        [
+          23110,
+          23133
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch4.adb",
+      "bytes": 412458,
+      "sha256": "19e5386e0a2535c501d41c1d2338760fb4b3c7acaecef614e9bdd4a0cf2fb555",
+      "ranges": [
+        [
+          1916,
+          1965
+        ],
+        [
+          2067,
+          2141
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch5.adb",
+      "bytes": 185498,
+      "sha256": "00632c152c18521a921f84ca9edd3b2887b428ee5d77388d4e4f5b3844dcc49e",
+      "ranges": [
+        [
+          300,
+          365
+        ],
+        [
+          3259,
+          3265
+        ],
+        [
+          3295,
+          3315
+        ],
+        [
+          3434,
+          3438
+        ],
+        [
+          3901,
+          3990
+        ],
+        [
+          4104,
+          4116
+        ],
+        [
+          4868,
+          4886
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch6.adb",
+      "bytes": 545826,
+      "sha256": "4dbe4ecbf943e6d2fef4fb90882da7c8570752c46c05c682a3e2beba955d7089",
+      "ranges": [
+        [
+          3738,
+          3768
+        ],
+        [
+          5442,
+          5500
+        ],
+        [
+          5565,
+          5623
+        ]
+      ]
+    },
+    {
+      "path": "sem_eval.adb",
+      "bytes": 273210,
+      "sha256": "0dfbf5f1bede0b9e011f21649c7f4d34851c6267cd72acebcb53e7a7fb4c7d30",
+      "ranges": [
+        [
+          2342,
+          2443
+        ],
+        [
+          2454,
+          2534
+        ],
+        [
+          5118,
+          5144
+        ],
+        [
+          5293,
+          5308
+        ]
+      ]
+    },
+    {
+      "path": "sem_res.adb",
+      "bytes": 559989,
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8",
+      "ranges": [
+        [
+          2545,
+          2551
+        ],
+        [
+          4861,
+          4879
+        ],
+        [
+          9360,
+          9368
+        ],
+        [
+          9732,
+          9745
+        ],
+        [
+          10570,
+          10619
+        ],
+        [
+          10804,
+          10832
+        ],
+        [
+          11875,
+          11929
+        ],
+        [
+          12039,
+          12120
+        ],
+        [
+          13145,
+          13170
+        ],
+        [
+          13205,
+          13337
+        ]
+      ]
+    },
+    {
+      "path": "sem_util.adb",
+      "bytes": 1074489,
+      "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4",
+      "ranges": [
+        [
+          10380,
+          10408
+        ]
+      ]
+    }
+  ],
+  "formulas": {
+    "parser_flatten_events": "P <= floor(A / 1000)",
+    "literal_subtype_creations": "K_literal <= S + 3*A + 5*P",
+    "main_entities": "E_Main <= 1 + D + R + 2*D_s + 5*F + K_literal",
+    "semantic_literal_occurrences": "<= S + A + 3*P"
+  },
+  "unproved_by_this_script": [
+    "Caller coverage and reachability",
+    "Formula soundness",
+    "Installed binary/source correspondence",
+    "Complete process or whole-program capacity"
+  ]
+}
