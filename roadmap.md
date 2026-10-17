@@ -16,56 +16,72 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Scoped on 2026-10-17; implementation not authorized.** At the owner's request,
-the [scope proposal](docs/unbounded-programs.md) and
-[milestone 5](https://github.com/berkeleynerd/silver/milestone/5) record how
-Silver can drop its arbitrary capacity limits. Compilation would then fail only
-through resource exhaustion, which this profile treats as an environmental
-outcome. Per-program GNATprove becomes a non-gating confirmation. A definite
-non-proof or rejected report is a defect report, and a resource-limited
-confirmation is inconclusive. The universal Lean argument and explicit trusted
-premises carry "if it compiles, it proves".
+**Scope proposal; implementation not authorized.** The
+[scope](docs/unbounded-programs.md) and
+[milestone 5](https://github.com/berkeleynerd/silver/milestone/5) pursue removal of
+unnecessary Silver capacity limits. The operational objective is resource-driven
+failure within explicit language rules and functioning tool/infrastructure
+premises; implementation, tool and infrastructure defects remain possible and
+must be reported. Per-program GNATprove would become non-gating confirmation.
+The required guarantee stays unchanged: the universal assurance argument and
+explicit trusted premises carry "if it compiles, it proves". Confirmation provides
+additional evidence about the selected program, not verification of every premise.
 
-The language rules that remain are the pinned GNAT 16.1 frontend's maxima and
-inherited Ada meaning: line width, identifier length, exponent, a total-source
-rule derived from GNAT's internal tables and source-position space, the `Integer`
-range, and String length up to `Integer'Last`. The scope lists the remaining
-confirmation-only and fixed-input implementation capacities with their purpose.
-The [session memory](docs/session-memory.md#2026-10-17--unbounded-programs-scoping-requested)
-records the owner's direction. No Oracle amendment is needed.
+The [independent review](docs/reviews/review-ec82b4e5f2.md) and
+[planning repair record](docs/review-ec82b4e5f2-repairs.md) distinguish corrected
+claims from unresolved research. Line width, identifier length and exponent rules
+come from the pinned frontend; Integer/String meaning is inherited. A total-source
+capacity rule remains a research deliverable, not an established forced maximum.
+A uniform worst-case envelope must be justified against a plausible source-sensitive
+alternative or shown to be the best tractable choice. No Oracle amendment is
+proposed; the proposal cannot silently weaken its guarantee.
 
 The milestone's work packages, in order:
 
 1. **Scope and design [#87](https://github.com/berkeleynerd/silver/issues/87):**
-   this proposal, its [research evidence](docs/evidence/unbounded-programs/scoping-research.json),
-   the milestone and the issues.
+   the proposal, its [research evidence](docs/evidence/unbounded-programs/scoping-research.json),
+   milestone and issues. The repair record preserves the original publication and
+   its subsequent corrections.
 2. **Proof confirmation and resource outcomes [#88](https://github.com/berkeleynerd/silver/issues/88):**
-   build without waiting for proof, uncapped confirmation of the exact built
-   snapshot, exit status 4 for resource exhaustion, and restated premises.
-   Admission is unchanged.
+   separate build and confirmation results; define observable unsuccessful outcomes,
+   strict successful-report auditing, a retained build-input witness, growable
+   process arguments and truthful launch diagnostics. Admission is unchanged.
 3. **Compiler storage and complexity that scale with input [#89](https://github.com/berkeleynerd/silver/issues/89):**
-   separated 4096 roles, growable files and 64-bit or streaming report storage,
-   constant stack per nesting level and near-linear admission. Admission is
-   unchanged.
+   separated 4096 roles, growable file/path/argument storage and corresponding ghost
+   models, bootstrap capacities, 64-bit or streaming report storage, constant stack
+   per nesting level and near-linear admission. Coordinate its process interface
+   with #88. Admission is unchanged.
 4. **Parameterized Lean assurance [#90](https://github.com/berkeleynerd/silver/issues/90):**
-   the exact length-range schema up to `Integer'Last` and theorems over symbolic
-   limits. Admission is unchanged.
+   exact length-range reasoning up to Integer'Last and theorems over symbolic
+   limits, retaining automatic-discharge and source-correspondence guarantees.
+   Admission is unchanged.
 5. **Pinned-frontend and derived source limits [#91](https://github.com/berkeleynerd/silver/issues/91):**
-   explicit tool-derived rules, including the derived total-source bound. They are
-   unreachable while the 4096-byte bound remains.
+   research a sound, appropriately expansive capacity rule across loaded units,
+   source positions and internal tables, then implement the justified explicit
+   rules after #89/#90. Research conclusions and implemented rules are separate
+   deliverables; no larger language is admitted by this plan.
 6. **Remove source, operator and expression caps [#92](https://github.com/berkeleynerd/silver/issues/92):**
-   admits larger programs, validated by a scaling ladder and differential fuzzing.
+   admits larger programs only after the preceding capacity and assurance work,
+   with proportionate scaling evidence and differential frontend checks.
 7. **String and argument lengths up to Integer'Last [#93](https://github.com/berkeleynerd/silver/issues/93):**
-   an observable pre-1.0 change; arguments longer than 4096 bytes become valid. It
-   may run alongside package 6.
-8. **Validation, review and delivery [#94](https://github.com/berkeleynerd/silver/issues/94).**
+   research static-data compile/link feasibility before fixing the domain, then
+   generalize values and runtime contracts. Preserve forwarded application statuses
+   and distinguish compiler launch failures. Re-derive #91's dependency allowance
+   for changed runtime units. It may overlap #92 only where prerequisites hold.
+8. **Validation, review and delivery [#94](https://github.com/berkeleynerd/silver/issues/94):**
+   one stable capability checkpoint, outcome-matrix validation and synchronized
+   records; this planning correction supplies no implementation validation.
 
-Before implementation the owner must say "proceed", recorded in session memory.
-That also confirms the scope's reading of the research full stops. If
-confirmation finds a definite non-proof that cannot be fixed, work stops for the
-owner's decision. Packages 3 and 4 may overlap after package 2, with one proof
-workspace writer at a time. Package 5's derivations can start earlier. The Rosetta
-stages, new constructs and macOS validation remain separate.
+The owner's [planning-only authorization](docs/session-memory.md#2026-10-17--unbounded-programs-planning-corrections-authorized)
+does not supply the implementation "proceed". That later authorization must be
+recorded on `main`. Report an unresolved sound/expansive capacity rule, unfixable
+non-resource compile/link failure in the intended value domain, or unfixable
+definite non-proof as a conditional full stop; do not silently choose a smaller
+cap or weaken assurance. #91's research can be separately authorized earlier;
+this corrective pass does not execute its experiments. Packages #89 and #90
+coordinate source certificates and use one writer per proof workspace. Rosetta
+stages and new constructs remain separate, and native macOS validation remains
+independent and nonblocking.
 
 ### Bounded mutable integers
 

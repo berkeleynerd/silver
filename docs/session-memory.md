@@ -1,5 +1,37 @@
 # Session memory
 
+## 2026-10-17 — Unbounded programs planning corrections published
+
+The [full independent review](reviews/review-ec82b4e5f2.md) of PR #95 was
+published unchanged through [PR #96](https://github.com/berkeleynerd/silver/pull/96).
+That merge (`14b7d4e2`) also recorded the owner's exact corrective authorization
+on `main` before findings #97–#104 were created and claimed. The original scoping
+entry below remains history; its claims about derived source capacity, confirmation
+and solver premises are corrected by the [scope](unbounded-programs.md) and
+[repair record](review-ec82b4e5f2-repairs.md), rather than retroactively rewritten.
+
+The planning correction specifies observable confirmation outcomes and independent
+defect precedence, growable command/path storage, a build-input witness under a
+stable-workspace premise, honest producer/Image/solver assumptions, and application
+status forwarding. #91 must establish a sound, appropriately expansive source rule;
+#93 must establish static-data build feasibility before adopting the full intended
+value domain. Those decisions remain open research, with conditional full stops.
+They are not completed derivations or reasons to silently adopt smaller limits.
+
+The corrected issue specifications preserve the work in #88–#94, their dependencies
+and the requirement to retain the strongest conditional automatic-discharge
+assurance. Independent review found no remaining material planning defect after
+minor evidence-label corrections. Documentation-only checks cover links, JSON,
+whitespace, numerical reconciliation, historical-data preservation and GitHub
+readback; the repair record identifies the exact evidence and limits.
+
+This pass changes no compiler, language membership, Oracle, proof source or runtime.
+It runs none of the proposed research experiments and supplies no implementation
+checkpoint. #87 stays Done; #88–#94 stay Backlog until a separately recorded owner
+implementation "proceed". Separately authorized research would authorize only its
+stated research, not implementation or adoption. Shared edits, scratch, worktrees,
+caches and other-host artifacts are preserved. No CLI memory facility was updated.
+
 ## 2026-10-17 — Unbounded programs planning corrections authorized
 
 The owner instructed: "Proceed with the planning-only corrective pass. Publish

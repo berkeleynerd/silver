@@ -1,0 +1,200 @@
+{
+  "f1": {
+    "points": [
+      {
+        "run": "f1-2k",
+        "source_bytes": 1556,
+        "statements": 51,
+        "main_checks": 6,
+        "wall_seconds": 8.0,
+        "gnatwhy3_peak_gib": 0.124,
+        "process_tree_peak_gib": 0.38,
+        "max_attempt_seconds": 0.129616,
+        "max_attempt_steps_any_prover": 328,
+        "max_winning_steps": 1,
+        "report_bytes": 30325,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f1-4k",
+        "source_bytes": 4021,
+        "statements": 131,
+        "main_checks": 16,
+        "wall_seconds": 16.0,
+        "gnatwhy3_peak_gib": 0.191,
+        "process_tree_peak_gib": 0.45,
+        "max_attempt_seconds": 0.29986,
+        "max_attempt_steps_any_prover": 1286,
+        "max_winning_steps": 1,
+        "report_bytes": 77787,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f1-8k",
+        "source_bytes": 8115,
+        "statements": 259,
+        "main_checks": 32,
+        "wall_seconds": 104.7,
+        "gnatwhy3_peak_gib": 0.341,
+        "process_tree_peak_gib": 0.56,
+        "max_attempt_seconds": 1.6205,
+        "max_attempt_steps_any_prover": 3475,
+        "max_winning_steps": 566,
+        "report_bytes": 154137,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f1-16k",
+        "source_bytes": 15885,
+        "statements": 499,
+        "main_checks": 62,
+        "wall_seconds": 428.3,
+        "gnatwhy3_peak_gib": 0.827,
+        "process_tree_peak_gib": 1.21,
+        "max_attempt_seconds": 6.94219,
+        "max_attempt_steps_any_prover": 9322,
+        "max_winning_steps": 222,
+        "report_bytes": 297006,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f1-32k",
+        "source_bytes": 32461,
+        "statements": 1011,
+        "main_checks": 126,
+        "wall_seconds": 1453.3,
+        "gnatwhy3_peak_gib": 2.602,
+        "process_tree_peak_gib": 5.15,
+        "max_attempt_seconds": 22.8824,
+        "max_attempt_steps_any_prover": 29445,
+        "max_winning_steps": 1021,
+        "report_bytes": 602954,
+        "unproved_checks": 0
+      }
+    ],
+    "wall_seconds_exponent": 1.817492960195622,
+    "gnatwhy3_peak_gib_exponent": 0.9985922923144279,
+    "report_bytes_exponent": 0.9826897440408657,
+    "main_checks_exponent": 0.9999140194942059
+  },
+  "f2": {
+    "points": [
+      {
+        "run": "f2-2k",
+        "source_bytes": 1876,
+        "statements": 115,
+        "main_checks": 42,
+        "wall_seconds": 39.3,
+        "gnatwhy3_peak_gib": 0.197,
+        "process_tree_peak_gib": 0.54,
+        "max_attempt_seconds": 1.12544,
+        "max_attempt_steps_any_prover": 1219,
+        "max_winning_steps": 147,
+        "report_bytes": 122930,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f2-4k",
+        "source_bytes": 4067,
+        "statements": 243,
+        "main_checks": 90,
+        "wall_seconds": 229.4,
+        "gnatwhy3_peak_gib": 0.419,
+        "process_tree_peak_gib": 0.59,
+        "max_attempt_seconds": 1.7092,
+        "max_attempt_steps_any_prover": 4727,
+        "max_winning_steps": 1,
+        "report_bytes": 261826,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f2-8k",
+        "source_bytes": 8043,
+        "statements": 467,
+        "main_checks": 174,
+        "wall_seconds": 575.1,
+        "gnatwhy3_peak_gib": 1.187,
+        "process_tree_peak_gib": 1.4,
+        "max_attempt_seconds": 2.74955,
+        "max_attempt_steps_any_prover": 15195,
+        "max_winning_steps": 743,
+        "report_bytes": 505981,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f2-16k",
+        "source_bytes": 16279,
+        "statements": 931,
+        "main_checks": 348,
+        "wall_seconds": 3330.1,
+        "gnatwhy3_peak_gib": 4.308,
+        "process_tree_peak_gib": 4.86,
+        "max_attempt_seconds": 7.59222,
+        "max_attempt_steps_any_prover": 54409,
+        "max_winning_steps": 1,
+        "report_bytes": 1011052,
+        "unproved_checks": 0
+      }
+    ],
+    "wall_seconds_exponent": 1.9897614907594472,
+    "gnatwhy3_peak_gib_exponent": 1.4325294305945706,
+    "report_bytes_exponent": 0.974353246734398,
+    "main_checks_exponent": 0.9775581849134308
+  },
+  "f3": {
+    "points": [
+      {
+        "run": "f3-2k",
+        "source_bytes": 2044,
+        "statements": 326,
+        "main_checks": 320,
+        "wall_seconds": 363.6,
+        "gnatwhy3_peak_gib": 1.479,
+        "process_tree_peak_gib": 1.64,
+        "max_attempt_seconds": 0.144616,
+        "max_attempt_steps_any_prover": 351,
+        "max_winning_steps": 1,
+        "report_bytes": 694059,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f3-4k",
+        "source_bytes": 4096,
+        "statements": 668,
+        "main_checks": 662,
+        "wall_seconds": 1376.7,
+        "gnatwhy3_peak_gib": 5.863,
+        "process_tree_peak_gib": 6.03,
+        "max_attempt_seconds": 0.190779,
+        "max_attempt_steps_any_prover": 1138,
+        "max_winning_steps": 708,
+        "report_bytes": 1434133,
+        "unproved_checks": 0
+      }
+    ],
+    "wall_seconds_exponent": 1.915387720362197,
+    "gnatwhy3_peak_gib_exponent": 1.9814283478714991,
+    "report_bytes_exponent": 1.0441036973279445,
+    "main_checks_exponent": 1.0458095860467937
+  },
+  "counts": {
+    "other_completed": 2,
+    "stopped": 1,
+    "scaling_runs": 14,
+    "fitted_points": 11,
+    "fitted_points_by_family": {
+      "f1_mixed": 5,
+      "f2_straight_line": 4,
+      "f3_dense_string_copies": 2
+    }
+  },
+  "envelope": "2048*(floor(S/5)+floor(S/3)+126+floor(S/13)+2*floor(S/18))+2048*S+2*S+65536+2048*floor(S/16)",
+  "envelope_values": {
+    "4096": 15292416,
+    "4502": 16775980,
+    "4503": 16780078,
+    "587402": 2147482900,
+    "587403": 2147486998
+  },
+  "correction_publication_note": "The original review record mislabeled 14 scaling runs as fitted_runs. Eleven points (5 mixed, 4 straight-line, 2 dense String copies) met the fit selection; three small scaling runs were excluded. This label correction does not change recorded runs or calculations."
+}

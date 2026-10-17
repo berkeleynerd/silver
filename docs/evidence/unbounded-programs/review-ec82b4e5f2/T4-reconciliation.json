@@ -1,0 +1,187 @@
+{
+  "curated_field_mismatches": [],
+  "runs": [
+    {
+      "run": "f1-16k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {
+        "altergo:High failure (signaled)": 1
+      },
+      "checks": 62,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f1-1k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {
+        "altergo:High failure (signaled)": 3,
+        "Z3:High failure (unrecognized prover answer)": 1
+      },
+      "checks": 2,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f1-2k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {
+        "altergo:High failure (signaled)": 1
+      },
+      "checks": 6,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f1-32k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {
+        "altergo:High failure (signaled)": 1,
+        "altergo:High failure (unrecognized prover answer)": 8
+      },
+      "checks": 126,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f1-4k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {
+        "altergo:High failure (signaled)": 1
+      },
+      "checks": 16,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f1-8k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {
+        "altergo:High failure (signaled)": 1
+      },
+      "checks": 32,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f2-16k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {
+        "CVC5:High failure (signaled)": 1,
+        "altergo:High failure (signaled)": 1
+      },
+      "checks": 348,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f2-1k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {
+        "CVC5:High failure (signaled)": 1,
+        "altergo:High failure (signaled)": 1
+      },
+      "checks": 18,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f2-1k-m16000",
+      "exit": 0,
+      "stopped": null,
+      "failures": {
+        "altergo:High failure (signaled)": 1
+      },
+      "checks": 18,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f2-1k-s0m0",
+      "exit": 0,
+      "stopped": null,
+      "failures": {
+        "altergo:High failure (signaled)": 1
+      },
+      "checks": 18,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f2-2k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {
+        "altergo:High failure (signaled)": 1
+      },
+      "checks": 42,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f2-4k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {},
+      "checks": 90,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f2-8k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {},
+      "checks": 174,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f3-1k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {},
+      "checks": 150,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f3-2k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {},
+      "checks": 320,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f3-4k",
+      "exit": 0,
+      "stopped": null,
+      "failures": {},
+      "checks": 662,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    },
+    {
+      "run": "f3-8k-memprobe",
+      "exit": -15,
+      "stopped": "memory_guard_tree_above_14.0GiB",
+      "failures": {},
+      "checks": null,
+      "source_bytes_verified": true,
+      "runtime_files_target_equal": true
+    }
+  ],
+  "completed": 16,
+  "stopped": 1,
+  "runs_with_highfailure": 11
+}

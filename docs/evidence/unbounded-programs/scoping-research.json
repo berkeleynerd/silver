@@ -53,7 +53,7 @@
     }
   ],
   "proof_configuration_observations": [
-    "--level=2 keeps --memlimit 1000 for every prover even when --memlimit=0 is given (observed in why3session.xml); an explicit --memlimit=16000 is passed through; without --level, --memlimit=0 removed the limit in a small probe except for one trivial-goal attempt that still recorded 1000",
+    "--level=2 keeps --memlimit 1000 for launched provers even when --memlimit=0 is given; explicit --memlimit=16000 passes through. Without --level, zero removes the launched-prover cap. The remaining 1000 entry belongs to a synthetic already-Valid Trivial session record, not a launched capped prover (pinned Why3 gnat_checks.ml:243-263). Original session files were not retained; the configuration semantics are independently source-supported.",
     "--steps=0 launches the provers without step arguments (unlimited) (observed)",
     "with -j of at least 3 the three provers race per check and the others are interrupted on Valid; -j0 on one CPU would run them in turn (derived from producer source gnat_checks.ml; consistent with observed attempt counts)",
     "Z3 rlimit wraps modulo 2^32 (observed with direct Z3 runs); with the producer step normalization, any finite --steps above 5,368,146 gives Z3 a different, usually much smaller, limit (derived)",
@@ -71,7 +71,7 @@
     "runs_total": 17,
     "runs_completed": 16,
     "completed_runs_all_checks_proved": true,
-    "runs_note": "runs lists the 14 fitted scaling runs (f1-1k also served as the pipeline smoke); other_completed_runs lists the two option smokes; 14 + 2 = 16 completed, plus 1 stopped = 17. The track summary said 18 because it counted the pipeline smoke separately.",
+    "runs_note": "runs lists the 14 scaling runs (11 fitted points: 5 mixed, 4 straight-line, 2 dense String copies) (f1-1k also served as the pipeline smoke); other_completed_runs lists the two option smokes; 14 + 2 = 16 completed, plus 1 stopped = 17. The track summary said 18 because it counted the pipeline smoke separately.",
     "runs": [
       {
         "run": "f1-1k",
@@ -313,7 +313,7 @@
     "fit_note": "exponents fitted over runs of at least 1.5 KB; the f3 (dense String copies) fit uses two sizes only; timings were taken under concurrent research load"
   },
   "native_compiler_observations": [
-    "each nested loop copies two whole binding environments: 29 KiB per level at the 4096-byte limit, about 113 KiB at a 16 KiB limit and 576 KiB at 64 KiB in scratch rebuilds, so nested-loop stack grows quadratically with the source limit",
+    "each nested loop copies two whole binding environments: notes support 29 KiB per level at the 4096-byte limit and about 113 KiB at a 16 KiB limit. At a 64 KiB limit the retained notes give 11,764 KiB total stack at depth 20, not an independently established incremental slope. The earlier 576 KiB/level claim lacks a second same-build depth and baseline.",
     "1,998 condition-parenthesis levels take 1.73-1.88 s at 4096 bytes; 8,142 levels take 32 s and a minimum of 16,352 KiB (about 16.0 MiB) of stack at a 16 KiB limit",
     "compile re-parses the source up to six times",
     "the documented report envelope exceeds the 16 MiB buffer for sources above 4,502 bytes",
@@ -325,7 +325,7 @@
     "uniform range schema <L,L> is valid iff 2L <= 32767 (kernel-checked); <16384,16384> is invalid",
     "exact schema S + K*C <= V <= 2,147,483,647 covers all intermediates (kernel-checked probe)",
     "lifting results: 4,154/4,347, 4,559/4,776 and 2,524/2,627 declaration groups valid for an arbitrary symbolic bound; 4,633/4,770 valid at 2,147,483,646",
-    "no failing declaration is a decidability, termination, uniqueness or fuel argument; truth-dependent items are the range schema and the coupling of the merged 4096 domains",
+    "manual analysis found no failure demonstrating an essential dependence of decidability, termination, uniqueness or fuel on 4096. Some decimalTail_unique auxiliary and compiled parseFuel/readFuel declarations nevertheless failed mechanically. Truth-dependent items include the range schema and coupling of the merged 4096 domains; dependent successes after unchecked reinsertion remain conditional.",
     "resource-indexed tool contract composes with Current.ToolContract and is inhabited; axioms propext, Classical.choice, Quot.sound"
   ],
   "operating_system_observations": [
@@ -342,7 +342,9 @@
     "path": "tmp/unbounded-programs-research/",
     "manifest": "tmp/unbounded-programs-research/MANIFEST.json",
     "manifest_sha256": "7848544990640d8609ed9d2b445417b19b432973d5597465cdb3adf705af9a63",
-    "scope": "local only; 2,154 files; files over 2 MB and prover session directories omitted"
+    "scope": "Originally local: 2,154 manifest-listed files, with files over 2 MB and prover session directories omitted. Subsequently published on the evidence branch; original archive preserved unchanged.",
+    "published_commit": "0cd253d05b2cb650cc8fca81255e9a711765e16a",
+    "url": "https://github.com/berkeleynerd/silver/tree/0cd253d05b2cb650cc8fca81255e9a711765e16a/tmp/unbounded-programs-research"
   },
   "side_effects": [
     "retained Image-adapter workspace .silver/linux-x86_64/imagews-n5nSxf (17 MB) from the guard-stopped f3-8k probe",
@@ -357,7 +359,72 @@
   ],
   "frontend_cost_observations": [
     "gcc -gnatc time is quadratic in sequence length and nesting: 10k assignments 0.29 s, 100k 30.9 s; 100,000 nested loops exceeded the 1,800 s timeout",
-    "GNATprove flow mode: 128k assignments (1 MB) 136 s and 4.43 GB; 8,000 nested loops 573 s and 6.54 GB with an unlimited stack"
+    "GNATprove flow mode: 128k assignments (about 1 MB) took 136 s and 4431.9 MiB (about 4.328 GiB / 4.647 GB) in retained batch2.log. The driver divided ru_maxrss KiB by 1024 but mislabeled the result MB. For 8000 nested loops, notes report 573 s and 6.54 GB with an unlimited stack; the numeric follow-up row is absent, so that original memory unit is not independently normalized here."
   ],
-  "track_verdicts_note": "Verbatim track outputs. The scope proposal supersedes them where they differ: 'amendment path' in T3 means an explicit pre-1.0 language and assurance-text change, not an Oracle amendment; the escalation ladder is replaced by one uncapped racing run (-j at least 3); the B1/M1 checkpoint was delivered through PR #86; the GNAT table capacities become a derived source bound, not a premise."
+  "track_verdicts_note": "Verbatim historical track outputs, preserved even where inaccurate or superseded. The corrected scope governs the proposal: no Oracle amendment is proposed; the escalation ladder becomes one uncapped racing run; PR #86 delivered the earlier checkpoint; a total-source envelope is a research candidate, requiring soundness and expansiveness justification rather than an assumed forced maximum. Observed losing-prover High failures have no established cause; dropping resource caps does not remove every non-resource failure. T5 reviewed a different, proof-gated proposal and is not independent evidence for the later non-gating design. See independent_review and evidence_corrections.",
+  "independent_review": {
+    "target": "ec82b4e5f2bd1d3001e7117fe09e610d7d69658f",
+    "report": "../../reviews/review-ec82b4e5f2.md",
+    "repair_record": "../../review-ec82b4e5f2-repairs.md",
+    "native_platform": "macos-aarch64",
+    "manifest_verified": true,
+    "manifest_files_matched": 2154,
+    "prepublication_recommendations_reconciled": 59,
+    "final_issue_drafts_matched": 8,
+    "limits": "Original main.spark/XML sessions, giant inputs and frozen imported Lean objects were omitted. Saved result summaries, logs and source were checked; no proof/scaling runs or Lean replay were repeated.",
+    "numeric_checks": "review-ec82b4e5f2/numeric-reconciliation.json",
+    "run_checks": "review-ec82b4e5f2/T4-reconciliation.json",
+    "manifest_check": "review-ec82b4e5f2/original-manifest-audit.json",
+    "prepublication_matrix": "review-ec82b4e5f2/prepublication-audit.md"
+  },
+  "evidence_corrections": [
+    {
+      "claim": "Image node projection",
+      "class": "derived from recorded observations, not a tested boundary",
+      "recorded_points": [
+        {
+          "source_bytes": 32461,
+          "max_node_id": 217003
+        },
+        {
+          "source_bytes": 8188,
+          "max_node_id": 427951
+        }
+      ],
+      "corrected_ids_per_source_byte": [
+        6.685037429530822,
+        52.26563263312164
+      ],
+      "illustrative_source_MB_at_counter": [
+        321.2373407983622,
+        41.08787244716334
+      ],
+      "qualification": "These two ratios imply about 41-321 MB, not 40-80 MB. Models were not retained and serialization ratios need not stay constant. No >100 GB model threshold or guaranteed memory-first failure is established."
+    },
+    {
+      "claim": "T3 full-proof run count",
+      "class": "retained log recount",
+      "correction": "Eight distinct gp_all logs (five memory configurations, two identifier cases, one deliberate overflow), not four in the raw notes. This does not change the separate T4 17/16/1 corpus."
+    },
+    {
+      "claim": "Run C memory",
+      "class": "retained stats conversion",
+      "correction": "runC.stats maxrss_kib 15330712 equals 14.620506286621094 GiB, not the raw narrative 15.3 GiB. That number was absent from the original curated table."
+    },
+    {
+      "claim": "Physical admitted family",
+      "class": "derived",
+      "correction": "A finite alphabet and finite source ceiling leave a finite pinned admitted family; parameterized theorem families can be unbounded."
+    },
+    {
+      "claim": "Pre-publication fixes",
+      "class": "static comparison",
+      "correction": "59 recommendations, without an acceptance/disposition list. Process 1 before-main claim clause did not land; technical 10 precise no-Valid condition became garbled. Other changes mostly landed or were superseded; incorporation does not prove their correctness."
+    },
+    {
+      "claim": "Retained measurements",
+      "class": "evidence limitation",
+      "correction": "T4 17 run identities, all curated row numbers, High-failure summary counts and Lean lifting log counts reconcile. Missing leaf reports prevent redoing their aggregation. Giant-source timings and some recognizer timings remain retained researcher observations, not independently reparsed telemetry."
+    }
+  ]
 }

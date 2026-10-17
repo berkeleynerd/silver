@@ -1,0 +1,16 @@
+[
+  {
+    "run": "f1-32k",
+    "ids": 217003,
+    "source_bytes": 32461,
+    "ids_per_source_byte": 6.685037429530822,
+    "projected_source_MB": 321.2373407983622
+  },
+  {
+    "run": "f3-8k",
+    "ids": 427951,
+    "source_bytes": 8188,
+    "ids_per_source_byte": 52.26563263312164,
+    "projected_source_MB": 41.08787244716334
+  }
+]
