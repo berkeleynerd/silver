@@ -1,0 +1,462 @@
+{
+  "files": [
+    {
+      "bytes": 30114,
+      "lf_lines": 816,
+      "path": "src/why/gnat2why-decls.adb",
+      "retained_line_ranges": [
+        [
+          122,
+          270
+        ]
+      ],
+      "sha256": "0d98e1d1a86afe4a94a45752c9a11ecffd3f5d8218c9a28c3cd8449b65acdb43"
+    },
+    {
+      "bytes": 60922,
+      "lf_lines": 1686,
+      "path": "src/why/gnat2why-driver.adb",
+      "retained_line_ranges": [
+        [
+          507,
+          610
+        ],
+        [
+          1195,
+          1225
+        ],
+        [
+          1318,
+          1355
+        ],
+        [
+          1415,
+          1457
+        ],
+        [
+          1462,
+          1590
+        ]
+      ],
+      "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304"
+    },
+    {
+      "bytes": 109745,
+      "lf_lines": 2717,
+      "path": "src/why/gnat2why-expr-loops-inv.adb",
+      "retained_line_ranges": [
+        [
+          175,
+          198
+        ],
+        [
+          775,
+          815
+        ],
+        [
+          1079,
+          1398
+        ],
+        [
+          1704,
+          1745
+        ],
+        [
+          1940,
+          1976
+        ],
+        [
+          2291,
+          2350
+        ],
+        [
+          2398,
+          2408
+        ]
+      ],
+      "sha256": "87636890923ff95274f337322416ef95aa9a968ea4c2cd3e26e02be572e965f7"
+    },
+    {
+      "bytes": 95393,
+      "lf_lines": 2336,
+      "path": "src/why/gnat2why-expr-loops.adb",
+      "retained_line_ranges": [
+        [
+          500,
+          575
+        ],
+        [
+          787,
+          816
+        ],
+        [
+          1292,
+          1343
+        ],
+        [
+          1398,
+          1415
+        ],
+        [
+          1458,
+          1505
+        ],
+        [
+          1800,
+          1825
+        ],
+        [
+          1882,
+          1978
+        ],
+        [
+          2080,
+          2115
+        ],
+        [
+          2194,
+          2334
+        ]
+      ],
+      "sha256": "5ff0a390fc6ec746c065d21a2438238612b2cfa3ea3a0c3b9ed2021c8a771707"
+    },
+    {
+      "bytes": 1222932,
+      "lf_lines": 31267,
+      "path": "src/why/gnat2why-expr.adb",
+      "retained_line_ranges": [
+        [
+          2702,
+          2805
+        ],
+        [
+          2864,
+          2894
+        ],
+        [
+          14857,
+          14920
+        ],
+        [
+          19042,
+          19142
+        ],
+        [
+          21817,
+          21972
+        ],
+        [
+          21976,
+          22351
+        ],
+        [
+          23688,
+          23712
+        ],
+        [
+          24714,
+          24731
+        ],
+        [
+          29733,
+          29862
+        ],
+        [
+          30221,
+          30666
+        ],
+        [
+          31162,
+          31211
+        ]
+      ],
+      "sha256": "750ed73091af62c0b522077c2e59e10f496b91a4bee323b3b822fba15094dd14"
+    },
+    {
+      "bytes": 77606,
+      "lf_lines": 1948,
+      "path": "src/why/gnat2why-types.adb",
+      "retained_line_ranges": [
+        [
+          1108,
+          1155
+        ]
+      ],
+      "sha256": "3b4b21d00eb4d14a4f7966c097f215217ea54183be4048a5d9bbd98ccdb3663d"
+    },
+    {
+      "bytes": 65173,
+      "lf_lines": 2001,
+      "path": "src/why/gnat2why-util.adb",
+      "retained_line_ranges": [
+        [
+          503,
+          540
+        ],
+        [
+          1347,
+          1454
+        ]
+      ],
+      "sha256": "f620de261e498788e54f642cc90605675d29aa3475888c0868afa2d6499fbc8d"
+    },
+    {
+      "bytes": 168813,
+      "lf_lines": 4751,
+      "path": "src/why/why-atree-modules.adb",
+      "retained_line_ranges": [
+        [
+          297,
+          324
+        ]
+      ],
+      "sha256": "73ccd31d5e1ac2935f02492beef285411cbd0d3627aaf81e65f4e37a4f4f17b3"
+    },
+    {
+      "bytes": 3455,
+      "lf_lines": 128,
+      "path": "src/why/why-atree.adb",
+      "retained_line_ranges": [
+        [
+          60,
+          95
+        ]
+      ],
+      "sha256": "cc00b2b76886de7c955fdeb9cdb459cd926fd03428cb1e20d20eb01202d539ee"
+    },
+    {
+      "bytes": 146990,
+      "lf_lines": 4002,
+      "path": "src/why/why-gen-arrays.adb",
+      "retained_line_ranges": [
+        [
+          3042,
+          3078
+        ],
+        [
+          3835,
+          3848
+        ]
+      ],
+      "sha256": "e8175f36c1f3f440041b95be50e721ed335167b2977496c2f3eb4e1dd2570c2a"
+    },
+    {
+      "bytes": 56392,
+      "lf_lines": 1642,
+      "path": "src/why/why-gen-binders.adb",
+      "retained_line_ranges": [
+        [
+          1260,
+          1310
+        ],
+        [
+          1392,
+          1415
+        ],
+        [
+          1626,
+          1640
+        ]
+      ],
+      "sha256": "187a67de331b0fb1fdc91c8a345b750541cd73d52bcf0b02645803b3b94af06a"
+    },
+    {
+      "bytes": 208583,
+      "lf_lines": 5875,
+      "path": "src/why/why-gen-expr.adb",
+      "retained_line_ranges": [
+        [
+          311,
+          348
+        ],
+        [
+          2399,
+          2445
+        ],
+        [
+          2740,
+          2785
+        ],
+        [
+          2916,
+          3050
+        ],
+        [
+          3533,
+          3569
+        ],
+        [
+          4289,
+          4355
+        ],
+        [
+          4488,
+          4535
+        ],
+        [
+          4883,
+          4922
+        ],
+        [
+          4962,
+          5010
+        ]
+      ],
+      "sha256": "9891d54331f76713685fce8f21501d549485a46c35593ac68ba572c9f0f5a432"
+    },
+    {
+      "bytes": 47274,
+      "lf_lines": 1376,
+      "path": "src/why/why-gen-names.adb",
+      "retained_line_ranges": [
+        [
+          162,
+          352
+        ]
+      ],
+      "sha256": "e003c128b2e3f0e4f20d606798e0e5cd5b099b94ce27847dc5b9e9c4805a7a39"
+    },
+    {
+      "bytes": 12033,
+      "lf_lines": 370,
+      "path": "src/why/why-gen-progs.adb",
+      "retained_line_ranges": [
+        [
+          275,
+          280
+        ],
+        [
+          329,
+          364
+        ]
+      ],
+      "sha256": "f891be5611f061675183dcf3a0a219247ba2937c23130aa3156d49b80792599d"
+    },
+    {
+      "bytes": 56576,
+      "lf_lines": 1654,
+      "path": "src/why/why-inter.adb",
+      "retained_line_ranges": [
+        [
+          354,
+          379
+        ],
+        [
+          550,
+          746
+        ],
+        [
+          836,
+          872
+        ],
+        [
+          1160,
+          1224
+        ],
+        [
+          1260,
+          1285
+        ],
+        [
+          1547,
+          1577
+        ]
+      ],
+      "sha256": "68844f25581617906e556817a63bfdb8f1ae425f91fb532f844f64eda221fc84"
+    },
+    {
+      "bytes": 3694,
+      "lf_lines": 83,
+      "path": "src/why/why-types.ads",
+      "retained_line_ranges": [
+        [
+          30,
+          60
+        ]
+      ],
+      "sha256": "4de437e94386afa972fecc952e4d4f9f1ab4be5642f894deec610a98876fd0c8"
+    },
+    {
+      "bytes": 4655,
+      "lf_lines": 161,
+      "path": "src/why/xgen/why-atree-to_json.adb-tmpl",
+      "retained_line_ranges": [
+        [
+          100,
+          160
+        ]
+      ],
+      "sha256": "634f218e59e225ced82095a509f1e074a5681d5143e71f2a32dd886f3882465e"
+    },
+    {
+      "bytes": 5737,
+      "lf_lines": 133,
+      "path": "src/why/xgen/why-atree.ads-tmpl",
+      "retained_line_ranges": [
+        [
+          95,
+          130
+        ]
+      ],
+      "sha256": "4f52010836e06ae5fbcebd3ceab0e397dfdb0560fa11c739ab73e766904389d4"
+    },
+    {
+      "bytes": 17968,
+      "lf_lines": 531,
+      "path": "src/why/xgen/xtree_builders.adb",
+      "retained_line_ranges": [
+        [
+          200,
+          255
+        ]
+      ],
+      "sha256": "49dc8e24f8ac0f52d30cc2df1d5e55769d8aa004f5429ec6f0542b9c42f64ce7"
+    },
+    {
+      "bytes": 22859,
+      "lf_lines": 739,
+      "path": "src/why/xgen/xtree_sinfo.adb",
+      "retained_line_ranges": [
+        [
+          30,
+          145
+        ],
+        [
+          170,
+          245
+        ],
+        [
+          280,
+          350
+        ],
+        [
+          380,
+          440
+        ],
+        [
+          580,
+          615
+        ],
+        [
+          705,
+          738
+        ]
+      ],
+      "sha256": "76c87d6da16443965af3754d7daae987d846aae51fb05d5b83bca4f3cf5ffb9b"
+    },
+    {
+      "bytes": 37203,
+      "lf_lines": 1065,
+      "path": "src/why/xgen/xtree_why_ast.adb",
+      "retained_line_ranges": [
+        [
+          160,
+          245
+        ]
+      ],
+      "sha256": "65277b8c3d31fbd9eac3da32ae562a660cf9f174878bf2a9e3f10c7be2d63af7"
+    }
+  ],
+  "line_definition": "LF-separated byte lines; one trailing empty segment excluded",
+  "revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0"
+}

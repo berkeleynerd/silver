@@ -1,0 +1,14 @@
+{
+  "json": {
+    "bytes": 196967,
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-cKuh3x/obj/gnatprove/main.gnat-json",
+    "sha256": "739f8579b71e44d682278f3d97708dc8d2b6c9bd80b193fedaee6ed6b242fd0c"
+  },
+  "mode": "read existing artifacts; no new compiler or proof run",
+  "scope": "Three literal modules extracted unchanged; this does not attest the whole prior run",
+  "source": {
+    "bytes": 184,
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-cKuh3x/main.adb",
+    "sha256": "539889380a4d2fa473748a5e870103f2c1a7654cb6956c839a0731f6d2321df2"
+  }
+}

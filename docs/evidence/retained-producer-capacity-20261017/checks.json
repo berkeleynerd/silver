@@ -1,0 +1,107 @@
+{
+  "limitation": "Arithmetic and retained-fixture checks; not whole-producer bound or source correspondence proof",
+  "literal_component_examples": [
+    {
+      "length": 0,
+      "new_list_elements": 0,
+      "new_lists": 0,
+      "new_nodes": 0,
+      "predicate_occurrences": 1
+    },
+    {
+      "length": 1,
+      "new_list_elements": 5,
+      "new_lists": 3,
+      "new_nodes": 7,
+      "predicate_occurrences": 40
+    },
+    {
+      "length": 2,
+      "new_list_elements": 10,
+      "new_lists": 7,
+      "new_nodes": 15,
+      "predicate_occurrences": 81
+    },
+    {
+      "length": 3,
+      "new_list_elements": 16,
+      "new_lists": 10,
+      "new_nodes": 22,
+      "predicate_occurrences": 121
+    },
+    {
+      "length": 7,
+      "new_list_elements": 40,
+      "new_lists": 22,
+      "new_nodes": 50,
+      "predicate_occurrences": 281
+    },
+    {
+      "length": 4096,
+      "new_list_elements": 24574,
+      "new_lists": 12289,
+      "new_nodes": 28673,
+      "predicate_occurrences": 163841
+    },
+    {
+      "length": 2147483647,
+      "new_list_elements": 12884901880,
+      "new_lists": 6442450942,
+      "new_nodes": 15032385530,
+      "predicate_occurrences": 85899345881
+    }
+  ],
+  "representation_maxima": {
+    "Why_Node_Counter_Last": 2147483647,
+    "Why_Node_Id_Last": 1073741823
+  },
+  "retained_modules": [
+    {
+      "character_predicate_occurrences": 121,
+      "decoded_length": 3,
+      "first_occurrence_id": 2799,
+      "import_count": 8,
+      "last_occurrence_id": 3009,
+      "module_occurrences": 211,
+      "name": "Temp___String_Literal_225",
+      "nonimport_nonpredicate_occurrences": 74,
+      "occurrences_per_character_equality": [
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "character_predicate_occurrences": 281,
+      "decoded_length": 7,
+      "first_occurrence_id": 3066,
+      "import_count": 8,
+      "last_occurrence_id": 3436,
+      "module_occurrences": 371,
+      "name": "Temp___String_Literal_232",
+      "nonimport_nonpredicate_occurrences": 74,
+      "occurrences_per_character_equality": [
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "character_predicate_occurrences": 40,
+      "decoded_length": 1,
+      "first_occurrence_id": 3493,
+      "import_count": 8,
+      "last_occurrence_id": 3622,
+      "module_occurrences": 130,
+      "name": "Temp___String_Literal_237",
+      "nonimport_nonpredicate_occurrences": 74,
+      "occurrences_per_character_equality": [
+        40
+      ]
+    }
+  ]
+}
