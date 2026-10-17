@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeContracts
+public import Silver.ComposeScalarDenotations
 public import Silver.ComposeStateBounds
 public import Silver.ComposeNameBridge
 public import Silver.ScalarExpressionNativeTypes
@@ -17,7 +18,7 @@ open Named
 set_option maxRecDepth 10000
 set_option maxHeartbeats 2000000
 set_option backward.dsimp.instances true
-attribute [local irreducible] ScalarExpression.read
+attribute [local irreducible] ScalarExpression.read scalarConstraintAt
 
 @[simp] theorem interpreted_skip (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (bound : ValidCursor text position) :
@@ -440,6 +441,37 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     rw [stringDeclarationAt, parts]
     simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
 
+@[simp] theorem interpreted_scalarConstraint (calls : Calls) (equations : HelperEquations calls)
+    (text : Source) (valid : ValidText text) (position : Nat)
+    (names : ScalarExpression.Environment) (bound : ValidCursor text position)
+    (environment : ScalarExpression.ValidEnvironment text names) :
+    calls.function .scalarConstraint text position names = scalarConstraintAt text position names := by
+  let rangeAfter := fixedAfter text position "range" true
+  let low := ScalarExpression.read text rangeAfter names
+  let highPosition := fixedAfter text low.after ".." false
+  let high := ScalarExpression.read text highPosition names
+  have brange : ValidCursor text rangeAfter := model_fixed_valid text position "range" true bound
+  have blow := scalarRead_position_valid text rangeAfter names brange
+  have bhighPosition : ValidCursor text highPosition := model_fixed_valid text low.after ".." false blow
+  have elow := equations.scalarRead text valid rangeAfter names brange environment
+  have ehigh := equations.scalarRead text valid highPosition names bhighPosition environment
+  have emptyLow := equations.scalarEmpty low.bounds
+    (ScalarExpression.Native.read_type valid brange (names := names) (maskFirst := 0) (maskAfter := 0) (allowSign := true)).2.1
+  have emptyHigh := equations.scalarEmpty high.bounds
+    (ScalarExpression.Native.read_type valid bhighPosition (names := names) (maskFirst := 0) (maskAfter := 0) (allowSign := true)).2.1
+  have erange := interpreted_take calls equations text valid position (.word "range") bound
+    (by unfold ValidToken; decide)
+  have ehighPosition := interpreted_take calls equations text valid low.after (.symbol "..") blow
+    (by unfold ValidToken; decide)
+  change calls.function .takeToken text position (.word "range") = rangeAfter at erange
+  change calls.function .takeToken text low.after (.symbol "..") = highPosition at ehighPosition
+  rw [equations.scalarConstraint text valid position names bound environment, scalarConstraint_denotation]
+  change scalarConstraintEquation calls text position names = _
+  dsimp +zetaHave only [scalarConstraintEquation]
+  rw [erange, elow, ehighPosition, ehigh, emptyLow, emptyHigh]
+  simp only [scalarConstraintAt, rangeAfter, low, highPosition, high, Bool.or_eq_true, Bool.not_eq_true',
+    decide_eq_true_eq, or_assoc]
+
 @[simp] theorem interpreted_scalarDeclaration (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
     (stateValid : ValidState text state) :
@@ -450,6 +482,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
   let constant := declarationConstantAfter text state
   let typeFirst := scalarDeclarationTypeFirst text state
   let typeAfter := scalarDeclarationTypeAfter text state
+  let constraint := scalarConstraintAt text typeAfter state.scalarNames
   let position := scalarDeclarationValuePosition text state
   let value := ScalarExpression.read text position state.scalarNames
   let following := fixedAfter text value.after ";" false
@@ -457,9 +490,12 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
   have bafter : ValidCursor text after := model_name_valid text first
   have bcolon : ValidCursor text colon := model_fixed_valid text after ":" false bafter
   have bconstant : ValidCursor text constant := model_fixed_valid text colon "constant" true bcolon
-  have btypeFirst : ValidCursor text typeFirst := model_skip_valid text constant bconstant
+  have bchoice : ValidCursor text (if constant ≠ 0 then constant else colon) := by
+    split <;> assumption
+  have btypeFirst : ValidCursor text typeFirst := model_skip_valid text _ bchoice
   have btypeAfter : ValidCursor text typeAfter := model_fixed_valid text typeFirst "integer" true btypeFirst
-  have bposition : ValidCursor text position := model_fixed_valid text typeAfter ":=" false btypeAfter
+  have bconstraint : ValidCursor text constraint.after := scalarConstraintAt_position_valid text typeAfter state.scalarNames btypeAfter
+  have bposition : ValidCursor text position := model_fixed_valid text constraint.after ":=" false bconstraint
   have bvalue : ValidCursor text value.after ∧ value.bounds.Bounded := by
     by_cases zero : value.after = 0
     · have bounded := (ScalarExpression.Native.read_type valid bposition (names := state.scalarNames) (maskFirst := 0) (maskAfter := 0) (allowSign := true)).2.1
@@ -471,19 +507,19 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
   have eafter : calls.function .nameAfter text first = after := interpreted_name calls equations text valid first bfirst
   have ecolon : calls.function .takeToken text after (.symbol ":") = colon := interpreted_take calls equations text valid after (.symbol ":") bafter (by unfold ValidToken; decide)
   have econstant : calls.function .takeToken text colon (.word "constant") = constant := interpreted_take calls equations text valid colon (.word "constant") bcolon (by unfold ValidToken; decide)
-  have etypeFirst : calls.function .skip text constant = typeFirst := interpreted_skip calls equations text valid constant bconstant
+  have etypeFirst : calls.function .skip text (if constant ≠ 0 then constant else colon) = typeFirst := interpreted_skip calls equations text valid _ bchoice
   have etypeAfter : calls.function .takeToken text typeFirst (.word "integer") = typeAfter := interpreted_take calls equations text valid typeFirst (.word "integer") btypeFirst (by unfold ValidToken; decide)
-  have eposition : calls.function .takeToken text typeAfter (.symbol ":=") = position := interpreted_take calls equations text valid typeAfter (.symbol ":=") btypeAfter (by unfold ValidToken; decide)
+  have econstraint : calls.function .scalarConstraint text typeAfter state.scalarNames = constraint := interpreted_scalarConstraint calls equations text valid typeAfter state.scalarNames btypeAfter stateValid.2.2.2.2.2
+  have eposition : calls.function .takeToken text constraint.after (.symbol ":=") = position := interpreted_take calls equations text valid constraint.after (.symbol ":=") bconstraint (by unfold ValidToken; decide)
   have evalue : calls.function .scalarRead text position state.scalarNames = value := equations.scalarRead text valid position state.scalarNames bposition stateValid.2.2.2.2.2
   have efollowing : calls.function .takeToken text value.after (.symbol ";") = following := interpreted_take calls equations text valid value.after (.symbol ";") bvalue.1 (by unfold ValidToken; decide)
   have ename := interpreted_newName calls equations text valid state first after arguments stateValid bfirst bafter
   have estring := interpreted_lookup calls equations text valid state.names typeFirst typeAfter stateValid.2.1 btypeFirst btypeAfter
   have escalar := equations.scalarLookup text valid state.scalarNames typeFirst typeAfter stateValid.2.2.2.2.2 btypeFirst btypeAfter
   have eempty := equations.scalarEmpty value.bounds bvalue.2
-  rw [equations.scalarDeclaration text valid state arguments stateValid]
-  dsimp +instances only [scalarDeclarationBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
-  simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
-  rw [efirst, eafter, ecolon, econstant, etypeFirst, etypeAfter, eposition, evalue,
+  rw [equations.scalarDeclaration text valid state arguments stateValid, scalarDeclaration_denotation]
+  change scalarDeclarationEquation calls text state arguments = _
+  simp only [scalarDeclarationEquation, decideIf, efirst, eafter, ecolon, econstant, etypeFirst, etypeAfter, econstraint, eposition, evalue,
     efollowing, ename, estring, escalar, eempty]
   by_cases allowed : newNameAllowed text state first after arguments = true
   · have nameValid := model_new_name_valid text state first after arguments bafter allowed
@@ -491,13 +527,13 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     rw [declaration_nameIs_integer text state arguments first after rfl rfl allowed]
     by_cases full : state.scalarNames.length = ScalarExpression.maxBindings
     · simp [full, scalarDeclarationAt, scalarDeclarationParts, first, after, typeFirst, typeAfter,
-        position, value, following, maxBindings, ScalarExpression.maxBindings, maxSourceLength]
+        constraint, position, value, following, maxBindings, ScalarExpression.maxBindings, maxSourceLength]
     · have room : state.scalarNames.length < ScalarExpression.maxBindings := by
         have bound := stateValid.2.2.2.2.2.1
         omega
       rw [equations.scalarAppend state.scalarNames _ room]
       dsimp +instances only [scalarDeclarationAt, scalarDeclarationParts, addScalarBinding,
-        first, after, typeFirst, typeAfter, position, value, following,
+        first, after, constant, typeFirst, typeAfter, constraint, position, value, following,
         maxBindings, ScalarExpression.maxBindings, maxSourceLength]
       simp only [Bool.decide_or, Bool.or_assoc]
   · have rejected : newNameAllowed text state first after arguments = false := Bool.eq_false_iff.mpr allowed
