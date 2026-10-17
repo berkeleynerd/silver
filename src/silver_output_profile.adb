@@ -745,12 +745,14 @@ is
      (declare Range_After : constant Literal_Position := Take_Token (Text, Position, Range_Keyword);
       Low : constant Scalar_Expressions.Expression_Result :=
         Scalar_Expressions.Read_Expression (Text, Range_After, Scalar_Names);
+      Delimiter_After : constant Literal_Position :=
+        Take_Token (Text, Low.After, Range_Delimiter);
       High : constant Scalar_Expressions.Expression_Result :=
         Scalar_Expressions.Read_Expression
-          (Text, Take_Token (Text, Low.After, Range_Delimiter), Scalar_Names);
+          (Text, Delimiter_After, Scalar_Names);
       begin
         (if Range_After = 0 then (Position, Scalars.Full)
-         elsif Low.After = 0 or else High.After = 0
+         elsif Low.After = 0 or else Delimiter_After = 0 or else High.After = 0
            or else not Low.Static or else not High.Static
            or else Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
            or else Low.Bounds.Lower /= Low.Bounds.Upper
