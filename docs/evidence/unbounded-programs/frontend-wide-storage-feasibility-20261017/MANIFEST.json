@@ -1,0 +1,50 @@
+{
+  "status": "research only; conditional wide-pool design; no compiler implementation or language adoption",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2830,
+      "sha256": "919107968c14f5dffc1e3abd3984e6bad3bf39ee371ca8b62b64608dc872e146"
+    },
+    {
+      "path": "additional-sources.tar.gz",
+      "bytes": 42188,
+      "sha256": "e5b5b0624824c223f38d68cedff6c525b0b4bbcf57fe194aaed0c500f11403cf"
+    },
+    {
+      "path": "audit.py",
+      "bytes": 4955,
+      "sha256": "f9e30e240dbb0eb43067d2531f228aab710a6de9ac678c7c7b6aa1af238f5b5f"
+    },
+    {
+      "path": "derived-arithmetic.json",
+      "bytes": 2043,
+      "sha256": "004e9e82f6c26436f196d336504bde3445e25e31454816dde3fabb30631c3827"
+    },
+    {
+      "path": "license-source.json",
+      "bytes": 289,
+      "sha256": "2a7769b995e018cfb3529a23274b50dbfd8f1e2f92d7b5efb9a16f5e97a9b631"
+    },
+    {
+      "path": "source-files.json",
+      "bytes": 5865,
+      "sha256": "5b7084487afffe675fecd9dda96b3f6af7c5c6cd08c804fcd6302e508cdc2718"
+    },
+    {
+      "path": "source-recheck.json",
+      "bytes": 275,
+      "sha256": "c65400c2c0569dc95de3e58ea279580db07b48726f41136db781c5ddf16955aa"
+    },
+    {
+      "path": "uintp-offset-inventory.json",
+      "bytes": 5089,
+      "sha256": "4866e088f7c0f32936a2baae15591bf11a617063174aac057281f1377565d4d7"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 407,
+      "sha256": "6130118c10302bdc4f89c66913bf0250d3cb4d2df3bd9f464135bf65b7410c9a"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "status": "conditional source-derived representation design; not native limits",
+  "method": "exact Python integers; growth examples are not universal proof",
+  "No_String": -499999999,
+  "First_String_Id": -499999998,
+  "Last_String_Id": -400000000,
+  "descriptor_ids_including_null_descriptor": 99999999,
+  "per_descriptor_length_limit": 2147483647,
+  "pool_character_slot_bound": 214748362552516353,
+  "pool_payload_byte_bound": 858993450210065412,
+  "pool_payload_bit_bound": 6871947601680523296,
+  "one_past_nominal_array_bit_bound": 6871947601680523328,
+  "candidate_growth_5P": 1073741812762581765,
+  "old_percentage_growth_250P": 53687090638129088250,
+  "signed64_last": 9223372036854775807,
+  "checks": {
+    "pool_slots_below_2_58": true,
+    "pool_bytes_below_2_60": true,
+    "pool_bits_fit_signed64": true,
+    "one_past_nominal_array_bits_fit_signed64": true,
+    "candidate_growth_product_fit_signed64": true,
+    "candidate_growth_addition_fit_signed64": true,
+    "old_percentage_product_exceeds_signed64": true
+  },
+  "growth_examples": [
+    {
+      "old": 0,
+      "requested": 1,
+      "new_capacity": 10
+    },
+    {
+      "old": 1,
+      "requested": 2,
+      "new_capacity": 11
+    },
+    {
+      "old": 2500,
+      "requested": 2501,
+      "new_capacity": 6250
+    },
+    {
+      "old": 2500,
+      "requested": 2147483648,
+      "new_capacity": 2147483648
+    },
+    {
+      "old": 107374181276258176,
+      "requested": 107374181276258177,
+      "new_capacity": 214748362552516353
+    },
+    {
+      "old": 214748362552516342,
+      "requested": 214748362552516343,
+      "new_capacity": 214748362552516353
+    },
+    {
+      "old": 214748362552516352,
+      "requested": 214748362552516353,
+      "new_capacity": 214748362552516353
+    }
+  ],
+  "two_chain_minimum_character_bytes": 8589934592,
+  "candidate_16_byte_descriptor_payload_at_N": 1599999984,
+  "nonzero_numeral_magnitude_bound": 2147483648,
+  "largest_base_2_exponent_for_nonzero_mantissa": 31,
+  "largest_base_10_exponent_for_nonzero_mantissa": 9
+}

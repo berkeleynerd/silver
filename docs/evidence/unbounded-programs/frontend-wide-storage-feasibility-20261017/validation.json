@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "host": "Linux x86_64",
+  "scope": "documentation, exact arithmetic and retained source evidence only",
+  "selected_source_files": 20,
+  "reproduced_outputs_from_both_retained_archives": [
+    "derived-arithmetic.json",
+    "source-recheck.json",
+    "uintp-offset-inventory.json"
+  ],
+  "local_links_checked": 3,
+  "compiler_or_proof_runs": 0,
+  "source_or_production_edits": 0
+}

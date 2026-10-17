@@ -1,0 +1,146 @@
+{
+  "upstream_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "ada_tree": "a3b9f0d4c999c8c127cebdc239ca8218284137aa",
+  "files": [
+    {
+      "path": "back_end.adb",
+      "bytes": 14372,
+      "git_blob_sha1": "a5c0b70f20eea80cfdec60806e167a2475c38eb2",
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8",
+      "archive": "../continuation-20261017/frontend-lifetimes/selected-sources.tar.gz"
+    },
+    {
+      "path": "gcc-interface/cuintp.cc",
+      "bytes": 8340,
+      "git_blob_sha1": "dec64df3154cf547c74c790f7b8196c25077ab49",
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9",
+      "archive": "additional-sources.tar.gz"
+    },
+    {
+      "path": "gcc-interface/gigi.h",
+      "bytes": 56241,
+      "git_blob_sha1": "793d7145b5e73d78a7294b2e4614e85f1bf73812",
+      "sha256": "6e2940a89abb01b7218eff64e13b3aabbc7a9970870670816160dc5991ba48e2",
+      "archive": "additional-sources.tar.gz"
+    },
+    {
+      "path": "gcc-interface/trans.cc",
+      "bytes": 406631,
+      "git_blob_sha1": "6db0aa0a6bec9a8f855167a7989ae36e0df9cb0c",
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "archive": "../continuation-20261017/frontend-lifetimes/selected-sources.tar.gz"
+    },
+    {
+      "path": "gen_il-gen-gen_nodes.adb",
+      "bytes": 64717,
+      "git_blob_sha1": "efa510a9360b4ee9dfd7724b52c434d25260fe2b",
+      "sha256": "22d4802e880b126a9f251c44fd95b3cc0afa3ae5554e910327db8a181825cf2b",
+      "archive": "additional-sources.tar.gz"
+    },
+    {
+      "path": "libgnat/g-dyntab.adb",
+      "bytes": 15566,
+      "git_blob_sha1": "fc215223f053d4a3dbdb357545e3783ed7d7d801",
+      "sha256": "ae4c7d63c71f4c863eaf375b81c65822ecf08f38321c02e247c0d5692986faf6",
+      "archive": "additional-sources.tar.gz"
+    },
+    {
+      "path": "libgnat/g-dyntab.ads",
+      "bytes": 13857,
+      "git_blob_sha1": "8981a96336c6d0343b49d678a1a379f402da3f2b",
+      "sha256": "9679446a2e77d227ca3339d93f8fcb7ad479a7768ddd337dca5dfe02b4935aae",
+      "archive": "additional-sources.tar.gz"
+    },
+    {
+      "path": "libgnat/g-table.adb",
+      "bytes": 5600,
+      "git_blob_sha1": "c8ce2d796c997605247e923585a1441cbcbbb435",
+      "sha256": "9746442a0aa3547bb66f449cdd16d1d81d69c5bebcb434fb61980269ab59cb47",
+      "archive": "additional-sources.tar.gz"
+    },
+    {
+      "path": "libgnat/g-table.ads",
+      "bytes": 6084,
+      "git_blob_sha1": "709bbef8453b7edf07df725b948f12bcee198a43",
+      "sha256": "52ead8fb89273493f3e63e90ac18f76457745883eb4c1e7280e8cb27a7ef495f",
+      "archive": "additional-sources.tar.gz"
+    },
+    {
+      "path": "scng.adb",
+      "bytes": 99999,
+      "git_blob_sha1": "5aedb4a20100c67d57add10d1742790d6916638e",
+      "sha256": "0989455192a510aff6227ac012b232f1497e219f294d277e7fb99c5bdb7c7db3",
+      "archive": "../continuation-20261017/frontend-lifetimes/selected-sources.tar.gz"
+    },
+    {
+      "path": "sinfo-utils.adb",
+      "bytes": 18904,
+      "git_blob_sha1": "ed8c74456e712c9aca1d9af7480eb8051b36245f",
+      "sha256": "162e40c41ea153007bf8d65a1267b7ec95cba32233aca4738e3a317b2207a557",
+      "archive": "additional-sources.tar.gz"
+    },
+    {
+      "path": "stringt.adb",
+      "bytes": 13395,
+      "git_blob_sha1": "d9853140c7b973a295721c430b3dcc2719b583c8",
+      "sha256": "9907f68178174b87a19a6d3871e5bc48e3a7471b3a4140f5e25bd900fcb84954",
+      "archive": "../continuation-20261017/frontend-lifetimes/selected-sources.tar.gz"
+    },
+    {
+      "path": "stringt.ads",
+      "bytes": 8336,
+      "git_blob_sha1": "6858e2d13e03a45a7fd5e3d8b702a6511caf98f5",
+      "sha256": "e3ffa0b94869b0a332f009ab5527bb2509b47ca3cfefb91860c60fae7e4280e6",
+      "archive": "../continuation-20261017/frontend-lifetimes/selected-sources.tar.gz"
+    },
+    {
+      "path": "stringt.h",
+      "bytes": 4226,
+      "git_blob_sha1": "14a145a81433d02db1bb9adff74b8aaeb7db81ab",
+      "sha256": "53b108713f4aaeb7dd53afc0f821434fc5f9439625a0fc35d4e0a32faf090d58",
+      "archive": "../continuation-20261017/frontend-lifetimes/selected-sources.tar.gz"
+    },
+    {
+      "path": "table.adb",
+      "bytes": 13959,
+      "git_blob_sha1": "124b25e925ac30a4e62f81605a4a315e81f13aee",
+      "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4",
+      "archive": "../continuation-20261017/frontend-lifetimes/selected-sources.tar.gz"
+    },
+    {
+      "path": "table.ads",
+      "bytes": 12010,
+      "git_blob_sha1": "4711858ad65a300086be3f9566ecb38525777a37",
+      "sha256": "e82f128c9e68d286d433c8848d81b00eb9b01f1fd75f3e5cee018223b9c4e5db",
+      "archive": "../continuation-20261017/frontend-lifetimes/selected-sources.tar.gz"
+    },
+    {
+      "path": "types.ads",
+      "bytes": 46466,
+      "git_blob_sha1": "6070130ac925077cf9037da84592a64b73734379",
+      "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+      "archive": "../continuation-20261017/frontend-lifetimes/selected-sources.tar.gz"
+    },
+    {
+      "path": "uintp.adb",
+      "bytes": 69576,
+      "git_blob_sha1": "74e323b0e0eeaca3e666744cea406b7cadbc3ce4",
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
+      "archive": "../continuation-20261017/frontend-lifetimes/selected-sources.tar.gz"
+    },
+    {
+      "path": "uintp.ads",
+      "bytes": 26744,
+      "git_blob_sha1": "a34abac444fcd53ded8609a2a996433bb55d364c",
+      "sha256": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
+      "archive": "../continuation-20261017/frontend-lifetimes/selected-sources.tar.gz"
+    },
+    {
+      "path": "uintp.h",
+      "bytes": 4715,
+      "git_blob_sha1": "6ba7fba6ee16fb93a8b5326f5dc2dbc33a98776d",
+      "sha256": "7296a9cd870a9c4b4c3d380b9ab19d0db7afc844a5dbda4b21015f61e590ee73",
+      "archive": "additional-sources.tar.gz"
+    }
+  ]
+}
