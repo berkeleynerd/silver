@@ -1,5 +1,38 @@
 # Session memory
 
+## 2026-10-17 — Retained-tool capacity direction adopted
+
+After discussing the tool-imposed representation boundary and requesting a
+transfer summary, the owner instructed **“Let's implement this.”** This selects
+the revised recommendation for
+[decision #117](https://github.com/berkeleynerd/silver/issues/117): retain the
+existing GNAT/GNATprove toolchain, accept demonstrated representation limits as
+explicit tool-capacity boundaries, and remove unnecessary Silver limits within
+a justified domain. External paired support, a compiler fork and a replacement
+frontend cease to be prerequisites. The earlier research conclusions and their
+evidence remain historical facts; their recommended ownership route is superseded.
+
+Enact this direction in the scope, roadmap, recovery notes and affected issue
+specifications. The first technical dependency is a sound, decidable,
+source-sensitive capacity rule for the unchanged tools. Its derivation remains
+unfinished: the existing obstruction is not a safe admission threshold.
+Account for retained and temporary representations, growth, generated data,
+dependencies, all relevant phases and the separate GNATprove producer. Justify
+any conservative envelope against program-structure accounting. The proposed
+value/composition domain may change; no arbitrary lower cap is selected.
+
+Capacity restrictions must be established before admission. Representation
+overflow on admitted source remains a defect, distinct from physical resource
+exhaustion. Optional confirmation cannot waive automatic discharge or establish
+missing capacity assurance. Retain the Oracle and current language while this
+prerequisite is developed; no external-tool modification, new pin, maintainer
+contact or Oracle amendment is selected. Routine tracking, documentation,
+review, commits and publication continue under the existing authorization.
+
+The completed For loops and integers harness goal stays complete; this request
+does not explicitly create a new harness goal. Preserve worktrees, installations,
+caches and retained evidence. CLI memory is unavailable and was not updated.
+
 ## 2026-10-17 — Frontend representation research reaches an implementation stop
 
 The authorized [research #113](https://github.com/berkeleynerd/silver/issues/113)
