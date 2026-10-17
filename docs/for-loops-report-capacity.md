@@ -7,7 +7,9 @@ validation workload. It supports
 for work package [#13](https://github.com/berkeleynerd/silver/issues/13).
 Native inspection host: Linux x86_64. Source fetch URLs and SHA256 values are
 retained in `tmp/frontend-capacity-20261016/fetch-manifest.json`; the pinned
-revisions below make the reviewed sources reproducible.
+revisions below make the reviewed sources reproducible. The later L1/#51
+amendment below corrects the Silver operator-counting premise and links the
+scanner repair's separate validation.
 
 ## Provenance
 
@@ -142,10 +144,21 @@ The overflow-count budget does not need to rely on signed-literal folding:
 - `Read_Integer` starts `Read_Mantissa` at the supplied position and consumes
   no leading sign (`S/silver_scalar_literals.adb:231–237`). A sign in a numeric
   exponent is literal syntax, not an Ada operator node.
-- `Within_Work_Budget` skips comments/literal bytes and counts every source
-  `&`, `+`, `-`, `*` (`S/silver_output_profile.adb:424–439`), including unary
-  signs, against 63 (`silver_output_profile.ads:8–10`). The ghost specification
-  agrees at `silver_output_profile.adb:393–408`.
+- The repaired `Within_Work_Budget` and ghost `Work_Tail` in
+  `S/silver_output_profile.adb` skip comments, literal bytes and whole
+  identifiers before their numeric-token branch. `Name_After` prevents a
+  digit-`E` identifier suffix from turning a following binary `+` into apparent
+  exponent syntax. They count every source `&`, `+`, `-`, `*` outside those
+  tokens, including unary signs, against 63 (`silver_output_profile.ads:8–10`).
+
+The original scanner stepped through identifiers one character at a time.
+For `N1E+1`, it could subsequently parse `1E+1` as a numeral and miss the
+operator. The original source-review statement that every arithmetic operator
+was charged was therefore false for the delivered scanner. The
+[capacity record](report-capacity.md#for-loops-and-integers-extension) preserves
+the conservative retrospective 16,424,960-byte allowance separately from
+the repaired 15,028,224-byte bound; the [remediation record](review-b8f1d0b9a8-repairs.md)
+identifies corresponding native/Lean scans, checked source and regressions.
 
 ## Loop and Integer flow-diagnostic sanity check
 
@@ -209,7 +222,7 @@ allowance therefore remains applicable within those fixed-input premises.
 
 ## Scalar and loop proof-record sites
 
-- Shared lexical work budget is 63 total `&`, unary/binary `+`/`-`, and `*` tokens. `silver_output_profile.adb` 386–445 calls `Read_Integer` before operator dispatch. `silver_scalar_literals.adb` 104–144 starts at the mantissa, with no leading sign; only exponent `+` is consumed as numeric syntax (179–218). Therefore all arithmetic AST operators are charged, including signs on literals.
+- Shared lexical work budget is 63 total `&`, unary/binary `+`/`-`, and `*` tokens. The repaired `Work_Tail` and `Within_Work_Budget` in `silver_output_profile.adb` consume a whole identifier with `Name_After` before the numeric-token branch and operator dispatch. `silver_scalar_literals.adb` 104–144 starts at the mantissa, with no leading sign; only exponent `+` is consumed as numeric syntax (179–218). The corresponding native/Lean scans thus charge arithmetic AST operators, including signs on literals, without rescanning identifier interiors.
 - `gnat2why-expr.adb` 24127–24203 translates arithmetic operands once each to `Base_Why_Type`. Its common overflow wrapper at 25499–25575 inserts at most one overflow check in `EW_Prog`; `Insert_Overflow_Check` 12035–12057 contains one `New_VC_Call`. Term-domain constant axioms do not add those proof checks. Signed32 has no modular wrap, division, floating point or predicate paths.
 - The final checked conversion is at 25641–25664. `why-gen-expr.adb` 1618–1645 checks only executable expressions with the frontend check flag; 2430–2467 leaves Range_Type empty for mathematical `EW_Int_Type`; 2759–2829 applies at most one scalar range check to a conversion. Thus arithmetic child conversions cannot multiply proof records.
 - Scalar comparisons translate each operand once to shared base type (`gnat2why-expr.adb` 21945–21967). Integer Image similarly translates its argument once to `Base_Why_Type` (20256–20276), so neither creates an additional scalar root range check in this selected type.

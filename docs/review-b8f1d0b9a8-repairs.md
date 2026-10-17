@@ -8,8 +8,15 @@ holds live status. The original review target is `b8f1d0b9a8` (tree equal to
 [review and appended disposition](reviews/review-b8f1d0b9a8.md#appended-disposition--2026-10-16)
 retain the evidence and corrections. The authorization reached `main` through [PR #65](https://github.com/berkeleynerd/silver/pull/65),
 commit `f4d2f35083c5e2eb96b33ee03eea0bd26e80d458`, merged as
-`cd7c033beb1143143cf72b3dcdddbcca5781da86`. Implementation and validation
-progress are distinguished below.
+`cd7c033beb1143143cf72b3dcdddbcca5781da86`. Original review, implementation and validation
+identities are distinguished below.
+
+Remediation implementation and Linux validation completed on 2026-10-17.
+The complete cached native audit, complete cached Lean build with fresh axiom
+audit, and all 89 selected tests passed. The [validation record](evidence/for-loops-integers/review-remediation-validation.json)
+retains exact inputs, failed attempts, cache transfers and limits.
+[PR #66](https://github.com/berkeleynerd/silver/pull/66) carries publication
+status; the milestone tracks the final issue closures.
 
 ## Ordered scope and completion
 
@@ -31,7 +38,8 @@ proof increments, not implied completion conditions of the earlier milestone.
 ## Disposition and limits
 
 All selected findings are confirmed or narrowed as stated by the review and
-appended disposition, and remain open until their repair evidence is recorded.
+appended disposition. The repair evidence below records their implementation;
+the milestone carries final issue status.
 L4 covers disclosure of actual cache reuse and existing assumptions; new
 provenance instrumentation, output-integrity gates and clean/kernel replay
 remain outside this work. The original full suite remains a failed run with a
@@ -60,12 +68,12 @@ hardening label removes those requirements.
 
 ## Validation and handoff
 
-Implementation commits, review targets and final evidence will be recorded
-here as the work progresses. Before any expensive validation, read the managed
-run summary, coordinate resolved workspaces/workers, retain successes and
-record a reason for any identical-success rerun. Use focused checks first,
-then the existing complete checks required for the changed native/proof inputs.
-Documentation checks do not require a fresh native or Lean proof run.
+The implementation commits and review targets remain separate from the
+actual run inputs recorded below and in the validation JSON. Managed run
+summaries and resolved workspaces/workers were coordinated before expensive
+validation; successful evidence and failed runs were retained. Focused checks
+preceded the existing complete checks required for changed native/proof inputs.
+This documentation lane ran no native or Lean proof workload.
 
 Consolidate review candidates before verification. Additional independent
 verification is justified for blockers or disagreements; use a whole-team
@@ -100,11 +108,11 @@ repair. Prospective review discipline is recorded in development.md.
 
 The record corrections were integrated as `b8ae6d0a0e`; they do not by
 themselves validate the implementation increments. Their separate evidence
-follows below as it becomes available. The operational boundary reflects the
+follows below. The operational boundary reflects the
 confirmed retention/cleanup, environment-query and diagnostic behavior;
-complete native validation remains pending. The capacity repair record follows
-the validated scanner handoff. Original review evidence and prior
-native/Lean/test run artifacts remain untouched.
+complete native validation is recorded in the integrated evidence below. The
+capacity correction follows the checked scanner/source handoff. Original
+review evidence and prior native/Lean/test run artifacts remain untouched.
 
 The adapter lifecycle refinement for #59 distinguishes supplied proof
 directories from wholly private ones: calls returning vendor status 0 with `--proof-dir`
@@ -119,8 +127,9 @@ nonzero vendor statuses and debug retention preserve scratch. Cleanup uses
 the removal process's inherited stderr for diagnostics; there is no
 Silver-owned call to `Ada.Text_IO.Standard_Error`. The operational change is
 integrated as `3dfcb23a50` from `d741ac6b39034a24296dbb2c87d7b828d2769bf2`;
-its complete native audit and focused regression checks remain separately
-tracked.
+the later flow-diagnostic follow-up is root `20574ce975` from lane
+`180e1a85da1afac5fb1f1f9da878f67072123c18`. Complete native and focused
+regression evidence is recorded below.
 
 ## Focused proof evidence
 
@@ -151,8 +160,9 @@ that digest, rather than the later witness commit alone, identifies the run's
 combined inputs. The retained `lean-focused-evidence.json` has SHA256
 `042aa0e2347939e4a7f65066569cdc1177cc49b19f8ddd64993fcbc2ee25870f`.
 
-L15 is In review, pending coordinated integration validation and publication.
-That run did not complete L11/#60; its later proof and endpoint checks follow.
+At that focused checkpoint L15 moved to In review, with coordinated
+integration still outstanding. That run did not complete L11/#60; its later
+proof and endpoint checks follow. Final integration evidence appears below.
 
 L11/#60 is implemented in `07676ef620542cde14d60860d0983848e41dfd55`.
 `ImageModelCanonicalRead.lean` supplies a terminating proof-only decoder and
@@ -191,6 +201,122 @@ and its evidence SHA256 is
 These were cached focused checks, with neither a clean build nor independent
 kernel replay. Earlier proof-authoring failures remain retained; routine
 small iterations took about 3–4 seconds of Lean build time and did not repeat
-broad proof checks. L11 is In review: its focused proof work is complete,
-while the stable complete Lean integration check awaits the coordinated
-recognizer and adapter changes.
+broad proof checks. L11 then moved to In review after its focused proof
+work, while the coordinated recognizer/adapter integration remained outstanding.
+That was an interim checkpoint; the final integrated results appear below.
+
+
+## Recognizer and capacity repair
+
+L1/#51 is implemented in lane `62e834b19197cd78022da32a9f22104d8148eb09`,
+integrated as `7067a98744cfa2f8310f545dc5de761c59496e03`. Root reviewed
+the source/model/test changes, checked the refreshed 46-token source-shape
+pin and confirmed the generated certificate matches the successfully checked
+candidate. The final source bridge passed after that pin refresh.
+
+`Work_Tail` and `Within_Work_Budget` now consume whole identifiers with
+`Name_After` before their numeral branch. The corresponding Lean scan and
+rendered equations follow the same order. Thus `N1E+1` charges its binary
+`+`; it cannot be rescanned as the identifier suffix followed by the apparent
+numeric exponent `1E+1`. Genuine numeral exponent signs remain literal
+syntax, and unary signs remain charged. The scalar-literal parser itself is
+unchanged. The checked source candidate and reviewed source-shape pin were
+updated together with their semantic and source proofs.
+
+The [capacity argument](report-capacity.md#for-loops-and-integers-extension)
+and [detailed frontend review](for-loops-report-capacity.md) distinguish the
+original defective counting premise and conservative 16,424,960-byte allowance
+from the repaired 15,028,224-byte envelope. The four retained shared-budget
+regressions exercise 63/64 boundaries and exponent-like identifier suffixes;
+they corroborate the source/model argument.
+
+| Focused Linux check | Scope | Modules / audited declarations | Managed / evidence seconds |
+| --- | --- | --- | --- |
+| `20261016T231204-5d9079ade975` | Compose equations, recursion and legality | 70 / 13,693 | 283.542 / 283.807 |
+| `20261016T231732-30b9eb823fcd` | `Silver.ComposeSourceChecks` | 41 / 21,166 | 3,030.768 / 3,031.241 |
+| `20261017T000831-bffe41b28cbf` | `Silver.OutputSourceBridge` after the source-pin refresh | 40 / 26,131 | 111.506 / 111.799 |
+
+The source run checked `OutputBodyCertificate` (1,665 seconds) and then
+`ComposeSourceChecks`; its build took 3,022.570 seconds and fresh audit 3.278
+seconds. The model and source checks share input digest
+`644478055d7dbbe2d8a559b9db0ef9016f88bb19059e44bcedb058e72703f380`.
+The [validation JSON](evidence/for-loops-integers/review-remediation-validation.json)
+retains each evidence hash and the separate final source-pin/bridge input.
+
+## Integrated validation — 2026-10-17
+
+All selected repairs and their required Linux validation are complete. Final
+implementation code is `7067a98744cfa2f8310f545dc5de761c59496e03`;
+the documentation and closing commits are separate. The retained run records
+bind actual inputs, with final cross-workspace correspondence below.
+
+| Check | Actual result |
+| --- | --- |
+| Complete cached native audit `20261016T233635-9a0a8220f31a` | All 15,106 checks proved: 1,286 flow and 13,820 proof checks across 75 unit reports / 995 entities. The complete coverage/provenance audit passed; 847.562 managed seconds. |
+| Complete cached Lean check `20261017T001224-2650ccbec3a2` | `Silver.Audit` passed over 459 modules and 87,369 declarations; only `propext`, `Classical.choice` and `Quot.sound`. Four Lake workers, one thread per process; 547.865 managed / 548.301 evidence seconds, including 539.574 build and 3.878 fresh audit seconds. |
+| Focused operational, admission and evidence tests | 68 passed with zero skips: 3 adapter controls, 4 shared-budget methods, all 53 evidence tests and all 8 Image setup tests. |
+| Final synchronized tests | 21 more passed: the remaining adapter initializer method, all 9 Integer Image methods and all 11 Lean/source methods. Across the seven focused runs, all 89 distinct methods passed with zero skips or repeats, including exactly three native application compiles and all 26 certificate regeneration pairs. |
+| Documentation validation | All 487 local-file links across 11 changed Markdown files resolve; the new canonical proof link was checked in the integration tree. JSON invariants and retained ledger/log/Lean evidence hashes pass for 28 managed runs and 89 distinct passing methods. Whitespace checks pass. |
+
+The complete Lean input digest is
+`5e97df848181138ef18133d53f37b843520d16b9aeba762891f8de420667dea3`;
+its retained evidence SHA256 is
+`528c749c79269fb88d895f62fec364f986269d0bf706ffe1da20b1a9cb1de7ad`.
+Lean 4.34.1 ran on Linux x86_64 in incremental mode, with `clean_build: false`
+and no independent kernel replay.
+
+The existing shared compilation test helper removed two new application
+workspaces after their report and execution assertions. Their passing managed
+logs remain; the adapter initializer's `program-tkTStw` workspace and debug
+snapshots are retained. No compile was repeated merely to retain artifacts.
+
+The native run's `proof-provenance.json` SHA256 is
+`7200652c7119932ef7fa7debc07b32f359f572c223f1d91022ebdb22ead273c6`;
+its `proof-inputs.json` SHA256 is
+`5f2201c5dc382fac9fdb4624201d7f1feaad9fab62f5b8ade1e314c5a68e20b3`.
+Before/after input maps agree. The complete provenance record binds 77
+report files, including all 75 `.spark` unit reports. Path-specific generated
+configurations remain native-lane inputs; branch/base commits alone do not
+identify the executed snapshots.
+
+After L1 integration, all 141 authoritative native-manifest source, script
+and project/toolchain inputs matched root `7067a98744`. The native lane then
+synchronized the complete 670-path tracked union of source, scripts, proof,
+tests, catalogue, samples and project/Alire files. Only 12 proof files changed;
+every resulting hash matches root. The native, script, test, catalogue and
+sample bytes used by the completed native audit and 68 early focused tests
+were unchanged. The validation JSON embeds the exact comparison and all
+670 before/root/after hash records, distinguishing this complete synchronization
+from the original delivery's narrower 204-file comparison.
+
+The native lane copied the prior `tmp/for-loops-predicate-source` Alire tools
+and normal proof cache into `tmp/review-image-adapter`, then bootstrapped the
+new location. It copied no old generated configuration, compiler binary,
+objects or reports. Both sessions and cache entries were present for the
+successful full audit. The validation JSON records the cache key, transfer
+scope and original file count. The isolated L1 lane began with 7,344
+recorded artifacts copied from the completed root Lean workspace, retaining
+original trace origins. After the L1 checks, root verified 97 transitive
+project-module sources and nine native source bindings, then imported 18
+matched module groups / 288 complete artifacts. Prior root objects were
+backed up; Image and PredicateExamples groups were untouched. The offered
+inventory and actual import are distinct records; the latter, including all
+288 before/after artifact hashes, is embedded in the validation JSON.
+These results are cached checks, with no clean native/Lean build, independent
+kernel replay, new native macOS result or hosted CI run claimed. The selected
+focused tests do not constitute a repeated complete regression suite; the
+original 450-test failure plus 26-pair repair remains separate history.
+
+The failed exploratory native run `20261016T231218-274eb37001b5` is retained:
+its unrelated adapter `Ada.Text_IO.Standard_Error` call was outside SPARK,
+while the exact repaired Output body passed 170 flow and 727 proof checks.
+The first complete audit `20261016T232723-2d265e783f77` then proved 10,681
+checks but failed on four adapter flow warnings. The next focused attempt,
+`20261016T233459-3340e11655ea`, exposed an `Unreferenced` variable still used
+as an out actual. The corrected `Native` function returns Boolean and keeps
+the same process, argument and status behavior; the no-effect branch was
+removed and intentionally discarded cleanup status was marked explicitly.
+Focused flow `20261016T233547-19f8f4998089` passed 10 checks, followed by the
+successful build and complete audit. No warning allowance or proof obligation
+was weakened. The earlier witness and canonical-proof authoring failures
+above likewise remain failed records.

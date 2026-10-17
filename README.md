@@ -110,8 +110,8 @@ The completed [For loops and integers milestone](docs/for-loops-integers.md)
 adds immutable signed-32-bit Integer constants, fully grouped arithmetic and
 comparisons, scoped forward/reverse loops and standard `Integer'Image`,
 including Ada's leading space. These compose with the String, input, path and
-output rules above. The [current remediation](docs/review-b8f1d0b9a8-repairs.md)
-tracks reviewed implementation and record corrections.
+output rules above. The [completed review remediation](docs/review-b8f1d0b9a8-repairs.md)
+records the implementation corrections and their separate validation.
 
 Small source files can still be expensive to compile. In a Linux review, a
 4096-byte program with 800 assignments took **36.4 minutes and 8.89 GiB peak

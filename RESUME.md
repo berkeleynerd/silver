@@ -5,9 +5,10 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 For loops and integers was delivered through PR #47; its separate
-[review remediation](docs/review-b8f1d0b9a8-repairs.md) is authorized through
-PR #65. Historical paused/unfinished statements below describe earlier
-checkpoints and do not override that delivery or the live harness state.
+[review remediation](docs/review-b8f1d0b9a8-repairs.md), authorized through
+PR #65, completed implementation and Linux validation on 2026-10-17; PR #66
+tracks publication. Historical paused/unfinished statements below describe
+earlier checkpoints and do not override that completion or the live harness state.
 
 The delivered Rosetta baseline includes `integer-for-loops`,
 `immutable-integers` and `integer-image`. Their three loop drivers are in
