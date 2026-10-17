@@ -2,7 +2,7 @@
 
 Independent source review for [#70](https://github.com/berkeleynerd/silver/issues/70),
 Linux x86_64, 2026-10-17. **Source review complete: no blocker; both low findings
-repaired. Complete integrated validation remains pending.**
+repaired. The implementation owner records completed integrated validation below.**
 
 ## Scope and target
 
@@ -237,3 +237,22 @@ no additional defect or scope change. This is a proof integration repair with
 no native code change. The failed complete attempt remains distinct from the
 required focused repair check and resumed complete validation; no such checks
 were run by this reviewer.
+
+
+## Implementation-owner delivery disposition — 2026-10-17
+
+The final input tree is `bbd5989b2b`: native implementation `d83927cef3`,
+selector proof completion `54551e49f9` (reviewed as `768ce4d4ed`), and five
+regenerated certificate snapshots. The [delivery evidence](../evidence/bounded-mutable-integers/delivery-validation.json)
+records the complete native audit and complete cached Lean build with fresh
+whole-project auditing. The full suite ran 469 tests; its five failing generated
+snapshot subcases were repaired, and all ten affected source-policy tests then
+passed. All 22 manifest samples passed. The original suite failure and first
+complete Lean failure remain explicit, with their focused repairs and exact
+input scopes. No unchanged successful broad check was repeated for documentation.
+
+The two low review findings are fixed and validated. Generated snapshot bytes
+match the final audited workspace; this equality and the focused regeneration
+test cover their refresh separately from human source review. There is no
+unresolved delivery finding. This disposition records the implementation
+owner's final evidence; it does not attribute new proof runs to the reviewer.

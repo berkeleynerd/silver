@@ -71,8 +71,12 @@ records the coordinated scanner/schema, consumer and whole-document endpoint
 audits, complete native validation and independent review for the delivered
 fragment. The external premises below remain part of the assurance claim.
 
-The scalar grammar combines immutable signed-32-bit Integer constants and
-scoped indexes with grouped arithmetic, comparisons and standard Integer Image.
+The scalar grammar combines signed-32-bit Integer objects and scoped indexes
+with grouped arithmetic, comparisons and standard Integer Image. The
+[bounded mutable extension](bounded-mutable-integers.md#integrated-validation-and-review)
+retains exact ordered initializer values separately from Ada-staticness,
+mutability and declared ranges. Its complete native and Lean validation,
+regressions and independent source review are recorded at the linked checkpoint.
 Interval proofs cover every intermediate operation, including minimum-value
 negation; comparisons do not silently narrow scalar ranges. Bounds are read
 once at loop entry. The semantic loop argument is induction over the finite Ada
@@ -81,6 +85,28 @@ String snapshots, path facts, returning output/rejection effects and fixed-bound
 assignments compose through empty, definitely nonempty and uncertain loops.
 Image contributes its derived length interval to every String expression
 position, including concatenation and assignment.
+
+Mutable body reads use the whole declared range. `Integer.Assignment.check_sound`
+derives safe RHS evaluation, target-range inclusion and preservation of every
+other scalar value. Declaration snapshots retain exact values, including
+constants copied from mutable objects; these snapshots do not acquire
+Ada-staticness. Scalar assignments and comparisons never refine mutable ranges.
+`Predicate.Execution` threads Integer and String stores through branches,
+sequences and each finite iteration. Loop bounds use the entry store, and
+`restoreIndex` restores only the scoped index. `Program.scalar_execution_invariant`
+preserves declared ranges, while `Program.all_obligations_discharge` covers
+initializers, assignment range checks and every body obligation. Image lengths
+use the declared mutable interval in the body and exact values during declaration
+elaboration. Input-length facts survive scalar writes; live mutable Image
+equalities are not retained.
+
+`Sequence.scalar_tokens_objects` connects the parsed declaration trace to
+ordered object elaboration, and `Predicate.form_reading_valid` connects that
+trace to the body checker. The actual-source connection additionally checks
+the typed constraint/declaration and scalar-assignment bodies, their imported
+callees, the six-field native binding record, and the widened body environment.
+The environment's verified full-array mapping contract yields the active-prefix
+map consumed by the adapter; mere agreement of a source pin is insufficient.
 
 The source argument must use the checked scalar-literal/expression, interval,
 Predicate and Compose equations together, retaining their executable refinements.
@@ -700,11 +726,13 @@ tables do not replace that refinement. Retained application audit data has a
 bounds after the streaming projection of unaudited `check_tree` values, not
 limits on original evidence-file length. The original reports remain unchanged,
 and every record and policy-relevant field remains in the audited input.
-The [capacity repair](report-capacity.md) records the current source/producer
-envelope and the projection's SPARK argument. Its scalar/loop/Image extension
-bounds retained Main reports by 15,028,224 bytes within the unchanged
-16,777,216-byte domain, including non-deduplicated Image advisories. It is not a Lean-derived JSON-size
-bound. The earlier [capacity evidence](statement-sequencing.md) keeps its
+The [capacity repair](report-capacity.md) records the source/producer envelope
+and the projection's SPARK argument. The
+[bounded mutable extension](bounded-mutable-report-capacity.md) bounds retained
+Main reports by 15,292,416 bytes within the unchanged 16,777,216-byte domain,
+including constrained declarations, scalar assignments and non-deduplicated
+Image advisories. It is not a Lean-derived JSON-size bound. The earlier
+[capacity evidence](statement-sequencing.md) keeps its
 historical input and buffer scope.
 
 The stream-to-policy argument starts with the actual reader's uncapped raw-byte

@@ -1432,5 +1432,33 @@
     "generated_and_handwritten_lean_workspace_identity": "all 468 workspace input files match final committed tree and root; 466 modules plus two configuration files",
     "native_input_identity": "all 141 tracked native/proof-project/script/configuration inputs match final committed tree and root; 2519 total captured inputs retained in native provenance",
     "additional_validation_run_required_for_record_preparation": false
+  },
+  "post_validation_root_cache_handoff": {
+    "manifest": "tmp/final-lean-cache-promotion.json",
+    "sha256": "7702d3e065fb2455ceeae9a562359fd99c800798bb6cbea148fd90a3394f57a5",
+    "source_complete_run": "20261017T024125-7b26370b62f2",
+    "audited_modules": 466,
+    "family_files": 7440,
+    "copied_files": 421,
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-semantics/.silver/linux-x86_64/proof",
+    "destination": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/proof",
+    "replaced_artifacts_backup": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-cache-before-20261017T024125-7b26370b62f2",
+    "method": "Current audited module families only; all sibling objects/IR/trace/setup preserved; physical copy2 with separate inodes; previous differing destination artifacts backed up; unrelated/orphan artifacts untouched",
+    "additional_proof_run": false
+  },
+  "completion_documentation_check": {
+    "files": [
+      "README.md",
+      "roadmap.md",
+      "RESUME.md",
+      "docs/assurance.md",
+      "docs/trusted-boundary.md",
+      "docs/session-memory.md",
+      "docs/bounded-mutable-integers.md",
+      "docs/reviews/review-bounded-mutable-integers.md"
+    ],
+    "local_file_links_checked": 611,
+    "missing_local_files": [],
+    "proof_or_test_repeat": false
   }
 }
