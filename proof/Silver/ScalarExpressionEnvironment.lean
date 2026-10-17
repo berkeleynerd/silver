@@ -13,7 +13,7 @@ when an interval is empty. Source Valid_Environment additionally checks each
 live name span; it does not assert that the span spells an identifier. -/
 def ValidEnvironment (text : Source) (names : Environment) : Prop :=
   names.length ≤ maxBindings ∧ ∀ item ∈ names,
-    0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1 ∧ item.bounds.Bounded
+    0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1 ∧ item.bounds.Bounded ∧ item.declaredBounds.Bounded
 
 def ValidMask (text : Source) (first after : Nat) : Prop :=
   (first = 0 ∧ after = 0) ∨ (0 < first ∧ first < after ∧ after ≤ text.length + 1)
@@ -23,7 +23,7 @@ theorem validEnvironment_empty (text : Source) : ValidEnvironment text [] := by
 
 theorem validEnvironment_append {text : Source} {names : Environment} {item : Binding}
     (valid : ValidEnvironment text names) (space : names.length < maxBindings)
-    (itemValid : 0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1 ∧ item.bounds.Bounded) :
+    (itemValid : 0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1 ∧ item.bounds.Bounded ∧ item.declaredBounds.Bounded) :
     ValidEnvironment text (names ++ [item]) := by
   refine ⟨by simp only [List.length_append, List.length_singleton]; omega, ?_⟩
   intro other present
@@ -62,6 +62,10 @@ theorem ranges_append (names : Environment) (item : Binding) :
 independently of the exact initialization interval carried in Bounds. -/
 def DeclaredBoundsValid (names : Environment) : Prop :=
   ∀ item ∈ names, item.declaredBounds.Bounded
+
+theorem validEnvironment_declaredBoundsValid {text : Source} {names : Environment}
+    (valid : ValidEnvironment text names) : DeclaredBoundsValid names :=
+  fun item present => (valid.2 item present).2.2.2.2
 
 /-- Body admission uses the complete declared subtype for each mutable name.
 Immutable snapshots and loop indexes retain their own exact/iteration bounds. -/
@@ -128,17 +132,17 @@ theorem bodyEnvironment_declaredBoundsValid {names : Environment}
   exact valid original old
 
 theorem bodyEnvironment_valid {text : Source} {names : Environment}
-    (valid : ValidEnvironment text names) (declared : DeclaredBoundsValid names) :
+    (valid : ValidEnvironment text names) :
     ValidEnvironment text (bodyEnvironment names) := by
   refine ⟨by simpa using valid.1, ?_⟩
   intro item present
   obtain ⟨original, old, rfl⟩ := List.mem_map.mp present
   have oldValid := valid.2 original old
-  refine ⟨oldValid.1, oldValid.2.1, oldValid.2.2.1, ?_⟩
+  refine ⟨oldValid.1, oldValid.2.1, oldValid.2.2.1, ?_, oldValid.2.2.2.2⟩
   change (if original.mutable then original.declaredBounds else original.bounds).Bounded
   split
-  · exact declared original old
-  · exact oldValid.2.2.2
+  · exact oldValid.2.2.2.2
+  · exact oldValid.2.2.2.1
 
 theorem bodyEnvironment_mutability (names : Environment) :
     mutability (bodyEnvironment names) = mutability names := by
