@@ -10,7 +10,7 @@ namespace Silver.Predicate.Adapter
 /-- Exact isolated native candidate blocks. Final authoritative extraction is integrated separately. -/
 
 def context_ofCandidate : List String :=
-  ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "scalar_names", "=>", "scan", ".", "state", ".", "scalar_names", ",", "dynamic_first", "=>", "scan", ".", "state", ".", "dynamic_first", ",", "dynamic_after", "=>", "scan", ".", "state", ".", "dynamic_after", ")"]
+  ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "scalar_names", "=>", "scalar_expressions", ".", "body_environment", "(", "scan", ".", "state", ".", "scalar_names", ")", ",", "dynamic_first", "=>", "scan", ".", "state", ".", "dynamic_first", ",", "dynamic_after", "=>", "scan", ".", "state", ".", "dynamic_after", ")"]
 
 theorem context_of_candidate : contextExpr.render = context_ofCandidate := by
   simp only [contextExpr, Expr.render, Field.name, record]
