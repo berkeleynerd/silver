@@ -1,0 +1,6 @@
+{
+  "resolved_path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld",
+  "sha256": "809ad9e3c137cdf6d997b4e67dd3dd2589f6bb5de612dc298504e87bc4936c7e",
+  "version": "Apple ld-27037.1",
+  "provenance": "xcrun --find ld, /usr/bin/ld -v and SHA-256 were read in the preflight immediately before the native BSS control compile at 2026-10-17T19:20:36Z; recorded from that retained tool result, no new experiment"
+}

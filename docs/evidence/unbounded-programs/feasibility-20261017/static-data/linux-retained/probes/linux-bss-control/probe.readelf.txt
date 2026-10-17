@@ -1,0 +1,72 @@
+There are 30 section headers, starting at offset 0x1690:
+
+Section Headers:
+  [Nr] Name              Type            Address          Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            0000000000000000 000000 000000 00      0   0  0
+  [ 1] .interp           PROGBITS        00000000000002a8 0002a8 00001c 00   A  0   0  1
+  [ 2] .hash             HASH            00000000000002c8 0002c8 00002c 04   A  4   0  8
+  [ 3] .gnu.hash         GNU_HASH        00000000000002f8 0002f8 000024 00   A  4   0  8
+  [ 4] .dynsym           DYNSYM          0000000000000320 000320 000090 18   A  5   1  8
+  [ 5] .dynstr           STRTAB          00000000000003b0 0003b0 000088 00   A  0   0  1
+  [ 6] .gnu.version      VERSYM          0000000000000438 000438 00000c 02   A  4   0  2
+  [ 7] .gnu.version_r    VERNEED         0000000000000448 000448 000030 00   A  5   1  8
+  [ 8] .rela.dyn         RELA            0000000000000478 000478 0000c0 18   A  4   0  8
+  [ 9] .init             PROGBITS        0000000000000538 000538 00001b 00  AX  0   0  4
+  [10] .plt              PROGBITS        0000000000000560 000560 000010 10  AX  0   0 16
+  [11] .plt.got          PROGBITS        0000000000000570 000570 000008 08  AX  0   0  8
+  [12] .text             PROGBITS        0000000000000580 000580 000126 00  AX  0   0 16
+  [13] .fini             PROGBITS        00000000000006a8 0006a8 00000d 00  AX  0   0  4
+  [14] .rodata           PROGBITS        00000000000006b8 0006b8 000004 04  AM  0   0  4
+  [15] .eh_frame_hdr     PROGBITS        00000000000006bc 0006bc 00002c 00   A  0   0  4
+  [16] .eh_frame         PROGBITS        00000000000006e8 0006e8 000094 00   A  0   0  8
+  [17] .note.gnu.property NOTE            0000000000000780 000780 000020 00   A  0   0  8
+  [18] .note.ABI-tag     NOTE            00000000000007a0 0007a0 000020 00   A  0   0  4
+  [19] .init_array       INIT_ARRAY      0000000000001df0 000df0 000008 08  WA  0   0  8
+  [20] .fini_array       FINI_ARRAY      0000000000001df8 000df8 000008 08  WA  0   0  8
+  [21] .dynamic          DYNAMIC         0000000000001e00 000e00 0001c0 10  WA  5   0  8
+  [22] .got              PROGBITS        0000000000001fc0 000fc0 000028 08  WA  0   0  8
+  [23] .got.plt          PROGBITS        0000000000001fe8 000fe8 000018 08  WA  0   0  8
+  [24] .data             PROGBITS        0000000000002000 001000 000010 00  WA  0   0  8
+  [25] .bss              NOBITS          0000000000002010 001010 000040 00  WA  0   0 16
+  [26] .comment          PROGBITS        0000000000000000 001010 00001e 01  MS  0   0  1
+  [27] .symtab           SYMTAB          0000000000000000 001030 000390 18     28  18  8
+  [28] .strtab           STRTAB          0000000000000000 0013c0 0001cc 00      0   0  1
+  [29] .shstrtab         STRTAB          0000000000000000 00158c 0000fd 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  D (mbind), l (large), p (processor specific)
+
+Elf file type is DYN (Position-Independent Executable file)
+Entry point 0x580
+There are 11 program headers, starting at offset 64
+
+Program Headers:
+  Type           Offset   VirtAddr           PhysAddr           FileSiz  MemSiz   Flg Align
+  PHDR           0x000040 0x0000000000000040 0x0000000000000040 0x000268 0x000268 R   0x8
+  INTERP         0x0002a8 0x00000000000002a8 0x00000000000002a8 0x00001c 0x00001c R   0x1
+      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
+  LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x0007c0 0x0007c0 R E 0x1000
+  LOAD           0x000df0 0x0000000000001df0 0x0000000000001df0 0x000220 0x000260 RW  0x1000
+  DYNAMIC        0x000e00 0x0000000000001e00 0x0000000000001e00 0x0001c0 0x0001c0 RW  0x8
+  NOTE           0x000780 0x0000000000000780 0x0000000000000780 0x000020 0x000020 R   0x8
+  NOTE           0x0007a0 0x00000000000007a0 0x00000000000007a0 0x000020 0x000020 R   0x4
+  GNU_PROPERTY   0x000780 0x0000000000000780 0x0000000000000780 0x000020 0x000020 R   0x8
+  GNU_EH_FRAME   0x0006bc 0x00000000000006bc 0x00000000000006bc 0x00002c 0x00002c R   0x4
+  GNU_STACK      0x000000 0x0000000000000000 0x0000000000000000 0x000000 0x000000 RW  0x10
+  GNU_RELRO      0x000df0 0x0000000000001df0 0x0000000000001df0 0x000210 0x000210 R   0x1
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     
+   01     .interp 
+   02     .interp .hash .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rela.dyn .init .plt .plt.got .text .fini .rodata .eh_frame_hdr .eh_frame .note.gnu.property .note.ABI-tag 
+   03     .init_array .fini_array .dynamic .got .got.plt .data .bss 
+   04     .dynamic 
+   05     .note.gnu.property 
+   06     .note.ABI-tag 
+   07     .note.gnu.property 
+   08     .eh_frame_hdr 
+   09     
+   10     .init_array .fini_array .dynamic .got .got.plt 

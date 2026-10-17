@@ -1,0 +1,61 @@
+1: 	.file	"probe.c"
+2: 	.text
+3: 	.globl	a
+4: 	.section	.lbss,"awl",@nobits
+5: 	.align 32
+6: 	.type	a, @object
+7: 	.size	a, 2147483647
+8: a:
+9: 	.zero	2147483647
+10: 	.globl	b
+11: 	.align 32
+12: 	.type	b, @object
+13: 	.size	b, 2147483647
+14: b:
+15: 	.zero	2147483647
+16: 	.globl	c
+17: 	.align 32
+18: 	.type	c, @object
+19: 	.size	c, 2147483647
+20: c:
+21: 	.zero	2147483647
+22: 	.text
+23: 	.globl	main
+24: 	.type	main, @function
+25: main:
+26: .LFB0:
+27: 	.cfi_startproc
+28: 	pushq	%rbp
+29: 	.cfi_def_cfa_offset 16
+30: 	.cfi_offset 6, -16
+31: 	movq	%rsp, %rbp
+32: 	.cfi_def_cfa_register 6
+33: .L3:
+34: 	leaq	.L3(%rip), %rax
+35: 	movabsq	$_GLOBAL_OFFSET_TABLE_-.L3, %r11
+36: 	addq	%r11, %rax
+37: 	movabsq	$a@GOTOFF, %rdx
+38: 	movb	$1, (%rax,%rdx)
+39: 	movabsq	$b@GOTOFF, %rdx
+40: 	movb	$2, (%rax,%rdx)
+41: 	movabsq	$c@GOTOFF, %rdx
+42: 	movb	$3, (%rax,%rdx)
+43: 	movabsq	$a@GOTOFF, %rdx
+44: 	movzbl	(%rax,%rdx), %edx
+45: 	movsbl	%dl, %ecx
+46: 	movabsq	$b@GOTOFF, %rdx
+47: 	movzbl	(%rax,%rdx), %edx
+48: 	movsbl	%dl, %edx
+49: 	addl	%edx, %ecx
+50: 	movabsq	$c@GOTOFF, %rdx
+51: 	movzbl	(%rax,%rdx), %eax
+52: 	movsbl	%al, %eax
+53: 	addl	%ecx, %eax
+54: 	popq	%rbp
+55: 	.cfi_def_cfa 7, 8
+56: 	ret
+57: 	.cfi_endproc
+58: .LFE0:
+59: 	.size	main, .-main
+60: 	.ident	"GCC: (GNAT-FSF-builds) 16.1.0"
+61: 	.section	.note.GNU-stack,"",@progbits

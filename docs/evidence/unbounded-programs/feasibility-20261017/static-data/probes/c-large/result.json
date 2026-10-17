@@ -1,0 +1,52 @@
+{
+  "started_utc": "2026-10-17T19:17:34.246425+00:00",
+  "elapsed_seconds": 0.06924958294257522,
+  "command": [
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+    "-S",
+    "-O0",
+    "-mcmodel=large",
+    "probe.c",
+    "-o",
+    "probe.s"
+  ],
+  "cwd": "/private/tmp/silver-unbounded-feasibility-20261017/static-data/probes/c-large",
+  "exit_status": 1,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 9360,
+  "child_maxrss_native_units": 10338304,
+  "child_user_seconds": 0.010249,
+  "child_system_seconds": 0.016834999999999996,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  },
+  "input_sha256": {
+    "probe.c": "508dba53effa0ec6049b450ddbf30419fe1f48dbacae148e6d680003d4527199"
+  },
+  "outputs": {
+    "stdout.txt": {
+      "bytes": 0,
+      "allocated_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr.txt": {
+      "bytes": 64,
+      "allocated_bytes": 4096,
+      "sha256": "65b076bfb7cf51db37b2f1b25ff153c548ae1b16beede64a986800f1b7b888da"
+    },
+    "probe.c": {
+      "bytes": 45,
+      "allocated_bytes": 4096,
+      "sha256": "508dba53effa0ec6049b450ddbf30419fe1f48dbacae148e6d680003d4527199"
+    }
+  },
+  "rss_samples": [
+    [
+      0.0015,
+      9360
+    ]
+  ]
+}

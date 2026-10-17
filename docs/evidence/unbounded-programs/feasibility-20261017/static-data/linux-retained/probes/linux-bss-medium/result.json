@@ -1,0 +1,74 @@
+{
+  "started_utc": "2026-10-17T19:25:16.203284+00:00",
+  "elapsed_seconds": 0.06737241800874472,
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "-v",
+    "-O0",
+    "-save-temps",
+    "-mcmodel=medium",
+    "probe.c",
+    "-o",
+    "probe"
+  ],
+  "cwd": "/tmp/silver-unbounded-feasibility-20261017/static-data/probes/linux-bss-medium",
+  "exit_status": 0,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 3868,
+  "child_maxrss_native_units": 31900,
+  "child_maxrss_unit": "KiB",
+  "child_user_seconds": 0.026161999999999998,
+  "child_system_seconds": 0.030516,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  },
+  "input_sha256": {
+    "probe.c": "4c44e356aefe77a7c57fc4039c74a93d62161b6db5f1ff999ede434a8ae3679b"
+  },
+  "outputs": {
+    "probe": {
+      "bytes": 7760,
+      "allocated_bytes": 8192,
+      "sha256": "0dd897d4a3bd84f73e0e34b32030399e1f89547344ae43b13be349cdbd6ec2bf"
+    },
+    "probe.o": {
+      "bytes": 1752,
+      "allocated_bytes": 4096,
+      "sha256": "07675697b8f6b72f596e8313d1eeaa0a4002027bc033af6edb1c12278547c75c"
+    },
+    "probe.s": {
+      "bytes": 1044,
+      "allocated_bytes": 4096,
+      "sha256": "ee8566e554300274089c75caf49564dd3740b248f8c30b6fac0e46be570a4a60"
+    },
+    "probe.i": {
+      "bytes": 262,
+      "allocated_bytes": 4096,
+      "sha256": "a814e887b58719ec9000fe3d51367114be9c35b9b1a8091a47504d98dafa710d"
+    },
+    "stderr.txt": {
+      "bytes": 9080,
+      "allocated_bytes": 12288,
+      "sha256": "ab421bf1d4e7253159f1233b5b9adc216002c9cc11bed4fe2b0372eb19ba30a8"
+    },
+    "stdout.txt": {
+      "bytes": 0,
+      "allocated_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "probe.c": {
+      "bytes": 136,
+      "allocated_bytes": 4096,
+      "sha256": "4c44e356aefe77a7c57fc4039c74a93d62161b6db5f1ff999ede434a8ae3679b"
+    }
+  },
+  "rss_samples": [
+    [
+      0.0018,
+      3868
+    ]
+  ]
+}

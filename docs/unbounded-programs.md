@@ -4,11 +4,20 @@
 request created [milestone 5](https://github.com/berkeleynerd/silver/milestone/5)
 and scope work [#87](https://github.com/berkeleynerd/silver/issues/87). The
 [planning-correction authorization](session-memory.md#2026-10-17--unbounded-programs-planning-corrections-authorized)
-authorizes this correction and publication, not implementation or execution of
-the research proposed below. Packages #88–#94 remain Backlog until a separate
+authorized correction and publication. The subsequent
+[research-only authorization](session-memory.md#2026-10-17--unbounded-programs-feasibility-research-authorized)
+authorizes source-capacity research [#107](https://github.com/berkeleynerd/silver/issues/107)
+under #91 and static-data feasibility research
+[#108](https://github.com/berkeleynerd/silver/issues/108) under #93, with publication
+and independent review. Packages #88–#94 remain Backlog until a separate
 implementation "proceed" is recorded in a dated session-memory entry on `main`.
 The [independent review](reviews/review-ec82b4e5f2.md) and
 [repair record](review-ec82b4e5f2-repairs.md) explain the corrections.
+
+The [partial feasibility-research handoff](research/unbounded-feasibility-handoff.md)
+retains subsequent source inspection and guarded probes for #107/#108. It does
+not establish a sound source-capacity rule or full-domain build feasibility;
+the conditional full stops below remain unresolved.
 [language.md](../language.md) and the [catalogue](../catalogue/silver.json)
 continue to describe current support.
 

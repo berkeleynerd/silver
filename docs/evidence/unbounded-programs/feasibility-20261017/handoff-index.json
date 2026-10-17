@@ -1,0 +1,69 @@
+{
+  "status": "partial research handoff; #107 and #108 remain open",
+  "date": "2026-10-17",
+  "authorization_merge": "66f55f67c053d761c76eb56b0f55ae3717fe95cd",
+  "branch": "codex/unbounded-feasibility-research",
+  "research_issues": [
+    107,
+    108
+  ],
+  "implementation_issues_not_authorized": [
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94
+  ],
+  "handoff_requested": "Let's package up this as a handoff package to another agent with the required access.",
+  "source_capacity_conclusion": "No closed sound/expansive rule established; partial source audit and nine small probes retained.",
+  "static_data_conclusion": "Partial native backend and small Ada assembly evidence; no full-domain feasibility result.",
+  "validation_exclusions": [
+    "GNATprove",
+    "Lean rebuild or replay",
+    "full test suite",
+    "bootstrap",
+    "probe application execution",
+    "giant initialized data build"
+  ],
+  "original_research_manifest_sha256": "7848544990640d8609ed9d2b445417b19b432973d5597465cdb3adf705af9a63",
+  "original_evidence_commit": "0cd253d05b2cb650cc8fca81255e9a711765e16a",
+  "original_retained_files_rehashed": 2154,
+  "timing": {
+    "first_retained_session_status_utc": "2026-10-17T19:08:00Z",
+    "precision_note": "First retained status time is rounded to a minute; no exact per-activity wall-time ledger was maintained. Individual probe timestamps/durations are retained. Research, source reading, coordination and packaging overlapped.",
+    "raw_archive_mtime_utc": "2026-10-17T19:33:57.275747+00:00",
+    "handoff_validated_utc": "2026-10-17T19:36:29.133635+00:00"
+  },
+  "token_usage": null,
+  "token_usage_note": "No token telemetry exposed; live harness goal is null.",
+  "cli_memory_updated": false,
+  "side_effects": [
+    "Separate research branch/worktree documentation and evidence",
+    "Scratch files on Mac and Linux; all retained",
+    "Existing SSH credentials used; Linux ED25519 host key added to Mac known_hosts",
+    "Research issue creation/claim and draft-PR handoff publication; no implementation issue closure",
+    "No remote source/tool/cache/configuration changes"
+  ],
+  "independent_review": "See docs/research/unbounded-feasibility-handoff-review.md; handoff review, not final scientific acceptance.",
+  "raw_archive": {
+    "path": "/tmp/silver-unbounded-handoff-20261017.tar.gz",
+    "bytes": 1902657,
+    "sha256": "04a0788ca41d72dddc35e902b6240c3a15b462a505ae159fc9c8e128fcfe471f",
+    "verified_members": 340,
+    "remote_path": "/tmp/silver-unbounded-handoff-20261017.tar.gz",
+    "manifest": "silver-unbounded-feasibility-20261017/RAW_MANIFEST.json",
+    "repository_path": "docs/evidence/unbounded-programs/feasibility-20261017/raw-handoff.tar.gz",
+    "remote_hash_verified": true
+  },
+  "probe_counts": {
+    "source_capacity": 9,
+    "static_data": 15,
+    "guarded_total": 24,
+    "guarded_exit_zero": 20,
+    "guarded_nonzero_diagnostics": 4,
+    "guard_triggered": 0,
+    "invalid_initial_monitor_attempts_separate": 1
+  }
+}

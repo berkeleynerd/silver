@@ -1,0 +1,40 @@
+393: /*
+394:  * The 64-bit segment load command indicates that a part of this file is to be
+395:  * mapped into a 64-bit task's address space.  If the 64-bit segment has
+396:  * sections then section_64 structures directly follow the 64-bit segment
+397:  * command and their size is reflected in cmdsize.
+398:  */
+399: struct segment_command_64 { /* for 64-bit architectures */
+400: 	uint32_t	cmd;		/* LC_SEGMENT_64 */
+401: 	uint32_t	cmdsize;	/* includes sizeof section_64 structs */
+402: 	char		segname[16];	/* segment name */
+403: 	uint64_t	vmaddr;		/* memory address of this segment */
+404: 	uint64_t	vmsize;		/* memory size of this segment */
+405: 	uint64_t	fileoff;	/* file offset of this segment */
+406: 	uint64_t	filesize;	/* amount to map from the file */
+407: 	int32_t		maxprot;	/* maximum VM protection */
+408: 	int32_t		initprot;	/* initial VM protection */
+409: 	uint32_t	nsects;		/* number of sections in segment */
+410: 	uint32_t	flags;		/* flags */
+411: };
+412: 
+473: struct section_64 { /* for 64-bit architectures */
+474: 	char		sectname[16];	/* name of this section */
+475: 	char		segname[16];	/* segment this section goes in */
+476: 	uint64_t	addr;		/* memory address of this section */
+477: 	uint64_t	size;		/* size in bytes of this section */
+478: 	uint32_t	offset;		/* file offset of this section */
+479: 	uint32_t	align;		/* section alignment (power of 2) */
+480: 	uint32_t	reloff;		/* file offset of relocation entries */
+481: 	uint32_t	nreloc;		/* number of relocation entries */
+482: 	uint32_t	flags;		/* flags (section type and attributes)*/
+483: 	uint32_t	reserved1;	/* reserved (for offset or index) */
+484: 	uint32_t	reserved2;	/* reserved (for count or sizeof) */
+485: 	uint32_t	reserved3;	/* reserved */
+913: struct symtab_command {
+914: 	uint32_t	cmd;		/* LC_SYMTAB */
+915: 	uint32_t	cmdsize;	/* sizeof(struct symtab_command) */
+916: 	uint32_t	symoff;		/* symbol table offset */
+917: 	uint32_t	nsyms;		/* number of symbol table entries */
+918: 	uint32_t	stroff;		/* string table offset */
+919: 	uint32_t	strsize;	/* string table size in bytes */

@@ -1,0 +1,16 @@
+[
+  {
+    "file": "gnat-fsf-base_gcc.anod",
+    "url": "https://raw.githubusercontent.com/alire-project/GNAT-FSF-builds/0334dd54a2c479faa3dfad47a911373581b11739/specs/base_gcc.anod",
+    "retrieved_at": "2026-10-17T19:18:51.368458+00:00",
+    "bytes": 425,
+    "sha256": "41c78a2696af2c7a7a722781df6bbe0b300395734f5b42ce93dbdb7f124a201b"
+  },
+  {
+    "file": "gnat-fsf-gcc.anod",
+    "url": "https://raw.githubusercontent.com/alire-project/GNAT-FSF-builds/0334dd54a2c479faa3dfad47a911373581b11739/specs/gcc.anod",
+    "retrieved_at": "2026-10-17T19:18:51.775344+00:00",
+    "bytes": 10612,
+    "sha256": "ad672d033536d21be121f770701976e398d6abb33b14234b6445dd12b0711930"
+  }
+]

@@ -1,0 +1,42 @@
+1: 	.arch armv8.5-a
+2: 	.build_version macos,  28, 0
+3: 	.text
+4: 	.align	2
+5: 	.globl _read_x
+6: _read_x:
+7: LFB0:
+8: 	adrp	x0, _x@GOTPAGE
+9: 	ldr	x0, [x0, _x@GOTPAGEOFF]
+10: 	ldr	w0, [x0]
+11: 	ret
+12: LFE0:
+13: 	.section __TEXT,__eh_frame,coalesced,no_toc+strip_static_syms+live_support
+14: EH_frame1:
+15: 	.set L$set$0,LECIE1-LSCIE1
+16: 	.long L$set$0
+17: LSCIE1:
+18: 	.long	0
+19: 	.byte	0x3
+21: 	.uleb128 0x1
+22: 	.sleb128 -8
+23: 	.uleb128 0x1e
+24: 	.uleb128 0x1
+25: 	.byte	0x10
+26: 	.byte	0xc
+27: 	.uleb128 0x1f
+28: 	.uleb128 0
+29: 	.align	3
+30: LECIE1:
+31: LSFDE1:
+32: 	.set L$set$1,LEFDE1-LASFDE1
+33: 	.long L$set$1
+34: LASFDE1:
+35: 	.long	LASFDE1-EH_frame1
+36: 	.quad	LFB0-.
+37: 	.set L$set$2,LFE0-LFB0
+38: 	.quad L$set$2
+39: 	.uleb128 0
+40: 	.align	3
+41: LEFDE1:
+42: 	.ident	"GCC: (GNAT-FSF-builds) 16.1.0"
+43: 	.subsections_via_symbols

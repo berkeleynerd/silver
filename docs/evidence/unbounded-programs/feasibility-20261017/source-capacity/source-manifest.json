@@ -1,0 +1,429 @@
+{
+  "upstream_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "binary_attestation": false,
+  "sources": [
+    {
+      "path": "ali-util.adb",
+      "bytes": 18257,
+      "sha256": "eceb00ffc060ba839cf5564d06b2535832a53cd8c1593836f4517c0433662dcb",
+      "git_blob_sha1": "3525cf5aa9f8172108f9a964acc419348960a596",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/ali-util.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "3525cf5aa9f8172108f9a964acc419348960a596"
+    },
+    {
+      "path": "alloc.ads",
+      "bytes": 7830,
+      "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d",
+      "git_blob_sha1": "7e36e8eb8783c8a444f6d79a5a7ea10c5e881a71",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/alloc.ads",
+      "origin": "retained T3 source, copied unchanged",
+      "darwin_recipe_source": {
+        "path": "alloc.ads",
+        "sha": "7e36e8eb8783c8a444f6d79a5a7ea10c5e881a71",
+        "bytes": 7830,
+        "url": "https://github.com/iains/gcc-16-branch/blob/d172afd6656630c80e2a1d5e8239ed4b4ec7f996/gcc/ada/alloc.ads",
+        "retained_blob_sha": "7e36e8eb8783c8a444f6d79a5a7ea10c5e881a71",
+        "identical": true
+      }
+    },
+    {
+      "path": "atree.adb",
+      "bytes": 103427,
+      "sha256": "cb7804d95e680be6391cc1f2b4a22cb09de8eb7141d9084493e6c182e5c19e4f",
+      "git_blob_sha1": "3be9f2f77e1a0ce206e3df67777165f1c5359250",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/atree.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "3be9f2f77e1a0ce206e3df67777165f1c5359250"
+    },
+    {
+      "path": "atree.ads",
+      "bytes": 44144,
+      "sha256": "6dfb7c0879436641af4288e0ef4f97872f1becadb1d14c38533c2e227867dfdd",
+      "git_blob_sha1": "0049be1cdf114864e92db2e25995f6ab620d11aa",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/atree.ads",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "debug.adb",
+      "bytes": 74144,
+      "sha256": "079204da109ad33964e6fde37e9ff17a5b9e16148be6bf88657e059c049d2650",
+      "git_blob_sha1": "7370d37a367cc258e1be89f5954649184eb253fd",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/debug.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "7370d37a367cc258e1be89f5954649184eb253fd"
+    },
+    {
+      "path": "errout.adb",
+      "bytes": 147124,
+      "sha256": "ba9c6654fed11edaa6b8c2e5a0eab6cfa1f91ef2a60d31d2ba3875ef93ea93b2",
+      "git_blob_sha1": "cce0e89524839150d4ee29830a707de2a3b80c3c",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/errout.adb",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "erroutc.adb",
+      "bytes": 67471,
+      "sha256": "72bf325572a614f1074c90302b3cd487ff56035c30c531fcba88351329f1a901",
+      "git_blob_sha1": "e8276b45d1311151b3fdbc80786c3611d6f5c8ac",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/erroutc.adb",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "exp_ch4.adb",
+      "bytes": 574199,
+      "sha256": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
+      "git_blob_sha1": "c3d996a97d1de5cd562624bbd0649221e8cf12a2",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/exp_ch4.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "c3d996a97d1de5cd562624bbd0649221e8cf12a2"
+    },
+    {
+      "path": "exp_ch5.adb",
+      "bytes": 258403,
+      "sha256": "99faebd687725d617d9a0c56c2a217cb8df6d23306e01b469241238caf1804b6",
+      "git_blob_sha1": "d08c8c4a59d41a28fc6fda4b7014364ea7733b37",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/exp_ch5.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "d08c8c4a59d41a28fc6fda4b7014364ea7733b37"
+    },
+    {
+      "path": "exp_imgv.adb",
+      "bytes": 95290,
+      "sha256": "c9b2130f6c8dd9f42d48709e165ad190a570e01bd7960aabc04a6e600fa54de1",
+      "git_blob_sha1": "469c7c065da771fc581ea3cceaa9886c106cafa9",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/exp_imgv.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "469c7c065da771fc581ea3cceaa9886c106cafa9"
+    },
+    {
+      "path": "g-dyntab.adb",
+      "bytes": 15566,
+      "sha256": "ae4c7d63c71f4c863eaf375b81c65822ecf08f38321c02e247c0d5692986faf6",
+      "git_blob_sha1": "fc215223f053d4a3dbdb357545e3783ed7d7d801",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/g-dyntab.adb",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "g-dyntab.ads",
+      "bytes": 13857,
+      "sha256": "9679446a2e77d227ca3339d93f8fcb7ad479a7768ddd337dca5dfe02b4935aae",
+      "git_blob_sha1": "8981a96336c6d0343b49d678a1a379f402da3f2b",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/g-dyntab.ads",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "gnat1drv.adb",
+      "bytes": 60186,
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173",
+      "git_blob_sha1": "cbad1e0f19e8c56a0b33708089eaca529a94d9b8",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gnat1drv.adb",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "hostparm.ads",
+      "bytes": 3615,
+      "sha256": "b2196c2e037f2f07f1cc885bef246c3f2b63cab5c6b908b3fe17c9f4a4031895",
+      "git_blob_sha1": "9416160955bdee1534339573f586bf8a94b874ef",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/hostparm.ads",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "namet.adb",
+      "bytes": 48624,
+      "sha256": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc",
+      "git_blob_sha1": "f1568ad22ebb43a0f0e2e7452b3feb6776730eaf",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/namet.adb",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "namet.ads",
+      "bytes": 29827,
+      "sha256": "129dcfd8cf6688ead4f5af052f80f8a86ad31f13ce36eb29d57c547d7b51efd8",
+      "git_blob_sha1": "c45f236bcbae9d8578e880a333d2aae876696baf",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/namet.ads",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "nlists.adb",
+      "bytes": 37043,
+      "sha256": "add9468f104be6152a61a52473fd869fd16f64f1a9456b47eccc60af9854c763",
+      "git_blob_sha1": "e2c8ef151e3bf179299836ec03dc6080b980604e",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/nlists.adb",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "opt.ads",
+      "bytes": 93026,
+      "sha256": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e",
+      "git_blob_sha1": "9f75ce8ec221101b12b7e24dc35cc2546853338c",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/opt.ads",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "osint.adb",
+      "bytes": 105542,
+      "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69",
+      "git_blob_sha1": "1e467e681c5a10b580c5a7fcfa5484aba15e9229",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/osint.adb",
+      "origin": "retained T3 source, copied unchanged",
+      "darwin_recipe_source": {
+        "path": "osint.adb",
+        "sha": "1e467e681c5a10b580c5a7fcfa5484aba15e9229",
+        "bytes": 105542,
+        "url": "https://github.com/iains/gcc-16-branch/blob/d172afd6656630c80e2a1d5e8239ed4b4ec7f996/gcc/ada/osint.adb",
+        "retained_blob_sha": "1e467e681c5a10b580c5a7fcfa5484aba15e9229",
+        "identical": true
+      }
+    },
+    {
+      "path": "par-ch3.adb",
+      "bytes": 175237,
+      "sha256": "571a1d2a038c7023960ac3770139e808f2306dac0ef2f0d0d262bed08caf8452",
+      "git_blob_sha1": "77c6f12691ae8a18ee0914730a08a181957eacde",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-ch3.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "77c6f12691ae8a18ee0914730a08a181957eacde"
+    },
+    {
+      "path": "par-ch4.adb",
+      "bytes": 143417,
+      "sha256": "b6ea201b0bf99ddb4683ecc09ea65bf5009f249fbae7af71d00ec921bd0f79d7",
+      "git_blob_sha1": "c1383baf8d9ad141f84a65b2f354a1fd8ee0ea54",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-ch4.adb",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "par-ch5.adb",
+      "bytes": 87692,
+      "sha256": "be592a8382db8b249308949e51595dabf3a19e98e1ffe694c1e012983804c298",
+      "git_blob_sha1": "a327e7178198f60195167736a6e47277dccd9e1c",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-ch5.adb",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "par-ch6.adb",
+      "bytes": 71306,
+      "sha256": "93daabccfe3b63c05289916f5241fc7822d7405a516045ed2b3fbecb8eda4480",
+      "git_blob_sha1": "063e528aa1fda62e053b859c4981fa29b8053949",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-ch6.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "063e528aa1fda62e053b859c4981fa29b8053949"
+    },
+    {
+      "path": "par.adb",
+      "bytes": 85332,
+      "sha256": "0660ed38f66cab0e9c2870dadff7d066174bba1c795df35562d0529ad7e4718f",
+      "git_blob_sha1": "c0fada1f5d1be1ab805bee7993e1dca2c7d95e84",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par.adb",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "rtsfind.adb",
+      "bytes": 65279,
+      "sha256": "4d22bd416ef0dbeace081f78aeb49c92ec4731bb875f4436beee0164970aa4e5",
+      "git_blob_sha1": "e760d567c3d920a8d34bac4ce361020af09b5d02",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/rtsfind.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "e760d567c3d920a8d34bac4ce361020af09b5d02"
+    },
+    {
+      "path": "scng.adb",
+      "bytes": 99999,
+      "sha256": "0989455192a510aff6227ac012b232f1497e219f294d277e7fb99c5bdb7c7db3",
+      "git_blob_sha1": "5aedb4a20100c67d57add10d1742790d6916638e",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/scng.adb",
+      "origin": "retained T3 source, copied unchanged",
+      "darwin_recipe_source": {
+        "path": "scng.adb",
+        "sha": "5aedb4a20100c67d57add10d1742790d6916638e",
+        "bytes": 99999,
+        "url": "https://github.com/iains/gcc-16-branch/blob/d172afd6656630c80e2a1d5e8239ed4b4ec7f996/gcc/ada/scng.adb",
+        "retained_blob_sha": "5aedb4a20100c67d57add10d1742790d6916638e",
+        "identical": true
+      }
+    },
+    {
+      "path": "sem_ch3.adb",
+      "bytes": 916035,
+      "sha256": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
+      "git_blob_sha1": "6bf7e308f1c2aec993629e309f795408de7e76c6",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_ch3.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "6bf7e308f1c2aec993629e309f795408de7e76c6"
+    },
+    {
+      "path": "sem_ch4.adb",
+      "bytes": 412458,
+      "sha256": "19e5386e0a2535c501d41c1d2338760fb4b3c7acaecef614e9bdd4a0cf2fb555",
+      "git_blob_sha1": "81b9458d55408f88c5926823945294592c07c9bb",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_ch4.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "81b9458d55408f88c5926823945294592c07c9bb"
+    },
+    {
+      "path": "sem_ch5.adb",
+      "bytes": 185498,
+      "sha256": "00632c152c18521a921f84ca9edd3b2887b428ee5d77388d4e4f5b3844dcc49e",
+      "git_blob_sha1": "30cdaeb4a7e09638469a010cfc33808bd27c018f",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_ch5.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "30cdaeb4a7e09638469a010cfc33808bd27c018f"
+    },
+    {
+      "path": "sem_eval.adb",
+      "bytes": 273210,
+      "sha256": "0dfbf5f1bede0b9e011f21649c7f4d34851c6267cd72acebcb53e7a7fb4c7d30",
+      "git_blob_sha1": "0ccd32f13896cf49578ab41f46f840e5ed43d572",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_eval.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "0ccd32f13896cf49578ab41f46f840e5ed43d572",
+      "darwin_recipe_source": {
+        "path": "sem_eval.adb",
+        "sha": "0ccd32f13896cf49578ab41f46f840e5ed43d572",
+        "bytes": 273210,
+        "url": "https://github.com/iains/gcc-16-branch/blob/d172afd6656630c80e2a1d5e8239ed4b4ec7f996/gcc/ada/sem_eval.adb",
+        "retained_blob_sha": "0ccd32f13896cf49578ab41f46f840e5ed43d572",
+        "identical": true
+      }
+    },
+    {
+      "path": "sinput-l.adb",
+      "bytes": 30951,
+      "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd",
+      "git_blob_sha1": "f51af7d6e4d448a3273e63367d52a340313072e0",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sinput-l.adb",
+      "origin": "retained T3 source, copied unchanged",
+      "darwin_recipe_source": {
+        "path": "sinput-l.adb",
+        "sha": "f51af7d6e4d448a3273e63367d52a340313072e0",
+        "bytes": 30951,
+        "url": "https://github.com/iains/gcc-16-branch/blob/d172afd6656630c80e2a1d5e8239ed4b4ec7f996/gcc/ada/sinput-l.adb",
+        "retained_blob_sha": "f51af7d6e4d448a3273e63367d52a340313072e0",
+        "identical": true
+      }
+    },
+    {
+      "path": "sinput-l.ads",
+      "bytes": 7226,
+      "sha256": "89a1c15aa265c8c80ab33091847989d377ef5bd2ca6829f11d2f5362d42ba2ad",
+      "git_blob_sha1": "e1b2edc783e409f6320d14e63abef668af81b45a",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sinput-l.ads",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "e1b2edc783e409f6320d14e63abef668af81b45a"
+    },
+    {
+      "path": "sinput.adb",
+      "bytes": 37385,
+      "sha256": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8",
+      "git_blob_sha1": "f88d253af18361f3a4c0e95d1f7d0f167fa1acea",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sinput.adb",
+      "origin": "retained T3 source, copied unchanged",
+      "darwin_recipe_source": {
+        "path": "sinput.adb",
+        "sha": "f88d253af18361f3a4c0e95d1f7d0f167fa1acea",
+        "bytes": 37385,
+        "url": "https://github.com/iains/gcc-16-branch/blob/d172afd6656630c80e2a1d5e8239ed4b4ec7f996/gcc/ada/sinput.adb",
+        "retained_blob_sha": "f88d253af18361f3a4c0e95d1f7d0f167fa1acea",
+        "identical": true
+      }
+    },
+    {
+      "path": "sinput.ads",
+      "bytes": 43979,
+      "sha256": "48657f3ca583b754d10f2798fb61c54d85b556c2cd6f10036acff685d57a682b",
+      "git_blob_sha1": "0f671fb6055bbaaf036778689360d680698deb9b",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sinput.ads",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "stringt.adb",
+      "bytes": 13395,
+      "sha256": "9907f68178174b87a19a6d3871e5bc48e3a7471b3a4140f5e25bd900fcb84954",
+      "git_blob_sha1": "d9853140c7b973a295721c430b3dcc2719b583c8",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/stringt.adb",
+      "origin": "retained T3 source, copied unchanged",
+      "darwin_recipe_source": {
+        "path": "stringt.adb",
+        "sha": "d9853140c7b973a295721c430b3dcc2719b583c8",
+        "bytes": 13395,
+        "url": "https://github.com/iains/gcc-16-branch/blob/d172afd6656630c80e2a1d5e8239ed4b4ec7f996/gcc/ada/stringt.adb",
+        "retained_blob_sha": "d9853140c7b973a295721c430b3dcc2719b583c8",
+        "identical": true
+      }
+    },
+    {
+      "path": "stringt.ads",
+      "bytes": 8336,
+      "sha256": "e3ffa0b94869b0a332f009ab5527bb2509b47ca3cfefb91860c60fae7e4280e6",
+      "git_blob_sha1": "6858e2d13e03a45a7fd5e3d8b702a6511caf98f5",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/stringt.ads",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "table.adb",
+      "bytes": 13959,
+      "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4",
+      "git_blob_sha1": "124b25e925ac30a4e62f81605a4a315e81f13aee",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/table.adb",
+      "origin": "retained T3 source, copied unchanged",
+      "darwin_recipe_source": {
+        "path": "table.adb",
+        "sha": "124b25e925ac30a4e62f81605a4a315e81f13aee",
+        "bytes": 13959,
+        "url": "https://github.com/iains/gcc-16-branch/blob/d172afd6656630c80e2a1d5e8239ed4b4ec7f996/gcc/ada/table.adb",
+        "retained_blob_sha": "124b25e925ac30a4e62f81605a4a315e81f13aee",
+        "identical": true
+      }
+    },
+    {
+      "path": "table.ads",
+      "bytes": 12010,
+      "sha256": "e82f128c9e68d286d433c8848d81b00eb9b01f1fd75f3e5cee018223b9c4e5db",
+      "git_blob_sha1": "4711858ad65a300086be3f9566ecb38525777a37",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/table.ads",
+      "origin": "retained T3 source, copied unchanged"
+    },
+    {
+      "path": "types.ads",
+      "bytes": 46466,
+      "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+      "git_blob_sha1": "6070130ac925077cf9037da84592a64b73734379",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/types.ads",
+      "origin": "retained T3 source, copied unchanged",
+      "darwin_recipe_source": {
+        "path": "types.ads",
+        "sha": "6070130ac925077cf9037da84592a64b73734379",
+        "bytes": 46466,
+        "url": "https://github.com/iains/gcc-16-branch/blob/d172afd6656630c80e2a1d5e8239ed4b4ec7f996/gcc/ada/types.ads",
+        "retained_blob_sha": "6070130ac925077cf9037da84592a64b73734379",
+        "identical": true
+      }
+    },
+    {
+      "path": "uintp.adb",
+      "bytes": 69576,
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
+      "git_blob_sha1": "74e323b0e0eeaca3e666744cea406b7cadbc3ce4",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/uintp.adb",
+      "origin": "new exact-pin retrieval",
+      "retrieved_git_blob_sha1": "74e323b0e0eeaca3e666744cea406b7cadbc3ce4",
+      "darwin_recipe_source": {
+        "path": "uintp.adb",
+        "sha": "74e323b0e0eeaca3e666744cea406b7cadbc3ce4",
+        "bytes": 69576,
+        "url": "https://github.com/iains/gcc-16-branch/blob/d172afd6656630c80e2a1d5e8239ed4b4ec7f996/gcc/ada/uintp.adb",
+        "retained_blob_sha": "74e323b0e0eeaca3e666744cea406b7cadbc3ce4",
+        "identical": true
+      }
+    },
+    {
+      "path": "uintp.ads",
+      "bytes": 26744,
+      "sha256": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
+      "git_blob_sha1": "a34abac444fcd53ded8609a2a996433bb55d364c",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/uintp.ads",
+      "origin": "retained T3 source, copied unchanged"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+1: 	.file	"probe.c"
+2: 	.text
+3: 	.globl	a
+4: 	.bss
+5: 	.align 16
+6: 	.type	a, @object
+7: 	.size	a, 16
+8: a:
+9: 	.zero	16
+10: 	.globl	b
+11: 	.align 16
+12: 	.type	b, @object
+13: 	.size	b, 16
+14: b:
+15: 	.zero	16
+16: 	.globl	c
+17: 	.align 16
+18: 	.type	c, @object
+19: 	.size	c, 16
+20: c:
+21: 	.zero	16
+22: 	.text
+23: 	.globl	main
+24: 	.type	main, @function
+25: main:
+26: .LFB0:
+27: 	.cfi_startproc
+28: 	pushq	%rbp
+29: 	.cfi_def_cfa_offset 16
+30: 	.cfi_offset 6, -16
+31: 	movq	%rsp, %rbp
+32: 	.cfi_def_cfa_register 6
+33: 	movb	$1, a(%rip)
+34: 	movb	$2, b(%rip)
+35: 	movb	$3, c(%rip)
+36: 	movzbl	a(%rip), %eax
+37: 	movsbl	%al, %edx
+38: 	movzbl	b(%rip), %eax
+39: 	movsbl	%al, %eax
+40: 	addl	%eax, %edx
+41: 	movzbl	c(%rip), %eax
+42: 	movsbl	%al, %eax
+43: 	addl	%edx, %eax
+44: 	popq	%rbp
+45: 	.cfi_def_cfa 7, 8
+46: 	ret
+47: 	.cfi_endproc
+48: .LFE0:
+49: 	.size	main, .-main
+50: 	.ident	"GCC: (GNAT-FSF-builds) 16.1.0"
+51: 	.section	.note.GNU-stack,"",@progbits

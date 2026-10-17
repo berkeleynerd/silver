@@ -1,0 +1,122 @@
+1: 	.arch armv8.5-a
+2: 	.build_version macos,  28, 0
+3: 	.text
+4: 	.align	2
+5: 	.globl __ada_main
+6: __ada_main:
+7: LFB1:
+8: 	stp	x29, x30, [sp, -16]!
+9: LCFI0:
+10: 	mov	x29, sp
+11: LCFI1:
+12: 	adrp	x2, _a20.20@PAGE
+13: 	add	x0, x2, _a20.20@PAGEOFF;
+14: 	adrp	x2, lC0@PAGE
+15: 	add	x1, x2, lC0@PAGEOFF;
+16: 	bl	_silver_io__put_line
+17: 	nop
+18: 	ldp	x29, x30, [sp], 16
+19: LCFI2:
+20: 	ret
+21: LFE1:
+22: 	.const
+23: 	.align	2
+24: lC0:
+25: 	.word	1
+26: 	.word	1048576
+27: 	.text
+28: 	.const
+29: 	.align	3
+30: _a20.20:
+556: 	.align	3
+557: _a19.19:
+821: 	.align	3
+822: _a18.18:
+955: 	.align	3
+956: _a17.17:
+1023: 	.align	3
+1024: _a16.16:
+1058: 	.align	3
+1059: _a15.15:
+1077: 	.align	3
+1078: _a14.14:
+1088: 	.align	3
+1089: _a13.13:
+1095: 	.align	3
+1096: _a12.12:
+1100: 	.align	3
+1101: _a11.11:
+1104: 	.align	3
+1105: _a10.10:
+1107: 	.align	3
+1108: _a9.9:
+1110: 	.align	3
+1111: _a8.8:
+1113: 	.align	3
+1114: _a7.7:
+1116: 	.align	3
+1117: _a6.6:
+1119: 	.align	3
+1120: _a5.5:
+1122: 	.align	3
+1123: _a4.4:
+1125: 	.align	3
+1126: _a3.3:
+1128: 	.align	2
+1129: _a2.2:
+1131: 	.align	1
+1132: _a1.1:
+1134: 	.align	3
+1135: _a0.0:
+1137: 	.section __TEXT,__eh_frame,coalesced,no_toc+strip_static_syms+live_support
+1138: EH_frame1:
+1139: 	.set L$set$0,LECIE1-LSCIE1
+1140: 	.long L$set$0
+1141: LSCIE1:
+1142: 	.long	0
+1143: 	.byte	0x3
+1145: 	.uleb128 0x1
+1146: 	.sleb128 -8
+1147: 	.uleb128 0x1e
+1148: 	.uleb128 0x1
+1149: 	.byte	0x10
+1150: 	.byte	0xc
+1151: 	.uleb128 0x1f
+1152: 	.uleb128 0
+1153: 	.align	3
+1154: LECIE1:
+1155: LSFDE1:
+1156: 	.set L$set$1,LEFDE1-LASFDE1
+1157: 	.long L$set$1
+1158: LASFDE1:
+1159: 	.long	LASFDE1-EH_frame1
+1160: 	.quad	LFB1-.
+1161: 	.set L$set$2,LFE1-LFB1
+1162: 	.quad L$set$2
+1163: 	.uleb128 0
+1164: 	.byte	0x4
+1165: 	.set L$set$3,LCFI0-LFB1
+1166: 	.long L$set$3
+1167: 	.byte	0xe
+1168: 	.uleb128 0x10
+1169: 	.byte	0x9d
+1170: 	.uleb128 0x2
+1171: 	.byte	0x9e
+1172: 	.uleb128 0x1
+1173: 	.byte	0x4
+1174: 	.set L$set$4,LCFI1-LCFI0
+1175: 	.long L$set$4
+1176: 	.byte	0xd
+1177: 	.uleb128 0x1d
+1178: 	.byte	0x4
+1179: 	.set L$set$5,LCFI2-LCFI1
+1180: 	.long L$set$5
+1181: 	.byte	0xde
+1182: 	.byte	0xdd
+1183: 	.byte	0xc
+1184: 	.uleb128 0x1f
+1185: 	.uleb128 0
+1186: 	.align	3
+1187: LEFDE1:
+1188: 	.ident	"GCC: (GNAT-FSF-builds) 16.1.0"
+1189: 	.subsections_via_symbols

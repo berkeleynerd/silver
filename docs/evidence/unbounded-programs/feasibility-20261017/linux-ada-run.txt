@@ -1,0 +1,96 @@
+{
+  "started_utc": "2026-10-17T19:28:29.284584+00:00",
+  "elapsed_seconds": 0.1286126880440861,
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "-v",
+    "-S",
+    "-O0",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-mcmodel=small",
+    "main.adb",
+    "-o",
+    "main.s"
+  ],
+  "cwd": "/tmp/silver-unbounded-feasibility-20261017/static-data/probes/linux-ada-1mib-small",
+  "exit_status": 0,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 18884,
+  "child_maxrss_native_units": 48396,
+  "child_maxrss_unit": "KiB",
+  "child_user_seconds": 0.056688999999999996,
+  "child_system_seconds": 0.030740999999999997,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  }
+}
+small status 0 guard None
+{
+  "started_utc": "2026-10-17T19:28:29.475952+00:00",
+  "elapsed_seconds": 0.1263785200426355,
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "-v",
+    "-S",
+    "-O0",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-mcmodel=medium",
+    "main.adb",
+    "-o",
+    "main.s"
+  ],
+  "cwd": "/tmp/silver-unbounded-feasibility-20261017/static-data/probes/linux-ada-1mib-medium",
+  "exit_status": 0,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 28840,
+  "child_maxrss_native_units": 49436,
+  "child_maxrss_unit": "KiB",
+  "child_user_seconds": 0.056588999999999993,
+  "child_system_seconds": 0.033278,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  }
+}
+medium status 0 guard None
+{
+  "started_utc": "2026-10-17T19:28:29.667390+00:00",
+  "elapsed_seconds": 0.06388334196526557,
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "-v",
+    "-S",
+    "-O0",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-mcmodel=large",
+    "main.adb",
+    "-o",
+    "main.s"
+  ],
+  "cwd": "/tmp/silver-unbounded-feasibility-20261017/static-data/probes/linux-ada-1mib-large",
+  "exit_status": 0,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 28768,
+  "child_maxrss_native_units": 49940,
+  "child_maxrss_unit": "KiB",
+  "child_user_seconds": 0.043438,
+  "child_system_seconds": 0.028545999999999995,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  }
+}
+large status 0 guard None

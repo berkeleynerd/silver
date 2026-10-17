@@ -1,0 +1,66 @@
+V "GNAT Lib v16"
+M P W=b
+A -gnatc
+A -gnat2022
+A -gnata
+A -gnato
+A -gnatdl
+A -gnatdd
+A -mmacosx-version-min=28.0.0
+A -mcpu=apple-m1
+A -mlittle-endian
+A -mabi=lp64
+A -fPIC
+P NO
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_ELABORATION_CODE
+
+U main%b		main.adb		6b563151 OO SU
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W silver_io%s		silver_io.adb		silver_io.ali
+
+D ada.ads		20260610194523 76789da1 ada%s
+D a-ioexce.ads		20260610194523 40018c65 ada.io_exceptions%s
+D a-stream.ads		20260610194523 cb01a8f8 ada.streams%s
+D a-string.ads		20260610194523 90ac6797 ada.strings%s
+D a-sttebu.ads		20260610194523 f1ad67a2 ada.strings.text_buffers%s
+D a-stuten.ads		20260610194523 c6ced0ae ada.strings.utf_encoding%s
+D a-textio.ads		20260610194523 34ef47de ada.text_io%s
+D a-unccon.ads		20260610194523 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20260610194523 9111f9c1 interfaces%s
+D i-cstrea.ads		20260610194523 ffd01b9d interfaces.c_streams%s
+D main.adb		20261017191936 b1bd38f7 main%b
+D silver_io.ads		20261017191936 daeb09a6 silver_io%s
+D system.ads		20260610194523 8a611ac3 system%s
+D s-crtl.ads		20260610194523 823b6536 system.crtl%s
+D s-ficobl.ads		20260610194523 dc5161d4 system.file_control_block%s
+D s-parame.ads		20260610194523 a1aeab5c system.parameters%s
+D s-wchcon.ads		20260610194523 d9032363 system.wch_con%s
+G a e
+G c Z b b [main standard 2 11 none]
+G r c none [main standard 2 11 none] [put_line silver_io 18 14 none]
+X 11 main.adb
+2U11*Main 2b11 23l5 23t9
+4a2 A0{string} 5r26 5r31
+5a2 A1{string} 6r26 6r31
+6a2 A2{string} 7r26 7r31
+7a2 A3{string} 8r26 8r31
+8a2 A4{string} 9r26 9r31
+9a2 A5{string} 10r26 10r31
+10a2 A6{string} 11r26 11r31
+11a2 A7{string} 12r26 12r31
+12a2 A8{string} 13r26 13r31
+13a2 A9{string} 14r27 14r32
+14a2 A10{string} 15r27 15r33
+15a2 A11{string} 16r27 16r33
+16a2 A12{string} 17r27 17r33
+17a2 A13{string} 18r27 18r33
+18a2 A14{string} 19r27 19r33
+19a2 A15{string} 20r27 20r33
+20a2 A16{string} 22r22
+X 12 silver_io.ads
+2K9*Silver_IO 11|1w6 22r2 12|37e14
+18U14*Put_Line 11|22s12
+

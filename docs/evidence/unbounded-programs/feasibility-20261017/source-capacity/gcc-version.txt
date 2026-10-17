@@ -1,0 +1,8 @@
+Using built-in specs.
+COLLECT_GCC=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc
+COLLECT_LTO_WRAPPER=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/../libexec/gcc/aarch64-apple-darwin24.6.0/16.1.0/lto-wrapper
+Target: aarch64-apple-darwin24.6.0
+Configured with: ../src/configure --prefix=/Users/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/aarch64-darwin/gcc/install --enable-languages=c,ada,c++ --enable-libstdcxx --enable-libstdcxx-threads --enable-libada --with-pkgversion=GNAT-FSF-builds --disable-nls --without-libiconv-prefix --disable-libstdcxx-pch --enable-lto --disable-multilib --disable-libcilkrts --with-build-sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk --with-specs='%{!-sysroot=*:--sysroot=%:if-exists-else(/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk)}' --with-mpfr=/Users/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/aarch64-darwin/mpfr/install --with-gmp=/Users/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/aarch64-darwin/gmp/install --with-mpc=/Users/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/aarch64-darwin/mpc/install --build=aarch64-apple-darwin24.6.0
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 16.1.0 (GNAT-FSF-builds) 

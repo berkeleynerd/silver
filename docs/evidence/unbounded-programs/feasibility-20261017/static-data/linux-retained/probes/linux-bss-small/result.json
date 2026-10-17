@@ -1,0 +1,69 @@
+{
+  "started_utc": "2026-10-17T19:25:16.071130+00:00",
+  "elapsed_seconds": 0.06521877099294215,
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "-v",
+    "-O0",
+    "-save-temps",
+    "-mcmodel=small",
+    "probe.c",
+    "-o",
+    "probe"
+  ],
+  "cwd": "/tmp/silver-unbounded-feasibility-20261017/static-data/probes/linux-bss-small",
+  "exit_status": 1,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 3856,
+  "child_maxrss_native_units": 31688,
+  "child_maxrss_unit": "KiB",
+  "child_user_seconds": 0.026192999999999998,
+  "child_system_seconds": 0.026248,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  },
+  "input_sha256": {
+    "probe.c": "4c44e356aefe77a7c57fc4039c74a93d62161b6db5f1ff999ede434a8ae3679b"
+  },
+  "outputs": {
+    "probe.o": {
+      "bytes": 1568,
+      "allocated_bytes": 4096,
+      "sha256": "fdac9ffb661d5d2a2138a6614290f01f797f8dbda98a22ca8299d8db33b79211"
+    },
+    "probe.s": {
+      "bytes": 806,
+      "allocated_bytes": 4096,
+      "sha256": "847f6ee3c3d5233467f00d7ca920b46c7446928ad973df4b17c8d75396b9e3af"
+    },
+    "probe.i": {
+      "bytes": 262,
+      "allocated_bytes": 4096,
+      "sha256": "a814e887b58719ec9000fe3d51367114be9c35b9b1a8091a47504d98dafa710d"
+    },
+    "stderr.txt": {
+      "bytes": 9492,
+      "allocated_bytes": 12288,
+      "sha256": "3bf3aefa47111d5fd3aaf787fafbc8f6a9f6b73315609deaf520cf0e27bea706"
+    },
+    "stdout.txt": {
+      "bytes": 0,
+      "allocated_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "probe.c": {
+      "bytes": 136,
+      "allocated_bytes": 4096,
+      "sha256": "4c44e356aefe77a7c57fc4039c74a93d62161b6db5f1ff999ede434a8ae3679b"
+    }
+  },
+  "rss_samples": [
+    [
+      0.0024,
+      3856
+    ]
+  ]
+}

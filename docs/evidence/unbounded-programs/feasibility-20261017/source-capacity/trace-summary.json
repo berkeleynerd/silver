@@ -1,0 +1,1235 @@
+[
+  {
+    "name": "null",
+    "source_bytes": 66,
+    "last_source_position": 12354,
+    "physical_units": [
+      {
+        "index": 1,
+        "name": "system.ads",
+        "lo": 0,
+        "hi": 8285
+      },
+      {
+        "index": 2,
+        "name": "main.adb",
+        "lo": 12288,
+        "hi": 12354
+      }
+    ],
+    "virtual_units": [],
+    "table_growth": [],
+    "line_capacities": []
+  },
+  {
+    "name": "static",
+    "source_bytes": 124,
+    "last_source_position": 177682,
+    "physical_units": [
+      {
+        "index": 1,
+        "name": "system.ads",
+        "lo": 0,
+        "hi": 8285
+      },
+      {
+        "index": 2,
+        "name": "main.adb",
+        "lo": 12288,
+        "hi": 12412
+      },
+      {
+        "index": 3,
+        "name": "silver_io.ads",
+        "lo": 16384,
+        "hi": 18606
+      },
+      {
+        "index": 4,
+        "name": "ada.ads",
+        "lo": 20480,
+        "hi": 21733
+      },
+      {
+        "index": 5,
+        "name": "a-textio.ads",
+        "lo": 24576,
+        "hi": 56023
+      },
+      {
+        "index": 6,
+        "name": "a-ioexce.ads",
+        "lo": 57344,
+        "hi": 58753
+      },
+      {
+        "index": 7,
+        "name": "a-stream.ads",
+        "lo": 61440,
+        "hi": 65891
+      },
+      {
+        "index": 8,
+        "name": "s-ficobl.ads",
+        "lo": 69632,
+        "hi": 77795
+      },
+      {
+        "index": 9,
+        "name": "interfac.ads",
+        "lo": 77824,
+        "hi": 87399
+      },
+      {
+        "index": 10,
+        "name": "i-cstrea.ads",
+        "lo": 90112,
+        "hi": 102896
+      },
+      {
+        "index": 11,
+        "name": "s-crtl.ads",
+        "lo": 106496,
+        "hi": 115682
+      },
+      {
+        "index": 12,
+        "name": "s-parame.ads",
+        "lo": 118784,
+        "hi": 127475
+      },
+      {
+        "index": 13,
+        "name": "s-wchcon.ads",
+        "lo": 131072,
+        "hi": 142924
+      },
+      {
+        "index": 14,
+        "name": "a-sttebu.ads",
+        "lo": 143360,
+        "hi": 149759
+      },
+      {
+        "index": 15,
+        "name": "a-string.ads",
+        "lo": 151552,
+        "hi": 153281
+      },
+      {
+        "index": 16,
+        "name": "a-stuten.ads",
+        "lo": 155648,
+        "hi": 163341
+      },
+      {
+        "index": 17,
+        "name": "a-unccon.ads",
+        "lo": 163840,
+        "hi": 165394
+      }
+    ],
+    "virtual_units": [
+      {
+        "index": 18,
+        "name": "a-unccon.ads",
+        "lo": 167936,
+        "hi": 169490
+      },
+      {
+        "index": 19,
+        "name": "a-unccon.ads",
+        "lo": 172032,
+        "hi": 173586
+      },
+      {
+        "index": 20,
+        "name": "a-unccon.ads",
+        "lo": 176128,
+        "hi": 177682
+      }
+    ],
+    "table_growth": [
+      [
+        "Source_File",
+        "30"
+      ],
+      [
+        "Elists",
+        "400"
+      ]
+    ],
+    "line_capacities": [
+      1000
+    ]
+  },
+  {
+    "name": "argument",
+    "source_bytes": 265,
+    "last_source_position": 181778,
+    "physical_units": [
+      {
+        "index": 1,
+        "name": "system.ads",
+        "lo": 0,
+        "hi": 8285
+      },
+      {
+        "index": 2,
+        "name": "main.adb",
+        "lo": 12288,
+        "hi": 12553
+      },
+      {
+        "index": 3,
+        "name": "silver_io.ads",
+        "lo": 16384,
+        "hi": 18606
+      },
+      {
+        "index": 4,
+        "name": "ada.ads",
+        "lo": 20480,
+        "hi": 21733
+      },
+      {
+        "index": 5,
+        "name": "a-textio.ads",
+        "lo": 24576,
+        "hi": 56023
+      },
+      {
+        "index": 6,
+        "name": "a-ioexce.ads",
+        "lo": 57344,
+        "hi": 58753
+      },
+      {
+        "index": 7,
+        "name": "a-stream.ads",
+        "lo": 61440,
+        "hi": 65891
+      },
+      {
+        "index": 8,
+        "name": "s-ficobl.ads",
+        "lo": 69632,
+        "hi": 77795
+      },
+      {
+        "index": 9,
+        "name": "interfac.ads",
+        "lo": 77824,
+        "hi": 87399
+      },
+      {
+        "index": 10,
+        "name": "i-cstrea.ads",
+        "lo": 90112,
+        "hi": 102896
+      },
+      {
+        "index": 11,
+        "name": "s-crtl.ads",
+        "lo": 106496,
+        "hi": 115682
+      },
+      {
+        "index": 12,
+        "name": "s-parame.ads",
+        "lo": 118784,
+        "hi": 127475
+      },
+      {
+        "index": 13,
+        "name": "s-wchcon.ads",
+        "lo": 131072,
+        "hi": 142924
+      },
+      {
+        "index": 14,
+        "name": "silver_arguments.ads",
+        "lo": 143360,
+        "hi": 144489
+      },
+      {
+        "index": 15,
+        "name": "a-sttebu.ads",
+        "lo": 147456,
+        "hi": 153855
+      },
+      {
+        "index": 16,
+        "name": "a-string.ads",
+        "lo": 155648,
+        "hi": 157377
+      },
+      {
+        "index": 17,
+        "name": "a-stuten.ads",
+        "lo": 159744,
+        "hi": 167437
+      },
+      {
+        "index": 18,
+        "name": "a-unccon.ads",
+        "lo": 167936,
+        "hi": 169490
+      }
+    ],
+    "virtual_units": [
+      {
+        "index": 19,
+        "name": "a-unccon.ads",
+        "lo": 172032,
+        "hi": 173586
+      },
+      {
+        "index": 20,
+        "name": "a-unccon.ads",
+        "lo": 176128,
+        "hi": 177682
+      },
+      {
+        "index": 21,
+        "name": "a-unccon.ads",
+        "lo": 180224,
+        "hi": 181778
+      }
+    ],
+    "table_growth": [
+      [
+        "Source_File",
+        "30"
+      ],
+      [
+        "Elists",
+        "400"
+      ]
+    ],
+    "line_capacities": [
+      1000
+    ]
+  },
+  {
+    "name": "mixed",
+    "source_bytes": 525,
+    "last_source_position": 177682,
+    "physical_units": [
+      {
+        "index": 1,
+        "name": "system.ads",
+        "lo": 0,
+        "hi": 8285
+      },
+      {
+        "index": 2,
+        "name": "main.adb",
+        "lo": 12288,
+        "hi": 12813
+      },
+      {
+        "index": 3,
+        "name": "silver_io.ads",
+        "lo": 16384,
+        "hi": 18606
+      },
+      {
+        "index": 4,
+        "name": "ada.ads",
+        "lo": 20480,
+        "hi": 21733
+      },
+      {
+        "index": 5,
+        "name": "a-textio.ads",
+        "lo": 24576,
+        "hi": 56023
+      },
+      {
+        "index": 6,
+        "name": "a-ioexce.ads",
+        "lo": 57344,
+        "hi": 58753
+      },
+      {
+        "index": 7,
+        "name": "a-stream.ads",
+        "lo": 61440,
+        "hi": 65891
+      },
+      {
+        "index": 8,
+        "name": "s-ficobl.ads",
+        "lo": 69632,
+        "hi": 77795
+      },
+      {
+        "index": 9,
+        "name": "interfac.ads",
+        "lo": 77824,
+        "hi": 87399
+      },
+      {
+        "index": 10,
+        "name": "i-cstrea.ads",
+        "lo": 90112,
+        "hi": 102896
+      },
+      {
+        "index": 11,
+        "name": "s-crtl.ads",
+        "lo": 106496,
+        "hi": 115682
+      },
+      {
+        "index": 12,
+        "name": "s-parame.ads",
+        "lo": 118784,
+        "hi": 127475
+      },
+      {
+        "index": 13,
+        "name": "s-wchcon.ads",
+        "lo": 131072,
+        "hi": 142924
+      },
+      {
+        "index": 14,
+        "name": "a-sttebu.ads",
+        "lo": 143360,
+        "hi": 149759
+      },
+      {
+        "index": 15,
+        "name": "a-string.ads",
+        "lo": 151552,
+        "hi": 153281
+      },
+      {
+        "index": 16,
+        "name": "a-stuten.ads",
+        "lo": 155648,
+        "hi": 163341
+      },
+      {
+        "index": 17,
+        "name": "a-unccon.ads",
+        "lo": 163840,
+        "hi": 165394
+      }
+    ],
+    "virtual_units": [
+      {
+        "index": 18,
+        "name": "a-unccon.ads",
+        "lo": 167936,
+        "hi": 169490
+      },
+      {
+        "index": 19,
+        "name": "a-unccon.ads",
+        "lo": 172032,
+        "hi": 173586
+      },
+      {
+        "index": 20,
+        "name": "a-unccon.ads",
+        "lo": 176128,
+        "hi": 177682
+      }
+    ],
+    "table_growth": [
+      [
+        "Source_File",
+        "30"
+      ],
+      [
+        "Elists",
+        "400"
+      ]
+    ],
+    "line_capacities": [
+      1000
+    ]
+  },
+  {
+    "name": "sparse64k",
+    "source_bytes": 65536,
+    "last_source_position": 243218,
+    "physical_units": [
+      {
+        "index": 1,
+        "name": "system.ads",
+        "lo": 0,
+        "hi": 8285
+      },
+      {
+        "index": 2,
+        "name": "main.adb",
+        "lo": 12288,
+        "hi": 77824
+      },
+      {
+        "index": 3,
+        "name": "silver_io.ads",
+        "lo": 81920,
+        "hi": 84142
+      },
+      {
+        "index": 4,
+        "name": "ada.ads",
+        "lo": 86016,
+        "hi": 87269
+      },
+      {
+        "index": 5,
+        "name": "a-textio.ads",
+        "lo": 90112,
+        "hi": 121559
+      },
+      {
+        "index": 6,
+        "name": "a-ioexce.ads",
+        "lo": 122880,
+        "hi": 124289
+      },
+      {
+        "index": 7,
+        "name": "a-stream.ads",
+        "lo": 126976,
+        "hi": 131427
+      },
+      {
+        "index": 8,
+        "name": "s-ficobl.ads",
+        "lo": 135168,
+        "hi": 143331
+      },
+      {
+        "index": 9,
+        "name": "interfac.ads",
+        "lo": 143360,
+        "hi": 152935
+      },
+      {
+        "index": 10,
+        "name": "i-cstrea.ads",
+        "lo": 155648,
+        "hi": 168432
+      },
+      {
+        "index": 11,
+        "name": "s-crtl.ads",
+        "lo": 172032,
+        "hi": 181218
+      },
+      {
+        "index": 12,
+        "name": "s-parame.ads",
+        "lo": 184320,
+        "hi": 193011
+      },
+      {
+        "index": 13,
+        "name": "s-wchcon.ads",
+        "lo": 196608,
+        "hi": 208460
+      },
+      {
+        "index": 14,
+        "name": "a-sttebu.ads",
+        "lo": 208896,
+        "hi": 215295
+      },
+      {
+        "index": 15,
+        "name": "a-string.ads",
+        "lo": 217088,
+        "hi": 218817
+      },
+      {
+        "index": 16,
+        "name": "a-stuten.ads",
+        "lo": 221184,
+        "hi": 228877
+      },
+      {
+        "index": 17,
+        "name": "a-unccon.ads",
+        "lo": 229376,
+        "hi": 230930
+      }
+    ],
+    "virtual_units": [
+      {
+        "index": 18,
+        "name": "a-unccon.ads",
+        "lo": 233472,
+        "hi": 235026
+      },
+      {
+        "index": 19,
+        "name": "a-unccon.ads",
+        "lo": 237568,
+        "hi": 239122
+      },
+      {
+        "index": 20,
+        "name": "a-unccon.ads",
+        "lo": 241664,
+        "hi": 243218
+      }
+    ],
+    "table_growth": [
+      [
+        "Source_File",
+        "30"
+      ],
+      [
+        "Elists",
+        "400"
+      ]
+    ],
+    "line_capacities": [
+      1000
+    ]
+  },
+  {
+    "name": "dense64k",
+    "source_bytes": 65536,
+    "last_source_position": 243218,
+    "physical_units": [
+      {
+        "index": 1,
+        "name": "system.ads",
+        "lo": 0,
+        "hi": 8285
+      },
+      {
+        "index": 2,
+        "name": "main.adb",
+        "lo": 12288,
+        "hi": 77824
+      },
+      {
+        "index": 3,
+        "name": "silver_io.ads",
+        "lo": 81920,
+        "hi": 84142
+      },
+      {
+        "index": 4,
+        "name": "ada.ads",
+        "lo": 86016,
+        "hi": 87269
+      },
+      {
+        "index": 5,
+        "name": "a-textio.ads",
+        "lo": 90112,
+        "hi": 121559
+      },
+      {
+        "index": 6,
+        "name": "a-ioexce.ads",
+        "lo": 122880,
+        "hi": 124289
+      },
+      {
+        "index": 7,
+        "name": "a-stream.ads",
+        "lo": 126976,
+        "hi": 131427
+      },
+      {
+        "index": 8,
+        "name": "s-ficobl.ads",
+        "lo": 135168,
+        "hi": 143331
+      },
+      {
+        "index": 9,
+        "name": "interfac.ads",
+        "lo": 143360,
+        "hi": 152935
+      },
+      {
+        "index": 10,
+        "name": "i-cstrea.ads",
+        "lo": 155648,
+        "hi": 168432
+      },
+      {
+        "index": 11,
+        "name": "s-crtl.ads",
+        "lo": 172032,
+        "hi": 181218
+      },
+      {
+        "index": 12,
+        "name": "s-parame.ads",
+        "lo": 184320,
+        "hi": 193011
+      },
+      {
+        "index": 13,
+        "name": "s-wchcon.ads",
+        "lo": 196608,
+        "hi": 208460
+      },
+      {
+        "index": 14,
+        "name": "a-sttebu.ads",
+        "lo": 208896,
+        "hi": 215295
+      },
+      {
+        "index": 15,
+        "name": "a-string.ads",
+        "lo": 217088,
+        "hi": 218817
+      },
+      {
+        "index": 16,
+        "name": "a-stuten.ads",
+        "lo": 221184,
+        "hi": 228877
+      },
+      {
+        "index": 17,
+        "name": "a-unccon.ads",
+        "lo": 229376,
+        "hi": 230930
+      }
+    ],
+    "virtual_units": [
+      {
+        "index": 18,
+        "name": "a-unccon.ads",
+        "lo": 233472,
+        "hi": 235026
+      },
+      {
+        "index": 19,
+        "name": "a-unccon.ads",
+        "lo": 237568,
+        "hi": 239122
+      },
+      {
+        "index": 20,
+        "name": "a-unccon.ads",
+        "lo": 241664,
+        "hi": 243218
+      }
+    ],
+    "table_growth": [
+      [
+        "Source_File",
+        "30"
+      ],
+      [
+        "Elists",
+        "400"
+      ]
+    ],
+    "line_capacities": [
+      1000,
+      2000,
+      4000,
+      8000,
+      16000,
+      1000
+    ]
+  },
+  {
+    "name": "blank64k",
+    "source_bytes": 65536,
+    "last_source_position": 77824,
+    "physical_units": [
+      {
+        "index": 1,
+        "name": "system.ads",
+        "lo": 0,
+        "hi": 8285
+      },
+      {
+        "index": 2,
+        "name": "main.adb",
+        "lo": 12288,
+        "hi": 77824
+      }
+    ],
+    "virtual_units": [],
+    "table_growth": [],
+    "line_capacities": [
+      1000,
+      2000,
+      4000,
+      8000,
+      16000,
+      32000,
+      64000,
+      128000
+    ]
+  },
+  {
+    "name": "fold64k_value",
+    "source_bytes": 695,
+    "last_source_position": 177682,
+    "physical_units": [
+      {
+        "index": 1,
+        "name": "system.ads",
+        "lo": 0,
+        "hi": 8285
+      },
+      {
+        "index": 2,
+        "name": "main.adb",
+        "lo": 12288,
+        "hi": 12983
+      },
+      {
+        "index": 3,
+        "name": "silver_io.ads",
+        "lo": 16384,
+        "hi": 18606
+      },
+      {
+        "index": 4,
+        "name": "ada.ads",
+        "lo": 20480,
+        "hi": 21733
+      },
+      {
+        "index": 5,
+        "name": "a-textio.ads",
+        "lo": 24576,
+        "hi": 56023
+      },
+      {
+        "index": 6,
+        "name": "a-ioexce.ads",
+        "lo": 57344,
+        "hi": 58753
+      },
+      {
+        "index": 7,
+        "name": "a-stream.ads",
+        "lo": 61440,
+        "hi": 65891
+      },
+      {
+        "index": 8,
+        "name": "s-ficobl.ads",
+        "lo": 69632,
+        "hi": 77795
+      },
+      {
+        "index": 9,
+        "name": "interfac.ads",
+        "lo": 77824,
+        "hi": 87399
+      },
+      {
+        "index": 10,
+        "name": "i-cstrea.ads",
+        "lo": 90112,
+        "hi": 102896
+      },
+      {
+        "index": 11,
+        "name": "s-crtl.ads",
+        "lo": 106496,
+        "hi": 115682
+      },
+      {
+        "index": 12,
+        "name": "s-parame.ads",
+        "lo": 118784,
+        "hi": 127475
+      },
+      {
+        "index": 13,
+        "name": "s-wchcon.ads",
+        "lo": 131072,
+        "hi": 142924
+      },
+      {
+        "index": 14,
+        "name": "a-sttebu.ads",
+        "lo": 143360,
+        "hi": 149759
+      },
+      {
+        "index": 15,
+        "name": "a-string.ads",
+        "lo": 151552,
+        "hi": 153281
+      },
+      {
+        "index": 16,
+        "name": "a-stuten.ads",
+        "lo": 155648,
+        "hi": 163341
+      },
+      {
+        "index": 17,
+        "name": "a-unccon.ads",
+        "lo": 163840,
+        "hi": 165394
+      }
+    ],
+    "virtual_units": [
+      {
+        "index": 18,
+        "name": "a-unccon.ads",
+        "lo": 167936,
+        "hi": 169490
+      },
+      {
+        "index": 19,
+        "name": "a-unccon.ads",
+        "lo": 172032,
+        "hi": 173586
+      },
+      {
+        "index": 20,
+        "name": "a-unccon.ads",
+        "lo": 176128,
+        "hi": 177682
+      }
+    ],
+    "table_growth": [
+      [
+        "Source_File",
+        "30"
+      ],
+      [
+        "Elists",
+        "400"
+      ],
+      [
+        "String_Chars",
+        "6250"
+      ],
+      [
+        "String_Chars",
+        "15625"
+      ],
+      [
+        "String_Chars",
+        "39062"
+      ],
+      [
+        "String_Chars",
+        "97655"
+      ]
+    ],
+    "line_capacities": [
+      1000
+    ]
+  },
+  {
+    "name": "mixed_expanded",
+    "source_bytes": 525,
+    "last_source_position": 371551,
+    "physical_units": [
+      {
+        "index": 1,
+        "name": "system.ads",
+        "lo": 0,
+        "hi": 8285
+      },
+      {
+        "index": 2,
+        "name": "main.adb",
+        "lo": 12288,
+        "hi": 12813
+      },
+      {
+        "index": 3,
+        "name": "silver_io.ads",
+        "lo": 16384,
+        "hi": 18606
+      },
+      {
+        "index": 4,
+        "name": "ada.ads",
+        "lo": 20480,
+        "hi": 21733
+      },
+      {
+        "index": 5,
+        "name": "a-textio.ads",
+        "lo": 24576,
+        "hi": 56023
+      },
+      {
+        "index": 6,
+        "name": "a-ioexce.ads",
+        "lo": 57344,
+        "hi": 58753
+      },
+      {
+        "index": 7,
+        "name": "a-stream.ads",
+        "lo": 61440,
+        "hi": 65891
+      },
+      {
+        "index": 8,
+        "name": "s-ficobl.ads",
+        "lo": 69632,
+        "hi": 77795
+      },
+      {
+        "index": 9,
+        "name": "interfac.ads",
+        "lo": 77824,
+        "hi": 87399
+      },
+      {
+        "index": 10,
+        "name": "i-cstrea.ads",
+        "lo": 90112,
+        "hi": 102896
+      },
+      {
+        "index": 11,
+        "name": "s-crtl.ads",
+        "lo": 106496,
+        "hi": 115682
+      },
+      {
+        "index": 12,
+        "name": "s-parame.ads",
+        "lo": 118784,
+        "hi": 127475
+      },
+      {
+        "index": 13,
+        "name": "s-wchcon.ads",
+        "lo": 131072,
+        "hi": 142924
+      },
+      {
+        "index": 14,
+        "name": "a-sttebu.ads",
+        "lo": 143360,
+        "hi": 149759
+      },
+      {
+        "index": 15,
+        "name": "a-string.ads",
+        "lo": 151552,
+        "hi": 153281
+      },
+      {
+        "index": 16,
+        "name": "a-stuten.ads",
+        "lo": 155648,
+        "hi": 163341
+      },
+      {
+        "index": 17,
+        "name": "a-unccon.ads",
+        "lo": 163840,
+        "hi": 165394
+      },
+      {
+        "index": 18,
+        "name": "s-exctab.ads",
+        "lo": 167936,
+        "hi": 172077
+      },
+      {
+        "index": 19,
+        "name": "s-stalib.ads",
+        "lo": 176128,
+        "hi": 188743
+      },
+      {
+        "index": 24,
+        "name": "a-tags.ads",
+        "lo": 208896,
+        "hi": 239512
+      },
+      {
+        "index": 25,
+        "name": "s-stoele.ads",
+        "lo": 241664,
+        "hi": 247065
+      },
+      {
+        "index": 29,
+        "name": "s-soflin.ads",
+        "lo": 262144,
+        "hi": 281129
+      },
+      {
+        "index": 30,
+        "name": "a-except.ads",
+        "lo": 282624,
+        "hi": 296869
+      },
+      {
+        "index": 31,
+        "name": "s-traent.ads",
+        "lo": 299008,
+        "hi": 302767
+      },
+      {
+        "index": 32,
+        "name": "s-secsta.ads",
+        "lo": 303104,
+        "hi": 320410
+      },
+      {
+        "index": 33,
+        "name": "s-stache.ads",
+        "lo": 323584,
+        "hi": 328029
+      },
+      {
+        "index": 34,
+        "name": "s-putima.ads",
+        "lo": 331776,
+        "hi": 338326
+      },
+      {
+        "index": 35,
+        "name": "s-unstyp.ads",
+        "lo": 339968,
+        "hi": 350995
+      },
+      {
+        "index": 36,
+        "name": "s-imgint.ads",
+        "lo": 352256,
+        "hi": 356414
+      },
+      {
+        "index": 37,
+        "name": "s-imagei.ads",
+        "lo": 360448,
+        "hi": 363815
+      },
+      {
+        "index": 39,
+        "name": "s-conca2.ads",
+        "lo": 368640,
+        "hi": 371551
+      }
+    ],
+    "virtual_units": [
+      {
+        "index": 20,
+        "name": "a-unccon.ads",
+        "lo": 192512,
+        "hi": 194066
+      },
+      {
+        "index": 21,
+        "name": "a-unccon.ads",
+        "lo": 196608,
+        "hi": 198162
+      },
+      {
+        "index": 22,
+        "name": "a-unccon.ads",
+        "lo": 200704,
+        "hi": 202258
+      },
+      {
+        "index": 23,
+        "name": "a-unccon.ads",
+        "lo": 204800,
+        "hi": 206354
+      },
+      {
+        "index": 26,
+        "name": "a-unccon.ads",
+        "lo": 249856,
+        "hi": 251410
+      },
+      {
+        "index": 27,
+        "name": "a-unccon.ads",
+        "lo": 253952,
+        "hi": 255506
+      },
+      {
+        "index": 28,
+        "name": "a-unccon.ads",
+        "lo": 258048,
+        "hi": 259602
+      },
+      {
+        "index": 38,
+        "name": "s-imagei.ads",
+        "lo": 364544,
+        "hi": 367911
+      }
+    ],
+    "table_growth": [
+      [
+        "Source_File",
+        "30"
+      ],
+      [
+        "Sem.Scope_Stack",
+        "30"
+      ],
+      [
+        "Elists",
+        "400"
+      ],
+      [
+        "Source_File",
+        "90"
+      ],
+      [
+        "Elists",
+        "800"
+      ],
+      [
+        "String_Chars",
+        "6250"
+      ],
+      [
+        "Lists",
+        "12000"
+      ],
+      [
+        "Elists",
+        "1600"
+      ],
+      [
+        "Elmts",
+        "2400"
+      ],
+      [
+        "String_Chars",
+        "15625"
+      ],
+      [
+        "Units",
+        "60"
+      ],
+      [
+        "Name_Chars",
+        "100000"
+      ],
+      [
+        "Name_Chars",
+        "200000"
+      ]
+    ],
+    "line_capacities": [
+      1000,
+      1000
+    ]
+  }
+]

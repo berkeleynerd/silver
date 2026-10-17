@@ -1,0 +1,19 @@
+{
+  "captured_utc": "2026-10-17T19:27:51.413624+00:00",
+  "scope": "captured after native probes from unchanged execution context; compiler -v reports resolved effective paths",
+  "environment": {
+    "PATH": "/Users/rebecca/flutter/bin:/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/opt/homebrew/Cellar/node/26.5.0/bin:/Users/rebecca/.local/bin:/Users/rebecca/.antigravity-ide/antigravity-ide/bin:/Users/rebecca/.antigravity/antigravity/bin:/Users/rebecca/.local/share/alire/toolchains/gprbuild_26.0.1_6bf7d80c/bin:/Users/rebecca/.local/share/alire/toolchains/gnat_native_16.1.0_657cf254/bin:/Users/rebecca/.alire/bin:/Users/rebecca/.lmstudio/bin:/Users/rebecca/Applications:/Users/rebecca/go/bin:/usr/local/bin:/Users/rebecca/.local/bin:/Users/rebecca/bin:/Users/rebecca/flutter/bin:/Users/rebecca/.gem/bin:/Users/rebecca/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Little Snitch.app/Contents/Components:/opt/homebrew/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/rebecca/flutter/bin:/Users/rebecca/.codex/tmp/arg0-macos/codex-arg0iXDFFA:/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/rebecca/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/opt/homebrew/Cellar/node/26.5.0/bin:/Users/rebecca/.local/bin:/Users/rebecca/.antigravity-ide/antigravity-ide/bin:/Users/rebecca/.antigravity/antigravity/bin:/Users/rebecca/.local/share/alire/toolchains/gprbuild_26.0.1_6bf7d80c/bin:/Users/rebecca/.local/share/alire/toolchains/gnat_native_16.1.0_657cf254/bin:/Users/rebecca/.alire/bin:/Users/rebecca/.lmstudio/bin:/Users/rebecca/Applications:/Users/rebecca/go/bin:/Users/rebecca/bin:/Users/rebecca/.gem/bin:/opt/homebrew/sbin:/Users/rebecca/.cargo/bin:/Users/rebecca/.docker/bin:/Users/rebecca/Library/Application Support/JetBrains/Toolbox/scripts:/Users/rebecca/Library/Python/3.9/bin:/Applications/Parallels Desktop.app/Contents/MacOS:/Users/rebecca/.jbcontext/bin:/Users/rebecca/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Applications/ChatGPT.app/Contents/Resources:/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/Users/rebecca/.docker/bin:/Users/rebecca/Library/Application Support/JetBrains/Toolbox/scripts:/Users/rebecca/Library/Python/3.9/bin:/Applications/Parallels Desktop.app/Contents/MacOS:/Users/rebecca/.lmstudio/bin",
+    "SDKROOT": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+    "MACOSX_DEPLOYMENT_TARGET": null,
+    "ADA_INCLUDE_PATH": null,
+    "ADA_OBJECTS_PATH": null,
+    "COMPILER_PATH": null,
+    "LIBRARY_PATH": null,
+    "GCC_EXEC_PREFIX": null,
+    "CPATH": null,
+    "C_INCLUDE_PATH": null,
+    "CPLUS_INCLUDE_PATH": null,
+    "DYLD_LIBRARY_PATH": null,
+    "LD_LIBRARY_PATH": null
+  }
+}

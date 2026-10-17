@@ -1,0 +1,103 @@
+{
+  "started_utc": "2026-10-17T19:28:29.667390+00:00",
+  "elapsed_seconds": 0.06388334196526557,
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "-v",
+    "-S",
+    "-O0",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-mcmodel=large",
+    "main.adb",
+    "-o",
+    "main.s"
+  ],
+  "cwd": "/tmp/silver-unbounded-feasibility-20261017/static-data/probes/linux-ada-1mib-large",
+  "exit_status": 0,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 28768,
+  "child_maxrss_native_units": 49940,
+  "child_maxrss_unit": "KiB",
+  "child_user_seconds": 0.043438,
+  "child_system_seconds": 0.028545999999999995,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  },
+  "input_sha256": {
+    "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7",
+    "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+    "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+    "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+    "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+    "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+    "main.adb": "aae4727aabd20b4b7d5654a4027c16ffbe3675614a911ea0424cf3d7b81b72ae"
+  },
+  "outputs": {
+    "main.ali": {
+      "bytes": 2738,
+      "allocated_bytes": 4096,
+      "sha256": "65300a44aefdd0b05e4f2f2683ab1696b163ef3545519ebd870427ba84bc1c5d"
+    },
+    "main.s": {
+      "bytes": 2485198,
+      "allocated_bytes": 2486272,
+      "sha256": "f9ee973e3120448326e51928bece33ce3390de63ecdec5cc9cd4be7504bfb0b0"
+    },
+    "stderr.txt": {
+      "bytes": 3205,
+      "allocated_bytes": 4096,
+      "sha256": "81d451f1d40569041d7ac4fe77dd951f23c3067d6710e9992fd48cfd735ebbb3"
+    },
+    "stdout.txt": {
+      "bytes": 0,
+      "allocated_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "silver_runtime.ads": {
+      "bytes": 1010,
+      "allocated_bytes": 4096,
+      "sha256": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+    },
+    "silver_arguments.adb": {
+      "bytes": 1339,
+      "allocated_bytes": 4096,
+      "sha256": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918"
+    },
+    "silver_arguments.ads": {
+      "bytes": 1129,
+      "allocated_bytes": 4096,
+      "sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+    },
+    "silver_output_libc.ads": {
+      "bytes": 1532,
+      "allocated_bytes": 4096,
+      "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+    },
+    "silver_io.adb": {
+      "bytes": 3358,
+      "allocated_bytes": 4096,
+      "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+    },
+    "silver_io.ads": {
+      "bytes": 2222,
+      "allocated_bytes": 4096,
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    "main.adb": {
+      "bytes": 889,
+      "allocated_bytes": 4096,
+      "sha256": "aae4727aabd20b4b7d5654a4027c16ffbe3675614a911ea0424cf3d7b81b72ae"
+    }
+  },
+  "rss_samples": [
+    [
+      0.002,
+      28768
+    ]
+  ]
+}

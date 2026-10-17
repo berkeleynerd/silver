@@ -1,0 +1,24 @@
+Linux x86_64
+{
+  "host": "linux-x86_64",
+  "root": "/home/canto/src/github.com/berkeleynerd/silver",
+  "tools": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64",
+  "alr": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alr/bin/alr",
+  "settings": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/settings",
+  "cache": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache",
+  "toolchains": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains",
+  "artifacts": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64",
+  "context": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/toolchain",
+  "generated": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/generated",
+  "compiler": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler",
+  "executable": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+  "image_adapter": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+  "image_tools": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools",
+  "reports": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/obj/gnatprove",
+  "lean": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean",
+  "proof": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/proof"
+}
+?? tmp/
+               total        used        free      shared  buff/cache   available
+Mem:           93884       48297        8140        1663       39919       45587
+Swap:           8191         561        7630

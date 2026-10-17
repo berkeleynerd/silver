@@ -1,0 +1,91 @@
+{
+  "started_utc": "2026-10-17T19:20:55.159610+00:00",
+  "elapsed_seconds": 0.4990906669991091,
+  "command": [
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+    "-v",
+    "probe.o",
+    "-o",
+    "probe"
+  ],
+  "cwd": "/private/tmp/silver-unbounded-feasibility-20261017/static-data/probes/c-bss-control-link",
+  "exit_status": 0,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 129328,
+  "child_maxrss_native_units": 41795584,
+  "child_user_seconds": 0.04364,
+  "child_system_seconds": 0.103575,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  },
+  "input_sha256": {
+    "probe.o": "372ae416b8616688c07e4ae1612aa8486e091da33b221af93093548196ab5322",
+    "probe.s": "d2b26989e67043cb08789e0b7757c29c45533d4e86d72100ebb77585dc9a3cda",
+    "probe.c": "375d22f33e2e25f48062421cfaa34aa18e15c18042e7f723e13ca4bd807f7c5a"
+  },
+  "outputs": {
+    "stdout.txt": {
+      "bytes": 0,
+      "allocated_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "probe.o": {
+      "bytes": 920,
+      "allocated_bytes": 4096,
+      "sha256": "372ae416b8616688c07e4ae1612aa8486e091da33b221af93093548196ab5322"
+    },
+    "probe.s": {
+      "bytes": 1207,
+      "allocated_bytes": 4096,
+      "sha256": "d2b26989e67043cb08789e0b7757c29c45533d4e86d72100ebb77585dc9a3cda"
+    },
+    "stderr.txt": {
+      "bytes": 4136,
+      "allocated_bytes": 8192,
+      "sha256": "fe61360d71aa9c43eddf25b656fc382693855caeb8aa32a9625c2076655de9e0"
+    },
+    "probe.c": {
+      "bytes": 112,
+      "allocated_bytes": 4096,
+      "sha256": "375d22f33e2e25f48062421cfaa34aa18e15c18042e7f723e13ca4bd807f7c5a"
+    },
+    "probe": {
+      "bytes": 16936,
+      "allocated_bytes": 20480,
+      "sha256": "18893f8db3413aa05f88be36c511bc71b5f91c7c9f679b53df5dd435f37a411c"
+    }
+  },
+  "rss_samples": [
+    [
+      0.0015,
+      9360
+    ],
+    [
+      0.0735,
+      22576
+    ],
+    [
+      0.1458,
+      44400
+    ],
+    [
+      0.2188,
+      91232
+    ],
+    [
+      0.2919,
+      95088
+    ],
+    [
+      0.3619,
+      109408
+    ],
+    [
+      0.4257,
+      129328
+    ]
+  ]
+}

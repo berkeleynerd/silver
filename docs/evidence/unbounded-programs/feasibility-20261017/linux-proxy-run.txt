@@ -1,0 +1,116 @@
+{
+  "started_utc": "2026-10-17T19:25:15.922807+00:00",
+  "elapsed_seconds": 0.06679349602200091,
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "-v",
+    "-O0",
+    "-save-temps",
+    "-mcmodel=small",
+    "probe.c",
+    "-o",
+    "probe"
+  ],
+  "cwd": "/tmp/silver-unbounded-feasibility-20261017/static-data/probes/linux-bss-control",
+  "exit_status": 0,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 3876,
+  "child_maxrss_native_units": 31784,
+  "child_maxrss_unit": "KiB",
+  "child_user_seconds": 0.028589999999999997,
+  "child_system_seconds": 0.028623,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  }
+}
+linux-bss-control status 0 guard None
+{
+  "started_utc": "2026-10-17T19:25:16.071130+00:00",
+  "elapsed_seconds": 0.06521877099294215,
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "-v",
+    "-O0",
+    "-save-temps",
+    "-mcmodel=small",
+    "probe.c",
+    "-o",
+    "probe"
+  ],
+  "cwd": "/tmp/silver-unbounded-feasibility-20261017/static-data/probes/linux-bss-small",
+  "exit_status": 1,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 3856,
+  "child_maxrss_native_units": 31688,
+  "child_maxrss_unit": "KiB",
+  "child_user_seconds": 0.026192999999999998,
+  "child_system_seconds": 0.026248,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  }
+}
+linux-bss-small status 1 guard None
+{
+  "started_utc": "2026-10-17T19:25:16.203284+00:00",
+  "elapsed_seconds": 0.06737241800874472,
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "-v",
+    "-O0",
+    "-save-temps",
+    "-mcmodel=medium",
+    "probe.c",
+    "-o",
+    "probe"
+  ],
+  "cwd": "/tmp/silver-unbounded-feasibility-20261017/static-data/probes/linux-bss-medium",
+  "exit_status": 0,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 3868,
+  "child_maxrss_native_units": 31900,
+  "child_maxrss_unit": "KiB",
+  "child_user_seconds": 0.026161999999999998,
+  "child_system_seconds": 0.030516,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  }
+}
+linux-bss-medium status 0 guard None
+{
+  "started_utc": "2026-10-17T19:25:16.343368+00:00",
+  "elapsed_seconds": 0.06718116800766438,
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "-v",
+    "-O0",
+    "-save-temps",
+    "-mcmodel=large",
+    "probe.c",
+    "-o",
+    "probe"
+  ],
+  "cwd": "/tmp/silver-unbounded-feasibility-20261017/static-data/probes/linux-bss-large",
+  "exit_status": 0,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 3824,
+  "child_maxrss_native_units": 31904,
+  "child_maxrss_unit": "KiB",
+  "child_user_seconds": 0.025900999999999997,
+  "child_system_seconds": 0.026201,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  }
+}
+linux-bss-large status 0 guard None

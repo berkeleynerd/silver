@@ -1,5 +1,21 @@
 # Session memory
 
+## 2026-10-17 — Unbounded feasibility research handoff requested
+
+During the research-only pass authorized below, the owner said: "Let's package
+up this as a handoff package to another agent with the required access."
+The [handoff](research/unbounded-feasibility-handoff.md) preserves partial
+source-capacity and static-data research, its raw evidence and the remaining
+hypotheses. Linux access was resolved before packaging; no further experiments
+were started after this request. The already-running small assembly probes
+completed and their outputs were retained.
+
+This transfers unfinished research, not implementation authority or an adopted
+capacity rule. #107/#108 remain open pending completion and independent review
+of a final recommendation or precise full stop. #88–#94 remain Backlog. The
+package is published as a draft research branch for continuation; its review
+checks handoff accuracy and does not certify full-domain feasibility.
+
 ## 2026-10-17 — Unbounded programs feasibility research authorized
 
 The owner replied "Proceed." to the recommendation to run a **research-only pass**

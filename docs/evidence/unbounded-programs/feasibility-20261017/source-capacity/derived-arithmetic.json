@@ -1,0 +1,28 @@
+{
+  "status": "partial source-derived arithmetic, not observed native boundaries",
+  "source_position_sufficient_max_final_hi": 2147479551,
+  "string_chars": {
+    "initial": 2500,
+    "increment_percent": 150,
+    "table_factor": 1,
+    "valid_length_sequence": [
+      2500,
+      6250,
+      15625,
+      39062,
+      97655,
+      244137,
+      610342,
+      1525855,
+      3814637,
+      9536592,
+      23841480,
+      59603700,
+      149009250,
+      372523125,
+      931307812
+    ],
+    "first_unrepresentable_next_length": 2328269530
+  },
+  "zero_decimal_exponent_799999_udigits": 177170
+}

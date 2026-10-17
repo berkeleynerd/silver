@@ -77,8 +77,12 @@ does not supply the implementation "proceed". That later authorization must be
 recorded on `main`. Report an unresolved sound/expansive capacity rule, unfixable
 non-resource compile/link failure in the intended value domain, or unfixable
 definite non-proof as a conditional full stop; do not silently choose a smaller
-cap or weaken assurance. #91's research can be separately authorized earlier;
-this corrective pass does not execute its experiments. Packages #89 and #90
+cap or weaken assurance. Source-capacity research
+[#107](https://github.com/berkeleynerd/silver/issues/107) and static-data research
+[#108](https://github.com/berkeleynerd/silver/issues/108) are separately scoped
+subphases of #91 and #93, before adoption or implementation. Their
+[research-only authorization](docs/session-memory.md#2026-10-17--unbounded-programs-feasibility-research-authorized)
+includes evidence publication and independent review. Packages #89 and #90
 coordinate source certificates and use one writer per proof workspace. Rosetta
 stages and new constructs remain separate, and native macOS validation remains
 independent and nonblocking.

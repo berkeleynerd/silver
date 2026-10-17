@@ -1,0 +1,27 @@
+[
+  {
+    "path": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+    "size": 2570304,
+    "sha256": "bef9103e216ecdb36b9f6aba896ced832857ad59aa83cdfb10fd1911ab4785c7"
+  },
+  {
+    "path": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/libexec/gcc/aarch64-apple-darwin24.6.0/16.1.0/gnat1",
+    "size": 45714848,
+    "sha256": "5b79a4545478a1d7ec5de3a9327b04b7b62b39a43c82efa87af4780464d60caa"
+  },
+  {
+    "path": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/libexec/gcc/aarch64-apple-darwin24.6.0/16.1.0/ld",
+    "size": 143,
+    "sha256": "c678fb91835c5fb352f1aef05fd7692a7c14b64bba0e8688c12c3b7e20214078"
+  },
+  {
+    "path": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/alire.toml",
+    "size": 988,
+    "sha256": "2895340d27bd4dde7abddc58597a5274978a04764337f25cda10f9317e1b1344"
+  },
+  {
+    "path": "/usr/bin/ld",
+    "size": 200560,
+    "sha256": "34129c71a01a74f7f3b2443521519b2e5447553fa187f5fcafaaf8c42cc192e2"
+  }
+]
