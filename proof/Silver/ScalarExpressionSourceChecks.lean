@@ -24,6 +24,8 @@ theorem actual_reviewed_shape : ReviewedShape := by decide +kernel
 
 abbrev ExpressionTranslation : Prop :=
   Native.WellFormedTrees ∧
+  Source.expressionBody "body_environment" Source.scalarExpressionBodyTokens =
+    some (expectedTokens "Count => Names.Count, Items => (for Index in Binding_Index => Body_Binding (Names.Items (Index)))") ∧
   Source.expressionBody "lookup_model" Source.scalarExpressionBodyTokens = some Native.lookupBody.render ∧
   Source.expressionBody "symbol" Source.scalarExpressionBodyTokens = some Native.symbolBody.render ∧
   Source.expressionBody "literal_result" Source.scalarExpressionBodyTokens = some Native.literalBody.render ∧

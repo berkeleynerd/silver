@@ -117,7 +117,7 @@ def bodyBindingBody : BodyBindingExpr := ⟨.ifMutable .declared .current⟩
 theorem body_binding_meaning (item : Binding) :
     bodyBindingBody.eval item = bodyBinding item := rfl
 
-/-- One assignment in the finite native Binding_Index loop. The input array
+/-- One assignment in a finite reference implementation of the mapping. The input array
 is read at Index; only the result array's selected cell is overwritten. -/
 def Storage.bodyStep (original result : Storage) (index : Nat) : Storage :=
   {result with items := fun key =>
@@ -170,7 +170,7 @@ theorem Storage.bodyLoop_active (original : Storage) (bound : original.count ≤
     rw [ite_eq_left inside] at mapped
     simpa only [Function.comp_apply] using mapped
 
-/-- Native full-array postcondition: the verified loop maps even inactive
+/-- Native full-array postcondition: the verified aggregate maps even inactive
 slots, while the language model observes exactly the active prefix. -/
 structure InterpretedBodyEnvironment (transform : Storage → Storage) : Prop where
   count : ∀ names, (transform names).count = names.count
