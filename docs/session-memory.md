@@ -1,5 +1,49 @@
 # Session memory
 
+## 2026-10-17 — Unbounded programs scoping requested
+
+The owner directed Silver toward a language and compiler "without unadjustable
+or unnecessary arbitrary limits". The owner said: "I don't want to make decisions.
+I want to take the most expansive, expensive, and best option research can prove
+is tractable in every case. If anything requires a full stop then let me know."
+The owner preferred that the compiler "fail through resource exhaustion, which
+is acceptable in this profile, rather than a safe lower limit with a thousand
+knobs unless that is truly the only way". The owner also said that once the
+compiler's assurance is established, running GNATprove on each program "should
+be nothing more than a safety check with any failure a bug report".
+
+After the research, the owner asked: "Let's turn it into a milestone scope
+document and add relevant issues." That request authorizes the
+[scope proposal](unbounded-programs.md), its
+[evidence record](evidence/unbounded-programs/scoping-research.json), the roadmap
+entry, [milestone 5](https://github.com/berkeleynerd/silver/milestone/5) and its
+work packages, with routine commits and publication of that planning.
+
+Only scope work [#87](https://github.com/berkeleynerd/silver/issues/87) is
+authorized. Packages #88–#94 remain Backlog until the owner says "proceed" and a
+dated entry here records it. That "proceed" also confirms the scope's reading of
+the research full stops. When they are authorized, they will change the
+`development.md` and `language.md` wording that makes per-program proof a gate,
+and clarify in `AGENTS.md` that confirmation no longer gates the build. Complete
+obligation discharge remains a required, proved property, not optional hardening.
+
+The research found no full stop requiring an Oracle amendment. The remaining
+language rules are the pinned GNAT 16.1 frontend's maxima and inherited Ada
+meaning: line width, identifier length, exponent, a total-source rule derived from
+GNAT's internal tables and source-position space (possibly far below 2^31 bytes),
+the `Integer` range, and String length up to `Integer'Last`. The scope records the
+confirmation-only and fixed-input implementation capacities with their purpose.
+
+Solver completion over unbounded programs remains an explicit premise, tested by
+every confirmation. A definite non-proof with resources remaining is a defect.
+If it cannot be fixed, it is a full stop for the owner's decision.
+
+The current language, catalogue, samples and Rosetta supported constructs are
+unchanged. No new harness goal was requested. Hosted CI remains disabled, and
+native macOS validation remains independent and nonblocking. Worktrees, scratch,
+caches and other-host artifacts are preserved, including the research's retained
+Image-adapter workspace.
+
 ## 2026-10-17 — Bounded mutable integers review repairs complete
 
 The owner-authorized repairs to [review-b79b986403](reviews/review-b79b986403.md)
