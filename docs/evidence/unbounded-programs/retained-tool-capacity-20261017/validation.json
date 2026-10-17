@@ -1,0 +1,28 @@
+{
+  "review_target": "48119d874819f6de9fde581ea17d5fb6afda1b4c",
+  "baseline": "f0cccffefe",
+  "host": "Linux x86_64 / codex-silver",
+  "local_links_checked": 433,
+  "link_errors": [],
+  "protected_path_changes": [],
+  "checks": [
+    "local Markdown paths and anchors",
+    "protected production/Oracle/language paths unchanged",
+    "git diff --check"
+  ],
+  "not_run": [
+    "compiler build",
+    "GNATprove",
+    "Lean",
+    "test suite",
+    "native macOS",
+    "CI"
+  ],
+  "inputs": {
+    "roadmap.md": "9aa29a01c01b2ef10dc5d75d97b78b56bc5dfec1b9a66cca6bcb1546d5c2c856",
+    "RESUME.md": "00d4fddcd897087832451f3ebe2eb1b9e67dfe92362c5cc79888ed78da3dfd80",
+    "docs/unbounded-programs.md": "f30cc60007877c8e47061bc76d716497984bcaf3abeecc409090e2400261c120",
+    "docs/research/retained-tool-capacity.md": "26459dc7aa39a6b35159a75123a20355cec02880b788fb040f588da80023ce94",
+    "docs/session-memory.md": "3e4128a7c28f2cca8eb0d2044e0753cd346d004a97c5f337d7fa6f715597cd32"
+  }
+}

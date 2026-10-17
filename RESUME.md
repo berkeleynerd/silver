@@ -5,58 +5,42 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
-[Frontend representation research #113](https://github.com/berkeleynerd/silver/issues/113)
-has a [reviewed result](docs/research/frontend-representation-result.md)
-at an implementation stop. Publication is through
-[PR #116](https://github.com/berkeleynerd/silver/pull/116); live issues track merge
-and closure. The
-[independent review](docs/reviews/review-frontend-representation-0af844fb85.md)
-covers frozen technical target `0af844fb85`; its only low finding, L1
-[#115](https://github.com/berkeleynerd/silver/issues/115), is corrected and
-independently rechecked at integrated repair `042e35c40c`. No finding remains.
-Checked widening of the shared String pool and Ada/C descriptors is the preferred
-smaller frontend candidate, with a zero-mantissa scanner optimization. No inspected
-external GNAT/GNATprove pair supplies the changes, no fully verified SPARK-owned
-route has been demonstrated, and the separate GNATprove producer still expands
-literal content per character. Neither non-gating confirmation nor calling a
-private compiler fork external resolves these obligations.
+The owner selected the **unchanged GNAT/GNATprove toolchain** route with
+“Let's implement this”, recorded on `main` through
+[PR #118](https://github.com/berkeleynerd/silver/pull/118). Read the newest
+[decision](docs/session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
+and [scope](docs/unbounded-programs.md#frontend-representation-result-and-owner-disposition).
+External paired support, compiler forks and replacement frontends are no longer
+prerequisites. #117 records this disposition.
 
-The recommended [owner disposition](docs/unbounded-programs.md#frontend-representation-result-and-owner-disposition),
-tracked by Backlog [decision #117](https://github.com/berkeleynerd/silver/issues/117),
-retains the unchanged Oracle and seeks actually externally maintained paired
-frontend/producer support before commissioning implementation. Report this stop;
-do not automatically launch more research, contact maintainers, adopt a tool or
-lower the language domain. Research authorization reached `main` through
-[PR #114](https://github.com/berkeleynerd/silver/pull/114), merge `b8e618c545`.
-Implementation #88–#94 remains Backlog and unauthorized. Preserve the evidence,
-installations and all prior worktrees.
+The current technical package is
+[#119](https://github.com/berkeleynerd/silver/issues/119), capacity design under
+#91 shared with #93. The [design contract](docs/research/retained-tool-capacity.md)
+separates known source-position arithmetic and representation obstructions from
+the missing full phase/construct upper bounds. Complete that derivation before
+adopting expanded membership. The owner explicitly authorized the dependent
+compiler and proof changes once the capacity rule is justified. Production
+#88–#94 is authorized and unstarted; continue within that scope without seeking
+another implementation go-ahead. Corrected scopes and live claims govern the work. No numerical
+safe aggregate threshold or new language domain is established yet.
 
-The owner authorized continuation of the unfinished
-[Unbounded programs research](docs/research/unbounded-feasibility-handoff.md)
-on Linux through a final recommendation or precise full stop, independent review
-and publication. Research #107/#108 is under the existing `main`
-authorization from [PR #106](https://github.com/berkeleynerd/silver/pull/106).
-The partial checkpoint began in [PR #109](https://github.com/berkeleynerd/silver/pull/109),
-commit `df4af4588612f8f0b605570a7dd07e5b0c366b2c`. Read its retained evidence
-and remaining hypotheses before any further experiment; issue comments record
-the Linux integration and isolated research lanes. The
-[continuation result](docs/research/unbounded-feasibility-result.md) reports a
-source-derived frontend representation stop for the intended String composition
-domain and the missing complete whole-program source-capacity argument. Linux
-Ada medium/large-model build observations do not remove that frontend limit.
-The [final independent review](docs/reviews/review-unbounded-feasibility-2b47dd8e27.md)
-is complete and its two low wording findings are corrected. Delivery is through
-PR #109; live issues carry merge and closure status. The earlier packaging review
-remains separate history.
-The subsequently authorized follow-up is the research-only #113 above.
-Decision #112 selects that research; it does not adopt or implement a tool change.
+Account separately for ordinary compilation and proof-essential producer
+representations. Overflow on admitted source is a defect; physical resource
+exhaustion is distinct. Optional confirmation cannot waive required discharge.
+Only a demonstrated observation-only boundary can remain outside membership.
+Keep the Oracle, current tools, current source/value limits and source identity.
 
-Implementation #88–#94 remains Backlog. No membership, compiler/runtime/proof
-implementation or Oracle change is authorized. The previous For loops and
-integers goal remains complete; no new harness goal was requested. Preserve
-the prior installation, worktrees, caches and all raw evidence. The completed
-capability and validation records below remain historical context for this
-research, not evidence that a larger language is supported.
+Research #107/#108/#113 and finding #115 are complete. Their results/reviews in
+PR #109 and PR #116 remain historical evidence; the external-support recommendation
+is superseded. In particular, preserve the source-derived character-pool and
+Why-node obstructions with their correspondence qualifications, without calling
+them measured safe thresholds. Do not reopen those research issues or repeat
+successful expensive probes merely for this direction change.
+
+The For loops and integers harness goal remains complete; no new harness goal
+was requested. Preserve installations, worktrees, caches, scratch and all raw
+evidence. No production/proof validation is supplied by the plan/design change.
+CLI memory is unavailable and was not updated.
 
 The [review-b79b986403 repairs](docs/review-b79b986403-repairs.md) are complete
 on Linux x86_64, with delivery through [PR #86](https://github.com/berkeleynerd/silver/pull/86).

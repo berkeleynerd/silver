@@ -1,42 +1,31 @@
 # Unbounded programs
 
-**Scope proposal, corrected 2026-10-17; not an admitted capability.** The owner's
-request created [milestone 5](https://github.com/berkeleynerd/silver/milestone/5)
-and scope work [#87](https://github.com/berkeleynerd/silver/issues/87). The
-current [frontend representation research authorization](session-memory.md#2026-10-17--frontend-representation-feasibility-research-authorized)
-selects [#113](https://github.com/berkeleynerd/silver/issues/113), scoped
-[below](#frontend-representation-feasibility-research), after the reviewed
-frontend stop. It authorizes research and publication, not production changes
-or implementation of #88–#94. Its [concrete result](research/frontend-representation-result.md)
-reports an implementation stop; [independent review](reviews/review-frontend-representation-0af844fb85.md)
-is complete with its low excerpt-generation finding corrected and independently
-rechecked. Publication is through
-[PR #116](https://github.com/berkeleynerd/silver/pull/116); live issues track merge
-and closure. The [owner disposition below](#frontend-representation-result-and-owner-disposition)
-preserves that boundary. The earlier
-[planning-correction authorization](session-memory.md#2026-10-17--unbounded-programs-planning-corrections-authorized)
-authorized correction and publication. The subsequent
-[research-only authorization](session-memory.md#2026-10-17--unbounded-programs-feasibility-research-authorized)
-authorizes source-capacity research [#107](https://github.com/berkeleynerd/silver/issues/107)
-under #91 and static-data feasibility research
-[#108](https://github.com/berkeleynerd/silver/issues/108) under #93, with publication
-and independent review. Packages #88–#94 remain Backlog until a separate
-implementation "proceed" is recorded in a dated session-memory entry on `main`.
-The [independent review](reviews/review-ec82b4e5f2.md) and
-[repair record](review-ec82b4e5f2-repairs.md) explain the corrections.
+**Revised direction adopted 2026-10-17; capacity design in progress.** Retain
+the existing GNAT/GNATprove toolchain and remove unnecessary Silver limits
+within explicit, justified tool-capacity rules. The owner's
+[instruction](session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
+resolves [decision #117](https://github.com/berkeleynerd/silver/issues/117).
+External compiler support, a private fork and replacement frontends are no
+longer prerequisites. The Oracle is unchanged.
 
-The [partial feasibility-research handoff](research/unbounded-feasibility-handoff.md)
-retains the first source inspection and guarded probes for #107/#108. The
-[Linux continuation result](research/unbounded-feasibility-result.md) now reports
-a source-derived stop for the intended domain on the unchanged frontend and a
-hold on adopting a replacement source rule. [Independent review](reviews/review-unbounded-feasibility-2b47dd8e27.md)
-is complete, with its two low wording findings corrected and verified.
-Delivery is through [PR #109](https://github.com/berkeleynerd/silver/pull/109).
-This is a research conclusion, not an admitted capability or an
-implementation checkpoint; the [decision below](#research-conclusion-and-next-decision)
-preserves the remaining alternatives.
-[language.md](../language.md) and the [catalogue](../catalogue/silver.json)
-continue to describe current support.
+[Work package #119](https://github.com/berkeleynerd/silver/issues/119), under
+#91 and shared with #93, owns the unfinished source-sensitive capacity derivation.
+Its [design contract](research/retained-tool-capacity.md) separates reusable
+arithmetic from missing whole-program upper bounds. A representation obstruction
+is not a safe admission threshold. Current support remains exactly
+[language.md](../language.md) and the [catalogue](../catalogue/silver.json);
+production packages #88–#94 are authorized and unstarted, pending the justified
+capacity rule.
+No arbitrary lower cap or new tool pin has been selected.
+
+Completed research #107/#108 and #113, delivered through
+[PR #109](https://github.com/berkeleynerd/silver/pull/109) and
+[PR #116](https://github.com/berkeleynerd/silver/pull/116), retains its evidence
+and review scope. The earlier recommendation to obtain external paired support
+is superseded by the [disposition below](#frontend-representation-result-and-owner-disposition).
+The [original review](reviews/review-ec82b4e5f2.md) and
+[planning repair record](review-ec82b4e5f2-repairs.md) remain historical records.
+Neither research closure nor this direction change establishes a larger language.
 
 ## Goal and owner direction
 
@@ -47,7 +36,9 @@ Compilation should "fail through resource exhaustion, which is acceptable in
 this profile, rather than a safe lower limit with a thousand knobs unless that
 is truly the only way". Retain inherited Ada/SPARK meaning and necessary
 pinned-tool rules; justify a conservative envelope instead of calling every
-sufficient bound a tool maximum.
+sufficient bound a tool maximum. The revised disposition explicitly accepts
+representation boundaries in the unchanged tools. `Integer'Last` remains an
+inherited ceiling, not a promise to admit every composition of values below it.
 
 The owner also directed that, once the compiler's assurance is established,
 running GNATprove on each program "should be nothing more than a safety check
@@ -76,7 +67,8 @@ universal pinned-solver completion; it remains a [trusted premise](#trusted-prem
 
 - **Authorization.** Record the owner's implementation "proceed" on `main`
   before claiming implementation work, following [planning](planning.md).
-  The planning-only authorization does not satisfy this condition.
+  The owner has authorized #88–#94 after the capacity rule is justified; #119
+  is the current dependency, and no production package is claimed yet.
 - **Assurance.** A definite non-proof with resources remaining is a defect.
   If it cannot be fixed, stop and report it for the owner's decision; do not
   silently weaken assurance or introduce an assurance-motivated membership rule.
@@ -89,8 +81,10 @@ universal pinned-solver completion; it remains a [trusted premise](#trusted-prem
   established, report that stop before #92 removes the existing source cap.
 - **Large static data.** #93 must investigate frontend, object-format and linker
   acceptance of static String data approaching the proposed value domain before
-  fixing that domain. An unfixable non-resource failure requires a reported stop
-  and owner disposition, not automatic adoption of a lower value cap. Begin with
+  fixing that domain. Derive explicit source-sensitive restrictions under the
+  selected unchanged-tool route, coordinating #119/#91. A failure on admitted
+  source is a defect; a demonstrated representation obstruction can justify a
+  proposed pre-admission restriction, never an arbitrary lower cap. Begin with
   source analysis and cheap discriminating probes; a multi-gigabyte experiment
   is conditional on its concrete hypothesis and host resources.
 - **Unresolved tool behavior.** Verify confirmation configuration and named
@@ -129,21 +123,22 @@ closed cost argument. A source-sensitive capacity vector is preferable to a
 uniform worst-case byte cap if the frontend pin is retained: it can distinguish
 sparse source from dense syntax and semantic expansion. It still needs the full
 soundness argument and would exclude some intended otherwise valid compositions.
-Neither candidate is adopted, and incompleteness of this derivation is not proof
-that no tractable rule can exist.
+The source-sensitive direction is now selected; no complete predicate or
+numeric envelope is adopted. Incompleteness is not proof that no tractable rule
+can exist.
 
 The owner resolved [decision #112](https://github.com/berkeleynerd/silver/issues/112)
 by authorizing the research-only investigation below. This follows the
 expansiveness direction without establishing tractability or authorizing a
-production toolchain change. Retaining the pin with explicit aggregate
-restrictions remains a comparison alternative, not a silently selected lower
-cap. Implementation #88–#94 remains unstarted. Publication of the reviewed
+production toolchain change. The later #117 disposition selects retaining the pin with justified aggregate
+restrictions; it does not select a numerical lower cap. Implementation #88–#94 remains unstarted. Publication of the reviewed
 #107/#108 stop did not complete #91, #93 or milestone 5.
 
 ## Frontend representation feasibility research
 
-The owner's [research-only instruction](session-memory.md#2026-10-17--frontend-representation-feasibility-research-authorized)
-selects one cohesive [work package #113](https://github.com/berkeleynerd/silver/issues/113).
+This is the historical scope of completed research #113. The owner's
+[research-only instruction](session-memory.md#2026-10-17--frontend-representation-feasibility-research-authorized)
+selected one cohesive [work package #113](https://github.com/berkeleynerd/silver/issues/113).
 Parallel analyses contribute to this one deliverable; they are not separate
 implementation increments. The research covers:
 
@@ -177,11 +172,10 @@ deliverable. The conclusion must distinguish source facts, native observations,
 derivations and premises; it does not claim production readiness or universal
 assurance for a changed frontend.
 
-Routine research tracking, documentation, commits and publication are authorized.
-Production toolchain/compiler/runtime/proof changes, pin or membership adoption,
-lower-cap selection, Oracle amendments and implementation #88–#94 are excluded.
-Any next implementation needs its own recorded instruction after the research
-result is concrete and reviewable. No new harness goal was requested.
+That research authorization included tracking, documentation, commits and
+publication, and excluded production changes, pin or membership adoption and
+#88–#94. The newer retained-tool direction above supersedes its recommendation;
+its technical evidence is preserved. No new harness goal was requested.
 
 ## Frontend representation result and owner disposition
 
@@ -193,42 +187,43 @@ repeated values earlier, but needs a wider interface and assurance redesign.
 Neither design is implemented, and the component arithmetic does not establish
 complete source/phase accounting or whole-language tractability.
 
-**Implementation is at a full stop.** No inspected externally maintained
-GNAT/GNATprove pair supplies the necessary changes. The designs touch compiler
-bodies and the C/C++ interface, and no fully verified SPARK-owned route has been
-demonstrated for every required body and interface. Calling a private maintained
-fork external does not exempt it from the Oracle. GNATprove separately constructs
-per-character nodes for the inspected literal route, so wider frontend storage
-alone cannot remove that producer's representation limit. Non-gating confirmation
-may report a reliably detected incomplete run; it cannot supply missing universal
-assurance or make a known finite representation bound a resource assumption.
+The reviewed stop applies to the originally proposed full composition domain:
+no inspected external pair supplies the proposed widening, and the inspected
+GNATprove literal route has a separate per-character Why-node limit. These
+source-derived findings remain valid with their source-correspondence premises.
+They are not native near-limit failures or safe admission thresholds. The
+inspected SPARK snapshot is not established as the installed archive's exact
+source commit.
 
-The recommendation in Backlog [decision #117](https://github.com/berkeleynerd/silver/issues/117)
-is to **retain the unchanged Oracle and
-seek actually externally maintained paired frontend/producer support before
-commissioning implementation**, using the bounded widening design as the minimum
-frontend requirement. An unmodified suitable external release can fit the
-existing trust boundary; a version change alone is not an Oracle amendment.
-An upstream-maintained change is conditional on actual acceptance, integration
-and maintenance, not a patch submission or Alire manifest. If that support cannot
-be obtained, report the need for a different permissible route rather than
-silently maintaining unverified compiler bodies or lowering the domain.
+The owner has selected the other route through
+[decision #117](https://github.com/berkeleynerd/silver/issues/117): **retain the
+unchanged tools and derive explicit capacity restrictions before admission**.
+The absence of external widening support therefore ceases to block this plan.
+No compiler fork, upstream adoption, maintainer contact or replacement frontend
+is required. The full originally proposed value/composition domain changes;
+current supported language does not change at this checkpoint.
+
+[Capacity design #119](https://github.com/berkeleynerd/silver/issues/119) must
+account for retained and temporary values, compiler-generated data, dependencies,
+phase-specific duplication, representation arithmetic and allocation growth.
+A per-String bound alone is insufficient. Its output must justify a decidable
+rule, preferably by program structure; any conservative envelope needs a
+reasoned comparison. An unfinished component or reviewed research stop does not
+unlock expanded admission in #92/#93.
+
+Both build and proof-essential producer representations belong in the capacity
+argument. Non-gating confirmation cannot waive required obligation generation
+or automatic discharge. An admitted program exceeding such a representation
+is a defect even if the build succeeded. Physical resource exhaustion is a
+separate operational outcome. A documented capacity restriction does not itself
+require an Oracle amendment.
 
 [Independent review](reviews/review-frontend-representation-0af844fb85.md) of
-frozen technical target `0af844fb85b48155b38f237a5437bc27f71e8563` is complete.
-Its only low finding, L1 [#115](https://github.com/berkeleynerd/silver/issues/115),
-was an evidence excerpt line-convention defect. Integrated repair
-`042e35c40c62997544a11abb44f4169f12d0f1bd` and regenerated evidence were
-independently rechecked; no finding remains. Publication is through
-[PR #116](https://github.com/berkeleynerd/silver/pull/116), with merge and closure
-tracked on the live issues. Decision #117 concerns the ownership route and
-producer scope; the research result
-does not authorize another open-ended investigation, maintainer contact, patch
-submission, production changes, a new tool pin, an Oracle amendment or a smaller
-language domain. Packages #88–#94 remain Backlog, and milestone 5 remains incomplete.
-The result's dependency outline is not a set of Ready implementation packages;
-any later split must record all actual increments and completion criteria in the
-same planning step.
+frozen #113 target `0af844fb85b48155b38f237a5437bc27f71e8563` remains complete;
+low finding #115 was repaired at `042e35c40c62997544a11abb44f4169f12d0f1bd` and
+independently verified. PR #116 merged as `11af48017a`. That review certifies
+its historical research scope, not the new capacity design. #119 and all
+production packages remain incomplete; milestone 5 is open.
 
 ## Design
 
@@ -285,7 +280,7 @@ Driver statuses apply before application execution and to standalone confirmatio
 | 0 | `check`: admitted; `catalogue`: exported; `compile`: admitted and built; `confirm`: Confirmed |
 | 2 | Nonmembership under an explicit rule, or usage error |
 | 3 | Defect: non-resource tool/implementation/infrastructure failure, or insufficient evidence to attribute an unsuccessful tool phase |
-| 4 | Attributable compiler/tool resource exhaustion; for `confirm`, also explicit interruption or a detected, named confirmation-only tool boundary |
+| 4 | Attributable compiler/tool resource exhaustion; for `confirm`, also explicit interruption or a detected, independently justified observation-only boundary |
 
 Once `run` starts the application, its normal exit code belongs to the application,
 including 0, 1 or any value colliding with driver statuses. Exit 1 can mean Reject,
@@ -313,7 +308,9 @@ gnatwhy3, Why3/provers, the Image adapter, report I/O, GPRbuild/linker and Alire
   even if the tool describes its result as a step/time/memory limit.
 - Cover producer/translator failures before report generation and report-writer
   or reader failure, not just prover attempts. Identify a named producer limit
-  only through a validated detection rule; an unexplained crash remains a defect.
+  only through a validated detection rule. Classify a proof-essential representation
+  failure as a defect; a reporting-only boundary needs the independence argument
+  below before it may be Inconclusive. An unexplained crash remains a defect.
 - Either supervise the driver to preserve directly observed termination evidence,
   or document its uncatchable environmental deaths. A supervisor cannot recover
   every cause from a signal; uncaught termination need not return driver status 4.
@@ -328,7 +325,7 @@ For confirmation, use this decision order:
 2. Check unsuccessful evidence separately for structure, identity, provenance,
    coverage and permitted diagnostics. An expected unproved safety record is not
    itself a structural defect. Missing/truncated evidence caused by an observed
-   interruption, attributable resource stop or detected named boundary is incomplete,
+   interruption, attributable resource stop or justified observation-only boundary is incomplete,
    not automatically malformed; unrelated malformed or inconsistent evidence is a
    defect. Record what coverage could and could not be checked.
 3. For each check, any Valid attempt proves that check; a losing Unknown, crash or
@@ -344,7 +341,9 @@ For confirmation, use this decision order:
 5. Aggregate the result: any established defect takes precedence, including one
    found before interruption. Otherwise incomplete confirmation is Inconclusive
    only with attributable resource exhaustion, explicit interruption or a detected
-   named confirmation-only boundary. Unexplained incompleteness is a defect.
+   observation-only boundary established as independent of required proof generation
+   and discharge. Proof-essential representation overflow on admitted source is
+   a defect. Unexplained incompleteness is a defect.
 
 | Confirmation outcome | Standalone status | Required report |
 | --- | --- | --- |
@@ -396,14 +395,14 @@ and the mode's `--warnings` setting; drop `--level` and use:
 | Limit today | Location | Replacement | Package |
 | --- | --- | --- | --- |
 | Source length 1–4096 bytes | Both profile recognizers and language | Justified tool-capacity rules researched below | #91, #92 |
-| 63 operators per program | `Work_Tail`/`Within_Work_Budget` | None | #92 |
-| 64 expression leaves | `Max_Expression_Operands`, `Max_Operands`; catalogue operand/reference fields | None | #92 |
+| 63 operators per program | `Work_Tail`/`Within_Work_Budget` | No independent policy cap; charge necessary tool representations | #92 |
+| 64 expression leaves | `Max_Expression_Operands`, `Max_Operands`; catalogue operand/reference fields | No independent policy cap; charge necessary tool representations | #92 |
 | 341 binding slots | Profile/scalar environments (`Max_Source_Length / 12`) | Sized from input | #89 |
 | 16 MiB retained reports; Natural indexing | `Silver_Report_Storage`, `Max_Report_Length` | Streaming or 64-bit-indexed storage | #89 |
 | 16 MiB source/file reads and writes | `Silver_Platform`, ghost arrays and driver snapshots | Growable storage/sequences; operational read/size failures never mean nonmembership | #88, #89 |
 | 4096-character report-policy names | `Silver_Library_Reports`, `scripts/check_evidence.py` | Explicit identifier rule | #89 |
 | Exponent at most 4096 | Scalar/length numerals, `Max_Exponent` | Pinned maximum 799,999 | #92 |
-| String/output/argument lengths and length literals at most 4096 | `Silver_IO`, `Silver_Path_Facts`, catalogue | Integer'Last, subject to #93's feasibility stop | #93 |
+| String/output/argument lengths and length literals at most 4096 | `Silver_IO`, `Silver_Path_Facts`, catalogue | Justified value/composition domain within Integer'Last and #91's aggregate rules | #93 |
 | 100,000 steps and 1,000 MiB per prover | Driver proof command | No confirmation caps | #88 |
 | 16,384-byte command text and fixed path buffers | Driver/platform contracts and bootstrap | Growable argv/path storage and sequence observations; actual OS failures classified by cause | #88, #89 |
 
@@ -425,10 +424,10 @@ roles; #90 supplies corresponding Lean constants and mechanical numeric ties.
 | Physical line width, tabs expanded to next multiple of 8 columns | At most 32,765 | 32,765 accepted with LF, CR, CRLF or no terminator; 32,766 gives "this line is longer than 32766 characters". The retained 39-byte program padded with tabs passes at 4,130 bytes, fails at 4,131. |
 | Identifier length | At most 4,096 characters | 4,097 gives "Name buffer overflow; Max_Length = 4096" and a GNAT bug box in tested roles/modes |
 | Numeric literal exponent | At most 799,999 | 800,000 gives "exponent too large" in tested bases 2, 10 and 16/mantissas; scanner source corroborates |
-| Source capacity | No replacement rule adopted | #107 reports the missing complete allocation/expansion argument; #91 remains unstarted |
-| Integer range; one-based String length | Pinned Integer range; proposed length at most Integer'Last (2,147,483,647) | Inherited target meaning, not Ada's portable minimum; the intended composition domain encounters the frontend representation stop above |
+| Source and aggregate representation capacity | No replacement predicate adopted | #119 develops the missing phase/construct allocation argument; #91 implements the justified result |
+| Integer range; one-based String length | Pinned Integer range; length at most Integer'Last (2,147,483,647), additionally subject to the selected capacity predicate | Inherited ceiling, not a promise that every value/composition below it is admissible |
 
-#91's source-capacity research has two obligations: **soundness for every
+#119's design, implemented by #91, has two obligations: **soundness for every
 admitted source**, and **justification of the most expansive tractable rule**.
 It starts with pinned producer-source accounting and existing evidence:
 
@@ -461,14 +460,30 @@ It starts with pinned producer-source accounting and existing evidence:
   to native/Lean membership, catalogue and frontend premise. Re-derive affected
   inputs when the runtime/toolchain changes, including #93 and native macOS.
 
-These are obligations for any future replacement rule, not a completed derivation.
-The [continuation result](research/unbounded-feasibility-result.md) reports that
-hold together with the separate static-data stop. An unproved table-overflow
-premise cannot replace the missing argument.
+These are obligations for the replacement rule, not a completed derivation.
+The [design contract](research/retained-tool-capacity.md) adds the String/Uint
+lifetime, generated-data, backend and proof-producer accounting to this inventory.
+The original stop on the full composition domain is retained as evidence for
+justified restrictions. An unproved table-overflow premise cannot replace the
+missing upper-bound argument.
 
-### Confirmation-only tool limits
+<a id="confirmation-only-tool-limits"></a>
 
-These are named confirmation boundaries, not compilation membership rules:
+### Producer and observation limits
+
+The following limits need separate classification in #119/#91. A representation
+needed to generate or automatically discharge required obligations constrains
+admission, including when confirmation is optional. An admitted program hitting
+that bound is a defect. A purely observational/reporting boundary can remain
+confirmation-only only after establishing that it cannot prevent the required
+proof and defining a reliable detection path. Naming a tool limit is insufficient.
+
+The inspected literal producer's nonzero Why identities end at 2^30−1 and
+`Transform_String_Literal` creates nodes per character. This is an additional
+proof-essential capacity component, conditional on the recorded SPARK source
+premise; the installed-source connection and complete accounting remain open.
+The historical Image/report observations below remain useful, with this
+classification requirement replacing their blanket confirmation-only treatment:
 
 - **Image occurrence counter:** producer maximum 2^31−1. Recorded T4 points give
   approximately 6.685–52.266 identifiers per source byte, projecting approximately
@@ -476,9 +491,10 @@ These are named confirmation boundaries, not compilation membership rules:
   two shapes; original model counts were not independently re-read because the
   archive omitted those models. Encoding width/growth may change the projection;
   memory need not exhaust first. #89 widens the adapter's own identifier while
-  retaining a checked producer-counter boundary and its diagnostic rule.
+  retaining the producer's actual counter width in #91's accounting and diagnostic
+  rule. Widening the adapter alone does not widen the producer.
 - **Report writer:** a possible approximately 2-GiB Natural-indexed writer limit
-  remains to be verified from producer source in #89. Measured 19–350 report bytes
+  remains to be verified from producer source in #89, with its role classified by #119/#91. Measured 19–350 report bytes
   per source byte project approximately 6–115 MB; that is not a guaranteed bound.
 - **JSON depth:** the current auditor uses 64 levels; reviewed producer report
   nesting is fixed rather than program-AST depth. #88/#89 must recheck this for
@@ -564,9 +580,9 @@ and bookkeeping errors remain preserved with corrections in the evidence record.
 | 2 | [#88 Proof confirmation and resource outcomes](https://github.com/berkeleynerd/silver/issues/88) | #87 | None; build no longer waits for proof |
 | 3 | [#89 Compiler storage and complexity that scale with input](https://github.com/berkeleynerd/silver/issues/89) | #88 | None |
 | 4 | [#90 Parameterized Lean assurance](https://github.com/berkeleynerd/silver/issues/90) | #88; coordinates certificates with #89 | None |
-| 5 | [#91 Pinned-frontend and derived source limits](https://github.com/berkeleynerd/silver/issues/91) | Research after #87; rules after #89/#90 | None while 4096 remains |
-| 6 | [#92 Remove source, operator and expression caps](https://github.com/berkeleynerd/silver/issues/92) | #88–#91 | Larger programs |
-| 7 | [#93 String and argument lengths up to Integer'Last](https://github.com/berkeleynerd/silver/issues/93) | #89/#90; coordinates #91 and can overlap #92 | Longer values, subject to feasibility |
+| 5 | [#91 Pinned-tool capacity rules](https://github.com/berkeleynerd/silver/issues/91) | Complete #119 design; rules after #89/#90 | None while 4096 remains |
+| 6 | [#92 Remove source, operator and expression caps](https://github.com/berkeleynerd/silver/issues/92) | #88–#91 and the justified #119 rule | Larger programs within tool capacity |
+| 7 | [#93 String and argument capacity within pinned-tool limits](https://github.com/berkeleynerd/silver/issues/93) | #89/#90 and implemented #91/#119 rules; coordinates #92 | Longer values within justified aggregate capacity |
 | 8 | [#94 Validation, review and delivery](https://github.com/berkeleynerd/silver/issues/94) | All | Records delivered support |
 
 #89 introduces separated native constants; #90 ties and parameterizes their Lean
@@ -576,7 +592,11 @@ shared certificates and checkpoints. Each package leaves the project valid.
 #93 refreshes bootstrap/library identity and fixed-input envelopes after runtime
 changes. #94 reconciles catalogue fields/export, scripts/check_evidence.py,
 README, samples/fixtures, Rosetta assessment text and all assurance records.
-The milestone closes only when #94 completes; this plan starts none of them.
+#119 is the current design work package under #91, shared with #93, before
+capacity adoption. #88–#90 are separable foundations, but the owner selected capacity design first;
+#92/#93 require the justified design and implemented rules, not just research
+issue closure. The milestone closes only when #94 completes. Production remains
+unstarted during this design step.
 
 ## Validation plan
 
@@ -595,7 +615,9 @@ iteration for changed inputs and one complete capability checkpoint in #94.
 - Test the exact confirmation decision order with fixtures and small genuine
   reports, including nonzero exits, mixed prover outcomes, completed defects
   followed by interruption, truncated evidence and producer failures before reports.
-  Update pinned proof-option/why3session assertions in tests/test_samples.py.
+  Include proof-essential representation overflow as a defect and test any
+  justified observation-only boundary separately. Update pinned proof-option/
+  why3session assertions in tests/test_samples.py.
 - Exercise build without proof, standalone confirmation witnesses and retained
   workspace identity. All supported samples must build, run and confirm.
 - Test observed I/O/exec/resource failures under ulimit -v/-s/-f/-t, full disk and
@@ -626,7 +648,8 @@ and report their disk use; reporting alone cannot prevent a full disk.
 
 New constructs and [Rosetta stages](../rosetta/progression.md), String values
 beyond Integer'Last, compiler-chosen proof cut points, hosted CI and macOS as a
-Linux completion gate remain out of scope. No implementation is authorized here.
+Linux completion gate remain out of scope. This checkpoint changes direction
+and capacity design; production implementation is unstarted.
 
 ## Scoping validation
 
@@ -638,7 +661,8 @@ outcome wording did not fully land in PR #95. The published independent review
 records that chronology; this correction does not rewrite it. The
 [repair record](review-ec82b4e5f2-repairs.md) records dispositions and validation.
 
-This corrective pass changes planning documents and issue scope only. It neither
-runs the newly specified experiments nor changes implementation, current language,
-Oracle or canonical proof artifacts. Link/anchor, consistency and whitespace
-checks are proportionate; implementation proofs belong to authorized execution.
+The earlier corrective pass changed planning documents and issue scope only.
+This retained-tool direction/design checkpoint likewise leaves current language,
+Oracle, production source and canonical proof artifacts unchanged. Link/anchor,
+consistency and whitespace checks are proportionate; no compiler, GNATprove,
+Lean build or full-suite validation is claimed for this checkpoint.
