@@ -200,3 +200,22 @@ L2/#75 are repaired in `b0f0af3522`; final linkage introduces no further finding
 Complete integrated validation and final support/evidence records remain pending
 under #70. The implementation owner may add their actual validation disposition
 without treating this source-review result as a substitute for those checks.
+
+## Native environment aggregate repair
+
+Reviewed `d83927cef3`, integrated into the review lane as `6ab89efb71`. The
+`Body_Environment` iterated array aggregate preserves `Count` and maps every
+active and inactive slot through the unchanged `Body_Binding`, exactly as the
+unchanged native postcondition requires. The source-shape change is confined to
+this replacement body, and `ExpressionTranslation` checks its exact aggregate
+expression. The active-prefix correspondence theorem still derives from the
+full-array mapping contract. The retained finite loop is accurately labeled a
+reference implementation, not the current native body. No new finding arose.
+
+The earlier full native run proved 15,153 checks but failed the strict audit
+because of the loop initialization warning; it is not a successful delivery
+validation. Retained focused run `20261017T015422-fbfab8ecf794` proves the repaired
+function's three checks without that warning. This source review and focused
+result do not replace the pending final native audit, refreshed source
+certificate, complete Lean run or integrated tests. Final support wording should
+also identify the native aggregate and finite reference loop accurately.
