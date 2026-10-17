@@ -168,6 +168,29 @@ inspection cannot silently transfer to a different executable. Follow existing
 correspondence premises without introducing unsolicited binary attestation work.
 Linux is primary; native macOS evidence is independent and nonblocking.
 
+## Initial production-route derivation
+
+The [driver](../../src/silver.adb), lines 103–125, selects Main alone for null,
+or Main plus the six identity-bound runtime files for output; both use
+`-gnat2022 -gnata -gnato`. Build is `gprbuild -P ... -p`, with no optimization
+or code-model override. Proof uses the Image GNATprove overlay, `-U --mode=all`,
+the complete report policy and current capped prover options recorded there.
+`scripts/bootstrap.py:156–170,278–291` fixes the Alire context and overlay; it
+replaces gnatwhy3, not the embedded Ada frontend. These are current source facts.
+In the inspected SPARK snapshot, `gnatprove.adb:178–323,1315–1319` separately
+dispatches native data-representation generation (`-S -gnatR2js -gnatws -gnatx`)
+and ALI/translation runs (`-gnatc -gnates=...`). Their closures must be separate.
+In pinned GCC, `sinput-l.adb:365–381` deduplicates physical names except in
+multiple-unit mode; `127–145,231–236` allocates a whole template-file extent for
+each virtual copy. Image reaches `System.Img_Int` and `Image_I(Integer)` through
+`exp_imgv.adb:1113–1116` and `s-imgint.ads:36–41`; source-only generic exclusion
+therefore does not close virtual counts. GNATprove inlining has a separate
+dispatch (`sem_ch6.adb:4436–4448`), but `inline.adb:1970–2030` excludes the
+current exported package APIs and expression-function helper from that route.
+The next exact missing step is to bound reachable generic spec/body copies,
+remaining generated/runtime inline copies (`inline.adb:3839`) and inherited
+contract copies (`sem_prag.adb:32997`) per phase. No closed inventory is claimed.
+
 ## Comparison and next derivation
 
 Compare a closed source-sensitive rule with a genuinely sound uniform envelope
