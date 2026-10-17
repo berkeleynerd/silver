@@ -627,7 +627,7 @@ these ordinary expression/assignment helpers is rank-one Standard.Character,
 and is either statically constrained (possibly null) or unconstrained
 Standard.String. This statement concerns the GNATprove semantic/light-expansion
 path, not later native expansion or arbitrary library implementation types.
-The [frontend entity derivation](retained-frontend-entities.md#object-declarations-and-exact-type-distinctions)
+The [frontend entity derivation](retained-frontend-entities.md#string-types-under-light-expansion)
 retains the GCC source revision and the corresponding Main type-generation
 paths. The GCC references in this paragraph are relative to that report's
 `gcc/ada` tree, separately from the SPARK producer source cited elsewhere here.
@@ -843,6 +843,49 @@ constant. The relevant fixed symbols/types are in
 Symbol/theory initialization and the later Image adapter remain separately
 accounted stages; this prices the retained producer's actual Image syntax.
 
+### Ordinary String initializer assignment core
+
+`Assignment_Of_Obj_Decl` prices the executable initialization before
+`Transform_Declaration` adds its dynamic-invariant assumption. Exclude the one
+initializer translation, its expected-type conversion, binder/symbol setup and
+the later invariant suffix from this component. For a mutable unconstrained
+String, the UCArray binder path has the following maximum:
+
+| Initialization component | Nodes | Lists | Elements | Emitted overhead |
+| --- | ---: | ---: | ---: | ---: |
+| Expected abstract type | 2 | 0 | 0 | 0 |
+| Discarded move temporary/name | 2 | 0 | 0 | 0 |
+| Initializer temporary/name | 2 | 0 | 0 | charged at its uses below |
+| Map conversion and contents assignment | 5 | 1 | 1 | 25 |
+| Two bound conversions/accessors, equalities and assumptions | 8 | 6 | 8 | 82 |
+| Three-statement sequence | 1 | 1 | 3 | 1 |
+| Outer initializer binding | 1 | 0 | 0 | 8 |
+| **Total** | **21** | **8** | **12** | **116** |
+
+`Why_Type_Of_Entity` retrieves the regular binder type or constructs the UCArray
+abstract type (`src/why/gnat2why-util.adb:1889–1909`;
+`src/why/why-gen-binders.adb:448–481`). In the UCArray path, each stored bound
+identifier has at most six occurrences and is converted to builtin Integer
+with one call, giving at most fourteen. The corresponding initializer bound
+accessor has at most eighteen. Each equality/assumption therefore has at most
+`14+18+8+1 = 41` occurrences. Both conversions allocate their argument lists.
+The three-argument `Append` constructs one three-element statement list
+(`src/why/why-gen-progs.adb:38–58,329–364`). The map conversion, contents
+assignment and outer binding use the previously derived three-occurrence
+String types and five-occurrence local initializer temporary.
+
+The regular immutable path creates a temporary, equality, assumption and
+binding; its maximum is smaller. The regular mutable path emits only the
+assignment. The ordinary Strings have no validity, initialization or move-tree
+flags, overlays, tags or borrowing work. Thus **21/8/12/116** is a common
+initializer-assignment-core bound for every source String declaration
+(`src/why/gnat2why-expr.adb:1384–1460,1621–1831`), with the initializer supplied
+once. This is deliberately not called a complete String declaration bound:
+`Transform_Declaration` next constructs an object read and dynamic-invariant
+assumption, sequence and location label. A generated static alias can be an
+itype, preventing the simple named-predicate shortcut. The fixed rank-one
+String/Character invariant expansion remains a separately named helper below.
+
 ### Ordinary String assignment wrapper
 
 Under the same String-shape premise, a whole-object String assignment can be
@@ -1014,42 +1057,101 @@ direct `New_Module` calls for literals, VC theories, eager array-cache attempts
 or fixed initialization. Keeping those separate makes the remaining module term
 concrete without confusing module IDs with unique printed theory symbols.
 
-## Precise remaining obligations
+## Aggregate formula and finite remaining helper families
 
-A whole-source rule needs both lifetime allocation bounds and emitted-occurrence
-bounds, then safe checks against the respective representation ranges. The exact
-DAG recurrence above is computable **given the generated DAG**, but is not yet
-an independent admission calculation from authoritative Silver source.
+Use four-component costs in the order `(nodes, lists, list elements, emitted
+occurrences)`. The first three count lifetime allocations, including discarded
+work. The fourth counts every theory root once, with repeated child references
+expanded, before repeating theories between output files. Define `B(P)` as the
+sum of all non-`Close_Theory`-import costs for program `P`, including fixed
+setup/dependencies, headers, explicit imports, and the finite helper terms
+listed below. Let `M(P)` bound all module IDs, `C(P)` all theory closes, and
+`F(P)` all printed files in that process. The final aggregation is
 
-| Missing term | Concrete caller closure required |
+```text
+Why nodes       <= B_N(P) + C(P) * (2 + 2 M(P))
+Why lists       <= B_L(P)
+Why elements    <= B_J(P) + C(P) * (2 + 2 M(P))
+emitted counter <= F(P) * (B_O(P) + C(P) * (4 + 4 M(P)))
+```
+
+Each `Add_With_Clause` allocates one include node, appends one element to the
+existing theory includes list, and serializes that include plus its module:
+no new list (`src/why/why-inter.adb:361–382`). The prior close/import argument
+supplies `2+2M`. The printing-plan walk emits a theory at most once per file;
+therefore multiplying the sum of all created theory skeletons by `F` is safe,
+including when many are never selected. It deliberately overcounts a source
+expression that also appears in a discarded theory. This does not assume the
+process-global counter resets, or that Main always has exactly one output file.
+
+For clarity, the **closed numerical part** of `B` can already be assembled from
+these rows. Counts here are producer invocations, with caller multiplicities
+applied; they are not unqualified raw source-token counts. Disjoint accounting
+must avoid charging the extra conversions inside the String-assignment wrapper
+again as standalone conversions.
+
+| Charged component | Cost vector |
 | --- | --- |
-| Frontend-to-producer inputs | Bound generated entities, anonymous types, range captures and static/folded literal nodes for the admitted Main grammar and fixed dependencies; link these to source-derived quantities. |
-| Declaration/helper cost | The ordinary initializer child multiplicities, source Integer declaration/assignment wrappers and object outer-theory count are closed above. Price String wrappers and handle frontend-generated declarations/types. |
-| Type/module cost | The ordinary itype outer-theory and memoized entity-module counts are closed above. Price the declarations emitted inside those theories, fixed initialization and remaining directly created modules. |
-| Expression helper overhead | The normalized scalar-expression core and static Integer boundaries are closed above. Price dynamic String reconstruction, comparisons, Image and String assignment helpers, including lazily initialized symbols. Child-once properties do not make these costs zero. |
-| Loop per-entity overhead | Close `H` and `K_loop` for the Integer/String shapes and actual library write-global set, retaining the two endpoint domains and snapshot accounting. |
-| Fixed libraries at call sites | Separate one-time fixed library theories from per-call argument binding, contract/check substitution, globals and any permitted inlining. Fixed library source size does not imply constant total call-site cost. |
-| Printing-plan source bound | The coarse `F <= E_list` bound is closed above. Supply the frontend/dependency bound on `E_list`; sharpening Main to one file would require closing generated-entity and type-VC guards. |
-| Lifetime nodes and lists | Charge builders and list creation in paths whose results are simplified, discarded or never printed. The final JSON tree cannot observe them. |
+| Normalized Integer tree with `l` leaves and `o` operators | `(2l+4o, 2o, 3o, 11l+20o)` |
+| Static nonempty Integer boundary | `(4,1,1,15)` |
+| Source Integer declaration wrapper | `(13,3,9,55)` |
+| Source Integer assignment wrapper | `(6,0,0,8)` |
+| Scalar comparison | `(1,1,2,8)` |
+| Boolean not, common program/term allowance | `(1,1,1,8)` |
+| Short-circuit wrapper | `(10,2,3,28)` |
+| Enabled warning wrapper | `(9,1,3,27)` |
+| Nonstatic split-binder String read | `(6,3,5,48)` |
+| Full ordinary String conversion | `(47,22,31,459)` |
+| Two-String concatenation wrapper | `(60,32,49,484)` |
+| String comparison wrapper | `(25,8,14,147)` |
+| Integer Image wrapper | `(5,2,3,18)` |
+| String initializer assignment core | `(21,8,12,116)` |
+| Whole-object String assignment wrapper | `(148,61,86,1247)` |
+| Static literal use and definition family | The `R_lit/K_lit/L_i` formula above |
+| Eager array-representation cache attempt | `(17,0,0,0)`; misses additionally need their theory body |
 
-The existing source/certificate model supplies useful grammar and semantic
-quantities, including declaration/expression/loop structure. It does not yet
-establish these external producer transformation bounds. Samples, observed JSON
-growth, or a successful large proof run would not close that gap.
+Thus write the single pre-import sum as
 
-The next feasible step is a cost model for this finite reachable grammar,
-parameterized by the frontend-generated entity/literal bounds: maintain separate
-node, list, list-element and serialized-occurrence components; first close
-ordinary declarations and their subtype theories, then expression helpers and
-library calls, then emitted-file selection. Each leaf needs source justification
-and a composition lemma. The closed literal and child-multiplicity results above
-can be reused directly. This investigation does **not** establish that the work
-is impossible or that an external toolchain modification is necessary.
+```text
+B(P) = K_fixed + sum(n_q(P) * c_q for the closed rows q)
+                + sum(n_h(P) * K_h for the finite helper families h below).
+```
 
-Until those terms are closed, no sound expanded threshold follows from this
-producer analysis. Retain the current admission rules and the unchanged Oracle;
-record the capacity prerequisite as incomplete rather than selecting an
-empirical cutoff or proceeding with dependent admission changes.
+`K_h` is a **missing source-derived cost**, not an experimentally fitted
+constant or a usable admission allowance. Where a helper receives an expression,
+its cost must specify the supplied-child multiplicity; it cannot conceal
+retranslation or repeated serialization in a constant. The remaining table is a
+coverage obligation, not a claim that the whole producer is already bounded.
+
+| Remaining family | Exact work and source-count connection still required |
+| --- | --- |
+| `K_fixed` | One-time predefined and selected dependency theories, package processing, symbol initialization, external-constant assumptions, fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
+| `K_object` / `K_binder` | Declaration symbol/binder setup and two ordinary object/loop outer theories. Source objects plus at most two generated bound captures per loop are bounded by the frontend report; contents and direct modules are still unpriced. |
+| `K_type_int_static`, `K_type_int_loop`, `K_type_string_static`, `K_type_string_literal` | Numerical type/completion contents for the named type families, including range/property/default-initialization helpers. The frontend report distinguishes non-itype object ranges/static-literal String subtypes from Integer index/loop and String alias/literal itypes. Loop-index types can be dynamic or empty and must not be priced as nonempty static source object types. |
+| `K_array_rep` | Rank-one ordinary Character array representation and comparison theory bodies on the single key miss, beyond the already counted eager attempt and helper-symbol nodes. Close the number of attempted creations as well as misses. |
+| `K_string_decl_inv` | Object read plus `Assume_Dynamic_Invariant`/sequence/location suffix after each String initializer core. A static alias itype takes the expanded invariant path through one rank-one array predicate and Character, rather than always calling an existing named predicate. |
+| `K_generated_decl` | Executable checks/wrappers for generated static object subtypes, static String index/alias subtypes, loop-index subtypes and at most two loop bound-capture declarations. Attribute/bound-expression translations must be charged here or to the closed expression rows, once consistently. |
+| `K_length`, `K_control` | Source `Name'Length`, statement-list/location wrappers and branch skeletons. Length first constructs a named object read and temporary even when later using the binder-specific accessor (`src/why/gnat2why-expr.adb:19903–20101`); discarded eager work counts. Branch/loop body child coefficient one is already established. |
+| `K_loop`, `H_int`, `H_string`, `H_global` | Per-loop fixed framing plus snapshots/preservation for each modified root. The existing `sum(|Q_loop|) <= F_loops(D+G)` bound applies; the finite actual fixed-library write-global set must determine `G` and its helper shapes. |
+| `K_call[j]` | One wrapper family for each admitted library operation: Put, Put_Line, First_Or_Default, Input_Is_Valid and Reject. Count source call sites and any immutable initializer replay; price actual binding, conversions, checks, contracts/effects and globals. The frontend report excludes body inlining into Main, but fixed package source size alone is not a per-call bound. |
+| Invocation map and counters | Close `n_q(P)` and `n_h(P)` from the source grammar and frontend-generated counts, including expected-type construction and all conversion/lookups. Ordinary initializers need at most program plus term translation; Main-local constants have no third assumption pass. Generated captures, type helpers and fixed call wrappers still require their own counts. Bound `M`, `C`, `F <= E_list` and the temporary-name counter from the same accounting. |
+
+The [frontend report](retained-frontend-entities.md) now supplies the Main entity,
+type and literal multiplicities, including generated literal lengths; they are
+no longer an undifferentiated missing frontend inventory. Standard and selected
+dependencies still contribute separately to `E_list` and the fixed terms.
+Known caller bounds include twenty-seven memoized module kinds per entity,
+two object/loop outer closes, the type/completion close table, and one close
+per distinct literal theory. Remaining direct modules and helper closes must
+be added; source entities are not themselves counts of translation attempts.
+
+This is one aggregate target with finitely named reachable helper families.
+It still has unpriced terms and unclosed invocation counts, so it is **not** a
+source-capacity rule and supplies no new admission threshold. The derivation
+must additionally compare every independent representation counter with its
+actual range. Samples, retained JSON sizes and successful proof runs cannot
+replace those missing source arguments. Continue closing these helper families
+before dependent admission changes; retain the current language and Oracle.
 
 ## Reproducing the evidence checks
 

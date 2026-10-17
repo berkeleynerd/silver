@@ -4237,6 +4237,210 @@
  19345:
 ```
 
+## src/why/gnat2why-expr.adb:19903-20101
+
+```ada
+ 19903:          when Attribute_First | Attribute_Last | Attribute_Length           =>
+ 19904:             declare
+ 19905:                Ty_Ent : constant Entity_Id := Retysp (Etype (Var));
+ 19906:             begin
+ 19907:
+ 19908:                case Ekind (Ty_Ent) is
+ 19909:                   when Array_Kind                =>
+ 19910:                      declare
+ 19911:                         Arr_Ty    : constant Entity_Id :=
+ 19912:                           (if Nkind (Var) in N_Identifier | N_Expanded_Name
+ 19913:                              and then Is_Type (Entity (Var))
+ 19914:                            then Entity (Var)
+ 19915:                            else Etype (Var));
+ 19916:                         Dim       : constant Positive :=
+ 19917:                           (if Present (Expressions (Expr))
+ 19918:                            then
+ 19919:                              Positive
+ 19920:                                (UI_To_Int
+ 19921:                                   (Intval (First (Expressions (Expr)))))
+ 19922:                            else 1);
+ 19923:                         B_Exp     : constant W_Type_Id :=
+ 19924:                           Base_Why_Type_No_Bool (Expected_Typ);
+ 19925:                         Index_Rng : constant Type_Kind_Id :=
+ 19926:                           Nth_Index_Type (Retysp (Arr_Ty), Dim);
+ 19927:                         B_Rng     : constant W_Type_Id :=
+ 19928:                           Base_Why_Type_No_Bool (Index_Rng);
+ 19929:                         Typ       : constant W_Type_Id :=
+ 19930:                           (if not Why_Type_Is_BitVector (B_Rng)
+ 19931:                              or else not Why_Type_Is_BitVector (B_Exp)
+ 19932:                            then EW_Int_Type
+ 19933:                            elsif BitVector_Type_Size (B_Rng)
+ 19934:                              <= BitVector_Type_Size (B_Exp)
+ 19935:                            then B_Exp
+ 19936:                            else B_Rng);
+ 19937:                         --  Typ is only used for the computation of 'Length.
+ 19938:                         --  Do computation on bitvectors only if the array
+ 19939:                         --  ranges over bitvectors, as otherwise the conversion
+ 19940:                         --  of 'First and 'Last to Typ may be incorrect. We
+ 19941:                         --  also use the widest of B_Rng and B_Exp for
+ 19942:                         --  bitvector computation. We cannot use B_Exp
+ 19943:                         --  systematically as it may be too short, producing
+ 19944:                         --  unexpected overflows.
+ 19945:
+ 19946:                         Modular_Range_Check : constant Boolean :=
+ 19947:                           Domain = EW_Prog
+ 19948:                           and then Attr_Id = Attribute_Length
+ 19949:                           and then Why_Type_Is_BitVector (Typ)
+ 19950:                           and then
+ 19951:                             UI_Expon (2, BitVector_Type_Size (Typ))
+ 19952:                             = Modulus (Index_Rng);
+ 19953:                         --  If attribute is length, computation on plain
+ 19954:                         --  bitvectors may already overflow. This can only
+ 19955:                         --  happen when 'First = 0 and 'Last is the maximum
+ 19956:                         --  bitvector value. Furthermore, since additionally
+ 19957:                         --  Last < Modulus (range), we can use modulus value
+ 19958:                         --  to remove the check entirely in cases where
+ 19959:                         --  bitvector maximum value exceeds modulus.
+ 19960:
+ 19961:                         pragma
+ 19962:                           Assert
+ 19963:                             (if Why_Type_Is_BitVector (Typ)
+ 19964:                              then
+ 19965:                                Modulus (Index_Rng)
+ 19966:                                <= UI_Expon (2, BitVector_Type_Size (Typ)));
+ 19967:
+ 19968:                         function Prepend_Modular_Range_Check
+ 19969:                           (Src   : W_Prog_Id;
+ 19970:                            First : W_Term_Id;
+ 19971:                            Last  : W_Term_Id) return W_Prog_Id
+ 19972:                         is (Sequence
+ 19973:                               (Left  =>
+ 19974:                                  New_Located_Assert
+ 19975:                                    (Ada_Node => Expr,
+ 19976:                                     Reason   => VC_Range_Check,
+ 19977:                                     Kind     => EW_Assert,
+ 19978:                                     Pred     =>
+ 19979:                                       New_Or_Pred
+ 19980:                                         (New_Comparison
+ 19981:                                            (Symbol => Why_Neq,
+ 19982:                                             Left   =>
+ 19983:                                               Insert_Simple_Conversion
+ 19984:                                                 (Expr => First, To => Typ),
+ 19985:                                             Right  =>
+ 19986:                                               New_Discrete_Constant
+ 19987:                                                 (Value => Uint_0, Typ => Typ)),
+ 19988:                                          New_Comparison
+ 19989:                                            (Symbol => Why_Neq,
+ 19990:                                             Left   =>
+ 19991:                                               Insert_Simple_Conversion
+ 19992:                                                 (Expr => Last, To => Typ),
+ 19993:                                             Right  =>
+ 19994:                                               New_Discrete_Constant
+ 19995:                                                 (Value =>
+ 19996:                                                    UI_Sub
+ 19997:                                                      (Modulus (Index_Rng),
+ 19998:                                                       Uint_1),
+ 19999:                                                  Typ   => Typ)))),
+ 20000:                                Right => Src))
+ 20001:                         with Pre => Modular_Range_Check;
+ 20002:                         --  Prepend additional check. While this looks like an
+ 20003:                         --  overflow, this should be a range check as this
+ 20004:                         --  comes from the length not being representable in
+ 20005:                         --  the modular type.
+ 20006:
+ 20007:                      begin
+ 20008:                         --  Array_Type'First/Last/Length
+ 20009:
+ 20010:                         if Nkind (Var) in N_Identifier | N_Expanded_Name
+ 20011:                           and then Is_Type (Entity (Var))
+ 20012:                         then
+ 20013:                            T :=
+ 20014:                              +Get_Array_Attr
+ 20015:                                 (Domain => Term_Domain (Domain),
+ 20016:                                  Ty     => Entity (Var),
+ 20017:                                  Attr   => Attr_Id,
+ 20018:                                  Dim    => Dim,
+ 20019:                                  Typ    => Typ);
+ 20020:                            if Modular_Range_Check then
+ 20021:                               T :=
+ 20022:                                 +Prepend_Modular_Range_Check
+ 20023:                                    (+T,
+ 20024:                                     +Get_Array_Attr
+ 20025:                                        (Domain => EW_Term,
+ 20026:                                         Ty     => Entity (Var),
+ 20027:                                         Attr   => Attribute_First,
+ 20028:                                         Dim    => Dim),
+ 20029:                                     +Get_Array_Attr
+ 20030:                                        (Domain => EW_Term,
+ 20031:                                         Ty     => Entity (Var),
+ 20032:                                         Attr   => Attribute_Last,
+ 20033:                                         Dim    => Dim));
+ 20034:                            end if;
+ 20035:
+ 20036:                         --  Object'First/Last/Length
+ 20037:
+ 20038:                         else
+ 20039:                            declare
+ 20040:                               Why_Expr  : constant W_Expr_Id :=
+ 20041:                                 Transform_Expr
+ 20042:                                   (Var,
+ 20043:                                    Domain,
+ 20044:                                    Params,
+ 20045:                                    No_Validity_Check => True);
+ 20046:                               Tmp       : constant W_Term_Id :=
+ 20047:                                 New_Temp_For_Expr (Why_Expr);
+ 20048:                               Simpl_Var : constant Boolean :=
+ 20049:                                 Nkind (Var) in N_Identifier | N_Expanded_Name;
+ 20050:                               Item      : Item_Type;
+ 20051:
+ 20052:                            begin
+ 20053:                               if Simpl_Var then
+ 20054:                                  Item :=
+ 20055:                                    Ada_Ent_To_Why.Element
+ 20056:                                      (Symbol_Table, Entity (Var));
+ 20057:                                  T :=
+ 20058:                                    +Get_Array_Attr
+ 20059:                                       (Item, Attr_Id, Dim, Typ => Typ);
+ 20060:                                  if Modular_Range_Check then
+ 20061:                                     T :=
+ 20062:                                       +Prepend_Modular_Range_Check
+ 20063:                                          (+T,
+ 20064:                                           +Get_Array_Attr
+ 20065:                                              (Item, Attribute_First, Dim),
+ 20066:                                           +Get_Array_Attr
+ 20067:                                              (Item, Attribute_Last, Dim));
+ 20068:                                  end if;
+ 20069:                               else
+ 20070:                                  T :=
+ 20071:                                    +Get_Array_Attr
+ 20072:                                       (Tmp, Attr_Id, Dim, Typ => Typ);
+ 20073:                                  if Modular_Range_Check then
+ 20074:                                     T :=
+ 20075:                                       +Prepend_Modular_Range_Check
+ 20076:                                          (+T,
+ 20077:                                           +Get_Array_Attr
+ 20078:                                              (Tmp, Attribute_First, Dim),
+ 20079:                                           +Get_Array_Attr
+ 20080:                                              (Tmp, Attribute_Last, Dim));
+ 20081:                                  end if;
+ 20082:                               end if;
+ 20083:
+ 20084:                               if not Simpl_Var or else Domain = EW_Prog then
+ 20085:                                  T :=
+ 20086:                                    Binding_For_Temp
+ 20087:                                      (Domain  => Domain,
+ 20088:                                       Tmp     => +Tmp,
+ 20089:                                       Context => T);
+ 20090:                               end if;
+ 20091:                            end;
+ 20092:                         end if;
+ 20093:                      end;
+ 20094:
+ 20095:                   when Discrete_Kind | Real_Kind =>
+ 20096:                      T :=
+ 20097:                        New_Attribute_Expr
+ 20098:                          (Etype (Var), Domain, Attr_Id, Params);
+ 20099:
+ 20100:                   when others                    =>
+ 20101:
+```
+
 ## src/why/gnat2why-expr.adb:20256-20300
 
 ```ada
@@ -9294,7 +9498,7 @@
    211:    -- Get_Args_From_Variables --
 ```
 
-## src/why/why-gen-binders.adb:448-453
+## src/why/why-gen-binders.adb:448-481
 
 ```ada
    448:    function Get_Why_Type_From_Item (B : Item_Type) return W_Type_Id is
@@ -9303,6 +9507,34 @@
    451:          when Regular | Concurrent_Self =>
    452:             return Get_Typ (B.Main.B_Name);
    453:
+   454:          when DRecord                   =>
+   455:
+   456:             --  To know if we should use the wrapper type, see if the
+   457:             --  fields component comes from the wrapper module.
+   458:
+   459:             declare
+   460:                Relaxed_Init : constant Boolean :=
+   461:                  (if B.Fields.Present and Has_Init_Wrapper (B.Typ)
+   462:                   then
+   463:                     Get_Module (Get_Name (Get_Typ (B.Fields.Binder.B_Name)))
+   464:                     = E_Module (B.Typ, Init_Wrapper)
+   465:                   else False);
+   466:             begin
+   467:                return EW_Abstract (B.Typ, Relaxed_Init => Relaxed_Init);
+   468:             end;
+   469:
+   470:          when UCArray                   =>
+   471:             declare
+   472:                Typ : constant W_Type_Id := Get_Typ (B.Content.B_Name);
+   473:             begin
+   474:                pragma Assert (Get_Type_Kind (Typ) = EW_Split);
+   475:                return
+   476:                  EW_Abstract (Get_Ada_Node (+Typ), Get_Relaxed_Init (Typ));
+   477:             end;
+   478:
+   479:          when Pointer                   =>
+   480:
+   481:             --  Use the wrapper type if either we have an init field or if the
 ```
 
 ## src/why/why-gen-binders.adb:745-786
@@ -12624,7 +12856,7 @@
   1220:    ---------------------
 ```
 
-## src/why/why-gen-progs.adb:38-45
+## src/why/why-gen-progs.adb:38-58
 
 ```ada
     38:    ------------
@@ -12635,6 +12867,19 @@
     43:    begin
     44:       Left := Sequence (Left, Right);
     45:    end Append;
+    46:
+    47:    procedure Append (Left : in out W_Prog_Id; Right1, Right2 : W_Prog_Id) is
+    48:    begin
+    49:       Left := Sequence ((1 => Left, 2 => Right1, 3 => Right2));
+    50:    end Append;
+    51:
+    52:    procedure Append (Left : in out W_Expr_Id; Right : W_Prog_Id) is
+    53:    begin
+    54:       Left := +Sequence (+Left, Right);
+    55:    end Append;
+    56:
+    57:    procedure Append (Left : in out W_Expr_Id; Right1, Right2 : W_Prog_Id) is
+    58:    begin
 ```
 
 ## src/why/why-gen-progs.adb:168-180

@@ -224,6 +224,13 @@
       "occurrence_overhead_max": 18
     }
   },
+  "string_initializer_assignment_core": {
+    "elements_max": 12,
+    "excludes": "initializer and expected-type conversion, binder/symbol setup, declaration dynamic-invariant suffix",
+    "lists_max": 8,
+    "nodes_max": 21,
+    "occurrence_overhead_max": 116
+  },
   "string_representation_primitives": {
     "eager_array_conversion_split_type_nodes_max": 6,
     "excludes": "supplied children except in complete read, binder/symbol/memoized-module setup, expected-type conversion",
