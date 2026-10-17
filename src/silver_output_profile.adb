@@ -1379,9 +1379,9 @@ is
       begin
         (if Target = 0 or else not Context.Scalar_Names.Items (Target).Mutable
            or else Value.After <= Scan.Position
-           or else (not Scalars.Is_Empty (Value.Bounds)
-             and then (Value.Bounds.Lower < Context.Scalar_Names.Items (Target).Declared_Bounds.Lower
-               or else Value.Bounds.Upper > Context.Scalar_Names.Items (Target).Declared_Bounds.Upper))
+           or else Scalars.Is_Empty (Value.Bounds)
+           or else Value.Bounds.Lower < Context.Scalar_Names.Items (Target).Declared_Bounds.Lower
+           or else Value.Bounds.Upper > Context.Scalar_Names.Items (Target).Declared_Bounds.Upper
          then Invalid_Body
          else (Scan with delta Position => Value.After, Assigned => True)));
 

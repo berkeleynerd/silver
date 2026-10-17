@@ -63,7 +63,7 @@ They replace GitHub's default labels.
 | `type: follow-up` | A conditional follow-up from a review disposition or delivery |
 | `type: stage` | A Rosetta progression stage |
 | `type: decision` | A question that needs the owner: an Oracle amendment, an authorization or a policy choice |
-| `severity: blocker`, `severity: low`, `severity: info` | A finding's severity, matching the review reports |
+| `severity: blocker`, `severity: medium`, `severity: low`, `severity: info` | A finding's severity, matching the review reports |
 | `area: language`, `area: assurance`, `area: compiler`, `area: runtime`, `area: tooling`, `area: docs`, `area: planning` | The part of the project an item changes |
 
 **Milestones**: one GitHub milestone for each roadmap milestone that is

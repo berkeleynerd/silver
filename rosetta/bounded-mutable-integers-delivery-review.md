@@ -6,7 +6,11 @@ retained page revision 412795, under the
 [#70](https://github.com/berkeleynerd/silver/issues/70). Original assessment
 attribution and the retained task revision are preserved. This is a targeted
 source review; it does not claim a completed integrated assurance checkpoint
-or reassess the remaining corpus.
+or reassess the remaining corpus. Dated completion pointer, 2026-10-17:
+PR #76 subsequently delivered the [integrated checkpoint](../docs/bounded-mutable-integers.md#integrated-validation-and-review).
+The later [B1/M1 repair](../docs/review-b79b986403-repairs.md) reopened capability
+completion and has now passed its required checkpoint; the motivating sample does not use an empty assignment interval
+and its narrow Rosetta mapping remains applicable.
 
 The task asks for the least positive `N` whose consecutive-square difference
 exceeds 1000. The selected program declares
@@ -39,5 +43,18 @@ and their other task assessments retain their meanings. The new narrow
 identifier does not admit declared scalar subtypes, conversions, general
 discrete loops, other scalar images, scalar guard refinement or assignment
 refinement. Adding it to `supported` and updating the assessment prompt are
-delivery edits; final capability completion still requires the integrated
-evidence recorded by the delivery package.
+delivery edits. The original integrated evidence is linked above; restored
+capability completion is recorded in the subsequent repair checkpoint.
+
+
+## Review repair synchronization — 2026-10-17
+
+B1's explicit nonempty Integer-assignment RHS rule is reflected in the
+`bounded-mutable-integers` description and current-language assessment prompt
+in [assess.js](assess.js). `python3 rosetta/refresh.py --render` completed using
+the retained manifest and coverage; every rendered file was byte-unchanged.
+The narrow supported identifier, Find square difference's stage-1 position 15,
+the 35 baseline tasks and stage #11's ten remaining broader tasks are unchanged.
+No corpus reassessment or new construct was performed. The metadata edit is
+outside native/Lean provenance inputs; the renderer tests read the unchanged
+manifest/coverage and renderer, not the assessment prompt.

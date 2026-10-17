@@ -120,10 +120,14 @@ structure Assignment where
   bounds : Interval := .full
   deriving DecidableEq, Repr
 
+/-- Empty RHS intervals are rejected even in unreachable loop bodies: the
+pinned Ada/SPARK frontend still checks statically predictable assignments.
+Mathematical interval inclusion itself retains the empty-subset law. -/
 def Assignment.check (assignment : Assignment) (ranges : Ranges) (mutable : Mutability) : Bool :=
   mutable assignment.target &&
     match ranges assignment.target, assignment.value.infer ranges with
-    | some target, some value => decide (assignment.bounds = target) && value.included target
+    | some target, some value =>
+        decide (assignment.bounds = target) && (!value.isEmpty && value.included target)
     | _, _ => false
 
 def Assignment.execute (assignment : Assignment) (values : Store) : Store :=
@@ -144,9 +148,10 @@ theorem Assignment.check_sound {assignment : Assignment} {ranges : Ranges} {muta
     cases value : assignment.value.infer ranges with
     | none => simp [value, target] at checked
     | some valueBounds =>
-      have compatible : assignment.bounds = targetBounds ∧ valueBounds.included targetBounds = true := by
-        simpa only [target, value, Bool.and_eq_true, decide_eq_true_eq] using checked.2
-      have included := compatible.2
+      have compatible : assignment.bounds = targetBounds ∧
+          valueBounds.isEmpty = false ∧ valueBounds.included targetBounds = true := by
+        simpa only [target, value, Bool.and_eq_true, Bool.not_eq_true', decide_eq_true_eq] using checked.2
+      have included := compatible.2.2
       have inferred := Expr.infer_sound value fits
       have within := Interval.included_sound included inferred.1
       refine ⟨inferred.2, ?_, ?_⟩

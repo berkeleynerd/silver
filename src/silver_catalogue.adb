@@ -726,7 +726,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""target"": ""visible initialized mutable Integer object; constants and loop indexes excluded, including in empty loops and unreachable arms"",");
       Put_Line ("        ""value"": ""integer_expression"",");
       Put_Line ("        ""evaluation"": ""RHS reads the pre-assignment scalar store; update only the target"",");
-      Put_Line ("        ""interval_inclusion"": ""every RHS intermediate fits Integer; whole RHS interval lies in target declared range"",");
+      Put_Line ("        ""interval_inclusion"": ""every RHS intermediate fits Integer; whole RHS interval is nonempty and lies in target declared range"",");
       Put_Line ("        ""body_interval"": ""whole declared range at every mutable read; assignment and guards never narrow it"",");
       Put_Line ("        ""self_assignment"": true,");
       Put_Line ("        ""preserves_input_length_facts"": true,");
@@ -768,7 +768,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""interval_arithmetic"": ""endpoint addition/subtraction/negation and min/max of four endpoint products; every intermediate fits Integer"",");
       Put_Line ("        ""correlated_operands_refined"": false,");
       Put_Line ("        ""scalar_guards_refine_intervals"": false,");
-      Put_Line ("        ""empty_index_interval"": ""index-dependent safety vacuous; out-of-range static subexpressions still excluded"",");
+      Put_Line ("        ""empty_index_interval"": ""index-dependent safety vacuous except Integer assignment requires nonempty RHS; out-of-range static subexpressions still excluded"",");
       Put_Line ("        ""positions"": [");
       Put_Line ("          ""integer_object_initializer"",");
       Put_Line ("          ""static_range_bound"",");

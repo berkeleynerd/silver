@@ -2,15 +2,20 @@
 
 Source review on Linux x86_64, 2026-10-17, for
 [assurance package #69](https://github.com/berkeleynerd/silver/issues/69).
-The [selected scope](bounded-mutable-integers.md) is authorized for implementation.
+Historical source-review record for the [selected scope](bounded-mutable-integers.md).
+Original delivery completed through PR #76; the later
+[review remediation](review-b79b986403-repairs.md) reopened the capability for
+B1/M1 and is now complete, without invalidating this capacity derivation.
 The initial planning review at `0685a58fd0` was read-only and left frontend,
 metadata, flow and Image applicability obligations open. The implementation-lane
 closure below resolves those source-review obligations and records separate
 native corroboration. Under the inherited producer/tool premises and the selected
 admission grammar, the retained Main envelope is **15,292,416 bytes**, within the
 existing 16,777,216-byte buffer. Source correspondence and complete native/Lean
-discharge remain separate delivery obligations; neither this sizing argument nor
-passing examples establishes them.
+discharge are separate delivery obligations; the [original integrated checkpoint](bounded-mutable-integers.md#integrated-validation-and-review)
+records their 2026-10-17 validation. Neither this sizing argument nor passing
+examples establishes them. The subsequent B1/M1 repairs passed their own
+[checkpoint](review-b79b986403-repairs.md#validation-and-handoff).
 
 ## Inputs and inherited baseline
 
@@ -54,7 +59,11 @@ the argument value, not that prefix. This supports retaining the selected
 signed-32-bit size-12 premise, but does not prove that every resulting mutable
 model/VC satisfies the adapter's selected schemas. Keep the
 [producer/consumer boundary](trusted-boundary.md#image-proof-adapter-boundary)
-and native model observations separate from traversal counting.
+and native model observations separate from traversal counting. The
+[capability closure](bounded-mutable-integers.md#assurance-boundaries) identifies
+the source-route, fixed-template semantic and native evidence classes. Universal
+applicability retains the explicit pinned-producer/per-program translation
+premise; observed successful mutable models do not prove it.
 
 ## Static constraints and generated subtype actions
 
@@ -182,12 +191,13 @@ routes; the envelope is derived from source above.
 Both reports contain only `Main` and `Silver_IO.Put_Line` entities, one Main
 coverage entry and Main/global timing maps. Twelve retained Image workspaces
 record the adapter inputs for the two compiles. These initial probes used native
-implementation `264c7edbd0`, before the cursor-contract repair and final catalogue
-edit; the inventory labels their selected-file hashes as historical probe inputs,
+implementation `264c7edbd0` (published patch `d3a4885ed6`), before the
+cursor-contract repair and final catalogue edit; the inventory labels their selected-file hashes as historical probe inputs,
 not a complete delivered-input manifest.
 
 The dense probe in run `20261017T012122-06823c6de905` used the repaired native
-implementation `04240f5df6`, before the final catalogue edit. Exactly one compile
+implementation `04240f5df6` (published patch `537c1a245d`), before the final
+catalogue edit. Exactly one compile
 proved all 66 compiler checks and the executable printed ` 9\n`. Its 4,096-byte
 source contains 118 static constrained declarations. The retained Main report
 is 93,326 bytes, with no proof records, 118 initializer advisories, 117 unused
@@ -205,5 +215,8 @@ separately. The three focused capacity tests passed in
 `20261017T011935-74d26ccf3eca`; the two affected constraint-admission tests passed
 in `20261017T011920-99e729df1f6c`.
 No clean rebuild, independent kernel replay or native macOS validation is
-claimed. Delivery package #70 must link complete integrated assurance to the
-actual delivered inputs before marking the capability complete.
+claimed. Delivery package #70 subsequently recorded complete integrated
+validation against the actual inputs in the [capability checkpoint](bounded-mutable-integers.md#integrated-validation-and-review)
+and [delivery evidence](evidence/bounded-mutable-integers/delivery-validation.json).
+That original completion is historical; the later B1/M1 findings and completed
+repair validation are recorded [separately](review-b79b986403-repairs.md).

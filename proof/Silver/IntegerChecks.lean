@@ -174,11 +174,12 @@ theorem Assignment.obligations_discharge {assignment : Assignment} {ranges : Ran
     cases value : assignment.value.infer ranges with
     | none => simp [value, target] at checked
     | some valueBounds =>
-      have compatible : assignment.bounds = targetBounds ∧ valueBounds.included targetBounds = true := by
-        simpa only [target, value, Bool.and_eq_true, decide_eq_true_eq] using checked.2
+      have compatible : assignment.bounds = targetBounds ∧
+          valueBounds.isEmpty = false ∧ valueBounds.included targetBounds = true := by
+        simpa only [target, value, Bool.and_eq_true, Bool.not_eq_true', decide_eq_true_eq] using checked.2
       rw [obligations, discharged_append, Expr.obligations_discharge value]
       simp only [value, unaryObligation, discharged, List.all_cons, List.all_nil,
-        Obligation.discharge, compatible.1, compatible.2, Bool.and_self]
+        Obligation.discharge, compatible.1, compatible.2.2, Bool.and_self]
 
 theorem declaration_obligations_valid {constants next : Constants} {declarations : List Declaration}
     (checked : checkDeclarations constants declarations = some next) :

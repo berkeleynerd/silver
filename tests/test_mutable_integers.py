@@ -79,8 +79,61 @@ class MutableIntegerTests(unittest.TestCase):
                      b'for S in 0..9 loop S:="y";end loop;'):
             self.check(program(declarations, body), 2)
         self.check(program(declarations, b'for A in 0..9 loop null;end loop;A:=2;'))
-        self.check(program(declarations, b'for I in 9..0 loop A:=I;end loop;'))
+        self.check(program(declarations, b'for I in 9..0 loop A:=I;end loop;'), 2)
         self.check(program(declarations, b'for I in 9..0 loop A:=10;end loop;'), 2)
+
+    def test_empty_interval_assignments_rejected_before_compilation(self) -> None:
+        # GNAT checks predictable range errors even in dead loop bodies. The
+        # last two cases also catch an incomplete repair that merely removes
+        # the containment bypass: canonical empty (1, 0) fits these endpoints.
+        cases = (
+            (b'A:Integer range 0..9:=0;', b'for I in 20..10 loop A:=I;end loop;'),
+            (b'A:Integer range 5..9:=5;', b'for I in 1..0 loop A:=I;end loop;'),
+            (b'N:Integer range 0..9:=0;A:Integer range 0..9:=0;',
+             b'for I in 10..N loop A:=I;end loop;'),
+            (b'A:Integer range 0..9:=0;', b'for I in reverse 20..10 loop A:=I;end loop;'),
+            (b'A:Integer range 0..9:=0;',
+             b'for I in 20..10 loop if A=0 then A:=I;end if;end loop;'),
+            (b'A:Integer range 0..3:=0;',
+             b'for I in 1..2 loop for J in 5..I loop A:=J;end loop;end loop;'),
+            (b'A:Integer range 0..9:=0;', b'for I in 2..1 loop A:=(I * 100);end loop;'),
+            (b'A:Integer range 1..9:=1;', b'for I in 20..10 loop A:=(I * 0);end loop;'),
+            (b'L:constant Integer:=20;H:constant Integer:=10;A:Integer range 0..9:=0;',
+             b'for I in L..H loop A:=I;end loop;'),
+            (b'N:Integer range -5..0:=0;A:Integer:=0;',
+             b'for I in 1..N loop A:=(I + 2147483647);end loop;'),
+            (b'A:Integer range 0..9:=0;', b'for I in 9..0 loop A:=I;end loop;'),
+            (b'A:Integer:=0;', b'for I in 1..0 loop A:=I;end loop;'),
+        )
+        for arguments in (False, True):
+            for declarations, body in cases:
+                with self.subTest(arguments=arguments, declarations=declarations, body=body):
+                    source = program(declarations, body, arguments=arguments)
+                    self.check(source, 2)
+                    before = set(HOST.artifacts.glob('program-*'))
+                    result = invoke('compile', self.source)
+                    self.assertEqual(result.returncode, 2, result.stdout)
+                    self.assertEqual(self.source.read_bytes(), source)
+                    self.assertEqual(set(HOST.artifacts.glob('program-*')), before)
+
+    def test_native_retained_empty_loop_forms(self) -> None:
+        # Nonempty assignment RHS intervals remain legal in empty loops.
+        # Existing vacuous Image, String, comparison and inner-bound positions
+        # must still pass the actual frontend and automatic proof pipeline.
+        declarations = b'A:Integer range 0..9:=7;N:Integer range 0..9:=0;S:String:="x";'
+        body = (b'for I in 20..10 loop A:=0;A:=A;'
+                b'if I<0 then null;end if;'
+                b'S:=Integer\'Image((I + 2147483647));'
+                + output(b"Integer'Image((I + 2147483647))")
+                + b'for J in 5..I loop A:=0;end loop;end loop;'
+                  b'for I in reverse 20..10 loop A:=0;end loop;'
+                  b'for I in 10..N loop A:=0;end loop;'
+                  b'for I in 1..2 loop for J in 5..I loop A:=I;end loop;end loop;'
+                + output(b"Integer'Image(A)&\"/\"&S"))
+        for arguments in (False, True):
+            with self.subTest(arguments=arguments):
+                executable, _ = self.compile_retained(program(declarations, body, arguments=arguments))
+                self.run_program(executable, b' 7/x\n', (b'ok',) if arguments else ())
 
     def test_admission_mutable_images_use_declared_widths(self) -> None:
         for lower, upper, initial, width, status in (

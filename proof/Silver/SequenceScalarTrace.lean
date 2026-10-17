@@ -53,6 +53,14 @@ theorem scalar_step_static {text form token state next values}
   | declarations reading => exact scalar_declarations_static reading static
   | other _ same => simpa only [same] using static
 
+theorem scalar_step_source_bounds {text form token state next values}
+    (trace : ScalarStepAt text form token state values next)
+    (elaborated : ScalarExpression.ElaboratedEnvironment state.scalarNames) :
+    ∀ declaration ∈ values, ScalarDeclarationSourceBounds text declaration := by
+  cases trace with
+  | declarations reading => exact scalar_declarations_source_bounds reading elaborated
+  | other => simp
+
 theorem scalar_step_checked {text form token state next values}
     (trace : ScalarStepAt text form token state values next)
     (static : ScalarExpression.StaticEnvironment state.scalarNames) :
@@ -117,6 +125,18 @@ private theorem check_append (constants : Integer.Constants) (first rest : List 
   | nil => rfl
   | cons head tail ih =>
       simp only [List.cons_append, Integer.checkDeclarations, ih, Option.bind_assoc]
+
+theorem scalar_tokens_source_bounds {text form tokens state values final}
+    (trace : ScalarTokensAt text form tokens state values final)
+    (elaborated : ScalarExpression.ElaboratedEnvironment state.scalarNames) :
+    ∀ declaration ∈ values, ScalarDeclarationSourceBounds text declaration := by
+  induction trace with
+  | done => simp
+  | next head reading rest ih =>
+      intro declaration member
+      rcases List.mem_append.mp member with member | member
+      · exact scalar_step_source_bounds reading elaborated declaration member
+      · exact ih (scalar_step_static reading elaborated) declaration member
 
 theorem scalar_tokens_checked {text form tokens state values final}
     (trace : ScalarTokensAt text form tokens state values final)

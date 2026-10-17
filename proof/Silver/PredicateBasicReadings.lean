@@ -217,19 +217,18 @@ theorem basic_meaning {text context scan item result}
         have mutable : (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).mutable = true :=
           true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
         have same := ScalarExpression.bodyReady_binding bodyReady (Nat.pos_of_ne_zero nonzero) targetBound mutable
+        have notEmpty : (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.isEmpty = false :=
+          Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inr (Or.inl bad)))))
         have included : (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.included
             (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds = true := by
-          by_cases empty : (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.isEmpty = true
-          · simp [Integer.Interval.included, empty]
-          · have notEmpty : (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.isEmpty = false := Bool.eq_false_iff.mpr empty
-            have low : ¬ (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.lower <
-                (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.lower :=
-              fun bad => good (Or.inr (Or.inr (Or.inr ⟨by simp [notEmpty], Or.inl bad⟩)))
-            have high : ¬ (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.upper >
-                (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.upper :=
-              fun bad => good (Or.inr (Or.inr (Or.inr ⟨by simp [notEmpty], Or.inr bad⟩)))
-            simp only [Integer.Interval.included, notEmpty, Bool.false_or, decide_eq_true_eq]
-            constructor <;> omega
+          have low : ¬ (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.lower <
+              (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.lower :=
+            fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl bad)))))
+          have high : ¬ (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.upper >
+              (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.upper :=
+            fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr bad)))))
+          simp only [Integer.Interval.included, notEmpty, Bool.false_or, decide_eq_true_eq]
+          constructor <;> omega
         have factsEq : scan.facts = result.facts := by
           simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
         refine ⟨by simpa only [SourceStatement.WellFormed] using nonzero, ?_⟩
@@ -238,7 +237,7 @@ theorem basic_meaning {text context scan item result}
           ScalarExpression.mutability, ScalarExpression.ranges,
           Nat.pos_of_ne_zero nonzero, targetBound, and_self, decide_true,
           Bool.true_and, mutable, ↓reduceIte, expression.inferred, same,
-          included]
+          included, notEmpty, Bool.not_false]
   | assignment kind target expression =>
       have ready := expression_reading_ready normal expression
       obtain ⟨name, info, _, found, _, mutable, _⟩ := target

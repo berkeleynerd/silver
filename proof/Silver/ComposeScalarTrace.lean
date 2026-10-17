@@ -50,6 +50,21 @@ theorem scalar_declarations_static {text : Source} {arguments : Bool} {state fin
       exact ih static
   | scalar _ _ first _ ih => exact ih (scalar_declaration_static static first)
 
+theorem scalar_declarations_source_bounds {text : Source} {arguments : Bool} {state final : ParserState}
+    {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
+    (elaborated : ScalarExpression.ElaboratedEnvironment state.scalarNames) :
+    ∀ declaration ∈ values, ScalarDeclarationSourceBounds text declaration := by
+  induction parsed with
+  | done => simp
+  | string _ _ _ first _ ih =>
+      cases first
+      exact ih elaborated
+  | scalar _ _ first _ ih =>
+      intro declaration member
+      rcases List.mem_cons.mp member with rfl | member
+      · exact scalar_declaration_source_bounds elaborated first
+      · exact ih (scalar_declaration_static elaborated first) declaration member
+
 theorem scalar_declarations_checked {text : Source} {arguments : Bool} {state final : ParserState}
     {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
     (static : ScalarExpression.StaticEnvironment state.scalarNames) :

@@ -171,12 +171,12 @@ def assignmentBody : Expr BodyScan :=
   .locals (.letFirst (.skip .scanPosition) (.letAfter (.nameAfter .localFirst)
     (.letTarget (.lookup .localFirst .localAfter) (.letValue (.read (.assignment .localAfter))
       (.beginValue (.group (.choose
-        (.orElse (.orElse (.orElse (.eqNat .localTarget .zero) (.not (.mutable (.binding .localTarget))))
+        (.orElse (.orElse (.orElse (.orElse (.orElse
+          (.eqNat .localTarget .zero) (.not (.mutable (.binding .localTarget))))
           (.leNat (.valueAfter .scalarValue) .scanPosition))
-          (.group (.andThen (.not (.isEmpty (.valueBounds .scalarValue)))
-            (.group (.orElse
-              (.ltInt (.lower (.valueBounds .scalarValue)) (.lower (.declaredBounds (.binding .localTarget))))
-              (.gtInt (.upper (.valueBounds .scalarValue)) (.upper (.declaredBounds (.binding .localTarget)))))))))
+          (.isEmpty (.valueBounds .scalarValue)))
+          (.ltInt (.lower (.valueBounds .scalarValue)) (.lower (.declaredBounds (.binding .localTarget)))))
+          (.gtInt (.upper (.valueBounds .scalarValue)) (.upper (.declaredBounds (.binding .localTarget)))))
         .invalid (.assigned (.valueAfter .scalarValue)))))))))
 
 def targetEval (imports : Imports) (text : Source) (context : Native.Context) (position : Nat) : Nat :=
@@ -192,6 +192,6 @@ theorem assignmentEval_model (text : Source) (context : Native.Context) (scan : 
     assignmentEval modelImports text context scan = scalarAssignmentBody text context.model scan := by
   dsimp +instances only [assignmentEval, assignmentBody, Expr.eval, modelImports, scalarAssignmentBody,
     scalarTarget, scalarAssignmentStart, Native.Context.model]
-  simp only [Bool.or_eq_true, Bool.and_eq_true, decide_eq_true_eq, or_assoc]
+  simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
 
 end Silver.Predicate.ScalarBodyNative

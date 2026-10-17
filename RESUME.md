@@ -5,12 +5,18 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
-The owner authorized [review-b79b986403 repairs](docs/review-b79b986403-repairs.md)
-on 2026-10-17. Milestone 4 is reopened for B1's explicit empty-assignment-RHS
-rejection, M1's independent declared-range source readings, and D1–D6 plus minor
-record corrections. The capability's earlier completion claim is superseded
-until required repair validation passes. Original delivery and validation below
-remain history. No next construct or new harness goal is authorized.
+The [review-b79b986403 repairs](docs/review-b79b986403-repairs.md) are complete
+on Linux x86_64, with delivery through [PR #86](https://github.com/berkeleynerd/silver/pull/86).
+Source/proof/test commit `78cf419452` explicitly rejects empty assignment RHS
+intervals and independently reads declared-range endpoints. The native audit,
+full suite and complete cached Lean/source validation passed; bidirectional
+source review found no remaining material finding. The repair evidence keeps
+actual run inputs, focused scopes, failures and cache use separate from the
+original delivery below. Findings #77–#84 close with this delivery; the issues
+and board track publication and milestone closure. No next construct or new
+harness goal was requested; the earlier goal remains complete. Final audited
+artifacts are returned to the idle root cache with replaced files backed up.
+Preserve retained evidence, worktrees, scratch and other-host caches.
 
 The [Bounded mutable integers milestone](docs/bounded-mutable-integers.md)
 completed implementation and Linux x86_64 validation on 2026-10-17. Its native

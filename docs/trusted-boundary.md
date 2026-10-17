@@ -75,7 +75,15 @@ recursive statement/predicate recognizer consumes stack even for `check`.
 The review of `4503d17` measured 3,688 KiB for a 4096-byte source with 1,994
 condition parentheses; its deepest compile failed at 5,632 KiB and passed at
 6,144 KiB. These measurements include the existing assertions-enabled build;
-they do not establish a universal exact minimum. The external
+they do not establish a universal exact minimum. The later
+[mutable Integer review](reviews/review-b79b986403.md#optional-improvements)
+measured a 143-loop source with the delivered environment records: recognition
+failed with `Storage_Error` and exit 1 at a 4,200 KiB stack limit and passed at
+4,600 KiB; an independent reviewer measured 4,411 KiB versus 3,196 KiB for a
+pre-PR-shaped binary. This exceeds the earlier recognizer observation but
+remains below 8 MiB. These are input/build-specific observations, not a proved
+worst-case bound. Per-level environment-copy redesign and a new stack regression
+remain deferred. The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit
 status 1 with a 2 MiB stack before the report-storage repair. Such resource exceptions are
 not currently mapped to the driver's normal infrastructure-error status 3.
@@ -332,6 +340,27 @@ selected theory templates, not every Main occurrence. This is a per-program
 producer applicability premise for complete automatic discharge; recheck it
 when the producer pin or admitted Image form changes. It does not assume
 scanner success or the validity of the inserted theorem.
+
+For bounded mutable integers, Image applicability closes under that same
+producer contract through three evidence classes. The
+[mutable source-route review](bounded-mutable-report-capacity.md#changed-routes)
+shows that the explicit `Integer` prefix still selects the signed-32-bit,
+size-12 translation; mutable values and anonymous constrained-object subtypes
+change Main's context without changing the fixed selected library theories.
+The [fixed-template and consumer review](for-loops-image-producer-review.md)
+and Lean schema/refinement proofs establish the selected theory meanings.
+Retained native models, focused compiles and all 22 delivery samples corroborate
+the producer premises for their actual inputs. Native success is not universal
+schema applicability, and fail-closed rejection alone does not establish
+completeness. The per-program Main translation and original typed-context
+premises above remain required. The restricted source interpretation gives the
+adapter's `bodyEnvironment` evaluator its fixed model denotation. The native
+full-array mapping contract and active-prefix projection are checked separately;
+composing that projection directly into the adapter correspondence theorem is
+the optional O5 follow-up, not a completed additional theorem. Equality of a
+source pin alone is insufficient.
+The [capability record](bounded-mutable-integers.md#assurance-boundaries)
+separates this closure from the later B1/M1 repair checkpoint.
 
 The complete source-route review below supplies these external properties;
 generic well-typed JSON and faithful parsing do not imply them.

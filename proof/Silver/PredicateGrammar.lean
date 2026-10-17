@@ -164,6 +164,19 @@ theorem meaning_valid {source : Source} {program : Program}
   have equal := Option.some.inj (same.symm.trans decoded)
   simpa only [equal] using valid
 
+/-- Source meaning preserves the exact declared Integer subtype: explicit
+ranges evaluate their independently read static endpoints, and an absent range
+has the predefined Integer bounds. This covers every decoded declaration. -/
+theorem meaning_scalar_source_bounds {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) :
+    ∀ declaration ∈ program.integerDeclarations, Compose.ScalarDeclarationSourceBounds source declaration := by
+  obtain ⟨_, _, _, scalars, _, _, _, _, scalarTrace, _, decoded⟩ := meaning
+  have bounds := Sequence.scalar_tokens_source_bounds scalarTrace ScalarExpression.static_empty
+  have same : program.integerDeclarations = scalars := by
+    unfold decodePrefix at decoded
+    split at decoded <;> cases decoded <;> rfl
+  simpa only [same] using bounds
+
 /-- The canonical inventory contains exactly the raw initializer Image schemas
 read from the accepted header, before immutable Image specialization. -/
 theorem meaning_initializer_trace {source : Source} {program : Program}

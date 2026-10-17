@@ -231,7 +231,8 @@ while signs outside numeric tokens are charged. The producer
 registers at most one overflow check per arithmetic operator; its operand
 translations target mathematical Integer and add no scalar range checks.
 Charging 63 again deliberately overcounts the shared concatenation/arithmetic
-budget. The shortest Integer declaration is `A:constant Integer:=0;` (22 bytes);
+budget. In the original constant-only fragment, the shortest Integer declaration
+was `A:constant Integer:=0;` (22 bytes);
 its initializer has at most one final scalar range check. The shortest loop
 prefix is `for I in 0..0 loop` (18 bytes), and the prefixes are disjoint source
 spans. The two-record loop allowance is conservative: base-type bounds,
@@ -332,7 +333,10 @@ The runtime envelopes remain unchanged. `tests/test_capacity.py` guards the
 combined formula, maximal fixed schemas and a dense 4,096-byte source with
 static constrained declarations and mutable assignments. The source-review
 bound is separate from complete obligation discharge and actual-source
-correspondence, which the capability's delivery evidence must establish.
+correspondence. The [original integrated checkpoint](bounded-mutable-integers.md#integrated-validation-and-review)
+records their 2026-10-17 validation; the subsequent
+[B1/M1 review repairs](review-b79b986403-repairs.md) passed their separate
+checkpoint. Those findings do not increase this capacity envelope.
 
 ## Storage placement and validation
 

@@ -150,7 +150,7 @@ theorem model_scalar_reading_valid {text : Source} {state next : ParserState} {a
     {declaration : Integer.Declaration} (stateValid : ValidState text state)
     (parsed : ScalarDeclarationAt text arguments state declaration next) : ValidState text next := by
   cases parsed with
-  | @declaration parts value partsEq ready reading =>
+  | @declaration parts value partsEq ready constraint reading =>
       have nameBound : ValidCursor text parts.after := by
         rw [← partsEq]
         exact model_name_valid text _
@@ -170,14 +170,7 @@ theorem model_scalar_reading_valid {text : Source} {state next : ParserState} {a
       have scalars := ScalarExpression.validEnvironment_append stateValid.2.2.2.2.2 room
         (item := ⟨parts.first, parts.after, parts.value.bounds, decide (parts.constantAfter ≠ 0) && parts.value.isStatic, parts.constraint.bounds, decide (parts.constantAfter = 0)⟩)
         ⟨nameValid.1, nameValid.2.1, nameValid.2.2, Integer.Expr.infer_bounded reading.inferred,
-          by
-            rw [← partsEq]
-            exact scalarConstraintAt_bounded text _ state.scalarNames
-              (scalarDeclarationTypeAfter_valid text state)
-              (by
-                change (scalarDeclarationParts text state).constraint.after ≠ 0
-                rw [partsEq]
-                exact ready.2.2.1)⟩
+          constraint.bounded⟩
       exact ⟨following, stateValid.2.1, stateValid.2.2.1,
         stateValid.2.2.2.1, stateValid.2.2.2.2.1, scalars⟩
 
