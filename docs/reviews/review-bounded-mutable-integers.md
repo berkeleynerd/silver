@@ -1,7 +1,8 @@
 # Bounded mutable integers implementation review
 
 Independent source review for [#70](https://github.com/berkeleynerd/silver/issues/70),
-Linux x86_64, 2026-10-17. **Interim: final source integration and validation remain pending.**
+Linux x86_64, 2026-10-17. **Source review complete: no blocker; both low findings
+repaired. Complete integrated validation remains pending.**
 
 ## Scope and target
 
@@ -103,20 +104,19 @@ SHA-256 `eb80214833e8e937a71cac7d0d5a498944cd00afedaf00993283edab2d99a5b1`.
 The Rosetta mapping uses the narrow bounded-mutable identifier and leaves broad
 integer/subtype/loop/Image surface unsupported.
 
-## Remaining delivery checks
+## Delivery validation boundary
 
-The snapshot intentionally precedes the completed declaration/basic-helper
-source equations and complete integrated source bridge. These are required
-implementation work already in progress, not newly discovered review defects.
-At this review point the complete native audit, lexical certificate and final
-integrated validation were being coordinated by the implementation owner.
-No completed-delivery verdict is given here until their actual inputs and the
-last source changes have been reviewed.
+The initial snapshot preceded the completed declaration/basic-helper source
+equations. The final deltas below complete their source review. Complete native,
+whole-project Lean and test validation remain separate delivery obligations
+coordinated by the implementation owner. This report establishes no completed
+delivery result while those required checks are pending.
 
 This review ran no builds, application compiles, prover runs, clean/replay checks,
 or repeated test suites. It used source inspection, retained artifact identity
 checks and Git whitespace checking. No root checkout files, issues or board entries
-were modified. Final repair and integration disposition will be appended here.
+were modified. Repair and source-integration disposition follow below. The implementation
+owner will record the actual final validation outcome separately.
 
 ## First integration delta
 
@@ -150,3 +150,53 @@ now-closed mutable capacity source review from pending complete assurance in the
 capability record, and replace its stale broad Rosetta description. These are
 unfinished delivery records already within #70; they are not additional language
 or implementation findings.
+
+## Declaration-equation integration delta
+
+Reviewed `213417399e` and `dc507660a2` (original lane commits `c14fc478d0`
+and `b449265f20`), integrated into the review lane as `2d4dd5fc7a` and
+`bc47047a67`. `interpreted_scalarConstraint` derives the typed helper's
+meaning from the imported token/scalar operations on their checked cursor and
+environment domains. The declaration refinement handles the optional constant
+keyword, constraint cursor, exact initializer, range containment and six binding
+fields. The factored denotations are definitional equalities of the typed bodies;
+the model witness proves those same equations. Neither factorization substitutes
+a membership-equality assumption for the implementation argument.
+
+Source review found no defect or weakened source/semantic premise in these
+changes. Retained run `20261017T013548-b72a0d98f428` records successful focused
+builds of `ComposeEquations`, `ComposeModelEquations`, `ComposeModelLegal` and
+`ComposeModelRanges`, followed by a fresh 14,219-declaration axiom audit. Its
+scope is those targets and their import closure; the complete bridge and project
+validation remain separate.
+
+## Final scalar-helper linkage and source-review disposition
+
+Reviewed final original commit `c0811ae49b`, integrated into the review lane as
+`b9038b2d90`. Its three files hash-equal the previously reviewed working snapshot.
+`PredicateScalarBodyHelpers` derives the imported skip/name/token/scalar meanings
+from inherited source contracts. Its formal totalizations preserve every call
+in the native domains; the cursor/context/body domains match the checked native
+contracts. `PredicateBasicHelpers.Links` connects scalar target and assignment
+calls to their typed body evaluators. Their model equalities are conclusions of
+the inherited-meaning and denotation theorems. The two `model_basic_links`
+clauses supply the concrete interpretation witness. No scanner/admission equality
+is assumed as the source connection.
+
+Retained focused run `20261017T014658-6c3a91923fad` passed the scalar/basic helper
+build and fresh 16,571-declaration audit. Run `20261017T014736-724f22a1471e`
+passed `PredicateEquations` and its fresh 25,539-declaration audit. Both audits
+allow only the three standard axioms. These remain focused results; this reviewer
+did not rerun them or treat them as complete-project validation.
+
+The reviewed chain is the initial target and copied working files above, then
+`700b39de58`, `b0f0af3522`, `12fd4d87dd`, `213417399e`, `dc507660a2`, and
+`c0811ae49b`. The final source/proof/script/catalogue/sample/test identities are
+retained in the review lane's `tmp/review-target-final-source.json` (677 paths),
+SHA-256 `dd962227da35cb885bab105d4d8e76f076da463be3c8687087545841d49a7d61`.
+
+**Source-review verdict:** no blocker or unresolved review finding. L1/#74 and
+L2/#75 are repaired in `b0f0af3522`; final linkage introduces no further finding.
+Complete integrated validation and final support/evidence records remain pending
+under #70. The implementation owner may add their actual validation disposition
+without treating this source-review result as a substitute for those checks.
