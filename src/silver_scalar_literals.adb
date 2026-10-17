@@ -101,7 +101,9 @@ package body Silver_Scalar_Literals with SPARK_Mode => On is
      (declare Leading : constant Literal_Result := Numeral_Model (Text, Position, 10);
       begin
        (if Leading.After = 0 then Invalid_Mantissa
-        elsif Leading.After <= Text'Last and then Text (Leading.After) in '#' | ':' then
+        elsif Leading.After <= Text'Last and then Text (Leading.After) in '#' | ':'
+          and then not (Text (Leading.After) = ':' and then Leading.After < Text'Last
+            and then Text (Leading.After + 1) = '=') then
           (if Leading.Value not in Literal_Base then Invalid_Mantissa else
              (declare Number : constant Literal_Result :=
                 Numeral_Model (Text, Leading.After + 1, Leading.Value);
@@ -123,7 +125,9 @@ package body Silver_Scalar_Literals with SPARK_Mode => On is
       Leading : constant Literal_Result := Numeral (Text, Position, 10);
    begin
       if Leading.After = 0 then return Invalid_Mantissa; end if;
-      if Leading.After <= Text'Last and then Text (Leading.After) in '#' | ':' then
+      if Leading.After <= Text'Last and then Text (Leading.After) in '#' | ':'
+        and then not (Text (Leading.After) = ':' and then Leading.After < Text'Last
+          and then Text (Leading.After + 1) = '=') then
          if Leading.Value not in Literal_Base then return Invalid_Mantissa; end if;
          declare
             Number : constant Literal_Result := Numeral (Text, Leading.After + 1, Leading.Value);

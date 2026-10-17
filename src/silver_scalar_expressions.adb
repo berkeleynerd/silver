@@ -5,6 +5,21 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
    use type Scalars.Wide;
    use type Silver_Scalar_Literals.Literal_Value;
 
+   function Body_Environment (Names : Environment) return Environment is
+      Result : Environment := Names;
+   begin
+      for Index in Binding_Index loop
+         pragma Loop_Invariant (Result.Count = Names.Count);
+         pragma Loop_Invariant
+           (for all Item in Binding_Index =>
+              Result.Items (Item) =
+                (if Item < Index then Body_Binding (Names.Items (Item))
+                 else Names.Items (Item)));
+         Result.Items (Index) := Body_Binding (Names.Items (Index));
+      end loop;
+      return Result;
+   end Body_Environment;
+
    function Lookup_Model
      (Text : String; Names : Environment; First, After : Literal_Position;
       Index : Binding_Count) return Binding_Count is

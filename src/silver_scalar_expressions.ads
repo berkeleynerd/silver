@@ -14,8 +14,11 @@ package Silver_Scalar_Expressions with SPARK_Mode => On is
       First, After : Literal_Position;
       Bounds : Silver_Scalars.Interval;
       Static : Boolean;
+      Declared_Bounds : Silver_Scalars.Interval;
+      Mutable : Boolean;
    end record;
-   Empty_Binding : constant Binding := (0, 0, Silver_Scalars.Empty, False);
+   Empty_Binding : constant Binding :=
+     (0, 0, Silver_Scalars.Empty, False, Silver_Scalars.Empty, False);
    type Binding_Array is array (Binding_Index) of Binding;
    type Environment is record
       Count : Binding_Count;
@@ -52,6 +55,17 @@ package Silver_Scalar_Expressions with SPARK_Mode => On is
      ((Count => Names.Count + 1,
        Items => (Names.Items with delta Names.Count + 1 => Item)))
      with Pre => Names.Count < Max_Bindings;
+
+   --  Elaboration reads exact initialized values. Executable statements use
+   --  each mutable object's complete declared range, without flow narrowing.
+   function Body_Binding (Item : Binding) return Binding is
+     (Item with delta Bounds =>
+       (if Item.Mutable then Item.Declared_Bounds else Item.Bounds));
+   function Body_Environment (Names : Environment) return Environment
+     with Global => null,
+       Post => Body_Environment'Result.Count = Names.Count
+         and then (for all Index in Binding_Index =>
+           Body_Environment'Result.Items (Index) = Body_Binding (Names.Items (Index)));
 
    type Expression_Result is record
       After : Literal_Position;
