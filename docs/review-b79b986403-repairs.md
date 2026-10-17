@@ -6,7 +6,9 @@ The review target is merge `b79b98640373056b71e396eb8e7741b0b9c233b5`
 implementation/proof input tree is `bbd5989b2b`. Original evidence remains in the
 [capability record](bounded-mutable-integers.md) and
 [delivery validation](evidence/bounded-mutable-integers/delivery-validation.json).
-Repair implementation and validation are pending and will be identified separately.
+Combined implementation/proof/test input commit is `78cf419452`.
+Its complete validation and independent review are pending; neither the review
+target nor original delivery evidence is a repair result.
 
 ## Ordered scope and disposition
 
@@ -48,7 +50,14 @@ Absent constraints must independently denote the full Integer range. Present
 constraints must have independent source readings, static endpoint expressions,
 correct endpoint evaluations and ordered bounds. Connect that result to the
 declaration/source argument, rather than merely adding an unused lemma.
-Current bounds are computed correctly; this closes a universal argument gap.
+The implementation in `78cf419452` (M1 lane `4c8dbae39e`) makes
+`ScalarConstraintAt` mandatory in `ScalarDeclarationAt`. Its source readings,
+exact cursors and evaluated bounds flow through declaration checking and
+`Sequence.scalar_tokens_source_bounds` to `Predicate.meaning_scalar_source_bounds`.
+Focused run `20261017T121341-ac959d5a4cbb` passed a fresh audit of 13,537
+declarations with only the three standard axioms; complete validation remains
+pending. Current native bounds were already computed correctly; this repairs
+the independent universal source argument.
 
 ### Minor and optional dispositions
 

@@ -105,6 +105,17 @@ use the declared mutable interval in the body and exact values during declaratio
 elaboration. Input-length facts survive scalar writes; live mutable Image
 equalities are not retained.
 
+`ScalarConstraintAt` independently reads optional declared constraints: absent
+`range` denotes the full Integer bounds; a present range has source readings of
+both static endpoint expressions, exact delimiter/cursor positions and bounds
+equal to their evaluations in the elaboration store. This relation is required
+by `ScalarDeclarationAt`; `scalar_declaration_checked` consumes its endpoint
+meaning. `Sequence.scalar_tokens_source_bounds` carries the property through
+the parsed trace, and `Predicate.meaning_scalar_source_bounds` gives it for
+every decoded declaration at the program endpoint. These M1 repair proofs have
+focused validation; the [complete repair checkpoint](review-b79b986403-repairs.md)
+remains pending.
+
 `Sequence.scalar_tokens_objects` connects the parsed declaration trace to
 ordered object elaboration, and `Predicate.form_reading_valid` connects that
 trace to the body checker. The actual-source connection additionally checks
