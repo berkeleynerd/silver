@@ -232,8 +232,10 @@ indexes (`src/why/gnat2why-expr-loops-inv.adb:1940–1976, 2291–2350`). For `F
 bound is `sum |Q_loop| <= F(D+G)`; counting distinct assigned descendant targets
 per loop is sharper. Repeated assignment to one object does not add frame entries.
 
-For whole-object Integer/String writes, the preserved-components helper returns
-`True_Pred` because `Only_Vars` defaults to true. Its loop-entry snapshot argument
+For frame entries classified `Entire_Object`, the preserved-components helper
+returns `True_Pred` because `Only_Vars` defaults to true. `Not_Written` entries
+instead generate whole-object equality, including where an assignment lies on
+a path irrelevant to the invariant. The loop-entry snapshot argument
 is nevertheless evaluated eagerly, so snapshot creation must still be charged
 (`src/why/gnat2why-expr-loops-inv.adb:181–196, 775–807, 1266–1270`). Snapshots are
 deduplicated by Ada `Node_Id` identity in separate `No_Checks` and `Regular` maps
@@ -296,3 +298,10 @@ re-extract the old fixture from paths recorded in `retained-input.json`.
 Outputs are deterministic; no toolchain or proof subprocess is launched.
 These checks validate the arithmetic and captured tree shapes, not a completed
 producer theorem or the whole application assurance argument.
+
+A focused independent source/evidence review found no defect in the numerical
+literal components. Its loop-entry wording correction above distinguishes
+`Entire_Object` from `Not_Written`; the recurrence already includes both in `H`.
+The review also requested the additional retained conversion/base-type excerpts.
+It independently checked the original artifact hashes, exact three-module
+extraction, retained-source equality and complete source-file hashes.

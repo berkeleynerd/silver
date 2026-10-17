@@ -3761,7 +3761,115 @@
   2445:
 ```
 
-## src/why/why-gen-expr.adb:2740-2785
+## src/why/why-gen-expr.adb:2476-2522
+
+```ada
+  2476:    function Insert_Scalar_Conversion
+  2477:      (Domain     : EW_Domain;
+  2478:       Ada_Node   : Node_Id := Empty;
+  2479:       Expr       : W_Expr_Id;
+  2480:       To         : W_Type_Id;
+  2481:       Range_Type : Entity_Id;
+  2482:       Check_Kind : Scalar_Check_Kind;
+  2483:       Lvalue     : Boolean := False;
+  2484:       No_Init    : Boolean := False;
+  2485:       Skip_Pred  : Boolean := False) return W_Expr_Id
+  2486:    is
+  2487:       From    : constant W_Type_Id := Get_Type (Expr);
+  2488:       To_Conc : constant W_Type_Id :=
+  2489:         (if not Is_Init_Wrapper_Type (To)
+  2490:          then To
+  2491:          elsif Get_Type_Kind (To) = EW_Abstract
+  2492:          then EW_Abstract (Get_Ada_Node (+To))
+  2493:          elsif Get_Type_Kind (To) = EW_Builtin
+  2494:          then EW_Bool_Type
+  2495:          else EW_Split (Get_Ada_Node (+To)));
+  2496:       --  Concrete type for To if To is a wrapper for initialization
+  2497:
+  2498:       --  Do not generate a predicate check for an internal call to a parent
+  2499:       --  predicate function inside the definition of a predicate function.
+  2500:       Do_Predicate_Check : constant Boolean :=
+  2501:         Present (Ada_Node)
+  2502:         and then not No_Init
+  2503:         and then Present (Get_Ada_Node (+To))
+  2504:         and then Has_Predicates (Get_Ada_Node (+To))
+  2505:         and then Get_Ada_Node (+To) /= Get_Ada_Node (+From)
+  2506:         and then not Skip_Pred
+  2507:         and then not Is_Call_Arg_To_Predicate_Function (Ada_Node);
+  2508:
+  2509:       --  Current result expression
+  2510:       Result : W_Expr_Id := Expr;
+  2511:
+  2512:       --  Current type of the result expression
+  2513:       Cur : W_Type_Id := From;
+  2514:
+  2515:       --  Set to True after range check has been applied
+  2516:       Range_Check_Applied : Boolean := False;
+  2517:
+  2518:       --  Start of processing for Insert_Scalar_Conversion
+  2519:
+  2520:    begin
+  2521:       --  If the check is a range check on a floating-point type, and we can
+  2522:       --  determine that the expression is always within bounds, then issue
+```
+
+## src/why/why-gen-expr.adb:2642-2692
+
+```ada
+  2642:             if From = M_Boolean_Init_Wrapper.Wrapper_Ty then
+  2643:                Result :=
+  2644:                  New_Call
+  2645:                    (Ada_Node => Ada_Node,
+  2646:                     Domain   => Domain,
+  2647:                     Name     => M_Boolean_Init_Wrapper.Of_Wrapper,
+  2648:                     Args     => (1 => Result),
+  2649:                     Typ      => EW_Bool_Type);
+  2650:             else
+  2651:                Result :=
+  2652:                  New_Call
+  2653:                    (Ada_Node => Ada_Node,
+  2654:                     Domain   => Domain,
+  2655:                     Name     => E_Symb (From_Node, WNE_Of_Wrapper),
+  2656:                     Args     => (1 => Result),
+  2657:                     Typ      => EW_Abstract (From_Node));
+  2658:             end if;
+  2659:          end;
+  2660:          Cur := Get_Type (Result);
+  2661:       end if;
+  2662:
+  2663:       --  1. If From is an abstract type, convert it to type int, __fixed,
+  2664:       --     real, or bitvector_?.
+  2665:
+  2666:       if Get_Type_Kind (Cur) = EW_Abstract then
+  2667:          Cur := Base_Why_Type (From);
+  2668:          Result :=
+  2669:            Insert_Single_Conversion
+  2670:              (Ada_Node => Ada_Node,
+  2671:               Domain   => Domain,
+  2672:               To       => Cur,
+  2673:               Expr     => Result);
+  2674:       end if;
+  2675:
+  2676:       --  2. If From is a fixed-point type or a modular type, and To does not
+  2677:       --     share the same base type (__fixed or bitvector_?), possibly
+  2678:       --     convert to a suitable intermediate type.
+  2679:
+  2680:       if Base_Why_Type (From) /= Base_Why_Type (To) then
+  2681:
+  2682:          --  2.1. Possibly convert from one fixed-point small to another one
+  2683:
+  2684:          if Why_Type_Is_Fixed (Base_Why_Type (From))
+  2685:            and then Why_Type_Is_Fixed (Base_Why_Type (To))
+  2686:          then
+  2687:             declare
+  2688:                From_Type : constant Entity_Id := Get_Ada_Node (+From);
+  2689:                To_Type   : constant Entity_Id := Get_Ada_Node (+To);
+  2690:                To_Base   : constant W_Type_Id := Base_Why_Type (To);
+  2691:
+  2692:                --  Fixed point types always have an Ada node
+```
+
+## src/why/why-gen-expr.adb:2740-2910
 
 ```ada
   2740:              (Why_Type_Is_BitVector (Base_Why_Type (From))
@@ -3810,6 +3918,131 @@
   2783:          To_Ty : W_Type_Id := Base_Why_Type (To);
   2784:       begin
   2785:          --  Avoid converting Booleans to integers when there is no check
+  2786:
+  2787:          if To_Ty = EW_Bool_Type
+  2788:            and then
+  2789:              (Cur /= EW_Bool_Type
+  2790:               or else (Present (Range_Type) and then not Range_Check_Applied)
+  2791:               or else (Domain = EW_Prog and then Do_Predicate_Check))
+  2792:          then
+  2793:             To_Ty := EW_Int_Type;
+  2794:          end if;
+  2795:
+  2796:          if Cur /= To_Ty then
+  2797:             Result :=
+  2798:               Insert_Single_Conversion
+  2799:                 (Ada_Node => Ada_Node,
+  2800:                  Domain   => Domain,
+  2801:                  From     => Cur,
+  2802:                  To       => To_Ty,
+  2803:                  Expr     => Result);
+  2804:             Cur := To_Ty;
+  2805:          end if;
+  2806:       end;
+  2807:
+  2808:       --  5. Possibly perform the range check, if not already applied
+  2809:
+  2810:       if Present (Range_Type) and then not Range_Check_Applied then
+  2811:          pragma
+  2812:            Assert
+  2813:              (Base_Why_Type (Range_Type) = Cur
+  2814:               or else Base_Why_Type (Range_Type) = EW_Bool_Type
+  2815:               or else
+  2816:                 (Get_Type_Kind (Cur) = EW_Split
+  2817:                  and then
+  2818:                    Base_Why_Type (Get_Ada_Node (+Cur))
+  2819:                    = Base_Why_Type (Range_Type)));
+  2820:          Result :=
+  2821:            +Do_Range_Check
+  2822:               (Ada_Node   => Ada_Node,
+  2823:                Ty         => Range_Type,
+  2824:                W_Expr     => Result,
+  2825:                Check_Kind => Check_Kind);
+  2826:       end if;
+  2827:
+  2828:       --  6. Perform a predicate check if needed, before the final conversion
+  2829:       --  to the target abstract type if any, if the predicate function takes
+  2830:       --  a Why3 native type as input as detected by Use_Split_Form_For_Type.
+  2831:
+  2832:       if Domain = EW_Prog
+  2833:         and then Do_Predicate_Check
+  2834:         and then Use_Split_Form_For_Type (Get_Ada_Node (+To))
+  2835:       then
+  2836:          Result :=
+  2837:            +Insert_Predicate_Check
+  2838:               (Ada_Node => Ada_Node,
+  2839:                Check_Ty => Get_Ada_Node (+To),
+  2840:                W_Expr   => +Result);
+  2841:       end if;
+  2842:
+  2843:       --  7. If To is an abstract type or bool, convert from int, __fixed or
+  2844:       --     real to it.
+  2845:
+  2846:       if Get_Type_Kind (To_Conc) = EW_Abstract or else To_Conc = EW_Bool_Type
+  2847:       then
+  2848:          Result :=
+  2849:            Insert_Single_Conversion
+  2850:              (Ada_Node => Ada_Node,
+  2851:               Domain   => Domain,
+  2852:               From     => Cur,
+  2853:               To       => To_Conc,
+  2854:               Expr     => Result);
+  2855:
+  2856:       end if;
+  2857:
+  2858:       --  8. Perform a predicate check if needed, after the final conversion
+  2859:       --  to the target abstract type if any, if the predicate function takes
+  2860:       --  an abstract type as input as detected by Use_Split_Form_For_Type.
+  2861:       --  This should never occur as all scalar types use a split form but
+  2862:       --  standard boolean which cannot have a predicate.
+  2863:
+  2864:       if Domain = EW_Prog
+  2865:         and then Do_Predicate_Check
+  2866:         and then not Use_Split_Form_For_Type (Get_Ada_Node (+To))
+  2867:       then
+  2868:          raise Program_Error;
+  2869:       end if;
+  2870:
+  2871:       --  9. Reconstruct the wrapper if necessary
+  2872:
+  2873:       if Is_Init_Wrapper_Type (To) then
+  2874:          pragma Assert (Get_Type_Kind (To) /= EW_Split);
+  2875:
+  2876:          if To = M_Boolean_Init_Wrapper.Wrapper_Ty then
+  2877:             Result :=
+  2878:               New_Call
+  2879:                 (Ada_Node => Ada_Node,
+  2880:                  Domain   => Domain,
+  2881:                  Name     => M_Boolean_Init_Wrapper.To_Wrapper,
+  2882:                  Args     => (1 => Result),
+  2883:                  Typ      => To);
+  2884:          else
+  2885:             Result :=
+  2886:               New_Call
+  2887:                 (Ada_Node => Ada_Node,
+  2888:                  Domain   => Domain,
+  2889:                  Name     => E_Symb (Get_Ada_Node (+To), WNE_To_Wrapper),
+  2890:                  Args     => (1 => Result),
+  2891:                  Typ      => To);
+  2892:          end if;
+  2893:       end if;
+  2894:
+  2895:       --  10. Change type to the expected one by adding a dummy node if needed.
+  2896:       --  This may be required because some of the conversions are no-ops in
+  2897:       --  Why.
+  2898:
+  2899:       if Get_Type (Result) /= To then
+  2900:          Result :=
+  2901:            New_Label
+  2902:              (Ada_Node => Ada_Node,
+  2903:               Labels   => Symbol_Sets.Empty_Set,
+  2904:               Def      => Result,
+  2905:               Domain   => Domain,
+  2906:               Typ      => To);
+  2907:       end if;
+  2908:
+  2909:       return Result;
+  2910:    end Insert_Scalar_Conversion;
 ```
 
 ## src/why/why-gen-expr.adb:2916-3050
@@ -4497,6 +4730,62 @@
    379:    begin
 ```
 
+## src/why/why-inter.adb:387-437
+
+```ada
+   387:    function Base_Why_Type (W : W_Type_Id) return W_Type_Id is
+   388:       Kind : constant EW_Type := Get_Type_Kind (W);
+   389:    begin
+   390:       case Kind is
+   391:          when EW_Abstract | EW_Split =>
+   392:             return Base_Why_Type (Get_Ada_Node (+W));
+   393:
+   394:          when others                 =>
+   395:             if W = M_Boolean_Init_Wrapper.Wrapper_Ty then
+   396:                return EW_Bool_Type;
+   397:             else
+   398:                return W;
+   399:             end if;
+   400:       end case;
+   401:    end Base_Why_Type;
+   402:
+   403:    function Base_Why_Type (N : Node_Id) return W_Type_Id is
+   404:
+   405:       E   : constant W_Type_Id := Get_EW_Term_Type (N);
+   406:       Typ : Entity_Id :=
+   407:         (if Nkind (N) in N_Entity and then Is_Type (N) then N else Etype (N));
+   408:    begin
+   409:       if E = Why_Empty then
+   410:
+   411:          --  For record or private types, go through subtypes to get the base
+   412:          --  type.
+   413:          --  For pointers, get the type of the root type (pointers may share
+   414:          --  same representative theory while one is not the subtype of the
+   415:          --  other, exp: named and anonymous types of the same designated
+   416:          --  type).
+   417:
+   418:          loop
+   419:             Typ := Retysp (Typ);
+   420:
+   421:             if (Is_Record_Type (Typ)
+   422:                 or else Is_Incomplete_Or_Private_Type (Typ))
+   423:               and then not Is_Base_Type (Typ)
+   424:             then
+   425:                Typ := Etype (Typ);
+   426:             elsif Is_Access_Type (Typ)
+   427:               and then not Is_Access_Subprogram_Type (Typ)
+   428:             then
+   429:                return EW_Abstract (Root_Retysp (Typ));
+   430:             else
+   431:                return EW_Abstract (Typ);
+   432:             end if;
+   433:          end loop;
+   434:       else
+   435:          return E;
+   436:       end if;
+   437:    end Base_Why_Type;
+```
+
 ## src/why/why-inter.adb:550-746
 
 ```ada
@@ -4739,6 +5028,86 @@
    870:          return New_Kind_Base_Type (N, Kind, Relaxed_Init);
    871:       end if;
    872:    end EW_Abstract_Shared;
+```
+
+## src/why/why-inter.adb:943-1017
+
+```ada
+   943:    function Get_EW_Term_Type (N : Node_Id) return W_Type_Id is
+   944:       Ty : Node_Id := N;
+   945:    begin
+   946:       if Nkind (N) /= N_Defining_Identifier or else not Is_Type (N) then
+   947:          Ty := Etype (N);
+   948:       end if;
+   949:
+   950:       case Ekind (Ty) is
+   951:          when Fixed_Point_Kind           =>
+   952:             return EW_Fixed_Type (Ty);
+   953:
+   954:          when Float_Kind                 =>
+   955:             if Is_Single_Precision_Floating_Point_Type (Etype (Ty)) then
+   956:                return EW_Float_32_Type;
+   957:             elsif Is_Double_Precision_Floating_Point_Type (Etype (Ty)) then
+   958:                return EW_Float_64_Type;
+   959:             elsif Is_Extended_Precision_Floating_Point_Type (Etype (Ty)) then
+   960:                return EW_Float_80_Type;
+   961:             else
+   962:                raise Program_Error;
+   963:             end if;
+   964:
+   965:          when Discrete_Kind              =>
+   966:             --  In the case of Standard.Boolean, the base type 'bool' is
+   967:             --  used directly. For its subtypes, however, an abstract type
+   968:             --  representing a signed int is generated, just like for any
+   969:             --  other enumeration subtype.
+   970:             --  ??? It would make sense to use a bool-based abstract
+   971:             --  subtype in this case, and it should be rather easy to
+   972:             --  make this change as soon as theory cloning would work
+   973:             --  in Why 3. No point in implementing this improvement
+   974:             --  before that, as we have seen no cases where this was a
+   975:             --  problem for the prover.
+   976:
+   977:             if Is_Standard_Boolean_Type (Ty) then
+   978:                return EW_Bool_Type;
+   979:             elsif Ty = Universal_Fixed then
+   980:                return EW_Real_Type;
+   981:             elsif Is_Modular_Integer_Type (Ty)
+   982:               and then not Has_No_Bitwise_Operations_Annotation (Ty)
+   983:             then
+   984:                declare
+   985:                   Size : Uintp.Uint;
+   986:                begin
+   987:                   Size := Modular_Size (Ty);
+   988:
+   989:                   if Uintp.UI_Le (Size, 8) then
+   990:                      return EW_BitVector_8_Type;
+   991:                   elsif Uintp.UI_Le (Size, 16) then
+   992:                      return EW_BitVector_16_Type;
+   993:                   elsif Uintp.UI_Le (Size, 32) then
+   994:                      return EW_BitVector_32_Type;
+   995:                   elsif Uintp.UI_Le (Size, 64) then
+   996:                      return EW_BitVector_64_Type;
+   997:                   elsif Uintp.UI_Le (Size, 128) then
+   998:                      return EW_BitVector_128_Type;
+   999:                   else
+  1000:                      return EW_Int_Type;
+  1001:                   end if;
+  1002:                end;
+  1003:             else
+  1004:                return EW_Int_Type;
+  1005:             end if;
+  1006:
+  1007:          when Incomplete_Or_Private_Kind =>
+  1008:             if Full_View_Not_In_SPARK (Ty) then
+  1009:                return Why_Empty;
+  1010:             else
+  1011:                return Get_EW_Term_Type (Retysp (Ty));
+  1012:             end if;
+  1013:
+  1014:          when others                     =>
+  1015:             return Why_Empty;
+  1016:       end case;
+  1017:    end Get_EW_Term_Type;
 ```
 
 ## src/why/why-inter.adb:1160-1224
