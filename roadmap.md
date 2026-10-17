@@ -16,125 +16,78 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Frontend representation research reviewed at a full stop; implementation unauthorized.** The
-[scope](docs/unbounded-programs.md) and
-[milestone 5](https://github.com/berkeleynerd/silver/milestone/5) pursue removal of
-unnecessary Silver capacity limits. The operational objective is resource-driven
-failure within explicit language rules and functioning tool/infrastructure
-premises; implementation, tool and infrastructure defects remain possible and
-must be reported. Per-program GNATprove would become non-gating confirmation.
-The required guarantee stays unchanged: the universal assurance argument and
-explicit trusted premises carry "if it compiles, it proves". Confirmation provides
-additional evidence about the selected program, not verification of every premise.
+**Retained-tool direction adopted; capacity design in progress.** The owner
+[selected](docs/session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
+keeping the existing GNAT/GNATprove toolchain, accepting explicit tool-imposed
+representation boundaries and removing unnecessary Silver limits within a
+justified domain. [Decision #117](https://github.com/berkeleynerd/silver/issues/117)
+records this disposition. External paired support, compiler forks and replacement
+frontends cease to be prerequisites. The [scope](docs/unbounded-programs.md)
+and [milestone 5](https://github.com/berkeleynerd/silver/milestone/5) retain the
+unchanged Oracle and current supported language.
 
-The [independent review](docs/reviews/review-ec82b4e5f2.md) and
-[planning repair record](docs/review-ec82b4e5f2-repairs.md) distinguish corrected
-claims from unresolved research. Line width, identifier length and exponent rules
-come from the pinned frontend; Integer/String meaning is inherited. A total-source
-capacity rule remains a research deliverable, not an established forced maximum.
-A uniform worst-case envelope must be justified against a plausible source-sensitive
-alternative or shown to be the best tractable choice. No Oracle amendment is
-proposed; the proposal cannot silently weaken its guarantee.
+The reviewed research [#107/#108](docs/research/unbounded-feasibility-result.md)
+and [#113](docs/research/frontend-representation-result.md) establishes a
+source-derived obstruction to the original full String composition domain.
+Two distinct length-2^30 Strings require at least 2^31 shared character entries;
+the inspected GNATprove literal producer has a separate finite Why-node space.
+These are conditional source facts, not native near-limit failures or safe
+admission thresholds. PR #109 and PR #116 preserve the completed research and
+reviews. Their external-support recommendation is superseded, not their evidence.
 
-The owner [continued the research on Linux](docs/session-memory.md#2026-10-17--unbounded-feasibility-research-continued-on-linux)
-after the [partial handoff](docs/research/unbounded-feasibility-handoff.md).
-The [result](docs/research/unbounded-feasibility-result.md) identifies a
-source-derived frontend representation stop for the intended String composition
-domain. Targeted Linux Ada medium/large-model builds improve the backend evidence
-but do not remove that earlier limit. No complete whole-program source-capacity
-rule has been derived. [Independent review](docs/reviews/review-unbounded-feasibility-2b47dd8e27.md)
-is complete, and low wording findings #110/#111 are corrected and verified.
-Research #107/#108 was delivered through
-[PR #109](https://github.com/berkeleynerd/silver/pull/109); it does not establish
-feasibility of the intended domain.
+The next technical work is
+[#119 Derive capacity rules for unchanged tools](https://github.com/berkeleynerd/silver/issues/119),
+a design subpackage of #91 shared with #93. The
+[design contract](docs/research/retained-tool-capacity.md) requires a sound,
+decidable rule accounting for retained and temporary values, generated data,
+dependencies, phase-specific expansion, representation arithmetic and growth.
+Prefer program-structure accounting and justify any conservative envelope.
+`Integer'Last` is an inherited ceiling; a per-value bound alone does not justify
+all compositions. No numerical aggregate cap or larger admission domain is selected.
 
-The owner resolved [decision #112](https://github.com/berkeleynerd/silver/issues/112)
-by [authorizing research](docs/session-memory.md#2026-10-17--frontend-representation-feasibility-research-authorized)
-into wider or deferred/lazy semantics-preserving frontend representations.
-One cohesive [work package #113](https://github.com/berkeleynerd/silver/issues/113)
-has a [concrete comparison and result](docs/research/frontend-representation-result.md).
-Checked 64-bit String-pool widening and matching Ada/C descriptors are the
-preferred smaller frontend design, together with the zero-mantissa scanner
-optimization. Deferred storage would avoid some early materialization but has
-a broader consumer and assurance surface. Neither is implemented or establishes
-tractability for the whole proposed language.
+Capacity restrictions must be established before admission. An admitted program
+hitting a build or proof-essential representation limit remains a defect,
+distinct from physical resource exhaustion. Optional confirmation cannot waive
+automatic discharge. A reporting-only boundary needs an explicit independence
+argument before it may be treated as inconclusive confirmation. These rules
+replace the former blanket confirmation-only producer-limit classification.
 
-The implementation stop is explicit: no inspected external GNAT/GNATprove pair
-supplies the changes, no fully verified SPARK-owned route has been demonstrated
-for all affected interfaces, and the separate GNATprove producer still expands
-literal content per character. Renaming a private compiler fork or making confirmation non-gating
-does not settle those requirements.
-[Independent review](docs/reviews/review-frontend-representation-0af844fb85.md)
-of frozen target `0af844fb85` is complete; low excerpt-generation finding L1
-[#115](https://github.com/berkeleynerd/silver/issues/115) is corrected and
-independently rechecked at repair `042e35c40c`. No finding remains. Publication
-is through [PR #116](https://github.com/berkeleynerd/silver/pull/116); live issues
-track merge and closure.
-
-The recommended [owner disposition](docs/unbounded-programs.md#frontend-representation-result-and-owner-disposition),
-tracked by Backlog [decision #117](https://github.com/berkeleynerd/silver/issues/117),
-retains the unchanged Oracle and seeks actually externally maintained paired
-frontend/producer support before commissioning implementation, using bounded
-widening as the concrete minimum frontend requirement. Report this stop rather
-than automatically beginning further research or contacting maintainers.
-
-The [research scope](docs/unbounded-programs.md#frontend-representation-feasibility-research)
-keeps this result and owner disposition ahead of implementation #88–#94, which
-remains Backlog and unauthorized.
-Retaining the pin with a source-sensitive rule and explicit aggregate restrictions
-is a comparison alternative; no lower cap is selected. Research completion does
-not complete the parent implementation packages or milestone 5.
-
-The milestone's work packages, in order:
+The milestone's work packages retain their production order, with #119's design
+before any expanded membership:
 
 1. **Scope and design [#87](https://github.com/berkeleynerd/silver/issues/87):**
-   the proposal, its [research evidence](docs/evidence/unbounded-programs/scoping-research.json),
-   milestone and issues. The repair record preserves the original publication and
-   its subsequent corrections.
+   completed historical proposal and corrections; #117 selects the revised route.
 2. **Proof confirmation and resource outcomes [#88](https://github.com/berkeleynerd/silver/issues/88):**
-   separate build and confirmation results; define observable unsuccessful outcomes,
-   strict successful-report auditing, a retained build-input witness, growable
-   process arguments and truthful launch diagnostics. Admission is unchanged.
-3. **Compiler storage and complexity that scale with input [#89](https://github.com/berkeleynerd/silver/issues/89):**
-   separated 4096 roles, growable file/path/argument storage and corresponding ghost
-   models, bootstrap capacities, 64-bit or streaming report storage, constant stack
-   per nesting level and near-linear admission. Coordinate its process interface
-   with #88. Admission is unchanged.
+   separate build and confirmation, preserve complete success auditing and input
+   identity, and classify resource, representation and other failures accurately.
+3. **Compiler storage and complexity [#89](https://github.com/berkeleynerd/silver/issues/89):**
+   input-sized storage, growable process/file/path interfaces, explicit stack work
+   and producer/consumer representation accounting. Admission stays unchanged.
 4. **Parameterized Lean assurance [#90](https://github.com/berkeleynerd/silver/issues/90):**
-   exact length-range reasoning up to Integer'Last and theorems over symbolic
-   limits, retaining automatic-discharge and source-correspondence guarantees.
-   Admission is unchanged.
-5. **Pinned-frontend and derived source limits [#91](https://github.com/berkeleynerd/silver/issues/91):**
-   research a sound, appropriately expansive capacity rule across loaded units,
-   source positions and internal tables, then implement the justified explicit
-   rules after #89/#90. Research conclusions and implemented rules are separate
-   deliverables; no larger language is admitted by this plan.
-6. **Remove source, operator and expression caps [#92](https://github.com/berkeleynerd/silver/issues/92):**
-   admits larger programs only after the preceding capacity and assurance work,
-   with proportionate scaling evidence and differential frontend checks.
-7. **String and argument lengths up to Integer'Last [#93](https://github.com/berkeleynerd/silver/issues/93):**
-   research static-data compile/link feasibility before fixing the domain, then
-   generalize values and runtime contracts. Preserve forwarded application statuses
-   and distinguish compiler launch failures. Re-derive #91's dependency allowance
-   for changed runtime units. It may overlap #92 only where prerequisites hold.
+   exact length ranges and the selected capacity predicate, native correspondence,
+   composition and automatic discharge. Admission stays unchanged.
+5. **Pinned-tool capacity rules [#91](https://github.com/berkeleynerd/silver/issues/91):**
+   complete #119's justified whole-program design, then implement its native/Lean
+   rules after #89/#90. A partial component or researched stop does not satisfy
+   the adoption dependency.
+6. **Remove unnecessary source, operator and expression caps [#92](https://github.com/berkeleynerd/silver/issues/92):**
+   admit larger programs after #88–#91, retaining necessary capacity accounting.
+7. **String and argument capacity within pinned-tool limits [#93](https://github.com/berkeleynerd/silver/issues/93):**
+   generalize values/runtime contracts within the justified #119/#91 domain;
+   re-derive dependency/producer bounds after runtime changes. May overlap #92
+   only after their shared capacity and assurance prerequisites hold.
 8. **Validation, review and delivery [#94](https://github.com/berkeleynerd/silver/issues/94):**
-   one stable capability checkpoint, outcome-matrix validation and synchronized
-   records; this planning correction supplies no implementation validation.
+   complete stable native/Lean assurance, outcome/capacity validation, independent
+   review and synchronized capability records before claiming support.
 
-The owner's [planning-only authorization](docs/session-memory.md#2026-10-17--unbounded-programs-planning-corrections-authorized)
-does not supply the implementation "proceed". That later authorization must be
-recorded on `main`. Report an unresolved sound/expansive capacity rule, unfixable
-non-resource compile/link failure in the intended value domain, or unfixable
-definite non-proof as a conditional full stop; do not silently choose a smaller
-cap or weaken assurance. Source-capacity research
-[#107](https://github.com/berkeleynerd/silver/issues/107) and static-data research
-[#108](https://github.com/berkeleynerd/silver/issues/108) are separately scoped
-subphases of #91 and #93, before adoption or implementation. Their
-[research-only authorization](docs/session-memory.md#2026-10-17--unbounded-programs-feasibility-research-authorized)
-includes evidence publication and independent review. Packages #89 and #90
-coordinate source certificates and use one writer per proof workspace. Rosetta
-stages and new constructs remain separate, and native macOS validation remains
-independent and nonblocking.
+#119 is the current design increment. Production #88–#94 remains unstarted in
+Backlog; #88–#90 can proceed separately if selected while retaining admission.
+No external-tool change, Oracle amendment or arbitrary lower cap is selected.
+If complete sound capacity coverage cannot be established, report the exact
+missing obligation before removing the existing caps; optional confirmation
+cannot fill that gap. #89/#90 coordinate source certificates with one proof
+workspace writer. New constructs/Rosetta stages are separate, and native macOS
+validation remains independent and nonblocking. The milestone remains open.
 
 ### Bounded mutable integers
 

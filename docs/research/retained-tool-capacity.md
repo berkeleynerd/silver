@@ -117,7 +117,7 @@ must include the following families and their generated support, not just sample
 | String literals, references and concatenation | Decoded length, static versus dynamic values, copies, left-tail sharing where justified, folded intermediates and all materialization sites |
 | Integer literals and scalar expressions | Base/exponent spelling, separators, unary/binary operations, retained powers, arithmetic temporaries, static evaluation and generated numeric bounds |
 | Declarations and assignment | Ordered environments, mutable/constant status, ranges, initializers, copies, checks and branch-sensitive semantic facts |
-| Conditions and branches | Comparisons, membership, Boolean combinations, both translated arms, condition actions and generated control-flow nodes |
+| Conditions and branches | Comparisons, path facts, Boolean combinations, both translated arms, condition actions and generated control-flow nodes |
 | For loops and nesting | Bound capture, reverse/null ranges, index scope, nested expansion and generated checks under the selected unrolling options |
 | Image and selected library calls | Actual support-unit/template closure, argument/output paths, producer translation and object/report effects |
 | Shell and composition | Null/static/argument selection, sequencing, permitted cross-feature interactions and fixed plus source-dependent support costs |
@@ -141,8 +141,9 @@ must be covered for the admitted domain, or another complete automatic assurance
 route must be established under the unchanged Oracle before enlarging that domain.
 
 A reporting-only limit may interrupt corroborating confirmation without changing
-membership only when the independent assurance argument does not rely on the
-failed operation. Establish that separation and a reliable diagnostic before
+membership only when it cannot prevent or alter complete obligation generation
+and automatic discharge, and the assurance argument does not rely on the failed
+operation. Establish that separation and a reliable diagnostic before
 classifying the outcome as incomplete confirmation. Never call an incomplete
 run confirmed; retain the complete strict report audit for that claim. Existing
 [named confirmation limits](../unbounded-programs.md#confirmation-only-tool-limits)
@@ -153,8 +154,10 @@ The inspected gnat2why path constructs predicates/nodes per literal character;
 the [30-bit node obstruction](frontend-toolchain-feasibility.md#string-consumers-and-producer-growth)
 is a lower-bound argument for a literal reaching that path. It is not a safe
 String threshold, exact installed-tool cutoff or complete producer cost model.
-Its essential/reporting classification and corresponding accounting must be
-resolved explicitly; neither a frontend-pool bound nor a report-size rule does so.
+That path allocates proof structures and is proof-essential under the recorded
+source premise. Its connection to the installed producer and complete capacity
+accounting remain unresolved; neither a frontend-pool bound nor a report-size
+rule supplies them.
 
 The GCC baseline is `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`.
 The inspected SPARK snapshot is `42554fc241fcd1fdf08d3a2feccb3f86912acbc0`;
@@ -177,11 +180,12 @@ quality and implementation/proof cost. Samples illustrate differences; soundness
 requires the composition argument. No global optimality proof is required, but
 an arbitrary safety margin is not a derived tool maximum or a justified choice.
 
-The next derivation work, in dependency order, is:
+The next derivation work, in dependency order, is below. Steps 1–3 are internal
+phases of the single #119 deliverable, not independently completed work packages:
 
 1. Close the phase-specific configuration, selected dependency/virtual-source
    inventory and source-position component above; preserve separate producer
-   source-correspondence gaps. This is the smallest concrete technical increment.
+   source-correspondence gaps. This is the first technical checkpoint.
 2. Complete the reachable allocation inventory and grammar transfers, including
    growth intermediates, retained/temporary values and generated support. Derive
    frontend and essential-producer bounds separately; include backend/link closure.
