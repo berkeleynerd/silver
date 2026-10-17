@@ -3707,7 +3707,7 @@
  12368:       --  In the case of protected components, we have to generate the record
 ```
 
-## src/why/gnat2why-expr.adb:12402-12423
+## src/why/gnat2why-expr.adb:12402-12440
 
 ```ada
  12402:               Ada_Ent_To_Why.Element (Symbol_Table, Entity (Left_Side));
@@ -3732,6 +3732,23 @@
  12421:                         Labels   => Symbol_Sets.Empty_Set,
  12422:                         Value    =>
  12423:                           +Array_Convert_To_Base
+ 12424:                              (Ar => Right_Side, Domain => EW_Prog),
+ 12425:                         Typ      => Get_Typ (Binder.Content.B_Name)));
+ 12426:
+ 12427:                when DRecord                =>
+ 12428:                   declare
+ 12429:                      Tmp : constant W_Prog_Id :=
+ 12430:                        New_Temp_For_Expr (+Right_Side);
+ 12431:
+ 12432:                   begin
+ 12433:                      pragma
+ 12434:                        Assert
+ 12435:                          (No (Last_Access)
+ 12436:                           or else
+ 12437:                             (Nkind (Last_Access) = N_Selected_Component
+ 12438:                              and then
+ 12439:                                Ekind (Entity (Selector_Name (Last_Access)))
+ 12440:                                /= E_Discriminant));
 ```
 
 ## src/why/gnat2why-expr.adb:14857-14920
@@ -3997,7 +4014,7 @@
  18735:
 ```
 
-## src/why/gnat2why-expr.adb:19042-19142
+## src/why/gnat2why-expr.adb:19042-19146
 
 ```ada
  19042:    function Transform_Assignment_Statement
@@ -4101,6 +4118,10 @@
  19140:                   Context  => +T);
  19141:          end;
  19142:
+ 19143:       elsif Disc_Check then
+ 19144:
+ 19145:          --  Discriminants should be preserved by assignment except if the
+ 19146:          --  object is not constrained.
 ```
 
 ## src/why/gnat2why-expr.adb:19238-19345
@@ -5392,7 +5413,7 @@
  25573:             end;
 ```
 
-## src/why/gnat2why-expr.adb:25635-25667
+## src/why/gnat2why-expr.adb:25635-25724
 
 ```ada
  25635:
@@ -5428,6 +5449,63 @@
  25665:
  25666:       return T;
  25667:    end Transform_Expr;
+ 25668:
+ 25669:    function Transform_Expr
+ 25670:      (Expr              : N_Subexpr_Id;
+ 25671:       Domain            : EW_Domain;
+ 25672:       Params            : Transformation_Params;
+ 25673:       No_Init_Check     : Boolean := False;
+ 25674:       No_Validity_Check : Boolean := False) return W_Expr_Id
+ 25675:    is
+ 25676:       Expected_Type : W_Type_Id := Why_Empty;
+ 25677:
+ 25678:    begin
+ 25679:       --  For record fields, use the type of the field access (that is, the
+ 25680:       --  type of the field in the Retyps of the record type) to avoid
+ 25681:       --  conversions.
+ 25682:       --  Note that this type may depend on discriminants, so it is in general
+ 25683:       --  a bad idea to try to convert to such a type. Converting from it
+ 25684:       --  should be OK though as it is never in split form.
+ 25685:
+ 25686:       if Nkind (Expr) = N_Selected_Component then
+ 25687:          declare
+ 25688:             Field : constant Entity_Id := Entity (Selector_Name (Expr));
+ 25689:             Ty    : constant Entity_Id := Retysp (Etype (Prefix (Expr)));
+ 25690:          begin
+ 25691:             Expected_Type :=
+ 25692:               (if Is_Part_Of_Protected_Object (Field)
+ 25693:                then
+ 25694:                  EW_Abstract
+ 25695:                    (Etype (Field),
+ 25696:                     Relaxed_Init => Expr_Has_Relaxed_Init (Expr))
+ 25697:                else
+ 25698:                  EW_Abstract
+ 25699:                    (Etype (Search_Component_In_Type (Ty, Field)),
+ 25700:                     Relaxed_Init => Expr_Has_Relaxed_Init (Expr)));
+ 25701:             --  If the component may have relaxed initialization, use the
+ 25702:             --  associated wrapper type.
+ 25703:          end;
+ 25704:
+ 25705:       else
+ 25706:          Expected_Type := Type_Of_Node (Expr);
+ 25707:       end if;
+ 25708:
+ 25709:       --  Set error node so that bugbox information will be correct
+ 25710:
+ 25711:       Current_Error_Node := Expr;
+ 25712:
+ 25713:       return
+ 25714:         Transform_Expr
+ 25715:           (Expr,
+ 25716:            Expected_Type,
+ 25717:            Domain,
+ 25718:            Params,
+ 25719:            No_Init_Check,
+ 25720:            No_Validity_Check);
+ 25721:    end Transform_Expr;
+ 25722:
+ 25723:    ---------------------------------
+ 25724:    -- Transform_Expr_With_Actions --
 ```
 
 ## src/why/gnat2why-expr.adb:26847-27088

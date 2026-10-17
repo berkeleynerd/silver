@@ -539,20 +539,66 @@ same-type return (`src/why/why-gen-expr.adb:1136–1158`). Even a conversion
 that returns its original expression can therefore allocate up to six fresh
 nodes, including two direct map modules, if both source and target are
 nonstatic array representations. Sliding, length/range checks and temporary
-bindings on the nontrivial path are priced conditionally below; their
-frontend-shape premise remains to be connected to all reachable callers.
+bindings on the nontrivial path are priced below. The following frontend
+argument discharges their shape premise for ordinary Main expressions.
 
-### A conditional ordinary String conversion envelope
+### Main String shape invariant
 
-The following closes `Insert_Array_Conversion` under an explicit frontend-shape
-premise: source/target are ordinary rank-one Character Strings, each either
-statically constrained (possibly null) or unconstrained; neither uses fixed
-lower bounds, initialization wrappers, user predicates or an element-type
-conversion. This is not yet promoted to an unconditional Main bound: the
-frontend correspondence must cover `Actual_Subtype` and any generated type
-reaching the caller, as well as source declarations. The call is not a qualified
-expression. Cached symbol/entity-module initialization and caller construction
-of the already-supplied expected type remain separate.
+For successful analysis of the admitted Main grammar, every String type reaching
+these ordinary expression/assignment helpers is rank-one Standard.Character,
+and is either statically constrained (possibly null) or unconstrained
+Standard.String. This statement concerns the GNATprove semantic/light-expansion
+path, not later native expansion or arbitrary library implementation types.
+The [frontend entity derivation](retained-frontend-entities.md#object-declarations-and-exact-type-distinctions)
+retains the GCC source revision and the corresponding Main type-generation
+paths. The GCC references in this paragraph are relative to that report's
+`gcc/ada` tree, separately from the SPARK producer source cited elsewhere here.
+
+The proof is induction over the ordered declaration and expression grammar:
+
+- A literal, including a folded concatenation, receives a literal subtype with
+  static lower bound 1. A static literal initializer creates a static array
+  constraint; a static name initializer reuses or aliases its existing static
+  subtype. The alias keeps the existing static index bounds
+  (`sem_res.adb:13205–13337`; `exp_util.adb:5920–6011`).
+- For every nonstatic initializer, `Expand_Subtype_From_Expr` returns before
+  rewriting the source `String` subtype mark in GNATprove mode. The subsequent
+  `Find_Type_Of_Object`/`Process_Subtype` therefore returns the existing
+  Standard.String entity (`exp_util.adb:5873–5899`;
+  `sem_ch3.adb:19080–19214`). `Analyze_Object_Declaration` assigns this `Act_T`
+  as the object's Etype (`sem_ch3.adb:5341`). This covers mutable copies, Image,
+  First_Or_Default and their nonstatic concatenations, regardless of whether
+  Silver separately knows their value or length.
+- A nonfolded concatenation receives `Base_Type(Typ)`, hence Standard.String;
+  Image and First_Or_Default likewise have Standard.String results
+  (`sem_res.adb:10786`; the frontend report's Image/call analysis).
+- The two object-declaration `Actual_Subtype` setters are guarded respectively
+  by scalar type and aliased uninitialized discriminated record conditions
+  (`sem_ch3.adb:4800–4840,5305–5348`), excluding these String objects.
+  `Set_Assignment_Type` does not create an actual subtype for an ordinary
+  named local String target (`sem_ch5.adb:300–365`). Main has no slices,
+  explicit dereferences, components, renamings or out/in-out parameters.
+  The frontend report closes the remaining actual-subtype/type-generation
+  paths and re-entry cases.
+
+No Main String has fixed-lower-bound aspects, user predicates, initialization
+wrappers, qualifications or element-type conversions in this grammar. The
+producer does not introduce a new Ada constraint when retrieving these shapes:
+`Mk_Item_Of_Entity` chooses the existing Actual_Subtype if present, otherwise
+Etype (`src/why/why-gen-binders.adb:745–786`); `Type_Of_Node` uses existing binder
+and Ada type information (`src/why/why-inter.adb:1579–1632`). Its
+`New_Kind_Base_Type` constructs Why names/types/modules, not Ada subtypes
+(`:1158–1224`). `Array_From_Split_Form` likewise uses the original content type
+entity (`src/why/why-gen-arrays.adb:412–448`). Consequently the Main helper
+premise covers source names, generated literal/static alias types and binder
+lookups. Fixed-library body types require their own accounting below.
+
+### Ordinary String conversion envelope
+
+The following closes one Main `Insert_Array_Conversion` under the discharged
+shape invariant above. The call is not a qualified expression. Cached
+symbol/entity-module initialization and caller construction of the
+already-supplied expected type remain separate.
 
 First, on those shapes, a static type bound is either an existing bound symbol
 possibly converted to builtin Integer, or a compile-time-known bound/literal
@@ -615,7 +661,7 @@ premises; the eager type allocations still count. This envelope prices one
 conversion invocation, not the number of caller invocations or the complete
 String expression language.
 
-### A conditional ordinary String concatenation envelope
+### Ordinary String concatenation envelope
 
 Under the same ordinary String shape premise, with two String operands
 (neither operand is a Character component), `Transform_Concatenation`
@@ -718,6 +764,60 @@ constant. The relevant fixed symbols/types are in
 `src/why/why-atree-modules.adb:870–893, 2765–2775, 3962–3975`.
 Symbol/theory initialization and the later Image adapter remain separately
 accounted stages; this prices the retained producer's actual Image syntax.
+
+### Ordinary String assignment wrapper
+
+Under the same String-shape premise, a whole-object String assignment can be
+priced while allowing the target binder's `Actual_Subtype` to differ from the
+syntactic target type. The following excludes the one RHS translation and its
+initial expected-type conversion, symbol/module setup and enclosing statement
+list construction. It includes target-side type creation and two later
+conversion allowances.
+
+`Transform_Assignment_Statement` may preserve the target's runtime bounds by
+binding the RHS and a reconstructed target value, emitting `New_Length_Equality`
+and a located assertion, then binding the RHS once around that check. For the
+target read, allow fourteen nodes: two for the expected abstract type, six for
+the split-binder reconstruction and six eager nodes for its same-entity array
+conversion; its emitted expression is at most forty-eight occurrences. The
+read's temporary/name and binding are additional. The overload supplying the
+expected type calls `Type_Of_Node` once
+(`src/why/gnat2why-expr.adb:25668–25724`).
+
+The remaining ordinary path is captured by this conservative table:
+
+| Assignment component | Nodes | Lists | Elements | Emitted overhead |
+| --- | ---: | ---: | ---: | ---: |
+| Dispatcher target type and discarded target temporary | 4 | 0 | 0 | 0 |
+| RHS expected type | 3 | 0 | 0 | 0 |
+| Optional RHS temporary and binding | 3 | 0 | 0 | 9 |
+| Target read, temporary and binding | 17 | 3 | 5 | 57 |
+| Length equality, located assertion and sequence | 16 | 13 | 18 | 243 |
+| Expected types for two subsequent conversions | 4 | 0 | 0 | 0 |
+| Discarded move temporary | 2 | 0 | 0 | 0 |
+| Target map conversion and assignment | 5 | 1 | 1 | 20 |
+| **Subtotal before the two conversion bodies** | **54** | **17** | **24** | **329** |
+
+The check/sequence row adds the RHS temporary's at-most-five occurrences to
+the previous length-check suffix of 238. `Type_Of_Node` on a regular binder
+reuses its type, whereas a split-array binder may create its abstract type;
+two nodes cover each target-type lookup. The RHS expected type may instead
+be a static map type, so its allowance is three. Reconstructing a regular
+static target or skipping the runtime-length check is smaller than these
+combined allowances.
+
+After that check, `Insert_Simple_Conversion` converts to the binder type;
+the whole-object assignment helper calls it again before the regular/map
+assignment (`src/why/gnat2why-expr.adb:19238–19295, 12286–12440`). Charge the
+full array-conversion envelope for **both** calls, even though
+an identity comparison commonly returns early. This avoids assuming equality
+between the source type and `Actual_Subtype`. The resulting wrapper bound is
+**148 fresh nodes, 61 lists, 86 elements and 1,247 emitted occurrences**:
+`54/17/24/329 + 2*(47/22/31/459)`. Each conversion preserves its supplied
+child once, so the translated RHS still has coefficient one. The ordinary
+path has no discriminant/tag/validity/borrow/move-tree work. The Main String
+shape invariant covers every ordinary source assignment; this does not price
+fixed-library body assignments with richer types.
 
 ## Declaration, type and module caller closure
 

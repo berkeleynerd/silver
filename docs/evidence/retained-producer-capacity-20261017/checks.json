@@ -27,6 +27,14 @@
       "occurrence_overhead_max": 27
     }
   },
+  "conditional_string_assignment": {
+    "elements_max": 86,
+    "excludes": "RHS and initial expected-type conversion, symbol/module setup, enclosing sequence",
+    "lists_max": 61,
+    "nodes_max": 148,
+    "occurrence_overhead_max": 1247,
+    "premise": "ordinary String-shape premise also covers binder Actual_Subtype"
+  },
   "conditional_string_concatenation": {
     "elements_max": 49,
     "excludes": "children, cached symbol/module setup, enclosing expected-type conversion, repeated translation",
