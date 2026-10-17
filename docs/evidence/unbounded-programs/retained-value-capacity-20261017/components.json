@@ -1,0 +1,3118 @@
+{
+  "kind": "conditional source-derived allocation components, not a membership rule",
+  "upstream_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_hashes": [
+    {
+      "path": "alloc.ads",
+      "bytes": 7830,
+      "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d",
+      "git_blob_sha1": "7e36e8eb8783c8a444f6d79a5a7ea10c5e881a71",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/alloc.ads"
+    },
+    {
+      "path": "types.ads",
+      "bytes": 46466,
+      "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+      "git_blob_sha1": "6070130ac925077cf9037da84592a64b73734379",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/types.ads"
+    },
+    {
+      "path": "stringt.adb",
+      "bytes": 13395,
+      "sha256": "9907f68178174b87a19a6d3871e5bc48e3a7471b3a4140f5e25bd900fcb84954",
+      "git_blob_sha1": "d9853140c7b973a295721c430b3dcc2719b583c8",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/stringt.adb"
+    },
+    {
+      "path": "uintp.ads",
+      "bytes": 26744,
+      "sha256": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
+      "git_blob_sha1": "a34abac444fcd53ded8609a2a996433bb55d364c",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/uintp.ads"
+    },
+    {
+      "path": "uintp.adb",
+      "bytes": 69576,
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
+      "git_blob_sha1": "74e323b0e0eeaca3e666744cea406b7cadbc3ce4",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/uintp.adb"
+    },
+    {
+      "path": "scng.adb",
+      "bytes": 99999,
+      "sha256": "0989455192a510aff6227ac012b232f1497e219f294d277e7fb99c5bdb7c7db3",
+      "git_blob_sha1": "5aedb4a20100c67d57add10d1742790d6916638e",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/scng.adb"
+    },
+    {
+      "path": "scans.ads",
+      "bytes": 24443,
+      "sha256": "0118586b2957fdb579cff22d886308e007b3fbfce002b977fe2c50b6f3496e4a",
+      "git_blob_sha1": "9a4f47f2ea856f56817a2ddadff71022f2ef5bfc",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/scans.ads"
+    },
+    {
+      "path": "scans.adb",
+      "bytes": 9137,
+      "sha256": "a7b2934948f59fa2b15116d3b2959114fb1865b2964150e9a186b580d5679f1e",
+      "git_blob_sha1": "af6ec550cfa614d2f01f0a5de0dcfe9bc1b0477b",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/scans.adb"
+    },
+    {
+      "path": "scn.adb",
+      "bytes": 9665,
+      "sha256": "fa1d657388d6303084eef6a06e98a012a03d667ff8703c6025c47201dc47dba3",
+      "git_blob_sha1": "3c3b3025c3f0bc14d680250ebd2e29e8a75887d8",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/scn.adb"
+    },
+    {
+      "path": "par-ch3.adb",
+      "bytes": 175237,
+      "sha256": "571a1d2a038c7023960ac3770139e808f2306dac0ef2f0d0d262bed08caf8452",
+      "git_blob_sha1": "77c6f12691ae8a18ee0914730a08a181957eacde",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-ch3.adb"
+    },
+    {
+      "path": "par-ch4.adb",
+      "bytes": 143417,
+      "sha256": "b6ea201b0bf99ddb4683ecc09ea65bf5009f249fbae7af71d00ec921bd0f79d7",
+      "git_blob_sha1": "c1383baf8d9ad141f84a65b2f354a1fd8ee0ea54",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-ch4.adb"
+    },
+    {
+      "path": "par-ch5.adb",
+      "bytes": 87692,
+      "sha256": "be592a8382db8b249308949e51595dabf3a19e98e1ffe694c1e012983804c298",
+      "git_blob_sha1": "a327e7178198f60195167736a6e47277dccd9e1c",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-ch5.adb"
+    },
+    {
+      "path": "par-ch6.adb",
+      "bytes": 71306,
+      "sha256": "93daabccfe3b63c05289916f5241fc7822d7405a516045ed2b3fbecb8eda4480",
+      "git_blob_sha1": "063e528aa1fda62e053b859c4981fa29b8053949",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-ch6.adb"
+    },
+    {
+      "path": "par-util.adb",
+      "bytes": 27415,
+      "sha256": "1aec06552dcadb3afc170029c4c69f35f95e4e986f2cc0a987ae36c6c2f59292",
+      "git_blob_sha1": "c9d8920327ef771540e2d0d4d7da838e75ab3b5a",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-util.adb"
+    },
+    {
+      "path": "par-tchk.adb",
+      "bytes": 21476,
+      "sha256": "182c629c13d538c4528ec8fdeee5397122dc8d0084700161ca287c343943470e",
+      "git_blob_sha1": "e1be9d0d551ebb453ad7cbb2b1833be8aed6aa09",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-tchk.adb"
+    },
+    {
+      "path": "sem_eval.adb",
+      "bytes": 273210,
+      "sha256": "0dfbf5f1bede0b9e011f21649c7f4d34851c6267cd72acebcb53e7a7fb4c7d30",
+      "git_blob_sha1": "0ccd32f13896cf49578ab41f46f840e5ed43d572",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_eval.adb"
+    },
+    {
+      "path": "sem_res.adb",
+      "bytes": 559989,
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8",
+      "git_blob_sha1": "270affe5ccb002851ae1f81755e4386e289b7f3e",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_res.adb"
+    },
+    {
+      "path": "sem_attr.adb",
+      "bytes": 481322,
+      "sha256": "2186f019b336c853f7e3f5ae3a40fd91514ba188694c4fd592282c7ce63185d0",
+      "git_blob_sha1": "e4fc782fcd92a679ead59fc9591a884012cf71ab",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_attr.adb"
+    },
+    {
+      "path": "sem_util.adb",
+      "bytes": 1074489,
+      "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4",
+      "git_blob_sha1": "05e7844d3613767c82df9125906d54b127e4897f",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_util.adb"
+    },
+    {
+      "path": "exp_imgv.adb",
+      "bytes": 95290,
+      "sha256": "c9b2130f6c8dd9f42d48709e165ad190a570e01bd7960aabc04a6e600fa54de1",
+      "git_blob_sha1": "469c7c065da771fc581ea3cceaa9886c106cafa9",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/exp_imgv.adb"
+    },
+    {
+      "path": "exp_util.adb",
+      "bytes": 533310,
+      "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
+      "git_blob_sha1": "c2346844d0be427d313421214ba07bd8ed4b6b70",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/exp_util.adb"
+    },
+    {
+      "path": "table.ads",
+      "bytes": 12010,
+      "sha256": "e82f128c9e68d286d433c8848d81b00eb9b01f1fd75f3e5cee018223b9c4e5db",
+      "git_blob_sha1": "4711858ad65a300086be3f9566ecb38525777a37",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/table.ads"
+    },
+    {
+      "path": "table.adb",
+      "bytes": 13959,
+      "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4",
+      "git_blob_sha1": "124b25e925ac30a4e62f81605a4a315e81f13aee",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/table.adb"
+    }
+  ],
+  "source_hash_mismatches": 0,
+  "arithmetic_discriminators_checked": 3885,
+  "current_exponent_ceiling": 4096,
+  "proposed_exponent_ceiling": 799999,
+  "unsigned_scalar_numeral_magnitude_ceiling": 2147483648,
+  "direct_maximum": 1073676289,
+  "string_descriptor_ids_including_initialized_null": 99999999,
+  "uint_table_ids": 100000000,
+  "token_examples": [
+    {
+      "base": 10,
+      "mantissa_digits": [
+        0
+      ],
+      "exponent": 0,
+      "value": 0,
+      "uint_entries": 0,
+      "digit_words": 0,
+      "local_vector_words": 16,
+      "prefix_uint_entries": 0,
+      "prefix_digit_words": 0,
+      "power": {
+        "base": 10,
+        "exponent": 0,
+        "uint_entries": 0,
+        "digit_words": 0,
+        "local_vector_words": 0,
+        "events": []
+      },
+      "final_multiply_uint_entries": 0,
+      "final_multiply_digit_words": 0
+    },
+    {
+      "base": 10,
+      "mantissa_digits": [
+        0
+      ],
+      "exponent": 4096,
+      "value": 0,
+      "uint_entries": 11,
+      "digit_words": 4373,
+      "local_vector_words": 2188,
+      "prefix_uint_entries": 0,
+      "prefix_digit_words": 0,
+      "power": {
+        "base": 10,
+        "exponent": 4096,
+        "uint_entries": 11,
+        "digit_words": 4373,
+        "local_vector_words": 2188,
+        "events": [
+          {
+            "kind": "multiply",
+            "left_exponent": 1,
+            "right_exponent": 1,
+            "result_exponent": 2,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 2,
+            "right_exponent": 2,
+            "result_exponent": 4,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 4,
+            "right_exponent": 4,
+            "result_exponent": 8,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 8
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 8,
+            "right_exponent": 8,
+            "result_exponent": 16,
+            "uint_entries": 1,
+            "digit_words": 5,
+            "local_vector_words": 12
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 16,
+            "right_exponent": 16,
+            "result_exponent": 32,
+            "uint_entries": 1,
+            "digit_words": 9,
+            "local_vector_words": 20
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 32,
+            "right_exponent": 32,
+            "result_exponent": 64,
+            "uint_entries": 1,
+            "digit_words": 18,
+            "local_vector_words": 36
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 64,
+            "right_exponent": 64,
+            "result_exponent": 128,
+            "uint_entries": 1,
+            "digit_words": 35,
+            "local_vector_words": 72
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 128,
+            "right_exponent": 128,
+            "result_exponent": 256,
+            "uint_entries": 1,
+            "digit_words": 69,
+            "local_vector_words": 140
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 256,
+            "right_exponent": 256,
+            "result_exponent": 512,
+            "uint_entries": 1,
+            "digit_words": 137,
+            "local_vector_words": 276
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 512,
+            "right_exponent": 512,
+            "result_exponent": 1024,
+            "uint_entries": 1,
+            "digit_words": 274,
+            "local_vector_words": 548
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1024,
+            "right_exponent": 1024,
+            "result_exponent": 2048,
+            "uint_entries": 1,
+            "digit_words": 547,
+            "local_vector_words": 1096
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 2048,
+            "right_exponent": 2048,
+            "result_exponent": 4096,
+            "uint_entries": 1,
+            "digit_words": 1093,
+            "local_vector_words": 2188
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 0,
+            "right_exponent": 4096,
+            "result_exponent": 4096,
+            "uint_entries": 1,
+            "digit_words": 1093,
+            "local_vector_words": 2188
+          },
+          {
+            "kind": "release_and_save",
+            "result_exponent": 4096,
+            "uint_entries": 1,
+            "digit_words": 1093,
+            "local_vector_words": 1093
+          }
+        ]
+      },
+      "final_multiply_uint_entries": 0,
+      "final_multiply_digit_words": 0
+    },
+    {
+      "base": 10,
+      "mantissa_digits": [
+        0
+      ],
+      "exponent": 799999,
+      "value": 0,
+      "uint_entries": 27,
+      "digit_words": 785347,
+      "local_vector_words": 426670,
+      "prefix_uint_entries": 0,
+      "prefix_digit_words": 0,
+      "power": {
+        "base": 10,
+        "exponent": 799999,
+        "uint_entries": 27,
+        "digit_words": 785347,
+        "local_vector_words": 426668,
+        "events": [
+          {
+            "kind": "multiply",
+            "left_exponent": 0,
+            "right_exponent": 1,
+            "result_exponent": 1,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1,
+            "right_exponent": 1,
+            "result_exponent": 2,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1,
+            "right_exponent": 2,
+            "result_exponent": 3,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 2,
+            "right_exponent": 2,
+            "result_exponent": 4,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 3,
+            "right_exponent": 4,
+            "result_exponent": 7,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 4,
+            "right_exponent": 4,
+            "result_exponent": 8,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 8
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 7,
+            "right_exponent": 8,
+            "result_exponent": 15,
+            "uint_entries": 1,
+            "digit_words": 5,
+            "local_vector_words": 10
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 8,
+            "right_exponent": 8,
+            "result_exponent": 16,
+            "uint_entries": 1,
+            "digit_words": 5,
+            "local_vector_words": 12
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 15,
+            "right_exponent": 16,
+            "result_exponent": 31,
+            "uint_entries": 1,
+            "digit_words": 9,
+            "local_vector_words": 20
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 16,
+            "right_exponent": 16,
+            "result_exponent": 32,
+            "uint_entries": 1,
+            "digit_words": 9,
+            "local_vector_words": 20
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 31,
+            "right_exponent": 32,
+            "result_exponent": 63,
+            "uint_entries": 1,
+            "digit_words": 17,
+            "local_vector_words": 36
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 32,
+            "right_exponent": 32,
+            "result_exponent": 64,
+            "uint_entries": 1,
+            "digit_words": 18,
+            "local_vector_words": 36
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 63,
+            "right_exponent": 64,
+            "result_exponent": 127,
+            "uint_entries": 1,
+            "digit_words": 34,
+            "local_vector_words": 70
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 64,
+            "right_exponent": 64,
+            "result_exponent": 128,
+            "uint_entries": 1,
+            "digit_words": 35,
+            "local_vector_words": 72
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 127,
+            "right_exponent": 128,
+            "result_exponent": 255,
+            "uint_entries": 1,
+            "digit_words": 69,
+            "local_vector_words": 138
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 128,
+            "right_exponent": 128,
+            "result_exponent": 256,
+            "uint_entries": 1,
+            "digit_words": 69,
+            "local_vector_words": 140
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 256,
+            "right_exponent": 256,
+            "result_exponent": 512,
+            "uint_entries": 1,
+            "digit_words": 137,
+            "local_vector_words": 276
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 512,
+            "right_exponent": 512,
+            "result_exponent": 1024,
+            "uint_entries": 1,
+            "digit_words": 274,
+            "local_vector_words": 548
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 255,
+            "right_exponent": 1024,
+            "result_exponent": 1279,
+            "uint_entries": 1,
+            "digit_words": 342,
+            "local_vector_words": 686
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1024,
+            "right_exponent": 1024,
+            "result_exponent": 2048,
+            "uint_entries": 1,
+            "digit_words": 547,
+            "local_vector_words": 1096
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 2048,
+            "right_exponent": 2048,
+            "result_exponent": 4096,
+            "uint_entries": 1,
+            "digit_words": 1093,
+            "local_vector_words": 2188
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1279,
+            "right_exponent": 4096,
+            "result_exponent": 5375,
+            "uint_entries": 1,
+            "digit_words": 1434,
+            "local_vector_words": 2870
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 4096,
+            "right_exponent": 4096,
+            "result_exponent": 8192,
+            "uint_entries": 1,
+            "digit_words": 2185,
+            "local_vector_words": 4372
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 5375,
+            "right_exponent": 8192,
+            "result_exponent": 13567,
+            "uint_entries": 1,
+            "digit_words": 3618,
+            "local_vector_words": 7238
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 8192,
+            "right_exponent": 8192,
+            "result_exponent": 16384,
+            "uint_entries": 1,
+            "digit_words": 4370,
+            "local_vector_words": 8740
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 16384,
+            "right_exponent": 16384,
+            "result_exponent": 32768,
+            "uint_entries": 1,
+            "digit_words": 8739,
+            "local_vector_words": 17480
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 32768,
+            "right_exponent": 32768,
+            "result_exponent": 65536,
+            "uint_entries": 1,
+            "digit_words": 17477,
+            "local_vector_words": 34956
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 65536,
+            "right_exponent": 65536,
+            "result_exponent": 131072,
+            "uint_entries": 1,
+            "digit_words": 34953,
+            "local_vector_words": 69908
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 131072,
+            "right_exponent": 131072,
+            "result_exponent": 262144,
+            "uint_entries": 1,
+            "digit_words": 69906,
+            "local_vector_words": 139812
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 13567,
+            "right_exponent": 262144,
+            "result_exponent": 275711,
+            "uint_entries": 1,
+            "digit_words": 73523,
+            "local_vector_words": 147048
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 262144,
+            "right_exponent": 262144,
+            "result_exponent": 524288,
+            "uint_entries": 1,
+            "digit_words": 139811,
+            "local_vector_words": 279624
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 275711,
+            "right_exponent": 524288,
+            "result_exponent": 799999,
+            "uint_entries": 1,
+            "digit_words": 213334,
+            "local_vector_words": 426668
+          },
+          {
+            "kind": "release_and_save",
+            "result_exponent": 799999,
+            "uint_entries": 1,
+            "digit_words": 213334,
+            "local_vector_words": 213334
+          }
+        ]
+      },
+      "final_multiply_uint_entries": 0,
+      "final_multiply_digit_words": 0
+    },
+    {
+      "base": 2,
+      "mantissa_digits": [
+        0
+      ],
+      "exponent": 799999,
+      "value": 0,
+      "uint_entries": 25,
+      "digit_words": 196348,
+      "local_vector_words": 106670,
+      "prefix_uint_entries": 0,
+      "prefix_digit_words": 0,
+      "power": {
+        "base": 2,
+        "exponent": 799999,
+        "uint_entries": 25,
+        "digit_words": 196348,
+        "local_vector_words": 106668,
+        "events": [
+          {
+            "kind": "multiply",
+            "left_exponent": 0,
+            "right_exponent": 1,
+            "result_exponent": 1,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1,
+            "right_exponent": 1,
+            "result_exponent": 2,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1,
+            "right_exponent": 2,
+            "result_exponent": 3,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 2,
+            "right_exponent": 2,
+            "result_exponent": 4,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 3,
+            "right_exponent": 4,
+            "result_exponent": 7,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 4,
+            "right_exponent": 4,
+            "result_exponent": 8,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 7,
+            "right_exponent": 8,
+            "result_exponent": 15,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 8,
+            "right_exponent": 8,
+            "result_exponent": 16,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 15,
+            "right_exponent": 16,
+            "result_exponent": 31,
+            "uint_entries": 1,
+            "digit_words": 3,
+            "local_vector_words": 8
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 16,
+            "right_exponent": 16,
+            "result_exponent": 32,
+            "uint_entries": 1,
+            "digit_words": 3,
+            "local_vector_words": 8
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 31,
+            "right_exponent": 32,
+            "result_exponent": 63,
+            "uint_entries": 1,
+            "digit_words": 5,
+            "local_vector_words": 12
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 32,
+            "right_exponent": 32,
+            "result_exponent": 64,
+            "uint_entries": 1,
+            "digit_words": 5,
+            "local_vector_words": 12
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 63,
+            "right_exponent": 64,
+            "result_exponent": 127,
+            "uint_entries": 1,
+            "digit_words": 9,
+            "local_vector_words": 20
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 64,
+            "right_exponent": 64,
+            "result_exponent": 128,
+            "uint_entries": 1,
+            "digit_words": 9,
+            "local_vector_words": 20
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 127,
+            "right_exponent": 128,
+            "result_exponent": 255,
+            "uint_entries": 1,
+            "digit_words": 18,
+            "local_vector_words": 36
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 128,
+            "right_exponent": 128,
+            "result_exponent": 256,
+            "uint_entries": 1,
+            "digit_words": 18,
+            "local_vector_words": 36
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 256,
+            "right_exponent": 256,
+            "result_exponent": 512,
+            "uint_entries": 1,
+            "digit_words": 35,
+            "local_vector_words": 72
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 512,
+            "right_exponent": 512,
+            "result_exponent": 1024,
+            "uint_entries": 1,
+            "digit_words": 69,
+            "local_vector_words": 140
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 255,
+            "right_exponent": 1024,
+            "result_exponent": 1279,
+            "uint_entries": 1,
+            "digit_words": 86,
+            "local_vector_words": 174
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1024,
+            "right_exponent": 1024,
+            "result_exponent": 2048,
+            "uint_entries": 1,
+            "digit_words": 137,
+            "local_vector_words": 276
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 2048,
+            "right_exponent": 2048,
+            "result_exponent": 4096,
+            "uint_entries": 1,
+            "digit_words": 274,
+            "local_vector_words": 548
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1279,
+            "right_exponent": 4096,
+            "result_exponent": 5375,
+            "uint_entries": 1,
+            "digit_words": 359,
+            "local_vector_words": 720
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 4096,
+            "right_exponent": 4096,
+            "result_exponent": 8192,
+            "uint_entries": 1,
+            "digit_words": 547,
+            "local_vector_words": 1096
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 5375,
+            "right_exponent": 8192,
+            "result_exponent": 13567,
+            "uint_entries": 1,
+            "digit_words": 905,
+            "local_vector_words": 1812
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 8192,
+            "right_exponent": 8192,
+            "result_exponent": 16384,
+            "uint_entries": 1,
+            "digit_words": 1093,
+            "local_vector_words": 2188
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 16384,
+            "right_exponent": 16384,
+            "result_exponent": 32768,
+            "uint_entries": 1,
+            "digit_words": 2185,
+            "local_vector_words": 4372
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 32768,
+            "right_exponent": 32768,
+            "result_exponent": 65536,
+            "uint_entries": 1,
+            "digit_words": 4370,
+            "local_vector_words": 8740
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 65536,
+            "right_exponent": 65536,
+            "result_exponent": 131072,
+            "uint_entries": 1,
+            "digit_words": 8739,
+            "local_vector_words": 17480
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 131072,
+            "right_exponent": 131072,
+            "result_exponent": 262144,
+            "uint_entries": 1,
+            "digit_words": 17477,
+            "local_vector_words": 34956
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 13567,
+            "right_exponent": 262144,
+            "result_exponent": 275711,
+            "uint_entries": 1,
+            "digit_words": 18381,
+            "local_vector_words": 36764
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 262144,
+            "right_exponent": 262144,
+            "result_exponent": 524288,
+            "uint_entries": 1,
+            "digit_words": 34953,
+            "local_vector_words": 69908
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 275711,
+            "right_exponent": 524288,
+            "result_exponent": 799999,
+            "uint_entries": 1,
+            "digit_words": 53334,
+            "local_vector_words": 106668
+          },
+          {
+            "kind": "release_and_save",
+            "result_exponent": 799999,
+            "uint_entries": 1,
+            "digit_words": 53334,
+            "local_vector_words": 53334
+          }
+        ]
+      },
+      "final_multiply_uint_entries": 0,
+      "final_multiply_digit_words": 0
+    },
+    {
+      "base": 16,
+      "mantissa_digits": [
+        0
+      ],
+      "exponent": 799999,
+      "value": 0,
+      "uint_entries": 28,
+      "digit_words": 785350,
+      "local_vector_words": 426670,
+      "prefix_uint_entries": 0,
+      "prefix_digit_words": 0,
+      "power": {
+        "base": 16,
+        "exponent": 799999,
+        "uint_entries": 28,
+        "digit_words": 785350,
+        "local_vector_words": 426668,
+        "events": [
+          {
+            "kind": "multiply",
+            "left_exponent": 0,
+            "right_exponent": 1,
+            "result_exponent": 1,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1,
+            "right_exponent": 1,
+            "result_exponent": 2,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1,
+            "right_exponent": 2,
+            "result_exponent": 3,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 2,
+            "right_exponent": 2,
+            "result_exponent": 4,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 3,
+            "right_exponent": 4,
+            "result_exponent": 7,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 4,
+            "right_exponent": 4,
+            "result_exponent": 8,
+            "uint_entries": 1,
+            "digit_words": 3,
+            "local_vector_words": 8
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 7,
+            "right_exponent": 8,
+            "result_exponent": 15,
+            "uint_entries": 1,
+            "digit_words": 5,
+            "local_vector_words": 10
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 8,
+            "right_exponent": 8,
+            "result_exponent": 16,
+            "uint_entries": 1,
+            "digit_words": 5,
+            "local_vector_words": 12
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 15,
+            "right_exponent": 16,
+            "result_exponent": 31,
+            "uint_entries": 1,
+            "digit_words": 9,
+            "local_vector_words": 20
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 16,
+            "right_exponent": 16,
+            "result_exponent": 32,
+            "uint_entries": 1,
+            "digit_words": 9,
+            "local_vector_words": 20
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 31,
+            "right_exponent": 32,
+            "result_exponent": 63,
+            "uint_entries": 1,
+            "digit_words": 17,
+            "local_vector_words": 36
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 32,
+            "right_exponent": 32,
+            "result_exponent": 64,
+            "uint_entries": 1,
+            "digit_words": 18,
+            "local_vector_words": 36
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 63,
+            "right_exponent": 64,
+            "result_exponent": 127,
+            "uint_entries": 1,
+            "digit_words": 34,
+            "local_vector_words": 70
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 64,
+            "right_exponent": 64,
+            "result_exponent": 128,
+            "uint_entries": 1,
+            "digit_words": 35,
+            "local_vector_words": 72
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 127,
+            "right_exponent": 128,
+            "result_exponent": 255,
+            "uint_entries": 1,
+            "digit_words": 69,
+            "local_vector_words": 138
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 128,
+            "right_exponent": 128,
+            "result_exponent": 256,
+            "uint_entries": 1,
+            "digit_words": 69,
+            "local_vector_words": 140
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 256,
+            "right_exponent": 256,
+            "result_exponent": 512,
+            "uint_entries": 1,
+            "digit_words": 137,
+            "local_vector_words": 276
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 512,
+            "right_exponent": 512,
+            "result_exponent": 1024,
+            "uint_entries": 1,
+            "digit_words": 274,
+            "local_vector_words": 548
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 255,
+            "right_exponent": 1024,
+            "result_exponent": 1279,
+            "uint_entries": 1,
+            "digit_words": 342,
+            "local_vector_words": 686
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1024,
+            "right_exponent": 1024,
+            "result_exponent": 2048,
+            "uint_entries": 1,
+            "digit_words": 547,
+            "local_vector_words": 1096
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 2048,
+            "right_exponent": 2048,
+            "result_exponent": 4096,
+            "uint_entries": 1,
+            "digit_words": 1093,
+            "local_vector_words": 2188
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1279,
+            "right_exponent": 4096,
+            "result_exponent": 5375,
+            "uint_entries": 1,
+            "digit_words": 1434,
+            "local_vector_words": 2870
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 4096,
+            "right_exponent": 4096,
+            "result_exponent": 8192,
+            "uint_entries": 1,
+            "digit_words": 2185,
+            "local_vector_words": 4372
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 5375,
+            "right_exponent": 8192,
+            "result_exponent": 13567,
+            "uint_entries": 1,
+            "digit_words": 3618,
+            "local_vector_words": 7238
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 8192,
+            "right_exponent": 8192,
+            "result_exponent": 16384,
+            "uint_entries": 1,
+            "digit_words": 4370,
+            "local_vector_words": 8740
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 16384,
+            "right_exponent": 16384,
+            "result_exponent": 32768,
+            "uint_entries": 1,
+            "digit_words": 8739,
+            "local_vector_words": 17480
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 32768,
+            "right_exponent": 32768,
+            "result_exponent": 65536,
+            "uint_entries": 1,
+            "digit_words": 17477,
+            "local_vector_words": 34956
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 65536,
+            "right_exponent": 65536,
+            "result_exponent": 131072,
+            "uint_entries": 1,
+            "digit_words": 34953,
+            "local_vector_words": 69908
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 131072,
+            "right_exponent": 131072,
+            "result_exponent": 262144,
+            "uint_entries": 1,
+            "digit_words": 69906,
+            "local_vector_words": 139812
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 13567,
+            "right_exponent": 262144,
+            "result_exponent": 275711,
+            "uint_entries": 1,
+            "digit_words": 73523,
+            "local_vector_words": 147048
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 262144,
+            "right_exponent": 262144,
+            "result_exponent": 524288,
+            "uint_entries": 1,
+            "digit_words": 139811,
+            "local_vector_words": 279624
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 275711,
+            "right_exponent": 524288,
+            "result_exponent": 799999,
+            "uint_entries": 1,
+            "digit_words": 213334,
+            "local_vector_words": 426668
+          },
+          {
+            "kind": "release_and_save",
+            "result_exponent": 799999,
+            "uint_entries": 1,
+            "digit_words": 213334,
+            "local_vector_words": 213334
+          }
+        ]
+      },
+      "final_multiply_uint_entries": 0,
+      "final_multiply_digit_words": 0
+    },
+    {
+      "base": 10,
+      "mantissa_digits": [
+        2,
+        1,
+        4,
+        7,
+        4,
+        8,
+        3,
+        6,
+        4,
+        8
+      ],
+      "exponent": 0,
+      "value": 2147483648,
+      "uint_entries": 2,
+      "digit_words": 6,
+      "local_vector_words": 16,
+      "prefix_uint_entries": 2,
+      "prefix_digit_words": 6,
+      "power": {
+        "base": 10,
+        "exponent": 0,
+        "uint_entries": 0,
+        "digit_words": 0,
+        "local_vector_words": 0,
+        "events": []
+      },
+      "final_multiply_uint_entries": 0,
+      "final_multiply_digit_words": 0
+    },
+    {
+      "base": 2,
+      "mantissa_digits": [
+        1
+      ],
+      "exponent": 31,
+      "value": 2147483648,
+      "uint_entries": 3,
+      "digit_words": 9,
+      "local_vector_words": 16,
+      "prefix_uint_entries": 0,
+      "prefix_digit_words": 0,
+      "power": {
+        "base": 2,
+        "exponent": 31,
+        "uint_entries": 2,
+        "digit_words": 6,
+        "local_vector_words": 8,
+        "events": [
+          {
+            "kind": "multiply",
+            "left_exponent": 0,
+            "right_exponent": 1,
+            "result_exponent": 1,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1,
+            "right_exponent": 1,
+            "result_exponent": 2,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 2,
+            "right_exponent": 1,
+            "result_exponent": 3,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 3,
+            "right_exponent": 1,
+            "result_exponent": 4,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 4,
+            "right_exponent": 1,
+            "result_exponent": 5,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 5,
+            "right_exponent": 1,
+            "result_exponent": 6,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 6,
+            "right_exponent": 1,
+            "result_exponent": 7,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 7,
+            "right_exponent": 1,
+            "result_exponent": 8,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 8,
+            "right_exponent": 1,
+            "result_exponent": 9,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 9,
+            "right_exponent": 1,
+            "result_exponent": 10,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 10,
+            "right_exponent": 1,
+            "result_exponent": 11,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 11,
+            "right_exponent": 1,
+            "result_exponent": 12,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 12,
+            "right_exponent": 1,
+            "result_exponent": 13,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 13,
+            "right_exponent": 1,
+            "result_exponent": 14,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 14,
+            "right_exponent": 1,
+            "result_exponent": 15,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 15,
+            "right_exponent": 1,
+            "result_exponent": 16,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 16,
+            "right_exponent": 1,
+            "result_exponent": 17,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 17,
+            "right_exponent": 1,
+            "result_exponent": 18,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 18,
+            "right_exponent": 1,
+            "result_exponent": 19,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 19,
+            "right_exponent": 1,
+            "result_exponent": 20,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 20,
+            "right_exponent": 1,
+            "result_exponent": 21,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 21,
+            "right_exponent": 1,
+            "result_exponent": 22,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 22,
+            "right_exponent": 1,
+            "result_exponent": 23,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 23,
+            "right_exponent": 1,
+            "result_exponent": 24,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 24,
+            "right_exponent": 1,
+            "result_exponent": 25,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 25,
+            "right_exponent": 1,
+            "result_exponent": 26,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 26,
+            "right_exponent": 1,
+            "result_exponent": 27,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 27,
+            "right_exponent": 1,
+            "result_exponent": 28,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 28,
+            "right_exponent": 1,
+            "result_exponent": 29,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 29,
+            "right_exponent": 1,
+            "result_exponent": 30,
+            "uint_entries": 1,
+            "digit_words": 3,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 30,
+            "right_exponent": 1,
+            "result_exponent": 31,
+            "uint_entries": 1,
+            "digit_words": 3,
+            "local_vector_words": 8
+          }
+        ]
+      },
+      "final_multiply_uint_entries": 1,
+      "final_multiply_digit_words": 3
+    },
+    {
+      "base": 10,
+      "mantissa_digits": [
+        1
+      ],
+      "exponent": 9,
+      "value": 1000000000,
+      "uint_entries": 0,
+      "digit_words": 0,
+      "local_vector_words": 16,
+      "prefix_uint_entries": 0,
+      "prefix_digit_words": 0,
+      "power": {
+        "base": 10,
+        "exponent": 9,
+        "uint_entries": 0,
+        "digit_words": 0,
+        "local_vector_words": 8,
+        "events": [
+          {
+            "kind": "multiply",
+            "left_exponent": 0,
+            "right_exponent": 1,
+            "result_exponent": 1,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 1,
+            "right_exponent": 1,
+            "result_exponent": 2,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 2,
+            "right_exponent": 1,
+            "result_exponent": 3,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 3,
+            "right_exponent": 1,
+            "result_exponent": 4,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 4
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 4,
+            "right_exponent": 1,
+            "result_exponent": 5,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 5,
+            "right_exponent": 1,
+            "result_exponent": 6,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 6,
+            "right_exponent": 1,
+            "result_exponent": 7,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 7,
+            "right_exponent": 1,
+            "result_exponent": 8,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 6
+          },
+          {
+            "kind": "multiply",
+            "left_exponent": 8,
+            "right_exponent": 1,
+            "result_exponent": 9,
+            "uint_entries": 0,
+            "digit_words": 0,
+            "local_vector_words": 8
+          }
+        ]
+      },
+      "final_multiply_uint_entries": 0,
+      "final_multiply_digit_words": 0
+    }
+  ],
+  "string_event_examples": {
+    "two_chains_30_doublings_no_sharing_credit": {
+      "literal_descriptors": 2,
+      "fold_descriptors": 60,
+      "characters": 4294967294,
+      "excludes": "dependency/generated events and multiplicity; upper charge, not observed usage"
+    },
+    "parser_1000_concats_of_one_char_literals": {
+      "lexical_descriptors": 1001,
+      "lexical_characters": 1001,
+      "parser_fold_descriptors": 1,
+      "parser_fold_characters": 1001,
+      "semantic_empty_left_fold_descriptors": 0,
+      "semantic_empty_left_fold_characters": 0,
+      "excludes": "scan multiplicity, dependencies and generated events"
+    }
+  },
+  "parser_scan_state_text_matches": [
+    {
+      "file": "par-ch3.adb",
+      "line": 159,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 163,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 165,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 366,
+      "text": "Save_Scan_State (SS);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 369,
+      "text": "Restore_Scan_State (SS);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1145,
+      "text": "Save_Scan_State (Scan_State); -- at Apostrophe"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1149,
+      "text": "Restore_Scan_State (Scan_State); -- to apostrophe"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1214,
+      "text": "Save_Scan_State (Scan_State); -- at identifier or literal"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1218,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1222,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1349,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1381,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1408,
+      "text": "Save_Scan_State (At_Colon);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1418,
+      "text": "Restore_Scan_State (At_Colon);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1443,
+      "text": "Save_Scan_State (Scan_State); -- at first identifier"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1459,
+      "text": "Save_Scan_State (Scan_State); -- at colon"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1475,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1493,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1524,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1568,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1608,
+      "text": "Save_Scan_State (SS);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1611,
+      "text": "Restore_Scan_State (SS);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 1956,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 2787,
+      "text": "Save_Scan_State (Scan_State); -- just after paren"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 2806,
+      "text": "Restore_Scan_State (Scan_State); -- to first subtype mark"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 2875,
+      "text": "Restore_Scan_State (Scan_State); -- to first subtype mark"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 2921,
+      "text": "Restore_Scan_State (Scan_State); -- to first discrete range"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3149,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3153,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3208,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3277,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3382,
+      "text": "Save_Scan_State (Scan_State); -- at Id"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3386,
+      "text": "Restore_Scan_State (Scan_State); -- to Id"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3390,
+      "text": "Restore_Scan_State (Scan_State); -- to Id"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3678,
+      "text": "Save_Scan_State (Scan_State); -- at reserved id"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3682,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3689,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3708,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3712,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3717,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3722,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3774,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 3864,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 4250,
+      "text": "Save_Scan_State (Saved_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 4256,
+      "text": "Restore_Scan_State (Saved_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 4576,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 4597,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 4797,
+      "text": "Save_Scan_State (Scan_State); -- at END"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 4810,
+      "text": "Restore_Scan_State (Scan_State); -- to END"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 4843,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 4850,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 4856,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 4912,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 4916,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch3.adb",
+      "line": 4920,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 266,
+      "text": "Save_Scan_State (Scan_State); -- at dot"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 298,
+      "text": "Save_Scan_State (Scan_State); -- at apostrophe"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 315,
+      "text": "Restore_Scan_State (Scan_State); -- to apostrophe"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 366,
+      "text": "Save_Scan_State (Scan_State); -- at apostrophe"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 371,
+      "text": "Save_Scan_State (Scan_State); -- at dot"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 418,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 448,
+      "text": "Restore_Scan_State (Scan_State); -- to apostrophe"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 476,
+      "text": "Restore_Scan_State (Scan_State); -- to apostrophe"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 704,
+      "text": "Save_Scan_State (Scan_State); -- at Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 710,
+      "text": "Restore_Scan_State (Scan_State); -- to Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 715,
+      "text": "Restore_Scan_State (Scan_State); -- to Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 837,
+      "text": "Save_Scan_State (Scan_State); -- at Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 843,
+      "text": "Restore_Scan_State (Scan_State); -- to Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 849,
+      "text": "Restore_Scan_State (Scan_State); -- to Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 869,
+      "text": "Save_Scan_State (Scan_State); -- at Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 910,
+      "text": "Restore_Scan_State (Scan_State); -- to Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1055,
+      "text": "Save_Scan_State (Scan_State_LP); -- at left paren"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1114,
+      "text": "Save_Scan_State (Scan_State_Id); -- at Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1120,
+      "text": "Restore_Scan_State (Scan_State_Id); -- to Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1124,
+      "text": "Restore_Scan_State (Scan_State_Id); -- to Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1170,
+      "text": "Save_Scan_State (Scan_State_Id); -- at Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1221,
+      "text": "Restore_Scan_State (Scan_State_Id); -- to Id"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1232,
+      "text": "Restore_Scan_State (Scan_State_LP);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1511,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1514,
+      "text": "Restore_Scan_State (Scan_State);  --  to FOR"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1579,
+      "text": "Save_Scan_State (Scan_State); -- at start of expression"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1593,
+      "text": "Restore_Scan_State (Scan_State); -- to NULL that must be expr"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1642,
+      "text": "Save_Scan_State (Scan_State); -- at NULL"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1652,
+      "text": "Restore_Scan_State (Scan_State); -- to NULL that must be expr"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1657,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1773,
+      "text": "Restore_Scan_State (Scan_State); -- to start of expression"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1806,
+      "text": "Save_Scan_State (Scan_State); -- at start of expression"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1916,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1937,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1954,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 1972,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2096,
+      "text": "Save_Scan_State (Scan_State); -- at comma/semicolon"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2105,
+      "text": "Restore_Scan_State (Scan_State); -- to comma/semicolon"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2119,
+      "text": "Restore_Scan_State (Scan_State); -- to comma/semicolon"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2123,
+      "text": "Restore_Scan_State (Scan_State); -- to comma/semicolon"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2409,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2415,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2418,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2439,
+      "text": "Save_Scan_State (Scan_State); -- at apostrophe"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2453,
+      "text": "Restore_Scan_State (Scan_State); -- to apostrophe"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2900,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2917,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3107,
+      "text": "Save_Scan_State (Scan_State); -- at apostrophe"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3117,
+      "text": "Restore_Scan_State (Scan_State); -- to apostrophe"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3268,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3272,
+      "text": "Restore_Scan_State (Scan_State);  -- To FOR"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3285,
+      "text": "Restore_Scan_State (Scan_State);  -- To FOR"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3644,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3649,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3658,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3719,
+      "text": "Save_Scan_State (Save_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3723,
+      "text": "Restore_Scan_State (Save_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3733,
+      "text": "Save_Scan_State (Save_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3737,
+      "text": "Restore_Scan_State (Save_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3840,
+      "text": "Save_Scan_State (State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3901,
+      "text": "Restore_Scan_State (State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3984,
+      "text": "Save_Scan_State (State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 3992,
+      "text": "Restore_Scan_State (State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 4181,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 4185,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 4197,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 285,
+      "text": "Save_Scan_State (Scan_State); -- at possible bad identifier"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 321,
+      "text": "Restore_Scan_State (Scan_State); -- back to the ID"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 328,
+      "text": "Restore_Scan_State (Scan_State); -- back to the reserved word"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 458,
+      "text": "Save_Scan_State (Scan_State); -- at THEN"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 469,
+      "text": "Restore_Scan_State (Scan_State); -- to THEN"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 506,
+      "text": "Save_Scan_State (Scan_State_Label); -- at possible label"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 521,
+      "text": "Restore_Scan_State (Scan_State_Label); -- to Id"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 584,
+      "text": "Save_Scan_State (Scan_State); -- at second Id"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 607,
+      "text": "Restore_Scan_State (Scan_State); -- to second Id"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 658,
+      "text": "Restore_Scan_State (Scan_State_Label); -- to Id"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 735,
+      "text": "Restore_Scan_State (Scan_State_Label); -- to identifier"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 1246,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 1250,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 1256,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 1772,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 1798,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch5.adb",
+      "line": 1803,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 65,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 69,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 74,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 100,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 108,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 114,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 406,
+      "text": "Save_Scan_State (Scan_State); -- at the IS"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 438,
+      "text": "Restore_Scan_State (Scan_State); -- to the IS"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 550,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 557,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 573,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 598,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 844,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 847,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1195,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1204,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1483,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1495,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1503,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1523,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1633,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1642,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1660,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1704,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1888,
+      "text": "Save_Scan_State (SS);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1891,
+      "text": "Restore_Scan_State (SS);"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1963,
+      "text": "Save_Scan_State (Scan_State); -- at identifier"
+    },
+    {
+      "file": "par-ch6.adb",
+      "line": 1970,
+      "text": "Restore_Scan_State (Scan_State); -- to identifier"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 173,
+      "text": "Save_Scan_State (Scan_State); -- at identifier/keyword"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 177,
+      "text": "Restore_Scan_State (Scan_State); -- to identifier"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 182,
+      "text": "Restore_Scan_State (Scan_State); -- to identifier"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 346,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 379,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 415,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 551,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 593,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 623,
+      "text": "Save_Scan_State (S);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 626,
+      "text": "Restore_Scan_State (S);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 677,
+      "text": "Save_Scan_State (State);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 682,
+      "text": "Restore_Scan_State (State);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 685,
+      "text": "Restore_Scan_State (State);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 699,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 702,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 790,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 794,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-util.adb",
+      "line": 798,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 579,
+      "text": "Save_Scan_State (Scan_State); -- at start of junk tokens"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 585,
+      "text": "Restore_Scan_State (Scan_State); -- to where we were"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 617,
+      "text": "Save_Scan_State (Scan_State); -- at start of junk tokens"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 623,
+      "text": "Restore_Scan_State (Scan_State); -- to where we were"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 655,
+      "text": "Save_Scan_State (Scan_State); -- at start of junk tokens"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 661,
+      "text": "Restore_Scan_State (Scan_State); -- to where we were"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 689,
+      "text": "Save_Scan_State (Scan_State); -- at start of junk tokens"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 695,
+      "text": "Restore_Scan_State (Scan_State); -- to where we were"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 754,
+      "text": "Save_Scan_State (Scan_State); -- at start of junk tokens"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 760,
+      "text": "Restore_Scan_State (Scan_State); -- to where we were"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 790,
+      "text": "Save_Scan_State (Scan_State); -- at start of junk tokens"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 796,
+      "text": "Restore_Scan_State (Scan_State); -- to where we were"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 823,
+      "text": "Save_Scan_State (Scan_State); -- at start of junk tokens"
+    },
+    {
+      "file": "par-tchk.adb",
+      "line": 829,
+      "text": "Restore_Scan_State (Scan_State); -- to where we were"
+    }
+  ],
+  "selected_string_allocation_text_matches": [
+    {
+      "file": "stringt.adb",
+      "line": 63,
+      "text": "--  when Start_String is called with a parameter that is the last string"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 115,
+      "text": "Start_String;"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 152,
+      "text": "-- Start_String --"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 157,
+      "text": "procedure Start_String is"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 160,
+      "text": "end Start_String;"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 164,
+      "text": "procedure Start_String (S : String_Id) is"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 192,
+      "text": "end Start_String;"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 195,
+      "text": "-- Store_String_Char --"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 198,
+      "text": "procedure Store_String_Char (C : Char_Code) is"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 203,
+      "text": "end Store_String_Char;"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 205,
+      "text": "procedure Store_String_Char (C : Character) is"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 207,
+      "text": "Store_String_Char (Get_Char_Code (C));"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 208,
+      "text": "end Store_String_Char;"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 211,
+      "text": "-- Store_String_Chars --"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 214,
+      "text": "procedure Store_String_Chars (S : String) is"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 217,
+      "text": "Store_String_Char (Get_Char_Code (S (J)));"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 219,
+      "text": "end Store_String_Chars;"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 221,
+      "text": "procedure Store_String_Chars (S : String_Id) is"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 226,
+      "text": "--      Store_String_Char (Get_String_Char (S, J));"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 243,
+      "text": "end Store_String_Chars;"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 252,
+      "text": "Store_String_Char ('-');"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 260,
+      "text": "Store_String_Char (Character'Val (Character'Pos ('0') + N mod 10));"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 302,
+      "text": "Start_String;"
+    },
+    {
+      "file": "stringt.adb",
+      "line": 303,
+      "text": "Store_String_Chars (+Buf);"
+    },
+    {
+      "file": "scng.adb",
+      "line": 1101,
+      "text": "Start_String;"
+    },
+    {
+      "file": "scng.adb",
+      "line": 1218,
+      "text": "Store_String_Char (Code);"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2635,
+      "text": "Start_String;"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2636,
+      "text": "Store_String_Chars (Strval (First_Node));"
+    },
+    {
+      "file": "par-ch4.adb",
+      "line": 2643,
+      "text": "Store_String_Chars (Strval (Right_Opnd (Cur_Node)));"
+    },
+    {
+      "file": "sem_eval.adb",
+      "line": 2389,
+      "text": "--  sure to use the special Start_String that takes an operand if"
+    },
+    {
+      "file": "sem_eval.adb",
+      "line": 2407,
+      "text": "Start_String (Strval (Left_Str));"
+    },
+    {
+      "file": "sem_eval.adb",
+      "line": 2411,
+      "text": "Start_String;"
+    },
+    {
+      "file": "sem_eval.adb",
+      "line": 2412,
+      "text": "Store_String_Char (UI_To_CC (Char_Literal_Value (Left_Str)));"
+    },
+    {
+      "file": "sem_eval.adb",
+      "line": 2421,
+      "text": "Store_String_Chars (Strval (Right_Str));"
+    },
+    {
+      "file": "sem_eval.adb",
+      "line": 2425,
+      "text": "Store_String_Char (UI_To_CC (Char_Literal_Value (Right_Str)));"
+    },
+    {
+      "file": "sem_res.adb",
+      "line": 541,
+      "text": "Start_String;"
+    },
+    {
+      "file": "sem_res.adb",
+      "line": 542,
+      "text": "Store_String_Chars"
+    },
+    {
+      "file": "sem_res.adb",
+      "line": 549,
+      "text": "Start_String;"
+    },
+    {
+      "file": "sem_res.adb",
+      "line": 552,
+      "text": "Store_String_Chars (\"-\");"
+    },
+    {
+      "file": "sem_res.adb",
+      "line": 555,
+      "text": "Store_String_Chars"
+    },
+    {
+      "file": "sem_res.adb",
+      "line": 562,
+      "text": "Start_String;"
+    },
+    {
+      "file": "sem_res.adb",
+      "line": 563,
+      "text": "Store_String_Chars"
+    },
+    {
+      "file": "sem_res.adb",
+      "line": 590,
+      "text": "(Loc, String_From_Numeric_Literal (N));"
+    },
+    {
+      "file": "sem_attr.adb",
+      "line": 7242,
+      "text": "Start_String;"
+    },
+    {
+      "file": "sem_attr.adb",
+      "line": 7248,
+      "text": "Store_String_Char (Get_String_Char (Full_Name, Pos (J)));"
+    },
+    {
+      "file": "sem_attr.adb",
+      "line": 7265,
+      "text": "Store_String_Char (Character'Val (48 + (CRC rem 10)));"
+    },
+    {
+      "file": "sem_attr.adb",
+      "line": 7345,
+      "text": "Start_String;"
+    },
+    {
+      "file": "sem_attr.adb",
+      "line": 7348,
+      "text": "Store_String_Char (Get_Char_Code ('-'));"
+    },
+    {
+      "file": "sem_attr.adb",
+      "line": 7355,
+      "text": "Store_String_Char (Get_Char_Code (Src (S)));"
+    },
+    {
+      "file": "sem_attr.adb",
+      "line": 8494,
+      "text": "Start_String;"
+    },
+    {
+      "file": "sem_attr.adb",
+      "line": 8502,
+      "text": "Store_String_Char  (' ');"
+    },
+    {
+      "file": "sem_attr.adb",
+      "line": 8503,
+      "text": "Store_String_Chars (UI_Image_Buffer (1 .. UI_Image_Length));"
+    },
+    {
+      "file": "sem_attr.adb",
+      "line": 8507,
+      "text": "Store_String_Chars (Name_Buffer (1 .. Name_Len));"
+    },
+    {
+      "file": "sem_attr.adb",
+      "line": 9736,
+      "text": "Start_String;"
+    },
+    {
+      "file": "sem_attr.adb",
+      "line": 9739,
+      "text": "Store_String_Chars (Name_Buffer (1 .. Name_Len));"
+    },
+    {
+      "file": "sem_util.adb",
+      "line": 11225,
+      "text": "Store_String_Chars (Strval (N));"
+    },
+    {
+      "file": "sem_util.adb",
+      "line": 29365,
+      "text": "-- String_From_Numeric_Literal --"
+    },
+    {
+      "file": "sem_util.adb",
+      "line": 29368,
+      "text": "function String_From_Numeric_Literal (N : Node_Id) return String_Id is"
+    },
+    {
+      "file": "sem_util.adb",
+      "line": 29406,
+      "text": "--  Start of processing for String_From_Numeric_Literal"
+    },
+    {
+      "file": "sem_util.adb",
+      "line": 29409,
+      "text": "Start_String;"
+    },
+    {
+      "file": "sem_util.adb",
+      "line": 29411,
+      "text": "Store_String_Char (C);"
+    },
+    {
+      "file": "sem_util.adb",
+      "line": 29417,
+      "text": "end String_From_Numeric_Literal;"
+    },
+    {
+      "file": "exp_imgv.adb",
+      "line": 184,
+      "text": "Start_String;"
+    },
+    {
+      "file": "exp_imgv.adb",
+      "line": 203,
+      "text": "Store_String_Chars (Name_Buffer (1 .. Name_Len));"
+    },
+    {
+      "file": "exp_imgv.adb",
+      "line": 821,
+      "text": "Start_String;"
+    },
+    {
+      "file": "exp_imgv.adb",
+      "line": 822,
+      "text": "Store_String_Chars (\"TRUE \");"
+    },
+    {
+      "file": "exp_imgv.adb",
+      "line": 835,
+      "text": "Start_String;"
+    },
+    {
+      "file": "exp_imgv.adb",
+      "line": 836,
+      "text": "Store_String_Chars (\"FALSE\");"
+    },
+    {
+      "file": "exp_util.adb",
+      "line": 7277,
+      "text": "Store_String_Char (Get_Char_Code ('.'));"
+    },
+    {
+      "file": "exp_util.adb",
+      "line": 7291,
+      "text": "Store_String_Chars (Name_Buffer (1 .. Name_Len));"
+    },
+    {
+      "file": "exp_util.adb",
+      "line": 7298,
+      "text": "Start_String;"
+    },
+    {
+      "file": "exp_util.adb",
+      "line": 7302,
+      "text": "Store_String_Char (Get_Char_Code (ASCII.NUL));"
+    }
+  ],
+  "inventory_scope": "Text inventories in named files, including comments; not an exhaustive resolved call graph.",
+  "validation": "Frozen-source hashes, source reading and bounded integer arithmetic only; no compiler/prover invocation."
+}
