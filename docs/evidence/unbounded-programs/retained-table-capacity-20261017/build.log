@@ -1,0 +1,10 @@
+gcc -c -I/tmp/silver-retained-node-layout-20261017/inputs/ -gnat2022 -gnata -gnato -O0 -I- -o /tmp/silver-retained-node-layout-20261017/build/gen_il-main.o /tmp/silver-retained-node-layout-20261017/inputs/gen_il-main.adb
+gcc -c -I/tmp/silver-retained-node-layout-20261017/inputs/ -gnat2022 -gnata -gnato -O0 -I- -o /tmp/silver-retained-node-layout-20261017/build/gen_il.o /tmp/silver-retained-node-layout-20261017/inputs/gen_il.adb
+gcc -c -I/tmp/silver-retained-node-layout-20261017/inputs/ -gnat2022 -gnata -gnato -O0 -I- -o /tmp/silver-retained-node-layout-20261017/build/gen_il-gen.o /tmp/silver-retained-node-layout-20261017/inputs/gen_il-gen.adb
+gcc -c -I/tmp/silver-retained-node-layout-20261017/inputs/ -gnat2022 -gnata -gnato -O0 -I- -o /tmp/silver-retained-node-layout-20261017/build/gen_il-gen-gen_entities.o /tmp/silver-retained-node-layout-20261017/inputs/gen_il-gen-gen_entities.adb
+gcc -c -I/tmp/silver-retained-node-layout-20261017/inputs/ -gnat2022 -gnata -gnato -O0 -I- -o /tmp/silver-retained-node-layout-20261017/build/gen_il-gen-gen_nodes.o /tmp/silver-retained-node-layout-20261017/inputs/gen_il-gen-gen_nodes.adb
+gcc -c -I/tmp/silver-retained-node-layout-20261017/inputs/ -gnat2022 -gnata -gnato -O0 -I- -o /tmp/silver-retained-node-layout-20261017/build/gen_il-fields.o /tmp/silver-retained-node-layout-20261017/inputs/gen_il-fields.ads
+gcc -c -I/tmp/silver-retained-node-layout-20261017/inputs/ -gnat2022 -gnata -gnato -O0 -I- -o /tmp/silver-retained-node-layout-20261017/build/gen_il-internals.o /tmp/silver-retained-node-layout-20261017/inputs/gen_il-internals.adb
+gcc -c -I/tmp/silver-retained-node-layout-20261017/inputs/ -gnat2022 -gnata -gnato -O0 -I- -o /tmp/silver-retained-node-layout-20261017/build/gen_il-types.o /tmp/silver-retained-node-layout-20261017/inputs/gen_il-types.ads
+gnatbind -aO/tmp/silver-retained-node-layout-20261017/build -x /tmp/silver-retained-node-layout-20261017/build/gen_il-main.ali
+gnatlink /tmp/silver-retained-node-layout-20261017/build/gen_il-main.ali -O0 -o /tmp/silver-retained-node-layout-20261017/gen_il-main

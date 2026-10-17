@@ -107,13 +107,14 @@ the affected closure even if the author grammar is unchanged.
 
 ## Complete grammar obligations
 
-The current derivation has four reusable component records:
+The current derivation has five reusable component records:
 
 | Component | Established contribution | Still required for whole-source capacity |
 | --- | --- | --- |
 | [Source ranges](retained-source-closure.md) | Physical-loader/allocation inventory, complete pinned runtime union and identified fixed virtual templates | Phase/configuration/request-name closure and all virtual multiplicities |
 | [Values and parsing](retained-value-capacity.md) | Local String/Uint charges; at most two scans per source literal in a valid Main parse | Fixed dependency parsing, semantic reentry and generated value events |
-| [Tables and nodes](retained-table-capacity.md) | Checked allocator transitions, a demand-only backing-capacity envelope and node/slot/list coupling | Source-to-demand bounds and auxiliary representation coverage |
+| [Tables and nodes](retained-table-capacity.md) | Checked allocator transitions, a demand-only backing-capacity envelope, exact pinned-source node layout and node/slot/list coupling | Source-to-demand bounds and auxiliary representation coverage |
+| [Main entities](retained-frontend-entities.md) | Source-sensitive generated entity/type/literal multiplicities under GNATprove light expansion | Fixed dependency entities, native expansion and actual allocation event counts |
 | [GNATprove producer](retained-producer-capacity.md) | Literal node/list/serialization charges, child/declaration/type multiplicities and entity/file/module-count components | Generated entity/type bounds, helper/lifetime costs and complete source correspondence |
 
 These are source-derived components with their own premises and review scope.
@@ -233,7 +234,9 @@ phases of the single #119 deliverable, not independently completed work packages
    diagnostics and consistent language/catalogue/proof changes through #91–#94.
 
 This checkpoint does **not** complete steps 1–3, #91, #93 or milestone 5.
-Current caps remain until their replacement assurance is established. No new
-probe, compiler build, GNATprove/Lean run, full suite, macOS run or CI result is
-claimed. Checks here concern document/evidence consistency; independent review
-is recorded separately. Retained source facts keep their original evidence scope.
+Current caps remain until their replacement assurance is established. Validation
+so far is source inspection, arithmetic/document checks and one isolated build
+and execution of the pinned standalone node-layout generator. No Silver or GNAT
+compiler build, GNATprove/Lean run, full suite, macOS run or CI result is claimed.
+Independent review is recorded separately. Retained source facts keep their
+original evidence scope.

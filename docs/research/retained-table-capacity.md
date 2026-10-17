@@ -13,7 +13,9 @@ manifest and writes a selected output JSON. The inventory finds 161 lexical `Tab
 instantiations in top-level Ada files; it is not an exhaustive inventory of
 reachable allocations. It includes utilities outside the selected pipeline,
 excludes other allocator families/generated files and proves no caller coverage.
-No compiler, prover or proof assistant was run.
+The allocator derivation required no compiler or proof run. A subsequent
+standalone source-generator run below recovers exact node sizes; it does not
+build or replace GNAT or Silver, and does not run GNATprove or Lean.
 
 ## Generic table state and arithmetic
 
@@ -150,6 +152,59 @@ Let `size(k)` be the actual generated slot size for kind `k`, after subtracting
 nodes use `Einfo.Entities.Max_Entity_Size`; ordinary nodes use `Sinfo.Nodes.Size`.
 The generated size tables must be tied to the selected compiler source/build,
 or a source-derived upper bound must replace their exact sizes.
+
+### Exact slot sizes from the pinned generator
+
+The standalone `Gen_IL.Main` program has no compiler-input dependency; its
+source defines the layout and emits the GNAT tables (`gen_il.ads:45–54`;
+`gen_il-main.adb:26–34`). Running the eleven hash-verified `gen_il*` sources from
+the pinned tree gives:
+
+| Family | Minimum total slots | Maximum total slots | Maximum dynamic slots |
+| --- | ---: | ---: | ---: |
+| Ordinary node | 5 | 12 | 9 |
+| Entity | 21 | 64 | 61 |
+
+The generated header size is `N_Head=3`; each slot is 32 bits. `Atree` allocates
+the **maximum** entity size even for a smaller entity kind, because it does not
+know `Ekind` at allocation (`atree.adb:2414–2446`). The separate `Node_Header`
+contains the three header slots and an offset, hence 16 bytes
+(`atree.ads:705–731`). `Node_Offsets`, `Orig_Nodes`, `Next_Node` and `Prev_Node`
+still have separate backing capacities; these sizes do not replace their
+growth, ID-domain or sentinel checks.
+
+For counts of allocation **events**, let `N_o,N_e` count new/copy allocations
+by ordinary/entity kind, and `G_o,G_e` count slot-growing mutation/copy events
+by their new kind. A source-relative upper charge for dynamic slot demand is
+
+```text
+9 * (N_o + G_o) + 61 * (N_e + G_e).
+```
+
+Charge the full new size even for tail growth. This is a local event transfer,
+not a source-to-event bound. In particular, `Rewrite` may save an original with
+`New_Copy` and then call `Copy_Node` (`atree.adb:2255–2276`); both charges are
+needed. `Relocate_Node` makes one shallow `New_Copy`, not a recursive child copy
+(`:2109–2149`), whereas `Copy_Separate_Tree` must charge every copied descendant.
+
+The [retained layout result](../evidence/unbounded-programs/retained-table-capacity-20261017/node-layout.json)
+contains every generated size entry, hashes of all generator inputs and outputs,
+the native compiler version and exact command. Managed Linux run
+`20261017T231847-6bca937e079b` built and executed only this generator in
+`/tmp/silver-retained-node-layout-20261017`, with one worker, in 7.127 seconds.
+Assertions and overflow checks were enabled. The generated compiler source was
+not compiled or installed. This ties the layout to the inspected source; the
+existing source-to-installed-tool correspondence premise remains necessary.
+
+Without executing the generator, its bounded offset representation supplies
+a weaker source-relative envelope: `Bit_Offset` is `0 .. 31999`
+(`gen_il-internals.ads:78–83`), and `Compute_Type_Sizes` rounds a value in that
+range to 32-bit slots (`gen_il-gen.adb:1040–1048,1230–1272`). Successful layout
+generation therefore gives at most 1000 total slots, or 997 dynamic slots.
+The exact generated maxima above are substantially tighter, with no unexplained
+safety multiplier. Neither envelope establishes the number of allocation events.
+
+### Slot-event lifetime accounting
 
 An event-level upper charge for slots is the sum of `size(k)` over all
 Allocate_New_Node/New_Copy events **plus** the new-size charge for each growing
