@@ -1,0 +1,918 @@
+{
+  "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_files_verified": 14,
+  "source_sha256": {
+    "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
+    "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
+    "sem_util.adb": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4",
+    "sem_res.adb": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8",
+    "sem_eval.adb": "0dfbf5f1bede0b9e011f21649c7f4d34851c6267cd72acebcb53e7a7fb4c7d30",
+    "tbuild.adb": "db30e8c054e8e3f53af3a01f108f8bec563ce936ebe9988734bc007142643b2c",
+    "namet.adb": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc",
+    "lib.adb": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e",
+    "validsw.ads": "79ecf115cfadb66ec6cba6d56980167b3f49c0bd594a342efc25ed7c209db2ee",
+    "atree.adb": "cb7804d95e680be6391cc1f2b4a22cb09de8eb7141d9084493e6c182e5c19e4f",
+    "types.ads": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+    "uintp.ads": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
+    "uintp.adb": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
+    "gen_il-gen.adb": "c52ad207573f942a6bc32132a2d5b5e82e008b9a297c60a9e15670e10b24ed14"
+  },
+  "scope": "native String concat direct emitter and specified primitive helpers; not transitive closure",
+  "ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers": {
+    "rows": [
+      {
+        "reason": "initial aggregate zero",
+        "exp_ch4_lines": "2829",
+        "n_coefficient": 0,
+        "constant": 1
+      },
+      {
+        "reason": "operand bounds/length, excluding last-bound capture",
+        "exp_ch4_lines": "2870-3045",
+        "n_coefficient": 4,
+        "constant": 0
+      },
+      {
+        "reason": "last-bound capture, including two Convert_To calls",
+        "exp_ch4_lines": "2879-3007",
+        "n_coefficient": 0,
+        "constant": 8
+      },
+      {
+        "reason": "aggregate lengths",
+        "exp_ch4_lines": "3054-3099",
+        "n_coefficient": 5,
+        "constant": 0
+      },
+      {
+        "reason": "lower-bound conditional spine and capture",
+        "exp_ch4_lines": "3176-3228",
+        "n_coefficient": 4,
+        "constant": 3
+      },
+      {
+        "reason": "high-bound expression",
+        "exp_ch4_lines": "3237-3253",
+        "n_coefficient": 0,
+        "constant": 3
+      },
+      {
+        "reason": "null-result selection",
+        "exp_ch4_lines": "3273-3290",
+        "n_coefficient": 0,
+        "constant": 6
+      },
+      {
+        "reason": "static maximum and optional slice range",
+        "exp_ch4_lines": "3306-3315",
+        "n_coefficient": 0,
+        "constant": 2
+      },
+      {
+        "reason": "result subtype syntax",
+        "exp_ch4_lines": "3326-3342",
+        "n_coefficient": 0,
+        "constant": 4
+      },
+      {
+        "reason": "result storage, maximum of secondary/plain paths",
+        "exp_ch4_lines": "3374-3433",
+        "n_coefficient": 0,
+        "constant": 12
+      },
+      {
+        "reason": "runtime concatenation call",
+        "exp_ch4_lines": "3512-3538",
+        "n_coefficient": 0,
+        "constant": 3
+      },
+      {
+        "reason": "slice assignment with optional guard",
+        "exp_ch4_lines": "3554-3617",
+        "n_coefficient": 12,
+        "constant": 0
+      },
+      {
+        "reason": "result reference and optional slice",
+        "exp_ch4_lines": "3629-3632",
+        "n_coefficient": 0,
+        "constant": 2
+      },
+      {
+        "reason": "saved old node in terminal Rewrite",
+        "exp_ch4_lines": "3453,3637",
+        "n_coefficient": 0,
+        "constant": 1
+      }
+    ],
+    "n_coefficient": 25,
+    "constant": 45
+  },
+  "fresh_temporary_entities_and_internal_names": {
+    "rows": [
+      {
+        "reason": "dynamic operand length",
+        "exp_ch4_lines": "3015",
+        "n_coefficient": 1,
+        "constant": 0
+      },
+      {
+        "reason": "aggregate length beyond first retained operand",
+        "exp_ch4_lines": "3078",
+        "n_coefficient": 1,
+        "constant": -1
+      },
+      {
+        "reason": "captured lower bound",
+        "exp_ch4_lines": "3219",
+        "n_coefficient": 0,
+        "constant": 1
+      },
+      {
+        "reason": "result object",
+        "exp_ch4_lines": "3344",
+        "n_coefficient": 0,
+        "constant": 1
+      },
+      {
+        "reason": "secondary-stack subtype/access/object",
+        "exp_ch4_lines": "3367,3368,3404",
+        "n_coefficient": 0,
+        "constant": 3
+      }
+    ],
+    "n_coefficient": 2,
+    "constant": 4
+  },
+  "list_headers_including_direct_Insert_Action_wrappers": {
+    "rows": [
+      {
+        "reason": "dispatch operand list",
+        "exp_ch4_lines": "8046",
+        "n_coefficient": 0,
+        "constant": 1
+      },
+      {
+        "reason": "action collection",
+        "exp_ch4_lines": "2658",
+        "n_coefficient": 0,
+        "constant": 1
+      },
+      {
+        "reason": "lower-bound conditionals",
+        "exp_ch4_lines": "3197",
+        "n_coefficient": 1,
+        "constant": 0
+      },
+      {
+        "reason": "null-result selectors",
+        "exp_ch4_lines": "3276,3285",
+        "n_coefficient": 0,
+        "constant": 2
+      },
+      {
+        "reason": "result index constraint",
+        "exp_ch4_lines": "3342",
+        "n_coefficient": 0,
+        "constant": 1
+      },
+      {
+        "reason": "result-storage Insert_Action wrappers",
+        "exp_ch4_lines": "3374-3430",
+        "n_coefficient": 0,
+        "constant": 4
+      },
+      {
+        "reason": "runtime actuals and Insert_Action wrapper",
+        "exp_ch4_lines": "3513,3535",
+        "n_coefficient": 0,
+        "constant": 2
+      },
+      {
+        "reason": "assignment guard and Insert_Action wrapper",
+        "exp_ch4_lines": "3617,3620",
+        "n_coefficient": 2,
+        "constant": 0
+      }
+    ],
+    "n_coefficient": 3,
+    "constant": 11
+  },
+  "direct_New_Copy_Tree_invocations": {
+    "rows": [
+      {
+        "reason": "operand lower bound",
+        "exp_ch4_lines": "2905,2976",
+        "n_coefficient": 1,
+        "constant": 0
+      },
+      {
+        "reason": "last literal lower/high bounds",
+        "exp_ch4_lines": "2881,2886",
+        "n_coefficient": 0,
+        "constant": 2
+      },
+      {
+        "reason": "aggregate length capture",
+        "exp_ch4_lines": "3096",
+        "n_coefficient": 1,
+        "constant": -1
+      },
+      {
+        "reason": "lower-bound recursion",
+        "exp_ch4_lines": "3179,3205",
+        "n_coefficient": 1,
+        "constant": 0
+      },
+      {
+        "reason": "high-bound expression",
+        "exp_ch4_lines": "3249,3252",
+        "n_coefficient": 0,
+        "constant": 2
+      },
+      {
+        "reason": "null-result selectors",
+        "exp_ch4_lines": "3278,3287",
+        "n_coefficient": 0,
+        "constant": 2
+      },
+      {
+        "reason": "error-path bound rewrite",
+        "exp_ch4_lines": "3453",
+        "n_coefficient": 0,
+        "constant": 1
+      },
+      {
+        "reason": "slice assignment endpoints",
+        "exp_ch4_lines": "3556,3561",
+        "n_coefficient": 2,
+        "constant": 0
+      }
+    ],
+    "n_coefficient": 5,
+    "constant": 6
+  },
+  "simple_aggregate_leaf_copies": {
+    "n_coefficient": 1,
+    "constant": 2
+  },
+  "remaining_direct_New_Copy_Tree_invocations": {
+    "n_coefficient": 4,
+    "constant": 4
+  },
+  "Duplicate_Subexpr_invocations": {
+    "n_coefficient": 2,
+    "constant": 2
+  },
+  "ordinary_allocations_including_simple_aggregate_leaf_copies": {
+    "n_coefficient": 26,
+    "constant": 47
+  },
+  "direct_growing_slot_events": 1,
+  "direct_Name_Enter_characters_per_temporary_including_NUL": 13,
+  "direct_uint_additions": {
+    "n_coefficient": 3,
+    "constant": 2
+  },
+  "direct_uint_subtractions": {
+    "n_coefficient": 2,
+    "constant": 2
+  },
+  "Get_First_Index_Bounds_invocations": {
+    "n_coefficient": 2,
+    "constant": 0
+  },
+  "uint_arithmetic_examples_not_admission_thresholds": [
+    {
+      "operands": 2,
+      "input_magnitude_bound": 4096,
+      "intermediate_magnitude_bound": 20483,
+      "base_32768_digits": 1,
+      "direct_uint_entries": 20,
+      "including_index_helper_arithmetic_uint_entries": 32,
+      "including_index_helper_arithmetic_digit_words": 32
+    },
+    {
+      "operands": 9,
+      "input_magnitude_bound": 4096,
+      "intermediate_magnitude_bound": 77834,
+      "base_32768_digits": 2,
+      "direct_uint_entries": 69,
+      "including_index_helper_arithmetic_uint_entries": 123,
+      "including_index_helper_arithmetic_digit_words": 246
+    },
+    {
+      "operands": 10,
+      "input_magnitude_bound": 4096,
+      "intermediate_magnitude_bound": 86027,
+      "base_32768_digits": 2,
+      "direct_uint_entries": 76,
+      "including_index_helper_arithmetic_uint_entries": 136,
+      "including_index_helper_arithmetic_digit_words": 272
+    },
+    {
+      "operands": 64,
+      "input_magnitude_bound": 4096,
+      "intermediate_magnitude_bound": 528449,
+      "base_32768_digits": 2,
+      "direct_uint_entries": 454,
+      "including_index_helper_arithmetic_uint_entries": 838,
+      "including_index_helper_arithmetic_digit_words": 1676
+    },
+    {
+      "operands": 2147483646,
+      "input_magnitude_bound": 2147483647,
+      "intermediate_magnitude_bound": 9223372028264841218,
+      "base_32768_digits": 5,
+      "direct_uint_entries": 15032385528,
+      "including_index_helper_arithmetic_uint_entries": 27917287404,
+      "including_index_helper_arithmetic_digit_words": 139586437020
+    }
+  ],
+  "lexical_call_sites_not_a_reachable_call_graph": [
+    {
+      "line": 2829,
+      "name": "Make_Artyp_Literal"
+    },
+    {
+      "line": 2862,
+      "name": "Make_Attribute_Reference"
+    },
+    {
+      "line": 2863,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 2881,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 2884,
+      "name": "Make_Op_Subtract"
+    },
+    {
+      "line": 2886,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 2887,
+      "name": "Make_Integer_Literal"
+    },
+    {
+      "line": 2905,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 2935,
+      "name": "Make_Integer_Literal"
+    },
+    {
+      "line": 2938,
+      "name": "Make_Integer_Literal"
+    },
+    {
+      "line": 2953,
+      "name": "Make_Integer_Literal"
+    },
+    {
+      "line": 2976,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 2986,
+      "name": "Make_Attribute_Reference"
+    },
+    {
+      "line": 2988,
+      "name": "Duplicate_Subexpr"
+    },
+    {
+      "line": 2996,
+      "name": "Convert_To"
+    },
+    {
+      "line": 2997,
+      "name": "Make_Attribute_Reference"
+    },
+    {
+      "line": 2999,
+      "name": "Duplicate_Subexpr"
+    },
+    {
+      "line": 3003,
+      "name": "Convert_To"
+    },
+    {
+      "line": 3004,
+      "name": "Make_Attribute_Reference"
+    },
+    {
+      "line": 3006,
+      "name": "Duplicate_Subexpr"
+    },
+    {
+      "line": 3015,
+      "name": "Make_Temporary"
+    },
+    {
+      "line": 3037,
+      "name": "Make_Object_Declaration"
+    },
+    {
+      "line": 3040,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3042,
+      "name": "Make_Attribute_Reference"
+    },
+    {
+      "line": 3044,
+      "name": "Duplicate_Subexpr"
+    },
+    {
+      "line": 3056,
+      "name": "Make_Integer_Literal"
+    },
+    {
+      "line": 3059,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3070,
+      "name": "Make_Integer_Literal"
+    },
+    {
+      "line": 3078,
+      "name": "Make_Temporary"
+    },
+    {
+      "line": 3081,
+      "name": "Make_Integer_Literal"
+    },
+    {
+      "line": 3085,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3090,
+      "name": "Make_Object_Declaration"
+    },
+    {
+      "line": 3093,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3095,
+      "name": "Make_Op_Add"
+    },
+    {
+      "line": 3096,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 3099,
+      "name": "Make_Identifier"
+    },
+    {
+      "line": 3138,
+      "name": "Make_Attribute_Reference"
+    },
+    {
+      "line": 3140,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3179,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 3196,
+      "name": "Make_If_Expression"
+    },
+    {
+      "line": 3197,
+      "name": "New_List"
+    },
+    {
+      "line": 3199,
+      "name": "Make_Op_Ne"
+    },
+    {
+      "line": 3201,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3203,
+      "name": "Make_Integer_Literal"
+    },
+    {
+      "line": 3205,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 3219,
+      "name": "Make_Temporary"
+    },
+    {
+      "line": 3222,
+      "name": "Make_Object_Declaration"
+    },
+    {
+      "line": 3225,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3228,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3242,
+      "name": "Make_Artyp_Literal"
+    },
+    {
+      "line": 3248,
+      "name": "Make_Op_Add"
+    },
+    {
+      "line": 3249,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 3251,
+      "name": "Make_Op_Subtract"
+    },
+    {
+      "line": 3252,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 3253,
+      "name": "Make_Artyp_Literal"
+    },
+    {
+      "line": 3275,
+      "name": "Make_If_Expression"
+    },
+    {
+      "line": 3276,
+      "name": "New_List"
+    },
+    {
+      "line": 3277,
+      "name": "Make_Op_Eq"
+    },
+    {
+      "line": 3278,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 3279,
+      "name": "Make_Artyp_Literal"
+    },
+    {
+      "line": 3284,
+      "name": "Make_If_Expression"
+    },
+    {
+      "line": 3285,
+      "name": "New_List"
+    },
+    {
+      "line": 3286,
+      "name": "Make_Op_Eq"
+    },
+    {
+      "line": 3287,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 3288,
+      "name": "Make_Artyp_Literal"
+    },
+    {
+      "line": 3295,
+      "name": "Insert_Actions"
+    },
+    {
+      "line": 3309,
+      "name": "Make_Artyp_Literal"
+    },
+    {
+      "line": 3314,
+      "name": "Make_Range"
+    },
+    {
+      "line": 3326,
+      "name": "Make_Range"
+    },
+    {
+      "line": 3338,
+      "name": "Make_Subtype_Indication"
+    },
+    {
+      "line": 3339,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3341,
+      "name": "Make_Index_Or_Discriminant_Constraint"
+    },
+    {
+      "line": 3342,
+      "name": "New_List"
+    },
+    {
+      "line": 3344,
+      "name": "Make_Temporary"
+    },
+    {
+      "line": 3357,
+      "name": "RTE_Available"
+    },
+    {
+      "line": 3367,
+      "name": "Make_Temporary"
+    },
+    {
+      "line": 3368,
+      "name": "Make_Temporary"
+    },
+    {
+      "line": 3374,
+      "name": "Insert_Action"
+    },
+    {
+      "line": 3375,
+      "name": "Make_Subtype_Declaration"
+    },
+    {
+      "line": 3380,
+      "name": "Freeze_Itype"
+    },
+    {
+      "line": 3382,
+      "name": "Insert_Action"
+    },
+    {
+      "line": 3383,
+      "name": "Make_Full_Type_Declaration"
+    },
+    {
+      "line": 3386,
+      "name": "Make_Access_To_Object_Definition"
+    },
+    {
+      "line": 3387,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3391,
+      "name": "RTE"
+    },
+    {
+      "line": 3394,
+      "name": "Make_Allocator"
+    },
+    {
+      "line": 3395,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3404,
+      "name": "Make_Temporary"
+    },
+    {
+      "line": 3405,
+      "name": "Insert_Action"
+    },
+    {
+      "line": 3406,
+      "name": "Make_Object_Declaration"
+    },
+    {
+      "line": 3408,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3412,
+      "name": "Insert_Action"
+    },
+    {
+      "line": 3413,
+      "name": "Make_Object_Renaming_Declaration"
+    },
+    {
+      "line": 3415,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3417,
+      "name": "Make_Explicit_Dereference"
+    },
+    {
+      "line": 3418,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3430,
+      "name": "Insert_Action"
+    },
+    {
+      "line": 3431,
+      "name": "Make_Object_Declaration"
+    },
+    {
+      "line": 3453,
+      "name": "Rewrite"
+    },
+    {
+      "line": 3453,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 3510,
+      "name": "RTE_Available"
+    },
+    {
+      "line": 3513,
+      "name": "New_List"
+    },
+    {
+      "line": 3513,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3523,
+      "name": "Make_Aggregate"
+    },
+    {
+      "line": 3524,
+      "name": "New_List"
+    },
+    {
+      "line": 3525,
+      "name": "Make_Component_Association"
+    },
+    {
+      "line": 3526,
+      "name": "New_List"
+    },
+    {
+      "line": 3527,
+      "name": "Make_Integer_Literal"
+    },
+    {
+      "line": 3535,
+      "name": "Insert_Action"
+    },
+    {
+      "line": 3536,
+      "name": "Make_Procedure_Call_Statement"
+    },
+    {
+      "line": 3537,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3537,
+      "name": "RTE"
+    },
+    {
+      "line": 3555,
+      "name": "Make_Op_Add"
+    },
+    {
+      "line": 3556,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 3560,
+      "name": "Make_Op_Add"
+    },
+    {
+      "line": 3561,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 3563,
+      "name": "Make_Op_Subtract"
+    },
+    {
+      "line": 3565,
+      "name": "Make_Artyp_Literal"
+    },
+    {
+      "line": 3572,
+      "name": "Insert_Action"
+    },
+    {
+      "line": 3573,
+      "name": "Make_Assignment_Statement"
+    },
+    {
+      "line": 3575,
+      "name": "Make_Indexed_Component"
+    },
+    {
+      "line": 3576,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3577,
+      "name": "New_List"
+    },
+    {
+      "line": 3587,
+      "name": "Make_Assignment_Statement"
+    },
+    {
+      "line": 3589,
+      "name": "Make_Slice"
+    },
+    {
+      "line": 3591,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3593,
+      "name": "Make_Range"
+    },
+    {
+      "line": 3611,
+      "name": "Make_Implicit_If_Statement"
+    },
+    {
+      "line": 3613,
+      "name": "Make_Op_Ne"
+    },
+    {
+      "line": 3615,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3616,
+      "name": "Make_Integer_Literal"
+    },
+    {
+      "line": 3617,
+      "name": "New_List"
+    },
+    {
+      "line": 3620,
+      "name": "Insert_Action"
+    },
+    {
+      "line": 3629,
+      "name": "New_Occurrence_Of"
+    },
+    {
+      "line": 3632,
+      "name": "Make_Slice"
+    },
+    {
+      "line": 3637,
+      "name": "Rewrite"
+    },
+    {
+      "line": 3638,
+      "name": "Analyze_And_Resolve"
+    },
+    {
+      "line": 8046,
+      "name": "New_List"
+    },
+    {
+      "line": 8071,
+      "name": "New_Copy_Tree"
+    },
+    {
+      "line": 8079,
+      "name": "Rewrite"
+    },
+    {
+      "line": 8080,
+      "name": "Make_Expression_With_Actions"
+    },
+    {
+      "line": 8081,
+      "name": "New_List"
+    },
+    {
+      "line": 8081,
+      "name": "Make_Null_Statement"
+    },
+    {
+      "line": 8085,
+      "name": "Analyze_And_Resolve"
+    }
+  ],
+  "limitations": [
+    "no native compiler/prover/build execution",
+    "no complete source-to-event bound",
+    "no semantic/generated-action/recursive-copy closure",
+    "no safe language threshold",
+    "no backend or dependency cost included",
+    "no independent review yet"
+  ]
+}
