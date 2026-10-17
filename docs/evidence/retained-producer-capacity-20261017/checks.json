@@ -59,6 +59,14 @@
     }
   ],
   "memoized_entity_module_kinds": 27,
+  "normalized_integer_core": {
+    "binary_call_occurrence_overhead": 8,
+    "binary_with_overflow_occurrence_overhead_max": 20,
+    "excludes": "children, identifier leaves, surrounding subtype conversions, initial symbol setup",
+    "overflow_wrapper_occurrence_overhead_max": 12,
+    "unary_minus_call_occurrence_overhead": 7,
+    "unary_minus_with_overflow_occurrence_overhead_max": 19
+  },
   "representation_maxima": {
     "Why_Node_Counter_Last": 2147483647,
     "Why_Node_Id_Last": 1073741823

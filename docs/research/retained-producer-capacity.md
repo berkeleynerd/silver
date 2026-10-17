@@ -247,6 +247,58 @@ invariants, preservation checks and snapshot bindings. `K_loop` still needs
 the fixed index/control/warning wrapper bound. Allocation of discarded nodes
 also remains to price independently of this serialization recurrence.
 
+## Normalized signed Integer arithmetic cost
+
+For an ordinary signed Integer expression translated in the program or term
+domain with expected Why type `EW_Int_Type`, the nonstatic arithmetic core has
+small fixed overhead. Charge operand translations, identifier leaves, any
+conversion at a surrounding abstract/subtype boundary, and initial symbol
+setup separately. The separate pretty-printing label is only enabled in the
+predicate domain, so does not add overhead in the stated program/term scope
+(`src/why/gnat2why-expr.adb:23600–23647, 25500–25510`).
+
+`Transform_Expr` translates each operand of binary `+`/`-` once at the builtin
+Integer type (`src/why/gnat2why-expr.adb:24127–24151`).
+`New_Binary_Op_Expr` then returns one call with those two operands
+(`src/why/why-gen-expr.adb:3754–3858`): its simple operand conversions see equal
+base types, and `Apply_Modulus` immediately returns for a nonmodular type
+(`:147–157`). Unary minus similarly emits one call with its operand; unary plus
+emits no core operation (`src/why/gnat2why-expr.adb:24012–24110`).
+
+An optional overflow check passes the whole expression once to `New_VC_Call`
+(`src/why/gnat2why-expr.adb:12039–12056, 25514–25573`). This adds one call, one
+VC label, and at most one location label
+(`src/why/why-gen-expr.adb:1956–1983, 5282–5323`; the `New_VC_Prog` forwarding
+function is in `.ads:305–311`). With expected `EW_Int_Type`, the final scalar
+conversion returns the result without another conversion/check node: equal
+base types return immediately unless a check is flagged; in that remaining
+case the builtin Integer target has no Ada range type and no conversion is
+necessary (`.adb:2399–2476, 2478–2910`). A conversion to an actual declared
+subtype remains outside this component.
+
+The builtin Integer type has two serialized occurrences. A binary operator
+identifier has five (identifier, name, module, type and its name); unary minus
+has four because it has no module
+(`src/why/why-atree-modules.adb:703–750`). The ordinary signed range-check
+identifier also has five; its return type is the existing builtin Integer
+(`:3962–4006`; `src/why/why-inter.adb:943–1017`). The overflow wrapper therefore
+adds `8 + 3 + 1 = 12` occurrences: call, VC label with type, location label.
+
+| Core operation, excluding children/setup | Fresh nodes | Fresh lists | List elements | Serialized overhead |
+| --- | ---: | ---: | ---: | ---: |
+| Binary `+` or `-`, without overflow wrapper | 1 | 1 | 2 | 8 |
+| Unary `-`, without overflow wrapper | 1 | 1 | 1 | 7 |
+| Optional overflow wrapper | at most 3 | 1 | 1 | at most 12 |
+| Binary `+`/`-`, allowing that wrapper | at most 4 | at most 2 | at most 3 | at most 20 |
+| Unary `-`, allowing that wrapper | at most 4 | at most 2 | at most 2 | at most 19 |
+
+The term-domain case has no overflow wrapper. Compile-time-known discrete
+expressions can instead use a single discrete constant without traversing the
+arithmetic children (`src/why/gnat2why-expr.adb:23700–23710`); that simplification
+does not enlarge these conservative per-tree bounds. This closes normalized
+arithmetic operator overhead, not the identifier, declaration-type, or String
+conversion costs needed by the complete language.
+
 ## Declaration, type and module caller closure
 
 The following additional results close invocation multiplicities. They remain

@@ -2931,6 +2931,29 @@
   2894:       return Result;
 ```
 
+## src/why/gnat2why-expr.adb:12039-12056
+
+```ada
+ 12039:    function Insert_Overflow_Check
+ 12040:      (Ada_Node : Node_Id;
+ 12041:       T        : W_Expr_Id;
+ 12042:       In_Type  : Type_Kind_Id;
+ 12043:       Is_Float : Boolean) return W_Prog_Id
+ 12044:    is
+ 12045:       Base : constant Entity_Id := Base_Type (In_Type);
+ 12046:
+ 12047:    begin
+ 12048:       return
+ 12049:         New_VC_Call
+ 12050:           (Ada_Node => Ada_Node,
+ 12051:            Name     => E_Symb (Base, WNE_Range_Check_Fun),
+ 12052:            Progs    => (1 => T),
+ 12053:            Reason   =>
+ 12054:              (if Is_Float then VC_FP_Overflow_Check else VC_Overflow_Check),
+ 12055:            Typ      => Get_Type (T));
+ 12056:    end Insert_Overflow_Check;
+```
+
 ## src/why/gnat2why-expr.adb:14857-14920
 
 ```ada
@@ -3721,6 +3744,59 @@
  23215:    ----------------------------------
 ```
 
+## src/why/gnat2why-expr.adb:23600-23647
+
+```ada
+ 23600:    -- Transform_Expr --
+ 23601:    --------------------
+ 23602:
+ 23603:    function Transform_Expr
+ 23604:      (Expr              : N_Subexpr_Id;
+ 23605:       Expected_Type     : W_Type_Id;
+ 23606:       Domain            : EW_Domain;
+ 23607:       Params            : Transformation_Params;
+ 23608:       No_Init_Check     : Boolean := False;
+ 23609:       No_Validity_Check : Boolean := False) return W_Expr_Id
+ 23610:    is
+ 23611:       Expr_Type    : constant Entity_Id := Retysp (Etype (Expr));
+ 23612:       T            : W_Expr_Id;
+ 23613:       Pretty_Label : Symbol := No_Symbol;
+ 23614:       Local_Params : Transformation_Params := Params;
+ 23615:
+ 23616:    begin
+ 23617:       --  We check whether we need to generate a pretty printing label. If we
+ 23618:       --  do, we set the corresponding flag to "GM_None" so that the label is
+ 23619:       --  not printed for subterms.
+ 23620:       --  Our intention is to skip printing pretty-printing labels when not
+ 23621:       --  needed (predicate is just a single item, without conjunction,
+ 23622:       --  quantification, etc). So we skip the printing at the top level of the
+ 23623:       --  term, and set label generation for subterms, unless we are already at
+ 23624:       --  a terminal node.
+ 23625:
+ 23626:       if Domain = EW_Pred then
+ 23627:          case Local_Params.Gen_Marker is
+ 23628:             when GM_Label    =>
+ 23629:                if Is_Terminal_Node (Expr) then
+ 23630:                   Pretty_Label := New_Sub_VC_Marker (Expr);
+ 23631:                   Local_Params.Gen_Marker := GM_None;
+ 23632:                end if;
+ 23633:
+ 23634:             when GM_Toplevel =>
+ 23635:                if Is_Terminal_Node (Expr) then
+ 23636:                   Local_Params.Gen_Marker := GM_None;
+ 23637:                else
+ 23638:                   Local_Params.Gen_Marker := GM_Label;
+ 23639:                end if;
+ 23640:
+ 23641:             when GM_None     =>
+ 23642:                null;
+ 23643:          end case;
+ 23644:       end if;
+ 23645:
+ 23646:       --  Special case for Standard.True and Standard.False as predicates
+ 23647:
+```
+
 ## src/why/gnat2why-expr.adb:23688-23712
 
 ```ada
@@ -3751,6 +3827,151 @@
  23712:       --  Intrinsic operators should be translated as function calls in SPARK
 ```
 
+## src/why/gnat2why-expr.adb:24012-24151
+
+```ada
+ 24012:             when N_Op_Minus                             =>
+ 24013:                --  unary minus
+ 24014:                declare
+ 24015:                   Right : constant N_Subexpr_Id := Right_Opnd (Expr);
+ 24016:                   Typ   : constant W_Type_Id := Base_Why_Type (Right);
+ 24017:
+ 24018:                   Minus_Ident : constant W_Identifier_Id :=
+ 24019:                     (if Typ = EW_Int_Type
+ 24020:                      then Int_Unary_Minus
+ 24021:                      elsif Why_Type_Is_BitVector (Typ)
+ 24022:                      then MF_BVs (Typ).Neg
+ 24023:                      elsif Why_Type_Is_Fixed (Typ)
+ 24024:                      then Fixed_Unary_Minus
+ 24025:                      else MF_Floats (Typ).Unary_Minus);
+ 24026:
+ 24027:                   Right_Rep : constant W_Expr_Id :=
+ 24028:                     Transform_Expr (Right, Typ, Domain, Local_Params);
+ 24029:
+ 24030:                   Check_No_Wrap_Around : constant Boolean :=
+ 24031:                     Domain = EW_Prog
+ 24032:                     and then Has_No_Wrap_Around_Annotation (Expr_Type);
+ 24033:
+ 24034:                begin
+ 24035:                   if Has_Modular_Integer_Type (Expr_Type)
+ 24036:                     and then Non_Binary_Modulus (Expr_Type)
+ 24037:                     and then
+ 24038:                       not Has_No_Bitwise_Operations_Annotation (Expr_Type)
+ 24039:                   then
+ 24040:                      T :=
+ 24041:                        Transform_Non_Binary_Modular_Operation
+ 24042:                          (Ada_Node   => Expr,
+ 24043:                           Ada_Type   => Expr_Type,
+ 24044:                           Domain     => Domain,
+ 24045:                           Op         => N_Op_Minus,
+ 24046:                           Right_Opnd => Right_Rep,
+ 24047:                           Rep_Type   => Typ,
+ 24048:                           Modulus    => Modulus (Expr_Type));
+ 24049:                   else
+ 24050:                      T :=
+ 24051:                        New_Call
+ 24052:                          (Domain   => Domain,
+ 24053:                           Ada_Node => Expr,
+ 24054:                           Name     => Minus_Ident,
+ 24055:                           Args     => (1 => Right_Rep),
+ 24056:                           Typ      => Typ);
+ 24057:
+ 24058:                      if not Check_No_Wrap_Around then
+ 24059:                         T := Apply_Modulus (N_Op_Minus, Expr_Type, T, Domain);
+ 24060:                      end if;
+ 24061:                   end if;
+ 24062:
+ 24063:                   --  If the type is subject to No_Wrap_Around annotation and
+ 24064:                   --  we need to insert a check, there are two cases:
+ 24065:                   --
+ 24066:                   --  . The type is also subject to No_Bitwise_Operations
+ 24067:                   --    annotation, hence its base type in Why is "int" and we
+ 24068:                   --    can check the absence of wrap around on the result of
+ 24069:                   --    the operation, provided we did not apply modulo on the
+ 24070:                   --    result.
+ 24071:                   --
+ 24072:                   --  . Otherwise, we need to check the absence of wrap around
+ 24073:                   --    before evaluating the operation in bitvectors.
+ 24074:
+ 24075:                   if Check_No_Wrap_Around then
+ 24076:                      if Has_No_Bitwise_Operations_Annotation (Expr_Type) then
+ 24077:                         T :=
+ 24078:                           +Do_Range_Check
+ 24079:                              (Ada_Node   => Expr,
+ 24080:                               Ty         => Expr_Type,
+ 24081:                               W_Expr     => T,
+ 24082:                               Check_Kind => RCK_Overflow);
+ 24083:                      else
+ 24084:                         declare
+ 24085:                            Check : constant W_Prog_Id :=
+ 24086:                              Check_No_Wrap_Around_Modular_Operation
+ 24087:                                (Ada_Node   => Expr,
+ 24088:                                 Ada_Type   => Expr_Type,
+ 24089:                                 Op         => N_Op_Minus,
+ 24090:                                 Right_Opnd => Right_Rep,
+ 24091:                                 Rep_Type   => Typ,
+ 24092:                                 Modulus    => Modulus (Expr_Type));
+ 24093:                         begin
+ 24094:                            Prepend (Check, T);
+ 24095:                         end;
+ 24096:                      end if;
+ 24097:                   end if;
+ 24098:                end;
+ 24099:
+ 24100:             when N_Op_Plus                              =>
+ 24101:                --  unary plus
+ 24102:                declare
+ 24103:                   Right : constant N_Subexpr_Id := Right_Opnd (Expr);
+ 24104:                begin
+ 24105:                   T :=
+ 24106:                     Transform_Expr
+ 24107:                       (Right, Base_Why_Type (Right), Domain, Local_Params);
+ 24108:                end;
+ 24109:
+ 24110:             when N_Op_Abs                               =>
+ 24111:                declare
+ 24112:                   Right : constant N_Subexpr_Id := Right_Opnd (Expr);
+ 24113:                   Typ   : constant W_Type_Id := Base_Why_Type (Right);
+ 24114:
+ 24115:                   Right_Rep : constant W_Expr_Id :=
+ 24116:                     Transform_Expr (Right, Typ, Domain, Local_Params);
+ 24117:                begin
+ 24118:                   T :=
+ 24119:                     New_Call
+ 24120:                       (Ada_Node => Expr,
+ 24121:                        Domain   => Domain,
+ 24122:                        Name     => New_Abs (Typ),
+ 24123:                        Args     => (1 => Right_Rep),
+ 24124:                        Typ      => Typ);
+ 24125:                end;
+ 24126:
+ 24127:             when N_Op_Add | N_Op_Subtract               =>
+ 24128:                declare
+ 24129:                   Left       : constant N_Subexpr_Id := Left_Opnd (Expr);
+ 24130:                   Right      : constant N_Subexpr_Id := Right_Opnd (Expr);
+ 24131:                   Base       : constant W_Type_Id :=
+ 24132:                     Base_Why_Type (Left, Right);
+ 24133:                   Left_Expr  : constant W_Expr_Id :=
+ 24134:                     Transform_Expr (Left, Base, Domain, Local_Params);
+ 24135:                   Right_Expr : constant W_Expr_Id :=
+ 24136:                     Transform_Expr (Right, Base, Domain, Local_Params);
+ 24137:                begin
+ 24138:                   T :=
+ 24139:                     New_Binary_Op_Expr
+ 24140:                       (Op          => Nkind (Expr),
+ 24141:                        Left        => Left_Expr,
+ 24142:                        Right       => Right_Expr,
+ 24143:                        Left_Type   => Etype (Left),
+ 24144:                        Right_Type  => Etype (Right),
+ 24145:                        Return_Type => Expr_Type,
+ 24146:                        Domain      => Domain,
+ 24147:                        Ada_Node    => Expr);
+ 24148:                end;
+ 24149:
+ 24150:             when N_Op_Multiply | N_Op_Divide            =>
+ 24151:                declare
+```
+
 ## src/why/gnat2why-expr.adb:24714-24731
 
 ```ada
@@ -3772,6 +3993,123 @@
  24729:             when N_Membership_Test                      =>
  24730:                T :=
  24731:                  Transform_Membership_Expression (Local_Params, Domain, Expr);
+```
+
+## src/why/gnat2why-expr.adb:25500-25573
+
+```ada
+ 25500:       --  This label will be used for pretty printing the expression
+ 25501:
+ 25502:       if Pretty_Label /= No_Symbol then
+ 25503:          T :=
+ 25504:            New_Label
+ 25505:              (Labels => Symbol_Sets.To_Set (Pretty_Label),
+ 25506:               Def    => T,
+ 25507:               Domain => Domain,
+ 25508:               Typ    => Get_Type (T));
+ 25509:       end if;
+ 25510:
+ 25511:       --  Insert an overflow check if flag Do_Overflow_Check is set. No
+ 25512:       --  conversion should be needed, as overflow checks are only set on
+ 25513:       --  intermediate expressions, whose transformation into Why should
+ 25514:       --  always have type "int" or "real". We start by checking that Expr has
+ 25515:       --  a kind on which we can call Do_Overflow_Check, otherwise there is
+ 25516:       --  nothing to do.
+ 25517:
+ 25518:       --  Note that N_Type_Conversions *may* have a Do_Overflow_Check flag, but
+ 25519:       --  they are actually for range checks and are checked elsewhere. See the
+ 25520:       --  documentation of sinfo.ads.
+ 25521:
+ 25522:       if Domain = EW_Prog
+ 25523:         and then
+ 25524:           Nkind (Expr)
+ 25525:           in N_Attribute_Reference | N_Case_Expression | N_If_Expression | N_Op
+ 25526:         and then Do_Overflow_Check (Expr)
+ 25527:       then
+ 25528:          --  Depending on the current mode for integer overflow checks, the
+ 25529:          --  operation is either done in the base type (Strict mode), or in
+ 25530:          --  Long_Long_Integer (Minimized mode) if needed, or in arbitrary
+ 25531:          --  precision if needed (Eliminated mode). A check may only be
+ 25532:          --  generated in the Strict and Minimized modes, and the type
+ 25533:          --  used for the bounds is the base type in the first case, and
+ 25534:          --  Long_Long_Integer in the second case (which is its own base type).
+ 25535:
+ 25536:          --  Use Sem.Scope_Suppress which takes into account the default from
+ 25537:          --  switches and configuration pragma files as defined in
+ 25538:          --  Opt.Suppress_Options, as well as possible configuration pragmas
+ 25539:          --  in the main unit, as done in SPARK_Definition.Mark_Pragma.
+ 25540:
+ 25541:          if Is_Signed_Integer_Type (Expr_Type) then
+ 25542:             declare
+ 25543:                Mode : Overflow_Mode_Type;
+ 25544:             begin
+ 25545:                case Params.Phase is
+ 25546:                   when Generate_VCs_For_Body      =>
+ 25547:                      Mode := Sem.Scope_Suppress.Overflow_Mode_General;
+ 25548:
+ 25549:                   when Generate_VCs_For_Assertion =>
+ 25550:                      Mode := Sem.Scope_Suppress.Overflow_Mode_Assertions;
+ 25551:
+ 25552:                   when others                     =>
+ 25553:                      raise Program_Error;
+ 25554:                end case;
+ 25555:
+ 25556:                case Mode is
+ 25557:                   when Strict     =>
+ 25558:                      T :=
+ 25559:                        +Insert_Overflow_Check
+ 25560:                           (Expr, T, Expr_Type, Is_Float => False);
+ 25561:
+ 25562:                   when Minimized  =>
+ 25563:                      T :=
+ 25564:                        +Insert_Overflow_Check
+ 25565:                           (Expr, T, Standard_Integer_64, Is_Float => False);
+ 25566:
+ 25567:                   when Eliminated =>
+ 25568:                      null;
+ 25569:
+ 25570:                   when Not_Set    =>
+ 25571:                      raise Program_Error;
+ 25572:                end case;
+ 25573:             end;
+```
+
+## src/why/gnat2why-expr.adb:25635-25667
+
+```ada
+ 25635:
+ 25636:       --  Convert the expression to the expected type, if needed. This is
+ 25637:       --  intertwined with inserting range checks, and Insert_Conversion does
+ 25638:       --  both. This is because range checks need to be done on the Why "int"
+ 25639:       --  type, so they may trigger a conversion, or if a conversion is already
+ 25640:       --  needed, must be done on the "right side" of the conversion.
+ 25641:       --  Note that Insert_Conversion is smart enough to not insert any
+ 25642:       --  conversion when it's not needed.
+ 25643:
+ 25644:       --  A range check is needed only in programs (Domain EW_Prog), and on
+ 25645:       --  nodes that have the range check flag. For type conversions, the
+ 25646:       --  Do_Overflow_Check actually means that a range check is needed,
+ 25647:       --  instead of an overflow check (see sinfo.ads and the discussion of
+ 25648:       --  range checks and overflow checks there). Because range checks are
+ 25649:       --  determined by looking at the parent node, in that special case we go
+ 25650:       --  one step down for the Range_Check_Node.
+ 25651:
+ 25652:       --  In predicate domain, only the Boolean type is used, no conversion is
+ 25653:       --  needed.
+ 25654:
+ 25655:       if Domain in EW_Pred then
+ 25656:          null;
+ 25657:       else
+ 25658:          T :=
+ 25659:            Insert_Checked_Conversion
+ 25660:              (Ada_Node => Expr,
+ 25661:               Domain   => Domain,
+ 25662:               Expr     => T,
+ 25663:               To       => Expected_Type);
+ 25664:       end if;
+ 25665:
+ 25666:       return T;
+ 25667:    end Transform_Expr;
 ```
 
 ## src/why/gnat2why-expr.adb:29733-29862
@@ -5265,6 +5603,59 @@
    504:    end Hashconsed_Entity_Module;
 ```
 
+## src/why/why-atree-modules.adb:703-750
+
+```ada
+   703:       --  Builtin unary minus and void
+   704:
+   705:       Int_Unary_Minus :=
+   706:         New_Identifier
+   707:           (Domain => EW_Term, Symb => NID ("-"), Typ => EW_Int_Type);
+   708:       Fixed_Unary_Minus :=
+   709:         New_Identifier
+   710:           (Domain => EW_Term, Symb => NID ("-"), Typ => M_Main.Fixed_Type);
+   711:       Real_Unary_Minus :=
+   712:         New_Identifier
+   713:           (Domain => EW_Term, Symb => NID ("-."), Typ => EW_Real_Type);
+   714:
+   715:       Void :=
+   716:         New_Identifier
+   717:           (Domain => EW_Term, Symb => NID ("()"), Typ => EW_Unit_Type);
+   718:
+   719:       --  Builtin infix operations
+   720:
+   721:       Why_Eq :=
+   722:         New_Identifier
+   723:           (Domain => EW_Term,
+   724:            Symb   => NID ("="),
+   725:            Typ    => EW_Bool_Type,
+   726:            Infix  => True);
+   727:       Why_Neq :=
+   728:         New_Identifier
+   729:           (Domain => EW_Term,
+   730:            Symb   => NID ("<>"),
+   731:            Typ    => EW_Bool_Type,
+   732:            Infix  => True);
+   733:
+   734:       Int_Infix_Add :=
+   735:         New_Identifier
+   736:           (Module => Int_Module,
+   737:            Domain => EW_Term,
+   738:            Symb   => NID ("+"),
+   739:            Typ    => EW_Int_Type,
+   740:            Infix  => True);
+   741:       Int_Infix_Subtr :=
+   742:         New_Identifier
+   743:           (Module => Int_Module,
+   744:            Domain => EW_Term,
+   745:            Symb   => NID ("-"),
+   746:            Typ    => EW_Int_Type,
+   747:            Infix  => True);
+   748:       Int_Infix_Mult :=
+   749:         New_Identifier
+   750:           (Module => Int_Module,
+```
+
 ## src/why/why-atree-modules.adb:918-1047
 
 ```ada
@@ -5398,6 +5789,56 @@
   1045:    end Init_Array_1_Comp_Module;
   1046:
   1047:    function Init_Array_1_Bool_Op_Module
+```
+
+## src/why/why-atree-modules.adb:3962-4006
+
+```ada
+  3962:                Base : constant W_Type_Id := Get_EW_Term_Type (E);
+  3963:             begin
+  3964:                Insert_Symbol
+  3965:                  (E,
+  3966:                   WNE_Attr_Image,
+  3967:                   New_Identifier
+  3968:                     (Symb   => NID ("attr__ATTRIBUTE_IMAGE"),
+  3969:                      Module => M,
+  3970:                      Domain => EW_Term,
+  3971:                      Typ    => M_Main.String_Image_Type));
+  3972:                Insert_Symbol
+  3973:                  (E,
+  3974:                   WNE_Attr_Value,
+  3975:                   New_Identifier
+  3976:                     (Symb   => NID ("attr__ATTRIBUTE_VALUE"),
+  3977:                      Module => M,
+  3978:                      Domain => EW_Term,
+  3979:                      Typ    => Base));
+  3980:                Insert_Symbol
+  3981:                  (E,
+  3982:                   WNE_Check_Not_First,
+  3983:                   New_Identifier
+  3984:                     (Symb   => NID ("check_not_first"),
+  3985:                      Module => M,
+  3986:                      Domain => EW_Term,
+  3987:                      Typ    => Base));
+  3988:                Insert_Symbol
+  3989:                  (E,
+  3990:                   WNE_Check_Not_Last,
+  3991:                   New_Identifier
+  3992:                     (Symb   => NID ("check_not_last"),
+  3993:                      Module => M,
+  3994:                      Domain => EW_Term,
+  3995:                      Typ    => Base));
+  3996:                Insert_Symbol
+  3997:                  (E,
+  3998:                   WNE_Range_Check_Fun,
+  3999:                   New_Identifier
+  4000:                     (Symb   => NID ("range_check_"),
+  4001:                      Module => M,
+  4002:                      Domain => EW_Term,
+  4003:                      Typ    => Base));
+  4004:                Insert_Symbol
+  4005:                  (E,
+  4006:                   WNE_Dynamic_Property,
 ```
 
 ## src/why/why-atree-modules.ads:819-857
@@ -6128,6 +6569,22 @@
   1640:    end Unit_Param;
 ```
 
+## src/why/why-gen-expr.adb:147-157
+
+```ada
+   147:    function Apply_Modulus
+   148:      (Op : N_Op; E : Type_Kind_Id; T : W_Expr_Id; Domain : EW_Domain)
+   149:       return W_Expr_Id
+   150:    is
+   151:       Ty          : constant Type_Kind_Id := Retysp (E);
+   152:       Modulus_Val : Uint;
+   153:       BV_Type     : W_Type_Id;
+   154:    begin
+   155:       if not Is_Modular_Integer_Type (Ty) then
+   156:          return T;
+   157:       end if;
+```
+
 ## src/why/why-gen-expr.adb:311-348
 
 ```ada
@@ -6171,7 +6628,176 @@
    348:    end Binding_For_Temp;
 ```
 
-## src/why/why-gen-expr.adb:2399-2445
+## src/why/why-gen-expr.adb:1518-1648
+
+```ada
+  1518:    function Insert_Checked_Conversion
+  1519:      (Ada_Node : Node_Id;
+  1520:       Domain   : EW_Domain;
+  1521:       Expr     : W_Expr_Id;
+  1522:       To       : W_Type_Id;
+  1523:       Lvalue   : Boolean := False;
+  1524:       No_Init  : Boolean := False) return W_Expr_Id
+  1525:    is
+  1526:
+  1527:       --  When converting between Ada types, detect cases where a check is not
+  1528:       --  needed.
+  1529:
+  1530:       From         : constant W_Type_Id := Get_Type (Expr);
+  1531:       Check_Needed : Boolean;
+  1532:       T            : W_Expr_Id := Expr;
+  1533:
+  1534:    begin
+  1535:       --  A string literal gets typed with a subtype of the expected type, even
+  1536:       --  if it does not respect the associated predicate of the expected type.
+  1537:       --  As a result, do not rely on the call to Check_Needed_On_Conversion in
+  1538:       --  that case.
+  1539:       --  If From has relaxed initialization and not To, we may need an
+  1540:       --  initialization check.
+  1541:
+  1542:       Check_Needed :=
+  1543:         (if Get_Type_Kind (From) in EW_Abstract | EW_Split
+  1544:            and then Get_Type_Kind (To) in EW_Abstract | EW_Split
+  1545:            and then
+  1546:              not (Nkind (Ada_Node) = N_String_Literal
+  1547:                   and then Has_Predicates (Get_Ada_Node (+To)))
+  1548:          then
+  1549:            Check_Needed_On_Conversion
+  1550:              (From => Get_Ada_Node (+From), To => Get_Ada_Node (+To))
+  1551:            or else Is_Choice_Of_Unconstrained_Array_Update (Ada_Node)
+  1552:            or else
+  1553:              (Is_Init_Wrapper_Type (From)
+  1554:               and then not Is_Init_Wrapper_Type (To)
+  1555:               and then not No_Init)
+  1556:          else True);
+  1557:
+  1558:       if Is_Private_Conversion (From, To)
+  1559:         or else Is_Record_Conversion (From, To)
+  1560:       then
+  1561:          --  Conversion between record types need to go through their common
+  1562:          --  root record type. A discriminant check may be needed. Currently
+  1563:          --  perform it on all discriminant record types, as the flag
+  1564:          --  Do_Discriminant_Check is not set appropriately by the frontend on
+  1565:          --  type conversions.
+  1566:          --  A tag check may also be needed if we convert from a classwide type
+  1567:          --  to a type which is not an ancestor. As for the discriminant check,
+  1568:          --  we always perform it.
+  1569:
+  1570:          T :=
+  1571:            Insert_Record_Conversion
+  1572:              (Domain     => Domain,
+  1573:               Ada_Node   => Ada_Node,
+  1574:               Expr       => T,
+  1575:               To         => To,
+  1576:               Need_Check => Check_Needed,
+  1577:               No_Init    => No_Init);
+  1578:
+  1579:       elsif Is_Array_Conversion (From, To) then
+  1580:          --  The flag Do_Length_Check is not set consistently in the
+  1581:          --  frontend, so check every array conversion.
+  1582:
+  1583:          T :=
+  1584:            Insert_Array_Conversion
+  1585:              (Domain     => Domain,
+  1586:               Ada_Node   => Ada_Node,
+  1587:               Expr       => T,
+  1588:               To         => To,
+  1589:               Need_Check => Check_Needed,
+  1590:               No_Init    => No_Init);
+  1591:
+  1592:       elsif Is_Subp_Pointer_Conversion (From, To) then
+  1593:          T :=
+  1594:            Insert_Subp_Pointer_Conversion
+  1595:              (Domain     => Domain,
+  1596:               Ada_Node   => Ada_Node,
+  1597:               Expr       => T,
+  1598:               To         => To,
+  1599:               Need_Check => Check_Needed,
+  1600:               No_Init    => No_Init);
+  1601:
+  1602:       elsif Is_Pointer_Conversion (From, To) then
+  1603:
+  1604:          T :=
+  1605:            Insert_Pointer_Conversion
+  1606:              (Domain     => Domain,
+  1607:               Ada_Node   => Ada_Node,
+  1608:               Expr       => T,
+  1609:               To         => To,
+  1610:               Need_Check => Check_Needed,
+  1611:               No_Init    => No_Init);
+  1612:
+  1613:       --  Conversion between scalar types
+  1614:
+  1615:       else
+  1616:          declare
+  1617:             --  Flag for a range check; set if the expression node has
+  1618:             --  Do_Range_Check flag set, if it is a type conversion whose flag
+  1619:             --  Do_Overflow_Check is set. (See description of these flags in
+  1620:             --  sinfo.ads for details.)
+  1621:
+  1622:             --  Also, we special case a type conversion whose expression has a
+  1623:             --  range check, when this appears as the actual of an out/in-out
+  1624:             --  parameter of a call, because the current check machinery does
+  1625:             --  not allow detecting the necessary check on the out copy.
+  1626:             --  ??? It would be good if such special casing were closer to the
+  1627:             --  code which handles the call
+  1628:
+  1629:             Do_Check : constant Boolean :=
+  1630:               Domain = EW_Prog
+  1631:               and then Check_Needed
+  1632:               and then Do_Check_On_Scalar_Conversion (Ada_Node);
+  1633:
+  1634:          begin
+  1635:             T :=
+  1636:               Insert_Scalar_Conversion
+  1637:                 (Domain   => Domain,
+  1638:                  Ada_Node => Ada_Node,
+  1639:                  Expr     => T,
+  1640:                  To       => To,
+  1641:                  Do_Check => Do_Check,
+  1642:                  Lvalue   => Lvalue,
+  1643:                  No_Init  => No_Init);
+  1644:          end;
+  1645:       end if;
+  1646:
+  1647:       return T;
+  1648:    end Insert_Checked_Conversion;
+```
+
+## src/why/why-gen-expr.adb:1956-1983
+
+```ada
+  1956:    function Insert_Cnt_Loc_Label
+  1957:      (Ada_Node : Node_Id; E : W_Expr_Id; Is_Loop_Head : Boolean := False)
+  1958:       return W_Expr_Id is
+  1959:    begin
+  1960:       if Present (Ada_Node) and then Safe_First_Sloc (Ada_Node) > No_Location
+  1961:       then
+  1962:          declare
+  1963:             --  This is intentionnally not generated in case of Implicit
+  1964:             --  invariant (no explicit Loop_Invariant in the loop).
+  1965:             Marker : constant Symbol :=
+  1966:               (if Is_Loop_Head and then Nkind (Ada_Node) = N_Pragma
+  1967:                then NID ("Loop" & Node_Id'Image (Ada_Node))
+  1968:                else No_Symbol);
+  1969:          begin
+  1970:             return
+  1971:               New_Loc_Label
+  1972:                 (Ada_Node => Get_Ada_Node (+E),
+  1973:                  Sloc     => Safe_First_Sloc (Ada_Node),
+  1974:                  Domain   => Get_Domain (+E),
+  1975:                  Def      => E,
+  1976:                  Marker   => Marker);
+  1977:          end;
+  1978:       else
+  1979:          return E;
+  1980:       end if;
+  1981:    end Insert_Cnt_Loc_Label;
+  1982:
+  1983:    --------------------------------------
+```
+
+## src/why/why-gen-expr.adb:2399-2910
 
 ```ada
   2399:    function Insert_Scalar_Conversion
@@ -6221,11 +6847,36 @@
   2443:       if Do_Check then
   2444:          Check_Kind := Get_Range_Check_Info (Ada_Node);
   2445:
-```
-
-## src/why/why-gen-expr.adb:2476-2522
-
-```ada
+  2446:          Range_Type := Get_Ada_Node (+To);
+  2447:
+  2448:          --  Builtin scalar types might not have an Ada node. For standard
+  2449:          --  booleans, we can use Standard_Boolean. Mathematical integers do
+  2450:          --  not have a bound, so not having a range type is fine. For other
+  2451:          --  types, check that no range checks are necessary.
+  2452:
+  2453:          if No (Range_Type) then
+  2454:             if To = EW_Bool_Type then
+  2455:                Range_Type := Standard_Boolean;
+  2456:             elsif To = EW_Int_Type then
+  2457:                null;
+  2458:             else
+  2459:                pragma Assert (Base_Why_Type (+From) = To);
+  2460:             end if;
+  2461:          end if;
+  2462:       end if;
+  2463:
+  2464:       return
+  2465:         Insert_Scalar_Conversion
+  2466:           (Domain     => Domain,
+  2467:            Ada_Node   => Ada_Node,
+  2468:            Expr       => Expr,
+  2469:            To         => To,
+  2470:            Range_Type => Range_Type,
+  2471:            Check_Kind => Check_Kind,
+  2472:            Lvalue     => Lvalue,
+  2473:            No_Init    => No_Init);
+  2474:    end Insert_Scalar_Conversion;
+  2475:
   2476:    function Insert_Scalar_Conversion
   2477:      (Domain     : EW_Domain;
   2478:       Ada_Node   : Node_Id := Empty;
@@ -6273,11 +6924,125 @@
   2520:    begin
   2521:       --  If the check is a range check on a floating-point type, and we can
   2522:       --  determine that the expression is always within bounds, then issue
-```
-
-## src/why/why-gen-expr.adb:2642-2692
-
-```ada
+  2523:       --  a check always true. Do not apply this optimization to actual
+  2524:       --  parameters of calls, as Determine_Range_R does not work for out and
+  2525:       --  in out parameters, as it will return the range of the actual based
+  2526:       --  on its type rather than based on the type of the formal parameter.
+  2527:       --  For the same reason, do not apply also this optimization on lvalues.
+  2528:
+  2529:       if Present (Range_Type)
+  2530:         and then Is_Floating_Point_Type (Range_Type)
+  2531:         and then
+  2532:           not (Is_Converted_Actual_Output_Parameter (Ada_Node) or else Lvalue)
+  2533:       then
+  2534:          declare
+  2535:             Tlo : constant Node_Id := Type_Low_Bound (Range_Type);
+  2536:             Thi : constant Node_Id := Type_High_Bound (Range_Type);
+  2537:             Lov : Ureal;
+  2538:             Hiv : Ureal;
+  2539:             Lo  : Ureal := No_Ureal;
+  2540:             Hi  : Ureal := No_Ureal;
+  2541:             OK  : Boolean;
+  2542:
+  2543:          begin
+  2544:             --  The computation of the range assumes at worst that the type of
+  2545:             --  the expression is respected, so it is not suitable for overflow
+  2546:             --  checks, for example the overflow check on 'Pred and 'Succ,
+  2547:             --  therefore test first that Check_Kind is a range check.
+  2548:
+  2549:             if Check_Kind = RCK_Range
+  2550:
+  2551:               --  We can only remove the check if we can compute the expected
+  2552:               --  bounds of the Range_Type now.
+  2553:
+  2554:               and then Compile_Time_Known_Value (Tlo)
+  2555:               and then Compile_Time_Known_Value (Thi)
+  2556:             then
+  2557:                Lov := Expr_Value_R (Tlo);
+  2558:                Hiv := Expr_Value_R (Thi);
+  2559:
+  2560:                --  Call Determine_Range_R on floating-point values
+  2561:
+  2562:                if Is_Floating_Point_Type (Etype (Ada_Node)) then
+  2563:                   Determine_Range_R
+  2564:                     (Ada_Node, OK, Lo, Hi, Assume_Valid => True);
+  2565:
+  2566:                --  Call Determine_Range on integer values, which may happen
+  2567:                --  when converting an integer to a floating-point type.
+  2568:
+  2569:                elsif Is_Discrete_Type (Etype (Ada_Node)) then
+  2570:                   declare
+  2571:                      use Eval_Fat;
+  2572:
+  2573:                      function Round_Machine (B : Ureal) return Ureal
+  2574:                      is (Machine (Range_Type, B, Round_Even, Ada_Node));
+  2575:                      --  This is similar to the homonym function in
+  2576:                      --  Checks.Determine_Range_R. It rounds a real bound B
+  2577:                      --  using mode Round_Even. The underlying floating-point
+  2578:                      --  type used is Range_Type.
+  2579:
+  2580:                      Lo_Int, Hi_Int : Uint;
+  2581:                   begin
+  2582:                      Determine_Range
+  2583:                        (Ada_Node, OK, Lo_Int, Hi_Int, Assume_Valid => True);
+  2584:
+  2585:                      if OK then
+  2586:                         Lo := Round_Machine (UR_From_Uint (Lo_Int));
+  2587:                         Hi := Round_Machine (UR_From_Uint (Hi_Int));
+  2588:                      end if;
+  2589:                   end;
+  2590:
+  2591:                --  Neither a floating-point nor an integer value, hence
+  2592:                --  fixed-point value. Conversion between fixed point and
+  2593:                --  floating point types is not yet supported.
+  2594:
+  2595:                else
+  2596:                   raise Program_Error;
+  2597:                end if;
+  2598:
+  2599:                if OK then
+  2600:
+  2601:                   --  If definitely in range, generate a check always true for
+  2602:                   --  the range check. When gnat2why directly handles check
+  2603:                   --  messages, a message could be generated instead here.
+  2604:
+  2605:                   if Lo >= Lov and then Hi <= Hiv then
+  2606:                      Emit_Always_True_Range_Check (Ada_Node, Check_Kind);
+  2607:                      Range_Check_Applied := True;
+  2608:                   end if;
+  2609:                end if;
+  2610:             end if;
+  2611:          end;
+  2612:       end if;
+  2613:
+  2614:       --  The regular case, we take care to insert the range check at a
+  2615:       --  valid place where the expression is of the appropriate Why base
+  2616:       --  type (real for a range check of a floating point type, bitvector_?
+  2617:       --  for a range check of a modular type, int for a range check of a
+  2618:       --  discrete type).
+  2619:
+  2620:       --  0. If From is a wrapper type, access the value. This may introduce an
+  2621:       --     initialization check.
+  2622:
+  2623:       if Is_Init_Wrapper_Type (From) then
+  2624:          declare
+  2625:             From_Node : constant Entity_Id := Get_Ada_Node (+From);
+  2626:          begin
+  2627:             if Domain = EW_Prog and then not No_Init then
+  2628:                Result :=
+  2629:                  Insert_Initialization_Check
+  2630:                    (Ada_Node           => Ada_Node,
+  2631:                     E                  => From_Node,
+  2632:                     Name               => Result,
+  2633:                     Domain             => Domain,
+  2634:                     Exclude_Components => Relaxed);
+  2635:             end if;
+  2636:
+  2637:             --  An initialization check should be inserted directly when
+  2638:             --  translating a scalar variable - see Transform_Identifier.
+  2639:
+  2640:             pragma Assert (Get_Type_Kind (From) /= EW_Split);
+  2641:
   2642:             if From = M_Boolean_Init_Wrapper.Wrapper_Ty then
   2643:                Result :=
   2644:                  New_Call
@@ -6329,11 +7094,53 @@
   2690:                To_Base   : constant W_Type_Id := Base_Why_Type (To);
   2691:
   2692:                --  Fixed point types always have an Ada node
-```
-
-## src/why/why-gen-expr.adb:2740-2910
-
-```ada
+  2693:
+  2694:                pragma
+  2695:                  Assert
+  2696:                    (Present (From_Type)
+  2697:                     and then Has_Fixed_Point_Type (From_Type)
+  2698:                     and then Present (To_Type)
+  2699:                     and then Has_Fixed_Point_Type (To_Type));
+  2700:
+  2701:                --  If From and To have the same small, they should have the
+  2702:                --  same base type.
+  2703:
+  2704:                pragma
+  2705:                  Assert (Small_Value (From_Type) /= Small_Value (To_Type));
+  2706:
+  2707:                --  Multiply by 1 to introduce the conversion
+  2708:
+  2709:                Module   : constant M_Fixed_Point_Mult_Div_Type :=
+  2710:                  Get_Fixed_Point_Mult_Div_Theory
+  2711:                    (Typ_Left   => From_Type,
+  2712:                     Typ_Right  => Standard_Integer,
+  2713:                     Typ_Result => To_Type);
+  2714:                Name     : constant W_Identifier_Id := Module.Mult;
+  2715:                One_Term : constant W_Expr_Id :=
+  2716:                  New_Discrete_Constant (Value => Uint_1, Typ => EW_Int_Type);
+  2717:             begin
+  2718:                Result :=
+  2719:                  New_Call
+  2720:                    (Ada_Node => Ada_Node,
+  2721:                     Domain   => Domain,
+  2722:                     Name     => Name,
+  2723:                     Args     => (1 => Result, 2 => One_Term),
+  2724:                     Typ      => To_Base);
+  2725:
+  2726:                Cur := To_Base;
+  2727:             end;
+  2728:
+  2729:          --  2.2. If From is a fixed-point type and To is an integer type,
+  2730:
+  2731:          elsif (Why_Type_Is_Fixed (Base_Why_Type (From))
+  2732:                 and then not Why_Type_Is_Float (Base_Why_Type (To)))
+  2733:
+  2734:            --  or if From is a modular type and To is neither a modular nor
+  2735:            --  a float, insert a conversion to int since we only support
+  2736:            --  direct conversion from bitvector to int, float or another
+  2737:            --  bitvector types.
+  2738:
+  2739:            or else
   2740:              (Why_Type_Is_BitVector (Base_Why_Type (From))
   2741:               and then not Why_Type_Is_BitVector (Base_Why_Type (To))
   2742:               and then not Why_Type_Is_Float (Base_Why_Type (To)))
@@ -6689,6 +7496,116 @@
   3569:    end New_And_Pred;
 ```
 
+## src/why/why-gen-expr.adb:3754-3858
+
+```ada
+  3754:    function New_Binary_Op_Expr
+  3755:      (Op          : N_Binary_Op;
+  3756:       Left        : W_Expr_Id;
+  3757:       Right       : W_Expr_Id;
+  3758:       Left_Type   : Type_Kind_Id;
+  3759:       Right_Type  : Type_Kind_Id;
+  3760:       Return_Type : Type_Kind_Id;
+  3761:       Domain      : EW_Domain;
+  3762:       Ada_Node    : Node_Id := Empty) return W_Expr_Id
+  3763:    is
+  3764:       Left_Rep  : W_Expr_Id := Left;
+  3765:       Right_Rep : W_Expr_Id := Right;
+  3766:       Base      : W_Type_Id := Why_Empty;
+  3767:       T         : W_Expr_Id;
+  3768:
+  3769:       Check_No_Wrap_Around : constant Boolean :=
+  3770:         Domain = EW_Prog
+  3771:         and then Op in N_Op_Add | N_Op_Subtract | N_Op_Multiply | N_Op_Expon
+  3772:         and then Has_No_Wrap_Around_Annotation (Return_Type);
+  3773:
+  3774:    begin
+  3775:       case Op is
+  3776:          when N_Op_Compare
+  3777:             | N_Op_And
+  3778:             | N_Op_Or
+  3779:             | N_Op_Xor
+  3780:             | N_Op_Concat
+  3781:             | N_Op_Shift               =>
+  3782:             raise Program_Error;
+  3783:
+  3784:          when N_Op_Add | N_Op_Subtract =>
+  3785:             Base := Base_Why_Type (Left_Type, Right_Type);
+  3786:
+  3787:             declare
+  3788:                Name : constant W_Identifier_Id :=
+  3789:                  (if Op = N_Op_Add
+  3790:                   then
+  3791:                     (if Base = EW_Int_Type
+  3792:                      then Int_Infix_Add
+  3793:                      elsif Why_Type_Is_BitVector (Base)
+  3794:                      then MF_BVs (Base).Add
+  3795:                      elsif Why_Type_Is_Fixed (Base)
+  3796:                      then Fixed_Infix_Add
+  3797:                      else MF_Floats (Base).Add)
+  3798:                   else
+  3799:                     (if Base = EW_Int_Type
+  3800:                      then Int_Infix_Subtr
+  3801:                      elsif Why_Type_Is_BitVector (Base)
+  3802:                      then MF_BVs (Base).Sub
+  3803:                      elsif Why_Type_Is_Fixed (Base)
+  3804:                      then Fixed_Infix_Subtr
+  3805:                      else MF_Floats (Base).Subtr));
+  3806:             begin
+  3807:                Left_Rep :=
+  3808:                  Insert_Simple_Conversion
+  3809:                    (Ada_Node => Ada_Node,
+  3810:                     Domain   => Domain,
+  3811:                     Expr     => Left,
+  3812:                     To       => Base);
+  3813:                Right_Rep :=
+  3814:                  Insert_Simple_Conversion
+  3815:                    (Ada_Node => Ada_Node,
+  3816:                     Domain   => Domain,
+  3817:                     Expr     => Right,
+  3818:                     To       => Base);
+  3819:
+  3820:                if Has_Modular_Integer_Type (Return_Type)
+  3821:                  and then
+  3822:                    not Has_No_Bitwise_Operations_Annotation (Return_Type)
+  3823:                  and then Non_Binary_Modulus (Return_Type)
+  3824:                then
+  3825:                   T :=
+  3826:                     Transform_Non_Binary_Modular_Operation
+  3827:                       (Ada_Node   => Ada_Node,
+  3828:                        Ada_Type   => Return_Type,
+  3829:                        Domain     => Domain,
+  3830:                        Op         => Op,
+  3831:                        Left_Opnd  => Left_Rep,
+  3832:                        Right_Opnd => Right_Rep,
+  3833:                        Rep_Type   => Base,
+  3834:                        Modulus    => Modulus (Return_Type));
+  3835:
+  3836:                else
+  3837:                   T :=
+  3838:                     New_Call
+  3839:                       (Ada_Node => Ada_Node,
+  3840:                        Domain   => Domain,
+  3841:                        Name     => Name,
+  3842:                        Args     => (1 => Left_Rep, 2 => Right_Rep),
+  3843:                        Typ      => Base);
+  3844:
+  3845:                   if not Check_No_Wrap_Around then
+  3846:                      T := Apply_Modulus (Op, Return_Type, T, Domain);
+  3847:                   end if;
+  3848:                end if;
+  3849:             end;
+  3850:
+  3851:          when N_Op_Multiply            =>
+  3852:             declare
+  3853:                L_Type, R_Type : W_Type_Id;
+  3854:                Oper           : Why_Name_Enum := WNE_Empty;
+  3855:
+  3856:             begin
+  3857:                --  Look for the appropriate base scalar type
+  3858:
+```
+
 ## src/why/why-gen-expr.adb:4289-4355
 
 ```ada
@@ -6911,6 +7828,65 @@
   5008:    begin
   5009:       return
   5010:         New_Binding (Ada_Node, Domain, Name, Def, Context, Get_Type (Context));
+```
+
+## src/why/why-gen-expr.adb:5282-5323
+
+```ada
+  5282:    function New_VC_Call
+  5283:      (Ada_Node   : Node_Id;
+  5284:       Name       : W_Identifier_Id;
+  5285:       Progs      : W_Expr_Array;
+  5286:       Reason     : VC_Kind;
+  5287:       Typ        : W_Type_Id;
+  5288:       Check_Info : Check_Info_Type := New_Check_Info) return W_Prog_Id
+  5289:    is
+  5290:       Call : constant W_Prog_Id :=
+  5291:         New_Call
+  5292:           (Ada_Node => Ada_Node, Name => Name, Args => Progs, Typ => Typ);
+  5293:    begin
+  5294:       return
+  5295:         New_VC_Prog
+  5296:           (Ada_Node   => Ada_Node,
+  5297:            Reason     => Reason,
+  5298:            Check_Info => Check_Info,
+  5299:            Expr       => Call);
+  5300:    end New_VC_Call;
+  5301:
+  5302:    -----------------
+  5303:    -- New_VC_Expr --
+  5304:    -----------------
+  5305:
+  5306:    function New_VC_Expr
+  5307:      (Ada_Node   : Node_Id;
+  5308:       Expr       : W_Expr_Id;
+  5309:       Reason     : VC_Kind;
+  5310:       Domain     : EW_Domain;
+  5311:       Check_Info : Check_Info_Type := New_Check_Info) return W_Expr_Id is
+  5312:    begin
+  5313:       return
+  5314:         Insert_Cnt_Loc_Label
+  5315:           (Ada_Node => Ada_Node,
+  5316:            E        =>
+  5317:              New_Label
+  5318:                (Ada_Node => Ada_Node,
+  5319:                 Labels   => New_VC_Labels (Ada_Node, Reason, Check_Info),
+  5320:                 Def      => Expr,
+  5321:                 Domain   => Domain,
+  5322:                 Typ      => Get_Type (Expr)));
+  5323:    end New_VC_Expr;
+```
+
+## src/why/why-gen-expr.ads:305-311
+
+```ada
+   305:    function New_VC_Prog
+   306:      (Ada_Node   : Node_Id;
+   307:       Expr       : W_Prog_Id;
+   308:       Reason     : VC_Kind;
+   309:       Check_Info : Check_Info_Type := New_Check_Info) return W_Prog_Id
+   310:    is (+New_VC_Expr (Ada_Node, +Expr, Reason, EW_Prog, Check_Info));
+   311:
 ```
 
 ## src/why/why-gen-names.adb:162-352
