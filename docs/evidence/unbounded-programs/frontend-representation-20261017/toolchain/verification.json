@@ -1,0 +1,8 @@
+{
+  "status": "pass",
+  "archive_members": 414,
+  "spark_git_blobs": 320,
+  "contents_git_blobs": 14,
+  "api_retrievals": 35,
+  "scope": "Offline integrity; not binary attestation"
+}
