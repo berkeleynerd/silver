@@ -14,7 +14,8 @@ Its [design contract](research/retained-tool-capacity.md) separates reusable
 arithmetic from missing whole-program upper bounds. A representation obstruction
 is not a safe admission threshold. Current support remains exactly
 [language.md](../language.md) and the [catalogue](../catalogue/silver.json);
-production packages #88–#94 remain unstarted in Backlog during this design step.
+production packages #88–#94 are authorized and unstarted, pending the justified
+capacity rule.
 No arbitrary lower cap or new tool pin has been selected.
 
 Completed research #107/#108 and #113, delivered through
@@ -66,8 +67,8 @@ universal pinned-solver completion; it remains a [trusted premise](#trusted-prem
 
 - **Authorization.** Record the owner's implementation "proceed" on `main`
   before claiming implementation work, following [planning](planning.md).
-  The current step enacts the retained-tool direction and develops #119; it does
-  not claim the downstream production packages.
+  The owner has authorized #88–#94 after the capacity rule is justified; #119
+  is the current dependency, and no production package is claimed yet.
 - **Assurance.** A definite non-proof with resources remaining is a defect.
   If it cannot be fixed, stop and report it for the owner's decision; do not
   silently weaken assurance or introduce an assurance-motivated membership rule.
@@ -592,7 +593,7 @@ shared certificates and checkpoints. Each package leaves the project valid.
 changes. #94 reconciles catalogue fields/export, scripts/check_evidence.py,
 README, samples/fixtures, Rosetta assessment text and all assurance records.
 #119 is the current design work package under #91, shared with #93, before
-capacity adoption. #88–#90 are separable foundations if subsequently selected;
+capacity adoption. #88–#90 are separable foundations, but the owner selected capacity design first;
 #92/#93 require the justified design and implemented rules, not just research
 issue closure. The milestone closes only when #94 completes. Production remains
 unstarted during this design step.

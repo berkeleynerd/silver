@@ -18,8 +18,10 @@ The current technical package is
 #91 shared with #93. The [design contract](docs/research/retained-tool-capacity.md)
 separates known source-position arithmetic and representation obstructions from
 the missing full phase/construct upper bounds. Complete that derivation before
-adopting expanded membership. Production #88–#94 remains unstarted in Backlog;
-their corrected scopes and live issue claims govern later work. No numerical
+adopting expanded membership. The owner explicitly authorized the dependent
+compiler and proof changes once the capacity rule is justified. Production
+#88–#94 is authorized and unstarted; continue within that scope without seeking
+another implementation go-ahead. Corrected scopes and live claims govern the work. No numerical
 safe aggregate threshold or new language domain is established yet.
 
 Account separately for ordinary compilation and proof-essential producer

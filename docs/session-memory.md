@@ -12,6 +12,14 @@ a justified domain. External paired support, a compiler fork and a replacement
 frontend cease to be prerequisites. The earlier research conclusions and their
 evidence remain historical facts; their recommended ownership route is superseded.
 
+The owner then clarified the implementation scope: **“Also implement the
+dependent compiler and proof changes”**, in response to whether those changes
+should follow once the capacity rule is justified. This authorizes #88–#94
+through implementation, verification, independent review and delivery after
+that prerequisite. Record the packages as authorized and unstarted, with #119
+in progress; no further implementation go-ahead is required within this scope.
+Current admission remains unchanged until its replacement assurance is ready.
+
 Enact this direction in the scope, roadmap, recovery notes and affected issue
 specifications. The first technical dependency is a sound, decidable,
 source-sensitive capacity rule for the unchanged tools. Its derivation remains
@@ -28,6 +36,19 @@ missing capacity assurance. Retain the Oracle and current language while this
 prerequisite is developed; no external-tool modification, new pin, maintainer
 contact or Oracle amendment is selected. Routine tracking, documentation,
 review, commits and publication continue under the existing authorization.
+
+The direction reconciliation includes #88–#94's issue scopes and the new
+[capacity-design package #119](https://github.com/berkeleynerd/silver/issues/119)
+under #91, shared with #93. Its
+[contract](research/retained-tool-capacity.md) specifies the needed derivation;
+it is not a completed admission rule. The
+[independent checkpoint review](reviews/review-retained-tool-capacity-48119d8748.md)
+found no material issue in the direction/design wording or proposed issue edits.
+Current source/value limits remain in force, #119 remains unfinished, production
+#88–#94 is authorized but unstarted pending that rule, and milestone 5 stays open.
+The live issues
+carry publication and continuation details. No compiler, GNATprove, Lean or full
+test run belongs to this documentation/design checkpoint.
 
 The completed For loops and integers harness goal stays complete; this request
 does not explicitly create a new harness goal. Preserve worktrees, installations,

@@ -80,8 +80,9 @@ before any expanded membership:
    complete stable native/Lean assurance, outcome/capacity validation, independent
    review and synchronized capability records before claiming support.
 
-#119 is the current design increment. Production #88–#94 remains unstarted in
-Backlog; #88–#90 can proceed separately if selected while retaining admission.
+#119 is the current design increment. The owner has also authorized production
+#88–#94 once the capacity rule is justified. Those packages remain unstarted,
+with their dependencies recorded; no further implementation go-ahead is needed.
 No external-tool change, Oracle amendment or arbitrary lower cap is selected.
 If complete sound capacity coverage cannot be established, report the exact
 missing obligation before removing the existing caps; optional confirmation
