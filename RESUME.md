@@ -5,6 +5,18 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
+The owner selected [frontend representation feasibility research #113](https://github.com/berkeleynerd/silver/issues/113)
+by saying “Proceed” to decision #112. The
+[dated authorization](docs/session-memory.md#2026-10-17--frontend-representation-feasibility-research-authorized)
+and [scope](docs/unbounded-programs.md#frontend-representation-feasibility-research)
+cover upstream/off-the-shelf alternatives, concrete wider/deferred designs,
+actual Ada/C++/GNATprove interfaces, static semantics and same-source assurance,
+ownership and Linux/Alire/macOS constraints. Record authorization on `main`
+before claiming the research. Its one deliverable is an independently reviewed
+concrete recommendation and tractability assessment or precise full stop.
+Implementation #88–#94, production toolchain changes and rule adoption remain
+outside this instruction. Preserve the prior evidence and installations.
+
 The owner authorized continuation of the unfinished
 [Unbounded programs research](docs/research/unbounded-feasibility-handoff.md)
 on Linux through a final recommendation or precise full stop, independent review
@@ -22,11 +34,8 @@ The [final independent review](docs/reviews/review-unbounded-feasibility-2b47dd8
 is complete and its two low wording findings are corrected. Delivery is through
 PR #109; live issues carry merge and closure status. The earlier packaging review
 remains separate history.
-The proposed follow-up is feasibility research into wider or lazy
-semantics-preserving frontend representations, tracked by
-[owner decision #112](https://github.com/berkeleynerd/silver/issues/112).
-That decision remains Backlog; the follow-up and any tool change need separate
-owner disposition.
+The subsequently authorized follow-up is the research-only #113 above.
+Decision #112 selects that research; it does not adopt or implement a tool change.
 
 Implementation #88–#94 remains Backlog. No membership, compiler/runtime/proof
 implementation or Oracle change is authorized. The previous For loops and

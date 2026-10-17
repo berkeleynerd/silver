@@ -1,5 +1,43 @@
 # Session memory
 
+## 2026-10-17 — Frontend representation feasibility research authorized
+
+The owner said **“Proceed”** to the recommended research-only investigation of
+wider or deferred frontend storage in
+[decision #112](https://github.com/berkeleynerd/silver/issues/112). This resolves
+that decision by selecting one cohesive
+[research work package #113](https://github.com/berkeleynerd/silver/issues/113)
+in milestone 5. Its parallel availability, representation and interface analyses
+are evidence streams for one result, not implementation increments.
+
+Inspect available upstream and off-the-shelf alternatives, then compare concrete
+wider and deferred/lazy designs against the actual Ada, C/C++ and GNATprove
+interfaces. Account for static evaluation and legality, runtime meaning,
+same-source correspondence, automatic-discharge assurance, tool ownership and
+trusted boundaries. Evaluate Linux and Alire integration/maintenance and the
+independent macOS constraints. The [scope](unbounded-programs.md#frontend-representation-feasibility-research)
+defines the intended result: a concrete candidate design and reasoned
+tractability assessment, or a precise full stop with alternatives, supported by
+reproducible evidence and independent review.
+
+Use retained evidence and source inspection first; proportionate isolated
+experiments must answer named hypotheses. Routine tracking, documentation,
+commits, pull requests, merges and publication of this research and its review
+are authorized. Record this instruction on `main` before claiming #113. The
+reviewed #107/#108 stop remains the baseline, published through PR #109 at
+`48c30267e6d215591bffc5de98d35927e97b717a`; its closure does not establish a
+larger admitted language.
+
+This instruction does not authorize production toolchain/compiler/runtime/proof
+changes, a new tool pin, membership-rule adoption, a lower domain cap, an Oracle
+amendment or implementation #88–#94. Those packages remain Backlog. Do not assume
+that a Silver-maintained compiler fork escapes the verified-SPARK requirement
+by being called an external tool; establish the actual ownership/trust route
+and report any unresolved policy conflict. The prior For loops and integers
+harness goal remains complete; no new goal was requested. Preserve all existing
+worktrees, installations, caches, raw evidence and other-host artifacts. CLI
+memory is unavailable and was not updated.
+
 ## 2026-10-17 — Unbounded feasibility research reviewed at a full stop
 
 The authorized Linux continuation of #107/#108 reports a
