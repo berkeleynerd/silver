@@ -133,6 +133,21 @@
       "sha256": "5225e311c8c9a20c063befee7fc64ff5a14523d94c8b99071d31fb1eced25cbb"
     },
     {
+      "path": "gcc-copying3.json",
+      "bytes": 49342,
+      "sha256": "be73a7bbdc1048d611933578825f62fc7088b1ab257ef0bf223a7435945ad6e6"
+    },
+    {
+      "path": "gcc-copying3.retrieval.json",
+      "bytes": 433,
+      "sha256": "7bea1c6a189f2c9ed4138e5bd44dc111675b2cf5020fa9d3648e38dcd39647e1"
+    },
+    {
+      "path": "gcc-copying3.source",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
       "path": "gcc-master-stringt-adb.diff",
       "bytes": 306,
       "sha256": "3f67c6b7f54ed577397dd4b9c1395f7253171c199e384ed32f41867d49b79e81"
@@ -401,6 +416,21 @@
       "path": "spark-head.retrieval.json",
       "bytes": 343,
       "sha256": "5e79661934657dd4a8825d995b38fe750db1b64dc99edb77884dcbf834341f6b"
+    },
+    {
+      "path": "spark-license.json",
+      "bytes": 49356,
+      "sha256": "4e5192d6aff6b44175237bfb029add137777a8f76d26868644b7cc031af2fd56"
+    },
+    {
+      "path": "spark-license.retrieval.json",
+      "bytes": 437,
+      "sha256": "688f8f016bfae7e7854f3477c608e36c1db02d627806e4c1c2a29acebd9d4ca7"
+    },
+    {
+      "path": "spark-license.source",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
     },
     {
       "path": "spark-master-literal-producer.json",
@@ -2081,8 +2111,8 @@
     },
     {
       "path": "raw-evidence.tar.gz",
-      "bytes": 3529004,
-      "sha256": "36b581308d8b38551c79c10650469fd0fd1b11ef331f24a5146442a7ab4de953"
+      "bytes": 3594800,
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952"
     },
     {
       "path": "verify.py",
