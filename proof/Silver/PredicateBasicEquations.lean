@@ -69,11 +69,13 @@ structure PrimitiveEquations (primitive : Primitives) : Prop where
   token : primitive.token = tokenAfter
   expression : primitive.expression = (fun text position names scalarNames => expressionAt text position names scalarNames)
   target : primitive.target = targetAt
+  scalarTarget : primitive.scalarTarget = fun text context position => Predicate.scalarTarget text context.model position
+  scalarAssignment : primitive.scalarAssignment = fun text context scan => scalarAssignmentBody text context.model scan
   fits : primitive.fits = fitsLengthSummary
   sameLength : primitive.sameLength = equalLengthIntervals
   reject : primitive.reject = PathFacts.Context.reject
 
-theorem modelEquations : PrimitiveEquations modelPrimitives := ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
+theorem modelEquations : PrimitiveEquations modelPrimitives := ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
 
 theorem PrimitiveEquations.eq_model {primitive : Primitives} (equations : PrimitiveEquations primitive) :
     primitive = modelPrimitives := by
