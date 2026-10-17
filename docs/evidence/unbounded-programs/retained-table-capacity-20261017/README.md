@@ -15,10 +15,17 @@ cmp docs/evidence/unbounded-programs/retained-table-capacity-20261017/arithmetic
 
 The generator verifies the top-level Ada source file set and SHA-256/Git blob
 hashes against the previously retained complete pinned-tree manifest. It rejects
-missing, added or altered inventory inputs. Fifteen directly cited files have
+missing, added or altered inventory inputs. Eighteen directly cited files have
 hashes repeated in its output; the other top-level files contribute to the lexical
 `Table.Table` inventory. LF determines source lines, including in files with form
 feeds. This textual inventory includes comments and is not a resolved call graph.
+
+The later name component includes source-word interning, generated internal and
+external names, scope qualification, the homonym temporary buffer, and discrete
+Integer encoding. Its arithmetic cases distinguish an omitted all-one suffix
+from the temporary storage still required to build it. Source-to-scope-path,
+generated-name caller counts and downstream consumer coverage remain separate.
+Earlier reviews do not cover this later qualification addition.
 
 Validation on Linux used source inspection, integer arithmetic, identical
 regeneration and whitespace checking. An independent review found no material

@@ -13,7 +13,7 @@ a = p.parse_args()
 files = ['table.ads', 'table.adb', 'types.ads', 'alloc.ads', 'atree.ads',
          'atree.adb', 'nlists.adb', 'namet.ads', 'namet.adb', 'sinput.adb',
          'stringt.adb', 'uintp.adb', 'exp_dbug.adb', 'scng.adb', 'hostparm.ads',
-         'tbuild.adb', 'lib.adb']
+         'tbuild.adb', 'lib.adb', 'sem_ch3.adb']
 pin = '6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea'
 repository = Path(__file__).resolve().parents[4]
 manifest_path = repository / 'docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json'
@@ -104,6 +104,23 @@ for label, line in [('32765 ASCII bytes', b'x' * 32765),
                          len(line) <= 32766 and (len(line) < 4096 or column <= 32766),
                          'passes_sufficient_column_rule': column <= 32766})
 assert [case['passes_sufficient_column_rule'] for case in column_cases] == [True, False, True, False, True, False]
+
+def qualification(lengths, homonyms):
+    assert lengths and min(lengths) > 0
+    assert all(1 <= value <= I for value in homonyms)
+    h = sum(len(str(value)) for value in homonyms) + max(len(homonyms)-1, 0)
+    q = sum(lengths) + 2*(len(lengths)-1) + (2+h if homonyms else 0)
+    return {'component_lengths': lengths, 'homonyms': homonyms,
+            'homonym_temporary_length': h, 'qualified_length_bound': q,
+            'homonym_buffer_fits': h <= 256}
+
+qualification_cases = [qualification([4, 12], []),
+                       qualification([4, 12, 12, 12, 12], []),
+                       qualification([4] + [12]*129, [1]*129),
+                       qualification([4] + [12]*23, [I]*23),
+                       qualification([4] + [12]*24, [I]*24)]
+assert [case['qualified_length_bound'] for case in qualification_cases[:2]] == [18, 60]
+assert [case['homonym_temporary_length'] for case in qualification_cases[2:]] == [257, 252, 263]
 result = {
     'source_commit': pin,
     'source_relation': 'every inspected/inventoried file verified against retained pinned-tree manifest',
@@ -136,6 +153,8 @@ result = {
         'default_local_name_buffer_characters': 4096,
         'internal_name_maximum_unqualified_length': 2 + len(str(I)),
         'internal_name_maximum_character_charge': 3 + len(str(I)),
+        'qualification_cases': qualification_cases,
+        'integer_discrete_encoding_extra_characters': 5 + 3 + 2*11 + 2,
         'scope': 'local calls/source word interning; not generated-name caller counts or qualification/consumer closure',
     },
     'lexical_table_instance_count': len(instances),

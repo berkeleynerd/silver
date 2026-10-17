@@ -245,6 +245,66 @@ qualification. In particular, `exp_dbug.adb` has a separate 256-character
 homonym buffer and scope-qualification paths. They cannot be discharged merely
 by bounding the author's longest identifier.
 
+### Qualification transfer
+
+For an ordinary scope path without a debug-renaming link or body-nested package
+suffix, let `l_1 .. l_d` be its unqualified component lengths, and let
+`h_1 .. h_k` be the positive homonym numbers actually appended for those
+components. Include the original components of an already qualified prefix,
+rather than counting that prefix and its ancestors twice. Define
+
+```text
+H = sum(digits10(h_i)) + max(k-1, 0)
+Q = sum(l_i) + 2*max(d-1, 0) + (if k=0 then 0 else 2+H)
+```
+
+`Append_Homonym_Number` adds one decimal spelling, with one separator after
+the first (`exp_dbug.adb:196–227`). `Strip_Suffixes` recovers an existing suffix,
+using a one-byte separator between recovered groups (`:1581–1628`); grouping
+does not change this bound. `Output_Homonym_Numbers_Suffix` adds two underscores
+and the accumulated suffix, or omits it when all numbers are one
+(`:1101–1130`). **Omission does not avoid the earlier temporary allocation.**
+Thus `H <= 256` is needed even for an omitted suffix. With only the Nat range
+known, each decimal spelling is at most ten bytes, so `H <= 11k-1` for `k>0`.
+This is a transfer for actual homonym entries, not a proposed loop-depth cap.
+
+The recursive concatenations in `Fully_Qualify_Name` append each component
+once, with two underscores between components (`:1240–1312`). Already
+qualified prefixes are stripped/recovered once. For the stated path domain,
+every intermediate base-name length is at most `Q`. The partial-qualification
+path selects a suffix of the same chain and is no larger. `Q+1` must fit the
+global buffer where a NUL is written, and any stored result still needs
+`Q <= 32767`. A downstream call through a default `Bounded_String` also needs
+its separate 4096-byte bound.
+
+The distinction between paths matters: `Qualify_Needed` excludes blocks and
+loops for ordinary objects, but **types and subprograms take full qualification**
+(`:1334–1352,1496–1508`). Their scope names cannot be dropped merely because
+author-defined nested subprograms/types are excluded. Native expansion creates
+types inside generated scopes. `Has_Qualified_Name` makes later ordinary
+qualification visits return without new storage (`:1427–1428,1535–1536`). A
+successful ordinary qualification therefore charges at most one `Name_Enter`
+per entity, with one entry and `Q+1` characters; debug-renaming paths are
+excluded from that one-entry statement.
+
+For ordinary non-Ghost, non-interface-name paths, `Get_External_Name` adds at
+most five characters for `_ada_` or `3 + suffix_length` when an explicit suffix
+is requested (`:805–876`). The full scope path must include any local scopes
+visited by this separate recursion (`:776–797`); the raw or stored qualified
+component bound above applies. For discrete scalar encodings with both bounds
+inside Standard.Integer, `Get_Encoded_Name` adds at most **32** characters:
+`___XD` (5), `LU_` (3), two signed decimal encodings of at most 11 each, and
+the two-byte bound separator (`:677–739`). The biased variant is smaller.
+This covers the Ada encoder, not additional GCC identifier suffixes.
+
+The native component already identifies `Make_Temporary`/internal-name routes,
+and `Find_Type_Of_Object` can use the external-name transfer with prefix `T`,
+suffix `S` and zero index (`sem_ch3.adb:19120–19125`), adding two characters
+to an object's name. Complete source-to-scope-path and generated-name coverage
+remains required. Fixed dependency packages, Ghost entities, backend suffixes,
+and any reachable debug-renaming or body-nested package route are separate
+families; this local transfer does not assume they are absent globally.
+
 ## Nodes, slots and lists must compose
 
 `Atree.Allocate_New_Node` (`atree.adb:1157–1176`) allocates one node identity,
