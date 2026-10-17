@@ -342,6 +342,30 @@
   3064:
 ```
 
+## src/spark/spark_util-types.ads:128-146
+
+```ada
+   128:    -------------------------------
+   129:    -- General Queries For Types --
+   130:    -------------------------------
+   131:
+   132:    function Can_Be_Default_Initialized (Typ : Type_Kind_Id) return Boolean
+   133:    is ((not Has_Array_Type (Typ) or else Is_Constrained (Typ))
+   134:        and then
+   135:          (Retysp_Kind (Typ)
+   136:           not in Record_Kind | Incomplete_Or_Private_Kind | Concurrent_Kind
+   137:           or else not Has_Discriminants (Typ)
+   138:           or else Is_Constrained (Typ)
+   139:           or else Has_Defaulted_Discriminants (Typ))
+   140:        and then not Is_Class_Wide_Type (Typ));
+   141:    --  Determine whether there can be default initialized variables of a type.
+   142:    --  @param Typ any type
+   143:    --  @return False if Typ is unconstrained.
+   144:
+   145:    function Check_Needed_On_Conversion
+   146:      (From, To : Type_Kind_Id) return Boolean;
+```
+
 ## src/why/gnat2why-decls.adb:66-382
 
 ```ada
@@ -7379,6 +7403,701 @@
  31211:    end Warn_On_Dead_Branch_Or_Code;
 ```
 
+## src/why/gnat2why-expr.adb:5465-5592
+
+```ada
+  5465:    function Compute_Default_Init
+  5466:      (Expr             : W_Term_Id;
+  5467:       Ty               : Type_Kind_Id;
+  5468:       Params           : Transformation_Params := Body_Params;
+  5469:       Skip_Last_Cond   : W_Term_Id := False_Term;
+  5470:       Use_Pred         : Boolean := True;
+  5471:       Include_Subtypes : Boolean := False) return W_Pred_Id
+  5472:    is
+  5473:
+  5474:       Ty_Ext : constant Entity_Id := Retysp (Ty);
+  5475:
+  5476:       function Default_Init_For_Comp
+  5477:         (C_Expr : W_Term_Id; C_Ty : Entity_Id; Idx : W_Expr_Array)
+  5478:          return W_Pred_Id
+  5479:       with Pre => Is_Type (C_Ty);
+  5480:       --  @param C_Expr expression for an array component
+  5481:       --  @param C_Ty array component type
+  5482:       --  @return predicate for individual array components
+  5483:       --    <C_Expr> = <Default_Component_Value>  <if Ty has a default aspect>
+  5484:       --    default_init (<C_Expr>), C_Ty)        <otherwise>
+  5485:
+  5486:       function Default_Init_For_Field
+  5487:         (F_Expr : W_Term_Id; F_Ty : Entity_Id; E : Entity_Id) return W_Pred_Id
+  5488:       with
+  5489:         Pre =>
+  5490:           Is_Type (F_Ty)
+  5491:           and then
+  5492:             (Ekind (E) = E_Component
+  5493:              or else Is_Type (E)
+  5494:              or else Is_Part_Of_Protected_Object (E));
+  5495:       --  @param F_Expr expression for the component
+  5496:       --  @param F_Ty component type
+  5497:       --  @param E node for a record component
+  5498:       --  @return predicate for individual record components
+  5499:       --   F_Expr = E.def               <if Field1 has a default>
+  5500:       --   default_init (F_Expr, F_Ty)) <otherwise>
+  5501:
+  5502:       function Default_Init_Absent_Field
+  5503:         (F_Expr : W_Term_Id; F_Ty : Entity_Id; E : Entity_Id) return W_Pred_Id;
+  5504:       --  Assume that components not present in discriminated records have a
+  5505:       --  dummy value.
+  5506:
+  5507:       function Default_Init_For_Discr
+  5508:         (D_Expr : W_Term_Id; D_Ty : Entity_Id; E : Entity_Id) return W_Pred_Id
+  5509:       with Pre => Is_Type (D_Ty) and then Ekind (E) = E_Discriminant;
+  5510:       --  @param D_Expr expression for the discrimiant
+  5511:       --  @param D_Ty discriminant type
+  5512:       --  @param E node for a discriminant
+  5513:       --  @return predicate for individual discrimiant
+  5514:       --  D_Expr = E.default             <if Ty_Ext is unconstrained>
+  5515:       --  D_Expr = stored_constraint (E) <otherwise>
+  5516:
+  5517:       -------------------------------
+  5518:       -- Default_Init_Absent_Field --
+  5519:       -------------------------------
+  5520:
+  5521:       function Default_Init_Absent_Field
+  5522:         (F_Expr : W_Term_Id; F_Ty : Entity_Id; E : Entity_Id) return W_Pred_Id
+  5523:       is
+  5524:          pragma Unreferenced (E);
+  5525:          Dummy_Expr : W_Term_Id := +Why_Default_Value (EW_Term, F_Ty);
+  5526:
+  5527:       begin
+  5528:          if Is_Init_Wrapper_Type (Get_Type (+F_Expr)) then
+  5529:             Dummy_Expr :=
+  5530:               Insert_Simple_Conversion
+  5531:                 (Expr => Dummy_Expr, To => Get_Type (+F_Expr));
+  5532:          end if;
+  5533:
+  5534:          return
+  5535:            New_Comparison
+  5536:              (Symbol => Why_Eq, Left => F_Expr, Right => Dummy_Expr);
+  5537:       end Default_Init_Absent_Field;
+  5538:
+  5539:       ---------------------------
+  5540:       -- Default_Init_For_Comp --
+  5541:       ---------------------------
+  5542:
+  5543:       function Default_Init_For_Comp
+  5544:         (C_Expr : W_Term_Id; C_Ty : Entity_Id; Idx : W_Expr_Array)
+  5545:          return W_Pred_Id
+  5546:       is
+  5547:          pragma Unreferenced (Idx);
+  5548:          P : W_Pred_Id;
+  5549:       begin
+  5550:          if Has_Default_Aspect (Ty_Ext) then
+  5551:             pragma Assert (Is_Scalar_Type (C_Ty));
+  5552:             P :=
+  5553:               New_Comparison
+  5554:                 (Symbol => Why_Eq,
+  5555:                  Left   =>
+  5556:                    Insert_Simple_Conversion
+  5557:                      (Expr => C_Expr, To => Type_Of_Node (C_Ty)),
+  5558:                  Right  =>
+  5559:                    Transform_Term
+  5560:                      (Expr          => Default_Aspect_Component_Value (Ty_Ext),
+  5561:                       Expected_Type => Type_Of_Node (C_Ty),
+  5562:                       Params        => Params));
+  5563:
+  5564:             --  Assume the value of the initialization flag for init wrappers
+  5565:
+  5566:             if Is_Init_Wrapper_Type (Get_Type (+C_Expr)) then
+  5567:                P :=
+  5568:                  New_And_Pred
+  5569:                    (Left  => P,
+  5570:                     Right =>
+  5571:                       Pred_Of_Boolean_Term
+  5572:                         (+New_Init_Attribute_Access (C_Ty, +C_Expr)));
+  5573:             end if;
+  5574:          else
+  5575:             P :=
+  5576:               Compute_Default_Init
+  5577:                 (Expr     => C_Expr,
+  5578:                  Ty       => C_Ty,
+  5579:                  Params   => Params,
+  5580:                  Use_Pred => Use_Pred);
+  5581:          end if;
+  5582:
+  5583:          return P;
+  5584:       end Default_Init_For_Comp;
+  5585:
+  5586:       ----------------------------
+  5587:       -- Default_Init_For_Discr --
+  5588:       ----------------------------
+  5589:
+  5590:       function Default_Init_For_Discr
+  5591:         (D_Expr : W_Term_Id; D_Ty : Entity_Id; E : Entity_Id) return W_Pred_Id
+  5592:       is
+```
+
+## src/why/gnat2why-expr.adb:5726-6011
+
+```ada
+  5726:             P :=
+  5727:               Compute_Default_Init
+  5728:                 (F_Expr, F_Ty, Params => Params, Use_Pred => Use_Pred);
+  5729:          end if;
+  5730:
+  5731:          return P;
+  5732:       end Default_Init_For_Field;
+  5733:
+  5734:       function Default_Init_For_Array is new
+  5735:         Build_Predicate_For_Array (Default_Init_For_Comp);
+  5736:
+  5737:       function Default_Init_For_Record is new
+  5738:         Build_Predicate_For_Record
+  5739:           (Default_Init_For_Discr,
+  5740:            Default_Init_For_Field,
+  5741:            Default_Init_Absent_Field,
+  5742:            Ignore_Private_State => False);
+  5743:
+  5744:       Tmp        : constant W_Term_Id := New_Temp_For_Expr (Expr);
+  5745:       Assumption : W_Pred_Id := True_Pred;
+  5746:       Variables  : Flow_Id_Sets.Set;
+  5747:
+  5748:       --  Start of processing for Compute_Default_Init
+  5749:
+  5750:    begin
+  5751:       --  If Use_Precomputed_Func is true, then we already have generated a
+  5752:       --  predicate for the default initial value of elements of type Ty_Ext,
+  5753:       --  except if the type is an itype or if it is standard boolen.
+  5754:
+  5755:       if Use_Pred
+  5756:         and then not Include_Subtypes
+  5757:         and then not Is_Itype (Ty_Ext)
+  5758:         and then not Is_Standard_Boolean_Type (Ty_Ext)
+  5759:         and then not Is_Init_Wrapper_Type (Get_Type (+Expr))
+  5760:       then
+  5761:          Variables_In_Default_Init (Ty_Ext, Variables);
+  5762:
+  5763:          declare
+  5764:             Vars : constant W_Expr_Array :=
+  5765:               Get_Args_From_Variables (Variables, Params.Ref_Allowed);
+  5766:
+  5767:             Num_B : constant Positive := 2 + Vars'Length;
+  5768:             Args  : W_Expr_Array (1 .. Num_B);
+  5769:
+  5770:          begin
+  5771:             Args (1) :=
+  5772:               Insert_Simple_Conversion
+  5773:                 (Domain => EW_Term,
+  5774:                  Expr   => +Expr,
+  5775:                  To     => Type_Of_Node (Ty_Ext));
+  5776:             Args (2) := +Skip_Last_Cond;
+  5777:             Args (3 .. Num_B) := Vars;
+  5778:
+  5779:             return
+  5780:               New_Call
+  5781:                 (Name => E_Symb (Ty_Ext, WNE_Default_Init),
+  5782:                  Args => Args,
+  5783:                  Typ  => EW_Bool_Type);
+  5784:          end;
+  5785:       elsif Is_Scalar_Type (Ty_Ext) then
+  5786:          if Has_Default_Aspect (Ty_Ext) then
+  5787:             declare
+  5788:                Default_Expr : constant W_Term_Id :=
+  5789:                  Transform_Term
+  5790:                    (Expr          => Default_Aspect_Value (Ty_Ext),
+  5791:                     Expected_Type => Base_Why_Type (Ty_Ext),
+  5792:                     Params        => Params);
+  5793:             begin
+  5794:                Assumption :=
+  5795:                  New_Comparison
+  5796:                    (Symbol => Why_Eq,
+  5797:                     Left   =>
+  5798:                       Insert_Simple_Conversion
+  5799:                         (Ada_Node => Empty,
+  5800:                          Expr     => Tmp,
+  5801:                          To       => Base_Why_Type (Ty_Ext)),
+  5802:                     Right  => Default_Expr);
+  5803:             end;
+  5804:
+  5805:             --  If Tmp has a wrapper for initialization, set the init flag
+  5806:             --  to True.
+  5807:
+  5808:             if Is_Init_Wrapper_Type (Get_Type (+Tmp)) then
+  5809:                Assumption :=
+  5810:                  New_And_Pred
+  5811:                    (Left  => Assumption,
+  5812:                     Right =>
+  5813:                       Pred_Of_Boolean_Term
+  5814:                         (New_Init_Attribute_Access (Ty_Ext, +Tmp)));
+  5815:             end if;
+  5816:          end if;
+  5817:       elsif Is_Array_Type (Ty_Ext)
+  5818:         and then Ekind (Ty_Ext) /= E_String_Literal_Subtype
+  5819:       then
+  5820:
+  5821:          --  Generates:
+  5822:          --  forall i1 : int ..
+  5823:          --   in_range (i1) /\ .. ->
+  5824:          --    get (<Expr>, i1, ...) = <Default_Component_Value>    <if any>
+  5825:          --    default_init (get (<Expr>, i1, ...), Component_Type) <otherwise>
+  5826:
+  5827:          Assumption := Default_Init_For_Array (+Expr, Ty_Ext);
+  5828:
+  5829:          --  If Ty_Ext is constrained, also assume the array bounds
+  5830:
+  5831:          if Is_Constrained (Ty_Ext) and then not Is_Static_Array_Type (Ty_Ext)
+  5832:          then
+  5833:             Assumption :=
+  5834:               New_And_Pred
+  5835:                 (Left  => New_Bounds_Equality (Expr, Ty_Ext, Params => Params),
+  5836:                  Right => Assumption);
+  5837:          end if;
+  5838:
+  5839:       elsif Is_Access_Subprogram_Type (Ty_Ext) then
+  5840:          Assumption :=
+  5841:            Pred_Of_Boolean_Term
+  5842:              (New_Record_Access
+  5843:                 (Name  => Expr,
+  5844:                  Field => M_Subprogram_Access.Rec_Is_Null,
+  5845:                  Typ   => EW_Bool_Type));
+  5846:
+  5847:       elsif Is_Access_Type (Ty_Ext) then
+  5848:          Assumption :=
+  5849:            Pred_Of_Boolean_Term (New_Pointer_Is_Null_Access (Ty_Ext, Expr));
+  5850:
+  5851:          if Is_Init_Wrapper_Type (Get_Type (+Expr)) then
+  5852:             Assumption :=
+  5853:               New_And_Pred
+  5854:                 (Left  =>
+  5855:                    Pred_Of_Boolean_Term
+  5856:                      (New_Init_Attribute_Access (Ty_Ext, Tmp)),
+  5857:                  Right => Assumption);
+  5858:          end if;
+  5859:
+  5860:       elsif Is_Simple_Private_Type (Ty_Ext) then
+  5861:
+  5862:          --  If Tmp has a wrapper for initialization, set the init flag to True
+  5863:          --  if the type is fully initialized by default.
+  5864:
+  5865:          if Is_Init_Wrapper_Type (Get_Type (+Tmp))
+  5866:            and then
+  5867:              Default_Initialization (Ty_Ext) = Full_Default_Initialization
+  5868:          then
+  5869:             Assumption :=
+  5870:               New_And_Pred
+  5871:                 (Left  => Assumption,
+  5872:                  Right =>
+  5873:                    Pred_Of_Boolean_Term
+  5874:                      (New_Init_Attribute_Access (Ty_Ext, +Tmp)));
+  5875:          end if;
+  5876:
+  5877:       elsif Is_Record_Type_In_Why (Ty_Ext) then
+  5878:
+  5879:          --  Generates:
+  5880:          --  let tmp1 = <Expr>.rec__disc1 in
+  5881:          --   <if Ty_Ext as default discrs>
+  5882:          --  <Expr>.rec__disc1 = Discr1.default  <if Ty_Ext is unconstrained>
+  5883:          --  <Expr>.rec__disc1 = Discr1 /\ ..    <if Ty_Ext is constrained>
+  5884:          --  (check_for_field1 expr ->
+  5885:          --      <Expr>.rec__field1 = Field1.def      <if Field1 has a default>
+  5886:          --      default_init (<Expr>.rec__field1, Etype (Field1))) <otherwise>
+  5887:          --  /\ ..
+  5888:
+  5889:          --  if Ty_Ext is tagged, generate
+  5890:          --     <Expr>.attr__tag = <Ty_Ext>.__tag
+  5891:
+  5892:          --  if Ty_Ext is has relaxed initialization and mutable discriminants,
+  5893:          --  generate
+  5894:          --     <Expr>.attr__init = true
+  5895:
+  5896:          if Is_Tagged_Type (Ty_Ext) then
+  5897:             Assumption :=
+  5898:               New_And_Pred
+  5899:                 (Left  =>
+  5900:                    New_Call
+  5901:                      (Typ  => EW_Bool_Type,
+  5902:                       Name => Why_Eq,
+  5903:                       Args =>
+  5904:                         (1 =>
+  5905:                            New_Tag_Access
+  5906:                              (Ada_Node => Ty,
+  5907:                               Domain   => EW_Term,
+  5908:                               Name     => +Tmp,
+  5909:                               Ty       => Ty_Ext),
+  5910:                          2 => +E_Symb (Ty_Ext, WNE_Tag))),
+  5911:                  Right => Assumption);
+  5912:          end if;
+  5913:
+  5914:          if Is_Init_Wrapper_Type (Get_Type (+Expr))
+  5915:            and then Has_Mutable_Discriminants (Ty_Ext)
+  5916:          then
+  5917:             Assumption :=
+  5918:               New_And_Pred
+  5919:                 (Left  =>
+  5920:                    Pred_Of_Boolean_Term
+  5921:                      (New_Init_Attribute_Access (Ty_Ext, Tmp)),
+  5922:                  Right => Assumption);
+  5923:          end if;
+  5924:
+  5925:          Assumption :=
+  5926:            New_And_Pred
+  5927:              (Left  => Assumption,
+  5928:               Right => Default_Init_For_Record (Expr, Ty_Ext));
+  5929:       end if;
+  5930:
+  5931:       --  If Skip_Last_Cond is False, assume the default initial condition for
+  5932:       --  Ty, when specified as a boolean expression.
+  5933:
+  5934:       if Has_DIC (Ty) then
+  5935:          declare
+  5936:             procedure Assume_DIC
+  5937:               (Default_Init_Param : Formal_Kind_Id;
+  5938:                Default_Init_Expr  : Node_Id)
+  5939:             with
+  5940:               Pre =>
+  5941:                 Ekind (Default_Init_Param) = E_In_Parameter
+  5942:                 and then Nkind (Default_Init_Expr) in N_Subexpr;
+  5943:
+  5944:             ----------------
+  5945:             -- Assume_DIC --
+  5946:             ----------------
+  5947:
+  5948:             procedure Assume_DIC
+  5949:               (Default_Init_Param : Formal_Kind_Id;
+  5950:                Default_Init_Expr  : Node_Id)
+  5951:             is
+  5952:                Init_Id : constant W_Identifier_Id :=
+  5953:                  New_Temp_Identifier (Default_Init_Param, Get_Type (+Tmp));
+  5954:                T       : W_Pred_Id;
+  5955:
+  5956:             begin
+  5957:                Ada_Ent_To_Why.Push_Scope (Symbol_Table);
+  5958:
+  5959:                --  Register the temporary identifier Init_Id for
+  5960:                --  parameter Init_Param in the symbol table. This ensures
+  5961:                --  both that a distinct name is used each time
+  5962:                --  (preventing name capture), and that the type of Tmp is
+  5963:                --  used as the type used to represent Init_Param
+  5964:                --  (avoiding type conversion).
+  5965:
+  5966:                Insert_Tmp_Item_For_Entity (Default_Init_Param, Init_Id);
+  5967:
+  5968:                --  Transform the default init expression into Why3
+  5969:
+  5970:                T :=
+  5971:                  Transform_Pred (Expr => Default_Init_Expr, Params => Params);
+  5972:
+  5973:                --  Relate the name Init_Id used in the default init
+  5974:                --  expression to the value Tmp for which the predicate is
+  5975:                --  checked.
+  5976:
+  5977:                T :=
+  5978:                  New_Binding
+  5979:                    (Name    => Init_Id,
+  5980:                     Def     => Tmp,
+  5981:                     Context => T,
+  5982:                     Typ     => Get_Type (+T));
+  5983:
+  5984:                --  Only take default init condition into account if
+  5985:                --  Skip_Last_Cond is False.
+  5986:
+  5987:                T :=
+  5988:                  New_Conditional
+  5989:                    (Condition => +W_Expr_Id'(+Skip_Last_Cond),
+  5990:                     Then_Part => True_Pred,
+  5991:                     Else_Part => T,
+  5992:                     Typ       => EW_Bool_Type);
+  5993:
+  5994:                Assumption := New_And_Pred (Left => Assumption, Right => T);
+  5995:
+  5996:                Ada_Ent_To_Why.Pop_Scope (Symbol_Table);
+  5997:             end Assume_DIC;
+  5998:
+  5999:             procedure Assume_All_DIC is new
+  6000:               Iterate_Applicable_DIC (Assume_DIC);
+  6001:          begin
+  6002:             Assume_All_DIC (Ty);
+  6003:          end;
+  6004:       end if;
+  6005:
+  6006:       if Assumption = True_Pred then
+  6007:          return True_Pred;
+  6008:       else
+  6009:          return Binding_For_Temp (Tmp => Tmp, Context => Assumption);
+  6010:       end if;
+  6011:    end Compute_Default_Init;
+```
+
+## src/why/gnat2why-expr.adb:6820-7085
+
+```ada
+  6820:       if Type_Is_Modeled_As_Base (Ty_Ext)
+  6821:         or else
+  6822:           (Use_Split_Form_For_Type (Ty_Ext)
+  6823:            and then Get_Type_Kind (Get_Type (+Expr)) /= EW_Abstract)
+  6824:       then
+  6825:          T :=
+  6826:            +New_Dynamic_Property
+  6827:               (Domain => EW_Pred,
+  6828:                Ty     => Ty_Ext,
+  6829:                Expr   => +Expr,
+  6830:                Params => Params);
+  6831:
+  6832:          --  If a scalar variable is not initialized or invalid, then its
+  6833:          --  dynamic property may be false. As initialization is checked
+  6834:          --  separately by flow analysis, we can assume that the variable is in
+  6835:          --  the type bounds as long as it does not introduce any unsoundness
+  6836:          --  (the range is not empty). We can skip this if the range is
+  6837:          --  statically non-empty.
+  6838:
+  6839:          if T /= True_Pred
+  6840:            and then
+  6841:              not (Has_Discrete_Type (Ty_Ext)
+  6842:                   and then Has_OK_Static_Scalar_Subtype (Ty_Ext)
+  6843:                   and then
+  6844:                     UI_Le
+  6845:                       (Expr_Value (Type_Low_Bound (Ty_Ext)),
+  6846:                        Expr_Value (Type_High_Bound (Ty_Ext))))
+  6847:          then
+  6848:             declare
+  6849:                Why_Rep_Type : constant W_Type_Id := Base_Why_Type (Ty_Ext);
+  6850:                Le_Op        : constant W_Identifier_Id :=
+  6851:                  (if Why_Type_Is_Float (Why_Rep_Type)
+  6852:                   then MF_Floats (Why_Rep_Type).Le
+  6853:                   elsif Why_Type_Is_BitVector (Why_Rep_Type)
+  6854:                   then MF_BVs (Why_Rep_Type).Ule
+  6855:                   else Int_Infix_Le);
+  6856:                First        : constant W_Expr_Id :=
+  6857:                  Insert_Simple_Conversion
+  6858:                    (Domain => EW_Term,
+  6859:                     Expr   =>
+  6860:                       New_Attribute_Expr
+  6861:                         (Ty     => Ty_Ext,
+  6862:                          Domain => EW_Term,
+  6863:                          Attr   => Attribute_First,
+  6864:                          Params => Params),
+  6865:                     To     => Why_Rep_Type);
+  6866:                Last         : constant W_Expr_Id :=
+  6867:                  Insert_Simple_Conversion
+  6868:                    (Domain => EW_Term,
+  6869:                     Expr   =>
+  6870:                       New_Attribute_Expr
+  6871:                         (Ty     => Ty_Ext,
+  6872:                          Domain => EW_Term,
+  6873:                          Attr   => Attribute_Last,
+  6874:                          Params => Params),
+  6875:                     To     => Why_Rep_Type);
+  6876:                Fst_Le_Last  : constant W_Pred_Id :=
+  6877:                  New_Call
+  6878:                    (Name => Le_Op, Typ => EW_Bool_Type, Args => (First, Last));
+  6879:                Init_Flag    : constant W_Pred_Id :=
+  6880:                  New_And_Pred
+  6881:                    (Left  =>
+  6882:                       Pred_Of_Boolean_Term
+  6883:                         (if Is_Init_Wrapper_Type (Get_Type (+Expr))
+  6884:                          then New_Init_Attribute_Access (Ty_Ext, +Expr)
+  6885:                          else Initialized),
+  6886:                     Right =>
+  6887:                       (if Present (Valid)
+  6888:                        then Pred_Of_Boolean_Term (Valid)
+  6889:                        else True_Pred));
+  6890:                --  For scalars, the validity flag is a boolean, it can be used
+  6891:                --  directly.
+  6892:             begin
+  6893:                T :=
+  6894:                  New_Conditional
+  6895:                    (Condition => New_Or_Pred (Init_Flag, Fst_Le_Last),
+  6896:                     Then_Part => T,
+  6897:                     Typ       => EW_Bool_Type);
+  6898:             end;
+  6899:          end if;
+  6900:
+  6901:       elsif Is_Access_Subprogram_Type (Ty_Ext) then
+  6902:
+  6903:          --  Assume the contract of the access-to-subprogram type if any
+  6904:
+  6905:          T :=
+  6906:            New_Dynamic_Property_For_Subprogram
+  6907:              (Ty => Ty_Ext, Expr => Expr, Params => Params);
+  6908:
+  6909:          --  Only assume that an object with null exclusion is not null if it
+  6910:          --  is initialized. This is the case in most cases, since access types
+  6911:          --  are initialized by default. However, out parameters might not be
+  6912:          --  valid values of the type.
+  6913:
+  6914:          if Can_Never_Be_Null (Ty_Ext) then
+  6915:             T :=
+  6916:               New_And_Pred
+  6917:                 (Left  =>
+  6918:                    New_Conditional
+  6919:                      (Condition => Pred_Of_Boolean_Term (Initialized),
+  6920:                       Then_Part =>
+  6921:                         New_Not
+  6922:                           (Right =>
+  6923:                              Pred_Of_Boolean_Term
+  6924:                                (New_Record_Access
+  6925:                                   (Name  => Expr,
+  6926:                                    Field => M_Subprogram_Access.Rec_Is_Null,
+  6927:                                    Typ   => EW_Bool_Type))),
+  6928:                       Typ       => EW_Bool_Type),
+  6929:                  Right => T);
+  6930:          end if;
+  6931:
+  6932:       elsif Is_Access_Type (Ty_Ext) then
+  6933:
+  6934:          --  Only assume that an object with null exclusion is not null if it
+  6935:          --  is initialized. This is the case in most cases, since access types
+  6936:          --  are initialized by default. However, out parameters might not be
+  6937:          --  valid values of the type.
+  6938:
+  6939:          if Can_Never_Be_Null (Ty_Ext) then
+  6940:             T :=
+  6941:               New_Conditional
+  6942:                 (Condition => Pred_Of_Boolean_Term (Initialized),
+  6943:                  Then_Part =>
+  6944:                    New_Not
+  6945:                      (Right =>
+  6946:                         Pred_Of_Boolean_Term
+  6947:                           (New_Pointer_Is_Null_Access
+  6948:                              (E => Ty_Ext, Name => Expr))),
+  6949:                  Typ       => EW_Bool_Type);
+  6950:
+  6951:          --  Access to object types have an invariant which fix the designated
+  6952:          --  value when the pointer is null (so null pointers are logically
+  6953:          --  equal). Assume it here.
+  6954:
+  6955:          else
+  6956:             T :=
+  6957:               New_Call
+  6958:                 (Name =>
+  6959:                    E_Symb
+  6960:                      (Ty_Ext,
+  6961:                       WNE_Dynamic_Property,
+  6962:                       Relaxed_Init => Get_Relaxed_Init (Get_Type (+Expr))),
+  6963:                  Args => (1 => +Expr));
+  6964:          end if;
+  6965:
+  6966:       --  Do not assume bounds of arrays and discriminants if Only_Var is
+  6967:       --  statically True.
+  6968:
+  6969:       elsif Is_True_Boolean (+Only_Var) then
+  6970:          T := True_Pred;
+  6971:
+  6972:       elsif Is_Array_Type (Ty_Ext) and then not Is_Static_Array_Type (Ty_Ext)
+  6973:       then
+  6974:          T :=
+  6975:            +New_Dynamic_Property
+  6976:               (Domain => EW_Pred,
+  6977:                Ty     => Ty_Ext,
+  6978:                Expr   => +Expr,
+  6979:                Params => Params);
+  6980:
+  6981:          --  For arrays, also assume the value of its bounds
+  6982:
+  6983:          if Is_Constrained (Ty_Ext)
+  6984:            or else Is_Fixed_Lower_Bound_Array_Subtype (Ty_Ext)
+  6985:          then
+  6986:             declare
+  6987:                Constrained : constant Boolean := Is_Constrained (Ty_Ext);
+  6988:                Index       : Node_Id := First_Index (Ty_Ext);
+  6989:                I           : Positive := 1;
+  6990:             begin
+  6991:                while Present (Index) loop
+  6992:
+  6993:                   --  If Ty is constrained or Index has a fixed lower bound,
+  6994:                   --  assume the value of Ty'First.
+  6995:
+  6996:                   if Constrained
+  6997:                     or else Is_Fixed_Lower_Bound_Index_Subtype (Etype (Index))
+  6998:                   then
+  6999:                      declare
+  7000:                         Rng      : constant Node_Id := Get_Range (Index);
+  7001:                         Rng_Ty   : constant W_Type_Id :=
+  7002:                           Base_Why_Type_No_Bool (Etype (Index));
+  7003:                         Low_Expr : constant W_Expr_Id :=
+  7004:                           Transform_Expr
+  7005:                             (Low_Bound (Rng), Rng_Ty, EW_Term, Params);
+  7006:                         First_Eq : constant W_Pred_Id :=
+  7007:                           New_Call
+  7008:                             (Name => Why_Eq,
+  7009:                              Typ  => EW_Bool_Type,
+  7010:                              Args =>
+  7011:                                (1 =>
+  7012:                                   +Insert_Conversion_To_Rep_No_Bool
+  7013:                                      (Get_Array_Attr
+  7014:                                         (Expr => Expr,
+  7015:                                          Attr => Attribute_First,
+  7016:                                          Dim  => I)),
+  7017:                                 2 => Low_Expr));
+  7018:                      begin
+  7019:
+  7020:                         T := New_And_Pred (Left => T, Right => First_Eq);
+  7021:
+  7022:                         --  If Ty is constrained also assume the value of
+  7023:                         --  Ty'Last.
+  7024:
+  7025:                         if Constrained then
+  7026:                            declare
+  7027:                               High_Expr : constant W_Expr_Id :=
+  7028:                                 Transform_Expr
+  7029:                                   (High_Bound (Rng), Rng_Ty, EW_Term, Params);
+  7030:                               Last_Eq   : constant W_Pred_Id :=
+  7031:                                 New_Call
+  7032:                                   (Name => Why_Eq,
+  7033:                                    Typ  => EW_Bool_Type,
+  7034:                                    Args =>
+  7035:                                      (1 =>
+  7036:                                         +Insert_Conversion_To_Rep_No_Bool
+  7037:                                            (Get_Array_Attr
+  7038:                                               (Expr => Expr,
+  7039:                                                Attr => Attribute_Last,
+  7040:                                                Dim  => I)),
+  7041:                                       2 => High_Expr));
+  7042:                            begin
+  7043:                               T := New_And_Pred (Left => T, Right => Last_Eq);
+  7044:                            end;
+  7045:                         end if;
+  7046:                      end;
+  7047:                   end if;
+  7048:
+  7049:                   Next_Index (Index);
+  7050:                   I := I + 1;
+  7051:                end loop;
+  7052:             end;
+  7053:          end if;
+  7054:
+  7055:          T :=
+  7056:            New_Conditional
+  7057:              (Condition => Pred_Of_Boolean_Term (Only_Var),
+  7058:               Then_Part => True_Pred,
+  7059:               Else_Part => T,
+  7060:               Typ       => EW_Bool_Type);
+  7061:
+  7062:       elsif Has_Discriminants (Ty_Ext) and then Is_Constrained (Ty_Ext) then
+  7063:          T :=
+  7064:            New_Conditional
+  7065:              (Condition => Pred_Of_Boolean_Term (Only_Var),
+  7066:               Then_Part => True_Pred,
+  7067:               Else_Part =>
+  7068:                 +New_Dynamic_Property
+  7069:                    (Domain => EW_Pred,
+  7070:                     Ty     => Ty_Ext,
+  7071:                     Expr   => +Expr,
+  7072:                     Params => Params),
+  7073:               Typ       => EW_Bool_Type);
+  7074:       else
+  7075:          T := True_Pred;
+  7076:       end if;
+  7077:
+  7078:       --  Add possible dynamic predicate. If the type defines at least partial
+  7079:       --  default initialization, the predicate is checked at default
+  7080:       --  initialization so it can be assumed to always hold. Otherwise, the
+  7081:       --  predicate is only valid for initialized data. In all cases, only
+  7082:       --  assume the predicate of the type itself when the top predicate should
+  7083:       --  be included. Otherwise, assume the predicate of the first ancestor
+  7084:       --  only.
+  7085:       --  Do not assume the predicate on composite initialization wrappers.
+```
+
 ## src/why/gnat2why-subprograms.adb:4455-4483
 
 ```ada
@@ -7495,6 +8214,386 @@
   6258:             Binders  => (1 => Unit_Param),
   6259:             Labels   => Symbol_Sets.Empty_Set,
   6260:             Location => Safe_First_Sloc (E),
+```
+
+## src/why/gnat2why-types.adb:201-575
+
+```ada
+   201:       end Complete_Initialization_Predicate;
+   202:
+   203:       -------------------------------------
+   204:       -- Create_Axioms_For_Scalar_Bounds --
+   205:       -------------------------------------
+   206:
+   207:       procedure Create_Axioms_For_Scalar_Bounds
+   208:         (Th : Theory_UC; E : Type_Kind_Id)
+   209:       is
+   210:          procedure Create_Axiom_For_Expr
+   211:            (Name : W_Identifier_Id; Bnd : Node_Id; Typ : W_Type_Id)
+   212:          with Pre => Nkind (Bnd) in N_Subexpr;
+   213:          --  Create a defining axiom for a logic function which can be used
+   214:          --  instead of E.
+   215:
+   216:          ---------------------------
+   217:          -- Create_Axiom_For_Expr --
+   218:          ---------------------------
+   219:
+   220:          procedure Create_Axiom_For_Expr
+   221:            (Name : W_Identifier_Id; Bnd : Node_Id; Typ : W_Type_Id)
+   222:          is
+   223:             Items : Item_Array := Get_Binders_From_Expression (Bnd);
+   224:             Def   : W_Term_Id;
+   225:
+   226:          begin
+   227:             --  Use local names for variables
+   228:
+   229:             Localize_Binders (Items, Only_Variables => False);
+   230:
+   231:             --  Push the names to Symbol_Table
+   232:
+   233:             Ada_Ent_To_Why.Push_Scope (Symbol_Table);
+   234:             Push_Binders_To_Symbol_Table (Items);
+   235:
+   236:             Def :=
+   237:               +Transform_Expr
+   238:                  (Expr          => Bnd,
+   239:                   Expected_Type => Typ,
+   240:                   Domain        => EW_Term,
+   241:                   Params        => Logic_Params);
+   242:
+   243:             Emit
+   244:               (Th,
+   245:                New_Defining_Axiom
+   246:                  (Name    => Name,
+   247:                   Def     => +Def,
+   248:                   Binders => To_Binder_Array (Items)));
+   249:
+   250:             Ada_Ent_To_Why.Pop_Scope (Symbol_Table);
+   251:          end Create_Axiom_For_Expr;
+   252:
+   253:          Rng  : constant Node_Id := Get_Range (E);
+   254:          Low  : constant Node_Id := Low_Bound (Rng);
+   255:          High : constant Node_Id := High_Bound (Rng);
+   256:
+   257:          --  Start of processing for Create_Axioms_For_Scalar_Bounds
+   258:
+   259:       begin
+   260:          if not Compile_Time_Known_Value (Low) then
+   261:             Create_Axiom_For_Expr
+   262:               (Name => E_Symb (E, WNE_Attr_First),
+   263:                Bnd  => Low,
+   264:                Typ  => Base_Why_Type (E));
+   265:          end if;
+   266:          if not Compile_Time_Known_Value (High) then
+   267:             Create_Axiom_For_Expr
+   268:               (Name => E_Symb (E, WNE_Attr_Last),
+   269:                Bnd  => High,
+   270:                Typ  => Base_Why_Type (E));
+   271:          end if;
+   272:       end Create_Axioms_For_Scalar_Bounds;
+   273:
+   274:       ------------------------------------
+   275:       -- Create_Default_Init_Assumption --
+   276:       ------------------------------------
+   277:
+   278:       procedure Create_Default_Init_Assumption
+   279:         (Th : Theory_UC; E : Type_Kind_Id)
+   280:       is
+   281:          Variables : Flow_Id_Sets.Set;
+   282:
+   283:       begin
+   284:          --  Get the set of variables used in E's default initialization
+   285:
+   286:          Variables_In_Default_Init (E, Variables);
+   287:
+   288:          declare
+   289:             Items : constant Item_Array :=
+   290:               Get_Localized_Binders_From_Variables
+   291:                 (Variables, Only_Variables => False);
+   292:             --  Use local names for variables
+   293:
+   294:             Main_Arg : constant W_Identifier_Id :=
+   295:               New_Temp_Identifier
+   296:                 (Typ => Type_Of_Node (E), Base_Name => "expr");
+   297:             --  Expression on which we want to assume the property
+   298:
+   299:             Slst_Arg : constant W_Identifier_Id :=
+   300:               New_Temp_Identifier
+   301:                 (Typ => EW_Bool_Type, Base_Name => "skip_top_level");
+   302:             --  Only assume initial condition for the components
+   303:
+   304:             Def : W_Pred_Id;
+   305:
+   306:          begin
+   307:             --  Push variable names to Symbol_Table
+   308:
+   309:             Ada_Ent_To_Why.Push_Scope (Symbol_Table);
+   310:             Push_Binders_To_Symbol_Table (Items);
+   311:
+   312:             Def :=
+   313:               Compute_Default_Init
+   314:                 (Expr           => +Main_Arg,
+   315:                  Ty             => E,
+   316:                  Skip_Last_Cond => +Slst_Arg,
+   317:                  Params         => Logic_Params,
+   318:                  Use_Pred       => False);
+   319:
+   320:             Emit
+   321:               (Th,
+   322:                New_Function_Decl
+   323:                  (Domain   => EW_Pred,
+   324:                   Name     => To_Local (E_Symb (E, WNE_Default_Init)),
+   325:                   Def      => +Def,
+   326:                   Labels   => Symbol_Sets.Empty_Set,
+   327:                   Location => No_Location,
+   328:                   Binders  =>
+   329:                     Binder_Array'
+   330:                       (1 => Binder_Type'(B_Name => Main_Arg, others => <>),
+   331:                        2 => Binder_Type'(B_Name => Slst_Arg, others => <>))
+   332:                     & To_Binder_Array (Items)));
+   333:
+   334:             Ada_Ent_To_Why.Pop_Scope (Symbol_Table);
+   335:          end;
+   336:       end Create_Default_Init_Assumption;
+   337:
+   338:       ------------------------------
+   339:       -- Create_Dynamic_Invariant --
+   340:       ------------------------------
+   341:
+   342:       procedure Create_Dynamic_Invariant
+   343:         (Th : Theory_UC; E : Type_Kind_Id; Module : W_Module_Id)
+   344:       is
+   345:          procedure Create_Dynamic_Invariant
+   346:            (E            : Type_Kind_Id;
+   347:             Name         : W_Identifier_Id;
+   348:             Relaxed_Init : Boolean;
+   349:             For_Acc      : Boolean);
+   350:          --  Emit a declaration for the predicate symbol Name and define it to
+   351:          --  be the dynamic invariant for E. If For_Acc is true, split the
+   352:          --  definition into a declaration and a separate axiom to handle
+   353:          --  circularity.
+   354:
+   355:          package Decl_Lists is new
+   356:            Ada.Containers.Doubly_Linked_Lists (W_Declaration_Id);
+   357:
+   358:          Loc_Incompl_Acc : Ada_To_Why_Ident.Map;
+   359:          --  Map of all local symbols introduced for predicates of access to
+   360:          --  incomplete access types.
+   361:
+   362:          Loc_Incompl_Acc_R : Ada_To_Why_Ident.Map;
+   363:          --  Same as above but for init wrappers
+   364:
+   365:          Axioms : Decl_Lists.List;
+   366:          --  Axioms for predicates of access to incomplete access types
+   367:
+   368:          ------------------------------
+   369:          -- Create_Dynamic_Invariant --
+   370:          ------------------------------
+   371:
+   372:          procedure Create_Dynamic_Invariant
+   373:            (E            : Type_Kind_Id;
+   374:             Name         : W_Identifier_Id;
+   375:             Relaxed_Init : Boolean;
+   376:             For_Acc      : Boolean)
+   377:          is
+   378:             Variables : Flow_Id_Sets.Set;
+   379:
+   380:          begin
+   381:             --  Get the set of variables used in E's dynamic property. Locally
+   382:             --  assumed predicates are not included.
+   383:
+   384:             Variables_In_Dynamic_Invariant (E, Variables, Scop => Empty);
+   385:
+   386:             declare
+   387:                Items : constant Item_Array :=
+   388:                  Get_Localized_Binders_From_Variables
+   389:                    (Variables, Only_Variables => False);
+   390:                --  Use local names for variables
+   391:
+   392:                Init_Arg : constant W_Identifier_Id :=
+   393:                  New_Temp_Identifier
+   394:                    (Typ => EW_Bool_Type, Base_Name => "is_init");
+   395:                --  Is the object known to be initialized
+   396:
+   397:                Ovar_Arg : constant W_Identifier_Id :=
+   398:                  New_Temp_Identifier
+   399:                    (Typ => EW_Bool_Type, Base_Name => "skip_constant");
+   400:                --  Do we need to assume the properties on constant parts
+   401:
+   402:                Top_Arg : constant W_Identifier_Id :=
+   403:                  New_Temp_Identifier
+   404:                    (Typ => EW_Bool_Type, Base_Name => "do_toplevel");
+   405:                --  Should we include the toplevel predicate
+   406:
+   407:                Inv_Arg : constant W_Identifier_Id :=
+   408:                  New_Temp_Identifier
+   409:                    (Typ => EW_Bool_Type, Base_Name => "do_typ_inv");
+   410:                --  Should we include the non local type invariants
+   411:
+   412:                Main_Ty : constant W_Type_Id :=
+   413:                  (if Relaxed_Init
+   414:                   then EW_Abstract (E, Relaxed_Init => True)
+   415:                   else Type_Of_Node (E));
+   416:
+   417:                Main_Arg : constant W_Identifier_Id :=
+   418:                  New_Temp_Identifier (Typ => Main_Ty, Base_Name => "expr");
+   419:                --  Expression on which we want to assume the property
+   420:
+   421:                Def               : W_Pred_Id;
+   422:                New_Incompl_Acc   : Ada_To_Why_Ident.Map;
+   423:                New_Incompl_Acc_R : Ada_To_Why_Ident.Map;
+   424:
+   425:             begin
+   426:                --  Push variable names to Symbol_Table
+   427:
+   428:                Ada_Ent_To_Why.Push_Scope (Symbol_Table);
+   429:                Push_Binders_To_Symbol_Table (Items);
+   430:
+   431:                --  Compute the predicate for E. Do not include any locally
+   432:                --  assumed predicate, they will be added separately depending
+   433:                --  on the scope when the dynamic invariant is used. Do not
+   434:                --  handle validity flags. The dynamic invariant is expanded
+   435:                --  if one is provided.
+   436:
+   437:                Compute_Dynamic_Invariant
+   438:                  (Expr              => +Main_Arg,
+   439:                   Ty                => E,
+   440:                   Initialized       => +Init_Arg,
+   441:                   Only_Var          => +Ovar_Arg,
+   442:                   Top_Predicate     => +Top_Arg,
+   443:                   All_Global_Inv    => +Inv_Arg,
+   444:                   Valid             => Why_Empty,
+   445:                   Inv_Scop          => Empty,
+   446:                   Inv_Subp          => Empty,
+   447:                   Params            => Logic_Params,
+   448:                   Use_Pred          => False,
+   449:                   New_Preds_Module  => Module,
+   450:                   T                 => Def,
+   451:                   Loc_Incompl_Acc   => Loc_Incompl_Acc,
+   452:                   New_Incompl_Acc   => New_Incompl_Acc,
+   453:                   Loc_Incompl_Acc_R => Loc_Incompl_Acc_R,
+   454:                   New_Incompl_Acc_R => New_Incompl_Acc_R,
+   455:                   Expand_Incompl    => False);
+   456:
+   457:                --  Copy new predicate symbols to the map of local symbols
+   458:
+   459:                for C in New_Incompl_Acc.Iterate loop
+   460:                   Loc_Incompl_Acc.Insert
+   461:                     (Ada_To_Why_Ident.Key (C), Ada_To_Why_Ident.Element (C));
+   462:                end loop;
+   463:
+   464:                for C in New_Incompl_Acc_R.Iterate loop
+   465:                   Loc_Incompl_Acc_R.Insert
+   466:                     (Ada_To_Why_Ident.Key (C), Ada_To_Why_Ident.Element (C));
+   467:                end loop;
+   468:
+   469:                --  Introduce function symbols (with no definitions) for
+   470:                --  new predicate symbols. Store their axioms in Axioms.
+   471:
+   472:                for C in New_Incompl_Acc.Iterate loop
+   473:                   Create_Dynamic_Invariant
+   474:                     (E            => Ada_To_Why_Ident.Key (C),
+   475:                      Name         => Ada_To_Why_Ident.Element (C),
+   476:                      Relaxed_Init => False,
+   477:                      For_Acc      => True);
+   478:                end loop;
+   479:
+   480:                for C in New_Incompl_Acc_R.Iterate loop
+   481:                   Create_Dynamic_Invariant
+   482:                     (E            => Ada_To_Why_Ident.Key (C),
+   483:                      Name         => Ada_To_Why_Ident.Element (C),
+   484:                      Relaxed_Init => True,
+   485:                      For_Acc      => True);
+   486:                end loop;
+   487:
+   488:                declare
+   489:                   Binders : constant Binder_Array :=
+   490:                     Binder_Array'
+   491:                       (1 => Binder_Type'(B_Name => Main_Arg, others => <>),
+   492:                        2 => Binder_Type'(B_Name => Init_Arg, others => <>),
+   493:                        3 => Binder_Type'(B_Name => Ovar_Arg, others => <>),
+   494:                        4 => Binder_Type'(B_Name => Top_Arg, others => <>),
+   495:                        5 => Binder_Type'(B_Name => Inv_Arg, others => <>))
+   496:                     & To_Binder_Array (Items);
+   497:                begin
+   498:
+   499:                   --  If we are defining a symbol for an access to an
+   500:                   --  incomplete type, split the predicate into a declaration
+   501:                   --  and a defining axiom to avoid circularity.
+   502:
+   503:                   if For_Acc then
+   504:                      Emit
+   505:                        (Th,
+   506:                         New_Function_Decl
+   507:                           (Domain   => EW_Pred,
+   508:                            Name     => Name,
+   509:                            Labels   => Symbol_Sets.Empty_Set,
+   510:                            Binders  => Binders,
+   511:                            Location => No_Location));
+   512:                      Axioms.Append
+   513:                        (New_Defining_Bool_Axiom
+   514:                           (Fun_Name => Get (Get_Symb (Get_Name (Name))).all,
+   515:                            Name     => Name,
+   516:                            Binders  => Binders,
+   517:                            Def      => Def,
+   518:                            Dep_Kind => EW_Axdep_Pred));
+   519:
+   520:                   --  Otherwise, define the symbol at declaration
+   521:
+   522:                   else
+   523:                      Emit
+   524:                        (Th,
+   525:                         New_Function_Decl
+   526:                           (Domain   => EW_Pred,
+   527:                            Name     => Name,
+   528:                            Def      => +Def,
+   529:                            Location => No_Location,
+   530:                            Labels   => Symbol_Sets.Empty_Set,
+   531:                            Binders  => Binders));
+   532:                   end if;
+   533:                end;
+   534:
+   535:                Ada_Ent_To_Why.Pop_Scope (Symbol_Table);
+   536:             end;
+   537:          end Create_Dynamic_Invariant;
+   538:
+   539:          --  Start of processing for Create_Dynamic_Invariant
+   540:
+   541:       begin
+   542:          Create_Dynamic_Invariant
+   543:            (E            => E,
+   544:             Name         => To_Local (E_Symb (E, WNE_Dynamic_Invariant)),
+   545:             Relaxed_Init => False,
+   546:             For_Acc      => False);
+   547:
+   548:          if Has_Init_Wrapper (E) then
+   549:             Create_Dynamic_Invariant
+   550:               (E            => E,
+   551:                Name         =>
+   552:                  To_Local
+   553:                    (E_Symb (E, WNE_Dynamic_Invariant, Relaxed_Init => True)),
+   554:                Relaxed_Init => True,
+   555:                For_Acc      => False);
+   556:          end if;
+   557:
+   558:          --  Emit axioms for local predicate symbols
+   559:
+   560:          for Ax of Axioms loop
+   561:             Emit (Th, Ax);
+   562:          end loop;
+   563:       end Create_Dynamic_Invariant;
+   564:
+   565:       ---------------------------
+   566:       -- Create_Type_Invariant --
+   567:       ---------------------------
+   568:
+   569:       procedure Create_Type_Invariant (Th : Theory_UC; E : Type_Kind_Id) is
+   570:          Variables : Flow_Id_Sets.Set;
+   571:
+   572:       begin
+   573:          --  Get the set of variables used in E's predicate
+   574:
+   575:          Variables_In_Type_Invariant (E, Variables);
 ```
 
 ## src/why/gnat2why-types.adb:895-1101
@@ -7762,9 +8861,107 @@
   1155:                 then " defined at " & Build_Location_String (Sloc (E))
 ```
 
-## src/why/gnat2why-types.adb:1623-1739
+## src/why/gnat2why-types.adb:1416-1423
 
 ```ada
+  1416:    function Ident_Of_Ada_Type (E : Type_Kind_Id) return W_Name_Id is
+  1417:    begin
+  1418:       return
+  1419:         (if Is_Standard_Boolean_Type (E)
+  1420:          then Get_Name (EW_Bool_Type)
+  1421:          else To_Why_Type (E));
+  1422:    end Ident_Of_Ada_Type;
+  1423:
+```
+
+## src/why/gnat2why-types.adb:1538-1739
+
+```ada
+  1538:       procedure Generate_Ref_Type_And_Havoc_Fun
+  1539:         (Th : Theory_UC; E : Entity_Id; Relaxed_Init : Boolean) is
+  1540:       begin
+  1541:          --  We do not generate these declarations for array or record types
+  1542:          --  which are clones of existing types with the same name and
+  1543:          --  statically constrained array type as no new type is declared for
+  1544:          --  them.
+  1545:          --  Classwide types are a special case as they are clones of their
+  1546:          --  specific types but do not have the same short name.
+  1547:
+  1548:          if (not (Has_Record_Type (E)
+  1549:                   or else Has_Incomplete_Or_Private_Type (E))
+  1550:              or else not Record_Type_Is_Clone (Retysp (E))
+  1551:              or else
+  1552:                Short_Name (Retysp (E))
+  1553:                /= Short_Name (Record_Type_Cloned_Subtype (Retysp (E))))
+  1554:            and then not Is_Class_Wide_Type (Retysp (E))
+  1555:            and then
+  1556:              (not Has_Array_Type (E)
+  1557:               or else not Is_Static_Array_Type (Retysp (E)))
+  1558:            and then
+  1559:              (not Has_Array_Type (E)
+  1560:               or else not Array_Type_Is_Clone (Retysp (E))
+  1561:               or else
+  1562:                 Short_Name (Retysp (E))
+  1563:                 /= Short_Name (Array_Type_Cloned_Subtype (Retysp (E))))
+  1564:          then
+  1565:             Emit_Ref_Type_Definition
+  1566:               (Th,
+  1567:                To_Why_Type
+  1568:                  (Retysp (E), Local => True, Relaxed_Init => Relaxed_Init));
+  1569:             Emit
+  1570:               (Th,
+  1571:                New_Havoc_Declaration
+  1572:                  (Name =>
+  1573:                     To_Why_Type
+  1574:                       (Retysp (E),
+  1575:                        Local        => True,
+  1576:                        Relaxed_Init => Relaxed_Init)));
+  1577:          end if;
+  1578:       end Generate_Ref_Type_And_Havoc_Fun;
+  1579:
+  1580:       -------------------------------
+  1581:       -- Translate_Underlying_Type --
+  1582:       -------------------------------
+  1583:
+  1584:       procedure Translate_Underlying_Type (Th : Theory_UC; E : Entity_Id) is
+  1585:       begin
+  1586:          case Ekind (E) is
+  1587:             when Scalar_Kind                                        =>
+  1588:                Declare_Scalar_Type (Th, E);
+  1589:
+  1590:             when Array_Kind                                         =>
+  1591:                Declare_Ada_Array (Th, E);
+  1592:
+  1593:             when E_Record_Type | E_Record_Subtype | Concurrent_Kind =>
+  1594:                Declare_Ada_Record (Th, E);
+  1595:
+  1596:             when Class_Wide_Kind                                    =>
+  1597:                Add_Use_For_Entity
+  1598:                  (Th,
+  1599:                   Specific_Tagged (E),
+  1600:                   EW_Export,
+  1601:                   With_Completion => False);
+  1602:
+  1603:             when Incomplete_Or_Private_Kind                         =>
+  1604:                pragma Assert (Full_View_Not_In_SPARK (E));
+  1605:                Declare_Ada_Record (Th, E);
+  1606:
+  1607:             when Access_Kind                                        =>
+  1608:                if Is_Access_Subprogram_Type (E) then
+  1609:                   Declare_Access_To_Subprogram_Type (Th, E);
+  1610:                else
+  1611:                   Declare_Ada_Pointer (Th, E);
+  1612:                end if;
+  1613:
+  1614:             when others                                             =>
+  1615:                Ada.Text_IO.Put_Line
+  1616:                  ("[Translate_Underlying_Type] ekind ="
+  1617:                   & Entity_Kind'Image (Ekind (E)));
+  1618:                raise Not_Implemented;
+  1619:          end case;
+  1620:       end Translate_Underlying_Type;
+  1621:
+  1622:       Th : Theory_UC;
   1623:
   1624:       --  Start of processing for Translate_Type
   1625:
@@ -10564,6 +11761,296 @@
   3969:
 ```
 
+## src/why/why-gen-arrays.adb:2526-2810
+
+```ada
+  2526:    procedure Declare_Constrained
+  2527:      (Th         : Theory_UC;
+  2528:       Und_Ent    : Entity_Id;
+  2529:       Base_Subst : W_Clone_Substitution_Array)
+  2530:    is
+  2531:       Dimension       : constant Pos := Number_Dimensions (Und_Ent);
+  2532:       Index           : Entity_Id := First_Index (Und_Ent);
+  2533:       Subst_Per_Index : constant Int := 3;
+  2534:       Subst           :
+  2535:         W_Clone_Substitution_Array
+  2536:           (1 .. Integer (Dimension * Subst_Per_Index));
+  2537:       Cursor          : Integer := 1;
+  2538:       Clone           : constant W_Module_Id :=
+  2539:         Constr_Arrays (Positive (Dimension));
+  2540:
+  2541:       procedure Declare_Attribute
+  2542:         (Kind : Why_Name_Enum; Value : Uint; Typ : W_Type_Id);
+  2543:       --  Declare a constant for the first / last index of the array and
+  2544:       --  add it to the clone substitution.
+  2545:
+  2546:       -----------------------
+  2547:       -- Declare_Attribute --
+  2548:       -----------------------
+  2549:
+  2550:       procedure Declare_Attribute
+  2551:         (Kind : Why_Name_Enum; Value : Uint; Typ : W_Type_Id)
+  2552:       is
+  2553:          Attr_Name : constant W_Name_Id := To_Local (E_Symb (Und_Ent, Kind));
+  2554:       begin
+  2555:          Emit
+  2556:            (Th,
+  2557:             Why.Atree.Builders.New_Function_Decl
+  2558:               (Domain      => EW_Pterm,
+  2559:                Name        => New_Identifier (Attr_Name),
+  2560:                Binders     => (1 .. 0 => <>),
+  2561:                Labels      => Symbol_Sets.Empty_Set,
+  2562:                Location    => No_Location,
+  2563:                Return_Type => Typ,
+  2564:                Def         =>
+  2565:                  New_Discrete_Constant (Value => Value, Typ => Typ)));
+  2566:          Subst (Cursor) :=
+  2567:            New_Clone_Substitution
+  2568:              (Kind => EW_Function, Orig_Name => Attr_Name, Image => Attr_Name);
+  2569:          Cursor := Cursor + 1;
+  2570:       end Declare_Attribute;
+  2571:
+  2572:       --  Start of processing for Declare_Constrained
+  2573:
+  2574:    begin
+  2575:       if Ekind (Und_Ent) = E_String_Literal_Subtype then
+  2576:          pragma
+  2577:            Assert
+  2578:              (Has_Array_Type (Etype (Und_Ent))
+  2579:               and then Ekind (Etype (Und_Ent)) /= E_String_Literal_Subtype);
+  2580:          declare
+  2581:             Low  : constant Uint :=
+  2582:               Expr_Value (String_Literal_Low_Bound (Und_Ent));
+  2583:             R_Ty : constant W_Type_Id :=
+  2584:               Base_Why_Type_No_Bool
+  2585:                 (Base_Type
+  2586:                    (Retysp (Etype (First_Index (Retysp (Etype (Und_Ent)))))));
+  2587:          begin
+  2588:             Declare_Attribute (WNE_Attr_First (1), Low, R_Ty);
+  2589:             Declare_Attribute
+  2590:               (WNE_Attr_Last (1),
+  2591:                String_Literal_Length (Und_Ent) + Low - 1,
+  2592:                R_Ty);
+  2593:
+  2594:             Subst (Cursor) :=
+  2595:               New_Clone_Substitution
+  2596:                 (Kind      => EW_Type_Subst,
+  2597:                  Orig_Name =>
+  2598:                    New_Name (Symb => NID (Append_Num ("index_rep_type", 1))),
+  2599:                  Image     => Get_Name (R_Ty));
+  2600:             Cursor := Cursor + 1;
+  2601:          end;
+  2602:       else
+  2603:          declare
+  2604:             Count : Positive := 1;
+  2605:          begin
+  2606:             while Present (Index) loop
+  2607:                declare
+  2608:                   Rng  : constant Node_Id := Get_Range (Index);
+  2609:                   R_Ty : constant W_Type_Id :=
+  2610:                     Base_Why_Type_No_Bool (Base_Type (Retysp (Etype (Index))));
+  2611:                begin
+  2612:                   Declare_Attribute
+  2613:                     (WNE_Attr_First (Count),
+  2614:                      Expr_Value (Low_Bound (Rng)),
+  2615:                      R_Ty);
+  2616:                   Declare_Attribute
+  2617:                     (WNE_Attr_Last (Count),
+  2618:                      Expr_Value (High_Bound (Rng)),
+  2619:                      R_Ty);
+  2620:
+  2621:                   Subst (Cursor) :=
+  2622:                     New_Clone_Substitution
+  2623:                       (Kind      => EW_Type_Subst,
+  2624:                        Orig_Name =>
+  2625:                          New_Name
+  2626:                            (Symb =>
+  2627:                               NID (Append_Num ("index_rep_type", Count))),
+  2628:                        Image     => Get_Name (R_Ty));
+  2629:                   Cursor := Cursor + 1;
+  2630:
+  2631:                   Count := Count + 1;
+  2632:                   Next_Index (Index);
+  2633:                end;
+  2634:             end loop;
+  2635:          end;
+  2636:       end if;
+  2637:
+  2638:       Emit
+  2639:         (Th,
+  2640:          New_Clone_Declaration
+  2641:            (Theory_Kind   => EW_Module,
+  2642:             Clone_Kind    => EW_Export,
+  2643:             As_Name       => No_Symbol,
+  2644:             Origin        => Clone,
+  2645:             Substitutions => Base_Subst & Subst));
+  2646:    end Declare_Constrained;
+  2647:
+  2648:    ---------------------------
+  2649:    -- Declare_Unconstrained --
+  2650:    ---------------------------
+  2651:
+  2652:    procedure Declare_Unconstrained
+  2653:      (Th             : Theory_UC;
+  2654:       Why3_Type_Name : W_Name_Id;
+  2655:       Und_Ent        : Entity_Id;
+  2656:       Base_Subst     : W_Clone_Substitution_Array)
+  2657:    is
+  2658:       Dimension       : constant Pos := Number_Dimensions (Und_Ent);
+  2659:       Subst_Per_Index : constant Int := 7;
+  2660:       Subst           :
+  2661:         W_Clone_Substitution_Array
+  2662:           (1 .. Integer (Dimension * Subst_Per_Index));
+  2663:       Cursor          : Integer := 1;
+  2664:       Index           : Node_Id := First_Index (Und_Ent);
+  2665:       Dim_Count       : Integer := 1;
+  2666:       Clone           : constant W_Module_Id :=
+  2667:         Unconstr_Arrays (Positive (Dimension));
+  2668:
+  2669:    begin
+  2670:       while Present (Index) loop
+  2671:          declare
+  2672:             Ind_Ty : constant Entity_Id := Etype (Index);
+  2673:             B_Ty   : constant Entity_Id := Base_Type (Ind_Ty);
+  2674:             B_Type : constant W_Type_Id := +EW_Abstract (B_Ty);
+  2675:             R_Ty   : constant W_Type_Id := Base_Why_Type_No_Bool (B_Ty);
+  2676:          begin
+  2677:             Subst (Cursor) :=
+  2678:               New_Clone_Substitution
+  2679:                 (Kind      => EW_Type_Subst,
+  2680:                  Orig_Name =>
+  2681:                    New_Name
+  2682:                      (Symb => NID (Append_Num ("index_base_type", Dim_Count))),
+  2683:                  Image     => Ident_Of_Ada_Type (B_Ty));
+  2684:             Cursor := Cursor + 1;
+  2685:
+  2686:             Subst (Cursor) :=
+  2687:               New_Clone_Substitution
+  2688:                 (Kind      => EW_Type_Subst,
+  2689:                  Orig_Name =>
+  2690:                    New_Name
+  2691:                      (Symb => NID (Append_Num ("index_rep_type", Dim_Count))),
+  2692:                  Image     => Get_Name (R_Ty));
+  2693:             Cursor := Cursor + 1;
+  2694:
+  2695:             Subst (Cursor) :=
+  2696:               New_Clone_Substitution
+  2697:                 (Kind      => EW_Function,
+  2698:                  Orig_Name =>
+  2699:                    New_Name (Symb => NID (Append_Num ("to_rep", Dim_Count))),
+  2700:                  Image     =>
+  2701:                    Get_Name (Conversion_Name (From => +B_Type, To => R_Ty)));
+  2702:             Cursor := Cursor + 1;
+  2703:
+  2704:             if R_Ty = EW_Int_Type then
+  2705:                declare
+  2706:                   Id_Id : constant W_Identifier_Id :=
+  2707:                     New_Identifier
+  2708:                       (Name => "index_" & Image (Dim_Count, 1) & "_id");
+  2709:                   X_Id  : constant W_Identifier_Id :=
+  2710:                     New_Identifier (Name => "x", Typ => R_Ty);
+  2711:                begin
+  2712:                   Emit
+  2713:                     (Th,
+  2714:                      Why.Gen.Binders.New_Function_Decl
+  2715:                        (Domain      => EW_Term,
+  2716:                         Name        => Id_Id,
+  2717:                         Binders     => (1 => (B_Name => X_Id, others => <>)),
+  2718:                         Labels      => Symbol_Sets.Empty_Set,
+  2719:                         Location    => No_Location,
+  2720:                         Def         => +X_Id,
+  2721:                         Return_Type => R_Ty));
+  2722:
+  2723:                   Subst (Cursor) :=
+  2724:                     New_Clone_Substitution
+  2725:                       (Kind      => EW_Function,
+  2726:                        Orig_Name =>
+  2727:                          New_Name
+  2728:                            (Symb =>
+  2729:                               NID (Append_Num ("rep_to_int", Dim_Count))),
+  2730:                        Image     => Get_Name (Id_Id));
+  2731:                end;
+  2732:             else
+  2733:                Subst (Cursor) :=
+  2734:                  New_Clone_Substitution
+  2735:                    (Kind      => EW_Function,
+  2736:                     Orig_Name =>
+  2737:                       New_Name
+  2738:                         (Symb => NID (Append_Num ("rep_to_int", Dim_Count))),
+  2739:                     Image     =>
+  2740:                       Get_Name
+  2741:                         (Conversion_Name (From => R_Ty, To => EW_Int_Type)));
+  2742:             end if;
+  2743:             Cursor := Cursor + 1;
+  2744:
+  2745:             --  Range on base type only used for empty array (e.g. 12..7)
+  2746:             Subst (Cursor) :=
+  2747:               New_Clone_Substitution
+  2748:                 (Kind      => EW_Predicate,
+  2749:                  Orig_Name =>
+  2750:                    To_Local
+  2751:                      (E_Symb (Und_Ent, WNE_Array_Base_Range_Pred (Dim_Count))),
+  2752:                  Image     => Get_Name (Range_Pred_Name (B_Ty)));
+  2753:             Cursor := Cursor + 1;
+  2754:
+  2755:             Subst (Cursor) :=
+  2756:               New_Clone_Substitution
+  2757:                 (Kind      => EW_Predicate,
+  2758:                  Orig_Name =>
+  2759:                    To_Local
+  2760:                      (E_Symb
+  2761:                         (Und_Ent, WNE_Index_Dynamic_Property (Dim_Count))),
+  2762:                  Image     => Get_Name (Dynamic_Prop_Name (Ind_Ty)));
+  2763:             Cursor := Cursor + 1;
+  2764:
+  2765:             Subst (Cursor) :=
+  2766:               New_Clone_Substitution
+  2767:                 (Kind      => EW_Predicate,
+  2768:                  Orig_Name =>
+  2769:                    New_Name
+  2770:                      (Symb => NID (Append_Num ("index_rep_le", Dim_Count))),
+  2771:                  Image     =>
+  2772:                    Get_Name
+  2773:                      (if Has_Modular_Integer_Type (Ind_Ty)
+  2774:                         and then
+  2775:                           not Has_No_Bitwise_Operations_Annotation (Ind_Ty)
+  2776:                       then MF_BVs (R_Ty).Ule
+  2777:                       else Int_Infix_Le));
+  2778:             Cursor := Cursor + 1;
+  2779:          end;
+  2780:          Dim_Count := Dim_Count + 1;
+  2781:          Next_Index (Index);
+  2782:       end loop;
+  2783:
+  2784:       Emit
+  2785:         (Th,
+  2786:          New_Clone_Declaration
+  2787:            (Theory_Kind   => EW_Module,
+  2788:             Clone_Kind    => EW_Export,
+  2789:             As_Name       => No_Symbol,
+  2790:             Origin        => Clone,
+  2791:             Substitutions => Base_Subst & Subst));
+  2792:       --  Declare the abstract type of the unconstrained array and mark
+  2793:       --  function "to_array" as projection (from this type to why3 map type)
+  2794:       Emit
+  2795:         (Th,
+  2796:          New_Type_Decl
+  2797:            (Why3_Type_Name,
+  2798:             Alias => New_Named_Type (To_String (WNE_Array_Type))));
+  2799:       Emit_Projection_Metas (Th, "to_array");
+  2800:       Emit_Projection_Metas (Th, "first");
+  2801:       Emit_Projection_Metas (Th, "last");
+  2802:       --  Dim_Count is actually nb of dimention + 1 here
+  2803:       for I in 2 .. Dim_Count - 1 loop
+  2804:          Emit_Projection_Metas (Th, "first_" & Image (I, 1));
+  2805:          Emit_Projection_Metas (Th, "last_" & Image (I, 1));
+  2806:       end loop;
+  2807:    end Declare_Unconstrained;
+  2808:
+  2809:    --------------------
+  2810:    -- Get_Array_Attr --
+```
+
 ## src/why/why-gen-binders.adb:192-211
 
 ```ada
@@ -10587,6 +12074,24 @@
    209:
    210:    -----------------------------
    211:    -- Get_Args_From_Variables --
+```
+
+## src/why/why-gen-binders.adb:268-280
+
+```ada
+   268:    function Get_Binders_From_Expression (Expr : Node_Id) return Item_Array is
+   269:       Variables : constant Flow_Id_Sets.Set :=
+   270:         Get_Variables_For_Proof (Expr, Expr);
+   271:
+   272:    begin
+   273:       pragma Assert (if Is_Static_Expression (Expr) then Variables.Is_Empty);
+   274:       return Get_Binders_From_Variables (Variables);
+   275:    end Get_Binders_From_Expression;
+   276:
+   277:    --------------------------------
+   278:    -- Get_Binders_From_Variables --
+   279:    --------------------------------
+   280:
 ```
 
 ## src/why/why-gen-binders.adb:448-481
@@ -10740,7 +12245,7 @@
    947:                Dim      => Dim,
 ```
 
-## src/why/why-gen-binders.adb:1082-1125
+## src/why/why-gen-binders.adb:1082-1150
 
 ```ada
   1082:                  and then Is_Standard_Boolean_Type (Ty)
@@ -10787,9 +12292,34 @@
   1123:    ---------------------------------
   1124:    -- New_Constant_Record_Binders --
   1125:    ---------------------------------
+  1126:
+  1127:    function New_Constant_Record_Binders
+  1128:      (Binders : Binder_Array) return W_Record_Binder_Array
+  1129:    is
+  1130:       Result : W_Record_Binder_Array (Binders'Range);
+  1131:
+  1132:    begin
+  1133:       for B in Binders'Range loop
+  1134:          Result (B) :=
+  1135:            New_Record_Binder
+  1136:              (Ada_Node   => Binders (B).Ada_Node,
+  1137:               Domain     => EW_Term,
+  1138:               Name       => Binders (B).B_Name,
+  1139:               Labels     => Binders (B).Labels,
+  1140:               Arg_Type   => Get_Type (+Binders (B).B_Name),
+  1141:               Is_Mutable => Binders (B).Mutable);
+  1142:       end loop;
+  1143:
+  1144:       return Result;
+  1145:    end New_Constant_Record_Binders;
+  1146:
+  1147:    ------------------------
+  1148:    -- New_Defining_Axiom --
+  1149:    ------------------------
+  1150:
 ```
 
-## src/why/why-gen-binders.adb:1222-1310
+## src/why/why-gen-binders.adb:1222-1338
 
 ```ada
   1222:    function New_Binders
@@ -10881,6 +12411,34 @@
   1308:    end New_Function_Decl;
   1309:
   1310:    function New_Function_Decl
+  1311:      (Ada_Node    : Node_Id := Empty;
+  1312:       Domain      : EW_Domain;
+  1313:       Name        : W_Identifier_Id;
+  1314:       Items       : Item_Array;
+  1315:       Return_Type : W_Type_Id := Why_Empty;
+  1316:       Location    : Source_Ptr;
+  1317:       Labels      : Symbol_Set;
+  1318:       Effects     : W_Effects_Id := New_Effects;
+  1319:       Def         : W_Expr_Id := Why_Empty;
+  1320:       Pre         : W_Pred_Id := True_Pred;
+  1321:       Post        : W_Pred_Id := True_Pred) return W_Declaration_Id
+  1322:    is
+  1323:       Loc_Items : Item_Array := Items;
+  1324:    begin
+  1325:       Localize_Binders (Loc_Items);
+  1326:
+  1327:       return
+  1328:         New_Function_Decl
+  1329:           (Ada_Node    => Ada_Node,
+  1330:            Domain      => Domain,
+  1331:            Name        => Name,
+  1332:            Labels      => Labels,
+  1333:            Location    => Location,
+  1334:            Binders     => To_Binder_Array (Loc_Items),
+  1335:            Return_Type => +Return_Type,
+  1336:            Def         => Def,
+  1337:            Effects     => Effects,
+  1338:            Pre         => Pre,
 ```
 
 ## src/why/why-gen-binders.adb:1346-1415
@@ -11051,9 +12609,191 @@
   1640:    end Unit_Param;
 ```
 
-## src/why/why-gen-decl.adb:272-295
+## src/why/why-gen-decl.adb:90-295
 
 ```ada
+    90:    ---------------------------
+    91:    -- Emit_Projection_Metas --
+    92:    ---------------------------
+    93:
+    94:    procedure Emit_Projection_Metas (Th : Theory_UC; Projection_Fun : String) is
+    95:    begin
+    96:       --  mark function as projection function
+    97:       Emit
+    98:         (Th,
+    99:          New_Meta_Declaration
+   100:            (Name      => NID (Model_Proj_Meta),
+   101:             Parameter => NID ("function " & Projection_Fun)));
+   102:
+   103:       --  disable inlining of projection functions
+   104:       Emit
+   105:         (Th,
+   106:          New_Meta_Declaration
+   107:            (Name      => NID ("inline:no"),
+   108:             Parameter => NID ("function " & Projection_Fun)));
+   109:    end Emit_Projection_Metas;
+   110:
+   111:    -----------------------------
+   112:    -- Emit_Record_Declaration --
+   113:    -----------------------------
+   114:
+   115:    procedure Emit_Record_Declaration
+   116:      (Th           : Theory_UC;
+   117:       Name         : W_Name_Id;
+   118:       Binders      : Why.Gen.Binders.Binder_Array;
+   119:       SPARK_Record : Boolean := False) is
+   120:    begin
+   121:       --  Emit declaration of the record
+   122:       Emit
+   123:         (Th, Decl => New_Record_Definition (Name => Name, Binders => Binders));
+   124:
+   125:       --  For each record field, emit projection from the record to the field
+   126:       for Binder in Binders'Range loop
+   127:          Emit_Record_Projection_Declaration
+   128:            (Th            => Th,
+   129:             Param_Ty_Name => Name,
+   130:             Field_Id      => Binders (Binder).B_Name,
+   131:             Labels        =>
+   132:               (if SPARK_Record
+   133:                then Binders (Binder).Labels
+   134:                else Symbol_Sets.Empty_Set));
+   135:       end loop;
+   136:    end Emit_Record_Declaration;
+   137:
+   138:    package Projection_Names is new
+   139:      Ada.Containers.Indefinite_Ordered_Maps
+   140:        (Key_Type     => String,
+   141:         Element_Type => Positive,
+   142:         "<"          => Standard."<",
+   143:         "="          => Standard."=");
+   144:
+   145:    Projection_Names_Decls : Projection_Names.Map;
+   146:    --  Map from the name of projection to the number of declarations of
+   147:    --  projections with this name.
+   148:    --  The name of the projection is composed from the name of the type that
+   149:    --  is projected and if the projection projects SPARK record type to a field
+   150:    --  of the record also from the spark field name. That is, the name of the
+   151:    --  projection is not unique.
+   152:    --  The name of the projection function must be unique and it is composed
+   153:    --  of the name of the projection and if there are more declarations
+   154:    --  of projections with the same name, the name of projection function is
+   155:    --  also composed of the number of declarations of  projections with this
+   156:    --  name.
+   157:
+   158:    ----------------------------------------
+   159:    -- Emit_Record_Projection_Declaration --
+   160:    ----------------------------------------
+   161:
+   162:    procedure Emit_Record_Projection_Declaration
+   163:      (Th            : Theory_UC;
+   164:       Param_Ty_Name : W_Name_Id;
+   165:       Field_Id      : W_Identifier_Id;
+   166:       Labels        : Symbol_Sets.Set)
+   167:    is
+   168:       use Projection_Names;
+   169:
+   170:       --  Projection function name
+   171:       Param_Ty_Name_Str : constant String := Img (Get_Symb (Param_Ty_Name));
+   172:
+   173:       Proj_Name : constant String :=
+   174:         Param_Ty_Name_Str & "_" & Img (Get_Symb (Get_Name (Field_Id)));
+   175:
+   176:       Proj_Name_Cursor : constant Cursor :=
+   177:         Projection_Names_Decls.Find (Proj_Name);
+   178:
+   179:       Proj_Name_Decls_Num : constant Positive :=
+   180:         (if Proj_Name_Cursor = No_Element
+   181:          then 1
+   182:          else Element (Proj_Name_Cursor));
+   183:
+   184:       Proj_Fun_Name : constant String :=
+   185:         Proj_Name
+   186:         & (if Proj_Name_Decls_Num = 1
+   187:            then ""
+   188:            else "__" & Image (Proj_Name_Decls_Num, 1))
+   189:         & "__projection";
+   190:
+   191:       --  Parameter type and identifier
+   192:       Param_Ty    : constant W_Type_Id :=
+   193:         New_Named_Type (Name => Param_Ty_Name);
+   194:       Param_Ident : constant W_Identifier_Id :=
+   195:         Why.Gen.Names.New_Identifier (Name => "a", Typ => Param_Ty);
+   196:
+   197:       --  The access to the field to that the record is projected
+   198:       Field_Access : constant W_Expr_Id :=
+   199:         Why.Atree.Builders.New_Record_Access
+   200:           (Name => +Param_Ident, Field => Field_Id);
+   201:
+   202:    begin
+   203:       --  Update number of declarations of projection with name Proj_Name
+   204:       if Proj_Name_Cursor = No_Element then
+   205:          Projection_Names_Decls.Insert (Proj_Name, 2);
+   206:       else
+   207:          Projection_Names_Decls (Proj_Name) := Proj_Name_Decls_Num + 1;
+   208:       end if;
+   209:
+   210:       Emit
+   211:         (Th,
+   212:          Why.Atree.Builders.New_Function_Decl
+   213:            (Domain      => EW_Term,
+   214:             Name        =>
+   215:               Why.Gen.Names.New_Identifier (Name => Proj_Fun_Name),
+   216:             Binders     =>
+   217:               (1 =>
+   218:                  New_Binder
+   219:                    (Domain   => EW_Prog,
+   220:                     Name     => Param_Ident,
+   221:                     Arg_Type => Param_Ty)),
+   222:             Return_Type => Get_Type (+Field_Id),
+   223:             Labels      => Labels,
+   224:             Location    => No_Location,
+   225:             Def         => Field_Access));
+   226:
+   227:       Emit_Projection_Metas (Th, Proj_Fun_Name);
+   228:    end Emit_Record_Projection_Declaration;
+   229:
+   230:    ------------------------------
+   231:    -- Emit_Ref_Type_Definition --
+   232:    ------------------------------
+   233:
+   234:    procedure Emit_Ref_Type_Definition (Th : Theory_UC; Name : W_Name_Id) is
+   235:       Field_Typ : constant W_Type_Id :=
+   236:         New_Type (Type_Kind => EW_Abstract, Name => Name);
+   237:    begin
+   238:       Emit_Record_Declaration
+   239:         (Th      => Th,
+   240:          Name    => Ref_Append (Name),
+   241:          Binders =>
+   242:            (1 =>
+   243:               (B_Name  => Content_Append (Name, Field_Typ),
+   244:                Mutable => True,
+   245:                others  => <>)));
+   246:    end Emit_Ref_Type_Definition;
+   247:
+   248:    ---------------------------
+   249:    -- New_Havoc_Declaration --
+   250:    ---------------------------
+   251:
+   252:    function New_Havoc_Declaration (Name : W_Name_Id) return W_Declaration_Id is
+   253:       Typ       : constant W_Type_Id :=
+   254:         New_Type (Type_Kind => EW_Abstract, Name => Ref_Append (Name));
+   255:       Havoc_Fun : constant W_Identifier_Id := Havoc_Append (Name);
+   256:       X         : constant W_Identifier_Id :=
+   257:         New_Identifier (Domain => EW_Prog, Name => "x", Typ => Typ);
+   258:    begin
+   259:       return
+   260:         Why.Atree.Builders.New_Function_Decl
+   261:           (Domain      => EW_Prog,
+   262:            Name        => Havoc_Fun,
+   263:            Binders     =>
+   264:              (1 => New_Binder (Domain => EW_Prog, Name => X, Arg_Type => Typ)),
+   265:            Effects     => New_Effects (Writes => (1 => X)),
+   266:            Return_Type => EW_Unit_Type,
+   267:            Labels      => Symbol_Sets.Empty_Set,
+   268:            Location    => No_Location);
+   269:    end New_Havoc_Declaration;
+   270:
+   271:    -------------------
    272:    -- New_Type_Decl --
    273:    -------------------
    274:
@@ -13730,6 +15470,124 @@
   5541:             when N_Op_Lt =>
 ```
 
+## src/why/why-gen-expr.adb:280-305
+
+```ada
+   280:    function Args_For_Scalar_Dynamic_Property
+   281:      (Ty     : Entity_Id;
+   282:       Expr   : W_Expr_Id;
+   283:       Domain : EW_Terms;
+   284:       Params : Transformation_Params := Body_Params) return W_Expr_Array is
+   285:    begin
+   286:       return
+   287:         (1 =>
+   288:            New_Attribute_Expr
+   289:              (Ty     => Ty,
+   290:               Domain => Domain,
+   291:               Attr   => Attribute_First,
+   292:               Params => Params),
+   293:          2 =>
+   294:            New_Attribute_Expr
+   295:              (Ty     => Ty,
+   296:               Domain => Domain,
+   297:               Attr   => Attribute_Last,
+   298:               Params => Params),
+   299:          3 =>
+   300:            Insert_Simple_Conversion
+   301:              (Ada_Node => Ty,
+   302:               Domain   => Domain,
+   303:               Expr     => Expr,
+   304:               To       => Base_Why_Type (Ty)));
+   305:    end Args_For_Scalar_Dynamic_Property;
+```
+
+## src/why/why-gen-expr.adb:4337-4418
+
+```ada
+  4337:    function New_Dynamic_Property
+  4338:      (Domain : EW_Domain;
+  4339:       Ty     : Entity_Id;
+  4340:       Expr   : W_Term_Id;
+  4341:       Params : Transformation_Params := Body_Params) return W_Expr_Id is
+  4342:    begin
+  4343:       --  For now, only supports dynamic scalar types, unconstrained array
+  4344:       --  types and record or private types with discriminants.
+  4345:
+  4346:       if Is_Scalar_Type (Ty)
+  4347:         and then
+  4348:           (Type_Is_Modeled_As_Base (Ty) or else Use_Split_Form_For_Type (Ty))
+  4349:       then
+  4350:
+  4351:          pragma Assert (not Depends_On_Discriminant (Get_Range (Ty)));
+  4352:
+  4353:          return
+  4354:            New_Call
+  4355:              (Domain => Domain,
+  4356:               Name   => Dynamic_Prop_Name (Ty),
+  4357:               Args   =>
+  4358:                 Args_For_Scalar_Dynamic_Property
+  4359:                   (Ty, +Expr, Term_Domain (Domain), Params),
+  4360:               Typ    => EW_Bool_Type);
+  4361:
+  4362:       elsif Is_Array_Type (Ty) and then not Is_Static_Array_Type (Ty) then
+  4363:          declare
+  4364:             Dim  : constant Positive := Positive (Number_Dimensions (Ty));
+  4365:             Args : W_Expr_Array (1 .. 2 * Dim);
+  4366:          begin
+  4367:             for Count in 0 .. Dim - 1 loop
+  4368:                declare
+  4369:                   F_Expr : constant W_Term_Id :=
+  4370:                     Get_Array_Attr
+  4371:                       (Expr => Expr,
+  4372:                        Attr => Attribute_First,
+  4373:                        Dim  => Count + 1);
+  4374:                   L_Expr : constant W_Term_Id :=
+  4375:                     Get_Array_Attr
+  4376:                       (Expr => Expr, Attr => Attribute_Last, Dim => Count + 1);
+  4377:                begin
+  4378:                   Args (2 * Count + 1) := +F_Expr;
+  4379:                   Args (2 * Count + 2) := +L_Expr;
+  4380:                end;
+  4381:             end loop;
+  4382:
+  4383:             return New_Dynamic_Property (Domain, Ty, Args, Params);
+  4384:          end;
+  4385:
+  4386:       elsif Has_Discriminants (Ty) and then Is_Constrained (Ty) then
+  4387:          declare
+  4388:             Base_Expr : constant W_Expr_Id :=
+  4389:               Insert_Simple_Conversion
+  4390:                 (Domain   => EW_Term,
+  4391:                  Ada_Node => Ty,
+  4392:                  To       => EW_Abstract (Root_Retysp (Ty)),
+  4393:                  Expr     => +Expr);
+  4394:          begin
+  4395:             return
+  4396:               New_Call
+  4397:                 (Name   => Range_Pred_Name (Root_Retysp (Ty)),
+  4398:                  Args   =>
+  4399:                    Prepare_Args_For_Subtype_Check
+  4400:                      (Ty, Base_Expr, Term_Domain (Domain), Params),
+  4401:                  Domain => Domain,
+  4402:                  Typ    => EW_Bool_Type);
+  4403:          end;
+  4404:
+  4405:       else
+  4406:          raise Program_Error;
+  4407:       end if;
+  4408:    end New_Dynamic_Property;
+  4409:
+  4410:    ----------------------
+  4411:    -- New_Discrete_Add --
+  4412:    ----------------------
+  4413:
+  4414:    function New_Discrete_Add
+  4415:      (Domain : EW_Domain;
+  4416:       Left   : W_Expr_Id;
+  4417:       Right  : W_Expr_Id;
+  4418:       Typ    : W_Type_Id := Why_Empty) return W_Expr_Id
+```
+
 ## src/why/why-gen-expr.ads:65-78
 
 ```ada
@@ -13834,9 +15692,36 @@
    554:    --------------------------
 ```
 
-## src/why/why-gen-names.adb:95-137
+## src/why/why-gen-names.adb:68-160
 
 ```ada
+    68:    function Append_Num (S : String; Count : Positive) return String is
+    69:    begin
+    70:       return (if Count = 1 then S else S & "_" & Image (Count, 1));
+    71:    end Append_Num;
+    72:
+    73:    function Append_Num
+    74:      (S         : String;
+    75:       Count     : Positive;
+    76:       Namespace : Symbol := No_Symbol;
+    77:       Module    : W_Module_Id := Why.Types.Why_Empty;
+    78:       Typ       : W_Type_Id := Why.Types.Why_Empty;
+    79:       Ada_Node  : Node_Id := Empty) return W_Identifier_Id is
+    80:    begin
+    81:       return
+    82:         New_Identifier
+    83:           (Domain    => EW_Term,
+    84:            Name      => Append_Num (S, Count),
+    85:            Module    => Module,
+    86:            Namespace => Namespace,
+    87:            Ada_Node  => Ada_Node,
+    88:            Typ       => Typ);
+    89:    end Append_Num;
+    90:
+    91:    -----------------
+    92:    -- Attr_Append --
+    93:    -----------------
+    94:
     95:    function Attr_Append
     96:      (Base     : String;
     97:       A        : Attribute_Id;
@@ -13880,9 +15765,32 @@
    135:    is (case A is
    136:          when Attribute_Constrained => WNE_Attr_Constrained,
    137:          when Attribute_First       => WNE_Attr_First,
+   138:          when Attribute_Last        => WNE_Attr_Last,
+   139:          when Attribute_Tag         => WNE_Attr_Tag,
+   140:          when others                => raise Program_Error);
+   141:
+   142:    --------------------
+   143:    -- Content_Append --
+   144:    --------------------
+   145:
+   146:    function Content_Append
+   147:      (Base : W_Name_Id; Typ : W_Type_Id) return W_Identifier_Id is
+   148:    begin
+   149:       return
+   150:         Append_Num
+   151:           (S        => Img (Get_Symb (Base)) & To_String (WNE_Content),
+   152:            Count    => 1,
+   153:            Typ      => Typ,
+   154:            Module   => Get_Module (Base),
+   155:            Ada_Node => Get_Ada_Node (+Base));
+   156:    end Content_Append;
+   157:
+   158:    ---------------------
+   159:    -- Conversion_Name --
+   160:    ---------------------
 ```
 
-## src/why/why-gen-names.adb:162-352
+## src/why/why-gen-names.adb:162-392
 
 ```ada
    162:    function Conversion_Name
@@ -14076,6 +15984,62 @@
    350:             end case;
    351:       end case;
    352:    end Conversion_Name;
+   353:
+   354:    ------------------
+   355:    -- Discr_Append --
+   356:    ------------------
+   357:
+   358:    function Discr_Append
+   359:      (Base : W_Identifier_Id; Typ : W_Type_Id) return W_Identifier_Id
+   360:    is
+   361:       Name : constant W_Name_Id := Get_Name (Base);
+   362:    begin
+   363:       return
+   364:         Append_Num
+   365:           (S        =>
+   366:              Img (Get_Symb (Name)) & To_String (WNE_Rec_Split_Discrs),
+   367:            Count    => 1,
+   368:            Typ      => Typ,
+   369:            Module   => Get_Module (Name),
+   370:            Ada_Node => Get_Ada_Node (+Name));
+   371:    end Discr_Append;
+   372:
+   373:    -----------------------
+   374:    -- Dynamic_Prop_Name --
+   375:    -----------------------
+   376:
+   377:    function Dynamic_Prop_Name (Ty : Entity_Id) return W_Identifier_Id is
+   378:    begin
+   379:       if Is_Standard_Boolean_Type (Ty) then
+   380:          return M_Boolean.Dynamic_Prop;
+   381:       else
+   382:          return E_Symb (Ty, WNE_Dynamic_Property);
+   383:       end if;
+   384:    end Dynamic_Prop_Name;
+   385:
+   386:    ------------------
+   387:    -- Field_Append --
+   388:    ------------------
+   389:
+   390:    function Field_Append
+   391:      (Base : W_Identifier_Id; Typ : W_Type_Id) return W_Identifier_Id
+   392:    is
+```
+
+## src/why/why-gen-names.adb:560-570
+
+```ada
+   560:    function Havoc_Append (Base : W_Name_Id) return W_Identifier_Id is
+   561:    begin
+   562:       return
+   563:         Append_Num
+   564:           (S        => Img (Get_Symb (Base)) & To_String (WNE_Havoc),
+   565:            Count    => 1,
+   566:            Typ      => Why_Empty,
+   567:            Module   => Get_Module (Base),
+   568:            Ada_Node => Get_Ada_Node (+Base));
+   569:    end Havoc_Append;
+   570:
 ```
 
 ## src/why/why-gen-names.adb:786-870
@@ -14168,7 +16132,23 @@
    870:    function New_Generated_Identifier
 ```
 
-## src/why/why-gen-names.adb:1136-1220
+## src/why/why-gen-names.adb:911-921
+
+```ada
+   911:    function Ref_Append (Base : W_Name_Id) return W_Name_Id is
+   912:    begin
+   913:       return
+   914:         New_Name
+   915:           (Ada_Node => Get_Ada_Node (+Base),
+   916:            Symb     => NID (Img (Get_Symb (Base)) & To_String (WNE_Ref)),
+   917:            Module   => Get_Module (Base));
+   918:    end Ref_Append;
+   919:
+   920:    --------------
+   921:    -- To_Exprs --
+```
+
+## src/why/why-gen-names.adb:1136-1246
 
 ```ada
   1136:    function To_Local (Name : W_Identifier_Id) return W_Name_Id is
@@ -14256,6 +16236,32 @@
   1218:    ---------------------
   1219:    -- Range_Pred_Name --
   1220:    ---------------------
+  1221:
+  1222:    function Range_Pred_Name (Ty : Entity_Id) return W_Identifier_Id is
+  1223:    begin
+  1224:       if Is_Standard_Boolean_Type (Ty) then
+  1225:          return M_Boolean.Range_Pred;
+  1226:       else
+  1227:          return E_Symb (Ty, WNE_Range_Pred);
+  1228:       end if;
+  1229:    end Range_Pred_Name;
+  1230:
+  1231:    ----------------------
+  1232:    -- To_Program_Space --
+  1233:    ----------------------
+  1234:
+  1235:    function To_Program_Space (Name : W_Identifier_Id) return W_Identifier_Id is
+  1236:       Suffix : constant String := "_";
+  1237:       N_Id   : constant Symbol := Get_Symb (Get_Name (Name));
+  1238:       Img    : String renames Get (N_Id).all;
+  1239:    begin
+  1240:       return
+  1241:         New_Identifier
+  1242:           (Get_Ada_Node (+Name),
+  1243:            EW_Prog,
+  1244:            Img & Suffix,
+  1245:            Module => Get_Module (Get_Name (Name)));
+  1246:    end To_Program_Space;
 ```
 
 ## src/why/why-gen-progs.adb:38-58
@@ -14477,6 +16483,923 @@
   5123:    end New_Tag_And_Ext_Update;
   5124:
   5125:    -------------------------------------
+```
+
+## src/why/why-gen-scalars.adb:410-927
+
+```ada
+   410:    procedure Declare_Scalar_Type (Th : Theory_UC; E : Entity_Id) is
+   411:       Why_Name         : constant W_Name_Id := To_Why_Type (E, Local => True);
+   412:       Is_Static        : constant Boolean := not Type_Is_Modeled_As_Base (E);
+   413:       Base_Type_In_Why : constant W_Type_Id := EW_Abstract (Base_Type (E));
+   414:
+   415:       function Pick_Clone return W_Module_Id;
+   416:       --  Choose the correct module to clone
+   417:
+   418:       function Compute_Clone_Subst return W_Clone_Substitution_Array;
+   419:       --  generate the substitutions to be passed to the clone
+   420:
+   421:       procedure Generate_Range_Predicate
+   422:         (Ty : W_Type_Id := Base_Why_Type (E); Name : Why_Name_Enum);
+   423:       --  generate the range predicate for the type. In simple cases, this
+   424:       --  predicate simply expresses "first < x < last"
+   425:
+   426:       -------------------------
+   427:       -- Compute_Clone_Subst --
+   428:       -------------------------
+   429:
+   430:       function Compute_Clone_Subst return W_Clone_Substitution_Array is
+   431:          Default_Clone_Subst         : constant W_Clone_Substitution_Id :=
+   432:            New_Clone_Substitution
+   433:              (Kind      => EW_Type_Subst,
+   434:               Orig_Name => New_Name (Symb => NID ("t")),
+   435:               Image     => Why_Name);
+   436:          Rep_Type_Clone_Substitution : constant W_Clone_Substitution_Array :=
+   437:            (if not Is_Static
+   438:               and then
+   439:                 (Has_Discrete_Type (E) or else Has_Floating_Point_Type (E))
+   440:             then
+   441:               (1 =>
+   442:                  New_Clone_Substitution
+   443:                    (Kind      => EW_Type_Subst,
+   444:                     Orig_Name => New_Name (Symb => NID ("rep_type")),
+   445:                     Image     => Get_Name (Base_Why_Type (E))))
+   446:             else (1 .. 0 => <>));
+   447:          Static_Clone_Subst          : constant W_Clone_Substitution_Array :=
+   448:            (if Is_Static
+   449:             then
+   450:               (1 =>
+   451:                  New_Clone_Substitution
+   452:                    (Kind      => EW_Function,
+   453:                     Orig_Name => To_Local (E_Symb (E, WNE_Attr_First)),
+   454:                     Image     => To_Local (E_Symb (E, WNE_Attr_First))),
+   455:                2 =>
+   456:                  New_Clone_Substitution
+   457:                    (Kind      => EW_Function,
+   458:                     Orig_Name => To_Local (E_Symb (E, WNE_Attr_Last)),
+   459:                     Image     => To_Local (E_Symb (E, WNE_Attr_Last))),
+   460:                3 =>
+   461:                  New_Clone_Substitution
+   462:                    (Kind      => EW_Predicate,
+   463:                     Orig_Name => To_Local (E_Symb (E, WNE_Range_Pred)),
+   464:                     Image     => To_Local (E_Symb (E, WNE_Range_Pred))))
+   465:             else (1 .. 0 => <>));
+   466:          Dynamic_Conv_Subst          : constant W_Clone_Substitution_Array :=
+   467:            (if not Is_Static
+   468:             then
+   469:               (1 =>
+   470:                  New_Clone_Substitution
+   471:                    (Kind      => EW_Function,
+   472:                     Orig_Name => New_Name (Symb => NID ("base_to_rep")),
+   473:                     Image     =>
+   474:                       Get_Name
+   475:                         (Conversion_Name
+   476:                            (From => Base_Type_In_Why,
+   477:                             To   => Base_Why_Type (E)))),
+   478:                2 =>
+   479:                  New_Clone_Substitution
+   480:                    (Kind      => EW_Function,
+   481:                     Orig_Name => New_Name (Symb => NID ("base_of_rep")),
+   482:                     Image     =>
+   483:                       Get_Name
+   484:                         (Conversion_Name
+   485:                            (From => Base_Why_Type (E),
+   486:                             To   => Base_Type_In_Why))),
+   487:                3 =>
+   488:                  New_Clone_Substitution
+   489:                    (Kind      => EW_Predicate,
+   490:                     Orig_Name => To_Local (E_Symb (E, WNE_Dynamic_Property)),
+   491:                     Image     => To_Local (E_Symb (E, WNE_Dynamic_Property))))
+   492:             else (1 .. 0 => <>));
+   493:          Mod_Clone_Subst             : constant W_Clone_Substitution_Array :=
+   494:            (if Is_Static
+   495:               and then Has_Modular_Integer_Type (E)
+   496:               and then not Has_No_Bitwise_Operations_Annotation (E)
+   497:               and then Modulus (E) /= UI_Expon (Uint_2, Modular_Size (E))
+   498:             then
+   499:               (1 =>
+   500:                  New_Clone_Substitution
+   501:                    (Kind      => EW_Function,
+   502:                     Orig_Name => To_Local (E_Symb (E, WNE_Attr_Modulus)),
+   503:                     Image     => To_Local (E_Symb (E, WNE_Attr_Modulus))))
+   504:             else (1 .. 0 => <>));
+   505:          Range_Int_Clone_Subst       : constant W_Clone_Substitution_Array :=
+   506:            (if Has_Modular_Integer_Type (E)
+   507:               and then not Has_No_Bitwise_Operations_Annotation (E)
+   508:             then
+   509:               (if Is_Static
+   510:                then
+   511:                  (1 =>
+   512:                     New_Clone_Substitution
+   513:                       (Kind      => EW_Predicate,
+   514:                        Orig_Name =>
+   515:                          To_Local (E_Symb (E, WNE_Range_Pred_BV_Int)),
+   516:                        Image     =>
+   517:                          To_Local (E_Symb (E, WNE_Range_Pred_BV_Int))))
+   518:                else
+   519:                  (1 =>
+   520:                     New_Clone_Substitution
+   521:                       (Kind      => EW_Predicate,
+   522:                        Orig_Name =>
+   523:                          To_Local (E_Symb (E, WNE_Dynamic_Property_BV_Int)),
+   524:                        Image     =>
+   525:                          To_Local (E_Symb (E, WNE_Dynamic_Property_BV_Int)))))
+   526:             else (1 .. 0 => <>));
+   527:
+   528:       begin
+   529:          return
+   530:            Default_Clone_Subst
+   531:            & Rep_Type_Clone_Substitution
+   532:            & Static_Clone_Subst
+   533:            & Dynamic_Conv_Subst
+   534:            & Mod_Clone_Subst
+   535:            & Range_Int_Clone_Subst;
+   536:       end Compute_Clone_Subst;
+   537:
+   538:       ------------------------------
+   539:       -- Generate_Range_Predicate --
+   540:       ------------------------------
+   541:
+   542:       procedure Generate_Range_Predicate
+   543:         (Ty : W_Type_Id := Base_Why_Type (E); Name : Why_Name_Enum)
+   544:       is
+   545:          Var : constant W_Identifier_Id :=
+   546:            New_Identifier (Name => "x", Typ => Ty);
+   547:          Def : W_Pred_Id := True_Pred;
+   548:
+   549:          --  the names of fst and last must be "first_int/last_int" in the case
+   550:          --  where we deal with a modular type and the base type is "int", and
+   551:          --  should be simply "first/last" in the case of a static type. In
+   552:          --  the dynamic case, we don't care about the name, because we bind
+   553:          --  it directly above, so we pick "first_int/last_int" too.
+   554:
+   555:          Fst : constant W_Identifier_Id :=
+   556:            (if not Is_Static
+   557:               or else
+   558:                 (Has_Modular_Integer_Type (E)
+   559:                  and then not Has_No_Bitwise_Operations_Annotation (E)
+   560:                  and then Ty = EW_Int_Type)
+   561:             then
+   562:               New_Identifier
+   563:                 (Symb => NID ("first_int"), Domain => EW_Term, Typ => Ty)
+   564:             else To_Local (E_Symb (E, WNE_Attr_First)));
+   565:          Lst : constant W_Identifier_Id :=
+   566:            (if not Is_Static
+   567:               or else
+   568:                 (Has_Modular_Integer_Type (E)
+   569:                  and then not Has_No_Bitwise_Operations_Annotation (E)
+   570:                  and then Ty = EW_Int_Type)
+   571:             then
+   572:               New_Identifier
+   573:                 (Symb => NID ("last_int"), Domain => EW_Term, Typ => Ty)
+   574:             else To_Local (E_Symb (E, WNE_Attr_Last)));
+   575:
+   576:       begin
+   577:          --  Optimisation:
+   578:          --  check if E is (equivalent to) Unsigned_8/16/..
+   579:          if Is_Static
+   580:            and then Has_Modular_Integer_Type (E)
+   581:            and then not Has_No_Bitwise_Operations_Annotation (E)
+   582:            and then
+   583:              (if Ty = EW_BitVector_8_Type
+   584:               then Modulus (E) = UI_Expon (Uint_2, Uint_8)
+   585:               elsif Ty = EW_BitVector_16_Type
+   586:               then Modulus (E) = UI_Expon (Uint_2, Uint_16)
+   587:               elsif Ty = EW_BitVector_32_Type
+   588:               then Modulus (E) = UI_Expon (Uint_2, Uint_32)
+   589:               elsif Ty = EW_BitVector_64_Type
+   590:               then Modulus (E) = UI_Expon (Uint_2, Uint_64)
+   591:               elsif Ty = EW_BitVector_128_Type
+   592:               then Modulus (E) = UI_Expon (Uint_2, Uint_128)
+   593:               else False)
+   594:            and then Nkind (Type_Low_Bound (E)) = N_Integer_Literal
+   595:            and then Intval (Type_Low_Bound (E)) = Uint_0
+   596:            and then Nkind (Type_High_Bound (E)) = N_Integer_Literal
+   597:            and then Intval (Type_High_Bound (E)) = UI_Sub (Modulus (E), Uint_1)
+   598:          then
+   599:
+   600:             --  In which case we know that all values are necessary in range,
+   601:             --  So we define the range predicate as always true.
+   602:             Emit
+   603:               (Th,
+   604:                Why.Gen.Binders.New_Function_Decl
+   605:                  (Domain   => EW_Pred,
+   606:                   Name     => To_Local (E_Symb (E, Name)),
+   607:                   Def      => +True_Pred,
+   608:                   Location => No_Location,
+   609:                   Labels   => Symbol_Sets.Empty_Set,
+   610:                   Binders  =>
+   611:                     (1 => Binder_Type'(B_Name => Var, others => <>))));
+   612:
+   613:             --  And we directly use the function uint_in_range from the
+   614:             --  underlying why3 theory for checking the range againts integers
+   615:             --  instead of generating it.
+   616:             Emit
+   617:               (Th,
+   618:                Why.Gen.Binders.New_Function_Decl
+   619:                  (Domain   => EW_Pred,
+   620:                   Name     => To_Local (E_Symb (E, WNE_Range_Pred_BV_Int)),
+   621:                   Def      =>
+   622:                     +New_Identifier
+   623:                        (Name   => "uint_in_range x",
+   624:                         Module => MF_BVs (Base_Why_Type (E)).Module),
+   625:                   Location => No_Location,
+   626:                   Labels   => Symbol_Sets.Empty_Set,
+   627:                   Binders  =>
+   628:                     (1 =>
+   629:                        Binder_Type'
+   630:                          (B_Name =>
+   631:                             New_Identifier (Name => "x", Typ => EW_Int_Type),
+   632:                           others => <>))));
+   633:
+   634:             return;
+   635:          elsif Has_Floating_Point_Type (E) then
+   636:             --  Optimisation for static floating point, check if we are dealing
+   637:             --  with a Float32, Float64 or Float80, in which case reduce the
+   638:             --  range predicate to "is_finite".
+   639:
+   640:             if Is_Static
+   641:               and then
+   642:                 (declare
+   643:                    Float_Typ : constant Entity_Id :=
+   644:                      (if Ty = EW_Float_32_Type
+   645:                       then Standard_Float
+   646:                       elsif Ty = EW_Float_64_Type
+   647:                       then Standard_Long_Float
+   648:                       elsif Ty = EW_Float_80_Type
+   649:                       then Standard_Long_Long_Float
+   650:                       else raise Program_Error);
+   651:                  begin
+   652:                    UR_Eq
+   653:                      (Expr_Value_R (Type_Low_Bound (E)),
+   654:                       Expr_Value_R (Type_Low_Bound (Float_Typ)))
+   655:                    and then
+   656:                      UR_Eq
+   657:                        (Expr_Value_R (Type_High_Bound (E)),
+   658:                         Expr_Value_R (Type_High_Bound (Float_Typ))))
+   659:             then
+   660:
+   661:                --  In which case we know that all values are necessary in range
+   662:                --  so we define the range predicate as "is_finite".
+   663:                Emit
+   664:                  (Th,
+   665:                   Why.Gen.Binders.New_Function_Decl
+   666:                     (Domain   => EW_Pred,
+   667:                      Name     => To_Local (E_Symb (E, Name)),
+   668:                      Def      =>
+   669:                        New_Call
+   670:                          (Domain => EW_Pred,
+   671:                           Name   => MF_Floats (Ty).Is_Finite,
+   672:                           Args   => (1 => +Var)),
+   673:                      Location => No_Location,
+   674:                      Labels   => Symbol_Sets.Empty_Set,
+   675:                      Binders  =>
+   676:                        (1 => Binder_Type'(B_Name => Var, others => <>))));
+   677:
+   678:                return;
+   679:
+   680:             --  In the other case, add "is_finite" to the predicate
+   681:
+   682:             else
+   683:                Def :=
+   684:                  +W_Connection_Id'
+   685:                    (New_Connection
+   686:                       (Op     => EW_And_Then,
+   687:                        Left   =>
+   688:                          New_Call
+   689:                            (Domain => EW_Pred,
+   690:                             Name   => MF_Floats (Ty).Is_Finite,
+   691:                             Args   => (1 => +Var)),
+   692:                        Right  =>
+   693:                          +New_Range_Expr
+   694:                             (Domain => EW_Pred,
+   695:                              Low    => +Fst,
+   696:                              High   => +Lst,
+   697:                              Expr   => +Var),
+   698:                        Domain => EW_Pred));
+   699:             end if;
+   700:          else
+   701:
+   702:             --  Else, express the range constraints
+   703:             Def :=
+   704:               +New_And_Expr
+   705:                  (Domain => EW_Pred,
+   706:                   Left   => +Def,
+   707:                   Right  =>
+   708:                     +New_Range_Expr
+   709:                        (Domain => EW_Pred,
+   710:                         Low    => +Fst,
+   711:                         High   => +Lst,
+   712:                         Expr   => +Var,
+   713:                         Pretty => True));
+   714:          end if;
+   715:
+   716:          --  Emit range predicate if the type is static, a dynamic_property
+   717:          --  otherwise.
+   718:
+   719:          declare
+   720:             Static_Binders : constant Binder_Array :=
+   721:               Binder_Array'(1 => Binder_Type'(B_Name => Var, others => <>));
+   722:             Binders        : constant Binder_Array :=
+   723:               (if Is_Static
+   724:                then Static_Binders
+   725:                else
+   726:                  Binder_Array'
+   727:                    (1 => Binder_Type'(B_Name => Fst, others => <>),
+   728:                     2 => Binder_Type'(B_Name => Lst, others => <>))
+   729:                  & Static_Binders);
+   730:          begin
+   731:             Emit
+   732:               (Th,
+   733:                Why.Gen.Binders.New_Function_Decl
+   734:                  (Domain   => EW_Pred,
+   735:                   Name     => To_Local (E_Symb (E, Name)),
+   736:                   Def      => +Def,
+   737:                   Location => No_Location,
+   738:                   Labels   => Symbol_Sets.To_Set (NID (GP_Inline_Marker)),
+   739:                   Binders  => Binders));
+   740:
+   741:             --  in case we're dealing with bitvectors, we also need to generate
+   742:             --  a range check from integers
+   743:             if Why_Type_Is_BitVector (Ty) then
+   744:                Generate_Range_Predicate
+   745:                  (EW_Int_Type,
+   746:                   (if Is_Static
+   747:                    then WNE_Range_Pred_BV_Int
+   748:                    else WNE_Dynamic_Property_BV_Int));
+   749:             end if;
+   750:          end;
+   751:       end Generate_Range_Predicate;
+   752:
+   753:       ----------------
+   754:       -- Pick_Clone --
+   755:       ----------------
+   756:
+   757:       function Pick_Clone return W_Module_Id is
+   758:          Typ : constant W_Type_Id := Base_Why_Type (E);
+   759:       begin
+   760:          if Is_Static then
+   761:             if Has_Modular_Integer_Type (E)
+   762:               and then not Has_No_Bitwise_Operations_Annotation (E)
+   763:             then
+   764:                declare
+   765:                   Modulus_Val : constant Uint := Modulus (E);
+   766:                begin
+   767:                   return
+   768:                     (if Typ = EW_BitVector_8_Type
+   769:                      then
+   770:                        (if UI_Lt (Modulus_Val, UI_Expon (2, 8))
+   771:                         then Static_Modular_lt8
+   772:                         else Static_Modular_8)
+   773:                      elsif Typ = EW_BitVector_16_Type
+   774:                      then
+   775:                        (if UI_Lt (Modulus_Val, UI_Expon (2, 16))
+   776:                         then Static_Modular_lt16
+   777:                         else Static_Modular_16)
+   778:                      elsif Typ = EW_BitVector_32_Type
+   779:                      then
+   780:                        (if UI_Lt (Modulus_Val, UI_Expon (2, 32))
+   781:                         then Static_Modular_lt32
+   782:                         else Static_Modular_32)
+   783:                      elsif Typ = EW_BitVector_64_Type
+   784:                      then
+   785:                        (if UI_Lt (Modulus_Val, UI_Expon (2, 64))
+   786:                         then Static_Modular_lt64
+   787:                         else Static_Modular_64)
+   788:                      elsif Typ = EW_BitVector_128_Type
+   789:                      then
+   790:                        (if UI_Lt (Modulus_Val, UI_Expon (2, 128))
+   791:                         then Static_Modular_lt128
+   792:                         else Static_Modular_128)
+   793:                      else raise Program_Error);
+   794:                end;
+   795:             elsif Has_Discrete_Type (E) then
+   796:                return Static_Discrete;
+   797:             elsif Has_Fixed_Point_Type (E) then
+   798:                return Static_Fixed_Point;
+   799:             else
+   800:                pragma Assert (Has_Floating_Point_Type (E));
+   801:                return
+   802:                  (if Typ = EW_Float_32_Type
+   803:                   then Static_Float32
+   804:                   elsif Typ = EW_Float_64_Type
+   805:                   then Static_Float64
+   806:                   elsif Typ = EW_Float_80_Type
+   807:                   then Static_Float80
+   808:                   else raise Program_Error);
+   809:             end if;
+   810:          else
+   811:             if Has_Modular_Integer_Type (E)
+   812:               and then not Has_No_Bitwise_Operations_Annotation (E)
+   813:             then
+   814:                return Dynamic_Modular;
+   815:             elsif Has_Discrete_Type (E) then
+   816:                return Dynamic_Discrete;
+   817:             elsif Has_Fixed_Point_Type (E) then
+   818:                return Dynamic_Fixed_Point;
+   819:             else
+   820:                pragma Assert (Has_Floating_Point_Type (E));
+   821:                return Dynamic_Float;
+   822:             end if;
+   823:          end if;
+   824:       end Pick_Clone;
+   825:
+   826:       --  Local variables
+   827:
+   828:       Rng : constant Node_Id := Get_Range (E);
+   829:
+   830:       --  Start of processing for Declare_Scalar_Type
+   831:
+   832:    begin
+   833:       --  Create a theory for the underlying fixed point type if needed
+   834:
+   835:       if Has_Fixed_Point_Type (E) then
+   836:          Create_Fixed_Point_Theory_If_Needed (E);
+   837:       end if;
+   838:
+   839:       --  Declare the logic type:
+   840:       --  If the type is dynamic, declare an alias of its base type.
+   841:
+   842:       if not Is_Static then
+   843:          Emit
+   844:            (Th, New_Type_Decl (Name => Why_Name, Alias => Base_Type_In_Why));
+   845:
+   846:       --  For static signed integer types, declare a range type
+   847:
+   848:       elsif Is_Range_Type_In_Why (E) then
+   849:          Emit
+   850:            (Th,
+   851:             New_Type_Decl
+   852:               (Name       => Why_Name,
+   853:                Labels     => Symbol_Sets.Empty_Set,
+   854:                Definition =>
+   855:                  New_Range_Type_Definition
+   856:                    (First => Expr_Value (Low_Bound (Rng)),
+   857:                     Last  => Expr_Value (High_Bound (Rng)))));
+   858:
+   859:       --  For other static types, declare an abstract type
+   860:
+   861:       else
+   862:          Emit
+   863:            (Th,
+   864:             New_Type_Decl (Name => Why_Name, Labels => Symbol_Sets.Empty_Set));
+   865:       end if;
+   866:
+   867:       --  retrieve and declare the attributes first, last, small, and modulus
+   868:
+   869:       Define_Scalar_Attributes
+   870:         (Th => Th, E => E, Base_Type => Base_Why_Type (E));
+   871:
+   872:       --  define first_int and last_int for static modular types
+   873:
+   874:       if Is_Static
+   875:         and then Is_Modular_Integer_Type (E)
+   876:         and then not Has_No_Bitwise_Operations_Annotation (E)
+   877:       then
+   878:          Emit
+   879:            (Th,
+   880:             Why.Atree.Builders.New_Function_Decl
+   881:               (Domain      => EW_Term,
+   882:                Name        =>
+   883:                  New_Identifier (Name => "first_int", Typ => EW_Int_Type),
+   884:                Binders     => (1 .. 0 => <>),
+   885:                Return_Type => EW_Int_Type,
+   886:                Labels      => Symbol_Sets.Empty_Set,
+   887:                Location    => No_Location,
+   888:                Def         =>
+   889:                  New_Integer_Constant
+   890:                    (Value => Expr_Value (Low_Bound (Rng)))));
+   891:          Emit
+   892:            (Th,
+   893:             Why.Atree.Builders.New_Function_Decl
+   894:               (Domain      => EW_Term,
+   895:                Name        =>
+   896:                  New_Identifier (Name => "last_int", Typ => EW_Int_Type),
+   897:                Binders     => (1 .. 0 => <>),
+   898:                Return_Type => EW_Int_Type,
+   899:                Labels      => Symbol_Sets.Empty_Set,
+   900:                Location    => No_Location,
+   901:                Def         =>
+   902:                  New_Integer_Constant
+   903:                    (Value => Expr_Value (High_Bound (Rng)))));
+   904:       end if;
+   905:
+   906:       Generate_Range_Predicate
+   907:         (Name => (if Is_Static then WNE_Range_Pred else WNE_Dynamic_Property));
+   908:
+   909:       --  clone the appropriate module
+   910:
+   911:       Emit
+   912:         (Th,
+   913:          New_Clone_Declaration
+   914:            (Theory_Kind   => EW_Module,
+   915:             Clone_Kind    => EW_Export,
+   916:             As_Name       => No_Symbol,
+   917:             Origin        => Pick_Clone,
+   918:             Substitutions => Compute_Clone_Subst));
+   919:    end Declare_Scalar_Type;
+   920:
+   921:    ----------------------------------------
+   922:    -- Define_Enumeration_Rep_Convertions --
+   923:    ----------------------------------------
+   924:
+   925:    procedure Define_Enumeration_Rep_Convertions (Th : Theory_UC; E : Entity_Id)
+   926:    is
+   927:       --  For a type:
+```
+
+## src/why/why-gen-scalars.adb:1117-1470
+
+```ada
+  1117:    procedure Define_Scalar_Attributes
+  1118:      (Th : Theory_UC; E : Entity_Id; Base_Type : W_Type_Id)
+  1119:    is
+  1120:       Rng  : constant Node_Id := Get_Range (E);
+  1121:       Low  : constant Node_Id := Low_Bound (Rng);
+  1122:       High : constant Node_Id := High_Bound (Rng);
+  1123:
+  1124:       First : constant W_Term_OId :=
+  1125:         (if Compile_Time_Known_Value (Low)
+  1126:          then +Num_Constant (E, Low)
+  1127:          else Why_Empty);
+  1128:
+  1129:       Last : constant W_Term_OId :=
+  1130:         (if Compile_Time_Known_Value (High)
+  1131:          then +Num_Constant (E, High)
+  1132:          else Why_Empty);
+  1133:
+  1134:    begin
+  1135:       --  Compute and declare the modulus attribute of modular integer types
+  1136:
+  1137:       if Has_Modular_Integer_Type (E) then
+  1138:          declare
+  1139:             Modulus_Val : constant Uint := Modulus (E);
+  1140:             Typ         : constant W_Type_Id := Base_Why_Type (E);
+  1141:             Modul       : W_Term_OId;
+  1142:          begin
+  1143:             Modul :=
+  1144:               (if Typ = EW_BitVector_8_Type
+  1145:                then
+  1146:                  (if UI_Lt (Modulus_Val, UI_Expon (2, 8))
+  1147:                   then
+  1148:                     New_Modular_Constant
+  1149:                       (Value => Modulus_Val, Typ => EW_BitVector_8_Type)
+  1150:                   else Why_Empty)
+  1151:                elsif Typ = EW_BitVector_16_Type
+  1152:                then
+  1153:                  (if UI_Lt (Modulus_Val, UI_Expon (2, 16))
+  1154:                   then
+  1155:                     New_Modular_Constant
+  1156:                       (Value => Modulus_Val, Typ => EW_BitVector_16_Type)
+  1157:                   else Why_Empty)
+  1158:                elsif Typ = EW_BitVector_32_Type
+  1159:                then
+  1160:                  (if UI_Lt (Modulus_Val, UI_Expon (2, 32))
+  1161:                   then
+  1162:                     New_Modular_Constant
+  1163:                       (Value => Modulus_Val, Typ => EW_BitVector_32_Type)
+  1164:                   else Why_Empty)
+  1165:                elsif Typ = EW_BitVector_64_Type
+  1166:                then
+  1167:                  (if UI_Lt (Modulus_Val, UI_Expon (2, 64))
+  1168:                   then
+  1169:                     New_Modular_Constant
+  1170:                       (Value => Modulus_Val, Typ => EW_BitVector_64_Type)
+  1171:                   else Why_Empty)
+  1172:                elsif Typ = EW_BitVector_128_Type
+  1173:                then
+  1174:                  (if UI_Lt (Modulus_Val, UI_Expon (2, 128))
+  1175:                   then
+  1176:                     New_Modular_Constant
+  1177:                       (Value => Modulus_Val, Typ => EW_BitVector_128_Type)
+  1178:                   else Why_Empty)
+  1179:                elsif Typ = EW_Int_Type
+  1180:                then New_Integer_Constant (Value => Modulus_Val)
+  1181:                else raise Program_Error);
+  1182:
+  1183:             Emit
+  1184:               (Th,
+  1185:                Why.Atree.Builders.New_Function_Decl
+  1186:                  (Domain      => EW_Pterm,
+  1187:                   Name        => To_Local (E_Symb (E, WNE_Attr_Modulus)),
+  1188:                   Binders     => (1 .. 0 => <>),
+  1189:                   Return_Type => Base_Type,
+  1190:                   Labels      => Symbol_Sets.Empty_Set,
+  1191:                   Location    => No_Location,
+  1192:                   Def         => +Modul));
+  1193:          end;
+  1194:
+  1195:       --  Compute and declare the small attribute of fixed point types
+  1196:
+  1197:       elsif Has_Fixed_Point_Type (E) then
+  1198:          declare
+  1199:             Small     : constant Ureal := Small_Value (E);
+  1200:             Num_Small : constant W_Term_OId :=
+  1201:               New_Integer_Constant (Value => Norm_Num (Small));
+  1202:             Den_Small : constant W_Term_OId :=
+  1203:               New_Integer_Constant (Value => Norm_Den (Small));
+  1204:          begin
+  1205:             Emit
+  1206:               (Th,
+  1207:                Why.Atree.Builders.New_Function_Decl
+  1208:                  (Domain      => EW_Pterm,
+  1209:                   Name        => To_Local (E_Symb (E, WNE_Small_Num)),
+  1210:                   Binders     => (1 .. 0 => <>),
+  1211:                   Return_Type => Base_Type,
+  1212:                   Labels      => Symbol_Sets.Empty_Set,
+  1213:                   Location    => No_Location,
+  1214:                   Def         => +Num_Small));
+  1215:             Emit
+  1216:               (Th,
+  1217:                Why.Atree.Builders.New_Function_Decl
+  1218:                  (Domain      => EW_Pterm,
+  1219:                   Name        => To_Local (E_Symb (E, WNE_Small_Den)),
+  1220:                   Binders     => (1 .. 0 => <>),
+  1221:                   Return_Type => Base_Type,
+  1222:                   Labels      => Symbol_Sets.Empty_Set,
+  1223:                   Location    => No_Location,
+  1224:                   Def         => +Den_Small));
+  1225:          end;
+  1226:
+  1227:       --  For enumeration types with an enumeration representation clause, we
+  1228:       --  need conversion functions to translate the Enum_Rep and Enum_Val
+  1229:       --  attributes.
+  1230:
+  1231:       elsif Is_Enumeration_Type (Retysp (E))
+  1232:         and then Has_Enumeration_Rep_Clause (Retysp (E))
+  1233:       then
+  1234:          Define_Enumeration_Rep_Convertions (Th, E);
+  1235:       end if;
+  1236:
+  1237:       --  Compute and declare the first and last attributes of E
+  1238:       --  If they are static, those are constants.
+  1239:       --  Otherwise, we declare logic functions for them, with arguments for
+  1240:       --  the variables they may read. These functions will be defined later
+  1241:       --  in the axiom module of E.
+  1242:       --  First and Last attributes of Itypes are never used, do not declare
+  1243:       --  them.
+  1244:
+  1245:       if not (Type_Is_Modeled_As_Base (E) and then Is_Itype (E)) then
+  1246:          declare
+  1247:             Binders : Item_Array :=
+  1248:               Get_Binders_From_Expression (Low_Bound (Rng));
+  1249:          begin
+  1250:             Localize_Binders (Binders, Only_Variables => False);
+  1251:             Emit
+  1252:               (Th,
+  1253:                New_Function_Decl
+  1254:                  (Domain      => EW_Pterm,
+  1255:                   Name        => To_Local (E_Symb (E, WNE_Attr_First)),
+  1256:                   Items       => Binders,
+  1257:                   Return_Type => Base_Type,
+  1258:                   Location    => No_Location,
+  1259:                   Labels      => Symbol_Sets.Empty_Set,
+  1260:                   Def         => +First));
+  1261:          end;
+  1262:          declare
+  1263:             Binders : Item_Array :=
+  1264:               Get_Binders_From_Expression (High_Bound (Rng));
+  1265:          begin
+  1266:             Localize_Binders (Binders, Only_Variables => False);
+  1267:             Emit
+  1268:               (Th,
+  1269:                New_Function_Decl
+  1270:                  (Domain      => EW_Pterm,
+  1271:                   Name        => To_Local (E_Symb (E, WNE_Attr_Last)),
+  1272:                   Items       => Binders,
+  1273:                   Return_Type => Base_Type,
+  1274:                   Location    => No_Location,
+  1275:                   Labels      => Symbol_Sets.Empty_Set,
+  1276:                   Def         => +Last));
+  1277:          end;
+  1278:       end if;
+  1279:    end Define_Scalar_Attributes;
+  1280:
+  1281:    ----------------------------
+  1282:    -- Define_Scalar_Rep_Proj --
+  1283:    ----------------------------
+  1284:
+  1285:    procedure Define_Scalar_Rep_Proj (Th : Theory_UC; E : Entity_Id) is
+  1286:       Rep_Type : constant W_Type_Id := Base_Why_Type (E);
+  1287:
+  1288:       function Pick_Clone return W_Module_Id;
+  1289:       --  Pick the correct theory to clone depending on the scalar type.
+  1290:
+  1291:       function Pick_Clone return W_Module_Id is
+  1292:       begin
+  1293:          if Rep_Type = EW_Float_32_Type then
+  1294:             return Rep_Proj_Float32;
+  1295:          elsif Rep_Type = EW_Float_64_Type then
+  1296:             return Rep_Proj_Float64;
+  1297:          elsif Rep_Type = EW_Float_80_Type then
+  1298:             return Rep_Proj_Float80;
+  1299:          elsif Rep_Type = EW_Int_Type then
+  1300:             return Rep_Proj_Int;
+  1301:          elsif Why_Type_Is_Fixed (Rep_Type) then
+  1302:             return Rep_Proj_Fixed;
+  1303:          elsif Why_Type_Is_BitVector (Rep_Type) then
+  1304:             declare
+  1305:                Modulus_Val : constant Uint := Modulus (E);
+  1306:             begin
+  1307:                return
+  1308:                  (if Rep_Type = EW_BitVector_8_Type
+  1309:                   then
+  1310:                     (if UI_Lt (Modulus_Val, UI_Expon (2, 8))
+  1311:                      then Rep_Proj_Lt8
+  1312:                      else Rep_Proj_8)
+  1313:                   elsif Rep_Type = EW_BitVector_16_Type
+  1314:                   then
+  1315:                     (if UI_Lt (Modulus_Val, UI_Expon (2, 16))
+  1316:                      then Rep_Proj_Lt16
+  1317:                      else Rep_Proj_16)
+  1318:                   elsif Rep_Type = EW_BitVector_32_Type
+  1319:                   then
+  1320:                     (if UI_Lt (Modulus_Val, UI_Expon (2, 32))
+  1321:                      then Rep_Proj_Lt32
+  1322:                      else Rep_Proj_32)
+  1323:                   elsif Rep_Type = EW_BitVector_64_Type
+  1324:                   then
+  1325:                     (if UI_Lt (Modulus_Val, UI_Expon (2, 64))
+  1326:                      then Rep_Proj_Lt64
+  1327:                      else Rep_Proj_64)
+  1328:                   elsif Rep_Type = EW_BitVector_128_Type
+  1329:                   then
+  1330:                     (if UI_Lt (Modulus_Val, UI_Expon (2, 128))
+  1331:                      then Rep_Proj_Lt128
+  1332:                      else Rep_Proj_128)
+  1333:                   else raise Program_Error);
+  1334:             end;
+  1335:          else
+  1336:             raise Program_Error;
+  1337:          end if;
+  1338:       end Pick_Clone;
+  1339:
+  1340:       Default_Clone_Subst : constant W_Clone_Substitution_Array :=
+  1341:         (1 =>
+  1342:            New_Clone_Substitution
+  1343:              (Kind      => EW_Type_Subst,
+  1344:               Orig_Name => New_Name (Symb => NID ("t")),
+  1345:               Image     => To_Why_Type (E)));
+  1346:
+  1347:       In_Range_Substs : constant W_Clone_Substitution_Array :=
+  1348:         (if Is_Modular_Integer_Type (E)
+  1349:            and then not Has_No_Bitwise_Operations_Annotation (E)
+  1350:          then
+  1351:            (1 =>
+  1352:               New_Clone_Substitution
+  1353:                 (Kind      => EW_Predicate,
+  1354:                  Orig_Name => New_Name (Symb => NID ("in_range")),
+  1355:                  Image     => Get_Name (E_Symb (E, WNE_Range_Pred))),
+  1356:             2 =>
+  1357:               New_Clone_Substitution
+  1358:                 (Kind      => EW_Predicate,
+  1359:                  Orig_Name => New_Name (Symb => NID ("in_range_int")),
+  1360:                  Image     => Get_Name (E_Symb (E, WNE_Range_Pred_BV_Int))))
+  1361:          else
+  1362:            (1 =>
+  1363:               New_Clone_Substitution
+  1364:                 (Kind      => EW_Predicate,
+  1365:                  Orig_Name => New_Name (Symb => NID ("in_range")),
+  1366:                  Image     => Get_Name (E_Symb (E, WNE_Range_Pred)))));
+  1367:
+  1368:       Mod_Clone_Subst : constant W_Clone_Substitution_Array :=
+  1369:         (if Has_Modular_Integer_Type (E)
+  1370:            and then not Has_No_Bitwise_Operations_Annotation (E)
+  1371:            and then Modulus (E) /= UI_Expon (2, Modular_Size (E))
+  1372:          then
+  1373:            (1 =>
+  1374:               New_Clone_Substitution
+  1375:                 (Kind      => EW_Function,
+  1376:                  Orig_Name => To_Local (E_Symb (E, WNE_Attr_Modulus)),
+  1377:                  Image     => Get_Name (E_Symb (E, WNE_Attr_Modulus))))
+  1378:          else (1 .. 0 => <>));
+  1379:
+  1380:       Range_Type_Subst : constant W_Clone_Substitution_Array :=
+  1381:         (if Is_Range_Type_In_Why (E)
+  1382:          then
+  1383:            (1 =>
+  1384:               New_Clone_Substitution
+  1385:                 (Kind      => EW_Function,
+  1386:                  Orig_Name => New_Name (Symb => NID ("to_rep")),
+  1387:                  Image     => To_Local (E_Symb (E, WNE_To_Rep))))
+  1388:          else (1 .. 0 => <>));
+  1389:
+  1390:       Substs : constant W_Clone_Substitution_Array :=
+  1391:         Default_Clone_Subst
+  1392:         & In_Range_Substs
+  1393:         & Mod_Clone_Subst
+  1394:         & Range_Type_Subst;
+  1395:
+  1396:       Clone : constant W_Module_Id := Pick_Clone;
+  1397:
+  1398:    begin
+  1399:       Add_With_Clause (Th, E_Module (E), EW_Clone_Default);
+  1400:
+  1401:       if Is_Modular_Integer_Type (E)
+  1402:         and then not Has_No_Bitwise_Operations_Annotation (E)
+  1403:       then
+  1404:          Add_With_Clause (Th, MF_BVs (Rep_Type).Module, EW_Clone_Default);
+  1405:
+  1406:       elsif Is_Floating_Point_Type (E) then
+  1407:          Add_With_Clause (Th, MF_Floats (Rep_Type).Module, EW_Clone_Default);
+  1408:       end if;
+  1409:
+  1410:       if Is_Range_Type_In_Why (E) then
+  1411:
+  1412:          --  For range types, declare a renaming of t'int which will be used
+  1413:          --  to clone the representative theory.
+  1414:
+  1415:          declare
+  1416:             Var     : constant W_Identifier_Id :=
+  1417:               New_Identifier (Name => "x", Typ => EW_Abstract (E));
+  1418:             Binders : constant Binder_Array :=
+  1419:               Binder_Array'(1 => Binder_Type'(B_Name => Var, others => <>));
+  1420:          begin
+  1421:
+  1422:             Emit
+  1423:               (Th,
+  1424:                New_Function_Decl
+  1425:                  (Domain      => EW_Term,
+  1426:                   Name        => To_Local (E_Symb (E, WNE_To_Rep)),
+  1427:                   Binders     => Binders,
+  1428:                   Return_Type => EW_Int_Type,
+  1429:                   Def         =>
+  1430:                     New_Call
+  1431:                       (Domain => EW_Term,
+  1432:                        Name   => E_Symb (E, WNE_Int_Proj),
+  1433:                        Args   => (1 => +Var),
+  1434:                        Typ    => EW_Int_Type),
+  1435:                   Location    => No_Location,
+  1436:                   Labels      => Symbol_Sets.Empty_Set));
+  1437:          end;
+  1438:       end if;
+  1439:
+  1440:       Emit
+  1441:         (Th,
+  1442:          New_Clone_Declaration
+  1443:            (Theory_Kind   => EW_Module,
+  1444:             Clone_Kind    => EW_Export,
+  1445:             As_Name       => No_Symbol,
+  1446:             Origin        => Clone,
+  1447:             Substitutions => Substs));
+  1448:
+  1449:       --  Declare metas for functions projecting values of why abstract types
+  1450:       --  to concrete values
+  1451:       --    - the defined type is why abstract type. To see the concrete value
+  1452:       --      in a counterexample, it is needed to project the value of this
+  1453:       --      type using projection function
+  1454:       --    - the function F is projection function for abstract type T if it
+  1455:       --      is marked with the meta "model_projection" and has a single
+  1456:       --      argument of type T.
+  1457:       --    - the projection functions are cloned from projection functions
+  1458:       --      defined in ada__model.mlw
+  1459:       --    - Since for why3, the cloned function and the original function are
+  1460:       --      two different functions, it is necessary to emit projection meta
+  1461:       --      for cloned projection functions.
+  1462:
+  1463:       --  Note that if E is dynamic type, to_rep is not projection function
+  1464:       Emit_Projection_Metas (Th, "to_rep");
+  1465:
+  1466:    end Define_Scalar_Rep_Proj;
+  1467:
+  1468:    -------------------------------------
+  1469:    -- Get_Fixed_Point_Mult_Div_Theory --
+  1470:    -------------------------------------
+```
+
+## src/why/why-gen-scalars.adb:1546-1575
+
+```ada
+  1546:    function Num_Constant (Ty : Entity_Id; N : Node_Id) return W_Term_Id is
+  1547:    begin
+  1548:       if Is_Modular_Integer_Type (Ty)
+  1549:         and then not Has_No_Bitwise_Operations_Annotation (Ty)
+  1550:       then
+  1551:          return
+  1552:            New_Modular_Constant
+  1553:              (Value => Expr_Value (N), Typ => Base_Why_Type (Ty));
+  1554:       elsif Is_Discrete_Type (Ty) then
+  1555:          return New_Integer_Constant (Value => Expr_Value (N));
+  1556:       elsif Is_Fixed_Point_Type (Ty) then
+  1557:          return
+  1558:            New_Fixed_Constant
+  1559:              (Value => Expr_Value (N), Typ => Base_Why_Type (Ty));
+  1560:       elsif Is_Floating_Point_Type (Ty) then
+  1561:
+  1562:          --  Real ranges can use fixed point values, but they have to be static
+  1563:          --  and the compiler inlines them; see acats c35704a.
+  1564:
+  1565:          pragma Assert (not Is_Fixed_Point_Type (Etype (N)));
+  1566:
+  1567:          return
+  1568:            New_Float_Constant
+  1569:              (Value => Expr_Value_R (N), Typ => Base_Why_Type (Ty));
+  1570:       else
+  1571:          return New_Real_Constant (Value => Expr_Value_R (N));
+  1572:       end if;
+  1573:    end Num_Constant;
+  1574:
+  1575: end Why.Gen.Scalars;
 ```
 
 ## src/why/why-inter.adb:354-379

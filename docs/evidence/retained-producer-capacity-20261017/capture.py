@@ -24,25 +24,32 @@ RANGES = {
     "src/why/why-inter.adb": [[354, 379], [387, 437], [550, 746], [756, 799], [836, 872], [943, 1017], [1149, 1242], [1260, 1285], [1547, 1632]],
     "src/why/why-atree-modules.adb": [[297, 324], [465, 504], [703, 781], [870, 893], [918, 1047], [1132, 1150], [2699, 2747], [2765, 2775], [3297, 3323], [3693, 3722], [3962, 4006]],
     "src/why/why-atree-modules.ads": [[819, 857]],
-    "src/why/why-gen-names.adb": [[95, 137], [162, 352], [786, 870], [1136, 1220]],
+    "src/why/why-gen-names.adb": [[68, 160], [162, 392], [560, 570], [786, 870], [911, 921], [1136, 1246]],
     "src/why/why-gen-expr.adb": [[147, 157], [311, 381], [982, 1512], [1518, 1648], [1956, 1996], [2349, 2391], [2399, 2910], [2916, 3050], [3219, 3277], [3405, 3997], [4289, 4385], [4488, 4535], [4816, 4837], [4883, 4956], [4962, 5010], [5282, 5323], [5436, 5541]],
     "src/why/why-gen-expr.ads": [[65, 78], [96, 105], [305, 311]],
-    "src/why/why-gen-binders.adb": [[192, 211], [448, 481], [745, 786], [888, 947], [1082, 1125], [1222, 1310], [1346, 1415], [1457, 1524], [1626, 1640]],
+    "src/why/why-gen-binders.adb": [[192, 211], [268, 280], [448, 481], [745, 786], [888, 947], [1082, 1150], [1222, 1338], [1346, 1415], [1457, 1524], [1626, 1640]],
     "src/why/why-gen-arrays.adb": [[223, 448], [473, 580], [614, 630], [981, 1068], [1075, 1161], [1529, 1623], [1772, 2222], [2813, 2892], [2990, 3036], [3042, 3104], [3261, 3281], [3305, 3363], [3396, 3599], [3835, 3969]],
     "src/why/gnat2why-expr.adb": [[1384, 1460], [1621, 1831], [2329, 2360], [2669, 2805], [6396, 6824], [7080, 7230], [7503, 7600], [8782, 8999], [11736, 11778], [11961, 12034], [2864, 2894], [12039, 12056], [12286, 12368], [12402, 12440], [14857, 14920], [18547, 18735], [19042, 19146], [19238, 19345], [19903, 20101], [20256, 20300], [21817, 21972], [21976, 22351], [22591, 22638], [23187, 23215], [23600, 23647], [23688, 23712], [24012, 24205], [24547, 24570], [24630, 24731], [25500, 25573], [25635, 25724], [26847, 27088], [29520, 29561], [29733, 29862], [30221, 30666], [30936, 31120], [31162, 31211]],
     "src/why/gnat2why-expr-loops.adb": [[500, 575], [787, 816], [1292, 1343], [1398, 1415], [1458, 1505], [1800, 1825], [1882, 1978], [2080, 2115], [2194, 2334]],
     "src/why/gnat2why-expr-loops-inv.adb": [[175, 198], [775, 815], [1079, 1398], [1704, 1745], [1940, 1976], [2291, 2350], [2398, 2408]],
     "src/why/why-gen-progs.adb": [[38, 58], [168, 180], [199, 215], [243, 257], [275, 280], [329, 364]],
     "src/why/why-gen-records.adb": [[5048, 5125]],
-    "src/why/why-gen-decl.adb": [[272, 295]],
+    "src/why/why-gen-decl.adb": [[90, 295]],
+    "src/why/why-gen-scalars.adb": [[410, 927], [1117, 1470], [1546, 1575]],
     "src/why/why-gen-init.adb": [[502, 554]],
     "src/why/gnat2why-decls.adb": [[66, 382], [451, 490], [496, 812]],
-    "src/why/gnat2why-types.adb": [[895, 1101], [1108, 1155], [1623, 1739]],
+    "src/why/gnat2why-types.adb": [[201, 575], [895, 1101], [1108, 1155], [1416, 1423], [1538, 1739]],
     "src/why/gnat2why-subprograms.adb": [[4455, 4483], [5840, 5872], [6220, 6260]],
     "src/spark/spark_definition.ads": [[215, 232]],
     "src/spark/spark_definition.adb": [[248, 263], [11836, 11895], [12186, 12248], [14999, 15035]],
     "src/spark/spark_util-types.adb": [[1521, 1620], [3050, 3064]],
+    "src/spark/spark_util-types.ads": [[128, 146]],
 }
+
+# Additional helper paths for ordinary Main type translation/completion.
+RANGES["src/why/why-gen-arrays.adb"].append([2526, 2810])
+RANGES["src/why/why-gen-expr.adb"].extend([[280, 305], [4337, 4418]])
+RANGES["src/why/gnat2why-expr.adb"].extend([[5465, 5592], [5726, 6011], [6820, 7085]])
 
 
 def sha(data):
@@ -193,6 +200,26 @@ def main():
             "excludes": "17 eager nodes per attempt, Close_Theory imports, cached Standard/Integer/Character symbol initialization",
         },
         "memoized_entity_module_kinds": 27,
+        "ordinary_type_translation_completion": {
+            "convention": "componentwise conservative bounds; raw function builders are allowed the binder helper's empty effects/True pre/post even where absent",
+            "static_string_declaration": [1 + 5 + 12 + 12 + 2 + 1, 1 + 8 + 1, 1 + 2 + 8, 6 + 22 + 27],
+            "scalar_declaration_static": [3 + 2 + 10 + 16 + 12, 1 + 8 + 7 + 1, 1 + 2 + 6 + 5, 3 + 28 + 51 + 14],
+            "scalar_declaration_modeled_base_itype": [3 + 2 + 2 + 18 + 12, 1 + 7 + 1, 1 + 8 + 6, 6 + 65 + 19],
+            "ref_and_havoc": [19 + 10, 6 + 4, 6 + 3, 36 + 19],
+            "scalar_representation": [8 + 1 + 10 + 1 + 2, 5 + 1, 1 + 3 + 4 + 2, 2 + 34 + 13 + 2],
+            "static_integer_dynamic_invariant": [20 + 8, 4 + 4, 6 + 6, 44 + 31],
+            "static_string_dynamic_invariant": [22 + 24, 4 + 12, 6 + 15, 46 + 13],
+            "static_integer_default_init": [11, 4, 3, 24],
+            "static_string_default_init": [13 + 15, 4 + 7, 3 + 10, 26],
+            "type_and_completion_totals": {
+                "static_integer_itype": [43 + 29 + 22 + 3, 17 + 10 + 6 + 6, 14 + 9 + 10, 96 + 55 + 51 + 3],
+                "static_integer_non_itype": [97 + 28 + 11 + 1, 39 + 8 + 4 + 2, 33 + 12 + 3, 205 + 75 + 24 + 1],
+                "dynamic_or_empty_integer_itype": [37 + 29 + 2, 9 + 10 + 4, 15 + 9, 90 + 55 + 2],
+                "static_string_itype": [33 + 2, 10 + 4, 11, 55 + 2],
+                "static_string_non_itype": [35 + 46 + 28 + 1, 14 + 16 + 11 + 2, 11 + 21 + 13, 57 + 59 + 26 + 1],
+            },
+            "excludes": "array representation attempts/misses, cached symbols/modules, Close_Theory imports, executable generated declaration checks, fixed predefined/dependency types",
+        },
         "normalized_integer_core": {
             "binary_call_occurrence_overhead": 1 + 5 + 2,
             "unary_minus_call_occurrence_overhead": 1 + 4 + 2,

@@ -177,6 +177,96 @@
     "eager_move_temporary_nodes": 2,
     "excludes": "RHS/init translation and boundary, binder/symbol setup, outer theories, enclosing sequence"
   },
+  "ordinary_type_translation_completion": {
+    "convention": "componentwise conservative bounds; raw function builders are allowed the binder helper's empty effects/True pre/post even where absent",
+    "excludes": "array representation attempts/misses, cached symbols/modules, Close_Theory imports, executable generated declaration checks, fixed predefined/dependency types",
+    "ref_and_havoc": [
+      29,
+      10,
+      9,
+      55
+    ],
+    "scalar_declaration_modeled_base_itype": [
+      37,
+      9,
+      15,
+      90
+    ],
+    "scalar_declaration_static": [
+      43,
+      17,
+      14,
+      96
+    ],
+    "scalar_representation": [
+      22,
+      6,
+      10,
+      51
+    ],
+    "static_integer_default_init": [
+      11,
+      4,
+      3,
+      24
+    ],
+    "static_integer_dynamic_invariant": [
+      28,
+      8,
+      12,
+      75
+    ],
+    "static_string_declaration": [
+      33,
+      10,
+      11,
+      55
+    ],
+    "static_string_default_init": [
+      28,
+      11,
+      13,
+      26
+    ],
+    "static_string_dynamic_invariant": [
+      46,
+      16,
+      21,
+      59
+    ],
+    "type_and_completion_totals": {
+      "dynamic_or_empty_integer_itype": [
+        68,
+        23,
+        24,
+        147
+      ],
+      "static_integer_itype": [
+        97,
+        39,
+        33,
+        205
+      ],
+      "static_integer_non_itype": [
+        137,
+        53,
+        48,
+        305
+      ],
+      "static_string_itype": [
+        35,
+        14,
+        11,
+        57
+      ],
+      "static_string_non_itype": [
+        110,
+        43,
+        45,
+        143
+      ]
+    }
+  },
   "representation_maxima": {
     "Why_Node_Counter_Last": 2147483647,
     "Why_Node_Id_Last": 1073741823

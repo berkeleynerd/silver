@@ -15,6 +15,10 @@
       "sha256": "61c39d0e43f4b2d8f36a723d87b9061d2e14611296c2378473b509df42979cc9"
     },
     {
+      "path": "src/spark/spark_util-types.ads",
+      "sha256": "527f96c5888798d023959b5a57254edd520b028017c9835a973a0ef44f5eb240"
+    },
+    {
       "path": "src/why/gnat2why-decls.adb",
       "sha256": "0d98e1d1a86afe4a94a45752c9a11ecffd3f5d8218c9a28c3cd8449b65acdb43"
     },
@@ -97,6 +101,10 @@
     {
       "path": "src/why/why-gen-records.adb",
       "sha256": "0cf64ab186796df9215a8997d9ed2c11fdac9f256f67d19c1ce47512e7150bc5"
+    },
+    {
+      "path": "src/why/why-gen-scalars.adb",
+      "sha256": "8140ebf17a3f1f406c28a9759c768a830c0320da618c25cfe51b7b53325da07d"
     },
     {
       "path": "src/why/why-inter.adb",

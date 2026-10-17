@@ -1227,6 +1227,152 @@ direct `New_Module` calls for literals, VC theories, eager array-cache attempts
 or fixed initialization. Keeping those separate makes the remaining module term
 concrete without confusing module IDs with unique printed theory symbols.
 
+### Ordinary Main type translation and completion
+
+The following closes the **contents** of the ordinary Main type families,
+in addition to the earlier close-count argument. Each row includes one
+`Translate_Type` and one `Generate_Type_Completion` visit, their theory
+headers, declaration-list entries and explicit imports. It excludes
+`Close_Theory` imports, memoized entity symbols/modules, array-representation
+attempts/misses, and executable subtype-declaration checks. Those are separate
+callers. The [frontend shape argument](retained-frontend-entities.md) supplies
+the type-family classification and count, including non-itype object ranges
+and static String subtypes; this is not an assumption that all generated types
+are itypes.
+
+| Ordinary Main type | Nodes | Lists | Elements | Occurrences | Closes |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Static nonempty signed Integer itype | 97 | 39 | 33 | 205 | 3 |
+| Static nonempty signed Integer non-itype | 137 | 53 | 48 | 305 | 4 |
+| Dynamic or empty signed Integer loop/index itype | 68 | 23 | 24 | 147 | 2 |
+| Static rank-one Character String itype, including literal itype | 35 | 14 | 11 | 57 | 2 |
+| Static rank-one Character String non-itype | 110 | 43 | 45 | 143 | 3 |
+
+These are componentwise upper bounds, deliberately using a uniform function
+declaration allowance: even a raw AST function builder with omitted effects
+or pre/post fields is allowed the binder helper's one empty effects node,
+three empty effects lists and two True predicate occurrences. No such
+allowance is multiplied by a hidden source expression. All names/types in the
+counted signatures have at most three type occurrences and five local typed
+identifier occurrences; builtin Integer/Boolean have two type occurrences.
+This convention makes smaller raw-builder paths safe without pretending that
+their omitted effects are actually allocated.
+
+**Signed Integer declaration.** `Declare_Scalar_Type` eagerly constructs a
+local Why name and abstract base type (three nodes), including on the dynamic
+path. The remaining accounting is:
+
+| Declaration part | Static nonempty | Modeled-as-base itype |
+| --- | --- | --- |
+| Eager name/base type | `3/0/0/0` | `3/0/0/0` |
+| Range definition or transparent alias | `2/1/1/3` | `2/1/1/6` |
+| First/last attributes | `10/8/2/28` | `2/0/0/0` |
+| Range/dynamic-property predicate | `16/7/6/51` | `18/7/8/65` |
+| Clone and substitutions | `12/1/5/14` | `12/1/6/19` |
+| **Total** | **`43/17/14/96`** | **`37/9/15/90`** |
+
+The source is `src/why/why-gen-scalars.adb:410–927,1117–1279`.
+Static bounds have no proof-variable binders
+(`src/why/why-gen-binders.adb:268–277`). A modeled-as-base itype omits
+first/last declarations, but its two eager compile-time-known bound literals,
+when present, are still counted. Its predicate binds first, last and value;
+the static predicate binds only value. The range helper makes two comparisons,
+two pretty labels and a conjunction (`src/why/why-gen-expr.adb:4883–4922`).
+Its definition has at most 35 occurrences, included once in the function.
+The dynamic clone adds a representation-type substitution and two cached
+base-conversion names; its five substitutions have at most 17 occurrences.
+
+The shared reference/havoc suffix is at most **29/10/9/55**, including the
+two local type-name calls made by its caller. The reference record plus field
+projection and two projection metas contributes `19/6/6/36`; the havoc
+function contributes `10/4/3/19`. The record field type is serialized both in
+the field identifier and field binder; the havoc parameter appears in its
+binder and its writes effect. These repeated references are counted
+(`src/why/gnat2why-types.adb:1538–1580`,
+`src/why/why-gen-decl.adb:94–269`,
+`src/why/why-gen-binders.adb:1127–1145,1377–1388`).
+
+A static signed Integer also adds the representation helper
+**22/6/10/51**: eight nodes for three substitutions, one explicit include,
+`10/5/3/34` for the `to_rep` projection function including its abstract
+parameter type, one clone with its three substitutions, and two projection
+metas (`src/why/why-gen-scalars.adb:1285–1468`). Its explicit include belongs
+here, separately from close-time imports. Static itypes therefore total
+`43/17/14/96 + 29/10/9/55 + 22/6/10/51 + 3/6/0/3`.
+Dynamic/empty itypes omit that helper and have only two headers. Their type
+completion body is empty: itype guards exclude dynamic-invariant, bound-axiom
+and default-initialization generation. No dynamic loop bound expression is
+silently translated inside these type-theory rows; its executable and
+attribute-use callers remain separate.
+
+**Static String declaration.** `Declare_Ada_Array` and its rank-one
+`Declare_Constrained` branch have the following common bound:
+
+| Declaration part | Cost |
+| --- | --- |
+| Eager local type name | `1/0/0/0` |
+| Character component alias | `5/1/1/6` |
+| Four map/bounds/equality substitutions | `12/0/0/16` |
+| Two bound functions and their substitutions | `12/8/2/28` |
+| Index representation substitution | `2/0/0/3` |
+| Clone skeleton and seven substitution-list entries | `1/1/8/2` |
+| **Total** | **`33/10/11/55`** |
+
+The bound-function row includes eleven occurrences per function and three
+per returned substitution. The source has the same two-attribute shape for
+literal subtypes and ordinary static arrays
+(`src/why/why-gen-arrays.adb:1534–1620,2526–2645`). The clone-of-existing-type
+branch is smaller: at most six nodes, one list, two entries and seven
+occurrences, including its explicit export and optional transparent alias.
+Static arrays do not receive the reference/havoc suffix
+(`src/why/gnat2why-types.adb:1548–1565`). Two type/completion headers give
+the stated itype total, while the representation-cache attempt remains a
+separate charge for every array `Translate_Type` visit.
+
+**Non-itype completion.** Ordinary static bounds have no free dynamic-invariant
+or default-initialization variables, predicates, initialization wrappers,
+default aspects, user invariants, access fields or user-defined equality.
+`Generate_Type_Completion` creates one invariant predicate and one additional
+default-initialization theory; scalar-bound axioms are absent for static
+bounds (`src/why/gnat2why-types.adb:207–575,895–980`). The contents are:
+
+| Completion helper | Static Integer | Static String |
+| --- | --- | --- |
+| Five-parameter invariant function setup | `20/4/6/44` | `22/4/6/46` |
+| Expanded invariant body, including discarded work | `8/4/6/31` | `24/12/15/13` |
+| **Complete invariant** | **`28/8/12/75`** | **`46/16/21/59`** |
+| Two-parameter default-init function, including body | `11/4/3/24` | `28/11/13/26` |
+
+The expanded scalar body uses two cached static bound identifiers, one
+dynamic-property call and at most one representation conversion of its value.
+The discarded default-predicate guard adds a Boolean literal, equality and
+conditional; its freshly computed split type is also counted. The static
+nonempty premise skips the extra initialization-versus-empty-range condition
+(`src/why/gnat2why-expr.adb:6818–6887,7085–7124`,
+`src/why/why-gen-expr.adb:280–304,3600–3747,4337–4363`).
+
+The static String invariant repeats the earlier expanded-invariant derivation:
+its emitted body is only a well-formed call on the five-occurrence array
+parameter, at most thirteen occurrences. Its discarded Character component
+walk still allocates the range and both element accesses. A literal subtype
+omits that traversal and is smaller. The default-init body returns True, but
+an ordinary static array first spends `13/7/10` on that same eager traversal
+and two nodes on the Character element's unused temporary
+(`src/why/gnat2why-expr.adb:5465–5592,5726–5851,6004–6011`,
+`src/why/why-gen-expr.adb:4962–5000`). Thus its function setup `13/4/3/26`
+plus discarded `15/7/10/0` gives the listed bound. The scalar body needs no
+default-value work. Both families add the default-init header `1/2/0/1`.
+
+The String non-itype suffix creates at most three direct map module IDs
+(its function parameter types and expanded-invariant expected type); its
+invariant/default-init paths use at most ten fresh temporary names. The
+Integer non-itype suffix uses at most seven fresh temporary names and no
+direct module IDs. Other symbols/modules are the separately charged caches.
+These conclusions concern the static Main-generated families above.
+Unconstrained Standard.String and predefined/dependency type bodies remain
+in the fixed dependency term; dynamic **non-itype** scalar/array types from
+library sources are not covered by the loop-itype row.
+
 ## Aggregate formula and finite remaining helper families
 
 Use four-component costs in the order `(nodes, lists, list elements, emitted
@@ -1283,6 +1429,8 @@ again as standalone conversions.
 | Static literal use and definition family | The `R_lit/K_lit/L_i` formula above |
 | Eager array-representation cache attempt | `(17,0,0,0)` |
 | Ordinary rank-one Character representation key miss | `(148,44,76,711)`; imports separate |
+| Main type translation/completion | Five classified rows in the preceding table; representation attempts and symbol caches separate |
+| Ordinary object/loop symbol and outer theory setup | [Object component](retained-producer-objects.md): per-visit regular/split `Mk_Item`, constant/mutable definitions, constant axioms and loop exception theory pair |
 
 Thus write the single pre-import sum as
 
@@ -1300,8 +1448,7 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | Remaining family | Exact work and source-count connection still required |
 | --- | --- |
 | `K_fixed` | One-time predefined and selected dependency theories, package processing, symbol initialization, external-constant assumptions, fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
-| `K_object` / `K_binder` | Declaration symbol/binder setup and two ordinary object/loop outer theories. Source objects plus at most two generated bound captures per loop are bounded by the frontend report; contents and direct modules are still unpriced. |
-| `K_type_int_static`, `K_type_int_loop`, `K_type_string_static`, `K_type_string_literal` | Numerical type/completion contents for the named type families, including range/property/default-initialization helpers. The frontend report distinguishes non-itype object ranges/static-literal String subtypes from Integer index/loop and String alias/literal itypes. Loop-index types can be dynamic or empty and must not be priced as nonempty static source object types. |
+| Generated/library object setup and visit counts | The [object component](retained-producer-objects.md) closes ordinary regular/split binder visits and source object/loop theory contents. Map actual setup visits to source/generated declarations, and price richer fixed-library shapes separately. |
 | `K_generated_decl` | Executable checks/wrappers for generated static object subtypes, static String index/alias subtypes, loop-index subtypes and at most two loop bound-capture declarations. Attribute/bound-expression translations must be charged here or to the closed expression rows, once consistently. |
 | Generated actions and declaration-list wrappers | The [control component](retained-producer-control.md) closes source Length, if skeletons and ordinary source statement lists. It keeps frontend Actions/generated statements without source locations and the distinct `Transform_Declarations` list helper separate; add those actual callers here. |
 | `K_loop`, `H_int`, `H_string`, `H_global` | Per-loop fixed framing plus snapshots/preservation for each modified root. The existing `sum(|Q_loop|) <= F_loops(D+G)` bound applies; the finite actual fixed-library write-global set must determine `G` and its helper shapes. |
