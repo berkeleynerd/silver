@@ -187,6 +187,7 @@ besides the character predicate and `Close_Theory` imports:
 | Module-cache-miss work | Nodes | Lists | Elements |
 | --- | ---: | ---: | ---: |
 | Eager unused low temporary/name | 2 | 0 | 0 |
+| Fresh unit-parameter identifier/name | 2 | 0 | 0 |
 | Definition identifier/name and direct module | 3 | 0 | 0 |
 | Theory header and its three declaration entries | 1 | 2 | 3 |
 | Function declaration, unit binder and default empty effects | 3 | 4 | 1 |
@@ -196,9 +197,11 @@ besides the character predicate and `Close_Theory` imports:
 | Definition axiom and dependency | 2 | 0 | 0 |
 | Well-formed literal call and predicate | 2 | 2 | 2 |
 | Well-formed axiom and dependency | 2 | 0 | 0 |
-| **Total** | **20** | **12** | **10** |
+| **Total** | **22** | **12** | **10** |
 
-`New_Function_Decl`'s default `New_Effects` allocates three empty list records;
+`Unit_Param` constructs a fresh identifier/name (`src/why/why-gen-binders.adb:1626–1640`);
+it is a function, not a shared preallocated binder. `New_Function_Decl`'s default
+`New_Effects` allocates three empty list records;
 these count despite containing no elements. The named literal module also
 consumes one string-valued temporary name without allocating a Why identifier;
 that counter is not silently bounded by identifier allocations alone.
@@ -221,7 +224,7 @@ misses, and `L_i` are the lengths of the literals defined on those misses, the
 complete static literal component excluding imports and cached symbol setup is
 
 ```text
-N <= 9 R_lit + 20 K_lit + sum(7 L_i + [L_i >= 2])
+N <= 9 R_lit + 22 K_lit + sum(7 L_i + [L_i >= 2])
 L <= 2 R_lit + 12 K_lit + sum(3 L_i + [L_i >= 2])
 J <= 3 R_lit + 10 K_lit + sum(5 L_i + max(L_i-2, 0))
 O <= 14 R_lit + 74 K_lit + sum(P(L_i))

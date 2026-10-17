@@ -245,7 +245,7 @@ def main():
         "static_literal_fixed_component": {
             "each_invocation": {"nodes_max": 3 + 3 + 3, "lists_max": 1 + 1,
                                 "elements_max": 1 + 2, "returned_occurrences": 1 + 6 + 4 + 3},
-            "each_module_miss": {"nodes": 2 + 3 + 1 + 3 + 1 + 2 + 2 + 2 + 2 + 2,
+            "each_module_miss": {"nodes": 2 + 2 + 3 + 1 + 3 + 1 + 2 + 2 + 2 + 2 + 2,
                                  "lists": 2 + 4 + 1 + 2 + 1 + 2,
                                  "elements": 3 + 1 + 1 + 2 + 1 + 2,
                                  "fixed_occurrences": 1 + 19 + 30 + 24},
