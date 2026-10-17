@@ -101,3 +101,36 @@ byte-identically; retained-input hashes and local Markdown links matched.
 their original trailing spaces and final blank lines, so an unfiltered
 whitespace check reports those original artifact bytes; they were not edited
 to satisfy a formatting check. No compiler, proof, or admission run was added.
+
+## Fixed support and binder source closure
+
+`close-fixed-support.py` records the explicit runtime helper seeds and their
+42-specification dependency closure, eight generic instances, relevant
+inline/contract occurrences, the Image generic body hash and the binder's
+nine-specification frontend closure. It also closes the retained native ALIs
+and selected helper variants under `W`/`Y`/`Z` dependency records, giving 98
+ALI files and 169 unit entries. Bare generic `W` records have no dependency
+filename and are skipped. Every selected specification and ALI is hashed.
+
+The [fixed-support report](../../../research/retained-fixed-support.md)
+derives the conditional virtual-source contribution and the binder source
+transfer. The collector records lexical writer sites and evaluates the
+manually reviewed coefficients; it does not infer a verified control-flow
+bound from those sites. Completeness of the helper seed set, controlled
+invocation/search paths and the existing source/tool identity qualifications
+remain explicit integration obligations.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-source-closure-20261017/close-fixed-support.py \
+  --installation /home/canto/src/github.com/berkeleynerd/silver \
+  --gcc /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --gpr-source /tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263 \
+  > /tmp/retained-fixed-support-recheck.json
+cmp docs/evidence/unbounded-programs/retained-source-closure-20261017/fixed-support-closure.json \
+  /tmp/retained-fixed-support-recheck.json
+```
+
+Verification: regenerate and byte-compare the output, independently recalculate
+the aligned specification sum and binder transfer, verify recursive manifest
+hashes and local Markdown links, and check authored whitespace. No compiler,
+proof, admission or toolchain-changing action is part of this collection.

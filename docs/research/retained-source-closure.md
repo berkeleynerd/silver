@@ -8,6 +8,12 @@ physical/virtual range inventory for every production phase, an enlarged
 language, or a complete source-capacity admission rule. The current language
 and tool pins remain unchanged.
 
+The subsequent [fixed-support component](retained-fixed-support.md) supplies
+virtual-source and binder-source bounds for an explicit 42-specification
+helper closure, and makes effective-search control a concrete #89 invocation
+requirement. Whole-language helper-dispatch coverage remains an integration
+obligation.
+
 No compiler, GNATprove, Lean build or new admission experiment was run. The
 new [collector and inventory](../evidence/unbounded-programs/retained-source-closure-20261017/)
 use source inspection, file hashing and a retained trace. Native environment:
@@ -196,7 +202,10 @@ reads project include/object path files and `ADA_INCLUDE_PATH`/
 not contain their inherited values. A universal application of `R`, `C` and
 `A` must establish the installed generator/source relation and the fixed
 effective source search, or supply a larger justified file/name universe.
-Changing Main alone cannot be used as evidence that these premises hold.
+The [follow-up invocation requirement](retained-fixed-support.md#concrete-invocation-requirement-for-89)
+specifies inherited-search sanitization and the fixed layout for #89;
+this is a concrete implementation obligation, not a recommendation to accept
+arbitrary inherited paths. Changing Main alone cannot establish these premises.
 
 ## Virtual ranges: eight sites, not eight possible copies
 
@@ -300,8 +309,9 @@ The runtime is not contract-free. The copy route requires an inherited
 condition (`sem_prag.adb:32986–33012`); its GNATprove collection requires a
 source overriding primitive (`freeze.adb:1940–1972`). Main provides no tagged
 derivations or overriding declarations. Native contract-body expansion and
-fixed runtime template analysis still need to be reconciled before assigning
-the dependency contribution a universal number.
+fixed runtime template analysis are reconciled for the explicit selected
+closure in the [fixed-support component](retained-fixed-support.md#the-text-buffer-contract-path).
+Applying that component universally still requires complete helper dispatch.
 
 ### Generated-helper inlining: a narrower dependency
 
@@ -410,8 +420,10 @@ It conservatively charges an aligned full block for the final range as well,
 so loading order cannot make the final position larger than this sum. `R` and
 `S` are justified concrete fixed contributions. The inspected project/generator
 route supplies **`C = 4,096`, `A = 0` under its explicit source/search premises**;
-the installed-driver relation, effective search and **complete `V` remain
-unsettled**. Consequently this formula is not an implemented or
+the fixed-support component supplies **`V <= 40,960` for native Main and
+`V <= 32,768` for gnat2why Main under its explicit helper closure**. The
+installed-driver relation, #89 invocation controls and complete grammar-to-helper
+coverage remain integration obligations. Consequently this formula is not an implemented or
 complete decidable membership test. It also says nothing yet about line-table
 growth, other source-pointer operations, parser/copy nodes or producer data.
 
@@ -424,12 +436,12 @@ The smallest next source-closure steps are specific:
    applying those conditional contributions universally. A new run is warranted
    only if a named source/artifact contradiction requires it.
 2. Finish the generated-helper dispatch for the grammar's scalar, String,
-   branch and loop compositions. Then enumerate generic spec/body instances,
-   source overriding contracts and Inline_Always targets in that finite closure.
-   Bound their multiplicities from deduplicated analysis and actual copy sites.
-   Check native expansion and GNATprove modes separately.
-3. Derive the binder-source size from its finite unit closure and selected
-   switches. Reconcile the fixed-library frontend inputs independently; a
+   branch and loop compositions against the explicit 42-specification closure.
+   Its generic, inline and inherited-contract contribution is now bounded;
+   any newly selected helper must extend that closure explicitly.
+3. Integrate the binder source bound from the fixed-support component and
+   establish its controlled source/object search. Reconcile the fixed-library
+   frontend inputs independently; a
    retained successful run for an exact fixed input can answer that singleton
    capacity question, but cannot establish a bound for variable Main.
 4. Establish the relevant installed-producer/source relation before applying
