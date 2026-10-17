@@ -1,0 +1,31 @@
+{
+  "checked_utc": "2026-10-17T20:39:21.658863+00:00",
+  "review_target": "2b47dd8e27f10251d57df35385161acfcc1a41a9",
+  "base_handoff": "df4af4588612f8f0b605570a7dd07e5b0c366b2c",
+  "manifest_verification": {
+    "docs/evidence/unbounded-programs/feasibility-20261017/MANIFEST.json": 256,
+    "docs/evidence/unbounded-programs/feasibility-20261017/source-capacity/MANIFEST.json": 110,
+    "docs/evidence/unbounded-programs/feasibility-20261017/static-data/MANIFEST.json": 136,
+    "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/MANIFEST.json": 15,
+    "docs/evidence/unbounded-programs/static-data-continuation-20261017/MANIFEST.json": 54
+  },
+  "errors": [
+    "Whitespace"
+  ],
+  "protected_tree_diff": [],
+  "git_diff_check_exit": 2,
+  "handoff_validator": {
+    "checked_utc": "2026-10-17T20:39:21.838623+00:00",
+    "manifest_files": {
+      "source-capacity": 110,
+      "static-data": 136
+    },
+    "json_files": 54,
+    "local_markdown_paths": 376,
+    "errors": [],
+    "git_diff_check_exit": 0,
+    "shared_status_unchanged": null
+  },
+  "json_files_parsed": 85,
+  "raw_backend_manifest_verified": 60
+}

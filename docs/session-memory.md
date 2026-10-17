@@ -15,9 +15,9 @@ open. [Independent review](reviews/review-unbounded-feasibility-2b47dd8e27.md)
 of frozen target `2b47dd8e27` is complete. Its two low wording findings
 [#110](https://github.com/berkeleynerd/silver/issues/110) and
 [#111](https://github.com/berkeleynerd/silver/issues/111) are corrected and
-verified, with no remaining material finding. Publication through
-[PR #109](https://github.com/berkeleynerd/silver/pull/109) is pending; the issues
-track delivery and closure of this research.
+verified, with no remaining material finding. Delivery is through
+[PR #109](https://github.com/berkeleynerd/silver/pull/109); live issues track
+merge and closure of this research.
 
 The recommendation is a separately authorized feasibility investigation of wider
 or lazy, semantics-preserving frontend representations, tracked by owner decision

@@ -20,8 +20,8 @@ retains the first source inspection and guarded probes for #107/#108. The
 a source-derived stop for the intended domain on the unchanged frontend and a
 hold on adopting a replacement source rule. [Independent review](reviews/review-unbounded-feasibility-2b47dd8e27.md)
 is complete, with its two low wording findings corrected and verified.
-Publication through [PR #109](https://github.com/berkeleynerd/silver/pull/109)
-is pending. This is a research conclusion, not an admitted capability or an
+Delivery is through [PR #109](https://github.com/berkeleynerd/silver/pull/109).
+This is a research conclusion, not an admitted capability or an
 implementation checkpoint; the [decision below](#research-conclusion-and-next-decision)
 preserves the remaining alternatives.
 [language.md](../language.md) and the [catalogue](../catalogue/silver.json)

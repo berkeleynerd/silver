@@ -334,7 +334,7 @@ The parent found Linux SSH access as `canto@nix.local`; this subtask did not run
 Linux probes. The earlier plain `nix` name was unresolved. Do not infer current
 remote access or a particular repository path without checking it.
 
-Side effects were confined to the owned research document/evidence directory and
+First-pass side effects were confined to the owned research document/evidence directory and
 scratch: source downloads/copies, nine compiler subprocesses, their `.ali`/trace
 outputs and package manifests. No tracked implementation, proof, caches,
 installed tools, GitHub items or other-host artifacts were modified by this

@@ -19,8 +19,9 @@ source-derived frontend representation stop for the intended String composition
 domain and the missing complete whole-program source-capacity argument. Linux
 Ada medium/large-model build observations do not remove that frontend limit.
 The [final independent review](docs/reviews/review-unbounded-feasibility-2b47dd8e27.md)
-is complete and its two low wording findings are corrected; publication through
-PR #109 remains pending. The earlier packaging review remains separate history.
+is complete and its two low wording findings are corrected. Delivery is through
+PR #109; live issues carry merge and closure status. The earlier packaging review
+remains separate history.
 The proposed follow-up is feasibility research into wider or lazy
 semantics-preserving frontend representations, tracked by
 [owner decision #112](https://github.com/berkeleynerd/silver/issues/112).

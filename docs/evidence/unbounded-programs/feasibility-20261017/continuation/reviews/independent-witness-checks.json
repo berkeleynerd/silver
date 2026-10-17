@@ -1,0 +1,20 @@
+{
+  "review_target": "2b47dd8e27",
+  "rerun_generated_artifacts_equal": true,
+  "differences": [],
+  "witness_bytes": 2481,
+  "declarations": 62,
+  "concatenations": 60,
+  "finals": {
+    "A30": [
+      "x",
+      1073741824
+    ],
+    "B30": [
+      "y",
+      1073741824
+    ]
+  },
+  "pool_character_minimum": 2147483648,
+  "pool_byte_minimum": 8589934592
+}

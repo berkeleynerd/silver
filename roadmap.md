@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Research complete at a full stop; publication pending.** The
+**Research complete at a full stop; owner disposition required.** The
 [scope](docs/unbounded-programs.md) and
 [milestone 5](https://github.com/berkeleynerd/silver/milestone/5) pursue removal of
 unnecessary Silver capacity limits. The operational objective is resource-driven
@@ -44,7 +44,7 @@ domain. Targeted Linux Ada medium/large-model builds improve the backend evidenc
 but do not remove that earlier limit. No complete whole-program source-capacity
 rule has been derived. [Independent review](docs/reviews/review-unbounded-feasibility-2b47dd8e27.md)
 is complete, and low wording findings #110/#111 are corrected and verified.
-Research #107/#108 awaits delivery through
+Research #107/#108 is packaged for delivery through
 [PR #109](https://github.com/berkeleynerd/silver/pull/109); it does not establish
 feasibility of the intended domain.
 

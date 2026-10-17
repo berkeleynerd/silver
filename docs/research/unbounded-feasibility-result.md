@@ -5,8 +5,8 @@ and [#108](https://github.com/berkeleynerd/silver/issues/108), authorized by
 [PR #106](https://github.com/berkeleynerd/silver/pull/106), continued from
 [PR #109](https://github.com/berkeleynerd/silver/pull/109).
 
-**Technical conclusion: full stop before adopting the proposed source and
-String domain with the unchanged pinned frontend. Independent review pending.**
+**Independently reviewed conclusion: full stop before adopting the proposed
+source and String domain with the unchanged pinned frontend.**
 The research establishes a concrete representation obstruction and compares
 alternatives; it does not establish a sound replacement source rule, a supported
 capability, or universal feasibility. Implementation #88–#94 remains Backlog.
@@ -26,8 +26,8 @@ not release or compact these values before it needs them. Tail sharing within
 one chain does not let the two different final contents overlap. Backend
 optimization happens after this materialization. The argument is derived from
 source and exact arithmetic, **not a near-limit native failure experiment**.
-The concrete specimen belongs to the proposed enlarged fragment, not today's
-admitted Silver language.
+The concrete specimen uses the proposed constructs and value bounds, subject to
+the still-unselected source-capacity rule. It is not admitted by today's Silver.
 
 This defeats the inference that a per-value bound of `Integer'Last`, enough
 RAM, and a larger backend code model suffice for all intended compositions.
@@ -41,6 +41,9 @@ and best matches the owner's preference for expansive admission. No suitable
 replacement, complete patch design, or every-case tractability proof is
 established here. This is a recommendation for further feasibility work,
 not authorization to develop or adopt a toolchain.
+The proposed disposition is tracked in
+[decision #112](https://github.com/berkeleynerd/silver/issues/112), which remains
+open in Backlog pending the owner's direction.
 
 If the owner instead retains the existing tool pin, the more promising rule
 is source-sensitive capacity accounting. It could admit sparse large sources
@@ -89,8 +92,9 @@ The [static-data continuation](unbounded-static-data-continuation.md) builds on
 the [first pass's macOS and Linux observations](unbounded-static-data.md) and
 adds three bounded Linux probes:
 
-- The unchanged 1 MiB Ada constant-chain specimen and six current runtime
-  source files compile, bind and link under both medium and large code models.
+- The unchanged 1 MiB Ada constant-chain specimen compiles, binds and links
+  under both medium and large code models using the unchanged runtime snapshot.
+  Six runtime source files were retained; the build compiles its imported units.
 - A separate 1 MiB mutable-local specimen compiles to assembly under the large
   model and exposes stack allocation/copying rather than zero-fill globals.
 - No generated application was executed, and no near-Integer'Last initialized
@@ -162,11 +166,22 @@ for the independent structural obstruction above.
 
 ## Review and delivery
 
-Independent substantive review of the integrated result is pending. Before
-publication as completed research, record its frozen target, findings and
-dispositions here, validate links/evidence manifests/whitespace and read back
-GitHub tracking. No implementation or goal completion is implied by review
-of these documents.
+The [independent substantive review](../reviews/review-unbounded-feasibility-2b47dd8e27.md)
+targets `2b47dd8e27f10251d57df35385161acfcc1a41a9`. Three focused reviewers
+checked separately authored mechanisms, native evidence and closure semantics;
+each excluded their own contribution. No blocker remained. Two low synthesis
+wording findings were corrected and the changes verified: copied runtime inputs
+are distinct from compiled units, and the witness remains subject to the
+unselected capacity rule. The report retains exact scopes and reviewer notes.
+
+The [integration checks](../evidence/unbounded-programs/feasibility-20261017/continuation/integration-validation.json)
+verify new and historical manifests, JSON and local links, with no changes to
+implementation/proof/governing input paths. Authored whitespace checks pass;
+exact compiler output and source excerpts retain their original whitespace,
+with the initial diagnostic and explicit disposition preserved. Publication is
+through PR #109. Closing #107/#108 records researched stops, leaving the parent
+obligations and all implementation packages open. No implementation or goal
+completion is implied by review of these documents.
 
 The live harness goal for For loops and integers is already complete and was
 not resumed or replaced. CLI memory is unavailable and was not updated; the
