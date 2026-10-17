@@ -37,6 +37,8 @@ abbrev ExpressionTranslation : Prop :=
     some (Expressions.addBindingBody.render.drop 1 |>.dropLast) ∧
   Source.expressionBody "string_declaration_at" Source.outputBodyTokens =
     some Expressions.stringDeclarationBody.render ∧
+  Source.expressionBody "scalar_constraint_at" Source.outputBodyTokens =
+    some Expressions.scalarConstraintBody.render ∧
   Source.expressionBody "scalar_declaration_at" Source.outputBodyTokens =
     some Expressions.scalarDeclarationBody.render ∧
   Source.expressionBody "declaration_at" Source.outputBodyTokens =
@@ -94,6 +96,10 @@ private theorem expression_fact_07 :
 private theorem expression_string_declaration :
   Source.expressionBody "string_declaration_at" Source.outputBodyTokens =
     some Expressions.stringDeclarationBody.render := by decide +kernel
+
+private theorem expression_scalar_constraint :
+  Source.expressionBody "scalar_constraint_at" Source.outputBodyTokens =
+    some Expressions.scalarConstraintBody.render := by decide +kernel
 
 private theorem expression_scalar_declaration :
   Source.expressionBody "scalar_declaration_at" Source.outputBodyTokens =
@@ -159,6 +165,7 @@ theorem actual_expressions : ExpressionTranslation := by
     expression_fact_06,
     expression_fact_07,
     expression_string_declaration,
+    expression_scalar_constraint,
     expression_scalar_declaration,
     expression_fact_08,
     expression_fact_09,
@@ -182,7 +189,7 @@ def wordTokenAlternatives : List ShellToken :=
   [.word "constant", .word "string", .word "silver_arguments", .word "first_or_default",
    .word "if", .word "input_is_valid", .word "then", .word "else", .word "elsif", .word "reject",
    .word "and", .word "length", .word "or", .word "not", .word "null",
-   .word "integer", .word "for", .word "in", .word "reverse", .word "loop"]
+   .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .word "range"]
 
 def wordTokens : List ShellToken := allTokens.take 11 ++ wordTokenAlternatives
 
@@ -254,6 +261,8 @@ abbrev TokenMapping : Prop :=
 theorem finite_mapping : TokenMapping := by decide +kernel
 
 abbrev Declarations : Prop :=
+  Lexical.SourceBridge.recordDeclaration "scalar_constraint_result" Source.outputBodyTokens =
+    some (expectedTokens "record After : Literal_Position; Bounds : Scalars.Interval; end record") ∧
   Source.declaration "max_expression_operands" Source.outputSpecTokens = some (expectedTokens "constant positive := 64") ∧
   Source.declaration "max_bindings" Source.outputSpecTokens = some (expectedTokens "constant positive := max_source_length / 12") ∧
   maxExpressionOperands = 64 ∧
@@ -282,6 +291,10 @@ abbrev Declarations : Prop :=
   Lexical.SourceBridge.recordDeclaration "expression_state" Source.outputBodyTokens = some (expectedTokens "record position : literal_position ; minimum_length , static_length : capacity_value ; dynamic_count , operands : operand_count ; depth : literal_position ; named_seen , need_operand , complete , empty_value : boolean ; end record") ∧
   Source.declaration "invalid_expression_state" Source.outputBodyTokens = some (expectedTokens "constant expression_state := ( position => 0 , minimum_length => 0 , static_length => 0 , dynamic_count => 0 , operands => 0 , depth => 0 , named_seen => false , need_operand => true , complete => false , empty_value => false )") ∧
   Source.expressionBody "valid_expression_state" Source.outputBodyTokens = some (expectedTokens "State.Position <= Text'Last + 1 and then State.Dynamic_Count <= State.Operands and then (State.Position = 0 or else State.Depth < State.Position)")
+
+private theorem declaration_scalar_constraint :
+  Lexical.SourceBridge.recordDeclaration "scalar_constraint_result" Source.outputBodyTokens =
+    some (expectedTokens "record After : Literal_Position; Bounds : Scalars.Interval; end record") := by decide +kernel
 
 private theorem declaration_fact_01 :
   Source.declaration "max_expression_operands" Source.outputSpecTokens = some (expectedTokens "constant positive := 64") := by decide +kernel
@@ -368,7 +381,7 @@ private theorem declaration_fact_28 :
   Source.expressionBody "valid_expression_state" Source.outputBodyTokens = some (expectedTokens "State.Position <= Text'Last + 1 and then State.Dynamic_Count <= State.Operands and then (State.Position = 0 or else State.Depth < State.Position)") := by decide +kernel
 
 theorem actual_declarations : Declarations := by
-  exact ⟨declaration_fact_01,
+  exact ⟨declaration_scalar_constraint, declaration_fact_01,
     declaration_fact_02,
     declaration_fact_03,
     declaration_fact_04,
@@ -398,6 +411,8 @@ theorem actual_declarations : Declarations := by
     declaration_fact_28⟩
 
 abbrev Refinement : Prop :=
+  functionHeader "scalar_constraint_at" ";" Source.outputBodyTokens = some
+    (expectedTokens "(Text : String; Position : Literal_Position; Scalar_Names : Scalar_Expressions.Environment) return Scalar_Constraint_Result with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names), Post => Scalar_Constraint_At'Result.After = 0 or else Scalar_Constraint_At'Result.After in Position .. Text'Last + 1") ∧
   functionHeader "image_at" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; position : literal_position ; names : binding_environment ; scalar_names : scalar_expressions . environment ; integer_hidden : boolean ) return value_result with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 and then valid_names ( text , names ) and then scalar_expressions . valid_environment ( text , scalar_names ) , post => image_at ' result . value_first = 0 and then image_at ' result . reference = 0 and then ( image_at ' result . after = 0 or else image_at ' result . after in position + 1 .. text ' last + 1 )") ∧
   functionHeader "string_declaration_at" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; state : parser_state ; arguments : boolean ) return parser_state with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_state ( text , state ) , post => valid_state ( text , string_declaration_at ' result ) and then ( string_declaration_at ' result . position = 0 or else string_declaration_at ' result . position > state . position )") ∧
   functionHeader "scalar_declaration_at" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; state : parser_state ; arguments : boolean ) return parser_state with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_state ( text , state ) , post => valid_state ( text , scalar_declaration_at ' result ) and then ( scalar_declaration_at ' result . position = 0 or else scalar_declaration_at ' result . position > state . position )") ∧
@@ -508,11 +523,15 @@ private theorem refinement_string_declaration_at :
 private theorem refinement_scalar_declaration_at :
   functionHeader "scalar_declaration_at" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; state : parser_state ; arguments : boolean ) return parser_state with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_state ( text , state ) , post => valid_state ( text , scalar_declaration_at ' result ) and then ( scalar_declaration_at ' result . position = 0 or else scalar_declaration_at ' result . position > state . position )") := by decide +kernel
 
+private theorem refinement_scalar_constraint :
+  functionHeader "scalar_constraint_at" ";" Source.outputBodyTokens = some
+    (expectedTokens "(Text : String; Position : Literal_Position; Scalar_Names : Scalar_Expressions.Environment) return Scalar_Constraint_Result with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names), Post => Scalar_Constraint_At'Result.After = 0 or else Scalar_Constraint_At'Result.After in Position .. Text'Last + 1") := by decide +kernel
+
 private theorem refinement_image :
   functionHeader "image_at" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; position : literal_position ; names : binding_environment ; scalar_names : scalar_expressions . environment ; integer_hidden : boolean ) return value_result with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 and then valid_names ( text , names ) and then scalar_expressions . valid_environment ( text , scalar_names ) , post => image_at ' result . value_first = 0 and then image_at ' result . reference = 0 and then ( image_at ' result . after = 0 or else image_at ' result . after in position + 1 .. text ' last + 1 )") := by decide +kernel
 
 theorem actual_refinement : Refinement := by
-  exact ⟨refinement_image, refinement_string_declaration_at, refinement_scalar_declaration_at, refinement_call_after, refinement_fact_05,
+  exact ⟨refinement_scalar_constraint, refinement_image, refinement_string_declaration_at, refinement_scalar_declaration_at, refinement_call_after, refinement_fact_05,
     refinement_fact_06,
     refinement_fact_07,
     refinement_fact_08,
