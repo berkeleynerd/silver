@@ -100,4 +100,32 @@ theorem Program.checks_obligations (program : Program) :
   simp only [Program.checks, Program.obligations, modeledObligations, List.map_append, List.map_map]
   rfl
 
+/-- A loop retains its entry bound after that mutable object is assigned in
+its body. The final index value copied to another object witnesses all three
+iterations; the lexical index's pre-loop store cell is restored. -/
+def frozenBoundWitness : Statement :=
+  .forLoop 3 false (.literal 1) (.name 1)
+    [.scalarAssign ⟨1, .literal 1, ⟨1, 3⟩⟩,
+      .scalarAssign ⟨2, .name 3, ⟨1, 3⟩⟩]
+
+def frozenBoundStore : Integer.Store :=
+  Integer.put (Integer.put Integer.emptyStore 1 3) 3 9
+
+theorem mutable_loop_entry_bound_snapshot :
+    let result := frozenBoundWitness.execute [] true Bindings.emptyValues frozenBoundStore
+    result.integers 1 = 1 ∧ result.integers 2 = 3 ∧ result.integers 3 = 9 := by decide +kernel
+
+/-- A nested loop restores its lexical index independently of the outer
+index, while writes to other scalar objects remain visible after both loops. -/
+def nestedIndexWitness : Statement :=
+  .forLoop 2 false (.literal 4) (.literal 4)
+    [.forLoop 4 false (.literal 7) (.literal 7)
+      [.scalarAssign ⟨1, .name 4, ⟨0, 10⟩⟩],
+      .scalarAssign ⟨3, .name 2, ⟨0, 10⟩⟩]
+
+theorem mutable_nested_index_scope_preserves_writes :
+    let result := nestedIndexWitness.execute [] true Bindings.emptyValues
+      (Integer.put (Integer.put Integer.emptyStore 2 9) 4 8)
+    result.integers 1 = 7 ∧ result.integers 2 = 9 ∧ result.integers 3 = 4 ∧ result.integers 4 = 8 := by decide +kernel
+
 end Silver.Predicate

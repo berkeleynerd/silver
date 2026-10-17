@@ -269,19 +269,20 @@ theorem Program.all_obligations_discharge {program : Program} (valid : program.V
 /-- Source-reading rules can retain omitted `else` while lowering its meaning
 without inventing an effect or bypassing the false path. -/
 theorem omitted_else_meaning (condition : Condition) (yes : List Statement)
-    (input : Source) (valid : Bool) (values : Values) :
-    (Statement.choice condition yes []).execute input valid values =
-      if condition.evaluate values input valid then executeStatements input valid values yes else ⟨values, [], Integer.emptyStore⟩ := by
+    (input : Source) (valid : Bool) (values : Values) (integers : Integer.Store := Integer.emptyStore) :
+    (Statement.choice condition yes []).execute input valid values integers =
+      if condition.evaluate values input valid integers then executeStatements input valid values yes integers
+      else ⟨values, [], integers⟩ := by
   simp only [Statement.execute, executeStatements]
 
 /-- An `elsif` tests its predicate only after all preceding tests were false;
 its normalized representation preserves that evaluation order. -/
 theorem elsif_meaning (condition next : Condition) (yes following no : List Statement)
-    (input : Source) (valid : Bool) (values : Values) :
-    (Statement.choice condition yes [.choice next following no]).execute input valid values =
-      if condition.evaluate values input valid then executeStatements input valid values yes
-      else if next.evaluate values input valid then executeStatements input valid values following
-      else executeStatements input valid values no := by
+    (input : Source) (valid : Bool) (values : Values) (integers : Integer.Store := Integer.emptyStore) :
+    (Statement.choice condition yes [.choice next following no]).execute input valid values integers =
+      if condition.evaluate values input valid integers then executeStatements input valid values yes integers
+      else if next.evaluate values input valid integers then executeStatements input valid values following integers
+      else executeStatements input valid values no integers := by
   simp only [Statement.execute, executeStatements, List.append_nil]
 
 end Silver.Predicate
