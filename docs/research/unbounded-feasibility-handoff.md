@@ -1,5 +1,10 @@
 # Unbounded programs: research handoff
 
+**Historical handoff.** The subsequent Linux continuation is recorded in the
+[feasibility result](unbounded-feasibility-result.md), which supersedes the
+unfinished-work status below. This document preserves the transfer-time scope,
+access details and evidence; consult the result and live issues for current work.
+
 **Partial research, not a feasibility verdict or implementation checkpoint.**
 The owner requested this handoff while #107 and #108 were in progress:
 "Let's package up this as a handoff package to another agent with the required access."

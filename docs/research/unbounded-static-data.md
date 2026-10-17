@@ -1,5 +1,10 @@
 # Unbounded programs: partial static-data feasibility research
 
+**Historical checkpoint.** The [Linux continuation](unbounded-static-data-continuation.md)
+and [combined result](unbounded-feasibility-result.md) supersede this document's
+unfinished-work status. The observations below retain their original input and
+host scope; they are not new runs.
+
 Research date: 2026-10-17. Research authorization: [PR #106](https://github.com/berkeleynerd/silver/pull/106),
 merge `66f55f67c053d761c76eb56b0f55ae3717fe95cd`. This is the research subphase
 [#108](https://github.com/berkeleynerd/silver/issues/108) of
