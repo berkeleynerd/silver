@@ -101,6 +101,14 @@ theorem elaborate_values (constants : Constants) (declarations : List Declaratio
     simp only [executeDeclarations, ih, elaborate, List.map_cons,
       Declaration.execute, Declaration.elaborate, List.append_assoc, List.singleton_append]
 
+theorem elaborate_append (constants : Constants) (first rest : List Declaration) :
+    elaborate constants (first ++ rest) = elaborate constants first ++
+      elaborate (executeDeclarations constants first) rest := by
+  induction first generalizing constants with
+  | nil => rfl
+  | cons declaration remaining ih =>
+    simp only [List.cons_append, elaborate, executeDeclarations, ih]
+
 theorem elaborate_initial_store (declarations : List Declaration) :
     (executeDeclarations [] declarations).store = (elaborate [] declarations).store := by
   rw [elaborate_values]

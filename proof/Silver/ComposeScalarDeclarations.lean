@@ -191,6 +191,54 @@ theorem scalar_declaration_checked {text : Source} {arguments : Bool} {state nex
       simp only [addScalarBinding, ScalarExpression.constants, List.map_append, List.map_cons, List.map_nil]
 
 
+theorem scalar_declaration_objects {text : Source} {arguments : Bool} {state next : ParserState}
+    {declaration : Integer.Declaration} (exact : ScalarExpression.ElaboratedEnvironment state.scalarNames)
+    (parsed : ScalarDeclarationAt text arguments state declaration next) :
+    ScalarExpression.objectBindings next.scalarNames =
+      ScalarExpression.objectBindings state.scalarNames ++
+        [declaration.elaborate (ScalarExpression.constants state.scalarNames)] := by
+  cases parsed with
+  | @declaration parts value _ _ reading =>
+      have singleton := ScalarExpression.static_inference exact reading.inferred
+      have inferred := reading.inferred
+      rw [ScalarExpression.static_ranges exact] at inferred
+      have within := (Integer.Expr.infer_sound inferred (Integer.Constants.fits _)).1
+      have evaluated : value.evaluate (Integer.Constants.store (ScalarExpression.constants state.scalarNames)) =
+          parts.value.bounds.lower := by
+        simp only [Integer.Interval.Contains] at within
+        omega
+      have same : parts.value.bounds = Integer.Interval.singleton parts.value.bounds.lower := by
+        cases eq : parts.value.bounds with
+        | mk lower upper =>
+          simp only [eq] at singleton
+          simp only [Integer.Interval.singleton]
+          cases singleton
+          rfl
+      simp only [addScalarBinding, ScalarExpression.objectBindings_append,
+        ScalarExpression.Binding.objectBinding, ScalarExpression.bodyBinding, Integer.Declaration.elaborate,
+        evaluated]
+      congr 2
+      split
+      · rfl
+      · rw [same]
+        rfl
+
+theorem scalar_declaration_declared_bounds {text : Source} {arguments : Bool} {state next : ParserState}
+    {declaration : Integer.Declaration} (valid : ScalarExpression.DeclaredBoundsValid state.scalarNames)
+    (parsed : ScalarDeclarationAt text arguments state declaration next) :
+    ScalarExpression.DeclaredBoundsValid next.scalarNames := by
+  cases parsed with
+  | @declaration parts value partsEq ready _ =>
+      apply ScalarExpression.declaredBoundsValid_append valid
+      have constraintEq : parts.constraint =
+          scalarConstraintAt text (scalarDeclarationTypeAfter text state) state.scalarNames := by
+        rw [← partsEq]
+        rfl
+      change parts.constraint.bounds.Bounded
+      rw [constraintEq]
+      exact scalarConstraintAt_bounded text _ state.scalarNames
+        (scalarDeclarationTypeAfter_valid text state) (constraintEq ▸ ready.2.2.1)
+
 theorem scalar_declaration_unique {text : Source} {arguments : Bool} {state leftState rightState : ParserState}
     {left right : Integer.Declaration} (first : ScalarDeclarationAt text arguments state left leftState)
     (second : ScalarDeclarationAt text arguments state right rightState) : left = right ∧ leftState = rightState := by

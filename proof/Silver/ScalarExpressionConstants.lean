@@ -1,7 +1,7 @@
 module
 
 public import Silver.ScalarExpressionAdmission
-public import Silver.IntegerDeclarations
+public import Silver.IntegerMutable
 
 @[expose] public section
 
@@ -135,5 +135,61 @@ theorem static_inference {names : Environment} {expression : Integer.Expr}
   simp only [Integer.Constants.ranges, Option.map_eq_some_iff] at present
   obtain ⟨value, _, rfl⟩ := present
   rfl
+
+/-- Stable scalar identities and exact initial values, paired with the
+interval used for every executable-body read. -/
+def Binding.objectBinding (item : Binding) : Integer.ObjectBinding :=
+  ⟨item.bounds.lower, (bodyBinding item).bounds, item.mutable⟩
+
+def objectBindings (names : Environment) : Integer.ObjectBindings := names.map Binding.objectBinding
+
+theorem objectBindings_append (names : Environment) (item : Binding) :
+    objectBindings (names ++ [item]) = objectBindings names ++ [item.objectBinding] := by
+  simp only [objectBindings, List.map_append, List.map_cons, List.map_nil]
+
+theorem objectBindings_store (names : Environment) :
+    (objectBindings names).store = Integer.Constants.store (constants names) := by
+  simp only [objectBindings, Integer.ObjectBindings.store, constants, List.map_map, Function.comp_def,
+    Binding.objectBinding]
+
+theorem objectBindings_ranges (names : Environment) :
+    (objectBindings names).ranges = ranges (bodyEnvironment names) := by
+  funext index
+  by_cases zero : index = 0
+  · simp [zero, Integer.ObjectBindings.ranges, ranges]
+  · by_cases inside : index - 1 < names.length
+    · have bounded : 0 < index ∧ index ≤ (bodyEnvironment names).length := by
+        simp only [bodyEnvironment, List.length_map]
+        omega
+      simp only [ranges, bounded, and_self, ↓reduceIte]
+      simp only [Integer.ObjectBindings.ranges, zero, ↓reduceIte, objectBindings, List.getElem?_map,
+        List.getElem?_eq_getElem inside, Option.map_some, binding, bodyEnvironment,
+        List.getD_eq_getElem?_getD, Option.getD_some, Binding.objectBinding]
+    · have outside : ¬ (0 < index ∧ index ≤ (bodyEnvironment names).length) := by
+        simp only [bodyEnvironment, List.length_map]
+        omega
+      simp only [ranges, outside, ↓reduceIte]
+      simp only [Integer.ObjectBindings.ranges, zero, ↓reduceIte, objectBindings, List.getElem?_map,
+        List.getElem?_eq_none (by omega : names.length ≤ index - 1), Option.map_none]
+
+theorem objectBindings_mutability (names : Environment) :
+    (objectBindings names).mutability = mutability (bodyEnvironment names) := by
+  funext index
+  by_cases zero : index = 0
+  · simp [zero, Integer.ObjectBindings.mutability, mutability]
+  · by_cases inside : index - 1 < names.length
+    · have bounded : 0 < index ∧ index ≤ (bodyEnvironment names).length := by
+        simp only [bodyEnvironment, List.length_map]
+        omega
+      simp only [mutability, bounded, and_self, decide_true, Bool.true_and]
+      simp only [Integer.ObjectBindings.mutability, zero, ↓reduceIte, objectBindings, List.getElem?_map,
+        List.getElem?_eq_getElem inside, Option.map_some, Option.getD_some,
+        binding, bodyEnvironment, List.getD_eq_getElem?_getD, Binding.objectBinding, bodyBinding]
+    · have outside : ¬ (0 < index ∧ index ≤ (bodyEnvironment names).length) := by
+        simp only [bodyEnvironment, List.length_map]
+        omega
+      simp only [mutability, outside, decide_false, Bool.false_and]
+      simp only [Integer.ObjectBindings.mutability, zero, ↓reduceIte, objectBindings, List.getElem?_map,
+        List.getElem?_eq_none (by omega : names.length ≤ index - 1), Option.map_none, Option.getD_none]
 
 end Silver.ScalarExpression

@@ -64,6 +64,33 @@ theorem scalar_declarations_checked {text : Source} {arguments : Bool} {state fi
       simp only [Integer.checkDeclarations, scalar_declaration_checked static first, Option.bind_some]
       exact ih (scalar_declaration_static static first)
 
+theorem scalar_declarations_objects {text : Source} {arguments : Bool} {state final : ParserState}
+    {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
+    (exact : ScalarExpression.ElaboratedEnvironment state.scalarNames) :
+    ScalarExpression.objectBindings final.scalarNames = ScalarExpression.objectBindings state.scalarNames ++
+      Integer.elaborate (ScalarExpression.constants state.scalarNames) values := by
+  induction parsed with
+  | done => simp [Integer.elaborate]
+  | string _ _ _ first _ ih =>
+      cases first
+      exact ih exact
+  | scalar _ _ first _ ih =>
+      have objects := scalar_declaration_objects exact first
+      have values := (Integer.Declaration.check_sound (scalar_declaration_checked exact first)).1
+      rw [ih (scalar_declaration_static exact first), objects, values]
+      simp only [Integer.elaborate, List.append_assoc, List.singleton_append]
+
+theorem scalar_declarations_declared_bounds {text : Source} {arguments : Bool} {state final : ParserState}
+    {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
+    (valid : ScalarExpression.DeclaredBoundsValid state.scalarNames) :
+    ScalarExpression.DeclaredBoundsValid final.scalarNames := by
+  induction parsed with
+  | done => exact valid
+  | string _ _ _ first _ ih =>
+      cases first
+      exact ih valid
+  | scalar _ _ first _ ih => exact ih (scalar_declaration_declared_bounds valid first)
+
 theorem scalar_declarations_unique {text : Source} {arguments : Bool} {state leftState rightState : ParserState}
     {left right : List Integer.Declaration} (first : ScalarDeclarationsAt text arguments state left leftState)
     (second : ScalarDeclarationsAt text arguments state right rightState) : left = right ∧ leftState = rightState := by
