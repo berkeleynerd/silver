@@ -113,6 +113,15 @@ including Ada's leading space. These compose with the String, input, path and
 output rules above. The [completed review remediation](docs/review-b8f1d0b9a8-repairs.md)
 records the implementation corrections and their separate validation.
 
+The completed [Bounded mutable integers extension](docs/bounded-mutable-integers.md)
+adds initialized mutable Integer objects, optional object-local static ranges on
+constants or variables, and range-preserving assignments. Declaration snapshots remain exact;
+body reads use each mutable object's full declared range, without narrowing from
+assignments or scalar guards. Loop bounds capture their entry values, and writes
+persist after the loop.
+The [Find square difference sample](samples/find_square_difference.adb) stores
+the first matching index and prints ` 501` followed by a newline.
+
 Small source files can still be expensive to compile. In a Linux review, a
 4096-byte program with 800 assignments took **36.4 minutes and 8.89 GiB peak
 process-group memory**, producing a 1,734,274-byte Main report within the historical 2 MiB
@@ -161,7 +170,8 @@ provide setup, evidence auditing and tests. GNATprove verifies the compiler.
 Lean connects the restricted recognizer source to the language model and the
 runtime wrappers to their effect models. Every output shell selects a complete
 application report policy: static, argument, assigned or selected result. Emitted
-Main safety checks must all be proved range or length checks. All output forms
+Main safety checks must all be proved range, length or scalar overflow checks
+under their selected policy. All output forms
 precisely classify initializer advisories; assignment-bearing forms additionally
 classify the exact unused-assignment advisory. All sequence policies classify
 two exact statically known predicate advisories and four exact overwritten ghost-output
@@ -343,6 +353,14 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 ```
 
 ## Proofs and platform evidence
+
+The [Bounded mutable integers record](docs/bounded-mutable-integers.md) identifies
+the integrated implementation, [independent review](docs/reviews/review-bounded-mutable-integers.md),
+complete Linux native and Lean validation, and full-suite execution supplemented
+by the focused generated-snapshot repair. The original failed snapshot checks
+and passing affected recheck retain their separate scopes. Its
+[capacity extension](docs/bounded-mutable-report-capacity.md) derives the mutable
+fragment's retained-report envelope under the documented producer assumptions.
 
 The [proof iteration controls](docs/proof-iteration.md) record managed runs,
 workspace ownership, repeated-check reasons and recovery across long sessions,

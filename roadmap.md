@@ -16,8 +16,8 @@ next capability while retaining full assurance for the current language.
 
 ### Bounded mutable integers
 
-**Implementation through delivery authorized on 2026-10-17; not yet supported.**
-The completed [scope](docs/bounded-mutable-integers.md) defines the selected narrow
+**Complete on Linux x86_64, 2026-10-17.**
+The [capability record](docs/bounded-mutable-integers.md) defines the selected narrow
 increment under [stage #11](https://github.com/berkeleynerd/silver/issues/11),
 driven by [Find square difference](rosetta/f/find-square-difference/silver.md).
 An initialized mutable Integer result can receive a loop index and be printed
@@ -25,12 +25,14 @@ with Integer Image. Optional object-local static ranges constrain initialization
 and assignments; named subtype/type declarations and conversions remain outside
 this increment.
 
-The design separates exact declaration snapshots from Ada-staticness. Every
+The implementation separates exact declaration snapshots from Ada-staticness. Every
 executable-body read of a mutable scalar uses its full declared range; neither
 assignments nor guards narrow that range. RHS interval inclusion preserves the
 target range, loop bounds are captured at entry, and Image lengths use the
-current expression interval. These are proposed admission rules, with the
-universal/native/producer arguments still to be established before admission.
+current expression interval. Scalar and String writes persist across iterations
+and after a loop; only its scoped index is removed. The universal, source and
+producer arguments passed the complete validation checkpoint under their
+documented assumptions.
 
 [Milestone 4](https://github.com/berkeleynerd/silver/milestone/4) contains all
 four work packages, recorded together when scoping began:
@@ -39,31 +41,37 @@ four work packages, recorded together when scoping began:
    complete through the scope proposal, including the driver, exact rules,
    composition, exclusions, assurance boundaries and future evidence plan.
 2. **Native admission and regressions [#68](https://github.com/berkeleynerd/silver/issues/68):**
-   Authorized. Resolve the focused frontend/producer questions and implement the
-   selected rules in verified SPARK, with boundary/composition regressions.
+   Complete: selected SPARK rules, language/catalogue agreement, the driver
+   sample and boundary/composition regressions. The complete native audit and
+   full-suite execution with the focused snapshot repair are finished.
 3. **Universal and actual-source assurance [#69](https://github.com/berkeleynerd/silver/issues/69):**
-   Authorized. Establish mutable-store semantics, membership, finite execution,
-   safety/discharge, source correspondence and Image applicability. Reassess
-   pinned producer obligations and derive a retained-report envelope for the
-   combined mutable fragment; the old constant-only bound does not establish
-   it. Coordinate this work with #68 before admission.
+   Complete: mutable-store semantics, membership, finite execution,
+   safety/discharge, source correspondence and Image applicability. The
+   [mutable report envelope](docs/bounded-mutable-report-capacity.md) extends the
+   source/producer derivation; the old constant-only bound is retained as history.
+   Complete native validation and the complete cached Lean build with fresh
+   whole-project auditing passed.
 4. **Validation, review and delivery [#70](https://github.com/berkeleynerd/silver/issues/70):**
-   Authorized, after native/assurance integration. Review and validate actual inputs, retain exact
-   evidence, publish consistent support records and update the narrow Rosetta
-   mapping only after complete assurance.
+   Complete: independent source review, both low finding repairs, native and
+   Lean validation, and full-suite execution supplemented by the focused snapshot
+   repair. The capability record distinguishes actual inputs, source-review
+   targets, retained failures, the passing affected recheck and cache/workspace
+   provenance. Language, catalogue, samples and support records are synchronized.
 
 The owner's [implementation instruction](docs/session-memory.md#2026-10-17--bounded-mutable-integers-implementation-authorized)
 selects packages #68–#70 through complete validation, review and delivery;
 completion of #67 alone does not complete this milestone. The board carries live
-Ready/In progress status and coordinated workspace claims. No new Oracle policy
-decision is identified. Declaration/staticness correspondence, producer
-applicability, mutable-state discharge and the extended report envelope remain
-required implementation obligations, not established guarantees.
+status and coordinated workspace claims. The
+[review](docs/reviews/review-bounded-mutable-integers.md) distinguishes the
+implementation target, source review and validation evidence. No new Oracle
+policy decision is identified.
 
-Current support stays unchanged until the selected implementation and assurance
-are complete. The broad stage retains its other mutable arithmetic,
-subtype/conversion, loop and scalar-Image forms; this authorization does not
-mark any of them supported. Existing
+The delivered Rosetta mapping uses the narrow identifier
+`bounded-mutable-integers`: Find square difference is stage 1, position 15, among
+35 baseline tasks. The ten remaining stage-2 tasks retain the broad
+`integers`, `ranged-subtypes`, `for-loops` and `scalar-image` identifiers under
+#11. General mutable arithmetic/refinement, named types/subtypes, conversions,
+other loop forms and other scalar images remain outside this increment. Existing
 Rosetta sample work #9 is separate, and procedures and arrays remain future
 direction. No new harness goal was requested; the earlier goal remains complete.
 
@@ -170,8 +178,10 @@ connection without author annotations or source replacement.
 The motivating programs are the nested triangle, computed step sequence and
 reverse countdown. The step example multiplies the index by a constant; it
 adds no stride clause. Colour bars/Display remains future file output, based
-on its faithful image-file assessment. Mutable integers, custom subtypes,
-conversions, division and other scalar images remain excluded.
+on its faithful image-file assessment. At that milestone, mutable integers,
+custom subtypes, conversions, division and other scalar images were excluded.
+The [bounded mutable extension](#bounded-mutable-integers) above now covers the
+selected initialized-object and assignment forms; the other exclusions remain.
 
 The coordinated Rosetta delivery supports only `integer-for-loops`,
 `immutable-integers` and `integer-image`. Their three reviewed drivers are
@@ -270,7 +280,8 @@ rejected review suggestions are not new tasks.
 New language/API capabilities and release tooling remain direction rather than
 follow-ups. Additional argument APIs, broader API placement and resizable
 strings need their own motivating scope and assurance. For loops and integers
-are selected above; other new capabilities remain unselected.
+and the bounded mutable extension are recorded above; further capabilities
+remain unselected.
 Distribution/provenance and extra provers remain
 [deferred until needed](#deferred-until-needed). Hosted CI stays disabled; its
 dormant wording is revisited only if reactivation is authorized. macOS validation
@@ -395,6 +406,7 @@ sequence.
 | Equality, guards and branches | Supported | Nested conditionals, `elsif`, optional `else`, bounded predicates/integer literals and path-sensitive assignments, output and rejection; [completed 5a–5c validation](docs/branches.md). | [samples/conditional_statements.adb](samples/conditional_statements.adb), [samples/path_guards.adb](samples/path_guards.adb) |
 | Names and Calls | Supported | Reordered/grouped/repeated contexts, use-visible calls with local-name hiding, and named `Item`/`Default` actuals for existing operations; [completed validation](docs/names-and-calls.md). | [samples/names_calls.adb](samples/names_calls.adb) |
 | For loops and integers | Supported | Immutable signed-32-bit Integer constants, scoped forward/reverse loops, grouped arithmetic, comparisons and standard Integer Image, composed with existing String/path/output rules; [complete delivery evidence](docs/for-loops-integers.md#stable-delivery-evidence). | [Triangle](samples/for_loop_triangle.adb), [computed step](samples/for_loop_step.adb), [countdown](samples/for_loop_countdown.adb) in the coordinated delivery |
+| Bounded mutable integers | Supported | Initialized Integer objects with optional object-local static ranges, range-preserving assignments, exact declaration snapshots and captured loop bounds; [completed Linux validation](docs/bounded-mutable-integers.md). | [Find square difference](samples/find_square_difference.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
