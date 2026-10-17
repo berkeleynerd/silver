@@ -9269,6 +9269,31 @@
   3848:    -----------------------------------
 ```
 
+## src/why/why-gen-binders.adb:192-211
+
+```ada
+   192:    function Get_Args_From_Binders
+   193:      (Binders : Binder_Array; Ref_Allowed : Boolean) return W_Expr_Array
+   194:    is
+   195:       Args : W_Expr_Array (1 .. Binders'Length);
+   196:       I    : Positive := 1;
+   197:    begin
+   198:       for B of Binders loop
+   199:          if Ref_Allowed and then B.Mutable then
+   200:             Args (I) :=
+   201:               New_Deref (Right => B.B_Name, Typ => Get_Typ (B.B_Name));
+   202:          else
+   203:             Args (I) := +B.B_Name;
+   204:          end if;
+   205:          I := I + 1;
+   206:       end loop;
+   207:       return Args;
+   208:    end Get_Args_From_Binders;
+   209:
+   210:    -----------------------------
+   211:    -- Get_Args_From_Variables --
+```
+
 ## src/why/why-gen-binders.adb:448-453
 
 ```ada
@@ -9441,9 +9466,47 @@
   1125:    ---------------------------------
 ```
 
-## src/why/why-gen-binders.adb:1260-1310
+## src/why/why-gen-binders.adb:1222-1310
 
 ```ada
+  1222:    function New_Binders
+  1223:      (Domain : EW_Domain; Binders : Binder_Array) return W_Binder_Array
+  1224:    is
+  1225:
+  1226:       function New_Arg_Type (Binder : Binder_Type) return W_Type_Id;
+  1227:
+  1228:       ------------------
+  1229:       -- New_Arg_Type --
+  1230:       ------------------
+  1231:
+  1232:       function New_Arg_Type (Binder : Binder_Type) return W_Type_Id is
+  1233:       begin
+  1234:          if Domain = EW_Prog and then Binder.Mutable then
+  1235:             return New_Ref_Type (Ty => Get_Type (+Binder.B_Name));
+  1236:          else
+  1237:             return Get_Type (+Binder.B_Name);
+  1238:          end if;
+  1239:       end New_Arg_Type;
+  1240:
+  1241:       Result : W_Binder_Array (Binders'Range);
+  1242:
+  1243:       --  Start of processing for New_Binders
+  1244:
+  1245:    begin
+  1246:       for B in Binders'Range loop
+  1247:          Result (B) :=
+  1248:            New_Binder
+  1249:              (Ada_Node => Binders (B).Ada_Node,
+  1250:               Domain   => Domain,
+  1251:               Name     => Binders (B).B_Name,
+  1252:               Arg_Type => New_Arg_Type (Binders (B)));
+  1253:       end loop;
+  1254:
+  1255:       return Result;
+  1256:    end New_Binders;
+  1257:
+  1258:    --------------
+  1259:    -- New_Call --
   1260:    --------------
   1261:
   1262:    function New_Call

@@ -554,6 +554,10 @@
       "path": "src/why/why-gen-binders.adb",
       "retained_line_ranges": [
         [
+          192,
+          211
+        ],
+        [
           448,
           453
         ],
@@ -570,7 +574,7 @@
           1125
         ],
         [
-          1260,
+          1222,
           1310
         ],
         [

@@ -193,6 +193,22 @@
       ]
     }
   ],
+  "static_literal_fixed_component": {
+    "each_invocation": {
+      "elements_max": 3,
+      "lists_max": 2,
+      "nodes_max": 9,
+      "returned_occurrences": 14
+    },
+    "each_module_miss": {
+      "elements": 10,
+      "fixed_occurrences": 74,
+      "lists": 12,
+      "nodes": 20
+    },
+    "excludes": "character predicate, Close_Theory imports, cached symbol setup, printing-plan repetition",
+    "extra_string_valued_temporary_names_per_miss": 1
+  },
   "string_comparison_and_image": {
     "comparison": {
       "elements_max": 14,

@@ -161,6 +161,80 @@ dividing `2^31-1` by forty omits the rest of the producer and its earlier files.
 source-sensitive rule must include frontend-generated/folded literals and
 transformation multiplicities; summing only source token contents is unjustified.
 
+### Static literal theory and use overhead
+
+The Main String shape result below excludes the nonstatic-lower-bound literal
+path. For one invocation of `Transform_String_Literal` on a static ordinary
+String, the work outside the module-cache miss has this maximum, whether or not
+the theory already exists:
+
+| Per-invocation work | Nodes | Lists | Elements |
+| --- | ---: | ---: | ---: |
+| Fresh map type, name and direct module | 3 | 0 | 0 |
+| Final function identifier/name and call | 3 | 1 | 1 |
+| Eager program-domain low/offset constants and last-index addition | 3 | 1 | 2 |
+| **Total** | **9** | **2** | **3** |
+
+The static program-domain check takes the asserted compile-time-known branch;
+its low/offset/addition work is nevertheless allocated before being discarded.
+The term-domain and empty-literal cases are smaller. The returned literal call
+has **fourteen occurrences**: call 1, qualified identifier 6, unit value 4 and
+map type 3 (`src/why/gnat2why-expr.adb:30221–30255,30525–30666`).
+
+On the first invocation for an expression, add the following fixed module work,
+besides the character predicate and `Close_Theory` imports:
+
+| Module-cache-miss work | Nodes | Lists | Elements |
+| --- | ---: | ---: | ---: |
+| Eager unused low temporary/name | 2 | 0 | 0 |
+| Definition identifier/name and direct module | 3 | 0 | 0 |
+| Theory header and its three declaration entries | 1 | 2 | 3 |
+| Function declaration, unit binder and default empty effects | 3 | 4 | 1 |
+| Definition call on the unit binder | 1 | 1 | 1 |
+| Trigger and trigger collection | 2 | 2 | 2 |
+| Universal quantifier and its unit binder | 2 | 1 | 1 |
+| Definition axiom and dependency | 2 | 0 | 0 |
+| Well-formed literal call and predicate | 2 | 2 | 2 |
+| Well-formed axiom and dependency | 2 | 0 | 0 |
+| **Total** | **20** | **12** | **10** |
+
+`New_Function_Decl`'s default `New_Effects` allocates three empty list records;
+these count despite containing no elements. The named literal module also
+consumes one string-valued temporary name without allocating a Why identifier;
+that counter is not silently bounded by identifier allocations alone.
+The helper/schema sources are `src/why/why-gen-binders.adb:1222–1307,1392–1412`,
+`src/why/why-gen-arrays.adb:3835–3848`,
+`src/why/why-inter.adb:1268–1283`, and
+`src/why/xgen/xtree_sinfo.adb:112–122,171–194,219–229,579–610,721–735`.
+
+The same source shapes give **seventy-four fixed emitted occurrences** per
+static literal theory: header 1, function declaration 19, definition axiom
+30 excluding its character predicate, and well-formed axiom 24. The function
+row is `1+5+7+1+1+1+3`: node, local function identifier, unit binder, empty
+effects, True pre/post, and map return type. The definition axiom row is
+`1+(1+7+(1+1+13))+(1+5)`: axiom, quantifier/binder/triggered call, dependency.
+The final axiom is `1+(1+3+13)+(1+5)`. Thus imports aside this is a source-derived
+shape bound, not an extrapolation of the retained fixture.
+
+If `R_lit` counts literal translations, `K_lit` counts their distinct cache
+misses, and `L_i` are the lengths of the literals defined on those misses, the
+complete static literal component excluding imports and cached symbol setup is
+
+```text
+N <= 9 R_lit + 20 K_lit + sum(7 L_i + [L_i >= 2])
+L <= 2 R_lit + 12 K_lit + sum(3 L_i + [L_i >= 2])
+J <= 3 R_lit + 10 K_lit + sum(5 L_i + max(L_i-2, 0))
+O <= 14 R_lit + 74 K_lit + sum(P(L_i))
+```
+
+`O` charges each returned expression once at its caller and each distinct
+literal theory once; the later printing-plan multiplier is separate. A miss
+adds one theory close and one direct module; each invocation adds one further
+direct module through its fresh map type. The frontend derivation bounds the
+available literal identities and aggregate generated lengths; caller replay
+still determines `R_lit`. Immutable initializer retranslation need not define a
+second theory for the same literal identity.
+
 ### Retained-artifact corroboration
 
 The evidence extracts three unchanged literal theories from the existing
@@ -179,9 +253,10 @@ Each equality has forty occurrences. The three module totals are:
 | 7 | 281 | 371 |
 
 All three observed theories have eight imports and seventy-four other
-occurrences, giving `74 + P(L) + 2*8`. That observed fixed overhead is
-corroboration, not a universal whole-module bound. The retained script checks
-these values and contiguous serialized occurrence IDs without invoking GNATprove.
+occurrences, giving `74 + P(L) + 2*8`. The fixed overhead agrees with the source-derived static shape above. This
+fixture is corroboration, not evidence about other literal shapes or the whole
+producer. The retained script checks these values and contiguous serialized
+occurrence IDs without invoking GNATprove.
 
 ## Source-child multiplicities that are now closed
 
