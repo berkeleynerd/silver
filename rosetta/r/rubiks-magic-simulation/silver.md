@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is under-specified and a text-art walk through the folding states meets it with only literal output, so every check is trivially discharged and no new surface is needed.
 
-Position 33 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 34 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

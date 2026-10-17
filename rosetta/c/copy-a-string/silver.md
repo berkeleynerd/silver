@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Today's Silver already covers this program (String constants, equal-length fixed String assignment and Put_Line), and its only check is a static length check that the declared lengths settle, so it should prove automatically.
 
-Position 18 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 19 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

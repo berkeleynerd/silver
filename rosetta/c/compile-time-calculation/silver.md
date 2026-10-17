@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only arithmetic is a static expression that the compiler folds to 3628800, which fits in Integer, so no run-time check remains apart from the routine 'Image and output call. The proof should discharge trivially once integer constants and 'Image are admitted.
 
-Position 36 in the [progression](../../progression.md#stage-2), in stage 2.
+Position 37 in the [progression](../../progression.md#stage-2), in stage 2.
 
 ## Approach
 

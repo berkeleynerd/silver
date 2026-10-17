@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is satisfied by Ada's constant declarations, which are compile-time enforced, and the program has only static values and output calls, so every check is trivial. The only surface beyond today's Silver is an integer constant and its 'Image.
 
-Position 40 in the [progression](../../progression.md#stage-2), in stage 2.
+Position 41 in the [progression](../../progression.md#stage-2), in stage 2.
 
 ## Approach
 
