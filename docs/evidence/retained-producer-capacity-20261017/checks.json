@@ -27,6 +27,15 @@
       "occurrence_overhead_max": 27
     }
   },
+  "conditional_string_concatenation": {
+    "elements_max": 49,
+    "excludes": "children, cached symbol/module setup, enclosing expected-type conversion, repeated translation",
+    "last_bound_occurrences_max": 131,
+    "lists_max": 32,
+    "nodes_max": 60,
+    "occurrence_overhead_max": 484,
+    "premise": "ordinary static-constrained/unconstrained rank-one Strings, two String operands, Standard.String result/ancestor"
+  },
   "conditional_string_conversion": {
     "dynamic_range_property_occurrences_max": 72,
     "elements_max": 31,

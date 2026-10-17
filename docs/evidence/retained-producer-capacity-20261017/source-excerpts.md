@@ -7778,6 +7778,55 @@
    448:
 ```
 
+## src/why/why-gen-arrays.adb:537-580
+
+```ada
+   537:    function Build_Length_Expr
+   538:      (Domain      : EW_Domain;
+   539:       First, Last : W_Expr_Id;
+   540:       Typ         : W_Type_Id := EW_Int_Type) return W_Expr_Id
+   541:    is
+   542:       First_Rep : constant W_Expr_Id :=
+   543:         Insert_Scalar_Conversion (Domain, Empty, First, Typ);
+   544:       Last_Rep  : constant W_Expr_Id :=
+   545:         Insert_Scalar_Conversion (Domain, Empty, Last, Typ);
+   546:    begin
+   547:       if Typ = EW_Int_Type then
+   548:          return
+   549:            New_Call
+   550:              (Domain => Domain,
+   551:               Name   => M_Integer.Length,
+   552:               Typ    => EW_Int_Type,
+   553:               Args   => (+First_Rep, +Last_Rep));
+   554:       elsif Why_Type_Is_BitVector (Typ) then
+   555:          declare
+   556:             Cond : constant W_Expr_Id :=
+   557:               New_Call
+   558:                 (Domain => Domain,
+   559:                  Name   => MF_BVs (Typ).Ule,
+   560:                  Typ    => EW_Bool_Type,
+   561:                  Args   => (+First_Rep, +Last_Rep));
+   562:             Len  : constant W_Expr_Id :=
+   563:               New_Discrete_Add
+   564:                 (Domain,
+   565:                  New_Discrete_Substract (Domain, Last_Rep, First_Rep),
+   566:                  New_Discrete_Constant (Value => Uint_1, Typ => Typ));
+   567:          begin
+   568:             return
+   569:               New_Conditional
+   570:                 (Domain    => Domain,
+   571:                  Condition => Cond,
+   572:                  Then_Part => Len,
+   573:                  Else_Part =>
+   574:                    New_Discrete_Constant (Value => Uint_0, Typ => Typ),
+   575:                  Typ       => Typ);
+   576:          end;
+   577:       else
+   578:          raise Program_Error;
+   579:       end if;
+   580:    end Build_Length_Expr;
+```
+
 ## src/why/why-gen-arrays.adb:981-1068
 
 ```ada
@@ -8380,6 +8429,32 @@
   3076:    --------------------------
   3077:    -- New_Array_Range_Expr --
   3078:    --------------------------
+```
+
+## src/why/why-gen-arrays.adb:3261-3281
+
+```ada
+  3261:    function New_Concat_Call
+  3262:      (Domain             : EW_Domain;
+  3263:       Args               : W_Expr_Array;
+  3264:       Typ                : W_Type_Id;
+  3265:       Is_Component_Left  : Boolean;
+  3266:       Is_Component_Right : Boolean) return W_Expr_Id
+  3267:    is
+  3268:       Relaxed_Init : constant Boolean := Is_Init_Wrapper_Type (Typ);
+  3269:    begin
+  3270:       return
+  3271:         New_Call
+  3272:           (Domain => Domain,
+  3273:            Name   =>
+  3274:              Get_Array_Theory_1 (Get_Ada_Node (+Typ), Relaxed_Init).Concat
+  3275:                (Is_Component_Left, Is_Component_Right),
+  3276:            Args   => Args,
+  3277:            Typ    => Typ);
+  3278:    end New_Concat_Call;
+  3279:
+  3280:    --------------------
+  3281:    -- New_Const_Call --
 ```
 
 ## src/why/why-gen-arrays.adb:3305-3363

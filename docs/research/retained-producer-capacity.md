@@ -615,6 +615,70 @@ premises; the eager type allocations still count. This envelope prices one
 conversion invocation, not the number of caller invocations or the complete
 String expression language.
 
+### A conditional ordinary String concatenation envelope
+
+Under the same ordinary String shape premise, with two String operands
+(neither operand is a Character component), `Transform_Concatenation`
+has a finite wrapper envelope. Its result and ultimate ancestor are
+unconstrained `Standard.String`, with the static nonempty Positive index
+type and no fixed-lower-bound feature. This removes the constrained-ancestor
+sliding branch, but retains both the static-empty-left and dynamic-empty-left
+paths. Charge supplied child translations and cached symbol/module setup
+separately (`src/why/gnat2why-expr.adb:21976–22351`).
+
+As above, `New_Temp_For_Expr` either replaces a complex operand with a cheap
+temporary or retains an identifier/dereference with at most ten occurrences.
+Both bindings preserve each supplied complex child exactly once. An
+`Add_Array_Arg` on such an operand costs at most six nodes, three lists,
+three elements and fifty-six occurrences: map conversion plus first and last
+accessors (`src/why/why-gen-arrays.adb:223–304`). `Build_Length_Expr` on the
+already normalized Integer bounds adds one call/list with two elements and
+eight occurrences (`:537–580`).
+
+The complete additive accounting, deliberately summing mutually exclusive
+static-empty and nonempty alternatives, is:
+
+| Concatenation component | Nodes | Lists | Elements | Occurrences excluding original children |
+| --- | ---: | ---: | ---: | ---: |
+| Eager Character type, unused for two String operands | 2 | 0 | 0 | 0 |
+| Left first-bound helper | 1 | 1 | 1 | counted where referenced below |
+| Static-empty alternative, including unused right-first helper | 1 | 1 | 1 | 10 |
+| Two packed arrays, no-slide last bound and concat call | 21 | 12 | 20 | 188 |
+| Reconstructed last bound, range check and array reconstruction | 16 | 11 | 18 | 171 |
+| Dynamic-empty-left condition and reconstructed right alternative | 13 | 7 | 9 | 97 |
+| Two optional temporary/binding pairs | 6 | 0 | 0 | 18 |
+| **Total** | **60** | **32** | **49** | **484** |
+
+The no-slide last bound costs at most `6/5/7/66`: an eagerly allocated but
+unused `One_Term`, the Positive last-bound helper, two right-bound accessors,
+one length call and one addition. The concat call itself adds three nodes
+(fresh nonstatic result type and call), one seven-element list and at most
+ten occurrences (`src/why/why-gen-arrays.adb:3261–3281`). With two packed-array
+arguments this gives the `21/12/20/188` row.
+
+The reconstructed last bound has four bound accessors, two length calls,
+three arithmetic calls and one constant: ten nodes, nine lists, fourteen
+elements. Its 131 occurrences include one reference to the already computed
+left first bound: `4*18 + 2*8 + 3*8 + 18 + 1`. Add the optional static Positive
+range wrapper (`3/1/1/12`), one further first-bound reference (eighteen
+occurrences), and ordinary nonstatic array reconstruction (`3/1/3/10`).
+That gives the second row's sixteen nodes and 171 emitted overhead, with the
+concat result supplied once.
+
+The dynamic-empty-left suffix constructs two right-bound accessors, a right
+map conversion, a left-length accessor, zero, equality, reconstruction and
+conditional. Its condition costs at most twenty-seven occurrences, its right
+alternative sixty-six, and the conditional/type four, totaling ninety-seven.
+The preceding result occurs once as the other branch. Each temporary/binding
+pair costs three fresh nodes and at most nine occurrences excluding its
+definition and context. Unused eager constructions remain in allocation totals.
+
+This gives `child(left) + child(right) + 484` as a serialized wrapper allowance
+for one concat translation under these premises, with the separate lifetime
+components in the table. It does not count an enclosing expected-type array
+conversion, frontend-generated folded literal translation, or a second
+translation of an immutable initializer.
+
 ## Declaration, type and module caller closure
 
 The following additional results close invocation multiplicities. They remain
