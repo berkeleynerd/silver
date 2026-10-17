@@ -1017,6 +1017,18 @@ arbitrary-callee correspondence still has the Ada/frontend interpretation premis
 below. These equations are semantic interfaces, not project axioms or an
 assumption that membership implies proof success.
 
+For bounded mutable Integer objects, the native `Body_Environment` contract
+preserves the active count and maps each fixed-array slot through `Body_Binding`.
+GNATprove discharges that owned contract for the iterated array aggregate. The
+typed binding update and full-array contract derive the active-prefix mapping used by the predicate
+adapter: mutable bindings use declared ranges, while immutable snapshots and
+name/staticness metadata are preserved. Interpreting the checked native
+postcondition and record fields uses the existing Ada/frontend premise. The
+mapping and its evaluator connection are proved, rather than assuming that an
+arbitrary environment transform equals the model. The
+[capability record](bounded-mutable-integers.md) tracks the extension's complete
+source and native validation separately from its focused model checks.
+
 In the `Form_Result` evaluator, normalization is interpreted as identity and
 source-length/allowed-character checks use their specified meanings directly.
 The renderer checks the native calls, but their denotations at this site remain

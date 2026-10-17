@@ -3,6 +3,7 @@ module
 public import Silver.PredicateChecking
 public import Silver.SequenceSyntax
 public import Silver.IntegerIteration
+public import Silver.IntegerMutable
 
 @[expose] public section
 
@@ -15,6 +16,7 @@ open Bindings Compose PathFacts
 
 inductive Statement
   | simple (item : Sequence.SimpleStatement)
+  | scalarAssign (update : Integer.Assignment)
   | reject
   | choice (condition : Condition) (yes no : List Statement)
   | forLoop (index : Nat) (reverse : Bool) (lower upper : Integer.Expr) (body : List Statement)
@@ -33,6 +35,7 @@ def SimpleWellFormed (shape : Shape) : Sequence.SimpleStatement → Prop
 mutual
   def Statement.WellFormed (hasArguments : Bool) (shape : Shape) : Statement → Prop
     | .simple item => SimpleWellFormed shape item
+    | .scalarAssign update => update.target ≠ 0
     | .reject => hasArguments = true
     | .choice condition yes no =>
         condition.Grammatical ∧ condition.Readable hasArguments shape ∧ yes ≠ [] ∧
@@ -132,27 +135,30 @@ def loopAfter (before after : Context) (lower upper : Integer.Interval) : Contex
 
 mutual
   def Statement.check (shape : Shape) (context : Context) (item : Statement)
-      (ranges : Integer.Ranges := Integer.emptyRanges) : Option Context :=
+      (ranges : Integer.Ranges := Integer.emptyRanges)
+      (mutable : Integer.Mutability := Integer.immutable) : Option Context :=
     match item with
     | .simple item => if checkSimple shape context item ranges then some context else none
+    | .scalarAssign update => if update.check ranges mutable then some context else none
     | .reject => some context.reject
     | .choice condition yes no =>
         if condition.checkBounds shape context ranges then
-          (checkStatements shape (condition.refine shape context true ranges) yes ranges).bind fun afterYes =>
-            (checkStatements shape (condition.refine shape context false ranges) no ranges).map fun afterNo =>
+          (checkStatements shape (condition.refine shape context true ranges) yes ranges mutable).bind fun afterYes =>
+            (checkStatements shape (condition.refine shape context false ranges) no ranges mutable).map fun afterNo =>
               afterYes.join afterNo
         else none
     | .forLoop index _ lower upper body =>
         (lower.infer ranges).bind fun a => (upper.infer ranges).bind fun b =>
           let bounds := Integer.loopBounds a b
           (checkStatements shape (loopContext context bounds) body
-            (Integer.put ranges index (some bounds))).map fun after => loopAfter context after a b
+            (Integer.put ranges index (some bounds)) (Integer.put mutable index false)).map fun after => loopAfter context after a b
   termination_by sizeOf item
   def checkStatements (shape : Shape) (context : Context) (items : List Statement)
-      (ranges : Integer.Ranges := Integer.emptyRanges) : Option Context :=
+      (ranges : Integer.Ranges := Integer.emptyRanges)
+      (mutable : Integer.Mutability := Integer.immutable) : Option Context :=
     match items with
     | [] => some context
-    | item :: rest => (item.check shape context ranges).bind fun next => checkStatements shape next rest ranges
+    | item :: rest => (item.check shape context ranges mutable).bind fun next => checkStatements shape next rest ranges mutable
   termination_by sizeOf items
 end
 

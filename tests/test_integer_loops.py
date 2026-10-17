@@ -35,8 +35,8 @@ class IntegerLoopsTests(unittest.TestCase):
     def test_constants_are_initialized_typed_and_immutable(self) -> None:
         declarations = b'A:constant Integer:=3;B:constant Integer:=(A * A);S:String:="x";'
         self.check(program(declarations, b'if B=9 then ' + output(b'S') + b'end if;'))
+        self.check(program(b'A:Integer:=3;', b'null;'))
         for source in [
-            program(b'A:Integer:=3;', b'null;'),
             program(b'A:constant Integer;', b'null;'),
             program(b'A:constant Integer:=A;', b'null;'),
             program(b'A:constant Integer:=B;B:constant Integer:=1;', b'null;'),

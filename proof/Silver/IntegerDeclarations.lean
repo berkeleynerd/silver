@@ -4,7 +4,7 @@ public import Silver.IntegerExpressions
 
 @[expose] public section
 
-/-! Immutable Integer declarations, initialized in source order. Scalar ids
+/-! Integer objects initialized in source order. Scalar ids
 are one-based and independent of the String store. Source name checking owns
 the single Ada namespace and rejects cross-type reads before this layer. -/
 
@@ -31,11 +31,15 @@ theorem Constants.fits (constants : Constants) : Fits constants.ranges constants
 
 structure Declaration where
   value : Expr
+  bounds : Interval := .full
+  mutable : Bool := false
   deriving DecidableEq, Repr
 
 def Declaration.check (constants : Constants) (declaration : Declaration) : Option Constants :=
   (declaration.value.infer constants.ranges).bind fun bounds =>
-    if bounds.lower = bounds.upper then some (constants ++ [bounds.lower]) else none
+    if bounds.lower = bounds.upper ∧ declaration.bounds.Bounded ∧
+        declaration.bounds.Contains bounds.lower
+    then some (constants ++ [bounds.lower]) else none
 
 def Declaration.execute (constants : Constants) (declaration : Declaration) : Constants :=
   constants ++ [declaration.value.evaluate constants.store]
@@ -64,9 +68,26 @@ theorem Declaration.check_sound {constants next : Constants} {declaration : Decl
     have sound := Expr.infer_sound inferred constants.fits
     have same : bounds.lower = declaration.value.evaluate constants.store := by
       simp only [Interval.Contains] at sound
+      have equal := singleton.1
       omega
     simp only [Option.some.injEq] at tail
     exact ⟨by simpa only [execute, same] using tail.symm, sound.2, Expr.safe_value sound.2⟩
+  · contradiction
+
+theorem Declaration.check_constraint {constants next : Constants} {declaration : Declaration}
+    (checked : declaration.check constants = some next) :
+    declaration.bounds.Bounded ∧
+      declaration.bounds.Contains (declaration.value.evaluate constants.store) := by
+  simp only [check, Option.bind_eq_some_iff] at checked
+  obtain ⟨bounds, inferred, tail⟩ := checked
+  split at tail
+  · rename_i admitted
+    have within := (Expr.infer_sound inferred constants.fits).1
+    have same : bounds.lower = declaration.value.evaluate constants.store := by
+      have equal := admitted.1
+      simp only [Interval.Contains] at within
+      omega
+    exact ⟨admitted.2.1, same ▸ admitted.2.2⟩
   · contradiction
 
 theorem Declaration.check_preserves {constants next : Constants} {declaration : Declaration}

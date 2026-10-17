@@ -16,20 +16,30 @@ structure Binding where
   after : Nat
   bounds : Integer.Interval
   isStatic : Bool
+  declaredBounds : Integer.Interval := .full
+  mutable : Bool := false
   deriving DecidableEq, Repr
 
 abbrev Environment := List Binding
 
-def emptyBinding : Binding := ⟨0, 0, Integer.Interval.empty, false⟩
+def emptyBinding : Binding := ⟨0, 0, Integer.Interval.empty, false, Integer.Interval.empty, false⟩
 def binding (names : Environment) (index : Nat) : Binding := names.getD (index - 1) emptyBinding
 
 def ranges (names : Environment) : Integer.Ranges := fun index =>
   if 0 < index ∧ index ≤ names.length then some (binding names index).bounds else none
 
 def constants (names : Environment) : List Int :=
-  names.filterMap fun item =>
-    if item.isStatic && decide (item.bounds.lower = item.bounds.upper)
-    then some item.bounds.lower else none
+  names.map fun item => item.bounds.lower
+
+/-- Declaration environments carry exact initial values, independently of Ada
+staticness. Body environments expose every mutable object's declared range. -/
+def bodyBinding (item : Binding) : Binding :=
+  {item with bounds := if item.mutable then item.declaredBounds else item.bounds}
+
+def bodyEnvironment (names : Environment) : Environment := names.map bodyBinding
+
+def mutability (names : Environment) : Nat → Bool := fun index =>
+  decide (0 < index ∧ index ≤ names.length) && (binding names index).mutable
 
 def lookupFrom (text : Source) (names : Environment) (first after : Nat) : Nat → Nat
   | 0 => 0

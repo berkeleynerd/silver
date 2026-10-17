@@ -26,7 +26,9 @@ def mantissaEquation (calls : Calls) (text : Source) (position : Nat) : Mantissa
   let leading := calls.numeral text position 10
   if leading.after = 0 then ⟨0, 0, 10⟩ else
   if leading.after ≤ text.length ∧
-      (Cursor.byteAt text leading.after = 35 ∨ Cursor.byteAt text leading.after = 58) then
+      (Cursor.byteAt text leading.after = 35 ∨ Cursor.byteAt text leading.after = 58) ∧
+      ¬ (Cursor.byteAt text leading.after = 58 ∧ leading.after < text.length ∧
+        Cursor.byteAt text (leading.after + 1) = 61) then
     if leading.value < 2 ∨ 16 < leading.value then ⟨0, 0, 10⟩ else
     let number := calls.numeral text (leading.after + 1) leading.value
     if number.after = 0 then ⟨0, 0, 10⟩ else
@@ -78,7 +80,10 @@ theorem numeral_denotation (calls : Calls) (text : Source) (position base : Nat)
 theorem mantissa_denotation (calls : Calls) (text : Source) (position : Nat) :
     mantissaBody.eval calls ({text, position} : Context).locals = mantissaEquation calls text position := by
   dsimp +instances only [mantissaBody, Expr.eval, Context.locals, Calls.get, Field.get, Locals.set]
-  simp [mantissaEquation]
+  by_cases colon : Cursor.byteAt text (calls.numeral text position 10).after = 58
+  all_goals by_cases next : (calls.numeral text position 10).after < text.length
+  all_goals by_cases assignment : Cursor.byteAt text ((calls.numeral text position 10).after + 1) = 61
+  all_goals simp_all [mantissaEquation]
 
 theorem scale_denotation (calls : Calls) (base value exponent : Nat) :
     scaleBody.eval calls ({base, value, exponent} : Context).locals = scaleEquation calls base value exponent := by
@@ -221,19 +226,22 @@ theorem interpreted_mantissa (calls : Calls) (equations : Equations calls) (text
     (position : Nat) (positionBound : position ≤ text.length + 1) :
     calls.mantissa text position = mantissa text position := by
   rw [equations.mantissa text valid position positionBound, mantissa_denotation]
-  unfold mantissaEquation mantissa
+  unfold mantissaEquation mantissa DelimiterAt
   rw [interpreted_numeral calls equations text valid position 10 (by constructor <;> decide) positionBound]
   by_cases failed : (numeral text position 10).after = 0
   · simp only [failed, ↓reduceIte]
   · simp only [failed, ↓reduceIte]
     by_cases delimiter : (numeral text position 10).after ≤ text.length ∧
-        (Cursor.byteAt text (numeral text position 10).after = 35 ∨ Cursor.byteAt text (numeral text position 10).after = 58)
-    · simp only [delimiter]
+        (Cursor.byteAt text (numeral text position 10).after = 35 ∨ Cursor.byteAt text (numeral text position 10).after = 58) ∧
+        ¬ (Cursor.byteAt text (numeral text position 10).after = 58 ∧
+          (numeral text position 10).after < text.length ∧
+          Cursor.byteAt text ((numeral text position 10).after + 1) = 61)
+    · simp only [ite_eq_left delimiter]
       by_cases badBase : (numeral text position 10).value < 2 ∨ 16 < (numeral text position 10).value
       · simp only [badBase, ↓reduceIte]
       · simp only [badBase, ↓reduceIte]
         rw [interpreted_numeral calls equations text valid _ _ (by constructor <;> omega) (by omega)]
-    · simp only [delimiter, ↓reduceIte]
+    · simp only [ite_eq_right delimiter]
 
 theorem interpreted_start (calls : Calls) (equations : Equations calls) (text : Source) (valid : ValidText text)
     (position : Nat) (positive : 0 < position) (positionBound : position ≤ text.length + 1) :

@@ -28,7 +28,7 @@ def allTokens : List ShellToken :=
    .symbol "'", .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
    .outputExpression, .comparisonExpression, .word "null", .contextClauses,
-   .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol ".."]
+   .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range"]
 
 def ValidToken (token : ShellToken) : Prop := token ∈ allTokens
 
@@ -218,6 +218,10 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls) :
   stringDeclaration : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state → calls.function .stringDeclaration text state arguments =
       stringDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
+  scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames,
+    ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames →
+    calls.function .scalarConstraint text position scalarNames =
+      scalarConstraintBody.eval evaluator (Context.locals {text,position,scalarNames})
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state → calls.function .scalarDeclaration text state arguments =
       scalarDeclarationBody.eval evaluator (Context.locals {text,state,arguments})

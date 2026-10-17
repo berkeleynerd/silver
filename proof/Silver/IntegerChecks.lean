@@ -1,6 +1,6 @@
 module
 
-public import Silver.IntegerDeclarations
+public import Silver.IntegerMutable
 
 @[expose] public section
 
@@ -17,6 +17,7 @@ inductive Obligation
   | add (left right : Interval)
   | subtract (left right : Interval)
   | multiply (left right : Interval)
+  | within (value target : Interval)
   | impossible
   deriving DecidableEq, Repr
 
@@ -26,6 +27,7 @@ def Obligation.discharge : Obligation → Bool
   | .add left right => (checkedAdd left right).safe
   | .subtract left right => (checkedSubtract left right).safe
   | .multiply left right => (checkedMultiply left right).safe
+  | .within value target => value.included target
   | .impossible => false
 
 def Obligation.Valid : Obligation → Prop
@@ -34,6 +36,7 @@ def Obligation.Valid : Obligation → Prop
   | .add left right => ∀ a b, left.Contains a → right.Contains b → InRange (a + b)
   | .subtract left right => ∀ a b, left.Contains a → right.Contains b → InRange (a - b)
   | .multiply left right => ∀ a b, left.Contains a → right.Contains b → InRange (a * b)
+  | .within value target => ∀ item, value.Contains item → target.Contains item
   | .impossible => False
 
 theorem Obligation.discharge_sound {obligation : Obligation} (proved : obligation.discharge = true) :
@@ -44,6 +47,7 @@ theorem Obligation.discharge_sound {obligation : Obligation} (proved : obligatio
   | add => exact fun _ _ left right => (checkedAdd_sound proved left right).2
   | subtract => exact fun _ _ left right => (checkedSubtract_sound proved left right).2
   | multiply => exact fun _ _ left right => (checkedMultiply_sound proved left right).2
+  | within => exact fun _ inside => Interval.included_sound proved inside
   | impossible => contradiction
 
 def discharged (obligations : List Obligation) : Bool := obligations.all Obligation.discharge
@@ -124,6 +128,8 @@ theorem Expr.automatic_discharge_complete {expression : Expr} {ranges : Ranges}
 def declarationObligations : Constants → List Declaration → List Obligation
   | _, [] => []
   | constants, declaration :: rest => declaration.value.obligations constants.ranges ++
+      [unaryObligation (fun value => .within value declaration.bounds)
+        (declaration.value.infer constants.ranges)] ++
       match declaration.check constants with
       | some next => declarationObligations next rest
       | none => [.impossible]
@@ -141,8 +147,38 @@ theorem declaration_obligations_discharge {constants next : Constants} {declarat
         obtain ⟨bounds, found, _⟩ := first
         exact ⟨bounds, found⟩
       obtain ⟨bounds, found⟩ := inferred
-      simp only [declarationObligations, first, discharged_append,
-        Expr.obligations_discharge found, ih restChecked, Bool.and_self]
+      have included : bounds.included declaration.bounds = true := by
+        simp only [Declaration.check, found, Option.bind_some] at first
+        split at first
+        · rename_i good
+          simp only [Interval.included, Interval.isEmpty, good.1, Int.lt_irrefl,
+            decide_false, Bool.false_or, decide_eq_true_eq]
+          simpa only [Interval.Contains, good.1] using good.2.2
+        · contradiction
+      rw [declarationObligations, first, discharged_append, discharged_append,
+        Expr.obligations_discharge found, ih restChecked]
+      simp only [found, unaryObligation, discharged, List.all_cons, List.all_nil,
+        Obligation.discharge, included, Bool.and_self]
+
+def Assignment.obligations (assignment : Assignment) (ranges : Ranges) : List Obligation :=
+  assignment.value.obligations ranges ++
+    [unaryObligation (fun value => .within value assignment.bounds) (assignment.value.infer ranges)]
+
+theorem Assignment.obligations_discharge {assignment : Assignment} {ranges : Ranges}
+    {mutable : Mutability} (checked : assignment.check ranges mutable = true) :
+    discharged (assignment.obligations ranges) = true := by
+  simp only [Assignment.check, Bool.and_eq_true] at checked
+  cases target : ranges assignment.target with
+  | none => simp [target] at checked
+  | some targetBounds =>
+    cases value : assignment.value.infer ranges with
+    | none => simp [value, target] at checked
+    | some valueBounds =>
+      have compatible : assignment.bounds = targetBounds ∧ valueBounds.included targetBounds = true := by
+        simpa only [target, value, Bool.and_eq_true, decide_eq_true_eq] using checked.2
+      rw [obligations, discharged_append, Expr.obligations_discharge value]
+      simp only [value, unaryObligation, discharged, List.all_cons, List.all_nil,
+        Obligation.discharge, compatible.1, compatible.2, Bool.and_self]
 
 theorem declaration_obligations_valid {constants next : Constants} {declarations : List Declaration}
     (checked : checkDeclarations constants declarations = some next) :

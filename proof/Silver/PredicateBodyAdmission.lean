@@ -33,7 +33,23 @@ def bodyTokens (text : Source) (scan : BodyScan) (tokens : List ShellToken) : Bo
 def parserState (context : ParseContext) (scan : BodyScan) : ParserState :=
   {position := scan.position, names := context.names, scalarNames := context.scalarNames, target := scan.target, capacity := scan.capacity}
 
-inductive BasicKind | null | output | put | reject | assignment
+def scalarTarget (text : Source) (context : ParseContext) (position : Nat) : Nat :=
+  let first := skipAt text position
+  ScalarExpression.lookup text context.scalarNames first (nameAfter text first)
+
+def scalarAssignmentStart (text : Source) (scan : BodyScan) : Nat :=
+  fixedAfter text (nameAfter text (skipAt text scan.position)) ":=" false
+
+def scalarAssignmentBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+  let target := scalarTarget text context scan.position
+  let value := ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames
+  let binding := ScalarExpression.binding context.scalarNames target
+  if target = 0 ∨ !binding.mutable ∨ value.after ≤ scan.position ∨
+      (!value.bounds.isEmpty ∧ (value.bounds.lower < binding.declaredBounds.lower ∨
+        value.bounds.upper > binding.declaredBounds.upper))
+  then invalidBody else {scan with position := value.after, assigned := true}
+
+inductive BasicKind | null | output | put | reject | scalarAssignment | assignment
   deriving DecidableEq, Repr
 
 def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : BasicKind :=
@@ -42,6 +58,7 @@ def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : Basic
   else if callAfter text context.names scan.position .partialOutput context.scalarNames ≠ 0 then .put
   else if context.hasArguments && decide (callAfter text context.names scan.position .reject context.scalarNames ≠ 0)
     then .reject
+  else if scalarTarget text context scan.position ≠ 0 then .scalarAssignment
   else .assignment
 
 def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
@@ -64,6 +81,7 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodySc
   | .reject =>
       let call := {scan with position := callAfter text context.names scan.position .reject context.scalarNames}
       {call with facts := call.facts.reject}
+  | .scalarAssignment => scalarAssignmentBody text context scan
   | .assignment =>
       let state := targetAt text (parserState context scan) false
       let target := bodyToken text {scan with position := state.position, target := state.target} (.symbol ":=")
@@ -142,7 +160,8 @@ def loopNameAllowed (text : Source) (context : ParseContext) (header : LoopHeade
 
 def loopInner (context : ParseContext) (header : LoopHeader) : ParseContext :=
   {context with scalarNames := context.scalarNames ++
-    [⟨header.first, header.after, Integer.loopBounds header.lower.bounds header.upper.bounds, false⟩]}
+    [⟨header.first, header.after, Integer.loopBounds header.lower.bounds header.upper.bounds, false,
+      Integer.loopBounds header.lower.bounds header.upper.bounds, false⟩]}
 
 mutual
   def statementBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
@@ -259,14 +278,14 @@ def initialFacts (arguments : Bool) : Context :=
   if arguments then Context.initial maxSourceLength else ⟨some ⟨0, 0⟩, false, false⟩
 
 def contextOf (scan : ScanResult) : ParseContext :=
-  ⟨scan.state.names, decide (scan.state.dynamicFirst ≠ 0), scan.state.scalarNames⟩
+  ⟨scan.state.names, decide (scan.state.dynamicFirst ≠ 0), ScalarExpression.bodyEnvironment scan.state.scalarNames⟩
 
 def bodyOf (scan : ScanResult) : BodyScan :=
   ⟨scan.state.position, scan.state.target, scan.state.capacity,
     initialFacts (decide (scan.state.dynamicFirst ≠ 0)), scan.assigned, scan.output⟩
 
 def expandBody (before : ParserState) (scan : BodyScan) : ScanResult :=
-  ⟨{before with position := scan.position, target := scan.target, capacity := scan.capacity},
+  ⟨{before with position := scan.position, target := scan.target, capacity := scan.capacity, scalarNames := ScalarExpression.bodyEnvironment before.scalarNames},
     scan.assigned, scan.output⟩
 
 def readStatements (text : Source) (scan : ScanResult) : ScanResult :=

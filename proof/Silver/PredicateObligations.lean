@@ -183,40 +183,49 @@ theorem simple_obligations_exact (shape : Shape) (context : Context) (item : Seq
 
 mutual
   def Statement.obligations (shape : Shape) (context : Context) (item : Statement)
-      (ranges : Integer.Ranges := Integer.emptyRanges) : List Obligation :=
+      (ranges : Integer.Ranges := Integer.emptyRanges)
+      (mutable : Integer.Mutability := Integer.immutable) : List Obligation :=
     match item with
     | .simple item => simpleObligations shape context item ranges
+    | .scalarAssign update => (update.obligations ranges).map Obligation.scalar
     | .reject => []
     | .choice condition yes no => condition.obligations shape context ranges ++
-        statementsObligations shape (condition.refine shape context true ranges) yes ranges ++
-        statementsObligations shape (condition.refine shape context false ranges) no ranges
+        statementsObligations shape (condition.refine shape context true ranges) yes ranges mutable ++
+        statementsObligations shape (condition.refine shape context false ranges) no ranges mutable
     | .forLoop index _ lower upper body =>
         (lower.obligations ranges ++ upper.obligations ranges).map Obligation.scalar ++
           match lower.infer ranges, upper.infer ranges with
           | some a, some b => statementsObligations shape (loopContext context (Integer.loopBounds a b)) body
-              (Integer.put ranges index (some (Integer.loopBounds a b)))
+              (Integer.put ranges index (some (Integer.loopBounds a b))) (Integer.put mutable index false)
           | _, _ => [.impossible]
   termination_by sizeOf item
   def statementsObligations (shape : Shape) (context : Context) (items : List Statement)
-      (ranges : Integer.Ranges := Integer.emptyRanges) : List Obligation :=
+      (ranges : Integer.Ranges := Integer.emptyRanges)
+      (mutable : Integer.Mutability := Integer.immutable) : List Obligation :=
     match items with
     | [] => []
-    | item :: rest => item.obligations shape context ranges ++
-        match item.check shape context ranges with
+    | item :: rest => item.obligations shape context ranges mutable ++
+        match item.check shape context ranges mutable with
         | none => []
-        | some next => statementsObligations shape next rest ranges
+        | some next => statementsObligations shape next rest ranges mutable
   termination_by sizeOf items
 end
 
 mutual
-  theorem statement_obligations_discharge {shape : Shape} {ranges : Integer.Ranges} {before after : Context} {item : Statement}
-      (checked : item.check shape before ranges = some after) : discharged (item.obligations shape before ranges) = true := by
+  theorem statement_obligations_discharge {shape : Shape} {ranges : Integer.Ranges} {mutable : Integer.Mutability} {before after : Context} {item : Statement}
+      (checked : item.check shape before ranges mutable = some after) : discharged (item.obligations shape before ranges mutable) = true := by
     cases item with
     | simple item =>
         simp only [Statement.check] at checked
         split at checked
         · rename_i good
           simpa only [Statement.obligations, simple_obligations_exact] using good
+        · contradiction
+    | scalarAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          simpa only [Statement.obligations, scalar_discharged] using update.obligations_discharge good
         · contradiction
     | reject => simp [Statement.obligations, discharged]
     | choice condition yes no =>
@@ -238,9 +247,9 @@ mutual
           Bool.and_self]
   termination_by sizeOf item
 
-  theorem statements_obligations_discharge {shape : Shape} {ranges : Integer.Ranges} {before after : Context} {items : List Statement}
-      (checked : checkStatements shape before items ranges = some after) :
-      discharged (statementsObligations shape before items ranges) = true := by
+  theorem statements_obligations_discharge {shape : Shape} {ranges : Integer.Ranges} {mutable : Integer.Mutability} {before after : Context} {items : List Statement}
+      (checked : checkStatements shape before items ranges mutable = some after) :
+      discharged (statementsObligations shape before items ranges mutable) = true := by
     cases items with
     | nil => simp [statementsObligations, discharged]
     | cons item rest =>
@@ -252,9 +261,9 @@ mutual
   termination_by sizeOf items
 end
 
-theorem statements_obligations_valid {shape : Shape} {ranges : Integer.Ranges} {before after : Context} {items : List Statement}
-    (checked : checkStatements shape before items ranges = some after) :
-    ∀ check ∈ statementsObligations shape before items ranges, check.Valid := by
+theorem statements_obligations_valid {shape : Shape} {ranges : Integer.Ranges} {mutable : Integer.Mutability} {before after : Context} {items : List Statement}
+    (checked : checkStatements shape before items ranges mutable = some after) :
+    ∀ check ∈ statementsObligations shape before items ranges mutable, check.Valid := by
   have all := statements_obligations_discharge checked
   simp only [discharged, List.all_eq_true] at all
   exact fun check present => Obligation.discharge_sound (all check present)
@@ -262,12 +271,13 @@ theorem statements_obligations_valid {shape : Shape} {ranges : Integer.Ranges} {
 def Obligation.toObligation (check : Obligation) : Semantics.Obligation := ⟨.runTimeSafety, check.discharge⟩
 
 def modeledObligations (shape : Shape) (before : Context) (items : List Statement)
-    (ranges : Integer.Ranges := Integer.emptyRanges) : List Semantics.Obligation :=
-  (statementsObligations shape before items ranges).map Obligation.toObligation
+    (ranges : Integer.Ranges := Integer.emptyRanges)
+    (mutable : Integer.Mutability := Integer.immutable) : List Semantics.Obligation :=
+  (statementsObligations shape before items ranges mutable).map Obligation.toObligation
 
-theorem all_modeled_obligations_discharge {shape : Shape} {ranges : Integer.Ranges} {before after : Context} {items : List Statement}
-    (checked : checkStatements shape before items ranges = some after) :
-    Semantics.discharge (modeledObligations shape before items ranges) = true := by
+theorem all_modeled_obligations_discharge {shape : Shape} {ranges : Integer.Ranges} {mutable : Integer.Mutability} {before after : Context} {items : List Statement}
+    (checked : checkStatements shape before items ranges mutable = some after) :
+    Semantics.discharge (modeledObligations shape before items ranges mutable) = true := by
   apply (Semantics.discharge_iff _).mpr
   intro check present
   obtain ⟨schema, member, rfl⟩ := List.mem_map.mp present

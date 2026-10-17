@@ -164,12 +164,20 @@ theorem model_scalar_reading_valid {text : Source} {state next : ParserState} {a
         exact model_fixed_valid text parts.value.after ";" false scalarBounds.2.2
       have room : state.scalarNames.length < ScalarExpression.maxBindings := by
         have bound := stateValid.2.2.2.2.2.1
-        have available := ready.2.2.2.1
+        have available := ready.2.2.2.2.1
         change state.scalarNames.length ≠ ScalarExpression.maxBindings at available
         omega
       have scalars := ScalarExpression.validEnvironment_append stateValid.2.2.2.2.2 room
-        (item := ⟨parts.first, parts.after, parts.value.bounds, true⟩)
-        ⟨nameValid.1, nameValid.2.1, nameValid.2.2, Integer.Expr.infer_bounded reading.inferred⟩
+        (item := ⟨parts.first, parts.after, parts.value.bounds, decide (parts.constantAfter ≠ 0) && parts.value.isStatic, parts.constraint.bounds, decide (parts.constantAfter = 0)⟩)
+        ⟨nameValid.1, nameValid.2.1, nameValid.2.2, Integer.Expr.infer_bounded reading.inferred,
+          by
+            rw [← partsEq]
+            exact scalarConstraintAt_bounded text _ state.scalarNames
+              (scalarDeclarationTypeAfter_valid text state)
+              (by
+                change (scalarDeclarationParts text state).constraint.after ≠ 0
+                rw [partsEq]
+                exact ready.2.2.1)⟩
       exact ⟨following, stateValid.2.1, stateValid.2.2.1,
         stateValid.2.2.2.1, stateValid.2.2.2.2.1, scalars⟩
 
@@ -184,7 +192,7 @@ theorem model_scalar_declaration_valid (text : Source) (state : ParserState) (ar
       simpa [ScalarDeclarationReady, Bool.or_eq_true, not_or, Nat.not_le, and_assoc] using good
     have nonzero : (scalarDeclarationAt text state arguments).position ≠ 0 := by
       simp only [scalarDeclarationAt, good, Bool.false_eq_true, ↓reduceIte, addScalarBinding]
-      have advance := ready.2.2.1
+      have advance := ready.2.2.2.1
       omega
     obtain ⟨declaration, parsed⟩ := scalar_declaration_sound text state arguments nonzero
     have valid := model_scalar_reading_valid stateValid parsed
@@ -202,7 +210,7 @@ theorem model_scalar_declaration_advances (text : Source) (state : ParserState) 
     rw [ite_eq_right good]
     have ready : ScalarDeclarationReady text state arguments (scalarDeclarationParts text state) := by
       simpa [ScalarDeclarationReady, Bool.or_eq_true, not_or, Nat.not_le, and_assoc] using good
-    exact ready.2.2.1
+    exact ready.2.2.2.1
 
 theorem model_declaration_valid (text : Source) (valid : ValidText text)
     (state : ParserState) (arguments : Bool) (stateValid : ValidState text state) :

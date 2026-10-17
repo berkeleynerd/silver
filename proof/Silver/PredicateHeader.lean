@@ -89,6 +89,14 @@ theorem prefix_scalar_checked {source form values}
   have checked := Sequence.scalar_tokens_checked trace ScalarExpression.static_empty
   exact ⟨checked.1, checked.2, ScalarExpression.static_ranges checked.2⟩
 
+theorem prefix_scalar_objects {source form values}
+    (trace : Sequence.ScalarTokensAt source form.helper form.prefix initialState values
+      (prefixScan source form).state) :
+    ScalarExpression.objectBindings (prefixScan source form).state.scalarNames = Integer.elaborate [] values := by
+  simpa only [initialState, ScalarExpression.constants, ScalarExpression.objectBindings,
+    List.map_nil, List.nil_append] using
+    Sequence.scalar_tokens_objects trace ScalarExpression.static_empty
+
 theorem prefix_initializer_checked {source form checks}
     (domain : source.length ≤ maxSourceLength)
     (trace : Sequence.InitializerTokensAt source form.helper form.prefix initialState checks

@@ -1,0 +1,1464 @@
+{
+  "schema_version": 1,
+  "capability": "Bounded mutable integers",
+  "date": "2026-10-17",
+  "state": "validated_with_targeted_test_repair",
+  "native_platform": "linux-x86_64",
+  "implementation": {
+    "original_integrated_implementation_commit": "d83927cef36e854e4fb382972eda607ea95c2ba6",
+    "final_source_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+    "selector_repair_original_commit": "768ce4d4ed",
+    "selector_repair_integrated_commit": "54551e49f9",
+    "generated_candidate_refresh_commit": "bbd5989b2b",
+    "scope": "Final source snapshot adds the two-case PredicateSelectors repair and refreshes five generated candidate files after the original test suite. Later documentation/review commits are not executed code identity.",
+    "root_head_at_recording": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+    "native_lane_head": "1023037fcb569701251b753e6a83a8093a61af71",
+    "native_execution_identity": "The native lane HEAD is not its executed source snapshot. Authoritative identities are the retained prepared input map, final proof-inputs manifest and explicit comparisons below.",
+    "native_sync": {
+      "path": "tmp/bounded-mutable-integers-native/tmp/final-native-input-sync.json",
+      "sha256": "6b7ed5c0f42eba45da7be72d4d010de650c3e55f3e7f46649cd596130ed75ee8",
+      "bytes": 16398,
+      "input_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 140,
+        "repository_input_count": 140,
+        "repository_input_inventory_digest_sha256": "933e357bb51eda8b2e652f79363e71356291e14ab7c23c38f83ae0453144aa05",
+        "counts_by_directory": {
+          "alire.toml": 1,
+          "scripts": 9,
+          "silver.gpr": 1,
+          "src": 129
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": true,
+        "all_recorded_repository_inputs_match_implementation": true,
+        "all_recorded_repository_inputs_match_root": true,
+        "mismatches": [],
+        "inputs_outside_repository_comparison": {},
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees."
+      }
+    },
+    "review": "docs/reviews/review-bounded-mutable-integers.md",
+    "review_disposition": "No blocker or unresolved source-review finding. L1/#74 and L2/#75 repaired by b0f0af3522; aggregate repair independently reviewed. Source review does not replace validation.",
+    "initial_complete_lean_lane_ready": {
+      "path": "tmp/bounded-mutable-integers-semantics/tmp/final-validation-ready.json",
+      "sha256": "1bf080c2e7471308fc6fd145dd606a7c903eb86c7a12fb37c07216546fdac4d4",
+      "bytes": 1433
+    },
+    "initial_complete_lean_lane_inputs": {
+      "path": "tmp/bounded-mutable-integers-semantics/tmp/final-validation-inputs.json",
+      "sha256": "e0014751e2a392359858d4f2ada4dbb4837647511b6283d8d194533e35ef844f",
+      "bytes": 66063,
+      "comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 581,
+        "repository_input_count": 581,
+        "repository_input_inventory_digest_sha256": "316166433483e97760fee17f62401ef97096f634ccd51c484939a6e9379b39dd",
+        "counts_by_directory": {
+          "proof": 443,
+          "scripts": 9,
+          "src": 129
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": false,
+        "all_recorded_repository_inputs_match_implementation": false,
+        "all_recorded_repository_inputs_match_root": false,
+        "mismatches": [
+          {
+            "path": "proof/Silver/PredicateSelectors.lean",
+            "recorded_sha256": "1b31a7e136b90a9a8eb611c2b36b1fb6d48d8cb7fa46f9f3137db75adb4a4fac",
+            "implementation_sha256": "dd7e7c4e89aec394194ade3a8cfbd89f722f1354cae9c38cde73d1f918c691a1",
+            "root_sha256": "dd7e7c4e89aec394194ade3a8cfbd89f722f1354cae9c38cde73d1f918c691a1"
+          }
+        ],
+        "inputs_outside_repository_comparison": {},
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees."
+      },
+      "scope": "Initial complete run matched d83927cef3; PredicateSelectors differs from final implementation. Later generated candidate refresh does not change authoritative shared inputs."
+    },
+    "final_selector_sync": {
+      "path": "tmp/bounded-mutable-integers-semantics/tmp/final-selector-input-sync.json",
+      "sha256": "ed76cf6e9c142f38da094121cdefe99d2db39eda9e1381569b9e415ff5626baa",
+      "bytes": 69383,
+      "input_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 610,
+        "repository_input_count": 610,
+        "repository_input_inventory_digest_sha256": "d66c902165699e942ccd718d3a72620785b6eeead9b7f7c3f3552c1160bbc673",
+        "counts_by_directory": {
+          "alire.toml": 1,
+          "proof": 470,
+          "scripts": 9,
+          "silver.gpr": 1,
+          "src": 129
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": true,
+        "all_recorded_repository_inputs_match_implementation": true,
+        "all_recorded_repository_inputs_match_root": true,
+        "mismatches": [],
+        "inputs_outside_repository_comparison": {},
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees."
+      }
+    }
+  },
+  "inventory_digest_encoding": "SHA-256 of UTF-8 JSON object with sorted path keys and compact separators; each value is the SHA-256 of exact file bytes.",
+  "runs": {
+    "native_build": {
+      "run_id": "20261017T015610-9b49f21729ff",
+      "state": "success",
+      "native_platform": "linux-x86_64",
+      "worktree": ".",
+      "kind": "build",
+      "scope": [
+        "compiler"
+      ],
+      "started_at": "2026-10-17T01:56:10.750993+00:00",
+      "workers": 2,
+      "ledger_fingerprint": "4979b64e43ca53f480f321393abddc9361852bdd19852a157fb30d4d9286907b",
+      "command": [
+        "gprbuild"
+      ],
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T015610-9b49f21729ff",
+      "finished_at": "2026-10-17T01:56:14.601603+00:00",
+      "managed_elapsed_seconds": 3.850473152,
+      "returncode": null,
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T015610-9b49f21729ff/events.jsonl",
+          "sha256": "e632d733e28d985aa371250a73700a14d530b123f836e4294e913c88a7585b2a",
+          "bytes": 433100
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T015610-9b49f21729ff/native.log",
+          "sha256": "85198042b1e8149864778eb6d965137c38e5469757042de4abddb9577563e9e1",
+          "bytes": 199
+        }
+      ],
+      "failure_keys": [],
+      "input_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 2519,
+        "repository_input_count": 141,
+        "repository_input_inventory_digest_sha256": "1b25e023b28835e7606689ab6fd1a8f73275703687e5ddfe0a1d6f23f70bf93a",
+        "counts_by_directory": {
+          "alire.toml": 1,
+          "proof": 1,
+          "scripts": 9,
+          "silver.gpr": 1,
+          "src": 129
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": true,
+        "all_recorded_repository_inputs_match_implementation": true,
+        "all_recorded_repository_inputs_match_root": true,
+        "inputs_outside_repository_comparison": {
+          ".silver": 6,
+          ".tools": 2372
+        },
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees.",
+        "mismatch_count": 0,
+        "mismatched_paths": [],
+        "mismatch_inventory_digest_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "result_lines": []
+    },
+    "native_full_audit": {
+      "run_id": "20261017T020716-cfa3562b8261",
+      "state": "success",
+      "native_platform": "linux-x86_64",
+      "worktree": "tmp/bounded-mutable-integers-native",
+      "kind": "prove",
+      "scope": [
+        "compiler"
+      ],
+      "started_at": "2026-10-17T02:07:16.562433+00:00",
+      "workers": 4,
+      "ledger_fingerprint": "93d9eaa4806607b6f23a3545c0e81c089b6bc250558163fafd716e9e01bb981e",
+      "command": [
+        "gnatprove"
+      ],
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T020716-cfa3562b8261",
+      "finished_at": "2026-10-17T02:09:26.397099+00:00",
+      "managed_elapsed_seconds": 129.844393342,
+      "returncode": null,
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T020716-cfa3562b8261/events.jsonl",
+          "sha256": "66a36b6d0cc0a5f85d0c8a96b11a7a0ffd6e76d82f7f6f1d49be1a5720222641",
+          "bytes": 436717
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T020716-cfa3562b8261/native.log",
+          "sha256": "d890d94b3a075a03885e97aa9185f58907e9301178f967c0bc92bbad35f96ab2",
+          "bytes": 1188164
+        }
+      ],
+      "failure_keys": [],
+      "input_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 2519,
+        "repository_input_count": 141,
+        "repository_input_inventory_digest_sha256": "1b25e023b28835e7606689ab6fd1a8f73275703687e5ddfe0a1d6f23f70bf93a",
+        "counts_by_directory": {
+          "alire.toml": 1,
+          "proof": 1,
+          "scripts": 9,
+          "silver.gpr": 1,
+          "src": 129
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": true,
+        "all_recorded_repository_inputs_match_implementation": true,
+        "all_recorded_repository_inputs_match_root": true,
+        "inputs_outside_repository_comparison": {
+          ".silver": 6,
+          ".tools": 2372
+        },
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees.",
+        "mismatch_count": 0,
+        "mismatched_paths": [],
+        "mismatch_inventory_digest_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "native_provenance": {
+        "manifest": {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T020716-cfa3562b8261/proof-evidence/proof-inputs.json",
+          "sha256": "9158e9ef28ec609d0f532614d073810703ad6c58e751cba7db4ab7610468f472",
+          "bytes": 446320
+        },
+        "provenance": {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T020716-cfa3562b8261/proof-evidence/proof-provenance.json",
+          "sha256": "14133fb0e74749c11392b975a074d5afedf7082ec64c27d24fa002dbd4edb2cf",
+          "bytes": 454617
+        },
+        "complete": true,
+        "initial_state": {
+          "sessions_present": true,
+          "cache_entries_present": true
+        },
+        "command": [
+          "gnatprove",
+          "-P",
+          "../../../silver.gpr",
+          "-U",
+          "--mode=all",
+          "--report=all",
+          "--warnings=error",
+          "--checks-as-errors=on",
+          "--level=2",
+          "--prover=cvc5,z3,altergo",
+          "--timeout=30",
+          "-j",
+          "4",
+          "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+          "-f",
+          "-XSILVER_HOST=linux-x86_64"
+        ],
+        "report_count": 77,
+        "report_inventory_digest_sha256": "9b8c1ed60ecd7c802a9759ca346ed2503ea77e2ffefef173d7f54aa4a96a2207",
+        "retained_reports_all_hash_equal": true,
+        "input_inventory_digest_sha256": "101c5301d19291ec7c2f970b3f9e8833eb4ba474f0b9751039fa437da33450cc",
+        "input_comparison": {
+          "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+          "recorded_input_count": 2519,
+          "repository_input_count": 141,
+          "repository_input_inventory_digest_sha256": "1b25e023b28835e7606689ab6fd1a8f73275703687e5ddfe0a1d6f23f70bf93a",
+          "counts_by_directory": {
+            "alire.toml": 1,
+            "proof": 1,
+            "scripts": 9,
+            "silver.gpr": 1,
+            "src": 129
+          },
+          "all_recorded_repository_inputs_match_implementation_and_root": true,
+          "all_recorded_repository_inputs_match_implementation": true,
+          "all_recorded_repository_inputs_match_root": true,
+          "mismatches": [],
+          "inputs_outside_repository_comparison": {
+            ".silver": 6,
+            ".tools": 2372
+          },
+          "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees."
+        },
+        "tool_count": 12,
+        "tools_inventory_digest_sha256": "e6bac6948d67cc9e5fa1b4008f44ae054a39ce6db1eae55a6c6669f9d3b80eb2"
+      },
+      "result_lines": [
+        "Success: all checks proved (15149 checks).",
+        "Complete GNATprove evidence: 75 units, 1000 entities, 1295 flow_checks, 13854 proof_checks, 290 limitation_notes, 18 imported_entities, 6236 trusted_math_notes, 62 vendor_spec_entities"
+      ]
+    },
+    "full_tests": {
+      "run_id": "20261017T015701-ad774ab8b5aa",
+      "state": "failure",
+      "native_platform": "linux-x86_64",
+      "worktree": ".",
+      "kind": "test",
+      "scope": [
+        "all-tests"
+      ],
+      "started_at": "2026-10-17T01:57:01.888165+00:00",
+      "workers": 4,
+      "ledger_fingerprint": "1e672d840321daad60cfccd0661b8a4ac177b40a3d73674be20b4b87cc86f2cf",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T015701-ad774ab8b5aa",
+      "finished_at": "2026-10-17T02:25:07.885951+00:00",
+      "managed_elapsed_seconds": 1685.996782376,
+      "returncode": 1,
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T015701-ad774ab8b5aa/events.jsonl",
+          "sha256": "339c32872e94faad8d27b2a719d5c3004770a78cd8ed8e946ae005024cc79fcd",
+          "bytes": 107822
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T015701-ad774ab8b5aa/native.log",
+          "sha256": "80cea56fb83faf353ed1d6c0a15a92bec35f10a6190a2c2d8abfbd53abe3aa75",
+          "bytes": 1702309
+        }
+      ],
+      "failure_keys": [],
+      "error": "CalledProcessError: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-v']' returned non-zero exit status 1.",
+      "input_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 687,
+        "repository_input_count": 679,
+        "repository_input_inventory_digest_sha256": "eec7fd7f717de1ee889ef2fcc9f60971a30cf542d0809af6a7ce5a95b96198e6",
+        "counts_by_directory": {
+          "alire.toml": 1,
+          "catalogue": 1,
+          "proof": 470,
+          "samples": 23,
+          "scripts": 9,
+          "silver.gpr": 1,
+          "src": 129,
+          "tests": 45
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": false,
+        "all_recorded_repository_inputs_match_implementation": false,
+        "all_recorded_repository_inputs_match_root": false,
+        "inputs_outside_repository_comparison": {
+          ".silver": 7,
+          "external_tool_or_file": 1
+        },
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees.",
+        "mismatch_count": 6,
+        "mismatched_paths": [
+          "proof/Silver/OutputBodyCertificate.lean",
+          "proof/Silver/OutputSpecCertificate.lean",
+          "proof/Silver/PredicateSelectors.lean",
+          "proof/Silver/ScalarExpressionBodyCertificate.lean",
+          "proof/Silver/ScalarExpressionSpecCertificate.lean",
+          "proof/Silver/ScalarLiteralBodyCertificate.lean"
+        ],
+        "mismatch_inventory_digest_sha256": "be02bdc72675d6b265a2da152f7e7d18ee81234bd9521214f7376707de0aa040"
+      },
+      "result_lines": [
+        "Success: all checks proved (70 checks).",
+        "Success: all checks proved (66 checks).",
+        "Success: all checks proved (68 checks).",
+        "Ran 469 tests in 1685.096s",
+        "FAILED (failures=5)"
+      ],
+      "test_methods_run": 469,
+      "test_runner_elapsed_seconds": 1685.096,
+      "failure_headers": [
+        "FAIL: test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration) (source='silver_output_profile.ads')",
+        "FAIL: test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration) (source='silver_output_profile.adb')",
+        "FAIL: test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration) (source='silver_scalar_expressions.ads')",
+        "FAIL: test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration) (source='silver_scalar_expressions.adb')",
+        "FAIL: test_checked_in_certificates_equal_regeneration (test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration) (source='silver_scalar_literals.adb')"
+      ],
+      "skipped_test_lines": [],
+      "proof_tree_scope": "Run in root checkout at d83927cef3; every captured proof input compared directly to that original snapshot and final root, including checked-in certificate candidates. Six final proof-file differences are recorded below.",
+      "original_snapshot_comparison": {
+        "reference_commit": "d83927cef36e854e4fb382972eda607ea95c2ba6",
+        "recorded_input_count": 687,
+        "repository_input_count": 679,
+        "repository_input_inventory_digest_sha256": "eec7fd7f717de1ee889ef2fcc9f60971a30cf542d0809af6a7ce5a95b96198e6",
+        "counts_by_directory": {
+          "alire.toml": 1,
+          "catalogue": 1,
+          "proof": 470,
+          "samples": 23,
+          "scripts": 9,
+          "silver.gpr": 1,
+          "src": 129,
+          "tests": 45
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": false,
+        "all_recorded_repository_inputs_match_implementation": true,
+        "all_recorded_repository_inputs_match_root": false,
+        "mismatches": [
+          {
+            "path": "proof/Silver/OutputBodyCertificate.lean",
+            "recorded_sha256": "0d580bad115f60a292c935f93a88da9d6ab01f64d4e549c9ef58bc9eecca8bfb",
+            "implementation_sha256": "0d580bad115f60a292c935f93a88da9d6ab01f64d4e549c9ef58bc9eecca8bfb",
+            "root_sha256": "c0ef5d7235a66dab54a76a25dd3342e7d7f5f241195c85d3012a9059c8bef94e"
+          },
+          {
+            "path": "proof/Silver/OutputSpecCertificate.lean",
+            "recorded_sha256": "451d312789c08d4a6d6b87defe9c7d1107363c046aa493f53fb694014c493e2f",
+            "implementation_sha256": "451d312789c08d4a6d6b87defe9c7d1107363c046aa493f53fb694014c493e2f",
+            "root_sha256": "9807bf4841360f2a556ecea88efdf06423587cba2b2d216f257505c2126c4224"
+          },
+          {
+            "path": "proof/Silver/PredicateSelectors.lean",
+            "recorded_sha256": "1b31a7e136b90a9a8eb611c2b36b1fb6d48d8cb7fa46f9f3137db75adb4a4fac",
+            "implementation_sha256": "1b31a7e136b90a9a8eb611c2b36b1fb6d48d8cb7fa46f9f3137db75adb4a4fac",
+            "root_sha256": "dd7e7c4e89aec394194ade3a8cfbd89f722f1354cae9c38cde73d1f918c691a1"
+          },
+          {
+            "path": "proof/Silver/ScalarExpressionBodyCertificate.lean",
+            "recorded_sha256": "098c75a7025a7c03acf08ade5e152a8fbd9e2b3c44707bee371a4c3cb99dbf42",
+            "implementation_sha256": "098c75a7025a7c03acf08ade5e152a8fbd9e2b3c44707bee371a4c3cb99dbf42",
+            "root_sha256": "8697a2a4222c53f8363b4e0da179943cd8b778004c45ce96863a4e32947edc59"
+          },
+          {
+            "path": "proof/Silver/ScalarExpressionSpecCertificate.lean",
+            "recorded_sha256": "76488f26a227cf58a867d047e5f62644cf5116a70ad0bef79320d77fdfd1a645",
+            "implementation_sha256": "76488f26a227cf58a867d047e5f62644cf5116a70ad0bef79320d77fdfd1a645",
+            "root_sha256": "eacae42649cc684a456bcc9fc1968640b539a0b2f3ad072e72bb1eea6042645d"
+          },
+          {
+            "path": "proof/Silver/ScalarLiteralBodyCertificate.lean",
+            "recorded_sha256": "91716163a2ba83a6e969826c9f492fe5b4c878dd0669370c7d37cb01d050aee5",
+            "implementation_sha256": "91716163a2ba83a6e969826c9f492fe5b4c878dd0669370c7d37cb01d050aee5",
+            "root_sha256": "c632d80b88865e9fc3f51d4d1df9d3bdfce2d7f36b5dac6af920d5c2cf12d4ff"
+          }
+        ],
+        "inputs_outside_repository_comparison": {
+          ".silver": 7,
+          "external_tool_or_file": 1
+        },
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees."
+      },
+      "final_proof_tree_delta": {
+        "changed_files": [
+          "proof/Silver/OutputBodyCertificate.lean",
+          "proof/Silver/OutputSpecCertificate.lean",
+          "proof/Silver/PredicateSelectors.lean",
+          "proof/Silver/ScalarExpressionBodyCertificate.lean",
+          "proof/Silver/ScalarExpressionSpecCertificate.lean",
+          "proof/Silver/ScalarLiteralBodyCertificate.lean"
+        ],
+        "description": "The original suite used exactly the d83927cef3 root proof tree. Final delivery changes one semantic proof file (PredicateSelectors) and five generated candidate snapshots. These six differences are explicit; the original suite is not described as testing the final proof tree."
+      }
+    },
+    "source_policy_recheck": {
+      "run_id": "20261017T022620-08e72ef5c544",
+      "state": "success",
+      "native_platform": "linux-x86_64",
+      "worktree": ".",
+      "kind": "test",
+      "scope": [
+        "-p",
+        "test_lean_source.py",
+        "-k",
+        "CompilerSourcePolicyTests"
+      ],
+      "started_at": "2026-10-17T02:26:20.602692+00:00",
+      "workers": 2,
+      "ledger_fingerprint": "2a4a658e8ba914403b18cbdd2ff595d5a3832eaaf3b0205155a5ef7669af6040",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_lean_source.py",
+        "-k",
+        "CompilerSourcePolicyTests"
+      ],
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T022620-08e72ef5c544",
+      "finished_at": "2026-10-17T02:26:23.770973+00:00",
+      "managed_elapsed_seconds": 3.168152013,
+      "returncode": null,
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T022620-08e72ef5c544/events.jsonl",
+          "sha256": "1ddca2b9e00c8f81cf2744117dd44b5e5efc441e33c2f9a85a59257f25957ef2",
+          "bytes": 108415
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T022620-08e72ef5c544/native.log",
+          "sha256": "7c7aa505d759bf07c538096b821e609668d632bf44dd2e65842db0d8161aa842",
+          "bytes": 1685
+        }
+      ],
+      "failure_keys": [],
+      "input_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 687,
+        "repository_input_count": 679,
+        "repository_input_inventory_digest_sha256": "a16a934b26279107e10a31594d6e4d1e81c2c21891e3827d9689feaeabbb130d",
+        "counts_by_directory": {
+          "alire.toml": 1,
+          "catalogue": 1,
+          "proof": 470,
+          "samples": 23,
+          "scripts": 9,
+          "silver.gpr": 1,
+          "src": 129,
+          "tests": 45
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": true,
+        "all_recorded_repository_inputs_match_implementation": true,
+        "all_recorded_repository_inputs_match_root": true,
+        "inputs_outside_repository_comparison": {
+          ".silver": 7,
+          "external_tool_or_file": 1
+        },
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees.",
+        "mismatch_count": 0,
+        "mismatched_paths": [],
+        "mismatch_inventory_digest_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "result_lines": [
+        "Ran 10 tests in 2.528s",
+        "OK"
+      ],
+      "test_methods_run": 10,
+      "test_runner_elapsed_seconds": 2.528,
+      "failure_headers": [],
+      "skipped_test_lines": []
+    },
+    "selector_focused_repair": {
+      "run_id": "20261017T024103-91cbfeaba0b4",
+      "state": "success",
+      "native_platform": "linux-x86_64",
+      "worktree": "tmp/bounded-mutable-integers-semantics",
+      "kind": "lean",
+      "scope": [
+        "Silver.PredicateSelectors"
+      ],
+      "started_at": "2026-10-17T02:41:03.914011+00:00",
+      "workers": 2,
+      "ledger_fingerprint": "92dad50c16764ec5f886055e2c02a567bf1c04f2c2245bd901ba290077c9bc0b",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-semantics/scripts/check_lean.py",
+        "--task",
+        "#70",
+        "--target",
+        "Silver.PredicateSelectors",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--provenance"
+      ],
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T024103-91cbfeaba0b4",
+      "finished_at": "2026-10-17T02:41:19.202176+00:00",
+      "managed_elapsed_seconds": 15.287745643,
+      "returncode": null,
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T024103-91cbfeaba0b4/events.jsonl",
+          "sha256": "0ec6ecc5932330bd2bea7a29413f62cab59088a63b232f6dbf21cd29aa996852",
+          "bytes": 69170
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T024103-91cbfeaba0b4/lean-focused-evidence.json",
+          "sha256": "8c938b16e26035508434a6ec54633623d331a2567ccfac1758d2b6ad00c4e924",
+          "bytes": 507737
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T024103-91cbfeaba0b4/lean-focused.log",
+          "sha256": "f9ec774f031b52393be6cd7c7f14617200574beae7caf9e78d6121d5ba0702c0",
+          "bytes": 5091
+        }
+      ],
+      "failure_keys": [],
+      "input_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 581,
+        "repository_input_count": 581,
+        "repository_input_inventory_digest_sha256": "45d06f86bc043bf83c3e1359f0da8c5a678eaca0bda1deba0127f2891f2bea4f",
+        "counts_by_directory": {
+          "proof": 443,
+          "scripts": 9,
+          "src": 129
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": true,
+        "all_recorded_repository_inputs_match_implementation": true,
+        "all_recorded_repository_inputs_match_root": true,
+        "inputs_outside_repository_comparison": {},
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees.",
+        "mismatch_count": 0,
+        "mismatched_paths": [],
+        "mismatch_inventory_digest_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "lean_evidence": {
+        "scope": "focused",
+        "targets": [
+          "Silver.PredicateSelectors"
+        ],
+        "mode": "focused",
+        "clean_build": false,
+        "axiom_audit": "passed",
+        "kernel_recheck": null,
+        "threads_per_process": 2,
+        "lake_workers": 2,
+        "elapsed_seconds": 15.908,
+        "inputs_digest_sha256": "951c3440ec24e971e40719035a07d1e920ac56bbc83b4c28c6cccc4c20c3990f",
+        "log_sha256": "f9ec774f031b52393be6cd7c7f14617200574beae7caf9e78d6121d5ba0702c0",
+        "phases": [
+          {
+            "phase": "build",
+            "started_at": "2026-10-17T02:41:06.724344+00:00",
+            "finished_at": "2026-10-17T02:41:11.716191+00:00",
+            "elapsed_seconds": 4.992,
+            "exit_code": 0
+          },
+          {
+            "phase": "audit",
+            "started_at": "2026-10-17T02:41:13.264656+00:00",
+            "finished_at": "2026-10-17T02:41:16.305401+00:00",
+            "elapsed_seconds": 3.041,
+            "exit_code": 0
+          }
+        ],
+        "tools_sha256": {
+          ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+          ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+        },
+        "module_count": 104,
+        "workspace_input_count": 468,
+        "artifact_count": 2800,
+        "audit_log_lines": [
+          "Silver axiom audit passed: 13689 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+        ]
+      },
+      "focused_module_source_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 104,
+        "repository_input_count": 104,
+        "repository_input_inventory_digest_sha256": "8b86ce67483d8f5f33d055555f0ff96654ca080e896962a5b2baeaac66fe15b5",
+        "counts_by_directory": {
+          "proof": 104
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": true,
+        "all_recorded_repository_inputs_match_implementation": true,
+        "all_recorded_repository_inputs_match_root": true,
+        "inputs_outside_repository_comparison": {},
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees.",
+        "mismatch_count": 0,
+        "mismatched_paths": [],
+        "mismatch_inventory_digest_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    "output_body_certificate": {
+      "run_id": "20261017T013354-6ff99f1ce6c4",
+      "state": "success",
+      "native_platform": "linux-x86_64",
+      "worktree": "tmp/bounded-mutable-integers-native",
+      "kind": "lean",
+      "scope": [
+        "Silver.OutputBodyCertificate"
+      ],
+      "started_at": "2026-10-17T01:33:54.737036+00:00",
+      "workers": 4,
+      "ledger_fingerprint": "b53808311e7ce66d8bf30592175966b89799bc9d00f30e099be56c55c12e272b",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/scripts/check_lean.py",
+        "--task",
+        "#69",
+        "--target",
+        "Silver.OutputBodyCertificate",
+        "--workers",
+        "4",
+        "--threads",
+        "2",
+        "--provenance"
+      ],
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T013354-6ff99f1ce6c4",
+      "finished_at": "2026-10-17T02:05:58.207068+00:00",
+      "managed_elapsed_seconds": 1923.469641697,
+      "returncode": null,
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T013354-6ff99f1ce6c4/events.jsonl",
+          "sha256": "491478b743d9fa401e5d1f12a83e80770eed928caa1c59cbf26b4a6b825baa09",
+          "bytes": 67964
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T013354-6ff99f1ce6c4/lean-focused-evidence.json",
+          "sha256": "31ebab22e62d7bd93f1b871c66b216a94ae56df89fedca4fcfb776044067b4e6",
+          "bytes": 496225
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T013354-6ff99f1ce6c4/lean-focused.log",
+          "sha256": "ad147fff531bbb66306ef9860cd286309c3eba74e89cf70ab145c2c65480883e",
+          "bytes": 1308
+        }
+      ],
+      "failure_keys": [],
+      "input_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 574,
+        "repository_input_count": 574,
+        "repository_input_inventory_digest_sha256": "2efad6d1c55fcee4a35768214bbaf67c67ac9a963d36f87c7039c46096b8506e",
+        "counts_by_directory": {
+          "proof": 436,
+          "scripts": 9,
+          "src": 129
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": false,
+        "all_recorded_repository_inputs_match_implementation": false,
+        "all_recorded_repository_inputs_match_root": false,
+        "inputs_outside_repository_comparison": {},
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees.",
+        "mismatch_count": 59,
+        "mismatched_paths": [
+          "proof/Silver/ComposeAdmission.lean",
+          "proof/Silver/ComposeContracts.lean",
+          "proof/Silver/ComposeEquations.lean",
+          "proof/Silver/ComposeEvaluation.lean",
+          "proof/Silver/ComposeExpressions.lean",
+          "proof/Silver/ComposeModelCalls.lean",
+          "proof/Silver/ComposeModelEquations.lean",
+          "proof/Silver/ComposeModelLegal.lean",
+          "proof/Silver/ComposeScalarDeclarations.lean",
+          "proof/Silver/ComposeScalarTrace.lean",
+          "proof/Silver/ComposeSourceChecks.lean",
+          "proof/Silver/ComposeStateBounds.lean",
+          "proof/Silver/IntegerChecks.lean",
+          "proof/Silver/IntegerDeclarations.lean",
+          "proof/Silver/PredicateAdapter.lean",
+          "proof/Silver/PredicateAdapterSourceCandidate.lean",
+          "proof/Silver/PredicateBasicEquations.lean",
+          "proof/Silver/PredicateBasicExpressions.lean",
+          "proof/Silver/PredicateBasicHelpers.lean",
+          "proof/Silver/PredicateBasicReadings.lean",
+          "proof/Silver/PredicateBasicSourceCandidate.lean",
+          "proof/Silver/PredicateBodyAdmission.lean",
+          "proof/Silver/PredicateBodyBounds.lean",
+          "proof/Silver/PredicateBodyControls.lean",
+          "proof/Silver/PredicateBodyMeaning.lean",
+          "proof/Silver/PredicateBodyProperties.lean",
+          "proof/Silver/PredicateChecks.lean",
+          "proof/Silver/PredicateComposition.lean",
+          "proof/Silver/PredicateEquations.lean",
+          "proof/Silver/PredicateExecution.lean",
+          "proof/Silver/PredicateFlags.lean",
+          "proof/Silver/PredicateGrammar.lean",
+          "proof/Silver/PredicateHeader.lean",
+          "proof/Silver/PredicateHeaderDecode.lean",
+          "proof/Silver/PredicateLoopCandidate.lean",
+          "proof/Silver/PredicateLoopNative.lean",
+          "proof/Silver/PredicateLoopProperties.lean",
+          "proof/Silver/PredicateObligations.lean",
+          "proof/Silver/PredicateSelectors.lean",
+          "proof/Silver/PredicateSourceBridge.lean",
+          "proof/Silver/PredicateSourceCandidate.lean",
+          "proof/Silver/PredicateSourceRequirements.lean",
+          "proof/Silver/PredicateSourceSyntax.lean",
+          "proof/Silver/PredicateStatements.lean",
+          "proof/Silver/ReviewedOutputShape.lean",
+          "proof/Silver/ScalarEnvironmentSourceBridge.lean",
+          "proof/Silver/ScalarExpression.lean",
+          "proof/Silver/ScalarExpressionConstants.lean",
+          "proof/Silver/ScalarExpressionEnvironment.lean",
+          "proof/Silver/ScalarExpressionNativeAlgebra.lean",
+          "proof/Silver/ScalarExpressionSourceChecks.lean",
+          "proof/Silver/ScalarExpressionSourceShape.lean",
+          "proof/Silver/ScalarLiteral.lean",
+          "proof/Silver/ScalarLiteralEquations.lean",
+          "proof/Silver/ScalarLiteralExpressions.lean",
+          "proof/Silver/ScalarLiteralSourceShape.lean",
+          "proof/Silver/SequenceScalarTrace.lean",
+          "src/silver_catalogue.adb",
+          "src/silver_scalar_expressions.adb"
+        ],
+        "mismatch_inventory_digest_sha256": "653b047c25a9f87a9e3e9f61dc8f2c2b9db2cf85ccc0a5f5352c24df22f1b919"
+      },
+      "lean_evidence": {
+        "scope": "focused",
+        "targets": [
+          "Silver.OutputBodyCertificate"
+        ],
+        "mode": "focused",
+        "clean_build": false,
+        "axiom_audit": "passed",
+        "kernel_recheck": null,
+        "threads_per_process": 2,
+        "lake_workers": 4,
+        "elapsed_seconds": 1923.944,
+        "inputs_digest_sha256": "9d03be69f6008c17279a4a717dc2bc90c866e6a896ad2dda8284253792a19dc4",
+        "log_sha256": "ad147fff531bbb66306ef9860cd286309c3eba74e89cf70ab145c2c65480883e",
+        "phases": [
+          {
+            "phase": "build",
+            "started_at": "2026-10-17T01:33:57.735404+00:00",
+            "finished_at": "2026-10-17T02:05:47.694915+00:00",
+            "elapsed_seconds": 1909.96,
+            "exit_code": 0
+          },
+          {
+            "phase": "audit",
+            "started_at": "2026-10-17T02:05:50.892615+00:00",
+            "finished_at": "2026-10-17T02:05:55.146597+00:00",
+            "elapsed_seconds": 4.254,
+            "exit_code": 0
+          }
+        ],
+        "tools_sha256": {
+          ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+          ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+        },
+        "module_count": 8,
+        "workspace_input_count": 461,
+        "artifact_count": 2752,
+        "audit_log_lines": [
+          "Silver axiom audit passed: 14427 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+        ]
+      },
+      "focused_module_source_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 8,
+        "repository_input_count": 8,
+        "repository_input_inventory_digest_sha256": "27326da09a20f850485b5824b78b8bd3c440a07325bf26c9c104911a0bc0c186",
+        "counts_by_directory": {
+          "proof": 8
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": true,
+        "all_recorded_repository_inputs_match_implementation": true,
+        "all_recorded_repository_inputs_match_root": true,
+        "inputs_outside_repository_comparison": {},
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees.",
+        "mismatch_count": 0,
+        "mismatched_paths": [],
+        "mismatch_inventory_digest_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "scope_note": "Focused OutputBodyCertificate closure on the native lane; the lane-wide inventory predates later unrelated proof integration. Its mismatches are recorded, and this run is not represented as whole-project validation."
+    },
+    "aggregate_mapping_focused_native": {
+      "run_id": "20261017T015422-fbfab8ecf794",
+      "state": "success",
+      "native_platform": "linux-x86_64",
+      "worktree": ".",
+      "kind": "tool-gnatprove",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "silver_scalar_expressions.adb",
+        "--limit-subp=silver_scalar_expressions.adb:8"
+      ],
+      "started_at": "2026-10-17T01:54:22.699278+00:00",
+      "workers": 2,
+      "ledger_fingerprint": "2d8f31a4adf262d52ecd2f240f24628d8e08040a8b795eff7ce54f77f63c18ac",
+      "command": [
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "--subdirs=explore/mutable-environment",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "-u",
+        "silver_scalar_expressions.adb",
+        "--limit-subp=silver_scalar_expressions.adb:8",
+        "-XSILVER_HOST=linux-x86_64"
+      ],
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T015422-fbfab8ecf794",
+      "finished_at": "2026-10-17T01:54:27.631489+00:00",
+      "managed_elapsed_seconds": 4.932114939,
+      "returncode": null,
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T015422-fbfab8ecf794/events.jsonl",
+          "sha256": "64cb0ec46c663f48b5d3c3054f1bf7093f0910b0c92cf2751c9047543f945483",
+          "bytes": 435770
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T015422-fbfab8ecf794/native.log",
+          "sha256": "51d7018cf23ab587cf4703a7163d51ef54bc548ac7203af39dacf16454d12278",
+          "bytes": 633
+        }
+      ],
+      "failure_keys": [],
+      "input_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 2519,
+        "repository_input_count": 141,
+        "repository_input_inventory_digest_sha256": "1b25e023b28835e7606689ab6fd1a8f73275703687e5ddfe0a1d6f23f70bf93a",
+        "counts_by_directory": {
+          "alire.toml": 1,
+          "proof": 1,
+          "scripts": 9,
+          "silver.gpr": 1,
+          "src": 129
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": true,
+        "all_recorded_repository_inputs_match_implementation": true,
+        "all_recorded_repository_inputs_match_root": true,
+        "inputs_outside_repository_comparison": {
+          ".silver": 6,
+          ".tools": 2372
+        },
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees.",
+        "mismatch_count": 0,
+        "mismatched_paths": [],
+        "mismatch_inventory_digest_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "result_lines": [
+        "Success: all checks proved (3 checks)."
+      ]
+    },
+    "initial_complete_lean": {
+      "run_id": "20261017T021003-1cc505ed3a9d",
+      "state": "failure",
+      "native_platform": "linux-x86_64",
+      "worktree": "tmp/bounded-mutable-integers-semantics",
+      "kind": "lean",
+      "scope": "complete",
+      "started_at": "2026-10-17T02:10:03.587976+00:00",
+      "workers": 4,
+      "ledger_fingerprint": "ff315684753214b9151093ef3f64ea63dd1713761a2652c671c769067d492f17",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-semantics/scripts/check_lean.py",
+        "--task",
+        "#70",
+        "--workers",
+        "4",
+        "--threads",
+        "2",
+        "--provenance"
+      ],
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T021003-1cc505ed3a9d",
+      "finished_at": "2026-10-17T02:40:47.039109+00:00",
+      "managed_elapsed_seconds": 1843.451094352,
+      "returncode": 1,
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T021003-1cc505ed3a9d/events.jsonl",
+          "sha256": "81b0971e2ec0ce949213b6a234e3579578071f2242d3f9d7a95dac8bfa7136c6",
+          "bytes": 67238
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T021003-1cc505ed3a9d/reports/0/lean-proof.log",
+          "sha256": "a0500c6933a10e369c72bc70128acaaa5c71645413d8d7963f166eba86683545",
+          "bytes": 7130
+        }
+      ],
+      "failure_keys": [
+        "lean:build:Silver/PredicateSelectors.lean:49:4:Missing cases:",
+        "lean:build:Silver/PredicateSelectors.lean:63:4:Alternative `scalarAssign` has not been provided"
+      ],
+      "input_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 581,
+        "repository_input_count": 581,
+        "repository_input_inventory_digest_sha256": "316166433483e97760fee17f62401ef97096f634ccd51c484939a6e9379b39dd",
+        "counts_by_directory": {
+          "proof": 443,
+          "scripts": 9,
+          "src": 129
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": false,
+        "all_recorded_repository_inputs_match_implementation": false,
+        "all_recorded_repository_inputs_match_root": false,
+        "inputs_outside_repository_comparison": {},
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees.",
+        "mismatch_count": 1,
+        "mismatched_paths": [
+          "proof/Silver/PredicateSelectors.lean"
+        ],
+        "mismatch_inventory_digest_sha256": "1ef1e59c349be579286a897f47177304590ae286d51213544bf91f261e1e4606"
+      }
+    },
+    "complete_lean": {
+      "run_id": "20261017T024125-7b26370b62f2",
+      "state": "success",
+      "native_platform": "linux-x86_64",
+      "worktree": "tmp/bounded-mutable-integers-semantics",
+      "kind": "lean",
+      "scope": "complete",
+      "started_at": "2026-10-17T02:41:25.818706+00:00",
+      "workers": 4,
+      "ledger_fingerprint": "f7c3920121c9f7c58191d9cf04e6cd2f91f73168a9e4c0a73b52d818cb6529f6",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-semantics/scripts/check_lean.py",
+        "--task",
+        "#70",
+        "--workers",
+        "4",
+        "--threads",
+        "2",
+        "--provenance",
+        "--reason",
+        "Complete audit after reviewed scalar-assignment selector repair; reuse the completed source certificates and composition checks."
+      ],
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T024125-7b26370b62f2",
+      "finished_at": "2026-10-17T02:41:47.575182+00:00",
+      "managed_elapsed_seconds": 21.755962171,
+      "returncode": null,
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T024125-7b26370b62f2/events.jsonl",
+          "sha256": "c4dcf521c42a159c2b617dbaada31eb96b1a2cdfa13234c3cd8b8163683b474e",
+          "bytes": 68856
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T024125-7b26370b62f2/lean-evidence.json",
+          "sha256": "5e709055ac7b6e0d20edef2b299bae552a5c92eef617ebe1bca2e1e1fe79ef8e",
+          "bytes": 520795
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T024125-7b26370b62f2/lean-proof.log",
+          "sha256": "64e292b62cbc157fb4ec55a95c86fdcc4197a26f0bf99d5403fb36d01883d2fb",
+          "bytes": 54145
+        }
+      ],
+      "failure_keys": [],
+      "input_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 581,
+        "repository_input_count": 581,
+        "repository_input_inventory_digest_sha256": "45d06f86bc043bf83c3e1359f0da8c5a678eaca0bda1deba0127f2891f2bea4f",
+        "counts_by_directory": {
+          "proof": 443,
+          "scripts": 9,
+          "src": 129
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": true,
+        "all_recorded_repository_inputs_match_implementation": true,
+        "all_recorded_repository_inputs_match_root": true,
+        "inputs_outside_repository_comparison": {},
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees.",
+        "mismatch_count": 0,
+        "mismatched_paths": [],
+        "mismatch_inventory_digest_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "lean_evidence": {
+        "scope": "complete",
+        "targets": [
+          "Silver.Audit"
+        ],
+        "mode": "incremental",
+        "clean_build": false,
+        "axiom_audit": "passed",
+        "kernel_recheck": null,
+        "threads_per_process": 2,
+        "lake_workers": 4,
+        "elapsed_seconds": 22.355,
+        "inputs_digest_sha256": "951c3440ec24e971e40719035a07d1e920ac56bbc83b4c28c6cccc4c20c3990f",
+        "log_sha256": "64e292b62cbc157fb4ec55a95c86fdcc4197a26f0bf99d5403fb36d01883d2fb",
+        "phases": [
+          {
+            "phase": "build",
+            "started_at": "2026-10-17T02:41:28.670082+00:00",
+            "finished_at": "2026-10-17T02:41:38.258161+00:00",
+            "elapsed_seconds": 9.588,
+            "exit_code": 0
+          },
+          {
+            "phase": "audit",
+            "started_at": "2026-10-17T02:41:39.712880+00:00",
+            "finished_at": "2026-10-17T02:41:44.517910+00:00",
+            "elapsed_seconds": 4.805,
+            "exit_code": 0
+          }
+        ],
+        "tools_sha256": {
+          ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+          ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+        },
+        "module_count": 466,
+        "workspace_input_count": 468,
+        "artifact_count": 2800,
+        "audit_log_lines": [
+          "info: Silver/Audit.lean:7:0: Silver axiom audit passed: 89339 declarations; foundations: [propext, Classical.choice, Quot.sound]",
+          "Silver axiom audit passed: 89339 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+        ],
+        "authoritative_digest_recomputed_equal": true,
+        "retained_log_hash_equal": true,
+        "workspace_inventory_digest_sha256": "25e2943784c6220638aff549402ca98b30a2537abb966e78851be3cb65e13756",
+        "artifact_inventory_digest_sha256": "4aef5ad0f869fdc1af22da36c7a73ee7c6dede32b67d426ee8f0c5fec9b3f0ad",
+        "artifact_inventory_scope": "All retained .olean* workspace artifacts captured by the runner; this may include unrelated retained objects. The fresh complete audit covers exactly the 466 current project modules, not every orphan object.",
+        "same_native_inputs_as_successful_native_audit": true
+      },
+      "audited_workspace_comparison": {
+        "reference_commit": "bbd5989b2bfa870193f03a00af7605b06ebeafbf",
+        "recorded_input_count": 468,
+        "repository_input_count": 468,
+        "repository_input_inventory_digest_sha256": "c82d47bda9a1fa1b86397524b65b80883a60a28491e452a6d526132a365072fc",
+        "counts_by_directory": {
+          "proof": 468
+        },
+        "all_recorded_repository_inputs_match_implementation_and_root": true,
+        "all_recorded_repository_inputs_match_implementation": true,
+        "all_recorded_repository_inputs_match_root": true,
+        "mismatches": [],
+        "inputs_outside_repository_comparison": {},
+        "comparison_scope": "Every recorded tracked input in src/, scripts/, proof/, tests/, samples/, catalogue/, alire.toml and silver.gpr. Generated files and external tools retain their own identities in the referenced evidence; path-specific generated files are not asserted equal across worktrees."
+      }
+    }
+  },
+  "cache_provenance": {
+    "claim": "Incremental validation with retained caches and explicitly recorded artifact transfers; cache presence or prior focused success alone does not establish complete validation.",
+    "transfers": [
+      {
+        "path": "tmp/mutable-scalar-certificate-transfer.json",
+        "sha256": "5b01817d8cc3095dac0525053ff658ad1d49005d48842de51392b79c6e68bae0",
+        "bytes": 20587,
+        "disposition": "51 files for three certificate families. Aggregate repair invalidated the older scalar-expression body certificate; final validation regenerated and checked it.",
+        "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-source-helpers/.silver/linux-x86_64/proof",
+        "destination": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/proof",
+        "source_run": "20261017T011503-c7e2b489113f",
+        "recorded_files": 51
+      },
+      {
+        "path": "tmp/mutable-compose-artifact-transfer.json",
+        "sha256": "6578bf8c366e9d07b3f8f9c4a9b7772e0669173428c7552e1725544d67116aec",
+        "bytes": 133230,
+        "disposition": "204 files from twelve matching families; six incompatible families were rejected before copying.",
+        "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-source-helpers/.silver/linux-x86_64/proof",
+        "destination": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/proof",
+        "source_run": "20261017T013548-b72a0d98f428",
+        "recorded_files": 204,
+        "recorded_modules": 18,
+        "transferred_modules": [
+          "ComposeAdmission",
+          "ComposeBounds",
+          "ComposeExpressions",
+          "ComposeContracts",
+          "ComposeScalarDenotations",
+          "ComposeNameBridge",
+          "ComposeModelCalls",
+          "ComposeModelRecursion",
+          "ComposeLexical",
+          "ComposeEvaluation",
+          "ComposeModelLegal",
+          "ScalarEnvironmentSourceBridge"
+        ],
+        "rejected_modules": {
+          "ComposeScalarDeclarations": "Source or transitive import source differs; artifact family not copied.",
+          "ComposeStateBounds": "Source or transitive import source differs; artifact family not copied.",
+          "ComposeEquations": "Source or transitive import source differs; artifact family not copied.",
+          "ComposeRecognitionEquations": "Source or transitive import source differs; artifact family not copied.",
+          "ComposeModelEquations": "Source or transitive import source differs; artifact family not copied.",
+          "ComposeModelRanges": "Source or transitive import source differs; artifact family not copied."
+        }
+      },
+      {
+        "path": "tmp/mutable-semantics-artifact-transfer.json",
+        "sha256": "7b76a9cf0ef3de4c78b527f76d6b93fce972238277f4b6f48cdd5f43789e0522",
+        "bytes": 94574,
+        "disposition": "324 files across 151 matching modules; source/tool/dependency checks and copied artifact hashes retained.",
+        "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-semantics/.silver/linux-x86_64/proof",
+        "destination": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/proof",
+        "source_run_ids": [
+          "20261017T014736-724f22a1471e",
+          "20261017T014658-6c3a91923fad"
+        ],
+        "copy_method": "shutil.copy2, separate destination inodes; unchanged artifacts retained; all source/cache/destination source bytes and tool hashes equal before mutation; each copied file hash checked before/after copy",
+        "targets": [
+          "Silver.PredicateEquations"
+        ],
+        "recorded_files": 324,
+        "recorded_modules": 151
+      },
+      {
+        "path": "tmp/bounded-mutable-integers-semantics/tmp/compose-model-legal-import.json",
+        "sha256": "d4c4bdc0d0ec2ffbed89f065cc7e9a0df3dfc5619e37346cc0e70e0db1d3cadb",
+        "bytes": 22026,
+        "disposition": "Earlier ModelLegal import into semantics lane, retained as transitive cache provenance.",
+        "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-source-helpers/.silver/linux-x86_64/proof",
+        "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-semantics/.silver/linux-x86_64/proof",
+        "source_run_ids": [
+          "20261017T013548-b72a0d98f428"
+        ],
+        "copy_method": "shutil.copy2, separate destination inodes; unchanged artifacts retained; all source/cache/destination source bytes and tool hashes equal before mutation; each copied file hash checked before/after copy",
+        "targets": [
+          "Silver.ComposeModelLegal"
+        ],
+        "recorded_files": 50,
+        "recorded_modules": 57
+      },
+      {
+        "path": "tmp/bounded-mutable-integers-semantics/tmp/cache-import.json",
+        "sha256": "a876f6b84c09f583277e56ec93d385368fd7899ec85e13c0844539ecd9857b2e",
+        "bytes": 1486900,
+        "disposition": "Initial root cache import into the separate semantics workspace; provenance inventory retained. Final source and fresh audit scope remain separate.",
+        "source": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/proof",
+        "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-semantics/.silver/linux-x86_64/proof",
+        "copy_method": "cp -a --reflink=auto; separate destination inodes; no shared writable workspaces",
+        "source_revision": "ed975942028e65045285d40d59ec99cd0053e7bd",
+        "recorded_files": 7829
+      },
+      {
+        "path": "tmp/bounded-mutable-integers-semantics/tmp/final-root-artifact-import.json",
+        "sha256": "964c7e0af190f32e184d552ffa6bdfef982767284658daff604617445b125c57",
+        "bytes": 34359,
+        "disposition": "Final audited PredicateSourceCandidate import from root; aggregate-dependent and unaudited unrelated families excluded.",
+        "source": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/proof",
+        "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-semantics/.silver/linux-x86_64/proof",
+        "checked_run_id": "20261017T014352-b453a8e86413",
+        "method": "Physical copy2; separate inodes; source and destination hash verification",
+        "source_evidence": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T014352-b453a8e86413/lean-focused-evidence.json",
+        "source_evidence_sha256": "7a3f6d93ad85a75bf91f6dbef50002431c61fb62ebbdcd97359de5c72e042f09",
+        "copied_files": 104
+      },
+      {
+        "path": "tmp/bounded-mutable-integers-semantics/tmp/final-native-certificate-import.json",
+        "sha256": "adc55e85071ff661b491b6329556ebbf8cc9ac1c0d4dd462b46d80b2732183ec",
+        "bytes": 11170,
+        "disposition": "Final audited OutputBodyCertificate and OutputProfileBodySource import from native lane, with 8-module closure, native include and tool identities checked.",
+        "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/proof",
+        "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-semantics/.silver/linux-x86_64/proof",
+        "checked_run_ids": [
+          "20261017T013354-6ff99f1ce6c4"
+        ],
+        "method": "Physical copy2; separate inodes; source and destination hash verification; only two exported module families",
+        "export": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/tmp/mutable-output-certificate-artifact-groups.json",
+        "export_sha256": "f73208dbe331eb19e362e47cc6079b904f0025b6fe27ab0f6cdfeb095fa07bd9",
+        "copied_files": 25
+      }
+    ]
+  },
+  "retained_unsuccessful_runs": [
+    {
+      "run_id": "20261017T012753-5b63a9622610",
+      "state": "interrupted_without_terminal_ledger_event",
+      "native_platform": "linux-x86_64",
+      "worktree": "tmp/bounded-mutable-integers-native",
+      "kind": "prove",
+      "scope": [
+        "compiler"
+      ],
+      "started_at": "2026-10-17T01:27:54.148114+00:00",
+      "workers": 2,
+      "ledger_fingerprint": "1f7d5bf3d1093830cfa8d73d746d4f422f2c9e83d15e88ca568c0eff6118a7e7",
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T012753-5b63a9622610",
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T012753-5b63a9622610/events.jsonl",
+          "sha256": "87f1550b85585828a9fcfac605672e59966325d7606c97dfd9ae7ceb3cbfa240",
+          "bytes": 434266
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T012753-5b63a9622610/native.log",
+          "sha256": "772cd2d048827abd842714f1237fa03bd4e6638fb97e6f90852d985f596226e4",
+          "bytes": 239640
+        }
+      ],
+      "disposition": "Interrupted during the agent handoff, as recorded in the capability history. Ledger ends at an active phase with no terminal event; no successful outcome or finished duration is inferred. Subsequent runs retained the same worktree cache."
+    },
+    {
+      "run_id": "20261017T012356-389ba9e98469",
+      "state": "interrupted_without_terminal_ledger_event",
+      "native_platform": "linux-x86_64",
+      "worktree": "tmp/bounded-mutable-integers-native",
+      "kind": "lean",
+      "scope": [
+        "Silver.OutputBodyCertificate"
+      ],
+      "started_at": "2026-10-17T01:23:56.981897+00:00",
+      "workers": 4,
+      "ledger_fingerprint": "b53808311e7ce66d8bf30592175966b89799bc9d00f30e099be56c55c12e272b",
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T012356-389ba9e98469",
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T012356-389ba9e98469/events.jsonl",
+          "sha256": "83266171c9ea941ad2631edf122d8eabb75e634520ce80a3728c76b02d797eb4",
+          "bytes": 65009
+        }
+      ],
+      "disposition": "Interrupted during the agent handoff, as recorded in the capability history. Ledger ends at an active phase with no terminal event; no successful outcome or finished duration is inferred. Subsequent runs retained the same worktree cache."
+    },
+    {
+      "run_id": "20261017T013355-d1fad227ef71",
+      "state": "failure",
+      "native_platform": "linux-x86_64",
+      "worktree": "tmp/bounded-mutable-integers-native",
+      "kind": "prove",
+      "scope": [
+        "compiler"
+      ],
+      "started_at": "2026-10-17T01:33:55.965689+00:00",
+      "workers": 2,
+      "ledger_fingerprint": "1f7d5bf3d1093830cfa8d73d746d4f422f2c9e83d15e88ca568c0eff6118a7e7",
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T013355-d1fad227ef71",
+      "finished_at": "2026-10-17T01:52:26.405365+00:00",
+      "managed_elapsed_seconds": 1110.450529873,
+      "returncode": null,
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T013355-d1fad227ef71/events.jsonl",
+          "sha256": "39ad4f506814f1d1a9bd06fbf453fdccea48788b0a1d97e2faa7f28e7aa97531",
+          "bytes": 464158
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T013355-d1fad227ef71/native.log",
+          "sha256": "9ac59159c3754e4495176c07091e084fbe6cbaeb989901f3eecd452ed5d97053",
+          "bytes": 1188316
+        }
+      ],
+      "failure_keys": [],
+      "error": "EvidenceError: silver_scalar_expressions: warn_error diagnostic is not proved/info: {'check_tree': {}, 'col': 16, 'file': 'silver_scalar_expressions.adb', 'how_proved': 'trivial', 'line': 18, 'message': {'text': 'initialization of an array in FOR loop is handled imprecisely [array-initialization]'}, 'rule': 'array-initialization', 'severity': 'warning', 'suppressed': '', 'unproved_status': {'status': 'unknown'}}",
+      "result_lines": [
+        "Success: all checks proved (15153 checks)."
+      ]
+    },
+    {
+      "run_id": "20261017T012407-d8d8f5eb7ca7",
+      "state": "failure",
+      "native_platform": "linux-x86_64",
+      "worktree": ".",
+      "kind": "lean",
+      "scope": [
+        "Silver.PredicateSourceCandidate"
+      ],
+      "started_at": "2026-10-17T01:24:07.766481+00:00",
+      "workers": 2,
+      "ledger_fingerprint": "8f6dc000f11f6c7314b45b7ef44c032597b5f1175bca3cc04e5f8c26e163353f",
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T012407-d8d8f5eb7ca7",
+      "finished_at": "2026-10-17T01:31:55.180547+00:00",
+      "managed_elapsed_seconds": 467.413002164,
+      "returncode": 1,
+      "retained_artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T012407-d8d8f5eb7ca7/events.jsonl",
+          "sha256": "273460dd7bf33c8f425fbba87e2c4c9afbdf47bbeddedc0829f38470d14b2f5d",
+          "bytes": 66851
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T012407-d8d8f5eb7ca7/reports/0/lean-focused.log",
+          "sha256": "7c34d4b59713a8fc231b76e1ae8602e6a5bba65ac81734bd8066069ba2a2481f",
+          "bytes": 2510
+        }
+      ],
+      "failure_keys": [
+        "lean:build:Silver/PredicateSourceCandidate.lean:502:6:Tactic `decide` proved that the proposition"
+      ]
+    }
+  ],
+  "failure_disposition": {
+    "20261017T021003-1cc505ed3a9d": "Complete build failed only PredicateSelectors missing scalarAssign cases. Other source bridges, including ComposeSourceChecks, completed. The reviewed selector repair changes one authoritative Lean input; resumed complete run 20261017T024125-7b26370b62f2 passed on that repair. Completed artifacts were retained, with no native/test rerun.",
+    "20261017T012753-5b63a9622610": "Interrupted during handoff; not successful native validation. Resumed in same original-path cache, then warning repaired before final audit.",
+    "20261017T012356-389ba9e98469": "Interrupted during handoff; not successful certificate validation. Resumed as 20261017T013354-6ff99f1ce6c4.",
+    "20261017T013355-d1fad227ef71": "15,153 checks proved, but strict report audit failed on Body_Environment array-initialization warning. d83927cef3 repairs the loop with an aggregate; no diagnostic policy relaxation.",
+    "20261017T012407-d8d8f5eb7ca7": "Qualified Scalar_Target return-type extractor wiring repaired in 700b39de58; focused repair evidence retained in 20261017T013421-bcdee034fa2a."
+  },
+  "claims_not_made": [
+    "clean build",
+    "independent kernel replay",
+    "native macOS validation",
+    "hosted CI execution"
+  ],
+  "record_preparation": "Read retained evidence and compare hashes only; no new builds, proofs, audits or test executions performed to prepare this record.",
+  "aggregate_regression_validation": {
+    "state": "passed_with_targeted_repair",
+    "original_suite": "20261017T015701-ad774ab8b5aa",
+    "original_outcome": "failure",
+    "test_methods_run": 469,
+    "failed_subtests": 5,
+    "failed_methods": 1,
+    "failed_method": "test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration",
+    "errors": 0,
+    "skipped": 0,
+    "repair_recheck": "20261017T022620-08e72ef5c544",
+    "repair_scope": "All 10 CompilerSourcePolicyTests methods, including all 26 candidate/source parity pairs and source dependency/policy checks, passed on final root inputs.",
+    "complete_lean_required_for_selector_repair": "satisfied by successful complete run",
+    "single_successful_full_suite_claim": false,
+    "full_suite_repeated": false,
+    "rationale": "Five generated-only differences are covered by parity/source-policy recheck; the selector proof change is covered by its focused check and resumed complete Lean validation. Native/test/sample inputs did not change.",
+    "complete_lean_for_selector_repair": "20261017T024125-7b26370b62f2"
+  },
+  "generated_candidate_repair": {
+    "manifest": {
+      "path": "tmp/final-certificate-snapshots/repair.json",
+      "sha256": "f75318c68f95a1b1728226831e3238e427cd7cef7a7570db0460bb98f13204f0",
+      "bytes": 2295
+    },
+    "commit": "bbd5989b2b",
+    "candidate_count": 5,
+    "all_old_hashes_match_original_suite_snapshot": true,
+    "all_new_hashes_match_final_root_and_commit": true,
+    "all_new_hashes_match_recorded_initial_lean_generated_workspace": true,
+    "final_audited_workspace_comparison": {
+      "complete_lean_run": "20261017T024125-7b26370b62f2",
+      "all_five_match_final_audited_generated_workspace": true,
+      "full_generated_and_handwritten_workspace_matches_final_root_and_commit": true,
+      "module_count": 466,
+      "workspace_files_including_configuration": 468
+    },
+    "input_rule": "check_lean.capture_shared_inputs excludes CANDIDATES, regenerates them from native bytes, and captures/checks the generated workspace inventory. The repair changes no authoritative source and does not alter the initial run workspace. Final audited generated hashes remain a separate required comparison."
+  },
+  "supported_samples": {
+    "run_id": "20261017T015701-ad774ab8b5aa",
+    "method": "test_samples.SupportedSampleTests.test_manifest_samples",
+    "result_lines": [
+      "test_manifest_samples (test_samples.SupportedSampleTests.test_manifest_samples) ... ok"
+    ],
+    "manifest": {
+      "path": "samples/manifest.json",
+      "sha256": "de7d2a76f0a6f2ec6d1ac25382c2dc4c8535433b9b9c505e9e77e5cac5b8b5ca",
+      "bytes": 45251
+    },
+    "manifest_entries": 22,
+    "motivating_sample": {
+      "path": "samples/find_square_difference.adb",
+      "sha256": "7321d8b442fcc5d122bdfd4dc175417fc688df2639111783bb895288a8fe747c",
+      "bytes": 330
+    },
+    "expected_stdout": " 501\n",
+    "expected_stderr": "",
+    "expected_exit_status": 0
+  },
+  "final_validation_disposition": {
+    "native_obligations_and_strict_report_audit": "passed",
+    "complete_lean_and_fresh_axiom_coverage_audit": "passed",
+    "original_full_suite": "failed only five generated-candidate parity subtests in one method",
+    "focused_source_policy_class_after_repair": "passed all ten methods, including parity for all 26 candidates",
+    "focused_selector_after_repair": "passed",
+    "sample_manifest": "passed all 22 entries in the original suite; source/sample inputs unchanged",
+    "authoritative_final_lean_input_identity": "all 581 match final committed tree and root",
+    "generated_and_handwritten_lean_workspace_identity": "all 468 workspace input files match final committed tree and root; 466 modules plus two configuration files",
+    "native_input_identity": "all 141 tracked native/proof-project/script/configuration inputs match final committed tree and root; 2519 total captured inputs retained in native provenance",
+    "additional_validation_run_required_for_record_preparation": false
+  },
+  "post_validation_root_cache_handoff": {
+    "manifest": "tmp/final-lean-cache-promotion.json",
+    "sha256": "7702d3e065fb2455ceeae9a562359fd99c800798bb6cbea148fd90a3394f57a5",
+    "source_complete_run": "20261017T024125-7b26370b62f2",
+    "audited_modules": 466,
+    "family_files": 7440,
+    "copied_files": 421,
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-semantics/.silver/linux-x86_64/proof",
+    "destination": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/proof",
+    "replaced_artifacts_backup": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-cache-before-20261017T024125-7b26370b62f2",
+    "method": "Current audited module families only; all sibling objects/IR/trace/setup preserved; physical copy2 with separate inodes; previous differing destination artifacts backed up; unrelated/orphan artifacts untouched",
+    "additional_proof_run": false
+  },
+  "completion_documentation_check": {
+    "files": [
+      "README.md",
+      "roadmap.md",
+      "RESUME.md",
+      "docs/assurance.md",
+      "docs/trusted-boundary.md",
+      "docs/session-memory.md",
+      "docs/bounded-mutable-integers.md",
+      "docs/reviews/review-bounded-mutable-integers.md"
+    ],
+    "local_file_links_checked": 611,
+    "missing_local_files": [],
+    "proof_or_test_repeat": false
+  }
+}

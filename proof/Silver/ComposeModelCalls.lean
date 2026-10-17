@@ -45,6 +45,7 @@ def modelCalls : Calls where
     | .newName => newNameAllowed
     | .addBinding => addBinding
     | .stringDeclaration => stringDeclarationAt
+    | .scalarConstraint => scalarConstraintAt
     | .scalarDeclaration => scalarDeclarationAt
     | .scalarLookup => ScalarExpression.lookup
     | .scalarRead => fun text position names => ScalarExpression.read text position names

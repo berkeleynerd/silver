@@ -50,11 +50,15 @@ structure Mantissa where
   base : Nat
   deriving DecidableEq, Repr
 
+abbrev DelimiterAt (text : Source) (position : Nat) : Prop :=
+  position ≤ text.length ∧ (Cursor.byteAt text position = 35 ∨ Cursor.byteAt text position = 58) ∧
+    ¬ (Cursor.byteAt text position = 58 ∧ position < text.length ∧
+      Cursor.byteAt text (position + 1) = 61)
+
 def mantissa (text : Source) (position : Nat) : Mantissa :=
   let leading := numeral text position 10
   if leading.after = 0 then ⟨0, 0, 10⟩ else
-  if leading.after ≤ text.length ∧
-      (Cursor.byteAt text leading.after = 35 ∨ Cursor.byteAt text leading.after = 58) then
+  if DelimiterAt text leading.after then
     if leading.value < 2 ∨ 16 < leading.value then ⟨0, 0, 10⟩ else
     let number := numeral text (leading.after + 1) leading.value
     if number.after = 0 then ⟨0, 0, 10⟩ else
@@ -251,8 +255,6 @@ theorem numeral_bounds {text : Source} {base position value finish : Nat}
   exact ⟨bounds.2.2.2 rfl, bounds.2.1, bounds.2.2.1⟩
 
 
-abbrev DelimiterAt (text : Source) (position : Nat) : Prop :=
-  position ≤ text.length ∧ (Cursor.byteAt text position = 35 ∨ Cursor.byteAt text position = 58)
 
 inductive MantissaAt (text : Source) (position : Nat) : Nat → Nat → Nat → Prop
   | decimal {value finish : Nat} : NumeralAt text 10 position value finish →
@@ -294,27 +296,27 @@ theorem mantissa_sound {text : Source} {position : Nat}
   by_cases delimiter : DelimiterAt text (numeral text position 10).after
   · have baseFits : ¬ ((numeral text position 10).value < 2 ∨ 16 < (numeral text position 10).value) := by
       intro invalidBase
-      simp only [mantissa, leadingPositive, delimiter, and_self, invalidBase, ↓reduceIte,
+      simp only [mantissa, leadingPositive, ite_eq_left delimiter, invalidBase, ↓reduceIte,
         ne_eq, not_true_eq_false] at accepted
     have baseFirst : 2 ≤ (numeral text position 10).value := by omega
     have baseLast : (numeral text position 10).value ≤ 16 := by omega
     have numberPositive : (numeral text ((numeral text position 10).after + 1) (numeral text position 10).value).after ≠ 0 := by
       intro failed
-      simp only [mantissa, leadingPositive, delimiter, and_self, baseFits, failed, ↓reduceIte,
+      simp only [mantissa, leadingPositive, ite_eq_left delimiter, baseFits, failed, ↓reduceIte,
         ne_eq, not_true_eq_false] at accepted
     have number := numeral_sound baseFirst baseLast (by have bound := delimiter.1; omega) numberPositive
     have matched : ¬ ((numeral text ((numeral text position 10).after + 1) (numeral text position 10).value).after > text.length ∨
         Cursor.byteAt text (numeral text ((numeral text position 10).after + 1) (numeral text position 10).value).after ≠
           Cursor.byteAt text (numeral text position 10).after) := by
       intro badClose
-      simp only [mantissa, leadingPositive, delimiter, and_self, baseFits, numberPositive, badClose,
+      simp only [mantissa, leadingPositive, ite_eq_left delimiter, baseFits, numberPositive, badClose,
         ↓reduceIte, ne_eq, not_true_eq_false] at accepted
     have last : (numeral text ((numeral text position 10).after + 1) (numeral text position 10).value).after ≤ text.length := by omega
     have closing : Cursor.byteAt text (numeral text ((numeral text position 10).after + 1) (numeral text position 10).value).after =
         Cursor.byteAt text (numeral text position 10).after := by omega
-    simpa only [mantissa, leadingPositive, delimiter, and_self, baseFits, numberPositive, matched, ↓reduceIte] using
+    simpa only [mantissa, leadingPositive, ite_eq_left delimiter, baseFits, numberPositive, matched, ↓reduceIte] using
       MantissaAt.based leading delimiter number last closing
-  · simpa only [mantissa, leadingPositive, delimiter, ↓reduceIte] using MantissaAt.decimal leading delimiter
+  · simpa only [mantissa, leadingPositive, ite_eq_right delimiter, ↓reduceIte] using MantissaAt.decimal leading delimiter
 
 theorem mantissa_bounds {text : Source} {position value base finish : Nat}
     (parsed : MantissaAt text position value base finish) :

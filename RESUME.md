@@ -4,16 +4,36 @@ This file preserves local installation/recovery guidance and historical
 handoffs. Current authorization lives in [session memory](docs/session-memory.md),
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
+
+The [Bounded mutable integers milestone](docs/bounded-mutable-integers.md)
+completed implementation and Linux x86_64 validation on 2026-10-17. Its native
+implementation is `d83927cef3`, the selector proof repair is
+`54551e49f9`, and the generated-certificate snapshot repair is `bbd5989b2b`.
+That last commit identifies the final authoritative source/proof/test inputs. The
+[independent source review](docs/reviews/review-bounded-mutable-integers.md)
+at `fc983799c3` covers the native implementation; review update `41d4bb07da`
+covers the selector repair. Complete native and Lean validation and full-suite
+execution with the focused snapshot repair are finished. The original full-suite
+snapshot failures and passing affected recheck retain their separate scopes in
+the capability record. Read it and the
+live managed run summary before any further check; preserve retained evidence
+and caches. Packages #68–#70 and repaired findings #74/#75 are complete locally;
+the issues and board record publication and merge status. The previous For loops
+and integers harness goal remains complete; no new harness goal was requested.
+
 For loops and integers was delivered through PR #47; its separate
 [review remediation](docs/review-b8f1d0b9a8-repairs.md), authorized through
 PR #65, completed implementation and Linux validation on 2026-10-17; PR #66
 tracks publication. Historical paused/unfinished statements below describe
 earlier checkpoints and do not override that completion or the live harness state.
 
-The delivered Rosetta baseline includes `integer-for-loops`,
-`immutable-integers` and `integer-image`. Their three loop drivers are in
-stage 1; broader scalar/loop/subtype forms remain stage 2 on #11, procedures
-stage 3, and arrays stage 4 on #12. Consult the generated
+The bounded mutable delivery adds the narrow Rosetta identifier
+`bounded-mutable-integers` beside `integer-for-loops`, `immutable-integers`
+and `integer-image`. Find square difference moves to stage 1, position 15;
+that baseline has 35 tasks. The ten remaining broad scalar/loop/subtype tasks
+remain stage 2 on #11, procedures stage 3, and arrays stage 4 on #12. The broad
+identifiers remain unsupported, and #11 stays open/Backlog; sample work #9 is
+separate. Consult the generated
 [progression](rosetta/progression.md) for the current mapping.
 
 Read [AGENTS.md](AGENTS.md),
@@ -21,6 +41,11 @@ Read [AGENTS.md](AGENTS.md),
 [development.md](development.md), [roadmap.md](roadmap.md), and the newest
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
+Use `python3 scripts/dev.py paths` and `python3 scripts/dev.py runs status`
+to reconcile the actual native host, active workspaces, workers and retained
+checks. Preserve all worktrees, caches, scratch and other-host artifacts.
+Hosted CI remains disabled; native macOS validation is independent and
+nonblocking. CLI memory is unavailable and was not updated.
 
 ## Historical handoff: proof iteration controls
 

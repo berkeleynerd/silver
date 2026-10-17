@@ -84,7 +84,7 @@ theorem binding_mem {names : Environment} {index : Nat} (positive : 0 < index)
 
 theorem binding_bounded {text : Source} {names : Environment} {index : Nat}
     (valid : ValidEnvironment text names) (positive : 0 < index) (bound : index ≤ names.length) :
-    (binding names index).bounds.Bounded := (valid.2 _ (binding_mem positive bound)).2.2.2
+    (binding names index).bounds.Bounded := (valid.2 _ (binding_mem positive bound)).2.2.2.1
 
 theorem atom_correspondence {text : Source} {names : Environment} (valid : ValidEnvironment text names)
     (position maskFirst maskAfter : Nat) (allowSign : Bool) :

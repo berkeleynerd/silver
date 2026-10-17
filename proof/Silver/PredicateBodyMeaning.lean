@@ -11,11 +11,11 @@ open Compose Bindings PathFacts
 attribute [local irreducible] ScalarExpression.read
 
 private theorem basic_bounded {text context scan item result}
-    (normal : NamesNormal context.names) (bounded : scan.facts.Bounded)
+    (normal : NamesNormal context.names) (ready : ScalarExpression.BodyReady context.scalarNames) (bounded : scan.facts.Bounded)
     (parsed : BasicAt text context scan item result) : result.facts.Bounded := by
-  have checked := (basic_meaning normal parsed).2
+  have checked := (basic_meaning normal ready parsed).2
   cases parsed.payload with
-  | null _ | output _ _ | put _ _ | assignment _ _ _ =>
+  | null _ | output _ _ | put _ _ | assignment _ _ _ | scalarAssignment _ _ =>
       simp only [SourceStatement.lower, Statement.check] at checked
       split at checked
       · have same := Option.some.inj checked
@@ -40,30 +40,31 @@ private theorem branch_meaning {text context scan keyword condition}
 
 mutual
   theorem statement_meaning {text context scan item result}
-      (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
+      (normal : NamesNormal context.names) (ready : ScalarExpression.BodyReady context.scalarNames) (nv : Compose.Expressions.ValidNames text context.names)
       (bounded : scan.facts.Bounded) (parsed : StatementAt text context scan item result) :
       item.WellFormed context.hasArguments context.names.shape ∧
-      item.lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
+      item.lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) (ScalarExpression.mutability context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
     cases parsed with
     | basic _ _ _ reading _ =>
-        have meaning := basic_meaning normal reading
-        exact ⟨meaning.1, meaning.2, basic_bounded normal bounded reading⟩
-    | choice _ _ reading _ => exact choice_meaning normal nv bounded reading
-    | loop _ _ _ reading _ => exact loop_meaning normal nv bounded reading
+        have meaning := basic_meaning normal ready reading
+        exact ⟨meaning.1, meaning.2, basic_bounded normal ready bounded reading⟩
+    | choice _ _ reading _ => exact choice_meaning normal ready nv bounded reading
+    | loop _ _ _ reading _ => exact loop_meaning normal ready nv bounded reading
   termination_by (bodyRemaining text scan, 2)
 
   theorem loop_meaning {text context scan lower upper body result}
-      (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
+      (normal : NamesNormal context.names) (ready : ScalarExpression.BodyReady context.scalarNames) (nv : Compose.Expressions.ValidNames text context.names)
       (bounded : scan.facts.Bounded) (parsed : LoopAt text context scan lower upper body result) :
       (SourceStatement.forLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
         lower upper body).WellFormed context.hasArguments context.names.shape ∧
       (SourceStatement.forLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
-        lower upper body).lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) =
+        lower upper body).lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) (ScalarExpression.mutability context.scalarNames) =
           some result.facts ∧ result.facts.Bounded := by
     cases parsed with
     | loop _ lowerRead upperRead _ bodyRead resultEq _ _ =>
         have bodyGood := body_meaning (context := loopInner context (loopHeader text context scan))
-          (scan := (loopHeader text context scan).entry) normal nv (loopContext_bounded bounded _) bodyRead
+          (scan := (loopHeader text context scan).entry) normal
+          (ScalarExpression.bodyReady_append ready (by simp)) nv (loopContext_bounded bounded _) bodyRead
         have factsEq : result.facts = _ := congrArg BodyScan.facts resultEq
         simp only [bodyTokens_facts] at factsEq
         refine ⟨?_, ?_, ?_⟩
@@ -72,7 +73,7 @@ mutual
         · simp only [SourceStatement.lower, Statement.check, lowerRead.inferred, upperRead.inferred,
             Option.bind_some]
           have checked := bodyGood.2.1
-          simp only [loopInner, ScalarExpression.ranges_append] at checked
+          simp only [loopInner, ScalarExpression.ranges_append, ScalarExpression.mutability_append] at checked
           have entryFacts : (loopHeader text context scan).entry.facts =
               loopContext scan.facts (Integer.loopBounds (loopHeader text context scan).lower.bounds
                 (loopHeader text context scan).upper.bounds) := rfl
@@ -84,10 +85,10 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem choice_meaning {text context scan condition yes tail result}
-      (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
+      (normal : NamesNormal context.names) (ready : ScalarExpression.BodyReady context.scalarNames) (nv : Compose.Expressions.ValidNames text context.names)
       (bounded : scan.facts.Bounded) (parsed : ChoiceAt text context scan condition yes tail result) :
       (SourceStatement.choice condition yes tail).WellFormed context.hasArguments context.names.shape ∧
-      (SourceStatement.choice condition yes tail).lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
+      (SourceStatement.choice condition yes tail).lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) (ScalarExpression.mutability context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
     cases parsed with
     | choice conditionRead _ yesRead _ noRead resultEq _ _ =>
         have conditionGood := branch_meaning normal nv bounded conditionRead
@@ -97,8 +98,8 @@ mutual
         have noBound : (branchStart text context scan "if").2.Bounded := by
           rw [conditionGood.2.2.2.2]
           exact Condition.refine_bounded bounded _ _ _ _
-        have yesGood := body_meaning normal nv yesBound yesRead
-        have noGood := alternative_meaning normal nv noBound noRead
+        have yesGood := body_meaning normal ready nv yesBound yesRead
+        have noGood := alternative_meaning normal ready nv noBound noRead
         have factsEq : result.facts = _ := congrArg BodyScan.facts resultEq
         simp only [bodyTokens_facts] at factsEq
         refine ⟨?_, ?_, ?_⟩
@@ -114,16 +115,16 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem alternative_meaning {text context scan tail result}
-      (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
+      (normal : NamesNormal context.names) (ready : ScalarExpression.BodyReady context.scalarNames) (nv : Compose.Expressions.ValidNames text context.names)
       (bounded : scan.facts.Bounded) (parsed : AlternativeAt text context scan tail result) :
       tail.WellFormed context.hasArguments context.names.shape ∧
-      checkStatements context.names.shape scan.facts tail.lower (ScalarExpression.ranges context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
+      checkStatements context.names.shape scan.facts tail.lower (ScalarExpression.ranges context.scalarNames) (ScalarExpression.mutability context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
     cases parsed with
     | absent =>
         simp only [SourceAlternative.WellFormed, SourceAlternative.lower, checkStatements]
         exact ⟨trivial, trivial, bounded⟩
     | otherwise _ _ _ _ body _ =>
-        have good := body_meaning (scan := bodyToken text scan (.word "else")) normal nv bounded body
+        have good := body_meaning (scan := bodyToken text scan (.word "else")) normal ready nv bounded body
         simp only [SourceAlternative.WellFormed, SourceAlternative.lower]
         exact ⟨⟨body_nonempty body, good.1⟩, good.2⟩
     | elsif _ _ conditionRead _ yesRead _ noRead resultEq _ _ =>
@@ -134,8 +135,8 @@ mutual
         have noBound : (branchStart text context scan "elsif").2.Bounded := by
           rw [conditionGood.2.2.2.2]
           exact Condition.refine_bounded bounded _ _ _ _
-        have yesGood := body_meaning normal nv yesBound yesRead
-        have noGood := alternative_meaning normal nv noBound noRead
+        have yesGood := body_meaning normal ready nv yesBound yesRead
+        have noGood := alternative_meaning normal ready nv noBound noRead
         have factsEq : result.facts = _ := congrArg BodyScan.facts resultEq
         refine ⟨?_, ?_, ?_⟩
         · simp only [SourceAlternative.WellFormed]
@@ -150,31 +151,31 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem bodyTail_meaning {text context stop scan items result}
-      (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
+      (normal : NamesNormal context.names) (ready : ScalarExpression.BodyReady context.scalarNames) (nv : Compose.Expressions.ValidNames text context.names)
       (bounded : scan.facts.Bounded) (parsed : BodyTailAt text context stop scan items result) :
       SourceStatementsWellFormed context.hasArguments context.names.shape items ∧
-      checkStatements context.names.shape scan.facts (lowerStatements items) (ScalarExpression.ranges context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
+      checkStatements context.names.shape scan.facts (lowerStatements items) (ScalarExpression.ranges context.scalarNames) (ScalarExpression.mutability context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
     cases parsed with
     | done =>
         simp only [SourceStatementsWellFormed, lowerStatements, checkStatements]
         exact ⟨trivial, trivial, bounded⟩
     | next _ _ item _ rest _ =>
-        have first := statement_meaning normal nv bounded item
-        have following := bodyTail_meaning normal nv first.2.2 rest
+        have first := statement_meaning normal ready nv bounded item
+        have following := bodyTail_meaning normal ready nv first.2.2 rest
         simp only [SourceStatementsWellFormed]
         refine ⟨⟨first.1, following.1⟩, ?_, following.2.2⟩
         simp only [lowerStatements, checkStatements, first.2.1, Option.bind_some, following.2.1]
   termination_by (bodyRemaining text scan, 3)
 
   theorem body_meaning {text context stop scan items result}
-      (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
+      (normal : NamesNormal context.names) (ready : ScalarExpression.BodyReady context.scalarNames) (nv : Compose.Expressions.ValidNames text context.names)
       (bounded : scan.facts.Bounded) (parsed : BodyAt text context scan stop items result) :
       SourceStatementsWellFormed context.hasArguments context.names.shape items ∧
-      checkStatements context.names.shape scan.facts (lowerStatements items) (ScalarExpression.ranges context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
+      checkStatements context.names.shape scan.facts (lowerStatements items) (ScalarExpression.ranges context.scalarNames) (ScalarExpression.mutability context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
     cases parsed with
     | cons item _ rest _ =>
-        have first := statement_meaning normal nv bounded item
-        have following := bodyTail_meaning normal nv first.2.2 rest
+        have first := statement_meaning normal ready nv bounded item
+        have following := bodyTail_meaning normal ready nv first.2.2 rest
         simp only [SourceStatementsWellFormed]
         refine ⟨⟨first.1, following.1⟩, ?_, following.2.2⟩
         simp only [lowerStatements, checkStatements, first.2.1, Option.bind_some, following.2.1]

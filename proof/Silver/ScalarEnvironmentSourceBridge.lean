@@ -84,6 +84,124 @@ theorem append_count_bounded (names : Storage) (item : Binding)
   change names.count + 1 ≤ maxBindings
   omega
 
+/-- The source's record delta replaces only Bounds. Staticness, visibility,
+mutability and the declared subtype are retained. -/
+inductive BindingBoundsExpr
+  | current | declared
+  | ifMutable (yes no : BindingBoundsExpr)
+  deriving DecidableEq
+
+def BindingBoundsExpr.eval (item : Binding) : BindingBoundsExpr → Integer.Interval
+  | .current => item.bounds
+  | .declared => item.declaredBounds
+  | .ifMutable yes no => if item.mutable then yes.eval item else no.eval item
+
+def BindingBoundsExpr.render : BindingBoundsExpr → List String
+  | .current => ["item", ".", "bounds"]
+  | .declared => ["item", ".", "declared_bounds"]
+  | .ifMutable yes no => ["(", "if", "item", ".", "mutable", "then"] ++
+      yes.render ++ ["else"] ++ no.render ++ [")"]
+
+structure BodyBindingExpr where
+  bounds : BindingBoundsExpr
+  deriving DecidableEq
+
+def BodyBindingExpr.eval (tree : BodyBindingExpr) (item : Binding) : Binding :=
+  {item with bounds := tree.bounds.eval item}
+
+def BodyBindingExpr.render (tree : BodyBindingExpr) : List String :=
+  ["item", "with", "delta", "bounds", "=>"] ++ tree.bounds.render
+
+def bodyBindingBody : BodyBindingExpr := ⟨.ifMutable .declared .current⟩
+
+theorem body_binding_meaning (item : Binding) :
+    bodyBindingBody.eval item = bodyBinding item := rfl
+
+/-- One assignment in a finite reference implementation of the mapping. The input array
+is read at Index; only the result array's selected cell is overwritten. -/
+def Storage.bodyStep (original result : Storage) (index : Nat) : Storage :=
+  {result with items := fun key =>
+    if key = index then bodyBindingBody.eval (original.items index) else result.items key}
+
+def Storage.bodyLoop (original : Storage) : Nat → Storage
+  | 0 => original
+  | count + 1 => original.bodyStep (original.bodyLoop count) (count + 1)
+
+theorem Storage.bodyLoop_count (original : Storage) (count : Nat) :
+    (original.bodyLoop count).count = original.count := by
+  induction count with
+  | zero => rfl
+  | succ count ih => exact ih
+
+theorem Storage.bodyLoop_items (original : Storage) (count index : Nat) :
+    (original.bodyLoop count).items index =
+      if 1 ≤ index ∧ index ≤ count then bodyBinding (original.items index)
+      else original.items index := by
+  induction count with
+  | zero =>
+    have absent : ¬ (1 ≤ index ∧ index ≤ 0) := by omega
+    simp only [bodyLoop, absent, ↓reduceIte]
+  | succ count ih =>
+    simp only [bodyLoop, bodyStep, body_binding_meaning]
+    by_cases last : index = count + 1
+    · subst index
+      simp
+    · rw [ite_eq_right last, ih]
+      have same : (1 ≤ index ∧ index ≤ count + 1) ↔ (1 ≤ index ∧ index ≤ count) := by omega
+      simp only [same]
+
+theorem Storage.bodyLoop_active (original : Storage) (bound : original.count ≤ maxBindings) :
+    (original.bodyLoop maxBindings).active = bodyEnvironment original.active := by
+  simp only [Storage.active, bodyEnvironment, List.map_ofFn]
+  have count := original.bodyLoop_count maxBindings
+  generalize currentDef : original.bodyLoop maxBindings = current at count ⊢
+  cases current with
+  | mk currentCount currentItems =>
+    dsimp only at count
+    subst currentCount
+    apply congrArg List.ofFn
+    funext index
+    have mapped := original.bodyLoop_items maxBindings (index.val + 1)
+    rw [currentDef] at mapped
+    dsimp only at mapped
+    have inside : 1 ≤ index.val + 1 ∧ index.val + 1 ≤ maxBindings := by
+      have indexBound : index.val < original.count := index.isLt
+      omega
+    rw [ite_eq_left inside] at mapped
+    simpa only [Function.comp_apply] using mapped
+
+/-- Native full-array postcondition: the verified aggregate maps even inactive
+slots, while the language model observes exactly the active prefix. -/
+structure InterpretedBodyEnvironment (transform : Storage → Storage) : Prop where
+  count : ∀ names, (transform names).count = names.count
+  items : ∀ names index, 1 ≤ index → index ≤ maxBindings →
+    (transform names).items index = bodyBindingBody.eval (names.items index)
+
+theorem model_bodyEnvironment_interpreted :
+    InterpretedBodyEnvironment (fun names => names.bodyLoop maxBindings) where
+  count names := names.bodyLoop_count maxBindings
+  items names index positive bounded := by
+    rw [names.bodyLoop_items maxBindings index, ite_eq_left ⟨positive, bounded⟩]
+    rfl
+
+theorem interpreted_bodyEnvironment (transform : Storage → Storage)
+    (source : InterpretedBodyEnvironment transform) (names : Storage)
+    (bound : names.count ≤ maxBindings) :
+    (transform names).active = bodyEnvironment names.active := by
+  simp only [Storage.active, bodyEnvironment, List.map_ofFn]
+  have count := source.count names
+  generalize currentDef : transform names = current at count ⊢
+  cases current with
+  | mk currentCount currentItems =>
+    dsimp only at count
+    subst currentCount
+    apply congrArg List.ofFn
+    funext index
+    have mapped := source.items names (index.val + 1) (by omega)
+      (by have indexBound : index.val < names.count := index.isLt; omega)
+    rw [currentDef] at mapped
+    exact mapped
+
 /-- Expression functions may put their contract after the closing expression.
 Keep that tail as part of the unique extracted declaration. -/
 def postfixExpressionBodies (name : String) : List String → List (List String × List String)
@@ -109,6 +227,11 @@ def postfixExpressionBody (name : String) (tokens : List String) : Option (List 
   | _ => none
 
 structure Checked (tokens : List String) : Prop where
+  bodyBinding : Source.expressionBody "body_binding" tokens = some bodyBindingBody.render
+  bodyBindingHeader : functionHeader "body_binding" "is" tokens = some
+    (expectedTokens "(Item : Binding) return Binding")
+  bodyEnvironmentHeader : functionHeader "body_environment" ";" tokens = some
+    (expectedTokens "(Names : Environment) return Environment with Global => null, Post => Body_Environment'Result.Count = Names.Count and then (for all Index in Binding_Index => Body_Environment'Result.Items (Index) = Body_Binding (Names.Items (Index)))")
   body : postfixExpressionBody "append" tokens =
     some (appendBody.render, expectedTokens "with Pre => Names.Count < Max_Bindings")
   header : functionHeader "append" "is" tokens = some
@@ -128,6 +251,15 @@ set_option maxRecDepth 100000 in
 set_option maxHeartbeats 10000000 in
 theorem actual_source_checked : Checked Source.scalarExpressionSpecTokens := by
   constructor <;> decide +kernel
+
+/-- The checked native contract supplies Count and every finite Items result;
+the independently proved loop model demonstrates the contract's exact mapping,
+and the active-prefix theorem derives the language environment meaning. -/
+theorem actual_body_environment_correspondence : Checked Source.scalarExpressionSpecTokens ∧
+    ∀ transform, InterpretedBodyEnvironment transform → ∀ names,
+      names.count ≤ maxBindings →
+      (transform names).active = bodyEnvironment names.active :=
+  ⟨actual_source_checked, interpreted_bodyEnvironment⟩
 
 /-- The body equation is the typed interpretation of the checked record and
 array update; the active-prefix conclusion is derived above. -/

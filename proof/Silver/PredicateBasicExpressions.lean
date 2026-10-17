@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateBodyAdmission
+public import Silver.PredicateScalarBodyNative
 public import Silver.PredicateNativeState
 public import Silver.LengthIntervalModel
 
@@ -20,6 +21,8 @@ structure Primitives where
   token : Source → Nat → ShellToken → Nat
   expression : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment → ExpressionResult
   target : Source → ParserState → Bool → ParserState
+  scalarTarget : Source → Native.Context → Nat → Nat
+  scalarAssignment : Source → Native.Context → BodyScan → BodyScan
   fits : PathFacts.Context → LengthSummary → Bool
   sameLength : PathFacts.Context → LengthSummary → LengthSummary → Bool
   reject : PathFacts.Context → PathFacts.Context
@@ -40,7 +43,7 @@ def Primitives.bodyToken (primitive : Primitives) (text : Source) (scan : BodySc
 inductive Test
   | operation (value : Names.Operation)
   | zeroResult | nonadvancing | present (token : ShellToken) | hasArguments
-  | zeroValue | invalidInput | notFits | zeroTarget | notSameLength
+  | zeroValue | invalidInput | notFits | zeroTarget | notSameLength | scalarTarget
   | orElse (left right : Test) | andThen (left right : Test)
 
 def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
@@ -52,6 +55,7 @@ def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
   | .zeroValue => decide (frame.value.after = 0)
   | .invalidInput => frame.result.facts.invalidReachable
   | .notFits => !primitive.fits frame.result.facts (summaryOf frame.value)
+  | .scalarTarget => decide (primitive.scalarTarget frame.text frame.context frame.result.position ≠ 0)
   | .zeroTarget => decide (frame.result.target = 0)
   | .notSameLength => !primitive.sameLength frame.result.facts (summaryOf frame.value)
       (bindingSummary ((frame.context.names.get frame.result.target).getD {}))
@@ -70,6 +74,7 @@ def Test.render : Test → List String
   | .invalidInput => ["result", ".", "facts", ".", "invalid_reachable"]
   | .notFits => ["not", "length_intervals", "."] ++ call "fits"
       [["result", ".", "facts"], call "summary_of" [["value"]]]
+  | .scalarTarget => call "scalar_target" [["text"], ["context"], ["result", ".", "position"]] ++ ["/=", "0"]
   | .zeroTarget => ["result", ".", "target", "=", "0"]
   | .notSameLength => ["not", "length_intervals", "."] ++ call "same_length"
       [["result", ".", "facts"], call "summary_of" [["value"]], call "binding_summary"
@@ -80,12 +85,13 @@ def Test.render : Test → List String
 inductive Update
   | operation (value : Names.Operation) | association
   | token (token : ShellToken)
-  | valueAfter | statePosition | stateTarget | output | assigned | rejected
+  | valueAfter | statePosition | stateTarget | output | assigned | rejected | scalarAssignment
 
 def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
   | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames}
   | .association => {frame.result with position := primitive.associationAfter frame.text frame.result.position false}
   | .token tok => primitive.bodyToken frame.text frame.result tok
+  | .scalarAssignment => primitive.scalarAssignment frame.text frame.context frame.result
   | .valueAfter => {frame.result with position := frame.value.after}
   | .statePosition => {frame.result with position := frame.state.position}
   | .stateTarget => {frame.result with target := frame.state.target}
@@ -98,6 +104,7 @@ def Update.render : Update → List String
   | .association => ["result", ".", "position", ":=", "names", "."] ++ call "association_after" [["text"], ["result", ".", "position"], ["false"]] ++ [";"]
   | .token tok => ["result", ":="] ++ call "body_token"
       [["text"], ["context"], ["result"], [Compose.Expressions.tokenName tok]] ++ [";"]
+  | .scalarAssignment => ["result", ":="] ++ call "scalar_assignment_body" [["text"], ["context"], ["result"]] ++ [";"]
   | .valueAfter => ["result", ".", "position", ":=", "value", ".", "after", ";"]
   | .statePosition => ["result", ".", "position", ":=", "state", ".", "position", ";"]
   | .stateTarget => ["result", ".", "target", ":=", "state", ".", "target", ";"]
@@ -156,7 +163,8 @@ def dispatchCommands : Command :=
   .choose (.present (.word "null")) (.update (.token (.word "null")))
     (.choose (.operation .output) outputCommands
       (.choose (.operation .partialOutput) putCommands
-        (.choose (.andThen .hasArguments (.operation .reject)) rejectCommands assignmentCommands)))
+        (.choose (.andThen .hasArguments (.operation .reject)) rejectCommands
+          (.choose .scalarTarget (.update .scalarAssignment) assignmentCommands))))
 def basicCommands : Command := .list [guard .zeroResult, dispatchCommands,
   .update (.token (.symbol ";")), guard .nonadvancing, .returnResult]
 
@@ -173,6 +181,8 @@ def modelPrimitives : Primitives where
   token := tokenAfter
   expression := fun text position names scalarNames => expressionAt text position names scalarNames
   target := targetAt
+  scalarTarget := fun text context position => Predicate.scalarTarget text context.model position
+  scalarAssignment := fun text context scan => scalarAssignmentBody text context.model scan
   fits := fitsLengthSummary
   sameLength := equalLengthIntervals
   reject := PathFacts.Context.reject

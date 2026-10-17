@@ -68,6 +68,8 @@ theorem loopInner_valid_environment {text : Source} {context : ParseContext} {sc
   exact ScalarExpression.validEnvironment_append valid (by have := valid.1; omega)
     ⟨Nat.pos_of_ne_zero firstPositive, ordered, afterBound,
       Integer.loopBounds_bounded (Integer.Expr.infer_bounded lowerRead.inferred)
+        (Integer.Expr.infer_bounded upperRead.inferred),
+      Integer.loopBounds_bounded (Integer.Expr.infer_bounded lowerRead.inferred)
         (Integer.Expr.infer_bounded upperRead.inferred)⟩
 
 theorem loopBody_shape {text : Source} {context : ParseContext} {scan : BodyScan}

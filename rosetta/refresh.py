@@ -317,6 +317,7 @@ def choose(found: dict) -> list[str]:
 
 SURFACE_LABELS = {"integer-for-loops": "Integer range for loops",
                   "immutable-integers": "immutable Integer arithmetic",
+                  "bounded-mutable-integers": "bounded mutable Integer objects",
                   "integer-image": "Integer image", "booleans": "Boolean objects",
                   "multidim-arrays": "multidimensional arrays",
                   "scalar-image": "'Image of scalars", "float-image": "floating-point images",
@@ -340,6 +341,9 @@ USES = {"stdin": "standard input", "files": "files", "arguments": "arguments", "
 # The question each construct's admission must answer: the decidable rule under which every program
 # using it proves automatically.
 ADMISSION = {
+    "bounded-mutable-integers": "Which initialized Integer objects and static object-local ranges "
+                                "keep every assignment within its declared range without scalar guard "
+                                "or update refinement, including through branches and counted loops?",
     "immutable-integers": "Which immutable Integer declarations and fully grouped signed arithmetic expressions "
                           "have signed 32-bit interval bounds that discharge every check?",
     "integer-for-loops": "Which ascending, reverse and nested Integer range loops preserve scoped immutable "

@@ -1003,6 +1003,33 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "find_square_difference.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "statement_sequence",
+        "for_loop",
+        "scalar_integer_literal",
+        "integer_expression",
+        "integer_comparison",
+        "named_integer_variable",
+        "integer_range_constraint",
+        "integer_assignment",
+        "integer_image",
+        "string_expression",
+        "expression_output",
+        "string_choice",
+        "boolean_predicate"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": " 501\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

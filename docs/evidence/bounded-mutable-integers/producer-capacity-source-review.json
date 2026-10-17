@@ -1,0 +1,629 @@
+{
+  "schema_version": 2,
+  "date": "2026-10-17",
+  "host": "linux-x86_64",
+  "state": "producer_source_applicability_closed_integrated_assurance_pending",
+  "authorization_merge": "ed975942028e65045285d40d59ec99cd0053e7bd",
+  "work_package": 69,
+  "scope": "Retained producer/frontend source review closes changed capacity applicability under inherited tool premises and the selected admission grammar. Native probes corroborate routes; integrated source correspondence and obligation discharge remain separate delivery evidence. No binary-source attestation.",
+  "baseline_review": "docs/for-loops-report-capacity.md",
+  "producer_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "recipe_revision": "0334dd54a2c479faa3dfad47a911373581b11739",
+  "frontend_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "retained_frontend_manifest": "tmp/frontend-capacity-20261016/fetch-manifest.json",
+  "retained_frontend_manifest_sha256": "a96759d2aa85e4078d836a6ead1752f97d04fadf518bce8cf04526def052c5e1",
+  "files": [
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/gnat2why-expr.adb",
+      "sha256": "750ed73091af62c0b522077c2e59e10f496b91a4bee323b3b822fba15094dd14",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-expr.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/why-gen-expr.adb",
+      "sha256": "9891d54331f76713685fce8f21501d549485a46c35593ac68ba572c9f0f5a432",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/why-gen-expr.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/gnat2why-driver.adb",
+      "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-driver.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/gnat2why-decls.adb",
+      "sha256": "0d98e1d1a86afe4a94a45752c9a11ecffd3f5d8218c9a28c3cd8449b65acdb43",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-decls.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/gnat2why-types.adb",
+      "sha256": "3b4b21d00eb4d14a4f7966c097f215217ea54183be4048a5d9bbd98ccdb3663d",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-types.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/flow/flow-analysis.adb",
+      "sha256": "10dab62c866ca03c5fd9dfefc2f70ea348797f18fb4703ffa69be1ceb9ff9c94",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/flow/flow-analysis.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/flow/flow-control_flow_graph.adb",
+      "sha256": "d6d903a8f15e645e1de51c2b74c8b61288885b34c88e9b2ac1f5469a801684b7",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/flow/flow-control_flow_graph.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/flow/flow-control_flow_graph-utility.adb",
+      "sha256": "a1a7024b4b54a05995e3be0fe4312a7a144da006ab0a07a703ceb705be158c29",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/flow/flow-control_flow_graph-utility.adb"
+    },
+    {
+      "path": "tmp/frontend-capacity-20261016/checks.adb",
+      "sha256": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c",
+      "source_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/checks.adb"
+    },
+    {
+      "path": "tmp/frontend-capacity-20261016/sem_ch3.adb",
+      "sha256": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
+      "source_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_ch3.adb"
+    },
+    {
+      "path": "tmp/frontend-capacity-20261016/sem_attr.adb",
+      "sha256": "2186f019b336c853f7e3f5ae3a40fd91514ba188694c4fd592282c7ce63185d0",
+      "source_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_attr.adb"
+    },
+    {
+      "path": "tmp/frontend-capacity-20261016/exp_spark.adb",
+      "sha256": "509e27a893828c31e7148f29470ab1fcbacd879242a1066dd22bdc3a6cf0fbfb",
+      "source_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/exp_spark.adb"
+    },
+    {
+      "path": "tmp/frontend-capacity-20261016/exp_util.adb",
+      "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
+      "source_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/exp_util.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/spark/spark_definition.adb",
+      "sha256": "d8d9203d847f4673be7be8bef8f006d90e5d0da9365e30e2eed311540bda934e",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/spark/spark_definition.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/gnat2why-assumptions.adb",
+      "sha256": "c8ad7264625b572c6405319d599a9381c2cc1000dc51dea1e06e4301f54d01cf",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-assumptions.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/gnat2why-error_messages.adb",
+      "sha256": "838d3b49cf776926bc8c966e6fa9846dfce7cde1da756382b7fdb0d90b3db6d1",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/why/gnat2why-error_messages.adb"
+    },
+    {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/common/assumption_types.adb",
+      "sha256": "e30b9da4d2c164ebf69a7f9d5caa2999b6e487dd80bb28d8b8591b4f0d79bc31",
+      "source_url": "https://github.com/AdaCore/spark2014/blob/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/common/assumption_types.adb"
+    }
+  ],
+  "history": [
+    {
+      "commit": "0685a58fd0",
+      "state": "Read-only retained-source inspection; no compiler/prover/application/test execution; no binary-source attestation; conditional sizing is not a complete envelope or automatic-discharge proof.",
+      "candidate_bytes": 15292416
+    }
+  ],
+  "source_closure": {
+    "object_local_constraints": "sem_ch3 Find_Type_Of_Object 19080-19220 relocates explicit static subtype indication, not initializer; Constrain_Integer 15481-15501 and Set_Scalar_Range_For_Subtype 23676-23707 resolve static bounds; exp_util Force_Evaluation 7221-7244 / Remove_Side_Effects 12718-12722 avoid side-effect-free temporaries. gnat2why-expr scalar subtype branch 22870-22888 adds no constraint VC.",
+    "metadata": "gnat2why-types Generate_VCs_For_Type 1108-1141 returns before Register_VC_Entity; driver Do_Generate_VCs 507-611 only adds vc_generation timing for subprograms and runs gnatwhy3 after VC count increases. Get_SPARK_JSON 2313-2389 and Generate_Assumptions 1086-1116 exclude selected scalar subtypes. Entity_Table serializes referenced report entities.",
+    "flow": "Existing source-vertex exclusive diagnostic branches, dead-code path-copy suppression and message deduplication apply unchanged. Explicit mutable initializers and internal frontend objects skip positive initialization information. Unique declarations retain source-bounded initializer-name allowance; native exact advisory policy unchanged.",
+    "image": "Scalar constraints/initializers cannot contain Image. Nonstatic String Image initializer skips subtype-from-expression in GNATprove mode; generated scalar subtype action relocates only constraint. Existing maximum two traversals remains. Integer prefix fixes signed32/size12 independently of mutable argument."
+  },
+  "retained_envelope": {
+    "bytes": 15292416,
+    "buffer_bytes": 16777216,
+    "headroom": 1484800,
+    "formula": "13064192 + (63 + floor(4096/13) + 2*floor(4096/18))*2048 + 2*floor(4096/16)*1024",
+    "source_derived_under_inherited_producer_premises": true,
+    "automatic_discharge_established_by_this_record": false,
+    "remaining_delivery_obligations": [
+      "Complete integrated native verification",
+      "Complete actual-source Lean correspondence and semantic assurance",
+      "Delivery language/catalogue/capability records"
+    ]
+  },
+  "native_corroboration": {
+    "run_id": "20261017T005429-cfeb5626a484",
+    "host": "linux-x86_64",
+    "implementation_commit": "264c7edbd0",
+    "lane_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native",
+    "log": "tmp/bounded-mutable-integers-native/tmp/native-genuine-probes.log",
+    "debug_image_workspaces_retained": true,
+    "probes": [
+      {
+        "source_sha256": "dac53c3bfebf859ba52cfbbb75530a9709a52ecd0253d6ed4dc2a8867cc440ec",
+        "raw_report_bytes": 13471,
+        "proof_records": 4,
+        "flow_records": 0,
+        "proof_rules": {
+          "VC_LENGTH_CHECK": 1,
+          "VC_RANGE_CHECK": 3
+        },
+        "flow_messages": {},
+        "entities": {
+          " 1": {
+            "name": "Main",
+            "sloc": [
+              {
+                "column": 26,
+                "file": "main.adb",
+                "line": 1
+              }
+            ]
+          },
+          " 2": {
+            "name": "Silver_IO.Put_Line",
+            "sloc": [
+              {
+                "column": 14,
+                "file": "silver_io.ads",
+                "line": 18
+              }
+            ]
+          }
+        },
+        "spark": {
+          " 1": "all"
+        },
+        "workspace": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/program-mhQWXJ",
+        "timing_owners": [
+          " 1",
+          "global"
+        ],
+        "source_bytes": 287,
+        "raw_report_sha256": "f23d4fda631787ff11d753937ed21a4ade2e425da111b2b68e075c4482b03d83",
+        "checks": [
+          {
+            "rule": "VC_LENGTH_CHECK",
+            "line": 1,
+            "col": 202,
+            "check_line": 1,
+            "check_col": 202,
+            "message": {
+              "text": "length check proved"
+            }
+          },
+          {
+            "rule": "VC_RANGE_CHECK",
+            "line": 1,
+            "col": 256,
+            "check_line": 1,
+            "check_col": 256,
+            "message": {
+              "text": "range check proved"
+            }
+          },
+          {
+            "rule": "VC_RANGE_CHECK",
+            "line": 1,
+            "col": 258,
+            "check_line": 1,
+            "check_col": 258,
+            "message": {
+              "text": "range check proved"
+            }
+          },
+          {
+            "rule": "VC_RANGE_CHECK",
+            "line": 1,
+            "col": 275,
+            "check_line": 1,
+            "check_col": 275,
+            "message": {
+              "text": "range check proved"
+            }
+          }
+        ],
+        "image_workspaces": [
+          {
+            "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-G40ym7",
+            "files": [
+              {
+                "path": "original.gnat-json",
+                "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e",
+                "bytes": 286340
+              }
+            ]
+          },
+          {
+            "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-PPu5X1",
+            "files": [
+              {
+                "path": "original.gnat-json",
+                "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390",
+                "bytes": 288617
+              }
+            ]
+          },
+          {
+            "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-bd00QH",
+            "files": [
+              {
+                "path": "original.gnat-json",
+                "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378",
+                "bytes": 85809
+              }
+            ]
+          },
+          {
+            "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-idPzIj",
+            "files": [
+              {
+                "path": "original.gnat-json",
+                "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff",
+                "bytes": 274756
+              }
+            ]
+          },
+          {
+            "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-nRhDlx",
+            "files": [
+              {
+                "path": "original.gnat-json",
+                "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d",
+                "bytes": 121828
+              }
+            ]
+          },
+          {
+            "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-vvUXrB",
+            "files": [
+              {
+                "path": "_theories/image-XLmT32/silver_image.mlw",
+                "sha256": "393ba973927ba02ab952b0e343ccad98f29e833c0c832f45566d5be1079f9b97",
+                "bytes": 713
+              },
+              {
+                "path": "_theories/silver_image.mlw",
+                "sha256": "393ba973927ba02ab952b0e343ccad98f29e833c0c832f45566d5be1079f9b97",
+                "bytes": 713
+              },
+              {
+                "path": "original.gnat-json",
+                "sha256": "b681e6c3c9767968f8986146cd057a301d79823873a7dc0fc424655cfeabe07b",
+                "bytes": 244415
+              },
+              {
+                "path": "refined.gnat-json",
+                "sha256": "c7a00e5aa243018bfc0d068bb22c60754a1c2bb7ce2337de8ddb4c84c627cd45",
+                "bytes": 245509
+              },
+              {
+                "path": "sessions/refined/why3session.xml",
+                "sha256": "96ddb9ab12b65d838a56e7ef04f69766dcf3f2475613dff57e5064922952386d",
+                "bytes": 3207
+              },
+              {
+                "path": "sessions/refined/why3shapes",
+                "sha256": "15f9d68a494f5faf5f97af110d54cdb1d7740516e7b2909573220393737c05fa",
+                "bytes": 11554
+              }
+            ]
+          }
+        ],
+        "warning_records": 5,
+        "warning_rules": {
+          "imprecise-image": 5
+        }
+      },
+      {
+        "source_sha256": "c05e62c2817006fe24d89fc83011de732c9f0094891aa7f5ba4577f287d02633",
+        "raw_report_bytes": 11276,
+        "proof_records": 2,
+        "flow_records": 6,
+        "proof_rules": {
+          "VC_RANGE_CHECK": 2
+        },
+        "flow_messages": {
+          "\"Written_Count\" is set by \"Put_Line\" but not used after the call": 1,
+          "\"Flushed\" is set by \"Put_Line\" but not used after the call": 1,
+          "\"Succeeded\" is set by \"Put_Line\" but not used after the call": 1,
+          "\"Written_Bytes\" is set by \"Put_Line\" but not used after the call": 1,
+          "statement has no effect": 1,
+          "this statement is never reached": 1
+        },
+        "entities": {
+          " 1": {
+            "name": "Main",
+            "sloc": [
+              {
+                "column": 26,
+                "file": "main.adb",
+                "line": 1
+              }
+            ]
+          },
+          " 2": {
+            "name": "Silver_IO.Put_Line",
+            "sloc": [
+              {
+                "column": 14,
+                "file": "silver_io.ads",
+                "line": 18
+              }
+            ]
+          }
+        },
+        "spark": {
+          " 1": "all"
+        },
+        "workspace": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/program-oce3ja",
+        "timing_owners": [
+          " 1",
+          "global"
+        ],
+        "source_bytes": 513,
+        "raw_report_sha256": "aa83ba6e1e7ece2a0db29ec6a4dae532c5e92c4534acfccbaf3e0822d2ab1c91",
+        "checks": [
+          {
+            "rule": "VC_RANGE_CHECK",
+            "line": 1,
+            "col": 462,
+            "check_line": 1,
+            "check_col": 462,
+            "message": {
+              "text": "range check proved"
+            }
+          },
+          {
+            "rule": "VC_RANGE_CHECK",
+            "line": 1,
+            "col": 482,
+            "check_line": 1,
+            "check_col": 482,
+            "message": {
+              "text": "range check proved"
+            }
+          }
+        ],
+        "image_workspaces": [
+          {
+            "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-1gbktu",
+            "files": [
+              {
+                "path": "_theories/image-VHQsEL/silver_image.mlw",
+                "sha256": "393ba973927ba02ab952b0e343ccad98f29e833c0c832f45566d5be1079f9b97",
+                "bytes": 713
+              },
+              {
+                "path": "_theories/silver_image.mlw",
+                "sha256": "393ba973927ba02ab952b0e343ccad98f29e833c0c832f45566d5be1079f9b97",
+                "bytes": 713
+              },
+              {
+                "path": "original.gnat-json",
+                "sha256": "03044a1458535107413abba80e85898cbf142a69a10bf4bd993cc4310aac6d09",
+                "bytes": 260421
+              },
+              {
+                "path": "refined.gnat-json",
+                "sha256": "bcb467b08788eaf52e55c2feea1ef29b635bc282a83fceff4b8a01f0a37ebbe4",
+                "bytes": 261515
+              },
+              {
+                "path": "sessions/refined/why3session.xml",
+                "sha256": "19e32bbc2edbdf404b7ea5dc789437b602c33d9956d792b80fac26e0b23cc299",
+                "bytes": 2067
+              },
+              {
+                "path": "sessions/refined/why3shapes",
+                "sha256": "2d16273b2d4f5175f2cf4e8091dcd983ed7af1520aae9d476c0a5a8430ec07e6",
+                "bytes": 7428
+              }
+            ]
+          },
+          {
+            "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-6lbUIX",
+            "files": [
+              {
+                "path": "original.gnat-json",
+                "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378",
+                "bytes": 85809
+              }
+            ]
+          },
+          {
+            "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-7ZHnIP",
+            "files": [
+              {
+                "path": "original.gnat-json",
+                "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d",
+                "bytes": 121828
+              }
+            ]
+          },
+          {
+            "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-HXv24d",
+            "files": [
+              {
+                "path": "original.gnat-json",
+                "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390",
+                "bytes": 288617
+              }
+            ]
+          },
+          {
+            "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-Lx3nku",
+            "files": [
+              {
+                "path": "original.gnat-json",
+                "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e",
+                "bytes": 286340
+              }
+            ]
+          },
+          {
+            "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-dCpSSG",
+            "files": [
+              {
+                "path": "original.gnat-json",
+                "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff",
+                "bytes": 274756
+              }
+            ]
+          }
+        ],
+        "warning_records": 4,
+        "warning_rules": {
+          "imprecise-image": 4
+        }
+      }
+    ],
+    "build_run_id": "20261017T005341-a969e90020ee",
+    "outputs": [
+      " 7 7 8 99\n",
+      " 501\n 3 1 7\n"
+    ],
+    "input_identity_note": "The implementation commit identifies native sources for these initial probes; it does not claim the entire lane tree was committed. The selected-file hashes below are an initial-probe subset, not a complete delivered-input manifest. The later cursor repair and catalogue delivery edit were not used by these probes."
+  },
+  "initial_probe_selected_native_input_sha256": {
+    "src/silver_scalar_expressions.ads": "69ed2fce7f706f8c1a528bf35d107964a57d1cff92465b5d0806add3e667a704",
+    "src/silver_scalar_expressions.adb": "22c438f28462f0e598913b2cc54a3d35feef005f2acc03ca41641f8355f0ec19",
+    "src/silver_scalar_literals.adb": "5726c09a6319aed7084ebcf4b91aa05e4ad2baf91a3cd426e1a218d6d974767d",
+    "src/silver_output_profile.ads": "f6157a1cf859f4521ff25feecf72eb0ba5c2a3d5163f747cb87854a089cf919f",
+    "src/silver_output_profile.adb": "cb8e6a4aa54ca0941ecdc2e554ce7c88059a4037b8c3aac9e6efeebf52635959",
+    "src/silver_library_reports.adb": "a27b3dd560b4205b7b630b37d5c01d5afbf0dfabd2814dfc421623f4d0d22f02"
+  },
+  "dense_native_corroboration": {
+    "workspace": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/program-pxIrNF",
+    "source_sha256": "89b466896d38af16ce57fcb3b3f66e6c8d633e8a876d268dfd793ebc8439a6d9",
+    "source_bytes": 4096,
+    "raw_report_bytes": 93326,
+    "raw_report_sha256": "193652b64a5cf9571129bc432023e465b5b0bfe814b92a69a5bcc7139dfea88d",
+    "proof_records": 0,
+    "proof_rules": {},
+    "flow_records": 235,
+    "flow_rules": {
+      "INEFFECTIVE": 235
+    },
+    "initializer_advisories": 118,
+    "unused_assignment_advisories": 117,
+    "other_flow_messages": {},
+    "warnings": {
+      "imprecise-image": 1
+    },
+    "entities": {
+      " 1": {
+        "name": "Main",
+        "sloc": [
+          {
+            "column": 26,
+            "file": "main.adb",
+            "line": 1
+          }
+        ]
+      }
+    },
+    "spark": {
+      " 1": "all"
+    },
+    "timing_owners": [
+      " 1",
+      "global"
+    ],
+    "run_id": "20261017T012122-06823c6de905",
+    "host": "linux-x86_64",
+    "implementation_commit": "04240f5df6",
+    "build_run_id": "20261017T011824-707e533dc365",
+    "compile_count": 1,
+    "compiler_checks": 66,
+    "expected_output": " 9\n",
+    "original_test_outcome": "The genuine compile and execution passed; a later test assertion incorrectly required an unused Silver_IO.Put_Line entity. The original unittest run is retained as a failure.",
+    "corrected_test_run_id": "20261017T012339-51d50bdb031b",
+    "corrected_test_outcome": "Passed the corrected test against identical retained source, report and executable; compile step was replaced by a source-identity assertion. No compiler/prover rerun.",
+    "input_identity_note": "Native sources match 04240f5df6, before the later catalogue delivery synchronization; test fixture was uncommitted. This is corroboration, not the integrated final-tree audit.",
+    "selected_native_input_sha256": {
+      "src/silver_scalar_expressions.ads": "69ed2fce7f706f8c1a528bf35d107964a57d1cff92465b5d0806add3e667a704",
+      "src/silver_scalar_expressions.adb": "22c438f28462f0e598913b2cc54a3d35feef005f2acc03ca41641f8355f0ec19",
+      "src/silver_scalar_literals.adb": "5726c09a6319aed7084ebcf4b91aa05e4ad2baf91a3cd426e1a218d6d974767d",
+      "src/silver_output_profile.ads": "f6157a1cf859f4521ff25feecf72eb0ba5c2a3d5163f747cb87854a089cf919f",
+      "src/silver_output_profile.adb": "26469465f522a89d7452554c3133870db62a05351173b126fe78b841d5f03a5d",
+      "src/silver_library_reports.adb": "a27b3dd560b4205b7b630b37d5c01d5afbf0dfabd2814dfc421623f4d0d22f02",
+      "src/silver_catalogue.adb": "1a8d280e129a619604b483181a8c3206314ec0155d4edfe0e8c613018d53d2c3"
+    },
+    "image_workspaces": [
+      {
+        "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-J2YpvO",
+        "files": [
+          {
+            "path": "original.gnat-json",
+            "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e",
+            "bytes": 286340
+          }
+        ]
+      },
+      {
+        "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-NTPLux",
+        "files": [
+          {
+            "path": "original.gnat-json",
+            "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d",
+            "bytes": 121828
+          }
+        ]
+      },
+      {
+        "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-UPfdI9",
+        "files": [
+          {
+            "path": "original.gnat-json",
+            "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff",
+            "bytes": 274756
+          }
+        ]
+      },
+      {
+        "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-cAQifl",
+        "files": [
+          {
+            "path": "original.gnat-json",
+            "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390",
+            "bytes": 288617
+          }
+        ]
+      },
+      {
+        "path": "tmp/bounded-mutable-integers-native/.silver/linux-x86_64/imagews-fupiE6",
+        "files": [
+          {
+            "path": "original.gnat-json",
+            "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378",
+            "bytes": 85809
+          }
+        ]
+      }
+    ]
+  },
+  "focused_regressions": {
+    "capacity": {
+      "run_id": "20261017T011935-74d26ccf3eca",
+      "tests": 3,
+      "result": "passed"
+    },
+    "constraint_admission_after_cursor_repair": {
+      "run_id": "20261017T011920-99e729df1f6c",
+      "tests": 2,
+      "result": "passed"
+    },
+    "cursor_subprogram_after_repair": {
+      "run_id": "20261017T011710-7a2283e0c59a",
+      "scope": "Scalar_Constraint_At only, existing level 2 / timeout 30",
+      "summary_checks": 341,
+      "result": "passed"
+    },
+    "note": "Focused checks use repaired native source 04240f5df6 before the catalogue delivery edit; the initial changed-unit cursor timeout and dense unittest assertion failure remain retained."
+  },
+  "retained_log_sha256": {
+    "tmp/bounded-mutable-integers-native/tmp/native-genuine-probes.log": "6ea769a27101da53faff222f89ac156a287a37c4250f15756bc69adaeba7ea8e",
+    "tmp/bounded-mutable-integers-native/tmp/native-constraint-proof.log": "656128656d79c224ecae202096a8e1b5dc1ef64a0506990b1e1e3d139be15e36",
+    "tmp/bounded-mutable-integers-native/tmp/native-constraint-admission.log": "f2808f0478a32d0ecc7f87fb776003f166675fb299a1eb6675c6c1f1cd7edfd0",
+    "tmp/bounded-mutable-integers-native/tmp/mutable-capacity-tests.log": "d7bd91a50dd6262b8ac52b4a46d6c92284851ca065b977621b7c0b92f3e632e7",
+    "tmp/bounded-mutable-integers-native/tmp/native-dense-probe.log": "cf9c73f8ca7994ed6dc0ef0f51fcc47a779ef209ba0396fb270d2267968c95fe",
+    "tmp/bounded-mutable-integers-native/tmp/native-dense-retained-verification.log": "54fb1af4880a09d5b8ae15155dd1e0207ba786b097cdefd388786753fbdeba01",
+    "tmp/bounded-mutable-integers-native/tmp/native-dense-retained-verification-cwd-failure.log": "fee6b61cd8411dc5cc27f82aacfa5c22006bba9c172803982cd79140fc73837f"
+  }
+}

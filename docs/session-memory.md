@@ -1,5 +1,35 @@
 # Session memory
 
+## 2026-10-17 — Bounded mutable integers delivered
+
+The owner-authorized [Bounded mutable integers milestone](https://github.com/berkeleynerd/silver/milestone/4)
+is implemented, reviewed and validated on Linux x86_64. The
+[capability record](bounded-mutable-integers.md) and
+[delivery evidence](evidence/bounded-mutable-integers/delivery-validation.json)
+separate the native implementation, selector proof repair, generated snapshots,
+review targets, actual validation inputs and retained failures. The final
+source/proof input tree is `bbd5989b2b`; completion documentation is separate.
+[#70](https://github.com/berkeleynerd/silver/issues/70) carries the publication
+and closure handoff for #68–#70 and repaired findings #74/#75.
+
+Initialized Integer objects, optional static object-local ranges and
+range-preserving assignments are supported. Exact initializer snapshots remain
+separate from Ada-staticness; body reads use declared ranges, and loop bounds
+capture their entry values while scalar writes persist. The narrow Rosetta
+identifier is `bounded-mutable-integers`. Broad stage #11 remains open; general
+refinement, named types/subtypes, conversions and other excluded forms are not
+authorized by this delivery. The Oracle is unchanged.
+
+Complete native and Lean audits passed. The full-suite execution and focused
+source-policy repair provide the recorded regression coverage; its original
+failures remain retained. Successful work and caches were reused, and final
+audited Lean artifacts were returned to the root workspace for later iteration.
+No clean build or independent kernel replay was required. The prior For loops
+and integers harness goal remains complete; no replacement goal was requested.
+Hosted CI remains disabled and native macOS validation remains independent
+and nonblocking. Worktrees, scratch and other-host artifacts are preserved.
+CLI memory was unavailable and was not updated.
+
 ## 2026-10-17 — Bounded mutable integers implementation authorized
 
 After publication of the completed scope through

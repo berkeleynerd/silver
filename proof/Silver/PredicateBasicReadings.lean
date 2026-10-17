@@ -34,6 +34,12 @@ inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan
         (expressionAt text (putStart text context scan).position context.names context.scalarNames) →
       BasicPayload text context scan (.simple (.put expression))
   | reject : basicKind text context scan = .reject → BasicPayload text context scan .reject
+  | scalarAssignment {expression} : basicKind text context scan = .scalarAssignment →
+      ScalarExpression.At text context.scalarNames (scalarAssignmentStart text scan) expression
+        (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames) →
+      BasicPayload text context scan (.scalarAssign
+        ⟨scalarTarget text context scan.position, expression,
+          (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds⟩)
   | assignment {expression} : basicKind text context scan = .assignment →
       TargetReading text (parserState context scan) (assignmentTarget text context scan) false →
       ExpressionAt (scalarNames := context.scalarNames) text context.names (assignmentStart text context scan).position expression
@@ -91,6 +97,17 @@ theorem basic_sound {text context scan}
           fun zero => good (Or.inl zero)
         obtain ⟨expression, parsed⟩ := expressionAt_sound (scalarNames := context.scalarNames) text context.names _ positive
         exact ⟨_, ⟨accepted, rfl, .put kind parsed⟩⟩
+  | scalarAssignment =>
+      simp only [basicRaw, kind, scalarAssignmentBody] at raw
+      split at raw
+      · exact False.elim (raw rfl)
+      · rename_i good
+        have positive : (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).after ≠ 0 := by
+          intro zero
+          exact good (Or.inr (Or.inr (Or.inl (by omega))))
+        obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound
+          (Compose.Expressions.model_fixed_valid text _ ":=" false (Compose.Expressions.model_name_valid text _)) positive
+        exact ⟨_, ⟨accepted, rfl, .scalarAssignment kind parsed⟩⟩
   | assignment =>
       simp only [basicRaw, kind] at raw
       split at raw
@@ -107,9 +124,11 @@ private theorem true_of_not_neg {b : Bool} (h : ¬(!b) = true) : b = true := by
   cases b <;> simp_all
 
 theorem basic_meaning {text context scan item result}
-    (normal : NamesNormal context.names) (parsed : BasicAt text context scan item result) :
+    (normal : NamesNormal context.names) (bodyReady : ScalarExpression.BodyReady context.scalarNames)
+    (parsed : BasicAt text context scan item result) :
     item.WellFormed context.hasArguments context.names.shape ∧
-      item.lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) = some result.facts := by
+      item.lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames)
+        (ScalarExpression.mutability context.scalarNames) = some result.facts := by
   have success : (basicBody text context scan).position ≠ 0 := parsed.equation ▸ parsed.positive
   have raw := basic_raw_positive success
   have resultEq := (basic_after_raw success).symm.trans parsed.equation
@@ -131,7 +150,7 @@ theorem basic_meaning {text context scan item result}
         · rename_i h
           simp only [Bool.and_eq_true] at h
           exact h.1
-        · contradiction
+        · split at kind <;> contradiction
       simp only [SourceStatement.WellFormed]
       refine ⟨arguments, ?_⟩
       simp only [basicRaw, kind] at resultEq
@@ -186,6 +205,40 @@ theorem basic_meaning {text context scan item result}
         rw [← factsEq]
         simp only [SourceStatement.lower, Statement.check, checkSimple, ready.2, fits, valid,
           Bool.not_false, Bool.true_and, ↓reduceIte]
+  | scalarAssignment kind expression =>
+      simp only [basicRaw, kind, scalarAssignmentBody] at raw resultEq
+      split at raw
+      · exact False.elim (raw rfl)
+      · rename_i good
+        rw [ite_eq_right good] at resultEq
+        have nonzero : scalarTarget text context scan.position ≠ 0 := fun bad => good (Or.inl bad)
+        have targetBound : scalarTarget text context scan.position ≤ context.scalarNames.length :=
+          ScalarExpression.lookup_bound ..
+        have mutable : (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).mutable = true :=
+          true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
+        have same := ScalarExpression.bodyReady_binding bodyReady (Nat.pos_of_ne_zero nonzero) targetBound mutable
+        have included : (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.included
+            (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds = true := by
+          by_cases empty : (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.isEmpty = true
+          · simp [Integer.Interval.included, empty]
+          · have notEmpty : (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.isEmpty = false := Bool.eq_false_iff.mpr empty
+            have low : ¬ (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.lower <
+                (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.lower :=
+              fun bad => good (Or.inr (Or.inr (Or.inr ⟨by simp [notEmpty], Or.inl bad⟩)))
+            have high : ¬ (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.upper >
+                (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.upper :=
+              fun bad => good (Or.inr (Or.inr (Or.inr ⟨by simp [notEmpty], Or.inr bad⟩)))
+            simp only [Integer.Interval.included, notEmpty, Bool.false_or, decide_eq_true_eq]
+            constructor <;> omega
+        have factsEq : scan.facts = result.facts := by
+          simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
+        refine ⟨by simpa only [SourceStatement.WellFormed] using nonzero, ?_⟩
+        rw [← factsEq]
+        simp only [SourceStatement.lower, Statement.check, Integer.Assignment.check,
+          ScalarExpression.mutability, ScalarExpression.ranges,
+          Nat.pos_of_ne_zero nonzero, targetBound, and_self, decide_true,
+          Bool.true_and, mutable, ↓reduceIte, expression.inferred, same,
+          included]
   | assignment kind target expression =>
       have ready := expression_reading_ready normal expression
       obtain ⟨name, info, _, found, _, mutable, _⟩ := target
@@ -230,19 +283,25 @@ theorem basic_unique {text context scan left right first second}
       cases b.payload <;> simp_all
   | output kind reading =>
       cases b.payload with
-      | null other | reject other | assignment other | put other => simp_all
+      | null other | reject other | assignment other | scalarAssignment other | put other => simp_all
       | output _ other =>
           obtain ⟨rfl, _⟩ := expressionTail_unique reading other
           rfl
   | put kind reading =>
       cases b.payload with
-      | null other | reject other | assignment other | output other => simp_all
+      | null other | reject other | assignment other | scalarAssignment other | output other => simp_all
       | put _ other =>
           obtain ⟨rfl, _⟩ := expressionTail_unique reading other
           rfl
+  | scalarAssignment kind reading =>
+      cases b.payload with
+      | null other | reject other | output other | put other | assignment other => simp_all
+      | scalarAssignment _ other =>
+          obtain ⟨rfl, _⟩ := ScalarExpression.at_unique reading other
+          rfl
   | assignment kind target reading =>
       cases b.payload with
-      | null other | reject other | output other | put other => simp_all
+      | null other | reject other | output other | scalarAssignment other | put other => simp_all
       | assignment _ _ other =>
           obtain ⟨rfl, _⟩ := expressionTail_unique reading other
           rfl

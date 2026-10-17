@@ -62,6 +62,23 @@ theorem scalar_step_checked {text form token state next values}
   | declarations reading => exact scalar_declarations_checked reading static
   | other _ same => simp only [Integer.checkDeclarations, same]
 
+theorem scalar_step_objects {text form token state next values}
+    (trace : ScalarStepAt text form token state values next)
+    (exact : ScalarExpression.ElaboratedEnvironment state.scalarNames) :
+    ScalarExpression.objectBindings next.scalarNames = ScalarExpression.objectBindings state.scalarNames ++
+      Integer.elaborate (ScalarExpression.constants state.scalarNames) values := by
+  cases trace with
+  | declarations reading => exact scalar_declarations_objects reading exact
+  | other _ same => simp only [same, Integer.elaborate, List.append_nil]
+
+theorem scalar_step_declared_bounds {text form token state next values}
+    (trace : ScalarStepAt text form token state values next)
+    (valid : ScalarExpression.DeclaredBoundsValid state.scalarNames) :
+    ScalarExpression.DeclaredBoundsValid next.scalarNames := by
+  cases trace with
+  | declarations reading => exact scalar_declarations_declared_bounds reading valid
+  | other _ same => simpa only [same] using valid
+
 theorem scalar_step_unique {text form token state next left right}
     (first : ScalarStepAt text form token state left next)
     (second : ScalarStepAt text form token state right next) : left = right := by
@@ -114,6 +131,27 @@ theorem scalar_tokens_checked {text form tokens state values final}
       refine ⟨?_, finalStatic⟩
       rw [check_append, scalar_step_checked reading static]
       exact checked
+
+theorem scalar_tokens_objects {text form tokens state values final}
+    (trace : ScalarTokensAt text form tokens state values final)
+    (exact : ScalarExpression.ElaboratedEnvironment state.scalarNames) :
+    ScalarExpression.objectBindings final.scalarNames = ScalarExpression.objectBindings state.scalarNames ++
+      Integer.elaborate (ScalarExpression.constants state.scalarNames) values := by
+  induction trace with
+  | done => simp [Integer.elaborate]
+  | next head reading rest ih =>
+      have objects := scalar_step_objects reading exact
+      have values := (Integer.declarations_sound (scalar_step_checked reading exact)).1
+      rw [ih (scalar_step_static reading exact), objects, Integer.elaborate_append, values]
+      simp only [List.append_assoc]
+
+theorem scalar_tokens_declared_bounds {text form tokens state values final}
+    (trace : ScalarTokensAt text form tokens state values final)
+    (valid : ScalarExpression.DeclaredBoundsValid state.scalarNames) :
+    ScalarExpression.DeclaredBoundsValid final.scalarNames := by
+  induction trace with
+  | done => exact valid
+  | next _ reading _ ih => exact ih (scalar_step_declared_bounds reading valid)
 
 theorem scalar_tokens_unique {text form tokens state left right leftState rightState}
     (first : ScalarTokensAt text form tokens state left leftState)

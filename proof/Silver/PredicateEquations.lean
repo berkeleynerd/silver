@@ -122,6 +122,10 @@ theorem model_basic_links : BasicNative.Links modelCalls.basicPrimitives modelCa
   token := by funext text position token; rfl
   expression := rfl
   target := rfl
+  scalarTarget text context position _ :=
+    (ScalarBodyNative.targetEval_inherited Outer.model_helpers.equations text context position).symm
+  scalarAssignment text context scan _ :=
+    (ScalarBodyNative.assignmentEval_inherited Outer.model_helpers.equations text context scan).symm
   fits facts summary := by
     rw [LengthIntervals.Native.fitsBody_eval, LengthIntervals.Native.fits_model]
     rfl

@@ -75,6 +75,13 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
             (Names.associationAfter_bound text _ false
               (model_fixed_valid text _ "(" false (model_callAfter_valid (scalarNames := context.scalarNames) text context.names scan.position .partialOutput bounded))) namesValid).1
   | reject => exact model_callAfter_valid (scalarNames := context.scalarNames) text context.names scan.position .reject bounded
+  | scalarAssignment =>
+      unfold scalarAssignmentBody
+      dsimp only
+      split
+      · exact Nat.zero_le _
+      · exact scalarRead_bound text _ context.scalarNames 0 0
+          (model_fixed_valid text _ ":=" false (model_name_valid text _))
   | assignment =>
       have targetBound : (targetAt text (parserState context scan) false).position ≤ text.length + 1 := by
         unfold targetAt

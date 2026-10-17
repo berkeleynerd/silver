@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateSourceRequirements
+import Silver.PredicateScalarBodyCandidate
 import all Init.Data.Repr
 
 @[expose] public section
@@ -496,6 +497,7 @@ private theorem candidate_valid_body_body : Source.expressionBody "valid_body" S
   decide +kernel
 
 theorem candidate_checked : Checked SourceShape.specTokens SourceShape.bodyTokens where
+  scalarBodies := ScalarBodyNative.SourceChecks.candidate_checked
   spec_shape := rfl
   body_shape := rfl
   native := native_checked

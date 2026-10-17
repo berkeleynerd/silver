@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything follows from a static for-loop range and a visible if guard, with no loop-carried state, so all checks and the Bronze-level checks discharge routinely; the only gaps are unterminated Put and integer 'Image output in Silver_IO.
 
-Position 38 in the [progression](../../../progression.md#stage-2), in stage 2.
+Position 39 in the [progression](../../../progression.md#stage-2), in stage 2.
 
 ## Approach
 

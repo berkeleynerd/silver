@@ -24,6 +24,8 @@ theorem actual_reviewed_shape : ReviewedShape := by decide +kernel
 
 abbrev ExpressionTranslation : Prop :=
   Native.WellFormedTrees ∧
+  Source.expressionBody "body_environment" Source.scalarExpressionBodyTokens =
+    some (expectedTokens "Count => Names.Count, Items => (for Index in Binding_Index => Body_Binding (Names.Items (Index)))") ∧
   Source.expressionBody "lookup_model" Source.scalarExpressionBodyTokens = some Native.lookupBody.render ∧
   Source.expressionBody "symbol" Source.scalarExpressionBodyTokens = some Native.symbolBody.render ∧
   Source.expressionBody "literal_result" Source.scalarExpressionBodyTokens = some Native.literalBody.render ∧
@@ -50,7 +52,7 @@ abbrev Declarations : Prop :=
   subtypeDeclaration "operand_count" Source.scalarExpressionSpecTokens =
     some (expectedTokens "Natural range 0 .. Max_Operands") ∧
   recordDeclaration "binding" Source.scalarExpressionSpecTokens =
-    some (expectedTokens "record First, After : Literal_Position; Bounds : Silver_Scalars.Interval; Static : Boolean; end record") ∧
+    some (expectedTokens "record First, After : Literal_Position; Bounds : Silver_Scalars.Interval; Static : Boolean; Declared_Bounds : Silver_Scalars.Interval; Mutable : Boolean; end record") ∧
   typeDeclaration "binding_array" Source.scalarExpressionSpecTokens =
     some (expectedTokens "array (Binding_Index) of Binding") ∧
   recordDeclaration "environment" Source.scalarExpressionSpecTokens =
@@ -58,7 +60,7 @@ abbrev Declarations : Prop :=
   recordDeclaration "expression_result" Source.scalarExpressionSpecTokens =
     some (expectedTokens "record After : Literal_Position; Bounds : Silver_Scalars.Interval; Operands : Operand_Count; Static : Boolean; end record") ∧
   Source.declaration "empty_binding" Source.scalarExpressionSpecTokens =
-    some (expectedTokens "constant Binding := (0, 0, Silver_Scalars.Empty, False)") ∧
+    some (expectedTokens "constant Binding := (0, 0, Silver_Scalars.Empty, False, Silver_Scalars.Empty, False)") ∧
   Source.declaration "empty_environment" Source.scalarExpressionSpecTokens =
     some (expectedTokens "constant Environment := (0, (others => Empty_Binding))") ∧
   Source.declaration "invalid" Source.scalarExpressionSpecTokens =

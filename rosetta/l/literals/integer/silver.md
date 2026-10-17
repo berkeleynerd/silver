@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is a static literal within Integer's range, so the only checks are compile-time constant range checks plus a call to 'Image, which raise nothing, and the proofs are trivial.
 
-Position 41 in the [progression](../../../progression.md#stage-2), in stage 2.
+Position 42 in the [progression](../../../progression.md#stage-2), in stage 2.
 
 ## Approach
 

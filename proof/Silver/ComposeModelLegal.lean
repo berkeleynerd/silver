@@ -13,6 +13,7 @@ namespace Silver.Compose.Expressions
 
 set_option maxRecDepth 20000
 set_option maxHeartbeats 1000000
+attribute [local irreducible] ScalarExpression.read scalarConstraintAt
 
 private theorem lexical_cursor {text : Source} (valid : ValidText text)
     {position : Nat} (bound : ValidCursor text position) (nonzero : position ≠ 0) :
@@ -140,11 +141,17 @@ private theorem model_legal_stringDeclaration : ∀ text, ValidText text → ∀
   intros
   dsimp +instances only [stringDeclarationBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
+private theorem model_legal_scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames,
+    ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames →
+    scalarConstraintBody.Legal modelCalls (Context.locals {text,position,scalarNames}) := by
+  intros
+  simp only [scalarConstraintBody, Expr.Legal, Function.isLexical, and_self, implies_true, ite_self]
+
 private theorem model_legal_scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state →
     scalarDeclarationBody.Legal modelCalls (Context.locals {text,state,arguments}) := by
   intros
-  dsimp +instances only [scalarDeclarationBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
+  simp only [scalarDeclarationBody, Expr.Legal, Function.isLexical, and_self, implies_true, ite_self]
 
 private theorem model_legal_declaration : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state →
@@ -294,6 +301,7 @@ theorem model_legal : LegalBodies modelCalls where
   newName := model_legal_newName
   addBinding := model_legal_addBinding
   stringDeclaration := model_legal_stringDeclaration
+  scalarConstraint := model_legal_scalarConstraint
   scalarDeclaration := model_legal_scalarDeclaration
   declaration := model_legal_declaration
   argument := model_legal_argument
