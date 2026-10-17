@@ -1,5 +1,51 @@
 # Session memory
 
+## 2026-10-17 — Frontend representation research reaches an implementation stop
+
+The authorized [research #113](https://github.com/berkeleynerd/silver/issues/113)
+has a [concrete comparison and result](research/frontend-representation-result.md).
+Checked 64-bit String-pool widening with matching Ada/C descriptor changes is
+the smaller preferred frontend candidate; a zero-mantissa scanner optimization
+addresses the separate unnecessary exponent construction. Deferred immutable
+storage has a broader consumer and assurance surface. These are reasoned designs,
+not implemented tools or a demonstration of whole-language tractability.
+
+**Implementation remains at a full stop.** No inspected external GNAT/GNATprove
+pair supplies the required changes, and no fully verified SPARK-owned route has
+been demonstrated for all affected bodies and interfaces. The inspected
+GNATprove literal producer still expands each character into nodes and has a
+separate finite identity space. This is a conditional source-derived obstruction,
+not an observed near-limit installed-tool failure. Non-gating confirmation cannot
+establish the missing universal assurance. A privately maintained compiler fork
+does not escape the Oracle's verified-SPARK requirement by being called external.
+
+The [recommended owner disposition](unbounded-programs.md#frontend-representation-result-and-owner-disposition),
+tracked by Backlog [decision #117](https://github.com/berkeleynerd/silver/issues/117),
+keeps the Oracle unchanged and seeks actually externally maintained paired
+frontend/producer support, using the bounded widening design as the minimum
+frontend requirement. Report the stop for that decision; do not automatically
+begin another investigation, contact maintainers, submit patches or implement a
+private fork. A suitable external version change would not itself require an
+Oracle amendment. No lower domain cap, new membership rule or tool pin is adopted.
+
+[Independent review](reviews/review-frontend-representation-0af844fb85.md) of
+frozen technical target `0af844fb85b48155b38f237a5437bc27f71e8563` is complete.
+Its only low finding, L1 [#115](https://github.com/berkeleynerd/silver/issues/115),
+concerned form-feed-sensitive excerpt line splitting, not the documented source
+conclusion. Integrated repair `042e35c40c62997544a11abb44f4169f12d0f1bd` uses LF
+source lines and regenerates the evidence; independent rechecking found no
+remaining issue. Publication is through
+[PR #116](https://github.com/berkeleynerd/silver/pull/116); live issues track merge
+and closure of #113/#115. The completed earlier research and its review retain
+their original scopes. Authorization for
+#113 reached `main` through [PR #114](https://github.com/berkeleynerd/silver/pull/114),
+merge `b8e618c54592f66461b2a08023795f31c16a7d39`. The issue and board carry the
+current review/publication status. Implementation #88–#94 remains Backlog;
+completion of this research will not complete #91, #93 or milestone 5.
+The root harness's For loops and integers goal remains complete; no new goal was
+requested or created. Preserve the retained evidence, worktrees, installations
+and caches. CLI memory is unavailable and was not updated.
+
 ## 2026-10-17 — Frontend representation feasibility research authorized
 
 The owner said **“Proceed”** to the recommended research-only investigation of

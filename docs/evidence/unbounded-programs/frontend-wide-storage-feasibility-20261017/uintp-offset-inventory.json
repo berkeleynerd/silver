@@ -1,0 +1,196 @@
+{
+  "method": "raw inclusive search aid; comments retained; not a call graph",
+  "regex": "\\bUdigits_Min\\b|\\bSave_Udigit\\b|\\.Loc\\b|\\b\\w*_Loc\\b|\\bLoc\\s*:|\\bUdigits\\.(?:Last|Set_Last|Append)\\b",
+  "matches": [
+    {
+      "path": "uintp.adb",
+      "line": 63,
+      "text": "   Udigits_Min : Int;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 67,
+      "text": "   --  Uints_Min and Udigits_Min are updated to protect the entry, and Release"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 458,
+      "text": "      Loc : Int;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 472,
+      "text": "         Loc := Uints.Table (UI).Loc;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 499,
+      "text": "      Udigits_Min := Udigits.Last;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 526,
+      "text": "            (Uints.Table (Arg).Loc + Uints.Table (Arg).Length - 1);"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 536,
+      "text": "      return (Save_Uint => Uints.Last, Save_Udigit => Udigits.Last);"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 561,
+      "text": "                   Udigits.Table (Uints.Table (Left).Loc);"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 563,
+      "text": "                   Udigits.Table (Uints.Table (Left).Loc + 1);"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 587,
+      "text": "            R1 := abs Udigits.Table (Uints.Table (Right).Loc);"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 588,
+      "text": "            R2 := Udigits.Table (Uints.Table (Right).Loc + 1);"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 646,
+      "text": "         Num  := abs Udigits.Table (Uints.Table (Input).Loc);"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 686,
+      "text": "      Udigits.Set_Last (Int'Max  (M.Save_Udigit, Udigits_Min));"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 701,
+      "text": "            UE_Loc : constant Int := Uints.Table (UI).Loc;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 704,
+      "text": "                   Udigits.Table (UE_Loc .. UE_Loc + UE_Len - 1);"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 709,
+      "text": "            Uints.Append ((Length => UE_Len, Loc => Udigits.Last + 1));"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 713,
+      "text": "               Udigits.Append (UD (J));"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 730,
+      "text": "            UE1_Loc : constant Int := Uints.Table (UI1).Loc;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 733,
+      "text": "                    Udigits.Table (UE1_Loc .. UE1_Loc + UE1_Len - 1);"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 736,
+      "text": "            UE2_Loc : constant Int := Uints.Table (UI2).Loc;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 739,
+      "text": "                    Udigits.Table (UE2_Loc .. UE2_Loc + UE2_Len - 1);"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 744,
+      "text": "            Uints.Append ((Length => UE1_Len, Loc => Udigits.Last + 1));"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 748,
+      "text": "               Udigits.Append (UD1 (J));"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 751,
+      "text": "            Uints.Append ((Length => UE2_Len, Loc => Udigits.Last + 1));"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 755,
+      "text": "               Udigits.Append (UD2 (J));"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 1398,
+      "text": "                     Udigits_Min := Udigits.Last;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 1418,
+      "text": "                     Udigits_Min := Udigits.Last;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 1503,
+      "text": "         Udigits_Min := Udigits.Last;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 1544,
+      "text": "            Udigits_Min := Udigits.Last;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 2126,
+      "text": "         Left_Loc  : Int;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 2127,
+      "text": "         Right_Loc : Int;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 2134,
+      "text": "         Left_Loc  := Uints.Table (Left).Loc;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 2135,
+      "text": "         Right_Loc := Uints.Table (Right).Loc;"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 2138,
+      "text": "            if Udigits.Table (Left_Loc + J) /="
+    },
+    {
+      "path": "uintp.adb",
+      "line": 2139,
+      "text": "               Udigits.Table (Right_Loc + J)"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 2403,
+      "text": "            Uints.Append ((Length => Size, Loc => Udigits.Last + 1));"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 2411,
+      "text": "            Udigits.Append (Val);"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 2414,
+      "text": "               Udigits.Append (In_Vec (J + K - 1));"
+    }
+  ]
+}

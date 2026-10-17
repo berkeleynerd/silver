@@ -1,0 +1,1045 @@
+{
+  "method": "Overloaded name candidates in Ada files importing Stringt and Stringt itself; manual resolution required",
+  "matches": [
+    {
+      "path": "checks.adb",
+      "line": 714,
+      "source": "Alignment_Warnings.Append"
+    },
+    {
+      "path": "checks.adb",
+      "line": 725,
+      "source": "Alignment_Warnings.Append"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2435,
+      "source": "Append (Formal_Name, Chars (Formal_1));"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2437,
+      "source": "Store_String_Chars (To_String (Formal_Name));"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2443,
+      "source": "Append (Formal_Name, Chars (Formal_2));"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2445,
+      "source": "Store_String_Chars (To_String (Formal_Name));"
+    },
+    {
+      "path": "checks.adb",
+      "line": 8109,
+      "source": "Check_Names.Append (Name_Id (Int (First_Check_Name) + J - 1));"
+    },
+    {
+      "path": "contracts.adb",
+      "line": 1774,
+      "source": "Append       (New_Prag, To);"
+    },
+    {
+      "path": "contracts.adb",
+      "line": 2534,
+      "source": "& To_String (Fully_Qualified_Name_String"
+    },
+    {
+      "path": "contracts.adb",
+      "line": 2537,
+      "source": "& To_String (Fully_Qualified_Name_String"
+    },
+    {
+      "path": "errout.adb",
+      "line": 260,
+      "source": "Append (Printer.Diagnostics, D);"
+    },
+    {
+      "path": "errout.adb",
+      "line": 289,
+      "source": "Switch_Id_Lists.Append (Printer.Switches, S);"
+    },
+    {
+      "path": "errout.adb",
+      "line": 492,
+      "source": "Erroutc.Edits.Append (Edits (I));"
+    },
+    {
+      "path": "errout.adb",
+      "line": 616,
+      "source": "Non_Instance_Msgs.Append ((new String'(Msg), Flag_Location));"
+    },
+    {
+      "path": "errout.adb",
+      "line": 1471,
+      "source": "Erroutc.Locations.Append"
+    },
+    {
+      "path": "errout.adb",
+      "line": 1474,
+      "source": "Erroutc.Locations.Append (Primary_Labeled_Span (Span, Label));"
+    },
+    {
+      "path": "errout.adb",
+      "line": 1482,
+      "source": "Erroutc.Locations.Append (Span);"
+    },
+    {
+      "path": "errout.adb",
+      "line": 1488,
+      "source": "Erroutc.Fixes.Append (Fix);"
+    },
+    {
+      "path": "errout.adb",
+      "line": 1503,
+      "source": "Errors.Append"
+    },
+    {
+      "path": "erroutc.adb",
+      "line": 987,
+      "source": "Append"
+    },
+    {
+      "path": "erroutc.adb",
+      "line": 1005,
+      "source": "Append (Buf, SGR_Code & Kind_Prefix & SGR_Reset);"
+    },
+    {
+      "path": "erroutc.adb",
+      "line": 1008,
+      "source": "Append (Buf, Text.all);"
+    },
+    {
+      "path": "erroutc.adb",
+      "line": 1013,
+      "source": "Append (Buf, ' ' & Tag);"
+    },
+    {
+      "path": "erroutc.adb",
+      "line": 1019,
+      "source": "Append (Buf, \" \" & Warn_As_Err_Tag);"
+    },
+    {
+      "path": "erroutc.adb",
+      "line": 1022,
+      "source": "Output_Text_Within (To_String (Buf), Line_Length);"
+    },
+    {
+      "path": "erroutc.adb",
+      "line": 1581,
+      "source": "Append (Att_Buf, Name_Buffer (J + 1 .. Last));"
+    },
+    {
+      "path": "erroutc.adb",
+      "line": 1931,
+      "source": "Specific_Warnings.Append"
+    },
+    {
+      "path": "erroutc.adb",
+      "line": 2016,
+      "source": "Warnings.Append"
+    },
+    {
+      "path": "errutil.adb",
+      "line": 198,
+      "source": "Errors.Append"
+    },
+    {
+      "path": "errutil.adb",
+      "line": 475,
+      "source": "Warnings.Append"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 4839,
+      "source": "Append (Vals (J), Vlist);"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 5238,
+      "source": "Append (One_Loop, Size_Expr_Code);"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 5385,
+      "source": "Append (One_Loop, Aggr_Code);"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 7188,
+      "source": "Append (Loop_Stat, Aggr_Code);"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 7470,
+      "source": "Append (Stat, Aggr_Code);"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 7539,
+      "source": "Append (Stat, Aggr_Code);"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 7608,
+      "source": "Append (Stat, Aggr_Code);"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 8251,
+      "source": "Append (New_Comp, Constraints);"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 8381,
+      "source": "Append (Comp, Parent_Comps);"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 9985,
+      "source": "Append (Make_Integer_Literal (Sloc (One_Dim), Val), Comps);"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 10014,
+      "source": "Append (Make_Integer_Literal (Sloc (One_Dim), Val), Comps);"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 4480,
+      "source": "Append (Make_Range (Loc, Lo, Hi), Constraints);"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 4527,
+      "source": "Append (Subtype_Decl, Actions);"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 4529,
+      "source": "Append (Object_Decl, Actions);"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 4530,
+      "source": "Append (Import_Pragma, Actions);"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 4531,
+      "source": "Append (Address_ADC, Actions);"
+    },
+    {
+      "path": "exp_ch11.adb",
+      "line": 405,
+      "source": "Append (Decl_L, Declarations (P));"
+    },
+    {
+      "path": "exp_ch11.adb",
+      "line": 1452,
+      "source": "Append (Buf, \": \");"
+    },
+    {
+      "path": "exp_ch11.adb",
+      "line": 1453,
+      "source": "Append (Buf, Strval (Expression (N)));"
+    },
+    {
+      "path": "exp_ch11.adb",
+      "line": 1567,
+      "source": "Append (Buf, ASCII.NUL);"
+    },
+    {
+      "path": "exp_ch5.adb",
+      "line": 4048,
+      "source": "Append (Make_Elsif_Part (Loc,"
+    },
+    {
+      "path": "exp_ch5.adb",
+      "line": 4393,
+      "source": "Append (New_Alt, Alternatives (N));"
+    },
+    {
+      "path": "exp_ch5.adb",
+      "line": 4486,
+      "source": "Append (Node => Label_Decl, To => Decl_List);"
+    },
+    {
+      "path": "exp_ch5.adb",
+      "line": 4904,
+      "source": "Append (Remove_Next (E), Elsif_Parts (New_If));"
+    },
+    {
+      "path": "exp_dbug.adb",
+      "line": 839,
+      "source": "Append (Global_Name_Buffer, Strval (Interface_Name (E)));"
+    },
+    {
+      "path": "exp_dbug.adb",
+      "line": 1039,
+      "source": "Append (Decl, Declarations (N));"
+    },
+    {
+      "path": "exp_dbug.adb",
+      "line": 1553,
+      "source": "Name_Qualify_Units.Append (N);"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 249,
+      "source": "Append (Stm, Stms);"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 3321,
+      "source": "Append (Curr_Decl, Curr_Decls);"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 335,
+      "source": "(To_String (Strval (Expr_Value_S (Item))));"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 522,
+      "source": "Append (N, Actions (Fnode));"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 4730,
+      "source": "Append (Fun, Decls);"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 4745,
+      "source": "Append (Decl, Decls);"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 5690,
+      "source": "Append (Make_Range (Loc, Subt_Low, Subt_High), Constraints);"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 8809,
+      "source": "Append (N, Actions (Aux));"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 10776,
+      "source": "Append ((if Present (Dynamic_Mem)"
+    },
+    {
+      "path": "freeze.adb",
+      "line": 498,
+      "source": "Append (New_Occurrence_Of (Formal, Loc), Actuals);"
+    },
+    {
+      "path": "freeze.adb",
+      "line": 1726,
+      "source": "Append (New_Prag, Decls);"
+    },
+    {
+      "path": "freeze.adb",
+      "line": 8313,
+      "source": "Append (IR, Result);"
+    },
+    {
+      "path": "lib.adb",
+      "line": 1198,
+      "source": "Linker_Option_Lines.Append ((Option => S, Unit => Current_Sem_Unit));"
+    },
+    {
+      "path": "lib.adb",
+      "line": 1215,
+      "source": "Notes.Append (N);"
+    },
+    {
+      "path": "lib.adb",
+      "line": 1270,
+      "source": "Version_Ref.Append (S);"
+    },
+    {
+      "path": "make.adb",
+      "line": 607,
+      "source": "Temp_File_Paths.Append (Path);"
+    },
+    {
+      "path": "make.adb",
+      "line": 2196,
+      "source": "Dependencies.Append ((ALIs.Table (ALI).Sfile, Sfile));"
+    },
+    {
+      "path": "mutably_tagged.adb",
+      "line": 220,
+      "source": "Append (Buf, S);"
+    },
+    {
+      "path": "mutably_tagged.adb",
+      "line": 259,
+      "source": "To_String (String_From_Name_Buffer)"
+    },
+    {
+      "path": "mutably_tagged.adb",
+      "line": 262,
+      "source": "To_String (Fully_Qualified_Name_String"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 573,
+      "source": "Append (P_Aggregate, Expressions (Name_Node));"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 660,
+      "source": "Append (Expr, Expressions (Name_Node));"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 815,
+      "source": "Append (Expr_Node, Arg_List);"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 880,
+      "source": "Append (Arg_Node, Arg_List);"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 1136,
+      "source": "Append (P_Expression_Or_Range_Attribute_If_OK, Arg_List);"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 1190,
+      "source": "Append (Arg_Node, Arg_List);"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 1368,
+      "source": "Append (P_Name, Expressions (Attr_Node));"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 1370,
+      "source": "Append (P_Expression, Expressions (Attr_Node));"
+    },
+    {
+      "path": "par-prag.adb",
+      "line": 126,
+      "source": "List_Pragmas.Append ((PT, Loc));"
+    },
+    {
+      "path": "par.adb",
+      "line": 1496,
+      "source": "procedure Append"
+    },
+    {
+      "path": "par.adb",
+      "line": 1649,
+      "source": "Append (P_Node, Pragmas);"
+    },
+    {
+      "path": "repinfo.adb",
+      "line": 225,
+      "source": "Dynamic_SO_Entity_Table.Append (E);"
+    },
+    {
+      "path": "repinfo.adb",
+      "line": 240,
+      "source": "Rep_Table.Append ("
+    },
+    {
+      "path": "sem_aggr.adb",
+      "line": 730,
+      "source": "Append (Aggr_Range (J), To => Index_Constraints);"
+    },
+    {
+      "path": "sem_aggr.adb",
+      "line": 5425,
+      "source": "Append (Make_Range (Loc, New_Copy_Tree (Lo), Hi), Constr);"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 6459,
+      "source": "Restriction_Set_Dependences.Append (Unam);"
+    },
+    {
+      "path": "sem_case.adb",
+      "line": 1995,
+      "source": "Case_Bindings_Table.Append"
+    },
+    {
+      "path": "sem_case.adb",
+      "line": 2634,
+      "source": "Append (Initial_Value);"
+    },
+    {
+      "path": "sem_case.adb",
+      "line": 3011,
+      "source": "Append (Build_Choice (Expr_Value (Exp_Lo), Lo - 1), Choice_List);"
+    },
+    {
+      "path": "sem_case.adb",
+      "line": 3032,
+      "source": "Append (Build_Choice (Hi + 1, Expr_Value (Exp_Hi)), Choice_List);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 2411,
+      "source": "Append (New_Copy_Tree (Assoc.Un_Formal), Result_Renamings);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 2506,
+      "source": "Append (Decl, Result_Renamings);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 3665,
+      "source": "Append (Renaming, To => Decls);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 3848,
+      "source": "Append (New_A, Aspect_Specifications (N));"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 4496,
+      "source": "Append (Renaming, Visible_Declarations (Specification (N)));"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 4629,
+      "source": "Append (ASN, Aspect_Specifications (Specification (N)));"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 5248,
+      "source": "Append (Unit_Renaming, Renamings);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6126,
+      "source": "Append (B, Global_Name_Buffer);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6128,
+      "source": "Append (B, 'E');"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6129,
+      "source": "Append (B, Nat (E));"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6142,
+      "source": "Append (B, 'I');"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6143,
+      "source": "Append (B, UI_Image (Expr_Value (N)));"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6149,
+      "source": "Append (B, 'R');"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6150,
+      "source": "Append (B, UI_Image (Norm_Num (Val)));"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6151,
+      "source": "Append (B, '_');"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6152,
+      "source": "Append (B, UI_Image (Norm_Den (Val)));"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6156,
+      "source": "Append (B, 'E');"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6160,
+      "source": "Append (B, 'S');"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6161,
+      "source": "Append (B, Strval (Expr_Value_S (N)));"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6347,
+      "source": "Append (Buf, \"SI\");"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6355,
+      "source": "Append (Buf, '_');"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6383,
+      "source": "Append (Buf, Chars (Assoc.Actual.Name_Exp));"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6409,
+      "source": "Append (Buf, 'F');"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6412,
+      "source": "Append (Buf, 'N');"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6850,
+      "source": "Append (Unit_Renaming, Renamings);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 7040,
+      "source": "Append (Act_Decl, Renamings);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 7685,
+      "source": "Append (New_Copy (Citem), Context_Items (Decl_Cunit));"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 9554,
+      "source": "Append (Copy_Generic_Node (N, Empty, Instantiating), New_L);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 11231,
+      "source": "Instance_Envs.Append (Saved);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 11346,
+      "source": "Append (New_I, Current_Context);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 12995,
+      "source": "Append (Decl_Node, List);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 13173,
+      "source": "Append (Decl_Node, List);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 13262,
+      "source": "Append (Decl_Node, List);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 17049,
+      "source": "Scope_Stack.Append (SE);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 17914,
+      "source": "Append (Ndec, Assoc1);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 17927,
+      "source": "Append (Ndec, Assoc1);"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 18703,
+      "source": "Generic_Renamings.Append ((A, B, Assoc_Null));"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 18725,
+      "source": "Generic_Flags.Append (Inside_A_Generic);"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 3972,
+      "source": "Stringt.To_String (Strval (Expr_Value_S (Def)));"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 7021,
+      "source": "Scope_Stack.Append (Curr_Scope);"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 7062,
+      "source": "Append (New_P, Profile);"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 7069,
+      "source": "Append ("
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 7939,
+      "source": "Append (New_Lit, Literals_List);"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 9737,
+      "source": "Append (New_Copy_Tree (Expr), To => Constr_List);"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 13778,
+      "source": "Append    : Boolean;"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 13814,
+      "source": "Append := True;"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 13826,
+      "source": "Append := False;"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 13833,
+      "source": "if Append then"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 14653,
+      "source": "Append (Range_Node, To => Constr_List);"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 14720,
+      "source": "Append (New_Copy_Tree (Expr), To => Constr_List);"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 1121,
+      "source": "System_Table.Append (Dim_System);"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 2699,
+      "source": "Append"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 2759,
+      "source": "Append (Global_Name_Buffer, String_From_Numeric_Literal (N));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 2764,
+      "source": "Append (Global_Name_Buffer, Symbol_Of (Typ));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 2925,
+      "source": "Append (New_Aspect, New_Aspects);"
+    },
+    {
+      "path": "sem_elim.adb",
+      "line": 295,
+      "source": "Elim_Entities.Append ((Prag => Elmt.Prag, Subp => E));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 1713,
+      "source": "SPARK_Msg_NE (To_String (Global_Name_Buffer), Item, Item_Id);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 1743,
+      "source": "SPARK_Msg_NE (To_String (Global_Name_Buffer), Item, Item_Id);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 1812,
+      "source": "SPARK_Msg_NE (To_String (Global_Name_Buffer), N, Item_Id);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 1827,
+      "source": "SPARK_Msg_NE (To_String (Global_Name_Buffer), N, Item_Id);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 6874,
+      "source": "Externals.Append (Nam);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 15738,
+      "source": "Check_Names.Append (Nam);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 20990,
+      "source": "Interrupt_States.Append"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 22898,
+      "source": "Obsolescent_Warnings.Append"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 24355,
+      "source": "Specific_Dispatching.Append"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 28936,
+      "source": "Warnings_Off_Pragmas.Append ((N, E, Reason));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 34574,
+      "source": "Assertion_Levels.Append (Level);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35302,
+      "source": "Append (Msg_Ctrl, \"\\\");"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35305,
+      "source": "Append (Msg_Ctrl, \"<<~\");"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35314,
+      "source": "Append (Msg_Ctrl, \"!!\");"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35324,
+      "source": "(To_String (Msg_Ctrl), Eloc, N, Is_Compile_Time_Pragma => True);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 36005,
+      "source": "Compile_Time_Warnings_Errors.Append"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 4098,
+      "source": "Append (Assoc, Parameter_Associations (N));"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 4111,
+      "source": "Append (Assoc, Parameter_Associations (N));"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 12993,
+      "source": "Append (Left_Opnd (N), Actuals);"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 12996,
+      "source": "Append (Right_Opnd (N), Actuals);"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 13169,
+      "source": "Append (Index, Index_List);"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 13327,
+      "source": "Append (Index, Index_List);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 256,
+      "source": "S : constant String := To_String (Strval (Str_Lit));"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 807,
+      "source": "Append (Buf, '.');"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 813,
+      "source": "Append (Buf, '.');"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 836,
+      "source": "Append (Buf, E_Name);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 1274,
+      "source": "Append (Make_Range (Loc, Lo, Hi), Constraints);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 1421,
+      "source": "Append (Make_Range (Loc, Lo, Hi), Constraints);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 1446,
+      "source": "Append (D_Val, Constraints);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 1572,
+      "source": "Append (D_Val, Constraints);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 1979,
+      "source": "Append (Make_Range (Loc, Lo, Hi), Constraints);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 2005,
+      "source": "Append (D_Val, Constraints);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 24052,
+      "source": "Append (New_Copy_Tree (E), NL);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 24607,
+      "source": "Append (Copy_Node_With_Replacement (Elmt), Result);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 27395,
+      "source": "Append (Global_Name_Buffer, ''');"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 31742,
+      "source": "Append (New_Copy (Elem), Result);"
+    },
+    {
+      "path": "sem_warn.adb",
+      "line": 1491,
+      "source": "In_Out_Warnings.Append (E1);"
+    },
+    {
+      "path": "sem_warn.adb",
+      "line": 1812,
+      "source": "Unreferenced_Entities.Append"
+    },
+    {
+      "path": "sem_warn.adb",
+      "line": 1815,
+      "source": "Unreferenced_Entities.Append (E1);"
+    },
+    {
+      "path": "sem_warn.adb",
+      "line": 1831,
+      "source": "Unreferenced_Entities.Append (E1);"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 76,
+      "source": "procedure Append (Buf : in out Bounded_String; S : String_Id) is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 79,
+      "source": "Append (Buf, Get_Character (Get_String_Char (S, X)));"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 81,
+      "source": "end Append;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 159,
+      "source": "Strings.Append ((String_Index => String_Chars.Last + 1, Length => 0));"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 184,
+      "source": "String_Chars.Append"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 200,
+      "source": "String_Chars.Append (C);"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 323,
+      "source": "Append (Buf, S);"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 334,
+      "source": "Append (Global_Name_Buffer, S);"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 350,
+      "source": "function To_String (S : String_Id) return String is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 353,
+      "source": "Append (Buf, S);"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 354,
+      "source": "return To_String (Buf);"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 355,
+      "source": "end To_String;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 121,
+      "source": "procedure Append (Buf : in out Bounded_String; S : String_Id);"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 126,
+      "source": "function To_String (S : String_Id) return String;"
+    },
+    {
+      "path": "strub.adb",
+      "line": 58,
+      "source": "(To_String (Strval (Expr_Value_S (Item))));"
+    }
+  ]
+}

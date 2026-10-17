@@ -1,0 +1,53 @@
+{
+  "reproduced_byte_identical_files": [
+    "consumer-inventory.json",
+    "design-arithmetic.json",
+    "overloaded-consumer-candidates.json",
+    "selected-source-excerpts.txt",
+    "selected-source-manifest.json",
+    "verified-tree-and-inventory.json"
+  ],
+  "json_files_parsed": [
+    "consumer-inventory.json",
+    "design-arithmetic.json",
+    "gcc-emission-source-manifest.json",
+    "identity.json",
+    "overloaded-consumer-candidates.json",
+    "resolved-routes.json",
+    "selected-source-manifest.json",
+    "selected-source-ranges.json",
+    "verified-tree-and-inventory.json"
+  ],
+  "archive_payloads_verified": [
+    "gcc__tree.cc",
+    "gcc__tree.h",
+    "gcc__tree-core.h",
+    "gcc__varasm.cc"
+  ],
+  "local_markdown_link_missing_expected_integration_document": "docs/research/frontend-toolchain-feasibility.md",
+  "other_link_failures": [],
+  "compiler_builds": 0,
+  "gnatprove_runs": 0,
+  "lean_runs": 0,
+  "application_executions": 0,
+  "note": "Parent integration owns the linked toolchain assessment; verify that link when combining the research streams.",
+  "staged_diff_check": "Passed after correcting excerpt display whitespace.",
+  "line_numbering": "LF separators only; form-feed page separators do not advance source line numbers.",
+  "review_repair": {
+    "issue": "https://github.com/berkeleynerd/silver/issues/115",
+    "prior_evidence_commit": "78bc6f5eac15b045668acc545b934e1ffeaaf67a",
+    "changed_generated_outputs": [
+      "selected-source-excerpts.txt"
+    ],
+    "unchanged_generated_outputs": [
+      "consumer-inventory.json",
+      "design-arithmetic.json",
+      "overloaded-consumer-candidates.json",
+      "selected-source-manifest.json",
+      "verified-tree-and-inventory.json"
+    ],
+    "varasm_endpoint_excerpt": "LF5628-5635 contains case STRING_CST, wide thissize assignment, optional increment, and assemble_string call.",
+    "source_bytes_and_hashes": "Unchanged; regenerated selected-source-manifest.json is byte-identical to the prior version.",
+    "inventory_effect": "LF-only source and filtered-code enumeration leaves both lexical inventories and all counts byte-identical."
+  }
+}

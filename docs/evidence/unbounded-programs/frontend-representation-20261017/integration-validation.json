@@ -1,0 +1,54 @@
+{
+  "checked_utc": "2026-10-17T21:51:59.074724+00:00",
+  "status": "passed",
+  "host": "Linux x86_64",
+  "machine": "codex-silver",
+  "authorization_base": "b8e618c54592f66461b2a08023795f31c16a7d39",
+  "frozen_technical_review_target": "0af844fb85b48155b38f237a5437bc27f71e8563",
+  "review_repair": "042e35c40c62997544a11abb44f4169f12d0f1bd",
+  "head_at_check": "aa5f1ffa6eb358cda410dd88ae5eb0a73fda9afa",
+  "input_note": "Actual Markdown bytes are identified below; final delivery edits may be uncommitted at this check.",
+  "markdown_sha256": {
+    "RESUME.md": "5b4aaebaa556087060e9a8aec6755dc21c9c1d9ca8c66920a82fc53e667ca3e6",
+    "docs/evidence/unbounded-programs/frontend-deferred-20261017/README.md": "70dab4a84cd29bfa209d0c86ca375a9d619707aa1d384402d7bac867c45266a2",
+    "docs/evidence/unbounded-programs/frontend-wide-storage-feasibility-20261017/README.md": "919107968c14f5dffc1e3abd3984e6bad3bf39ee371ca8b62b64608dc872e146",
+    "docs/research/frontend-deferred-storage-feasibility.md": "94b79d8e1a7c0be02e597e6e4eef9cba836a4b3d01bf302df4af48aa9d95888a",
+    "docs/research/frontend-representation-result.md": "a837f2234ba3875205e3ee771dbc290b810c43fae183065398a4ba27e0f72cd0",
+    "docs/research/frontend-toolchain-feasibility.md": "7064459af978d1155dc342a1162c6410b0ab7d2f090e3dc33d9ca2f4f56c29a2",
+    "docs/research/frontend-wide-storage-feasibility.md": "0b244a27dc88bc15d423ca302438f3a35e8adaf31dc0bc6870d39391ae19af0e",
+    "docs/reviews/review-frontend-representation-0af844fb85.md": "52480c4b8e34ccd6e0c0c974e6aaaef1a2b7189f22d07f34def34750a393d3f8",
+    "docs/session-memory.md": "256918ffd670f0880397d5e197844137e9ef6942bba005c2147ac3c2778361ae",
+    "docs/unbounded-programs.md": "088c38f75afdfaaa78c5bb8d86877785b4b5da3ee439541432a905564965c03a",
+    "roadmap.md": "f4ed7a708c8b1d7d6ed7e913253379fe2e616f347d27e1338d9f6bcaf57112c1"
+  },
+  "changed_files": 40,
+  "local_file_links": 462,
+  "json_files_parsed": 21,
+  "whitespace": "git diff --check against authorization base passed",
+  "evidence_manifests": {
+    "frontend-wide-storage-feasibility-20261017": {
+      "members": 9,
+      "manifest_sha256": "606ad01ec667d0b2fe3cd80bb2f52015cd2a847676d83d6bfe7ed67ac0ac2f1b"
+    },
+    "frontend-deferred-20261017": {
+      "members": 14,
+      "manifest_sha256": "90d11aec212cc30735eefe0647f22caa5c665bdb7ad43d5176abcf592ce5d225"
+    }
+  },
+  "toolchain_verifier": {
+    "status": "pass",
+    "archive_members": 420,
+    "spark_git_blobs": 320,
+    "contents_git_blobs": 16,
+    "api_retrievals": 37,
+    "scope": "Offline integrity; not binary attestation"
+  },
+  "production_changes": 0,
+  "compiler_builds": 0,
+  "proof_runs": 0,
+  "test_suite_runs": 0,
+  "macos_or_ci_runs": 0,
+  "scope": "Final documentation and retained research integrity; no larger-language validation",
+  "checker_scratch": "/tmp/silver-frontend-representation-20261017/validate_integration.py",
+  "checker_sha256": "3e6219928536e3546612f7dd54ea97c81f014ccdb6576de24b84f0b2b1e2f2fd"
+}
