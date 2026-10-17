@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateNativeSourceChecks
 public import Silver.PredicateBasicSourceCandidate
+public import Silver.PredicateScalarBodySource
 public import Silver.PredicateBodyCandidates
 public import Silver.PredicateLoopCandidate
 public import Silver.PredicateAdapterSourceCandidate
@@ -288,6 +289,7 @@ structure Checked (specTokens bodyTokens : List String) : Prop where
   spec_shape : specTokens = SourceShape.specTokens
   body_shape : bodyTokens = SourceShape.bodyTokens
   native : NativeSourceChecks.Checked bodyTokens
+  scalarBodies : ScalarBodyNative.SourceChecks.Checked bodyTokens
   basic_body_body : ordinaryFunction "basic_body" bodyTokens = some (BasicNative.basicRender)
   statement_body_body : Source.expressionBody "statement_body" bodyTokens = some (BodyNative.statementRender)
   loop_body_body : ordinaryFunction "loop_body" bodyTokens = some LoopNative.render

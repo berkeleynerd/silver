@@ -31,7 +31,7 @@ theorem target_rendered : ScalarBodyNative.targetBody.render = targetCandidate :
 theorem assignment_rendered : ScalarBodyNative.assignmentBody.render = assignmentCandidate := by decide +kernel
 
 structure Checked (tokens : List String) : Prop where
-  target_body : Source.expressionBody "scalar_target" tokens = some ScalarBodyNative.targetBody.render
+  target_body : qualifiedExpressionBody "scalar_target" tokens = some ScalarBodyNative.targetBody.render
   assignment_body : Source.expressionBody "scalar_assignment_body" tokens = some ScalarBodyNative.assignmentBody.render
   target_spec : functionHeader "scalar_target" ";" tokens = some targetSpec
   target_impl : functionHeader "scalar_target" "is" tokens = some targetImpl
