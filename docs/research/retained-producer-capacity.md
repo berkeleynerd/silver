@@ -1129,6 +1129,96 @@ with three nodes, excluding the theory construction itself
 seventeen times `C` belongs in the lifetime allocation bound even though
 discarded cache-hit nodes never appear in JSON.
 
+### Ordinary array-representation cache miss bodies
+
+The single ordinary rank-one Character representation key also has a closed
+body cost. Keep the earlier seventeen-node charge for **every** cache attempt,
+and all `Close_Theory` imports, separate. Cached Standard/Integer/Character
+symbol initialization remains in the fixed/setup terms. On a key miss, the
+two theory bodies and extra helper symbols contribute at most
+**148 nodes, 44 lists, 76 elements and 711 emitted occurrences**.
+
+The common `Prepare_Indexes_Substitutions` helper has one Integer index. It
+creates the local `index_*_one` identifier/name, a prefix module, the defining
+function with its default effects and constant 1, and seven substitutions with
+fresh original names (`src/why/why-gen-arrays.adb:3850–3969`). Its cost is
+**20/4/1/44**, counting its emitted function's one declaration-list element but
+leaving the seven returned substitutions for the caller's clone list. The
+function contributes nine occurrences and each substitution at most five:
+substitution, original name/module and image name/module. This helper creates
+one direct prefix module. `To_Name` and both `To_Local` overloads allocate fresh
+name/identifier nodes; they are not cached lookup aliases
+(`src/why/why-gen-names.adb:1136–1180`).
+
+The representation theory first emits that function, a transparent component
+type alias and a clone with eight substitutions. Its pre-equality cost is
+**30/8/11/56**: header `1/2/0`, index helper `20/4/1`, component substitution
+`3/0/0`, type alias `5/1/1`, and clone `1/1/9`. The alias has a fresh name,
+Character abstract type/name, transparent-definition node and type-declaration
+node; its empty type-argument list still allocates. See
+`src/why/why-gen-arrays.adb:981–1068` and
+`src/why/why-gen-decl.adb:283–295`. Its occurrences are
+`1+44+3+6+2 = 56`, including the clone and its origin module.
+
+`Declare_Equality_Function` has one index and six parameters: two maps and
+four Integer bounds. Its ordinary Character path is fully finite
+(`src/why/why-gen-arrays.adb:1913–2222`). The allocation accounting is:
+
+| Equality helper part | Nodes | Lists | Elements |
+| --- | ---: | ---: | ---: |
+| Local map type, two array identifiers, index and four bound identifiers | 16 | 0 | 0 |
+| Shifted right index | 2 | 2 | 4 |
+| Index range predicate | 3 | 3 | 4 |
+| Length equality, including conditional and conjunction | 8 | 8 | 12 |
+| Character types, local symbols, two accesses and scalar equality | 16 | 5 | 8 |
+| Range implication, one-index quantifier and conjunction | 4 | 3 | 1 |
+| Function declaration, six binders, effects and emission | 8 | 4 | 7 |
+| Reverse call/comparison, guarded axiom, six binders, dependency and emission | 12 | 4 | 15 |
+| **Total** | **69** | **29** | **51** |
+
+The scalar equality eagerly constructs one split Character type, converts both
+abstract Character operands to builtin Integer, then calls equality
+(`src/why/why-gen-expr.adb:3405–3479`). The two earlier same-Character
+expected-type constructions are also charged, although their conversions
+return unchanged. The guarded axiom uses one implication connection and a
+six-binder universal quantifier (`src/why/why-gen-binders.adb:1346–1371`).
+
+For occurrence accounting, each map/bound/index reference has four occurrences;
+the local `get` identifier has at most five. The shifted index costs 28, range
+predicate 33, and length equality 92. The two element reads have respectively
+17 and 41 occurrences; scalar conversion/equality gives 82. Adding the range
+implication and index quantifier gives 126, then the length conjunction gives
+**219 occurrences for the shared definition**. This definition occurs once in
+the function and again in the reverse axiom: both copies must be serialized.
+The function is at most 273 occurrences; the reverse call/comparison is at most
+44, and the complete guarded reverse axiom at most 315. Thus the equality helper
+emits at most **588** occurrences, not merely the DAG's shared-node count.
+
+The separate comparison theory has a fresh abstract Character type, its header,
+five additional substitutions, another Integer index helper and one clone with
+twelve substitutions (`src/why/why-gen-arrays.adb:1772–1906`). This costs
+**34/7/14/67**. Character has no relaxed initialization and is nonmodular, so
+neither wrapper conversion bodies nor bitvector alternatives apply.
+
+The total miss body is therefore:
+
+| Miss component | Nodes | Lists | Elements | Occurrences |
+| --- | ---: | ---: | ---: | ---: |
+| Representation theory before equality | 30 | 8 | 11 | 56 |
+| Equality helper | 69 | 29 | 51 | 588 |
+| Comparison theory | 34 | 7 | 14 | 67 |
+| Existing rank-one/comparison helper-symbol initialization | 15 | 0 | 0 | 0 |
+| **Total** | **148** | **44** | **76** | **711** |
+
+The fifteen extra nodes are the twelve rank-one helper nodes plus comparison
+module/identifier/name already identified above. For `a` attempts and `r` misses,
+this component adds `17a+148r` nodes, `44r` lists, `76r` elements and `711r`
+occurrences before imports. It has `2r` closes and `a+3r` direct module
+allocations: the attempt's representation module, plus the comparison module
+and two index-prefix modules on a miss. For ordinary Main Character Strings,
+`r <= 1`; fixed dependencies with other representation keys remain separate.
+The count of attempts still needs its source-to-helper caller closure.
+
 **Memoized entity modules.** `Module_Kind` has twenty-seven members
 (`src/why/why-atree-modules.ads:819–851`). `Hashconsed_Entity_Module` allocates
 only on a missing `(normalized entity, kind)` key (`.adb:465–504`). Consequently
@@ -1186,9 +1276,13 @@ again as standalone conversions.
 | String comparison wrapper | `(25,8,14,147)` |
 | Integer Image wrapper | `(5,2,3,18)` |
 | Complete source String declaration wrapper | `(55,24,36,188)` |
+| Source `Name'Length` program/term core | `(20,6,9,92)`; [control derivation](retained-producer-control.md) |
+| If skeleton, `q=1+elsif`, `b=q+1` bodies | `(8q+9b,2q+b,2q+3b,26q+27b)`; source children once, action costs separate |
+| Positive-source-location statement list of `m` entries | `(m+1,1,m+1,m+5)`; declarations/actions separate |
 | Whole-object String assignment wrapper | `(148,61,86,1247)` |
 | Static literal use and definition family | The `R_lit/K_lit/L_i` formula above |
-| Eager array-representation cache attempt | `(17,0,0,0)`; misses additionally need their theory body |
+| Eager array-representation cache attempt | `(17,0,0,0)` |
+| Ordinary rank-one Character representation key miss | `(148,44,76,711)`; imports separate |
 
 Thus write the single pre-import sum as
 
@@ -1208,9 +1302,8 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | `K_fixed` | One-time predefined and selected dependency theories, package processing, symbol initialization, external-constant assumptions, fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
 | `K_object` / `K_binder` | Declaration symbol/binder setup and two ordinary object/loop outer theories. Source objects plus at most two generated bound captures per loop are bounded by the frontend report; contents and direct modules are still unpriced. |
 | `K_type_int_static`, `K_type_int_loop`, `K_type_string_static`, `K_type_string_literal` | Numerical type/completion contents for the named type families, including range/property/default-initialization helpers. The frontend report distinguishes non-itype object ranges/static-literal String subtypes from Integer index/loop and String alias/literal itypes. Loop-index types can be dynamic or empty and must not be priced as nonempty static source object types. |
-| `K_array_rep` | Rank-one ordinary Character array representation and comparison theory bodies on the single key miss, beyond the already counted eager attempt and helper-symbol nodes. Close the number of attempted creations as well as misses. |
 | `K_generated_decl` | Executable checks/wrappers for generated static object subtypes, static String index/alias subtypes, loop-index subtypes and at most two loop bound-capture declarations. Attribute/bound-expression translations must be charged here or to the closed expression rows, once consistently. |
-| `K_length`, `K_control` | Source `Name'Length`, statement-list/location wrappers and branch skeletons. Length first constructs a named object read and temporary even when later using the binder-specific accessor (`src/why/gnat2why-expr.adb:19903–20101`); discarded eager work counts. Branch/loop body child coefficient one is already established. |
+| Generated actions and declaration-list wrappers | The [control component](retained-producer-control.md) closes source Length, if skeletons and ordinary source statement lists. It keeps frontend Actions/generated statements without source locations and the distinct `Transform_Declarations` list helper separate; add those actual callers here. |
 | `K_loop`, `H_int`, `H_string`, `H_global` | Per-loop fixed framing plus snapshots/preservation for each modified root. The existing `sum(|Q_loop|) <= F_loops(D+G)` bound applies; the finite actual fixed-library write-global set must determine `G` and its helper shapes. |
 | `K_call[j]` | One wrapper family for each admitted library operation: Put, Put_Line, First_Or_Default, Input_Is_Valid and Reject. Count source call sites and any immutable initializer replay; price actual binding, conversions, checks, contracts/effects and globals. The frontend report excludes body inlining into Main, but fixed package source size alone is not a per-call bound. |
 | Invocation map and counters | Close `n_q(P)` and `n_h(P)` from the source grammar and frontend-generated counts, including expected-type construction and all conversion/lookups. Ordinary initializers need at most program plus term translation; Main-local constants have no third assumption pass. Generated captures, type helpers and fixed call wrappers still require their own counts. Bound `M`, `C`, `F <= E_list` and the temporary-name counter from the same accounting. |

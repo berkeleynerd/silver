@@ -115,6 +115,43 @@
     "unary_minus_call_occurrence_overhead": 7,
     "unary_minus_with_overflow_occurrence_overhead_max": 19
   },
+  "ordinary_array_representation_miss": {
+    "comparison": {
+      "elements": 14,
+      "lists": 7,
+      "nodes": 34,
+      "occurrences_max": 67
+    },
+    "equality": {
+      "elements": 51,
+      "function_occurrences_max": 273,
+      "lists": 29,
+      "nodes": 69,
+      "reverse_axiom_occurrences_max": 315,
+      "shared_definition_occurrences_max": 219
+    },
+    "excludes": "17 eager nodes per attempt, Close_Theory imports, cached Standard/Integer/Character symbol initialization",
+    "index_substitution_helper": {
+      "elements": 1,
+      "lists": 4,
+      "nodes": 20,
+      "occurrences_max": 44
+    },
+    "representation_before_equality": {
+      "elements": 11,
+      "lists": 8,
+      "nodes": 30,
+      "occurrences_max": 56
+    },
+    "total_per_miss": {
+      "direct_modules_beyond_each_attempt": 3,
+      "elements": 76,
+      "lists": 44,
+      "nodes": 148,
+      "occurrences_max": 711,
+      "theory_closes": 2
+    }
+  },
   "ordinary_integer_leaf_and_boundary": {
     "dereference_overhead": 3,
     "excludes": "initial symbol/binder creation, caller-created expected type",

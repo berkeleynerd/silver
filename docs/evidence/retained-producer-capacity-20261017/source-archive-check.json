@@ -71,6 +71,10 @@
       "sha256": "187a67de331b0fb1fdc91c8a345b750541cd73d52bcf0b02645803b3b94af06a"
     },
     {
+      "path": "src/why/why-gen-decl.adb",
+      "sha256": "37d40ccf81548b76330a6ccdb8a6affc297016d28d9ace2a890c62d8981ac3f4"
+    },
+    {
       "path": "src/why/why-gen-expr.adb",
       "sha256": "9891d54331f76713685fce8f21501d549485a46c35593ac68ba572c9f0f5a432"
     },
