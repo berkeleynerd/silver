@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "record": "Unbounded programs scoping research",
+  "date": "2026-10-17",
+  "native_platform": "linux-x86_64",
+  "host": {
+    "cpus": 22,
+    "memory_gb": 31,
+    "swap": "none"
+  },
+  "research_workflow": "wf_93cb95b1-98d (five read-only tracks T1-T5)",
+  "review_target_read": "b79b98640373056b71e396eb8e7741b0b9c233b5 (stable review worktree); production binary built from the later review-remediation inputs",
+  "toolchain": {
+    "gnat": "gnat_native 16.1.0",
+    "gnatprove": "16.1.0 (image-tools overlay)",
+    "why3": "1.8.2+git",
+    "cvc5": "1.3.2",
+    "z3": "4.15.4",
+    "alt_ergo": "2.6.1",
+    "lean": "v4.34.1"
+  },
+  "claim_class_note": "Scoping research only: kernel-checked Lean probes, host-specific observations and source analysis. Not implementation validation and not a universal statement about solver behaviour.",
+  "pinned_frontend_limits": [
+    {
+      "rule": "physical line width after expanding each HT to the next multiple of 8 columns",
+      "maximum": 32765,
+      "evidence": "32,765 accepted with LF, CR, CRLF or no terminator; 32,766 rejected: \"this line is longer than 32766 characters\"; a 39-byte program line padded with tabs is accepted at 4,130 bytes and rejected at 4,131 bytes; a 4,095-byte all-tab line is accepted and a 4,096-byte one rejected",
+      "class": "observed"
+    },
+    {
+      "rule": "identifier length in characters",
+      "maximum": 4096,
+      "evidence": "4,097 gives \"Name buffer overflow; Max_Length = 4096\" and GNAT BUG DETECTED Program_Error namet.adb:141 in gcc -gnatc, gcc -c -O0 and GNATprove check, flow and proof modes; namet.ads:144 Bounded_String default 2**12",
+      "class": "observed (gcc -gnatc, gcc -c -O0, GNATprove check, flow and proof modes) and GNAT source"
+    },
+    {
+      "rule": "numeric literal exponent value",
+      "maximum": 799999,
+      "evidence": "800,000 rejected with \"exponent too large\" in every tested base (2, 10 and 16) and mantissa; GNAT scanner source (scng.adb) confirms the check; literals near the limit cost 3.5-68 s of frontend CPU each",
+      "class": "observed"
+    },
+    {
+      "rule": "total source length in bytes",
+      "largest_tested_accepted": 2130706432,
+      "evidence": "2,130,706,432 bytes (2^31 - 2^24) is the largest accepted size tested: gcc -gnatc 10.46 s, 2.16 GB; 2,147,483,647 crashes (malloc corrupted top size, SIGSEGV); 2,147,483,648 loops in errout. GNAT places every unit of a compilation in one 2^31 source-position space with 4 KiB alignment, so the bound for main.adb depends on the other units.",
+      "class": "observed (gcc -gnatc; 100 MB also with an -O0 build)"
+    },
+    {
+      "rule": "GNAT fixed internal table capacities",
+      "values": "Node_Id up to 1,999,999,999; List, Elist, Elmt, Names, Strings and Ureal 100,000,000 each",
+      "evidence": "List cap estimated near 50 million elsif arms: a source of about 1.5 GB needing about 44 GB; table.adb grows tables without checking the Id subtype, so overflow is a bug box or worse; 1M elsif: 29.9 MB source, 25.3 s, 657 MB",
+      "class": "source analysis only (not probed); a host-independent premise is not acceptable"
+    }
+  ],
+  "proof_configuration_observations": [
+    "--level=2 keeps --memlimit 1000 for every prover even when --memlimit=0 is given (observed in why3session.xml); an explicit --memlimit=16000 is passed through; without --level, --memlimit=0 removed the limit in a small probe except for one trivial-goal attempt that still recorded 1000",
+    "--steps=0 launches the provers without step arguments (unlimited) (observed)",
+    "with -j of at least 3 the three provers race per check and the others are interrupted on Valid; -j0 on one CPU would run them in turn (derived from producer source gnat_checks.ml; consistent with observed attempt counts)",
+    "Z3 rlimit wraps modulo 2^32 (observed with direct Z3 runs); with the producer step normalization, any finite --steps above 5,368,146 gives Z3 a different, usually much smaller, limit (derived)",
+    "High failure, Failure, Unknown and Invalid all map to gave_up; only Timeout, OutOfMemory and StepLimitExceeded are reported as limits; check_tree prover results distinguish them (observed and producer source)",
+    "gnat2why inherits an 8 MiB stack: flow mode fails between 1,000 and 2,000 nested loops and passes with an unlimited stack (observed)"
+  ],
+  "proof_scaling": {
+    "command": "production Alire_Exec + Image_Gnatprove command with -j8 instead of -j0; --steps=100000 --memlimit=1000 except the two option smokes",
+    "program_families": {
+      "f1": "mixed: constrained mutables, snapshots, if/elsif, nested loops with Image, String assignment and concatenation",
+      "f2": "straight-line with context-dependent range and length checks",
+      "f3": "dense String copies, one per line (known worst case)"
+    },
+    "admission_of_blocks": "all 200 block instances and every composite of 4096 bytes or less printed \"Accepted: silver.\"",
+    "runs_total": 17,
+    "runs_completed": 16,
+    "completed_runs_all_checks_proved": true,
+    "runs_note": "runs lists the 14 fitted scaling runs (f1-1k also served as the pipeline smoke); other_completed_runs lists the two option smokes; 14 + 2 = 16 completed, plus 1 stopped = 17. The track summary said 18 because it counted the pipeline smoke separately.",
+    "runs": [
+      {
+        "run": "f1-1k",
+        "source_bytes": 570,
+        "statements": 19,
+        "main_checks": 2,
+        "wall_seconds": 8.0,
+        "gnatwhy3_peak_gib": 0.124,
+        "process_tree_peak_gib": 0.4,
+        "max_attempt_seconds": 0.060795,
+        "max_attempt_steps_any_prover": 51,
+        "max_winning_steps": 1,
+        "report_bytes": 11577,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f1-2k",
+        "source_bytes": 1556,
+        "statements": 51,
+        "main_checks": 6,
+        "wall_seconds": 8.0,
+        "gnatwhy3_peak_gib": 0.124,
+        "process_tree_peak_gib": 0.38,
+        "max_attempt_seconds": 0.129616,
+        "max_attempt_steps_any_prover": 328,
+        "max_winning_steps": 1,
+        "report_bytes": 30325,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f1-4k",
+        "source_bytes": 4021,
+        "statements": 131,
+        "main_checks": 16,
+        "wall_seconds": 16.0,
+        "gnatwhy3_peak_gib": 0.191,
+        "process_tree_peak_gib": 0.45,
+        "max_attempt_seconds": 0.29986,
+        "max_attempt_steps_any_prover": 1286,
+        "max_winning_steps": 1,
+        "report_bytes": 77787,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f1-8k",
+        "source_bytes": 8115,
+        "statements": 259,
+        "main_checks": 32,
+        "wall_seconds": 104.7,
+        "gnatwhy3_peak_gib": 0.341,
+        "process_tree_peak_gib": 0.56,
+        "max_attempt_seconds": 1.6205,
+        "max_attempt_steps_any_prover": 3475,
+        "max_winning_steps": 566,
+        "report_bytes": 154137,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f1-16k",
+        "source_bytes": 15885,
+        "statements": 499,
+        "main_checks": 62,
+        "wall_seconds": 428.3,
+        "gnatwhy3_peak_gib": 0.827,
+        "process_tree_peak_gib": 1.21,
+        "max_attempt_seconds": 6.94219,
+        "max_attempt_steps_any_prover": 9322,
+        "max_winning_steps": 222,
+        "report_bytes": 297006,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f1-32k",
+        "source_bytes": 32461,
+        "statements": 1011,
+        "main_checks": 126,
+        "wall_seconds": 1453.3,
+        "gnatwhy3_peak_gib": 2.602,
+        "process_tree_peak_gib": 5.15,
+        "max_attempt_seconds": 22.8824,
+        "max_attempt_steps_any_prover": 29445,
+        "max_winning_steps": 1021,
+        "report_bytes": 602954,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f2-1k",
+        "source_bytes": 848,
+        "statements": 51,
+        "main_checks": 18,
+        "wall_seconds": 11.0,
+        "gnatwhy3_peak_gib": 0.135,
+        "process_tree_peak_gib": 0.41,
+        "max_attempt_seconds": 0.088129,
+        "max_attempt_steps_any_prover": 186,
+        "max_winning_steps": 1,
+        "report_bytes": 53375,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f2-2k",
+        "source_bytes": 1876,
+        "statements": 115,
+        "main_checks": 42,
+        "wall_seconds": 39.3,
+        "gnatwhy3_peak_gib": 0.197,
+        "process_tree_peak_gib": 0.54,
+        "max_attempt_seconds": 1.12544,
+        "max_attempt_steps_any_prover": 1219,
+        "max_winning_steps": 147,
+        "report_bytes": 122930,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f2-4k",
+        "source_bytes": 4067,
+        "statements": 243,
+        "main_checks": 90,
+        "wall_seconds": 229.4,
+        "gnatwhy3_peak_gib": 0.419,
+        "process_tree_peak_gib": 0.59,
+        "max_attempt_seconds": 1.7092,
+        "max_attempt_steps_any_prover": 4727,
+        "max_winning_steps": 1,
+        "report_bytes": 261826,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f2-8k",
+        "source_bytes": 8043,
+        "statements": 467,
+        "main_checks": 174,
+        "wall_seconds": 575.1,
+        "gnatwhy3_peak_gib": 1.187,
+        "process_tree_peak_gib": 1.4,
+        "max_attempt_seconds": 2.74955,
+        "max_attempt_steps_any_prover": 15195,
+        "max_winning_steps": 743,
+        "report_bytes": 505981,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f2-16k",
+        "source_bytes": 16279,
+        "statements": 931,
+        "main_checks": 348,
+        "wall_seconds": 3330.1,
+        "gnatwhy3_peak_gib": 4.308,
+        "process_tree_peak_gib": 4.86,
+        "max_attempt_seconds": 7.59222,
+        "max_attempt_steps_any_prover": 54409,
+        "max_winning_steps": 1,
+        "report_bytes": 1011052,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f3-1k",
+        "source_bytes": 1024,
+        "statements": 156,
+        "main_checks": 150,
+        "wall_seconds": 88.2,
+        "gnatwhy3_peak_gib": 0.439,
+        "process_tree_peak_gib": 0.57,
+        "max_attempt_seconds": 0.06866,
+        "max_attempt_steps_any_prover": 8,
+        "max_winning_steps": 1,
+        "report_bytes": 326887,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f3-2k",
+        "source_bytes": 2044,
+        "statements": 326,
+        "main_checks": 320,
+        "wall_seconds": 363.6,
+        "gnatwhy3_peak_gib": 1.479,
+        "process_tree_peak_gib": 1.64,
+        "max_attempt_seconds": 0.144616,
+        "max_attempt_steps_any_prover": 351,
+        "max_winning_steps": 1,
+        "report_bytes": 694059,
+        "unproved_checks": 0
+      },
+      {
+        "run": "f3-4k",
+        "source_bytes": 4096,
+        "statements": 668,
+        "main_checks": 662,
+        "wall_seconds": 1376.7,
+        "gnatwhy3_peak_gib": 5.863,
+        "process_tree_peak_gib": 6.03,
+        "max_attempt_seconds": 0.190779,
+        "max_attempt_steps_any_prover": 1138,
+        "max_winning_steps": 708,
+        "report_bytes": 1434133,
+        "unproved_checks": 0
+      }
+    ],
+    "other_completed_runs": [
+      {
+        "run": "f2-1k-s0m0",
+        "options": "--steps=0 --memlimit=0",
+        "result": "exit 0; all 18 Main checks proved in 10 s; provers launched without step arguments; gnatwhy3 still received --memlimit 1000 under --level=2"
+      },
+      {
+        "run": "f2-1k-m16000",
+        "options": "--memlimit=16000",
+        "result": "exit 0; all 18 Main checks proved in 9 s; gnatwhy3 received --memlimit 16000"
+      }
+    ],
+    "stopped_run": {
+      "run": "f3-8k-memprobe",
+      "reason": "own 14 GiB process-tree guard after 263.3 s",
+      "gnatwhy3_gib_at_stop": 14.0,
+      "projected_peak_gib": 23,
+      "projected_minutes": 85,
+      "class": "resource stop, not proof failure"
+    },
+    "fitted_exponents_vs_source_size": {
+      "wall_time": {
+        "f1": 1.82,
+        "f2": 1.99,
+        "f3": 1.92
+      },
+      "gnatwhy3_memory": {
+        "f1": 1.0,
+        "f2": 1.43,
+        "f3": 1.98
+      },
+      "report_bytes_and_checks": "about 1.0"
+    },
+    "dominant_cost": "single-threaded vendor gnatwhy3 processing every VC against the accumulated program context; solver time 51 s of 1,377 s at f3-4k",
+    "max_winning_steps": {
+      "these_runs": 1021,
+      "earlier_4kb_reports": 1340,
+      "budget": 100000
+    },
+    "losing_prover_failures": "High failure (signaled) in 11 of 16 completed runs at every size, including f1-1k and f2-1k-m16000 (--memlimit=16000); 8 alt-ergo 'High failure (unrecognized prover answer)' at f1-32k; another prover proved every affected check; cause not diagnosed (racing interruption is plausible)",
+    "fit_note": "exponents fitted over runs of at least 1.5 KB; the f3 (dense String copies) fit uses two sizes only; timings were taken under concurrent research load"
+  },
+  "native_compiler_observations": [
+    "each nested loop copies two whole binding environments: 29 KiB per level at the 4096-byte limit, about 113 KiB at a 16 KiB limit and 576 KiB at 64 KiB in scratch rebuilds, so nested-loop stack grows quadratically with the source limit",
+    "1,998 condition-parenthesis levels take 1.73-1.88 s at 4096 bytes; 8,142 levels take 32 s and a minimum of 16,352 KiB (about 16.0 MiB) of stack at a 16 KiB limit",
+    "compile re-parses the source up to six times",
+    "the documented report envelope exceeds the 16 MiB buffer for sources above 4,502 bytes",
+    "Storage_Error exits with status 1 in check and run; under run, 1 is also the forwarded application Reject status",
+    "the Image adapter has no Silver-chosen limit that grows with program size; byte counts and depth are 63-bit",
+    "the documented report envelope reaches Natural'Last near 587 KB of source; measured reports are 19-350 bytes per source byte"
+  ],
+  "lean_observations": [
+    "uniform range schema <L,L> is valid iff 2L <= 32767 (kernel-checked); <16384,16384> is invalid",
+    "exact schema S + K*C <= V <= 2,147,483,647 covers all intermediates (kernel-checked probe)",
+    "lifting results: 4,154/4,347, 4,559/4,776 and 2,524/2,627 declaration groups valid for an arbitrary symbolic bound; 4,633/4,770 valid at 2,147,483,646",
+    "no failing declaration is a decidability, termination, uniqueness or fuel argument; truth-dependent items are the range schema and the coupling of the merged 4096 domains",
+    "resource-indexed tool contract composes with Current.ToolContract and is inhabited; axioms propext, Classical.choice, Quot.sound"
+  ],
+  "operating_system_observations": [
+    "Linux execve accepts a single argument of at most 131,071 bytes; 131,072 gives E2BIG; ARG_MAX 2,097,152"
+  ],
+  "track_verdicts": {
+    "T1": "Every Silver-owned fixed bound can be replaced so that the compiler fails only through resource exhaustion (heap, stack, time). This is tractable and provable in SPARK under the existing refinement pattern, at an XL cost dominated by redoing the Lean source certificates.\n\nThe only fixed bounds that must stay come from pinned tools or Ada itself:\n- GNAT's maximum line length (per-line rule).\n- GNAT's exponent limit: at most 799,999.\n- The producer's 2^31−1 Image node counter.\n- Ada's Natural/Positive String indexing, at about 2^31: retained reports up to `Natural'Last - 1`, values up to Integer'Last. Removing even this needs 64-bit byte arrays.\n\nThe 64-leaf and 63-operator budgets, and the 4096-byte source and value caps, are not needed by Silver's implementation. Whether membership may grow past them depends on external premises (T3 frontend capacity, T4 solver completion with no step or memory caps). Following the owner's rule, keep them until that research shows the larger language is tractable. Stages 0–2 below are safe now and change no membership.",
+    "T2": "Generalizable without an Oracle amendment.\n- **What can be proved:** with a symbolic bound, every top-level theorem (membership, decidability, unique meaning, safety and discharge, execution, pipeline, source correspondence) can be restated. The only side conditions are small lower bounds (L ≥ 16), the order between the separate bounds (argument ≤ value ≤ IO per call), and one arithmetic condition, V ≤ the target's Integer'Last. That last condition needs the exact range schema in place of today's uniform one; I proved the exact schema in a probe.\n- **Truth-dependent today:** the uniform range schema `⟨L,L⟩` against Integer'Last 32767 holds only for L ≤ 16,383. The historical Guarded schema `⟨2L,L⟩` holds only for L ≤ 10,922. So even doubling the source bound to 16,384 makes `Current.uniform_discharge`, `automatic_discharge_complete` and `admitted_assurance` false unless the schema changes.\n- **Value domain up to Integer'Last:** tractable once the String length arithmetic uses the pinned target's Integer'Last (2,147,483,647, which the scalar fragment already uses) and the exact `S + K*C ≤ V` schema.\n- **Unbounded source text:** tractable for the language theorems. The tied correspondence to the native compiler stays machine-bounded: an Ada `String` index is at most Integer'Last, and GNAT has its 32,766-character line limit and 32-bit source positions. Those are inherited or hard tool limits, not arbitrary policy.\n- **Solver resources:** removing or escalating the step and memory limits needs no Lean change.",
+    "T3": "Most of the expansive goal is reachable: everything I probed fails only through resources once the driver gives tools an unlimited stack and the proof command drops --level=2 (explicit provers, --memlimit=0, --timeout=0, --steps=0 or at most 5,368,146, -j at least 3). Three pinned-frontend limits are real hard tool limits and must become explicit, frontend-derived language rules once the 4096-byte source bound is lifted: (a) every physical line's tab-expanded width at most 32,765 columns; (b) identifier length at most 4,096 characters; (c) source length at most a derived bound below 2^31 (2,130,706,432 = 2^31-2^24 is the largest value tested). Ada String lengths at most Integer'Last are inherited semantics and must be a language bound as well. GNAT's fixed table capacities (Node_Id up to 2e9; List, Elist, Elmt, Name, String and Ureal ids 1e8 each) cannot be reached on this host before memory or time runs out. They should be stated as a tool premise; the only alternative is a much smaller source bound that I cannot derive rigorously. No Oracle-level full stop comes from T3 by itself, but the three frontend rules and the proof-limit change are language and assurance-text changes the lead must route through the normal amendment path.",
+    "T4": "Within the tested range nothing failed except by resource use. Every admitted-style program up to 32 KB (F1) and 16 KB (F2) proved fully under the unchanged production step budget. Cost is roughly quadratic in size and is dominated by single-threaded gnatwhy3 time and memory, not by the prover step budget. Dense straight-line code is the binding case: 4 KB takes about 23 min and 5.9 GiB; 8 KB passed 14 GiB within 4.4 minutes (projected about 23 GiB and about 85 min); 16 KB is projected near 90 GiB. Those limits are environmental resource exhaustion, which the profile accepts.\n\nTo make \"fails only by resource exhaustion\" true of the proof step itself, two configuration changes are needed. Both are cheap and need no Oracle amendment:\n1. Replace the prover memory limit. --level=2 silently turns --memlimit=0 into 1000 MB. Pass an explicit large value, such as host physical memory, or an equivalent. The fixed 1000 MB is already making one of the three provers fail at 32 KB.\n2. Handle the step budget. Either set --steps=0, which is confirmed unlimited, or retry any unproved check with --steps=0. With --timeout=0 that leaves only time and memory as failure modes. The cost is that results no longer reproduce deterministically.\n\nNone of this proves completion \"in every case\". The evidence is observed, not proved, and per-check difficulty does grow with context, so some admitted program could still need more than any fixed budget. Treating that as a resource failure is a policy statement. The compiler can make it true only by removing the fixed knobs; no measurement can guarantee it.",
+    "T5": "Tractable without an Oracle amendment, with no hard stop. One procedural step remains: the owner gives an explicit \"proceed\" for a new limits milestone, recorded in session memory, after the B1/M1 checkpoint is delivered. The most expansive design that holds up is:\n- **Remove every cap that is only policy:** source 4096, operator budget 63, 64 leaves per expression, exponent 4096, the 4096-byte value and argument domain, and the fixed report and binding buffers.\n- **Keep only explicit rules derived from the pinned tools:**\n  - line width of at most 32,765 columns after tab expansion;\n  - identifiers of at most 4096 characters;\n  - exponents below 800,000;\n  - one source-size bound derived from GNAT's fixed ID ranges and source-position width (T3 to derive the value).\n- **Keep inherited Ada/SPARK semantics:** the Integer range, and Integer'Last as the bound on String length.\n- **Make solver limits non-binding** through an escalation ladder, and report resource exhaustion as its own outcome.\n\nProver incompleteness (an \"unknown\" answer with resources left) is still an implementation defect, not a resource outcome."
+  },
+  "retained_raw_evidence": {
+    "path": "tmp/unbounded-programs-research/",
+    "manifest": "tmp/unbounded-programs-research/MANIFEST.json",
+    "manifest_sha256": "7848544990640d8609ed9d2b445417b19b432973d5597465cdb3adf705af9a63",
+    "scope": "local only; 2,154 files; files over 2 MB and prover session directories omitted"
+  },
+  "side_effects": [
+    "retained Image-adapter workspace .silver/linux-x86_64/imagews-n5nSxf (17 MB) from the guard-stopped f3-8k probe",
+    "scratch directories only otherwise; no repository, cache or other-host artifact changed"
+  ],
+  "claims_not_made": [
+    "implementation validation",
+    "universal solver completion",
+    "clean build or kernel replay",
+    "native macOS validation",
+    "hosted CI"
+  ],
+  "frontend_cost_observations": [
+    "gcc -gnatc time is quadratic in sequence length and nesting: 10k assignments 0.29 s, 100k 30.9 s; 100,000 nested loops exceeded the 1,800 s timeout",
+    "GNATprove flow mode: 128k assignments (1 MB) 136 s and 4.43 GB; 8,000 nested loops 573 s and 6.54 GB with an unlimited stack"
+  ],
+  "track_verdicts_note": "Verbatim track outputs. The scope proposal supersedes them where they differ: 'amendment path' in T3 means an explicit pre-1.0 language and assurance-text change, not an Oracle amendment; the escalation ladder is replaced by one uncapped racing run (-j at least 3); the B1/M1 checkpoint was delivered through PR #86; the GNAT table capacities become a derived source bound, not a premise."
+}

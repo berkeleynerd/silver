@@ -14,6 +14,59 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Unbounded programs
+
+**Scoped on 2026-10-17; implementation not authorized.** At the owner's request,
+the [scope proposal](docs/unbounded-programs.md) and
+[milestone 5](https://github.com/berkeleynerd/silver/milestone/5) record how
+Silver can drop its arbitrary capacity limits. Compilation would then fail only
+through resource exhaustion, which this profile treats as an environmental
+outcome. Per-program GNATprove becomes a non-gating confirmation. A definite
+non-proof or rejected report is a defect report, and a resource-limited
+confirmation is inconclusive. The universal Lean argument and explicit trusted
+premises carry "if it compiles, it proves".
+
+The language rules that remain are the pinned GNAT 16.1 frontend's maxima and
+inherited Ada meaning: line width, identifier length, exponent, a total-source
+rule derived from GNAT's internal tables and source-position space, the `Integer`
+range, and String length up to `Integer'Last`. The scope lists the remaining
+confirmation-only and fixed-input implementation capacities with their purpose.
+The [session memory](docs/session-memory.md#2026-10-17--unbounded-programs-scoping-requested)
+records the owner's direction. No Oracle amendment is needed.
+
+The milestone's work packages, in order:
+
+1. **Scope and design [#87](https://github.com/berkeleynerd/silver/issues/87):**
+   this proposal, its [research evidence](docs/evidence/unbounded-programs/scoping-research.json),
+   the milestone and the issues.
+2. **Proof confirmation and resource outcomes [#88](https://github.com/berkeleynerd/silver/issues/88):**
+   build without waiting for proof, uncapped confirmation of the exact built
+   snapshot, exit status 4 for resource exhaustion, and restated premises.
+   Admission is unchanged.
+3. **Compiler storage and complexity that scale with input [#89](https://github.com/berkeleynerd/silver/issues/89):**
+   separated 4096 roles, growable files and 64-bit or streaming report storage,
+   constant stack per nesting level and near-linear admission. Admission is
+   unchanged.
+4. **Parameterized Lean assurance [#90](https://github.com/berkeleynerd/silver/issues/90):**
+   the exact length-range schema up to `Integer'Last` and theorems over symbolic
+   limits. Admission is unchanged.
+5. **Pinned-frontend and derived source limits [#91](https://github.com/berkeleynerd/silver/issues/91):**
+   explicit tool-derived rules, including the derived total-source bound. They are
+   unreachable while the 4096-byte bound remains.
+6. **Remove source, operator and expression caps [#92](https://github.com/berkeleynerd/silver/issues/92):**
+   admits larger programs, validated by a scaling ladder and differential fuzzing.
+7. **String and argument lengths up to Integer'Last [#93](https://github.com/berkeleynerd/silver/issues/93):**
+   an observable pre-1.0 change; arguments longer than 4096 bytes become valid. It
+   may run alongside package 6.
+8. **Validation, review and delivery [#94](https://github.com/berkeleynerd/silver/issues/94).**
+
+Before implementation the owner must say "proceed", recorded in session memory.
+That also confirms the scope's reading of the research full stops. If
+confirmation finds a definite non-proof that cannot be fixed, work stops for the
+owner's decision. Packages 3 and 4 may overlap after package 2, with one proof
+workspace writer at a time. Package 5's derivations can start earlier. The Rosetta
+stages, new constructs and macOS validation remain separate.
+
 ### Bounded mutable integers
 
 **Complete after review remediation on Linux x86_64, 2026-10-17.**
