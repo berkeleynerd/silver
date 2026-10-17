@@ -442,8 +442,8 @@ loops or unreachable arms. Every RHS intermediate must fit Integer and its
 whole inferred interval must be nonempty and lie within the target's declared
 range. Requiring nonemptiness is a Silver frontend-acceptance restriction:
 pinned GNAT still checks predictable assignment range errors in dead loop bodies
-under `SPARK_Mode (On)`. Thus an index-dependent assignment in a known empty
-loop is excluded even when a particular instance would compile. Empty loops
+under `SPARK_Mode (On)`. Thus an assignment depending on an index whose inferred
+interval is empty is excluded even when a particular instance would compile. Empty loops
 may still contain assignments whose RHS has a nonempty interval. Assignment
 and scalar guards do not narrow mutable ranges. Thus `X : Integer range 0 .. 9
 := 0` permits `X := (9 - X)`, but excludes `X := (X + 1)` even after a reset
