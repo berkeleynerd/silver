@@ -64,7 +64,7 @@ theorem scalarConstraintAt_bounded (text : Source) (position : Nat)
       have highPositive : (ScalarExpression.read text
           (fixedAfter text (ScalarExpression.read text (fixedAfter text position "range" true) names).after ".." false) names).after ≠ 0 := by
         intro zero
-        exact good (Or.inr (Or.inl zero))
+        exact good (Or.inr (Or.inr (Or.inl zero)))
       obtain ⟨low, lowRead⟩ := ScalarExpression.read_sound range lowPositive
       obtain ⟨high, highRead⟩ := ScalarExpression.read_sound delimiter highPositive
       exact ⟨(Integer.Expr.infer_bounded lowRead.inferred).1,

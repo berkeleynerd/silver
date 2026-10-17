@@ -943,6 +943,7 @@ def scalarConstraintBody : Expr .scalarConstraint :=
   let position : Expr .number := .variable "position"
   let names : Expr .scalarNames := .variable "scalar_names"
   let rangeAfter : Expr .number := .variable "range_after"
+  let delimiterAfter : Expr .number := .variable "delimiter_after"
   let low : Expr .scalarResult := .variable "low"
   let high : Expr .scalarResult := .variable "high"
   let take (p : Expr .number) (t : ShellToken) := Expr.app (.app (.app (.function .takeToken) text) p) (.token t)
@@ -951,11 +952,13 @@ def scalarConstraintBody : Expr .scalarConstraint :=
   let upper (v : Expr .scalarResult) := Expr.field .intervalUpper (.field .scalarBounds v)
   .locals <| .local "range_after" "literal_position" (take position (.word "range")) <|
     .local "low" "scalar_expressions.expression_result" (read rangeAfter) <|
-    .local "high" "scalar_expressions.expression_result" (read (take (.field .scalarAfter low) (.symbol ".."))) <|
+    .local "delimiter_after" "literal_position" (take (.field .scalarAfter low) (.symbol "..")) <|
+    .local "high" "scalar_expressions.expression_result" (read delimiterAfter) <|
     .group <| .ite (.eq rangeAfter (.number 0)) (.constraint position .fullInterval) <|
       .elsif
-        (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
+        (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
           (.eq (.field .scalarAfter low) (.number 0))
+          (.eq delimiterAfter (.number 0)))
           (.eq (.field .scalarAfter high) (.number 0)))
           (.not (.field .scalarStatic low))) (.not (.field .scalarStatic high)))
           (.app (.function .scalarEmpty) (.field .scalarBounds low)))

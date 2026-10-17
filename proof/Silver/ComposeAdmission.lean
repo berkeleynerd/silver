@@ -379,8 +379,9 @@ def scalarConstraintAt (text : Source) (position : Nat)
   let rangeAfter := fixedAfter text position "range" true
   if rangeAfter = 0 then ⟨position, .full⟩ else
     let lower := ScalarExpression.read text rangeAfter names
-    let upper := ScalarExpression.read text (fixedAfter text lower.after ".." false) names
-    if lower.after = 0 ∨ upper.after = 0 ∨ lower.isStatic = false ∨ upper.isStatic = false ∨
+    let delimiter := fixedAfter text lower.after ".." false
+    let upper := ScalarExpression.read text delimiter names
+    if lower.after = 0 ∨ delimiter = 0 ∨ upper.after = 0 ∨ lower.isStatic = false ∨ upper.isStatic = false ∨
         lower.bounds.isEmpty = true ∨ upper.bounds.isEmpty = true ∨
         lower.bounds.lower ≠ lower.bounds.upper ∨ upper.bounds.lower ≠ upper.bounds.upper ∨
         upper.bounds.lower < lower.bounds.lower
