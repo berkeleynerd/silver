@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Research reports a full stop; final independent review pending.** The
+**Research complete at a full stop; publication pending.** The
 [scope](docs/unbounded-programs.md) and
 [milestone 5](https://github.com/berkeleynerd/silver/milestone/5) pursue removal of
 unnecessary Silver capacity limits. The operational objective is resource-driven
@@ -42,18 +42,22 @@ The [result](docs/research/unbounded-feasibility-result.md) identifies a
 source-derived frontend representation stop for the intended String composition
 domain. Targeted Linux Ada medium/large-model builds improve the backend evidence
 but do not remove that earlier limit. No complete whole-program source-capacity
-rule has been derived. Independent review and publication of the final result
-remain required before closing research #107/#108.
+rule has been derived. [Independent review](docs/reviews/review-unbounded-feasibility-2b47dd8e27.md)
+is complete, and low wording findings #110/#111 are corrected and verified.
+Research #107/#108 awaits delivery through
+[PR #109](https://github.com/berkeleynerd/silver/pull/109); it does not establish
+feasibility of the intended domain.
 
-The recommended next decision is whether to authorize feasibility research into
+The recommended next decision [#112](https://github.com/berkeleynerd/silver/issues/112)
+is whether to authorize feasibility research into
 wider or lazy semantics-preserving frontend representations. That direction best
 matches the owner's expansiveness objective, but tractability is unproved and
 no tool change is adopted or started. Retaining the pin would require a complete
 source-sensitive accounting rule and explicit restrictions on some intended
 compositions; a uniform byte cap is not established as the best tractable choice.
 The [scope](docs/unbounded-programs.md#research-conclusion-and-next-decision)
-records the alternatives and stop. Implementation #88–#94 remains Backlog;
-research closure would not complete the parents or milestone 5.
+records the alternatives and stop. Decision #112 and implementation #88–#94 remain
+Backlog; research closure does not complete the parents or milestone 5.
 
 The milestone's work packages, in order:
 

@@ -18,7 +18,9 @@ The [partial feasibility-research handoff](research/unbounded-feasibility-handof
 retains the first source inspection and guarded probes for #107/#108. The
 [Linux continuation result](research/unbounded-feasibility-result.md) now reports
 a source-derived stop for the intended domain on the unchanged frontend and a
-hold on adopting a replacement source rule. Independent review of that result
+hold on adopting a replacement source rule. [Independent review](reviews/review-unbounded-feasibility-2b47dd8e27.md)
+is complete, with its two low wording findings corrected and verified.
+Publication through [PR #109](https://github.com/berkeleynerd/silver/pull/109)
 is pending. This is a research conclusion, not an admitted capability or an
 implementation checkpoint; the [decision below](#research-conclusion-and-next-decision)
 preserves the remaining alternatives.
@@ -106,7 +108,8 @@ medium and large code models. They strengthen the earlier backend evidence;
 they do not solve the frontend materialization limit or establish full-domain
 build feasibility. The [result](research/unbounded-feasibility-result.md)
 keeps those observations, the retained macOS evidence and the lifetime argument
-separate. Final independent review remains pending.
+separate. Independent review is complete, with no remaining material finding;
+the review record preserves the two corrected wording findings.
 
 No complete whole-program source-capacity rule was derived. Physical and
 virtual source-position accounting has a reproducible recurrence, but every
@@ -118,14 +121,15 @@ soundness argument and would exclude some intended otherwise valid compositions.
 Neither candidate is adopted, and incompleteness of this derivation is not proof
 that no tractable rule can exist.
 
-The recommendation is a separately scoped feasibility investigation of wider
+The recommendation, tracked by [owner decision #112](https://github.com/berkeleynerd/silver/issues/112),
+is a separately scoped feasibility investigation of wider
 or lazy, semantics-preserving frontend representations, which best follows the
 owner's expansiveness direction. That recommendation does not establish
 tractability or authorize a toolchain change. Retaining the pin with explicit
 aggregate restrictions is an alternative requiring owner disposition, not a
 silently selected lower cap. Implementation #88–#94 and further tool development
-remain unstarted. Research completion, after review and publication of the
-precise stop, does not complete #91, #93 or milestone 5.
+remain unstarted. Decision #112 remains Backlog. Research completion through
+publication of the reviewed precise stop does not complete #91, #93 or milestone 5.
 
 ## Design
 
@@ -422,7 +426,8 @@ is a defect, not a permitted exception to automatic discharge.
 
 The later [feasibility result](research/unbounded-feasibility-result.md) records
 the completed source/lifetime reasoning and targeted Linux backend evidence,
-with independent review still pending. It preserves the first
+with its completed [independent review](reviews/review-unbounded-feasibility-2b47dd8e27.md).
+It preserves the first
 [handoff](research/unbounded-feasibility-handoff.md) as a partial checkpoint.
 Neither is an implementation or complete proof/test validation checkpoint.
 

@@ -1,6 +1,6 @@
 # Session memory
 
-## 2026-10-17 — Unbounded feasibility conclusion awaiting review
+## 2026-10-17 — Unbounded feasibility research reviewed at a full stop
 
 The authorized Linux continuation of #107/#108 reports a
 [precise research stop](research/unbounded-feasibility-result.md) for the
@@ -11,16 +11,24 @@ source-derived result under the recorded tool/source premise, not a native run
 at that scale. Targeted Linux Ada medium/large-model builds improve the backend
 evidence without removing that frontend constraint. No complete whole-program
 source-capacity rule was derived; its per-construct and phase accounting remains
-open. Independent review and publication of the final conclusion are pending.
+open. [Independent review](reviews/review-unbounded-feasibility-2b47dd8e27.md)
+of frozen target `2b47dd8e27` is complete. Its two low wording findings
+[#110](https://github.com/berkeleynerd/silver/issues/110) and
+[#111](https://github.com/berkeleynerd/silver/issues/111) are corrected and
+verified, with no remaining material finding. Publication through
+[PR #109](https://github.com/berkeleynerd/silver/pull/109) is pending; the issues
+track delivery and closure of this research.
 
 The recommendation is a separately authorized feasibility investigation of wider
-or lazy, semantics-preserving frontend representations. This follows the owner's
+or lazy, semantics-preserving frontend representations, tracked by owner decision
+[#112](https://github.com/berkeleynerd/silver/issues/112). This follows the owner's
 expansiveness direction without claiming that the alternative is already tractable.
 Retaining the pin with source-sensitive aggregate restrictions remains an
 alternative for owner disposition; no lower cap, tool change, new trusted premise
 or Oracle amendment is adopted. Implementation #88–#94 remains Backlog, and
-closing the research children after review would not complete their parents or
-milestone 5. The earlier goal remains complete; no new goal was requested.
+closing the research children at delivery does not complete their parents or
+milestone 5. Decision #112 remains Backlog; this recommendation does not authorize
+the follow-up. The earlier goal remains complete; no new goal was requested.
 
 ## 2026-10-17 — Unbounded feasibility research continued on Linux
 

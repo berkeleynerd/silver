@@ -10,7 +10,7 @@ The owner authorized continuation of the unfinished
 on Linux through a final recommendation or precise full stop, independent review
 and publication. Research #107/#108 is under the existing `main`
 authorization from [PR #106](https://github.com/berkeleynerd/silver/pull/106).
-The partial checkpoint is draft [PR #109](https://github.com/berkeleynerd/silver/pull/109),
+The partial checkpoint began in [PR #109](https://github.com/berkeleynerd/silver/pull/109),
 commit `df4af4588612f8f0b605570a7dd07e5b0c366b2c`. Read its retained evidence
 and remaining hypotheses before any further experiment; issue comments record
 the Linux integration and isolated research lanes. The
@@ -18,10 +18,14 @@ the Linux integration and isolated research lanes. The
 source-derived frontend representation stop for the intended String composition
 domain and the missing complete whole-program source-capacity argument. Linux
 Ada medium/large-model build observations do not remove that frontend limit.
-Final independent review and publication remain pending; the earlier packaging
-review is not acceptance of this result. The proposed follow-up is feasibility
-research into wider or lazy semantics-preserving frontend representations.
-That follow-up and any tool change need separate owner disposition.
+The [final independent review](docs/reviews/review-unbounded-feasibility-2b47dd8e27.md)
+is complete and its two low wording findings are corrected; publication through
+PR #109 remains pending. The earlier packaging review remains separate history.
+The proposed follow-up is feasibility research into wider or lazy
+semantics-preserving frontend representations, tracked by
+[owner decision #112](https://github.com/berkeleynerd/silver/issues/112).
+That decision remains Backlog; the follow-up and any tool change need separate
+owner disposition.
 
 Implementation #88–#94 remains Backlog. No membership, compiler/runtime/proof
 implementation or Oracle change is authorized. The previous For loops and
