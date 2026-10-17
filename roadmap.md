@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Research complete at a full stop; owner disposition required.** The
+**Frontend representation research authorized; implementation not authorized.** The
 [scope](docs/unbounded-programs.md) and
 [milestone 5](https://github.com/berkeleynerd/silver/milestone/5) pursue removal of
 unnecessary Silver capacity limits. The operational objective is resource-driven
@@ -44,20 +44,26 @@ domain. Targeted Linux Ada medium/large-model builds improve the backend evidenc
 but do not remove that earlier limit. No complete whole-program source-capacity
 rule has been derived. [Independent review](docs/reviews/review-unbounded-feasibility-2b47dd8e27.md)
 is complete, and low wording findings #110/#111 are corrected and verified.
-Research #107/#108 is packaged for delivery through
+Research #107/#108 was delivered through
 [PR #109](https://github.com/berkeleynerd/silver/pull/109); it does not establish
 feasibility of the intended domain.
 
-The recommended next decision [#112](https://github.com/berkeleynerd/silver/issues/112)
-is whether to authorize feasibility research into
-wider or lazy semantics-preserving frontend representations. That direction best
-matches the owner's expansiveness objective, but tractability is unproved and
-no tool change is adopted or started. Retaining the pin would require a complete
-source-sensitive accounting rule and explicit restrictions on some intended
-compositions; a uniform byte cap is not established as the best tractable choice.
-The [scope](docs/unbounded-programs.md#research-conclusion-and-next-decision)
-records the alternatives and stop. Decision #112 and implementation #88–#94 remain
-Backlog; research closure does not complete the parents or milestone 5.
+The owner resolved [decision #112](https://github.com/berkeleynerd/silver/issues/112)
+by [authorizing research](docs/session-memory.md#2026-10-17--frontend-representation-feasibility-research-authorized)
+into wider or deferred/lazy semantics-preserving frontend representations.
+One cohesive [work package #113](https://github.com/berkeleynerd/silver/issues/113)
+first inspects available upstream/off-the-shelf alternatives, then compares
+concrete storage designs and the actual Ada/C++/GNATprove interfaces, static
+semantics, same-source assurance, ownership and Linux/Alire/macOS constraints.
+Parallel analyses contribute to one independently reviewed recommendation:
+a concrete candidate and reasoned tractability assessment, or a precise full stop.
+No candidate's tractability, tool adoption or implementation is presumed.
+
+The [research scope](docs/unbounded-programs.md#frontend-representation-feasibility-research)
+keeps this investigation ahead of implementation #88–#94, which remains Backlog.
+Retaining the pin with a source-sensitive rule and explicit aggregate restrictions
+is a comparison alternative; no lower cap is selected. Research completion does
+not complete the parent implementation packages or milestone 5.
 
 The milestone's work packages, in order:
 

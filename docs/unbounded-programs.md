@@ -3,6 +3,11 @@
 **Scope proposal, corrected 2026-10-17; not an admitted capability.** The owner's
 request created [milestone 5](https://github.com/berkeleynerd/silver/milestone/5)
 and scope work [#87](https://github.com/berkeleynerd/silver/issues/87). The
+current [frontend representation research authorization](session-memory.md#2026-10-17--frontend-representation-feasibility-research-authorized)
+selects [#113](https://github.com/berkeleynerd/silver/issues/113), scoped
+[below](#frontend-representation-feasibility-research), after the reviewed
+frontend stop. It authorizes research and publication, not production changes
+or implementation of #88–#94. The earlier
 [planning-correction authorization](session-memory.md#2026-10-17--unbounded-programs-planning-corrections-authorized)
 authorized correction and publication. The subsequent
 [research-only authorization](session-memory.md#2026-10-17--unbounded-programs-feasibility-research-authorized)
@@ -121,15 +126,56 @@ soundness argument and would exclude some intended otherwise valid compositions.
 Neither candidate is adopted, and incompleteness of this derivation is not proof
 that no tractable rule can exist.
 
-The recommendation, tracked by [owner decision #112](https://github.com/berkeleynerd/silver/issues/112),
-is a separately scoped feasibility investigation of wider
-or lazy, semantics-preserving frontend representations, which best follows the
-owner's expansiveness direction. That recommendation does not establish
-tractability or authorize a toolchain change. Retaining the pin with explicit
-aggregate restrictions is an alternative requiring owner disposition, not a
-silently selected lower cap. Implementation #88–#94 and further tool development
-remain unstarted. Decision #112 remains Backlog. Research completion through
-publication of the reviewed precise stop does not complete #91, #93 or milestone 5.
+The owner resolved [decision #112](https://github.com/berkeleynerd/silver/issues/112)
+by authorizing the research-only investigation below. This follows the
+expansiveness direction without establishing tractability or authorizing a
+production toolchain change. Retaining the pin with explicit aggregate
+restrictions remains a comparison alternative, not a silently selected lower
+cap. Implementation #88–#94 remains unstarted. Publication of the reviewed
+#107/#108 stop did not complete #91, #93 or milestone 5.
+
+## Frontend representation feasibility research
+
+The owner's [research-only instruction](session-memory.md#2026-10-17--frontend-representation-feasibility-research-authorized)
+selects one cohesive [work package #113](https://github.com/berkeleynerd/silver/issues/113).
+Parallel analyses contribute to this one deliverable; they are not separate
+implementation increments. The research covers:
+
+- Available upstream and off-the-shelf alternatives: relevant releases,
+  development branches, patches and packaged toolchains, with exact evidence
+  for what exists and what remains an untested proposal.
+- Concrete wider and deferred/lazy representations: the Ada and C/C++ table,
+  index, descriptor, growth, constant-consumer and lowering interfaces, plus
+  the actual GNATprove producer path. Changing one generic index parameter is
+  not assumed to widen every dependent representation.
+- Static evaluation and legality, runtime meaning and same-source assurance:
+  identify the semantic/correspondence and automatic-discharge obligations for
+  each candidate, without substituting a different author source or accepting
+  an unproved larger-language guarantee.
+- Ownership and trust: distinguish external compiler dependencies from
+  Silver-owned compiler/runtime work under the verified-SPARK rule. Identify
+  actual policy conflicts or required Oracle amendments explicitly; calling
+  a maintained fork external does not establish an exemption.
+- Linux and Alire integration, distribution and maintenance constraints,
+  with macOS constraints and evidence recorded independently. Native macOS
+  validation remains nonblocking for the Linux research result.
+- Proportionate isolated experiments for named unresolved hypotheses, after
+  source inspection and retained evidence. Record inputs, tool identities,
+  resource safeguards and outcomes; preserve failed and successful evidence.
+
+Completion requires a reproducible comparison and concrete recommendation,
+the relevant interfaces and obligations, a reasoned tractability assessment
+or precise full stop with alternatives, independent review and dispositions,
+publication, and a parent/scope handoff. A promising sketch alone is not the
+deliverable. The conclusion must distinguish source facts, native observations,
+derivations and premises; it does not claim production readiness or universal
+assurance for a changed frontend.
+
+Routine research tracking, documentation, commits and publication are authorized.
+Production toolchain/compiler/runtime/proof changes, pin or membership adoption,
+lower-cap selection, Oracle amendments and implementation #88–#94 are excluded.
+Any next implementation needs its own recorded instruction after the research
+result is concrete and reviewable. No new harness goal was requested.
 
 ## Design
 
