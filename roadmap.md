@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Scope proposal; implementation not authorized.** The
+**Feasibility research continuing; implementation not authorized.** The
 [scope](docs/unbounded-programs.md) and
 [milestone 5](https://github.com/berkeleynerd/silver/milestone/5) pursue removal of
 unnecessary Silver capacity limits. The operational objective is resource-driven
@@ -35,6 +35,16 @@ capacity rule remains a research deliverable, not an established forced maximum.
 A uniform worst-case envelope must be justified against a plausible source-sensitive
 alternative or shown to be the best tractable choice. No Oracle amendment is
 proposed; the proposal cannot silently weaken its guarantee.
+
+The owner [continued the research on Linux](docs/session-memory.md#2026-10-17--unbounded-feasibility-research-continued-on-linux)
+after the [partial handoff](docs/research/unbounded-feasibility-handoff.md).
+Research #107 first resolves source-accounting and allocation/lifetime hypotheses
+and compares a source-sensitive rule with a uniform byte envelope. Research #108
+then integrates those frontend constraints into the static-data/build analysis,
+including semantics-preserving alternatives. Each result needs independent
+review and a published recommendation or precise full stop. The partial package
+does not establish a source-capacity rule or full-domain build feasibility.
+Implementation packages #88–#94 remain Backlog throughout this research.
 
 The milestone's work packages, in order:
 

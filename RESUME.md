@@ -5,6 +5,25 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
+The owner authorized continuation of the unfinished
+[Unbounded programs research](docs/research/unbounded-feasibility-handoff.md)
+on Linux through a final recommendation or precise full stop, independent review
+and publication. Research #107/#108 is in progress under the existing `main`
+authorization from [PR #106](https://github.com/berkeleynerd/silver/pull/106).
+The partial checkpoint is draft [PR #109](https://github.com/berkeleynerd/silver/pull/109),
+commit `df4af4588612f8f0b605570a7dd07e5b0c366b2c`. Read its retained evidence
+and remaining hypotheses before any further experiment; issue comments record
+the Linux integration and isolated research lanes. Complete source-accounting
+reasoning first, then integrate those constraints into static-data feasibility.
+The packaging review does not establish a final feasibility result.
+
+Implementation #88–#94 remains Backlog. No membership, compiler/runtime/proof
+implementation or Oracle change is authorized. The previous For loops and
+integers goal remains complete; no new harness goal was requested. Preserve
+the prior installation, worktrees, caches and all raw evidence. The completed
+capability and validation records below remain historical context for this
+research, not evidence that a larger language is supported.
+
 The [review-b79b986403 repairs](docs/review-b79b986403-repairs.md) are complete
 on Linux x86_64, with delivery through [PR #86](https://github.com/berkeleynerd/silver/pull/86).
 Source/proof/test commit `78cf419452` explicitly rejects empty assignment RHS

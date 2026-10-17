@@ -1,5 +1,36 @@
 # Session memory
 
+## 2026-10-17 — Unbounded feasibility research continued on Linux
+
+After receiving the partial [research handoff](research/unbounded-feasibility-handoff.md),
+the owner said **“Proceed”** to continuing #107/#108 through a final
+recommendation or precise full stop, independent review and publication.
+This continues the research-only authorization already recorded on `main`
+through [PR #106](https://github.com/berkeleynerd/silver/pull/106), merge
+`66f55f67c053d761c76eb56b0f55ae3717fe95cd`; it does not authorize implementation.
+The prior claimant released the work, and the successor checked both live
+issue threads before claiming the Linux continuation. The issues carry the
+workspace ownership and current research status.
+
+Complete pinned-frontend source accounting and allocation/lifetime reasoning
+first. Compare a sound source-sensitive capacity rule with a uniform envelope,
+then integrate those constraints into near-limit static-data build feasibility
+and semantics-preserving representation alternatives. Reuse retained evidence;
+new guarded probes must answer named unresolved hypotheses. Preserve distinctions
+between source facts, observed behavior, derivations and trusted premises.
+Independent review must assess the final recommendation, beyond the earlier
+packaging review. Report a justified full stop with its counterevidence and
+alternatives instead of silently selecting a lower cap or weakening assurance.
+
+Implementation #88–#94 remains Backlog. No membership rule, compiler/runtime/proof
+implementation, Oracle amendment or next construct is authorized. The draft
+[PR #109](https://github.com/berkeleynerd/silver/pull/109) preserves the partial
+checkpoint until the research and its review are complete. The earlier For loops
+and integers harness goal remains complete; no new harness goal was requested.
+Linux is primary, with native macOS evidence independent and nonblocking.
+Preserve all worktrees, scratch, evidence, caches and other-host artifacts.
+CLI memory is unavailable and was not updated.
+
 ## 2026-10-17 — Unbounded feasibility research handoff requested
 
 During the research-only pass authorized below, the owner said: "Let's package
