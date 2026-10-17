@@ -22,33 +22,43 @@ The full stop is a lack of a demonstrated permissible complete route, not a
 proof that SPARK implementation is impossible or that every fork requires an
 Oracle amendment. The result explicitly preserves these distinctions.
 
-## Finding L1 — wrong emission-path citation and excerpt (low)
+## Finding L1 — excerpt generator uses the wrong line convention (low)
 
 At the review target,
 [the deferred record](../research/frontend-deferred-storage-feasibility.md)
-line 192 cites `varasm.cc:5628–5635` for the optional String terminator increment.
-The retained `selected-source-ranges.json` lines 288–290 select `5620–5642`, and
-`selected-source-excerpts.txt` faithfully reproduces that range. In exact GCC
-commit `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`, those are integer/vector
-emission lines, not the claimed String path.
+line 192 correctly cites `varasm.cc:5628–5635` for the optional String terminator
+increment. The retained `selected-source-ranges.json` selects `5620–5642`, but
+`audit.py` uses Python `str.splitlines()` to enumerate source lines. GCC source
+contains form-feed characters; `splitlines()` treats those as additional line
+breaks, whereas the cited upstream/GitHub/`rg` line numbers count LF characters.
+Consequently `selected-source-excerpts.txt` puts integer/vector emission code
+under those line numbers and omits the String path this range meant to retain.
+The same convention affects other GCC excerpts after form feeds.
 
-The technical concern is real in the retained complete file: `varasm.cc:5652–5659`
-sets `thissize` from `TREE_STRING_LENGTH`, conditionally increments it for
-`merge_strings`, then passes it to `assemble_string`. The latter's parameter
-is `int` at line 2313. At length `2^31 - 1`, the incremented wide size does not
+The reviewer initially repeated the generator's `splitlines()` mistake and
+proposed changing the document citation. Root challenged that proposed change;
+independent rechecking confirmed 24 form feeds before this path. The document
+citation and selected LF range are correct. The finding is the generated
+excerpt's line convention, not an incorrect technical claim or source pin.
+
+In the retained complete exact-pin file, LF lines `5628–5635` select the String
+case, set `thissize` from `TREE_STRING_LENGTH`, conditionally increment it for
+`merge_strings`, then pass it to `assemble_string`. The latter's parameter is
+`int` at LF line 2305. At length `2^31 - 1`, the incremented wide size does not
 fit that parameter. This confirms the conditional source arithmetic concern;
 it does not establish reachability under the selected Ada flags or a native
 failure, and the research correctly makes neither claim.
 
-Repair the document reference, select an excerpt containing `5646–5663`, and
-regenerate the dependent excerpts/manifests and their hashes. State that the
-incremented size does not fit the `int` parameter, rather than implying that
-the wide `thissize` addition itself overflows. No compiler or large-value probe
-is needed for this correction.
+Repair the audit to number source lines using LF, preserving the document's
+correct source citation and range inputs. Regenerate the dependent excerpts and
+manifests. State that the incremented size does not fit the `int` parameter,
+rather than implying that the wide `thissize` addition itself overflows. No
+compiler or large-value probe is needed for this correction.
 
 **Original disposition:** open when this report was first committed. Any repair
-and verification are recorded separately below; the original finding and target
-remain unchanged.
+and verification are recorded separately below; the original verdict and review
+target remain unchanged. The source-line diagnosis above incorporates root's
+verified counterevidence before delivery of the review.
 
 ## Claims independently checked
 
@@ -60,7 +70,7 @@ remain unchanged.
 | Zero-mantissa optimization | The pinned scanner constructs the power before multiplication. A zero fast path inside the existing semantic-computation branch, after the exponent diagnostic, avoids that construction while preserving syntax-only and real-literal paths. No implementation or semantic proof is claimed. |
 | Deferred builder semantics | Roots reference immutable roots rather than mutable String IDs. The current descriptor remains writable; flushing a chunk is separate from sealing a descriptor. This correctly accounts for `End_String` merely returning `Strings.Last`, captures self-aliasing before mutation and states rollback/lifetime obligations. The existing `Unstore_String_Char` callers are scanner error repair. |
 | Deferred size and complexity | The two-chain representation can share two leaves and 60 equal-height concatenation roots. The counts are explicitly symbolic and exclude unrelated descriptors, tokens, spare capacity and downstream materialization. Balanced joins, cached lengths and cursors support the stated asymptotics; exact equality still may traverse all characters. |
-| Raw ABI and backend boundary | Current C readers directly index the exported pools. An opaque accessor/cursor interface requires coherent Ada/C changes; it cannot be installed as an old-layout object replacement. The retained GCC constructor takes unsigned length and stores signed length, so the appended NUL alone is not an overflow at the stated Character endpoint. The separate emission caveat is valid, subject to L1's citation repair. |
+| Raw ABI and backend boundary | Current C readers directly index the exported pools. An opaque accessor/cursor interface requires coherent Ada/C changes; it cannot be installed as an old-layout object replacement. The retained GCC constructor takes unsigned length and stores signed length, so the appended NUL alone is not an overflow at the stated Character endpoint. The separate emission caveat is valid, subject to L1's excerpt repair. |
 | Separate GNATprove frontend | The retained release recipe selects floating `fsf-16` sources and copies GCC Ada sources into `gnat2why/gnat_src`. Changing `gnat_native` alone does not update that frontend. The inspected branch snapshot is expressly not asserted to be the installed archive's exact source. |
 | Producer identity obstruction | The exact inspected `Transform_String_Literal` path constructs one fresh comparison call per Character. The builder appends to a vector indexed by `Why_Node_Id`, whose nonzero identity space has `2^30 - 1` entries. A fresh length-`2^30` literal reaching this path requires more comparison identities than available, before its other nodes. The cache and wide-character branches do not refute the conditional claim. No near-limit tool failure is asserted. |
 | Available alternatives | The negative conclusion is confined to the inspected pinned GCC components, bounded history, Alire index, GNAT LLVM source route and SPARK snapshots. It is not a claim about all vendors, all patches or every external solution. The GNAT LLVM route does not replace the earlier Ada frontend phase. |
