@@ -243,6 +243,15 @@
   ],
   "source_hash_mismatches": 0,
   "arithmetic_discriminators_checked": 3885,
+  "range_arithmetic_discriminators": {
+    "checked": 2730,
+    "maximum_tested_operand_bits": 1025,
+    "disjoint_computed_range": [
+      4294967296,
+      4294967296
+    ],
+    "scope": "endpoint arithmetic only; not query/caller coverage"
+  },
   "current_exponent_ceiling": 4096,
   "proposed_exponent_ceiling": 799999,
   "unsigned_scalar_numeral_magnitude_ceiling": 2147483648,
@@ -1851,6 +1860,37 @@
     "growing_slot_copy_events_per_operator": 0,
     "scope": "one local expansion of a resolved nonstatic Standard.Integer +,-,*,unary-minus; strict backend overflow; no widening parent, validity operands, Universal_Integer or other scalar types; excludes prior semantic work and surrounding generated constructs",
     "argument": "retained-value-capacity.md#normalized-native-integer-operator-expansion"
+  },
+  "scalar_range_inference": {
+    "leaf_magnitude_exponent": 31,
+    "negation_exponent": "w(child)",
+    "addition_subtraction_exponent": "max(w(left), w(right)) + 1",
+    "multiplication_exponent": "w(left) + w(right)",
+    "digit_words_per_endpoint": "ceil((w(expression) + 1) / 15)",
+    "local_operation_charges": {
+      "negation": {
+        "uint_entries": 2,
+        "digit_words": "2*k",
+        "local_vector_words": "k"
+      },
+      "addition": {
+        "uint_entries": 2,
+        "digit_words": "2*k",
+        "local_vector_words": "5*k+3"
+      },
+      "subtraction": {
+        "uint_entries": 4,
+        "digit_words": "4*k",
+        "local_vector_words": "5*k+3"
+      },
+      "multiplication_and_save": {
+        "uint_entries": 6,
+        "digit_words": "6*k",
+        "local_vector_words": "4*k"
+      }
+    },
+    "scope": "one range query over a pure scalar expression tree with leaf/type magnitudes <=2**31; capture initializers must be unfolded; excludes other generated forms and query multiplicity",
+    "argument": "retained-value-capacity.md#temporary-values-in-scalar-range-inference"
   },
   "parser_scan_state_text_matches": [
     {

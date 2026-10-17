@@ -24,7 +24,8 @@ RANGES = {
     "itypes.adb": [(45, 85)],
     "par-ch4.adb": [(2561, 2660)],
     "sem_attr.adb": [(1571, 1618), (8724, 8745), (9717, 9748)],
-    "sem_ch3.adb": [(5138, 5145), (14339, 14477), (15317, 15498),
+    "sem_ch3.adb": [(4823, 4829), (5138, 5145), (5320, 5336),
+                    (14339, 14477), (15317, 15498),
                     (19080, 19214), (20712, 20761), (22704, 22719),
                     (23008, 23038), (23110, 23133)],
     "sem_ch4.adb": [(1916, 1965), (2067, 2141)],
@@ -33,7 +34,7 @@ RANGES = {
     "sem_ch6.adb": [(3738, 3768), (5442, 5500), (5565, 5623)],
     "sem_eval.adb": [(2342, 2443), (2454, 2534), (5118, 5144), (5293, 5308)],
     "sem_res.adb": [(2545, 2551), (4861, 4879), (9360, 9368),
-                    (9732, 9745), (10570, 10619), (10804, 10832),
+                    (9732, 9745), (10570, 10619), (10767, 10832),
                     (11875, 11929), (12039, 12120), (13145, 13170),
                     (13205, 13337)],
     "sem_util.adb": [(10380, 10408)],
@@ -61,7 +62,7 @@ def main():
         digest = hashlib.sha256(data).hexdigest()
         assert digest == expected[name]["sha256"], name
         assert len(data) == expected[name]["bytes"], name
-        lines = data.decode().splitlines()
+        lines = data.decode().split("\n")
         records.append({"path": name, "bytes": len(data), "sha256": digest,
                         "ranges": ranges})
         for first, last in ranges:

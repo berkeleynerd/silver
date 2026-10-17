@@ -12,7 +12,7 @@ language, catalogue, proof artifacts, Oracle and tool pins are unchanged.
 
 The components use GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`.
 The [reproducer and output](../evidence/unbounded-programs/retained-value-capacity-20261017/README.md)
-verify 27 inspected files against the retained complete-tree manifest and
+verify 34 inspected files against the retained complete-tree manifest and
 evaluate the arithmetic below. Applying source conclusions to an installed
 compiler retains the [existing correspondence premise](unbounded-frontend-lifetimes.md#reproducible-scope-and-premises).
 Nothing here establishes the separate GNATprove producer's exact source identity
@@ -105,6 +105,44 @@ characters. The earlier retained-value obstruction was a **lower** bound of
 `2^31`; these are different claims. Neither number is a selected admission cap.
 Exact tail tracking could reduce the upper charge, but needs complete allocation
 order, including the parser's up-front scanning and selected dependencies.
+
+### Main lexical and static-value aggregate
+
+The [Main entity derivation](retained-frontend-entities.md#literal-allocation-and-re-entry)
+closes the semantic traversal multiplicity for this grammar under GNATprove
+light expansion: each original concat can fold at most once, name references
+follow existing values, and no admitted context copies a String expression for
+semantic replay. Combine that argument with the literal-scan bound below.
+Let `S` count source String literals, `L` sum their decoded lengths, `A` count
+source concatenations, and `P <= floor(A/1000)` count parser flattening events.
+For each source concat `a`, let `len(a)` be a sound upper bound on its result
+length at the point of evaluation. Then the allocations from Main's lexical
+Strings, parser flattening and ordinary static String evaluation satisfy:
+
+```text
+descriptors <= 2*S + P + A
+characters  <= 3*L + sum(a in source concats, len(a))
+```
+
+The lexical contribution is at most `2*S` descriptors and `2*L` characters.
+Disjoint flattened chains add `P` descriptors and at most `L` characters. Each
+original semantic concat adds at most one descriptor and `len(a)` characters.
+Artificial parser replacement concats have empty left operands and add neither
+descriptors nor characters, even though the entity count separately charges
+their replacement literal nodes. Charging original concat results that were
+flattened away is conservative. A tighter implementation may select the
+parser alternative with its established syntactic conditions.
+
+Literal resolution creates type entities, not another Stringt character value;
+`Fold_Str` keeps the existing String_Id (`sem_eval.adb:5118–5144`). The resolver's
+other String constructors are guarded by user-defined literal aspects
+(`sem_res.adb:471–590`), absent from the admitted predefined types. The reviewed
+light-expansion routes for assignments, calls, Image and Length introduce no
+additional ordinary static String evaluation. This aggregate is restricted to
+these Main value-producing routes: initialization, fixed dependencies,
+diagnostic text, native generated code and producer serialization remain
+separate contributions. It is not a bound on every String allocation in the
+complete compiler process.
 
 ### String representation premises
 
@@ -306,6 +344,67 @@ clones, enclosing checks/conversions, generated concat/Image code, metadata and
 phase observer state remain separate. The count of actual expansions must come
 from the source-to-event derivation; simply substituting source operator count
 without proving its multiplicity would be unsound.
+
+### Temporary values in scalar range inference
+
+Do not apply the three-digit final-Integer charges to every semantic range
+query. `Determine_Range` initially reads the scalar type's bounds, but if its
+computed arithmetic range is disjoint from those bounds it returns the computed
+range unchanged (`checks.adb:5559–5618`). Thus the final language value range
+alone does not bound the tool's temporary endpoints. This matters even without
+introducing another numeric type.
+
+For a pure scalar expression tree whose leaves and type bounds have absolute
+value at most `2^31`, define a magnitude exponent using mathematical integers:
+
+```text
+w(leaf)  = 31
+w(-e)    = w(e)
+w(a+b)   = max(w(a), w(b)) + 1
+w(a-b)   = max(w(a), w(b)) + 1
+w(a*b)   = w(a) + w(b)
+k(e)     = ceil((w(e) + 1) / 15)
+```
+
+One `Determine_Range` query over this tree has endpoint/intermediate magnitudes
+at most `2^w(e)`, requiring at most `k(e)` base-32768 digits. The induction covers
+both normal and reversed endpoint pairs: addition/subtraction combine two
+bounded endpoints; multiplication computes four bounded products and selects
+their extrema; negation preserves magnitude. Retaining, intersecting or selecting
+between a computed range and the original 32-bit type bounds cannot increase
+this envelope. A cache hit returns a value with the same premise; no cache-hit
+credit is needed. The nonnegative exponent calculation avoids materializing
+the large bound itself.
+
+This includes the numeric operations directly performed by
+`Compute_Range_For_Arithmetic_Op` for the admitted operators
+(`checks.adb:4620–4660,4817–4820,4845–4872,4906–4908`). Given `k` bounding its
+operands and results, local append-only charges are:
+
+| Operation in one range-computation invocation | Uint entries | Digit words | Local vector words |
+| --- | ---: | ---: | ---: |
+| Unary minus: two endpoint negations | at most 2 | at most `2k` | at most `k` |
+| Addition: two endpoint additions | at most 2 | at most `2k` | at most `5k+3` |
+| Subtraction: two endpoint subtractions | at most 4 | at most `4k` | at most `5k+3` |
+| Multiplication: four endpoint products, then save low/high | at most 6 | at most `6k` | at most `4k` |
+
+The multiplication charge counts all four products and two possible save
+copies even though `Release_And_Save` reclaims the intervening pool. Minimum and
+maximum select existing Uint values. The local-vector bounds follow the Uint
+primitive allocation lengths already described; the two-value save has at most
+`2k` vector words and is covered by `4k`. Their index arithmetic still requires
+the ordinary checked dimension obligations.
+
+For a single query, sum these charges over the actual expression visits; do not
+assume one query per source node. Internally generated capture constants are
+special: `Determine_Range` follows their initializers (`checks.adb:5133–5159`).
+They must be unfolded into this tree or handled by a separate transfer with
+known initializer bounds. Source static constants can use their already known
+Integer value, while ordinary source objects/indexes use their declared type
+bounds. Length attributes, generated conversions, wider types, dependencies and
+other compiler queries are outside this restricted tree argument. This closes
+the local magnitude/operation component, not caller multiplicity or total Uint
+demand for Main.
 
 ### Reproduced discriminators
 

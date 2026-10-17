@@ -1384,6 +1384,18 @@ GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. LF line numbering; full files ha
   9748       -- Integer_Value --
 ```
 
+## sem_ch3.adb:4823–4829
+
+```ada
+  4823          elsif Is_Scalar_Type (T)
+  4824            and then Is_Entity_Name (E)
+  4825            and then Is_Known_Valid (Entity (E))
+  4826            and then In_Subrange_Of (Etype (Entity (E)), T)
+  4827          then
+  4828             Set_Is_Known_Valid (Id);
+  4829             Set_Actual_Subtype (Id, Etype (Entity (E)));
+```
+
 ## sem_ch3.adb:5138–5145
 
 ```ada
@@ -1395,6 +1407,28 @@ GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. LF line numbering; full files ha
   5143                   Related_Id    => Related_Id);
   5144
   5145                Act_T := Find_Type_Of_Object (Object_Definition (N), N);
+```
+
+## sem_ch3.adb:5320–5336
+
+```ada
+  5320          --  object is constrained by the defaults, so it is worthwhile
+  5321          --  building the corresponding subtype.
+  5322
+  5323          --  Ada 2005 (AI-363): If the aliased object is discriminated and
+  5324          --  unconstrained, then only establish an actual subtype if the
+  5325          --  nominal subtype is indefinite. In definite cases the object is
+  5326          --  unconstrained in Ada 2005.
+  5327
+  5328          if No (E)
+  5329            and then Is_Record_Type (T)
+  5330            and then not Is_Constrained (T)
+  5331            and then Has_Discriminants (T)
+  5332            and then (Ada_Version < Ada_2005
+  5333                       or else not Is_Definite_Subtype (T))
+  5334          then
+  5335             Set_Actual_Subtype (Id, Build_Default_Subtype (T, N));
+  5336          end if;
 ```
 
 ## sem_ch3.adb:14339–14477
@@ -2934,9 +2968,46 @@ GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. LF line numbering; full files ha
  10619    end Resolve_Op_Concat;
 ```
 
-## sem_res.adb:10804–10832
+## sem_res.adb:10767–10832
 
 ```ada
+ 10767    -- Resolve_Op_Concat_First --
+ 10768    -----------------------------
+ 10769
+ 10770    procedure Resolve_Op_Concat_First (N : Node_Id; Typ : Entity_Id) is
+ 10771       Btyp : constant Entity_Id := Base_Type (Typ);
+ 10772       Op1  : constant Node_Id := Left_Opnd (N);
+ 10773       Op2  : constant Node_Id := Right_Opnd (N);
+ 10774
+ 10775    begin
+ 10776       --  The parser folds an enormous sequence of concatenations of string
+ 10777       --  literals into "" & "...", where the Is_Folded_In_Parser flag is set
+ 10778       --  in the right operand. If the expression resolves to a predefined "&"
+ 10779       --  operator, all is well. Otherwise, the parser's folding is wrong, so
+ 10780       --  we give an error. See P_Simple_Expression in Par.Ch4.
+ 10781
+ 10782       if Nkind (Op2) = N_String_Literal
+ 10783         and then Is_Folded_In_Parser (Op2)
+ 10784         and then Ekind (Entity (N)) = E_Function
+ 10785       then
+ 10786          pragma Assert (Nkind (Op1) = N_String_Literal  --  should be ""
+ 10787                and then String_Length (Strval (Op1)) = 0);
+ 10788          Error_Msg_N ("too many user-defined concatenations", N);
+ 10789          return;
+ 10790       end if;
+ 10791
+ 10792       Set_Etype (N, Btyp);
+ 10793
+ 10794       if Is_Limited_Composite (Btyp) then
+ 10795          Error_Msg_N ("concatenation not available for limited array", N);
+ 10796          Explain_Limited_Type (Btyp, N);
+ 10797       end if;
+ 10798    end Resolve_Op_Concat_First;
+ 10799
+ 10800    ----------------------------
+ 10801    -- Resolve_Op_Concat_Rest --
+ 10802    ----------------------------
+ 10803
  10804    procedure Resolve_Op_Concat_Rest (N : Node_Id; Typ : Entity_Id) is
  10805       Op1  : constant Node_Id := Left_Opnd (N);
  10806       Op2  : constant Node_Id := Right_Opnd (N);

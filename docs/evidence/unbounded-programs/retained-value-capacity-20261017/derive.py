@@ -158,6 +158,49 @@ def check_arithmetic():
     return checked
 
 
+def check_range_arithmetic():
+    """Discriminate endpoint growth, including reversed and disjoint ranges.
+
+    This checks mathematical operations, not frontend reachability or query
+    counts. Source review supplies the transfer and the induction over trees.
+    """
+    checked = 0
+    for left_width in (31, 32, 63, 128, 1024):
+        left_bound = 2**left_width
+        left_ranges = ((-left_bound, left_bound), (left_bound, -left_bound),
+                       (left_bound, left_bound), (-left_bound, -left_bound),
+                       (0, 0), (-1, 1))
+        for lo, hi in left_ranges:
+            assert max(abs(-hi), abs(-lo)) <= left_bound
+            assert max(digits(-hi), digits(-lo)) <= (left_width + 15) // 15
+            checked += 1
+        for right_width in (31, 32, 63, 128, 1024):
+            right_bound = 2**right_width
+            right_ranges = ((-right_bound, right_bound),
+                            (right_bound, -right_bound),
+                            (right_bound, right_bound),
+                            (-right_bound, -right_bound), (0, 0), (-1, 1))
+            for llo, lhi in left_ranges:
+                for rlo, rhi in right_ranges:
+                    products = (llo*rlo, llo*rhi, lhi*rlo, lhi*rhi)
+                    candidates = (
+                        ((llo+rlo, lhi+rhi), max(left_width, right_width)+1),
+                        ((llo-rhi, lhi-rlo), max(left_width, right_width)+1),
+                        (products, left_width+right_width),
+                    )
+                    for values, width in candidates:
+                        assert max(map(abs, values)) <= 2**width
+                        assert max(map(digits, values)) <= (width + 15) // 15
+                        checked += 1
+    # Determine_Range's disjoint case must retain 2**32, not clamp it to
+    # Standard.Integer. This is a mathematical discriminator, not an Ada run.
+    disjoint = (2**31 + 2**31, 2**31 + 2**31)
+    assert disjoint[0] > 2**31 - 1
+    return {"checked": checked, "maximum_tested_operand_bits": 1025,
+            "disjoint_computed_range": list(disjoint),
+            "scope": "endpoint arithmetic only; not query/caller coverage"}
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("source_root", type=Path)
@@ -191,6 +234,7 @@ def main():
         "source_hashes": sources,
         "source_hash_mismatches": 0,
         "arithmetic_discriminators_checked": check_arithmetic(),
+        "range_arithmetic_discriminators": check_range_arithmetic(),
         "current_exponent_ceiling": 4096,
         "proposed_exponent_ceiling": 799999,
         "unsigned_scalar_numeral_magnitude_ceiling": MAGNITUDE_MAX,
@@ -232,6 +276,21 @@ def main():
             "growing_slot_copy_events_per_operator": 0,
             "scope": "one local expansion of a resolved nonstatic Standard.Integer +,-,*,unary-minus; strict backend overflow; no widening parent, validity operands, Universal_Integer or other scalar types; excludes prior semantic work and surrounding generated constructs",
             "argument": "retained-value-capacity.md#normalized-native-integer-operator-expansion",
+        },
+        "scalar_range_inference": {
+            "leaf_magnitude_exponent": 31,
+            "negation_exponent": "w(child)",
+            "addition_subtraction_exponent": "max(w(left), w(right)) + 1",
+            "multiplication_exponent": "w(left) + w(right)",
+            "digit_words_per_endpoint": "ceil((w(expression) + 1) / 15)",
+            "local_operation_charges": {
+                "negation": {"uint_entries": 2, "digit_words": "2*k", "local_vector_words": "k"},
+                "addition": {"uint_entries": 2, "digit_words": "2*k", "local_vector_words": "5*k+3"},
+                "subtraction": {"uint_entries": 4, "digit_words": "4*k", "local_vector_words": "5*k+3"},
+                "multiplication_and_save": {"uint_entries": 6, "digit_words": "6*k", "local_vector_words": "4*k"},
+            },
+            "scope": "one range query over a pure scalar expression tree with leaf/type magnitudes <=2**31; capture initializers must be unfolded; excludes other generated forms and query multiplicity",
+            "argument": "retained-value-capacity.md#temporary-values-in-scalar-range-inference",
         },
         "parser_scan_state_text_matches": rescan_sites,
         "selected_string_allocation_text_matches": allocations,

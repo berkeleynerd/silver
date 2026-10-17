@@ -107,7 +107,7 @@ the affected closure even if the author grammar is unchanged.
 
 ## Complete grammar obligations
 
-The current derivation has five reusable component records:
+The current derivation has six reusable component records:
 
 | Component | Established contribution | Still required for whole-source capacity |
 | --- | --- | --- |
@@ -115,6 +115,7 @@ The current derivation has five reusable component records:
 | [Values and parsing](retained-value-capacity.md) | Local String/Uint charges; at most two scans per source literal in a valid Main parse | Fixed dependency parsing, semantic reentry and generated value events |
 | [Tables and nodes](retained-table-capacity.md) | Checked allocator transitions, a demand-only backing-capacity envelope, Main line/column charges, exact pinned-source node layout and node/slot/list coupling | Other source-to-demand bounds and auxiliary representation coverage |
 | [Main entities](retained-frontend-entities.md) | Source-sensitive generated entity/type/literal multiplicities under GNATprove light expansion | Fixed dependency entities, native expansion and actual allocation event counts |
+| [Native expansion](retained-native-expansion.md) | Direct String concatenation emitter node/entity/list/Uint charges and source-spine multiplicity | Recursive copying, side-effect removal, generated-action analysis and native helper closure |
 | [GNATprove producer](retained-producer-capacity.md) | Literal node/list/serialization charges, child/declaration/type multiplicities and entity/file/module-count components | Generated entity/type bounds, helper/lifetime costs and complete source correspondence |
 
 These are source-derived components with their own premises and review scope.

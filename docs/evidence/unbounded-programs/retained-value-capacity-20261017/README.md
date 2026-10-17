@@ -42,3 +42,9 @@ The subsequent native scalar component gives local node/list/entity event
 charges for already resolved nonstatic Integer operators under its explicit
 expansion preconditions. It does not price semantic folding or generated helper
 contexts. Its constants are a source derivation, not a measured multiplier.
+
+The scalar range-inference component separately bounds temporary endpoint
+magnitudes and local Uint work. Arithmetic discriminators cover normal/reversed
+endpoint pairs, negation, addition, subtraction and multiplication, including
+disjoint computed bounds larger than Integer. These mathematical checks do not
+establish the number or caller coverage of frontend range queries.
