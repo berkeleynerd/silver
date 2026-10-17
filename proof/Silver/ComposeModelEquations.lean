@@ -3,6 +3,7 @@ module
 public import Silver.ComposeModelRecursion
 public import Silver.ComposeRecognitionEquations
 public import Silver.ComposeNameBridge
+public import Silver.ComposeScalarDenotations
 
 @[expose] public section
 
@@ -195,31 +196,50 @@ private theorem model_definition_stringDeclaration : ∀ text, ValidText text �
   rw [body]
   simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
 
+private theorem model_definition_scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames,
+    ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames →
+    modelCalls.function .scalarConstraint text position scalarNames =
+      scalarConstraintBody.eval modelCalls (Context.locals {text,position,scalarNames}) := by
+  intros
+  rw [scalarConstraint_denotation]
+  dsimp +zetaHave only [scalarConstraintEquation]
+  dsimp +instances only [modelCalls, spelling, isWord, ShellToken.symbol, ShellToken.word, scalarConstraintAt]
+  simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
+
 private theorem model_definition_scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state → modelCalls.function .scalarDeclaration text state arguments =
       scalarDeclarationBody.eval modelCalls (Context.locals {text,state,arguments}) := by
   intro text valid state arguments stateValid
   let parts := scalarDeclarationParts text state
   have body : scalarDeclarationBody.eval modelCalls (Context.locals {text,state,arguments}) =
-      (if (((((((!newNameAllowed text state parts.first parts.after arguments ||
-          decide (parts.typeAfter = 0)) || decide (parts.following ≤ state.position)) ||
-          decide (state.scalarNames.length = ScalarExpression.maxBindings)) ||
-          !parts.value.isStatic) || parts.value.bounds.isEmpty) ||
-          Named.nameIs text parts.first parts.after ("integer".toList.map Char.toNat)) ||
-          decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0)) ||
+      (if !newNameAllowed text state parts.first parts.after arguments ||
+          decide (parts.typeAfter = 0) || decide (parts.constraint.after = 0) ||
+          decide (parts.following ≤ state.position) ||
+          decide (state.scalarNames.length = ScalarExpression.maxBindings) ||
+          parts.value.bounds.isEmpty ||
+          decide (parts.value.bounds.lower ≠ parts.value.bounds.upper) ||
+          decide (parts.value.bounds.lower < parts.constraint.bounds.lower) ||
+          decide (parts.constraint.bounds.upper < parts.value.bounds.upper) ||
+          Named.nameIs text parts.first parts.after ("integer".toList.map Char.toNat) ||
+          decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0) ||
           decide (ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0)
         then invalidState else addScalarBinding state parts) := by
-    dsimp +instances only [scalarDeclarationBody, Expr.eval, Context.locals, Locals.set,
-      modelCalls, Calls.get, Field.get, spelling, isWord, ShellToken.symbol, ShellToken.word]
-    dsimp +instances only [parts, scalarDeclarationParts, scalarDeclarationTypeFirst,
+    rw [scalarDeclaration_denotation]
+    dsimp +zetaHave only [scalarDeclarationEquation]
+    dsimp +instances only [modelCalls, spelling, isWord, ShellToken.symbol, ShellToken.word,
+      parts, scalarDeclarationParts, scalarDeclarationTypeFirst,
       scalarDeclarationTypeAfter, scalarDeclarationValuePosition, declarationFirst, declarationAfter,
       declarationConstantAfter, declarationColonAfter, addScalarBinding]
-    simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
+    simp only [decide_eq_true_eq]
   change scalarDeclarationAt text state arguments = _
   rw [body]
   change (if !newNameAllowed text state parts.first parts.after arguments ||
-      decide (parts.typeAfter = 0 ∨ parts.following ≤ state.position ∨ state.scalarNames.length = maxBindings) ||
-      !parts.value.isStatic || parts.value.bounds.isEmpty ||
+      decide (parts.typeAfter = 0 ∨ parts.constraint.after = 0 ∨
+        parts.following ≤ state.position ∨ state.scalarNames.length = maxBindings) ||
+      parts.value.bounds.isEmpty ||
+      decide (parts.value.bounds.lower ≠ parts.value.bounds.upper ∨
+        parts.value.bounds.lower < parts.constraint.bounds.lower ∨
+        parts.constraint.bounds.upper < parts.value.bounds.upper) ||
       decide (fixedAfter text parts.first "integer" true = parts.after) ||
       decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
         ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0)
@@ -403,6 +423,7 @@ theorem model_definitions (ranges : RangeContracts modelCalls) :
   newName := model_definition_newName
   addBinding := model_definition_addBinding
   stringDeclaration := model_definition_stringDeclaration
+  scalarConstraint := model_definition_scalarConstraint
   scalarDeclaration := model_definition_scalarDeclaration
   declaration := model_definition_declaration
   argument := model_definition_argument
