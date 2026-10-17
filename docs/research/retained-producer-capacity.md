@@ -486,6 +486,61 @@ elements and twenty-eight occurrences**, excluding the two children and any
 frontend `Actions` attached to the connective. Those actions, if present,
 are translated separately and must be charged from the frontend action bound.
 
+### String representation leaves and conversion primitives
+
+For ordinary rank-one Character Strings, every existing array/map/abstract
+index type used here has at most three occurrences (type, name, module), and
+an existing typed identifier has at most six. A fresh static-array or array
+split type costs three nodes, including a directly constructed module; a
+fresh nonstatic abstract String type costs two nodes plus a possible
+memoized entity-module miss (`src/why/why-inter.adb:1158–1224, 1547–1577`).
+Keep that memoized setup in the separate `27E_entities` allowance; the
+three-node map-type charge already includes its direct module.
+
+A regular String binder reconstructs to its identifier or one dereference,
+so `Transform_Identifier` contributes at most one fresh node and ten emitted
+occurrences before any expected-type conversion. For a mutable nonstatic
+String binder, `Mk_Item_Of_Entity` stores its contents and two immutable
+abstract Integer bounds (`src/why/why-gen-binders.adb:888–947`).
+`Array_From_Split_Form` reconstructs the contents, converts each bound once
+to builtin Integer, then calls `of_array` with the three arguments
+(`src/why/why-gen-arrays.adb:412–448`). The bound conversions add at most one
+call each, eight occurrences excluding the existing bound identifier
+(`src/why/why-gen-expr.adb:1987–1996, 2642–2692, 2988–3044`). The return type
+construction costs two nodes and the reconstruction call costs one.
+
+Consequently the nonstatic split-binder String read contributes at most
+**six fresh nodes, three lists, five list elements and forty-eight emitted
+occurrences**, excluding binder/symbol/module setup and expected-type
+conversion. The emitted calculation is `10 + (6+8) + (6+8) + (1+6+3)`:
+contents with optional dereference, two converted bounds, and the
+reconstruction call/identifier/result type. No whole initializer is expanded
+at this read. `Type_Of_Node` on a split array binder may independently construct
+its expected abstract array type; charge those caller-side nodes separately.
+
+Two reusable conversion primitives have simple costs once their arguments
+and cached symbols are supplied (`src/why/why-gen-arrays.adb:311–410`):
+
+| Primitive | Fresh nodes | Lists | Elements | Emitted overhead |
+| --- | ---: | ---: | ---: | ---: |
+| `Array_Convert_To_Base` | 4 | 1 | 1 | at most 10 |
+| `Array_Convert_From_Base`, already normalized Integer bounds | at most 4 | 1 | 3 | at most 10 |
+
+The first includes its fresh split map type and direct module. The second
+includes its fresh abstract type, with a conservative static/nonstatic maximum;
+its ordinary nonstatic case costs three nodes. An overload supplied abstract
+Integer bounds additionally charges each bound's representation conversion;
+the three supplied children otherwise occur once. Array conversion symbols
+are defined in `src/why/why-atree-modules.adb:3297–3323`.
+
+The full `Insert_Array_Conversion` is not yet priced by those primitives.
+In particular, it constructs `From_Split` and `To_Split` **before** its
+same-type return (`src/why/why-gen-expr.adb:1136–1158`). Even a conversion
+that returns its original expression can therefore allocate up to six fresh
+nodes, including two direct map modules, if both source and target are
+nonstatic array representations. Sliding, length/range checks and temporary
+bindings on the nontrivial path remain separate required costs.
+
 ## Declaration, type and module caller closure
 
 The following additional results close invocation multiplicities. They remain

@@ -7345,6 +7345,38 @@
   2747:    end Init_Integer_Module;
 ```
 
+## src/why/why-atree-modules.adb:3297-3323
+
+```ada
+  3297:          --  Symbols for array types
+  3298:
+  3299:          elsif Has_Array_Type (E) then
+  3300:             declare
+  3301:                Ar_Dim : constant Positive := Positive (Number_Dimensions (E));
+  3302:             begin
+  3303:                Insert_Symbol
+  3304:                  (E,
+  3305:                   WNE_To_Array,
+  3306:                   New_Identifier
+  3307:                     (Symb   => NID ("to_array"),
+  3308:                      Module => M,
+  3309:                      Domain => EW_Term,
+  3310:                      Typ    => Get_Array_Theory (E, Relaxed_Init).Ty),
+  3311:                   Relaxed_Init);
+  3312:                Insert_Symbol
+  3313:                  (E,
+  3314:                   WNE_Of_Array,
+  3315:                   New_Identifier
+  3316:                     (Symb   => NID ("of_array"),
+  3317:                      Module => M,
+  3318:                      Domain => EW_Term,
+  3319:                      Typ    => Ty),
+  3320:                   Relaxed_Init);
+  3321:                Insert_Symbol
+  3322:                  (E,
+  3323:                   WNE_Array_Elts,
+```
+
 ## src/why/why-atree-modules.adb:3693-3722
 
 ```ada
@@ -7513,6 +7545,149 @@
     93:       New_Node : Why_Node (Kind);
     94:    begin
     95:       New_Node.Ada_Node := Empty;
+```
+
+## src/why/why-gen-arrays.adb:311-448
+
+```ada
+   311:    function Array_Convert_From_Base
+   312:      (Domain       : EW_Domain;
+   313:       Args         : W_Expr_Array;
+   314:       Ty           : Entity_Id;
+   315:       Relaxed_Init : Boolean) return W_Expr_Id
+   316:    is (New_Call
+   317:          (Domain => Domain,
+   318:           Name   => E_Symb (Ty, WNE_Of_Array, Relaxed_Init),
+   319:           Args   => Args,
+   320:           Typ    => EW_Abstract (Ty, Relaxed_Init => Relaxed_Init)));
+   321:
+   322:    function Array_Convert_From_Base
+   323:      (Domain : EW_Domain;
+   324:       Ty     : Entity_Id;
+   325:       Ar     : W_Expr_Id;
+   326:       First  : W_Expr_Id;
+   327:       Last   : W_Expr_Id) return W_Expr_Id
+   328:    is
+   329:       First_Int    : constant W_Expr_Id :=
+   330:         Insert_Conversion_To_Rep_No_Bool (Domain, Expr => First);
+   331:       Last_Int     : constant W_Expr_Id :=
+   332:         Insert_Conversion_To_Rep_No_Bool (Domain, Expr => Last);
+   333:       Relaxed_Init : constant Boolean := Is_Init_Wrapper_Type (Get_Type (Ar));
+   334:
+   335:    begin
+   336:       return
+   337:         Array_Convert_From_Base
+   338:           (Domain       => Domain,
+   339:            Args         => (1 => Ar, 2 => First_Int, 3 => Last_Int),
+   340:            Ty           => Ty,
+   341:            Relaxed_Init => Relaxed_Init);
+   342:    end Array_Convert_From_Base;
+   343:
+   344:    function Array_Convert_From_Base
+   345:      (Domain : EW_Domain;
+   346:       Ty     : Entity_Id;
+   347:       Ar     : W_Expr_Id;
+   348:       Bounds : W_Expr_Array) return W_Expr_Id
+   349:    is
+   350:       Relaxed_Init     : constant Boolean :=
+   351:         Is_Init_Wrapper_Type (Get_Type (Ar));
+   352:       Converted_Bounds : W_Expr_Array (Bounds'Range);
+   353:    begin
+   354:       for J in Bounds'Range loop
+   355:          Converted_Bounds (J) :=
+   356:            Insert_Conversion_To_Rep_No_Bool (Domain, Expr => Bounds (J));
+   357:       end loop;
+   358:
+   359:       return
+   360:         Array_Convert_From_Base
+   361:           (Domain       => Domain,
+   362:            Args         => Ar & Converted_Bounds,
+   363:            Ty           => Ty,
+   364:            Relaxed_Init => Relaxed_Init);
+   365:    end Array_Convert_From_Base;
+   366:
+   367:    function Array_Convert_From_Base
+   368:      (Domain : EW_Domain; Old_Ar : W_Expr_Id; New_Base : W_Expr_Id)
+   369:       return W_Expr_Id
+   370:    is
+   371:       Ty           : constant W_Type_Id := Get_Type (New_Base);
+   372:       Ty_Ent       : constant Entity_Id := Get_Ada_Node (+Ty);
+   373:       Relaxed_Init : constant Boolean := Is_Init_Wrapper_Type (Ty);
+   374:       Len          : constant Integer :=
+   375:         1 + 2 * Integer (Number_Dimensions (Ty_Ent));
+   376:       Args         : W_Expr_Array (1 .. Len);
+   377:       Count        : Positive := 1;
+   378:    begin
+   379:       Add_Array_Arg (Domain, Args, Old_Ar, Count);
+   380:       Args (1) := New_Base;
+   381:       return
+   382:         Array_Convert_From_Base
+   383:           (Domain       => Domain,
+   384:            Args         => Args,
+   385:            Ty           => Ty_Ent,
+   386:            Relaxed_Init => Relaxed_Init);
+   387:    end Array_Convert_From_Base;
+   388:
+   389:    ---------------------------
+   390:    -- Array_Convert_To_Base --
+   391:    ---------------------------
+   392:
+   393:    function Array_Convert_To_Base
+   394:      (Domain : EW_Domain; Ar : W_Expr_Id) return W_Expr_Id
+   395:    is
+   396:       Ty           : constant W_Type_Id := Get_Type (Ar);
+   397:       Ty_Ent       : constant Entity_Id := Get_Ada_Node (+Ty);
+   398:       Relaxed_Init : constant Boolean := Is_Init_Wrapper_Type (Ty);
+   399:    begin
+   400:       return
+   401:         New_Call
+   402:           (Domain => Domain,
+   403:            Name   => E_Symb (Ty_Ent, WNE_To_Array, Relaxed_Init),
+   404:            Args   => (1 => +Ar),
+   405:            Typ    => EW_Split (Ty_Ent, Relaxed_Init => Relaxed_Init));
+   406:    end Array_Convert_To_Base;
+   407:
+   408:    ---------------------------
+   409:    -- Array_From_Split_Form --
+   410:    ---------------------------
+   411:
+   412:    function Array_From_Split_Form
+   413:      (I           : Item_Type;
+   414:       Domain      : EW_Domain;
+   415:       Ref_Allowed : Boolean := True;
+   416:       Alias       : W_Expr_Id := Why_Empty) return W_Expr_Id
+   417:    is
+   418:       Ty           : constant W_Type_Id := Get_Typ (I.Content.B_Name);
+   419:       Ty_Ent       : constant Entity_Id := Get_Ada_Node (+Ty);
+   420:       Relaxed_Init : constant Boolean := Get_Relaxed_Init (Ty);
+   421:       Len          : constant Integer :=
+   422:         2 * Integer (Number_Dimensions (Ty_Ent));
+   423:       Args         : W_Expr_Array (1 .. Len);
+   424:       Arr          : W_Expr_Id;
+   425:    begin
+   426:       Arr :=
+   427:         Reconstruct_Binder
+   428:           (I.Content.B_Name, I.Content.Mutable, Domain, Ref_Allowed, Alias);
+   429:
+   430:       for Count in 1 .. Integer (Number_Dimensions (Ty_Ent)) loop
+   431:          Args (Count * 2 - 1) :=
+   432:            Insert_Conversion_To_Rep_No_Bool (EW_Term, +I.Bounds (Count).First);
+   433:          Args (Count * 2) :=
+   434:            Insert_Conversion_To_Rep_No_Bool (EW_Term, +I.Bounds (Count).Last);
+   435:       end loop;
+   436:
+   437:       return
+   438:         +Array_Convert_From_Base
+   439:            (Domain       => EW_Term,
+   440:             Args         => Arr & Args,
+   441:             Ty           => Ty_Ent,
+   442:             Relaxed_Init => Relaxed_Init);
+   443:    end Array_From_Split_Form;
+   444:
+   445:    -------------------------------
+   446:    -- Array_Type_Cloned_Subtype --
+   447:    -------------------------------
+   448:
 ```
 
 ## src/why/why-gen-arrays.adb:981-1068
@@ -8111,6 +8286,71 @@
    786:       function New_Is_Moved_Id (Name : W_Identifier_Id) return Opt_Id
 ```
 
+## src/why/why-gen-binders.adb:888-947
+
+```ada
+   888:          end;
+   889:
+   890:       --  If E is in SPARK, decide whether it should be split into multiple
+   891:       --  objects in Why3 or not.
+   892:
+   893:       elsif Entity_In_SPARK (Ty)
+   894:         and then Is_Array_Type (Ty)
+   895:         and then not Is_Static_Array_Type (Ty)
+   896:         and then Is_Mutable_In_Why (E)
+   897:         and then Ekind (E) /= E_Loop_Parameter
+   898:       then
+   899:
+   900:          --  Binders for mutable unconstrained array parameters and objects are
+   901:          --  declared in split form to preserve the bounds through loops and
+   902:          --  procedure calls. That is:
+   903:          --    A : UCArray (Index range <>);
+   904:          --  should be translated as:
+   905:          --    a : ref __split, a__first : Index'Base, a__last : Index'Base
+   906:          --  and
+   907:          --    procedure P (A : in out UCArray);
+   908:          --  should be translated as:
+   909:          --    val p (a : ref __split, a__first : rep, a__last : rep)
+   910:
+   911:          declare
+   912:             Typ    : constant W_Type_Id :=
+   913:               EW_Split (Ty, Relaxed_Init => Obj_Has_Relaxed_Init (E));
+   914:             Name   : constant W_Identifier_Id :=
+   915:               To_Why_Id (E => E, Typ => Typ, Local => Local);
+   916:             Binder : constant Binder_Type :=
+   917:               Binder_Type'
+   918:                 (Ada_Node => E,
+   919:                  B_Name   => Name,
+   920:                  B_Ent    => Null_Entity_Name,
+   921:                  Mutable  => Is_Mutable_In_Why (E),
+   922:                  Labels   => <>);
+   923:             Dim    : constant Positive := Positive (Number_Dimensions (Ty));
+   924:             Bounds : Array_Bounds;
+   925:             Index  : Node_Id := First_Index (Ty);
+   926:          begin
+   927:             for D in 1 .. Dim loop
+   928:                declare
+   929:                   Index_Typ : constant W_Type_Id :=
+   930:                     EW_Abstract (Base_Type (Etype (Index)));
+   931:                begin
+   932:                   Bounds (D).First :=
+   933:                     Attr_Append (Name, Attribute_First, D, Index_Typ);
+   934:                   Bounds (D).Last :=
+   935:                     Attr_Append (Name, Attribute_Last, D, Index_Typ);
+   936:                   Next_Index (Index);
+   937:                end;
+   938:             end loop;
+   939:
+   940:             return
+   941:               (Kind     => UCArray,
+   942:                Local    => Local,
+   943:                Init     => New_Init_Id (Name),
+   944:                Is_Moved => New_Is_Moved_Id (Name),
+   945:                Valid    => New_Valid_Id (Name),
+   946:                Content  => Binder,
+   947:                Dim      => Dim,
+```
+
 ## src/why/why-gen-binders.adb:1082-1125
 
 ```ada
@@ -8430,6 +8670,34 @@
    381:    --------------------------
 ```
 
+## src/why/why-gen-expr.adb:1136-1158
+
+```ada
+  1136:         Domain = EW_Prog
+  1137:         and then not No_Init
+  1138:         and then Need_Check
+  1139:         and then Is_Init_Wrapper_Type (From)
+  1140:         and then not Is_Init_Wrapper_Type (To);
+  1141:
+  1142:       On_Wrapper : constant Boolean :=
+  1143:         Is_Init_Wrapper_Type (From) and Is_Init_Wrapper_Type (To);
+  1144:       From_Split : constant W_Type_Id :=
+  1145:         (if Is_Static_Array_Type (From_Ent)
+  1146:          then From
+  1147:          else EW_Split (From_Ent, Relaxed_Init => On_Wrapper));
+  1148:       To_Split   : constant W_Type_Id :=
+  1149:         (if Is_Static_Array_Type (To_Ent)
+  1150:          then To
+  1151:          else EW_Split (To_Ent, Relaxed_Init => On_Wrapper));
+  1152:
+  1153:       --  Beginning of processing for Insert_Array_Conversion
+  1154:
+  1155:    begin
+  1156:       if To_Ent = From_Ent
+  1157:         and then Is_Init_Wrapper_Type (From) = Is_Init_Wrapper_Type (To)
+  1158:       then
+```
+
 ## src/why/why-gen-expr.adb:1518-1648
 
 ```ada
@@ -8566,7 +8834,7 @@
   1648:    end Insert_Checked_Conversion;
 ```
 
-## src/why/why-gen-expr.adb:1956-1983
+## src/why/why-gen-expr.adb:1956-1996
 
 ```ada
   1956:    function Insert_Cnt_Loc_Label
@@ -8597,6 +8865,19 @@
   1981:    end Insert_Cnt_Loc_Label;
   1982:
   1983:    --------------------------------------
+  1984:    -- Insert_Conversion_To_Rep_No_Bool --
+  1985:    --------------------------------------
+  1986:
+  1987:    function Insert_Conversion_To_Rep_No_Bool
+  1988:      (Domain : EW_Domain; Expr : W_Expr_Id) return W_Expr_Id
+  1989:    is
+  1990:       Rep_Typ : constant W_Type_Id := Base_Why_Type_No_Bool (Expr);
+  1991:    begin
+  1992:       return
+  1993:         Insert_Simple_Conversion
+  1994:           (Domain => Domain, Expr => Expr, To => Rep_Typ);
+  1995:    end Insert_Conversion_To_Rep_No_Bool;
+  1996:
 ```
 
 ## src/why/why-gen-expr.adb:2349-2391

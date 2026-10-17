@@ -165,5 +165,27 @@
         40
       ]
     }
-  ]
+  ],
+  "string_representation_primitives": {
+    "eager_array_conversion_split_type_nodes_max": 6,
+    "excludes": "supplied children except in complete read, binder/symbol/memoized-module setup, expected-type conversion",
+    "from_base_normalized_bounds": {
+      "elements": 3,
+      "lists": 1,
+      "nodes_max": 4,
+      "occurrence_overhead_max": 10
+    },
+    "split_binder_read": {
+      "elements_max": 5,
+      "lists_max": 3,
+      "nodes_max": 6,
+      "occurrences_max": 48
+    },
+    "to_base": {
+      "elements": 1,
+      "lists": 1,
+      "nodes": 4,
+      "occurrence_overhead_max": 10
+    }
+  }
 }
