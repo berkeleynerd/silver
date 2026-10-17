@@ -281,6 +281,41 @@ Concrete paths to resolve against Silver's grammar are:
 | `par-ch3.adb:1145–1222`, subtype-attribute/constraint lookahead; `par-ch5.adb:1769–1805`, loop-parameter recovery | The cited loop rewind follows an invalid subscripted/selected loop parameter; valid Silver's identifier followed by `in` excludes it. Close the constraint helper callers and the other loop-bound/assignment/call scanning paths. |
 | `par-ch6.adb:406–438`, procedure-body lookahead; `par-util.adb` and `par-tchk.adb` helpers | Resolve Main's shell and permitted pragma/context handling, then prove excluded error recovery cannot contribute on admitted source under faithful parsing. |
 
+### A reachable extra scan after `else`
+
+`Else_Should_Be_Elsif` (`par-ch5.adb:1238–1262`) is called after scanning
+`else` (`1321`), including valid programs. If the next token does not start a
+new source line, it scans to an expression terminator and restores the saved
+state. `Token_Class_Eterm` is the enum range from `Tok_Colon_Equal` through
+`Tok_Semicolon` (`scans.ads:126–188,296–297`). Consequently an output call
+written on the same line as `else` can have its entire argument scanned twice:
+
+```ada
+else Silver_IO.Put_Line ("x" & Integer'Image (0E4096));
+```
+
+The lookahead visits the String and numeral before the semicolon; the normal
+call parse scans them again. The scan-state restoration does not release their
+pool entries. For this lookahead invocation, charge one additional literal-scan
+event per String/numeral token in the visited call suffix. In the example, the
+extra contribution is one String descriptor, one character and the
+`0E4096` upper charge above (11 Uint entries and 4,373 digit words). These
+charges exclude the ordinary parse, generated code and other calls.
+
+For an assignment, the lookahead stops at `:=` before scanning its RHS. A
+first `if`, `for` or `null` statement is already an expression terminator;
+its condition, bounds or body is not scanned by this lookahead. A newline
+before the first token skips this lookahead entirely. For valid Silver's
+output-call grammar the semicolon bounds the scan, so this invocation does
+not multiply later statements or nested bodies. It only scans tokens; it
+does not invoke the parser's long-concat flattening transformation.
+
+This is a closed local rescan contribution derived from the pinned source,
+not an executed compiler trace or a complete parser multiplicity bound.
+It refutes treating all literal rescans as erroneous-source recovery and
+shows why whitespace can affect allocation even when the token sequence is
+unchanged. The full parser caller-coverage obligation above remains open.
+
 Successful alias resolution itself does not allocate String characters, but
 `Fold_Str` calls Analyze and Resolve after rewriting (`sem_eval.adb:5118–5144`);
 generated-subtype/check costs and any allocation-producing reentry still need
