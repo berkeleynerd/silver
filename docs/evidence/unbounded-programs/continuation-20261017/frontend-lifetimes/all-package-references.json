@@ -1,0 +1,1987 @@
+[
+  {
+    "path": "ChangeLog-2002",
+    "line": 338,
+    "text": "\tsnames.h sprint.adb sprint.ads stand.adb stand.ads stringt.adb"
+  },
+  {
+    "path": "ChangeLog-2002",
+    "line": 339,
+    "text": "\tstringt.ads stringt.h style.adb style.ads stylesw.adb"
+  },
+  {
+    "path": "ChangeLog-2002",
+    "line": 345,
+    "text": "\ttypes.adb types.ads types.h uintp.adb uintp.ads uintp.h"
+  },
+  {
+    "path": "ChangeLog-2002",
+    "line": 932,
+    "text": "\tsnames.h, sprint.adb, sprint.ads, stringt.adb, stringt.ads,"
+  },
+  {
+    "path": "ChangeLog-2002",
+    "line": 933,
+    "text": "\tstringt.h, style.adb, switch.adb, switch.ads, sysdep.c, system.ads,"
+  },
+  {
+    "path": "ChangeLog-2002",
+    "line": 937,
+    "text": "\ttypes.adb, types.ads, types.h, uintp.ads, urealp.ads, usage.adb,"
+  },
+  {
+    "path": "ChangeLog-2003",
+    "line": 1482,
+    "text": "\tgnatbl.c, init.c, stringt.h, utils.c, utils2.c: Update copyright"
+  },
+  {
+    "path": "ChangeLog-2003",
+    "line": 1841,
+    "text": "\tstringt.h: Update copyright notice. Remove trailing blanks."
+  },
+  {
+    "path": "ChangeLog-2003",
+    "line": 1857,
+    "text": "\tstringt.h: Update copyright notice. Remove trailing blanks."
+  },
+  {
+    "path": "ChangeLog-2003",
+    "line": 1867,
+    "text": "\tstringt.h: Convert to ISO C90 declarations and definitions."
+  },
+  {
+    "path": "ChangeLog-2003",
+    "line": 2245,
+    "text": "\tstringt.adb, stringt.ads, stringt.h, style.ads,"
+  },
+  {
+    "path": "ChangeLog-2003",
+    "line": 2254,
+    "text": "\tttypes.ads, types.ads, types.h, uintp.adb,"
+  },
+  {
+    "path": "ChangeLog-2003",
+    "line": 2255,
+    "text": "\tuintp.ads, uintp.h, uname.adb, urealp.adb,"
+  },
+  {
+    "path": "ChangeLog-2003",
+    "line": 2835,
+    "text": "\tstand.ads, stringt.adb, stringt.ads, style.adb,"
+  },
+  {
+    "path": "ChangeLog-2003",
+    "line": 2844,
+    "text": "\tuintp.adb, uintp.ads, uname.adb, uname.ads,"
+  },
+  {
+    "path": "ChangeLog-2004",
+    "line": 7458,
+    "text": "\t* targparm.adb: Remove dependence on uintp completely. There was"
+  },
+  {
+    "path": "ChangeLog-2005",
+    "line": 2114,
+    "text": "\ts-tasuti.adb, s-traceb.adb, s-traceb.ads, stringt.adb, stringt.ads,"
+  },
+  {
+    "path": "ChangeLog-2005",
+    "line": 2128,
+    "text": "\tttypes.ads, types.adb, uintp.adb, uintp.ads, uname.ads, urealp.ads,"
+  },
+  {
+    "path": "ChangeLog-2005",
+    "line": 2549,
+    "text": "\t* uintp.ads: Introduce constants Uint_11 and Uint_13."
+  },
+  {
+    "path": "ChangeLog-2005",
+    "line": 7101,
+    "text": "\t* stringt.ads, stringt.adb: Handle full UTF-32 range."
+  },
+  {
+    "path": "ChangeLog-2005",
+    "line": 7244,
+    "text": "\t* uintp.h, uintp.ads, uintp.adb: Add new routines UI_To_CC and"
+  },
+  {
+    "path": "ChangeLog-2005",
+    "line": 7990,
+    "text": "\tsinput.ads, stringt.ads, uintp.ads, urealp.ads: Minor clarification to"
+  },
+  {
+    "path": "ChangeLog-2006",
+    "line": 2566,
+    "text": "\t* uintp.adb (Init_Operand): Document that low bound of Vec is always 1,"
+  },
+  {
+    "path": "ChangeLog-2006",
+    "line": 2726,
+    "text": "\t* uintp.adb (Num_Bits): Handle Uint_Int_First specially."
+  },
+  {
+    "path": "ChangeLog-2007",
+    "line": 1685,
+    "text": "\tuintp.adb, validsw.adb, makegpr.adb, a-rbtgso.adb, a-crbtgo.adb,"
+  },
+  {
+    "path": "ChangeLog-2007",
+    "line": 2616,
+    "text": "\tstringt.h, style.ads, styleg.adb, styleg.ads, styleg-c.adb,"
+  },
+  {
+    "path": "ChangeLog-2007",
+    "line": 2622,
+    "text": "\ttypes.h, uintp.h, urealp.h, usage.adb, usage.ads,"
+  },
+  {
+    "path": "ChangeLog-2007",
+    "line": 2755,
+    "text": "\tMakefile.rtl, Makefile.in, config-lang.in, uintp.h, urealp.h,"
+  },
+  {
+    "path": "ChangeLog-2007",
+    "line": 2757,
+    "text": "\ttreeprs.adt, lang-specs.h, cuintp.c, stringt.h, gnatbl.c:"
+  },
+  {
+    "path": "ChangeLog-2007",
+    "line": 2869,
+    "text": "\t* stringt.adb (Store_String_Chars): Optimize by growing the"
+  },
+  {
+    "path": "ChangeLog-2007",
+    "line": 3178,
+    "text": "\t* uintp.adb, a-ztedit.adb, s-wchcon.adb, xnmake.adb, s-wchcon.adb,"
+  },
+  {
+    "path": "ChangeLog-2007",
+    "line": 4159,
+    "text": "\t* sinput-d.adb, sinput-l.adb, stringt.adb, switch-m.adb,"
+  },
+  {
+    "path": "ChangeLog-2007",
+    "line": 5566,
+    "text": "\t* sinput.ads, sinput.adb, uintp.ads, urealp.adb, stringt.adb,"
+  },
+  {
+    "path": "ChangeLog-2007",
+    "line": 9026,
+    "text": "\t* uintp.ads, uintp.adb (UI_Div_Rem): New subprogram, extending previous"
+  },
+  {
+    "path": "ChangeLog-2008",
+    "line": 2497,
+    "text": "\t* uintp.adb (UI_GCD): Fix potential overflow"
+  },
+  {
+    "path": "ChangeLog-2008",
+    "line": 3583,
+    "text": "\t* exp_ch9.adb: Add with and use clause for Stringt."
+  },
+  {
+    "path": "ChangeLog-2008",
+    "line": 4225,
+    "text": "\t* uintp.adb, urealp.adb: Replace calls to Increment_Last + Set with"
+  },
+  {
+    "path": "ChangeLog-2008",
+    "line": 4623,
+    "text": "\tsnames.ads, sprint.adb, stand.ads, stringt.ads,"
+  },
+  {
+    "path": "ChangeLog-2008",
+    "line": 4628,
+    "text": "\tuintp.adb, uintp.ads, utils.c, utils2.c, validsw.ads,"
+  },
+  {
+    "path": "ChangeLog-2008",
+    "line": 6104,
+    "text": "\t* stringt.adb (Write_String_Table_Entry): Handle wide characters"
+  },
+  {
+    "path": "ChangeLog-2008",
+    "line": 6233,
+    "text": "\t* uintp.adb: Used named notation for some confusing calls"
+  },
+  {
+    "path": "ChangeLog-2008",
+    "line": 6461,
+    "text": "\ti-cstrin.ads, uintp.adb, g-catiio.adb, s-vmexta.ads,"
+  },
+  {
+    "path": "ChangeLog-2009",
+    "line": 3138,
+    "text": "\ts-tassta.adb, a-tifiio.adb, a-textio.adb, prj.adb, uintp.adb,"
+  },
+  {
+    "path": "ChangeLog-2009",
+    "line": 10975,
+    "text": "\t* stringt.adb: Likewise."
+  },
+  {
+    "path": "ChangeLog-2009",
+    "line": 10976,
+    "text": "\t* stringt.ads: Likewise."
+  },
+  {
+    "path": "ChangeLog-2009",
+    "line": 11033,
+    "text": "\t* uintp.adb: Likewise."
+  },
+  {
+    "path": "ChangeLog-2009",
+    "line": 11034,
+    "text": "\t* uintp.ads: Likewise."
+  },
+  {
+    "path": "ChangeLog-2009",
+    "line": 11595,
+    "text": "\t* uintp.adb: Minor reformatting."
+  },
+  {
+    "path": "ChangeLog-2010",
+    "line": 1339,
+    "text": "\t* uintp.ads: Expand image buffer to have enough room for 128-bit values"
+  },
+  {
+    "path": "ChangeLog-2010",
+    "line": 5102,
+    "text": "\t* binde.adb, vms_conv.adb, gnatls.adb, s-strxdr.adb, uintp.adb: Remove"
+  },
+  {
+    "path": "ChangeLog-2010",
+    "line": 6734,
+    "text": "\t* uintp.adb (UI_From_CC): Use UI_From_Int, range is sufficient."
+  },
+  {
+    "path": "ChangeLog-2010",
+    "line": 6737,
+    "text": "\t* uintp.ads (UI_From_Dint): Removed, not used."
+  },
+  {
+    "path": "ChangeLog-2010",
+    "line": 6805,
+    "text": "\t* uintp.adb, osint.adb, prj-conf.adb, prj-part.adb, prj.adb: Minor"
+  },
+  {
+    "path": "ChangeLog-2010",
+    "line": 7090,
+    "text": "\t* uintp.adb: Fix scope error in operator call."
+  },
+  {
+    "path": "ChangeLog-2010",
+    "line": 9247,
+    "text": "\t* uintp.h (UI_Lt): Declare."
+  },
+  {
+    "path": "ChangeLog-2010",
+    "line": 9381,
+    "text": "\t* uintp.adb (UI_From_Dint): Remove useless code."
+  },
+  {
+    "path": "ChangeLog-2010",
+    "line": 9383,
+    "text": "\t* uintp.h: Reorder declarations."
+  },
+  {
+    "path": "ChangeLog-2011",
+    "line": 10256,
+    "text": "\t* exp_ch7.adb: Remove with and use clauses for Stringt."
+  },
+  {
+    "path": "ChangeLog-2011",
+    "line": 10330,
+    "text": "\t* sem_elab.adb: And with and use for Uintp."
+  },
+  {
+    "path": "ChangeLog-2011",
+    "line": 10933,
+    "text": "\t* exp_ch5.adb: Remove with and use clauses for Ttypes and Uintp."
+  },
+  {
+    "path": "ChangeLog-2011",
+    "line": 10974,
+    "text": "\t* exp_ch7.adb: Add with and use clauses for Elists, Exp_Ch6, Stringt"
+  },
+  {
+    "path": "ChangeLog-2011",
+    "line": 14629,
+    "text": "\t* uintp.h: Likewise."
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 307,
+    "text": "\t* uintp.adb (UI_Div_Rem): Correct algorithm D to remove potential"
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 802,
+    "text": "\t* uintp.ads: Minor correction of typo in comment."
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 867,
+    "text": "\t* uintp.adb (UI_Div_Rem): Add comment on bug in step D3."
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 2344,
+    "text": "\t* uintp.ads: Minor reformatting."
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 3084,
+    "text": "\t* uintp.adb (UI_To_Int): Add assertion to guard against calling"
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 3551,
+    "text": "\t* uintp.adb: Minor reformatting."
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 4997,
+    "text": "\t* stringt.adb: Minor reformatting."
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 5001,
+    "text": "\t* ali-util.adb, stringt.ads: Minor reformatting."
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 5048,
+    "text": "\tmode, use Stringt Mark and Release to avoid growing the Stringt"
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 5050,
+    "text": "\t* stringt.adb (Strings_Last): New global variable"
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 5053,
+    "text": "\t* stringt.ads (Mark, Release) New procedures."
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 5358,
+    "text": "\t* uintp.adb (UI_Rem): Remove optimizations, as they are complex and are"
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 5410,
+    "text": "\t* uintp.adb (Image_Uint): Use UI_Div_Rem to get quotient and"
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 6038,
+    "text": "\ta-strunb-shared.ads, uintp.adb, a-stwiun-shared.adb,"
+  },
+  {
+    "path": "ChangeLog-2012",
+    "line": 7101,
+    "text": "\t* uintp.ads: Fix minor pasto in comment."
+  },
+  {
+    "path": "ChangeLog-2013",
+    "line": 3656,
+    "text": "\t* checks.adb: Add with and use clause for Stringt."
+  },
+  {
+    "path": "ChangeLog-2013",
+    "line": 3946,
+    "text": "\t* exp_ch6.adb: Add with and use clause for Stringt."
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 596,
+    "text": "\t* uintp.h (UI_Eq): Declare."
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 2274,
+    "text": "\t* uintp.ads, uintp.adb (UI_Image): New functional form."
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 2466,
+    "text": "\t* uintp.adb (Vector_To_Uint): Move from here to..."
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 2467,
+    "text": "\t* uintp.ads (UI_Vector): Make public."
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 11802,
+    "text": "\tStringt.Initialize in all project aware tools."
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 11840,
+    "text": "\t* stringt.adb: Move initialization of Null_String_Id to Initialize"
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 11880,
+    "text": "\t* stringt.adb: Add call to Initialize in package initialization."
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 11914,
+    "text": "\t* stringt.adb: Remove temporary pragma Warnings (Off)."
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 11915,
+    "text": "\t* stringt.ads: Add pragma Elaborate_Body to ensure initialization"
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 11954,
+    "text": "\t* stringt.adb: Set Null_String_Id."
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 11955,
+    "text": "\t* stringt.ads (Null_String_Id): New constant."
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 12145,
+    "text": "\t* exp_ch2.adb: Remove useless 'with' of unit Uintp."
+  },
+  {
+    "path": "ChangeLog-2014",
+    "line": 13283,
+    "text": "\tsystem-vms-ia64.ads, treepr.adb, types.ads, uintp.adb, uname.adb,"
+  },
+  {
+    "path": "ChangeLog-2015",
+    "line": 3622,
+    "text": "\tsem_ch12.adb, a-tifiio.adb, g-dynhta.adb, uintp.adb,"
+  },
+  {
+    "path": "ChangeLog-2016",
+    "line": 752,
+    "text": "\t* uintp.h (UI_No_Uint): Declare."
+  },
+  {
+    "path": "ChangeLog-2016",
+    "line": 1935,
+    "text": "\tand Stringt."
+  },
+  {
+    "path": "ChangeLog-2016",
+    "line": 1977,
+    "text": "\t* sem_ch13.adb Remove with and use clauses for Stringt."
+  },
+  {
+    "path": "ChangeLog-2016",
+    "line": 4685,
+    "text": "\t* uintp.ads: minor whitespace fix in comment."
+  },
+  {
+    "path": "ChangeLog-2016",
+    "line": 4686,
+    "text": "\t* sem_prag.adb, stringt.adb, inline.adb, lib-xref-spark_specific.adb:"
+  },
+  {
+    "path": "ChangeLog-2016",
+    "line": 5085,
+    "text": "\t* stringt.ads, stringt.adb (Append): Add an Append procedure"
+  },
+  {
+    "path": "ChangeLog-2016",
+    "line": 5109,
+    "text": "\t* stringt.adb, exp_ch6.adb, sem_ch13.adb: Minor reformatting."
+  },
+  {
+    "path": "ChangeLog-2016",
+    "line": 5120,
+    "text": "\t* stringt.ads, stringt.adb (String_From_Name_Buffer): Take a"
+  },
+  {
+    "path": "ChangeLog-2017",
+    "line": 5874,
+    "text": "\t* uintp.h (Uints_Ptr): Likewise."
+  },
+  {
+    "path": "ChangeLog-2017",
+    "line": 7328,
+    "text": "\t* lib.adb, namet.adb, nlists.adb, sem.adb, sinput.adb, stringt.adb:"
+  },
+  {
+    "path": "ChangeLog-2017",
+    "line": 7373,
+    "text": "\t* namet.h, scos.h, uintp.h: These files are reaching into the"
+  },
+  {
+    "path": "ChangeLog-2017",
+    "line": 9611,
+    "text": "\t* stringt.ads, stringt.adb, exp_dbug.adb, sem_dim.adb: Remove"
+  },
+  {
+    "path": "ChangeLog-2017",
+    "line": 9785,
+    "text": "\t* uintp.adb (Most_Sig_2_Digits): In case Direct (Right), fetch"
+  },
+  {
+    "path": "ChangeLog-2017",
+    "line": 9790,
+    "text": "\t* uintp.ads: Minor cleanup."
+  },
+  {
+    "path": "ChangeLog-2017",
+    "line": 12624,
+    "text": "\t* uintp.adb, uintp.ads (UI_To_Int, UI_To_CC): Strengthen behavior"
+  },
+  {
+    "path": "ChangeLog-2018",
+    "line": 253,
+    "text": "\t* uintp.ads, uintp.adb (UI_From_Integral): New generic function,"
+  },
+  {
+    "path": "ChangeLog-2019",
+    "line": 933,
+    "text": "\tsinfo.ads, sinput.ads, stringt.ads, targparm.ads, types.ads,"
+  },
+  {
+    "path": "ChangeLog-2019",
+    "line": 936,
+    "text": "\tstringt.h, types.h, uintp.h, urealp.h: Tidy up."
+  },
+  {
+    "path": "ChangeLog-2019",
+    "line": 2435,
+    "text": "\t* stringt.ads, stringt.adb (To_String): New function to convert"
+  },
+  {
+    "path": "ChangeLog-2019",
+    "line": 2838,
+    "text": "\t* inline.adb: Add with clauses for Alloc, Uintp, Table and"
+  },
+  {
+    "path": "ChangeLog-2019",
+    "line": 6226,
+    "text": "\tsem_util.adb, uintp.adb, uintp.ads: Minor reformatting."
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 2033,
+    "text": "\t* uintp.ads (Uint_31): New deferred constant."
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 2692,
+    "text": "\t* uintp.ads (UI_Image_Max): Bump size of buffer to avoid loosing"
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 3484,
+    "text": "\tstringt.adb, stringt.ads, table.adb, table.ads, types.adb,"
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 3485,
+    "text": "\ttypes.ads, uintp.adb, uintp.ads, uname.adb, uname.ads,"
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 4144,
+    "text": "\t* uintp.ads (Uint_127): New constant."
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 4145,
+    "text": "\t* uintp.adb (UI_Power_2): Extednd to 128."
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 9513,
+    "text": "\t* stringt.ads: Remove \"use System;\"."
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 11431,
+    "text": "\tstringt.adb, stringt.ads, switch-c.adb, table.adb, table.ads,"
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 11432,
+    "text": "\tuintp.adb, uintp.ads, urealp.adb, urealp.ads (Tree_Read,"
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 13361,
+    "text": "\t* stringt.adb: Likewise."
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 13362,
+    "text": "\t* stringt.ads: Likewise."
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 13363,
+    "text": "\t* stringt.h: Likewise."
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 13404,
+    "text": "\t* uintp.adb: Likewise."
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 13405,
+    "text": "\t* uintp.ads: Likewise."
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 13406,
+    "text": "\t* uintp.h: Likewise."
+  },
+  {
+    "path": "ChangeLog-2020",
+    "line": 13612,
+    "text": "\tsem_ch5.adb, sem_prag.adb, sem_util.adb, uintp.adb, urealp.adb,"
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 1211,
+    "text": "\t* uintp.adb (Image_String): Use \"for ... of\" loop."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 1212,
+    "text": "\t* uintp.ads (Unegative): New type for negative integers.  We"
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 1571,
+    "text": "\t* uintp.adb (Image_Out): Print No_Uint in a more readable way."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 3596,
+    "text": "\t* uintp.ads, uintp.adb (UI_Is_In_Int_Range): Change the type of"
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 3610,
+    "text": "\t* uintp.ads, uintp.adb: Add assertions."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 3625,
+    "text": "\tassertions in Uintp."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 3763,
+    "text": "\t* uintp.ads, uintp.adb (Present, No): New functions for"
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 3804,
+    "text": "\t* uintp.ads (Upos): Fix this subtype, which was unintentionally"
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 4232,
+    "text": "\t* uintp.ads, types.h: New subtypes of Uint: Valid_Uint, Unat,"
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 6886,
+    "text": "\t* uintp.ads, uintp.adb (UI_To_Unsigned_64): New."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 7829,
+    "text": "\t* uintp.ads (Uint_Entry): Mark components as aliased."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 7830,
+    "text": "\t* uintp.h (Uints_Ptr):  Use correct type."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 11256,
+    "text": "\t* stringt.adb: Likewise."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 11257,
+    "text": "\t* stringt.ads: Likewise."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 11258,
+    "text": "\t* stringt.h: Likewise."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 11291,
+    "text": "\t* uintp.adb: Likewise."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 11292,
+    "text": "\t* uintp.ads: Likewise."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 11293,
+    "text": "\t* uintp.h: Likewise."
+  },
+  {
+    "path": "ChangeLog-2021",
+    "line": 11890,
+    "text": "\t* stringt.ads (Initialize): Fix style in comment."
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 2029,
+    "text": "\t* uintp.adb"
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 3950,
+    "text": "\t* uintp.ads (Uint_256): New deferred constant."
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 4429,
+    "text": "\t* gnatbind.adb (Gnatbind): Add initialize call for Uintp"
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 5915,
+    "text": "\t* uintp.ads (Ubool): Invoke user-defined equality in predicate."
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 7050,
+    "text": "\t* stringt.adb (Write_String_Table_Entry): Use Get_Char_Code."
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 7059,
+    "text": "\t* uintp.adb (UI_To_CC): Guard against illegal inputs; reuse"
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 7092,
+    "text": "\tsigtramp-vxworks.c, uintp.adb: Remove extra whitespace around +,"
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 9975,
+    "text": "\t* stringt.adb: Likewise."
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 9976,
+    "text": "\t* stringt.ads: Likewise."
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 9977,
+    "text": "\t* stringt.h: Likewise."
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 10012,
+    "text": "\t* uintp.adb: Likewise."
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 10013,
+    "text": "\t* uintp.ads: Likewise."
+  },
+  {
+    "path": "ChangeLog-2022",
+    "line": 10014,
+    "text": "\t* uintp.h: Likewise."
+  },
+  {
+    "path": "ChangeLog-2023",
+    "line": 4899,
+    "text": "\tsem_util.adb, sinput.adb, uintp.adb, bcheck.adb, binde.adb,"
+  },
+  {
+    "path": "ChangeLog-2023",
+    "line": 6579,
+    "text": "\t* stringt.adb, stringt.ads, stringt.h, strub.adb, strub.ads: Likewise."
+  },
+  {
+    "path": "ChangeLog-2023",
+    "line": 6587,
+    "text": "\t* types.h, uintp.adb, uintp.ads, uintp.h, uname.adb, uname.ads: Likewise."
+  },
+  {
+    "path": "ChangeLog-2024",
+    "line": 2262,
+    "text": "\t* uintp.ads (Type_Size_For): New function declaration."
+  },
+  {
+    "path": "ChangeLog-2024",
+    "line": 2263,
+    "text": "\t* uintp.adb (Type_Size_For): New function body."
+  },
+  {
+    "path": "ChangeLog-2025",
+    "line": 6733,
+    "text": "\tsem_res.adb, uintp.adb: Remove redundant parentheses inside NOT and ABS"
+  },
+  {
+    "path": "ChangeLog-2025",
+    "line": 7477,
+    "text": "\t* uintp.adb (N_Digits): Refine return subtype, since this routine"
+  },
+  {
+    "path": "accessibility.ads",
+    "line": 29,
+    "text": "with Uintp; use Uintp;"
+  },
+  {
+    "path": "ali-util.adb",
+    "line": 35,
+    "text": "with Stringt;"
+  },
+  {
+    "path": "ali-util.adb",
+    "line": 446,
+    "text": "            Stringt.Mark;"
+  },
+  {
+    "path": "ali-util.adb",
+    "line": 463,
+    "text": "            Stringt.Release;"
+  },
+  {
+    "path": "alloc.ads",
+    "line": 127,
+    "text": "   String_Chars_Initial             : constant := 2_500;      -- Stringt"
+  },
+  {
+    "path": "alloc.ads",
+    "line": 130,
+    "text": "   Strings_Initial                  : constant := 5_00;       -- Stringt"
+  },
+  {
+    "path": "alloc.ads",
+    "line": 136,
+    "text": "   Udigits_Initial                  : constant := 10_000;     -- Uintp"
+  },
+  {
+    "path": "alloc.ads",
+    "line": 139,
+    "text": "   Uints_Initial                    : constant := 5_000;      -- Uintp"
+  },
+  {
+    "path": "atree.ads",
+    "line": 603,
+    "text": "   --  like Set_Some_Field (N, 0), if Some_Field is of (say) type Uintp,"
+  },
+  {
+    "path": "atree.ads",
+    "line": 604,
+    "text": "   --  because Uintp is a subrange that does not include 0."
+  },
+  {
+    "path": "back_end.adb",
+    "line": 41,
+    "text": "with Stringt;       use Stringt;"
+  },
+  {
+    "path": "checks.adb",
+    "line": 64,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "checks.adb",
+    "line": 4684,
+    "text": "                  Mrk : constant Uintp.Save_Mark := Mark;"
+  },
+  {
+    "path": "checks.adb",
+    "line": 4853,
+    "text": "               Mrk : constant Uintp.Save_Mark := Mark;"
+  },
+  {
+    "path": "checks.ads",
+    "line": 42,
+    "text": "with Uintp;  use Uintp;"
+  },
+  {
+    "path": "contracts.adb",
+    "line": 57,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "cstand.adb",
+    "line": 49,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "einfo.ads",
+    "line": 31,
+    "text": "with Uintp;  use Uintp;"
+  },
+  {
+    "path": "err_vars.ads",
+    "line": 31,
+    "text": "with Uintp; use Uintp;"
+  },
+  {
+    "path": "errout.adb",
+    "line": 53,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "errout.ads",
+    "line": 38,
+    "text": "with Uintp;    use Uintp;"
+  },
+  {
+    "path": "erroutc.adb",
+    "line": 45,
+    "text": "with Stringt;  use Stringt;"
+  },
+  {
+    "path": "erroutc.adb",
+    "line": 48,
+    "text": "with Uintp;    use Uintp;"
+  },
+  {
+    "path": "errutil.adb",
+    "line": 35,
+    "text": "with Stringt;  use Stringt;"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 178,
+    "text": "      Uintp_Mark : Uintp.Save_Mark;"
+  },
+  {
+    "path": "eval_fat.ads",
+    "line": 34,
+    "text": "with Uintp;  use Uintp;"
+  },
+  {
+    "path": "exp_aggr.adb",
+    "line": 70,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_aggr.adb",
+    "line": 72,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_atag.ads",
+    "line": 30,
+    "text": "with Uintp; use Uintp;"
+  },
+  {
+    "path": "exp_attr.adb",
+    "line": 69,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_attr.adb",
+    "line": 73,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_cg.adb",
+    "line": 46,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_ch11.adb",
+    "line": 50,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_ch11.adb",
+    "line": 53,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_ch13.adb",
+    "line": 53,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_ch2.adb",
+    "line": 52,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_ch2.adb",
+    "line": 54,
+    "text": "with Uintp;           use Uintp;"
+  },
+  {
+    "path": "exp_ch3.ads",
+    "line": 32,
+    "text": "with Uintp;   use Uintp;"
+  },
+  {
+    "path": "exp_ch4.adb",
+    "line": 76,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_ch5.adb",
+    "line": 64,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_ch5.adb",
+    "line": 67,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_ch6.adb",
+    "line": 80,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_ch7.adb",
+    "line": 69,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_ch9.adb",
+    "line": 70,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_code.adb",
+    "line": 42,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_dbug.adb",
+    "line": 42,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_dbug.adb",
+    "line": 251,
+    "text": "            Umark  : constant Uintp.Save_Mark := Uintp.Mark;"
+  },
+  {
+    "path": "exp_dbug.ads",
+    "line": 34,
+    "text": "with Uintp; use Uintp;"
+  },
+  {
+    "path": "exp_disp.adb",
+    "line": 67,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_disp.ads",
+    "line": 30,
+    "text": "with Uintp; use Uintp;"
+  },
+  {
+    "path": "exp_dist.adb",
+    "line": 51,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_dist.adb",
+    "line": 54,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_fixd.adb",
+    "line": 45,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_imgv.adb",
+    "line": 50,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_imgv.adb",
+    "line": 54,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_intr.adb",
+    "line": 58,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_pakd.adb",
+    "line": 54,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_prag.adb",
+    "line": 54,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_prag.adb",
+    "line": 57,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_put_image.adb",
+    "line": 48,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_put_image.adb",
+    "line": 51,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_smem.adb",
+    "line": 45,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_spark.adb",
+    "line": 59,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_strm.ads",
+    "line": 31,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_unst.adb",
+    "line": 50,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "exp_util.adb",
+    "line": 64,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "exp_util.ads",
+    "line": 35,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "freeze.adb",
+    "line": 69,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "freeze.adb",
+    "line": 74,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "gcc-interface/Make-lang.in",
+    "line": 468,
+    "text": " ada/stringt.o\t\\"
+  },
+  {
+    "path": "gcc-interface/Make-lang.in",
+    "line": 481,
+    "text": " ada/uintp.o\t\\"
+  },
+  {
+    "path": "gcc-interface/Make-lang.in",
+    "line": 660,
+    "text": " ada/stringt.o    \\"
+  },
+  {
+    "path": "gcc-interface/Make-lang.in",
+    "line": 669,
+    "text": " ada/uintp.o      \\"
+  },
+  {
+    "path": "gcc-interface/Makefile.in",
+    "line": 330,
+    "text": " snames.o stand.o stringt.o styleg.o stylesw.o system.o validsw.o \\"
+  },
+  {
+    "path": "gcc-interface/Makefile.in",
+    "line": 331,
+    "text": " switch.o switch-m.o table.o targparm.o tempdir.o types.o uintp.o \\"
+  },
+  {
+    "path": "gcc-interface/cuintp.cc",
+    "line": 26,
+    "text": "/* This file corresponds to the Ada package body Uintp.  It was created"
+  },
+  {
+    "path": "gcc-interface/cuintp.cc",
+    "line": 27,
+    "text": "   manually from the files uintp.ads and uintp.adb.  */"
+  },
+  {
+    "path": "gcc-interface/cuintp.cc",
+    "line": 42,
+    "text": "#include \"uintp.h\""
+  },
+  {
+    "path": "gcc-interface/decl.cc",
+    "line": 49,
+    "text": "#include \"uintp.h\""
+  },
+  {
+    "path": "gcc-interface/misc.cc",
+    "line": 54,
+    "text": "#include \"uintp.h\""
+  },
+  {
+    "path": "gcc-interface/trans.cc",
+    "line": 62,
+    "text": "#include \"stringt.h\""
+  },
+  {
+    "path": "gcc-interface/trans.cc",
+    "line": 63,
+    "text": "#include \"uintp.h\""
+  },
+  {
+    "path": "gcc-interface/utils.cc",
+    "line": 56,
+    "text": "#include \"uintp.h\""
+  },
+  {
+    "path": "gcc-interface/utils2.cc",
+    "line": 54,
+    "text": "#include \"stringt.h\""
+  },
+  {
+    "path": "gcc-interface/utils2.cc",
+    "line": 55,
+    "text": "#include \"uintp.h\""
+  },
+  {
+    "path": "gen_il-gen.adb",
+    "line": 2744,
+    "text": "         Put (S, \"with Uintp;  use Uintp;\" & LF);"
+  },
+  {
+    "path": "gnat1drv.adb",
+    "line": 72,
+    "text": "with Stringt;"
+  },
+  {
+    "path": "gnat1drv.adb",
+    "line": 79,
+    "text": "with Uintp;"
+  },
+  {
+    "path": "gnat1drv.adb",
+    "line": 1020,
+    "text": "      Uintp.Initialize;"
+  },
+  {
+    "path": "gnat1drv.adb",
+    "line": 1025,
+    "text": "      Stringt.Initialize;"
+  },
+  {
+    "path": "gnat1drv.adb",
+    "line": 1530,
+    "text": "      Stringt.Lock;"
+  },
+  {
+    "path": "gnatbind.adb",
+    "line": 53,
+    "text": "with Uintp;"
+  },
+  {
+    "path": "gnatbind.adb",
+    "line": 624,
+    "text": "   Uintp.Initialize;"
+  },
+  {
+    "path": "gnatls.adb",
+    "line": 44,
+    "text": "with Stringt;"
+  },
+  {
+    "path": "gnatls.adb",
+    "line": 47,
+    "text": "with Uintp;"
+  },
+  {
+    "path": "gnatls.adb",
+    "line": 2005,
+    "text": "   Uintp.Initialize;"
+  },
+  {
+    "path": "gnatls.adb",
+    "line": 2007,
+    "text": "   Stringt.Initialize;"
+  },
+  {
+    "path": "gprep.adb",
+    "line": 37,
+    "text": "with Stringt;  use Stringt;"
+  },
+  {
+    "path": "gprep.adb",
+    "line": 40,
+    "text": "with Uintp;"
+  },
+  {
+    "path": "gprep.adb",
+    "line": 173,
+    "text": "      Uintp.Initialize;"
+  },
+  {
+    "path": "gprep.adb",
+    "line": 175,
+    "text": "      Stringt.Initialize;"
+  },
+  {
+    "path": "inline.adb",
+    "line": 57,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "layout.adb",
+    "line": 40,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "lib-util.adb",
+    "line": 28,
+    "text": "with Stringt;  use Stringt;"
+  },
+  {
+    "path": "lib-util.ads",
+    "line": 26,
+    "text": "with Uintp; use Uintp;"
+  },
+  {
+    "path": "lib-writ.adb",
+    "line": 59,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "lib-writ.ads",
+    "line": 720,
+    "text": "   --      For further details, see Stringt.Write_String_Table_Entry. Note that"
+  },
+  {
+    "path": "lib-xref.adb",
+    "line": 49,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "lib.adb",
+    "line": 40,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "make.adb",
+    "line": 46,
+    "text": "with Stringt;"
+  },
+  {
+    "path": "make.adb",
+    "line": 47,
+    "text": "with Uintp;"
+  },
+  {
+    "path": "make.adb",
+    "line": 3679,
+    "text": "      Uintp.Initialize;"
+  },
+  {
+    "path": "make.adb",
+    "line": 3681,
+    "text": "      Stringt.Initialize;"
+  },
+  {
+    "path": "mutably_tagged.adb",
+    "line": 39,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "mutably_tagged.adb",
+    "line": 41,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "par-ch4.adb",
+    "line": 30,
+    "text": "with Stringt; use Stringt;"
+  },
+  {
+    "path": "par-endh.adb",
+    "line": 28,
+    "text": "with Stringt;  use Stringt;"
+  },
+  {
+    "path": "par-endh.adb",
+    "line": 29,
+    "text": "with Uintp;    use Uintp;"
+  },
+  {
+    "path": "par-prag.adb",
+    "line": 37,
+    "text": "with Stringt;  use Stringt;"
+  },
+  {
+    "path": "par-prag.adb",
+    "line": 39,
+    "text": "with Uintp;    use Uintp;"
+  },
+  {
+    "path": "par-util.adb",
+    "line": 29,
+    "text": "with Uintp;    use Uintp;"
+  },
+  {
+    "path": "par.adb",
+    "line": 49,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "pprint.adb",
+    "line": 37,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "prep.adb",
+    "line": 34,
+    "text": "with Stringt;  use Stringt;"
+  },
+  {
+    "path": "prep.adb",
+    "line": 36,
+    "text": "with Uintp;    use Uintp;"
+  },
+  {
+    "path": "prepcomp.adb",
+    "line": 35,
+    "text": "with Stringt;  use Stringt;"
+  },
+  {
+    "path": "repinfo.adb",
+    "line": 47,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "repinfo.adb",
+    "line": 2359,
+    "text": "      --  Bit_And_Expr, for which there is no direct support in uintp. Uint"
+  },
+  {
+    "path": "repinfo.ads",
+    "line": 34,
+    "text": "with Uintp; use Uintp;"
+  },
+  {
+    "path": "restrict.ads",
+    "line": 34,
+    "text": "with Uintp;   use Uintp;"
+  },
+  {
+    "path": "rtsfind.ads",
+    "line": 32,
+    "text": "with Uintp; use Uintp;"
+  },
+  {
+    "path": "scans.ads",
+    "line": 28,
+    "text": "with Uintp;  use Uintp;"
+  },
+  {
+    "path": "scn.adb",
+    "line": 34,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "scng.adb",
+    "line": 35,
+    "text": "with Stringt;  use Stringt;"
+  },
+  {
+    "path": "scng.adb",
+    "line": 37,
+    "text": "with Uintp;    use Uintp;"
+  },
+  {
+    "path": "sem.adb",
+    "line": 58,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_aggr.adb",
+    "line": 63,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_aggr.adb",
+    "line": 69,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_attr.adb",
+    "line": 78,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_attr.adb",
+    "line": 85,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_aux.adb",
+    "line": 33,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_case.adb",
+    "line": 45,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_case.adb",
+    "line": 48,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_ch12.adb",
+    "line": 77,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_ch12.adb",
+    "line": 81,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_ch13.ads",
+    "line": 29,
+    "text": "with Uintp; use Uintp;"
+  },
+  {
+    "path": "sem_ch2.adb",
+    "line": 44,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_ch3.adb",
+    "line": 87,
+    "text": "with Stringt;"
+  },
+  {
+    "path": "sem_ch3.adb",
+    "line": 93,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_ch3.adb",
+    "line": 3972,
+    "text": "              Stringt.To_String (Strval (Expr_Value_S (Def)));"
+  },
+  {
+    "path": "sem_ch4.adb",
+    "line": 70,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_ch5.adb",
+    "line": 67,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_ch6.adb",
+    "line": 87,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_ch6.adb",
+    "line": 91,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_ch7.adb",
+    "line": 72,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_ch8.adb",
+    "line": 77,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_ch9.adb",
+    "line": 69,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_dim.adb",
+    "line": 46,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_dim.adb",
+    "line": 49,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_disp.adb",
+    "line": 57,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_dist.adb",
+    "line": 47,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_dist.adb",
+    "line": 49,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_elab.adb",
+    "line": 62,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_elim.adb",
+    "line": 42,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_eval.adb",
+    "line": 61,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_eval.ads",
+    "line": 37,
+    "text": "with Uintp;  use Uintp;"
+  },
+  {
+    "path": "sem_intr.adb",
+    "line": 42,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_intr.adb",
+    "line": 44,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_prag.adb",
+    "line": 85,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_prag.adb",
+    "line": 92,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_res.adb",
+    "line": 88,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_res.adb",
+    "line": 94,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_type.adb",
+    "line": 53,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_util.adb",
+    "line": 71,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_util.ads",
+    "line": 36,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sem_warn.adb",
+    "line": 51,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sem_warn.adb",
+    "line": 54,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "sinfo.ads",
+    "line": 48,
+    "text": "with Uintp;  use Uintp;"
+  },
+  {
+    "path": "sprint.adb",
+    "line": 47,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "sprint.adb",
+    "line": 48,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 30,
+    "text": "package body Stringt is"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 464,
+    "text": "end Stringt;"
+  },
+  {
+    "path": "stringt.ads",
+    "line": 30,
+    "text": "package Stringt is"
+  },
+  {
+    "path": "stringt.ads",
+    "line": 40,
+    "text": "--  source file must be properly reflected in the C header file stringt.h"
+  },
+  {
+    "path": "stringt.ads",
+    "line": 170,
+    "text": "end Stringt;"
+  },
+  {
+    "path": "stringt.h",
+    "line": 27,
+    "text": "   Stringt.  It also contains the implementations of inlined functions from the"
+  },
+  {
+    "path": "stringt.h",
+    "line": 28,
+    "text": "   package body for Stringt.  It was created manually from stringt.ads and"
+  },
+  {
+    "path": "stringt.h",
+    "line": 29,
+    "text": "   stringt.adb and must be kept synchronized with changes in these files."
+  },
+  {
+    "path": "strub.adb",
+    "line": 37,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "styleg.adb",
+    "line": 40,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "tbuild.adb",
+    "line": 41,
+    "text": "with Stringt;        use Stringt;"
+  },
+  {
+    "path": "tbuild.ads",
+    "line": 32,
+    "text": "with Uintp;          use Uintp;"
+  },
+  {
+    "path": "treepr.adb",
+    "line": 45,
+    "text": "with Stringt;              use Stringt;"
+  },
+  {
+    "path": "treepr.adb",
+    "line": 48,
+    "text": "with Uintp;                use Uintp;"
+  },
+  {
+    "path": "treepr.adb",
+    "line": 523,
+    "text": "            Uintp.pid (From_Union (N));"
+  },
+  {
+    "path": "types.ads",
+    "line": 304,
+    "text": "   --  part of this range is used to store direct values; see Uintp for"
+  },
+  {
+    "path": "types.ads",
+    "line": 361,
+    "text": "   --  Uintp spec for details of the representation of Uint values)."
+  },
+  {
+    "path": "types.ads",
+    "line": 498,
+    "text": "   -- Types for Stringt Package --"
+  },
+  {
+    "path": "types.ads",
+    "line": 502,
+    "text": "   --  are subscripts into the Strings table defined in package Stringt."
+  },
+  {
+    "path": "uintp.adb",
+    "line": 30,
+    "text": "package body Uintp is"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 265,
+    "text": "      Marks  : constant Uintp.Save_Mark := Uintp.Mark;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 450,
+    "text": "      Uintp.Release (Marks);"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 1435,
+    "text": "         M       : constant Uintp.Save_Mark := Uintp.Mark;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 1448,
+    "text": "         Uintp.Release_And_Save (M, Result);"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 1573,
+    "text": "      Marks  : constant Uintp.Save_Mark := Uintp.Mark;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 2426,
+    "text": "end Uintp;"
+  },
+  {
+    "path": "uintp.ads",
+    "line": 29,
+    "text": "--  source file must be properly reflected in the C header file uintp.h"
+  },
+  {
+    "path": "uintp.ads",
+    "line": 36,
+    "text": "package Uintp is"
+  },
+  {
+    "path": "uintp.ads",
+    "line": 39,
+    "text": "   -- Basic Types and Constants for Uintp Package --"
+  },
+  {
+    "path": "uintp.ads",
+    "line": 592,
+    "text": "end Uintp;"
+  },
+  {
+    "path": "uintp.h",
+    "line": 27,
+    "text": "   Uintp.  It was created manually from uintp.ads and must be kept synchronized"
+  },
+  {
+    "path": "uintp.h",
+    "line": 43,
+    "text": "#define UI_Is_In_Int_Range  uintp__ui_is_in_int_range"
+  },
+  {
+    "path": "uintp.h",
+    "line": 47,
+    "text": "#define UI_To_CC uintp__ui_to_cc"
+  },
+  {
+    "path": "uintp.h",
+    "line": 51,
+    "text": "#define UI_From_CC uintp__ui_from_cc"
+  },
+  {
+    "path": "uintp.h",
+    "line": 55,
+    "text": "#define UI_To_Int uintp__ui_to_int"
+  },
+  {
+    "path": "uintp.h",
+    "line": 62,
+    "text": "#define UI_From_Int uintp__ui_from_int"
+  },
+  {
+    "path": "uintp.h",
+    "line": 69,
+    "text": "#define UI_No_Uint uintp__no_uint"
+  },
+  {
+    "path": "uintp.h",
+    "line": 75,
+    "text": "#define UI_Base uintp__base"
+  },
+  {
+    "path": "uintp.h",
+    "line": 84,
+    "text": "#define Vector_To_Uint uintp__vector_to_uint"
+  },
+  {
+    "path": "uintp.h",
+    "line": 88,
+    "text": "#define UI_Eq uintp__ui_eq"
+  },
+  {
+    "path": "uintp.h",
+    "line": 92,
+    "text": "#define UI_Lt uintp__ui_lt"
+  },
+  {
+    "path": "uintp.h",
+    "line": 104,
+    "text": "#define Uints_Ptr uintp__uints__table"
+  },
+  {
+    "path": "uintp.h",
+    "line": 107,
+    "text": "#define Udigits_Ptr uintp__udigits__table"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 403,
+    "text": "      M   : constant Uintp.Save_Mark := Mark;"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 436,
+    "text": "      Uintp.Release_And_Save (M, Num, Den);"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 1021,
+    "text": "            Imrk   : constant Uintp.Save_Mark  := Mark;"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 1219,
+    "text": "            Imrk   : constant Uintp.Save_Mark  := Mark;"
+  },
+  {
+    "path": "urealp.ads",
+    "line": 32,
+    "text": "with Uintp; use Uintp;"
+  }
+]

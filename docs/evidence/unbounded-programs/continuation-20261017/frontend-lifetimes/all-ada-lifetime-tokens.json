@@ -1,0 +1,1087 @@
+[
+  {
+    "path": "ali-util.adb",
+    "line": 446,
+    "text": "            Stringt.Mark;"
+  },
+  {
+    "path": "ali-util.adb",
+    "line": 463,
+    "text": "            Stringt.Release;"
+  },
+  {
+    "path": "checks.adb",
+    "line": 4684,
+    "text": "                  Mrk : constant Uintp.Save_Mark := Mark;"
+  },
+  {
+    "path": "checks.adb",
+    "line": 4731,
+    "text": "                  Release_And_Save (Mrk, Lo, Hi);"
+  },
+  {
+    "path": "checks.adb",
+    "line": 4853,
+    "text": "               Mrk : constant Uintp.Save_Mark := Mark;"
+  },
+  {
+    "path": "checks.adb",
+    "line": 4867,
+    "text": "               Release_And_Save (Mrk, Lo, Hi);"
+  },
+  {
+    "path": "einfo-utils.adb",
+    "line": 2468,
+    "text": "                     Mark : Node_Id := Subtype_Indication (Parent (Id));"
+  },
+  {
+    "path": "einfo-utils.adb",
+    "line": 2470,
+    "text": "                     if Nkind (Mark) = N_Subtype_Indication then"
+  },
+  {
+    "path": "einfo-utils.adb",
+    "line": 2471,
+    "text": "                        Mark := Subtype_Mark (Mark);"
+  },
+  {
+    "path": "einfo-utils.adb",
+    "line": 2473,
+    "text": "                     return Predicate_Function (Entity (Mark));"
+  },
+  {
+    "path": "elists.adb",
+    "line": 317,
+    "text": "      Elists.Release;"
+  },
+  {
+    "path": "elists.adb",
+    "line": 319,
+    "text": "      Elmts.Release;"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 190,
+    "text": "         Uintp_Mark := Mark;"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 208,
+    "text": "         Release_And_Save (Uintp_Mark, D, Exponent);"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 213,
+    "text": "            Uintp_Mark := Mark;"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 246,
+    "text": "            Release_And_Save (Uintp_Mark, Exponent);"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 255,
+    "text": "            Uintp_Mark := Mark;"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 264,
+    "text": "            Release_And_Save (Uintp_Mark, N, D);"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 281,
+    "text": "         Uintp_Mark := Mark;"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 290,
+    "text": "         Release_And_Save (Uintp_Mark, N, Exponent);"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 298,
+    "text": "         Uintp_Mark := Mark;"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 309,
+    "text": "         Release_And_Save (Uintp_Mark, D, Exponent);"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 327,
+    "text": "         Uintp_Mark := Mark;"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 345,
+    "text": "         Release_And_Save (Uintp_Mark, Fraction, N);"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 349,
+    "text": "         Uintp_Mark := Mark;"
+  },
+  {
+    "path": "eval_fat.adb",
+    "line": 412,
+    "text": "         Release_And_Save (Uintp_Mark, Fraction, Exponent);"
+  },
+  {
+    "path": "exp_ch4.adb",
+    "line": 1129,
+    "text": "         Build_Allocate_Deallocate_Proc (Declaration_Node (Temp), Mark => N);"
+  },
+  {
+    "path": "exp_ch4.adb",
+    "line": 1141,
+    "text": "         Build_Allocate_Deallocate_Proc (Declaration_Node (Temp), Mark => N);"
+  },
+  {
+    "path": "exp_ch4.adb",
+    "line": 1150,
+    "text": "         Build_Allocate_Deallocate_Proc (Declaration_Node (Temp), Mark => N);"
+  },
+  {
+    "path": "exp_ch4.adb",
+    "line": 1220,
+    "text": "         Build_Allocate_Deallocate_Proc (Declaration_Node (Temp), Mark => N);"
+  },
+  {
+    "path": "exp_ch6.adb",
+    "line": 9240,
+    "text": "           (Declaration_Node (Return_Obj_Access), Mark => Allocator);"
+  },
+  {
+    "path": "exp_ch7.adb",
+    "line": 2163,
+    "text": "               Release : Node_Id := Build_SS_Release_Call (Loc, Mark_Id);"
+  },
+  {
+    "path": "exp_ch7.adb",
+    "line": 2187,
+    "text": "                        Release :="
+  },
+  {
+    "path": "exp_ch7.adb",
+    "line": 2201,
+    "text": "                            Then_Statements => New_List (Release));"
+  },
+  {
+    "path": "exp_ch7.adb",
+    "line": 2206,
+    "text": "               Append_To (Finalizer_Stmts, Release);"
+  },
+  {
+    "path": "exp_ch7.adb",
+    "line": 4756,
+    "text": "         Mark   : Entity_Id := Empty;"
+  },
+  {
+    "path": "exp_ch7.adb",
+    "line": 4790,
+    "text": "            Mark := Make_Temporary (Loc, 'M');"
+  },
+  {
+    "path": "exp_ch7.adb",
+    "line": 4793,
+    "text": "               Mark_Call : constant Node_Id := Build_SS_Mark_Call (Loc, Mark);"
+  },
+  {
+    "path": "exp_ch7.adb",
+    "line": 4807,
+    "text": "            Mark_Id     => Mark,"
+  },
+  {
+    "path": "exp_dbug.adb",
+    "line": 251,
+    "text": "            Umark  : constant Uintp.Save_Mark := Uintp.Mark;"
+  },
+  {
+    "path": "exp_dbug.adb",
+    "line": 280,
+    "text": "            Release (Umark);"
+  },
+  {
+    "path": "exp_util.adb",
+    "line": 734,
+    "text": "      Mark : Node_Id := Empty)"
+  },
+  {
+    "path": "exp_util.adb",
+    "line": 876,
+    "text": "            Build_Allocate_Deallocate_Proc (Parent (Entity (Expr)), Mark);"
+  },
+  {
+    "path": "exp_util.adb",
+    "line": 1294,
+    "text": "                     if Present (Mark) then"
+  },
+  {
+    "path": "exp_util.adb",
+    "line": 1295,
+    "text": "                        Insert_Action (Mark, Stmt, Suppress => All_Checks);"
+  },
+  {
+    "path": "exp_util.adb",
+    "line": 4352,
+    "text": "      Mark : Entity_Id) return Node_Id"
+  },
+  {
+    "path": "exp_util.adb",
+    "line": 4360,
+    "text": "          Defining_Identifier => Mark,"
+  },
+  {
+    "path": "exp_util.adb",
+    "line": 4375,
+    "text": "      Mark : Entity_Id) return Node_Id"
+  },
+  {
+    "path": "exp_util.adb",
+    "line": 4386,
+    "text": "            New_Occurrence_Of (Mark, Loc)));"
+  },
+  {
+    "path": "exp_util.ads",
+    "line": 290,
+    "text": "      Mark : Node_Id := Empty);"
+  },
+  {
+    "path": "exp_util.ads",
+    "line": 379,
+    "text": "      Mark : Entity_Id) return Node_Id;"
+  },
+  {
+    "path": "exp_util.ads",
+    "line": 385,
+    "text": "      Mark : Entity_Id) return Node_Id;"
+  },
+  {
+    "path": "fname-uf.adb",
+    "line": 602,
+    "text": "      SFN_Table.Release;"
+  },
+  {
+    "path": "ghost.adb",
+    "line": 1864,
+    "text": "      Ignored_Ghost_Nodes.Release;"
+  },
+  {
+    "path": "inline.adb",
+    "line": 5136,
+    "text": "      Pending_Instantiations.Release;"
+  },
+  {
+    "path": "inline.adb",
+    "line": 5138,
+    "text": "      Called_Pending_Instantiations.Release;"
+  },
+  {
+    "path": "inline.adb",
+    "line": 5140,
+    "text": "      Inlined_Bodies.Release;"
+  },
+  {
+    "path": "inline.adb",
+    "line": 5142,
+    "text": "      Successors.Release;"
+  },
+  {
+    "path": "inline.adb",
+    "line": 5144,
+    "text": "      Inlined.Release;"
+  },
+  {
+    "path": "lib.adb",
+    "line": 1122,
+    "text": "      Linker_Option_Lines.Release;"
+  },
+  {
+    "path": "lib.adb",
+    "line": 1124,
+    "text": "      Load_Stack.Release;"
+  },
+  {
+    "path": "lib.adb",
+    "line": 1126,
+    "text": "      Units.Release;"
+  },
+  {
+    "path": "libgnarl/g-semaph.adb",
+    "line": 53,
+    "text": "      procedure Release is"
+  },
+  {
+    "path": "libgnarl/g-semaph.adb",
+    "line": 56,
+    "text": "      end Release;"
+  },
+  {
+    "path": "libgnarl/g-semaph.adb",
+    "line": 78,
+    "text": "      procedure Release is"
+  },
+  {
+    "path": "libgnarl/g-semaph.adb",
+    "line": 81,
+    "text": "      end Release;"
+  },
+  {
+    "path": "libgnarl/g-semaph.ads",
+    "line": 63,
+    "text": "      procedure Release;"
+  },
+  {
+    "path": "libgnarl/g-semaph.ads",
+    "line": 90,
+    "text": "      procedure Release;"
+  },
+  {
+    "path": "libgnarl/s-osinte__aix.adb",
+    "line": 105,
+    "text": "      release    : String_NMLN;"
+  },
+  {
+    "path": "libgnarl/s-osinte__aix.adb",
+    "line": 138,
+    "text": "         AIX_Version := Val (name.version (1)) * 10 + Val (name.release (1));"
+  },
+  {
+    "path": "libgnat/g-awk.adb",
+    "line": 150,
+    "text": "      procedure Release (P : in out Pattern);"
+  },
+  {
+    "path": "libgnat/g-awk.adb",
+    "line": 181,
+    "text": "      procedure Release (P : in out Regexp_Pattern);"
+  },
+  {
+    "path": "libgnat/g-awk.adb",
+    "line": 451,
+    "text": "      procedure Release (P : in out Pattern) is"
+  },
+  {
+    "path": "libgnat/g-awk.adb",
+    "line": 455,
+    "text": "      end Release;"
+  },
+  {
+    "path": "libgnat/g-awk.adb",
+    "line": 461,
+    "text": "      procedure Release (P : in out Regexp_Pattern) is"
+  },
+  {
+    "path": "libgnat/g-awk.adb",
+    "line": 466,
+    "text": "      end Release;"
+  },
+  {
+    "path": "libgnat/g-awk.adb",
+    "line": 710,
+    "text": "         Patterns.Release (Filters.Table (F).Pattern.all);"
+  },
+  {
+    "path": "libgnat/g-debpoo.adb",
+    "line": 1181,
+    "text": "      procedure Mark"
+  },
+  {
+    "path": "libgnat/g-debpoo.adb",
+    "line": 1285,
+    "text": "      procedure Mark"
+  },
+  {
+    "path": "libgnat/g-debpoo.adb",
+    "line": 1294,
+    "text": "      end Mark;"
+  },
+  {
+    "path": "libgnat/g-debpoo.adb",
+    "line": 1332,
+    "text": "                     Mark (Header, Pointed, In_Use => True);"
+  },
+  {
+    "path": "libgnat/g-debpoo.adb",
+    "line": 1363,
+    "text": "            Mark (Header, Current, False);"
+  },
+  {
+    "path": "libgnat/g-dyntab.adb",
+    "line": 298,
+    "text": "   procedure Release (T : in out Instance) is"
+  },
+  {
+    "path": "libgnat/g-dyntab.adb",
+    "line": 371,
+    "text": "   end Release;"
+  },
+  {
+    "path": "libgnat/g-dyntab.ads",
+    "line": 202,
+    "text": "   procedure Release (T : in out Instance);"
+  },
+  {
+    "path": "libgnat/g-table.adb",
+    "line": 148,
+    "text": "   procedure Release is"
+  },
+  {
+    "path": "libgnat/g-table.adb",
+    "line": 150,
+    "text": "      Tab.Release (The_Instance);"
+  },
+  {
+    "path": "libgnat/g-table.adb",
+    "line": 151,
+    "text": "   end Release;"
+  },
+  {
+    "path": "libgnat/g-table.ads",
+    "line": 92,
+    "text": "   procedure Release;"
+  },
+  {
+    "path": "libgnat/g-table.ads",
+    "line": 93,
+    "text": "   pragma Inline (Release);"
+  },
+  {
+    "path": "libgnat/s-atopri.ads",
+    "line": 58,
+    "text": "   Release : constant := 3;"
+  },
+  {
+    "path": "libgnat/s-atopri__32.ads",
+    "line": 57,
+    "text": "   Release : constant := 3;"
+  },
+  {
+    "path": "libgnat/s-pehage.adb",
+    "line": 426,
+    "text": "      function Traverse (Edge : Edge_Id; Mark : Vertex_Id) return Boolean;"
+  },
+  {
+    "path": "libgnat/s-pehage.adb",
+    "line": 435,
+    "text": "      function Traverse (Edge : Edge_Id; Mark : Vertex_Id) return Boolean is"
+  },
+  {
+    "path": "libgnat/s-pehage.adb",
+    "line": 443,
+    "text": "         if M = Mark then"
+  },
+  {
+    "path": "libgnat/s-pehage.adb",
+    "line": 447,
+    "text": "            Marks (Y) := Mark;"
+  },
+  {
+    "path": "libgnat/s-pehage.adb",
+    "line": 455,
+    "text": "                 and then not Traverse (J, Mark)"
+  },
+  {
+    "path": "libgnat/s-pehage.adb",
+    "line": 898,
+    "text": "      WT.Release;"
+  },
+  {
+    "path": "libgnat/s-pehage.adb",
+    "line": 899,
+    "text": "      IT.Release;"
+  },
+  {
+    "path": "live.adb",
+    "line": 56,
+    "text": "      Mark  : Boolean := True);"
+  },
+  {
+    "path": "live.adb",
+    "line": 63,
+    "text": "   procedure Mark (Root : Node_Id; Marks : out Name_Set);"
+  },
+  {
+    "path": "live.adb",
+    "line": 126,
+    "text": "      Mark (Root, Marks);"
+  },
+  {
+    "path": "live.adb",
+    "line": 189,
+    "text": "   procedure Mark (Root : Node_Id; Marks : out Name_Set) is"
+  },
+  {
+    "path": "live.adb",
+    "line": 193,
+    "text": "   end Mark;"
+  },
+  {
+    "path": "live.adb",
+    "line": 211,
+    "text": "      Mark  : Boolean := True)"
+  },
+  {
+    "path": "live.adb",
+    "line": 214,
+    "text": "      Marks (Name) := Mark;"
+  },
+  {
+    "path": "make.adb",
+    "line": 380,
+    "text": "   procedure Mark_Directory (Dir : String; Mark : Lib_Mark_Type);"
+  },
+  {
+    "path": "make.adb",
+    "line": 4111,
+    "text": "   procedure Mark_Directory (Dir : String; Mark : Lib_Mark_Type) is"
+  },
+  {
+    "path": "make.adb",
+    "line": 4137,
+    "text": "      Set_Name_Table_Byte (N, B or Mark);"
+  },
+  {
+    "path": "make_util.adb",
+    "line": 740,
+    "text": "      procedure Mark (Source_File : File_Name_Type; Index : Int := 0);"
+  },
+  {
+    "path": "make_util.adb",
+    "line": 773,
+    "text": "         Mark (S.File, Index => S.Index);"
+  },
+  {
+    "path": "make_util.adb",
+    "line": 817,
+    "text": "      procedure Mark (Source_File : File_Name_Type; Index : Int := 0) is"
+  },
+  {
+    "path": "make_util.adb",
+    "line": 820,
+    "text": "      end Mark;"
+  },
+  {
+    "path": "namet.adb",
+    "line": 1128,
+    "text": "      Name_Chars.Release;"
+  },
+  {
+    "path": "namet.adb",
+    "line": 1130,
+    "text": "      Name_Entries.Release;"
+  },
+  {
+    "path": "namet.adb",
+    "line": 1528,
+    "text": "      Name_Chars.Release;"
+  },
+  {
+    "path": "namet.adb",
+    "line": 1531,
+    "text": "      Name_Entries.Release;"
+  },
+  {
+    "path": "nlists.adb",
+    "line": 702,
+    "text": "      Lists.Release;"
+  },
+  {
+    "path": "nlists.adb",
+    "line": 704,
+    "text": "      Prev_Node.Release;"
+  },
+  {
+    "path": "nlists.adb",
+    "line": 706,
+    "text": "      Next_Node.Release;"
+  },
+  {
+    "path": "par-util.adb",
+    "line": 286,
+    "text": "   function Check_Subtype_Mark (Mark : Node_Id) return Node_Id is"
+  },
+  {
+    "path": "par-util.adb",
+    "line": 288,
+    "text": "      if Nkind (Mark) = N_Identifier"
+  },
+  {
+    "path": "par-util.adb",
+    "line": 289,
+    "text": "        or else Nkind (Mark) = N_Selected_Component"
+  },
+  {
+    "path": "par-util.adb",
+    "line": 290,
+    "text": "        or else (Nkind (Mark) = N_Attribute_Reference"
+  },
+  {
+    "path": "par-util.adb",
+    "line": 291,
+    "text": "                  and then Is_Type_Attribute_Name (Attribute_Name (Mark)))"
+  },
+  {
+    "path": "par-util.adb",
+    "line": 292,
+    "text": "        or else Mark = Error"
+  },
+  {
+    "path": "par-util.adb",
+    "line": 294,
+    "text": "         return Mark;"
+  },
+  {
+    "path": "par-util.adb",
+    "line": 296,
+    "text": "         Error_Msg_N (\"subtype mark expected\", Mark);"
+  },
+  {
+    "path": "par.adb",
+    "line": 1358,
+    "text": "      function Check_Subtype_Mark (Mark : Node_Id) return Node_Id;"
+  },
+  {
+    "path": "par_sco.adb",
+    "line": 501,
+    "text": "      Mark : Nat;"
+  },
+  {
+    "path": "par_sco.adb",
+    "line": 785,
+    "text": "                  Mark      := SCO_Raw_Table.Last;"
+  },
+  {
+    "path": "par_sco.adb",
+    "line": 798,
+    "text": "                     SCO_Raw_Table.Set_Last (Mark);"
+  },
+  {
+    "path": "pprint.adb",
+    "line": 451,
+    "text": "                  Mark : constant String :="
+  },
+  {
+    "path": "pprint.adb",
+    "line": 457,
+    "text": "                     return Mark & \"'\" & Str;"
+  },
+  {
+    "path": "pprint.adb",
+    "line": 459,
+    "text": "                     return Mark & \"'(\" & Str & \")\";"
+  },
+  {
+    "path": "sem.adb",
+    "line": 1336,
+    "text": "      Scope_Stack.Release;"
+  },
+  {
+    "path": "sem_ch12.adb",
+    "line": 17519,
+    "text": "            Mark : Node_Id;"
+  },
+  {
+    "path": "sem_ch12.adb",
+    "line": 17537,
+    "text": "                  Mark := New_Occurrence_Of (Typ, Loc);"
+  },
+  {
+    "path": "sem_ch12.adb",
+    "line": 17543,
+    "text": "                  Mark := Qualify_Type (Loc, Typ);"
+  },
+  {
+    "path": "sem_ch12.adb",
+    "line": 17548,
+    "text": "                   Subtype_Mark => Mark,"
+  },
+  {
+    "path": "sem_ch3.adb",
+    "line": 22914,
+    "text": "      Mark            : Node_Id;"
+  },
+  {
+    "path": "sem_ch3.adb",
+    "line": 22924,
+    "text": "         Mark := Subtype_Mark (S);"
+  },
+  {
+    "path": "sem_ch3.adb",
+    "line": 22926,
+    "text": "         Mark := S;"
+  },
+  {
+    "path": "sem_ch3.adb",
+    "line": 22929,
+    "text": "      Find_Type (Mark);"
+  },
+  {
+    "path": "sem_ch3.adb",
+    "line": 22936,
+    "text": "      if not Is_Entity_Name (Mark) then"
+  },
+  {
+    "path": "sem_ch3.adb",
+    "line": 22940,
+    "text": "      Check_Incomplete (Mark);"
+  },
+  {
+    "path": "sem_ch3.adb",
+    "line": 23006,
+    "text": "         Subtype_Mark_Id := Entity (Mark);"
+  },
+  {
+    "path": "sem_ch4.adb",
+    "line": 4529,
+    "text": "      Mark : constant Entity_Id := Subtype_Mark (N);"
+  },
+  {
+    "path": "sem_ch4.adb",
+    "line": 4536,
+    "text": "      Find_Type (Mark);"
+  },
+  {
+    "path": "sem_ch4.adb",
+    "line": 4537,
+    "text": "      T := Entity (Mark);"
+  },
+  {
+    "path": "sem_ch4.adb",
+    "line": 4550,
+    "text": "         Error_Msg_N (\"current instance not allowed\", Mark);"
+  },
+  {
+    "path": "sem_ch4.adb",
+    "line": 6421,
+    "text": "      Mark : constant Entity_Id := Subtype_Mark (N);"
+  },
+  {
+    "path": "sem_ch4.adb",
+    "line": 6439,
+    "text": "      Find_Type (Mark);"
+  },
+  {
+    "path": "sem_ch4.adb",
+    "line": 6440,
+    "text": "      Typ := Entity (Mark);"
+  },
+  {
+    "path": "sem_ch4.adb",
+    "line": 6593,
+    "text": "      Mark : constant Entity_Id := Subtype_Mark (N);"
+  },
+  {
+    "path": "sem_ch4.adb",
+    "line": 6596,
+    "text": "      Find_Type (Mark);"
+  },
+  {
+    "path": "sem_ch4.adb",
+    "line": 6597,
+    "text": "      Set_Etype (N, Entity (Mark));"
+  },
+  {
+    "path": "sem_util.adb",
+    "line": 18284,
+    "text": "      M := Urealp.Mark;"
+  },
+  {
+    "path": "sem_util.adb",
+    "line": 18286,
+    "text": "      Urealp.Release (M);"
+  },
+  {
+    "path": "sinput.adb",
+    "line": 728,
+    "text": "      Source_File.Release;"
+  },
+  {
+    "path": "sinput.adb",
+    "line": 1276,
+    "text": "      Source_File.Release;"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 125,
+    "text": "      String_Chars.Release;"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 127,
+    "text": "      Strings.Release;"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 135,
+    "text": "   procedure Mark is"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 139,
+    "text": "   end Mark;"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 145,
+    "text": "   procedure Release is"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 149,
+    "text": "   end Release;"
+  },
+  {
+    "path": "stringt.ads",
+    "line": 67,
+    "text": "   procedure Mark;"
+  },
+  {
+    "path": "stringt.ads",
+    "line": 71,
+    "text": "   procedure Release;"
+  },
+  {
+    "path": "table.adb",
+    "line": 232,
+    "text": "      procedure Release is"
+  },
+  {
+    "path": "table.adb",
+    "line": 264,
+    "text": "      end Release;"
+  },
+  {
+    "path": "table.ads",
+    "line": 151,
+    "text": "      procedure Release;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 265,
+    "text": "      Marks  : constant Uintp.Save_Mark := Uintp.Mark;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 450,
+    "text": "      Uintp.Release (Marks);"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 534,
+    "text": "   function Mark return Save_Mark is"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 537,
+    "text": "   end Mark;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 683,
+    "text": "   procedure Release (M : Save_Mark) is"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 687,
+    "text": "   end Release;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 693,
+    "text": "   procedure Release_And_Save (M : Save_Mark; UI : in out Valid_Uint) is"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 696,
+    "text": "         Release (M);"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 707,
+    "text": "            Release (M);"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 717,
+    "text": "   end Release_And_Save;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 719,
+    "text": "   procedure Release_And_Save (M : Save_Mark; UI1, UI2 : in out Valid_Uint) is"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 722,
+    "text": "         Release_And_Save (M, UI2);"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 725,
+    "text": "         Release_And_Save (M, UI1);"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 742,
+    "text": "            Release (M);"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 759,
+    "text": "   end Release_And_Save;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 1435,
+    "text": "         M       : constant Uintp.Save_Mark := Uintp.Mark;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 1448,
+    "text": "         Uintp.Release_And_Save (M, Result);"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 1573,
+    "text": "      Marks  : constant Uintp.Save_Mark := Uintp.Mark;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 1655,
+    "text": "            Release_And_Save (Marks, U, V);"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 1940,
+    "text": "      M : constant Save_Mark := Mark;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 1956,
+    "text": "      Release_And_Save (M, Result);"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 1967,
+    "text": "      M : constant Save_Mark := Mark;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 2002,
+    "text": "      Release_And_Save (M, X);"
+  },
+  {
+    "path": "uintp.ads",
+    "line": 425,
+    "text": "   function Mark return Save_Mark;"
+  },
+  {
+    "path": "uintp.ads",
+    "line": 428,
+    "text": "   procedure Release (M : Save_Mark);"
+  },
+  {
+    "path": "uintp.ads",
+    "line": 431,
+    "text": "   procedure Release_And_Save (M : Save_Mark; UI : in out Valid_Uint);"
+  },
+  {
+    "path": "uintp.ads",
+    "line": 436,
+    "text": "   procedure Release_And_Save (M : Save_Mark; UI1, UI2 : in out Valid_Uint);"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 360,
+    "text": "   function Mark return Save_Mark is"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 363,
+    "text": "   end Mark;"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 403,
+    "text": "      M   : constant Uintp.Save_Mark := Mark;"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 436,
+    "text": "      Uintp.Release_And_Save (M, Num, Den);"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 478,
+    "text": "   procedure Release (M : Save_Mark) is"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 481,
+    "text": "   end Release;"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 1021,
+    "text": "            Imrk   : constant Uintp.Save_Mark  := Mark;"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 1022,
+    "text": "            Rmrk   : constant Urealp.Save_Mark := Mark;"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 1053,
+    "text": "            Release (Imrk);"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 1054,
+    "text": "            Release (Rmrk);"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 1219,
+    "text": "            Imrk   : constant Uintp.Save_Mark  := Mark;"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 1220,
+    "text": "            Rmrk   : constant Urealp.Save_Mark := Mark;"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 1239,
+    "text": "               Release (Imrk);"
+  },
+  {
+    "path": "urealp.adb",
+    "line": 1240,
+    "text": "               Release (Rmrk);"
+  },
+  {
+    "path": "urealp.ads",
+    "line": 349,
+    "text": "   function Mark return Save_Mark;"
+  },
+  {
+    "path": "urealp.ads",
+    "line": 352,
+    "text": "   procedure Release (M : Save_Mark);"
+  },
+  {
+    "path": "urealp.ads",
+    "line": 369,
+    "text": "   pragma Inline (Mark);"
+  },
+  {
+    "path": "urealp.ads",
+    "line": 374,
+    "text": "   pragma Inline (Release);"
+  }
+]

@@ -1,0 +1,1 @@
+Pinned upstream GCC Ada sources; original GPL copyright headers retained. See COPYING3.
