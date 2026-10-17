@@ -8,7 +8,7 @@ research records. Review ran in the separate
 
 ## Verdict
 
-No blocker or medium finding. The comparison provides concrete component
+**Original target:** no blocker or medium finding. The comparison provides concrete component
 representations and interfaces, a justified implementation stop and an actionable
 owner disposition within #113's research-only scope. It does not establish a
 larger supported language or authorize implementation. One low documentation and
@@ -23,6 +23,8 @@ proof that SPARK implementation is impossible or that every fork requires an
 Oracle amendment. The result explicitly preserves these distinctions.
 
 ## Finding L1 — excerpt generator uses the wrong line convention (low)
+
+Tracked as [#115](https://github.com/berkeleynerd/silver/issues/115).
 
 At the review target,
 [the deferred record](../research/frontend-deferred-storage-feasibility.md)
@@ -59,6 +61,28 @@ compiler or large-value probe is needed for this correction.
 and verification are recorded separately below; the original verdict and review
 target remain unchanged. The source-line diagnosis above incorporates root's
 verified counterevidence before delivery of the review.
+
+## Repair verification
+
+**L1 is corrected; no remaining review finding.** Independently checked repair
+`b8411fab996e60fe54933fbb385f6f9a36241b9a`, integrated as
+`042e35c40c62997544a11abb44f4169f12d0f1bd`. The affected document/evidence trees
+are byte-identical between those two commits.
+
+All three source-line enumerations now split on LF. Independently regenerated
+all selected excerpts directly from the retained source bytes using that
+convention; the result equals the corrected excerpt file byte-for-byte. The
+String emission excerpt now contains the intended lines 5628–5635, and the
+GCC constructor excerpt correctly starts `build_string` at line 2616. All
+14 deferred manifest members and all four complete emission-source payloads
+pass size/hash checks. The corrected text distinguishes the wide addition from
+the narrowing call parameter. The repair diff passes `git diff --check`.
+
+The fix changes no source bytes, compiler behavior, candidate design or
+recommendation. No complete source-tree audit, compiler/proof/test run or
+capacity experiment was repeated for this focused verification. Recheck output
+is retained in scratch as `l1-recheck.json`. #115 may close with the verified
+repair's publication.
 
 ## Claims independently checked
 
@@ -121,8 +145,8 @@ checker/output files remain at
 
 ## Delivery recommendation
 
-Correct and verify L1, then publish this research and review as #113's completed
-research result. Leave implementation #88–#94 and milestone 5 incomplete, and
+With L1 corrected and independently verified, publish this research and review
+as #113's completed research result. Leave implementation #88–#94 and milestone 5 incomplete, and
 report the concrete ownership/producer disposition to the owner. Preserve the
 unresolved source-capacity and backend obligations in that handoff; no new
 implementation or open-ended follow-up is implied by research completion.
