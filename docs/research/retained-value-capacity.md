@@ -287,7 +287,7 @@ Concrete paths to resolve against Silver's grammar are:
 `else` (`1321`), including valid programs. If the next token does not start a
 new source line, it scans to an expression terminator and restores the saved
 state. `Token_Class_Eterm` is the enum range from `Tok_Colon_Equal` through
-`Tok_Semicolon` (`scans.ads:126–188,296–297`). Consequently an output call
+`Tok_Semicolon` (`scans.ads:126–199,296–297`). Consequently an output call
 written on the same line as `else` can have its entire argument scanned twice:
 
 ```ada
@@ -303,8 +303,9 @@ extra contribution is one String descriptor, one character and the
 charges exclude the ordinary parse, generated code and other calls.
 
 For an assignment, the lookahead stops at `:=` before scanning its RHS. A
-first `if`, `for` or `null` statement is already an expression terminator;
-its condition, bounds or body is not scanned by this lookahead. A newline
+first `if` or `for` statement is already an expression terminator;
+its condition, bounds or body is not scanned by this lookahead. For `null;`,
+the lookahead scans only the following semicolon. A newline
 before the first token skips this lookahead entirely. For valid Silver's
 output-call grammar the semicolon bounds the scan, so this invocation does
 not multiply later statements or nested bodies. It only scans tokens; it
