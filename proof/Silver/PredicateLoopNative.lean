@@ -116,7 +116,7 @@ def Update.eval (read : Reader) (frame : Frame) : Update → Frame
   | .bounds => {frame with bounds := Integer.loopBounds frame.low.bounds frame.high.bounds}
   | .definite => {frame with definite := Integer.loopDefinite frame.low.bounds frame.high.bounds}
   | .inner => {frame with inner := {frame.inner with scalarNames := frame.context.scalarNames ++
-      [⟨frame.first, frame.after, frame.bounds, false⟩]}}
+      [⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩]}}
   | .emptyFacts => {frame with result := {frame.result with facts := PathFacts.Context.empty}}
   | .restoreFacts => {frame with result := {frame.result with facts := frame.scan.facts}}
   | .joinFacts => {frame with result := {frame.result with facts := frame.scan.facts.join frame.result.facts}}
@@ -135,7 +135,7 @@ def Update.evalWith (imports : Imports) (read : Reader) (frame : Frame) : Update
   | .definite => {frame with definite := (!imports.isEmpty frame.low.bounds && !imports.isEmpty frame.high.bounds &&
       decide (frame.low.bounds.upper ≤ frame.high.bounds.lower))}
   | .inner => {frame with inner := {frame.inner with scalarNames := (imports.append frame.context.scalarNames
-      ⟨frame.first, frame.after, frame.bounds, false⟩)}}
+      ⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩)}}
   | .emptyFacts => {frame with result := {frame.result with facts := imports.emptyFacts}}
   | .restoreFacts => {frame with result := {frame.result with facts := frame.scan.facts}}
   | .joinFacts => {frame with result := {frame.result with facts := imports.join frame.scan.facts frame.result.facts}}
@@ -162,7 +162,7 @@ def Update.render : Update → List String
   | .definite => ["definite", ":=", "not"] ++ emptyBounds "low" ++ ["and", "then", "not"] ++ emptyBounds "high" ++
       ["and", "then", "low", ".", "bounds", ".", "upper", "<=", "high", ".", "bounds", ".", "lower", ";"]
   | .inner => ["inner", ".", "scalar_names", ":=", "scalar_expressions", "."] ++
-      call "append" [["context", ".", "scalar_names"], ["(", "first", ",", "after", ",", "index_bounds", ",", "false", ")"]] ++ [";"]
+      call "append" [["context", ".", "scalar_names"], ["(", "first", ",", "after", ",", "index_bounds", ",", "false", ",", "index_bounds", ",", "false", ")"]] ++ [";"]
   | .emptyFacts => ["result", ".", "facts", ":=", "paths", ".", "empty_context", ";"]
   | .restoreFacts => ["result", ".", "facts", ":=", "scan", ".", "facts", ";"]
   | .joinFacts => ["result", ".", "facts", ":=", "paths", "."] ++ call "join" [["scan", ".", "facts"], ["result", ".", "facts"]] ++ [";"]

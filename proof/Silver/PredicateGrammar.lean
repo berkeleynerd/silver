@@ -89,9 +89,16 @@ theorem form_reading_valid {source : Source} {form : Form} {events : List Event}
   obtain ⟨scalars, scalarTrace⟩ := Sequence.tokens_scalar_trace parsed.header
   obtain ⟨checks, initializerTrace⟩ := Sequence.tokens_initializer_trace parsed.header
   have scalarChecked := prefix_scalar_checked scalarTrace
+  have objects := prefix_scalar_objects scalarTrace
+  have scalarRanges : ScalarExpression.ranges (ScalarExpression.bodyEnvironment (prefixScan source form).state.scalarNames) =
+      (Integer.elaborate [] scalars).ranges := by
+    rw [← ScalarExpression.objectBindings_ranges, objects]
+  have scalarMutable : ScalarExpression.mutability (ScalarExpression.bodyEnvironment (prefixScan source form).state.scalarNames) =
+      (Integer.elaborate [] scalars).mutability := by
+    rw [← ScalarExpression.objectBindings_mutability, objects]
   obtain ⟨valid, stream⟩ := Sequence.tokens_valid domain.2.1 parsed.header Compose.initial_valid
   have ranges := scanTokens_ranges source form.helper form.prefix initialScan ⟨domain.1, domain.2.1⟩ (initial_ranges source)
-  have bodyValid := body_meaning valid.1 ranges.2.1 (initialFacts_bounded _) parsed.statements
+  have bodyValid := body_meaning valid.1 (ScalarExpression.bodyEnvironment_ready _) ranges.2.1 (initialFacts_bounded _) parsed.statements
   have context := Sequence.tokens_context parsed.header
   simp only [initialState, empty_names_shape] at context
   have arguments := prefix_arguments parsed.header
@@ -102,7 +109,7 @@ theorem form_reading_valid {source : Source} {form : Form} {events : List Event}
     (by rw [context, ← arguments]; exact bodyValid.1)
     (by
       refine ⟨(rawBody source form).facts, ?_, parsed.completed⟩
-      rw [context, ← arguments, ← scalarChecked.2.2]
+      rw [context, ← arguments, ← scalarRanges, ← scalarMutable]
       exact bodyValid.2.1)
     scalarChecked.1 (prefix_initializer_checked domain.2.1 initializerTrace)
   exact ⟨scalars, checks, program, scalarTrace, initializerTrace, decoded, programValid⟩

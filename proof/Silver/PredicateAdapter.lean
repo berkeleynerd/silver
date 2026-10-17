@@ -15,7 +15,7 @@ set_option maxRecDepth 10000
 set_option maxHeartbeats 1000000
 
 def contextOf (scan : ScanResult) : Native.Context :=
-  ⟨scan.state.names, scan.state.dynamicFirst, scan.state.dynamicAfter, scan.state.scalarNames⟩
+  ⟨scan.state.names, scan.state.dynamicFirst, scan.state.dynamicAfter, ScalarExpression.bodyEnvironment scan.state.scalarNames⟩
 
 def expand (context : Native.Context) (scan : BodyScan) : ScanResult :=
   ⟨⟨scan.position, context.names, context.dynamicFirst, context.dynamicAfter,
@@ -49,7 +49,7 @@ theorem initialFacts_bounded (arguments : Bool) : (initialFacts arguments).Bound
 
 theorem context_valid (text : Source) (scan : ScanResult)
     (valid : Expressions.ValidState text scan.state) : Native.ValidContext text (contextOf scan) :=
-  ⟨valid.2.1, valid.2.2.1, valid.2.2.2.2.2⟩
+  ⟨valid.2.1, valid.2.2.1, ScalarExpression.bodyEnvironment_valid valid.2.2.2.2.2⟩
 
 theorem body_valid (text : Source) (scan : ScanResult)
     (valid : Expressions.ValidState text scan.state) : BodyNative.ValidScan text (contextOf scan) (bodyOf scan) :=
@@ -163,6 +163,7 @@ inductive Expr : Type → Type 1
   | choose (test : Expr Bool) (yes no : Expr α) : Expr α
   | initial (arguments : Expr Bool) : Expr PathFacts.Context
   | completed (facts : Expr PathFacts.Context) : Expr Bool
+  | bodyEnvironment (names : Expr ScalarExpression.Environment) : Expr ScalarExpression.Environment
   | contextValue (names : Expr BindingEnvironment) (scalarNames : Expr ScalarExpression.Environment) (first after : Expr Nat) : Expr Native.Context
   | bodyValue (facts : Expr PathFacts.Context) (position target capacity : Expr Nat)
       (assigned output : Expr Bool) : Expr BodyScan
@@ -190,6 +191,7 @@ def Expr.eval (calls : BodyNative.Calls) (frame : Frame) : Expr α → α
   | .choose test yes no => if test.eval calls frame then yes.eval calls frame else no.eval calls frame
   | .initial arguments => (PathFacts.Native.initial (arguments.eval calls frame)).model
   | .completed facts => Predicate.completed (facts.eval calls frame)
+  | .bodyEnvironment names => ScalarExpression.bodyEnvironment (names.eval calls frame)
   | .contextValue names scalarNames first after => ⟨names.eval calls frame, first.eval calls frame, after.eval calls frame, scalarNames.eval calls frame⟩
   | .bodyValue facts pos target capacity assigned output =>
       ⟨pos.eval calls frame, target.eval calls frame, capacity.eval calls frame,
@@ -224,6 +226,7 @@ def Expr.render : Expr α → List String
   | .choose test yes no => ["(", "if"] ++ test.render ++ ["then"] ++ yes.render ++ ["else"] ++ no.render ++ [")"]
   | .initial arguments => ["paths", "."] ++ Expressions.call "initial" [arguments.render]
   | .completed facts => ["paths", "."] ++ Expressions.call "completed" [facts.render]
+  | .bodyEnvironment names => ["scalar_expressions", "."] ++ Expressions.call "body_environment" [names.render]
   | .contextValue names scalarNames first after => record [("names", names.render), ("scalar_names", scalarNames.render), ("dynamic_first", first.render), ("dynamic_after", after.render)]
   | .bodyValue facts pos target capacity assigned output => record [("facts", facts.render),
       ("position", pos.render), ("target", target.render), ("capacity", capacity.render),
@@ -244,7 +247,7 @@ def Expr.render : Expr α → List String
       [",", "when", "else_only", "=>"] ++ alternative.render ++ [",", "when", "arm_boundary", "=>"] ++ arm.render ++ [")"]
 
 def contextExpr : Expr Native.Context :=
-  .contextValue (.field .stateNames (.field .scanState .scan)) (.field .stateScalarNames (.field .scanState .scan))
+  .contextValue (.field .stateNames (.field .scanState .scan)) (.bodyEnvironment (.field .stateScalarNames (.field .scanState .scan)))
     (.field .stateFirst (.field .scanState .scan)) (.field .stateAfter (.field .scanState .scan))
 
 def bodyExpr : Expr BodyScan :=

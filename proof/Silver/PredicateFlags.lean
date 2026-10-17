@@ -22,6 +22,7 @@ def Flag.observe (flag : Flag) (scan : BodyScan) : Bool :=
 mutual
   def Flag.source (flag : Flag) : SourceStatement → Bool
     | .simple item => flag.simple item
+    | .scalarAssign _ => flag == .assignment
     | .reject => false
     | .choice _ yes tail => flag.sources yes || flag.alternative tail
     | .forLoop _ _ _ _ body => flag.sources body
@@ -83,6 +84,15 @@ theorem basic_flags {text context scan item result} (parsed : BasicAt text conte
         | assignment =>
             simp only [Flag.observe, bodyToken_assigned, Flag.simple, Bool.or_false]
         | output => simp only [Flag.observe, Flag.simple, Bool.or_true]
+  | scalarAssignment kind expression =>
+      simp only [basicRaw, kind, scalarAssignmentBody] at raw resultEq
+      split at raw
+      · exact False.elim (raw rfl)
+      · rename_i good
+        rw [ite_eq_right good] at resultEq
+        rw [← resultEq]
+        simp only [bodyToken_flags, Flag.source]
+        cases flag <;> simp [Flag.observe]
   | assignment kind target expression =>
       simp only [basicRaw, kind] at raw resultEq
       split at raw
