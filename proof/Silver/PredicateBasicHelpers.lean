@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateBasicEquations
 public import Silver.PredicateNativeLibraries
+public import Silver.PredicateScalarBodyHelpers
 
 @[expose] public section
 namespace Silver.Predicate.BasicNative
@@ -23,6 +24,12 @@ def ExpressionDomain (text : Source) (position : Nat) (names : Compose.BindingEn
 def TargetDomain (text : Source) (state : ParserState) : Prop :=
   Expressions.ValidText text ∧ Expressions.ValidState text state
 
+def ScalarTargetDomain (text : Source) (context : Native.Context) (position : Nat) : Prop :=
+  Expressions.ValidText text ∧ Native.ValidContext text context ∧ Expressions.ValidCursor text position
+
+def ScalarAssignmentDomain (text : Source) (context : Native.Context) (scan : BodyScan) : Prop :=
+  ScalarTargetDomain text context scan.position ∧ scan.target ≤ context.names.length
+
 /-- Pointwise meanings on the checked native call domains. The path operations
 already have unconditional scalar projections in PathFactsSourceBridge and
 sameLength_project; no out-of-domain Compose helper equality is assumed. -/
@@ -37,6 +44,10 @@ structure HelperMeaning (primitive : Primitives) : Prop where
     primitive.expression text position names scalarNames = expressionAt text position names scalarNames
   target : ∀ text state sameTarget, TargetDomain text state →
     primitive.target text state sameTarget = targetAt text state sameTarget
+  scalarTarget : ∀ text context position, ScalarTargetDomain text context position →
+    primitive.scalarTarget text context position = Predicate.scalarTarget text context.model position
+  scalarAssignment : ∀ text context scan, ScalarAssignmentDomain text context scan →
+    primitive.scalarAssignment text context scan = scalarAssignmentBody text context.model scan
   fits : ∀ facts summary, primitive.fits facts summary = fitsLengthSummary facts summary
   sameLength : ∀ facts left right, primitive.sameLength facts left right = equalLengthIntervals facts left right
   reject : ∀ facts, primitive.reject facts = facts.reject
@@ -57,6 +68,10 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
       primitive.expression text position names scalarNames else expressionAt text position names scalarNames
     target := fun text state sameTarget => if TargetDomain text state then
       primitive.target text state sameTarget else targetAt text state sameTarget
+    scalarTarget := fun text context position => if ScalarTargetDomain text context position then
+      primitive.scalarTarget text context position else Predicate.scalarTarget text context.model position
+    scalarAssignment := fun text context scan => if ScalarAssignmentDomain text context scan then
+      primitive.scalarAssignment text context scan else scalarAssignmentBody text context.model scan
     fits := primitive.fits
     sameLength := primitive.sameLength
     reject := primitive.reject }
@@ -84,6 +99,16 @@ theorem totalize_expression (primitive : Primitives) (text : Source) (position :
 theorem totalize_target (primitive : Primitives) (text : Source) (state : ParserState) (sameTarget : Bool)
     (valid : TargetDomain text state) :
     (totalize primitive).target text state sameTarget = primitive.target text state sameTarget := by
+  simp only [totalize, valid, ↓reduceIte]
+
+theorem totalize_scalarTarget (primitive : Primitives) (text : Source) (context : Native.Context) (position : Nat)
+    (valid : ScalarTargetDomain text context position) :
+    (totalize primitive).scalarTarget text context position = primitive.scalarTarget text context position := by
+  simp only [totalize, valid, ↓reduceIte]
+
+theorem totalize_scalarAssignment (primitive : Primitives) (text : Source) (context : Native.Context) (scan : BodyScan)
+    (valid : ScalarAssignmentDomain text context scan) :
+    (totalize primitive).scalarAssignment text context scan = primitive.scalarAssignment text context scan := by
   simp only [totalize, valid, ↓reduceIte]
 
 theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning primitive) :
@@ -118,6 +143,18 @@ theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning pri
     split
     · exact meaning.target text state sameTarget ‹_›
     · rfl
+  scalarTarget := by
+    funext text context position
+    dsimp only [totalize]
+    split
+    · exact meaning.scalarTarget text context position ‹_›
+    · rfl
+  scalarAssignment := by
+    funext text context scan
+    dsimp only [totalize]
+    split
+    · exact meaning.scalarAssignment text context scan ‹_›
+    · rfl
   fits := funext fun facts => funext fun summary => meaning.fits facts summary
   sameLength := funext fun facts => funext fun left => funext fun right => meaning.sameLength facts left right
   reject := funext meaning.reject
@@ -135,6 +172,8 @@ theorem model_helper_meaning : HelperMeaning modelPrimitives where
   token _ _ _ _ := rfl
   expression _ _ _ _ _ := rfl
   target _ _ _ _ := rfl
+  scalarTarget _ _ _ _ := rfl
+  scalarAssignment _ _ _ _ := rfl
   fits _ _ := rfl
   sameLength _ _ _ := rfl
   reject _ := rfl
@@ -179,6 +218,12 @@ structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop 
   token : primitive.token = inherited.function .takeToken
   expression : primitive.expression = fun text position names scalarNames => inherited.function .expression text position names scalarNames false
   target : primitive.target = inherited.function .target
+  scalarTarget : ∀ text context position, ScalarTargetDomain text context position →
+    primitive.scalarTarget text context position =
+      ScalarBodyNative.targetEval (ScalarBodyNative.totalize (ScalarBodyNative.inheritedImports inherited)) text context position
+  scalarAssignment : ∀ text context scan, ScalarAssignmentDomain text context scan →
+    primitive.scalarAssignment text context scan =
+      ScalarBodyNative.assignmentEval (ScalarBodyNative.totalize (ScalarBodyNative.inheritedImports inherited)) text context scan
   fits : ∀ (facts : PathFacts.Native.Context) summary,
     primitive.fits facts.model summary =
       LengthIntervals.Native.fitsBody.eval ({facts, value := summary} : LengthIntervals.Native.Inputs).locals
@@ -208,6 +253,12 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Express
   target text state sameTarget valid := by
     rw [links.target]
     exact Expressions.interpreted_target inherited source text valid.1 state sameTarget valid.2
+  scalarTarget text context position valid := by
+    rw [links.scalarTarget text context position valid]
+    exact ScalarBodyNative.targetEval_inherited source text context position
+  scalarAssignment text context scan valid := by
+    rw [links.scalarAssignment text context scan valid]
+    exact ScalarBodyNative.assignmentEval_inherited source text context scan
   fits facts summary := by
     have equation := links.fits (Native.Libraries.reify facts) summary
     simpa only [LengthIntervals.Native.fitsBody_eval,
