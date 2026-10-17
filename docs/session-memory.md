@@ -1,5 +1,41 @@
 # Session memory
 
+## 2026-10-17 — Bounded mutable integers scoping authorized
+
+The owner said **“Proceed”** to the proposed next unit of work: scope bounded
+mutable Integer values with range constraints, driven by
+[Find square difference](../rosetta/f/find-square-difference/silver.md). This
+selects scope and automatic-proof design documentation and its planning records.
+It does not authorize feature implementation, builds, proof runs, test execution
+or admitting new syntax. Routine commits and publication of these scoping
+records remain authorized.
+
+[Milestone 4](https://github.com/berkeleynerd/silver/milestone/4), **Bounded
+mutable integers**, records the complete prospective sequence in the same
+planning step: [scope/design #67](https://github.com/berkeleynerd/silver/issues/67),
+[native admission/regressions #68](https://github.com/berkeleynerd/silver/issues/68),
+[universal and actual-source assurance #69](https://github.com/berkeleynerd/silver/issues/69)
+including producer/report capacity, and
+[validation/review/delivery #70](https://github.com/berkeleynerd/silver/issues/70).
+Only #67 is currently authorized; #68–#70 remain Backlog until the owner selects
+implementation. Completing #67 does not complete the milestone.
+
+The [roadmap](../roadmap.md#bounded-mutable-integers) records order and remaining
+design work. The scope proposal is being prepared at
+`docs/bounded-mutable-integers.md`. This is a narrow prospective increment
+within [stage #11](https://github.com/berkeleynerd/silver/issues/11), which
+remains broader unsupported direction. Existing-language Rosetta sample work
+#9 is separate, and procedures and arrays remain future stages. Current
+`language.md`, the catalogue and supported Rosetta identifiers remain unchanged.
+
+The Oracle is unchanged. Required assurance includes all selected compositions,
+source identity, automatic obligation discharge and a producer-derived report
+capacity argument; the old constant-only bound cannot simply be reused for
+mutable assignments. The completed For loops and integers harness goal remains
+complete, and no new goal was requested. Hosted CI stays disabled and native
+macOS validation remains independent. Preserve prior worktrees, scratch and
+caches. CLI memory was unavailable and was not updated.
+
 ## 2026-10-17 — For loops and integers review remediation complete
 
 The owner-authorized L1–L15 repairs from

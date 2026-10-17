@@ -14,6 +14,50 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Bounded mutable integers
+
+**Scope/design authorized on 2026-10-17; capability not yet supported.** The
+owner selected a concrete scope proposal under
+[stage #11](https://github.com/berkeleynerd/silver/issues/11), driven by
+[Find square difference](rosetta/f/find-square-difference/silver.md): a bounded
+mutable Integer result receives a loop index and is printed with Integer Image.
+The current task defines exact declaration/range and assignment rules,
+branch/loop state treatment, automatic range/overflow discharge, Image-length
+composition and producer/report capacity. The proposal is being prepared at
+`docs/bounded-mutable-integers.md`; the
+[dated authorization](docs/session-memory.md#2026-10-17--bounded-mutable-integers-scoping-authorized)
+limits current work to documentation and planning.
+
+[Milestone 4](https://github.com/berkeleynerd/silver/milestone/4) contains all
+four planned work packages:
+
+1. **Scope and automatic-proof design [#67](https://github.com/berkeleynerd/silver/issues/67):**
+   the currently authorized package. Resolve exact syntax, static bounds,
+   initialization/snapshots, state across choices and loops, visibility,
+   interval/discharge rules and all existing-feature interactions. Record
+   boundary cases, exclusions, proof obligations and the future validation plan.
+2. **Native admission and regressions [#68](https://github.com/berkeleynerd/silver/issues/68):**
+   implement the selected rules in verified SPARK, with aligned language,
+   catalogue and samples plus boundary/composition regressions.
+3. **Universal and actual-source assurance [#69](https://github.com/berkeleynerd/silver/issues/69):**
+   prove membership, semantics, finite execution and complete automatic discharge
+   with source correspondence. Reassess pinned producer obligations and retained
+   report capacity for mutation before admission. Coordinate this package with
+   native implementation; the old constant-only envelope is not sufficient by
+   assumption.
+4. **Validation, review and delivery [#70](https://github.com/berkeleynerd/silver/issues/70):**
+   review and validate the integrated actual inputs, record exact evidence,
+   publish consistent support records and update the narrow Rosetta mapping.
+
+Packages #68–#70 remain Backlog and require a later owner instruction selecting
+implementation. The scope package does not admit a construct or complete this
+milestone. No new harness goal was requested; the earlier goal remains complete.
+The broad stage retains its other mutable arithmetic, subtype/conversion, loop
+and scalar-Image forms until selected and justified. The current scope will
+make each inclusion and exclusion explicit. Existing-language Rosetta samples
+under #9 are separate work, not a prerequisite; procedures and arrays remain
+future direction. No Oracle amendment is proposed.
+
 ### Review of For loops and integers
 
 **Implementation and validation complete on Linux x86_64, 2026-10-17**.
