@@ -1,0 +1,234 @@
+1: 	.file	"main.adb"
+2: 	.text
+3: 	.section	.lrodata,"al",@progbits
+4: 	.align 8
+5: .LC1:
+17542: 	.section	.rodata
+17543: 	.align 8
+17544: .LC0:
+17545: 	.long	1
+17546: 	.long	1048576
+17547: 	.text
+17548: 	.align 2
+17549: 	.globl	_ada_main
+17550: 	.type	_ada_main, @function
+17551: _ada_main:
+17552: .LFB1:
+17553: 	.cfi_startproc
+17554: 	pushq	%rbp
+17555: 	.cfi_def_cfa_offset 16
+17556: 	.cfi_offset 6, -16
+17557: 	movq	%rsp, %rbp
+17558: 	.cfi_def_cfa_register 6
+17559: 	pushq	%r15
+17560: 	pushq	%r13
+17561: 	pushq	%r12
+17562: 	pushq	%rbx
+17563: 	subq	$3145760, %rsp
+17564: 	.cfi_offset 15, -24
+17565: 	.cfi_offset 13, -32
+17566: 	.cfi_offset 12, -40
+17567: 	.cfi_offset 3, -48
+17568: .L3:
+17569: 	leaq	.L3(%rip), %rbx
+17570: 	movabsq	$_GLOBAL_OFFSET_TABLE_-.L3, %r11
+17571: 	addq	%r11, %rbx
+17572: 	movabsq	$.LC1@GOTOFF, %rdx
+17573: 	leaq	-1048608(%rbp), %rax
+17574: 	leaq	(%rbx,%rdx), %rcx
+17575: 	movl	$1048576, %edx
+17576: 	movq	%rcx, %rsi
+17577: 	movq	%rax, %rdi
+17578: 	movq	%rbx, %r15
+17579: 	movabsq	$memcpy@PLTOFF, %rax
+17580: 	addq	%rbx, %rax
+17581: 	call	*%rax
+17582: 	movabsq	$.LC1@GOTOFF, %rdx
+17583: 	leaq	-2097184(%rbp), %rax
+17584: 	leaq	(%rbx,%rdx), %rcx
+17585: 	movl	$1048576, %edx
+17586: 	movq	%rcx, %rsi
+17587: 	movq	%rax, %rdi
+17588: 	movq	%rbx, %r15
+17589: 	movabsq	$memcpy@PLTOFF, %rax
+17590: 	addq	%rbx, %rax
+17591: 	call	*%rax
+17592: 	movabsq	$.LC1@GOTOFF, %rdx
+17593: 	leaq	-3145760(%rbp), %rax
+17594: 	leaq	(%rbx,%rdx), %rcx
+17595: 	movl	$1048576, %edx
+17596: 	movq	%rcx, %rsi
+17597: 	movq	%rax, %rdi
+17598: 	movq	%rbx, %r15
+17599: 	movabsq	$memcpy@PLTOFF, %rax
+17600: 	addq	%rbx, %rax
+17601: 	call	*%rax
+17602: 	leaq	-1048608(%rbp), %rax
+17603: 	leaq	-2097184(%rbp), %rcx
+17604: 	movl	$1048576, %edx
+17605: 	movq	%rcx, %rsi
+17606: 	movq	%rax, %rdi
+17607: 	movq	%rbx, %r15
+17608: 	movabsq	$memcpy@PLTOFF, %rax
+17609: 	addq	%rbx, %rax
+17610: 	call	*%rax
+17611: 	leaq	-2097184(%rbp), %rax
+17612: 	leaq	-3145760(%rbp), %rcx
+17613: 	movl	$1048576, %edx
+17614: 	movq	%rcx, %rsi
+17615: 	movq	%rax, %rdi
+17616: 	movq	%rbx, %r15
+17617: 	movabsq	$memcpy@PLTOFF, %rax
+17618: 	addq	%rbx, %rax
+17619: 	call	*%rax
+17620: 	movabsq	$a20.20@GOTOFF, %rdx
+17621: 	leaq	-3145760(%rbp), %rax
+17622: 	leaq	(%rbx,%rdx), %rcx
+17623: 	movl	$1048576, %edx
+17624: 	movq	%rcx, %rsi
+17625: 	movq	%rax, %rdi
+17626: 	movq	%rbx, %r15
+17627: 	movabsq	$memcpy@PLTOFF, %rax
+17628: 	addq	%rbx, %rax
+17629: 	call	*%rax
+17630: 	leaq	-1048608(%rbp), %rax
+17631: 	movq	%rax, -3145792(%rbp)
+17632: 	movabsq	$.LC0@GOTOFF, %rax
+17633: 	leaq	(%rbx,%rax), %rax
+17634: 	movq	%rax, -3145784(%rbp)
+17635: 	movq	-3145792(%rbp), %rsi
+17636: 	movq	-3145784(%rbp), %rdi
+17637: 	movq	%rsi, %rdx
+17638: 	movq	%rdi, %rax
+17639: 	movq	%rdx, %rdi
+17640: 	movq	%rax, %rsi
+17641: 	movq	%rbx, %r15
+17642: 	movabsq	$silver_io__put_line@PLTOFF, %rax
+17643: 	addq	%rbx, %rax
+17644: 	call	*%rax
+17645: 	leaq	-2097184(%rbp), %rax
+17646: 	movq	%rax, -3145776(%rbp)
+17647: 	movabsq	$.LC0@GOTOFF, %rax
+17648: 	leaq	(%rbx,%rax), %rax
+17649: 	movq	%rax, -3145768(%rbp)
+17650: 	movq	-3145776(%rbp), %rsi
+17651: 	movq	-3145768(%rbp), %rdi
+17652: 	movq	%rsi, %rdx
+17653: 	movq	%rdi, %rax
+17654: 	movq	%rdx, %rdi
+17655: 	movq	%rax, %rsi
+17656: 	movq	%rbx, %r15
+17657: 	movabsq	$silver_io__put_line@PLTOFF, %rax
+17658: 	addq	%rbx, %rax
+17659: 	call	*%rax
+17660: 	leaq	-3145760(%rbp), %rax
+17661: 	movq	%rax, %r12
+17662: 	movabsq	$.LC0@GOTOFF, %rax
+17663: 	leaq	(%rbx,%rax), %r13
+17664: 	movq	%r12, %rdx
+17665: 	movq	%r13, %rax
+17666: 	movq	%rdx, %rdi
+17667: 	movq	%rax, %rsi
+17668: 	movq	%rbx, %r15
+17669: 	movabsq	$silver_io__put_line@PLTOFF, %rax
+17670: 	addq	%rbx, %rax
+17671: 	call	*%rax
+17672: 	nop
+17673: 	addq	$3145760, %rsp
+17674: 	popq	%rbx
+17675: 	popq	%r12
+17676: 	popq	%r13
+17677: 	popq	%r15
+17678: 	popq	%rbp
+17679: 	.cfi_def_cfa 7, 8
+17680: 	ret
+17681: 	.cfi_endproc
+17682: .LFE1:
+17683: 	.size	_ada_main, .-_ada_main
+17684: 	.section	.lrodata
+17685: 	.align 32
+17686: 	.type	a20.20, @object
+17687: 	.size	a20.20, 1048576
+17688: a20.20:
+35225: 	.align 32
+35226: 	.type	a19.19, @object
+35227: 	.size	a19.19, 524288
+35228: a19.19:
+43997: 	.align 32
+43998: 	.type	a18.18, @object
+43999: 	.size	a18.18, 262144
+44000: a18.18:
+48385: 	.align 32
+48386: 	.type	a17.17, @object
+48387: 	.size	a17.17, 131072
+48388: a17.17:
+50581: 	.section	.rodata
+50582: 	.align 32
+50583: 	.type	a16.16, @object
+50584: 	.size	a16.16, 65536
+50585: a16.16:
+51682: 	.align 32
+51683: 	.type	a15.15, @object
+51684: 	.size	a15.15, 32768
+51685: a15.15:
+52234: 	.align 32
+52235: 	.type	a14.14, @object
+52236: 	.size	a14.14, 16384
+52237: a14.14:
+52512: 	.align 32
+52513: 	.type	a13.13, @object
+52514: 	.size	a13.13, 8192
+52515: a13.13:
+52653: 	.align 32
+52654: 	.type	a12.12, @object
+52655: 	.size	a12.12, 4096
+52656: a12.12:
+52726: 	.align 32
+52727: 	.type	a11.11, @object
+52728: 	.size	a11.11, 2048
+52729: a11.11:
+52765: 	.align 32
+52766: 	.type	a10.10, @object
+52767: 	.size	a10.10, 1024
+52768: a10.10:
+52787: 	.align 32
+52788: 	.type	a9.9, @object
+52789: 	.size	a9.9, 512
+52790: a9.9:
+52800: 	.align 32
+52801: 	.type	a8.8, @object
+52802: 	.size	a8.8, 256
+52803: a8.8:
+52809: 	.align 32
+52810: 	.type	a7.7, @object
+52811: 	.size	a7.7, 128
+52812: a7.7:
+52816: 	.align 32
+52817: 	.type	a6.6, @object
+52818: 	.size	a6.6, 64
+52819: a6.6:
+52822: 	.align 32
+52823: 	.type	a5.5, @object
+52824: 	.size	a5.5, 32
+52825: a5.5:
+52827: 	.align 16
+52828: 	.type	a4.4, @object
+52829: 	.size	a4.4, 16
+52830: a4.4:
+52832: 	.align 8
+52833: 	.type	a3.3, @object
+52834: 	.size	a3.3, 8
+52835: a3.3:
+52837: 	.align 4
+52838: 	.type	a2.2, @object
+52839: 	.size	a2.2, 4
+52840: a2.2:
+52842: 	.align 2
+52843: 	.type	a1.1, @object
+52844: 	.size	a1.1, 2
+52845: a1.1:
+52847: 	.type	a0.0, @object
+52848: 	.size	a0.0, 1
+52849: a0.0:
+52851: 	.ident	"GCC: (GNAT-FSF-builds) 16.1.0"
+52852: 	.section	.note.GNU-stack,"",@progbits

@@ -1,0 +1,91 @@
+{
+  "checked_utc": "2026-10-17T20:44:19.873014+00:00",
+  "review_target": "2b47dd8e27f10251d57df35385161acfcc1a41a9",
+  "base_handoff": "df4af4588612f8f0b605570a7dd07e5b0c366b2c",
+  "method": "Read actual final documentation bytes, verify local Markdown destinations and same-page anchors; git diff --check for authored files; compare protected tree paths; hash each checked document. Historical and new evidence manifest verification is in integration-validation.json.",
+  "documents": [
+    {
+      "path": "RESUME.md",
+      "bytes": 54034,
+      "sha256": "087595979995f1c04ab2bf946621029f67faf574bd8284f44542e405fdef2025"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/feasibility-20261017/continuation/reviews/backend-review.md",
+      "bytes": 4628,
+      "sha256": "ddacc5634f1e18269e97461782d0cddd56b93af0dfb825ebabbfef6dfaa50aa1"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/feasibility-20261017/continuation/reviews/frontend-review.md",
+      "bytes": 4341,
+      "sha256": "c0ca7e2175a9399511801f7bec77d30fffd979a1b61f7cd4cd3b889d69ebc70f"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/feasibility-20261017/continuation/reviews/planning-review.md",
+      "bytes": 4968,
+      "sha256": "24664ff4cfaaddf438ecab292ef27aa4cbd77991324f5c1fcbd7c9454a753207"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/static-data-continuation-20261017/README.md",
+      "bytes": 2310,
+      "sha256": "a560938757e5335272fac4213234537a0fff12edf948a3d3550da317488a9fa9"
+    },
+    {
+      "path": "docs/research/unbounded-feasibility-handoff.md",
+      "bytes": 11098,
+      "sha256": "1a63003eafa92011aa523c64426b7645eafaacbe23ca9b0322f54caf4798b52c"
+    },
+    {
+      "path": "docs/research/unbounded-feasibility-result.md",
+      "bytes": 12398,
+      "sha256": "3717d9a0c9e9971a424a699756afc3422b805755166cd89ff240e06d958bf9e7"
+    },
+    {
+      "path": "docs/research/unbounded-frontend-lifetimes.md",
+      "bytes": 16636,
+      "sha256": "12d9607cab81a234f4f9d86664c8f2fe982ffddbac68a66ab40ca2314111f5fa"
+    },
+    {
+      "path": "docs/research/unbounded-source-capacity.md",
+      "bytes": 25120,
+      "sha256": "177dbc0e6d5ef831f3731af575054267534965dc322e29835c4b62429ca0d12d"
+    },
+    {
+      "path": "docs/research/unbounded-static-data-continuation.md",
+      "bytes": 14236,
+      "sha256": "243bfd0bc26166f9d44965d714d15460f4c3e3a2dd39fd8cfbbc0790fc8ef63a"
+    },
+    {
+      "path": "docs/research/unbounded-static-data.md",
+      "bytes": 20442,
+      "sha256": "68db5a1636d4bead98684eab7ff2bc6d5d3a5483e5d93f5c95ee301598cd44c1"
+    },
+    {
+      "path": "docs/reviews/review-unbounded-feasibility-2b47dd8e27.md",
+      "bytes": 7260,
+      "sha256": "78c1596fd899f8a488e53603344a050be0f8b5411919625a36f1fff8d288abfe"
+    },
+    {
+      "path": "docs/session-memory.md",
+      "bytes": 206211,
+      "sha256": "76093db4411e5f9b0c29fd1676c3074156cc61ed795bcdac6f42a9035a07e2ab"
+    },
+    {
+      "path": "docs/unbounded-programs.md",
+      "bytes": 38644,
+      "sha256": "9226178a79ccd84b8b187d7696bc6cbb53d54ddda444a02b0c0521e02f3a4951"
+    },
+    {
+      "path": "roadmap.md",
+      "bytes": 46243,
+      "sha256": "4dcb1a7cc378707c899a618280b5abb7a9f954be62a1cbd387fdcc9159cdfd6a"
+    }
+  ],
+  "local_paths_checked": 470,
+  "same_page_anchors_checked": 6,
+  "errors": [],
+  "authored_whitespace_exit": 0,
+  "protected_tree_diff": [],
+  "shared_root_status": [
+    "?? tmp/"
+  ]
+}

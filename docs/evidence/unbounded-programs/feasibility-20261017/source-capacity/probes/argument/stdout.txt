@@ -1,0 +1,306 @@
+
+Sinput.L.Load_File: created source 1 for system.ads
+*** Build source file table entry, Index = 1, file name = system.ads
+  lo = 0
+  hi = 8285
+  first 10 chars -->----------<--
+  last 10 chars  -->d System;?<--
+
+Sinput.L.Load_File: created source 2 for main.adb
+*** Build source file table entry, Index = 2, file name = main.adb
+  lo = 12288
+  hi = 12553
+  first 10 chars -->with Silve<--
+  last 10 chars  -->end Main;?<--
+
+Sinput.L.Load_File: created source 3 for gnat.adc
+*** Load request for unit: Main (spec) (Required = False)
+  attempt unit load, Unit_Number = 1
+
+Sinput.L.Load_File: created source 3 for main.ads  file was not found, load failed
+
+*** Load request for unit: Silver_Io (spec) (Required = False)
+  attempt unit load, Unit_Number = 1
+
+Sinput.L.Load_File: created source 3 for silver_io.ads
+*** Build source file table entry, Index = 3, file name = silver_io.ads
+  lo = 16384
+  hi = 18606
+  first 10 chars -->with Ada.T<--
+  last 10 chars  -->ilver_IO;?<--
+
+*** Load request for unit: Ada (spec) (Required = False)
+  attempt unit load, Unit_Number = 2
+
+Sinput.L.Load_File: created source 4 for ada.ads
+*** Build source file table entry, Index = 4, file name = ada.ads
+  lo = 20480
+  hi = 21733
+  first 10 chars -->----------<--
+  last 10 chars  -->?end Ada;?<--
+
+*** Load request for unit: Ada.Text_Io (spec) (Required = False)
+  attempt unit load, Unit_Number = 3
+
+Sinput.L.Load_File: created source 5 for a-textio.ads
+*** Build source file table entry, Index = 5, file name = a-textio.ads
+  lo = 24576
+  hi = 56023
+  first 10 chars -->----------<--
+  last 10 chars  -->.Text_IO;?<--
+--> Reallocating lines table, size = 1000
+
+*** Load request for unit: Ada (spec) (Required = True)
+  unit already in file table, Unit_Number = 2
+
+*** Load request for unit: Ada (spec) (Required = False)
+  unit already in file table, Unit_Number = 2
+
+*** Load request for unit: Ada.Io_Exceptions (spec) (Required = False)
+  attempt unit load, Unit_Number = 4
+
+Sinput.L.Load_File: created source 6 for a-ioexce.ads
+*** Build source file table entry, Index = 6, file name = a-ioexce.ads
+  lo = 57344
+  hi = 58753
+  first 10 chars -->----------<--
+  last 10 chars  -->ceptions;?<--
+
+*** Load request for unit: Ada (spec) (Required = True)
+  unit already in file table, Unit_Number = 2
+
+*** Load request for unit: Ada (spec) (Required = False)
+  unit already in file table, Unit_Number = 2
+
+*** Load request for unit: Ada.Streams (spec) (Required = False)
+  attempt unit load, Unit_Number = 5
+
+Sinput.L.Load_File: created source 7 for a-stream.ads
+*** Build source file table entry, Index = 7, file name = a-stream.ads
+  lo = 61440
+  hi = 65891
+  first 10 chars -->----------<--
+  last 10 chars  -->.Streams;?<--
+
+*** Load request for unit: Ada (spec) (Required = True)
+  unit already in file table, Unit_Number = 2
+
+*** Load request for unit: System (spec) (Required = False)
+  attempt unit load, Unit_Number = 6
+
+*** Load request for unit: System (spec) (Required = False)
+  unit already in file table, Unit_Number = 6
+
+*** Load request for unit: System.File_Control_Block (spec) (Required = False)
+  attempt unit load, Unit_Number = 7
+
+Sinput.L.Load_File: created source 8 for s-ficobl.ads
+*** Build source file table entry, Index = 8, file name = s-ficobl.ads
+  lo = 69632
+  hi = 77795
+  first 10 chars -->----------<--
+  last 10 chars  -->ol_Block;?<--
+
+*** Load request for unit: System (spec) (Required = True)
+  unit already in file table, Unit_Number = 6
+
+*** Load request for unit: Ada (spec) (Required = False)
+  unit already in file table, Unit_Number = 2
+
+*** Load request for unit: Ada.Streams (spec) (Required = False)
+  unit already in file table, Unit_Number = 5
+
+*** Load request for unit: Interfaces (spec) (Required = False)
+  attempt unit load, Unit_Number = 8
+
+Sinput.L.Load_File: created source 9 for interfac.ads
+*** Build source file table entry, Index = 9, file name = interfac.ads
+  lo = 77824
+  hi = 87399
+  first 10 chars -->----------<--
+  last 10 chars  -->terfaces;?<--
+
+*** Load request for unit: Interfaces.C_Streams (spec) (Required = False)
+  attempt unit load, Unit_Number = 9
+
+Sinput.L.Load_File: created source 10 for i-cstrea.ads
+*** Build source file table entry, Index = 10, file name = i-cstrea.ads
+  lo = 90112
+  hi = 102896
+  first 10 chars -->----------<--
+  last 10 chars  -->_Streams;?<--
+
+*** Load request for unit: Interfaces (spec) (Required = True)
+  unit already in file table, Unit_Number = 8
+
+*** Load request for unit: System (spec) (Required = False)
+  unit already in file table, Unit_Number = 6
+
+*** Load request for unit: System.Crtl (spec) (Required = False)
+  attempt unit load, Unit_Number = 10
+--> Allocating new Source_File table, size = 30
+
+Sinput.L.Load_File: created source 11 for s-crtl.ads
+*** Build source file table entry, Index = 11, file name = s-crtl.ads
+  lo = 106496
+  hi = 115682
+  first 10 chars -->----------<--
+  last 10 chars  -->tem.CRTL;?<--
+
+*** Load request for unit: System (spec) (Required = True)
+  unit already in file table, Unit_Number = 6
+
+*** Load request for unit: System (spec) (Required = False)
+  unit already in file table, Unit_Number = 6
+
+*** Load request for unit: System.Parameters (spec) (Required = False)
+  attempt unit load, Unit_Number = 11
+
+Sinput.L.Load_File: created source 12 for s-parame.ads
+*** Build source file table entry, Index = 12, file name = s-parame.ads
+  lo = 118784
+  hi = 127475
+  first 10 chars -->----------<--
+  last 10 chars  -->rameters;?<--
+
+*** Load request for unit: System (spec) (Required = True)
+  unit already in file table, Unit_Number = 6
+
+*** Load request for unit: System (spec) (Required = False)
+  unit already in file table, Unit_Number = 6
+
+*** Load request for unit: System.Crtl (spec) (Required = False)
+  unit already in file table, Unit_Number = 10
+
+*** Load request for unit: System (spec) (Required = False)
+  unit already in file table, Unit_Number = 6
+
+*** Load request for unit: System.Wch_Con (spec) (Required = False)
+  attempt unit load, Unit_Number = 12
+
+Sinput.L.Load_File: created source 13 for s-wchcon.ads
+*** Build source file table entry, Index = 13, file name = s-wchcon.ads
+  lo = 131072
+  hi = 142924
+  first 10 chars -->----------<--
+  last 10 chars  -->.WCh_Con;?<--
+
+*** Load request for unit: System (spec) (Required = True)
+  unit already in file table, Unit_Number = 6
+
+*** Load request for unit: Silver_Arguments (spec) (Required = False)
+  attempt unit load, Unit_Number = 13
+
+Sinput.L.Load_File: created source 14 for silver_arguments.ads
+*** Build source file table entry, Index = 14, file name = silver_arguments.ads
+  lo = 143360
+  hi = 144489
+  first 10 chars -->with Ada.T<--
+  last 10 chars  -->rguments;?<--
+
+*** Load request for unit: Ada (spec) (Required = False)
+  unit already in file table, Unit_Number = 2
+
+*** Load request for unit: Ada.Text_Io (spec) (Required = False)
+  unit already in file table, Unit_Number = 3
+
+*** Load request for unit: Silver_Io (spec) (Required = False)
+  unit already in file table, Unit_Number = 1
+
+*** Load request for unit: Ada.Strings.Text_Buffers (spec) (Required = False)
+  attempt unit load, Unit_Number = 14
+
+Sinput.L.Load_File: created source 15 for a-sttebu.ads
+*** Build source file table entry, Index = 15, file name = a-sttebu.ads
+  lo = 147456
+  hi = 153855
+  first 10 chars -->----------<--
+  last 10 chars  -->_Buffers;?<--
+
+*** Load request for unit: Ada.Strings (spec) (Required = True)
+  attempt unit load, Unit_Number = 15
+
+Sinput.L.Load_File: created source 16 for a-string.ads
+*** Build source file table entry, Index = 16, file name = a-string.ads
+  lo = 155648
+  hi = 157377
+  first 10 chars -->----------<--
+  last 10 chars  -->.Strings;?<--
+
+*** Load request for unit: Ada (spec) (Required = True)
+  unit already in file table, Unit_Number = 2
+
+*** Load request for unit: Ada (spec) (Required = False)
+  unit already in file table, Unit_Number = 2
+
+*** Load request for unit: Ada.Strings (spec) (Required = False)
+  unit already in file table, Unit_Number = 15
+
+*** Load request for unit: Ada.Strings.Utf_Encoding (spec) (Required = False)
+  attempt unit load, Unit_Number = 16
+
+Sinput.L.Load_File: created source 17 for a-stuten.ads
+*** Build source file table entry, Index = 17, file name = a-stuten.ads
+  lo = 159744
+  hi = 167437
+  first 10 chars -->----------<--
+  last 10 chars  -->Encoding;?<--
+
+*** Load request for unit: Ada.Strings (spec) (Required = True)
+  unit already in file table, Unit_Number = 15
+
+*** Load request for unit: Ada (spec) (Required = False)
+  unit already in file table, Unit_Number = 2
+
+*** Load request for unit: Ada.Unchecked_Conversion (spec) (Required = False)
+  attempt unit load, Unit_Number = 17
+
+Sinput.L.Load_File: created source 18 for a-unccon.ads
+*** Build source file table entry, Index = 18, file name = a-unccon.ads
+  lo = 167936
+  hi = 169490
+  first 10 chars -->----------<--
+  last 10 chars  -->version);?<--
+
+*** Load request for unit: Ada (spec) (Required = True)
+  unit already in file table, Unit_Number = 2
+
+*** Load request for unit: Interfaces (spec) (Required = False)
+  unit already in file table, Unit_Number = 8
+
+*** Create_Instantiation_Source: created source 19
+  for spec of function unchecked_conversion
+  copying from file name = a-unccon.ads
+  old source index = 18
+  old lo = 167936
+  old hi = 169490
+  new lo = 172032
+  new hi = 173586
+  adjustment factor = 4096
+  instantiation location: a-stuten.ads:108:4
+
+*** Create_Instantiation_Source: created source 20
+  for spec of function unchecked_conversion
+  copying from file name = a-unccon.ads
+  old source index = 18
+  old lo = 167936
+  old hi = 169490
+  new lo = 176128
+  new hi = 177682
+  adjustment factor = 8192
+  instantiation location: a-stuten.ads:111:4
+
+*** Create_Instantiation_Source: created source 21
+  for spec of function unchecked_conversion
+  copying from file name = a-unccon.ads
+  old source index = 18
+  old lo = 167936
+  old hi = 169490
+  new lo = 180224
+  new hi = 181778
+  adjustment factor = 12288
+  instantiation location: a-stuten.ads:114:4
+
+*** Load request for unit: Ada.Streams (spec) (Required = False)
+  unit already in file table, Unit_Number = 5
+--> Allocating new Elists table, size = 400

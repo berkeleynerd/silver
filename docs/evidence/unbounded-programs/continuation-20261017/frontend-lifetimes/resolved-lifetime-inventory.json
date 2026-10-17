@@ -1,0 +1,1527 @@
+{
+  "method": "Manual Ada name/context inspection of complete lexical inventory; not compiler-generated call graph",
+  "Stringt_external_Mark_Release_sites": 2,
+  "Uintp_operational_sites": 41,
+  "no_enclosing_scanner_or_parser_mark": true,
+  "rows": [
+    {
+      "path": "ali-util.adb",
+      "line": 446,
+      "text": "            Stringt.Mark;",
+      "resolution": "Stringt operation",
+      "basis": "Stringt checksum-only mark/release; not ordinary frontend semantic analysis"
+    },
+    {
+      "path": "ali-util.adb",
+      "line": 463,
+      "text": "            Stringt.Release;",
+      "resolution": "Stringt operation",
+      "basis": "Stringt checksum-only mark/release; not ordinary frontend semantic analysis"
+    },
+    {
+      "path": "checks.adb",
+      "line": 4684,
+      "text": "                  Mrk : constant Uintp.Save_Mark := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local interval arithmetic temporaries; no enclosing parse/token release"
+    },
+    {
+      "path": "checks.adb",
+      "line": 4731,
+      "text": "                  Release_And_Save (Mrk, Lo, Hi);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local interval arithmetic temporaries; no enclosing parse/token release"
+    },
+    {
+      "path": "checks.adb",
+      "line": 4853,
+      "text": "               Mrk : constant Uintp.Save_Mark := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local interval arithmetic temporaries; no enclosing parse/token release"
+    },
+    {
+      "path": "checks.adb",
+      "line": 4867,
+      "text": "               Release_And_Save (Mrk, Lo, Hi);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local interval arithmetic temporaries; no enclosing parse/token release"
+    },
+    {
+      "path": "einfo-utils.adb",
+      "line": 2468,
+      "text": "                     Mark : Node_Id := Subtype_Indication (Parent (Id));",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "einfo-utils.adb",
+      "line": 2470,
+      "text": "                     if Nkind (Mark) = N_Subtype_Indication then",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "einfo-utils.adb",
+      "line": 2471,
+      "text": "                        Mark := Subtype_Mark (Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "einfo-utils.adb",
+      "line": 2473,
+      "text": "                     return Predicate_Function (Entity (Mark));",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "elists.adb",
+      "line": 317,
+      "text": "      Elists.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "elists.adb",
+      "line": 319,
+      "text": "      Elmts.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 190,
+      "text": "         Uintp_Mark := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 208,
+      "text": "         Release_And_Save (Uintp_Mark, D, Exponent);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 213,
+      "text": "            Uintp_Mark := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 246,
+      "text": "            Release_And_Save (Uintp_Mark, Exponent);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 255,
+      "text": "            Uintp_Mark := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 264,
+      "text": "            Release_And_Save (Uintp_Mark, N, D);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 281,
+      "text": "         Uintp_Mark := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 290,
+      "text": "         Release_And_Save (Uintp_Mark, N, Exponent);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 298,
+      "text": "         Uintp_Mark := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 309,
+      "text": "         Release_And_Save (Uintp_Mark, D, Exponent);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 327,
+      "text": "         Uintp_Mark := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 345,
+      "text": "         Release_And_Save (Uintp_Mark, Fraction, N);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 349,
+      "text": "         Uintp_Mark := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "eval_fat.adb",
+      "line": 412,
+      "text": "         Release_And_Save (Uintp_Mark, Fraction, Exponent);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp local floating point decomposition temporaries"
+    },
+    {
+      "path": "exp_ch4.adb",
+      "line": 1129,
+      "text": "         Build_Allocate_Deallocate_Proc (Declaration_Node (Temp), Mark => N);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_ch4.adb",
+      "line": 1141,
+      "text": "         Build_Allocate_Deallocate_Proc (Declaration_Node (Temp), Mark => N);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_ch4.adb",
+      "line": 1150,
+      "text": "         Build_Allocate_Deallocate_Proc (Declaration_Node (Temp), Mark => N);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_ch4.adb",
+      "line": 1220,
+      "text": "         Build_Allocate_Deallocate_Proc (Declaration_Node (Temp), Mark => N);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_ch6.adb",
+      "line": 9240,
+      "text": "           (Declaration_Node (Return_Obj_Access), Mark => Allocator);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_ch7.adb",
+      "line": 2163,
+      "text": "               Release : Node_Id := Build_SS_Release_Call (Loc, Mark_Id);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_ch7.adb",
+      "line": 2187,
+      "text": "                        Release :=",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_ch7.adb",
+      "line": 2201,
+      "text": "                            Then_Statements => New_List (Release));",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_ch7.adb",
+      "line": 2206,
+      "text": "               Append_To (Finalizer_Stmts, Release);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_ch7.adb",
+      "line": 4756,
+      "text": "         Mark   : Entity_Id := Empty;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_ch7.adb",
+      "line": 4790,
+      "text": "            Mark := Make_Temporary (Loc, 'M');",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_ch7.adb",
+      "line": 4793,
+      "text": "               Mark_Call : constant Node_Id := Build_SS_Mark_Call (Loc, Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_ch7.adb",
+      "line": 4807,
+      "text": "            Mark_Id     => Mark,",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_dbug.adb",
+      "line": 251,
+      "text": "            Umark  : constant Uintp.Save_Mark := Uintp.Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp debug bounds computation, local to Bounds_Match_Size"
+    },
+    {
+      "path": "exp_dbug.adb",
+      "line": 280,
+      "text": "            Release (Umark);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp debug bounds computation, local to Bounds_Match_Size"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 734,
+      "text": "      Mark : Node_Id := Empty)",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 876,
+      "text": "            Build_Allocate_Deallocate_Proc (Parent (Entity (Expr)), Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 1294,
+      "text": "                     if Present (Mark) then",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 1295,
+      "text": "                        Insert_Action (Mark, Stmt, Suppress => All_Checks);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 4352,
+      "text": "      Mark : Entity_Id) return Node_Id",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 4360,
+      "text": "          Defining_Identifier => Mark,",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 4375,
+      "text": "      Mark : Entity_Id) return Node_Id",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 4386,
+      "text": "            New_Occurrence_Of (Mark, Loc)));",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_util.ads",
+      "line": 290,
+      "text": "      Mark : Node_Id := Empty);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_util.ads",
+      "line": 379,
+      "text": "      Mark : Entity_Id) return Node_Id;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "exp_util.ads",
+      "line": 385,
+      "text": "      Mark : Entity_Id) return Node_Id;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "fname-uf.adb",
+      "line": 602,
+      "text": "      SFN_Table.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "ghost.adb",
+      "line": 1864,
+      "text": "      Ignored_Ghost_Nodes.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "inline.adb",
+      "line": 5136,
+      "text": "      Pending_Instantiations.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "inline.adb",
+      "line": 5138,
+      "text": "      Called_Pending_Instantiations.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "inline.adb",
+      "line": 5140,
+      "text": "      Inlined_Bodies.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "inline.adb",
+      "line": 5142,
+      "text": "      Successors.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "inline.adb",
+      "line": 5144,
+      "text": "      Inlined.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "lib.adb",
+      "line": 1122,
+      "text": "      Linker_Option_Lines.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "lib.adb",
+      "line": 1124,
+      "text": "      Load_Stack.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "lib.adb",
+      "line": 1126,
+      "text": "      Units.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnarl/g-semaph.adb",
+      "line": 53,
+      "text": "      procedure Release is",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnarl/g-semaph.adb",
+      "line": 56,
+      "text": "      end Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnarl/g-semaph.adb",
+      "line": 78,
+      "text": "      procedure Release is",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnarl/g-semaph.adb",
+      "line": 81,
+      "text": "      end Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnarl/g-semaph.ads",
+      "line": 63,
+      "text": "      procedure Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnarl/g-semaph.ads",
+      "line": 90,
+      "text": "      procedure Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnarl/s-osinte__aix.adb",
+      "line": 105,
+      "text": "      release    : String_NMLN;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnarl/s-osinte__aix.adb",
+      "line": 138,
+      "text": "         AIX_Version := Val (name.version (1)) * 10 + Val (name.release (1));",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-awk.adb",
+      "line": 150,
+      "text": "      procedure Release (P : in out Pattern);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-awk.adb",
+      "line": 181,
+      "text": "      procedure Release (P : in out Regexp_Pattern);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-awk.adb",
+      "line": 451,
+      "text": "      procedure Release (P : in out Pattern) is",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-awk.adb",
+      "line": 455,
+      "text": "      end Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-awk.adb",
+      "line": 461,
+      "text": "      procedure Release (P : in out Regexp_Pattern) is",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-awk.adb",
+      "line": 466,
+      "text": "      end Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-awk.adb",
+      "line": 710,
+      "text": "         Patterns.Release (Filters.Table (F).Pattern.all);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-debpoo.adb",
+      "line": 1181,
+      "text": "      procedure Mark",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-debpoo.adb",
+      "line": 1285,
+      "text": "      procedure Mark",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-debpoo.adb",
+      "line": 1294,
+      "text": "      end Mark;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-debpoo.adb",
+      "line": 1332,
+      "text": "                     Mark (Header, Pointed, In_Use => True);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-debpoo.adb",
+      "line": 1363,
+      "text": "            Mark (Header, Current, False);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-dyntab.adb",
+      "line": 298,
+      "text": "   procedure Release (T : in out Instance) is",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-dyntab.adb",
+      "line": 371,
+      "text": "   end Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-dyntab.ads",
+      "line": 202,
+      "text": "   procedure Release (T : in out Instance);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-table.adb",
+      "line": 148,
+      "text": "   procedure Release is",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-table.adb",
+      "line": 150,
+      "text": "      Tab.Release (The_Instance);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-table.adb",
+      "line": 151,
+      "text": "   end Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-table.ads",
+      "line": 92,
+      "text": "   procedure Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/g-table.ads",
+      "line": 93,
+      "text": "   pragma Inline (Release);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/s-atopri.ads",
+      "line": 58,
+      "text": "   Release : constant := 3;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/s-atopri__32.ads",
+      "line": 57,
+      "text": "   Release : constant := 3;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/s-pehage.adb",
+      "line": 426,
+      "text": "      function Traverse (Edge : Edge_Id; Mark : Vertex_Id) return Boolean;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/s-pehage.adb",
+      "line": 435,
+      "text": "      function Traverse (Edge : Edge_Id; Mark : Vertex_Id) return Boolean is",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/s-pehage.adb",
+      "line": 443,
+      "text": "         if M = Mark then",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/s-pehage.adb",
+      "line": 447,
+      "text": "            Marks (Y) := Mark;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/s-pehage.adb",
+      "line": 455,
+      "text": "                 and then not Traverse (J, Mark)",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/s-pehage.adb",
+      "line": 898,
+      "text": "      WT.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "libgnat/s-pehage.adb",
+      "line": 899,
+      "text": "      IT.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "live.adb",
+      "line": 56,
+      "text": "      Mark  : Boolean := True);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "live.adb",
+      "line": 63,
+      "text": "   procedure Mark (Root : Node_Id; Marks : out Name_Set);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "live.adb",
+      "line": 126,
+      "text": "      Mark (Root, Marks);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "live.adb",
+      "line": 189,
+      "text": "   procedure Mark (Root : Node_Id; Marks : out Name_Set) is",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "live.adb",
+      "line": 193,
+      "text": "   end Mark;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "live.adb",
+      "line": 211,
+      "text": "      Mark  : Boolean := True)",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "live.adb",
+      "line": 214,
+      "text": "      Marks (Name) := Mark;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "make.adb",
+      "line": 380,
+      "text": "   procedure Mark_Directory (Dir : String; Mark : Lib_Mark_Type);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "make.adb",
+      "line": 4111,
+      "text": "   procedure Mark_Directory (Dir : String; Mark : Lib_Mark_Type) is",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "make.adb",
+      "line": 4137,
+      "text": "      Set_Name_Table_Byte (N, B or Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "make_util.adb",
+      "line": 740,
+      "text": "      procedure Mark (Source_File : File_Name_Type; Index : Int := 0);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "make_util.adb",
+      "line": 773,
+      "text": "         Mark (S.File, Index => S.Index);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "make_util.adb",
+      "line": 817,
+      "text": "      procedure Mark (Source_File : File_Name_Type; Index : Int := 0) is",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "make_util.adb",
+      "line": 820,
+      "text": "      end Mark;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "namet.adb",
+      "line": 1128,
+      "text": "      Name_Chars.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "namet.adb",
+      "line": 1130,
+      "text": "      Name_Entries.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "namet.adb",
+      "line": 1528,
+      "text": "      Name_Chars.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "namet.adb",
+      "line": 1531,
+      "text": "      Name_Entries.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "nlists.adb",
+      "line": 702,
+      "text": "      Lists.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "nlists.adb",
+      "line": 704,
+      "text": "      Prev_Node.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "nlists.adb",
+      "line": 706,
+      "text": "      Next_Node.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "par-util.adb",
+      "line": 286,
+      "text": "   function Check_Subtype_Mark (Mark : Node_Id) return Node_Id is",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "par-util.adb",
+      "line": 288,
+      "text": "      if Nkind (Mark) = N_Identifier",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "par-util.adb",
+      "line": 289,
+      "text": "        or else Nkind (Mark) = N_Selected_Component",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "par-util.adb",
+      "line": 290,
+      "text": "        or else (Nkind (Mark) = N_Attribute_Reference",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "par-util.adb",
+      "line": 291,
+      "text": "                  and then Is_Type_Attribute_Name (Attribute_Name (Mark)))",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "par-util.adb",
+      "line": 292,
+      "text": "        or else Mark = Error",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "par-util.adb",
+      "line": 294,
+      "text": "         return Mark;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "par-util.adb",
+      "line": 296,
+      "text": "         Error_Msg_N (\"subtype mark expected\", Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "par.adb",
+      "line": 1358,
+      "text": "      function Check_Subtype_Mark (Mark : Node_Id) return Node_Id;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "par_sco.adb",
+      "line": 501,
+      "text": "      Mark : Nat;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "par_sco.adb",
+      "line": 785,
+      "text": "                  Mark      := SCO_Raw_Table.Last;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "par_sco.adb",
+      "line": 798,
+      "text": "                     SCO_Raw_Table.Set_Last (Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "pprint.adb",
+      "line": 451,
+      "text": "                  Mark : constant String :=",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "pprint.adb",
+      "line": 457,
+      "text": "                     return Mark & \"'\" & Str;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "pprint.adb",
+      "line": 459,
+      "text": "                     return Mark & \"'(\" & Str & \")\";",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem.adb",
+      "line": 1336,
+      "text": "      Scope_Stack.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 17519,
+      "text": "            Mark : Node_Id;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 17537,
+      "text": "                  Mark := New_Occurrence_Of (Typ, Loc);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 17543,
+      "text": "                  Mark := Qualify_Type (Loc, Typ);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 17548,
+      "text": "                   Subtype_Mark => Mark,",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 22914,
+      "text": "      Mark            : Node_Id;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 22924,
+      "text": "         Mark := Subtype_Mark (S);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 22926,
+      "text": "         Mark := S;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 22929,
+      "text": "      Find_Type (Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 22936,
+      "text": "      if not Is_Entity_Name (Mark) then",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 22940,
+      "text": "      Check_Incomplete (Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 23006,
+      "text": "         Subtype_Mark_Id := Entity (Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch4.adb",
+      "line": 4529,
+      "text": "      Mark : constant Entity_Id := Subtype_Mark (N);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch4.adb",
+      "line": 4536,
+      "text": "      Find_Type (Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch4.adb",
+      "line": 4537,
+      "text": "      T := Entity (Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch4.adb",
+      "line": 4550,
+      "text": "         Error_Msg_N (\"current instance not allowed\", Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch4.adb",
+      "line": 6421,
+      "text": "      Mark : constant Entity_Id := Subtype_Mark (N);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch4.adb",
+      "line": 6439,
+      "text": "      Find_Type (Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch4.adb",
+      "line": 6440,
+      "text": "      Typ := Entity (Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch4.adb",
+      "line": 6593,
+      "text": "      Mark : constant Entity_Id := Subtype_Mark (N);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch4.adb",
+      "line": 6596,
+      "text": "      Find_Type (Mark);",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_ch4.adb",
+      "line": 6597,
+      "text": "      Set_Etype (N, Entity (Mark));",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 18284,
+      "text": "      M := Urealp.Mark;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Urealp only, not Uintp"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 18286,
+      "text": "      Urealp.Release (M);",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Urealp only, not Uintp"
+    },
+    {
+      "path": "sinput.adb",
+      "line": 728,
+      "text": "      Source_File.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "sinput.adb",
+      "line": 1276,
+      "text": "      Source_File.Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 125,
+      "text": "      String_Chars.Release;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Stringt procedure definitions and generic Table.Release calls in Lock"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 127,
+      "text": "      Strings.Release;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Stringt procedure definitions and generic Table.Release calls in Lock"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 135,
+      "text": "   procedure Mark is",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Stringt procedure definitions and generic Table.Release calls in Lock"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 139,
+      "text": "   end Mark;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Stringt procedure definitions and generic Table.Release calls in Lock"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 145,
+      "text": "   procedure Release is",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Stringt procedure definitions and generic Table.Release calls in Lock"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 149,
+      "text": "   end Release;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Stringt procedure definitions and generic Table.Release calls in Lock"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 67,
+      "text": "   procedure Mark;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Stringt declarations"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 71,
+      "text": "   procedure Release;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Stringt declarations"
+    },
+    {
+      "path": "table.adb",
+      "line": 232,
+      "text": "      procedure Release is",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "table.adb",
+      "line": 264,
+      "text": "      end Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "table.ads",
+      "line": 151,
+      "text": "      procedure Release;",
+      "resolution": "unrelated identifier, declaration, or named operation",
+      "basis": "Inspected lexical context: no Stringt/Uintp lifetime operation or renaming"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 265,
+      "text": "      Marks  : constant Uintp.Save_Mark := Uintp.Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 450,
+      "text": "      Uintp.Release (Marks);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 534,
+      "text": "   function Mark return Save_Mark is",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 537,
+      "text": "   end Mark;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 683,
+      "text": "   procedure Release (M : Save_Mark) is",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 687,
+      "text": "   end Release;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 693,
+      "text": "   procedure Release_And_Save (M : Save_Mark; UI : in out Valid_Uint) is",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 696,
+      "text": "         Release (M);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 707,
+      "text": "            Release (M);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 717,
+      "text": "   end Release_And_Save;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 719,
+      "text": "   procedure Release_And_Save (M : Save_Mark; UI1, UI2 : in out Valid_Uint) is",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 722,
+      "text": "         Release_And_Save (M, UI2);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 725,
+      "text": "         Release_And_Save (M, UI1);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 742,
+      "text": "            Release (M);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 759,
+      "text": "   end Release_And_Save;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 1435,
+      "text": "         M       : constant Uintp.Save_Mark := Uintp.Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 1448,
+      "text": "         Uintp.Release_And_Save (M, Result);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 1573,
+      "text": "      Marks  : constant Uintp.Save_Mark := Uintp.Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 1655,
+      "text": "            Release_And_Save (Marks, U, V);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 1940,
+      "text": "      M : constant Save_Mark := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 1956,
+      "text": "      Release_And_Save (M, Result);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 1967,
+      "text": "      M : constant Save_Mark := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.adb",
+      "line": 2002,
+      "text": "      Release_And_Save (M, X);",
+      "resolution": "Uintp operation",
+      "basis": "Uintp own declarations, Image_Out, arithmetic routines and release helpers"
+    },
+    {
+      "path": "uintp.ads",
+      "line": 425,
+      "text": "   function Mark return Save_Mark;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Uintp declarations"
+    },
+    {
+      "path": "uintp.ads",
+      "line": 428,
+      "text": "   procedure Release (M : Save_Mark);",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Uintp declarations"
+    },
+    {
+      "path": "uintp.ads",
+      "line": 431,
+      "text": "   procedure Release_And_Save (M : Save_Mark; UI : in out Valid_Uint);",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Uintp declarations"
+    },
+    {
+      "path": "uintp.ads",
+      "line": 436,
+      "text": "   procedure Release_And_Save (M : Save_Mark; UI1, UI2 : in out Valid_Uint);",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Uintp declarations"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 360,
+      "text": "   function Mark return Save_Mark is",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 363,
+      "text": "   end Mark;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 403,
+      "text": "      M   : constant Uintp.Save_Mark := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 436,
+      "text": "      Uintp.Release_And_Save (M, Num, Den);",
+      "resolution": "Uintp operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 478,
+      "text": "   procedure Release (M : Save_Mark) is",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 481,
+      "text": "   end Release;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 1021,
+      "text": "            Imrk   : constant Uintp.Save_Mark  := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 1022,
+      "text": "            Rmrk   : constant Urealp.Save_Mark := Mark;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 1053,
+      "text": "            Release (Imrk);",
+      "resolution": "Uintp operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 1054,
+      "text": "            Release (Rmrk);",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 1219,
+      "text": "            Imrk   : constant Uintp.Save_Mark  := Mark;",
+      "resolution": "Uintp operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 1220,
+      "text": "            Rmrk   : constant Urealp.Save_Mark := Mark;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 1239,
+      "text": "               Release (Imrk);",
+      "resolution": "Uintp operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.adb",
+      "line": 1240,
+      "text": "               Release (Rmrk);",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Mixed Uintp and Urealp; resolved by Save_Mark type and arguments; see row classifications"
+    },
+    {
+      "path": "urealp.ads",
+      "line": 349,
+      "text": "   function Mark return Save_Mark;",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Urealp declarations"
+    },
+    {
+      "path": "urealp.ads",
+      "line": 352,
+      "text": "   procedure Release (M : Save_Mark);",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Urealp declarations"
+    },
+    {
+      "path": "urealp.ads",
+      "line": 369,
+      "text": "   pragma Inline (Mark);",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Urealp declarations"
+    },
+    {
+      "path": "urealp.ads",
+      "line": 374,
+      "text": "   pragma Inline (Release);",
+      "resolution": "declaration, definition, or other explicitly qualified table/package operation",
+      "basis": "Urealp declarations"
+    }
+  ]
+}

@@ -5,6 +5,36 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
+The owner authorized continuation of the unfinished
+[Unbounded programs research](docs/research/unbounded-feasibility-handoff.md)
+on Linux through a final recommendation or precise full stop, independent review
+and publication. Research #107/#108 is under the existing `main`
+authorization from [PR #106](https://github.com/berkeleynerd/silver/pull/106).
+The partial checkpoint began in [PR #109](https://github.com/berkeleynerd/silver/pull/109),
+commit `df4af4588612f8f0b605570a7dd07e5b0c366b2c`. Read its retained evidence
+and remaining hypotheses before any further experiment; issue comments record
+the Linux integration and isolated research lanes. The
+[continuation result](docs/research/unbounded-feasibility-result.md) reports a
+source-derived frontend representation stop for the intended String composition
+domain and the missing complete whole-program source-capacity argument. Linux
+Ada medium/large-model build observations do not remove that frontend limit.
+The [final independent review](docs/reviews/review-unbounded-feasibility-2b47dd8e27.md)
+is complete and its two low wording findings are corrected. Delivery is through
+PR #109; live issues carry merge and closure status. The earlier packaging review
+remains separate history.
+The proposed follow-up is feasibility research into wider or lazy
+semantics-preserving frontend representations, tracked by
+[owner decision #112](https://github.com/berkeleynerd/silver/issues/112).
+That decision remains Backlog; the follow-up and any tool change need separate
+owner disposition.
+
+Implementation #88–#94 remains Backlog. No membership, compiler/runtime/proof
+implementation or Oracle change is authorized. The previous For loops and
+integers goal remains complete; no new harness goal was requested. Preserve
+the prior installation, worktrees, caches and all raw evidence. The completed
+capability and validation records below remain historical context for this
+research, not evidence that a larger language is supported.
+
 The [review-b79b986403 repairs](docs/review-b79b986403-repairs.md) are complete
 on Linux x86_64, with delivery through [PR #86](https://github.com/berkeleynerd/silver/pull/86).
 Source/proof/test commit `78cf419452` explicitly rejects empty assignment RHS

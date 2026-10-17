@@ -1,0 +1,30 @@
+12: class GCC(spec("gh-artifact")):
+13:     @property
+14:     def version(self):
+15:         return "16.1.0"
+16: 
+17:     @property
+18:     def tarball(self):
+19:         return "gcc-%s.tar.gz" % self.version
+20: 
+21:     @property
+22:     def url(self):
+23:         if self.env.host.os.name == "darwin":
+24:             return "https://github.com/iains/gcc-16-branch/archive/refs/tags/gcc-16.1-darwin-r0.tar.gz"
+25:         else:
+26:             return "https://gcc.gnu.org/pub/gcc/releases/gcc-%s/%s" % (
+27:                 self.version,
+28:                 self.tarball,
+29:             )
+295:             )
+296: 
+297:         # Add ld-classic wrapper
+298:         if self.env.target.os.name == "darwin":
+299:             gcc = os.path.join(self["INSTALL_DIR"], "bin", "gcc")
+300:             p = Run([gcc, "--print-prog-name=cc1"])
+301:             libexec = os.path.dirname(p.out.strip())
+302:             cp(
+303:                 os.path.join(self["SRC_DIR"], "patches", patch_name),
+304:                 libexec,
+305:             )
+306:         self.clean()

@@ -1,0 +1,7 @@
+{
+  "status": "invalid guard coverage: ps sandbox denial after child launch; child completed before later process inspection",
+  "source_bytes": 45,
+  "result": "assembly exists, not used as measured validation",
+  "remaining_children": "none observed in follow-up ps",
+  "preflight_repair": "ps now checked before launching child; retry in new directory with process read permission"
+}

@@ -1,0 +1,28 @@
+
+Sinput.L.Load_File: created source 1 for system.ads
+*** Build source file table entry, Index = 1, file name = system.ads
+  lo = 0
+  hi = 8285
+  first 10 chars -->----------<--
+  last 10 chars  -->d System;?<--
+
+Sinput.L.Load_File: created source 2 for main.adb
+*** Build source file table entry, Index = 2, file name = main.adb
+  lo = 12288
+  hi = 77824
+  first 10 chars -->procedure <--
+  last 10 chars  -->??????????<--
+
+Sinput.L.Load_File: created source 3 for gnat.adc--> Reallocating lines table, size = 1000
+--> Reallocating lines table, size = 2000
+--> Reallocating lines table, size = 4000
+--> Reallocating lines table, size = 8000
+--> Reallocating lines table, size = 16000
+--> Reallocating lines table, size = 32000
+--> Reallocating lines table, size = 64000
+--> Reallocating lines table, size = 128000
+
+*** Load request for unit: Main (spec) (Required = False)
+  attempt unit load, Unit_Number = 1
+
+Sinput.L.Load_File: created source 3 for main.ads  file was not found, load failed

@@ -1,0 +1,75 @@
+20740: }
+20741: 
+20742: /* A checking mechanism for the implementation of the various code models.  */
+20743: static void
+20744: initialize_aarch64_code_model (struct gcc_options *opts)
+20745: {
+20746:   aarch64_cmodel = opts->x_aarch64_cmodel_var;
+20747:   switch (opts->x_aarch64_cmodel_var)
+20748:     {
+20749:     case AARCH64_CMODEL_TINY:
+20750:       if (opts->x_flag_pic)
+20751: 	aarch64_cmodel = AARCH64_CMODEL_TINY_PIC;
+20752:       break;
+20753:     case AARCH64_CMODEL_SMALL:
+20754:       if (opts->x_flag_pic)
+20755: 	{
+20756: #ifdef HAVE_AS_SMALL_PIC_RELOCS
+20757: 	  aarch64_cmodel = (flag_pic == 2
+20758: 			    ? AARCH64_CMODEL_SMALL_PIC
+20759: 			    : AARCH64_CMODEL_SMALL_SPIC);
+20760: #else
+20761: 	  aarch64_cmodel = AARCH64_CMODEL_SMALL_PIC;
+20762: #endif
+20763: 	}
+20764:       break;
+20765:     case AARCH64_CMODEL_LARGE:
+20766:       if (TARGET_MACHO)
+20767: 	/* We need to implement fPIC here (arm64_32 also accepts the large
+20768: 	   model).  */
+20769: 	sorry ("code model %qs not supported yet", "large");
+20770:       else if (opts->x_flag_pic)
+20771: 	sorry ("code model %qs with %<-f%s%>", "large",
+20772: 	       opts->x_flag_pic > 1 ? "PIC" : "pic");
+20773:       else if (opts->x_aarch64_abi == AARCH64_ABI_ILP32)
+20774: 	sorry ("code model %qs not supported in ilp32 mode", "large");
+20775:       break;
+20776:     case AARCH64_CMODEL_TINY_PIC:
+20777:     case AARCH64_CMODEL_SMALL_PIC:
+20778:     case AARCH64_CMODEL_SMALL_SPIC:
+20779:       gcc_unreachable ();
+20780:     }
+20781: }
+20782: 
+20783: /* Implements TARGET_OPTION_RESTORE.  Restore the backend codegen decisions
+22764: 	case AARCH64_CMODEL_SMALL_SPIC:
+22765: 	case AARCH64_CMODEL_SMALL_PIC:
+22766: 	case AARCH64_CMODEL_SMALL:
+22767: #if TARGET_MACHO
+22768: 	  if (TARGET_MACHO)
+22769: 	    {
+22770: 	      /* Constant pool addresses are always TU-local and PC-
+22771: 		 relative.  We indirect common, external and weak
+22772: 		 symbols (but weak only if not hidden).  */
+22773: 	      if (!CONSTANT_POOL_ADDRESS_P (x)
+22774: 		  && (MACHO_SYMBOL_MUST_INDIRECT_P (x)
+22775: 		      || !aarch64_symbol_binds_local_p (x)))
+22776: 		return SYMBOL_MO_SMALL_GOT;
+22777: 	    }
+22778: 	  else
+22779: #endif
+22780: 	  if (!TARGET_PECOFF && (flag_pic || SYMBOL_REF_WEAK (x))
+22781: 	      && !aarch64_symbol_binds_local_p (x))
+22782: 	    return aarch64_cmodel == AARCH64_CMODEL_SMALL_SPIC
+22783: 		    ? SYMBOL_SMALL_GOT_28K : SYMBOL_SMALL_GOT_4G;
+22784: 
+22785: 	  /* Same reasoning as the tiny code model, but the offset cap here is
+22786: 	     1MB, allowing +/-3.9GB for the offset to the symbol.  */
+22787: 	  if (!(IN_RANGE (offset, -0x100000, 0x100000)
+22788: 		|| offset_within_block_p (x, offset)))
+22789: 	    return SYMBOL_FORCE_TO_MEM;
+22790: 
+22791: 	  return TARGET_MACHO ? SYMBOL_MO_SMALL_PCR
+22792: 			      : SYMBOL_SMALL_ABSOLUTE;
+22793: 
+22794: 	case AARCH64_CMODEL_LARGE:

@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Scope proposal; implementation not authorized.** The
+**Research complete at a full stop; owner disposition required.** The
 [scope](docs/unbounded-programs.md) and
 [milestone 5](https://github.com/berkeleynerd/silver/milestone/5) pursue removal of
 unnecessary Silver capacity limits. The operational objective is resource-driven
@@ -35,6 +35,29 @@ capacity rule remains a research deliverable, not an established forced maximum.
 A uniform worst-case envelope must be justified against a plausible source-sensitive
 alternative or shown to be the best tractable choice. No Oracle amendment is
 proposed; the proposal cannot silently weaken its guarantee.
+
+The owner [continued the research on Linux](docs/session-memory.md#2026-10-17--unbounded-feasibility-research-continued-on-linux)
+after the [partial handoff](docs/research/unbounded-feasibility-handoff.md).
+The [result](docs/research/unbounded-feasibility-result.md) identifies a
+source-derived frontend representation stop for the intended String composition
+domain. Targeted Linux Ada medium/large-model builds improve the backend evidence
+but do not remove that earlier limit. No complete whole-program source-capacity
+rule has been derived. [Independent review](docs/reviews/review-unbounded-feasibility-2b47dd8e27.md)
+is complete, and low wording findings #110/#111 are corrected and verified.
+Research #107/#108 is packaged for delivery through
+[PR #109](https://github.com/berkeleynerd/silver/pull/109); it does not establish
+feasibility of the intended domain.
+
+The recommended next decision [#112](https://github.com/berkeleynerd/silver/issues/112)
+is whether to authorize feasibility research into
+wider or lazy semantics-preserving frontend representations. That direction best
+matches the owner's expansiveness objective, but tractability is unproved and
+no tool change is adopted or started. Retaining the pin would require a complete
+source-sensitive accounting rule and explicit restrictions on some intended
+compositions; a uniform byte cap is not established as the best tractable choice.
+The [scope](docs/unbounded-programs.md#research-conclusion-and-next-decision)
+records the alternatives and stop. Decision #112 and implementation #88–#94 remain
+Backlog; research closure does not complete the parents or milestone 5.
 
 The milestone's work packages, in order:
 
@@ -77,8 +100,12 @@ does not supply the implementation "proceed". That later authorization must be
 recorded on `main`. Report an unresolved sound/expansive capacity rule, unfixable
 non-resource compile/link failure in the intended value domain, or unfixable
 definite non-proof as a conditional full stop; do not silently choose a smaller
-cap or weaken assurance. #91's research can be separately authorized earlier;
-this corrective pass does not execute its experiments. Packages #89 and #90
+cap or weaken assurance. Source-capacity research
+[#107](https://github.com/berkeleynerd/silver/issues/107) and static-data research
+[#108](https://github.com/berkeleynerd/silver/issues/108) are separately scoped
+subphases of #91 and #93, before adoption or implementation. Their
+[research-only authorization](docs/session-memory.md#2026-10-17--unbounded-programs-feasibility-research-authorized)
+includes evidence publication and independent review. Packages #89 and #90
 coordinate source certificates and use one writer per proof workspace. Rosetta
 stages and new constructs remain separate, and native macOS validation remains
 independent and nonblocking.

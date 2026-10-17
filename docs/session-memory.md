@@ -1,5 +1,82 @@
 # Session memory
 
+## 2026-10-17 — Unbounded feasibility research reviewed at a full stop
+
+The authorized Linux continuation of #107/#108 reports a
+[precise research stop](research/unbounded-feasibility-result.md) for the
+intended domain on the unchanged inspected frontend. The complete pinned-tree
+lifetime audit establishes that two disjoint live Strings of length 2^30 each
+exceed the frontend's signed-Int character-pool representation. This is a
+source-derived result under the recorded tool/source premise, not a native run
+at that scale. Targeted Linux Ada medium/large-model builds improve the backend
+evidence without removing that frontend constraint. No complete whole-program
+source-capacity rule was derived; its per-construct and phase accounting remains
+open. [Independent review](reviews/review-unbounded-feasibility-2b47dd8e27.md)
+of frozen target `2b47dd8e27` is complete. Its two low wording findings
+[#110](https://github.com/berkeleynerd/silver/issues/110) and
+[#111](https://github.com/berkeleynerd/silver/issues/111) are corrected and
+verified, with no remaining material finding. Delivery is through
+[PR #109](https://github.com/berkeleynerd/silver/pull/109); live issues track
+merge and closure of this research.
+
+The recommendation is a separately authorized feasibility investigation of wider
+or lazy, semantics-preserving frontend representations, tracked by owner decision
+[#112](https://github.com/berkeleynerd/silver/issues/112). This follows the owner's
+expansiveness direction without claiming that the alternative is already tractable.
+Retaining the pin with source-sensitive aggregate restrictions remains an
+alternative for owner disposition; no lower cap, tool change, new trusted premise
+or Oracle amendment is adopted. Implementation #88–#94 remains Backlog, and
+closing the research children at delivery does not complete their parents or
+milestone 5. Decision #112 remains Backlog; this recommendation does not authorize
+the follow-up. The earlier goal remains complete; no new goal was requested.
+
+## 2026-10-17 — Unbounded feasibility research continued on Linux
+
+After receiving the partial [research handoff](research/unbounded-feasibility-handoff.md),
+the owner said **“Proceed”** to continuing #107/#108 through a final
+recommendation or precise full stop, independent review and publication.
+This continues the research-only authorization already recorded on `main`
+through [PR #106](https://github.com/berkeleynerd/silver/pull/106), merge
+`66f55f67c053d761c76eb56b0f55ae3717fe95cd`; it does not authorize implementation.
+The prior claimant released the work, and the successor checked both live
+issue threads before claiming the Linux continuation. The issues carry the
+workspace ownership and current research status.
+
+Complete pinned-frontend source accounting and allocation/lifetime reasoning
+first. Compare a sound source-sensitive capacity rule with a uniform envelope,
+then integrate those constraints into near-limit static-data build feasibility
+and semantics-preserving representation alternatives. Reuse retained evidence;
+new guarded probes must answer named unresolved hypotheses. Preserve distinctions
+between source facts, observed behavior, derivations and trusted premises.
+Independent review must assess the final recommendation, beyond the earlier
+packaging review. Report a justified full stop with its counterevidence and
+alternatives instead of silently selecting a lower cap or weakening assurance.
+
+Implementation #88–#94 remains Backlog. No membership rule, compiler/runtime/proof
+implementation, Oracle amendment or next construct is authorized. The draft
+[PR #109](https://github.com/berkeleynerd/silver/pull/109) preserves the partial
+checkpoint until the research and its review are complete. The earlier For loops
+and integers harness goal remains complete; no new harness goal was requested.
+Linux is primary, with native macOS evidence independent and nonblocking.
+Preserve all worktrees, scratch, evidence, caches and other-host artifacts.
+CLI memory is unavailable and was not updated.
+
+## 2026-10-17 — Unbounded feasibility research handoff requested
+
+During the research-only pass authorized below, the owner said: "Let's package
+up this as a handoff package to another agent with the required access."
+The [handoff](research/unbounded-feasibility-handoff.md) preserves partial
+source-capacity and static-data research, its raw evidence and the remaining
+hypotheses. Linux access was resolved before packaging; no further experiments
+were started after this request. The already-running small assembly probes
+completed and their outputs were retained.
+
+This transfers unfinished research, not implementation authority or an adopted
+capacity rule. #107/#108 remain open pending completion and independent review
+of a final recommendation or precise full stop. #88–#94 remain Backlog. The
+package is published as a draft research branch for continuation; its review
+checks handoff accuracy and does not certify full-domain feasibility.
+
 ## 2026-10-17 — Unbounded programs feasibility research authorized
 
 The owner replied "Proceed." to the recommendation to run a **research-only pass**

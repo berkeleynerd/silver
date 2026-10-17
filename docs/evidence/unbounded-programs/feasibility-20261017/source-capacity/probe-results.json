@@ -1,0 +1,282 @@
+[
+  {
+    "name": "null",
+    "argv": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+      "-c",
+      "-gnatc",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatdl",
+      "-gnatdd",
+      "main.adb"
+    ],
+    "cwd": "/tmp/silver-unbounded-feasibility-20261017/source-capacity/probes/null",
+    "source_bytes": 66,
+    "source_sha256": "f8d42113440e5dbead3d8af970620343fc59fc8633ab6823060ccbf73d3a6a31",
+    "expanded": false,
+    "inputs": {
+      "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+      "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+      "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+      "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7",
+      "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+      "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+      "main.adb": "f8d42113440e5dbead3d8af970620343fc59fc8633ab6823060ccbf73d3a6a31"
+    },
+    "exit_status": 0,
+    "wall_seconds": 0.04507858294527978,
+    "peak_sampled_process_group_rss_kib": 8496,
+    "guard_stop": null
+  },
+  {
+    "name": "static",
+    "argv": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+      "-c",
+      "-gnatc",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatdl",
+      "-gnatdd",
+      "main.adb"
+    ],
+    "cwd": "/tmp/silver-unbounded-feasibility-20261017/source-capacity/probes/static",
+    "source_bytes": 124,
+    "source_sha256": "e04d296a99817f1e872d83e00cad74a41855d08fa32cb83ec9d295b0b5fe6873",
+    "expanded": false,
+    "inputs": {
+      "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+      "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+      "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+      "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7",
+      "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+      "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+      "main.adb": "e04d296a99817f1e872d83e00cad74a41855d08fa32cb83ec9d295b0b5fe6873"
+    },
+    "exit_status": 0,
+    "wall_seconds": 0.04605550004635006,
+    "peak_sampled_process_group_rss_kib": 8624,
+    "guard_stop": null
+  },
+  {
+    "name": "argument",
+    "argv": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+      "-c",
+      "-gnatc",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatdl",
+      "-gnatdd",
+      "main.adb"
+    ],
+    "cwd": "/tmp/silver-unbounded-feasibility-20261017/source-capacity/probes/argument",
+    "source_bytes": 265,
+    "source_sha256": "64e7fca3f5c6112f31adf03b4921e5948933859c90f35c4859edf8e70d78065d",
+    "expanded": false,
+    "inputs": {
+      "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+      "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+      "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+      "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7",
+      "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+      "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+      "main.adb": "64e7fca3f5c6112f31adf03b4921e5948933859c90f35c4859edf8e70d78065d"
+    },
+    "exit_status": 0,
+    "wall_seconds": 0.041438792017288506,
+    "peak_sampled_process_group_rss_kib": 9104,
+    "guard_stop": null
+  },
+  {
+    "name": "mixed",
+    "argv": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+      "-c",
+      "-gnatc",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatdl",
+      "-gnatdd",
+      "main.adb"
+    ],
+    "cwd": "/tmp/silver-unbounded-feasibility-20261017/source-capacity/probes/mixed",
+    "source_bytes": 525,
+    "source_sha256": "b84dcfd3dcf2325588449ff59eca40210fdcec473a5768ba76fa139b1db5de68",
+    "expanded": false,
+    "inputs": {
+      "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+      "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+      "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+      "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7",
+      "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+      "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+      "main.adb": "b84dcfd3dcf2325588449ff59eca40210fdcec473a5768ba76fa139b1db5de68"
+    },
+    "exit_status": 0,
+    "wall_seconds": 0.04806837497744709,
+    "peak_sampled_process_group_rss_kib": 8432,
+    "guard_stop": null
+  },
+  {
+    "name": "sparse64k",
+    "argv": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+      "-c",
+      "-gnatc",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatdl",
+      "-gnatdd",
+      "main.adb"
+    ],
+    "cwd": "/tmp/silver-unbounded-feasibility-20261017/source-capacity/probes/sparse64k",
+    "source_bytes": 65536,
+    "source_sha256": "57eba0d1d531adc5351746f5afb9165e5b1378adb93cffdf22dc325896392eed",
+    "expanded": false,
+    "inputs": {
+      "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+      "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+      "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+      "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7",
+      "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+      "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+      "main.adb": "57eba0d1d531adc5351746f5afb9165e5b1378adb93cffdf22dc325896392eed"
+    },
+    "exit_status": 0,
+    "wall_seconds": 0.0502031659707427,
+    "peak_sampled_process_group_rss_kib": 9360,
+    "guard_stop": null
+  },
+  {
+    "name": "dense64k",
+    "argv": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+      "-c",
+      "-gnatc",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatdl",
+      "-gnatdd",
+      "main.adb"
+    ],
+    "cwd": "/tmp/silver-unbounded-feasibility-20261017/source-capacity/probes/dense64k",
+    "source_bytes": 65536,
+    "source_sha256": "b25a4fb8607bfe4b63ac21ee166ca7fa015f82e14baaf9109782e96edd0cfec1",
+    "expanded": false,
+    "inputs": {
+      "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+      "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+      "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+      "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7",
+      "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+      "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+      "main.adb": "b25a4fb8607bfe4b63ac21ee166ca7fa015f82e14baaf9109782e96edd0cfec1"
+    },
+    "exit_status": 0,
+    "wall_seconds": 0.0936102089472115,
+    "peak_sampled_process_group_rss_kib": 17504,
+    "guard_stop": null
+  },
+  {
+    "name": "blank64k",
+    "argv": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+      "-c",
+      "-gnatc",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatdl",
+      "-gnatdd",
+      "main.adb"
+    ],
+    "cwd": "/tmp/silver-unbounded-feasibility-20261017/source-capacity/probes/blank64k",
+    "source_bytes": 65536,
+    "source_sha256": "d3cba3998e478a8eb2a7990b7dbb6bd8aff035707539c0844e5dce4dfa1e5662",
+    "expanded": false,
+    "inputs": {
+      "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+      "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+      "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+      "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7",
+      "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+      "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+      "main.adb": "d3cba3998e478a8eb2a7990b7dbb6bd8aff035707539c0844e5dce4dfa1e5662"
+    },
+    "exit_status": 0,
+    "wall_seconds": 0.051079791970551014,
+    "peak_sampled_process_group_rss_kib": 9056,
+    "guard_stop": null
+  },
+  {
+    "name": "fold64k_value",
+    "argv": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+      "-c",
+      "-gnatc",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatdl",
+      "-gnatdd",
+      "main.adb"
+    ],
+    "cwd": "/tmp/silver-unbounded-feasibility-20261017/source-capacity/probes/fold64k_value",
+    "source_bytes": 695,
+    "source_sha256": "5da02dc5d122af5cff0527b51fa1d0007e2b43754c747b3b63065b235b12435b",
+    "expanded": false,
+    "inputs": {
+      "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+      "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+      "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+      "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7",
+      "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+      "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+      "main.adb": "5da02dc5d122af5cff0527b51fa1d0007e2b43754c747b3b63065b235b12435b"
+    },
+    "exit_status": 0,
+    "wall_seconds": 0.05026362498756498,
+    "peak_sampled_process_group_rss_kib": 9344,
+    "guard_stop": null
+  },
+  {
+    "name": "mixed_expanded",
+    "argv": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+      "-c",
+      "-gnatc",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-gnatdl",
+      "-gnatdd",
+      "-gnatdx",
+      "main.adb"
+    ],
+    "cwd": "/tmp/silver-unbounded-feasibility-20261017/source-capacity/probes/mixed_expanded",
+    "source_bytes": 525,
+    "source_sha256": "b84dcfd3dcf2325588449ff59eca40210fdcec473a5768ba76fa139b1db5de68",
+    "expanded": true,
+    "inputs": {
+      "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+      "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+      "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+      "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7",
+      "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+      "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+      "main.adb": "b84dcfd3dcf2325588449ff59eca40210fdcec473a5768ba76fa139b1db5de68"
+    },
+    "exit_status": 0,
+    "wall_seconds": 0.05029133299831301,
+    "peak_sampled_process_group_rss_kib": 9136,
+    "guard_stop": null
+  }
+]

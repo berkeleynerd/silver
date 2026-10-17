@@ -1,0 +1,50 @@
+{
+  "status": "research stop, review and integration evidence; no new membership rule",
+  "files": [
+    {
+      "path": "final-document-validation.json",
+      "bytes": 3460,
+      "sha256": "b653a4c06961cc6e05dc7b44dd1f943453f2a75195dac419b71f6da21b0fa04b"
+    },
+    {
+      "path": "integration-validation-initial.json",
+      "bytes": 1142,
+      "sha256": "f0afa34849b3b9ec6d0a4136236e36bfbe41e40b9a07cbb6f04b312949338d0c"
+    },
+    {
+      "path": "integration-validation.json",
+      "bytes": 14462,
+      "sha256": "d7e5293bee337fee8bb49e4ece11d8fa1f93fee8137d154bfce92934d8baae16"
+    },
+    {
+      "path": "planning/reconcile_source_positions.py",
+      "bytes": 5435,
+      "sha256": "01938a42f42a6bdefd42fa8405843e6e1efb8d304f90bbd84ce1ccff08d35b14"
+    },
+    {
+      "path": "planning/source-position-reconciliation.json",
+      "bytes": 6954,
+      "sha256": "bb27dc54245ef41c3e9e67f24bed9aa82e45c0f432bcaa3901b18e9a363d4bb1"
+    },
+    {
+      "path": "reviews/backend-review.md",
+      "bytes": 4628,
+      "sha256": "ddacc5634f1e18269e97461782d0cddd56b93af0dfb825ebabbfef6dfaa50aa1"
+    },
+    {
+      "path": "reviews/frontend-review.md",
+      "bytes": 4341,
+      "sha256": "c0ca7e2175a9399511801f7bec77d30fffd979a1b61f7cd4cd3b889d69ebc70f"
+    },
+    {
+      "path": "reviews/independent-witness-checks.json",
+      "bytes": 360,
+      "sha256": "f6751ba49732ffebd6b126800187bb21dbad0203d1c5b67dd65504350f6babb2"
+    },
+    {
+      "path": "reviews/planning-review.md",
+      "bytes": 4968,
+      "sha256": "24664ff4cfaaddf438ecab292ef27aa4cbd77991324f5c1fcbd7c9454a753207"
+    }
+  ]
+}

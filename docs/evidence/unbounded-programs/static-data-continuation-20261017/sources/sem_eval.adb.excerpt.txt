@@ -1,0 +1,118 @@
+2342:    procedure Eval_Concatenation (N : Node_Id) is
+2343:       Left  : constant Node_Id   := Left_Opnd (N);
+2344:       Right : constant Node_Id   := Right_Opnd (N);
+2345:       C_Typ : constant Entity_Id := Root_Type (Component_Type (Etype (N)));
+2346:       Stat  : Boolean;
+2347:       Fold  : Boolean;
+2348: 
+2349:    begin
+2350:       --  Concatenation is never static in Ada 83, so if Ada 83 check operand
+2351:       --  non-static context.
+2352: 
+2353:       if Ada_Version = Ada_83
+2354:         and then Comes_From_Source (N)
+2355:       then
+2356:          Check_Non_Static_Context (Left);
+2357:          Check_Non_Static_Context (Right);
+2358:          return;
+2359:       end if;
+2360: 
+2361:       --  If not foldable we are done. In principle concatenation that yields
+2362:       --  any string type is static (i.e. an array type of character types).
+2363:       --  However, character types can include enumeration literals, and
+2364:       --  concatenation in that case cannot be described by a literal, so we
+2365:       --  only consider the operation static if the result is an array of
+2366:       --  (a descendant of) a predefined character type.
+2367: 
+2368:       Test_Expression_Is_Foldable (N, Left, Right, Stat, Fold);
+2369: 
+2370:       if not (Is_Standard_Character_Type (C_Typ) and then Fold) then
+2371:          Set_Is_Static_Expression (N, False);
+2372:          return;
+2373:       end if;
+2374: 
+2375:       --  Compile time string concatenation
+2376: 
+2377:       --  ??? Note that operands that are aggregates can be marked as static,
+2378:       --  so we should attempt at a later stage to fold concatenations with
+2379:       --  such aggregates.
+2380: 
+2381:       declare
+2382:          Left_Str   : constant Node_Id := Get_String_Val (Left);
+2383:          Left_Len   : Nat;
+2384:          Right_Str  : constant Node_Id := Get_String_Val (Right);
+2385:          Folded_Val : String_Id        := No_String;
+2386: 
+2387:       begin
+2388:          --  Establish new string literal, and store left operand. We make
+2389:          --  sure to use the special Start_String that takes an operand if
+2390:          --  the left operand is a string literal. Since this is optimized
+2391:          --  in the case where that is the most recently created string
+2392:          --  literal, we ensure efficient time/space behavior for the
+2393:          --  case of a concatenation of a series of string literals.
+2394: 
+2395:          if Nkind (Left_Str) = N_String_Literal then
+2396:             Left_Len := String_Length (Strval (Left_Str));
+2397: 
+2398:             --  If the left operand is the empty string, and the right operand
+2399:             --  is a string literal (the case of "" & "..."), the result is the
+2400:             --  value of the right operand. This optimization is important when
+2401:             --  Is_Folded_In_Parser, to avoid copying an enormous right
+2402:             --  operand.
+2403: 
+2404:             if Left_Len = 0 and then Nkind (Right_Str) = N_String_Literal then
+2405:                Folded_Val := Strval (Right_Str);
+2406:             else
+2407:                Start_String (Strval (Left_Str));
+2408:             end if;
+2409: 
+2410:          else
+2411:             Start_String;
+2412:             Store_String_Char (UI_To_CC (Char_Literal_Value (Left_Str)));
+2413:             Left_Len := 1;
+2414:          end if;
+2415: 
+2416:          --  Now append the characters of the right operand, unless we
+2417:          --  optimized the "" & "..." case above.
+2418: 
+2419:          if Nkind (Right_Str) = N_String_Literal then
+2420:             if Left_Len /= 0 then
+2421:                Store_String_Chars (Strval (Right_Str));
+2422:                Folded_Val := End_String;
+2423:             end if;
+2424:          else
+2425:             Store_String_Char (UI_To_CC (Char_Literal_Value (Right_Str)));
+2426:             Folded_Val := End_String;
+2427:          end if;
+2428: 
+2429:          Set_Is_Static_Expression (N, Stat);
+2430: 
+2431:          --  If left operand is the empty string, the result is the
+2432:          --  right operand, including its bounds if anomalous.
+2433: 
+2434:          if Left_Len = 0
+2435:            and then Is_Array_Type (Etype (Right))
+2436:            and then Etype (Right) /= Any_String
+2437:          then
+2438:             Set_Etype (N, Etype (Right));
+2439:          end if;
+2440: 
+2441:          Fold_Str (N, Folded_Val, Static => Stat);
+2442:       end;
+2443:    end Eval_Concatenation;
+
+7234:       Rstat : constant Boolean := Is_Static_Expression (Op1)
+7235:                                     and then
+7236:                                   Is_Static_Expression (Op2);
+7237: 
+7238:    begin
+7239:       Stat := False;
+7240:       Fold := False;
+7241: 
+7242:       --  Inhibit folding if -gnatd.f flag set
+7243: 
+7244:       if Debug_Flag_Dot_F and then In_Extended_Main_Source_Unit (N) then
+7245:          return;
+7246:       end if;
+7247: 
+7248:       --  If either operand is Any_Type, just propagate to result and

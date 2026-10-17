@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "scope": "Read-only reconciliation of retained macOS traces and frozen GCC source; no compiler, test, proof or native probe was run.",
+  "handoff_commit": "df4af4588612f8f0b605570a7dd07e5b0c366b2c",
+  "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "script": "docs/evidence/unbounded-programs/feasibility-20261017/continuation/planning/reconcile_source_positions.py",
+  "script_sha256": "01938a42f42a6bdefd42fa8405843e6e1efb8d304f90bbd84ce1ccff08d35b14",
+  "source_archive": "docs/evidence/unbounded-programs/feasibility-20261017/source-capacity/source-snapshots.tar.gz",
+  "source_archive_sha256": "27316864f8ab8b4fcca52c59b28b40e6915ff26792b864b6f182eff5f095eeb0",
+  "source_manifest": "docs/evidence/unbounded-programs/feasibility-20261017/source-capacity/source-manifest.json",
+  "source_manifest_sha256": "f05a3f4a725013566e03e9a8053ac17409d9bef517690dba20e9e8f5d7080241",
+  "verified_source_files": [
+    {
+      "path": "types.ads",
+      "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+      "lines": [
+        "53-56",
+        "190-200",
+        "266"
+      ]
+    },
+    {
+      "path": "osint.adb",
+      "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69",
+      "lines": [
+        "2709-2720"
+      ]
+    },
+    {
+      "path": "sinput-l.adb",
+      "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd",
+      "lines": [
+        "231-239",
+        "377-381",
+        "414-418",
+        "680-703"
+      ]
+    },
+    {
+      "path": "sinput.adb",
+      "sha256": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8",
+      "lines": [
+        "851-864"
+      ]
+    },
+    {
+      "path": "sinput.ads",
+      "sha256": "48657f3ca583b754d10f2798fb61c54d85b556c2cd6f10036acff685d57a682b",
+      "lines": [
+        "365-390"
+      ]
+    }
+  ],
+  "arithmetic": {
+    "alignment": 4096,
+    "extent": "Hi-Lo: physical source bytes, or copied template extent for a virtual source",
+    "first_Lo": 0,
+    "next_Lo": "4096 * floor((previous_Hi + 4096) / 4096)",
+    "next_Hi": "next_Lo + extent",
+    "closed_form_final_Hi": "sum(4096 * ceil((extent_i + 1) / 4096), i < n) + extent_n",
+    "overhead_per_nonfinal_range": "1 through 4096 positions, including EOF and alignment",
+    "sufficient_final_Hi_max": 2147479551,
+    "headroom_reason": "Keeps next-source Hi+4096 alignment arithmetic and the last Set_Source_File_Index_Table SP+=4096 representable. This is a source-derived sufficient condition, not a measured native failure point.",
+    "virtual_source_memory": "Instantiation entries share the template text buffer while reserving distinct aligned source-position ranges."
+  },
+  "probes": [
+    {
+      "probe": "null",
+      "trace": "docs/evidence/unbounded-programs/feasibility-20261017/source-capacity/probes/null/stdout.txt",
+      "trace_sha256": "92fc0cfb524dc8827ec3dd1355eefdcaec8e1deeaebf67781e6452b17c0fe38b",
+      "source_ranges": 2,
+      "sum_extent_excluding_EOF": 8351,
+      "alignment_plus_EOF_overhead": 4003,
+      "final_position": 12354,
+      "every_recorded_transition_matches": true,
+      "closed_form_matches": true
+    },
+    {
+      "probe": "static",
+      "trace": "docs/evidence/unbounded-programs/feasibility-20261017/source-capacity/probes/static/stdout.txt",
+      "trace_sha256": "7a7461c78c3eb19f5d687385aab5b15a4da24c398c67c33acde215733c6e0d09",
+      "source_ranges": 20,
+      "sum_extent_excluding_EOF": 131479,
+      "alignment_plus_EOF_overhead": 46203,
+      "final_position": 177682,
+      "every_recorded_transition_matches": true,
+      "closed_form_matches": true
+    },
+    {
+      "probe": "mixed",
+      "trace": "docs/evidence/unbounded-programs/feasibility-20261017/source-capacity/probes/mixed/stdout.txt",
+      "trace_sha256": "a0aa031d2b9a2414f77dfd7860b75a80418b8349982ac275338f5c84d20de8f8",
+      "source_ranges": 20,
+      "sum_extent_excluding_EOF": 131880,
+      "alignment_plus_EOF_overhead": 45802,
+      "final_position": 177682,
+      "every_recorded_transition_matches": true,
+      "closed_form_matches": true
+    },
+    {
+      "probe": "mixed_expanded",
+      "trace": "docs/evidence/unbounded-programs/feasibility-20261017/source-capacity/probes/mixed_expanded/stdout.txt",
+      "trace_sha256": "43b459f0903fa8a1831f55ff640757ac1573184a1177ac329fb57fc23325d5a7",
+      "source_ranges": 39,
+      "sum_extent_excluding_EOF": 280989,
+      "alignment_plus_EOF_overhead": 90562,
+      "final_position": 371551,
+      "every_recorded_transition_matches": true,
+      "closed_form_matches": true
+    },
+    {
+      "probe": "sparse64k",
+      "trace": "docs/evidence/unbounded-programs/feasibility-20261017/source-capacity/probes/sparse64k/stdout.txt",
+      "trace_sha256": "d9dafa50a4f4e43b2922407e19e6e9b718ea9d3aebd8b1ec0fefd717bac0b9b3",
+      "source_ranges": 20,
+      "sum_extent_excluding_EOF": 196891,
+      "alignment_plus_EOF_overhead": 46327,
+      "final_position": 243218,
+      "every_recorded_transition_matches": true,
+      "closed_form_matches": true
+    },
+    {
+      "probe": "dense64k",
+      "trace": "docs/evidence/unbounded-programs/feasibility-20261017/source-capacity/probes/dense64k/stdout.txt",
+      "trace_sha256": "b7029d03f74e55540c21777f913827ef803f5c6ae5277cd1b923f427b6beebcf",
+      "source_ranges": 20,
+      "sum_extent_excluding_EOF": 196891,
+      "alignment_plus_EOF_overhead": 46327,
+      "final_position": 243218,
+      "every_recorded_transition_matches": true,
+      "closed_form_matches": true
+    },
+    {
+      "probe": "blank64k",
+      "trace": "docs/evidence/unbounded-programs/feasibility-20261017/source-capacity/probes/blank64k/stdout.txt",
+      "trace_sha256": "eb3a3f89aa5a3f5a8c4a49cbfd2d6b8fea0cda20cdaa8f3c1291ceca02c6d5cc",
+      "source_ranges": 2,
+      "sum_extent_excluding_EOF": 73821,
+      "alignment_plus_EOF_overhead": 4003,
+      "final_position": 77824,
+      "every_recorded_transition_matches": true,
+      "closed_form_matches": true
+    }
+  ],
+  "remaining_obligations": [
+    "Bound all phase-dependent physical and virtual source extents and counts under actual build options; a semantic-only trace does not establish expanded-build closure.",
+    "Account for preprocessed source replacement and loaded runtime/library units; distinguish physical-name deduplication from repeated virtual template entries.",
+    "Close independent line, node/slot, name, list, String, Uint/Udigits and table growth/lock budgets before claiming a universal source rule.",
+    "Compare a sound source-sensitive rule with a uniform worst-case envelope; the recurrence alone establishes neither complete soundness nor best tractability."
+  ],
+  "not_claimed": [
+    "New native observations",
+    "Whole-frontend capacity proof",
+    "An adopted membership rule",
+    "No tractable source-sensitive rule exists",
+    "Binary/source attestation"
+  ]
+}

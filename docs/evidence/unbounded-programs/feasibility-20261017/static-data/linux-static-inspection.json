@@ -1,0 +1,67 @@
+[
+  {
+    "case": "linux-ada-1mib-large",
+    "exit_status": 0,
+    "elapsed_seconds": 0.06388334196526557,
+    "rss_group_sampled_kib": 28768,
+    "child_maxrss_kib": 49940,
+    "guard_trigger": null,
+    "assembly_bytes": 2485198,
+    "declared_string_data_bytes": 2097151,
+    "all_six_runtime_hashes_match_frozen_research_worktree": true
+  },
+  {
+    "case": "linux-ada-1mib-medium",
+    "exit_status": 0,
+    "elapsed_seconds": 0.1263785200426355,
+    "rss_group_sampled_kib": 28840,
+    "child_maxrss_kib": 49436,
+    "guard_trigger": null,
+    "assembly_bytes": 2484977,
+    "declared_string_data_bytes": 2097151,
+    "all_six_runtime_hashes_match_frozen_research_worktree": true
+  },
+  {
+    "case": "linux-ada-1mib-small",
+    "exit_status": 0,
+    "elapsed_seconds": 0.1286126880440861,
+    "rss_group_sampled_kib": 18884,
+    "child_maxrss_kib": 48396,
+    "guard_trigger": null,
+    "assembly_bytes": 2484884,
+    "declared_string_data_bytes": 2097151,
+    "all_six_runtime_hashes_match_frozen_research_worktree": true
+  },
+  {
+    "case": "linux-bss-control",
+    "exit_status": 0,
+    "elapsed_seconds": 0.06679349602200091,
+    "rss_group_sampled_kib": 3876,
+    "child_maxrss_kib": 31784,
+    "guard_trigger": null
+  },
+  {
+    "case": "linux-bss-large",
+    "exit_status": 0,
+    "elapsed_seconds": 0.06718116800766438,
+    "rss_group_sampled_kib": 3824,
+    "child_maxrss_kib": 31904,
+    "guard_trigger": null
+  },
+  {
+    "case": "linux-bss-medium",
+    "exit_status": 0,
+    "elapsed_seconds": 0.06737241800874472,
+    "rss_group_sampled_kib": 3868,
+    "child_maxrss_kib": 31900,
+    "guard_trigger": null
+  },
+  {
+    "case": "linux-bss-small",
+    "exit_status": 1,
+    "elapsed_seconds": 0.06521877099294215,
+    "rss_group_sampled_kib": 3856,
+    "child_maxrss_kib": 31688,
+    "guard_trigger": null
+  }
+]

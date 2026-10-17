@@ -1,0 +1,7 @@
+with Silver_IO;
+procedure Main is
+ pragma SPARK_Mode (On);
+ S : String := "hello";
+begin
+ Silver_IO.Put_Line (S);
+end Main;

@@ -1,0 +1,80 @@
+{
+  "status": "research only; source-derived structural obstruction; no implementation or adopted membership rule",
+  "files": [
+    {
+      "path": "COPYING3",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+      "path": "SOURCE-LICENSE-NOTE.txt",
+      "bytes": 88,
+      "sha256": "40f9b87127db5c8fb1d951bcb780ed7db2282a9b2100c862776519be7f75e137"
+    },
+    {
+      "path": "ada-tree.json",
+      "bytes": 708583,
+      "sha256": "f4cc802551e71badecbaf91a39e35e86afac6c39a6a9120f5f09d8d2e2dc4d5e"
+    },
+    {
+      "path": "all-ada-lifetime-tokens.json",
+      "bytes": 23466,
+      "sha256": "5a281bef5a9ce8d82244dd4c6fe158fd9cf1c984b27c2026ed3f570aa776bd99"
+    },
+    {
+      "path": "all-ada-pool-mutation-tokens.json",
+      "bytes": 5608,
+      "sha256": "fc1c01ac6a58c55bc6b5bf86b64f3ffd73b13502833a25ced7980d0e4b1b158f"
+    },
+    {
+      "path": "all-package-references.json",
+      "bytes": 44014,
+      "sha256": "fb8da306d6dbd0180293eeeebd7fbcd94753e4c70e85b2ef45a41a264a42b650"
+    },
+    {
+      "path": "audit.py",
+      "bytes": 4579,
+      "sha256": "dbdde0891db71af902e77936dcc079d7be5cc7f9ff5b5b712b657ee492f203bf"
+    },
+    {
+      "path": "complete-source-manifest.json",
+      "bytes": 552521,
+      "sha256": "f0425c46cd96b9348767de5456e4e0fb1efd818ca811e244a150811b353e223c"
+    },
+    {
+      "path": "derived-arithmetic.json",
+      "bytes": 1392,
+      "sha256": "a485c9890897e16756ca5653359a0c51cb31d1195290b9c8e4c6263a9d98736d"
+    },
+    {
+      "path": "resolved-lifetime-inventory.json",
+      "bytes": 61199,
+      "sha256": "492a370c235497093252c9e2881bb1b56bf01f57fe43f2221d62840bc13afb99"
+    },
+    {
+      "path": "retained-evidence-verification.json",
+      "bytes": 282,
+      "sha256": "e343a926fb52b57781ffdfb001ac7e76376e2f15530f5dd0aeaf2394988663f6"
+    },
+    {
+      "path": "selected-source-files.json",
+      "bytes": 478,
+      "sha256": "aa2ee836c64ceea899b79578ab97a915cc2743f72bf7f554b6ba515e1b6ef3ba"
+    },
+    {
+      "path": "selected-sources.tar.gz",
+      "bytes": 588002,
+      "sha256": "5e5c054f99ca512bbaf88736bdfcf56bb21185ed75f28a5cf18ec8696bc9a680"
+    },
+    {
+      "path": "two-live-chains.adb",
+      "bytes": 2481,
+      "sha256": "c12ae2307121e946fbfccf535c92b09942e6eb9e8247410f8656eb2e207f6fee"
+    },
+    {
+      "path": "verified-tree.json",
+      "bytes": 206,
+      "sha256": "ade7e64abb1c3b8f00f9e39a73a170c37374af31e473ecf075e4ff472ef75241"
+    }
+  ]
+}

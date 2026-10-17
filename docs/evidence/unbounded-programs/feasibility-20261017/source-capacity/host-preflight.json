@@ -1,0 +1,12 @@
+{
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "memory": {
+    "estimate_bytes": 9567469568,
+    "raw": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                    29164.\nPages active:                                 554069.\nPages inactive:                               553736.\nPages speculative:                              1052.\nPages throttled:                                   0.\nPages wired down:                             236216.\nPages purgeable:                               10787.\n\"Translation faults\":                     5692806092.\nPages copy-on-write:                       646558677.\nPages zero filled:                        5689275829.\nPages reactivated:                         217898974.\nPages purged:                               54231874.\nFile-backed pages:                            436265.\nAnonymous pages:                              672592.\nPages stored in compressor:                   273140.\nPages occupied by compressor:                 164828.\nDecompressions:                            424654065.\nCompressions:                              497069431.\nPageins:                                   168009417.\nPageouts:                                     142902.\nSwapins:                                    15428494.\nSwapouts:                                   18265107.\n"
+  },
+  "gcc": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+  "guards": {
+    "aggregate_process_rss_kib": 524288,
+    "wall_seconds": 30
+  }
+}

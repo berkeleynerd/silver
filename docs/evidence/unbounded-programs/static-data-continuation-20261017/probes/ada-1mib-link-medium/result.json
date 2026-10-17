@@ -1,0 +1,180 @@
+{
+  "started_utc": "2026-10-17T20:34:38.931013+00:00",
+  "elapsed_seconds": 0.4421382380023715,
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gnatmake",
+    "-v",
+    "-f",
+    "main.adb",
+    "-o",
+    "main",
+    "-cargs",
+    "-O0",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-mcmodel=medium",
+    "-largs",
+    "-mcmodel=medium"
+  ],
+  "selected_environment": {
+    "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/home/agent/.codex/packages/app-server-daemon/releases/0.163.0-x86_64-unknown-linux-musl/codex-path:/home/agent/.codex/tmp/arg0-linux/codex-arg0toEmuG:/home/agent/.codex/tmp/arg0-linux/codex-arg0WHCOQf:/usr/local/share/npm-global/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path:/home/agent/.local/bin:/usr/local/share/npm-global/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "SDKROOT": null,
+    "MACOSX_DEPLOYMENT_TARGET": null,
+    "ADA_INCLUDE_PATH": null,
+    "ADA_OBJECTS_PATH": null,
+    "COMPILER_PATH": null,
+    "LIBRARY_PATH": null,
+    "GCC_EXEC_PREFIX": null,
+    "CPATH": null,
+    "C_INCLUDE_PATH": null,
+    "CPLUS_INCLUDE_PATH": null,
+    "DYLD_LIBRARY_PATH": null,
+    "LD_LIBRARY_PATH": null
+  },
+  "cwd": "/tmp/silver-unbounded-continuation-20261017/backend/ada-1mib-link-medium",
+  "exit_status": 0,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 52344,
+  "child_maxrss_native_units": 49516,
+  "child_maxrss_unit": "KiB",
+  "child_user_seconds": 0.293742,
+  "child_system_seconds": 0.154747,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  },
+  "input_sha256": {
+    "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+    "planned-command.json": "91888d3bd54e251531ad75d891eac6d4695add60cc2c6a3f042722409467c63c",
+    "main.adb": "aae4727aabd20b4b7d5654a4027c16ffbe3675614a911ea0424cf3d7b81b72ae",
+    "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+    "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+    "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+    "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7",
+    "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+  },
+  "outputs": {
+    "stderr.txt": {
+      "bytes": 383,
+      "allocated_bytes": 4096,
+      "sha256": "2b7c689a8200f1ee11972fb5a56429393cd16ef28f788207c1b4290eeda6fff4"
+    },
+    "silver_output_libc.o": {
+      "bytes": 1000,
+      "allocated_bytes": 4096,
+      "sha256": "26c296b728cf4ea439c698f09621612683efba75624df2c79675d02bc4212f4d"
+    },
+    "stdout.txt": {
+      "bytes": 0,
+      "allocated_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "silver_arguments.ads": {
+      "bytes": 1129,
+      "allocated_bytes": 4096,
+      "sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+    },
+    "planned-command.json": {
+      "bytes": 295,
+      "allocated_bytes": 4096,
+      "sha256": "91888d3bd54e251531ad75d891eac6d4695add60cc2c6a3f042722409467c63c"
+    },
+    "silver_io.ali": {
+      "bytes": 4396,
+      "allocated_bytes": 8192,
+      "sha256": "29ba4925df097400b184bfeae464ecbe4448a64aa39135cd7cc3e64e8607fea9"
+    },
+    "main": {
+      "bytes": 3485344,
+      "allocated_bytes": 3485696,
+      "sha256": "aef67c9af4c7c6c97c8da5b397b40b391d381cadc514e8db26929592be2a32a6"
+    },
+    "silver_output_libc.ali": {
+      "bytes": 2886,
+      "allocated_bytes": 4096,
+      "sha256": "2906c6ac1d2ec3dfb2e1e4362f8f36a59a5b80f61a42a49b7e38091f89c04ab5"
+    },
+    "main.ali": {
+      "bytes": 2706,
+      "allocated_bytes": 4096,
+      "sha256": "0b0425686ddc551aba148a7789dab103406bf523a8c615f091610f3f886a743c"
+    },
+    "main.adb": {
+      "bytes": 889,
+      "allocated_bytes": 4096,
+      "sha256": "aae4727aabd20b4b7d5654a4027c16ffbe3675614a911ea0424cf3d7b81b72ae"
+    },
+    "silver_io.o": {
+      "bytes": 2560,
+      "allocated_bytes": 4096,
+      "sha256": "e86de1a8822b7d0bf5963bb25edd8d87f5729eed5d31291e1867ae7aa60bf309"
+    },
+    "silver_io.ads": {
+      "bytes": 2222,
+      "allocated_bytes": 4096,
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    "main.o": {
+      "bytes": 2099512,
+      "allocated_bytes": 2101248,
+      "sha256": "c75771ffe6318ffd17ffa7c3355bd727400b7f82ca4e37500086b695eec59732"
+    },
+    "silver_arguments.adb": {
+      "bytes": 1339,
+      "allocated_bytes": 4096,
+      "sha256": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918"
+    },
+    "silver_io.adb": {
+      "bytes": 3358,
+      "allocated_bytes": 4096,
+      "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+    },
+    "silver_runtime.ads": {
+      "bytes": 1010,
+      "allocated_bytes": 4096,
+      "sha256": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+    },
+    "silver_output_libc.ads": {
+      "bytes": 1532,
+      "allocated_bytes": 4096,
+      "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+    }
+  },
+  "rss_samples": [
+    [
+      0.0037,
+      7876
+    ],
+    [
+      0.058,
+      35532
+    ],
+    [
+      0.113,
+      13920
+    ],
+    [
+      0.1677,
+      35024
+    ],
+    [
+      0.2226,
+      52344
+    ],
+    [
+      0.2762,
+      35712
+    ],
+    [
+      0.332,
+      37416
+    ],
+    [
+      0.3871,
+      23884
+    ]
+  ]
+}

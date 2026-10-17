@@ -1,0 +1,84 @@
+17935: @opindex fstack-check
+17936: @opindex fno-stack-check
+17937: @item -fstack-check
+17938: Generate code to verify that you do not go beyond the boundary of the
+17939: stack.  You should specify this flag if you are running in an
+17940: environment with multiple threads, but you only rarely need to specify it in
+17941: a single-threaded environment since stack overflow is automatically
+17942: detected on nearly all systems if there is only one stack.
+17943: 
+17944: Note that this switch does not actually cause checking to be done; the
+17945: operating system or the language runtime must do that.  The switch causes
+17946: generation of code to ensure that they see the stack being extended.
+17947: 
+17948: You can additionally specify a string parameter: @samp{no} means no
+17949: checking, @samp{generic} means force the use of old-style checking,
+17950: @samp{specific} means use the best checking method and is equivalent
+17951: to bare @option{-fstack-check}.
+17952: 
+17953: Old-style checking is a generic mechanism that requires no specific
+17954: target support in the compiler but comes with the following drawbacks:
+17955: 
+17956: @enumerate
+17957: @item
+17958: Modified allocation strategy for large objects: they are always
+17959: allocated dynamically if their size exceeds a fixed threshold.  Note this
+17960: may change the semantics of some code.
+17961: 
+17962: @item
+17963: Fixed limit on the size of the static frame of functions: when it is
+17964: topped by a particular function, stack checking is not reliable and
+17965: a warning is issued by the compiler.
+17966: 
+17967: @item
+17968: Inefficiency: because of both the modified allocation strategy and the
+17969: generic implementation, code performance is hampered.
+17970: @end enumerate
+17971: 
+17972: Note that old-style stack checking is also the fallback method for
+17973: @samp{specific} if no target support has been added in the compiler.
+17974: 
+17975: @samp{-fstack-check=} is designed for Ada's needs to detect infinite recursion
+17976: and stack overflows.  @samp{specific} is an excellent choice when compiling
+17977: Ada code.  It is not generally sufficient to protect against stack-clash
+17978: attacks.  To protect against those you want @samp{-fstack-clash-protection}.
+17979: 
+17980: @opindex fstack-clash-protection
+17981: @opindex fno-stack-clash-protection
+17982: @item -fstack-clash-protection
+
+36212: @opindex mlarge-data-threshold
+36213: @item -mlarge-data-threshold=@var{threshold}
+36214: When @option{-mcmodel=medium} or @option{-mcmodel=large} is specified, data
+36215: objects larger than @var{threshold} are placed in large data sections.  The
+36216: default is 65535.
+36217: 
+36218: @opindex mrtd
+
+37200: @opindex mcmodel=
+37201: @opindex mcmodel=small
+37202: @item -mcmodel=small
+37203: Generate code for the small code model: the program and its symbols must
+37204: be linked in the lower 2 GB of the address space.  Pointers are 64 bits.
+37205: Programs can be statically or dynamically linked.  This is the default
+37206: code model.
+37207: 
+37208: @opindex mcmodel=kernel
+37209: @item -mcmodel=kernel
+37210: Generate code for the kernel code model.  The kernel runs in the
+37211: negative 2 GB of the address space.
+37212: This model has to be used for Linux kernel code.
+37213: 
+37214: @opindex mcmodel=medium
+37215: @item -mcmodel=medium
+37216: Generate code for the medium model: the program is linked in the lower 2
+37217: GB of the address space.  Small symbols are also placed there.  Symbols
+37218: with sizes larger than @option{-mlarge-data-threshold} are put into
+37219: large data or BSS sections and can be located above 2GB.  Programs can
+37220: be statically or dynamically linked.
+37221: 
+37222: @opindex mcmodel=large
+37223: @item -mcmodel=large
+37224: Generate code for the large model.  This model makes no assumptions
+37225: about addresses and sizes of sections.
+37226: 

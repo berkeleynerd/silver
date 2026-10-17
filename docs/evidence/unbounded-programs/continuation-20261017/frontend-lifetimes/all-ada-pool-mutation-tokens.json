@@ -1,0 +1,262 @@
+[
+  {
+    "path": "ali-util.adb",
+    "line": 446,
+    "text": "            Stringt.Mark;"
+  },
+  {
+    "path": "ali-util.adb",
+    "line": 463,
+    "text": "            Stringt.Release;"
+  },
+  {
+    "path": "back_end.adb",
+    "line": 100,
+    "text": "         strings_ptr                   : Address;"
+  },
+  {
+    "path": "back_end.adb",
+    "line": 101,
+    "text": "         string_chars_ptr              : Address;"
+  },
+  {
+    "path": "back_end.adb",
+    "line": 169,
+    "text": "         strings_ptr        => Strings_Address,"
+  },
+  {
+    "path": "back_end.adb",
+    "line": 170,
+    "text": "         string_chars_ptr   => String_Chars_Address,"
+  },
+  {
+    "path": "exp_dbug.adb",
+    "line": 251,
+    "text": "            Umark  : constant Uintp.Save_Mark := Uintp.Mark;"
+  },
+  {
+    "path": "gnat1drv.adb",
+    "line": 1020,
+    "text": "      Uintp.Initialize;"
+  },
+  {
+    "path": "gnat1drv.adb",
+    "line": 1025,
+    "text": "      Stringt.Initialize;"
+  },
+  {
+    "path": "gnat1drv.adb",
+    "line": 1530,
+    "text": "      Stringt.Lock;"
+  },
+  {
+    "path": "gnatbind.adb",
+    "line": 624,
+    "text": "   Uintp.Initialize;"
+  },
+  {
+    "path": "gnatls.adb",
+    "line": 2005,
+    "text": "   Uintp.Initialize;"
+  },
+  {
+    "path": "gnatls.adb",
+    "line": 2007,
+    "text": "   Stringt.Initialize;"
+  },
+  {
+    "path": "gprep.adb",
+    "line": 173,
+    "text": "      Uintp.Initialize;"
+  },
+  {
+    "path": "gprep.adb",
+    "line": 175,
+    "text": "      Stringt.Initialize;"
+  },
+  {
+    "path": "libgnat/s-mmap.adb",
+    "line": 297,
+    "text": "         System.Strings.Free (Region.Buffer);"
+  },
+  {
+    "path": "libgnat/s-mmap.adb",
+    "line": 549,
+    "text": "      System.Strings.Free (Region.Buffer);"
+  },
+  {
+    "path": "libgnat/s-mmosin__mingw.adb",
+    "line": 226,
+    "text": "         System.Strings.Free (Buffer);"
+  },
+  {
+    "path": "libgnat/s-mmosin__unix.adb",
+    "line": 114,
+    "text": "         System.Strings.Free (Buffer);"
+  },
+  {
+    "path": "libgnat/s-os_lib.ads",
+    "line": 69,
+    "text": "   procedure Free (X : in out String_Access) renames Strings.Free;"
+  },
+  {
+    "path": "libgnat/s-os_lib.ads",
+    "line": 91,
+    "text": "   procedure Free (Arg : in out String_List_Access) renames Strings.Free;"
+  },
+  {
+    "path": "libgnat/s-resfil.adb",
+    "line": 472,
+    "text": "            System.Strings.Free (First_File.Name);"
+  },
+  {
+    "path": "libgnat/s-resfil.adb",
+    "line": 478,
+    "text": "            System.Strings.Free (Last_File.Name);"
+  },
+  {
+    "path": "libgnat/s-resfil.adb",
+    "line": 515,
+    "text": "            System.Strings.Free (First_File.Name);"
+  },
+  {
+    "path": "libgnat/s-resfil.ads",
+    "line": 48,
+    "text": "   procedure Free (S : in out String_Access) renames System.Strings.Free;"
+  },
+  {
+    "path": "libgnat/s-trasym__dwarf.adb",
+    "line": 434,
+    "text": "      Strings.Free (Module.Name);"
+  },
+  {
+    "path": "make.adb",
+    "line": 3679,
+    "text": "      Uintp.Initialize;"
+  },
+  {
+    "path": "make.adb",
+    "line": 3681,
+    "text": "      Stringt.Initialize;"
+  },
+  {
+    "path": "scng.adb",
+    "line": 890,
+    "text": "               Unstore_String_Char;"
+  },
+  {
+    "path": "scng.adb",
+    "line": 900,
+    "text": "               Unstore_String_Char;"
+  },
+  {
+    "path": "scng.adb",
+    "line": 910,
+    "text": "               Unstore_String_Char;"
+  },
+  {
+    "path": "scng.adb",
+    "line": 914,
+    "text": "                  Unstore_String_Char;"
+  },
+  {
+    "path": "scng.adb",
+    "line": 926,
+    "text": "                     Unstore_String_Char;"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 110,
+    "text": "      String_Chars.Init;"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 111,
+    "text": "      Strings.Init;"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 125,
+    "text": "      String_Chars.Release;"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 127,
+    "text": "      Strings.Release;"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 147,
+    "text": "      Strings.Set_Last (Strings_Last);"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 148,
+    "text": "      String_Chars.Set_Last (String_Chars_Last);"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 238,
+    "text": "      String_Chars.Set_Last (New_Last);"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 371,
+    "text": "   procedure Unstore_String_Char is"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 373,
+    "text": "      String_Chars.Decrement_Last;"
+  },
+  {
+    "path": "stringt.adb",
+    "line": 376,
+    "text": "   end Unstore_String_Char;"
+  },
+  {
+    "path": "stringt.ads",
+    "line": 100,
+    "text": "   procedure Unstore_String_Char;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 265,
+    "text": "      Marks  : constant Uintp.Save_Mark := Uintp.Mark;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 450,
+    "text": "      Uintp.Release (Marks);"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 486,
+    "text": "      Uints.Init;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 487,
+    "text": "      Udigits.Init;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 685,
+    "text": "      Uints.Set_Last   (Valid_Uint'Max (M.Save_Uint, Uints_Min));"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 686,
+    "text": "      Udigits.Set_Last (Int'Max  (M.Save_Udigit, Udigits_Min));"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 1435,
+    "text": "         M       : constant Uintp.Save_Mark := Uintp.Mark;"
+  },
+  {
+    "path": "uintp.adb",
+    "line": 1573,
+    "text": "      Marks  : constant Uintp.Save_Mark := Uintp.Mark;"
+  }
+]

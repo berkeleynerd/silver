@@ -1,0 +1,66 @@
+[
+  {
+    "command": [
+      "uname",
+      "-a"
+    ],
+    "status": 0,
+    "stdout": "Linux nix 7.0.0-38-generic #38-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep  4 09:10:14 UTC 2026 x86_64 GNU/Linux\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+      "-v"
+    ],
+    "status": 0,
+    "stdout": "",
+    "stderr": "Using built-in specs.\nCOLLECT_GCC=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc\nCOLLECT_LTO_WRAPPER=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../libexec/gcc/x86_64-pc-linux-gnu/16.1.0/lto-wrapper\nTarget: x86_64-pc-linux-gnu\nConfigured with: ../src/configure --prefix=/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/gcc/install --with-build-time-tools=/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/binutils/install/bin --enable-languages=c,ada,c++ --enable-libstdcxx --enable-libstdcxx-threads --enable-libada --with-pkgversion=GNAT-FSF-builds --disable-nls --without-libiconv-prefix --disable-libstdcxx-pch --enable-lto --disable-multilib --enable-threads=posix --enable-default-pie --with-gnu-ld --with-gnu-as --with-mpfr=/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/mpfr/install --with-gmp=/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/gmp/install --with-mpc=/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/mpc/install --with-isl=/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/isl/install --build=x86_64-pc-linux-gnu\nThread model: posix\nSupported LTO compression algorithms: zlib zstd\ngcc version 16.1.0 (GNAT-FSF-builds) \n"
+  },
+  {
+    "command": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+      "-dumpmachine"
+    ],
+    "status": 0,
+    "stdout": "x86_64-pc-linux-gnu\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+      "-print-prog-name=ld"
+    ],
+    "status": 0,
+    "stdout": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/bin/ld\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "ld",
+      "--version"
+    ],
+    "status": 0,
+    "stdout": "GNU ld (GNU Binutils for Ubuntu) 2.46\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis program is free software; you may redistribute it under the terms of\nthe GNU General Public License version 3 or (at your option) a later version.\nThis program has absolutely no warranty.\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "df",
+      "-k",
+      "/tmp/silver-unbounded-feasibility-20261017/static-data"
+    ],
+    "status": 0,
+    "stdout": "Filesystem     1K-blocks   Used Available Use% Mounted on\ntmpfs           48069036 320088  47748948   1% /tmp\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "free",
+      "-b"
+    ],
+    "status": 0,
+    "stdout": "               total        used        free      shared  buff/cache   available\nMem:     98445385728 50665463808  8511045632  1744351232 41862156288 47779921920\nSwap:     8589930496   588574720  8001355776\n",
+    "stderr": ""
+  }
+]

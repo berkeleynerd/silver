@@ -1,0 +1,54 @@
+{
+  "method": "exact Python integer arithmetic; no floating-point logs",
+  "status": "source-derived quantities, not observed native capacity limits",
+  "Int_Last": 2147483647,
+  "two_chain_final_lengths": [
+    1073741824,
+    1073741824
+  ],
+  "two_chain_final_character_lower_bound": 2147483648,
+  "two_chain_character_bytes_lower_bound": 8589934592,
+  "String_Chars_default_mathematical_growth": [
+    2500,
+    6250,
+    15625,
+    39062,
+    97655,
+    244137,
+    610342,
+    1525855,
+    3814637,
+    9536592,
+    23841480,
+    59603700,
+    149009250,
+    372523125,
+    931307812,
+    2328269530
+  ],
+  "last_representable_default_growth_length": 931307812,
+  "first_unrepresentable_default_growth_length": 2328269530,
+  "zero_mantissa_powers": {
+    "2": {
+      "exponent": 799999,
+      "exact_bit_length": 800000,
+      "base_32768_digit_words": 53334,
+      "digit_word_bytes": 213336,
+      "first_repetition_exceeding_Int_Last_words": 40265
+    },
+    "10": {
+      "exponent": 799999,
+      "exact_bit_length": 2657540,
+      "base_32768_digit_words": 177170,
+      "digit_word_bytes": 708680,
+      "first_repetition_exceeding_Int_Last_words": 12122
+    },
+    "16": {
+      "exponent": 799999,
+      "exact_bit_length": 3199997,
+      "base_32768_digit_words": 213334,
+      "digit_word_bytes": 853336,
+      "first_repetition_exceeding_Int_Last_words": 10067
+    }
+  }
+}

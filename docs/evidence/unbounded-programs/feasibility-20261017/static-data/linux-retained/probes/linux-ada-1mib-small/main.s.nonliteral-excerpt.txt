@@ -1,0 +1,119 @@
+1: 	.file	"main.adb"
+2: 	.text
+3: 	.section	.rodata
+4: 	.align 8
+5: .LC0:
+6: 	.long	1
+7: 	.long	1048576
+8: 	.text
+9: 	.align 2
+10: 	.globl	_ada_main
+11: 	.type	_ada_main, @function
+12: _ada_main:
+13: .LFB1:
+14: 	.cfi_startproc
+15: 	pushq	%rbp
+16: 	.cfi_def_cfa_offset 16
+17: 	.cfi_offset 6, -16
+18: 	movq	%rsp, %rbp
+19: 	.cfi_def_cfa_register 6
+20: 	leaq	a20.20(%rip), %rax
+21: 	leaq	.LC0(%rip), %rdx
+22: 	movq	%rax, %rcx
+23: 	movq	%rdx, %rax
+24: 	movq	%rcx, %rdi
+25: 	movq	%rax, %rsi
+26: 	call	silver_io__put_line@PLT
+27: 	nop
+28: 	popq	%rbp
+29: 	.cfi_def_cfa 7, 8
+30: 	ret
+31: 	.cfi_endproc
+32: .LFE1:
+33: 	.size	_ada_main, .-_ada_main
+34: 	.section	.rodata
+35: 	.align 32
+36: 	.type	a20.20, @object
+37: 	.size	a20.20, 1048576
+38: a20.20:
+17575: 	.align 32
+17576: 	.type	a19.19, @object
+17577: 	.size	a19.19, 524288
+17578: a19.19:
+26347: 	.align 32
+26348: 	.type	a18.18, @object
+26349: 	.size	a18.18, 262144
+26350: a18.18:
+30735: 	.align 32
+30736: 	.type	a17.17, @object
+30737: 	.size	a17.17, 131072
+30738: a17.17:
+32931: 	.align 32
+32932: 	.type	a16.16, @object
+32933: 	.size	a16.16, 65536
+32934: a16.16:
+34031: 	.align 32
+34032: 	.type	a15.15, @object
+34033: 	.size	a15.15, 32768
+34034: a15.15:
+34583: 	.align 32
+34584: 	.type	a14.14, @object
+34585: 	.size	a14.14, 16384
+34586: a14.14:
+34861: 	.align 32
+34862: 	.type	a13.13, @object
+34863: 	.size	a13.13, 8192
+34864: a13.13:
+35002: 	.align 32
+35003: 	.type	a12.12, @object
+35004: 	.size	a12.12, 4096
+35005: a12.12:
+35075: 	.align 32
+35076: 	.type	a11.11, @object
+35077: 	.size	a11.11, 2048
+35078: a11.11:
+35114: 	.align 32
+35115: 	.type	a10.10, @object
+35116: 	.size	a10.10, 1024
+35117: a10.10:
+35136: 	.align 32
+35137: 	.type	a9.9, @object
+35138: 	.size	a9.9, 512
+35139: a9.9:
+35149: 	.align 32
+35150: 	.type	a8.8, @object
+35151: 	.size	a8.8, 256
+35152: a8.8:
+35158: 	.align 32
+35159: 	.type	a7.7, @object
+35160: 	.size	a7.7, 128
+35161: a7.7:
+35165: 	.align 32
+35166: 	.type	a6.6, @object
+35167: 	.size	a6.6, 64
+35168: a6.6:
+35171: 	.align 32
+35172: 	.type	a5.5, @object
+35173: 	.size	a5.5, 32
+35174: a5.5:
+35176: 	.align 16
+35177: 	.type	a4.4, @object
+35178: 	.size	a4.4, 16
+35179: a4.4:
+35181: 	.align 8
+35182: 	.type	a3.3, @object
+35183: 	.size	a3.3, 8
+35184: a3.3:
+35186: 	.align 4
+35187: 	.type	a2.2, @object
+35188: 	.size	a2.2, 4
+35189: a2.2:
+35191: 	.align 2
+35192: 	.type	a1.1, @object
+35193: 	.size	a1.1, 2
+35194: a1.1:
+35196: 	.type	a0.0, @object
+35197: 	.size	a0.0, 1
+35198: a0.0:
+35200: 	.ident	"GCC: (GNAT-FSF-builds) 16.1.0"
+35201: 	.section	.note.GNU-stack,"",@progbits

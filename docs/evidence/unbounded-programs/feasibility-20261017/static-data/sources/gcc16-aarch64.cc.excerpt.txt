@@ -1,0 +1,37 @@
+20210: static void
+20211: initialize_aarch64_code_model (struct gcc_options *opts)
+20212: {
+20213:   aarch64_cmodel = opts->x_aarch64_cmodel_var;
+20214:   switch (opts->x_aarch64_cmodel_var)
+20215:     {
+20216:     case AARCH64_CMODEL_TINY:
+20217:       if (opts->x_flag_pic)
+20218: 	aarch64_cmodel = AARCH64_CMODEL_TINY_PIC;
+20219:       break;
+20220:     case AARCH64_CMODEL_SMALL:
+20221:       if (opts->x_flag_pic)
+20222: 	{
+20223: #ifdef HAVE_AS_SMALL_PIC_RELOCS
+20224: 	  aarch64_cmodel = (flag_pic == 2
+20225: 			    ? AARCH64_CMODEL_SMALL_PIC
+20226: 			    : AARCH64_CMODEL_SMALL_SPIC);
+20227: #else
+20228: 	  aarch64_cmodel = AARCH64_CMODEL_SMALL_PIC;
+20229: #endif
+20230: 	}
+20231:       break;
+20232:     case AARCH64_CMODEL_LARGE:
+20233:       if (opts->x_flag_pic)
+20234: 	sorry ("code model %qs with %<-f%s%>", "large",
+20235: 	       opts->x_flag_pic > 1 ? "PIC" : "pic");
+20236:       if (opts->x_aarch64_abi == AARCH64_ABI_ILP32)
+20237: 	sorry ("code model %qs not supported in ilp32 mode", "large");
+20238:       break;
+20239:     case AARCH64_CMODEL_TINY_PIC:
+20240:     case AARCH64_CMODEL_SMALL_PIC:
+20241:     case AARCH64_CMODEL_SMALL_SPIC:
+20242:       gcc_unreachable ();
+20243:     }
+20244: }
+20245: 
+20246: /* Implements TARGET_OPTION_RESTORE.  Restore the backend codegen decisions

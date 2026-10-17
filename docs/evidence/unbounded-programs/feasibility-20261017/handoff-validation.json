@@ -1,0 +1,12 @@
+{
+  "checked_utc": "2026-10-17T19:36:29.133635+00:00",
+  "manifest_files": {
+    "source-capacity": 110,
+    "static-data": 136
+  },
+  "json_files": 52,
+  "local_markdown_paths": 333,
+  "errors": [],
+  "git_diff_check_exit": 0,
+  "shared_status_unchanged": true
+}

@@ -1,0 +1,51 @@
+{
+  "upstream_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "binary_attestation": false,
+  "files": [
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "local": "gcc__ada__gcc-interface__decl.cc",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/decl.cc",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "retrieved_utc": "2026-10-17T20:31:57.846212+00:00"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "local": "gcc__ada__gcc-interface__trans.cc",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "retrieved_utc": "2026-10-17T20:31:58.282097+00:00"
+    },
+    {
+      "path": "gcc/config/i386/i386.opt",
+      "local": "gcc__config__i386__i386.opt",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/config/i386/i386.opt",
+      "bytes": 39868,
+      "sha256": "6c0a677cb6a12dd201304a4afbf23a29da634150ad4bae4aeb8343b1d4757dc7",
+      "retrieved_utc": "2026-10-17T20:31:58.605266+00:00"
+    },
+    {
+      "path": "gcc/doc/invoke.texi",
+      "local": "gcc__doc__invoke.texi",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/doc/invoke.texi",
+      "bytes": 1471149,
+      "sha256": "8684c8410be7be28e9d49fdd93d4603d663fe22903a927677ef13fd8823d7da1",
+      "retrieved_utc": "2026-10-17T20:31:59.290484+00:00"
+    },
+    {
+      "path": "gcc/config/i386/x86-64.h",
+      "local": "gcc__config__i386__x86-64.h",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/config/i386/x86-64.h",
+      "bytes": 3089,
+      "sha256": "45e502f21860f7a9140c33570ccbcab2070418b7101ee01a53e4054c1847202c",
+      "retrieved_utc": "2026-10-17T20:31:59.632725+00:00"
+    },
+    {
+      "path": "gcc/config/i386/x86-64-elf.h",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/config/i386/x86-64-elf.h",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ]
+}

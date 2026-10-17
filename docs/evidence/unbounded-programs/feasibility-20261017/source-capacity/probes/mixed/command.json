@@ -1,0 +1,27 @@
+{
+  "name": "mixed",
+  "argv": [
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+    "-c",
+    "-gnatc",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-gnatdl",
+    "-gnatdd",
+    "main.adb"
+  ],
+  "cwd": "/tmp/silver-unbounded-feasibility-20261017/source-capacity/probes/mixed",
+  "source_bytes": 525,
+  "source_sha256": "b84dcfd3dcf2325588449ff59eca40210fdcec473a5768ba76fa139b1db5de68",
+  "expanded": false,
+  "inputs": {
+    "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+    "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+    "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+    "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7",
+    "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+    "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+    "main.adb": "b84dcfd3dcf2325588449ff59eca40210fdcec473a5768ba76fa139b1db5de68"
+  }
+}

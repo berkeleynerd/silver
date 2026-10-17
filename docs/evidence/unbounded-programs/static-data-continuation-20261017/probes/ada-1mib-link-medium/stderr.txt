@@ -1,0 +1,10 @@
+
+GNATMAKE 16.1.0
+Copyright (C) 1992-2025, Free Software Foundation, Inc.
+  -> "main" final executable
+gcc -c -O0 -gnat2022 -gnata -gnato -mcmodel=medium main.adb
+gcc -c -O0 -gnat2022 -gnata -gnato -mcmodel=medium silver_io.adb
+gcc -c -O0 -gnat2022 -gnata -gnato -mcmodel=medium silver_output_libc.ads
+End of compilation
+gnatbind -x main.ali
+gnatlink main.ali -o main -mcmodel=medium

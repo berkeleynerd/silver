@@ -1,0 +1,70 @@
+1: 	.arch armv8.5-a
+2: 	.build_version macos,  28, 0
+3: 	.text
+4: 	.globl _a
+5: 	.zerofill __DATA,__common,_a,16,0
+6: 	.globl _b
+7: 	.zerofill __DATA,__common,_b,16,0
+8: 	.globl _c
+9: 	.zerofill __DATA,__common,_c,16,0
+10: 	.text
+11: 	.align	2
+12: 	.globl _main
+13: _main:
+14: LFB0:
+15: 	adrp	x0, _a@PAGE
+16: 	add	x0, x0, _a@PAGEOFF;
+17: 	mov	w1, 1
+18: 	strb	w1, [x0]
+19: 	adrp	x0, _b@PAGE
+20: 	add	x0, x0, _b@PAGEOFF;
+21: 	mov	w1, 2
+22: 	strb	w1, [x0]
+23: 	adrp	x0, _c@PAGE
+24: 	add	x0, x0, _c@PAGEOFF;
+25: 	mov	w1, 3
+26: 	strb	w1, [x0]
+27: 	adrp	x0, _a@PAGE
+28: 	add	x0, x0, _a@PAGEOFF;
+29: 	ldrsb	w0, [x0]
+30: 	mov	w1, w0
+31: 	adrp	x0, _b@PAGE
+32: 	add	x0, x0, _b@PAGEOFF;
+33: 	ldrsb	w0, [x0]
+34: 	add	w0, w1, w0
+35: 	adrp	x1, _c@PAGE
+36: 	add	x1, x1, _c@PAGEOFF;
+37: 	ldrsb	w1, [x1]
+38: 	add	w0, w0, w1
+39: 	ret
+40: LFE0:
+41: 	.section __TEXT,__eh_frame,coalesced,no_toc+strip_static_syms+live_support
+42: EH_frame1:
+43: 	.set L$set$0,LECIE1-LSCIE1
+44: 	.long L$set$0
+45: LSCIE1:
+46: 	.long	0
+47: 	.byte	0x3
+49: 	.uleb128 0x1
+50: 	.sleb128 -8
+51: 	.uleb128 0x1e
+52: 	.uleb128 0x1
+53: 	.byte	0x10
+54: 	.byte	0xc
+55: 	.uleb128 0x1f
+56: 	.uleb128 0
+57: 	.align	3
+58: LECIE1:
+59: LSFDE1:
+60: 	.set L$set$1,LEFDE1-LASFDE1
+61: 	.long L$set$1
+62: LASFDE1:
+63: 	.long	LASFDE1-EH_frame1
+64: 	.quad	LFB0-.
+65: 	.set L$set$2,LFE0-LFB0
+66: 	.quad L$set$2
+67: 	.uleb128 0
+68: 	.align	3
+69: LEFDE1:
+70: 	.ident	"GCC: (GNAT-FSF-builds) 16.1.0"
+71: 	.subsections_via_symbols

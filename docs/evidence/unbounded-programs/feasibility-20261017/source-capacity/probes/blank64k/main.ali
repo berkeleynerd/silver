@@ -1,0 +1,28 @@
+V "GNAT Lib v16"
+M P W=b
+A -gnatc
+A -gnat2022
+A -gnata
+A -gnato
+A -gnatdl
+A -gnatdd
+A -mmacosx-version-min=28.0.0
+A -mcpu=apple-m1
+A -mlittle-endian
+A -mabi=lp64
+A -fPIC
+P NO
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_ELABORATION_CODE
+
+U main%b		main.adb		73b77761 OO SU
+
+D main.adb		20261017191936 73b77761 main%b
+D system.ads		20260610194523 8a611ac3 system%s
+G a e
+G c Z b b [main standard 1 11 none]
+X 1 main.adb
+1U11*Main 1b11 5l5 5t9
+

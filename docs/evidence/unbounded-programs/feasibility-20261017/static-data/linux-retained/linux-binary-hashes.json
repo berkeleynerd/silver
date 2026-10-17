@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "sha256": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de",
+    "bytes": 2455824
+  },
+  {
+    "path": "/usr/bin/ld",
+    "sha256": "97f48d93b8b076a92d2809ec29dcb17f0f37c8827358f832255e2ed22fef6075",
+    "bytes": 1890472
+  }
+]

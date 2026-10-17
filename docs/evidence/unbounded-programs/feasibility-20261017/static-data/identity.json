@@ -1,0 +1,68 @@
+[
+  {
+    "command": [
+      "uname",
+      "-a"
+    ],
+    "exit_status": 0,
+    "stdout": "Darwin mini.local 27.0.0 Darwin Kernel Version 27.0.0: Tue Aug 11 21:05:48 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T6041 arm64\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+      "-v"
+    ],
+    "exit_status": 0,
+    "stdout": "",
+    "stderr": "Using built-in specs.\nCOLLECT_GCC=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc\nCOLLECT_LTO_WRAPPER=/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/../libexec/gcc/aarch64-apple-darwin24.6.0/16.1.0/lto-wrapper\nTarget: aarch64-apple-darwin24.6.0\nConfigured with: ../src/configure --prefix=/Users/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/aarch64-darwin/gcc/install --enable-languages=c,ada,c++ --enable-libstdcxx --enable-libstdcxx-threads --enable-libada --with-pkgversion=GNAT-FSF-builds --disable-nls --without-libiconv-prefix --disable-libstdcxx-pch --enable-lto --disable-multilib --disable-libcilkrts --with-build-sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk --with-specs='%{!-sysroot=*:--sysroot=%:if-exists-else(/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk)}' --with-mpfr=/Users/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/aarch64-darwin/mpfr/install --with-gmp=/Users/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/aarch64-darwin/gmp/install --with-mpc=/Users/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/aarch64-darwin/mpc/install --build=aarch64-apple-darwin24.6.0\nThread model: posix\nSupported LTO compression algorithms: zlib\ngcc version 16.1.0 (GNAT-FSF-builds) \n"
+  },
+  {
+    "command": [
+      "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+      "-dumpmachine"
+    ],
+    "exit_status": 0,
+    "stdout": "aarch64-apple-darwin24.6.0\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "xcrun",
+      "--find",
+      "ld-classic"
+    ],
+    "exit_status": 72,
+    "stdout": "",
+    "stderr": "xcrun: error: sh -c '/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -find ld-classic 2> /dev/null' failed with exit code 17664: (null) (errno=No such file or directory)\nxcrun: error: unable to find utility \"ld-classic\", not a developer tool or in PATH\n"
+  },
+  {
+    "command": [
+      "xcrun",
+      "ld-classic",
+      "-v"
+    ],
+    "exit_status": 72,
+    "stdout": "",
+    "stderr": "xcrun: error: sh -c '/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -find ld-classic 2> /dev/null' failed with exit code 17664: (null) (errno=No such file or directory)\nxcrun: error: unable to find utility \"ld-classic\", not a developer tool or in PATH\n"
+  },
+  {
+    "command": [
+      "xcrun",
+      "--show-sdk-path"
+    ],
+    "exit_status": 0,
+    "stdout": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "sysctl",
+      "-n",
+      "hw.memsize"
+    ],
+    "exit_status": 1,
+    "stdout": "",
+    "stderr": "sysctl: sysctl fmt -1 1024 1: Operation not permitted\n"
+  }
+]

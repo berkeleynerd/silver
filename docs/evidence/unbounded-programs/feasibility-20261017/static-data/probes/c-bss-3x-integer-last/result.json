@@ -1,0 +1,67 @@
+{
+  "started_utc": "2026-10-17T19:20:38.861016+00:00",
+  "elapsed_seconds": 0.07495695806574076,
+  "command": [
+    "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/.tools/macos-aarch64/alire/toolchains/gnat_native_16.1.0_657cf254/bin/gcc",
+    "-c",
+    "-save-temps",
+    "-O0",
+    "probe.c",
+    "-o",
+    "probe.o"
+  ],
+  "cwd": "/private/tmp/silver-unbounded-feasibility-20261017/static-data/probes/c-bss-3x-integer-last",
+  "exit_status": 0,
+  "guard_trigger": null,
+  "max_aggregate_sampled_rss_kib": 9360,
+  "child_maxrss_native_units": 21676032,
+  "child_user_seconds": 0.028876,
+  "child_system_seconds": 0.03007,
+  "limits": {
+    "rss_mib_sampled": 512,
+    "file_mib_rlimit": 16,
+    "wall_seconds": 30,
+    "core_bytes": 0
+  },
+  "input_sha256": {
+    "probe.c": "4c44e356aefe77a7c57fc4039c74a93d62161b6db5f1ff999ede434a8ae3679b"
+  },
+  "outputs": {
+    "stdout.txt": {
+      "bytes": 0,
+      "allocated_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "probe.i": {
+      "bytes": 202,
+      "allocated_bytes": 4096,
+      "sha256": "0125598ba3511f15175b6f9c385605251ea4603872829a826a5ceac631e96313"
+    },
+    "probe.o": {
+      "bytes": 920,
+      "allocated_bytes": 4096,
+      "sha256": "1603f115c0004faf7123a426cb5d59c012dd6dd60e55f2abf434cd70d4d1b818"
+    },
+    "probe.s": {
+      "bytes": 1231,
+      "allocated_bytes": 4096,
+      "sha256": "c28ee1a9e1f2a7afb4bb2ec09412ff67b81a253c6f9c1df0141d7cff8f4329bd"
+    },
+    "stderr.txt": {
+      "bytes": 0,
+      "allocated_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "probe.c": {
+      "bytes": 136,
+      "allocated_bytes": 4096,
+      "sha256": "4c44e356aefe77a7c57fc4039c74a93d62161b6db5f1ff999ede434a8ae3679b"
+    }
+  },
+  "rss_samples": [
+    [
+      0.0017,
+      9360
+    ]
+  ]
+}
