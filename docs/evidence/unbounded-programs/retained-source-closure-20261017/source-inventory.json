@@ -5,10 +5,20 @@
       "git_blob_sha1": "3525cf5aa9f8172108f9a964acc419348960a596",
       "sha256": "eceb00ffc060ba839cf5564d06b2535832a53cd8c1593836f4517c0433662dcb"
     },
+    "checks.adb": {
+      "bytes": 408092,
+      "git_blob_sha1": "3a0f86fc7f2cea6354c6e5eaaf011a7dc2fdc4c5",
+      "sha256": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c"
+    },
     "contracts.adb": {
       "bytes": 176110,
       "git_blob_sha1": "81a04facfc979bcd527f842e0019b711e4ad2b91",
       "sha256": "85731f255b530ea930d6d94842e43c6210ecee58efba342feb9dd5af0176439f"
+    },
+    "debug.adb": {
+      "bytes": 74144,
+      "git_blob_sha1": "7370d37a367cc258e1be89f5954649184eb253fd",
+      "sha256": "079204da109ad33964e6fde37e9ff17a5b9e16148be6bf88657e059c049d2650"
     },
     "exp_ch3.adb": {
       "bytes": 504138,
@@ -25,6 +35,11 @@
       "git_blob_sha1": "eb552ea263767bb8f7873ab62c35d9c8571f4034",
       "sha256": "b0c37423b5a93f3d7ccc678eb2391d9a462674cbef6d2c37503cdeaa0f6728cb"
     },
+    "exp_ch7.adb": {
+      "bytes": 349081,
+      "git_blob_sha1": "c62529c49084eef4a9e8e03bc49fae7ada4c2b47",
+      "sha256": "590aeb1807f35622c08285e619951c0b7970d48d8b5c2135561956e1b17e7598"
+    },
     "exp_dist.adb": {
       "bytes": 453578,
       "git_blob_sha1": "e0cc982fb2a4e35f8ea82e39e24e98ed62ac0f57",
@@ -35,10 +50,25 @@
       "git_blob_sha1": "469c7c065da771fc581ea3cceaa9886c106cafa9",
       "sha256": "c9b2130f6c8dd9f42d48709e165ad190a570e01bd7960aabc04a6e600fa54de1"
     },
+    "exp_put_image.adb": {
+      "bytes": 57957,
+      "git_blob_sha1": "2853ffad38d60b6bc5245e2c4a1389a48ebb6522",
+      "sha256": "c4b107bceb34e8d30d09d9b4474068d621b54f11787d4aa26e74d142d9d0be09"
+    },
     "exp_smem.adb": {
       "bytes": 16464,
       "git_blob_sha1": "d53af6e69be3b93ff8f26d06cf140770ffa1e105",
       "sha256": "2085e754805c62ebe262027beb28e628141f2b64167815a7383af6d97ab463cd"
+    },
+    "exp_spark.adb": {
+      "bytes": 45004,
+      "git_blob_sha1": "c536889619c58227539a4f23f13a0bb37d20e03f",
+      "sha256": "509e27a893828c31e7148f29470ab1fcbacd879242a1066dd22bdc3a6cf0fbfb"
+    },
+    "expander.adb": {
+      "bytes": 20912,
+      "git_blob_sha1": "e5ecd2c7050c665dc0e50660be05040358482c84",
+      "sha256": "5cbfe2783201ea57d9d93290187daa0a24d71757b82b2a49c9280704b148b461"
     },
     "freeze.adb": {
       "bytes": 439830,
@@ -120,6 +150,16 @@
       "git_blob_sha1": "02e06dbb8b02846b01496f6f0e8fb323b12d47cb",
       "sha256": "492afe76210ea5539460fd417bbc03cad3bde8fd86889d56144522d71c931093"
     },
+    "sem_res.adb": {
+      "bytes": 559989,
+      "git_blob_sha1": "270affe5ccb002851ae1f81755e4386e289b7f3e",
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8"
+    },
+    "sem_util.adb": {
+      "bytes": 1074489,
+      "git_blob_sha1": "05e7844d3613767c82df9125906d54b127e4897f",
+      "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4"
+    },
     "sinput-c.adb": {
       "bytes": 7200,
       "git_blob_sha1": "2057ef5566ba941cf7b4766e1485830a9cc5abc8",
@@ -174,6 +214,58 @@
     }
   },
   "gcc_inventory": {
+    "inline_body_occurrences": [
+      {
+        "file": "exp_ch6.adb",
+        "line": 5612,
+        "operation": "Expand_Inlined_Call"
+      },
+      {
+        "file": "exp_ch6.adb",
+        "line": 5654,
+        "operation": "Expand_Inlined_Call"
+      },
+      {
+        "file": "freeze.adb",
+        "line": 434,
+        "operation": "Set_Body_To_Inline"
+      },
+      {
+        "file": "inline.adb",
+        "line": 1370,
+        "operation": "Set_Body_To_Inline"
+      },
+      {
+        "file": "inline.adb",
+        "line": 2404,
+        "operation": "Set_Body_To_Inline"
+      },
+      {
+        "file": "inline.adb",
+        "line": 2857,
+        "operation": "Set_Body_To_Inline"
+      },
+      {
+        "file": "inline.adb",
+        "line": 3328,
+        "operation": "Expand_Inlined_Call"
+      },
+      {
+        "file": "inline.ads",
+        "line": 226,
+        "operation": "Expand_Inlined_Call"
+      },
+      {
+        "file": "sem_ch6.adb",
+        "line": 1516,
+        "operation": "Set_Body_To_Inline"
+      },
+      {
+        "file": "sem_res.adb",
+        "line": 7518,
+        "operation": "Expand_Inlined_Call"
+      }
+    ],
     "matched_source_inputs": {
       "sem_ch12.adb": {
         "bytes": 729258,
@@ -444,6 +536,447 @@
     "scope": "Only these identified spec instantiations; not a universal virtual-source total.",
     "unchecked_conversion_extent": 1554,
     "unchecked_conversion_occurrences": 7
+  },
+  "installed_native_runtime_inline_inventory": {
+    "a-except.adb": {
+      "bytes": 76809,
+      "git_blob_sha1": "65637f7539665e3a81acf9176099ef6a0b684b0c",
+      "inline_always_lines": [],
+      "is_null_lines": [
+        908,
+        1958
+      ],
+      "sha256": "2045f07c95faf6dd90296952d70b8698b77dc24949f578da7d1bef1660886036"
+    },
+    "a-finali.ads": {
+      "bytes": 3737,
+      "git_blob_sha1": "ea65be827110cafceeb0b20668423f20c81c6da9",
+      "inline_always_lines": [],
+      "is_null_lines": [
+        46,
+        47,
+        48,
+        53,
+        54
+      ],
+      "sha256": "f1e95be65555746d7d2ebad5bf57e62703e21e2813632fd795078d81c4fe5885"
+    },
+    "a-tags.adb": {
+      "bytes": 33893,
+      "git_blob_sha1": "8985271b93f0fc75d5dc37bca7bf136fe489e6ba",
+      "inline_always_lines": [
+        80,
+        81,
+        82,
+        83
+      ],
+      "is_null_lines": [],
+      "sha256": "765934a27249ad456fd82c1cd13fdd705de638f939aa0e6135960da090ecaf20"
+    },
+    "g-altcon.ads": {
+      "bytes": 4417,
+      "git_blob_sha1": "3f19efdf59487edca233a59fceb51e8e79b963fd",
+      "inline_always_lines": [
+        98,
+        99
+      ],
+      "is_null_lines": [],
+      "sha256": "f148edfa553d36f7054b698e197f2f3b9c61cfd5a4dc17de2045b65bff6a2a43"
+    },
+    "g-alveop.ads": {
+      "bytes": 205192,
+      "git_blob_sha1": "4bb5cd6a4ef9bf78840d90b7dcce18884ffb595b",
+      "inline_always_lines": [
+        1146,
+        1252,
+        1358,
+        1464,
+        3342,
+        3576,
+        3599,
+        3618,
+        6130,
+        6139,
+        6148,
+        8157,
+        8158,
+        8159,
+        8160,
+        8161,
+        8162,
+        8163,
+        8164,
+        8165,
+        8166,
+        8167,
+        8168,
+        8169,
+        8170,
+        8171,
+        8172,
+        8173,
+        8174,
+        8175,
+        8176,
+        8177,
+        8178,
+        8179,
+        8180,
+        8181,
+        8182,
+        8183,
+        8184,
+        8185,
+        8186,
+        8187,
+        8188,
+        8189,
+        8190,
+        8191,
+        8192,
+        8193,
+        8194,
+        8195,
+        8196,
+        8197,
+        8198,
+        8199,
+        8200,
+        8201,
+        8202,
+        8203,
+        8204,
+        8205,
+        8206,
+        8207,
+        8208,
+        8209,
+        8210,
+        8211,
+        8212,
+        8213,
+        8214,
+        8215,
+        8216,
+        8217,
+        8218,
+        8219,
+        8220,
+        8221,
+        8222,
+        8223,
+        8224,
+        8225,
+        8226,
+        8227,
+        8228,
+        8229,
+        8230,
+        8231,
+        8232,
+        8233,
+        8234,
+        8235,
+        8236,
+        8237,
+        8238,
+        8239,
+        8240,
+        8241,
+        8242,
+        8243,
+        8244,
+        8245,
+        8246,
+        8247,
+        8248,
+        8249,
+        8250,
+        8251,
+        8252,
+        8253,
+        8254,
+        8255,
+        8256,
+        8257,
+        8258,
+        8259,
+        8260,
+        8261,
+        8262,
+        8263,
+        8264,
+        8265,
+        8266,
+        8267,
+        8268,
+        8269,
+        8270,
+        8271,
+        8272,
+        8273,
+        8274,
+        8275,
+        8276,
+        8277,
+        8278,
+        8279,
+        8280,
+        8281,
+        8282,
+        8283,
+        8284,
+        8285,
+        8286,
+        8287,
+        8288,
+        8289,
+        8290,
+        8291,
+        8292,
+        8293,
+        8294,
+        8295,
+        8296,
+        8297,
+        8298,
+        8299,
+        8300,
+        8301,
+        8302,
+        8303,
+        8304,
+        8305,
+        8306,
+        8307,
+        8308,
+        8309,
+        8310,
+        8311,
+        8312,
+        8313,
+        8314,
+        8315,
+        8316,
+        8317,
+        8318,
+        8319,
+        8320,
+        8321,
+        8322,
+        8323,
+        8324,
+        8325,
+        8326,
+        8327,
+        8328,
+        8329,
+        8330,
+        8331,
+        8332,
+        8334,
+        8335,
+        8336,
+        8337,
+        8338,
+        8339,
+        8340,
+        8341,
+        8342,
+        8343,
+        8344,
+        8345,
+        8346,
+        8347,
+        8348,
+        8349,
+        8350,
+        8351,
+        8352,
+        8353,
+        8354,
+        8355,
+        8356,
+        8357,
+        8358,
+        8359,
+        8360
+      ],
+      "is_null_lines": [],
+      "sha256": "50560d9d94b01d5a59a47705b7a16550e762448c27a7c39644b6becd8f3e84ea"
+    },
+    "g-binsea.adb": {
+      "bytes": 4530,
+      "git_blob_sha1": "d275da3d2b914ea6d93adf7589d47c56bd3c91ee",
+      "inline_always_lines": [
+        38,
+        50
+      ],
+      "is_null_lines": [],
+      "sha256": "8abef16c3fc0ef3e41c194798dbfec638ff2369342dcce18ba826dc60177b067"
+    },
+    "g-debpoo.adb": {
+      "bytes": 85257,
+      "git_blob_sha1": "0a8e012dda0ab12e3e0ad3171966fe1f670e0c43",
+      "inline_always_lines": [],
+      "is_null_lines": [
+        1100,
+        1649,
+        1717
+      ],
+      "sha256": "7731253255ef2ce26d1cb3b31afa78f84ded6067597c45d31f2a21852821476c"
+    },
+    "s-addope.ads": {
+      "bytes": 5286,
+      "git_blob_sha1": "ba0194b9a9821bcc422d2560eb4f836c07c196a6",
+      "inline_always_lines": [
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90
+      ],
+      "is_null_lines": [],
+      "sha256": "94e3ada2a5026226546c2e86bd906389bb2aae7b4eab178a119f8c94ee9321dc"
+    },
+    "s-aoinar.ads": {
+      "bytes": 3753,
+      "git_blob_sha1": "ac88b480d0927e0b2f6aba984da2a79e1699d79e",
+      "inline_always_lines": [
+        61,
+        62,
+        63,
+        64,
+        65
+      ],
+      "is_null_lines": [],
+      "sha256": "d1319bef06ba5f9bf003356c0182e664248a759cf157e04c3f4a81c792e5ca16"
+    },
+    "s-aomoar.ads": {
+      "bytes": 3751,
+      "git_blob_sha1": "42fa82da2a8aeac0da5be10e1007d521a15140b4",
+      "inline_always_lines": [
+        61,
+        62,
+        63,
+        64,
+        65
+      ],
+      "is_null_lines": [],
+      "sha256": "caaeceb7d7919385f4abf731a98e6addec7fe94d20b21c97a64bc69349081d3b"
+    },
+    "s-aotase.ads": {
+      "bytes": 3371,
+      "git_blob_sha1": "d8bd05c837338a2c80b1f0e6ed86d009bb0fa1cc",
+      "inline_always_lines": [
+        55,
+        56,
+        57
+      ],
+      "is_null_lines": [],
+      "sha256": "9fd70b78d9ef0da4b6fae0f55efd329bf471c6a801fbbaeb79741edfa8c9f317"
+    },
+    "s-atocou.ads": {
+      "bytes": 5210,
+      "git_blob_sha1": "cb904e7816c5975024c161c659d1293851e6f54d",
+      "inline_always_lines": [
+        62,
+        66,
+        70,
+        74,
+        85,
+        89,
+        92
+      ],
+      "is_null_lines": [],
+      "sha256": "f0c46920b00ba15afa0ee53a78527515875306e5af0582b6e6d94f6d5de49a23"
+    },
+    "s-atopex.ads": {
+      "bytes": 3436,
+      "git_blob_sha1": "2aff9d89d320bcb7777308378c77a5e809268a29",
+      "inline_always_lines": [
+        54,
+        55,
+        56
+      ],
+      "is_null_lines": [],
+      "sha256": "a4149a6e8aa2ab144d949adfb6748d8027494eb6cab3bbde15351e18e5882526"
+    },
+    "s-auxdec.ads": {
+      "bytes": 25624,
+      "git_blob_sha1": "8181d0734aea25c63fbf366ef301495118dd02a8",
+      "inline_always_lines": [
+        435,
+        436,
+        437,
+        438,
+        439,
+        440,
+        444,
+        445,
+        463,
+        475,
+        481,
+        504,
+        527,
+        550
+      ],
+      "is_null_lines": [],
+      "sha256": "799e6114f803aa4ba9b84175fce01d09483ebea3b05c06ec1ec74adc09f65d3e"
+    },
+    "s-bignum.adb": {
+      "bytes": 6345,
+      "git_blob_sha1": "2bf0a3fd7ec67c4b4305fc3133d804c170780ac1",
+      "inline_always_lines": [],
+      "is_null_lines": [
+        42
+      ],
+      "sha256": "65a138c37329121a572126ae5bef6b514b626707ec8a6e5a8f123edcffd24fef"
+    },
+    "s-gearop.adb": {
+      "bytes": 42982,
+      "git_blob_sha1": "668f54c021ead72297c524ba8c81138470524510",
+      "inline_always_lines": [
+        63
+      ],
+      "is_null_lines": [
+        922,
+        988
+      ],
+      "sha256": "7c83690f2d37e2e267b5a0a1034a17546e24f2c5e273062447ff8a79e2a5a93c"
+    },
+    "s-soflin.ads": {
+      "bytes": 18985,
+      "git_blob_sha1": "a2ea363e68fece0307747026f50f4e4f9786fd50",
+      "inline_always_lines": [],
+      "is_null_lines": [
+        258
+      ],
+      "sha256": "818d0cebb13a6efc2cb7426d20751c8c45a3ed15a803d34860c39956f2e61f83"
+    },
+    "s-stposu.ads": {
+      "bytes": 16999,
+      "git_blob_sha1": "13d7889471a8f63e6360551ea6aa5960674625d4",
+      "inline_always_lines": [],
+      "is_null_lines": [
+        96
+      ],
+      "sha256": "7541a99dee6d484694fa00e3cdb0924ad1fdc8c5d29a4d323dc05160acd078d7"
+    },
+    "s-veboop.ads": {
+      "bytes": 3769,
+      "git_blob_sha1": "34e7c4235b653a8d4dcf00d2b0ce76497819b94a",
+      "inline_always_lines": [
+        59,
+        60,
+        61,
+        62
+      ],
+      "is_null_lines": [],
+      "sha256": "241a5834cf9d59501c1d961f12e73d2918a9baea9d0c923927442410c57dab80"
+    }
   },
   "installed_runtime_corpora": {
     "all_names_and_bytes_equal": true,
@@ -802,6 +1335,7 @@
   "spark_inspected_commit": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
   "spark_installed_commit_established": false,
   "spark_src_inventory": {
+    "inline_body_occurrences": [],
     "matched_source_inputs": {},
     "physical_load_occurrences": [],
     "scanned_ada_files": 279,

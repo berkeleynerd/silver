@@ -32,6 +32,7 @@ def inventory(root):
     accesses = Counter()
     creators, virtual_calls, input_hashes, corpus = [], [], {}, []
     load_calls = []
+    inline_calls = []
     for path in sorted(root.rglob("*")):
         if path.suffix.lower() not in {".adb", ".ads"}:
             continue
@@ -57,6 +58,11 @@ def inventory(root):
             load_calls.append({"file": name,
                                "line": code.count("\n", 0, match.start()) + 1,
                                "operation": match[1]})
+        for match in re.finditer(r"\b(Expand_Inlined_Call|Set_Body_To_Inline)\s*\(",
+                                 code, re.I):
+            inline_calls.append({"file": name,
+                                 "line": code.count("\n", 0, match.start()) + 1,
+                                 "operation": match[1]})
         if hits or any(item["file"] == name for item in virtual_calls):
             input_hashes[name] = digest(data)
     return {"scanned_ada_files": len(corpus),
@@ -64,6 +70,7 @@ def inventory(root):
             "source_file_accesses": dict(sorted(accesses.items())),
             "source_table_creators": creators,
             "physical_load_occurrences": load_calls,
+            "inline_body_occurrences": inline_calls,
             "virtual_source_occurrences": virtual_calls,
             "matched_source_inputs": input_hashes}
 
@@ -81,6 +88,24 @@ def runtime_inventory(root):
             "aligned_source_sum": sum(4096 * ((x["bytes"] + 4096) // 4096)
                                       for x in entries),
             "manifest_sha256": canonical_digest(entries)}
+
+
+def runtime_inline_inventory(root):
+    result = {}
+    for path in sorted(root.rglob("*")):
+        if path.suffix.lower() not in {".ads", ".adb"}:
+            continue
+        data = path.read_bytes()
+        code = code_only(data.decode("latin-1"))
+        inline = [code.count("\n", 0, m.start()) + 1
+                  for m in re.finditer(r"\bInline_Always\b", code, re.I)]
+        nulls = [code.count("\n", 0, m.start()) + 1
+                 for m in re.finditer(r"\bis\s+null\b", code, re.I)]
+        if inline or nulls:
+            result[path.relative_to(root).as_posix()] = {
+                **digest(data), "inline_always_lines": inline, "is_null_lines": nulls,
+            }
+    return result
 
 
 def main():
@@ -124,7 +149,9 @@ def main():
                  "prepcomp.adb", "sem.adb", "sem_ch3.adb", "sem_ch4.adb",
                  "sem_ch6.adb", "sem_ch12.adb", "sem_prag.adb", "inline.adb",
                  "contracts.adb", "freeze.adb", "exp_ch3.adb", "exp_ch4.adb",
-                 "exp_ch6.adb", "exp_smem.adb", "exp_dist.adb", "exp_imgv.adb",
+                 "exp_ch6.adb", "exp_ch7.adb", "exp_smem.adb", "exp_dist.adb", "exp_imgv.adb",
+                 "exp_put_image.adb", "expander.adb", "exp_spark.adb", "sem_res.adb",
+                 "sem_util.adb", "checks.adb", "debug.adb",
                  "rtsfind.adb", "rtsfind.ads", "sprint.adb", "switch-c.adb")
     result = {
         "scope": "Source-only inventory and byte comparison; no complete source-closure claim.",
@@ -147,6 +174,7 @@ def main():
             "all_names_and_bytes_equal": native_corpus == producer_corpus,
             "scope": "Physical file union; each request name charged once. Does not bound virtual copies or prove search-path closure.",
         },
+        "installed_native_runtime_inline_inventory": runtime_inline_inventory(args.native_runtime),
         "runtime_comparison": runtime,
         "silver_inputs": {name: digest((args.repo / name).read_bytes()) for name in (
             "src/silver.adb", "src/silver_libraries.adb", "scripts/bootstrap.py",

@@ -209,6 +209,83 @@ derivations or overriding declarations. Native contract-body expansion and
 fixed runtime template analysis still need to be reconciled before assigning
 the dependency contribution a universal number.
 
+### Generated-helper inlining: a narrower dependency
+
+For current native options, `gnat1drv.adb:691–707` sets
+`Back_End_Inlining = True`: GNATprove mode, explicit frontend inlining and
+debug `.z` are its disabling conditions. In this mode, a scalar/procedure
+helper's `Is_Inlined` flag does not allocate a virtual source range. Actual
+frontend call copying still requires a separate declaration with a populated
+`Body_To_Inline` (`exp_ch6.adb:5644–5654`). The complete source scan finds the
+following setters, besides the generated accessor machinery:
+
+| Setter | Role and effect under current options |
+| --- | --- |
+| `inline.adb:1370` | Legacy/GNATprove body preparation; native invocation is behind the disabled frontend-inlining branch of `sem_ch6.adb:4363–4369` |
+| `inline.adb:2404` | Splitting a source function returning an unconstrained type; `inline.adb:2725–2735` requires that source-body flag and Inline_Always or positive optimization |
+| `inline.adb:2857` | Clears an existing body-to-inline pointer |
+| `freeze.adb:434` | Renaming shortcut stores an entity, not a body; `inline.adb:3807–3809` returns without allocating virtual source |
+| `sem_ch6.adb:1516` | Null-procedure body; unavailable to Main, so any selected support call to one would have to be identified separately |
+
+This disposes of several apparent per-expression/per-scope copy multipliers:
+
+- Native concat expansion (`exp_ch4.adb:2552–3639`) creates temporaries,
+  assignments or calls to the fixed concat helpers, with no subprogram body.
+- Fallback equality (`exp_ch4.adb:2035`) is a generated body-as-declaration;
+  generated Put_Image (`exp_put_image.adb:1084–1103`) is likewise a body, with
+  no inline annotation. Neither satisfies the separate inline-body route.
+- The generated finalizer has a separate specification and `Is_Inlined`
+  (`exp_ch7.adb:1980–2061`), but no inline pragma/body-to-inline preparation.
+  Its calls remain backend work under current options. GNATprove explicitly
+  skips `Build_Finalizer` (`exp_ch7.adb:3144–3152`).
+
+GNATprove returns from `Expander.Expand` after `Expand_SPARK`
+(`expander.adb:110–129`), bypassing ordinary concat/equality/finalizer expansion.
+The light-expansion cases in `exp_spark.adb:119–202` introduce no corresponding
+helper subprograms for this grammar: its loop transformation needs an array
+iterator (`907–912`), and object transformation needs an uninitialized DIC
+object (`932–938`). Main has ordinary range loops and initialized Integer or
+String objects. The type-freezing subprogram constructors at `1139–1251`
+require invariants, DIC or tagged-record types; these are absent from Main's
+types. Its direct call-resolution inlining route (`sem_res.adb:7384–7387,
+7489–7518`) uses the same API/contract/expression-function exclusions already
+identified. Fixed dependency processing remains separate.
+
+These are source-derived zero virtual-copy transfers for the named helper
+families, not zero AST/backend cost. What remains for source ranges is narrower:
+runtime bodies/templates and any selected external target whose Inline_Always
+unconstrained-return or null-procedure status escapes these exclusions.
+In particular, the absence of an Inline annotation on `Image_I` alone does
+**not** exclude a body copy: `Needs_Body_Instantiated` returns true when
+`Inline_Processing_Required and Back_End_Inlining` (`sem_ch12.adb:4937–4938`).
+Its body contains no further generic instantiation, but the body's demand and
+at-most-once property must be resolved before adding a fixed body contribution.
+
+The complete installed-runtime annotation inventory narrows those external
+targets too. Exactly ten specs contain Inline_Always annotations:
+`g-altcon.ads`, `g-alveop.ads`, `s-addope.ads`, `s-aoinar.ads`, `s-aomoar.ads`,
+`s-aotase.ads`, `s-atocou.ads`, `s-atopex.ads`, `s-auxdec.ads`, `s-veboop.ads`.
+Of these packages, the Rtsfind entity map exposes
+`System.Atomic_Operations.Test_And_Set` and `System.Aux_DEC`. The former's
+callable target is the Boolean-result intrinsic `Atomic_Test_And_Set`
+(`rtsfind.ads:806–819,2466–2479`); the latter entries are AST/type-class
+descriptors, not its generic `Fetch_From_Address` or other inlined functions.
+The Boolean-array helpers selected by `RE_Vector_*` belong to
+`System.Boolean_Array_Operations` (`rtsfind.ads:2517–2523`), not the annotated
+`System.Vectors.Boolean_Operations` package. None of Main's authored APIs
+comes from these annotated packages. These facts exclude an unconstrained
+Inline_Always return at the direct Main-to-runtime helper call boundary.
+
+Null-procedure specs are confined to `Ada.Finalization`'s controlled-type
+operations, `System.Storage_Pools.Subpools.Deallocate` and
+`System.Soft_Links.Null_Set_Address`. Main's Integer/String types require no
+controlled/subpool dispatch; `Null_Set_Address` initializes access-to-subprogram
+soft links (`s-soflin.ads:258–266`), rather than being a direct RTE target.
+There are also null procedures and Inline_Always annotations inside fixed
+runtime bodies, recorded separately by the collector. Calls generated inside
+those bodies belong to the fixed dependency contribution; they are not evidence
+of a fresh source-range copy for every Main expression.
+
 ## Grammar helper coverage already narrowed
 
 | Family | Established dispatch fact | What it does not establish |

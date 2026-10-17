@@ -4,11 +4,11 @@
     "sha256": "d9747aae9e353a282c286f0c7560bc61b4c222a1f27cf22f3a92e44532e94793"
   },
   "collect.py": {
-    "bytes": 8366,
-    "sha256": "a01e2e691f15ccba2afc06aa1acb67c1cb399e379aec89012388ea1659287843"
+    "bytes": 9725,
+    "sha256": "026e7bc6bc120cf59774acd9b87397687334831c5f14c1f309932edbf6a4ed3c"
   },
   "source-inventory.json": {
-    "bytes": 27349,
-    "sha256": "86cbdf1cc4396e2433068b804284d596e1c0e84429d719b166ea6ccdd3a81829"
+    "bytes": 39158,
+    "sha256": "55abe673a81fde61a72d4552f7ff1d27461ccc9cbea45299a60d2620754e34ee"
   }
 }
