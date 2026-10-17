@@ -3,7 +3,7 @@
 Research for #119 on 2026-10-17. See the
 [derivation and limits](../../../research/retained-value-capacity.md).
 
-`derive.py` verifies 27 selected source files against the previous complete
+`derive.py` verifies 34 selected source files against the previous complete
 GCC Ada-tree manifest for commit `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`.
 It then produces component allocation arithmetic, String discriminators and
 textual parser-rescan/String-allocation inventories in `components.json`.
@@ -37,3 +37,8 @@ review covered its caller paths and disjointness. Dependency scans and semantic
 events remain separate. These are not a complete whole-program capacity
 rule, a new admission threshold, or measured native consumption. The current
 language and all production/proof source remain unchanged.
+
+The subsequent native scalar component gives local node/list/entity event
+charges for already resolved nonstatic Integer operators under its explicit
+expansion preconditions. It does not price semantic folding or generated helper
+contexts. Its constants are a source derivation, not a measured multiplier.

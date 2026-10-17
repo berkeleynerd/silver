@@ -22,6 +22,8 @@ FILES = (
     "par-tchk.adb", "sem_eval.adb", "sem_res.adb", "sem_attr.adb",
     "sem_util.adb", "exp_imgv.adb", "exp_util.adb", "table.ads", "table.adb",
     "par-ch2.adb", "par-ch10.adb", "par-ch13.adb", "par-endh.adb",
+    "exp_ch4.adb", "checks.adb", "validsw.ads", "atree.adb", "opt.ads",
+    "switch-c.adb", "libgnat/system-linux-x86.ads",
 )
 
 
@@ -221,6 +223,15 @@ def main():
             "parser_descriptors": "2*source_string_literals + floor(source_concat_operators/1000)",
             "scope": "one syntactically valid Main parse with unchanged Silver grammar; excludes initialization, dependency parses and semantic/generated events",
             "argument": "retained-value-capacity.md#main-parser-multiplicity",
+        },
+        "normalized_native_scalar_operator_events": {
+            "ordinary_node_id_allocations_per_operator": 2,
+            "dynamic_slots_per_operator": 9,
+            "entity_allocations_per_operator": 0,
+            "list_headers_per_operator": 0,
+            "growing_slot_copy_events_per_operator": 0,
+            "scope": "one local expansion of a resolved nonstatic Standard.Integer +,-,*,unary-minus; strict backend overflow; no widening parent, validity operands, Universal_Integer or other scalar types; excludes prior semantic work and surrounding generated constructs",
+            "argument": "retained-value-capacity.md#normalized-native-integer-operator-expansion",
         },
         "parser_scan_state_text_matches": rescan_sites,
         "selected_string_allocation_text_matches": allocations,

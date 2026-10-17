@@ -240,6 +240,73 @@ carry at most `B-1` (`2057–2066`). Vector-index arithmetic needs the stated
 length bounds. These rows are not bounds for all helpers called by
 `Eval_Arithmetic_Op`, range checking, subtype creation or expansion.
 
+### Normalized native Integer operator expansion
+
+For one local native expansion of a successfully resolved nonstatic scalar
+operator, restrict its type to Standard.Integer (or a subtype with that base),
+its children to the admitted pure scalar forms, and exclude a widening
+conversion parent. The selected `-gnato` means strict mode
+(`switch-c.adb:1113–1144`); ordinary operand validity checks are disabled by the
+selected defaults (`validsw.ads:85–89`). The Linux x86 System source enables
+backend overflow checks (`libgnat/system-linux-x86.ads:131–132`). Universal
+Integer, generated wider arithmetic, conversion rewriting and semantic work
+before this expansion are separate contexts; this local formula is not yet a
+claim that every frontend visit satisfies the preconditions.
+
+Under those conditions the following core node/event bound holds per operator:
+
+```text
+new ordinary node identities <= 2
+new dynamic slots           <= 9
+new entity identities        = 0
+new list headers             = 0
+growing slot-copy events      = 0
+```
+
+The source paths establishing it are:
+
+| Operator/path | Local allocation argument |
+| --- | --- |
+| Addition (`exp_ch4.adb:7918–7978`) | A zero operand may cause one `Rewrite` to the existing other child. Otherwise strict overflow handling returns to backend checks. |
+| Subtraction (`:10678–10725`) | Subtracting zero may cause the same one rewrite. Other paths return through the ordinary signed/float/modular guards. |
+| Multiplication (`:9935–10156`) | Multiplication by zero constructs one Integer literal and rewrites once; multiplication by one reuses the existing child. Exponent/shift, fixed, modular and real branches are excluded by the stated forms. |
+| Unary minus (`:9698–9738`) | Native software-overflow rewriting requires backend overflow checks to be disabled. The remaining nonbinary-modular helper returns for Integer. |
+| Overflow helper (`checks.adb:756–775,800–947`) | Strict mode excludes minimized/eliminated expansion. The widening-parent optimization is a separate precondition; after it, backend overflow support returns before constructing a test tree. Its `2*Esize` work still evaluates, but is a direct Uint value for 32-bit Integer. |
+
+`Remove_Side_Effects` in a zero-product optimization does not create a temporary:
+its default `Variable_Ref=False` treats ordinary mutable references as
+side-effect-free and recursively treats the permitted scalar operators the
+same way (`exp_util.adb:12693–12728,14429–14457,14530–14540,14650–14665`).
+There are no source scalar function calls, volatile objects or renamings.
+`Check_Float_Op_Overflow` returns before its temporary declaration for Integer
+(`:5037–5055`), and `Expand_Nonbinary_Modular_Op` returns before constructing
+nodes (`exp_ch4.adb:4305–4312`).
+
+`Rewrite` preserves its original at most once with a shallow `New_Copy`, then
+copies the replacement into the original node (`atree.adb:2251–2270`). The
+[pinned layout](retained-table-capacity.md#exact-slot-sizes-from-the-pinned-generator)
+gives total size 9 for the binary arithmetic nodes, 8 for unary minus and 6 for
+an Integer literal, with a three-slot header. Other permitted scalar children
+have total size at most 9. Thus a zero-product rewrite costs at most six dynamic
+slots for the saved binary node and three for the new literal. Replacing a
+binary operator by its scalar child cannot grow the destination slots. This
+bound does not multiply by child-tree size: `New_Copy` is shallow.
+
+Parenthesis metadata is another table, not a node/list header. Each successful
+`Set_Paren_Count` either updates the unique entry for its node identity or
+appends the first such entry (`atree.adb:2331–2356`). For a process's allocated
+node identities, the number of entries cannot exceed that identity count;
+transferring the small count during a rewrite does not create duplicate entries
+for the same identity. Its table arithmetic still needs the ordinary backing
+capacity check.
+
+The bound prices these core allocation events, not all compiler storage or
+arithmetic work. Prior `Eval_Arithmetic_Op`/`Fold_Uint`, range queries, source
+clones, enclosing checks/conversions, generated concat/Image code, metadata and
+phase observer state remain separate. The count of actual expansions must come
+from the source-to-event derivation; simply substituting source operator count
+without proving its multiplicity would be unsound.
+
 ### Reproduced discriminators
 
 The table gives the append-only upper charge for **one** zero-mantissa token
