@@ -162,6 +162,34 @@
       "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4",
       "git_blob_sha1": "124b25e925ac30a4e62f81605a4a315e81f13aee",
       "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/table.adb"
+    },
+    {
+      "path": "par-ch2.adb",
+      "bytes": 25025,
+      "sha256": "eada2ac62201fc1b152e23d9c7eb35b2fea6d038fd5da421f736d2cc23f27765",
+      "git_blob_sha1": "a83f145236b3bb26a990af8199649034f2b7ac52",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-ch2.adb"
+    },
+    {
+      "path": "par-ch10.adb",
+      "bytes": 39645,
+      "sha256": "4ed233f32ad1a0ba61daadeca145fb7169fa97368341913513b418cf6769c7c6",
+      "git_blob_sha1": "7b019662f7f28aef596fef1b1c4710c197b98f48",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-ch10.adb"
+    },
+    {
+      "path": "par-ch13.adb",
+      "bytes": 36895,
+      "sha256": "76ef6835e86a4ed19f5fb5ed945592cbd9e8647b6ebcc2c8390f03f92df4be8a",
+      "git_blob_sha1": "2e3f621b384b3fb3e8160ee4a2b1ffeec70a9b5e",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-ch13.adb"
+    },
+    {
+      "path": "par-endh.adb",
+      "bytes": 51801,
+      "sha256": "da28478447cbf48a35c7e0c8fc787b9a985bcf1fc0c671f7ecb452249597ee11",
+      "git_blob_sha1": "0db3820431f115b8b7ba87f7ce2d9d8d3961654c",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/par-endh.adb"
     }
   ],
   "source_hash_mismatches": 0,
@@ -1759,6 +1787,13 @@
       "excludes": "scan multiplicity, dependencies and generated events"
     }
   },
+  "main_parse_upper_bound": {
+    "source_literal_scan_multiplicity": 2,
+    "parser_characters_per_source_decoded_character": 3,
+    "parser_descriptors": "2*source_string_literals + floor(source_concat_operators/1000)",
+    "scope": "one syntactically valid Main parse with unchanged Silver grammar; excludes initialization, dependency parses and semantic/generated events",
+    "argument": "retained-value-capacity.md#main-parser-multiplicity"
+  },
   "parser_scan_state_text_matches": [
     {
       "file": "par-ch3.adb",
@@ -2749,6 +2784,256 @@
       "file": "par-tchk.adb",
       "line": 829,
       "text": "Restore_Scan_State (Scan_State); -- to where we were"
+    },
+    {
+      "file": "par-ch2.adb",
+      "line": 642,
+      "text": "Save_Scan_State (Scan_State); -- at Identifier"
+    },
+    {
+      "file": "par-ch2.adb",
+      "line": 707,
+      "text": "Restore_Scan_State (Scan_State); -- to Identifier"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 154,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 160,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 184,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 196,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 262,
+      "text": "Save_Scan_State (Scan_State); -- at PRIVATE"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 272,
+      "text": "Restore_Scan_State (Scan_State); -- to PRIVATE"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 277,
+      "text": "Restore_Scan_State (Scan_State); -- to PRIVATE"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 352,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 362,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 365,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 612,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 627,
+      "text": "Restore_Scan_State (Scan_State); -- to Pragma"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 635,
+      "text": "Restore_Scan_State (Scan_State); -- to Pragma"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 869,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 876,
+      "text": "Restore_Scan_State (Scan_State); -- to PRIVATE"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 946,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 950,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 1097,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 1103,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch10.adb",
+      "line": 1107,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 70,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 77,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 81,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 114,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 182,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 189,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 394,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 402,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 427,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 433,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 451,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 463,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 472,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 492,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 562,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 569,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 578,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 590,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 601,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-ch13.adb",
+      "line": 611,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-endh.adb",
+      "line": 197,
+      "text": "Save_Scan_State (Scan_State); -- at END"
+    },
+    {
+      "file": "par-endh.adb",
+      "line": 267,
+      "text": "Save_Scan_State (Name_Scan_State);"
+    },
+    {
+      "file": "par-endh.adb",
+      "line": 300,
+      "text": "Restore_Scan_State (Name_Scan_State);"
+    },
+    {
+      "file": "par-endh.adb",
+      "line": 963,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-endh.adb",
+      "line": 1144,
+      "text": "Restore_Scan_State (Scan_State); -- to END"
+    },
+    {
+      "file": "par-endh.adb",
+      "line": 1194,
+      "text": "Save_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-endh.adb",
+      "line": 1224,
+      "text": "Restore_Scan_State (Scan_State);"
+    },
+    {
+      "file": "par-endh.adb",
+      "line": 1258,
+      "text": "Restore_Scan_State (Scan_State); -- to END"
     }
   ],
   "selected_string_allocation_text_matches": [

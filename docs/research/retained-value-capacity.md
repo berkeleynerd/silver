@@ -3,15 +3,16 @@
 **2026-10-17 — partial derivation for #119, under #91 and shared with #93.**
 This supplies compositional upper charges for named String allocation events
 and one successful scan of an admitted-form integer token. It also bounds the
-Uint primitives needed for ordinary bounded scalar folding. These are useful
+Uint primitives needed for ordinary bounded scalar folding and closes literal
+scan multiplicity for one syntactically valid Main parse. These are useful
 components of a capacity rule, **not a complete source-to-tool allocation
-bound or a new membership rule**. Scanner/fold multiplicities, generated code,
+bound or a new membership rule**. Dependency scans, fold multiplicities, generated code,
 dependencies and other representations still need closure. Current production,
 language, catalogue, proof artifacts, Oracle and tool pins are unchanged.
 
 The components use GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`.
 The [reproducer and output](../evidence/unbounded-programs/retained-value-capacity-20261017/README.md)
-verify 23 inspected files against the retained complete-tree manifest and
+verify 27 inspected files against the retained complete-tree manifest and
 evaluate the arithmetic below. Applying source conclusions to an installed
 compiler retains the [existing correspondence premise](unbounded-frontend-lifetimes.md#reproducible-scope-and-premises).
 Nothing here establishes the separate GNATprove producer's exact source identity
@@ -260,26 +261,55 @@ observed compiler run. The reproducer checks the digit inequality and event
 counts for 3,885 base/exponent cases; this arithmetic exercise supports the
 derivation and is not a universal proof or tool execution.
 
-## Caller coverage still required
+## Main parser multiplicity
 
 Scanner-state restoration restores token/source fields and a prior Token_Node,
 but does **not** restore Stringt or Uintp (`scans.adb:170–214`,
 `scans.ads:524–536`). The saved token itself is reused; subsequent tokens may be
 scanned again. Thus a lexical-token budget cannot silently assume one Nlit/Slit
-call per source occurrence. The evidence contains 198 textual save/restore
-matches in the selected parser files, with LF-based lines; it is an inventory,
-not a resolved complete call graph or a 198-times multiplier.
+call per source occurrence. The evidence contains textual save/restore matches
+in the selected parser files, with LF-based lines; this inventory alone is
+neither a resolved complete call graph nor an allocation multiplier.
 
-Concrete paths to resolve against Silver's grammar are:
+For one syntactically valid Main parse under the unchanged Silver grammar,
+**each source String/numeric literal is scanned at most twice**. This remains
+true if the source/operator/leaf/value bounds are relaxed while the grammar and
+lexical rules remain unchanged. It bounds `Slit`/`Nlit` calls, not all nodes or
+semantic transformations. Independent source review checked these caller paths:
 
-| Path | Current conclusion / next obligation |
+| Reachable path | Why it cannot introduce further literal rescans |
 | --- | --- |
-| `par-ch3.adb:1593–1596,1940–1959`, multiple object identifiers | The parser reprocesses a declaration for each identifier. Silver's one-name declaration prevents that particular repetition; selected dependency source may still use it. |
-| `par-ch4.adb:1572–1608,1667–1704,1770–1775`, parenthesized expression/aggregate distinction | The ordinary parenthesized expression returns without the aggregate rewind. Close all permitted grouped expressions and exclude aggregate fallback on valid source. |
-| `par-ch4.adb:701–715,837–849`, call-argument lookahead | Lookahead restores the current identifier and can scan the following token twice. Establish which following token kinds can be numeric/String literals in the admitted actual grammar. |
-| `par-ch4.adb:1024–1234`, simple-name/subtype lookahead | It may parse an argument list and rewind to its left parenthesis. Establish valid caller roles for String/Integer subtype marks and context clauses; do not assume an error-only route merely from its name. |
-| `par-ch3.adb:1145–1222`, subtype-attribute/constraint lookahead; `par-ch5.adb:1769–1805`, loop-parameter recovery | The cited loop rewind follows an invalid subscripted/selected loop parameter; valid Silver's identifier followed by `in` excludes it. Close the constraint helper callers and the other loop-bound/assignment/call scanning paths. |
-| `par-ch6.adb:406–438`, procedure-body lookahead; `par-util.adb` and `par-tchk.adb` helpers | Resolve Main's shell and permitted pragma/context handling, then prove excluded error recovery cannot contribute on admitted source under faithful parsing. |
+| Simple/qualified names, Image and Length (`par-ch4.adb:217–940`) | Dot/apostrophe probes scan punctuation or attribute names. `Id =>` probes scan only the token immediately after an identifier; in valid Silver actuals that is punctuation/operator, never another literal. Each call has one actual. |
+| Grouped expressions (`par-ch4.adb:1579,1665–1684,1773,2201–2257`) | Valid groups return at the right parenthesis before the aggregate rewind. Inner expressions use ordinary relation/expression parsing, not the special lower-range parser. Aggregates are excluded. |
+| Object declarations (`par-ch3.adb:159,1214,1443–1611,1956`) | One defining identifier excludes the declaration-reparse loop. Subtype probes see `:=` or `range` after String/Integer. Required `:=` excludes the missing-initializer-symbol recovery. |
+| Ranges (`par-ch3.adb:2172–2183,3043–3078`; `par-ch4.adb:2890–2917`) | A parenthesized lower bound is preliminarily parsed then rewound, hence its literals can be scanned twice. Inner groups do not recursively invoke that special path. The upper bound uses ordinary expression parsing. These bounds contain only scalar expressions. |
+| Conditions (`par-ch5.adb:1360`; `par-ch4.adb:2096–2123`) | Conditions use ordinary expressions and terminate at `then` or an enclosing `)`, so the semicolon/comma recovery lookahead does not run. |
+| Statement keyword heuristic (`par-ch5.adb:285–328`; `par-util.adb:516–603`) | Depending on keyword casing, the heuristic may scan the token immediately after `if`/`elsif` and restore. Only a literal starting the condition gains this extra scan; grouping starts with punctuation. Correctly matched nested statements do not repeatedly revisit an outer `elsif`. |
+| Statement calls and assignments (`par-ch5.adb:506–658`) | Dispatch probes only `:=`, `.`, or `(`. The actual call/RHS parser consumes the expression once. The separate same-line `else` lookahead is detailed below. |
+| Main shell, pragma and end (`par-ch6.adb:406–438`; `par-ch2.adb:642–707`; `par-endh.adb:1155` onward) | The procedure-`is` probe sees the mandatory pragma. Its sole argument is `On`, with no literal. No outer configuration pragma is permitted. Correct end matching does not rewind into the body. |
+| Aspects and token helpers (`par-ch13.adb:108`; `par-tchk.adb`, `par-util.adb`) | Absent `with`/`when`, aspect parsing returns. Matching punctuation takes the normal token-check branch. Calls have one actual; source sequences cannot enter comma/error recovery. `Next_Token_Is` callers are generic/record paths absent from Main. |
+
+The extra literal scans are disjoint: same-line `else` scans can reach only
+the first call's argument; `if`/`for` stop it and `:=` stops it before an RHS.
+Grouped lower bounds have no conditions/calls. A keyword probe scans only the
+first condition token, which cannot simultaneously be in a lower bound or an
+`else` call argument. Thus no source literal receives all three charges.
+This is a grammar/caller argument; the textual rewind-site count would not
+establish it. Each independent compiler phase needs its own parse charge.
+Fixed library sources have a broader grammar and are not covered.
+
+Let `S` be the source String-token count, `L` the sum of their decoded lengths
+and `A` the source `&` count. Lexical scans contribute at most `2S` descriptors
+and `2L` characters. Each parser-flattened chain contains at least 1000 concats
+and only plain literal nodes. Its replacement is an `N_Op_Concat`, so an outer
+chain containing it cannot itself satisfy the plain-literal condition; flattened
+chains' source literals/operators are disjoint. They contribute at most
+`floor(A/1000)` descriptors and `L` characters. Consequently **Main parsing
+alone** contributes at most `2S + floor(A/1000)` descriptors and `3L` characters.
+Parser flattening does not apply to scalar lower-bound probes; `else`/keyword
+lookahead only scans. For numerals, twice the sum of the per-token Uint charges
+above conservatively bounds parsing, including discarded lookahead allocations.
+Initialization, dependencies and semantic/generated allocations are additional.
 
 ### A reachable extra scan after `else`
 
@@ -312,10 +342,12 @@ not multiply later statements or nested bodies. It only scans tokens; it
 does not invoke the parser's long-concat flattening transformation.
 
 This is a closed local rescan contribution derived from the pinned source,
-not an executed compiler trace or a complete parser multiplicity bound.
+not an executed compiler trace. It is one part of the parser bound above.
 It refutes treating all literal rescans as erroneous-source recovery and
 shows why whitespace can affect allocation even when the token sequence is
-unchanged. The full parser caller-coverage obligation above remains open.
+unchanged.
+
+## Semantic caller coverage still required
 
 Successful alias resolution itself does not allocate String characters, but
 `Fold_Str` calls Analyze and Resolve after rewriting (`sem_eval.adb:5118–5144`);

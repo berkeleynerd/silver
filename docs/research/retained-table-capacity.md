@@ -49,6 +49,60 @@ The missing source analysis must overapproximate all such traces, including
 caller-side index arithmetic, without running an opaque compiler as membership.
 No global growth threshold is selected here.
 
+### A sufficient bound without retaining the growth history
+
+For a fixed instance, a source analysis can instead supply an upper bound `D`
+on **every logical demand** `Last_Val - m + 1`, including temporary reserves.
+Assume nonnegative `D`, initial length, growth increment, release threshold and
+`Table_Factor` (the low bound `m` may be negative), a fixed factor, well-formed
+operations (`Last_Val >= m-1`), and saved states from this same instance/invariant.
+`Free` must be followed by initialization/restoration before table use. Define,
+using mathematical integers,
+
+```text
+P = max(D, Table_Initial)
+C = max(Table_Initial * Table_Factor,
+        D + floor(D / 1000),
+        floor(P * (100 + Table_Increment) / 100),
+        P + 10)
+```
+
+Then `C` bounds every backing length, across growth, `Release`, `Init`,
+`Save` and `Restore`. The argument is by induction over the operations:
+
+- Initialization selects the first term. An ordinary append/`Set_Last` changes
+  only the logical last unless it exceeds capacity.
+- On entry to a growth loop, the old capacity is below the requested demand,
+  hence below `D`. The initial `max(Length, Table_Initial)` can make it larger
+  without yet updating `Max`; `P` covers that first iteration as well. On later
+  iterations the loop guard again gives `Length < D`. Monotonicity of the two
+  growth expressions bounds their result by the last two terms of `C`.
+- Release selects a logical length at most `D`, optionally adding at most
+  `floor(D/1000)`. Save reinitializes; Restore recovers a previously bounded
+  capacity. No assumption that a release preserves the initial growth sequence
+  is needed (`table.adb:276–300`).
+
+Check the initial product and `P*(100+Table_Increment)` in their actual types
+(the latter is signed 64-bit); check `C+1 <= Int'Last`, `m-1 >= Int'First`,
+and `m+C <= Int'Last`. These conservative conditions cover the signed
+capacity/one-past arithmetic described above, including a zero-length release.
+Also bound `(C+1)*component_bytes` in the target allocation/address model,
+and check actual logical indexes against the instance's nominal ID subtype.
+The backing sentinel `Max+1` must also fit the actual `Table_Index_Type`
+conversion in `Set_Item`, even if that subtype is narrower than signed Int;
+checking only the logical last does not cover this conversion.
+Caller-side indexes, decrements below the empty state, lock validity and
+auxiliary arithmetic remain explicit obligations. Debug-only diagnostic
+conversions are outside the production options assumed here.
+
+For String characters (`m=0`, initial 2500, factor 1, increment 150),
+`D=858,993,458` gives `C=2,147,483,645`; `C+1` fits signed Int.
+The next demand gives `C=2,147,483,647`, whose `C+1` does not fit this
+sufficient envelope. This is **not a selected language limit or an exact tool
+cutoff**. It is a derived, conservative local arithmetic condition applicable
+only after a complete source-to-demand bound and the other component checks.
+The exact-transition checker may accept a wider range when its history is known.
+
 For example, with low bound zero, initial length 2500, increment 150% and no
 reset/release, the String-character length sequence reaches 931,307,812 and next
 computes 2,328,269,530, exceeding `Int'Last`. The evidence recomputes the sequence

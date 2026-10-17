@@ -21,6 +21,7 @@ FILES = (
     "par-ch4.adb", "par-ch5.adb", "par-ch6.adb", "par-util.adb",
     "par-tchk.adb", "sem_eval.adb", "sem_res.adb", "sem_attr.adb",
     "sem_util.adb", "exp_imgv.adb", "exp_util.adb", "table.ads", "table.adb",
+    "par-ch2.adb", "par-ch10.adb", "par-ch13.adb", "par-endh.adb",
 )
 
 
@@ -213,6 +214,13 @@ def main():
                 "semantic_empty_left_fold_characters": 0,
                 "excludes": "scan multiplicity, dependencies and generated events",
             },
+        },
+        "main_parse_upper_bound": {
+            "source_literal_scan_multiplicity": 2,
+            "parser_characters_per_source_decoded_character": 3,
+            "parser_descriptors": "2*source_string_literals + floor(source_concat_operators/1000)",
+            "scope": "one syntactically valid Main parse with unchanged Silver grammar; excludes initialization, dependency parses and semantic/generated events",
+            "argument": "retained-value-capacity.md#main-parser-multiplicity",
         },
         "parser_scan_state_text_matches": rescan_sites,
         "selected_string_allocation_text_matches": allocations,

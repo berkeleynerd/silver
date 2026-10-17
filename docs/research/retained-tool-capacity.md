@@ -107,6 +107,20 @@ the affected closure even if the author grammar is unchanged.
 
 ## Complete grammar obligations
 
+The current derivation has four reusable component records:
+
+| Component | Established contribution | Still required for whole-source capacity |
+| --- | --- | --- |
+| [Source ranges](retained-source-closure.md) | Physical-loader/allocation inventory, complete pinned runtime union and identified fixed virtual templates | Phase/configuration/request-name closure and all virtual multiplicities |
+| [Values and parsing](retained-value-capacity.md) | Local String/Uint charges; at most two scans per source literal in a valid Main parse | Fixed dependency parsing, semantic reentry and generated value events |
+| [Tables and nodes](retained-table-capacity.md) | Checked allocator transitions, a demand-only backing-capacity envelope and node/slot/list coupling | Source-to-demand bounds and auxiliary representation coverage |
+| [GNATprove producer](retained-producer-capacity.md) | Literal node/list/serialization charges, child/declaration/type multiplicities and entity/file/module-count components | Generated entity/type bounds, helper/lifetime costs and complete source correspondence |
+
+These are source-derived components with their own premises and review scope.
+They do not yet select a safe whole-program threshold or unlock production
+admission changes. The independent literal-scan review and generic-table
+envelope review do not establish the other components' complete soundness.
+
 Every grammar production and permitted composition needs a transfer with pinned
 source references or a justified reduction to another transfer. A coverage table
 must include the following families and their generated support, not just samples:

@@ -36,6 +36,19 @@ for name in files:
     verify_source(a.ada_source / name)
 I = 2**31 - 1
 
+def demand_envelope(demand, initial, factor, increment):
+    """Bound backing length from bounded logical demand, including Release.
+
+    Requires nonnegative instance parameters, valid caller operations and saved
+    states from this same invariant. Does not bound the number of source events.
+    """
+    assert min(demand, initial, factor, increment) >= 0
+    before_growth = max(demand, initial)
+    return max(initial * factor,
+               demand + demand // 1000,
+               before_growth * (100 + increment) // 100,
+               before_growth + 10)
+
 def growth(initial, increment):
     length = initial
     history = [length]
@@ -73,6 +86,14 @@ result = {
     'source_files_verified': len(verified),
     'source_hash_mismatches': 0,
     'source_sha256': {f: verified[f] for f in files},
+    'demand_envelope': {
+        'kind': 'sufficient backing-length bound; no whole-source demand established',
+        'string_example_demand': 858993458,
+        'string_example_backing_length_bound': demand_envelope(858993458, 2500, 1, 150),
+        'next_demand_backing_length_bound': demand_envelope(858993459, 2500, 1, 150),
+        'sentinel_length_requirement': 'backing_length_bound + 1 <= Int_Last',
+        'scope': 'nonnegative parameters, well-formed caller operations and saved states; separate index/byte/nominal-ID checks required',
+    },
     'string_growth': growth(2500, 150),
     'line_capacity_sequence': line_sequence,
     'next_line_capacity': line_sequence[-1] * 2,

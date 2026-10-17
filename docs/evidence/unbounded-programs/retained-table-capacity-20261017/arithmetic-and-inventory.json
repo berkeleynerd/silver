@@ -18,6 +18,14 @@
     "uintp.adb": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
     "exp_dbug.adb": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0"
   },
+  "demand_envelope": {
+    "kind": "sufficient backing-length bound; no whole-source demand established",
+    "string_example_demand": 858993458,
+    "string_example_backing_length_bound": 2147483645,
+    "next_demand_backing_length_bound": 2147483647,
+    "sentinel_length_requirement": "backing_length_bound + 1 <= Int_Last",
+    "scope": "nonnegative parameters, well-formed caller operations and saved states; separate index/byte/nominal-ID checks required"
+  },
   "string_growth": {
     "initial": 2500,
     "increment_percent": 150,

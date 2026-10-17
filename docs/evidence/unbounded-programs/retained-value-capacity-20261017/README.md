@@ -3,7 +3,7 @@
 Research for #119 on 2026-10-17. See the
 [derivation and limits](../../../research/retained-value-capacity.md).
 
-`derive.py` verifies 23 selected source files against the previous complete
+`derive.py` verifies 27 selected source files against the previous complete
 GCC Ada-tree manifest for commit `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`.
 It then produces component allocation arithmetic, String discriminators and
 textual parser-rescan/String-allocation inventories in `components.json`.
@@ -31,6 +31,9 @@ This is an arithmetic probe, not a compile/build/proof or near-limit allocation
 experiment. No installed tool or canonical proof workspace is modified.
 
 The charges cover specified allocation events and one successful integer-token
-scan under the stated premises. They are not a complete whole-program capacity
+scan under the stated premises. The record also derives at most two literal
+scans per successful Main parse under the unchanged grammar; independent source
+review covered its caller paths and disjointness. Dependency scans and semantic
+events remain separate. These are not a complete whole-program capacity
 rule, a new admission threshold, or measured native consumption. The current
 language and all production/proof source remain unchanged.

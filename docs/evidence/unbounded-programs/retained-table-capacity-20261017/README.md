@@ -27,3 +27,10 @@ was included. The review covered allocator arithmetic and local accounting,
 not a whole-program capacity rule. No compiler, GNATprove, Lean, full suite,
 macOS or CI execution occurred. Successful reproduction does not justify
 expanding admission or complete #119.
+
+A subsequent independent review checked the demand-only capacity envelope,
+including release/save/restore, stale `Max` on the first growth iteration and
+zero-length release. Its two requested clarifications are incorporated: the
+low bound may be negative, and the backing sentinel must fit the actual index
+subtype as well as signed Int. The bound is proved by the operation induction
+in the record; finite arithmetic discriminators are corroboration.
