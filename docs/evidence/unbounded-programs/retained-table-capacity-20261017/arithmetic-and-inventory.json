@@ -18,7 +18,9 @@
     "uintp.adb": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
     "exp_dbug.adb": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0",
     "scng.adb": "0989455192a510aff6227ac012b232f1497e219f294d277e7fb99c5bdb7c7db3",
-    "hostparm.ads": "b2196c2e037f2f07f1cc885bef246c3f2b63cab5c6b908b3fe17c9f4a4031895"
+    "hostparm.ads": "b2196c2e037f2f07f1cc885bef246c3f2b63cab5c6b908b3fe17c9f4a4031895",
+    "tbuild.adb": "db30e8c054e8e3f53af3a01f108f8bec563ce936ebe9988734bc007142643b2c",
+    "lib.adb": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e"
   },
   "demand_envelope": {
     "kind": "sufficient backing-length bound; no whole-source demand established",
@@ -118,6 +120,20 @@
     }
   ],
   "line_rule_scope": "ASCII/HT between CR, LF, CRLF or EOF; selected no-style-check scan; final column <=32766 is a sufficient local rule, not whole-source admission",
+  "name_components": {
+    "nominal_usable_ids": 99999998,
+    "initialized_entries": 256,
+    "initialized_characters": 512,
+    "entry_bytes": 16,
+    "source_word_entry_charge": "W",
+    "source_word_character_charge": "sum(source_word_lengths) + W",
+    "maximum_stored_name_length": 32767,
+    "global_name_buffer_characters": 131064,
+    "default_local_name_buffer_characters": 4096,
+    "internal_name_maximum_unqualified_length": 12,
+    "internal_name_maximum_character_charge": 13,
+    "scope": "local calls/source word interning; not generated-name caller counts or qualification/consumer closure"
+  },
   "lexical_table_instance_count": 161,
   "lexical_table_instances": [
     {

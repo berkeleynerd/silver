@@ -183,6 +183,68 @@ probe. They establish the local selected-source check, not legality of those
 byte sequences as complete programs. Every physical source buffer, generated
 source and other name/diagnostic buffer still needs its own capacity coverage.
 
+## Names and serial-number components
+
+For one `Name_Find` call with an `l`-character buffer, a hash miss appends one
+name entry and `l+1` characters, including the C NUL terminator. A hit appends
+nothing; one-character names are already initialized (`namet.adb:1185–1275`).
+`Name_Enter` deliberately bypasses deduplication and always appends that same
+charge (`:1138–1162`). Initialization creates **256 entries and 512 characters**
+by iterating over Character (`:1309–1338`); the old specification comment about
+26 letters is not the current implementation. Reserved names and dependencies
+are additional fixed contributions.
+
+Name entries occupy 16 bytes each (`namet.ads:570–624`). Usable nominal IDs run
+from -399,999,997 through -300,000,000, or **99,999,998 entries** including
+initialization (`types.ads:344–346`; `namet.ads:183–200`). The two generic
+tables still need the backing-growth obligations above; the name lock adds its
+100-entry/5000-character reserves before release. A valid nominal entry count
+alone does not cover the reserve or backing sentinel.
+
+For Main's ASCII word tokens, let `W` be their number and `B_w` the sum of their
+source byte lengths, including keywords. Scanning folds uppercase letters in
+place and retains underscores, without encoding expansion
+(`scng.adb:2545–2606,2766–2771`). Therefore the source-word contribution is:
+
+```text
+name entries    <= W
+name characters <= B_w + W
+```
+
+Parser lookahead does not multiply this charge: a repeated spelling returns the
+same hashed entry, and restoring the scan position does not release the name
+tables. Repeated source tokens can also share entries; counting every source
+occurrence merely overapproximates that sharing. This covers source-word
+interning, not generated/internal names, filenames or diagnostics.
+
+Every newly entered name must have `l <= 32767`, because its length is converted
+to signed Short. The scanner's global buffer has 131064 characters
+(`4*Hostparm.Max_Line_Length`), so the earlier Main line rule already suffices
+for this scanner buffer and the Short conversion. It does **not** establish
+capacity for downstream consumers: ordinary `Bounded_String` defaults to 4096,
+and `Append_Decoded` first copies even an unencoded name into such a temporary
+(`namet.ads:144–163`; `namet.adb:169–202`). Thus the retained 4096 identifier
+boundary has a separate consumer basis; generated/qualified names and their
+actual decoding paths still require coverage.
+
+One `New_Internal_Name` event adds a prefix letter, a unit serial in decimal,
+and a body/spec character, then calls `Name_Enter`
+(`tbuild.adb:61–99,719–726`). For serial `s` in `1..Int'Last`, its unqualified
+length is `digits10(s)+2 <= 12`, and its character charge including NUL is at
+most 13. Configuration names omit the final body/spec character. The serial
+increment itself requires that the cumulative count fit Nat
+(`lib.adb:1062–1067`); this is an independent event-count obligation.
+
+The character-suffix `New_External_Name` overload has the local length transfer
+`l + prefix_present + suffix_present + serial_length`, with serial length zero,
+`digits10(i)` for a positive explicit index, or `digits10(s)+1` for a negative
+index requesting a fresh unit serial (`tbuild.adb:632–665`). The String-suffix
+overload substitutes the actual suffix length (`:668–701`). These transfers do
+not bound how often helpers construct names or how names grow through repeated
+qualification. In particular, `exp_dbug.adb` has a separate 256-character
+homonym buffer and scope-qualification paths. They cannot be discharged merely
+by bounding the author's longest identifier.
+
 ## Nodes, slots and lists must compose
 
 `Atree.Allocate_New_Node` (`atree.adb:1157–1176`) allocates one node identity,

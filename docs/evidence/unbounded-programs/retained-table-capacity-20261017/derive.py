@@ -12,7 +12,8 @@ p.add_argument('output', type=Path)
 a = p.parse_args()
 files = ['table.ads', 'table.adb', 'types.ads', 'alloc.ads', 'atree.ads',
          'atree.adb', 'nlists.adb', 'namet.ads', 'namet.adb', 'sinput.adb',
-         'stringt.adb', 'uintp.adb', 'exp_dbug.adb', 'scng.adb', 'hostparm.ads']
+         'stringt.adb', 'uintp.adb', 'exp_dbug.adb', 'scng.adb', 'hostparm.ads',
+         'tbuild.adb', 'lib.adb']
 pin = '6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea'
 repository = Path(__file__).resolve().parents[4]
 manifest_path = repository / 'docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json'
@@ -123,6 +124,20 @@ result = {
     'next_line_intermediate_bits': line_sequence[-1] * 2 * 32,
     'ascii_line_column_cases': column_cases,
     'line_rule_scope': 'ASCII/HT between CR, LF, CRLF or EOF; selected no-style-check scan; final column <=32766 is a sufficient local rule, not whole-source admission',
+    'name_components': {
+        'nominal_usable_ids': -300000000 - (-399999997) + 1,
+        'initialized_entries': 256,
+        'initialized_characters': 512,
+        'entry_bytes': 16,
+        'source_word_entry_charge': 'W',
+        'source_word_character_charge': 'sum(source_word_lengths) + W',
+        'maximum_stored_name_length': 32767,
+        'global_name_buffer_characters': 4 * 32766,
+        'default_local_name_buffer_characters': 4096,
+        'internal_name_maximum_unqualified_length': 2 + len(str(I)),
+        'internal_name_maximum_character_charge': 3 + len(str(I)),
+        'scope': 'local calls/source word interning; not generated-name caller counts or qualification/consumer closure',
+    },
     'lexical_table_instance_count': len(instances),
     'lexical_table_instances': instances,
     'limitations': ['no compiler run', 'no complete allocation-route closure',
