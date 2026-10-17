@@ -884,7 +884,87 @@ once. This is deliberately not called a complete String declaration bound:
 `Transform_Declaration` next constructs an object read and dynamic-invariant
 assumption, sequence and location label. A generated static alias can be an
 itype, preventing the simple named-predicate shortcut. The fixed rank-one
-String/Character invariant expansion remains a separately named helper below.
+String/Character invariant expansion is priced next.
+
+### String declaration dynamic-invariant suffix
+
+`Transform_Declaration` calls `Transform_Identifier` directly for the initialized
+object, then `Assume_Dynamic_Invariant` with `Only_Var => False`
+(`src/why/gnat2why-expr.adb:22591–22638`). Unlike a call through `Transform_Expr`,
+this read does not separately construct an expected type or insert an array
+conversion. The earlier read bound is at most `6/3/5`, with at most forty-eight
+emitted occurrences. There are two invariant paths, both with bounded discarded
+work (`:6396–6524,6730–6824,7080–7230`).
+
+For a non-itype String type, `Compute_Dynamic_Invariant` calls the existing
+five-argument invariant predicate. Its type has no free dynamic-invariant
+variables: static array bounds are fixed, and unconstrained Standard.String
+uses the fixed Positive index type. However, its following local type-invariant
+check **does not return before constructing array helpers**. With
+`Include_Comp => True`, `Compute_Type_Invariant` instantiates
+`Build_Predicate_For_Array`, which calls the binary helper on the same array
+expression twice. That helper eagerly builds a range and **two** element
+accesses, then returns True because ordinary Character has no user invariant
+(`:8782–8999`; `src/why/why-gen-arrays.adb:473–534,614–630`).
+
+The common rank-one traversal allocation, before its component callback, is:
+
+| Eager array-predicate work | Static array | Nonstatic array |
+| --- | --- | --- |
+| Index temporary/name | `2/0/0` | `2/0/0` |
+| Two bound accessors, two comparisons and conjunction | `5/5/6` | `5/5/6` |
+| Two element accesses, including fresh Character types | `6/2/4` | `14/4/6` |
+| **Total nodes/lists/elements** | **`13/7/10`** | **`21/9/12`** |
+
+A nonstatic element access first calls `Array_Convert_To_Base`; both calls are
+made even though one component callback argument is unused. Each static bound
+accessor has the earlier `1/1/1` allowance; a nonstatic accessor has the same
+allocation allowance even when its supplied object expression is complex.
+The discarded predicates/accesses contribute no emitted occurrences. The
+sources are `src/why/why-gen-arrays.adb:3042–3104` and
+`src/why/why-gen-expr.adb:4883–4922`.
+
+A static String alias can instead be an itype. The expanded invariant then
+returns the array well-formed predicate. The element callback invokes
+`Compute_Dynamic_Invariant` on a Character value represented as an abstract
+Character, whereas `Pred_Main_Ty` is split. Thus it skips the named predicate
+and scalar split-representation property branches; its ordinary abstract type
+already carries the scalar range. The callback returns True. It nevertheless
+allocates its split expected type and the predicate-guard temporaries before
+that return. Both the enclosing String and the Character callback eagerly
+call `Pred_Of_Boolean_Term` and build a conditional for the absent dynamic
+predicate. `Pred_Of_Boolean_Term` always constructs an equality call; ordinary
+`New_Conditional` is a builder, not `New_Simpl_Conditional`
+(`src/why/why-gen-expr.adb:4937–4956,5436–5441`). Its `Bool_True` argument also allocates a literal
+(`src/why/why-gen-expr.ads:65–68`). The unused literal/call/conditional groups
+cost `3/2/2` each, including each empty Elsif list. Global/local type
+invariant traversals in this expanded path set `Include_Comp => False`, so
+there is only the one array traversal above.
+
+Combining those paths, excluding the allocation of the supplied object read
+but including its occurrences where retained:
+
+| Dynamic-invariant path | Nodes | Lists | Elements | Occurrences |
+| --- | ---: | ---: | ---: | ---: |
+| Named predicate plus discarded local-invariant traversal | 25 | 10 | 17 | 69 |
+| Static itype: well-formed predicate plus discarded component traversal | 24 | 12 | 15 | 56 |
+| **Componentwise common bound** | **25** | **12** | **17** | **69** |
+
+The named row is type lookup at most three nodes, one predicate call/list with
+five arguments, and the larger discarded traversal `21/9/12`. Its occurrences
+are at most `48+4*3+6+2+1 = 69`: the read, four Boolean flags, predicate
+identifier, result type and call. The static-itype allocation is type lookup
+3, enclosing unused guard group 3, well-formed call 1, static traversal 13, and
+Character callback 4. Its emitted predicate is at most `48+8 = 56`.
+
+The object read adds `6/3/5` allocations; the assumption, sequence and final
+location label add `3/1/2` and three emitted occurrences. Therefore this complete
+source String declaration suffix is at most **34/16/24/72**. Combined with the
+initializer assignment core, the **ordinary source String declaration wrapper
+is at most 55 nodes, 24 lists, 36 elements and 188 emitted occurrences**.
+The one initializer and its expected-type conversion, symbol/binder setup,
+separate generated subtype declarations, outer entity theories and enclosing
+statement list remain excluded. These are caller costs, not silently free work.
 
 ### Ordinary String assignment wrapper
 
@@ -1105,7 +1185,7 @@ again as standalone conversions.
 | Two-String concatenation wrapper | `(60,32,49,484)` |
 | String comparison wrapper | `(25,8,14,147)` |
 | Integer Image wrapper | `(5,2,3,18)` |
-| String initializer assignment core | `(21,8,12,116)` |
+| Complete source String declaration wrapper | `(55,24,36,188)` |
 | Whole-object String assignment wrapper | `(148,61,86,1247)` |
 | Static literal use and definition family | The `R_lit/K_lit/L_i` formula above |
 | Eager array-representation cache attempt | `(17,0,0,0)`; misses additionally need their theory body |
@@ -1129,7 +1209,6 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | `K_object` / `K_binder` | Declaration symbol/binder setup and two ordinary object/loop outer theories. Source objects plus at most two generated bound captures per loop are bounded by the frontend report; contents and direct modules are still unpriced. |
 | `K_type_int_static`, `K_type_int_loop`, `K_type_string_static`, `K_type_string_literal` | Numerical type/completion contents for the named type families, including range/property/default-initialization helpers. The frontend report distinguishes non-itype object ranges/static-literal String subtypes from Integer index/loop and String alias/literal itypes. Loop-index types can be dynamic or empty and must not be priced as nonempty static source object types. |
 | `K_array_rep` | Rank-one ordinary Character array representation and comparison theory bodies on the single key miss, beyond the already counted eager attempt and helper-symbol nodes. Close the number of attempted creations as well as misses. |
-| `K_string_decl_inv` | Object read plus `Assume_Dynamic_Invariant`/sequence/location suffix after each String initializer core. A static alias itype takes the expanded invariant path through one rank-one array predicate and Character, rather than always calling an existing named predicate. |
 | `K_generated_decl` | Executable checks/wrappers for generated static object subtypes, static String index/alias subtypes, loop-index subtypes and at most two loop bound-capture declarations. Attribute/bound-expression translations must be charged here or to the closed expression rows, once consistently. |
 | `K_length`, `K_control` | Source `Name'Length`, statement-list/location wrappers and branch skeletons. Length first constructs a named object read and temporary even when later using the binder-specific accessor (`src/why/gnat2why-expr.adb:19903–20101`); discarded eager work counts. Branch/loop body child coefficient one is already established. |
 | `K_loop`, `H_int`, `H_string`, `H_global` | Per-loop fixed framing plus snapshots/preservation for each modified root. The existing `sum(|Q_loop|) <= F_loops(D+G)` bound applies; the finite actual fixed-library write-global set must determine `G` and its helper shapes. |

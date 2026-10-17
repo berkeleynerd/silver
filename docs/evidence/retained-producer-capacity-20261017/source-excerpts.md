@@ -3059,7 +3059,7 @@
   2805:       return Res;
 ```
 
-## src/why/gnat2why-expr.adb:6396-6524
+## src/why/gnat2why-expr.adb:6396-6824
 
 ```ada
   6396:    function Compute_Dynamic_Inv_And_Initialization
@@ -3191,11 +3191,211 @@
   6522:      (Expr              : W_Term_Id;
   6523:       Ty                : Type_Kind_Id;
   6524:       Params            : Transformation_Params;
-```
-
-## src/why/gnat2why-expr.adb:6730-6824
-
-```ada
+  6525:       Initialized       : W_Term_Id;
+  6526:       Valid             : W_Term_Id;
+  6527:       Only_Var          : W_Term_Id;
+  6528:       Top_Predicate     : W_Term_Id;
+  6529:       All_Global_Inv    : W_Term_Id;
+  6530:       Inv_Scop          : Node_Id;
+  6531:       Inv_Subp          : Node_Id;
+  6532:       Use_Pred          : Boolean;
+  6533:       New_Preds_Module  : W_Module_Id;
+  6534:       T                 : out W_Pred_Id;
+  6535:       Loc_Incompl_Acc   : Ada_To_Why_Ident.Map;
+  6536:       New_Incompl_Acc   : in out Ada_To_Why_Ident.Map;
+  6537:       Loc_Incompl_Acc_R : Ada_To_Why_Ident.Map;
+  6538:       New_Incompl_Acc_R : in out Ada_To_Why_Ident.Map;
+  6539:       Expand_Incompl    : Boolean)
+  6540:    is
+  6541:
+  6542:       function Invariant_For_Access
+  6543:         (Expr : W_Term_Id; Ty : Entity_Id) return W_Pred_Id;
+  6544:       --  Generates:
+  6545:       --  (not <Expr>.is_null -> Dynamic_Invariant <Expr>.value)
+  6546:
+  6547:       function Invariant_For_Comp
+  6548:         (C_Expr : W_Term_Id;
+  6549:          C_Ty   : Entity_Id;
+  6550:          E      : Entity_Id;
+  6551:          Idx    : W_Expr_Array) return W_Pred_Id
+  6552:       with Pre => No (E) or Idx'Length = 0;
+  6553:       --  @param C_Expr expression for a component
+  6554:       --  @param C_Ty component type
+  6555:       --  @param E record field for record component
+  6556:       --  @param Idx array indices for array component
+  6557:       --  @return predicate for individual components
+  6558:       --          Dynamic_Invariant <C_Expr>
+  6559:       --              /\ C_Expr.rec__constrained = <Is_Constrained (C_Ty)>
+  6560:
+  6561:       function Invariant_For_Absent_Comp
+  6562:         (C_Expr : W_Term_Id; C_Ty : Entity_Id; E : Entity_Id) return W_Pred_Id;
+  6563:       --  Assume that components not present in discriminated records have a
+  6564:       --  dummy value.
+  6565:
+  6566:       function Invariant_For_Comp
+  6567:         (C_Expr : W_Term_Id; C_Ty : Entity_Id; Idx : W_Expr_Array)
+  6568:          return W_Pred_Id
+  6569:       is (Invariant_For_Comp (C_Expr, C_Ty, Empty, Idx));
+  6570:
+  6571:       function Invariant_For_Comp
+  6572:         (C_Expr : W_Term_Id; C_Ty : Entity_Id; E : Entity_Id) return W_Pred_Id
+  6573:       is (Invariant_For_Comp (C_Expr, C_Ty, E, (1 .. 0 => <>)));
+  6574:
+  6575:       -------------------------------
+  6576:       -- Invariant_For_Absent_Comp --
+  6577:       -------------------------------
+  6578:
+  6579:       function Invariant_For_Absent_Comp
+  6580:         (C_Expr : W_Term_Id; C_Ty : Entity_Id; E : Entity_Id) return W_Pred_Id
+  6581:       is
+  6582:          pragma Unreferenced (E);
+  6583:          Dummy_Expr : W_Term_Id := +Why_Default_Value (EW_Term, C_Ty);
+  6584:
+  6585:       begin
+  6586:          if Is_Init_Wrapper_Type (Get_Type (+C_Expr)) then
+  6587:             Dummy_Expr :=
+  6588:               Insert_Simple_Conversion
+  6589:                 (Expr => Dummy_Expr, To => Get_Type (+C_Expr));
+  6590:          end if;
+  6591:
+  6592:          return
+  6593:            New_Comparison
+  6594:              (Symbol => Why_Eq, Left => C_Expr, Right => Dummy_Expr);
+  6595:       end Invariant_For_Absent_Comp;
+  6596:
+  6597:       --------------------------
+  6598:       -- Invariant_For_Access --
+  6599:       --------------------------
+  6600:
+  6601:       function Invariant_For_Access
+  6602:         (Expr : W_Term_Id; Ty : Entity_Id) return W_Pred_Id
+  6603:       is
+  6604:          Value_Dyn_Inv : W_Pred_Id;
+  6605:       begin
+  6606:          --  ??? we can assume the value of constrained attribute if any
+  6607:
+  6608:          Compute_Dynamic_Invariant
+  6609:            (Expr              =>
+  6610:               New_Pointer_Value_Access
+  6611:                 (Ada_Node => Empty, E => Ty, Name => Expr),
+  6612:             Ty                => Directly_Designated_Type (Ty),
+  6613:             Only_Var          => False_Term,
+  6614:             Top_Predicate     => True_Term,
+  6615:             All_Global_Inv    => All_Global_Inv,
+  6616:             Inv_Scop          => Inv_Scop,
+  6617:             Inv_Subp          => Inv_Subp,
+  6618:             Initialized       => True_Term,
+  6619:             Valid             => Why_Empty,
+  6620:             Params            => Params,
+  6621:             Use_Pred          => Use_Pred,
+  6622:             New_Preds_Module  => New_Preds_Module,
+  6623:             T                 => Value_Dyn_Inv,
+  6624:             Loc_Incompl_Acc   => Loc_Incompl_Acc,
+  6625:             New_Incompl_Acc   => New_Incompl_Acc,
+  6626:             Loc_Incompl_Acc_R => Loc_Incompl_Acc_R,
+  6627:             New_Incompl_Acc_R => New_Incompl_Acc_R,
+  6628:             Expand_Incompl    => False);
+  6629:          --  Do not expand incomplete types inside access types to avoid
+  6630:          --  hitting circularity.
+  6631:
+  6632:          if Value_Dyn_Inv /= True_Pred then
+  6633:             return
+  6634:               New_Conditional
+  6635:                 (Condition =>
+  6636:                    New_Not
+  6637:                      (Right =>
+  6638:                         Pred_Of_Boolean_Term
+  6639:                           (New_Pointer_Is_Null_Access
+  6640:                              (E => Ty, Name => +Expr))),
+  6641:                  Then_Part => Value_Dyn_Inv);
+  6642:          else
+  6643:             return True_Pred;
+  6644:          end if;
+  6645:       end Invariant_For_Access;
+  6646:
+  6647:       ------------------------
+  6648:       -- Invariant_For_Comp --
+  6649:       ------------------------
+  6650:
+  6651:       function Invariant_For_Comp
+  6652:         (C_Expr : W_Term_Id;
+  6653:          C_Ty   : Entity_Id;
+  6654:          E      : Entity_Id;
+  6655:          Idx    : W_Expr_Array) return W_Pred_Id
+  6656:       is
+  6657:          C_Valid : constant W_Term_Id :=
+  6658:            (if No (Valid)
+  6659:             then Why_Empty
+  6660:             elsif No (E)
+  6661:             then
+  6662:               +New_Validity_Tree_Array_Access
+  6663:                  (+Valid, Idx, Retysp (Ty), EW_Term)
+  6664:             elsif Ekind (E) = E_Discriminant
+  6665:               or else Comp_Has_Only_Valid_Values (E, Retysp (Ty)).Ok
+  6666:             then Why_Empty
+  6667:             else +New_Validity_Tree_Record_Access (+Valid, E, Retysp (Ty)));
+  6668:          T_Comp  : W_Pred_Id;
+  6669:       begin
+  6670:          --  Recursively call Compute_Dynamic_Invariant on the composite type's
+  6671:          --  components. Additional parameters are unchanged expect for
+  6672:          --  Only_Var set to false (as a constant subcomponent of a variable
+  6673:          --  toplevel object needs to be considered as variable too) and
+  6674:          --  Top_Predicate set to true (as the decision to include or not
+  6675:          --  the top predicate does not apply to subcomponents).
+  6676:          --  Also discriminants and components of protected types are always
+  6677:          --  initialized.
+  6678:
+  6679:          Compute_Dynamic_Invariant
+  6680:            (Expr              => C_Expr,
+  6681:             Ty                => C_Ty,
+  6682:             Initialized       =>
+  6683:               (if (Present (E) and then Ekind (E) = E_Discriminant)
+  6684:                  or else Is_Protected_Type (Retysp (Ty))
+  6685:                then True_Term
+  6686:                else Initialized),
+  6687:             Valid             => C_Valid,
+  6688:             Only_Var          => False_Term,
+  6689:             Top_Predicate     => True_Term,
+  6690:             All_Global_Inv    => All_Global_Inv,
+  6691:             Inv_Scop          => Inv_Scop,
+  6692:             Inv_Subp          => Inv_Subp,
+  6693:             Params            => Params,
+  6694:             Use_Pred          => Use_Pred,
+  6695:             New_Preds_Module  => New_Preds_Module,
+  6696:             T                 => T_Comp,
+  6697:             Loc_Incompl_Acc   => Loc_Incompl_Acc,
+  6698:             New_Incompl_Acc   => New_Incompl_Acc,
+  6699:             Loc_Incompl_Acc_R => Loc_Incompl_Acc_R,
+  6700:             New_Incompl_Acc_R => New_Incompl_Acc_R,
+  6701:             Expand_Incompl    => Expand_Incompl);
+  6702:
+  6703:          --  Components necessarily have the tag of their type
+  6704:
+  6705:          if Is_Tagged_Type (Retysp (C_Ty)) then
+  6706:             pragma Assert (not Is_Class_Wide_Type (Retysp (C_Ty)));
+  6707:             T_Comp :=
+  6708:               New_And_Pred
+  6709:                 (T_Comp,
+  6710:                  New_Comparison
+  6711:                    (Symbol => Why_Eq,
+  6712:                     Left   =>
+  6713:                       +New_Tag_Access
+  6714:                          (Domain => EW_Term,
+  6715:                           Name   => +C_Expr,
+  6716:                           Ty     => Retysp (C_Ty)),
+  6717:                     Right  => +E_Symb (E => C_Ty, S => WNE_Tag)));
+  6718:          end if;
+  6719:
+  6720:          return T_Comp;
+  6721:       end Invariant_For_Comp;
+  6722:
+  6723:       function Invariant_For_Array is new
+  6724:         Build_Predicate_For_Array (Invariant_For_Comp);
+  6725:
+  6726:       function Invariant_For_Record is new
+  6727:         Build_Predicate_For_Record
+  6728:           (Invariant_For_Comp,
+  6729:            Invariant_For_Comp,
   6730:            Invariant_For_Absent_Comp);
   6731:
   6732:       --  If Ty's fullview is in SPARK, go to its underlying type to check its
@@ -3293,7 +3493,266 @@
   6824:       then
 ```
 
-## src/why/gnat2why-expr.adb:8782-8916
+## src/why/gnat2why-expr.adb:7080-7230
+
+```ada
+  7080:       --  initialization so it can be assumed to always hold. Otherwise, the
+  7081:       --  predicate is only valid for initialized data. In all cases, only
+  7082:       --  assume the predicate of the type itself when the top predicate should
+  7083:       --  be included. Otherwise, assume the predicate of the first ancestor
+  7084:       --  only.
+  7085:       --  Do not assume the predicate on composite initialization wrappers.
+  7086:       --  It will be part of the 'Initialized attribute instead.
+  7087:
+  7088:       if not Is_Init_Wrapper_Type (Get_Type (+Expr))
+  7089:         or else Has_Scalar_Full_View (Ty_Ext)
+  7090:       then
+  7091:          declare
+  7092:             Relaxed_Init          : constant Boolean :=
+  7093:               Is_Init_Wrapper_Type (Get_Type (+Expr));
+  7094:             Typ_Pred              : constant W_Pred_Id :=
+  7095:               Compute_Dynamic_Predicate (Expr, Ty_Ext, Params, Top_Predicate);
+  7096:             Pred_Check_At_Default : constant Boolean :=
+  7097:               Needs_Default_Predicate_Checks (Ty_Ext);
+  7098:             Init_Flag             : constant W_Pred_Id :=
+  7099:               Pred_Of_Boolean_Term
+  7100:                 (if Relaxed_Init
+  7101:                  then
+  7102:                    +Compute_Is_Initialized
+  7103:                       (Ty_Ext,
+  7104:                        +Expr,
+  7105:                        Params,
+  7106:                        EW_Term,
+  7107:                        No_Predicate_Check => True,
+  7108:                        Exclude_Components => Relaxed)
+  7109:                  else Initialized);
+  7110:             Check_Pred            : constant W_Pred_Id :=
+  7111:               (if Pred_Check_At_Default and then not Relaxed_Init
+  7112:                then Typ_Pred
+  7113:                else
+  7114:                  New_Conditional
+  7115:                    (Condition => Init_Flag,
+  7116:                     Then_Part => Typ_Pred,
+  7117:                     Typ       => EW_Bool_Type));
+  7118:
+  7119:          begin
+  7120:             if not Is_True_Boolean (+Typ_Pred) then
+  7121:
+  7122:                --  For now, types with predicates cannot be potentially invalid
+  7123:
+  7124:                pragma Assert (No (Valid));
+  7125:
+  7126:                T := New_And_Pred (Left => T, Right => Check_Pred);
+  7127:             end if;
+  7128:          end;
+  7129:       end if;
+  7130:
+  7131:       --  Add possible globally assumed type invariant. Only deal with the
+  7132:       --  top-level invariants as invariants of components will be added in
+  7133:       --  recursive calls.
+  7134:
+  7135:       if not Is_False_Boolean (+All_Global_Inv) then
+  7136:          declare
+  7137:             Type_Inv : W_Pred_Id :=
+  7138:               Compute_Type_Invariant
+  7139:                 (Expr,
+  7140:                  Ty_Ext,
+  7141:                  Globally_Assumed,
+  7142:                  Params,
+  7143:                  Include_Comp => False,
+  7144:                  Use_Pred     => Use_Pred);
+  7145:          begin
+  7146:             if not Is_True_Boolean (+Type_Inv) then
+  7147:                if not Is_True_Boolean (+All_Global_Inv) then
+  7148:                   Type_Inv :=
+  7149:                     New_Conditional
+  7150:                       (Condition => Pred_Of_Boolean_Term (All_Global_Inv),
+  7151:                        Then_Part => Type_Inv,
+  7152:                        Typ       => EW_Bool_Type);
+  7153:                end if;
+  7154:
+  7155:                T := New_And_Pred (Left => T, Right => Type_Inv);
+  7156:             end if;
+  7157:          end;
+  7158:       end if;
+  7159:
+  7160:       --  If Inv_Scop is set, add possible locally assumed type invariants. If
+  7161:       --  Inv_Subp is also set, add globally assumed type invariants as they
+  7162:       --  won't be included in the predicate (as All_Global_Inv is False).
+  7163:       --  Only deal with the top-level invariants as invariants of components
+  7164:       --  will be added in recursive calls.
+  7165:
+  7166:       if Present (Inv_Scop) then
+  7167:          T :=
+  7168:            New_And_Pred
+  7169:              (Left  => T,
+  7170:               Right =>
+  7171:                 Compute_Type_Invariant
+  7172:                   (Expr,
+  7173:                    Ty_Ext,
+  7174:                    Locally_Assumed,
+  7175:                    Params,
+  7176:                    Include_Comp => False,
+  7177:                    Use_Pred     => Use_Pred,
+  7178:                    Scop         => Inv_Scop,
+  7179:                    Subp         => Inv_Subp));
+  7180:       end if;
+  7181:
+  7182:       --  If Ty_Ext is tagged, assume that objects of dynamic type Ty_Ext have
+  7183:       --  an empty extension.
+  7184:
+  7185:       if Is_Tagged_Type (Ty_Ext) then
+  7186:          T :=
+  7187:            New_And_Pred
+  7188:              (Left  => T,
+  7189:               Right =>
+  7190:                 New_Conditional
+  7191:                   (Condition =>
+  7192:                      New_Comparison
+  7193:                        (Symbol => Why_Eq,
+  7194:                         Left   =>
+  7195:                           +New_Tag_Access
+  7196:                              (Domain => EW_Term, Name => +Expr, Ty => Ty_Ext),
+  7197:                         Right  => +E_Symb (Ty_Ext, WNE_Tag)),
+  7198:                    Then_Part =>
+  7199:                      New_Comparison
+  7200:                        (Symbol => Why_Eq,
+  7201:                         Left   =>
+  7202:                           +New_Ext_Access
+  7203:                              (Name =>
+  7204:                                 New_Fields_Access
+  7205:                                   (Name => +Expr, Ty => Ty_Ext),
+  7206:                               Ty   => Ty_Ext),
+  7207:                         Right  => +E_Symb (Ty_Ext, WNE_Null_Extension))));
+  7208:       end if;
+  7209:
+  7210:       --  Compute dynamic invariant for its components
+  7211:
+  7212:       if Is_Array_Type (Ty_Ext)
+  7213:         and then Ekind (Ty_Ext) /= E_String_Literal_Subtype
+  7214:       then
+  7215:          --  Add the well_formed property of the array type
+  7216:
+  7217:          T := New_And_Pred (Left => T, Right => New_Well_Formed_Pred (Expr));
+  7218:
+  7219:          --  Generates:
+  7220:          --  forall i1 .. in : int. in_range i1 /\ .. /\ in_range in ->
+  7221:          --    Dynamic_Invariant (get <Expr> i1 .. in)
+  7222:
+  7223:          T :=
+  7224:            New_And_Pred
+  7225:              (Left => T, Right => Invariant_For_Array (Expr, Ty_Ext));
+  7226:
+  7227:       elsif Is_Record_Type (Ty_Ext)
+  7228:         or else Is_Incomplete_Or_Private_Type (Ty_Ext)
+  7229:         or else Is_Concurrent_Type (Ty_Ext)
+  7230:       then
+```
+
+## src/why/gnat2why-expr.adb:7503-7600
+
+```ada
+  7503:    function Compute_Dynamic_Predicate
+  7504:      (Expr          : W_Term_Id;
+  7505:       Ty            : Type_Kind_Id;
+  7506:       Params        : Transformation_Params := Body_Params;
+  7507:       Top_Predicate : W_Term_Id := True_Term) return W_Pred_Id
+  7508:    is
+  7509:       Res : W_Pred_Id := True_Pred;
+  7510:
+  7511:       procedure Add_One_Dynamic_Predicate
+  7512:         (Type_Instance : Formal_Kind_Id; Pred_Expression : Node_Id);
+  7513:       --  Add the current dynamic predicate as a conjuct in Res
+  7514:
+  7515:       -------------------------------
+  7516:       -- Add_One_Dynamic_Predicate --
+  7517:       -------------------------------
+  7518:
+  7519:       procedure Add_One_Dynamic_Predicate
+  7520:         (Type_Instance : Formal_Kind_Id; Pred_Expression : Node_Id)
+  7521:       is
+  7522:          Dyn_Pred  : W_Pred_Id;
+  7523:          My_Params : Transformation_Params := Params;
+  7524:       begin
+  7525:          --  We set the Gen_Marker param to GM_Toplevel to instruct
+  7526:          --  the translation to generate pretty-printing labels for
+  7527:          --  the parts of the predicate. We also indicate that the
+  7528:          --  predicate is effectively inlined here by using the
+  7529:          --  GP_Inlined_Marker (this last part avoids using the
+  7530:          --  location of the predicate to place the error message,
+  7531:          --  which is not desired here).
+  7532:
+  7533:          My_Params.Gen_Marker := GM_Toplevel;
+  7534:          Dyn_Pred :=
+  7535:            Dynamic_Predicate_Expression
+  7536:              (Expr       => Expr,
+  7537:               Pred_Param => Type_Instance,
+  7538:               Pred_Expr  => Pred_Expression,
+  7539:               Params     => My_Params);
+  7540:
+  7541:          --  Ignore the top-level predicate if needed
+  7542:
+  7543:          if Is_False_Boolean (+Top_Predicate)
+  7544:            and then Retysp (Etype (Type_Instance)) = Retysp (Ty)
+  7545:          then
+  7546:             return;
+  7547:          elsif not Is_True_Boolean (+Top_Predicate)
+  7548:            and then Retysp (Etype (Type_Instance)) = Retysp (Ty)
+  7549:          then
+  7550:             Dyn_Pred :=
+  7551:               New_Conditional
+  7552:                 (Condition => Pred_Of_Boolean_Term (Top_Predicate),
+  7553:                  Then_Part => Dyn_Pred);
+  7554:          end if;
+  7555:
+  7556:          Res :=
+  7557:            New_Label
+  7558:              (Labels => Symbol_Sets.To_Set (NID (GP_Inlined_Marker)),
+  7559:               Def    => New_And_Pred (Left => Dyn_Pred, Right => Res));
+  7560:       end Add_One_Dynamic_Predicate;
+  7561:
+  7562:       procedure Add_All_Dynamic_Predicates is new
+  7563:         Iterate_Applicable_Predicates (Add_One_Dynamic_Predicate);
+  7564:
+  7565:       Rep_Ty : constant Entity_Id := Retysp (Ty);
+  7566:    begin
+  7567:       Add_All_Dynamic_Predicates (Rep_Ty);
+  7568:
+  7569:       --  Assume that the object is initialized if it is necessary to check the
+  7570:       --  predicate.
+  7571:
+  7572:       if Has_Predicates (Rep_Ty)
+  7573:         and then Predicate_Requires_Initialization (Rep_Ty)
+  7574:         and then Is_Init_Wrapper_Type (Get_Type (+Expr))
+  7575:       then
+  7576:          Res :=
+  7577:            New_And_Pred
+  7578:              (Left  =>
+  7579:                 +Compute_Is_Initialized
+  7580:                    (E                  => Rep_Ty,
+  7581:                     Name               => +Expr,
+  7582:                     Params             => Params,
+  7583:                     Domain             => EW_Pred,
+  7584:                     Exclude_Components => Relaxed,
+  7585:                     No_Predicate_Check => True),
+  7586:               Right => Res);
+  7587:       end if;
+  7588:
+  7589:       return Res;
+  7590:    end Compute_Dynamic_Predicate;
+  7591:
+  7592:    -------------------------------
+  7593:    -- Compute_Exceptional_Store --
+  7594:    -------------------------------
+  7595:
+  7596:    procedure Compute_Exceptional_Store
+  7597:      (Formal         : Formal_Kind_Id;
+  7598:       Pattern        : Item_Type;
+  7599:       Actual         : N_Subexpr_Id;
+  7600:       Need_Store     : Boolean;
+```
+
+## src/why/gnat2why-expr.adb:8782-8999
 
 ```ada
   8782:    function Compute_Type_Invariant
@@ -3431,6 +3890,89 @@
   8914:          if Is_Array_Type (Rep_Ty) then
   8915:
   8916:             Pred :=
+  8917:               New_And_Pred
+  8918:                 (Left => Pred, Right => Invariant_For_Array (Expr, Rep_Ty));
+  8919:
+  8920:          --  For record types, produce:
+  8921:          --  invariant (r.d1) /\ ...
+  8922:          --      /\ (check_for_f1 (r) -> invariant (r.f1)) /\ ...
+  8923:
+  8924:          elsif Is_Incomplete_Or_Private_Type (Rep_Ty)
+  8925:            or else Is_Record_Type (Rep_Ty)
+  8926:            or else Is_Concurrent_Type (Rep_Ty)
+  8927:          then
+  8928:
+  8929:             Pred :=
+  8930:               New_And_Pred
+  8931:                 (Left => Pred, Right => Invariant_For_Record (Expr, Rep_Ty));
+  8932:
+  8933:          --  For access types, produce:
+  8934:          --      not r.is_null -> invariant (r.pointer_value)
+  8935:          --
+  8936:          --  We do not consider access to incomplete types. Indeed, these
+  8937:          --  access types cannot contain types for which an invariant check
+  8938:          --  is needed (see tool limitations). Supporting access to incomplete
+  8939:          --  type here would require either disallowing or handling recursive
+  8940:          --  structures.
+  8941:
+  8942:          elsif Is_Access_Type (Rep_Ty)
+  8943:            and then not Is_Access_Subprogram_Type (Rep_Ty)
+  8944:          then
+  8945:
+  8946:             --  Introduce a sanity checking to make sure that we are not
+  8947:             --  missing any invariant on access-to-incomplete types.
+  8948:
+  8949:             if Designates_Incomplete_Type (Rep_Ty) then
+  8950:
+  8951:                if Type_Contains_Included_Inv
+  8952:                     (Directly_Designated_Type (Rep_Ty))
+  8953:                then
+  8954:                   pragma
+  8955:                     Assert (Kind = Locally_Assumed and then Present (Subp));
+  8956:                   Error_Msg_N
+  8957:                     ("& cannot be used in SPARK",
+  8958:                      Subp,
+  8959:                      Names         => [Rep_Ty],
+  8960:                      Kind          => Error_Kind,
+  8961:                      Continuations =>
+  8962:                        ["access to incomplete or private type which needs"
+  8963:                         & " an invariant check is not yet supported"]);
+  8964:                end if;
+  8965:
+  8966:             else
+  8967:                declare
+  8968:                   C_Expr   : constant W_Term_Id :=
+  8969:                     New_Pointer_Value_Access
+  8970:                       (Ada_Node => Empty, E => Rep_Ty, Name => Expr);
+  8971:                   Comp_Inv : constant W_Pred_Id :=
+  8972:                     Invariant_For_Comp
+  8973:                       (C_Expr, Directly_Designated_Type (Rep_Ty), Empty);
+  8974:                begin
+  8975:                   if Comp_Inv /= True_Pred then
+  8976:                      Pred :=
+  8977:                        New_And_Pred
+  8978:                          (Left  => Pred,
+  8979:                           Right =>
+  8980:                             New_Conditional
+  8981:                               (Condition =>
+  8982:                                  New_Not
+  8983:                                    (Right =>
+  8984:                                       Pred_Of_Boolean_Term
+  8985:                                         (New_Pointer_Is_Null_Access
+  8986:                                            (E => Rep_Ty, Name => +Expr))),
+  8987:                                Then_Part => Comp_Inv));
+  8988:                   end if;
+  8989:                end;
+  8990:             end if;
+  8991:          end if;
+  8992:       end if;
+  8993:
+  8994:       return Pred;
+  8995:    end Compute_Type_Invariant;
+  8996:
+  8997:    ------------------------------
+  8998:    -- Count_Numerical_Variants --
+  8999:    ------------------------------
 ```
 
 ## src/why/gnat2why-expr.adb:11736-11778
@@ -8502,9 +9044,73 @@
    448:
 ```
 
-## src/why/why-gen-arrays.adb:537-580
+## src/why/why-gen-arrays.adb:473-580
 
 ```ada
+   473:    function Build_Binary_Predicate_For_Array
+   474:      (Expr1, Expr2 : W_Term_Id; Ty : Entity_Id) return W_Pred_Id
+   475:    is
+   476:       Ty_Ext     : constant Entity_Id := Retysp (Ty);
+   477:       Dim        : constant Positive := Positive (Number_Dimensions (Ty_Ext));
+   478:       Vars       : Binder_Array (1 .. Dim);
+   479:       Indexes    : W_Expr_Array (1 .. Dim);
+   480:       Range_Expr : W_Pred_Id := True_Pred;
+   481:       Index      : Node_Id := First_Index (Ty_Ext);
+   482:       I          : Positive := 1;
+   483:       T_Comp     : W_Expr_Id;
+   484:       Tmp        : W_Identifier_Id;
+   485:       Q_Expr     : W_Pred_Id;
+   486:    begin
+   487:       while Present (Index) loop
+   488:          Tmp := New_Temp_Identifier (Typ => Base_Why_Type_No_Bool (Index));
+   489:          Vars (I) :=
+   490:            Binder_Type'
+   491:              (Ada_Node => Empty,
+   492:               B_Name   => Tmp,
+   493:               B_Ent    => Null_Entity_Name,
+   494:               Mutable  => False,
+   495:               Labels   => <>);
+   496:          Indexes (I) := +Tmp;
+   497:          Range_Expr :=
+   498:            +New_And_Expr
+   499:               (Left   => +Range_Expr,
+   500:                Right  => New_Array_Range_Expr (+Tmp, +Expr1, EW_Pred, I),
+   501:                Domain => EW_Pred);
+   502:          Next_Index (Index);
+   503:          I := I + 1;
+   504:       end loop;
+   505:
+   506:       pragma Assert (I = Indexes'Last + 1);
+   507:
+   508:       --  Call Build_Predicate_For_Comp on the array components.
+   509:
+   510:       T_Comp :=
+   511:         +Build_Predicate_For_Comp
+   512:            (C_Expr1 => +New_Array_Access (Empty, +Expr1, Indexes, EW_Term),
+   513:             C_Expr2 => +New_Array_Access (Empty, +Expr2, Indexes, EW_Term),
+   514:             C_Ty    => Component_Type (Ty_Ext),
+   515:             Idx     => Indexes);
+   516:
+   517:       if T_Comp /= +True_Pred then
+   518:          T_Comp :=
+   519:            New_Conditional
+   520:              (Domain    => EW_Pred,
+   521:               Condition => +Range_Expr,
+   522:               Then_Part => T_Comp,
+   523:               Typ       => EW_Bool_Type);
+   524:
+   525:          Q_Expr := New_Universal_Quantif (Binders => Vars, Pred => +T_Comp);
+   526:
+   527:          return Q_Expr;
+   528:       else
+   529:          return True_Pred;
+   530:       end if;
+   531:    end Build_Binary_Predicate_For_Array;
+   532:
+   533:    -----------------------
+   534:    -- Build_Length_Expr --
+   535:    -----------------------
+   536:
    537:    function Build_Length_Expr
    538:      (Domain      : EW_Domain;
    539:       First, Last : W_Expr_Id;
@@ -8549,6 +9155,28 @@
    578:          raise Program_Error;
    579:       end if;
    580:    end Build_Length_Expr;
+```
+
+## src/why/why-gen-arrays.adb:614-630
+
+```ada
+   614:    function Build_Predicate_For_Array
+   615:      (Expr : W_Term_Id; Ty : Entity_Id) return W_Pred_Id
+   616:    is
+   617:       function Build_Predicate_For_Comp
+   618:         (C_Expr1, Dummy_Expr2 : W_Term_Id;
+   619:          C_Ty                 : Entity_Id;
+   620:          Idx                  : W_Expr_Array) return W_Pred_Id
+   621:       is (Build_Predicate_For_Comp (C_Expr1, C_Ty, Idx));
+   622:
+   623:       function Build_Predicate is new
+   624:         Build_Binary_Predicate_For_Array (Build_Predicate_For_Comp);
+   625:
+   626:    begin
+   627:       return Build_Predicate (Expr, Expr, Ty);
+   628:    end Build_Predicate_For_Array;
+   629:
+   630:    ----------------------------------------------
 ```
 
 ## src/why/why-gen-arrays.adb:981-1068
@@ -9113,7 +9741,7 @@
   3036:    end Get_Array_Theory_Name;
 ```
 
-## src/why/why-gen-arrays.adb:3042-3078
+## src/why/why-gen-arrays.adb:3042-3104
 
 ```ada
   3042:    function New_Array_Access
@@ -9153,6 +9781,32 @@
   3076:    --------------------------
   3077:    -- New_Array_Range_Expr --
   3078:    --------------------------
+  3079:
+  3080:    function New_Array_Range_Expr
+  3081:      (Index_Expr : W_Term_Id;
+  3082:       Array_Expr : W_Term_Id;
+  3083:       Domain     : EW_Domain;
+  3084:       Dim        : Positive) return W_Expr_Id is
+  3085:    begin
+  3086:       return
+  3087:         New_Range_Expr
+  3088:           (Domain => Domain,
+  3089:            Low    =>
+  3090:              Insert_Conversion_To_Rep_No_Bool
+  3091:                (EW_Term,
+  3092:                 +Get_Array_Attr
+  3093:                    (Expr => Array_Expr, Attr => Attribute_First, Dim => Dim)),
+  3094:            High   =>
+  3095:              Insert_Conversion_To_Rep_No_Bool
+  3096:                (EW_Term,
+  3097:                 +Get_Array_Attr
+  3098:                    (Expr => Array_Expr, Attr => Attribute_Last, Dim => Dim)),
+  3099:            Expr   => Insert_Conversion_To_Rep_No_Bool (EW_Term, +Index_Expr));
+  3100:    end New_Array_Range_Expr;
+  3101:
+  3102:    ----------------------
+  3103:    -- New_Array_Update --
+  3104:    ----------------------
 ```
 
 ## src/why/why-gen-arrays.adb:3261-3281
@@ -12194,7 +12848,7 @@
   4837:    -----------------
 ```
 
-## src/why/why-gen-expr.adb:4883-4922
+## src/why/why-gen-expr.adb:4883-4956
 
 ```ada
   4883:    function New_Range_Expr
@@ -12237,6 +12891,40 @@
   4920:               Domain => Domain);
   4921:       end if;
   4922:       return New_And_Expr (Left, Right, Domain);
+  4923:    end New_Range_Expr;
+  4924:
+  4925:    function New_Range_Expr
+  4926:      (Low, High : W_Term_Id; Expr : W_Term_Id) return W_Pred_Id is
+  4927:    begin
+  4928:       --  ??? gnatcov complains if this is an expression function (V330-044);
+  4929:       --  otherwise it could be declared in spec.
+  4930:       return +W_Expr_Id'(New_Range_Expr (EW_Pred, +Low, +High, +Expr));
+  4931:    end New_Range_Expr;
+  4932:
+  4933:    ---------------------------
+  4934:    -- New_Simpl_Conditional --
+  4935:    ---------------------------
+  4936:
+  4937:    function New_Simpl_Conditional
+  4938:      (Condition : W_Expr_Id;
+  4939:       Then_Part : W_Expr_Id;
+  4940:       Else_Part : W_Expr_Id;
+  4941:       Domain    : EW_Domain) return W_Expr_Id is
+  4942:    begin
+  4943:       if Is_True_Boolean (Condition) then
+  4944:          return Then_Part;
+  4945:       elsif Is_False_Boolean (Condition) then
+  4946:          return Else_Part;
+  4947:       else
+  4948:          return
+  4949:            New_Conditional
+  4950:              (Condition => +Condition,
+  4951:               Then_Part => Then_Part,
+  4952:               Else_Part => Else_Part,
+  4953:               Domain    => Domain,
+  4954:               Typ       => Get_Type (Then_Part));
+  4955:       end if;
+  4956:    end New_Simpl_Conditional;
 ```
 
 ## src/why/why-gen-expr.adb:4962-5010
@@ -12340,9 +13028,19 @@
   5323:    end New_VC_Expr;
 ```
 
-## src/why/why-gen-expr.adb:5446-5541
+## src/why/why-gen-expr.adb:5436-5541
 
 ```ada
+  5436:    function Pred_Of_Boolean_Term (W : W_Term_Id) return W_Pred_Id
+  5437:    is (New_Call
+  5438:          (Name => Why_Eq,
+  5439:           Args => (1 => +W, 2 => +Bool_True (EW_Term)),
+  5440:           Typ  => EW_Bool_Type));
+  5441:
+  5442:    --------------------------
+  5443:    -- Transform_Compare_Op --
+  5444:    --------------------------
+  5445:
   5446:    function Transform_Compare_Op
   5447:      (Op : N_Op_Compare; Ty : W_Type_Id; Domain : EW_Domain)
   5448:       return W_Identifier_Id is
@@ -12439,6 +13137,25 @@
   5539:                return MF_Floats (Ty).Gt;
   5540:
   5541:             when N_Op_Lt =>
+```
+
+## src/why/why-gen-expr.ads:65-78
+
+```ada
+    65:    function Bool_True (D : EW_Domain) return W_Expr_Id
+    66:    is (New_Literal (Value => EW_True, Domain => D));
+    67:    function Bool_False (D : EW_Domain) return W_Expr_Id
+    68:    is (New_Literal (Value => EW_False, Domain => D));
+    69:
+    70:    function Pred_Of_Boolean_Term (W : W_Term_Id) return W_Pred_Id;
+    71:    --  @param W a Why3 term expression
+    72:    --  @return the equivalent Why3 pred expression
+    73:
+    74:    function Boolean_Expr_Of_Pred
+    75:      (W : W_Pred_Id; Domain : EW_Domain) return W_Expr_Id;
+    76:    --  @param W a Why3 pred expression
+    77:    --  @param Domain translation domain
+    78:    --  @return the equivalent Why3 expression, depending on the [Domain]
 ```
 
 ## src/why/why-gen-expr.ads:96-105
@@ -14135,7 +14852,7 @@
    245:
 ```
 
-## src/why/xgen/xtree_sinfo.adb:254-350
+## src/why/xgen/xtree_sinfo.adb:254-368
 
 ```ada
    254:       -- W_Not --
@@ -14235,6 +14952,24 @@
    348:
    349:       New_Field (W_Elsif,
    350:                  "Condition", "W_Expr", Id_One);
+   351:       New_Field (W_Elsif,
+   352:                  "Then_Part", "W_Expr", Id_One);
+   353:       New_Field (W_Elsif,
+   354:                  "Typ", "W_Type", Id_Lone);
+   355:
+   356:       -------------------
+   357:       -- W_Conditional --
+   358:       -------------------
+   359:
+   360:       New_Field (W_Conditional,
+   361:                  "Condition", "W_Expr", Id_One);
+   362:       New_Field (W_Conditional,
+   363:                  "Then_Part", "W_Expr", Id_One);
+   364:       New_Field (W_Conditional,
+   365:                  "Elsif_Parts", "W_Expr", Id_Set);
+   366:       New_Field (W_Conditional,
+   367:                  "Else_Part", "W_Expr", Id_Lone);
+   368:       New_Field (W_Conditional, "Typ", "W_Type", Id_Lone);
 ```
 
 ## src/why/xgen/xtree_sinfo.adb:371-440

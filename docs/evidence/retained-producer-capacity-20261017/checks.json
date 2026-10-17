@@ -224,6 +224,43 @@
       "occurrence_overhead_max": 18
     }
   },
+  "string_declaration_invariant": {
+    "complete_source_declaration_wrapper": {
+      "elements_max": 36,
+      "lists_max": 24,
+      "nodes_max": 55,
+      "occurrences_max": 188
+    },
+    "complete_suffix": {
+      "elements_max": 24,
+      "lists_max": 16,
+      "nodes_max": 34,
+      "occurrences_max": 72
+    },
+    "discarded_array_traversal_nonstatic": {
+      "elements": 12,
+      "lists": 9,
+      "nodes": 21
+    },
+    "discarded_array_traversal_static": {
+      "elements": 10,
+      "lists": 7,
+      "nodes": 13
+    },
+    "excludes": "initializer and expected-type conversion, binder/symbol setup, subtype declarations, outer theories, enclosing statement list",
+    "named_predicate_path": {
+      "elements_max": 17,
+      "lists_max": 10,
+      "nodes_max": 25,
+      "occurrences_max": 69
+    },
+    "static_itype_path": {
+      "elements_max": 15,
+      "lists_max": 12,
+      "nodes_max": 24,
+      "occurrences_max": 56
+    }
+  },
   "string_initializer_assignment_core": {
     "elements_max": 12,
     "excludes": "initializer and expected-type conversion, binder/symbol setup, declaration dynamic-invariant suffix",
