@@ -1,0 +1,202 @@
+{
+  "revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "retained_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "source_files_verified": 8,
+  "sources": [
+    {
+      "path": "src/why/gnat2why-expr.adb",
+      "bytes": 1222932,
+      "sha256": "750ed73091af62c0b522077c2e59e10f496b91a4bee323b3b822fba15094dd14",
+      "reviewed_lf_ranges": [
+        [
+          19903,
+          20101
+        ],
+        [
+          25668,
+          25724
+        ],
+        [
+          29733,
+          29862
+        ],
+        [
+          30068,
+          30088
+        ],
+        [
+          30195,
+          30215
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-gen-arrays.adb",
+      "bytes": 146990,
+      "sha256": "e8175f36c1f3f440041b95be50e721ed335167b2977496c2f3eb4e1dd2570c2a",
+      "reviewed_lf_ranges": [
+        [
+          537,
+          580
+        ],
+        [
+          2813,
+          2928
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-gen-expr.adb",
+      "bytes": 208583,
+      "sha256": "9891d54331f76713685fce8f21501d549485a46c35593ac68ba572c9f0f5a432",
+      "reviewed_lf_ranges": [
+        [
+          311,
+          347
+        ],
+        [
+          712,
+          820
+        ],
+        [
+          1956,
+          1987
+        ],
+        [
+          3149,
+          3170
+        ],
+        [
+          4728,
+          4758
+        ],
+        [
+          4937,
+          5011
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-gen-progs.adb",
+      "bytes": 12033,
+      "sha256": "f891be5611f061675183dcf3a0a219247ba2937c23130aa3156d49b80792599d",
+      "reviewed_lf_ranges": [
+        [
+          57,
+          85
+        ],
+        [
+          329,
+          369
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-atree-modules.adb",
+      "bytes": 168813,
+      "sha256": "73ccd31d5e1ac2935f02492beef285411cbd0d3627aaf81e65f4e37a4f4f17b3",
+      "reviewed_lf_ranges": [
+        [
+          529,
+          550
+        ],
+        [
+          715,
+          717
+        ],
+        [
+          2805,
+          2810
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-gen-names.ads",
+      "bytes": 23105,
+      "sha256": "a6cd93532a6b9ebf299a5a44ad13baf425d119a3b9aeebaea23309da6af43c55",
+      "reviewed_lf_ranges": [
+        [
+          83,
+          89
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-gen-names.adb",
+      "bytes": 47274,
+      "sha256": "e003c128b2e3f0e4f20d606798e0e5cd5b099b94ce27847dc5b9e9c4805a7a39",
+      "reviewed_lf_ranges": [
+        [
+          786,
+          808
+        ]
+      ]
+    },
+    {
+      "path": "src/why/xgen/xtree_sinfo.adb",
+      "bytes": 22859,
+      "sha256": "76c87d6da16443965af3754d7daae987d846aae51fb05d5b83bca4f3cf5ffb9b",
+      "reviewed_lf_ranges": [
+        [
+          254,
+          290
+        ],
+        [
+          330,
+          368
+        ],
+        [
+          427,
+          435
+        ],
+        [
+          473,
+          483
+        ],
+        [
+          528,
+          534
+        ]
+      ]
+    }
+  ],
+  "arithmetic": {
+    "object_length_core": [
+      20,
+      6,
+      9,
+      92
+    ],
+    "branch_observation": [
+      7,
+      1,
+      2,
+      23
+    ],
+    "conditional_overhead": [
+      1,
+      1,
+      0,
+      3
+    ],
+    "branch_skeleton": [
+      "8*q+9*b",
+      "2*q+b",
+      "2*q+3*b",
+      "26*q+27*b"
+    ],
+    "located_source_statement_list": [
+      "m+1",
+      "1",
+      "m+1",
+      "m+5"
+    ],
+    "scope": "local arithmetic/schema corroboration; no mechanical caller proof"
+  },
+  "not_established": [
+    "installed producer source identity",
+    "whole-process capacity",
+    "source-to-all-helper invocation coverage"
+  ],
+  "validation": "source/archive identity and local mathematical checks only"
+}
