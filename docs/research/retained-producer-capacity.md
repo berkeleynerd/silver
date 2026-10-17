@@ -247,6 +247,123 @@ invariants, preservation checks and snapshot bindings. `K_loop` still needs
 the fixed index/control/warning wrapper bound. Allocation of discarded nodes
 also remains to price independently of this serialization recurrence.
 
+## Declaration, type and module caller closure
+
+The following additional results close invocation multiplicities. They remain
+parameterized by the frontend-generated object/type set; they do not equate
+that set with the number of declarations spelled by the user.
+
+**Entity passes and file count.** `Entities_To_Translate` iterates `Entity_List`
+(`src/spark/spark_definition.ads:215–232` and `.adb:14999–15035`). For ordinary
+nonpackage object/type entities, `Mark_Entity` returns immediately if the entity
+was already marked and inserts it into `Entity_Set` before recursive marking;
+the successful path appends it once (`.adb:11848–11890, 12186–12248`). The driver
+then makes one pass each for translation, completion and VC generation
+(`src/why/gnat2why-driver.adb:1323–1335, 1432–1445`). If `E_list` bounds all list
+entries, including fixed dependencies, the number of printed files satisfies
+`F <= E_list`: each entry reaches `Do_Generate_VCs` at most once, and that call
+prints at most one file. This deliberately avoids the still-stronger assertion
+that Main always produces exactly one file.
+
+**Initializer multiplicity.** One ordinary object-declaration transformation
+calls `Assignment_Of_Obj_Decl`, which translates its initializer once in the
+program domain (`src/why/gnat2why-expr.adb:1384–1460, 22591–22638`). In the
+regular mutable case the assignment contains that result once. A regular
+immutable value is bound once before the equality assumption. A dynamic String
+in split form is likewise bound once before using the temporary for contents
+and its two bounds (`:1621–1809`). Thus these wrappers do not duplicate the
+translated initializer subtree.
+
+For ordinary immutable constants, the entity translation pass can separately
+translate the initializer once in the term domain
+(`src/why/gnat2why-decls.adb:122–270`). Even when its defining axiom is omitted
+because the result contains a dereference, those allocated nodes still count.
+The child-cost allowance is consequently `Prog(init) + Term(init)` for such a
+constant, and `Prog(init)` for an ordinary mutable object. This is an upper
+allowance: the separate term path can be skipped by its guards or simplify a
+static scalar expression.
+
+At the enclosing regular-subprogram layer, `Generate_VCs_For_Subprogram`
+translates declarations and handled statements once
+(`src/why/gnat2why-subprograms.adb:5840–5872`), and `Transform_Declarations`
+traverses each declaration once (`src/why/gnat2why-expr.adb:23201–23215`). The
+later `Assume_Value_Of_Constants` excludes constants declared in that unit
+(`:2669–2703`), so it does not introduce a third initializer pass for Main's own
+ordinary constants. Assumptions for fixed external constants remain a separate
+dependency cost. Later references to a constant use its identifier; they do not
+recursively translate its initializer again.
+
+**Object/loop theories.** Per ordinary object entity, the translation pass
+creates two outer theories: a definition plus either a value axiom or an empty
+axiom. Per loop entity it creates the loop-exception theory and an empty axiom
+(`src/why/gnat2why-driver.adb:1462–1590`; `src/why/gnat2why-decls.adb:66–115,
+122–382, 451–490, 496–812`). The expressions inside those theories can create
+their own literal/type-related material, which must not be hidden in the count
+of two.
+
+**Generated Integer/String type theories.** Under the ordinary scalar/String
+shape, without relaxed-initialization or validity wrappers, access/tagged
+features, type invariants or user equality, the outer theory counts are:
+
+| Invocation | Theory opens/closes |
+| --- | ---: |
+| `Translate_Type(Integer subtype)` | One main, plus at most one scalar representative |
+| `Translate_Type(String subtype)` | One main, plus representation-cache miss work |
+| `Generate_Type_Completion(itype)` | One axiom |
+| `Generate_Type_Completion(non-itype)` | One axiom, plus at most one default-initialization theory |
+| `Translate_Type(Standard_String)` | String row, plus one String Image theory |
+
+The translation source is `src/why/gnat2why-types.adb:1623–1739`; completion is
+`:895–1101`. Itype completion skips dynamic-invariant and scalar-bound axiom
+helpers as well as the non-itype default-initialization branch. For a nonempty
+static Integer subtype, `Type_Is_Modeled_As_Base` is false and the representative
+branch applies (`src/why/gnat2why-util.adb:1609–1615`). The ordinary equality and
+wrapper conditions are defined in `src/spark/spark_util-types.adb:3050–3064` and
+`src/why/gnat2why-util.ads:579–581`.
+
+Ordinary rank-one Character String types share a representation key regardless
+of their bounds or subtype name. `Get_Array_Theory_Name` uses index representation,
+component root name and the relaxed-initialization flag; literal subtypes recurse
+to their underlying array type (`src/why/why-gen-arrays.adb:2990–3036`). The first
+ordinary-key miss creates two theories, representation and discrete comparison
+(`:981–1068, 1075–1142, 1772–1906`). Later hits create none. For `I` Integer
+itypes and `A` String itypes translated/completed once each, this gives
+
+```text
+outer type/completion closes <= 3I + 2A + 2R
+```
+
+`R` is the number of new representation keys, at most one for the stated
+ordinary String family. Fixed predefined/non-itype types and any other
+expression-created theories remain separate. `Declare_Ada_Array`,
+`Declare_Scalar_Type` and `Define_Scalar_Rep_Proj` emit into their caller's
+theory; their declaration costs are not included merely by counting closes.
+
+**Eager array cache allocation.** Every ordinary
+`Create_Rep_Array_Theory_If_Needed` attempt allocates seventeen Why nodes and no
+Why lists **before testing the cache**, including on a hit:
+
+```text
+1 module + 2 names + 2 types + 6(identifier + name) = 17 nodes
+```
+
+These are the declarations at `src/why/why-gen-arrays.adb:1078–1085`, expanded by
+`Init_Array_Module` (`src/why/why-atree-modules.adb:918–974`) and `New_Identifier`
+(`src/why/why-gen-names.adb:786–808, 825–832`). A first miss additionally
+initializes rank-one helpers with twelve nodes, and comparison module/helpers
+with three nodes, excluding the theory construction itself
+(`src/why/why-atree-modules.adb:980–1047`). If `C` counts all attempts,
+seventeen times `C` belongs in the lifetime allocation bound even though
+discarded cache-hit nodes never appear in JSON.
+
+**Memoized entity modules.** `Module_Kind` has twenty-seven members
+(`src/why/why-atree-modules.ads:819–851`). `Hashconsed_Entity_Module` allocates
+only on a missing `(normalized entity, kind)` key (`.adb:465–504`). Consequently
+this component creates at most `27E_entities` module nodes. This does not count
+direct `New_Module` calls for literals, VC theories, eager array-cache attempts
+or fixed initialization. Keeping those separate makes the remaining module term
+concrete without confusing module IDs with unique printed theory symbols.
+
 ## Precise remaining obligations
 
 A whole-source rule needs both lifetime allocation bounds and emitted-occurrence
@@ -257,12 +374,12 @@ an independent admission calculation from authoritative Silver source.
 | Missing term | Concrete caller closure required |
 | --- | --- |
 | Frontend-to-producer inputs | Bound generated entities, anonymous types, range captures and static/folded literal nodes for the admitted Main grammar and fixed dependencies; link these to source-derived quantities. |
-| Declaration and initializer multiplicity | Close `Transform_Declaration`, `Translate_Entity`, `Translate_Constant_Value` and declaration completion. `Translate_Constant_Value` can separately translate the same initializer in the term domain (`gnat2why-decls.adb:122–270`); executable-declaration cost alone misses it. |
-| Type/module count | Close `Translate_Type`, type completion and standard/synthetic array/scalar theory generation for the generated subtype set. This supplies `M` and theory-close bounds for the import term. |
+| Declaration/helper cost | The ordinary initializer child multiplicities and object outer-theory count are closed above. Price their identifier, dynamic-invariant and assignment wrappers and handle the frontend-generated declarations/types. |
+| Type/module cost | The ordinary itype outer-theory and memoized entity-module counts are closed above. Price the declarations emitted inside those theories, fixed initialization and remaining directly created modules. |
 | Expression helper overhead | Price reachable scalar conversions/checks, dynamic String reconstruction, comparisons, Image and assignment helpers, including lazily initialized symbols. Child-once properties do not make these costs zero. |
 | Loop per-entity overhead | Close `H` and `K_loop` for the Integer/String shapes and actual library write-global set, retaining the two endpoint domains and snapshot accounting. |
 | Fixed libraries at call sites | Separate one-time fixed library theories from per-call argument binding, contract/check substitution, globals and any permitted inlining. Fixed library source size does not imply constant total call-site cost. |
-| Number of printing plans | Close `Analysis_Requested`/entity selection and `Generate_VCs_For_Type`'s guards for generated types, as well as the Main subprogram. The driver may emit per entity when new VCs are registered; do not assume one file merely from one source Main. |
+| Printing-plan source bound | The coarse `F <= E_list` bound is closed above. Supply the frontend/dependency bound on `E_list`; sharpening Main to one file would require closing generated-entity and type-VC guards. |
 | Lifetime nodes and lists | Charge builders and list creation in paths whose results are simplified, discarded or never printed. The final JSON tree cannot observe them. |
 
 The existing source/certificate model supplies useful grammar and semantic

@@ -1,13 +1,69 @@
 {
   "files": [
     {
+      "bytes": 601572,
+      "lf_lines": 15037,
+      "path": "src/spark/spark_definition.adb",
+      "retained_line_ranges": [
+        [
+          248,
+          263
+        ],
+        [
+          11836,
+          11895
+        ],
+        [
+          12186,
+          12248
+        ],
+        [
+          14999,
+          15035
+        ]
+      ],
+      "sha256": "d8d9203d847f4673be7be8bef8f006d90e5d0da9365e30e2eed311540bda934e"
+    },
+    {
+      "bytes": 10411,
+      "lf_lines": 245,
+      "path": "src/spark/spark_definition.ads",
+      "retained_line_ranges": [
+        [
+          215,
+          232
+        ]
+      ],
+      "sha256": "f47855276129159e57a9a41555635b3221ab197f1b176c98725bb481eb4b5107"
+    },
+    {
+      "bytes": 106574,
+      "lf_lines": 3181,
+      "path": "src/spark/spark_util-types.adb",
+      "retained_line_ranges": [
+        [
+          3050,
+          3064
+        ]
+      ],
+      "sha256": "61c39d0e43f4b2d8f36a723d87b9061d2e14611296c2378473b509df42979cc9"
+    },
+    {
       "bytes": 30114,
       "lf_lines": 816,
       "path": "src/why/gnat2why-decls.adb",
       "retained_line_ranges": [
         [
-          122,
-          270
+          66,
+          382
+        ],
+        [
+          451,
+          490
+        ],
+        [
+          496,
+          812
         ]
       ],
       "sha256": "0d98e1d1a86afe4a94a45752c9a11ecffd3f5d8218c9a28c3cd8449b65acdb43"
@@ -17,6 +73,10 @@
       "lf_lines": 1686,
       "path": "src/why/gnat2why-driver.adb",
       "retained_line_ranges": [
+        [
+          274,
+          310
+        ],
         [
           507,
           610
@@ -126,7 +186,15 @@
       "path": "src/why/gnat2why-expr.adb",
       "retained_line_ranges": [
         [
-          2702,
+          1384,
+          1460
+        ],
+        [
+          1621,
+          1809
+        ],
+        [
+          2669,
           2805
         ],
         [
@@ -148,6 +216,14 @@
         [
           21976,
           22351
+        ],
+        [
+          22591,
+          22638
+        ],
+        [
+          23201,
+          23215
         ],
         [
           23688,
@@ -173,13 +249,41 @@
       "sha256": "750ed73091af62c0b522077c2e59e10f496b91a4bee323b3b822fba15094dd14"
     },
     {
+      "bytes": 350905,
+      "lf_lines": 9351,
+      "path": "src/why/gnat2why-subprograms.adb",
+      "retained_line_ranges": [
+        [
+          4455,
+          4483
+        ],
+        [
+          5840,
+          5872
+        ],
+        [
+          6220,
+          6260
+        ]
+      ],
+      "sha256": "d9f5f4ecb398741e747e9167df89464c54f7dd1f6e54516280d998e5c56eb736"
+    },
+    {
       "bytes": 77606,
       "lf_lines": 1948,
       "path": "src/why/gnat2why-types.adb",
       "retained_line_ranges": [
         [
+          895,
+          1101
+        ],
+        [
           1108,
           1155
+        ],
+        [
+          1623,
+          1739
         ]
       ],
       "sha256": "3b4b21d00eb4d14a4f7966c097f215217ea54183be4048a5d9bbd98ccdb3663d"
@@ -194,11 +298,31 @@
           540
         ],
         [
+          1126,
+          1201
+        ],
+        [
           1347,
           1454
+        ],
+        [
+          1609,
+          1615
         ]
       ],
       "sha256": "f620de261e498788e54f642cc90605675d29aa3475888c0868afa2d6499fbc8d"
+    },
+    {
+      "bytes": 35148,
+      "lf_lines": 829,
+      "path": "src/why/gnat2why-util.ads",
+      "retained_line_ranges": [
+        [
+          570,
+          582
+        ]
+      ],
+      "sha256": "d1f5654afe24cc0c5ce2c1750c8a6867e292598508536d34fb17d558473112a3"
     },
     {
       "bytes": 168813,
@@ -208,9 +332,29 @@
         [
           297,
           324
+        ],
+        [
+          465,
+          504
+        ],
+        [
+          918,
+          1047
         ]
       ],
       "sha256": "73ccd31d5e1ac2935f02492beef285411cbd0d3627aaf81e65f4e37a4f4f17b3"
+    },
+    {
+      "bytes": 35357,
+      "lf_lines": 918,
+      "path": "src/why/why-atree-modules.ads",
+      "retained_line_ranges": [
+        [
+          819,
+          857
+        ]
+      ],
+      "sha256": "d67a913dc5fee2dfba33653d5696a9dfba484eb810d60b8a8c35eaa1d71baa44"
     },
     {
       "bytes": 3455,
@@ -229,6 +373,26 @@
       "lf_lines": 4002,
       "path": "src/why/why-gen-arrays.adb",
       "retained_line_ranges": [
+        [
+          981,
+          1068
+        ],
+        [
+          1075,
+          1161
+        ],
+        [
+          1529,
+          1623
+        ],
+        [
+          1772,
+          1906
+        ],
+        [
+          2990,
+          3036
+        ],
         [
           3042,
           3078
@@ -320,6 +484,10 @@
         [
           162,
           352
+        ],
+        [
+          786,
+          832
         ]
       ],
       "sha256": "e003c128b2e3f0e4f20d606798e0e5cd5b099b94ce27847dc5b9e9c4805a7a39"

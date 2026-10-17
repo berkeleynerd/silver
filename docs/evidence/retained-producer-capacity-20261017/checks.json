@@ -1,4 +1,11 @@
 {
+  "array_representation_helper_allocations": {
+    "comparison_module_helpers_on_miss_nodes": 3,
+    "each_cache_attempt_lists": 0,
+    "each_cache_attempt_nodes": 17,
+    "excludes": "theory construction and all other translation work",
+    "rank_one_helpers_on_miss_nodes": 12
+  },
   "limitation": "Arithmetic and retained-fixture checks; not whole-producer bound or source correspondence proof",
   "literal_component_examples": [
     {
@@ -51,6 +58,7 @@
       "predicate_occurrences": 85899345881
     }
   ],
+  "memoized_entity_module_kinds": 27,
   "representation_maxima": {
     "Why_Node_Counter_Last": 2147483647,
     "Why_Node_Id_Last": 1073741823
