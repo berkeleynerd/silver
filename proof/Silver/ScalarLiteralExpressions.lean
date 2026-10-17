@@ -279,7 +279,11 @@ def mantissaBody : Expr .mantissa :=
   .locals <| .local "leading" "literal_result"
     (.app (.app (.app (.function .numeral) text) (.variable "position")) (.number 10)) <|
     .group <| .ite (.eq leadingAfter (.number 0)) .invalidMantissa
-      (.elsif (.andThen (.le leadingAfter (.last text)) (.choices (.byteAt text leadingAfter) (.character 35) (.character 58)))
+      (.elsif (.andThen
+        (.andThen (.le leadingAfter (.last text)) (.choices (.byteAt text leadingAfter) (.character 35) (.character 58)))
+        (.not (.group (.andThen
+          (.andThen (.eq (.byteAt text leadingAfter) (.character 58)) (.lt leadingAfter (.last text)))
+          (.eq (.byteAt text (.add leadingAfter (.number 1))) (.character 61))))))
         (.group <| .ite (.notBase leadingValue) .invalidMantissa
           (.group <| .locals <| .local "number" "literal_result"
             (.app (.app (.app (.function .numeral) text) (.add leadingAfter (.number 1))) leadingValue) <|
