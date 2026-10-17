@@ -1,11 +1,163 @@
 {
   "README.md": {
-    "bytes": 3137,
-    "sha256": "d9747aae9e353a282c286f0c7560bc61b4c222a1f27cf22f3a92e44532e94793"
+    "bytes": 6222,
+    "sha256": "f05a9bc1bfb68fc2784433d8cb8ced82acc14da0d6a7f253862145616da73063"
   },
   "collect.py": {
     "bytes": 9725,
     "sha256": "026e7bc6bc120cf59774acd9b87397687334831c5f14c1f309932edbf6a4ed3c"
+  },
+  "driver-reconciliation.json": {
+    "bytes": 40806,
+    "sha256": "4e13dd90e90226cb8f0df9761e68c420884616cb761e7b9a71639821b68ca78d"
+  },
+  "driver-snapshots/293256/GNAT-TEMP-000001.TMP": {
+    "bytes": 7103,
+    "sha256": "20cf9d8f4637a70f1628f9c86e55bab65a3ecdef055686bc5d87ad71c896cb06"
+  },
+  "driver-snapshots/293256/GNAT-TEMP-000002.TMP": {
+    "bytes": 244,
+    "sha256": "3d84ea27f99f81f20bd402e0c255538ad3d04c82d26e10ee32ea68c9fd4b1574"
+  },
+  "driver-snapshots/293256/GNAT-TEMP-000003.TMP": {
+    "bytes": 4882,
+    "sha256": "0fb149910a09f6de3282ed37f6c4a5d487490538004130e582d0e65ebc56f38d"
+  },
+  "driver-snapshots/293256/GNAT-TEMP-000004.TMP": {
+    "bytes": 151,
+    "sha256": "87329741c7109bc74a62fc58d4732be17cedd4287cfadc3e4b8b2c31285595a6"
+  },
+  "driver-snapshots/293256/program.gpr": {
+    "bytes": 430,
+    "sha256": "4b0ca401313730b846dfb97f312bb8eeba989ae57034722dcaba38cbc3112f02"
+  },
+  "driver-snapshots/293263/GNAT-TEMP-000001.TMP": {
+    "bytes": 7103,
+    "sha256": "e8a25fab85409c9fe5dd3c90614991920b659cb781f5bd4b49b16004315c85a1"
+  },
+  "driver-snapshots/293263/GNAT-TEMP-000002.TMP": {
+    "bytes": 244,
+    "sha256": "3d84ea27f99f81f20bd402e0c255538ad3d04c82d26e10ee32ea68c9fd4b1574"
+  },
+  "driver-snapshots/293263/GNAT-TEMP-000003.TMP": {
+    "bytes": 4656,
+    "sha256": "86ae639a868c58ffcaba82a3d55b07872c6b98ec5ce605622a3c269afbaa391f"
+  },
+  "driver-snapshots/293263/GNAT-TEMP-000004.TMP": {
+    "bytes": 150,
+    "sha256": "20a36e9829fb522a885509a4cbfca76d8b62b983442030e5f4ed34863e7fe2b7"
+  },
+  "driver-snapshots/293263/program.gpr": {
+    "bytes": 430,
+    "sha256": "4b0ca401313730b846dfb97f312bb8eeba989ae57034722dcaba38cbc3112f02"
+  },
+  "driver-snapshots/command-records.json": {
+    "bytes": 3739,
+    "sha256": "ce899ee7f85341ace56d825eb2b3f3fd7b2afbaba47cc7b9991444573e7abb09"
+  },
+  "driver-snapshots/native-gnat.xml": {
+    "bytes": 12862,
+    "sha256": "75860604394acd18884a83321d3644b7f2816906c5dfa7e09b17a1d04c160e30"
+  },
+  "driver-snapshots/producer-custom.xml": {
+    "bytes": 394,
+    "sha256": "a78737344b583024dab5e120f5a8011a64a2c8bb3b4370d807a953481183ec64"
+  },
+  "driver-snapshots/producer-gnat.xml": {
+    "bytes": 12862,
+    "sha256": "75860604394acd18884a83321d3644b7f2816906c5dfa7e09b17a1d04c160e30"
+  },
+  "driver-snapshots/program-Z0j19G/main.adb": {
+    "bytes": 659,
+    "sha256": "4bc83b89b78b8146b9e171c8be06f617de67f92fadc0e8ac24164163a50dfcbd"
+  },
+  "driver-snapshots/program-Z0j19G/obj/b__main.adb": {
+    "bytes": 10628,
+    "sha256": "d53c4a1187f823c3bb83485919cc533bab373af120edcc1381957d62ae24b728"
+  },
+  "driver-snapshots/program-Z0j19G/obj/b__main.ads": {
+    "bytes": 21302,
+    "sha256": "d3fbf23a96e30534ee2c28131ed9e5a3feeebd69cbcd0d631536edf0ff3e5f18"
+  },
+  "driver-snapshots/program-Z0j19G/obj/b__main.ali": {
+    "bytes": 11243,
+    "sha256": "2ff087467153a36e6ec9f8d9b27446eed42110332580d743ed839ca8c417e4ad"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/data_representation/main.cswi": {
+    "bytes": 92,
+    "sha256": "73b339b887f1a1dbefd906f6a355a609f183972cd94dba72b193c79df2633cb8"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/data_representation/silver_arguments.cswi": {
+    "bytes": 92,
+    "sha256": "73b339b887f1a1dbefd906f6a355a609f183972cd94dba72b193c79df2633cb8"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/data_representation/silver_io.cswi": {
+    "bytes": 92,
+    "sha256": "73b339b887f1a1dbefd906f6a355a609f183972cd94dba72b193c79df2633cb8"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/data_representation/silver_output_libc.cswi": {
+    "bytes": 92,
+    "sha256": "73b339b887f1a1dbefd906f6a355a609f183972cd94dba72b193c79df2633cb8"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/data_representation/silver_runtime.cswi": {
+    "bytes": 92,
+    "sha256": "73b339b887f1a1dbefd906f6a355a609f183972cd94dba72b193c79df2633cb8"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/main.cswi": {
+    "bytes": 181,
+    "sha256": "214ad5ff08d634f71f292980957351159c8afe0cfed49d45dfaa83e2dc972b85"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/phase1/main.cswi": {
+    "bytes": 189,
+    "sha256": "92590f812f0150c98be1f8384384836e9365fc5ae1b2d49ff0315c038269343e"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/phase1/silver_arguments.cswi": {
+    "bytes": 189,
+    "sha256": "92590f812f0150c98be1f8384384836e9365fc5ae1b2d49ff0315c038269343e"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/phase1/silver_io.cswi": {
+    "bytes": 189,
+    "sha256": "92590f812f0150c98be1f8384384836e9365fc5ae1b2d49ff0315c038269343e"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/phase1/silver_output_libc.cswi": {
+    "bytes": 189,
+    "sha256": "92590f812f0150c98be1f8384384836e9365fc5ae1b2d49ff0315c038269343e"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/phase1/silver_runtime.cswi": {
+    "bytes": 189,
+    "sha256": "92590f812f0150c98be1f8384384836e9365fc5ae1b2d49ff0315c038269343e"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/silver_arguments.cswi": {
+    "bytes": 181,
+    "sha256": "214ad5ff08d634f71f292980957351159c8afe0cfed49d45dfaa83e2dc972b85"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/silver_io.cswi": {
+    "bytes": 181,
+    "sha256": "33ae3bf66b872700c5cf1dd42d4d8d93911420a1c754f11fe04f701ac6933661"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/silver_output_libc.cswi": {
+    "bytes": 181,
+    "sha256": "a474be4b7f98f5cbd6d162002c3a0ada7949a882ebc24f147c3a61bc2acbd42e"
+  },
+  "driver-snapshots/program-Z0j19G/obj/gnatprove/silver_runtime.cswi": {
+    "bytes": 181,
+    "sha256": "a474be4b7f98f5cbd6d162002c3a0ada7949a882ebc24f147c3a61bc2acbd42e"
+  },
+  "driver-snapshots/program-Z0j19G/obj/main.ali": {
+    "bytes": 3386,
+    "sha256": "d33e17d3bb3c0c4a8a99b5a3fd844eaa95e2fcc5bff760220d731de17fd75ee1"
+  },
+  "driver-snapshots/program-Z0j19G/obj/main.bexch": {
+    "bytes": 1320,
+    "sha256": "96ce76c28b2709b0ca92a525efd3f23d18175320ae77da0b79c925ec3e97e86f"
+  },
+  "driver-snapshots/program-Z0j19G/program.gpr": {
+    "bytes": 460,
+    "sha256": "119ada4a6986ea543b1ee838412f10fb5ec9e5feaec987f2b2974d2a39637c4d"
+  },
+  "reconcile-driver.py": {
+    "bytes": 7172,
+    "sha256": "fa634c4bc7acefff4df613b7dfe57dfbc5e1d674ec9c8f073e7e52719565187b"
   },
   "source-inventory.json": {
     "bytes": 39158,

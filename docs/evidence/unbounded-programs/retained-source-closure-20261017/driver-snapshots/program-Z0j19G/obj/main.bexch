@@ -1,0 +1,22 @@
+[GENERATED OBJECT FILE]
+b__main.o
+[PROJECT FILES]
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-Z0j19G/program.gpr
+20261017122900 8b0af52c8d953d8097d174869d4e2baa
+[BOUND OBJECT FILES]
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-Z0j19G/obj/silver_output_libc.o
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-Z0j19G/obj/silver_io.o
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-Z0j19G/obj/silver_runtime.o
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-Z0j19G/obj/silver_arguments.o
+/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-Z0j19G/obj/main.o
+[GENERATED SOURCE FILES]
+b__main.ads
+b__main.adb
+b__main.ali
+[RESULTING OPTIONS]
+-L/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-Z0j19G/obj/
+-L/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-Z0j19G/obj/
+-L/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/
+-static
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a
+-ldl

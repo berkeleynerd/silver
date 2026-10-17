@@ -36,8 +36,8 @@ list in sorted relative-path order. Each entry is
 "git_blob_sha1": blob_digest}`; serialize with Python `json.dumps`,
 `sort_keys=True`, `separators=(",", ":")`, then UTF-8 encode with no appended
 newline. The collector's explicit implementation is authoritative for this
-encoding. `MANIFEST.json` separately binds the three evidence files in this
-directory (excluding itself).
+encoding. `MANIFEST.json` separately binds the evidence files recursively in
+this directory (excluding itself and Python bytecode caches).
 
 The inventories mask Ada comments and quoted literals before lexical matching,
 preserving LF characters for source coordinates. All recorded occurrences are
@@ -50,3 +50,54 @@ scanned GCC Ada file with the prior baseline manifest; compare all installed
 runtime names/bytes; independently recalculate the two aligned fixed-file sums;
 check Markdown links and `git diff --check`. No whole-language capacity result
 is asserted by any of these checks.
+
+## Driver snapshots and generation rules
+
+`reconcile-driver.py` adds source-only reconciliation of the surviving
+`GPR.293256` and `GPR.293263` configuration/name-map/object-path files with
+their exact command records. It also retains the current `program-Z0j19G`
+project, native ALI, binder source/ALI and producer phase-switch artifacts.
+Its output is `driver-reconciliation.json`; copied raw inputs are in
+`driver-snapshots/`. The two older runs were stopped exploratory probes, not
+successful confirmation evidence. Four older library sources differ from
+today's sources; the JSON records this explicitly. All six library sources
+in `program-Z0j19G` match the current installation source bytes.
+
+The generator inspection uses GPRbuild `v26.0.0`, peeled commit
+`bdfb879cf03643ec8e48a09ce07b08c4a6ff0263`. The archive URL and hash, and the
+hashes of both cited source files, are in the reconciliation. It was retrieved
+from GitHub's codeload endpoint into `/tmp/silver-retained-gpr-source-20261017/`
+and unpacked without building. Version correspondence does not establish the
+source identity of the installed GPR executables. No inherited environment
+snapshot was found; the supplement states the remaining effective-search
+premise rather than assuming that all frontend environment variables were
+cleared by the Alire wrapper.
+
+To reproduce into fresh scratch paths, retaining the exact original inputs:
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-source-closure-20261017/reconcile-driver.py \
+  --installation /home/canto/src/github.com/berkeleynerd/silver \
+  --gpr-source /tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263 \
+  --gcc /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --output /tmp/retained-driver-snapshots-recheck \
+  > /tmp/retained-driver-reconciliation-recheck.json
+cmp docs/evidence/unbounded-programs/retained-source-closure-20261017/driver-reconciliation.json \
+  /tmp/retained-driver-reconciliation-recheck.json
+diff -r docs/evidence/unbounded-programs/retained-source-closure-20261017/driver-snapshots \
+  /tmp/retained-driver-snapshots-recheck
+```
+
+The reconciler preserves source files and snapshots verbatim. Names are parsed
+as LF-delimited triples; mapped runtime names/bytes must agree with the
+installed native directory. It verifies distinct basename requests in these
+snapshots, not a universal property of all possible tool invocations. The
+one-block configuration transfer and zero additional-alias transfer are
+source-derived **conditional** results, with premises in the supplement.
+
+Follow-up checks: the reconciliation JSON and copied inputs regenerated
+byte-identically; retained-input hashes and local Markdown links matched.
+`git diff --check` passed for the authored files. Raw tool snapshots preserve
+their original trailing spaces and final blank lines, so an unfiltered
+whitespace check reports those original artifact bytes; they were not edited
+to satisfy a formatting check. No compiler, proof, or admission run was added.

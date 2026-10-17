@@ -2,8 +2,8 @@
 
 **2026-10-17 — partial derivation for [#119](https://github.com/berkeleynerd/silver/issues/119).**
 This supplements the [capacity contract](retained-tool-capacity.md). It closes
-the direct allocation-site inventory in the inspected sources and derives two
-concrete fixed-input contributions. It does **not** establish the full
+the direct allocation-site inventory in the inspected sources and derives
+concrete fixed-input contributions with explicit premises. It does **not** establish the full
 physical/virtual range inventory for every production phase, an enlarged
 language, or a complete source-capacity admission rule. The current language
 and tool pins remain unchanged.
@@ -117,9 +117,86 @@ deduplication uses `File_Name`, not resolved filesystem identity. Aliased or
 mapped names for one file must be counted separately or proved impossible.
 Generated configuration inputs, nonruntime search paths, preprocessing and
 binder output are not included in this directory total. None may be silently
-assigned zero. The current fixed project/source configuration makes their
-closure tractable, but the generated driver configuration and name map have
-not been reconciled here.
+assigned zero. The following reconciliation supplies a fixed configuration
+charge and narrows the name-map premise, conditional on the inspected driver
+route and its source-search environment.
+
+### Generated configuration and request names
+
+The [driver reconciliation](../evidence/unbounded-programs/retained-source-closure-20261017/driver-reconciliation.json)
+retains two older producer command snapshots, their surviving GPR temporary
+files, and the current `program-Z0j19G` project's native ALI, phase switches
+and binder files. The older commands identify `/tmp/GPR.293256` and
+`/tmp/GPR.293263` exactly. Their generated `-gnatec` inputs are byte-identical:
+**244 bytes**, containing just the default `.ads`/`.adb`, lowercase,
+hyphen-separated `Source_File_Name_Project` patterns. Therefore each costs
+`q(244) = 4,096` source positions. Their maps contain 24 and 23 distinct
+basenames respectively, resolving only to their seven workspace files or the
+installed producer runtime. Runtime mapped bytes match the native runtime.
+
+These older records are **stopped exploratory runs**, not successful proof
+evidence. Their project naming/source-file shape agrees with today's driver,
+but four of their six library source files differ from current sources. The
+current retained workspace has all six current library sources, the driver's
+460-byte project, a native ALI with `-gnatA`, and separate Main switch records
+for phase 1, translation and data representation. Its 32 native ALI dependency
+names are basenames in the workspace/runtime union. Its `.cswi` files omit the
+temporary configuration/map arguments; those historical temporary files were
+not located. No sample is being promoted to a universal dependency closure.
+
+The installed native and producer GPR databases both supply `-gnatA`,
+`-gnatem=` and `-gnatec=` (`share/gprconfig/gnat.xml:15–22`). The producer's
+custom database adds `.spark`, ALI-closure dependencies and `-gnateO=`, without
+changing the naming patterns. The retained generated configuration projects
+agree. In GCC, `switch-c.adb:313–315` sets `Config_File := False` for `-gnatA`,
+so the implicit `gnat.adc` load at `frontend.adb:167–168` is excluded on this
+route. Explicit configuration files still use `Load_Config_File` at `217`.
+
+To inspect the generator, GPRbuild tag `v26.0.0`, peeled commit
+`bdfb879cf03643ec8e48a09ce07b08c4a6ff0263`, was retrieved without building it.
+The installed native Alire version `26.0.1` points to the binary release
+`gprbuild-26.0.0-1`. That correspondence is a source-selection clue, **not** an
+established source identity for either installed GPR executable. Under this
+inspected source route:
+
+- `src/gprbuild-compile.adb:682–703` emits each distinct naming scheme once.
+  `832–941` adds a per-unit pragma only for a naming exception. The fixed
+  `main.adb` and six Silver filenames use the single default scheme, with no
+  naming exceptions or multiple units per file. The emitted pattern pair is
+  independent of Main's declarations, statements and identifier spellings.
+- `2583–2635,2658–2686` adds global/local/command-line configuration inputs
+  only when selected. None is selected in Silver's generated project or
+  commands. Thus the candidate production route has one 244-byte generated
+  configuration input: **`C = 4,096`**, without a Main-size term.
+- `gpr/src/gpr-env.adb:835–984` builds a unit map from project sources and
+  writes each selected source's display filename separately from its path.
+  `fmap.adb:278` reads that map directly through `Osint.Read_Source_File`,
+  bypassing `Source_File` insertion. `osint.adb:360–429` reads include/object
+  path files directly as well. These have their own storage costs, but their
+  bytes do **not** contribute to the aligned source cursor.
+- Main's command-line absolute path is reduced to its basename by
+  `osint.adb:2012–2061`. `fname-uf.adb:236–243` returns mapped basenames for
+  library units; default lookup adds and reuses a unit-to-filename/path map
+  at `363–371`. `osint.adb:1263–1278` uses the resolved path only to find the
+  file, leaving the request-name key used by `sinput-l.adb:369–383` intact.
+  A directory prefix therefore does not itself create another Main range.
+
+With exactly this project naming/map configuration, no source-name overrides,
+one unit per source, and resolution confined to the recorded workspace/runtime
+bytes, **`A = 0`**: all successful physical requests use the once-charged
+filenames. The whole-runtime union deliberately permits selecting additional
+runtime basenames without enlarging `R`. This reasoning concerns requests;
+it does not claim that distinct filesystem paths are deduplicated automatically.
+
+The search-environment qualification remains explicit. `osint.adb:474–504`
+reads project include/object path files and `ADA_INCLUDE_PATH`/
+`ADA_OBJECTS_PATH`; the wrapper's `TOOL_ENVIRONMENT_OVERRIDES` removes
+`ALR_CONFIG`, `GPR_CONFIG`, `GPR_PROJECT_PATH`, `GPR_PROJECT_PATH_FILE` and
+`ADA_PROJECT_PATH`, not these frontend variables. The retained snapshots do
+not contain their inherited values. A universal application of `R`, `C` and
+`A` must establish the installed generator/source relation and the fixed
+effective source search, or supply a larger justified file/name universe.
+Changing Main alone cannot be used as evidence that these premises hold.
 
 ## Virtual ranges: eight sites, not eight possible copies
 
@@ -193,6 +270,23 @@ the current exported Silver APIs and its private expression-function helper
 do not cause repeated frontend body-source copies through that route. Native
 expression-function substitution itself uses `New_Copy`
 (`exp_ch6.adb:5536–5543`), not the virtual-range allocator.
+
+For the one identified `System.Img_Int.Impl` instance, a conservative native
+body charge can be supplied without deciding whether the body is demanded:
+**at most one additional `q(4898) = 8,192` virtual range**. The pinned
+`s-imagei.adb` is 4,898 bytes, has no nested generic instance, tagged
+derivation, subunit, null procedure or inline annotation. Its ordinary local
+scalar/String operations do not re-enter its own generic instantiation.
+`Instantiate_Package_Body` returns when the instance spec already has a body
+(`sem_ch12.adb:13510–13513`) and rechecks after loading a parent (`13600–13602`).
+The sole body-source allocation on this route is `13652`; it then analyzes
+the created body (`13882–13888`). Package-body analysis selects the instance
+spec (`sem_ch7.adb:746–748`) and sets its `Corresponding_Body` at `909`, before
+analyzing its declarations/statements. Later demand therefore returns before
+allocating a second range. This is one instance's bound, not an assertion
+that the complete virtual-source contribution is 40,960. GNATprove's explicit
+outside-Main exclusion at `sem_ch12.adb:4915–4922` makes this body contribution
+zero for a Main translation process.
 
 Likewise, marking a generated equality helper inline is insufficient to show
 that it allocates virtual source. The fallback equality helper is a body
@@ -314,18 +408,21 @@ is sufficient for the aligned source-range recurrence and its stated signed-Int
 headroom in the [capacity contract](retained-tool-capacity.md#reusable-source-position-component).
 It conservatively charges an aligned full block for the final range as well,
 so loading order cannot make the final position larger than this sum. `R` and
-`S` are justified concrete fixed contributions; **`C`, `A` and complete `V`
-are not yet supplied**. Consequently this formula is not an implemented or
+`S` are justified concrete fixed contributions. The inspected project/generator
+route supplies **`C = 4,096`, `A = 0` under its explicit source/search premises**;
+the installed-driver relation, effective search and **complete `V` remain
+unsettled**. Consequently this formula is not an implemented or
 complete decidable membership test. It also says nothing yet about line-table
 growth, other source-pointer operations, parser/copy nodes or producer data.
 
 The smallest next source-closure steps are specific:
 
-1. Reconcile retained production command/configuration/name-map artifacts for
-   each frontend family. Prove a finite physical request-name set, account for
-   generated configuration bytes, and exclude or charge each nonruntime path.
-   Source inspection of GPR generation can settle these questions; a new run is
-   warranted only if the retained artifacts and generator disagree.
+1. Establish the installed GPR/source relation and effective source-search
+   configuration for each frontend family. The retained pattern/map artifacts
+   and inspected generator agree on the one-block configuration charge and
+   basename requests; account for any remaining nonruntime search input before
+   applying those conditional contributions universally. A new run is warranted
+   only if a named source/artifact contradiction requires it.
 2. Finish the generated-helper dispatch for the grammar's scalar, String,
    branch and loop compositions. Then enumerate generic spec/body instances,
    source overriding contracts and Inline_Always targets in that finite closure.

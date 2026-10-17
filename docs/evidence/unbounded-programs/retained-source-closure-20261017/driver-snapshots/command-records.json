@@ -1,0 +1,38 @@
+{
+  "original_reason": "Stopped exploratory 256-operand probes after explicit selection of 16-operand bound; no failure/success claimed for incomplete cases.",
+  "original_record": {
+    "bytes": 12717,
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compose-results/experiment/stopped-256-probes.json",
+    "sha256": "8487507f3b973f7f4eb28837a27675bbaf6c594f23a2e503b8b1df5411812d3b"
+  },
+  "processes": [
+    {
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprbuild --subdirs=explore/error/gnatprove/ --complete-output --restricted-to-languages=ada --target=x86_64-linux --gnatprove -s -q -ws --no-exit-message -j2 -U -c -P /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compose-results/experiment/dynamic-256-empty-literals/program.gpr --db /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/config/gnat2why -cargs:Ada -gnatc -gnates=/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compose-results/experiment/dynamic-256-empty-literals/obj/explore/error/gnatprove/9bbb983c.tmp",
+      "elapsed": "04:25",
+      "parent": 293122,
+      "pid": 293256,
+      "rss_kib": 12904
+    },
+    {
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprbuild --subdirs=explore/error/gnatprove/ --complete-output --restricted-to-languages=ada --target=x86_64-linux --gnatprove -s -q -ws --no-exit-message -j2 -U -c -P /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compose-results/experiment/assignment-256-empty-refs/program.gpr --db /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/config/gnat2why -cargs:Ada -gnatc -gnates=/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compose-results/experiment/assignment-256-empty-refs/obj/explore/error/gnatprove/b31ebd5e.tmp",
+      "elapsed": "04:25",
+      "parent": 293124,
+      "pid": 293263,
+      "rss_kib": 12852
+    },
+    {
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compose-results/experiment/dynamic-256-empty-literals/obj/explore/error/gnatprove/9bbb983c.tmp -gnatec=/tmp/GPR.293256/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.293256/GNAT-TEMP-000003.TMP /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compose-results/experiment/dynamic-256-empty-literals/main.adb -gnateO=/tmp/GPR.293256/GNAT-TEMP-000004.TMP",
+      "elapsed": "04:24",
+      "parent": 293256,
+      "pid": 293310,
+      "rss_kib": 35520
+    },
+    {
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why -c -x ada -gnatA -gnat2022 -gnata -gnato -gnatc -gnates=/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compose-results/experiment/assignment-256-empty-refs/obj/explore/error/gnatprove/b31ebd5e.tmp -gnatec=/tmp/GPR.293263/GNAT-TEMP-000002.TMP -gnatem=/tmp/GPR.293263/GNAT-TEMP-000003.TMP /home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compose-results/experiment/assignment-256-empty-refs/main.adb -gnateO=/tmp/GPR.293263/GNAT-TEMP-000004.TMP",
+      "elapsed": "04:24",
+      "parent": 293263,
+      "pid": 293321,
+      "rss_kib": 30032
+    }
+  ]
+}

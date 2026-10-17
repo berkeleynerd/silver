@@ -1,0 +1,10 @@
+20261017122901
+-c
+-x
+ada
+-gnatA
+-gnat2022
+-gnata
+-gnato
+-gnatc
+-gnates=/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-Z0j19G/obj/gnatprove/66352d3f.tmp
