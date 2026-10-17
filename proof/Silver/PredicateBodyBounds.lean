@@ -20,6 +20,12 @@ theorem basicRaw_factsBounded (text : Source) (context : ParseContext) (scan : B
       · exact Context.empty_bounded
       · simpa only [bodyToken_facts, bodyTokens_facts] using bounded
   | reject => simpa only [bodyTokens_facts] using Context.reject_bounded bounded
+  | scalarAssignment =>
+      unfold scalarAssignmentBody
+      dsimp only
+      split
+      · exact Context.empty_bounded
+      · exact bounded
   | assignment =>
       dsimp only
       split

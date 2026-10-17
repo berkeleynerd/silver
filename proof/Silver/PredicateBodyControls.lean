@@ -32,6 +32,12 @@ theorem basicRaw_controls (text : Source) (context : ParseContext) (scan : BodyS
       · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
       · exact valid
   | reject => exact valid
+  | scalarAssignment =>
+      unfold scalarAssignmentBody
+      dsimp only
+      split
+      · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
+      · exact valid
   | assignment =>
       have targetBound : (targetAt text (parserState context scan) false).target ≤ context.names.length := by
         unfold targetAt
