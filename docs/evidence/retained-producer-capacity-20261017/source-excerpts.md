@@ -4780,9 +4780,122 @@
  24205:                   Left  : constant N_Subexpr_Id := Left_Opnd (Expr);
 ```
 
-## src/why/gnat2why-expr.adb:24714-24731
+## src/why/gnat2why-expr.adb:24547-24570
 
 ```ada
+ 24547:                else
+ 24548:                   declare
+ 24549:                      Right : constant W_Expr_Id :=
+ 24550:                        Transform_Expr
+ 24551:                          (Right_Opnd (Expr),
+ 24552:                           EW_Bool_Type,
+ 24553:                           Domain,
+ 24554:                           Local_Params);
+ 24555:                   begin
+ 24556:                      if Domain = EW_Term then
+ 24557:                         T :=
+ 24558:                           New_Call
+ 24559:                             (Ada_Node => Expr,
+ 24560:                              Domain   => Domain,
+ 24561:                              Name     => M_Boolean.Notb,
+ 24562:                              Args     => (1 => Right),
+ 24563:                              Typ      => EW_Bool_Type);
+ 24564:                      else
+ 24565:                         T := New_Not (Right => Right, Domain => Domain);
+ 24566:                      end if;
+ 24567:                   end;
+ 24568:                end if;
+ 24569:
+ 24570:             when N_Op_And | N_Op_Or | N_Op_Xor          =>
+```
+
+## src/why/gnat2why-expr.adb:24630-24731
+
+```ada
+ 24630:                end if;
+ 24631:
+ 24632:             when N_Short_Circuit                        =>
+ 24633:                Short_Circuit : declare
+ 24634:
+ 24635:                   function New_Short_Circuit_Expr
+ 24636:                     (Left, Right : W_Expr_Id; Domain : EW_Domain)
+ 24637:                      return W_Expr_Id;
+ 24638:                   --  Dispatch over functions to create a short-circuit Why
+ 24639:                   --  expr
+ 24640:
+ 24641:                   ----------------------------
+ 24642:                   -- New_Short_Circuit_Expr --
+ 24643:                   ----------------------------
+ 24644:
+ 24645:                   function New_Short_Circuit_Expr
+ 24646:                     (Left, Right : W_Expr_Id; Domain : EW_Domain)
+ 24647:                      return W_Expr_Id is
+ 24648:                   begin
+ 24649:                      if Nkind (Expr) = N_And_Then then
+ 24650:                         return New_And_Then_Expr (Left, Right, Domain);
+ 24651:                      else
+ 24652:                         return New_Or_Else_Expr (Left, Right, Domain);
+ 24653:                      end if;
+ 24654:                   end New_Short_Circuit_Expr;
+ 24655:
+ 24656:                   Left_N : constant Node_Id := Left_Opnd (Expr);
+ 24657:                   Left   : constant W_Expr_Id :=
+ 24658:                     Transform_Expr
+ 24659:                       (Left_N, EW_Bool_Type, Domain, Local_Params);
+ 24660:                   Right  : W_Expr_Id;
+ 24661:
+ 24662:                   Warn_On_Right : constant Boolean :=
+ 24663:                     Local_Params.Warn_On_Dead
+ 24664:                     and then
+ 24665:                       (if Nkind (Expr) = N_And_Then
+ 24666:                        then
+ 24667:                          not Exp_Util.Is_Statically_Disabled
+ 24668:                                (Left_N, False, Include_Valid => True)
+ 24669:                        else
+ 24670:                          not Exp_Util.Is_Statically_Disabled
+ 24671:                                (Left_N, True, Include_Valid => True));
+ 24672:                   Right_Params  : constant Transformation_Params :=
+ 24673:                     (Local_Params with delta Warn_On_Dead => Warn_On_Right);
+ 24674:                   --  Do not emit dead branch warnings in Right if Left is
+ 24675:                   --  statically disabled.
+ 24676:
+ 24677:                   --  Start of processing for Short_Circuit
+ 24678:
+ 24679:                begin
+ 24680:                   Ada_Ent_To_Why.Push_Scope (Symbol_Table);
+ 24681:
+ 24682:                   if Present (Actions (Expr)) then
+ 24683:                      Transform_Actions_Preparation (Actions (Expr));
+ 24684:                   end if;
+ 24685:
+ 24686:                   Right :=
+ 24687:                     Transform_Expr
+ 24688:                       (Right_Opnd (Expr), EW_Bool_Type, Domain, Right_Params);
+ 24689:
+ 24690:                   --  Possibly warn on an unreachable right branch
+ 24691:
+ 24692:                   if Domain = EW_Prog then
+ 24693:                      Right :=
+ 24694:                        +Warn_On_Dead_Branch
+ 24695:                           (Right_Opnd (Expr),
+ 24696:                            +Right,
+ 24697:                            Local_Params.Phase,
+ 24698:                            Warn_On_Right);
+ 24699:                   end if;
+ 24700:
+ 24701:                   if Present (Actions (Expr)) then
+ 24702:                      Right :=
+ 24703:                        Transform_Actions
+ 24704:                          (Actions (Expr), Right, Domain, Local_Params);
+ 24705:                   end if;
+ 24706:
+ 24707:                   T :=
+ 24708:                     New_Short_Circuit_Expr
+ 24709:                       (Left => Left, Right => Right, Domain => Domain);
+ 24710:
+ 24711:                   Ada_Ent_To_Why.Pop_Scope (Symbol_Table);
+ 24712:                end Short_Circuit;
+ 24713:
  24714:             when N_Op_Concat                            =>
  24715:                T :=
  24716:                  Transform_Concatenation
@@ -6935,7 +7048,7 @@
    504:    end Hashconsed_Entity_Module;
 ```
 
-## src/why/why-atree-modules.adb:703-756
+## src/why/why-atree-modules.adb:703-781
 
 ```ada
    703:       --  Builtin unary minus and void
@@ -6992,6 +7105,31 @@
    754:            Infix  => True);
    755:       Int_Infix_Le :=
    756:         New_Identifier
+   757:           (Module => Int_Module,
+   758:            Domain => EW_Term,
+   759:            Symb   => NID ("<="),
+   760:            Typ    => EW_Bool_Type,
+   761:            Infix  => True);
+   762:       Int_Infix_Lt :=
+   763:         New_Identifier
+   764:           (Module => Int_Module,
+   765:            Domain => EW_Term,
+   766:            Symb   => NID ("<"),
+   767:            Typ    => EW_Bool_Type,
+   768:            Infix  => True);
+   769:       Int_Infix_Ge :=
+   770:         New_Identifier
+   771:           (Module => Int_Module,
+   772:            Domain => EW_Term,
+   773:            Symb   => NID (">="),
+   774:            Typ    => EW_Bool_Type,
+   775:            Infix  => True);
+   776:       Int_Infix_Gt :=
+   777:         New_Identifier
+   778:           (Module => Int_Module,
+   779:            Domain => EW_Term,
+   780:            Symb   => NID (">"),
+   781:            Typ    => EW_Bool_Type,
 ```
 
 ## src/why/why-atree-modules.adb:918-1047
@@ -7127,6 +7265,84 @@
   1045:    end Init_Array_1_Comp_Module;
   1046:
   1047:    function Init_Array_1_Bool_Op_Module
+```
+
+## src/why/why-atree-modules.adb:1132-1150
+
+```ada
+  1132:       M_Boolean.Notb :=
+  1133:         New_Identifier
+  1134:           (Domain => EW_Term,
+  1135:            Module => M,
+  1136:            Symb   => NID ("notb"),
+  1137:            Typ    => EW_Bool_Type);
+  1138:       M_Boolean.Andb :=
+  1139:         New_Identifier
+  1140:           (Domain => EW_Term,
+  1141:            Module => M,
+  1142:            Symb   => NID ("andb"),
+  1143:            Typ    => EW_Bool_Type);
+  1144:       M_Boolean.Notb :=
+  1145:         New_Identifier
+  1146:           (Domain => EW_Term,
+  1147:            Module => M,
+  1148:            Symb   => NID ("notb"),
+  1149:            Typ    => EW_Bool_Type);
+  1150:       M_Boolean.Orb :=
+```
+
+## src/why/why-atree-modules.adb:2699-2747
+
+```ada
+  2699:
+  2700:    procedure Init_Integer_Module is
+  2701:       M : constant W_Module_Id :=
+  2702:         New_Module (File => Gnatprove_Standard_File, Name => "Integer");
+  2703:    begin
+  2704:       M_Integer.Module := M;
+  2705:       M_Integer.Bool_Eq :=
+  2706:         New_Identifier
+  2707:           (Module => M,
+  2708:            Domain => EW_Term,
+  2709:            Symb   => NID ("bool_eq"),
+  2710:            Typ    => EW_Bool_Type);
+  2711:       M_Integer.Bool_Ne :=
+  2712:         New_Identifier
+  2713:           (Module => M,
+  2714:            Domain => EW_Term,
+  2715:            Symb   => NID ("bool_ne"),
+  2716:            Typ    => EW_Bool_Type);
+  2717:       M_Integer.Bool_Le :=
+  2718:         New_Identifier
+  2719:           (Module => M,
+  2720:            Domain => EW_Term,
+  2721:            Symb   => NID ("bool_le"),
+  2722:            Typ    => EW_Bool_Type);
+  2723:       M_Integer.Bool_Lt :=
+  2724:         New_Identifier
+  2725:           (Module => M,
+  2726:            Domain => EW_Term,
+  2727:            Symb   => NID ("bool_lt"),
+  2728:            Typ    => EW_Bool_Type);
+  2729:       M_Integer.Bool_Ge :=
+  2730:         New_Identifier
+  2731:           (Module => M,
+  2732:            Domain => EW_Term,
+  2733:            Symb   => NID ("bool_ge"),
+  2734:            Typ    => EW_Bool_Type);
+  2735:       M_Integer.Bool_Gt :=
+  2736:         New_Identifier
+  2737:           (Module => M,
+  2738:            Domain => EW_Term,
+  2739:            Symb   => NID ("bool_gt"),
+  2740:            Typ    => EW_Bool_Type);
+  2741:       M_Integer.Length :=
+  2742:         New_Identifier
+  2743:           (Module => M,
+  2744:            Domain => EW_Term,
+  2745:            Symb   => NID ("length"),
+  2746:            Typ    => EW_Int_Type);
+  2747:    end Init_Integer_Module;
 ```
 
 ## src/why/why-atree-modules.adb:3693-3722
@@ -9088,7 +9304,7 @@
   3050:       Need_Check : Boolean := False;
 ```
 
-## src/why/why-gen-expr.adb:3484-3569
+## src/why/why-gen-expr.adb:3484-3596
 
 ```ada
   3484:
@@ -9177,6 +9393,33 @@
   3567:               More_Right => Filtered (3 .. Count));
   3568:       end if;
   3569:    end New_And_Pred;
+  3570:
+  3571:    -----------------------
+  3572:    -- New_And_Then_Expr --
+  3573:    -----------------------
+  3574:
+  3575:    function New_And_Then_Expr
+  3576:      (Left, Right : W_Expr_Id; Domain : EW_Domain) return W_Expr_Id is
+  3577:    begin
+  3578:       if Is_True_Boolean (+Left) then
+  3579:          return Right;
+  3580:       elsif Is_True_Boolean (+Right) then
+  3581:          return Left;
+  3582:       else
+  3583:          if Domain = EW_Prog then
+  3584:             return
+  3585:               New_Connection
+  3586:                 (Op     => EW_And_Then,
+  3587:                  Left   => Left,
+  3588:                  Right  => Right,
+  3589:                  Domain => Domain);
+  3590:          else
+  3591:             return New_And_Expr (Left, Right, Domain);
+  3592:          end if;
+  3593:       end if;
+  3594:    end New_And_Then_Expr;
+  3595:
+  3596:    ------------------------
 ```
 
 ## src/why/why-gen-expr.adb:3754-3997
@@ -9553,6 +9796,33 @@
   4535:          if Has_Discriminants (Ty) then
 ```
 
+## src/why/why-gen-expr.adb:4816-4837
+
+```ada
+  4816:    function New_Or_Else_Expr
+  4817:      (Left, Right : W_Expr_Id; Domain : EW_Domain) return W_Expr_Id is
+  4818:    begin
+  4819:       if Is_False_Boolean (Left) then
+  4820:          return Right;
+  4821:       elsif Is_False_Boolean (Right) then
+  4822:          return Left;
+  4823:       else
+  4824:          if Domain = EW_Prog then
+  4825:             return
+  4826:               New_Connection
+  4827:                 (Domain => Domain,
+  4828:                  Op     => EW_Or_Else,
+  4829:                  Left   => Left,
+  4830:                  Right  => Right);
+  4831:          else
+  4832:             return New_Or_Expr (Left, Right, Domain);
+  4833:          end if;
+  4834:       end if;
+  4835:    end New_Or_Else_Expr;
+  4836:
+  4837:    -----------------
+```
+
 ## src/why/why-gen-expr.adb:4883-4922
 
 ```ada
@@ -9697,6 +9967,107 @@
   5321:                 Domain   => Domain,
   5322:                 Typ      => Get_Type (Expr)));
   5323:    end New_VC_Expr;
+```
+
+## src/why/why-gen-expr.adb:5446-5541
+
+```ada
+  5446:    function Transform_Compare_Op
+  5447:      (Op : N_Op_Compare; Ty : W_Type_Id; Domain : EW_Domain)
+  5448:       return W_Identifier_Id is
+  5449:    begin
+  5450:       if Domain = EW_Term then
+  5451:          if Ty in EW_Int_Type | EW_Bool_Type or else Why_Type_Is_Fixed (Ty)
+  5452:          then
+  5453:             case Op is
+  5454:                when N_Op_Gt =>
+  5455:                   return M_Integer.Bool_Gt;
+  5456:
+  5457:                when N_Op_Lt =>
+  5458:                   return M_Integer.Bool_Lt;
+  5459:
+  5460:                when N_Op_Eq =>
+  5461:                   return M_Integer.Bool_Eq;
+  5462:
+  5463:                when N_Op_Ne =>
+  5464:                   return M_Integer.Bool_Ne;
+  5465:
+  5466:                when N_Op_Ge =>
+  5467:                   return M_Integer.Bool_Ge;
+  5468:
+  5469:                when N_Op_Le =>
+  5470:                   return M_Integer.Bool_Le;
+  5471:             end case;
+  5472:          elsif Why_Type_Is_Float (Ty) then
+  5473:             case Op is
+  5474:                when N_Op_Gt =>
+  5475:                   return MF_Floats (Ty).Bool_Gt;
+  5476:
+  5477:                when N_Op_Lt =>
+  5478:                   return MF_Floats (Ty).Bool_Lt;
+  5479:
+  5480:                when N_Op_Eq =>
+  5481:                   return MF_Floats (Ty).Bool_Eq;
+  5482:
+  5483:                when N_Op_Ne =>
+  5484:                   return MF_Floats (Ty).Bool_Ne;
+  5485:
+  5486:                when N_Op_Ge =>
+  5487:                   return MF_Floats (Ty).Bool_Ge;
+  5488:
+  5489:                when N_Op_Le =>
+  5490:                   return MF_Floats (Ty).Bool_Le;
+  5491:             end case;
+  5492:          elsif Why_Type_Is_BitVector (Ty) then
+  5493:             case Op is
+  5494:                when N_Op_Gt =>
+  5495:                   return MF_BVs (Ty).Bool_Gt;
+  5496:
+  5497:                when N_Op_Lt =>
+  5498:                   return MF_BVs (Ty).Bool_Lt;
+  5499:
+  5500:                when N_Op_Eq =>
+  5501:                   return MF_BVs (Ty).Bool_Eq;
+  5502:
+  5503:                when N_Op_Ne =>
+  5504:                   return MF_BVs (Ty).Bool_Ne;
+  5505:
+  5506:                when N_Op_Ge =>
+  5507:                   return MF_BVs (Ty).Bool_Ge;
+  5508:
+  5509:                when N_Op_Le =>
+  5510:                   return MF_BVs (Ty).Bool_Le;
+  5511:             end case;
+  5512:          else
+  5513:             raise Program_Error;
+  5514:          end if;
+  5515:       elsif Ty in EW_Int_Type | EW_Bool_Type or else Why_Type_Is_Fixed (Ty)
+  5516:       then
+  5517:          case Op is
+  5518:             when N_Op_Gt =>
+  5519:                return Int_Infix_Gt;
+  5520:
+  5521:             when N_Op_Lt =>
+  5522:                return Int_Infix_Lt;
+  5523:
+  5524:             when N_Op_Eq =>
+  5525:                return Why_Eq;
+  5526:
+  5527:             when N_Op_Ne =>
+  5528:                return Why_Neq;
+  5529:
+  5530:             when N_Op_Ge =>
+  5531:                return Int_Infix_Ge;
+  5532:
+  5533:             when N_Op_Le =>
+  5534:                return Int_Infix_Le;
+  5535:          end case;
+  5536:       elsif Why_Type_Is_Float (Ty) then
+  5537:          case Op is
+  5538:             when N_Op_Gt =>
+  5539:                return MF_Floats (Ty).Gt;
+  5540:
+  5541:             when N_Op_Lt =>
 ```
 
 ## src/why/why-gen-expr.ads:96-105
@@ -10085,6 +10456,48 @@
    178:    end New_Assume_Statement;
    179:
    180:    -------------------------
+```
+
+## src/why/why-gen-progs.adb:199-215
+
+```ada
+   199:    function New_Ignore
+   200:      (Ada_Node : Node_Id := Empty; Prog : W_Prog_Id) return W_Prog_Id
+   201:    is
+   202:       Call : constant W_Prog_Id :=
+   203:         New_Binding
+   204:           (Ada_Node => Ada_Node,
+   205:            Name     =>
+   206:              New_Identifier
+   207:                (Domain => EW_Prog, Name => "_", Typ => Get_Type (+Prog)),
+   208:            Def      => +Prog,
+   209:            Context  => +Void,
+   210:            Typ      => EW_Unit_Type);
+   211:    begin
+   212:       return New_Abstract_Expr (Expr => Call, Post => True_Pred);
+   213:    end New_Ignore;
+   214:
+   215:    --------------------------
+```
+
+## src/why/why-gen-progs.adb:243-257
+
+```ada
+   243:    function New_Located_Assert
+   244:      (Ada_Node   : Node_Id;
+   245:       Pred       : W_Pred_Id;
+   246:       Reason     : VC_Kind;
+   247:       Kind       : EW_Assert_Kind;
+   248:       Check_Info : Check_Info_Type := New_Check_Info) return W_Prog_Id
+   249:    is (New_Assert
+   250:          (Ada_Node    => Ada_Node,
+   251:           Pred        =>
+   252:             New_VC_Pred
+   253:               (Ada_Node   => Ada_Node,
+   254:                Expr       => Pred,
+   255:                Reason     => Reason,
+   256:                Check_Info => Check_Info),
+   257:           Assert_Kind => Kind));
 ```
 
 ## src/why/why-gen-progs.adb:275-280
@@ -11280,9 +11693,35 @@
    245:
 ```
 
-## src/why/xgen/xtree_sinfo.adb:280-350
+## src/why/xgen/xtree_sinfo.adb:254-350
 
 ```ada
+   254:       -- W_Not --
+   255:       -----------
+   256:
+   257:       New_Field (W_Not,
+   258:                  "Right", "W_Expr", Id_One);
+   259:
+   260:       ------------------
+   261:       -- W_Connection --
+   262:       ------------------
+   263:
+   264:       New_Field (W_Connection,
+   265:                  "Left", "W_Expr", Id_One);
+   266:       New_Field (W_Connection,
+   267:                  "Op", "EW_Connector");
+   268:       New_Field (W_Connection,
+   269:                  "Right", "W_Expr", Id_One);
+   270:       New_Field (W_Connection,
+   271:                  "More_Right", "W_Expr", Id_Set);
+   272:
+   273:       -------------
+   274:       -- W_Label --
+   275:       -------------
+   276:
+   277:       New_Field (W_Label,
+   278:                  "Labels", "Symbol_Set");
+   279:       New_Field (W_Label,
    280:                  "Def", "W_Expr", Id_One);
    281:       New_Field (W_Label,
    282:                  "Typ", "W_Type", Id_Lone);

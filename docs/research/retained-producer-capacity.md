@@ -439,6 +439,53 @@ declarations, loop framing, String declarations and fixed library bodies still
 need their own costs; the source Integer range's separate subtype declaration
 is not included merely by pricing its object wrapper.
 
+### Scalar comparison, boolean and warning wrappers
+
+For an Integer comparison translated in the program or term domain,
+`Transform_Comparison` translates each operand once at builtin Integer and
+`New_Comparison` adds one call with the two operands
+(`src/why/gnat2why-expr.adb:21942–21968`;
+`src/why/why-gen-expr.adb:4289–4332`). Its operator is either an existing
+Integer relation, equality/inequality, or a Boolean-valued Integer comparison
+function; each identifier has at most five occurrences
+(`src/why/why-gen-expr.adb:5446–5541`;
+`src/why/why-atree-modules.adb:2699–2747`). The comparison overhead is therefore
+**one node, one list, two list elements and at most eight occurrences**.
+Expected `EW_Bool_Type` adds no scalar conversion. The predicate-domain
+pretty-printing label, when that separate domain is used, must be charged
+separately; it is not part of this program/term component.
+
+Boolean `not` translates its child once. In program domain it adds one
+`W_Not` node/occurrence and no list; in term domain it adds one call to the
+existing `notb`, one list/element and at most eight occurrences
+(`src/why/gnat2why-expr.adb:24547–24570`;
+`src/why/why-atree-modules.adb:1132–1150`).
+
+The dead-code/branch warning helper can be bounded independently of whether
+the invocation's options enable it. Its enabled path creates a located
+assertion of false, wraps it in `New_Ignore`, adds a comment and a three-item
+statement sequence (`src/why/gnat2why-expr.adb:31162–31211`). This costs at
+most **nine fresh nodes, one list, three list elements and twenty-seven emitted
+occurrences**, excluding the original child, which occurs once. The fresh
+nodes are three for the labeled/location assertion, four for the ignored
+binding (identifier/name, binding, abstract expression), one comment and one
+sequence. `New_Ignore` and `New_Located_Assert` are defined in
+`src/why/why-gen-progs.adb:199–215, 243–257`. For the emitted upper bound,
+allow three occurrences per true/false literal, four per local identifier
+with a builtin type, and two per builtin type. The disabled path creates
+nothing and returns the child.
+
+At the short-circuit connective layer, each child is translated once and at
+most one warning wraps the right child
+(`src/why/gnat2why-expr.adb:24630–24712`). `and then`/`or else` add at most
+one connection with an empty `More_Right` list in program domain, or one
+Boolean call with two arguments in term domain; simplification can remove
+that final node (`src/why/why-gen-expr.adb:3575–3596, 4816–4837`). A common
+program/term allowance is consequently **ten nodes, two lists, three list
+elements and twenty-eight occurrences**, excluding the two children and any
+frontend `Actions` attached to the connective. Those actions, if present,
+are translated separately and must be charged from the frontend action bound.
+
 ## Declaration, type and module caller closure
 
 The following additional results close invocation multiplicities. They remain

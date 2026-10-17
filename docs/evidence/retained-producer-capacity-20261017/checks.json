@@ -6,6 +6,27 @@
     "excludes": "theory construction and all other translation work",
     "rank_one_helpers_on_miss_nodes": 12
   },
+  "boolean_and_warning_wrappers": {
+    "excludes": "children, symbol setup, frontend Actions",
+    "scalar_comparison": {
+      "elements": 2,
+      "lists": 1,
+      "nodes": 1,
+      "occurrence_overhead_max": 8
+    },
+    "short_circuit": {
+      "elements_max": 3,
+      "lists_max": 2,
+      "nodes_max": 10,
+      "occurrence_overhead_max": 28
+    },
+    "warning": {
+      "elements_max": 3,
+      "lists_max": 1,
+      "nodes_max": 9,
+      "occurrence_overhead_max": 27
+    }
+  },
   "limitation": "Arithmetic and retained-fixture checks; not whole-producer bound or source correspondence proof",
   "literal_component_examples": [
     {
