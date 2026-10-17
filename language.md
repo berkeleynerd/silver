@@ -213,6 +213,9 @@ Both endpoints must fit Integer and satisfy `L <= U`. They use the scalar
 expression grammar below, restricted to literals and earlier Ada-static Integer
 constants. Every bound-expression intermediate must fit Integer. Named scalar
 types/subtypes, dynamic range constraints and conversions remain excluded.
+Requiring static endpoints is a current Silver scope restriction, not an Ada
+requirement: Ada permits dynamic object constraints. Admitting those would need
+an elaboration and bound-lifetime argument for captured bounds.
 Integer and String values are distinct, with no implicit conversion.
 
 Declaration elaboration computes each exact initial value in order and checks
@@ -259,7 +262,8 @@ endpoint products, and negation reverses and negates the endpoints. Every
 intermediate result must fit Integer for the entire inferred interval. The
 analysis does not exploit correlations such as two occurrences of the same
 index. An empty index interval makes index-dependent safety vacuous, but never
-permits an out-of-range static subexpression.
+permits an out-of-range static subexpression. Integer assignments additionally
+require a nonempty RHS interval, including in empty loops and unreachable arms.
 
 Scalar comparisons admit `=`, `/=`, `<`, `<=`, `>` and `>=` between scalar
 expressions and compose with the existing short-circuit predicates. They do
@@ -390,8 +394,10 @@ This explicit proof-work policy permits a maximal 64-leaf expression or the
 same operator total distributed across positions. The expression and source
 budgets do not bound iteration count, elapsed execution or total proof cost.
 They are Silver resource policies, not Ada/SPARK restrictions or solver-time
-guarantees; the [delivery record](docs/for-loops-integers.md) gives the associated
-report-capacity and validation evidence.
+guarantees; the [For loops and integers delivery](docs/for-loops-integers.md),
+[bounded mutable Integer delivery](docs/bounded-mutable-integers.md) and
+[mutable report-capacity record](docs/bounded-mutable-report-capacity.md) give
+the associated report-capacity and validation evidence.
 
 ### Statement sequences and fixed-bound assignment
 
@@ -433,7 +439,12 @@ Integer assignment evaluates the RHS in the current scalar store and changes
 only its target. The target must be a visible mutable Integer object; constants,
 loop indexes and hidden outer objects cannot be assigned, including in empty
 loops or unreachable arms. Every RHS intermediate must fit Integer and its
-whole inferred interval must lie within the target's declared range. Assignment
+whole inferred interval must be nonempty and lie within the target's declared
+range. Requiring nonemptiness is a Silver frontend-acceptance restriction:
+pinned GNAT still checks predictable assignment range errors in dead loop bodies
+under `SPARK_Mode (On)`. Thus an index-dependent assignment in a known empty
+loop is excluded even when a particular instance would compile. Empty loops
+may still contain assignments whose RHS has a nonempty interval. Assignment
 and scalar guards do not narrow mutable ranges. Thus `X : Integer range 0 .. 9
 := 0` permits `X := (9 - X)`, but excludes `X := (X + 1)` even after a reset
 or under `X < 9`. This is a limit of Silver's interval analysis, not Ada syntax.
@@ -761,7 +772,9 @@ range/length/overflow fragment remain explicit
 Native examples corroborate them; they do not prove universal assurance.
 Complete selected-library obligations remain mandatory for every output compile.
 See [assurance.md](docs/assurance.md) and the
-[current delivery record](docs/for-loops-integers.md) for exact validation scope.
+[For loops and integers delivery](docs/for-loops-integers.md) and
+[bounded mutable Integer delivery](docs/bounded-mutable-integers.md) for exact
+validation scope and subsequent review repairs.
 
 Authors supply neither contracts nor proof annotations. Admission, proof and
 compilation use the same source bytes, snapshotted as `main.adb`. Every output
