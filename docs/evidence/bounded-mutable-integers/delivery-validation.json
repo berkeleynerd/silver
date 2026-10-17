@@ -99,7 +99,16 @@
       }
     }
   },
-  "inventory_digest_encoding": "SHA-256 of UTF-8 JSON object with sorted path keys and compact separators; each value is the SHA-256 of exact file bytes.",
+  "inventory_digest_encoding": {
+    "repository_and_workspace_artifact_inventory_digests": "SHA-256 of UTF-8 json.dumps(mapping, sort_keys=True, separators=(\",\", \":\")); each path value is the SHA-256 of exact file bytes.",
+    "lean_inputs_digest_sha256": "SHA-256 of UTF-8 json.dumps(checked_inputs, sort_keys=True) using default separators (comma-space and colon-space), as scripts/check_lean.py records.",
+    "scope": "repository_input_inventory_digest_sha256 hashes the recorded run input map filtered to tracked repository inputs. It does not hash the reference commit tree. Separate per-path comparisons state whether those recorded hashes equal the named reference tree.",
+    "final_lean_example": {
+      "default_separators": "951c3440ec24e971e40719035a07d1e920ac56bbc83b4c28c6cccc4c20c3990f",
+      "compact_separators": "45d06f86bc043bf83c3e1359f0da8c5a678eaca0bda1deba0127f2891f2bea4f",
+      "recorded_inputs": 581
+    }
+  },
   "runs": {
     "native_build": {
       "run_id": "20261017T015610-9b49f21729ff",
@@ -1460,5 +1469,13 @@
     "local_file_links_checked": 611,
     "missing_local_files": [],
     "proof_or_test_repeat": false
+  },
+  "later_review_disposition": {
+    "date": "2026-10-17",
+    "review": "docs/reviews/review-b79b986403.md",
+    "repair_record": "docs/review-b79b986403-repairs.md",
+    "scope": "Original run outcomes, artifact identities and comparisons are retained unchanged. This record is historical delivery evidence. B1 and M1 supersede the original capability completion claim pending separately recorded remediation.",
+    "native_timing": "The 129.8-second full native audit reused solver results; the review counted about 1,399 new cache entries against 82,979 recorded prover attempts. This is not fresh-proof timing.",
+    "cache_provenance": "Named transfer manifests do not reconstruct every earlier object. Review traced 206 of 466 final objects to earlier-milestone workspaces through the ed975942 root cache, with content-consistent traces; none was a module changed by PR #76."
   }
 }

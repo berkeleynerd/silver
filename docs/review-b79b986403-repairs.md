@@ -68,6 +68,25 @@ weakened. Q1 is resolved by Option A. Q2 CVC5 failure diagnosis remains deferred
 required obligations were discharged by the configured alternate provers, and
 no unresolved current obligation or admission failure was shown.
 
+## Published commit mappings
+
+The original review and run records name local lane commits. The following
+published equivalents have identical stable Git patch IDs, checked read-only
+on 2026-10-17. A patch mapping does not assert that the two surrounding trees or
+executed workspaces were identical; captured input inventories remain authoritative.
+
+| Local lane commit | Published commit | Change |
+| --- | --- | --- |
+| `9a337d0c39` | [`134a3beead`](https://github.com/berkeleynerd/silver/commit/134a3beead) | Derive predicate body environment import from native contract |
+| `b89c36a0cc` | [`9b2a0d8127`](https://github.com/berkeleynerd/silver/commit/9b2a0d8127) | Factor exact scalar declaration values and mirror delimiter guard (Refs #69) |
+| `264c7edbd0` | [`d3a4885ed6`](https://github.com/berkeleynerd/silver/commit/d3a4885ed6) | Admit bounded mutable Integer declarations and assignments |
+| `04240f5df6` | [`537c1a245d`](https://github.com/berkeleynerd/silver/commit/537c1a245d) | Expose required scalar range delimiter for cursor proof |
+| `c0811ae49b` | [`bab3c7e9f8`](https://github.com/berkeleynerd/silver/commit/bab3c7e9f8) | Connect mutable scalar body helpers to inherited source meanings |
+| `768ce4d4ed` | [`54551e49f9`](https://github.com/berkeleynerd/silver/commit/54551e49f9) | Include scalar assignments in predicate selector proofs |
+| `cf15eb1bd4` | [`41d4bb07da`](https://github.com/berkeleynerd/silver/commit/41d4bb07da) | Review mutable assignment selector completion (Refs #70) |
+| `edd9187247` | [`aa613e0c26`](https://github.com/berkeleynerd/silver/commit/aa613e0c26) | Close mutable Integer producer capacity and retain probe evidence |
+| `1023037fcb` | [`7e1aa645ee`](https://github.com/berkeleynerd/silver/commit/7e1aa645ee) | Map square difference to delivered mutable Integer fragment |
+
 ## Validation and handoff
 
 Repair implementation, independent review and validation are pending. The

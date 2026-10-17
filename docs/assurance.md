@@ -74,6 +74,9 @@ fragment. The external premises below remain part of the assurance claim.
 The scalar grammar combines signed-32-bit Integer objects and scoped indexes
 with grouped arithmetic, comparisons and standard Integer Image. The
 [bounded mutable extension](bounded-mutable-integers.md#integrated-validation-and-review)
+has [authorized review repairs](review-b79b986403-repairs.md) pending after
+B1's frontend acceptance failure and M1's declared-range source-reading gap.
+The original checkpoint remains historical evidence. The selected model
 retains exact ordered initializer values separately from Ada-staticness,
 mutability and declared ranges. Its complete native and Lean validation,
 regressions and independent source review are recorded at the linked checkpoint.
@@ -87,8 +90,10 @@ Image contributes its derived length interval to every String expression
 position, including concatenation and assignment.
 
 Mutable body reads use the whole declared range. `Integer.Assignment.check_sound`
-derives safe RHS evaluation, target-range inclusion and preservation of every
-other scalar value. Declaration snapshots retain exact values, including
+derives safe RHS evaluation, target-range inclusion and preservation of the
+scalar range invariant. `Integer.Assignment.execute` changes exactly its target;
+`Integer.Assignment.unchanged` proves preservation of every other scalar value.
+Declaration snapshots retain exact values, including
 constants copied from mutable objects; these snapshots do not acquire
 Ada-staticness. Scalar assignments and comparisons never refine mutable ranges.
 `Predicate.Execution` threads Integer and String stores through branches,

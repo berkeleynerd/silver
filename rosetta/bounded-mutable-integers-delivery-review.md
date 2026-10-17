@@ -6,7 +6,11 @@ retained page revision 412795, under the
 [#70](https://github.com/berkeleynerd/silver/issues/70). Original assessment
 attribution and the retained task revision are preserved. This is a targeted
 source review; it does not claim a completed integrated assurance checkpoint
-or reassess the remaining corpus.
+or reassess the remaining corpus. Dated completion pointer, 2026-10-17:
+PR #76 subsequently delivered the [integrated checkpoint](../docs/bounded-mutable-integers.md#integrated-validation-and-review).
+The later [B1/M1 repair](../docs/review-b79b986403-repairs.md) reopens capability
+completion; the motivating sample does not use an empty assignment interval
+and its narrow Rosetta mapping remains applicable.
 
 The task asks for the least positive `N` whose consecutive-square difference
 exceeds 1000. The selected program declares
@@ -39,5 +43,5 @@ and their other task assessments retain their meanings. The new narrow
 identifier does not admit declared scalar subtypes, conversions, general
 discrete loops, other scalar images, scalar guard refinement or assignment
 refinement. Adding it to `supported` and updating the assessment prompt are
-delivery edits; final capability completion still requires the integrated
-evidence recorded by the delivery package.
+delivery edits. The original integrated evidence is linked above; restored
+capability completion awaits the subsequently authorized repair checkpoint.

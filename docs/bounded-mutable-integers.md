@@ -1,13 +1,20 @@
 # Bounded mutable integers
 
-**Complete on Linux x86_64, 2026-10-17.**
+**Original delivery reviewed; remediation pending on Linux x86_64, 2026-10-17.**
+The later [review-b79b986403](reviews/review-b79b986403.md) supersedes the
+completion claim for PR #76: B1 violates frontend acceptance and M1 leaves a
+declared-range source-reading gap. The owner authorized the
+[repair scope](review-b79b986403-repairs.md) before the next construct.
+Original delivery validation below remains historical evidence, not validation
+of the repair. The selected language rule below includes the authorized B1
+restriction; implementation and complete repair validation are pending.
 The owner authorized implementation through delivery after completion of
 [scope work #67](https://github.com/berkeleynerd/silver/issues/67).
 [Session memory](session-memory.md#2026-10-17--bounded-mutable-integers-implementation-authorized)
 records authorization for [milestone 4](https://github.com/berkeleynerd/silver/milestone/4)
 packages #68–#70, under the narrow [stage #11](https://github.com/berkeleynerd/silver/issues/11)
 increment below. The [delivery evidence](evidence/bounded-mutable-integers/delivery-validation.json)
-records the completed assurance, validation and review, with actual input identities.
+records the original assurance, validation and review, with actual input identities.
 The completed For loops and integers harness goal remains complete.
 
 The selected capability lets a program retain and update an Integer result
@@ -97,8 +104,9 @@ metadata for exact values, staticness, declared ranges and mutability.
 At every executable-body read, a mutable scalar contributes its **entire
 declared range**. Immutable scalar snapshots retain their exact values;
 loop indexes retain their checked iteration intervals. An assignment is admitted
-only when every intermediate RHS operation fits Integer and the complete RHS
-interval is included in the target's declared range. Evaluate the RHS using
+only when the inferred RHS interval is non-empty, every intermediate RHS
+operation fits Integer and the complete RHS interval is included in the target's
+declared range. Evaluate the RHS using
 the pre-assignment store, then update exactly the target. Self-reading assignments
 are allowed when that same rule succeeds. Constants and loop indexes cannot be
 assignment targets, and String/scalar assignments remain type-distinct.
@@ -112,9 +120,13 @@ permits more programs. General accumulation needs a separately justified
 value-flow or guard-refinement rule.
 
 Even in an empty loop, target type/mutability, visibility and static expression
-legality must be checked. Index-dependent empty intervals retain the existing
-vacuous safety treatment; they do not admit assignment to an immutable index
-or a hidden outer object.
+legality must be checked. Integer assignments additionally require a non-empty
+RHS interval. The pinned frontend checks predictable out-of-range assignments
+inside dead loop bodies under `SPARK_Mode (On)`. This explicit Silver restriction
+rejects all empty RHS intervals, including some dead assignments GNAT accepts;
+it does not depend on frontend range heuristics. Empty intervals retain the
+existing vacuous treatment in other admitted expression positions. No empty-loop
+rule permits assignment to an immutable index or a hidden outer object.
 
 Existing visibility rules extend across mutable objects and constants. Names
 must be distinct in the outer declaration region, and forward/self-initializer
@@ -177,8 +189,23 @@ distinguishes focused development checks from the complete delivery checkpoint:
 | [Integer declarations](../proof/Silver/IntegerDeclarations.lean), [composition declarations](../proof/Silver/ComposeScalarDeclarations.lean) and [frozen semantics](../proof/Silver/ComposeFrozenSemantics.lean) | Specify initialization, snapshots, range inclusion, mutability and name resolution; prove the declaration-to-body abstraction preserves concrete values. Replace the all-static premise with an elaboration-store relation. Preserve stable scalar identities when separating static constants from mutable or nonstatic bindings. |
 | [Predicate execution](../proof/Silver/PredicateExecution.lean) and its checking/composition modules | Return and thread mutable scalar state through checked and ordinary execution; prove assignment safety, range preservation, finite-loop composition and agreement. The evaluator now carries the mutable scalar store through each checked composition. |
 | Native equations, source certificates and whole-source bridges | Match every changed SPARK body to its semantic equations, extend declaration/statement decoding and correspondence, and review regenerated pins with those changes. |
-| [Image producer and consumer boundary](trusted-boundary.md#image-proof-adapter-boundary) | Re-establish applicability for mutable reads, declaration snapshots and constrained objects; verify the unchanged Image meaning, selected schemas and size-12 Main translation, or repair the owned connection if required. |
+| [Image producer and consumer boundary](trusted-boundary.md#image-proof-adapter-boundary) | The source-route review preserves the Integer prefix and size-12 translation; the unchanged fixed-template semantic/consumer argument applies under the existing producer contract. Native model observations corroborate mutable reads, snapshots and constrained objects; they do not prove universal schema applicability. |
 | [Report capacity](report-capacity.md#for-loops-and-integers-extension) and report policy | Derive all new declaration/assignment/range-check and advisory charges from source/producer routes; cover every selected report and required obligation. The [mutable producer review](bounded-mutable-report-capacity.md) derives the combined envelope from the pinned routes, including scalar declarations, constraints, assignments and Image translation. |
+
+The original Image applicability closure has three distinct evidence classes:
+(1) the [changed producer-source routes](bounded-mutable-report-capacity.md#changed-routes)
+show that mutation and anonymous object constraints leave the selected Integer
+Image prefix, size-12 translation and fixed library theories unchanged;
+(2) the [fixed-template semantic and consumer review](for-loops-image-producer-review.md)
+and Lean endpoints establish the meaning of those selected schemas under the
+existing external producer/consumer premises; and (3) retained native models,
+probes and the 22 manifest samples corroborate those premises for their actual
+inputs. Generated anonymous-subtype theories are additional Main context, not
+substitutes for the fixed selected theories. Complete applicability to every
+admitted Main Image occurrence retains the explicit per-program pinned-producer
+contract in the [trusted boundary](trusted-boundary.md#image-proof-adapter-boundary).
+Fail-closed matching protects soundness if a schema differs; it does not by
+itself prove automatic success. Samples do not discharge that universal premise.
 
 The model must establish automatic-discharge schemas as well as safety and
 execution meaning. Native application evidence must use the actual submitted
@@ -188,7 +215,13 @@ scope argument nor passing samples proves solver completeness for the extension.
 
 Retain the 4096-byte source/value bounds, 64 leaves per expression and repaired
 shared 63-operator budget. Arithmetic in range constraints also spends that
-budget. Recheck source-derived binding and statement bounds. The earlier
+budget. The 341 scalar slots reuse the conservative `floor(4096/12)` capacity. Each
+scalar declaration occupies at least 13 bytes (`A:Integer:=0;`), and each active
+loop index has its own disjoint prefix of at least 18 bytes (`for I in 0..0 loop`).
+Charging either kind at 12 bytes therefore covers their combined simultaneous
+count, even before accounting for the procedure shell and loop endings. The
+341 slots are derived storage capacity, not an additional language restriction.
+The earlier
 15,028,224-byte derivation covered constant-only declarations. The new combined
 envelope is **15,292,416 bytes**, leaving **1,484,800 bytes** in the existing
 16 MiB allocation. It charges shorter mutable declarations, assignment-root
@@ -237,9 +270,10 @@ and assurance, with complete validation required before support.
 | 3 | [#69 Universal and actual-source assurance](https://github.com/berkeleynerd/silver/issues/69) | Establish mutable-store semantics, range preservation, complete safety/discharge composition, actual-source correspondence, Image applicability and the extended report envelope; validate every affected endpoint. Coordinate with #68. |
 | 4 | [#70 Validation, review and delivery](https://github.com/berkeleynerd/silver/issues/70) | Complete stable Linux validation and independent review of the integrated inputs, resolve findings, and synchronize language, catalogue, samples, capability, roadmap and Rosetta records before claiming support. |
 
-All four packages are complete. PR #73 recorded the authorization for #68–#70
-through implementation, assurance and delivery. The board and issue handoffs
-track publication and closure. Native macOS validation remains independent and
+All four original packages were closed with PR #76. PR #73 recorded the
+authorization for #68–#70 through implementation, assurance and delivery.
+The later review reopened milestone 4 for [#77–#84](review-b79b986403-repairs.md);
+the board and issue handoffs track those repairs and restored completion. Native macOS validation remains independent and
 nonblocking; hosted CI remains disabled.
 
 ## Exclusions and stage mapping
@@ -291,7 +325,9 @@ required connection completed by the reviewed helper and source-check changes
 recorded below.
 
 Retained native admission probes cover staticness, snapshots, range containment,
-empty-loop legality, Image width, guard non-refinement and name visibility.
+empty-loop admission, Image width, guard non-refinement and name visibility.
+Those empty-loop probes tested Silver admission, not pinned frontend acceptance;
+B1's later compile failures are recorded in the subsequent review.
 Run `20261017T005405-55885e79d1d5` passed seven admission methods. Run
 `20261017T005429-cfeb5626a484` compiled and executed the snapshot/Image and
 loop-bound cases, producing ` 7 7 8 99\n` and ` 501\n 3 1 7\n`.
@@ -310,7 +346,7 @@ a targeted success is not a replacement for the required complete audited run.
 
 ## Integrated validation and review
 
-The final validation checkpoint is complete. The
+The original PR #76 validation checkpoint completed on 2026-10-17. The
 [machine-readable record](evidence/bounded-mutable-integers/delivery-validation.json)
 binds the actual native, Lean and test inputs to `bbd5989b2b`, distinguishing
 its generated snapshots from authoritative proof inputs and retaining failures.
@@ -340,8 +376,10 @@ report policy for Integer samples. The exact native catalogue export passed
 run `20261017T013750-268a83390c8e`, following native build
 `20261017T013651-ba9e762f6662`. Review found no runtime or universal-model defect;
 its final source-linkage and aggregate-repair review is complete through
-`d83927cef3`, followed by the selector review at `768ce4d4ed`. The final
-validation above closes the delivery boundary without repeating the review.
+`d83927cef3`, followed by selector repair `54551e49f9` and review `41d4bb07da`
+(local lane `768ce4d4ed` and `cf15eb1bd4`). That review did not identify the
+later B1/M1 findings. The validation above records the original delivery
+boundary; the [subsequent repair](review-b79b986403-repairs.md) is separate.
 
 The new scalar source requirements first exposed an extractor mismatch:
 `Scalar_Target` returns qualified `Scalar_Expressions.Binding_Count`, whereas
@@ -378,6 +416,9 @@ expression check were updated together, and independent review accepted the
 repair. No diagnostic policy was weakened. Final native run
 `20261017T020716-cfa3562b8261` passed the complete strict audit: 75 units,
 1,000 entities, 1,295 flow checks and 13,854 proof checks (15,149 combined).
+It reused the native solver cache. The later review counted approximately
+1,399 new cache entries against 82,979 recorded prover attempts; the managed
+129.8-second duration is a complete cached audit time, not a fresh-proof time.
 Its actual native inputs match the implementation; the original lane HEAD
 alone does not reproduce the two synchronized files. The updated scalar-body
 source certificate is included in the final complete Lean run.
@@ -425,8 +466,14 @@ and five generated snapshots, covered by the focused source-policy recheck
 and final complete Lean audit. The validation lane retained its earlier cache,
 imported the checked predicate-candidate closure from root and the completed
 output-body certificate from the native lane. The delivery evidence records
-that entire transfer chain, source/native/tool checks and actual artifact
-identities. Copied caches did not substitute for the fresh complete audit.
+the named transfers, source/native/tool checks and actual artifact identities.
+It does not reconstruct every earlier cache object's provenance: the later
+review traced 206 of the final 466 objects through the `ed975942` root cache to
+earlier-milestone workspaces. No module changed by PR #76 came from that group,
+and the review found the retained objects content-consistent with their traces.
+Copied caches did not substitute for the fresh complete audit. Local lane
+commits have [published patch-equivalent mappings](review-b79b986403-repairs.md#published-commit-mappings);
+those mappings identify changes, not complete executed snapshots.
 
 After validation, the checked artifacts were copied back into the idle root
 proof workspace for continued cached development.
