@@ -1,0 +1,278 @@
+{
+  "revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "retained_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "source_files_verified": 9,
+  "sources": [
+    {
+      "path": "src/why/gnat2why-decls.adb",
+      "bytes": 30114,
+      "sha256": "0d98e1d1a86afe4a94a45752c9a11ecffd3f5d8218c9a28c3cd8449b65acdb43",
+      "reviewed_lf_ranges": [
+        [
+          66,
+          113
+        ],
+        [
+          207,
+          283
+        ],
+        [
+          451,
+          812
+        ]
+      ]
+    },
+    {
+      "path": "src/why/gnat2why-driver.adb",
+      "bytes": 60922,
+      "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304",
+      "reviewed_lf_ranges": [
+        [
+          1381,
+          1442
+        ],
+        [
+          1462,
+          1590
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-gen-binders.adb",
+      "bytes": 56392,
+      "sha256": "187a67de331b0fb1fdc91c8a345b750541cd73d52bcf0b02645803b3b94af06a",
+      "reviewed_lf_ranges": [
+        [
+          192,
+          208
+        ],
+        [
+          745,
+          1121
+        ],
+        [
+          1151,
+          1182
+        ],
+        [
+          1262,
+          1276
+        ],
+        [
+          1346,
+          1368
+        ],
+        [
+          1392,
+          1415
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-gen-names.adb",
+      "bytes": 47274,
+      "sha256": "e003c128b2e3f0e4f20d606798e0e5cd5b099b94ce27847dc5b9e9c4805a7a39",
+      "reviewed_lf_ranges": [
+        [
+          95,
+          128
+        ],
+        [
+          714,
+          833
+        ],
+        [
+          1136,
+          1169
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-gen-decl.adb",
+      "bytes": 11532,
+      "sha256": "37d40ccf81548b76330a6ccdb8a6affc297016d28d9ace2a890c62d8981ac3f4",
+      "reviewed_lf_ranges": [
+        [
+          74,
+          88
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-inter.adb",
+      "bytes": 56576,
+      "sha256": "68844f25581617906e556817a63bfdb8f1ae425f91fb532f844f64eda221fc84",
+      "reviewed_lf_ranges": [
+        [
+          550,
+          752
+        ],
+        [
+          836,
+          890
+        ],
+        [
+          1129,
+          1224
+        ],
+        [
+          1268,
+          1284
+        ],
+        [
+          1397,
+          1513
+        ],
+        [
+          1547,
+          1632
+        ]
+      ]
+    },
+    {
+      "path": "src/why/why-atree-modules.adb",
+      "bytes": 168813,
+      "sha256": "73ccd31d5e1ac2935f02492beef285411cbd0d3627aaf81e65f4e37a4f4f17b3",
+      "reviewed_lf_ranges": [
+        [
+          529,
+          550
+        ],
+        [
+          721,
+          727
+        ]
+      ]
+    },
+    {
+      "path": "src/why/xgen/xtree_tables.adb",
+      "bytes": 17605,
+      "sha256": "5cfb08ec5889062b91b0aee72ad2e2b4ea041093979b4612bc141a65d803051a",
+      "reviewed_lf_ranges": [
+        [
+          110,
+          143
+        ],
+        [
+          535,
+          548
+        ]
+      ]
+    },
+    {
+      "path": "src/why/xgen/xtree_sinfo.adb",
+      "bytes": 22859,
+      "sha256": "76c87d6da16443965af3754d7daae987d846aae51fb05d5b83bca4f3cf5ffb9b",
+      "reviewed_lf_ranges": [
+        [
+          77,
+          96
+        ],
+        [
+          187,
+          194
+        ],
+        [
+          301,
+          324
+        ],
+        [
+          579,
+          611
+        ],
+        [
+          638,
+          659
+        ],
+        [
+          721,
+          735
+        ]
+      ]
+    }
+  ],
+  "arithmetic": {
+    "regular_setup": [
+      5,
+      0,
+      0,
+      0
+    ],
+    "split_string_setup": [
+      11,
+      0,
+      0,
+      0
+    ],
+    "direct_modules_per_setup_at_most": 1,
+    "constant_definition": [
+      4,
+      3,
+      1,
+      10
+    ],
+    "regular_mutable_definition_with_extra_setup": [
+      9,
+      2,
+      1,
+      10
+    ],
+    "split_mutable_definition_with_extra_setup": [
+      21,
+      4,
+      3,
+      28
+    ],
+    "constant_value_axiom_overhead": [
+      7,
+      6,
+      5,
+      23
+    ],
+    "empty_axiom": [
+      1,
+      2,
+      0,
+      1
+    ],
+    "ordinary_constant_theory_pair": [
+      11,
+      9,
+      6,
+      33
+    ],
+    "regular_mutable_theory_pair": [
+      10,
+      4,
+      1,
+      11
+    ],
+    "split_mutable_theory_pair": [
+      22,
+      6,
+      3,
+      29
+    ],
+    "loop_exception_theory": [
+      5,
+      2,
+      2,
+      5
+    ],
+    "loop_theory_pair": [
+      6,
+      4,
+      2,
+      6
+    ],
+    "closes_per_object_or_loop_visit": 2,
+    "scope": "local schema arithmetic; source review establishes constructors"
+  },
+  "not_established": [
+    "installed producer source identity",
+    "caller multiplicities",
+    "whole-process capacity",
+    "auxiliary-container bounds"
+  ],
+  "validation": "source/archive identity and local mathematical checks only"
+}
