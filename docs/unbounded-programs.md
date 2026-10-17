@@ -1,72 +1,81 @@
 # Unbounded programs
 
-**Scope proposal, 2026-10-17; not an admitted capability.** At the owner's
-request, this record turns a research-backed proposal into
-[milestone 5](https://github.com/berkeleynerd/silver/milestone/5) and its
-work packages. The owner's direct request authorizes only
-[scope work #87](https://github.com/berkeleynerd/silver/issues/87): this
-document, its evidence record, the roadmap order, the milestone and the issues.
-Implementation packages #88–#94 remain Backlog until the owner says "proceed"
-and a dated [session-memory](session-memory.md#2026-10-17--unbounded-programs-scoping-requested)
-entry on `main` records it. That "proceed" also confirms the reading of the
-[full stops](#full-stops) below. [language.md](../language.md) and the
-[catalogue](../catalogue/silver.json) continue to describe current support.
+**Scope proposal, corrected 2026-10-17; not an admitted capability.** The owner's
+request created [milestone 5](https://github.com/berkeleynerd/silver/milestone/5)
+and scope work [#87](https://github.com/berkeleynerd/silver/issues/87). The
+[planning-correction authorization](session-memory.md#2026-10-17--unbounded-programs-planning-corrections-authorized)
+authorizes this correction and publication, not implementation or execution of
+the research proposed below. Packages #88–#94 remain Backlog until a separate
+implementation "proceed" is recorded in a dated session-memory entry on `main`.
+The [independent review](reviews/review-ec82b4e5f2.md) and
+[repair record](review-ec82b4e5f2-repairs.md) explain the corrections.
+[language.md](../language.md) and the [catalogue](../catalogue/silver.json)
+continue to describe current support.
 
 ## Goal and owner direction
 
-The owner wants Silver without "unadjustable or unnecessary arbitrary limits".
-The owner asked for "the most expansive, expensive, and best option research can
-prove is tractable in every case", without option menus, and for any full stop
-to be reported. Compilation should "fail through resource exhaustion, which is
-acceptable in this profile, rather than a safe lower limit with a thousand knobs
-unless that is truly the only way". A fixed limit remains only where it is truly
-the only way: a hard limit of a pinned tool that would otherwise make an admitted
-program fail, or inherited Ada/SPARK meaning.
+The owner wants Silver without "unadjustable or unnecessary arbitrary limits"
+and "the most expansive, expensive, and best option research can prove is
+tractable in every case", without option menus, with any full stop reported.
+Compilation should "fail through resource exhaustion, which is acceptable in
+this profile, rather than a safe lower limit with a thousand knobs unless that
+is truly the only way". Retain inherited Ada/SPARK meaning and necessary
+pinned-tool rules; justify a conservative envelope instead of calling every
+sufficient bound a tool maximum.
 
 The owner also directed that, once the compiler's assurance is established,
 running GNATprove on each program "should be nothing more than a safety check
-with any failure a bug report". Compilation becomes verified admission plus
-build; the universal assurance argument carries the guarantee.
+with any failure a bug report". The proposed architecture makes compilation
+verified admission plus build, with non-gating proof confirmation. It changes
+the evidence collected before publication, not the universal guarantee or the
+obligation to verify all Silver-owned implementation code.
 
-The [Oracle](../oracle.md) supports this model without amendment. "If it
-compiles, it proves" is a universal property whose guarantee "must be proved for
-the language and its composition rules"; Lean is approved for the "completeness
-of automatic obligation discharge"; a rejection or proof failure of a valid
-program is an implementation defect; and implementation resource limits must be
-explicit with their purpose documented. [language.md](../language.md) already
-treats sufficient host resources as an operational premise.
+The [Oracle](../oracle.md) requires "If it compiles, it proves", automatic
+discharge of every required obligation, explicit decidable membership,
+same-source correspondence and assurance for every admitted composition. It
+approves Lean for completeness of automatic discharge; safety alone is not
+proof success. No Oracle amendment is needed merely to separate confirmation
+from build, provided those requirements and the explicit external premises are
+retained. An inhabited tool-contract model does not verify the physical tools.
 
-Research cannot prove that the pinned provers complete every admitted program's
-obligations "in every case". That remains an explicit
-[trusted premise](#trusted-premises), as it is today, and every confirmation tests
-it.
+The operational aim is to remove unnecessary Silver-chosen size/resource caps.
+Under faithful, functioning tools and services, remaining capacity failures
+should be resource outcomes. Tool defects, rejected admitted source, invalid
+configuration, identity drift and ordinary infrastructure failures remain
+possible non-resource failures. They are reported as defects, not hidden by an
+unconditional promise that only exhaustion can occur. Research does not prove
+universal pinned-solver completion; it remains a [trusted premise](#trusted-premises).
 
 ## Full stops
 
-- **No Oracle amendment is needed.** The kept language limits are pinned-tool
-  maxima or inherited Ada meaning, and the resource-outcome model follows the
-  Oracle's existing text.
-- **Procedural step.** Implementation starts only after the owner's "proceed" is
-  recorded in a dated session-memory entry on `main`.
-- **Research-recorded items, resolved here:**
-  - The native-capacity track would have kept the 4096-byte, 64-leaf and
-    63-operator membership limits until solver completion was shown for unbounded
-    programs. Confirmation no longer gates builds, so a non-proof becomes an
-    inconclusive or defect report, never a rejected or failed compilation; the
-    solver premise is stated explicitly.
-  - The tool-limits track described the frontend rules as an amendment. They are
-    explicit pre-1.0 language rules, documented as tool-derived, not an Oracle
-    change.
-  - The proof-scaling track asked whether to give up reproducible step limits.
-    Confirmation runs uncapped with racing provers; since it no longer gates
-    builds, the variation affects only which prover proves a check.
-- **Conditional full stop.** If confirmation ever finds a definite non-proof with
-  resources remaining that cannot be fixed, work stops and the owner decides on the
-  narrowest assurance-motivated rule. Nothing is pre-decided.
-- **Forced, not chosen.** The total-source rule is derived from GNAT's fixed
-  internal tables and source-position space (see
-  [pinned-tool limits](#pinned-tool-and-inherited-language-limits)). It may be well
-  below 2^31 bytes.
+- **Authorization.** Record the owner's implementation "proceed" on `main`
+  before claiming implementation work, following [planning](planning.md).
+  The planning-only authorization does not satisfy this condition.
+- **Assurance.** A definite non-proof with resources remaining is a defect.
+  If it cannot be fixed, stop and report it for the owner's decision; do not
+  silently weaken assurance or introduce an assurance-motivated membership rule.
+  Removing the per-program gate does not resolve solver completeness.
+- **Frontend/source capacity.** #91 must derive a sound explicit capacity rule
+  and justify it against the owner's expansiveness requirement. A uniform
+  worst-case source bound is a candidate, not an established uniquely necessary
+  maximum. Compare a plausible source-sensitive alternative, or document why
+  the envelope is the best tractable choice. If no justified rule can be
+  established, report that stop before #92 removes the existing source cap.
+- **Large static data.** #93 must investigate frontend, object-format and linker
+  acceptance of static String data approaching the proposed value domain before
+  fixing that domain. An unfixable non-resource failure requires a reported stop
+  and owner disposition, not automatic adoption of a lower value cap. Begin with
+  source analysis and cheap discriminating probes; a multi-gigabyte experiment
+  is conditional on its concrete hypothesis and host resources.
+- **Unresolved tool behavior.** Verify confirmation configuration and named
+  producer boundaries before depending on them. An ambiguous failure is a
+  defect report pending diagnosis, not evidence that a new language cap is needed.
+
+The research's proposed escalation ladder is replaced by uncapped racing
+confirmation. The tool-derived lexical rules are explicit pre-1.0 language
+changes, not Oracle amendments. Neither choice proves future tractability or
+resolves the conditional stops above. An implementation authorization accepts
+this research plan, not an unestablished derivation or a weakened guarantee.
 
 ## Design
 
@@ -74,109 +83,158 @@ it.
 
 | Step | Role | Failure meaning |
 | --- | --- | --- |
-| Admission (`silver check` and the first step of every command) | Verified, decidable membership by explicit rules | Status 2 only for nonmembership or a usage error |
-| Build (`silver compile`, `silver run`) | GNAT/GPRbuild compile of the admitted bytes with the identity-checked runtime library | Frontend rejection of admitted source or a failed build is a defect (status 3); exhausted resources give status 4 |
-| Confirmation (after `silver compile` by default, or `silver confirm WORKSPACE`) | GNATprove proves Main and the six identity-bound runtime library files as today (`-U`); the report audit applies the existing exact policy to the Main report and all four library-unit reports | Never removes or blocks the built executable; outcomes are classified below |
+| Admission | Verified, decidable membership by explicit rules | Status 2 only for nonmembership or usage; read/allocation failures are operational outcomes |
+| Build | Compile the admitted bytes with the identity-bound runtime through GNAT/GPRbuild | Defect 3 for non-resource failure; 4 for attributable resource exhaustion |
+| Confirmation | GNATprove analysis and proof of the exact build inputs, followed by the outcome policy below | Never removes the executable or changes the recorded build result; reports confirmation separately |
 
 - `silver compile` admits, builds and prints the executable path, then confirms
-  unless `--no-confirm` is given.
-- `silver run` admits, builds and executes the program without confirming.
-- `silver confirm WORKSPACE` confirms the exact `main.adb` and library snapshots
-  of a printed build workspace. It rechecks their identity with the compiler
-  before and after GNATprove, so the confirmed bytes are the built bytes, as the
-  Oracle requires.
-- Confirmation has no time limit. An interrupt ends GNATprove, and the driver
-  reports "not confirmed" without changing the build status or the executable.
+  unless `--no-confirm` is given. Its normal return reflects build success;
+  a confirmation defect or inconclusive result is reported separately.
+- `silver run` admits, builds and executes without confirmation. Its completed
+  child application's exit status is forwarded unchanged.
+- `silver confirm WORKSPACE` verifies the build-input witness before rechecking
+  admission and confirming the inputs of that completed build. #88 retains that
+  witness for Main, the selected library bytes and project configuration, checks it before and after
+  GNATprove, and checks library identity against the compiler. Comparing only
+  two reads in this later invocation does not identify the earlier build input.
+  Missing or mismatched witnesses, including a modified snapshot that is no
+  longer a member, are identity defects (3), not a fresh source rejection (2).
+  Stable, private workspaces and faithful build tools remain premises; this is
+  not executable attestation or
+  protection against an adversary rewriting the workspace and its witness.
+- Confirmation retains the source-selected `-U` project: output shells select
+  Main and six runtime files, with Main plus all four library-unit reports.
+  The null shell retains its exact Main-only project/report policy.
+- Confirmation has no time limit. An explicit interrupt terminates its children
+  and reports not confirmed. A previously established defect is not erased by
+  interruption. Normal interrupted confirmation leaves the build result intact;
+  an uncatchable death of the driver itself is a separate environmental termination.
 
-The SPARK `Publish` contract changes to state that publication follows admission,
-build and identity checks, and that a "confirmed" report follows only an audited
-report. Bootstrap continues to bind the library bytes to the compiler by embedding
-them; it does not prove them, so confirmation keeps proving them.
+`Publish` will require admission, build and identity evidence. Reporting
+Confirmed will require the complete strict successful-proof audit. Bootstrap
+binds runtime bytes by embedding them; it is not library proof. The selected
+library implementation retains its complete Bronze/Silver verification and
+confirmation includes its required reports. Keep `automatic_pipeline` and
+`admitted_assurance`; add a build-only Lean endpoint with preservation,
+realization and fixed-library evidence without substituting it for automatic
+proof-completion assurance. No new project-specific axiom is authorized.
 
-"If it compiles, it proves" then rests on the universal Lean argument and the
-explicit trusted premises, and every confirmation checks them for its program.
-Executables keep GNAT's run-time checks (`-gnata -gnato`), so a violation that the
-argument missed fails with an exception instead of misbehaving silently.
+Runtime `-gnata -gnato` checks remain. They detect the runtime conditions they
+cover; they do not detect every semantic, producer or compiler defect, replace
+proof, or guarantee that an incorrectly built program cannot misbehave.
 
 ### Outcomes and exit statuses
 
+Driver statuses apply before application execution and to standalone confirmation:
+
 | Status | Meaning |
 | --- | --- |
-| 0 | `check`/`catalogue`: admitted or exported; `compile`/`run`: admitted and built (`run` then forwards the program's own status); `confirm`: confirmed |
-| 1 | `run` only: forwarded from the program (Reject, an output failure, or the program's own `Storage_Error`) |
-| 2 | Rejected: the source is not Silver, or the command line is invalid |
-| 3 | Defect: a toolchain, implementation or infrastructure failure, including frontend rejection of admitted source, or a defect outcome from `silver confirm` |
-| 4 | Resource exhaustion of the compiler or its tools (memory, time, disk, stack, process or operating-system limits), or an inconclusive outcome from `silver confirm`; the source remains admitted Silver and nothing is reported as success |
+| 0 | `check`: admitted; `catalogue`: exported; `compile`: admitted and built; `confirm`: Confirmed |
+| 2 | Nonmembership under an explicit rule, or usage error |
+| 3 | Defect: non-resource tool/implementation/infrastructure failure, or insufficient evidence to attribute an unsuccessful tool phase |
+| 4 | Attributable compiler/tool resource exhaustion; for `confirm`, also explicit interruption or a detected, named confirmation-only tool boundary |
 
-Today an unhandled `Storage_Error` in the compiler exits 1, which `silver run`
-also uses for the program's own Reject. Status 4 removes that ambiguity for the
-compiler.
+Once `run` starts the application, its normal exit code belongs to the application,
+including 0, 1 or any value colliding with driver statuses. Exit 1 can mean Reject,
+output failure or unhandled `Storage_Error`; do not infer its cause or translate
+it to 4. A directly observed application signal termination is reported separately
+and translated by a documented platform-specific CLI convention, not guessed from
+an ordinary exit code such as 137. #93 raises the application's stack allowance
+as for tools and documents that direct executable invocation inherits caller limits.
 
-Today's process boundary cannot observe these causes: tools run through `system()`,
-GNAT `Spawn` reports a failed `execve` (including `E2BIG`) as 1 and a signal death
-as −1, and Silver's own I/O does not read `errno`. #88 therefore adds explicit
-observation:
+#88 specifies observations and their limits across admission, GNAT, gnat2why,
+gnatwhy3, Why3/provers, the Image adapter, report I/O, GPRbuild/linker and Alire:
 
-- Decode `system()` wait statuses, documenting how `/bin/sh` and `alr exec`
-  propagate a child's signal.
-- Read `errno` after Silver's own failed I/O to separate `ENOSPC`, `EFBIG`,
-  `ENOMEM` and `EMFILE`.
-- Replace or supplement `Spawn` for `silver run`, so a spawn `E2BIG` (beyond the
-  OS argument limit) is status 4.
-- Add a top-level `Storage_Error` handler to `silver.adb` and
-  `silver_image_adapter.adb`.
-- Run the driver under a supervising parent that maps its own `SIGKILL`,
-  `SIGXCPU` and `SIGXFSZ` deaths to 4, or document those deaths as uncaught
-  environmental terminations.
-- Classify an ambiguous tool failure, such as a GNAT bug box reporting
-  `Storage_Error`, as 3 unless a rule marks it as resource exhaustion.
-- List every new libc import in [trusted-boundary.md](trusted-boundary.md).
+- Use growable argument vectors/process observations, preserving quoting and
+  command identity. Decode directly observed wait statuses and failed exec
+  errors; an outer shell/Alire exit cannot recover a grandchild's signal.
+- Read `errno` at the failing owned I/O/process boundary for causes such as
+  `ENOSPC`, `EFBIG`, `ENOMEM`, `EMFILE` and `E2BIG`; preserve operation/phase context.
+  Add compiler/Image-adapter `Storage_Error` handlers. Other exceptions are not
+  automatically resources.
+- Attribute a tool outcome using its explicit resource answer or a phase/process
+  observation that identifies the cause. A signal number alone, `High failure
+  (signaled)`, a host-wide OOM counter, or generic exit 1/137 does not establish
+  resource exhaustion. `SIGKILL` can have other causes. Ambiguous failures use 3.
+  An unexpectedly binding Silver-configured cap is a configuration defect,
+  even if the tool describes its result as a step/time/memory limit.
+- Cover producer/translator failures before report generation and report-writer
+  or reader failure, not just prover attempts. Identify a named producer limit
+  only through a validated detection rule; an unexplained crash remains a defect.
+- Either supervise the driver to preserve directly observed termination evidence,
+  or document its uncatchable environmental deaths. A supervisor cannot recover
+  every cause from a signal; uncaught termination need not return driver status 4.
+- List new libc/process imports and assumptions in `docs/trusted-boundary.md`.
 
-| Confirmation outcome | Condition | Result |
+For confirmation, use this decision order:
+
+1. Preserve the source/build witness and available phase/process evidence. Read
+   complete usable reports even when GNATprove exits normally with nonzero status
+   because checks were unproved. That exit alone is not a defect or an instruction
+   to skip report analysis. Unexplained nonzero exits remain defects.
+2. Check unsuccessful evidence separately for structure, identity, provenance,
+   coverage and permitted diagnostics. An expected unproved safety record is not
+   itself a structural defect. Missing/truncated evidence caused by an observed
+   interruption, attributable resource stop or detected named boundary is incomplete,
+   not automatically malformed; unrelated malformed or inconsistent evidence is a
+   defect. Record what coverage could and could not be checked.
+3. For each check, any Valid attempt proves that check; a losing Unknown, crash or
+   resource failure does not override it. With no Valid attempt, an Unknown,
+   Invalid or unattributed crash is a defect. Resource-only failed attempts may
+   support Inconclusive. A missing attempt requires an explained phase interruption
+   or failure; otherwise it is a defect.
+4. If every required check is proved, all phases completed consistently and all
+   required reports are available, apply the **unchanged exact successful-proof
+   policy** to the selected reports. Only its acceptance permits Confirmed.
+   Rejecting an expected unproved record under this success policy is not a second
+   audit that converts step 3's resource classification into a defect.
+5. Aggregate the result: any established defect takes precedence, including one
+   found before interruption. Otherwise incomplete confirmation is Inconclusive
+   only with attributable resource exhaustion, explicit interruption or a detected
+   named confirmation-only boundary. Unexplained incompleteness is a defect.
+
+| Confirmation outcome | Standalone status | Required report |
 | --- | --- | --- |
-| Confirmed | Some prover proved every check and the report audit accepted all five reports | Recorded with the per-check prover results |
-| Inconclusive | Every unproved check ended only through attributable resource exhaustion (an `OutOfMemory`, `Timeout` or `StepLimitExceeded` answer, or a prover the driver observed killed by `SIGKILL` or `SIGXCPU`); a recorded [confirmation-only tool limit](#confirmation-only-tool-limits) was reached; or the run was interrupted | Status 4 from `silver confirm`; environmental |
-| Defect | Some check had no proving attempt and at least one attempt ended in `Unknown`, `Invalid` or a crash not attributable to resources; or the report audit rejected a report | Status 3 from `silver confirm`; a bug-report bundle with the source, reports, tool identities and commands |
+| Confirmed | 0 | All required checks proved and strict selected-report audit accepted |
+| Inconclusive | 4 | Exact resource/interruption/boundary evidence and missing coverage; never called proof success |
+| Defect | 3 | The inconsistent, non-proving or unexplained result and evidence available |
 
-A defect takes precedence over an inconclusive result.
+For **every** not-confirmed result, attempt to retain a diagnostic bundle with
+inputs, reports, tool identities, commands/arguments, process observations and
+classification. Bundle creation, workspace sizes and path reporting are best
+effort: disk/memory exhaustion must not turn failure to write diagnostics into
+success or hide the original outcome. Preserve existing workspaces and evidence.
 
 ### Confirmation prover configuration
 
-Confirmation keeps `-U --mode=all --report=all --checks-as-errors=on
---no-loop-unrolling` and the mode's `--warnings` setting, drops `--level`, and
-removes every per-check cap:
+Keep `-U --mode=all --report=all --checks-as-errors=on --no-loop-unrolling`
+and the mode's `--warnings` setting; drop `--level` and use:
 
 ```text
 --prover=cvc5,z3,altergo --timeout=0 --memlimit=0 --steps=0
 --counterexamples=off -j<max(3, available CPUs)>
 ```
 
-- `--level=2` silently keeps a 1,000 MiB address-space limit on every prover,
-  even with `--memlimit=0`. Without `--level`, `--memlimit=0` removed the limit in
-  a small probe, except for one trivial-goal attempt that still recorded
-  1,000 MiB. #88 confirms this on real programs.
-- An explicit `-j` of at least 3 lets the three provers race on each check, and
-  the others are interrupted when one proves it. So a prover that never finishes
-  cannot hold up a check that another prover proves. A check on which no prover
-  finishes holds its slots indefinitely, and confirmation then ends only through
-  interruption or host limits, as an inconclusive outcome. `-j0` would run the
-  provers in turn on a single-CPU host.
-- A finite `--steps` must never exceed 5,368,146: above that, Z3's resource
-  limit wraps modulo 2^32 and silently becomes a different, usually much smaller,
-  limit.
-- The driver re-executes itself once with `RLIMIT_STACK` raised to the hard
-  limit (or the recognizer uses explicit heap work stacks). GNATprove, GPRbuild
-  and the Image adapter inherit that limit; gnat2why otherwise inherits an 8 MiB
-  stack and fails on deep nesting.
-- Classification reads each report's `unproved_status` together with its
-  per-prover `check_tree` results, because GNATprove reports a crashed or killed
-  prover as `gave_up`, like a genuine `Unknown`.
-- On Linux the driver sets `oom_score_adj` to 1000 for confirmation children, so
-  that on a shared host the kernel's out-of-memory killer selects them first. This
-  needs no privilege and is not a limit.
-- After a not-confirmed outcome the driver prints the paths and sizes of retained
-  `program-*` and `imagews-*` workspaces, so repeated large confirmations cannot
-  fill a disk unnoticed.
+- `--level=2` supplies 1,000 MiB per launched prover even with `--memlimit=0`.
+  Without `--level`, small probes removed that limit. The retained `Trivial`
+  entry with 1,000 MiB is a synthetic Valid result in the producer, not a launched
+  limited prover. #88 checks actual process/session settings on representative
+  programs, retaining the original observation and its source-based explanation.
+- Explicit `-j` at least 3 permits racing provers, interrupting losers after
+  Valid. A check with no finishing prover can occupy its slots indefinitely.
+  Interruption/host failures then follow the outcome policy, including defects
+  already observed. `-j0` on one CPU would run the provers in turn.
+- A finite `--steps` must not exceed 5,368,146: producer normalization above it
+  exceeds Z3's 32-bit resource limit and wraps. This design uses unlimited zero.
+- Re-execute the driver once after raising `RLIMIT_STACK` to the hard limit, or
+  use explicit heap stacks for recognition. Tools and the Image adapter inherit
+  the limit. Retain actual platform limits; this does not provide infinite stack.
+- Use `unproved_status` and `check_tree` together. `gave_up` merges Unknown,
+  Invalid and crashes; the pinned report loses numeric leaf-process signal status.
+  Add direct/structured observations where required, retaining ambiguity otherwise.
+- On Linux, attempt `oom_score_adj = 1000` for confirmation children. This biases
+  OOM selection, does not reserve resources or guarantee victim order, and is not
+  evidence of a particular kill's cause. Shared-host disruption remains possible.
 
 ## Limits
 
@@ -184,222 +242,232 @@ removes every per-check cap:
 
 | Limit today | Location | Replacement | Package |
 | --- | --- | --- | --- |
-| Source length 1–4096 bytes | [language.md](../language.md#source-and-lexical-rules), both profile recognizers | The derived source rule below | #91, #92 |
-| 63 operators per program | [language.md](../language.md#common-string-expressions), `Work_Tail`/`Within_Work_Budget` | None | #92 |
-| 64 leaves per expression | `Max_Expression_Operands`, `Max_Operands`, catalogue `max_expression_operands`, `max_operands`, `max_dynamic_references` | None | #92 |
-| 341 binding slots (`Max_Source_Length / 12`) | `src/silver_output_profile.ads`, `src/silver_scalar_expressions.ads` | Sized from the input | #89 |
-| 16 MiB retained report buffer, `Natural`-indexed report storage | `Silver_Report_Storage`, `Max_Report_Length` | 64-bit-indexed or streaming report audit, bounded by host resources | #89 |
-| 16 MiB file reads and writes; an oversized source reports Rejected | `Silver_Platform.Max_File_Length`, `Read_File`/`Write_File` and their ghost arrays, the snapshot length check in `src/silver.adb` | Growable reads and writes with ghost sequences; no read or size failure maps to status 2 | #88, #89 |
-| 4,096-character name bound in the report policies | `src/silver_library_reports.adb:1213`, `:2088`, `scripts/check_evidence.py` | The identifier rule below | #89 |
-| Numeric exponent at most 4096 | [scalar numerals](../language.md#immutable-integer-expressions-and-comparisons), [length literals](../language.md#integer-literals-in-length-predicates), `Max_Exponent` | The pinned maximum 799,999 | #92 |
-| String value, output and argument lengths of 4096 bytes; length literals 0–4096 | `Silver_IO.Max_Length`, `Silver_Path_Facts.Max_Length`, catalogue `max_argument_bytes` | `Integer'Last`, which is 2,147,483,647 on the pinned target | #93 |
-| 100,000 prover steps and 1,000 MiB per prover | [src/silver.adb](../src/silver.adb) proof command | None during confirmation | #88 |
+| Source length 1–4096 bytes | Both profile recognizers and language | Justified tool-capacity rules researched below | #91, #92 |
+| 63 operators per program | `Work_Tail`/`Within_Work_Budget` | None | #92 |
+| 64 expression leaves | `Max_Expression_Operands`, `Max_Operands`; catalogue operand/reference fields | None | #92 |
+| 341 binding slots | Profile/scalar environments (`Max_Source_Length / 12`) | Sized from input | #89 |
+| 16 MiB retained reports; Natural indexing | `Silver_Report_Storage`, `Max_Report_Length` | Streaming or 64-bit-indexed storage | #89 |
+| 16 MiB source/file reads and writes | `Silver_Platform`, ghost arrays and driver snapshots | Growable storage/sequences; operational read/size failures never mean nonmembership | #88, #89 |
+| 4096-character report-policy names | `Silver_Library_Reports`, `scripts/check_evidence.py` | Explicit identifier rule | #89 |
+| Exponent at most 4096 | Scalar/length numerals, `Max_Exponent` | Pinned maximum 799,999 | #92 |
+| String/output/argument lengths and length literals at most 4096 | `Silver_IO`, `Silver_Path_Facts`, catalogue | Integer'Last, subject to #93's feasibility stop | #93 |
+| 100,000 steps and 1,000 MiB per prover | Driver proof command | No confirmation caps | #88 |
+| 16,384-byte command text and fixed path buffers | Driver/platform contracts and bootstrap | Growable argv/path storage and sequence observations; actual OS failures classified by cause | #88, #89 |
 
-Today the value 4096 serves the source, String value, argument, output and
-length-literal roles through several constants that are not tied to one another:
-`Max_Source_Length` in both profiles, `Silver_IO.Max_Length` and
-`Silver_Path_Facts.Max_Length`. The String value domain is also enforced partly
-through `Max_Source_Length` itself. Separating those roles is the first step of
-#89 and #90.
+#88 owns process invocation, argv and outcome observation. #89 owns path/file
+storage, bootstrap installation validation and corresponding ghost/source models;
+the packages coordinate their interface. The command cap is Silver-chosen, not
+an OS maximum. Do not replace it with another arbitrary universal buffer. Real
+OS argument/path limits remain platform-dependent operational conditions.
+
+The source, value, argument, output and length-literal roles currently share
+4096 through separate constants, including both `Max_Source_Length` values,
+`Silver_IO.Max_Length` and `Silver_Path_Facts.Max_Length`. #89 separates native
+roles; #90 supplies corresponding Lean constants and mechanical numeric ties.
 
 ### Pinned-tool and inherited language limits
 
-These remain as explicit, decidable rules, documented as the pinned GNAT 16.1
-frontend's maxima or as inherited Ada meaning rather than as Ada requirements:
-
-| Rule | Value | Evidence |
+| Rule | Proposed value | Evidence / status |
 | --- | --- | --- |
-| Physical line width, with each horizontal tab expanded to the next multiple of 8 columns | At most 32,765 columns | 32,765 is accepted with LF, CR, CRLF or no terminator; 32,766 gives "this line is longer than 32766 characters". A 39-byte program line padded with tabs is accepted at 4,130 bytes and rejected at 4,131. |
-| Identifier length | At most 4,096 characters | 4,097 gives "Name buffer overflow; Max_Length = 4096" and a GNAT bug box (`Program_Error` at `namet.adb:141`) in every tested role and mode |
-| Numeric literal exponent | At most 799,999 | 800,000 gives "exponent too large" in every tested base (2, 10 and 16) and mantissa; GNAT's scanner source confirms the check |
-| Total source length | The smaller of two derived bounds, given below | Forced by GNAT's fixed internal capacities |
-| `Integer` range; String length at most `Integer'Last` | Inherited | Exceeding them would change inherited Ada meaning, which only an Oracle amendment could allow; this milestone does not propose that |
+| Physical line width, tabs expanded to next multiple of 8 columns | At most 32,765 | 32,765 accepted with LF, CR, CRLF or no terminator; 32,766 gives "this line is longer than 32766 characters". The retained 39-byte program padded with tabs passes at 4,130 bytes, fails at 4,131. |
+| Identifier length | At most 4,096 characters | 4,097 gives "Name buffer overflow; Max_Length = 4096" and a GNAT bug box in tested roles/modes |
+| Numeric literal exponent | At most 799,999 | 800,000 gives "exponent too large" in tested bases 2, 10 and 16/mantissas; scanner source corroborates |
+| Source capacity | Not yet derived | #91 must establish and justify an explicit decidable rule |
+| Integer range; one-based String length | Pinned Integer range; length at most Integer'Last (2,147,483,647) | Inherited target meaning, not Ada's portable minimum; #93 still checks build feasibility |
 
-The total-source rule is the smaller of:
+#91's source-capacity research has two obligations: **soundness for every
+admitted source**, and **justification of the most expansive tractable rule**.
+It starts with pinned producer-source accounting and existing evidence:
 
-- **The source-position bound.** GNAT places every unit of one compilation in a
-  single 2^31 source-position space with 4 KiB alignment, so the maximum for
-  `main.adb` depends on the other units loaded. The bound is 2^31 − 1 minus a
-  stated upper bound on all other units and alignment, in null and output modes.
-  2,130,706,432 bytes (2^31 − 2^24) is the largest accepted size tested, leaving a
-  16 MiB margin; 2,147,483,647 bytes crashes `gnat1` with heap corruption, and 2^31
-  loops indefinitely.
-- **The internal-table bound.** This is the largest size for which no GNAT internal
-  table can be exhausted: 100,000,000 Names, Lists, Elists, Elmts, Strings and
-  Ureal entries, about 1.5e9 Uints and 2,000,000,000 nodes. It is derived from the
-  maximum number of table entries per source byte. The tables were not probed. The
-  research estimates the List cap near 50 million `elsif` arms, a source of about
-  1.5 GB that needs about 44 GB of memory, and `table.adb` does not check overflow.
-  A host-independent premise is therefore not acceptable.
+- GNAT allocates units in a shared 2^31 source-position space with 4 KiB alignment.
+  Account for every selected unit and alignment in null/output modes. The recorded
+  2,130,706,432-byte accepted probe used `gcc -gnatc` (semantic checking only),
+  not a full build; the largest recorded full `-O0` build was 100 MB. Neither
+  observation establishes a universal maximum. In semantic checks, 2,147,483,647
+  crashed and 2^31 did not terminate in the retained experiment.
+- Fixed tables include 100,000,000 Names/Lists/Elists/Elmts/Strings/Ureal entries,
+  roughly 1.5e9 Uints and 1,999,999,999 positive node identifiers. Derive
+  per-construct consumption and expansion factors; do not assume host memory
+  always runs out first. The research's approximately 50 million `elsif` arms,
+  1.5 GB source and 44 GB memory are estimates, not probed boundaries.
+- A candidate uniform rule takes the smaller of a safe source-position envelope
+  and a worst-case table-consumption envelope. Compare it with one plausible
+  source-sensitive capacity rule, including cheap sparse/dense contrasts, or
+  explain why the uniform envelope is the best tractable choice. No exhaustive
+  optimality proof is required. The result may be far below 2^31 bytes.
+- State assumptions, counted paths and remaining gaps; connect the selected rule
+  to native/Lean membership, catalogue and frontend premise. Re-derive affected
+  inputs when the runtime/toolchain changes, including #93 and native macOS.
 
-#91 derives both bounds, re-derives them whenever the runtime library or
-toolchain changes, and adopts the smaller as the rule. It may be far below 2^31.
+This is a research method and completion condition, not a completed derivation.
+Use the [full stop](#full-stops) if soundness or the expansiveness justification
+cannot be established; an unproved table-overflow premise is not a substitute.
 
 ### Confirmation-only tool limits
 
-These bound confirmation, not compilation, and are recorded with their purpose:
+These are named confirmation boundaries, not compilation membership rules:
 
-- **Image node counter.** The producer's counter is 2^31 − 1. At about 25–52 node
-  identifiers per source byte, it is reached near 40–80 MB of source, through a
-  model of more than 100 GB, so host memory normally runs out first. Exceeding it
-  is an inconclusive confirmation that names the limit. #89 widens the adapter's
-  own node identifier to the 63-bit byte-count range; that does not lift the
-  producer's counter.
-- **Report writer.** If GNATprove's report writer is limited to about 2 GiB through
-  `Natural`-indexed strings, that is another confirmation-only limit. Measured
-  reports are 19–350 bytes per source byte, so it would be reached at about
-  6–115 MB of source. #89 verifies the writer from producer source and records the
-  outcome.
-- **JSON nesting depth.** It is 64, fixed by the report schema, and does not grow
-  with programs.
+- **Image occurrence counter:** producer maximum 2^31−1. Recorded T4 points give
+  approximately 6.685–52.266 identifiers per source byte, projecting approximately
+  41–321 MB of source at that counter. These are illustrative extrapolations from
+  two shapes; original model counts were not independently re-read because the
+  archive omitted those models. Encoding width/growth may change the projection;
+  memory need not exhaust first. #89 widens the adapter's own identifier while
+  retaining a checked producer-counter boundary and its diagnostic rule.
+- **Report writer:** a possible approximately 2-GiB Natural-indexed writer limit
+  remains to be verified from producer source in #89. Measured 19–350 report bytes
+  per source byte project approximately 6–115 MB; that is not a guaranteed bound.
+- **JSON depth:** the current auditor uses 64 levels; reviewed producer report
+  nesting is fixed rather than program-AST depth. #88/#89 must recheck this for
+  unsuccessful reports and the new classifier instead of assuming every schema
+  change preserves it.
 
-Retained implementation capacities that do not grow with the program are also
-recorded with their purpose:
-
-- The runtime-library and null-program reports, bounded at 262,144 bytes, and the
-  16,384-byte runtime library files are fixed inputs, re-derived when the runtime
-  changes (#93).
-- Paths of 4096 bytes and command text of 16,384 bytes are OS-derived
-  infrastructure. Exceeding them is status 3, never a membership decision.
+Fixed-input storage also needs a derived purpose: the 262,144-byte null/runtime
+report policies and 16,384-byte runtime-file capacity are not OS maxima. #89/#93
+re-derive sufficient capacities from selected fixed inputs/producer structure,
+accounting for metadata that can grow with source positions, or remove a bound
+that cannot be justified. Preserve complete reports and exact identity checks.
 
 ### Trusted premises
 
-- **Solver completion.** For every source schema accepted by Lean's
-  endpoint-discharge checker, some pinned prover proves the generated goal given
-  sufficient resources. Under the 4096-byte bound the set of goals was finite. It
-  is now unbounded, so this is a stronger assumption, resting on the solvers
-  acting as decision procedures for range, length and overflow schemas (linear
-  integer arithmetic over intervals, plus bounded nonlinear goals for products).
-  Every confirmation tests it, and it can no longer make a build fail.
-- **Frontend acceptance.** The pinned frontend accepts every source that
-  satisfies the explicit rules, including the derived total-source rule. This is
-  supported by GNAT source review and differential tests rather than proof.
-- **Existing producer premises.** Faithful static evaluation, complete obligation
-  and report generation, accepted producer shapes and the per-program Image
-  translation premises in [trusted-boundary.md](trusted-boundary.md) remain. They
-  were previously checked for each program by the gating proof and report audit;
-  confirmation now checks them without gating, and a confirmation that contradicts
-  one is a defect.
-- **Resource outcomes.** The compiler, tools and operating system may exhaust
-  resources. That outcome is reported distinctly, and is never nonmembership,
-  success or publication of an unbuilt program.
+- **Solver completion:** every source schema accepted by Lean's endpoint checker
+  has automatic proof by some pinned prover given sufficient resources. Removing
+  policy caps broadens the premise's program family; with finite alphabet and a
+  finite tool-source rule it is still finite. Symbolic theorems may quantify over
+  arbitrary capacities. Linear interval/length and bounded nonlinear product
+  goals do not establish that the actual portfolio completes every instance.
+- **Frontend/build acceptance:** explicit rules cover the admitted sources for
+  the pinned frontend and build tools. Source review and differential tests
+  support, rather than prove, this external premise. Table/source/static-data
+  feasibility remains subject to the research and stops above.
+- **Producer and Image applicability:** faithful static evaluation, complete
+  obligation/report generation, accepted producer shapes and per-program Main
+  Image translation remain assumptions as precisely stated in
+  [trusted-boundary.md](trusted-boundary.md). Confirmation checks reports,
+  observed proof results, selected templates and identity. It does not prove
+  that no obligation was omitted or check every Main Image occurrence. Those
+  premises were not established by the old gate either; successful confirmation
+  corroborates observable consequences without verifying every assumption.
+- **Operational boundary:** faithful tools, stable inputs/workspaces and functioning
+  filesystem/process services remain necessary. Failures include tool bugs,
+  unsupported configuration, permission/I/O errors and identity drift as well as
+  resources. Distinguish each observed phase and cause; a resource outcome is
+  neither nonmembership nor successful completion of that failed phase.
 
-Prover incompleteness — a definite non-proof with resources remaining — is not
-covered by any premise. It remains an implementation or toolchain defect under the
-Oracle and, if it cannot be fixed, a [full stop](#full-stops).
+The guarantee remains unchanged, while its pre-publication evidence architecture
+changes. Keep these conditional claims explicit; detected prover incompleteness
+is a defect, not a permitted exception to automatic discharge.
 
 ## Research evidence
 
-Five read-only research tracks ran on 2026-10-17 on the Linux x86_64 host
-(22 CPUs, 31 GB RAM, no swap), using the pinned toolchain and scratch workspaces.
-The [evidence record](evidence/unbounded-programs/scoping-research.json)
-summarizes their measurements. The raw notes, scripts, generated programs and
-reports are retained locally in `tmp/unbounded-programs-research/` with a SHA-256
-manifest.
+Five tracks ran on Linux x86_64 on 2026-10-17 (22 CPUs, 31 GB RAM, no swap).
+The [curated record](evidence/unbounded-programs/scoping-research.json) and
+[immutable raw evidence](https://github.com/berkeleynerd/silver/tree/0cd253d05b2cb650cc8fca81255e9a711765e16a/tmp)
+retain their input scope and corrections. The review verified the supplied
+manifest and all 2,154 listed files; omitted large inputs/sessions remain gaps.
 
-| Finding | Class |
+| Finding | Evidence class and limit |
 | --- | --- |
-| Today's uniform length-range schema ⟨L,L⟩ is valid only when 2L ≤ 32,767, so any source or value bound of 16,384 or more makes `Current.uniform_discharge` false. The exact schema S + K·C ≤ V ≤ 2,147,483,647 covers every intermediate. | Proved in kernel-checked Lean probes |
-| About 95–96% of the affected Lean declaration groups lift to a symbolic bound unchanged, for example 4,154 of 4,347. Failed declarations were re-added unchecked, so their dependants are checked conditionally. | Proved by kernel-checking each lifted declaration |
-| None of the failing proofs is a decidability, termination, uniqueness or fuel argument | Observed: a manual classification of the failing proof terms |
-| A resource-indexed tool contract composes with `Current.ToolContract` and is inhabited | Proved in a probe |
-| The pinned-frontend limits in the table above | Observed with `gcc -gnatc`. Identifier length was also tested with `-O0` builds and GNATprove check, flow and proof modes, and total size with a 100 MB `-O0` build. GNAT source confirms the line, identifier and exponent checks. |
-| `--level=2` keeps 1,000 MiB per prover and `--steps=0` is unlimited | Observed in session files and direct Z3 runs |
-| The Z3 step threshold, prover racing and the `gave_up` mapping | Derived from producer source |
-| 17 proof runs used the production command with `-j8`; two option smokes varied `--steps` and `--memlimit`. All 16 that completed proved every check, up to 32.5 KB of mixed code (1,011 statements) and 16.3 KB of straight-line code. There was no unproved check, tool crash, hard error or check where every prover failed. Losing-prover attempts ended as "High failure" in 11 of 16 runs, at every size and also with `--memlimit=16000` (likely racing interruptions; not diagnosed). Another prover always proved those checks. | Observed on this host |
-| Proof time grows roughly quadratically with source size (fitted exponents 1.82–1.99). Peak gnatwhy3 memory grows with exponent 1.0 for mixed code, 1.43 for straight-line code and 1.98 for dense String copies (the last from two sizes only). Single-threaded gnatwhy3 dominates; the winning prover used at most 1,340 steps. Timings were taken under concurrent research load. | Observed on this host |
-| Dense 4 KB code took 23 minutes and 5.9 GiB. The 8 KB dense probe was stopped by its 14 GiB guard after 263 seconds, projected at about 23 GiB. | Observed resource stop |
-| The recognizer copies whole binding environments at every loop level: 29 KiB per level at 4096 bytes, about 113 KiB at a 16 KiB limit. Nested-loop stack therefore grows quadratically. Parenthesized conditions also take quadratic time, and `compile` re-parses the source up to six times. | Observed with the production binary and scratch rebuilds |
-| `gcc -gnatc` time grows quadratically with sequence length and nesting: 100,000 nested loops exceeded an 1,800-second timeout | Observed |
-| The documented report envelope exceeds the 16 MiB buffer above 4,502 bytes of source and reaches `Natural'Last` near 587 KB | Derived from the documented envelope |
-| Linux delivers a single argument of at most 131,071 bytes; larger fails `execve` with `E2BIG` | Observed |
+| Uniform ⟨L,L⟩ schema valid iff 2L ≤ 32,767; exact S + K·C ≤ V ≤ 2,147,483,647 bounds every dominated intermediate | Standalone kernel-checked Lean probe; does not verify future native arithmetic |
+| Lifting counts 4,154/4,347, 4,559/4,776 and 2,524/2,627 symbolic groups; 4,633/4,770 at 2,147,483,646 | Conditional kernel checks: failed declarations re-added unchecked; not proof of the enlarged language |
+| No failure demonstrated essential dependence of decidability, termination, uniqueness or fuel on 4096 | Manual classification; uniqueness helpers and compiled fuel artifacts still failed mechanically |
+| Resource-indexed contract composes with Current.ToolContract and is inhabited | Kernel-checked model; physical completion and outcome behavior remain premises |
+| Lexical limits and sampled total sizes | GCC observations and producer-source review; not complete derivations of source/table/build capacity |
+| 17 T4 runs: 16 completed, one stopped; all completed required checks proved | 14 scaling runs plus two option smokes; up to 32.5 KB mixed/16.3 KB straight-line source. No whole-run fatal tool failure; losing-prover High failure occurred in 11/16 runs and remains unexplained |
+| Fitted proof-time exponents 1.82–1.99; gnatwhy3-memory exponents about 1.0 mixed, 1.43 straight-line, 1.98 dense | Host measurements under concurrent load; dense exponent uses only two sizes. Winning-step maximum 1,021 in the 14 tabulated runs; 1,340 belongs to earlier 4-KB reports |
+| Dense 4-KB probe about 23 minutes/5.9 GiB; 8-KB probe stopped at its 14-GiB guard after 263 seconds | Measured stop; about 23 GiB projected, not observed completion |
+| Binding-environment copies about 29 KiB/loop level at 4 KiB, 113 KiB at 16 KiB; parenthesized conditions quadratic; compile reparses up to six times | Production/scratch measurements. The 64-KiB build's retained 11,764-KiB depth-20 total does not establish a 576-KiB slope |
+| GCC work superlinear in sequence/nesting; 100,000 nested loops exceeded 1,800 seconds | Host observation, not universal cost bound |
+| Documented report envelope exceeds 16 MiB above 4,502 source bytes and reaches Natural'Last near 587 KB | Derived envelope, not observed writer failure |
+| Linux single argument at most 131,071 bytes; larger exec gives E2BIG | Host observation, not a language input bound |
 
-These results are scoping research: kernel-checked probes, host-specific
-observations and source analysis. They neither validate an implementation nor
-establish universal solver behaviour.
+These are scoping measurements, source analyses and limited proofs, not an
+implementation checkpoint or universal solver validation. Raw historical unit
+and bookkeeping errors remain preserved with corrections in the evidence record.
 
 ## Work packages and order
 
-| Order | Work package | Depends on | Effect on admission |
+| Order | Work package | Depends on | Admission effect |
 | --- | --- | --- | --- |
 | 1 | [#87 Scope and design](https://github.com/berkeleynerd/silver/issues/87) | — | None |
-| 2 | [#88 Proof confirmation and resource outcomes](https://github.com/berkeleynerd/silver/issues/88) | #87 | None; compilation no longer waits for proof |
+| 2 | [#88 Proof confirmation and resource outcomes](https://github.com/berkeleynerd/silver/issues/88) | #87 | None; build no longer waits for proof |
 | 3 | [#89 Compiler storage and complexity that scale with input](https://github.com/berkeleynerd/silver/issues/89) | #88 | None |
-| 4 | [#90 Parameterized Lean assurance](https://github.com/berkeleynerd/silver/issues/90) | #88; shares source certificates with #89 | None |
-| 5 | [#91 Pinned-frontend and derived source limits](https://github.com/berkeleynerd/silver/issues/91) | Derivations after #87; rules after #89 and #90 | None while the 4096-byte bound remains |
-| 6 | [#92 Remove source, operator and expression caps](https://github.com/berkeleynerd/silver/issues/92) | #88, #91, #89, #90 | Admits larger programs |
-| 7 | [#93 String and argument lengths up to Integer'Last](https://github.com/berkeleynerd/silver/issues/93) | #89, #90; may run alongside #92 | Admits longer values; arguments over 4096 bytes become valid |
-| 8 | [#94 Validation, review and delivery](https://github.com/berkeleynerd/silver/issues/94) | All | Records support |
+| 4 | [#90 Parameterized Lean assurance](https://github.com/berkeleynerd/silver/issues/90) | #88; coordinates certificates with #89 | None |
+| 5 | [#91 Pinned-frontend and derived source limits](https://github.com/berkeleynerd/silver/issues/91) | Research after #87; rules after #89/#90 | None while 4096 remains |
+| 6 | [#92 Remove source, operator and expression caps](https://github.com/berkeleynerd/silver/issues/92) | #88–#91 | Larger programs |
+| 7 | [#93 String and argument lengths up to Integer'Last](https://github.com/berkeleynerd/silver/issues/93) | #89/#90; coordinates #91 and can overlap #92 | Longer values, subject to feasibility |
+| 8 | [#94 Validation, review and delivery](https://github.com/berkeleynerd/silver/issues/94) | All | Records delivered support |
 
-#89 introduces each separated native constant, including identifier length,
-and #90 ties each to its Lean counterpart; #91 uses them. Only one agent writes
-a host's proof workspace at a time, and #89 and #90 rebuild the same source
-certificates, so they coordinate their checkpoints. Each package leaves the
-project valid. The milestone closes only when #94 completes.
+#89 introduces separated native constants; #90 ties and parameterizes their Lean
+counterparts, replaces the uniform schema with the exact one, and retains source
+correspondence. One agent writes a host's proof workspace at a time; coordinate
+shared certificates and checkpoints. Each package leaves the project valid.
+#93 refreshes bootstrap/library identity and fixed-input envelopes after runtime
+changes. #94 reconciles catalogue fields/export, scripts/check_evidence.py,
+README, samples/fixtures, Rosetta assessment text and all assurance records.
+The milestone closes only when #94 completes; this plan starts none of them.
 
 ## Validation plan
 
-Packages use the focused checks in [development.md](../development.md#proof-loop-and-validation)
-and share one complete checkpoint in #94, which revises the checkpoint itself:
+Follow [development.md](../development.md#proof-loop-and-validation): focused
+iteration for changed inputs and one complete capability checkpoint in #94.
 
-- Boundary tests at each explicit limit and one past it: line width, identifier
-  length, exponent and the derived total-source rule.
-- Universal Lean theorems whose only size hypotheses are the explicit language
-  limits and the recorded side conditions (minimum bounds, the order between the
-  separate bounds, and V ≤ the pinned `Integer'Last`). A fresh axiom audit allows
-  only `propext`, `Classical.choice` and `Quot.sound`.
-- A geometric scaling ladder from 4 KiB to 1 MiB for each cost-dominant shape:
-  mixed code, straight-line code, dense String copies, deep nesting, long
-  expressions and nonlinear product chains. Record the size reached, time, memory,
-  maximum steps per goal, report bytes and stack. These costs are records, not
-  thresholds.
-- Differential fuzzing of admission against the pinned frontend at large sizes,
-  extending the [review's harness](reviews/review-b79b986403.md#b1--blocker-admitted-vacuous-scalar-assignments-in-empty-loops-fail-the-pinned-gnat-frontend).
-- No incompleteness outcome anywhere in the corpus or the ladder. One that cannot
-  be fixed is a [full stop](#full-stops).
-- Resource-failure tests under `ulimit -v`, `-s`, `-f` and `-t` and a full disk:
-  - When admission or build exhausts a resource, the command never returns 0 or 2
-    and publishes no executable.
-  - When only confirmation exhausts it, `compile` and `run` keep their build
-    status and executable and report the confirmation as not confirmed, and
-    `silver confirm` returns 4.
-- Exit-status tests for every observation mechanism #88 implements.
-- Native macOS re-probes of the tool-derived limits and stack (the macOS hard stack
-  limit is about 64 MiB) remain independent and nonblocking.
+- Check each chosen explicit boundary and adjacent rejection. Use unit-level
+  arithmetic/scanner tests for huge bounds and source analysis for tool tables;
+  do not require routine near-2-GiB compiles, proofs or allocation. A targeted
+  expensive probe needs a concrete unresolved hypothesis, suitable resources,
+  retained evidence and a memory guard; never repeat successful expensive work
+  merely for a new record.
+- Prove universal Lean results with only explicit language limits and documented
+  side conditions (minimums, ordered separate domains, V ≤ pinned Integer'Last),
+  tied to native source. Fresh audits allow only the three standard axioms.
+- Test the exact confirmation decision order with fixtures and small genuine
+  reports, including nonzero exits, mixed prover outcomes, completed defects
+  followed by interruption, truncated evidence and producer failures before reports.
+  Update pinned proof-option/why3session assertions in tests/test_samples.py.
+- Exercise build without proof, standalone confirmation witnesses and retained
+  workspace identity. All supported samples must build, run and confirm.
+- Test observed I/O/exec/resource failures under ulimit -v/-s/-f/-t, full disk and
+  E2BIG. Admission/build failures publish no executable and never claim success or
+  nonmembership; attributable resources return 4, ambiguous causes 3, and uncaught
+  driver deaths retain their documented termination form. Confirmation-only
+  failure preserves a successful build and is reported separately.
+- Test application normal status forwarding and direct signal translation,
+  including Reject/output failure, exit1/137, resource exceptions and signals.
+  Never use an exit-code guess as a substitute for cause evidence.
+- With implementation authorized, use a guarded geometric ladder from 4 KiB toward
+  1 MiB for mixed code, straight-line code, dense copies, deep nesting, long
+  expressions and nonlinear products. Record reached size, time, memory, steps,
+  reports and stack; resource stops are results, not a mandate to force completion.
+  Extend differential frontend fuzzing from the prior review harness.
+- An unfixable non-proof or failed capacity/build-feasibility justification follows
+  Full stops. Native macOS tool-limit/stack checks remain independent and nonblocking.
 
 ## Risks and non-goals
 
-- **Confirmation cost.** It grows roughly quadratically; dense 16 KB code
-  projects near 90 GiB (a two-point extrapolation). Large confirmations may end
-  inconclusive on ordinary hosts, while builds are unaffected. Shrinking the
-  context each check carries (for example by splitting Main or by compiler-chosen
-  cut points) is a separate design with its own obligations, not part of this
-  milestone.
-- **Build cost.** It is also superlinear, because the frontend is quadratic in
-  sequence length and nesting.
-- **Total-source rule.** Derived from GNAT's internal tables, it may be far below
-  2^31 bytes.
-- **Solver premise.** It is broader and rests on evidence rather than proof. #92
-  must cover nonlinear product chains in its scaling ladder.
-- **Host safety.** Uncapped confirmation can drive a shared host into the kernel's
-  out-of-memory killer. `oom_score_adj` makes confirmation children its first
-  choice.
-- **Reproducibility.** Racing provers changes which prover proves a check, not
-  whether it is proved, unless resources run out.
-- **Platforms.** macOS limits must be re-probed; Linux remains primary.
+Confirmation and frontend costs are superlinear. Dense 16-KB confirmation near
+90 GiB is a two-point extrapolation, not measured capacity. Uncapped confirmation
+can disrupt a shared host despite OOM biasing; racing changes attempt histories,
+winning provers and resource use. Defects/incompleteness remain possible under
+unverified external premises. Large String objects can exhaust an application's
+stack well before Integer'Last. Preserve diagnostics/workspaces where possible
+and report their disk use; reporting alone cannot prevent a full disk.
 
-Not included: new language constructs (the [Rosetta stages](../rosetta/progression.md)
-remain separate), String values beyond `Integer'Last`, macOS validation as a gate,
-and hosted CI.
+New constructs and [Rosetta stages](../rosetta/progression.md), String values
+beyond Integer'Last, compiler-chosen proof cut points, hosted CI and macOS as a
+Linux completion gate remain out of scope. No implementation is authorized here.
 
 ## Scoping validation
 
-The research workflow and this proposal are documentation and planning. The
-scoping probes ran in scratch directories with recorded side effects; one retained
-Image-adapter workspace, `.silver/linux-x86_64/imagews-n5nSxf`, remains from a
-guard-stopped probe. Three independent read-only reviews checked the drafts for
-accuracy, planning conventions and technical soundness, and their corrections are
-incorporated. No implementation was changed, and no compiler, Lean or test
-validation of an implementation was run. Link, anchor and whitespace checks are
-recorded in the [scope issue](https://github.com/berkeleynerd/silver/issues/87)
-handoff.
+Original research used scratch with recorded side effects, including retained
+Image workspace `.silver/linux-x86_64/imagews-n5nSxf`. The three pre-publication
+reviews supplied recommendations, not a clean guarantee: process recommendation
+1's before-claim authorization ordering and technical recommendation 10's precise
+outcome wording did not fully land in PR #95. The published independent review
+records that chronology; this correction does not rewrite it. The
+[repair record](review-ec82b4e5f2-repairs.md) records dispositions and validation.
+
+This corrective pass changes planning documents and issue scope only. It neither
+runs the newly specified experiments nor changes implementation, current language,
+Oracle or canonical proof artifacts. Link/anchor, consistency and whitespace
+checks are proportionate; implementation proofs belong to authorized execution.

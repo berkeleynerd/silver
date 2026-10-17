@@ -1,0 +1,78 @@
+{
+  "reviewed_at": "2026-10-17T18:51:07.697334+00:00",
+  "scope": "Final corrected planning documents, issue and publication inputs; retained pre-merge readbacks. Later publication mutations require their own verification.",
+  "files": [
+    {
+      "path": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/unbounded-planning-corrections/docs/unbounded-programs.md",
+      "sha256": "341c3ed7fbd624594fdc43f2ec7bc79f2858c6a39d0dbcd19aa669b5cb2f1726"
+    },
+    {
+      "path": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/unbounded-planning-corrections/roadmap.md",
+      "sha256": "97208a055e65163634340764149e1b5b9ee41905655b38ad3ca02a21aca47edc"
+    },
+    {
+      "path": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/unbounded-planning-corrections/docs/session-memory.md",
+      "sha256": "535678d18ebe6ce741b29e748ec676dd37256037d36d20c86a2727cd7536edfa"
+    },
+    {
+      "path": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/unbounded-planning-corrections/docs/review-ec82b4e5f2-repairs.md",
+      "sha256": "92f9d710253d9de443ab1a6b8919a02931eb696929ea3d7cd0da3cd47b07fa06"
+    },
+    {
+      "path": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/unbounded-planning-corrections/docs/evidence/unbounded-programs/scoping-research.json",
+      "sha256": "52a2aa9e5c8b209389b888768d5860b5bed94be26a7730343add0d9e26bf4501"
+    },
+    {
+      "path": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/unbounded-planning-corrections/docs/evidence/unbounded-programs/review-ec82b4e5f2/README.md",
+      "sha256": "5e96969ded3e94c9b1a3523ac2bfe97a90c1257d0277a1a2a5d499f310fddd87"
+    },
+    {
+      "path": "/Volumes/EXTERNAL/Users/rebecca/src/github.com/berkeleynerd/silver/tmp/unbounded-planning-corrections/docs/evidence/unbounded-programs/review-ec82b4e5f2/correction-validation.json",
+      "sha256": "1765978847c99bbcf39a649ccdcaecadfe6123b220ca373034bb1b9fa0005a1a"
+    },
+    {
+      "path": "/tmp/silver-planning-correctives-ec82/issue-drafts/87.md",
+      "sha256": "6ae9261c087d5fd7e279ebd94afe22bdfd6a54b5a3c6c555f35c50a35b3f2291"
+    },
+    {
+      "path": "/tmp/silver-planning-correctives-ec82/issue-drafts/88.md",
+      "sha256": "22b3c7e868b69b19418ca4409c32944834e945aaa94e90c5d4207c89cdab6060"
+    },
+    {
+      "path": "/tmp/silver-planning-correctives-ec82/issue-drafts/89.md",
+      "sha256": "b53f9dca0c6949829feb02bacfd55b10a7272ca85c5e5faea7e24b165ec883a9"
+    },
+    {
+      "path": "/tmp/silver-planning-correctives-ec82/issue-drafts/90.md",
+      "sha256": "30cc9f7c40a8586e42c4601d180bf940e093d4a3edd2f99f501a456cbf8f6c04"
+    },
+    {
+      "path": "/tmp/silver-planning-correctives-ec82/issue-drafts/91.md",
+      "sha256": "ddeba4b3c3561cf2e3cfca93926cfcd38d967179c61fb8b631f3d36bb77372c1"
+    },
+    {
+      "path": "/tmp/silver-planning-correctives-ec82/issue-drafts/92.md",
+      "sha256": "8d7091cb9d6e0da20d83d885b0ef29554f9bdff3f7e1911caf9852660682333c"
+    },
+    {
+      "path": "/tmp/silver-planning-correctives-ec82/issue-drafts/93.md",
+      "sha256": "72a450e737188647ef7a4bea1360db4ea5a3a846596abd446398ea797c3cf0c6"
+    },
+    {
+      "path": "/tmp/silver-planning-correctives-ec82/issue-drafts/94.md",
+      "sha256": "dc7ec9451d1ba5170a60b178400c973846e36cfb328b9a421c55e283abff120b"
+    },
+    {
+      "path": "/tmp/silver-planning-correctives-ec82/milestone-corrected.json",
+      "sha256": "391859bdd6a32ebc34ee4c9a09500115265814810c33677f50787d481071f17b"
+    },
+    {
+      "path": "/tmp/silver-planning-correctives-ec82/pr95-corrected.md",
+      "sha256": "94117eafb350ae531d1ac7aab1b898df87d78e2da396d238670d94772d24c052"
+    },
+    {
+      "path": "/tmp/silver-planning-correctives-ec82/board-in-review.json",
+      "sha256": "b3bf0abeb7f7e6a38464a77dd6cd58037b5d865e7ad174c4d0a54992e29aac4a"
+    }
+  ]
+}

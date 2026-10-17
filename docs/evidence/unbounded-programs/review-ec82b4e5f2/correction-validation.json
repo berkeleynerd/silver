@@ -1,0 +1,245 @@
+{
+  "record": "Planning-only correction validation",
+  "checked_at": "2026-10-17T18:49:34.544851+00:00",
+  "review_target": "ec82b4e5f2bd1d3001e7117fe09e610d7d69658f",
+  "authorization_main_commit": "14b7d4e2eac2ad8cde2289f19f428f7050738760",
+  "native_platform": "darwin-arm64",
+  "host_paths_command": "python3 scripts/dev.py paths",
+  "implementation_or_experiments_started": false,
+  "independent_review": "corrective-independent-review.md",
+  "independent_review_inputs": "corrective-independent-review-inputs.json",
+  "documentation_checks": {
+    "checked_at": "2026-10-17T18:49:56.320531+00:00",
+    "platform": "darwin-arm64",
+    "type": "documentation-only",
+    "checks": {
+      "json_files": 9,
+      "links_checked": 325,
+      "external_links_syntax_only": 61
+    },
+    "preservation": {
+      "original_review_sha256": "fef62547866b531f908a1ecf7ae17a216338dc2f6a910ff48bf15cab808b3b11",
+      "original_track_verdicts": true,
+      "original_scaling_corpus": true,
+      "only_scaling_runs_note_amended": true
+    },
+    "arithmetic": "12 exponents, 5 envelope values, 2 Image projections recalculated",
+    "issue_draft_sha256": {
+      "87": "6ae9261c087d5fd7e279ebd94afe22bdfd6a54b5a3c6c555f35c50a35b3f2291",
+      "88": "22b3c7e868b69b19418ca4409c32944834e945aaa94e90c5d4207c89cdab6060",
+      "89": "b53f9dca0c6949829feb02bacfd55b10a7272ca85c5e5faea7e24b165ec883a9",
+      "90": "30cc9f7c40a8586e42c4601d180bf940e093d4a3edd2f99f501a456cbf8f6c04",
+      "91": "ddeba4b3c3561cf2e3cfca93926cfcd38d967179c61fb8b631f3d36bb77372c1",
+      "92": "8d7091cb9d6e0da20d83d885b0ef29554f9bdff3f7e1911caf9852660682333c",
+      "93": "72a450e737188647ef7a4bea1360db4ea5a3a846596abd446398ea797c3cf0c6",
+      "94": "dc7ec9451d1ba5170a60b178400c973846e36cfb328b9a421c55e283abff120b"
+    },
+    "changed_files": [
+      "docs/evidence/unbounded-programs/scoping-research.json",
+      "docs/session-memory.md",
+      "docs/unbounded-programs.md",
+      "roadmap.md",
+      "docs/evidence/unbounded-programs/review-ec82b4e5f2/README.md",
+      "docs/evidence/unbounded-programs/review-ec82b4e5f2/T4-reconciliation.json",
+      "docs/evidence/unbounded-programs/review-ec82b4e5f2/command-cap-probe.json",
+      "docs/evidence/unbounded-programs/review-ec82b4e5f2/correction-validation.json",
+      "docs/evidence/unbounded-programs/review-ec82b4e5f2/corrective-independent-review-inputs.json",
+      "docs/evidence/unbounded-programs/review-ec82b4e5f2/corrective-independent-review.md",
+      "docs/evidence/unbounded-programs/review-ec82b4e5f2/image-projection-arithmetic.json",
+      "docs/evidence/unbounded-programs/review-ec82b4e5f2/numeric-reconciliation.json",
+      "docs/evidence/unbounded-programs/review-ec82b4e5f2/original-manifest-audit.json",
+      "docs/evidence/unbounded-programs/review-ec82b4e5f2/prepublication-audit.md",
+      "docs/evidence/unbounded-programs/review-ec82b4e5f2/status-probe.json",
+      "docs/review-ec82b4e5f2-repairs.md"
+    ],
+    "errors": [],
+    "preexisting_unchanged_historical_anchor_gaps": [
+      "docs/session-memory.md missing anchor ../roadmap.md#larger-expressions--proposed-next-unit",
+      "docs/session-memory.md missing anchor ../roadmap.md#production-solver-allowance--complete",
+      "docs/session-memory.md missing anchor ../roadmap.md#expression-headroom--solver-budget-experiment-complete",
+      "docs/session-memory.md missing anchor ../roadmap.md#admission-repairs--complete",
+      "docs/session-memory.md missing anchor ../roadmap.md#admission-repairs--complete",
+      "docs/session-memory.md missing anchor ../roadmap.md#focused-source-checks--complete",
+      "docs/session-memory.md missing anchor ../roadmap.md#names-and-calls--complete",
+      "docs/session-memory.md missing anchor ../roadmap.md#names-and-calls--complete",
+      "docs/session-memory.md missing anchor ../roadmap.md#equality-guards-and-branches-increments",
+      "docs/session-memory.md missing anchor ../roadmap.md#equality-guards-and-branches-increments",
+      "docs/session-memory.md missing anchor ../roadmap.md#equality-guards-and-branches-increments",
+      "docs/session-memory.md missing anchor ../roadmap.md#audit-follow-ups",
+      "docs/session-memory.md missing anchor ../roadmap.md#lean-critical-path",
+      "docs/session-memory.md missing anchor ../roadmap.md#input-dependent-branching",
+      "docs/session-memory.md missing anchor ../RESUME.md#recover-and-preserve-the-old-vm-evidence",
+      "docs/session-memory.md missing anchor ../roadmap.md#next-goals-after-the-greeting-review",
+      "docs/session-memory.md missing anchor ../roadmap.md#completed-report-policy-follow-up",
+      "docs/session-memory.md missing anchor ../roadmap.md#next-goals-after-the-greeting-review",
+      "docs/session-memory.md missing anchor ../roadmap.md#hello-world-with-a-command-line-message"
+    ],
+    "excluded": [
+      "compiler builds",
+      "proofs",
+      "Lean rebuild/replay",
+      "full test suites",
+      "new research experiments"
+    ],
+    "note": "External links were not all fetched; repository/GitHub links were checked through the relevant retained sources and publication readback."
+  },
+  "issue_readback": {
+    "read_at": "2026-10-17T18:48:00.835554+00:00",
+    "issues": [
+      {
+        "number": 87,
+        "url": "https://github.com/berkeleynerd/silver/issues/87",
+        "body_sha256": "6ae9261c087d5fd7e279ebd94afe22bdfd6a54b5a3c6c555f35c50a35b3f2291",
+        "state": "closed",
+        "labels": [
+          "type: work package",
+          "area: docs",
+          "area: planning"
+        ],
+        "milestone": 5,
+        "updated_at": "2026-10-17T18:47:41Z"
+      },
+      {
+        "number": 88,
+        "url": "https://github.com/berkeleynerd/silver/issues/88",
+        "body_sha256": "22b3c7e868b69b19418ca4409c32944834e945aaa94e90c5d4207c89cdab6060",
+        "state": "open",
+        "labels": [
+          "type: work package",
+          "area: language",
+          "area: assurance",
+          "area: compiler",
+          "area: tooling",
+          "area: docs"
+        ],
+        "milestone": 5,
+        "updated_at": "2026-10-17T18:47:44Z"
+      },
+      {
+        "number": 89,
+        "url": "https://github.com/berkeleynerd/silver/issues/89",
+        "body_sha256": "b53f9dca0c6949829feb02bacfd55b10a7272ca85c5e5faea7e24b165ec883a9",
+        "state": "open",
+        "labels": [
+          "type: work package",
+          "area: assurance",
+          "area: compiler"
+        ],
+        "milestone": 5,
+        "updated_at": "2026-10-17T18:47:46Z"
+      },
+      {
+        "number": 90,
+        "url": "https://github.com/berkeleynerd/silver/issues/90",
+        "body_sha256": "30cc9f7c40a8586e42c4601d180bf940e093d4a3edd2f99f501a456cbf8f6c04",
+        "state": "open",
+        "labels": [
+          "type: work package",
+          "area: assurance"
+        ],
+        "milestone": 5,
+        "updated_at": "2026-10-17T18:47:49Z"
+      },
+      {
+        "number": 91,
+        "url": "https://github.com/berkeleynerd/silver/issues/91",
+        "body_sha256": "ddeba4b3c3561cf2e3cfca93926cfcd38d967179c61fb8b631f3d36bb77372c1",
+        "state": "open",
+        "labels": [
+          "type: work package",
+          "area: language",
+          "area: assurance",
+          "area: compiler"
+        ],
+        "milestone": 5,
+        "updated_at": "2026-10-17T18:47:52Z"
+      },
+      {
+        "number": 92,
+        "url": "https://github.com/berkeleynerd/silver/issues/92",
+        "body_sha256": "8d7091cb9d6e0da20d83d885b0ef29554f9bdff3f7e1911caf9852660682333c",
+        "state": "open",
+        "labels": [
+          "type: work package",
+          "area: language",
+          "area: assurance",
+          "area: compiler"
+        ],
+        "milestone": 5,
+        "updated_at": "2026-10-17T18:47:54Z"
+      },
+      {
+        "number": 93,
+        "url": "https://github.com/berkeleynerd/silver/issues/93",
+        "body_sha256": "72a450e737188647ef7a4bea1360db4ea5a3a846596abd446398ea797c3cf0c6",
+        "state": "open",
+        "labels": [
+          "type: work package",
+          "area: language",
+          "area: assurance",
+          "area: compiler",
+          "area: runtime"
+        ],
+        "milestone": 5,
+        "updated_at": "2026-10-17T18:47:57Z"
+      },
+      {
+        "number": 94,
+        "url": "https://github.com/berkeleynerd/silver/issues/94",
+        "body_sha256": "dc7ec9451d1ba5170a60b178400c973846e36cfb328b9a421c55e283abff120b",
+        "state": "open",
+        "labels": [
+          "type: work package",
+          "area: assurance",
+          "area: tooling",
+          "area: docs"
+        ],
+        "milestone": 5,
+        "updated_at": "2026-10-17T18:47:59Z"
+      }
+    ]
+  },
+  "board_readback": {
+    "87": "Done",
+    "88": "Backlog",
+    "89": "Backlog",
+    "90": "Backlog",
+    "91": "Backlog",
+    "92": "Backlog",
+    "93": "Backlog",
+    "94": "Backlog",
+    "97": "In review",
+    "98": "In review",
+    "99": "In review",
+    "100": "In review",
+    "101": "In review",
+    "102": "In review",
+    "103": "In review",
+    "104": "In review"
+  },
+  "milestone_description_sha256": "df75bb1cdf3222b1e7b601a048d0bc304512350d3304f8ecd0f5bdd67b646f93",
+  "publication_state": "Before corrective merge: findings In review; final closure and merge-linked handoffs require subsequent GitHub readback. Implementation remains Backlog.",
+  "time_checkpoints": {
+    "session_start": "2026-10-17T18:28:00Z",
+    "authorization_merged": "2026-10-17T18:30:37Z",
+    "primary_independent_review": "2026-10-17T18:43:50Z"
+  },
+  "available_token_usage": null,
+  "token_usage_note": "Per-turn token telemetry unavailable; no token-budgeted harness goal active.",
+  "side_effects": [
+    "isolated planning worktree and scratch",
+    "documentation/evidence files only in repository",
+    "planning PRs and finding issues",
+    "reviewed issue and milestone text",
+    "historical PR95 correction addendum",
+    "board findings In review; implementation status unchanged"
+  ],
+  "validation_limits": [
+    "No implementation feasibility established",
+    "No new compiler, GNATprove or Lean run",
+    "No full suites or kernel replay",
+    "Original omitted research leaves remain unavailable",
+    "External links not exhaustively fetched"
+  ],
+  "issue_labels_preserved": true
+}

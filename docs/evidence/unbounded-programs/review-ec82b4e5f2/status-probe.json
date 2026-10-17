@@ -1,0 +1,38 @@
+[
+  {
+    "command": "exit 137",
+    "system_wait_status": 35072,
+    "wifexited": true,
+    "exit_status": 137,
+    "wifsignaled": false,
+    "signal": null,
+    "elapsed_seconds": 0.0028808750212192535
+  },
+  {
+    "command": "sh -c 'kill -KILL $$'; rc=$?; exit $rc",
+    "system_wait_status": 35072,
+    "wifexited": true,
+    "exit_status": 137,
+    "wifsignaled": false,
+    "signal": null,
+    "elapsed_seconds": 0.005373541032895446
+  },
+  {
+    "command": "exit 152",
+    "system_wait_status": 38912,
+    "wifexited": true,
+    "exit_status": 152,
+    "wifsignaled": false,
+    "signal": null,
+    "elapsed_seconds": 0.0021311250748112798
+  },
+  {
+    "command": "sh -c 'kill -XCPU $$'; rc=$?; exit $rc",
+    "system_wait_status": 38912,
+    "wifexited": true,
+    "exit_status": 152,
+    "wifsignaled": false,
+    "signal": null,
+    "elapsed_seconds": 0.005224667023867369
+  }
+]
