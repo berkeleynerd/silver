@@ -1,12 +1,12 @@
 # Bounded mutable integers
 
-**Scope proposal, 2026-10-17; not an admitted capability.** The owner authorized
-scoping after the completed For loops and integers review remediation.
-[Session memory](session-memory.md) records the authorization.
-[Milestone 4](https://github.com/berkeleynerd/silver/milestone/4) tracks this
-proposal as a narrow increment of [stage #11](https://github.com/berkeleynerd/silver/issues/11).
-Only [scope work #67](https://github.com/berkeleynerd/silver/issues/67) is
-authorized. Implementation, assurance development and delivery remain Backlog.
+**Selected scope, 2026-10-17; implementation authorized, not yet admitted.**
+The owner authorized implementation through delivery after completion of
+[scope work #67](https://github.com/berkeleynerd/silver/issues/67).
+[Session memory](session-memory.md#2026-10-17--bounded-mutable-integers-implementation-authorized)
+records authorization for [milestone 4](https://github.com/berkeleynerd/silver/milestone/4)
+packages #68–#70, under the narrow [stage #11](https://github.com/berkeleynerd/silver/issues/11)
+increment below. Capability support requires complete assurance and validation.
 The completed For loops and integers harness goal remains complete.
 
 The proposed capability lets a program retain and update an Integer result

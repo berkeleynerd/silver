@@ -1,5 +1,47 @@
 # Session memory
 
+## 2026-10-17 — Bounded mutable integers implementation authorized
+
+After publication of the completed scope through
+[PR #72](https://github.com/berkeleynerd/silver/pull/72), the owner said
+**“Proceed”** to implementing and delivering the selected
+[bounded mutable Integer capability](bounded-mutable-integers.md).
+This supersedes the scope-only authorization boundary for
+[milestone 4](https://github.com/berkeleynerd/silver/milestone/4).
+[Scope package #67](https://github.com/berkeleynerd/silver/issues/67) remains
+complete. The instruction authorizes the remaining packages through delivery:
+[native admission and regressions #68](https://github.com/berkeleynerd/silver/issues/68),
+[universal and actual-source assurance #69](https://github.com/berkeleynerd/silver/issues/69)
+including Image/producer applicability and report capacity, and
+[validation, review and delivery #70](https://github.com/berkeleynerd/silver/issues/70).
+Routine implementation choices, focused experiments, required native/Lean/test
+validation, review, commits and publication are included.
+
+The selected scope uses initialized objects of the existing Integer type with
+optional object-local static ranges and range-preserving assignments. Exact
+declaration snapshots remain separate from Ada-staticness. Every body read of a
+mutable scalar uses its full declared range; assignments and guards provide no
+narrower scalar facts. Loop bounds capture their entry values, while Image and
+String composition retain the specified length/snapshot behavior. Named
+types/subtypes, conversions and the other excluded stage #11 forms remain
+outside this authorization. The [scope document](bounded-mutable-integers.md)
+contains the full rules and compositions.
+
+The capability remains unsupported until its required assurance and validation
+are complete. Establish the producer/discharge/source connection and the new
+report envelope; the constant-only bound does not establish mutable capacity.
+Update language, catalogue, samples, capability/roadmap records and precise
+Rosetta support together at delivery. The Oracle is unchanged. Read the managed
+run summary before expensive work, coordinate resolved workspaces and workers,
+retain prior evidence and avoid duplicate successful broad runs without a
+recorded reason.
+
+The earlier For loops and integers harness goal remains complete. No new harness
+goal was requested; the implementation authorization and conversation title are
+separate from harness state. Hosted CI remains disabled, native macOS validation
+is independent and nonblocking, and all previous worktrees, scratch, caches and
+foreign-host artifacts are preserved. CLI memory was unavailable and not updated.
+
 ## 2026-10-17 — Bounded mutable integers scope completed
 
 The [scope proposal](bounded-mutable-integers.md) completes the authorized
