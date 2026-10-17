@@ -15,9 +15,13 @@ The [independent review](reviews/review-ec82b4e5f2.md) and
 [repair record](review-ec82b4e5f2-repairs.md) explain the corrections.
 
 The [partial feasibility-research handoff](research/unbounded-feasibility-handoff.md)
-retains subsequent source inspection and guarded probes for #107/#108. It does
-not establish a sound source-capacity rule or full-domain build feasibility;
-the conditional full stops below remain unresolved.
+retains the first source inspection and guarded probes for #107/#108. The
+[Linux continuation result](research/unbounded-feasibility-result.md) now reports
+a source-derived stop for the intended domain on the unchanged frontend and a
+hold on adopting a replacement source rule. Independent review of that result
+is pending. This is a research conclusion, not an admitted capability or an
+implementation checkpoint; the [decision below](#research-conclusion-and-next-decision)
+preserves the remaining alternatives.
 [language.md](../language.md) and the [catalogue](../catalogue/silver.json)
 continue to describe current support.
 
@@ -85,6 +89,43 @@ confirmation. The tool-derived lexical rules are explicit pre-1.0 language
 changes, not Oracle amendments. Neither choice proves future tractability or
 resolves the conditional stops above. An implementation authorization accepts
 this research plan, not an unestablished derivation or a weakened guarantee.
+
+## Research conclusion and next decision
+
+The #107/#108 continuation identifies a representation obstacle in the inspected
+GNAT 16.1 frontend. Two live, disjoint constant Strings of length 2^30 each fit
+the intended per-value `Integer'Last` bound, but together require at least 2^31
+characters in a signed-Int-indexed frontend character pool. The pinned-tree
+lifetime audit closes the earlier reclamation question. This is a source-derived
+argument under the recorded tool/source correspondence premise, not a giant
+native failure run. The default allocation-growth recurrence is another concern,
+but compiler build switches prevent treating it as an exact measured native cutoff.
+
+Linux Ada probes with a 1 MiB final String compiled, bound and linked using
+medium and large code models. They strengthen the earlier backend evidence;
+they do not solve the frontend materialization limit or establish full-domain
+build feasibility. The [result](research/unbounded-feasibility-result.md)
+keeps those observations, the retained macOS evidence and the lifetime argument
+separate. Final independent review remains pending.
+
+No complete whole-program source-capacity rule was derived. Physical and
+virtual source-position accounting has a reproducible recurrence, but every
+construct's allocation and expansion across compiler phases still lacks a
+closed cost argument. A source-sensitive capacity vector is preferable to a
+uniform worst-case byte cap if the frontend pin is retained: it can distinguish
+sparse source from dense syntax and semantic expansion. It still needs the full
+soundness argument and would exclude some intended otherwise valid compositions.
+Neither candidate is adopted, and incompleteness of this derivation is not proof
+that no tractable rule can exist.
+
+The recommendation is a separately scoped feasibility investigation of wider
+or lazy, semantics-preserving frontend representations, which best follows the
+owner's expansiveness direction. That recommendation does not establish
+tractability or authorize a toolchain change. Retaining the pin with explicit
+aggregate restrictions is an alternative requiring owner disposition, not a
+silently selected lower cap. Implementation #88–#94 and further tool development
+remain unstarted. Research completion, after review and publication of the
+precise stop, does not complete #91, #93 or milestone 5.
 
 ## Design
 
@@ -281,21 +322,30 @@ roles; #90 supplies corresponding Lean constants and mechanical numeric ties.
 | Physical line width, tabs expanded to next multiple of 8 columns | At most 32,765 | 32,765 accepted with LF, CR, CRLF or no terminator; 32,766 gives "this line is longer than 32766 characters". The retained 39-byte program padded with tabs passes at 4,130 bytes, fails at 4,131. |
 | Identifier length | At most 4,096 characters | 4,097 gives "Name buffer overflow; Max_Length = 4096" and a GNAT bug box in tested roles/modes |
 | Numeric literal exponent | At most 799,999 | 800,000 gives "exponent too large" in tested bases 2, 10 and 16/mantissas; scanner source corroborates |
-| Source capacity | Not yet derived | #91 must establish and justify an explicit decidable rule |
-| Integer range; one-based String length | Pinned Integer range; length at most Integer'Last (2,147,483,647) | Inherited target meaning, not Ada's portable minimum; #93 still checks build feasibility |
+| Source capacity | No replacement rule adopted | #107 reports the missing complete allocation/expansion argument; #91 remains unstarted |
+| Integer range; one-based String length | Pinned Integer range; proposed length at most Integer'Last (2,147,483,647) | Inherited target meaning, not Ada's portable minimum; the intended composition domain encounters the frontend representation stop above |
 
 #91's source-capacity research has two obligations: **soundness for every
 admitted source**, and **justification of the most expansive tractable rule**.
 It starts with pinned producer-source accounting and existing evidence:
 
 - GNAT allocates units in a shared 2^31 source-position space with 4 KiB alignment.
-  Account for every selected unit and alignment in null/output modes. The recorded
+  Count physical and virtual ranges, EOF positions and alignment in every selected
+  phase. The [retained-trace reconciliation](evidence/unbounded-programs/feasibility-20261017/continuation/planning/source-position-reconciliation.json)
+  verifies the exact recurrence for seven existing traces. Each nonfinal range
+  consumes its extent plus 1–4096 positions for EOF/alignment; virtual entries
+  share template text but reserve distinct position ranges. That accounting
+  does not establish the complete runtime/virtual-source closure. The recorded
   2,130,706,432-byte accepted probe used `gcc -gnatc` (semantic checking only),
   not a full build; the largest recorded full `-O0` build was 100 MB. Neither
   observation establishes a universal maximum. In semantic checks, 2,147,483,647
   crashed and 2^31 did not terminate in the retained experiment.
 - Fixed tables include 100,000,000 Names/Lists/Elists/Elmts/Strings/Ureal entries,
-  roughly 1.5e9 Uints and 1,999,999,999 positive node identifiers. Derive
+  100,000,000 table-coded Uint identifiers and 1,999,999,999 positive node
+  identifiers. The earlier roughly 1.5e9 Uint figure includes direct-encoded
+  values, not that many table entries; Udigits is a separate digit-word pool.
+  String character storage, node slots and allocation-growth headroom also
+  have independent budgets. Derive
   per-construct consumption and expansion factors; do not assume host memory
   always runs out first. The research's approximately 50 million `elsif` arms,
   1.5 GB source and 44 GB memory are estimates, not probed boundaries.
@@ -308,9 +358,10 @@ It starts with pinned producer-source accounting and existing evidence:
   to native/Lean membership, catalogue and frontend premise. Re-derive affected
   inputs when the runtime/toolchain changes, including #93 and native macOS.
 
-This is a research method and completion condition, not a completed derivation.
-Use the [full stop](#full-stops) if soundness or the expansiveness justification
-cannot be established; an unproved table-overflow premise is not a substitute.
+These are obligations for any future replacement rule, not a completed derivation.
+The [continuation result](research/unbounded-feasibility-result.md) reports that
+hold together with the separate static-data stop. An unproved table-overflow
+premise cannot replace the missing argument.
 
 ### Confirmation-only tool limits
 
@@ -369,7 +420,14 @@ is a defect, not a permitted exception to automatic discharge.
 
 ## Research evidence
 
-Five tracks ran on Linux x86_64 on 2026-10-17 (22 CPUs, 31 GB RAM, no swap).
+The later [feasibility result](research/unbounded-feasibility-result.md) records
+the completed source/lifetime reasoning and targeted Linux backend evidence,
+with independent review still pending. It preserves the first
+[handoff](research/unbounded-feasibility-handoff.md) as a partial checkpoint.
+Neither is an implementation or complete proof/test validation checkpoint.
+
+The original five scoping tracks ran on Linux x86_64 on 2026-10-17 (22 CPUs,
+31 GB RAM, no swap).
 The [curated record](evidence/unbounded-programs/scoping-research.json) and
 [immutable raw evidence](https://github.com/berkeleynerd/silver/tree/0cd253d05b2cb650cc8fca81255e9a711765e16a/tmp)
 retain their input scope and corrections. The review verified the supplied

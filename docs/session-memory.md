@@ -1,5 +1,27 @@
 # Session memory
 
+## 2026-10-17 — Unbounded feasibility conclusion awaiting review
+
+The authorized Linux continuation of #107/#108 reports a
+[precise research stop](research/unbounded-feasibility-result.md) for the
+intended domain on the unchanged inspected frontend. The complete pinned-tree
+lifetime audit establishes that two disjoint live Strings of length 2^30 each
+exceed the frontend's signed-Int character-pool representation. This is a
+source-derived result under the recorded tool/source premise, not a native run
+at that scale. Targeted Linux Ada medium/large-model builds improve the backend
+evidence without removing that frontend constraint. No complete whole-program
+source-capacity rule was derived; its per-construct and phase accounting remains
+open. Independent review and publication of the final conclusion are pending.
+
+The recommendation is a separately authorized feasibility investigation of wider
+or lazy, semantics-preserving frontend representations. This follows the owner's
+expansiveness direction without claiming that the alternative is already tractable.
+Retaining the pin with source-sensitive aggregate restrictions remains an
+alternative for owner disposition; no lower cap, tool change, new trusted premise
+or Oracle amendment is adopted. Implementation #88–#94 remains Backlog, and
+closing the research children after review would not complete their parents or
+milestone 5. The earlier goal remains complete; no new goal was requested.
+
 ## 2026-10-17 — Unbounded feasibility research continued on Linux
 
 After receiving the partial [research handoff](research/unbounded-feasibility-handoff.md),

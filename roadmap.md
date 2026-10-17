@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Feasibility research continuing; implementation not authorized.** The
+**Research reports a full stop; final independent review pending.** The
 [scope](docs/unbounded-programs.md) and
 [milestone 5](https://github.com/berkeleynerd/silver/milestone/5) pursue removal of
 unnecessary Silver capacity limits. The operational objective is resource-driven
@@ -38,13 +38,22 @@ proposed; the proposal cannot silently weaken its guarantee.
 
 The owner [continued the research on Linux](docs/session-memory.md#2026-10-17--unbounded-feasibility-research-continued-on-linux)
 after the [partial handoff](docs/research/unbounded-feasibility-handoff.md).
-Research #107 first resolves source-accounting and allocation/lifetime hypotheses
-and compares a source-sensitive rule with a uniform byte envelope. Research #108
-then integrates those frontend constraints into the static-data/build analysis,
-including semantics-preserving alternatives. Each result needs independent
-review and a published recommendation or precise full stop. The partial package
-does not establish a source-capacity rule or full-domain build feasibility.
-Implementation packages #88–#94 remain Backlog throughout this research.
+The [result](docs/research/unbounded-feasibility-result.md) identifies a
+source-derived frontend representation stop for the intended String composition
+domain. Targeted Linux Ada medium/large-model builds improve the backend evidence
+but do not remove that earlier limit. No complete whole-program source-capacity
+rule has been derived. Independent review and publication of the final result
+remain required before closing research #107/#108.
+
+The recommended next decision is whether to authorize feasibility research into
+wider or lazy semantics-preserving frontend representations. That direction best
+matches the owner's expansiveness objective, but tractability is unproved and
+no tool change is adopted or started. Retaining the pin would require a complete
+source-sensitive accounting rule and explicit restrictions on some intended
+compositions; a uniform byte cap is not established as the best tractable choice.
+The [scope](docs/unbounded-programs.md#research-conclusion-and-next-decision)
+records the alternatives and stop. Implementation #88–#94 remains Backlog;
+research closure would not complete the parents or milestone 5.
 
 The milestone's work packages, in order:
 
