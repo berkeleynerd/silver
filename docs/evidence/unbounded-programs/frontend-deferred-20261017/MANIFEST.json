@@ -1,0 +1,75 @@
+{
+  "scope": "Research #113 deferred String representation evidence; source analysis, not implementation validation",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 4110,
+      "sha256": "6f380443dfe29b3776b33aa6ca8dfe5a16bf38701f6ee48867ac58f1bb6f2c2c"
+    },
+    {
+      "path": "audit.py",
+      "bytes": 6444,
+      "sha256": "b519277d6300ff824b09ebbc0abf0d2bf785acafafde6709f0fe55adefc4c594"
+    },
+    {
+      "path": "consumer-inventory.json",
+      "bytes": 96126,
+      "sha256": "73c2cfea98843157ee32aa03f6e95d5e3b4649ae7ce1202fde9f0168cb2b1319"
+    },
+    {
+      "path": "design-arithmetic.json",
+      "bytes": 553,
+      "sha256": "bb5da43a79b6736a9a070d66db5bfd9106111f6d2f27d26a197674282463d342"
+    },
+    {
+      "path": "gcc-emission-source-manifest.json",
+      "bytes": 1541,
+      "sha256": "f28c55f16a631d899edb6785bead32abe9513a2be6c5e5b4e636e2547a6e30e2"
+    },
+    {
+      "path": "gcc-emission-sources.tar.gz",
+      "bytes": 274679,
+      "sha256": "7592bfc67e8efa090b1c6ec6dbab48ac009c95d81e4598f856f55216ee9a3fa3"
+    },
+    {
+      "path": "identity.json",
+      "bytes": 2600,
+      "sha256": "7cd72ae1d9ab79876b509584709df6ebd2d0524802c356548436a3ed6d540394"
+    },
+    {
+      "path": "overloaded-consumer-candidates.json",
+      "bytes": 24200,
+      "sha256": "791ae6baf05c8180fd2de215b96807637545ce2d8cb9083776190e5693674508"
+    },
+    {
+      "path": "resolved-routes.json",
+      "bytes": 3677,
+      "sha256": "a4653c0edeeb7459b4ae5d6434676e3ee2e3a87c01857552545f04917a9bbc54"
+    },
+    {
+      "path": "selected-source-excerpts.txt",
+      "bytes": 80015,
+      "sha256": "a0d64b02c40471b88d7ffb7c6773735583095cd66d370cd24aee9b02c8125378"
+    },
+    {
+      "path": "selected-source-manifest.json",
+      "bytes": 5987,
+      "sha256": "45894a98988ea02eb75b2e337582407534c1bb56e2250bc95b40e212eff8287f"
+    },
+    {
+      "path": "selected-source-ranges.json",
+      "bytes": 3528,
+      "sha256": "769dc920134e386ef0c81d3d9ed86b231ea3488483b4907aee6e672b0975fb18"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 1161,
+      "sha256": "43cfad2be22594e22a89376d56bbea0d0509a12ea1ae104c88bf5b9611bc4916"
+    },
+    {
+      "path": "verified-tree-and-inventory.json",
+      "bytes": 353,
+      "sha256": "c87fddb5c75e0363c7f09afb1395e9ed85276bbc20ccfac8097b94e338e671b5"
+    }
+  ]
+}

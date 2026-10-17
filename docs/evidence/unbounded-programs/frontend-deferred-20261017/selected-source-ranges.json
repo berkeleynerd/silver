@@ -1,0 +1,302 @@
+[
+  {
+    "area": "ada",
+    "path": "stringt.ads",
+    "ranges": [
+      [
+        58,
+        145
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "stringt.adb",
+    "ranges": [
+      [
+        36,
+        376
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "stringt.h",
+    "ranges": [
+      [
+        26,
+        88
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "types.ads",
+    "ranges": [
+      [
+        503,
+        536
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "types.h",
+    "ranges": [
+      [
+        42,
+        55
+      ],
+      [
+        248,
+        263
+      ],
+      [
+        306,
+        313
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "back_end.adb",
+    "ranges": [
+      [
+        88,
+        106
+      ],
+      [
+        160,
+        174
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "gcc-interface/gigi.h",
+    "ranges": [
+      [
+        250,
+        265
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "gcc-interface/trans.cc",
+    "ranges": [
+      [
+        91,
+        103
+      ],
+      [
+        299,
+        313
+      ],
+      [
+        329,
+        338
+      ],
+      [
+        6705,
+        6756
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "sem_eval.adb",
+    "ranges": [
+      [
+        1348,
+        1380
+      ],
+      [
+        2342,
+        2443
+      ],
+      [
+        2700,
+        2765
+      ],
+      [
+        5118,
+        5144
+      ],
+      [
+        5293,
+        5300
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "sem_res.adb",
+    "ranges": [
+      [
+        10803,
+        10815
+      ],
+      [
+        12035,
+        12320
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "par-ch4.adb",
+    "ranges": [
+      [
+        2510,
+        2665
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "exp_ch11.adb",
+    "ranges": [
+      [
+        1446,
+        1458
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "exp_dbug.adb",
+    "ranges": [
+      [
+        832,
+        846
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "sem_ch12.adb",
+    "ranges": [
+      [
+        6150,
+        6168
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "sem_dim.adb",
+    "ranges": [
+      [
+        2750,
+        2770
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "sem_ch3.adb",
+    "ranges": [
+      [
+        3960,
+        3982
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "sem_util.adb",
+    "ranges": [
+      [
+        248,
+        262
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "exp_util.adb",
+    "ranges": [
+      [
+        325,
+        343
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "strub.adb",
+    "ranges": [
+      [
+        49,
+        66
+      ]
+    ]
+  },
+  {
+    "area": "ada",
+    "path": "mutably_tagged.adb",
+    "ranges": [
+      [
+        250,
+        268
+      ]
+    ]
+  },
+  {
+    "area": "gcc",
+    "path": "gcc/tree.cc",
+    "ranges": [
+      [
+        2610,
+        2638
+      ]
+    ]
+  },
+  {
+    "area": "gcc",
+    "path": "gcc/tree.h",
+    "ranges": [
+      [
+        1175,
+        1190
+      ]
+    ]
+  },
+  {
+    "area": "gcc",
+    "path": "gcc/tree-core.h",
+    "ranges": [
+      [
+        1586,
+        1599
+      ]
+    ]
+  },
+  {
+    "area": "gcc",
+    "path": "gcc/varasm.cc",
+    "ranges": [
+      [
+        862,
+        920
+      ],
+      [
+        2304,
+        2335
+      ],
+      [
+        5620,
+        5642
+      ],
+      [
+        7367,
+        7410
+      ],
+      [
+        7486,
+        7510
+      ]
+    ]
+  }
+]

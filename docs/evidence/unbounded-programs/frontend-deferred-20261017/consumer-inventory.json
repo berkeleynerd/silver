@@ -1,0 +1,4480 @@
+{
+  "method": "Complete pinned Ada subtree lexical API inventory; comments and literals filtered; manual resolution required",
+  "upstream_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "matches": [
+    {
+      "path": "back_end.adb",
+      "line": 169,
+      "symbols": [
+        "Strings_Address"
+      ],
+      "source": "strings_ptr        => Strings_Address,"
+    },
+    {
+      "path": "back_end.adb",
+      "line": 170,
+      "symbols": [
+        "String_Chars_Address"
+      ],
+      "source": "string_chars_ptr   => String_Chars_Address,"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2424,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2429,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Build_Location_String (Loc));"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2430,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (' ');"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2433,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"aliased parameters, actuals for \"\"\");"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2437,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (To_String (Formal_Name));"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2439,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"\"\" and \"\"\");"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2445,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (To_String (Formal_Name));"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2447,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"\"\" overlap\");"
+    },
+    {
+      "path": "checks.adb",
+      "line": 2456,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Expression => Make_String_Literal (Loc, End_String)))));"
+    },
+    {
+      "path": "errout.adb",
+      "line": 2366,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "return S + Source_Ptr (String_Length (Strval (F))) + 1;"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 6558,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 6561,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (CC);"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 6566,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Strval => End_String));"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3322,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3325,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"__\");"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3327,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_Char_Code (Name_Buffer (J)));"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3338,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"B\");"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3343,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"S\");"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3348,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"B\");"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3350,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"S\");"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3353,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "S := End_String;"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3763,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('_');"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3764,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('_');"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3772,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Name_Buffer (1 .. Name_Len));"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3781,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3783,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"___elab\");"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3787,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('b');"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3789,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('s');"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 3792,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Str := End_String;"
+    },
+    {
+      "path": "exp_ch11.adb",
+      "line": 1089,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_ch11.adb",
+      "line": 1090,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_Char_Code (ASCII.NUL));"
+    },
+    {
+      "path": "exp_ch11.adb",
+      "line": 1091,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "return End_String;"
+    },
+    {
+      "path": "exp_ch11.adb",
+      "line": 1574,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Str := String_From_Name_Buffer (Buf);"
+    },
+    {
+      "path": "exp_ch2.adb",
+      "line": 772,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Str_Length := Str_Length + String_Length (Strval (Str_Elem));"
+    },
+    {
+      "path": "exp_ch5.adb",
+      "line": 680,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "if String_Length (Strval (Rhs)) = 0"
+    },
+    {
+      "path": "exp_ch5.adb",
+      "line": 3907,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Strlen : constant Nat        := String_Length (Str);"
+    },
+    {
+      "path": "exp_ch5.adb",
+      "line": 3924,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "Get_String_Char (Str, Idx);"
+    },
+    {
+      "path": "exp_code.adb",
+      "line": 198,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Len : constant Nat       := String_Length (Str);"
+    },
+    {
+      "path": "exp_code.adb",
+      "line": 215,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_Character (Get_String_Char (Str, Clobber_Ptr));"
+    },
+    {
+      "path": "exp_code.adb",
+      "line": 227,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_Character (Get_String_Char (Str, Clobber_Ptr));"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 3944,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Strval => String_From_Name_Buffer));"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 4725,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Make_String_Literal (Loc, Strval => String_From_Name_Buffer));"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 5189,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 5190,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"Internal tag at 16#\");"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 5191,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Str1_Id := End_String;"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 5196,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 5197,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"#: \");"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 5198,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Full_Name);"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 5199,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Str2_Id := End_String;"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 5300,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "if String_Length (Old_Val) > 0"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 5302,
+      "symbols": [
+        "Get_String_Char",
+        "String_Length"
+      ],
+      "source": "Get_String_Char (Old_Val, String_Length (Old_Val)) = 0"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 5306,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String (Old_Val);"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 5307,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_Char_Code (ASCII.NUL));"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 5308,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "New_Val := End_String;"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 6761,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Make_String_Literal (Loc, Strval => String_From_Name_Buffer));"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 1141,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Parameter_Name_String := String_From_Name_Buffer;"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 2094,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Id := String_From_Name_Buffer;"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 9222,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 9223,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"DSA:\");"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 9224,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Name_Str);"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 9225,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\":1.0\");"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 9226,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Repo_Id_Str := End_String;"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 10427,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Add_String_Parameter (String_From_Name_Buffer, Params);"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 10476,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Name_Str := String_From_Name_Buffer;"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 10499,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Name_Str := String_From_Name_Buffer;"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 10748,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "String_From_Name_Buffer,"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 10797,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "String_From_Name_Buffer,"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 10815,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 10816,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('V');"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 10817,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Add_String_Parameter (End_String, Parameters);"
+    },
+    {
+      "path": "exp_imgv.adb",
+      "line": 184,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_imgv.adb",
+      "line": 203,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Name_Buffer (1 .. Name_Len));"
+    },
+    {
+      "path": "exp_imgv.adb",
+      "line": 219,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Str := End_String;"
+    },
+    {
+      "path": "exp_imgv.adb",
+      "line": 821,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_imgv.adb",
+      "line": 822,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"TRUE \");"
+    },
+    {
+      "path": "exp_imgv.adb",
+      "line": 830,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Expression          => Make_String_Literal (Loc, End_String)));"
+    },
+    {
+      "path": "exp_imgv.adb",
+      "line": 835,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_imgv.adb",
+      "line": 836,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"FALSE\");"
+    },
+    {
+      "path": "exp_imgv.adb",
+      "line": 844,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Expression          => Make_String_Literal (Loc, End_String)));"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 718,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Strval (External));"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 726,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Make_String_Literal (Eloc, Strval => String_From_Name_Buffer);"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 732,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Make_String_Literal (Iloc, Strval => String_From_Name_Buffer);"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1478,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1479,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char  (New_Line);"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1480,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"  case guard at \");"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1481,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Build_Location_String (Error_Loc));"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1482,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\" evaluates to True\");"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1502,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Right_Opnd => Make_String_Literal (Loc, End_String)),"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1536,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1537,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"failed contract case at \");"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1538,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Build_Location_String (Sloc (Conseq)));"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1543,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Str := End_String;"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1886,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1887,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"contract cases overlap for subprogram \");"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1888,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Get_Name_String (Chars (Subp_Id)));"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 1895,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Expression          => Make_String_Literal (Loc, End_String)));"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 2015,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 2016,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Build_Location_String (Loc));"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 2017,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\" contract cases incomplete\");"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 2024,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Make_String_Literal (Loc, End_String))));"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 2278,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "J : Nat := String_Length (Name);"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 2290,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "if To_Lower (Get_Character (Get_String_Char (Name, J)))"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 2301,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 2303,
+      "symbols": [
+        "Get_String_Char",
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_String_Char (Name, I));"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 2305,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Name := End_String;"
+    },
+    {
+      "path": "exp_put_image.adb",
+      "line": 939,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_put_image.adb",
+      "line": 940,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"(DISCARDED TYPE NAME)\");"
+    },
+    {
+      "path": "exp_put_image.adb",
+      "line": 941,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Type_Name := End_String;"
+    },
+    {
+      "path": "exp_smem.adb",
+      "line": 277,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('.');"
+    },
+    {
+      "path": "exp_smem.adb",
+      "line": 281,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Name_Buffer (1 .. Name_Len));"
+    },
+    {
+      "path": "exp_smem.adb",
+      "line": 287,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_smem.adb",
+      "line": 289,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "N := End_String;"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 3290,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Str);"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 3294,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Str := String_From_Name_Buffer;"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 4489,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Strval => String_From_Name_Buffer)));"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 4691,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Strval => String_From_Name_Buffer)));"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 4709,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Strval => String_From_Name_Buffer);"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 4910,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Strval => String_From_Name_Buffer)));"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 4930,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Strval => String_From_Name_Buffer)));"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 7277,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_Char_Code ('.'));"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 7291,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Name_Buffer (1 .. Name_Len));"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 7298,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 7302,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_Char_Code (ASCII.NUL));"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 7305,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "return End_String;"
+    },
+    {
+      "path": "freeze.adb",
+      "line": 10501,
+      "symbols": [
+        "String_Equal"
+      ],
+      "source": "or else String_Equal"
+    },
+    {
+      "path": "gcc-interface/trans.cc",
+      "line": 6710,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "int length = String_Length (gnat_string);"
+    },
+    {
+      "path": "gcc-interface/trans.cc",
+      "line": 6721,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "string[i] = Get_String_Char (gnat_string, i + 1);"
+    },
+    {
+      "path": "gcc-interface/trans.cc",
+      "line": 6737,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "int length = String_Length (gnat_string);"
+    },
+    {
+      "path": "gcc-interface/trans.cc",
+      "line": 6747,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "Get_String_Char (gnat_string, i + 1));"
+    },
+    {
+      "path": "gprep.adb",
+      "line": 393,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Data.Value);"
+    },
+    {
+      "path": "lib-util.adb",
+      "line": 246,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "for J in 1 .. String_Length (S) loop"
+    },
+    {
+      "path": "lib-util.adb",
+      "line": 247,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_Character (Get_String_Char (S, J));"
+    },
+    {
+      "path": "lib-writ.adb",
+      "line": 1505,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "for K in 1 .. String_Length (Version_Ref.Table (J)) loop"
+    },
+    {
+      "path": "lib-writ.adb",
+      "line": 1506,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "Write_Info_Char_Code (Get_String_Char (Version_Ref.Table (J), K));"
+    },
+    {
+      "path": "lib-xref.adb",
+      "line": 1625,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Strval (Interface_Name (Ent)));"
+    },
+    {
+      "path": "lib.adb",
+      "line": 1151,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Linker_Option_Lines.Table (J).Option);"
+    },
+    {
+      "path": "libgnat/s-dwalin.adb",
+      "line": 57,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "function String_Length (Str : Str_Access) return Natural;"
+    },
+    {
+      "path": "libgnat/s-dwalin.adb",
+      "line": 1899,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "function String_Length (Str : Str_Access) return Natural is"
+    },
+    {
+      "path": "libgnat/s-dwalin.adb",
+      "line": 1908,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "end String_Length;"
+    },
+    {
+      "path": "libgnat/s-dwalin.adb",
+      "line": 1964,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Last   : constant Natural := String_Length (File_Name);"
+    },
+    {
+      "path": "libgnat/s-regpat.adb",
+      "line": 268,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "function String_Length"
+    },
+    {
+      "path": "libgnat/s-regpat.adb",
+      "line": 303,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "pragma Inline (String_Length);"
+    },
+    {
+      "path": "libgnat/s-regpat.adb",
+      "line": 2188,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Length := String_Length (Program, Index);"
+    },
+    {
+      "path": "libgnat/s-regpat.adb",
+      "line": 2706,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Opnd + String_Length (Program, Scan);"
+    },
+    {
+      "path": "libgnat/s-regpat.adb",
+      "line": 2725,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Opnd + String_Length (Program, Scan);"
+    },
+    {
+      "path": "libgnat/s-regpat.adb",
+      "line": 3761,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "function String_Length"
+    },
+    {
+      "path": "libgnat/s-regpat.adb",
+      "line": 3768,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "end String_Length;"
+    },
+    {
+      "path": "mutably_tagged.adb",
+      "line": 259,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "To_String (String_From_Name_Buffer)"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 2635,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 2636,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Strval (First_Node));"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 2643,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Strval (Right_Opnd (Cur_Node)));"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 2647,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Strlit_Concat_Val := End_String;"
+    },
+    {
+      "path": "par-endh.adb",
+      "line": 382,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Strval => String_From_Name_Buffer);"
+    },
+    {
+      "path": "par-prag.adb",
+      "line": 629,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Strval (Expression (Arg)));"
+    },
+    {
+      "path": "par-prag.adb",
+      "line": 663,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "for J in 1 .. String_Length (Str) loop"
+    },
+    {
+      "path": "par-prag.adb",
+      "line": 664,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "if Get_String_Char (Str, J) > 255 then"
+    },
+    {
+      "path": "par-prag.adb",
+      "line": 673,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Str);"
+    },
+    {
+      "path": "par-prag.adb",
+      "line": 944,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Strval (Expression (Arg2)));"
+    },
+    {
+      "path": "par-prag.adb",
+      "line": 1008,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Slen    : constant Natural := Natural (String_Length (S));"
+    },
+    {
+      "path": "par-prag.adb",
+      "line": 1016,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_String_Char (S, Pos (J));"
+    },
+    {
+      "path": "par-prag.adb",
+      "line": 1255,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "par-prag.adb",
+      "line": 1257,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "return End_String;"
+    },
+    {
+      "path": "prep.adb",
+      "line": 298,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "prep.adb",
+      "line": 299,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Definition (Index + 1 .. Definition'Last));"
+    },
+    {
+      "path": "prep.adb",
+      "line": 300,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Result.Value := End_String;"
+    },
+    {
+      "path": "prep.adb",
+      "line": 513,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Data.Value);"
+    },
+    {
+      "path": "prep.adb",
+      "line": 672,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Symbol_Value1);"
+    },
+    {
+      "path": "prep.adb",
+      "line": 807,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "prep.adb",
+      "line": 808,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"True\");"
+    },
+    {
+      "path": "prep.adb",
+      "line": 809,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "True_Value.Value := End_String;"
+    },
+    {
+      "path": "prep.adb",
+      "line": 811,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "prep.adb",
+      "line": 812,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"False\");"
+    },
+    {
+      "path": "prep.adb",
+      "line": 813,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "String_False := End_String;"
+    },
+    {
+      "path": "prep.adb",
+      "line": 924,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Data.Value);"
+    },
+    {
+      "path": "prep.adb",
+      "line": 956,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (S1);"
+    },
+    {
+      "path": "prep.adb",
+      "line": 966,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (S2);"
+    },
+    {
+      "path": "prep.adb",
+      "line": 1032,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "prep.adb",
+      "line": 1034,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Sinput.Source (Ptr));"
+    },
+    {
+      "path": "prep.adb",
+      "line": 1042,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Value               => End_String);"
+    },
+    {
+      "path": "prep.adb",
+      "line": 1103,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "prep.adb",
+      "line": 1106,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Sinput.Source (Value_Start));"
+    },
+    {
+      "path": "prep.adb",
+      "line": 1114,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Value               => End_String);"
+    },
+    {
+      "path": "prep.adb",
+      "line": 1526,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer"
+    },
+    {
+      "path": "prepcomp.adb",
+      "line": 274,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (String_Literal_Id);"
+    },
+    {
+      "path": "prepcomp.adb",
+      "line": 495,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "prepcomp.adb",
+      "line": 498,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Sinput.Source (J));"
+    },
+    {
+      "path": "prepcomp.adb",
+      "line": 501,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Symbol_Data.Value := End_String;"
+    },
+    {
+      "path": "prepcomp.adb",
+      "line": 662,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Current_Data.Deffile);"
+    },
+    {
+      "path": "repinfo.adb",
+      "line": 837,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Strval (Sect));"
+    },
+    {
+      "path": "scng.adb",
+      "line": 890,
+      "symbols": [
+        "Unstore_String_Char"
+      ],
+      "source": "Unstore_String_Char;"
+    },
+    {
+      "path": "scng.adb",
+      "line": 900,
+      "symbols": [
+        "Unstore_String_Char"
+      ],
+      "source": "Unstore_String_Char;"
+    },
+    {
+      "path": "scng.adb",
+      "line": 910,
+      "symbols": [
+        "Unstore_String_Char"
+      ],
+      "source": "Unstore_String_Char;"
+    },
+    {
+      "path": "scng.adb",
+      "line": 914,
+      "symbols": [
+        "Unstore_String_Char"
+      ],
+      "source": "Unstore_String_Char;"
+    },
+    {
+      "path": "scng.adb",
+      "line": 926,
+      "symbols": [
+        "Unstore_String_Char"
+      ],
+      "source": "Unstore_String_Char;"
+    },
+    {
+      "path": "scng.adb",
+      "line": 1101,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "scng.adb",
+      "line": 1218,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Code);"
+    },
+    {
+      "path": "scng.adb",
+      "line": 1229,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "String_Literal_Id := End_String;"
+    },
+    {
+      "path": "sem_aggr.adb",
+      "line": 1097,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Strlen : constant Nat        := String_Length (Str);"
+    },
+    {
+      "path": "sem_aggr.adb",
+      "line": 1106,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_String_Char (Str, J);"
+    },
+    {
+      "path": "sem_aggr.adb",
+      "line": 1420,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_aggr.adb",
+      "line": 1424,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (UI_To_CC (Char_Literal_Value (Expr)));"
+    },
+    {
+      "path": "sem_aggr.adb",
+      "line": 1428,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Rewrite (N, Make_String_Literal (Loc, End_String));"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 7242,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 7247,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "for J in 1 .. String_Length (Full_Name) loop"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 7248,
+      "symbols": [
+        "Get_String_Char",
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_String_Char (Full_Name, Pos (J)));"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 7265,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Character'Val (48 + (CRC rem 10)));"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 7269,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Rewrite (N, Make_String_Literal (Loc, End_String));"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 7345,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 7348,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_Char_Code ('-'));"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 7355,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_Char_Code (Src (S)));"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 7362,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Make_String_Literal (Loc, End_String));"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 8494,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 8502,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char  (' ');"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 8503,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (UI_Image_Buffer (1 .. UI_Image_Length));"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 8507,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Name_Buffer (1 .. Name_Len));"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 8510,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Str := End_String;"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 9736,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 9739,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Name_Buffer (1 .. Name_Len));"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 9740,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Str := End_String;"
+    },
+    {
+      "path": "sem_case.adb",
+      "line": 1324,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "return String_Length (Strval (Choice));"
+    },
+    {
+      "path": "sem_case.adb",
+      "line": 1874,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Strlen   : constant Nat       := String_Length (Str);"
+    },
+    {
+      "path": "sem_case.adb",
+      "line": 1892,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "UI_From_CC (Get_String_Char (Str, Idx));"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 8085,
+      "symbols": [
+        "String_Equal"
+      ],
+      "source": "(not String_Equal (Strval (Expr1), Strval (Expr2)));"
+    },
+    {
+      "path": "sem_ch6.adb",
+      "line": 10363,
+      "symbols": [
+        "String_Equal"
+      ],
+      "source": "not String_Equal (String_From_Numeric_Literal (E1),"
+    },
+    {
+      "path": "sem_ch6.adb",
+      "line": 10733,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "L1 : constant Nat       := String_Length (S1);"
+    },
+    {
+      "path": "sem_ch6.adb",
+      "line": 10734,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "L2 : constant Nat       := String_Length (S2);"
+    },
+    {
+      "path": "sem_ch6.adb",
+      "line": 10742,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "if Get_String_Char (S1, J) /="
+    },
+    {
+      "path": "sem_ch6.adb",
+      "line": 10743,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "Get_String_Char (S2, J)"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 830,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 831,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (UI_To_CC (Char_Literal_Value (Symbol_Expr)));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 832,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Symbol := End_String;"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 838,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "if String_Length (Symbol) = 0 then"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 1060,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 1061,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 1063,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Unit_Symbols (Position) := End_String;"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 1068,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "if String_Length (Unit_Symbols (Position)) = 0 then"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 1093,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 1094,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 1096,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Dim_Symbols (Position) := End_String;"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 1101,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "if String_Length (Dim_Symbols (Position)) = 0 then"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3131,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "or else String_Length (Strval (Actual_Str)) /= 0"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3277,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3281,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (' ');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3282,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Symbols);"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3283,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "New_Str_Lit := Make_String_Literal (Loc, End_String);"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3369,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"'*'*\");"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3371,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"**\");"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3380,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3385,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"'[\");"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3387,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('[');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3397,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('.');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3400,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (System.Dim_Symbols (Position));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3411,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "Store_String_Int (Int (Dim_Power.Numerator));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3418,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('(');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3419,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "Store_String_Int (Int (Dim_Power.Numerator));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3420,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('/');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3421,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "Store_String_Int (Int (Dim_Power.Denominator));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3422,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (')');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3429,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('(');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3430,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('-');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3431,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "Store_String_Int (Int (-Dim_Power.Numerator));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3436,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (')');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3441,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('/');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3442,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "Store_String_Int (Int (Dim_Power.Denominator));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3443,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (')');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3450,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"']\");"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3452,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (']');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3455,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "return End_String;"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3482,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3491,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('.');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3494,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (System.Unit_Symbols (Position));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3504,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"**\");"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3505,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "Store_String_Int (Int (Dim_Power.Numerator));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3511,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"**\");"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3512,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('(');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3513,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "Store_String_Int (Int (Dim_Power.Numerator));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3514,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('/');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3515,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "Store_String_Int (Int (Dim_Power.Denominator));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3516,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (')');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3522,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"**\");"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3523,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('(');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3524,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('-');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3525,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "Store_String_Int (Int (-Dim_Power.Numerator));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3530,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (')');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3535,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('/');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3536,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "Store_String_Int (Int (Dim_Power.Denominator));"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3537,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (')');"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 3543,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "return End_String;"
+    },
+    {
+      "path": "sem_dist.adb",
+      "line": 190,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String (Parent_Name);"
+    },
+    {
+      "path": "sem_dist.adb",
+      "line": 191,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_Char_Code ('.'));"
+    },
+    {
+      "path": "sem_dist.adb",
+      "line": 193,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_dist.adb",
+      "line": 200,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Name_Buffer (1 .. Name_Len));"
+    },
+    {
+      "path": "sem_dist.adb",
+      "line": 201,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "return End_String;"
+    },
+    {
+      "path": "sem_elim.adb",
+      "line": 956,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Strval (Arg_Parameter_Types));"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 691,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "if UI_From_Int (String_Length (Strval (N))) /= String_Type_Len (Ttype)"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 845,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "UI_From_Int (String_Length (Strval (ValS)));"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 856,
+      "symbols": [
+        "String_Equal"
+      ],
+      "source": "if String_Equal (Strval (ValS), Strval (Expr_Value_S (Choice)))"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 1354,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Llen    : constant Nat       := String_Length (Lstring);"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 1355,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Rlen    : constant Nat       := String_Length (Rstring);"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 1360,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "LC : constant Char_Code := Get_String_Char (Lstring, J);"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 1361,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "RC : constant Char_Code := Get_String_Char (Rstring, J);"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 2396,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Left_Len := String_Length (Strval (Left_Str));"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 2407,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String (Strval (Left_Str));"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 2411,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 2412,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (UI_To_CC (Char_Literal_Value (Left_Str)));"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 2421,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Strval (Right_Str));"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 2422,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Folded_Val := End_String;"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 2425,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (UI_To_CC (Char_Literal_Value (Right_Str)));"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 2426,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Folded_Val := End_String;"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 2743,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "Get_String_Char (Strval (Arr),"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 3667,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "return UI_From_Int (String_Length (Strval (Expr)));"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 4119,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Len := String_Length (Strval (N));"
+    },
+    {
+      "path": "sem_intr.adb",
+      "line": 151,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "elsif String_Length (Strval (Expr_Value_S (Arg1))) = 0 then"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 533,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 537,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "for J in 1 .. String_Length (Strval (N)) loop"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 538,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "CC := Get_String_Char (Strval (N), J);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 543,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (CC - 32);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 548,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (CC + 32);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 551,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (CC);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 557,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Strval => End_String);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 6867,
+      "symbols": [
+        "String_Equal"
+      ],
+      "source": "if String_Equal (String_Val, Strval (Externals.Table (J))) then"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 10097,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "and then String_Length (Strval (Arg_External)) = 0"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 10289,
+      "symbols": [
+        "String_To_Name"
+      ],
+      "source": "Nam := String_To_Name (Strval (Expression (Arg3)));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 11379,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "SL : constant Nat       := String_Length (S);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 11388,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_String_Char (S, J);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 11486,
+      "symbols": [
+        "String_To_Name"
+      ],
+      "source": "Nam := String_To_Name (Strval (Expr_Value_S (Ext_Nam)));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 11530,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 11531,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_Char_Code ('*'));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 11533,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (String_Val);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 11536,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Strval => End_String);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 12287,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "if String_Length (Strval (Arg_External)) = 0 then"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 12343,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "if String_Length (S1) /= String_Length (S2) then"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 12347,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "for J in 1 .. String_Length (S1) loop"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 12348,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "if Get_String_Char (S1, J) /= Get_String_Char (S2, J) then"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 19669,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String (Strval (CS));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 19670,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (' ');"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 19671,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Strval (Str));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 19672,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Set_Strval (CS, End_String);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 21243,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 21257,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "L : constant Nat := String_Length (S);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 21269,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "while F <= L and then Get_String_Char (S, F) = C loop"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 21284,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "if Get_String_Char (S, F) = C then"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 21287,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (ASCII.NUL);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 21290,
+      "symbols": [
+        "Get_String_Char",
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_String_Char (S, F));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 21299,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (ASCII.NUL);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 21303,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Store_Linker_Option_String (End_String);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 21397,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String (Strval (Expr_Value_S (Get_Pragma_Arg (Arg1))));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 21402,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (ASCII.NUL);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 21403,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 21411,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Store_Linker_Option_String (End_String);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 22890,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "for J in 1 .. String_Length (S) loop"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 22891,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "if not In_Character_Range (Get_String_Char (S, J)) then"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 26963,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Slen    : constant Natural := Natural (String_Length (S));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 26970,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_String_Char (S, Pos (J));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 27532,
+      "symbols": [
+        "String_Equal"
+      ],
+      "source": "and then String_Equal"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 28458,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Slen    : constant Natural := Natural (String_Length (S));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 28467,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_String_Char (S, Pos (J));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 28694,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 28696,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Reason := End_String;"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 28805,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Len : constant Nat       := String_Length (Str);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 28825,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_String_Char (Str, J);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 28838,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_String_Char (Str, J);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 28847,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_String_Char (Str, J);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 34620,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "for J in 1 .. String_Length (Strval (N)) loop"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 34621,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_String_Char (Strval (N), J);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35247,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Str_Len : constant Nat := String_Length (Str);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35284,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "CC := Get_String_Char (Str, Ptr);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35717,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Len : constant Nat       := String_Length (Str);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35734,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_Char_Code ('_'));"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35735,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35737,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35739,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35741,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35753,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "or else Get_String_Char (Str, 1) = Get_Char_Code ('*')"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35760,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "CC := Get_String_Char (Str, J);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35783,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35785,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "for J in 1 .. String_Length (Str) loop"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35786,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "CC := Get_String_Char (Str, J);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35798,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (CC);"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 35807,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Strval => End_String));"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 541,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 542,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 544,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Param1 := Make_String_Literal (Loc, End_String);"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 549,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 552,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (\"-\");"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 555,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 557,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Param1 := Make_String_Literal (Loc, End_String);"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 562,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 563,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 565,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Param2 := Make_String_Literal (Loc, End_String);"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 2361,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Strval => End_String));"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 10787,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "and then String_Length (Strval (Op1)) = 0);"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 12044,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Strlen     : constant Nat        := String_Length (Str);"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 12075,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "String_Length (Strval (Left_Opnd (Parent (N)))) = 0))"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 12173,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "if not In_Character_Range (Get_String_Char (Str, J)) then"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 12201,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "if not In_Wide_Character_Range (Get_String_Char (Str, J)) then"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 12257,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "Char_Val := UI_From_CC (Get_String_Char (Str, J));"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 12293,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_String_Char (Str, J);"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 13211,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "when N_String_Literal => String_Length (Strval (N)),"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 10527,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "Strval => String_From_Name_Buffer);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 11063,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "return String_From_Name_Buffer (Buf);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 11225,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Strval (N));"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 29409,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 29411,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (C);"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 29416,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "return End_String;"
+    },
+    {
+      "path": "sem_warn.adb",
+      "line": 3425,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Obsolescent_Warnings.Table (J).Msg);"
+    },
+    {
+      "path": "sprint.adb",
+      "line": 1315,
+      "symbols": [
+        "Write_Char_Code"
+      ],
+      "source": "Write_Char_Code (UI_To_CC (Char_Literal_Value (Node)));"
+    },
+    {
+      "path": "sprint.adb",
+      "line": 2529,
+      "symbols": [
+        "Write_String_Table_Entry"
+      ],
+      "source": "Write_String_Table_Entry"
+    },
+    {
+      "path": "sprint.adb",
+      "line": 3327,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "if String_Length (Strval (Node)) + Column > Sprint_Line_Limit then"
+    },
+    {
+      "path": "sprint.adb",
+      "line": 3332,
+      "symbols": [
+        "Write_String_Table_Entry"
+      ],
+      "source": "Write_String_Table_Entry (Strval (Node));"
+    },
+    {
+      "path": "sprint.adb",
+      "line": 4080,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "String_To_Name_Buffer (Strval (Interface_Name (N)));"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 78,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "for X in 1 .. String_Length (S) loop"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 79,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "Append (Buf, Get_Character (Get_String_Char (S, X)));"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 87,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "function End_String return String_Id is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 90,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "end End_String;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 96,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "function Get_String_Char (Id : String_Id; Index : Int) return Char_Code is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 102,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "end Get_String_Char;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 115,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 116,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "Null_String_Id := End_String;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 157,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "procedure Start_String is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 160,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "end Start_String;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 164,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "procedure Start_String (S : String_Id) is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 192,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "end Start_String;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 198,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "procedure Store_String_Char (C : Char_Code) is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 203,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "end Store_String_Char;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 205,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "procedure Store_String_Char (C : Character) is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 207,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_Char_Code (C));"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 208,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "end Store_String_Char;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 214,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "procedure Store_String_Chars (S : String) is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 217,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Get_Char_Code (S (J)));"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 219,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "end Store_String_Chars;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 221,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "procedure Store_String_Chars (S : String_Id) is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 233,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "S_Len    : constant Nat := String_Length (S);"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 243,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "end Store_String_Chars;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 249,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "procedure Store_String_Int (N : Int) is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 252,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char ('-');"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 253,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "Store_String_Int (-N);"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 257,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "Store_String_Int (N / 10);"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 260,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "Store_String_Char (Character'Val (Character'Pos ('0') + N mod 10));"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 262,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "end Store_String_Int;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 268,
+      "symbols": [
+        "String_Chars_Address"
+      ],
+      "source": "function String_Chars_Address return System.Address is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 271,
+      "symbols": [
+        "String_Chars_Address"
+      ],
+      "source": "end String_Chars_Address;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 277,
+      "symbols": [
+        "String_Equal"
+      ],
+      "source": "function String_Equal (L, R : String_Id) return Boolean is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 285,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "if Get_String_Char (L, J) /= Get_String_Char (R, J) then"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 292,
+      "symbols": [
+        "String_Equal"
+      ],
+      "source": "end String_Equal;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 298,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "function String_From_Name_Buffer"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 302,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 303,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (+Buf);"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 304,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "return End_String;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 305,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "end String_From_Name_Buffer;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 311,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "function String_Length (Id : String_Id) return Nat is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 314,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "end String_Length;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 320,
+      "symbols": [
+        "String_To_Name"
+      ],
+      "source": "function String_To_Name (S : String_Id) return Name_Id is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 325,
+      "symbols": [
+        "String_To_Name"
+      ],
+      "source": "end String_To_Name;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 331,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "procedure String_To_Name_Buffer (S : String_Id) is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 335,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "end String_To_Name_Buffer;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 341,
+      "symbols": [
+        "Strings_Address"
+      ],
+      "source": "function Strings_Address return System.Address is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 344,
+      "symbols": [
+        "Strings_Address"
+      ],
+      "source": "end Strings_Address;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 371,
+      "symbols": [
+        "Unstore_String_Char"
+      ],
+      "source": "procedure Unstore_String_Char is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 376,
+      "symbols": [
+        "Unstore_String_Char"
+      ],
+      "source": "end Unstore_String_Char;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 382,
+      "symbols": [
+        "Write_Char_Code"
+      ],
+      "source": "procedure Write_Char_Code (Code : Char_Code) is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 425,
+      "symbols": [
+        "Write_Char_Code"
+      ],
+      "source": "end Write_Char_Code;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 431,
+      "symbols": [
+        "Write_String_Table_Entry"
+      ],
+      "source": "procedure Write_String_Table_Entry (Id : String_Id) is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 441,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "for J in 1 .. String_Length (Id) loop"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 442,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "C := Get_String_Char (Id, J);"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 447,
+      "symbols": [
+        "Write_Char_Code"
+      ],
+      "source": "Write_Char_Code (C);"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 454,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "Write_Int (String_Length (Id));"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 462,
+      "symbols": [
+        "Write_String_Table_Entry"
+      ],
+      "source": "end Write_String_Table_Entry;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 76,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "procedure Start_String;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 82,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "procedure Start_String (S : String_Id);"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 89,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "procedure Store_String_Char (C : Char_Code);"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 90,
+      "symbols": [
+        "Store_String_Char"
+      ],
+      "source": "procedure Store_String_Char (C : Character);"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 93,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "procedure Store_String_Chars (S : String);"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 94,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "procedure Store_String_Chars (S : String_Id);"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 97,
+      "symbols": [
+        "Store_String_Int"
+      ],
+      "source": "procedure Store_String_Int (N : Int);"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 100,
+      "symbols": [
+        "Unstore_String_Char"
+      ],
+      "source": "procedure Unstore_String_Char;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 104,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "function End_String return String_Id;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 107,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "function String_Length (Id : String_Id) return Nat;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 110,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "function Get_String_Char (Id : String_Id; Index : Int) return Char_Code;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 111,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "pragma Inline (Get_String_Char);"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 115,
+      "symbols": [
+        "String_Equal"
+      ],
+      "source": "function String_Equal (L, R : String_Id) return Boolean;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 118,
+      "symbols": [
+        "String_To_Name"
+      ],
+      "source": "function String_To_Name (S : String_Id) return Name_Id;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 129,
+      "symbols": [
+        "String_To_Name_Buffer"
+      ],
+      "source": "procedure String_To_Name_Buffer (S : String_Id);"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 134,
+      "symbols": [
+        "String_Chars_Address"
+      ],
+      "source": "function String_Chars_Address return System.Address;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 137,
+      "symbols": [
+        "String_From_Name_Buffer"
+      ],
+      "source": "function String_From_Name_Buffer"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 141,
+      "symbols": [
+        "Strings_Address"
+      ],
+      "source": "function Strings_Address return System.Address;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 144,
+      "symbols": [
+        "Write_Char_Code"
+      ],
+      "source": "procedure Write_Char_Code (Code : Char_Code);"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 154,
+      "symbols": [
+        "Write_String_Table_Entry"
+      ],
+      "source": "procedure Write_String_Table_Entry (Id : String_Id);"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 167,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "pragma Inline (End_String);"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 168,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "pragma Inline (String_Length);"
+    },
+    {
+      "path": "stringt.h",
+      "line": 68,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "INLINE Int String_Length (String_Id);"
+    },
+    {
+      "path": "stringt.h",
+      "line": 71,
+      "symbols": [
+        "String_Length"
+      ],
+      "source": "String_Length (String_Id Id)"
+    },
+    {
+      "path": "stringt.h",
+      "line": 80,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "INLINE Char_Code Get_String_Char (String_Id, Int);"
+    },
+    {
+      "path": "stringt.h",
+      "line": 83,
+      "symbols": [
+        "Get_String_Char"
+      ],
+      "source": "Get_String_Char (String_Id Id, Int Index)"
+    },
+    {
+      "path": "tbuild.adb",
+      "line": 526,
+      "symbols": [
+        "Start_String"
+      ],
+      "source": "Start_String;"
+    },
+    {
+      "path": "tbuild.adb",
+      "line": 527,
+      "symbols": [
+        "Store_String_Chars"
+      ],
+      "source": "Store_String_Chars (Strval);"
+    },
+    {
+      "path": "tbuild.adb",
+      "line": 528,
+      "symbols": [
+        "End_String"
+      ],
+      "source": "return Make_String_Literal (Sloc, Strval => End_String);"
+    },
+    {
+      "path": "treepr.adb",
+      "line": 521,
+      "symbols": [
+        "Write_String_Table_Entry"
+      ],
+      "source": "Write_String_Table_Entry (String_Id (N));"
+    },
+    {
+      "path": "treepr.adb",
+      "line": 892,
+      "symbols": [
+        "Write_String_Table_Entry"
+      ],
+      "source": "Write_String_Table_Entry (Val);"
+    }
+  ],
+  "package_and_raw_pointer_references": [
+    {
+      "path": "ali-util.adb",
+      "line": 35,
+      "source": "with Stringt;"
+    },
+    {
+      "path": "ali-util.adb",
+      "line": 446,
+      "source": "Stringt.Mark;"
+    },
+    {
+      "path": "ali-util.adb",
+      "line": 463,
+      "source": "Stringt.Release;"
+    },
+    {
+      "path": "back_end.adb",
+      "line": 41,
+      "source": "with Stringt;       use Stringt;"
+    },
+    {
+      "path": "back_end.adb",
+      "line": 100,
+      "source": "strings_ptr                   : Address;"
+    },
+    {
+      "path": "back_end.adb",
+      "line": 101,
+      "source": "string_chars_ptr              : Address;"
+    },
+    {
+      "path": "back_end.adb",
+      "line": 169,
+      "source": "strings_ptr        => Strings_Address,"
+    },
+    {
+      "path": "back_end.adb",
+      "line": 170,
+      "source": "string_chars_ptr   => String_Chars_Address,"
+    },
+    {
+      "path": "checks.adb",
+      "line": 64,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "contracts.adb",
+      "line": 57,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "errout.adb",
+      "line": 53,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "erroutc.adb",
+      "line": 45,
+      "source": "with Stringt;  use Stringt;"
+    },
+    {
+      "path": "errutil.adb",
+      "line": 35,
+      "source": "with Stringt;  use Stringt;"
+    },
+    {
+      "path": "exp_aggr.adb",
+      "line": 70,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_attr.adb",
+      "line": 69,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_ch11.adb",
+      "line": 50,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_ch2.adb",
+      "line": 52,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_ch5.adb",
+      "line": 64,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_code.adb",
+      "line": 42,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_dbug.adb",
+      "line": 42,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_disp.adb",
+      "line": 67,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_dist.adb",
+      "line": 51,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_imgv.adb",
+      "line": 50,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_prag.adb",
+      "line": 54,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_put_image.adb",
+      "line": 48,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_smem.adb",
+      "line": 45,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 64,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "freeze.adb",
+      "line": 69,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "gcc-interface/gigi.h",
+      "line": 260,
+      "source": "struct String_Entry *strings_ptr,"
+    },
+    {
+      "path": "gcc-interface/trans.cc",
+      "line": 99,
+      "source": "struct String_Entry *Strings_Ptr;"
+    },
+    {
+      "path": "gcc-interface/trans.cc",
+      "line": 100,
+      "source": "Char_Code *String_Chars_Ptr;"
+    },
+    {
+      "path": "gcc-interface/trans.cc",
+      "line": 307,
+      "source": "struct String_Entry *strings_ptr,"
+    },
+    {
+      "path": "gcc-interface/trans.cc",
+      "line": 308,
+      "source": "Char_Code *string_chars_ptr,"
+    },
+    {
+      "path": "gcc-interface/trans.cc",
+      "line": 334,
+      "source": "Strings_Ptr = strings_ptr;"
+    },
+    {
+      "path": "gcc-interface/trans.cc",
+      "line": 335,
+      "source": "String_Chars_Ptr = string_chars_ptr;"
+    },
+    {
+      "path": "gnat1drv.adb",
+      "line": 72,
+      "source": "with Stringt;"
+    },
+    {
+      "path": "gnat1drv.adb",
+      "line": 1025,
+      "source": "Stringt.Initialize;"
+    },
+    {
+      "path": "gnat1drv.adb",
+      "line": 1530,
+      "source": "Stringt.Lock;"
+    },
+    {
+      "path": "gnatls.adb",
+      "line": 44,
+      "source": "with Stringt;"
+    },
+    {
+      "path": "gnatls.adb",
+      "line": 2007,
+      "source": "Stringt.Initialize;"
+    },
+    {
+      "path": "gprep.adb",
+      "line": 37,
+      "source": "with Stringt;  use Stringt;"
+    },
+    {
+      "path": "gprep.adb",
+      "line": 175,
+      "source": "Stringt.Initialize;"
+    },
+    {
+      "path": "lib-util.adb",
+      "line": 28,
+      "source": "with Stringt;  use Stringt;"
+    },
+    {
+      "path": "lib-writ.adb",
+      "line": 59,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "lib-xref.adb",
+      "line": 49,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "lib.adb",
+      "line": 40,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "make.adb",
+      "line": 46,
+      "source": "with Stringt;"
+    },
+    {
+      "path": "make.adb",
+      "line": 3681,
+      "source": "Stringt.Initialize;"
+    },
+    {
+      "path": "mutably_tagged.adb",
+      "line": 39,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "par-ch4.adb",
+      "line": 30,
+      "source": "with Stringt; use Stringt;"
+    },
+    {
+      "path": "par-endh.adb",
+      "line": 28,
+      "source": "with Stringt;  use Stringt;"
+    },
+    {
+      "path": "par-prag.adb",
+      "line": 37,
+      "source": "with Stringt;  use Stringt;"
+    },
+    {
+      "path": "par.adb",
+      "line": 49,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "prep.adb",
+      "line": 34,
+      "source": "with Stringt;  use Stringt;"
+    },
+    {
+      "path": "prepcomp.adb",
+      "line": 35,
+      "source": "with Stringt;  use Stringt;"
+    },
+    {
+      "path": "repinfo.adb",
+      "line": 47,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "scng.adb",
+      "line": 35,
+      "source": "with Stringt;  use Stringt;"
+    },
+    {
+      "path": "sem_aggr.adb",
+      "line": 63,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_attr.adb",
+      "line": 78,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_case.adb",
+      "line": 45,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 77,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 87,
+      "source": "with Stringt;"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 3972,
+      "source": "Stringt.To_String (Strval (Expr_Value_S (Def)));"
+    },
+    {
+      "path": "sem_ch6.adb",
+      "line": 87,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 46,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_dist.adb",
+      "line": 47,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_elim.adb",
+      "line": 42,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_eval.adb",
+      "line": 61,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_intr.adb",
+      "line": 42,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_prag.adb",
+      "line": 85,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_res.adb",
+      "line": 88,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 71,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sem_warn.adb",
+      "line": 51,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "sprint.adb",
+      "line": 47,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 30,
+      "source": "package body Stringt is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 268,
+      "source": "function String_Chars_Address return System.Address is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 271,
+      "source": "end String_Chars_Address;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 341,
+      "source": "function Strings_Address return System.Address is"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 344,
+      "source": "end Strings_Address;"
+    },
+    {
+      "path": "stringt.adb",
+      "line": 464,
+      "source": "end Stringt;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 30,
+      "source": "package Stringt is"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 134,
+      "source": "function String_Chars_Address return System.Address;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 141,
+      "source": "function Strings_Address return System.Address;"
+    },
+    {
+      "path": "stringt.ads",
+      "line": 170,
+      "source": "end Stringt;"
+    },
+    {
+      "path": "stringt.h",
+      "line": 59,
+      "source": "extern struct String_Entry *Strings_Ptr;"
+    },
+    {
+      "path": "stringt.h",
+      "line": 64,
+      "source": "extern Char_Code *String_Chars_Ptr;"
+    },
+    {
+      "path": "stringt.h",
+      "line": 73,
+      "source": "return Strings_Ptr[Id - First_String_Id].Length;"
+    },
+    {
+      "path": "stringt.h",
+      "line": 86,
+      "source": "String_Chars_Ptr"
+    },
+    {
+      "path": "stringt.h",
+      "line": 87,
+      "source": "[Strings_Ptr[Id - First_String_Id].String_Index + Index - 1];"
+    },
+    {
+      "path": "strub.adb",
+      "line": 37,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "tbuild.adb",
+      "line": 41,
+      "source": "with Stringt;        use Stringt;"
+    },
+    {
+      "path": "treepr.adb",
+      "line": 45,
+      "source": "with Stringt;              use Stringt;"
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "status": "Manual route classification for the feasibility claims, not a complete resolved call graph",
+  "upstream_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "inventory_line_classes": [
+    {
+      "category": "Stringt body/specification/header definitions and internal uses",
+      "files": [
+        "stringt.adb",
+        "stringt.ads",
+        "stringt.h"
+      ],
+      "lines": 83
+    },
+    {
+      "category": "Ada raw-address bridge uses",
+      "files": [
+        "back_end.adb"
+      ],
+      "lines": 2
+    },
+    {
+      "category": "C++ logical access uses",
+      "files": [
+        "gcc-interface/trans.cc"
+      ],
+      "lines": 4
+    },
+    {
+      "category": "Unrelated runtime functions named String_Length",
+      "files": [
+        "libgnat/s-dwalin.adb",
+        "libgnat/s-regpat.adb"
+      ],
+      "lines": 11
+    },
+    {
+      "category": "Other Ada candidate lines requiring contextual resolution",
+      "lines": 401
+    }
+  ],
+  "semantic_routes": [
+    {
+      "path": "sem_res.adb",
+      "lines": [
+        10803,
+        10815,
+        12035,
+        12320
+      ],
+      "role": "Concatenation resolution and String literal bounds/character/static-predicate legality"
+    },
+    {
+      "path": "sem_eval.adb",
+      "lines": [
+        1348,
+        1380,
+        2342,
+        2443,
+        2700,
+        2765,
+        5118,
+        5144,
+        5293,
+        5300
+      ],
+      "role": "Exact comparison, static concatenation, indexed evaluation, folding, constant lookup"
+    },
+    {
+      "path": "par-ch4.adb",
+      "lines": [
+        2510,
+        2665
+      ],
+      "role": "Long literal-chain parser folding through Start/Store/End"
+    }
+  ],
+  "materializing_conversion_sites": [
+    {
+      "path": "exp_ch11.adb",
+      "line": 1453,
+      "operation": "Append(Buf, Strval(...))",
+      "role": "Exception message String"
+    },
+    {
+      "path": "exp_dbug.adb",
+      "line": 839,
+      "operation": "Append(Global_Name_Buffer, Strval(...))",
+      "role": "Debug-name String"
+    },
+    {
+      "path": "sem_ch12.adb",
+      "line": 6161,
+      "operation": "Append(B, Strval(...))",
+      "role": "Generic static-expression name"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 2759,
+      "operation": "Append(Global_Name_Buffer, String_From_Numeric_Literal(N))",
+      "role": "Dimension numeric-literal diagnostic"
+    },
+    {
+      "path": "sem_dim.adb",
+      "line": 2764,
+      "operation": "Append(Global_Name_Buffer, Symbol_Of(Typ))",
+      "role": "Dimension unit-symbol diagnostic"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "line": 3972,
+      "operation": "Stringt.To_String",
+      "role": "External_Initialization argument"
+    },
+    {
+      "path": "sem_util.adb",
+      "line": 256,
+      "operation": "To_String",
+      "role": "Warning-message matching"
+    },
+    {
+      "path": "exp_util.adb",
+      "line": 335,
+      "operation": "To_String",
+      "role": "Machine_Attribute hardbool"
+    },
+    {
+      "path": "strub.adb",
+      "line": 58,
+      "operation": "To_String",
+      "role": "Machine_Attribute strub"
+    },
+    {
+      "path": "mutably_tagged.adb",
+      "line": 259,
+      "operation": "To_String(String_From_Name_Buffer)",
+      "role": "Mutably-tagged error message"
+    }
+  ],
+  "raw_abi_files": [
+    "stringt.adb",
+    "stringt.ads",
+    "stringt.h",
+    "back_end.adb",
+    "gcc-interface/gigi.h",
+    "gcc-interface/trans.cc"
+  ],
+  "remaining_scope": "Selected dependency reachability and overloaded-call resolution remain part of any implementation design. The producer inventory and snapshot correspondence are in the root stream."
+}

@@ -1,0 +1,38 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "binary_attestation": false,
+  "files": [
+    {
+      "path": "gcc/tree.cc",
+      "file": "gcc__tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree.cc",
+      "retrieved_utc": "2026-10-17T21:29:16.801081+00:00"
+    },
+    {
+      "path": "gcc/tree.h",
+      "file": "gcc__tree.h",
+      "bytes": 281689,
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree.h",
+      "retrieved_utc": "2026-10-17T21:29:17.181433+00:00"
+    },
+    {
+      "path": "gcc/tree-core.h",
+      "file": "gcc__tree-core.h",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-core.h",
+      "retrieved_utc": "2026-10-17T21:29:17.493926+00:00"
+    },
+    {
+      "path": "gcc/varasm.cc",
+      "file": "gcc__varasm.cc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/varasm.cc",
+      "retrieved_utc": "2026-10-17T21:29:17.878956+00:00"
+    }
+  ]
+}

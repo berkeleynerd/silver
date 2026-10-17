@@ -1,0 +1,350 @@
+[
+  {
+    "area": "ada",
+    "path": "stringt.ads",
+    "ranges": [
+      [
+        58,
+        145
+      ]
+    ],
+    "bytes": 8336,
+    "sha256": "e3ffa0b94869b0a332f009ab5527bb2509b47ca3cfefb91860c60fae7e4280e6"
+  },
+  {
+    "area": "ada",
+    "path": "stringt.adb",
+    "ranges": [
+      [
+        36,
+        376
+      ]
+    ],
+    "bytes": 13395,
+    "sha256": "9907f68178174b87a19a6d3871e5bc48e3a7471b3a4140f5e25bd900fcb84954"
+  },
+  {
+    "area": "ada",
+    "path": "stringt.h",
+    "ranges": [
+      [
+        26,
+        88
+      ]
+    ],
+    "bytes": 4226,
+    "sha256": "53b108713f4aaeb7dd53afc0f821434fc5f9439625a0fc35d4e0a32faf090d58"
+  },
+  {
+    "area": "ada",
+    "path": "types.ads",
+    "ranges": [
+      [
+        503,
+        536
+      ]
+    ],
+    "bytes": 46466,
+    "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5"
+  },
+  {
+    "area": "ada",
+    "path": "types.h",
+    "ranges": [
+      [
+        42,
+        55
+      ],
+      [
+        248,
+        263
+      ],
+      [
+        306,
+        313
+      ]
+    ],
+    "bytes": 14364,
+    "sha256": "3b688be6eaba2108885ddaa0342be93416f3f53da12d3e4f6dc2fb38ee787fa3"
+  },
+  {
+    "area": "ada",
+    "path": "back_end.adb",
+    "ranges": [
+      [
+        88,
+        106
+      ],
+      [
+        160,
+        174
+      ]
+    ],
+    "bytes": 14372,
+    "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+  },
+  {
+    "area": "ada",
+    "path": "gcc-interface/gigi.h",
+    "ranges": [
+      [
+        250,
+        265
+      ]
+    ],
+    "bytes": 56241,
+    "sha256": "6e2940a89abb01b7218eff64e13b3aabbc7a9970870670816160dc5991ba48e2"
+  },
+  {
+    "area": "ada",
+    "path": "gcc-interface/trans.cc",
+    "ranges": [
+      [
+        91,
+        103
+      ],
+      [
+        299,
+        313
+      ],
+      [
+        329,
+        338
+      ],
+      [
+        6705,
+        6756
+      ]
+    ],
+    "bytes": 406631,
+    "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+  },
+  {
+    "area": "ada",
+    "path": "sem_eval.adb",
+    "ranges": [
+      [
+        1348,
+        1380
+      ],
+      [
+        2342,
+        2443
+      ],
+      [
+        2700,
+        2765
+      ],
+      [
+        5118,
+        5144
+      ],
+      [
+        5293,
+        5300
+      ]
+    ],
+    "bytes": 273210,
+    "sha256": "0dfbf5f1bede0b9e011f21649c7f4d34851c6267cd72acebcb53e7a7fb4c7d30"
+  },
+  {
+    "area": "ada",
+    "path": "sem_res.adb",
+    "ranges": [
+      [
+        10803,
+        10815
+      ],
+      [
+        12035,
+        12320
+      ]
+    ],
+    "bytes": 559989,
+    "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8"
+  },
+  {
+    "area": "ada",
+    "path": "par-ch4.adb",
+    "ranges": [
+      [
+        2510,
+        2665
+      ]
+    ],
+    "bytes": 143417,
+    "sha256": "b6ea201b0bf99ddb4683ecc09ea65bf5009f249fbae7af71d00ec921bd0f79d7"
+  },
+  {
+    "area": "ada",
+    "path": "exp_ch11.adb",
+    "ranges": [
+      [
+        1446,
+        1458
+      ]
+    ],
+    "bytes": 79867,
+    "sha256": "253fe8e8936d351afff6dc81696c9f0cae042037a39ac9ff31db3fda3d806361"
+  },
+  {
+    "area": "ada",
+    "path": "exp_dbug.adb",
+    "ranges": [
+      [
+        832,
+        846
+      ]
+    ],
+    "bytes": 55041,
+    "sha256": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0"
+  },
+  {
+    "area": "ada",
+    "path": "sem_ch12.adb",
+    "ranges": [
+      [
+        6150,
+        6168
+      ]
+    ],
+    "bytes": 729258,
+    "sha256": "4d67a12cbf80298c1eacfba27b7c7ae42d9757989d0241993c0da6748320fde8"
+  },
+  {
+    "area": "ada",
+    "path": "sem_dim.adb",
+    "ranges": [
+      [
+        2750,
+        2770
+      ]
+    ],
+    "bytes": 127717,
+    "sha256": "5c9eb8bd75ed2b5c8784db7dffddc52158fe8c612713bb1b550fbdf4379f2035"
+  },
+  {
+    "area": "ada",
+    "path": "sem_ch3.adb",
+    "ranges": [
+      [
+        3960,
+        3982
+      ]
+    ],
+    "bytes": 916035,
+    "sha256": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f"
+  },
+  {
+    "area": "ada",
+    "path": "sem_util.adb",
+    "ranges": [
+      [
+        248,
+        262
+      ]
+    ],
+    "bytes": 1074489,
+    "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4"
+  },
+  {
+    "area": "ada",
+    "path": "exp_util.adb",
+    "ranges": [
+      [
+        325,
+        343
+      ]
+    ],
+    "bytes": 533310,
+    "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1"
+  },
+  {
+    "area": "ada",
+    "path": "strub.adb",
+    "ranges": [
+      [
+        49,
+        66
+      ]
+    ],
+    "bytes": 10503,
+    "sha256": "0c32ea00452831703067565da1db1f87606a17112d886b93c0064c036b253690"
+  },
+  {
+    "area": "ada",
+    "path": "mutably_tagged.adb",
+    "ranges": [
+      [
+        250,
+        268
+      ]
+    ],
+    "bytes": 13746,
+    "sha256": "72e22425ee719a3e06d4a6186fddaa077d884492a55c110c1d84a22e2ec30d5f"
+  },
+  {
+    "area": "gcc",
+    "path": "gcc/tree.cc",
+    "ranges": [
+      [
+        2610,
+        2638
+      ]
+    ],
+    "bytes": 484431,
+    "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+  },
+  {
+    "area": "gcc",
+    "path": "gcc/tree.h",
+    "ranges": [
+      [
+        1175,
+        1190
+      ]
+    ],
+    "bytes": 281689,
+    "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c"
+  },
+  {
+    "area": "gcc",
+    "path": "gcc/tree-core.h",
+    "ranges": [
+      [
+        1586,
+        1599
+      ]
+    ],
+    "bytes": 73833,
+    "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71"
+  },
+  {
+    "area": "gcc",
+    "path": "gcc/varasm.cc",
+    "ranges": [
+      [
+        862,
+        920
+      ],
+      [
+        2304,
+        2335
+      ],
+      [
+        5620,
+        5642
+      ],
+      [
+        7367,
+        7410
+      ],
+      [
+        7486,
+        7510
+      ]
+    ],
+    "bytes": 271386,
+    "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+  }
+]

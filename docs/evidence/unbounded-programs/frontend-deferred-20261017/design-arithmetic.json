@@ -1,0 +1,14 @@
+{
+  "status": "Symbolic candidate representation, not an implemented benchmark",
+  "Int_Last": 2147483647,
+  "final_chain_lengths": [
+    1073741824,
+    1073741824
+  ],
+  "current_final_character_slots_lower_bound": 2147483648,
+  "current_final_Char_Code_payload_bytes_lower_bound": 8589934592,
+  "candidate_chain_leaf_roots": 2,
+  "candidate_chain_concat_roots": 60,
+  "candidate_chain_descriptors": 62,
+  "caveat": "Excludes lexical tokens, runtime/dependency values, metadata, other folds, arena spare capacity and backend/prover materialization"
+}

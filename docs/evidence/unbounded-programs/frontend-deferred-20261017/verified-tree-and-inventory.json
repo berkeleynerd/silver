@@ -1,0 +1,12 @@
+{
+  "upstream_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "ada_tree": "a3b9f0d4c999c8c127cebdc239ca8218284137aa",
+  "truncated": false,
+  "files": 2490,
+  "bytes": 62760971,
+  "mismatches": [],
+  "lexical_matching_lines": 501,
+  "lexical_matching_files": 53,
+  "overloaded_candidate_lines": 208,
+  "package_and_pointer_reference_lines": 92
+}
