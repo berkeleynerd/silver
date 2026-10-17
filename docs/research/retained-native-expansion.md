@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records thirty-eight inspected files hash-checked against the complete source
+records forty-one inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -439,10 +439,96 @@ backend.
 
 Both `RE_SS_Pool` and `RE_SS_Allocate` map to `System.Secondary_Stack`
 (`rtsfind.ads:3493–3498`). This path adds no Storage_Pools/Subpools helper seed.
-It does **not** cover allocator semantic analysis: even the subtype-identifier
-form creates an `E_Allocator_Type` itype (`sem_ch4.adb:728–733`). Access-type
-declaration/freezing, runtime lookup/loading and backend representations are
-additional. The helper-seed conclusion was passed to the source-closure lane.
+Runtime lookup/loading and backend representations are additional. The
+helper-seed conclusion was passed to the source-closure lane. The next two
+transfers close the specific access-type and allocator semantic paths, with
+their incoming frozen-subtype and placement premises stated separately.
+
+### Generated named access type
+
+Consider the direct `type Ayy is access ConstrT` declaration emitted at
+3382–3387, in the current ordinary procedure/block scope. `ConstrT` is an
+already-analyzed and frozen ordinary constrained String subtype; the declaration
+has a fresh internal defining entity, no aspects, storage-size clause, partial
+view, predicates, invariants, default-initial-condition or stream operations.
+The selected configuration has no `Default_Storage_Pool` override.
+
+Analyzing and expanding this declaration adds **one empty Elist header** and
+no node/entity/name/String/Uint allocations beyond its already-counted syntax:
+
+- `Find_Type_Name` takes its fresh-name branch (`sem_ch3.adb:18760–18772`).
+  `Access_Type_Declaration` analyzes the prebound subtype identifier and
+  returns it through `Process_Subtype`; it mutates the existing defining entity
+  to `E_Access_Type`, with itself as its base, and sets its designated type.
+  No anonymous designated subtype is needed (`1335–1500`).
+- `Analyze_Full_Type_Declaration` allocates one empty
+  `Direct_Primitive_Operations` Elist because `Etype(T)=T` (`3353–3360`).
+  It sets `Has_Delayed_Freeze` but does not allocate a freeze node at this point:
+  the preallocation branch requires `Base_Type(T)/=T` (`3422–3451`). The
+  incomplete/private/derived and aspect branches do not apply.
+- `Expand_N_Full_Type_Declaration` calls `Build_Master`, whose two allocating
+  branches require task parts or a limited class-wide designated type. String
+  has neither (`exp_ch3.adb:6844–6913`). The remaining component/derived-TSS
+  work does not apply to this fresh access-to-object definition.
+
+When this named access type is first frozen in the same scope, it adds at most
+**one ordinary `N_Freeze_Entity` node and one syntax-list header**, with no
+entity/name/Elist-element/String/Uint-pool allocation. `Freeze_Entity` sets its
+size-known flag directly for an elementary type (`freeze.adb:800–814`), and
+`Layout_Type` uses the 64-bit address size for access to a constrained String
+(`layout.adb:244–366`). `Init_Size` and `Set_Elem_Alignment` use only directly
+represented small Uint values here (`einfo-utils.adb:574–582`,
+`layout.adb:939–1045`). The delayed freeze allocates its single node and lazily
+creates the result list (`freeze.adb:8265–8286`, `nlists.adb:258–269`). Repeated
+freezing returns the empty result (`freeze.adb:6536–6550`).
+
+Analysis of that freeze node has no applicable tagged/record/predicate/aspect
+case (`sem_ch13.adb:14450–14921`). Its expansion has no generated actions:
+`Freeze_Type` has no storage-size clause to materialize a bounded pool; the
+subpool branch cannot load a previously unloaded unit and cannot generate a
+check for the non-class-wide secondary-stack pool. Generated access types
+without private completion/indirect-temp status skip finalization collection
+creation, and ordinary String independently has no finalization need
+(`exp_ch3.adb:9849–10117`). `Freeze_Stream_Operations` immediately returns for
+the generated type (`9762–9776`), and no invariant/DIC exists. Thus the freeze
+node remains, with empty actions (`exp_ch13.adb:383–710`). Context placement
+by `Insert_Actions` and any scope-stack storage are separate.
+
+The emitter sets `Associated_Storage_Pool` **after** analyzing the access-type
+declaration, so the preceding declaration argument matters: it performs no
+early pool expansion. Even a preliminary access-type freeze has no default
+pool lookup without a configuration override (`freeze.adb:7740–7766`). This
+path introduces no Storage_Pools, Subpools, task or finalization runtime seed.
+
+### Allocator semantic transfer
+
+For `new ConstrT` with its exact same designated subtype as the now-frozen
+named access type, `No_Initialization` and no subpool/qualified expression,
+`Analyze_Allocator` adds exactly **one entity and one internal name**. It first
+looks up the already-decorated `ConstrT` identifier, then creates one
+`E_Allocator_Type` through `Create_Itype` (`sem_ch4.adb:613–644,728–733`).
+`Create_Itype`/`New_Internal_Entity` allocate that entity/name, link it into the
+existing scope chain and set its association; they allocate no syntax or
+Elist headers (`itypes.adb:38–89`, `sem_util.adb:25661–25679`). There is no
+missing-initialization, limited/tagged or task/protected branch for this String
+subtype (`sem_ch4.adb:735–925`).
+
+`Resolve_Allocator` changes the allocator expression's type from this temporary
+allocator itype to the existing named base access type (`sem_res.adb:5476–5484`).
+Its subtype mark is already frozen. The accessibility/coextension/task branches
+are excluded by the exact generated shape (`5634–5898`). The general resolution
+tail freezes only already-frozen types, and native allocator expansion has the
+zero-allocation transfer above, apart from its runtime lookup. The orphaned
+allocator itype/name still consumes retained table capacity; replacing the
+expression's type does not reclaim it. Subsequent whole-scope processing is not
+silently credited as reclaiming storage.
+
+Combining **only these access-type and allocator semantic transfers**, the
+secondary-storage path needs one extra ordinary node, one extra entity/name,
+one syntax-list header and one empty Elist header, beyond the direct emitter
+count. This does not include `ConstrT` construction/freezing, the allocator's
+enclosing object/renaming declarations, action placement, runtime loading or
+backend data. Do not treat it as the completed secondary-storage branch.
 
 ## Required transitive closure
 

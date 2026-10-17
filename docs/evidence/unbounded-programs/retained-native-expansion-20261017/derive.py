@@ -29,7 +29,8 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "elists.adb", "libgnat/g-htable.ads", "libgnat/s-htable.adb",
          "sem_ch3.adb", "sem.adb", "sem_ch2.adb", "sem_ch8.adb", "checks.adb",
          "freeze.adb", "layout.adb", "lib-xref.adb", "sem_warn.adb",
-         "sem_elim.adb", "sem_cat.adb", "einfo-utils.adb", "sem_ch13.adb"]
+         "sem_elim.adb", "sem_cat.adb", "einfo-utils.adb", "sem_ch13.adb",
+         "exp_ch13.adb", "nlists.adb", "itypes.adb"]
 sources = {}
 hashes = {}
 for name in files:
@@ -182,6 +183,24 @@ result = {
         "ordinary_node_entity_list_allocations_in_Expand_N_Allocator": 0,
         "premises": "generated named access to constrained uncontrolled String; expression subtype identifier; No_Initialization; not special return/coextension; Linux 64-bit address; no restrictive config diagnostic",
         "not_included": "allocator semantic analysis, access-type declaration/freezing, RTE lookup/dependency loading, backend emission",
+    },
+    "concat_named_access_declaration_and_freeze": {
+        "premises": "fresh generated named access to existing frozen constrained String subtype in current ordinary procedure/block scope; no aspects/storage-size/default-pool/private/derived/remote/controlled/task cases",
+        "declaration_extra_elist_headers": 1,
+        "first_freeze_extra_ordinary_nodes": 1,
+        "first_freeze_extra_syntax_list_headers": 1,
+        "extra_entity_name_String_Uint_allocations": 0,
+        "repeated_freeze_extra_allocations": 0,
+        "new_runtime_seeds": [],
+        "not_included": "direct declaration syntax, incoming subtype construction/freezing, Insert_Actions context/scope handling, backend",
+    },
+    "concat_allocator_analysis_and_resolution": {
+        "premises": "new ConstrT subtype identifier; exact designated subtype of existing frozen named access type; No_Initialization; no subpool/qualified expression/controlled/task/tagged/coextension cases",
+        "extra_entities_and_internal_names": 1,
+        "extra_node_list_elist_String_Uint_allocations": 0,
+        "name_characters_including_NUL": 13,
+        "retention": "E_Allocator_Type remains retained after expression type replaced with named access type",
+        "not_included": "direct allocator syntax, enclosing object/renaming declaration, runtime lookup/loading, later whole-scope/backend processing",
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",

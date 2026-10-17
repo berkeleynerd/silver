@@ -11,7 +11,7 @@ directory and an output path:
 python3 derive.py /path/to/gcc/ada /tmp/native-concat-local-envelope.json
 ```
 
-`derive.py` verifies thirty-eight source files against the checked-in complete
+`derive.py` verifies forty-one source files against the checked-in complete
 manifest. It sums the manually derived control-flow rows and emits a lexical
 call-site list to help inspect coverage. Neither the sums nor the lexical list
 establish transitive helper closure. `local-envelope.json` is the retained

@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 38,
+  "source_files_verified": 41,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -39,7 +39,10 @@
     "sem_elim.adb": "6977031b82062070e830bb300c4ae90a3ae669c6b53742b43696878bb8e2a302",
     "sem_cat.adb": "26480016f2e432044f23b1a0a4de224bd61a7f274337b9ff290a400f6d879320",
     "einfo-utils.adb": "177ee4fd85c802e6ee810b35ac253da8fcf3e979c12b7de4c62250ef544d67fa",
-    "sem_ch13.adb": "570d8a1cc74520fd95a12a9921bfe0893da7857517b4a2910da2bf65c880fd96"
+    "sem_ch13.adb": "570d8a1cc74520fd95a12a9921bfe0893da7857517b4a2910da2bf65c880fd96",
+    "exp_ch13.adb": "c904c2cb48204bcd7bcd48b6143e3f877adcc1620fb1cb4cc9a1ca780a80b630",
+    "nlists.adb": "add9468f104be6152a61a52473fd869fd16f64f1a9456b47eccc60af9854c763",
+    "itypes.adb": "1f1482d8147358ca0c8b1de6c665cd61584f3e08527729b92f058b7820cf2e9a"
   },
   "scope": "native String concat direct emitter and specified primitive helpers; not transitive closure",
   "ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers": {
@@ -425,6 +428,24 @@
     "ordinary_node_entity_list_allocations_in_Expand_N_Allocator": 0,
     "premises": "generated named access to constrained uncontrolled String; expression subtype identifier; No_Initialization; not special return/coextension; Linux 64-bit address; no restrictive config diagnostic",
     "not_included": "allocator semantic analysis, access-type declaration/freezing, RTE lookup/dependency loading, backend emission"
+  },
+  "concat_named_access_declaration_and_freeze": {
+    "premises": "fresh generated named access to existing frozen constrained String subtype in current ordinary procedure/block scope; no aspects/storage-size/default-pool/private/derived/remote/controlled/task cases",
+    "declaration_extra_elist_headers": 1,
+    "first_freeze_extra_ordinary_nodes": 1,
+    "first_freeze_extra_syntax_list_headers": 1,
+    "extra_entity_name_String_Uint_allocations": 0,
+    "repeated_freeze_extra_allocations": 0,
+    "new_runtime_seeds": [],
+    "not_included": "direct declaration syntax, incoming subtype construction/freezing, Insert_Actions context/scope handling, backend"
+  },
+  "concat_allocator_analysis_and_resolution": {
+    "premises": "new ConstrT subtype identifier; exact designated subtype of existing frozen named access type; No_Initialization; no subpool/qualified expression/controlled/task/tagged/coextension cases",
+    "extra_entities_and_internal_names": 1,
+    "extra_node_list_elist_String_Uint_allocations": 0,
+    "name_characters_including_NUL": 13,
+    "retention": "E_Allocator_Type remains retained after expression type replaced with named access type",
+    "not_included": "direct allocator syntax, enclosing object/renaming declaration, runtime lookup/loading, later whole-scope/backend processing"
   },
   "lexical_call_sites_not_a_reachable_call_graph": [
     {
