@@ -16,8 +16,8 @@ next capability while retaining full assurance for the current language.
 
 ### Bounded mutable integers
 
-**Scope/design complete on 2026-10-17; capability not yet supported.** The
-[scope proposal](docs/bounded-mutable-integers.md) defines the selected narrow
+**Implementation through delivery authorized on 2026-10-17; not yet supported.**
+The completed [scope](docs/bounded-mutable-integers.md) defines the selected narrow
 increment under [stage #11](https://github.com/berkeleynerd/silver/issues/11),
 driven by [Find square difference](rosetta/f/find-square-difference/silver.md).
 An initialized mutable Integer result can receive a loop index and be printed
@@ -39,30 +39,31 @@ four work packages, recorded together when scoping began:
    complete through the scope proposal, including the driver, exact rules,
    composition, exclusions, assurance boundaries and future evidence plan.
 2. **Native admission and regressions [#68](https://github.com/berkeleynerd/silver/issues/68):**
-   Backlog. Resolve the focused frontend/producer questions and implement the
+   Authorized. Resolve the focused frontend/producer questions and implement the
    selected rules in verified SPARK, with boundary/composition regressions.
 3. **Universal and actual-source assurance [#69](https://github.com/berkeleynerd/silver/issues/69):**
-   Backlog. Establish mutable-store semantics, membership, finite execution,
+   Authorized. Establish mutable-store semantics, membership, finite execution,
    safety/discharge, source correspondence and Image applicability. Reassess
    pinned producer obligations and derive a retained-report envelope for the
    combined mutable fragment; the old constant-only bound does not establish
    it. Coordinate this work with #68 before admission.
 4. **Validation, review and delivery [#70](https://github.com/berkeleynerd/silver/issues/70):**
-   Backlog. Review and validate the integrated actual inputs, retain exact
+   Authorized, after native/assurance integration. Review and validate actual inputs, retain exact
    evidence, publish consistent support records and update the narrow Rosetta
    mapping only after complete assurance.
 
-Only scope/design was authorized by the
-[dated owner instruction](docs/session-memory.md#2026-10-17--bounded-mutable-integers-scoping-authorized).
-Packages #68–#70 require a later owner instruction selecting implementation;
-completing #67 does not complete this milestone. No new Oracle policy decision
-is identified. Declaration/staticness correspondence, producer applicability,
-mutable-state discharge and the extended report envelope remain technical
-implementation obligations, not established guarantees.
+The owner's [implementation instruction](docs/session-memory.md#2026-10-17--bounded-mutable-integers-implementation-authorized)
+selects packages #68–#70 through complete validation, review and delivery;
+completion of #67 alone does not complete this milestone. The board carries live
+Ready/In progress status and coordinated workspace claims. No new Oracle policy
+decision is identified. Declaration/staticness correspondence, producer
+applicability, mutable-state discharge and the extended report envelope remain
+required implementation obligations, not established guarantees.
 
-The current language, catalogue, samples and supported identifiers are unchanged.
-The broad stage retains its other mutable arithmetic, subtype/conversion, loop
-and scalar-Image forms; this scope does not mark any of them supported. Existing
+Current support stays unchanged until the selected implementation and assurance
+are complete. The broad stage retains its other mutable arithmetic,
+subtype/conversion, loop and scalar-Image forms; this authorization does not
+mark any of them supported. Existing
 Rosetta sample work #9 is separate, and procedures and arrays remain future
 direction. No new harness goal was requested; the earlier goal remains complete.
 
