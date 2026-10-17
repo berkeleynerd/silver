@@ -55,11 +55,12 @@ def main():
         if path.suffix.lower() not in (".adb", ".ads", ".cc", ".h", ".c"):
             continue
         raw = data.decode("utf-8", errors="replace")
-        original = raw.splitlines()
+        # GCC uses form-feed page separators; only LF advances source line numbers.
+        original = raw.split("\n")
         ada = path.suffix.lower() in (".adb", ".ads")
         code = code_only(raw, ada)
         imports = ada and bool(re.search(r"\bwith\s+Stringt\s*;", code, re.I))
-        for number, line in enumerate(code.splitlines(), 1):
+        for number, line in enumerate(code.split("\n"), 1):
             hit = {"path": entry["path"], "line": number,
                    "source": original[number - 1].strip()}
             symbols = sorted({CANONICAL[s.lower()] for s in TOKEN.findall(line)})
@@ -109,7 +110,7 @@ def main():
         data = path.read_bytes()
         source_hash = hashlib.sha256(data).hexdigest()
         source_manifest.append({**item, "bytes": len(data), "sha256": source_hash})
-        lines = data.decode("utf-8").splitlines()
+        lines = data.decode("utf-8").split("\n")
         excerpts.append(f"SOURCE {item['area']}:{item['path']} @ {PIN}\nSHA256 {source_hash}\n")
         for start, end in item["ranges"]:
             assert 1 <= start <= end <= len(lines)

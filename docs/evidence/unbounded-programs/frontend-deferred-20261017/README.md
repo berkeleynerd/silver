@@ -24,6 +24,9 @@ mismatches. These source identities do not attest the installed compiler binary.
 | `design-arithmetic.json` | Current witness lower bound and hypothetical DAG node counts, explicitly not measured implementation performance. |
 | `identity.json`, `validation.json`, `MANIFEST.json` | Actual research host/base, local verification and bundle hashes. |
 
+Source line numbers count LF separators, matching `nl` and ordinary compiler
+diagnostics. GCC's form-feed page separators do not advance the line number.
+
 The initial lexical inventories are preserved in scratch. The reproducible audit
 retains the same 501 symbol-matching lines but also includes Stringt's own
 overloaded declarations/internal calls and additional direct address-name

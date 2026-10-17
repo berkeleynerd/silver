@@ -1649,35 +1649,35 @@ LINES 250-268
 SOURCE gcc:gcc/tree.cc @ 6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea
 SHA256 275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d
 LINES 2610-2638
-  2610:   return build_real (type, d);
-  2611: }
-  2612:
-  2613: /* Return a newly constructed STRING_CST node whose value is the LEN
-  2614:    characters at STR when STR is nonnull, or all zeros otherwise.
-  2615:    Note that for a C string literal, LEN should include the trailing NUL.
-  2616:    The TREE_TYPE is not initialized.  */
-  2617:
-  2618: tree
-  2619: build_string (unsigned len, const char *str /*= NULL */)
-  2620: {
-  2621:   /* Do not waste bytes provided by padding of struct tree_string.  */
-  2622:   unsigned size = len + offsetof (struct tree_string, str) + 1;
-  2623:
-  2624:   record_node_allocation_statistics (STRING_CST, size);
-  2625:
-  2626:   tree s = (tree) ggc_internal_alloc (size);
-  2627:
-  2628:   memset (s, 0, sizeof (struct tree_typed));
-  2629:   TREE_SET_CODE (s, STRING_CST);
-  2630:   TREE_CONSTANT (s) = 1;
-  2631:   TREE_STRING_LENGTH (s) = len;
-  2632:   if (str)
-  2633:     memcpy (s->string.str, str, len);
-  2634:   else
-  2635:     memset (s->string.str, 0, len);
-  2636:   s->string.str[len] = '\0';
+  2610: /* Return a newly constructed STRING_CST node whose value is the LEN
+  2611:    characters at STR when STR is nonnull, or all zeros otherwise.
+  2612:    Note that for a C string literal, LEN should include the trailing NUL.
+  2613:    The TREE_TYPE is not initialized.  */
+  2614:
+  2615: tree
+  2616: build_string (unsigned len, const char *str /*= NULL */)
+  2617: {
+  2618:   /* Do not waste bytes provided by padding of struct tree_string.  */
+  2619:   unsigned size = len + offsetof (struct tree_string, str) + 1;
+  2620:
+  2621:   record_node_allocation_statistics (STRING_CST, size);
+  2622:
+  2623:   tree s = (tree) ggc_internal_alloc (size);
+  2624:
+  2625:   memset (s, 0, sizeof (struct tree_typed));
+  2626:   TREE_SET_CODE (s, STRING_CST);
+  2627:   TREE_CONSTANT (s) = 1;
+  2628:   TREE_STRING_LENGTH (s) = len;
+  2629:   if (str)
+  2630:     memcpy (s->string.str, str, len);
+  2631:   else
+  2632:     memset (s->string.str, 0, len);
+  2633:   s->string.str[len] = '\0';
+  2634:
+  2635:   return s;
+  2636: }
   2637:
-  2638:   return s;
+  2638: /* Return a newly constructed COMPLEX_CST node whose value is
 
 SOURCE gcc:gcc/tree.h @ 6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea
 SHA256 65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c
@@ -1720,190 +1720,190 @@ LINES 1586-1599
 SOURCE gcc:gcc/varasm.cc @ 6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea
 SHA256 14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e
 LINES 862-920
-   862:
-   863: /* Return the section to use for string merging.  */
-   864:
-   865: static section *
-   866: mergeable_string_section (tree decl ATTRIBUTE_UNUSED,
-   867: 			  unsigned HOST_WIDE_INT align ATTRIBUTE_UNUSED,
-   868: 			  unsigned int flags ATTRIBUTE_UNUSED)
-   869: {
-   870:   HOST_WIDE_INT len;
-   871:
-   872:   if (HAVE_GAS_SHF_MERGE && flag_merge_constants
-   873:       && TREE_CODE (decl) == STRING_CST
-   874:       && TREE_CODE (TREE_TYPE (decl)) == ARRAY_TYPE
-   875:       && align <= MAX_MERGEABLE_BITSIZE
-   876:       && (len = int_size_in_bytes (TREE_TYPE (decl))) > 0
-   877:       && TREE_STRING_LENGTH (decl) == len)
-   878:     {
-   879:       scalar_int_mode mode;
-   880:       unsigned int modesize;
-   881:       const char *str;
-   882:       HOST_WIDE_INT i;
-   883:       int j, unit;
-   884:       const char *prefix = function_mergeable_rodata_prefix ();
-   885:       char *name = (char *) alloca (strlen (prefix) + 30);
-   886:
-   887:       mode = SCALAR_INT_TYPE_MODE (TREE_TYPE (TREE_TYPE (decl)));
-   888:       modesize = GET_MODE_BITSIZE (mode);
-   889:       if (modesize >= 8 && modesize <= MAX_MERGEABLE_BITSIZE
-   890: 	  && (modesize & (modesize - 1)) == 0)
-   891: 	{
-   892: 	  if (align < modesize)
-   893: 	    align = modesize;
-   894:
-   895: 	  str = TREE_STRING_POINTER (decl);
-   896: 	  unit = GET_MODE_SIZE (mode);
-   897:
-   898: 	  /* Check for embedded NUL characters.  */
-   899: 	  for (i = 0; i < len; i += unit)
-   900: 	    {
-   901: 	      for (j = 0; j < unit; j++)
-   902: 		if (str[i + j] != '\0')
-   903: 		  break;
-   904: 	      if (j == unit)
-   905: 		break;
-   906: 	    }
-   907: 	  if (i == len - unit || (unit == 1 && i == len))
-   908: 	    {
-   909: 	      sprintf (name, "%s.str%d.%d", prefix,
-   910: 		       modesize / BITS_PER_UNIT, (int) (align / BITS_PER_UNIT));
-   911: 	      flags |= (modesize / BITS_PER_UNIT) | SECTION_MERGE | SECTION_STRINGS;
-   912: 	      return get_section (name, flags, NULL);
-   913: 	    }
-   914: 	}
-   915:     }
-   916:
-   917:   return readonly_data_section;
-   918: }
-   919:
-   920: /* Return the section to use for constant merging.  */
+   862: /* Return the section to use for string merging.  */
+   863:
+   864: static section *
+   865: mergeable_string_section (tree decl ATTRIBUTE_UNUSED,
+   866: 			  unsigned HOST_WIDE_INT align ATTRIBUTE_UNUSED,
+   867: 			  unsigned int flags ATTRIBUTE_UNUSED)
+   868: {
+   869:   HOST_WIDE_INT len;
+   870:
+   871:   if (HAVE_GAS_SHF_MERGE && flag_merge_constants
+   872:       && TREE_CODE (decl) == STRING_CST
+   873:       && TREE_CODE (TREE_TYPE (decl)) == ARRAY_TYPE
+   874:       && align <= MAX_MERGEABLE_BITSIZE
+   875:       && (len = int_size_in_bytes (TREE_TYPE (decl))) > 0
+   876:       && TREE_STRING_LENGTH (decl) == len)
+   877:     {
+   878:       scalar_int_mode mode;
+   879:       unsigned int modesize;
+   880:       const char *str;
+   881:       HOST_WIDE_INT i;
+   882:       int j, unit;
+   883:       const char *prefix = function_mergeable_rodata_prefix ();
+   884:       char *name = (char *) alloca (strlen (prefix) + 30);
+   885:
+   886:       mode = SCALAR_INT_TYPE_MODE (TREE_TYPE (TREE_TYPE (decl)));
+   887:       modesize = GET_MODE_BITSIZE (mode);
+   888:       if (modesize >= 8 && modesize <= MAX_MERGEABLE_BITSIZE
+   889: 	  && (modesize & (modesize - 1)) == 0)
+   890: 	{
+   891: 	  if (align < modesize)
+   892: 	    align = modesize;
+   893:
+   894: 	  str = TREE_STRING_POINTER (decl);
+   895: 	  unit = GET_MODE_SIZE (mode);
+   896:
+   897: 	  /* Check for embedded NUL characters.  */
+   898: 	  for (i = 0; i < len; i += unit)
+   899: 	    {
+   900: 	      for (j = 0; j < unit; j++)
+   901: 		if (str[i + j] != '\0')
+   902: 		  break;
+   903: 	      if (j == unit)
+   904: 		break;
+   905: 	    }
+   906: 	  if (i == len - unit || (unit == 1 && i == len))
+   907: 	    {
+   908: 	      sprintf (name, "%s.str%d.%d", prefix,
+   909: 		       modesize / BITS_PER_UNIT, (int) (align / BITS_PER_UNIT));
+   910: 	      flags |= (modesize / BITS_PER_UNIT) | SECTION_MERGE | SECTION_STRINGS;
+   911: 	      return get_section (name, flags, NULL);
+   912: 	    }
+   913: 	}
+   914:     }
+   915:
+   916:   return readonly_data_section;
+   917: }
+   918:
+   919: /* Return the section to use for constant merging.  */
+   920:
 LINES 2304-2335
-  2304:   if (align > BITS_PER_UNIT)
-  2305:     {
-  2306:       ASM_OUTPUT_ALIGN (asm_out_file, floor_log2 (align / BITS_PER_UNIT));
-  2307:     }
-  2308: }
-  2309:
-  2310: /* Assemble a string constant with the specified C string as contents.  */
-  2311:
-  2312: void
-  2313: assemble_string (const char *p, int size)
-  2314: {
-  2315:   int pos = 0;
-  2316: #if defined(BASE64_ASM_OP) \
-  2317:     && BITS_PER_UNIT == 8 \
-  2318:     && CHAR_BIT == 8 \
-  2319:     && 'A' == 65 \
-  2320:     && 'a' == 97 \
-  2321:     && '0' == 48 \
-  2322:     && '+' == 43 \
-  2323:     && '/' == 47 \
-  2324:     && '=' == 61
-  2325:   int maximum = 16384;
-  2326: #else
-  2327:   int maximum = 2000;
-  2328: #endif
+  2304: void
+  2305: assemble_string (const char *p, int size)
+  2306: {
+  2307:   int pos = 0;
+  2308: #if defined(BASE64_ASM_OP) \
+  2309:     && BITS_PER_UNIT == 8 \
+  2310:     && CHAR_BIT == 8 \
+  2311:     && 'A' == 65 \
+  2312:     && 'a' == 97 \
+  2313:     && '0' == 48 \
+  2314:     && '+' == 43 \
+  2315:     && '/' == 47 \
+  2316:     && '=' == 61
+  2317:   int maximum = 16384;
+  2318: #else
+  2319:   int maximum = 2000;
+  2320: #endif
+  2321:
+  2322:   /* If the string is very long, split it up.  */
+  2323:
+  2324:   while (pos < size)
+  2325:     {
+  2326:       int thissize = size - pos;
+  2327:       if (thissize > maximum)
+  2328: 	thissize = maximum;
   2329:
-  2330:   /* If the string is very long, split it up.  */
+  2330:       ASM_OUTPUT_ASCII (asm_out_file, p, thissize);
   2331:
-  2332:   while (pos < size)
-  2333:     {
-  2334:       int thissize = size - pos;
-  2335:       if (thissize > maximum)
+  2332:       pos += thissize;
+  2333:       p += thissize;
+  2334:     }
+  2335: }
 LINES 5620-5642
-  5620: 	      {
-  5621: 		int idx = (info.big_endian ^ reverse) ? cnt - 1 - i : i;
-  5622: 		tree c;
-  5623: 		if (idx >= TREE_INT_CST_EXT_NUNITS (exp))
-  5624: 		  c = build_int_cst (limb_type,
-  5625: 				     tree_int_cst_sgn (exp) < 0 ? -1 : 0);
-  5626: 		else
-  5627: 		  c = build_int_cst (limb_type,
-  5628: 				     TREE_INT_CST_ELT (exp, idx));
-  5629: 		output_constant (c, elt_size, nalign, reverse, false);
-  5630: 		thissize += elt_size;
-  5631: 	      }
-  5632: 	  else
-  5633: 	    for (int i = 0; i < cnt; i++)
-  5634: 	      {
-  5635: 		int idx = (info.big_endian ^ reverse) ? cnt - 1 - i : i;
-  5636: 		wide_int w = wi::rshift (wi::to_wide (exp), idx * prec,
-  5637: 					 TYPE_SIGN (TREE_TYPE (exp)));
-  5638: 		tree c = wide_int_to_tree (limb_type,
-  5639: 					   wide_int::from (w, prec, UNSIGNED));
-  5640: 		output_constant (c, elt_size, nalign, reverse, false);
-  5641: 		thissize += elt_size;
-  5642: 	      }
+  5620:       break;
+  5621:
+  5622:     case ARRAY_TYPE:
+  5623:     case VECTOR_TYPE:
+  5624:       switch (TREE_CODE (exp))
+  5625: 	{
+  5626: 	case CONSTRUCTOR:
+  5627: 	  return output_constructor (exp, size, align, reverse, NULL);
+  5628: 	case STRING_CST:
+  5629: 	  thissize = (unsigned HOST_WIDE_INT)TREE_STRING_LENGTH (exp);
+  5630: 	  if (merge_strings
+  5631: 	      && (thissize == 0
+  5632: 		  || TREE_STRING_POINTER (exp) [thissize - 1] != '\0'))
+  5633: 	    thissize++;
+  5634: 	  gcc_checking_assert (check_string_literal (exp, size));
+  5635: 	  assemble_string (TREE_STRING_POINTER (exp), thissize);
+  5636: 	  break;
+  5637: 	case VECTOR_CST:
+  5638: 	  {
+  5639: 	    scalar_mode inner = SCALAR_TYPE_MODE (TREE_TYPE (TREE_TYPE (exp)));
+  5640: 	    unsigned int nalign = MIN (align, GET_MODE_ALIGNMENT (inner));
+  5641: 	    int elt_size = GET_MODE_SIZE (inner);
+  5642: 	    output_constant (VECTOR_CST_ELT (exp, 0), elt_size, align,
 LINES 7367-7410
-  7367: /* The lame default section selector.  */
-  7368:
-  7369: section *
-  7370: default_select_section (tree decl, int reloc,
-  7371: 			unsigned HOST_WIDE_INT align ATTRIBUTE_UNUSED)
-  7372: {
-  7373:   if (DECL_P (decl))
-  7374:     {
-  7375:       if (decl_readonly_section (decl, reloc))
-  7376: 	return readonly_data_section;
-  7377:     }
-  7378:   else if (TREE_CODE (decl) == CONSTRUCTOR)
-  7379:     {
-  7380:       if (! ((flag_pic && reloc)
-  7381: 	     || !TREE_READONLY (decl)
-  7382: 	     || !TREE_CONSTANT (decl)))
-  7383: 	return readonly_data_section;
-  7384:     }
-  7385:   else if (TREE_CODE (decl) == STRING_CST)
-  7386:     return readonly_data_section;
-  7387:   else if (! (flag_pic && reloc))
-  7388:     return readonly_data_section;
-  7389:
-  7390:   return data_section;
-  7391: }
-  7392:
-  7393: enum section_category
-  7394: categorize_decl_for_section (const_tree decl, int reloc)
-  7395: {
-  7396:   enum section_category ret;
-  7397:
-  7398:   if (TREE_CODE (decl) == FUNCTION_DECL)
-  7399:     return SECCAT_TEXT;
-  7400:   else if (TREE_CODE (decl) == STRING_CST)
-  7401:     {
-  7402:       if ((flag_sanitize & SANITIZE_ADDRESS)
-  7403: 	  && asan_protect_global (const_cast<tree> (decl)))
-  7404:       /* or !flag_merge_constants */
-  7405:         return SECCAT_RODATA;
-  7406:       else
-  7407: 	return SECCAT_RODATA_MERGE_STR;
-  7408:     }
-  7409:   else if (VAR_P (decl))
-  7410:     {
+  7367: enum section_category
+  7368: categorize_decl_for_section (const_tree decl, int reloc)
+  7369: {
+  7370:   enum section_category ret;
+  7371:
+  7372:   if (TREE_CODE (decl) == FUNCTION_DECL)
+  7373:     return SECCAT_TEXT;
+  7374:   else if (TREE_CODE (decl) == STRING_CST)
+  7375:     {
+  7376:       if ((flag_sanitize & SANITIZE_ADDRESS)
+  7377: 	  && asan_protect_global (const_cast<tree> (decl)))
+  7378:       /* or !flag_merge_constants */
+  7379:         return SECCAT_RODATA;
+  7380:       else
+  7381: 	return SECCAT_RODATA_MERGE_STR;
+  7382:     }
+  7383:   else if (VAR_P (decl))
+  7384:     {
+  7385:       tree d = const_cast<tree> (decl);
+  7386:       if (bss_initializer_p (decl))
+  7387: 	ret = SECCAT_BSS;
+  7388:       else if (! TREE_READONLY (decl)
+  7389: 	       || (DECL_INITIAL (decl)
+  7390: 		   && ! TREE_CONSTANT (DECL_INITIAL (decl))))
+  7391: 	{
+  7392: 	  /* Here the reloc_rw_mask is not testing whether the section should
+  7393: 	     be read-only or not, but whether the dynamic link will have to
+  7394: 	     do something.  If so, we wish to segregate the data in order to
+  7395: 	     minimize cache misses inside the dynamic linker.  */
+  7396: 	  if (reloc & targetm.asm_out.reloc_rw_mask ())
+  7397: 	    ret = reloc == 1 ? SECCAT_DATA_REL_LOCAL : SECCAT_DATA_REL;
+  7398: 	  else
+  7399: 	    ret = SECCAT_DATA;
+  7400: 	}
+  7401:       else if (reloc & targetm.asm_out.reloc_rw_mask ())
+  7402: 	ret = reloc == 1 ? SECCAT_DATA_REL_RO_LOCAL : SECCAT_DATA_REL_RO;
+  7403:       else if (reloc || (flag_merge_constants < 2 && !DECL_MERGEABLE (decl))
+  7404: 	       || ((flag_sanitize & SANITIZE_ADDRESS)
+  7405: 		   /* PR 81697: for architectures that use section anchors we
+  7406: 		      need to ignore DECL_RTL_SET_P (decl) for string constants
+  7407: 		      inside this asan_protect_global call because otherwise
+  7408: 		      we'll wrongly put them into SECCAT_RODATA_MERGE_CONST
+  7409: 		      section, set DECL_RTL (decl) later on and add DECL to
+  7410: 		      protected globals via successive asan_protect_global
 LINES 7486-7510
-  7486:     }
-  7487:
-  7488:   return ret;
-  7489: }
-  7490:
-  7491: static bool
-  7492: decl_readonly_section_1 (enum section_category category)
-  7493: {
-  7494:   switch (category)
-  7495:     {
-  7496:     case SECCAT_RODATA:
-  7497:     case SECCAT_RODATA_MERGE_STR:
-  7498:     case SECCAT_RODATA_MERGE_STR_INIT:
-  7499:     case SECCAT_RODATA_MERGE_CONST:
-  7500:     case SECCAT_SRODATA:
-  7501:       return true;
-  7502:     default:
-  7503:       return false;
-  7504:     }
-  7505: }
-  7506:
-  7507: bool
-  7508: decl_readonly_section (const_tree decl, int reloc)
-  7509: {
-  7510:   return decl_readonly_section_1 (categorize_decl_for_section (decl, reloc));
+  7486:
+  7487: /* Select a section based on the above categorization.  */
+  7488:
+  7489: section *
+  7490: default_elf_select_section (tree decl, int reloc,
+  7491: 			    unsigned HOST_WIDE_INT align)
+  7492: {
+  7493:   const char *sname;
+  7494:
+  7495:   switch (categorize_decl_for_section (decl, reloc))
+  7496:     {
+  7497:     case SECCAT_TEXT:
+  7498:       /* We're not supposed to be called on FUNCTION_DECLs.  */
+  7499:       gcc_unreachable ();
+  7500:     case SECCAT_RODATA:
+  7501:       return readonly_data_section;
+  7502:     case SECCAT_RODATA_MERGE_STR:
+  7503:       return mergeable_string_section (decl, align, 0);
+  7504:     case SECCAT_RODATA_MERGE_STR_INIT:
+  7505:       return mergeable_string_section (DECL_INITIAL (decl), align, 0);
+  7506:     case SECCAT_RODATA_MERGE_CONST:
+  7507:       return mergeable_constant_section (DECL_SIZE (decl), align, 0);
+  7508:     case SECCAT_SRODATA:
+  7509:       sname = ".sdata2";
+  7510:       break;

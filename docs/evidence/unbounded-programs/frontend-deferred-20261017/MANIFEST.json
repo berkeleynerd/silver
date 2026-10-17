@@ -3,13 +3,13 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 4110,
-      "sha256": "6f380443dfe29b3776b33aa6ca8dfe5a16bf38701f6ee48867ac58f1bb6f2c2c"
+      "bytes": 4265,
+      "sha256": "70dab4a84cd29bfa209d0c86ca375a9d619707aa1d384402d7bac867c45266a2"
     },
     {
       "path": "audit.py",
-      "bytes": 6444,
-      "sha256": "b519277d6300ff824b09ebbc0abf0d2bf785acafafde6709f0fe55adefc4c594"
+      "bytes": 6525,
+      "sha256": "a44a5d934a881d33efe40daf9497b43a9baf8b02f1ef504ce434f31533e76097"
     },
     {
       "path": "consumer-inventory.json",
@@ -48,8 +48,8 @@
     },
     {
       "path": "selected-source-excerpts.txt",
-      "bytes": 80015,
-      "sha256": "a0d64b02c40471b88d7ffb7c6773735583095cd66d370cd24aee9b02c8125378"
+      "bytes": 80950,
+      "sha256": "56335d436a60043c47f18d8c5392db7d7f5b00d95333150926739567924727f3"
     },
     {
       "path": "selected-source-manifest.json",
@@ -63,8 +63,8 @@
     },
     {
       "path": "validation.json",
-      "bytes": 1161,
-      "sha256": "43cfad2be22594e22a89376d56bbea0d0509a12ea1ae104c88bf5b9611bc4916"
+      "bytes": 2149,
+      "sha256": "5f8664b5891a259166691dddc1cb3a85f04a1afb2d6da96daee8bf6c840c04bd"
     },
     {
       "path": "verified-tree-and-inventory.json",

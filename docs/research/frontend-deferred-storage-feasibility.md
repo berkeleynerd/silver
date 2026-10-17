@@ -191,8 +191,9 @@ This is source arithmetic, not an allocation at that size.
 There is a separate, unresolved **option/path obligation** at emission:
 `varasm.cc:5628–5635` adds one to a non-NUL-terminated String when emitting into
 a mergeable String section, then passes the size to `assemble_string`, whose
-parameter is `int` (`2304–2335`). At the exact endpoint that addition would not
-fit. `mergeable_string_section:865–920` requires `flag_merge_constants` and a
+parameter is `int` (`2304–2335`). At the exact endpoint the incremented size fits
+the wide `thissize` variable but does not fit that `int` parameter.
+`mergeable_string_section:865–920` requires `flag_merge_constants` and a
 matching String/type length, and can select non-NUL Character data. This is not
 a demonstrated defect in the selected Ada large-model build: retained measured
 objects use ordinary `.rodata`/`.lrodata`, and the full endpoint path was not
