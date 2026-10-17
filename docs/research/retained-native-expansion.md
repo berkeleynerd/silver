@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records twenty-five inspected files hash-checked against the complete source
+records thirty-eight inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -347,12 +347,78 @@ old root), one entity/name and one insertion-wrapper list. The root rewrite
 has the same dereference kind, so it needs no growing slot event. The pointer
 initializer is moved, not recursively copied.
 
-This is an exact direct capture transfer, not yet the cost of analyzing its
-pointer declaration and final dereference. It introduces no new access type
-itself. It also does not justify assuming that a second duplication is free:
-the original mutable-renaming node can survive the rewrite, causing the same
-guard to fire again. Charge each direct duplication until the caller's
-post-analysis shape invariant establishes a tighter multiplicity.
+The pointer declaration and final dereference have the following additional
+closed case. Assume the old prefix is an already-analyzed ordinary identifier
+of a generated, nonvolatile pointer object, with no renaming, `Current_Value`,
+`Actual_Subtype` or `OK_To_Rename` flag. Its type is an existing named access
+type to ordinary String, and its own type, base, first subtype and designated
+subtype are frozen. The pointer is known non-null. The newly declared constant
+is local, fresh and internal, with no aspects, address clause, delayed freeze,
+foreign convention, static allocation or initialization compound statement.
+The setting is native expansion in ordinary non-Ghost procedure/block code;
+`Related_Id` is empty and no restrictive configuration reports a diagnostic.
+These are shape premises, not assertions about every source renaming.
+
+Under these premises, analyzing/expanding the pointer declaration and final
+dereference adds **zero ordinary nodes, entities, lists, names, String values
+or Uint values** beyond the direct capture charge:
+
+- The type occurrence already has an entity. `Find_Direct_Name` sets its type
+  and returns (`sem_ch8.adb:6246–6294`); `Process_Subtype` returns that existing
+  entity without an itype (`sem_ch3.adb:22932–23010`). The fresh internal
+  definition produces no xref entry (`lib-xref.adb:224–269`). `Enter_Name` links
+  existing entities (`sem_util.adb:8077–8360`, `einfo-utils.adb:634–662`).
+- `Relocate_Node` shallow-copies the initializer without clearing its analyzed
+  flag (`atree.adb:2109–2135`). `Analyze` therefore returns immediately, and
+  `Resolve` returns after dimension processing (`sem.adb:111–117`,
+  `sem_res.adb:2547–2551`); absent dimension annotations add nothing. An access
+  type is definite and nonlimited, so no actual-subtype, scalar-range or
+  indefinite-object construction applies. Predicate/aspect/controlled/task
+  branches are excluded by the declared shape.
+- **Suppressed checks alone are insufficient to show this.**
+  `Apply_Static_Length_Check` still calls `Selected_Length_Checks`
+  (`checks.adb:3509–3541,3620–3627`). For this same-type pointer initializer,
+  both designated subtypes and their index entities are identical.
+  `Get_Actual_Subtype` returns the pointer type (`sem_util.adb:10270–10374`);
+  the access case skips numeric length evaluation, and identical index types
+  statically match before any length-condition construction
+  (`checks.adb:10251–10412`, `sem_eval.adb:6702–6712`). Both the semantic and
+  expander length-check calls therefore return empty results. Range checks
+  return under suppression (`checks.adb:3063–3072`).
+- The ordinary explicit-initialization expander path has no tag, validity-copy,
+  unaligned-copy, anonymous-access, return-object or renaming transformation
+  (`exp_ch3.adb:8395–8715,9485–9487`). A pointer identifier cannot satisfy
+  `Is_Captured_Function_Call`; `OK_To_Rename_Ref` is false by the input premise.
+  The new constant inherits known non-null status.
+- The final dereference resolves its pointer name, sets the existing designated
+  type, and needs no actual subtype (`sem_ch4.adb:2182–2326`,
+  `sem_res.adb:9253–9380`). Its access check returns on known non-null before
+  constructing anything (`checks.adb:8481–8509`). It has no checked storage
+  pool or atomic type, so dereference expansion adds nothing
+  (`exp_ch4.adb:5604–5618,13694–13762`).
+- Freezing the newly introduced constant is included. Its type is already
+  frozen; its object-declaration checks have no applicable aspect/address or
+  categorization work, `Layout_Object` is explicitly a no-op, and no delayed
+  freeze node is requested (`freeze.adb:4518–4716,6939–7024,8265–8286`,
+  `layout.adb:225–229`). Debug-information marking only sets flags in existing
+  entities (`freeze.adb:1405–1418`, `sem_util.adb:28572–28713`).
+
+The rewritten expression is now a two-node dereference/name tree with external
+types. Its following `New_Copy_Tree` has `t=2`, all other copy-summary parameters
+zero. Thus one `Duplicate_Subexpr` on this case costs at most **8 ordinary
+nodes, 1 entity/internal name and 1 syntax-list wrapper**, with no growing-slot,
+pending-itype or numeric/string-value allocation. Its name adds at most thirteen
+characters including NUL, subject to the shared serial bound. `Insert_Actions`
+**placement/context processing remains additional**: this result closes the
+generated declaration and final expression analysis, not arbitrary enclosing
+conditional/transient-scope handling.
+
+It introduces no new access type or runtime helper itself. It does not justify
+assuming that a second duplication is free: the original mutable-renaming node
+can survive the rewrite, causing the same guard to fire again. The result again
+has the stated pointer-name shape after successful analysis, so repeated calls
+can use this bound when the surrounding placement and frozen-type premises are
+preserved. The grammar-to-shape proof must establish those premises.
 
 ## Native generated allocator expansion
 

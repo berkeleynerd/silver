@@ -26,7 +26,10 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "atree.adb", "types.ads", "uintp.ads", "uintp.adb", "gen_il-gen.adb",
          "exp_imgv.adb", "exp_put_image.adb", "exp_ch2.adb", "exp_ch3.adb",
          "exp_ch8.adb", "sem_ch4.adb", "sem_dim.adb", "rtsfind.ads",
-         "elists.adb", "libgnat/g-htable.ads", "libgnat/s-htable.adb"]
+         "elists.adb", "libgnat/g-htable.ads", "libgnat/s-htable.adb",
+         "sem_ch3.adb", "sem.adb", "sem_ch2.adb", "sem_ch8.adb", "checks.adb",
+         "freeze.adb", "layout.adb", "lib-xref.adb", "sem_warn.adb",
+         "sem_elim.adb", "sem_cat.adb", "einfo-utils.adb", "sem_ch13.adb"]
 sources = {}
 hashes = {}
 for name in files:
@@ -161,6 +164,18 @@ result = {
         ],
     },
     "native_Image_shape": "Integer Image uses Image_Integer procedure plus Snn(1..Pnn), not Put_Image/unconstrained function call",
+    "mutable_renaming_pointer_capture": {
+        "premises": "already-analyzed ordinary pointer name; existing named access to String; relevant types frozen; known nonnull; no renaming/current value/actual subtype/OK_To_Rename on old pointer; fresh local internal constant; no aspects/delayed freeze/static allocation/foreign convention; ordinary non-Ghost procedure/block; empty Related_Id",
+        "analysis_of_generated_declaration_and_final_dereference_extra_allocations": 0,
+        "Duplicate_Subexpr_total_including_direct_capture_and_final_tree_copy": {
+            "ordinary_nodes": 8, "entities_and_internal_names": 1,
+            "syntax_list_wrappers": 1, "growing_slot_events": 0,
+            "pending_itype_elist_headers_and_elements": 0,
+            "String_Uint_value_allocations": 0,
+            "internal_name_characters_including_NUL": 13,
+        },
+        "not_included": "Insert_Actions placement/context handling; derivation of source-to-shape premises; prior access-type creation/freezing; backend",
+    },
     "concat_allocator_expansion": {
         "runtime_entity": "RE_SS_Allocate",
         "runtime_unit": "System.Secondary_Stack",

@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 25,
+  "source_files_verified": 38,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -26,7 +26,20 @@
     "rtsfind.ads": "d0c7311a9a008de335ffa77240839a5d369424f16654050b4afc36b7f4dcb0d3",
     "elists.adb": "c3808beb8857481e1ef462529410997f43cc5a5a813f08040b4aa27c819669dc",
     "libgnat/g-htable.ads": "05260b3914cb6dd7bced43716cf97ba80f1fc93e3d8c7f3f17eaed33bd3c2dc5",
-    "libgnat/s-htable.adb": "b734b51a0eba840292b2d2ac0ace88782bc713755cf020f97ef8fa08158b69f8"
+    "libgnat/s-htable.adb": "b734b51a0eba840292b2d2ac0ace88782bc713755cf020f97ef8fa08158b69f8",
+    "sem_ch3.adb": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
+    "sem.adb": "b216690f3c061cdd7ee229d8182d9863b0f2878e8ac9da67a095372e6c4e0f0d",
+    "sem_ch2.adb": "7a454f2a24e4e16174229efbf17be5f934f78abb188c23f74d8af2490e261e9c",
+    "sem_ch8.adb": "e876e072ced17418b2507f15ec39cfaf3bf5aa68806876f8519ae4fe38508d99",
+    "checks.adb": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c",
+    "freeze.adb": "245a9badc89a6f74f3084481150eca8e0a329b378815c44d2081b1f8d7339f7d",
+    "layout.adb": "80f2563a117facff81cfbbadb9371aed8bccdf2e7c1329e8b3ba2b1e085fd057",
+    "lib-xref.adb": "147491988f39790a213cf02e69c6997adb1809df75758940757cc0ebc7a700c4",
+    "sem_warn.adb": "698effea285660dfe3513e64231d0947e0579b3635cb7b55420e9ebf35dd1e55",
+    "sem_elim.adb": "6977031b82062070e830bb300c4ae90a3ae669c6b53742b43696878bb8e2a302",
+    "sem_cat.adb": "26480016f2e432044f23b1a0a4de224bd61a7f274337b9ff290a400f6d879320",
+    "einfo-utils.adb": "177ee4fd85c802e6ee810b35ac253da8fcf3e979c12b7de4c62250ef544d67fa",
+    "sem_ch13.adb": "570d8a1cc74520fd95a12a9921bfe0893da7857517b4a2910da2bf65c880fd96"
   },
   "scope": "native String concat direct emitter and specified primitive helpers; not transitive closure",
   "ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers": {
@@ -392,6 +405,20 @@
     ]
   },
   "native_Image_shape": "Integer Image uses Image_Integer procedure plus Snn(1..Pnn), not Put_Image/unconstrained function call",
+  "mutable_renaming_pointer_capture": {
+    "premises": "already-analyzed ordinary pointer name; existing named access to String; relevant types frozen; known nonnull; no renaming/current value/actual subtype/OK_To_Rename on old pointer; fresh local internal constant; no aspects/delayed freeze/static allocation/foreign convention; ordinary non-Ghost procedure/block; empty Related_Id",
+    "analysis_of_generated_declaration_and_final_dereference_extra_allocations": 0,
+    "Duplicate_Subexpr_total_including_direct_capture_and_final_tree_copy": {
+      "ordinary_nodes": 8,
+      "entities_and_internal_names": 1,
+      "syntax_list_wrappers": 1,
+      "growing_slot_events": 0,
+      "pending_itype_elist_headers_and_elements": 0,
+      "String_Uint_value_allocations": 0,
+      "internal_name_characters_including_NUL": 13
+    },
+    "not_included": "Insert_Actions placement/context handling; derivation of source-to-shape premises; prior access-type creation/freezing; backend"
+  },
   "concat_allocator_expansion": {
     "runtime_entity": "RE_SS_Allocate",
     "runtime_unit": "System.Secondary_Stack",
