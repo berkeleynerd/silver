@@ -1,5 +1,43 @@
 # Session memory
 
+## 2026-10-17 — Bounded mutable integers review repairs authorized
+
+The owner said **“Proceed”** to the recommended remediation of
+[review-b79b986403](reviews/review-b79b986403.md), superseding the earlier
+completion claim for the affected capability. [Milestone 4](https://github.com/berkeleynerd/silver/milestone/4)
+is reopened. The original delivery through [PR #76](https://github.com/berkeleynerd/silver/pull/76)
+and its validation remain historical evidence; the review identifies a frontend
+acceptance blocker and a declared-range source-correspondence gap.
+
+Adopt B1 Option A: explicitly reject every Integer assignment with an empty
+inferred RHS interval, even in an empty loop. Merely deleting the existing
+empty-interval bypass is insufficient: normalized `(1,0)` still passes ordinary
+endpoint containment against `0..9`. Align native and Lean admission, source
+correspondence, language, catalogue and regressions. This is an intentional
+pre-1.0 language restriction required by the pinned frontend under
+`SPARK_Mode (On)`, with no Oracle amendment.
+
+Repair M1 in the same increment by independently reading the declared endpoint
+expressions and connecting that result to the declaration/source argument.
+This is required correspondence, not optional hardening. File B1, M1 and D1–D6
+separately; batch the minor record corrections with documentation. Update the
+milestone description, including its final closure after repair delivery.
+The [repair record](review-b79b986403-repairs.md) gives the ordered scope,
+issue mapping and dispositions. Clarify Image producer premises and evidence
+classes without presenting samples as universal assurance. Record the measured
+stack observation; stack redesign and other optional implementation work remain
+deferred.
+
+The instruction includes focused regressions and compile checks, required
+native and Lean/source assurance, one stable complete validation checkpoint,
+independent review, commits and publication. Preserve successful caches and
+failed evidence; repeat checks only for changed inputs, failures or unresolved
+concerns. It does not authorize the next construct. The previous harness goal
+remains complete; no new goal was requested. Hosted CI remains disabled and
+native macOS validation remains independent and nonblocking. Preserve all
+worktrees, scratch, caches and other-host artifacts. CLI memory is unavailable
+and was not updated.
+
 ## 2026-10-17 — Bounded mutable integers delivered
 
 The owner-authorized [Bounded mutable integers milestone](https://github.com/berkeleynerd/silver/milestone/4)

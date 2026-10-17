@@ -16,7 +16,23 @@ next capability while retaining full assurance for the current language.
 
 ### Bounded mutable integers
 
-**Complete on Linux x86_64, 2026-10-17.**
+**Review remediation authorized; milestone reopened, 2026-10-17.**
+The later [review](docs/reviews/review-b79b986403.md) found an admitted empty-loop
+Integer assignment rejected by the pinned frontend and an independent
+source-reading gap for declared ranges. The owner's
+[repair instruction](docs/session-memory.md#2026-10-17--bounded-mutable-integers-review-repairs-authorized)
+selects these before any next construct. The [repair record](docs/review-b79b986403-repairs.md)
+tracks the ordered increments: B1 [#77](https://github.com/berkeleynerd/silver/issues/77)
+and M1 [#78](https://github.com/berkeleynerd/silver/issues/78) together; D1–D6
+[#79–#84](https://github.com/berkeleynerd/silver/issues?q=is%3Aissue+milestone%3A%22Bounded+mutable+integers%22+is%3Aopen)
+with minor record corrections alongside; then one integrated native, full-suite
+and complete cached Lean/source checkpoint and independent review. No repair
+validation or restored completion is claimed yet. B1 explicitly requires a
+non-empty assignment RHS interval; M1 must connect independent endpoint readings
+to the declaration/source argument. No owner policy decision remains open.
+
+The following describes the original delivery through PR #76 and its historical
+validation; its completion claim is superseded pending these repairs.
 The [capability record](docs/bounded-mutable-integers.md) defines the selected narrow
 increment under [stage #11](https://github.com/berkeleynerd/silver/issues/11),
 driven by [Find square difference](rosetta/f/find-square-difference/silver.md).

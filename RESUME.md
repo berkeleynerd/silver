@@ -5,6 +5,13 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
+The owner authorized [review-b79b986403 repairs](docs/review-b79b986403-repairs.md)
+on 2026-10-17. Milestone 4 is reopened for B1's explicit empty-assignment-RHS
+rejection, M1's independent declared-range source readings, and D1–D6 plus minor
+record corrections. The capability's earlier completion claim is superseded
+until required repair validation passes. Original delivery and validation below
+remain history. No next construct or new harness goal is authorized.
+
 The [Bounded mutable integers milestone](docs/bounded-mutable-integers.md)
 completed implementation and Linux x86_64 validation on 2026-10-17. Its native
 implementation is `d83927cef3`, the selector proof repair is
@@ -17,8 +24,8 @@ execution with the focused snapshot repair are finished. The original full-suite
 snapshot failures and passing affected recheck retain their separate scopes in
 the capability record. Read it and the
 live managed run summary before any further check; preserve retained evidence
-and caches. Packages #68–#70 and repaired findings #74/#75 are complete locally;
-the issues and board record publication and merge status. The previous For loops
+and caches. Packages #68–#70 and repaired findings #74/#75 were published and merged
+through PR #76. The issues and board track the newly authorized review repairs. The previous For loops
 and integers harness goal remains complete; no new harness goal was requested.
 
 For loops and integers was delivered through PR #47; its separate
