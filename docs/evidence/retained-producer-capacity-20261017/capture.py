@@ -220,7 +220,8 @@ def main():
             "object_loop_closes": "2D + 4F + 2G <= 2D + 8F",
             "ordinary_array_attempts": "D_lit + D_alias + K_literal <= D_s + K_literal",
             "module_bound": "M <= all_nonimport_nodes",
-            "remaining_expression_replay_gap": "Complete Main N_Itype_Reference exclusion or bound its associated-expression replay",
+            "main_itype_reference_translations": 0,
+            "itype_reference_basis": "frontend-invocation-audit.json inventory plus manual exclusion table in research report",
         },
         "ordinary_range_loop": {
             "fixed_rows": {

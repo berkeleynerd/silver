@@ -1578,10 +1578,9 @@ actual generated-node multiplicities are established:
   the declaration's final location-label path. Other associated-node kinds
   return shared Void. This is a possible additional translation caller,
   rather than permission to assume every initializer is translated only
-  twice (`src/why/gnat2why-expr.adb:23122–23134`). Main's lack of source access,
-  slices, records, user profiles and body inlining excludes many such
-  frontend sites, but full reference-site closure still belongs to the
-  frontend invocation map.
+  twice (`src/why/gnat2why-expr.adb:23122–23134`). The complete frontend
+  reference-site argument below now excludes this caller from ordinary Main;
+  fixed library translation and native expansion remain separate.
 - An ordinary scalar constant in an `Actions` list receives one local
   `Mk_Item` during preparation and another during the reverse binding pass.
   The two visits plus the binding cost **11/0/0/8**, excluding the initializer,
@@ -1614,7 +1613,7 @@ branches do not apply (`src/why/gnat2why-expr.adb:30068–30155`).
 ### Main entity and representation invocation counts
 
 The frontend counts now close the ordinary **entity-pass** portion of the
-producer independently of the still-open associated-expression replay question.
+producer independently of expression accounting.
 Use the [frontend report's](retained-frontend-entities.md) `D`, `R`, `D_s`,
 `D_lit`, `D_alias`, `F` and `K_literal`. Let `G <= 2F` count actual captured
 loop bounds. These are identities, so including an entity that marking omits
@@ -1695,8 +1694,12 @@ condition-action branch requires a while condition, absent for an explicit
 for range. The `N_Expression_With_Actions` branch requires the already
 analyzed right operand of a short-circuit expression, also absent on this
 parent path. Source: pinned GCC `exp_util.adb:12765–12824,8159–8182,
-8289–8314,8431–8474`, retained by the native-expansion lane. Nested loops and
-loops in if arms retain the same list placement. Thus these captures do not
+8289–8314,8431–8470`, retained in the frontend invocation excerpts below and
+the [native expansion report](retained-native-expansion.md). GNATprove's
+expansion dispatcher exits before normal transient-scope processing
+(`expander.adb:105–127`); an ordinary scalar bound has no unconstrained-result
+call or other transient-scope construct. Nested loops and loops in if arms
+retain the same list placement. Thus these captures do not
 cause an action initializer to be replayed separately by both endpoint-domain
 transformations.
 
@@ -1720,12 +1723,58 @@ generated leaf visits and `G` ordinary Integer declaration wrappers; their
 global object pass is already above. No runtime iteration count multiplies
 these costs. Generated static subtype declarations add no expression replay.
 
-This is **not yet the unrestricted Main invocation map**: a generated
-`N_Itype_Reference` can independently replay its associated expression, as
-priced above. Complete exclusion of its remaining frontend creation sites,
-or a source-derived bound on their replay, is still required before using
-the two-pass statement as a whole-Main bound. The placement result also does
-not count native expansion, where different generated actions exist.
+The Itype-reference exclusion below removes that potential independent
+associated-expression replay for ordinary Main. This caller result still
+does not count native expansion, where different generated actions exist,
+or the fixed dependencies' expressions and setup.
+
+### No generated Main Itype-reference replay
+
+The pinned frontend contains **37 constructor/helper call sites**, including
+the bodies of `Build_Itype_Reference` and `Ensure_Defined` themselves. The
+[inventory](../evidence/retained-producer-capacity-20261017/frontend-invocation-audit.json)
+and [numbered excerpts](../evidence/retained-producer-capacity-20261017/frontend-invocation-excerpts.md)
+retain every site and its relevant guard. The reproducer scans every `.adb`
+and `.ads` file in the previously retained complete frontend manifest,
+verifies each complete file's hash, and asserts the exact call-site list.
+It also records every raw `N_Itype_Reference` mention; manual inspection
+finds no additional direct node-construction route among them. This inventory
+is evidence for the following manual reachability argument, not an automatic
+proof that arbitrary Ada inputs cannot use these paths.
+
+| Sites in pinned GCC | Why they do not create an Itype reference from ordinary Main |
+| --- | --- |
+| `exp_util.adb:5408`, `sem_ch3.adb:11269` | These are the two constructor helper bodies. Their callers are all covered by the remaining rows. |
+| `checks.adb:3551,3554,3557` | `Apply_Selected_Length_Checks` returns when expansion is disabled; its references additionally require a compilation-unit package scope. |
+| `checks.adb:10330` | The selected-length helper requires the current compilation unit to be a package specification. Main is a procedure. |
+| `exp_aggr.adb:4350,4376` | Record aggregate expansion; no admitted Main expression or generated scalar bound capture is a record aggregate. |
+| `exp_ch3.adb:4934,4938` | Record initialization-procedure aggregate component processing; Main creates no record type or initialization procedure. |
+| `exp_ch4.adb:2084,2085,10341`, `exp_pakd.adb:1605,1606` | Boolean-array binary/not expansion, including packed arrays. Main's Boolean operations are scalar and its String components are Character. |
+| `exp_ch5.adb:1024,1025` | Native array-assignment expansion. GNATprove light expansion has no assignment handler and skips normal expansion. |
+| `exp_ch9.adb:14231` | Task-body procedure access type during task initialization; absent from Main. |
+| `freeze.adb:4360` | Large modular-index array runtime check; it returns with expansion disabled and Standard.String has signed Integer indexing. |
+| `freeze.adb:5200,7374,8311` | Respectively record access-component, class-wide, and discriminated-record access-subtype freezing; none is a Main-generated type family. |
+| `sem_ch3.adb:891,980,999,1004,1013` | Anonymous access definitions, including protected/formal/return/object cases; Main and its generated bound captures have no access definitions. |
+| `sem_ch3.adb:8633,14915,16633,23105,23198` | Respectively derived-type access discriminants, concurrent subtype, inherited access formal, access constraint, and private/concurrent full-view subtype. Ordinary Main creates only the classified Integer/String subtypes. |
+| `sem_ch6.adb:2164,2169,9532` | Null-excluding access result and generated build-in-place access formal. Main has no parameters or result; library declarations remain fixed dependencies. |
+| `sem_ch7.adb:2123` | Limited-with anonymous-access references; the helper also returns with expansion disabled. |
+| `sem_res.adb:13197` | Slice-subtype reference is gated by `Expander_Active`. Main has no slice; native Image/concat slicing is absent under light expansion. |
+
+The light-expansion dispatch is `exp_spark.adb:120–213`, reached through
+`expander.adb:105–127`. Its special delegation for String `/=` calls only
+the non-elementary `Expand_N_Op_Ne` rewrite to `not (=)` with the original
+children; this does not enter Boolean-array expansion or construct an Itype
+reference (`exp_spark.adb:1008–1023`, `exp_ch4.adb:10162–10259`). Ordinary
+for-range semantic processing creates the index itype but does not call either
+reference helper. The earlier frontend derivation excludes Main inlining,
+generic instantiation and source renaming, so a fixed dependency's pre-existing
+Itype-reference subtree is not copied into Main.
+
+Consequently **the Main `N_Itype_Reference` translation count is zero** for
+this grammar and selected proof frontend path. This conclusion does not
+exclude such nodes inside fixed library translations or native expansion,
+does not eliminate their own capacity costs, and retains the explicit
+source-to-installed-tool correspondence premise.
 
 ## Aggregate formula and finite remaining helper families
 
@@ -1822,7 +1871,7 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | --- | --- |
 | `K_fixed` | One-time predefined and selected dependency theories, package processing, symbol initialization, external-constant assumptions, fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
 | Fixed-library object setup | The Main registration/object/loop theory pass is now source-counted above. Price richer fixed-library shapes separately. |
-| Generated declaration/action invocation map | Bound captures are at most two preceding declarations per loop, with the source initializer relocated rather than replayed at reads. Complete the remaining Itype-reference creation-site exclusion or associated-expression replay bound; connect all static subtype declarations and list entries to the frontend counts. |
+| Generated declaration/list invocation map | Bound captures are at most two preceding declarations per loop, with the source initializer relocated rather than replayed at reads; Main Itype-reference translations are zero. Connect all static subtype declarations and list entries to the frontend counts. |
 | Expression invocation map and counters | Finish the source-expression forest accounting, including expected-type construction and all conversion/lookups. Ordinary initializers need at most program plus term translation; Main-local constants have no third assumption pass. Main type and representation-attempt counts are now closed above. Use `M <= B_N` or a sharper explicit module sum, finish the total close count with fixed setup, and bound the temporary-name counter. `F <= E_list` is already established. |
 
 The [frontend report](retained-frontend-entities.md) now supplies the Main entity,
@@ -1859,6 +1908,17 @@ to verify every manifest file against that retained archive.
 Outputs are deterministic; no toolchain or proof subprocess is launched.
 These checks validate the arithmetic and captured tree shapes, not a completed
 producer theorem or the whole application assurance argument.
+
+To reproduce the independent GCC caller inventory and excerpts, run
+
+```sh
+python3 docs/evidence/retained-producer-capacity-20261017/frontend_invocations.py \
+  --frontend-root /path/to/pinned/gcc/ada
+```
+
+That command checks every scanned complete source file against the already
+retained GCC manifest. Its inventory assertions do not mechanically prove the
+manual path exclusions in the report.
 
 A focused independent source/evidence review found no defect in the numerical
 literal components. Its loop-entry wording correction above distinguishes

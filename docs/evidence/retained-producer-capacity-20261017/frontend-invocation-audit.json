@@ -1,0 +1,500 @@
+{
+  "call_site_count_including_two_helper_bodies": 37,
+  "call_sites": [
+    {
+      "callee": "Ensure_Defined",
+      "line": 3551,
+      "path": "checks.adb"
+    },
+    {
+      "callee": "Ensure_Defined",
+      "line": 3554,
+      "path": "checks.adb"
+    },
+    {
+      "callee": "Ensure_Defined",
+      "line": 3557,
+      "path": "checks.adb"
+    },
+    {
+      "callee": "Make_Itype_Reference",
+      "line": 10330,
+      "path": "checks.adb"
+    },
+    {
+      "callee": "Ensure_Defined",
+      "line": 4350,
+      "path": "exp_aggr.adb"
+    },
+    {
+      "callee": "Ensure_Defined",
+      "line": 4376,
+      "path": "exp_aggr.adb"
+    },
+    {
+      "callee": "Make_Itype_Reference",
+      "line": 4934,
+      "path": "exp_ch3.adb"
+    },
+    {
+      "callee": "Make_Itype_Reference",
+      "line": 4938,
+      "path": "exp_ch3.adb"
+    },
+    {
+      "callee": "Ensure_Defined",
+      "line": 2084,
+      "path": "exp_ch4.adb"
+    },
+    {
+      "callee": "Ensure_Defined",
+      "line": 2085,
+      "path": "exp_ch4.adb"
+    },
+    {
+      "callee": "Ensure_Defined",
+      "line": 10341,
+      "path": "exp_ch4.adb"
+    },
+    {
+      "callee": "Ensure_Defined",
+      "line": 1024,
+      "path": "exp_ch5.adb"
+    },
+    {
+      "callee": "Ensure_Defined",
+      "line": 1025,
+      "path": "exp_ch5.adb"
+    },
+    {
+      "callee": "Make_Itype_Reference",
+      "line": 14231,
+      "path": "exp_ch9.adb"
+    },
+    {
+      "callee": "Ensure_Defined",
+      "line": 1605,
+      "path": "exp_pakd.adb"
+    },
+    {
+      "callee": "Ensure_Defined",
+      "line": 1606,
+      "path": "exp_pakd.adb"
+    },
+    {
+      "callee": "Make_Itype_Reference",
+      "line": 5408,
+      "path": "exp_util.adb"
+    },
+    {
+      "callee": "Make_Itype_Reference",
+      "line": 4360,
+      "path": "freeze.adb"
+    },
+    {
+      "callee": "Make_Itype_Reference",
+      "line": 5200,
+      "path": "freeze.adb"
+    },
+    {
+      "callee": "Make_Itype_Reference",
+      "line": 7374,
+      "path": "freeze.adb"
+    },
+    {
+      "callee": "Make_Itype_Reference",
+      "line": 8311,
+      "path": "freeze.adb"
+    },
+    {
+      "callee": "Build_Itype_Reference",
+      "line": 891,
+      "path": "sem_ch3.adb"
+    },
+    {
+      "callee": "Build_Itype_Reference",
+      "line": 980,
+      "path": "sem_ch3.adb"
+    },
+    {
+      "callee": "Build_Itype_Reference",
+      "line": 999,
+      "path": "sem_ch3.adb"
+    },
+    {
+      "callee": "Build_Itype_Reference",
+      "line": 1004,
+      "path": "sem_ch3.adb"
+    },
+    {
+      "callee": "Build_Itype_Reference",
+      "line": 1013,
+      "path": "sem_ch3.adb"
+    },
+    {
+      "callee": "Build_Itype_Reference",
+      "line": 8633,
+      "path": "sem_ch3.adb"
+    },
+    {
+      "callee": "Make_Itype_Reference",
+      "line": 11269,
+      "path": "sem_ch3.adb"
+    },
+    {
+      "callee": "Build_Itype_Reference",
+      "line": 14915,
+      "path": "sem_ch3.adb"
+    },
+    {
+      "callee": "Build_Itype_Reference",
+      "line": 16633,
+      "path": "sem_ch3.adb"
+    },
+    {
+      "callee": "Build_Itype_Reference",
+      "line": 23105,
+      "path": "sem_ch3.adb"
+    },
+    {
+      "callee": "Build_Itype_Reference",
+      "line": 23198,
+      "path": "sem_ch3.adb"
+    },
+    {
+      "callee": "Build_Itype_Reference",
+      "line": 2164,
+      "path": "sem_ch6.adb"
+    },
+    {
+      "callee": "Make_Itype_Reference",
+      "line": 2169,
+      "path": "sem_ch6.adb"
+    },
+    {
+      "callee": "Build_Itype_Reference",
+      "line": 9532,
+      "path": "sem_ch6.adb"
+    },
+    {
+      "callee": "Make_Itype_Reference",
+      "line": 2123,
+      "path": "sem_ch7.adb"
+    },
+    {
+      "callee": "Ensure_Defined",
+      "line": 13197,
+      "path": "sem_res.adb"
+    }
+  ],
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "raw_node_kind_mentions_for_manual_review": [
+    {
+      "line": 8373,
+      "path": "exp_ch9.adb",
+      "text": "| N_Itype_Reference"
+    },
+    {
+      "line": 8376,
+      "path": "exp_util.adb",
+      "text": "| N_Itype_Reference"
+    },
+    {
+      "line": 1389,
+      "path": "gen_il-gen-gen_nodes.adb",
+      "text": "Cc (N_Itype_Reference, Node_Kind,"
+    },
+    {
+      "line": 339,
+      "path": "gen_il-internals.ads",
+      "text": "N_Itype_Reference => 45422,"
+    },
+    {
+      "line": 414,
+      "path": "gen_il-types.ads",
+      "text": "N_Itype_Reference,"
+    },
+    {
+      "line": 2628,
+      "path": "ghost.adb",
+      "text": "| N_Itype_Reference"
+    },
+    {
+      "line": 339,
+      "path": "sem.adb",
+      "text": "when N_Itype_Reference =>"
+    },
+    {
+      "line": 7365,
+      "path": "sem_elab.adb",
+      "text": "| N_Itype_Reference"
+    },
+    {
+      "line": 2343,
+      "path": "sprint.adb",
+      "text": "when N_Itype_Reference =>"
+    },
+    {
+      "line": 1003,
+      "path": "vast.adb",
+      "text": "| N_Itype_Reference"
+    },
+    {
+      "line": 1219,
+      "path": "vast.adb",
+      "text": "| N_Itype_Reference"
+    }
+  ],
+  "retained_files": [
+    {
+      "bytes": 408092,
+      "path": "checks.adb",
+      "ranges": [
+        [
+          3509,
+          3561
+        ],
+        [
+          10308,
+          10337
+        ]
+      ],
+      "sha256": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c"
+    },
+    {
+      "bytes": 366593,
+      "path": "exp_aggr.adb",
+      "ranges": [
+        [
+          4339,
+          4381
+        ]
+      ],
+      "sha256": "625ed7cdf70017518d8200a7ea49deeb4a7edbf75dba55d2c2cf0d2c649ef78b"
+    },
+    {
+      "bytes": 504138,
+      "path": "exp_ch3.adb",
+      "ranges": [
+        [
+          4851,
+          4862
+        ],
+        [
+          4890,
+          4899
+        ],
+        [
+          4918,
+          4951
+        ]
+      ],
+      "sha256": "559f0f1fae1c1f0783b4169c707c131d4e0420e988254617b57954b01d475f6e"
+    },
+    {
+      "bytes": 574199,
+      "path": "exp_ch4.adb",
+      "ranges": [
+        [
+          2046,
+          2088
+        ],
+        [
+          10162,
+          10259
+        ],
+        [
+          10290,
+          10345
+        ]
+      ],
+      "sha256": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669"
+    },
+    {
+      "bytes": 258403,
+      "path": "exp_ch5.adb",
+      "ranges": [
+        [
+          1014,
+          1029
+        ]
+      ],
+      "sha256": "99faebd687725d617d9a0c56c2a217cb8df6d23306e01b469241238caf1804b6"
+    },
+    {
+      "bytes": 536107,
+      "path": "exp_ch9.adb",
+      "ranges": [
+        [
+          14218,
+          14245
+        ]
+      ],
+      "sha256": "a8fba38c78853fef1d47973927a580841961663f96cfa4483ef4f7ac92884454"
+    },
+    {
+      "bytes": 95682,
+      "path": "exp_pakd.adb",
+      "ranges": [
+        [
+          1583,
+          1610
+        ]
+      ],
+      "sha256": "0968b9c799bea0ff1b511f3f6bca2605c2fd549913af46bf5eeacf56168eaf33"
+    },
+    {
+      "bytes": 45004,
+      "path": "exp_spark.adb",
+      "ranges": [
+        [
+          120,
+          213
+        ],
+        [
+          1008,
+          1023
+        ]
+      ],
+      "sha256": "509e27a893828c31e7148f29470ab1fcbacd879242a1066dd22bdc3a6cf0fbfb"
+    },
+    {
+      "bytes": 533310,
+      "path": "exp_util.adb",
+      "ranges": [
+        [
+          5397,
+          5412
+        ],
+        [
+          8159,
+          8182
+        ],
+        [
+          8289,
+          8470
+        ],
+        [
+          12761,
+          12824
+        ]
+      ],
+      "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1"
+    },
+    {
+      "bytes": 20912,
+      "path": "expander.adb",
+      "ranges": [
+        [
+          105,
+          127
+        ]
+      ],
+      "sha256": "5cbfe2783201ea57d9d93290187daa0a24d71757b82b2a49c9280704b148b461"
+    },
+    {
+      "bytes": 439830,
+      "path": "freeze.adb",
+      "ranges": [
+        [
+          4303,
+          4368
+        ],
+        [
+          5181,
+          5215
+        ],
+        [
+          7343,
+          7393
+        ],
+        [
+          8293,
+          8322
+        ]
+      ],
+      "sha256": "245a9badc89a6f74f3084481150eca8e0a329b378815c44d2081b1f8d7339f7d"
+    },
+    {
+      "bytes": 916035,
+      "path": "sem_ch3.adb",
+      "ranges": [
+        [
+          852,
+          895
+        ],
+        [
+          968,
+          1017
+        ],
+        [
+          8617,
+          8642
+        ],
+        [
+          11262,
+          11294
+        ],
+        [
+          14882,
+          14921
+        ],
+        [
+          16595,
+          16640
+        ],
+        [
+          23073,
+          23113
+        ],
+        [
+          23168,
+          23204
+        ]
+      ],
+      "sha256": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f"
+    },
+    {
+      "bytes": 545826,
+      "path": "sem_ch6.adb",
+      "ranges": [
+        [
+          2141,
+          2177
+        ],
+        [
+          9494,
+          9540
+        ]
+      ],
+      "sha256": "4dbe4ecbf943e6d2fef4fb90882da7c8570752c46c05c682a3e2beba955d7089"
+    },
+    {
+      "bytes": 143769,
+      "path": "sem_ch7.adb",
+      "ranges": [
+        [
+          2097,
+          2137
+        ]
+      ],
+      "sha256": "927936db7812a109fefe2dab144a3535f40ba5139fd7cd587ecf295752dd146c"
+    },
+    {
+      "bytes": 559989,
+      "path": "sem_res.adb",
+      "ranges": [
+        [
+          13180,
+          13200
+        ]
+      ],
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8"
+    }
+  ],
+  "scan_file_count": 2319,
+  "scan_path_digest_sha256": "44e29f49799d3241e095a584f14567890862c83f79de0e4a9646eed050ab0ccc",
+  "scope": "Pinned-source identity and lexical inventory; manual reachability argument in research report",
+  "toolchain_or_proof_processes_run": false,
+  "verified_against": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json"
+}

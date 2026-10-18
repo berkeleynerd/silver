@@ -151,6 +151,7 @@
     }
   ],
   "main_entity_invocation_composition": {
+    "itype_reference_basis": "frontend-invocation-audit.json inventory plus manual exclusion table in research report",
     "literal_string_and_index_type_closes": 6,
     "literal_string_and_index_types": [
       209,
@@ -164,6 +165,7 @@
       2,
       6
     ],
+    "main_itype_reference_translations": 0,
     "module_bound": "M <= all_nonimport_nodes",
     "object_entities": "D + F + G, with G <= 2F",
     "object_loop_closes": "2D + 4F + 2G <= 2D + 8F",
@@ -173,8 +175,7 @@
       9,
       6,
       33
-    ],
-    "remaining_expression_replay_gap": "Complete Main N_Itype_Reference exclusion or bound its associated-expression replay"
+    ]
   },
   "memoized_entity_module_kinds": 27,
   "normalized_integer_core": {
