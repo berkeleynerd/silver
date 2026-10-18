@@ -32,7 +32,7 @@ RANGES = {
     "gcc/ada/libgnat/s-conca9.ads": [(32, 45)],
     "gcc/ada/gcc-interface/trans.cc": [
         (1047, 1059), (1189, 1380), (1741, 1752), (2141, 2319),
-        (3026, 3306), (3313, 3400), (3843, 3941), (4028, 4126),
+        (3026, 3306), (3313, 3400), (3540, 3585), (3843, 3941), (4028, 4126),
         (4228, 4249), (4582, 4613), (4680, 5758),
         (5990, 6003), (6031, 6065), (6076, 6095),
         (6118, 6144), (6150, 6318), (6765, 6774), (6826, 6917), (7086, 7097),
@@ -46,7 +46,7 @@ RANGES = {
         (4401, 4460), (4794, 4905), (5009, 5635), (5764, 5851),
         (5911, 6250), (3700, 3755)],
     "gcc/ada/gcc-interface/decl.cc": [
-        (352, 445), (697, 718), (754, 766), (1164, 1205), (1278, 1291),
+        (352, 445), (697, 718), (754, 787), (1164, 1205), (1278, 1291),
         (1507, 1713), (1901, 2005), (2577, 3193), (3810, 4056),
         (4480, 4495), (4530, 5026), (5538, 5691), (7116, 7128), (7169, 7228), (7532, 7688)],
     "gcc/ada/gcc-interface/utils2.cc": [
@@ -55,17 +55,20 @@ RANGES = {
     "gcc/ada/gcc-interface/gigi.h": [(1299, 1307)],
     "gcc/tree.cc": [
         (1212, 1230), (1468, 1479), (4080, 4106), (4132, 4223), (4257, 4283), (6982, 7023),
-        (11020, 11077), (11194, 11224)],
+        (11020, 11077), (11194, 11224), (13147, 13192), (13390, 13415)],
     "gcc/passes.def": [(27, 42)],
     "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
     "gcc/gimplify.cc": [
         (83, 124), (387, 395), (460, 488), (619, 751), (944, 973), (1097, 1101),
         (1270, 1282), (1677, 1845),
         (1971, 2008), (2124, 2157), (2198, 2225), (3221, 3235),
-        (3859, 3939), (4651, 4656), (4886, 5013),
-        (5036, 5137), (5184, 5809), (6288, 6307), (7002, 7048),
-        (7430, 7470), (7547, 7625), (7723, 7799),
-        (19462, 19467), (20483, 20500),
+        (3264, 3442), (3523, 3727),
+        (3830, 3939), (4651, 4656), (4886, 5013),
+        (5036, 5137), (5184, 5809), (5835, 5891), (6288, 6307),
+        (6887, 6920), (7002, 7048), (7315, 7510),
+        (7547, 7710), (7723, 7799), (7811, 7918),
+        (19462, 19467), (20411, 20429), (20483, 20500),
+        (20933, 20943), (21253, 21288),
         (21295, 21348), (21502, 21558), (21584, 21761)],
     "gcc/gimplify.h": [(53, 54)],
     "gcc/gimple.cc": [(251, 263), (328, 340), (385, 405)],
@@ -261,6 +264,58 @@ def check_sources(sources, inventory):
     assert dummy.index("if (PRESENT_DUMMY_NODE") < dummy.index("make_node (")
     assert dummy.count("make_node (") == 2
     assert dummy.count("create_type_stub_decl (") == 1
+    start = gimplify.index("\ngimplify_compound_lval (")
+    end = gimplify.index("\n}\n", start)
+    refs = gimplify[start:end]
+    assert refs.count("expr_stack.safe_push (") == 1
+    assert refs.count("unshare_expr (") == 3
+    assert refs.count("size_binop_loc (") == 2
+    assert refs.count("gimplify_expr (") == 6
+    assert refs.index("unshare_expr (array_ref_low_bound (t))") < refs.index(
+        "if (!is_gimple_min_invariant (low))")
+    assert "auto_vec<tree, 10> expr_stack;" in refs
+    start = gimplify.index("\ncanonicalize_component_ref (")
+    end = gimplify.index("\n}\n", start)
+    canonical = gimplify[start:end]
+    assert "build1 (" not in canonical
+    assert canonical.count("build_qualified_type (") == 1
+    start = gimplify.index("\ncanonicalize_addr_expr (")
+    end = gimplify.index("\n}\n", start)
+    canonical = gimplify[start:end]
+    assert canonical.count("build4 (ARRAY_REF,") == 1
+    assert canonical.count("build1 (ADDR_EXPR,") == 1
+    assert "*expr_p = unshare_expr (DECL_VALUE_EXPR (decl));" in gimplify
+    start = gimplify.index("\nprepare_gimple_addressable (")
+    end = gimplify.index("\n}\n", start)
+    addressable = gimplify[start:end]
+    assert "if (is_gimple_reg (*expr_p))" in addressable
+    assert addressable.count("internal_get_tmp_var (") == 1
+    start = gimplify.index("\nmaybe_with_size_expr (")
+    end = gimplify.index("\n}\n", start)
+    sized = gimplify[start:end]
+    assert sized.index("unshare_expr (size)") < sized.index(
+        "SUBSTITUTE_PLACEHOLDER_IN_EXPR (size, expr)") < sized.index(
+        "build2 (WITH_SIZE_EXPR,")
+    start = gimplify.index("\ngimplify_modify_expr_to_memcpy (")
+    end = gimplify.index("\n}\n", start)
+    memcpy = gimplify[start:end]
+    assert memcpy.count("build_fold_addr_expr_loc (") == 2
+    assert memcpy.count("gimplify_arg (") == 2
+    assert "gimple_build_call (t, 3, to_ptr, from_ptr, size)" in memcpy
+    assert memcpy.index("if (want_value)") < memcpy.index("create_tmp_var (")
+    start = gimplify.index("\ngimplify_variable_sized_compare (")
+    end = gimplify.index("\n}\n", start)
+    memcmp = gimplify[start:end]
+    assert memcmp.index("unshare_expr (arg)") < memcmp.index("SUBSTITUTE_PLACEHOLDER_IN_EXPR (")
+    assert memcmp.count("build_fold_addr_expr_loc (") == 2
+    assert "build_call_expr_loc (loc, t, 3, dest, src, arg)" in memcmp
+    start = gimplify.index("\ngimplify_scalar_mode_aggregate_compare (")
+    end = gimplify.index("\n}\n", start)
+    compare = gimplify[start:end]
+    assert compare.count("fold_build1_loc (") == 2
+    assert compare.count("fold_build2_loc (") == 1
+    assert compare.index("if (code != EQ_EXPR && code != NE_EXPR)") < compare.index(
+        "BUILT_IN_BSWAP16")
 
 
 def arithmetic():
@@ -377,6 +432,27 @@ def arithmetic():
         "Main_constructor_bearing_full_entity_conversions": "O+Ts+Ta+Tl+Tp <= E_Main, each entity once",
         "Main_direct_ordinary_object_declaration_requests": "<= 4*O",
         "Main_deferred_dummy_type_and_decl_requests": "<= 2*T type/debug nodes and T TYPE_DECL, T=Ts+Ta+Tl+Tp",
+        "reference_stack_pushes": "R=A+C+V actual handled spine occurrences",
+        "reference_base_lowering_requests": "<= S actual compound-helper entries",
+        "reference_index_and_metadata_lowering_requests": "<= 3*A+C",
+        "reference_initial_indirect_fold_requests": "<= R+S+J, J actual alias expansions",
+        "reference_metadata_substitution_and_unshare_requests": "each <= 2*A+C",
+        "reference_metadata_alignment_constants_and_divisions": "each <= A+C; zero on constant Character-size/fixed-field-offset premises",
+        "reference_metadata_ordinary_copy_nodes": "sum actual substituted metadata cut-region weights; pre-lowered local bounds have zero weight",
+        "address_gimplifier_operand_addressability_address_helper_conversion_requests": "each <= one per actual invocation",
+        "pointer_array_address_canonicalization_nodes_and_slots": [2, 4+1],
+        "component_canonicalization_expression_nodes": 0,
+        "VLA_declaration_alias_copy_nodes_and_slots": [1, 1],
+        "gigi_debug_renaming_alias_copy_nodes_and_slots": [2, 2],
+        "plain_String_store_WITH_SIZE_and_size_unshare_requests": "each <= M actual normalized plain stores",
+        "plain_String_store_raw_assign_plus_memcpy_statements": "<= M",
+        "plain_String_store_raw_statement_operand_slots": "<= 6*M",
+        "plain_String_store_address_fold_and_argument_requests": "each <= 2*M",
+        "plain_String_store_addressability_preparations": "<= M",
+        "plain_String_store_size_copy_nodes": "sum pre-substitution size cut-region weights",
+        "scalar_mode_aggregate_equality_view_and_comparison_fold_requests": [2, 1],
+        "non_scalar_mode_aggregate_equality_memcmp_call_and_compare_operand_slots": [6, 2],
+        "non_scalar_mode_aggregate_equality_address_fold_requests": 2,
         "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success",
     }
 

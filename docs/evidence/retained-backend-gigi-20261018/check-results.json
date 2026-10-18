@@ -115,6 +115,42 @@
     "Main_constructor_bearing_full_entity_conversions": "O+Ts+Ta+Tl+Tp <= E_Main, each entity once",
     "Main_direct_ordinary_object_declaration_requests": "<= 4*O",
     "Main_deferred_dummy_type_and_decl_requests": "<= 2*T type/debug nodes and T TYPE_DECL, T=Ts+Ta+Tl+Tp",
+    "reference_stack_pushes": "R=A+C+V actual handled spine occurrences",
+    "reference_base_lowering_requests": "<= S actual compound-helper entries",
+    "reference_index_and_metadata_lowering_requests": "<= 3*A+C",
+    "reference_initial_indirect_fold_requests": "<= R+S+J, J actual alias expansions",
+    "reference_metadata_substitution_and_unshare_requests": "each <= 2*A+C",
+    "reference_metadata_alignment_constants_and_divisions": "each <= A+C; zero on constant Character-size/fixed-field-offset premises",
+    "reference_metadata_ordinary_copy_nodes": "sum actual substituted metadata cut-region weights; pre-lowered local bounds have zero weight",
+    "address_gimplifier_operand_addressability_address_helper_conversion_requests": "each <= one per actual invocation",
+    "pointer_array_address_canonicalization_nodes_and_slots": [
+      2,
+      5
+    ],
+    "component_canonicalization_expression_nodes": 0,
+    "VLA_declaration_alias_copy_nodes_and_slots": [
+      1,
+      1
+    ],
+    "gigi_debug_renaming_alias_copy_nodes_and_slots": [
+      2,
+      2
+    ],
+    "plain_String_store_WITH_SIZE_and_size_unshare_requests": "each <= M actual normalized plain stores",
+    "plain_String_store_raw_assign_plus_memcpy_statements": "<= M",
+    "plain_String_store_raw_statement_operand_slots": "<= 6*M",
+    "plain_String_store_address_fold_and_argument_requests": "each <= 2*M",
+    "plain_String_store_addressability_preparations": "<= M",
+    "plain_String_store_size_copy_nodes": "sum pre-substitution size cut-region weights",
+    "scalar_mode_aggregate_equality_view_and_comparison_fold_requests": [
+      2,
+      1
+    ],
+    "non_scalar_mode_aggregate_equality_memcmp_call_and_compare_operand_slots": [
+      6,
+      2
+    ],
+    "non_scalar_mode_aggregate_equality_address_fold_requests": 2,
     "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success"
   },
   "compiler_runs": 0,

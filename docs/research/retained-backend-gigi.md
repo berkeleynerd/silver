@@ -1517,6 +1517,216 @@ GIMPLE constructor also requests one `build_fold_addr_expr` per direct call
 charged separately. Count the temporary's SSA_NAME/VAR_DECL choice using
 the earlier materialization interface, with SAVE requests selecting VAR_DECL.
 
+## String and descriptor reference gimplification
+
+Aggregate VIEW_CONVERT_EXPR, ARRAY_REF/ARRAY_RANGE_REF and COMPONENT_REF enter
+`gimplify_compound_lval`; a VIEW_CONVERT between register types instead lowers
+its operand as a scalar (`gimplify.cc:20411–20429`). The compound helper
+(`:3523–3727`) walks the operand-zero reference spine into a stack, processes
+metadata, lowers the innermost base once, then lowers each index and annotation.
+It retains the reference nodes; it does not copy the String payload or rebuild
+one reference per character. Generic folding of an encountered INDIRECT_REF,
+declaration aliases, metadata substitution and later materialization are
+separate edges in this transfer.
+
+Let S be actual compound-helper entries, A the ARRAY_REF/ARRAY_RANGE_REF stack
+entries, C the COMPONENT_REF entries, and V the other selected handled entries
+(aggregate views and complex projections). Let R=A+C+V. Count entries after
+any initial indirect folding or declaration-alias expansion, so generated
+reference wrappers are included. With J actual declaration-alias expansions:
+
+```text
+reference-stack pushes                      = R
+innermost base-lowering requests            <= S
+index-lowering requests                    <= A
+low-bound / element-size lowering requests  <= 2A
+component-offset lowering requests         <= C
+initial indirect-fold requests             <= R+S+J
+optional addressability preparations        <= S
+outer component canonicalizations          <= S.
+```
+
+There is one stack with ten inline entries per active helper. Its dynamic
+backing follows the existing vector-capacity transfer, using its maximum
+actual spine length; R is the cumulative push count, not a simultaneous
+capacity. For the String/descriptor memory frontier, the base is a nonregister
+lvalue, so the helper's alternate repeated scalar-register projection route
+is absent. Complex projections over a register use the scalar transfer.
+
+### Reference metadata is a real copy edge
+
+For each absent array annotation the helper asks `array_ref_low_bound` or
+`array_ref_element_size`; an absent field annotation asks
+`component_ref_field_offset`. These readers substitute placeholders in the
+existing type bound/element size/field offset
+(`tree.cc:13147–13192,13390–13415`). Their explicit-annotation multiplication
+branches are not entered here, since the caller has just tested the slot null.
+The absent-domain fallback requests at most one integer constant per array.
+
+The lower bound is unshared **before** the invariant test, even when it will
+not be attached to the array reference. Noninvariant element sizes and field
+offsets are also unshared, then divided by their alignment unit
+(`gimplify.cc:3591–3640`). Accordingly the general metadata interface is
+
+```text
+placeholder-substitution requests          <= 2A+C
+metadata unshare requests                  <= 2A+C
+alignment integer requests                 <= A+C
+EXACT_DIV size_binop requests               <= A+C
+fresh ordinary metadata copy nodes         <= sum_j W(metadata_j).
+```
+
+W is the ordinary incoming-edge copy weight with type/declaration/constant and
+SAVE/TARGET/BIND cut points. The last sum includes the unconditional lower-bound
+requests, including discarded copies. Substitution outputs are weighted after
+substitution. These are additional roots, not descendants that can be omitted
+from the executable-expression count.
+
+The selected natural-layout Character element has constant byte size one;
+the fixed descriptor's field offsets are constants. Once those layout premises
+are discharged, their noninvariant branches contribute zero metadata copies,
+zero alignment divisions and zero alignment constants. Only the lower-bound
+copy edge remains. For a local constrained String type whose declaration has
+already passed `gimplify_type_sizes`, a placeholder-free lower bound is a
+constant or VAR_DECL: declaration processing runs type-size lowering first,
+arrays recursively lower their index type, and `gimplify_one_sizepos` preserves
+or produces those leaves (`:2132–2154,21623–21652,21714–21741`). Such a bound's
+unshare has zero ordinary copy weight. This conclusion is conditional on that
+ordering and does not apply to a fixed unconstrained descriptor's placeholder
+bound or an anonymously generated type with no preceding declaration. Those
+roots retain their substitution and copy weights.
+
+### Address and declaration-alias preparation
+
+`gimplify_addr_expr` (`:7811–7918`) has a bounded local helper interface per
+actual invocation: at most one operand-lowering request, one addressability
+preparation, one `build_fold_addr_expr` request and one `fold_convert` request.
+The original INDIRECT_REF or zero-offset MEM_REF alternative skips operand
+lowering; the VIEW_CONVERT alternative consumes that view and takes the inner
+address. The default route may rebuild a mismatched address or remove a newly
+exposed indirection after lowering. These are alternatives, not cumulative
+extra calls. A rewritten expression reenters the ordinary gimplifier and its
+folder output remains part of the actual occurrence vector.
+
+Pointer conversion has one additional reference producer:
+`canonicalize_addr_expr` (`:3320–3364`) may replace a pointer-to-array cast with
+one ARRAY_REF and one ADDR_EXPR, with five total operand slots. It first
+requests one pointer type and may finish with one fold conversion. Its new
+ARRAY_REF uses a constant lower bound and constant element size. The sibling
+`canonicalize_component_ref` (`:3264–3305`) changes the retained reference's
+type and may request one qualified type; despite its old introductory comment,
+the current implementation constructs no NOP_EXPR. These producers feed R
+above; they are not attributed to source-level indexing.
+
+`prepare_gimple_addressable` (`:5835–5843`) walks existing reference wrappers
+without copying them. If the terminal base is a register, it creates at most
+one non-SSA temporary using `internal_get_tmp_var`. At this call the value is
+already a scalar declaration or SSA leaf, so its unshare does not copy a deep
+reference graph. Charge one VAR_DECL, one INIT wrapper and one scalar raw
+assignment, plus the existing naming/UID/fold transfers. A base already in
+memory adds none of these requests.
+
+A declaration alias is different: `gimplify_var_or_parm_decl` unshares the
+whole `DECL_VALUE_EXPR` (`:3409–3442`). Charge one copy request and its actual
+ordinary graph weight per alias expansion, including the restart into the
+compound reference loop. Main's ordinary VLA lowering installs an INDIRECT_REF
+of a fresh pointer variable (`:1971–1995`), so that particular replacement has
+one ordinary node and one operand slot; it does not replay a String initializer.
+The gigi debug-renaming replacement instead has an INDIRECT_REF and NOP_EXPR
+over an integer constant (`decl.cc:772–787`). Its two-node graph has no nested
+declaration alias. The other gigi writers are Out-parameter debug aliases and
+named-return-value substitution (`decl.cc:1643–1657`, `trans.cc:3540–3585`),
+outside Main's zero-formal void bodies; OpenMP alias installation is also
+excluded. This accounts for the relevant variable Main aliases without
+assuming every scalar declaration in every compiler phase is alias-free.
+
+Finally, later scalar/address materialization can unshare a **whole normalized
+reference spine**, not merely its outermost wrapper. Its metadata and index
+operands have then been lowered, but the lvalue spine remains. Retain the
+sum of those actual spine weights in the materialization interface.
+
+### Plain String stores and aggregate equality
+
+After surrounding statement/conditional/call wrappers have been handled,
+consider a plain nonvolatile String store whose RHS is a STRING_CST or an
+ordinary memory reference, possibly with aggregate view conversions. These
+are the array-to-array stores; descriptor CONSTRUCTOR initialization and
+aggregate-returning CALL_EXPR are separate families. Gigi represents the
+literal payload by STRING_CST, not a per-character CONSTRUCTOR. A read-only
+String declaration initialized by STRING_CST therefore does not enter the
+constructor replay case at `gimplify.cc:6887–6919`.
+
+Let M count actual plain-store occurrences reaching this phase, including any
+stores introduced by prior conditional distribution. The statement's value is
+unused. Once the RHS reference normalization has finished, the main path in
+`gimplify_modify_expr` (`:7315–7510`) requests at most one LHS lowering and two
+RHS lowerings: the second is only for a changed LHS predicate. Reference
+normalization itself, including repeated indirect folding while the RHS shape
+changes, remains charged by the reference/folder occurrence interface. It is
+not a claim that arbitrary folder rewrites take only two steps.
+
+Each variable-size store requests at most one WITH_SIZE_EXPR wrapper with two
+operand slots. `maybe_with_size_expr` first unshares the existing TYPE_SIZE_UNIT,
+then substitutes placeholders, then builds the wrapper (`:3830–3851`):
+
+```text
+WITH_SIZE_EXPR requests and size-unshare requests  <= M each
+size placeholder-substitution requests            <= M
+ordinary size-copy nodes                          <= sum_j W(size_j).
+```
+
+Here W is measured **before** substitution, unlike the lower-bound copy above.
+Already wrapped expressions and constant sizes return without these requests.
+The WITH_SIZE_EXPR route lowers its value and size once per visit
+(`:20933–20943`); its size root is additional scalar work. Pre-lowered local
+type sizes are leaves, while unconstrained descriptor-size roots retain their
+own weighted substitution. An empty type can instead evaluate the operands for
+side effects and discard the store.
+
+A nonempty fixed-size memory store ends in one raw two-operand GIMPLE_ASSIGN
+and one `maybe_fold_stmt` request (`:7593–7614`). A variable-size store between
+addressable lvalues instead enters `gimplify_modify_expr_to_memcpy`
+(`:5847–5891,7495–7507`). Its local interface is one addressability preparation,
+two address-fold requests, two argument-lowering requests, and one raw
+three-actual GIMPLE_CALL with six operand slots. Because the statement result
+is unused, there is no returned-pointer temporary or result MEM_REF. The two
+terminal choices are disjoint:
+
+```text
+raw plain-store GIMPLE_ASSIGN + raw memcpy GIMPLE_CALL <= M
+raw plain-store statement operand slots               <= 6M
+store-triggered address-fold/argument requests          <= 2M each
+store-triggered addressability preparations             <= M
+raw-assignment maybe_fold_stmt requests                 <= M.
+```
+
+These raw statement counts exclude instructions generated while lowering
+addresses, indices and size expressions. They do not price later builtin
+expansion or machine block moves. The memset and element-by-element
+CONSTRUCTOR routes are not silently used for a String literal.
+
+Array equality has a second split that depends on the actual GCC mode, not on
+whether the source length was static (`:21253–21288`). For each aggregate
+EQ_EXPR/NE_EXPR, `gimplify_scalar_mode_aggregate_compare` requests two folded
+VIEW_CONVERT_EXPRs and one folded scalar comparison (`:7661–7710`). EQ/NE skip
+the ordering-only byte-swap block completely. The scalar type lookup, folder
+results and view/reference operands have their ordinary transfers.
+
+For a non-scalar-mode array,
+`gimplify_variable_sized_compare` (`:7630–7651`) instead requests:
+
+```text
+one size-root unshare, then one placeholder substitution;
+two build_fold_addr_expr helpers;
+one three-actual memcmp CALL_EXPR (six operand slots);
+one plain scalar EQ/NE node (two operand slots).
+```
+
+This helper does not scan the array bytes. Its memcmp call enters builtin-call
+folding and gimplification, so the earlier **nonbuiltin** scalar-call bound
+cannot be substituted. Size copies, scalar-mode view folding, constructor
+initialization and eventual memcpy/memcmp expansion remain distinct joins.
+
 ## Unresolved terms for whole-backend composition
 
 These interfaces remove the per-call/per-type arity ambiguity; they do not yet
