@@ -129,8 +129,21 @@ per-program capacity verdicts. In particular the remaining fixed-library,
 backend, diagnostic and late-consumer joins still apply. The null startup
 frontier now separates four uncached semantic type roots, seven exception
 fields, at most 92 direct runtime function/result pairs, builtin setup and the
-hidden forced global from the executable body. Descendant/helper allocation
-and the complete incoming symbol graph remain separate joins.
+hidden forced global from the executable body. Its complete incoming symbol
+graph is now established: one Main function, one forced dummy variable, no
+calls and no symbol references. The IPA transfer composes with this graph;
+the selected x86 entry/exit path reaches the end of pass_expand with at most
+15 cumulative instruction-chain nodes. O0 location-preservation edge splitting
+raises the conservative IRA-entry allowance to 25 nodes, ten ordinary blocks
+and eleven edges. Fixed descendant/helper allocations, IRA/LRA, later RTL and
+output/linker capacity still need their own joins.
+
+The [fixed-setup witness assessment](retained-native-expansion.md#fixed-gcc-initialization-witness-boundary-and-counter-requirements)
+identifies a possible one-time capture boundary before Main translation and
+distinguishes cumulative GGC allocation from counters that can decrease.
+No new setup capture or numerical fixed allowance is claimed: the fixed-root
+read projection, cache interactions and callback independence must be closed
+before using such a witness.
 
 The proposed native-only `-gnatx` removes cross-reference construction/output
 and its long-local-name ALI analysis loss; combining it with
@@ -140,7 +153,23 @@ passed three baseline/proposed build/bind/link/run pairs in 5.800 seconds,
 including a 2,500-character identifier. It corroborates the binder's propagation
 of the warning option and omission of `-gnatx`. Production flags and GNATprove
 remain unchanged. This result supports the configuration choice; it does not
-close the whole capacity predicate.
+close the whole capacity predicate. The [native environment join](retained-native-environment.md)
+adds an explicit seven-entry initial GCC environment, includes GCC_ROOT and
+BINUTILS_ROOT in the excluded inherited overrides, and resolves the installed
+Ada default-search constants. Five driver-only queries and three static
+disassemblies validate those concrete configuration facts without invoking a
+frontend. Complete raw search/probe spellings reach 222 characters here;
+the earlier P=200 examples are not a realized descriptor for this installation.
+The verified launcher and remaining driver/late-path capacities are unfinished.
+The reusable [individual-obstack transfer](retained-backend-obstacks.md) joins
+the already-bounded native environment strings to chunk requests without
+imposing an aggregate memory or address-span gate.
+
+The [diagnostic-string transfer](retained-producer-diagnostic-strings.md) joins
+selected prover answers and consecutive-answer warnings to raw solver-output
+bytes, with reviewed linear coefficients. Its five-fixed-response constants
+retain all raw-output and other-warning variables. It does not assume successful
+proofs erase diagnostics, nor establish the solver-output/formula/context bounds.
 
 These are source-derived components with their own premises and review scope.
 They do not yet select a safe whole-program threshold or unlock production

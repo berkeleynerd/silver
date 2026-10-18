@@ -1,0 +1,14 @@
+{
+  "source_files_checked": 5,
+  "interface_version": 2,
+  "default_preferred_chunk": 4064,
+  "default_alignment_mask": 15,
+  "header_payload_offset": 16,
+  "individual_default_object_sufficient_ceiling": 8198552921648689491,
+  "driver_string_object_bytes": 20221,
+  "driver_chunk_request_bytes": 22863,
+  "driver_relative_alignment_ceiling": 22878,
+  "aggregate_memory_or_address_gate": false,
+  "caller_object_sizes_and_ABI_premise_required": true,
+  "compiler_or_proof_executed": false
+}

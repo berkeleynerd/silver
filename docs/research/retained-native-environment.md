@@ -117,8 +117,9 @@ the sufficient individual-object bound
 COLLECT_GCC_OPTIONS bytes <= 20 + 21*(4*(P+7)+3) + 4*P+14.
 ```
 
-This bounds the constructed strings and their arithmetic, not every obstack
-growth request or cumulative driver allocation. `TMPDIR` selection likewise
+The [individual-obstack transfer](retained-backend-obstacks.md) now bounds the
+chunk requests for these strings as well. Other driver objects and cumulative
+work retain their separate accounts. `TMPDIR` selection likewise
 still creates its separator/NUL copy and the `ccXXXXXX.s` name
 (`libiberty/make-temp-file.c:116–174,197–238`); use actual complete spellings
 in `P`. If the requested temporary directory becomes unavailable, the source
@@ -138,7 +139,8 @@ Uninventoried late paths still need composition.
 ## Focused evidence and remaining work
 
 Managed run `20261018T063601-938bdebc01d5` made five GCC **driver-only** queries
-and three static disassemblies in an isolated workspace. All returned zero.
+and three static disassemblies in an isolated workspace in 2.429 seconds.
+All returned zero.
 No frontend, assembler, linker, prover or Lean process ran. GCC `-###` printed
 19 frontend argv positions and five assembler positions, below the selected
 21-position frontend allowance. It reported built-in specs; the separate
