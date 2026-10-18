@@ -1,5 +1,26 @@
 # Session memory
 
+## 2026-10-18 — Capacity issue #119 is the present goal
+
+The owner instructed **“Let's consider 119 the present goal”** and requested
+an assessment of the work remaining to close that issue. The live harness goal
+now targets [#119](https://github.com/berkeleynerd/silver/issues/119)'s existing
+completion criteria: a concrete, computable and independently reviewed capacity
+rule with complete phase/construct coverage, soundness, relevant correspondence
+and useful-domain comparison; or the issue's precise reviewed research-stop
+outcome, which would not unlock language expansion. No research stop is selected
+by this instruction. Continue pursuing the capacity rule under the unchanged
+Oracle, installed tools/pins and current admission.
+
+The previously completed For loops and integers goal remains historical; the
+new active objective supersedes the earlier instruction to leave that completed
+goal as the live harness record. Later production #88–#94 retains its existing
+authorization but is outside the present #119 goal until its prerequisite is
+justified. The [capacity contract](research/retained-tool-capacity.md#comparison-and-next-derivation)
+records the existing closure order: null conjunction established, literal/full
+grammar conjunction unfinished, then complete-rule comparison and review.
+Status and continuation remain on #119; CLI memory is unavailable.
+
 ## 2026-10-18 — Portable model policy and host settings
 
 After reviewing the proposed model/delegation policy, the owner instructed:
