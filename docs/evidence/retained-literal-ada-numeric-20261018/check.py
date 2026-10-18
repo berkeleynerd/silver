@@ -46,11 +46,19 @@ def main():
         check(label, result['demands']['Uints'] == 28420+9*expected_c and result['all_selected_checks_pass'])
     large = compose(source([1]*5000), context)
     check('5000 calls only selected numeric pass', large['all_selected_checks_pass'] and large['demands']['Uints'] == 73420 and not large['complete_native_capacity'])
+    for c, digits in ((32765, 1), (32766, 2)):
+        result = compose(source([1]*c), context)
+        check(f'scope digit transition C{c}',
+              result['demand_rows']['Main_constructor']['Udigits'] == (60+digits)*c
+              and result['demands']['Udigits'] == 107726+(70+digits)*c)
+        check(f'scope transition numeric verdict C{c}', result['all_selected_checks_pass']
+              and not result['complete_native_capacity'])
     # Pure arithmetic boundary: do not allocate an eleven-million-call source
     # or claim this is the whole-pipeline admissibility boundary.
     last = (100000000-28420)//9
     for c, expected in ((last, True), (last+1, False)):
-        rows = backing(dict(Uints=28420+9*c, Udigits=107726+71*c, Ureals=67, Rep_Table=504), context)
+        scope_digits = context.model['uint_digits'](c+2)
+        rows = backing(dict(Uints=28420+9*c, Udigits=107726+(70+scope_digits)*c, Ureals=67, Rep_Table=504), context)
         check(f'nominal Uint boundary {c}', all(r['all_selected_checks_pass'] for r in rows.values()) == expected)
         check(f'other tables at boundary {c}', all(rows[k]['all_selected_checks_pass'] for k in ('Udigits', 'Ureals', 'Rep_Table')))
     for raw in (b'', source([1])+b' junk', source([1]).replace(b'begin', b'X : Integer := 1; begin'), source([1]).replace(b'x', b'\v')):

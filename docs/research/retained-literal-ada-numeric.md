@@ -24,9 +24,14 @@ the full witness, including its own Main and backend increments, is deliberate
 overcounting. No recorded allocation or assumed cache hit is subtracted.
 
 The [actual-source frontend adapter](retained-literal-native-frontend.md) supplies
-zero numeric scanner entries, 7C Main Uint appends and 61C retained digit words.
-The latter is the unchanged constructor model's 60C standalone-literal allowance
-plus C from conservative output wrappers. There are no real literals, numeric
+zero numeric scanner entries, 7C Main Uint appends and `(60+k)C` retained digit
+words, where `k=uint_digits(C+2)` is the positive base-32768 digit width.
+The unchanged constructor model charges 60C for standalone literals and kC
+for conservative output wrappers. Its scope bound is incoming depth one plus
+C wrappers plus one, even though the selected literal path needs no transient
+scope. The former 61C simplification applied only for C <= 32,765. At C=32,766,
+k becomes two and the model pays 62C; no new call-count restriction is needed.
+There are no real literals, numeric
 source tokens, declarations, concat, Image or Integer expressions in this shell.
 Text resembling a numeral inside a String or comment adds none of those forms.
 The Main word/null counts can change without adding a numeric constructor.
@@ -70,7 +75,7 @@ Thus, through the selected frontend and original gigi construction interval:
 | Table | Composed demand allowance |
 | --- | ---: |
 | Uints | 28,420 + 9C |
-| Udigits | 107,726 + 71C |
+| Udigits | 107,726 + (70+k)C, k=uint_digits(C+2) |
 | Ureals | 67 |
 | Rep_Table | 504 |
 
@@ -99,9 +104,11 @@ again by conversion rather than cached across table growth
 growable-table envelope to incoming demand plus callbacks. It does not require
 an empty table or a backing pointer to survive reallocation.
 
-The retained fixed operand bound 74,958 digits dominates the Main family's
-18-digit envelope, the five-word constant conversion and the nine-word float
-workspace. The unchanged local numeric checker preserves its dimension/index,
+The local numeric checker uses the maximum of the retained fixed operand
+allowance 74,958, the scanner demand and the Main family's `max(18,k)` envelope.
+The fixed allowance dominates in the nominal-Uint passing region, together with
+the five-word constant conversion and nine-word float workspace. The unchanged
+local numeric checker preserves its dimension/index,
 bit-count and decimal-count arithmetic. Each UI_Vector has at most 149,916
 words and 599,680 bytes including its descriptor. This is an individual-object
 bound, not a sum over recursive frames or an aggregate RAM admission limit.
@@ -125,16 +132,27 @@ binds 14 current repository inputs and 47 compiler source files. Source hashes
 are inherited from the accepted original-Main and fixed-float source manifests.
 Only their source-file identities are imported; their unrelated historical
 aggregate pins are not treated as current inputs. The frontend loader separately
-enforces its existing repository and full-source checks. No leaf formula or
-old review has been rewritten.
+enforces its existing repository and full-source checks. The general constructor
+formula is unchanged; the numeric specialization now retains its scope width.
+The old accepted freeze and review remain historical evidence.
 
-The 53 [focused checks](../evidence/retained-literal-ada-numeric-20261018/check-results.json)
+The original 53 focused checks
 exercise actual sources, both procedures, empty and 8,192-byte literals, trivia,
 invalid-family rejection, the 5,000-call source and the adjacent nominal-Uint
 arithmetic boundary. The latter uses demand arithmetic directly, not enormous
 allocated sources, and is not a whole-pipeline acceptance boundary. They passed
 in 0.455881 seconds, including model loading and input checking. Samples
 check the transcription and joins; the source arguments establish the bounds.
+The current [focused checks](../evidence/retained-literal-ada-numeric-20261018/check-results.json)
+also exercise actual sources on both sides of the 32,765/32,766 scope-width
+transition. The nominal-Uint arithmetic check uses the general digit formula.
+These 57 affected checks passed in 1.412007 seconds. Finding
+[#138](https://github.com/berkeleynerd/silver/issues/138) tracks this correction
+and its selected-route attachment; the original `3a7d590389` result and review
+remain scoped to their historical inputs.
+The [retained pre-repair reproduction](../evidence/retained-literal-ada-numeric-20261018/scope-width-before.json)
+records the old rejection and its exact numeric source identity. These checks
+do not assert that the other pipeline predicates accept either transition case.
 
 ```sh
 python3 docs/evidence/retained-literal-ada-numeric-20261018/check.py \

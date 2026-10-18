@@ -1,0 +1,12 @@
+{
+  "code_sha256": "aa66fd283c9ea48e87532fddb11d3bf8fbe7739da5240a7b684ba6ce915f5efe",
+  "source_sha256": "0010f732270fa4f0374f79bc6dd8ecd97851c458b1cddf8246ed0d99f285759c",
+  "source_bytes": 688160,
+  "calls": 32766,
+  "scope_digit_words": 2,
+  "actual_Main_digit_words": 2031492,
+  "old_asserted_words": 1998726,
+  "old_rejection": "Main numeric specialization changed",
+  "elapsed_seconds": 1.1807122089994664,
+  "native_tool_executions": 0
+}

@@ -73,7 +73,14 @@ def compose(raw, context):
         'original_Main_constant_size_callbacks': dict(Uints=gigi['Uint_entries'], Udigits=gigi['Udigits_words'], Ureals=0, Rep_Table=0),
     }
     c = selected['output_calls']
-    require(main['uint'] == 7*c and main['retained_digit_words'] == 61*c, 'Main numeric specialization changed')
+    # The general wrapper allowance charges the maximum temporary scope depth.
+    # Its base-32768 digit width grows with C even in this declaration-free
+    # family; the old 61*C simplification held only while C+2 < 32768.
+    scope_digits = context.model['uint_digits'](c+2)
+    require(front['Main_constructor']['Uint_digit_families']['scope'] == scope_digits
+            and main['uint'] == 7*c
+            and main['retained_digit_words'] == (60+scope_digits)*c,
+            'Main numeric specialization changed')
     require(gigi['Uint_entries'] == 2*c and gigi['Udigits_words'] == 10*c, 'original numeric interface changed')
     require('Rep_Table' in main_gigi['zero_demands'], 'original constant annotation interface changed')
     demands = {name: sum(row[name] for row in rows.values()) for name in SPECS}

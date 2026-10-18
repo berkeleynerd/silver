@@ -1,5 +1,5 @@
 {
-  "checks": 53,
+  "checks": 57,
   "passed": [
     "hello exact source-composed numeric demand",
     "hello numeric backing",
@@ -45,6 +45,10 @@
     "comment",
     "quoted syntax",
     "5000 calls only selected numeric pass",
+    "scope digit transition C32765",
+    "scope transition numeric verdict C32765",
+    "scope digit transition C32766",
+    "scope transition numeric verdict C32766",
     "nominal Uint boundary 11107953",
     "other tables at boundary 11107953",
     "nominal Uint boundary 11107954",
@@ -55,7 +59,7 @@
     "out-of-family bytes rejected 94",
     "numeric cache objects preserved"
   ],
-  "elapsed_seconds": 0.4558805630003917,
+  "elapsed_seconds": 1.4120067939984438,
   "input_identity_records": 61,
   "source_arithmetic_boundary_calls": 11107953,
   "native_tool_executions": 0,
