@@ -199,6 +199,12 @@ and Why3 can concatenate adjacent Unknown answers (`call_provers.ml:206–214,
 errors and accumulated escaped output (`gnat_main.ml:104–114,272–280`). No
 source/configuration bound for `L_A`, `W` or `L_W` is established here.
 
+The later [selected-driver string transfer](retained-producer-diagnostic-strings.md)
+now gives `L_A <= 4O + 64A` and linear bounds for consecutive-answer warnings,
+where O counts captured solver-output bytes. It derives concrete fixed-file
+response constants while retaining O and other warning channels explicitly.
+That refinement does not bound the solver-output domain itself.
+
 A narrow verified #88 response projection can reduce two downstream domains:
 
 - Omit top-level `timings`, which the parser explicitly treats as optional

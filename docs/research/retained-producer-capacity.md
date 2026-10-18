@@ -20,6 +20,9 @@ registers no Why3 check, so the driver does not launch a Main backend at all
 mode retains the five fixed library task-producing files. Their separate
 [source-derived task calculation](retained-producer-fixed-paths.md) bounds
 the combined fixed files by 2,981 terminal tasks and 51 response records.
+The [diagnostic-string transfer](retained-producer-diagnostic-strings.md) now
+reduces their answer text and consecutive-answer warnings to raw solver-output
+bytes, leaving that solver domain and other warnings explicit.
 Native/frontend, flow/final-report, Why3 lifetime counters and selected solver
 representations remain separate joins.
 

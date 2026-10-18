@@ -1,0 +1,143 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "source_behavior_premise": "Candidate source behavior and current installed config/driver bytes; no historical binary-source identity claim.",
+  "source_archives": [
+    {
+      "path": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538",
+      "files": [
+        {
+          "path": "why3/src/gnat/gnat_report.ml",
+          "bytes": 7557,
+          "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+        },
+        {
+          "path": "why3/src/gnat/gnat_checks.ml",
+          "bytes": 48146,
+          "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+        },
+        {
+          "path": "why3/src/gnat/gnat_config.ml",
+          "bytes": 25991,
+          "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+        },
+        {
+          "path": "why3/src/gnat/gnat_main.ml",
+          "bytes": 14829,
+          "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+        },
+        {
+          "path": "why3/src/driver/call_provers.ml",
+          "bytes": 23019,
+          "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+        },
+        {
+          "path": "installed/share/spark/config/gnatprove.conf",
+          "bytes": 3023,
+          "sha256": "4ff4651508373959ad0d6834e482b539670e9f6f0ca6b90bb3683fd27d8be6cf"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/cvc5_gnatprove.drv",
+          "bytes": 2226,
+          "sha256": "0bf262eb3e62831c1145776d245695cd9e46dac034c5b199aeada43873deded9"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/z3_gnatprove.drv",
+          "bytes": 2130,
+          "sha256": "2c3462df08f10856a63b8661798947bdc7000e32a88c2ab88eb8ae8d206f8e31"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/alt_ergo_gnatprove_smt2.drv",
+          "bytes": 2635,
+          "sha256": "62f3d0fb08ded760271baa510c288724f4c1b28a813d1342bf24458f4d155581"
+        },
+        {
+          "path": "why3/src/gnat/gnat_util.ml",
+          "bytes": 5980,
+          "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/smt-libv2.gen",
+          "bytes": 4017,
+          "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/discrimination.gen",
+          "bytes": 169,
+          "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_bv.gen",
+          "bytes": 793,
+          "sha256": "3cd9ea8a45b044a1ea282a26ac332daf613fd9758430e57b0c9d509619d9a8db"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-gnatprove.gen",
+          "bytes": 1815,
+          "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/smt-libv2-gnatprove.gen",
+          "bytes": 1438,
+          "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats.gen",
+          "bytes": 8423,
+          "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/z3_bv.gen",
+          "bytes": 940,
+          "sha256": "f87cbf68034320d6a34be350875ef5c45a4dffa09d9b1c456b1d2cb373a9511d"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/smt-libv2-bv.gen",
+          "bytes": 10203,
+          "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_real.gen",
+          "bytes": 357,
+          "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/cvc5.gen",
+          "bytes": 1898,
+          "sha256": "d27aefff9c747aa78b64d998f34c261b9e778b45aba5c0d986e7d893d54553cf"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/drivers/cvc4_bv.gen",
+          "bytes": 911,
+          "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423"
+        },
+        {
+          "path": "why3/src/util/debug.ml",
+          "bytes": 6900,
+          "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-diagnostic-strings-20261018/sources.tar.gz",
+      "sha256": "5bbc9ed023e19af9c49856b7aebda75323ef2d9f1a2e3c6f84ce4f1c6a534488",
+      "files": [
+        {
+          "path": "why3/src/util/loc.ml",
+          "bytes": 10669,
+          "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+        }
+      ]
+    }
+  ],
+  "local_inputs": [
+    {
+      "path": "docs/evidence/retained-producer-response-20261018/driver-projection.json",
+      "sha256": "cbd6ce7cf74db65ddd8ee225df85979d23c2bc6190a740847143d1045823e283"
+    },
+    {
+      "path": "docs/evidence/retained-producer-fixed-paths-20261018/result.json",
+      "sha256": "767ddabbb8c74175ff154c83c2cbdc1f9a62ea6b11338cb8ce73a23f59fed68d"
+    }
+  ]
+}

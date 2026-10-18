@@ -195,6 +195,9 @@ exactly `G = R = 0`. The five fixed output-library responses remain separate;
 their [source-derived task calculation](retained-producer-fixed-paths.md)
 now gives combined `G <= 2981` and `R <= 51`, with warning and string terms
 still explicit in the response-size account.
+The [selected-driver diagnostic transfer](retained-producer-diagnostic-strings.md)
+reduces answer strings and consecutive-answer warnings to a linear function of
+captured solver-output bytes; that output domain and other warnings remain open.
 `Gnat_report.register` gives every Proved result an empty counterexample list
 (`gnat_report.ml:62–69`), independently of old models in the session; that
 closes the eager counterexample-list domain for the all-proved path. Failure

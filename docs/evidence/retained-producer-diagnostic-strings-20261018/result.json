@@ -1,0 +1,146 @@
+{
+  "native_or_proof_executions": 0,
+  "selected_driver_files": 14,
+  "answer_rules": [
+    {
+      "file": "alt_ergo_gnatprove_smt2.drv",
+      "class": "valid",
+      "regexp": "^; File \".*\", line [0-9]+, characters [0-9]+-[0-9]+: ?Valid",
+      "replacement": null
+    },
+    {
+      "file": "alt_ergo_gnatprove_smt2.drv",
+      "class": "unknown",
+      "regexp": "^; File \".*\", line [0-9]+, characters [0-9]+-[0-9]+: ?I don't know",
+      "replacement": ""
+    },
+    {
+      "file": "alt_ergo_gnatprove_smt2.drv",
+      "class": "steplimitexceeded",
+      "regexp": "^\\[Error\\]; Fatal Error: Steps limit reached",
+      "replacement": null
+    },
+    {
+      "file": "cvc5.gen",
+      "class": "unknown",
+      "regexp": "^(error \"Can't get-info :reason-unknown when the last result wasn't unknown!\")$",
+      "replacement": "(not unknown!)"
+    },
+    {
+      "file": "cvc5.gen",
+      "class": "outofmemory",
+      "regexp": "cvc5 suffered a segfault",
+      "replacement": null
+    },
+    {
+      "file": "cvc5.gen",
+      "class": "outofmemory",
+      "regexp": "cvc5::internal::Minisat::OutOfMemoryException",
+      "replacement": null
+    },
+    {
+      "file": "cvc5.gen",
+      "class": "outofmemory",
+      "regexp": "(error \".*out of memory\")",
+      "replacement": null
+    },
+    {
+      "file": "cvc5.gen",
+      "class": "outofmemory",
+      "regexp": "CVC4 suffered a segfault",
+      "replacement": null
+    },
+    {
+      "file": "cvc5.gen",
+      "class": "outofmemory",
+      "regexp": "CVC4::BVMinisat::OutOfMemoryException",
+      "replacement": null
+    },
+    {
+      "file": "cvc5.gen",
+      "class": "outofmemory",
+      "regexp": "std::bad_alloc",
+      "replacement": null
+    },
+    {
+      "file": "cvc5.gen",
+      "class": "outofmemory",
+      "regexp": "Cannot allocate memory",
+      "replacement": null
+    },
+    {
+      "file": "cvc5.gen",
+      "class": "timeout",
+      "regexp": "interrupted by timeout",
+      "replacement": null
+    },
+    {
+      "file": "cvc5.gen",
+      "class": "steplimitexceeded",
+      "regexp": "unknown (RESOURCEOUT)",
+      "replacement": null
+    },
+    {
+      "file": "smt-libv2.gen",
+      "class": "unknown",
+      "regexp": "^\\(unknown\\|sat\\|Fail\\)$",
+      "replacement": "\\1"
+    },
+    {
+      "file": "smt-libv2.gen",
+      "class": "unknown",
+      "regexp": "^(:reason-unknown \\([^)]*\\))$",
+      "replacement": "\\1"
+    },
+    {
+      "file": "smt-libv2.gen",
+      "class": "valid",
+      "regexp": "^unsat$",
+      "replacement": null
+    },
+    {
+      "file": "z3_gnatprove.drv",
+      "class": "outofmemory",
+      "regexp": "(error \".*out of memory\")\\|Cannot allocate memory\\|Maximal allocation counts .* have been exceeded\\|(error \".*number of configured allocations exceeded\")",
+      "replacement": null
+    },
+    {
+      "file": "z3_gnatprove.drv",
+      "class": "timeout",
+      "regexp": "interrupted by timeout",
+      "replacement": null
+    }
+  ],
+  "answer_payload_coefficient": 4,
+  "answer_constant_per_entry": 64,
+  "consecutive_warning_payload_coefficient": 2,
+  "consecutive_warning_constant_per_segment": 512,
+  "raw_coefficients": {
+    "constant_per_response": 15245,
+    "R": 3732,
+    "G": 2145,
+    "A": 384,
+    "N": 3075,
+    "O": 3111,
+    "W_o": 3,
+    "L_o": 6
+  },
+  "projected_coefficients": {
+    "constant_per_response": 212,
+    "R": 3732,
+    "G": 2601,
+    "N": 3075,
+    "O": 3087,
+    "W_o": 3,
+    "L_o": 6
+  },
+  "five_fixed_responses": {
+    "G": 2981,
+    "R": 51,
+    "A": 11924,
+    "N": 8943,
+    "raw_constant_bytes": 38739343,
+    "projected_constant_bytes": 35444698
+  },
+  "scope": "Source-derived string transfer, not a bound on raw solver output, remaining warnings, or complete producer capacity; no parser/scheduler execution"
+}
