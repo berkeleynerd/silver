@@ -21,7 +21,9 @@ the imported allocation subtotal or complete collector/counter lifetime.
 
 The [evidence packet](../evidence/retained-literal-counter-emission-20261018/README.md)
 exports a checked callable without changing the aggregate or assembler
-files. Independent review is pending.
+files. The [independent review](../reviews/review-literal-counter-emission-bc69773b78.md)
+accepts frozen source/interface `bc69773b78`; the two source-description
+clarifications below change no exported counter or emission bound.
 
 ## Scope and inherited results
 
@@ -42,9 +44,16 @@ procedure declarations without bodies. It excludes other generated
 bodies, dynamic size execution, imported variable references, aliases,
 nested functions, user asm and runtime-check/personality functions. The
 accepted cold argument supplies no helper ordinary lowering, IPA body
-execution, RTL or emission; it includes their initial gimplification and
+execution, RTL expansion or emission; it includes their initial gimplification and
 later removal. This note uses those results, rather than reproving the
 String folding argument or pricing helper allocations.
+
+RTL expansion is distinct from constructing a register RTX during the scalar
+return-convention inquiry. `aggregate_value_p` reaches `hard_function_value`
+for the helpers' u64/u128 results (`function.cc:2055–2148`;
+`explow.cc:2332–2361`; `i386.cc:4268–4409`). That route constructs or reads
+return-register RTX without introducing a function, symbol or label. Its
+allocation costs belong to storage accounting and are not zero by this result.
 
 The retained fixed-prefix argument has no registered symbol and no
 nonnull function allocation before `Compilation_Unit_to_gnu`. The
@@ -225,7 +234,8 @@ family is enabled by an increased definition number.
 | Function definition number | Elaboration shifts Main from hypothetical 0 to actual 1; later helpers do not change it. Exactly `.LFB1` / `.LFE1`. |
 | Symbol UID and symbol order | Two helper increments persist for graph/order consumers. They are not operands of the selected name writers. No name suffix or extra output line arises. |
 | Private size-name `fnno` | Two SZ names are constructed; neither helper body/name is emitted or referenced by Main. Do not identify this sequence with function numbers or constant labels. |
-| Helper DECL_UID, temporary-name and condition counters | Helper-local declarations/tuples are discarded before RTL. Their persistent global increments remain in their own lifetime accounting. Main's selected no-debug register/descriptor lowering does not serialize their numbers. |
+| Helper DECL_UID and temporary-name counters | Helper-local declarations/tuples are discarded before RTL expansion. Their persistent global increments remain in their own lifetime accounting. Main's selected no-debug register/descriptor lowering does not serialize their numbers. |
+| Condition UIDs | `nextconduid` resets to 1 at each `gimplify_function_tree`, including Main (`gimplify.cc:82–105,21979`). Helper condition increments do not persist into Main or affect its emitted names. |
 | Ordinary RTL labels `.L<k>` | Separate `label_num`, incremented by `gen_label_rtx` (`emit-rtl.cc:96,2877`). Empty elaboration/helpers do not expand RTL and add zero increments. Retain the existing incoming/global signed-label condition. |
 | Constant labels `.LC<k>` | Separate `const_labelno` (`varasm.cc:84,3733–3734,4251–4252`). No static data is emitted by the three functions. Retain the pool-label endpoint condition `39257+2C <= INT_MAX` from the existing conservative prefix/pool join. |
 | CFI `.LCFI<k>` | Separate `dwarf2out_cfi_label_num`; helper initial gimplification never enters the CFI pass. Only Main's at most five already counted CFI labels can consume it (`dwarf2cfi.cc:208,475–480,2495–2520`). |
