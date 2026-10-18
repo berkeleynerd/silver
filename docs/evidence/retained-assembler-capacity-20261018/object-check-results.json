@@ -1,0 +1,57 @@
+{
+  "scope": "Selected null Main ELF object writer; not whole assembler or final link capacity",
+  "source_files_verified": 54,
+  "external_ELF64_record_bytes": {
+    "Ehdr": 64,
+    "Shdr": 64,
+    "Sym": 24,
+    "Rela": 24
+  },
+  "ordinary_sections": 9,
+  "relocation_sections_upper": 9,
+  "section_headers_including_null": 22,
+  "program_headers": 0,
+  "extended_symbol_index_table": false,
+  "outgoing_symbol_entries_including_null": 98,
+  "additional_BFD_symbol_object_constructors_in_mapping": 0,
+  "relocations_upper": 281,
+  "symbol_string_table": {
+    "distinct_names_upper": 97,
+    "name_bytes_excluding_NUL": 25,
+    "unshared_bytes_upper": 2523,
+    "positive_reference_events_upper": 97
+  },
+  "section_string_table": {
+    "distinct_names_upper": 21,
+    "name_bytes_excluding_NUL": 31,
+    "unshared_bytes_upper": 673,
+    "positive_reference_events_upper": 42
+  },
+  "selected_LP64_individual_metadata_requests_upper": {
+    "section_header_pointer_table": 176,
+    "null_or_relocation_internal_header": 80,
+    "relocation_name": 32,
+    "section_symbol_map": 104,
+    "reordered_symbol_pointers": 776,
+    "temporary_internal_symbol_records": 3920,
+    "serialized_symbols": 2352,
+    "serialized_relocations_per_section": 6744,
+    "serialized_section_headers": 1408
+  },
+  "file_alignment_bytes_upper": 8,
+  "charged_alignment_events": 24,
+  "selected_ident_bytes": 29,
+  "object_file_components_upper": {
+    "ELF_header": 64,
+    "ordinary_payload": 420,
+    "symbol_table": 2352,
+    "relocations": 6744,
+    "symbol_strings": 2523,
+    "section_strings": 673,
+    "alignment_padding": 168,
+    "section_headers": 1408
+  },
+  "object_file_bytes_upper": 14352,
+  "whole_BFD_storage_or_final_relocation_reach_established": false,
+  "native_tool_executions": 0
+}

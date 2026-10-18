@@ -288,6 +288,42 @@
       "bytes": 195271,
       "sha256": "cab5a4894f4301eda7b12d7d011fb3cce26e14f03995093e9018278e2fbae249",
       "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/reloc.c"
+    },
+    {
+      "path": "bfd/elfxx-target.h",
+      "bytes": 38796,
+      "sha256": "0c56b33f35720830300654624f69d06d15ec39cc8632abac24f52e47fdf1684e",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elfxx-target.h"
+    },
+    {
+      "path": "include/elf/external.h",
+      "bytes": 12359,
+      "sha256": "938745254f7353db20cb9edcee910713ef9b2e8be8b42131d81582b107791d06",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/elf/external.h"
+    },
+    {
+      "path": "include/elf/common.h",
+      "bytes": 67847,
+      "sha256": "af4f92b9fa7ae01147b1a5678cb2a069ec32bae7c75738a799797251f368be57",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/elf/common.h"
+    },
+    {
+      "path": "bfd/elfcode.h",
+      "bytes": 64263,
+      "sha256": "82004c332fdf99dfb7cc18ca076fa3cd1ef461d465de1ca8f00b548e29bb3e3f",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elfcode.h"
+    },
+    {
+      "path": "bfd/elf64-x86-64.c",
+      "bytes": 195139,
+      "sha256": "81668a45629ad4d77f250173a250bfda6561dd810d9e7ab02d8a988de496ee6b",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf64-x86-64.c"
+    },
+    {
+      "path": "gas/output-file.c",
+      "bytes": 3354,
+      "sha256": "8c084eed40493c822d317ec7a42486f2924c95cfba3b87877e3eb3788f464ce8",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/output-file.c"
     }
   ]
 }

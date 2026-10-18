@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Supports the
 [source derivation](../../research/retained-assembler-capacity.md).
 
-`sources.tar.gz` retains 48 complete files from Binutils release commit
+`sources.tar.gz` retains 54 complete files from Binutils release commit
 `5e56594815854de5eca35c7c04b11705d0f19c02`. `source-manifest.json` records
 their byte counts, SHA256 identities and immutable retrieval URLs. The checker
 also matches the commit against the previously retained linker release-tag
@@ -40,6 +40,19 @@ relocations by two. Its selected LP64 raw request ceilings are separate from
 shared-obstack chunk storage. The largest relocation pointer array is 2248
 bytes and the GAS output symbol pointer array is 704 bytes. This excludes
 later BFD-generated ELF metadata symbols and final relocation reach.
+
+The subsequent [ELF object transfer](../../research/retained-elf-object-capacity.md)
+reuses these inputs. Its separate source-only replay is:
+
+```sh
+python3 docs/evidence/retained-assembler-capacity-20261018/check-object.py \
+  --output /tmp/retained-elf-object-check.json
+```
+
+It bounds the selected null Main object by 22 section headers, 98 serialized
+symbol entries, 281 relocations and 14352 file bytes. Symbol mapping reuses
+existing BFD section symbols. Common allocator storage and final-link reach
+remain separate; the file bound is not an observed native output size.
 
 No compiler, assembler, linker, solver, Lean build, test suite or near-limit
 allocation ran for this evidence. Source retrieval, hashing and arithmetic

@@ -572,7 +572,10 @@ the small requests above do not silently close those obligations.
 ## Remaining composition
 
 The current record leaves common notes/frchain backing, remaining relaxation
-state, object-file metadata, and fixed startup tables open. The selected
+state, object-file metadata, and fixed startup tables open. The subsequent
+[ELF object transfer](retained-elf-object-capacity.md) supplies the selected
+writer's metadata counts and complete object-file envelope; fixed BFD
+initialization and shared backing remain separate. The selected
 unit's GAS symbol/fixup counts, unsigned fragment-allocation counter and
 16-bit region field now have separate sufficient bounds above; these are not
 GCC's UID or block counters. A broader admitted family still needs its own
