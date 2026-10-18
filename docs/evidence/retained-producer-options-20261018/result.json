@@ -1,0 +1,99 @@
+{
+  "native_or_proof_executions": 0,
+  "source_class": "15-token null family with permitted ASCII case/trivia; selected project/options/configuration",
+  "option_phases": [
+    {
+      "phase": 1,
+      "root_fields": 9,
+      "file_specific_rows": 2,
+      "row_fields": 5,
+      "compact_bytes": {
+        "constant": 5710,
+        "path_byte_coefficient": 0
+      },
+      "file_bytes": {
+        "constant": 5711,
+        "path_byte_coefficient": 0
+      },
+      "evaluations": [
+        {
+          "path_bytes": 222,
+          "file_bytes": 5711,
+          "unbounded_allocation_bytes": 8757
+        },
+        {
+          "path_bytes": 4096,
+          "file_bytes": 5711,
+          "unbounded_allocation_bytes": 8757
+        }
+      ]
+    },
+    {
+      "phase": 2,
+      "root_fields": 22,
+      "file_specific_rows": 2,
+      "row_fields": 7,
+      "compact_bytes": {
+        "constant": 6634,
+        "path_byte_coefficient": 6
+      },
+      "file_bytes": {
+        "constant": 6635,
+        "path_byte_coefficient": 6
+      },
+      "evaluations": [
+        {
+          "path_bytes": 222,
+          "file_bytes": 7967,
+          "unbounded_allocation_bytes": 12141
+        },
+        {
+          "path_bytes": 4096,
+          "file_bytes": 31211,
+          "unbounded_allocation_bytes": 47007
+        }
+      ]
+    }
+  ],
+  "warning_fields_per_row": 63,
+  "longest_warning_name": 36,
+  "why3_argument_count": 26,
+  "why3_argument_byte_sum_bound": 213,
+  "why3_argument_array_capacity": 32,
+  "why3_argument_max_bytes": 23,
+  "writer_live_reference_bound": 8,
+  "parser_with_wrappers_live_reference_bound": 46,
+  "consumer_live_reference_bound": 16,
+  "option_schema_container_depth": 4,
+  "option_filename_bytes": 12,
+  "gnatwhy3_launches": 0,
+  "idle_why3server_launches": 1,
+  "gnatprove_config_input_bytes": 3023,
+  "gnatprove_config_inventory": {
+    "objects": 11,
+    "arrays": 30,
+    "strings": 99,
+    "fields": 84,
+    "array_elements": 59,
+    "max_fields": 10,
+    "max_array": 9,
+    "max_string": 23,
+    "depth": 4
+  },
+  "why3_conf_output_bytes": 1946,
+  "why3_conf_line_count": 71,
+  "why3_conf_max_line_bytes": 76,
+  "why3_conf_max_command_bytes": 61,
+  "socket_basename_byte_bound": 26,
+  "socket_full_path_bound": "socket_directory_bytes + 27",
+  "semaphore_name_byte_bound": 21,
+  "server_argv_count": 4,
+  "semaphore_initial_value": "max(1, floor(J/3))",
+  "worker_configuration_condition": "1 <= J <= floor(INT_MAX/2); selected -j0 reads Number_Of_CPUs",
+  "external_interfaces": "Working filesystem, libc/OS process/socket/semaphore services and sufficient resources use the existing trusted boundary.",
+  "residuals": [
+    "Generic producer ALI writer/reader indices and tables",
+    "GPR2/GPRbuild project/configuration orchestration",
+    "Whole null-family native/producer composition and independent review"
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "scope": "Candidate external source behavior plus explicitly retained installed configuration data; not historical binary/source attestation.",
+  "spark_commit": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "archives": [
+    {
+      "path": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+      "files": [
+        {
+          "name": "writer",
+          "member": "spark-source/src/gnatprove/gnat2why_opts-writing.adb",
+          "bytes": 7889,
+          "sha256": "138bf61c0b7fde13243d549124873de81ee0419b45bd414284d85160ed45d1a7"
+        },
+        {
+          "name": "reader",
+          "member": "spark-source/src/spark/gnat2why_opts-reading.adb",
+          "bytes": 5964,
+          "sha256": "b989a46f573fa27c86338e83999b17181536fc6b94e7c79fe7c2310e61b04b97"
+        },
+        {
+          "name": "names",
+          "member": "spark-source/src/common/gnat2why_opts.ads",
+          "bytes": 6384,
+          "sha256": "951cff1a1e32d01515dba4eded32478ee68f8ab6386e5efdb0e24ded0b2d48e1"
+        },
+        {
+          "name": "configuration",
+          "member": "spark-source/src/gnatprove/configuration.adb",
+          "bytes": 118436,
+          "sha256": "8ebece58c5f04d0a1cd16db5945a0acb432419235fc1564cd683e162e12f1697"
+        },
+        {
+          "name": "configuration_spec",
+          "member": "spark-source/src/gnatprove/configuration.ads",
+          "bytes": 17777,
+          "sha256": "393a63a635809761614c707ee8d08e4e14b43013e5f51ff69fb83af1be349422"
+        },
+        {
+          "name": "gnatprove",
+          "member": "spark-source/src/gnatprove/gnatprove.adb",
+          "bytes": 46206,
+          "sha256": "80becb96eeb45a6ef4cc096d1c8896c5cf53cf6f59a635483f3ced3447731590"
+        },
+        {
+          "name": "warnings",
+          "member": "spark-source/src/common/vc_kinds.ads",
+          "bytes": 69292,
+          "sha256": "f800fc13119dbdf9634d3d7972dc21fb9e97d50fd4bbf5cc0f6eafda204debec"
+        },
+        {
+          "name": "warnings_body",
+          "member": "spark-source/src/common/vc_kinds.adb",
+          "bytes": 101197,
+          "sha256": "8a532e5528c36837e9a63eb41985644c74a3b83084155a1356b42638eef28b1e"
+        },
+        {
+          "name": "named_semaphores",
+          "member": "spark-source/src/gnatprove/named_semaphores.adb",
+          "bytes": 3729,
+          "sha256": "c0fa263ba351801da3847bf3dcdcc2e2e545e7afaacfede676810c981cdc36cb"
+        },
+        {
+          "name": "semaphores_c",
+          "member": "spark-source/src/common/semaphores_c.c",
+          "bytes": 4012,
+          "sha256": "e5410b9d7d432ea5d6abc4ca596e9ee790e8fd72cca2ef5d41b5c94e9b511b35"
+        },
+        {
+          "name": "call",
+          "member": "spark-source/src/common/call.adb",
+          "bytes": 5989,
+          "sha256": "c6765bb07449656310fb5c44b839241898e16f25b3c933fc1c6bc33d3c68e076"
+        }
+      ]
+    }
+  ],
+  "local_files": [
+    {
+      "path": "docs/evidence/retained-producer-options-20261018/gnatprove.conf",
+      "bytes": 3023,
+      "sha256": "4ff4651508373959ad0d6834e482b539670e9f6f0ca6b90bb3683fd27d8be6cf"
+    },
+    {
+      "path": "src/silver.adb",
+      "bytes": 22230,
+      "sha256": "9da875a136d52adc818c1ac6a0b2fb217580cf8ee29c18b823538ff91d9b310b"
+    }
+  ],
+  "configuration_origin": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/config/gnatprove.conf"
+}
