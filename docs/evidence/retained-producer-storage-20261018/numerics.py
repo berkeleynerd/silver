@@ -76,7 +76,9 @@ def main():
     args = parser.parse_args()
     verified = check(args.spark_source, args.spark_archive)
     result = inventory(args.spark_source)
-    result['verified_source_archive'] = verified
+    result['verified_source_archive'] = {
+        key: verified[key]
+        for key in ('archive_sha256', 'verified_complete_ada_files')}
     data = json.dumps(result, indent=2) + '\n'
     if args.output:
         args.output.write_text(data)
