@@ -1,0 +1,208 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_root_defaults": {
+    "gcc": "/tmp/silver-backend-compose-20261018/full-source",
+    "ada": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada"
+  },
+  "reviewed_silver_revision": "6803ee54ca8d0a20bde4d2ce14562b84a9e46fd4",
+  "files": [
+    {
+      "path": "gcc/tree.cc",
+      "root": "gcc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "git_blob_sha1": "2868cb0867dd805fa267a4edc890ded63ab17909",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "root": "gcc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872",
+      "git_blob_sha1": "796fc8199213a5e6d954143c8318a92faf2e1a32",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/stor-layout.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json"
+    },
+    {
+      "path": "gcc/cgraphunit.cc",
+      "root": "gcc",
+      "bytes": 81742,
+      "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc",
+      "git_blob_sha1": "67aaebf108b0ecdb7b6a17fabc1a664687fda23f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/cgraphunit.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json"
+    },
+    {
+      "path": "gcc/gimplify.cc",
+      "root": "gcc",
+      "bytes": 703569,
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e",
+      "git_blob_sha1": "8bfc71315f9fd3501bb68f4b23a81c69b781fcec",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimplify.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/gimple-expr.cc",
+      "root": "gcc",
+      "bytes": 29310,
+      "sha256": "ca1f1b80b838d06739cbd47ac4b3713b5571d308e1fc59ba92df6ce281e06d4f",
+      "git_blob_sha1": "96f9fc720afba771e6593dc60083afe70b4743c6",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple-expr.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/gimple.h",
+      "root": "gcc",
+      "bytes": 166069,
+      "sha256": "33b8d4bef37de5b5395cae298f6da5707a6e07505487ee343e760282d87b96f3",
+      "git_blob_sha1": "2484a33f47651a440b5b87cba9027b5443ec9a3e",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple.h",
+      "retained_identity_origin": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/gimple.cc",
+      "root": "gcc",
+      "bytes": 106015,
+      "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803",
+      "git_blob_sha1": "c791e04124314bab166a9f9d9eb77950b474e7c1",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "root": "gcc",
+      "bytes": 560244,
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506",
+      "git_blob_sha1": "56503e570bc440b65366b0c83a958a14dd3d5712",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/fold-const.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/warning-control.cc",
+      "root": "gcc",
+      "bytes": 6859,
+      "sha256": "72c84bba997d426c7606cf7c8e3e9a782684438ede9f9c661d7ce97a8c8fe6ea",
+      "git_blob_sha1": "fe1dd990d229a59ec740c178d3eaf125d3d16329",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/warning-control.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/gcc-diagnostic-spec.cc",
+      "root": "gcc",
+      "bytes": 5810,
+      "sha256": "d9cf1b65c1dffc6c14adec035c303a934bc8a57d94e04769b1bc660e8e49d059",
+      "git_blob_sha1": "813625e28773c00f25f355a9f5ec456857606237",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gcc-diagnostic-spec.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/cstand.adb",
+      "root": "ada",
+      "bytes": 85030,
+      "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737",
+      "git_blob_sha1": "68007f35587992eaa8e181fb2939bdc7ccbab48f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/cstand.adb",
+      "retained_identity_origin": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "root": "ada",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "git_blob_sha1": "4ccc8d7a0e10950c784bf95471644a4e201ed63f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/decl.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "root": "ada",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+      "git_blob_sha1": "3da24fdb61a6d359d1a08a723fb64c9d9bb626d9",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/utils.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "root": "ada",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "git_blob_sha1": "6db0aa0a6bec9a8f855167a7989ae36e0df9cb0c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/trans.cc",
+      "retained_identity_origin": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json"
+    }
+  ],
+  "historical_silver_inputs": [
+    {
+      "path": "docs/research/retained-literal-warning-map.md",
+      "bytes": 16243,
+      "sha256": "ebdf2fe6c8d2298791773afb87b9e449019870c814839ab4d6877f4b25641d32"
+    },
+    {
+      "path": "docs/research/retained-native-ingress-bound.md",
+      "bytes": 23155,
+      "sha256": "d47d7a8c45a9f0460ccc6bee900df04ded542f3aaf288176cc065433edc0cf7b"
+    },
+    {
+      "path": "docs/research/retained-backend-capacity.md",
+      "bytes": 117197,
+      "sha256": "76c0ff20d335ed613b91969fce1405dd078903595a6804186aca283db83f0013"
+    },
+    {
+      "path": "docs/research/retained-literal-pipeline.md",
+      "bytes": 90898,
+      "sha256": "77c108606c92470b123200ce0bbbc9edf55e783bf078effbc38921f6e358469c"
+    },
+    {
+      "path": "docs/research/retained-literal-assembler.md",
+      "bytes": 9308,
+      "sha256": "0ec3b783c448d930cdc7c062198808f1d5c6ca3b2e0f806080425dca68ebb2d4"
+    },
+    {
+      "path": "docs/research/retained-literal-assembler-storage.md",
+      "bytes": 10069,
+      "sha256": "87a5d3b9435c453a5e7514a6c94c88d5d7fc73a7515a397954c6c8517d73ba6b"
+    },
+    {
+      "path": "docs/research/retained-literal-linker.md",
+      "bytes": 17972,
+      "sha256": "38d756be0e1fbd04d062509fe0a691fb5bed804751d8a921ed15e6ac678decd9"
+    },
+    {
+      "path": "docs/evidence/retained-literal-pipeline-20261018/compose.py",
+      "bytes": 63028,
+      "sha256": "bf9653a1a4769615cfdd1ad44bca84cb6eacfd41fa7114619d7d6b874065aecc"
+    },
+    {
+      "path": "docs/evidence/retained-native-fixed-capture-20261018/README.md",
+      "bytes": 6196,
+      "sha256": "2a5f618a92e5b2814ea328f5450823577a61c415bceb258209f02a6a2cf0c0ce"
+    },
+    {
+      "path": "docs/evidence/retained-native-fixed-capture-20261018/summary.json",
+      "bytes": 17246,
+      "sha256": "b45803d22371cc2279f1070b7041e70cf22b0e7c3b5998d4ecc2e274b32db26b"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-gcc-prefix-witness.json",
+      "bytes": 3891,
+      "sha256": "bd7b5f8243da91daca3dbc7d7afeeabda69df140e9b2588d4fe85ff16057af95"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-literal-output-initial.json",
+      "bytes": 12361,
+      "sha256": "d0e86d647e2392af7589ec64a390a390dfdfbac50c92a59aed555c357a230f4d"
+    },
+    {
+      "path": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json",
+      "bytes": 11561,
+      "sha256": "e0977492d8d1e33c1afd477e39522fde876c75b9af2d51ad6f8716f8c8aa6b55"
+    },
+    {
+      "path": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json",
+      "bytes": 35200,
+      "sha256": "1ef9c27d700ff1956049e276af4458ab24c741197f5dc3a95106b60c4490183b"
+    }
+  ]
+}

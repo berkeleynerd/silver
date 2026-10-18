@@ -1,0 +1,61 @@
+{
+  "reviewed_silver_revision": "6803ee54ca8d0a20bde4d2ce14562b84a9e46fd4",
+  "research_issue": 119,
+  "claim_correction_issue": 131,
+  "original_gigi_residual_R": null,
+  "original_gigi_source_count_closed": false,
+  "imported_size_function_creation_observed": false,
+  "imported_size_function_absence_established": false,
+  "extra_function_emission_absence_established": false,
+  "native_tool_executions": 0,
+  "smallest_unresolved_decision": "Actual folded XUA bit/byte sizes at variable_size, followed by template-plus-array object layout and canonical/repeated layout; no size-function count is supplied.",
+  "frontier": [
+    "decl.cc E_Array_Type -> build_template_type -> placeholder LB/UB conditional index",
+    "build_nonshared_array_type -> layout_type -> finalize_type_size -> variable_size",
+    "self_referential_size early-return shape and SAVE_EXPR-abort decision",
+    "build_unc_object_type -> finish_record_type and variable object/field sizes",
+    "finalize_size_functions -> gimplify_function_tree -> finalize_function before Main gimplification"
+  ],
+  "affected_fields_at_reviewed_base": {
+    "native_pool_lifetime": [
+      "symbols.registered_nodes_upper",
+      "symbols.next_uid_upper",
+      "symbols.order_upper",
+      "symbols.assembler_name_live_upper",
+      "symbols.assembler_name_capacity_upper",
+      "additional_GGC_request_events_upper = 5C+5",
+      "named_consumer_closed"
+    ],
+    "native_graph_lifetime": [
+      "function_summary_ID_high_water_upper = 1",
+      "additional_registered_symbols = 0",
+      "edge_creation_events_upper and shared graph/summary populations",
+      "additional_GGC_request_events_upper = 8C+33",
+      "conditional_graph_and_summary_lifetime_closed"
+    ],
+    "aggregate_source_family_joins": [
+      "conditions.native_varpool_and_shared_tree_pool",
+      "conditions.native_graph_and_summary_lifetime",
+      "conditions.Main_assembler_object_interface",
+      "conditions.Main_GAS_BFD_storage",
+      "conditions.literal_output_linker_representation",
+      "open_joins.native_remaining_lifetime_and_collector.available.new_pool_lifecycle_GGC_events_upper",
+      "open_joins.native_remaining_lifetime_and_collector.available.new_graph_lifecycle_GGC_events_upper",
+      "evaluated_predicates_pass"
+    ]
+  },
+  "conditional_arithmetic_preserved": true,
+  "Main_only_interfaces_preserved": [
+    "ordinary occurrence W <= 9C+3N+1",
+    "selected helper subtotal 8C",
+    "local gigi suppression calls <= 2C+N",
+    "selected Main initial warning put-capable calls <= 2C+1",
+    "Main CF/CFG/SSA/RTL interfaces under existing preservation premises"
+  ],
+  "existing_capture_limitations": {
+    "native_gcc_prefix_witness": "Stops before Compilation_Unit_to_gnu, before this imported layout frontier.",
+    "retained_native_fixed_capture": "Ada Table.Last observations; not GCC helper/body or warning-event counts, and constant promotion still requires a source projection.",
+    "native_literal_output_initial": "Offline formula result, not an observation of absent size helpers."
+  },
+  "whole_literal_pipeline_capacity_established": false
+}
