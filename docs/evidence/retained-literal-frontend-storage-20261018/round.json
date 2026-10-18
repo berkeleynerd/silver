@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-18",
+  "host": "linux-x86_64",
+  "authorization": "Bounded #119 literal frontend logical/physical/backing join; Oracle/tools/current admission unchanged",
+  "base_commit": "7d7c5f947cbb6e50f27dc3ecdcb3eddd900fa81f",
+  "numeric_dependency_commit": "64237926eb",
+  "local_cherry_pick": "3531a5e2e3",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_reasoning_effort": "Extra High",
+  "selection_source": "Lead bounded-task briefing",
+  "runtime_model_or_effort_confirmation": null,
+  "intended_result": "Actual selected literal frontend table/backing and indexed source-entry projection",
+  "achieved_result": "Seven named components joined;43 focused checks passed;corrected permanent/transient/filename populations exported",
+  "material_finding": "Discovered general Main retained-digit growth C*(60+uint_digits(C+2)); lead corrected numeric dependency before this final composition",
+  "focused_check_elapsed_seconds": 4.611920415998611,
+  "total_round_elapsed_seconds": null,
+  "token_usage": null,
+  "cost": null,
+  "native_tool_executions": 0,
+  "predecessor_test_suites_rerun": false,
+  "review_status": "Frozen for independent lead-organized review; no prior review claimed for new inputs",
+  "remaining": [
+    "Combined source locations and corrected filename/shared identifier propagation",
+    "Other frontend/diagnostic/command/ALI/late-name/local/recursive objects",
+    "Remaining native/parent/proof producer and aggregate integration/adoption"
+  ],
+  "recorded_at_UTC": "2026-10-18T23:32:06.288670+00:00"
+}

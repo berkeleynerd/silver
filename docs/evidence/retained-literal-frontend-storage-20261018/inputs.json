@@ -1,0 +1,241 @@
+{
+  "base_commit": "7d7c5f947cbb6e50f27dc3ecdcb3eddd900fa81f",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-native-frontend-20261018/compose.py",
+      "bytes": 7264,
+      "sha256": "8cb1ddd70669bce413a47adf0bbc725a7f11c18b39605ce06b4886e362f794a8"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-native-frontend-20261018/inputs.json",
+      "bytes": 4686,
+      "sha256": "0eecc0576bd37d1bd9c38a95862b891b204c826686a3207f288d939386689e5e"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ada-numeric-20261018/compose.py",
+      "bytes": 7623,
+      "sha256": "259c65a4c7f4523cefca8b0dbc26678b0e146e0ffdabcf58243a1a48d7062f74"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-ada-numeric-20261018/inputs.json",
+      "bytes": 11682,
+      "sha256": "8cbfb0b12c5f32e40e20ae91fcc783f9e81bdf12493d4972c0f98d0b85254c35"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-invocation-join-20261018/compose.py",
+      "bytes": 22174,
+      "sha256": "93865d8a5c0b1c86e179ce5209d4816e6fd7ce9ccabfb8a48c1eb848948bfdc0"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-invocation-join-20261018/inputs.json",
+      "bytes": 6756,
+      "sha256": "5193026fa3099c4fe988f47206bf2dd33dbe7066665d0746e3059b9cd6635532"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-pipeline-20261018/selected-route.json",
+      "bytes": 372,
+      "sha256": "d93641709c95115f856ed1ab778dca481616d228b57b1b9dd6e07dec4d2f0562"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/retained-literal-pipeline-20261018/selected-core-fixture.json",
+      "bytes": 1475,
+      "sha256": "e85eeee8318825a1582a9c87c8a92e9466992c9ed3f393ab505fb244967360d5"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive.py",
+      "bytes": 209431,
+      "sha256": "dc7b362649dfb8693e79248a1d9c965283bc9b54643bbf124b3de2a6f350b897"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/compose-null-capacity.py",
+      "bytes": 20379,
+      "sha256": "07d99d6ba3811f2cefe2af12ecf6d9e6b087e424250fe03b9f138801f35d049a"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-indexed-invocation.json",
+      "bytes": 4807,
+      "sha256": "9ffaf5d6a5248958d9d6f2ba107096321939f462cd572f92cf0e373d44376047"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-indexed-source-buffers.json",
+      "bytes": 3203,
+      "sha256": "4f2e91941ccc91fed0fcc3e93f45d96e06a112a4548ac9857dc07803ed047089"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-no-xref-proposal.json",
+      "bytes": 11839,
+      "sha256": "a6043ffecd38bb8823c5e937873a8868e1c7ddb60f7a43575e812d9e249c20fc"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-inputs.json",
+      "bytes": 27601,
+      "sha256": "da7e677ac1d93aa5aa9fb808a1a5277f778e88fd225f40b27856beca6768700a"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-float-callbacks.json",
+      "bytes": 2350,
+      "sha256": "4c61209c5ac9be401116e2b910e14ada5bea408ac89f6c11bd6a1f3ad0682d73"
+    },
+    {
+      "root": "repository",
+      "path": "docs/evidence/unbounded-programs/retained-source-closure-20261017/source-inventory.json",
+      "bytes": 39158,
+      "sha256": "55abe673a81fde61a72d4552f7ff1d27461ccc9cbea45299a60d2620754e34ee"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-native-frontend.md",
+      "bytes": 11203,
+      "sha256": "fad49ee07adafe8fd65199e015170bec412abbd960bc3f1250f8cf1c53295801"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-literal-ada-numeric.md",
+      "bytes": 10353,
+      "sha256": "ba04df646370c3d70faad6f45ef51d9211b1769ab4d368f371d304a3a707be3b"
+    },
+    {
+      "root": "repository",
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 781411,
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "root": "repository",
+      "path": "src/silver_io.ads",
+      "bytes": 2222,
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    {
+      "root": "repository",
+      "path": "src/silver_io.adb",
+      "bytes": 3358,
+      "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+    },
+    {
+      "root": "repository",
+      "path": "src/silver_output_libc.ads",
+      "bytes": 1532,
+      "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+    },
+    {
+      "root": "ada",
+      "path": "sinput.adb",
+      "bytes": 37385,
+      "sha256": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8"
+    },
+    {
+      "root": "ada",
+      "path": "sinput.ads",
+      "bytes": 43979,
+      "sha256": "48657f3ca583b754d10f2798fb61c54d85b556c2cd6f10036acff685d57a682b"
+    },
+    {
+      "root": "ada",
+      "path": "sinput-l.adb",
+      "bytes": 30951,
+      "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd"
+    },
+    {
+      "root": "ada",
+      "path": "back_end.adb",
+      "bytes": 14372,
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+    },
+    {
+      "root": "ada",
+      "path": "fname-uf.adb",
+      "bytes": 21488,
+      "sha256": "22caede84a6269298fc78349d6dee2e10baf3f4841bc65131ed94ad054194101"
+    },
+    {
+      "root": "ada",
+      "path": "alloc.ads",
+      "bytes": 7830,
+      "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d"
+    },
+    {
+      "root": "ada",
+      "path": "types.ads",
+      "bytes": 46466,
+      "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5"
+    },
+    {
+      "root": "ada",
+      "path": "lib-load.adb",
+      "bytes": 39122,
+      "sha256": "4f589143677f09575bebbd041abe3d0001c480b6392cccbfd60e699f7fa8f09b"
+    },
+    {
+      "root": "ada",
+      "path": "lib.adb",
+      "bytes": 40494,
+      "sha256": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e"
+    },
+    {
+      "root": "ada",
+      "path": "gnat1drv.adb",
+      "bytes": 60186,
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173"
+    },
+    {
+      "root": "ada",
+      "path": "frontend.adb",
+      "bytes": 19745,
+      "sha256": "c3322dab69929c2ff3eef9f768d98574cf56d337e452b2206eb44eb552f7ee67"
+    },
+    {
+      "root": "ada",
+      "path": "gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "root": "ada",
+      "path": "gcc-interface/gigi.h",
+      "bytes": 56241,
+      "sha256": "6e2940a89abb01b7218eff64e13b3aabbc7a9970870670816160dc5991ba48e2"
+    },
+    {
+      "root": "ada",
+      "path": "gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/a-unccon.ads",
+      "bytes": 1554,
+      "sha256": "576b8b0ecb9ab7a72b6686f06f4c30e74c8e4eff1e1ce93de7f3a32da0599864"
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/s-imagei.ads",
+      "bytes": 3367,
+      "sha256": "ed58b2052e1bf48de0f84a322ebc37bc4eca98b3622666ae8f2d4e90d8c14126"
+    },
+    {
+      "root": "ada",
+      "path": "libgnat/s-imagei.adb",
+      "bytes": 4898,
+      "sha256": "a3ecb3b79889596b107988c10b47f6a35b9ccd8aeca4d0d482345a7f00c669cf"
+    }
+  ],
+  "numeric_scope_width_dependency_commit": "64237926eb"
+}
