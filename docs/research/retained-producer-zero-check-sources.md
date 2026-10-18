@@ -160,10 +160,11 @@ GNATprove with `-U` (`src/silver.adb:107–124`). Even a single Put thus retains
 fixed library translations summarized in the
 [composition evidence](../evidence/retained-producer-composition-20261018/result.json):
 the retained fixed route has three Why3 files for Silver_Arguments and two for
-Silver_IO, and no Why3 file for Silver_Output_Libc or Silver_Runtime. This
-source result does **not** derive those five files' terminal task counts from
-their source. The fixed library source-to-formula/transform/counter/solver joins
-remain necessary before this complete output fixture can establish feasibility.
+Silver_IO, and no Why3 file for Silver_Output_Libc or Silver_Runtime. Their
+[separate source-derived task bounds](retained-producer-fixed-paths.md) now
+give a combined `G <= 2981` and `R <= 51`. The fixed-library counter, solver
+and other representation joins remain necessary before this complete output
+fixture can establish feasibility.
 
 ## Consequence for the remaining work
 
@@ -174,7 +175,8 @@ output path, the next producer join is therefore the **fixed selected library
 bodies and their dependency contexts**, rather than another conditional Main
 goal-headroom inequality. The [fixed check-path joins](retained-producer-fixed-check-spines.md)
 now bound Input_Is_Valid by one terminal task and Is_Message by three;
-First_Or_Default, Put and Put_Line still need their branch/outcome joins.
+the separate [branch/outcome calculation](retained-producer-fixed-paths.md)
+bounds First_Or_Default, Put and Put_Line as well.
 Programs with assignments, arithmetic checks,
 branches or loops still require the previously developed transfer bounds.
 

@@ -1,0 +1,112 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "source_archives": [
+    {
+      "path": "docs/evidence/retained-producer-fixed-check-spines-20261018/sources.tar.gz",
+      "sha256": "ba76e2c3d8176a36ad1b0c0560a043cc9e13619e1c38ce8bc3e1ee4f17ce67a1",
+      "files": [
+        {
+          "path": "src/mlw/vc.ml",
+          "bytes": 76631,
+          "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1"
+        },
+        {
+          "path": "src/mlw/eval_match.ml",
+          "bytes": 8322,
+          "sha256": "794bed299489c440853eb5e89ceb283a28de88bbc4db702794c7388f48a6f4ea"
+        },
+        {
+          "path": "src/transform/split_goal.ml",
+          "bytes": 23450,
+          "sha256": "142dfbfef8cff67bbc396bbc986a91b36d527a58ee96316601cc317a2ef7f28f"
+        },
+        {
+          "path": "src/transform/gnat_split_conj.ml",
+          "bytes": 11171,
+          "sha256": "dcbe7341850e8b50d53c9ede7fbc61bb331ebf57d70720363bf741856ef180ee"
+        },
+        {
+          "path": "plugins/gnat_json/gnat_ast_to_ptree.ml",
+          "bytes": 57834,
+          "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "sha256": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910",
+      "files": [
+        {
+          "path": "installed/share/spark/theories/ada__model.mlw",
+          "bytes": 84712,
+          "sha256": "bb27b8013711690d9ee00e32aa6b37a66294a10b2b55ecdf0626b3a049577657"
+        },
+        {
+          "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+          "bytes": 104227,
+          "sha256": "918b73544c7e499c2aa11c10c497924ff141e2321aa96cf6d16038dce72f6235"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/int.mlw",
+          "bytes": 18687,
+          "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/bool.mlw",
+          "bytes": 819,
+          "sha256": "b7072fdd8dd5004d0627b82a66b054518ee54eb4dd66f0883988e363bed251fa"
+        }
+      ]
+    }
+  ],
+  "local_sources": [
+    {
+      "path": "src/silver_arguments.adb",
+      "sha256": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918"
+    },
+    {
+      "path": "src/silver_arguments.ads",
+      "sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+    },
+    {
+      "path": "src/silver_io.adb",
+      "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+    },
+    {
+      "path": "src/silver_io.ads",
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    {
+      "path": "src/silver_runtime.ads",
+      "sha256": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+    },
+    {
+      "path": "src/silver_output_libc.ads",
+      "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+    }
+  ],
+  "fixed_archive": {
+    "path": "docs/evidence/retained-producer-bodies-20261018/inputs-and-outputs.tar.gz",
+    "sha256": "bde678ccd1116e041ec8756ecd44d3e2374461335aa59752165322084378c19f"
+  },
+  "fixed_inputs": [
+    {
+      "entity": "silver_arguments__first_or_default",
+      "path": "silver_arguments/obj/silver_arguments__first_or_default.gnat-json",
+      "bytes": 286340,
+      "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+    },
+    {
+      "entity": "silver_io__put",
+      "path": "silver_io/obj/silver_io__put.gnat-json",
+      "bytes": 274756,
+      "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+    },
+    {
+      "entity": "silver_io__put_line",
+      "path": "silver_io/obj/silver_io__put_line.gnat-json",
+      "bytes": 288617,
+      "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+    }
+  ]
+}

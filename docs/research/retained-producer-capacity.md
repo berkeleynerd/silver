@@ -17,8 +17,11 @@ The [concrete zero-check source paths](retained-producer-zero-check-sources.md)
 now sharpen the null and literal-output Main cases: their native VC translation
 registers no Why3 check, so the driver does not launch a Main backend at all
 (`G_Main = R_Main = 0`). Null mode selects no Silver library process; output
-mode retains the five fixed library task-producing files. Native/frontend,
-flow/final-report and selected fixed-library capacity remain separate joins.
+mode retains the five fixed library task-producing files. Their separate
+[source-derived task calculation](retained-producer-fixed-paths.md) bounds
+the combined fixed files by 2,981 terminal tasks and 51 response records.
+Native/frontend, flow/final-report, Why3 lifetime counters and selected solver
+representations remain separate joins.
 
 The inspected source is SPARK revision
 `42554fc241fcd1fdf08d3a2feccb3f86912acbc0`, from the source archive already retained

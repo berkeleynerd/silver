@@ -174,8 +174,9 @@ joins](retained-producer-fixed-check-spines.md): Input_Is_Valid has at most one
 terminal Why3 task and Is_Message at most three, each with at most one response
 record. These bounds use the fixed semantic input tree and actual converter,
 SP/WP and splitter rules; the observed number of native check labels alone
-does not establish a terminal-task bound. First_Or_Default, Put and Put_Line
-remain separate unfinished joins.
+does not establish a terminal-task bound. The [outcome-aware path
+calculation](retained-producer-fixed-paths.md) separately bounds First_Or_Default,
+Put and Put_Line, including checked postconditions and loop invariants.
 
 ## Remaining limits
 

@@ -206,10 +206,11 @@ therefore gives `R <= 1` per response, even if the one range-check record
 contains two terminal goals. The extra True helper does not create a native
 check ID. All raw-response/counter/string/solver domains remain separate.
 
-These are two concrete fixed-source task joins. They do not bound
-First_Or_Default, Put or Put_Line: their checked postconditions and loop
-invariants make branch/outcome joins relevant, so this single-path argument
-cannot simply be reused for them.
+These are two concrete fixed-source task joins. First_Or_Default, Put and
+Put_Line have checked postconditions and loop invariants, so this single-path
+argument cannot simply be reused for them. Their separate
+[outcome-aware path calculation](retained-producer-fixed-paths.md) supplies
+the remaining three fixed-library task bounds.
 
 An independent focused source review found no material issue in these two
 bounds. It checked the Eexec/Cany postcondition-to-assumption translation, the
