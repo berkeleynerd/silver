@@ -78,3 +78,22 @@ input records, global entries, script assignments, section visits and version
 definitions, retaining registrations lost to rollback or hiding. It does not
 supply all those caller counts or complete whole-link capacity. The checker
 is source/hash/arithmetic reconciliation, not a C evaluator; no native tool runs.
+
+`check-name-inputs.py` adds the exact fixed ELF section-name tables, including
+the `.gnu.warning.<symbol>` input names. Capture mode checked complete
+installed-file/member identities; default replay uses the retained capsule.
+All 29,004 section names lack `@`. `check-global-names.py` joins the three
+exact selected scripts and six further source files to the global-name and
+assignment domains:
+
+```sh
+python3 docs/evidence/retained-linker-symbols-20261018/check-name-inputs.py --output /tmp/fixed-name-check.json
+python3 docs/evidence/retained-linker-symbols-20261018/check-global-names.py --output /tmp/global-name-check.json
+```
+
+The selected assignment walk has at most16 non-dot visits. The live global
+table/traversal domain is bounded by `3R+2Q+V+21`; this is not a lifetime
+constructor/arena bound across rollback. The no-additional-version-suffix
+conclusion remains conditional on the generated Main/binder name domains.
+The checker reconciles source-reviewed paths and exact script inventories;
+it does not evaluate C or implement the linker-script parser.

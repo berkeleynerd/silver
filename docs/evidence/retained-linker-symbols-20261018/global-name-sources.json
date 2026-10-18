@@ -1,0 +1,59 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "archive_sha256": "09bf3c1710e91e321ef0a8b6eb63605c32df2376e68988f35ab9da6e75e5ba61",
+  "files": [
+    {
+      "path": "bfd/elf.c",
+      "bytes": 412710,
+      "sha256": "00c2489050785f51b73ddee8dfb90f7731fc80562da90c67364b3506a237bc15",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf.c"
+    },
+    {
+      "path": "bfd/elf-eh-frame.c",
+      "bytes": 75506,
+      "sha256": "4eb5169450ed408e0b8f424c49244fdf30c1c8a0faf3d8a619454dd24f24d7a8",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf-eh-frame.c"
+    },
+    {
+      "path": "ld/ldexp.c",
+      "bytes": 47295,
+      "sha256": "db6b81540cb069f26880dedb8f92084894e58e48fd69b830499457d4bb70b5c2",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldexp.c"
+    },
+    {
+      "path": "ld/ldctor.c",
+      "bytes": 9969,
+      "sha256": "2f09416c4e58a3e2aa3e66c6bc1de80beb904fdf7b5faba2656c91f84e82d253",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldctor.c"
+    },
+    {
+      "path": "ld/ldgram.y",
+      "bytes": 33975,
+      "sha256": "95f840aa9720a8787ea6641fb11bf3afca4c9e830e5731c07ee30ac2e961e7f7",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldgram.y"
+    },
+    {
+      "path": "ld/ldlex.l",
+      "bytes": 22741,
+      "sha256": "69dc51c759d4085e1c8585b1c3869e75a50297a4eaecae4e55a5941ca539b17a",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldlex.l"
+    }
+  ],
+  "retained_inputs": [
+    {
+      "path": "retained-link-inputs-20261018/link-script/installed-elf_x86_64.xdc",
+      "bytes": 10896,
+      "sha256": "ae316744bbc3cdc9e040eb4ffed36689b873a12c796d39f220ca1697f897bd3f"
+    },
+    {
+      "path": "retained-link-inputs-20261018/link-script/stdout",
+      "bytes": 11138,
+      "sha256": "54be609f5caef6a0caaa47577c63084c3f4a98b06cbbdd2276a8b874a0b54ae4"
+    },
+    {
+      "path": "retained-link-inputs-20261018/inventory.json",
+      "bytes": 1404813,
+      "sha256": "2fafbbfb01202dc6bf06307d79155a3397cdb156f3cb4131eba8f17a784ec8a3"
+    }
+  ]
+}

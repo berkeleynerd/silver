@@ -160,7 +160,9 @@ static ABS/UND startup chains. The symbol/fixup transfer, including the two star
 objects and 104 BFD symbol allocations and 281 relocation-pointer slots. The
 [ELF object transfer](retained-elf-object-capacity.md) then bounds22 section
 headers,98 serialized symbol entries and14,352 complete object-file bytes.
-Remaining assembler backing, binder objects and final link layout are separate.
+The emitted-line interface bounds114 assembly lines/events and7,410 bytes,
+including zero-byte directives. Remaining assembler backing, binder objects
+and final link layout are separate.
 The [shared assembler backing](retained-assembler-backing.md) now includes
 all reached fixed hashes: the largest notes-backed hash request is 65,528
 bytes. Its chunk rule retains actual argv/path parameters and is not a total
@@ -231,8 +233,12 @@ imposing an aggregate memory or address-span gate.
 The selected ELF input-symbol transfer contributes at most `3R+2Q` global
 constructors and `8R` dynamic-registration increments, including as-needed
 rollback. The fixed input pass bounds give 220,109 and 392,648 respectively.
-Generated inputs and script/backend/version/local contributions remain separate;
-these are not the whole-link table or dynamic-symbol lifetime counts.
+The selected x86 schedule bounds dynamic count high water by
+`1+8R+12H+2A+V+2Qin+2Qout`, with zero section prefix and empty local dynamic
+list. The selected script/synthetic-name join supplies `A<=16` and
+`H<=3R+2Q+V+21` for the live traversal domain. Generated inputs, section visits,
+name/storage lifetimes and version suffixes remain separate; the live H bound
+does not replace lifetime constructors across rollback.
 
 The [fixed linker inputs](retained-link-inputs.md) now close target-input file
 selection for the selected null link, including both library scripts, the
@@ -253,7 +259,11 @@ names/reference events and final relocation/layout remain open.
 The [binder projection](retained-binder-capacity.md) derives the generated null
 spec/body sizes and isolates four variable paths in trailing comments. Its
 61-ALI/101-unit closure and fixed token locations support later source-to-object
-accounting; the observed binder object size is not yet a universal bound.
+accounting. Parser tables/signature maps and the selected binder name pools
+are now composed: at most8,282 name-entry events and `792737+2T_root`
+character slots on the retained installation. The temporary root remains a
+configuration parameter. Separate driver storage and the compiler/object join
+remain open; the observed binder object size is not yet a universal bound.
 
 The [dynamic-symbol/version transfer](retained-linker-symbols.md) now bounds
 the selected hash and version output representations, including signed
@@ -279,8 +289,9 @@ uses ordinary storage and its Boolean ranges remain inline. The complete
 98-pass generic RTL schedule and eight target insertions add one late
 RTL-info allocation; selected final/CFI/section emission adds five further
 GGC requests. Null gigi helper objects and vectors add11 more, making the
-known subtotal 40,024 after the structural and shared-cache joins, with variable metadata,
-remaining whole-unit output helpers and shared collector composition still
+known subtotal 40,072 after the structural, shared-cache, unit-symbol and
+initial GIMPLE/CFG/SSA joins, with variable metadata,
+remaining whole-unit managers and shared collector composition still
 explicit in the native expansion record. The
 [unwind sizing transfer](retained-linker-eh-frame.md) bounds conditional input
 editing and header/CIE storage, including narrower32-bit intermediates;
@@ -296,8 +307,10 @@ bytes, still one aligned source extent. The imported-unit index-zero/Fname
 guard prevents repeated successful imports; the general native source bound
 adds at most one extra8,192-byte aligned System buffer, while null reuses its
 startup System buffer. These [indexed corrections](retained-native-expansion.md)
-have separate checked source identities. Complete frontend table composition
-and the producer descriptor correction remain open. Source locations can
+have separate checked source identities. The [producer descriptor](retained-producer-gpr-descriptor.md)
+also now accounts for the indexed arguments,327-byte generated naming source
+and revised ALI/file-reader bounds. Complete frontend and orchestration
+composition remain open. Source locations can
 produce real O0 merge nops, so a fixed null assembly witness alone cannot
 replace the source-derived instruction/layout bounds.
 

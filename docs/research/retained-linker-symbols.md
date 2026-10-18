@@ -350,8 +350,9 @@ in that input-only scope; the whole-link joins above remain outstanding.
 ## Selected x86 registration schedule and renumbering
 
 The selected ordinary ELF64 x86 link connects those input events to a lifetime
-dynamic-symbol transfer. Let H bound all global-link-hash entries reached during
-this link, including warning wrappers and indirect targets; R retains its
+dynamic-symbol transfer. Let H uniformly bound the global-link-hash entries
+reachable in any selected traversal, including warning wrappers and indirect
+targets; R retains its
 all-input-pass meaning above. Let A bound non-dot assignment nodes visited by
 the link-assignment walk, including any linker-inserted statements. Let Qin
 and Qout bound the input and output section visits at the start/stop walks,
@@ -432,3 +433,114 @@ proof of C reachability. Source-to-H/A/Qin/Qout, generated input counts,
 remaining name suffixes, String-table/arena storage and final layout still
 need their joins. It establishes no whole-link capacity result or enlarged
 Silver domain, and starts no native tool.
+
+Independent review of `443dbfc8d9` replayed all 25 source identities and checked
+the callback schedule, recursion guard, local-IFUNC exclusions and both
+renumbering domains. It accepted the conditional registration bound. The H
+premise is a uniform reachable-domain bound for each traversal, not a claim
+that all constructors over the process lifetime remain live simultaneously.
+
+## Selected script and synthetic-name join
+
+The three selected scripts are the retained `elf_x86_64.xdc` default script,
+`libatomic_asneeded.so` and `libc.so`. Their exact bytes are retained by the
+[input inventory](retained-link-inputs.md). The two library scripts add only
+file/group/search-format operations: they contain no assignments. The default
+script has 26 assignment expressions, of which **16 target a symbol other
+than dot**. These 16 destinations are distinct. Its only other ordinary
+symbol-name input is `ENTRY(_start)`; RHS names are dot or the built-in
+section/page/segment operations, not further ordinary-symbol references.
+Charging `_start` even though the final entry lookup has `create=false`
+gives a conservative **17-name script domain**.
+
+Script identifiers pass unchanged to `fold_name`, `exp_assop` and the
+corresponding link-hash lookups (`ldexp.c:719–803,1160–1206,1388–1442`).
+Repeated expression evaluation reuses an existing identity. None of these
+three scripts contains `@`, a version definition, OVERLAY, INCLUDE, EXTERN
+or INSERT. The selected descriptor has no command-line undefined/defined
+symbols, version script, wrapped-symbol list, MRI script or custom target.
+The earlier input-discovery argument supplies the complete script selection;
+this is not an assertion about arbitrary linker scripts or options.
+
+The assignment walk does not multiply this count. `lang_for_each_statement`
+visits each tree node once and descends through its children
+(`ldlang.c:1088–1140`); `ldelf_find_exp_assignment` recursively visits an
+expression's children once (`ldelf.c:1645–1705`). The selected default script
+does not share assignment subtrees. Subsequent padding/orphan placement does
+not insert a new symbol assignment before this walk. The possible extra
+assignment producers are excluded as follows:
+
+- Overlay statements require the absent OVERLAY syntax
+  (`ldlang.c:9486–9494,9528`).
+- `ldctor_build_sets` adds assignments only for its collected sets
+  (`ldctor.c:251–333`). The selected ELF input route sets symbol flags only
+  to ordinary global, weak or GNU-unique classes, never `BSF_CONSTRUCTOR`
+  (`elflink.c:5022–5073`); the x86 add-symbol hook does not change them.
+  The other constructor callback is gated by `collect`, which is false for
+  this target (`elfxx-target.h:406–408`, `linker.c:1565–1604`). Thus neither
+  `ldmain.c:1709–1722` nor `:1741–1784` populates the set list.
+- The selected ELF/x86 emulation templates add no assignment expression.
+  MRI and other target emulations are not selected.
+
+Consequently **A=16** is a sufficient bound for the one non-dot assignment
+notification walk. This is a source-derived count, not a count from a link
+map or a particular output binary.
+
+Only four independent fixed spellings are added by the selected backend's
+global-name constructors:
+
+| Producer | Name domain |
+| --- | --- |
+| Linkage symbols (`elflink.c:187–222,275,410,499`) | `_GLOBAL_OFFSET_TABLE_`, `_DYNAMIC`, `_PROCEDURE_LINKAGE_TABLE_` |
+| Unwind header (`elf-eh-frame.c:1764–1774`) | `__GNU_EH_FRAME_HDR` |
+| Output version symbols (`elflink.c:7241–7249`) | One existing version name for each of at most V version nodes |
+
+The TLS-base and legacy stack helpers first require a lookup of an existing
+name (`elfxx-x86.c:3093–3111`, `elflink.c:6844–6879`); they do not expand the
+name domain. Start/stop and section-size helpers also use `create=false`
+(`elflink.c:15709–15710`). Symbol hiding, final entry resolution, archive
+candidate lookup and version-alias redirection likewise use existing names.
+The excluded `--default-symver` route is the only output-basename version
+symbol constructor. Warning wrappers and ordinary/default aliases are already
+charged by `3R+2Q`. The separate x86 local-IFUNC table is not the global table.
+
+The supplemental [fixed section-name capsule](../evidence/retained-linker-symbols-20261018/fixed-name-results.json)
+reads all 29,004 section records in the 1,169 fixed ELF objects, following
+each actual section-name offset. None contains `@`; the 28 warning sections
+therefore introduce no new version suffix. This capture checked complete
+installed file/member hashes before retaining the exact section-name tables;
+offline replay uses those bytes. The warning count is descriptive: the prior
+broad `Q` bound still charges every section visit.
+
+At any selected traversal, the global table and its warning/indirect targets
+therefore fit
+
+```text
+H <= 3R + 2Q + 17 + 4 + V = 3R + 2Q + V + 21
+A <= 16
+D <= 285 + 44R + 24Q + 13V + 2Qin + 2Qout.
+```
+
+The last line substitutes the first two into the previous lifetime
+registration transfer; it retains all `8R` registration losses. As-needed
+rollback may cause the same spelling to be constructed again, but does not
+increase the live name domain. **This H bound is not a lifetime constructor
+or cumulative arena-allocation bound.** Those distinct storage obligations
+must still account for discarded allocations.
+
+If generated Main/binder symbol and section names also have no `@`, the
+selected linker introduces no additional version suffix: the only decorator
+uses the 51 retained version names, its default aliases preserve/remove that
+suffix, and version-symbol names themselves contain no `@`. Under that
+explicit generated-name premise, W=0, V<=51 and the maximum version index
+is169. The fixed-input contribution to H is then220,181; generated inputs
+add `3R_generated+2Q_generated`. Main's name transfer is established in the
+[assembler record](retained-assembler-capacity.md); the binder's complete
+compiler-name transfer remains separate. Without that join, retain the
+earlier `V<=51+W` interface rather than substituting zero for W.
+
+The [offline checker](../evidence/retained-linker-symbols-20261018/check-global-names.py)
+reconciles 31 complete source files, the exact script bytes and this
+arithmetic. It is not an ld parser or a C reachability proof. Generated
+counts/names, section visits, lifetime storage and final layout remain open;
+no whole-link result or enlarged admission domain is claimed.

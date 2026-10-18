@@ -1,0 +1,49 @@
+{
+  "scope": "Selected scripts and linker-created global names; conditional generated-input join",
+  "source_files_verified": 31,
+  "selected_script_count": 3,
+  "selected_script_bytes": [
+    10896,
+    106,
+    287
+  ],
+  "non_dot_assignment_destinations": [
+    "__executable_start",
+    "__etext",
+    "_etext",
+    "etext",
+    "__tdata_start",
+    "__preinit_array_start",
+    "__preinit_array_end",
+    "__init_array_start",
+    "__init_array_end",
+    "__fini_array_start",
+    "__fini_array_end",
+    "_edata",
+    "edata",
+    "__bss_start",
+    "_end",
+    "end"
+  ],
+  "all_script_assignments_including_dot": 26,
+  "selected_assignment_walk_non_dot_visits_upper": 16,
+  "script_global_name_budget": 17,
+  "independent_linker_created_names": [
+    "_GLOBAL_OFFSET_TABLE_",
+    "_DYNAMIC",
+    "_PROCEDURE_LINKAGE_TABLE_",
+    "__GNU_EH_FRAME_HDR"
+  ],
+  "extra_global_name_budget_excluding_versions": 21,
+  "global_live_entry_and_traversal_domain_bound": "3*R+2*Q+V+21",
+  "fixed_contribution_when_generated_names_lack_at": 220181,
+  "lifetime_constructor_count_established": false,
+  "generated_symbol_and_section_name_no_at_premise_required": true,
+  "additional_version_suffixes_under_that_premise": 0,
+  "version_nodes_under_that_premise_upper": 51,
+  "maximum_version_index_under_that_premise_upper": 169,
+  "dynamic_count_high_water_after_script_and_global_join": "285 + 44*R + 24*Q + 2*Q_input + 2*Q_output + 13*V",
+  "whole_link_capacity_established": false,
+  "native_execution": false,
+  "reachability_basis": "Source review; hashes, anchors and lexical inventories do not evaluate C or ld grammar"
+}
