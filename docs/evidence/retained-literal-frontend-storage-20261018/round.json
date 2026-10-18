@@ -24,5 +24,26 @@
     "Other frontend/diagnostic/command/ALI/late-name/local/recursive objects",
     "Remaining native/parent/proof producer and aggregate integration/adoption"
   ],
-  "recorded_at_UTC": "2026-10-18T23:32:06.288670+00:00"
+  "recorded_at_UTC": "2026-10-18T23:32:06.288670+00:00",
+  "initial_round_applies_to_commit": "d7034d952050df0e015958158131b6ccc2e70f64",
+  "correction_round": {
+    "issue": 139,
+    "initial_review_report_commit": "b6669b3ff7",
+    "initial_review_finding": "F1 medium: six pattern Strings was a configuration delta, not lifetime total; explicitly retain Dope_Rec remainder",
+    "selected_model": "GPT-6.1 Sol",
+    "selected_reasoning_effort": "Extra High",
+    "runtime_confirmation": null,
+    "outcome": "Lifetime14=8defaults+6configuration; each<=21bytes. Nine virtual Dope_Rec objects explicitly unpriced; all other physical projections unchanged.",
+    "focused_checks": 52,
+    "direct_input_identities_checked": 41,
+    "focused_elapsed_seconds": 0.06717921000017668,
+    "original_43_check_evidence_preserved_byte_for_byte": true,
+    "full_suite_or_source_corpus_rerun": false,
+    "native_tool_executions": 0,
+    "total_elapsed_seconds": null,
+    "token_usage": null,
+    "cost": null,
+    "status": "Frozen for same-reviewer narrow addendum",
+    "recorded_at_UTC": "2026-10-18T23:39:42.728506+00:00"
+  }
 }

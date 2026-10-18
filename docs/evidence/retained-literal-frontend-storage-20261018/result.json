@@ -1946,21 +1946,27 @@
           "copies_upper": 7,
           "aligned_extent_each": 4096,
           "shared_physical_text_and_line_arrays": true,
-          "new_text_or_line_array_objects": 0
+          "new_text_or_line_array_objects": 0,
+          "Dope_Rec_metadata_objects_upper": 7,
+          "Dope_Rec_metadata_storage_priced_here": false
         },
         {
           "template": "libgnat/s-imagei.ads",
           "copies_upper": 1,
           "aligned_extent_each": 4096,
           "shared_physical_text_and_line_arrays": true,
-          "new_text_or_line_array_objects": 0
+          "new_text_or_line_array_objects": 0,
+          "Dope_Rec_metadata_objects_upper": 1,
+          "Dope_Rec_metadata_storage_priced_here": false
         },
         {
           "template": "libgnat/s-imagei.adb",
           "copies_upper": 1,
           "aligned_extent_each": 8192,
           "shared_physical_text_and_line_arrays": true,
-          "new_text_or_line_array_objects": 0
+          "new_text_or_line_array_objects": 0,
+          "Dope_Rec_metadata_objects_upper": 1,
+          "Dope_Rec_metadata_storage_priced_here": false
         }
       ],
       "physical_files_upper": 1580,
@@ -2055,8 +2061,19 @@
       "Source_File_Index_static_entries": 524289,
       "indexed_SFN_hash_wrapper_bytes": 16,
       "indexed_SFN_hash_bucket_array_bytes": 808,
-      "pattern_String_allocations_upper": 6,
+      "pattern_String_allocations_upper": 14,
       "pattern_String_individual_bytes_upper": 21,
+      "pattern_String_allocation_rows": {
+        "default_initialization_calls": 2,
+        "String_objects_per_initialization": 4,
+        "default_lifetime_objects": 8,
+        "configuration_pattern_pragmas": 2,
+        "String_objects_per_pattern_pragma": 3,
+        "configuration_delta_objects": 6,
+        "reset_reclaims_String_pointees": false
+      },
+      "virtual_source_Dope_Rec_metadata_objects_upper": 9,
+      "virtual_source_Dope_Rec_metadata_storage_priced_here": false,
       "checks": {
         "runtime_individual_objects": true,
         "extra_individual_objects": true,
@@ -2110,6 +2127,7 @@
   },
   "remaining": [
     "Complete combined source locations, ordinary line maps and shared filename identifiers.",
+    "Per-virtual-source Dope_Rec metadata allocations (up to nine) outside shared text/line arrays.",
     "Later frontend/warning/ALI/command/name consumers and recursive/local objects outside these named transfers.",
     "All other gigi/GCC/native phases, materializing parent, and independent proof producer.",
     "Aggregate source/path equality attachment and production correspondence/adoption."

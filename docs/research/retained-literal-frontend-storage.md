@@ -119,9 +119,11 @@ lifetime table growth.
 
 The numeric implementation dependency is correction `64237926eb` (locally
 cherry-picked as `3531a5e2e3`); the original fixed/callback transfers are
-retained. The correction and this new composition still require the lead's
-independent review before their aggregate adoption. No earlier review is
-represented as a review of these new inputs.
+retained. Independent review report `b6669b3ff7` accepted that correction and
+the selected-route numeric attachment separately. Its frontend finding is
+addressed below; the corrected frontend packet awaits the narrow addendum
+before aggregate adoption. No earlier review is represented as a review of
+these corrected frontend inputs.
 
 ## Whole runtime union, line objects and virtual sources
 
@@ -164,6 +166,11 @@ exclusions supply that fact; an observation from a null process does not.
 `Create_Instantiation_Source` (`sinput-l.adb:127–165`) copies the template's
 source record and shares its text/line arrays, so virtual extents do not
 allocate another physical text or line-table object.
+Each virtual copy nevertheless allocates a `Dope_Rec` for its adjusted source
+bounds (`sinput-l.adb:245–252`, type at `sinput.ads:892–898`). The leaf exports
+up to nine such metadata objects and explicitly leaves their individual
+storage outside this projection. Sharing the text/line arrays does not cover
+that metadata allocation.
 
 Each physical source is separately priced. `source_object` counts CRLF once,
 lone CR/LF once, expands tabs from one-based columns, and computes the line
@@ -210,8 +217,19 @@ accepted 29-field/16-byte-per-field upper bound. Instances has demand ten,
 including its sentinel. SFN_Patterns uses the fixed four plus two default
 patterns, giving six; SFN_Table uses the one indexed Main entry. Each table
 uses its actual low/initial/growth parameters. The indexed SFN hash has an
-individual 808-byte bucket array and one 16-byte wrapper. Six default-pattern
-String objects are individually bounded by 5+16 bytes.
+individual 808-byte bucket array and one 16-byte wrapper. The six Strings
+allocated by configuration are an additive delta, rather than the lifetime
+count. `Fname.UF.Initialize` runs at package elaboration (`fname-uf.adb:659`)
+and at frontend initialization (`frontend.adb:88`); each call allocates four
+Strings for the two default pattern/dot pairs (`fname-uf.adb:444–453`).
+`Table.Init` resets the table and may reuse its backing; it does not free the
+String pointees (`table.adb:128–154`). The two configuration pattern pragmas
+each allocate a pattern String, a default dot String, then the explicit
+replacement dot String (`par-prag.adb:674,713,848,869`). Thus the lifetime
+allowance is **8 default + 6 configuration = 14 String objects**, each
+individually bounded by 5+16=21 bytes. The indexed Main naming entry adds no
+pattern String. `pattern_String_allocation_rows` preserves the lifetime and
+configuration-delta projections separately.
 
 `back_end.adb:80–130,172` sends every permanent source entry, including virtual
 copies, through a three-four-byte-field File_Info record. Its array has at
@@ -291,8 +309,27 @@ warning/diagnostic, command/ALI/late-name, local/recursive, gigi/GCC/native,
 materializing-parent or independent producer obligations. All global/native,
 proof, parent, aggregate attachment and adoption flags remain false.
 
+Independent Astra review of `d7034d9520` (report `b6669b3ff7`, finding F1,
+[#139](https://github.com/berkeleynerd/silver/issues/139)) found that its six pattern String
+objects represented only the configuration delta and requested the explicit
+virtual `Dope_Rec` remainder above. The original 43-check success remains
+historical evidence for that frozen input. The
+[correction checks](../evidence/retained-literal-frontend-storage-20261018/correction-check-results.json)
+recheck the exact affected source witnesses and recompute the selected physical
+projection with the retained, previously verified runtime census. They check
+14/8/6 lifetime/default/configuration counts, the 21-byte individual bound,
+the nine unpriced Dope_Rec objects, and equality of all other physical
+projections. No full suite, predecessor model loader or source-corpus scan is
+repeated. The full check script includes the two new assertions for future use;
+it has not been rerun to replace that historical success.
+
+```sh
+python3 docs/evidence/retained-literal-frontend-storage-20261018/check-correction.py \
+  --ada-root /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada
+```
+
 The [round record](../evidence/retained-literal-frontend-storage-20261018/round.json)
 records selected model/effort and actual focused-check elapsed time. No cost
-or token measurement is available. Independent review and aggregate attachment
-remain the lead's next integration step; this packet changes only its new
+or token measurement is available. The narrow review addendum and aggregate attachment
+remain the lead's next integration step; this packet changes only its own
 research/evidence files.

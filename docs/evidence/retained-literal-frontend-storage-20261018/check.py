@@ -52,6 +52,15 @@ def main():
           and sum(r['copies_upper']*r['aligned_extent_each'] for r in physical['virtual_sources'])==40960)
     check('current naming patterns and indexed table',physical['tables']['SFN_Patterns']['demand']==6
           and physical['tables']['SFN_Table']['demand']==1)
+    check('pattern String lifetime includes both initializations and config delta',
+          physical['pattern_String_allocations_upper']==14
+          and physical['pattern_String_allocation_rows']['default_lifetime_objects']==8
+          and physical['pattern_String_allocation_rows']['configuration_delta_objects']==6
+          and physical['pattern_String_individual_bytes_upper']==21)
+    check('virtual Dope_Rec metadata remains separate from shared text/lines',
+          physical['virtual_source_Dope_Rec_metadata_objects_upper']==9
+          and not physical['virtual_source_Dope_Rec_metadata_storage_priced_here']
+          and all(not r['Dope_Rec_metadata_storage_priced_here'] for r in physical['virtual_sources']))
     check('source backing pays only failed slot; backend array permanent',
         physical['tables']['Source_File']['demand']==1590
         and physical['backend_File_Info_Array_individual_bytes_upper']==19084)

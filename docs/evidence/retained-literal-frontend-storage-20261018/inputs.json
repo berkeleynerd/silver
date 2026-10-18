@@ -235,7 +235,20 @@
       "path": "libgnat/s-imagei.adb",
       "bytes": 4898,
       "sha256": "a3ecb3b79889596b107988c10b47f6a35b9ccd8aeca4d0d482345a7f00c669cf"
+    },
+    {
+      "root": "ada",
+      "path": "par-prag.adb",
+      "bytes": 56553,
+      "sha256": "75b0624149303b6f119608079f7bb28214867eb7a601949401eb2b27bc2b0724"
+    },
+    {
+      "root": "ada",
+      "path": "table.adb",
+      "bytes": 13959,
+      "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4"
     }
   ],
-  "numeric_scope_width_dependency_commit": "64237926eb"
+  "numeric_scope_width_dependency_commit": "64237926eb",
+  "pattern_String_lifetime_correction_base_commit": "d7034d952050df0e015958158131b6ccc2e70f64"
 }

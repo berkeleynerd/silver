@@ -65,6 +65,33 @@ def source_object(raw):
         all_selected_checks_pass=all(checks.values()))
 
 
+def pattern_string_storage(configuration, ada_root):
+    """Lifetime String objects; resetting SFN_Patterns does not free pointees."""
+    texts = {name:(Path(ada_root)/name).read_text() for name in
+             ('fname-uf.adb','frontend.adb','par-prag.adb','table.adb')}
+    initialize = texts['fname-uf.adb'].split('procedure Initialize is',1)[1].split('end Initialize;',1)[0]
+    defaults = re.findall(r'new String\'\("([^"]*)"\)', initialize)
+    calls = sum(texts[name].count('Fname.UF.Initialize;') for name in ('fname-uf.adb','frontend.adb'))
+    table_init = texts['table.adb'].split('procedure Init is',1)[1].split('end Init;',1)[0]
+    require(defaults == ['*.ads','-','*.adb','-'] and calls == 2 and
+            'SFN_Patterns.Init;' in initialize and 'Clear;' in table_init and
+            not re.search(r'\b(?:Free|Unchecked_Deallocation)\b', table_init),
+            'two source initialization passes, four String objects each, no pointee reclamation')
+    for anchor in ('Pat := Get_String_Argument (Arg1);', 'Dot := new String\'(".");',
+                   'Dot := Get_String_Argument (Arg);', "return new String'(Name_Buffer (1 .. Name_Len));"):
+        require(anchor in texts['par-prag.adb'], 'pattern String source witness: '+anchor)
+    patterns = re.findall(rb'pragma\s+Source_File_Name_Project\s*\(\s*(?:Spec|Body)_File_Name\s*=>\s*"([^"]*)"\s*,\s*Casing\s*=>\s*lowercase\s*,\s*Dot_Replacement\s*=>\s*"([^"]*)"\s*\);', configuration)
+    require(patterns == [(b'*.ads',b'-'),(b'*.adb',b'-')], 'two exact selected pattern pragmas')
+    default_objects, configured_objects = calls*len(defaults), 3*len(patterns)
+    maximum_length = max([len(s) for s in defaults]+[len(s) for row in patterns for s in row]+[1])
+    return dict(pattern_String_allocations_upper=default_objects+configured_objects,
+        pattern_String_individual_bytes_upper=maximum_length+16,
+        pattern_String_allocation_rows=dict(default_initialization_calls=calls,
+            String_objects_per_initialization=len(defaults), default_lifetime_objects=default_objects,
+            configuration_pattern_pragmas=len(patterns), String_objects_per_pattern_pragma=3,
+            configuration_delta_objects=configured_objects, reset_reclaims_String_pointees=False))
+
+
 class Context:
     def __init__(self, ada_root, gcc_root):
         roots = dict(repository=REPO, ada=Path(ada_root))
@@ -168,7 +195,8 @@ def physical_sources(raw, files, shared, invocation, context):
         template = source_object((context.ada/name).read_bytes())
         virtual.append(dict(template=name, copies_upper=count,
             aligned_extent_each=template['aligned_source_extent'],
-            shared_physical_text_and_line_arrays=True, new_text_or_line_array_objects=0))
+            shared_physical_text_and_line_arrays=True, new_text_or_line_array_objects=0,
+            Dope_Rec_metadata_objects_upper=count, Dope_Rec_metadata_storage_priced_here=False))
     physical_count = runtime['file_count']+len(extras)
     virtual_count = sum(row['copies_upper'] for row in virtual)
     permanent = physical_count+virtual_count
@@ -199,7 +227,9 @@ def physical_sources(raw, files, shared, invocation, context):
         tables=tables, backend_File_Info_Array_individual_bytes_upper=12*permanent+16,
         Source_File_Index_static_entries=2+I32//4096,
         indexed_SFN_hash_wrapper_bytes=16, indexed_SFN_hash_bucket_array_bytes=808,
-        pattern_String_allocations_upper=6, pattern_String_individual_bytes_upper=5+16,
+        **pattern_string_storage(shared['configuration'], context.ada),
+        virtual_source_Dope_Rec_metadata_objects_upper=virtual_count,
+        virtual_source_Dope_Rec_metadata_storage_priced_here=False,
         checks=checks, all_selected_checks_pass=all(checks.values()),
         GCC_line_maps_combined_locations_shared_identifiers_and_later_heaps_included=False)
 
@@ -275,6 +305,7 @@ def compose(raw, context, descriptor_path=E/'retained-literal-pipeline-20261018/
              'failed_load_transient_slots_upper','Source_File_backing_demand','backend_File_Info_entries_upper',
              'insertion_capable_filename_lookups_upper','direct_filename_identifier_calls_upper')},
         remaining=['Complete combined source locations, ordinary line maps and shared filename identifiers.',
+            'Per-virtual-source Dope_Rec metadata allocations (up to nine) outside shared text/line arrays.',
             'Later frontend/warning/ALI/command/name consumers and recursive/local objects outside these named transfers.',
             'All other gigi/GCC/native phases, materializing parent, and independent proof producer.',
             'Aggregate source/path equality attachment and production correspondence/adoption.'],
