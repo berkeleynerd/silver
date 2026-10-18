@@ -1,0 +1,153 @@
+{
+  "checking_control_layout_bytes": 56,
+  "counter_states_exercised": 60000,
+  "direct_Ada_warning_sites": {
+    "gcc/ada/gcc-interface/cuintp.cc": [],
+    "gcc/ada/gcc-interface/decl.cc": [],
+    "gcc/ada/gcc-interface/misc.cc": [],
+    "gcc/ada/gcc-interface/targtyps.cc": [],
+    "gcc/ada/gcc-interface/trans.cc": [
+      {
+        "call": "suppress_warning",
+        "line": 9420,
+        "text": "suppress_warning (*expr_p);"
+      }
+    ],
+    "gcc/ada/gcc-interface/utils.cc": [
+      {
+        "call": "suppress_warning",
+        "line": 959,
+        "text": "suppress_warning (decl);"
+      }
+    ],
+    "gcc/ada/gcc-interface/utils2.cc": []
+  },
+  "direct_gimplifier_warning_lines": [
+    1886,
+    1948,
+    1962,
+    5728,
+    7296,
+    7406,
+    7601,
+    8529,
+    20903
+  ],
+  "elapsed_seconds": 0.110984,
+  "entry_bytes": 16,
+  "expansions_before_existing_key_hits": 111,
+  "hypothetical_R_zero": {
+    "C": 1,
+    "N": 0,
+    "additional_call_location_warning_copy_calls": 1,
+    "complete_collector_lifetime_closed": false,
+    "complete_gimplifier_lifetime_closed": false,
+    "conditional_map_transfer": {
+      "additional_singleton_finalizer_registrations_ceiling": 1,
+      "additional_vector_finalizer_registrations": 0,
+      "additive_GGC_event_ceiling": 6,
+      "checks": {
+        "entry_request_and_pointer_span": true,
+        "live_and_occupied_sufficient_region": true,
+        "load_factor_products": true,
+        "prime_exists": true,
+        "prime_probe_region": true,
+        "probe_addition": true
+      },
+      "conditional_map_interface_fits": true,
+      "incoming_capacity_ceiling": 8191,
+      "incoming_live_or_occupied_ceiling": 4095,
+      "original_gigi_put_call_ceiling": 2,
+      "outgoing_capacity_ceiling": 16381,
+      "outgoing_live_or_occupied_ceiling": 4098,
+      "request_groups": [
+        {
+          "count": 1,
+          "name": "possible_original_gigi_control",
+          "raw_bytes_each": 64,
+          "rounded_bytes_each_ceiling": 64
+        },
+        {
+          "count": 2,
+          "name": "original_gigi_initial_or_replacement_backbones",
+          "raw_bytes_each": 131056,
+          "rounded_bytes_each_ceiling": 131072
+        },
+        {
+          "count": 3,
+          "name": "selected_gimplifier_replacement_backbones",
+          "raw_bytes_each": 262096,
+          "rounded_bytes_each_ceiling": 262144
+        }
+      ]
+    },
+    "direct_warning_copy_calls": 2,
+    "local_gigi_suppression_call_ceiling": 2,
+    "original_gigi_source_count_closed": false,
+    "other_original_gigi_put_calls": 0,
+    "prefix_capacity_ceiling": 4093,
+    "selected_initial_gimplifier_warning_put_call_ceiling": 3
+  },
+  "missing_R": {
+    "C": 1,
+    "N": 0,
+    "additional_call_location_warning_copy_calls": 1,
+    "complete_collector_lifetime_closed": false,
+    "complete_gimplifier_lifetime_closed": false,
+    "conditional_map_transfer": null,
+    "direct_warning_copy_calls": 2,
+    "local_gigi_suppression_call_ceiling": 2,
+    "original_gigi_source_count_closed": false,
+    "other_original_gigi_put_calls": null,
+    "prefix_capacity_ceiling": 4093,
+    "selected_initial_gimplifier_warning_put_call_ceiling": 3
+  },
+  "model_or_semantic_proof": false,
+  "native_execution": false,
+  "prefix_capacity_ceiling": 4093,
+  "prefix_maximum_rounded_request": 65536,
+  "result": "PASS",
+  "retained_inputs_verified": 4,
+  "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_files_verified": 28,
+  "sufficient_endpoint": {
+    "additional_singleton_finalizer_registrations_ceiling": 1,
+    "additional_vector_finalizer_registrations": 0,
+    "additive_GGC_event_ceiling": 1073737731,
+    "checks": {
+      "entry_request_and_pointer_span": true,
+      "live_and_occupied_sufficient_region": true,
+      "load_factor_products": true,
+      "prime_exists": true,
+      "prime_probe_region": true,
+      "probe_addition": true
+    },
+    "conditional_map_interface_fits": true,
+    "incoming_capacity_ceiling": 2147483647,
+    "incoming_live_or_occupied_ceiling": 1073741820,
+    "original_gigi_put_call_ceiling": 1073737727,
+    "outgoing_capacity_ceiling": 2147483647,
+    "outgoing_live_or_occupied_ceiling": 1073741823,
+    "request_groups": [
+      {
+        "count": 1,
+        "name": "possible_original_gigi_control",
+        "raw_bytes_each": 64,
+        "rounded_bytes_each_ceiling": 64
+      },
+      {
+        "count": 1073737727,
+        "name": "original_gigi_initial_or_replacement_backbones",
+        "raw_bytes_each": 34359738352,
+        "rounded_bytes_each_ceiling": 34359738368
+      },
+      {
+        "count": 3,
+        "name": "selected_gimplifier_replacement_backbones",
+        "raw_bytes_each": 34359738352,
+        "rounded_bytes_each_ceiling": 34359738368
+      }
+    ]
+  },
+  "sufficient_endpoint_R": 1073737725
+}
