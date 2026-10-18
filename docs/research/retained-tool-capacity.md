@@ -353,9 +353,9 @@ and closure ALIs have different timestamp bytes and are not identified.
 Generated binder checksums range over all uint32 values under the accepted
 binder-family bound. The graph retains actual compiler/GAS/link paths, stable
 fixed-input identities and four common Main source bindings. Its 135 focused
-checks and narrow independent probe pass without native executions. Aggregate
-attachment must use the same source and the graph's selected path roles; the
-older short-path fixture does not establish that equality. Parent storage,
+checks and narrow independent probe pass without native executions. The
+attachment below uses the same source and the graph's selected path roles;
+the older short-path fixture does not establish that equality. Parent storage,
 fixed-library proof, the producer graph and production adoption remain separate.
 
 The [literal Ada numeric composition](retained-literal-ada-numeric.md), frozen
@@ -372,7 +372,30 @@ Fifty-three focused checks pass. Review checks the frozen source interfaces,
 61 packet identity records, 21 frontend repository pins and nine additional
 source identities without repeating the successful model/suite runs. This is
 the missing selected incoming-state/backing component, not full original-gigi
-or native capacity. Aggregate attachment remains the next integration step.
+or native capacity. The selected-route attachment below joins this interval.
+
+The [selected-route attachment](retained-literal-pipeline.md), frozen at
+`64e347db16` and [independently accepted](../reviews/review-literal-selected-route-64e347db16.md),
+now joins both components to the unchanged core. Its explicit descriptor binds
+the 109-byte root, 48-byte temporary directory, four Main source roles and
+512-byte spelling/513-byte NUL-inclusive path bounds. Full frontend, original
+Main, numeric, emission, assembly, ELF, storage, fixed-input and binder
+projections agree; the linker refinement preserves all 39 other guards.
+The three invocation unknowns are resolved while retaining their arithmetic
+conditions, and three graph plus five numeric guards yield 48 listed
+predicates. Hello, mixed empty/8,192-byte literals and 5,000 calls pass that
+local conjunction. The unchanged core and leaf results remain explicitly
+scoped intermediate evidence. The partial GCC ledger stays at 2,312 events;
+Ada numeric costs are separate. Ninety-seven focused checks and 67 independent
+identity/interface checks pass. Whole native/proof capacity, parent storage,
+required fixed-library verification and production adoption remain unfinished.
+Subsequent source-count reconciliation found
+[#137](https://github.com/berkeleynerd/silver/issues/137): the shared filename
+interface must also allow the indexed startup System duplicate. Its conservative
+bounds become 1,589 permanent source entries and 1,590 filename lookups;
+dependent identifier/backing/serial arithmetic and aggregate attachment are
+being corrected. The retained 48-predicate result predates this correction
+and remains scoped local evidence, not a complete native verdict.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -541,6 +564,24 @@ ELF zero-fill storage, with no observed runtime values. All three managed
 capture attempts are retained, including the two diagnosed observer errors;
 none executed inlining, printing or solver submission. Auxiliary counters
 and backing observations supply no continuing capacity claim.
+
+The [callback source/native inventory](retained-why-inline-callback-closure.md),
+originally frozen at `20e801be18`, is accepted only with correction
+`f5475afb35` and the [focused review disposition](../reviews/review-why-callback-20e801be18.md).
+Saving shapes can register identifiers, asynchronous callback exceptions can
+propagate, and the interrupted transformation contains a continuing
+`Not_found` catch. The original claimed missing-task witness is nevertheless
+refuted: `goal_is_detached` already performs that lookup, catches the exception
+and skips the goal. No intervening local table write or replacement escape
+witness is established. The correction withdraws that claim throughout the
+packet and preserves its evidence as superseded history. The accounted
+endpoint remains 61,641; complete callback, history and family claims remain
+false. [#136](https://github.com/berkeleynerd/silver/issues/136) records the
+repaired finding. The next argument must establish exception/continuation exclusion,
+finite callback multiplicity with charged work, or an enforced launch
+configuration with explicit cancellation and child-process semantics.
+The independent correction check took 0.119747 seconds and reused successful
+extraction and author checks; no native target was executed.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both

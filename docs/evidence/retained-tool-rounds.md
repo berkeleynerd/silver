@@ -947,3 +947,71 @@ remain active investigations; no complete counter claim is inferred from them.
 Current grammar composition, complete-rule comparison and independent final
 review still remain. #119 stays active; Oracle, tools/pins and admission are
 unchanged, and production #88–#94 remains unstarted.
+
+## Round 13 — selected route integrated and callback witness corrected
+
+Date: 2026-10-18; continues from published `1d5bcbe446`. The preceding owner
+percentage question was a status-only turn, with no technical progress claimed.
+This round integrates two independently reviewed results and identifies one
+further source-count correction within the unchanged #119 objective.
+
+| Work | Selected setting | Frozen result and review |
+| --- | --- | --- |
+| Selected invocation/numeric attachment | GPT-6 Astra / Extra High | `64e347db16`, accepted by `91a28fe34d`; same actual source and selected configuration joined to the existing core |
+| Why3 callback inventory and correction | GPT-6 Astra / Extra High | `20e801be18`, corrected by `f5475afb35`; review `64c4bb749b` and focused acceptance `a8b4647fbd` |
+| Integration and next-obligation assessment | Lead live setting unavailable; no switch claimed | Exact accepted bytes reconciled; indexed duplicate-System omission identified as #137 |
+
+The selected-route wrapper retains the 40 core condition entries, resolves
+only three invocation unknowns with their existing arithmetic guards, and adds
+three graph plus five numeric predicates. Hello, mixed empty/8,192-byte literals
+and 5,000 calls pass the 48 listed predicates. The complete old core and leaf
+results remain scoped intermediate evidence. Ada numeric costs are separate
+from the unchanged 2,312-event partial GCC ledger. The 97 focused checks took
+5.222947s. An expectation-only repair accounts for four inherited failures in
+the long-column negative case, without changing the implementation. Independent
+review ran 67 narrow identity/interface checks in 0.200413s, within a 112s
+inspection/audit interval excluding report and commit preparation. It reused
+the successful implementation suite and found no material defect in its scope.
+
+The callback review found material argument error R1, recorded as #136:
+the claimed stable missing-task `Not_found` path is already excluded by
+`goal_is_detached`. The author withdrew that witness consistently and retained
+the guard and local field-occurrence inventory. No actual replacement escape
+or global alias theorem was asserted. Endpoint 61,641 remains only the
+accounted registration bound; all broad closure flags remain false. Original
+static extraction (10.861872s), its frozen check (0.356060s), and the correction's
+frozen check (0.346699s) are retained. Independent review's initial source check
+took 0.010100s within a 187s review interval; its accepted correction check took
+0.119747s within a 35s verification interval. Those intervals exclude final
+commit preparation. Successful extraction/check suites were not repeated.
+
+Integration confirms 27 accepted packet/review files byte-equal to their frozen
+targets or accepted corrections, with 12 JSON and seven Python syntax checks,
+66 local links across the integrated notes/reports, and clean whitespace.
+These checks validate integration and do not reprove source arguments.
+No compiler, native capture, debugger, solver, broad proof/build or full-suite
+execution belongs to this round. Managed status reports zero active native
+runs, zero reserved workers and no required diagnostic checkpoint.
+
+The next frontend join revealed #137: the original shared count of 1,588
+permanent source entries omitted the indexed startup System duplicate already
+proved in the native source-load correction. The conservative bounds need
+1,589 permanent entries and 1,590 filename lookups; direct filename allocations,
+identifier history/backing and temporary serial projections must follow.
+The correction is in progress, and the earlier selected-route checks are not
+silently described as covering it. No current admission change results.
+
+Active follow-on work has explicit ownership: Astra Extra High handles native
+location/warning lifetime plus the narrow filename correction and the Why3
+finite-callback argument; Sol Extra High handles the established frontend
+logical/physical/backing composition. Independent reviews remain bounded to
+their frozen deliverables. This round shows useful integration and one
+review-induced correction, not evidence of a model-quality advantage. Runtime
+model confirmation and per-round token/cost measurements are unavailable;
+overlapping intervals are not additive elapsed time. CLI memory is unavailable.
+
+#119 remains active. Complete native lifetimes/collector accounting, required
+producer/consumer and fixed-library coverage, current-grammar composition,
+useful-domain comparison and final independent review remain outstanding.
+Oracle, installed tools/pins and production admission are unchanged;
+production #88–#94 remains authorized and unstarted.
