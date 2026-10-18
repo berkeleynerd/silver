@@ -23,6 +23,13 @@ derivation. Independent reviews cover the frozen
 extend automatically to the later additions here. Whole-Main closure and
 review of those later additions remain required.
 
+The command/configuration arithmetic predating the indexed-Main repair is
+**historical unindexed evidence**. The
+[indexed invocation delta](#indexed-main-invocation-and-source-buffer-delta)
+below records the current repair's separate descriptor and the remaining
+source-buffer reconciliation. Existing `derive.py` examples still use the
+historical descriptor; they are not current indexed invocation capacity results.
+
 ## Phase and type premises
 
 This is the native expansion path in `exp_ch4.adb:2552–3639,8005–8097` under
@@ -6755,7 +6762,7 @@ That removes the GPR generation boundary but changes more of the build
 driver. Both are proposed implementation interfaces under the existing
 authorization; neither launcher nor admission rule is implemented here.
 
-### Selected native command family and argument objects
+### Historical unindexed native command family and argument objects
 
 The [invocation reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-invocation.py)
 now derives the selected Linux x86_64 Main launch class from the production
@@ -6878,6 +6885,152 @@ were byte-compared with the exact pinned upstream commit before recording
 their hashes. The regenerator also binds the production source, retained
 project/XML/ALI and direct-capture input. This is source/hash reconciliation
 and arithmetic only; no new compiler, prover, Lean, test or capture run.
+
+### Indexed Main invocation and source-buffer delta
+
+Repair `ce4d2fee363771ae5bd3c4fbe4e53e03dfddca7c` (#123) adds the explicit
+project naming clause `for Body ("Main") use "main.adb" at 1;`. This preserves
+the author source and the single Main entity while bypassing GPR2's LF-only
+comment discovery. The [indexed descriptor](../evidence/unbounded-programs/retained-native-expansion-20261017/native-indexed-invocation.json)
+and [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-indexed-invocation.py)
+keep its inputs separate from the earlier unindexed descriptor and direct-GCC
+capture. They bind33 source/fixture identities, including the exact repair
+writer and copies of the successful repair's author source, generated project
+and native ALI (losslessly gzip-compressed to preserve its raw final blank line).
+The retained observation is run
+`20261018T085521-08d5afa2ae98`, `program-RibQE3`. No indexed temporary `.adc`,
+map, complete native argv or inherited environment was retained. The
+configuration line and invocation shape below are source-derived, not claimed
+as captured byte files. This reconciliation starts no native job or new capture.
+
+The indexed clause changes the GCC launch by **three arguments**:
+`-o main~1.o -gnateI1`, appended after the source filename. GPR's
+`Add_Object_File_Switches` supplies the explicit object pair when `Id.Index`
+is nonzero even with no configured Object_File_Switches
+(`gprbuild-compile.adb:2507–2543`). `Add_Multi_Unit_Switches` appends the index
+without the leading space of Ada's `'Img` (`2759–2789`); the final call ordering
+is `3527–3537`. Thus the selected native GCC class has13 arguments excluding
+its executable, compared with the historical10.
+
+The Ada specs also translate explicit `-o` into **`-gnatO main~1.o`** for
+gnat1 (`gcc-interface/lang-specs.h:35–52`, explicit object switch at49). In
+`%{o*:%w%*-gnatO}`, the matched
+switch suffix is empty; the spec emits `-gnatO`, then `give_switch(i,1)` forwards
+the separate object argument (`gcc.cc:7553–7580,7681–7724`). This pair is
+additional to gnat1's assembly output pair. Adding it and `-gnateI1` raises the
+gnat1 allowance from19 to22. The same ordinary option-decoding argument gives
+at most22 decoded options, each96 bytes. The two decoded arrays are separate
+2112-byte objects; reconstructed argv has45 pointer positions/360bytes,
+canonical argc is at most44, and Ada's43 unconstrained-String pointers plus
+bounds occupy at most704bytes. The previous `max(14,P+7)` bound on each argument
+still covers the new eight-character object name and index switch, with P
+covering every complete generated path. No aggregate-memory gate is added.
+
+`-gnatO` is an internal switch and is not stored; its following name is consumed
+by `Set_Output_Object_File_Name` (`switch-c.adb:1170–1177`,
+`back_end.adb:321–331`). That routine adds one ordinary eight-character String,
+bounded by24bytes including the established String descriptor allowance
+(`osint-c.adb:471–491`). The index switch **is** stored. The retained native
+ALI has seven A records, totaling83bytes including LF, with the same
+16-character maximum before LF as before. Its logical U/D source names remain
+`main%b` and `main.adb`; object and ALI stems are `main~1`. Main's initial
+Munit_Index record field remains0 (`lib-load.adb:387`); object naming uses the
+global selected index directly (`osint-c.adb:390–400`). Ordinary runtime units
+retain their original naming. This is a native Main descriptor, not the
+independent proof-producer invocation descriptor.
+
+GPR additionally emits this fixed naming-exception pragma:
+
+```ada
+pragma Source_File_Name_Project (main, Body_File_Name => "main.adb", Index =>  1);
+```
+
+The double space before1 comes from the template's space and `Source.Index'Img`
+(`gprbuild-compile.adb:834–943`, native `gnat.xml:155–156`). The
+[derived line](../evidence/unbounded-programs/retained-native-expansion-20261017/indexed-naming-pragma-derived.adc)
+is83bytes including LF, making the selected two-pattern-plus-index configuration
+327bytes instead of244. Its five words have53characters; under the earlier
+two-visit scanner allowance, its five words, one String and one direct integer
+literal plus the pragma and three argument-association nodes add at most18
+ordinary nodes/162dynamic slots. Two syntax-list headers conservatively cover
+its argument list and any configuration-list header; the existing configuration
+already has a list. There are no complex expressions or nested actual lists
+(`par-ch2.adb:350–423,569–710`). Name interning adds at most five entries and
+58characters for source words, plus two entries/16characters for `main%b` and
+`main.adb` constructed by `Get_Unit_Name`/`Get_Fname`
+(`uname.adb:349–410`, `par-prag.adb:623–640,784–815`). The String scanner adds
+at most two descriptors/16characters. The integer1 remains a direct Uint and
+does not append to Uint/digit tables.
+
+Unlike a pattern pragma, this explicit-unit pragma has no pattern String
+allocation. It appends **one SFN_Table record**, containing three four-byte
+fields, and sets one SFN_HTable binding (`fname-uf.adb:42–75,607–618`). The table
+starts at index0 with capacity10 and200% growth (`alloc.ads:121–122`), so its
+initial backing is120bytes. The hash has101 static pointer buckets/808bytes;
+the new binding adds one16-byte wrapper (two four-byte fields and one pointer,
+`libgnat/s-htable.adb:226–252,375–382`). These are separate individual objects.
+The two old naming-pattern charges remain in force. The physical config buffer,
+line table and source-location calculations must use327bytes and one extra LF
+when this descriptor is composed. Full-source identities bind these premises;
+the checker is not a parser or verified GPR evaluator.
+
+Index1 does not parse a skipped preceding unit: `Par` starts at Ucount1, so
+`Ucount < Multiple_Unit_Index` is false, and the admitted first/only Main ends
+at EOF (`par.adb:1677–1694,1798–1803`). The trailing-unit skip in
+`par-ch10.adb:680–725` is likewise absent. The naming pragma is processed during
+configuration parsing; its semantic handler only checks placement
+(`sem_prag.adb:25933–25980`). It adds no body or executable expression. Gigi's
+unit processing traverses Context_Items, Aux declarations, the unit, and later
+Pragmas_After/Actions, not Aux Config_Pragmas (`trans.cc:6020–6029,6068–6069`).
+Consequently the null-body RTL shape argument remains applicable. This does
+not declare the entire old prefix/capture input-equivalent: indexed config,
+argv, output-name and source-map metadata must be joined explicitly.
+
+There is a separate **source-buffer reuse change**. `Sinput.L.Load_File` scans
+for an existing name only when Multiple_Unit_Index=0
+(`sinput-l.adb:369–383`). `Load_Unit` calls `Load_Source_File` while the caller's
+index is still active, before setting the imported unit's own index
+(`lib-load.adb:738,782–787`). Therefore the old generic one-buffer-per-request-name
+premise cannot be carried over merely because the actual files are unchanged.
+For example, the startup `system.ads` load (`gnat1drv.adb:1050–1066`) can precede
+a semantic System load reached from indexed Main. Unit-table reuse still occurs
+before the physical read (`lib-load.adb:695–729`), but a complete general
+runtime-load multiplicity argument remains required.
+
+For the selected null Main family there is no semantic runtime load. The later
+`Ensure_System_Dependency` creates a unit-table dependency referring to the
+saved `System_Source_File_Index` and parses that buffer with index temporarily0
+(`lib-writ.adb:149–208`); it does not call Load_Source_File again. Its source-load
+delta is therefore zero. The observed repair ALI confirms only Main and System
+dependencies, but that sample does not prove the general-family result. Until
+the broader load multiplicity is reconciled, the old physical runtime-union
+bound is not current indexed evidence. General indexed Main and proof-producer
+source-loading remain separate open obligations.
+
+Reproduce this packet offline:
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-indexed-invocation.py \
+  --ada /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --gpr-root /tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263 \
+  --repair-tree /path/to/checkout-of-ce4d2fee363771ae5bd3c4fbe4e53e03dfddca7c \
+  --output /tmp/native-indexed-invocation.json
+```
+
+The old `reconcile-invocation.py` now refuses an indexed writer rather than
+regenerating its historical class as current. Existing `derive.py` arithmetic
+and `native-invocation-inputs.json` remain historical; the current delta is
+explicit and has not been silently substituted into unrelated earlier evidence.
+Whole capacity remains false. No compiler, prover, Lean run, full suite or
+fixed-prefix/RTL witness recapture was performed for this packet.
+
+Independent narrow review reproduced the33-identity checker against the frozen
+repair source and checked the GPR/GCC argument handling, output-name String,
+SFN record/hash layout and null System buffer reuse. It found no arithmetic
+defect and corrected the native Ada-spec line citation above. It did not
+independently reprove the earlier scanner/node allowances or general load
+multiplicity argument.
 
 ## Real-source composition checks
 

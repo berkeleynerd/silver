@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Reconcile selected native launch shapes; no tool is executed.
+"""Reconcile historical unindexed native launch shapes; no tool is executed.
 
 Source assertions preserve reviewed premises, not a verified GPR/GCC evaluator.
 The historical GPR launch environment was not retained. The output separates
 the source-derived class, retained actual observations and required enforcement.
+The indexed Main repair has a separate reconcile-indexed-invocation.py; this
+checker rejects that writer rather than regenerating an outdated descriptor.
 """
 import argparse
 import hashlib
@@ -60,6 +62,8 @@ with tarfile.open(args.gpr_archive) as archive:
 native_xml = record("retained/native-gnat.xml",(closure/"driver-snapshots/native-gnat.xml").read_bytes())
 project = record("retained/program.gpr",(closure/"driver-snapshots/program-Z0j19G/program.gpr").read_bytes())
 production = record("silver/src/silver.adb",(repo/"src/silver.adb").read_bytes())
+assert 'for Body (""Main"") use ""main.adb"" at 1;' not in production, (
+    'historical unindexed descriptor only; use reconcile-indexed-invocation.py')
 platforms = record("silver/scripts/platforms.py",(repo/"scripts/platforms.py").read_bytes())
 main_ali = record("retained/main.ali",(closure/"driver-snapshots/program-Z0j19G/obj/main.ali").read_bytes())
 first_compiler = re.search(r"package Compiler is(.*?)end Compiler;",native_xml,re.S).group(1)
