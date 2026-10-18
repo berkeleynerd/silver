@@ -2673,7 +2673,8 @@ array keys do not bound `F_array`, and emitted pretty labels do not bound
 The representation-map hit path still interns names, but the callers provide
 an allocation injection. The complete `Get_Array_Theory_Name` caller family
 is the two creator routines and seven accessors at
-`why-gen-arrays.adb:653–654,1078,2933–2985`; the String-literal-subtype recursion
+`why-gen-arrays.adb:653–654,1078,2933–2985`, plus the direct module argument
+in `New_Kind_Base_Type` (`why-inter.adb:1188`); the String-literal-subtype recursion
 at `:3000–3002` delegates without performing an extra intern. The accessor
 families issue one lookup, or two for conversion and wrapper pairs.
 
@@ -2681,6 +2682,7 @@ families issue one lookup, or two for conversion and wrapper pairs.
 | --- | --- |
 | Conversion-theory creation | Two lookups at `why-gen-arrays.adb:653–654` precede a fresh module at `:658–660`, even when the cache hit later returns at `:694–695`. |
 | Representation-theory creation | One lookup at `:1078` precedes its fresh module at `:1080–1081`, before the cache test at `:1085–1086`. |
+| Abstract/split array base type | The direct query at `why-inter.adb:1188` belongs to its fresh module at `:1185–1188`, nested inside the freshly allocated type/name pair. |
 | Array type symbols and declaration | Each lookup at `why-atree-modules.adb:3310,3328` belongs to a fresh identifier. The lookup at `why-gen-arrays.adb:1571` precedes an unconditional fresh type declaration at `:1577–1581`. |
 | Direct expression/accessor calls | Every lookup in `gnat2why-expr.adb:18591–18709,18850–18997,22176–22320`, `why-gen-expr.adb:1227,1387,1430`, and `why-gen-arrays.adb:3274,3296,3693,3715,3735` is the name/type argument of a fresh call. The two-name wrapper accessors consume at most two lookup credits per such call. |
 | Precomputed array operation names | `New_Array_Access` and `New_Array_Update` query at `why-gen-arrays.adb:3052,3117` and allocate their result calls on every returning branch. `Transform_Array_Logical_Op` queries at `gnat2why-expr.adb:18774` and allocates its operator call at `:18867–18873`. The Boolean-array case is outside current Main, but this charge covers it too. |
@@ -2713,7 +2715,7 @@ growing sets (`why-gen-binders.adb:1139,1300,1332`;
 `why-gen-decl.adb:131–134,223`).
 
 The separate `String_Sets.Set` identifier-attribute field has at most two
-members: temporary identifiers add `model_trace` and `introduced`
+members: temporary identifiers add `mlw:proxy_symbol` and `introduced`
 (`why-gen-names.adb:850–867`); Old and Loop_Entry helpers add at most one
 (`gnat2why-util.adb:1379–1417,1478–1505`). Identifier/binder copies preserve
 that field unchanged (`why-gen-names.adb:1157`; `why-gen-binders.adb:648`).
