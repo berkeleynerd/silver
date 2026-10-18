@@ -24,7 +24,7 @@ expected = {entry["path"]: entry for entry in manifest["files"]}
 files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_eval.adb", "tbuild.adb", "namet.adb", "lib.adb", "validsw.ads", "stringt.adb",
          "cstand.adb", "ttypes.ads", "contracts.adb", "uname.adb",
-         "atree.adb", "types.ads", "uintp.ads", "uintp.adb", "gen_il-gen.adb",
+         "atree.adb", "types.ads", "uintp.ads", "uintp.adb", "gen_il-gen.adb", "sinfo-cn.adb",
          "exp_imgv.adb", "exp_put_image.adb", "exp_ch2.adb", "exp_ch3.adb",
          "exp_ch8.adb", "sem_ch4.adb", "sem_dim.adb", "rtsfind.ads",
          "elists.adb", "libgnat/g-htable.ads", "libgnat/s-htable.adb",
@@ -888,6 +888,122 @@ def source_string_literal_suffix(literals, dynamic_assignment_literals,
                 new_String_values=0, whole_construct_closed=False)
 
 
+def source_calls_and_leaf_bookkeeping(calls, word_tokens, literals,
+                                     parser_flattenings):
+    """Core syntax only; all source argument constructors are separate rows."""
+    assert min(calls, word_tokens, literals, parser_flattenings) >= 0
+    return dict(ordinary=word_tokens+2*calls, lists=word_tokens+3*calls,
+                growth=3*calls+literals+2*parser_flattenings,
+                entities_and_names=0, name_characters=0, uint=0)
+
+
+def main_native_query_envelope(largest_scalar_tree, string_bound_descriptors):
+    """Source descriptor join, including direct-literal assignment subtypes.
+
+    Descriptors cover every source String expression and declared object;
+    aliases preserve their initializer descriptor, assignments preserve the
+    object's subtype. The extra two visits cover a direct assignment literal's
+    generated upper bound low+(length-1), even before it is folded.
+    """
+    assert largest_scalar_tree >= 1
+    assert all(min(value["low_D"], value["high_D"]) >= 1
+               for value in string_bound_descriptors)
+    source_h = max([2]+[value[key] for value in string_bound_descriptors
+                           for key in ("low_D", "high_D")])
+    h = source_h+2
+    scalar_a = largest_scalar_tree+1
+    roots = dict(source_scalar=scalar_a, String_index_bounds=h,
+                 String_Length=2*h+1, converted_String_Length=2*h+2,
+                 optimized_String_Length=3*h+7, String_same_value=17,
+                 Image_local=17)
+    a = max(roots.values())
+    assert h >= source_h+2 and a >= max(17, scalar_a, 3*h+7)
+    return dict(source_bound_H=source_h, effective_bound_H=h,
+                root_envelopes=roots, A=a,
+                descriptors_are_source_input=True,
+                whole_native_frontend_closed=False)
+
+
+def main_native_construct_vector(*, parser_nodes, parser_slots, parser_lists,
+        parser_entities, source_ops, loop_ops, scalar_names, loop_names,
+        raw_loop_nodes, largest_scalar_tree, loops, Integer_declarations,
+        Integer_assignments, Integer_constraints, constrained_name_chars,
+        String_declarations, String_assignments, String_name_chars,
+        nonconcat_literals, dynamic_assignment_literals, comparisons,
+        short_circuits, negations, ifs, elsifs, images, output_calls,
+        source_calls, word_tokens, source_literals, parser_flattenings,
+        concat_lengths, String_bound_descriptors, incoming_scope_depth):
+    """One executable sum of Main constructor rows, before process residuals.
+
+    Parser/scanner allocation inputs come from the existing table/value
+    components. Parser identities already include defining-name promotions;
+    generated entities below are fresh identities and must be added to nodes.
+    """
+    assert min(parser_nodes, parser_slots, parser_lists, parser_entities) >= 0
+    query = main_native_query_envelope(largest_scalar_tree,
+                                       String_bound_descriptors)
+    analysis_graph = query["A"]
+    rows = {}
+    def add(name, value, aliases=None):
+        aliases = aliases or {}
+        rows[name] = {aliases.get(key, key): val for key, val in value.items()}
+    aliases = {"ordinary_nodes": "ordinary", "syntax_lists": "lists",
+               "entities": "entities_and_names", "Uint_appends": "uint"}
+    def standard(value):
+        return {aliases.get(key, key): value[key] for key in
+                ("ordinary_nodes", "syntax_lists", "growth", "entities",
+                 "name_characters", "Uint_appends") if key in value}
+    scalar = source_scalar_arithmetic(source_ops, loop_ops, scalar_names,
+                                     loop_names, raw_loop_nodes,
+                                     largest_scalar_tree)
+    add("original_scalar", standard(scalar))
+    add("for_skeleton", standard(source_for_loop_skeleton(loops,
+                                                         largest_scalar_tree)))
+    add("Integer_stores", standard(source_integer_stores(Integer_declarations,
+        Integer_assignments, Integer_constraints, constrained_name_chars,
+        largest_scalar_tree)))
+    add("String_stores", source_string_stores(String_declarations,
+        String_assignments, String_name_chars, analysis_graph)["total"])
+    add("standalone_String_literals", source_string_literal_suffix(nonconcat_literals,
+        dynamic_assignment_literals, analysis_graph)["total"])
+    predicate = source_predicates_and_control(comparisons, short_circuits,
+        negations, ifs, elsifs, analysis_graph, incoming_scope_depth)
+    pred_row = standard(predicate)
+    pred_row["uint"] = predicate["query_Uint_appends"]+predicate["scope_Uint_appends"]
+    add("predicates_and_control", pred_row)
+    add("Image", native_integer_image(images)["total"])
+    output = output_transient_wrapper(output_calls, incoming_scope_depth)["total"]
+    add("output_wrappers", output, {"entities": "entities_and_names"})
+    add("source_calls_and_leaves", source_calls_and_leaf_bookkeeping(
+        source_calls, word_tokens, source_literals, parser_flattenings))
+    add("concat_emission", combined_native_uniform_vector(
+        len(concat_lengths), analysis_graph)["total"])
+    add("concat_folding_literals", source_concat_folding(concat_lengths)["total"])
+    keys = ("ordinary", "growth", "lists", "entities_and_names",
+            "name_characters", "uint", "string_descriptors", "string_characters",
+            "pending_elist_headers", "pending_elist_elements", "hash_wrappers",
+            "positive_xref_increments", "Name_Qualify_Units_appends")
+    total = {key: sum(row.get(key, 0) for row in rows.values()) for key in keys}
+    generated = total["entities_and_names"]
+    # Output wrappers intern two fixed names on their first possible use.
+    extra_fixed_names = 2 if output_calls else 0
+    total["generated_name_entries"] = generated+extra_fixed_names
+    total["node_identities"] = parser_nodes+total["ordinary"]+generated
+    total["entity_identities"] = parser_entities+generated
+    total["dynamic_slots"] = (parser_slots+9*(total["ordinary"]+total["growth"])
+                              +61*generated)
+    total["syntax_list_headers"] = parser_lists+total["lists"]
+    # This common digit bound deliberately covers multiplicative source scalar
+    # queries as well as the smaller additive String-bound and scope values.
+    k = max(3, (130*analysis_graph+2+14)//15,
+            uint_digits(incoming_scope_depth+2*short_circuits+output_calls+1))
+    total["retained_digit_words"] = k*total["uint"]
+    return dict(rows=rows, total=total, source_query_envelope=query,
+                common_Uint_digit_bound=k,
+                scope="Main source/generated constructor core, before fixed and common-process residuals",
+                whole_native_frontend_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -933,7 +1049,45 @@ def combined_native_uniform_vector(c, analysis_graph):
                 dynamic_slots=slots)
 
 
+main_example_counts = dict(
+    parser_nodes=7, parser_slots=124, parser_lists=4, parser_entities=1,
+    source_ops=0, loop_ops=0, scalar_names=0, loop_names=0, raw_loop_nodes=0,
+    largest_scalar_tree=1, loops=0, Integer_declarations=0, Integer_assignments=0,
+    Integer_constraints=0, constrained_name_chars=0, String_declarations=0,
+    String_assignments=0, String_name_chars=0, nonconcat_literals=0,
+    dynamic_assignment_literals=0, comparisons=0, short_circuits=0,
+    negations=0, ifs=0, elsifs=0, images=0, output_calls=0, source_calls=0,
+    word_tokens=0, source_literals=0, parser_flattenings=0, concat_lengths=[],
+    String_bound_descriptors=[], incoming_scope_depth=1)
+mixed_example_counts = dict(main_example_counts, parser_nodes=100,
+    parser_slots=1800, parser_lists=25, parser_entities=8,
+    source_ops=4, loop_ops=1, scalar_names=8, loop_names=2, raw_loop_nodes=5,
+    largest_scalar_tree=5, loops=1, Integer_declarations=2, Integer_assignments=1,
+    Integer_constraints=1, constrained_name_chars=4, String_declarations=3,
+    String_assignments=2, String_name_chars=12, nonconcat_literals=3,
+    dynamic_assignment_literals=2, comparisons=3, short_circuits=1,
+    negations=1, ifs=1, elsifs=1, images=1, output_calls=2, source_calls=4,
+    word_tokens=50, source_literals=5, concat_lengths=[8, 12],
+    String_bound_descriptors=[native_string_bound_descriptor("concat", (
+        native_string_bound_descriptor("input"),
+        native_string_bound_descriptor("image")))])
+
 result = {
+    "composed_Main_native_constructor_core": {
+        "examples_not_thresholds": [main_native_construct_vector(**main_example_counts),
+                                    main_native_construct_vector(**mixed_example_counts)],
+        "parser_input": "retained-table-capacity Main parser transfer, including scanner nodes, source defining-entity promotions and raw literal-chain flattening",
+        "remaining_inputs": ["fixed native capture and its variable input-name/default-literal/runtime-first-lookup corrections", "source scanner Uint/String/name pools", "deferred name qualification and auxiliary common tables", "native diagnostics/ALI and other late consumers", "target table backing, caller arithmetic, recursion/workspace and backend/object/linker"],
+        "whole_native_frontend_closed": False,
+    },
+    "source_query_join_for_Main_constructor_core": {
+        "formula": "H_source=max(2, all source String low/high D descriptors); H=H_source+2; A=max(17, largest_scalar_tree+1, 3H+7)",
+        "dynamic_literal_reason": "direct literal assignment creates low+(length-1); Length and optimizer queries must include this transient subtype even though assignments do not change the target subtype",
+        "examples_not_thresholds": [main_native_query_envelope(1, []),
+            main_native_query_envelope(100, [native_string_bound_descriptor("input")]),
+            main_native_query_envelope(5, mixed_example_counts["String_bound_descriptors"])],
+        "whole_native_frontend_closed": False,
+    },
     "Main_source_String_declarations_and_assignments": {
         "examples_not_thresholds": [source_string_stores(0, 0, 0, 1),
                                     source_string_stores(3, 5, 12, 17)],
@@ -1643,7 +1797,7 @@ result = {
             "positive_Xrefs_increments": "2*c",
         },
         "source_sensitive_composition": "sum per-invocation vectors at n_i and A_i=3*H_i+7 from source bound descriptors for these stages; uniform maximum A is optional",
-        "residual_addends": ["separately closed source-concat folding/literal suffix and output transient wrapper", "initial Image/input and other source operand constructors", "input wrapper and Main secondary-stack cleanup", "remaining source/generated first freezes and deferred name qualification", "numeric magnitudes and query roots in remaining stages", "runtime first lookup/spec processing, fixed runtime and backend costs"],
+        "residual_addends": ["other source construct rows joined by composed_Main_native_constructor_core", "source-reduced fixed input/Main cleanup capture and variable corrections", "deferred name qualification and native common metadata", "source scanner pools and all physical representations/workspace", "runtime first lookup/spec processing, fixed runtime and backend costs"],
         "examples_not_thresholds": [combined_native_emitter_vector(2, 1),
                                     combined_native_emitter_vector(64, 127),
                                     combined_native_uniform_vector(0, 1),

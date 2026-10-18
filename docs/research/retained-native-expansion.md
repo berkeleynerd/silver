@@ -1,15 +1,18 @@
 # Native Main expansion allocation components
 
-2026-10-17, #119. This component closes the **direct native concatenation
-emitter's** control-flow and primitive allocation accounting. It does **not**
-close the construct's semantic and generated-action callees, and supplies no
-whole-program capacity predicate or new admission limit. Counting generated
+2026-10-17, continued 2026-10-18, #119. This component derives and composes
+native Main constructor allocations, including concatenation's generated-action
+analysis, scalar operations, declarations and assignments, loops, predicates,
+Image and output wrappers. It supplies a source-derived common query envelope
+and an executable constructor-vector sum. Common process metadata, physical
+representations and later consumers remain separate obligations; this is **not**
+a whole-program capacity predicate or a new admission limit. Counting generated
 syntax alone misses allocations made while GNAT analyzes that syntax.
 
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records eighty-nine inspected files hash-checked against the complete source
+records ninety inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -4041,6 +4044,113 @@ enlarged to contain J_l; precise source counters avoid that unnecessary
 overcount. Source literal parser costs and operator-symbol normalization are
 separate. `source_string_literal_suffix` records this transfer.
 
+## Source call and leaf bookkeeping
+
+Let C count all source library calls, W all source word tokens, S all original
+source String literals and P the parser's raw literal-chain flattenings. The
+source argument constructors and the fixed first-input scaffold are separate.
+The following conservative residual row deliberately duplicates scalar variable
+markers already covered by the scalar-name row:
+
+```text
+ordinary nodes <= W+2C
+syntax lists   <= W+3C
+growing events <= 3C+S+2P.
+```
+
+Each eligible source variable occurrence can create one reference marker and
+its immediate Insert_Action list (`sem_ch8.adb:7107–7130,7781–7805`,
+`sem_res.adb:4247–4276`, `sem_elab.adb:3824–3860`). Calls defer their simple
+variable actuals to Resolve_Actuals, so those sites are alternatives.
+Needs_Variable_Reference_Marker excludes preanalysis, generated references,
+constants and loop indexes (`sem_util.adb:23907–24033`). W conservatively
+contains all eligible source occurrences. Scalar loop-bound replay and its
+copies remain charged to the scalar row; no copied String constructor is
+analyzed afresh. The source analysis and resolution guards leave already
+analyzed children alone.
+
+Each original library call contributes at most one call marker and its
+Insert_Action list (`sem_res.adb:7341`, `sem_elab.adb:3563–3776`). The one
+source function that requires unconstrained-result relocation is the first
+First_Or_Default call; its later marker and capture belong to the fixed
+scaffold. Native call expansion creates two Post_Call lists, one in
+Expand_Call_Helper and one in Expand_Actuals, even when both are empty
+(`exp_ch6.adb:4574,5227,2678`). The five selected interfaces have no precondition;
+their postconditions belong to the callee. All actuals are supplied, so there
+is no default-expression copy. The supplied String actuals are ordinary
+nonpacked Character arrays, in mode IN, with the same Standard String
+implementation base; the parameter-copy, controlled, atomic, volatile,
+dispatching, foreign convention, task/protected and derived-subprogram
+conversion branches do not apply. The earlier runtime-call/extra-formal
+argument supplies the same no-extra-actual conclusion for these ordinary
+source interfaces. No source callee body is inlined with the selected options.
+Source child construction and output's transient wrapper have their own rows.
+
+The second node per C allows the parameterless-function relocation. Its
+Change_Node leaves Parameter_Associations Empty rather than constructing a
+list (`sem_res.adb:1462–1480`). Three growth events per C cover that change,
+positional indexed-form to function-call conversion (`sem_ch4.adb:2754–2756`)
+and selected-to-expanded-name conversion (`sem_ch8.adb:7659`). These forms
+need not all occur for one call. The parser already owns argument lists and
+named-association nodes. An operator-looking String literal is changed to an
+ordinary String literal in admitted expression positions
+(`sem_ch6.adb:1555–1591`, `sem_res.adb:1483–1487`); S+2P covers original and
+parser-flattening-created literal nodes. The selected-to-expanded and
+operator-to-literal helpers use Mutate_Nkind (`sinfo-cn.adb:140–156`), so
+charging a growth event for each is conservative. A literal already normalized
+by one route does not repeat that kind change on the other. These bookkeeping steps
+create no fresh entity, generated name or Uint; overload, cross-reference,
+elaboration and diagnostic records remain common-table terms.
+
+## Source-derived common query envelope
+
+The String descriptor recurrence above supplies a descriptor for every source
+String expression and declared String object in source order. Literal, Image
+and input seeds are fixed; a source `&` uses the binary recurrence, which
+dominates native flattening; an alias reuses its initializer's descriptor.
+Later assignments preserve the target object's subtype. Let H_source be the
+maximum low or high D descriptor, with a floor of two. This maximum includes
+each initializer and each intermediate expression, not just final outputs.
+
+Direct literal assignment creates a transient subtype that is not the target's
+declared subtype. Its lower bound copies the target low; its upper bound is
+either that low or `low+(length-1)` (`sem_res.adb:13249–13335`). The literal
+`length-1` is already one numeric leaf, so the latter adds two D visits.
+Consequently use
+
+```text
+H = H_source+2
+A = max(17, largest_scalar_tree+1, 3H+7).
+```
+
+The extra two in H pay this transient subtype before folding. Reusing only
+H_source in the global Length-optimizer bound would leave that case unstated.
+It creates no new source object descriptor and cannot grow through a sequence
+of assignments. The source literal default and static-literal declaration
+ranges have leaf bounds; the uncached referenced-input subtype has the input
+seed. Aliases and normalized generated bound captures preserve the previously
+proved descriptor shapes.
+
+For all String stores, comparisons and concat helpers, an index endpoint has
+D<=H, a Length has D<=2H+1, its possible regular conversion has D<=2H+2,
+and the two Length-optimizer shapes have D<=3H+7. The earlier query-root table
+and its one-layer optimizer argument apply to those same check/compare helpers
+outside concat. The dynamic literal high adds only one arithmetic node above
+a normalized low; its same-value weight is at most three, below the five used
+for the existing endpoint envelope. Thus the existing S<=17 and F<=S remain
+valid. Source scalar expressions, including Image arguments, and their loop
+range copies use largest_scalar_tree+1 as previously derived; the fixed Image
+constructor uses A=17. Source Length occurs in predicates, not in the grammar
+for Integer declaration or assignment expressions. No scalar-source edge
+silently follows a newly constructed String graph.
+
+This A covers the constructor queries in the next sum, including the dynamic
+literal continuation. It does not price scanner construction of numerals,
+fixed runtime semantics, backend annotation, diagnostics or other late
+consumers. `main_native_query_envelope` records and checks the arithmetic join;
+building the source descriptors in the recognizer and proving that computation
+remains dependent implementation work.
+
 ## Fixed input and Main secondary-stack scaffold
 
 The initial input construction and Main's secondary-stack cleanup reduce to
@@ -4529,17 +4639,12 @@ representations. For these stages the numeric-magnitude closure above supplies
 the Uint row by k to bound retained digit words.
 
 **This is not the whole native construct or a usable admission predicate.**
-Its explicit residual addends are:
-
-- The separately closed source-concat folding/literal suffix above, plus
-  initial Image/input and other source operand construction still to close.
-- First runtime lookups/spec processing; their local call, final-result and
-  assignment-slice processing are now closed under the fixed-source premise.
-- The separately closed ordinary output wrapper; the initial input wrapper
-  and Main's secondary-stack cleanup, remaining first entity freezes, and the
-  scope/name/enqueue inputs to the separate local name-qualification transfer.
-- Numeric magnitudes and query roots in the remaining stages, fixed runtime
-  processing and backend costs.
+The next sum adds the separately derived source-concat folding/literal suffix,
+Image, source scalar/statement/store/call rows and output wrapper. First input
+and Main secondary-stack cleanup use the source-reduced fixed scaffold above;
+first runtime lookups/spec processing and all common process/representation
+terms must be joined separately. The exact residual list at the end supersedes
+earlier intermediate descriptions of those now-derived source constructors.
 
 The previously stated local helper premises remain binding. Normalized b/t
 are phase summaries; their raw first-pass/capture costs are now separately
@@ -4548,6 +4653,80 @@ included rather than silently omitted.
 slot arithmetic, and emits the residual list with `whole_construct_closed`
 False. No compiler or expensive validation run is needed for this arithmetic
 reconciliation.
+
+## Composed Main native constructor vector
+
+`main_native_construct_vector` now sums these rows in one place:
+
+| Addend | Inputs and scope |
+| --- | --- |
+| Parser/scanner node core | Existing parser transfer's nodes, slots, lists and entities, including scanner nodes, source defining-name promotions and raw literal-chain flattening |
+| Original scalar analysis | Source operators/names, the two additional loop-bound passes and raw loop-bound copies |
+| For skeleton | Each source loop once, independent of runtime trip count |
+| Integer stores | All Integer declarations, constraints and assignments |
+| String stores | Later String declarations and all String assignments; first input is fixed scaffold |
+| Standalone String literals | Literal resolutions outside concat plus direct literal-assignment dynamic continuation |
+| Predicates and control | Every comparison, short circuit, Boolean not, if and elsif |
+| Image | Each source Image once; scalar argument already in scalar analysis |
+| Output wrappers | Each output call once; supplied value constructors counted separately |
+| Source call/leaf bookkeeping | The preceding marker, call-list and kind-change row |
+| Native concat emission | Uniform combined envelope, with c the source `&` count |
+| Concat folding/literals | Source concat length summaries and semantic literal suffix |
+
+Each branch counts syntactically even if unreachable. Original source argument
+or initializer construction is charged once; local generated-action transfers
+include their first analysis and freezes. Copies of resolved children do not
+multiply source constructors. Known overlaps, including fixed-witness Main
+work if retained without subtraction and duplicate marker/static-literal
+allowances, are conservative positive addends.
+
+The parser inputs are the existing source formulas in
+[retained-table-capacity.md](retained-table-capacity.md), not measured values
+from an example. Scanner name, Uint and String pools are additional
+representations and are **not** included merely because scanner nodes are
+present. The function's two recorded parameter examples check the sum
+arithmetic, not parser correctness or program membership.
+
+Let O, G, E and L be the sums of generated ordinary nodes, growing events,
+fresh entity identities and syntax-list headers in the rows after the parser.
+The resulting accounting is
+
+```text
+node identities = parser_nodes + O + E
+entity identities = parser_entities + E
+dynamic slots = parser_slots + 9*(O+G) + 61*E
+syntax-list headers = parser_lists + L.
+```
+
+Parser entity identities are already part of parser node identities. Fresh
+generated entities need both charges; promotions of parser defining names do
+not create another identity. Generated Name entries are E plus the two fixed
+output-wrapper names if any output call is present. The character sum already
+includes those two names and all individual constructor terminators; deferred
+full qualification and backend names remain separate.
+
+The sum also retains Uint appends, folded String descriptors/characters,
+pending-copy Elist headers/elements, copy-map wrappers, positive xref increments
+and output qualification-queue appends as distinct columns. No byte total is
+inferred from node or slot counts. With A from the common query envelope, a
+deliberately coarse common Uint digit-word bound is
+
+```text
+k = max(3, ceil((130A+2)/15),
+        digits_32768(incoming_depth+2*short_circuits+output_calls+1))
+retained digit words = k * constructor Uint appends.
+```
+
+This covers the previous scalar multiplicative-query bound, smaller additive
+String queries, fixed Image width/size arithmetic, three-word folded-literal
+values and wrapper scope depths. The incoming-depth parameter must bound the
+actual enclosing Main/source scope depth; separate scope-stack backing and
+temporary arithmetic vectors still need their representation joins. More
+precise per-row digit bounds remain valid and can reduce overcount.
+
+`whole_native_frontend_closed` stays False. This executable sum closes the
+constructor accounting join; it does not silently include the common-table,
+fixed-process, backend or physical-workspace terms below.
 
 ## Required transitive closure
 
@@ -4574,7 +4753,8 @@ declaration for an unconstrained function result (`12984–13121`). GNATprove
 explicitly uses a different path. This general branch is excluded for the
 normalized Main operands above: the input function is confined to its first
 declaration, and subsequent aliases are ordinary names. The input construction
-itself remains an additional component.
+itself uses the separate fixed-scaffold reduction, with its variable
+literal/name and first-lookup corrections.
 
 General `New_Copy_Tree` can clone associated itypes and entities in expression
 actions, then copy their semantic fields, array indices, scalar ranges, entity
@@ -4593,36 +4773,40 @@ wrapper/scope handling and the diagnostic error path remain separate.
 
 ## Exact remaining obligations
 
-The following missing addends prevent calling the native construct closed:
+The constructor sum supplies a common A and all source construct rows listed
+above. The native frontend/process is still incomplete at these explicit joins:
 
-- Supply incoming source value bounds and initial Image/input and other source
-  operand construction. Semantic `Eval_Concatenation`/`Fold_Str` and the concat
-  literal suffix now have the separate source-sensitive addend above. It does
-  not close outer name/overload resolution, standalone literal resolution into
-  a dynamic target subtype, or the complete source-value analysis.
-- Close remaining first freezes and instantiate the source-reduced fixed input
-  and Main secondary-stack capture, including its variable corrections. The
-  ordinary output wrapper and its later scope walk, local runtime
-  call processing, the result/assignment slice lookup bridge and first
-  result-object freeze are closed above. The ordinary macro renaming helper
-  remains unreachable for Main's String objects.
-- Close up to two runtime-availability and two runtime-entity lookups, final
-  remaining helper query roots and conditional error path.
-  Dependency sharing requires a cache invariant. Collected scalar declaration
-  skeletons, direct initial scalar passes, first bound captures and the final
-  enabled result slice and runtime-call bookkeeping are in the combined
-  vector; whole-scope work is not.
-- Bound each remaining generated semantic-helper invocation. The direct native
-  Main emitter multiplicity is now source-bounded; runtime library processing
-  and additional generated-helper work remain separate.
-- Cover caller arithmetic: `List_Length`, `NN`, and the final `J := J+1`
-  increment must fit `Nat`, requiring `n+1` to fit. Seven local arrays have
-  bounds `1..n` or `0..n` (`exp_ch4.adb:2598–2621`); lengths and representation
-  byte products need checks. Lower-bound recursion has depth at most `n`;
-  physical stack exhaustion is separate.
-- Add backend/object/linker and fixed-dependency costs. There is no direct
-  Stringt write in this emitter or the closed primitive subset; that does not
-  establish zero String demand for its open callees.
+- **Fixed scaffold and dependencies:** add the completed fixed native capture
+  from integration, retaining its witness Main work if no subtraction is
+  proved. Apply the source-derived input-name correction, variable default
+  literal accounting and first-runtime-lookup Elist/implicit-with corrections.
+  Source reduction and first-load/cache invariants, not a sample's observed
+  unit count, must justify any fixed dependency bound.
+- **Native common metadata:** instantiate deferred full-name qualification
+  and its scope paths/enqueues; unit-scope save Elists; overload tables/maps;
+  xrefs; elaboration scenario/target/DFS structures and invocation/ALI tables;
+  native warning attempts/history and text. Native expansion enables
+  invocation-graph construction, so the light frontend's disabled-graph result
+  cannot transfer. Warning options likewise require the selected native
+  configuration, not GNATprove's mask. Scope/check/expander stacks and common
+  auxiliary containers need their own counts even where constructors are zero.
+- **Representations and late consumers:** join source scanner names/Uint/String
+  pools; physical backing capacities, growth peaks and byte products for all
+  node/slot/list/entity/name/numeric/common tables; temporary numeric vectors,
+  serialization (including ALI), and relevant fixed buffers. The backend's
+  callbacks into Ada Uint/Repinfo allocation are additional to this
+  before-gigi constructor sum, even if the AST identity count stays unchanged.
+- **Caller arithmetic and recursion:** require all table indices and loops to
+  fit their actual scalar types. In particular concat's `List_Length`, `NN`
+  and terminal `J := J+1` require n+1 to fit Nat; its seven local arrays have
+  `1..n` or `0..n` bounds (`exp_ch4.adb:2598–2621`). Bound their byte products,
+  lower-bound recursion depth (at most n), semantic/copy/deferred-name stacks
+  and native expander stack. Distinguish these physical workspace requirements
+  from fixed representation indices.
+- **Backend and process composition:** close gigi/GCC/object/linker terms and
+  phase lifetimes, then compose the independent GNATprove producer. None is
+  implied by the native constructor frontier. Every proposed source capacity
+  check must then have recognizer/proof correspondence and universal coverage.
 
 Current source/operator/String limits remain unchanged. This component does
 not complete #119 or unlock dependent admission changes.

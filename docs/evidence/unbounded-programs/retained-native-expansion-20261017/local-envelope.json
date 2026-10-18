@@ -1,4 +1,362 @@
 {
+  "composed_Main_native_constructor_core": {
+    "examples_not_thresholds": [
+      {
+        "rows": {
+          "original_scalar": {
+            "ordinary": 0,
+            "lists": 0,
+            "growth": 0,
+            "entities_and_names": 0,
+            "uint": 0
+          },
+          "for_skeleton": {
+            "ordinary": 0,
+            "lists": 0,
+            "growth": 0,
+            "entities_and_names": 0,
+            "name_characters": 0,
+            "uint": 0
+          },
+          "Integer_stores": {
+            "ordinary": 0,
+            "lists": 0,
+            "growth": 0,
+            "entities_and_names": 0,
+            "name_characters": 0,
+            "uint": 0
+          },
+          "String_stores": {
+            "ordinary": 0,
+            "growth": 0,
+            "lists": 0,
+            "entities_and_names": 0,
+            "uint": 0,
+            "name_characters": 0,
+            "dynamic_slots": 0
+          },
+          "standalone_String_literals": {
+            "ordinary": 0,
+            "growth": 0,
+            "lists": 0,
+            "entities_and_names": 0,
+            "name_characters": 0,
+            "uint": 0,
+            "dynamic_slots": 0
+          },
+          "predicates_and_control": {
+            "ordinary": 0,
+            "lists": 0,
+            "growth": 0,
+            "entities_and_names": 0,
+            "name_characters": 0,
+            "uint": 0
+          },
+          "Image": {
+            "elists": 0,
+            "entities_and_names": 0,
+            "growth": 0,
+            "lists": 0,
+            "name_characters": 0,
+            "ordinary": 0,
+            "positive_xref_increments": 0,
+            "uint": 0
+          },
+          "output_wrappers": {
+            "ordinary": 0,
+            "growth": 0,
+            "entities_and_names": 0,
+            "name_entries": 0,
+            "name_characters": 0,
+            "lists": 0,
+            "uint": 0,
+            "retained_digit_words": 0,
+            "Name_Qualify_Units_appends": 0,
+            "dynamic_slots": 0
+          },
+          "source_calls_and_leaves": {
+            "ordinary": 0,
+            "lists": 0,
+            "growth": 0,
+            "entities_and_names": 0,
+            "name_characters": 0,
+            "uint": 0
+          },
+          "concat_emission": {
+            "entities_and_names": 0,
+            "growth": 0,
+            "hash_wrappers": 0,
+            "lists": 0,
+            "name_characters": 0,
+            "ordinary": 0,
+            "pending_elist_elements": 0,
+            "pending_elist_headers": 0,
+            "positive_xref_increments": 0,
+            "uint": 0
+          },
+          "concat_folding_literals": {
+            "ordinary": 0,
+            "growth": 0,
+            "entities_and_names": 0,
+            "name_characters": 0,
+            "uint": 0,
+            "string_descriptors": 0,
+            "string_characters": 0,
+            "lists": 0
+          }
+        },
+        "total": {
+          "ordinary": 0,
+          "growth": 0,
+          "lists": 0,
+          "entities_and_names": 0,
+          "name_characters": 0,
+          "uint": 0,
+          "string_descriptors": 0,
+          "string_characters": 0,
+          "pending_elist_headers": 0,
+          "pending_elist_elements": 0,
+          "hash_wrappers": 0,
+          "positive_xref_increments": 0,
+          "Name_Qualify_Units_appends": 0,
+          "generated_name_entries": 0,
+          "node_identities": 7,
+          "entity_identities": 1,
+          "dynamic_slots": 124,
+          "syntax_list_headers": 4,
+          "retained_digit_words": 0
+        },
+        "source_query_envelope": {
+          "source_bound_H": 2,
+          "effective_bound_H": 4,
+          "root_envelopes": {
+            "source_scalar": 2,
+            "String_index_bounds": 4,
+            "String_Length": 9,
+            "converted_String_Length": 10,
+            "optimized_String_Length": 19,
+            "String_same_value": 17,
+            "Image_local": 17
+          },
+          "A": 19,
+          "descriptors_are_source_input": true,
+          "whole_native_frontend_closed": false
+        },
+        "common_Uint_digit_bound": 165,
+        "scope": "Main source/generated constructor core, before fixed and common-process residuals",
+        "whole_native_frontend_closed": false
+      },
+      {
+        "rows": {
+          "original_scalar": {
+            "ordinary": 70,
+            "lists": 12,
+            "growth": 24,
+            "entities_and_names": 0,
+            "uint": 450
+          },
+          "for_skeleton": {
+            "ordinary": 770,
+            "lists": 4,
+            "growth": 3,
+            "entities_and_names": 3,
+            "name_characters": 39,
+            "uint": 3335
+          },
+          "Integer_stores": {
+            "ordinary": 4722,
+            "lists": 13,
+            "growth": 50,
+            "entities_and_names": 4,
+            "name_characters": 46,
+            "uint": 20890
+          },
+          "String_stores": {
+            "ordinary": 182818,
+            "growth": 258,
+            "lists": 69,
+            "entities_and_names": 16,
+            "uint": 784375,
+            "name_characters": 226,
+            "dynamic_slots": 1648660
+          },
+          "standalone_String_literals": {
+            "ordinary": 84,
+            "growth": 8,
+            "lists": 12,
+            "entities_and_names": 9,
+            "name_characters": 117,
+            "uint": 990,
+            "dynamic_slots": 1377
+          },
+          "predicates_and_control": {
+            "ordinary": 104737,
+            "lists": 15,
+            "growth": 125,
+            "entities_and_names": 4,
+            "name_characters": 52,
+            "uint": 447944
+          },
+          "Image": {
+            "elists": 0,
+            "entities_and_names": 8,
+            "growth": 32,
+            "lists": 16,
+            "name_characters": 111,
+            "ordinary": 2528,
+            "positive_xref_increments": 3,
+            "uint": 10667
+          },
+          "output_wrappers": {
+            "ordinary": 10,
+            "growth": 2,
+            "entities_and_names": 2,
+            "name_entries": 4,
+            "name_characters": 70,
+            "lists": 4,
+            "uint": 2,
+            "retained_digit_words": 2,
+            "Name_Qualify_Units_appends": 2,
+            "dynamic_slots": 230
+          },
+          "source_calls_and_leaves": {
+            "ordinary": 58,
+            "lists": 62,
+            "growth": 17,
+            "entities_and_names": 0,
+            "name_characters": 0,
+            "uint": 0
+          },
+          "concat_emission": {
+            "entities_and_names": 176,
+            "growth": 754,
+            "hash_wrappers": 180,
+            "lists": 494,
+            "name_characters": 2314,
+            "ordinary": 373964,
+            "pending_elist_elements": 120,
+            "pending_elist_headers": 62,
+            "positive_xref_increments": 4,
+            "uint": 1586802
+          },
+          "concat_folding_literals": {
+            "ordinary": 4,
+            "growth": 2,
+            "entities_and_names": 10,
+            "name_characters": 130,
+            "uint": 44,
+            "string_descriptors": 2,
+            "string_characters": 20,
+            "lists": 0
+          }
+        },
+        "total": {
+          "ordinary": 669765,
+          "growth": 1275,
+          "lists": 701,
+          "entities_and_names": 232,
+          "name_characters": 3105,
+          "uint": 2855499,
+          "string_descriptors": 2,
+          "string_characters": 20,
+          "pending_elist_headers": 62,
+          "pending_elist_elements": 120,
+          "hash_wrappers": 180,
+          "positive_xref_increments": 7,
+          "Name_Qualify_Units_appends": 2,
+          "generated_name_entries": 234,
+          "node_identities": 670097,
+          "entity_identities": 240,
+          "dynamic_slots": 6055312,
+          "syntax_list_headers": 726,
+          "retained_digit_words": 1956016815
+        },
+        "source_query_envelope": {
+          "source_bound_H": 22,
+          "effective_bound_H": 24,
+          "root_envelopes": {
+            "source_scalar": 6,
+            "String_index_bounds": 24,
+            "String_Length": 49,
+            "converted_String_Length": 50,
+            "optimized_String_Length": 79,
+            "String_same_value": 17,
+            "Image_local": 17
+          },
+          "A": 79,
+          "descriptors_are_source_input": true,
+          "whole_native_frontend_closed": false
+        },
+        "common_Uint_digit_bound": 685,
+        "scope": "Main source/generated constructor core, before fixed and common-process residuals",
+        "whole_native_frontend_closed": false
+      }
+    ],
+    "parser_input": "retained-table-capacity Main parser transfer, including scanner nodes, source defining-entity promotions and raw literal-chain flattening",
+    "remaining_inputs": [
+      "fixed native capture and its variable input-name/default-literal/runtime-first-lookup corrections",
+      "source scanner Uint/String/name pools",
+      "deferred name qualification and auxiliary common tables",
+      "native diagnostics/ALI and other late consumers",
+      "target table backing, caller arithmetic, recursion/workspace and backend/object/linker"
+    ],
+    "whole_native_frontend_closed": false
+  },
+  "source_query_join_for_Main_constructor_core": {
+    "formula": "H_source=max(2, all source String low/high D descriptors); H=H_source+2; A=max(17, largest_scalar_tree+1, 3H+7)",
+    "dynamic_literal_reason": "direct literal assignment creates low+(length-1); Length and optimizer queries must include this transient subtype even though assignments do not change the target subtype",
+    "examples_not_thresholds": [
+      {
+        "source_bound_H": 2,
+        "effective_bound_H": 4,
+        "root_envelopes": {
+          "source_scalar": 2,
+          "String_index_bounds": 4,
+          "String_Length": 9,
+          "converted_String_Length": 10,
+          "optimized_String_Length": 19,
+          "String_same_value": 17,
+          "Image_local": 17
+        },
+        "A": 19,
+        "descriptors_are_source_input": true,
+        "whole_native_frontend_closed": false
+      },
+      {
+        "source_bound_H": 2,
+        "effective_bound_H": 4,
+        "root_envelopes": {
+          "source_scalar": 101,
+          "String_index_bounds": 4,
+          "String_Length": 9,
+          "converted_String_Length": 10,
+          "optimized_String_Length": 19,
+          "String_same_value": 17,
+          "Image_local": 17
+        },
+        "A": 101,
+        "descriptors_are_source_input": true,
+        "whole_native_frontend_closed": false
+      },
+      {
+        "source_bound_H": 22,
+        "effective_bound_H": 24,
+        "root_envelopes": {
+          "source_scalar": 6,
+          "String_index_bounds": 24,
+          "String_Length": 49,
+          "converted_String_Length": 50,
+          "optimized_String_Length": 79,
+          "String_same_value": 17,
+          "Image_local": 17
+        },
+        "A": 79,
+        "descriptors_are_source_input": true,
+        "whole_native_frontend_closed": false
+      }
+    ],
+    "whole_native_frontend_closed": false
+  },
   "Main_source_String_declarations_and_assignments": {
     "examples_not_thresholds": [
       {
@@ -245,7 +603,7 @@
     "scope": "residual RTE-cache identities need no duplicate compiler capture"
   },
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 89,
+  "source_files_verified": 90,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -266,6 +624,7 @@
     "uintp.ads": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1",
     "uintp.adb": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
     "gen_il-gen.adb": "c52ad207573f942a6bc32132a2d5b5e82e008b9a297c60a9e15670e10b24ed14",
+    "sinfo-cn.adb": "c30d71e50dbceb15a9f01725e1907f7e3a7c9bdb9e90729029ee1fc96d4cc4a5",
     "exp_imgv.adb": "c9b2130f6c8dd9f42d48709e165ad190a570e01bd7960aabc04a6e600fa54de1",
     "exp_put_image.adb": "c4b107bceb34e8d30d09d9b4474068d621b54f11787d4aa26e74d142d9d0be09",
     "exp_ch2.adb": "ab1c41d4f8b813b7b391c2c237213a29732aecc9a914f039f8f319a732fae5ab",
@@ -3050,11 +3409,10 @@
     },
     "source_sensitive_composition": "sum per-invocation vectors at n_i and A_i=3*H_i+7 from source bound descriptors for these stages; uniform maximum A is optional",
     "residual_addends": [
-      "separately closed source-concat folding/literal suffix and output transient wrapper",
-      "initial Image/input and other source operand constructors",
-      "input wrapper and Main secondary-stack cleanup",
-      "remaining source/generated first freezes and deferred name qualification",
-      "numeric magnitudes and query roots in remaining stages",
+      "other source construct rows joined by composed_Main_native_constructor_core",
+      "source-reduced fixed input/Main cleanup capture and variable corrections",
+      "deferred name qualification and native common metadata",
+      "source scanner pools and all physical representations/workspace",
       "runtime first lookup/spec processing, fixed runtime and backend costs"
     ],
     "examples_not_thresholds": [
