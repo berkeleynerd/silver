@@ -1,0 +1,39 @@
+{
+  "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+  "environment": {
+    "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/usr/bin:/bin",
+    "LC_ALL": "C",
+    "LANG": "C",
+    "TERM": "dumb",
+    "TMPDIR": "/tmp/silver-native-rtl-setup-20261018/capture/temp",
+    "ADA_INCLUDE_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+    "ADA_OBJECTS_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+    "GCC_EXEC_PREFIX": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/",
+    "COLLECT_GCC": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "COLLECT_GCC_OPTIONS": "'-c' '-gnatA' '-gnat2022' '-gnata' '-gnato' '-gnatx' '-Wno-free-nonheap-object' '-gnatec=/tmp/silver-native-rtl-setup-20261018/capture/config.adc' '-gnatem=/tmp/silver-native-rtl-setup-20261018/capture/mapping' '-mtune=generic' '-march=x86-64'"
+  },
+  "argv": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+    "-quiet",
+    "-Wno-free-nonheap-object",
+    "-dumpbase",
+    "main.adb",
+    "-dumpbase-ext",
+    ".adb",
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-gnatx",
+    "-gnatec=/tmp/silver-native-rtl-setup-20261018/capture/config.adc",
+    "-gnatem=/tmp/silver-native-rtl-setup-20261018/capture/mapping",
+    "-mtune=generic",
+    "-march=x86-64",
+    "/tmp/silver-native-rtl-setup-20261018/capture/main.adb",
+    "-o",
+    "/tmp/silver-native-rtl-setup-20261018/capture/temp/ccmKKOLd.s"
+  ],
+  "pc": "0x7f2bafe49340",
+  "threads": 1,
+  "pid": 269808
+}

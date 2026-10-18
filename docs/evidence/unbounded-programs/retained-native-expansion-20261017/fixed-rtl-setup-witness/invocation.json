@@ -1,0 +1,32 @@
+{
+  "argv": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "-c",
+    "-x",
+    "ada",
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-gnatx",
+    "-Wno-free-nonheap-object",
+    "-gnatec=/tmp/silver-native-rtl-setup-20261018/capture/config.adc",
+    "-gnatem=/tmp/silver-native-rtl-setup-20261018/capture/mapping",
+    "/tmp/silver-native-rtl-setup-20261018/capture/main.adb"
+  ],
+  "environment": {
+    "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/usr/bin:/bin",
+    "LC_ALL": "C",
+    "LANG": "C",
+    "TERM": "dumb",
+    "TMPDIR": "/tmp/silver-native-rtl-setup-20261018/capture/temp",
+    "ADA_INCLUDE_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+    "ADA_OBJECTS_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
+  },
+  "cwd": "/tmp/silver-native-rtl-setup-20261018/capture",
+  "gnat1": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+  "gnat1_sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e",
+  "configuration_origin": "retained manually prepared naming-only config; not claimed GPR output",
+  "main_source_origin": "byte copy of retained null-proposed Main source",
+  "scope": "First initialize_rtl only; pre-entry compilation is unmeasured; stop at caller return"
+}

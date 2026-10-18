@@ -1,0 +1,42 @@
+{
+  "completed_compile": false,
+  "configuration_origin": "manually prepared naming-only configuration; not claimed GPR output",
+  "counter_instruction_identity": "../fixed-gcc-prefix-witness/executable-map.json",
+  "date": "2026-10-18",
+  "debugger_elapsed_seconds": 0.3694239659962477,
+  "elapsed_includes_frontend_startup_before_measured_interval": true,
+  "entry_address": "0x1358170",
+  "gc_guard_address": "0xda5780",
+  "intentional_termination": "GDB quits and kills frontend after return from first initialize_rtl; driver reports killed gnat1",
+  "managed_registry": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1",
+  "managed_run_id": "20261018T073632-4e0b5cd339be",
+  "no_assembler_launched": true,
+  "platform": "Linux x86_64",
+  "prior_source_sensitive_metadata_is_not_measured_by_this_event_stream": true,
+  "raw_compressed_files": [
+    {
+      "archive": "counter-events.jsonl.gz",
+      "bytes": 27290,
+      "sha256": "4aaf54d927fb7e3ad5e3f33080feef186eb83386c6973777c1d953c7c934bb29"
+    },
+    {
+      "archive": "watchpoints.txt.gz",
+      "bytes": 758,
+      "sha256": "60177ba29d3445e42e771dc7cafa34cc08acea9c5db49210a44c1d84441b1ab2"
+    },
+    {
+      "archive": "frontend.py.gz",
+      "bytes": 1220,
+      "sha256": "3b35fba2d055c9b077a719307143fc5d4d6f02dc221a544fcf2c0b7153195eb5"
+    },
+    {
+      "archive": "main.ali.gz",
+      "bytes": 428,
+      "sha256": "9588cd3c3418a0763f521b2e115932b7530f55c37ec874e9e35bf3e07da71660"
+    }
+  ],
+  "return_address": "0xf76b69",
+  "scope": "First initialize_rtl entry-to-caller-return; incoming Main counters retained as observations only",
+  "source_layout_identity": "../rtl-setup-source-identity.json",
+  "whole_capacity_established": false
+}

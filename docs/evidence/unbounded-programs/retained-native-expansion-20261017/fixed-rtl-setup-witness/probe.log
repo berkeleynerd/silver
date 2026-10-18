@@ -1,0 +1,52 @@
+/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb: warning: Couldn't determine a path for the index cache directory.
+Catchpoint 1 (exec)
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+[Attaching after Thread 0x7f965bf1c780 (LWP 269805) vfork to child process 269808]
+[New inferior 2 (process 269808)]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+[Detaching vfork parent process 269805 after child exec]
+[Inferior 1 (process 269805) detached]
+process 269808 is executing new program: /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1
+[Switching to process 269808]
+
+Thread 2.1 "gnat1" hit Catchpoint 1 (exec'd /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1), 0x00007f2bafe49340 in ?? () from /lib64/ld-linux-x86-64.so.2
+Breakpoint 2 at 0x1358170
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Thread 2.1 "gnat1" hit Breakpoint 2, 0x0000000001358170 in initialize_rtl() ()
+Hardware watchpoint 3: *(unsigned long long *)0x3d1a868
+Hardware watchpoint 4: *(int *)0x3d2354c
+Hardware watchpoint 5: *(unsigned int *)0x3619d30
+Hardware watchpoint 6: *(int *)0x3d23548
+Breakpoint 7 at 0x1358235
+Breakpoint 8 at 0x13581d5
+Breakpoint 9 at 0x13581da
+Breakpoint 10 at 0x13581e8
+Breakpoint 11 at 0x13581ed
+Breakpoint 12 at 0x13581f2
+Breakpoint 13 at 0x13581f7
+Breakpoint 14 at 0x13581fc
+Breakpoint 15 at 0x1358201
+Breakpoint 16 at 0x1358206
+Breakpoint 17 at 0x1358216
+Breakpoint 18 at 0xf76b69
+Breakpoint 19 at 0xda5780
+RTL_PHASE {"phase": "initialize_rtl_entry", "pc": "0x1358170", "values": {"ggc_bytes": 3348808, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 0, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_PHASE {"phase": "ira_init_once_return", "pc": "0x1358235", "values": {"ggc_bytes": 3348808, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 0, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_PHASE {"phase": "fake_stack_mems_return", "pc": "0x13581d5", "values": {"ggc_bytes": 3351784, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 124, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_PHASE {"phase": "alias_target_return", "pc": "0x13581da", "values": {"ggc_bytes": 3351864, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 129, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_PHASE {"phase": "recog_init_return", "pc": "0x13581e8", "values": {"ggc_bytes": 3351864, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 129, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_PHASE {"phase": "dummy_function_start_return", "pc": "0x13581ed", "values": {"ggc_bytes": 3355544, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 140, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_PHASE {"phase": "expmed_return", "pc": "0x13581f2", "values": {"ggc_bytes": 3357880, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 216, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_PHASE {"phase": "lower_subreg_return", "pc": "0x13581f7", "values": {"ggc_bytes": 3361048, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 285, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_PHASE {"phase": "set_costs_return", "pc": "0x13581fc", "values": {"ggc_bytes": 3361720, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 303, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_PHASE {"phase": "expr_target_return", "pc": "0x1358201", "values": {"ggc_bytes": 3361928, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 310, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_PHASE {"phase": "ira_init_return", "pc": "0x1358206", "values": {"ggc_bytes": 3361928, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 310, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_PHASE {"phase": "dummy_function_end_return", "pc": "0x1358216", "values": {"ggc_bytes": 3361928, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 310, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_PHASE {"phase": "initialize_rtl_return", "pc": "0xf76b69", "values": {"ggc_bytes": 3361928, "decl_uid": 5848, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 310, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+RTL_COMPLETE {"ggc_bytes": {"initial": 3348808, "current": 3361928, "peak": 3361928, "minimum": 3348808, "events": 310, "positive_sum": 13120, "negative_sum": 0, "positive_events": 310, "negative_events": 0, "largest_increment": 2048}, "decl_uid": {"initial": 5848, "current": 5848, "peak": 5848, "minimum": 5848, "events": 0, "positive_sum": 0, "negative_sum": 0, "positive_events": 0, "negative_events": 0, "largest_increment": 0}, "type_uid": {"initial": 1937, "current": 1937, "peak": 1937, "minimum": 1937, "events": 0, "positive_sum": 0, "negative_sum": 0, "positive_events": 0, "negative_events": 0, "largest_increment": 0}, "debug_decl_uid": {"initial": 0, "current": 0, "peak": 0, "minimum": 0, "events": 0, "positive_sum": 0, "negative_sum": 0, "positive_events": 0, "negative_events": 0, "largest_increment": 0}}
+gcc: fatal error: Killed signal terminated program gnat1
+compilation terminated.

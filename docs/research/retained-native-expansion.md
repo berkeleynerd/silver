@@ -7305,6 +7305,216 @@ Main's backend A switches for the binder-generated source compile
 record that propagation in the binder compile descriptor as well. The current
 production and GNATprove flags and both baseline descriptors remain unchanged.
 
+## First target RTL setup: read projection and backing
+
+The first `initialize_rtl` call is a separate fixed setup boundary after the
+pre-Main GCC witness. It must not be inferred from that earlier counter total.
+The [source/layout identity](../evidence/unbounded-programs/retained-native-expansion-20261017/rtl-setup-source-identity.json)
+pins the inspected GCC files, the installed generated/configuration headers and
+read-only disassembly. It selects the same Linux x86-64, generic target, O0,
+no-plugin/no-PCH compile class used above, including the proposed native-only
+options. No production flag is changed by this analysis.
+
+### Isolation of the synthetic setup
+
+`toplev.cc:1871–1887` runs `ira_init_once` once and then
+`backend_init_target` once per selected target context. The latter calls the
+fixed target MEM/alias setup, recognizer initialization, dummy function setup,
+expression/shift/move cost probes, expression recognition and IRA target setup,
+then removes the dummy function (`:1791–1824`). LRA is selected, excluding
+`init_reload`. The initial installed headers give124 machine modes,92 hard
+registers,34 register classes,30 maximum recognizer operands and15,169
+instruction codes. These are derived from the installed enums/macros, rather
+than a sampled Main instruction count.
+
+The dummy wrapper is important to the read projection. It sets
+`in_dummy_function=true` **before** `push_struct_function(NULL)`
+(`function.cc:4978–5020`). The entire optimization/target-current-function hook
+is guarded by `!in_dummy_function` (`:4674–4706`); the pop restores the incoming
+function while that guard still holds (`:5305–5309`). Consequently this setup
+does not read Main's declaration attributes, result/parameter types, body,
+target-option trees or optimization-option trees through those hooks.
+`OVERRIDE_ABI_FORMAT` is present on x86; its NULL-declaration case reads only
+the selected `ix86_abi` (`i386.cc:1688–1691,1787–1790`). The new function,
+exception state and machine state are cleared objects. `prepare_function_start`
+uses `default_function_abi`, and `crtl` is the existing static `x_rtl`, not a
+new per-function heap object. The incoming cfun stack receives one pointer;
+its demand and existing capacity must be priced separately.
+
+The cost routines create their own small REG/CONST_INT/operator graphs.
+`init_expmed` and `init_lower_subreg` mutate those graphs over fixed mode and
+word-bit loops. `rtx_cost` traverses these graphs (`rtlanal.cc:4535–4632`), and
+the reached x86 arithmetic/move/mode cost helpers read target options and
+constant cost tables (`i386.cc:21940–22482,22527–22846,23036–23049`). They do
+not expand author expressions. The potentially allocating vector-broadcast
+helper in the MEM cost case requires `MEM(SYMBOL_REF)`; the probe supplies
+`MEM(REG)`, so it is excluded (`:23402–23440`). AVX512 ternary-logic costing is
+excluded by the selected target flags. Reg/reg and reg/memory probes reach only
+the corresponding fixed predicates and costs. The directly invoked recognition
+probes in `init_expr_target` use its own SET/REG/MEM/INSN, enumerate the fixed
+mode/register tables and test float-extension predicates; Main's RTL is not
+passed to them (`expr.cc:118–204`). This is a projection for this fixed setup,
+not a projection of later optimizer or register-allocation passes.
+
+The six SI move probes are also bounded independently of recognition success.
+`init_set_costs` supplies only pseudo REG98/99 and `MEM(REG100)`
+(`cfgloopanal.cc:434–483`). The address is valid without rewriting; none of
+the symbol, constant, subreg, memory-to-memory or hard-register-spill cases
+applies (`explow.cc:547–557`, `i386.cc:11270–11330,12013–12022,
+12167–12235,21251–21265`, `expr.cc:4629–4774`). The installed `gen_movsi`
+wrapper opens a sequence and invokes `ix86_expand_move`; its selected path
+emits one SET and one INSN (`i386-expand.cc:364–590`,
+`emit-rtl.cc:4146–4171,5199–5239`). Thus six additional SET/INSN pairs are
+created, with six UID increments. The four outer sequence scopes plus six
+generated scopes give at most10 cold sequence-stack allocations of24 bytes
+each. Their maximum simultaneous nesting is two. Reuse can only reduce that
+allocation count; no assumption about a warm deletable sequence cache is used.
+
+### Fixed objects and cold caches
+
+Source constructors and the installed allocation-immediate instructions agree
+on these dummy objects:
+
+| Object | Number | Individual raw request |
+| --- | ---: | ---: |
+| function, exception state, x86 machine state |1 each|208,48,320 bytes|
+| exception region and landing-pad pointer vectors |2|40 bytes each before GGC rounding|
+| pseudo-register pointer vector |1|198×8 =1,584 bytes|
+| pseudo-register alignment vector, ordinary heap |1|198 bytes|
+| constant pool |1|32 bytes|
+| constant-pool hash wrapper/backbone |1 each|48 and31×8 =248 bytes|
+| cold temp-address hash wrapper/backbone |at most1 each|48 and61×8 =488 bytes|
+
+The source sites are `function.cc:4848–4958,1239–1253`,
+`except.cc:351–359`, `i386-options.cc:1991–2001`,
+`emit-rtl.cc:5979–6040` and `varasm.cc:4150–4170`. GC vector capacity is rounded
+by `vec.h:388–423`;40 is the pre-rounding request from the first capacity4.
+The selected `tm.h` include inventory has no `INIT_EXPANDERS` definition.
+The prime-table choices and hash wrapper layout are checked from
+`hash-table.h:592–675` and `hash-table.cc:46–79`. None of these small fixed
+objects establishes a whole-process memory allowance.
+
+The only non-saved integer values explicitly created by the fixed cost graphs
+belong to the union of powers `2^7..2^63` and shift amounts65..127: at most120
+distinct CONST_INTs. Widening-mode shifts use8,16,32,64,128,256, already covered
+by the saved interval or those powers. All small `cint` values use GCC's
+saved[-64,64] array (`expmed.cc:231–263`, `lower-subreg.cc:160–190`,
+`emit-rtl.cc:525–553,6788–6798`). The shared constant hash may have different
+population/deleted slots after earlier collection. Its backing is therefore
+charged using its full incoming demand plus these120 candidate entries; a
+sampled small table or cached hit must not be substituted for that demand.
+Cold CONST_INT allocations are charged separately even if a witness reused
+some values. Hash collision counts affect search work, not element identity.
+
+The collection boundary is explicit. The selected GCC source has collection
+entrances in the pass manager/cgraph boundaries and common statistics/PCH
+routes; other entrances belong to excluded language frontends, LTO and tests.
+Neither this setup call graph nor the selected target machine description
+dispatches those routes. The GGC allocation routines themselves do not call
+`ggc_collect`; `ggc_grow` is invoked by pass/LTO orchestration. Therefore prior
+collections may change incoming caches, but collection cannot invalidate the
+120-value/10-sequence cold envelope **during this setup**. A lifetime witness
+must nevertheless guard collection entry across its entire measured interval,
+retain every changed-counter event and verify no wrap/reset. Its initial
+declaration/type counters are source-derived incoming state, never universal
+constants to replace the earlier source-sensitive join.
+
+### IRA ordinary heap and witness boundary
+
+`ira_init_once`, `ira_init_costs_once` and `lra_init_once` initialize static
+state without dynamic allocation (`ira.cc:1654–1660`,
+`ira-costs.cc:2529–2542`, `lra.cc:684–687,2698–2701`).
+`ira_init` rebuilds fixed register-class data (`ira.cc:1701–1713`).
+Its move-cost tables allocate at most three matrices per machine mode, each
+`sizeof(unsigned short)*34*34 =2,312` bytes; mode-sharing reduces that count.
+The lazy guard prevents repeat allocation for a mode between the single reset
+and end of this initialization (`ira-int.h:1121–1126`,
+`ira.cc:1544–1646,1665–1688`). Thus at most372 separate matrix requests are
+needed, not one combined allocation.
+
+Important classes are a disjoint enumeration of selected non-allocno and
+allocno classes (`ira.cc:987–1051`), giving1≤K≤34: the selected target has
+allocatable general registers even after frame-pointer exclusion. The62
+ordinary cost vectors each request `4*K+4≤140` bytes
+(`ira-costs.cc:2562–2582`). The important-class sort uses at most68 bytes of
+the fixed256-byte stack scratch in GCC's own `gcc_qsort`; it makes no heap
+request (`sort.cc:255–275`). Target register-order/move-cost helpers read fixed
+target masks and costs (`i386.cc:21632–21835,23651–23705`), not author RTL.
+The cfun pointer stack still requires its own `d+1` demand and ordinary-vector
+growth check. These rows do not cover later DF/alias/IRA/LRA per-function data.
+
+### Executed first-RTL lifetime witness
+
+One managed run, **`20261018T073632-4e0b5cd339be`**, now supplies that
+first-`initialize_rtl` interval. Its [retained packet](../evidence/unbounded-programs/retained-native-expansion-20261017/fixed-rtl-setup-witness/capture-identity.json)
+contains the actual driver/front-end argv/environment, four hardware write
+watchpoints, complete310-event stream, each setup-child boundary, collection
+and thread guards, and the intentional termination. Debugger elapsed time was
+**0.369424 seconds**, including unmeasured frontend startup before the interval.
+The seven-entry driver environment became exactly the same ten-entry frontend
+environment class as above, without debugger `LD_LIBRARY_PATH` leakage.
+
+| Completed child | GGC allocation events in child | Rounded bytes in child |
+| --- | ---: | ---: |
+| IRA/LRA one-time static initialization |0|0|
+| fake stack MEMs |124|2,976|
+| alias target |5|80|
+| recognizer initialization |0|0|
+| dummy function start |11|3,680|
+| expmed cost graphs |76|2,336|
+| lower-subreg cost graphs |69|3,168|
+| six SI move probes |18|672|
+| expression recognition probes |7|208|
+| IRA target setup |0|0|
+| dummy function removal and return |0|0|
+
+The total is310 GGC events and13,120 rounded bytes; the largest observed
+increment is2,048. Normal declaration, type and debug-declaration UIDs do not
+change. No counter wraps/resets, collections or new threads occurred in the
+measured interval. The incoming normal declaration5848/type1937 counters and
+GGC byte total3,348,808 are retained **observations**, not fixed replacements
+for the source-sensitive pre-entry accounting. The earlier pre-Main witness
+remains separate. GDB stops at the caller return PC`0xf76b69`, then intentionally
+kills gnat1; GCC's killed-frontend message is expected. The frontend has emitted
+a428-byte ALI artifact, but no compilation or assembler invocation completed.
+
+The trace reconciles exactly with175 direct RTL objects,11 dummy GGC objects,
+120 distinct cost constants, two sequence-cache objects and two constant-hash
+backing allocations. The fixed source/read projection is the reason the
+constructor trace applies to this setup; the trace alone would not justify
+lifting a sample count to a general frontend or Main-body bound.
+
+For incoming-cache independence use the source envelope, not310 verbatim.
+Charge all120 possible constants and all10 sequence requests. The constant
+hash can first compact/grow its incoming table, including on a hit. After an
+expansion its live occupancy is at most one half and its deleted count is zero
+(`hash-table.h:830–903,1022–1040`); each further expansion needs at least one
+of these120 intervening insertions. Under the shared hash's independent
+representation checks, at most121 backing-allocation events suffice. Thus
+**437 GGC events** is a conservative bound for this first setup:
+`175+11+120+10+121`. This feeds the existing lifetime-event/page-index/finalizer
+join. It is not a RAM or address-space gate. The individual shared hash request
+must still be bounded from its complete incoming table/live demand and the120
+new candidates; neither the observed2,048-byte maximum nor this event count
+replaces that check. Ordinary IRA matrices/cost vectors and the cfun stack
+retain their separate backing checks above.
+
+The [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-rtl-setup.py)
+verifies41 source files,24 installed headers,671 retained instruction fragments
+against the selected ELF, the retained counter-update instruction sites,
+all310 event transitions and phase totals, environment membership and the
+source arithmetic. Its [result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-setup.json)
+records the witness and conservative envelope separately. It executes no
+compiler/prover and does not establish later DF/alias/IRA/LRA or whole native
+capacity.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-rtl-setup.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --gnat1 /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1 \
+  --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-setup.json
+```
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available

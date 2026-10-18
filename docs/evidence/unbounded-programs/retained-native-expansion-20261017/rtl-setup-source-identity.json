@@ -1,0 +1,444 @@
+{
+  "allocation_immediates": [
+    {
+      "address": "0xf735f1",
+      "hex": "bfd0000000",
+      "object": "function",
+      "request": 208,
+      "source": "gcc/function.cc:4852"
+    },
+    {
+      "address": "0xee6201",
+      "hex": "bf30000000",
+      "object": "eh_status",
+      "request": 48,
+      "source": "gcc/except.cc:353"
+    },
+    {
+      "address": "0x1810b8d",
+      "hex": "bf40010000",
+      "object": "machine_function",
+      "request": 320,
+      "source": "gcc/config/i386/i386-options.cc:1995"
+    },
+    {
+      "address": "0x16f30cd",
+      "hex": "bf20000000",
+      "object": "rtx_constant_pool",
+      "request": 32,
+      "source": "gcc/varasm.cc:4153"
+    },
+    {
+      "address": "0xf769a8",
+      "hex": "bf30000000",
+      "object": "temp_address_hash_wrapper",
+      "request": 48,
+      "source": "gcc/function.cc:1249"
+    },
+    {
+      "address": "0x16f30e9",
+      "hex": "bf30000000",
+      "object": "constant_pool_hash_wrapper",
+      "request": 48,
+      "source": "gcc/varasm.cc:4154"
+    }
+  ],
+  "binary": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+    "sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e"
+  },
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "disassembly": {
+    "commands": [
+      [
+        "-d",
+        "--disassemble=_Z14initialize_rtlv"
+      ],
+      [
+        "-d",
+        "--disassemble=_Z24allocate_struct_functionP9tree_nodeb"
+      ],
+      [
+        "-d",
+        "--disassemble=_Z20init_eh_for_functionv"
+      ],
+      [
+        "-d",
+        "--disassemble=_Z15init_temp_slotsv"
+      ],
+      [
+        "-d",
+        "--disassemble=_Z25init_dummy_function_startv"
+      ],
+      [
+        "-d",
+        "--disassemble=_Z9init_emitv"
+      ],
+      [
+        "-d",
+        "--disassemble=_Z9gen_movsiP7rtx_defS0_"
+      ],
+      [
+        "-d",
+        "--disassemble=_Z18init_varasm_statusv"
+      ],
+      [
+        "-d",
+        "--start-address=0x1810b80",
+        "--stop-address=0x1810bb1"
+      ],
+      [
+        "-d",
+        "--start-address=0x18136c0",
+        "--stop-address=0x18136cb"
+      ],
+      [
+        "-d",
+        "--start-address=0x16f30c0",
+        "--stop-address=0x16f3175"
+      ],
+      [
+        "-d",
+        "--start-address=0xf76a40",
+        "--stop-address=0xf76b30"
+      ]
+    ],
+    "path": "rtl-setup.disassembly.gz",
+    "raw_bytes": 47582,
+    "raw_sha256": "245d203d3518316e8e9829753b09f95fc06d32e89e4a3bbe24b2946719a483d4"
+  },
+  "files": [
+    {
+      "bytes": 72691,
+      "path": "gcc/toplev.cc",
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "bytes": 221482,
+      "path": "gcc/function.cc",
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "bytes": 27144,
+      "path": "gcc/function.h",
+      "sha256": "f0f30e429adb36d8532e7cf2f911d46387ae67c1815daa8a86c034b4cbc3956e"
+    },
+    {
+      "bytes": 99184,
+      "path": "gcc/except.cc",
+      "sha256": "90ef6fe4750300cb1985cb1df0af450cc0d806dad85874f631bfd8e411e0e5f0"
+    },
+    {
+      "bytes": 12264,
+      "path": "gcc/except.h",
+      "sha256": "d85a790984e017b50059d6566d532463b6668f0b2bdf7c7db528bb58b59ed58a"
+    },
+    {
+      "bytes": 193419,
+      "path": "gcc/emit-rtl.cc",
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "bytes": 21029,
+      "path": "gcc/emit-rtl.h",
+      "sha256": "6d094bfb23b2b403410642dd68191a9971ecd766d21b2c116e15b03070b5aa04"
+    },
+    {
+      "bytes": 23229,
+      "path": "gcc/rtl.cc",
+      "sha256": "516c1f4b2ad68750095d3c09f3c0d123d1cf8009331b439a4d0ef67bcf6910ee"
+    },
+    {
+      "bytes": 162393,
+      "path": "gcc/rtl.h",
+      "sha256": "0dc2f54d53a6149d7bb6363dc1a947101c7003e1154233b6b0d417cddd1f7f3e"
+    },
+    {
+      "bytes": 61727,
+      "path": "gcc/rtl.def",
+      "sha256": "29cc3589ac9b95caae287954ab3c7f8d49db7f4f06b5df14a81315522ddbe7c6"
+    },
+    {
+      "bytes": 39713,
+      "path": "gcc/reginfo.cc",
+      "sha256": "276398df9c9a0f68952ddf0e9f599a2b6f0bb2d064cbdcf42868bb449ecf57ec"
+    },
+    {
+      "bytes": 112284,
+      "path": "gcc/alias.cc",
+      "sha256": "946b1b7ea0abd23f00873024c4514c9ec360bd6fb31a761f8df655cfbbfa93f2"
+    },
+    {
+      "bytes": 212451,
+      "path": "gcc/expmed.cc",
+      "sha256": "2acdfff77f692abe44fc09e377a531026dfad4f72d20242776c0eb4166b96c9b"
+    },
+    {
+      "bytes": 53494,
+      "path": "gcc/lower-subreg.cc",
+      "sha256": "4999b2c131c4742c5b59981306187c20bf2d723b748e63efbb8ecca9b1056454"
+    },
+    {
+      "bytes": 17707,
+      "path": "gcc/cfgloopanal.cc",
+      "sha256": "71881e9ad95f2e5699a889b10aaa0dfaf4d3a1bc8c116bcf9e3c8ba7cea2a39b"
+    },
+    {
+      "bytes": 472318,
+      "path": "gcc/expr.cc",
+      "sha256": "97b7c529f38ae0dbb7fb39a2d85d5c27c18bc145a9d21a08f3e5a5135f571e4f"
+    },
+    {
+      "bytes": 74040,
+      "path": "gcc/explow.cc",
+      "sha256": "769aeb0b48c48ea64c963f8bbaf4cac04c243cc8e3e1208fb81d05197e54df9a"
+    },
+    {
+      "bytes": 132604,
+      "path": "gcc/recog.cc",
+      "sha256": "0ffc60369a39773d928014c1e738de033cc7a366fb86b97a48e12f748981ff73"
+    },
+    {
+      "bytes": 201232,
+      "path": "gcc/rtlanal.cc",
+      "sha256": "b0bcb6db46eee054e11a10b79caad72180f704d7c368b4494cb4c0ce42170333"
+    },
+    {
+      "bytes": 264644,
+      "path": "gcc/optabs.cc",
+      "sha256": "aa1bf393afd8a62439a8f9dc2d49471832a25d44d43f9692c9c9e66a1d645ac6"
+    },
+    {
+      "bytes": 28563,
+      "path": "gcc/optabs-query.cc",
+      "sha256": "40361ab387a09d5e402a7718243da1d918c24aa34114c0bb2571afa02bd1a82f"
+    },
+    {
+      "bytes": 198361,
+      "path": "gcc/ira.cc",
+      "sha256": "343b216c53de39d1b4c01a1fafe3a9612db7405deb95d49e2db55c66adb335d3"
+    },
+    {
+      "bytes": 88610,
+      "path": "gcc/ira-costs.cc",
+      "sha256": "234e7f97ab15dbf8725e453a58880b7377ee5c518fe77f2dbab71af5aac17333"
+    },
+    {
+      "bytes": 63045,
+      "path": "gcc/ira-int.h",
+      "sha256": "afbfec872426e7e0fbc2d352ac3ade7232cc72d886bcafb66d3def4532a88f48"
+    },
+    {
+      "bytes": 80715,
+      "path": "gcc/lra.cc",
+      "sha256": "d92bb56be94cb506eacbb51c1a0e7b2e9f1aab81fc4093d4bc9827266086482c"
+    },
+    {
+      "bytes": 39688,
+      "path": "gcc/hash-table.h",
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "bytes": 4564,
+      "path": "gcc/hash-table.cc",
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457"
+    },
+    {
+      "bytes": 74232,
+      "path": "gcc/vec.h",
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "bytes": 22283,
+      "path": "gcc/vec.cc",
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "bytes": 9896,
+      "path": "gcc/sort.cc",
+      "sha256": "c7d3068301225f78c505d882ec9e8b11082946ca4201eee0b4849b2e527795b3"
+    },
+    {
+      "bytes": 39549,
+      "path": "gcc/system.h",
+      "sha256": "79efd56bfd4896fb6512451c53d609686783e64da4ea41a9c136363baf1b1d46"
+    },
+    {
+      "bytes": 78408,
+      "path": "gcc/ggc-page.cc",
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "bytes": 40096,
+      "path": "gcc/ggc-common.cc",
+      "sha256": "a5a41143b78a22376c6d830215ee856616db68bbf4432987479f4e4b8ded4627"
+    },
+    {
+      "bytes": 66992,
+      "path": "gcc/tree-ssa.cc",
+      "sha256": "b4bcae1ef8545e38573ee2be4dd02f66e9a6976485046acecdda192bddbf5a03"
+    },
+    {
+      "bytes": 832808,
+      "path": "gcc/config/i386/i386.cc",
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "bytes": 790498,
+      "path": "gcc/config/i386/i386-expand.cc",
+      "sha256": "195b3f74e04375027ef71c84bc3eeb5985adae3ca5d4bd7257f0d2e33d226214"
+    },
+    {
+      "bytes": 138368,
+      "path": "gcc/config/i386/i386-options.cc",
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6"
+    },
+    {
+      "bytes": 1013857,
+      "path": "gcc/config/i386/i386.md",
+      "sha256": "2d2c09314aca1b0cd2cd887f7a637142e94a07cebca7847d7094e11353c61bcb"
+    },
+    {
+      "bytes": 71950,
+      "path": "gcc/config/i386/predicates.md",
+      "sha256": "5075f3aae42a16baab5e7e9c9fdab376b7cfcfea81f0f9ca53d55e1db9ecbf87"
+    },
+    {
+      "bytes": 122286,
+      "path": "gcc/config/i386/i386.h",
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "bytes": 271386,
+      "path": "gcc/varasm.cc",
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    }
+  ],
+  "headers_archive": {
+    "bytes": 305654,
+    "path": "rtl-selected-headers.tar.gz",
+    "sha256": "fa8f79590eb9d667882db331eb8584753e0bfe267f2cbdc9e898637fbeaedb17"
+  },
+  "selected_headers": [
+    {
+      "bytes": 18059,
+      "path": "config/elfos.h",
+      "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70"
+    },
+    {
+      "bytes": 2854,
+      "path": "config/glibc-stdint.h",
+      "sha256": "5d17b0d72057dbaafa517ff1df1bb64a5f6dc132ecfbfd0ddc1b64e2ee8a079b"
+    },
+    {
+      "bytes": 5918,
+      "path": "config/gnu-user.h",
+      "sha256": "1095b158727a2cddc83cd18832064d2b8824538566b0d23271c57fce92e65be2"
+    },
+    {
+      "bytes": 3186,
+      "path": "config/i386/att.h",
+      "sha256": "a915b51760c40265932d6e41c37f76d5b5d33dfee9c49e211ebb58a0e8c46e39"
+    },
+    {
+      "bytes": 1292,
+      "path": "config/i386/biarch64.h",
+      "sha256": "ca82f4e070a97aba7eb7374dc83f290cd10946c428e599c42ce4383987271e36"
+    },
+    {
+      "bytes": 2629,
+      "path": "config/i386/gnu-user-common.h",
+      "sha256": "5f064832c02395865e22f4f79ca4de568ff42cfb50c102013d0417ce8be8d4b3"
+    },
+    {
+      "bytes": 3256,
+      "path": "config/i386/gnu-user64.h",
+      "sha256": "5621c8efa5ae1d62c513af61649c939226d6a9d48ae3b1584e3a2a7f50d545d9"
+    },
+    {
+      "bytes": 122286,
+      "path": "config/i386/i386.h",
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "bytes": 2346,
+      "path": "config/i386/linux-common.h",
+      "sha256": "2ae3d9a8191788da063cdbe1e82719b4682e7e6499e07b7b66f04aa5eb0f38b0"
+    },
+    {
+      "bytes": 1669,
+      "path": "config/i386/linux64.h",
+      "sha256": "faf45947315176aa120a1c3ac787a1a56c172437654323f83a9c8c98940c824d"
+    },
+    {
+      "bytes": 2878,
+      "path": "config/i386/unix.h",
+      "sha256": "0014a3ae6ab57406e731747c7506525770d0a80cd819e3f550306832fda42cc3"
+    },
+    {
+      "bytes": 3089,
+      "path": "config/i386/x86-64.h",
+      "sha256": "45e502f21860f7a9140c33570ccbcab2070418b7101ee01a53e4054c1847202c"
+    },
+    {
+      "bytes": 1625,
+      "path": "config/initfini-array.h",
+      "sha256": "6df83e308ce1244ab481623a3364cc70fc9bba3fd57afc92e46b6e9098e0fd92"
+    },
+    {
+      "bytes": 1947,
+      "path": "config/linux-android.h",
+      "sha256": "9137c99e7e1d3eb5316adf3d0aeda41a2f6fbb7b8977c1ba4a256b1d571f3fdb"
+    },
+    {
+      "bytes": 8737,
+      "path": "config/linux.h",
+      "sha256": "86809593d0a2ef1ea63972125d27d827310eff3e25b4fbcdc5923dd84f2d742d"
+    },
+    {
+      "bytes": 1998,
+      "path": "config/vxworks-dummy.h",
+      "sha256": "16ef579ecc013e002a7eb368bf85e76da644fa15c0972ec5e3a36263f28e98c0"
+    },
+    {
+      "bytes": 42480,
+      "path": "defaults.h",
+      "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a"
+    },
+    {
+      "bytes": 370891,
+      "path": "insn-codes.h",
+      "sha256": "4983df39999166bdea95394ff3ad0cdaf36373c5799393c138cca1af304f8b5f"
+    },
+    {
+      "bytes": 557,
+      "path": "insn-config.h",
+      "sha256": "43609a26afc202021cdb33192b3b48837b8e3aa12b3f8960fb77751cf3c3803f"
+    },
+    {
+      "bytes": 13161,
+      "path": "insn-constants.h",
+      "sha256": "6a81bac1a1db6a7c5590bc54ff598e0f8f62d8857eb6521c8514ba6e1eea3cac"
+    },
+    {
+      "bytes": 1601314,
+      "path": "insn-flags.h",
+      "sha256": "035fc00aad2c88301d3a43239a0ca0fbaaa41c60ac5fb3f204f0156cffe3c107"
+    },
+    {
+      "bytes": 27388,
+      "path": "insn-modes.h",
+      "sha256": "6de8c9ea5760a673d43344ba92b15620b6d378f8cf82673b4ec0e182eb1d5d85"
+    },
+    {
+      "bytes": 587028,
+      "path": "options.h",
+      "sha256": "07b582033a21cd48bdbf07fed6f9e72c2633be43e430933daf88d1563f1419d7"
+    },
+    {
+      "bytes": 1254,
+      "path": "tm.h",
+      "sha256": "f1fa248e3924d90b354187f716399e37ce552fa7346adf158b9769260949eb51"
+    }
+  ]
+}

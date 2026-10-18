@@ -1,0 +1,309 @@
+{
+  "specs": {
+    "ggc_bytes": {
+      "address": 64071784,
+      "width": 8,
+      "signed": false,
+      "initial": 3348808
+    },
+    "decl_uid": {
+      "address": 64107852,
+      "width": 4,
+      "signed": true,
+      "initial": 5848
+    },
+    "type_uid": {
+      "address": 56728880,
+      "width": 4,
+      "signed": false,
+      "initial": 1937
+    },
+    "debug_decl_uid": {
+      "address": 64107848,
+      "width": 4,
+      "signed": true,
+      "initial": 0
+    }
+  },
+  "phases": [
+    {
+      "phase": "initialize_rtl_entry",
+      "pc": "0x1358170",
+      "values": {
+        "ggc_bytes": 3348808,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 0,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    },
+    {
+      "phase": "ira_init_once_return",
+      "pc": "0x1358235",
+      "values": {
+        "ggc_bytes": 3348808,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 0,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    },
+    {
+      "phase": "fake_stack_mems_return",
+      "pc": "0x13581d5",
+      "values": {
+        "ggc_bytes": 3351784,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 124,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    },
+    {
+      "phase": "alias_target_return",
+      "pc": "0x13581da",
+      "values": {
+        "ggc_bytes": 3351864,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 129,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    },
+    {
+      "phase": "recog_init_return",
+      "pc": "0x13581e8",
+      "values": {
+        "ggc_bytes": 3351864,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 129,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    },
+    {
+      "phase": "dummy_function_start_return",
+      "pc": "0x13581ed",
+      "values": {
+        "ggc_bytes": 3355544,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 140,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    },
+    {
+      "phase": "expmed_return",
+      "pc": "0x13581f2",
+      "values": {
+        "ggc_bytes": 3357880,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 216,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    },
+    {
+      "phase": "lower_subreg_return",
+      "pc": "0x13581f7",
+      "values": {
+        "ggc_bytes": 3361048,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 285,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    },
+    {
+      "phase": "set_costs_return",
+      "pc": "0x13581fc",
+      "values": {
+        "ggc_bytes": 3361720,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 303,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    },
+    {
+      "phase": "expr_target_return",
+      "pc": "0x1358201",
+      "values": {
+        "ggc_bytes": 3361928,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 310,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    },
+    {
+      "phase": "ira_init_return",
+      "pc": "0x1358206",
+      "values": {
+        "ggc_bytes": 3361928,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 310,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    },
+    {
+      "phase": "dummy_function_end_return",
+      "pc": "0x1358216",
+      "values": {
+        "ggc_bytes": 3361928,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 310,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    },
+    {
+      "phase": "initialize_rtl_return",
+      "pc": "0xf76b69",
+      "values": {
+        "ggc_bytes": 3361928,
+        "decl_uid": 5848,
+        "type_uid": 1937,
+        "debug_decl_uid": 0
+      },
+      "events": {
+        "ggc_bytes": 310,
+        "decl_uid": 0,
+        "type_uid": 0,
+        "debug_decl_uid": 0
+      },
+      "threads": 1
+    }
+  ],
+  "counters": {
+    "ggc_bytes": {
+      "initial": 3348808,
+      "current": 3361928,
+      "peak": 3361928,
+      "minimum": 3348808,
+      "events": 310,
+      "positive_sum": 13120,
+      "negative_sum": 0,
+      "positive_events": 310,
+      "negative_events": 0,
+      "largest_increment": 2048
+    },
+    "decl_uid": {
+      "initial": 5848,
+      "current": 5848,
+      "peak": 5848,
+      "minimum": 5848,
+      "events": 0,
+      "positive_sum": 0,
+      "negative_sum": 0,
+      "positive_events": 0,
+      "negative_events": 0,
+      "largest_increment": 0
+    },
+    "type_uid": {
+      "initial": 1937,
+      "current": 1937,
+      "peak": 1937,
+      "minimum": 1937,
+      "events": 0,
+      "positive_sum": 0,
+      "negative_sum": 0,
+      "positive_events": 0,
+      "negative_events": 0,
+      "largest_increment": 0
+    },
+    "debug_decl_uid": {
+      "initial": 0,
+      "current": 0,
+      "peak": 0,
+      "minimum": 0,
+      "events": 0,
+      "positive_sum": 0,
+      "negative_sum": 0,
+      "positive_events": 0,
+      "negative_events": 0,
+      "largest_increment": 0
+    }
+  },
+  "failures": [],
+  "unexpected_collections": [],
+  "new_threads": [],
+  "completed": true,
+  "return_address": "0xf76b69",
+  "initial_timer_pointer": "0x0",
+  "initial_rtl_initialized": 0,
+  "initial_target_specific_initialized": false
+}

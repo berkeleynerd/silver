@@ -1,0 +1,38 @@
+{
+  "command": [
+    "/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb",
+    "-nx",
+    "-q",
+    "-batch",
+    "-x",
+    "/tmp/silver-native-rtl-setup-20261018/capture/probe.gdb",
+    "--args",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "-c",
+    "-x",
+    "ada",
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-gnatx",
+    "-Wno-free-nonheap-object",
+    "-gnatec=/tmp/silver-native-rtl-setup-20261018/capture/config.adc",
+    "-gnatem=/tmp/silver-native-rtl-setup-20261018/capture/mapping",
+    "/tmp/silver-native-rtl-setup-20261018/capture/main.adb"
+  ],
+  "debugger_environment": {
+    "PATH": "/usr/bin:/bin",
+    "LC_ALL": "C",
+    "LANG": "C",
+    "LD_LIBRARY_PATH": "/tmp/silver-capacity-debugger-20261018/root/usr/lib/x86_64-linux-gnu",
+    "DEBUGINFOD_URLS": ""
+  },
+  "elapsed_seconds": 0.3694239659962477,
+  "returncode": 0,
+  "timed_out": false,
+  "scope": "first initialize_rtl entry-to-return counters; no compiler output delivery",
+  "gnat1_sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e",
+  "gcc_sha256": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de",
+  "gdb_sha256": "e5272927fc1b40345748dfa4133ec2a50caeb5f209a44099dd2c48679911c59c"
+}

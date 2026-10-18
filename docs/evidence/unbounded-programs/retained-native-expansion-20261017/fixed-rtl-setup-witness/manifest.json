@@ -1,0 +1,94 @@
+{
+  "files": [
+    {
+      "path": "capture-identity.json",
+      "bytes": 1765,
+      "sha256": "72147c8b5ab5ee4610a9d7cd24b0bd24632f98cf6b3a2f6c19e30e9537d20af7"
+    },
+    {
+      "path": "config.adc",
+      "bytes": 234,
+      "sha256": "2f774b0da257136905757be927f3a698c4cba8e57ba93af640e206e57cea260b"
+    },
+    {
+      "path": "counter-events.jsonl.gz",
+      "bytes": 2084,
+      "sha256": "0cef53e55cc3739e3300b4882e3ba4da68f1abf8aed4a910ecef9ae231817a50"
+    },
+    {
+      "path": "counter-summary.json",
+      "bytes": 6518,
+      "sha256": "6514b8a6f96f646b375f05f54eec8bf4a9f8848044b7a887dfeb1038426cd09d"
+    },
+    {
+      "path": "counters.py",
+      "bytes": 6265,
+      "sha256": "5281b0d2cdf5d1aae2d10bc6788c0bcf7f0c543c8c8922ab5f7f7c6ac7617e0f"
+    },
+    {
+      "path": "frontend-exec.json",
+      "bytes": 2163,
+      "sha256": "e53a47d3e023f0d60be09ae5e62d61dcf2dce58a9d864b3e810248a60ade2cab"
+    },
+    {
+      "path": "frontend.py.gz",
+      "bytes": 616,
+      "sha256": "e412a67c77063fc7e2e1ccb6a1ed7741552504b6e60fb011f59969b23b94a28c"
+    },
+    {
+      "path": "invocation.json",
+      "bytes": 1732,
+      "sha256": "71c6d0aad8d67cadf3a9136f0458250705ab895f66ca00dc36e1ffb0cb7e5bdf"
+    },
+    {
+      "path": "main.adb",
+      "bytes": 70,
+      "sha256": "eeee9454c12c49124881f49a17d743c82d3e730b48933bef7338f036725cfb25"
+    },
+    {
+      "path": "main.ali.gz",
+      "bytes": 312,
+      "sha256": "5418b4fd645012437d15e7aa00c278bee92f6a88cd1ae66b213680fc01571874"
+    },
+    {
+      "path": "managed-events.jsonl",
+      "bytes": 12533,
+      "sha256": "dc6b61584c191d09127e95e545c204e20ae6fd462189c8ec03221248d90ebf00"
+    },
+    {
+      "path": "managed-native.log",
+      "bytes": 5237,
+      "sha256": "3d1653d4302381135e813d951fc0a7ecb20e0241634c5d67726d5979505b399a"
+    },
+    {
+      "path": "mapping",
+      "bytes": 71,
+      "sha256": "4e2b0724265810f40e5b0175b78122339e71cff0801806b263c15b9d04303341"
+    },
+    {
+      "path": "probe.gdb",
+      "bytes": 716,
+      "sha256": "3559f591f5c6aab22c35bca76de833afaa9acbb20427774fe8b2913c244addb3"
+    },
+    {
+      "path": "probe.log",
+      "bytes": 5993,
+      "sha256": "74d28f240a67def6d38dd97db951c03b76df1ef2d85f2ec88ceb50ca01dc73ef"
+    },
+    {
+      "path": "result.json",
+      "bytes": 1317,
+      "sha256": "52f7cdc20f10aff7d8628ef3f220bcc5249920a5c6598854b896a0753a987419"
+    },
+    {
+      "path": "run.py",
+      "bytes": 2935,
+      "sha256": "1a862acd55668e6958c4c6577810dda41ad02acc50d411562f0a90f97e29a252"
+    },
+    {
+      "path": "watchpoints.txt.gz",
+      "bytes": 340,
+      "sha256": "ae0ca5207737244717e8e27278c6d10d0cde685bde7108dbcf288ae457adbd73"
+    }
+  ]
+}
