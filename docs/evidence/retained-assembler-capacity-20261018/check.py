@@ -12,8 +12,8 @@ PIN = "5e56594815854de5eca35c7c04b11705d0f19c02"
 RANGES = {
     "gas/input-file.c": [(40, 40), (69, 74)],
     "gas/input-scrub.c": [(50, 74), (141, 151), (380, 438)],
-    "gas/as.c": [(75, 75), (105, 123), (1012, 1018)],
-    "gas/as.h": [(140, 147), (331, 337)],
+    "gas/as.c": [(75, 75), (91, 95), (105, 123), (1012, 1018), (1319, 1320)],
+    "gas/as.h": [(140, 147), (274, 274), (331, 337)],
     "gas/dw2gencfi.c": [(47, 91), (113, 149), (393, 459), (499, 553),
                        (573, 640), (802, 883), (1337, 1394),
                        (1658, 1790), (1910, 2154), (2208, 2290),
@@ -23,13 +23,17 @@ RANGES = {
                              (6672, 6674), (6752, 6754), (7780, 7796),
                              (10466, 10507), (11581, 11603),
                              (12045, 12185), (12289, 12357),
-                             (12603, 12640), (12689, 12861), (18757, 18762)],
-    "gas/config/tc-i386.h": [(472, 484)],
+                             (12603, 12640), (12689, 12870),
+                             (12956, 12965), (18757, 18762)],
+    "gas/config/tc-i386.h": [(308, 338), (472, 484)],
     "gas/symbols.c": [(251, 286), (903, 924)],
     "gas/expr.c": [(57, 100)],
-    "gas/frags.c": [(28, 41), (76, 94)],
-    "gas/frags.h": [(73, 84)],
-    "gas/ehopt.c": [(480, 582)],
+    "gas/frags.c": [(28, 41), (76, 141), (162, 202), (211, 267), (395, 405)],
+    "gas/frags.h": [(38, 108)],
+    "gas/subsegs.c": [(131, 145)],
+    "gas/read.c": [(4547, 4559), (4618, 4619), (4686, 4692)],
+    "gas/write.c": [(2681, 2784)],
+    "gas/ehopt.c": [(390, 440), (480, 582)],
     "gas/dwarf2dbg.c": [(1071, 1082), (3108, 3118)],
     "opcodes/i386-opc.tbl": [(192, 192), (246, 248), (260, 262),
                              (521, 524), (636, 636)],
@@ -40,6 +44,8 @@ RANGES = {
                           (2398, 2437), (2467, 2521)],
     "include/sframe.h": [(148, 188), (279, 319)],
     "gas/sframe-opt.c": [(34, 190)],
+    "include/obstack.h": [(105, 125), (137, 163)],
+    "libiberty/obstack.c": [(79, 85), (115, 150), (188, 236)],
 }
 
 
@@ -111,6 +117,17 @@ def main():
     assert "gas_assert (flag_gen_sframe_version == GEN_SFRAME_VERSION_3);" in sframe
     assert "#define sframe_ra_tracking_p() false" in sources["gas/config/tc-i386.h"]
     assert "frag->fr_fix += frag->fr_subtype & 7;" in sources["gas/sframe-opt.c"]
+    frags = sources["gas/frags.c"]
+    assert "static unsigned int totalfrags;" in frags
+    assert "obstack_blank (ob, extra + SIZEOF_STRUCT_FRAG);" in frags
+    assert "while (obstack_room (&frchain_now->frch_obstack) < nchars)" in frags
+    assert "newc = 2 * nchars;" in frags
+    assert "obstack_blank_fast (&frchain_now->frch_obstack, nchars);" in frags
+    assert "unsigned int region:16;" in sources["gas/frags.h"]
+    assert "int chunksize = 0;" in sources["gas/as.c"]
+    assert "int debug_memory = 0;" in sources["gas/as.c"]
+    assert "obstack_begin (&newP->frch_obstack, chunksize);" in sources["gas/subsegs.c"]
+    assert "new_size = sum2 + (obj_size >> 3) + 100;" in sources["libiberty/obstack.c"]
 
     b = 32768
     ptrdiff_max = 2**63-1
@@ -148,6 +165,19 @@ def main():
     assert sframe_rows <= 2**16-1 and sframe_bytes == 91
     x86_property_bytes = 4*4+2*((12+7)//8*8)
     assert x86_property_bytes == 48
+    payload_bytes = instruction_bytes+eh_frame+sframe_bytes+x86_property_bytes
+    explicit_room_requests = advances+1+sframe_rows
+    variant_closes = advances+2+1+sframe_rows
+    fragment_allocations = 2*payload_bytes+explicit_room_requests+variant_closes
+    assert payload_bytes == 257 and fragment_allocations == 540
+    # Selected ABI bounds and per-call transfer, not sizeof measurements.
+    header_low, header_high, append_high, mask, chunk = 76, 160, 48, 15, 4064
+    assert append_high < header_low
+    assert header_high+2*append_high <= chunk
+    assert max(chunk, header_high+mask+100) == chunk
+    room_after_new_header = chunk-16-mask-header_high
+    assert room_after_new_header >= append_high
+    assert chunk+mask <= ptrdiff_max
     result = {
         "commit": PIN,
         "source_files_checked": len(sources),
@@ -184,6 +214,19 @@ def main():
             "expression_location_record_requests": 3*(1+sframe_rows),
         },
         "optional_x86_property_note_payload_bytes": x86_property_bytes,
+        "selected_fragment_growth": {
+            "header_bytes_ABI_lower_bound": header_low,
+            "header_bytes_ABI_upper_bound": header_high,
+            "largest_append_or_room_request": append_high,
+            "combined_payload_reservation_bytes": payload_bytes,
+            "explicit_preallocation_requests": explicit_room_requests,
+            "variant_fragment_closes": variant_closes,
+            "fragment_allocations_excluding_other_paths": fragment_allocations,
+            "chunk_request_bytes": chunk,
+            "minimum_room_after_new_header": room_after_new_header,
+            "maximum_grow_loop_iterations": 1,
+            "region_increment_events_excluding_other_paths": 2,
+        },
         "compiler_runs": 0, "assembler_runs": 0, "linker_runs": 0, "prover_runs": 0,
     }
     args.output.write_text(json.dumps(result, indent=2)+"\n")

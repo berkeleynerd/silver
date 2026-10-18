@@ -237,13 +237,92 @@ records (`:12045–12146`). Its section alignment is eight bytes. This is GAS's
 own note contribution; a compiler-produced property note, other sections and
 inter-section padding still require the output-inventory join.
 
+## Selected fragment and obstack growth
+
+GAS uses the same version-2 `include/obstack.h` and `libiberty/obstack.c`
+bytes as the pinned GCC sources. The [individual-object obstack
+transfer](retained-backend-obstacks.md) therefore applies with GAS's actual
+constructor choices. `chunksize` and `debug_memory` start at zero; the selected
+command does not change them. A new subsection initializes one default obstack,
+sets its alignment to `alignof(fragS)`, and allocates its initial fragment
+(`gas/as.c:91–95,1319–1320`; `gas/subsegs.c:131–145`). Its preferred chunk
+request is **4064 bytes**, not GCC's separate 65536-byte pool setting.
+
+Write `H=offsetof(fragS,fr_literal)`. Under the selected LP64 layout,
+`76 <= H <= 160` and fragment alignment is at most 16. The lower bound
+already follows from five eight-byte address/value fields, four pointers and
+the line number. The upper bound charges the optional listing pointer,
+separate storage units for the generic unsigned/enum bitfields, the four-byte
+subtype, alignment padding and at most 48 bytes for the x86 extension. The
+selected ELF x86 shape has neither CGEN nor an `OBJ_FRAG_TYPE` extension
+(`gas/frags.h:38–108`, `gas/as.h:140–147,274`,
+`gas/config/tc-i386.h:308–338`). These are selected ABI layout bounds, not
+observed `sizeof` measurements.
+
+For these serializers every positive append or room request is at most 48
+bytes. If `frag_grow(n)` finds insufficient room, the remaining room is
+`< n <= 48 < H`. Finishing cannot increase that room, so the next fragment
+header forces a new chunk immediately. The requested temporary preferred size
+is at most `H+2n <= 256`, below 4064. The new chunk has at least
+`4064-16-15-160=3873` bytes after its header/alignment and fragment header;
+thus **one** loop iteration suffices. This is a specialization of
+`frag_grow`, not a claim about arbitrary large GAS requests
+(`gas/frags.c:76–141,162–202`).
+
+`frag_alloc` finishes the old object before appending a fresh header. Its
+obstack growth therefore copies zero partial bytes and requests at most
+`max(4064,H+15+100)=4064`. `frag_more` and `frag_var` append only after the
+room check. `FRAG_APPEND_1_CHAR` also starts a new fragment when room is at
+most one, after which the same new-chunk argument applies. Each selected
+fragment allocation requests at most one chunk; finishing requests none
+(`:211–267,395–405`; `libiberty/obstack.c:188–236`). In-chunk offsets and
+pointer differences consequently fit the existing individual-allocation
+conditions. Other obstack users, allocator overhead and source-address
+placement retain their separate premises.
+
+The already bounded instruction, CFI, SFrame and GAS property paths reserve
+at most `26+92+91+48=257` payload bytes in total. Charging a separate append
+primitive per positive byte bounds those primitives by 257. Charge another
+257 room checks to cover `emit_expr_with_reloc`'s preliminary `frag_grow`,
+even though most writes do not use it (`gas/read.c:4547–4559,4618,4686`).
+Those CFI expression fields have four/eight-byte widths; one-byte frame opcodes
+use the direct helper, so the additional raw-DWARF `check_eh_frame` recognition
+cannot enter its `state_saw_loc4` fragment path
+(`gas/ehopt.c:390–440`; `gas/dw2gencfi.c:113–147,1929–1934,2059–2122`).
+The explicit preallocation calls add at most five for CFI and seven for
+SFrame. Closing variant fragments adds five CFI advances, two CFI alignment
+fragments and seven SFrame fields. Thus these selected paths make at most
+
+```text
+2*257 + (5+7) + (5+2+7) = 540 fragment allocations.
+```
+
+Zero-length `frag_more(0)` probes allocate no payload and do not start a
+fragment; the instruction-end forced split is disabled by zero branch
+alignment (`gas/config/tc-i386.c:12870,12956–12965`). This intentionally loose
+event bound excludes subsection initialization, compiler-produced extra
+directives and final section padding/sentinels. If their bound is `F_other`,
+the unsigned counter condition is
+`initial_totalfrags + F_other + 540 <= UINT_MAX`; the corresponding number
+of individual chunk requests is bounded without turning their sum into a
+language memory gate.
+
+The 16-bit fragment `region` is a different representation. Its per-section
+counter starts at zero and increments only after alignment or `.org`
+fragments; CFI/SFrame variants do not increment it
+(`gas/write.c:2681–2784`). These selected paths add at most **two** such
+events, both CFI alignment. Complete section composition must still ensure
+that each stored region fits 16 bits and the local integer increment fits;
+neither the global fragment count nor source length is itself the region
+count.
+
 ## Remaining composition
 
 The current record leaves the complete assembly-input transfer, generated section and
-symbol counts, fragment events, relaxation and fixups, object-file metadata,
+symbol counts, other fragment events, relaxation and fixups, object-file metadata,
 startup state and aggregate allocator demands open. In particular, GAS
 fragments have their own unsigned allocation count and a 16-bit region field
-(`gas/frags.c:28–41,76–94`, `gas/frags.h:73–84`); these are not GCC's UID or
+(`gas/frags.c:28–41,76–94`, `gas/frags.h:67–84`); these are not GCC's UID or
 block counters. Their actual uses and sufficient bounds must be reviewed
 before assigning them any language restriction. The existing
 [ELF/BFD string-table transfer](retained-linker-capacity.md) supplies a later

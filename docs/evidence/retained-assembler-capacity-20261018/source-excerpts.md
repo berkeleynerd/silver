@@ -135,6 +135,16 @@ Literal LF line numbering.
 75: enum debug_info_type debug_type = DEBUG_UNSPECIFIED;
 ```
 
+## gas/as.c:91–95
+
+```text
+91: int chunksize = 0;
+92:
+93: /* To monitor memory allocation more effectively, make this non-zero.
+94:    Then the chunk sizes for gas and bfd will be reduced.  */
+95: int debug_memory = 0;
+```
+
 ## gas/as.c:105–123
 
 ```text
@@ -171,6 +181,13 @@ Literal LF line numbering.
 1018:             as_fatal (_("Invalid --scfi= option: `%s'; suggested option: experimental"),
 ```
 
+## gas/as.c:1319–1320
+
+```text
+1319:   if (debug_memory)
+1320:     chunksize = 64;
+```
+
 ## gas/as.h:140–147
 
 ```text
@@ -182,6 +199,12 @@ Literal LF line numbering.
 145:
 146: /* Type of symbol value, etc.  For use in prototypes.  */
 147: typedef addressT valueT;
+```
+
+## gas/as.h:274–274
+
+```text
+274: typedef unsigned int relax_substateT;
 ```
 
 ## gas/as.h:331–337
@@ -1807,7 +1830,7 @@ Literal LF line numbering.
 12640:           return;
 ```
 
-## gas/config/tc-i386.c:12689–12861
+## gas/config/tc-i386.c:12689–12870
 
 ```text
 12689:       /* Since the VEX/EVEX prefix contains the implicit prefix, we
@@ -1983,6 +2006,30 @@ Literal LF line numbering.
 12859:
 12860:       if (i.imm_operands)
 12861:         output_imm (insn_start_frag, insn_start_off);
+12862:
+12863:       /*
+12864:        * frag_now_fix () returning plain abs_section_offset when we're in the
+12865:        * absolute section, and abs_section_offset not getting updated as data
+12866:        * gets added to the frag breaks the logic below.
+12867:        */
+12868:       if (now_seg != absolute_section)
+12869:         {
+12870:           j = encoding_length (insn_start_frag, insn_start_off, frag_more (0));
+```
+
+## gas/config/tc-i386.c:12956–12965
+
+```text
+12956:   /* NB: Don't work with COND_JUMP86 without i386.  */
+12957:   if (align_branch_power
+12958:       && now_seg != absolute_section
+12959:       && cpu_arch_flags.bitfield.cpui386)
+12960:     {
+12961:       /* Terminate each frag so that we can add prefix and check for
+12962:          fused jcc.  */
+12963:       frag_wane (frag_now);
+12964:       frag_new (0);
+12965:     }
 ```
 
 ## gas/config/tc-i386.c:18757–18762
@@ -1994,6 +2041,42 @@ Literal LF line numbering.
 18760:   cfi_add_CFA_def_cfa (object_64bit ? REG_SP : 4, -x86_cie_data_alignment);
 18761:   cfi_add_CFA_offset (x86_dwarf2_return_column, x86_cie_data_alignment);
 18762: }
+```
+
+## gas/config/tc-i386.h:308–338
+
+```text
+308: struct i386_tc_frag_data
+309: {
+310:   union
+311:     {
+312:       fragS *padding_fragP;
+313:       fragS *branch_fragP;
+314:     } u;
+315:   addressT padding_address;
+316:   enum processor_type isa;
+317:   enum processor_type tune;
+318:   enum i386_flag_code code;
+319:   unsigned int max_bytes;
+320:   unsigned char length;
+321:   unsigned char last_length;
+322:   unsigned char max_prefix_length;
+323:   unsigned char prefix_length;
+324:   unsigned char default_prefix;
+325:   unsigned char cmp_size;
+326:   unsigned int mf_type : 3;
+327:   unsigned int classified : 1;
+328:   unsigned int branch_type : 3;
+329:   unsigned int cpunop : 1;
+330:   unsigned int isanop : 1;
+331:   unsigned int last_insn_normal : 1;
+332:   bool no_cond_jump_promotion : 1;
+333: };
+334:
+335: /* We need to emit the right NOP pattern in .align frags.  This is
+336:    done after the text-to-bits assembly pass, so we need to mark it with
+337:    the isa/tune settings at the time the .align was assembled.  */
+338: #define TC_FRAG_TYPE struct i386_tc_frag_data
 ```
 
 ## gas/config/tc-i386.h:472–484
@@ -2150,7 +2233,7 @@ Literal LF line numbering.
 41:
 ```
 
-## gas/frags.c:76–94
+## gas/frags.c:76–141
 
 ```text
 76: frag_alloc (struct obstack *ob, size_t extra)
@@ -2172,11 +2255,217 @@ Literal LF line numbering.
 92:   return ptr;
 93: }
 94:
+95: /* Try to augment current frag by nchars chars.
+96:    If there is no room, close off the current frag with a ".fill 0"
+97:    and begin a new frag.  Then loop until the new frag has at least
+98:    nchars chars available.  Does not set up any fields in frag_now.  */
+99:
+100: void
+101: frag_grow (size_t nchars)
+102: {
+103:   if (obstack_room (&frchain_now->frch_obstack) < nchars)
+104:     {
+105:       size_t oldc;
+106:       size_t newc;
+107:
+108:       /* Try to allocate a bit more than needed right now.  But don't do
+109:          this if we would waste too much memory.  Especially necessary
+110:          for extremely big (like 2GB initialized) frags.  */
+111:       if (nchars < 0x10000)
+112:         newc = 2 * nchars;
+113:       else
+114:         newc = nchars + 0x10000;
+115:       newc += SIZEOF_STRUCT_FRAG;
+116:
+117:       /* Check for possible overflow.  */
+118:       if (newc < nchars)
+119:         as_fatal (ngettext ("can't extend frag %lu char",
+120:                             "can't extend frag %lu chars",
+121:                             (unsigned long) nchars),
+122:                   (unsigned long) nchars);
+123:
+124:       /* Force to allocate at least NEWC bytes, but not less than the
+125:          default.  */
+126:       oldc = obstack_chunk_size (&frchain_now->frch_obstack);
+127:       if (newc > oldc)
+128:         obstack_chunk_size (&frchain_now->frch_obstack) = newc;
+129:
+130:       while (obstack_room (&frchain_now->frch_obstack) < nchars)
+131:         {
+132:           /* Not enough room in this frag.  Close it and start a new one.
+133:              This must be done in a loop because the created frag may not
+134:              be big enough if the current obstack chunk is used.  */
+135:           frag_wane (frag_now);
+136:           frag_new (0);
+137:         }
+138:
+139:       /* Restore the old chunk size.  */
+140:       obstack_chunk_size (&frchain_now->frch_obstack) = oldc;
+141:     }
 ```
 
-## gas/frags.h:73–84
+## gas/frags.c:162–202
 
 ```text
+162: frag_new (size_t old_frags_var_max_size
+163:           /* Number of chars (already allocated on obstack frags) in
+164:              variable_length part of frag.  */)
+165: {
+166:   fragS *former_last_fragP;
+167:   frchainS *frchP;
+168:
+169:   gas_assert (frchain_now->frch_last == frag_now);
+170:
+171:   /* Fix up old frag's fr_fix.  */
+172:   frag_now->fr_fix = frag_now_fix_octets ();
+173:   gas_assert (frag_now->fr_fix >= old_frags_var_max_size
+174:               || now_seg == absolute_section);
+175:   frag_now->fr_fix -= old_frags_var_max_size;
+176:   /* Make sure its type is valid.  */
+177:   gas_assert (frag_now->fr_type != 0);
+178:
+179:   frchP = frchain_now;
+180:   know (frchP);
+181:   former_last_fragP = frchP->frch_last;
+182:   gas_assert (former_last_fragP != 0);
+183:   gas_assert (former_last_fragP == frag_now);
+184:   frag_now = frag_alloc (&frchP->frch_obstack, 0);
+185:
+186:   frag_now->fr_file = as_where (&frag_now->fr_line);
+187:
+188:   /* Generally, frag_now->points to an address rounded up to next
+189:      alignment.  However, characters will add to obstack frags
+190:      IMMEDIATELY after the struct frag, even if they are not starting
+191:      at an alignment address.  */
+192:   former_last_fragP->fr_next = frag_now;
+193:   frchP->frch_last = frag_now;
+194:
+195: #ifndef NO_LISTING
+196:   frag_now->line = listing_tail;
+197: #endif
+198:
+199:   gas_assert (frchain_now->frch_last == frag_now);
+200:
+201:   frag_now->fr_next = NULL;
+202: }
+```
+
+## gas/frags.c:211–267
+
+```text
+211: frag_more (size_t nchars)
+212: {
+213:   char *retval;
+214:
+215:   frag_alloc_check (&frchain_now->frch_obstack);
+216:   frag_grow (nchars);
+217:   retval = obstack_next_free (&frchain_now->frch_obstack);
+218:   obstack_blank_fast (&frchain_now->frch_obstack, nchars);
+219:   return retval;
+220: }
+221:
+222: /* Close the current frag, setting its fields for a relaxable frag.  Start a
+223:    new frag.  */
+224:
+225: static void
+226: frag_var_init (relax_stateT type, size_t max_chars, size_t var,
+227:                relax_substateT subtype, symbolS *symbol, offsetT offset,
+228:                char *opcode)
+229: {
+230:   frag_now->fr_var = var;
+231:   frag_now->fr_type = type;
+232:   frag_now->fr_subtype = subtype;
+233:   frag_now->fr_symbol = symbol;
+234:   frag_now->fr_offset = offset;
+235:   frag_now->fr_opcode = opcode;
+236: #ifdef USING_CGEN
+237:   frag_now->fr_cgen.insn = 0;
+238:   frag_now->fr_cgen.opindex = 0;
+239:   frag_now->fr_cgen.opinfo = 0;
+240: #endif
+241: #ifdef TC_FRAG_INIT
+242:   TC_FRAG_INIT (frag_now, max_chars);
+243: #endif
+244:   frag_now->fr_file = as_where (&frag_now->fr_line);
+245:
+246:   frag_new (max_chars);
+247: }
+248:
+249: /* Start a new frag unless we have max_chars more chars of room in the
+250:    current frag.  Close off the old frag with a .fill 0.
+251:
+252:    Set up a machine_dependent relaxable frag, then start a new frag.
+253:    Return the address of the 1st char of the var part of the old frag
+254:    to write into.  */
+255:
+256: char *
+257: frag_var (relax_stateT type, size_t max_chars, size_t var,
+258:           relax_substateT subtype, symbolS *symbol, offsetT offset,
+259:           char *opcode)
+260: {
+261:   char *retval;
+262:
+263:   frag_grow (max_chars);
+264:   retval = obstack_next_free (&frchain_now->frch_obstack);
+265:   obstack_blank_fast (&frchain_now->frch_obstack, max_chars);
+266:   frag_var_init (type, max_chars, var, subtype, symbol, offset, opcode);
+267:   return retval;
+```
+
+## gas/frags.c:395–405
+
+```text
+395: void
+396: frag_append_1_char (int datum)
+397: {
+398:   frag_alloc_check (&frchain_now->frch_obstack);
+399:   if (obstack_room (&frchain_now->frch_obstack) <= 1)
+400:     {
+401:       frag_wane (frag_now);
+402:       frag_new (0);
+403:     }
+404:   obstack_1grow (&frchain_now->frch_obstack, datum);
+405: }
+```
+
+## gas/frags.h:38–108
+
+```text
+38: struct frag {
+39:   /* Object file address (as an octet offset).  */
+40:   addressT fr_address;
+41:   /* When relaxing multiple times, remember the address the frag had
+42:      in the last relax pass.  */
+43:   addressT last_fr_address;
+44:
+45:   /* (Fixed) number of octets we know we have.  May be 0.  */
+46:   valueT fr_fix;
+47:   /* May be used for (Variable) number of octets after above.  */
+48:   offsetT fr_var;
+49:   /* For variable-length tail.  */
+50:   offsetT fr_offset;
+51:   /* For variable-length tail.  */
+52:   symbolS *fr_symbol;
+53:   /* Points to opcode low addr byte, for relaxation.  */
+54:   char *fr_opcode;
+55:
+56:   /* Chain forward; ascending address order.  Rooted in frch_root.  */
+57:   struct frag *fr_next;
+58:
+59:   /* Where the frag was created, or where it became a variant frag.  */
+60:   const char *fr_file;
+61:   unsigned int fr_line;
+62:
+63: #ifndef NO_LISTING
+64:   struct list_info_struct *line;
+65: #endif
+66:
+67:   /* A serial number for a sequence of frags having at most one alignment
+68:      or org frag, and that at the tail of the sequence.  */
+69:   unsigned int region:16;
+70:
+71:   /* Flipped each relax pass so we can easily determine whether
+72:      fr_address has been adjusted.  */
 73:   unsigned int relax_marker:1;
 74:
 75:   /* Used to ensure that all insns are emitted on proper address
@@ -2189,6 +2478,252 @@ Literal LF line numbering.
 82:   relax_substateT fr_subtype;
 83:
 84: #ifdef USING_CGEN
+85:   /* Don't include this unless using CGEN to keep frag size down.  */
+86:   struct {
+87:     /* CGEN_INSN entry for this instruction.  */
+88:     const struct cgen_insn *insn;
+89:     /* Index into operand table.  */
+90:     int opindex;
+91:     /* Target specific data, usually reloc number.  */
+92:     int opinfo;
+93:   } fr_cgen;
+94: #endif
+95:
+96: #ifdef TC_FRAG_TYPE
+97:   TC_FRAG_TYPE tc_frag_data;
+98: #endif
+99: #ifdef OBJ_FRAG_TYPE
+100:   OBJ_FRAG_TYPE obj_frag_data;
+101: #endif
+102:
+103:   /* Data begins here.  */
+104:   char fr_literal[1];
+105: };
+106:
+107: #define SIZEOF_STRUCT_FRAG \
+108: ((char *) zero_address_frag.fr_literal - (char *) &zero_address_frag)
+```
+
+## gas/subsegs.c:131–145
+
+```text
+131:   if (frcP == NULL || frcP->frch_subseg != subseg)
+132:     {
+133:       /* This should be the only code that creates a frchainS.  */
+134:
+135:       newP = obstack_alloc (&frchains, sizeof (frchainS));
+136:       newP->frch_subseg = subseg;
+137:       newP->fix_root = NULL;
+138:       newP->fix_tail = NULL;
+139:       obstack_begin (&newP->frch_obstack, chunksize);
+140: #if __GNUC__ >= 2
+141:       obstack_alignment_mask (&newP->frch_obstack) = __alignof__ (fragS) - 1;
+142: #endif
+143:       newP->frch_frag_now = frag_alloc (&newP->frch_obstack, 0);
+144:       newP->frch_frag_now->fr_type = rs_fill;
+145:       newP->frch_cfi_data = NULL;
+```
+
+## gas/read.c:4547–4559
+
+```text
+4547: emit_expr_with_reloc (expressionS *exp,
+4548:                       unsigned int nbytes,
+4549:                       TC_PARSE_CONS_RETURN_TYPE reloc)
+4550: {
+4551:   operatorT op;
+4552:   char *p;
+4553:   valueT extra_digit = 0;
+4554:
+4555:   /* Don't do anything if we are going to make another pass.  */
+4556:   if (need_pass_2)
+4557:     return;
+4558:
+4559:   frag_grow (nbytes);
+```
+
+## gas/read.c:4618–4619
+
+```text
+4618:   if (check_eh_frame (exp, &nbytes))
+4619:     return;
+```
+
+## gas/read.c:4686–4692
+
+```text
+4686:   p = frag_more (nbytes);
+4687:
+4688:   if (reloc != TC_PARSE_CONS_RETURN_NONE)
+4689:     {
+4690:       emit_expr_fix (exp, nbytes, frag_now, p, reloc);
+4691:       return;
+4692:     }
+```
+
+## gas/write.c:2681–2784
+
+```text
+2681: relax_segment (struct frag *segment_frag_root, segT segment, int pass)
+2682: {
+2683:   unsigned long frag_count;
+2684:   struct frag *fragP;
+2685:   relax_addressT address;
+2686:   int region;
+2687:   int ret;
+2688:
+2689:   /* In case md_estimate_size_before_relax() wants to make fixSs.  */
+2690:   subseg_change (segment, 0);
+2691:
+2692:   /* For each frag in segment: count and store  (a 1st guess of)
+2693:      fr_address.  */
+2694:   address = 0;
+2695:   region = 0;
+2696:   for (frag_count = 0, fragP = segment_frag_root;
+2697:        fragP;
+2698:        fragP = fragP->fr_next, frag_count ++)
+2699:     {
+2700:       fragP->region = region;
+2701:       fragP->relax_marker = 0;
+2702:       fragP->fr_address = address;
+2703:       address += fragP->fr_fix;
+2704:
+2705:       switch (fragP->fr_type)
+2706:         {
+2707:         case rs_fill:
+2708:           address += fragP->fr_offset * fragP->fr_var;
+2709:           break;
+2710:
+2711:         case rs_align:
+2712:         case rs_align_code:
+2713:         case rs_align_test:
+2714:           {
+2715:             addressT offset = relax_align (address, (int) fragP->fr_offset);
+2716:
+2717:             if (fragP->fr_subtype != 0 && offset > fragP->fr_subtype)
+2718:               offset = 0;
+2719:
+2720:             if (offset % fragP->fr_var != 0)
+2721:               {
+2722:                 as_bad_where (fragP->fr_file, fragP->fr_line,
+2723:                               ngettext ("alignment padding (%lu byte) "
+2724:                                         "not a multiple of %ld",
+2725:                                         "alignment padding (%lu bytes) "
+2726:                                         "not a multiple of %ld",
+2727:                                         (unsigned long) offset),
+2728:                               (unsigned long) offset, (long) fragP->fr_var);
+2729:                 offset -= (offset % fragP->fr_var);
+2730:               }
+2731:
+2732:             address += offset;
+2733:             region += 1;
+2734:           }
+2735:           break;
+2736:
+2737:         case rs_org:
+2738:           /* Assume .org is nugatory. It will grow with 1st relax.  */
+2739:           region += 1;
+2740:           break;
+2741:
+2742:         case rs_space:
+2743:         case rs_space_nop:
+2744:           break;
+2745:
+2746:         case rs_machine_dependent:
+2747:           /* If fr_symbol is an expression, this call to
+2748:              resolve_symbol_value sets up the correct segment, which will
+2749:              likely be needed in md_estimate_size_before_relax.  */
+2750:           if (fragP->fr_symbol)
+2751:             resolve_symbol_value (fragP->fr_symbol);
+2752:
+2753:           address += md_estimate_size_before_relax (fragP, segment);
+2754:           break;
+2755:
+2756: #ifndef WORKING_DOT_WORD
+2757:           /* Broken words don't concern us yet.  */
+2758:         case rs_broken_word:
+2759:           break;
+2760: #endif
+2761:
+2762:         case rs_leb128:
+2763: #if defined (TE_PE) && defined (O_secrel)
+2764:         case rs_cv_comp:
+2765: #endif
+2766:           /* Initial guess is always 1; doing otherwise can result in
+2767:              stable solutions that are larger than the minimum.  */
+2768:           address += fragP->fr_offset = 1;
+2769:           break;
+2770:
+2771:         case rs_cfa:
+2772:           address += eh_frame_estimate_size_before_relax (fragP);
+2773:           break;
+2774:
+2775:         case rs_dwarf2dbg:
+2776:           address += dwarf2dbg_estimate_size_before_relax (fragP);
+2777:           break;
+2778:
+2779:         case rs_sframe:
+2780:           /* Initial estimate can be set to atleast 1 byte.  */
+2781:           address += sframe_estimate_size_before_relax (fragP);
+2782:           break;
+2783:
+2784:         default:
+```
+
+## gas/ehopt.c:390–440
+
+```text
+390:     case state_wait_loc4:
+391:       if (*pnbytes == 1
+392:           && exp->X_op == O_constant
+393:           && exp->X_add_number == DW_CFA_advance_loc4)
+394:         {
+395:           /* This might be a DW_CFA_advance_loc4.  Record the frag and the
+396:              position within the frag, so that we can change it later.  */
+397:           frag_grow (1 + 4);
+398:           d->state = state_saw_loc4;
+399:           d->loc4_frag = frag_now;
+400:           d->loc4_fix = frag_now_fix ();
+401:         }
+402:       break;
+403:
+404:     case state_saw_loc4:
+405:       d->state = state_wait_loc4;
+406:       if (*pnbytes != 4)
+407:         break;
+408:       if (exp->X_op == O_constant)
+409:         {
+410:           /* This is a case which we can optimize.  The two symbols being
+411:              subtracted were in the same frag and the expression was
+412:              reduced to a constant.  We can do the optimization entirely
+413:              in this function.  */
+414:           if (exp->X_add_number < 0x40)
+415:             {
+416:               d->loc4_frag->fr_literal[d->loc4_fix]
+417:                 = DW_CFA_advance_loc | exp->X_add_number;
+418:               /* No more bytes needed.  */
+419:               return 1;
+420:             }
+421:           else if (exp->X_add_number < 0x100)
+422:             {
+423:               d->loc4_frag->fr_literal[d->loc4_fix] = DW_CFA_advance_loc1;
+424:               *pnbytes = 1;
+425:             }
+426:           else if (exp->X_add_number < 0x10000)
+427:             {
+428:               d->loc4_frag->fr_literal[d->loc4_fix] = DW_CFA_advance_loc2;
+429:               *pnbytes = 2;
+430:             }
+431:         }
+432:       else if (exp->X_op == O_subtract && d->cie_info.code_alignment == 1)
+433:         {
+434:           /* This is a case we can optimize.  The expression was not
+435:              reduced, so we can not finish the optimization until the end
+436:              of the assembly.  We set up a variant frag which we handle
+437:              later.  */
+438:           frag_var (rs_cfa, 4, 0, 1 << 3, make_expr_symbol (exp),
+439:                     d->loc4_fix, (char *) d->loc4_frag);
+440:           return 1;
 ```
 
 ## gas/ehopt.c:480–582
@@ -3738,4 +4273,169 @@ Literal LF line numbering.
 188:      manually ?  */
 189:   frag->fr_symbol = 0;
 190: }
+```
+
+## include/obstack.h:105–125
+
+```text
+105: #define _OBSTACK_H 1
+106:
+107: #ifndef _OBSTACK_INTERFACE_VERSION
+108: # define _OBSTACK_INTERFACE_VERSION 2
+109: #endif
+110:
+111: #include <stddef.h>             /* For size_t and ptrdiff_t.  */
+112: #include <string.h>             /* For __GNU_LIBRARY__, and memcpy.  */
+113:
+114: #if _OBSTACK_INTERFACE_VERSION == 1
+115: /* For binary compatibility with obstack version 1, which used "int"
+116:    and "long" for these two types.  */
+117: # define _OBSTACK_SIZE_T unsigned int
+118: # define _CHUNK_SIZE_T unsigned long
+119: # define _OBSTACK_CAST(type, expr) ((type) (expr))
+120: #else
+121: /* Version 2 with sane types, especially for 64-bit hosts.  */
+122: # define _OBSTACK_SIZE_T size_t
+123: # define _CHUNK_SIZE_T size_t
+124: # define _OBSTACK_CAST(type, expr) (expr)
+125: #endif
+```
+
+## include/obstack.h:137–163
+
+```text
+137:    relative to B.  Otherwise, use the faster strategy of computing the
+138:    alignment relative to 0.  */
+139:
+140: #define __PTR_ALIGN(B, P, A)                                            \
+141:   (sizeof (ptrdiff_t) < sizeof (void *) ? __BPTR_ALIGN (B, P, A)        \
+142:    : (char *) (((ptrdiff_t) (P) + (A)) & ~(A)))
+143:
+144: #ifndef __attribute_pure__
+145: # if defined __GNUC_MINOR__ && __GNUC__ * 1000 + __GNUC_MINOR__ >= 2096
+146: #  define __attribute_pure__ __attribute__ ((__pure__))
+147: # else
+148: #  define __attribute_pure__
+149: # endif
+150: #endif
+151:
+152: #ifdef __cplusplus
+153: extern "C" {
+154: #endif
+155:
+156: struct _obstack_chunk           /* Lives at front of each chunk. */
+157: {
+158:   char *limit;                  /* 1 past end of this chunk */
+159:   struct _obstack_chunk *prev;  /* address of prior chunk or NULL */
+160:   char contents[4];             /* objects begin here */
+161: };
+162:
+163: struct obstack          /* control current object in current chunk */
+```
+
+## libiberty/obstack.c:79–85
+
+```text
+79:                                     __alignof__ (void *)))
+80: #define DEFAULT_ROUNDING MAX (sizeof (long double),                           \
+81:                                MAX (sizeof (uintmax_t),                       \
+82:                                     sizeof (void *)))
+83:
+84: /* Call functions with either the traditional malloc/free calling
+85:    interface, or the mmalloc/mfree interface (that adds an extra first
+```
+
+## libiberty/obstack.c:115–150
+
+```text
+115:                        _OBSTACK_SIZE_T size, _OBSTACK_SIZE_T alignment)
+116: {
+117:   struct _obstack_chunk *chunk; /* points to new chunk */
+118:
+119:   if (alignment == 0)
+120:     alignment = DEFAULT_ALIGNMENT;
+121:   if (size == 0)
+122:     /* Default size is what GNU malloc can fit in a 4096-byte block.  */
+123:     {
+124:       /* 12 is sizeof (mhead) and 4 is EXTRA from GNU malloc.
+125:          Use the values for range checking, because if range checking is off,
+126:          the extra bytes won't be missed terribly, but if range checking is on
+127:          and we used a larger request, a whole extra 4096 bytes would be
+128:          allocated.
+129:
+130:          These number are irrelevant to the new GNU malloc.  I suspect it is
+131:          less sensitive to the size of the request.  */
+132:       int extra = ((((12 + DEFAULT_ROUNDING - 1) & ~(DEFAULT_ROUNDING - 1))
+133:                     + 4 + DEFAULT_ROUNDING - 1)
+134:                    & ~(DEFAULT_ROUNDING - 1));
+135:       size = 4096 - extra;
+136:     }
+137:
+138:   h->chunk_size = size;
+139:   h->alignment_mask = alignment - 1;
+140:
+141:   chunk = (struct _obstack_chunk *) call_chunkfun (h, h->chunk_size);
+142:   if (!chunk)
+143:     (*obstack_alloc_failed_handler) ();
+144:   h->chunk = chunk;
+145:   h->next_free = h->object_base = __PTR_ALIGN ((char *) chunk, chunk->contents,
+146:                                                alignment - 1);
+147:   h->chunk_limit = chunk->limit = (char *) chunk + h->chunk_size;
+148:   chunk->prev = 0;
+149:   /* The initial chunk now contains no empty object.  */
+150:   h->maybe_empty_object = 0;
+```
+
+## libiberty/obstack.c:188–236
+
+```text
+188: _obstack_newchunk (struct obstack *h, _OBSTACK_SIZE_T length)
+189: {
+190:   struct _obstack_chunk *old_chunk = h->chunk;
+191:   struct _obstack_chunk *new_chunk = 0;
+192:   size_t obj_size = h->next_free - h->object_base;
+193:   char *object_base;
+194:
+195:   /* Compute size for new chunk.  */
+196:   size_t sum1 = obj_size + length;
+197:   size_t sum2 = sum1 + h->alignment_mask;
+198:   size_t new_size = sum2 + (obj_size >> 3) + 100;
+199:   if (new_size < sum2)
+200:     new_size = sum2;
+201:   if (new_size < h->chunk_size)
+202:     new_size = h->chunk_size;
+203:
+204:   /* Allocate and initialize the new chunk.  */
+205:   if (obj_size <= sum1 && sum1 <= sum2)
+206:     new_chunk = (struct _obstack_chunk *) call_chunkfun (h, new_size);
+207:   if (!new_chunk)
+208:     (*obstack_alloc_failed_handler)();
+209:   h->chunk = new_chunk;
+210:   new_chunk->prev = old_chunk;
+211:   new_chunk->limit = h->chunk_limit = (char *) new_chunk + new_size;
+212:
+213:   /* Compute an aligned object_base in the new chunk */
+214:   object_base =
+215:     __PTR_ALIGN ((char *) new_chunk, new_chunk->contents, h->alignment_mask);
+216:
+217:   /* Move the existing object to the new chunk.  */
+218:   memcpy (object_base, h->object_base, obj_size);
+219:
+220:   /* If the object just copied was the only data in OLD_CHUNK,
+221:      free that chunk and remove it from the chain.
+222:      But not if that chunk might contain an empty object.  */
+223:   if (!h->maybe_empty_object
+224:       && (h->object_base
+225:           == __PTR_ALIGN ((char *) old_chunk, old_chunk->contents,
+226:                           h->alignment_mask)))
+227:     {
+228:       new_chunk->prev = old_chunk->prev;
+229:       call_freefun (h, old_chunk);
+230:     }
+231:
+232:   h->object_base = object_base;
+233:   h->next_free = h->object_base + obj_size;
+234:   /* The new chunk certainly contains no empty object yet.  */
+235:   h->maybe_empty_object = 0;
+236: }
 ```

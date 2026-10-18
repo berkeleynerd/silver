@@ -86,6 +86,19 @@
     "expression_location_record_requests": 21
   },
   "optional_x86_property_note_payload_bytes": 48,
+  "selected_fragment_growth": {
+    "header_bytes_ABI_lower_bound": 76,
+    "header_bytes_ABI_upper_bound": 160,
+    "largest_append_or_room_request": 48,
+    "combined_payload_reservation_bytes": 257,
+    "explicit_preallocation_requests": 12,
+    "variant_fragment_closes": 14,
+    "fragment_allocations_excluding_other_paths": 540,
+    "chunk_request_bytes": 4064,
+    "minimum_room_after_new_header": 3873,
+    "maximum_grow_loop_iterations": 1,
+    "region_increment_events_excluding_other_paths": 2
+  },
   "compiler_runs": 0,
   "assembler_runs": 0,
   "linker_runs": 0,

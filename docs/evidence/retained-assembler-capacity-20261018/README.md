@@ -23,6 +23,9 @@ argument. The conditional results are a longest-line buffer transfer, twelve
 CFI nodes, 26 bytes of selected instruction encodings, a 92-byte local
 `.eh_frame` contribution, at most six SFrame rows and 91 SFrame bytes, an
 optional 48-byte x86 property note, and selected symbol-request counts.
+The fragment join bounds these selected paths by 540 fragment allocations,
+with individual 4064-byte obstack requests and at most two region increments;
+it excludes subsection startup, other directives and final padding/sentinels.
 They do not establish whole assembler capacity, complete allocator storage,
 the generated assembly-input transfer or final relocation reach. Configuration
 can independently enable SFrame/property-note output; both branches are charged.
