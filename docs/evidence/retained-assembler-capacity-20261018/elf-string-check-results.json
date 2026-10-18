@@ -1,0 +1,60 @@
+{
+  "scope": "Two selected null Main ELF string-table allocator contexts",
+  "source_files_verified": 70,
+  "selected_LP64_layout_bytes": {
+    "hash_entry": 24,
+    "string_entry": 40,
+    "hash_control": 40,
+    "string_table_control": 72
+  },
+  "tables": {
+    "symbol": {
+      "distinct_nonempty_names_upper": 97,
+      "hash_bucket_slots": 4051,
+      "hash_bucket_raw_request_bytes": 32408,
+      "hash_growths": 0,
+      "hash_entry_request_bytes_upper": 64,
+      "hash_name_copy_requests": 0,
+      "pointer_array_capacities": [
+        64,
+        128
+      ],
+      "small_chunks_upper_including_initial": 2,
+      "large_bucket_chunks": 1,
+      "individual_heap_request_bytes_upper": {
+        "table_control": 96,
+        "objalloc_control": 24,
+        "objalloc_small_chunk": 4064,
+        "objalloc_bucket_large_chunk": 32424,
+        "entry_pointer_array": 1024,
+        "final_sort_pointer_array": 784
+      }
+    },
+    "section": {
+      "distinct_nonempty_names_upper": 21,
+      "hash_bucket_slots": 4051,
+      "hash_bucket_raw_request_bytes": 32408,
+      "hash_growths": 0,
+      "hash_entry_request_bytes_upper": 64,
+      "hash_name_copy_requests": 0,
+      "pointer_array_capacities": [
+        64
+      ],
+      "small_chunks_upper_including_initial": 1,
+      "large_bucket_chunks": 1,
+      "individual_heap_request_bytes_upper": {
+        "table_control": 96,
+        "objalloc_control": 24,
+        "objalloc_small_chunk": 4064,
+        "objalloc_bucket_large_chunk": 32424,
+        "entry_pointer_array": 512,
+        "final_sort_pointer_array": 176
+      }
+    }
+  },
+  "separate_from_shared_notes_and_output_BFD_alloc_size": true,
+  "source_level_allocators_only": true,
+  "libc_allocator_and_qsort_internals_covered": false,
+  "whole_GAS_or_link_capacity_established": false,
+  "native_execution": false
+}

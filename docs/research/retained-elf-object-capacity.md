@@ -163,9 +163,79 @@ The last serialized header array is also an individual 1408-byte allocation
 (`bfd/elfcode.h:1101–1167`). This is a source-derived upper bound, not an
 observed object size or a proposed independent language limit.
 
-The remaining assembler storage includes fixed BFD/section/hash initialization,
-common notes/frchain backing, other fixed parser tables and allocator overhead.
+The subsequent [startup and lifetime transfer](retained-assembler-startup.md)
+supplies BFD/section initialization and the output BFD's allocation counter;
+the concrete string-table arena specialization follows below. The remaining
+assembler storage includes parser/relaxation subsidiary state and the actual
+production invocation/path join.
 The object result supplies nine ordinary sections, at most 98 serialized
 symbols, 281 relocations and this file-size envelope to the linker lane.
 Fixed library objects, generated binder objects, linker-created sections and
 the final image's relocation reach still require their own joins.
+
+## Concrete ELF string-table allocator requests
+
+The [offline specialization](../evidence/retained-assembler-capacity-20261018/check-elf-strings.py)
+reuses the two name/reference envelopes above. Each `_bfd_elf_strtab_init`
+creates an ordinary-heap control object, one independent hash objalloc, and
+a 64-slot ordinary-heap entry-pointer array (`bfd/elf-strtab.c:47–126`).
+One instance is created by file-header initialization; the other by symbol
+serialization (`bfd/elf.c:7017,8748`). Both execute once under the output
+lifecycle already reviewed. No selected route changes BFD's default hash
+size; GAS's historical hash-size and reduce-memory options are no-ops
+(`gas/as.c:1184–1188`).
+
+Each hash starts at **4,051 buckets**, requesting **32,408 bytes**. Its
+count never exceeds 97 for symbol names or 21 for section names; both lie
+below `floor(3*4051/4)=3038`, so neither hash grows
+(`bfd/hash.c:344–345,406,424–487,611–661`). These are BFD chaining hashes,
+distinct from the libiberty open-addressed GAS tables. Their bucket requests
+do not use the shared notes obstack and do not increment the output BFD's
+main-arena `alloc_size`.
+
+On the selected ABI, a `bfd_hash_entry` has three eight-byte fields.
+`elf_strtab_hash_entry` adds two four-byte fields and an eight-byte union,
+so its actual reviewed layout is 40 bytes; use a conservative **64-byte**
+request ceiling. The string-table control has the already bounded hash
+control plus four eight-byte fields; **96 bytes** suffices
+(`bfd/elf-strtab.c:29–58`). Its subclass constructor supplies the entry to
+the superclass and does not allocate a second hash entry (`:62–90`).
+
+All selected string-table calls use `copy=false`: fixed metadata names,
+ordinary/relocation section names and symbol names retain already charged
+storage (`bfd/elf.c:3547–3549,3650–3656,7072–7077,8843–8849`). Thus the hash
+name-copy branch in `bfd/hash.c:571–584` is absent. The symbol table's pointer
+array grows from 64 to at most 128 slots; the section table remains at 64.
+Their respective largest ordinary-heap requests are **1,024** and **512**
+bytes. Finalization allocates a separate sorting array of at most D+1 pointers,
+giving **784** and **176** bytes (`bfd/elf-strtab.c:161–179,387–415`). No save
+or rollback record is created on this ordinary object-writer path.
+
+Objalloc gives each hash a 24-byte control and a 4,064-byte initial small
+chunk with sixteen-byte header. The 32,408-byte bucket request takes a
+separate **32,424-byte** large chunk; its size already satisfies eight-byte
+alignment. It leaves the initial 4,048 bytes available for entries. Using
+the conservative aligned 64-byte entry ceiling, the symbol hash needs at
+most two small chunks and the section hash at most one:
+
+```text
+floor((4064-16)/64) = 63 entries per small chunk
+ceil(97/63) = 2,  ceil(21/63) = 1.
+```
+
+These bounds preserve all distinct allocator contexts and individual request
+sizes. Old/new pointer arrays may coexist during reallocation. Their physical
+storage costs are not added into a language RAM ceiling. The generic
+string-table transfer still supplies the length/refcount/offset and suffix-
+merging argument; this specialization only supplies concrete storage counts
+for the selected object. These are source-level GAS/BFD/libiberty requests;
+the trusted libc allocator and `qsort` internals are not expanded here.
+It does not establish the remaining GAS lifecycle, binder object or final-link
+capacity.
+
+Independent narrow review replayed the seventy-source checker and inspected
+the complete hash/objalloc constructors, growth branches, string-table layouts,
+add/finalize paths and selected no-copy calls. It accepted these storage
+specializations, retaining the earlier name-count and two-initialization
+lifecycle results as inputs. It did not re-establish those inputs, whole GAS
+capacity, libc internals or the final link.

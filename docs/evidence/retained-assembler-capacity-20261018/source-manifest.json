@@ -414,6 +414,12 @@
       "bytes": 7439,
       "sha256": "700b5e689397ac932fe3323c0f16bad61524fac59b248c91bc6f6eb24fd68cb8",
       "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/libiberty/objalloc.c"
+    },
+    {
+      "path": "bfd/elf-strtab.c",
+      "bytes": 11290,
+      "sha256": "5340ce044a159f7a41d6bf6e406ac39fd76ac50763604fb081ae7c098cd1f8f8",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf-strtab.c"
     }
   ]
 }

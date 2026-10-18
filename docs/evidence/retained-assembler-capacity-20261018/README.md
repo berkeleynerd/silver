@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Supports the
 [source derivation](../../research/retained-assembler-capacity.md).
 
-`sources.tar.gz` retains 56 complete files from Binutils release commit
+`sources.tar.gz` retains 70 complete files from Binutils release commit
 `5e56594815854de5eca35c7c04b11705d0f19c02`. `source-manifest.json` records
 their byte counts, SHA256 identities and immutable retrieval URLs. The checker
 also matches the commit against the previously retained linker release-tag
@@ -107,8 +107,8 @@ reading bytes, hashing, source guards and arithmetic.
 
 The [fixed startup transfer](../../research/retained-assembler-startup.md)
 bounds GAS option/include storage and the output BFD's control, x86 object
-data, section metadata and section hash. The bundle now retains 69 complete
-source files; previous member bytes are unchanged.
+data, section metadata and section hash. It extended the bundle to 69 complete
+source files, preserving previous member bytes.
 
 ```sh
 python3 docs/evidence/retained-assembler-capacity-20261018/check-startup.py \
@@ -122,6 +122,23 @@ condition `max(P,6744)+23<=PTRDIFF_MAX`. Actual production arguments/paths,
 parser subsidiary storage, the other BFD allocator contexts and host-library
 behavior remain separate. This packet does not
 claim whole-assembler closure or add a total-RAM limit.
+
+The [concrete ELF string-table transfer](../../research/retained-elf-object-capacity.md#concrete-elf-string-table-allocator-requests)
+adds the seventieth complete file, `bfd/elf-strtab.c`, and specializes the two
+object-writer string tables' allocator contexts. Both use 4,051 buckets without
+growth; their individual bucket chunks are 32,424 bytes. The symbol-name hash
+needs at most two small chunks, the section-name hash one, and their largest
+entry-pointer arrays are 1,024 and 512 bytes. These requests use neither GAS
+notes nor the output BFD's `alloc_size` counter.
+
+```sh
+python3 docs/evidence/retained-assembler-capacity-20261018/check-elf-strings.py \
+  --output /tmp/retained-elf-string-check.json
+```
+
+This checks source-level requests; libc allocator and `qsort` internals remain
+outside this packet. The complete GAS lifecycle and production invocation join
+remain open.
 
 No compiler, assembler, linker, solver, Lean build, test suite or near-limit
 allocation ran for this evidence. Source retrieval, hashing and arithmetic
