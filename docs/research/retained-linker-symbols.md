@@ -544,3 +544,85 @@ reconciles 31 complete source files, the exact script bytes and this
 arithmetic. It is not an ld parser or a C reachability proof. Generated
 counts/names, section visits, lifetime storage and final layout remain open;
 no whole-link result or enlarged admission domain is claimed.
+
+## Dynamic String-table lifetime join
+
+The same selected configuration also bounds the `.dynstr` users. Let J be
+the successful dynamic-registration increment bound from above, and let
+`N_generated`, `B_generated` and `L_generated` bound respectively all
+nonempty generated-input symbol/section-name occurrences, their total bytes
+including each NUL, and their largest payload. Counting section names too
+is conservative. Let `L_rpath` be the configured runtime-search-path length.
+Keep the preceding no-`@` generated-name premise explicit in this join.
+
+Dynamic symbol registration removes the entire suffix starting at the first
+`@` before inserting the name (`elflink.c:645–659`). Consequently, decorating
+an ordinary input name and constructing its default/nondefault aliases do not
+add distinct longer names to `.dynstr`. The underlying warning name is a
+substring of its `.gnu.warning.<name>` section name. Counting every fixed
+input symbol and section name on every retained pass gives72,019 occurrences
+and1,568,528 NUL-inclusive bytes. This deliberately includes duplicates,
+unused names and the repeated loader trials.
+
+The additional name domain is the 17 script names, four independent synthetic
+names,51 fixed version names, four possible backend version requirements,
+three DSO SONAMEs, the output basename `main`, and the configured rpath.
+The input inventory records a nonempty SONAME and no DT_AUDIT in each selected
+DSO. The loader therefore uses its SONAME rather than an arbitrary filename
+(`elflink.c:4781–4798`), and the input audit-to-depaudit accumulation is empty
+(`ldelf.c:1810–1837`). The descriptor has no output SONAME, filter, auxiliary
+filter, audit or depaudit option. Its explicit rpath also excludes the
+LD_RUN_PATH fallback. The no-version-script route creates zero-filled version
+nodes without dependency lists; it has no version-dependency addrefs.
+
+These facts give the unshared lifetime name bounds
+
+```text
+distinct .dynstr entries <= 72,100 + N_generated
+unshared .dynstr bytes <= 1,569,550 + B_generated + L_rpath
+largest name payload <= max(171, L_generated, L_rpath).
+```
+
+The byte bound includes the table's reserved zero byte and every name's NUL,
+including rpath. It charges all four possible backend version spellings even
+if one is already in the fixed51-name union. Reinserting a dead name after
+rollback reuses its retained String-table hash entry; it does not enlarge this
+distinct-name domain. No suffix-sharing credit is taken.
+
+References require a separate lifetime count. The selected positive-reference
+sites are:
+
+| Site (`elflink.c`) | Positive events |
+| --- | ---: |
+| Global registration `:659` | J |
+| Local registration `:914` | 0: selected dynlocal list is empty |
+| DT_NEEDED `:3944` | <=22: conservatively two hooks times11 DSO processings |
+| Output SONAME `:6991`, base SONAME addref `:7167` | 0: no output SONAME |
+| Base version output basename `:7179` | <=1 |
+| Version-definition name addref `:7281` | <=V |
+| Version-dependency addref `:7303` | 0: no version-script dependencies |
+| Imported version group/name `:7404,7427` | <=K+U<=128 |
+| Rpath `:7588` | <=1 |
+| Filter/auxiliary/audit/depaudit `:7602,7617,7629,7640` | 0 under the selected descriptor/input inventory |
+
+The DT_NEEDED wrapper inserts before testing whether the tag is already
+present, then may decrement the reference (`:3933–3970`). Charging attempts
+therefore matters. Its sole selected caller scans the input list at the end
+of DT_NEEDED handling (`ldelf.c:1199–1209`). The two-hook allowance is
+conservative: the plugin hook is actually excluded and additionally suppresses
+this insertion loop while handling plugin dependencies. The previous
+one-time size-dynamic-sections schedule supplies the version and rpath rows.
+The selected x86, IFUNC and unwind helpers add no direct String-table refs.
+The later `:10432` insertion uses the distinct ordinary `symstrtab` instance.
+
+Thus **positive references <=J+V+152**, or <=J+203 when the generated-name
+join supplies V<=51. This bounds every individual unsigned32 reference count,
+including increments later undone by hiding, duplicate DT_NEEDED or rollback.
+Apply the [String-table transfer](retained-linker-capacity.md) to these actual
+inputs: name lengths, distinct entries, unshared bytes and positive refs have
+separate representation conditions. This is not an aggregate RAM condition.
+Generated-input sizes and Qin/Qout remain caller obligations; ordinary symbol
+and section String tables and the final file/layout are separate. The
+[offline reconciliation](../evidence/retained-linker-symbols-20261018/dynamic-string-results.json)
+checks the retained identities, direct-site partition and arithmetic without
+executing a native tool.

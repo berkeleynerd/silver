@@ -97,3 +97,15 @@ constructor/arena bound across rollback. The no-additional-version-suffix
 conclusion remains conditional on the generated Main/binder name domains.
 The checker reconciles source-reviewed paths and exact script inventories;
 it does not evaluate C or implement the linker-script parser.
+
+`check-dynamic-strings.py` reuses those source and input inventories to join
+the selected `.dynstr` names and positive-reference events, preserving dead
+entries and increments later undone by rollback:
+
+```sh
+python3 docs/evidence/retained-linker-symbols-20261018/check-dynamic-strings.py --output /tmp/dynamic-string-check.json
+```
+
+Its bounds retain generated-input name counts/bytes, configured rpath length
+and the earlier registration term J. They do not cover the separate ordinary
+symbol/section String tables or supply a whole-link capacity result.
