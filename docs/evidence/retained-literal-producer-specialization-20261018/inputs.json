@@ -1,0 +1,69 @@
+{
+  "files": [
+    {
+      "path": "docs/evidence/retained-literal-producer-specialization-20261018/compose.py",
+      "bytes": 7910,
+      "sha256": "739dc12f0880c4aa1fa0857fd3e7e93b28a2761c910e5fb73c9d5c8f919f17ea"
+    },
+    {
+      "path": "docs/evidence/retained-literal-producer-specialization-20261018/check.py",
+      "bytes": 5089,
+      "sha256": "eab7c1f46e9e0442dc2e9ae78e49de4d4cc612c018d7b4c9a974d38706e86143"
+    },
+    {
+      "path": "docs/research/retained-literal-producer-specialization.md",
+      "bytes": 4840,
+      "sha256": "815efbb137f800cb518c89c17d445f01ef89620b49ad7a622bcc68166942ef0d"
+    },
+    {
+      "path": "docs/evidence/retained-producer-zero-check-sources-20261018/identity.json",
+      "bytes": 2791,
+      "sha256": "16f5cc714e09355faa7439f8f13690ecd2cc0e1a172b26d7f45be9ea850c762c"
+    },
+    {
+      "path": "docs/evidence/retained-producer-zero-check-sources-20261018/check.py",
+      "bytes": 5608,
+      "sha256": "f49e67c05c3314f6074667fb1f2148c8e5624a955fa3df276de3ace4012477ca"
+    },
+    {
+      "path": "docs/research/retained-producer-zero-check-sources.md",
+      "bytes": 12602,
+      "sha256": "e1ac879a75348103f3c90592f80c809dd728016a5bc939ad94d60779861931f0"
+    },
+    {
+      "path": "docs/evidence/retained-producer-composition-20261018/check.py",
+      "bytes": 22520,
+      "sha256": "dc8a9f300223408d6441861de644b573ae794494818dbcb31637dfadde602dc6"
+    },
+    {
+      "path": "docs/evidence/retained-producer-composition-20261018/result.json",
+      "bytes": 26917,
+      "sha256": "99cf6651615344eb7335020697a808187b32288ed8cd418b98e96368851d143b"
+    },
+    {
+      "path": "docs/evidence/retained-producer-storage-20261018/serialization.json",
+      "bytes": 34164,
+      "sha256": "aa96e05309bfa259237637f6dbfeb1d1463a8fde75b91ced4a28353d0970f4cc"
+    },
+    {
+      "path": "docs/evidence/retained-producer-dependencies-20261018/graphs.tar.gz",
+      "bytes": 721825,
+      "sha256": "1cd8b9986aaa4673204fd2599b5ca85d20ff5d1c0cf79468fc334cc2f6e6a983"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+      "bytes": 21593,
+      "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+    },
+    {
+      "path": "src/silver.adb",
+      "bytes": 22598,
+      "sha256": "5b52e3225f359740f04f4dbdf2c85ba2c204916fb0b5092fe983f62e9c30e70f"
+    },
+    {
+      "path": "src/silver_io.ads",
+      "bytes": 2222,
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "scope": "Literal Main producer core only; source argument and premises in linked research record",
+  "checks": [
+    "hello_world_selected_core_fits",
+    "hello_world_no_Main_emission",
+    "hello_world_other_obligations_retained",
+    "empty_string_selected_core_fits",
+    "empty_string_no_Main_emission",
+    "empty_string_other_obligations_retained",
+    "escaped_quotes_selected_core_fits",
+    "escaped_quotes_no_Main_emission",
+    "escaped_quotes_other_obligations_retained",
+    "mixed_sequence_selected_core_fits",
+    "mixed_sequence_no_Main_emission",
+    "mixed_sequence_other_obligations_retained",
+    "literal_8192_selected_core_fits",
+    "literal_8192_no_Main_emission",
+    "literal_8192_other_obligations_retained",
+    "literal_8192_general_JSON_bound_would_reject",
+    "calls_5000_selected_core_fits",
+    "calls_5000_no_Main_emission",
+    "calls_5000_other_obligations_retained",
+    "calls_5000_general_JSON_bound_would_reject",
+    "comments_above_4096_selected_core_fits",
+    "comments_above_4096_no_Main_emission",
+    "comments_above_4096_other_obligations_retained",
+    "case_and_CRLF_selected_core_fits",
+    "case_and_CRLF_no_Main_emission",
+    "case_and_CRLF_other_obligations_retained",
+    "concat_outside_specialization",
+    "variable_actual_outside_specialization",
+    "loop_outside_specialization",
+    "branch_outside_specialization",
+    "null_only_outside_specialization",
+    "trailing_tokens_outside_specialization",
+    "vertical_tab_outside_specialization",
+    "form_feed_outside_specialization",
+    "non_ASCII_literal_outside_specialization",
+    "construction_string_envelope_still_rejects",
+    "invalid_path_bound_True",
+    "invalid_path_bound_-1",
+    "invalid_path_bound_1.5"
+  ],
+  "checks_passed": 39,
+  "cases": [
+    {
+      "name": "hello_world",
+      "source": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      },
+      "calls": 1,
+      "literal_bytes": 13,
+      "general_core_fits": true,
+      "literal_Main_core_fits": true,
+      "hypothetical_general_JSON_bytes": 189744712,
+      "actual_Main_JSON_bytes": 0,
+      "retained_conditions": {
+        "Why_nodes": true,
+        "Why_lists": true,
+        "Why_list_elements": true,
+        "retained_occurrence_envelope": true,
+        "Why_intern_pool": true,
+        "retained_string_length_envelope": true,
+        "common_intern_pool": true,
+        "Why_symbol_map": true,
+        "source_node_domain": true,
+        "scoped_undo_peak": true
+      }
+    },
+    {
+      "name": "empty_string",
+      "source": {
+        "bytes": 94,
+        "sha256": "59821f91abdef2fad42f1ebe75abe0d3111543cf0ac958d9feea66ea3a6a675f"
+      },
+      "calls": 1,
+      "literal_bytes": 0,
+      "general_core_fits": true,
+      "literal_Main_core_fits": true,
+      "hypothetical_general_JSON_bytes": 184349712,
+      "actual_Main_JSON_bytes": 0,
+      "retained_conditions": {
+        "Why_nodes": true,
+        "Why_lists": true,
+        "Why_list_elements": true,
+        "retained_occurrence_envelope": true,
+        "Why_intern_pool": true,
+        "retained_string_length_envelope": true,
+        "common_intern_pool": true,
+        "Why_symbol_map": true,
+        "source_node_domain": true,
+        "scoped_undo_peak": true
+      }
+    },
+    {
+      "name": "escaped_quotes",
+      "source": {
+        "bytes": 103,
+        "sha256": "917948330498f180a083be23684498c7e58bd56837464b94215221c99f1fdbea"
+      },
+      "calls": 1,
+      "literal_bytes": 3,
+      "general_core_fits": true,
+      "literal_Main_core_fits": true,
+      "hypothetical_general_JSON_bytes": 185594712,
+      "actual_Main_JSON_bytes": 0,
+      "retained_conditions": {
+        "Why_nodes": true,
+        "Why_lists": true,
+        "Why_list_elements": true,
+        "retained_occurrence_envelope": true,
+        "Why_intern_pool": true,
+        "retained_string_length_envelope": true,
+        "common_intern_pool": true,
+        "Why_symbol_map": true,
+        "source_node_domain": true,
+        "scoped_undo_peak": true
+      }
+    },
+    {
+      "name": "mixed_sequence",
+      "source": {
+        "bytes": 133,
+        "sha256": "dec86c0f187b9b34d62c8fa1d5a2146e5042219678deec71db2d710302e58577"
+      },
+      "calls": 2,
+      "literal_bytes": 2,
+      "general_core_fits": true,
+      "literal_Main_core_fits": true,
+      "hypothetical_general_JSON_bytes": 235567597,
+      "actual_Main_JSON_bytes": 0,
+      "retained_conditions": {
+        "Why_nodes": true,
+        "Why_lists": true,
+        "Why_list_elements": true,
+        "retained_occurrence_envelope": true,
+        "Why_intern_pool": true,
+        "retained_string_length_envelope": true,
+        "common_intern_pool": true,
+        "Why_symbol_map": true,
+        "source_node_domain": true,
+        "scoped_undo_peak": true
+      }
+    },
+    {
+      "name": "literal_8192",
+      "source": {
+        "bytes": 8286,
+        "sha256": "bbf27a12d8bbc914d984958dea54e1502fcf11d3be38f31dd477262380936d29"
+      },
+      "calls": 1,
+      "literal_bytes": 8192,
+      "general_core_fits": false,
+      "literal_Main_core_fits": true,
+      "hypothetical_general_JSON_bytes": 2519295400,
+      "actual_Main_JSON_bytes": 0,
+      "retained_conditions": {
+        "Why_nodes": true,
+        "Why_lists": true,
+        "Why_list_elements": true,
+        "retained_occurrence_envelope": true,
+        "Why_intern_pool": true,
+        "retained_string_length_envelope": true,
+        "common_intern_pool": true,
+        "Why_symbol_map": true,
+        "source_node_domain": true,
+        "scoped_undo_peak": true
+      }
+    },
+    {
+      "name": "calls_5000",
+      "source": {
+        "bytes": 105074,
+        "sha256": "78a920efa2e09ab5c76512dc9b0ff247aee3c3545cc7dd62b3e4f6a986250d8c"
+      },
+      "calls": 5000,
+      "literal_bytes": 5000,
+      "general_core_fits": false,
+      "literal_Main_core_fits": true,
+      "hypothetical_general_JSON_bytes": 240757785483,
+      "actual_Main_JSON_bytes": 0,
+      "retained_conditions": {
+        "Why_nodes": true,
+        "Why_lists": true,
+        "Why_list_elements": true,
+        "retained_occurrence_envelope": true,
+        "Why_intern_pool": true,
+        "retained_string_length_envelope": true,
+        "common_intern_pool": true,
+        "Why_symbol_map": true,
+        "source_node_domain": true,
+        "scoped_undo_peak": true
+      }
+    },
+    {
+      "name": "comments_above_4096",
+      "source": {
+        "bytes": 5098,
+        "sha256": "311ccecc2e8e343736d3cdca50df1d86064ff7bf804f18febb8830c8ed798837"
+      },
+      "calls": 1,
+      "literal_bytes": 1,
+      "general_core_fits": true,
+      "literal_Main_core_fits": true,
+      "hypothetical_general_JSON_bytes": 184764712,
+      "actual_Main_JSON_bytes": 0,
+      "retained_conditions": {
+        "Why_nodes": true,
+        "Why_lists": true,
+        "Why_list_elements": true,
+        "retained_occurrence_envelope": true,
+        "Why_intern_pool": true,
+        "retained_string_length_envelope": true,
+        "common_intern_pool": true,
+        "Why_symbol_map": true,
+        "source_node_domain": true,
+        "scoped_undo_peak": true
+      }
+    },
+    {
+      "name": "case_and_CRLF",
+      "source": {
+        "bytes": 101,
+        "sha256": "7c99c03220b3f3605a51424d5142919ed5906de2fb00ebbc846686821619dfd4"
+      },
+      "calls": 1,
+      "literal_bytes": 1,
+      "general_core_fits": true,
+      "literal_Main_core_fits": true,
+      "hypothetical_general_JSON_bytes": 184764712,
+      "actual_Main_JSON_bytes": 0,
+      "retained_conditions": {
+        "Why_nodes": true,
+        "Why_lists": true,
+        "Why_list_elements": true,
+        "retained_occurrence_envelope": true,
+        "Why_intern_pool": true,
+        "retained_string_length_envelope": true,
+        "common_intern_pool": true,
+        "Why_symbol_map": true,
+        "source_node_domain": true,
+        "scoped_undo_peak": true
+      }
+    }
+  ],
+  "verified_local_inputs": 13,
+  "verified_external_sources": 12,
+  "native_tool_executions": 0,
+  "whole_literal_pipeline_capacity_established": false,
+  "production_admission_changed": false
+}
