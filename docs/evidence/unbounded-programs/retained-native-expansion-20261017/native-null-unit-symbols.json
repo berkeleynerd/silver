@@ -1,0 +1,96 @@
+{
+  "additional_GGC_events": 7,
+  "aggregate_RAM_admission_gate": false,
+  "assembler_name_hash": {
+    "backing_raw_bytes_upper": 104,
+    "historical_inserts_upper": 1,
+    "live_entries_upper": 1,
+    "slots_upper": 13
+  },
+  "cgraph_layout_ceiling": 496,
+  "checked_source_identities": 30,
+  "compiler_emitted_symbol_spellings_have_no_literal_at": true,
+  "compiler_name_classes": [
+    "_ada_main",
+    "main.adb",
+    ".L",
+    ".LCFI",
+    ".LFB",
+    ".LFE",
+    ".text",
+    ".data",
+    ".bss",
+    ".note.GNU-stack",
+    ".note.gnu.property",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4"
+  ],
+  "complete_capacity_result": false,
+  "debug_used_type_requests": 0,
+  "direct_unit_output_guarded_additional_GGC_events": 0,
+  "dummy_emitted_symbol_count": 0,
+  "dummy_private_identifier": "_ada_main.18446744073709551615",
+  "dummy_stack_format_buffer_bytes": 41,
+  "existing_selected_known_GGC_subtotal": 40024,
+  "final_ELF_symbol_name_transfer_requires_GAS_BFD_join": true,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "known_prior_emission_and_ordering_costs_reused": true,
+  "native_execution": false,
+  "nested_function_summary_requests": 0,
+  "objects": [
+    {
+      "object": "Main cgraph node",
+      "raw_bytes_upper": 512,
+      "requests": 1
+    },
+    {
+      "object": "forced dummy varpool node",
+      "raw_bytes_upper": 256,
+      "requests": 1
+    },
+    {
+      "object": "forced dummy void VAR_DECL",
+      "raw_bytes_upper": 312,
+      "requests": 1
+    },
+    {
+      "object": "forced dummy identifier",
+      "raw_bytes_upper": 40,
+      "requests": 1
+    },
+    {
+      "object": "forced dummy identifier characters",
+      "raw_bytes_upper": 31,
+      "requests": 1
+    },
+    {
+      "object": "optional assembler-name hash control",
+      "raw_bytes_upper": 128,
+      "requests": 1
+    },
+    {
+      "object": "optional assembler-name hash entry backing",
+      "raw_bytes_upper": 104,
+      "requests": 1
+    }
+  ],
+  "reachability_basis": "Handwritten source argument under the prior null graph, full schedule and effective options; anchors do not prove C semantics",
+  "required_remaining_inputs": [
+    "Variable source/path/line-map and Ada callback metadata",
+    "Initial GIMPLE/CFG/SSA, warnings/rangers, cgraph analysis/IPA summaries and manager lifetimes",
+    "Whole-schedule GGC pages/finalizers and remaining shared ordinary pools",
+    "Driver/process teardown and selected host-library formatting/stdio representations"
+  ],
+  "scope": "Selected null Main symbol constructors and direct end-of-unit output guards",
+  "selected_target_headers_checked": 13,
+  "shared_identifier_hash": {
+    "backing_raw_bytes_upper": 524288,
+    "historical_inserts_upper": 39261,
+    "slots_upper": 65536
+  },
+  "updated_selected_known_GGC_subtotal": 40031,
+  "varpool_layout_ceiling": 248
+}

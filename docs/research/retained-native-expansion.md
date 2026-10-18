@@ -9452,13 +9452,157 @@ The structural packet's nine-source constructor and conservative layout check
 was reviewed separately. This review establishes only these stated interfaces;
 it does not complete the remaining compiler or collector accounting.
 
+### Null symbol constructors and direct unit-output closure
+
+The [symbol/output reconciliation](../evidence/unbounded-programs/retained-native-expansion-20261017/native-null-unit-symbols.json)
+joins the already established one-Main/one-dummy graph to its constructors.
+It also checks the direct end-of-unit output calls after the per-function
+schedule. Initial GIMPLE/CFG/SSA, cgraph analysis, IPA summaries and pass-manager
+lifetimes remain a separate middle-end interface; this section does not make
+their allocation costs vanish merely because they preserve the graph.
+
+| Constructor | Additional GGC requests, at most | Raw bytes per request, at most |
+| --- | ---: | ---: |
+| Main cgraph node | 1 | 512 |
+| Forced dummy varpool node | 1 | 256 |
+| Forced dummy void VAR_DECL | 1 | 312 |
+| Dummy identifier node | 1 | 40 |
+| Dummy identifier characters | 1 | 31 |
+| Optional assembler-name hash control | 1 | 128 |
+| Optional assembler-name hash backing | 1 | 104 |
+
+Main's finalize_function calls get_create once. The selected cgraph constructor
+uses one GGC object and initializes its vectors/pointers without allocating
+their backing (`cgraph.cc:442–445,658–680`, `cgraph.h:927–956`). Symbol
+registration links that node, assigns its UID/order, clears its two reference
+vectors with create(0), and optionally enters the assembler-name hash
+(`symtab.cc:412–424`, `cgraph.h:3137–3151`, `ipa-ref.h:133–138`). create(0)
+does not reserve storage (`vec.h:2015–2020`). Main has translation-unit context,
+so maybe_record_nested_function does not create a nested-function summary
+(`tree-nested.cc:129–146`). The existing graph transfer excludes clones,
+aliases, extra definitions and OpenMP/offload attributes.
+
+gnat_write_global_declarations makes its dummy unconditionally when
+first_global_object_name is set (`utils.cc:6460–6488`). That prefix value is
+`_ada_main`: create_concat_name(Main,NULL) calls Get_External_Name, not
+Get_Encoded_Name (`trans.cc:367–370`, `decl.cc:11282–11304`). On the selected
+target, the default private-name format yields
+`_ada_main.18446744073709551615`, with 31 bytes including NUL. The formatting
+macro reserves a 41-byte ordinary stack buffer (`defaults.h:38–55`). Charge
+one missed identifier lookup and its separate string allocation. Adding this
+fourth possible name miss to the previous shared identifier-table count still
+fits 65,536 slots and 524,288 bytes; it is not a second independent table.
+
+The dummy's build_decl makes one VAR_DECL and lays out its void type using
+existing size/alignment fields. As for the prior void RESULT_DECLs, it has no
+dynamic size or preexisting RTL (`tree.cc:5567–5586`,
+`stor-layout.cc:661–846`). tree_var_decl contains only the already bounded
+312-byte tree_decl_with_vis (`tree-core.h:2045–2047`). Its varpool constructor
+uses one GGC object and the same nonallocating registration prefix
+(`varpool.cc:136–165`, `cgraph.h:2244–2248`). HARD_REGISTER is set before
+registration, so assembler-name insertion returns before inspecting its name
+(`symtab.cc:162–169`). Its later assembly path also returns before outputting
+data (`varpool.cc:582–586`); it adds no GAS symbol.
+
+No used-type map is hidden in the dummy's finalization. The only append to
+types_used_by_cur_var_decl is inside used_types_insert's positive-debug-level
+guard; the selected no-debug configuration keeps it empty
+(`function.cc:6488–6511`). The remaining global-declaration loops either
+exclude the already classified ignored/external variables or call no-debug
+hooks. The earlier symbol-ingress transfer supplies that classification.
+
+The symbol nodes' conservative LP64 layouts charge each named bitfield as its
+own four-byte unit. The top-level base has three pointers and two scalar words,
+or 32 bytes. symtab_node adds 28 such bitfields, eight pointers, two single-word
+reference vectors and one UID, giving at most 232 bytes after alignment.
+cgraph_node adds fourteen pointer/vector words, a 16-byte allowance for
+profile_count, four scalar words, 28 bitfields and its summary ID: at most
+496 bytes, bounded above by 512. varpool_node adds four bitfields, giving at
+most 248 bytes, bounded above by 256 (`cgraph.h:105–130,532–707,1460–1580,
+2352–2364`, `profile-count.h:764–790`). These are source-layout ceilings,
+not fresh sizeof measurements or assumptions about tight bitfield packing.
+
+The assembler-name table starts null and is initialized at most once with
+request 10, rounded to the 13-slot prime (`cgraph.h:2558–2575`,
+`symtab.cc:260–268`, `hash-table.h:394–400,645–676`). Charge its control and
+backing cold even if initialization already occurred in the prefix. Main is
+its only possible inserted symbol; the dummy is excluded and the established
+IPA transfer introduces no clone or renaming. Thus one historical insertion
+cannot reach the table's three-quarter growth threshold, even when subsequent
+lookups revisit Main. The control's GGC finalizer bookkeeping remains in the
+whole-schedule collector interface. The two registered symbol UIDs/orders and
+cgraph_count increment fit their scalar fields directly.
+
+The direct late-output calls in `toplev.cc:498–546` have the following selected
+paths. This inventory uses the full null-body/IPA/RTL transfer and effective
+options already required above, not merely the absence of declarations in
+the source.
+
+| Reached callback | Selected storage path |
+| --- | --- |
+| Sanitizer finish hooks | Disabled by the retained no-instrumentation options. |
+| omp_finish_file | No offload functions, variables or indirect functions; returns before constructors (`omp-offload.cc:400–407`). |
+| output_shared_constant_pool | The fixed prefix creates an empty pool; the selected null RTL never forces a constant to memory. At O0 there is no optimize_constant_pool call, and the empty content loop allocates nothing (`varasm.cc:4149–4159,4574–4580,4806–4812`). |
+| output_object_blocks | The insertion routes are gated by section anchors or actual data/constant output, all absent here. Its hash is empty, so create(0) and the traversal allocate nothing (`varasm.cc:385–421,1345–1381,1658–1661,3765–3774,4255–4260,8568–8586`). |
+| finish_tm_clone_pairs | No transaction clones; its initially null hash returns before vector growth (`varasm.cc:6832–6837`). |
+| weak_finish | No weak/weakref alias or external reference has populated either pending list; both loops are empty (`varasm.cc:6373–6448`). |
+| insn_locations_init | Only three location-scalar assignments, despite the allocation wording in its comment (`emit-rtl.cc:6692–6696`). |
+| ix86_code_end | No indirect call/jump, thunked return, PIC setup or split stack. The thunk-needed flags/sets and pic_labels_used stay zero, so none of the thunk function constructors run (`i386.cc:6149–6159,6414,6435–6548,6587,17405,17489,17656,17694–17695`). |
+| Unwind/debug/indirect-constant finish | Uses the previously charged GAS-CFI route and no-debug hooks; no personality/LSDA populates indirect_pool. No additional object beyond the earlier emission packet (`dwarf2asm.cc:1066–1071`). |
+| process_pending_assemble_externals | No selected instruction contains an external SYMBOL_REF and no libcall was generated; both lists are empty. Deleting its prefix-owned set adds no allocation (`varasm.cc:2775–2796`). |
+
+For the last row, external FUNCTION_DECL registration is insufficient to enqueue
+an external: gigi and rest_of_decl_compilation do not call assemble_external.
+On the selected x86 path, its callers are final.cc's actual address/call operand
+handling; the bounded frame/return/blockage/nop instructions contain no such
+external operand (`final.cc:2843–2854,3625–3643,3692–3702`). The separate libcall
+path is likewise unentered (`varasm.cc:2862–2879`). This matters because Linux's
+ASM_OUTPUT_EXTERNAL is defined: the exclusion is source-derived, not a claim
+that preprocessing removed the pending-list consumer.
+
+The remaining identification and target file-end output reuse the prior
+30-byte stack concatenation and at most two named sections; plugin callbacks,
+profiling and JSON dump output are disabled. Those costs and the output-order
+containers must not be charged twice. The direct unit-output interface adds
+zero further GGC events after the seven symbol-constructor events and the
+previously counted emission/order packets. Host-library formatting/stdio,
+source/path metadata, pass-manager lifetimes, process teardown and collector
+pages/finalizers remain explicit whole-invocation requirements.
+
+The compiler's emitted symbol spellings also supply a linker-name premise.
+The public name is `_ada_main`; ordinary code labels use prefix L, the CFI
+labels LCFI, and the two function-boundary labels LFB/LFE. The selected internal
+label macros add a dot and a decimal counter (with an internal marker in the
+ELF macro), never a literal `@` (`final.cc:2464–2472`, `dwarf2cfi.cc:480`,
+`dwarf2out.cc:307–316,1094–1096,1268`, `config/elfos.h:121–130`,
+`config/i386/att.h:76–91`). GNU-property labels are the decimal numbers 0–4
+(`gnu-property.cc:29–66`). The fixed file spelling is main.adb and section names
+are the previously inventoried constants. None contains `@`; the dummy does
+not reach the assembler. This statement is about names, not tokens such as
+`@function` or relocation syntax. Extending it to every resulting ELF symbol
+also requires the GAS temporary/numeric/section-symbol constructors and BFD
+name-preservation transfer; those are not inferred from these GCC sites alone.
+
+The [offline checker](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-unit-symbols.py)
+binds 30 complete source identities, the selected target headers and prior
+graph/tree/cache/emission records. It checks constructor/guard anchors, layout
+and container arithmetic. The handwritten path argument remains required;
+this is not a compiler simulation or a claim that #119 is complete. No native
+tool or successful witness was rerun.
+
+Independent review replayed all 30 identities and 13 target headers, reproduced
+the retained result byte for byte, and inspected the layouts, symbol
+constructors, dummy exclusion, optional hash and direct unit-output guards.
+It found no material issue within this scope. The GCC no-`@` premise still
+requires the separate GAS/BFD transfer for the final ELF object.
+
 ### Counter composition and finite remaining frontier
 
 For the null function, keep ordinary pools/obstacks separate from GGC events.
 The partial GGC lifetime envelope is
 
 ```text
-E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78 + 43 + 100 + 1 + 5 + 11 + 38 + 18
+E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78 + 43 + 100 + 1 + 5 + 11 + 38 + 18 + 7
        + E_metadata + E_Main_translation + E_unit_emit
 ```
 
@@ -9469,8 +9613,8 @@ vector events, 8 direct elimination-register requests, 10 IRA loop-setup
 events, 78 chain/pattern/frame events, 43 non-chain CFI events and 100
 expansion/CFG helper events, 1 cold late RTL-info event and 5 selected
 final/CFI/section-emission events, 11 non-tree gigi helper events and 38 direct
-gigi structural-tree/link requests and 18 name/shared-cache events (known
-subtotal 40,024).
+gigi structural-tree/link requests, 18 name/shared-cache events and 7 symbol
+constructor/hash events (known subtotal 40,031).
 The residuals are
 nonnegative required inputs, never implicit zeros. Their disjoint boundaries
 and constructors still require completion:
@@ -9478,8 +9622,8 @@ and constructors still require completion:
 | Residual | Source route and required input |
 | --- | --- |
 | `E_metadata` |path/source-location/unit/name corrections between the fixed prefix and Main; charge actual source descriptor, argv/path and shared hash inputs |
-| `E_Main_translation` |initial GIMPLE/CFG/SSA, warning/range-analysis, cgraph registration and IPA backing, excluding the ten struct-function, eleven non-tree helper, 38 structural-tree/link and 18 name/shared-cache events charged above; combine the backend's logical graph with the remaining constructor/allocation routes |
-| `E_unit_emit` |remaining whole-unit symbol/finalization helpers and pending external-declaration handling; output-order arrays/vector are supplied above; the selected final scan, unwind wrappers/directive output and two named sections are supplied above; retain actual source/path/output and shared-cache premises |
+| `E_Main_translation` |initial GIMPLE/CFG/SSA, warning/range-analysis, cgraph analysis and IPA backing, excluding the directly charged struct-function, gigi tree/helper/name/cache and symbol-constructor events; combine the backend's logical graph with the remaining constructor/allocation routes |
+| `E_unit_emit` |remaining whole-invocation manager/process bookkeeping outside the supplied direct unit-output interface; symbol construction, output-order containers, pending external handling, final scan, unwind/directive output and two named sections are supplied above; retain actual source/path/output and shared-cache premises |
 
 For ordinary backing, the remaining concrete joins include
 shared non-DF pool retained-count arithmetic, remaining whole-unit
