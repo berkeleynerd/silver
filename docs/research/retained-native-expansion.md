@@ -12,7 +12,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records ninety-three inspected files hash-checked against the complete source
+records ninety-nine inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -4988,6 +4988,87 @@ when Main adds zero members. Table/hash/list target layouts and growth peaks
 must be joined separately. No extra source constructor, Uint or dependency
 body work is hidden in these metadata rows.
 
+## Native frontend diagnostic join
+
+Native compilation retains Warnsw's defaults; it does not receive GNATprove's
+warning mask. The selected application argv contains no enabling warning/style
+override. Configuration and source-to-installed-tool correspondence remain the
+existing process premises. At `warnsw.ads:121–196`, Check_Unreferenced,
+Check_Unreferenced_Formals, Check_Withs, Constant_Condition_Warnings,
+Warn_On_Constant, Warn_On_Deleted_Code, Warn_On_Hiding, Warn_On_Modified_Unread,
+Warn_On_Redundant_Constructs and the other optional source-style warnings used
+by the earlier caller partition are False.
+
+Dependency analysis must preserve those values. The read-only
+[native warning input inventory](../evidence/unbounded-programs/retained-native-expansion-20261017/native-warning-inputs.json)
+hash-reconciles all 42 Ada source inputs in the retained fixed native capture's
+input manifest. The sole Warnings/Style_Checks pragma is
+`Warnings (Off, Default_Bit_Order)` in System, which affects that entity, not
+the global switch set. There is no one-string Warnings pragma that executes
+Set_Warning_Switch (the native-only route at `sem_prag.adb:28781–28820`), nor
+a style override. Source Main permits only SPARK_Mode(On). This is an inventory
+of the already retained input set, not a new compiler capture or a substitute
+for proving that set covers the fixed dependency roots.
+
+The additional enabled native defaults have these caller exclusions:
+
+| Enabled family | Main exclusion |
+| --- | --- |
+| No_Value_Assigned | Every source object is initialized, Main has no formals; generated capture/buffer entities fail Check_References' Source_E1 gate (`sem_warn.adb:1266–1278,1570–1670`). |
+| Questionable_Missing_Parens | No Boolean equality operands under and/or/xor, no modular not, and every compound scalar operand of unary minus is parenthesized by the source grammar (`sem_res.adb:9210–9227,10980–11001,12824–12934`). |
+| Assumed_Low_Bound | Requires indexing an unconstrained String formal; Main has no formal or source indexing, and generated views are not formals (`sem_warn.adb:4411–4428`). |
+| Unchecked_Conversion | Validate_Unchecked_Conversion is called for a generic unchecked-conversion instantiation (`sem_ch12.adb:7103`, `sem_ch13.adb:19744–19836`); generated N_Unchecked_Type_Conversion nodes do not enter it. Fixed dependency instantiations remain fixed work. |
+| Compatibility/implementation-unit/pragma warnings | Ada 2022, ASCII and admitted syntax exclude obsolete/extension forms; Main withs only the two ordinary Silver packages and uses its one recognized pragma. Generated runtime with clauses are implicit; no source import/export, layout, size/alignment, biased/modular or bit-order clause is admitted. |
+| Assertion/contract/elaboration warnings | Main has no author assertion or contract. Its fixed library callee contracts are fixed work; the preceding ABE guard excludes the variable Main call route. |
+
+The remaining shared caller argument transfers: no static Constraint_Error
+under the admitted scalar/range/length conditions; explicit-range for loops
+only; source Integer ranges nonempty; generated empty String ranges not source
+subtype declarations; no invalid source recovery or undefined-name path.
+This does not use successful legality to discard legal warnings. In particular
+null/possibly reversed source-loop warnings remain reachable even inside
+statically unreachable contexts.
+
+Only the two already bounded families remain: at most two attempts per source
+for loop (`sem_ch5.adb:3480–3571`) and one context-license attempt per explicit
+with-name (`sem_ch10.adb:3980–4117`). Main's context is installed once, and the
+license branch excludes implicit runtime with clauses. With F source loops and
+N_with explicit source with-names, define
+
+```text
+J_diag = 2F+N_with
+M_diag = 1024+2*32767 = 66558.
+```
+
+Count attempts before suppression. The shared Errout primitive appends raw
+history before Warning_Mode and null-loop suppression; suppressed native data
+representation warnings are therefore covered too (`errout.adb:550–697`).
+The remaining raw templates have at most 64 characters, their chains at most
+two parts, and no diagnostic code, fix, extra span or label. Formatting uses
+the pinned Max_Msg_Length buffer (`erroutc.ads:125–135`, `types.ads:181`), not
+an assumed bound on arbitrary source names. The resulting Main additions are:
+
+```text
+Non_Instance_Msgs, Errors and Locations appends <= J_diag each
+raw-history string characters <= 64 J_diag
+formatted-text lifetime characters <= (2M_diag+2) J_diag
+diagnostic string allocation requests <= 2 J_diag
+continuation-join local vector <= 2M_diag+2 characters.
+```
+
+Unreferenced_Entities adds zero because its enabling flag/formal alternatives
+are absent (`sem_warn.adb:1676–1720`), and In_Out_Warnings has no formal to
+record. Edits, Fixes, nonempty labels, source Warnings/Specific_Warnings/
+Warnings_As_Errors entries and additional diagnostic Uint arithmetic are zero.
+Retain every table's initial backing even at zero additions. The shared
+formatted-text transfer counts the old and replacement strings in a joined
+continuation, without depending on allocator reuse (`errout.adb:1377–1525`).
+
+`native_diagnostic_metadata` computes the bounds. The large fixed message
+maximum is deliberately conservative; no new cap is chosen from it. Rendering,
+backend diagnostics and fixed dependency messages are distinct consumers, and
+physical table/string allocation layouts remain representation terms.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
@@ -5046,9 +5127,9 @@ above. The native frontend/process is still incomplete at these explicit joins:
   explicit qualification/queue, unit-scope save, overload and xref aggregate.
   The separate native invocation/elaboration join supplies its scenario,
   target, DFS, graph/signature and invocation-ALI terms; its fixed AST input
-  still needs the fixed source reduction. Complete native warning
-  attempts/history and text. Warning options require the selected native
-  configuration, not GNATprove's mask. Scope/check/expander stacks and common
+  still needs the fixed source reduction. The native diagnostic join supplies
+  warning attempts/history/text under the recorded defaults and fixed-source
+  pragma inventory. Scope/check/expander stacks and common
   auxiliary containers need their own counts even where constructors are zero.
 - **Representations and late consumers:** join source scanner names/Uint/String
   pools; physical backing capacities, growth peaks and byte products for all

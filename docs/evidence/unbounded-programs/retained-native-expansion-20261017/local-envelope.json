@@ -1,4 +1,55 @@
 {
+  "native_diagnostic_metadata_join": {
+    "examples_not_thresholds": [
+      {
+        "attempts": 0,
+        "Non_Instance_Msgs_Main_appends": 0,
+        "Errors_Main_appends": 0,
+        "Locations_Main_appends": 0,
+        "raw_history_characters": 0,
+        "formatted_text_lifetime_characters": 0,
+        "diagnostic_string_requests": 0,
+        "continuation_join_local_characters": 133118,
+        "formatted_message_buffer_characters": 66558,
+        "Edits_Main_appends": 0,
+        "Fixes_Main_appends": 0,
+        "nonempty_label_requests": 0,
+        "Unreferenced_Entities_Main_appends": 0,
+        "In_Out_Warnings_Main_appends": 0,
+        "Warnings_Main_appends": 0,
+        "Specific_Warnings_Main_appends": 0,
+        "Warnings_As_Errors_Main_appends": 0,
+        "additional_Uint_appends": 0,
+        "backend_and_fixed_dependency_diagnostics_included": false,
+        "whole_native_frontend_closed": false
+      },
+      {
+        "attempts": 14,
+        "Non_Instance_Msgs_Main_appends": 14,
+        "Errors_Main_appends": 14,
+        "Locations_Main_appends": 14,
+        "raw_history_characters": 896,
+        "formatted_text_lifetime_characters": 1863652,
+        "diagnostic_string_requests": 28,
+        "continuation_join_local_characters": 133118,
+        "formatted_message_buffer_characters": 66558,
+        "Edits_Main_appends": 0,
+        "Fixes_Main_appends": 0,
+        "nonempty_label_requests": 0,
+        "Unreferenced_Entities_Main_appends": 0,
+        "In_Out_Warnings_Main_appends": 0,
+        "Warnings_Main_appends": 0,
+        "Specific_Warnings_Main_appends": 0,
+        "Warnings_As_Errors_Main_appends": 0,
+        "additional_Uint_appends": 0,
+        "backend_and_fixed_dependency_diagnostics_included": false,
+        "whole_native_frontend_closed": false
+      }
+    ],
+    "warning_flags": "warnsw.ads defaults; selected argv and configuration must preserve them",
+    "dependency_flag_inventory": "native-warning-inputs.json; 42 retained fixed-capture source inputs hash-reconciled, sole pragma is entity-specific Warnings(Off,Default_Bit_Order)",
+    "whole_native_frontend_closed": false
+  },
   "native_invocation_metadata_join": {
     "examples_not_thresholds": [
       {
@@ -689,7 +740,7 @@
     "scope": "residual RTE-cache identities need no duplicate compiler capture"
   },
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 93,
+  "source_files_verified": 99,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -761,6 +812,12 @@
     "ali.adb": "a3af929177f6dcbc32b66768cad43a8466d12d030cf3360d7147455ea396f5a0",
     "ali.ads": "ed344d8db777f70fe46b3464a1ef238823ded6ee8c9e50b564e799621236f09b",
     "lib-writ.adb": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342",
+    "warnsw.ads": "ede39281a68cac25f65d07e1fcdb75954580272c8abb0f69a67a5ef6aaf1aee4",
+    "sem_prag.adb": "492afe76210ea5539460fd417bbc03cad3bde8fd86889d56144522d71c931093",
+    "erroutc.adb": "72bf325572a614f1074c90302b3cd487ff56035c30c531fcba88351329f1a901",
+    "erroutc.ads": "9ee0204a0bf38d8a3bf2e7ec401686c9bc4608c30c985d108ae162fbf44a6a76",
+    "sem_ch10.adb": "234e1a651e8121eda2042d4b26fdd0c16732524262fd51316fe6df670d5e1a58",
+    "sem_ch12.adb": "4d67a12cbf80298c1eacfba27b7c7ae42d9757989d0241993c0da6748320fde8",
     "targparm.adb": "a4a4720e4859263138a9138587521b9d2df7ba6da88f45a81ea86570b3438596",
     "targparm.ads": "46778f4a0d8f838a87c19163d3ee159e8573475d29c9209021c5c0f167d95d21",
     "libgnat/system-linux-x86.ads": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95",

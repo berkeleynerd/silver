@@ -37,7 +37,8 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "local_restrict.adb", "accessibility.adb", "opt.ads",
          "sem_attr.adb", "exp_attr.adb", "sem.ads", "exp_dbug.adb", "namet.ads",
          "sem_ch11.adb", "exp_ch11.adb", "sem_elab.adb", "errout.adb",
-         "ali.adb", "ali.ads", "lib-writ.adb",
+         "ali.adb", "ali.ads", "lib-writ.adb", "warnsw.ads", "sem_prag.adb",
+         "erroutc.adb", "erroutc.ads", "sem_ch10.adb", "sem_ch12.adb",
          "targparm.adb", "targparm.ads", "libgnat/system-linux-x86.ads",
          "exp_ch7.adb", "exp_ch6.adb", "exp_ch9.adb", "exp_tss.adb", "sem_ch5.adb", "exp_ch5.adb",
          "rtsfind.adb", "libgnat/s-secsta.ads", "libgnat/s-parame.ads",
@@ -1106,6 +1107,30 @@ def native_invocation_metadata(source_calls, words, concats, images,
         whole_native_frontend_closed=False)
 
 
+def native_diagnostic_metadata(source_loops, source_with_names):
+    """Frontend warning attempts under default native warning flags."""
+    assert min(source_loops, source_with_names) >= 0
+    attempts = 2*source_loops+source_with_names
+    # Column_Number'Last is the pinned Types value, not a source line limit.
+    assert "type Column_Number is range 0 .. 32767;" in sources["types.ads"]
+    column_last = 2**15-1
+    message_length = 1024+2*column_last
+    return dict(attempts=attempts,
+        Non_Instance_Msgs_Main_appends=attempts,
+        Errors_Main_appends=attempts, Locations_Main_appends=attempts,
+        raw_history_characters=64*attempts,
+        formatted_text_lifetime_characters=(2*message_length+2)*attempts,
+        diagnostic_string_requests=2*attempts,
+        continuation_join_local_characters=2*message_length+2,
+        formatted_message_buffer_characters=message_length,
+        Edits_Main_appends=0, Fixes_Main_appends=0, nonempty_label_requests=0,
+        Unreferenced_Entities_Main_appends=0, In_Out_Warnings_Main_appends=0,
+        Warnings_Main_appends=0, Specific_Warnings_Main_appends=0,
+        Warnings_As_Errors_Main_appends=0, additional_Uint_appends=0,
+        backend_and_fixed_dependency_diagnostics_included=False,
+        whole_native_frontend_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -1175,6 +1200,13 @@ mixed_example_counts = dict(main_example_counts, parser_nodes=100,
         native_string_bound_descriptor("image")))])
 
 result = {
+    "native_diagnostic_metadata_join": {
+        "examples_not_thresholds": [native_diagnostic_metadata(0, 0),
+                                    native_diagnostic_metadata(3, 8)],
+        "warning_flags": "warnsw.ads defaults; selected argv and configuration must preserve them",
+        "dependency_flag_inventory": "native-warning-inputs.json; 42 retained fixed-capture source inputs hash-reconciled, sole pragma is entity-specific Warnings(Off,Default_Bit_Order)",
+        "whole_native_frontend_closed": False,
+    },
     "native_invocation_metadata_join": {
         "examples_not_thresholds": [native_invocation_metadata(4, 50, 2, 1, 100)],
         "fixed_input": "source-reduced fixed native AST bound; all fixed nodes conservatively dominate fixed-scaffold call markers/dummy root",
