@@ -23,7 +23,8 @@ FILES = (
     "sem_util.adb", "exp_imgv.adb", "exp_util.adb", "table.ads", "table.adb",
     "par-ch2.adb", "par-ch10.adb", "par-ch13.adb", "par-endh.adb",
     "exp_ch4.adb", "checks.adb", "validsw.ads", "atree.adb", "opt.ads",
-    "switch-c.adb", "libgnat/system-linux-x86.ads",
+    "switch-c.adb", "libgnat/system-linux-x86.ads", "restrict.adb",
+    "local_restrict.adb", "warnsw.ads", "libgnat/s-rident.ads",
 )
 
 
@@ -263,6 +264,10 @@ def main():
         },
         "main_parse_upper_bound": {
             "source_literal_scan_multiplicity": 2,
+            "source_identifier_scan_multiplicity": 2,
+            "scanner_ordinary_nodes": "2*(source_identifiers + source_string_literals + source_numerals + colon_delimited_numerals)",
+            "colon_numeral_extra_node_per_scan": 1,
+            "scanner_node_premises": "successful Main parse, no active No_Obsolescent_Features restriction, default disabled obsolescent warning and style checks",
             "parser_characters_per_source_decoded_character": 3,
             "parser_descriptors": "2*source_string_literals + floor(source_concat_operators/1000)",
             "scope": "one syntactically valid Main parse with unchanged Silver grammar; excludes initialization, dependency parses and semantic/generated events",

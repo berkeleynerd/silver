@@ -4,7 +4,9 @@
 This supplies compositional upper charges for named String allocation events
 and one successful scan of an admitted-form integer token. It also bounds the
 Uint primitives needed for ordinary bounded scalar folding and closes literal
-scan multiplicity for one syntactically valid Main parse. These are useful
+scan multiplicity for one syntactically valid Main parse. The 2026-10-18
+addition extends this to scanner node allocations and identifier rescans.
+These are useful
 components of a capacity rule, **not a complete source-to-tool allocation
 bound or a new membership rule**. Dependency scans, fold multiplicities, generated code,
 dependencies and other representations still need closure. Current production,
@@ -12,7 +14,7 @@ language, catalogue, proof artifacts, Oracle and tool pins are unchanged.
 
 The components use GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`.
 The [reproducer and output](../evidence/unbounded-programs/retained-value-capacity-20261017/README.md)
-verify 34 inspected files against the retained complete-tree manifest and
+verify 38 inspected files against the retained complete-tree manifest and
 evaluate the arithmetic below. Applying source conclusions to an installed
 compiler retains the [existing correspondence premise](unbounded-frontend-lifetimes.md#reproducible-scope-and-premises).
 Nothing here establishes the separate GNATprove producer's exact source identity
@@ -512,6 +514,68 @@ not an executed compiler trace. It is one part of the parser bound above.
 It refutes treating all literal rescans as erroneous-source recovery and
 shows why whitespace can affect allocation even when the token sequence is
 unchanged.
+
+### Main scanner node allocations, including identifier rescans
+
+The same successful-Main caller argument extends to identifier tokens:
+**each source identifier is scanned at most twice**. This counts identifier
+spellings in declarations, references, qualified calls, attribute designators,
+the pragma and closing Main, not just expression leaves. `Restore_Scan_State`
+restores the saved `Token_Node`; it does not rescan the saved token itself
+(`scans.adb:170–215`). The additional identifier-specific paths are:
+
+| Path | Allocation-bearing scans beyond the ordinary traversal |
+| --- | --- |
+| Name selection and Image/Length (`par-ch4.adb:260–324,388–418,459–476,550–555`) | Valid selectors and these attributes proceed forward without restoration. The rewind branches require invalid selectors, `'Range` or qualified expressions excluded from Main. |
+| First actual association probe (`par-ch4.adb:703–717,868–909`) | The saved identifier is reused. The scanned successor is punctuation (`=>`, operator, dot, apostrophe or right parenthesis), not another identifier. The comma/second-actual paths are absent. |
+| Declaration recognition (`par-ch3.adb:1340–1382,1436–1454,1602–1612`; `par-ch5.adb:224–237`) | At statement entry, the declaration probe sees `:=`, dot, left parenthesis or semicolon and restores the initial identifier. In Main's declarative part the probe returns before scanning. The subtype-name probe sees `range` or `:=`; one defining identifier prevents declaration replay. |
+| Keyword heuristic (`par-ch5.adb:284–328`) | It can add one scan of a loop index, first condition name, closing Main, or the first statement name after an `else`. Valid syntax restores the keyword and does not convert it to an identifier. The helper's `C=None` call itself does not scan (`par-util.adb:516–603`). |
+| Grouped lower bounds (`par-ch4.adb:2890–2917`) | One preliminary scalar parse may rescan each name in that lower-bound group. It contains no calls or attributes; nested groups use ordinary expression parsing, not another range probe. |
+| Same-line else probe (`par-ch5.adb:1238–1262`) | It saves the first body token. For a call it can add one scan of later qualified selectors, named actuals and argument names. The saved first token is reused; if that token received the keyword-heuristic extra scan, the two charges do not overlap on it. For an assignment the probe stops at `:=`. |
+| Pragma, context and end handling (`par-ch2.adb:642–707`; `par-ch10.adb:151–196,612–635`; `par-endh.adb:197–300,1155–1232`) | The sole pragma actual is On, whose association probe scans only its right parenthesis. Main has no leading/trailing configuration pragmas or private context. Valid end matching consumes its end once. The duplicate-end probe requires a named end followed by another end: Main's only named end is final, so that probe is absent. |
+
+The literal proof already covers the remaining expression/punctuation helper
+paths. A source identifier cannot be both inside a grouped lower bound and a
+condition/call-argument lookahead. Its ordinary name processing does not add
+another identifier scan. These disjointness facts give the bound of two,
+rather than adding every potential lookahead to every source token. Repeated
+context clauses add distinct tokens; they do not replay an earlier clause.
+This is a manual grammar/path proof, not a consequence of the lexical
+save/restore inventory alone.
+
+`Scn.Post_Scan` allocates one ordinary node per scanned identifier, integer
+literal, String literal or operator-symbol token (`scn.adb:137–188`). The
+current grammar excludes character/real literals and reserved identifiers.
+Quoted spellings recognized as operator symbols still contribute just one
+node here, charged to their source String token. Keywords and punctuation
+normally allocate no scanner node.
+
+There is an additional reachable constructor: a based numeral spelled with
+the permitted **colon delimiters** calls `Check_Obsolete_Base_Char`, which
+unconditionally creates an `N_Empty` node for its restriction check
+(`scn.adb:98–133,155–165`). Disabling the warning does not remove this node.
+For this local transfer, assume the selected default-disabled obsolescent
+warning, disabled style checks, and no active No_Obsolescent_Features
+restriction. The restriction is Boolean, so its bookkeeping updates fixed
+flags without an accumulating counter. Its local-restriction hook returns
+for this restriction (`restrict.adb:380–560`, `local_restrict.adb:122–143`,
+`warnsw.ads:119–185`, `libgnat/s-rident.ads:193`). There is no diagnostic
+allocation on this path under those configuration premises. Other obsolete
+lexical spellings (`%` Strings and `!`) are excluded by Silver.
+
+Let `W` count source identifier tokens, `S` String tokens, `N` numeric tokens
+and `N_colon <= N` the colon-delimited numeric tokens. One Main parse therefore
+has this scanner-only ordinary-node bound:
+
+```text
+A_scan <= 2 * (W + S + N + N_colon).
+```
+
+Charging all source word tokens instead of `W` is also sufficient. Uint and
+String pool costs remain the earlier per-token formulas. Parser constructors,
+defining-identifier kind changes, implicit loop labels, generated data and
+dependency scanning remain separate. This contribution does not yet supply
+the complete `A_Main` input needed by the producer aggregate.
 
 ## Semantic caller coverage still required
 

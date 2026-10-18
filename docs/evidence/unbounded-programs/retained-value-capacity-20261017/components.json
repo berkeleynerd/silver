@@ -239,6 +239,34 @@
       "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95",
       "git_blob_sha1": "852279e7562364b58c62af8069508e5f031c1e1f",
       "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/libgnat/system-linux-x86.ads"
+    },
+    {
+      "path": "restrict.adb",
+      "bytes": 56196,
+      "sha256": "644e05288291aece0b74bafc2719f1c03ba59464c350447c4a08298cc5c5cebf",
+      "git_blob_sha1": "152ecfbf7f373bac5cafdc7b37f346dead00755d",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/restrict.adb"
+    },
+    {
+      "path": "local_restrict.adb",
+      "bytes": 11009,
+      "sha256": "38405d3a674b2632427c3a2f130328c6749de5bffc238e85946e4afadd173db3",
+      "git_blob_sha1": "993e16ba1d52756fc4f7da5a8d147d395c776bea",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/local_restrict.adb"
+    },
+    {
+      "path": "warnsw.ads",
+      "bytes": 27100,
+      "sha256": "ede39281a68cac25f65d07e1fcdb75954580272c8abb0f69a67a5ef6aaf1aee4",
+      "git_blob_sha1": "e154044a45df6d07cdc83499fe3817babe10e9cb",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/warnsw.ads"
+    },
+    {
+      "path": "libgnat/s-rident.ads",
+      "bytes": 36946,
+      "sha256": "e9baa9af82dd10ddcd9ac016f52e230babdcdf19f4f18b0ded647643324949a8",
+      "git_blob_sha1": "895a6e63f6c86b0a0ceb386c37eecec6cfc6b07e",
+      "url": "https://github.com/gcc-mirror/gcc/blob/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/libgnat/s-rident.ads"
     }
   ],
   "source_hash_mismatches": 0,
@@ -1847,6 +1875,10 @@
   },
   "main_parse_upper_bound": {
     "source_literal_scan_multiplicity": 2,
+    "source_identifier_scan_multiplicity": 2,
+    "scanner_ordinary_nodes": "2*(source_identifiers + source_string_literals + source_numerals + colon_delimited_numerals)",
+    "colon_numeral_extra_node_per_scan": 1,
+    "scanner_node_premises": "successful Main parse, no active No_Obsolescent_Features restriction, default disabled obsolescent warning and style checks",
     "parser_characters_per_source_decoded_character": 3,
     "parser_descriptors": "2*source_string_literals + floor(source_concat_operators/1000)",
     "scope": "one syntactically valid Main parse with unchanged Silver grammar; excludes initialization, dependency parses and semantic/generated events",
