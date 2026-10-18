@@ -862,9 +862,79 @@ helper, and the shared-library run-path branch is inactive. The final exchange
 has 18 rows, each at most 190 characters, including the full `libgnat.a` path.
 
 The scanner and its per-row payloads are bounded independently of author
-trivia. The remaining process join still includes Text_IO file/control storage,
-temporary-path/filesystem operations, spawn internals and fixed elaboration
-state. None is assigned zero by the small scan/vector bounds.
+trivia. These scan/vector bounds do not include Text_IO file/control storage,
+temporary-path/filesystem operations, spawn internals or fixed elaboration
+state. The following section supplies the selected runtime-interface terms.
+
+### Runtime argument and Text_IO representations
+
+The runtime-owned copies are additional to the GPR vectors. On the selected
+Linux branch, `Spawn_Internal` copies each input argument String once into
+`N_Args`, then constructs one contiguous NUL-terminated command buffer and an
+array of `argument_count+2` C pointers (`s-os_lib.adb:2871–2979`). The command
+buffer is exactly executable length plus one plus the sum of each argument's
+length plus one. `Normalize_Arguments` returns without quote expansion because
+`__gnat_argument_needs_quote=0` on this platform
+(`s-os_lib.adb:2025–2035`, `adaint.c:3194–3198`). Thus:
+
+| Selected spawn representation | Binder | Proposed binder compiler |
+| --- | ---: | ---: |
+| Extra argument Strings / `N_Args` pointer slots | 6 | 15 |
+| Extra String payload bytes | at most 227 with `/tmp` | 119 |
+| C argument pointer slots, including executable and null sentinel | 8 | 17 |
+| Contiguous command bytes, including every NUL | at most 385 with `/tmp` | 281 |
+
+For another selected temporary root, use the earlier general binder-argument
+formula before adding the 152-byte NUL-inclusive executable name. These sizes
+remain distinct from `To_Argument_List`'s copies. All sums and append indices
+fit their `Positive`/`Natural` domains. On Linux, the C wrapper's selected
+branch calls `fork`, `execv` and `waitpid` with those pointers; its Windows
+argument rewriting/allocation branch is absent (`adaint.c:2418–2469`).
+This establishes the wrapper's representation demands, not OS process or
+memory availability. No build-script output is selected, so `Script_Write`
+returns before script quoting or file creation (`gpr-script.adb:117–122`).
+
+Gprbind makes four nonstandard Text_IO open/create calls: input exchange,
+output exchange, object list and generated body. The input exchange closes
+before the others; the object list closes before opening the body. Thus at
+most **two nonstandard files** coexist. Each open allocates one fixed
+`Text_AFCB`, one NUL-terminated filename and one NUL-terminated form String
+(`a-textio.adb:158–162`, `s-fileio.adb:831–850`). The default form is empty, so
+its copy has one byte. `Open`/`Create` also own a fixed local dummy control
+block; it is additional to the two possible live heap blocks
+(`a-textio.adb:231–253,1196–1218`). The standard streams and libc `FILE` state
+are separate fixed runtime support, not included in this two-file count.
+
+Let M be the retained runtime's `max_path_len`. `System.File_IO.Open` owns
+two `M+1` path buffers and a one-byte form buffer
+(`s-fileio.adb:798–819`). Its normal Linux full-name routine either copies an
+absolute path or joins the actual working directory, `/`, and the relative
+name (`cstreams.c:216–236`). At the retained installation and `/tmp` descriptor,
+all four full names are at most **127 characters**, so each allocated filename
+is at most **128 bytes** including NUL. This bound charges the full path,
+not just the short relative input. The installation premise includes that
+these full paths fit M; source trivia does not affect them. A different
+temporary root substitutes `max(127,T_root+36)` for this full-name bound.
+
+The selected calls use the bounded-buffer `Get_Line` procedure, not its
+recursive String-returning overload. Its fixed auxiliary chunk is **80 bytes**
+and it writes within the supplied 1,000-character buffer
+(`a-tigeli.adb:45–82,148–215`). ASCII, LF-terminated generated rows fit that
+buffer. The largest possible file-line counter is 204, for the 203-line body;
+other files have at most 26 input or 18 output rows. `Put_Line` restricts its
+local terminator buffer to **514 bytes** even for a longer argument
+(`a-textio.adb:1393–1432`). The selected exchange rows are shorter. No input
+selects page-length or bounded-line formatting, and all counters stay within
+`Count` (`a-textio.ads:80,680–685`).
+
+The one object-list temporary has one registry entry. `Record_Temp_File`
+appends once, and deletion traverses that single entry (`gpr.adb:279–327,
+1350–1360`); the dynamic table's first backing has ten slots
+(`gpr.ads:2916–2921`). Its name/path character storage is still covered by
+the earlier temporary-template bound, and is separate from the four ALI-parser
+name entries. Remaining fixed-process work includes runtime elaboration,
+filesystem normalization/search and libc internals; these interface bounds
+do not certify all such code or provide a physical-memory total.
 
 ### Selected search-directory and default-relocation projection
 
@@ -1186,11 +1256,12 @@ and options are not normalized into the indexed witness.
    fixed source/object search, printable single-line generated paths and
    matching artifacts. Bounds on variable Main ALI input length remain
    upstream; the Xref ignore rule does not remove reading that buffer.
-2. Complete the remaining driver/process storage, including fixed elaboration
-   and filesystem/Text_IO/spawn internals. Selected
+2. Complete the remaining driver/process storage, including fixed elaboration,
+   filesystem normalization/search and libc internals. Selected
    binder arguments/search directories, exchange rows, argument vectors,
    Main-ALI parser/name contributions, generated-output scans, generation
-   buffers, name tables and graph core are bounded above; those
+   buffers, runtime argument/Text_IO representations, name tables and graph
+   core are bounded above; those
    results do not cover every allocation in the GPR/driver or compiler process.
 3. Complete the compiler/assembler transient-capacity composition. The fixed
    semantic request and object-shape transfer now closes the linker-input

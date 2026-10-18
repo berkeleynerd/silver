@@ -819,6 +819,41 @@ def analyze(artifacts, sources):
         "result_exchange_line_bytes_bound":len(paths[3])+len(b"libgnat.a"),
         "scope":"selected fixed generated-source/object-list projection; Text_IO/filesystem/spawn internals separate",
     }
+    oslib = sources["gcc/ada/libgnat/s-os_lib.adb"]
+    assert b"Program_Name'Length + 1 + Args_Length (Args);" in oslib
+    assert b"Arg_List_Len  : constant Positive := Args'Length + 2;" in oslib
+    assert b"N_Args (K) := new String'(Args (K).all);" in oslib
+    assert b"int __gnat_argument_needs_quote = 0;" in sources["gcc/ada/adaint.c"]
+    assert b"pid = fork ();" in sources["gcc/ada/adaint.c"]
+    assert b"execv (args[0], MAYBE_TO_PTR32 (args));" in sources["gcc/ada/adaint.c"]
+    assert b"if Build_Script_Name = null then\n         return;" in sources["gpr/gpr/src/gpr-script.adb"]
+    assert b"Chunk_Size : constant := 80;" in sources["gcc/ada/libgnat/a-tigeli.adb"]
+    assert b"Buffer : String (1 .. Ilen + 2);" in sources["gcc/ada/libgnat/a-textio.adb"]
+    assert b"if Ilen > 512 then" in sources["gcc/ada/libgnat/a-textio.adb"]
+    assert b"Fullname : aliased String (1 .. max_path_len + 1);" in sources["gcc/ada/libgnat/s-fileio.adb"]
+    assert b"return new Text_AFCB;" in sources["gcc/ada/libgnat/a-textio.adb"]
+    assert b"strcat (buffer, nam);" in sources["gcc/ada/cstreams.c"]
+    assert b"Table_Initial        => 10," in sources["gpr/gpr/src/gpr.ads"]
+    binder_command = main_ali_path+argv_constant+2*(len(b"/tmp")+36)+len(argv[0])+1
+    compiler_command = selected_compile["unindexed-proposed"]["argument_bytes_with_terminators"]+len(compiler_path)+1
+    assert (binder_command,compiler_command) == (385,281)
+    result["gprbind_runtime_interfaces"] = {
+        "binder_spawn_argument_count":6,"binder_spawn_C_pointer_slots":8,
+        "binder_spawn_command_bytes_bound_at_tmp_root":binder_command,
+        "compiler_spawn_argument_count":15,"compiler_spawn_C_pointer_slots":17,
+        "compiler_spawn_command_bytes":compiler_command,
+        "compiler_spawn_additional_string_payload_bytes":119,
+        "linux_argument_quote_expansion":False,
+        "text_open_events":4,"text_open_max_simultaneous_nonstandard":2,
+        "text_control_blocks_at_once_excluding_standard_and_Open_dummy":2,
+        "text_full_filename_bytes_bound_at_tmp_root":127,
+        "text_form_bytes_including_NUL":1,"text_filename_bytes_including_NUL_bound_at_tmp_root":128,
+        "text_Open_path_scratch_bytes":"2*(M+1), M=runtime max_path_len",
+        "text_Get_Line_auxiliary_bytes":80,"text_Put_Line_auxiliary_bytes_bound":514,
+        "text_line_counter_bound":204,
+        "temp_registry_entries":1,"temp_registry_backing_slots":10,
+        "scope":"selected runtime-owned argument and Text_IO representations; fixed initialization, libc and OS resource success remain separate",
+    }
     return result
 
 

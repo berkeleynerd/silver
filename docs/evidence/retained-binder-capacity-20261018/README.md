@@ -20,8 +20,8 @@ complete child environment, exact arguments, temporary inputs, input identities,
 generated sources, empty stdout/stderr and managed-run log/events. Its input
 manifest is preserved separately from the extended packet's later manifest.
 
-`sources.tar.gz` contains one hundred and thirty-four complete inspected source files:
-seventy-eight GCC Ada files, thirty-five GCC backend files, two libcpp files, seventeen
+`sources.tar.gz` contains one hundred and forty-three complete inspected source files:
+eighty-five GCC Ada files, thirty-five GCC backend files, two libcpp files, nineteen
 GPR files and two Silver workspace-construction files. The GCC/libcpp files were reconciled against
 the earlier complete-source manifests for
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; GPR retains its previously used
@@ -112,6 +112,16 @@ exchange has 18 rows of at most 190 characters. Text_IO/filesystem/spawn and
 fixed elaboration storage remain outside those local bounds. The object
 inventory now also records sum `st_size` 11,766 across all symbols, for the
 separate linker copy-storage join. These extensions execute no native tools.
+
+The runtime-interface extension charges the extra spawn argument copies,
+C pointer arrays (8 binder / 17 compiler slots) and contiguous command buffers
+(385 binder bytes with `/tmp` / 281 compiler bytes). Linux adds no quoting
+expansion. Gprbind has four nonstandard Text_IO open events and at most two
+live files, plus the fixed standard/runtime support. Filename/form copies,
+the runtime's two maximum-path scratch buffers, 80-byte read chunks and
+514-byte output scratch are separate from GPR's own buffers. Its temporary
+registry uses one entry in a ten-slot backing. Fixed elaboration,
+filesystem normalization/search and libc internals remain separate joins.
 
 Replay without access to the original installations:
 

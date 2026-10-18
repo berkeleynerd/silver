@@ -10127,6 +10127,29 @@
     },
     "version_scratch_bytes": 32
   },
+  "gprbind_runtime_interfaces": {
+    "binder_spawn_C_pointer_slots": 8,
+    "binder_spawn_argument_count": 6,
+    "binder_spawn_command_bytes_bound_at_tmp_root": 385,
+    "compiler_spawn_C_pointer_slots": 17,
+    "compiler_spawn_additional_string_payload_bytes": 119,
+    "compiler_spawn_argument_count": 15,
+    "compiler_spawn_command_bytes": 281,
+    "linux_argument_quote_expansion": false,
+    "scope": "selected runtime-owned argument and Text_IO representations; fixed initialization, libc and OS resource success remain separate",
+    "temp_registry_backing_slots": 10,
+    "temp_registry_entries": 1,
+    "text_Get_Line_auxiliary_bytes": 80,
+    "text_Open_path_scratch_bytes": "2*(M+1), M=runtime max_path_len",
+    "text_Put_Line_auxiliary_bytes_bound": 514,
+    "text_control_blocks_at_once_excluding_standard_and_Open_dummy": 2,
+    "text_filename_bytes_including_NUL_bound_at_tmp_root": 128,
+    "text_form_bytes_including_NUL": 1,
+    "text_full_filename_bytes_bound_at_tmp_root": 127,
+    "text_line_counter_bound": 204,
+    "text_open_events": 4,
+    "text_open_max_simultaneous_nonstandard": 2
+  },
   "indexed_body_differing_lines": [
     [
       194,

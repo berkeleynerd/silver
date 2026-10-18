@@ -119,7 +119,9 @@ def main():
                  "libgnat/g-md5.ads", "libgnat/g-sechas.ads", "libgnat/g-sehamd.ads",
                  "libgnat/a-coinve.ads", "libgnat/a-coinve.adb",
                  "libgnat/g-table.ads", "libgnat/g-table.adb",
-                 "libgnat/g-dyntab.ads", "libgnat/g-dyntab.adb"]
+                 "libgnat/g-dyntab.ads", "libgnat/g-dyntab.adb",
+                 "libgnat/a-textio.ads", "libgnat/a-textio.adb", "libgnat/a-tigeli.adb",
+                 "libgnat/s-fileio.adb", "libgnat/s-ficobl.ads", "libgnat/i-cstrea.ads", "cstreams.c"]
     for file in ada_files:
         add(sources, "gcc/ada/"+file, args.gcc_ada/file)
     backend_files = ["cfgrtl.cc", "tree.cc", "tree-core.h", "varasm.cc", "stringpool.cc",
@@ -142,7 +144,7 @@ def main():
                  "gpr/src/gpr-util.adb", "gpr/src/gpr.ads", "src/gprexch.ads", "src/gprexch.adb"]:
         add(sources, "gpr/"+file, args.gpr_source/file)
     for file in ["gpr-ali.adb", "gpr-ali.ads", "gpr-names.adb", "gpr-names.ads",
-                 "gpr-osint.adb", "gpr-osint.ads"]:
+                 "gpr-osint.adb", "gpr-osint.ads", "gpr-script.adb", "gpr.adb"]:
         add(sources, "gpr/gpr/src/"+file, args.gpr_source/"gpr/src"/file)
     for file in ["silver.adb", "silver_platform.adb"]:
         add(sources, "silver/src/"+file, install/"src"/file)
