@@ -1,0 +1,93 @@
+{
+  "status": "Prospective specification for parent coordination; not an executed observer or validation result",
+  "executed": false,
+  "purpose": "Retain a same-process counter/input/Hsdecl/session join at the first Input_Is_Valid/cvc5 inline_trivial entry, with exit-hook inputs needed for R. Do not execute inline, printing, a prover request or a signal callback.",
+  "starting_harness": "docs/evidence/retained-why-inline-identifier-state-20261018/capture.tar.gz: plan.json, prepare-snapshot.py, run.py, probe.py, snapshot-observer.py, entry-observer.py, table-observer.py",
+  "coordination_before_execution": [
+    "Parent reviews and coordinates the restricted observer after this missing-root packet. This packet does not authorize a run.",
+    "Read the live managed-run summary, reserve one native worker and a unique workspace on the repository filesystem, and check memory/disk headroom. Do not reuse /tmp, which had little free space.",
+    "Freeze the modified harness and source/native layouts; run offline decoder fixtures before a native attempt. An unsupported layout is a diagnostic stop, not a reason for an automatic rerun."
+  ],
+  "invocation": {
+    "preserve": ["Pinned executable/plugins/input/configuration/import identities", "Original explicit environment including OCAMLRUNPARAM=s=256M,h=16M,M=1000", "Fresh session: initial cwd contains only the exact JSON, why3.conf and empty temp", "Separate why3server --single-client -j 1 and selected external socket", "Existing startup/resource/mutation/driver/printing/solver guards", "First Driver.prepare_task and ordered counterexamples_dependent_intros then inline_trivial entry"],
+    "relocation": "Use a fresh path beneath repository tmp; record every changed path/config hash. This is a new process, not a continuation of PID 74171.",
+    "no_launch_policy_change": "Do not add masking, ignored SIGINT, injected signals, new target code or a changed session seed. Stop all target threads at the existing first-inline breakpoint."
+  },
+  "native_budget": {
+    "workers": 1,
+    "address_space_limit_GiB": 6,
+    "timeout_seconds": 120,
+    "projection_block_limit": 1000000,
+    "projection_payload_limit_bytes": 134217728,
+    "reserved_retention_disk_bytes_minimum": 536870912,
+    "limit_semantics": "Diagnostic aborts only; reaching a limit gives no capacity or absence conclusion. Persist completed core and partial projection before terminating. Parent must reassess changed limits rather than retry automatically."
+  },
+  "read_protocol": [
+    "Use only debugger memory/register reads while stopped. No inferior call, data write, callback invocation, SIGINT injection, transform continuation, source instrumentation, build, solver or full proof run.",
+    "Record runtime load bias from mapped ELF and accepted source/native pins. Flush each raw address/length/hex record before interpreting it. Retain headers and complete payloads even for rejected records.",
+    "Retain the original private Ident ref, input declaration graph, Hsdecl table and runtime guards in this same process before the new optional projection. Persist each component separately and keep all failures.",
+    "Read each structural node once as raw bytes; preserve every edge and table/list occurrence separately. Do not follow arbitrary code or C pointers. Bound the projection; leave unsupported closures/lazy/object/custom blocks opaque and fail the affected typed claim."
+  ],
+  "primary_root": {
+    "runtime_symbol": "caml_signal_handlers",
+    "symbol_relative_address": 16428784,
+    "read_bytes": 8,
+    "storage": "BSS: read runtime memory; never use an ELF file slice as the value",
+    "steps": [
+      "Decode the pointer to the OCaml handler array, retaining its header and whole payload. Validate tag 0 and a size containing Linux SIGINT index 2.",
+      "Read array field 2 as the actual registered closure. Validate Closure_tag 247, 4 words, and field 0 equal to relocated camlGnat_main__fun_14206. Retain all words; code/info words are not heap pointers.",
+      "Closure field 2 is the captured controller. Retain its complete 6-word record; follow field 0 to the 17-word session. Native capture of the root plus the retained named native bodies binds these offsets; validation is required, not assumed.",
+      "Retain the controller and session headers/payloads, the session directory string and all fields. Follow only the selected typed projection below. Unexpected record shapes stop decoding while preserving raw bytes."
+    ]
+  },
+  "session_projection": {
+    "record_field_indices": {
+      "session.proofAttempt_table": 0,
+      "session.proofNode_table": 2,
+      "session.trans_table": 4,
+      "session.session_dir": 7,
+      "session.session_files": 8,
+      "session.shapes": 10,
+      "session.session_raw_tasks": 11,
+      "file.file_theories": 4,
+      "theory.theory_goals": 1,
+      "proof_node.proofn_parent": 2,
+      "proof_node.proofn_attempts": 3,
+      "proof_node.proofn_transformations": 4,
+      "transformation_node.transf_subtasks": 2,
+      "transformation_node.transf_parent": 3
+    },
+    "tables": "Retain complete backing bucket arrays and all Cons cells for session_files, proofNode_table, trans_table and session_raw_tasks. Hint/Hpn/Htn/Hfile select Exthtbl.Make(Int), which includes Hashtbl.Make; validate the pinned four-field table and three-field Cons representation. Preserve bucket order, duplicates, keys, values and next pointers; validate entry count, lookup order, list endings, alignment and cycles. Do not infer membership from Hsdecl representatives.",
+    "forest": "Retain every file/theory/goal/transformation list edge and complete record. Enumerate fold_all_session exactly, including multiple root bindings and repeated visits to an ID. Decode proof-parent variants for root explanation selection. APa visits do not contribute to B_binders but their tables/records are retained as shallow serialization inputs for R. Retain detached flags and the successful session_raw_tasks lookup for each APn visit.",
+    "tasks": "For every session_raw_tasks value retain its full task option chain, task_hd fields and tdecl nodes. Charge every proposition declaration and the distinguished goal formula. Retain declaration/formula graphs recursively, including variable/type/identifier records, binder lists, patterns and their pat_vars sets/maps, triggers, bv_subst maps, free-variable data and all referenced substitution terms. Reuse exact graph records on address equality only within this new process. Retain all opaque scalar bytes needed for decoding.",
+    "shapes": "Retain the shape version and shallow existing shape roots for source selection. Existing rendered shapes do not replace raw tasks and need not be recursively dumped for B_binders. If remaining-helper analysis needs additional shape data, identify it explicitly before another attempt."
+  },
+  "remaining_helper_roots": {
+    "exit_function": "Read runtime camlStdlib+0x338, its one-field atomic/ref block, then the exit closure. For code camlStdlib__new_exit_481 validate tag 247/5 words: field 2 is callback, field 3 is one-field Boolean once-only gate, field 4 is previous exit closure. Retain the entire chain, preserving sharing and checking cycles. Keep the terminal closure and all callback code/info/environment words. The captured chain must be source-bound before R is assigned.",
+    "registered_stats": "Read runtime camlWhy3__Debug+0x128, its one-field ref, and every list cons. Each camlWhy3__Debug__fun_3073 wrapper is tag 247/3 words with statistic record at field 2. That tag 0/3-word record has value at field 0, printer closure at field 1 and name string at field 2. Retain printer code/info/environment words and the value graph. These layouts are bound by native-layout.json; unknown cases retain raw bytes and stop the affected typed claim.",
+    "other_debug_inputs": "Retain camlWhy3__Debug+0x70 (stats flag record), +0x80 (formatter ref and formatter record) and +0x108 (timing table) as raw immediate records plus the ordinary value graphs required by their pinned source types. Record formatter output-closure identities; an indirect formatter/global dependency is a separate source obligation, not implicitly zero work.",
+    "callbacks": "Retain complete immediate closure environments and ordinary data reachable from callback/value roots, with a separate typed worklist. Recognized closure code/info words are not data pointers. Only follow closure environment fields whose offsets are source/native validated; preserve unsupported closure/object/lazy/infix cases as raw failures. Do not follow external C pointers or call a printer. Code using global roots still needs a source reachability argument; a closure-environment dump alone is not its proof.",
+    "closure_of_R": "The primary session projection must be saved first. No R value may be published until all reachable registration-producing helpers and possible session mutators are resolved. If source review finds another actual live mutable global input, state that precise missing input before any later capture."
+  },
+  "retained_outputs": [
+    "Frozen harness/plan, exact argv/environment/files and pre-run directory inventory",
+    "Managed summary, process/server/maps/thread records and all original guard outcomes",
+    "Flushed memory-reads.jsonl and durable original identifier/input/Hsdecl components",
+    "session-root.json with symbol/load-bias/array/closure/controller/session address chain",
+    "session-tables.json preserving complete bucket chains and source layouts",
+    "session-forest.json preserving occurrence order, visits, parent variants and detachment results",
+    "session-task-graph.json with every raw-task chain and complete logical graph",
+    "exit-hook-roots.json including raw unknown closure words and partial-capture failures",
+    "Per-file identities, completeness markers, run limits, timestamps and failure/cleanup records"
+  ],
+  "offline_completion_checks": [
+    "Replay every structural read against raw bytes; validate all source layouts, source/native roots, map/list/table cases and rejected cases. Fixtures cover shared nodes, duplicate table keys, nonempty bucket collisions, cycles, missing raw tasks and partial persistence.",
+    "Certify the finite session visit forest with occurrence multiplicity, preserving Hashtbl lookup order. A missing raw task is detached and skipped by the actual guard; do not revive the refuted missing-task exception witness.",
+    "Certify finite fully opened occurrence trees with semantic delayed substitution and fresh abstract names; do not use distinct block count or the previous inline-input envelope for arbitrary session formulas. Compute O(t) with let/epsilon/quantifier/pattern binder counts and all required child/trigger occurrences.",
+    "Compute B_binders from successful APn visits and all proposition declarations, including the additional goal explanation traversal. Establish the charged graph's preservation throughout the bounded inline call and both saves, including any reachable exit/helper/callback path that can mutate it.",
+    "Complete R from actual source-bound helper/exit reachability; observation of one save or one non-SIGINT run is not a bound on allowed callback behavior.",
+    "Use this new process's observed private counter and re-establish its input/Hsdecl registration bound. Reuse the accepted source theorem only after its exact input assumptions are checked for this capture. Never splice new session addresses or a new graph into the historical 60,496 snapshot.",
+    "If a claim about historical PID 74171 is required, separately prove fixed-prefix invariance of the relevant session projection. Otherwise label the result as a new retained same-process instance and preserve the historical gap.",
+    "Apply the accepted two-save inequality only with its successful POSIX, single-dispatcher/producer, no-reinstallation and no-unmask premises. No history/family/other-callback/allocation/full-transform/whole-pipeline claim follows."
+  ]
+}

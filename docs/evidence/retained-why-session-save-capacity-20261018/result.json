@@ -1,0 +1,21 @@
+{
+  "scope": "Retained PID 74171 first Input_Is_Valid/cvc5 inline_trivial entry",
+  "accepted_accounted_endpoint": 61641,
+  "accepted_signal_save_multiplicity": 2,
+  "multiplicity_remains_conditional": true,
+  "initial_session": "Fresh empty session, then parse/type/split/register fixed JSON; no historical XML seed loaded",
+  "controller_session_join_observed": false,
+  "signal_handler_root_word_observed": false,
+  "exit_hook_root_word_observed": false,
+  "complete_current_session_graph": false,
+  "B_binders": null,
+  "R": null,
+  "complete_save_charge": false,
+  "complete_callback_capacity": false,
+  "observer_plan_executed": false,
+  "new_target_runs": 0,
+  "new_debugger_runs": 0,
+  "new_objdump_runs": 0,
+  "new_compiler_build_proof_solver_runs": 0,
+  "next_step": "Parent coordinates the frozen restricted observer plan or a source-prefix reconstruction. A new capture needs a new same-process counter/input/table/session join; it does not retroactively supply the historical session root."
+}

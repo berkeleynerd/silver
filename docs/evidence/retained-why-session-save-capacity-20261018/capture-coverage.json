@@ -1,0 +1,150 @@
+{
+  "process_pid": 74171,
+  "load_bias": 94573055037440,
+  "raw_read_records": 785851,
+  "root_coverage": [
+    {
+      "symbol": "caml_signal_handlers",
+      "offset": 0,
+      "elf_value": 16428784,
+      "runtime_address": 94573071466224,
+      "bytes": 8,
+      "section": ".bss",
+      "overlapping_read_records": []
+    },
+    {
+      "symbol": "camlStdlib",
+      "offset": 824,
+      "elf_value": 16041368,
+      "runtime_address": 94573071079632,
+      "bytes": 8,
+      "section": ".data",
+      "overlapping_read_records": []
+    },
+    {
+      "symbol": "camlWhy3__Debug",
+      "offset": 296,
+      "elf_value": 11698328,
+      "runtime_address": 94573066736064,
+      "bytes": 8,
+      "section": ".data",
+      "overlapping_read_records": []
+    }
+  ],
+  "archive_members": [
+    "capture/auxiliary-state.json",
+    "capture/debugger.log",
+    "capture/hsdecl-table.json",
+    "capture/identifier-state.json",
+    "capture/inline-entry-graph.json",
+    "capture/maps.txt",
+    "capture/memory-reads.jsonl",
+    "capture/occurrence_add.operands",
+    "capture/probe.gdb",
+    "capture/process.json",
+    "capture/result.json",
+    "capture/server.json",
+    "capture/server.log",
+    "capture/substitution_multiply.operands",
+    "capture/summary.json",
+    "capture/union_add.operands",
+    "diagnosis-command.json",
+    "driver-resolution.json",
+    "entry-observer.py",
+    "input/silver_arguments__input_is_valid.gnat-json",
+    "input/why3.conf",
+    "managed.log",
+    "managed.py",
+    "managed/events.jsonl",
+    "managed/native.log",
+    "overlay/alt_ergo_gnatprove_smt2.drv",
+    "overlay/cvc5_gnatprove.drv",
+    "overlay/silver_cvc5_no_steps.gen",
+    "overlay/why3.conf",
+    "overlay/z3_gnatprove.drv",
+    "plan.json",
+    "pre-run-status.json",
+    "prepare-snapshot.py",
+    "probe.py",
+    "result.json",
+    "run.py",
+    "snapshot-observer.py",
+    "source-case-inventory.json",
+    "static-entry-disassembly.txt",
+    "static-identifier-disassembly.txt",
+    "static-table-disassembly.txt",
+    "table-observer.py",
+    "test-snapshot-observer.py"
+  ],
+  "selected_member_identities": {
+    "run.py": {
+      "bytes": 5567,
+      "sha256": "dce11c335c221ce6a942895c46ada02735d3106b192502852e87112a0c9648a6"
+    },
+    "prepare-snapshot.py": {
+      "bytes": 3622,
+      "sha256": "23c908db38531434b342285af29729598f8a711891b9ed5e7027905897a4357a"
+    },
+    "entry-observer.py": {
+      "bytes": 4258,
+      "sha256": "a3d7c6293ec510326d74a6a3bbd5f8b14479aedaf122f3820b03d031a16ccf87"
+    },
+    "snapshot-observer.py": {
+      "bytes": 4471,
+      "sha256": "9e5922bf76da36c437695f678ba2ac4eb60a3717548d7637eb2361c1d6e0605b"
+    },
+    "capture/memory-reads.jsonl": {
+      "bytes": 59649857,
+      "sha256": "2ab41973ab3b59ca69a1095702abda94fc0b616236c6d8a0f36246a11603fff5"
+    },
+    "capture/summary.json": {
+      "bytes": 231113,
+      "sha256": "45506a47bc3309b2153d190ae10d70bc1be3ed3396c9f3cb5326cab59981baf1"
+    },
+    "capture/inline-entry-graph.json": {
+      "bytes": 33140099,
+      "sha256": "51460b1b5abfd876df612373f9a1d9d76bd16c5052506e036d93cc6b4c501313"
+    },
+    "capture/identifier-state.json": {
+      "bytes": 2381,
+      "sha256": "223bd15f05755781c3bd87f5227075904d815470e9d4ef41871620d18e41c2e6"
+    },
+    "capture/process.json": {
+      "bytes": 1000,
+      "sha256": "85e44e2bfdab175567cedf3e88bb966a664c05590d5bd5f123d8e7ce797fc0d3"
+    },
+    "input/silver_arguments__input_is_valid.gnat-json": {
+      "bytes": 121828,
+      "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+    }
+  },
+  "initial_cwd_entries_asserted_by_harness": [
+    "silver_arguments__input_is_valid.gnat-json",
+    "why3.conf",
+    "temp"
+  ],
+  "initial_temp_empty_asserted_by_harness": true,
+  "session_xml_or_shapes_archive_members": [],
+  "session_xml_or_shapes_observed_opens": [],
+  "driver_prepare": {
+    "input_task": 140564273535504,
+    "input_task_chain_length": 434,
+    "visited_directives": [
+      "counterexamples_dependent_intros",
+      "inline_trivial"
+    ]
+  },
+  "inline_entry": {
+    "task": 140564268770520,
+    "ordered_tdecls": 512,
+    "input_declaration_roots": 244,
+    "hsdecl_declaration_roots": 6704,
+    "retained_blocks": 326456,
+    "scope": "all first-entry logical declarations and every nonempty Hsdecl weak-table slot"
+  },
+  "counter": 60496,
+  "completed": true,
+  "failures": [],
+  "guard_hits": [],
+  "claim": "These three runtime root words are unobserved. Some descendant bytes may overlap retained task/table graphs; no complete session join is established."
+}

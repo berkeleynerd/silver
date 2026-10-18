@@ -1,0 +1,86 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "ocaml_revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "executable": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    }
+  },
+  "reused_files": {
+    "docs/evidence/retained-why-inline-identifier-state-20261018/capture.tar.gz": {
+      "bytes": 10999776,
+      "sha256": "ea87227e886cee89222e7e1eed8ccd60964fa61de99720e5f1ea11067b73f816"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/result.json": {
+      "bytes": 5781,
+      "sha256": "d9fe8d884c8d890df0b4b7718106f78774bdc4f265f420c28ef15af2cfd49a0d"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/audit.py": {
+      "bytes": 12887,
+      "sha256": "d6b8394cf7f1d3e2d1fed2f043f9965a9b98a35979b6bef278a77a5d85ddf2ec"
+    },
+    "docs/evidence/retained-why-inline-callback-closure-20261018/sources.tar.gz": {
+      "bytes": 213370,
+      "sha256": "e59e901cb848afa258750a6c80de876dd0dd9aac3e45491f0dc19b95a136abb6"
+    },
+    "docs/evidence/retained-why-callback-launch-20261018/sources.tar.gz": {
+      "bytes": 130687,
+      "sha256": "0d26b107d5d4526f198c626f94abbf9a8a3c0a9982ce346751a2929233187902"
+    },
+    "docs/evidence/retained-why-callback-launch-20261018/result.json": {
+      "bytes": 2678,
+      "sha256": "fcc96c3362ac8c6fb26266f9b4890e8cdd8728b4d8a9a4d383e823947578cae6"
+    },
+    "docs/evidence/retained-why-callback-launch-20261018/fixed-session-seed.json": {
+      "bytes": 930,
+      "sha256": "6ed902fc7c46a09ae8a9c312a83aa4d27035b8cfb06fc699d01614f7fc083149"
+    },
+    "docs/research/retained-why-callback-launch.md": {
+      "bytes": 15004,
+      "sha256": "4cb30bc2b4322e3b4d9d7be37e0679b6d92617b576b20b168d92bbb25e85a536"
+    },
+    "docs/reviews/review-why-callback-launch-188d05026b.md": {
+      "bytes": 10889,
+      "sha256": "59d7dbe95e36f1239d13bd99f4762cd8227be19ba32a358c263fdbcb1e97712e"
+    }
+  },
+  "local_inputs": {
+    "README.md": {
+      "bytes": 1929,
+      "sha256": "c8e616fa4acbf1b4ed3003edb5ca768606b44037b8e8ab265b732deb1889a7a4"
+    },
+    "capture-coverage.json": {
+      "bytes": 4579,
+      "sha256": "822bb9323cce042ae24f64c88c24cf51cbd200d350fe0dc50131ae9edde7c362"
+    },
+    "check.py": {
+      "bytes": 7460,
+      "sha256": "6b50e6c6fca89b06b901f790e5a005f8d0e2c59692241c09ef3a2421b8da7a83"
+    },
+    "native-layout.json": {
+      "bytes": 71295,
+      "sha256": "aa6a5e3e9463eb8c6fc1e9391f50fb520a1e96a96420c20e1c2de9222f89f555"
+    },
+    "observer-plan.json": {
+      "bytes": 12067,
+      "sha256": "560cdd2c7fc29e8a7932d69bca33758cd7787c870d086c60a07c4c08f9459a70"
+    },
+    "result.json": {
+      "bytes": 1006,
+      "sha256": "7ab24c5968a8e2308480ad2a913725007378d98ec8e81b7daceca641484dc0b7"
+    },
+    "sources.tar.gz": {
+      "bytes": 17595,
+      "sha256": "ef906162705551e348055633a17e01f820c8137d9cdbd1ebb707d96a8582bfce"
+    }
+  },
+  "note": {
+    "path": "docs/research/retained-why-session-save-capacity.md",
+    "identity": {
+      "bytes": 11485,
+      "sha256": "cbbf0c2445bfca074d051dbe3ad69b5838be8c2fb4288580abf765ca11a11173"
+    }
+  }
+}

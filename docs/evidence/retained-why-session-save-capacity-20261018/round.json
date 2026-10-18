@@ -1,0 +1,97 @@
+{
+  "issue": "https://github.com/berkeleynerd/silver/issues/119",
+  "base": "e8c320431fd3edf034da3d77d6bbc9a8a85768a0",
+  "objective": "Source-bind current session/raw tasks and B_binders+R, or freeze precise missing inputs plus a restricted observer plan before parent-coordinated execution.",
+  "authorization": "Parent-delegated owner-authorized #119 research. Own new note/evidence only; focused static source/identity checks. No native target, capture, debugger, objdump, build, proof, solver or full-suite rerun. Parent owns independent review, integration, publication and issue/memory/harness updates.",
+  "worker": {
+    "agent": "/root/why_inline_operations",
+    "selected_model": "GPT-6 Astra",
+    "selected_reasoning_effort": "Extra High",
+    "runtime_model_confirmation": null,
+    "runtime_effort_confirmation": null,
+    "token_usage": null,
+    "monetary_cost": null
+  },
+  "started_utc": "2026-10-18T23:38:02+00:00",
+  "recorded_utc": "2026-10-18T23:48:55.898949+00:00",
+  "elapsed_seconds_through_record": 653.898949,
+  "elapsed_scope": "Worker through packet/check completion; excludes independent review, integration and final commit preparation.",
+  "host": "Linux x86_64",
+  "harness_goal_at_handoff": null,
+  "checks": [
+    {
+      "command": "python3 -B docs/evidence/retained-why-session-save-capacity-20261018/check.py",
+      "status": "pass",
+      "seconds": 3.7715482610001345,
+      "raw_read_records_checked": 785851,
+      "unobserved_runtime_root_words": 3,
+      "native_bodies": 10,
+      "native_bytes_checked": 2414
+    }
+  ],
+  "new_target_runs": 0,
+  "new_debugger_runs": 0,
+  "new_objdump_runs": 0,
+  "compiler_build_proof_solver_runs": 0,
+  "old_successful_graph_counter_proof_rerun": false,
+  "material_findings": [
+    "Archived harness starts from a fresh session; historical five-goal XML was not this capture's seed.",
+    "All raw reads lack signal-handler, exit-function and registered-statistics root words; existing declaration/Hsdecl roots do not establish session membership or occurrence count.",
+    "Fixed construction and direct inline/save preservation paths identified; actual finite graph/callback preservation and R remain open.",
+    "Concrete observer plan freezes exact root offsets, session projection, same-process join, retention/fixtures/guards and diagnostic resource limits; no execution occurred."
+  ],
+  "achieved": "Precise missing-root fallback and prospective bounded observer plan; no numeric B_binders or R, endpoint unchanged at 61641.",
+  "remaining_obligations": [
+    "Independent review and parent coordination of any observer",
+    "Current-session visit/formula certificate and fully opened binder mass",
+    "Complete helper/exit R and charged-projection preservation across allowed callbacks",
+    "Same-process input/counter/Hsdecl join for any new captured instance; historical-instance invariance if claiming PID74171",
+    "Complete remaining callback/auxiliary/allocation/full-transform and broader #119 capacity obligations"
+  ],
+  "writes_outside_owned_packet": {
+    "github": false,
+    "cli_memory": false,
+    "harness": false,
+    "production": false,
+    "configuration": false,
+    "oracle": false
+  },
+  "exact_review_inputs": {
+    "docs/evidence/retained-why-session-save-capacity-20261018/README.md": {
+      "bytes": 1929,
+      "sha256": "c8e616fa4acbf1b4ed3003edb5ca768606b44037b8e8ab265b732deb1889a7a4"
+    },
+    "docs/evidence/retained-why-session-save-capacity-20261018/capture-coverage.json": {
+      "bytes": 4579,
+      "sha256": "822bb9323cce042ae24f64c88c24cf51cbd200d350fe0dc50131ae9edde7c362"
+    },
+    "docs/evidence/retained-why-session-save-capacity-20261018/check.py": {
+      "bytes": 7460,
+      "sha256": "6b50e6c6fca89b06b901f790e5a005f8d0e2c59692241c09ef3a2421b8da7a83"
+    },
+    "docs/evidence/retained-why-session-save-capacity-20261018/inputs.json": {
+      "bytes": 3339,
+      "sha256": "fb230e6c9793e4a126a8629b81f437ce21884fe7a27e602e6a875419f9570c54"
+    },
+    "docs/evidence/retained-why-session-save-capacity-20261018/native-layout.json": {
+      "bytes": 71295,
+      "sha256": "aa6a5e3e9463eb8c6fc1e9391f50fb520a1e96a96420c20e1c2de9222f89f555"
+    },
+    "docs/evidence/retained-why-session-save-capacity-20261018/observer-plan.json": {
+      "bytes": 12067,
+      "sha256": "560cdd2c7fc29e8a7932d69bca33758cd7787c870d086c60a07c4c08f9459a70"
+    },
+    "docs/evidence/retained-why-session-save-capacity-20261018/result.json": {
+      "bytes": 1006,
+      "sha256": "7ab24c5968a8e2308480ad2a913725007378d98ec8e81b7daceca641484dc0b7"
+    },
+    "docs/evidence/retained-why-session-save-capacity-20261018/sources.tar.gz": {
+      "bytes": 17595,
+      "sha256": "ef906162705551e348055633a17e01f820c8137d9cdbd1ebb707d96a8582bfce"
+    },
+    "docs/research/retained-why-session-save-capacity.md": {
+      "bytes": 11485,
+      "sha256": "cbbf0c2445bfca074d051dbe3ad69b5838be8c2fb4288580abf765ca11a11173"
+    }
+  }
+}
