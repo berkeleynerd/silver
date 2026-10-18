@@ -1,0 +1,32 @@
+{
+  "source_archive_sha256": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910",
+  "source_sha256": {
+    "why3/src/mlw/vc.ml": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1",
+    "why3/plugins/gnat_json/gnat_ast_to_ptree.ml": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+  },
+  "arithmetic_examples": [
+    {
+      "input": 1,
+      "sequences": 0,
+      "switches": 0,
+      "refined": 3,
+      "coarse": 5
+    },
+    {
+      "input": 21,
+      "sequences": 10,
+      "switches": 0,
+      "refined": 43,
+      "coarse": 65
+    },
+    {
+      "input": 33,
+      "sequences": 12,
+      "switches": 4,
+      "refined": 63,
+      "coarse": 101
+    }
+  ],
+  "native_executions": 0,
+  "scope": "Pinned source and arithmetic only; no executable reflow model, typed-source extraction, full producer predicate or useful-domain claim"
+}
