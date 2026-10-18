@@ -1,5 +1,5 @@
 {
-  "source_archive_sha256": "538cd41af7c6a83172f2cddd41d8c0d4cb548955a0ceb4b2a9c64175b0416795",
+  "source_archive_sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538",
   "spark_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
   "why3_gitlink": "9390baf120ef260547dfa14f08e11c890b203d9c",
   "premise": "Candidate source behavior and current installed config/driver bytes; no historical binary-source identity claim.",
@@ -254,6 +254,79 @@
       "source": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/cvc4_bv.gen",
       "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423",
       "bytes": 911
+    },
+    {
+      "path": "why3/src/util/debug.ml",
+      "repository": "AdaCore/why3",
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1",
+      "bytes": 6900
+    },
+    {
+      "path": "why3/src/session/session_itp.ml",
+      "repository": "AdaCore/why3",
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9",
+      "bytes": 81245
+    },
+    {
+      "path": "why3/src/mlw/rac.ml",
+      "repository": "AdaCore/why3",
+      "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+      "sha256": "a80e48467ed0cd17f9fab25c11c9519e2f12d29b3851ba97b7cd821526243a0b",
+      "bytes": 22109
+    },
+    {
+      "path": "gnatcoll/core/src/gnatcoll-json.adb",
+      "repository": "AdaCore/gnatcoll-core",
+      "revision": "1d4374ae9187fd14d42ca99a3deb0ab2ff1ebc55",
+      "sha256": "d51eb6166d0741cf58618c3dfc0ef583be96f128cffde723b8227e14cf6aba8f",
+      "bytes": 47797
+    },
+    {
+      "path": "gnatcoll/core/src/gnatcoll-json.ads",
+      "repository": "AdaCore/gnatcoll-core",
+      "revision": "1d4374ae9187fd14d42ca99a3deb0ab2ff1ebc55",
+      "sha256": "1c4886407bb7668bbecc9103cc26964f8a634ec8acffacb7740b39209c900b04",
+      "bytes": 26792
+    },
+    {
+      "path": "gnatcoll/core/src/gnatcoll-json-utility.adb",
+      "repository": "AdaCore/gnatcoll-core",
+      "revision": "1d4374ae9187fd14d42ca99a3deb0ab2ff1ebc55",
+      "sha256": "6217658e47a8a2a0bb6e32eaa24928852d311b8aa129b437db5336b7491ac6ae",
+      "bytes": 8919
+    },
+    {
+      "path": "gnatcoll/core/src/gnatcoll-buffer.adb",
+      "repository": "AdaCore/gnatcoll-core",
+      "revision": "1d4374ae9187fd14d42ca99a3deb0ab2ff1ebc55",
+      "sha256": "afabb275dc10731f1444a06007896318f5603d78f65ce6a10f91d05e28874ade",
+      "bytes": 12050
+    },
+    {
+      "path": "gnatcoll/core/src/gnatcoll-strings_impl.adb",
+      "repository": "AdaCore/gnatcoll-core",
+      "revision": "1d4374ae9187fd14d42ca99a3deb0ab2ff1ebc55",
+      "sha256": "e9c95ad6b0899821852a787c586bb772017fabee1a2a852d5edf21f026687e3b",
+      "bytes": 73732
+    },
+    {
+      "path": "gnatcoll/core/src/gnatcoll-strings_impl.ads",
+      "repository": "AdaCore/gnatcoll-core",
+      "revision": "1d4374ae9187fd14d42ca99a3deb0ab2ff1ebc55",
+      "sha256": "b1c3f51b54c10c154b80c75d9d258fce1629ffaa5a4da154f8e82a5409b8463d",
+      "bytes": 47219
+    },
+    {
+      "path": "gnatcoll/minimal/src/gnatcoll-atomic.ads",
+      "repository": "AdaCore/gnatcoll-core",
+      "revision": "1d4374ae9187fd14d42ca99a3deb0ab2ff1ebc55",
+      "sha256": "9c0888038655503581202e93ad21321ccf5116d194b891d343575590f1fba712",
+      "bytes": 6045
     }
-  ]
+  ],
+  "why3_complete_archive_sha256": "8d4a8dcdcdf965ce3cc6935bdd60c1378a5ec47b4a0bdedae6651ee50ed03f8c",
+  "why3_complete_archive_url": "https://codeload.github.com/AdaCore/why3/zip/9390baf120ef260547dfa14f08e11c890b203d9c",
+  "gnatcoll_complete_archive_sha256": "945ec0ba0af2f33361ed80de7aabafa6aa8f4d4a6149896e70f2fb1c6c2ef676"
 }

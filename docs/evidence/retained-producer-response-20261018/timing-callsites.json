@@ -1,0 +1,50 @@
+[
+  {
+    "path": "src/driver/driver.ml",
+    "line": 378,
+    "text": "Debug.Stats.record_timing (\"gnatwhy3.transformations.\" ^ name)",
+    "file_sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+  },
+  {
+    "path": "src/gnat/gnat_main.ml",
+    "line": 272,
+    "text": "Debug.Stats.record_timing \"gnatwhy3.run_vcs\"",
+    "file_sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+  },
+  {
+    "path": "src/gnat/gnat_main.ml",
+    "line": 274,
+    "text": "Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);",
+    "file_sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+  },
+  {
+    "path": "src/gnat/gnat_main.ml",
+    "line": 332,
+    "text": "let c = Debug.Stats.record_timing \"gnatwhy3.init\" Gnat_checks.init_cont in",
+    "file_sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+  },
+  {
+    "path": "src/gnat/gnat_main.ml",
+    "line": 340,
+    "text": "Debug.Stats.record_timing \"gnatwhy3.register_vcs\"",
+    "file_sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+  },
+  {
+    "path": "src/gnat/gnat_main.ml",
+    "line": 346,
+    "text": "Debug.Stats.record_timing \"gnatwhy3.schedule_vcs\"",
+    "file_sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+  },
+  {
+    "path": "src/mlw/rac.ml",
+    "line": 399,
+    "text": "Debug.Stats.add_timing \"rac_prover\" res.pr_time;",
+    "file_sha256": "a80e48467ed0cd17f9fab25c11c9519e2f12d29b3851ba97b7cd821526243a0b"
+  },
+  {
+    "path": "src/session/session_itp.ml",
+    "line": 1578,
+    "text": "Debug.Stats.record_timing stat_name",
+    "file_sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+  }
+]

@@ -363,6 +363,10 @@ String (`gnat2why-driver.adb:351–383`). Consequently:
 
 The next producer step is the response/report interface and its scalar/String,
 container and counter implementation bounds, including the third intern pool.
+The [response-schema transfer](retained-producer-response.md) now supplies
+conditional byte/container bounds, closes the fixed timing-name domain, and
+identifies narrow downstream projections and the separate clock interface.
+Its source-to-leaf, diagnostic-string and final-report joins remain unfinished.
 The current arithmetic checker deliberately continues to say **producer core**.
 There is no complete-process or whole-#119 completion claim.
 
