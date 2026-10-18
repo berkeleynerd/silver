@@ -1,0 +1,90 @@
+{
+  "target": "b391e324ff",
+  "upstream_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_sha256": {
+    "par-ch10.adb": "4ed233f32ad1a0ba61daadeca145fb7169fa97368341913513b418cf6769c7c6",
+    "par-ch11.adb": "ac0222d5e808825bf5157c09ce699e9a209aa49cdd786bfb4bfddc9fb0368c6c",
+    "par-ch12.adb": "eefe2f4ca8658fc7d5a1a8f6fc9ed873064220600522b359a9d5211d99ed32d4",
+    "par-ch13.adb": "76ef6835e86a4ed19f5fb5ed945592cbd9e8647b6ebcc2c8390f03f92df4be8a",
+    "par-ch2.adb": "eada2ac62201fc1b152e23d9c7eb35b2fea6d038fd5da421f736d2cc23f27765",
+    "par-ch3.adb": "571a1d2a038c7023960ac3770139e808f2306dac0ef2f0d0d262bed08caf8452",
+    "par-ch4.adb": "b6ea201b0bf99ddb4683ecc09ea65bf5009f249fbae7af71d00ec921bd0f79d7",
+    "par-ch5.adb": "be592a8382db8b249308949e51595dabf3a19e98e1ffe694c1e012983804c298",
+    "par-ch6.adb": "93daabccfe3b63c05289916f5241fc7822d7405a516045ed2b3fbecb8eda4480",
+    "par-ch7.adb": "934de98450a397698aba91b2a038ef374dc547464fbe13357dd55b094c485974",
+    "par-ch8.adb": "3c5e77dd256257244edb37dc6cda487dd1af71696d80eac1f8a7a19257c1ba90",
+    "par-ch9.adb": "31f7262fed0f57b1b14967487b16074f7b48225f4e2a8e7011bda834830bff36",
+    "par-endh.adb": "da28478447cbf48a35c7e0c8fc787b9a985bcf1fc0c671f7ecb452249597ee11",
+    "par-labl.adb": "cf28682a83d42c49b2a762270acf1ba5026dfaebaed68784c8aef387431bc7c8",
+    "par-load.adb": "362b6f4b5a7b18d073df9ebd0b308f5173170473e13b2cf5b5f44ba58c8581fd",
+    "par-prag.adb": "75b0624149303b6f119608079f7bb28214867eb7a601949401eb2b27bc2b0724",
+    "par-sync.adb": "e5e0cb5845234c4a6b48593897a8ab8d4f71c7b6f428b95732e24d26b4d130d0",
+    "par-tchk.adb": "182c629c13d538c4528ec8fdeee5397122dc8d0084700161ca287c343943470e",
+    "par-util.adb": "1aec06552dcadb3afc170029c4c69f35f95e4e986f2cc0a987ae36c6c2f59292",
+    "par.adb": "0660ed38f66cab0e9c2870dadff7d066174bba1c795df35562d0529ad7e4718f",
+    "par.ads": "383139a989b824cdc856165e89c515f840d0d03bcc08cb264ed8b50d13cc3af6",
+    "par_sco.adb": "37ece2bf4140b599407d852d1d605d362f2a8601dfdf78a6abde87e070f88612",
+    "par_sco.ads": "9364099526574650d7bebb315c9f489304c7420c0ab0bb8d199d980d556a51d8",
+    "scn.adb": "fa1d657388d6303084eef6a06e98a012a03d667ff8703c6025c47201dc47dba3",
+    "scans.adb": "a7b2934948f59fa2b15116d3b2959114fb1865b2964150e9a186b580d5679f1e",
+    "scans.ads": "0118586b2957fdb579cff22d886308e007b3fbfce002b977fe2c50b6f3496e4a",
+    "elists.adb": "c3808beb8857481e1ef462529410997f43cc5a5a813f08040b4aa27c819669dc",
+    "types.ads": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+    "restrict.adb": "644e05288291aece0b74bafc2719f1c03ba59464c350447c4a08298cc5c5cebf",
+    "local_restrict.adb": "38405d3a674b2632427c3a2f130328c6749de5bffc238e85946e4afadd173db3",
+    "warnsw.ads": "ede39281a68cac25f65d07e1fcdb75954580272c8abb0f69a67a5ef6aaf1aee4",
+    "libgnat/s-rident.ads": "e9baa9af82dd10ddcd9ac016f52e230babdcdf19f4f18b0ded647643324949a8"
+  },
+  "suspicious_label_append_sites": [
+    {
+      "file": "par-ch5.adb",
+      "line_lf": 546
+    }
+  ],
+  "suspicious_label_parser_reset_sites": [],
+  "loop_counter_assignment_sites": [
+    {
+      "file": "par-ch5.adb",
+      "line_lf": 2349
+    }
+  ],
+  "loop_name_lexical_calls_and_headers": [
+    {
+      "file": "par-ch5.adb",
+      "line_lf": 72
+    },
+    {
+      "file": "par-ch5.adb",
+      "line_lf": 1601
+    },
+    {
+      "file": "par-ch5.adb",
+      "line_lf": 1672
+    },
+    {
+      "file": "par-ch5.adb",
+      "line_lf": 1738
+    },
+    {
+      "file": "par-ch5.adb",
+      "line_lf": 1930
+    },
+    {
+      "file": "par-ch5.adb",
+      "line_lf": 1971
+    },
+    {
+      "file": "par-ch5.adb",
+      "line_lf": 2344
+    }
+  ],
+  "reviewed_parser_scope_entries": "2+d",
+  "reviewed_parser_loop_auxiliaries": {
+    "ordinary_nodes": "2*F",
+    "entities": "F",
+    "element_headers": 3,
+    "elements": "2*F"
+  },
+  "reviewed_scanner_ordinary_nodes": "2*(W+S+N+N_colon)",
+  "limitation": "Hashes/lexical anchors corroborate the manual path review; no whole-source/tool capacity proof or compiler/prover execution"
+}
