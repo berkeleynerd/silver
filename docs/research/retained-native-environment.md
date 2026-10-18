@@ -194,6 +194,30 @@ correction: it checked both search phases, the five implicit specs paths,
 the individual requests and the signed/unsigned promotion in the temporary
 filename expression. The review involved no additional native tool run.
 
+The selected dump-option helper also has a separate signed-int boundary.
+`quote_string` scans its input and escape count in signed `int`, then evaluates
+`len + number_of_space + 1` in that type (`gcc.cc:11270–11294`). With `L`
+input bytes and `q <= L` bytes requiring an escape, the exact allocating
+branch requires `L+q+1 <= INT_MAX`; its final NUL iteration's index increments
+fit under the same condition. The nonallocating branch only scans to `L`.
+Thus `2L+1 <= INT_MAX` is a convenient sufficient bound. This arithmetic is
+not supplied merely by a 64-bit `malloc` interface.
+
+`dumps_spec_func` has a fixed three-element local pointer array. It constructs
+at most one each of dump directory, dump base and extension, quotes those
+values, then concatenates them (`:11027–11120`). For a descriptor bounding
+each complete raw value by `P >= 1`, even the empty-argument spelling fits
+`2P` quoted bytes. The three option prefixes total 36 bytes, giving an
+individual result object of at most **`6P+37` bytes** with NUL. A condition
+`6P+37 <= INT_MAX` also supplies the selected downstream `save_string` length
+and `len+1` headroom; `save_string` itself is at `:9474–9480`. At the priced
+`P=222`, individual quoted values occupy at most 445 bytes and this result
+at most 1,369 bytes. The source arguments are literal data, not arbitrary
+specification code: `give_switch` uses `inswitch=1`, while generated dump
+arguments escape every spec-active character (`:6160–6182,7681–7723,
+11337–11375`). These local objects can use the existing individual-obstack
+transfer; counts and other spec-interpreter requests remain separate.
+
 ## Driver-created strings and complete path spellings
 
 Clearing inherited `GCC_EXEC_PREFIX` does not imply that the frontend will see

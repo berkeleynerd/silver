@@ -147,6 +147,19 @@ search_buffer = M + S + N + 1
 assert M <= INT_MAX and N <= INT_MAX and search_buffer <= PTRDIFF_MAX
 assert max(map(len, initial_specs + [override_specs])) + 1 <= search_buffer
 assert max(len(p) + N + 1 for p in programs + libraries) <= search_buffer
+P = search_buffer - 1
+# quote_string uses signed-int loop variables and a signed allocation sum.
+# At most one escape precedes each input byte. dumps_spec_func concatenates
+# at most three quoted values and these three fixed option spellings.
+quote_object = 2 * P + 1
+dump_prefixes = (" -dumpdir ", " -dumpbase ", " -dumpbase-ext ")
+assert sum(map(len, dump_prefixes)) == 36
+dump_spec_object = 6 * P + 37
+assert quote_object <= INT_MAX and dump_spec_object <= INT_MAX
+assert "xmalloc (len + number_of_space + 1)" in gcc
+assert "const char *ret = concat (args[0], args[1], args[2], NULL);" in gcc
+for prefix in dump_prefixes:
+    assert 'concat ("' + prefix + '"' in gcc
 
 # Include actual known Linux fallback strings.  P_tmpdir is /tmp on this
 # selected host descriptor.  No TMP or TEMP variable is inherited.
@@ -171,6 +184,8 @@ result = {
     "max_prefix_bytes": M, "max_suffix_bytes": S,
     "max_probe_basename_bytes": N,
     "individual_search_buffer_bytes": search_buffer,
+    "individual_spec_quoted_path_bytes": quote_object,
+    "individual_dump_spec_result_bytes": dump_spec_object,
     "separate_specs_override_object_bytes": len(override_specs) + 1,
     "max_selected_temp_base_bytes": T,
     "individual_temp_directory_object_bytes": tmpdir_object,
