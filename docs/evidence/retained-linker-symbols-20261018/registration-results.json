@@ -1,0 +1,48 @@
+{
+  "scope": "Selected x86 ELF dynamic-symbol lifetime transfer",
+  "source_files_verified": 25,
+  "ordinary_elf_global_registration_sites": [
+    592,
+    828,
+    839,
+    1531,
+    2117,
+    2290,
+    3093,
+    3142,
+    3303,
+    5688,
+    5693,
+    6096,
+    6111,
+    7205,
+    7252,
+    15741
+  ],
+  "x86_global_registration_sites": [
+    179,
+    329,
+    461,
+    469,
+    514
+  ],
+  "dynamic_section_symbol_prefix": 0,
+  "backend_local_dynamic_list_entries": 0,
+  "global_traversal_registration_coefficient": {
+    "export": 1,
+    "version_flag_fix": 1,
+    "dynamic_adjustment": 4,
+    "x86_relocation_allocation": 5
+  },
+  "total_global_traversal_registration_coefficient": 11,
+  "start_stop_registration_bound": "2*Q_input + 2*Q_output",
+  "registration_increments_bound": "8*R + 11*H + 2*A + V + 2*Q_input + 2*Q_output",
+  "renumbered_count_bound": "H+1",
+  "dynamic_count_high_water_bound": "1 + 8*R + 12*H + 2*A + V + 2*Q_input + 2*Q_output",
+  "GNU_hash_selected_count_bound": "H",
+  "input_and_global_and_statement_and_section_counts_supplied": false,
+  "source_to_all_counts_closed": false,
+  "dynamic_string_other_users_included": false,
+  "whole_link_capacity_established": false,
+  "native_execution": false
+}

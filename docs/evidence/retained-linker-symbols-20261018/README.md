@@ -63,3 +63,18 @@ rollback snapshot storage and other dynamic-symbol registration events remain
 separate. The input-pass registration contribution is bounded by `8R`, or
 392,648 for the fixed passes, retaining increments lost to as-needed rollback.
 These are additive terms, not whole-link counts.
+
+`registration-sources.json` and its archive add the selected x86 backend and
+linker scheduling sources. `check-registrations.py` checks all 25 source
+identities and the direct registration-site partition for the lifetime transfer:
+
+```sh
+python3 docs/evidence/retained-linker-symbols-20261018/check-registrations.py --output /tmp/registration-check.json
+```
+
+The selected target has no dynamic section-symbol prefix or backend-local
+dynamic list. The reviewed schedule gives a conditional high-water bound from
+input records, global entries, script assignments, section visits and version
+definitions, retaining registrations lost to rollback or hiding. It does not
+supply all those caller counts or complete whole-link capacity. The checker
+is source/hash/arithmetic reconciliation, not a C evaluator; no native tool runs.

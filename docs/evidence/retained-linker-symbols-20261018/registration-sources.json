@@ -1,0 +1,96 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "archive_sha256": "d167c7aee97fe4df39ec72f074c3a7f125929b4df6d26a1bec1ef1695c4fa323",
+  "files": [
+    {
+      "path": "bfd/elfxx-x86.c",
+      "bytes": 143875,
+      "sha256": "d3b089435efad4528b6cb4565819d997f50480ec35fbcbb0d90b06d20b57d517",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elfxx-x86.c"
+    },
+    {
+      "path": "bfd/elfxx-x86.h",
+      "bytes": 35916,
+      "sha256": "3d03a65f74e14eb2807567c0ba3bba8769ffba4faf05c38febae4e8e8f3faff2",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elfxx-x86.h"
+    },
+    {
+      "path": "bfd/elf-ifunc.c",
+      "bytes": 10671,
+      "sha256": "434fda9a9a58826db224d9aaf76ab33b449bf12cb01b5af7dfac2d14d4413443",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf-ifunc.c"
+    },
+    {
+      "path": "bfd/elf-vxworks.c",
+      "bytes": 9719,
+      "sha256": "a854b2fd3ef05389f95d8862b0e9e5911dc4cd9f3a905db19126b12ab32a6a1d",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf-vxworks.c"
+    },
+    {
+      "path": "bfd/configure.ac",
+      "bytes": 43332,
+      "sha256": "b79ee1ec17cb74fb85072605369b878ecc6846727ce7c193fccc5cb47aa2df4b",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/configure.ac"
+    },
+    {
+      "path": "bfd/config.bfd",
+      "bytes": 45697,
+      "sha256": "387353b2cb2c75e81e4f4926335899466e9bbc75693b02337385f9a2576d6196",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/config.bfd"
+    },
+    {
+      "path": "ld/ldlang.c",
+      "bytes": 312082,
+      "sha256": "51346229cbadc7415e3040cab429747edb810358fc4782fe65c47756bfd77b43",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldlang.c"
+    },
+    {
+      "path": "ld/ldelf.c",
+      "bytes": 69930,
+      "sha256": "803752534caf5b0a360bdb6bbeafe018e1161e6842455caab345a9b3b93e0ba2",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldelf.c"
+    },
+    {
+      "path": "ld/ldemul.c",
+      "bytes": 10142,
+      "sha256": "673c4b4e62542b864548c3fa7f098ec0a41332bb0d0120fb683105d13c7bc8b4",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldemul.c"
+    },
+    {
+      "path": "ld/emulparams/elf_x86_64.sh",
+      "bytes": 1708,
+      "sha256": "6f0769c6d5598b23c72ba4b58063ae71d97b4960dc0d73cda94922e0611fd4c0",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/emulparams/elf_x86_64.sh"
+    },
+    {
+      "path": "ld/emultempl/elf.em",
+      "bytes": 39397,
+      "sha256": "6788f41572efeb56e9c39f7b07a793952824e13b7f82f5ed03e351a43f77df8f",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/emultempl/elf.em"
+    },
+    {
+      "path": "ld/emultempl/elf-x86.em",
+      "bytes": 1568,
+      "sha256": "eb6dc4962a5f4f347aec1028fae7fca3a929fb90882163b7474c20bfa893b8f3",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/emultempl/elf-x86.em"
+    },
+    {
+      "path": "ld/emultempl/elf-x86-64.em",
+      "bytes": 2248,
+      "sha256": "535750f6ab16d160cb6ae5629edc806d921c49a93864b562d61952eb8c5a3622",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/emultempl/elf-x86-64.em"
+    },
+    {
+      "path": "ld/emultempl/elf-x86-glibc.em",
+      "bytes": 2491,
+      "sha256": "b8fcb0f343b05e2ef71a642cee02ea05c72b87368695379b1f0e647c19f4497e",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/emultempl/elf-x86-glibc.em"
+    },
+    {
+      "path": "ld/emultempl/elf-x86-64-glibc.em",
+      "bytes": 1174,
+      "sha256": "028fadad21163a108ed14c15b1e284881f0bffcd6787bec98a83535f37787857",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/emultempl/elf-x86-64-glibc.em"
+    }
+  ]
+}

@@ -346,3 +346,89 @@ input-constructor and registration contributions. It replayed the ten-source
 check and examined warning wrappers, all three merge routes, the weak-list
 target domain and the rollback counter behavior. No material finding remained
 in that input-only scope; the whole-link joins above remain outstanding.
+
+## Selected x86 registration schedule and renumbering
+
+The selected ordinary ELF64 x86 link connects those input events to a lifetime
+dynamic-symbol transfer. Let H bound all global-link-hash entries reached during
+this link, including warning wrappers and indirect targets; R retains its
+all-input-pass meaning above. Let A bound non-dot assignment nodes visited by
+the link-assignment walk, including any linker-inserted statements. Let Qin
+and Qout bound the input and output section visits at the start/stop walks,
+and V bound generated version-definition nodes. These remain source-derived
+caller inputs: H is not silently replaced by the earlier input contribution,
+and A is not assumed to equal only the handwritten script's assignments.
+
+Two target facts simplify the renumbering:
+
+- `elfxx-x86.h:996–997` selects `_bfd_elf_omit_section_dynsym_all`, whose body
+  returns true (`elflink.c:1020–1027`). Therefore the dynamic section-symbol
+  prefix **S is zero**, including for PIE. The generic section-prefix
+  arithmetic remains valid for other targets but contributes nothing here.
+- The selected target never calls `bfd_elf_link_record_local_dynamic_symbol`.
+  Its only list insertion is `elflink.c:921–925`; the selected x86 table starts
+  zeroed (`elfxx-x86.c:717–729`). The separate x86 local-IFUNC hash is not that
+  list. Its allocation callback enters the regular-IFUNC branch and returns
+  before the dynamic-registration sites (`:130–163,563–575`), and the IFUNC
+  helper has no registration call. Thus **dynlocal stays empty**. The
+  generic IA64 fixup and local-registration callers in other targets are not
+  selected. X86's actual fixup only removes an existing dynamic index and
+  reference (`:3193–3205`), so repeated registration still needs accounting.
+
+The single ordinary `ldemul_before_allocation` route calls the x86 preliminary
+layout pass, then the generic ELF hook, then `ldelf_before_allocation`, and
+finally `bfd_elf_size_dynamic_sections`
+(`ldlang.c:8736`; `emultempl/elf-x86-64.em:36–63`; `elf.em:171–174`;
+`ldelf.c:1752–1845`). Its other call site in `ldlang.c` belongs to the excluded
+GNU object-only secondary link. The selected input/configuration argument
+already excludes that route. Relaxation does not repeat the before-allocation
+hook. This source schedule gives the following **successful increment** bounds:
+
+| Route | Bound | Reason |
+| --- | ---: | --- |
+| Ordinary input and version-alias processing | `8R` | The input transfer above includes rollback losses. |
+| Script assignment notification | `2A` | At most one symbol plus its weak definition (`elflink.c:828,839`); `ldelf.c:1645–1705,1802` visits each assignment expression once. |
+| Optional global export traversal | `H` | One registration site per visited entry (`elflink.c:2290,6982–6984`). |
+| Version-assignment flag fixing | `H` | One flag-fixing call per visited entry; its selected backend fixup adds no registration (`:2669,3142,7056–7058`). |
+| Dynamic adjustment, including weak recursion | `4H` | At most H initial visits and H recursive calls, with at most two registration sites per call (`:3142,3303`). |
+| X86 relocation allocation | `5H` | One global traversal and five possible sites per entry (`elfxx-x86.c:179,329,461,469,514,2418–2419`); the local-IFUNC callback adds zero. Charging the i386-only site too is conservative. |
+| Output version symbols | `V` | One per generated definition (`elflink.c:7241–7253`); the separate base-version symbol requires excluded `--default-symver`. |
+| Start/stop definitions | `2Qin+2Qout` | Two calls per input/output section (`ldlang.c:7109–7138,7215–7231`), at most one registration each (`elflink.c:15741`). Output dot-prefixed names actually take the hiding branch, so charging them is conservative. |
+
+Dynamic adjustment marks an owner before its one possible recursive call and
+does not reset that mark during this phase (`elflink.c:3331–3338,3378`). The
+flag-fixing and undefined-weak work occurs **before** the mark guard, which is
+why the bound charges both initial and recursive visits. Counting only the
+backend adjustment callback would miss those earlier registration sites.
+The selected x86 backend adjustment has no registration or recursive adjustment
+call. Its VxWorks dynamic-section registration is guarded by the excluded
+target OS (`elfxx-x86.c:4690–4693`; `elf-vxworks.c:116`).
+
+Each renumbering assigns at most H nonnull global entries. The local and global
+traversals partition them by `forced_local`; neither the empty dynlocal list
+nor the zero section prefix adds an entry (`elflink.c:951–990,1040–1092`). A
+renumbered count is therefore at most H+1. It may increase a previous count,
+so the bound must allow that reset as well as the ordinary increments:
+
+```text
+all registration increments <= 8R + 11H + 2A + V + 2Qin + 2Qout
+D <= 1 + 8R + 12H + 2A + V + 2Qin + 2Qout
+S = 0
+N <= H
+```
+
+The D expression starts from the maximum reset value H+1 and charges every
+increment over the entire link; it remains sufficient across both renumberings,
+hiding, alias redirection and as-needed rollback. No monotonic-final-count
+assumption is used. Apply the earlier D-width and GNU-hash shift conditions
+to these computed bounds. The same registration term bounds dynamic-name
+additions made by this function, but it does not include other String-table
+users or refcount increments.
+
+The [offline reconciliation](../evidence/retained-linker-symbols-20261018/registration-results.json)
+checks 25 complete source identities and the registration-site partition. This
+is a reviewed source argument with arithmetic reconciliation, not a machine
+proof of C reachability. Source-to-H/A/Qin/Qout, generated input counts,
+remaining name suffixes, String-table/arena storage and final layout still
+need their joins. It establishes no whole-link capacity result or enlarged
+Silver domain, and starts no native tool.
