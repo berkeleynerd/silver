@@ -4919,16 +4919,128 @@ sample's metadata bytes and treat the unexplained remainder as a universal
 constant. A conservative fixed event constant may retain sampled overhead,
 while the general metadata allocation and backing checks are paid separately.
 
-The remaining source argument before capture is therefore narrow but real:
-close the fixed-root helper read projection, identify the supported executable's
-observable lifetime counters, and separate variable metadata/shared-container
-growth and Ada Uint/Repinfo callback effects. A witness satisfying those
+The following sections close the fixed-root helper read projection for the
+null token class and separate its Ada numeric callbacks. Before capture,
+identify the supported executable's observable lifetime counters and retain
+the separate variable-metadata/shared-container checks. Other source classes
+must establish the same read projection before reusing the witness. A witness satisfying those
 conditions can replace repeated hand enumeration of fixed builtin/helper
 constructor counts. Dynamic Main graphs, later pass setup, individual allocation
 arithmetic, callbacks, and object/linker consumers remain separate obligations.
 The [13-file source identity record](../evidence/unbounded-programs/retained-native-expansion-20261017/fixed-gcc-prefix-source-identity.json)
 pins the boundary and counter implementations at the selected GCC commit; it
 contains no native measurement.
+
+### Fixed-root read projection and no collection before Main
+
+For the exact null token class, including admitted whitespace and comments,
+the four uncached roots above have a source-independent read projection at
+gigi entry. They come from Cstand's fixed target-dependent construction and
+have no application declaration, representation clause or source pragma that
+can modify their type shape. Standard locations and names remain fixed even
+when the enclosing Main source locations vary. This is a statement about the
+fields read by the selected conversion paths, not bitwise identity of the
+entire GNAT tables.
+
+| Selected helper input | Fixed value or shape |
+| --- | --- |
+| Common Standard flags | Pure, public, frozen, fully qualified and Needs_Debug_Info are set by New_Standard_Entity; Standard_Location makes is_artificial false. |
+| Natural | Signed Integer subtype; Esize 32, RM_Size 31, static bounds 0..Integer'Last, fixed elementary alignment and cached Integer base. Gigi_Cloned_Subtype returns Empty immediately for its Standard location. |
+| A_Char | Ordinary access type with 64-bit size and fixed elementary alignment; its directly designated Character type is already cached. No full/private view, fat-pointer, protected-subprogram or recursive dummy-type route applies. |
+| Exception record | Seven ordinary aliased independent components, Original_Record_Component=self, fixed Standard scope and component order. No discriminants, variants, parent extension, representation clauses, packing or unchecked union. |
+| Long_Long_Float | Self-typed floating base type, fixed target size/alignment/digits and fixed finite endpoints; its numeric callback is accounted separately below. |
+
+The construction sites are `cstand.adb:192–220,1015–1036,1161–1168,
+1526–1587,1746–1762,1819–1848`. Needs_Debug_Info is **True**, even with native
+debug emission disabled. Freeze_Entity returns on already-frozen non-itypes
+before layout work (`freeze.adb:6536–6553`); Set_Debug_Info_Needed ultimately
+sets the flag, and the null class has no inline/Ghost/debug-suppression route
+(`sem_util.adb:28572–28635`). Thus source padding cannot turn these helpers
+into a different layout/freezing path. Gigi_Equivalent_Type returns these
+ordinary types unchanged; the selected Natural clone exclusion and equivalent
+type cases are at `decl.cc:5418–5536`.
+
+The generic conversion prefix sees no imported, foreign, renamed, itype,
+special-equivalent or representation-attribute case on these roots
+(`decl.cc:296–555`). Its selected branches are the simple signed subtype,
+ordinary record, ordinary access and floating base cases
+(`:1901–2131,3211–3635,3809–4050`). The four already installed Standard
+associations and the seven-component list bound all transitive semantic-type
+requests. Scope handling stops at Standard/global scope rather than traversing
+Main's source entities (`utils.cc:815–859,891–936`). Fresh association/dummy
+arrays and all five gigi auxiliary type/annotation hash tables start empty
+(`utils.cc:430–449`, `decl.cc:11325–11334`). No application GCC tree has been
+translated into those tables at this boundary.
+
+Layout backannotations have fixed nonnegative scalar contents too. The
+exception fields are at most 64 bits each and have no explicit increased
+alignment. Even allowing the x86 maximum 512-bit natural alignment for each
+of its seven fields gives a loose record size of 448 bytes, or 3,584 bits
+(`config/i386/i386.h:843–873`). All scalar sizes, alignments and record
+field offsets therefore fit the direct Uint interval. Constant-size
+annotate_value returns through UI_From_gnu/UI_From_Int without allocating a
+Uint, Repinfo node or annotation-cache entry; fixed record offsets also omit
+the variable normalized-position branch (`decl.cc:4645–4754,9318–9360,
+9577–9660`, `cuintp.cc:171–196`, `uintp.adb:1466–1474`). This local zero
+applies to these fixed layout backannotations only. The floating conversion
+below and later Main annotations retain their separate nonzero obligations.
+
+One more variable string belongs in the metadata partition:
+get_global_context creates a single TRANSLATION_UNIT_DECL named by
+`get_identifier(main_input_filename)` (`utils.cc:878–884`). Its declaration
+count is fixed, but its identifier bytes must use the actual path descriptor.
+Together with filenames/line maps, the two max_gnat_nodes arrays and shared
+identifier-hash backing, it must not be folded into an unexplained sampled
+constant. The Main-derived first_global_object_name itself remains the fixed
+Main spelling for this source class.
+
+The selected prefix performs **no GGC collection**. The
+[source inventory checker](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-fixed-prefix.py)
+verifies the retained upstream manifest and all 4,929 source/header/definition/
+configuration files, then records all 53 lexical mentions of ggc_collect,
+ggc_grow or ggc_trim, including comments and declarations. The finite caller
+exclusions are:
+
+- cgraph collection is in function finalization, compilation-unit analysis
+  or function expansion (`cgraphunit.cc:510,1447,1922`). The fixed declarations
+  create no function nodes or finalized bodies before Main, as the preceding
+  symbol-ingress argument establishes.
+- Pass collection and ggc_grow occur during execution or IPA summary reading
+  (`passes.cc:2356,2692,2748,3033,3092`). Startup constructs the pass manager
+  but does not execute its passes; the parse hook is still active at the
+  selected boundary (`toplev.cc:449–480,1169–1176,2147–2225`).
+- Statistics collectors belong to memory reporting after compilation/parsing
+  (`ggc-common.cc:239–247,1277–1284`, `toplev.cc:2036–2057,2117–2118`), and
+  the selected command has no memory-report option. Selftests, including the
+  read-RTL test's explicit collection, are not selected; top-level selftests
+  run after do_compile (`toplev.cc:2389–2396`).
+- Remaining callers belong to other frontends/LTO or plugins. The selected
+  Ada native command has none of those routes. The IPA trim and summary-grow
+  routes are later than this boundary as well.
+
+ggc_internal_alloc_ updates allocation counters and allocates pages; it never
+calls the collector (`ggc-page.cc:1351–1538`). Reallocation likewise allocates,
+copies and explicitly frees without collecting (`ggc-common.cc:163–203`).
+The allocator's page decisions therefore cannot cause a source-dependent
+collection or weak-cache purge during this prefix. This removes a GC-threshold
+dependency; it does not make G.allocated monotone, since explicit frees remain.
+Keep the cumulative/event counter requirements above and separately bound
+each variable metadata allocation and hash/table backing request.
+
+These results justify the fixed semantic setup projection for one prospective
+null-class witness. They do not authorize extending the constant to a class
+whose frontend changes root flags, runtime/configuration restrictions, gigi
+mode or target options. Such a class must match this read projection; its
+variable Main graph is always outside the fixed prefix. No executable-counter
+availability or measured setup constant is asserted here. The
+[retained inventory](../evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-prefix-collection.json)
+states those limits explicitly.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-fixed-prefix.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-prefix-collection.json
+```
 
 ### Fixed floating bounds still allocate Ada numeric metadata
 

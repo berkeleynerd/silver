@@ -1,0 +1,296 @@
+{
+  "binary_counter_availability_established": false,
+  "collection_name_mentions": [
+    {
+      "line": 270,
+      "path": "gcc/asan.cc",
+      "text": "(cfgexpand) and there are no calls to ggc_collect between the uses.  We mark"
+    },
+    {
+      "line": 3789,
+      "path": "gcc/asan.cc",
+      "text": "invoke ggc_collect.  */"
+    },
+    {
+      "line": 4866,
+      "path": "gcc/asan.cc",
+      "text": "invoke ggc_collect.  */"
+    },
+    {
+      "line": 2092,
+      "path": "gcc/c/c-parser.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 510,
+      "path": "gcc/cgraphunit.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 1447,
+      "path": "gcc/cgraphunit.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 1922,
+      "path": "gcc/cgraphunit.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 5888,
+      "path": "gcc/cp/decl2.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 21459,
+      "path": "gcc/cp/module.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 21473,
+      "path": "gcc/cp/module.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 23744,
+      "path": "gcc/cp/module.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 23891,
+      "path": "gcc/cp/module.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 24012,
+      "path": "gcc/cp/module.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 5590,
+      "path": "gcc/cp/semantics.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 10290,
+      "path": "gcc/fortran/trans-array.cc",
+      "text": "/* Use finalize_function with no_collect=true to skip the ggc_collect"
+    },
+    {
+      "line": 247,
+      "path": "gcc/ggc-common.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 1282,
+      "path": "gcc/ggc-common.cc",
+      "text": "ggc_collect (GGC_COLLECT_FORCE);"
+    },
+    {
+      "line": 121,
+      "path": "gcc/ggc-none.cc",
+      "text": "ggc_grow (void)"
+    },
+    {
+      "line": 126,
+      "path": "gcc/ggc-none.cc",
+      "text": "ggc_trim (void)"
+    },
+    {
+      "line": 2292,
+      "path": "gcc/ggc-page.cc",
+      "text": "ggc_collect (enum ggc_collect mode)"
+    },
+    {
+      "line": 2358,
+      "path": "gcc/ggc-page.cc",
+      "text": "ggc_trim ()"
+    },
+    {
+      "line": 2375,
+      "path": "gcc/ggc-page.cc",
+      "text": "ggc_grow (void)"
+    },
+    {
+      "line": 2381,
+      "path": "gcc/ggc-page.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 50,
+      "path": "gcc/ggc-tests.cc",
+      "text": "ggc_collect (GGC_COLLECT_FORCE);"
+    },
+    {
+      "line": 80,
+      "path": "gcc/ggc-tests.cc",
+      "text": "ggc_collect (GGC_COLLECT_FORCE);"
+    },
+    {
+      "line": 154,
+      "path": "gcc/ggc-tests.cc",
+      "text": "ggc_collect (GGC_COLLECT_FORCE);"
+    },
+    {
+      "line": 195,
+      "path": "gcc/ggc-tests.cc",
+      "text": "ggc_collect (GGC_COLLECT_FORCE);"
+    },
+    {
+      "line": 213,
+      "path": "gcc/ggc-tests.cc",
+      "text": "ggc_collect (GGC_COLLECT_FORCE);"
+    },
+    {
+      "line": 286,
+      "path": "gcc/ggc-tests.cc",
+      "text": "ggc_collect (GGC_COLLECT_FORCE);"
+    },
+    {
+      "line": 365,
+      "path": "gcc/ggc-tests.cc",
+      "text": "ggc_collect (GGC_COLLECT_FORCE);"
+    },
+    {
+      "line": 432,
+      "path": "gcc/ggc-tests.cc",
+      "text": "ggc_collect (GGC_COLLECT_FORCE);"
+    },
+    {
+      "line": 450,
+      "path": "gcc/ggc-tests.cc",
+      "text": "ggc_collect (GGC_COLLECT_FORCE);"
+    },
+    {
+      "line": 285,
+      "path": "gcc/ggc.h",
+      "text": "enum ggc_collect {"
+    },
+    {
+      "line": 289,
+      "path": "gcc/ggc.h",
+      "text": "extern void ggc_collect (enum ggc_collect mode = GGC_COLLECT_HEURISTIC);"
+    },
+    {
+      "line": 292,
+      "path": "gcc/ggc.h",
+      "text": "extern void ggc_trim (void);"
+    },
+    {
+      "line": 295,
+      "path": "gcc/ggc.h",
+      "text": "extern void ggc_grow (void);"
+    },
+    {
+      "line": 5176,
+      "path": "gcc/ipa-fnsummary.cc",
+      "text": "ggc_trim ();"
+    },
+    {
+      "line": 2874,
+      "path": "gcc/lto/lto-common.cc",
+      "text": "ggc_grow ();"
+    },
+    {
+      "line": 2958,
+      "path": "gcc/lto/lto-common.cc",
+      "text": "ggc_grow ();"
+    },
+    {
+      "line": 2973,
+      "path": "gcc/lto/lto-common.cc",
+      "text": "ggc_grow ();"
+    },
+    {
+      "line": 3009,
+      "path": "gcc/lto/lto-common.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 338,
+      "path": "gcc/lto/lto.cc",
+      "text": "ggc_trim ();"
+    },
+    {
+      "line": 593,
+      "path": "gcc/lto/lto.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 2969,
+      "path": "gcc/m2/gm2-gcc/m2type.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 45,
+      "path": "gcc/m2/plugin/m2rte.cc",
+      "text": "extern void ggc_collect (void);"
+    },
+    {
+      "line": 2002,
+      "path": "gcc/omp-simd-clone.cc",
+      "text": "/* Call this before creating clone_info, as it might ggc_collect.  */"
+    },
+    {
+      "line": 2356,
+      "path": "gcc/passes.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 2692,
+      "path": "gcc/passes.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 2748,
+      "path": "gcc/passes.cc",
+      "text": "ggc_collect ();"
+    },
+    {
+      "line": 3033,
+      "path": "gcc/passes.cc",
+      "text": "ggc_grow ();"
+    },
+    {
+      "line": 3092,
+      "path": "gcc/passes.cc",
+      "text": "ggc_grow ();"
+    },
+    {
+      "line": 1875,
+      "path": "gcc/read-rtl-function.cc",
+      "text": "ggc_collect (GGC_COLLECT_FORCE);"
+    },
+    {
+      "line": 139,
+      "path": "gcc/selftest-run-tests.cc",
+      "text": "ggc_collect (GGC_COLLECT_FORCE);"
+    }
+  ],
+  "compiler_or_prover_execution": false,
+  "complete_GCC_capacity_established": false,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "handwritten_exclusions": {
+    "allocation": "Allocation and reallocation never invoke collection; explicit frees remain",
+    "cgraph": "No pre-Main function finalization, analysis or expansion",
+    "other_frontends_and_plugins": "Selected Ada native non-LTO invocation has no plugin",
+    "passes": "Pass construction occurs; pass execution and IPA summary reading do not",
+    "selftests": "No self-test option, and top-level selftests follow do_compile",
+    "statistics": "Report sites occur after parsing/compilation; no selected memory-report option"
+  },
+  "mentions_include_comments_declarations_and_other_frontends": true,
+  "null_token_class_fixed_root_read_projection": true,
+  "numeric_GCC_setup_bound_established": false,
+  "other_source_classes_require_matching_read_projection": true,
+  "scope": "Selected native source prefix before Compilation_Unit_to_gnu, with selected-path argument",
+  "source_manifest_sha256": "6f0991bf5e0e98ab27d165696913f4db31a9bd9336afcc48937cdbdb0de12480",
+  "source_sensitive_metadata_charged_separately": [
+    "filenames and line maps",
+    "two max_gnat_nodes pointer arrays",
+    "identifier hash backing",
+    "translation-unit main_input_filename identifier",
+    "Ada numeric table positions and backing"
+  ],
+  "verified_source_bytes": 148727988,
+  "verified_source_files": 4929
+}
