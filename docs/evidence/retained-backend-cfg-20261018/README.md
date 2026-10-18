@@ -29,11 +29,19 @@ The source copy's top-level `manifest.json` identifies the archive URL and
 commit. The reproducer checks every consumed source against both that manifest
 and this package's full-file identities. `--capture` was used only to create
 these initial text artifacts; it refuses to overwrite existing artifacts.
-No successful compiler/proof capture was repeated for this increment.
+`--refresh` regenerates the derived text after an intentional source-analysis
+change; it does not run a compiler. It was used to extend the retained excerpts
+and arithmetic when closing the two signed-counter obligations. No successful
+compiler/proof capture was repeated for this increment.
 
 The small tree enumeration checks the ancestor-slot arithmetic on 5,913 tiny
 rooted trees; it does not validate GCC loop discovery or replace the general
 counting argument. Representative arithmetic likewise does not prove the
 matcher bounds, cleanup termination, dominator correctness, or a whole-pipeline
-capacity predicate. In particular, the cumulative signed `graphds_domtree`
-marker is retained as an open obligation.
+capacity predicate. The source/path argument in the report now supplies the
+cumulative signed `graphds_domtree` bound. The package additionally checks a
+transcription of its parent-chain iteration on all 313 reachable graphs with
+two through four vertices under the stated edge frontier, plus 256 seeded
+larger graphs. Final candidates are compared with an independent set solver.
+These finite checks support the transcription; they do not establish the
+universal bound or replace its manual invariant argument.

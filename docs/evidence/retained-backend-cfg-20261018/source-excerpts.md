@@ -3242,7 +3242,7 @@ LF line numbering; tabs expanded and trailing space trimmed.
 445: {
 ```
 
-## gcc/et-forest.cc:463–620
+## gcc/et-forest.cc:463–774
 
 ```text
 463: et_new_tree (void *data)
@@ -3403,6 +3403,160 @@ LF line numbering; tabs expanded and trailing space trimmed.
 618: #ifdef DEBUG_ET
 619:   et_check_tree_sanity (rmost);
 620:   record_path_before (rmost);
+621:
+622:   et_check_tree_sanity (r);
+623:   record_path_before (r);
+624: #endif
+625: }
+626:
+627: /* Finds the nearest common ancestor of the nodes N1 and N2.  */
+628:
+629: struct et_node *
+630: et_nca (struct et_node *n1, struct et_node *n2)
+631: {
+632:   struct et_occ *o1 = n1->rightmost_occ, *o2 = n2->rightmost_occ, *om;
+633:   struct et_occ *l, *r, *ret;
+634:   int mn;
+635:
+636:   if (n1 == n2)
+637:     return n1;
+638:
+639:   et_splay (o1);
+640:   l = o1->prev;
+641:   r = o1->next;
+642:   if (l)
+643:     l->parent = NULL;
+644:   if (r)
+645:     r->parent = NULL;
+646:   et_splay (o2);
+647:
+648:   if (l == o2 || (l && l->parent != NULL))
+649:     {
+650:       ret = o2->next;
+651:
+652:       set_prev (o1, o2);
+653:       if (r)
+654:         r->parent = o1;
+655:     }
+656:   else if (r == o2 || (r && r->parent != NULL))
+657:     {
+658:       ret = o2->prev;
+659:
+660:       set_next (o1, o2);
+661:       if (l)
+662:         l->parent = o1;
+663:     }
+664:   else
+665:     {
+666:       /* O1 and O2 are in different components of the forest.  */
+667:       if (l)
+668:         l->parent = o1;
+669:       if (r)
+670:         r->parent = o1;
+671:       return NULL;
+672:     }
+673:
+674:   if (o2->depth > 0)
+675:     {
+676:       om = o1;
+677:       mn = o1->depth;
+678:     }
+679:   else
+680:     {
+681:       om = o2;
+682:       mn = o2->depth + o1->depth;
+683:     }
+684:
+685: #ifdef DEBUG_ET
+686:   et_check_tree_sanity (o2);
+687: #endif
+688:
+689:   if (ret && ret->min + o1->depth + o2->depth < mn)
+690:     return ret->min_occ->of;
+691:   else
+692:     return om->of;
+693: }
+694:
+695: /* Checks whether the node UP is an ancestor of the node DOWN.  */
+696:
+697: bool
+698: et_below (struct et_node *down, struct et_node *up)
+699: {
+700:   struct et_occ *u = up->rightmost_occ, *d = down->rightmost_occ;
+701:   struct et_occ *l, *r;
+702:
+703:   if (up == down)
+704:     return true;
+705:
+706:   et_splay (u);
+707:   l = u->prev;
+708:   r = u->next;
+709:
+710:   if (!l)
+711:     return false;
+712:
+713:   l->parent = NULL;
+714:
+715:   if (r)
+716:     r->parent = NULL;
+717:
+718:   et_splay (d);
+719:
+720:   if (l == d || l->parent != NULL)
+721:     {
+722:       if (r)
+723:         r->parent = u;
+724:       set_prev (u, d);
+725: #ifdef DEBUG_ET
+726:       et_check_tree_sanity (u);
+727: #endif
+728:     }
+729:   else
+730:     {
+731:       l->parent = u;
+732:
+733:       /* In case O1 and O2 are in two different trees, we must just restore the
+734:          original state.  */
+735:       if (r && r->parent != NULL)
+736:         set_next (u, d);
+737:       else
+738:         set_next (u, r);
+739:
+740: #ifdef DEBUG_ET
+741:       et_check_tree_sanity (u);
+742: #endif
+743:       return false;
+744:     }
+745:
+746:   if (d->depth <= 0)
+747:     return false;
+748:
+749:   return !d->next || d->next->min + d->depth >= 0;
+750: }
+751:
+752: /* Returns the root of the tree that contains NODE.  */
+753:
+754: struct et_node *
+755: et_root (struct et_node *node)
+756: {
+757:   struct et_occ *occ = node->rightmost_occ, *r;
+758:
+759:   /* The root of the tree corresponds to the rightmost occurrence in the
+760:      represented path.  */
+761:   et_splay (occ);
+762:   for (r = occ; r->next; r = r->next)
+763:     continue;
+764:   et_splay (r);
+765:
+766:   return r->of;
+767: }
+768:
+769: #if CHECKING_P
+770:
+771: namespace selftest {
+772:
+773: /* Selftests for et-forest.cc.  */
+774:
 ```
 
 ## gcc/et-forest.h:62–81
@@ -3917,9 +4071,59 @@ LF line numbering; tabs expanded and trailing space trimmed.
 330: /* Runs CALLBACK for all edges in G.  DATA is private data for CALLBACK.  */
 ```
 
-## gcc/graphds.cc:407–478
+## gcc/graphds.cc:357–478
 
 ```text
+357: tree_nca (int x, int y, int *parent, int *marks, int mark)
+358: {
+359:   if (x == -1 || x == y)
+360:     return y;
+361:
+362:   /* We climb with X and Y up the tree, marking the visited nodes.  When
+363:      we first arrive to a marked node, it is the common ancestor.  */
+364:   marks[x] = mark;
+365:   marks[y] = mark;
+366:
+367:   while (1)
+368:     {
+369:       x = parent[x];
+370:       if (x == -1)
+371:         break;
+372:       if (marks[x] == mark)
+373:         return x;
+374:       marks[x] = mark;
+375:
+376:       y = parent[y];
+377:       if (y == -1)
+378:         break;
+379:       if (marks[y] == mark)
+380:         return y;
+381:       marks[y] = mark;
+382:     }
+383:
+384:   /* If we reached the root with one of the vertices, continue
+385:      with the other one till we reach the marked part of the
+386:      tree.  */
+387:   if (x == -1)
+388:     {
+389:       for (y = parent[y]; marks[y] != mark; y = parent[y])
+390:         continue;
+391:
+392:       return y;
+393:     }
+394:   else
+395:     {
+396:       for (x = parent[x]; marks[x] != mark; x = parent[x])
+397:         continue;
+398:
+399:       return x;
+400:     }
+401: }
+402:
+403: /* Determines the dominance tree of G (stored in the PARENT, SON and BROTHER
+404:    arrays), where the entry node is ENTRY.  */
+405:
+406: void
 407: graphds_domtree (struct graph *g, int entry,
 408:                  int *parent, int *son, int *brother)
 409: {

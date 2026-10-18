@@ -8,6 +8,16 @@
   "arithmetic": {
     "int_max": 2147483647,
     "dfs_local_B_limit": 1073741821,
+    "et_lazy_depth_local_B_limit": 536870909,
+    "repair_marker_worst_edge_local_B_limit": 26753,
+    "graph_iteration_checks": {
+      "exhaustive_reachable_graphs_2_to_4_vertices": 313,
+      "additional_seeded_graphs_2_to_16_vertices": 256,
+      "maximum_observed_sweeps": 4,
+      "maximum_observed_final_marker": 174,
+      "general_sweep_bound": "V+1 (manual source/path argument)",
+      "meaning": "finite transcription and invariant checks only"
+    },
     "pool_layout_arithmetic": [
       {
         "type": "et_node",
@@ -360,8 +370,6 @@
     "open_interfaces": [
       "range matcher sequences, SSA_NAME and tree allocations",
       "generic containers and allocation lifetime composition",
-      "ET lazy-depth signed intermediates",
-      "graphds_domtree convergence sweeps and cumulative mark",
       "enabled verifier helper allocation and loop object layout",
       "downstream SSA, RTL, machine code and linker composition"
     ]

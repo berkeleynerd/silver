@@ -226,9 +226,58 @@ et_occurrences: 65,536 * ceil(2N / 1170).
 Without checking, capacities are 1023 and 1365 slots per block. Released slots
 are reused; the backing count follows peak live demand, not the number of
 reparent operations. Shared block caching and earlier/later clients must be
-composed at translation-unit lifetime. Neither the pointer count nor the DFS
-condition alone proves representability of every signed lazy-depth intermediate
-inside `et_splay`; that is a separate arithmetic obligation.
+composed at translation-unit lifetime. The lazy-depth arithmetic has a separate local condition, derived below.
+
+### Lazy Euler-depth arithmetic
+
+The forest records an Euler traversal of actual tree depths in `[0,N-1]`.
+A splay node's `depth` is the difference between its traversal depth and its
+splay parent's traversal depth; at a splay root it is relative to the component's
+coordinate origin. Its `min` is the minimum traversal depth in its splay subtree,
+relative to the same parent's coordinate. These are the definitions in
+`et-forest.cc:48–53`, implemented by `set_depth`, `set_depth_add` and
+`et_recomp_min` (`:63–133`).
+
+Detaching a splay subtree without adjusting its root weight does not accumulate
+an arbitrary offset. It changes that component's origin to the removed parent's
+traversal depth. After splaying, detaching again selects another occurrence's
+traversal depth as the origin. Both are in the same depth interval. Reattaching
+in `et_nca` and `et_below` restores that origin relationship. `et_split` finally
+splays the detached tree's root occurrence and sets its root depth/minimum to
+zero; all descendant depths then become relative to the detached tree root.
+`et_set_father` joins disjoint trees and increases the attached root's relative
+depth by one; the resulting real tree still contains at most N nodes
+(`:517–774`). Thus, at stable operation/rotation boundaries, the magnitudes of
+stored relative depths and subtree minima are at most N. This bound depends on
+forest height, not the number of previous splay/reparent operations.
+
+Transient expressions also need a bound; their operands are not all final
+stored differences. The five rotation cases in `et_splay:300–437` use old
+`occ_depth`, `f_depth`, `gf_depth`, each of magnitude at most N. A two-term
+shift or target depth has magnitude at most 2N. `set_depth` evaluates
+`d-old_depth` (at most 3N), then adds the old `min` (at most N), giving the
+conservative **4N** transient ceiling. `set_depth_add` adds a shift of at most
+2N to a field of magnitude at most N, giving 3N. A stale minimum produced by
+`set_depth` is overwritten by `et_recomp_min` before it can become a child's
+minimum in another rotation: the code recomputes the old grandparent first,
+then the old parent. The other shifted children already have correct relative
+minima; their operations change the coordinate origin uniformly. At each
+rotation boundary the original N field invariant is restored.
+
+`et_recomp_min` sums two bounded differences. Linking uses a single increment
+and a two-term sum. `et_nca`'s longest expression is
+`ret->min + o1->depth + o2->depth`, bounded by 3N; `et_below` uses two terms.
+Splitting uses no larger arithmetic. These cover the signed depth/minimum
+operations in the selected source; the separately undefined `DEBUG_ET` routines
+are not enabled by `CHECKING_P` (`et-forest.cc:33–34`). Therefore
+
+```text
+4N <= INT_MAX, equivalently B <= 536,870,909,
+```
+
+is a sufficient local condition for the lazy-depth intermediates, and also
+implies the earlier two-number-per-node DFS condition. It does not replace
+pool/array/backing-allocation limits or later pass counters.
 
 ### Incremental repair is a distinct graph algorithm
 
@@ -256,15 +305,72 @@ that vertex count. At most B+1 parent groups are examined per repair; correspond
 child sets are disjoint. These counts are inputs to the existing vector,
 bitmap, ordinary allocation and obstack transfers, not substitutes for them.
 
-There is a further **cumulative counter obligation**: `graphds_domtree` uses
-`int mark = 1` and increments it for every considered predecessor during every
-convergence sweep (`graphds.cc:412,456`). There is no reset on this route.
-If P bounds those sweeps, `1+E*P <= INT_MAX` is sufficient for that counter.
-Establishing P from this implementation's monotone dominator-set refinement,
-or excluding the repair route for the exact initial frontier, remains open in
-this component report. A vertex/edge payload bound does not discharge it.
-The offline checker deliberately records this residual rather than assigning
-P from a sample run or assuming a fixed number of passes.
+### Convergence and the signed repair marker
+
+`graphds_domtree` uses `int mark = 1` and increments it for every considered
+predecessor during every convergence sweep (`graphds.cc:412,456`). It never
+resets this marker. Let V be the auxiliary graph's vertex count and F its edge
+count, with V <= B+1 and F <= E. The counter therefore needs a sweep bound,
+in addition to the storage bounds above.
+
+The relevant source invariant is the descending candidate-dominator set
+representation described and implemented at `graphds.cc:407–464`:
+
+* The entry represents `{entry}`. Before a non-entry vertex receives a parent,
+  its candidate set is the universe; skipping such a predecessor is intersection
+  with that universe, not treating it as an empty set.
+* For a defined vertex v, its candidate set is v plus the chain of `parent`
+  pointers. `tree_nca` returns the intersection of two defined chains by finding
+  their lowest common ancestor (`:357–400`); its first `x == -1` arm initializes
+  the intersection accumulator from the first defined predecessor.
+* Processing a vertex intersects the predecessor candidates and includes v.
+  Candidates descend from the universe. Updating an ancestor's parent makes
+  descendant chains lose the same discarded prefix; it does not introduce a
+  new candidate. Reverse postorder keeps the defined-parent chains rooted at
+  entry. In the first sweep, every non-entry vertex has an earlier DFS-tree
+  predecessor, so a defined operand exists and every vertex acquires a parent.
+
+These are the usual descending-set invariants of the algorithm actually used
+here, rather than an assumption that the graph is reducible. The program's
+`changed` flag is set only by a parent change. Once the candidate chains stop
+changing, the next sweep clears it and terminates. It cannot perform an
+additional uncounted allocation/convergence loop after that sweep.
+
+For completeness, the path-length argument bounds the number of sweeps without
+using a measured convergence count. Start with entry's singleton and universal
+sets elsewhere. After k complete sweeps, each candidate set is contained in the
+intersection of the vertex sets on all entry-to-v paths of at most k edges:
+apply the predecessor intersection to each such path's final edge, using the
+previous sweep for its prefix. In-place updates and descending ancestor chains
+can only remove candidates sooner. Actual dominators remain in every candidate
+set. If x fails to dominate v, an entry-to-v path avoiding x exists; removing
+cycles gives one of at most V-1 edges. After V-1 sweeps no false candidate can
+remain. Allowing a first-definition sweep and a final unchanged sweep gives the
+conservative total **P <= V+1**. The allowance is deliberately loose; no
+reducibility or single-sweep shortcut is required.
+
+There are at most F considered predecessor edges per sweep, including calls
+whose `tree_nca` returns immediately. Counting the final postincrement gives
+
+```text
+mark <= 1 + F*(V+1) <= 1 + E*(B+2);
+1 + E*(B+2) <= INT_MAX
+```
+
+as the sufficient local rule. The multiplication is mathematical admission-
+analysis arithmetic; GCC does not evaluate that product. Its implementation
+executes individual `mark++` operations, each protected by the resulting
+ceiling. No marking value repeats and none collides with the initial zero
+marks array. For the worst input edge ceiling E=1+3B, B <= 26,753 suffices;
+smaller actual E can allow a larger B. This is a sufficient per-invocation
+repair bound, not the selected whole-language capacity limit. Each repair
+starts a fresh marker; the E invocation bound affects lifetime allocations but
+does not multiply this marker ceiling again.
+
+The offline package includes a transcription of the DFS/LCA/parent iteration,
+checks its descending candidates and compares its final result with a direct
+set solver on small reachable graphs. Those checks support the transcription;
+the source invariant and path argument supply the general bound.
 
 ## Initial loop discovery
 
@@ -326,15 +432,15 @@ ANNOTATE calls at O0 under the gigi frontier and creates no replacement GIMPLE.
 
 The useful outputs are the unchanged B/E CFG ceilings, B*E fresh-label ceiling,
 explicit switch-range matcher inputs, the dominance/loop container cardinalities,
-and the additional signed-counter sites. None requires replacing GCC or adding
-an externally maintained backend. None yet justifies accepting an arbitrarily
+and sufficient inequalities for the additional signed counters. None requires
+replacing GCC or adding an externally maintained backend. None yet justifies accepting an arbitrarily
 large source program on the retained toolchain.
 
 Still needed for a closed capacity predicate: reachable matcher sequence/tree
 bounds; all generic vector/hash/bitmap/obstack allocator composition; exact loop
-object layout and any enabled verifier helper allocation not priced above;
-ET lazy-depth arithmetic; the dominator-repair mark/sweep bound; and downstream
-SSA, RTL, machine code, link and overall translation-unit lifetime composition.
+object layout and any enabled verifier helper allocation not priced above; and
+downstream SSA, RTL, machine code, link and overall translation-unit lifetime
+composition.
 The report does not claim source correspondence or compiler correctness from
 its finite arithmetic checks. No compiler, solver, Lean, full suite, clean build,
 macOS or CI evidence was produced for this documentation increment.
