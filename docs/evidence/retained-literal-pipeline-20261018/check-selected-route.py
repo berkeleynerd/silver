@@ -35,6 +35,7 @@ def main():
     variants=[('Hello',hello,True),
         ('mixed_empty_8192',shell+b'Silver_IO.Put (""); null; Silver_IO.Put_Line ("'+b'x'*8192+b'");'+tail,True),
         ('5000_calls',shell+b'Silver_IO.Put ("x");\n'*5000+tail,True),
+        ('32766_calls',shell+b'Silver_IO.Put ("x");\n'*32766+tail,False),
         ('expanded_column_failure',shell+b'Silver_IO.Put ("'+b'x'*33000+b'");'+tail,False)]
     with tempfile.TemporaryDirectory(prefix='silver-selected-route-check-') as temp:
         source=Path(temp)/'main.adb'
@@ -56,7 +57,8 @@ def main():
                 result['source_family_condition_assessments'][k]['source_family_premises_closed']
                 and not result['source_family_condition_assessments'][k]['production_launcher_adopted'] for k in m['CLOSED']))
             check(name+' all numeric guards conjunctive',all(result['conditions']['native_Ada_numeric_'+k]==v
-                for k,v in numeric['checks'].items()) and numeric['demands']==dict(Uints=28420+9*c,Udigits=107726+71*c,Ureals=67,Rep_Table=504))
+                for k,v in numeric['checks'].items()) and numeric['demands']==dict(Uints=28420+9*c,
+                    Udigits=107726+(70+ctx.numeric_context.model['uint_digits'](c+2))*c,Ureals=67,Rep_Table=504))
             check(name+' immutable core GGC ledger unchanged',core['native_original_shared_storage']['partial_ledger']==
                 ctx.core['attach_original_shared_storage'](dict(source=core['source'],source_counts=core['source_counts'],
                     complete_path_bound=core['complete_path_bound'],**{k:core[k] for k in
@@ -82,7 +84,12 @@ def main():
             if name=='5000_calls':
                 check('5000 old conservative failure remains diagnostic',invocation['link_interface']['link']['failed_sufficient_checks']==['fixed_signed_relocation_reach']
                     and core['literal_output_linker']['link']['failed_sufficient_checks']==[] and result['failed_predicates']==[])
-            if not passing:
+            if name=='32766_calls':
+                check('scope digit transition returns numeric success and linker failure',
+                    numeric['demand_rows']['Main_constructor']['Udigits']==62*c
+                    and numeric['all_selected_checks_pass']
+                    and 'literal_output_linker_representation' in result['failed_predicates'])
+            if name=='expanded_column_failure':
                 check('real capacity failure returns full graph and all guards',result['failed_predicates']==
                     ['Main_expanded_columns','Main_ALI_interface','ALI_consumer_local_interfaces','GPR_parent_DW_local_interface']
                     and invocation['selected_native_launch_graph_computable'] and len(result['conditions'])==len(core['conditions'])+8)
@@ -140,11 +147,10 @@ def main():
         implementation_inputs={name:m['identity']((HERE/name).read_bytes()) for name in
             ('selected-route.py','selected-route.json','selected-core-fixture.json','selected-route-inputs.json','check-selected-route.py')},
         native_tool_executions=0,predecessor_suites_rerun=False,broad_suites_rerun=False,
-        selected_model='GPT-6 Astra',selected_effort='Extra High',runtime_confirmed_model_effort=None,token_cost_measurements=None,
-        validation_rework=dict(first_run='Stopped at an overly narrow expected failure list for the 33000-column case; no implementation change.',
-            diagnostic='One isolated case confirmed four existing scalar failures and full 48-guard graph.',
-            correction='Expected propagated ALI/consumer/GPR local failures as well as expanded columns.',
-            rerun_reason='Failed first affected run retained no result; corrected affected run provides complete reviewable evidence.'))
+        selected_model=None,selected_effort=None,runtime_confirmed_model_effort=None,token_cost_measurements=None,
+        validation_rework=dict(scope='Current scope-width repair; earlier 97-check attachment evidence remains in frozen64e347db16.',
+            correction='Retain base-32768 scope digit width across the 32765/32766-call transition.',
+            rerun_reason='Numeric formula and dependent exact-source join changed; this affected check includes the former rejection.'))
     args.output.write_text(json.dumps(output,indent=2)+'\n')
     print(json.dumps({k:output[k] for k in ('checks','elapsed_seconds','native_tool_executions')}))
 

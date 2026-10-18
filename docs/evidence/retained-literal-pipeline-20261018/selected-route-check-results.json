@@ -1,8 +1,8 @@
 {
-  "started_utc": "2026-10-18T23:12:31.198846+00:00",
-  "completed_utc": "2026-10-18T23:12:36.421814+00:00",
-  "elapsed_seconds": 5.222946714999125,
-  "checks": 97,
+  "started_utc": "2026-10-18T23:34:47.585260+00:00",
+  "completed_utc": "2026-10-18T23:34:57.841462+00:00",
+  "elapsed_seconds": 10.256185289999848,
+  "checks": 106,
   "passed": [
     {
       "name": "Hello same actual source identities",
@@ -110,6 +110,42 @@
     },
     {
       "name": "5000 old conservative failure remains diagnostic",
+      "passed": true
+    },
+    {
+      "name": "32766_calls same actual source identities",
+      "passed": true
+    },
+    {
+      "name": "32766_calls all old predicates preserved except three source gaps",
+      "passed": true
+    },
+    {
+      "name": "32766_calls selected final diagnostics",
+      "passed": true
+    },
+    {
+      "name": "32766_calls selected source assessments closed independently of production",
+      "passed": true
+    },
+    {
+      "name": "32766_calls all numeric guards conjunctive",
+      "passed": true
+    },
+    {
+      "name": "32766_calls immutable core GGC ledger unchanged",
+      "passed": true
+    },
+    {
+      "name": "32766_calls missing totals and broad flags remain open",
+      "passed": true
+    },
+    {
+      "name": "32766_calls 39 linker guards and exact conservative input preserved",
+      "passed": true
+    },
+    {
+      "name": "scope digit transition returns numeric success and linker failure",
       "passed": true
     },
     {
@@ -461,6 +497,30 @@
       ]
     },
     {
+      "name": "32766_calls",
+      "source": {
+        "bytes": 688161,
+        "sha256": "b80c594f37e9c4d6c122cbda4883ff7b826103de181429ae3bc065eb797ffe88"
+      },
+      "calls": 32766,
+      "demands": {
+        "Uints": 323314,
+        "Udigits": 2466878,
+        "Ureals": 67,
+        "Rep_Table": 504
+      },
+      "evaluated_predicates_pass": false,
+      "failed_predicates": [
+        "literal_output_linker_representation"
+      ],
+      "unresolved_predicates": [],
+      "core_unresolved_predicates": [
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ]
+    },
+    {
       "name": "expanded_column_failure",
       "source": {
         "bytes": 33094,
@@ -490,6 +550,8 @@
   ],
   "validation": {
     "current_attachment_input_records": 21,
+    "numeric_input_freeze": "64237926eb",
+    "original_numeric_review_scope": "Historical acceptance of 3a7d590389; generated scope-width correction64237926eb requires its own independent disposition.",
     "historical_acceptance_review_records": 3,
     "core_current_input_records": 205,
     "core_distinct_current_files": 2711,
@@ -521,8 +583,8 @@
   },
   "implementation_inputs": {
     "selected-route.py": {
-      "bytes": 19049,
-      "sha256": "cc428a306f86692fbaeb7d357978fb5876f726ca596ec7dbea3a2d06c5ec7157"
+      "bytes": 19309,
+      "sha256": "e9d8f9c0047bcfd1ec18088bf915982088d62085614cc52daa4fc8b528af21bd"
     },
     "selected-route.json": {
       "bytes": 372,
@@ -533,25 +595,24 @@
       "sha256": "e85eeee8318825a1582a9c87c8a92e9466992c9ed3f393ab505fb244967360d5"
     },
     "selected-route-inputs.json": {
-      "bytes": 5283,
-      "sha256": "374256377b732b7f2bb2765486fdbaf6f3ef1acea76329b555521c81b10bf880"
+      "bytes": 5414,
+      "sha256": "44bf947d7d7f35522cd1584302f549862cc95197500c22886f82ff1abf04d4d7"
     },
     "check-selected-route.py": {
-      "bytes": 12421,
-      "sha256": "3db85b9e34853c4f699139d7d417dd30a0f30bcd2912e4d23f2c2fde0f1775cf"
+      "bytes": 12802,
+      "sha256": "2389d5bfe4ae892fc3f0929c61f65fbe33ada2f70bb124700ba91a4b7d717ebf"
     }
   },
   "native_tool_executions": 0,
   "predecessor_suites_rerun": false,
   "broad_suites_rerun": false,
-  "selected_model": "GPT-6 Astra",
-  "selected_effort": "Extra High",
+  "selected_model": null,
+  "selected_effort": null,
   "runtime_confirmed_model_effort": null,
   "token_cost_measurements": null,
   "validation_rework": {
-    "first_run": "Stopped at an overly narrow expected failure list for the 33000-column case; no implementation change.",
-    "diagnostic": "One isolated case confirmed four existing scalar failures and full 48-guard graph.",
-    "correction": "Expected propagated ALI/consumer/GPR local failures as well as expanded columns.",
-    "rerun_reason": "Failed first affected run retained no result; corrected affected run provides complete reviewable evidence."
+    "scope": "Current scope-width repair; earlier 97-check attachment evidence remains in frozen64e347db16.",
+    "correction": "Retain base-32768 scope digit width across the 32765/32766-call transition.",
+    "rerun_reason": "Numeric formula and dependent exact-source join changed; this affected check includes the former rejection."
   }
 }

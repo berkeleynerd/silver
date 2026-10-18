@@ -4,7 +4,7 @@
     "bytes": 118,
     "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
   },
-  "source_path": "/tmp/silver-literal-selected-route-attachment-20261018/samples/hello_world.adb",
+  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/samples/hello_world.adb",
   "source_counts": {
     "source_bytes": 118,
     "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
@@ -205,7 +205,7 @@
       "bytes": 118,
       "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
     },
-    "source_path": "/tmp/silver-literal-selected-route-attachment-20261018/samples/hello_world.adb",
+    "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/samples/hello_world.adb",
     "actual_shared_inputs": {
       "configuration": {
         "bytes": 327,
@@ -12565,6 +12565,8 @@
   "native_tool_executions": 0,
   "validation": {
     "current_attachment_input_records": 21,
+    "numeric_input_freeze": "64237926eb",
+    "original_numeric_review_scope": "Historical acceptance of 3a7d590389; generated scope-width correction64237926eb requires its own independent disposition.",
     "historical_acceptance_review_records": 3,
     "core_current_input_records": 205,
     "core_distinct_current_files": 2711,
@@ -12604,8 +12606,8 @@
     "Checked filesystem inputs remain stable through materialization and use; ordinary external resources/services remain assumptions."
   ],
   "offline_run": {
-    "started_utc": "2026-10-18T23:12:31.198846+00:00",
-    "completed_utc": "2026-10-18T23:12:36.420051+00:00",
+    "started_utc": "2026-10-18T23:34:47.585260+00:00",
+    "completed_utc": "2026-10-18T23:34:57.838802+00:00",
     "scope": "Hello generated once within affected attachment check; no separate replay"
   }
 }

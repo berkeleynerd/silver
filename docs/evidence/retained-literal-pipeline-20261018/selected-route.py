@@ -51,6 +51,8 @@ class Context:
         self.numeric = runpy.run_path(str(E/'retained-literal-ada-numeric-20261018/compose.py'))
         self.numeric_context = self.numeric['Context'](ada_root, gcc_root)
         self.validation = dict(current_attachment_input_records=len(manifest['files']),
+            numeric_input_freeze=manifest['numeric_freeze'],
+            original_numeric_review_scope=manifest.get('original_numeric_review_scope', 'original numeric input'),
             historical_acceptance_review_records=len(manifest['reviews']),
             core_current_input_records=self.core_context.inputs_verified,
             core_distinct_current_files=self.core_context.source_files_verified,
@@ -153,6 +155,7 @@ def join_numeric(raw, core, numeric, context):
                 implicit_with_visits=original['fixed_context_I']) == original['interface'],
             'numeric original Main source projection join')
     demand = original['shared_container_demands']; rows = numeric['demand_rows']
+    scope_digits = context.numeric_context.model['uint_digits'](c+2)
     require(rows['selected_scanner'] == dict(Uints=front['scanner_pools']['Uint_entries'],
                 Udigits=front['scanner_pools']['Uint_digits'], Ureals=0, Rep_Table=0) and
             rows['Main_constructor'] == dict(Uints=front['Main_constructor']['total']['uint'],
@@ -160,7 +163,7 @@ def join_numeric(raw, core, numeric, context):
             rows['original_Main_constant_size_callbacks'] == dict(Uints=demand['Uint_entries'],
                 Udigits=demand['Udigits_words'], Ureals=0, Rep_Table=0) and
             numeric['UI_Ints']['original_Main_wrapper_calls'] == demand['UI_Ints_wrapper_calls'] and
-            numeric['demands'] == dict(Uints=28420+9*c, Udigits=107726+71*c, Ureals=67, Rep_Table=504),
+            numeric['demands'] == dict(Uints=28420+9*c, Udigits=107726+(70+scope_digits)*c, Ureals=67, Rep_Table=504),
             'numeric demand ownership join')
     require(numeric['selected_callback_arguments_joined'] and
             not numeric['complete_native_frontend'] and not numeric['complete_original_gigi'] and

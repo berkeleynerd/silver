@@ -486,13 +486,18 @@ and three invocation plus five numeric guards give 48 final predicates.
 
 Hello, mixed empty/8192 literals and 5,000 calls have all 48 predicates true,
 with no unresolved selected-route condition. The numeric totals are
-28420+9C / 107726+71C / 67 / 504; the separate GCC partial ledger is unchanged.
+28420+9C / 107726+(70+k)C / 67 / 504, with k=uint_digits(C+2); the separate GCC
+partial ledger is unchanged. The scope-width correction (#138) preserves the
+general constructor allowance beyond 32,765 calls. Earlier 97-check evidence
+at `64e347db16` remains historical; the affected recheck adds the former
+32,766-call assertion failure and expects a complete result with numeric
+success and the independent linker condition false.
 Whole native/proof/pipeline capacity, parent storage and production adoption
 remain false, and complete imported totals remain null. No costs are summed
 across these separate intervals.
 
 `check-selected-route.py` takes the same source-root flags and `--output`.
-Its retained 97 checks passed in 5.222947 seconds, including a real capacity
+Its original 97 checks passed in 5.222947 seconds, including a real capacity
 failure that still returns the graph, all old/new guard failures and interface
 mutations. The default was generated inside that run. One earlier harness
 expectation missed propagated ALI/consumer/GPR scalar failures for the long-line
@@ -500,4 +505,9 @@ case; one isolated diagnosis and an expectation-only fix preceded the recorded
 success. Existing broad and leaf success evidence was reused without rerunning
 those suites. See `selected-route-check-results.json` and the final section of
 the source note for exact scope, source correspondence, validation counts and
-remaining work. Parent owns independent review and integration.
+remaining work. The scope-width repair's 106 affected checks passed in
+10.256185 seconds. The 32,766-call source now returns its complete 48-guard
+result: numeric guards pass and the independently derived linker predicate
+fails. No native execution or unrelated suite was repeated. Lead runtime
+model/effort and token/cost measurements are unavailable for this repair run.
+Independent review of the correction remains required.

@@ -2250,11 +2250,17 @@ launcher. It does not establish complete materializing-parent storage.
 The numeric leaf receives the same raw source. Its complete frontend
 projection equals `core_result.native_Main_frontend_interface`; evaluating its
 unchanged original-Main builder with the core's I=114 gives the exact original
-interface. The scanner, 7C/61C constructor, 2C/10C original callback and UI_Ints
+interface. The scanner, 7C/(60+k)C constructor, 2C/10C original callback and UI_Ints
 wrapper-demand projections are explicitly equated. The full fixed incoming
 24,324/74,958/60/504 allowance and fixed floating 4,096/32,768/7/0 allowance
 remain charged. No overlap or cache credit is subtracted. Their sum is
-**28,420+9C Uints, 107,726+71C Udigits, 67 Ureals and 504 Rep_Table records**.
+**28,420+9C Uints, 107,726+(70+k)C Udigits, 67 Ureals and 504 Rep_Table records**,
+where `k=uint_digits(C+2)` is the positive base-32768 digit width. Correction
+[#138](https://github.com/berkeleynerd/silver/issues/138) retains the general
+constructor width: k changes from one to two at 32,766 calls. The earlier
+71C simplification and review apply to their historical inputs. Numeric leaf
+`64237926eb` and this attachment evaluate the wider source instead of raising
+the former specialization assertion; other capacity predicates still apply.
 All five numeric table/local-object/callback/index checks are added to both
 selected condition maps, preserving the nominal-ID, allocation and individual
 object constraints inside the accepted leaf.

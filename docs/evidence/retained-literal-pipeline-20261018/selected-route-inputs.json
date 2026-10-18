@@ -2,22 +2,22 @@
   "scope": "current immutable core and accepted leaf inputs; new wrapper/descriptor/results excluded to avoid cycles",
   "core_freeze": "99b7247d180b851187e653710b7e56d39f2f35d3",
   "invocation_freeze": "f3bc1d023b0459c78c1fb70a33ffb93b8b9fa6ba",
-  "numeric_freeze": "3a7d590389c3b3b71c368c7f9033b39d0d107606",
+  "numeric_freeze": "64237926eb",
   "files": [
     {
       "path": "docs/evidence/retained-literal-ada-numeric-20261018/check-results.json",
-      "bytes": 1549,
-      "sha256": "26e3a4d4e84d27f9c07322f88902f05e9ab128abb335dcdba97d364f99493030"
+      "bytes": 1717,
+      "sha256": "b75b994e0a3b6b1e27ee474b3cbbfd2133381ec418e994cad8606f5e980a72db"
     },
     {
       "path": "docs/evidence/retained-literal-ada-numeric-20261018/check.py",
-      "bytes": 4492,
-      "sha256": "a2105e33560f6fd5ec2322823c6ea6cd3d3723d4306747184e60a82c9cfdbcf1"
+      "bytes": 5011,
+      "sha256": "502ae8352e3b9d80ed7ff138f60dfdf6e3dba98312be98a4452f9720ef6d0906"
     },
     {
       "path": "docs/evidence/retained-literal-ada-numeric-20261018/compose.py",
-      "bytes": 7215,
-      "sha256": "aa66fd283c9ea48e87532fddb11d3bf8fbe7739da5240a7b684ba6ce915f5efe"
+      "bytes": 7623,
+      "sha256": "259c65a4c7f4523cefca8b0dbc26678b0e146e0ffdabcf58243a1a48d7062f74"
     },
     {
       "path": "docs/evidence/retained-literal-ada-numeric-20261018/inputs.json",
@@ -101,8 +101,8 @@
     },
     {
       "path": "docs/research/retained-literal-ada-numeric.md",
-      "bytes": 9014,
-      "sha256": "c42088d4251854ede4d073194ab61686c74836a7b59ce6ddf206ef68caf87490"
+      "bytes": 10353,
+      "sha256": "ba04df646370c3d70faad6f45ef51d9211b1769ab4d368f371d304a3a707be3b"
     },
     {
       "path": "docs/research/retained-literal-invocation-join.md",
@@ -129,5 +129,6 @@
       "sha256": "e148c176f1ea28b51154d90ff0b8acb19a3723acd87c004ebd38719e0022b565",
       "revision": "9fd3629370f3e3277f6e8768bb2644863594ded9"
     }
-  ]
+  ],
+  "original_numeric_review_scope": "Historical acceptance of 3a7d590389; generated scope-width correction64237926eb requires its own independent disposition."
 }
