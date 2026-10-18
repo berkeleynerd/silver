@@ -23,6 +23,32 @@ This branch includes that delivery. Historical unindexed capacity descriptors
 remain historical; the indexed invocation and source-load corrections below
 must be applied before composing them for the current route.
 
+The latest integration supplies a callable actual-byte native-null component,
+the [selected null-link composition](retained-linker-null-composition.md), and
+the [native GPR source/ALI join](retained-gpr-parent.md). The compiler checker
+evaluates twelve local predicates; the linker result closes its selected
+ld/BFD representations under the recorded interface/configuration premises.
+The GPR join supplies the three-file source frontier, physical-column and
+line-table conditions, and 379-byte Main-ALI buffer. These remain components:
+the complete null compiler/producer/parent conjunction is not yet established.
+Literal-output native and linker deltas, broader grammar composition and the
+useful-domain comparison remain required before #119 completes.
+
+The [fixed Why3 context](retained-producer-fixed-context.md) now has a retained
+managed successful witness for all five exact JSON inputs and all six selected
+library sources. Its ordinary typing/VC requests transfer under the stated
+source-read projection; finite identity lifetimes remain separate because weak
+hash-consing can change with garbage collection. No such backend process is
+launched for the null token family.
+
+[Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
+active research helpers' treatment of FF/VT as physical column resets. Both
+GNAT and GPR preserve the physical column span across those logical terminators.
+The shared helper, fixed-source collector and focused callable checks now agree;
+all 38 fixed specifications contain neither byte and their derived numbers are
+unchanged. Current admission still excludes FF/VT. Focused offline checks and
+independent source review passed; no broad validation was repeated.
+
 ## Inputs and required conclusion
 
 The proposed capacity analysis takes the authoritative source bytes, their
@@ -285,8 +311,10 @@ The source-derived filename/token/semantic projection now transfers the
 13,432-byte binder object's shape to the selected null family. It supplies
 16 sections,179 symbols,95 relocations and maximum alignment32 under the
 selected installation/path/options premises. Exact proposed-options compilation
-corroborates that transfer; the compiler's transient storage and whole GPR
-process composition remain unfinished.
+corroborates that transfer. The later complete fixed compiler lifetime capture
+and [native GPR join](retained-gpr-parent.md) supply the transient compiler and
+parent source/ALI terms under their selected descriptors; actual whole-pipeline
+configuration realization remains separate.
 
 The [dynamic-symbol/version transfer](retained-linker-symbols.md) now bounds
 the selected hash and version output representations, including signed
@@ -373,8 +401,9 @@ emitted-field validity and final relocation reach remain separate obligations.
 Its fixed-input join now parses888 distinct ET_REL unwind sections and
 accounts for1,175 weighted occurrences, with14,948 FDEs. Fixed fields fit
 their narrow representations; Main/binder/PLT payload additions are now
-composed, with a direct parse establishing the binder's five FDEs. CFA/relocation
-meaning still requires composition.
+composed, with a direct parse establishing the binder's five FDEs. The
+[range and emitted-field analysis](retained-linker-eh-frame.md#selected-function-ranges-and-emitted-fields)
+now discharges the selected CFA/relocation joins used by the null-link composition.
 
 The delivered indexed naming adds three GCC-to-gnat1 arguments and one stored
 ALI switch. The source-derived generated configuration grows from244 to327
