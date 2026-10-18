@@ -1,0 +1,72 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "binutils_commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "archive_sha256": "1172602c7aa607239c6a56e5ba2e98a1f195d72e198ec29db6d333f2704edd91",
+  "files": [
+    {
+      "path": "bfd/elf.c",
+      "bytes": 412710,
+      "sha256": "00c2489050785f51b73ddee8dfb90f7731fc80562da90c67364b3506a237bc15"
+    },
+    {
+      "path": "bfd/elf64-x86-64.c",
+      "bytes": 195139,
+      "sha256": "81668a45629ad4d77f250173a250bfda6561dd810d9e7ab02d8a988de496ee6b"
+    },
+    {
+      "path": "bfd/elflink.c",
+      "bytes": 465443,
+      "sha256": "a858262487306c300cc30b019dadad4431ca7bad348946b1d228778d532f1be1"
+    },
+    {
+      "path": "bfd/elfxx-x86.c",
+      "bytes": 143875,
+      "sha256": "d3b089435efad4528b6cb4565819d997f50480ec35fbcbb0d90b06d20b57d517"
+    },
+    {
+      "path": "gas/config/obj-elf.c",
+      "bytes": 81351,
+      "sha256": "16702a6332d87fa1f6f64e53ac07582bb6df74ffa3ad904ab1c2edadf26cfbe1"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "bytes": 531249,
+      "sha256": "21208487316fecdf6b53723bb26dfc43bd1b1b84af1c542926ac1f662b694767"
+    },
+    {
+      "path": "gas/read.c",
+      "bytes": 170384,
+      "sha256": "19559dc331247ffe7012b2839da4941f593ec2dbc443d4c66cb2abceadab458c"
+    },
+    {
+      "path": "gas/symbols.c",
+      "bytes": 90685,
+      "sha256": "a7d9d7d98a9a64c9ae03e16c4fee41163539b2234b5294c4ca58cd6a028f06c5"
+    },
+    {
+      "path": "gas/write.c",
+      "bytes": 89643,
+      "sha256": "077c6f5a3ae7087ac95151075b91ef09fb7af8514569d791b13eae37c35cc232"
+    },
+    {
+      "path": "gcc/config/elfos.h",
+      "bytes": 18059,
+      "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70"
+    },
+    {
+      "path": "gcc/config/i386/gnu-property.cc",
+      "bytes": 3559,
+      "sha256": "cca3445a442cecb9eb578e57a2ef0bed0cd0c7bba590b3bd3fb7c3768da5d1b4"
+    },
+    {
+      "path": "gcc/varasm.cc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "path": "ld/ldlang.c",
+      "bytes": 312082,
+      "sha256": "51346229cbadc7415e3040cab429747edb810358fc4782fe65c47756bfd77b43"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "scope": "Main external-interface and retained fixed-link read projection; not whole linker capacity",
+  "source_files_verified": 13,
+  "historical_successful_link_retained": true,
+  "historical_main_external_symbols": [
+    {
+      "name": "_ada_main",
+      "bind": 1,
+      "type": 2,
+      "other": 0,
+      "section": ".text",
+      "value": 0,
+      "size": 8
+    }
+  ],
+  "binder_symbols": 179,
+  "binder_external_symbols": 169,
+  "binder_unchanged_section_payloads": [
+    "",
+    ".text",
+    ".rela.text",
+    ".data",
+    ".bss",
+    ".rodata",
+    ".data.rel.ro.local",
+    ".rela.data.rel.ro.local",
+    ".comment",
+    ".note.GNU-stack",
+    ".note.gnu.property",
+    ".eh_frame",
+    ".rela.eh_frame",
+    ".shstrtab"
+  ],
+  "binder_changed_section_payloads": [
+    ".symtab",
+    ".strtab"
+  ],
+  "binder_semantic_symbol_changes": [
+    {
+      "index": 1,
+      "historical": {
+        "name": "b__main.adb",
+        "bind": 0,
+        "type": 4,
+        "other": 0,
+        "section": 65521,
+        "value": 0,
+        "size": 0
+      },
+      "accepted": {
+        "name": "b__main~1.adb",
+        "bind": 0,
+        "type": 4,
+        "other": 0,
+        "section": 65521,
+        "value": 0,
+        "size": 0
+      }
+    }
+  ],
+  "binder_main_reference": [
+    {
+      "name": "_ada_main",
+      "bind": 1,
+      "type": 0,
+      "other": 0,
+      "section": "",
+      "value": 0,
+      "size": 0
+    }
+  ],
+  "counts": {
+    "fixed_files": 15,
+    "archive_members": 1161,
+    "fixed_ELF_inputs": 1169
+  },
+  "fixed_input_Main_external_records": [],
+  "source_argument_required": true,
+  "exact_variable_Main_bytes_claimed": false,
+  "complete_link_capacity_established": false,
+  "native_tool_executions": 0
+}
