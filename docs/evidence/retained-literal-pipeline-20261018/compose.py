@@ -95,6 +95,10 @@ class Context:
         self.assembler_context = self.assembler['Context']()
         self.assembler_storage = runpy.run_path(str(EVIDENCE/'retained-literal-assembler-20261018/storage.py'))
         self.assembler_storage_context = self.assembler_storage['Context']()
+        self.linker = runpy.run_path(str(EVIDENCE/'retained-literal-linker-20261018/compose.py'))
+        self.linker_context = self.linker['Context']()
+        self.ali = runpy.run_path(str(EVIDENCE/'retained-literal-ali-20261018/compose.py'))
+        self.ali_context = self.ali['Context'](ada_root)
         self.system = read(NATIVE/'native-indexed-source-buffers.json')['additional_System_input']
         self.configuration = (NATIVE/'null-capacity-fixture.adc').read_bytes()
         checksum = runpy.run_path(str(EVIDENCE/'retained-binder-checksum-closure-20261018/check.py'))
@@ -673,7 +677,18 @@ def evaluate(descriptor_path, context, source_override=None):
     assembler_storage = context.assembler_storage['evaluate'](
         raw,context.assembler_storage_context,path_bytes=p+1)
     require(assembler_storage['interface'] == assembler, 'literal assembler storage interface join')
+    linker = context.linker['evaluate'](raw,context.linker_context,path_bytes=p+1)
+    require(linker['source_identity'] == identity(raw) and
+            linker['counts'] == assembler['counts'] and
+            linker['link'] == context.linker['link'](assembler,context.linker_context,4096) and
+            linker['assembler_storage_fits'] == assembler_storage['storage']['selected_GAS_BFD_storage_fits'],
+            'literal linker common source/text/ELF/storage join')
+    # Main ALI takes spelling bytes without NUL, matching the descriptor.
+    ali = context.ali['evaluate'](raw,context.ali_context,path_bytes=p)
     physical = context.physical(raw)
+    require(ali['source'] == identity(raw) and ali['source_counts'] == counts and
+            ali['physical_source'] == physical and ali['path_spelling_bytes_upper'] == p,
+            'literal Main ALI common-input join')
     line_capacity = 500
     while line_capacity < physical['physical_line_entries_bound']:
         line_capacity *= 2
@@ -694,6 +709,8 @@ def evaluate(descriptor_path, context, source_override=None):
         native_initial_CF_CFG_lifetime=initial_cf_cfg['conditional_initial_CF_CFG_lifetime_closed'],
         Main_assembler_object_interface=assembler['local_interface_fits'],
         Main_GAS_BFD_storage=assembler_storage['storage']['selected_GAS_BFD_storage_fits'],
+        literal_output_linker_representation=linker['selected_literal_assembler_and_linker_representation_fits'],
+        Main_ALI_interface=ali['selected_Main_ALI_interface_fits'],
         Why_core=selected_why['literal_Main_core_fits'],
         output_binder_checksum_no_collection=context.checksum[
             'universal_rounded_GGC_bytes_bound_subject_to_reviewed_source_projection']
@@ -720,7 +737,11 @@ def evaluate(descriptor_path, context, source_override=None):
         'producer_frontends_and_consumers': {
             'missing':'Output-family native/datarep/light frontend and parent ALI/report/flow joins plus required Why/report/server consumers. The null fixed-table and zero-client projections are not assumed for repeated output.'},
         'binder_and_linker_composition': {
-            'missing':'Compose variable Main ALI/invocation graphs, the now-accepted checksum lifetime bounds, output fixed-object delta and variable Main ELF/link interface under one complete output launch descriptor; checksum variation itself is closed.'},
+            'available':dict(selected_Main_ALI_interface_fits=ali['selected_Main_ALI_interface_fits'],
+                Main_ALI_reader_bytes_including_EOF_upper=ali['Main_ALI_reader_bytes_including_EOF_upper'],
+                selected_literal_assembler_and_linker_representation_fits=linker['selected_literal_assembler_and_linker_representation_fits'],
+                failed_linker_sufficient_checks=linker['link']['failed_sufficient_checks']),
+            'missing':'Join Main/fixed ALIs to binder parser/graph/driver lifetimes and GPR reader policies under one complete output launch descriptor. Main ALI writer/reader-buffer and selected fixed-plus-variable ELF/link interfaces are conditionally joined; checksum variation itself is closed.'},
         'complete_output_launch_materialization': {
             'missing':'Bind complete output-family project/options/map/search graph and fixed dependency compiler/producer subprocesses. This descriptor binds common bytes and selected roles, not that entire frontier.'}}
     return dict(scope=descriptor['scope'],source=identity(raw),source_path=str(source_path),
@@ -736,6 +757,8 @@ def evaluate(descriptor_path, context, source_override=None):
         native_initial_CF_CFG_lifetime=initial_cf_cfg,
         Main_assembler_object_interface=assembler,
         Main_GAS_BFD_storage=assembler_storage['storage'],
+        literal_output_linker=linker,linker_path_bytes_including_NUL_upper=p+1,
+        Main_ALI_interface=ali,
         Why_core=why,selected_Why_core=selected_why,
         accepted_output_binder_checksum=context.checksum,
         open_joins=opens,whole_literal_pipeline_capacity_established=False,

@@ -318,5 +318,60 @@
     "path": "docs/evidence/retained-literal-pipeline-20261018/review-initial-ssa.md",
     "bytes": 9369,
     "sha256": "7ab083f98f0da5052533f0a793081049208634165aa4f46e8ef4dd796f41495d"
+  },
+  {
+    "path": "docs/evidence/retained-literal-linker-20261018/compose.py",
+    "bytes": 20053,
+    "sha256": "239441a8cd55d783dd22c1509a5eff6ac5f9ecedd003eff959a065aa601bcf4a"
+  },
+  {
+    "path": "docs/evidence/retained-literal-linker-20261018/inputs.json",
+    "bytes": 4977,
+    "sha256": "db203a274e4a0e30e08e02e019d2b11f081ca66fe3282780f0faa97e591109a5"
+  },
+  {
+    "path": "docs/evidence/retained-literal-linker-20261018/result.json",
+    "bytes": 28195,
+    "sha256": "f4a86f4f30b4333a49c3dc1d4dc0db04d59d3ffb187d7d342264a20bab4e0d08"
+  },
+  {
+    "path": "docs/evidence/retained-literal-linker-20261018/review.md",
+    "bytes": 4850,
+    "sha256": "ba6e7f7d846d9e5f998669c882e01f90e58dc9c9acebab92d992136dc5ae183d"
+  },
+  {
+    "path": "docs/research/retained-literal-linker.md",
+    "bytes": 17972,
+    "sha256": "38d756be0e1fbd04d062509fe0a691fb5bed804751d8a921ed15e6ac678decd9"
+  },
+  {
+    "path": "docs/evidence/retained-literal-ali-20261018/compose.py",
+    "bytes": 5967,
+    "sha256": "061cec323dfee8e9c8fd8250caa0efc62ac0917b1de8daca5f9dfaff8fcb6140"
+  },
+  {
+    "path": "docs/evidence/retained-literal-ali-20261018/inputs.json",
+    "bytes": 2069,
+    "sha256": "2b3e08926f6c487b58cfa766f0ef5fa46a908ceec6f4596927baafe8d48dcad7"
+  },
+  {
+    "path": "docs/evidence/retained-literal-ali-20261018/result.json",
+    "bytes": 4439,
+    "sha256": "ea44461f9d02c5b500b3988a422a55730c6d2de1d8b079c31292a3e20c8b83e7"
+  },
+  {
+    "path": "docs/evidence/retained-literal-ali-20261018/review.md",
+    "bytes": 4344,
+    "sha256": "6b787e80ca3e74042b52d4d0cfb74f7bbf87ddc468512af41181d2454e52a4a5"
+  },
+  {
+    "path": "docs/research/retained-literal-ali.md",
+    "bytes": 5304,
+    "sha256": "412f8e7fc3467c9271b8db8d9dc6b4f0cf232b71a614efd63d0f2ff3e48f16ec"
+  },
+  {
+    "path": "docs/evidence/retained-literal-linker-20261018/sources.json",
+    "bytes": 2141,
+    "sha256": "076ead1fda0d00941c2c1ca1859d5960e98b0786c42cb8e14f57e0a0e9c5b52c"
   }
 ]

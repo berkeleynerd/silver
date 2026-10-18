@@ -23,7 +23,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 62 interface checks. It reuses one context's
+arguments and `--output`, and runs 64 interface checks. It reuses one context's
 successful retained checks across source variations.
 
 `inputs.json` pins formulas, predecessor results and source arguments.
@@ -90,3 +90,13 @@ contributes `local_interface_fits`. The accepted GAS/BFD storage callable is
 also attached with exact interface equality and its separate storage predicate.
 It receives the descriptor's path spelling bound plus one terminal-NUL byte.
 The complete production-invocation/materialization join remains open.
+
+The independently accepted linker and Main ALI adapters are attached without
+changing their formulas. Source identity/counts and the complete text/ELF link
+substitution must agree with the existing components. Linker path bytes include
+the terminal NUL (`P+1`); ALI path bytes are spelling-only (`P`). The returned
+`literal_output_linker` and `Main_ALI_interface` preserve their full conditional
+results. Hello and the 8192-byte literal pass; 5000 calls fail only the linker's
+conservative signed-relocation sufficient bound, while the other instantiated
+components still pass. This is not an observed native failure or adopted cap.
+ALI parser/graph/driver and complete launch joins remain open.

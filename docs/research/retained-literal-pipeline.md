@@ -13,6 +13,8 @@ substituted. Initial SSA infrastructure and renaming also have a separate
 constructor delta. Initial CF/EH/CFG/root-loop constructors now also have a
 conditional join. The next native consumer is the remaining frontend/gigi and
 gimplifier ingress/helper lifetime, followed by shared collector composition.
+The independently accepted literal linker and Main ALI adapters also join the
+same source interface; binder parser/graph and complete launch work remain open.
 No production rule or option changed; #119 remains incomplete.
 
 ## One source counter interface
@@ -923,6 +925,47 @@ these source-named helper and gigi/type-field lifetimes, not to replace them
 with the null body's allowance. The CF constructor delta and direct gimplifier
 subtotal are returned separately so later composition can retain this boundary.
 
+## Accepted linker and Main ALI interfaces
+
+The aggregate attaches the independently accepted
+[literal linker](retained-literal-linker.md) implementation `d8f31fb036`, reviewed
+in `4c2b1fc61f`, without changing its equations. `evaluate(raw, Context(),
+path_bytes=P+1)` receives the same complete source bytes and the descriptor's
+path spelling bound plus the terminal NUL. The returned source identity and
+C/N/decoded-byte/maximum-literal counts must equal the assembler's. Applying
+the link callable to the already joined assembler interface must reproduce
+the complete link result, checking the native text, ELF symbol/relocation/
+section and payload substitutions together. Its GAS/BFD storage verdict also
+must equal the aggregate's separately joined storage verdict. The selected
+host-page premise remains 4096 bytes, distinct from layout alignment and from
+a new native measurement.
+
+The returned `literal_output_linker` retains every failed sufficient check.
+The Hello and 8192-byte-literal examples pass. The 5000-call example now fails
+the aggregate's `literal_output_linker_representation` conjunct only because
+the retained conservative `fixed_signed_relocation_reach` bound fails; its
+native, GAS/BFD and selected Why conditions still pass. This is not evidence
+of native rejection, an inherent maximum, or an adopted language cap. The
+linker's conditional no-LTO/no-plugin and fixed-lookup premises remain
+explicit; the aggregate's partial descriptor does not establish their complete
+production materialization.
+
+The separately accepted [Main ALI adapter](retained-literal-ali.md), implementation
+`e8b931aa77` and review `a2816c5f76`, is called as
+`evaluate(raw, Context(ada_root), path_bytes=P)`. This API excludes the terminal
+NUL, matching the aggregate descriptor. Its source identity, complete source
+counts, physical-source fields and path bound must agree exactly. The returned
+`Main_ALI_interface` exposes `selected_Main_ALI_interface_fits`, the writer
+records and EOF-inclusive reader-buffer ceiling. The source-field invocation
+frontier remains the accepted 19 constructs/361 relations/19 signatures:
+deduplication occurs before append, so this bound is not multiplied by C.
+The adapter's physical source and source-path checks remain conjuncts.
+
+These attachments close their selected conditional interfaces only. Main and
+fixed ALI parser/graph/driver lifetimes, GPR reader policies, and the complete
+output launch remain open. They do not turn the checksum closure or a
+reader-buffer export into complete binder capacity.
+
 ## Exact next native consumer
 
 The callable keeps `native_remaining_lifetime_and_collector` as its next
@@ -936,8 +979,10 @@ gates are retained. The separate
 `5C+5`, `8C+33` and initial-SSA `6C+10+L` deltas are usable inputs, not the complete sum; no
 40,098-event null allowance is reused.
 
-Main assembler/ELF, producer frontends/consumers, binder/link and complete
-output-launch joins also remain explicit. The descriptor still does not bind
+Main assembler/ELF production materialization, producer frontends/consumers,
+binder parser/graph/driver and complete output-launch joins also remain explicit.
+The selected linker and Main ALI writer/reader-buffer interfaces are attached.
+The descriptor still does not bind
 all projects/maps/search/options or every fixed subprocess. Closing this
 native interface does not complete #119 or change production membership.
 
@@ -1057,3 +1102,14 @@ growth, hash prime regions, normalized vectors and sparse-bitmap extents.
 No native tool ran. The new constructor interface is frozen for independent
 review; the earlier initial-SSA review is accepted in `d91ef84ef6`. Whole
 pipeline capacity remains false.
+
+The following aggregate-only round attaches the accepted linker and Main ALI
+packets listed above, with their original formulas unchanged. Selected model/
+effort remains GPT-6 Astra / Extra High; runtime confirmation and elapsed-time/
+token/cost measurements are unavailable. The intended result is common-source,
+text/ELF and path-unit correspondence, with each component's conditional verdict
+retained. The aggregate passes 64 offline checks, including ALI path-envelope
+976/977 and the intentionally failing linker sufficient bound at 5000 calls.
+Existing accepted component reviews are reused; this paragraph does not claim
+independent acceptance of the new aggregate attachment. No native tool ran,
+and whole-pipeline capacity remains false.

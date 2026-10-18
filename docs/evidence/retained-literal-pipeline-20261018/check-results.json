@@ -1,5 +1,5 @@
 {
-  "case_count": 62,
+  "case_count": 64,
   "cases": [
     {
       "case": "retained",
@@ -79,8 +79,10 @@
       "calls": 5000,
       "nulls": 0,
       "decoded_characters": 5000,
-      "evaluated_predicates_pass": true,
-      "failed_predicates": [],
+      "evaluated_predicates_pass": false,
+      "failed_predicates": [
+        "literal_output_linker_representation"
+      ],
       "hypothetical_general_Why_JSON_byte_bound": 240757785483,
       "source_selected_Main_JSON_bytes": 0,
       "whole_pipeline_closed": false
@@ -88,13 +90,28 @@
     {
       "case": "physical_column_overflow",
       "failed_predicates": [
-        "Main_expanded_columns"
+        "Main_expanded_columns",
+        "Main_ALI_interface"
       ]
     },
     {
       "case": "path_envelope_overflow",
       "failed_predicates": [
         "shared_launch_paths"
+      ]
+    },
+    {
+      "case": "Main_ALI_path_envelope_976",
+      "path_spelling_bytes": 976,
+      "Main_ALI_interface_fits": true,
+      "failed_predicates": []
+    },
+    {
+      "case": "Main_ALI_path_envelope_977",
+      "path_spelling_bytes": 977,
+      "Main_ALI_interface_fits": false,
+      "failed_predicates": [
+        "Main_ALI_interface"
       ]
     },
     {

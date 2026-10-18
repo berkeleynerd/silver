@@ -107,8 +107,22 @@ def main():
             assert result['conditions']['Main_GAS_BFD_storage']
             assert assembler['source_identity']==module.identity(raw)
             assert assembler['text_bytes_upper']==result['RTL_shape']['shortening_text_bytes_upper']
-            expected=True
+            linker=result['literal_output_linker']
+            assert linker['source_identity']==module.identity(raw)
+            assert linker['counts']==assembler['counts']
+            assert result['linker_path_bytes_including_NUL_upper']==fixture['complete_path_bound']+1
+            assert linker['link']['Main_external_size_sum_upper']==assembler['text_bytes_upper']
+            ali=result['Main_ALI_interface']
+            assert ali['source']==module.identity(raw) and ali['source_counts']==counts
+            assert ali['path_spelling_bytes_upper']==fixture['complete_path_bound']
+            assert ali['selected_Main_ALI_interface_fits']
+            assert not ali['whole_binder_or_parent_capacity_established']
+            expected=name!='5000_calls'
             assert result['evaluated_predicates_pass']==expected,(name,result['failed_predicates'])
+            assert linker['link']['failed_sufficient_checks']==(
+                ['fixed_signed_relocation_reach'] if name=='5000_calls' else [])
+            if name=='5000_calls':
+                assert result['failed_predicates']==['literal_output_linker_representation']
             if name in ('literal_above_old_cap','5000_calls'):
                 assert not result['Why_core']['producer_core_fits']
                 assert result['selected_Why_core']['literal_Main_core_fits']
@@ -126,6 +140,15 @@ def main():
         result=evaluate(original,changed)
         assert 'shared_launch_paths' in result['failed_predicates']
         rows.append(dict(case='path_envelope_overflow',failed_predicates=result['failed_predicates']))
+        for p,expected in ((976,True),(977,False)):
+            changed=copy.deepcopy(fixture);changed['complete_path_bound']=p
+            result=evaluate(original,changed)
+            assert result['conditions']['Main_ALI_interface']==expected
+            assert result['Main_ALI_interface']['path_spelling_bytes_upper']==p
+            assert result['Main_GAS_BFD_storage']['path_bytes']==p+1
+            assert result['linker_path_bytes_including_NUL_upper']==p+1
+            rows.append(dict(case='Main_ALI_path_envelope_'+str(p),path_spelling_bytes=p,
+                             Main_ALI_interface_fits=expected,failed_predicates=result['failed_predicates']))
 
         rejections=[('VT_rejected',b'\v'+original,fixture),
                     ('concat_rejected',shell+b'Silver_IO.Put ("a" & "b");'+tail,fixture),
