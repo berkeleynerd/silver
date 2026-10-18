@@ -1,0 +1,26 @@
+{
+  "reviewed_commit": "188d05026b2648d32a6de877c817232e201bb81f",
+  "status": "pass",
+  "method": "Read native-witnesses.json and the installed ELF symbol table through the unchanged predecessor ELF reader. Parse each retained instruction/continuation byte range; compare first address with named symbol and check adjacency and full symbol coverage. No disassembly or target execution.",
+  "identity_scope": "Installed executable and retained byte identities reuse the author's 0.515001545-second successful check. This additional observation checks symbol names and coverage, not another byte-identity replay.",
+  "native_witnesses_sha256": "d851a176b375eb0d5df83623510f60f15aba154aa613f31b72629c2788134e26",
+  "executable_sha256_reused": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+  "bodies": [
+    {"name": "caml_thread_tick", "address": "0x9b8420", "symbol_bytes": 155, "retained_bytes": 160, "contiguous": true},
+    {"name": "caml_record_signal", "address": "0x9c30c0", "symbol_bytes": 58, "retained_bytes": 64, "contiguous": true},
+    {"name": "caml_execute_signal_exn", "address": "0x9c3180", "symbol_bytes": 241, "retained_bytes": 256, "contiguous": true},
+    {"name": "caml_process_pending_signals_exn", "address": "0x9c3280", "symbol_bytes": 234, "retained_bytes": 240, "contiguous": true},
+    {"name": "caml_install_signal_handler", "address": "0x9c3860", "symbol_bytes": 506, "retained_bytes": 512, "contiguous": true},
+    {"name": "handle_signal", "address": "0x9c3a60", "symbol_bytes": 49, "retained_bytes": 64, "contiguous": true},
+    {"name": "caml_set_signal_action", "address": "0x9c3c10", "symbol_bytes": 220, "retained_bytes": 224, "contiguous": true}
+  ],
+  "total_retained_bytes": 1520,
+  "total_symbol_bytes": 1463,
+  "bytes_after_symbol_extents": 57,
+  "timing": {
+    "command_wall_seconds": 0.163841788,
+    "scope": "Tool-reported shell command, including preliminary git status/HEAD and filesystem-capacity reads; isolated symbol-check duration unavailable."
+  },
+  "new_native_target_runs": 0,
+  "disassembler_runs": 0
+}
