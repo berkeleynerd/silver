@@ -82,6 +82,10 @@ The size-extrema continuation checks the body-inlining gate, direct helper
 sites and the signed byte-length limit in variable-arity call construction.
 Its manual transfer covers scalar size expressions without a reached
 placeholder-reference or inlineable body; symbolic folder work is separate.
+The generated-size-function continuation separately counts the variable-size
+caller sites, retains the constant-sided skip gate, construction and later
+gimplification paths, and distinguishes the two fixed-size String record
+forms. It leaves source-to-layout counts and transitive folding open.
 The bitmap continuation checks word/configuration and sparse fixed-object
 allocation facts, then evaluates dense size/vector products at representation
 boundaries. Linked sparse allocations have no aggregate byte-span gate; their

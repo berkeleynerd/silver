@@ -1726,6 +1726,34 @@ LF line numbering; complete file identities checked.
 4170:    outermost non-arithmetic or non-invariant node.  */
 ```
 
+## gcc/tree.cc:4220–4243
+```text
+4220: skip_simple_constant_arithmetic (tree expr)
+4221: {
+4222:   while (TREE_CODE (expr) == NON_LVALUE_EXPR)
+4223:     expr = TREE_OPERAND (expr, 0);
+4224:
+4225:   while (true)
+4226:     {
+4227:       if (UNARY_CLASS_P (expr))
+4228: 	expr = TREE_OPERAND (expr, 0);
+4229:       else if (BINARY_CLASS_P (expr))
+4230: 	{
+4231: 	  if (TREE_CONSTANT (TREE_OPERAND (expr, 1)))
+4232: 	    expr = TREE_OPERAND (expr, 0);
+4233: 	  else if (TREE_CONSTANT (TREE_OPERAND (expr, 0)))
+4234: 	    expr = TREE_OPERAND (expr, 1);
+4235: 	  else
+4236: 	    break;
+4237: 	}
+4238:       else
+4239: 	break;
+4240:     }
+4241:
+4242:   return expr;
+4243: }
+```
+
 ## gcc/tree.cc:4257–4377
 ```text
 4257: process_call_operands (tree t)
@@ -1849,6 +1877,271 @@ LF line numbering; complete file identities checked.
 4375: static bool
 4376: type_contains_placeholder_1 (const_tree type)
 4377: {
+```
+
+## gcc/tree.cc:4480–4740
+```text
+4480: }
+4481:
+4482: /* Given a tree EXP, find all occurrences of references to fields
+4483:    in a PLACEHOLDER_EXPR and place them in vector REFS without
+4484:    duplicates.  Also record VAR_DECLs and CONST_DECLs.  Note that
+4485:    we assume here that EXP contains only arithmetic expressions
+4486:    or CALL_EXPRs with PLACEHOLDER_EXPRs occurring only in their
+4487:    argument list.  */
+4488:
+4489: void
+4490: find_placeholder_in_expr (tree exp, vec<tree> *refs)
+4491: {
+4492:   enum tree_code code = TREE_CODE (exp);
+4493:   tree inner;
+4494:   int i;
+4495:
+4496:   /* We handle TREE_LIST and COMPONENT_REF separately.  */
+4497:   if (code == TREE_LIST)
+4498:     {
+4499:       FIND_PLACEHOLDER_IN_EXPR (TREE_CHAIN (exp), refs);
+4500:       FIND_PLACEHOLDER_IN_EXPR (TREE_VALUE (exp), refs);
+4501:     }
+4502:   else if (code == COMPONENT_REF)
+4503:     {
+4504:       for (inner = TREE_OPERAND (exp, 0);
+4505: 	   REFERENCE_CLASS_P (inner);
+4506: 	   inner = TREE_OPERAND (inner, 0))
+4507: 	;
+4508:
+4509:       if (TREE_CODE (inner) == PLACEHOLDER_EXPR)
+4510: 	push_without_duplicates (exp, refs);
+4511:       else
+4512: 	FIND_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, 0), refs);
+4513:    }
+4514:   else
+4515:     switch (TREE_CODE_CLASS (code))
+4516:       {
+4517:       case tcc_constant:
+4518: 	break;
+4519:
+4520:       case tcc_declaration:
+4521: 	/* Variables allocated to static storage can stay.  */
+4522:         if (!TREE_STATIC (exp))
+4523: 	  push_without_duplicates (exp, refs);
+4524: 	break;
+4525:
+4526:       case tcc_expression:
+4527: 	/* This is the pattern built in ada/make_aligning_type.  */
+4528: 	if (code == ADDR_EXPR
+4529: 	    && TREE_CODE (TREE_OPERAND (exp, 0)) == PLACEHOLDER_EXPR)
+4530: 	  {
+4531: 	    push_without_duplicates (exp, refs);
+4532: 	    break;
+4533: 	  }
+4534:
+4535:         /* Fall through.  */
+4536:
+4537:       case tcc_exceptional:
+4538:       case tcc_unary:
+4539:       case tcc_binary:
+4540:       case tcc_comparison:
+4541:       case tcc_reference:
+4542: 	for (i = 0; i < TREE_CODE_LENGTH (code); i++)
+4543: 	  FIND_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, i), refs);
+4544: 	break;
+4545:
+4546:       case tcc_vl_exp:
+4547: 	for (i = 1; i < TREE_OPERAND_LENGTH (exp); i++)
+4548: 	  FIND_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, i), refs);
+4549: 	break;
+4550:
+4551:       default:
+4552: 	gcc_unreachable ();
+4553:       }
+4554: }
+4555:
+4556: /* Given a tree EXP, a FIELD_DECL F, and a replacement value R,
+4557:    return a tree with all occurrences of references to F in a
+4558:    PLACEHOLDER_EXPR replaced by R.  Also handle VAR_DECLs and
+4559:    CONST_DECLs.  Note that we assume here that EXP contains only
+4560:    arithmetic expressions or CALL_EXPRs with PLACEHOLDER_EXPRs
+4561:    occurring only in their argument list.  */
+4562:
+4563: tree
+4564: substitute_in_expr (tree exp, tree f, tree r)
+4565: {
+4566:   enum tree_code code = TREE_CODE (exp);
+4567:   tree op0, op1, op2, op3;
+4568:   tree new_tree;
+4569:
+4570:   /* We handle TREE_LIST and COMPONENT_REF separately.  */
+4571:   if (code == TREE_LIST)
+4572:     {
+4573:       op0 = SUBSTITUTE_IN_EXPR (TREE_CHAIN (exp), f, r);
+4574:       op1 = SUBSTITUTE_IN_EXPR (TREE_VALUE (exp), f, r);
+4575:       if (op0 == TREE_CHAIN (exp) && op1 == TREE_VALUE (exp))
+4576: 	return exp;
+4577:
+4578:       return tree_cons (TREE_PURPOSE (exp), op1, op0);
+4579:     }
+4580:   else if (code == COMPONENT_REF)
+4581:     {
+4582:       tree inner;
+4583:
+4584:       /* If this expression is getting a value from a PLACEHOLDER_EXPR
+4585: 	 and it is the right field, replace it with R.  */
+4586:       for (inner = TREE_OPERAND (exp, 0);
+4587: 	   REFERENCE_CLASS_P (inner);
+4588: 	   inner = TREE_OPERAND (inner, 0))
+4589: 	;
+4590:
+4591:       /* The field.  */
+4592:       op1 = TREE_OPERAND (exp, 1);
+4593:
+4594:       if (TREE_CODE (inner) == PLACEHOLDER_EXPR && op1 == f)
+4595: 	return r;
+4596:
+4597:       /* If this expression hasn't been completed let, leave it alone.  */
+4598:       if (TREE_CODE (inner) == PLACEHOLDER_EXPR && !TREE_TYPE (inner))
+4599: 	return exp;
+4600:
+4601:       op0 = SUBSTITUTE_IN_EXPR (TREE_OPERAND (exp, 0), f, r);
+4602:       if (op0 == TREE_OPERAND (exp, 0))
+4603: 	return exp;
+4604:
+4605:       new_tree
+4606: 	= fold_build3 (COMPONENT_REF, TREE_TYPE (exp), op0, op1, NULL_TREE);
+4607:    }
+4608:   else
+4609:     switch (TREE_CODE_CLASS (code))
+4610:       {
+4611:       case tcc_constant:
+4612: 	return exp;
+4613:
+4614:       case tcc_declaration:
+4615: 	if (exp == f)
+4616: 	  return r;
+4617: 	else
+4618: 	  return exp;
+4619:
+4620:       case tcc_expression:
+4621: 	if (exp == f)
+4622: 	  return r;
+4623:
+4624:         /* Fall through.  */
+4625:
+4626:       case tcc_exceptional:
+4627:       case tcc_unary:
+4628:       case tcc_binary:
+4629:       case tcc_comparison:
+4630:       case tcc_reference:
+4631: 	switch (TREE_CODE_LENGTH (code))
+4632: 	  {
+4633: 	  case 0:
+4634: 	    return exp;
+4635:
+4636: 	  case 1:
+4637: 	    op0 = SUBSTITUTE_IN_EXPR (TREE_OPERAND (exp, 0), f, r);
+4638: 	    if (op0 == TREE_OPERAND (exp, 0))
+4639: 	      return exp;
+4640:
+4641: 	    new_tree = fold_build1 (code, TREE_TYPE (exp), op0);
+4642: 	    break;
+4643:
+4644: 	  case 2:
+4645: 	    op0 = SUBSTITUTE_IN_EXPR (TREE_OPERAND (exp, 0), f, r);
+4646: 	    op1 = SUBSTITUTE_IN_EXPR (TREE_OPERAND (exp, 1), f, r);
+4647:
+4648: 	    if (op0 == TREE_OPERAND (exp, 0) && op1 == TREE_OPERAND (exp, 1))
+4649: 	      return exp;
+4650:
+4651: 	    new_tree = fold_build2 (code, TREE_TYPE (exp), op0, op1);
+4652: 	    break;
+4653:
+4654: 	  case 3:
+4655: 	    op0 = SUBSTITUTE_IN_EXPR (TREE_OPERAND (exp, 0), f, r);
+4656: 	    op1 = SUBSTITUTE_IN_EXPR (TREE_OPERAND (exp, 1), f, r);
+4657: 	    op2 = SUBSTITUTE_IN_EXPR (TREE_OPERAND (exp, 2), f, r);
+4658:
+4659: 	    if (op0 == TREE_OPERAND (exp, 0) && op1 == TREE_OPERAND (exp, 1)
+4660: 		&& op2 == TREE_OPERAND (exp, 2))
+4661: 	      return exp;
+4662:
+4663: 	    new_tree = fold_build3 (code, TREE_TYPE (exp), op0, op1, op2);
+4664: 	    break;
+4665:
+4666: 	  case 4:
+4667: 	    op0 = SUBSTITUTE_IN_EXPR (TREE_OPERAND (exp, 0), f, r);
+4668: 	    op1 = SUBSTITUTE_IN_EXPR (TREE_OPERAND (exp, 1), f, r);
+4669: 	    op2 = SUBSTITUTE_IN_EXPR (TREE_OPERAND (exp, 2), f, r);
+4670: 	    op3 = SUBSTITUTE_IN_EXPR (TREE_OPERAND (exp, 3), f, r);
+4671:
+4672: 	    if (op0 == TREE_OPERAND (exp, 0) && op1 == TREE_OPERAND (exp, 1)
+4673: 		&& op2 == TREE_OPERAND (exp, 2)
+4674: 		&& op3 == TREE_OPERAND (exp, 3))
+4675: 	      return exp;
+4676:
+4677: 	    new_tree
+4678: 	      = fold (build4 (code, TREE_TYPE (exp), op0, op1, op2, op3));
+4679: 	    break;
+4680:
+4681: 	  default:
+4682: 	    gcc_unreachable ();
+4683: 	  }
+4684: 	break;
+4685:
+4686:       case tcc_vl_exp:
+4687: 	{
+4688: 	  int i;
+4689:
+4690: 	  new_tree = NULL_TREE;
+4691:
+4692: 	  /* If we are trying to replace F with a constant or with another
+4693: 	     instance of one of the arguments of the call, inline back
+4694: 	     functions which do nothing else than computing a value from
+4695: 	     the arguments they are passed.  This makes it possible to
+4696: 	     fold partially or entirely the replacement expression.  */
+4697: 	  if (code == CALL_EXPR)
+4698: 	    {
+4699: 	      bool maybe_inline = false;
+4700: 	      if (CONSTANT_CLASS_P (r))
+4701: 		maybe_inline = true;
+4702: 	      else
+4703: 		for (i = 3; i < TREE_OPERAND_LENGTH (exp); i++)
+4704: 		  if (operand_equal_p (TREE_OPERAND (exp, i), r, 0))
+4705: 		    {
+4706: 		      maybe_inline = true;
+4707: 		      break;
+4708: 		    }
+4709: 	      if (maybe_inline)
+4710: 		{
+4711: 		  tree t = maybe_inline_call_in_expr (exp);
+4712: 		  if (t)
+4713: 		    return SUBSTITUTE_IN_EXPR (t, f, r);
+4714: 		}
+4715: 	    }
+4716:
+4717: 	  for (i = 1; i < TREE_OPERAND_LENGTH (exp); i++)
+4718: 	    {
+4719: 	      tree op = TREE_OPERAND (exp, i);
+4720: 	      tree new_op = SUBSTITUTE_IN_EXPR (op, f, r);
+4721: 	      if (new_op != op)
+4722: 		{
+4723: 		  if (!new_tree)
+4724: 		    new_tree = copy_node (exp);
+4725: 		  TREE_OPERAND (new_tree, i) = new_op;
+4726: 		}
+4727: 	    }
+4728:
+4729: 	  if (new_tree)
+4730: 	    {
+4731: 	      new_tree = fold (new_tree);
+4732: 	      if (TREE_CODE (new_tree) == CALL_EXPR)
+4733: 		process_call_operands (new_tree);
+4734: 	    }
+4735: 	  else
+4736: 	    return exp;
+4737: 	}
+4738: 	break;
+4739:
+4740:       default:
 ```
 
 ## gcc/tree.cc:4756–4932
@@ -2030,6 +2323,31 @@ LF line numbering; complete file identities checked.
 4930:    for optimizations.  Among other things, the opportunity to fold in the
 4931:    addition of a constant into an addressing mode often gets lost, e.g.
 4932:    "y[i+1] += x;".  In general, we take the approach that we should not make
+```
+
+## gcc/tree.cc:5567–5587
+```text
+5567: build_decl (location_t loc, enum tree_code code, tree name,
+5568:     		 tree type MEM_STAT_DECL)
+5569: {
+5570:   tree t;
+5571:
+5572:   t = make_node (code PASS_MEM_STAT);
+5573:   DECL_SOURCE_LOCATION (t) = loc;
+5574:
+5575: /*  if (type == error_mark_node)
+5576:     type = integer_type_node; */
+5577: /* That is not done, deliberately, so that having error_mark_node
+5578:    as the type can suppress useless errors in the use of this variable.  */
+5579:
+5580:   DECL_NAME (t) = name;
+5581:   TREE_TYPE (t) = type;
+5582:
+5583:   if (code == VAR_DECL || code == PARM_DECL || code == RESULT_DECL)
+5584:     layout_decl (t, 0);
+5585:
+5586:   return t;
+5587: }
 ```
 
 ## gcc/tree.cc:5840–5965
@@ -5069,6 +5387,27 @@ LF line numbering; complete file identities checked.
 783:
 ```
 
+## gcc/ada/gcc-interface/utils.cc:2410–2426
+```text
+2410:       const unsigned int align = TYPE_ALIGN (record_type);
+2411:
+2412:       /* If this is a padding record, we never want to make the size smaller
+2413: 	 than what was specified in it, if any.  */
+2414:       if (TYPE_IS_PADDING_P (record_type) && had_size)
+2415: 	size = round_up (TYPE_SIZE (record_type), BITS_PER_UNIT);
+2416:       else
+2417: 	size = round_up (size, BITS_PER_UNIT);
+2418:
+2419:       TYPE_SIZE (record_type) = variable_size (round_up (size, align));
+2420:
+2421:       tree size_unit
+2422: 	= convert (sizetype,
+2423: 		   size_binop (EXACT_DIV_EXPR, size, bitsize_unit_node));
+2424:       TYPE_SIZE_UNIT (record_type)
+2425: 	= variable_size (round_up (size_unit, align / BITS_PER_UNIT));
+2426:     }
+```
+
 ## gcc/ada/gcc-interface/utils.cc:4095–4390
 ```text
 4095: max_value (tree exp, bool max_p)
@@ -6049,6 +6388,21 @@ LF line numbering; complete file identities checked.
 1291:
 ```
 
+## gcc/ada/gcc-interface/decl.cc:2370–2380
+```text
+2370: 	       with languages for which the regular fields are addressable.  */
+2371: 	    fld
+2372: 	      = create_field_decl (get_identifier ("P_ARRAY"),
+2373: 				   ptr_type_node, gnu_fat_type,
+2374: 				   NULL_TREE, NULL_TREE, 0, 1);
+2375: 	    DECL_CHAIN (fld)
+2376: 	      = create_field_decl (get_identifier ("P_BOUNDS"),
+2377: 				   gnu_ptr_template, gnu_fat_type,
+2378: 				   NULL_TREE, NULL_TREE, 0, 1);
+2379: 	    finish_fat_pointer_type (gnu_fat_type, fld);
+2380: 	    SET_TYPE_UNCONSTRAINED_ARRAY (gnu_fat_type, gnu_type);
+```
+
 ## gcc/ada/gcc-interface/decl.cc:2664–2712
 ```text
 2664: 	      /* Update the maximum size of the array in elements.  Here we
@@ -6140,6 +6494,237 @@ LF line numbering; complete file identities checked.
 3175: 					      convert (gnu_string_index_type,
 3176: 						       integer_one_node)));
 3177: 	tree gnu_index_type
+```
+
+## gcc/ada/gcc-interface/decl.cc:7265–7402
+```text
+7265: build_template_type (Entity_Id gnat_entity, tree gnu_template_type,
+7266: 		     tree gnu_template_reference,
+7267: 		     tree *gnu_index_types, tree &gnu_max_size,
+7268: 		     bool debug_info_p)
+7269: {
+7270:   const bool convention_fortran_p
+7271:     = (Convention (gnat_entity) == Convention_Fortran);
+7272:   const int ndim = Number_Dimensions (gnat_entity);
+7273:   tree *gnu_temp_fields = XALLOCAVEC (tree, ndim);
+7274:   Entity_Id gnat_index;
+7275:   int index;
+7276:
+7277:   tree template_fields = TYPE_FIELDS (gnu_template_type);
+7278:   const bool template_exists_p = template_fields != NULL_TREE;
+7279:
+7280:   /* Now create the GCC type for each index and add the fields for that
+7281:      index to the template.  */
+7282:   for (index = (convention_fortran_p ? ndim - 1 : 0),
+7283:        gnat_index = First_Index (gnat_entity);
+7284:        IN_RANGE (index, 0, ndim - 1);
+7285:        index += (convention_fortran_p ? - 1 : 1),
+7286:        gnat_index = Next_Index (gnat_index))
+7287:     {
+7288:       const Entity_Id gnat_index_type = Etype (gnat_index);
+7289:       const bool is_flb = Is_Fixed_Lower_Bound_Index_Subtype (gnat_index_type);
+7290:       tree gnu_index_type = get_unpadded_type (gnat_index_type);
+7291:       tree gnu_orig_min = TYPE_MIN_VALUE (gnu_index_type);
+7292:       tree gnu_orig_max = TYPE_MAX_VALUE (gnu_index_type);
+7293:       tree gnu_index_base_type = get_base_type (gnu_index_type);
+7294:       tree gnu_lb_field, gnu_hb_field;
+7295:       tree gnu_min, gnu_max, gnu_high;
+7296:       char field_name[16];
+7297:
+7298:       /* Update the maximum size of the array in elements.  */
+7299:       if (gnu_max_size)
+7300: 	gnu_max_size
+7301: 	  = update_n_elem (gnu_max_size, gnu_orig_min, gnu_orig_max);
+7302:
+7303:       /* Now build the self-referential bounds of the index type.  */
+7304:       gnu_index_type = maybe_character_type (gnu_index_type);
+7305:       gnu_index_base_type = maybe_character_type (gnu_index_base_type);
+7306:
+7307:       if (template_fields != NULL_TREE)
+7308: 	{
+7309: 	  gnu_lb_field = template_fields;
+7310: 	  template_fields = DECL_CHAIN (template_fields);
+7311: 	  gnu_hb_field = template_fields;
+7312: 	  template_fields = DECL_CHAIN (template_fields);
+7313: 	}
+7314:       else
+7315: 	{
+7316: 	  /* Make the FIELD_DECLs for the low and high bounds of this
+7317: 	     type and then make extractions of these fields from the
+7318: 	     template.  */
+7319: 	  sprintf (field_name, "LB%d", index);
+7320: 	  gnu_lb_field = create_field_decl (get_identifier (field_name),
+7321: 					    gnu_index_type,
+7322: 					    gnu_template_type, NULL_TREE,
+7323: 					    NULL_TREE, 0, 0);
+7324: 	  /* Mark the field specifically for INSTANTIATE_LOAD_IN_EXPR.  */
+7325: 	  DECL_DISCRIMINANT_NUMBER (gnu_lb_field) = integer_minus_one_node;
+7326: 	  Sloc_to_locus (Sloc (gnat_entity), &DECL_SOURCE_LOCATION (gnu_lb_field));
+7327:
+7328: 	  field_name[0] = 'U';
+7329: 	  gnu_hb_field = create_field_decl (get_identifier (field_name),
+7330: 					    gnu_index_type,
+7331: 					    gnu_template_type, NULL_TREE,
+7332: 					    NULL_TREE, 0, 0);
+7333: 	  /* Mark the field specifically for INSTANTIATE_LOAD_IN_EXPR.  */
+7334: 	  DECL_DISCRIMINANT_NUMBER (gnu_hb_field) = integer_minus_one_node;
+7335: 	  Sloc_to_locus (Sloc (gnat_entity), &DECL_SOURCE_LOCATION (gnu_hb_field));
+7336:
+7337: 	  gnu_temp_fields[index] = chainon (gnu_lb_field, gnu_hb_field);
+7338: 	}
+7339:
+7340:       if (gnu_index_types)
+7341: 	{
+7342: 	  /* We can't use build_component_ref here since the template type
+7343: 	     isn't complete yet.  */
+7344: 	  if (!is_flb)
+7345: 	    {
+7346: 	      gnu_orig_min
+7347: 		= build3 (COMPONENT_REF, TREE_TYPE (gnu_lb_field),
+7348: 			  gnu_template_reference, gnu_lb_field,
+7349: 			  NULL_TREE);
+7350: 	      TREE_READONLY (gnu_orig_min) = 1;
+7351: 	    }
+7352:
+7353: 	  gnu_orig_max = build3 (COMPONENT_REF, TREE_TYPE (gnu_hb_field),
+7354: 				 gnu_template_reference, gnu_hb_field,
+7355: 				 NULL_TREE);
+7356: 	  TREE_READONLY (gnu_orig_max) = 1;
+7357:
+7358: 	  gnu_min = convert (sizetype, gnu_orig_min);
+7359: 	  gnu_max = convert (sizetype, gnu_orig_max);
+7360:
+7361: 	  /* Compute the size of this dimension.  See the E_Array_Subtype
+7362: 	     case of gnat_to_gnu_entity for the rationale.  */
+7363: 	  if (is_flb
+7364: 	      && Nkind (gnat_index) == N_Subtype_Indication
+7365: 	      && flb_cannot_be_superflat (gnat_index))
+7366: 	    gnu_high = gnu_max;
+7367:
+7368: 	  else
+7369: 	    gnu_high
+7370: 	      = build3 (COND_EXPR, sizetype,
+7371: 			build2 (GE_EXPR, boolean_type_node,
+7372: 				gnu_orig_max, gnu_orig_min),
+7373: 			gnu_max,
+7374: 			TREE_CODE (gnu_min) == INTEGER_CST
+7375: 			? int_const_binop (MINUS_EXPR, gnu_min, size_one_node)
+7376: 			: size_binop (MINUS_EXPR, gnu_min, size_one_node));
+7377:
+7378: 	  /* Make a range type with the new range in the Ada base type.
+7379: 	     Then make an index type with the size range in sizetype.  */
+7380: 	  gnu_index_types[index]
+7381: 	    = create_index_type (gnu_min, gnu_high,
+7382: 				 create_range_type (gnu_index_base_type,
+7383: 						    gnu_orig_min,
+7384: 						    gnu_orig_max),
+7385: 				 gnat_entity);
+7386:
+7387: 	  TYPE_NAME (gnu_index_types[index])
+7388: 	    = create_concat_name (gnat_entity, field_name);
+7389: 	}
+7390:     }
+7391:
+7392:   if (!template_exists_p)
+7393:     {
+7394:       TYPE_NAMELESS (gnu_template_type)
+7395: 	= gnat_encodings != DWARF_GNAT_ENCODINGS_ALL;
+7396:
+7397:       tree gnu_template_fields = NULL_TREE;
+7398:       for (index = 0; index < ndim; index++)
+7399: 	gnu_template_fields
+7400: 	  = chainon (gnu_template_fields, gnu_temp_fields[index]);
+7401:       finish_record_type (gnu_template_type, gnu_template_fields, 0, debug_info_p);
+7402:     }
+```
+
+## gcc/ada/gcc-interface/decl.cc:10460–10501
+```text
+10460: create_field_decl_from (tree old_field, tree field_type, tree record_type,
+10461: 			tree size, tree pos_list,
+10462: 			vec<subst_pair> subst_list)
+10463: {
+10464:   tree t = TREE_VALUE (purpose_member (old_field, pos_list));
+10465:   tree pos = TREE_VEC_ELT (t, 0), bitpos = TREE_VEC_ELT (t, 2);
+10466:   unsigned int offset_align = tree_to_uhwi (TREE_VEC_ELT (t, 1));
+10467:   tree new_pos, new_field;
+10468:   unsigned int i;
+10469:   subst_pair *s;
+10470:
+10471:   if (CONTAINS_PLACEHOLDER_P (pos))
+10472:     FOR_EACH_VEC_ELT (subst_list, i, s)
+10473:       pos = SUBSTITUTE_IN_EXPR (pos, s->discriminant, s->replacement);
+10474:
+10475:   /* If the position is now a constant, we can set it as the position of the
+10476:      field when we make it.  Otherwise, we need to deal with it specially.  */
+10477:   if (TREE_CONSTANT (pos))
+10478:     new_pos = bit_from_pos (pos, bitpos);
+10479:   else
+10480:     new_pos = NULL_TREE;
+10481:
+10482:   new_field
+10483:     = create_field_decl (DECL_NAME (old_field), field_type, record_type,
+10484: 			 size, new_pos, DECL_PACKED (old_field),
+10485: 			 !DECL_NONADDRESSABLE_P (old_field));
+10486:
+10487:   if (!new_pos)
+10488:     {
+10489:       normalize_offset (&pos, &bitpos, offset_align);
+10490:       /* Finalize the position.  */
+10491:       DECL_FIELD_OFFSET (new_field) = variable_size (pos);
+10492:       DECL_FIELD_BIT_OFFSET (new_field) = bitpos;
+10493:       SET_DECL_OFFSET_ALIGN (new_field, offset_align);
+10494:       DECL_SIZE (new_field) = size;
+10495:       DECL_SIZE_UNIT (new_field)
+10496: 	= convert (sizetype,
+10497: 		   size_binop (CEIL_DIV_EXPR, size, bitsize_unit_node));
+10498:       layout_decl (new_field, DECL_OFFSET_ALIGN (new_field));
+10499:     }
+10500:
+10501:   DECL_INTERNAL_P (new_field) = DECL_INTERNAL_P (old_field);
+```
+
+## gcc/ada/gcc-interface/decl.cc:10685–10723
+```text
+10685: /* Copy the size (and alignment and alias set) from OLD_TYPE to NEW_TYPE,
+10686:    which are both RECORD_TYPE, after applying the substitutions described
+10687:    in SUBST_LIST.  */
+10688:
+10689: static void
+10690: copy_and_substitute_in_size (tree new_type, tree old_type,
+10691: 			     vec<subst_pair> subst_list)
+10692: {
+10693:   unsigned int i;
+10694:   subst_pair *s;
+10695:
+10696:   TYPE_SIZE (new_type) = TYPE_SIZE (old_type);
+10697:   TYPE_SIZE_UNIT (new_type) = TYPE_SIZE_UNIT (old_type);
+10698:   SET_TYPE_ADA_SIZE (new_type, TYPE_ADA_SIZE (old_type));
+10699:   SET_TYPE_ALIGN (new_type, TYPE_ALIGN (old_type));
+10700:   relate_alias_sets (new_type, old_type, ALIAS_SET_COPY);
+10701:
+10702:   if (CONTAINS_PLACEHOLDER_P (TYPE_SIZE (new_type)))
+10703:     FOR_EACH_VEC_ELT (subst_list, i, s)
+10704:       TYPE_SIZE (new_type)
+10705: 	= SUBSTITUTE_IN_EXPR (TYPE_SIZE (new_type),
+10706: 			      s->discriminant, s->replacement);
+10707:
+10708:   if (CONTAINS_PLACEHOLDER_P (TYPE_SIZE_UNIT (new_type)))
+10709:     FOR_EACH_VEC_ELT (subst_list, i, s)
+10710:       TYPE_SIZE_UNIT (new_type)
+10711: 	= SUBSTITUTE_IN_EXPR (TYPE_SIZE_UNIT (new_type),
+10712: 			      s->discriminant, s->replacement);
+10713:
+10714:   if (CONTAINS_PLACEHOLDER_P (TYPE_ADA_SIZE (new_type)))
+10715:     FOR_EACH_VEC_ELT (subst_list, i, s)
+10716:       SET_TYPE_ADA_SIZE
+10717: 	(new_type, SUBSTITUTE_IN_EXPR (TYPE_ADA_SIZE (new_type),
+10718: 				       s->discriminant, s->replacement));
+10719:
+10720:   /* Finalize the size.  */
+10721:   TYPE_SIZE (new_type) = variable_size (TYPE_SIZE (new_type));
+10722:   TYPE_SIZE_UNIT (new_type) = variable_size (TYPE_SIZE_UNIT (new_type));
+10723: }
 ```
 
 ## gcc/vec.h:220–260
@@ -13405,7 +13990,7 @@ LF line numbering; complete file identities checked.
 41:    uniform_vector_p
 ```
 
-## gcc/stor-layout.cc:67–87
+## gcc/stor-layout.cc:67–292
 ```text
 67: variable_size (tree size)
 68: {
@@ -13428,6 +14013,211 @@ LF line numbering; complete file identities checked.
 85: }
 86:
 87: /* An array of functions used for self-referential size computation.  */
+88: static GTY(()) vec<tree, va_gc> *size_functions;
+89:
+90: /* Return true if T is a self-referential component reference.  */
+91:
+92: static bool
+93: self_referential_component_ref_p (tree t)
+94: {
+95:   if (TREE_CODE (t) != COMPONENT_REF)
+96:     return false;
+97:
+98:   while (REFERENCE_CLASS_P (t))
+99:     t = TREE_OPERAND (t, 0);
+100:
+101:   return (TREE_CODE (t) == PLACEHOLDER_EXPR);
+102: }
+103:
+104: /* Similar to copy_tree_r but do not copy component references involving
+105:    PLACEHOLDER_EXPRs.  These nodes are spotted in find_placeholder_in_expr
+106:    and substituted in substitute_in_expr.  */
+107:
+108: static tree
+109: copy_self_referential_tree_r (tree *tp, int *walk_subtrees, void *data)
+110: {
+111:   enum tree_code code = TREE_CODE (*tp);
+112:
+113:   /* Stop at types, decls, constants like copy_tree_r.  */
+114:   if (TREE_CODE_CLASS (code) == tcc_type
+115:       || TREE_CODE_CLASS (code) == tcc_declaration
+116:       || TREE_CODE_CLASS (code) == tcc_constant)
+117:     {
+118:       *walk_subtrees = 0;
+119:       return NULL_TREE;
+120:     }
+121:
+122:   /* This is the pattern built in ada/make_aligning_type.  */
+123:   else if (code == ADDR_EXPR
+124: 	   && TREE_CODE (TREE_OPERAND (*tp, 0)) == PLACEHOLDER_EXPR)
+125:     {
+126:       *walk_subtrees = 0;
+127:       return NULL_TREE;
+128:     }
+129:
+130:   /* Default case: the component reference.  */
+131:   else if (self_referential_component_ref_p (*tp))
+132:     {
+133:       *walk_subtrees = 0;
+134:       return NULL_TREE;
+135:     }
+136:
+137:   /* We're not supposed to have them in self-referential size trees
+138:      because we wouldn't properly control when they are evaluated.
+139:      However, not creating superfluous SAVE_EXPRs requires accurate
+140:      tracking of readonly-ness all the way down to here, which we
+141:      cannot always guarantee in practice.  So punt in this case.  */
+142:   else if (code == SAVE_EXPR)
+143:     return error_mark_node;
+144:
+145:   else if (code == STATEMENT_LIST)
+146:     gcc_unreachable ();
+147:
+148:   return copy_tree_r (tp, walk_subtrees, data);
+149: }
+150:
+151: /* Given a SIZE expression that is self-referential, return an equivalent
+152:    expression to serve as the actual size expression for a type.  */
+153:
+154: static tree
+155: self_referential_size (tree size)
+156: {
+157:   static unsigned HOST_WIDE_INT fnno = 0;
+158:   vec<tree> self_refs = vNULL;
+159:   tree param_type_list = NULL, param_decl_list = NULL;
+160:   tree t, ref, return_type, fntype, fnname, fndecl;
+161:   unsigned int i;
+162:   char buf[128];
+163:   vec<tree, va_gc> *args = NULL;
+164:
+165:   /* Do not factor out simple operations.  */
+166:   t = skip_simple_constant_arithmetic (size);
+167:   if (TREE_CODE (t) == CALL_EXPR || self_referential_component_ref_p (t))
+168:     return size;
+169:
+170:   /* Collect the list of self-references in the expression.  */
+171:   find_placeholder_in_expr (size, &self_refs);
+172:   gcc_assert (self_refs.length () > 0);
+173:
+174:   /* Obtain a private copy of the expression.  */
+175:   t = size;
+176:   if (walk_tree (&t, copy_self_referential_tree_r, NULL, NULL) != NULL_TREE)
+177:     return size;
+178:   size = t;
+179:
+180:   /* Build the parameter and argument lists in parallel; also
+181:      substitute the former for the latter in the expression.  */
+182:   vec_alloc (args, self_refs.length ());
+183:   FOR_EACH_VEC_ELT (self_refs, i, ref)
+184:     {
+185:       tree subst, param_name, param_type, param_decl;
+186:
+187:       if (DECL_P (ref))
+188: 	{
+189: 	  /* We shouldn't have true variables here.  */
+190: 	  gcc_assert (TREE_READONLY (ref));
+191: 	  subst = ref;
+192: 	}
+193:       /* This is the pattern built in ada/make_aligning_type.  */
+194:       else if (TREE_CODE (ref) == ADDR_EXPR)
+195:         subst = ref;
+196:       /* Default case: the component reference.  */
+197:       else
+198: 	subst = TREE_OPERAND (ref, 1);
+199:
+200:       sprintf (buf, "p%d", i);
+201:       param_name = get_identifier (buf);
+202:       param_type = TREE_TYPE (ref);
+203:       param_decl
+204: 	= build_decl (input_location, PARM_DECL, param_name, param_type);
+205:       DECL_ARG_TYPE (param_decl) = param_type;
+206:       DECL_ARTIFICIAL (param_decl) = 1;
+207:       TREE_READONLY (param_decl) = 1;
+208:
+209:       size = substitute_in_expr (size, subst, param_decl);
+210:
+211:       param_type_list = tree_cons (NULL_TREE, param_type, param_type_list);
+212:       param_decl_list = chainon (param_decl, param_decl_list);
+213:       args->quick_push (ref);
+214:     }
+215:
+216:   self_refs.release ();
+217:
+218:   /* Append 'void' to indicate that the number of parameters is fixed.  */
+219:   param_type_list = tree_cons (NULL_TREE, void_type_node, param_type_list);
+220:
+221:   /* The 3 lists have been created in reverse order.  */
+222:   param_type_list = nreverse (param_type_list);
+223:   param_decl_list = nreverse (param_decl_list);
+224:
+225:   /* Build the function type.  */
+226:   return_type = TREE_TYPE (size);
+227:   fntype = build_function_type (return_type, param_type_list);
+228:
+229:   /* Build the function declaration.  */
+230:   sprintf (buf, "SZ" HOST_WIDE_INT_PRINT_UNSIGNED, fnno++);
+231:   fnname = get_file_function_name (buf);
+232:   fndecl = build_decl (input_location, FUNCTION_DECL, fnname, fntype);
+233:   for (t = param_decl_list; t; t = DECL_CHAIN (t))
+234:     DECL_CONTEXT (t) = fndecl;
+235:   DECL_ARGUMENTS (fndecl) = param_decl_list;
+236:   DECL_RESULT (fndecl)
+237:     = build_decl (input_location, RESULT_DECL, 0, return_type);
+238:   DECL_CONTEXT (DECL_RESULT (fndecl)) = fndecl;
+239:
+240:   /* The function has been created by the compiler and we don't
+241:      want to emit debug info for it.  */
+242:   DECL_ARTIFICIAL (fndecl) = 1;
+243:   DECL_IGNORED_P (fndecl) = 1;
+244:
+245:   /* It is supposed to be "const" and never throw.  */
+246:   TREE_READONLY (fndecl) = 1;
+247:   TREE_NOTHROW (fndecl) = 1;
+248:
+249:   /* We want it to be inlined when this is deemed profitable, as
+250:      well as discarded if every call has been integrated.  */
+251:   DECL_DECLARED_INLINE_P (fndecl) = 1;
+252:
+253:   /* It is made up of a unique return statement.  */
+254:   DECL_INITIAL (fndecl) = make_node (BLOCK);
+255:   BLOCK_SUPERCONTEXT (DECL_INITIAL (fndecl)) = fndecl;
+256:   t = build2 (MODIFY_EXPR, return_type, DECL_RESULT (fndecl), size);
+257:   DECL_SAVED_TREE (fndecl) = build1 (RETURN_EXPR, void_type_node, t);
+258:   TREE_STATIC (fndecl) = 1;
+259:
+260:   /* Put it onto the list of size functions.  */
+261:   vec_safe_push (size_functions, fndecl);
+262:
+263:   /* Replace the original expression with a call to the size function.  */
+264:   return build_call_expr_loc_vec (UNKNOWN_LOCATION, fndecl, args);
+265: }
+266:
+267: /* Take, queue and compile all the size functions.  It is essential that
+268:    the size functions be gimplified at the very end of the compilation
+269:    in order to guarantee transparent handling of self-referential sizes.
+270:    Otherwise the GENERIC inliner would not be able to inline them back
+271:    at each of their call sites, thus creating artificial non-constant
+272:    size expressions which would trigger nasty problems later on.  */
+273:
+274: void
+275: finalize_size_functions (void)
+276: {
+277:   unsigned int i;
+278:   tree fndecl;
+279:
+280:   for (i = 0; size_functions && size_functions->iterate (i, &fndecl); i++)
+281:     {
+282:       allocate_struct_function (fndecl, false);
+283:       set_cfun (NULL);
+284:       dump_function (TDI_original, fndecl);
+285:
+286:       /* As these functions are used to describe the layout of variable-length
+287:          structures, debug info generation needs their implementation.  */
+288:       debug_hooks->size_function (fndecl);
+289:       gimplify_function_tree (fndecl);
+290:       cgraph_node::finalize_function (fndecl, false);
+291:     }
+292:
 ```
 
 ## gcc/stor-layout.cc:296–339
@@ -13513,6 +14303,16 @@ LF line numbering; complete file identities checked.
 633:
 ```
 
+## gcc/stor-layout.cc:808–813
+```text
+808:   /* Evaluate nonconstant size only once, either now or as soon as safe.  */
+809:   if (DECL_SIZE (decl) != 0 && TREE_CODE (DECL_SIZE (decl)) != INTEGER_CST)
+810:     DECL_SIZE (decl) = variable_size (DECL_SIZE (decl));
+811:   if (DECL_SIZE_UNIT (decl) != 0
+812:       && TREE_CODE (DECL_SIZE_UNIT (decl)) != INTEGER_CST)
+813:     DECL_SIZE_UNIT (decl) = variable_size (DECL_SIZE_UNIT (decl));
+```
+
 ## gcc/stor-layout.cc:909–929
 ```text
 909: /* Fold sizetype value X to bitsizetype, given that X represents a type
@@ -13536,6 +14336,16 @@ LF line numbering; complete file identities checked.
 927:   gcc_checking_assert (x);
 928:   return x;
 929: }
+```
+
+## gcc/stor-layout.cc:1675–1680
+```text
+1675:   handle_warn_if_not_align (field, rli->record_align);
+1676:
+1677:   /* Evaluate nonconstant offsets only once, either now or as soon as safe.  */
+1678:   if (TREE_CODE (DECL_FIELD_OFFSET (field)) != INTEGER_CST)
+1679:     DECL_FIELD_OFFSET (field) = variable_size (DECL_FIELD_OFFSET (field));
+1680:
 ```
 
 ## gcc/stor-layout.cc:1962–2067

@@ -39,10 +39,11 @@ RANGES = {
                                        (8968, 8996), (9119, 9212), (9298, 9305), (3301, 3306),
                                        (9889, 10025), (11006, 11030)],
     "gcc/ada/gcc-interface/decl.cc": [(400, 445), (697, 718), (754, 766), (1278, 1291),
-                                      (2664, 2712), (3142, 3177)],
+                                      (2370, 2380), (2664, 2712), (3142, 3177),
+                                      (7265, 7402), (10460, 10501), (10685, 10723)],
     "gcc/ada/gcc-interface/misc.cc": [(376, 377), (1475, 1476)],
     "gcc/ada/gcc-interface/utils.cc": [(259, 280), (430, 450), (770, 783),
-                                      (4095, 4390)],
+                                      (2410, 2426), (4095, 4390)],
     "gcc/toplev.cc": [(761, 767), (1141, 1150)],
     "gcc/ggc-page.cc": [(1250, 1290), (1292, 1327), (1883, 1922)],
     "gcc/ggc.h": [(230, 258)],
@@ -50,14 +51,16 @@ RANGES = {
                      (1468, 1547), (1581, 1616), (1696, 1729),
                      (1776, 1953), (2008, 2013), (2482, 2488), (2616, 2636),
                      (2926, 2960), (3834, 3872), (4132, 4170),
-                     (4257, 4377), (4756, 4932),
+                     (4220, 4243), (4257, 4377), (4480, 4740), (4756, 4932),
+                     (5567, 5587),
                      (5840, 5965), (6433, 6492), (7198, 7385),
                      (7460, 7511), (7576, 7668), (8025, 8088),
                      (11024, 11113), (11637, 12013), (15095, 15129)],
     "gcc/tree.h": [(5460, 5467), (5500, 5517), (5921, 5929)],
     "gcc/tree-core.h": [(1138, 1253), (1565, 1595), (1631, 1648),
                          (1696, 1700), (1801, 1871)],
-    "gcc/stor-layout.cc": [(67, 87), (296, 339), (603, 633), (909, 929),
+    "gcc/stor-layout.cc": [(67, 292), (296, 339), (603, 633), (808, 813), (909, 929),
+                            (1675, 1680),
                             (1962, 2067), (2402, 2427), (2437, 2469), (2558, 2576),
                             (2651, 2773), (2810, 2821), (2838, 2860), (2991, 3040)],
     "gcc/target.def": [(2324, 2330), (3710, 3763)],
@@ -220,6 +223,42 @@ def check_whole_body_copy_transfer(all_bytes):
         protected_set_entries="at most the reachable protected identity count",
         fresh_String_scalar_type_and_declaration_nodes=0,
         aggregate_allocation_gate=False,
+        native_execution=False,
+    )
+
+
+def check_size_function_transfer(all_bytes):
+    layout = all_bytes["gcc/stor-layout.cc"].decode()
+    tree = all_bytes["gcc/tree.cc"].decode()
+    start = layout.index("\nself_referential_size (tree size)")
+    wrapper = layout[start:layout.index("\n}\n", start)]
+    assert "TREE_CODE (t) == CALL_EXPR || self_referential_component_ref_p (t)" in wrapper
+    assert "static unsigned HOST_WIDE_INT fnno = 0;" in wrapper
+    assert "size = substitute_in_expr (size, subst, param_decl);" in wrapper
+    assert "TREE_READONLY (fndecl) = 1;" in wrapper
+    assert "DECL_SAVED_TREE (fndecl) = build1 (RETURN_EXPR, void_type_node, t);" in wrapper
+    assert "gimplify_function_tree (fndecl);" in layout
+    variable_sites = {}
+    for path, expected in (("gcc/stor-layout.cc", 6),
+                           ("gcc/ada/gcc-interface/utils.cc", 2),
+                           ("gcc/ada/gcc-interface/decl.cc", 3)):
+        source = all_bytes[path].decode()
+        source = re.sub(r"/\*.*?\*/", "", source, flags=re.S)
+        sites = len(re.findall(r"\bvariable_size\s*\(", source))
+        assert sites == expected
+        variable_sites[path] = sites - (path == "gcc/stor-layout.cc")
+    assert "if (CONSTANT_CLASS_P (r))" in tree
+    assert "if (operand_equal_p (TREE_OPERAND (exp, i), r, 0))" in tree
+    return dict(
+        scope="selected constant records and generated size-function helper interface; layout/source and symbolic-folder joins remain",
+        String_bounds_record_bytes=8,
+        String_fat_pointer_record_bytes=16,
+        variable_size_call_sites=variable_sites,
+        size_function_bound="at most one per reached variable_size invocation",
+        variable_size_invocation_interface="2*T+2*D+P+2*R+C+2*S; counters defined in report",
+        parameter_bound_from_call_constructor=268435449,
+        construction_substitution_body_inlining=False,
+        later_function_lowering_required=True,
         native_execution=False,
     )
 
@@ -885,6 +924,7 @@ def main():
         "scalar_pointer_types": check_type_transfers(all_bytes, bundle),
         "expression_unsharing": check_expression_copy_transfers(all_bytes),
         "whole_body_unsharing": check_whole_body_copy_transfer(all_bytes),
+        "generated_size_functions": check_size_function_transfer(all_bytes),
         "size_extrema_helpers": check_size_extrema_transfers(all_bytes),
         "bitmap_storage": check_bitmap_transfers(all_bytes, bundle),
         "ordinary_vectors": {

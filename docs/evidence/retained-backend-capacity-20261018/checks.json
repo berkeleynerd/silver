@@ -1034,6 +1034,22 @@
     "aggregate_allocation_gate": false,
     "native_execution": false
   },
+  "generated_size_functions": {
+    "scope": "selected constant records and generated size-function helper interface; layout/source and symbolic-folder joins remain",
+    "String_bounds_record_bytes": 8,
+    "String_fat_pointer_record_bytes": 16,
+    "variable_size_call_sites": {
+      "gcc/stor-layout.cc": 5,
+      "gcc/ada/gcc-interface/utils.cc": 2,
+      "gcc/ada/gcc-interface/decl.cc": 3
+    },
+    "size_function_bound": "at most one per reached variable_size invocation",
+    "variable_size_invocation_interface": "2*T+2*D+P+2*R+C+2*S; counters defined in report",
+    "parameter_bound_from_call_constructor": 268435449,
+    "construction_substitution_body_inlining": false,
+    "later_function_lowering_required": true,
+    "native_execution": false
+  },
   "size_extrema_helpers": {
     "scope": "scalar size expressions; no reached placeholder-reference or inlineable body",
     "max_value_primitive_sites": {

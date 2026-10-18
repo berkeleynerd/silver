@@ -1294,6 +1294,91 @@ not an aggregate RAM or address-space admission gate. The constructor shares
 argument payloads and creates no copied String bytes. Call-flag queries and
 source-to-expression occurrence weights remain in the surrounding bridge.
 
+### Compiler-generated size functions have a separate finite interface
+
+O0 does not exclude `self_referential_size` functions. `variable_size` first
+returns constant sizes, then dispatches placeholder-containing sizes to this
+helper; other local sizes use SAVE_EXPR (`stor-layout.cc:67–87`). The helper
+can construct one readonly function with a saved body and return its call
+(`:155–265`). That function meets `maybe_inline_call_in_expr`'s body gate and
+must be included when a size helper reaches it.
+
+Two reductions keep this interface small without assuming all sizes constant.
+The bounds template for a one-dimensional String has two completed Integer
+fields; its natural layout is eight bytes. Its fat pointer has two pointer
+fields and is sixteen bytes on the selected LP64 target
+(`decl.cc:2370–2380,7265–7402`). Their own bit/byte sizes are constants, so they
+create no self-referential size functions. This statement is about those two
+record forms; it excludes the template-plus-array object record, padding and
+other imported records.
+
+Also, `self_referential_size` immediately returns unchanged when
+`skip_simple_constant_arithmetic(size)` ends at an existing call or
+self-referential component (`stor-layout.cc:168–170`). That scanner strips
+unary operators and follows the nonconstant side of constant-sided binary
+operators (`tree.cc:4220–4243`). Thus a retained unary/constant-arithmetic
+chain around a prior size call creates no further function. Applying this
+reduction to record alignment/offset formulas requires their **actual folded
+shape**; merely observing a constant padding amount before folding is not
+sufficient. Arbitrarily branching invariant arithmetic does not satisfy this
+smaller constant-sided condition.
+
+Let V count reached `variable_size` invocations and r the number of distinct
+self references collected at one invocation. The helper creates at most one
+function, so new size functions are at most V. In the layout/record interface,
+a sufficient caller bound is
+
+```text
+V <= 2*T + 2*D + P + 2*R + C + 2*S,
+```
+
+where T counts completed `finalize_type_size` calls, D `layout_decl` calls,
+P `place_field` calls, R gigi `finish_record_type` calls with rep_level=1,
+C `create_field_decl_from` calls and S `copy_and_substitute_in_size` calls. These
+count actual helper invocations, including a repeated field layout, not
+distinct source types. The five generic and five gigi call sites are explicit
+in `stor-layout.cc:810–813,1679,2012–2015`, `utils.cc:2419–2425` and
+`decl.cc:10491,10721–10722`. The source-to-layout bridge still supplies these
+counts; the inequality does not declare all six families reachable in Main.
+
+For a nontrivial invocation, the initial private copy follows original operand
+occurrences, stopping at types, declarations, constants and the collected
+self-reference leaves. It aborts at SAVE_EXPR, retaining any prefix copy
+allocations already made; STATEMENT_LIST is outside the valid size-expression
+input. Apply the ordinary occurrence and constructor-vector accounting to
+this copy. Each of the r references then causes one parameter declaration,
+one parameter-type list node and one substitution pass; one final list node
+terminates the parameter list. After substitution, the helper adds one function
+and one result declaration, one BLOCK, one MODIFY_EXPR and one RETURN_EXPR,
+one function-type request and one call-construction request. Parameter/result
+layout and function-type canonicalization remain their normal helper costs.
+The collected-reference and call-argument vectors use the existing pointer
+vector transfers.
+
+Each replacement is a fresh parameter declaration. It cannot equal a constant
+or any actual in a pre-existing call, so the substitution's conditional body
+inliner does not run on this construction path
+(`tree.cc:4564–4740`). Each pass follows its current expression's original
+children and may invoke folding, without recursively visiting a newly folded
+result. Its input size must be updated between the r passes; neither r times
+the first size nor one request per distinct node is a valid general bound.
+The already recorded substitution/folder interfaces apply to these passes.
+
+The function name serial is unsigned HOST_WIDE_INT, and the local name buffer
+has 128 bytes. A nonwrapping serial needs V plus the incoming serial to remain
+below 2^64; the existing function/declaration identity domain is much smaller.
+The `p%d` parameter spelling fits that buffer under the signed arity condition.
+The final call must satisfy `r <= 268435449` from the variable-arity constructor
+above, as well as both vector conditions. Generated filename-derived function
+names and identifier interning retain their separate name-transfer obligation.
+
+Finally, `finalize_size_functions` later gimplifies and queues every retained
+function (`stor-layout.cc:275–292`). Those bodies need their own unsharing,
+GIMPLE and backend charges even if all their original calls were integrated.
+This interface prevents treating their creation or later lowering as absent
+at O0; it does not yet bound symbolic folding, every imported record, or
+source-to-helper multiplicities.
+
 ## O0 cleanup lowering: no recursive body duplication
 
 The [gigi bridge](retained-backend-gigi.md) separates ordinary normalized Main
