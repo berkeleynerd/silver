@@ -1,0 +1,111 @@
+{
+  "review_target": "3a7d590389c3b3b71c368c7f9033b39d0d107606",
+  "host": "Linux x86_64",
+  "explicit_identity_records": {
+    "ada": 18,
+    "gcc": 29,
+    "repository": 14
+  },
+  "frontend_repository_identity_records": 21,
+  "additional_reviewed_source_identities": {
+    "alloc.ads": {
+      "path": "alloc.ads",
+      "bytes": 7830,
+      "git_blob_sha1": "7e36e8eb8783c8a444f6d79a5a7ea10c5e881a71",
+      "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d"
+    },
+    "libgnat/s-htable.adb": {
+      "path": "libgnat/s-htable.adb",
+      "bytes": 11128,
+      "git_blob_sha1": "a158f7b2850115cd1704f9164398f4b737ae66f9",
+      "sha256": "b734b51a0eba840292b2d2ac0ace88782bc713755cf020f97ef8fa08158b69f8"
+    },
+    "repinfo.adb": {
+      "path": "repinfo.adb",
+      "bytes": 84581,
+      "git_blob_sha1": "aabeda0725ba72f99835d42afa26241f9d83dd9c",
+      "sha256": "24e670ae6e224b10aba210800188749e23ad90afa57dddaa61d381164f870085"
+    },
+    "repinfo.ads": {
+      "path": "repinfo.ads",
+      "bytes": 21574,
+      "git_blob_sha1": "6a05f43a5af57932fa0c9e3fff4e4848c3f81947",
+      "sha256": "858db47e00f3283be7a1d7a731fee97984c82b38a4078b3b9836b534da52daad"
+    },
+    "table.adb": {
+      "path": "table.adb",
+      "bytes": 13959,
+      "git_blob_sha1": "124b25e925ac30a4e62f81605a4a315e81f13aee",
+      "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4"
+    },
+    "table.ads": {
+      "path": "table.ads",
+      "bytes": 12010,
+      "git_blob_sha1": "4711858ad65a300086be3f9566ecb38525777a37",
+      "sha256": "e82f128c9e68d286d433c8848d81b00eb9b01f1fd75f3e5cee018223b9c4e5db"
+    },
+    "types.ads": {
+      "path": "types.ads",
+      "bytes": 46466,
+      "git_blob_sha1": "6070130ac925077cf9037da84592a64b73734379",
+      "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5"
+    },
+    "uintp.h": {
+      "path": "uintp.h",
+      "bytes": 4715,
+      "git_blob_sha1": "6ba7fba6ee16fb93a8b5326f5dc2dbc33a98776d",
+      "sha256": "7296a9cd870a9c4b4c3d380b9ab19d0db7afc844a5dbda4b21015f61e590ee73"
+    },
+    "urealp.ads": {
+      "path": "urealp.ads",
+      "bytes": 14918,
+      "git_blob_sha1": "5c572c821cf74ab613108e708d5eb059753643e5",
+      "sha256": "0cb3c3f2e64e8bcfb300bc4f09a8c45386026430b367d116b043439e9dbbc9d4"
+    }
+  },
+  "numeric_projection": {
+    "Uint_entries": "uintp__uints__last_val",
+    "Uint_digits": "uintp__udigits__last_val",
+    "Ureal_entries": "urealp__ureals__last_valX"
+  },
+  "fixed_counters_match_retained_capture": true,
+  "retained_hello_rows_reconcile": true,
+  "broad_completion_flags_false": true,
+  "target_files": [
+    {
+      "path": "docs/evidence/retained-literal-ada-numeric-20261018/check-results.json",
+      "bytes": 1549,
+      "sha256": "26e3a4d4e84d27f9c07322f88902f05e9ab128abb335dcdba97d364f99493030"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-numeric-20261018/check.py",
+      "bytes": 4492,
+      "sha256": "a2105e33560f6fd5ec2322823c6ea6cd3d3723d4306747184e60a82c9cfdbcf1"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-numeric-20261018/compose.py",
+      "bytes": 7215,
+      "sha256": "aa66fd283c9ea48e87532fddb11d3bf8fbe7739da5240a7b684ba6ce915f5efe"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-numeric-20261018/inputs.json",
+      "bytes": 11682,
+      "sha256": "8cbfb0b12c5f32e40e20ae91fcc783f9e81bdf12493d4972c0f98d0b85254c35"
+    },
+    {
+      "path": "docs/evidence/retained-literal-ada-numeric-20261018/result.json",
+      "bytes": 5472,
+      "sha256": "bd2adc9bc0a699927c1b5a7aed39ca00ad6b86944508c2b692642f5d84151f02"
+    },
+    {
+      "path": "docs/research/retained-literal-ada-numeric.md",
+      "bytes": 9014,
+      "sha256": "c42088d4251854ede4d073194ab61686c74836a7b59ce6ddf206ef68caf87490"
+    }
+  ],
+  "elapsed_seconds": 0.09035187699919334,
+  "model_loaded": false,
+  "candidate_check_suite_rerun": false,
+  "predecessor_suites_rerun": false,
+  "native_tool_executions": 0
+}
