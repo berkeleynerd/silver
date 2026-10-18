@@ -88,13 +88,14 @@ RANGES = {
     "libiberty/obstack.c": [(115, 150), (188, 235)],
     "gcc/hooks.cc": [(152, 155), (293, 298), (584, 587)],
     "gcc/params.opt": [(248, 250)],
-    "gcc/fold-const.cc": [(646, 669), (844, 853), (1087, 1225), (1325, 1342),
+    "gcc/fold-const.cc": [(254, 266), (646, 669), (844, 853), (1087, 1225), (1325, 1342),
                            (1477, 1498), (1920, 2011), (2092, 2137), (2192, 2203),
                            (2484, 2504), (2626, 2666), (6994, 7007),
                            (9205, 9254), (10986, 11056), (13886, 14015),
                            (15842, 15938), (15945, 16110), (16378, 16435)],
-    "gcc/genmatch.cc": [(3259, 3268), (3331, 3348), (3445, 3485)],
-    "gcc/match.pd": [(1, 41)],
+    "gcc/genmatch.cc": [(3038, 3180), (3259, 3268), (3331, 3348), (3445, 3485),
+                         (3575, 3605), (4568, 4650)],
+    "gcc/match.pd": [(1, 41), (2680, 2683), (12065, 12078)],
     "gcc/varasm.cc": [(870, 920), (2304, 2335), (2665, 2667), (3953, 3965),
                        (5627, 5635), (8518, 8527), (76, 85), (2069, 2086),
                        (2976, 2987), (3537, 3553), (3720, 3753), (3804, 3893),
@@ -189,6 +190,40 @@ def check_gimple_tuple_transfers(all_bytes):
         allocation_statistics_disabled_by_selected_configuration=True,
         statement_UIDs_are_pass_assigned=True,
         source_to_all_tuple_counts_closed=False)
+
+
+def check_generic_capture_transfer(all_bytes):
+    generator = all_bytes["gcc/genmatch.cc"].decode()
+    start = generator.index("\ncapture::gen_transform (")
+    capture = generator[start:generator.index("\n}\n", start)]
+    assert "unshare_expr (captures[%u])" in capture
+    assert "result_use_count > 1" in capture
+    assert "result_use_count--;" in capture
+    start = generator.index("  else /* GENERIC */")
+    generic = generator[start:]
+    assert "result_use_count\n\t\t    > cinfo.info[i].match_use_count" in generic
+    assert "if (! tree_invariant_p (captures[%d])) " in generic
+    location = all_bytes["gcc/fold-const.cc"].decode()
+    start = location.index("\nprotected_set_expr_location_unshare (")
+    helper = location[start:location.index("\n}\n", start)]
+    assert helper.count("copy_node (") == 1
+    assert "unshare_expr (" not in helper
+    assert "TREE_CODE (x) == SAVE_EXPR" in helper
+    # Graph-weight fixtures, not source-program executions or thresholds.
+    fixtures = []
+    for copies, weight in ((1, 19), (2, 19), (3, 19), (3, 0)):
+        actual = sum(weight for remaining in range(copies, 0, -1) if remaining > 1)
+        assert actual == max(copies-1, 0)*weight
+        fixtures.append(dict(result_uses=copies, captured_copy_weight=weight,
+                             fresh_copy_nodes=actual))
+    return dict(scope="per attempted GENERIC replacement, DSL captures only",
+                capture_copy_nodes="sum(max(result_uses_i-1,0)*W_i)",
+                extra_original_capture_uses_require_invariance=True,
+                invariance_does_not_insert_SAVE=True,
+                shallow_location_copy_nodes=1,
+                fixtures=fixtures,
+                source_to_rewrite_attempts_closed=False,
+                embedded_C_helpers_included=False)
 
 
 def check_expression_copy_transfers(all_bytes):
@@ -1018,6 +1053,7 @@ def main():
         "size_extrema_helpers": check_size_extrema_transfers(all_bytes),
         "bitmap_storage": check_bitmap_transfers(all_bytes, bundle),
         "gimple_tuple_storage": check_gimple_tuple_transfers(all_bytes),
+        "generic_capture_copies": check_generic_capture_transfer(all_bytes),
         "ordinary_vectors": {
             "heap_maximum_requested_total": int_max,
             "heap_modular_growth_examples": heap_cases,

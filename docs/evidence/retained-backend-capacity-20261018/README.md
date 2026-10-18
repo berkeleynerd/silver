@@ -61,6 +61,10 @@ The constant-folding continuation checks Integer constant limb/cache arithmetic,
 the selected sharing-limit default and generated recursive folder calls. Its
 two-request fold row covers only the report's enumerated successful scalar
 constant cases; symbolic folding and arithmetic scratch remain separate.
+The generic-capture continuation retains the matcher generator's additional
+unshare requests for repeated DSL captures, its invariant-input gate without
+SAVE insertion, two concrete pattern shapes, and the shallow location-copy
+helper. It does not bound rewrite attempts or embedded C helpers.
 The type continuation checks the selected Linux hook/header exclusions,
 scalar-layout constructor arithmetic, type UID/cache domains and a conservative
 fixed-size type-node bound. Aggregate layout, language-specific type data and

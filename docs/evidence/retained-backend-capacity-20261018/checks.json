@@ -1748,6 +1748,37 @@
     "statement_UIDs_are_pass_assigned": true,
     "source_to_all_tuple_counts_closed": false
   },
+  "generic_capture_copies": {
+    "scope": "per attempted GENERIC replacement, DSL captures only",
+    "capture_copy_nodes": "sum(max(result_uses_i-1,0)*W_i)",
+    "extra_original_capture_uses_require_invariance": true,
+    "invariance_does_not_insert_SAVE": true,
+    "shallow_location_copy_nodes": 1,
+    "fixtures": [
+      {
+        "result_uses": 1,
+        "captured_copy_weight": 19,
+        "fresh_copy_nodes": 0
+      },
+      {
+        "result_uses": 2,
+        "captured_copy_weight": 19,
+        "fresh_copy_nodes": 19
+      },
+      {
+        "result_uses": 3,
+        "captured_copy_weight": 19,
+        "fresh_copy_nodes": 38
+      },
+      {
+        "result_uses": 3,
+        "captured_copy_weight": 0,
+        "fresh_copy_nodes": 0
+      }
+    ],
+    "source_to_rewrite_attempts_closed": false,
+    "embedded_C_helpers_included": false
+  },
   "ordinary_vectors": {
     "heap_maximum_requested_total": 2147483647,
     "heap_modular_growth_examples": [

@@ -13222,6 +13222,23 @@ LF line numbering; complete file identities checked.
 792: }
 ```
 
+## gcc/fold-const.cc:254–266
+```text
+254: protected_set_expr_location_unshare (tree x, location_t loc)
+255: {
+256:   if (CAN_HAVE_LOCATION_P (x)
+257:       && EXPR_LOCATION (x) != loc
+258:       && !(TREE_CODE (x) == SAVE_EXPR
+259: 	   || TREE_CODE (x) == TARGET_EXPR
+260: 	   || TREE_CODE (x) == BIND_EXPR))
+261:     {
+262:       x = copy_node (x);
+263:       SET_EXPR_LOCATION (x, loc);
+264:     }
+265:   return x;
+266: }
+```
+
 ## gcc/fold-const.cc:646–669
 ```text
 646: fold_negate_expr_1 (location_t loc, tree t)
@@ -14301,6 +14318,153 @@ LF line numbering; complete file identities checked.
 16435: }
 ```
 
+## gcc/genmatch.cc:3038–3180
+```text
+3038:       if (verbose >= 1
+3039: 	  && !gimple)
+3040: 	warning_at (o->location,
+3041: 		    "forcing no side-effects on possibly lost leaf");
+3042:     }
+3043:   else
+3044:     gcc_unreachable ();
+3045: }
+3046:
+3047: /* Analyze captures in the result expression piece O.  Return true
+3048:    if RESULT was visited in one of the children.  Only visit
+3049:    non-if/with children if they are rooted on RESULT.  */
+3050:
+3051: bool
+3052: capture_info::walk_result (operand *o, bool conditional_p, operand *result)
+3053: {
+3054:   if (capture *c = dyn_cast <capture *> (o))
+3055:     {
+3056:       unsigned where = info[c->where].same_as;
+3057:       info[where].result_use_count++;
+3058:       /* If we substitute an expression capture we don't know
+3059:          which captures this will end up using (well, we don't
+3060: 	 compute that).  Force the uses to be side-effect free
+3061: 	 which means forcing the toplevels that reach the
+3062: 	 expression side-effect free.  */
+3063:       if (info[where].expr_p)
+3064: 	force_no_side_effects |= info[where].toplevel_msk;
+3065:       /* Mark CSE capture uses as forced to have no side-effects. */
+3066:       if (c->what
+3067: 	  && is_a <expr *> (c->what))
+3068: 	{
+3069: 	  info[where].cse_p = true;
+3070: 	  walk_result (c->what, true, result);
+3071: 	}
+3072:     }
+3073:   else if (expr *e = dyn_cast <expr *> (o))
+3074:     {
+3075:       id_base *opr = e->operation;
+3076:       if (user_id *uid = dyn_cast <user_id *> (opr))
+3077: 	opr = uid->substitutes[0];
+3078:       for (unsigned i = 0; i < e->ops.length (); ++i)
+3079: 	{
+3080: 	  bool cond_p = conditional_p;
+3081: 	  if (i != 0 && *e->operation == COND_EXPR)
+3082: 	    cond_p = true;
+3083: 	  else if (*e->operation == TRUTH_ANDIF_EXPR
+3084: 		   || *e->operation == TRUTH_ORIF_EXPR)
+3085: 	    cond_p = true;
+3086: 	  walk_result (e->ops[i], cond_p, result);
+3087: 	}
+3088:     }
+3089:   else if (if_expr *ie = dyn_cast <if_expr *> (o))
+3090:     {
+3091:       /* 'if' conditions should be all fine.  */
+3092:       if (ie->trueexpr == result)
+3093: 	{
+3094: 	  walk_result (ie->trueexpr, false, result);
+3095: 	  return true;
+3096: 	}
+3097:       if (ie->falseexpr == result)
+3098: 	{
+3099: 	  walk_result (ie->falseexpr, false, result);
+3100: 	  return true;
+3101: 	}
+3102:       bool res = false;
+3103:       if (is_a <if_expr *> (ie->trueexpr)
+3104: 	  || is_a <with_expr *> (ie->trueexpr))
+3105: 	res |= walk_result (ie->trueexpr, false, result);
+3106:       if (ie->falseexpr
+3107: 	  && (is_a <if_expr *> (ie->falseexpr)
+3108: 	      || is_a <with_expr *> (ie->falseexpr)))
+3109: 	res |= walk_result (ie->falseexpr, false, result);
+3110:       return res;
+3111:     }
+3112:   else if (with_expr *we = dyn_cast <with_expr *> (o))
+3113:     {
+3114:       bool res = (we->subexpr == result);
+3115:       if (res
+3116: 	  || is_a <if_expr *> (we->subexpr)
+3117: 	  || is_a <with_expr *> (we->subexpr))
+3118: 	res |= walk_result (we->subexpr, false, result);
+3119:       if (res)
+3120: 	walk_c_expr (we->with);
+3121:       return res;
+3122:     }
+3123:   else if (c_expr *ce = dyn_cast <c_expr *> (o))
+3124:     walk_c_expr (ce);
+3125:   else
+3126:     gcc_unreachable ();
+3127:
+3128:   return false;
+3129: }
+3130:
+3131: /* Look for captures in the C expr E.  */
+3132:
+3133: void
+3134: capture_info::walk_c_expr (c_expr *e)
+3135: {
+3136:   /* Give up for C exprs mentioning captures not inside TREE_TYPE,
+3137:      TREE_REAL_CST, TREE_CODE or a predicate where they cannot
+3138:      really escape through.  */
+3139:   unsigned p_depth = 0;
+3140:   for (unsigned i = 0; i < e->code.length (); ++i)
+3141:     {
+3142:       const cpp_token *t = &e->code[i];
+3143:       const cpp_token *n = i < e->code.length () - 1 ? &e->code[i+1] : NULL;
+3144:       id_base *id;
+3145:       if (t->type == CPP_NAME
+3146: 	  && (strcmp ((const char *)CPP_HASHNODE
+3147: 		      (t->val.node.node)->ident.str, "TREE_TYPE") == 0
+3148: 	      || strcmp ((const char *)CPP_HASHNODE
+3149: 			 (t->val.node.node)->ident.str, "TREE_CODE") == 0
+3150: 	      || strcmp ((const char *)CPP_HASHNODE
+3151: 			 (t->val.node.node)->ident.str, "TREE_REAL_CST") == 0
+3152: 	      || ((id = get_operator ((const char *)CPP_HASHNODE
+3153: 				      (t->val.node.node)->ident.str))
+3154: 		  && is_a <predicate_id *> (id)))
+3155: 	  && n->type == CPP_OPEN_PAREN)
+3156: 	p_depth++;
+3157:       else if (t->type == CPP_CLOSE_PAREN
+3158: 	       && p_depth > 0)
+3159: 	p_depth--;
+3160:       else if (p_depth == 0
+3161: 	       && t->type == CPP_ATSIGN
+3162: 	       && (n->type == CPP_NUMBER
+3163: 		   || n->type == CPP_NAME)
+3164: 	       && !(n->flags & PREV_WHITE))
+3165: 	{
+3166: 	  const char *id1;
+3167: 	  if (n->type == CPP_NUMBER)
+3168: 	    id1 = (const char *)n->val.str.text;
+3169: 	  else
+3170: 	    id1 = (const char *)CPP_HASHNODE (n->val.node.node)->ident.str;
+3171: 	  unsigned *where = e->capture_ids->get(id1);
+3172: 	  if (! where)
+3173: 	    fatal_at (n, "unknown capture id '%s'", id1);
+3174: 	  info[info[*where].same_as].force_no_side_effects_p = true;
+3175: 	  if (verbose >= 1
+3176: 	      && !gimple)
+3177: 	    warning_at (t, "capture escapes");
+3178: 	}
+3179:     }
+3180: }
+```
+
 ## gcc/genmatch.cc:3259–3268
 ```text
 3259: 		     int depth, const char *in_type, capture_info *cinfo,
@@ -14382,6 +14546,128 @@ LF line numbering; complete file identities checked.
 3485: /* Generate code for a c_expr which is either the expression inside
 ```
 
+## gcc/genmatch.cc:3575–3605
+```text
+3575: void
+3576: capture::gen_transform (FILE *f, int indent, const char *dest, bool gimple,
+3577: 			int depth, const char *in_type, capture_info *cinfo,
+3578: 			dt_operand **indexes, int cond_handling,
+3579: 			const char *in_place)
+3580: {
+3581:   gcc_assert (!in_place);
+3582:
+3583:   if (what && is_a<expr *> (what))
+3584:     {
+3585:       if (indexes[where] == 0)
+3586: 	{
+3587: 	  char buf[20];
+3588: 	  snprintf (buf, sizeof (buf), "captures[%u]", where);
+3589: 	  what->gen_transform (f, indent, buf, gimple, depth, in_type,
+3590: 			       cinfo, NULL);
+3591: 	}
+3592:     }
+3593:
+3594:   /* If in GENERIC some capture is used multiple times, unshare it except
+3595:      when emitting the last use.  */
+3596:   if (!gimple
+3597:       && cinfo->info.exists ()
+3598:       && cinfo->info[cinfo->info[where].same_as].result_use_count > 1)
+3599:     {
+3600:       fprintf_indent (f, indent, "%s = unshare_expr (captures[%u]);\n",
+3601: 		      dest, where);
+3602:       cinfo->info[cinfo->info[where].same_as].result_use_count--;
+3603:     }
+3604:   else
+3605:     fprintf_indent (f, indent, "%s = captures[%u];\n", dest, where);
+```
+
+## gcc/genmatch.cc:4568–4650
+```text
+4568:       bool is_predicate = false;
+4569:       if (result->type == operand::OP_EXPR)
+4570: 	{
+4571: 	  expr *e = as_a <expr *> (result);
+4572: 	  id_base *opr = e->operation;
+4573: 	  /* When we delay operator substituting during lowering of fors we
+4574: 	     make sure that for code-gen purposes the effects of each substitute
+4575: 	     are the same.  Thus just look at that.  */
+4576: 	  if (user_id *uid = dyn_cast <user_id *> (opr))
+4577: 	    opr = uid->substitutes[0];
+4578: 	  else if (is_a <predicate_id *> (opr))
+4579: 	    is_predicate = true;
+4580: 	  /* Search for captures used multiple times in the result expression
+4581: 	     and wrap them in a SAVE_EXPR.  Allow as many uses as in the
+4582: 	     original expression.  */
+4583: 	  if (!is_predicate)
+4584: 	    for (int i = 0; i < s->capture_max + 1; ++i)
+4585: 	      {
+4586: 		if (cinfo.info[i].same_as != (unsigned)i
+4587: 		    || cinfo.info[i].cse_p)
+4588: 		  continue;
+4589: 		if (cinfo.info[i].result_use_count
+4590: 		    > cinfo.info[i].match_use_count)
+4591: 		  {
+4592: 		    fprintf_indent (f, indent,
+4593: 				    "if (! tree_invariant_p (captures[%d])) "
+4594: 				    "goto %s;\n", i, fail_label);
+4595: 		    needs_label = true;
+4596: 		  }
+4597: 	      }
+4598: 	  for (unsigned j = 0; j < e->ops.length (); ++j)
+4599: 	    {
+4600: 	      char dest[32];
+4601: 	      if (is_predicate)
+4602: 		snprintf (dest, sizeof (dest), "res_ops[%d]", j);
+4603: 	      else
+4604: 		{
+4605: 		  fprintf_indent (f, indent, "tree res_op%d;\n", j);
+4606: 		  snprintf (dest, sizeof (dest), "res_op%d", j);
+4607: 		}
+4608: 	      const char *optype
+4609: 	        = get_operand_type (opr, j,
+4610: 				    "type", e->expr_type,
+4611: 				    j == 0
+4612: 				    ? NULL : "TREE_TYPE (res_op0)");
+4613: 	      e->ops[j]->gen_transform (f, indent, dest, false, 1, optype,
+4614: 					&cinfo, indexes);
+4615: 	    }
+4616: 	  if (is_predicate)
+4617: 	    {
+4618: 	      emit_logging_call (f, indent, s, result, gimple);
+4619: 	      fprintf_indent (f, indent, "return true;\n");
+4620: 	    }
+4621: 	  else
+4622: 	    {
+4623: 	      fprintf_indent (f, indent, "tree _r;\n");
+4624: 	      /* Re-fold the toplevel result.  Use non_lvalue to
+4625: 		 build NON_LVALUE_EXPRs so they get properly
+4626: 		 ignored when in GIMPLE form.  */
+4627: 	      if (*opr == NON_LVALUE_EXPR)
+4628: 		fprintf_indent (f, indent,
+4629: 				"_r = non_lvalue_loc (loc, res_op0);\n");
+4630: 	      else
+4631: 		{
+4632: 		  if (is_a <operator_id *> (opr))
+4633: 		    fprintf_indent (f, indent,
+4634: 				    "_r = fold_build%d_loc (loc, %s, type",
+4635: 				    e->ops.length (),
+4636: 				    *e->operation == CONVERT_EXPR
+4637: 				    ? "NOP_EXPR" : e->operation->id);
+4638: 		  else
+4639: 		    fprintf_indent (f, indent,
+4640: 				    "_r = maybe_build_call_expr_loc (loc, "
+4641: 				    "%s, type, %d", e->operation->id,
+4642: 				    e->ops.length());
+4643: 		  for (unsigned j = 0; j < e->ops.length (); ++j)
+4644: 		    fprintf (f, ", res_op%d", j);
+4645: 		  fprintf (f, ");\n");
+4646: 		  if (!is_a <operator_id *> (opr))
+4647: 		    {
+4648: 		      fprintf_indent (f, indent, "if (!_r)\n");
+4649: 		      fprintf_indent (f, indent, "  goto %s;\n", fail_label);
+4650: 		      needs_label = true;
+```
+
 ## gcc/params.opt:248–250
 ```text
 248: -param=integer-share-limit=
@@ -14432,6 +14718,32 @@ LF line numbering; complete file identities checked.
 39:    uniform_integer_cst_p
 40:    HONOR_NANS
 41:    uniform_vector_p
+```
+
+## gcc/match.pd:2680–2683
+```text
+2680: /* (x & ~m) | (y & m) -> ((x ^ y) & m) ^ x */
+2681: (simplify
+2682:  (bit_ior:c (bit_and:cs @0 (bit_not @2)) (bit_and:cs @1 @2))
+2683:  (bit_xor (bit_and (bit_xor @0 @1) @2) @0))
+```
+
+## gcc/match.pd:12065–12078
+```text
+12065:
+12066: /* n - (((n > C1) ? n : C1) & -C2) ->  n & C1 for unsigned case.
+12067:    n - (((n > C1) ? n : C1) & -C2) ->  (n <= C1) ? n : (n & C1) for signed case.  */
+12068: (simplify
+12069:   (minus @0 (bit_and (max @0 INTEGER_CST@1) INTEGER_CST@2))
+12070:   (with { auto i = wi::neg (wi::to_wide (@2)); }
+12071:   /* Check if -C2 is a power of 2 and C1 = -C2 - 1.  */
+12072:     (if (wi::popcount (i) == 1
+12073:          && (wi::to_wide (@1)) == (i - 1))
+12074:       (if (TYPE_UNSIGNED (TREE_TYPE (@0)))
+12075:         (bit_and @0 @1)
+12076:       (cond (le @0 @1) @0 (bit_and @0 @1))))))
+12077:
+12078: /* -x & 1 -> x & 1.  */
 ```
 
 ## gcc/stor-layout.cc:67–292
