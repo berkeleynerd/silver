@@ -1677,5 +1677,60 @@
   ],
   "maximum_json_quoted_actual_length": 1073741822,
   "maximum_json_body_characters_per_file": 2147483646,
+  "decimal_scratch": {
+    "decimal_length": 40,
+    "radix": 32768,
+    "maximum_words": 9,
+    "temporary_entries": 41,
+    "temporary_digit_words": 369,
+    "local_vector_words": 19,
+    "maximum_image_recursion": 40,
+    "maximum_division_digit_intermediate": 327679,
+    "boundary_cases": 146,
+    "protected_minimum_assignments": [
+      [
+        498,
+        "Uints_Min := Uints.Last;"
+      ],
+      [
+        499,
+        "Udigits_Min := Udigits.Last;"
+      ],
+      [
+        1397,
+        "Uints_Min := Uints.Last;"
+      ],
+      [
+        1398,
+        "Udigits_Min := Udigits.Last;"
+      ],
+      [
+        1417,
+        "Uints_Min := Uints.Last;"
+      ],
+      [
+        1418,
+        "Udigits_Min := Udigits.Last;"
+      ],
+      [
+        1502,
+        "Uints_Min := Uints.Last;"
+      ],
+      [
+        1503,
+        "Udigits_Min := Udigits.Last;"
+      ],
+      [
+        1543,
+        "Uints_Min := Uints.Last;"
+      ],
+      [
+        1544,
+        "Udigits_Min := Udigits.Last;"
+      ]
+    ],
+    "composition": "one serialization peak addend; exact Last restoration",
+    "scope": "valid Uint Decimal images only; excludes Auto/Hex diagnostics and numeric construction"
+  },
   "scope": "local append/growth arithmetic, not caller coverage or whole-tool capacity"
 }

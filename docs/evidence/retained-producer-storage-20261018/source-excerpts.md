@@ -32,6 +32,23 @@ LF line numbering.
 299:    procedure UI_Write (Input : Uint; Format : UI_Format := Auto);
 ```
 
+## uintp.ads:464–475
+
+```text
+464:    Base_Bits : constant := 15;
+465:    --  Number of bits in base value
+466:
+467:    Base : constant Int := 2**Base_Bits;
+468:
+469:    --  Values in the range -(Base-1) .. Max_Direct are encoded directly as
+470:    --  Uint values by adding a bias value. The value of Max_Direct is chosen
+471:    --  so that a directly represented number always fits in two digits when
+472:    --  represented in base format.
+473:
+474:    Min_Direct : constant Int := -(Base - 1);
+475:    Max_Direct : constant Int := (Base - 1) * (Base - 1);
+```
+
 ## uintp.adb:257–455
 
 ```text
@@ -234,6 +251,425 @@ LF line numbering.
 453:    -------------------
 454:    -- Init_Operand --
 455:    -------------------
+```
+
+## uintp.adb:534–537
+
+```text
+534:    function Mark return Save_Mark is
+535:    begin
+536:       return (Save_Uint => Uints.Last, Save_Udigit => Udigits.Last);
+537:    end Mark;
+```
+
+## uintp.adb:606–621
+
+```text
+606:    function N_Digits (Input : Valid_Uint) return Pos is
+607:    begin
+608:       if Direct (Input) then
+609:          if Direct_Val (Input) >= Base then
+610:             return 2;
+611:          else
+612:             return 1;
+613:          end if;
+614:
+615:       else
+616:          return Uints.Table (Input).Length;
+617:       end if;
+618:    end N_Digits;
+619:
+620:    --------------
+621:    -- Num_Bits --
+```
+
+## uintp.adb:680–688
+
+```text
+680:    -- Release --
+681:    -------------
+682:
+683:    procedure Release (M : Save_Mark) is
+684:    begin
+685:       Uints.Set_Last   (Valid_Uint'Max (M.Save_Uint, Uints_Min));
+686:       Udigits.Set_Last (Int'Max  (M.Save_Udigit, Udigits_Min));
+687:    end Release;
+688:
+```
+
+## uintp.adb:1030–1155
+
+```text
+1030:    procedure UI_Div_Rem
+1031:      (Left, Right       : Valid_Uint;
+1032:       Quotient          : out Uint;
+1033:       Remainder         : out Uint;
+1034:       Discard_Quotient  : Boolean := False;
+1035:       Discard_Remainder : Boolean := False)
+1036:    is
+1037:    begin
+1038:       pragma Assert (Right /= Uint_0);
+1039:
+1040:       Quotient  := No_Uint;
+1041:       Remainder := No_Uint;
+1042:
+1043:       --  Cases where both operands are represented directly
+1044:
+1045:       if Direct (Left) and then Direct (Right) then
+1046:          declare
+1047:             DV_Left  : constant Int := Direct_Val (Left);
+1048:             DV_Right : constant Int := Direct_Val (Right);
+1049:
+1050:          begin
+1051:             if not Discard_Quotient then
+1052:                Quotient := UI_From_Int (DV_Left / DV_Right);
+1053:             end if;
+1054:
+1055:             if not Discard_Remainder then
+1056:                Remainder := UI_From_Int (DV_Left rem DV_Right);
+1057:             end if;
+1058:
+1059:             return;
+1060:          end;
+1061:       end if;
+1062:
+1063:       declare
+1064:          L_Length    : constant Int := N_Digits (Left);
+1065:          R_Length    : constant Int := N_Digits (Right);
+1066:          Q_Length    : constant Int := L_Length - R_Length + 1;
+1067:          L_Vec       : UI_Vector (1 .. L_Length);
+1068:          R_Vec       : UI_Vector (1 .. R_Length);
+1069:          D           : Int;
+1070:          Remainder_I : Int;
+1071:          Tmp_Divisor : Int;
+1072:          Carry       : Int;
+1073:          Tmp_Int     : Int;
+1074:          Tmp_Dig     : Int;
+1075:
+1076:          procedure UI_Div_Vector
+1077:            (L_Vec     : UI_Vector;
+1078:             R_Int     : Int;
+1079:             Quotient  : out UI_Vector;
+1080:             Remainder : out Int);
+1081:          pragma Inline (UI_Div_Vector);
+1082:          --  Specialised variant for case where the divisor is a single digit
+1083:
+1084:          procedure UI_Div_Vector
+1085:            (L_Vec     : UI_Vector;
+1086:             R_Int     : Int;
+1087:             Quotient  : out UI_Vector;
+1088:             Remainder : out Int)
+1089:          is
+1090:             Tmp_Int : Int;
+1091:
+1092:          begin
+1093:             Remainder := 0;
+1094:             for J in L_Vec'Range loop
+1095:                Tmp_Int := Remainder * Base + abs L_Vec (J);
+1096:                Quotient (Quotient'First + J - L_Vec'First) := Tmp_Int / R_Int;
+1097:                Remainder := Tmp_Int rem R_Int;
+1098:             end loop;
+1099:
+1100:             if L_Vec (L_Vec'First) < Int_0 then
+1101:                Remainder := -Remainder;
+1102:             end if;
+1103:          end UI_Div_Vector;
+1104:
+1105:       --  Start of processing for UI_Div_Rem
+1106:
+1107:       begin
+1108:          --  Result is zero if left operand is shorter than right
+1109:
+1110:          if L_Length < R_Length then
+1111:             if not Discard_Quotient then
+1112:                Quotient := Uint_0;
+1113:             end if;
+1114:
+1115:             if not Discard_Remainder then
+1116:                Remainder := Left;
+1117:             end if;
+1118:
+1119:             return;
+1120:          end if;
+1121:
+1122:          Init_Operand (Left, L_Vec);
+1123:          Init_Operand (Right, R_Vec);
+1124:
+1125:          --  Case of right operand is single digit. Here we can simply divide
+1126:          --  each digit of the left operand by the divisor, from most to least
+1127:          --  significant, carrying the remainder to the next digit (just like
+1128:          --  ordinary long division by hand).
+1129:
+1130:          if R_Length = Int_1 then
+1131:             Tmp_Divisor := abs R_Vec (1);
+1132:
+1133:             declare
+1134:                Quotient_V : UI_Vector (1 .. L_Length);
+1135:
+1136:             begin
+1137:                UI_Div_Vector (L_Vec, Tmp_Divisor, Quotient_V, Remainder_I);
+1138:
+1139:                if not Discard_Quotient then
+1140:                   Quotient :=
+1141:                     Vector_To_Uint
+1142:                       (Quotient_V, (L_Vec (1) < Int_0 xor R_Vec (1) < Int_0));
+1143:                end if;
+1144:
+1145:                if not Discard_Remainder then
+1146:                   Remainder := UI_From_Int (Remainder_I);
+1147:                end if;
+1148:
+1149:                return;
+1150:             end;
+1151:          end if;
+1152:
+1153:          --  The possible simple cases have been exhausted. Now turn to the
+1154:          --  algorithm D from the section of Knuth mentioned at the top of
+1155:          --  this package.
+```
+
+## uintp.adb:1466–1507
+
+```text
+1466:    function UI_From_Int (Input : Int) return Valid_Uint is
+1467:       U : Uint;
+1468:
+1469:    begin
+1470:       if Min_Direct <= Input and then Input <= Max_Direct then
+1471:          return Valid_Uint (Int (Uint_Direct_Bias) + Input);
+1472:       end if;
+1473:
+1474:       --  If already in the hash table, return entry
+1475:
+1476:       U := UI_Ints.Get (Input);
+1477:
+1478:       if Present (U) then
+1479:          return U;
+1480:       end if;
+1481:
+1482:       --  For values of larger magnitude, compute digits into a vector and call
+1483:       --  Vector_To_Uint.
+1484:
+1485:       declare
+1486:          Max_For_Int : constant := 3;
+1487:          --  Base is defined so that 3 Uint digits is sufficient to hold the
+1488:          --  largest possible Int value.
+1489:
+1490:          V : UI_Vector (1 .. Max_For_Int);
+1491:
+1492:          Temp_Integer : Int := Input;
+1493:
+1494:       begin
+1495:          for J in reverse V'Range loop
+1496:             V (J) := abs (Temp_Integer rem Base);
+1497:             Temp_Integer := Temp_Integer / Base;
+1498:          end loop;
+1499:
+1500:          U := Vector_To_Uint (V, Input < Int_0);
+1501:          UI_Ints.Set (Input, U);
+1502:          Uints_Min := Uints.Last;
+1503:          Udigits_Min := Udigits.Last;
+1504:          return U;
+1505:       end;
+1506:    end UI_From_Int;
+1507:
+```
+
+## uintp.adb:1703–1716
+
+```text
+1703:    procedure UI_Image (Input : Uint; Format : UI_Format := Auto) is
+1704:    begin
+1705:       Image_Out (Input, True, Format);
+1706:    end UI_Image;
+1707:
+1708:    function UI_Image
+1709:      (Input  : Uint;
+1710:       Format : UI_Format := Auto) return String
+1711:    is
+1712:    begin
+1713:       Image_Out (Input, True, Format);
+1714:       return UI_Image_Buffer (1 .. UI_Image_Length);
+1715:    end UI_Image;
+1716:
+```
+
+## uintp.adb:1770–1820
+
+```text
+1770:    function UI_Lt (Left : Valid_Uint; Right : Valid_Uint) return Boolean is
+1771:    begin
+1772:       pragma Assert (Present (Left));
+1773:       pragma Assert (Present (Right));
+1774:       --  Assertions are here in case we're called from C++ code, which does
+1775:       --  not check the predicates.
+1776:
+1777:       --  Quick processing for identical arguments
+1778:
+1779:       if Int (Left) = Int (Right) then
+1780:          return False;
+1781:
+1782:       --  Quick processing for both arguments directly represented
+1783:
+1784:       elsif Direct (Left) and then Direct (Right) then
+1785:          return Int (Left) < Int (Right);
+1786:
+1787:       --  At least one argument is more than one digit long
+1788:
+1789:       else
+1790:          declare
+1791:             L_Length : constant Int := N_Digits (Left);
+1792:             R_Length : constant Int := N_Digits (Right);
+1793:
+1794:             L_Vec : UI_Vector (1 .. L_Length);
+1795:             R_Vec : UI_Vector (1 .. R_Length);
+1796:
+1797:          begin
+1798:             Init_Operand (Left, L_Vec);
+1799:             Init_Operand (Right, R_Vec);
+1800:
+1801:             if L_Vec (1) < Int_0 then
+1802:
+1803:                --  First argument negative, second argument non-negative
+1804:
+1805:                if R_Vec (1) >= Int_0 then
+1806:                   return True;
+1807:
+1808:                --  Both arguments negative
+1809:
+1810:                else
+1811:                   if L_Length /= R_Length then
+1812:                      return L_Length > R_Length;
+1813:
+1814:                   elsif L_Vec (1) /= R_Vec (1) then
+1815:                      return L_Vec (1) < R_Vec (1);
+1816:
+1817:                   else
+1818:                      for J in 2 .. L_Vec'Last loop
+1819:                         if L_Vec (J) /= R_Vec (J) then
+1820:                            return L_Vec (J) > R_Vec (J);
+```
+
+## uintp.adb:2153–2185
+
+```text
+2153:    function UI_Negate (Right : Valid_Uint) return Valid_Uint is
+2154:    begin
+2155:       --  Case where input is directly represented. Note that since the range
+2156:       --  of Direct values is non-symmetrical, the result may not be directly
+2157:       --  represented, this is taken care of in UI_From_Int.
+2158:
+2159:       if Direct (Right) then
+2160:          return UI_From_Int (-Direct_Val (Right));
+2161:
+2162:       --  Full processing for multi-digit case. Note that we cannot just copy
+2163:       --  the value to the end of the table negating the first digit, since the
+2164:       --  range of Direct values is non-symmetrical, so we can have a negative
+2165:       --  value that is not Direct whose negation can be represented directly.
+2166:
+2167:       else
+2168:          declare
+2169:             R_Length : constant Int := N_Digits (Right);
+2170:             R_Vec    : UI_Vector (1 .. R_Length);
+2171:             Neg      : Boolean;
+2172:
+2173:          begin
+2174:             Init_Operand (Right, R_Vec);
+2175:             Neg := R_Vec (1) > Int_0;
+2176:             R_Vec (1) := abs R_Vec (1);
+2177:             return Vector_To_Uint (R_Vec, Neg);
+2178:          end;
+2179:       end if;
+2180:    end UI_Negate;
+2181:
+2182:    -------------
+2183:    -- UI_Rem --
+2184:    -------------
+2185:
+```
+
+## uintp.adb:2265–2272
+
+```text
+2265:    function UI_To_Int (Input : Valid_Uint) return Int is
+2266:    begin
+2267:       if Direct (Input) then
+2268:          return Direct_Val (Input);
+2269:
+2270:       --  Case of input is more than one digit
+2271:
+2272:       else
+```
+
+## uintp.adb:2359–2424
+
+```text
+2359:    ---------------------
+2360:
+2361:    function Vector_To_Uint
+2362:      (In_Vec   : UI_Vector;
+2363:       Negative : Boolean) return Valid_Uint
+2364:    is
+2365:       Size : Int;
+2366:       Val  : Int;
+2367:
+2368:    begin
+2369:       --  The vector can contain leading zeros. These are not stored in the
+2370:       --  table, so loop through the vector looking for first non-zero digit
+2371:
+2372:       for J in In_Vec'Range loop
+2373:          if In_Vec (J) /= Int_0 then
+2374:
+2375:             --  The length of the value is the length of the rest of the vector
+2376:
+2377:             Size := In_Vec'Last - J + 1;
+2378:
+2379:             --  One digit value can always be represented directly
+2380:
+2381:             if Size = Int_1 then
+2382:                if Negative then
+2383:                   return Valid_Uint (Int (Uint_Direct_Bias) - In_Vec (J));
+2384:                else
+2385:                   return Valid_Uint (Int (Uint_Direct_Bias) + In_Vec (J));
+2386:                end if;
+2387:
+2388:             --  Positive two digit values may be in direct representation range
+2389:
+2390:             elsif Size = Int_2 and then not Negative then
+2391:                Val := In_Vec (J) * Base + In_Vec (J + 1);
+2392:
+2393:                if Val <= Max_Direct then
+2394:                   return Valid_Uint (Int (Uint_Direct_Bias) + Val);
+2395:                end if;
+2396:             end if;
+2397:
+2398:             --  The value is outside the direct representation range and must
+2399:             --  therefore be stored in the table. Expand the table to contain
+2400:             --  the count and digits. The index of the new table entry will be
+2401:             --  returned as the result.
+2402:
+2403:             Uints.Append ((Length => Size, Loc => Udigits.Last + 1));
+2404:
+2405:             if Negative then
+2406:                Val := -In_Vec (J);
+2407:             else
+2408:                Val := +In_Vec (J);
+2409:             end if;
+2410:
+2411:             Udigits.Append (Val);
+2412:
+2413:             for K in 2 .. Size loop
+2414:                Udigits.Append (In_Vec (J + K - 1));
+2415:             end loop;
+2416:
+2417:             return Uints.Last;
+2418:          end if;
+2419:       end loop;
+2420:
+2421:       --  Dropped through loop only if vector contained all zeros
+2422:
+2423:       return Uint_0;
+2424:    end Vector_To_Uint;
 ```
 
 ## libgnat/a-contai.ads:16–28
@@ -1651,6 +2087,38 @@ LF line numbering.
 1213:    end Print_GNAT_Json_File;
 1214:
 1215:    ------------------
+```
+
+## spark/src/why/xgen/why-atree-to_json.adb-tmpl:17–43
+
+```text
+17:
+18:    procedure Boolean_To_Json (O : Output_Id; B : Boolean) is
+19:    begin
+20:       if B then
+21:          P (O, "true");
+22:       else
+23:          P (O, "false");
+24:       end if;
+25:    end Boolean_To_Json;
+26:
+27:    procedure Uint_To_Json (O : Output_Id; I : Uint) is
+28:    begin
+29:       P (O, '"' & UI_Image (I, Decimal) & '"');
+30:    end Uint_To_Json;
+31:
+32:    procedure Ureal_To_Json (O : Output_Id; I : Ureal) is
+33:    begin
+34:       P (O, '[');
+35:       Uint_To_Json (O, Numerator (I));
+36:       P (O, ',');
+37:       Uint_To_Json (O, Denominator (I));
+38:       P (O, ',');
+39:       P (O, Nat'Image (Rbase (I)));
+40:       P (O, ',');
+41:       Boolean_To_Json (O, UR_Is_Negative (I));
+42:       P (O, ']');
+43:    end Ureal_To_Json;
 ```
 
 ## spark/src/why/xgen/why-atree-to_json.adb-tmpl:56–90

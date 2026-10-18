@@ -212,7 +212,8 @@ approximation/exponent path (`gcc/ada/uintp.adb:257–455`, `uintp.ads:275–299
 Do not treat that path as a semantics-preserving way of printing arbitrary
 integers. This condition concerns values actually passed to the serializer,
 not huge scanner powers that never reach it. Decimal conversion's arithmetic
-scratch remains part of the separate Uint allocation argument.
+scratch has the bounded peak below; scanner powers and numeric construction
+remain separate Uint allocation populations.
 
 For a symbol of length `s`, output length is `s + quotes(s) + 2 <= 2s+2`.
 The template's remaining primitive-field transfers are:
@@ -290,6 +291,70 @@ or numeric bounds. The finite checks corroborate the schema traversal and
 counting implementation, while the source derivation supplies the general
 transfer. The complete fixed output bytes already satisfy the per-file column
 condition independently of these conservative weights.
+
+### Decimal conversion needs peak headroom, not cumulative output charges
+
+With the established `d=40`, each serialized magnitude is less than `10^40`,
+so it occupies at most nine base-32768 digits (`10^40 < 32768^9`). For one
+valid Uint image, the following conservative temporary headroom suffices:
+
+```text
+Uint entries       41
+Uint digit words   369 = 41 * 9
+local vector words 19 = 2 * 9 + 1
+Image_Uint depth   40.
+```
+
+This is a source transfer for decimal serialization, not a measured maximum.
+`UI_Image(Input, Decimal)` invokes Image_Out and returns only after that call
+has released its arithmetic scratch (`uintp.adb:1703–1716`). Image_Out saves
+both pool Last values with Mark before any conversion (`:257–265,534–537`).
+An optional negative normalization calls UI_Negate once. For an indirect value
+it appends at most one Uint and nine words through Vector_To_Uint; a direct
+negative value is at least `-(32768-1)`, so its negation still fits the direct
+range and UI_From_Int does not allocate (`:2153–2185,1466–1507`;
+`uintp.ads:464–475`).
+
+The decimal branch never invokes Better_In_Hex or exponentiation. Each
+Image_Uint call performs one UI_Div_Rem with divisor ten, then recurses only
+on a positive quotient (`uintp.adb:385–415,436–455`). There are at most forty
+calls, including the terminal quotient-zero call. A direct dividend uses
+direct nonnegative quotient and remainder. An indirect dividend uses the
+single-word divisor path: at most one quotient entry with nine words, and a
+direct remainder in 0 through 9 (`:1030–1155`). The declared dividend, divisor
+and quotient vectors have at most nine, one and nine words respectively.
+UI_Div_Vector's largest digit intermediate is `9*32768+32767 = 327679`,
+within signed Int. Vector_To_Uint normalizes leading zeros and appends at
+most the supplied length (`:2359–2424`). The sign normalization's vector and
+comparison vectors are smaller and are not active during a recursive child.
+This local-vector count is not a bound on total compiled stack-frame bytes.
+
+No reached path advances Uints_Min or Udigits_Min. UI_From_Int receives only
+direct values here; Vector_To_Uint never changes either protected minimum;
+the Uint comparisons and UI_To_Int of a remainder allocate no table entries.
+The only other writers of those minima belong to initialization,
+exponentiation and UI_From_Integral, none of which this path calls. Both minima
+are at most their entry Last values. Therefore the final Release restores
+**exactly** the two saved Last values (`:680–688`), even when earlier work
+has pinned a nonzero minimum. Growth may retain backing capacity, but its
+largest request is bounded by entry demand plus this headroom, using the
+separate generic-table growth envelope.
+
+The serializer completes each UI_Image before passing its returned String to
+P (`why-atree-to_json.adb-tmpl:20–43`). Ureal's numerator and denominator
+images are also sequential. The generated recursive traversal cannot suspend
+an active numeric conversion while visiting another field. Thus add 41 entries
+and 369 digit words **once to the retained numeric-pool peak at serialization**,
+not once per occurrence or output file. The forty-deep image recursion is
+separate from the serializer's own node-recursion depth. This closes only
+decimal output scratch: diagnostic Auto/Hex images and producer numeric
+construction still need their own transfers.
+
+The storage checker retains the relevant complete-source identities and
+LF-numbered excerpts, checks the radix/direct-range arithmetic and all decimal
+length/radix boundaries through forty digits, and inventories every protected
+minimum assignment. These finite checks corroborate the source argument; they
+do not replace its caller and lifetime reasoning.
 
 ## Scope and reproduction
 

@@ -3069,7 +3069,7 @@ the string-length checker. Their source-dependent paths preserve this invariant:
   `B.Local=True`; its entry guard skips every later empty-suffix invocation
   on the resulting item (`why-gen-binders.adb:658,737`). A scoped insertion
   and a later `Get_Binders_From_Variables` preserve this flag along with the
-  identifier (`:293–330`). Nested translation therefore does not restart
+  identifier (`:293–333`). Nested translation therefore does not restart
   name growth. The only other wrapper caller is array-aggregate translation,
   outside Main (`gnat2why-expr.adb:16015`).
 - The `New_Function_Decl(Items)` wrapper localizes a private copy and turns

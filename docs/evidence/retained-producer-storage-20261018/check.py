@@ -8,8 +8,10 @@ import tarfile
 from pathlib import Path
 
 RANGES = {
-    'uintp.ads': [(275, 299)],
-    'uintp.adb': [(257, 455)],
+    'uintp.ads': [(275, 299), (464, 475)],
+    'uintp.adb': [(257, 455), (534, 537), (606, 621), (680, 688),
+                 (1030, 1155), (1466, 1507), (1703, 1716), (1770, 1820),
+                 (2153, 2185), (2265, 2272), (2359, 2424)],
     'libgnat/a-contai.ads': [(16, 28)],
     'libgnat/a-coinve.ads': [(409, 432)],
     'libgnat/a-coinve.adb': [(214, 248), (297, 315), (1200, 1283),
@@ -29,9 +31,45 @@ SPARK = {
     'src/utils/outputs.adb': ('6a729fa922f882458ef3bd33fb8000407f22f58bd79ab1a71d2d0ea8d427bbb2', [(47, 59), (73, 119)]),
     'src/utils/outputs.ads': ('3f88827c01180e657de92414ed804027e5b6db74dd3088997fb91ec16e4cc912', [(31, 68)]),
     'src/why/gnat2why-driver.adb': ('b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304', [(1204, 1215)]),
-    'src/why/xgen/why-atree-to_json.adb-tmpl': ('634f218e59e225ced82095a509f1e074a5681d5143e71f2a32dd886f3882465e', [(56, 90), (113, 157)]),
+    'src/why/xgen/why-atree-to_json.adb-tmpl': ('634f218e59e225ced82095a509f1e074a5681d5143e71f2a32dd886f3882465e', [(17, 43), (56, 90), (113, 157)]),
     'src/why/xgen/xtree_why_ast.adb': ('65277b8c3d31fbd9eac3da32ae562a660cf9f174878bf2a9e3f10c7be2d63af7', [(169, 230)]),
 }
+
+
+def decimal_scratch(source):
+    """Arithmetic witnesses; source reasoning establishes path/lifetime coverage."""
+    base, digits, words = 2**15, 40, 9
+    assert base**(words-1) < 10**digits < base**words
+    min_direct, max_direct = -(base-1), (base-1)**2
+    assert -min_direct <= max_direct
+    assert 9*base+base-1 < 2**31
+    points = {0, 1, max_direct, max_direct+1}
+    points |= {10**i + delta for i in range(1, digits+1)
+               for delta in (-1, 0, 1)}
+    points |= {base**i + delta for i in range(1, words+1)
+               for delta in (-1, 0, 1)}
+    points = sorted(p for p in points if 0 <= p < 10**digits)
+    for value in points:
+        remaining, depth = value, 0
+        while True:
+            remaining, remainder = divmod(remaining, 10)
+            depth += 1
+            assert 0 <= remainder <= 9
+            assert remaining < base**words
+            if remaining == 0:
+                break
+        assert depth <= digits
+    minima = [(i, line.strip()) for i, line in enumerate(source.split('\n'), 1)
+              if re.search(r'\bU(?:ints|digits)_Min\s*:=', line)]
+    assert [i for i, _ in minima] == [498, 499, 1397, 1398, 1417, 1418,
+                                     1502, 1503, 1543, 1544]
+    return dict(decimal_length=digits, radix=base, maximum_words=words,
+                temporary_entries=digits+1, temporary_digit_words=(digits+1)*words,
+                local_vector_words=2*words+1, maximum_image_recursion=digits,
+                maximum_division_digit_intermediate=9*base+base-1,
+                boundary_cases=len(points), protected_minimum_assignments=minima,
+                composition='one serialization peak addend; exact Last restoration',
+                scope='valid Uint Decimal images only; excludes Auto/Hex diagnostics and numeric construction')
 
 
 def transition(first, demand):
@@ -109,6 +147,7 @@ def main():
                   spark_sources=spark_records,
                   maximum_json_quoted_actual_length=(2**31-3)//2,
                   maximum_json_body_characters_per_file=2**31-2,
+                  decimal_scratch=decimal_scratch((args.ada/'uintp.adb').read_text()),
                   scope='local append/growth arithmetic, not caller coverage or whole-tool capacity')
     quoted = result['maximum_json_quoted_actual_length']
     assert quoted == 1073741822

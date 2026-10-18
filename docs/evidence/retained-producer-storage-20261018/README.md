@@ -14,9 +14,12 @@ python3 docs/evidence/retained-producer-storage-20261018/serialization.py \
 The storage checker verifies fourteen complete GCC files against the earlier pinned
 GCC inventory and reads five complete SPARK candidate files from the retained
 source archive. It emits LF-numbered excerpts, 174 vector boundary transitions,
-hash-table rounding and JSON quote-buffer/column arithmetic. These last two
-conditions still require source-derived actual-string and per-file character
-weights; they do not follow from node counts alone. The
+hash-table rounding, JSON quote-buffer/column arithmetic and the `d=40`
+decimal-conversion peak (41 Uint entries, 369 digit words). It inventories all
+protected-minimum assignments and checks radix/direct-range boundaries;
+source caller/lifetime reasoning establishes exact pool restoration. The
+quote-buffer/column conditions still require source-derived actual-string and
+per-file character weights; they do not follow from node counts alone. The
 serializer checker reads eight archived SPARK files, accounts for all 63 usable
 node kinds and 177 variant fields, and records each local weight's coefficients.
 It also reconstructs all five retained library proof-input files byte for byte,
