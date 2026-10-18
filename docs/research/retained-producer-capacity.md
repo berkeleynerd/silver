@@ -23,6 +23,10 @@ the combined fixed files by 2,981 terminal tasks and 51 response records.
 The [diagnostic-string transfer](retained-producer-diagnostic-strings.md) now
 reduces their answer text and consecutive-answer warnings to raw solver-output
 bytes, leaving that solver domain and other warnings explicit.
+The [configured startup import account](retained-producer-import-context.md)
+includes all nine configured drivers, closes the static clone-warning term,
+and identifies six imported startup VC constructions. Its source dependency
+coefficients are not yet typed-term or allocation bounds.
 Native/frontend, flow/final-report, Why3 lifetime counters and selected solver
 representations remain separate joins.
 

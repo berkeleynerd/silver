@@ -198,6 +198,9 @@ still explicit in the response-size account.
 The [selected-driver diagnostic transfer](retained-producer-diagnostic-strings.md)
 reduces answer strings and consecutive-answer warnings to a linear function of
 captured solver-output bytes; that output domain and other warnings remain open.
+The [startup context and clone-warning account](retained-producer-import-context.md)
+now closes one of those warning families and records the full configured
+driver/file closure, including the unselected drivers loaded at startup.
 `Gnat_report.register` gives every Proved result an empty counterexample list
 (`gnat_report.ml:62–69`), independently of old models in the session; that
 closes the eager counterexample-list domain for the all-proved path. Failure

@@ -1,0 +1,355 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "spark_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "installed_package": "gnatprove_16.1.0_82528bef",
+  "source_behavior_premise": "Candidate source behavior and retained installed config/library/driver bytes; no historical binary-source identity claim.",
+  "source_archive_sha256": "73c394cf6faa83fd4ff3f2a5a8d561a571300b5a439225e5df59c807ceea53a1",
+  "files": [
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/alt_ergo_gnatprove_smt2.drv",
+      "bytes": 2635,
+      "sha256": "62f3d0fb08ded760271baa510c288724f4c1b28a813d1342bf24458f4d155581"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/colibri.drv",
+      "bytes": 3582,
+      "sha256": "8ad0230aa8e1b8508e3aa21f1a1a8af5caca93576d3259a7167b0cb57ec14344"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/colibri2.drv",
+      "bytes": 4251,
+      "sha256": "988b1fc98bcabbea1fce211af16c16df3a01d33a8aef1294d80321b1f777bc91"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/common-transformations.gen",
+      "bytes": 150,
+      "sha256": "d5057cadb456f06c246a00283cf6b41fd57db834063bd7acb42734da0dd893f7"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/coq-common.gen",
+      "bytes": 7374,
+      "sha256": "ac6614e5b64908e6949628a57502a29f68ad59a9f29b088f100b44689088971c"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/coq-realizations.aux",
+      "bytes": 3424,
+      "sha256": "276916b1958e08604660c0c44a2128d61dad0c036355235139e06c6e4865f1db"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/coq.drv",
+      "bytes": 635,
+      "sha256": "ac28a83238736897d3711c81fc921001bd875d1e128f771c46d7e8edc692857f"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/coq_gnatprove.drv",
+      "bytes": 336,
+      "sha256": "7912fe2dedf8cc8927f4e5cd080ab825a3eb67b0acfc68d5fa92a981e20e9af6"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/cvc4_bv.gen",
+      "bytes": 911,
+      "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/cvc5.drv",
+      "bytes": 887,
+      "sha256": "846de1e988c68a7a6b392c91786563b8a9a705d5abeeb86953eac8dc8cecb5b9"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/cvc5.gen",
+      "bytes": 1898,
+      "sha256": "d27aefff9c747aa78b64d998f34c261b9e778b45aba5c0d986e7d893d54553cf"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/cvc5_counterexample.drv",
+      "bytes": 213,
+      "sha256": "089296fc0af9d7ed050bbb6fe51a7192048554325352aca36e4c5f342360620a"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/cvc5_gnatprove.drv",
+      "bytes": 2226,
+      "sha256": "0bf262eb3e62831c1145776d245695cd9e46dac034c5b199aeada43873deded9"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/cvc5_gnatprove_ce.drv",
+      "bytes": 1035,
+      "sha256": "b37445bfe19dc5d4c878c80d274b587ea2d193af3bbead08c9981ebc4b715ba0"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/discrimination.gen",
+      "bytes": 169,
+      "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/gappa.drv",
+      "bytes": 5294,
+      "sha256": "544a2833630ae262d2df2a293e140633bb9d78f05bdaad210490bad77a0afd89"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/smt-libv2-bv.gen",
+      "bytes": 10203,
+      "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-gnatprove.gen",
+      "bytes": 1815,
+      "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_bv.gen",
+      "bytes": 793,
+      "sha256": "3cd9ea8a45b044a1ea282a26ac332daf613fd9758430e57b0c9d509619d9a8db"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_real.gen",
+      "bytes": 357,
+      "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats.gen",
+      "bytes": 8423,
+      "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/smt-libv2-gnatprove.gen",
+      "bytes": 1438,
+      "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/smt-libv2.gen",
+      "bytes": 4017,
+      "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/z3_bv.gen",
+      "bytes": 940,
+      "sha256": "f87cbf68034320d6a34be350875ef5c45a4dffa09d9b1c456b1d2cb373a9511d"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/z3_gnatprove.drv",
+      "bytes": 2130,
+      "sha256": "2c3462df08f10856a63b8661798947bdc7000e32a88c2ab88eb8ae8d206f8e31"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/drivers/z3_gnatprove_ce.drv",
+      "bytes": 1856,
+      "sha256": "db9a4b2c7861d2b87f77f7edf6021860b9d1af4aa1aa82e7701bc55af47a7659"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "bytes": 4910,
+      "sha256": "39d64b3f351a3a08a391d6d26467e427d9ad61799a0ea93ad9cf85d0acbc4fb4"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/bool.mlw",
+      "bytes": 819,
+      "sha256": "b7072fdd8dd5004d0627b82a66b054518ee54eb4dd66f0883988e363bed251fa"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/bv.mlw",
+      "bytes": 35807,
+      "sha256": "00e72b4c0ec8b49bca2f5796e636eae47667d6544e439f7d8e771e771a529cb3"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/floating_point.mlw",
+      "bytes": 21961,
+      "sha256": "0fc1c5bcdb2812e9fd173199de8f767b8a27f5dbcc8072ca4fd543b04071aa8f"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/for_drivers.mlw",
+      "bytes": 704,
+      "sha256": "e892ad394b50de0da1a2ed0e514d82632f3d79e57ac61294ad2d586b68883179"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/ieee_float.mlw",
+      "bytes": 44520,
+      "sha256": "e034c7f5cfb3fff284a668dcd2aa08536fdaac499dbd5d91a7147383448e0393"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/int.mlw",
+      "bytes": 18687,
+      "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/list.mlw",
+      "bytes": 12228,
+      "sha256": "efd520bab75e5b9325ac369d7cb3675aecd1c2db859bbc0098c74b4b58585de5"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/mach/int.mlw",
+      "bytes": 18305,
+      "sha256": "62fa88a9c2202486efa5b42bd483e459c224c75b4dacae0a9126f6d22e5b7095"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/map.mlw",
+      "bytes": 9694,
+      "sha256": "11ff3c53a1e1d40dea77d55a3424ed309237fe4900b3370fbc14b0102b18114e"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/number.mlw",
+      "bytes": 5466,
+      "sha256": "4d0d83a9718774a342234ff8ef67e4545840629ffb0ee508f900d8fd67f83911"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/option.mlw",
+      "bytes": 351,
+      "sha256": "ba5607ebfa8fb060cede3798d21241b43de090046724084a3efc1f90a308a6df"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/real.mlw",
+      "bytes": 11048,
+      "sha256": "de458986ac8cf2da145dafdb412509f0bb2fc0538468e91ee5dcfbee73be694a"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/ref.mlw",
+      "bytes": 908,
+      "sha256": "f54413bf62b69bbfb996bd7d6a8098c18e4663f95f788623f729dd8eb5a60bea"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "bytes": 4033,
+      "sha256": "0a367aecd2cd627de87d5f4011ddbf930bf49283e0b94b792a338faf921b2cae"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/set.mlw",
+      "bytes": 19900,
+      "sha256": "7bb4c9fffa2b24efd0372f5eb6d253d69b1d0f296d0622847dfd724b2b6ac709"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/string.mlw",
+      "bytes": 17684,
+      "sha256": "ea9e41823b857ebbe08fe5ba71687f3894946efd21748703d89a83df6b99e3ec"
+    },
+    {
+      "path": "installed/share/spark/config/gnatprove.conf",
+      "bytes": 3023,
+      "sha256": "4ff4651508373959ad0d6834e482b539670e9f6f0ca6b90bb3683fd27d8be6cf"
+    },
+    {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "bytes": 104227,
+      "sha256": "918b73544c7e499c2aa11c10c497924ff141e2321aa96cf6d16038dce72f6235"
+    },
+    {
+      "path": "installed/share/spark/theories/_gnatprove_standard_th.why",
+      "bytes": 3777,
+      "sha256": "5dfb0b132c3d2fecc2adbe6fdc6e3b75d9063cc5622ce8d0a72ea789682f7ed6"
+    },
+    {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "bytes": 84712,
+      "sha256": "bb27b8013711690d9ee00e32aa6b37a66294a10b2b55ecdf0626b3a049577657"
+    },
+    {
+      "path": "installed/share/spark/theories/ada__model_th.why",
+      "bytes": 165,
+      "sha256": "dcded522609422e0c9087750e504a6fe120fe44dd71f266983580a7e1f7047a2"
+    },
+    {
+      "path": "spark/src/gnatprove/gnatprove.adb",
+      "bytes": 46206,
+      "sha256": "80becb96eeb45a6ef4cc096d1c8896c5cf53cf6f59a635483f3ced3447731590"
+    },
+    {
+      "path": "why3/src/core/env.ml",
+      "bytes": 8690,
+      "sha256": "0164457ed8f719547b3de999838e1f17069177f4463777beab49b28b277738a1"
+    },
+    {
+      "path": "why3/src/core/theory.ml",
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    {
+      "path": "why3/src/driver/driver.ml",
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    {
+      "path": "why3/src/driver/driver_lexer.mll",
+      "bytes": 4255,
+      "sha256": "17418b63c08696ca259d5f5a840d9a03ecbf1cf4d596a62c41b02df24e48d21c"
+    },
+    {
+      "path": "why3/src/driver/driver_parser.mly",
+      "bytes": 7375,
+      "sha256": "130de5b0bcdfd1253dee01618143e1f4f94ba25874c4de7c40f91d1f95006140"
+    },
+    {
+      "path": "why3/src/gnat/gnat_config.ml",
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    {
+      "path": "why3/src/gnat/gnat_report.ml",
+      "bytes": 7557,
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+    },
+    {
+      "path": "why3/src/gnat/gnat_util.ml",
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    {
+      "path": "why3/src/mlw/pdecl.ml",
+      "bytes": 35645,
+      "sha256": "74f46fe481ca7a8f531466754ccb463a57f324e22f6527f7527955a3f12b1ea6"
+    },
+    {
+      "path": "why3/src/mlw/pmodule.ml",
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    {
+      "path": "why3/src/mlw/vc.ml",
+      "bytes": 76631,
+      "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1"
+    },
+    {
+      "path": "why3/src/parser/lexer.mll",
+      "bytes": 9094,
+      "sha256": "f464fc08195ff31387cbb062134d86dd667232af733c92c53f8f52b88d28ac96"
+    },
+    {
+      "path": "why3/src/parser/parser.mly",
+      "bytes": 5191,
+      "sha256": "b24b0f69680cee19d7e7242b233d3310d5126e2b5081abe8273fed1a03e8bc32"
+    },
+    {
+      "path": "why3/src/parser/parser_common.mly",
+      "bytes": 60043,
+      "sha256": "98fb9a2693a4d7507c6c2477d1b25ce19f549563e6d49abd9590be5295b58a24"
+    },
+    {
+      "path": "why3/src/parser/typing.ml",
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    {
+      "path": "why3/src/session/controller_itp.ml",
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    {
+      "path": "why3/src/util/lexlib.mll",
+      "bytes": 6587,
+      "sha256": "f7e5acf02b1aadfdaa3478bee724f2063f83e7c8c11ac3a1458b2eb022d6ad20"
+    },
+    {
+      "path": "why3/src/util/loc.ml",
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    }
+  ],
+  "fixed_archive": {
+    "path": "docs/evidence/retained-producer-bodies-20261018/inputs-and-outputs.tar.gz",
+    "sha256": "bde678ccd1116e041ec8756ecd44d3e2374461335aa59752165322084378c19f"
+  },
+  "fixed_members": [
+    "silver_arguments/obj/silver_arguments__input_is_valid.gnat-json",
+    "silver_arguments/obj/silver_arguments__is_message.gnat-json",
+    "silver_arguments/obj/silver_arguments__first_or_default.gnat-json",
+    "silver_io/obj/silver_io__put.gnat-json",
+    "silver_io/obj/silver_io__put_line.gnat-json"
+  ]
+}
