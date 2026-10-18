@@ -252,6 +252,19 @@
       "theory_closes": 2
     }
   },
+  "ordinary_entity_symbol_cache_nodes": {
+    "excludes": "richer fixed-library symbol shapes; initializer counted in initializer-inventory.json",
+    "lists_elements_independent_occurrences": [
+      0,
+      0,
+      0
+    ],
+    "memoized_modules_per_entity": 27,
+    "object": 6,
+    "procedure_main": 4,
+    "rank_one_string_type": 50,
+    "signed_integer_type": 36
+  },
   "ordinary_expression_uniform_transfer": {
     "literal_identities": "K <= S + A + 3P",
     "local_cases_with_boundary_allowances": {

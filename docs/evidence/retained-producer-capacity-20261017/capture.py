@@ -64,6 +64,14 @@ RANGES["src/why/gnat2why-driver.adb"].extend([[1381, 1445], [1593, 1638]])
 RANGES["src/spark/spark_rewrite.adb"] = [[253, 276], [340, 544]]
 RANGES["src/spark/spark_util.ads"] = [[69, 111]]
 RANGES["src/why/gnat2why-expr.adb"].extend([[29496, 29517], [30190, 30215]])
+RANGES["src/why/why-atree-modules.adb"].extend([
+    [510, 912], [1091, 2985], [3006, 3387], [3584, 3757], [3959, 4084],
+    [4394, 4510], [4578, 4588],
+])
+RANGES["src/why/why-atree-modules.ads"].extend([[609, 618]])
+RANGES["src/why/why-inter.adb"].append([846, 880])
+RANGES["src/why/why-gen-arrays.adb"].append([2951, 2955])
+RANGES["src/why/gnat2why-driver.adb"].append([998, 1013])
 
 
 def sha(data):
@@ -186,6 +194,15 @@ def main():
     fixture = json.loads((ROOT / "retained-literal-modules.json").read_text())
     result = inspect_fixture(fixture)
     arithmetic = {
+        "ordinary_entity_symbol_cache_nodes": {
+            "signed_integer_type": 2 * (2 + 12 + 2) + 2 * 2,
+            "rank_one_string_type": 2 * (10 + 9 + 2) + 2 * 3 + 2,
+            "object": 3 * 2,
+            "procedure_main": 2 * 2,
+            "memoized_modules_per_entity": 27,
+            "lists_elements_independent_occurrences": [0, 0, 0],
+            "excludes": "richer fixed-library symbol shapes; initializer counted in initializer-inventory.json",
+        },
         "representation_maxima": {"Why_Node_Id_Last": 2**30 - 1,
                                   "Why_Node_Counter_Last": 2**31 - 1},
         "array_representation_helper_allocations": {

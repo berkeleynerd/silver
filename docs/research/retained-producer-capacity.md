@@ -1979,10 +1979,98 @@ already created that representation. `B_Main` here explicitly excludes
 memoized entity-symbol/module setup, Main's enclosing subprogram
 definition/completion/VC wrapper, the predefined and selected library
 translations, and imports. Those setup terms still have to be derived and
-added to obtain `B(P)`; the name `B_Main` does not mean all producer work
+added to obtain `B(P)`; the next section supplies the built-in initializer and
+ordinary symbol/module cache allowances. The name `B_Main` does not mean all producer work
 caused by Main has already been charged. `A_Main` also remains an input from
 the frontend allocation derivation. This is a closed transfer of ordinary
 Main syntax/entity work into the aggregate, **not a complete capacity rule**.
+
+### Built-in initialization and ordinary entity symbol caches
+
+The one-time `Why.Atree.Modules.Initialize` call precedes Standard translation
+and `Translate_CUnit` (`src/why/gnat2why-driver.adb:998–1013`). Its body calls 23
+fixed helpers once each. The only helper loops range over the six `BV_Kind`
+values and three `Floating_Kind` values
+(`src/why/why-atree-modules.ads:609–618`). No helper invokes another helper or
+translates source-dependent syntax. The complete body/helper inventory in
+[`initializer-inventory.json`](../evidence/retained-producer-capacity-20261017/initializer-inventory.json)
+is reconstructed from the pinned source by
+[`initializer_inventory.py`](../evidence/retained-producer-capacity-20261017/initializer_inventory.py).
+It checks the helper closure, constructor vocabulary and loop cardinalities.
+
+The executed constructor counts, with both finite loops expanded, are:
+
+| Constructor | Executions | Nodes per execution |
+| --- | ---: | ---: |
+| `New_Module` | 117 | 1 |
+| `New_Type` | 20 | 1 |
+| Explicit `New_Name` | 24 | 1 |
+| `New_Identifier` from a symbol | 639 | 2 |
+
+The identifier overload creates its name and identifier
+(`src/why/why-gen-names.adb:786–814`); the module string overload creates only
+the module (`:825–833`). None of these node kinds has a list-valued field.
+Thus this initializer contributes **`(1439,0,0,0)`**, including 117 modules.
+The zero occurrence term means it adds no independently serialized theory
+root: occurrences of the cached types/names/modules are already charged at
+their use sites. `Why.Gen.Names.Initialize` allocates the symbol pool, not Why
+nodes (`:575–578`). `Why.Atree.Initialize` reserves node zero
+(`src/why/why-atree.adb:59–68`), which is already excluded from the usable
+`1 .. 2^30-1` ID domain. These are initializer costs only; they do **not**
+include `Translate_Standard_Package`, dependency translation or other
+package elaboration work.
+
+`E_Symb` normalizes a type with `Retysp`, then initializes all of that entity's
+symbols together on the first missing-key lookup
+(`src/why/why-atree-modules.adb:297–324,3006–4588`). Subsequent ordinary lookups
+find their precreated key. Main uses signed Integer types and rank-one
+Character arrays without relaxed initialization, user equality, invariants,
+allocated parts or validity wrappers. Counting the normal shared and
+type-specific paths gives the following upper bounds. As a conservative
+allowance, the two non-itype dynamic/default-initialization identifiers are
+included even though the Main-generated types are itypes.
+
+| Entity cache fill | Identifier/name nodes | Additional type/map nodes | Total nodes |
+| --- | ---: | ---: | ---: |
+| Signed Integer type | `2*(2+12+2)=32` | two `EW_Abstract` calls, 4 | 36 |
+| Ordinary String type | `2*(10+9+2)=42` | two `EW_Abstract` calls, at most 6; component type, 2 | 50 |
+| Ordinary object or loop index | `2*3=6` | 0 | 6 |
+| Procedure Main | at most `2*2=4` | 0 | 4 |
+
+For scalar types the shared pair is dummy/equality and the twelve scalar
+symbols include optional integer projection and static range predicates
+(`:3210–3253,3959–4084`). For Strings, shared initialization has dummy/equality,
+five array operations and first/last/length; type initialization adds four
+size/alignment attributes, dynamic property, component-to-representation and
+three index symbols (`:3297–3387,4394–4510`). The `EW_Abstract` calls allocate
+at most three nodes for an ordinary String (type, name and uncached map module),
+or two for signed Integer/Character
+(`src/why/why-inter.adb:846–880,1160–1223`). `Get_Array_Theory` is a cache lookup,
+not another representation-construction attempt
+(`src/why/why-gen-arrays.adb:2951–2955`). Main is a nondispatching procedure;
+charging its optional variant and dynamic-termination symbols covers the entire
+procedure arm without needing either annotation to be present
+(`src/why/why-atree-modules.adb:3118–3209`).
+
+Let `T_i,T_s,O` count distinct ordinary Main signed Integer types, String types
+and object/index entities respectively. Cached entity modules are separate:
+the memoized `(entity, Module_Kind)` table has 27 kinds and creates one module
+on a miss (`:465–504`). With `E_all` bounding **all** normalized entities whose
+modules may be requested, including fixed dependencies and lazy close-time
+requests, the additional pre-import allocation allowance is
+
+```text
+B_init_symbols <= (1439 + 36T_i + 50T_s + 6O + 4 + 27E_all, 0, 0, 0).
+```
+
+There is no new `Close_Theory` here. The scalar/String `EW_Abstract` allocation
+terms include their uncached map modules; the `27E_all` term covers only the
+memoized entity-module family. Fixed-library symbol fills with richer shapes
+remain in the dependency term. Taking `T_i+T_s <= E_Main` and `O <= E_Main`
+gives the deliberately looser but directly entity-based allowance
+`1439 + 56E_Main + 4 + 27E_all`. These allocation bounds close ordinary Main's
+previously unpriced symbol cache family; they do not close the enclosing Main
+subprogram theory/VC construction or the remaining fixed translations.
 
 ## Aggregate formula and finite remaining helper families
 
@@ -2051,6 +2139,8 @@ again as standalone conversions.
 | Whole-object String assignment wrapper | `(148,61,86,1247)` |
 | Static literal use and definition family | The `R_lit/K_lit/L_i` formula above |
 | Eager array-representation cache attempt | `(17,0,0,0)` |
+| Built-in symbol/module initializer | `(1439,0,0,0)`; includes 117 modules, no theory roots |
+| Ordinary Main symbol caches and all memoized entity modules | `(36T_i+50T_s+6O+4+27E_all,0,0,0)`; richer fixed-library symbol fills separate |
 | Ordinary rank-one Character representation key miss | `(148,44,76,711)`; imports separate |
 | Main type translation/completion | Five classified rows in the preceding table; representation attempts and symbol caches separate |
 | Ordinary object/loop symbol and outer theory setup | [Object component](retained-producer-objects.md): per-visit regular/split `Mk_Item`, constant/mutable definitions, constant axioms and loop exception theory pair |
@@ -2077,9 +2167,9 @@ coverage obligation, not a claim that the whole producer is already bounded.
 
 | Remaining family | Exact work and source-count connection still required |
 | --- | --- |
-| `K_fixed` | One-time predefined and selected dependency theories, package processing, symbol initialization, external-constant assumptions, fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
+| `K_fixed` | The built-in symbol/module initializer is priced above. Remaining: predefined and selected dependency theories, package processing, richer dependency symbol fills, external-constant assumptions, other fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
 | Fixed-library object setup | The Main registration/object/loop theory pass is now source-counted above. Price richer fixed-library shapes separately. |
-| Source-dependent setup and frontend node input | The ordinary Main syntax/entity sum is assembled above. Derive memoized entity-symbol/module setup and any Main subprogram-wrapper terms that depend on its local/global set, and supply the source-derived frontend allocation bound `A_Main` used by the ignored-entry/list transfer. |
+| Source-dependent setup and frontend node input | The ordinary Main syntax/entity sum and symbol/module cache allowances are assembled above. Derive Main subprogram-wrapper terms, including any dependence on its local/global set, and supply the source-derived frontend allocation bound `A_Main` used by the ignored-entry/list transfer. |
 | Whole-process counters | Use `M <= B_N` or a sharper explicit module sum, finish the total close count with fixed setup, and bound the temporary-name counter. `F <= E_list` is already established. |
 
 The [frontend report](retained-frontend-entities.md) now supplies the Main entity,
@@ -2127,6 +2217,17 @@ python3 docs/evidence/retained-producer-capacity-20261017/frontend_invocations.p
 That command checks every scanned complete source file against the already
 retained GCC manifest. Its inventory assertions do not mechanically prove the
 manual path exclusions in the report.
+
+To reproduce the fixed built-in initializer count, run
+
+```sh
+python3 docs/evidence/retained-producer-capacity-20261017/initializer_inventory.py \
+  --source-root /path/to/pinned/spark-source
+```
+
+The helper source file is also hash-checked against the archive by `capture.py`.
+This inventory counts source constructor execution and does not invoke or
+instrument a compiler.
 
 A focused independent source/evidence review found no defect in the numerical
 literal components. Its loop-entry wording correction above distinguishes

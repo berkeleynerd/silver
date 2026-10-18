@@ -1,0 +1,329 @@
+{
+  "fresh_lists": 0,
+  "fresh_nodes": 1439,
+  "independent_serialized_roots": 0,
+  "list_elements": 0,
+  "modules": 117,
+  "routines": {
+    "Init_BV_Conv_Modules": {
+      "constructors": {
+        "New_Identifier": 33,
+        "New_Module": 11
+      },
+      "first_line": 1266,
+      "fresh_nodes": 77,
+      "helper_calls": [],
+      "last_line": 1530,
+      "loops": []
+    },
+    "Init_BV_Modules": {
+      "constructors": {
+        "New_Identifier": 228,
+        "New_Module": 6,
+        "New_Name": 6,
+        "New_Type": 6
+      },
+      "first_line": 1536,
+      "fresh_nodes": 474,
+      "helper_calls": [],
+      "last_line": 1794,
+      "loops": [
+        {
+          "constructors_per_iteration": {
+            "New_Identifier": 38,
+            "New_Name": 1,
+            "New_Type": 1
+          },
+          "iterations": 6,
+          "kind": "BV_Kind"
+        }
+      ]
+    },
+    "Init_Boolean_Init_Wrapper_Module": {
+      "constructors": {
+        "New_Identifier": 3,
+        "New_Module": 1,
+        "New_Name": 1,
+        "New_Type": 1
+      },
+      "first_line": 1800,
+      "fresh_nodes": 9,
+      "helper_calls": [],
+      "last_line": 1831,
+      "loops": []
+    },
+    "Init_Boolean_Module": {
+      "constructors": {
+        "New_Identifier": 22,
+        "New_Module": 1
+      },
+      "first_line": 1091,
+      "fresh_nodes": 45,
+      "helper_calls": [],
+      "last_line": 1228,
+      "loops": []
+    },
+    "Init_Builtin_From_Image_Module": {
+      "constructors": {
+        "New_Identifier": 3,
+        "New_Module": 1
+      },
+      "first_line": 1234,
+      "fresh_nodes": 7,
+      "helper_calls": [],
+      "last_line": 1260,
+      "loops": []
+    },
+    "Init_Compat_Tags_Module": {
+      "constructors": {
+        "New_Identifier": 1,
+        "New_Module": 1
+      },
+      "first_line": 1837,
+      "fresh_nodes": 3,
+      "helper_calls": [],
+      "last_line": 1849,
+      "loops": []
+    },
+    "Init_Floating_Conv_Module": {
+      "constructors": {
+        "New_Identifier": 9,
+        "New_Module": 3
+      },
+      "first_line": 1855,
+      "fresh_nodes": 21,
+      "helper_calls": [],
+      "last_line": 1929,
+      "loops": []
+    },
+    "Init_Floating_Module": {
+      "constructors": {
+        "New_Identifier": 273,
+        "New_Module": 15,
+        "New_Name": 3,
+        "New_Type": 3
+      },
+      "first_line": 1935,
+      "fresh_nodes": 567,
+      "helper_calls": [],
+      "last_line": 2543,
+      "loops": [
+        {
+          "constructors_per_iteration": {
+            "New_Identifier": 91,
+            "New_Name": 1,
+            "New_Type": 1
+          },
+          "iterations": 3,
+          "kind": "Floating_Kind"
+        }
+      ]
+    },
+    "Init_Int_Abs_Module": {
+      "constructors": {
+        "New_Identifier": 1,
+        "New_Module": 1
+      },
+      "first_line": 2549,
+      "fresh_nodes": 3,
+      "helper_calls": [],
+      "last_line": 2560,
+      "loops": []
+    },
+    "Init_Int_Div_Module": {
+      "constructors": {
+        "New_Identifier": 4,
+        "New_Module": 1
+      },
+      "first_line": 2566,
+      "fresh_nodes": 9,
+      "helper_calls": [],
+      "last_line": 2595,
+      "loops": []
+    },
+    "Init_Int_Gcd_Module": {
+      "constructors": {
+        "New_Identifier": 1,
+        "New_Module": 1
+      },
+      "first_line": 2601,
+      "fresh_nodes": 3,
+      "helper_calls": [],
+      "last_line": 2612,
+      "loops": []
+    },
+    "Init_Int_Minmax_Module": {
+      "constructors": {
+        "New_Identifier": 2,
+        "New_Module": 1
+      },
+      "first_line": 2618,
+      "fresh_nodes": 5,
+      "helper_calls": [],
+      "last_line": 2636,
+      "loops": []
+    },
+    "Init_Int_Power_Module": {
+      "constructors": {
+        "New_Identifier": 1,
+        "New_Module": 1
+      },
+      "first_line": 2642,
+      "fresh_nodes": 3,
+      "helper_calls": [],
+      "last_line": 2653,
+      "loops": []
+    },
+    "Init_Int_Shift_Module": {
+      "constructors": {
+        "New_Identifier": 5,
+        "New_Module": 1
+      },
+      "first_line": 2659,
+      "fresh_nodes": 11,
+      "helper_calls": [],
+      "last_line": 2694,
+      "loops": []
+    },
+    "Init_Integer_Module": {
+      "constructors": {
+        "New_Identifier": 7,
+        "New_Module": 1
+      },
+      "first_line": 2700,
+      "fresh_nodes": 15,
+      "helper_calls": [],
+      "last_line": 2747,
+      "loops": []
+    },
+    "Init_Labels": {
+      "constructors": {},
+      "first_line": 2753,
+      "fresh_nodes": 0,
+      "helper_calls": [],
+      "last_line": 2759,
+      "loops": []
+    },
+    "Init_Main_Module": {
+      "constructors": {
+        "New_Identifier": 2,
+        "New_Module": 1,
+        "New_Name": 7,
+        "New_Type": 4
+      },
+      "first_line": 2765,
+      "fresh_nodes": 16,
+      "helper_calls": [],
+      "last_line": 2813,
+      "loops": []
+    },
+    "Init_Real_Abs_Module": {
+      "constructors": {
+        "New_Identifier": 1,
+        "New_Module": 1
+      },
+      "first_line": 2819,
+      "fresh_nodes": 3,
+      "helper_calls": [],
+      "last_line": 2830,
+      "loops": []
+    },
+    "Init_Real_From_Int_Module": {
+      "constructors": {
+        "New_Identifier": 1,
+        "New_Module": 1
+      },
+      "first_line": 2836,
+      "fresh_nodes": 3,
+      "helper_calls": [],
+      "last_line": 2848,
+      "loops": []
+    },
+    "Init_Real_Minmax_Module": {
+      "constructors": {
+        "New_Identifier": 2,
+        "New_Module": 1
+      },
+      "first_line": 2854,
+      "fresh_nodes": 5,
+      "helper_calls": [],
+      "last_line": 2872,
+      "loops": []
+    },
+    "Init_Real_Module": {
+      "constructors": {
+        "New_Identifier": 7,
+        "New_Module": 1
+      },
+      "first_line": 2878,
+      "fresh_nodes": 15,
+      "helper_calls": [],
+      "last_line": 2925,
+      "loops": []
+    },
+    "Init_Real_Power_Module": {
+      "constructors": {
+        "New_Identifier": 1,
+        "New_Module": 1
+      },
+      "first_line": 2931,
+      "fresh_nodes": 3,
+      "helper_calls": [],
+      "last_line": 2942,
+      "loops": []
+    },
+    "Init_Subprogram_Access_Module": {
+      "constructors": {
+        "New_Identifier": 4,
+        "New_Module": 1,
+        "New_Name": 2,
+        "New_Type": 1
+      },
+      "first_line": 2948,
+      "fresh_nodes": 12,
+      "helper_calls": [],
+      "last_line": 2985,
+      "loops": []
+    },
+    "Initialize": {
+      "constructors": {
+        "New_Identifier": 28,
+        "New_Module": 64,
+        "New_Name": 5,
+        "New_Type": 5
+      },
+      "first_line": 510,
+      "fresh_nodes": 130,
+      "helper_calls": [
+        "Init_Main_Module",
+        "Init_Boolean_Init_Wrapper_Module",
+        "Init_Compat_Tags_Module",
+        "Init_Integer_Module",
+        "Init_Int_Power_Module",
+        "Init_Int_Shift_Module",
+        "Init_Int_Div_Module",
+        "Init_Int_Abs_Module",
+        "Init_Int_Minmax_Module",
+        "Init_Int_Gcd_Module",
+        "Init_BV_Modules",
+        "Init_BV_Conv_Modules",
+        "Init_Floating_Module",
+        "Init_Floating_Conv_Module",
+        "Init_Boolean_Module",
+        "Init_Real_Module",
+        "Init_Real_From_Int_Module",
+        "Init_Real_Power_Module",
+        "Init_Real_Abs_Module",
+        "Init_Real_Minmax_Module",
+        "Init_Subprogram_Access_Module",
+        "Init_Labels",
+        "Init_Builtin_From_Image_Module"
+      ],
+      "last_line": 912,
+      "loops": []
+    }
+  },
+  "scope": "Why.Atree.Modules.Initialize and its 23 fixed helper calls only; not Translate_Standard_Package or the whole fixed dependency cost",
+  "sha256": "73ccd31d5e1ac2935f02492beef285411cbd0d3627aaf81e65f4e37a4f4f17b3",
+  "source": "src/why/why-atree-modules.adb"
+}
