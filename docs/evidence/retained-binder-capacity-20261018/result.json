@@ -153,6 +153,246 @@
     "unit_record_field_count": 40,
     "unit_table_realloc_old_plus_new_bytes_bound": 128000
   },
+  "binder_compiler_lifetime": {
+    "actual_mark_calls": 0,
+    "array_finalizer_vector_bytes_bound": 2346632,
+    "conservative_each_finalizer_vector_slots_bound": 73332,
+    "counters": {
+      "debug_decl_uid": {
+        "current": 0,
+        "events": 0,
+        "initial": 0,
+        "largest_increment": 0,
+        "minimum": 0,
+        "negative_events": 0,
+        "negative_sum": 0,
+        "peak": 0,
+        "positive_events": 0,
+        "positive_sum": 0
+      },
+      "decl_uid": {
+        "current": 6390,
+        "events": 6390,
+        "initial": 0,
+        "largest_increment": 1,
+        "minimum": 0,
+        "negative_events": 0,
+        "negative_sum": 0,
+        "peak": 6390,
+        "positive_events": 6390,
+        "positive_sum": 6390
+      },
+      "ggc_bytes": {
+        "current": 4155400,
+        "events": 48889,
+        "initial": 0,
+        "largest_increment": 65536,
+        "minimum": 0,
+        "negative_events": 0,
+        "negative_sum": 0,
+        "peak": 4155400,
+        "positive_events": 48889,
+        "positive_sum": 4155400
+      },
+      "type_uid": {
+        "current": 2068,
+        "events": 2795,
+        "initial": 1,
+        "largest_increment": 1,
+        "minimum": 1,
+        "negative_events": 364,
+        "negative_sum": 364,
+        "peak": 2068,
+        "positive_events": 2431,
+        "positive_sum": 2431
+      }
+    },
+    "duration_seconds": 7.626280267009861,
+    "each_page_pointer_vector_bytes_bound": 524288,
+    "event_records_replayed": 58074,
+    "hardware_write_watchpoints": 4,
+    "heuristic_collection_calls": 343,
+    "managed_duration_seconds": 9.893050903,
+    "managed_run_id": "20261018T115025-40fa63ff60dc",
+    "margin_below_minimum_heap_bytes": 38904,
+    "minimum_default_heap_bytes": 4194304,
+    "page_pointer_vector_slots_bound": 65536,
+    "raw_event_identity": {
+      "bytes": 5030936,
+      "sha256": "11728508335f18725b0ccc93f92d7f7b8d0bea7653195d7b6c531280c105b39e"
+    },
+    "rounded_GGC_histogram": [
+      {
+        "bytes": 8,
+        "events": 711
+      },
+      {
+        "bytes": 16,
+        "events": 3427
+      },
+      {
+        "bytes": 24,
+        "events": 4971
+      },
+      {
+        "bytes": 32,
+        "events": 9048
+      },
+      {
+        "bytes": 40,
+        "events": 19443
+      },
+      {
+        "bytes": 48,
+        "events": 540
+      },
+      {
+        "bytes": 56,
+        "events": 225
+      },
+      {
+        "bytes": 64,
+        "events": 388
+      },
+      {
+        "bytes": 72,
+        "events": 319
+      },
+      {
+        "bytes": 80,
+        "events": 2
+      },
+      {
+        "bytes": 88,
+        "events": 186
+      },
+      {
+        "bytes": 96,
+        "events": 109
+      },
+      {
+        "bytes": 104,
+        "events": 129
+      },
+      {
+        "bytes": 112,
+        "events": 7
+      },
+      {
+        "bytes": 120,
+        "events": 108
+      },
+      {
+        "bytes": 128,
+        "events": 292
+      },
+      {
+        "bytes": 136,
+        "events": 124
+      },
+      {
+        "bytes": 152,
+        "events": 226
+      },
+      {
+        "bytes": 160,
+        "events": 176
+      },
+      {
+        "bytes": 168,
+        "events": 2441
+      },
+      {
+        "bytes": 208,
+        "events": 28
+      },
+      {
+        "bytes": 256,
+        "events": 5765
+      },
+      {
+        "bytes": 272,
+        "events": 51
+      },
+      {
+        "bytes": 400,
+        "events": 32
+      },
+      {
+        "bytes": 512,
+        "events": 13
+      },
+      {
+        "bytes": 1024,
+        "events": 41
+      },
+      {
+        "bytes": 2048,
+        "events": 52
+      },
+      {
+        "bytes": 4096,
+        "events": 5
+      },
+      {
+        "bytes": 8192,
+        "events": 16
+      },
+      {
+        "bytes": 16384,
+        "events": 8
+      },
+      {
+        "bytes": 32768,
+        "events": 3
+      },
+      {
+        "bytes": 65536,
+        "events": 3
+      }
+    ],
+    "scalar_finalizer_vector_bytes_bound": 1173320,
+    "scope": "fixed proposed binder full frontend lifetime; family transfer requires documented filename/source/option projection; no aggregate physical-memory condition",
+    "site_events": [
+      {
+        "counter": "decl_uid",
+        "events": 665,
+        "pc": "0x1693757"
+      },
+      {
+        "counter": "decl_uid",
+        "events": 5723,
+        "pc": "0x1693852"
+      },
+      {
+        "counter": "decl_uid",
+        "events": 2,
+        "pc": "0x16a2f67"
+      },
+      {
+        "counter": "ggc_bytes",
+        "events": 48889,
+        "pc": "0xda47ab"
+      },
+      {
+        "counter": "type_uid",
+        "events": 2098,
+        "pc": "0x16936be"
+      },
+      {
+        "counter": "type_uid",
+        "events": 333,
+        "pc": "0x16a2f1e"
+      },
+      {
+        "counter": "type_uid",
+        "events": 364,
+        "pc": "0x16a8511"
+      }
+    ],
+    "value_expr_insert_calls": 0,
+    "whole_tool_capacity_established": false
+  },
   "binder_compiler_retained_dependency_sources": {
     "s-parame.ads": {
       "bytes": 8691,

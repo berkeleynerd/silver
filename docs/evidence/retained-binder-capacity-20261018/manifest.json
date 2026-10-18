@@ -2,8 +2,8 @@
   "archives": {
     "artifacts.tar.gz": {
       "archive": {
-        "bytes": 307329,
-        "sha256": "1bde2b136d81acd066f95a7ff39ef86f8cc227333ac56326467fa2499a874432"
+        "bytes": 750174,
+        "sha256": "4b05db51a84ec0432db5b270d6ff46f477abd9c6df866ce0297baa3f8868b52f"
       },
       "members": {
         "cases/indexed-cr/b__main~1.adb": {
@@ -1035,13 +1035,158 @@
           "bytes": 0,
           "original_path": "/tmp/silver-gprbind-initialization-20261018/stdout",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lifetime-capture/_Z11ggc_collect11ggc_collect.bin": {
+          "bytes": 1283,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/_Z11ggc_collect11ggc_collect.bin",
+          "sha256": "3f11d2ed083c5b5986b6f6dcaf708d5981d07c340d17bdba766c91c2ba41c57e"
+        },
+        "lifetime-capture/_Z14ggc_mark_rootsv.bin": {
+          "bytes": 269,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/_Z14ggc_mark_rootsv.bin",
+          "sha256": "cbf3a2af3ba81344296312ddc53a2fbb8a95ca75437eb5f12af326d0853b8226"
+        },
+        "lifetime-capture/_Z18gt_value_expr_markP10hash_tableI26tree_decl_map_cache_hasherLb0E11xcallocatorE.bin": {
+          "bytes": 17,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/_Z18gt_value_expr_markP10hash_tableI26tree_decl_map_cache_hasherLb0E11xcallocatorE.bin",
+          "sha256": "86836456b42b682883769d9d765e72f96b921bc4aef25f6356bc436646cf9916"
+        },
+        "lifetime-capture/_Z22decl_value_expr_insertP9tree_nodeS0_.bin": {
+          "bytes": 95,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/_Z22decl_value_expr_insertP9tree_nodeS0_.bin",
+          "sha256": "f011a84e4462704c07522b24105dda3d5a81d6a8322b6c4f6de636a1a5664c6e"
+        },
+        "lifetime-capture/allocate_decl_uid.disassembly": {
+          "bytes": 576,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/allocate_decl_uid.disassembly",
+          "sha256": "b7294798a408e50518ea9c2be31073348c80365d987d33b59d28d8edcf2af8b2"
+        },
+        "lifetime-capture/capture/counter-events.jsonl": {
+          "bytes": 5030936,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/capture/counter-events.jsonl",
+          "sha256": "11728508335f18725b0ccc93f92d7f7b8d0bea7653195d7b6c531280c105b39e"
+        },
+        "lifetime-capture/capture/counter-summary.json": {
+          "bytes": 35134,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/capture/counter-summary.json",
+          "sha256": "94da9447ed010b4554f305b3648a6ecbd607f52df716b5dbe49c8938304c5c2f"
+        },
+        "lifetime-capture/capture/frontend-exec.json": {
+          "bytes": 1648,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/capture/frontend-exec.json",
+          "sha256": "3ba43274e45639b117bebe0d4d4f1167844a6754b7ede19ba33705ca442aefe2"
+        },
+        "lifetime-capture/capture/probe.gdb": {
+          "bytes": 606,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/capture/probe.gdb",
+          "sha256": "4abe140bdd80c817fdb6e7829b090cd737aac0295f59f8a64d10ad16e5b1e9ff"
+        },
+        "lifetime-capture/capture/probe.log": {
+          "bytes": 27474,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/capture/probe.log",
+          "sha256": "840637ebe0bb638b63a4ef65851757e3bbc6bbdf40edc2d0200eb423a5e960a0"
+        },
+        "lifetime-capture/capture/result.json": {
+          "bytes": 1929,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/capture/result.json",
+          "sha256": "f2544239da84be3c28a52fcccccc93ee49319676f3d6d866c6d7252e82c19690"
+        },
+        "lifetime-capture/capture/watchpoints.txt": {
+          "bytes": 675,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/capture/watchpoints.txt",
+          "sha256": "3428e83e17176e5f9ff484ce15ee65c5b50be5860a789b7a134ec85ba8f2c58b"
+        },
+        "lifetime-capture/copy_node.disassembly": {
+          "bytes": 10924,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/copy_node.disassembly",
+          "sha256": "77cdeb6032392a5d52c7152e522a9257120e40b7242609354ebf19506570e9c5"
+        },
+        "lifetime-capture/counters.py": {
+          "bytes": 7162,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/counters.py",
+          "sha256": "6245a9fab71a162bef64d023f87177caa2a9aea854154aa6151f35248e89f9a1"
+        },
+        "lifetime-capture/elf-symbols.json": {
+          "bytes": 3090,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/elf-symbols.json",
+          "sha256": "9e90f9ab679c119925fe9af42a6050f754e6ee62aa5f4098d6423fd7b3282e7d"
+        },
+        "lifetime-capture/executable-map.json": {
+          "bytes": 2300,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/executable-map.json",
+          "sha256": "221018d661de1a3863cf9661f9278ed5ec78b4184d2d401c9bf19857dd31c542"
+        },
+        "lifetime-capture/ggc_internal_alloc_.disassembly": {
+          "bytes": 34729,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/ggc_internal_alloc_.disassembly",
+          "sha256": "49c9ee73e97b632894212a0e768d2cc05272028e6606537b36354326393b5d8e"
+        },
+        "lifetime-capture/gigi.disassembly": {
+          "bytes": 82711,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/gigi.disassembly",
+          "sha256": "6e3f3df9cefe8fe4740b50b1165a9246bfba74c67eebae6827b2af4570b6d967"
+        },
+        "lifetime-capture/guard-map.json": {
+          "bytes": 1340,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/guard-map.json",
+          "sha256": "60c6947eec8d28e96524cebcbfb57141db50b335b8ddf92ba47a31c039146d11"
+        },
+        "lifetime-capture/invocation.json": {
+          "bytes": 4510,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/invocation.json",
+          "sha256": "c8f454b4570b75005a2c0df63622f97922f2e6c36a3d11270472a29ff8f41dc0"
+        },
+        "lifetime-capture/make_node.disassembly": {
+          "bytes": 10049,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/make_node.disassembly",
+          "sha256": "16169041621208446df369f808dfb73a08b048f66e8fc26e3db45292fddbb6a9"
+        },
+        "lifetime-capture/managed/events.jsonl": {
+          "bytes": 12227,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T115025-40fa63ff60dc/events.jsonl",
+          "sha256": "2d9717f88967298e8f0de59f18c7cf93ca982869429281efcb13540435444dc5"
+        },
+        "lifetime-capture/managed/native.log": {
+          "bytes": 24531,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T115025-40fa63ff60dc/native.log",
+          "sha256": "aebf203c84bdecf97135eb4db5a3960833cd360b6351840b0cc4e81ff149ccf6"
+        },
+        "lifetime-capture/output/b__main~1.adb": {
+          "bytes": 8014,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.adb",
+          "sha256": "15bc56ca5a6b40c83ae4661c5c64e849d67aeaeaa58638d2b5d1813e850d8a5c"
+        },
+        "lifetime-capture/output/b__main~1.ads": {
+          "bytes": 14556,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.ads",
+          "sha256": "7cb2980d7078c9302955efd641b09d7ec110e5d810d232b1fca08690c9b3161e"
+        },
+        "lifetime-capture/output/b__main~1.ali": {
+          "bytes": 8151,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.ali",
+          "sha256": "62a93e5ace04aacb3a981ef64571c15b2f6065d77fd6deeebc0ed2e5b59b6422"
+        },
+        "lifetime-capture/output/b__main~1.o": {
+          "bytes": 13432,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.o",
+          "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+        },
+        "lifetime-capture/run.py": {
+          "bytes": 3549,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/run.py",
+          "sha256": "e3f5a3d809f444df7e6e8d5c2bb428ac8afda1ed0b11354bcde90cf79bf4445b"
+        },
+        "lifetime-capture/type_hash_canon.disassembly": {
+          "bytes": 13812,
+          "original_path": "/tmp/silver-binder-lifetime-20261018/type_hash_canon.disassembly",
+          "sha256": "c0a81416c9b3531f5fb9355b78f86e0964eaaa7f9cb0c10e4c20b36697d704c3"
         }
       }
     },
     "sources.tar.gz": {
       "archive": {
-        "bytes": 2332487,
-        "sha256": "5e37dceb7f7c121eb54826e733abb48945cc53897868cf088567834fee724466"
+        "bytes": 2405544,
+        "sha256": "d6d41649ad0151edb2a3ac1972045f6ab97d0a903922351ce29aace97893e20a"
       },
       "members": {
         "gcc/ada/Make-generated.in": {
@@ -1564,6 +1709,16 @@
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ggc-page.cc",
           "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
         },
+        "gcc/ggc-tests.cc": {
+          "bytes": 13356,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ggc-tests.cc",
+          "sha256": "b742ec6eeadcf4a33f45cbe7213294cf8df44daeaa72b64b1a99ad062c435698"
+        },
+        "gcc/ggc.h": {
+          "bytes": 11939,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ggc.h",
+          "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8"
+        },
         "gcc/gimple-ssa-warn-access.cc": {
           "bytes": 148420,
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/gimple-ssa-warn-access.cc",
@@ -1604,15 +1759,30 @@
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/opts.cc",
           "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770"
         },
+        "gcc/passes.cc": {
+          "bytes": 91818,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/passes.cc",
+          "sha256": "facb2b07df162fc9f9fa9478e602900e81a34de48ad99200f45dac7d42e179fc"
+        },
         "gcc/prefix.cc": {
           "bytes": 8893,
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/prefix.cc",
           "sha256": "ba855d5f056bd96fbb81ff2bfb6214c88a55f8c81ced5a2510169820f3510784"
         },
+        "gcc/read-rtl-function.cc": {
+          "bytes": 62604,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/read-rtl-function.cc",
+          "sha256": "658b151d970faf4046ef98fd21d227abea1fd6c5b1878acc4403ce40a7f21072"
+        },
         "gcc/sanitizer.def": {
           "bytes": 33532,
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/sanitizer.def",
           "sha256": "1493c05f0e0779ffa4166c83c8e3322487face62d64d07e37a8c88f20d52f819"
+        },
+        "gcc/selftest-run-tests.cc": {
+          "bytes": 4346,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/selftest-run-tests.cc",
+          "sha256": "6d555d008542386e1f9a458a906f3a462224e1839586a044572e58ee03244601"
         },
         "gcc/stringpool.cc": {
           "bytes": 8292,
@@ -1628,6 +1798,16 @@
           "bytes": 27679,
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/sync-builtins.def",
           "sha256": "40f9ba305a29fa68389a92b50fa5b04393594c2ab5385a23c0405d3d7f9b64c0"
+        },
+        "gcc/timevar.cc": {
+          "bytes": 22521,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/timevar.cc",
+          "sha256": "1af8a90ba4c7f606e1337f9e3b732336beefb453998e15f0d3305698239801b2"
+        },
+        "gcc/toplev.cc": {
+          "bytes": 72691,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/toplev.cc",
+          "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
         },
         "gcc/tree-core.h": {
           "bytes": 73833,

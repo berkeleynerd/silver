@@ -1,4 +1,4 @@
-# Null-family binder source and object transfer
+# Null-family binder source, object and lifetime transfer
 
 2026-10-18, Linux x86_64, [#119](https://github.com/berkeleynerd/silver/issues/119).
 This component derives the binder-generated source family for the indexed null
@@ -6,14 +6,15 @@ program and transfers its fixed object shape under the selected installation,
 options and filename descriptor. The source argument preserves code, locations
 and semantic requests while allowing bounded trailing path comments and an
 injective filename substitution. The complete
-[capacity rule](retained-tool-capacity.md) remains unfinished: compiler transient
-storage, whole GPR process storage and the final composition remain separate.
+[capacity rule](retained-tool-capacity.md) remains unfinished: ordinary process
+and assembler interfaces, whole GPR storage and final composition remain separate.
 
 The [portable evidence](../evidence/retained-binder-capacity-20261018/README.md)
 contains complete reviewed source files, the selected ALI closure and existing
 generated sources/objects. The extension includes one controlled binder-only
-capture, one configuration-only capture and one proposed-options binder
-compiler/assembler execution, described below. No link, prover run, Lean check
+capture, one configuration-only capture, one proposed-options binder
+compiler/assembler execution, a Gprbind initialization diagnostic and one
+complete binder lifetime counter capture, described below. No link, prover run, Lean check
 or full validation was performed for this component. Existing successful
 executions are reused only with their original identities and scope.
 
@@ -1322,6 +1323,97 @@ The historical proposed
 unindexed object is separately retained at 13,424 bytes; its different basename
 and options are not normalized into the indexed witness.
 
+## Fixed binder compiler lifetime and collection exclusion
+
+Managed run `20261018T115025-40fa63ff60dc` supplies a separate complete
+fixed-binder frontend lifetime observation. It reuses the reviewed installed
+counter sites and four hardware write watchpoints from the
+[native prefix witness](retained-native-expansion.md#executed-null-class-gcc-setup-witness),
+but continues through normal frontend exit. The exact proposed binder options
+are unchanged. The two full source names remain 127 characters, and the fresh
+temporary directory preserves the earlier 52-character length. The child
+environment is captured at frontend exec: the three selected initial entries
+plus `GCC_EXEC_PREFIX`, `COLLECT_GCC` and `COLLECT_GCC_OPTIONS`, with no debugger
+library-path entry. The actual 19 frontend arguments and temporary assembly
+name are retained. This is not the Main-prefix witness or a reuse of Main's
+nonnull-body counts.
+
+The debugger took **7.6263 seconds** (**9.8931 seconds** managed). The frontend
+and debugger exited zero, the ordinary driver completed assembly, and the
+resulting object hash-equals the accepted 13,432-byte binder object. All
+retained inputs were unchanged. No linker, prover, Lean or full test suite
+ran. The offline checker replays **58,074 counter changes**, their initial
+values, allowed deltas, source-attributed post-store PCs and five phase
+snapshots; collection also checks those instruction bytes against the pinned
+installed executable. Complete instruction windows for the four extra
+collection/value-expression guards are retained with their dynamic symbols.
+
+| Counter | Complete observed lifetime |
+| --- | ---: |
+| Positive rounded GGC allocation events | 48,889 |
+| Cumulative rounded GGC bytes | 4,155,400 |
+| Largest rounded GGC request | 65,536 bytes |
+| Normal declaration identities | 6,390 increments, peak 6,390 |
+| Type constructor identities | 2,431 increments, 364 canonicalization rollbacks, peak 2,068 |
+| Debug declaration identities | No changes |
+| Calls to `ggc_collect` | 343, all heuristic mode zero |
+| Actual root/value-expression marker calls | Zero |
+| `decl_value_expr_insert` calls | Zero |
+
+The allocation-byte observation has a narrow use in excluding collection; it
+does not introduce an aggregate RAM or address-space admission condition.
+The selected installed allocator has no always-collect/checking override.
+`init_ggc_heuristics` gives the default heap threshold a **4 MiB lower bound**
+even after host resource-limit adjustments (`ggc-common.cc:1088–1131`). No
+selected option replaces it. Before the first collection,
+`G.allocated` is no greater than cumulative rounded allocation: allocations
+add the same `object_size` to both counters, while explicit frees can only
+reduce `G.allocated` (`ggc-page.cc:1493–1498,1753`). The heuristic returns
+before marking whenever this value is below `allocated_last_gc+min_expand`
+(`:2295–2306`). The observed total is **38,904 bytes below 4 MiB**, without
+needing the additional nonnegative expansion allowance.
+
+This is transferred by a first-collection argument, not by assuming the
+collector's scratch is empty. Before a hypothetical first collection, the
+same-length filename substitution preserves the complete fixed semantic and
+source-location request graph already established above. The affected
+representations must be distinguished:
+
+| Representation | Why filename spelling does not change its pre-collection demand |
+| --- | --- |
+| GNAT names and source records | Source bytes outside fixed-width comments, token positions, file order, basename, runtime specs and equality classes are unchanged. Full-path names remain distinct and same-length. Name insertion order and occupied entry counts are unchanged; differing hash chains only affect probes. |
+| GCC shared `ident_hash` | Gigi converts each full filename to an identifier String (`trans.cc:282–292,339–365`). These two identifiers are plain cleared `tree_identifier` nodes, disjoint from every semantic identifier and the relative translation-unit basename. Probes allocate no node; insertion and growth depend on entry counts (`stringpool.cc:100–138`, `libcpp/symtab.cc:99–175`). The changed filename hashes do not change node or String sizes. |
+| Identifier enumeration | The consumers are statistics, GC marking/purging and PCH state (`stringpool.cc:151–196,280–326`). Statistics and PCH are unselected; collection has not yet occurred. This statement concerns the affected identifier table, not every compiler hash table. |
+| Line maps and location lookups | The map holds the filename pointer and fixed line counts. File equality remains isomorphic; neither map cardinality nor numeric locations change (`libcpp/line-map.cc`, `cfgrtl.cc:784–800`). The filename identifiers are not inserted as declarations or types, so their changed hashes do not alter declaration/type-cache keys. |
+| Emission and synthesized names | Gigi supplies the fixed first global name before translation; basename-based `.file` and raise-location names remain fixed. The previously reviewed source projection excludes filename/random-seed fallback, debug/coverage output and a path-dependent assembler-symbol ingress. |
+
+Consequently the pre-collection allocation and identity events are the same
+as the fixed execution, up to the identity-preserving filename substitution.
+At a proposed first collection the cumulative allocation is at most
+4,155,400 bytes, so the heuristic must return. This contradicts a first actual
+collection. Forced collection belongs to the disabled statistics routine or
+unselected self-test/RTL-reader paths (`ggc-common.cc:1277–1284`,
+`selftest-run-tests.cc`, `ggc-tests.cc`, `read-rtl-function.cc`); the captured
+343 mode-zero calls corroborate that source exclusion. Thus the transferred
+family has no actual collector traversal and no collector-created weak-cache
+or `gt_value_expr_mark` scratch. This does not assign zero to that callback
+for configurations where it runs: its nonempty graph remains a separate
+problem outside this selected no-collection family.
+
+The lifetime event count instantiates the existing
+[GGC storage transfer](retained-native-expansion.md#ggc-object-page-index-and-finalizer-backing).
+Both independent page-pointer vectors need at most **65,536 slots / 524,288
+bytes**. Even conservatively charging one finalizer registration per event,
+each inner vector has at most **73,332 slots**, giving independent requests
+of **1,173,320 bytes** for scalar records and **2,346,632 bytes** for array
+records. The captured largest rounded GGC request is 65,536 bytes, and every
+UID/counter write remains representable. The fixed successful semantic
+execution and same representation demands also preserve the selected
+compiler's ordinary table/cardinality checks under this filename substitution;
+this is a fixed-request acceptance transfer, not a measured peak heap total.
+Source/path/argument wrappers, ordinary process setup and shared assembler
+storage still retain their separately stated interface obligations.
+
 ## Remaining joins
 
 1. Complete the native null ALI contract and invocation controls, including
@@ -1338,11 +1430,13 @@ and options are not normalized into the indexed witness.
    buffers, runtime argument/Text_IO representations, name tables and graph
    core are bounded above; those
    results do not cover every allocation in the GPR/driver or compiler process.
-3. Complete the compiler/assembler transient-capacity composition. The fixed
-   semantic request and object-shape transfer now closes the linker-input
-   term; source buffers, ordinary compiler tables, GC graph-walk scratch and
-   process storage remain separate. Fixed code is not permission to assign
-   those representations zero or infer peak allocation from object size.
+3. Complete the compiler/assembler process composition. The fixed semantic
+   request and object-shape transfer close the linker-input term; the lifetime
+   witness and first-collection argument now bound GGC/UID events and exclude
+   collector scratch for this selected family. Reconcile the shared ordinary
+   startup/pass-registry and assembler/caller interfaces. Fixed code is not
+   permission to assign those representations zero or infer peak allocation
+   from object size.
 4. Compose the transferred object inventory with Main's variable
    native object bound and the fixed-library/linker components. Broader
    shells need their own binder closure/projection; this null progress does

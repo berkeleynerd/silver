@@ -37,6 +37,8 @@ def main():
     parser.add_argument("--compiler-managed-run", type=Path, required=True)
     parser.add_argument("--initialization-capture", type=Path, required=True)
     parser.add_argument("--initialization-managed-run", type=Path, required=True)
+    parser.add_argument("--lifetime-capture", type=Path, required=True)
+    parser.add_argument("--lifetime-managed-run", type=Path, required=True)
     parser.add_argument("--gcc-ada", type=Path, required=True)
     parser.add_argument("--gcc-backend", type=Path, required=True)
     parser.add_argument("--gpr-source", type=Path, required=True)
@@ -85,6 +87,31 @@ def main():
         add(artifacts, "initialization-capture/"+file, args.initialization_capture/file)
     for file in ("events.jsonl", "native.log"):
         add(artifacts, "initialization-capture/managed/"+file, args.initialization_managed_run/file)
+    for path in sorted(args.lifetime_capture.iterdir()):
+        if path.is_file():
+            add(artifacts, "lifetime-capture/"+path.name, path)
+    for path in sorted((args.lifetime_capture/"capture").iterdir()):
+        if path.is_file():
+            add(artifacts, "lifetime-capture/capture/"+path.name, path)
+    lifetime_invocation = json.loads((args.lifetime_capture/"invocation.json").read_text())
+    for file in ("b__main~1.ads", "b__main~1.adb", "b__main~1.ali", "b__main~1.o"):
+        add(artifacts, "lifetime-capture/output/"+file, Path(lifetime_invocation["cwd"])/file)
+    for file in ("events.jsonl", "native.log"):
+        add(artifacts, "lifetime-capture/managed/"+file, args.lifetime_managed_run/file)
+    binary = Path(lifetime_invocation["gnat1"]).read_bytes()
+    mapping = json.loads((args.lifetime_capture/"executable-map.json").read_text())
+    assert digest(binary)["sha256"] == mapping["binary_sha256"] == lifetime_invocation["gnat1_sha256"]
+    for site in mapping["sites"]:
+        address, expected = int(site["address"],16), bytes.fromhex(site["instruction_bytes"])
+        segment, = [s for s in mapping["load_segments"] if s["address"] <= address
+                     and address+len(expected) <= s["address"]+s["file_bytes"]]
+        offset = segment["offset"]+address-segment["address"]
+        assert binary[offset:offset+len(expected)] == expected
+    guards = json.loads((args.lifetime_capture/"guard-map.json").read_text())
+    assert guards["binary_sha256"] == mapping["binary_sha256"]
+    for guard in guards["symbols"]:
+        offset, size = guard["binary_file_offset"], guard["bytes"]
+        assert binary[offset:offset+size] == (args.lifetime_capture/guard["file"]).read_bytes()
     adalib = install/".tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
     knowledge = install/".tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig"
     for path in sorted(knowledge.rglob("*")):
@@ -138,7 +165,9 @@ def main():
                      "sanitizer.def", "coroutine-builtins.def", "optabs.def", "optabs-libfuncs.cc",
                      "config/i386/i386.cc", "config/i386/i386.h", "config/i386/i386-features.cc",
                      "config/i386/i386-builtins.cc", "config/i386/i386-builtins.h",
-                     "config/i386/i386-builtin.def", "config/i386/att.h", "config/elfos.h", "prefix.cc"]
+                     "config/i386/i386-builtin.def", "config/i386/att.h", "config/elfos.h", "prefix.cc",
+                     "ggc.h", "toplev.cc", "passes.cc", "selftest-run-tests.cc",
+                     "read-rtl-function.cc", "ggc-tests.cc", "timevar.cc"]
     for file in backend_files:
         add(sources, "gcc/"+file, args.gcc_backend/file)
     libcpp_files = ["symtab.cc", "line-map.cc"]

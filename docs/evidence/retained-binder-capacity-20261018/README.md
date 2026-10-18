@@ -4,7 +4,8 @@ Supports [the binder component](../../research/retained-binder-capacity.md) for
 #119. Collected on Linux x86_64, 2026-10-18. The extension includes one
 controlled binder-only run, one Gprconfig selection with metadata queries and
 one proposed-options indexed binder compiler/assembler execution, and one
-Gprbind initialization usage diagnostic; retained
+Gprbind initialization usage diagnostic, and a complete fixed-binder lifetime
+counter capture; retained
 installation inputs were read-only.
 No link, complete audit, Lean check, test suite,
 macOS validation or hosted CI is claimed.
@@ -21,8 +22,8 @@ complete child environment, exact arguments, temporary inputs, input identities,
 generated sources, empty stdout/stderr and managed-run log/events. Its input
 manifest is preserved separately from the extended packet's later manifest.
 
-`sources.tar.gz` contains one hundred and forty-four complete inspected source files:
-eighty-five GCC Ada files, thirty-five GCC backend files, two libcpp files, twenty
+`sources.tar.gz` contains one hundred and fifty-one complete inspected source files:
+eighty-five GCC Ada files, forty-two GCC backend files, two libcpp files, twenty
 GPR files and two Silver workspace-construction files. The GCC/libcpp files were reconciled against
 the earlier complete-source manifests for
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; GPR retains its previously used
@@ -101,8 +102,9 @@ unchanged. The 13,432-byte object hash-equals the indexed baseline. Its source
 projection preserves semantic requests, locations, filename equality and
 emission inputs, transferring object shape to the selected null binder family.
 The packet retains the exact environment, command, script, query, outputs and
-managed records. GC traversal scratch and other whole compiler intermediates
-remain separate capacity obligations; object size is not their bound.
+managed records. That object witness alone does not bound GC traversal scratch
+or other compiler intermediates; the later lifetime extension below supplies
+its separate event and collection argument. Object size is not their bound.
 
 The Gprbind extension separately bounds its Main-only ALI parser: 379 raw
 buffer bytes including EOF, one ALI/unit, nine argument Strings totaling 92
@@ -140,6 +142,22 @@ the installed runtime's limits. Correct libc/OS semantics and resource
 availability remain the ordinary trusted boundary; auditing libc internals
 is not an additional capacity prerequisite.
 
+Managed `20261018T115025-40fa63ff60dc` observes the complete proposed binder
+frontend lifetime with four hardware write watchpoints and separate collector
+guards. It exits normally and delivers the hash-equal binder object. Its
+58,074 replayed writes establish 48,889 positive GGC events / 4,155,400 rounded
+bytes, maximum request 65,536; 6,390 declaration identities; and 2,431 type
+constructors with 364 rollbacks. All 343 collection calls use heuristic mode,
+with no actual root/value-expression marking. The source-attributed
+first-collection argument uses the same-size filename projection and the
+minimum 4 MiB default heap threshold, excluding GC scheduling variation for
+this fixed family. It does not establish an aggregate physical-memory cap.
+Debugger duration was 7.6263 seconds, managed 9.8931 seconds; no link or proof
+ran. The packet retains raw counter events, actual frontend environment,
+commands, watchpoint installation, source/binary instruction mappings and
+guard instruction windows. Collection checks the mapped bytes against the
+installed executable; offline replay needs only this packet.
+
 Replay without access to the original installations:
 
 ```sh
@@ -161,6 +179,8 @@ python3 docs/evidence/retained-binder-capacity-20261018/collect.py \
   --compiler-managed-run /home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T111407-352fea7c3696 \
   --initialization-capture /tmp/silver-gprbind-initialization-20261018 \
   --initialization-managed-run /home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T113833-a859174fb659 \
+  --lifetime-capture /tmp/silver-binder-lifetime-20261018 \
+  --lifetime-managed-run /home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T115025-40fa63ff60dc \
   --gcc-ada /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
   --gcc-backend /tmp/silver-backend-compose-20261018/full-source/gcc \
   --gpr-source /tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263 \

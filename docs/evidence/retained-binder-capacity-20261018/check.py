@@ -100,6 +100,145 @@ def c_strings(raw):
             for t in tokens if t.startswith(b'"')]
 
 
+def reconcile_lifetime(artifacts, sources):
+    """Replay every observed fixed-binder counter write, without a native tool."""
+    prefix = "lifetime-capture/"
+    read = lambda name: json.loads(artifacts[prefix+name])
+    plan = read("invocation.json")
+    run = read("capture/result.json")
+    summary = read("capture/counter-summary.json")
+    mapping = read("executable-map.json")
+    guards = read("guard-map.json")
+    assert mapping["ELF_type"] == 2
+    assert mapping["binary_sha256"] == guards["binary_sha256"] == plan["gnat1_sha256"] == run["gnat1_sha256"]
+    assert run["returncode"] == summary["frontend_exit_code"] == 0
+    assert run["retained_inputs_unchanged"] is run["object_hash_equal_baseline"] is summary["completed"] is True
+    assert not run["timed_out"] and not summary["failures"] and not summary["new_threads"]
+    assert not summary["mark_calls"] and not summary["value_expr_insert_calls"]
+    expected_guards = {"0xda5780", "0xf80190", "0x16b12e0", "0x16a2e00"}
+    assert {g["address"] for g in guards["symbols"]} == expected_guards
+    for guard in guards["symbols"]:
+        assert digest(artifacts[prefix+guard["file"]]) == {k:guard[k] for k in ("bytes","sha256")}
+        assert guard["address"].encode() in artifacts[prefix+"counters.py"]
+    allowed = defaultdict(set)
+    for site in mapping["sites"]:
+        assert int(site["address"],16)+len(bytes.fromhex(site["instruction_bytes"])) == int(site["post_instruction_pc"],16)
+        allowed[site["counter"]].add(site["post_instruction_pc"])
+    expected_specs = {
+        "ggc_bytes":{"address":0x3d1a868,"width":8,"signed":False,"initial":0},
+        "decl_uid":{"address":0x3d2354c,"width":4,"signed":True,"initial":0},
+        "type_uid":{"address":0x3619d30,"width":4,"signed":False,"initial":1},
+        "debug_decl_uid":{"address":0x3d23548,"width":4,"signed":True,"initial":0},
+    }
+    assert summary["specs"] == expected_specs
+    state = {name:{"initial":s["initial"],"current":s["initial"],"peak":s["initial"],
+                   "minimum":s["initial"],"events":0,"positive_sum":0,"negative_sum":0,
+                   "positive_events":0,"negative_events":0,"largest_increment":0}
+             for name,s in expected_specs.items()}
+    phases = summary["phases"]
+    assert [p["phase"] for p in phases] == ["frontend_exec_before_initialization", "gigi_entry",
+        "builtins_entry","builtins_return","before_binder_translation"]
+    assert [p["pc"] for p in phases[1:]] == ["0x9a8520","0x97c6b0","0x9a909e","0x9a9419"]
+    assert all(p["threads"] == 1 for p in phases)
+    def phase_check(i):
+        assert phases[i]["values"] == {n:d["current"] for n,d in state.items()}
+        assert phases[i]["events"] == {n:d["events"] for n,d in state.items()}
+    phase_check(0)
+    phase_index = 1
+    raw_events = artifacts[prefix+"capture/counter-events.jsonl"]
+    events = [json.loads(line) for line in raw_events.splitlines()]
+    histogram, sites = Counter(), Counter()
+    for index,event in enumerate(events,1):
+        name,old,new,delta = (event[k] for k in ("counter","old","new","delta"))
+        data = state[name]
+        assert old == data["current"] and delta == new-old and event["pc"] in allowed[name]
+        if name == "ggc_bytes":
+            assert delta > 0 and 0 <= new < 2**64
+            histogram[delta] += 1
+        elif name == "decl_uid":
+            assert delta == 1 and 0 <= new < 2**31
+        elif name == "type_uid":
+            assert delta in (-1,1) and 1 <= new < 2**32
+        else:
+            assert name == "debug_decl_uid" and delta == -1 and -2**31 <= new < 0
+        sites[(name,event["pc"])] += 1
+        data["current"] = new
+        data["events"] += 1
+        data["peak"],data["minimum"] = max(data["peak"],new),min(data["minimum"],new)
+        data["positive_sum"] += max(delta,0)
+        data["negative_sum"] += max(-delta,0)
+        data["positive_events"] += int(delta>0)
+        data["negative_events"] += int(delta<0)
+        data["largest_increment"] = max(data["largest_increment"],delta)
+        if phase_index < len(phases) and index == sum(phases[phase_index]["events"].values()):
+            phase_check(phase_index)
+            phase_index += 1
+    assert phase_index == len(phases) and state == summary["counters"]
+    assert len(events) == 58074
+    assert state["ggc_bytes"]["positive_events"] == 48889
+    assert state["ggc_bytes"]["positive_sum"] == 4155400 < 4*1024*1024
+    assert state["ggc_bytes"]["largest_increment"] == 65536
+    assert state["decl_uid"]["positive_events"] == 6390
+    assert state["type_uid"]["positive_events"] == 2431 and state["type_uid"]["negative_events"] == 364
+    assert state["type_uid"]["peak"] == 2068 and state["debug_decl_uid"]["events"] == 0
+    assert len(summary["collection_calls"]) == 343
+    assert all(c["pc"] == "0xda5780" and c["mode"] == 0 and 0 <= c["cumulative_ggc_bytes"] <= 4155400
+               for c in summary["collection_calls"])
+    assert artifacts[prefix+"capture/watchpoints.txt"].count(b"hw watchpoint") == 4
+    frontend = read("capture/frontend-exec.json")
+    assert len(plan["cwd"]) == 113 and plan["source_fullname_bytes"] == 127
+    assert len(plan["environment"]["TMPDIR"]) == 52
+    assert set(plan["environment"]) == {"PATH","LC_ALL","TMPDIR"}
+    assert frontend["threads"] == 1 and frontend["executable"] == plan["gnat1"]
+    actual = frontend["environment"]
+    assert len(actual) == 6 and all(actual[k] == v for k,v in plan["environment"].items())
+    assert set(actual)-set(plan["environment"]) == {"COLLECT_GCC","COLLECT_GCC_OPTIONS","GCC_EXEC_PREFIX"}
+    assert actual["COLLECT_GCC"] == plan["argv"][0]
+    assert actual["GCC_EXEC_PREFIX"] == str(Path(plan["argv"][0]).parent)+"/../lib/gcc/"
+    previous_plan = json.loads(artifacts["compiler-capture/invocation.json"])
+    assert plan["argv"] == previous_plan["argv"]
+    assert plan["baseline_invocation_sha256"] == digest(artifacts["compiler-capture/invocation.json"])["sha256"]
+    assert len(frontend["argv"]) == 19
+    assert frontend["argv"][1:18] == ["-quiet","-Wno-free-nonheap-object","-dumpbase","b__main~1.adb",
+        "-dumpbase-ext",".adb","-gnatA","-gnatA","-gnatWb","-gnatiw","-gnatws",
+        "-mtune=generic","-march=x86-64","-gnatO","b__main~1.o","b__main~1.adb","-o"]
+    assert frontend["argv"][18].startswith(plan["environment"]["TMPDIR"]+"/cc")
+    assert len(frontend["argv"][18]) == 63 and frontend["argv"][18].endswith(".s")
+    assert artifacts[prefix+"output/b__main~1.o"] == artifacts["cases/indexed-cr/b__main~1.o"]
+    for name,row in run["generated"].items():
+        assert digest(artifacts[prefix+"output/"+name]) == row
+    ledger = [json.loads(l) for l in artifacts[prefix+"managed/events.jsonl"].splitlines()]
+    finished, = [e for e in ledger if e["event"] == "finished"]
+    prepared, = [e for e in ledger if e["event"] == "prepared"]
+    assert finished["outcome"] == "success"
+    pins = prepared["inputs"]["inputs_sha256"]
+    for name in ("run.py","counters.py","invocation.json"):
+        values = [v for p,v in pins.items() if p == "/tmp/silver-binder-lifetime-20261018/"+name]
+        assert values == [digest(artifacts[prefix+name])["sha256"]]
+    for file,snippets in {
+        "gcc/ggc-page.cc":[b"G.allocated += object_size;", b"timevar_ggc_mem_total += object_size;",
+            b"&& G.allocated < allocated_last_gc + min_expand)"],
+        "gcc/ggc-common.cc":[b"phys_kbytes = MAX (phys_kbytes, 4 * ONE_K);", b"if (! GATHER_STATISTICS)\n    return;"],
+        "gcc/ggc.h":[b"GGC_COLLECT_HEURISTIC",b"GGC_COLLECT_FORCE"],
+    }.items():
+        assert all(s in sources[file] for s in snippets),file
+    E = state["ggc_bytes"]["positive_events"]
+    page_slots = 1 << (max(128,E)-1).bit_length()
+    F = max(4,E,2*min(15,E-1),3*(E-1)//2)
+    return {"managed_run_id":finished["run_id"],"duration_seconds":run["elapsed_seconds"],
+        "managed_duration_seconds":finished["duration_seconds"],"raw_event_identity":digest(raw_events),
+        "event_records_replayed":len(events),"hardware_write_watchpoints":4,"counters":state,
+        "site_events":[{"counter":n,"pc":p,"events":v} for (n,p),v in sorted(sites.items())],
+        "rounded_GGC_histogram":[{"bytes":n,"events":v} for n,v in sorted(histogram.items())],
+        "heuristic_collection_calls":343,"actual_mark_calls":0,"value_expr_insert_calls":0,
+        "minimum_default_heap_bytes":4*1024*1024,"margin_below_minimum_heap_bytes":4*1024*1024-4155400,
+        "page_pointer_vector_slots_bound":page_slots,"each_page_pointer_vector_bytes_bound":8*page_slots,
+        "conservative_each_finalizer_vector_slots_bound":F,
+        "scalar_finalizer_vector_bytes_bound":8+16*F,"array_finalizer_vector_bytes_bound":8+32*F,
+        "scope":"fixed proposed binder full frontend lifetime; family transfer requires documented filename/source/option projection; no aggregate physical-memory condition",
+        "whole_tool_capacity_established":False}
+
+
 def analyze(artifacts, sources):
     cases = ["indexed-cr", "indexed-lf", "indexed-uppercase", "unindexed-proposed"]
     indexed_specs, indexed_bodies, indexed_objects = [], [], []
@@ -921,6 +1060,7 @@ def analyze(artifacts, sources):
         "regular_library_returned_Ada_string_bytes_bound":len(paths[3])+len(b"libgnat.a"),
         "scope":"selected caller representations and bounded libc/OS requests; libc implementation internals are not an additional capacity prerequisite",
     }
+    result["binder_compiler_lifetime"] = reconcile_lifetime(artifacts,sources)
     return result
 
 
