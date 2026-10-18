@@ -1,0 +1,692 @@
+[
+  {
+    "line": 238,
+    "pattern": "(op @0 integer_zerop)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 243,
+    "pattern": "(pointer_plus integer_zerop @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 248,
+    "pattern": "(pointer_diff @0 integer_zerop)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 254,
+    "pattern": "(plus:c @0 real_zerop@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 260,
+    "pattern": "(minus @0 real_zerop@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 293,
+    "pattern": "(minus @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 301,
+    "pattern": "(pointer_diff @@0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 305,
+    "pattern": "(mult @0 integer_zerop@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 339,
+    "pattern": "(mult @0 real_zerop@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 348,
+    "pattern": "(mult @0 real_onep)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 356,
+    "pattern": "(mult @0 real_minus_onep)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 365,
+    "pattern": "(mult @0 VECTOR_CST@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 473,
+    "pattern": "(COPYSIGN_ALL REAL_CST@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 500,
+    "pattern": "(op @0 integer_onep)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 544,
+    "pattern": "(div integer_zerop@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 550,
+    "pattern": "(div @0 integer_minus_onep@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 555,
+    "pattern": "(div @0 SSA_NAME@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 562,
+    "pattern": "(div @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 593,
+    "pattern": "(floor_divmod @0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 605,
+    "pattern": "(trunc_div integer_onep@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 734,
+    "pattern": "(rdiv @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 765,
+    "pattern": "(rdiv @0 real_onep)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 771,
+    "pattern": "(rdiv @0 real_minus_onep)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 854,
+    "pattern": "(rdiv @0 cst@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 870,
+    "pattern": "(mod integer_zerop@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 876,
+    "pattern": "(mod @0 integer_onep)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 880,
+    "pattern": "(mod @0 integer_minus_onep@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 885,
+    "pattern": "(mod @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 912,
+    "pattern": "(trunc_mod @0 INTEGER_CST@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 1012,
+    "pattern": "(div @0 integer_pow2p@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 1247,
+    "pattern": "(copysigns @0 REAL_CST@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 1312,
+    "pattern": "(shift @0 uniform_integer_cst_p@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 1709,
+    "pattern": "(bit_ior @0 integer_all_onesp@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 1714,
+    "pattern": "(bit_ior @0 integer_zerop)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 1719,
+    "pattern": "(bit_and @0 integer_zerop@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 1737,
+    "pattern": "(bit_xor @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 1742,
+    "pattern": "(bit_xor @0 integer_all_onesp@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 1747,
+    "pattern": "(bit_and @0 integer_all_onesp)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 1753,
+    "pattern": "(bitop @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 1759,
+    "pattern": "(bit_and SSA_NAME@0 INTEGER_CST@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 1773,
+    "pattern": "(bit_ior SSA_NAME@0 INTEGER_CST@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 2121,
+    "pattern": "(abs tree_expr_nonnegative_p@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 2125,
+    "pattern": "(absu tree_expr_nonnegative_p@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 2201,
+    "pattern": "(minus @0 negate_expr_p@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 2211,
+    "pattern": "(minus integer_onep@0 SSA_NAME@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 2497,
+    "pattern": "(mult zero_one_valued_p@0 zero_one_valued_p@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 3084,
+    "pattern": "(cmp:c with_possible_nonzero_bits@0 with_known_nonzero_bits@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 3227,
+    "pattern": "(pointer_diff (convert?@2 ADDR_EXPR@0) (convert1?@3 @1))",
+    "optional_nodes_removed": true
+  },
+  {
+    "line": 3234,
+    "pattern": "(pointer_diff (convert?@2 @0) (convert1?@3 ADDR_EXPR@1))",
+    "optional_nodes_removed": true
+  },
+  {
+    "line": 3272,
+    "pattern": "(bit_and (convert? @0) INTEGER_CST@1)",
+    "optional_nodes_removed": true
+  },
+  {
+    "line": 4566,
+    "pattern": "(minus integer_all_onesp @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 4916,
+    "pattern": "(minmax @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 4925,
+    "pattern": "(minmax @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 4951,
+    "pattern": "(min @0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 4962,
+    "pattern": "(max @0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5003,
+    "pattern": "(minmax (convert1?@2 addr@0) (convert2?@3 addr@1))",
+    "optional_nodes_removed": true
+  },
+  {
+    "line": 5037,
+    "pattern": "(minmax:C @0 REAL_CST@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5049,
+    "pattern": "(FMIN_ALL @0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5052,
+    "pattern": "(FMAX_ALL @0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5258,
+    "pattern": "(rotate integer_all_onesp@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5263,
+    "pattern": "(rshift integer_all_onesp@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5336,
+    "pattern": "(rshift @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5341,
+    "pattern": "(shiftrotate @0 integer_zerop)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5344,
+    "pattern": "(shiftrotate integer_zerop@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5350,
+    "pattern": "(shiftrotate @0 vec@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5360,
+    "pattern": "(shift @0 SSA_NAME@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5373,
+    "pattern": "(lrotate @0 INTEGER_CST@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5429,
+    "pattern": "(rshift integer_onep @2)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5722,
+    "pattern": "(cvt @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5745,
+    "pattern": "(view_convert @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5780,
+    "pattern": "(view_convert CONSTRUCTOR@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5797,
+    "pattern": "(paren CONSTANT_CLASS_P@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 5951,
+    "pattern": "(trunc_div with_possible_nonzero_bits@0 integer_pow2p@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 6029,
+    "pattern": "(plus @0 REAL_CST@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 6037,
+    "pattern": "(plus @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 6045,
+    "pattern": "(minus integer_zerop @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 6048,
+    "pattern": "(pointer_diff integer_zerop @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 6055,
+    "pattern": "(minus real_zerop@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 6061,
+    "pattern": "(mult @0 integer_minus_onep)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 6232,
+    "pattern": "(cond INTEGER_CST@0 @1 @2)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 6239,
+    "pattern": "(vec_cond VECTOR_CST@0 @1 @2)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 6493,
+    "pattern": "(vec_cond @0 VECTOR_CST@1 VECTOR_CST@2)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 6506,
+    "pattern": "(cond @0 INTEGER_CST@1 INTEGER_CST@2)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 7092,
+    "pattern": "(cond @0 zero_one_valued_p@1 zero_one_valued_p@2)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 7181,
+    "pattern": "(cnd @0 @1 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 7367,
+    "pattern": "(cmp @0 uniform_integer_cst_p@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 7377,
+    "pattern": "(cmp @0 uniform_integer_cst_p@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 7544,
+    "pattern": "(cmp @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 7555,
+    "pattern": "(cmp @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 7562,
+    "pattern": "(cmp @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 7566,
+    "pattern": "(cmp @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 7569,
+    "pattern": "(ltgt @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 7606,
+    "pattern": "(cmp @0 REAL_CST@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 8182,
+    "pattern": "(cmp SSA_NAME@1 addr@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 8258,
+    "pattern": "(cmp (nop_convert? @0) integer_zerop)",
+    "optional_nodes_removed": true
+  },
+  {
+    "line": 8397,
+    "pattern": "(cmp (convert1?@2 addr@0) (convert2? addr@1))",
+    "optional_nodes_removed": true
+  },
+  {
+    "line": 8429,
+    "pattern": "(cond @0 @1 @2)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 8444,
+    "pattern": "(neeq @0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 8477,
+    "pattern": "(cmp (convert?@2 @0) uniform_integer_cst_p@1)",
+    "optional_nodes_removed": true
+  },
+  {
+    "line": 8611,
+    "pattern": "(cmp @0 REAL_CST@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 8619,
+    "pattern": "(unordered @0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 8628,
+    "pattern": "(ordered @0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 8637,
+    "pattern": "(ne @0 integer_zerop)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 8643,
+    "pattern": "(eq @0 integer_onep)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 8937,
+    "pattern": "(pow real_zerop@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9066,
+    "pattern": "(pows REAL_CST@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9106,
+    "pattern": "(POWI REAL_CST@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9224,
+    "pattern": "(fns integer_valued_real_p@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9229,
+    "pattern": "(HYPOT:c @0 real_zerop@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9234,
+    "pattern": "(POW real_onep@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9239,
+    "pattern": "(COPYSIGN_ALL @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9249,
+    "pattern": "(COPYSIGN_ALL @0 tree_expr_nonnegative_p@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9260,
+    "pattern": "(scale real_zerop@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9264,
+    "pattern": "(scale @0 integer_zerop@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9268,
+    "pattern": "(scale REAL_CST@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9346,
+    "pattern": "(POWI real_zerop@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9412,
+    "pattern": "(HYPOT @0 @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9420,
+    "pattern": "(cexps compositional_complex@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9431,
+    "pattern": "(floors tree_expr_nonnegative_p@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9572,
+    "pattern": "(floors tree_expr_nonnegative_p@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9581,
+    "pattern": "(fns integer_valued_real_p@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9587,
+    "pattern": "(rints integer_valued_real_p@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9599,
+    "pattern": "(ifn @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9606,
+    "pattern": "(llfn @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9611,
+    "pattern": "(CPROJ @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9632,
+    "pattern": "(pows @0 REAL_CST@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9661,
+    "pattern": "(POWI real_onep@0 @1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9665,
+    "pattern": "(POWI @0 INTEGER_CST@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9839,
+    "pattern": "(op zero_one_valued_p@0 zero_one_valued_p@1)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9854,
+    "pattern": "(SIGNBIT tree_expr_nonnegative_p@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 9859,
+    "pattern": "(SIGNBIT @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 10020,
+    "pattern": "(BIT_FIELD_REF @0 @1 integer_zerop)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 10025,
+    "pattern": "(BIT_FIELD_REF @0 @1 @2)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 10058,
+    "pattern": "(BIT_FIELD_REF CONSTRUCTOR@0 @1 @2)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 10922,
+    "pattern": "(pfun @0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 11023,
+    "pattern": "(FFS tree_expr_nonzero_p@0)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 11558,
+    "pattern": "(vec_perm @0 @1 VECTOR_CST@2)",
+    "optional_nodes_removed": false
+  },
+  {
+    "line": 11711,
+    "pattern": "(vec_perm vec_same_elem_p@0 @0 @1)",
+    "optional_nodes_removed": false
+  }
+]

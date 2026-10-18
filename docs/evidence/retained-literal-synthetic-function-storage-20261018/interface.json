@@ -1,0 +1,248 @@
+{
+  "scope": "three struct-function allocations and two initial gimplifications",
+  "function_structure_calls": 3,
+  "initial_helper_gimplifications": 2,
+  "empty_elaboration_gimplifications": 0,
+  "ordinary_lowered_nonMain_functions": 0,
+  "emitted_nonMain_functions": 0,
+  "input_dimensions": {
+    "byte": {
+      "unary": 3,
+      "binary": 4,
+      "ternary": 1,
+      "W": 8,
+      "scalar_materializations": 4
+    },
+    "bit": {
+      "unary": 4,
+      "binary": 5,
+      "ternary": 1,
+      "W": 10,
+      "scalar_materializations": 6
+    }
+  },
+  "GGC_groups": [
+    {
+      "family": "function",
+      "requests": 3,
+      "caller_bytes": 208,
+      "rounded_slot_bytes_ceiling": 256
+    },
+    {
+      "family": "eh_status",
+      "requests": 3,
+      "caller_bytes": 48,
+      "rounded_slot_bytes_ceiling": 64
+    },
+    {
+      "family": "machine_function",
+      "requests": 3,
+      "caller_bytes": 320,
+      "rounded_slot_bytes_ceiling": 512
+    },
+    {
+      "family": "EH_pointer_vectors",
+      "requests": 6,
+      "caller_bytes": 64,
+      "rounded_slot_bytes_ceiling": 64
+    },
+    {
+      "family": "gimple_df",
+      "requests": 2,
+      "caller_bytes": 256,
+      "rounded_slot_bytes_ceiling": 256
+    },
+    {
+      "family": "default_def_hash_control",
+      "requests": 2,
+      "caller_bytes": 128,
+      "rounded_slot_bytes_ceiling": 128
+    },
+    {
+      "family": "default_def_hash_backing",
+      "requests": 2,
+      "caller_bytes": 248,
+      "rounded_slot_bytes_ceiling": 256
+    },
+    {
+      "family": "SSA_name_vector",
+      "requests": 2,
+      "caller_bytes": 512,
+      "rounded_slot_bytes_ceiling": 512
+    },
+    {
+      "family": "whole_body_unshare_unary",
+      "requests": 21,
+      "caller_bytes": 32,
+      "rounded_slot_bytes_ceiling": 32
+    },
+    {
+      "family": "whole_body_unshare_binary",
+      "requests": 27,
+      "caller_bytes": 40,
+      "rounded_slot_bytes_ceiling": 64
+    },
+    {
+      "family": "whole_body_unshare_ternary",
+      "requests": 6,
+      "caller_bytes": 48,
+      "rounded_slot_bytes_ceiling": 64
+    },
+    {
+      "family": "materialization_INIT",
+      "requests": 10,
+      "caller_bytes": 40,
+      "rounded_slot_bytes_ceiling": 64
+    },
+    {
+      "family": "materialization_shallow_unshare",
+      "requests": 10,
+      "caller_bytes": 40,
+      "rounded_slot_bytes_ceiling": 64
+    },
+    {
+      "family": "conditional_arm_assignment_trees",
+      "requests": 4,
+      "caller_bytes": 40,
+      "rounded_slot_bytes_ceiling": 64
+    },
+    {
+      "family": "return_VAR_DECL",
+      "requests": 2,
+      "caller_bytes": 312,
+      "rounded_slot_bytes_ceiling": 512
+    },
+    {
+      "family": "scalar_SSA_NAME",
+      "requests": 10,
+      "caller_bytes": 88,
+      "rounded_slot_bytes_ceiling": 128
+    },
+    {
+      "family": "LABEL_DECL",
+      "requests": 6,
+      "caller_bytes": 256,
+      "rounded_slot_bytes_ceiling": 256
+    },
+    {
+      "family": "GIMPLE_ASSIGN",
+      "requests": 14,
+      "caller_bytes": 96,
+      "rounded_slot_bytes_ceiling": 128
+    },
+    {
+      "family": "GIMPLE_COND",
+      "requests": 2,
+      "caller_bytes": 88,
+      "rounded_slot_bytes_ceiling": 128
+    },
+    {
+      "family": "GIMPLE_LABEL",
+      "requests": 6,
+      "caller_bytes": 64,
+      "rounded_slot_bytes_ceiling": 64
+    },
+    {
+      "family": "GIMPLE_GOTO",
+      "requests": 2,
+      "caller_bytes": 64,
+      "rounded_slot_bytes_ceiling": 64
+    },
+    {
+      "family": "GIMPLE_RETURN",
+      "requests": 2,
+      "caller_bytes": 80,
+      "rounded_slot_bytes_ceiling": 128
+    },
+    {
+      "family": "GIMPLE_BIND",
+      "requests": 2,
+      "caller_bytes": 72,
+      "rounded_slot_bytes_ceiling": 128
+    },
+    {
+      "family": "temporary_identifier",
+      "requests": 10,
+      "caller_bytes": 40,
+      "rounded_slot_bytes_ceiling": 64
+    },
+    {
+      "family": "temporary_identifier_characters",
+      "requests": 10,
+      "caller_bytes": 16,
+      "rounded_slot_bytes_ceiling": 16
+    }
+  ],
+  "GGC_events": 167,
+  "GGC_caller_bytes_sum_ceiling": 13336,
+  "GGC_rounded_slots_sum_ceiling": 17216,
+  "ordinary_groups": [
+    {
+      "family": "unshare_hash_control",
+      "requests": 2,
+      "caller_bytes": 64
+    },
+    {
+      "family": "unshare_hash_backing",
+      "requests": 2,
+      "caller_bytes": 104
+    },
+    {
+      "family": "gimplifier_context_pool_extension",
+      "requests": 1,
+      "caller_bytes": 128
+    },
+    {
+      "family": "parameter_pointer_vector",
+      "requests": 2,
+      "caller_bytes": 40
+    },
+    {
+      "family": "cfun_stack_first_capacity",
+      "requests": 1,
+      "caller_bytes": 40
+    }
+  ],
+  "ordinary_requests": 8,
+  "ordinary_caller_bytes_sum_ceiling": 584,
+  "identity_demands": {
+    "function_definition_numbers": 3,
+    "fresh_DECL_UIDs": 8,
+    "fresh_type_UIDs": 0,
+    "SSA_names_total": 10,
+    "SSA_name_vector_length_per_helper": [
+      5,
+      7
+    ],
+    "tmp_var_id_num_increment_ceiling": 10,
+    "tmp_var_id_num_incoming_max": 4294967285,
+    "condition_UID_next_value_per_helper": 2,
+    "CFG_label_UID_assignments": 0,
+    "RTL_label_numbers": 0
+  },
+  "shared_container_demands": {
+    "identifier_insertion_capable_lookups": 10,
+    "identifier_new_entries_ceiling": 10,
+    "singleton_finalizer_registrations": 2,
+    "vector_finalizer_registrations": 0,
+    "cfun_stack_pushes": 2,
+    "cfun_stack_pops": 2,
+    "cfun_stack_peak_length": 1,
+    "gimplifier_context_peak_active": 1,
+    "gimplifier_context_returns_to_pool": 2,
+    "default_def_hashes": 2,
+    "default_def_hash_live_entries": 0,
+    "default_def_hash_capacity_each": 31,
+    "unshare_hash_capacity_each": 13,
+    "unshare_hash_live_entries": 0,
+    "EH_vector_live_entries_each": 1,
+    "parameter_vector_live_entries_each": 2
+  },
+  "original_gigi_predecessor_construction_included": false,
+  "cgraph_nodes_and_symbol_map_backing_included": false,
+  "shared_identifier_backing_included": false,
+  "collector_page_and_finalizer_backing_included": false,
+  "independent_review": "pending",
+  "whole_literal_pipeline_closed": false,
+  "native_runs": 0
+}
