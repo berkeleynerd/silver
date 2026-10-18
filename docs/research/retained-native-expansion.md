@@ -779,12 +779,16 @@ enabled and additionally analyzes any inserted check.
 The dynamic `N_Range` builder has a useful structural transfer. Assume no
 discriminants/access/fixed-lower-bound case, no compile-time range error, and
 already-analyzed side-effect-free scalar bound trees with **b** total ordinary
-nodes, no lists, owned itypes/entities or expression actions. Exclude any
+nodes and **l** syntax-list headers, no owned itypes/entities or expression
+actions. For example, a scalar conditional owns its Expressions list but
+no declaration or action list. Exclude any
 side-effect-removal capture by the incoming purity premise. The builder adds
-at most **2*b + 28 ordinary nodes**, with no entity, list, name, growing-slot,
-String or Uint allocation of its own:
+at most **2*b + 28 ordinary nodes and 2*l syntax-list headers**, with no entity,
+name, growing-slot, String or Uint allocation of its own:
 
-- It duplicates each bound twice: `2*b` nodes. `Remove_Checks` only walks the
+- It duplicates each bound twice: `2*b` nodes and `2*l` syntax lists by the
+  no-owned-decoration case of the preceding tree-copy transfer.
+  `Remove_Checks` only walks the
   copies and clears flags (`checks.adb:9822–9887`).
 - Six `Convert_To` calls each allocate at most a shallow relocation,
   conversion and type occurrence: eighteen nodes. Unlike the concat emitter's
@@ -906,8 +910,8 @@ the magnitude summary, acyclicity and the number of comparison invocations.
 For the preceding `Get_Range_Checks` shape, `Not_Null_Range` invokes this
 comparison at most once. Its other value and conditional-branch tests only
 compare existing values. Thus the complete no-static-error selection adds at
-most **2*b+28+20*A ordinary nodes and 80*A+60 Uint appends**, with the earlier
-purity/no-owned-decoration premises and zero lists. If both bounds are known,
+most **2*b+28+20*A ordinary nodes, 2*l syntax lists and 80*A+60 Uint appends**,
+with the earlier purity/no-owned-decoration premises. If both bounds are known,
 the direct value-comparison route still allocates nothing. Enabled insertion
 and analysis of the resulting check remain separate from selection.
 
@@ -924,7 +928,8 @@ a transient wrap. Checks are suppressed for the
 whole analysis. Its existing defining identifier and input syntax have
 already been charged.
 
-With b the total ordinary bound-tree nodes, A the analysis-graph bound, and
+With b the total ordinary bound-tree nodes, l their syntax-list count,
+A the analysis-graph bound, and
 L the subtype identifier's character length, semantic analysis/expansion adds
 at most:
 
@@ -935,7 +940,8 @@ new name entries     1
 name characters      L + 4, including NUL
 Uint appends         80*A + 155
 growing-slot events  2
-syntax/Elists        0
+syntax lists         2*l
+Elists               0
 String values        0.
 ```
 
