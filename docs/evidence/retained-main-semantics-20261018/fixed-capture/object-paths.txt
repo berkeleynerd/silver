@@ -1,0 +1,3 @@
+/tmp/silver-frontend-fixed-counter-20261018/all-miss/obj
+/tmp/silver-producer-numeric-fields-20261018/library-obj
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib

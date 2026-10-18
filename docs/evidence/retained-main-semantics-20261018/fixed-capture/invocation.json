@@ -1,0 +1,35 @@
+{
+  "status": "prepared",
+  "argv": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+    "-c",
+    "-x",
+    "ada",
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-gnatc",
+    "-gnates=/tmp/silver-frontend-fixed-counter-20261018/all-miss/options.json",
+    "-gnatec=/tmp/silver-producer-numeric-fields-20261018/naming.adc",
+    "-I/tmp/silver-frontend-fixed-counter-20261018/all-miss",
+    "-I/tmp/silver-producer-numeric-fields-20261018/library-src",
+    "/tmp/silver-frontend-fixed-counter-20261018/all-miss/main.adb",
+    "-gnateO=/tmp/silver-frontend-fixed-counter-20261018/all-miss/object-paths.txt"
+  ],
+  "cwd": "/tmp/silver-frontend-fixed-counter-20261018/all-miss/obj",
+  "environment": {
+    "ADA_INCLUDE_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+    "ADA_OBJECTS_PATH": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
+  },
+  "input_sha256": "e0ddec468d0ed370b606ed131dd7fb9226962c3bb5e474d84c8965018a2a289f",
+  "root": "first_or_default",
+  "prerequisites": "shared library-prerequisites.json then this Main phase1",
+  "scope": "isolated fixed-light Table.Last and range-cache capture; cache key writes only in inferior; false backend; no solver",
+  "config_basis": "/tmp/silver-producer-counter-plan-20261018/options.json",
+  "config_changes": [
+    "relocate why3_dir",
+    "retain proof phase options"
+  ],
+  "basis_invocation": "/tmp/silver-producer-fixed-deps-plan-20261018/first_or_default/invocation.json"
+}

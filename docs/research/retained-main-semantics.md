@@ -21,8 +21,9 @@ the embedded frontend in the inspected/installed SPARK producer remains the
 explicit premise in the [capacity contract](retained-tool-capacity.md).
 The evidence checks the relevant files against the retained complete GCC
 manifest, hashes the three archived SPARK mode-selection files and records the
-current Silver command/interface inputs. No compiler, prover or Lean run was
-performed.
+current Silver command/interface inputs. The fixed-light section additionally
+retains an isolated installed producer execution with debugger instrumentation.
+No solver, GNATprove assurance audit, Lean run or test suite was performed.
 
 ## Source counters and boundary
 
@@ -1693,6 +1694,135 @@ local declarations. These facts support separating fixed-unit parse/analysis
 work from the explicitly Main-dependent scope-save term; they do not by
 themselves prove that every allocation is invariant under load order.
 
+### Fixed light roots and first-freeze reduction
+
+For this Main light-mode process the authored context roots are only
+`Silver_IO` and `Silver_Arguments`. Arguments itself depends on IO, so reversing
+or repeating the two context clauses does not introduce another dependency
+analysis order. The SPARK marker's selected late runtime root is
+`System.Default_Priority`; its other RTE calls require tasking, protected
+operations or reserved runtime entities absent from Main. Count System once
+whether the IO dependency graph loads it first or the marker requests it after
+a context-free Main. Loading it later adds the separately charged Main scope
+save, not another analysis of System's declarations.
+
+Fixed generic/private freeze work occurs while those fixed declarations are
+analyzed, including their finite generated contract bodies. The end of a
+nongeneric library package's declarative part calls
+`Freeze_All (First_Entity (Current_Scope), Decl)`
+(`sem_ch3.adb:2782–2867`); both selected Silver specifications have no private
+part and are ordinary library packages. Standard's ordinary type construction
+marks the types frozen (`cstand.adb:211,253,1832`). Main can subsequently name
+only those ordinary predefined types and the five selected signatures, all
+using Boolean/String or no result. It cannot reference a fixed generic package,
+private completion or profile with private/access/tagged types. The already-
+frozen guard (`freeze.adb:6536–6549`) therefore closes these later direct freeze
+requests without another fixed generic/private allocation. This argument does
+not apply to native generated access types or runtime helper signatures.
+
+The fixed contribution retains the complete tiny witness Main instead of
+subtracting its allocations. Its declared scalar values and short String
+literals cannot replace any variable Main charge. Scope saves, spelling lengths
+of generated names affected by a process counter, and loader paths remain
+explicit composition terms; observing a name-character total is not a bound on
+arbitrary name spellings or installation paths.
+
+### Cache-erasure dominance for the fixed roots
+
+The two range helpers consult a direct-mapped table by the triple
+`(N, Original_Node(N), Assume_Valid)` after the compile-time-known-value and
+invalid-type early returns (`checks.adb:5142–5211,5737–5814`). Their miss paths
+read syntax, declared types and numeric values and write memoized results;
+they do not write expression semantics. A cache hit returns a previously
+computed interval without arithmetic. Thus a finite **all-miss trace** dominates
+any hit/miss pattern if every repeated key in that trace returns the same
+mathematical interval and status. Induct on query returns: a hit may omit a
+miss's arithmetic and recursive queries, but supplies the same result to its
+caller, preserving that caller's subsequent branch. Numeric handles may differ;
+the condition compares their decoded integer values, not handle identity.
+
+This is a checked condition on the complete fixed trace, not an assumption that
+an arbitrary compiler cache is always coherent. A result mismatch, unexpected
+real query or incomplete return trace invalidates the measurement. No table
+count is promoted on those outcomes. Normal early returns participate in the
+stronger equality check too. The compiler's exception handler cannot be used to
+justify a successful range result; a failed range result remains explicitly
+recorded.
+
+The fixed root's syntax and declaration order are determined by the pinned
+source/configuration. Main's raw parsing shifts newly allocated fixed Node_Ids;
+Main cannot inject a declaration into their reset semantic scope. Context
+repetition reuses their analyzed units. Numeric cache collisions may therefore
+omit work, but cannot inject a Main-dependent operand into a fixed query.
+Standard construction precedes Main source loading (`frontend.adb:98–126`).
+Later loading of System uses the same internal-unit configuration reset and
+fixed declarations; its outer scope-save cost is paid separately.
+
+`UI_From_Int` memoizes exact mathematical Int values and the power tables
+memoize exact powers of 2 and 10; prepopulation can remove their cold fills.
+Increasing the protected numeric minima may retain more earlier temporaries,
+which is why the capture counts **positive lifetime growth**, not final size.
+The Ureal normalization cache belongs to fixed Standard setup here; no Main
+real/fixed-point construct is admitted and the captured fixed range frontier
+must contain zero real queries. Integer `Expr_Value` is allocation-free as
+shown below. The measurement changes only cache keys in its disposable
+inferior process; installed binaries, source and production caches are untouched.
+
+### Fixed light capture result
+
+The [retained capture](../evidence/retained-main-semantics-20261018/fixed-capture/README.md)
+covers the entire isolated Main phase-2 prefix through `before_symbol_free`,
+including initialization, fixed dependencies, driver/ALI-reader work and later
+producer numeric work. Managed run `20261018T031419-02510f8acb09` completed in
+9.71 seconds. It launched no backend and made 179 discrete range calls with
+179 recorded returns, 152 distinct keys, no repeated-key mathematical result
+mismatch and no real-range call. The complete tiny Main remains included.
+
+A complete executable text scan identifies 121 generic table Last positions,
+2,299 direct stores and no address-taking reference to those positions. The
+capture hooks all 1,265 decrease-capable or unknown stores, including inlined
+copies; the 1,034 omitted stores are source-proved monotone allocation paths.
+The release identity below therefore recovers every positive logical increase.
+This is a table-position vector, not a measurement of all heap objects or bytes.
+
+| Resource | Positive lifetime logical growth |
+| --- | ---: |
+| AST node identities, including sentinels 0 and 1 | 12,784 |
+| Dynamic AST slots | 151,749 |
+| Original-node positions | 12,784 |
+| Next/previous node positions, each | 12,786 |
+| Syntax-list headers | 2,414 |
+| Element-list headers | 335 |
+| Element records | 437 |
+| Uint entries | 1,820 |
+| Uint digit words | 42,087 |
+| Ureal entries | 74 |
+| String descriptors | 115 |
+| String characters | 905 |
+| Overload interpretation entries | 758 |
+| Scope-stack lifetime growth | 486 |
+| Cross-reference entries | 50 |
+| Name entries, including lock reserve | 3,819 |
+| Name characters, including lock reserve | 87,643 |
+| Name-qualification units | 22 |
+
+The [complete vector](../evidence/retained-main-semantics-20261018/fixed-capture/summary.json)
+supplies **`A_fixed <= 12784`** and conservatively **`E_fixed <= 12784`** for
+this Main light-mode component. Thus its Node_Id domain is bounded by
+`A_fixed + A_Main`; distinct sentinel conventions remain separate. None of
+these constants bounds a separate Silver library body/specification process or
+the native expansion process.
+
+The captured name-character count is an observation: generated counter-dependent
+spellings and arbitrary source/installation paths still require their separate
+length terms. The name-entry count may feed such a spelling bound. The captured
+ALI reader covers the selected fixed libraries and tiny Main ALI; arbitrary
+Main ALI growth also needs its own source term. Main-dependent scope saves
+remain charged by `50 (E_fixed + E_Main + 1)`. These explicit composition terms
+prevent a fixed witness's short paths, names or body from becoming a universal
+capacity claim. String-pool characters and serialized fixed literal payloads
+are different domains and cannot replace one another.
+
 ### Exact accounting at release points
 
 For the five scalar pool positions
@@ -1744,7 +1874,8 @@ This vector concerns logical pool growth. Retained AST/slot/list/name tables,
 auxiliary map domains, allocation capacities and temporary/stack maxima still
 need their own fields or existing source-derived transfers. In particular,
 an exact pool-growth total does not measure the largest local `UI_Vector`.
-No debugger or compiler run was performed for this contract.
+The following fixed-light capture applies this identity to the installed
+producer; the identity itself remains a source/accounting argument.
 
 ### Conditions before an additive fixed measurement is sufficient
 
@@ -1760,9 +1891,15 @@ final state:
    values and raise `Uints_Min`/`Udigits_Min` (`uintp.adb:45–68,1466–1505`). A
    later cache insertion can protect intervening temporary allocations from
    release. Positive-growth accounting handles that retention, but fixed
-   `Expr_Value`/range-cache hits can still suppress arithmetic in
-   an isolated run. A no-cache-credit query transfer or a source proof of
-   unchanged cache behavior is necessary before adding its observed count.
+   range-cache hits can still suppress arithmetic in an isolated run.
+   `Expr_Value` itself allocates no numeric values: it reads stored values,
+   follows constant/discriminant references, or uses the
+   `Corresponding_Integer_Value` node accessor (`sem_eval.adb:4589–4684`;
+   `sem_ch3.adb:19501–19749`; `sinfo.ads:1025–1030`). Its CV cache may reduce
+   traversal, but does not reduce numeric allocation. `Expr_Value_R` has no
+   such cache and can convert an Integer value to Ureal. A no-cache-credit
+   range-query transfer or a cache-erasure argument is necessary before
+   adding observed range-query counts.
 3. Do not replace the fixed-freeze frontier by “every entity freezes once.”
    `Freeze_Entity` skips ordinary already-frozen types at `freeze.adb:6536`,
    but the generic-package path runs before `Set_Is_Frozen` and allocates a
@@ -1775,9 +1912,10 @@ final state:
    `Freeze_Entity` or `Analyze_And_Resolve`, but it does call frontend value and
    range queries. A completed semantic snapshot is not their lifetime total.
 
-The source reset/once guards and the exact capture identity narrow the missing
-fixed contribution. They do not yet close these cache/query and fixed-freeze
-conditions, and therefore do not establish the whole frontend capacity rule.
+For the scoped Main light-mode process, the root/first-freeze reduction and
+complete coherent all-miss capture above discharge these fixed-query conditions.
+They do not transfer the constants to native expansion, separately analyzed
+Silver library bodies, arbitrary Main work, or an entire frontend capacity rule.
 
 ## Reproduction
 
@@ -1786,3 +1924,10 @@ with `--source` pointing to the pinned `gcc/ada` directory. Its
 [result](../evidence/retained-main-semantics-20261018/result.json) records source
 hashes, cited ranges and the aggregate equation expansion. It checks source
 identity and arithmetic, not reachability, soundness or installed-tool behavior.
+
+The [capture reconciler](../evidence/retained-main-semantics-20261018/fixed-capture/verify_capture.py)
+checks the retained store partition, complete boundary, decoded-return coherence
+and lifetime arithmetic without re-executing a compiler. It hashes the retained
+capture inputs and artifacts; it does not independently prove the root reduction,
+source-to-installed-tool premise, or monotonicity of excluded stores. The
+capture README records the exact invocation and prerequisite evidence.

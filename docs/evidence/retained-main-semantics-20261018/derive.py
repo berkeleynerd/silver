@@ -217,6 +217,16 @@ SPARK = {
 }
 
 
+RANGES["sinfo.ads"] = RANGES.get("sinfo.ads", []) + [(1025, 1030)]
+RANGES["sem_ch3.adb"] += [(19501, 19749)]
+RANGES["sem_eval.adb"] += [(4710, 4737)]
+
+RANGES["sem_ch3.adb"] += [(2782, 2867)]
+RANGES["cstand.adb"] += [(200, 213), (245, 255), (1828, 1835)]
+
+RANGES["frontend.adb"] = RANGES.get("frontend.adb", []) + [(74, 126)]
+RANGES["checks.adb"] += [(5657, 6110)]
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, required=True)
@@ -230,7 +240,7 @@ def main():
     expected = {item["path"]: item for item in manifest["files"]}
     # Fixed-unit frontier and the complete five-pool backward-move interface.
     RANGES.update({
-        "frontend.adb": [(72, 100), (308, 324), (387, 414)],
+        "frontend.adb": [(72, 126), (308, 324), (387, 414)],
         "lib-load.adb": [(196, 214), (684, 729), (779, 800)],
         "rtsfind.adb": [(1136, 1208)],
         "urealp.adb": [(320, 329), (478, 481)],
@@ -241,6 +251,11 @@ def main():
     RANGES["sem_ch12.adb"] += [(13784, 13800), (14214, 14229)]
     RANGES["freeze.adb"] += [(4720, 4744), (6536, 6565), (7352, 7352),
                              (7502, 7502), (7643, 7653)]
+    # Complete source identities for the monotone-store exclusions. The
+    # executable store partition retains unknown and decrease-capable sites.
+    for name in ("table.adb", "atree.adb", "elists.adb", "nlists.adb",
+                 "namet.adb", "stringt.adb", "uintp.adb", "urealp.adb"):
+        RANGES.setdefault(name, []).append((1, len((args.source / name).read_text().split('\n'))))
     records = []
     for name, ranges in RANGES.items():
         data = (args.source / name).read_bytes()

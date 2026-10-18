@@ -1,0 +1,7 @@
+
+Program stopped.
+0x00007f2db4fac340 in ?? () from /lib64/ld-linux-x86-64.so.2
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+POOL_PHASE {"cache_calls": {"discrete": 0, "real": 0}, "phase": "frontend_entry", "table_positions": 121}
+POOL_PHASE {"cache_calls": {"discrete": 0, "real": 0}, "phase": "standard_entry", "table_positions": 121}

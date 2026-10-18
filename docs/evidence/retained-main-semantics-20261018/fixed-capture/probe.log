@@ -1,0 +1,14 @@
+
+Program stopped.
+0x00007f6009a58340 in ?? () from /lib64/ld-linux-x86-64.so.2
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+POOL_PHASE {"cache_calls": {"discrete": 0, "real": 0}, "phase": "frontend_entry", "table_positions": 121}
+POOL_PHASE {"cache_calls": {"discrete": 0, "real": 0}, "phase": "standard_entry", "table_positions": 121}
+POOL_PHASE {"cache_calls": {"discrete": 179, "real": 0}, "phase": "before_standard_translation", "table_positions": 121}
+POOL_PHASE {"cache_calls": {"discrete": 179, "real": 0}, "phase": "before_symbol_free", "table_positions": 121}
+
+Breakpoint -1282, why.gen.names.free () at /home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/spark2014/src/src/why/why-gen-names.adb:409
+warning: 409	/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/spark2014/src/src/why/why-gen-names.adb: No such file or directory
+Warning: the current language does not match this frame.
+POOL_FINAL {"phases": ["frontend_entry", "standard_entry", "before_standard_translation", "before_symbol_free"], "cache_calls": {"discrete": 179, "real": 0}, "same_node": 11, "backend_calls": 0}

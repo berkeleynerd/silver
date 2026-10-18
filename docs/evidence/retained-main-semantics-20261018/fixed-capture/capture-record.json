@@ -1,0 +1,20 @@
+{
+  "managed_success": "20261018T031419-02510f8acb09",
+  "baseline": "20261018T025936-0fc024da2282",
+  "cache_diagnostic": "20261018T030146-304cc74d6acf",
+  "failed_attempts": [
+    {
+      "id": "20261018T030740-5a12e4c34ef2",
+      "reason": "120s instrumentation timeout"
+    },
+    {
+      "id": "20261018T031032-dc94748197de",
+      "reason": "interrupted after 153s to diagnose full-store overhead"
+    }
+  ],
+  "packages": {
+    "capstone": "5.0.9",
+    "pyelftools": "0.33"
+  },
+  "scope": "fixed Main light-mode process through pre-Free; full tiny witness retained; no native expansion, solver, proof or test-suite run"
+}

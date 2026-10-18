@@ -1,0 +1,607 @@
+[
+  {
+    "name": "sem_dim__system_table__last_valX",
+    "address": 23537212,
+    "size": 4
+  },
+  {
+    "name": "repinfo__input__json_entity_table__last_valXn",
+    "address": 23541292,
+    "size": 4
+  },
+  {
+    "name": "lib__writ__interrupt_states__last_val",
+    "address": 23536584,
+    "size": 4
+  },
+  {
+    "name": "lib__xref__spark_specific__drefs__last_valXnn",
+    "address": 23535876,
+    "size": 4
+  },
+  {
+    "name": "erroutc__specific_warnings__last_val",
+    "address": 23529620,
+    "size": 4
+  },
+  {
+    "name": "ali__xref__last_val",
+    "address": 23514004,
+    "size": 4
+  },
+  {
+    "name": "lib__xref__xrefs__last_valXn",
+    "address": 23535888,
+    "size": 4
+  },
+  {
+    "name": "checks__alignment_warnings__last_val",
+    "address": 23536000,
+    "size": 4
+  },
+  {
+    "name": "atree__paren_counts__last_valX",
+    "address": 23528896,
+    "size": 4
+  },
+  {
+    "name": "nlists__lists__last_valX",
+    "address": 23514388,
+    "size": 4
+  },
+  {
+    "name": "urealp__ureals__last_valX",
+    "address": 23511064,
+    "size": 4
+  },
+  {
+    "name": "sem_prag__assertion_levels__last_valX",
+    "address": 23537760,
+    "size": 4
+  },
+  {
+    "name": "fmap__path_mapping__last_valX",
+    "address": 23512656,
+    "size": 4
+  },
+  {
+    "name": "nlists__next_node__last_valX",
+    "address": 23514380,
+    "size": 4
+  },
+  {
+    "name": "inline__inlined__last_valX",
+    "address": 23536492,
+    "size": 4
+  },
+  {
+    "name": "ali__notes__last_val",
+    "address": 23514048,
+    "size": 4
+  },
+  {
+    "name": "repinfo__dynamic_so_entity_table__last_valX",
+    "address": 23541100,
+    "size": 4
+  },
+  {
+    "name": "erroutc__errors__last_val",
+    "address": 23529636,
+    "size": 4
+  },
+  {
+    "name": "par_sco__sc__last_valX",
+    "address": 23535640,
+    "size": 4
+  },
+  {
+    "name": "sem_ch13__unchecked_conversions__last_valX",
+    "address": 23537048,
+    "size": 4
+  },
+  {
+    "name": "erroutc__locations__last_val",
+    "address": 23529660,
+    "size": 4
+  },
+  {
+    "name": "restrict__no_dependences__last_val",
+    "address": 23534876,
+    "size": 4
+  },
+  {
+    "name": "ghost__ignored_ghost_nodes__last_valX",
+    "address": 23535572,
+    "size": 4
+  },
+  {
+    "name": "ali__specific_dispatching__last_val",
+    "address": 23514096,
+    "size": 4
+  },
+  {
+    "name": "sem__scope_stack__last_val",
+    "address": 23535724,
+    "size": 4
+  },
+  {
+    "name": "snames__convention_identifiers__last_valX",
+    "address": 23513404,
+    "size": 4
+  },
+  {
+    "name": "sem_elab__elaborated_units__elaboration_attributes__last_valXb",
+    "address": 23537468,
+    "size": 4
+  },
+  {
+    "name": "prepcomp__dependencies__last_valX",
+    "address": 23535832,
+    "size": 4
+  },
+  {
+    "name": "prep__pp_states__last_valX",
+    "address": 23530468,
+    "size": 4
+  },
+  {
+    "name": "uintp__udigits__last_val",
+    "address": 23511032,
+    "size": 4
+  },
+  {
+    "name": "uintp__uints__last_val",
+    "address": 23511040,
+    "size": 4
+  },
+  {
+    "name": "exp_cg__call_graph_nodes__last_valX",
+    "address": 23535548,
+    "size": 4
+  },
+  {
+    "name": "ali__invocation_signatures__last_valX",
+    "address": 23513920,
+    "size": 4
+  },
+  {
+    "name": "ali__alis__last_val",
+    "address": 23514128,
+    "size": 4
+  },
+  {
+    "name": "sem_type__all_interp__last_valX",
+    "address": 23538468,
+    "size": 4
+  },
+  {
+    "name": "lib__load_stack__last_val",
+    "address": 23529476,
+    "size": 4
+  },
+  {
+    "name": "lib__compilation_switches__last_val",
+    "address": 23529484,
+    "size": 4
+  },
+  {
+    "name": "errout__list_pragmas__last_val",
+    "address": 23530252,
+    "size": 4
+  },
+  {
+    "name": "osint__file_name_chars__last_valX",
+    "address": 23513192,
+    "size": 4
+  },
+  {
+    "name": "ali__sdep__last_val",
+    "address": 23514028,
+    "size": 4
+  },
+  {
+    "name": "sem_elab__delay_check__last_valX",
+    "address": 23537408,
+    "size": 4
+  },
+  {
+    "name": "sem_ch13__address_clause_checks__last_valX",
+    "address": 23537040,
+    "size": 4
+  },
+  {
+    "name": "lib__version_ref__last_val",
+    "address": 23529468,
+    "size": 4
+  },
+  {
+    "name": "sem_ch8__urefs__last_valX",
+    "address": 23537156,
+    "size": 4
+  },
+  {
+    "name": "scos__sco_unit_table__last_val",
+    "address": 23513372,
+    "size": 4
+  },
+  {
+    "name": "expander__expander_flags__last_valX",
+    "address": 23536292,
+    "size": 4
+  },
+  {
+    "name": "errout__non_instance_msgs__last_valX",
+    "address": 23530236,
+    "size": 4
+  },
+  {
+    "name": "ali__xref_section__last_val",
+    "address": 23514020,
+    "size": 4
+  },
+  {
+    "name": "sem_elab__active_scenarios__active_scenario_stack__last_valX",
+    "address": 23537480,
+    "size": 4
+  },
+  {
+    "name": "lib__linker_option_lines__last_val",
+    "address": 23529500,
+    "size": 4
+  },
+  {
+    "name": "osint__src_search_directories__last_valX",
+    "address": 23513184,
+    "size": 4
+  },
+  {
+    "name": "sem_prag__compile_time_warnings_errors__last_valX",
+    "address": 23537740,
+    "size": 4
+  },
+  {
+    "name": "inline__pending_instantiations__last_valX",
+    "address": 23536536,
+    "size": 4
+  },
+  {
+    "name": "sem_ch9__lock_free_subprogram_table__last_val",
+    "address": 23537188,
+    "size": 4
+  },
+  {
+    "name": "ali__withs__last_val",
+    "address": 23514072,
+    "size": 4
+  },
+  {
+    "name": "vast__node_stack__last_valX",
+    "address": 23541396,
+    "size": 4
+  },
+  {
+    "name": "restrict__no_use_of_entity__last_val",
+    "address": 23534868,
+    "size": 4
+  },
+  {
+    "name": "repinfo__rep_table__last_valX",
+    "address": 23541108,
+    "size": 4
+  },
+  {
+    "name": "erroutc__warnings__last_val",
+    "address": 23529628,
+    "size": 4
+  },
+  {
+    "name": "prepcomp__preproc_data_table__last_valX",
+    "address": 23535840,
+    "size": 4
+  },
+  {
+    "name": "sem_elab__internal_representation__scenario_reps__last_valXb",
+    "address": 23537456,
+    "size": 4
+  },
+  {
+    "name": "atree__atree_private_part__slots__last_val",
+    "address": 23528944,
+    "size": 4
+  },
+  {
+    "name": "ali__linker_options__last_val",
+    "address": 23514056,
+    "size": 4
+  },
+  {
+    "name": "ali__invocation_relations__last_valX",
+    "address": 23513928,
+    "size": 4
+  },
+  {
+    "name": "fname__uf__sfn_patterns__last_valXn",
+    "address": 23530308,
+    "size": 4
+  },
+  {
+    "name": "ali__util__source__last_val",
+    "address": 23535220,
+    "size": 4
+  },
+  {
+    "name": "repinfo__input__json_variant_table__last_valXn",
+    "address": 23541276,
+    "size": 4
+  },
+  {
+    "name": "ali__cuda_kernels__last_val",
+    "address": 23514120,
+    "size": 4
+  },
+  {
+    "name": "fname__uf__sfn_table__last_valXn",
+    "address": 23530316,
+    "size": 4
+  },
+  {
+    "name": "exp_unst__subps__last_val",
+    "address": 23541044,
+    "size": 4
+  },
+  {
+    "name": "scos__sco_instance_table__last_val",
+    "address": 23513364,
+    "size": 4
+  },
+  {
+    "name": "atree__atree_private_part__node_offsets__last_val",
+    "address": 23528952,
+    "size": 4
+  },
+  {
+    "name": "inline__successors__last_valX",
+    "address": 23536500,
+    "size": 4
+  },
+  {
+    "name": "atree__parents_stack__last_valX",
+    "address": 23528904,
+    "size": 4
+  },
+  {
+    "name": "atree__orig_nodes__last_valX",
+    "address": 23528912,
+    "size": 4
+  },
+  {
+    "name": "inline__inlined_bodies__last_valX",
+    "address": 23536512,
+    "size": 4
+  },
+  {
+    "name": "sem_elab__elab_call__last_valX",
+    "address": 23537424,
+    "size": 4
+  },
+  {
+    "name": "checks__check_names__last_val",
+    "address": 23535992,
+    "size": 4
+  },
+  {
+    "name": "sinput__source_file__last_val",
+    "address": 23529032,
+    "size": 4
+  },
+  {
+    "name": "ali__interrupt_states__last_val",
+    "address": 23514104,
+    "size": 4
+  },
+  {
+    "name": "ali__invocation_constructs__last_valX",
+    "address": 23513936,
+    "size": 4
+  },
+  {
+    "name": "exp_dbug__name_qualify_units__last_valX",
+    "address": 23536144,
+    "size": 4
+  },
+  {
+    "name": "par_sco__sd__last_valX",
+    "address": 23535632,
+    "size": 4
+  },
+  {
+    "name": "sem_ch12__instance_envs__last_valX",
+    "address": 23536928,
+    "size": 4
+  },
+  {
+    "name": "scos__sco_table__last_val",
+    "address": 23513380,
+    "size": 4
+  },
+  {
+    "name": "sem_elim__elim_entities__last_valX",
+    "address": 23535772,
+    "size": 4
+  },
+  {
+    "name": "lib__notes__last_val",
+    "address": 23529492,
+    "size": 4
+  },
+  {
+    "name": "lib__units__last_val",
+    "address": 23529508,
+    "size": 4
+  },
+  {
+    "name": "elists__elists__last_valX",
+    "address": 23510976,
+    "size": 4
+  },
+  {
+    "name": "sem_prag__externals__last_valX",
+    "address": 23537752,
+    "size": 4
+  },
+  {
+    "name": "sem_warn__unreferenced_entities__last_valX",
+    "address": 23538400,
+    "size": 4
+  },
+  {
+    "name": "sem_elab__elab_visited__last_valX",
+    "address": 23537416,
+    "size": 4
+  },
+  {
+    "name": "repinfo__input__json_component_table__last_valXn",
+    "address": 23541284,
+    "size": 4
+  },
+  {
+    "name": "stringt__strings__last_valX",
+    "address": 23529344,
+    "size": 4
+  },
+  {
+    "name": "ali__xref_entity__last_val",
+    "address": 23514012,
+    "size": 4
+  },
+  {
+    "name": "sem_ch12__generic_flags__last_valX",
+    "address": 23536920,
+    "size": 4
+  },
+  {
+    "name": "exp_unst__calls__last_valX",
+    "address": 23541032,
+    "size": 4
+  },
+  {
+    "name": "erroutc__edits__last_val",
+    "address": 23529652,
+    "size": 4
+  },
+  {
+    "name": "osint__lib_search_directories__last_valX",
+    "address": 23513176,
+    "size": 4
+  },
+  {
+    "name": "sem_aux__obsolescent_warnings__last_val",
+    "address": 23529292,
+    "size": 4
+  },
+  {
+    "name": "sinput__instances__last_val",
+    "address": 23529024,
+    "size": 4
+  },
+  {
+    "name": "lib__writ__specific_dispatching__last_val",
+    "address": 23536576,
+    "size": 4
+  },
+  {
+    "name": "ali__units__last_val",
+    "address": 23514112,
+    "size": 4
+  },
+  {
+    "name": "par_sco__sco_raw_table__last_valX",
+    "address": 23535668,
+    "size": 4
+  },
+  {
+    "name": "ali__args__last_val",
+    "address": 23514064,
+    "size": 4
+  },
+  {
+    "name": "lib__restriction_set_dependences__last_val",
+    "address": 23529516,
+    "size": 4
+  },
+  {
+    "name": "nlists__prev_node__last_valX",
+    "address": 23514372,
+    "size": 4
+  },
+  {
+    "name": "stringt__string_chars__last_valX",
+    "address": 23529352,
+    "size": 4
+  },
+  {
+    "name": "elists__elmts__last_valX",
+    "address": 23510968,
+    "size": 4
+  },
+  {
+    "name": "sem_ch12__generic_renamings__last_valX",
+    "address": 23536944,
+    "size": 4
+  },
+  {
+    "name": "sem_warn__in_out_warnings__last_valX",
+    "address": 23538392,
+    "size": 4
+  },
+  {
+    "name": "inline__called_pending_instantiations__last_valX",
+    "address": 23536528,
+    "size": 4
+  },
+  {
+    "name": "erroutc__fixes__last_val",
+    "address": 23529644,
+    "size": 4
+  },
+  {
+    "name": "fmap__file_mapping__last_valX",
+    "address": 23512664,
+    "size": 4
+  },
+  {
+    "name": "sem_elab__internal_representation__target_reps__last_valXb",
+    "address": 23537448,
+    "size": 4
+  },
+  {
+    "name": "sem_warn__warnings_off_pragmas__last_val",
+    "address": 23538412,
+    "size": 4
+  },
+  {
+    "name": "par_sco__sco_unit_number_table__last_valX",
+    "address": 23535660,
+    "size": 4
+  },
+  {
+    "name": "namet__name_chars__last_val",
+    "address": 23512520,
+    "size": 4
+  },
+  {
+    "name": "namet__name_entries__last_val",
+    "address": 23512512,
+    "size": 4
+  },
+  {
+    "name": "exp_unst__urefs__last_valX",
+    "address": 23541024,
+    "size": 4
+  },
+  {
+    "name": "ali__no_deps__last_val",
+    "address": 23514040,
+    "size": 4
+  }
+]
