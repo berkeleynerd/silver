@@ -1064,12 +1064,14 @@ expansion (`exp_ch4.adb:7918–7976,10678–10728`,
 `checks.adb:756–814`). Frozen types and ordinary context exclude freeze or
 transient additions in the common Resolve epilogue.
 
-The direct concat emitter creates at most **4*n+1** such operator nodes:
+The direct concat emitter creates at most **4*n+2** such operator nodes:
 `n-1` aggregate additions, two high-bound operations, and three slice-endpoint
-operations per operand (`exp_ch4.adb:3078–3099,3246–3252,3553–3563`). For one
+operations per operand, plus one last-operand high-bound subtraction for a
+final null literal (`exp_ch4.adb:2884–2888,3078–3099,3246–3252,3553–3563`).
+For one
 initial analysis of those nodes **when all the local premises hold**, their
-extra envelope is therefore `8*n+2` ordinary nodes, `4*n+1` growing events
-and `8*n+2` Uint appends. The aggregate and slice insertions suppress checks;
+extra envelope is therefore `8*n+4` ordinary nodes, `4*n+2` growing events
+and `8*n+4` Uint appends. The aggregate and slice insertions suppress checks;
 the plain-storage high-bound analysis keeps checks enabled and needs its
 separate route. Copied/reanalyzed operators and first analysis of attribute,
 conditional or other leaf operands are additional. This count is not a claim

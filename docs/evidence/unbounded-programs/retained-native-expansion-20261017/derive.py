@@ -313,10 +313,10 @@ result = {
         "extra_growing_slot_events": 1,
         "extra_Uint_appends": 2,
         "entity_overload_list_name_String_allocations": 0,
-        "direct_concat_operator_nodes": "4*n+1",
+        "direct_concat_operator_nodes": "4*n+2",
         "one_initial_analysis_if_all_premises_hold": {
-            "ordinary_nodes": "8*n+2", "growing_slot_events": "4*n+1",
-            "Uint_appends": "8*n+2",
+            "ordinary_nodes": "8*n+4", "growing_slot_events": "4*n+2",
+            "Uint_appends": "8*n+4",
         },
         "not_included": "child/attribute/conditional analysis, enabled-check plain-storage route, copies/reanalysis/source-to-event multiplicity, backend",
     },
