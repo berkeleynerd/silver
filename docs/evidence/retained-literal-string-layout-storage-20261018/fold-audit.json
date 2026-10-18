@@ -231,7 +231,10 @@
   "generated_capture_copies": 0,
   "mask_guard": "(mask & (mask + 1)) != 0 rejects -32/-4 before construction",
   "constant_precision_ceiling": 128,
-  "constant_words_ceiling": 2,
+  "constant_value_words_ceiling": 2,
+  "constant_extended_words_ceiling": 3,
+  "constant_typed_prefix_bytes": 16,
+  "constant_factory_caller_bytes_ceiling": 40,
   "ordinary_matcher_scratch_requests": 0,
   "scope_flags": {
     "complete_imported_frontend": false,

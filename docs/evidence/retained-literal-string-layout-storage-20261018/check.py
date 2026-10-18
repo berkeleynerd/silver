@@ -228,6 +228,26 @@ def main():
     check('frozen_interface_matches_derivation',
           json.loads((HERE / 'interface.json').read_text()) == output)
     audit = json.loads((HERE / 'fold-audit.json').read_text())
+    check('unsigned_high_bit_extends_stored_constant_to_three_units',
+          'if (TYPE_UNSIGNED (type) && wi::neg_p (cst))' in
+          lines('gcc/tree.cc', 1581, 1588)
+          and 'return cst.get_precision () / HOST_BITS_PER_WIDE_INT + 1;' in
+          lines('gcc/tree.cc', 1581, 1588)
+          and audit['constant_precision_ceiling'] == 128
+          and audit['constant_value_words_ceiling'] == 2
+          and audit['constant_extended_words_ceiling'] == 128 // 64 + 1 == 3)
+    check('three_extended_units_fit_existing_40_byte_factory_charge',
+          'int length = ((ext_len - 1) * sizeof (HOST_WIDE_INT)' in
+          lines('gcc/tree.cc', 2925, 2930)
+          and '+ sizeof (struct tree_int_cst));' in
+          lines('gcc/tree.cc', 2925, 2930)
+          and 'struct tree_typed typed;' in lines('gcc/tree-core.h', 1575, 1578)
+          and 'HOST_WIDE_INT val[1];' in lines('gcc/tree-core.h', 1575, 1578)
+          and audit['constant_typed_prefix_bytes'] == 16
+          and audit['constant_factory_caller_bytes_ceiling'] == 16 + 3 * 8 == 40)
+    check('XUT_high_bit_mask_uses_extended_units_without_changing_bytes',
+          ((-32) & ((1 << 128) - 1)) >> 127 == 1
+          and 24 + ((128 // 64 + 1) - 1) * 8 == 40)
     check('audit_fixed_and_constant_rows_match_derivation',
           audit['fixed_rows'] == [dict(family=f, requests=n, bytes_each=s) for f, n, s in FIXED_ROWS]
           and audit['constant_rows'] == [dict(family=f, factory_slots=n) for f, n in CONSTANT_ROWS])

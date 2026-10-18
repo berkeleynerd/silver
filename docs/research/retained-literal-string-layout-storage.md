@@ -248,14 +248,24 @@ uses Base=2^15 digits [1,32767,32767]: base+first+2*(digit,multiply,add)=8,
 not one direct Uint lookup (`uintp.ads:464–487`, `cuintp.cc:76–159`). These
 C++ conversions only read Ada Uint tables; they never append Uint digits.
 
-All scalar values have precision at most 128, hence at most two 64-bit
-constant units. `force_fit_type` creates either a fresh overflow constant or
+All scalar values have precision at most 128. Their ordinary wide-integer
+values use at most two 64-bit units, but an unsigned value with its high bit
+set requires up to **three extended stored units**: `get_int_cst_ext_nunits`
+returns `precision/64+1` (`tree.cc:1581–1588`). XUT's unsigned 128-bit -32
+mask is such a value. `make_int_cst` allocates
+`sizeof(tree_int_cst)+(ext_len-1)*8` (`:2925–2930`); the selected LP64
+typed prefix is 16 bytes and the one-unit struct is 24 bytes
+(`tree-core.h:1565–1578`). The existing **40-byte** factory ceiling therefore
+covers all three units, including discarded candidates. This corrects the
+stored-unit explanation and metadata from frozen `e652db280a` under
+[#135](https://github.com/berkeleynerd/silver/issues/135); no allocation total
+changes. `force_fit_type` creates either a fresh overflow constant or
 one shared-factory result, not both (`tree.cc:1685–1729`). Small-value caches
 for base Integer, sizetype and bitsizetype are startup inputs; fresh Positive
 only receives its two out-of-small-range GCC extrema, while its RM bounds
 are base-Integer typed. No fresh per-type constant-cache vector is needed.
 The 129 ceiling also bounds insertion-capable large-integer lookups (including
-hits and discarded two-word candidates), new entries and small-cache writes.
+hits and discarded extended-unit candidates), new entries and small-cache writes.
 Shared table replacement lifetime is consumed by the aggregate component.
 
 Subsequent calls of variable_size on T, B or XUT's rounded expressions may
