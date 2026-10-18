@@ -40,7 +40,8 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "targparm.adb", "targparm.ads", "libgnat/system-linux-x86.ads",
          "exp_ch7.adb", "exp_ch6.adb", "exp_tss.adb", "sem_ch5.adb", "exp_ch5.adb",
          "rtsfind.adb", "libgnat/s-secsta.ads", "libgnat/s-parame.ads",
-         "libgnat/s-stoele.ads"] + [f"libgnat/s-conca{i}.ads" for i in range(2, 10)]
+         "libgnat/s-stoele.ads", "libgnat/s-imgint.ads", "libgnat/s-imagei.ads"
+         ] + [f"libgnat/s-conca{i}.ads" for i in range(2, 10)]
 sources = {}
 hashes = {}
 for name in files:
@@ -705,6 +706,41 @@ def output_transient_wrapper(output_calls, parent_scope_depth):
                 whole_construct_closed=False)
 
 
+def native_integer_image(image_count):
+    """Integer Image expansion after the original scalar argument is resolved."""
+    assert image_count >= 0
+    a = 17  # static buffer endpoints and the closed check's same-value spine
+    rows = {
+        "direct_emitter": dict(ordinary=24, growth=1, entities_and_names=2,
+                               name_characters=26, lists=3),
+        "Width_and_extra_static_leaf_folds": dict(ordinary=10, growth=5, uint=12),
+        "suppressed_same_base_scalar_conversion": dict(ordinary=2, growth=1),
+        "buffer_subtype_and_first_freezes": result_storage(3, 0, a)["plain"],
+        "returned_slice": suppressed_slice_resolution(3, 0, a)["total"],
+        "three_actual_call_and_optional_marker": dict(ordinary=4, lists=6,
+                                                       positive_xref_increments=3),
+    }
+    keys = sorted(set().union(*(row.keys() for row in rows.values())))
+    per_image = {key: sum(row.get(key, 0) for row in rows.values()) for key in keys}
+    assert per_image == dict(ordinary=2528, growth=32, entities_and_names=8,
+                             name_characters=111, lists=16, uint=10667,
+                             elists=0, positive_xref_increments=3)
+    slots = 9*(per_image["ordinary"]+per_image["growth"])+61*per_image["entities_and_names"]
+    assert slots == 23528
+    magnitude = (16*a+8)*2**127
+    digits = (magnitude.bit_length()+14)//15
+    assert digits == 10
+    return dict(source_Image_count=image_count, local_query_A=a,
+                rows_per_Image=rows, per_Image=per_image,
+                total={key: image_count*value for key, value in per_image.items()},
+                dynamic_slots=image_count*slots,
+                generated_Uint_magnitude=magnitude, Uint_digits_per_append=digits,
+                retained_digit_words=image_count*per_image["uint"]*digits,
+                source_scalar_argument_replayed=False,
+                normalized_result_bound_descriptor=dict(low_D=1, high_D=2),
+                whole_local_constructor_closed=True, whole_construct_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -1339,6 +1375,12 @@ result = {
         "examples_not_thresholds": [local_name_qualification([[4], [4, 12]], 1),
                                     local_name_qualification([[4, 12, 12], [4, 12, 12, 16]], 2)],
         "excluded": "backend external/debug name generation, fixed runtime qualification, whole wrapper/scope processing, full enqueue multiplicity from unclosed constructors",
+    },
+    "Main_Integer_Image_expansion": {
+        "premises": "original scalar argument analyzed/resolved, Standard Integer32, no Put_Image aspect, frozen runtime specs/types, no frontend inlining/validity operand-or-parameter override; fixed runtime unit-name interning charged in dependency baseline",
+        "examples_not_thresholds": [native_integer_image(0), native_integer_image(1),
+                                    native_integer_image(10)],
+        "excluded": "original source attribute/prefix/scalar-argument semantic analysis and numeric work; runtime first loading/spec freezing and fixed unit-name lookups; context/action-wrapper placement; per-type deferred qualification; backend and physical stack bytes",
     },
     "combined_Main_native_emitter_addends": {
         "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2 + local runtime-call processing; result-object freeze and constrained actual-subtype lookups add zero",

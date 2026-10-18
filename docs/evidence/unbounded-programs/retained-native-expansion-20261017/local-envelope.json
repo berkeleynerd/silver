@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 86,
+  "source_files_verified": 88,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -80,6 +80,8 @@
     "libgnat/s-secsta.ads": "25ddf544c6bd3f278ed5edaf33b6a2aefe83f736507f6e4f5c3e2ee9cd407d76",
     "libgnat/s-parame.ads": "69309e996793d5dfeab1a207beae3658b41d7979f099b1c248823adb7e898ac9",
     "libgnat/s-stoele.ads": "97f344018fd2716cbd58b046f0c5ec3062594af54ac0d9fa7656f0f75074ef33",
+    "libgnat/s-imgint.ads": "fdd4c20f9e61bd2c1b7f46ad580beb98c590f91cca2302ee3affec81d6402cce",
+    "libgnat/s-imagei.ads": "ed58b2052e1bf48de0f84a322ebc37bc4eca98b3622666ae8f2d4e90d8c14126",
     "libgnat/s-conca2.ads": "9cca4fa295483828eb288a2fafdaa1ca1cefc63ee0c2dce67629e6809cda9985",
     "libgnat/s-conca3.ads": "a0e3ded6c761b5bf678f01c9330258988dbddffe6d801df16e0342feb88a97fc",
     "libgnat/s-conca4.ads": "0661c346df20ee3f12378f0031ab0330eaf4be4ba69d8b88638d4f6124686404",
@@ -2388,6 +2390,237 @@
       }
     ],
     "excluded": "backend external/debug name generation, fixed runtime qualification, whole wrapper/scope processing, full enqueue multiplicity from unclosed constructors"
+  },
+  "Main_Integer_Image_expansion": {
+    "premises": "original scalar argument analyzed/resolved, Standard Integer32, no Put_Image aspect, frozen runtime specs/types, no frontend inlining/validity operand-or-parameter override; fixed runtime unit-name interning charged in dependency baseline",
+    "examples_not_thresholds": [
+      {
+        "source_Image_count": 0,
+        "local_query_A": 17,
+        "rows_per_Image": {
+          "direct_emitter": {
+            "ordinary": 24,
+            "growth": 1,
+            "entities_and_names": 2,
+            "name_characters": 26,
+            "lists": 3
+          },
+          "Width_and_extra_static_leaf_folds": {
+            "ordinary": 10,
+            "growth": 5,
+            "uint": 12
+          },
+          "suppressed_same_base_scalar_conversion": {
+            "ordinary": 2,
+            "growth": 1
+          },
+          "buffer_subtype_and_first_freezes": {
+            "ordinary": 2469,
+            "lists": 3,
+            "growth": 23,
+            "uint": 10651,
+            "entities_and_names": 2,
+            "name_characters": 33,
+            "elists": 0
+          },
+          "returned_slice": {
+            "ordinary": 19,
+            "lists": 4,
+            "growth": 2,
+            "uint": 4,
+            "entities_and_names": 4,
+            "name_characters": 52
+          },
+          "three_actual_call_and_optional_marker": {
+            "ordinary": 4,
+            "lists": 6,
+            "positive_xref_increments": 3
+          }
+        },
+        "per_Image": {
+          "elists": 0,
+          "entities_and_names": 8,
+          "growth": 32,
+          "lists": 16,
+          "name_characters": 111,
+          "ordinary": 2528,
+          "positive_xref_increments": 3,
+          "uint": 10667
+        },
+        "total": {
+          "elists": 0,
+          "entities_and_names": 0,
+          "growth": 0,
+          "lists": 0,
+          "name_characters": 0,
+          "ordinary": 0,
+          "positive_xref_increments": 0,
+          "uint": 0
+        },
+        "dynamic_slots": 0,
+        "generated_Uint_magnitude": 47639531368931384884872445040447549603840,
+        "Uint_digits_per_append": 10,
+        "retained_digit_words": 0,
+        "source_scalar_argument_replayed": false,
+        "normalized_result_bound_descriptor": {
+          "low_D": 1,
+          "high_D": 2
+        },
+        "whole_local_constructor_closed": true,
+        "whole_construct_closed": false
+      },
+      {
+        "source_Image_count": 1,
+        "local_query_A": 17,
+        "rows_per_Image": {
+          "direct_emitter": {
+            "ordinary": 24,
+            "growth": 1,
+            "entities_and_names": 2,
+            "name_characters": 26,
+            "lists": 3
+          },
+          "Width_and_extra_static_leaf_folds": {
+            "ordinary": 10,
+            "growth": 5,
+            "uint": 12
+          },
+          "suppressed_same_base_scalar_conversion": {
+            "ordinary": 2,
+            "growth": 1
+          },
+          "buffer_subtype_and_first_freezes": {
+            "ordinary": 2469,
+            "lists": 3,
+            "growth": 23,
+            "uint": 10651,
+            "entities_and_names": 2,
+            "name_characters": 33,
+            "elists": 0
+          },
+          "returned_slice": {
+            "ordinary": 19,
+            "lists": 4,
+            "growth": 2,
+            "uint": 4,
+            "entities_and_names": 4,
+            "name_characters": 52
+          },
+          "three_actual_call_and_optional_marker": {
+            "ordinary": 4,
+            "lists": 6,
+            "positive_xref_increments": 3
+          }
+        },
+        "per_Image": {
+          "elists": 0,
+          "entities_and_names": 8,
+          "growth": 32,
+          "lists": 16,
+          "name_characters": 111,
+          "ordinary": 2528,
+          "positive_xref_increments": 3,
+          "uint": 10667
+        },
+        "total": {
+          "elists": 0,
+          "entities_and_names": 8,
+          "growth": 32,
+          "lists": 16,
+          "name_characters": 111,
+          "ordinary": 2528,
+          "positive_xref_increments": 3,
+          "uint": 10667
+        },
+        "dynamic_slots": 23528,
+        "generated_Uint_magnitude": 47639531368931384884872445040447549603840,
+        "Uint_digits_per_append": 10,
+        "retained_digit_words": 106670,
+        "source_scalar_argument_replayed": false,
+        "normalized_result_bound_descriptor": {
+          "low_D": 1,
+          "high_D": 2
+        },
+        "whole_local_constructor_closed": true,
+        "whole_construct_closed": false
+      },
+      {
+        "source_Image_count": 10,
+        "local_query_A": 17,
+        "rows_per_Image": {
+          "direct_emitter": {
+            "ordinary": 24,
+            "growth": 1,
+            "entities_and_names": 2,
+            "name_characters": 26,
+            "lists": 3
+          },
+          "Width_and_extra_static_leaf_folds": {
+            "ordinary": 10,
+            "growth": 5,
+            "uint": 12
+          },
+          "suppressed_same_base_scalar_conversion": {
+            "ordinary": 2,
+            "growth": 1
+          },
+          "buffer_subtype_and_first_freezes": {
+            "ordinary": 2469,
+            "lists": 3,
+            "growth": 23,
+            "uint": 10651,
+            "entities_and_names": 2,
+            "name_characters": 33,
+            "elists": 0
+          },
+          "returned_slice": {
+            "ordinary": 19,
+            "lists": 4,
+            "growth": 2,
+            "uint": 4,
+            "entities_and_names": 4,
+            "name_characters": 52
+          },
+          "three_actual_call_and_optional_marker": {
+            "ordinary": 4,
+            "lists": 6,
+            "positive_xref_increments": 3
+          }
+        },
+        "per_Image": {
+          "elists": 0,
+          "entities_and_names": 8,
+          "growth": 32,
+          "lists": 16,
+          "name_characters": 111,
+          "ordinary": 2528,
+          "positive_xref_increments": 3,
+          "uint": 10667
+        },
+        "total": {
+          "elists": 0,
+          "entities_and_names": 80,
+          "growth": 320,
+          "lists": 160,
+          "name_characters": 1110,
+          "ordinary": 25280,
+          "positive_xref_increments": 30,
+          "uint": 106670
+        },
+        "dynamic_slots": 235280,
+        "generated_Uint_magnitude": 47639531368931384884872445040447549603840,
+        "Uint_digits_per_append": 10,
+        "retained_digit_words": 1066700,
+        "source_scalar_argument_replayed": false,
+        "normalized_result_bound_descriptor": {
+          "low_D": 1,
+          "high_D": 2
+        },
+        "whole_local_constructor_closed": true,
+        "whole_construct_closed": false
+      }
+    ],
+    "excluded": "original source attribute/prefix/scalar-argument semantic analysis and numeric work; runtime first loading/spec freezing and fixed unit-name lookups; context/action-wrapper placement; per-type deferred qualification; backend and physical stack bytes"
   },
   "combined_Main_native_emitter_addends": {
     "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2 + local runtime-call processing; result-object freeze and constrained actual-subtype lookups add zero",

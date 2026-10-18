@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records eighty-six inspected files hash-checked against the complete source
+records eighty-eight inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -3242,6 +3242,15 @@ does not suppress the source-operand variable markers above. Ghost argument
 preanalysis likewise requires a source call in a Ghost region and is excluded
 (`ghost.adb:2325–2373`).
 
+Fixed runtime unit-name interning must also be in the dependency baseline:
+Expand_Call_Helper asks Is_RTE about Raise_Exception even for these ordinary
+calls (`exp_ch6.adb:4620–4643`). That helper does not load a unit, but its
+Name_Find calls can intern fixed dependency names, as in the output-wrapper
+closure. A loaded/frozen concat spec alone does not establish that every such
+name already exists. The per-call vector below is for variable Main demand,
+with these fixed names charged separately; it does not claim zero first-use
+name allocation for the entire process.
+
 The local call envelope is therefore **r ordinary nodes, r+2 lists and
 r positive Xrefs increments**, with zero new entities/names, growth events,
 Uint/String values or Elists. Use the original n>=r for a linear per-emitter
@@ -3250,6 +3259,115 @@ This closes local call processing, not first runtime lookup/spec processing,
 wrapper/scope helpers, diagnostics, backend call lowering or physical stack
 storage. `native_runtime_concat_call` records the separate table dimensions
 and is now included in the combined vector.
+
+## Initial native Integer Image construction
+
+For each source `Integer'Image(E)`, its scalar argument E is analyzed and
+resolved before native Image expansion. Its original source semantic/numeric
+cost remains a separate source-expression charge. The following closes the
+generated constructor after that child has been resolved; it does not replay
+E or bound its source processing by a constant.
+
+The prefix is predefined Standard Integer32, without a Put_Image aspect.
+Analyze_Image_Attribute resolves E against its base type
+(`sem_attr.adb:1541–1618`). Semantic Image folding applies to enumeration
+literals, not Integer (`9725–9751`), so the ordinary native path runs even for
+a known Integer literal. Image_Should_Call_Put_Image returns False, and the
+emitter selects RE_Image_Integer/Standard_Integer
+(`exp_put_image.adb:1247–1286`, `exp_imgv.adb:1113–1116`). It emits
+
+```ada
+Snn : String (1 .. Integer'Width);
+Pnn : Natural;
+Image_Integer (Integer (E), Snn, Pnn);
+-- expression result: Snn (1 .. Pnn)
+```
+
+All inserted actions and the returned slice use Suppress=>All_Checks
+(`exp_imgv.adb:1265–1437`). The fixed runtime spec is already loaded/frozen
+for this local transfer. System.Img_Int.Image_Integer renames the
+System.Image_I instance's procedure with formals Integer, in-out String and
+out Natural (`libgnat/s-imgint.ads:36–47`, `libgnat/s-imagei.ads:36–48`).
+
+The direct constructors, including both shallow moves of E, the optional
+conversion/mark, and the saved original Image root, cost at most **24 ordinary
+nodes, two entities/internal names, three lists and one growth event**. The
+names occupy at most26 characters including NULs. No recursive argument copy
+is made. Standard Integer'Width folds to11: its absolute endpoint maximum is
+2147483648, the divide-by10 loop iterates nine times, and UI_From_Int stores
+the resulting11. At most12 Uint appends cover two absolutes, nine divisions
+and that conversion (`sem_attr.adb:11038–11337`). Charge the width fold and
+four extra static-leaf folds with ten nodes/five growing events; range-stage
+fold charges below deliberately overlap those extra allowances.
+
+The scalar conversion is either a relocation of an already exact Integer
+operand or a conversion from an ordinary subtype of that same base. In the
+latter case the semantic static fold costs at most two nodes/one growth; if
+it stays dynamic, the native identical-type branch removes it or the ordinary
+discrete-conversion branch returns under suppression. There is no integer
+promotion (the base size is already Standard_Integer_Size), universal-integer
+operand, predicate, fixed-point or representation conversion
+(`sem_res.adb:12440–12480,13343–13412`,
+`exp_ch4.adb:11570–11617,12107–12320,12783–12853`). Thus the same two-node,
+one-growth envelope covers a constrained source Integer operand too. E
+retains Analyzed in every shallow move; any original pending checks belong to
+E's already charged processing, not a second scalar-expression traversal.
+
+The buffer declaration uses the previously closed plain String-storage
+transfer with b=3,l=0, overcounting the two static bound leaves by one. Its
+only incoming scalar endpoints are1 and11. The selected range-check template
+has at most the seventeen-visit same-value spine already established above;
+its range-query roots are smaller. **A=17 is therefore a derived fixed
+template bound here**, rather than a cap on the source scalar argument.
+Its plain branch contributes `140A+89` nodes, three lists,23 growths,
+`596A+519` Uints, two entities and33 name characters. First subtype and
+ordinary object freezing are included. Pnn's existing frozen Natural subtype
+adds no itype; internal-object default initialization is skipped, and its
+first ordinary object freeze runs the no-op Layout_Object. The same
+ordinary scalar capture skeleton applies when the final slice captures Pnn
+as a constant of that existing subtype.
+
+The runtime call has no default/access/tagged/controlled formals, predicates,
+contracts, foreign convention or frontend Inline requirement. Both source
+and ultimate-alias signatures have the same types; alias replacement sets
+the existing call-name entity and creates no new actual conversion
+(`exp_ch6.adb:5253–5399`). Pnn's Natural formal/actual subtypes match, so the
+scalar copy-back check has no copy action. String is unconstrained, the
+buffer is aligned, and all range checks are suppressed. The two empty
+Post_Call lists still count. Charge three possible variable markers/xref
+attempts and one additional call marker/list conservatively: **four nodes,
+six lists and three positive Xrefs increments**. Any such marker's recorder
+is excluded from library-level scenario allocation by Main's local dynamic
+scope, as in the concat-call transfer. Fixed Is_RTE unit-name lookups remain
+in the dependency baseline. The final slice has the existing buffer's actual
+subtype and range `1..Pnn`; the closed suppressed suffix at t=3,l=0 adds19
+nodes, four entities,52 name characters, four lists, two growths and four
+Uints, including its possible scalar capture and copied index range.
+
+Adding these stages yields, per source Integer Image:
+
+| Demand | Bound |
+| --- | ---: |
+| Ordinary nodes / growing events | 2528 / 32 |
+| Entities/internal names / name characters including NUL | 8 / 111 |
+| Syntax-list headers | 16 |
+| Uint appends | 10667 |
+| Positive Xrefs increments | 3 |
+| Dynamic slots | 23528 |
+| Elist/hash/String values | 0 |
+
+The generated numeric computations use only the static endpoints and the
+small closed check template; the earlier magnitude derivation with A=17
+gives `(16*17+8)*2^127`, at most ten base32768 digits per append. Thus charge
+106670 retained Uint digits per Image, without charging source E's numeric
+work here. The normalized result descriptor remains `(L,H)=(1,2)` and the
+local view has no constructor recursion. The number of native Image
+invocations is at most the source Image count by the earlier analyzed-child
+multiplicity argument. `native_integer_image` emits this additive vector.
+Action placement/output wrapping, deferred qualification of the generated
+types, fixed dependency processing and backend/physical stack demands are
+separate already identified composition terms; the initial input constructor
+and Main cleanup still need closure.
 
 ## Deferred name qualification for ordinary Main scopes
 
