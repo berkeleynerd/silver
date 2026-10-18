@@ -1,0 +1,169 @@
+{
+  "scope": "three semantic free-variable count arithmetic sites in five fixed prefixes",
+  "managed_run": "20261018T133533-614e2bd1c3dd",
+  "cases": [
+    {
+      "name": "put_line",
+      "arithmetic": {
+        "union_add": {
+          "hits": 15327,
+          "minimum_left": 1,
+          "minimum_right": 1,
+          "maximum_left": 25,
+          "maximum_right": 29,
+          "maximum_result": 30
+        },
+        "substitution_multiply": {
+          "hits": 16165,
+          "minimum_left": 2,
+          "minimum_right": 1,
+          "maximum_left": 24,
+          "maximum_right": 1,
+          "maximum_result": 24
+        },
+        "occurrence_add": {
+          "hits": 8649,
+          "minimum_left": 0,
+          "minimum_right": 1,
+          "maximum_left": 28,
+          "maximum_right": 24,
+          "maximum_result": 29
+        }
+      },
+      "allocation_snapshots_equal_prior": true,
+      "debugger_seconds": 8.067086837996612
+    },
+    {
+      "name": "put",
+      "arithmetic": {
+        "union_add": {
+          "hits": 14843,
+          "minimum_left": 1,
+          "minimum_right": 1,
+          "maximum_left": 25,
+          "maximum_right": 29,
+          "maximum_result": 30
+        },
+        "substitution_multiply": {
+          "hits": 14222,
+          "minimum_left": 2,
+          "minimum_right": 1,
+          "maximum_left": 24,
+          "maximum_right": 1,
+          "maximum_result": 24
+        },
+        "occurrence_add": {
+          "hits": 8510,
+          "minimum_left": 0,
+          "minimum_right": 1,
+          "maximum_left": 28,
+          "maximum_right": 24,
+          "maximum_result": 29
+        }
+      },
+      "allocation_snapshots_equal_prior": true,
+      "debugger_seconds": 6.607172465999611
+    },
+    {
+      "name": "first_or_default",
+      "arithmetic": {
+        "union_add": {
+          "hits": 13705,
+          "minimum_left": 1,
+          "minimum_right": 1,
+          "maximum_left": 34,
+          "maximum_right": 46,
+          "maximum_result": 47
+        },
+        "substitution_multiply": {
+          "hits": 2924,
+          "minimum_left": 2,
+          "minimum_right": 1,
+          "maximum_left": 46,
+          "maximum_right": 1,
+          "maximum_result": 46
+        },
+        "occurrence_add": {
+          "hits": 8419,
+          "minimum_left": 0,
+          "minimum_right": 1,
+          "maximum_left": 28,
+          "maximum_right": 24,
+          "maximum_result": 32
+        }
+      },
+      "allocation_snapshots_equal_prior": true,
+      "debugger_seconds": 5.2545478910033125
+    },
+    {
+      "name": "input_is_valid",
+      "arithmetic": {
+        "union_add": {
+          "hits": 12385,
+          "minimum_left": 1,
+          "minimum_right": 1,
+          "maximum_left": 25,
+          "maximum_right": 29,
+          "maximum_result": 30
+        },
+        "substitution_multiply": {
+          "hits": 1770,
+          "minimum_left": 2,
+          "minimum_right": 1,
+          "maximum_left": 24,
+          "maximum_right": 1,
+          "maximum_result": 24
+        },
+        "occurrence_add": {
+          "hits": 7686,
+          "minimum_left": 0,
+          "minimum_right": 1,
+          "maximum_left": 28,
+          "maximum_right": 24,
+          "maximum_result": 29
+        }
+      },
+      "allocation_snapshots_equal_prior": true,
+      "debugger_seconds": 4.499449568000273
+    },
+    {
+      "name": "is_message",
+      "arithmetic": {
+        "union_add": {
+          "hits": 12284,
+          "minimum_left": 1,
+          "minimum_right": 1,
+          "maximum_left": 25,
+          "maximum_right": 29,
+          "maximum_result": 30
+        },
+        "substitution_multiply": {
+          "hits": 1721,
+          "minimum_left": 2,
+          "minimum_right": 1,
+          "maximum_left": 24,
+          "maximum_right": 1,
+          "maximum_result": 24
+        },
+        "occurrence_add": {
+          "hits": 7649,
+          "minimum_left": 0,
+          "minimum_right": 1,
+          "maximum_left": 28,
+          "maximum_right": 24,
+          "maximum_result": 29
+        }
+      },
+      "allocation_snapshots_equal_prior": true,
+      "debugger_seconds": 4.728106677997857
+    }
+  ],
+  "total_arithmetic_operations": 146259,
+  "maximum_mathematical_result": 47,
+  "debugger_seconds": 29.156363440997666,
+  "signed_OCaml_limit": 4611686018427387903,
+  "semantic_free_variable_multiplicity_bound_established": true,
+  "fixed_context_and_source_correspondence_required": true,
+  "complete_prefix_capacity_established": false,
+  "whole_pipeline_capacity_established": false
+}
