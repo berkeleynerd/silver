@@ -45,7 +45,7 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "scng.adb", "scn.adb", "scans.adb", "scans.ads", "par-ch2.adb", "par-ch3.adb",
          "par-ch4.adb", "par-ch5.adb", "par-ch6.adb", "par-ch8.adb", "par-ch10.adb",
          "par-ch11.adb", "par-util.adb", "par-endh.adb", "par-prag.adb", "par.adb", "par-labl.adb",
-         "frontend.adb", "fname-uf.adb", "nlists.ads", "sinput.ads", "sinput.adb", "sinput-l.adb", "osint.adb",
+         "frontend.adb", "fname-uf.adb", "fmap.adb", "switch-c.adb", "nlists.ads", "sinput.ads", "sinput.adb", "sinput-l.adb", "osint.adb",
          "rtsfind.adb", "libgnat/s-secsta.ads", "libgnat/s-parame.ads",
          "libgnat/s-stoele.ads", "libgnat/s-imgint.ads", "libgnat/s-imagei.ads", "libgnat/s-imagei.adb"
          ] + [f"libgnat/s-conca{i}.ads" for i in range(2, 10)]
@@ -1215,6 +1215,114 @@ def native_fixed_frontend(input_identifier_length, pathname_length):
         whole_native_frontend_closed=False)
 
 
+def native_configuration_storage(*, mapping_bytes, mapping_filename,
+        configuration_filename, source_path_files, object_path_files,
+        pathname_length):
+    """Selected actual configuration-reader costs, not whole invocation closure.
+
+    Files are input bytes available before launch. Source resolution, normalized
+    path identity, allowed switches and complete effective search lists are
+    separate descriptor premises. Every map record is charged, even duplicates.
+    """
+    i32, i64 = 2**31-1, 2**63-1
+    assert mapping_bytes.endswith(b"\n")
+    lines = mapping_bytes.decode("ascii").splitlines()
+    assert len(lines) % 3 == 0 and all(lines)
+    assert all(32 <= ord(c) <= 126 for line in lines for c in line)
+    assert all(re.fullmatch(r"[A-Za-z_0-9.]+%[sb]",line) for line in lines[::3])
+    assert all("/" not in line for line in lines[1::3])
+    records = len(lines)//3
+    names = [mapping_filename, configuration_filename]
+    assert all(s.startswith("/") for s in names+lines[2::3])
+    path_rows = []
+    counts = dict(source=0,objects=0)
+    for kind, files in (("source",source_path_files),("objects",object_path_files)):
+        for name, raw in files:
+            assert name.startswith("/") and all(32 <= b <= 126 or b in (10,13) for b in raw)
+            directories = [s for s in re.split(r"\r\n|[\r\n]",raw.decode("ascii")) if s]
+            assert all(s.startswith("/") for s in directories)
+            lengths = [len(s)+(not s.endswith("/")) for s in directories]
+            counts[kind] += len(directories)
+            path_rows.append(dict(kind=kind,filename=name,bytes=len(raw),
+                directory_requests=len(directories),normalized_directory_lengths=lengths,
+                checks=dict(read_length_and_Curr=len(raw)+1<=i32,
+                    line_First_plus_two=len(raw)+2<=i32,
+                    filename_NUL=len(name)+1<=i32,
+                    directory_normalization=all(n<=i32 for n in lengths),
+                    individual_String_objects=max([len(raw),len(name)+1]+lengths)+16<=i64,
+                    declared_path_bound=max([len(name)]+lengths)<=pathname_length)))
+    raw_fixed = fixed_native_inputs["fixed_lifetime_table_growth"]
+    map_demand = raw_fixed["fmap__file_mapping__last_valX"]+records
+    assert raw_fixed["fmap__path_mapping__last_valX"] == 52
+    tables = dict(File_Mapping=native_table_backing_row(map_demand,1,1000,1000,8,i32),
+        Path_Mapping=native_table_backing_row(map_demand,1,1000,1000,8,i32),
+        Src_Search_Directories=native_table_backing_row(
+            raw_fixed["osint__src_search_directories__last_valX"]+counts["source"],0,10,100,16,i32),
+        Lib_Search_Directories=native_table_backing_row(
+            raw_fixed["osint__lib_search_directories__last_valX"]+counts["objects"],0,10,100,16,i32))
+    # Name_Find for every map field; one initial and one normalized filename
+    # for each of mapping/configuration loading. Repeated names overcount safely.
+    name_entries = len(lines)+4
+    name_characters = (sum(len(s)+1 for s in lines)+sum(len(s)+1 for s in names)
+                       +2*(pathname_length+1))
+    max_field = max(map(len,lines),default=0)
+    # Runtime units that can be appended after this map are already in the
+    # fixed capture; its nonpath-name bound includes their unit/file spellings.
+    future_field = max(pathname_length,
+        fixed_native_inputs["names"]["maximum_recorded_nonpath_spelling_length"])
+    checks = dict(mapping_read_Lo_plus_length=len(mapping_bytes)+1<=i32,
+        mapping_Get_Line_plus_two=len(mapping_bytes)+2<=i32,
+        map_and_filename_Name_Buffer=max(max_field,pathname_length+1)<=4*32766,
+        declared_path_bound=max([len(s) for s in names]+[len(s) for s in lines[2::3]])<=pathname_length,
+        mapping_update_single_line=future_field+1<=1500,
+        mapping_update_buffer_addition=1500+future_field+1<=i32,
+        mapping_update_iteration_plus_one=map_demand+1<=i32,
+        mapping_read_single_object=len(mapping_bytes)+1+16<=i64,
+        file_paths_single_String=max(pathname_length,max(map(len,names)))+16<=i64,
+        one_config_String_List=16+16<=i64,
+        map_hash_single_wrapper=16<=i64,
+        map_hash_single_bucket_array=1001*8<=i64,
+        path_files=all(all(row["checks"].values()) for row in path_rows),
+        tables=all(row["all_selected_checks_pass"] for row in tables.values()))
+    return dict(mapping_records=records,mapping_bytes=len(mapping_bytes),
+        maximum_input_map_field=max_field,maximum_future_map_field=future_field,
+        Name_entries=name_entries,Name_characters=name_characters,
+        path_files=path_rows,tables=tables,checks=checks,
+        map_hash_wrappers_each_table_bound=map_demand,
+        map_hash_wrapper_bytes=16,map_hash_bucket_array_bytes=1001*8,
+        aggregate_hash_bytes_is_not_an_admission_gate=True,
+        source_cursor_charge_for_map_or_path_files=0,
+        all_selected_checks_pass=all(checks.values()),
+        additional_argv_default_search_and_other_paths_included=False,
+        installed_GPR_or_producer_source_identity_claimed=False,
+        whole_invocation_closed=False)
+
+
+def retained_configuration_fixture(pathname_length):
+    """Known file-byte fixture from an older stopped producer run.
+
+    Its reader arithmetic composes with native source examples; this is not
+    evidence that those examples actually used this configuration or paths.
+    """
+    directory = repository/"docs/evidence/unbounded-programs/retained-source-closure-20261017"
+    retained = json.loads((directory/"driver-reconciliation.json").read_text())["retained_inputs"]
+    def read(name):
+        key = "293256/"+name
+        item = retained[key]
+        raw = (directory/"driver-snapshots"/key).read_bytes()
+        assert len(raw) == item["bytes"] and hashlib.sha256(raw).hexdigest() == item["sha256"]
+        return item["original_path"],raw
+    map_name,map_raw = read("GNAT-TEMP-000003.TMP")
+    config_name,config_raw = read("GNAT-TEMP-000002.TMP")
+    assert len(config_raw) == 244
+    object_file = read("GNAT-TEMP-000004.TMP")
+    result = native_configuration_storage(mapping_bytes=map_raw,mapping_filename=map_name,
+        configuration_filename=config_name,source_path_files=[],object_path_files=[object_file],
+        pathname_length=pathname_length)
+    result["fixture"] = "293256 retained map/config/-gnateO file bytes; other invocation inputs remain separate"
+    return result
+
+
 def native_stack_peaks(*, main_nodes, main_lists, loop_depth, short_circuits,
                        output_calls, fixed_scope_pushes=1117,
                        fixed_expander_pushes=520, fixed_lists=6526):
@@ -1268,7 +1376,7 @@ def native_diagnostic_metadata(source_loops, source_with_names):
 
 def native_frontend_logical_join(*, counts, scanner_pools,
         max_identifier_length, input_identifier_length, loop_depth,
-        pathname_length):
+        pathname_length, configuration_storage=None):
     """Join known native logical tables; not complete tool admission.
 
     Scanner pool inputs must include all actual rescans/lookahead from their
@@ -1316,8 +1424,12 @@ def native_frontend_logical_join(*, counts, scanner_pools,
     # Node-indexed list links have the two extra sentinel positions recorded by
     # the pinned table initialization, not an independent per-constructor term.
     table["node_list_link_entries"] = table["node_identities"]+2
+    if configuration_storage is not None:
+        table["Name_entries"] += configuration_storage["Name_entries"]
+        table["Name_characters"] += configuration_storage["Name_characters"]
     return dict(tables=table,fixed=fixed,Main_constructor=core,common=common,
         invocation=invocation,stacks=stacks,parser_auxiliary=parser_auxiliary,
+        selected_configuration_storage=configuration_storage,
         scanner_pool_inputs=scanner_pools,
         diagnostics="native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
         remaining="parser auxiliaries; fixed non-table heaps; all physical layouts/growth/caller arithmetic; recursion and local vectors; complete ALI/debug/backend/object/linker and independent proof producer",
@@ -1709,7 +1821,8 @@ def representative_current_programs():
         logical = native_frontend_logical_join(counts=counts,scanner_pools=pools,
             max_identifier_length=max(map(len,words)),
             input_identifier_length=syntax["input_identifier_length"],
-            loop_depth=syntax["loop_depth"],pathname_length=inputs["pathname_length_premise"])
+            loop_depth=syntax["loop_depth"],pathname_length=inputs["pathname_length_premise"],
+            configuration_storage=retained_configuration_fixture(inputs["pathname_length_premise"]))
         physical = native_core_table_backing(logical)
         result.append(dict(source=item["source"],sha256=item["sha256"],source_bytes=len(raw),
             token_inventory=dict(words=len(words),word_characters=sum(map(len,words)),

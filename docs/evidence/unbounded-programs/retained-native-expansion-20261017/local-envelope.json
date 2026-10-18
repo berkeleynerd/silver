@@ -75,8 +75,8 @@
             "Ureal_entries": 60,
             "String_descriptors": 211,
             "String_characters": 7279,
-            "Name_entries": 6264,
-            "Name_characters": 1347878,
+            "Name_entries": 6340,
+            "Name_characters": 1353236,
             "All_Interp_entries": 867,
             "Name_Qualify_Units_entries": 138,
             "Xrefs_entries": 82308,
@@ -401,6 +401,137 @@
             "AST_and_syntax_list_additions": 0,
             "whole_native_frontend_closed": false
           },
+          "selected_configuration_storage": {
+            "mapping_records": 24,
+            "mapping_bytes": 4882,
+            "maximum_input_map_field": 186,
+            "maximum_future_map_field": 200,
+            "Name_entries": 76,
+            "Name_characters": 5358,
+            "path_files": [
+              {
+                "kind": "objects",
+                "filename": "/tmp/GPR.293256/GNAT-TEMP-000004.TMP",
+                "bytes": 151,
+                "directory_requests": 1,
+                "normalized_directory_lengths": [
+                  150
+                ],
+                "checks": {
+                  "read_length_and_Curr": true,
+                  "line_First_plus_two": true,
+                  "filename_NUL": true,
+                  "directory_normalization": true,
+                  "individual_String_objects": true,
+                  "declared_path_bound": true
+                }
+              }
+            ],
+            "tables": {
+              "File_Mapping": {
+                "demand": 76,
+                "low_bound": 1,
+                "initial": 1000,
+                "increment_percent": 1000,
+                "component_bytes_upper_bound": 8,
+                "backing_capacity_bound": 11000,
+                "bytes_with_sentinel": 88008,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Path_Mapping": {
+                "demand": 76,
+                "low_bound": 1,
+                "initial": 1000,
+                "increment_percent": 1000,
+                "component_bytes_upper_bound": 8,
+                "backing_capacity_bound": 11000,
+                "bytes_with_sentinel": 88008,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Src_Search_Directories": {
+                "demand": 6,
+                "low_bound": 0,
+                "initial": 10,
+                "increment_percent": 100,
+                "component_bytes_upper_bound": 16,
+                "backing_capacity_bound": 20,
+                "bytes_with_sentinel": 336,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Lib_Search_Directories": {
+                "demand": 5,
+                "low_bound": 0,
+                "initial": 10,
+                "increment_percent": 100,
+                "component_bytes_upper_bound": 16,
+                "backing_capacity_bound": 20,
+                "bytes_with_sentinel": 336,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              }
+            },
+            "checks": {
+              "mapping_read_Lo_plus_length": true,
+              "mapping_Get_Line_plus_two": true,
+              "map_and_filename_Name_Buffer": true,
+              "declared_path_bound": true,
+              "mapping_update_single_line": true,
+              "mapping_update_buffer_addition": true,
+              "mapping_update_iteration_plus_one": true,
+              "mapping_read_single_object": true,
+              "file_paths_single_String": true,
+              "one_config_String_List": true,
+              "map_hash_single_wrapper": true,
+              "map_hash_single_bucket_array": true,
+              "path_files": true,
+              "tables": true
+            },
+            "map_hash_wrappers_each_table_bound": 76,
+            "map_hash_wrapper_bytes": 16,
+            "map_hash_bucket_array_bytes": 8008,
+            "aggregate_hash_bytes_is_not_an_admission_gate": true,
+            "source_cursor_charge_for_map_or_path_files": 0,
+            "all_selected_checks_pass": true,
+            "additional_argv_default_search_and_other_paths_included": false,
+            "installed_GPR_or_producer_source_identity_claimed": false,
+            "whole_invocation_closed": false,
+            "fixture": "293256 retained map/config/-gnateO file bytes; other invocation inputs remain separate"
+          },
           "scanner_pool_inputs": {
             "Name_entries": 10,
             "Name_characters": 59,
@@ -663,13 +794,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Entries": {
-              "demand": 6264,
+              "demand": 6340,
               "low_bound": -399999997,
               "initial": 6000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 16,
-              "backing_capacity_bound": 12528,
-              "bytes_with_sentinel": 200464,
+              "backing_capacity_bound": 12680,
+              "bytes_with_sentinel": 202896,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -682,13 +813,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Chars": {
-              "demand": 1347878,
+              "demand": 1353236,
               "low_bound": 0,
               "initial": 50000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 1,
-              "backing_capacity_bound": 2695756,
-              "bytes_with_sentinel": 2695757,
+              "backing_capacity_bound": 2706472,
+              "bytes_with_sentinel": 2706473,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -842,7 +973,7 @@
             "Saved_Checks": 4000,
             "Saved_Checks_stack": 400
           },
-          "selected_tables_reallocation_peak_bytes": 180075178,
+          "selected_tables_reallocation_peak_bytes": 180101474,
           "interned_name_length_bound": 5117,
           "checks": {
             "all_selected_tables": true,
@@ -1748,8 +1879,8 @@
             "Ureal_entries": 60,
             "String_descriptors": 213,
             "String_characters": 7305,
-            "Name_entries": 6273,
-            "Name_characters": 1348091,
+            "Name_entries": 6349,
+            "Name_characters": 1353449,
             "All_Interp_entries": 876,
             "Name_Qualify_Units_entries": 139,
             "Xrefs_entries": 82360,
@@ -2074,6 +2205,137 @@
             "AST_and_syntax_list_additions": 0,
             "whole_native_frontend_closed": false
           },
+          "selected_configuration_storage": {
+            "mapping_records": 24,
+            "mapping_bytes": 4882,
+            "maximum_input_map_field": 186,
+            "maximum_future_map_field": 200,
+            "Name_entries": 76,
+            "Name_characters": 5358,
+            "path_files": [
+              {
+                "kind": "objects",
+                "filename": "/tmp/GPR.293256/GNAT-TEMP-000004.TMP",
+                "bytes": 151,
+                "directory_requests": 1,
+                "normalized_directory_lengths": [
+                  150
+                ],
+                "checks": {
+                  "read_length_and_Curr": true,
+                  "line_First_plus_two": true,
+                  "filename_NUL": true,
+                  "directory_normalization": true,
+                  "individual_String_objects": true,
+                  "declared_path_bound": true
+                }
+              }
+            ],
+            "tables": {
+              "File_Mapping": {
+                "demand": 76,
+                "low_bound": 1,
+                "initial": 1000,
+                "increment_percent": 1000,
+                "component_bytes_upper_bound": 8,
+                "backing_capacity_bound": 11000,
+                "bytes_with_sentinel": 88008,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Path_Mapping": {
+                "demand": 76,
+                "low_bound": 1,
+                "initial": 1000,
+                "increment_percent": 1000,
+                "component_bytes_upper_bound": 8,
+                "backing_capacity_bound": 11000,
+                "bytes_with_sentinel": 88008,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Src_Search_Directories": {
+                "demand": 6,
+                "low_bound": 0,
+                "initial": 10,
+                "increment_percent": 100,
+                "component_bytes_upper_bound": 16,
+                "backing_capacity_bound": 20,
+                "bytes_with_sentinel": 336,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Lib_Search_Directories": {
+                "demand": 5,
+                "low_bound": 0,
+                "initial": 10,
+                "increment_percent": 100,
+                "component_bytes_upper_bound": 16,
+                "backing_capacity_bound": 20,
+                "bytes_with_sentinel": 336,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              }
+            },
+            "checks": {
+              "mapping_read_Lo_plus_length": true,
+              "mapping_Get_Line_plus_two": true,
+              "map_and_filename_Name_Buffer": true,
+              "declared_path_bound": true,
+              "mapping_update_single_line": true,
+              "mapping_update_buffer_addition": true,
+              "mapping_update_iteration_plus_one": true,
+              "mapping_read_single_object": true,
+              "file_paths_single_String": true,
+              "one_config_String_List": true,
+              "map_hash_single_wrapper": true,
+              "map_hash_single_bucket_array": true,
+              "path_files": true,
+              "tables": true
+            },
+            "map_hash_wrappers_each_table_bound": 76,
+            "map_hash_wrapper_bytes": 16,
+            "map_hash_bucket_array_bytes": 8008,
+            "aggregate_hash_bytes_is_not_an_admission_gate": true,
+            "source_cursor_charge_for_map_or_path_files": 0,
+            "all_selected_checks_pass": true,
+            "additional_argv_default_search_and_other_paths_included": false,
+            "installed_GPR_or_producer_source_identity_claimed": false,
+            "whole_invocation_closed": false,
+            "fixture": "293256 retained map/config/-gnateO file bytes; other invocation inputs remain separate"
+          },
           "scanner_pool_inputs": {
             "Name_entries": 13,
             "Name_characters": 88,
@@ -2336,13 +2598,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Entries": {
-              "demand": 6273,
+              "demand": 6349,
               "low_bound": -399999997,
               "initial": 6000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 16,
-              "backing_capacity_bound": 12546,
-              "bytes_with_sentinel": 200752,
+              "backing_capacity_bound": 12698,
+              "bytes_with_sentinel": 203184,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -2355,13 +2617,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Chars": {
-              "demand": 1348091,
+              "demand": 1353449,
               "low_bound": 0,
               "initial": 50000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 1,
-              "backing_capacity_bound": 2696182,
-              "bytes_with_sentinel": 2696183,
+              "backing_capacity_bound": 2706898,
+              "bytes_with_sentinel": 2706899,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -2515,7 +2777,7 @@
             "Saved_Checks": 4000,
             "Saved_Checks_stack": 400
           },
-          "selected_tables_reallocation_peak_bytes": 180101874,
+          "selected_tables_reallocation_peak_bytes": 180128170,
           "interned_name_length_bound": 5117,
           "checks": {
             "all_selected_tables": true,
@@ -3423,8 +3685,8 @@
             "Ureal_entries": 60,
             "String_descriptors": 211,
             "String_characters": 7279,
-            "Name_entries": 6312,
-            "Name_characters": 1349258,
+            "Name_entries": 6388,
+            "Name_characters": 1354616,
             "All_Interp_entries": 915,
             "Name_Qualify_Units_entries": 139,
             "Xrefs_entries": 82599,
@@ -3749,6 +4011,137 @@
             "AST_and_syntax_list_additions": 0,
             "whole_native_frontend_closed": false
           },
+          "selected_configuration_storage": {
+            "mapping_records": 24,
+            "mapping_bytes": 4882,
+            "maximum_input_map_field": 186,
+            "maximum_future_map_field": 200,
+            "Name_entries": 76,
+            "Name_characters": 5358,
+            "path_files": [
+              {
+                "kind": "objects",
+                "filename": "/tmp/GPR.293256/GNAT-TEMP-000004.TMP",
+                "bytes": 151,
+                "directory_requests": 1,
+                "normalized_directory_lengths": [
+                  150
+                ],
+                "checks": {
+                  "read_length_and_Curr": true,
+                  "line_First_plus_two": true,
+                  "filename_NUL": true,
+                  "directory_normalization": true,
+                  "individual_String_objects": true,
+                  "declared_path_bound": true
+                }
+              }
+            ],
+            "tables": {
+              "File_Mapping": {
+                "demand": 76,
+                "low_bound": 1,
+                "initial": 1000,
+                "increment_percent": 1000,
+                "component_bytes_upper_bound": 8,
+                "backing_capacity_bound": 11000,
+                "bytes_with_sentinel": 88008,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Path_Mapping": {
+                "demand": 76,
+                "low_bound": 1,
+                "initial": 1000,
+                "increment_percent": 1000,
+                "component_bytes_upper_bound": 8,
+                "backing_capacity_bound": 11000,
+                "bytes_with_sentinel": 88008,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Src_Search_Directories": {
+                "demand": 6,
+                "low_bound": 0,
+                "initial": 10,
+                "increment_percent": 100,
+                "component_bytes_upper_bound": 16,
+                "backing_capacity_bound": 20,
+                "bytes_with_sentinel": 336,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Lib_Search_Directories": {
+                "demand": 5,
+                "low_bound": 0,
+                "initial": 10,
+                "increment_percent": 100,
+                "component_bytes_upper_bound": 16,
+                "backing_capacity_bound": 20,
+                "bytes_with_sentinel": 336,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              }
+            },
+            "checks": {
+              "mapping_read_Lo_plus_length": true,
+              "mapping_Get_Line_plus_two": true,
+              "map_and_filename_Name_Buffer": true,
+              "declared_path_bound": true,
+              "mapping_update_single_line": true,
+              "mapping_update_buffer_addition": true,
+              "mapping_update_iteration_plus_one": true,
+              "mapping_read_single_object": true,
+              "file_paths_single_String": true,
+              "one_config_String_List": true,
+              "map_hash_single_wrapper": true,
+              "map_hash_single_bucket_array": true,
+              "path_files": true,
+              "tables": true
+            },
+            "map_hash_wrappers_each_table_bound": 76,
+            "map_hash_wrapper_bytes": 16,
+            "map_hash_bucket_array_bytes": 8008,
+            "aggregate_hash_bytes_is_not_an_admission_gate": true,
+            "source_cursor_charge_for_map_or_path_files": 0,
+            "all_selected_checks_pass": true,
+            "additional_argv_default_search_and_other_paths_included": false,
+            "installed_GPR_or_producer_source_identity_claimed": false,
+            "whole_invocation_closed": false,
+            "fixture": "293256 retained map/config/-gnateO file bytes; other invocation inputs remain separate"
+          },
           "scanner_pool_inputs": {
             "Name_entries": 26,
             "Name_characters": 154,
@@ -4011,13 +4404,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Entries": {
-              "demand": 6312,
+              "demand": 6388,
               "low_bound": -399999997,
               "initial": 6000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 16,
-              "backing_capacity_bound": 12624,
-              "bytes_with_sentinel": 202000,
+              "backing_capacity_bound": 12776,
+              "bytes_with_sentinel": 204432,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -4030,13 +4423,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Chars": {
-              "demand": 1349258,
+              "demand": 1354616,
               "low_bound": 0,
               "initial": 50000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 1,
-              "backing_capacity_bound": 2698516,
-              "bytes_with_sentinel": 2698517,
+              "backing_capacity_bound": 2709232,
+              "bytes_with_sentinel": 2709233,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -4190,7 +4583,7 @@
             "Saved_Checks": 4000,
             "Saved_Checks_stack": 400
           },
-          "selected_tables_reallocation_peak_bytes": 186940808,
+          "selected_tables_reallocation_peak_bytes": 186967104,
           "interned_name_length_bound": 5117,
           "checks": {
             "all_selected_tables": true,
@@ -5154,8 +5547,8 @@
             "Ureal_entries": 60,
             "String_descriptors": 219,
             "String_characters": 15496,
-            "Name_entries": 6675,
-            "Name_characters": 1366924,
+            "Name_entries": 6751,
+            "Name_characters": 1372282,
             "All_Interp_entries": 948,
             "Name_Qualify_Units_entries": 139,
             "Xrefs_entries": 83082,
@@ -5480,6 +5873,137 @@
             "AST_and_syntax_list_additions": 0,
             "whole_native_frontend_closed": false
           },
+          "selected_configuration_storage": {
+            "mapping_records": 24,
+            "mapping_bytes": 4882,
+            "maximum_input_map_field": 186,
+            "maximum_future_map_field": 200,
+            "Name_entries": 76,
+            "Name_characters": 5358,
+            "path_files": [
+              {
+                "kind": "objects",
+                "filename": "/tmp/GPR.293256/GNAT-TEMP-000004.TMP",
+                "bytes": 151,
+                "directory_requests": 1,
+                "normalized_directory_lengths": [
+                  150
+                ],
+                "checks": {
+                  "read_length_and_Curr": true,
+                  "line_First_plus_two": true,
+                  "filename_NUL": true,
+                  "directory_normalization": true,
+                  "individual_String_objects": true,
+                  "declared_path_bound": true
+                }
+              }
+            ],
+            "tables": {
+              "File_Mapping": {
+                "demand": 76,
+                "low_bound": 1,
+                "initial": 1000,
+                "increment_percent": 1000,
+                "component_bytes_upper_bound": 8,
+                "backing_capacity_bound": 11000,
+                "bytes_with_sentinel": 88008,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Path_Mapping": {
+                "demand": 76,
+                "low_bound": 1,
+                "initial": 1000,
+                "increment_percent": 1000,
+                "component_bytes_upper_bound": 8,
+                "backing_capacity_bound": 11000,
+                "bytes_with_sentinel": 88008,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Src_Search_Directories": {
+                "demand": 6,
+                "low_bound": 0,
+                "initial": 10,
+                "increment_percent": 100,
+                "component_bytes_upper_bound": 16,
+                "backing_capacity_bound": 20,
+                "bytes_with_sentinel": 336,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Lib_Search_Directories": {
+                "demand": 5,
+                "low_bound": 0,
+                "initial": 10,
+                "increment_percent": 100,
+                "component_bytes_upper_bound": 16,
+                "backing_capacity_bound": 20,
+                "bytes_with_sentinel": 336,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              }
+            },
+            "checks": {
+              "mapping_read_Lo_plus_length": true,
+              "mapping_Get_Line_plus_two": true,
+              "map_and_filename_Name_Buffer": true,
+              "declared_path_bound": true,
+              "mapping_update_single_line": true,
+              "mapping_update_buffer_addition": true,
+              "mapping_update_iteration_plus_one": true,
+              "mapping_read_single_object": true,
+              "file_paths_single_String": true,
+              "one_config_String_List": true,
+              "map_hash_single_wrapper": true,
+              "map_hash_single_bucket_array": true,
+              "path_files": true,
+              "tables": true
+            },
+            "map_hash_wrappers_each_table_bound": 76,
+            "map_hash_wrapper_bytes": 16,
+            "map_hash_bucket_array_bytes": 8008,
+            "aggregate_hash_bytes_is_not_an_admission_gate": true,
+            "source_cursor_charge_for_map_or_path_files": 0,
+            "all_selected_checks_pass": true,
+            "additional_argv_default_search_and_other_paths_included": false,
+            "installed_GPR_or_producer_source_identity_claimed": false,
+            "whole_invocation_closed": false,
+            "fixture": "293256 retained map/config/-gnateO file bytes; other invocation inputs remain separate"
+          },
           "scanner_pool_inputs": {
             "Name_entries": 34,
             "Name_characters": 267,
@@ -5742,13 +6266,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Entries": {
-              "demand": 6675,
+              "demand": 6751,
               "low_bound": -399999997,
               "initial": 6000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 16,
-              "backing_capacity_bound": 13350,
-              "bytes_with_sentinel": 213616,
+              "backing_capacity_bound": 13502,
+              "bytes_with_sentinel": 216048,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -5761,13 +6285,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Chars": {
-              "demand": 1366924,
+              "demand": 1372282,
               "low_bound": 0,
               "initial": 50000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 1,
-              "backing_capacity_bound": 2733848,
-              "bytes_with_sentinel": 2733849,
+              "backing_capacity_bound": 2744564,
+              "bytes_with_sentinel": 2744565,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -5921,7 +6445,7 @@
             "Saved_Checks": 4000,
             "Saved_Checks_stack": 400
           },
-          "selected_tables_reallocation_peak_bytes": 991076178,
+          "selected_tables_reallocation_peak_bytes": 991102474,
           "interned_name_length_bound": 5120,
           "checks": {
             "all_selected_tables": true,
@@ -6835,8 +7359,8 @@
             "Ureal_entries": 60,
             "String_descriptors": 211,
             "String_characters": 7279,
-            "Name_entries": 6336,
-            "Name_characters": 1350407,
+            "Name_entries": 6412,
+            "Name_characters": 1355765,
             "All_Interp_entries": 952,
             "Name_Qualify_Units_entries": 139,
             "Xrefs_entries": 82803,
@@ -7161,6 +7685,137 @@
             "AST_and_syntax_list_additions": 0,
             "whole_native_frontend_closed": false
           },
+          "selected_configuration_storage": {
+            "mapping_records": 24,
+            "mapping_bytes": 4882,
+            "maximum_input_map_field": 186,
+            "maximum_future_map_field": 200,
+            "Name_entries": 76,
+            "Name_characters": 5358,
+            "path_files": [
+              {
+                "kind": "objects",
+                "filename": "/tmp/GPR.293256/GNAT-TEMP-000004.TMP",
+                "bytes": 151,
+                "directory_requests": 1,
+                "normalized_directory_lengths": [
+                  150
+                ],
+                "checks": {
+                  "read_length_and_Curr": true,
+                  "line_First_plus_two": true,
+                  "filename_NUL": true,
+                  "directory_normalization": true,
+                  "individual_String_objects": true,
+                  "declared_path_bound": true
+                }
+              }
+            ],
+            "tables": {
+              "File_Mapping": {
+                "demand": 76,
+                "low_bound": 1,
+                "initial": 1000,
+                "increment_percent": 1000,
+                "component_bytes_upper_bound": 8,
+                "backing_capacity_bound": 11000,
+                "bytes_with_sentinel": 88008,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Path_Mapping": {
+                "demand": 76,
+                "low_bound": 1,
+                "initial": 1000,
+                "increment_percent": 1000,
+                "component_bytes_upper_bound": 8,
+                "backing_capacity_bound": 11000,
+                "bytes_with_sentinel": 88008,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Src_Search_Directories": {
+                "demand": 6,
+                "low_bound": 0,
+                "initial": 10,
+                "increment_percent": 100,
+                "component_bytes_upper_bound": 16,
+                "backing_capacity_bound": 20,
+                "bytes_with_sentinel": 336,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              },
+              "Lib_Search_Directories": {
+                "demand": 5,
+                "low_bound": 0,
+                "initial": 10,
+                "increment_percent": 100,
+                "component_bytes_upper_bound": 16,
+                "backing_capacity_bound": 20,
+                "bytes_with_sentinel": 336,
+                "checks": {
+                  "initial_product": true,
+                  "growth_product": true,
+                  "backing_length_and_plus_one": true,
+                  "empty_index": true,
+                  "backing_index_and_sentinel": true,
+                  "logical_nominal_index": true,
+                  "allocation_and_pointer_difference": true
+                },
+                "all_selected_checks_pass": true
+              }
+            },
+            "checks": {
+              "mapping_read_Lo_plus_length": true,
+              "mapping_Get_Line_plus_two": true,
+              "map_and_filename_Name_Buffer": true,
+              "declared_path_bound": true,
+              "mapping_update_single_line": true,
+              "mapping_update_buffer_addition": true,
+              "mapping_update_iteration_plus_one": true,
+              "mapping_read_single_object": true,
+              "file_paths_single_String": true,
+              "one_config_String_List": true,
+              "map_hash_single_wrapper": true,
+              "map_hash_single_bucket_array": true,
+              "path_files": true,
+              "tables": true
+            },
+            "map_hash_wrappers_each_table_bound": 76,
+            "map_hash_wrapper_bytes": 16,
+            "map_hash_bucket_array_bytes": 8008,
+            "aggregate_hash_bytes_is_not_an_admission_gate": true,
+            "source_cursor_charge_for_map_or_path_files": 0,
+            "all_selected_checks_pass": true,
+            "additional_argv_default_search_and_other_paths_included": false,
+            "installed_GPR_or_producer_source_identity_claimed": false,
+            "whole_invocation_closed": false,
+            "fixture": "293256 retained map/config/-gnateO file bytes; other invocation inputs remain separate"
+          },
           "scanner_pool_inputs": {
             "Name_entries": 38,
             "Name_characters": 201,
@@ -7423,13 +8078,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Entries": {
-              "demand": 6336,
+              "demand": 6412,
               "low_bound": -399999997,
               "initial": 6000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 16,
-              "backing_capacity_bound": 12672,
-              "bytes_with_sentinel": 202768,
+              "backing_capacity_bound": 12824,
+              "bytes_with_sentinel": 205200,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -7442,13 +8097,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Chars": {
-              "demand": 1350407,
+              "demand": 1355765,
               "low_bound": 0,
               "initial": 50000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 1,
-              "backing_capacity_bound": 2700814,
-              "bytes_with_sentinel": 2700815,
+              "backing_capacity_bound": 2711530,
+              "bytes_with_sentinel": 2711531,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -7602,7 +8257,7 @@
             "Saved_Checks": 4000,
             "Saved_Checks_stack": 400
           },
-          "selected_tables_reallocation_peak_bytes": 367994118,
+          "selected_tables_reallocation_peak_bytes": 368020414,
           "interned_name_length_bound": 5117,
           "checks": {
             "all_selected_tables": true,
@@ -9719,6 +10374,7 @@
           "AST_and_syntax_list_additions": 0,
           "whole_native_frontend_closed": false
         },
+        "selected_configuration_storage": null,
         "scanner_pool_inputs": {
           "Name_entries": 0,
           "Name_characters": 0,
@@ -10069,6 +10725,7 @@
           "AST_and_syntax_list_additions": 0,
           "whole_native_frontend_closed": false
         },
+        "selected_configuration_storage": null,
         "scanner_pool_inputs": {
           "Name_entries": 0,
           "Name_characters": 0,
@@ -10907,7 +11564,7 @@
     "scope": "residual RTE-cache identities need no duplicate compiler capture"
   },
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 132,
+  "source_files_verified": 134,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -11021,6 +11678,8 @@
     "par-labl.adb": "cf28682a83d42c49b2a762270acf1ba5026dfaebaed68784c8aef387431bc7c8",
     "frontend.adb": "c3322dab69929c2ff3eef9f768d98574cf56d337e452b2206eb44eb552f7ee67",
     "fname-uf.adb": "22caede84a6269298fc78349d6dee2e10baf3f4841bc65131ed94ad054194101",
+    "fmap.adb": "831a3334022631e111510e14d27b9ac35f9667490e3c2a5688303c01ee53ac17",
+    "switch-c.adb": "dbb1b360a6a58368d21cdf71cc3cf55c2803741f4dcf97aaf45b71e13d170c58",
     "nlists.ads": "4583a25aeae97062264747bdb3f6defd94bb1e3b49ab862b5e551c2ce9c4829a",
     "sinput.ads": "48657f3ca583b754d10f2798fb61c54d85b556c2cd6f10036acff685d57a682b",
     "sinput.adb": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8",

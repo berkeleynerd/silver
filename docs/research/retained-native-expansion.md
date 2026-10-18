@@ -5574,6 +5574,103 @@ All five sources pass the source/line/name checks and these three additional
 table checks. The results still do not complete native or proof-producer
 capacity, and no compiler execution was needed.
 
+## Generated mapping and path-file storage
+
+The executable join now accepts a separate configuration-storage descriptor.
+It prices the **actual bytes before tool launch**, rather than deriving the
+whole GPR invocation from the earlier direct-GCC capture. Mapping and path
+file bytes do not enter Sinput's aligned source cursor. They still allocate
+their own read buffers, names, tables and search-directory Strings.
+
+For a map containing M complete triples, let B be its byte length and T the
+sum of the field lengths. `fmap.adb:278–353` reads each unit, basename and
+path through Name_Buffer and Name_Find. Its direct contribution is at most3M
+Name entries and T+3M characters including terminators. Loading the map and
+the one configuration input contributes at most four more names: initial and
+normalized spelling for each (`frontend.adb:188–217`,
+`osint.adb:1206–1229`). Thus their additional character charge is
+`map_filename_length+config_filename_length+2+2*(P+1)`, with normalized
+absolute paths also bounded by P. This does not assume path normalization
+preserves byte length. The two
+configuration filename Strings and one String_List also have individual
+object checks. The naming pragma's own semantic/scanner charges remain in
+the earlier fixed vector, without recounting them here.
+
+`Add_To_File_Map`, `fmap.adb:123–144`, appends at most one entry to each
+mapping table per input triple. The full captured52 additions remain as a
+conservative allowance for subsequent fixed unit lookups, so each demand is
+52+M. These tables have eight-byte records, initial1000 and1000% growth. Their
+two Simple_HTable instances each have1001 pointer buckets and at most52+M
+individually allocated16-byte wrappers; there is no aggregate allocation or
+address-space gate. Duplication in a supplied map is charged rather than
+assumed absent. Validating unit/basename/path correspondence to the selected
+source universe remains part of the configuration descriptor.
+
+The map reader's `Lo=1` and line cursor require B+2 to fit signed Int.
+The update writer has a **1500-character fixed buffer**
+(`fmap.adb:45–49,420–441`): each subsequently appended unit, basename or path
+plus LF must fit that buffer. Its pre-flush addition and final unit-counter
+increment are checked separately. The selected fixed unit spellings are
+bounded by the retained nonpath-name inventory; complete future paths are
+bounded by the declared invocation P. This is a real writer constraint,
+distinct from the much larger global Name_Buffer. The map's existing fields
+are only read, so their lengths use the reader's own buffer check.
+
+For each include/object path file, `osint.adb:360–429` allocates its exact
+byte length and parses nonempty lines. The join checks the file length,
+`Curr`/`First` additions, filename plus NUL, and each normalized directory
+String; normalization can append one directory separator
+(`osint.adb:2094–2149`). Source-directory requests append once each; object
+requests append at most once each after deduplication (`592–657`). The
+captured directory-table counts6/4 remain included, with the new requests
+added. Each directory-table component is bounded by a16-byte unconstrained
+String pointer; both tables start at index0, initial10,100% growth. Direct
+command-line/default-runtime search directories and their readers are still
+separate descriptor inputs, not inferred from these path files.
+
+The five source examples now compose the retained293256 map/configuration/
+object-path-file **byte fixture** with their native constructor vectors.
+The map has24 triples,4882bytes and maximum field length186. It adds76
+Name entries and5358characters, plus four selected table checks: map demands
+76/76 and directory demands6/5. Its151-byte object-path file contains one
+150-character directory. All selected checks pass at the existing P=200
+premise. These are conditional arithmetic examples: the older files came
+from a stopped producer run, and those sample programs were not executed
+with them. This does not establish installed producer/GPR source identity,
+complete argv/search coverage or a universal production configuration.
+
+### Proposed pre-launch interface for #89 and #91
+
+GPR generates its temporary configuration and map after Silver starts it.
+Reading those files after compilation cannot justify admission. A feasible
+interface is a Silver-owned **verified-SPARK compiler launcher**, selected as
+GPR's Ada `Compiler.Driver`. GPR has written the temporary files when it
+invokes that driver. The launcher checks actual arguments, environment and
+file bytes against the declared source/configuration descriptor, then invokes
+the unchanged pinned GCC on the unchanged authoritative Main. This avoids
+depending on a proof of GPR's generator implementation for those byte-shape
+premises; it does not replace native/frontend source correspondence or the
+separate GCC-driver argument expansion accounting. No externally maintained
+tool change or fork is required.
+
+The source predicate must already be evaluated against controlled declared
+path/count bounds. The launcher establishes that the generated invocation
+realizes those bounds; it must not define language membership by whether GPR
+or the compiler succeeds. A mismatching generated configuration is an
+infrastructure/implementation failure, not a rejection of valid source.
+Check the exact naming pragma pair, approved map resolutions, single-unit
+filenames, complete effective include/object search, relevant argv/options
+and the previously recorded inherited-environment exclusions. Compiler
+discovery/version requests need a separate fixed request class. Fixed-library,
+binder and proof-producer launches likewise need their own descriptors; the
+Main native class does not cover them automatically.
+
+An alternative is for verified-SPARK Silver code to serialize the exact
+configuration/map/path files itself and invoke the pinned tools directly.
+That removes the GPR generation boundary but changes more of the build
+driver. Both are proposed implementation interfaces under the existing
+authorization; neither launcher nor admission rule is implemented here.
+
 ## Real-source composition checks
 
 The [representative inputs](../evidence/unbounded-programs/retained-native-expansion-20261017/representative-inputs.json)
@@ -5678,7 +5775,9 @@ above. The native frontend/process is still incomplete at these explicit joins:
   concrete fixed join now supply the retained constants, first-runtime-lookup
   Elist/implicit-with corrections, input-name normalization and configurable
   pathname charge. The GPR naming-pragma core delta is now included, while its
-  additional path/argv/map/search-file storage remains open. Preserve the
+  map/configuration filename and supplied path-file storage now has a separate
+  concrete descriptor join. Complete argv/default search and other invocation
+  storage remains open. Preserve the
   controlled invocation/search shape and supply
   the actual path bound; charge every variable default literal through its
   scanner/standalone-literal row. These premises still need integration into
