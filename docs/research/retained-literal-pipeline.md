@@ -134,7 +134,7 @@ counts, either fixed field becoming zero, constructor or visit subtotals,
 and promotion of frontend/gigi/constructor completeness flags.
 
 Seven new aggregate repository pins raise `fixed_input_count` from 97 to 104.
-Direct external-source validation remains 288 files. Nested leaf validation
+Direct file validation remains 288 files. Nested leaf validation
 is reported separately as 21 repository inputs, 151 selected Ada files and the
 predecessor's 2,319-file Ada macro inventory. These sets overlap the direct
 checks and are not added into a purported unique-source count. Successful leaf
@@ -1539,7 +1539,7 @@ All 89 aggregate offline cases pass in 3.860516321 seconds; default generation
 takes 2.996767486 seconds. Six new negative cases reject erased helpers,
 gimplifications or counter increments, added emission, zero substitution for
 an unknown allocation total, and premature imported-frontier closure.
-The aggregate checks 108 repository inputs and 290 direct external source
+The aggregate checks 108 repository inputs and 290 directly checked file
 files, with overlapping nested inventories still reported separately.
 All five source-family conditions remain unknown and whole-pipeline capacity
 remains false. The [independent review](../reviews/review-cold-helper-attachment-5f9641d1a0.md)
@@ -1596,7 +1596,7 @@ numerical acceptance is superseded by correction `316f40e7b2`, discussed below.
 All 109 focused aggregate cases pass in 4.907963480 seconds; default
 generation takes 3.880576852 seconds. Fourteen new negative cases protect
 the collector and synthetic-storage boundaries. There are 128 repository
-pins, 293 direct external source identities and 45 nested collector inputs;
+pins, 293 directly checked file identities and 45 nested collector inputs;
 overlapping inventories are not added together. No native tool or broad
 proof/build/test ran. The five unknown conditions and the separate 5,000-call
 conservative relocation failure remain.
@@ -1708,7 +1708,7 @@ counter/function/symbol interfaces, erased persistent helper increments,
 source-count and pool/graph-bound mismatches, changed complete source manifests
 and actual files, altered name/line envelopes and premature whole/global/collector
 closure; they also check the last passing/first failing signed symbol endpoint.
-The aggregate now checks 137 repository pins and 300 unique direct external
+The aggregate now checks 137 repository pins and 300 unique directly checked
 source files; its 48 counter files overlap that population and nested inventories
 remain separately reported. The earlier successful 109-case aggregate and
 134-case counter checks are reused as historical evidence. The affected
@@ -1801,7 +1801,7 @@ erased identifier/type/UID demand, premature completeness, changed complete
 source inventories and stale source files. They also check the local name
 formula at both signed endpoints, a different selected filename, independence
 from aggregate path/NUL bounds, and omitted arithmetic substitution. The run
-verifies 145 repository pins and 304 unique direct external files. The leaf's
+verifies 145 repository pins and 304 unique directly checked files. The leaf's
 27-file inventory overlaps those checks; nested predecessor inventories remain
 separate. The previous 147-case aggregate success is retained as history; this
 single affected rerun was required by the new joins and source inputs. No native
@@ -1815,3 +1815,16 @@ generation 21:24:53–21:24:57 UTC on Linux x86-64/LP64; these offline processes
 ran concurrently. Total-round timing was not captured. The child harness goal
 was null. Parent-owned integration/review, GitHub, CLI memory and publication
 were not changed by this bounded subthread.
+
+The direct-file count includes repository inputs as well as external sources.
+Finding [#134](https://github.com/berkeleynerd/silver/issues/134) corrects the
+former `external_source_files_verified` label to `direct_files_verified`. The
+current 304-file population is 301 external source/header files plus three
+repository inputs; the preceding 300-file population was 297 plus the same
+three. These overlap the separately reported repository pins and nested
+inventories and must not be added as disjoint populations. Hash checks and
+capacity formulas are unchanged; the 177-case success remains applicable.
+The corrected result was regenerated in 3.192697962s. After normalizing the
+recorded workspace path and run timestamps, every field matches the frozen
+attachment result except the count's renamed key. The earlier timing above
+describes that frozen attachment; its suite was not repeated.

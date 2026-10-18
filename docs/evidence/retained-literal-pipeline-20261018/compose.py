@@ -1399,7 +1399,7 @@ def evaluate(descriptor_path, context, source_override=None):
         accepted_output_binder_checksum=context.checksum,
         open_joins=opens,whole_literal_pipeline_capacity_established=False,
         next_repair='native_remaining_lifetime_and_collector',
-        fixed_input_count=context.inputs_verified,external_source_files_verified=context.source_files_verified,
+        fixed_input_count=context.inputs_verified,direct_files_verified=context.source_files_verified,
         native_Main_frontend_nested_validation=context.frontend_verification,
         native_collector_nested_inputs_verified=context.collector_context.inputs_verified,
         native_counter_source_validation=context.counter_source_validation,

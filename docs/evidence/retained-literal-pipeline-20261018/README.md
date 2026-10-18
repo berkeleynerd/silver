@@ -211,7 +211,7 @@ The prior counter checkpoint passed 147 cases in 4.474777033 seconds; Hello
 generation took 3.367727894 seconds. Thirty-eight added cases cover altered serials/frontiers,
 count/bound/source joins, emitted-name/line envelopes, unsafe completeness flags
 and both sides of the signed symbol endpoint. The aggregate verifies 137
-repository inputs and 300 unique direct external files, including the 48
+repository inputs and 300 unique directly checked files, including the 48
 counter sources; nested inventories overlap and are reported separately.
 The prior 109-case successful aggregate run and 134-case counter run are reused
 as history; the affected aggregate was rerun because its joins and leaf inputs
@@ -258,7 +258,7 @@ generation takes 3.6048516829996515 seconds. Thirty new cases cover omitted
 copies/substitutions, altered request/counter/shared demand, premature closure,
 exact manifest and stale-source rejection, both name-arithmetic endpoints,
 filename variation and path/NUL-bound independence. The aggregate verifies
-145 repository inputs and 304 unique direct external source files; the leaf's
+145 repository inputs and 304 unique directly checked files; the leaf's
 27 complete files overlap this population. Prior successful checks remain
 history. No native compiler/prover/build/test workload ran. Selected settings
 were GPT-6.1 Sol / Extra High, assigned by parent; runtime confirmation and
@@ -266,3 +266,16 @@ token/cost evidence are unavailable. Timed JSON outputs retain this offline
 run's actual Linux x86-64/LP64 inputs and 21:24:53–21:24:58 UTC timestamps.
 Total-round timing was not captured; the live child goal was null. This
 subthread owns no GitHub, publication or CLI-memory updates.
+
+The direct-file count includes repository inputs as well as external sources.
+Finding [#134](https://github.com/berkeleynerd/silver/issues/134) corrects the
+former `external_source_files_verified` label to `direct_files_verified`. The
+current 304-file population is 301 external source/header files plus three
+repository inputs; the preceding 300-file population was 297 plus the same
+three. These overlap the separately reported repository pins and nested
+inventories and must not be added as disjoint populations. Hash checks and
+capacity formulas are unchanged; the 177-case success remains applicable.
+The corrected result was regenerated in 3.192697962s. Its values match the
+frozen result after normalizing workspace/run attribution and renaming the
+count key; the 177-case suite was not repeated. The preceding timing describes
+the original attachment run.

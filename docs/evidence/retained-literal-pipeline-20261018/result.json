@@ -4,7 +4,7 @@
     "bytes": 118,
     "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
   },
-  "source_path": "/tmp/silver-original-storage-attachment-20261018/samples/hello_world.adb",
+  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/samples/hello_world.adb",
   "actual_shared_inputs": {
     "configuration": {
       "bytes": 327,
@@ -6140,7 +6140,7 @@
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
   "fixed_input_count": 145,
-  "external_source_files_verified": 304,
+  "direct_files_verified": 304,
   "native_Main_frontend_nested_validation": {
     "repository_inputs": 21,
     "native_selected_files": 151,
@@ -6179,8 +6179,8 @@
     "Physical resources and ordinary external OS/libc services remain separate."
   ],
   "offline_run": {
-    "started_utc": "2026-10-18T21:24:53.595817+00:00",
-    "completed_utc": "2026-10-18T21:24:57.200682+00:00",
-    "elapsed_seconds": 3.6048516829996515
+    "started_utc": "2026-10-18T21:30:16.107943+00:00",
+    "completed_utc": "2026-10-18T21:30:19.300645+00:00",
+    "elapsed_seconds": 3.1926979620002385
   }
 }
