@@ -3190,6 +3190,79 @@ wrapper/scope helpers, diagnostics, backend call lowering or physical stack
 storage. `native_runtime_concat_call` records the separate table dimensions
 and is now included in the combined vector.
 
+## Deferred name qualification for ordinary Main scopes
+
+The generated output block has a further table dimension beyond the earlier
+direct skeleton. Expand_N_Block_Statement calls Qualify_Entity_Names, whose
+entire body appends one Node_Id to **Name_Qualify_Units**
+(`exp_ch5.adb:3467–3470`, `exp_dbug.adb:53–59,1551–1554`). Charge **one queued
+entry per expanded block**, even if another queue entry will eventually visit
+some of the same entities. This append is not a Name_Entries append and must
+be compared with its own Nat-indexed table's headroom. The whole-program enqueue
+count also needs the Main/subprogram/fixed-runtime calls; it cannot be inferred
+from the block count alone.
+
+Actual qualification is deferred to Qualify_All_Entity_Names. It visits each
+queued scope and its existing First_Entity chain, without allocating a work
+list (`exp_dbug.adb:1163–1208`). Under the ordinary Main scope graph, this
+processing has a closed name-storage transfer:
+
+- Main is the sole source subprogram. Local scopes are E_Block/E_Loop. Source
+  scalar/String objects, loop indexes and generated object/renaming entities
+  are local to these dynamic scopes. They take Qualify_Needed=False, set
+  Has_Qualified_Name and return **without interning a name**.
+- Generated types require full qualification through their scope path to
+  Main. Main itself likewise uses the full-qualification branch. Each
+  qualifying entity invokes Name_Enter **at most once**; future visits return
+  on Has_Qualified_Name (`1214–1545`). Intermediate recursive scope-prefix
+  construction does not intern intermediate names.
+- These entities have no Debug_Renaming_Link. In particular, the generated
+  constrained concat-result renaming's debug helper already returned Empty,
+  before creating a debug variable. The special two-name debug-renaming branch
+  is therefore excluded, rather than charged as an ordinary local object.
+- There is no body-nested package on a Main-local scope path and no same-scope
+  overload. The only explicit Has_Homonym setters in the pinned Ada sources
+  are Enter_Overloaded_Entity's distinct-profile branch
+  (`sem_ch6.adb:9693–9694`); none of these local types, objects, loop/block
+  scopes or the sole Main declaration enters that case. Generated internal
+  identifiers are fresh. Source shadowing in a different loop scope does
+  not create an overloaded declaration. The fixed **256-character**
+  Homonym_Numbers buffer therefore remains empty for this transfer, and no
+  BNPE/homonym suffix is appended (`exp_dbug.adb:113–117,196–227,1099–1129`).
+
+For an entity e requiring full qualification, let its finite scope path contain
+Main, any enclosing generated block/loop scopes, and e itself. Let l(x) bound
+each member's original unqualified name length, supplied by the corresponding
+constructor. Then
+
+```text
+Q(e) = sum l(x) on that path + 2*(number of path members - 1)
+```
+
+bounds its qualified name. The two-character separator is `__`. Reusing an
+already fully qualified prefix only substitutes that same bounded path prefix;
+it does not concatenate its scope a second time. Get_Unqualified_Name_String
+uses the unqualified suffix of an already locally qualified name. Thus require
+`Q(e)<=Name_Buffer'Length` and add **one name entry and Q(e)+1 name characters**
+per such entity, including its NUL. Name_Enter's possible reuse is not credited.
+All intermediate prefixes fit the same bound. There are no new ordinary/entity
+nodes, syntax/Elists, Uint values, Strings or xrefs in these selected routes.
+
+Name_Buffer is the existing global buffer of `4*Max_Line_Length` characters
+(`namet.ads:161–163`). Qualify_Entity_Name additionally declares one local
+Full_Qualify_Name buffer of that same length (`exp_dbug.adb:1216`). Under the
+excluded debug-renaming recursion its recursive Fully_Qualify_Name worker
+shares that outer buffer; it does not allocate another full buffer at each
+scope level. Control-stack depth still depends on scope depth and is a separate
+physical-storage charge.
+
+`local_name_qualification` records this path-sensitive transfer and the
+separate enqueue-table dimension. It can use the actual constructor name
+lengths instead of multiplying a global maximum by every nesting depth. It
+does not close the surrounding block analysis, scope freezing, total enqueue
+multiplicity from initial Image/input/finalizer constructors, fixed-runtime
+qualification, or later backend external/debug-name production.
+
 ## Numeric magnitudes in the closed concat stages
 
 The query-root bridge can also supply the missing digit bound for the combined
@@ -3460,7 +3533,8 @@ Its explicit residual addends are:
 - First runtime lookups/spec processing; their local call, final-result and
   assignment-slice processing are now closed under the fixed-source premise.
 - Transient wrapper helpers beyond the closed placement/direct skeleton,
-  later whole-scope freezing and name qualification.
+  later whole-scope freezing, and the scope/name/enqueue inputs to the separate
+  local name-qualification transfer above.
 - Numeric magnitudes and query roots in the remaining stages, fixed runtime
   processing and backend costs.
 

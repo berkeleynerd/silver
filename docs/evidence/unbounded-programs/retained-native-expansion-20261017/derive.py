@@ -660,6 +660,24 @@ def native_concat_numeric_magnitude(n, analysis_graph):
                 whole_construct_closed=False)
 
 
+def local_name_qualification(scope_path_name_lengths, queued_scopes):
+    """One-time qualification of Main/types; no debug-renaming/homonym route."""
+    assert queued_scopes >= 0
+    assert all(path and all(length >= 1 for length in path)
+               for path in scope_path_name_lengths)
+    qualified_lengths = [sum(path)+2*(len(path)-1)
+                         for path in scope_path_name_lengths]
+    return dict(qualified_scope_paths=scope_path_name_lengths,
+                qualified_name_length_bounds=qualified_lengths,
+                total=dict(name_entries=len(qualified_lengths),
+                           name_characters=sum(length+1 for length in qualified_lengths),
+                           Name_Qualify_Units_appends=queued_scopes),
+                max_name_buffer_characters=max(qualified_lengths, default=0),
+                fixed_Homonym_Numbers_used=0,
+                full_qualification_local_buffer="Name_Buffer'Length characters",
+                whole_construct_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -1276,6 +1294,20 @@ result = {
                                     native_concat_numeric_magnitude(64, 1000000),
                                     native_concat_numeric_magnitude(2**31-2, 2**31-1)],
         "excluded": "initial source scalar/Image/input/standalone String operations, whole-scope and fixed runtime numeric work, source correspondence, complete table headroom and physical memory",
+    },
+    "Main_local_name_qualification": {
+        "scope": "Main-local no-homonym/no-debug-renaming generated type and scope graph; ordinary objects need no fresh qualified name",
+        "queued_block": "each Expand_N_Block_Statement adds one Name_Qualify_Units entry; direct skeleton does not contain this entry",
+        "qualified_name_length": "Q(e)=sum unqualified name lengths on Main-to-e scope path +2*(path_length-1)",
+        "Name_entries": "at most one per Main/type requiring full qualification; repeat visits return on Has_Qualified_Name",
+        "Name_characters": "sum(Q(e)+1), including each NUL",
+        "Name_Qualify_Units": "count actual qualification enqueue calls; each block call is one; fixed dependencies/Main finalizer subprograms need their own count",
+        "other_core_table_allocations": 0,
+        "buffer_condition": "each Q(e)<=Name_Buffer'Length; Homonym_Numbers stays empty; one local Full_Qualify_Name buffer of Name_Buffer'Length, plus recursive control-stack depth",
+        "premises": "Main and ordinary generated E_Block/E_Loop/type/object scopes; no source nested packages/subprograms/user types, debugging override, Debug_Renaming_Link or same-scope overloads; input unqualified-name lengths and scope graph supplied by constructors",
+        "examples_not_thresholds": [local_name_qualification([[4], [4, 12]], 1),
+                                    local_name_qualification([[4, 12, 12], [4, 12, 12, 16]], 2)],
+        "excluded": "backend external/debug name generation, fixed runtime qualification, whole wrapper/scope processing, full enqueue multiplicity from unclosed constructors",
     },
     "combined_Main_native_emitter_addends": {
         "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2 + local runtime-call processing; result-object freeze and constrained actual-subtype lookups add zero",
