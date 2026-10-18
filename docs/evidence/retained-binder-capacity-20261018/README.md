@@ -11,14 +11,16 @@ separate historical unindexed proposed-option witness and the complete
 61-file null binder ALI closure. Original paths are in `manifest.json`.
 The installed files were read; no workspace or artifact was modified.
 
-`sources.tar.gz` contains eighteen complete inspected GCC/GPR source files.
-The sixteen GCC Ada files were reconciled against the earlier complete-source
+`sources.tar.gz` contains thirty-five complete inspected GCC/GPR source files.
+The thirty-three GCC Ada files were reconciled against the earlier complete-source
 manifest for GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; the backend and
 GPR inputs retain their previously used source identities and exact hashes.
 These records identify source text, not historical binary build inputs.
 
 `result.json` records source sizes, explicit/default external names, unit and
-dependency inventories, each ELF section/symbol and relocation counts. All
+dependency inventories, export-version value reconciliation, ALI record/table,
+signature-map and parser-name contribution bounds, and each
+ELF section/symbol and relocation counts. All
 three indexed objects hash-equal. Only workspace-path comments differ in their
 generated bodies, and their code-token line/column maps match. The checker
 does not infer a universal object bound from those comparisons; the source

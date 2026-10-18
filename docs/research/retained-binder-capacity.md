@@ -71,7 +71,8 @@ For null, `gnatbind.adb:802–820` injects `s-stalib.ali` and recursively reads
 withed dependencies. Starting with Main plus that fixed runtime seed, the
 retained W/Y/Z closure has **61 ALI files and 101 distinct unit entries**.
 Its units exactly equal the 101 generated version exports, after `%b`/`%s`
-conversion and dot-to-double-underscore encoding. This reconciles selection
+conversion and dot-to-double-underscore encoding. Every exported version value
+also equals its corresponding retained U-record version. This reconciles selection
 with generation; the fixed dependency edges and the native null ALI contract
 are what make it a family closure. The broader 98-file/169-unit closure in
 [fixed support](retained-fixed-support.md#binder-source-generation) remains
@@ -142,6 +143,225 @@ This establishes the generated source/location interface for the next
 source-to-object argument. It does not claim that every frontend/backend
 allocation or output-name consumer has now been audited.
 
+## ALI parser and signature-table capacity
+
+This extension bounds the native binder's ALI parser tables, signature map and
+contribution to the shared name pools. The following section reduces the graph
+core to its fixed successful witness. Shared startup/path pools remain open.
+All input counts below are computed before the first Xref section, under the
+fixed null ALI contract and the exact retained runtime closure.
+
+`ALI.Scan_ALI` marks an ALI's name when creating its entry (`ali.adb:1741–1744`).
+`Read_Withed_ALIs` loads a dependency only if that name is unmarked, frees its
+raw buffer before descending, and then recurses (`ali-util.adb:173–266`).
+Thus each of the 61 distinct ALI names is scanned once. Recursion depth is at
+most 61; neither author trivia nor a repeated with edge multiplies that count.
+The descriptor excludes aliased requests that would evade the name mark.
+
+There are 900 `G c` records, all regular kind `Z`, 61 `G a e` records, and no
+`G r` records. All 900 signatures are distinct. No signature has spec/body
+elaboration kind, so this invocation graph has no elaboration roots
+(`bindo-graphs.adb:5334–5349`). This does not eliminate the separate library
+graph or its ordinary elaboration-order work.
+
+| Parser table | Entry demand | Initial/final slot capacity |
+| --- | ---: | ---: |
+| ALIs | 61 | 500 |
+| Units | 101 | 100 → 300 |
+| Withs (`W`/`Z`; no `Y`) | 348 | 5,000 |
+| Args, indexed baseline | 617 | 1,000 |
+| Args, indexed combined proposal | 619 | 1,000 |
+| Source dependencies | 594 | 5,000 |
+| Distinct source files | 124 | 1,000 |
+| Invocation constructs | 900 | 2,500 |
+| Invocation signatures | 900 | 2,500 |
+| Invocation relations | 0 | 2,500 |
+| Linker options, including sort dummy | 2 | 200 |
+| Notes, including sort dummy | 8 | 200 |
+| No-dependence entries | 0 | 200 |
+
+The table instantiations are in `ali.ads`, `ali.adb:128–150` and
+`ali-util.ads:95–102`. The parser creates one entry at its selected record
+site; it does not multiply records by line/column values. `Initialize_ALI`
+adds the two sort dummies (`ali.adb:639–657`). The one linker option is one
+contiguous option group. There are no CUDA, interrupt-state, dispatch-policy
+or external-version-reference records. Xref entity/reference/section tables
+remain empty, with their fixed initial allocations retained; ignoring Xrefs
+does not erase that initialization.
+
+With selected `Table_Factor = 1`, `Table.Reallocate` uses
+`max(length*(100+increment)/100, length+10)` in a wide intermediate
+(`table.adb:168–207`). The Units table's 200 percent increment therefore
+requires 300 slots, not 200. Its `Max+1`, sentinel and `Last+1` operations
+are far below both signed `Int` and the relevant `0 .. 99,999,999` ID types.
+All other listed tables remain within their initial capacities. The fixed
+initial allocations happen at package initialization (`table.adb:423–424`)
+and are covered by the retained successful binder execution; the source
+argument shows why no newly admitted null trivia can increase their demand.
+
+Units' sole growth is also small in bytes: `Unit_Record` has 40 fields,
+39 scalar and one eight-character `Version_String` (`ali.ads:345–495`).
+Each needs at most one eight-byte slot on the selected x86-64 ABI, including
+padding, so `Component_Size <= 320` bytes is conservative. The 300-slot
+request is at most 96,000 bytes; even charging both old and new storage gives
+128,000 bytes. This field-count argument supplies the multiplication bound;
+it is not a guessed record allowance or a physical-memory promise.
+
+`Sig_Map` starts with 500 buckets and expands when pairs/buckets exceeds 1.5
+(`ali.adb:159–175`). `GNAT.Dynamic_HTables.Put` allocates exactly one node for
+a new key, increments the pair count, and performs expansion afterward
+(`libgnat/g-dynhta.adb:1192–1297`). At insertion 751 it grows to 1,000 buckets;
+900 pairs cause no second growth. Rehash moves existing nodes, retaining both
+bucket arrays until the old one is freed (`:1003–1099`). Thus charge 900 data
+nodes and up to 1,500 coexisting dummy-head slots. Each node contains the
+five-scalar signature, one scalar ID and two pointers; an eight-byte slot per
+scalar/pointer gives a 64-byte component bound. Their combined backing is at
+most 153,600 bytes, plus the fixed map descriptor. This is independent of
+where Main's changed coordinates hash, including the worst collision chain.
+No iterator or map traversal exposes bucket order to signature ID assignment.
+
+The hash bucket type is modular 32-bit; `Find_Bucket` reduces the hash modulo
+the nonzero bucket count (`gnat.ads:46`, `g-dynhta.adb:772–782`). No key
+collision creates an extra signature or an extra rehash beyond these counts.
+The greatest retained runtime hash text is 93 bytes. Main's variable hash
+text remains at most 37, so the 2,052-character bounded hash scratch and its
+`To_String` temporary are sufficient for the entire closure. Parsing a valid
+nonnegative `Nat` decimal coordinate cannot overflow an intermediate prefix
+of that coordinate (`ali.adb:1345–1368`); its final range is an upstream native
+source-position obligation, not established by accepting arbitrary decimal
+ALI text.
+
+Each `A` row creates one separately allocated String (`ali.adb:1880–1917`).
+The baseline 617 strings total 4,491 payload bytes, with a maximum of 27.
+The combined native proposal adds `-gnatx` and
+`-Wno-free-nonheap-object`, giving 619 strings and 4,521 payload bytes;
+the maximum remains 27. It changes neither the signature nor dependency counts.
+
+The retained fixed runtime files have maximum complete length **58,770 bytes**,
+including ignored Xref text. `Read_Library_Info_From_Full` allocates the file
+length plus one EOF byte (`osint.adb:2471–2613`). Its coherent regular-file read
+and parser cursors therefore fit the signed input/index domains. Source-file
+timestamps/checksums agree across every repeated D name in the closure. The
+selected `-x` route disables source checking; no timestamp mismatch opens
+another source-checksum scan through `ALI.Util` on this coherent input family.
+
+For the **proposed indexed no-Xref descriptor only**, Main's raw ALI has the
+following source-derived bound. The retained proposed unindexed template is
+344 bytes, with one- and two-digit coordinates. Add the fixed index switch's
+11-byte A row, at most six bytes of casing flags, and at most 17 additional
+coordinate digits:
+
+```text
+Main_ALI <= 344 + 11 + 6 + (20 - 3) = 378 bytes
+all raw ALI bytes <= 465,765 - 352 + 378 = 465,791
+all raw read allocations, including EOF <= 465,791 + 61 = 465,852
+peak raw ALI buffer <= 58,771
+```
+
+These are distinct from parser-table backing. The writer's fixed null record
+shape, the index-option transfer and the proved no-Xref selector justify the
+only variable terms; an observed file maximum would not suffice. The current
+baseline includes Xrefs and is not assigned the proposed 378-byte bound.
+The largest retained consumed row is 108 bytes before LF; the proposed Main
+row with ten-digit coordinates is smaller. Shared name storage, normalized
+filesystem paths, diagnostic strings and driver option files still need
+their own transfer. Printable path comments above establish no claim about
+GPR command quoting or linker path interpretation.
+
+### Contribution to shared name storage
+
+`Name_Find` creates at most one entry per call and appends exactly the name's
+payload and one NUL when the name is new; `Name_Enter` always does so
+(`namet.adb:1138–1168,1190–1278`). Hash collisions only change lookup traversal.
+The selected Linux filesystem is case-sensitive, so `Get_File_Name` calls
+`Get_Name` once without the extra canonicalization lookup used on insensitive
+filesystems (`ali.adb:1213–1233`). Inventorying every selected caller gives:
+
+| Record | Maximum name-entry events per record | Records |
+| --- | ---: | ---: |
+| U | 2: unit and source | 101 |
+| W/Y/Z | 3: unit, source and ALI | 348 |
+| D | 3: source, optional unit/subunit and optional reference file | 594 |
+| G c | 3: name, scope and locations, including `none` | 900 |
+| L | 1 for the sole contiguous options group | 1 |
+| N | 1 optional pragma source filename | 7 |
+
+The retained N rows have no explicit source filename; charging one each is
+conservative. Their argument text is copied into the name scratch buffer but
+does not call `Name_Find`/`Name_Enter` (`ali.adb:3137–3167`). A rows allocate
+their Strings separately, restriction rows compare names against enum images,
+and no CUDA, No_Dependence, invocation-relation or external-version row is
+selected. Thus the parser contributes at most **5,736 new name entries** and
+**625,224 character slots**, including NULs. Each stored payload is at most
+108 bytes: each field fits its consumed row, and the single L group's decoded
+text plus its embedded NUL fits that row as well. These lengths fit the stored
+`Short` and the 131,064-character global scratch buffer; the signature hash
+uses its separate bounded buffer already accounted above.
+
+These are additive contributions, not a bound that assigns startup or path
+storage zero. If `E_in,C_in` bound name entries/characters from every other
+selected producer, require capacity for `E_in + 5,736` and `C_in + 625,224`.
+`Name_Entries` starts at 6,000 slots of exactly 16 bytes, and `Name_Chars`
+starts at 50,000 byte slots; both grow by 100 percent
+(`namet.ads:562–634`, `alloc.ads:88–95`). Apply `Table.Reallocate` to those
+total demands, preserving its index origin, sentinel, growth and allocation
+arithmetic. This leaves the incoming-pool premise explicit. Startup names,
+argv, mapping files, filesystem search and generated-name contributions still
+need their own inventory before claiming whole-binder name capacity.
+
+## Fixed library/invocation graph projection
+
+The graph core reads a fixed logical input under the null ALI contract:
+ordered units, with edges, invocation kinds/placements and signature IDs,
+plus the fixed binder controls. `Read_Withed_ALIs` traverses the same retained
+record order; each new unit, construct and distinct signature therefore gets
+the same ID. Different Main coordinates affect only the parser signature map's
+buckets. They do not change signature equality with any runtime record or
+the IDs returned by interning.
+
+This distinction matters: Bindo's unit/signature sets hash the already assigned
+IDs (`bindo-units.adb:231–249`), and its signature-to-vertex table does likewise
+(`bindo-graphs.adb:5274–5281`). They do not rehash source coordinates.
+`Corresponding_Unit` reads the unit ID associated with its interned name
+(`bindo-units.adb:140–144`); changing an earlier path/name's numeric ID does
+not change that association. Ordering ties compare fixed unit-name text
+through `Uname_Less`, not name-table positions (`butil.adb:599–629`).
+
+`Build_Library_Graph` creates the fixed units, spec/body and with edges
+(`bindo-builders.adb:384–404`). The optional forced-order input is disabled:
+only lowercase `-f` sets `Force_Elab_Order_File` (`switch-b.adb:324–337`), its
+default is null, and `Read_Forced_Elab_Order_File` then returns null before
+opening a file (`butil.adb:542–553`). `Create_Forced_Edges` still creates and
+destroys its fixed 20-slot temporary table, but its iterator has no entries
+(`bindo-builders.adb:440–486`). A Gprbind mapping-file option is not this
+lowercase binder option.
+
+`Build_Invocation_Graph` inserts the selected constructs and relations
+(`bindo-builders.adb:100–124`). All 900 constructs are ordinary kind `Z` and
+there are no relation records. Consequently there are no elaboration roots,
+and `Augment_Library_Graph` performs no root DFS or extra edge insertion
+(`bindo-augmentors.adb:100–132,183–205`). The separate fixed library graph
+still runs component discovery and elaboration ordering.
+
+The coordinate consumers in the complete `bindo-*.adb` sources are the graph
+accessors, ALI debug writer and invocation diagnostics. No graph algorithm
+reads `Icasing`, `Kcasing` or timestamps. The selected invocation has no debug
+writer/validator controls, forced order, elaboration listing or closure listing;
+the debug writers return before coordinate access (`bindo-writers.adb:95–105,
+830–840`). The core success/failure decision uses the fixed graphs and order
+(`bindo-elaborators.adb:704–776`); the retained successful execution therefore
+cannot become a circularity diagnostic merely from different Main coordinates.
+
+Under those controls and the relevant-behavior source premise, graph-core
+container operations, element widths, count/index arithmetic and recursion
+reduce to the same finite execution as the retained successful binder. This
+reuses a singleton **after** establishing its read projection; it is not a
+maximum inferred from three matching generated samples. It covers the intrinsic
+library/invocation graph work, including fixed initial allocations and the
+empty forced-order temporary. It neither assigns a physical-memory guarantee
+nor discharges the shared name/path pools, ALI raw buffers or generated-source
+compiler. Their separate obligations remain necessary for the composition.
+
 ## Names, calls and retained object inventory
 
 The generator's imported Main name is `_ada_main`; C entry names and the
@@ -198,9 +418,10 @@ and options are not normalized into the indexed witness.
    fixed source/object search, printable single-line generated paths and
    matching artifacts. Bounds on variable Main ALI input length remain
    upstream; the Xref ignore rule does not remove reading that buffer.
-2. Bound binder ALI parsing, signature maps and elaboration tables, including
-   the varying location hash and fixed runtime closure. Fixed logical output
-   does not by itself discharge intermediate representation bounds.
+2. Complete the incoming shared name/path inventory and compose it with the
+   parser contribution above, including normalized filesystem paths,
+   diagnostic strings, mapping/options files and generation buffers. The
+   graph-core singleton projection does not cover these shared producers.
 3. Complete the compiler/assembler read projection from this fixed code and
    location interface to object shape and transient representations. Account
    for source buffers, filenames, target/runtime dependencies, generated

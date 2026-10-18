@@ -455,14 +455,19 @@
     },
     "sources.tar.gz": {
       "archive": {
-        "bytes": 326068,
-        "sha256": "542b89fc024f3605f70f51e775652c96341dea6e729feea1c47c3e876e9d4019"
+        "bytes": 445761,
+        "sha256": "2c4ab4a6ff310ba3edc7ba5abc49afdc4471d2de4920bfd9f9eed538cddd2f1c"
       },
       "members": {
         "gcc/ada/ali-util.adb": {
           "bytes": 18257,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/ali-util.adb",
           "sha256": "eceb00ffc060ba839cf5564d06b2535832a53cd8c1593836f4517c0433662dcb"
+        },
+        "gcc/ada/ali-util.ads": {
+          "bytes": 8496,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/ali-util.ads",
+          "sha256": "572cdebc1fc7f3bda2790a3d6b5229f99cbe0fea56ce35db8e514f6685f18c92"
         },
         "gcc/ada/ali.adb": {
           "bytes": 105321,
@@ -474,15 +479,30 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/ali.ads",
           "sha256": "ed344d8db777f70fe46b3464a1ef238823ded6ee8c9e50b564e799621236f09b"
         },
+        "gcc/ada/alloc.ads": {
+          "bytes": 7830,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/alloc.ads",
+          "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d"
+        },
         "gcc/ada/bindgen.adb": {
           "bytes": 126166,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bindgen.adb",
           "sha256": "fe911dc10dd32c8f06d3a46959c05acf22057912b9d69702306d1da94ca606a6"
         },
+        "gcc/ada/bindo-augmentors.adb": {
+          "bytes": 12822,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bindo-augmentors.adb",
+          "sha256": "1636dfd32367160bd70dfd158282d6b19a5208314531d39cede2dee313c59a01"
+        },
         "gcc/ada/bindo-builders.adb": {
           "bytes": 25765,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bindo-builders.adb",
           "sha256": "d5ff479e913ed1ff5a5cbca4a696abc483cae8d242da347d18185e6fb2738174"
+        },
+        "gcc/ada/bindo-diagnostics.adb": {
+          "bytes": 56089,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bindo-diagnostics.adb",
+          "sha256": "925578b2be7daf0cf54fe707958c03401466586594e7e2d2b20532ffff0b491a"
         },
         "gcc/ada/bindo-elaborators.adb": {
           "bytes": 64932,
@@ -498,6 +518,21 @@
           "bytes": 13655,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bindo-units.adb",
           "sha256": "d89cef887c67dc90f765d86b5af33168e9de52e03dd30d4233499c7361cf52a7"
+        },
+        "gcc/ada/bindo-validators.adb": {
+          "bytes": 26374,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bindo-validators.adb",
+          "sha256": "1604848ecd3c701e3249299b06789f7fbb651791ca087350805ceeec5c458b19"
+        },
+        "gcc/ada/bindo-writers.adb": {
+          "bytes": 52833,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/bindo-writers.adb",
+          "sha256": "68bdb6af00426f006cf75a9e06a5a990be9e4fd78fc146f24902954345e76676"
+        },
+        "gcc/ada/butil.adb": {
+          "bytes": 19903,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/butil.adb",
+          "sha256": "2d89c9a94d8724b80bde25dc07f6cef393b3415df87c51916a4e6e4444571be3"
         },
         "gcc/ada/gcc-interface/trans.cc": {
           "bytes": 406631,
@@ -524,10 +559,45 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/lib.adb",
           "sha256": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e"
         },
+        "gcc/ada/libgnat/g-dynhta.adb": {
+          "bytes": 37669,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-dynhta.adb",
+          "sha256": "375eb69170cc0df545d2ba4aa9e17c4eaa7cdda41980746cc82aaa60b49e0494"
+        },
+        "gcc/ada/libgnat/g-dynhta.ads": {
+          "bytes": 21934,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-dynhta.ads",
+          "sha256": "f5974932d644929f906716abf69a51a42eca74a2f57378338abd52b3fb7a8b3a"
+        },
+        "gcc/ada/libgnat/gnat.ads": {
+          "bytes": 3510,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/gnat.ads",
+          "sha256": "ae442ce0c51ff344cb4974db5a48d962ef078c7321f472d11c7a0ddfcfd83cce"
+        },
+        "gcc/ada/namet.adb": {
+          "bytes": 48624,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/namet.adb",
+          "sha256": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc"
+        },
+        "gcc/ada/namet.ads": {
+          "bytes": 29827,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/namet.ads",
+          "sha256": "129dcfd8cf6688ead4f5af052f80f8a86ad31f13ce36eb29d57c547d7b51efd8"
+        },
+        "gcc/ada/opt.ads": {
+          "bytes": 93026,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/opt.ads",
+          "sha256": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e"
+        },
         "gcc/ada/osint-b.adb": {
           "bytes": 6731,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/osint-b.adb",
           "sha256": "d1f5223b02efdedf0bdf0b8f57e7ea893d81685fba7718edb7b7a4d1ea192b94"
+        },
+        "gcc/ada/osint.adb": {
+          "bytes": 105542,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/osint.adb",
+          "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69"
         },
         "gcc/ada/scng.adb": {
           "bytes": 99999,
@@ -538,6 +608,21 @@
           "bytes": 83263,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sem.adb",
           "sha256": "b216690f3c061cdd7ee229d8182d9863b0f2878e8ac9da67a095372e6c4e0f0d"
+        },
+        "gcc/ada/switch-b.adb": {
+          "bytes": 21420,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/switch-b.adb",
+          "sha256": "9c2efb6a4e613c222a54ce61bb80062465ba6664e64fb008f73ea7548d60e10f"
+        },
+        "gcc/ada/table.adb": {
+          "bytes": 13959,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/table.adb",
+          "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4"
+        },
+        "gcc/ada/types.ads": {
+          "bytes": 46466,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/types.ads",
+          "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5"
         },
         "gcc/cfgrtl.cc": {
           "bytes": 154498,

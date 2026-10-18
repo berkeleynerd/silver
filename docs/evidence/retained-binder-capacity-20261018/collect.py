@@ -67,7 +67,11 @@ def main():
         todo += [x.decode() for x in re.findall(rb"^[WYZ] \S+[ \t]+\S+[ \t]+(\S+)", raw, re.M)]
     ada_files = ["scng.adb", "lib-load.adb", "lib-writ.adb", "lib.adb", "sem.adb", "ali.adb", "ali.ads",
                  "ali-util.adb", "gnatbind.adb", "bindgen.adb", "osint-b.adb", "bindo-units.adb",
-                 "bindo-builders.adb", "bindo-graphs.adb", "bindo-elaborators.adb", "gcc-interface/trans.cc"]
+                 "bindo-builders.adb", "bindo-graphs.adb", "bindo-elaborators.adb", "gcc-interface/trans.cc",
+                 "ali-util.ads", "table.adb", "opt.ads", "osint.adb", "namet.ads", "types.ads",
+                 "libgnat/gnat.ads", "libgnat/g-dynhta.ads", "libgnat/g-dynhta.adb",
+                 "namet.adb", "alloc.ads", "butil.adb", "switch-b.adb", "bindo-augmentors.adb",
+                 "bindo-writers.adb", "bindo-diagnostics.adb", "bindo-validators.adb"]
     for file in ada_files:
         add(sources, "gcc/ada/"+file, args.gcc_ada/file)
     add(sources, "gcc/cfgrtl.cc", args.gcc_backend/"cfgrtl.cc")
@@ -77,7 +81,8 @@ def main():
     pins = {f["path"]: f for f in gcc_manifest["files"]}
     for file in ada_files:
         assert digest(sources["gcc/ada/"+file][1]) == {k: pins[file][k] for k in ("bytes", "sha256")}
-    result = analyze({k: v for k, (_, v) in artifacts.items()})
+    result = analyze({k: v for k, (_, v) in artifacts.items()},
+                     {k: v for k, (_, v) in sources.items()})
     (args.output/"result.json").write_text(json.dumps(result, indent=2, sort_keys=True)+"\n")
     manifest = {"gcc_commit": gcc_manifest["commit"], "gpr_commit": "bdfb879cf03643ec8e48a09ce07b08c4a6ff0263",
                 "source_identity_scope": "retained source pins, not historical binary build attestation",

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Reconcile retained binder sources/objects without invoking native tools."""
 import hashlib
+from collections import Counter, defaultdict
 import json
 from pathlib import Path
 import re
@@ -79,7 +80,7 @@ def token_locations(raw):
     return result
 
 
-def analyze(artifacts):
+def analyze(artifacts, sources):
     cases = ["indexed-cr", "indexed-lf", "indexed-uppercase", "unindexed-proposed"]
     indexed_specs, indexed_bodies, indexed_objects = [], [], []
     result = {"cases": {}}
@@ -93,6 +94,10 @@ def analyze(artifacts):
         match = re.search(rb"^U main%b\s+main.adb\s+([0-9a-f]{8})(.*)$", main_ali, re.M)
         assert match and match[1] == b"73b77761"
         versions = re.findall(rb'pragma Export \(C, u[0-9]{5}, "([^"]+)"\);', spec)
+        version_pairs = re.findall(
+            rb'(u[0-9]{5}) : constant Version_32 := 16#([0-9a-f]{8})#;\n'
+            rb'   pragma Export \(C, \1, "([^"]+)"\);', spec)
+        assert len(version_pairs) == len(versions)
         explicit = re.findall(rb'pragma (?:Import|Export) \([^;]+, "([^"]+)"\);', spec+body)
         implicit_c = re.findall(rb'pragma (?:Import|Export) \(C, ([A-Za-z0-9_]+)\);', spec+body)
         assert all(re.fullmatch(rb"[A-Za-z0-9_]+", s) for s in explicit)
@@ -106,6 +111,7 @@ def analyze(artifacts):
             "main_version": match[1].decode(),
             "version_export_count": len(versions),
             "version_exports": [v.decode() for v in versions],
+            "version_values": {name.decode(): value.decode() for _, value, name in version_pairs},
             "explicit_external_names": sorted(set(n.decode() for n in explicit)),
             "implicit_c_external_names": sorted(set(n.decode() for n in implicit_c)),
             "object": e,
@@ -142,6 +148,14 @@ def analyze(artifacts):
     assert len(units) == len(set(units))
     exports = sorted(u[:-2].replace(".", "__") + u[-1].upper() for u in units)
     assert exports == sorted(result["cases"]["indexed-cr"]["version_exports"])
+    unit_versions = {}
+    for raw in alis.values():
+        for name, value in re.findall(rb"^U (\S+)\s+\S+\s+([0-9a-f]{8})", raw, re.M):
+            export = name[:-2].replace(b".", b"__") + name[-1:].upper()
+            assert export.decode() not in unit_versions
+            unit_versions[export.decode()] = value.decode()
+    for case in cases:
+        assert result["cases"][case]["version_values"] == unit_versions
     runtime_main_signatures = [k for k, v in alis.items() if k != "main~1.ali" and b"[main standard " in v]
     assert runtime_main_signatures == []
     dependencies = {}
@@ -161,6 +175,99 @@ def analyze(artifacts):
                          "units": units, "dependencies": dependencies,
                          "runtime_main_standard_signature_matches": runtime_main_signatures}
     result["signature_hash_max_bytes"] = len("standard__main__") + 10 + 1 + 10
+    records = Counter()
+    signature_texts, signature_hash_texts, args, dep_versions = [], [], [], defaultdict(set)
+    main_proposed = artifacts["cases/unindexed-proposed/main.ali"]
+    longest_consumed = 0
+    note_source_names = 0
+    for name, raw in alis.items():
+        for line in raw.split(b"\n"):
+            if line.startswith(b"X "):
+                break
+            if not line:
+                continue
+            records[line[:1].decode()] += 1
+            longest_consumed = max(longest_consumed, len(line))
+            if line.startswith(b"A "):
+                args.append(line[2:])
+            if line.startswith(b"D "):
+                fields = line.split()
+                dep_versions[fields[1]].add(tuple(fields[2:4]))
+            if line.startswith(b"N "):
+                note_source_names += bool(re.match(rb"N .[0-9]+:[0-9]+:", line))
+            if line.startswith(b"G c "):
+                assert line.startswith(b"G c Z ")
+                matches = re.findall(rb"\[([^\]]*)\]", line)
+                assert len(matches) == 1
+                sig = matches[0]
+                signature_texts.append(sig)
+                n, scope, ln, col, loc = sig.split()
+                signature_hash_texts.append(scope+b"__"+n+b"__"+ln+b"_"+col+(b"__"+loc if loc != b"none" else b""))
+            elif line.startswith(b"G "):
+                assert line == b"G a e"  # no invocation relation record
+            assert not line.startswith(b"R ")  # no No_Dependence entries
+    assert len(signature_texts) == len(set(signature_texts)) == 900
+    assert all(len(values) == 1 for values in dep_versions.values())
+    assert not re.search(rb"^X ", main_proposed, re.M)
+    assert b"-gnatx\n" in main_proposed and b"-Wno-free-nonheap-object\n" in main_proposed
+    original_signature = re.search(rb"\[main standard (\d+) (\d+) none\]", main_proposed)
+    assert original_signature
+    # Only the eight-byte index switch plus prefix/LF, at most two casing
+    # flags, and decimal width of the two signature coordinates can grow.
+    coordinate_delta = 20-len(original_signature[1])-len(original_signature[2])
+    main_proposed_bound = len(main_proposed)+len(b"A -gnateI1\n")+6+coordinate_delta
+    assert main_proposed_bound == 378
+    # Each selected name-producing parser site contributes at most one new
+    # entry. Charge the optional source filename even for all seven notes,
+    # although these retained notes use their unit's source name directly.
+    parser_name_events = (2*records["U"] + 3*(records["W"]+records["Y"]+records["Z"])
+                          + 3*records["D"] + 3*len(signature_texts)
+                          + records["L"] + records["N"])
+    assert longest_consumed == 108 and note_source_names == 0
+    unit_record = re.search(rb"type Unit_Record is record\n(.*?)   end record;",
+                            sources["gcc/ada/ali.ads"], re.S)[1]
+    unit_fields = re.findall(rb"^      ([A-Za-z_]+) : ([A-Za-z_]+);", unit_record, re.M)
+    assert len(unit_fields) == 40
+    assert sum(kind == b"Version_String" for _, kind in unit_fields) == 1
+    tables = {
+        "ALIs": [records["V"], 500, 200], "Units": [records["U"], 100, 200],
+        "Withs": [records["W"]+records["Y"]+records["Z"], 5000, 200],
+        "Args_baseline": [records["A"], 1000, 100], "Args_proposed": [records["A"]+2, 1000, 100],
+        "Sdep": [records["D"], 5000, 200], "Source": [len(dep_versions), 1000, 200],
+        "Invocation_Constructs": [900, 2500, 200], "Invocation_Signatures": [900, 2500, 200],
+        "Invocation_Relations": [0, 2500, 200], "Linker_Options_including_dummy": [records["L"]+1, 200, 400],
+        "Notes_including_dummy": [records["N"]+1, 200, 400], "No_Deps": [0, 200, 400],
+    }
+    table_rows = {}
+    for name, (demand, initial, growth) in tables.items():
+        capacities = [initial]
+        while capacities[-1] < demand:
+            previous = capacities[-1]
+            capacities.append(max(previous*(100+growth)//100, previous+10))
+        table_rows[name] = {"demand": demand, "capacities": capacities}
+    result["ali_parser"] = {
+        "record_counts": dict(sorted(records.items())), "tables": table_rows,
+        "max_consumed_line_bytes_without_lf": longest_consumed,
+        "max_fixed_ali_bytes": max(len(v) for k,v in alis.items() if k != "main~1.ali"),
+        "distinct_dependency_names": len(dep_versions), "dependency_mismatch_count": 0,
+        "signature_count": 900, "invocation_relation_count": 0, "elaboration_root_count": 0,
+        "max_retained_signature_hash_bytes": max(map(len, signature_hash_texts)),
+        "signature_map_bucket_capacities": [500, 1000], "signature_map_peak_bucket_slots": 1500,
+        "signature_map_node_slots": 900,
+        "argument_payload_bytes_baseline": sum(map(len,args)),
+        "argument_payload_bytes_proposed": sum(map(len,args))+len(b"-gnatx")+len(b"-Wno-free-nonheap-object"),
+        "largest_argument_payload_bytes": max(map(len,args)),
+        "proposed_indexed_main_ali_bound": main_proposed_bound,
+        "proposed_cumulative_ali_raw_bytes_bound": sum(map(len,alis.values()))-len(alis["main~1.ali"])+main_proposed_bound,
+        "parser_name_entry_event_bound": parser_name_events,
+        "parser_name_character_contribution_bound": parser_name_events*(longest_consumed+1),
+        "parser_name_payload_bound": longest_consumed,
+        "notes_with_explicit_source_name": note_source_names,
+        "unit_record_field_count": len(unit_fields), "unit_record_component_bound": 320,
+        "unit_table_realloc_old_plus_new_bytes_bound": 400*320,
+        "signature_node_component_bound": 64,
+        "signature_nodes_plus_coexisting_buckets_bytes_bound": (900+1500)*64,
+    }
     return result
 
 
@@ -173,7 +280,7 @@ def main():
         assert set(members) == set(record["members"])
         for member, expected in record["members"].items():
             assert digest(members[member]) == {k: expected[k] for k in ("bytes", "sha256")}
-    result = analyze(read_archive("artifacts.tar.gz"))
+    result = analyze(read_archive("artifacts.tar.gz"), read_archive("sources.tar.gz"))
     assert result == json.loads((ROOT / "result.json").read_text())
     print("Retained source pins, null binder projection comparisons, ALI closure and ELF inventories agree.")
     print(json.dumps({"closure": {k: v for k, v in result["closure"].items() if k in ("ali_count", "unit_count", "raw_bytes")},
