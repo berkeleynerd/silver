@@ -1,0 +1,54 @@
+{
+  "source_files": 33,
+  "rule_count": 167,
+  "constant_string_maxima": {
+    "VC_Kind.Description": 240,
+    "VC_Kind.Kind_Name": 69,
+    "Valid_Flow_Tag_Kind.Description": 72,
+    "Valid_Flow_Tag_Kind.Kind_Name": 77,
+    "Misc_Warning_Kind.Description": 258,
+    "Misc_Warning_Kind.Kind_Name": 39
+  },
+  "rule_vector_capacities": [
+    2,
+    3,
+    4,
+    6,
+    9,
+    13,
+    19,
+    28,
+    42,
+    63,
+    94,
+    141,
+    211
+  ],
+  "largest_vector_growth_multiply": 423,
+  "selected_ABI_record_upper_bounds": {
+    "reportingDescriptor": 4368,
+    "invocation": 12640,
+    "run": 44256
+  },
+  "selected_ABI_array_request_upper_bounds": {
+    "reportingDescriptor": 921680,
+    "invocation": 25312,
+    "run": 88544
+  },
+  "text_examples": [
+    {
+      "path_bytes": 222,
+      "string_bytes": 403,
+      "heap_allocation_upper_bound": 532
+    },
+    {
+      "path_bytes": 4096,
+      "string_bytes": 4277,
+      "heap_allocation_upper_bound": 4406
+    }
+  ],
+  "writer_character_buffer_capacity_including_optional_BOM": 8,
+  "compiler_runs": 0,
+  "prover_runs": 0,
+  "scope": "caller-specific source transfer; installed behavior and path/configuration premises remain explicit"
+}

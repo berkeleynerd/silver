@@ -1,0 +1,217 @@
+{
+  "scope": "source candidates and recipe-tag resolutions; no historical installed-source attestation",
+  "projects": [
+    {
+      "repository": "sarif-ada",
+      "commit": "4bc234ccccdd68813352c668a3c83ca82940f1b6"
+    },
+    {
+      "repository": "vss-text",
+      "commit": "01c9adfef0efda9589fa544115628e28e26767b3"
+    },
+    {
+      "repository": "vss-extra",
+      "commit": "a9d466d7d75c555676654b71a0d92e946ea4688d"
+    }
+  ],
+  "files": [
+    {
+      "path": "gcc/gcc/ada/libgnat/a-cdlili.ads",
+      "bytes": 13137,
+      "sha256": "84e03ae36de194febfec1c3dcdd1493c72a9659bf8e137986a9315a61958d658",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/libgnat/a-cdlili.ads"
+    },
+    {
+      "path": "gcc/gcc/ada/libgnat/a-contai.ads",
+      "bytes": 1478,
+      "sha256": "f6ec0b0e161fdb1bde8a02b2e16b76d32fee4030087be79ecbebb05fb5a190f4",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/libgnat/a-contai.ads"
+    },
+    {
+      "path": "recipe/specs/sarif_ada.anod",
+      "bytes": 2022,
+      "sha256": "18f622649d18e24a9caf4ae8e35f15e903c41ebed6ca29e158aed4930e913507",
+      "url": "https://raw.githubusercontent.com/alire-project/GNAT-FSF-builds/0334dd54a2c479faa3dfad47a911373581b11739/specs/sarif_ada.anod"
+    },
+    {
+      "path": "recipe/specs/vss_extra.anod",
+      "bytes": 2512,
+      "sha256": "ab15ff9c8321dea185ee22e03a26f2fab7779eeb6774c514631fc9d60fa83a36",
+      "url": "https://raw.githubusercontent.com/alire-project/GNAT-FSF-builds/0334dd54a2c479faa3dfad47a911373581b11739/specs/vss_extra.anod"
+    },
+    {
+      "path": "recipe/specs/vss_text.anod",
+      "bytes": 2781,
+      "sha256": "e24cf9a140384f4037431b5ff3db06f022ece8559a29ea3c6433b6d229fc4a21",
+      "url": "https://raw.githubusercontent.com/alire-project/GNAT-FSF-builds/0334dd54a2c479faa3dfad47a911373581b11739/specs/vss_text.anod"
+    },
+    {
+      "path": "sarif-ada/src/generated/sarif-types-outputs.adb",
+      "bytes": 101235,
+      "sha256": "ee9ec0377020bed0f95bae2b38efa587ac8a96ef9622bf0cb8b4a9ba959aff66",
+      "url": "https://raw.githubusercontent.com/AdaCore/sarif-ada/4bc234ccccdd68813352c668a3c83ca82940f1b6/src/generated/sarif-types-outputs.adb"
+    },
+    {
+      "path": "sarif-ada/src/generated/sarif-types.adb",
+      "bytes": 89239,
+      "sha256": "099392e7cfa93baceff4de3a6c0bddbbc815e561e6e50009c39cc8b58068ceb8",
+      "url": "https://raw.githubusercontent.com/AdaCore/sarif-ada/4bc234ccccdd68813352c668a3c83ca82940f1b6/src/generated/sarif-types.adb"
+    },
+    {
+      "path": "sarif-ada/src/generated/sarif-types.ads",
+      "bytes": 151178,
+      "sha256": "d2329659145d5ffd52ccd8d2b4089c65ef6c6a953b839d9a9ff2bbee40f93abb",
+      "url": "https://raw.githubusercontent.com/AdaCore/sarif-ada/4bc234ccccdd68813352c668a3c83ca82940f1b6/src/generated/sarif-types.ads"
+    },
+    {
+      "path": "spark2014/src/common/vc_kinds.adb",
+      "bytes": 101197,
+      "sha256": "8a532e5528c36837e9a63eb41985644c74a3b83084155a1356b42638eef28b1e",
+      "url": "https://raw.githubusercontent.com/AdaCore/spark2014/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/common/vc_kinds.adb"
+    },
+    {
+      "path": "spark2014/src/common/vc_kinds.ads",
+      "bytes": 69292,
+      "sha256": "f800fc13119dbdf9634d3d7972dc21fb9e97d50fd4bbf5cc0f6eafda204debec",
+      "url": "https://raw.githubusercontent.com/AdaCore/spark2014/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/common/vc_kinds.ads"
+    },
+    {
+      "path": "spark2014/src/gnatprove/spark_report-generate_sarif_report.adb",
+      "bytes": 15685,
+      "sha256": "73e204769fdb453153c8069f9e213412151dce6ff129150ec09f442d079ce232",
+      "url": "https://raw.githubusercontent.com/AdaCore/spark2014/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/gnatprove/spark_report-generate_sarif_report.adb"
+    },
+    {
+      "path": "spark2014/src/gnatprove/spark_report.adb",
+      "bytes": 56488,
+      "sha256": "aba5b5c86e109a2bf10598b44c497118a8ee2904e64e90efdc9162e2349d1482",
+      "url": "https://raw.githubusercontent.com/AdaCore/spark2014/42554fc241fcd1fdf08d3a2feccb3f86912acbc0/src/gnatprove/spark_report.adb"
+    },
+    {
+      "path": "vss-extra/source/json/implementation/vss-json-push_writers.adb",
+      "bytes": 18351,
+      "sha256": "834635fe8427cb6c85319293865d1b203bc643bfd83cd1128ab8dcba777321e5",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-extra/a9d466d7d75c555676654b71a0d92e946ea4688d/source/json/implementation/vss-json-push_writers.adb"
+    },
+    {
+      "path": "vss-extra/source/json/vss-json-push_writers.ads",
+      "bytes": 2498,
+      "sha256": "545334cf6b5596ad9c723f5134651ad4120eaccad163fde2342d6b3618b5dd82",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-extra/a9d466d7d75c555676654b71a0d92e946ea4688d/source/json/vss-json-push_writers.ads"
+    },
+    {
+      "path": "vss-extra/source/os/implementation/vss-text_streams-file_output.adb",
+      "bytes": 6750,
+      "sha256": "a9c56279e257fedbe58866b1a2dc0e858252502b49ee5b022c7efd2e092f417a",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-extra/a9d466d7d75c555676654b71a0d92e946ea4688d/source/os/implementation/vss-text_streams-file_output.adb"
+    },
+    {
+      "path": "vss-extra/source/os/vss-text_streams-file_output.ads",
+      "bytes": 2652,
+      "sha256": "fbcd22bc83649907f4ac95b2d99358589ced33de9834cd94dea7ad57ce6d579c",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-extra/a9d466d7d75c555676654b71a0d92e946ea4688d/source/os/vss-text_streams-file_output.ads"
+    },
+    {
+      "path": "vss-text/source/streams/implementation/vss-stream_element_vectors.adb",
+      "bytes": 6820,
+      "sha256": "ed355ba60dd20b8e1ca16f3971c867fb092a7cee513c3e858a065af5e2906056",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/streams/implementation/vss-stream_element_vectors.adb"
+    },
+    {
+      "path": "vss-text/source/streams/vss-stream_element_vectors.ads",
+      "bytes": 4308,
+      "sha256": "f38a36d0e3ff59cb83ffac18e8b7f0d0ed24842ac79f8468d743a9e41a81abb1",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/streams/vss-stream_element_vectors.ads"
+    },
+    {
+      "path": "vss-text/source/text/implementation/vss-implementation-referrers.ads",
+      "bytes": 5520,
+      "sha256": "d210d85cb0801ee0defe53f2b5439cdbe4a3eaa5ee62e621856de1c358822cee",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/implementation/vss-implementation-referrers.ads"
+    },
+    {
+      "path": "vss-text/source/text/implementation/vss-implementation-string_vectors.ads",
+      "bytes": 2410,
+      "sha256": "5e2fd61fbabedb5a904889b2eef45a60a9624452dce4a0a2faee9bd638b175f1",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/implementation/vss-implementation-string_vectors.ads"
+    },
+    {
+      "path": "vss-text/source/text/implementation/vss-implementation-strings.ads",
+      "bytes": 3460,
+      "sha256": "41d9872ca0f00bad065cba20745c076b7f998bf287e038cdc32ceaf41c649895",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/implementation/vss-implementation-strings.ads"
+    },
+    {
+      "path": "vss-text/source/text/implementation/vss-implementation-text_storages-heap.adb",
+      "bytes": 7231,
+      "sha256": "4e70140fee5b5e88dad814f6eb826513b699a753b46cea6c1a489febb8ef4851",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/implementation/vss-implementation-text_storages-heap.adb"
+    },
+    {
+      "path": "vss-text/source/text/implementation/vss-implementation-text_storages-heap.ads",
+      "bytes": 1566,
+      "sha256": "6f0582742fe48ec50c6378e95a4a009ae3fe4d2e91a406fbd3a4a9fbf09eec39",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/implementation/vss-implementation-text_storages-heap.ads"
+    },
+    {
+      "path": "vss-text/source/text/implementation/vss-implementation-text_storages.ads",
+      "bytes": 1507,
+      "sha256": "06253a9b81dc0b9ca3838c07dd134b8fc98113db63a1e1d1d1f88a32c40a95f8",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/implementation/vss-implementation-text_storages.ads"
+    },
+    {
+      "path": "vss-text/source/text/implementation/vss-implementation-utf8_strings-mutable_operations.adb",
+      "bytes": 31340,
+      "sha256": "bd4933d19207939425f1bfe5d50dc5e4dfa8923913c783e3bfdf99944d77f455",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/implementation/vss-implementation-utf8_strings-mutable_operations.adb"
+    },
+    {
+      "path": "vss-text/source/text/implementation/vss-implementation-utf8_strings.adb",
+      "bytes": 27599,
+      "sha256": "3e8d2677e97e134c2feff1b33b31bd1b30596b9b15b6b0142cfabf4c05f7cafa",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/implementation/vss-implementation-utf8_strings.adb"
+    },
+    {
+      "path": "vss-text/source/text/implementation/vss-implementation-utf8_strings.ads",
+      "bytes": 9227,
+      "sha256": "cd42ffded691d4681549cda411977ee2f3380e848938008d47323f40da64b9a1",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/implementation/vss-implementation-utf8_strings.ads"
+    },
+    {
+      "path": "vss-text/source/text/implementation/vss-strings-conversions.adb",
+      "bytes": 11140,
+      "sha256": "3023de10f0104c56ca01b3818770841473cc4a27c56005f4751814092ba81cfd",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/implementation/vss-strings-conversions.adb"
+    },
+    {
+      "path": "vss-text/source/text/implementation/vss-strings-converters-encoders-utf8.adb",
+      "bytes": 2074,
+      "sha256": "5cbbf3d0eae913ff6670d4e6a27b6a22d18143d470d57ce470949f8fdce238bc",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/implementation/vss-strings-converters-encoders-utf8.adb"
+    },
+    {
+      "path": "vss-text/source/text/implementation/vss-strings-converters-encoders.adb",
+      "bytes": 5091,
+      "sha256": "6ef5008767b1daf1de2ddd351760b4b82caa7462c9392c5840d221b1c303cfb6",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/implementation/vss-strings-converters-encoders.adb"
+    },
+    {
+      "path": "vss-text/source/text/vss-string_vectors.ads",
+      "bytes": 7416,
+      "sha256": "f564bde7916c93d63362feaf76f2d8c656b99c49fec7fbfa3196a24dfb4ef23b",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/vss-string_vectors.ads"
+    },
+    {
+      "path": "vss-text/source/text/vss-strings.ads",
+      "bytes": 18789,
+      "sha256": "388f8389144c197f8bf88cf7cad7bd0eb17d8afa3680ddc89ec957c8ec595ceb",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/vss-strings.ads"
+    },
+    {
+      "path": "vss-text/source/text/vss-unicode.ads",
+      "bytes": 2824,
+      "sha256": "5250309cbcc27dfa0c8a61571976b164c479b9c0e5628a9ee4f11512e3bdcd6a",
+      "url": "https://raw.githubusercontent.com/AdaCore/vss-text/01c9adfef0efda9589fa544115628e28e26767b3/source/text/vss-unicode.ads"
+    }
+  ]
+}
