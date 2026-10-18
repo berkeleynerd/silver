@@ -1,0 +1,90 @@
+{
+  "scope": "Sharper selected section bound; generated binder terms remain inputs",
+  "source_files_verified": 29,
+  "prior_inputs_verified": 6,
+  "fixed_files_verified": 15,
+  "archive_members_verified": 1161,
+  "fixed_relocation_header_files": [
+    {
+      "path": "/lib/x86_64-linux-gnu/libdl.a",
+      "argv_occurrences": 1,
+      "one_occurrence_relocation_headers": 0
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc.a",
+      "argv_occurrences": 2,
+      "one_occurrence_relocation_headers": 1529
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/libgcc_eh.a",
+      "argv_occurrences": 2,
+      "one_occurrence_relocation_headers": 48
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../lib64/libatomic.so",
+      "argv_occurrences": 1,
+      "one_occurrence_relocation_headers": 2
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "argv_occurrences": 1,
+      "one_occurrence_relocation_headers": 2
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libc_nonshared.a",
+      "argv_occurrences": 1,
+      "one_occurrence_relocation_headers": 8
+    },
+    {
+      "path": "/lib64/ld-linux-x86-64.so.2",
+      "argv_occurrences": 1,
+      "one_occurrence_relocation_headers": 1
+    },
+    {
+      "path": "/lib/x86_64-linux-gnu/Scrt1.o",
+      "argv_occurrences": 1,
+      "one_occurrence_relocation_headers": 2
+    },
+    {
+      "path": "/lib/x86_64-linux-gnu/crti.o",
+      "argv_occurrences": 1,
+      "one_occurrence_relocation_headers": 1
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/crtbeginS.o",
+      "argv_occurrences": 1,
+      "one_occurrence_relocation_headers": 4
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a",
+      "argv_occurrences": 1,
+      "one_occurrence_relocation_headers": 4723
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/crtendS.o",
+      "argv_occurrences": 1,
+      "one_occurrence_relocation_headers": 0
+    },
+    {
+      "path": "/lib/x86_64-linux-gnu/crtn.o",
+      "argv_occurrences": 1,
+      "one_occurrence_relocation_headers": 0
+    }
+  ],
+  "explicit_fixed_relocation_headers": 7897,
+  "eight_additional_loader_relocation_headers": 8,
+  "processed_fixed_relocation_headers": 7905,
+  "Main_original_relocation_headers_upper": 9,
+  "input_section_bound": "Isharp = Q + Qrel + 3*P + 35",
+  "output_section_bound": "Ssharp = Q + Qrel + 3*P + 128",
+  "hidden_output_REL_RELA_headers": 0,
+  "output_header_bound": "Nsharp = Ssharp + 5",
+  "fixed_output_section_contribution": 48909,
+  "fixed_plus_Main_output_section_contribution": 48943,
+  "binder_condition": "Qbinder + Qrelbinder + 3*Pbinder <= 16336",
+  "sufficient_dynamic_index_condition": "Ssharp < 0xff00",
+  "generated_binder_join_established": false,
+  "whole_link_capacity_established": false,
+  "generated_objects_read": false,
+  "native_execution": false
+}

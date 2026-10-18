@@ -237,6 +237,82 @@ to eight, then adds the section-header product (`bfd/elf.c:7203–7215`). The
 independent condition `O + 7 + 64 N <= INT64_MAX` would keep this suffix in
 the selected signed file-offset range. This does not yet derive `O`.
 
+### Sharper selected bound for dynamic symbol indices
+
+Extended ELF headers do not remove every section-index constraint.
+`check_dynsym` rejects an ordinary dynamic symbol whose output section index
+is at least `0xff00` and below BFD's internal `SHN_LORESERVE`
+(`bfd/elflink.c:10542–10555`). The broader `N` above cannot discharge that
+guard. The selected descriptor admits a sharper bound without assuming a
+particular order for allocated or dynamic-symbol-bearing sections.
+
+Let `Qrel` count original `SHT_REL`/`SHT_RELA` header processing occurrences.
+ELF input decoding sets a target section's `SEC_RELOC` flag and relocation
+count from such a header (`bfd/elf.c:2802–2911`). Headers represented as
+ordinary sections, ignored secondary headers and zero-entry headers can
+only reduce the domain. The dynamic-relocation constructor requires a
+nonzero input relocation count and `SEC_RELOC`, and caches its result on
+that original target section (`elflink.c:4295–4310,15616–15654`,
+`elfxx-x86.c:958–1003`). One relocation header refers to one target. Thus
+the earlier extra `Q` allowance for these constructors can be replaced by
+`Qrel`; the other synthetic families retain their existing charges:
+
+```text
+Isharp = Q + Qrel + 3 P + 35
+Ssharp = Isharp + 93 = Q + Qrel + 3 P + 128.
+```
+
+This bounds every input/output section chain covered earlier; it does not
+subtract headers which fail to become BFD sections. The
+[offline census](../evidence/retained-linker-layout-20261018/check-section-indices.py)
+reads all fixed headers again: 7,897 explicit relocation-header occurrences,
+plus one per each of the eight additional loader processings, give
+`Qrel_fixed = 7,905`. Main's source-derived writer bound supplies at most
+nine more. Generated binder headers remain an incoming term.
+
+There are also **no separate hidden output REL/RELA headers** in this
+descriptor. `emit_relocs` is false because neither a relocatable link nor
+`emitrelocations` is selected (`elflink.c:12672–12673`). Output relocation
+counts are first reset. Ordinary indirect orders add nothing when that flag
+is false and the target's `elf_backend_count_relocs` hook is NULL; the
+selected x86-64 target retains that generic NULL default
+(`elfxx-target.h:644–646`, `elflink.c:12792,12856–12873`).
+
+Explicit section/symbol relocation orders need a separate exclusion: they
+would add one even with `emit_relocs` false (`elflink.c:12800–12802`).
+`ldwrite.c:155–203` creates those orders only for a `lang_reloc_statement`.
+The sole statement constructor is `lang_add_reloc` (`ldlang.c:9039–9055`),
+whose sole selected caller is guarded by `bfd_link_relocatable`
+(`ldctor.c:368–372`). The parser and selected emulation do not add another
+producer. Nonrelocatable constructor sets use ordinary data statements.
+Thus these orders are absent too.
+
+The final-link pass consequently clears each output section's `SEC_RELOC`
+before file-position/header setup (`elflink.c:12925–12952`). Output section
+private-data copying does not copy input relocation-header pointers
+(`elf.c:8448–8545`, `elf64-x86-64.c:6165–6184`), and hidden-header creation
+requires that now-cleared flag (`elf.c:3840–3871`). Ordinary dynamic
+relocation sections remain BFD sections already counted in `Ssharp`; they
+are distinct from these hidden headers.
+
+Section-number assignment now assigns each BFD section an index at most
+`Ssharp`, with at most five null/special table headers in total
+(`elf.c:4127–4231`). Therefore
+
+```text
+Nsharp <= Ssharp + 5
+Ssharp <= 48943 + Qbinder + Qrelbinder + 3 Pbinder
+Ssharp < 0xff00
+```
+
+is sufficient for dynamic section-index representability. Equivalently the
+still-open binder contribution must satisfy
+`Qbinder + Qrelbinder + 3 Pbinder <= 16336`. This discharges the selected
+index guard conditionally; it is neither a new general 65,535-section ELF
+limit nor a complete link-capacity result. Existing broader bounds remain
+valid for the other interfaces. Binder substitution and all payload/reach
+requirements are still needed.
+
 ## Conditional virtual placement transfer
 
 The selected script also supplies a placement transfer once payload and
@@ -627,10 +703,8 @@ The checked source/header joins do not settle the remaining layout work:
   placement transfer above, plus the selected relaxation/convergence argument;
 - a final virtual span that proves signed relative relocation reach and EH
   table offsets, including symbol addends and the fixed runtime inputs;
-- a dynamic-symbol section-index bound: unlike ordinary extended ELF header
-  counts, `check_dynsym` rejects an ordinary output section index at least
-  `0xff00` (`bfd/elflink.c:10545`); the broad header envelope alone does not
-  discharge that narrower emission constraint;
+- binder substitution into the sharper `Ssharp < 0xff00` dynamic-symbol
+  section-index condition above;
 - the `Bfile` projection for the conditional file-position transfer, and
   individual BFD allocation requests/counters through all those phases.
 

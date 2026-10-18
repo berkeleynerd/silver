@@ -1,0 +1,31 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "supplement": [
+    {
+      "path": "ld/ldwrite.c",
+      "bytes": 15421,
+      "sha256": "ea02dbedb4ee0de9c83180f9503db716f74caaf69e7f029b2d2c59c51344ac3b",
+      "archive": "section-index-ldwrite.c.gz",
+      "archive_sha256": "d56b80966c26fc0818705e4e4fdf9ecd199a7592618250ce7453d39da3baa4f9"
+    },
+    {
+      "path": "ld/ldgram.y",
+      "bytes": 33975,
+      "sha256": "95f840aa9720a8787ea6641fb11bf3afca4c9e830e5731c07ee30ac2e961e7f7",
+      "archive": "section-index-ldgram.y.gz",
+      "archive_sha256": "2c1b3893938e11cc7de0f319cfc8330239a8a24bdd684de9c9e80b7829b33af6"
+    }
+  ],
+  "retained_inputs": [
+    {
+      "path": "inputs.json",
+      "bytes": 782,
+      "sha256": "7f4328f0f85ff141306b1e9422fe8233a9e2582898f0cea3ae483cfcb2c9539e"
+    },
+    {
+      "path": "check-results.json",
+      "bytes": 3250,
+      "sha256": "6776f29d903b98ff0814c648cb611c9276fe9a3345c8605347ed2f41e81d6789"
+    }
+  ]
+}

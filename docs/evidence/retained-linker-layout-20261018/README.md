@@ -122,3 +122,24 @@ It checked property union/max-data behavior, all source additions, writer
 alignment and unsigned size; PLT template assignment and four-byte FDE
 ranges; and the joined EH arithmetic. It accepted these conditional transfers
 with the binder, generated semantics and reach premises still open.
+
+`check-section-indices.py` rechecks 29 complete sources, six prior input
+identities, 15 fixed file spellings and 1,161 members. It counts original
+REL/RELA headers and reconciles the selected no-hidden-relocation-header
+source argument. Two additional complete sources are retained in the
+`section-index-*.gz` capsules and pinned by `section-index-inputs.json`.
+
+```sh
+python3 docs/evidence/retained-linker-layout-20261018/check-section-indices.py --output /tmp/retained-section-indices-replay.json
+```
+
+The result preserves the binder condition rather than substituting the
+observed binder. The source anchors reconcile the handwritten reachability
+argument; they do not execute ld or automatically prove C control flow.
+
+Independent narrow review replayed the result byte-equal and checked the
+original relocation-header/target charge, cached synthetic section creation,
+all output relocation-count branches, the nonrelocatable constructor-set
+guard, output private-data copying, and section-number assignment. It
+accepted the conditional dynamic-index transfer; binder substitution and
+whole-link capacity remain separate.
