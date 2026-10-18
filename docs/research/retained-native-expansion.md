@@ -1922,18 +1922,28 @@ scope open while the following declaration or statement is analyzed.
 `Scope_Stack.Is_Transient` and an entity's `Uses_Sec_Stack` are separate fields:
 `Create_Transient_Scope` sets both only on its new E_Block, while the declaration
 wrapper propagates only secondary-stack use after popping it
-(`exp_ch7.adb:4226–4247`). Thus subsequent concat initial placement is
-nontransient under this grammar, but secondary-stack allocation of the concat
-result remains reachable. It would be wrong to exclude that storage branch
-from the absence of an active transient scope.
+(`exp_ch7.adb:4226–4247`). Thus later constructors do not inherit an *active*
+transient scope from the input declaration, but secondary-stack allocation of
+their results remains reachable. It would be wrong to exclude that storage
+branch from the absence of an active transient scope.
+
+There is a distinct source caller that can create a new transient scope:
+`Resolve_Actuals` calls `Establish_Transient_Scope (A, Manage_Sec_Stack => False)`
+for a nonstatic concat actual of a procedure call before resolving A
+(`sem_res.adb:4480–4498`). An admitted output call can take this path. The
+absence of a caller inside the concat emitter therefore does **not** establish
+nontransient placement for every admitted concat. Its nested constructor
+actions and subsequent call wrapping require that separate placement transfer.
 
 This induction concerns the current Main analysis context. It does not price
 the input call's own actions or runtime-library body analysis. Conditional
 action attachment and later Boolean EWA wrappers still use their separate
-transfers; they are not transient scopes. Copy/reanalysis multiplicity remains
-a separate obligation. There is no `Establish_Transient_Scope` call in the
-concat emitter or ordinary object expander; the three Image calls belong to
-the excluded Put_Image/wide branches (`exp_imgv.adb:1054,1868,1978`).
+transfers; they are not transient scopes. The direct emitter multiplicity is
+source-bounded above, while generated wrapper work remains separate. There is
+no `Establish_Transient_Scope` call in the concat emitter or ordinary object
+expander itself; the three Image calls belong to the excluded Put_Image/wide
+branches (`exp_imgv.adb:1054,1868,1978`). These negative call-site observations
+do not exclude the procedure-actual caller just identified.
 
 ### Result storage and first subtype freezing
 
