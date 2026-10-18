@@ -1,0 +1,152 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "selected_target_headers": [
+    "gcc/config/i386/i386.h",
+    "gcc/config/i386/unix.h",
+    "gcc/config/i386/att.h",
+    "gcc/config/elfos.h",
+    "gcc/config/gnu-user.h",
+    "gcc/config/glibc-stdint.h",
+    "gcc/config/i386/x86-64.h",
+    "gcc/config/i386/gnu-user-common.h",
+    "gcc/config/i386/gnu-user64.h",
+    "gcc/config/linux.h",
+    "gcc/config/linux-android.h",
+    "gcc/config/i386/linux-common.h",
+    "gcc/config/i386/linux64.h"
+  ],
+  "files": [
+    {
+      "path": "gcc/final.cc",
+      "bytes": 128479,
+      "sha256": "b631c3c19ca97a996608ed93459fa399eb230336a7bc41601c472b6f6474d00b"
+    },
+    {
+      "path": "gcc/varasm.cc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "path": "gcc/dwarf2out.cc",
+      "bytes": 1049405,
+      "sha256": "f9cb86d2637defaf2f6178f4dea84841558caac0aca9f95538c27694751e2d20"
+    },
+    {
+      "path": "gcc/dwarf2cfi.cc",
+      "bytes": 107474,
+      "sha256": "23fd7f4e2d67966927d05d325e5f5857a52da5291dc2746ff2792d4ace8dfe4a"
+    },
+    {
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "path": "gcc/target.def",
+      "bytes": 349626,
+      "sha256": "a4201f0ce18dbbfdbe7b10da98a386e1c79973659be5032abdd3346e125d7763"
+    },
+    {
+      "path": "gcc/defaults.h",
+      "bytes": 42480,
+      "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a"
+    },
+    {
+      "path": "gcc/config/i386/i386.cc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "path": "gcc/config/i386/i386.md",
+      "bytes": 1013857,
+      "sha256": "2d2c09314aca1b0cd2cd887f7a637142e94a07cebca7847d7094e11353c61bcb"
+    },
+    {
+      "path": "gcc/config/i386/gnu-property.cc",
+      "bytes": 3559,
+      "sha256": "cca3445a442cecb9eb578e57a2ef0bed0cd0c7bba590b3bd3fb7c3768da5d1b4"
+    },
+    {
+      "path": "gcc/config/i386/gas.h",
+      "bytes": 3601,
+      "sha256": "c6a7d6fefa29ac6a750fa7ac3614556da1426af85ffffd934c8dc46db163b20a"
+    },
+    {
+      "path": "gcc/config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "path": "gcc/config/i386/unix.h",
+      "bytes": 2878,
+      "sha256": "0014a3ae6ab57406e731747c7506525770d0a80cd819e3f550306832fda42cc3"
+    },
+    {
+      "path": "gcc/config/i386/att.h",
+      "bytes": 3186,
+      "sha256": "a915b51760c40265932d6e41c37f76d5b5d33dfee9c49e211ebb58a0e8c46e39"
+    },
+    {
+      "path": "gcc/config/elfos.h",
+      "bytes": 18059,
+      "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70"
+    },
+    {
+      "path": "gcc/config/gnu-user.h",
+      "bytes": 5918,
+      "sha256": "1095b158727a2cddc83cd18832064d2b8824538566b0d23271c57fce92e65be2"
+    },
+    {
+      "path": "gcc/config/glibc-stdint.h",
+      "bytes": 2854,
+      "sha256": "5d17b0d72057dbaafa517ff1df1bb64a5f6dc132ecfbfd0ddc1b64e2ee8a079b"
+    },
+    {
+      "path": "gcc/config/i386/x86-64.h",
+      "bytes": 3089,
+      "sha256": "45e502f21860f7a9140c33570ccbcab2070418b7101ee01a53e4054c1847202c"
+    },
+    {
+      "path": "gcc/config/i386/gnu-user-common.h",
+      "bytes": 2629,
+      "sha256": "5f064832c02395865e22f4f79ca4de568ff42cfb50c102013d0417ce8be8d4b3"
+    },
+    {
+      "path": "gcc/config/i386/gnu-user64.h",
+      "bytes": 3256,
+      "sha256": "5621c8efa5ae1d62c513af61649c939226d6a9d48ae3b1584e3a2a7f50d545d9"
+    },
+    {
+      "path": "gcc/config/linux.h",
+      "bytes": 8737,
+      "sha256": "86809593d0a2ef1ea63972125d27d827310eff3e25b4fbcdc5923dd84f2d742d"
+    },
+    {
+      "path": "gcc/config/linux-android.h",
+      "bytes": 1947,
+      "sha256": "9137c99e7e1d3eb5316adf3d0aeda41a2f6fbb7b8977c1ba4a256b1d571f3fdb"
+    },
+    {
+      "path": "gcc/config/i386/linux-common.h",
+      "bytes": 2346,
+      "sha256": "2ae3d9a8191788da063cdbe1e82719b4682e7e6499e07b7b66f04aa5eb0f38b0"
+    },
+    {
+      "path": "gcc/config/i386/linux64.h",
+      "bytes": 1669,
+      "sha256": "faf45947315176aa120a1c3ac787a1a56c172437654323f83a9c8c98940c824d"
+    }
+  ],
+  "reused_results": [
+    {
+      "path": "retained-assembler-capacity-20261018/check-results.json",
+      "bytes": 5622,
+      "sha256": "a0cf4524ceb9a7549f8a0b429dc5126411536453bdc8c159a12422055e330008"
+    },
+    {
+      "path": "retained-backend-gigi-20261018/check-results.json",
+      "bytes": 15172,
+      "sha256": "862e75ff2db28cce02f97ca85caab3928bac8d4569e7f2117f21dc06e8538b59"
+    }
+  ]
+}

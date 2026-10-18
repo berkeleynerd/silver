@@ -2858,6 +2858,76 @@ joins the extra payload, fragments and final section actions; symbol/BFD subsidi
 objects and ELF file layout remain separate. No compiler or assembler was
 run for this extension.
 
+### Total emitted lines and assembler events
+
+The payload and fragment bounds do not by themselves bound directives or labels
+that emit no bytes. The selected null unit additionally has the following
+source-derived line ceiling. Each charged selected output ends in one LF.
+
+| Output class | Lines, at most | Source route |
+| --- | ---: | --- |
+| File directive and optional initial `#NO_APP` | 2 | `varasm.cc:8160–8174,8630–8666`; the selected GNU header supplies `#NO_APP\n` (`config/gnu-user.h:29–33`). |
+| Ordinary function section selections | 3 | Entry (`varasm.cc:2136`), FDE prologue (`dwarf2out.cc:1093`) and optional after-function pool return (`varasm.cc:2238–2242`). Charge every call even when `switch_to_section` suppresses an unchanged section (`varasm.cc:8266–8267`). |
+| GNU-stack section and identification | 2 | One file-end section and one ident, as above. |
+| Function alignment, global, type and size | 4 | The existing outline argument; entry label is charged below. |
+| All compiler labels | 26 | Three ordinary, five CFI, two function-boundary, one entry and fifteen GNU-property numeric labels from the [GAS symbol inventory](retained-assembler-capacity.md#gas-symbols-and-fixups). |
+| Machine instructions | 22 | Eighteen possible nops plus push, move, pop and return. The blockage template is empty; the other selected templates have one line each. |
+| CFI function rules and wrappers | 7 | Five selected rules plus `.cfi_startproc` and `.cfi_endproc` (`dwarf2cfi.cc:3545–3611`, `dwarf2out.cc:985,1259`). The two fixed CIE rules are created inside GAS, not emitted compiler directives. |
+| GNU-property note output | 48 | Three possible calls, each with twelve LF-terminated `fprintf`s, three single-line alignments and at most one section directive (`config/i386/gnu-property.cc:29–57,60–132`). |
+
+The sum is **114 lines**. This deliberately charges the fifteen property
+labels twice, once in the established label union and once in the complete
+note routine. The conservatism follows named output sites; there is no
+empirical multiplier or new source-language cap. At the already retained
+64-byte longest-line bound, including one LF per line gives **7,410 assembly
+file bytes**, below a single 32,768-byte input read block.
+
+The coverage exclusions matter to this count. `output_asm_insn` returns for
+the empty blockage template, and the selected other templates contain no
+embedded LF or statement separator; their register operands introduce neither
+(`final.cc:3428–3607`). No-debug hooks add no source-line or block output.
+Profile, verbose/debug assembly, saved-switch annotations, inline assembly,
+patch areas, alternate entries, section partitions, jump tables, constant
+pools and extra definitions are absent under the preceding complete null
+shape and effective options. The [direct unit-output inventory](retained-native-expansion.md#null-symbol-constructors-and-direct-unit-output-closure)
+also excludes late thunks, external-visibility output, weak aliases, offload,
+sanitizers and indirect constants. In the selected GAS-CFI route,
+`output_call_frame_info` returns before raw DWARF output
+(`dwarf2out.cc:774–780`); there is no personality/LSDA or debug-frame-only
+directive. The target's post-CFI hook is the empty default
+(`target.def:98–106`), with no override in the selected target headers or x86
+implementation. The x86 file-start options add no 16-bit, version, floating-use
+or Intel-dialect directives (`i386.cc:23995–24009`). Named-section output
+ends with one LF and has no group/link-order suffix in this stream
+(`varasm.cc:7204–7307`). The default function prologue is empty; the selected
+non-Mach-O epilogue has no extra output.
+
+`app_on` starts false and only an absent user-assembly path enables it, so
+repeated `app_disable` calls add no lines (`final.cc:210–264`). The optional
+initial `#NO_APP` has already been charged. No `.include`, macro, `.line`,
+linefile marker or embedded newline in a quoted string reaches GAS. Every
+selected nonempty assembler statement or label therefore consumes its own
+charged line; **114** is also an upper bound on these parser events. GAS
+starts the physical counter at zero; allowing one extra sentinel step bounds
+it by **115**, well within its unsigned field. The logical counter starts at
+the disabled `-1u` sentinel; `.file` calls `new_logical_line_flags(s,-1,1)`
+without changing it, so it stays disabled (`gas/input-scrub.c:141–150,
+268–275,461–467,478–522`, `gas/read.c:2025–2044`).
+
+The [offline replay](../evidence/retained-assembler-capacity-20261018/check-events.py)
+binds 24 complete GCC source identities, the existing 90-file GAS/BFD capsule
+and the earlier instruction/CFI/label arithmetic. Its
+[result](../evidence/retained-assembler-capacity-20261018/event-check-results.json)
+closes this selected emitted-line/event interface only. The complete inner
+GAS parser/writer allocation inventory, host-library internals and complete
+retained-tool capacity remain separate. No native tool ran for this evidence.
+
+Independent native-lane review replayed the 24 GCC and 90 binutils identities
+and obtained the same result bytes. It inspected the section-selection,
+startup, property-note, outline, instruction-template, CFI, APP-state and GAS
+line-counter paths and accepted this narrow transfer with the stated earlier
+shape/option premises. It found no additional output event.
+
 ## Gigi delta for the producer's data-representation compilation
 
 The producer also performs a native `-S -gnatR2js` compilation before its

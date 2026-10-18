@@ -1,0 +1,38 @@
+{
+  "scope": "Selected null Main complete assembly-line/event interface",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "gcc_source_identities_checked": 24,
+  "binutils_source_identities_checked": 90,
+  "line_count_rows": {
+    "file_directive": 1,
+    "optional_initial_NO_APP": 1,
+    "function_section_selection_calls": 3,
+    "GNU_stack_section": 1,
+    "ident_directive": 1,
+    "function_alignment_global_type_size": 4,
+    "all_compiler_label_definitions_including_property_labels": 26,
+    "positive_machine_instruction_lines": 22,
+    "CFI_function_rules_plus_start_end": 7,
+    "three_property_notes_including_recharged_labels": 48
+  },
+  "compiler_emitted_lines_upper": 114,
+  "compiler_emitted_nonempty_statement_events_upper": 114,
+  "property_labels_deliberately_charged_twice": 15,
+  "maximum_line_bytes_excluding_LF": 64,
+  "assembly_file_bytes_upper": 7410,
+  "GAS_physical_line_counter_including_spare_sentinel_upper": 115,
+  "GAS_logical_line_counter_remains_disabled": true,
+  "fixed_CIE_rules_are_not_compiler_directives": 2,
+  "all_compiler_lines_end_in_LF": true,
+  "one_statement_or_label_per_selected_line": true,
+  "required_premises": [
+    "Prior complete selected null graph, RTL/CFI shape and effective no-debug/no-instrumentation options",
+    "Configured identifier length 29 and the prior 64-byte line/name/counter bound",
+    "No user assembly, macros, includes, line directives, section partitions, constants or external operands",
+    "Selected GAS CFI route, empty target post-CFI hook and direct unit-output exclusions"
+  ],
+  "complete_inner_parser_and_writer_allocation_inventory": false,
+  "complete_capacity_result": false,
+  "native_execution": false,
+  "reachability_basis": "Handwritten output-path coverage; source anchors and arithmetic are not C semantic verification"
+}

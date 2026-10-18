@@ -191,3 +191,18 @@ python3 docs/evidence/retained-assembler-capacity-20261018/check-symbol-names.py
 
 No assembler or other native tool runs for this check. The handwritten
 selected-stream argument remains part of the transfer.
+
+The [total emitted-line/event interface](../../research/retained-backend-gigi.md#total-emitted-lines-and-assembler-events)
+charges zero-byte directives and labels independently of emitted payload.
+The selected null compiler emits at most 114 LF-terminated lines, hence at
+most 7,410 assembly bytes at the retained 64-byte line bound. This also bounds
+selected nonempty parser events by 114 and the physical line counter by 115;
+the logical line counter remains disabled. The whole inner allocation call
+inventory remains open. The additional GCC manifest binds 24 complete sources
+and two reused arithmetic results; it leaves the existing manifests unchanged.
+
+```sh
+python3 docs/evidence/retained-assembler-capacity-20261018/check-events.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --output /tmp/retained-assembler-event-check.json
+```
