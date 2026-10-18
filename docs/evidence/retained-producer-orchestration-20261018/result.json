@@ -1,0 +1,82 @@
+{
+  "scope": "selected null parent source/ALI interfaces and fixed executed context",
+  "observations": [
+    {
+      "run": "20261018T131634-abe9679887ea",
+      "native_seconds": 0.775326043003588,
+      "source_bytes": 69,
+      "Main_VCs": 0
+    },
+    {
+      "run": "20261018T132001-71e8691ccb9e",
+      "native_seconds": 0.7702961930044694,
+      "source_bytes": 69,
+      "Main_VCs": 0
+    },
+    {
+      "run": "20261018T132102-0e70b07e49db",
+      "native_seconds": 0.7910954389953986,
+      "source_bytes": 69,
+      "Main_VCs": 0
+    },
+    {
+      "run": "20261018T132155-5465bf47816a",
+      "native_seconds": 0.7536429730098462,
+      "source_bytes": 69,
+      "Main_VCs": 0
+    }
+  ],
+  "retained_config_bytes": [
+    6741,
+    6951,
+    7015
+  ],
+  "retained_naming_config_bytes": 327,
+  "observer_misses": [
+    {
+      "name": "GNAT-TEMP-000003.TMP",
+      "event": 8
+    },
+    {
+      "name": "gnatprove.alfad",
+      "event": 256
+    },
+    {
+      "name": "gnatprove.alfad",
+      "event": 8
+    }
+  ],
+  "fixed_GPR_aligned_extent_per_process": 12288,
+  "source_bytes": 69,
+  "source_sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021",
+  "source_shape": {
+    "physical_line_entries_bound": 5,
+    "max_expanded_final_column": 27,
+    "maximum_line_bytes": 26,
+    "aligned_source_extent": 4096
+  },
+  "source_word_tokens": 10,
+  "GPR_physical_sources_per_process": 3,
+  "GPR2_Main_source_parses": 0,
+  "selected_GPR_ALI_rows": {
+    "ALIs": 1,
+    "Units": 1,
+    "Withs": 1,
+    "Sdep": 2,
+    "Args": 0
+  },
+  "datarep_ALI_file_bytes_upper": 2177456,
+  "producer_ALI_file_bytes_upper": 29622804,
+  "conditions": {
+    "source_length_and_EOF": true,
+    "shared_source_position": true,
+    "line_table_bit_product": true,
+    "expanded_physical_column": true,
+    "producer_ALI_buffer": true,
+    "datarep_ALI_buffer": true
+  },
+  "all_selected_checks_pass": true,
+  "fixed_context_source_projection_required": true,
+  "whole_toolchain_capacity_established": false,
+  "production_admission_changed": false
+}
