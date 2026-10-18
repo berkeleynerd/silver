@@ -1,0 +1,52 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_base_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/",
+  "archive_sha256": "556c7b717ba61730d5be59c346d170d13b88301b1a4503be3789b1eed7fe0097",
+  "files": [
+    {
+      "path": "gcc/opts.h",
+      "bytes": 20665,
+      "sha256": "ec66640207dd0a237d42e6743c8d2416095f862f9b252535e780c03d5f2d75f0"
+    },
+    {
+      "path": "gcc/opts-common.cc",
+      "bytes": 64082,
+      "sha256": "9b08d0eab835c3720cb37120282ed10b270f881d37acd40733a8d12c6abb448a"
+    },
+    {
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "path": "gcc/c/gccspec.cc",
+      "bytes": 3072,
+      "sha256": "44c13f1fcc593d1987fbfc3af811754a6ab99af199a7f3641cd606326c80f712"
+    },
+    {
+      "path": "gcc/config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "path": "gcc/config.gcc",
+      "bytes": 184546,
+      "sha256": "40e891d89ae0cc4b3d013e2f25593233c580ad15da4c6b93674712a921b73caf"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/lang-specs.h",
+      "bytes": 3476,
+      "sha256": "9f3336a58e69cc491be8db6694e121024aadf4dc461965a8bede3e1f7050cc2b"
+    },
+    {
+      "path": "gcc/configure.ac",
+      "bytes": 255641,
+      "sha256": "fdddffbe4b5c1a9863b864924a9ddccd99db74b65dfc3d56accb280a7ca48dcd"
+    }
+  ]
+}

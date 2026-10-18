@@ -85,10 +85,10 @@ allocation failure remain external allocator behavior, not source rejection.
 ## Concrete join for the native driver strings
 
 The native environment component bounds the largest constructed string in its
-selected group by `s=20,221` bytes, including key/terminator, at its captured
+selected group by `s=20,242` bytes, including key/terminator, at its captured
 path-candidate parameter `P=222`. Its `obstack_init` sites use default `c=4064`,
-`m=15`. The new chunk request is consequently at most **22,863 bytes**; the
-alignment-difference allowance reaches 22,878. Both fit the above sufficient
+`m=15`. The new chunk request is consequently at most **22,887 bytes**; the
+alignment-difference allowance reaches 22,902. Both fit the above sufficient
 region. Smaller path lists and `COLLECT_GCC` strings fit the same component
 bound. The seven initial environment entries are separate inputs, not objects
 concatenated into this obstack string.

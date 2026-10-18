@@ -45,22 +45,22 @@ while low < high:
     else:
         high = mid-1
 assert chunk(low)+15 <= LIMIT < chunk(low+1)+15
-for s in (0, 1, 40, 20221, 2**31-1, low):
+for s in (0, 1, 40, 20242, 2**31-1, low):
     k = chunk(s)
     assert k+15 <= LIMIT
     for b in (0, s//2, s):
         l = s-b
         requested = max(4064, b+l+15+b//8+100)
         assert requested <= k and requested >= 16+15+b+l
-assert chunk(20221) == 22863
+assert chunk(20242) == 22887
 result = {
     "source_files_checked": len(sources), "interface_version": 2,
     "default_preferred_chunk": 4064, "default_alignment_mask": 15,
     "header_payload_offset": 16,
     "individual_default_object_sufficient_ceiling": low,
-    "driver_string_object_bytes": 20221,
-    "driver_chunk_request_bytes": chunk(20221),
-    "driver_relative_alignment_ceiling": chunk(20221)+15,
+    "driver_string_object_bytes": 20242,
+    "driver_chunk_request_bytes": chunk(20242),
+    "driver_relative_alignment_ceiling": chunk(20242)+15,
     "aggregate_memory_or_address_gate": False,
     "caller_object_sizes_and_ABI_premise_required": True,
     "compiler_or_proof_executed": False,

@@ -1,0 +1,10 @@
+{
+  "method": "Read installed ELF bytes only; did not execute gcc",
+  "binary": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+  "binary_sha256": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de",
+  "configuration_file_offset": 1584096,
+  "configuration_bytes": 899,
+  "configuration_sha256": "cae82db62ccd84cf6a2abd675b1f5987a85a4e231df41f39933141c89a9d6c42",
+  "configuration_arguments": "../src/configure --prefix=/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/gcc/install --with-build-time-tools=/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/binutils/install/bin --enable-languages=c,ada,c++ --enable-libstdcxx --enable-libstdcxx-threads --enable-libada --with-pkgversion=GNAT-FSF-builds --disable-nls --without-libiconv-prefix --disable-libstdcxx-pch --enable-lto --disable-multilib --enable-threads=posix --enable-default-pie --with-gnu-ld --with-gnu-as --with-mpfr=/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/mpfr/install --with-gmp=/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/gmp/install --with-mpc=/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/mpc/install --with-isl=/home/runner/work/GNAT-FSF-builds/GNAT-FSF-builds/sbx/x86_64-linux/isl/install --build=x86_64-pc-linux-gnu",
+  "source_correspondence_premise_required": true
+}

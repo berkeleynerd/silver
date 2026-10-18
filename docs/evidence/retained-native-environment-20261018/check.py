@@ -78,7 +78,7 @@ assert raw_path_max == 222  # Captured installation; not a universal path cap.
 
 # Bound the *individual* generated strings, not aggregate memory consumption.
 P = raw_path_max
-quote_bound = 20 + 21 * (4 * (P + 7) + 3) + 4 * P + 14
+quote_bound = 20 + 21 * (4 * (P + 7) + 4) + 4 * P + 14
 env_lengths = {}
 for key in ("COMPILER_PATH", "LIBRARY_PATH", "COLLECT_GCC_OPTIONS"):
     values = [line[len(key)+1:] for line in text.split("\n") if line.startswith(key+"=")]

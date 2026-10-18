@@ -241,12 +241,15 @@ all declared probe spellings and temporary names. For this descriptor the
 individual `COMPILER_PATH=` and `LIBRARY_PATH=` objects, including terminating
 NUL, fit respectively within `14+6*(P+1)` and `14+19*(P+1)` bytes. The existing
 command-class derivation supplies at most 21 retained argument fields, each
-at most `P+7` characters. Quoting an apostrophe can expand it to four bytes.
+at most `P+7` characters after removing a switch's leading `-`. Quoting an
+apostrophe can expand it to four bytes; charge four more bytes per field for
+the leading hyphen, two quotes and a separator (including an unused first
+separator).
 Including delimiters, the key/NUL and a separate optional dumpdir pair gives
 the sufficient individual-object bound
 
 ```text
-COLLECT_GCC_OPTIONS bytes <= 20 + 21*(4*(P+7)+3) + 4*P+14.
+COLLECT_GCC_OPTIONS bytes <= 20 + 21*(4*(P+7)+4) + 4*P+14.
 ```
 
 The [individual-obstack transfer](retained-backend-obstacks.md) now bounds the
@@ -283,7 +286,7 @@ fixture is therefore not a capture of GPR's 244-byte generated configuration.
 The exact initial environment contains 567 bytes including keys, separators
 and NULs. The printed generated values have lengths 481 (`COMPILER_PATH`),
 910 (`LIBRARY_PATH`) and 247 (`COLLECT_GCC_OPTIONS`). At the captured candidate
-bound `P=222`, the last local bound is 20,221 bytes. These are retained
+bound `P=222`, the last local bound is 20,242 bytes. These are retained
 configuration observations plus conditional source arithmetic; no RAM sum or
 whole-program capacity result follows from them.
 
@@ -293,7 +296,9 @@ An independent source review rechecked the environment exclusions, keyed
 relocation, installed defaults, both implicit-specs routes and local quoting
 arithmetic; it found no material defect under the stated premises.
 Before production adoption, complete the verified-SPARK launcher/configuration
-realization and remaining driver/spec/late-path allocator joins. GNATprove
+realization and remaining driver/late-path allocator joins. The
+[selected driver transfer](retained-native-driver.md) now closes option counts,
+the two command vectors, their growth and the selected spec dispatch. GNATprove
 needs a separate descriptor: in particular its producer analysis requires
 `WHY3DEBUG` empty/absent and `GNATWHY3LOG` absent to preserve the recorded
 diagnostic behavior. This native experiment does not validate producer launch,
