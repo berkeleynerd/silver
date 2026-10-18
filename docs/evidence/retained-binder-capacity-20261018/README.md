@@ -3,7 +3,8 @@
 Supports [the binder component](../../research/retained-binder-capacity.md) for
 #119. Collected on Linux x86_64, 2026-10-18. The extension includes one
 controlled binder-only run, one Gprconfig selection with metadata queries and
-one proposed-options indexed binder compiler/assembler execution; retained
+one proposed-options indexed binder compiler/assembler execution, and one
+Gprbind initialization usage diagnostic; retained
 installation inputs were read-only.
 No link, complete audit, Lean check, test suite,
 macOS validation or hosted CI is claimed.
@@ -20,8 +21,8 @@ complete child environment, exact arguments, temporary inputs, input identities,
 generated sources, empty stdout/stderr and managed-run log/events. Its input
 manifest is preserved separately from the extended packet's later manifest.
 
-`sources.tar.gz` contains one hundred and forty-three complete inspected source files:
-eighty-five GCC Ada files, thirty-five GCC backend files, two libcpp files, nineteen
+`sources.tar.gz` contains one hundred and forty-four complete inspected source files:
+eighty-five GCC Ada files, thirty-five GCC backend files, two libcpp files, twenty
 GPR files and two Silver workspace-construction files. The GCC/libcpp files were reconciled against
 the earlier complete-source manifests for
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; GPR retains its previously used
@@ -120,8 +121,24 @@ expansion. Gprbind has four nonstandard Text_IO open events and at most two
 live files, plus the fixed standard/runtime support. Filename/form copies,
 the runtime's two maximum-path scratch buffers, 80-byte read chunks and
 514-byte output scratch are separate from GPR's own buffers. Its temporary
-registry uses one entry in a ten-slot backing. Fixed elaboration,
-filesystem normalization/search and libc internals remain separate joins.
+registry uses one entry in a ten-slot backing.
+
+The initialization extension retains managed run
+`20261018T113833-a859174fb659`: zero Gprbind arguments under the exact selected
+environment reached the expected exit 7 usage diagnostic before exchange-file
+allocation. Duration was 0.00349 seconds (managed 2.14444), stdout was empty,
+stderr was 30 bytes, all seven inputs were unchanged and the empty working
+directory remained empty. No binder/compiler/link/proof ran. Source projection
+identifies the selected fixed GPR initializers and avoids treating the initial
+name table as empty. It is not a peak-memory measurement.
+
+The path-interface extension charges `N+2*M+4` normalization scratch, fixed
+PATH copying even for absolute executable lookup, and regular-library search
+buffers: 556 Ada/C interface bytes and 566 nested C stack bytes, with returned
+C/Ada paths at most 191/190 bytes. Full paths and numeric expressions must fit
+the installed runtime's limits. Correct libc/OS semantics and resource
+availability remain the ordinary trusted boundary; auditing libc internals
+is not an additional capacity prerequisite.
 
 Replay without access to the original installations:
 
@@ -142,6 +159,8 @@ python3 docs/evidence/retained-binder-capacity-20261018/collect.py \
   --gprconfig-managed-run /home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T110052-6e9404864987 \
   --compiler-capture /tmp/silver-binder-compiler-fixed-20261018 \
   --compiler-managed-run /home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T111407-352fea7c3696 \
+  --initialization-capture /tmp/silver-gprbind-initialization-20261018 \
+  --initialization-managed-run /home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T113833-a859174fb659 \
   --gcc-ada /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
   --gcc-backend /tmp/silver-backend-compose-20261018/full-source/gcc \
   --gpr-source /tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263 \

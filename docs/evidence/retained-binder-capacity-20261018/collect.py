@@ -35,6 +35,8 @@ def main():
     parser.add_argument("--gprconfig-managed-run", type=Path, required=True)
     parser.add_argument("--compiler-capture", type=Path, required=True)
     parser.add_argument("--compiler-managed-run", type=Path, required=True)
+    parser.add_argument("--initialization-capture", type=Path, required=True)
+    parser.add_argument("--initialization-managed-run", type=Path, required=True)
     parser.add_argument("--gcc-ada", type=Path, required=True)
     parser.add_argument("--gcc-backend", type=Path, required=True)
     parser.add_argument("--gpr-source", type=Path, required=True)
@@ -79,6 +81,10 @@ def main():
         add(artifacts, "compiler-capture/output/"+file, Path(compiler_invocation["cwd"])/file)
     for file in ("events.jsonl", "native.log"):
         add(artifacts, "compiler-capture/managed/"+file, args.compiler_managed_run/file)
+    for file in ("run.py", "invocation.json", "result.json", "stdout", "stderr"):
+        add(artifacts, "initialization-capture/"+file, args.initialization_capture/file)
+    for file in ("events.jsonl", "native.log"):
+        add(artifacts, "initialization-capture/managed/"+file, args.initialization_managed_run/file)
     adalib = install/".tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
     knowledge = install/".tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig"
     for path in sorted(knowledge.rglob("*")):
@@ -144,7 +150,8 @@ def main():
                  "gpr/src/gpr-util.adb", "gpr/src/gpr.ads", "src/gprexch.ads", "src/gprexch.adb"]:
         add(sources, "gpr/"+file, args.gpr_source/file)
     for file in ["gpr-ali.adb", "gpr-ali.ads", "gpr-names.adb", "gpr-names.ads",
-                 "gpr-osint.adb", "gpr-osint.ads", "gpr-script.adb", "gpr.adb"]:
+                 "gpr-osint.adb", "gpr-osint.ads", "gpr-script.adb", "gpr.adb",
+                 "gpr-cset.adb"]:
         add(sources, "gpr/gpr/src/"+file, args.gpr_source/"gpr/src"/file)
     for file in ["silver.adb", "silver_platform.adb"]:
         add(sources, "silver/src/"+file, install/"src"/file)

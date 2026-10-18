@@ -852,7 +852,74 @@ def analyze(artifacts, sources):
         "text_Get_Line_auxiliary_bytes":80,"text_Put_Line_auxiliary_bytes_bound":514,
         "text_line_counter_bound":204,
         "temp_registry_entries":1,"temp_registry_backing_slots":10,
-        "scope":"selected runtime-owned argument and Text_IO representations; fixed initialization, libc and OS resource success remain separate",
+        "scope":"selected runtime-owned argument and Text_IO representations; libc/OS semantics and resource availability are the ordinary trusted boundary",
+    }
+    ip = "initialization-capture/"
+    ii = json.loads(artifacts[ip+"invocation.json"])
+    ir = json.loads(artifacts[ip+"result.json"])
+    assert len(ii["argv"]) == 1 and ii["argv"][0].endswith("/libexec/gprbuild/gprbind")
+    assert ii["environment"] == {"PATH":str(Path(compiler_path.decode()).parent)+":/usr/bin:/bin",
+                                  "LC_ALL":"C", "TMPDIR":"/tmp"}
+    assert len(ii["cwd"]) == 113 and ir["working_directory_files"] == []
+    assert ir["returncode"] == 7 and ir["expected_usage_rejection"] is True
+    assert ir["retained_inputs_unchanged"] is True and ir["host"].startswith("Linux-")
+    assert artifacts[ip+"stdout"] == b""
+    assert artifacts[ip+"stderr"] == b"gprbind: incorrect invocation\n"
+    for name in ("stdout", "stderr"):
+        assert digest(artifacts[ip+name]) == ir[name]
+    assert len(ii["input_identities"]) == 7
+    for path, row in ii["input_identities"].items():
+        if "/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/" in path:
+            suffix = path.split("/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/",1)[1]
+            assert digest(sources["gpr/"+suffix]) == row
+    ie = [json.loads(line) for line in artifacts[ip+"managed/events.jsonl"].splitlines()]
+    iprep, = [e for e in ie if e["event"] == "prepared"]
+    ifinish, = [e for e in ie if e["event"] == "finished"]
+    iphase, = [e for e in ie if e["event"] == "phase-end" and e["phase"] == "native-tool"]
+    assert ifinish["outcome"] == "success" and iphase["returncode"] == 0
+    ipins = iprep["inputs"]["inputs_sha256"]
+    iscript, = [v for p,v in ipins.items() if p.endswith("/silver-gprbind-initialization-20261018/run.py")]
+    assert iscript == digest(artifacts[ip+"run.py"])["sha256"]
+    for path, row in ii["input_identities"].items():
+        if path in ipins:
+            assert ipins[path] == row["sha256"]
+    gprbind = sources["gpr/src/gprbind.adb"]
+    assert b'if Argument_Count /= 1 then\n      Fail_Program (null, "incorrect invocation");' in gprbind
+    assert gprbind.index(b'if Argument_Count /= 1 then') < gprbind.index(b"Exchange_File_Name := new String'(Argument (1));")
+    assert b"begin\n   Initialize_Tables;\nend GPR.Cset;" in sources["gpr/gpr/src/gpr-cset.adb"]
+    assert b"begin\n   Temp_Files_Table.Init (Temp_Files);\nend GPR;" in sources["gpr/gpr/src/gpr.adb"]
+    assert b"Executable_Extension_On_Target := Name_Enter;" in sources["gpr/gpr/src/gpr-util.adb"]
+    assert b"Use_Temp_Dir (Status => True);" in sources["gpr/gpr/src/gpr-tempdir.adb"]
+    assert b"Path_Buffer : String (1 .. End_Path + 2 * Max_Path + 4);" in oslib
+    adaint = sources["gcc/ada/adaint.c"]
+    assert b"apath_val = (char *) alloca (strlen (path_val) + 1);" in adaint
+    assert b"(char *) alloca (strlen (path_val) + strlen (file_name) + 2);" in adaint
+    path_bytes = len(ii["environment"]["PATH"])
+    prefix_bytes = result["gprbind_generated_output_scan"]["prefix_path_string_bytes_bound"]
+    assert prefix_bytes == 545
+    result["gprbind_fixed_initialization"] = {
+        "managed_run_id":ifinish["run_id"], "diagnostic_returncode":7,
+        "duration_seconds":ir["duration_seconds"], "managed_duration_seconds":ifinish["duration_seconds"],
+        "retained_input_count":7, "working_directory_bytes":113,
+        "temporary_root_bytes":4, "environment_PATH_bytes":path_bytes,
+        "temporary_directory_fallback_literal_payload_bytes":42,
+        "temporary_directory_fallback_literal_string_count":7,
+        "util_empty_suffix_name_entry_events":1,
+        "scope":"fixed initialization reached expected usage diagnostic before exchange-file allocation; input read projection, not measured peak memory or whole-program acceptance",
+    }
+    result["gprbind_path_interfaces"] = {
+        "normalization_path_buffer_bytes":"N+2*M+4, N=input path bytes; M=runtime max_path_len",
+        "absolute_executable_lookup_PATH_copy_bytes":path_bytes+1,
+        "absolute_executable_lookup_each_C_name_copy_bytes_bound":len(argv[0])+1,
+        "absolute_executable_lookup_returned_C_string_bytes_bound":len(argv[0])+1,
+        "absolute_executable_lookup_returned_Ada_string_bytes_bound":len(argv[0]),
+        "regular_library_basename_bytes_bound":len(b"libgnat.a"),
+        "regular_library_path_prefix_bytes_bound":prefix_bytes,
+        "regular_library_Ada_C_name_and_path_bytes_bound":len(b"libgnat.a")+1+prefix_bytes+1,
+        "regular_library_C_nested_stack_buffers_bytes_bound":(len(b"libgnat.a")+1)+(prefix_bytes+len(b"libgnat.a")+2),
+        "regular_library_returned_C_string_bytes_bound":len(paths[3])+len(b"libgnat.a")+1,
+        "regular_library_returned_Ada_string_bytes_bound":len(paths[3])+len(b"libgnat.a"),
+        "scope":"selected caller representations and bounded libc/OS requests; libc implementation internals are not an additional capacity prerequisite",
     }
     return result
 

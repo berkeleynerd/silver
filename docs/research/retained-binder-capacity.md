@@ -932,9 +932,81 @@ appends once, and deletion traverses that single entry (`gpr.adb:279–327,
 1350–1360`); the dynamic table's first backing has ten slots
 (`gpr.ads:2916–2921`). Its name/path character storage is still covered by
 the earlier temporary-template bound, and is separate from the four ALI-parser
-name entries. Remaining fixed-process work includes runtime elaboration,
-filesystem normalization/search and libc internals; these interface bounds
-do not certify all such code or provide a physical-memory total.
+name entries. The following projection supplies fixed initialization and
+selected normalization/search evidence. These are caller representation
+bounds, not a physical-memory total. The ordinary trusted libc/OS boundary
+includes correct library semantics and resource availability; auditing libc
+internals is not an additional capacity prerequisite.
+
+### Fixed initialization and selected path interfaces
+
+Managed run `20261018T113833-a859174fb659` invoked the installed Gprbind with
+zero arguments, a 113-character empty working directory, and exactly the
+selected `PATH`, `LC_ALL=C`, `TMPDIR=/tmp` environment. It reached the expected
+`gprbind: incorrect invocation` diagnostic: exit **7**, **30 stderr bytes**,
+empty stdout, and **0.00349 seconds** in Gprbind (**2.14444 seconds** managed).
+The binary and six retained source identities were unchanged, and the working
+directory remained empty. This is a successful initialization diagnostic,
+not an admitted-program compilation failure or a complete compile witness.
+No binder, compiler, assembler, linker or proof ran in the diagnostic.
+
+The guard is after library/program declaration elaboration, `Set_Program_Name`
+and `GPR.Set`, but before the exchange-file name allocation and open
+(`gprbind.adb:226–238`). Main source bytes and ALI metadata therefore cannot
+affect this prefix. The directly selected source initializers are:
+
+| Initializer | Input and effect |
+| --- | --- |
+| `GPR` (`gpr.adb:2452–2454`) | Initializes the empty temporary-file table. |
+| `GPR.Cset` (`gpr-cset.adb:253–255`) | Initializes the fixed character tables. |
+| `GPR.Osint` (`gpr-osint.adb:583–585`) | Resets the fixed unknown-file-attributes record. |
+| `GPR.Util` (`gpr-util.adb:6167–6175`) | Obtains the fixed target executable suffix, enters its empty Linux name, and frees the temporary String. This is a preexisting name entry; subsequent name-table bounds must not assume an initially empty table. |
+| `GPR.Tempdir` (`gpr-tempdir.adb:248–269,298–299`) | Reads the selected four-character `/tmp`, checks the absolute accessible directory, normalizes it, and returns before `TEMP`, `TMP`, default-directory and current-directory fallbacks. Its seven fallback literal Strings still exist: 42 payload characters in total (`:44–59`). |
+| Gprbind declarations and prefix (`gprbind.adb:40–161,226–236`) | Fixed suffix Strings, `gnatbind`, `000`, 1,000-character line/display buffers, empty vectors and the seven-character program name; `GPR.Set` only sets the displayed section (`gpr.adb:373–376`). |
+
+`GPR.Initialize` would append a tool directory to `PATH` and initialize project
+attributes (`gpr.adb:1236–1270`), but Gprbind does not call it. The captured
+prefix includes transitive library elaboration; the table attributes the
+selected source operations rather than claiming an exhaustive heap-byte
+inventory for every transitive package. The capture establishes that this
+fixed prefix completes in the retained environment. Its transfer uses the
+fixed initializer inputs and the absence of any Main/exchange read before
+the guard; it does not infer capacity for later code from elapsed time.
+
+For an input path of N characters, `Normalize_Pathname` owns a
+**N+2M+4-character** `Path_Buffer`, where M is the installed runtime's
+`__gnat_max_path_len` (`s-os_lib.adb:2041–2080`). Its copied return and
+`Final_Value` scratch are additional, bounded by the selected normalized
+path. Absolute inputs bypass current-directory fill. The selected descriptor
+fixes path resolution and symlinks; binder executable normalization explicitly
+disables link resolution. Arithmetic and full resulting paths must fit the
+runtime's `Integer` and M limits. M is a tool parameter, not an invented
+source-size allowance.
+
+Absolute executable search still copies `PATH`: the Linux C wrapper allocates
+`strlen(PATH)+1` before calling the locator (`adaint.c:3116–3127`). The inner
+locator copies its filename, tests the absolute path, and returns its duplicate
+before the search loop (`:2935–2971`). The Ada wrapper has another
+executable-length-plus-one C-name buffer, copies the returned path into an Ada
+String, and frees the C allocation (`s-os_lib.adb:1644–1688`). The selected
+binder is the longer executable name: each of these C-name/return buffers is
+at most **152 bytes**, with a **151-character** Ada result. The complete fixed
+`PATH` copy is recorded separately in `result.json`; no fallback search is
+selected when the absolute executable exists.
+
+Regular library search does use the bounded prefix constructed above. With a
+545-character prefix and longest basename `libgnat.a` (9 characters), its Ada
+C-name/path buffers total **556 bytes** (`s-os_lib.adb:1716–1738`). The nested C
+locator's two stack buffers total at most **566 bytes**: 10 plus
+545+9+2 (`adaint.c:2939,2989–2993`). Its loop advances through that finite
+prefix; it does not accumulate a buffer per directory. Each path component
+is at most the 181-character retained runtime directory, so a successful C
+result is at most **191 bytes** including NUL and the copied Ada result at
+most **190 characters**. These counts include both sides of the Ada/C
+interface. Filesystem predicates, allocation, process launch and stream
+operations then stop at their ordinary libc/OS contracts. A changed installed
+path, environment or symlink selection needs a new descriptor reconciliation;
+source trivia does not enlarge these requests.
 
 ### Selected search-directory and default-relocation projection
 
@@ -1256,8 +1328,11 @@ and options are not normalized into the indexed witness.
    fixed source/object search, printable single-line generated paths and
    matching artifacts. Bounds on variable Main ALI input length remain
    upstream; the Xref ignore rule does not remove reading that buffer.
-2. Complete the remaining driver/process storage, including fixed elaboration,
-   filesystem normalization/search and libc internals. Selected
+2. Complete the remaining driver/process composition. Fixed initialization
+   now has a selected-input diagnostic and source projection; selected
+   filesystem normalization/search has caller buffer and request bounds. The
+   ordinary trusted libc/OS boundary is not a new internals-audit prerequisite.
+   Selected
    binder arguments/search directories, exchange rows, argument vectors,
    Main-ALI parser/name contributions, generated-output scans, generation
    buffers, runtime argument/Text_IO representations, name tables and graph

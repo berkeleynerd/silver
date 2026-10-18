@@ -10086,6 +10086,20 @@
     ],
     "variable_path_comments_bypass_statement_buffer": true
   },
+  "gprbind_fixed_initialization": {
+    "diagnostic_returncode": 7,
+    "duration_seconds": 0.003490561997750774,
+    "environment_PATH_bytes": 156,
+    "managed_duration_seconds": 2.144435699,
+    "managed_run_id": "20261018T113833-a859174fb659",
+    "retained_input_count": 7,
+    "scope": "fixed initialization reached expected usage diagnostic before exchange-file allocation; input read projection, not measured peak memory or whole-program acceptance",
+    "temporary_directory_fallback_literal_payload_bytes": 42,
+    "temporary_directory_fallback_literal_string_count": 7,
+    "temporary_root_bytes": 4,
+    "util_empty_suffix_name_entry_events": 1,
+    "working_directory_bytes": 113
+  },
   "gprbind_generated_output_scan": {
     "adalib_directory_string_bytes": 181,
     "binder_body_line_bytes_bound": 191,
@@ -10127,6 +10141,20 @@
     },
     "version_scratch_bytes": 32
   },
+  "gprbind_path_interfaces": {
+    "absolute_executable_lookup_PATH_copy_bytes": 157,
+    "absolute_executable_lookup_each_C_name_copy_bytes_bound": 152,
+    "absolute_executable_lookup_returned_Ada_string_bytes_bound": 151,
+    "absolute_executable_lookup_returned_C_string_bytes_bound": 152,
+    "normalization_path_buffer_bytes": "N+2*M+4, N=input path bytes; M=runtime max_path_len",
+    "regular_library_Ada_C_name_and_path_bytes_bound": 556,
+    "regular_library_C_nested_stack_buffers_bytes_bound": 566,
+    "regular_library_basename_bytes_bound": 9,
+    "regular_library_path_prefix_bytes_bound": 545,
+    "regular_library_returned_Ada_string_bytes_bound": 190,
+    "regular_library_returned_C_string_bytes_bound": 191,
+    "scope": "selected caller representations and bounded libc/OS requests; libc implementation internals are not an additional capacity prerequisite"
+  },
   "gprbind_runtime_interfaces": {
     "binder_spawn_C_pointer_slots": 8,
     "binder_spawn_argument_count": 6,
@@ -10136,7 +10164,7 @@
     "compiler_spawn_argument_count": 15,
     "compiler_spawn_command_bytes": 281,
     "linux_argument_quote_expansion": false,
-    "scope": "selected runtime-owned argument and Text_IO representations; fixed initialization, libc and OS resource success remain separate",
+    "scope": "selected runtime-owned argument and Text_IO representations; libc/OS semantics and resource availability are the ordinary trusted boundary",
     "temp_registry_backing_slots": 10,
     "temp_registry_entries": 1,
     "text_Get_Line_auxiliary_bytes": 80,
