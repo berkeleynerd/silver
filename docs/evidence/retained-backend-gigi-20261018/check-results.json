@@ -1,6 +1,6 @@
 {
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_checked": 14,
+  "source_files_checked": 15,
   "arithmetic": {
     "binding_push_coefficients": {
       "U": 1,
@@ -45,6 +45,23 @@
       6
     ],
     "string_copy_requested_bytes_lp64": "stored payload length + 21",
+    "call_input_adaptation_requests_per_actual": 8,
+    "call_compound_helper_requests": "2*P+C",
+    "call_assignment_helper_requests": "2*P+2*C",
+    "call_component_reference_requests": "P+C",
+    "call_unary_helper_requests": "P+2*C",
+    "call_direct_statement_append_requests": "3*P+4*C",
+    "call_actual_type_resolution_requests": "4*P",
+    "ordinary_object_direct_variable_declaration_requests": 4,
+    "local_type_backannotation_annotate_value_requests": 2,
+    "local_type_backannotation_UI_From_Int_requests": 1,
+    "one_dimensional_template_constructor_elements": 2,
+    "stabilization_new_nodes": "n1+n2+n3+n4+s",
+    "stabilization_new_operand_slots": "n1+2*n2+3*n3+4*n4+s",
+    "string_equality_size_binary_requests": 4,
+    "string_equality_conversion_requests": 10,
+    "string_equality_scalar_binary_requests": 8,
+    "string_equality_fold_build2_requests": 4,
     "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success"
   },
   "compiler_runs": 0,

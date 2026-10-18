@@ -1,4 +1,4 @@
-# Retained native gigi traversal and cleanup interface
+# Retained native gigi constructor and cleanup interfaces
 
 2026-10-18, Linux x86_64, [#119](https://github.com/berkeleynerd/silver/issues/119).
 This is a source-derived component of the unfinished
@@ -422,3 +422,283 @@ argument/return adaptation, assignment/comparison helpers, common conversion
 wrappers and statement-list links; the generic GCC folding/copy transfer must
 then price the selected helper requests. These joins precede any total
 GENERIC constructor/edge bound. No arbitrary per-node multiplier replaces them.
+
+## Selected call adaptation
+
+`Call_to_gnu` (`trans.cc:4705–5670`) separates source traversal from ABI
+adaptation. Its first loop converts each actual once, sometimes selecting the
+inner expression of a suppressed conversion. The later copy-in/copy-out loop
+uses the saved GNU names and result fields; it does not convert the source
+actual a second time. The subprogram name is converted once per call.
+
+Use `C` calls, `P` actual positions, and `P_profile` formal positions visited
+by `elaborate_profile`. Selected direct runtime calls have no variadic, stubbed,
+atomic, storage-model or frontend Likely/Expect route. The native expansion
+argument excludes additional source formals for these signatures; retaining
+`P_profile` separately makes the profile elaboration edge explicit. The
+following are cumulative **request** bounds, before helper internals:
+
+| Requests | Bound | Source accounting |
+| --- | --- | --- |
+| Ordinary/unchecked input adaptation | `8 P` | nominal type 1, aliasing 1, input unpadding 1, restored actual conversion 1; by-reference arm at most 4, by-copy arm at most 2 (`5037–5066,5143–5270`) |
+| Stabilize-reference helper | `P` | non-reference Out/In_Out actual (`4964–4973`) |
+| Compound helper | `2 P + C` | stabilization initializer, initialized A temporary, final returned value (`4970–4973,5107–5109,5654–5665`) |
+| A temporary | `P` | mutually exclusive uninitialized/initialized forms (`5100–5109`) |
+| R/P result temporary | `C` | the already-proved shared `gnu_retval` guard |
+| Assignment binary helper | `2 P + 2 C` | A initialization and by-reference copyback; CICO assignment is in the disjoint non-reference arm. Per call, result initialization and target assignment |
+| Component-reference helper | `P + C` | CICO actual extraction and optional function-result extraction (`5454–5458,5550–5556`) |
+| Unary helper | `P + 2 C` | one actual address, core function address, optional direct-reference result dereference |
+| Extra CICO checked conversion | `P` | ordinary conversion actual (`5482–5487`) |
+| Extra CICO ordinary/unchecked conversion | `P` | target or result adaptation (`5489–5509`) |
+| `maybe_unconstrained_array` | `P` | CICO extraction; foreign component-pointer arm can replace, not coexist with, that arm |
+| `maybe_padded_object` | `P` | same disjoint CICO/foreign alternatives |
+| Saved-name TREE_LIST | `P` | one Out/In_Out name in by-copy or omitted-input arm |
+| Core CALL_EXPR | `C`, at most `P + 3 C` operand slots | each actual contributes at most one call argument; no Likely/Expect extra arguments |
+
+The assignment bound includes the INIT hidden in `create_init_temporary`
+(`trans.cc:4603–4613`). It does not charge that INIT a second time as a
+separate helper expansion. Per-actual assignment cases can be enumerated:
+non-reference actual has at most one CICO assignment; reference actual has at
+most an A initialization plus its copyback. At the call level, R initialization
+and P initialization are alternatives, followed by at most one target write.
+
+The direct append-to-list invocations in this routine are at most `3 P + 4 C`:
+actual copyback, omitted Out actual address, CICO assignment, result
+initialization, target/procedure statement, after-list merge and enclosing
+`add_stmt`. This deliberately charges the three actual alternatives together;
+helper-internal appends, BIND finalization and merged-list link traversal are
+separate. The actual vector reserves at most `P` entries, apart from its fixed
+16-entry inline storage per active call. Vector growth and capacity rounding
+need the normal container transfer.
+
+Type-resolution requests are separate from these expression helpers.
+`elaborate_profile` makes `P_profile` formal and at most `C` result type
+requests (`4680–4691`). The main actual loop makes at most `4 P` type requests:
+formal, actual, real-object nominal type and unpadded actual type. Returning a
+value without a target adds at most `C` unpadded result-type requests. They may
+hit an existing entity association; counting every request as an event is safe,
+but counting each as a fresh whole type graph without the caching argument is
+not useful. Likewise the fixed runtime function profile remains distinct from
+its per-call argument adaptation.
+
+## Local declaration and type events
+
+The variable native entity frontier consists of ordinary objects/captures,
+loop/block scopes, signed Integer subtypes, constrained String array subtypes,
+String literal subtypes and the generated access-to-constrained-String type for
+secondary-stack concatenation. Base String, record types and the access-all
+unconstrained String type belong to the fixed imported-root graph. There is no
+source-dependent recursive record, base-array or subprogram type graph.
+
+`create_var_decl` requests exactly one CONST_DECL or VAR_DECL
+(`utils.cc:3018–3133`). Its declaration insertion calls `gnat_pushdecl`, which
+links a local declaration directly into the current BLOCK rather than
+allocating a TREE_LIST for that link (`894–990`). `add_decl_expr` requests one
+DECL_EXPR before checking external/global placement, except for its early
+non-declaration/unconstrained-type exclusions (`trans.cc:9104–9185`). It may
+also request one `maybe_padded_object`, one INIT binary helper and its
+statement insertion if the attached initializer cannot remain in DECL_INITIAL.
+A temporary with no attached initializer cannot take that latter route.
+
+For each actual uncached ordinary-object entity conversion, direct declaration
+sites request at most four variable/constant declarations: optional ALIGN,
+optional UNC, the main declaration and optional corresponding constant
+variable (`decl.cc:1507–1693`). This is deliberately an upper bound over
+mutually restricted branches. Materialized lvalue renaming is an alternative
+ending in `break`, with at most one direct variable declaration
+(`1177–1205`); its reference elaboration remains a separate helper.
+The over-alignment, padding and allocator helpers can request further type,
+expression or declaration work and are not included in four. Generated Main
+objects have no Ada Out-parameter declaration, so the optional fake debugging
+PARM_DECL at `1643–1664` belongs only to other fixed functions.
+
+For each **uncached branch visit**, the principal selected type requests are:
+
+| Type branch | Requests before common type finishing and callee internals |
+| --- | --- |
+| Ordinary signed Integer subtype (`decl.cc:1901–2003`) | one signed/unsigned integer-type helper, one base-type lookup, two bound `elaborate_expression` requests, one type-stub declaration |
+| String literal subtype (`3142–3193`) | one full String type lookup, one component-type lookup, at most one source lower-bound traversal, four conversions, one `UI_To_gnu` length, at most two integer constants, one binary helper, one `int_const_binop`, one range-type helper, one index-type helper, one nonshared-array-type helper |
+| One-dimensional constrained String subtype (`2577–3140`) | one parent, one index, one base-index and one component-type lookup; at most two `max_value`, one `update_n_elem`, five conversions, one overflow-probe `fold_build2`, one binary and one conditional helper, one integer-constant/size binary shift, one index-type helper, one nonshared-array-type helper, one final maximum-size multiply and one type-stub declaration |
+| Local access-to-constrained-String (`3810–4056`) | one designated-type lookup, one pointer-type helper; at most one const-qualified-type helper if the access-constant flag is present |
+
+The constrained-array subtype row includes the debug-encoding alternative:
+at most one debug RECORD_TYPE, one field helper, one record-finalization helper,
+one parent-type entity lookup and two `add_parallel_type` requests. The ordinary
+row has one dimension, hence no inner-dimension stride variables. No packed,
+Fortran, reverse-storage, aliased-component or volatile branch is silently
+included. A `max_value` request can inspect and reconstruct an existing scalar
+expression; its generic cost is not zero. All literal counts are independent of
+the character count: payload bytes belong to STRING_CST events.
+
+The access type's designated subtype is a complete local constrained array;
+it is neither private/incomplete nor from a limited-with unit, and cannot point
+to itself. Therefore this variable branch does not build a dummy fat-pointer
+graph or enqueue an incomplete-type fixup. A constrained-array pointer is an
+ordinary pointer, even though a later call may convert it to a fixed String
+fat-pointer type.
+
+Common finishing (`decl.cc:4530–5022`) adds at most one `validate_size`, one
+`validate_alignment`, one `make_type_from_size`, one `maybe_pad_type`, one
+`set_rm_size`, one extra
+stripped type declaration and one final type declaration per local type visit.
+The global size and record-field elaboration loops are excluded for these local
+Main types. Size backannotation can request at most two `annotate_value` and
+one `UI_From_Int`; that native Uint/metadata work must be included in the native
+backannotation transfer. Alias registration, debug contexts and identifier/name
+construction remain metadata rather than executable-tree operands.
+
+The smaller helpers have explicit local transfers:
+
+- `create_index_type` requests one nonshared range-type helper and one type
+  declaration (`utils.cc:2861–2871`). `create_range_type` requests one nonshared
+  range type and sets two language-specific RM bound slots (`2877–2894`).
+- `create_type_stub_decl` requests one TYPE_DECL (`2918–2925`).
+  `create_type_decl` requests at most one TYPE_DECL, reusing an unnamed stub
+  when possible, then calls `gnat_pushdecl` (`2938–2988`). Named nonartificial
+  pointer insertion may request one `build_variant_type_copy`
+  (`1010–1035`); artificial generated access types avoid that branch.
+- `elaborate_expression` traverses its source bound once on an association
+  miss and saves the result unless it contains a placeholder
+  (`decl.cc:7532–7566`). The variable scalar/constrained-String bounds have no
+  record discriminant placeholder. Its `_1` helper requests at most one named
+  variable and at most one `gnat_save_expr` (`7569–7658`); the O0 loop-bound
+  subtype case deliberately uses a variable to prevent repeated evaluation.
+  `_2` adds at most one `size_int` and two `size_binop`, invoking `_1` once.
+- `update_n_elem` requests two conversions and three `size_binop`
+  (`7169–7197`).
+- Character component conversion (`5538–5691`) has one component-type lookup,
+  one size validator, and at most one each of `make_type_from_size`,
+  `maybe_pad_type` and extra type declaration. Its selected ordinary Character
+  component has no record packing, zero-size aliased component or atomic work.
+- `make_type_from_size` on ordinary scalar types requests at most one
+  signed/unsigned type helper, one `bitsize_int` and sized-type canonicalization;
+  it leaves ordinary array types unchanged (`utils.cc:1522–1613`).
+  A pointer/fat-pointer alternative requests at most one pointer-type helper.
+- `maybe_pad_type` (`1691–1935`) removes an existing padding layer before
+  repadding. Its direct worst branch requests two RECORD_TYPEs, two field
+  helpers, two record-finalization helpers, one reference-type helper, one
+  `add_parallel_type`, one XVZ variable, one conversion and one `size_binop`.
+  It can additionally request two `round_up`, one `max_size` and, for a small
+  nonfat record, one `make_packable_type`. This is not a recursive stack of new
+  padding layers. Layout and the fixed record frontier still price those
+  helpers; canonical table growth is separate metadata.
+
+In particular, a complete local-variable bound must add the named-bound,
+padding-XVZ, object/capture and generic temporary events to `C+P`; the call
+bound alone is not a bound on all BIND locals.
+
+## One-dimensional descriptors and shared references
+
+A String template has two scalar fields. `build_template`
+(`utils.cc:4401–4460`) iterates once, requests two conversions, two placeholder
+substitutions, appends two constructor elements and requests one
+`gnat_build_constructor`. That helper requests one CONSTRUCTOR after inspecting
+its existing element values (`utils2.cc:2166–2220`). It does not recursively
+copy them. Its `initializer_constant_valid_p` and bitfield predicates remain
+explicit generic predicate work; sorting a two-element record does not expand
+an expression.
+
+`convert_to_fat_pointer` has these alternatives (`utils.cc:4794–4905`):
+
+| Input | Requests before callee internals |
+| --- | --- |
+| ordinary nonnull constrained-array pointer | one template helper, one ADDR unary helper, one pointer conversion, one two-element constructor |
+| shifted thin pointer | one protect, one pointer-plus binary helper, one `fold_build1(NEGATE)`, one byte-position helper, one `fold_convert`, one final pointer conversion, one two-element constructor |
+| unshifted thin pointer | one protect, three unary helpers, two component-reference helpers, one final pointer conversion, one two-element constructor |
+| null pointer | at most one empty bounds CONSTRUCTOR and ADDR unary helper, one `fold_convert`, one two-element CONSTRUCTOR |
+
+The null-bounds cache can reduce those requests but is not needed for the upper
+bound. Converting constrained to unconstrained String adds an outer address
+and dereference helper around this fat-pointer conversion
+(`utils.cc:5591–5627`). A gigi unconstrained-array reference is a special
+one-operand node, not a source-level copy of the String payload.
+
+`maybe_padded_object` is at most one conversion (`gigi.h:1299–1307`).
+`maybe_unconstrained_array` (`utils.cc:5764–5851`) on an unconstrained-array
+reference requests at most two component references and two dereference
+helpers, plus one plain COND_EXPR when the fat pointer is conditional. On a
+template-containing record it instead requests at most one conversion, one
+component reference and one `maybe_padded_object`. The NULL alternative
+requests one unary NULL_EXPR. Storage-model LOAD recursion is excluded.
+
+For a direct known descriptor/result field, `build_component_ref` requests
+one ternary COMPONENT_REF and, unless disabled, one `fold`
+(`utils2.cc:2225–2330`). A preexisting view-conversion spine can be searched
+first: with `v` such wrappers, charge at most `v+1` direct field attempts and
+at most `v` unpadding conversions. Internal-record-field search is unnecessary
+for the selected direct descriptor fields. Fixed record offsets fit their
+representation; an overflowing-offset error path would add a raise helper and
+NULL_EXPR and cannot be assumed away for arbitrary user record types.
+
+Protection and stabilization are different. `gnat_stabilize_reference`
+(`utils2.cc:3181–3380`) first follows an lvalue-reference spine, rebuilding each
+unary/ternary/quaternary wrapper once. Its scalar callback can then recurse
+through **both** operands of a binary expression. Let `n1,n2,n3,n4` count the
+visited wrapper/operator occurrences by arity and `s` count terminal save
+requests across this traversal. Its direct constructor bound is
+`n1+n2+n3+n4+s`, with `n1+2*n2+3*n3+4*n4+s` operand slots. These are traversal
+occurrences, not distinct-node identities: shared binary DAGs must be charged
+by their incoming paths unless a separate memoization/sharing argument applies.
+Stable constants/declarations and existing SAVE expressions stop traversal.
+It never makes a STRING_CST payload copy at this site.
+
+## Aggregate assignment and String equality
+
+String/descriptor INIT and MODIFY use the aggregate branch of `build_binary_op`
+(`utils2.cc:1013–1197`), not its scalar row. Before the final plain binary node,
+its selected broad envelope is three ordinary conversions, one unchecked
+conversion, and one `find_common_type`; the two-conversion small-padded branch
+and the one-conversion padded-view branch are alternatives. LHS conversion and
+reference stripping walks the existing operand-zero spine without copying it.
+`find_common_type` (`216–272`) selects an existing type; it does not construct
+a new one. Conversion internals, including String payload-copy opportunities,
+remain charged separately.
+
+For one-dimensional String equality, `compare_arrays_for_equality`
+(`utils2.cc:286–456`) requests at most:
+
+```text
+2 protect helpers; 4 size_binop; 10 ordinary conversions;
+8 scalar binary helpers; 4 fold_build2;
+6 placeholder substitutions; 2 plain COMPOUND_EXPR;
+1 maybe_character_type; 1 find_common_type.
+```
+
+The dimension loop runs once. Ten conversions comprise three initial Booleans,
+four stored bounds, one constant nullness Boolean and two data operands.
+Eight scalar binary helpers comprise up to two bound differences, three
+per-dimension Boolean joins, one data join and two final nullness joins.
+The direct folder requests comprise at most three comparison tests and the
+final **array** equality. The two nullness alternatives can reduce these
+maxima. String inequality adds one `invert_truthvalue_loc` at the caller.
+The generic folder and gimplifier must therefore price aggregate EQ/NE, not
+only scalar comparisons. This local transfer does not enumerate characters or
+copy the compared arrays; subsequent memcmp/block lowering remains separate.
+
+## Unresolved terms for whole-backend composition
+
+These interfaces remove the per-call/per-type arity ambiguity; they do not yet
+supply one complete, usable constructor coefficient. The remaining joins are:
+
+1. Bound actual uncached entity conversions, type visits, bound traversals and
+   rewritten reference occurrences from the native expansion vector. Preserve
+   the source-preparation duplicate scalar check edges described above.
+2. Price gigi `convert`/`unchecked_convert`, address/dereference and allocator
+   helpers over the selected scalar, ordinary pointer, String, fat pointer,
+   bounds/template and secondary-stack frontier, including padding wrappers.
+   The descriptor alternatives above are local pieces of this closure, not a
+   flat cost for every possible conversion pair.
+3. Price generic folding, `convert_to_integer`/pointer/complex, placeholder
+   substitution, `max_value`/`max_size`, type/range/array layout and copy/unshare
+   work on the actual incoming edge/shape vector. SAVE_EXPR protection and
+   constant reuse must be retained where the source guarantees them.
+4. Join declaration insertion, type language slots, identifiers/debug contexts,
+   canonical tables, statement lists, constructor/actual vectors and native
+   backannotation metadata. Executable operand slots do not bound these stores.
+5. Apply gimplification, nested-function lowering, cleanup/CFG and target
+   lowering/emission transfers. The earlier cleanup interface fixes its control
+   frontier but is not an x86 machine-code or assembler bound.
+
+No local source path found here forces a larger source-language construct or a
+patched compiler. Whether the composed predicate admits a useful larger domain
+still depends on closing these transfer terms without an arbitrary multiplier.
