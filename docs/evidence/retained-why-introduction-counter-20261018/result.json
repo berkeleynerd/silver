@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "platform": "linux-x86_64",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "ocaml_revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "scope": "Introduction.Hsdecl private counter value only",
+  "inventory": {
+    "counter_occurrences": [
+      {
+        "line": 37,
+        "text": "let next_tag = ref 0"
+      },
+      {
+        "line": 42,
+        "text": "let d = H.tag !next_tag d in"
+      },
+      {
+        "line": 44,
+        "text": "if o == d then incr next_tag;"
+      },
+      {
+        "line": 48,
+        "text": "let d = H.tag !next_tag d in"
+      },
+      {
+        "line": 49,
+        "text": "incr next_tag;"
+      }
+    ],
+    "local_introduction_Hsdecl_occurrences": [
+      {
+        "line": 33,
+        "text": "module Hsdecl = Hashcons.Make (struct"
+      },
+      {
+        "line": 176,
+        "text": "let o = Hsdecl.hashcons d in (* o.d_news is the prsymbol *)"
+      }
+    ],
+    "hashcons_functor_applications": {
+      "src/core/decl.ml": [
+        {
+          "line": 340,
+          "text": "module Hsdecl = Hashcons.Make (struct"
+        }
+      ],
+      "src/core/ident.ml": [
+        {
+          "line": 29,
+          "text": "module Hsattr = Hashcons.Make (struct"
+        }
+      ],
+      "src/core/task.ml": [
+        {
+          "line": 88,
+          "text": "module Hstask = Hashcons.Make (struct"
+        }
+      ],
+      "src/core/theory.ml": [
+        {
+          "line": 214,
+          "text": "module Hstdecl = Hashcons.Make (struct"
+        }
+      ],
+      "src/core/ty.ml": [
+        {
+          "line": 90,
+          "text": "module Hsty = Hashcons.Make (struct"
+        }
+      ],
+      "src/mlw/ity.ml": [
+        {
+          "line": 125,
+          "text": "module Hsity = Hashcons.Make (struct"
+        }
+      ],
+      "src/transform/introduction.ml": [
+        {
+          "line": 33,
+          "text": "module Hsdecl = Hashcons.Make (struct"
+        }
+      ]
+    },
+    "direct_introduction_references": {
+      "src/gnat/gnat_main.ml": [
+        {
+          "line": 320,
+          "text": "List.iter Introduction.add_unique_prefix"
+        }
+      ],
+      "src/transform/gnat_trivial.ml": [
+        {
+          "line": 18,
+          "text": "Trans.singleton Introduction.simplify_intros;"
+        }
+      ],
+      "src/transform/introduction.ml": [
+        {
+          "line": 139,
+          "text": "Failure \"Introduction.intro_var: anomaly, please report\""
+        }
+      ],
+      "src/transform/prepare_for_counterexmp.ml": [
+        {
+          "line": 21,
+          "text": "Introduction.remove_unused_from_context;"
+        },
+        {
+          "line": 28,
+          "text": "Introduction.dequantification"
+        }
+      ],
+      "src/transform/reflection.ml": [
+        {
+          "line": 739,
+          "text": "in Trans.compose Introduction.remove_unused_from_context (Trans.store tr)"
+        }
+      ]
+    },
+    "source_files_scanned": 293
+  },
+  "signed_integer_arithmetic": {
+    "bits": 63,
+    "minimum": -4611686018427387904,
+    "maximum": 4611686018427387903,
+    "modulus": 9223372036854775808,
+    "successor_of_maximum": -4611686018427387904,
+    "encoded_maximum": 9223372036854775807,
+    "encoded_minimum": 9223372036854775809
+  },
+  "accepted_dispatch": {
+    "registered_tasks": 153,
+    "task_driver_pairs": 459,
+    "outer_directives": 6120
+  },
+  "same_object_hits_can_increment": true,
+  "source_semantics_machine_checked": false,
+  "relevant_source_runtime_behavior_required": true,
+  "introduction_counter_value_irrelevant": true,
+  "natural_counter_no_wrap_bound_established": false,
+  "event_bound_required_for_counter_value_irrelevance": false,
+  "other_hashcons_counters_exempted": false,
+  "hashcons_event_count_established": false,
+  "weak_table_capacity_established": false,
+  "structural_traversal_capacity_established": false,
+  "prepared_task_domain_capacity_established": false,
+  "shared_preparation_lifetime_established": false,
+  "backend_task_printer_capacity_established": false,
+  "whole_tail_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "production_configuration_adopted": false,
+  "target_executions": 0
+}

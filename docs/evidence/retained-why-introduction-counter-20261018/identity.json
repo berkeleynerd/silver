@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "integration": "6180f77708e9443f14f7bf78fca19a34be973531",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "ocaml_revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "dependencies": {
+    "docs/evidence/retained-producer-driver-envelope-20261018/inputs.json": {
+      "bytes": 7094,
+      "sha256": "7cf91642571924ea1cc81c02a983605f4fe3e3be538440f9a42bcc9d6712beac"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/sources.tar.gz": {
+      "bytes": 104488,
+      "sha256": "cde4b3e2e77cc0c714f706c87507c02116d78a35b70789a92aca31dbe5a3bd89"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/compose.py": {
+      "bytes": 7117,
+      "sha256": "b0ea9b9f86c185f2398998d3e1c09c2ac94bcb0d1d6cac241921633faff37609"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/review.md": {
+      "bytes": 9368,
+      "sha256": "f67bbb105673abbf7412fdf8b9b2684e6410aff2fe342eb3a6619bb556a27706"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz": {
+      "bytes": 1150445,
+      "sha256": "e90b4625cd14f94fa7e594711225dd357b29769031811d3eb4d65a1edefeb15a"
+    },
+    "docs/evidence/retained-producer-prefix-composition-20261018/identity.json": {
+      "bytes": 50366,
+      "sha256": "329c367d286854f6ce3239444496fde37e153065782816e4c09d0c6609dc63f2"
+    },
+    "docs/evidence/retained-producer-prefix-gc-20261018/sources.tar.gz": {
+      "bytes": 332531,
+      "sha256": "3eff014e78c5c99386de6ac6db14f2db77f9034b5438370c7b4a1c620a4b7d7b"
+    },
+    "docs/evidence/retained-producer-prefix-gc-20261018/identity.json": {
+      "bytes": 35016,
+      "sha256": "003d10e01f9c8c62559d02565be07b368e39cc0dc5639594f429a19dfa053780"
+    },
+    "docs/evidence/retained-producer-response-20261018/identity.json": {
+      "bytes": 15399,
+      "sha256": "d270de406db0b641dee37c84ff2ef458f9c5c53bcd5538df033715eebc0eb94a"
+    }
+  },
+  "archive": {
+    "bytes": 33931,
+    "sha256": "5fd19daa0197f3905f92414207074993ce14ece08f373a02f1db75acd0dbe82d"
+  },
+  "members": {
+    "ocaml/LICENSE": {
+      "bytes": 27179,
+      "sha256": "65f47d3bf5a921011ac7fa30f23d54f9dffbe7683921eeb116d5ce8dc26ff0c1"
+    },
+    "ocaml/runtime/caml/mlvalues.h": {
+      "bytes": 15987,
+      "sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29"
+    },
+    "ocaml/stdlib/stdlib.ml": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "ocaml/stdlib/stdlib.mli": {
+      "bytes": 55259,
+      "sha256": "81a879fd428fff1a7d90af822c94b130ca2a7742d2c68200eaf6b7e24380cc1a"
+    },
+    "why3/src/transform/introduction.mli": {
+      "bytes": 3079,
+      "sha256": "9512d960343df3075d40e0ea20323ff65a7e307f89d31b2e0e0195b1974d217e"
+    },
+    "why3/src/util/hashcons.mli": {
+      "bytes": 2660,
+      "sha256": "3b24d896c6ebabe0a9a38d209ca3c4e24176c43c4aae2f163bdaf83b2c6c7175"
+    }
+  },
+  "why3_archive": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+  "gc_archive": "docs/evidence/retained-producer-prefix-gc-20261018/sources.tar.gz",
+  "dispatch_archive": "docs/evidence/retained-producer-driver-envelope-20261018/sources.tar.gz",
+  "weak_source": {
+    "bytes": 10954,
+    "sha256": "a99aeef0afb0ae7fbac75d4161a47bb736982d8a74628eb270be3a581f884c76"
+  },
+  "acquisition": {
+    "date": "2026-10-18",
+    "source_urls": {
+      "ocaml/LICENSE": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/LICENSE",
+      "ocaml/runtime/caml/mlvalues.h": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+      "ocaml/stdlib/stdlib.ml": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+      "ocaml/stdlib/stdlib.mli": "https://raw.githubusercontent.com/ocaml/ocaml/8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.mli",
+      "why3/src/transform/introduction.mli": "https://raw.githubusercontent.com/AdaCore/why3/9390baf120ef260547dfa14f08e11c890b203d9c/src/transform/introduction.mli",
+      "why3/src/util/hashcons.mli": "https://raw.githubusercontent.com/AdaCore/why3/9390baf120ef260547dfa14f08e11c890b203d9c/src/util/hashcons.mli"
+    },
+    "why3_interface_archive_join": {
+      "record": "docs/evidence/retained-producer-response-20261018/identity.json",
+      "sha256": "8d4a8dcdcdf965ce3cc6935bdd60c1378a5ec47b4a0bdedae6651ee50ed03f8c",
+      "checked_once_against_existing_complete_archive": true,
+      "complete_archive_in_this_packet": false
+    }
+  },
+  "round": {
+    "selected_model": "GPT-6.1 Sol",
+    "selected_effort": "Extra High",
+    "runtime_settings_independently_confirmed": false,
+    "tokens": null,
+    "cost": null,
+    "started_utc": "2026-10-18 19:11:04 UTC",
+    "finished_utc": "2026-10-18 19:18:10 UTC",
+    "elapsed_seconds": 426,
+    "phase": "bounded source analysis and offline replay; parent review/integration excluded",
+    "target_executions": 0,
+    "native_builds": 0,
+    "proof_runs": 0,
+    "full_suite_runs": 0,
+    "cli_memory_updated": false,
+    "intended_outcome": "Resolve the same-object-hit counter-value gap without weakening a relevant representation condition",
+    "achieved_result": "Counter-value irrelevance established under retained source/runtime premise; table, traversal and whole-tail capacity remain open",
+    "material_self_review_rework": "Separated natural event count from discarded machine counter; retained real Decl.Hsdecl tag obligations; disabled imported bytecode cache writes",
+    "verification": {
+      "command": "python3 -B docs/evidence/retained-why-introduction-counter-20261018/check.py",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "elapsed_seconds": 0.3823971019992314
+    }
+  }
+}
