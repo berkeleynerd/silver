@@ -2541,6 +2541,100 @@ LF line numbering; complete file identities checked.
 8088:     }
 ```
 
+## gcc/tree.cc:11024–11113
+```text
+11024: build_vl_exp (enum tree_code code, int len MEM_STAT_DECL)
+11025: {
+11026:   tree t;
+11027:   int length = (len - 1) * sizeof (tree) + sizeof (struct tree_exp);
+11028:
+11029:   gcc_assert (TREE_CODE_CLASS (code) == tcc_vl_exp);
+11030:   gcc_assert (len >= 1);
+11031:
+11032:   record_node_allocation_statistics (code, length);
+11033:
+11034:   t = ggc_alloc_cleared_tree_node_stat (length PASS_MEM_STAT);
+11035:
+11036:   TREE_SET_CODE (t, code);
+11037:
+11038:   /* Can't use TREE_OPERAND to store the length because if checking is
+11039:      enabled, it will try to check the length before we store it.  :-P  */
+11040:   t->exp.operands[0] = build_int_cst (sizetype, len);
+11041:
+11042:   return t;
+11043: }
+11044:
+11045: /* Helper function for build_call_* functions; build a CALL_EXPR with
+11046:    indicated RETURN_TYPE, FN, and NARGS, but do not initialize any of
+11047:    the argument slots.  */
+11048:
+11049: static tree
+11050: build_call_1 (tree return_type, tree fn, int nargs)
+11051: {
+11052:   tree t;
+11053:
+11054:   t = build_vl_exp (CALL_EXPR, nargs + 3);
+11055:   TREE_TYPE (t) = return_type;
+11056:   CALL_EXPR_FN (t) = fn;
+11057:   CALL_EXPR_STATIC_CHAIN (t) = NULL;
+11058:
+11059:   return t;
+11060: }
+11061:
+11062: /* Build a CALL_EXPR of class tcc_vl_exp with the indicated RETURN_TYPE and
+11063:    FN and a null static chain slot.  NARGS is the number of call arguments
+11064:    which are specified as a va_list ARGS.  */
+11065:
+11066: tree
+11067: build_call_valist (tree return_type, tree fn, int nargs, va_list args)
+11068: {
+11069:   tree t;
+11070:   int i;
+11071:
+11072:   t = build_call_1 (return_type, fn, nargs);
+11073:   for (i = 0; i < nargs; i++)
+11074:     CALL_EXPR_ARG (t, i) = va_arg (args, tree);
+11075:   process_call_operands (t);
+11076:   return t;
+11077: }
+11078:
+11079: /* Build a CALL_EXPR of class tcc_vl_exp with the indicated RETURN_TYPE and
+11080:    FN and a null static chain slot.  ARGS specifies the call arguments.  */
+11081:
+11082: tree
+11083: build_call (tree return_type, tree fn, std::initializer_list<tree> args)
+11084: {
+11085:   tree t;
+11086:   int i;
+11087:   int nargs = args.size();
+11088:
+11089:   t = build_call_1 (return_type, fn, nargs);
+11090:   for (i = 0; i < nargs; i++)
+11091:     CALL_EXPR_ARG (t, i) = args.begin()[i];
+11092:   process_call_operands (t);
+11093:   return t;
+11094: }
+11095:
+11096: /* Build a CALL_EXPR of class tcc_vl_exp with the indicated RETURN_TYPE and
+11097:    FN and a null static chain slot.  NARGS is the number of call arguments
+11098:    which are specified as a tree array ARGS.  */
+11099:
+11100: tree
+11101: build_call_array_loc (location_t loc, tree return_type, tree fn,
+11102: 		      int nargs, const tree *args)
+11103: {
+11104:   tree t;
+11105:   int i;
+11106:
+11107:   t = build_call_1 (return_type, fn, nargs);
+11108:   for (i = 0; i < nargs; i++)
+11109:     CALL_EXPR_ARG (t, i) = args[i];
+11110:   process_call_operands (t);
+11111:   SET_EXPR_LOCATION (t, loc);
+11112:   return t;
+11113: }
+```
+
 ## gcc/tree.cc:11637–12013
 ```text
 11637: walk_type_fields (tree type, walk_tree_fn func, void *data,
@@ -3136,6 +3230,15 @@ LF line numbering; complete file identities checked.
 1646:   struct tree_typed typed;
 1647:   vec<constructor_elt, va_gc> *elts;
 1648: };
+```
+
+## gcc/tree-core.h:1696–1700
+```text
+1696: struct GTY(()) tree_exp {
+1697:   struct tree_typed typed;
+1698:   location_t locus;
+1699:   tree GTY ((length ("TREE_OPERAND_LENGTH ((tree)&%h)"))) operands[1];
+1700: };
 ```
 
 ## gcc/tree-core.h:1801–1871
@@ -4868,6 +4971,306 @@ LF line numbering; complete file identities checked.
 783:
 ```
 
+## gcc/ada/gcc-interface/utils.cc:4095–4390
+```text
+4095: max_value (tree exp, bool max_p)
+4096: {
+4097:   enum tree_code code = TREE_CODE (exp);
+4098:   tree type = TREE_TYPE (exp);
+4099:   tree op0, op1, op2;
+4100:
+4101:   switch (TREE_CODE_CLASS (code))
+4102:     {
+4103:     case tcc_declaration:
+4104:       if (VAR_P (exp))
+4105:         return fold_convert (type,
+4106:                              max_p
+4107:                              ? TYPE_MAX_VALUE (type) : TYPE_MIN_VALUE (type));
+4108:       break;
+4109:
+4110:     case tcc_vl_exp:
+4111:       if (code == CALL_EXPR)
+4112: 	{
+4113:           tree t;
+4114:
+4115:           t = maybe_inline_call_in_expr (exp);
+4116:           if (t)
+4117:             return max_value (t, max_p);
+4118:         }
+4119:       break;
+4120:
+4121:     case tcc_comparison:
+4122:       return build_int_cst (type, max_p ? 1 : 0);
+4123:
+4124:     case tcc_unary:
+4125:       op0 = TREE_OPERAND (exp, 0);
+4126:
+4127:       if (code == NON_LVALUE_EXPR)
+4128:         return max_value (op0, max_p);
+4129:
+4130:       if (code == NEGATE_EXPR)
+4131:         return max_value (op0, !max_p);
+4132:
+4133:       if (code == NOP_EXPR)
+4134: 	return fold_convert (type, max_value (op0, max_p));
+4135:
+4136:       break;
+4137:
+4138:     case tcc_binary:
+4139:       op0 = TREE_OPERAND (exp, 0);
+4140:       op1 = TREE_OPERAND (exp, 1);
+4141:
+4142:       switch (code) {
+4143:       case PLUS_EXPR:
+4144:       case MULT_EXPR:
+4145:         return fold_build2 (code, type, max_value(op0, max_p),
+4146:                             max_value (op1, max_p));
+4147:       case MINUS_EXPR:
+4148:       case TRUNC_DIV_EXPR:
+4149:         return fold_build2 (code, type, max_value(op0, max_p),
+4150:                             max_value (op1, !max_p));
+4151:       default:
+4152:         break;
+4153:       }
+4154:       break;
+4155:
+4156:     case tcc_expression:
+4157:       if (code == COND_EXPR)
+4158:         {
+4159:           op0 = TREE_OPERAND (exp, 0);
+4160:           op1 = TREE_OPERAND (exp, 1);
+4161:           op2 = TREE_OPERAND (exp, 2);
+4162:
+4163:           if (!op1 || !op2)
+4164:             break;
+4165:
+4166:           op1 = max_value (op1, max_p);
+4167:           op2 = max_value (op2, max_p);
+4168:
+4169:           if (op1 == TREE_OPERAND (exp, 1) && op2 == TREE_OPERAND (exp, 2))
+4170:             break;
+4171:
+4172:           return fold_build2 (max_p ? MAX_EXPR : MIN_EXPR, type, op1, op2);
+4173: 	}
+4174:       break;
+4175:
+4176:     default:
+4177:       break;
+4178:     }
+4179:   return exp;
+4180: }
+4181:
+4182:
+4183: /* EXP is an expression for the size of an object.  If this size contains
+4184:    discriminant references, replace them with the maximum (if MAX_P) or
+4185:    minimum (if !MAX_P) possible value of the discriminant.
+4186:
+4187:    Note that the expression may have already been gimplified,in which case
+4188:    COND_EXPRs have VOID_TYPE and no operands, and this must be handled.  */
+4189:
+4190: tree
+4191: max_size (tree exp, bool max_p)
+4192: {
+4193:   enum tree_code code = TREE_CODE (exp);
+4194:   tree type = TREE_TYPE (exp);
+4195:   tree op0, op1, op2;
+4196:
+4197:   switch (TREE_CODE_CLASS (code))
+4198:     {
+4199:     case tcc_declaration:
+4200:     case tcc_constant:
+4201:       return exp;
+4202:
+4203:     case tcc_exceptional:
+4204:       gcc_assert (code == SSA_NAME);
+4205:       return exp;
+4206:
+4207:     case tcc_vl_exp:
+4208:       if (code == CALL_EXPR)
+4209: 	{
+4210: 	  tree t, *argarray;
+4211: 	  int n, i;
+4212:
+4213: 	  t = maybe_inline_call_in_expr (exp);
+4214: 	  if (t)
+4215: 	    return max_size (t, max_p);
+4216:
+4217: 	  n = call_expr_nargs (exp);
+4218: 	  gcc_assert (n > 0);
+4219: 	  argarray = XALLOCAVEC (tree, n);
+4220: 	  /* This is used to remove possible placeholder in call args.  */
+4221: 	  for (i = 0; i < n; i++)
+4222: 	    argarray[i] = max_size (CALL_EXPR_ARG (exp, i), max_p);
+4223: 	  return build_call_array (type, CALL_EXPR_FN (exp), n, argarray);
+4224: 	}
+4225:       break;
+4226:
+4227:     case tcc_reference:
+4228:       /* If this contains a PLACEHOLDER_EXPR, it is the thing we want to
+4229: 	 modify.  Otherwise, we treat it like a variable.  */
+4230:       if (CONTAINS_PLACEHOLDER_P (exp))
+4231: 	{
+4232: 	  tree base_type = get_base_type (TREE_TYPE (TREE_OPERAND (exp, 1)));
+4233: 	  tree val
+4234: 	    = fold_convert (base_type,
+4235: 			    max_p
+4236: 			    ? TYPE_MAX_VALUE (type) : TYPE_MIN_VALUE (type));
+4237:
+4238: 	  /* Walk down the extra subtypes to get more restrictive bounds.  */
+4239: 	  while (TYPE_IS_EXTRA_SUBTYPE_P (type))
+4240: 	    {
+4241: 	      type = TREE_TYPE (type);
+4242: 	      if (max_p)
+4243: 		val = fold_build2 (MIN_EXPR, base_type, val,
+4244: 				   fold_convert (base_type,
+4245: 						 TYPE_MAX_VALUE (type)));
+4246: 	      else
+4247: 		val = fold_build2 (MAX_EXPR, base_type, val,
+4248: 				   fold_convert (base_type,
+4249: 						 TYPE_MIN_VALUE (type)));
+4250: 	    }
+4251:
+4252: 	  return fold_convert (type, max_size (val, max_p));
+4253: 	}
+4254:
+4255:       return exp;
+4256:
+4257:     case tcc_comparison:
+4258:       return build_int_cst (type, max_p ? 1 : 0);
+4259:
+4260:     case tcc_unary:
+4261:       op0 = TREE_OPERAND (exp, 0);
+4262:
+4263:       if (code == NON_LVALUE_EXPR)
+4264: 	return max_size (op0, max_p);
+4265:
+4266:       if (VOID_TYPE_P (TREE_TYPE (op0)))
+4267: 	return max_p ? TYPE_MAX_VALUE (type) : TYPE_MIN_VALUE (type);
+4268:
+4269:       op0 = max_size (op0, code == NEGATE_EXPR ? !max_p : max_p);
+4270:
+4271:       if (op0 == TREE_OPERAND (exp, 0))
+4272: 	return exp;
+4273:
+4274:       return fold_build1 (code, type, op0);
+4275:
+4276:     case tcc_binary:
+4277:       op0 = TREE_OPERAND (exp, 0);
+4278:       op1 = TREE_OPERAND (exp, 1);
+4279:
+4280:       /* If we have a multiply-add with a "negative" value in an unsigned
+4281: 	 type, do a multiply-subtract with the negated value, in order to
+4282: 	 avoid creating a spurious overflow below.  */
+4283:       if (code == PLUS_EXPR
+4284: 	  && TREE_CODE (op0) == MULT_EXPR
+4285: 	  && TYPE_UNSIGNED (type)
+4286: 	  && TREE_CODE (TREE_OPERAND (op0, 1)) == INTEGER_CST
+4287: 	  && !TREE_OVERFLOW (TREE_OPERAND (op0, 1))
+4288: 	  && tree_int_cst_sign_bit (TREE_OPERAND (op0, 1)))
+4289: 	{
+4290: 	  tree tmp = op1;
+4291: 	  op1 = build2 (MULT_EXPR, type, TREE_OPERAND (op0, 0),
+4292: 			fold_build1 (NEGATE_EXPR, type,
+4293: 				    TREE_OPERAND (op0, 1)));
+4294: 	  op0 = tmp;
+4295: 	  code = MINUS_EXPR;
+4296: 	}
+4297:
+4298:       op0 = max_size (op0, max_p);
+4299:       op1 = max_size (op1, code == MINUS_EXPR ? !max_p : max_p);
+4300:
+4301:       if ((code == MINUS_EXPR || code == PLUS_EXPR))
+4302: 	{
+4303: 	  /* If the op0 has overflowed and the op1 is a variable,
+4304: 	     propagate the overflow by returning the op0.  */
+4305: 	  if (TREE_CODE (op0) == INTEGER_CST
+4306: 	      && TREE_OVERFLOW (op0)
+4307: 	      && TREE_CODE (op1) != INTEGER_CST)
+4308: 	    return op0;
+4309:
+4310: 	  /* If we have a "negative" value in an unsigned type, do the
+4311: 	     opposite operation on the negated value, in order to avoid
+4312: 	     creating a spurious overflow below.  */
+4313: 	  if (TYPE_UNSIGNED (type)
+4314: 	      && TREE_CODE (op1) == INTEGER_CST
+4315: 	      && !TREE_OVERFLOW (op1)
+4316: 	      && tree_int_cst_sign_bit (op1))
+4317: 	    {
+4318: 	      op1 = fold_build1 (NEGATE_EXPR, type, op1);
+4319: 	      code = (code == MINUS_EXPR ? PLUS_EXPR : MINUS_EXPR);
+4320: 	    }
+4321: 	}
+4322:
+4323:       if (op0 == TREE_OPERAND (exp, 0) && op1 == TREE_OPERAND (exp, 1))
+4324: 	return exp;
+4325:
+4326:       /* We need to detect overflows so we call size_binop here.  */
+4327:       return size_binop (code, op0, op1);
+4328:
+4329:     case tcc_expression:
+4330:       switch (TREE_CODE_LENGTH (code))
+4331: 	{
+4332: 	case 1:
+4333: 	  if (code == SAVE_EXPR)
+4334: 	    return exp;
+4335:
+4336: 	  op0 = max_size (TREE_OPERAND (exp, 0),
+4337: 			  code == TRUTH_NOT_EXPR ? !max_p : max_p);
+4338:
+4339: 	  if (op0 == TREE_OPERAND (exp, 0))
+4340: 	    return exp;
+4341:
+4342: 	  return fold_build1 (code, type, op0);
+4343:
+4344: 	case 2:
+4345: 	  if (code == COMPOUND_EXPR)
+4346: 	    return max_size (TREE_OPERAND (exp, 1), max_p);
+4347:
+4348: 	  op0 = max_size (TREE_OPERAND (exp, 0), max_p);
+4349: 	  op1 = max_size (TREE_OPERAND (exp, 1), max_p);
+4350:
+4351: 	  if (op0 == TREE_OPERAND (exp, 0) && op1 == TREE_OPERAND (exp, 1))
+4352: 	    return exp;
+4353:
+4354: 	  return fold_build2 (code, type, op0, op1);
+4355:
+4356: 	case 3:
+4357: 	  if (code == COND_EXPR)
+4358: 	    {
+4359: 	      op0 = TREE_OPERAND (exp, 0);
+4360: 	      op1 = TREE_OPERAND (exp, 1);
+4361: 	      op2 = TREE_OPERAND (exp, 2);
+4362:
+4363: 	      if (!op1 || !op2)
+4364: 		return exp;
+4365:
+4366: 	      op1 = max_size (op1, max_p);
+4367: 	      op2 = max_size (op2, max_p);
+4368:
+4369: 	      /* If we have the MAX of a "negative" value in an unsigned type
+4370: 		 and zero for a length expression, just return zero.  */
+4371: 	      if (max_p
+4372: 		  && TREE_CODE (op0) == LE_EXPR
+4373: 		  && TYPE_UNSIGNED (type)
+4374: 		  && TREE_CODE (op1) == INTEGER_CST
+4375: 		  && !TREE_OVERFLOW (op1)
+4376: 		  && tree_int_cst_sign_bit (op1)
+4377: 		  && integer_zerop (op2))
+4378: 		return op2;
+4379:
+4380: 	      return fold_build2 (max_p ? MAX_EXPR : MIN_EXPR, type, op1, op2);
+4381: 	    }
+4382: 	  break;
+4383:
+4384: 	default:
+4385: 	  break;
+4386: 	}
+4387:
+4388:       /* Other tree classes cannot happen.  */
+4389:     default:
+4390:       break;
+```
+
 ## gcc/function.h:34–70
 ```text
 34: };
@@ -5546,6 +5949,59 @@ LF line numbering; complete file identities checked.
 1289:
 1290: 	    save_gnu_tree (gnat_entity, NULL_TREE, false);
 1291:
+```
+
+## gcc/ada/gcc-interface/decl.cc:2664–2712
+```text
+2664: 	      /* Update the maximum size of the array in elements.  Here we
+2665: 		 see if any constraint on the index type of the base type
+2666: 		 can be used in the case of self-referential bounds on the
+2667: 		 index type of the array type. We look for a non-"infinite"
+2668: 		 and non-self-referential bound from any type involved and
+2669: 		 handle each bound separately.  */
+2670: 	      if (gnu_max_size)
+2671: 		{
+2672: 		  if (CONTAINS_PLACEHOLDER_P (gnu_orig_min))
+2673: 		    gnu_min = gnu_base_orig_min;
+2674: 		  else
+2675: 		    gnu_min = gnu_orig_min;
+2676:
+2677: 		  if (DECL_P (gnu_min)
+2678: 		      && DECL_INITIAL (gnu_min) != NULL_TREE
+2679: 		      && (TREE_CODE (gnu_min) != INTEGER_CST
+2680: 			  || TREE_OVERFLOW (gnu_min)))
+2681: 		    {
+2682: 		      tree tmp = max_value (DECL_INITIAL(gnu_min), false);
+2683: 		      if (TREE_CODE (tmp) == INTEGER_CST
+2684: 			  && !TREE_OVERFLOW (tmp))
+2685: 			gnu_min = tmp;
+2686: 		    }
+2687:
+2688: 		  if (TREE_CODE (gnu_min) != INTEGER_CST
+2689: 		      || TREE_OVERFLOW (gnu_min))
+2690: 		    gnu_min = TYPE_MIN_VALUE (TREE_TYPE (gnu_min));
+2691:
+2692: 		  if (CONTAINS_PLACEHOLDER_P (gnu_orig_max))
+2693: 		    gnu_max = gnu_base_orig_max;
+2694: 		  else
+2695: 		    gnu_max = gnu_orig_max;
+2696:
+2697: 		  if (DECL_P (gnu_max)
+2698: 		      && DECL_INITIAL (gnu_max) != NULL_TREE
+2699: 		      && (TREE_CODE (gnu_max) != INTEGER_CST
+2700: 			  || TREE_OVERFLOW (gnu_max)))
+2701: 		    {
+2702: 		      tree tmp = max_value (DECL_INITIAL(gnu_max), true);
+2703: 		      if (TREE_CODE (tmp) == INTEGER_CST
+2704: 			  && !TREE_OVERFLOW (tmp))
+2705: 			gnu_max = tmp;
+2706: 		    }
+2707:
+2708: 		  if (TREE_CODE (gnu_max) != INTEGER_CST
+2709: 		      || TREE_OVERFLOW (gnu_max))
+2710: 		    gnu_max = TYPE_MAX_VALUE (TREE_TYPE (gnu_max));
+2711:
+2712: 		  gnu_max_size
 ```
 
 ## gcc/ada/gcc-interface/decl.cc:3142–3177
@@ -9973,6 +10429,64 @@ LF line numbering; complete file identities checked.
 6058:
 6059:
 6060: /* Declare the variables created by the inliner.  Add all the variables in
+```
+
+## gcc/tree-inline.cc:6667–6720
+```text
+6667: maybe_inline_call_in_expr (tree exp)
+6668: {
+6669:   tree fn = get_callee_fndecl (exp);
+6670:
+6671:   /* We can only try to inline "const" functions.  */
+6672:   if (fn && TREE_READONLY (fn) && DECL_SAVED_TREE (fn))
+6673:     {
+6674:       call_expr_arg_iterator iter;
+6675:       copy_body_data id;
+6676:       tree param, arg, t;
+6677:       hash_map<tree, tree> decl_map;
+6678:
+6679:       /* Remap the parameters.  */
+6680:       for (param = DECL_ARGUMENTS (fn), arg = first_call_expr_arg (exp, &iter);
+6681: 	   param;
+6682: 	   param = DECL_CHAIN (param), arg = next_call_expr_arg (&iter))
+6683: 	decl_map.put (param, arg);
+6684:
+6685:       memset (&id, 0, sizeof (id));
+6686:       id.src_fn = fn;
+6687:       id.dst_fn = current_function_decl;
+6688:       id.src_cfun = DECL_STRUCT_FUNCTION (fn);
+6689:       id.decl_map = &decl_map;
+6690:
+6691:       id.copy_decl = copy_decl_no_change;
+6692:       id.transform_call_graph_edges = CB_CGE_DUPLICATE;
+6693:       id.transform_new_cfg = false;
+6694:       id.transform_return_to_modify = true;
+6695:       id.transform_parameter = true;
+6696:
+6697:       /* Make sure not to unshare trees behind the front-end's back
+6698: 	 since front-end specific mechanisms may rely on sharing.  */
+6699:       id.regimplify = false;
+6700:       id.do_not_unshare = true;
+6701:
+6702:       /* We're not inside any EH region.  */
+6703:       id.eh_lp_nr = 0;
+6704:
+6705:       t = copy_tree_body (&id);
+6706:
+6707:       /* We can only return something suitable for use in a GENERIC
+6708: 	 expression tree.  */
+6709:       if (TREE_CODE (t) == MODIFY_EXPR)
+6710: 	return TREE_OPERAND (t, 1);
+6711:     }
+6712:
+6713:    return NULL_TREE;
+6714: }
+6715:
+6716: /* Duplicate a type, fields and all.  */
+6717:
+6718: tree
+6719: build_duplicate_type (tree type)
+6720: {
 ```
 
 ## gcc/langhooks-def.h:145–158

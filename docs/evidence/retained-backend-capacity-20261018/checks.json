@@ -979,6 +979,45 @@
     "no_placeholder_substitution_tree_or_fold_requests": 0,
     "native_execution": false
   },
+  "size_extrema_helpers": {
+    "scope": "scalar size expressions; no reached placeholder-reference or inlineable body",
+    "max_value_primitive_sites": {
+      "fold_convert": 2,
+      "build_int_cst": 1,
+      "fold_build1": 0,
+      "fold_build2": 3,
+      "build2": 0,
+      "size_binop": 0,
+      "build_call_array": 0
+    },
+    "max_size_primitive_sites": {
+      "fold_convert": 4,
+      "build_int_cst": 1,
+      "fold_build1": 4,
+      "fold_build2": 4,
+      "build2": 1,
+      "size_binop": 1,
+      "build_call_array": 1
+    },
+    "max_size_visit_bound": "N+2B; original occurrence forest and binary count",
+    "max_size_requests": {
+      "build2": "B",
+      "fold_build1": "U+3B",
+      "size_binop": "2B",
+      "fold_build2": "X",
+      "endpoint_constants": "Q",
+      "calls": "C",
+      "call_length_constants": "C"
+    },
+    "call_constructor": {
+      "tree_exp_bytes": 32,
+      "request_bytes": "48+8a",
+      "maximum_arity_from_signed_byte_length": 268435449,
+      "scratch_bytes": "8a"
+    },
+    "symbolic_folder_internals_closed": false,
+    "native_execution": false
+  },
   "ordinary_vectors": {
     "heap_maximum_requested_total": 2147483647,
     "heap_modular_growth_examples": [

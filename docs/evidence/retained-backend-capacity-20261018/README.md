@@ -68,6 +68,10 @@ SAVE-protected inputs. It does not claim a source-to-whole-body copy bound.
 The placeholder-substitution continuation reconciles the primitive sites and
 no-inline route; the source argument distinguishes its original-operand recursion
 from folder allocations and establishes the unchanged, placeholder-free case.
+The size-extrema continuation checks the body-inlining gate, direct helper
+sites and the signed byte-length limit in variable-arity call construction.
+Its manual transfer covers scalar size expressions without a reached
+placeholder-reference or inlineable body; symbolic folder work is separate.
 `checks.json` and `source-excerpts.md`
 retain its outputs. The script does not establish caller coverage or replace
 the report's manual source argument.

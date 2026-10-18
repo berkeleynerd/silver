@@ -1048,6 +1048,91 @@ the fixed unconstrained-String template bounds retain the general row. This
 closes the substitution recursion interface while preserving the actual
 String-bound and folder dependencies.
 
+## Size extrema helpers: recursion and call reconstruction
+
+The constrained-array bridge can inspect a captured bound's initializer with
+`max_value` before falling back to its scalar type endpoints
+(`decl.cc:2664–2712`). `max_value` and `max_size` have different traversal
+rules; neither may be replaced by the placeholder-substitution zero row.
+This component covers scalar integral size/bound expressions, with no
+placeholder-bearing reference reached by `max_size`, and no call satisfying
+the body-inlining gate below. Types and declaration metadata are not recursive
+children in this occurrence count. Unsupported tree codes remain excluded by
+the bridge's size-expression shape obligation.
+
+`maybe_inline_call_in_expr` copies a function body only when the resolved
+callee has both `TREE_READONLY` and `DECL_SAVED_TREE`
+(`tree-inline.cc:6667–6720`). A call without that conjunction returns null
+without allocating its declaration map or copying a body. The no-inline
+premise must cover compiler-generated size wrappers as well as imported
+subprograms. An arbitrary call cannot use this component merely because the
+command line selects O0.
+
+For `max_value`, recursion follows only original selected children
+(`utils.cc:4095–4180`). A VAR_DECL requests one `fold_convert` of its type
+endpoint, a NOP conversion requests another, a comparison requests one
+scalar constant, and each selected binary or changed conditional requests one
+`fold_build2`. Calls satisfying the no-inline premise stop without visiting
+arguments. Constants and other declaration kinds stop too. Thus if V, U, Q,
+B and K count reached variable, NOP, comparison, selected binary and
+conditional occurrences, the direct interface is at most V+U conversions,
+Q scalar constant requests and B+K binary fold requests. No result returned
+by these folds is recursively revisited by this helper.
+
+For `max_size`, declarations/constants/SSA names stop, SAVE stops, and a
+reference without a placeholder stops. Calls take the fallback that visits
+each argument once and constructs one new call. A comparison returns a
+Boolean endpoint; ordinary unary/binary/conditional reconstruction uses the
+folders (`utils.cc:4191–4390`). A conditional always requests its min/max
+fold when both arms exist, even when both arms return unchanged. Consequently
+absence of placeholders alone does **not** imply zero allocation.
+
+There is one local shape rewrite: an unsigned plus with a multiply by a
+sign-bit-set Integer constant becomes a minus with a multiply by the negated
+constant. Its negation is one of the closed constant-only scalar folds above.
+It introduces one plain binary node and a terminal constant, then visits the
+new multiply's original left child once. It neither replays the discarded
+multiply nor recursively visits a symbolic fold result. Each such rewrite is
+charged to an original plus occurrence; the introduced multiply cannot itself
+trigger the plus rewrite.
+
+Let N count original expression occurrences in the traversal forest, B its
+binary occurrences, U unary/one-operand expression occurrences, X its
+two-operand and conditional expression occurrences, Q comparisons and C calls.
+Overcounting the replaced multiplication gives at most N+2B recursive visits.
+The following direct request bounds include that replacement:
+
+| Request in `max_size` | Upper bound |
+| --- | ---: |
+| Plain binary construction for normalization | B |
+| Unary fold, including both unsigned-negative corrections | U+3B |
+| `size_binop` | 2B |
+| Binary fold for two-operand expressions/conditionals | X |
+| Scalar endpoint constant | Q |
+| Reconstructed call and its operand-count constant | C each |
+
+These are helper entries, not transitive folder allocation bounds. The
+placeholder-reference path can recurse into newly computed subtype bounds,
+and the inlining path can recurse into copied bodies; both are explicitly
+outside this row. The general placeholder template/layout transfer must price
+them separately if reached.
+
+The call fallback also needs actual constructor arithmetic. For a call of
+arity a>0 it requests a temporary array of a tree pointers, then
+`build_call_array` calls `build_vl_exp` with signed length a+3
+(`tree.cc:11024–11113`). On the selected LP64 layout, `tree_exp` is 32 bytes,
+including its first operand; the call's allocation request is 48+8a bytes.
+That byte expression is narrowed to an **int**, so a sufficient condition is
+`48+8a <= INT_MAX`, or a<=268,435,449. This also protects a+3 and the argument
+loop. Apply the ordinary allocator rounding separately. This is a constructor
+interface check, not a new source-call limit; current selected calls have a
+small source-derived arity. The temporary array's 8a-byte product fits under
+the same condition. For nested calls, the sum of active arrays is bounded by
+8 times the forest's total argument positions; it is descriptive stack demand,
+not an aggregate RAM or address-space admission gate. The constructor shares
+argument payloads and creates no copied String bytes. Call-flag queries and
+source-to-expression occurrence weights remain in the surrounding bridge.
+
 ## O0 cleanup lowering: no recursive body duplication
 
 The [gigi bridge](retained-backend-gigi.md) separates ordinary normalized Main

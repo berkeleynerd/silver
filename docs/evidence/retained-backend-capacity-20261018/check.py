@@ -27,7 +27,7 @@ RANGES = {
     "gcc/tree-eh.cc": [(618, 655), (710, 877), (940, 1095),
                        (1107, 1283), (1289, 1800), (2333, 2356), (3318, 3349)],
     "gcc/gimple.cc": [(251, 263), (1563, 1577), (1901, 1931), (2045, 2095), (2297, 2333)],
-    "gcc/tree-inline.cc": [(5735, 5795), (5861, 6060)],
+    "gcc/tree-inline.cc": [(5735, 5795), (5861, 6060), (6667, 6720)],
     "gcc/langhooks-def.h": [(145, 158)],
     "gcc/ada/back_end.adb": [(123, 130), (155, 175)],
     "gcc/ada/gcc-interface/trans.cc": [(87, 91), (346, 363), (6705, 6732),
@@ -38,9 +38,10 @@ RANGES = {
                                        (8968, 8996), (9298, 9305), (3301, 3306),
                                        (9889, 10025), (11006, 11030)],
     "gcc/ada/gcc-interface/decl.cc": [(400, 445), (697, 718), (754, 766), (1278, 1291),
-                                      (3142, 3177)],
+                                      (2664, 2712), (3142, 3177)],
     "gcc/ada/gcc-interface/misc.cc": [(376, 377), (1475, 1476)],
-    "gcc/ada/gcc-interface/utils.cc": [(259, 280), (430, 450), (770, 783)],
+    "gcc/ada/gcc-interface/utils.cc": [(259, 280), (430, 450), (770, 783),
+                                      (4095, 4390)],
     "gcc/toplev.cc": [(761, 767), (1141, 1150)],
     "gcc/ggc-page.cc": [(1250, 1290), (1292, 1327), (1883, 1922)],
     "gcc/ggc.h": [(230, 258)],
@@ -51,9 +52,10 @@ RANGES = {
                      (4257, 4377), (4756, 4932),
                      (5840, 5965), (6433, 6492), (7198, 7385),
                      (7460, 7511), (7576, 7668), (8025, 8088),
-                     (11637, 12013), (15095, 15129)],
+                     (11024, 11113), (11637, 12013), (15095, 15129)],
     "gcc/tree.h": [(5460, 5467), (5500, 5517), (5921, 5929)],
-    "gcc/tree-core.h": [(1138, 1253), (1565, 1595), (1631, 1648), (1801, 1871)],
+    "gcc/tree-core.h": [(1138, 1253), (1565, 1595), (1631, 1648),
+                         (1696, 1700), (1801, 1871)],
     "gcc/stor-layout.cc": [(67, 87), (296, 339), (603, 633), (909, 929),
                             (1962, 2067), (2402, 2427), (2437, 2469), (2558, 2576),
                             (2651, 2773), (2810, 2821), (2838, 2860), (2991, 3040)],
@@ -178,6 +180,47 @@ def check_expression_copy_transfers(all_bytes):
         no_placeholder_substitution_tree_or_fold_requests=0,
         native_execution=False,
     )
+
+
+def check_size_extrema_transfers(all_bytes):
+    utils = all_bytes["gcc/ada/gcc-interface/utils.cc"].decode()
+    value_start = utils.index("\nmax_value (tree exp, bool max_p)")
+    size_start = utils.index("\nmax_size (tree exp, bool max_p)")
+    value = utils[value_start:utils.index("\n}\n", value_start)]
+    size = utils[size_start:utils.index("\n}\n", size_start)]
+    inlining = all_bytes["gcc/tree-inline.cc"].decode()
+    inline_start = inlining.index("\nmaybe_inline_call_in_expr (tree exp)")
+    inline = inlining[inline_start:inlining.index("\n}\n", inline_start)]
+    assert "if (fn && TREE_READONLY (fn) && DECL_SAVED_TREE (fn))" in inline
+    assert inline.index("if (fn &&") < inline.index("hash_map<tree, tree> decl_map;")
+    primitive_sites = {}
+    for name, body in (("max_value", value), ("max_size", size)):
+        primitive_sites[name] = {
+            primitive: len(re.findall(r"\b" + primitive + r"\s*\(", body))
+            for primitive in ("fold_convert", "build_int_cst", "fold_build1",
+                              "fold_build2", "build2", "size_binop", "build_call_array")}
+    assert primitive_sites["max_value"] == dict(fold_convert=2, build_int_cst=1,
+        fold_build1=0, fold_build2=3, build2=0, size_binop=0, build_call_array=0)
+    assert primitive_sites["max_size"] == dict(fold_convert=4, build_int_cst=1,
+        fold_build1=4, fold_build2=4, build2=1, size_binop=1, build_call_array=1)
+    tree = all_bytes["gcc/tree.cc"].decode()
+    assert "int length = (len - 1) * sizeof (tree) + sizeof (struct tree_exp);" in tree
+    assert "t = build_vl_exp (CALL_EXPR, nargs + 3);" in tree
+    assert "t->exp.operands[0] = build_int_cst (sizetype, len);" in tree
+    maximum_arity = ((2**31-1)-48)//8
+    assert maximum_arity == 268435449
+    assert 48+8*maximum_arity <= 2**31-1 < 48+8*(maximum_arity+1)
+    return dict(
+        scope="scalar size expressions; no reached placeholder-reference or inlineable body",
+        max_value_primitive_sites=primitive_sites["max_value"],
+        max_size_primitive_sites=primitive_sites["max_size"],
+        max_size_visit_bound="N+2B; original occurrence forest and binary count",
+        max_size_requests=dict(build2="B", fold_build1="U+3B", size_binop="2B",
+            fold_build2="X", endpoint_constants="Q", calls="C", call_length_constants="C"),
+        call_constructor=dict(tree_exp_bytes=32, request_bytes="48+8a",
+            maximum_arity_from_signed_byte_length=maximum_arity, scratch_bytes="8a"),
+        symbolic_folder_internals_closed=False,
+        native_execution=False)
 
 
 def check_type_transfers(all_bytes, bundle):
@@ -750,6 +793,7 @@ def main():
         "integer_constants": check_integer_constant_transfers(all_bytes),
         "scalar_pointer_types": check_type_transfers(all_bytes, bundle),
         "expression_unsharing": check_expression_copy_transfers(all_bytes),
+        "size_extrema_helpers": check_size_extrema_transfers(all_bytes),
         "ordinary_vectors": {
             "heap_maximum_requested_total": int_max,
             "heap_modular_growth_examples": heap_cases,
