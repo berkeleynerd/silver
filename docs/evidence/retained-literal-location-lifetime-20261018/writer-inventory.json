@@ -1,0 +1,2457 @@
+{
+  "corpus_files": 3574,
+  "corpus_sha256": "a9cf398795fbedadcbabacde03766be154f3d6030392d720be7e01096fb4697a",
+  "location_writers": {
+    "gcc/c-family/c-format.cc": [
+      {
+        "callee": "make_location",
+        "line": 5576,
+        "text": "location_t fmt = make_location (c18, c17, c18);"
+      },
+      {
+        "callee": "make_location",
+        "line": 5579,
+        "text": "location_t param = make_location (c24, c24, c26);"
+      }
+    ],
+    "gcc/c-family/c-lex.cc": [
+      {
+        "callee": "make_location",
+        "line": 683,
+        "text": "*loc = make_location (atloc, atloc, newloc);"
+      }
+    ],
+    "gcc/c-family/c-pch.cc": [
+      {
+        "callee": "rebuild_location_adhoc_htab",
+        "line": 347,
+        "text": "rebuild_location_adhoc_htab (line_table);"
+      }
+    ],
+    "gcc/c/c-fold.cc": [
+      {
+        "callee": "set_source_range",
+        "line": 718,
+        "text": "set_source_range (ret, old_range.m_start, old_range.m_finish);"
+      }
+    ],
+    "gcc/c/c-parser.cc": [
+      {
+        "callee": "set_source_range",
+        "line": 97,
+        "text": "set_source_range (expr->value, start, finish);"
+      },
+      {
+        "callee": "set_source_range",
+        "line": 106,
+        "text": "set_source_range (expr->value, src_range);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1051,
+        "text": "*out_loc = make_location (start_loc, start_loc, finish_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 5551,
+        "text": "location_t param_loc = make_location (caret_loc, start_loc, end_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 10168,
+        "text": "location_t loc1 = make_location (exp1.get_start (), exp1.src_range);"
+      },
+      {
+        "callee": "make_location",
+        "line": 10169,
+        "text": "location_t loc2 = make_location (exp2.get_start (), exp2.src_range);"
+      },
+      {
+        "callee": "make_location",
+        "line": 10737,
+        "text": "location_t combined_loc = make_location (op_loc, op_loc, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 12055,
+        "text": "sloc = make_location (sloc, sloc, eloc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 15650,
+        "text": "location_t attr_comb = make_location (attr_end, attr_start, attr_end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 15660,
+        "text": "location_t attr_comb = make_location (attr_start, attr_start,"
+      },
+      {
+        "callee": "make_location",
+        "line": 15716,
+        "text": "attr_comb = make_location (attr_end, attr_start, attr_end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 15727,
+        "text": "attr_comb = make_location (attr_end, attr_start, attr_end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 15742,
+        "text": "attr_comb = make_location (attr_end, attr_start,"
+      },
+      {
+        "callee": "make_location",
+        "line": 15754,
+        "text": "attr_comb = make_location (attr_start, attr_start,"
+      },
+      {
+        "callee": "make_location",
+        "line": 15758,
+        "text": "attr_comb = make_location (attr_start, attr_start,"
+      },
+      {
+        "callee": "make_location",
+        "line": 19794,
+        "text": "error_at (make_location (alloc_loc, alloc_loc, close_loc),"
+      },
+      {
+        "callee": "make_location",
+        "line": 19804,
+        "text": "gcc_rich_location richloc (make_location (alloc_loc, alloc_loc, close_loc));"
+      },
+      {
+        "callee": "make_location",
+        "line": 19896,
+        "text": "rm1_loc = make_location (tok->location, tok->location,"
+      },
+      {
+        "callee": "make_location",
+        "line": 24834,
+        "text": "error_at (make_location (first_loc, last_loc, middle_loc),"
+      }
+    ],
+    "gcc/c/c-tree.h": [
+      {
+        "callee": "make_location",
+        "line": 217,
+        "text": "return make_location (get_start (), get_start (), get_finish ());"
+      }
+    ],
+    "gcc/c/gimple-parser.cc": [
+      {
+        "callee": "make_location",
+        "line": 1212,
+        "text": "location_t combined_loc = make_location (op_loc, op_loc, finish);"
+      }
+    ],
+    "gcc/cfgloopmanip.cc": [
+      {
+        "callee": "location_with_discriminator_components",
+        "line": 1509,
+        "text": "= location_with_discriminator_components (loc, comp);"
+      }
+    ],
+    "gcc/cobol/util.cc": [
+      {
+        "callee": "make_location",
+        "line": 3034,
+        "text": "token_location = make_location (token_start, token_start, token_finish);"
+      }
+    ],
+    "gcc/config/aarch64/aarch64.cc": [
+      {
+        "callee": "gimple_set_block",
+        "line": 21558,
+        "text": "gimple_set_block (and_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 21565,
+        "text": "gimple_set_block (if_else_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 21657,
+        "text": "gimple_set_block (component_stmt, DECL_INITIAL (dispatch_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 21663,
+        "text": "gimple_set_block (not_stmt, DECL_INITIAL (dispatch_decl));"
+      }
+    ],
+    "gcc/config/i386/i386-features.cc": [
+      {
+        "callee": "gimple_set_block",
+        "line": 5313,
+        "text": "gimple_set_block (call_cond_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 5330,
+        "text": "gimple_set_block (assign_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 5339,
+        "text": "gimple_set_block (if_else_stmt, DECL_INITIAL (function_decl));"
+      }
+    ],
+    "gcc/config/loongarch/loongarch.cc": [
+      {
+        "callee": "gimple_set_block",
+        "line": 11800,
+        "text": "gimple_set_block (and_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 11807,
+        "text": "gimple_set_block (if_else_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 11896,
+        "text": "gimple_set_block (component_stmt, DECL_INITIAL (dispatch_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 11902,
+        "text": "gimple_set_block (not_stmt, DECL_INITIAL (dispatch_decl));"
+      }
+    ],
+    "gcc/config/riscv/riscv.cc": [
+      {
+        "callee": "gimple_set_block",
+        "line": 15172,
+        "text": "gimple_set_block (cond_init_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 15185,
+        "text": "gimple_set_block (mask_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 15195,
+        "text": "gimple_set_block (and_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 15202,
+        "text": "gimple_set_block (eq_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 15209,
+        "text": "gimple_set_block (cond_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 15215,
+        "text": "gimple_set_block (if_else_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 15323,
+        "text": "gimple_set_block (feature_stmt, DECL_INITIAL (dispatch_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 15330,
+        "text": "gimple_set_block (not_stmt, DECL_INITIAL (dispatch_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 15338,
+        "text": "gimple_set_block (mask_assign_stmt, DECL_INITIAL (dispatch_decl));"
+      }
+    ],
+    "gcc/config/rs6000/rs6000.cc": [
+      {
+        "callee": "gimple_set_block",
+        "line": 25514,
+        "text": "gimple_set_block (call_cond_stmt, DECL_INITIAL (function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 25520,
+        "text": "gimple_set_block (if_else_stmt, DECL_INITIAL (function_decl));"
+      }
+    ],
+    "gcc/cp/constraint.cc": [
+      {
+        "callee": "make_location",
+        "line": 2359,
+        "text": "location_t loc = make_location (cp_expr_location (op),"
+      }
+    ],
+    "gcc/cp/contracts.cc": [
+      {
+        "callee": "make_location",
+        "line": 1037,
+        "text": "co_l = make_location (id_l, co_l, co_l);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1579,
+        "text": "rd.note_loc = make_location (decl_loc, decl_loc, cont_end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1673,
+        "text": "cont_end = make_location (new_loc, new_loc, cont_end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1705,
+        "text": "cont_end = make_location (new_loc, new_loc, cont_end);"
+      }
+    ],
+    "gcc/cp/coroutines.cc": [
+      {
+        "callee": "make_location",
+        "line": 3656,
+        "text": "location_t loc_n = make_location (loc_e, loc_s, loc_s);"
+      }
+    ],
+    "gcc/cp/cp-tree.h": [
+      {
+        "callee": "make_location",
+        "line": 106,
+        "text": "set_location (make_location (m_loc, start, finish));"
+      }
+    ],
+    "gcc/cp/module.cc": [
+      {
+        "callee": "get_or_create_combined_loc",
+        "line": 18807,
+        "text": "locus = line_table->get_or_create_combined_loc (locus, range,"
+      }
+    ],
+    "gcc/cp/parser.cc": [
+      {
+        "callee": "make_location",
+        "line": 1080,
+        "text": "make_location (location_t caret, location_t start, cp_lexer *lexer)"
+      },
+      {
+        "callee": "make_location",
+        "line": 1083,
+        "text": "return make_location (caret, start, t->location);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1089,
+        "text": "make_location (cp_token *caret, cp_token *start, cp_token *end)"
+      },
+      {
+        "callee": "make_location",
+        "line": 1091,
+        "text": "return make_location (caret->location, start->location, end->location);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1103,
+        "text": "return make_location (s, s, e);"
+      },
+      {
+        "callee": "make_location",
+        "line": 3333,
+        "text": "*out_loc = make_location (start_loc, start_loc, finish_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 5013,
+        "text": "loc = make_location (loc, loc, get_finish (last_tok_loc));"
+      },
+      {
+        "callee": "make_location",
+        "line": 5830,
+        "text": "location_t combined_loc = make_location (start_loc, start_loc, finish_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 5986,
+        "text": "loc = make_location (token->location, loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 6022,
+        "text": "loc = make_location (token->location, loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 6037,
+        "text": "loc = make_location (token->location, loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 6229,
+        "text": "return cp_expr (expr, make_location (caret_loc, start_loc, finish_loc));"
+      },
+      {
+        "callee": "make_location",
+        "line": 6936,
+        "text": "= make_location (type_location, start_loc, finish_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 7082,
+        "text": "= make_location (input_location, id_expression.get_start (),"
+      },
+      {
+        "callee": "make_location",
+        "line": 7162,
+        "text": "= make_location (caret_loc, start_loc, finish_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 7548,
+        "text": "= make_location (tilde_loc, tilde_loc, token->location);"
+      },
+      {
+        "callee": "make_location",
+        "line": 8501,
+        "text": "location_t cp_cast_loc = make_location (start_loc, start_loc, end_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 8586,
+        "text": "= make_location (start_loc, start_loc, close_paren->location);"
+      },
+      {
+        "callee": "make_location",
+        "line": 9105,
+        "text": "combined_loc = make_location (token->location, start_loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 9734,
+        "text": "= make_location (input_location, start_loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 10273,
+        "text": "= make_location (start_loc, start_loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 10425,
+        "text": "= make_location (start_loc, start_loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 10508,
+        "text": "= make_location (start_loc, start_loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 10544,
+        "text": "loc = make_location (loc, loc, cast_expression.get_finish ());"
+      },
+      {
+        "callee": "make_location",
+        "line": 10764,
+        "text": "= make_location (start_loc, start_loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 10889,
+        "text": "location_t combined_loc = make_location (start_loc, start_loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 11198,
+        "text": "location_t combined_loc = make_location (start_loc, start_loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 11518,
+        "text": "location_t cast_loc = make_location (open_paren_loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 11793,
+        "text": "location_t combined_loc = make_location (current.loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 11922,
+        "text": "loc = make_location (loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 12022,
+        "text": "loc = make_location (loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 12205,
+        "text": "loc = make_location (loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 12436,
+        "text": "sloc = make_location (sloc, sloc, eloc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 12450,
+        "text": "location_t combined_loc = make_location (arg_loc, start_loc, finish_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 12565,
+        "text": "loc = make_location (loc, start_loc, finish_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 12687,
+        "text": "location_t trait_loc = make_location (start_loc, start_loc, finish_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 12898,
+        "text": "LAMBDA_EXPR_LOCATION (lambda_expr) = make_location (token->location,"
+      },
+      {
+        "callee": "make_location",
+        "line": 14189,
+        "text": "attrs_loc = make_location (attrs_loc, attrs_loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 16591,
+        "text": "pedwarn (make_location (token->location, token->location,"
+      },
+      {
+        "callee": "make_location",
+        "line": 17548,
+        "text": "warning_at (make_location (attrs_loc, attrs_loc, parser->lexer),"
+      },
+      {
+        "callee": "make_location",
+        "line": 17620,
+        "text": "location_t loc = make_location (token1, token1, token3);"
+      },
+      {
+        "callee": "make_location",
+        "line": 18368,
+        "text": "loc = end_loc == UNKNOWN_LOCATION ? loc : make_location (loc, loc, end_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 19148,
+        "text": "= make_location (extern_token->location,"
+      },
+      {
+        "callee": "make_location",
+        "line": 19585,
+        "text": "loc = make_location (loc, loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 19952,
+        "text": "= make_location (token->location, token->location, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 20459,
+        "text": "= make_location (start_loc, start_loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 20483,
+        "text": "start_loc = make_location (start_loc, start_loc, get_finish (end_loc));"
+      },
+      {
+        "callee": "make_location",
+        "line": 21305,
+        "text": "= make_location (token->location, token->location, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 23169,
+        "text": "location_t loc = make_location (placeholder->location,"
+      },
+      {
+        "callee": "make_location",
+        "line": 23411,
+        "text": "key_loc = make_location (key_loc, key_loc, loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 24835,
+        "text": "location_t loc = make_location (start, start, end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 26817,
+        "text": "location_t parens_loc = make_location (parens_start,"
+      },
+      {
+        "callee": "make_location",
+        "line": 27258,
+        "text": "declarator->parenthesized = make_location (open_paren->location,"
+      },
+      {
+        "callee": "make_location",
+        "line": 28687,
+        "text": "= make_location (decl_specifiers.locations[ds_this],"
+      },
+      {
+        "callee": "make_location",
+        "line": 28777,
+        "text": "= make_location (eq_token->location,"
+      },
+      {
+        "callee": "make_location",
+        "line": 28808,
+        "text": "location_t param_loc = make_location (caret_loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 29110,
+        "text": "location_t combined_loc = make_location (start_loc, start_loc, finish_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 30508,
+        "text": "= make_location (class_head_start_location,"
+      },
+      {
+        "callee": "make_location",
+        "line": 32572,
+        "text": "location_t combined_loc = make_location (start_loc, start_loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 33713,
+        "text": "attrs_loc = make_location (attrs_loc, attrs_loc, input_location);"
+      },
+      {
+        "callee": "make_location",
+        "line": 33828,
+        "text": "attrs_loc = make_location (attrs_loc, attrs_loc, input_location);"
+      },
+      {
+        "callee": "make_location",
+        "line": 33869,
+        "text": "loc = make_location (loc, loc, end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 33923,
+        "text": "loc = make_location (loc, loc, end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 34850,
+        "text": "loc = make_location (loc, loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 35087,
+        "text": "loc = make_location (loc, start_tok->location, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 35150,
+        "text": "location_t type_loc = make_location (tok->location, tok->location,"
+      },
+      {
+        "callee": "make_location",
+        "line": 35173,
+        "text": "location_t loc = make_location (expr_token->location,"
+      },
+      {
+        "callee": "make_location",
+        "line": 35199,
+        "text": "loc = make_location (loc, tok->location, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 36671,
+        "text": "location_t combined_loc = make_location (start_loc, start_loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 36695,
+        "text": "location_t combined_loc = make_location (start_loc, start_loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 39041,
+        "text": "return make_location (start, start, end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 39272,
+        "text": "location_t combined_loc = make_location (start_loc, start_loc, end_loc);"
+      },
+      {
+        "callee": "make_location",
+        "line": 39436,
+        "text": "location_t combined_loc = make_location (start_loc, start_loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 39480,
+        "text": "location_t combined_loc = make_location (start_loc, start_loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 39565,
+        "text": "location_t combined_loc = make_location (loc, loc, parser->lexer);"
+      },
+      {
+        "callee": "make_location",
+        "line": 40929,
+        "text": "attr_comb = make_location (attr_end, attr_start, attr_end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 40939,
+        "text": "attr_comb = make_location (attr_start, attr_start, attr_end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 40989,
+        "text": "attr_comb = make_location (attr_end, attr_start, attr_end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 41003,
+        "text": "attr_comb = make_location (attr_end, attr_start, attr_end);"
+      },
+      {
+        "callee": "make_location",
+        "line": 41021,
+        "text": "attr_comb = make_location (attr_end, attr_start,"
+      },
+      {
+        "callee": "make_location",
+        "line": 41033,
+        "text": "attr_comb = make_location (attr_start, attr_start,"
+      },
+      {
+        "callee": "make_location",
+        "line": 41037,
+        "text": "attr_comb = make_location (attr_start, attr_start,"
+      },
+      {
+        "callee": "make_location",
+        "line": 44148,
+        "text": "error_at (make_location (tok->location, tok->location, close_loc),"
+      },
+      {
+        "callee": "make_location",
+        "line": 44157,
+        "text": "gcc_rich_location richloc (make_location (tok->location,"
+      },
+      {
+        "callee": "make_location",
+        "line": 44304,
+        "text": "rm1_loc = make_location (mod_loc, mod_loc,"
+      },
+      {
+        "callee": "make_location",
+        "line": 49225,
+        "text": "error_at (make_location (first_loc, last_loc, middle_loc),"
+      },
+      {
+        "callee": "make_location",
+        "line": 53480,
+        "text": "loc = make_location (loc, expr.get_start (), rhs.get_finish ());"
+      },
+      {
+        "callee": "make_location",
+        "line": 53643,
+        "text": "location_t varid_loc = make_location (caret_loc, start_loc, finish_loc);"
+      }
+    ],
+    "gcc/cp/semantics.cc": [
+      {
+        "callee": "make_location",
+        "line": 3619,
+        "text": "location_t combined_loc = make_location (input_location,"
+      },
+      {
+        "callee": "make_location",
+        "line": 3759,
+        "text": "location_t combined_loc = make_location (op_loc,"
+      }
+    ],
+    "gcc/diagnostics/changes.cc": [
+      {
+        "callee": "make_location",
+        "line": 1048,
+        "text": "location_t field = make_location (start, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1188,
+        "text": "location_t case_loc = make_location (case_start, case_start, case_finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1237,
+        "text": "location_t field = make_location (start, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1283,
+        "text": "location_t m_field = make_location (start, start, finish);"
+      }
+    ],
+    "gcc/diagnostics/paths-output.cc": [
+      {
+        "callee": "make_location",
+        "line": 1894,
+        "text": "return make_location (get_line_and_column (line, caret_column),"
+      }
+    ],
+    "gcc/diagnostics/sarif-sink.cc": [
+      {
+        "callee": "make_location",
+        "line": 4827,
+        "text": "= make_location (linemap_position_for_column (line_table, 1),"
+      },
+      {
+        "callee": "make_location",
+        "line": 4831,
+        "text": "= make_location (linemap_position_for_column (line_table, 12),"
+      },
+      {
+        "callee": "make_location",
+        "line": 4835,
+        "text": "= make_location (linemap_position_for_column (line_table, 19),"
+      },
+      {
+        "callee": "make_location",
+        "line": 5070,
+        "text": "= make_location (linemap_position_for_column (line_table, 1),"
+      }
+    ],
+    "gcc/diagnostics/source-printing.cc": [
+      {
+        "callee": "make_location",
+        "line": 4528,
+        "text": "location_t loc = make_location (caret, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 4568,
+        "text": "= make_location (linemap_position_for_column (line_table, 2),"
+      },
+      {
+        "callee": "make_location",
+        "line": 4574,
+        "text": "= make_location (linemap_position_for_column (line_table, 8),"
+      },
+      {
+        "callee": "make_location",
+        "line": 4580,
+        "text": "= make_location (linemap_position_for_column (line_table, 13),"
+      },
+      {
+        "callee": "make_location",
+        "line": 4616,
+        "text": "location_t foo = make_location (start, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 4634,
+        "text": "location_t dot = make_location (start, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 4715,
+        "text": "location_t field = make_location (start, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 4760,
+        "text": "location_t field = make_location (start, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 4782,
+        "text": "const location_t loc = make_location (c7, c7, c157);"
+      },
+      {
+        "callee": "make_location",
+        "line": 4922,
+        "text": "= make_location (linemap_position_for_column (line_table, 1),"
+      },
+      {
+        "callee": "make_location",
+        "line": 4926,
+        "text": "= make_location (linemap_position_for_column (line_table, 7),"
+      },
+      {
+        "callee": "make_location",
+        "line": 4930,
+        "text": "= make_location (linemap_position_for_column (line_table, 11),"
+      },
+      {
+        "callee": "make_location",
+        "line": 5187,
+        "text": "location_t loc = make_location (caret, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 5205,
+        "text": "= make_location (linemap_position_for_column (line_table, 7),"
+      },
+      {
+        "callee": "make_location",
+        "line": 5211,
+        "text": "= make_location (linemap_position_for_column (line_table, 16),"
+      },
+      {
+        "callee": "make_location",
+        "line": 5217,
+        "text": "= make_location (linemap_position_for_column (line_table, 26),"
+      },
+      {
+        "callee": "make_location",
+        "line": 5260,
+        "text": "location_t foo = make_location (start, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 5281,
+        "text": "location_t dot = make_location (start, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 5302,
+        "text": "location_t field = make_location (start, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 5357,
+        "text": "location_t field = make_location (start, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 5384,
+        "text": "const location_t loc = make_location (c12, c12, c162);"
+      },
+      {
+        "callee": "make_location",
+        "line": 5550,
+        "text": "= make_location (linemap_position_for_column (line_table, 1),"
+      },
+      {
+        "callee": "make_location",
+        "line": 5554,
+        "text": "= make_location (linemap_position_for_column (line_table, 12),"
+      },
+      {
+        "callee": "make_location",
+        "line": 5558,
+        "text": "= make_location (linemap_position_for_column (line_table, 19),"
+      },
+      {
+        "callee": "make_location",
+        "line": 6103,
+        "text": "const location_t expr = make_location (expr_start, expr_start, expr_finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 6308,
+        "text": "const location_t expr = make_location (expr_start, expr_start, expr_finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 6609,
+        "text": "location_t case_loc = make_location (case_start, case_start, case_finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 6684,
+        "text": "= make_location (putchar_start, putchar_start, putchar_finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 6784,
+        "text": "location_t loc = make_location (caret, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 6990,
+        "text": "location_t loc = make_location (caret, start, finish);"
+      }
+    ],
+    "gcc/fortran/error.cc": [
+      {
+        "callee": "make_location",
+        "line": 90,
+        "text": "range.u.location = make_location (caret_loc ? caret : start, start, end);"
+      }
+    ],
+    "gcc/gimple-fold.cc": [
+      {
+        "callee": "gimple_set_block",
+        "line": 664,
+        "text": "gimple_set_block (new_stmt, gimple_block (stmt));"
+      }
+    ],
+    "gcc/gimple-low.cc": [
+      {
+        "callee": "gimple_set_block",
+        "line": 173,
+        "text": "gimple_set_block (x, DECL_INITIAL (current_function_decl));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 705,
+        "text": "gimple_set_block (stmt, data->block);"
+      },
+      {
+        "callee": "TREE_SET_BLOCK",
+        "line": 819,
+        "text": "TREE_SET_BLOCK (arg, data->block);"
+      }
+    ],
+    "gcc/gimple.cc": [
+      {
+        "callee": "gimple_set_block",
+        "line": 406,
+        "text": "gimple_set_block (call, TREE_BLOCK (t));"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 932,
+        "text": "gimple_set_block (p, block);"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 953,
+        "text": "gimple_set_block (p, block);"
+      }
+    ],
+    "gcc/gimple.h": [
+      {
+        "callee": "gimple_set_block",
+        "line": 1934,
+        "text": "gimple_set_block (gimple *g, tree block)"
+      },
+      {
+        "callee": "set_block",
+        "line": 1936,
+        "text": "gimple_set_location (g, set_block (g->location, block));"
+      }
+    ],
+    "gcc/hierarchical_discriminator.cc": [
+      {
+        "callee": "location_with_discriminator_components",
+        "line": 66,
+        "text": "return location_with_discriminator_components (loc, comp);"
+      }
+    ],
+    "gcc/input.cc": [
+      {
+        "callee": "make_location",
+        "line": 348,
+        "text": "make_location (location_t caret, location_t start, location_t finish)"
+      },
+      {
+        "callee": "make_location",
+        "line": 350,
+        "text": "return line_table->make_location (caret, start, finish);"
+      },
+      {
+        "callee": "make_location",
+        "line": 356,
+        "text": "make_location (location_t caret, source_range src_range)"
+      },
+      {
+        "callee": "get_or_create_combined_loc",
+        "line": 359,
+        "text": "return line_table->get_or_create_combined_loc (pure_loc, src_range,"
+      },
+      {
+        "callee": "make_location",
+        "line": 1039,
+        "text": "*out_loc = make_location (ranges.get_range (caret_idx).m_start,"
+      },
+      {
+        "callee": "location_with_discriminator",
+        "line": 1048,
+        "text": "location_with_discriminator (location_t locus, int discriminator)"
+      },
+      {
+        "callee": "get_or_create_combined_loc",
+        "line": 1057,
+        "text": "return line_table->get_or_create_combined_loc (locus, src_range, block,"
+      },
+      {
+        "callee": "location_with_discriminator_components",
+        "line": 1080,
+        "text": "location_with_discriminator_components (location_t locus,"
+      },
+      {
+        "callee": "location_with_discriminator",
+        "line": 1089,
+        "text": "return location_with_discriminator (locus, discriminator);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1389,
+        "text": "location_t range_c_b_d = make_location (loc_c, loc_b, loc_d);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1443,
+        "text": "const location_t aaa = make_location (c13, c12, c14);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1451,
+        "text": "const location_t not_aaa = make_location (c11, aaa, c14);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1461,
+        "text": "const location_t aaa_eq_bbb = make_location (c12, c12, c21);"
+      },
+      {
+        "callee": "make_location",
+        "line": 1467,
+        "text": "const location_t not_aaa_eq_bbb = make_location (c11, c12, aaa_eq_bbb);"
+      }
+    ],
+    "gcc/input.h": [
+      {
+        "callee": "location_with_discriminator",
+        "line": 88,
+        "text": "extern location_t location_with_discriminator (location_t, int);"
+      },
+      {
+        "callee": "location_with_discriminator_components",
+        "line": 128,
+        "text": "location_with_discriminator_components (location_t,"
+      },
+      {
+        "callee": "make_location",
+        "line": 204,
+        "text": "extern location_t make_location (location_t caret,"
+      },
+      {
+        "callee": "make_location",
+        "line": 206,
+        "text": "extern location_t make_location (location_t caret, source_range src_range);"
+      }
+    ],
+    "gcc/ipa-param-manipulation.cc": [
+      {
+        "callee": "gimple_set_block",
+        "line": 1027,
+        "text": "gimple_set_block (new_stmt, gimple_block (stmt));"
+      }
+    ],
+    "gcc/ipa-split.cc": [
+      {
+        "callee": "gimple_set_block",
+        "line": 1512,
+        "text": "gimple_set_block (call, DECL_INITIAL (current_function_decl));"
+      }
+    ],
+    "gcc/jit/jit-common.h": [
+      {
+        "callee": "make_location",
+        "line": 198,
+        "text": "make_location () const;"
+      }
+    ],
+    "gcc/jit/jit-recording.cc": [
+      {
+        "callee": "make_location",
+        "line": 123,
+        "text": "dump::make_location () const"
+      },
+      {
+        "callee": "make_location",
+        "line": 4616,
+        "text": "m_loc = d.make_location ();"
+      },
+      {
+        "callee": "make_location",
+        "line": 5411,
+        "text": "m_loc = d.make_location ();"
+      },
+      {
+        "callee": "make_location",
+        "line": 7413,
+        "text": "m_loc = d.make_location ();"
+      },
+      {
+        "callee": "make_location",
+        "line": 7473,
+        "text": "m_loc = d.make_location ();"
+      }
+    ],
+    "gcc/json-diagnostic.cc": [
+      {
+        "callee": "make_location",
+        "line": 268,
+        "text": "return make_location (start_loc, start_loc, end_loc);"
+      }
+    ],
+    "gcc/libgdiagnostics.cc": [
+      {
+        "callee": "make_location",
+        "line": 798,
+        "text": "(m_line_table.make_location (as_location_t (loc_caret),"
+      }
+    ],
+    "gcc/lto-streamer-in.cc": [
+      {
+        "callee": "set_block",
+        "line": 464,
+        "text": "current_loc = set_block (current_loc, loc.block);"
+      },
+      {
+        "callee": "location_with_discriminator",
+        "line": 466,
+        "text": "current_loc = location_with_discriminator (current_loc, loc.discr);"
+      },
+      {
+        "callee": "set_block",
+        "line": 471,
+        "text": "current_loc = set_block (current_loc, loc.block);"
+      },
+      {
+        "callee": "location_with_discriminator",
+        "line": 475,
+        "text": "current_loc = location_with_discriminator (current_loc, loc.discr);"
+      },
+      {
+        "callee": "location_with_discriminator",
+        "line": 478,
+        "text": "current_loc = location_with_discriminator (current_loc, loc.discr);"
+      },
+      {
+        "callee": "set_block",
+        "line": 540,
+        "text": "*loc = set_block (*loc, stream_block);"
+      },
+      {
+        "callee": "set_block",
+        "line": 601,
+        "text": "*loc = set_block (current_loc, block);"
+      }
+    ],
+    "gcc/m2/gm2-gcc/m2linemap.cc": [
+      {
+        "callee": "make_location",
+        "line": 104,
+        "text": "return make_location (caret, where);"
+      },
+      {
+        "callee": "make_location",
+        "line": 128,
+        "text": "location_t location = make_location (caret, start, finish);"
+      }
+    ],
+    "gcc/objc/objc-act.cc": [
+      {
+        "callee": "make_location",
+        "line": 875,
+        "text": "decl_loc = make_location (decl_loc, location, decl_loc);"
+      }
+    ],
+    "gcc/tree-cfg.cc": [
+      {
+        "callee": "gimple_set_block",
+        "line": 546,
+        "text": "gimple_set_block (s, gimple_block (stmt));"
+      },
+      {
+        "callee": "location_with_discriminator",
+        "line": 1119,
+        "text": "return location_with_discriminator (loc, e.discrim);"
+      },
+      {
+        "callee": "TREE_SET_BLOCK",
+        "line": 7143,
+        "text": "TREE_SET_BLOCK (t, p->new_block);"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 7246,
+        "text": "gimple_set_block (stmt, p->new_block);"
+      },
+      {
+        "callee": "set_block",
+        "line": 7437,
+        "text": "locus = set_block (locus, d->new_block);"
+      },
+      {
+        "callee": "set_block",
+        "line": 7496,
+        "text": "e->goto_locus = set_block (e->goto_locus, d->new_block);"
+      }
+    ],
+    "gcc/tree-eh.cc": [
+      {
+        "callee": "gimple_set_block",
+        "line": 971,
+        "text": "gimple_set_block (stmt, block);"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 1222,
+        "text": "gimple_set_block (stmt, block);"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 2128,
+        "text": "gimple_set_block (s, gimple_block (stmt));"
+      }
+    ],
+    "gcc/tree-inline.cc": [
+      {
+        "callee": "set_block",
+        "line": 871,
+        "text": "return set_block (locus, *n);"
+      },
+      {
+        "callee": "set_block",
+        "line": 877,
+        "text": "return set_block (locus, id->block);"
+      },
+      {
+        "callee": "TREE_SET_BLOCK",
+        "line": 1202,
+        "text": "TREE_SET_BLOCK (*tp, new_block);"
+      },
+      {
+        "callee": "TREE_SET_BLOCK",
+        "line": 1422,
+        "text": "TREE_SET_BLOCK (*tp, new_block);"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 1987,
+        "text": "gimple_set_block (copy, *n);"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 3276,
+        "text": "gimple_set_block (stmt, n ? *n : id->block);"
+      }
+    ],
+    "gcc/tree-ssa-live.cc": [
+      {
+        "callee": "TREE_SET_BLOCK",
+        "line": 610,
+        "text": "TREE_SET_BLOCK (*tp, NULL);"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 670,
+        "text": "gimple_set_block (stmt, b);"
+      },
+      {
+        "callee": "gimple_set_block",
+        "line": 679,
+        "text": "gimple_set_block (stmt, NULL);"
+      }
+    ],
+    "gcc/tree-streamer-in.cc": [
+      {
+        "callee": "TREE_SET_BLOCK",
+        "line": 971,
+        "text": "TREE_SET_BLOCK (expr, block);"
+      }
+    ],
+    "gcc/tree.cc": [
+      {
+        "callee": "tree_set_block",
+        "line": 12022,
+        "text": "tree_set_block (tree t, tree b)"
+      },
+      {
+        "callee": "set_block",
+        "line": 12028,
+        "text": "t->exp.locus = set_block (t->exp.locus, b);"
+      },
+      {
+        "callee": "set_block",
+        "line": 14936,
+        "text": "set_block (location_t loc, tree block)"
+      },
+      {
+        "callee": "get_or_create_combined_loc",
+        "line": 14941,
+        "text": "return line_table->get_or_create_combined_loc (pure_loc, src_range, block,"
+      },
+      {
+        "callee": "set_source_range",
+        "line": 14946,
+        "text": "set_source_range (tree expr, location_t start, location_t finish)"
+      },
+      {
+        "callee": "set_source_range",
+        "line": 14951,
+        "text": "return set_source_range (expr, src_range);"
+      },
+      {
+        "callee": "set_source_range",
+        "line": 14955,
+        "text": "set_source_range (tree expr, source_range src_range)"
+      },
+      {
+        "callee": "get_or_create_combined_loc",
+        "line": 14963,
+        "text": "location_t adhoc = line_table->get_or_create_combined_loc (pure_loc,"
+      }
+    ],
+    "gcc/tree.h": [
+      {
+        "callee": "TREE_SET_BLOCK",
+        "line": 518,
+        "text": "#define TREE_SET_BLOCK(T, B)\t\t(tree_set_block ((T), (B)))"
+      },
+      {
+        "callee": "tree_set_block",
+        "line": 518,
+        "text": "#define TREE_SET_BLOCK(T, B)\t\t(tree_set_block ((T), (B)))"
+      },
+      {
+        "callee": "tree_set_block",
+        "line": 5907,
+        "text": "extern void tree_set_block (tree, tree);"
+      },
+      {
+        "callee": "set_block",
+        "line": 6958,
+        "text": "extern location_t set_block (location_t loc, tree block);"
+      },
+      {
+        "callee": "set_source_range",
+        "line": 6976,
+        "text": "set_source_range (tree expr, location_t start, location_t finish);"
+      },
+      {
+        "callee": "set_source_range",
+        "line": 6979,
+        "text": "set_source_range (tree expr, source_range src_range);"
+      }
+    ],
+    "libcpp/include/line-map.h": [
+      {
+        "callee": "make_location",
+        "line": 827,
+        "text": "location_t make_location (location_t caret,"
+      },
+      {
+        "callee": "get_or_create_combined_loc",
+        "line": 832,
+        "text": "get_or_create_combined_loc (location_t locus,"
+      },
+      {
+        "callee": "rebuild_location_adhoc_htab",
+        "line": 1049,
+        "text": "extern void rebuild_location_adhoc_htab (class line_maps *);"
+      }
+    ],
+    "libcpp/lex.cc": [
+      {
+        "callee": "get_or_create_combined_loc",
+        "line": 1381,
+        "text": "= pfile->line_table->get_or_create_combined_loc (start_loc,"
+      },
+      {
+        "callee": "get_or_create_combined_loc",
+        "line": 2052,
+        "text": "loc = pfile->line_table->get_or_create_combined_loc (loc, tok_range,"
+      },
+      {
+        "callee": "get_or_create_combined_loc",
+        "line": 4460,
+        "text": "= pfile->line_table->get_or_create_combined_loc (result->src_loc,"
+      }
+    ],
+    "libcpp/line-map.cc": [
+      {
+        "callee": "rebuild_location_adhoc_htab",
+        "line": 113,
+        "text": "rebuild_location_adhoc_htab (line_maps *set)"
+      },
+      {
+        "callee": "get_or_create_combined_loc",
+        "line": 176,
+        "text": "line_maps::get_or_create_combined_loc (location_t locus,"
+      },
+      {
+        "callee": "make_location",
+        "line": 281,
+        "text": "line_maps::make_location (location_t caret, location_t start, location_t finish)"
+      },
+      {
+        "callee": "get_or_create_combined_loc",
+        "line": 287,
+        "text": "location_t combined_loc = get_or_create_combined_loc (pure_loc,"
+      }
+    ]
+  },
+  "scope": "Complete retained gcc/libcpp .c/.cc/.h set; lexical matches include declarations and selftests.",
+  "selected_warning_writers": {
+    "gcc/ada/gcc-interface/trans.cc": [
+      {
+        "callee": "suppress_warning",
+        "line": 9420,
+        "text": "suppress_warning (*expr_p);"
+      }
+    ],
+    "gcc/ada/gcc-interface/utils.cc": [
+      {
+        "callee": "suppress_warning",
+        "line": 959,
+        "text": "suppress_warning (decl);"
+      }
+    ],
+    "gcc/cfgexpand.cc": [
+      {
+        "callee": "copy_warning",
+        "line": 3183,
+        "text": "copy_warning (exp, stmt);"
+      }
+    ],
+    "gcc/cgraphunit.cc": [
+      {
+        "callee": "suppress_warning",
+        "line": 1116,
+        "text": "suppress_warning (decl, OPT_Wunused);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 1120,
+        "text": "suppress_warning (decl, OPT_Wunused);"
+      }
+    ],
+    "gcc/config/i386/i386.cc": [
+      {
+        "callee": "gimple_set_location",
+        "line": 19786,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 19791,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 19809,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 19826,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 19874,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 19919,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 20128,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 20140,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 20202,
+        "text": "gimple_set_location (g, loc);"
+      }
+    ],
+    "gcc/fold-const.cc": [
+      {
+        "callee": "copy_warning",
+        "line": 4650,
+        "text": "copy_warning (ret, arg);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 9380,
+        "text": "suppress_warning (tem /* What warning? */);"
+      }
+    ],
+    "gcc/gcc-diagnostic-spec.cc": [
+      {
+        "callee": "put_warning_spec_at",
+        "line": 186,
+        "text": "put_warning_spec_at (location_t loc, unsigned bits)"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 207,
+        "text": "copy_warning (location_t to, location_t from)"
+      }
+    ],
+    "gcc/gimple-expr.cc": [
+      {
+        "callee": "copy_warning",
+        "line": 395,
+        "text": "copy_warning (copy, var);"
+      }
+    ],
+    "gcc/gimple-fold.cc": [
+      {
+        "callee": "gimple_set_location",
+        "line": 662,
+        "text": "gimple_set_location (new_stmt, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 837,
+        "text": "gimple_set_location (repl, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1035,
+        "text": "gimple_set_location (new_stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1050,
+        "text": "gimple_set_location (new_stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1304,
+        "text": "gimple_set_location (new_stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1341,
+        "text": "gimple_set_location (new_stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1525,
+        "text": "gimple_set_location (store, gimple_location (stmt));"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 2112,
+        "text": "suppress_warning (stmt, OPT_Wstringop_overread);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 2272,
+        "text": "gimple_set_location (new_stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 2418,
+        "text": "gimple_set_location (repl, loc);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 2546,
+        "text": "suppress_warning (stmt, OPT_Wstringop_overflow_);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 2563,
+        "text": "suppress_warning (stmt, OPT_Wstringop_overflow_);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 3306,
+        "text": "suppress_warning (stmt, OPT_Wstringop_overread);"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 3543,
+        "text": "copy_warning (repl, stmt);"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 3594,
+        "text": "copy_warning (repl, stmt);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4146,
+        "text": "gimple_set_location (host_ass, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4152,
+        "text": "gimple_set_location (dev_ass, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4158,
+        "text": "gimple_set_location (result_ass, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4391,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4436,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 4482,
+        "text": "suppress_warning (tmp_dst, OPT_Wuninitialized);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4484,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4494,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4499,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4525,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4800,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4803,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4809,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4812,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4815,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4818,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4964,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4968,
+        "text": "gimple_set_location (g, buf->loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5173,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5176,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5190,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5282,
+        "text": "gimple_set_location (nstmt0, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5291,
+        "text": "gimple_set_location (nstmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5327,
+        "text": "gimple_set_location (nstmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5909,
+        "text": "gimple_set_location (new_stmt, gimple_location (call));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5945,
+        "text": "gimple_set_location (new_stmt, gimple_location (call));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 11023,
+        "text": "gimple_set_location (stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 11049,
+        "text": "gimple_set_location (stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 11081,
+        "text": "gimple_set_location (stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 11113,
+        "text": "gimple_set_location (stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 11148,
+        "text": "gimple_set_location (stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 11185,
+        "text": "gimple_set_location (stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 11223,
+        "text": "gimple_set_location (stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 11335,
+        "text": "gimple_set_location (stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 11374,
+        "text": "gimple_set_location (stmt, loc);"
+      }
+    ],
+    "gcc/gimple-isel.cc": [
+      {
+        "callee": "gimple_set_location",
+        "line": 130,
+        "text": "gimple_set_location (ass_stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 141,
+        "text": "gimple_set_location (new_stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 145,
+        "text": "gimple_set_location (ass_stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1006,
+        "text": "gimple_set_location (g, gimple_location (call));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1224,
+        "text": "gimple_set_location (g, gimple_location (call));"
+      }
+    ],
+    "gcc/gimple-iterator.cc": [
+      {
+        "callee": "gimple_set_location",
+        "line": 441,
+        "text": "gimple_set_location (stmt, gimple_location (orig_stmt));"
+      }
+    ],
+    "gcc/gimple-low.cc": [
+      {
+        "callee": "gimple_set_location",
+        "line": 172,
+        "text": "gimple_set_location (x, cfun->function_end_locus);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 191,
+        "text": "gimple_set_location (t.stmt, UNKNOWN_LOCATION);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 689,
+        "text": "gimple_set_location (call, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1199,
+        "text": "gimple_set_location (tmp_rs.stmt, UNKNOWN_LOCATION);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1217,
+        "text": "gimple_set_location (t, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1300,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1307,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1323,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1331,
+        "text": "gimple_set_location (g, loc);"
+      }
+    ],
+    "gcc/gimple.cc": [
+      {
+        "callee": "gimple_set_location",
+        "line": 407,
+        "text": "gimple_set_location (call, EXPR_LOCATION (t));"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 431,
+        "text": "copy_warning (call, t);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 463,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 889,
+        "text": "gimple_set_location (p, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 912,
+        "text": "gimple_set_location (p, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 931,
+        "text": "gimple_set_location (p, location);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 952,
+        "text": "gimple_set_location (p, location);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1491,
+        "text": "gimple_set_location (gs, location);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 2606,
+        "text": "gimple_set_location (new_stmt, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_seq_set_location",
+        "line": 3528,
+        "text": "gimple_seq_set_location (gimple_seq seq, location_t loc)"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 3531,
+        "text": "gimple_set_location (gsi_stmt (i), loc);"
+      }
+    ],
+    "gcc/gimple.h": [
+      {
+        "callee": "gimple_seq_set_location",
+        "line": 1677,
+        "text": "extern void gimple_seq_set_location (gimple_seq, location_t);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 1691,
+        "text": "extern void suppress_warning (gimple *, opt_code = all_warnings,"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 1695,
+        "text": "extern void copy_warning (gimple *, const gimple *)"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 1698,
+        "text": "extern void copy_warning (gimple *, const_tree)"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 1701,
+        "text": "extern void copy_warning (tree, const gimple *)"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1929,
+        "text": "inline void gimple_set_location (gimple *, location_t);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1936,
+        "text": "gimple_set_location (g, set_block (g->location, block));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1959,
+        "text": "gimple_set_location (gimple *g, location_t location)"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 1963,
+        "text": "copy_warning (location, g->location);"
+      }
+    ],
+    "gcc/gimplify.cc": [
+      {
+        "callee": "gimple_set_location",
+        "line": 1731,
+        "text": "gimple_set_location (clobber_stmt, end_locus);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1746,
+        "text": "gimple_set_location (clobber_stmt, end_locus);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1800,
+        "text": "gimple_set_location (stack_save, start_locus);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1801,
+        "text": "gimple_set_location (stack_restore, end_locus);"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 1886,
+        "text": "copy_warning (ret, stmt);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 1948,
+        "text": "suppress_warning (result, OPT_Wuninitialized);"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 1962,
+        "text": "copy_warning (ret, stmt);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 3134,
+        "text": "gimple_set_location (switch_stmt, EXPR_LOCATION (switch_expr));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 3146,
+        "text": "gimple_set_location (bind, EXPR_LOCATION (switch_expr));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 3172,
+        "text": "gimple_set_location (label_stmt, EXPR_LOCATION (*expr_p));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 3203,
+        "text": "gimple_set_location (label_stmt, EXPR_LOCATION (*expr_p));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4696,
+        "text": "gimple_set_location (g, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5726,
+        "text": "gimple_set_location (cond_stmt, EXPR_LOCATION (expr));"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 5728,
+        "text": "copy_warning (cond_stmt, COND_EXPR_COND (expr));"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 7296,
+        "text": "suppress_warning (other);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 7406,
+        "text": "suppress_warning (*from_p, OPT_Wunused_result);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 7565,
+        "text": "gimple_set_location (call_stmt, EXPR_LOCATION (*expr_p));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 7599,
+        "text": "gimple_set_location (assign, EXPR_LOCATION (*expr_p));"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 7601,
+        "text": "copy_warning (assign, *from_p);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 8529,
+        "text": "suppress_warning (var, OPT_Wuninitialized);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 18191,
+        "text": "gimple_set_location (gfor, input_location);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 18195,
+        "text": "gimple_set_location (g, input_location);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 20866,
+        "text": "gimple_set_location (try_, EXPR_LOCATION (save_expr));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 20868,
+        "text": "gimple_set_location (try_, saved_location);"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 20903,
+        "text": "copy_warning (ehf, *expr_p);"
+      }
+    ],
+    "gcc/tree-cfg.cc": [
+      {
+        "callee": "gimple_set_location",
+        "line": 545,
+        "text": "gimple_set_location (s, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1145,
+        "text": "gimple_set_location (stmt, prev_replacement);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1150,
+        "text": "gimple_set_location (stmt, prev_replacement);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 9808,
+        "text": "suppress_warning (fun->decl, OPT_Wreturn_type);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 9843,
+        "text": "suppress_warning (fun->decl, OPT_Wreturn_type);"
+      }
+    ],
+    "gcc/tree-eh.cc": [
+      {
+        "callee": "gimple_set_location",
+        "line": 513,
+        "text": "gimple_set_location (gsi_stmt (i), gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 827,
+        "text": "gimple_set_location (x, q->location);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 847,
+        "text": "gimple_set_location (x, q->location);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 938,
+        "text": "gimple_set_location (x, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 970,
+        "text": "gimple_set_location (stmt, loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1176,
+        "text": "gimple_set_location (x, gimple_location (tf->try_finally_expr));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1221,
+        "text": "gimple_set_location (stmt, gimple_location (tf->try_finally_expr));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1318,
+        "text": "gimple_set_location (x, tf_loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1476,
+        "text": "gimple_set_location (x, finally_loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1490,
+        "text": "gimple_set_location (x, finally_loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1519,
+        "text": "gimple_set_location (x, tf_loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1616,
+        "text": "gimple_set_location (switch_stmt, finally_loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1900,
+        "text": "gimple_set_location (eh_dispatch, catch_loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1943,
+        "text": "gimple_set_location (x, gimple_location (tp));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 2127,
+        "text": "gimple_set_location (s, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 3529,
+        "text": "gimple_set_location (x, dst_r->u.must_not_throw.failure_loc);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 3606,
+        "text": "gimple_set_location (g, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4002,
+        "text": "gimple_set_location (x, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4010,
+        "text": "gimple_set_location (x, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 4027,
+        "text": "gimple_set_location (x, gimple_location (stmt));"
+      }
+    ],
+    "gcc/tree-inline.cc": [
+      {
+        "callee": "copy_warning",
+        "line": 1138,
+        "text": "copy_warning (*tp, old);"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 1392,
+        "text": "copy_warning (*tp, old);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1547,
+        "text": "gimple_set_location (bind, input_location);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1856,
+        "text": "gimple_set_location (copy, input_location);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 1868,
+        "text": "gimple_set_location (copy, input_location);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 2006,
+        "text": "gimple_set_location (copy, input_location);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 2210,
+        "text": "gimple_set_location (new_call, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 2963,
+        "text": "gimple_set_location (stmt, UNKNOWN_LOCATION);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 3908,
+        "text": "suppress_warning (var /* OPT_Wuninitialized? */);"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 5192,
+        "text": "suppress_warning (modify_dest, OPT_Wuninitialized);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5275,
+        "text": "gimple_set_location (clobber_stmt, gimple_location (stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5350,
+        "text": "gimple_set_location (g, gimple_location (old_stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5355,
+        "text": "gimple_set_location (stmt, gimple_location (old_stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5372,
+        "text": "gimple_set_location (clobber_stmt, gimple_location (old_stmt));"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 5419,
+        "text": "gimple_set_location (clobber_stmt, gimple_location (stmt));"
+      }
+    ],
+    "gcc/tree-into-ssa.cc": [
+      {
+        "callee": "gimple_set_location",
+        "line": 1867,
+        "text": "gimple_set_location (call, gimple_location (gsi_stmt (*gsi)));"
+      }
+    ],
+    "gcc/tree-outof-ssa.cc": [
+      {
+        "callee": "gimple_set_location",
+        "line": 1238,
+        "text": "gimple_set_location (stmt,"
+      }
+    ],
+    "gcc/tree-ssa.cc": [
+      {
+        "callee": "suppress_warning",
+        "line": 2029,
+        "text": "suppress_warning (lrhs);"
+      },
+      {
+        "callee": "gimple_set_location",
+        "line": 2032,
+        "text": "gimple_set_location (load, loc);"
+      }
+    ],
+    "gcc/warning-control.cc": [
+      {
+        "callee": "suppress_warning",
+        "line": 156,
+        "text": "suppress_warning (tree expr, opt_code opt /* = all_warnings */,"
+      },
+      {
+        "callee": "suppress_warning",
+        "line": 173,
+        "text": "suppress_warning (gimple *stmt, opt_code opt /* = all_warnings */,"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 190,
+        "text": "void copy_warning (ToType to, FromType from)"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 227,
+        "text": "copy_warning (tree to, const_tree from)"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 237,
+        "text": "copy_warning (tree to, const gimple *from)"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 245,
+        "text": "copy_warning (gimple *to, const_tree from)"
+      },
+      {
+        "callee": "copy_warning",
+        "line": 253,
+        "text": "copy_warning (gimple *to, const gimple *from)"
+      },
+      {
+        "callee": "put_warning_spec_at",
+        "line": 283,
+        "text": "put_warning_spec_at (loc, bits);"
+      }
+    ]
+  }
+}

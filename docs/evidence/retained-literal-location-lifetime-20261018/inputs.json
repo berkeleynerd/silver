@@ -1,0 +1,1013 @@
+{
+  "corpus_identity": {
+    "corpus_files": 3574,
+    "corpus_sha256": "a9cf398795fbedadcbabacde03766be154f3d6030392d720be7e01096fb4697a"
+  },
+  "files": [
+    {
+      "bytes": 7830,
+      "path": "alloc.ads",
+      "root": "ada",
+      "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d"
+    },
+    {
+      "bytes": 21488,
+      "path": "fname-uf.adb",
+      "root": "ada",
+      "sha256": "22caede84a6269298fc78349d6dee2e10baf3f4841bc65131ed94ad054194101"
+    },
+    {
+      "bytes": 19745,
+      "path": "frontend.adb",
+      "root": "ada",
+      "sha256": "c3322dab69929c2ff3eef9f768d98574cf56d337e452b2206eb44eb552f7ee67"
+    },
+    {
+      "bytes": 60186,
+      "path": "gnat1drv.adb",
+      "root": "ada",
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173"
+    },
+    {
+      "bytes": 39122,
+      "path": "lib-load.adb",
+      "root": "ada",
+      "sha256": "4f589143677f09575bebbd041abe3d0001c480b6392cccbfd60e699f7fa8f09b"
+    },
+    {
+      "bytes": 40494,
+      "path": "lib.adb",
+      "root": "ada",
+      "sha256": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e"
+    },
+    {
+      "bytes": 105542,
+      "path": "osint.adb",
+      "root": "ada",
+      "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69"
+    },
+    {
+      "bytes": 916035,
+      "path": "sem_ch3.adb",
+      "root": "ada",
+      "sha256": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f"
+    },
+    {
+      "bytes": 30951,
+      "path": "sinput-l.adb",
+      "root": "ada",
+      "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd"
+    },
+    {
+      "bytes": 37385,
+      "path": "sinput.adb",
+      "root": "ada",
+      "sha256": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8"
+    },
+    {
+      "bytes": 43979,
+      "path": "sinput.ads",
+      "root": "ada",
+      "sha256": "48657f3ca583b754d10f2798fb61c54d85b556c2cd6f10036acff685d57a682b"
+    },
+    {
+      "bytes": 46466,
+      "path": "types.ads",
+      "root": "ada",
+      "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5"
+    },
+    {
+      "bytes": 414991,
+      "git_blob_sha1": "4ccc8d7a0e10950c784bf95471644a4e201ed63f",
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "root": "gcc",
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/decl.cc"
+    },
+    {
+      "bytes": 56241,
+      "git_blob_sha1": "793d7145b5e73d78a7294b2e4614e85f1bf73812",
+      "path": "gcc/ada/gcc-interface/gigi.h",
+      "root": "gcc",
+      "sha256": "6e2940a89abb01b7218eff64e13b3aabbc7a9970870670816160dc5991ba48e2",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/gigi.h"
+    },
+    {
+      "bytes": 47742,
+      "git_blob_sha1": "547aae5438c88ee4f15699566778eab905a52a3b",
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "root": "gcc",
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/misc.cc"
+    },
+    {
+      "bytes": 406631,
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "root": "gcc",
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "bytes": 266602,
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "root": "gcc",
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "bytes": 122255,
+      "git_blob_sha1": "3604d4df761cb702c326366f3ba6349fb37f4fc6",
+      "path": "gcc/ada/gcc-interface/utils2.cc",
+      "root": "gcc",
+      "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/utils2.cc"
+    },
+    {
+      "bytes": 191674,
+      "path": "gcc/c-family/c-format.cc",
+      "root": "gcc",
+      "sha256": "11618af7255335a2e1c1b814e461a41728e43378dbd582049be7a3fbd4482e71"
+    },
+    {
+      "bytes": 52573,
+      "path": "gcc/c-family/c-lex.cc",
+      "root": "gcc",
+      "sha256": "df8d838ec8b19b73a9fe7d05296da3331db530f0320b2ff634b0d614d011c287"
+    },
+    {
+      "bytes": 11873,
+      "path": "gcc/c-family/c-pch.cc",
+      "root": "gcc",
+      "sha256": "2e4074fd67275aa635573de2aba6e06e6f7e5f7edcd9ca46c830f0a926733491"
+    },
+    {
+      "bytes": 24376,
+      "path": "gcc/c/c-fold.cc",
+      "root": "gcc",
+      "sha256": "605e673af8ea105e92df17a48e5f050087ebb25cd7918e8220528956d8acd20d"
+    },
+    {
+      "bytes": 953408,
+      "path": "gcc/c/c-parser.cc",
+      "root": "gcc",
+      "sha256": "22cb2d4aaa7bc2fb991bd8c25383738de6113c5e4cdb1914308e90452f5a0880"
+    },
+    {
+      "bytes": 40847,
+      "path": "gcc/c/c-tree.h",
+      "root": "gcc",
+      "sha256": "a3efdb880c2938761bc5058000e4a9e96441f097ab33599cd88273c3374f56ce"
+    },
+    {
+      "bytes": 80706,
+      "path": "gcc/c/gimple-parser.cc",
+      "root": "gcc",
+      "sha256": "3c71a976f10aba3f0c468fa90be2c93fe582afda2c25ba487e701cab0734d751"
+    },
+    {
+      "bytes": 178248,
+      "git_blob_sha1": "4cdc2361a4bf031f4c56c828561c2879ec50b805",
+      "path": "gcc/calls.cc",
+      "root": "gcc",
+      "sha256": "f1354772f2dd9465c3eacebfcff2c53f7a0a5036eadc0ba2cf2f014c7a7e42ba",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/calls.cc"
+    },
+    {
+      "bytes": 226526,
+      "path": "gcc/cfgexpand.cc",
+      "root": "gcc",
+      "sha256": "31027cc2a135939da3d49147e647e4f95f50bfeaa5597b82dddef38ae1aced53"
+    },
+    {
+      "bytes": 63269,
+      "path": "gcc/cfgloopmanip.cc",
+      "root": "gcc",
+      "sha256": "fa3cb898895e40bc2671b4f2ec8aab3199cc5938eeb4431cbc815c163ed0d30a"
+    },
+    {
+      "bytes": 154498,
+      "git_blob_sha1": "0e409140e71d3aeeff1ff734cbb2f872321ce5fd",
+      "path": "gcc/cfgrtl.cc",
+      "root": "gcc",
+      "sha256": "7aabb0ebf9549a4e03c0a63a7c5f09e6df23b6b140d1d1ffcdc49deabd95a70c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/cfgrtl.cc"
+    },
+    {
+      "bytes": 81742,
+      "path": "gcc/cgraphunit.cc",
+      "root": "gcc",
+      "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc"
+    },
+    {
+      "bytes": 115014,
+      "path": "gcc/cobol/util.cc",
+      "root": "gcc",
+      "sha256": "e8ad09932644b11e43bdbd5b0f68ad3403d596a4d2dfa1158d3b0d230229d981"
+    },
+    {
+      "bytes": 1070667,
+      "path": "gcc/config/aarch64/aarch64.cc",
+      "root": "gcc",
+      "sha256": "3177946280f890514a4f7902a38470da9917024bb2dc36085289de2b5f41bddc"
+    },
+    {
+      "bytes": 154425,
+      "path": "gcc/config/i386/i386-features.cc",
+      "root": "gcc",
+      "sha256": "8177560659b4f519c41fe30c025867f075b465cff8e4f6da884d615afebf5c0f"
+    },
+    {
+      "bytes": 832808,
+      "path": "gcc/config/i386/i386.cc",
+      "root": "gcc",
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "bytes": 350442,
+      "path": "gcc/config/loongarch/loongarch.cc",
+      "root": "gcc",
+      "sha256": "bd9759301a4fea43bbec840cf9712745c86419a0938324205f170e0b03c997cd"
+    },
+    {
+      "bytes": 525352,
+      "path": "gcc/config/riscv/riscv.cc",
+      "root": "gcc",
+      "sha256": "b7e9c57249af7106460f36cca47dbd1c50ce3cc396cb81da4ae3c665f01814a8"
+    },
+    {
+      "bytes": 868760,
+      "path": "gcc/config/rs6000/rs6000.cc",
+      "root": "gcc",
+      "sha256": "688e3b2532696ca3928dfc747c80ce10cd5d145c66d4162a9309bbff324589b9"
+    },
+    {
+      "bytes": 110111,
+      "path": "gcc/cp/constraint.cc",
+      "root": "gcc",
+      "sha256": "9ddf0f85f0e7ddd8d1795f8414c7147e697159675a2b96fbca940fc471b0bdf2"
+    },
+    {
+      "bytes": 99510,
+      "path": "gcc/cp/contracts.cc",
+      "root": "gcc",
+      "sha256": "77d2190687c4eefbd5d113d692431fa46f69e1f1521d5e9bcbb5b1e59654595c"
+    },
+    {
+      "bytes": 192926,
+      "path": "gcc/cp/coroutines.cc",
+      "root": "gcc",
+      "sha256": "593826ea97e3eb54c3e6774ab156301210a0f2daca006ba53a740eaad202522c"
+    },
+    {
+      "bytes": 385262,
+      "path": "gcc/cp/cp-tree.h",
+      "root": "gcc",
+      "sha256": "d96662b18abc7c97156965f9bf3c2c1e5aaad785029540af4d7a8e8444a4537c"
+    },
+    {
+      "bytes": 654348,
+      "path": "gcc/cp/module.cc",
+      "root": "gcc",
+      "sha256": "35f7cd0496d76ff01f7455fdf7340878bd7956adea4b9580b5020237610b2c75"
+    },
+    {
+      "bytes": 1813824,
+      "path": "gcc/cp/parser.cc",
+      "root": "gcc",
+      "sha256": "c06b0394c98b56026550adeb3ca2513e13d7107f5e632303671f23b2f8df9783"
+    },
+    {
+      "bytes": 452233,
+      "path": "gcc/cp/semantics.cc",
+      "root": "gcc",
+      "sha256": "3fc4f49e3b55f55883f318862d50a28f903ac3b6cb0dfb2771bda72036e5b8fe"
+    },
+    {
+      "bytes": 56342,
+      "path": "gcc/diagnostics/changes.cc",
+      "root": "gcc",
+      "sha256": "2c15506c7fbd10b5d3afb0d72ecb542041c98f81cfe44356ed63442e9d4ba3a7"
+    },
+    {
+      "bytes": 91328,
+      "path": "gcc/diagnostics/paths-output.cc",
+      "root": "gcc",
+      "sha256": "0c05bb00a7bb0d7fff6f4ededdec45ef92db62414eff02af7043ff670e3489af"
+    },
+    {
+      "bytes": 168464,
+      "path": "gcc/diagnostics/sarif-sink.cc",
+      "root": "gcc",
+      "sha256": "53f6c1c046231d1aab852a4cd320fb60955d13f23f18dd58b4bc97904127bee8"
+    },
+    {
+      "bytes": 230123,
+      "path": "gcc/diagnostics/source-printing.cc",
+      "root": "gcc",
+      "sha256": "8f10fcc7fb7d316cdd948198878a7300abe1ca2347cc03717f78639966da211a"
+    },
+    {
+      "bytes": 193419,
+      "git_blob_sha1": "e41ec2283b8fa3cf97ed04c270308131701dc003",
+      "path": "gcc/emit-rtl.cc",
+      "root": "gcc",
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/emit-rtl.cc"
+    },
+    {
+      "bytes": 472318,
+      "git_blob_sha1": "7ca5dd84ce92b59b41beedc78dfee1f165a91012",
+      "path": "gcc/expr.cc",
+      "root": "gcc",
+      "sha256": "97b7c529f38ae0dbb7fb39a2d85d5c27c18bc145a9d21a08f3e5a5135f571e4f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/expr.cc"
+    },
+    {
+      "bytes": 128479,
+      "git_blob_sha1": "b5e8c6e2efde01417370e7dea5456ba108b866ed",
+      "path": "gcc/final.cc",
+      "root": "gcc",
+      "sha256": "b631c3c19ca97a996608ed93459fa399eb230336a7bc41601c472b6f6474d00b",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/final.cc"
+    },
+    {
+      "bytes": 560244,
+      "path": "gcc/fold-const.cc",
+      "root": "gcc",
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506"
+    },
+    {
+      "bytes": 26023,
+      "path": "gcc/fortran/error.cc",
+      "root": "gcc",
+      "sha256": "ba15247425a2cab2aa0dddde0e11dd91c74f4c01c5b8d16124fc68fbd87a51ad"
+    },
+    {
+      "bytes": 221482,
+      "git_blob_sha1": "109821c16fc96e4cd77d0721babca21dcdf82419",
+      "path": "gcc/function.cc",
+      "root": "gcc",
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/function.cc"
+    },
+    {
+      "bytes": 5810,
+      "path": "gcc/gcc-diagnostic-spec.cc",
+      "root": "gcc",
+      "sha256": "d9cf1b65c1dffc6c14adec035c303a934bc8a57d94e04769b1bc660e8e49d059"
+    },
+    {
+      "bytes": 3763,
+      "git_blob_sha1": "6f5aab4811b1466512de4a4973d7d0df737980fc",
+      "path": "gcc/gcc-diagnostic-spec.h",
+      "root": "gcc",
+      "sha256": "e2ffcff7c2448b3d02f365814f26727166b02532cc604ca33de994d2aea676b2",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gcc-diagnostic-spec.h"
+    },
+    {
+      "bytes": 40096,
+      "git_blob_sha1": "6d3dca78f034c44683cfb57e578238f7835d5bce",
+      "path": "gcc/ggc-common.cc",
+      "root": "gcc",
+      "sha256": "a5a41143b78a22376c6d830215ee856616db68bbf4432987479f4e4b8ded4627",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ggc-common.cc"
+    },
+    {
+      "bytes": 78408,
+      "git_blob_sha1": "e3cccc9d07996bf7056f0eeaab7d48f63bf41b6b",
+      "path": "gcc/ggc-page.cc",
+      "root": "gcc",
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ggc-page.cc"
+    },
+    {
+      "bytes": 11939,
+      "git_blob_sha1": "fe9850e191d5cca1aaf14bfa3300bb09922534db",
+      "path": "gcc/ggc.h",
+      "root": "gcc",
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ggc.h"
+    },
+    {
+      "bytes": 29310,
+      "path": "gcc/gimple-expr.cc",
+      "root": "gcc",
+      "sha256": "ca1f1b80b838d06739cbd47ac4b3713b5571d308e1fc59ba92df6ce281e06d4f"
+    },
+    {
+      "bytes": 371680,
+      "path": "gcc/gimple-fold.cc",
+      "root": "gcc",
+      "sha256": "e0c4eff5300b96ffe9303db8c2ebdfeb8097b34b574a215b82e777d70d2db497"
+    },
+    {
+      "bytes": 40402,
+      "path": "gcc/gimple-isel.cc",
+      "root": "gcc",
+      "sha256": "6e9e5152d17e4b265cdfc704e7520451bf0b367d7a5b5eaf442b3939617abdf2"
+    },
+    {
+      "bytes": 29871,
+      "path": "gcc/gimple-iterator.cc",
+      "root": "gcc",
+      "sha256": "a4aa66a388eeae81845f38888032f3922a086fed679d62da49c25fb5e18da83d"
+    },
+    {
+      "bytes": 45880,
+      "path": "gcc/gimple-low.cc",
+      "root": "gcc",
+      "sha256": "da94ffa5208c13411156858f93ccb9f772f30da912ccaff6c8119ffd82edbafb"
+    },
+    {
+      "bytes": 263982,
+      "git_blob_sha1": "fc8e1c256094a5d108b54a360e4ccd39bcea8a11",
+      "path": "gcc/gimple-lower-bitint.cc",
+      "root": "gcc",
+      "sha256": "f2c19b60431affbea75c7bee2d7e4aa683f0176f86b8db2869301163d612cf9a",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple-lower-bitint.cc"
+    },
+    {
+      "bytes": 148420,
+      "git_blob_sha1": "98de5df86b0230b72f5846bcd45e4b40562a1b65",
+      "path": "gcc/gimple-ssa-warn-access.cc",
+      "root": "gcc",
+      "sha256": "ddd9a77ea6a7ac598a37ad5345c0faba38ef3ded821550428f4e9b86dfea4d5d",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple-ssa-warn-access.cc"
+    },
+    {
+      "bytes": 11880,
+      "git_blob_sha1": "c847db0214796853aaaa4384349937009dc1ce2e",
+      "path": "gcc/gimple-ssa-warn-alloca.cc",
+      "root": "gcc",
+      "sha256": "e260cbf58b2c0e9fde3eaf16f717b611ecd1394096d3dd090b975bb0c72cb3d0",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple-ssa-warn-alloca.cc"
+    },
+    {
+      "bytes": 106015,
+      "path": "gcc/gimple.cc",
+      "root": "gcc",
+      "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803"
+    },
+    {
+      "bytes": 166069,
+      "path": "gcc/gimple.h",
+      "root": "gcc",
+      "sha256": "33b8d4bef37de5b5395cae298f6da5707a6e07505487ee343e760282d87b96f3"
+    },
+    {
+      "bytes": 703569,
+      "path": "gcc/gimplify.cc",
+      "root": "gcc",
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e"
+    },
+    {
+      "bytes": 10909,
+      "git_blob_sha1": "80999790337bd40a35c60075566b44460def31c5",
+      "path": "gcc/hash-map.h",
+      "root": "gcc",
+      "sha256": "1a70ff56f503e7aa95b8418b2109c4ecaabcac2a67638e5846893d6c1e2d6dbb",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/hash-map.h"
+    },
+    {
+      "bytes": 4564,
+      "git_blob_sha1": "22a08b2735bc9cede8e62e7f98a4c04e25305acc",
+      "path": "gcc/hash-table.cc",
+      "root": "gcc",
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/hash-table.cc"
+    },
+    {
+      "bytes": 39688,
+      "git_blob_sha1": "0bee2850b8cce57bb53b2424c839a5f9fa3a4de4",
+      "path": "gcc/hash-table.h",
+      "root": "gcc",
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/hash-table.h"
+    },
+    {
+      "bytes": 9547,
+      "path": "gcc/hierarchical_discriminator.cc",
+      "root": "gcc",
+      "sha256": "6ce6683801a4f0c37926a8302155965cbb1b2f087eceddb960194cfe05ea41eb"
+    },
+    {
+      "bytes": 117157,
+      "path": "gcc/input.cc",
+      "root": "gcc",
+      "sha256": "8016245a4a83cc704e505be8e69bc5b46722721f86338bc23ddc55419a286fc7"
+    },
+    {
+      "bytes": 8377,
+      "path": "gcc/input.h",
+      "root": "gcc",
+      "sha256": "606f75d9a6689e18935cb4e18a2e06532ba408722848531123e36be5b28dc92c"
+    },
+    {
+      "bytes": 161148,
+      "git_blob_sha1": "e187231dfb64c6eadb226a7c8de03dac6ac94865",
+      "path": "gcc/ipa-fnsummary.cc",
+      "root": "gcc",
+      "sha256": "977298c2bb09af16adc45786fd8a2bd4e768d44ecd22c0f3e59c3b957b5b4f2c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ipa-fnsummary.cc"
+    },
+    {
+      "bytes": 112365,
+      "git_blob_sha1": "24d8974d5ca4c85116856c1542299402d1c0b9fd",
+      "path": "gcc/ipa-inline.cc",
+      "root": "gcc",
+      "sha256": "17a339c37db9d130c93300a6f1cdfb7fd585bac69e70ba20e21d3f48c8d61955",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ipa-inline.cc"
+    },
+    {
+      "bytes": 84347,
+      "path": "gcc/ipa-param-manipulation.cc",
+      "root": "gcc",
+      "sha256": "599c00bbe1f3a7b4bcd7728fa36a35373a33ab79813a7e7fb5dbfbca54947b21"
+    },
+    {
+      "bytes": 66168,
+      "path": "gcc/ipa-split.cc",
+      "root": "gcc",
+      "sha256": "315666da244ecaf91a29cfb82b445145c2b2c64500f46a2ccf05ae636f2eaca7"
+    },
+    {
+      "bytes": 6823,
+      "path": "gcc/jit/jit-common.h",
+      "root": "gcc",
+      "sha256": "7d7c58dd5dd28691e5802393267089bde8af711733823f4129667aea1c9a1614"
+    },
+    {
+      "bytes": 238955,
+      "path": "gcc/jit/jit-recording.cc",
+      "root": "gcc",
+      "sha256": "b3e3d04fbc0354912b4dc438037c6f2b23f1cc36087c958559fc994e5a841e9a"
+    },
+    {
+      "bytes": 9992,
+      "path": "gcc/json-diagnostic.cc",
+      "root": "gcc",
+      "sha256": "d5f3c1eb3fa4b5a625994a9549acee5c4fa0e61d6bb73429c9cedefebd139547"
+    },
+    {
+      "bytes": 75346,
+      "path": "gcc/libgdiagnostics.cc",
+      "root": "gcc",
+      "sha256": "4b6edd76e3b6e3cf5c467cf1df202415fd2e1b7fc71591368835bbcb16a0529c"
+    },
+    {
+      "bytes": 64470,
+      "path": "gcc/lto-streamer-in.cc",
+      "root": "gcc",
+      "sha256": "48dd36a7756a37b424616579d07de740ed9ff23733e546a337e6bbb2837a9917"
+    },
+    {
+      "bytes": 8972,
+      "path": "gcc/m2/gm2-gcc/m2linemap.cc",
+      "root": "gcc",
+      "sha256": "8e59a5a009e3be306df0961c2250e2846e074917c8cae298e5d57d66d3cd52e9"
+    },
+    {
+      "bytes": 329862,
+      "path": "gcc/objc/objc-act.cc",
+      "root": "gcc",
+      "sha256": "e67257320d09ef3cb8639a6ae7f5f4e17c97bf4a49ac2b8106a1366dab4de127"
+    },
+    {
+      "bytes": 127927,
+      "git_blob_sha1": "6658b6acd378d6ac03a28acf15a2e7bbe1eac2c7",
+      "path": "gcc/opts.cc",
+      "root": "gcc",
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/opts.cc"
+    },
+    {
+      "bytes": 91818,
+      "git_blob_sha1": "9ec37eeb2a98b348ffe3be9bc639885772dcd8f4",
+      "path": "gcc/passes.cc",
+      "root": "gcc",
+      "sha256": "facb2b07df162fc9f9fa9478e602900e81a34de48ad99200f45dac7d42e179fc",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/passes.cc"
+    },
+    {
+      "bytes": 24225,
+      "git_blob_sha1": "cdddb87302f647b4709b246b84cb5766230c6a97",
+      "path": "gcc/passes.def",
+      "root": "gcc",
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/passes.def"
+    },
+    {
+      "bytes": 8292,
+      "path": "gcc/stringpool.cc",
+      "root": "gcc",
+      "sha256": "779d6578fa49c937be8650ea40e8fd92d7698eaf0076ae501450989174331df1"
+    },
+    {
+      "bytes": 75641,
+      "git_blob_sha1": "5f1eac75122c9cc945012a02426784f6c2584328",
+      "path": "gcc/targhooks.cc",
+      "root": "gcc",
+      "sha256": "18278aab3517619d6e10b397d5a6869b78965dd59db4b286e699ff0512ad05c0",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/targhooks.cc"
+    },
+    {
+      "bytes": 72691,
+      "git_blob_sha1": "682459220a20c2a2119c6f2de519792de6a32936",
+      "path": "gcc/toplev.cc",
+      "root": "gcc",
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/toplev.cc"
+    },
+    {
+      "bytes": 306672,
+      "path": "gcc/tree-cfg.cc",
+      "root": "gcc",
+      "sha256": "8a3ee6948a9580197089f40217c960679658223901fef53dee3d50c26862fe44"
+    },
+    {
+      "bytes": 48340,
+      "git_blob_sha1": "4cf754f5e56d5e0d9e3185c32e262a7fdac245b0",
+      "path": "gcc/tree-cfgcleanup.cc",
+      "root": "gcc",
+      "sha256": "75582d69d7f785c21e49fec38c286ba059ef5dfac8caa1f22a31a2e09497614a",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-cfgcleanup.cc"
+    },
+    {
+      "bytes": 61338,
+      "git_blob_sha1": "0937cb442bf9c475ac64f915caa55f6dc94a1828",
+      "path": "gcc/tree-complex.cc",
+      "root": "gcc",
+      "sha256": "328a62d965228b1964dbc8200dc2bd8e0b8cf0f91052ea2d05462d01bccff417",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-complex.cc"
+    },
+    {
+      "bytes": 73833,
+      "git_blob_sha1": "07e9318f5e8b88cc3a03bdf5a9cab3a372b55856",
+      "path": "gcc/tree-core.h",
+      "root": "gcc",
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-core.h"
+    },
+    {
+      "bytes": 147108,
+      "path": "gcc/tree-eh.cc",
+      "root": "gcc",
+      "sha256": "ec91367a1c50765f9ef7bd0f7e66f121e38289aba315ae0302399b510e024431"
+    },
+    {
+      "bytes": 214934,
+      "path": "gcc/tree-inline.cc",
+      "root": "gcc",
+      "sha256": "fd7e55d826abce9e7e8ffd47a52fd11befec98346c9a73982620d322e232f903"
+    },
+    {
+      "bytes": 106038,
+      "path": "gcc/tree-into-ssa.cc",
+      "root": "gcc",
+      "sha256": "5894563f80909562e1f85ce010a3a981055f55c18f05fe3bcc5f6f48e609f659"
+    },
+    {
+      "bytes": 38337,
+      "path": "gcc/tree-outof-ssa.cc",
+      "root": "gcc",
+      "sha256": "db74cee5a9579f29a38c6c6dc50fa98bd14175313a29e0ffa2c15b348f8f1115"
+    },
+    {
+      "bytes": 35016,
+      "git_blob_sha1": "b3c97658a8fefff0dfd153b0ff3cd68e8bfb281d",
+      "path": "gcc/tree-pass.h",
+      "root": "gcc",
+      "sha256": "02f6c23a5fd5c5c7e7a5f86dd17465aef0001e97d29b5eb52da73a0abc0c3587",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-pass.h"
+    },
+    {
+      "bytes": 52827,
+      "git_blob_sha1": "c92c63e82a2a84d5fe7c3499bfca02bb726a167b",
+      "path": "gcc/tree-ssa-coalesce.cc",
+      "root": "gcc",
+      "sha256": "8ac41e33d2b4c97e1f6d0700e444d64cd1064a4a1ac5947da552ef54f24e8ac5",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-ssa-coalesce.cc"
+    },
+    {
+      "bytes": 49687,
+      "path": "gcc/tree-ssa-live.cc",
+      "root": "gcc",
+      "sha256": "52edc87c7b0d3a45f92c72322cb18a20b0fbd481e8a8eb17f9d1d936c6cf3872"
+    },
+    {
+      "bytes": 38594,
+      "git_blob_sha1": "f9e347e8dbce6d3f4b3fe40773475c5fd40ff238",
+      "path": "gcc/tree-ssa-operands.cc",
+      "root": "gcc",
+      "sha256": "61c73f75dbe24d2c87ba0f176d9f7085fc86811099abf000d98746c8c54514bf",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-ssa-operands.cc"
+    },
+    {
+      "bytes": 66992,
+      "path": "gcc/tree-ssa.cc",
+      "root": "gcc",
+      "sha256": "b4bcae1ef8545e38573ee2be4dd02f66e9a6976485046acecdda192bddbf5a03"
+    },
+    {
+      "bytes": 31943,
+      "git_blob_sha1": "b43db12c03412224e3550cc7a1bf8b37ac829b59",
+      "path": "gcc/tree-stdarg.cc",
+      "root": "gcc",
+      "sha256": "0a2d8cb361a03d4e8b78bec39c9d227c8bada0f34874f77ab7060e50578a1314",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-stdarg.cc"
+    },
+    {
+      "bytes": 39585,
+      "path": "gcc/tree-streamer-in.cc",
+      "root": "gcc",
+      "sha256": "89c58ec2149c306fed86b90cf06db7b64e00a8c6bab8fd56e51f3d06292b71eb"
+    },
+    {
+      "bytes": 95004,
+      "git_blob_sha1": "5027ab559c0b8ddff6a825e82da0b804a4f0ad74",
+      "path": "gcc/tree-switch-conversion.cc",
+      "root": "gcc",
+      "sha256": "25687a39fd7f1ac7f20b61e9ba41929dd2da3a2d5f150b4c34294a6c6eb61e71",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-switch-conversion.cc"
+    },
+    {
+      "bytes": 81382,
+      "git_blob_sha1": "77066bbb2e1b307983262a7d055c8052ee897fcb",
+      "path": "gcc/tree-vect-generic.cc",
+      "root": "gcc",
+      "sha256": "61f56c9759b777d60a7391d2745099bdcb0ac1162bb93473ee47f072b3082048",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-vect-generic.cc"
+    },
+    {
+      "bytes": 484431,
+      "path": "gcc/tree.cc",
+      "root": "gcc",
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    {
+      "bytes": 281689,
+      "path": "gcc/tree.h",
+      "root": "gcc",
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c"
+    },
+    {
+      "bytes": 271386,
+      "git_blob_sha1": "5999f1e5420c440e0ebb09ce43da58b13a5850b5",
+      "path": "gcc/varasm.cc",
+      "root": "gcc",
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/varasm.cc"
+    },
+    {
+      "bytes": 6859,
+      "path": "gcc/warning-control.cc",
+      "root": "gcc",
+      "sha256": "72c84bba997d426c7606cf7c8e3e9a782684438ede9f9c661d7ce97a8c8fe6ea"
+    },
+    {
+      "bytes": 7398,
+      "git_blob_sha1": "4ee2858b2e403adbe5b218d7f3cb0d6ae7efcb57",
+      "path": "include/hashtab.h",
+      "root": "gcc",
+      "sha256": "f8df4e157b05833188c1580dff3462e4faef56919fa865d4584faba6f5cb8c18",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/include/hashtab.h"
+    },
+    {
+      "bytes": 53179,
+      "path": "libcpp/include/line-map.h",
+      "root": "gcc",
+      "sha256": "4088fa107d3b3c6d1f750b43e284178aeffd0679d091956744eb62462b9a1ab5"
+    },
+    {
+      "bytes": 3800,
+      "path": "libcpp/include/symtab.h",
+      "root": "gcc",
+      "sha256": "44711b95df747e070c150eab63ca6b5de19121ca39775ac99551df10691a8fe1"
+    },
+    {
+      "bytes": 166158,
+      "path": "libcpp/lex.cc",
+      "root": "gcc",
+      "sha256": "8c64d56ef32d274daf0a1c0efab74d482fde267ebf1f864865b1c2c5517f0c88"
+    },
+    {
+      "bytes": 86805,
+      "path": "libcpp/line-map.cc",
+      "root": "gcc",
+      "sha256": "d451c89e3145c6bea1e1f3f413c9071b61139aabbbe15a004dabf81b51e0b8fd"
+    },
+    {
+      "bytes": 9383,
+      "path": "libcpp/symtab.cc",
+      "root": "gcc",
+      "sha256": "006987dd5863baf9520478a27958f9d450fbf76b90eed3fe6917e6c7315ff1d9"
+    },
+    {
+      "bytes": 29804,
+      "git_blob_sha1": "71e4bae950a0131712df69f9eeb8c7c13021682f",
+      "path": "libiberty/hashtab.c",
+      "root": "gcc",
+      "sha256": "fd1f80771bb0317dc96e396010db33c99116eaa921f0dd39b2171c56a9f5ac6f",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/libiberty/hashtab.c"
+    },
+    {
+      "bytes": 2204,
+      "path": "docs/evidence/retained-literal-counter-emission-20261018/interface.json",
+      "root": "repository",
+      "sha256": "26ee911d66a275c749ce7d9d911c81c437f488241a5947a2a307ac52e5476756"
+    },
+    {
+      "bytes": 69903,
+      "path": "docs/evidence/retained-literal-location-lifetime-20261018/writer-inventory.json",
+      "root": "repository",
+      "sha256": "7654c2fecf41f529cd23e52e6611de711d4b279b6311f03f4ae6a14468acb744"
+    },
+    {
+      "bytes": 17889,
+      "path": "docs/evidence/retained-literal-original-shared-storage-20261018/compose.py",
+      "root": "repository",
+      "sha256": "c67ea8781a195a0206ccb5c337f4546e5991bba5764e9a993e85af33350b1433"
+    },
+    {
+      "bytes": 7458,
+      "path": "docs/evidence/retained-literal-original-shared-storage-20261018/inputs.json",
+      "root": "repository",
+      "sha256": "0788e4b660732ade464484b61f9c57cf5e0ccbff4d1eef0a36bfe9c99a4662f5"
+    },
+    {
+      "bytes": 9040,
+      "path": "docs/evidence/retained-literal-original-shared-storage-20261018/result.json",
+      "root": "repository",
+      "sha256": "e97d03b2a63337f769f2b6d718561c5617f9b105b06fed14ecfff79b39df3164"
+    },
+    {
+      "bytes": 10853,
+      "path": "docs/evidence/retained-literal-original-shared-storage-20261018/sources.json",
+      "root": "repository",
+      "sha256": "f1a959c538806c05ed702c6432f432f1d4356842cae1174ac0a1f5adede485e9"
+    },
+    {
+      "bytes": 6644,
+      "path": "docs/evidence/retained-literal-synthetic-function-storage-20261018/interface.json",
+      "root": "repository",
+      "sha256": "570b14178574a7d14c9de92b23a465d4e960f4138102f11e1970333cbfae4c08"
+    },
+    {
+      "bytes": 4105,
+      "path": "docs/evidence/retained-literal-warning-map-20261018/derive.py",
+      "root": "repository",
+      "sha256": "8353bc0cfcfe20903447a0f4e4490f9717ea031a5499b8bb00eaebfbeec94731"
+    },
+    {
+      "bytes": 11561,
+      "path": "docs/evidence/retained-literal-warning-map-20261018/source-manifest.json",
+      "root": "repository",
+      "sha256": "e0977492d8d1e33c1afd477e39522fde876c75b9af2d51ad6f8716f8c8aa6b55"
+    },
+    {
+      "bytes": 1663,
+      "path": "docs/evidence/retained-literal-warning-residual-bound-20261018/interface.json",
+      "root": "repository",
+      "sha256": "637125013a161379bf7c4e455eeb340f6549148b7a98b96c1d48694c1792e9fa"
+    },
+    {
+      "bytes": 2216,
+      "path": "docs/evidence/retained-literal-warning-residual-bound-20261018/result.json",
+      "root": "repository",
+      "sha256": "8996e11351e5b4632a30d0ba1ce39044d84668a6c78e9bdc276775dd540159c0"
+    },
+    {
+      "bytes": 21593,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+      "root": "repository",
+      "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+    },
+    {
+      "bytes": 3547,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/indexed-source-buffer-identity.json",
+      "root": "repository",
+      "sha256": "9d59abf4fc10be194be7d532efbed270b17f934de7707d66613a7151e0725c9d"
+    },
+    {
+      "bytes": 3891,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-gcc-prefix-witness.json",
+      "root": "repository",
+      "sha256": "bd7b5f8243da91daca3dbc7d7afeeabda69df140e9b2588d4fe85ff16057af95"
+    },
+    {
+      "bytes": 3203,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-indexed-source-buffers.json",
+      "root": "repository",
+      "sha256": "4f2e91941ccc91fed0fcc3e93f45d96e06a112a4548ac9857dc07803ed047089"
+    },
+    {
+      "bytes": 7823,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-indexed-source-buffers.py",
+      "root": "repository",
+      "sha256": "a40da0bdfd7af28a884d3075311759c18f206e7a44cdd760ba80e16515136474"
+    },
+    {
+      "bytes": 117197,
+      "path": "docs/research/retained-backend-capacity.md",
+      "root": "repository",
+      "sha256": "76c0ff20d335ed613b91969fce1405dd078903595a6804186aca283db83f0013"
+    },
+    {
+      "bytes": 187178,
+      "path": "docs/research/retained-backend-gigi.md",
+      "root": "repository",
+      "sha256": "da9cdf3ddb6e2d6e02e2c173fe437a7cd70039e76adbb9d349e258fbd25644de"
+    },
+    {
+      "bytes": 8346,
+      "path": "docs/research/retained-literal-collector-callbacks.md",
+      "root": "repository",
+      "sha256": "06ef59ac1533fc1b9f21e0089e1facf938008113ede679e51736451899692936"
+    },
+    {
+      "bytes": 19399,
+      "path": "docs/research/retained-literal-counter-emission.md",
+      "root": "repository",
+      "sha256": "5f2fb948169cd1fab59f63019c65afa37aa0151d68bebeb3cc8fbc5792cefa3c"
+    },
+    {
+      "bytes": 20564,
+      "path": "docs/research/retained-literal-emission-closure.md",
+      "root": "repository",
+      "sha256": "a44e3f48c500cba8f41fc1445c29b4d7cfdecf298b560c52ea5e4c0efb30cbbc"
+    },
+    {
+      "bytes": 19802,
+      "path": "docs/research/retained-literal-original-main-storage.md",
+      "root": "repository",
+      "sha256": "5485d9230dda1ac3960c9d412977f7d7029d712e584389cb26ddc503f56e32d9"
+    },
+    {
+      "bytes": 21040,
+      "path": "docs/research/retained-literal-original-shared-storage.md",
+      "root": "repository",
+      "sha256": "bac51ab37640bff6e6d94db3460ceb0305d40c969208681b62e1f7d1fee2179d"
+    },
+    {
+      "bytes": 23056,
+      "path": "docs/research/retained-literal-synthetic-function-storage.md",
+      "root": "repository",
+      "sha256": "b8a664861e2fe87b6b4c870dc1d0904b83f89d9005c8a29bc9aaf29947ad5f2e"
+    },
+    {
+      "bytes": 16243,
+      "path": "docs/research/retained-literal-warning-map.md",
+      "root": "repository",
+      "sha256": "ebdf2fe6c8d2298791773afb87b9e449019870c814839ab4d6877f4b25641d32"
+    },
+    {
+      "bytes": 17982,
+      "path": "docs/research/retained-literal-warning-residual-bound.md",
+      "root": "repository",
+      "sha256": "bef8c52601a1cf9ffc3531930cdddfae41140951fffbaad3d21fcec4b70daee7"
+    },
+    {
+      "bytes": 781411,
+      "path": "docs/research/retained-native-expansion.md",
+      "root": "repository",
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "bytes": 23155,
+      "path": "docs/research/retained-native-ingress-bound.md",
+      "root": "repository",
+      "sha256": "d47d7a8c45a9f0460ccc6bee900df04ded542f3aaf288176cc065433edc0cf7b"
+    },
+    {
+      "bytes": 21155,
+      "path": "docs/research/retained-output-rtl.md",
+      "root": "repository",
+      "sha256": "5b121ec81373e0efb772f78494ea4e8bd9a1bb2ba9f052feec79db75207f462c"
+    },
+    {
+      "bytes": 13612,
+      "path": "docs/reviews/review-literal-counter-emission-bc69773b78.md",
+      "root": "repository",
+      "sha256": "1484d3f542dad4652cf00c855e40870eebfa84bf8f726f9b7e105c9582ed83cc"
+    },
+    {
+      "bytes": 15555,
+      "path": "docs/reviews/review-literal-original-shared-e12e010fd1.md",
+      "root": "repository",
+      "sha256": "ec79e7e97f8b0ca5bd92bd039ce316b34e547ac06fe54764a2be5f8407b9d77f"
+    },
+    {
+      "bytes": 15772,
+      "path": "docs/reviews/review-literal-warning-residual-6f3a5af341.md",
+      "root": "repository",
+      "sha256": "454f98d97f00eabbf394302766886523a28d91b49df52cbab77e9c16c8adcdc3"
+    },
+    {
+      "bytes": 11740,
+      "path": "docs/reviews/review-native-ingress-eb0471fa33.md",
+      "root": "repository",
+      "sha256": "1c0a397315dbc957d2e2ca9ad2ce9790da8a7daffe13bce4765ad5656948d544"
+    }
+  ],
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "scope": "Literal selected location/warning source join; exact retained source snapshot and repository arguments",
+  "silver_base": "1d5bcbe4469b8df7b5a260e2656a1dc0ef9b161a"
+}

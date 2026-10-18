@@ -1,0 +1,75 @@
+{
+  "aggregate_attachment_complete": false,
+  "complete_global_counter_lifetime_closed": false,
+  "direct_filename_GGC_requests_upper": 3180,
+  "extra_ordinary_identifier_ingress_requests_upper": 1,
+  "extra_shared_GGC_backing_events": 0,
+  "filename_lookups_upper": 1590,
+  "identifier_hash": {
+    "allocated_slots_upper": 65536,
+    "checks": {
+      "doubling_unsigned": true,
+      "historical_insertions_unsigned": true,
+      "individual_request": true,
+      "slot_threshold_unsigned": true
+    },
+    "each_ordinary_backing_bytes_upper": 524288,
+    "fits": true,
+    "historical_insertions_upper": 40883,
+    "incoming_allocated_slots_upper": 65536,
+    "incoming_historical_insertions_upper": 40847,
+    "incoming_occupied_upper": 40847,
+    "occupied_upper": 40883,
+    "post_prefix_backing_requests_upper": 36,
+    "variable_ingress_backing_requests_upper": 1590
+  },
+  "indexed_Source_File_delta": 1,
+  "native_tool_executions": 0,
+  "original_shared_GGC_backing_delta_unchanged": 768,
+  "original_shared_packet_modified": false,
+  "predecessor_identifier_hash": {
+    "allocated_slots_upper": 65536,
+    "checks": {
+      "doubling_unsigned": true,
+      "historical_insertions_unsigned": true,
+      "individual_request": true,
+      "slot_threshold_unsigned": true
+    },
+    "each_ordinary_backing_bytes_upper": 524288,
+    "fits": true,
+    "historical_insertions_upper": 40882,
+    "incoming_allocated_slots_upper": 65536,
+    "incoming_historical_insertions_upper": 40846,
+    "incoming_occupied_upper": 40846,
+    "occupied_upper": 40882,
+    "post_prefix_backing_requests_upper": 36,
+    "variable_ingress_backing_requests_upper": 1589
+  },
+  "scope": "Source-bound indexed System filename correction to accepted original shared identifier fields",
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_counts": {
+    "Put": 0,
+    "Put_Line": 1,
+    "decoded_literal_bytes": 13,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "maximum_literal_length": 13,
+    "null_statements": 0,
+    "output_calls": 1,
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "temporary_name_serial": {
+    "checks": {
+      "incoming_temporary_name_serial_unsigned": true,
+      "temporary_name_serial_unsigned": true
+    },
+    "fits": true,
+    "incoming_upper": 40847,
+    "next_upper": 40883
+  }
+}

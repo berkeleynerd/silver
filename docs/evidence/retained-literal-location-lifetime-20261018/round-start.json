@@ -1,0 +1,11 @@
+{
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "base": "1d5bcbe4469b8df7b5a260e2656a1dc0ef9b161a",
+  "token_cost_evidence": null,
+  "native_tool_executions": 0,
+  "implementation_checkpoint_utc": "2026-10-18T23:16:06.880607+00:00",
+  "earlier_source_investigation_elapsed": "unmeasured",
+  "native_platform": "Linux-7.0.14-x86_64-with-glibc2.43"
+}

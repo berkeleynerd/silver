@@ -1,0 +1,189 @@
+{
+  "Main_ordinary_map_line_guard": true,
+  "Main_physical_line_entries_upper": 7,
+  "ad_hoc_storage": {
+    "additional_GGC_backing_requests_upper": 1,
+    "additional_finalizer_registrations": 0,
+    "additional_ordinary_hash_backings_upper": 15,
+    "allocated_entries_upper": 128,
+    "deletion_or_GC_recreation": false,
+    "each_caller_bytes_upper": 5120,
+    "each_hash_pointer_backing_bytes_upper": 1016,
+    "each_rounded_bytes_upper": 8192,
+    "hash_slots_upper": 127,
+    "initial_ordinary_objects_added_again": 0,
+    "lookup_ordinary_hash_backings_upper": 15,
+    "relocation_rebases_existing_entries": true,
+    "relocation_traversal_possible_hash_backings_upper": 0
+  },
+  "additional_location_and_later_warning_GGC_events_upper": 13,
+  "additional_location_and_later_warning_finalizer_registrations": 0,
+  "aggregate_RAM_gate": false,
+  "complete_collector_lifetime_closed": false,
+  "complete_gimplifier_lifetime_closed": false,
+  "complete_global_counter_lifetime_closed": false,
+  "complete_source_files_verified": 121,
+  "conditions": {
+    "ad_hoc_storage": true,
+    "filename_direct_objects": true,
+    "later_warning_storage": true
+  },
+  "counts": {
+    "null_statements": 0,
+    "output_calls": 1
+  },
+  "discriminators": {
+    "CFG_block_ID_endpoint_upper": 5,
+    "per_line_discriminator_upper": 5,
+    "public_interface_signed_bits": 32
+  },
+  "filename_ingress": {
+    "character_requests_upper": 1590,
+    "corrected_shared_identifier_projection_required": true,
+    "direct_GGC_requests_upper": 3180,
+    "each_character_caller_bytes_upper": 513,
+    "each_character_rounded_bytes_upper": 1024,
+    "each_node_caller_bytes": 40,
+    "each_node_rounded_bytes_upper": 64,
+    "identifier_node_requests_upper": 1590,
+    "included_in_new_location_warning_delta": false,
+    "indexed_additional_Source_File_records_upper": 1,
+    "lookup_calls_upper": 1590,
+    "original_shared_packet_modified": false,
+    "predecessor_lookup_calls_upper": 1589,
+    "predecessor_source_file_entries_upper": 1588,
+    "scope": "Separate metadata ingress with indexed System multiplicity correction",
+    "shared_identifier_backing_owned_elsewhere": true,
+    "source_file_entries_upper": 1589
+  },
+  "fixed_and_virtual_ordinary_map_line_guards": "separate existing source-inventory premises",
+  "initial_ad_hoc_state": {
+    "C_hash_slots": 127,
+    "allocated_entries": 0,
+    "initial_hash_control_bytes_upper": 128,
+    "initial_hash_pointer_bytes": 1016,
+    "initial_objects_owned_by_fixed_prefix": true,
+    "occupied": 0
+  },
+  "later_warning": {
+    "CFG_edge_location_put_calls": 0,
+    "CFG_statement_setter_put_calls_upper": 5,
+    "CF_put_calls_upper": 6,
+    "RTL_call_tree_copy_put_calls_upper": 1,
+    "additional_GGC_backing_requests_upper": 12,
+    "additional_controls": 0,
+    "additional_finalizer_registrations": 0,
+    "each_caller_bytes_upper": 262096,
+    "each_rounded_bytes_upper": 262144,
+    "full_post_prefix_warning_GGC_events_diagnostic": 23,
+    "incoming": {
+      "additional_singleton_finalizer_registrations_ceiling": 1,
+      "additional_vector_finalizer_registrations": 0,
+      "additive_GGC_event_ceiling": 11,
+      "checks": {
+        "entry_request_and_pointer_span": true,
+        "live_and_occupied_sufficient_region": true,
+        "load_factor_products": true,
+        "prime_exists": true,
+        "prime_probe_region": true,
+        "probe_addition": true
+      },
+      "conditional_map_interface_fits": true,
+      "incoming_capacity_ceiling": 16381,
+      "incoming_live_or_occupied_ceiling": 4100,
+      "original_gigi_put_call_ceiling": 7,
+      "outgoing_capacity_ceiling": 16381,
+      "outgoing_live_or_occupied_ceiling": 4103,
+      "request_groups": [
+        {
+          "count": 1,
+          "name": "possible_original_gigi_control",
+          "raw_bytes_each": 64,
+          "rounded_bytes_each_ceiling": 64
+        },
+        {
+          "count": 7,
+          "name": "original_gigi_initial_or_replacement_backbones",
+          "raw_bytes_each": 262096,
+          "rounded_bytes_each_ceiling": 262144
+        },
+        {
+          "count": 3,
+          "name": "selected_gimplifier_replacement_backbones",
+          "raw_bytes_each": 262096,
+          "rounded_bytes_each_ceiling": 262144
+        }
+      ]
+    },
+    "insertion_capable_put_calls_upper": 12,
+    "original_and_initial_warning_requests_added_again": 0,
+    "outgoing_capacity_upper": 16381,
+    "outgoing_live_or_occupied_upper": 4115,
+    "same_key_and_failed_source_lookup_calls_not_subtracted": true
+  },
+  "local_checks": {
+    "filenames": {
+      "identifier_length_unsigned": true,
+      "source_file_count_signed": true,
+      "spelling_short": true,
+      "terminal_NUL": true
+    },
+    "later_warning": {
+      "hash_prime_exists": true,
+      "load_products": true,
+      "occupied_sufficient_region": true,
+      "predecessor_fits": true,
+      "probe_unsigned": true,
+      "request_pointer_and_allocator_region": true
+    },
+    "locations": {
+      "CFG_block_ID_unsigned_endpoint": true,
+      "C_hash_load_products": true,
+      "C_hash_pointer_request": true,
+      "C_hash_probe_unsigned": true,
+      "discriminator_unsigned_to_signed_int": true,
+      "hash_prime_exists": true,
+      "location_tag_and_difference": true,
+      "map_capacity_doubling_and_index": true,
+      "map_request_pointer_and_allocator_region": true,
+      "selected_ad_hoc_request_region": true
+    }
+  },
+  "location_requests": {
+    "CFG_discriminator_upper": 8,
+    "CF_block_attachment_upper": 6,
+    "counts_include_early_return_hit_and_replacement_attempts": true,
+    "fresh_entries_upper": 15,
+    "initial_call_builder_upper": 1,
+    "insertion_capable_lookup_calls_upper": 15,
+    "later_SSA_RTL_emission_additional_upper": 0,
+    "original_and_helper_additional_upper": 0
+  },
+  "native_tool_executions": 0,
+  "ordinary_map_and_frontend_node_association_storage_included": false,
+  "production_admission_changed": false,
+  "repository_inputs_verified": 33,
+  "scope": "Selected literal Main process: complete combined-location request sources and later dependent warning puts",
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_counts": {
+    "Put": 0,
+    "Put_Line": 1,
+    "decoded_literal_bytes": 13,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "maximum_literal_length": 13,
+    "null_statements": 0,
+    "output_calls": 1,
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_family_later_warning_put_bound_closed": true,
+  "source_family_location_request_bound_closed": true,
+  "total_GGC_events": null,
+  "whole_literal_pipeline_capacity_established": false,
+  "whole_original_gigi_allocation_events": null
+}
