@@ -1809,8 +1809,12 @@ def native_backannotation_backing(logical,visit_bound,incoming_annotation_serial
 
 
 def source_shape(raw):
-    """Physical-line sufficient rule; FF/VT included for fixed runtime files."""
-    lines = re.split(rb"\r\n|[\r\n\v\f]",raw)
+    """Physical lines reset on CR/LF only; FF/VT retain the current column.
+
+    Sinput.Skip_Line_Terminators returns Physical=False for FF/VT; Scng then
+    preserves Current_Line_Start for its expanded-column scan.
+    """
+    lines = re.split(rb"\r\n|[\r\n]",raw)
     maximum = 1
     for line in lines:
         column = 1

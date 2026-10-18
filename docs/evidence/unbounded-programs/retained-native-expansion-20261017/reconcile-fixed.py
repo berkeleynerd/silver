@@ -22,7 +22,8 @@ def code_only(raw):
 
 
 def source_shape(raw):
-    lines = re.split(rb"\r\n|[\r\n\v\f]",raw)
+    # Native Sinput marks FF/VT nonphysical; they do not reset Scng columns.
+    lines = re.split(rb"\r\n|[\r\n]",raw)
     maximum = 1
     for line in lines:
         column = 1

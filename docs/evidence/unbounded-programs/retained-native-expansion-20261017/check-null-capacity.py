@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Focused offline boundary checks for actual-byte null capacity composition."""
 import argparse
+import ast
 import importlib.util
 import json
 from pathlib import Path
@@ -17,12 +18,24 @@ def main():
     p.add_argument('--ada-root',type=Path,required=True)
     a = p.parse_args()
     model = mod.load_model(a.ada_root)
+    # Both reusable active helpers must implement the corrected physical-line
+    # semantics. Extract only the collector function, without running its CLI.
+    collector_tree = ast.parse((HERE/'reconcile-fixed.py').read_text())
+    shape_function = next(n for n in collector_tree.body
+                          if isinstance(n,ast.FunctionDef) and n.name == 'source_shape')
+    collector = {'re':mod.re}
+    exec(compile(ast.Module(body=[shape_function],type_ignores=[]),'<collector-shape>','exec'),collector)
+    for raw in [b'x\vy\fz',b'x\ty\f\tz',b'x\r\ny\rz\n',b'']:
+        correct = mod.physical_source_shape(raw)
+        assert model['source_shape'](raw) == correct
+        fixed = collector['source_shape'](raw)
+        assert all(fixed[k] == v for k,v in correct.items())
     fixture = HERE/'null-capacity-fixture.json'
     baseline = mod.compose(fixture,model)
     assert baseline == json.loads((HERE/'native-null-capacity-composition.json').read_bytes())
     assert baseline['all_selected_compiler_component_predicates_pass']
     original = (mod.REPO/'samples/null.adb').read_bytes()
-    passed = ['retained actual-byte composition']
+    passed = ['retained actual-byte composition','shared and fixed collector physical-line helpers agree']
     # Rejected shapes include a second otherwise legal null statement, a pragma
     # change and a keyword split by a real comment; none may borrow this proof.
     for raw in [original.replace(b'null;',b'null; null;'),
@@ -66,6 +79,15 @@ def main():
         assert not over['component_checks']['physical_sources']
         assert over['component_checks']['core_tables']
         passed.append('expanded-column boundary rejects without changing graph counts')
+        # FF/VT terminate comments but do not reset GNAT's physical line start.
+        # Each fragment fits the column bound; their shared physical line does
+        # not. CR, LF and CRLF really do reset it and remain accepted here.
+        for terminator in [b'\v',b'\f',b'\r',b'\n',b'\r\n']:
+            source.write_bytes(b'--'+b'x'*20000+terminator+b'--'+b'x'*20000+b'\n'+original)
+            combined = mod.compose(dpath,model)
+            assert combined['source_counts'] == baseline['source_counts']
+            assert combined['component_checks']['physical_sources'] == (terminator not in [b'\v',b'\f'])
+        passed.append('FF/VT end comments without resetting physical columns')
         # Actual configuration bytes, not a manually asserted declaration
         # count, select the indexed read projection.
         source.write_bytes(original)

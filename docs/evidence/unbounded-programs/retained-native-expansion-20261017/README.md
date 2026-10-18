@@ -185,5 +185,10 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/chec
 
 The second command compares the retained result and checks selected token,
 comment, configuration, large-source, column and signed-arithmetic boundaries.
+Physical columns reset on CRLF/CR/LF only; a focused regression ensures FF/VT
+comment termination cannot conceal an overlong physical line. The shared
+formula helper, fixed-source collector and indexed-System counter are also
+corrected. All 38 hash-verified fixed sources have no FF/VT, and the default
+formula result remains byte-equal; no retained numerical record changed.
 Both commands are offline and launch no native tool. The formula changes use
 optional parameters; the earlier default `derive.py` result remains unchanged.

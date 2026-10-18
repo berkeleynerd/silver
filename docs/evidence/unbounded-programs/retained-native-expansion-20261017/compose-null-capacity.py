@@ -110,10 +110,29 @@ def current_command(model, pathname_bound):
         all_selected_checks_pass=all(checks.values()))
 
 
+def physical_source_shape(raw):
+    """Native physical lines: FF/VT end comments but do not reset columns.
+
+    Sinput.Skip_Line_Terminators marks FF/VT Physical=False (sinput.adb:887-890).
+    Scng preserves Current_Line_Start in that branch (scng.adb:2528-2532), and
+    Check_End_Of_Line includes those bytes in the next expanded-column scan.
+    This corrects the older generic fixture helper's FF/VT line splitting.
+    """
+    lines = re.split(rb'\r\n|[\r\n]',raw)
+    maximum = 1
+    for line in lines:
+        column = 1
+        for byte in line:
+            column = 8*((column-1+8)//8)+1 if byte == 9 else column+1
+        maximum = max(maximum,column)
+    return dict(physical_line_entries_bound=len(lines), max_expanded_final_column=maximum,
+        maximum_line_bytes=max(map(len,lines)), aligned_source_extent=4096*((len(raw)+4096)//4096))
+
+
 def physical_sources(model, inputs):
     rows = []
     for role, raw in inputs.items():
-        shape = model['source_shape'](raw)
+        shape = physical_source_shape(raw)
         lines = shape['physical_line_entries_bound']; capacity = 500
         while capacity < lines:
             capacity *= 2

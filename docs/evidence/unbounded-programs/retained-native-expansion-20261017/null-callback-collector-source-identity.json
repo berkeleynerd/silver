@@ -356,8 +356,8 @@
     },
     {
       "path": "derive.py",
-      "bytes": 208130,
-      "sha256": "27636b54a8e0c3d28bb4c861c53dde98100a3f74e650964655c90f2dfd08979a"
+      "bytes": 209431,
+      "sha256": "dc7b362649dfb8693e79248a1d9c965283bc9b54643bbf124b3de2a6f350b897"
     },
     {
       "path": "reconcile-ggc-storage.py",

@@ -11158,6 +11158,19 @@ extent are computed from actual bytes rather than inferred from these fixed
 syntax counts. Main, the exact configuration and pinned native System are
 the three physical sources; there are no virtual sources in this projection.
 
+FF/VT terminate a comment but **do not start a physical line**. Native
+`Skip_Line_Terminators` marks them `Physical := False`
+(`sinput.adb:887–890`), so the scanner preserves `Current_Line_Start`
+(`scng.adb:2528–2532`). Subsequent expanded-column checks include all preceding
+FF/VT-separated fragments. The callable composition therefore splits physical
+lines only on CRLF, CR or LF. The generic `derive.py` helper, fixed-source
+collector and indexed-System counter are corrected as well. All 38 selected
+fixed specifications were rechecked against their hashes and contain no FF/VT;
+their shapes remain unchanged. Recomputing the full default formula output
+also remains byte-for-byte equal to `local-envelope.json`. The previous
+helper was unsound for variable sources with FF/VT; the retained fixed/sample
+numerical records need no correction. No historical runtime capture changed.
+
 The configuration must equal the reviewed 244-byte form plus the 83-byte
 indexed naming pragma. The mapping must contain precisely the Main body unit,
 `main.adb` and the intended Main launch path. The checker verifies the actual
@@ -11204,7 +11217,9 @@ Focused offline checks reproduce the retained composition, reject changed
 token/configuration inputs, cover all selected comment terminators, preserve
 graph counts for a comment-only extension above 4096 bytes, and straddle the
 expanded-column boundary at final columns 32766/32767. They also reject
-signed option/coverage arithmetic overflow. The optional formula parameters
+two individually short FF/VT-separated comment fragments whose combined
+physical line is too wide, while accepting the corresponding CR/LF cases,
+and reject signed option/coverage arithmetic overflow. The optional formula parameters
 leave the earlier `derive.py` output byte-for-byte unchanged. No compiler,
 prover or debugger ran for this packet.
 

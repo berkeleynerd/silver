@@ -101,7 +101,7 @@ system = (args.native_runtime / 'system.ads').read_bytes()
 assert len(system) == 7503
 assert hashlib.sha256(system).hexdigest() == '545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95'
 assert not re.search(r'\bpragma\s+Source_Reference\b', code_only(system.decode()), re.I)
-physical_lines = len(re.split(rb'\r\n|[\r\n\v\f]', system))
+physical_lines = len(re.split(rb'\r\n|[\r\n]', system))
 assert physical_lines <= 500
 indexed = json.loads(sources['evidence/native-indexed-invocation.json'])
 config_bytes = indexed['indexed_configuration_delta']['composed_configuration_bytes']
