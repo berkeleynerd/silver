@@ -1,0 +1,187 @@
+{
+  "native_or_proof_executions": 0,
+  "source_class": "Same Required_Tokens null family with permitted ASCII case/trivia and existing frontend location conditions",
+  "visibility_vertices_per_graph": 4,
+  "visibility_edges_per_graph": 16,
+  "generated_global_rows": {
+    "direct": "GG EK_DIRECT_CALLS main 0",
+    "proof": "GG EK_PROOF_DEPENDENCIES main 0",
+    "globals": "GG EK_GLOBALS main local FALSE E_PROCEDURE FALSE ORIGIN_FLOW 0 proper_proof_in 0 proper_input 0 proper_output 0 refined_proof_in 0 refined_input 0 refined_output 0 calls_proof 0 calls 0 calls_conditional 0 FALSE FALSE FALSE FALSE FALSE FALSE ENTRY_CALLS 0 SUSPENDS_ON 0 UNSYNCH_ACCESSES 0",
+    "scope": "GG EK_FLOW_SCOPE main FALSE FALSE FALSE FALSE FALSE __standard",
+    "end": "GG EK_END_MARKER"
+  },
+  "generated_global_line_byte_bounds": {
+    "direct": 25,
+    "proof": 31,
+    "globals": 288,
+    "scope": 62,
+    "end": 16
+  },
+  "generated_global_total_bytes_with_lf": 427,
+  "qq_header_bytes_with_lf": "16 + configured fixed version-string length",
+  "gg_reader_buffer_bytes": 285,
+  "gg_reader_cursor_maximum": 286,
+  "gg_longest_token": "EK_PROOF_DEPENDENCIES",
+  "gg_emission_source_frontier": [
+    {
+      "line": 142,
+      "argument": "EK_Constant_Calls"
+    },
+    {
+      "line": 155,
+      "argument": "Kind"
+    },
+    {
+      "line": 195,
+      "argument": "EK_Locking_Call"
+    },
+    {
+      "line": 390,
+      "argument": "EK_Globals"
+    },
+    {
+      "line": 503,
+      "argument": "EK_Max_Queue_Length"
+    },
+    {
+      "line": 556,
+      "argument": "EK_Protected_Instance"
+    },
+    {
+      "line": 596,
+      "argument": "EK_State_Map"
+    },
+    {
+      "line": 620,
+      "argument": "EK_Task_Instance"
+    },
+    {
+      "line": 678,
+      "argument": "EK_Remote_States"
+    },
+    {
+      "line": 684,
+      "argument": "EK_Predef_Init_Entities"
+    },
+    {
+      "line": 694,
+      "argument": "EK_Volatiles"
+    },
+    {
+      "line": 703,
+      "argument": "EK_Synchronized"
+    },
+    {
+      "line": 709,
+      "argument": "EK_Checked_Ghost_Entities"
+    },
+    {
+      "line": 715,
+      "argument": "EK_Ignored_Ghost_Entities"
+    },
+    {
+      "line": 721,
+      "argument": "EK_Ghost_Assertion_Level"
+    },
+    {
+      "line": 728,
+      "argument": "EK_Ghost_Assertion_Level"
+    },
+    {
+      "line": 735,
+      "argument": "EK_Parent_Assertion_Levels"
+    },
+    {
+      "line": 749,
+      "argument": "EK_Constants"
+    },
+    {
+      "line": 755,
+      "argument": "EK_CAE_Entities"
+    },
+    {
+      "line": 769,
+      "argument": "EK_End_Marker"
+    },
+    {
+      "line": 804,
+      "argument": "EK_Flow_Scope"
+    },
+    {
+      "line": 838,
+      "argument": "EK_Part_Of"
+    }
+  ],
+  "phase1_scope_contract_entries": 1,
+  "phase2_scope_contract_entries": 2,
+  "global_fold_patch_count": 2,
+  "global_scope_recursion_depth": 2,
+  "main_task_instances": 1,
+  "main_only_call_graph_vertices": 1,
+  "configuration_fields": 6,
+  "configuration_depth": 2,
+  "configuration_array_max": 15,
+  "configuration_array_backing_capacity": 16,
+  "configuration_compact_bytes": {
+    "constant": 312,
+    "path_byte_coefficient": 12
+  },
+  "configuration_file_bytes": {
+    "constant": 313,
+    "path_byte_coefficient": 12
+  },
+  "joined_command_bytes": {
+    "constant": 181,
+    "project_path_byte_coefficient": 1
+  },
+  "report_parser_and_wrappers_live_reference_bound": 46,
+  "report_consumer_live_reference_bound": 8,
+  "report_assumption_pool_finds": 5,
+  "report_assumption_pool_distinct_strings": 3,
+  "report_hashcons_main_records": 1,
+  "report_unit_subprogram_entries": 1,
+  "summary_table_rows": 12,
+  "summary_table_columns": 6,
+  "summary_table_cells": 72,
+  "summary_table_max_cell_length": 22,
+  "summary_table_column_widths": [
+    25,
+    10,
+    10,
+    10,
+    12,
+    11
+  ],
+  "summary_table_row_width": 78,
+  "ordinary_output_bytes": {
+    "constant": 1719,
+    "filename_byte_coefficient": 1
+  },
+  "path_evaluations": [
+    {
+      "path_bytes": 222,
+      "configuration_file_bytes": 2977,
+      "joined_command_bytes": 403,
+      "ordinary_output_bytes": 1941,
+      "ordinary_output_longest_line": 343,
+      "configuration_fits_small_file_reader": true
+    },
+    {
+      "path_bytes": 256,
+      "configuration_file_bytes": 3385,
+      "joined_command_bytes": 437,
+      "ordinary_output_bytes": 1975,
+      "ordinary_output_longest_line": 377,
+      "configuration_fits_small_file_reader": true
+    },
+    {
+      "path_bytes": 4096,
+      "configuration_file_bytes": 49465,
+      "joined_command_bytes": 4277,
+      "ordinary_output_bytes": 5815,
+      "ordinary_output_longest_line": 4217,
+      "configuration_fits_small_file_reader": true
+    }
+  ],
+  "scope": "Selected GG metadata and ordinary report consumers; generic frontend ALI, SARIF/VSS, project/process orchestration and remaining fixed startup are separate joins."
+}

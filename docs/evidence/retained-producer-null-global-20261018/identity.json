@@ -1,0 +1,189 @@
+{
+  "scope": "Candidate external source behavior, not historical installed-binary/source attestation.",
+  "spark_commit": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "gnatcoll_commit": "1d4374ae9187fd14d42ca99a3deb0ab2ff1ebc55",
+  "archives": [
+    {
+      "path": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+      "files": [
+        {
+          "name": "driver",
+          "member": "spark-source/src/why/gnat2why-driver.adb",
+          "bytes": 60922,
+          "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304"
+        },
+        {
+          "name": "visibility",
+          "member": "spark-source/src/flow/flow_visibility.adb",
+          "bytes": 44622,
+          "sha256": "af00b19570241258459e67b71fd62f5885c0b3d10efe14ec16ce1613e33c6ab6"
+        },
+        {
+          "name": "phase1",
+          "member": "spark-source/src/flow/flow_generated_globals-phase_1.adb",
+          "bytes": 29673,
+          "sha256": "4f3ce67285caa4443b6e82a33bfe1b9964de9087dbf4532842c61caa7a330753"
+        },
+        {
+          "name": "write",
+          "member": "spark-source/src/flow/flow_generated_globals-phase_1-write.adb",
+          "bytes": 4174,
+          "sha256": "c0ab970edfcfd83274e904a4c52b962fd1db31cb6013e769f69b3555b4a09849"
+        },
+        {
+          "name": "phase2",
+          "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+          "bytes": 175085,
+          "sha256": "b4ac652e535a98d65f558cfb2d362a7b2a86478fba9012e7ae8c63b1679bf5bb"
+        },
+        {
+          "name": "read",
+          "member": "spark-source/src/flow/flow_generated_globals-phase_2-read.adb",
+          "bytes": 6181,
+          "sha256": "2871d58f5896de281a94d0481a048f518252d1c47a16853f28d86e6c1e30fb88"
+        },
+        {
+          "name": "phase2_visibility",
+          "member": "spark-source/src/flow/flow_generated_globals-phase_2-visibility.adb",
+          "bytes": 26805,
+          "sha256": "13b5307866d5749806d3b729f100a2720fc52a015a2d16d9fb7e55aae422677f"
+        },
+        {
+          "name": "phase2_traversal",
+          "member": "spark-source/src/flow/flow_generated_globals-phase_2-traversal.adb",
+          "bytes": 5749,
+          "sha256": "1fb362c96a9cf2b7350855c9a480989c26d0003cbe5f02ffe1280ffce3f5a149"
+        },
+        {
+          "name": "traversal",
+          "member": "spark-source/src/flow/flow_generated_globals-traversal.adb",
+          "bytes": 17799,
+          "sha256": "0dd9e76414030abca6f89ecd422c8d08adfda491037e1e513e1946b0a881ef84"
+        },
+        {
+          "name": "partial",
+          "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+          "bytes": 99074,
+          "sha256": "08963035e528042e506613927bd8065cd8ca724a2ae32c1a012e920de3fc9abd"
+        },
+        {
+          "name": "flow_spec",
+          "member": "spark-source/src/flow/flow.ads",
+          "bytes": 16011,
+          "sha256": "b02b02b6869295aaeb700b313afda3b2d910c7ad2f79f9ef15d0d6474b3972c7"
+        },
+        {
+          "name": "gnatprove",
+          "member": "spark-source/src/gnatprove/gnatprove.adb",
+          "bytes": 46206,
+          "sha256": "80becb96eeb45a6ef4cc096d1c8896c5cf53cf6f59a635483f3ced3447731590"
+        },
+        {
+          "name": "report",
+          "member": "spark-source/src/gnatprove/spark_report.adb",
+          "bytes": 56488,
+          "sha256": "aba5b5c86e109a2bf10598b44c497118a8ee2904e64e90efdc9162e2349d1482"
+        },
+        {
+          "name": "sarif",
+          "member": "spark-source/src/gnatprove/spark_report-generate_sarif_report.adb",
+          "bytes": 15685,
+          "sha256": "73e204769fdb453153c8069f9e213412151dce6ff129150ec09f442d079ce232"
+        },
+        {
+          "name": "configuration",
+          "member": "spark-source/src/gnatprove/configuration.adb",
+          "bytes": 118436,
+          "sha256": "8ebece58c5f04d0a1cd16db5945a0acb432419235fc1564cd683e162e12f1697"
+        },
+        {
+          "name": "database",
+          "member": "spark-source/src/gnatprove/report_database.adb",
+          "bytes": 18384,
+          "sha256": "856a21ebc2ce1edadbc4aa3419273388681dc31f3c34f206c07fe7a6497e5135"
+        },
+        {
+          "name": "database_spec",
+          "member": "spark-source/src/gnatprove/report_database.ads",
+          "bytes": 10150,
+          "sha256": "d301695654fbd817b6ab967f305f708603a75cb2a19d509299c464aed575d00f"
+        },
+        {
+          "name": "table",
+          "member": "spark-source/src/gnatprove/print_table.adb",
+          "bytes": 8264,
+          "sha256": "f9ff5d0838ed2cbf55646e2a136def503de7ca33c5bc0f16c477766614bef054"
+        },
+        {
+          "name": "table_spec",
+          "member": "spark-source/src/gnatprove/print_table.ads",
+          "bytes": 6439,
+          "sha256": "ea410309b513c4511eaa869369e84a48870c9988971423adc83d0745bb6ad6d4"
+        },
+        {
+          "name": "assumption_types",
+          "member": "spark-source/src/common/assumption_types.adb",
+          "bytes": 11891,
+          "sha256": "e30b9da4d2c164ebf69a7f9d5caa2999b6e487dd80bb28d8b8591b4f0d79bc31"
+        },
+        {
+          "name": "call",
+          "member": "spark-source/src/common/call.adb",
+          "bytes": 5989,
+          "sha256": "c6765bb07449656310fb5c44b839241898e16f25b3c933fc1c6bc33d3c68e076"
+        },
+        {
+          "name": "mode",
+          "member": "spark-source/src/common/vc_kinds.adb",
+          "bytes": 101197,
+          "sha256": "8a532e5528c36837e9a63eb41985644c74a3b83084155a1356b42638eef28b1e"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538",
+      "files": [
+        {
+          "name": "json",
+          "member": "gnatcoll/core/src/gnatcoll-json.adb",
+          "bytes": 47797,
+          "sha256": "d51eb6166d0741cf58618c3dfc0ef583be96f128cffde723b8227e14cf6aba8f"
+        },
+        {
+          "name": "buffer",
+          "member": "gnatcoll/core/src/gnatcoll-buffer.adb",
+          "bytes": 12050,
+          "sha256": "afabb275dc10731f1444a06007896318f5603d78f65ce6a10f91d05e28874ade"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-null-global-20261018/extra-sources.tar.gz",
+      "sha256": "297173e5c54fad27a1c67f69149474278a1af3d61b761f1d715396f1aaecfc53",
+      "files": [
+        {
+          "name": "unique_names",
+          "member": "gcc-source/gcc/ada/sem_util.adb",
+          "bytes": 1074489,
+          "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4"
+        },
+        {
+          "name": "command_line_spec",
+          "member": "installed-runtime/g-comlin.ads",
+          "bytes": 53758,
+          "sha256": "6b604eb32cfdc1f2eb8662dbfbea79be6c648c733c2ddf6cec3f3e99511b31ac"
+        }
+      ]
+    }
+  ],
+  "local_files": [
+    {
+      "path": "src/silver.adb",
+      "bytes": 22230,
+      "sha256": "9da875a136d52adc818c1ac6a0b2fb217580cf8ee29c18b823538ff91d9b310b"
+    }
+  ]
+}

@@ -164,8 +164,9 @@ signed32 vector/index and hash-container conditions. Independent
 copied graphs and local allocation pools contribute memory cost; they do not
 share a finite total-node counter in `Graphs.Graph`.
 
-This closes these local graph/container dimensions. It does not yet inventory
-every representation used by scope visibility, generated-global ALI parsing,
-whole-unit metadata or the report executables. Those fixed-context consumers
-remain necessary for complete null-family tool feasibility, alongside native
+This closes these local graph/container dimensions. The subsequent
+[global metadata and ordinary-report analysis](retained-producer-null-global.md)
+adds scope visibility, the selected GG ALI records and ordinary report
+consumers. Other frontend ALI data, SARIF/VSS and process orchestration remain
+separate joins needed for complete null-family feasibility alongside native
 compilation. #119 remains incomplete.
