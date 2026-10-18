@@ -300,6 +300,22 @@ def suppressed_slice_resolution(t, lists, analysis_graph):
                 total=total, with_assignment_check_suffix=combined)
 
 
+def enabled_final_slice(t, lists, analysis_graph):
+    """Final concat result slice; known target endpoints, frozen result type."""
+    a = analysis_graph
+    rows = {
+        "slice_resolution": suppressed_slice_resolution(t, lists, a)["total"],
+        "enabled_range_check": enabled_range_check(t-1, lists, a)["total"],
+        "Insert_Action_wrapper": dict(lists=1),
+    }
+    keys = sorted(set().union(*(row.keys() for row in rows.values())))
+    total = {key: sum(row.get(key, 0) for row in rows.values()) for key in keys}
+    assert total == dict(ordinary=140*a+3*t+91, lists=3*lists+7, growth=23,
+                        uint=596*a+424, entities_and_names=4, name_characters=52)
+    return dict(range_nodes=t, range_lists=lists, analysis_graph=a,
+                rows=rows, total=total)
+
+
 def uncached_dereference_actual_subtype(analysis_graph):
     """Frozen unconstrained String view P.all, pure internal constant pointer P."""
     a = analysis_graph
@@ -585,7 +601,7 @@ def raw_bound_semantics(n, analysis_graph):
 
 
 def combined_native_emitter_vector(n, analysis_graph):
-    """Closed addends through raw-bound normalization; final helpers excluded."""
+    """Closed addends through final slice; runtime-call/scope helpers excluded."""
     a = analysis_graph
     first = direct_scalar_and_storage_concat(n, 28, 2, a)["total"].copy()
     first["pending_elist_headers"] = first.pop("elists")
@@ -594,13 +610,14 @@ def combined_native_emitter_vector(n, analysis_graph):
                    suppressed_slice_resolution(31, 2, a)["with_assignment_check_suffix"].items()}
     rows = dict(direct_scalar_storage=first, remaining_copies=copies,
                 up_to_n_suppressed_slice_assignments=assignments,
-                raw_bound_semantics=raw_bound_semantics(n, a)["total"])
+                raw_bound_semantics=raw_bound_semantics(n, a)["total"],
+                enabled_final_slice=enabled_final_slice(31, 2, a)["total"])
     keys = sorted(set().union(*(row.keys() for row in rows.values())))
     total = {key: sum(row.get(key, 0) for row in rows.values()) for key in keys}
-    assert total == dict(ordinary=(880*n+380)*a+1181*n+1014,
-                        uint=(3736*n+1700)*a+3537*n+1273,
-                        lists=67*n+80, growth=133*n+76,
-                        entities_and_names=26*n+28, name_characters=338*n+371,
+    assert total == dict(ordinary=(880*n+520)*a+1181*n+1198,
+                        uint=(3736*n+2296)*a+3537*n+1697,
+                        lists=67*n+93, growth=133*n+99,
+                        entities_and_names=26*n+32, name_characters=338*n+423,
                         pending_elist_headers=10*n+11,
                         pending_elist_elements=20*n+20, hash_wrappers=30*n+30)
     return dict(operands=n, analysis_graph=a, rows=rows, total=total)
@@ -612,13 +629,14 @@ def combined_native_uniform_vector(c, analysis_graph):
     # For nonnegative p*n+q, sum(n)<=2*c and g<=c give (2*p+q)*c.
     total = {key: c*value for key, value in one.items()}
     a = analysis_graph
-    assert total == dict(ordinary=(2140*a+3376)*c, uint=(9172*a+8347)*c,
-                        lists=214*c, growth=342*c, entities_and_names=80*c,
-                        name_characters=1047*c, pending_elist_headers=31*c,
+    assert total == dict(ordinary=(2280*a+3560)*c, uint=(9768*a+8771)*c,
+                        lists=227*c, growth=365*c, entities_and_names=84*c,
+                        name_characters=1099*c, pending_elist_headers=31*c,
                         pending_elist_elements=60*c, hash_wrappers=90*c)
+    slots = 9*(total["ordinary"]+total["growth"])+61*total["entities_and_names"]
+    assert slots == (20520*a+40449)*c
     return dict(source_concat_operators=c, uniform_analysis_graph=a, total=total,
-                dynamic_slots=9*(total["ordinary"]+total["growth"])
-                                +61*total["entities_and_names"])
+                dynamic_slots=slots)
 
 
 result = {
@@ -1100,7 +1118,7 @@ result = {
             native_string_bound_descriptor("literal"))),
             native_concat_query_roots((native_string_bound_descriptor("input"),
                                        native_string_bound_descriptor("image")))],
-        "excluded": "numeric magnitudes; source scalar/Image/input and source String equality/assignment outside this emitter; remaining runtime call/slice helpers; wrapper/scope work; fixed dependencies; backend; whole admission predicate",
+        "excluded": "numeric magnitudes; source scalar/Image/input and source String equality/assignment outside this emitter; remaining runtime-call helpers; wrapper/scope work; fixed dependencies; backend; whole admission predicate",
     },
     "Main_output_concat_transient_placement": {
         "maximum_fresh_scopes": "number of source output calls with nonstatic concat actuals",
@@ -1127,25 +1145,43 @@ result = {
                                     raw_bound_semantics(64, 127)],
         "excluded": "original Image/input construction, output/input wrapper helpers, final runtime call/result-slice analysis, later object/scope freezing and query-root/magnitude closure",
     },
+    "Main_result_object_freeze_and_actual_subtype_lookup": {
+        "first_object_freeze_core_table_allocations": 0,
+        "premises": "subtype/access type already frozen and charged; generated local plain uninitialized String result or constrained renaming; no delayed/static/aspect/address/C++/controlled properties; Layout_Object is empty",
+        "normalized_String_lookup_allocations": 0,
+        "lookup_reason": "literal/slice/generated result/source declared String name has constrained nominal type or available Actual_Subtype; Get_Actual_Subtype cannot enter allocating branch",
+        "excluded": "initial input call/uncached P.all; whole-scope freezing/qualification; backend materialization; wrapper helpers",
+    },
+    "Main_enabled_final_result_slice": {
+        "source_count": "at most one per native concat invocation",
+        "shape_bridge": "Slice_Rng exists only with compile-time-known buffer low and finite fitting known buffer high; target index endpoints static Integer; constrained result name prefix",
+        "ordinary_nodes": "140*A+3*t+91", "lists": "3*l+7", "growth": 23,
+        "Uint": "596*A+424", "entities_and_names": 4, "name_characters": 52,
+        "premises": "first original scalar nodes charged; t/l normalized range bound; no static-error diagnostic, pending check or allocating placement; target/object freezing and subtype lookup closed above",
+        "A": "3*H+7 still covers result range, static target endpoints and their check conversions",
+        "examples_not_thresholds": [enabled_final_slice(31, 2, 1),
+                                    enabled_final_slice(31, 2, 127)],
+        "excluded": "runtime concat-call helpers; wrapper/scope work; numeric magnitudes; fixed dependencies/backend",
+    },
     "combined_Main_native_emitter_addends": {
-        "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures",
+        "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2; result-object freeze and constrained actual-subtype lookups add zero",
         "per_invocation": {
-            "ordinary": "(880*n+380)*A+1181*n+1014",
-            "Uint": "(3736*n+1700)*A+3537*n+1273",
-            "lists": "67*n+80", "growth": "133*n+76",
-            "entities_and_names": "26*n+28", "name_characters": "338*n+371",
+            "ordinary": "(880*n+520)*A+1181*n+1198",
+            "Uint": "(3736*n+2296)*A+3537*n+1697",
+            "lists": "67*n+93", "growth": "133*n+99",
+            "entities_and_names": "26*n+32", "name_characters": "338*n+423",
             "Elist_headers": "10*n+11", "Elist_elements": "20*n+20",
             "hash_wrappers": "30*n+30",
         },
         "uniform_Main_bound_in_c": {
-            "ordinary": "(2140*A+3376)*c", "Uint": "(9172*A+8347)*c",
-            "lists": "214*c", "growth": "342*c", "entities_and_names": "80*c",
-            "name_characters": "1047*c", "Elist_headers": "31*c",
+            "ordinary": "(2280*A+3560)*c", "Uint": "(9768*A+8771)*c",
+            "lists": "227*c", "growth": "365*c", "entities_and_names": "84*c",
+            "name_characters": "1099*c", "Elist_headers": "31*c",
             "Elist_elements": "60*c", "hash_wrappers": "90*c",
-            "dynamic_slots": "(19260*A+38342)*c",
+            "dynamic_slots": "(20520*A+40449)*c",
         },
         "source_sensitive_composition": "sum per-invocation vectors at n_i and A_i=3*H_i+7 from source bound descriptors for these stages; uniform maximum A is optional",
-        "residual_addends": ["source String folding and Image/input constructors", "source actual-subtype lookup bridge for remaining call/slice helpers", "remaining runtime concat call and final enabled result-slice analysis", "action/transient wrapper helpers beyond closed placement/skeleton", "later object/whole-scope freezing and name qualification", "numeric magnitudes and query roots in remaining stages", "fixed runtime and backend costs"],
+        "residual_addends": ["source String folding and Image/input constructors", "runtime concat call and any distinct actual-subtype helpers", "action/transient wrapper helpers beyond closed placement/skeleton", "later whole-scope freezing and name qualification", "numeric magnitudes and query roots in remaining stages", "fixed runtime and backend costs"],
         "examples_not_thresholds": [combined_native_emitter_vector(2, 1),
                                     combined_native_emitter_vector(64, 127),
                                     combined_native_uniform_vector(0, 1),

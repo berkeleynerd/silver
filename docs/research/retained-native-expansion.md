@@ -3019,6 +3019,106 @@ the combined stages below. Their query-root weight is supplied by the scoped
 source-derived closure above. Image/input construction, final call/result-slice
 processing and their additional queries remain separate.
 
+### Result-object freezing and constrained actual-subtype lookup
+
+The generated concat objects close their own first-freeze cost after the
+previously charged subtype/access-type freezes. The plain result object has
+no initializer, address/aspect, foreign convention, static-allocation flag or
+delayed freeze. It is a local internal ordinary String object. Its declaration
+and default-initialization paths, already inspected in the storage transfer,
+set none of those properties. The secondary result is a constrained renaming;
+its allocator pointer object's separate zero-cost freeze is established above.
+
+`Freeze_Entity` first freezes the object's existing type, then calls
+Freeze_Object_Declaration for an ordinary object declaration
+(`freeze.adb:6938–6958`). Categorization and address checks have no applicable
+local aspect/import case. The abstract/volatile/TLS/foreign-enum branches are
+absent. Check_Large_Modular_Array reaches its Is_Modular_Integer_Type guard
+and does nothing for the signed Integer index (`4306–4350,4518–4714`). The
+static-object branch is false, and Layout_Object is explicitly empty
+(`freeze.adb:6992–7008`, `layout.adb:225–229`). There is no initialization
+compound statement to explode: that creation route is for a C++ constructor,
+not this uninitialized String object (`exp_ch3.adb:8493–8529`,
+`freeze.adb:2497–2523`). No delayed freeze means no freeze node/list; the
+common debug-information tail only sets existing flags
+(`freeze.adb:8265–8286,8363`, `sem_util.adb:28572–28713`).
+
+Thus first freezing of the plain result object adds **zero core-table
+allocations**. Repeated freezing returns immediately. The same zero charge
+applies to the constrained renaming object itself: it does not invoke the
+ordinary object-declaration helper, its type is already frozen, and object
+layout is the same no-op. This result does not price Freeze_All's scope walk,
+name qualification, backend materialization or input/output wrapper helpers.
+
+Actual-subtype lookup also allocates nothing for the normalized String values
+used by this emitter's assignment/result-slice suffixes. A literal or resolved
+slice already has a constrained type. A declared String name receives its
+initializer's constrained actual type in Set_Etype(Id, Act_T)
+(`sem_ch3.adb:5138–5145,5341`), with the declaration/type-reuse bridge above.
+The plain concat result is explicitly constrained; the secondary result names
+ConstrT. These remain object names, not macro-expanded initializers. Therefore
+Get_Actual_Subtype returns an already available Actual_Subtype or the existing
+constrained nominal type, before its allocating unconstrained branch
+(`sem_util.adb:10270–10374`). This establishes the lookup premise of the
+generated assignment slice/length checks and the final result slice. It does
+not apply to the initial input call's uncached unconstrained P.all.
+
+### Enabled final result slice
+
+The final result at `exp_ch4.adb:3629–3638` is a result-object name or one
+slice of that name. It is distinct from the up-to-n suppressed assignment
+slices. Slice_Rng is present only when the original low bound is compile-time
+known, the original high is not, and the finite known upper length yields a
+fitting static buffer high (`3295–3318`). The result object therefore has
+known scalar index endpoints in this branch. Checks on the final range can
+be enabled, even if construction of an earlier storage helper suppressed them.
+
+The no-slice name has no new core-table cost after its directly charged syntax
+and the zero-cost result-object freeze. For the slice, prefix resolution uses
+that same object freeze and the nonallocating actual-subtype lookup. The
+original range's first scalar nodes were already charged in the direct scalar
+transfer. Its possible captures and normalized t/l range copying use the
+ordinary slice-resolution suffix. Both target endpoints are static signed
+Integer values, so the earlier enabled range-check transfer generalizes from
+Positive without changing its allocation vector: the target First/Last
+attributes fold known existing endpoints, and their base is the same Integer.
+The no-static-error and other existing local premises continue to apply.
+
+Apply_Range_Check calls the same range selector, then inserts its one possible
+dynamic conditional raise with Insert_Action (`checks.adb:3044–3158`). Add
+**one insertion-wrapper list**, which the prior declaration-specific
+Insert_Range_Checks did not need. Its potential diagnostic/error alternatives
+are excluded by the same no-static-error premise, not by assuming suppression.
+Resolution then creates/freezes the ordinary slice subtype pair as previously
+charged; no extra freeze node is requested. The output call's transient wrapper
+does not wrap this child slice independently.
+
+For normalized range size t and l syntax lists, composing the existing
+suffix with the enabled check for b=t-1 bound nodes gives:
+
+```text
+ordinary nodes       140*A + 3*t + 91
+syntax lists         3*l + 7
+growing events       23
+Uint appends         596*A + 424
+entities/names       4
+name characters      52, including NUL.
+```
+
+There are no new Elist/hash/String values in this suffix. Use t=31,l=2 for
+**140*A+184 nodes and thirteen lists**. At most one final slice occurs per
+native concat invocation; charging it even on no-slice/helper/early-return
+paths is conservative. Its query roots are existing result bounds, their
+check conversions and static target endpoints. They are included in the
+preceding root families, so A=3*H+7 remains sufficient. Numeric magnitudes,
+action/wrapper helpers beyond the closed placement paths, runtime-call
+processing and later whole-scope/backend costs remain separate.
+
+`enabled_final_slice` in derive.py sums these existing transfers and the
+insertion list. The combined vector below now includes this suffix once and
+the zero-cost result-object freeze/actual-subtype lookup bridge. No compiler
+probe is used to justify the allocation count.
+
 ## Combined Main direct-emitter vector
 
 The closed addends can now be composed without stitching their rows by hand.
@@ -3033,18 +3133,20 @@ For one n-operand invocation, add:
    optional-guard skeleton.
 4. First passes over each raw copied scalar-bound tree and the two possible
    result-storage captures. Incoming normalized RHS values retain Analyzed.
+5. One enabled final result slice at t=31,l=2, including first result-object
+   freezing and the nonallocating constrained actual-subtype lookup bridge.
 
 These charges deliberately overcount mutually exclusive helper-call and slice
 assignment routes. They give the following single vector of closed stages:
 
 | Demand | Per invocation | Whole Main with c source `&` and uniform A |
 | --- | ---: | ---: |
-| Ordinary nodes | `(880*n+380)*A + 1181*n + 1014` | `(2140*A+3376)*c` |
-| Uint appends | `(3736*n+1700)*A + 3537*n + 1273` | `(9172*A+8347)*c` |
-| Syntax-list headers | `67*n+80` | `214*c` |
-| Growing-slot events | `133*n+76` | `342*c` |
-| Entities/internal names | `26*n+28` | `80*c` |
-| Name characters, including NUL | `338*n+371` | `1047*c` |
+| Ordinary nodes | `(880*n+520)*A + 1181*n + 1198` | `(2280*A+3560)*c` |
+| Uint appends | `(3736*n+2296)*A + 3537*n + 1697` | `(9768*A+8771)*c` |
+| Syntax-list headers | `67*n+93` | `227*c` |
+| Growing-slot events | `133*n+99` | `365*c` |
+| Entities/internal names | `26*n+32` | `84*c` |
+| Name characters, including NUL | `338*n+423` | `1099*c` |
 | Elist headers | `10*n+11` | `31*c` |
 | Elist elements | `20*n+20` | `60*c` |
 | Copy-map hash wrappers | `30*n+30` | `90*c` |
@@ -3056,7 +3158,7 @@ query-root recurrences; using one maximum A is optional. This scoped A_i
 covers the original and generated query roots in these combined stages;
 remaining callees still need their own root inventories. With the pinned slot
 maxima, the uniform dynamic-slot addend is
-`9*(ordinary+growth)+61*entities = (19260*A+38342)*c`. Node identities/link
+`9*(ordinary+growth)+61*entities = (20520*A+40449)*c`. Node identities/link
 tables, physical bytes and temporary stack/workspace remain separate
 representations. Uint digit demand also needs its numeric-magnitude bound,
 including the already identified cold power-cache extension.
@@ -3065,11 +3167,10 @@ including the already identified cold power-cache extension.
 Its explicit residual addends are:
 
 - Source String folding and initial Image/input construction.
-- The source actual-subtype lookup bridge for remaining call/slice helpers.
-- Runtime concat procedure-call analysis and the final enabled result-slice
-  analysis; the n assignment slices above do not stand for this final slice.
+- Runtime concat procedure-call analysis and any distinct actual-subtype
+  helper it invokes; final result/assignment slice lookups are now closed.
 - Transient wrapper helpers beyond the closed placement/direct skeleton,
-  later object/whole-scope freezing and name qualification.
+  later whole-scope freezing and name qualification.
 - Numeric magnitudes and query roots in the remaining stages, fixed runtime
   processing and backend costs.
 
@@ -3119,8 +3220,8 @@ conditional contexts, preserve transient scopes and analyze inserted actions.
 Suppressing checks does not suppress this analysis. The emitter calls it once
 with at most `2*n` collected declarations, and calls `Insert_Action` at most
 `n+5` times. Generated declaration/access/allocator/call/slice/conditional and
-freezing transfers must cover those calls. Final `Analyze_And_Resolve` and the
-error path are additional entries.
+freezing transfers cover the closed local paths above; runtime-call analysis,
+wrapper/scope handling and the diagnostic error path remain separate.
 
 ## Exact remaining obligations
 
@@ -3130,14 +3231,15 @@ The following missing addends prevent calling the native construct closed:
   work, with its own String/Uint/node/entity costs. Normalized operand/copy
   shapes, first raw scalar passes and boundary capture are source-supported
   above; those component closures do not supply value/magnitude bounds.
-- Close the remaining call/result-slice actual-subtype bridge, later object
-  and scope freezing, and input/output wrapper helpers. The ordinary macro
-  renaming helper remains unreachable for Main's String objects.
+- Close any distinct runtime-call actual-subtype helpers, later scope freezing,
+  and input/output wrapper helpers. The result/assignment slice lookup bridge
+  and first result-object freeze are closed above. The ordinary macro renaming
+  helper remains unreachable for Main's String objects.
 - Close up to two runtime-availability and two runtime-entity lookups, final
-  call/slice analysis, the complete query-root set and conditional error path.
+  call analysis, remaining helper query roots and conditional error path.
   Dependency sharing requires a cache invariant. Collected scalar declaration
-  skeletons, direct initial scalar passes and first bound captures are in the
-  combined vector; whole-scope work is not.
+  skeletons, direct initial scalar passes, first bound captures and the final
+  enabled result slice are in the combined vector; whole-scope work is not.
 - Bound each remaining generated semantic-helper invocation. The direct native
   Main emitter multiplicity is now source-bounded; runtime library processing
   and additional generated-helper work remain separate.

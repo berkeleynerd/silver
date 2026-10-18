@@ -1815,7 +1815,7 @@
         "whole_construct_closed": false
       }
     ],
-    "excluded": "numeric magnitudes; source scalar/Image/input and source String equality/assignment outside this emitter; remaining runtime call/slice helpers; wrapper/scope work; fixed dependencies; backend; whole admission predicate"
+    "excluded": "numeric magnitudes; source scalar/Image/input and source String equality/assignment outside this emitter; remaining runtime-call helpers; wrapper/scope work; fixed dependencies; backend; whole admission predicate"
   },
   "Main_output_concat_transient_placement": {
     "maximum_fresh_scopes": "number of source output calls with nonstatic concat actuals",
@@ -1952,38 +1952,123 @@
     ],
     "excluded": "original Image/input construction, output/input wrapper helpers, final runtime call/result-slice analysis, later object/scope freezing and query-root/magnitude closure"
   },
+  "Main_result_object_freeze_and_actual_subtype_lookup": {
+    "first_object_freeze_core_table_allocations": 0,
+    "premises": "subtype/access type already frozen and charged; generated local plain uninitialized String result or constrained renaming; no delayed/static/aspect/address/C++/controlled properties; Layout_Object is empty",
+    "normalized_String_lookup_allocations": 0,
+    "lookup_reason": "literal/slice/generated result/source declared String name has constrained nominal type or available Actual_Subtype; Get_Actual_Subtype cannot enter allocating branch",
+    "excluded": "initial input call/uncached P.all; whole-scope freezing/qualification; backend materialization; wrapper helpers"
+  },
+  "Main_enabled_final_result_slice": {
+    "source_count": "at most one per native concat invocation",
+    "shape_bridge": "Slice_Rng exists only with compile-time-known buffer low and finite fitting known buffer high; target index endpoints static Integer; constrained result name prefix",
+    "ordinary_nodes": "140*A+3*t+91",
+    "lists": "3*l+7",
+    "growth": 23,
+    "Uint": "596*A+424",
+    "entities_and_names": 4,
+    "name_characters": 52,
+    "premises": "first original scalar nodes charged; t/l normalized range bound; no static-error diagnostic, pending check or allocating placement; target/object freezing and subtype lookup closed above",
+    "A": "3*H+7 still covers result range, static target endpoints and their check conversions",
+    "examples_not_thresholds": [
+      {
+        "range_nodes": 31,
+        "range_lists": 2,
+        "analysis_graph": 1,
+        "rows": {
+          "slice_resolution": {
+            "ordinary": 47,
+            "lists": 6,
+            "growth": 2,
+            "uint": 4,
+            "entities_and_names": 4,
+            "name_characters": 52
+          },
+          "enabled_range_check": {
+            "ordinary": 277,
+            "lists": 6,
+            "growth": 21,
+            "uint": 1016
+          },
+          "Insert_Action_wrapper": {
+            "lists": 1
+          }
+        },
+        "total": {
+          "entities_and_names": 4,
+          "growth": 23,
+          "lists": 13,
+          "name_characters": 52,
+          "ordinary": 324,
+          "uint": 1020
+        }
+      },
+      {
+        "range_nodes": 31,
+        "range_lists": 2,
+        "analysis_graph": 127,
+        "rows": {
+          "slice_resolution": {
+            "ordinary": 47,
+            "lists": 6,
+            "growth": 2,
+            "uint": 4,
+            "entities_and_names": 4,
+            "name_characters": 52
+          },
+          "enabled_range_check": {
+            "ordinary": 17917,
+            "lists": 6,
+            "growth": 21,
+            "uint": 76112
+          },
+          "Insert_Action_wrapper": {
+            "lists": 1
+          }
+        },
+        "total": {
+          "entities_and_names": 4,
+          "growth": 23,
+          "lists": 13,
+          "name_characters": 52,
+          "ordinary": 17964,
+          "uint": 76116
+        }
+      }
+    ],
+    "excluded": "runtime concat-call helpers; wrapper/scope work; numeric magnitudes; fixed dependencies/backend"
+  },
   "combined_Main_native_emitter_addends": {
-    "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures",
+    "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2; result-object freeze and constrained actual-subtype lookups add zero",
     "per_invocation": {
-      "ordinary": "(880*n+380)*A+1181*n+1014",
-      "Uint": "(3736*n+1700)*A+3537*n+1273",
-      "lists": "67*n+80",
-      "growth": "133*n+76",
-      "entities_and_names": "26*n+28",
-      "name_characters": "338*n+371",
+      "ordinary": "(880*n+520)*A+1181*n+1198",
+      "Uint": "(3736*n+2296)*A+3537*n+1697",
+      "lists": "67*n+93",
+      "growth": "133*n+99",
+      "entities_and_names": "26*n+32",
+      "name_characters": "338*n+423",
       "Elist_headers": "10*n+11",
       "Elist_elements": "20*n+20",
       "hash_wrappers": "30*n+30"
     },
     "uniform_Main_bound_in_c": {
-      "ordinary": "(2140*A+3376)*c",
-      "Uint": "(9172*A+8347)*c",
-      "lists": "214*c",
-      "growth": "342*c",
-      "entities_and_names": "80*c",
-      "name_characters": "1047*c",
+      "ordinary": "(2280*A+3560)*c",
+      "Uint": "(9768*A+8771)*c",
+      "lists": "227*c",
+      "growth": "365*c",
+      "entities_and_names": "84*c",
+      "name_characters": "1099*c",
       "Elist_headers": "31*c",
       "Elist_elements": "60*c",
       "hash_wrappers": "90*c",
-      "dynamic_slots": "(19260*A+38342)*c"
+      "dynamic_slots": "(20520*A+40449)*c"
     },
     "source_sensitive_composition": "sum per-invocation vectors at n_i and A_i=3*H_i+7 from source bound descriptors for these stages; uniform maximum A is optional",
     "residual_addends": [
       "source String folding and Image/input constructors",
-      "source actual-subtype lookup bridge for remaining call/slice helpers",
-      "remaining runtime concat call and final enabled result-slice analysis",
+      "runtime concat call and any distinct actual-subtype helpers",
       "action/transient wrapper helpers beyond closed placement/skeleton",
-      "later object/whole-scope freezing and name qualification",
+      "later whole-scope freezing and name qualification",
       "numeric magnitudes and query roots in remaining stages",
       "fixed runtime and backend costs"
     ],
@@ -2027,18 +2112,26 @@
             "lists": 14,
             "entities_and_names": 2,
             "name_characters": 26
+          },
+          "enabled_final_slice": {
+            "entities_and_names": 4,
+            "growth": 23,
+            "lists": 13,
+            "name_characters": 52,
+            "ordinary": 324,
+            "uint": 1020
           }
         },
         "total": {
-          "entities_and_names": 80,
-          "growth": 342,
+          "entities_and_names": 84,
+          "growth": 365,
           "hash_wrappers": 90,
-          "lists": 214,
-          "name_characters": 1047,
-          "ordinary": 5516,
+          "lists": 227,
+          "name_characters": 1099,
+          "ordinary": 5840,
           "pending_elist_elements": 60,
           "pending_elist_headers": 31,
-          "uint": 17519
+          "uint": 18539
         }
       },
       {
@@ -2080,18 +2173,26 @@
             "lists": 262,
             "entities_and_names": 2,
             "name_characters": 26
+          },
+          "enabled_final_slice": {
+            "entities_and_names": 4,
+            "growth": 23,
+            "lists": 13,
+            "name_characters": 52,
+            "ordinary": 17964,
+            "uint": 76116
           }
         },
         "total": {
-          "entities_and_names": 1692,
-          "growth": 8588,
+          "entities_and_names": 1696,
+          "growth": 8611,
           "hash_wrappers": 1950,
-          "lists": 4368,
-          "name_characters": 22003,
-          "ordinary": 7277498,
+          "lists": 4381,
+          "name_characters": 22055,
+          "ordinary": 7295462,
           "pending_elist_elements": 1300,
           "pending_elist_headers": 651,
-          "uint": 30809749
+          "uint": 30885865
         }
       },
       {
@@ -2114,17 +2215,17 @@
         "source_concat_operators": 63,
         "uniform_analysis_graph": 127,
         "total": {
-          "entities_and_names": 5040,
-          "growth": 21546,
+          "entities_and_names": 5292,
+          "growth": 22995,
           "hash_wrappers": 5670,
-          "lists": 13482,
-          "name_characters": 65961,
-          "ordinary": 17334828,
+          "lists": 14301,
+          "name_characters": 69237,
+          "ordinary": 18466560,
           "pending_elist_elements": 3780,
           "pending_elist_headers": 1953,
-          "uint": 73911033
+          "uint": 78706341
         },
-        "dynamic_slots": 156514806
+        "dynamic_slots": 166728807
       }
     ],
     "whole_construct_closed": false
