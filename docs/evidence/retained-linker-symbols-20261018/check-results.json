@@ -1,0 +1,398 @@
+{
+  "scope": "Conditional LP64 nonoptimizing ELF dynamic-symbol/hash/version transfer",
+  "source_files_verified": 8,
+  "caller_count_limits": {
+    "dynamic_symbols_including_null": 4294967295,
+    "section_symbol_prefix": 2147483647,
+    "GNU_hashed_symbols_no_signed_shift_overflow": 201326591,
+    "maximum_nonhidden_version_index": 32767
+  },
+  "GNU_hash_shift_intervals_checked": [
+    {
+      "first": 1,
+      "last": 1,
+      "exponent": 6,
+      "safe": true
+    },
+    {
+      "first": 2,
+      "last": 3,
+      "exponent": 6,
+      "safe": true
+    },
+    {
+      "first": 4,
+      "last": 5,
+      "exponent": 6,
+      "safe": true
+    },
+    {
+      "first": 6,
+      "last": 7,
+      "exponent": 6,
+      "safe": true
+    },
+    {
+      "first": 8,
+      "last": 11,
+      "exponent": 6,
+      "safe": true
+    },
+    {
+      "first": 12,
+      "last": 15,
+      "exponent": 7,
+      "safe": true
+    },
+    {
+      "first": 16,
+      "last": 23,
+      "exponent": 7,
+      "safe": true
+    },
+    {
+      "first": 24,
+      "last": 31,
+      "exponent": 8,
+      "safe": true
+    },
+    {
+      "first": 32,
+      "last": 47,
+      "exponent": 8,
+      "safe": true
+    },
+    {
+      "first": 48,
+      "last": 63,
+      "exponent": 9,
+      "safe": true
+    },
+    {
+      "first": 64,
+      "last": 95,
+      "exponent": 9,
+      "safe": true
+    },
+    {
+      "first": 96,
+      "last": 127,
+      "exponent": 10,
+      "safe": true
+    },
+    {
+      "first": 128,
+      "last": 191,
+      "exponent": 10,
+      "safe": true
+    },
+    {
+      "first": 192,
+      "last": 255,
+      "exponent": 11,
+      "safe": true
+    },
+    {
+      "first": 256,
+      "last": 383,
+      "exponent": 11,
+      "safe": true
+    },
+    {
+      "first": 384,
+      "last": 511,
+      "exponent": 12,
+      "safe": true
+    },
+    {
+      "first": 512,
+      "last": 767,
+      "exponent": 12,
+      "safe": true
+    },
+    {
+      "first": 768,
+      "last": 1023,
+      "exponent": 13,
+      "safe": true
+    },
+    {
+      "first": 1024,
+      "last": 1535,
+      "exponent": 13,
+      "safe": true
+    },
+    {
+      "first": 1536,
+      "last": 2047,
+      "exponent": 14,
+      "safe": true
+    },
+    {
+      "first": 2048,
+      "last": 3071,
+      "exponent": 14,
+      "safe": true
+    },
+    {
+      "first": 3072,
+      "last": 4095,
+      "exponent": 15,
+      "safe": true
+    },
+    {
+      "first": 4096,
+      "last": 6143,
+      "exponent": 15,
+      "safe": true
+    },
+    {
+      "first": 6144,
+      "last": 8191,
+      "exponent": 16,
+      "safe": true
+    },
+    {
+      "first": 8192,
+      "last": 12287,
+      "exponent": 16,
+      "safe": true
+    },
+    {
+      "first": 12288,
+      "last": 16383,
+      "exponent": 17,
+      "safe": true
+    },
+    {
+      "first": 16384,
+      "last": 24575,
+      "exponent": 17,
+      "safe": true
+    },
+    {
+      "first": 24576,
+      "last": 32767,
+      "exponent": 18,
+      "safe": true
+    },
+    {
+      "first": 32768,
+      "last": 49151,
+      "exponent": 18,
+      "safe": true
+    },
+    {
+      "first": 49152,
+      "last": 65535,
+      "exponent": 19,
+      "safe": true
+    },
+    {
+      "first": 65536,
+      "last": 98303,
+      "exponent": 19,
+      "safe": true
+    },
+    {
+      "first": 98304,
+      "last": 131071,
+      "exponent": 20,
+      "safe": true
+    },
+    {
+      "first": 131072,
+      "last": 196607,
+      "exponent": 20,
+      "safe": true
+    },
+    {
+      "first": 196608,
+      "last": 262143,
+      "exponent": 21,
+      "safe": true
+    },
+    {
+      "first": 262144,
+      "last": 393215,
+      "exponent": 21,
+      "safe": true
+    },
+    {
+      "first": 393216,
+      "last": 524287,
+      "exponent": 22,
+      "safe": true
+    },
+    {
+      "first": 524288,
+      "last": 786431,
+      "exponent": 22,
+      "safe": true
+    },
+    {
+      "first": 786432,
+      "last": 1048575,
+      "exponent": 23,
+      "safe": true
+    },
+    {
+      "first": 1048576,
+      "last": 1572863,
+      "exponent": 23,
+      "safe": true
+    },
+    {
+      "first": 1572864,
+      "last": 2097151,
+      "exponent": 24,
+      "safe": true
+    },
+    {
+      "first": 2097152,
+      "last": 3145727,
+      "exponent": 24,
+      "safe": true
+    },
+    {
+      "first": 3145728,
+      "last": 4194303,
+      "exponent": 25,
+      "safe": true
+    },
+    {
+      "first": 4194304,
+      "last": 6291455,
+      "exponent": 25,
+      "safe": true
+    },
+    {
+      "first": 6291456,
+      "last": 8388607,
+      "exponent": 26,
+      "safe": true
+    },
+    {
+      "first": 8388608,
+      "last": 12582911,
+      "exponent": 26,
+      "safe": true
+    },
+    {
+      "first": 12582912,
+      "last": 16777215,
+      "exponent": 27,
+      "safe": true
+    },
+    {
+      "first": 16777216,
+      "last": 25165823,
+      "exponent": 27,
+      "safe": true
+    },
+    {
+      "first": 25165824,
+      "last": 33554431,
+      "exponent": 28,
+      "safe": true
+    },
+    {
+      "first": 33554432,
+      "last": 50331647,
+      "exponent": 28,
+      "safe": true
+    },
+    {
+      "first": 50331648,
+      "last": 67108863,
+      "exponent": 29,
+      "safe": true
+    },
+    {
+      "first": 67108864,
+      "last": 100663295,
+      "exponent": 29,
+      "safe": true
+    },
+    {
+      "first": 100663296,
+      "last": 134217727,
+      "exponent": 30,
+      "safe": true
+    },
+    {
+      "first": 134217728,
+      "last": 201326591,
+      "exponent": 30,
+      "safe": true
+    },
+    {
+      "first": 201326592,
+      "last": 268435455,
+      "exponent": 31,
+      "safe": false
+    },
+    {
+      "first": 268435456,
+      "last": 402653183,
+      "exponent": 31,
+      "safe": false
+    },
+    {
+      "first": 402653184,
+      "last": 536870911,
+      "exponent": 32,
+      "safe": false
+    },
+    {
+      "first": 536870912,
+      "last": 805306367,
+      "exponent": 32,
+      "safe": false
+    },
+    {
+      "first": 805306368,
+      "last": 1073741823,
+      "exponent": 33,
+      "safe": false
+    },
+    {
+      "first": 1073741824,
+      "last": 1610612735,
+      "exponent": 33,
+      "safe": false
+    },
+    {
+      "first": 1610612736,
+      "last": 2147483647,
+      "exponent": 34,
+      "safe": false
+    },
+    {
+      "first": 2147483648,
+      "last": 3221225471,
+      "exponent": 34,
+      "safe": false
+    },
+    {
+      "first": 3221225472,
+      "last": 4294967295,
+      "exponent": 35,
+      "safe": false
+    }
+  ],
+  "individual_allocation_upper_bytes": {
+    "dynsym": 103079215080,
+    "versym": 8589934590,
+    "sysv_hashcodes": 34359738360,
+    "sysv_hash": 17180000272,
+    "gnu_hashcodes": 68719476720,
+    "gnu_bitmask_and_buckets": 134742064,
+    "gnu_hash": 939655192
+  },
+  "version_need_section_upper_bytes": 1048512,
+  "version_definition_section_upper_bytes": 917476,
+  "x86_backend_dependency_additions_upper": 4,
+  "whole_link_capacity_established": false,
+  "native_execution": false
+}

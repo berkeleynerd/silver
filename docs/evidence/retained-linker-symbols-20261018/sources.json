@@ -1,0 +1,55 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "source_behavior_premise": "Release source behavior for the retained tool; not historical build attestation",
+  "archive_sha256": "faad93f16fd8c46f748c256b40dab2559a49cea49c6cbe80bcc6721e26b08000",
+  "files": [
+    {
+      "path": "bfd/elflink.c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elflink.c",
+      "bytes": 465443,
+      "sha256": "a858262487306c300cc30b019dadad4431ca7bad348946b1d228778d532f1be1"
+    },
+    {
+      "path": "bfd/elf-bfd.h",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf-bfd.h",
+      "bytes": 131475,
+      "sha256": "18db387647db3b40525fc6f3b11aead9d7f5ca02b15df3168d29456dc16ab000"
+    },
+    {
+      "path": "bfd/elf64-x86-64.c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf64-x86-64.c",
+      "bytes": 195139,
+      "sha256": "81668a45629ad4d77f250173a250bfda6561dd810d9e7ab02d8a988de496ee6b"
+    },
+    {
+      "path": "include/elf/internal.h",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/elf/internal.h",
+      "bytes": 15972,
+      "sha256": "668f2caebcbd004b35e7547556915aa94adf54412aaafc0972310c4c99db24e2"
+    },
+    {
+      "path": "include/elf/external.h",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/elf/external.h",
+      "bytes": 12359,
+      "sha256": "938745254f7353db20cb9edcee910713ef9b2e8be8b42131d81582b107791d06"
+    },
+    {
+      "path": "include/elf/common.h",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/elf/common.h",
+      "bytes": 67847,
+      "sha256": "af4f92b9fa7ae01147b1a5678cb2a069ec32bae7c75738a799797251f368be57"
+    },
+    {
+      "path": "ld/ldmain.c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldmain.c",
+      "bytes": 59325,
+      "sha256": "44beec50113fef013ed52b0f4755cdf90704d15819b4d76304dec4067b5ddec8"
+    },
+    {
+      "path": "ld/lexsup.c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/lexsup.c",
+      "bytes": 88366,
+      "sha256": "338937c9ec7057e5799b12f70a6f05d80b65e8b9fcbc94bedbf9d7c2ee77b212"
+    }
+  ]
+}

@@ -157,6 +157,13 @@ objects,102 BFD symbol allocations and281 relocation-pointer slots. The
 [ELF object transfer](retained-elf-object-capacity.md) then bounds22 section
 headers,98 serialized symbol entries and14,352 complete object-file bytes.
 Remaining assembler backing, binder objects and final link layout are separate.
+The [shared assembler backing](retained-assembler-backing.md) now includes
+all reached fixed hashes: the largest notes-backed hash request is 65,528
+bytes. Its chunk rule retains actual argv/path parameters and is not a total
+memory gate. The [installed startup values](retained-assembler-capacity.md#selected-installed-sframe-default)
+exclude SFrame for the selected null assembler invocation; the earlier
+optional-output union remains valid, and fixed/binder link inputs still need
+their independent SFrame accounting.
 
 The [fixed-setup witness assessment](retained-native-expansion.md#fixed-gcc-initialization-witness-boundary-and-counter-requirements)
 identifies a one-time capture boundary before Main translation and
@@ -226,6 +233,10 @@ adds a conditional GOT/PLT sizing equation and identifies the unsigned32
 jump-count multiplication before its 64-bit destination. Its source-to-event
 join, shared diagnostics, generated Main/binder objects, linker-created
 names/reference events and final relocation/layout remain open.
+The [dynamic-symbol/version transfer](retained-linker-symbols.md) now bounds
+the selected hash and version output representations, including signed
+bloom-filter shifts and the fifteen-bit version domain. Its configuration
+and source-to-count joins remain explicit.
 
 The selected null DF/IRA/LRA join bounds the persistent reference-order counter
 by 1,785,936, below the **signed** comparison limit, and each iterative
@@ -238,12 +249,19 @@ add 78, including cold sequence and frame-hash storage. Non-chain CFI adds
 43, including the initial return-address MEM and copied row-save vectors.
 Target frame-layout helpers add no allocation on this path. Out-of-SSA,
 ranger and CFG backing now contributes100 further GGC events; ranger setup
-uses ordinary storage and its Boolean ranges remain inline. Remaining
-metadata/translation, pass-manager/shared state and unit-emission events stay
+uses ordinary storage and its Boolean ranges remain inline. The complete
+98-pass generic RTL schedule and eight target insertions add one late
+RTL-info allocation; selected final/CFI/section emission adds five further
+GGC requests. The known subtotal is39,957, with metadata/Main translation,
+remaining whole-unit output helpers and shared collector composition still
 explicit in the native expansion record. The
 [unwind sizing transfer](retained-linker-eh-frame.md) bounds conditional input
 editing and header/CIE storage, including narrower32-bit intermediates;
 emitted-field validity and final relocation reach remain separate obligations.
+Its fixed-input join now parses888 distinct ET_REL unwind sections and
+accounts for1,175 weighted occurrences, with14,948 FDEs. Fixed fields fit
+their narrow representations; generated Main/binder/linker additions and
+CFA/relocation meaning still require composition.
 
 The [diagnostic-string transfer](retained-producer-diagnostic-strings.md) joins
 selected prover answers and consecutive-answer warnings to raw solver-output

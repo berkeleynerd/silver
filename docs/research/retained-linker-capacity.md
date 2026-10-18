@@ -145,6 +145,10 @@ including regular and local IFUNC paths. Its jump-table multiplication is
 unsigned32 despite the64-bit size destination, with sufficient count ceiling
 536,870,911. This event-to-size component still requires the source-to-event
 and complete-layout joins.
+The [dynamic-symbol and version transfer](retained-linker-symbols.md) adds
+individual `.dynsym`, SysV/GNU hash and version-record requests. It identifies
+the signed-int bloom-filter shifts and fifteen-bit version indices, with
+explicit nonoptimizing/no-version-script premises and caller-supplied counts.
 GCC/assembler containers, code/data/frame sizes, relocation reach and linker
 layout still need their transfers. In particular, x86-64 PC32/PLT32/GOTPCREL
 relocations retain signed 32-bit displacement checks
