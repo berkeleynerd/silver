@@ -1,0 +1,370 @@
+{
+  "cases": [
+    {
+      "case": "hello",
+      "source": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      },
+      "source_counts": {
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "selected_ALI_consumer_local_interfaces_fit": true
+    },
+    {
+      "case": "large_literal",
+      "source": {
+        "bytes": 8286,
+        "sha256": "bbf27a12d8bbc914d984958dea54e1502fcf11d3be38f31dd477262380936d29"
+      },
+      "source_counts": {
+        "output_calls": 1,
+        "Put": 1,
+        "Put_Line": 0,
+        "null_statements": 0,
+        "decoded_literal_bytes": 8192,
+        "maximum_literal_length": 8192
+      },
+      "selected_ALI_consumer_local_interfaces_fit": true
+    },
+    {
+      "case": "repeated_calls",
+      "source": {
+        "bytes": 105075,
+        "sha256": "38a5bd86502507bb40f15f04f31954c5033c6ccfcd655cc9374603a13ec6cf0f"
+      },
+      "source_counts": {
+        "output_calls": 5000,
+        "Put": 5000,
+        "Put_Line": 0,
+        "null_statements": 0,
+        "decoded_literal_bytes": 5000,
+        "maximum_literal_length": 1
+      },
+      "selected_ALI_consumer_local_interfaces_fit": true
+    },
+    {
+      "case": "both_calls_empty_and_quotes",
+      "source": {
+        "bytes": 129,
+        "sha256": "c5b676cd936c9ccacc78a1043f673d84f2e221546df911dcb64811b95acc7f12"
+      },
+      "source_counts": {
+        "output_calls": 2,
+        "Put": 1,
+        "Put_Line": 1,
+        "null_statements": 1,
+        "decoded_literal_bytes": 3,
+        "maximum_literal_length": 3
+      },
+      "selected_ALI_consumer_local_interfaces_fit": true
+    },
+    {
+      "case": "case_and_CR_comments",
+      "source": {
+        "bytes": 120,
+        "sha256": "096be6983802b2ecb6aceb830f2852a2f6a1dfa4d831d8aabbe0ea667533dc8b"
+      },
+      "source_counts": {
+        "output_calls": 1,
+        "Put": 1,
+        "Put_Line": 0,
+        "null_statements": 0,
+        "decoded_literal_bytes": 1,
+        "maximum_literal_length": 1
+      },
+      "selected_ALI_consumer_local_interfaces_fit": true
+    },
+    {
+      "case": "consumer_join_expected_totals",
+      "matches": true
+    },
+    {
+      "case": "path_976",
+      "conditions": {
+        "accepted_Main_ALI_interface": true,
+        "native_parser_table_indices": true,
+        "native_Units_growth_bytes": true,
+        "native_signature_map_and_hash": true,
+        "native_parser_name_payload": true,
+        "native_and_GPR_reader_indices": true,
+        "GPR_initial_table_capacities": true,
+        "GPR_local_name_scratch": true
+      },
+      "fits": true
+    },
+    {
+      "case": "path_977",
+      "conditions": {
+        "accepted_Main_ALI_interface": false,
+        "native_parser_table_indices": true,
+        "native_Units_growth_bytes": true,
+        "native_signature_map_and_hash": true,
+        "native_parser_name_payload": true,
+        "native_and_GPR_reader_indices": true,
+        "GPR_initial_table_capacities": true,
+        "GPR_local_name_scratch": true
+      },
+      "fits": false
+    },
+    {
+      "case": "path_2147483647",
+      "conditions": {
+        "accepted_Main_ALI_interface": false,
+        "native_parser_table_indices": true,
+        "native_Units_growth_bytes": true,
+        "native_signature_map_and_hash": true,
+        "native_parser_name_payload": false,
+        "native_and_GPR_reader_indices": false,
+        "GPR_initial_table_capacities": true,
+        "GPR_local_name_scratch": false
+      },
+      "fits": false
+    },
+    {
+      "case": "physical_column_overflow",
+      "conditions": {
+        "accepted_Main_ALI_interface": false,
+        "native_parser_table_indices": true,
+        "native_Units_growth_bytes": true,
+        "native_signature_map_and_hash": true,
+        "native_parser_name_payload": true,
+        "native_and_GPR_reader_indices": true,
+        "GPR_initial_table_capacities": true,
+        "GPR_local_name_scratch": true
+      },
+      "fits": false
+    },
+    {
+      "case": "nonliteral",
+      "rejected": true
+    },
+    {
+      "case": "forbidden_VT",
+      "rejected": true
+    },
+    {
+      "case": "negative_path",
+      "rejected": true
+    },
+    {
+      "case": "fixed_relation_names_and_signature_reuse",
+      "matches": true
+    }
+  ],
+  "consumer_projection_at_P512": {
+    "native_parser_tables": {
+      "ALIs": {
+        "demand_upper": 83,
+        "capacities": [
+          500
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Units": {
+        "demand_upper": 180,
+        "capacities": [
+          100,
+          300
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Withs": {
+        "demand_upper": 2220,
+        "capacities": [
+          5000
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Args": {
+        "demand_upper": 833,
+        "capacities": [
+          1000
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Sdep": {
+        "demand_upper": 1048,
+        "capacities": [
+          5000
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Source": {
+        "demand_upper": 204,
+        "capacities": [
+          1000
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Invocation_Constructs": {
+        "demand_upper": 1290,
+        "capacities": [
+          2500
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Invocation_Relations": {
+        "demand_upper": 367,
+        "capacities": [
+          2500
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Invocation_Signatures": {
+        "demand_upper": 1290,
+        "capacities": [
+          2500
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Linker_Options": {
+        "demand_upper": 2,
+        "capacities": [
+          200
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "Notes": {
+        "demand_upper": 8,
+        "capacities": [
+          200
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      },
+      "No_Deps": {
+        "demand_upper": 0,
+        "capacities": [
+          200
+        ],
+        "ID_and_Int_arithmetic_fit": true
+      }
+    },
+    "native_signature_map": {
+      "distinct_nodes_upper": 1290,
+      "bucket_capacities": [
+        500,
+        1000
+      ],
+      "coexisting_bucket_slots_upper": 1500,
+      "node_bytes_upper": 64,
+      "nodes_and_coexisting_buckets_bytes_upper": 178560,
+      "hash_text_bytes_upper": 97,
+      "hash_scratch_bytes": 2052,
+      "hash_To_String_temporary_bytes_upper": 97
+    },
+    "native_raw_buffers": {
+      "Main_file_bytes_upper": 2152396,
+      "Main_reader_bytes_including_EOF_upper": 2152397,
+      "fixed_maximum_reader_bytes_including_EOF": 58771,
+      "native_peak_raw_ALI_buffer_bytes_upper": 2152397,
+      "native_cumulative_raw_ALI_allocated_bytes_upper": 2807946,
+      "native_dependency_recursion_depth_upper": 83,
+      "cumulative_bytes_are_not_peak_live_or_RAM_gate": true
+    },
+    "native_parser_name_contribution": {
+      "fixed_entry_events": 8779,
+      "Main_entry_events": 7832,
+      "entry_events_upper": 16611,
+      "character_slots_including_NUL_upper": 10229999,
+      "payload_bytes_upper": 1183,
+      "scratch_bytes": 131064,
+      "stored_payload_Short_limit": 32767,
+      "Name_Entries_initial_slots": 6000,
+      "Name_Entries_growth_percent": 100,
+      "Name_Entry_bytes": 16,
+      "Name_Chars_initial_slots": 50000,
+      "Name_Chars_growth_percent": 100,
+      "complete_pool_backing_established": false,
+      "incoming_contract": "Add all nonparser entry events/character slots before applying Table growth; charge index/sentinel and old/new backing. Every incoming payload must fit Short and scratch."
+    },
+    "native_argument_strings": {
+      "count": 833,
+      "payload_bytes": 6089,
+      "maximum_payload_bytes": 27
+    },
+    "Gprbind_Main_reader": {
+      "raw_buffer_bytes_including_EOF_upper": 2152397,
+      "table_demands_upper": {
+        "ALIs": 1,
+        "Units": 41,
+        "Args": 10,
+        "Withs": 0,
+        "Sdep": 0
+      },
+      "table_backing_slot_bounds": {
+        "ALIs": 500,
+        "Units": 100,
+        "Args": 1000,
+        "Withs": 0,
+        "Sdep": 0
+      },
+      "argument_string_payload_bytes": 110,
+      "maximum_argument_string_payload_bytes": 24,
+      "argument_filter_local_copy_bytes_upper": 24,
+      "version_scratch_bytes": 32,
+      "name_entry_events_upper": 84,
+      "name_value_bytes_upper": 24381,
+      "maximum_name_payload_bytes_upper": 512,
+      "name_values_have_extra_NUL": false,
+      "static_hash_slots": 65536,
+      "static_name_scratch_bytes": 1000000,
+      "complete_name_vector_backing_established": false,
+      "incoming_contract": "Add these events and value bytes to incoming GPR.Names; charge discriminated entry metadata, indefinite-vector capacities, growth overlap and indices. Main ALI path, including C NUL, must fit scratch.",
+      "recursive_fixed_ALI_reads": 0
+    }
+  },
+  "fixed_closure": {
+    "ALI_files": 82,
+    "complete_file_bytes": 655467,
+    "max_complete_file_bytes": 58770,
+    "records": {
+      "A": 823,
+      "D": 1007,
+      "G": 1359,
+      "L": 1,
+      "N": 7,
+      "P": 82,
+      "R": 523,
+      "U": 139,
+      "V": 82,
+      "W": 421,
+      "Z": 118
+    },
+    "invocation_records": {
+      "a": 82,
+      "c": 1271,
+      "r": 6
+    },
+    "distinct_signatures": 1271,
+    "all_constructs_ordinary": true,
+    "fixed_Main_signature_count": 0,
+    "maximum_signature_hash_bytes": 93,
+    "max_consumed_row_bytes_before_LF": 108,
+    "distinct_dependency_names": 163,
+    "dependency_mismatch_count": 0,
+    "subunit_names": [
+      "ada.exceptions.call_chain",
+      "ada.exceptions.exception_data",
+      "ada.exceptions.exception_propagation",
+      "ada.exceptions.exception_traces",
+      "ada.exceptions.stream_attributes",
+      "ada.text_io.get_line",
+      "system.traceback.symbolic.module_name"
+    ],
+    "notes_with_explicit_source": 0,
+    "argument_payload_bytes": 5979,
+    "maximum_argument_payload_bytes": 27,
+    "parser_name_entry_events": 8779,
+    "parser_name_character_slots": 956911
+  },
+  "all_checks_pass": true,
+  "native_tool_executions": 0,
+  "whole_binder_or_parent_capacity_established": false,
+  "whole_literal_pipeline_capacity_established": false
+}

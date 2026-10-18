@@ -1,0 +1,39 @@
+{
+  "issue": 119,
+  "task": "Bounded literal Main plus fixed-output ALI consumer join",
+  "base_commit": "7d06c2082334a3f3b64a39a3fa491da99ff34aea",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "setting_source": "Parent assignment retained in continuation checkpoint",
+  "runtime_model_and_effort_confirmation": "Unavailable; selected settings are not a runtime attestation",
+  "started_UTC": "2026-10-18T18:35:29+00:00",
+  "finished_UTC": "2026-10-18T18:48:30+00:00",
+  "implementation_elapsed_seconds": 781,
+  "elapsed_scope": "Includes preceding source inspection, checkpoint continuation and offline implementation; excludes predecessor ALI/linker work",
+  "native_tool_executions": 0,
+  "token_measurements": null,
+  "cost_measurements": null,
+  "intended_outcome": "Compose accepted literal source/writer counts with fixed native and GPR ALI parser bounds; preserve graph/driver gaps",
+  "achieved": "Fourteen offline cases pass; local table, signature-map, raw-buffer and additive name interfaces derived from retained source/artifact hashes",
+  "material_findings": [
+    "Seven fixed-output subunit D rows replace the null closure census of six.",
+    "G relation parsing charges seven name events per row, while distinct signature nodes remain bounded independently.",
+    "Only native Units grows, from 100 to 300 slots; GPR A/U-only read has separate names and lazy initial tables.",
+    "Shared pools and graph backing remain explicit interfaces; no null whole-process totals transferred."
+  ],
+  "implementation_rework": "Source check uses GPR table increments 200 except Args 100; this was corrected before the first successful replay and changes no allocation bound.",
+  "validation": [
+    "check.py: 14 offline cases pass on Linux x86-64",
+    "compose.py: Hello at P=512 passes local interfaces",
+    "Python AST parse and staged git diff --check pass"
+  ],
+  "review_status": "Pending independent review by parent; not self-accepted",
+  "remaining": [
+    "Native nonparser/shared name backing",
+    "GPR incoming name/vector and driver lifetimes",
+    "Graph backing",
+    "Complete output launch and remaining pipeline"
+  ],
+  "publication": "Local bounded commit only; no GitHub writes",
+  "CLI_memory_updated": false
+}
