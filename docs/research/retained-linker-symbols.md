@@ -188,3 +188,60 @@ definition section is then absent. These are conditional fixed-domain
 conclusions, not a whole symbol-resolution or no-version-definition proof.
 This capture/replay reads installed or retained bytes only; no assembler,
 linker, compiler or prover executes.
+
+## Bound version definitions without assuming they are absent
+
+The fixed-input join can be made useful without proving V=0. The additional
+[name-domain check](../evidence/retained-linker-symbols-20261018/version-name-results.json)
+reads every retained symbol name, including undefined and dynamic symbols,
+and the definition and dependency version names of all three DSOs. It adds a
+small retained capsule of the input `.gnu.version_r` sections, verified against
+the same complete installed-file hashes. Version-name offsets are interpreted
+against the complete linked string tables, including offsets into suffixes of
+other strings. Merely splitting those tables at NUL would miss that case.
+
+All 44,222 unweighted input symbol records have names without `@`. The union
+of input version-definition names and version-dependency names contains
+**51 distinct nonempty names**, none itself containing `@`. Counting base
+definitions and unused versions is conservative. Reopening a fixed input
+does not add a new name to this union.
+
+The ELF input normalization has two relevant operations:
+
+- `elflink.c:5211–5320` decorates an input symbol with a version name read
+  from its definition or dependency version table. It inserts one or two
+  `@` characters; it does not invent a version name.
+- `_bfd_elf_add_default_symbol` (`:1974–2023,2173–2184`) creates an undecorated
+  alias or removes one of the two `@` characters. These operations remove a
+  suffix or preserve it. Merging and following aliases can change which
+  definition is selected without expanding this suffix-name domain.
+
+The output-definition constructor first searches `info->version_info` for an
+equal version name (`:2544–2604`), and appends a zero-filled node only when
+that search returns no match (`:2690–2751`). With the selected no-version-script
+and no-default-symver premises, each distinct nonempty suffix can therefore
+create at most one such node. This bounds the number of nodes without assuming
+that a decorated alias can never become a regular definition.
+
+Let W bound distinct additional version suffixes introduced outside the fixed
+input normalization just described: generated Main/binder names, linker-created
+names or any other selected name producer. Include suffixes newly introduced by
+transforming an existing decorated name, not just names starting from scratch.
+Then the joined sufficient conditions are
+
+```text
+V <= 51 + W
+maximum version index <= 52 + W + 117 = 169 + W
+require 169 + W <= 32767.
+```
+
+For W=0, `.gnu.version_d` is at most `28*52 = 1456` bytes; it may be absent.
+The earlier `.gnu.version_r` bound remains 2048 bytes. More generally the
+definition bound is `28*(52+W)`. This is an intentionally conservative
+alternative to the earlier conditional V=0 specialization, with substantial
+headroom and no additional input recapture beyond the small dependency sections.
+
+The generated/synthetic-name inventory must still supply W. The present packet
+does not set it to zero, establish a full symbol registration lifetime count,
+or close the whole link. It removes the need to settle every alias's eventual
+definition flags merely to obtain a useful version-index bound.

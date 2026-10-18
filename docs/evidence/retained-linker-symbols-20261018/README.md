@@ -31,3 +31,19 @@ python3 docs/evidence/retained-linker-symbols-20261018/check-fixed-versions.py -
 
 `fixed-version-results.json` records installed extraction and replay. No
 generated Main/binder object is included, and no whole-link claim is made.
+
+`check-version-names.py` extends that capsule with the three DSOs' dependency
+version sections. `fixed-version-need-inputs.json` binds the small supplemental
+archive to the original input record. Capture mode verifies complete installed
+DSO identities; default mode uses only retained regions. The parser follows
+the actual definition/dependency name offsets, including suffix-shared strings,
+checks disjoint record extents and visits every retained symbol name:
+
+```sh
+python3 docs/evidence/retained-linker-symbols-20261018/check-version-names.py --output /tmp/version-name-check.json
+```
+
+The installed capture and offline replay both found 51 fixed version names and
+no literal `@` in any input symbol name. This supports the conservative
+`V <= 51+W` join, where the additional generated/synthetic suffix budget W
+remains open; it does not claim that output version definitions are absent.

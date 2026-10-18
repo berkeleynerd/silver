@@ -1,0 +1,22 @@
+{
+  "fixed_input_record_sha256": "5b4eab4159ce4e572ab2c169b15e2bd74b44e2688c132c51451df03848c4675b",
+  "archive_sha256": "7b84b66acc2225f6a746d13e7715138b461c439e65b7946884b0e75b2cde331f",
+  "regions": [
+    {
+      "path": "5/7",
+      "file_index": 5,
+      "section_index": 7,
+      "offset": 7536,
+      "bytes": 48,
+      "sha256": "7759e916a56de3a27d2313860ad30f1f9a294f2b767de435c6aeaaf4682c6f3e"
+    },
+    {
+      "path": "6/8",
+      "file_index": 6,
+      "section_index": 8,
+      "offset": 158408,
+      "bytes": 80,
+      "sha256": "268a1b3a1d38fc94be39775d468650b45fa4b827256d4885980b7c515293307b"
+    }
+  ]
+}
