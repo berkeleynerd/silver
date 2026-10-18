@@ -141,12 +141,13 @@ right split, **provided the incoming SP/WP formula is itself accounted for
 from source**. Its products are sensitive to the actual equality/conditional
 structure; there is no additional arbitrary source cap.
 
-This does not automatically bound `E1` of the post-matcher formula. That
-envelope depends on the exact marked-definition map and formal-use counts,
-including definitions inside the formula after alias/projection rewriting.
-An indiscriminate bound exponential in the whole formula size would lose
-the useful admission region. The remaining join must carry that map and
-its reachable call shapes through the source-derived SP/WP and matcher
-account. The retained tree envelope also does not bound temporary discarded
-branches, identifier/type allocations, context declarations, the four fixed
-library-body processes or complete solver representations.
+This raw envelope does not by itself bound `E1` of the post-matcher formula.
+The [subsequent weighted composition](retained-producer-match-unfold.md) lifts
+it using the exact marked-definition map, formal-use counts and finite unary
+alias graph. That gives `G(f)<=6*M0(f)^2*M1(f,D,I)` without an indiscriminate
+exponential in total formula size. The source derivation of those formula,
+definition and alias inputs is still required. The retained tree envelope
+also does not bound finite counters charged by discarded branches, individual
+type/container representations, context declarations, the four fixed
+library-body processes or complete solver representations. Independently
+allocated storage does not require an invented aggregate RAM gate.

@@ -1,0 +1,31 @@
+{
+  "source_archive_sha256": {
+    "retained-producer-main-types-20261018": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910",
+    "retained-producer-postsplit-20261018": "4f56faf31f0988eb48b0e8d626f0aa078aa8c59970281dad758b10f5cc15e3f1"
+  },
+  "nested_duplication": 7,
+  "alias_fixtures": [
+    {
+      "original": 8,
+      "target": 39,
+      "envelope": 39
+    },
+    {
+      "original": 66,
+      "target": 8,
+      "envelope": 66
+    }
+  ],
+  "unmarked_quantifier_profiles": {
+    "unit": {
+      "weight": 1,
+      "overhead": 2
+    },
+    "flat_ref": {
+      "weight": 2,
+      "overhead": 3
+    }
+  },
+  "native_executions": 0,
+  "scope": "Source archive identities and arithmetic only; source formula/definition/alias derivation and whole-producer closure remain required"
+}
