@@ -43,3 +43,10 @@ result. Its fixed semantic setup allowances depend on the source read
 projection in the research report. Source-varying metadata, individual backing
 checks and the remaining native phases are still separate; this is not a
 complete capacity rule or a completed compiler run.
+
+`reconcile-ggc-storage.py` verifies ten pinned source files and the retained
+selected host header, then checks individual GGC object/page/lookup requests,
+active-page index backing and finalizer-vector growth. Its result is
+`native-ggc-storage.json`. The concrete prefix substitution uses the existing
+event witness; it executes no compiler and imposes no aggregate memory gate.
+Later phase event/request bounds and whole native capacity remain open.

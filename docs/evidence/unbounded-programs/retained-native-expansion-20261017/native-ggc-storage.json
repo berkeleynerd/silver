@@ -1,0 +1,53 @@
+{
+  "aggregate_RAM_or_address_span_gate": false,
+  "compiler_or_prover_executed": false,
+  "configuration_sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14",
+  "context_depth_without_PCH": 0,
+  "counter_classes": {
+    "not_storage_indices": [
+      "G.allocated",
+      "G.allocated_last_gc",
+      "G.bytes_mapped",
+      "timevar_ggc_mem_total"
+    ],
+    "storage_checked": [
+      "by_depth_in_use",
+      "by_depth_max",
+      "finalizer vec capacity/length",
+      "page bitmap/free count/hint",
+      "context-depth shifts"
+    ]
+  },
+  "depth_vector_request": 40,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "generated_marker_recursion_closed": false,
+  "maximum_bitmap_with_sentry_bytes": 72,
+  "maximum_individual_page_entry_request": 128,
+  "maximum_objects_per_page": 512,
+  "outer_finalizer_vector_requests_each": 40,
+  "page_entry_bitmap_offset": 56,
+  "page_entry_size": 64,
+  "page_index_backing_request_limit_each": 17179869184,
+  "page_index_capacity_limit": 2147483648,
+  "page_index_demand_sufficient_limit": 2147483647,
+  "page_quire_request": 2097152,
+  "page_size_premise": 4096,
+  "page_table_chain_request": 2064,
+  "raw_object_sufficient_limit": 4611686018427387904,
+  "sample_prefix_substitution": {
+    "GGC_events": 39257,
+    "active_page_capacity_bound": 65536,
+    "bound_is_conservative_not_measured_backing": true,
+    "by_depth_request_bound": 524288,
+    "finalizer_capacity_bound": 58884,
+    "largest_observed_rounded_object": 65536,
+    "save_in_use_request_bound": 524288,
+    "single_finalizer_backing_request_bound": 942152,
+    "vector_finalizer_backing_request_bound": 1884296
+  },
+  "scope": "Selected Linux LP64, 4096-byte pages, mmap GGC; per-object/page/lookup and ordinary-finalizer backing",
+  "secondary_lookup_request": 32768,
+  "source_files_verified": 10,
+  "source_sensitive_metadata_and_later_events_still_required": true,
+  "whole_native_capacity_established": false
+}

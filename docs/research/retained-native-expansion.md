@@ -5144,6 +5144,177 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
   --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-gcc-prefix-witness.json
 ```
 
+### GGC object, page-index and finalizer backing
+
+The event witness can now feed the allocator's actual representation checks.
+This transfer uses the selected Linux LP64 configuration, 4,096-byte system
+pages, anonymous mmap, no PCH input and no plugin. The installed configuration
+has GATHER_STATISTICS=0 and neither ENABLE_GC_CHECKING nor
+ENABLE_GC_ALWAYS_COLLECT. Its complete header and ten allocator/vector/PCH
+sources are pinned by the
+[storage identity record](../evidence/unbounded-programs/retained-native-expansion-20261017/ggc-storage-source-identity.json).
+These are source/configuration premises; the offline check performs no new
+compiler capture or binary layout experiment.
+
+For **each** raw GGC request s, a sufficient region is `0 <= s <= 2^62`.
+The small lookup has a minimum allocation of eight bytes and rounds requests
+below 512 to at most 512. The other path starts at order ten and finds the
+first power of two at least s, so its rounded size R is at most `2^62`
+(`ggc-page.cc:1249–1327,1883–1919`). This keeps the search within the initialized
+table, and `R+4095 <= PTRDIFF_MAX`. It is a sufficient per-object region,
+not a claim that the nominal size_t domain or every larger request is invalid.
+The caller must first establish s from its actual additions/products: neither
+allocator rounding nor the constructor event count proves a caller's product
+has not already overflowed.
+
+Let `q=max(1,floor(4096/R))`. Small-object pages hold at most 512 objects;
+large-object pages hold one. The page allocation is
+`align4096(max(4096,q*R))`, equal to 4096 for the small page and R for a larger
+power-of-two object. Thus the page's own arithmetic and in-page offsets fit
+the same per-object bound. The page header, sentry bit and lookup objects are
+concrete independent allocations:
+
+| Storage | Selected LP64 request or bound |
+| --- | ---: |
+| Page-entry fixed structure | 64 bytes, bitmap begins at offset 56 |
+| Bitmap including q's sentry | `8*ceil((q+1)/64) <= 72` bytes |
+| Complete variable page-entry allocation | `56+bitmap <= 128` bytes |
+| One small-page mmap quire | `512*4096 = 2,097,152` bytes |
+| One 64-bit page-table chain | `16+256*8 = 2,064` bytes |
+| One second-level lookup array | `4096*8 = 32,768` bytes |
+
+The page's unsigned-short free count and hint need at most 513, including the
+temporary sentry-related value. The order fits unsigned char; both lookup
+indexes and their masks fit the selected 8/12-bit split. The quire loop's
+largest signed `i<<12` is 2,093,056. These facts cover the source's local
+products, shifts, bitmap writes and page-entry allocation
+(`:116–137,243–298,320–338,515–533,658–691,812–1005`). Each quire creates
+unused page records, but only a page actually used for a GGC object is inserted
+into the active by_depth vectors. Unused page records do not consume active
+page indices. No sum of independent mmap/lookup/header objects is checked
+against a synthetic process-memory allowance.
+
+The source's current context depth remains **zero** on this selected route.
+Its only noninitial assignment is in ggc_pch_read; that is reached through
+gt_pch_restore by the C-family PCH reader, not the selected Ada invocation
+(`ggc-page.cc:2698–2734`, `ggc-common.cc:774–915`, `c-family/c-pch.cc:345`).
+Consequently the depth array remains its initial ten unsigned elements
+(40 bytes), the depth masks shift by zero or one, and clear_marks allocates
+no saved outer-context bitmap. Each of the two outer finalizer vectors has
+one entry and initial four-entry backing, hence an independent 40-byte
+request (`ggc-page.cc:1923–1936,1981–2005,2326`). PCH reconstruction's
+additional arrays and context-dependent paths are not silently included.
+
+There is a real **active-page index limit**. Let P bound the number of active
+page entries at every point. A sufficient condition is `P <= 2^31-1`.
+The two by_depth/save_in_use pointer vectors start at 128 and double an
+unsigned 32-bit capacity. Their maximum capacity is the least power of two
+at least `max(128,P)`, hence at most `2^31`; each independent backing request
+is at most `8*2^31 = 2^34` bytes. The last doubled value is representable,
+and free_page's conversion of an index to signed int is safe
+(`ggc-page.cc:575–585,1050–1064,1376–1382`). A lifetime bound E on all positive
+GGC allocation events gives the conservative substitution `P<=E`; page reuse
+or collection can only improve this substitution. This is a bound on an
+actual indexed container, not aggregate bytes across allocations.
+
+Finalizer registrations are at most one per GGC allocation event. Let Z bound
+the live registrations in either inner vector. Each singleton record is
+16 bytes and each vector record is 32 bytes. Apply the existing ordinary
+heap-vector transfer with `Z<=2^31-1`, eight-byte header and actual element
+size (`ggc-page.cc:341–379,1330–1344`; `vec.cc:150–169`,
+`vec.h:1394–1415`). For `Z>0`, a conservative capacity bound is
+
+```text
+F(Z) = min(2^31-1, max(4, Z, 2*min(15,Z-1), floor(3*(Z-1)/2))).
+```
+
+The request is independently `8+16*F(Z)` or `8+32*F(Z)`. For vector finalizers,
+the original typed allocation must also establish its element count times
+element size; that bounds the destructor loop's own element offsets. Neither
+the registration count nor the finalizer record size replaces that check.
+Deleting an entry does not increase its vector capacity. The source may keep
+the vector's previous high-water capacity, so use a bound valid throughout
+the process rather than its final live length.
+
+As a **concrete substitution for the retained prefix execution**, E=39,257
+gives page-vector capacity at most 65,536: by_depth and save_in_use each
+request at most 524,288 bytes. Even charging a finalizer registration for every
+event gives F(E)=58,884; singleton/vector-finalizer backing requests are at
+most 942,152 and 1,884,296 bytes respectively. These are source-derived upper
+bounds, not measurements of those backbones or evidence that every allocation
+registered a finalizer. The largest rounded object actually observed was
+65,536. For the source-varying prefix family, the already established ordinary
+line-map/ad-hoc bounds round to at most `2^36`, and the two GNAT association
+arrays and ordinary bounded pointer-hash backbones to at most `2^34`; all lie
+inside this per-object region. Their extra event and shared-container counts
+still have to be included rather than replaced by the captured prefix E.
+
+The allocator's cumulative byte totals are **different** from these storage
+indices. G.allocated/G.allocated_last_gc influence the collection heuristic;
+G.bytes_mapped and timevar_ggc_mem_total feed reporting/accounting. Their
+unsigned additions/subtractions do not size an object, select a page index or
+establish an object's reachability (`ggc-page.cc:1493–1498,1753,2099,
+2295–2306,2343,2377–2379,2447–2448`; `timevar.cc:158,187–198`). The selected
+configuration disables the extra statistics structures. The storage transfer
+therefore imposes no cumulative-byte no-wrap admission condition. The earlier
+witness's no-wrap evidence was necessary to interpret that recorded counter
+as a lifetime event observation; it does not turn the counter into a language
+memory limit. Different collection schedules can recreate weak-cache entries,
+so later source-to-event bounds must charge requests across those lifetimes.
+
+Page-cache release coalesces adjacent mappings and uses their concrete address
+span, not a sum of arbitrary unrelated objects. Its pointer/address arithmetic
+retains the selected GNU/Linux allocator/user-address premise, as does the
+existing obstack transfer. Physical allocation failure and the validity of
+the collector's object-graph/root invariants are not established by an index
+bound. Generated mark callbacks and any relevant recursion/frame limits also
+remain a separate later-phase obligation; there was no collection in the
+captured prefix.
+
+For whole native composition, write
+
+```text
+E = 39257 + E_variable_metadata + E_Main
+          + E_first_RTL_initialization + E_pass_setup_and_body + E_emission.
+```
+
+The full sampled fixed term is retained, with no metadata subtraction. Each
+remaining term must bound positive GGC requests on its source-selected route,
+including cache misses after collection. Once supplied, E can conservatively
+feed the real page-index/finalizer checks; every request retains its separate
+size check. Normal declaration identities require `5832+D_later<=INT_MAX`.
+The type counter's prefix peak is 1,938 and endpoint 1,937; a sufficient later
+UID condition is `max(1938,1937+T_later)<=UINT_MAX`, without taking credit for
+later rollback. Other type-indexed consumers can impose tighter limits.
+Any reached later DEBUG_EXPR_DECL route has its separate descending signed
+counter, whose sufficient event condition is `D_debug_later<=2^31` from the
+observed initial zero. Neither D_later nor T_later is assumed zero for null Main.
+
+The smallest outstanding native joins for the null token class are now:
+
+1. The first initialize_rtl's target/dummy-context request and constructor
+   envelope, which is outside the startup witness and Main chain bound.
+2. Remaining fixed DF/alias/IRA/LRA/pass containers, their GGC/non-GGC request
+   sizes and event counts, plus any collector-marker/stack transfer actually
+   reached on the selected schedule.
+3. Whole-phase sums into the above page/finalizer/UID checks and the already
+   bounded metadata/hash containers.
+4. The assembler/object/linker consumers of the final emitted packet.
+
+The backend lane's final null packet has at most 52 chain allocations, UID 53,
+43 shortening slots, code address 26, two FDE label allocations of at most
+26 bytes each, and five CFI labels of at most 17 bytes each. Those small
+objects satisfy their individual LP64 request arithmetic. They do not count
+target-initialization synthetic instructions or unrelated fixed pass objects.
+The null-only route is therefore **not yet closed**. No additional witness,
+compiler build or proof run was performed for this storage derivation.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-ggc-storage.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-ggc-storage.json
+```
+
 ### Fixed floating bounds still allocate Ada numeric metadata
 
 The Standard roots have a concrete callback cost even for null Main. Cstand's
