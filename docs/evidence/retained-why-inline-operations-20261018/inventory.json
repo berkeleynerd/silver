@@ -1,0 +1,94 @@
+{
+  "logical_declaration_kind_counts": {
+    "0": 17,
+    "1": 16,
+    "2": 68,
+    "3": 81,
+    "5": 62
+  },
+  "known_identifier_keys_upper": 277,
+  "raw_terms": 1933,
+  "raw_binder_infos": 157,
+  "raw_substitution_entries": 8,
+  "initial_substitution_map_entries_max": 6,
+  "delayed_value_nodes_max": 6,
+  "nonunit_substitution_keys": [
+    139868854860600,
+    139868854873696
+  ],
+  "all_initial_delayed_values_binder_free_and_unary": true,
+  "nonunit_keys_absent_from_every_initial_delayed_value_free_set": true,
+  "substitutions": [
+    {
+      "binder": 139868856388944,
+      "key": 139868881345376,
+      "value": 139868856398640,
+      "nodes": 1,
+      "free_occurrences": 1
+    },
+    {
+      "binder": 139868856388944,
+      "key": 139868881344400,
+      "value": 139868856398016,
+      "nodes": 1,
+      "free_occurrences": 1
+    },
+    {
+      "binder": 139868856388944,
+      "key": 139868881343624,
+      "value": 139868856397632,
+      "nodes": 1,
+      "free_occurrences": 1
+    },
+    {
+      "binder": 139868856388944,
+      "key": 139868881343184,
+      "value": 139868856397152,
+      "nodes": 1,
+      "free_occurrences": 1
+    },
+    {
+      "binder": 139868856388944,
+      "key": 139868881342792,
+      "value": 139868856396720,
+      "nodes": 1,
+      "free_occurrences": 1
+    },
+    {
+      "binder": 139868856388944,
+      "key": 139868881342304,
+      "value": 139868856396192,
+      "nodes": 1,
+      "free_occurrences": 1
+    },
+    {
+      "binder": 139868854837632,
+      "key": 139868854873696,
+      "value": 139868854874120,
+      "nodes": 6,
+      "free_occurrences": 1
+    },
+    {
+      "binder": 139868854846960,
+      "key": 139868854860600,
+      "value": 139868854861024,
+      "nodes": 6,
+      "free_occurrences": 1
+    }
+  ],
+  "all_environment_candidates_binder_free": true,
+  "all_hit_formal_coefficients_at_most_one": true,
+  "all_environment_constants_unbounded_builtin_integers": true,
+  "all_patterns_nullary_constructors": true,
+  "distinct_patterns": 12,
+  "type_occurrence_nodes_max": 3,
+  "signature_type_variables_max": 2,
+  "captured_type_nodes": 32,
+  "application_arity_max": 7,
+  "attribute_universe_entries": 80,
+  "identifier_name_utf8_bytes_max": 45,
+  "ground_data_declarations": 16,
+  "data_constructor_argument_checks": 16,
+  "foundedness_type_entries_upper": 38,
+  "foundedness_constructor_entries_upper": 22
+}
