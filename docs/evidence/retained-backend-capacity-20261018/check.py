@@ -47,20 +47,22 @@ RANGES = {
     "gcc/tree.cc": [(142, 156), (770, 785), (1089, 1143), (1368, 1383),
                      (1468, 1547), (1581, 1616), (1696, 1729),
                      (1776, 1953), (2008, 2013), (2482, 2488), (2616, 2636),
-                     (2926, 2960), (5840, 5965), (6433, 6492), (7198, 7385),
-                     (7460, 7511), (8025, 8088), (15095, 15129)],
+                     (2926, 2960), (3834, 3872), (4132, 4170),
+                     (5840, 5965), (6433, 6492), (7198, 7385),
+                     (7460, 7511), (7576, 7668), (8025, 8088), (15095, 15129)],
     "gcc/tree-core.h": [(1138, 1253), (1565, 1595), (1631, 1634), (1801, 1871)],
-    "gcc/stor-layout.cc": [(1962, 2067), (2437, 2469), (2558, 2576),
-                            (2651, 2661), (2838, 2860), (2991, 3040)],
-    "gcc/target.def": [(2324, 2330)],
+    "gcc/stor-layout.cc": [(67, 87), (296, 339), (603, 633), (909, 929),
+                            (1962, 2067), (2402, 2427), (2437, 2469), (2558, 2576),
+                            (2651, 2773), (2810, 2821), (2838, 2860), (2991, 3040)],
+    "gcc/target.def": [(2324, 2330), (3710, 3763)],
     "gcc/coretypes.h": [(362, 368)],
-    "gcc/hooks.cc": [(293, 298)],
+    "gcc/hooks.cc": [(152, 155), (293, 298), (584, 587)],
     "gcc/params.opt": [(248, 250)],
     "gcc/fold-const.cc": [(646, 669), (844, 853), (1087, 1225), (1325, 1342),
-                           (1477, 1498), (1920, 2011), (2192, 2203),
+                           (1477, 1498), (1920, 2011), (2092, 2137), (2192, 2203),
                            (2484, 2504), (2626, 2666), (6994, 7007),
                            (9205, 9254), (10986, 11056), (13886, 14015),
-                           (15842, 15938), (15945, 16110), (16378, 16418)],
+                           (15842, 15938), (15945, 16110), (16378, 16435)],
     "gcc/genmatch.cc": [(3259, 3268), (3331, 3348), (3445, 3485)],
     "gcc/match.pd": [(1, 41)],
     "gcc/varasm.cc": [(870, 920), (2304, 2335), (2665, 2667), (3953, 3965),
@@ -77,7 +79,8 @@ RANGES = {
     "gcc/targhooks.cc": [(2156, 2220)],
     "gcc/defaults.h": [(977, 995)],
     "gcc/config/i386/i386.h": [(1916, 1966)],
-    "gcc/config/i386/i386.cc": [(11580, 11596), (18489, 18497), (28726, 28727)],
+    "gcc/config/i386/i386.cc": [(4434, 4441), (11580, 11596), (18489, 18497),
+                                 (28520, 28521), (28726, 28727)],
     "gcc/config/i386/i386-expand.cc": [(9135, 9294), (9510, 9586),
                                       (10010, 10715)],
     "gcc/config/i386/x86-tune-costs.h": [(4139, 4157), (4208, 4220)],
@@ -145,6 +148,8 @@ def check_type_transfers(all_bytes, bundle):
         assert b"TARGET_SET_DEFAULT_TYPE_ATTRIBUTES" not in all_bytes[name]
         assert not re.search(rb"^\s*#\s*define\s+ROUND_TYPE_ALIGN\b",
                              all_bytes[name], re.M)
+        assert not re.search(rb"^\s*#\s*define\s+TARGET_ARRAY_MODE(?:_SUPPORTED_P)?\b",
+                             all_bytes[name], re.M)
 
     common = core.split("struct GTY(()) tree_type_common {", 1)[1].split(
         "struct GTY(()) tree_type_with_lang_specific", 1)[0]
@@ -157,6 +162,22 @@ def check_type_transfers(all_bytes, bundle):
     prefix_aligned = (prefix+7)//8*8
     bound = prefix_aligned + 8*8 + 8 + 4*8
     assert bound == 256
+    array_start = tree.index("\nbuild_array_type_1 (")
+    array_body = tree[array_start:tree.index("\n}\n", array_start)]
+    assert array_body.count("make_node (ARRAY_TYPE)") == 1
+    assert array_body.count("build_array_type_1 (") == 2  # declaration and recursion
+    assert "TYPE_CANONICAL (elt_type)" in array_body
+    assert "TYPE_CANONICAL (index_type)" in array_body
+    assert "false, false, true" in tree.split("\nbuild_nonshared_array_type (", 1)[1].split("\n}", 1)[0]
+    # Closed constant-layout path: normalization, unit literal, four size
+    # operations, two conversions, two rounds, and the empty-array hook.
+    static_array_constants = 2 + 1 + 4 + 2 + 2 + 2
+    assert static_array_constants == 13
+    array_sizes = []
+    for length in (0, 1, 2**30, 2**31-1):
+        bits = 8*length
+        assert bits < 2**64 and bits % 8 == 0
+        array_sizes.append(dict(length=length, byte_size=length, bit_size=bits))
     return dict(
         selected_target_headers=len(headers),
         nonstandard_integer_cache_slots=2*64+2,
@@ -173,7 +194,15 @@ def check_type_transfers(all_bytes, bundle):
         type_bitfield_storage_units_bound=len(bitfields),
         type_node_bytes_conservative_lp64=bound,
         type_node_ggc_rounding_upper_bound=256,
-        scope="scalar/pointer/type-copy local transfers; aggregate layout and source request join separate",
+        nonshared_array_type_nodes_per_request=2,
+        completed_constant_character_array_layout_constant_requests=static_array_constants,
+        constant_character_array_size_examples=array_sizes,
+        dynamic_character_array_layout_interface=dict(
+            direct_scalar_constants=6, size_binop_requests=6,
+            fold_convert_requests=2, empty_hook_fold_build2_requests=1,
+            multiple_of_p_requests=1, save_expr_requests=2,
+            transitive_symbolic_allocations_included=False),
+        scope="scalar/pointer/type-copy and ordinary Character-array transfers; symbolic folding, other aggregate layout and source request join separate",
     )
 
 

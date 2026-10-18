@@ -845,6 +845,85 @@ own local allocations without assuming that all generic folding or aggregate
 layout is bounded. The remaining gigi-to-request and all-phase sums still
 have to supply T and the corresponding constant/hash requests.
 
+### Ordinary Character array types
+
+`build_nonshared_array_type` makes one ARRAY_TYPE, lays it out and may repeat
+once for canonical component/domain types (`tree.cc:7576–7668`). With the
+canonical invariant above, the second call has canonical inputs and cannot
+repeat that recursion. Thus one request costs at most **two type nodes and
+two array layouts**, including a discarded or structurally equal candidate.
+The nonshared entry performs no type-hash insertion. The shared entry has
+at most two insertions; completed sizes make its extra layout call return
+immediately. Incomplete arrays require their own repeat-call accounting.
+
+For the ordinary one-dimensional Character arrays reached by Main, the
+component is already complete, with bit size 8, byte size 1 and alignment 8.
+No user alignment, packing or placeholder bound is selected. The array's
+logical length L satisfies `0 <= L <= Integer'Last`; the caller must also
+supply representable domain endpoints and bound-expression intermediates.
+Its natural byte size is L and bit size is `8L <= 17,179,869,176`, within
+the selected 64-bit size representation. A length of zero is allowed.
+This is a layout fact, not a sufficient all-phase String capacity rule.
+
+With constant endpoints, one completed array layout requests at most
+**13 scalar constants**, before the cache costs already derived above:
+
+| Local work | Scalar constant requests |
+| --- | ---: |
+| Optional unsigned reversed-bound normalization | 2 |
+| Unit literal in length computation | 1 |
+| Length subtraction/addition and bit/byte size multiplication | 4 |
+| Conversion to sizetype and bitsizetype | 2 |
+| Final bit/byte alignment rounding | 2 |
+| x86 empty-array query | 2 |
+
+`size_binop` returns its constant result before symbolic folding; each
+listed size operation therefore uses at most one constant request
+(`fold-const.cc:2092–2137`). The two conversions likewise take their constant
+paths. Both alignment rounds use the power-of-two constant path; the byte
+round with divisor 1 actually returns unchanged. Charging it is conservative.
+The x86 empty-record hook does reach `is_empty_type` for arrays, so it must
+not be treated as a scalar no-op: `array_type_nelts_minus_one` can request a
+constant subtraction fold before returning (`tree.cc:3834–3872,15095–15129`).
+The earlier two-request constant-fold row bounds this case. No variable-size
+SAVE or symbolic matcher is entered on this complete constant path.
+
+Mode selection does not impose a maximum String length. `mode_for_size_tree`
+returns no scalar mode when size does not fit its unsigned-int temporary;
+`compute_array_mode` then retains BLKmode (`stor-layout.cc:296–339,603–633,
+2402–2427`). In particular, the 32-bit mode-size temporary is not a 512-MiB
+array rejection threshold. The selected x86 member hook returns false for
+the supplied VOIDmode; the default array-mode hooks return no special mode
+and false. They construct no type or expression. The evidence checks the
+selected Linux header closure has no array-mode override.
+
+Dynamic endpoints need symbolic folding, even though the resulting runtime
+size has the same natural-layout bound. Expanding just `layout_type`, its
+finalizer and these selected helpers gives, per layout:
+
+```text
+direct scalar constant requests <= 6
+size_binop requests             <= 6
+fold_convert requests           <= 2
+empty-hook fold_build2 requests <= 1
+multiple_of_p requests          <= 1
+save_expr requests              <= 2.
+```
+
+The first four size operations compute length and bit/byte size; the final
+bit-alignment round can add two size operations and three constants. The
+byte-alignment round is again identity. `multiple_of_p` is the nonconstant
+round's query and is **not** assumed allocation-free. Its recursive work,
+the symbolic size/fold helpers and any temporary query storage remain
+separate. No missing-byte-size division is selected because Character has
+both sizes. With the established no-placeholder Main bound frontier,
+`variable_size` returns its argument or calls `save_expr` once; the latter
+constructs at most one SAVE_EXPR without copying the expression
+(`stor-layout.cc:67–87`, `tree.cc:4132–4170`). Its predicate traversals still
+need their own scratch/recursion account. These request bounds must be
+multiplied by the possible two canonical layouts; they do not claim complete
+dynamic-array or whole-backend capacity.
+
 ## O0 cleanup lowering: no recursive body duplication
 
 The [gigi bridge](retained-backend-gigi.md) separates ordinary normalized Main

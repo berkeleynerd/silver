@@ -1536,6 +1536,92 @@ LF line numbering; complete file identities checked.
 2960:   return t;
 ```
 
+## gcc/tree.cc:3834–3872
+```text
+3834: }
+3835:
+3836: /* Return, as a tree node, the number of elements for TYPE (which is an
+3837:    ARRAY_TYPE) minus one.  This counts only elements of the top array.  */
+3838:
+3839: tree
+3840: array_type_nelts_minus_one (const_tree type)
+3841: {
+3842:   tree index_type, min, max;
+3843:
+3844:   /* If they did it with unspecified bounds, then we should have already
+3845:      given an error about it before we got here.  */
+3846:   if (! TYPE_DOMAIN (type))
+3847:     return error_mark_node;
+3848:
+3849:   index_type = TYPE_DOMAIN (type);
+3850:   min = TYPE_MIN_VALUE (index_type);
+3851:   max = TYPE_MAX_VALUE (index_type);
+3852:
+3853:   /* TYPE_MAX_VALUE may not be set if the array has unknown length.  */
+3854:   if (!max)
+3855:     {
+3856:       /* zero sized arrays are represented from C FE as complete types with
+3857: 	 NULL TYPE_MAX_VALUE and zero TYPE_SIZE, while C++ FE represents
+3858: 	 them as min 0, max -1.  */
+3859:       if (COMPLETE_TYPE_P (type)
+3860: 	  && integer_zerop (TYPE_SIZE (type))
+3861: 	  && integer_zerop (min))
+3862: 	return build_int_cst (TREE_TYPE (min), -1);
+3863:
+3864:       return error_mark_node;
+3865:     }
+3866:
+3867:   return (integer_zerop (min)
+3868: 	  ? max
+3869: 	  : fold_build2 (MINUS_EXPR, TREE_TYPE (max), max, min));
+3870: }
+3871:
+3872: /* Return, as an INTEGER_CST node, the number of elements for TYPE
+```
+
+## gcc/tree.cc:4132–4170
+```text
+4132: save_expr (tree expr)
+4133: {
+4134:   tree inner;
+4135:
+4136:   /* If the tree evaluates to a constant, then we don't want to hide that
+4137:      fact (i.e. this allows further folding, and direct checks for constants).
+4138:      However, a read-only object that has side effects cannot be bypassed.
+4139:      Since it is no problem to reevaluate literals, we just return the
+4140:      literal node.  */
+4141:   inner = skip_simple_arithmetic (expr);
+4142:   if (TREE_CODE (inner) == ERROR_MARK)
+4143:     return inner;
+4144:
+4145:   if (tree_invariant_p_1 (inner))
+4146:     return expr;
+4147:
+4148:   /* If INNER contains a PLACEHOLDER_EXPR, we must evaluate it each time, since
+4149:      it means that the size or offset of some field of an object depends on
+4150:      the value within another field.
+4151:
+4152:      Note that it must not be the case that EXPR contains both a PLACEHOLDER_EXPR
+4153:      and some variable since it would then need to be both evaluated once and
+4154:      evaluated more than once.  Front-ends must assure this case cannot
+4155:      happen by surrounding any such subexpressions in their own SAVE_EXPR
+4156:      and forcing evaluation at the proper time.  */
+4157:   if (contains_placeholder_p (inner))
+4158:     return expr;
+4159:
+4160:   expr = build1_loc (EXPR_LOCATION (expr), SAVE_EXPR, TREE_TYPE (expr), expr);
+4161:
+4162:   /* This expression might be placed ahead of a jump to ensure that the
+4163:      value was computed on both sides of the jump.  So make sure it isn't
+4164:      eliminated as dead.  */
+4165:   TREE_SIDE_EFFECTS (expr) = 1;
+4166:   return expr;
+4167: }
+4168:
+4169: /* Look inside EXPR into any simple arithmetic operations.  Return the
+4170:    outermost non-arithmetic or non-invariant node.  */
+```
+
 ## gcc/tree.cc:5840–5965
 ```text
 5840: build_qualified_type (tree type, int type_quals MEM_STAT_DECL)
@@ -1976,6 +2062,103 @@ LF line numbering; complete file identities checked.
 7509: {
 7510:   return build_range_type_1 (type, lowval, highval, false);
 7511: }
+```
+
+## gcc/tree.cc:7576–7668
+```text
+7576: 		    bool shared, bool set_canonical)
+7577: {
+7578:   tree t;
+7579:
+7580:   if (TREE_CODE (elt_type) == FUNCTION_TYPE)
+7581:     {
+7582:       error ("arrays of functions are not meaningful");
+7583:       elt_type = integer_type_node;
+7584:     }
+7585:
+7586:   t = make_node (ARRAY_TYPE);
+7587:   TREE_TYPE (t) = elt_type;
+7588:   TYPE_DOMAIN (t) = index_type;
+7589:   TYPE_ADDR_SPACE (t) = TYPE_ADDR_SPACE (elt_type);
+7590:   TYPE_TYPELESS_STORAGE (t) = typeless_storage;
+7591:
+7592:   /* Set TYPE_STRUCTURAL_EQUALITY_P.  */
+7593:   if (set_canonical
+7594:       && (TYPE_STRUCTURAL_EQUALITY_P (elt_type)
+7595: 	  || (index_type && TYPE_STRUCTURAL_EQUALITY_P (index_type))
+7596: 	  || in_lto_p))
+7597:     SET_TYPE_STRUCTURAL_EQUALITY (t);
+7598:
+7599:   layout_type (t);
+7600:
+7601:   if (shared)
+7602:     {
+7603:       hashval_t hash = type_hash_canon_hash (t);
+7604:       tree probe_type = t;
+7605:       t = type_hash_canon (hash, t);
+7606:       if (t != probe_type)
+7607: 	return t;
+7608:     }
+7609:
+7610:   if (TYPE_CANONICAL (t) == t && set_canonical)
+7611:     {
+7612:       if (TYPE_STRUCTURAL_EQUALITY_P (elt_type)
+7613: 	  || (index_type && TYPE_STRUCTURAL_EQUALITY_P (index_type))
+7614: 	  || in_lto_p)
+7615: 	gcc_unreachable ();
+7616:       else if (TYPE_CANONICAL (elt_type) != elt_type
+7617: 	       || (index_type && TYPE_CANONICAL (index_type) != index_type))
+7618: 	TYPE_CANONICAL (t)
+7619: 	  = build_array_type_1 (TYPE_CANONICAL (elt_type),
+7620: 				index_type
+7621: 				? TYPE_CANONICAL (index_type) : NULL_TREE,
+7622: 				typeless_storage, shared, set_canonical);
+7623:     }
+7624:
+7625:   return t;
+7626: }
+7627:
+7628: /* Wrapper around build_array_type_1 with SHARED set to true.  */
+7629:
+7630: tree
+7631: build_array_type (tree elt_type, tree index_type, bool typeless_storage)
+7632: {
+7633:   return
+7634:     build_array_type_1 (elt_type, index_type, typeless_storage, true, true);
+7635: }
+7636:
+7637: /* Wrapper around build_array_type_1 with SHARED set to false.  */
+7638:
+7639: tree
+7640: build_nonshared_array_type (tree elt_type, tree index_type)
+7641: {
+7642:   return build_array_type_1 (elt_type, index_type, false, false, true);
+7643: }
+7644:
+7645: /* Return a representation of ELT_TYPE[NELTS], using indices of type
+7646:    sizetype.  */
+7647:
+7648: tree
+7649: build_array_type_nelts (tree elt_type, poly_uint64 nelts)
+7650: {
+7651:   return build_array_type (elt_type, build_index_type (size_int (nelts - 1)));
+7652: }
+7653:
+7654: /* Computes the canonical argument types from the argument type list
+7655:    ARGTYPES.
+7656:
+7657:    Upon return, *ANY_STRUCTURAL_P will be true iff either it was true
+7658:    on entry to this function, or if any of the ARGTYPES are
+7659:    structural.
+7660:
+7661:    Upon return, *ANY_NONCANONICAL_P will be true iff either it was
+7662:    true on entry to this function, or if any of the ARGTYPES are
+7663:    non-canonical.
+7664:
+7665:    Returns a canonical argument list, which may be ARGTYPES when the
+7666:    canonical argument list is unneeded (i.e., *ANY_STRUCTURAL_P is
+7667:    true) or would not differ from ARGTYPES.  */
+7668:
 ```
 
 ## gcc/tree.cc:8025–8088
@@ -5929,6 +6112,18 @@ LF line numbering; complete file identities checked.
 1966:    On i386, shifts do truncate the count.  But bit test instructions
 ```
 
+## gcc/config/i386/i386.cc:4434–4441
+```text
+4434: ix86_member_type_forces_blk (const_tree field, machine_mode mode)
+4435: {
+4436:   /* Union with XFmode must be in BLKmode.  */
+4437:   return (mode == XFmode
+4438: 	  && (TREE_CODE (DECL_FIELD_CONTEXT (field)) == UNION_TYPE
+4439: 	      || TREE_CODE (DECL_FIELD_CONTEXT (field)) == QUAL_UNION_TYPE));
+4440: }
+4441:
+```
+
 ## gcc/config/i386/i386.cc:11580–11596
 ```text
 11580: /* Implement TARGET_USE_BY_PIECES_INFRASTRUCTURE_P.  */
@@ -5961,6 +6156,12 @@ LF line numbering; complete file identities checked.
 18495:     return false;
 18496:   return default_is_empty_record (type);
 18497: }
+```
+
+## gcc/config/i386/i386.cc:28520–28521
+```text
+28520: #undef TARGET_MEMBER_TYPE_FORCES_BLK
+28521: #define TARGET_MEMBER_TYPE_FORCES_BLK ix86_member_type_forces_blk
 ```
 
 ## gcc/config/i386/i386.cc:28726–28727
@@ -10790,6 +10991,56 @@ LF line numbering; complete file identities checked.
 2011:       if (TREE_CODE (arg0) == COMPLEX_CST)
 ```
 
+## gcc/fold-const.cc:2092–2137
+```text
+2092: size_binop_loc (location_t loc, enum tree_code code, tree arg0, tree arg1)
+2093: {
+2094:   tree type = TREE_TYPE (arg0);
+2095:
+2096:   if (arg0 == error_mark_node || arg1 == error_mark_node)
+2097:     return error_mark_node;
+2098:
+2099:   gcc_assert (int_binop_types_match_p (code, TREE_TYPE (arg0),
+2100:                                        TREE_TYPE (arg1)));
+2101:
+2102:   /* Handle the special case of two poly_int constants faster.  */
+2103:   if (poly_int_tree_p (arg0) && poly_int_tree_p (arg1))
+2104:     {
+2105:       /* And some specific cases even faster than that.  */
+2106:       if (code == PLUS_EXPR)
+2107: 	{
+2108: 	  if (integer_zerop (arg0)
+2109: 	      && !TREE_OVERFLOW (tree_strip_any_location_wrapper (arg0)))
+2110: 	    return arg1;
+2111: 	  if (integer_zerop (arg1)
+2112: 	      && !TREE_OVERFLOW (tree_strip_any_location_wrapper (arg1)))
+2113: 	    return arg0;
+2114: 	}
+2115:       else if (code == MINUS_EXPR)
+2116: 	{
+2117: 	  if (integer_zerop (arg1)
+2118: 	      && !TREE_OVERFLOW (tree_strip_any_location_wrapper (arg1)))
+2119: 	    return arg0;
+2120: 	}
+2121:       else if (code == MULT_EXPR)
+2122: 	{
+2123: 	  if (integer_onep (arg0)
+2124: 	      && !TREE_OVERFLOW (tree_strip_any_location_wrapper (arg0)))
+2125: 	    return arg1;
+2126: 	}
+2127:
+2128:       /* Handle general case of two integer constants.  For sizetype
+2129:          constant calculations we always want to know about overflow,
+2130: 	 even in the unsigned case.  */
+2131:       tree res = int_const_binop (code, arg0, arg1, -1);
+2132:       if (res != NULL_TREE)
+2133: 	return res;
+2134:     }
+2135:
+2136:   return fold_build2_loc (loc, code, type, arg0, arg1);
+2137: }
+```
+
 ## gcc/fold-const.cc:2192–2203
 ```text
 2192: int_const_convert (tree type, const_tree arg1, int overflowable)
@@ -11428,7 +11679,7 @@ LF line numbering; complete file identities checked.
 16110:    indicated TYPE.  If no CLEANUP_POINT_EXPR is necessary, return EXPR
 ```
 
-## gcc/fold-const.cc:16378–16418
+## gcc/fold-const.cc:16378–16435
 ```text
 16378: round_up_loc (location_t loc, tree value, unsigned int divisor)
 16379: {
@@ -11471,6 +11722,23 @@ LF line numbering; complete file identities checked.
 16416:       else
 16417: 	{
 16418: 	  tree t;
+16419:
+16420: 	  t = build_int_cst (TREE_TYPE (value), divisor - 1);
+16421: 	  value = size_binop_loc (loc, PLUS_EXPR, value, t);
+16422: 	  t = build_int_cst (TREE_TYPE (value), - (int) divisor);
+16423: 	  value = size_binop_loc (loc, BIT_AND_EXPR, value, t);
+16424: 	}
+16425:     }
+16426:   else
+16427:     {
+16428:       if (!div)
+16429: 	div = build_int_cst (TREE_TYPE (value), divisor);
+16430:       value = size_binop_loc (loc, CEIL_DIV_EXPR, value, div);
+16431:       value = size_binop_loc (loc, MULT_EXPR, value, div);
+16432:     }
+16433:
+16434:   return value;
+16435: }
 ```
 
 ## gcc/genmatch.cc:3259–3268
@@ -11606,6 +11874,139 @@ LF line numbering; complete file identities checked.
 41:    uniform_vector_p
 ```
 
+## gcc/stor-layout.cc:67–87
+```text
+67: variable_size (tree size)
+68: {
+69:   /* Obviously.  */
+70:   if (TREE_CONSTANT (size))
+71:     return size;
+72:
+73:   /* If the size is self-referential, we can't make a SAVE_EXPR (see
+74:      save_expr for the rationale).  But we can do something else.  */
+75:   if (CONTAINS_PLACEHOLDER_P (size))
+76:     return self_referential_size (size);
+77:
+78:   /* If we are in the global binding level, we can't make a SAVE_EXPR
+79:      since it may end up being shared across functions, so it is up
+80:      to the front-end to deal with this case.  */
+81:   if (lang_hooks.decls.global_bindings_p ())
+82:     return size;
+83:
+84:   return save_expr (size);
+85: }
+86:
+87: /* An array of functions used for self-referential size computation.  */
+```
+
+## gcc/stor-layout.cc:296–339
+```text
+296: /* Return a machine mode of class MCLASS with SIZE bits of precision,
+297:    if one exists.  The mode may have padding bits as well the SIZE
+298:    value bits.  If LIMIT is nonzero, disregard modes wider than
+299:    MAX_FIXED_MODE_SIZE.  */
+300:
+301: opt_machine_mode
+302: mode_for_size (poly_uint64 size, enum mode_class mclass, int limit)
+303: {
+304:   machine_mode mode;
+305:   int i;
+306:
+307:   if (limit && maybe_gt (size, (unsigned int) MAX_FIXED_MODE_SIZE))
+308:     return opt_machine_mode ();
+309:
+310:   /* Get the first mode which has this size, in the specified class.  */
+311:   FOR_EACH_MODE_IN_CLASS (mode, mclass)
+312:     if (known_eq (GET_MODE_PRECISION (mode), size))
+313:       return mode;
+314:
+315:   if (mclass == MODE_INT || mclass == MODE_PARTIAL_INT)
+316:     for (i = 0; i < NUM_INT_N_ENTS; i ++)
+317:       if (known_eq (int_n_data[i].bitsize, size)
+318: 	  && int_n_enabled_p[i])
+319: 	return int_n_data[i].m;
+320:
+321:   return opt_machine_mode ();
+322: }
+323:
+324: /* Similar, except passed a tree node.  */
+325:
+326: opt_machine_mode
+327: mode_for_size_tree (const_tree size, enum mode_class mclass, int limit)
+328: {
+329:   unsigned HOST_WIDE_INT uhwi;
+330:   unsigned int ui;
+331:
+332:   if (!tree_fits_uhwi_p (size))
+333:     return opt_machine_mode ();
+334:   uhwi = tree_to_uhwi (size);
+335:   ui = uhwi;
+336:   if (uhwi != ui)
+337:     return opt_machine_mode ();
+338:   return mode_for_size (ui, mclass, limit);
+339: }
+```
+
+## gcc/stor-layout.cc:603–633
+```text
+603: mode_for_array (tree elem_type, tree size)
+604: {
+605:   tree elem_size;
+606:   poly_uint64 int_size, int_elem_size;
+607:   unsigned HOST_WIDE_INT num_elems;
+608:   bool limit_p;
+609:
+610:   /* One-element arrays get the component type's mode.  */
+611:   elem_size = TYPE_SIZE (elem_type);
+612:   if (simple_cst_equal (size, elem_size))
+613:     return TYPE_MODE (elem_type);
+614:
+615:   limit_p = true;
+616:   if (poly_int_tree_p (size, &int_size)
+617:       && poly_int_tree_p (elem_size, &int_elem_size)
+618:       && maybe_ne (int_elem_size, 0U)
+619:       && constant_multiple_p (int_size, int_elem_size, &num_elems))
+620:     {
+621:       machine_mode elem_mode = TYPE_MODE (elem_type);
+622:       machine_mode mode;
+623:       if (targetm.array_mode (elem_mode, num_elems).exists (&mode))
+624: 	return mode;
+625:       if (targetm.array_mode_supported_p (elem_mode, num_elems))
+626: 	limit_p = false;
+627:     }
+628:   return mode_for_size_tree (size, MODE_INT, limit_p).else_blk ();
+629: }
+630:
+631: /* Subroutine of layout_decl: Force alignment required for the data type.
+632:    But if the decl itself wants greater alignment, don't override that.  */
+633:
+```
+
+## gcc/stor-layout.cc:909–929
+```text
+909: /* Fold sizetype value X to bitsizetype, given that X represents a type
+910:    size or offset.  */
+911:
+912: static tree
+913: bits_from_bytes (tree x)
+914: {
+915:   if (POLY_INT_CST_P (x))
+916:     /* The runtime calculation isn't allowed to overflow sizetype;
+917:        increasing the runtime values must always increase the size
+918:        or offset of the object.  This means that the object imposes
+919:        a maximum value on the runtime parameters, but we don't record
+920:        what that is.  */
+921:     return build_poly_int_cst
+922:       (bitsizetype,
+923:        poly_wide_int::from (poly_int_cst_value (x),
+924: 			    TYPE_PRECISION (bitsizetype),
+925: 			    TYPE_SIGN (TREE_TYPE (x))));
+926:   x = fold_convert (bitsizetype, x);
+927:   gcc_checking_assert (x);
+928:   return x;
+929: }
+```
+
 ## gcc/stor-layout.cc:1962–2067
 ```text
 1962: finalize_type_size (tree type)
@@ -11716,6 +12117,36 @@ LF line numbering; complete file identities checked.
 2067: start_bitfield_representative (tree field)
 ```
 
+## gcc/stor-layout.cc:2402–2427
+```text
+2402: void compute_array_mode (tree type)
+2403: {
+2404:   gcc_assert (TREE_CODE (type) == ARRAY_TYPE);
+2405:
+2406:   SET_TYPE_MODE (type, BLKmode);
+2407:   if (TYPE_SIZE (type) != 0
+2408:       && ! targetm.member_type_forces_blk (type, VOIDmode)
+2409:       /* BLKmode elements force BLKmode aggregate;
+2410: 	 else extract/store fields may lose.  */
+2411:       && (TYPE_MODE (TREE_TYPE (type)) != BLKmode
+2412: 	  || TYPE_NO_FORCE_BLK (TREE_TYPE (type))))
+2413:     {
+2414:       SET_TYPE_MODE (type, mode_for_array (TREE_TYPE (type),
+2415: 					   TYPE_SIZE (type)));
+2416:       if (TYPE_MODE (type) != BLKmode
+2417: 	  && STRICT_ALIGNMENT && TYPE_ALIGN (type) < BIGGEST_ALIGNMENT
+2418: 	  && TYPE_ALIGN (type) < GET_MODE_ALIGNMENT (TYPE_MODE (type)))
+2419: 	{
+2420: 	  TYPE_NO_FORCE_BLK (type) = 1;
+2421: 	  SET_TYPE_MODE (type, BLKmode);
+2422: 	}
+2423:     }
+2424: }
+2425:
+2426: /* Calculate the mode, size, and alignment for TYPE.
+2427:    For an array type, calculate the element separation as well.
+```
+
 ## gcc/stor-layout.cc:2437–2469
 ```text
 2437: layout_type (tree type)
@@ -11776,7 +12207,7 @@ LF line numbering; complete file identities checked.
 2576:       break;
 ```
 
-## gcc/stor-layout.cc:2651–2661
+## gcc/stor-layout.cc:2651–2773
 ```text
 2651:     case POINTER_TYPE:
 2652:     case REFERENCE_TYPE:
@@ -11789,6 +12220,134 @@ LF line numbering; complete file identities checked.
 2659:       }
 2660:       break;
 2661:
+2662:     case ARRAY_TYPE:
+2663:       {
+2664: 	tree index = TYPE_DOMAIN (type);
+2665: 	tree element = TREE_TYPE (type);
+2666:
+2667: 	/* We need to know both bounds in order to compute the size.  */
+2668: 	if (index && TYPE_MAX_VALUE (index) && TYPE_MIN_VALUE (index)
+2669: 	    && TYPE_SIZE (element))
+2670: 	  {
+2671: 	    tree ub = TYPE_MAX_VALUE (index);
+2672: 	    tree lb = TYPE_MIN_VALUE (index);
+2673: 	    tree element_size = TYPE_SIZE (element);
+2674: 	    tree length;
+2675:
+2676: 	    /* Make sure that an array of zero-sized element is zero-sized
+2677: 	       regardless of its extent.  */
+2678: 	    if (integer_zerop (element_size))
+2679: 	      length = size_zero_node;
+2680:
+2681: 	    /* The computation should happen in the original signedness so
+2682: 	       that (possible) negative values are handled appropriately
+2683: 	       when determining overflow.  */
+2684: 	    else
+2685: 	      {
+2686: 		/* ???  When it is obvious that the range is signed
+2687: 		   represent it using ssizetype.  */
+2688: 		if (TREE_CODE (lb) == INTEGER_CST
+2689: 		    && TREE_CODE (ub) == INTEGER_CST
+2690: 		    && TYPE_UNSIGNED (TREE_TYPE (lb))
+2691: 		    && tree_int_cst_lt (ub, lb))
+2692: 		  {
+2693: 		    lb = wide_int_to_tree (ssizetype,
+2694: 					   offset_int::from (wi::to_wide (lb),
+2695: 							     SIGNED));
+2696: 		    ub = wide_int_to_tree (ssizetype,
+2697: 					   offset_int::from (wi::to_wide (ub),
+2698: 							     SIGNED));
+2699: 		  }
+2700: 		length
+2701: 		  = fold_convert (sizetype,
+2702: 				  size_binop (PLUS_EXPR,
+2703: 					      build_int_cst (TREE_TYPE (lb), 1),
+2704: 					      size_binop (MINUS_EXPR, ub, lb)));
+2705: 	      }
+2706:
+2707: 	    /* ??? We have no way to distinguish a null-sized array from an
+2708: 	       array spanning the whole sizetype range, so we arbitrarily
+2709: 	       decide that [0, -1] is the only valid representation.  */
+2710: 	    if (integer_zerop (length)
+2711: 	        && TREE_OVERFLOW (length)
+2712: 		&& integer_zerop (lb))
+2713: 	      length = size_zero_node;
+2714:
+2715: 	    TYPE_SIZE (type) = size_binop (MULT_EXPR, element_size,
+2716: 					   bits_from_bytes (length));
+2717:
+2718: 	    /* If we know the size of the element, calculate the total size
+2719: 	       directly, rather than do some division thing below.  This
+2720: 	       optimization helps Fortran assumed-size arrays (where the
+2721: 	       size of the array is determined at runtime) substantially.  */
+2722: 	    if (TYPE_SIZE_UNIT (element))
+2723: 	      TYPE_SIZE_UNIT (type)
+2724: 		= size_binop (MULT_EXPR, TYPE_SIZE_UNIT (element), length);
+2725: 	  }
+2726:
+2727: 	/* Now round the alignment and size,
+2728: 	   using machine-dependent criteria if any.  */
+2729:
+2730: 	unsigned align = TYPE_ALIGN (element);
+2731: 	if (TYPE_USER_ALIGN (type))
+2732: 	  align = MAX (align, TYPE_ALIGN (type));
+2733: 	else
+2734: 	  TYPE_USER_ALIGN (type) = TYPE_USER_ALIGN (element);
+2735: 	if (!TYPE_WARN_IF_NOT_ALIGN (type))
+2736: 	  SET_TYPE_WARN_IF_NOT_ALIGN (type,
+2737: 				      TYPE_WARN_IF_NOT_ALIGN (element));
+2738: #ifdef ROUND_TYPE_ALIGN
+2739: 	align = ROUND_TYPE_ALIGN (type, align, BITS_PER_UNIT);
+2740: #else
+2741: 	align = MAX (align, BITS_PER_UNIT);
+2742: #endif
+2743: 	SET_TYPE_ALIGN (type, align);
+2744: 	compute_array_mode (type);
+2745: 	if (AGGREGATE_TYPE_P (element))
+2746: 	  TYPE_TYPELESS_STORAGE (type) = TYPE_TYPELESS_STORAGE (element);
+2747: 	/* When the element size is constant, check that it is at least as
+2748: 	   large as the element alignment.  */
+2749: 	if (TYPE_SIZE_UNIT (element)
+2750: 	    && TREE_CODE (TYPE_SIZE_UNIT (element)) == INTEGER_CST
+2751: 	    /* If TYPE_SIZE_UNIT overflowed, then it is certainly larger than
+2752: 	       TYPE_ALIGN_UNIT.  */
+2753: 	    && !TREE_OVERFLOW (TYPE_SIZE_UNIT (element))
+2754: 	    && !integer_zerop (TYPE_SIZE_UNIT (element)))
+2755: 	  {
+2756: 	    if (compare_tree_int (TYPE_SIZE_UNIT (element),
+2757: 				  TYPE_ALIGN_UNIT (element)) < 0)
+2758: 	      error ("alignment of array elements is greater than "
+2759: 		     "element size");
+2760: 	    else if (TYPE_ALIGN_UNIT (element) > 1
+2761: 		     && (wi::zext (wi::to_wide (TYPE_SIZE_UNIT (element)),
+2762: 				  ffs_hwi (TYPE_ALIGN_UNIT (element)) - 1)
+2763: 			 != 0))
+2764: 	      error ("size of array element is not a multiple of its "
+2765: 		     "alignment");
+2766: 	  }
+2767: 	break;
+2768:       }
+2769:
+2770:     case RECORD_TYPE:
+2771:     case UNION_TYPE:
+2772:     case QUAL_UNION_TYPE:
+2773:       {
+```
+
+## gcc/stor-layout.cc:2810–2821
+```text
+2810:   if (AGGREGATE_TYPE_P (type))
+2811:     gcc_assert (!TYPE_ALIAS_SET_KNOWN_P (type));
+2812: }
+2813:
+2814: /* Return the least alignment required for type TYPE.  */
+2815:
+2816: unsigned int
+2817: min_align_of_type (tree type)
+2818: {
+2819:   unsigned int align = TYPE_ALIGN (type);
+2820:   if (!TYPE_USER_ALIGN (type))
+2821:     {
 ```
 
 ## gcc/stor-layout.cc:2838–2860
@@ -11883,6 +12442,64 @@ LF line numbering; complete file identities checked.
 2330:  hook_void_tree)
 ```
 
+## gcc/target.def:3710–3763
+```text
+3710: DEFHOOK
+3711: (array_mode,
+3712:  "Return the mode that GCC should use for an array that has\n\
+3713: @var{nelems} elements, with each element having mode @var{mode}.\n\
+3714: Return no mode if the target has no special requirements.  In the\n\
+3715: latter case, GCC looks for an integer mode of the appropriate size\n\
+3716: if available and uses BLKmode otherwise.  Usually the search for the\n\
+3717: integer mode is limited to @code{MAX_FIXED_MODE_SIZE}, but the\n\
+3718: @code{TARGET_ARRAY_MODE_SUPPORTED_P} hook allows a larger mode to be\n\
+3719: used in specific cases.\n\
+3720: \n\
+3721: The main use of this hook is to specify that an array of vectors should\n\
+3722: also have a vector mode.  The default implementation returns no mode.",
+3723:  opt_machine_mode, (machine_mode mode, unsigned HOST_WIDE_INT nelems),
+3724:  hook_optmode_mode_uhwi_none)
+3725:
+3726: /* True if we should try to use a scalar mode to represent an array,
+3727:    overriding the usual MAX_FIXED_MODE limit.  */
+3728: DEFHOOK
+3729: (array_mode_supported_p,
+3730:  "Return true if GCC should try to use a scalar mode to store an array\n\
+3731: of @var{nelems} elements, given that each element has mode @var{mode}.\n\
+3732: Returning true here overrides the usual @code{MAX_FIXED_MODE} limit\n\
+3733: and allows GCC to use any defined integer mode.\n\
+3734: \n\
+3735: One use of this hook is to support vector load and store operations\n\
+3736: that operate on several homogeneous vectors.  For example, ARM NEON\n\
+3737: has operations like:\n\
+3738: \n\
+3739: @smallexample\n\
+3740: int8x8x3_t vld3_s8 (const int8_t *)\n\
+3741: @end smallexample\n\
+3742: \n\
+3743: where the return type is defined as:\n\
+3744: \n\
+3745: @smallexample\n\
+3746: typedef struct int8x8x3_t\n\
+3747: @{\n\
+3748:   int8x8_t val[3];\n\
+3749: @} int8x8x3_t;\n\
+3750: @end smallexample\n\
+3751: \n\
+3752: If this hook allows @code{val} to have a scalar mode, then\n\
+3753: @code{int8x8x3_t} can have the same mode.  GCC can then store\n\
+3754: @code{int8x8x3_t}s in registers rather than forcing them onto the stack.",
+3755:  bool, (machine_mode mode, unsigned HOST_WIDE_INT nelems),
+3756:  hook_bool_mode_uhwi_false)
+3757:
+3758: DEFHOOK
+3759: (libgcc_floating_mode_supported_p,
+3760:  "Define this to return nonzero if libgcc provides support for the \n\
+3761: floating-point mode @var{mode}, which is known to pass \n\
+3762: @code{TARGET_SCALAR_MODE_SUPPORTED_P}.  The default version of this \n\
+3763: hook returns true for all of @code{SFmode}, @code{DFmode}, \n\
+```
+
 ## gcc/coretypes.h:362–368
 ```text
 362:    everything) and -1 (sometimes indicating that the alias set is
@@ -11894,6 +12511,14 @@ LF line numbering; complete file identities checked.
 368: class edge_def;
 ```
 
+## gcc/hooks.cc:152–155
+```text
+152: hook_bool_mode_uhwi_false (machine_mode, unsigned HOST_WIDE_INT)
+153: {
+154:   return false;
+155: }
+```
+
 ## gcc/hooks.cc:293–298
 ```text
 293:
@@ -11902,4 +12527,12 @@ LF line numbering; complete file identities checked.
 296: {
 297: }
 298:
+```
+
+## gcc/hooks.cc:584–587
+```text
+584: hook_optmode_mode_uhwi_none (machine_mode, unsigned HOST_WIDE_INT)
+585: {
+586:   return opt_machine_mode ();
+587: }
 ```

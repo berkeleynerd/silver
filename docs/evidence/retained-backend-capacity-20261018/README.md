@@ -57,6 +57,10 @@ The type continuation checks the selected Linux hook/header exclusions,
 scalar-layout constructor arithmetic, type UID/cache domains and a conservative
 fixed-size type-node bound. Aggregate layout, language-specific type data and
 all-phase request counts remain separate.
+The Character-array continuation closes constant layout and its x86 empty-array
+query, verifies the mode-selection fallback and records the dynamic layout's
+symbolic-helper interface. It does not price those symbolic helpers or infer a
+String length limit from the scalar-mode lookup's unsigned-int temporary.
 `checks.json` and `source-excerpts.md`
 retain its outputs. The script does not establish caller coverage or replace
 the report's manual source argument.

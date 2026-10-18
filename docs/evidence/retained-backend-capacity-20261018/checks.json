@@ -887,7 +887,40 @@
     "type_bitfield_storage_units_bound": 23,
     "type_node_bytes_conservative_lp64": 256,
     "type_node_ggc_rounding_upper_bound": 256,
-    "scope": "scalar/pointer/type-copy local transfers; aggregate layout and source request join separate"
+    "nonshared_array_type_nodes_per_request": 2,
+    "completed_constant_character_array_layout_constant_requests": 13,
+    "constant_character_array_size_examples": [
+      {
+        "length": 0,
+        "byte_size": 0,
+        "bit_size": 0
+      },
+      {
+        "length": 1,
+        "byte_size": 1,
+        "bit_size": 8
+      },
+      {
+        "length": 1073741824,
+        "byte_size": 1073741824,
+        "bit_size": 8589934592
+      },
+      {
+        "length": 2147483647,
+        "byte_size": 2147483647,
+        "bit_size": 17179869176
+      }
+    ],
+    "dynamic_character_array_layout_interface": {
+      "direct_scalar_constants": 6,
+      "size_binop_requests": 6,
+      "fold_convert_requests": 2,
+      "empty_hook_fold_build2_requests": 1,
+      "multiple_of_p_requests": 1,
+      "save_expr_requests": 2,
+      "transitive_symbolic_allocations_included": false
+    },
+    "scope": "scalar/pointer/type-copy and ordinary Character-array transfers; symbolic folding, other aggregate layout and source request join separate"
   },
   "ordinary_vectors": {
     "heap_maximum_requested_total": 2147483647,
