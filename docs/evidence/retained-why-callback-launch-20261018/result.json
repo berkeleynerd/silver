@@ -1,0 +1,53 @@
+{
+  "scope": "retained Input_Is_Valid/cvc5 first inline entry; sourced finite SIGINT save-entry multiplicity and conditional charging/launch alternatives",
+  "conditional_save_entry_upper": 2,
+  "finite_abstraction": {
+    "abstract_states": 29,
+    "save_entries_upper": 2,
+    "two_entry_abstract_path": [
+      "dispatch_clears_bit",
+      "external_SIGINT_recorded",
+      "block_SIGINT",
+      "commit_SIG_IGN",
+      "save_enter",
+      "escape_and_restore_mask",
+      "dispatch_clears_bit",
+      "block_SIGINT",
+      "commit_SIG_IGN",
+      "save_enter"
+    ],
+    "arbitrary_external_SIGINT_events_permitted": true,
+    "native_execution": false,
+    "source_refinement_machine_checked": false
+  },
+  "accounted_source_endpoint": 61641,
+  "per_callback_charge_limit": 2305843009213663131,
+  "premises": [
+    "Successful selected POSIX block/restore and SIG_IGN installation; valid Linux SIGINT",
+    "One dispatching OCaml worker; no other SIGINT runtime-bit producer",
+    "No SIGINT reinstallation during bounded call and no unmask inside callback before saved-mask restore",
+    "Existing source/runtime correspondence and scoped Gc/thread/custom-hook interface premises"
+  ],
+  "conditional_charge": "61641 + 2 * (B_binders(S) + R); B_binders includes explanation and shape fully opened occurrence mass; R bounds remaining handler/exit work",
+  "missing_inputs": [
+    "Controller-closure to current session forest/raw-task graph join or source-prefix reconstruction",
+    "Finite fully opened term occurrence/visit certificate and its preservation across allowed interruption points",
+    "Source-supported remaining helper/exit identifier charge and separate allocation/auxiliary-state bounds"
+  ],
+  "preferred_next_step": "Use exact fixed Input_Is_Valid JSON and historical session seed plus active transformation prefix to derive/check current session charge; retain finite multiplicity premises.",
+  "launch_rule_specified": true,
+  "unbounded_SIGINT_identifier_registration_established": false,
+  "actual_two_callback_execution_observed": false,
+  "source_refinement_machine_checked": false,
+  "full_handler_registration_charge_established": false,
+  "current_session_graph_join_established": false,
+  "complete_continuing_call_counter_capacity_established": false,
+  "complete_callback_allocation_capacity_established": false,
+  "launch_mask_implemented": false,
+  "launch_mask_preservation_established": false,
+  "masked_launch_counter_join_established": false,
+  "cancellation_integration_validated": false,
+  "prior_history_no_overflow_established": false,
+  "family_wide_capacity_established": false,
+  "whole_pipeline_capacity_established": false
+}

@@ -1,0 +1,23 @@
+{
+  "archive": "docs/evidence/retained-producer-fixed-context-20261018/success-witness.tar.gz",
+  "members": {
+    "workspace/obj/gnatprove/silver_arguments__input_is_valid.gnat-json": {
+      "bytes": 121828,
+      "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+    },
+    "workspace/obj/gnatprove/silver_arguments__input_is_valid/why3session.xml": {
+      "bytes": 1521,
+      "sha256": "bde2a801d69f50b3eb5f85508bc3177a6c5082820c71d5b2a6cadf6ca3b06abb"
+    }
+  },
+  "json_member": "workspace/obj/gnatprove/silver_arguments__input_is_valid.gnat-json",
+  "session_member": "workspace/obj/gnatprove/silver_arguments__input_is_valid/why3session.xml",
+  "xml_occurrences": {
+    "file": 1,
+    "theory": 1,
+    "goal": 5,
+    "transf": 1,
+    "proof": 6
+  },
+  "scope": "Historical fixed-session seed and equal native input; not current controller/session raw-task join or transformed forest bound."
+}

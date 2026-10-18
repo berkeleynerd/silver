@@ -1,0 +1,116 @@
+{
+  "issue": "https://github.com/berkeleynerd/silver/issues/119",
+  "base": "f5475afb3513443a5a05bdfd1e6e7a8ab3a27269",
+  "objective": "Establish default signal multiplicity first, then concrete source/session charging or decidable launch configuration with exact remaining joins; no new native run.",
+  "authorization": "Parent-delegated owner-authorized #119 research. New note/packet only on separate worktree/branch. No edits to reviewed callback packet, toolchain, production admission, Oracle, GitHub, memory or harness. No delegation.",
+  "worker": {
+    "agent": "/root/why_inline_operations",
+    "selected_model": "GPT-6 Astra",
+    "selected_reasoning_effort": "Extra High",
+    "runtime_model_confirmation": null,
+    "runtime_effort_confirmation": null,
+    "token_usage": null,
+    "monetary_cost": null
+  },
+  "started_utc": "2026-10-18T23:20:37+00:00",
+  "recorded_utc": "2026-10-18T23:31:03.657848+00:00",
+  "elapsed_seconds_through_record": 626.657848,
+  "elapsed_scope": "Author source investigation, focused evidence preparation and checks through this record; independent review/integration excluded.",
+  "host": "Linux x86_64",
+  "new_native_target_runs": 0,
+  "debugger_runs": 0,
+  "disassembler_runs": 0,
+  "compiler_runs": 0,
+  "builds": 0,
+  "solver_runs": 0,
+  "proof_runs": 0,
+  "achieved": "Conditional source/interface bound of two SIGINT save-entering callbacks, accounting for stale runtime pending bit. Identified explanation as well as shape binder work; exported explicit charge schema and exact missing controller/session graph or fixed-prefix reconstruction input. Specified Why-only POSIX spawn mask alternative and cancellation/server/solver/exit-hook consequences without implementation or false counter join.",
+  "checks": [
+    {
+      "command": "python3 -B docs/evidence/retained-why-callback-launch-20261018/check.py",
+      "status": "pass",
+      "elapsed_seconds": 0.5150015450017236,
+      "scope": "Exact archived/reused sources, ordered signal operations, seven retained native bodies byte-checked against pinned ELF, 29-state abstraction, retained argv/plan and fixed-session seed identities",
+      "new_native_target_runs": 0
+    }
+  ],
+  "diagnostics_and_decisions": [
+    "Did not infer unbounded registration from repeated SIGINT. Traced native OS handler to one-bit recording, callback mask, SIG_IGN commit and stale-bit drain.",
+    "One-shotness rejected because delivery can refill pending bit between dispatcher clear and callback blocking; two-save bound retains that interval.",
+    "Setter allocation and pending-signal processing occur after ignore commit while callback mask remains active; explicit successful-service/single-worker/no-reinstallation/no-unmask premises retained. No arbitrary native alias theorem claimed.",
+    "Saved session charge requires explanation t_fold binder openings in addition to SV6 shape openings. Shape1024-byte limit does not bound quantifier list cloning or explanation work.",
+    "Parent supplied fixed-context source-prefix route; verified identical input and historical XML occurrence counts without treating them as current in-memory task counts.",
+    "Masking requires integration design for cancellation/graceful save and solver group cleanup; parent confirmed research configuration can be selected within scope without a new owner ceremony. No actual launch rule was implemented or selected here.",
+    "Exact OCaml sigprocmask guessed filename404 corrected to otherlibs/unix/signals.c. Unused bytecode signals source excluded from packet.",
+    "Only additional selected sources/POSIX documents retrieved and retained named native bytes checked; no new broad extraction, old graph replay or native capture."
+  ],
+  "remaining_obligations": [
+    "Independent review of two-save source/interface argument and explicit premises",
+    "Source-prefix reconstruction or same-process controller/session graph plus finite opened occurrence/visit certificate and preservation",
+    "Source-supported remaining helper/exit identifier charge and separate allocation/auxiliary capacities",
+    "If launch masking selected, persistent-mask proof, actual supervisor cancellation/cleanup integration and prefix/counter/input join",
+    "Full pipeline/history/family assurance remains open"
+  ],
+  "exact_review_inputs": {
+    "docs/evidence/retained-why-callback-launch-20261018/README.md": {
+      "bytes": 2149,
+      "sha256": "e786f33d6f7f8c8b30416bd7aa619b2abadc63bee1de4ee1e52c7fd5bc09a502"
+    },
+    "docs/evidence/retained-why-callback-launch-20261018/check.py": {
+      "bytes": 7996,
+      "sha256": "5791dda73a92eabc7ebcfdb81797738666c58c8c380ae6758365e8573ba1f5bc"
+    },
+    "docs/evidence/retained-why-callback-launch-20261018/fixed-session-seed.json": {
+      "bytes": 930,
+      "sha256": "6ed902fc7c46a09ae8a9c312a83aa4d27035b8cfb06fc699d01614f7fc083149"
+    },
+    "docs/evidence/retained-why-callback-launch-20261018/inputs.json": {
+      "bytes": 5963,
+      "sha256": "36238c946afdc61953a32243b099455020b9e4b335343c8d2e137c36a5bace04"
+    },
+    "docs/evidence/retained-why-callback-launch-20261018/invocation.json": {
+      "bytes": 3251,
+      "sha256": "466471d60f672ce60aed24a127bf201cd18e6b7e5da728f3fe8cf602223559e8"
+    },
+    "docs/evidence/retained-why-callback-launch-20261018/multiplicity.py": {
+      "bytes": 2670,
+      "sha256": "0431b8448669a53deaad4822ec557f4f7e9c9e72cfec318204fbc57599100cc1"
+    },
+    "docs/evidence/retained-why-callback-launch-20261018/native-witnesses.json": {
+      "bytes": 24062,
+      "sha256": "d851a176b375eb0d5df83623510f60f15aba154aa613f31b72629c2788134e26"
+    },
+    "docs/evidence/retained-why-callback-launch-20261018/result.json": {
+      "bytes": 2678,
+      "sha256": "fcc96c3362ac8c6fb26266f9b4890e8cdd8728b4d8a9a4d383e823947578cae6"
+    },
+    "docs/evidence/retained-why-callback-launch-20261018/sources.tar.gz": {
+      "bytes": 130687,
+      "sha256": "0d26b107d5d4526f198c626f94abbf9a8a3c0a9982ce346751a2929233187902"
+    },
+    "docs/research/retained-why-callback-launch.md": {
+      "bytes": 15004,
+      "sha256": "4cb30bc2b4322e3b4d9d7be37e0679b6d92617b576b20b168d92bbb25e85a536"
+    }
+  },
+  "review": {
+    "status": "pending parent-coordinated independent review",
+    "reviewer_model": null,
+    "reviewer_effort": null,
+    "elapsed_seconds": null,
+    "requested_focus": [
+      "Two-save invariant under successful POSIX operations, single worker and no reinstallation/unmask; stale-bit path and total-allocation limitations",
+      "Correct source mapping of finite abstraction without claiming native refinement",
+      "Conditional binder mass includes explanation, delayed substitutions and occurrence multiplicity; no unjoined numeric session charge",
+      "Historical session seed versus actual current graph; masked launch cannot reuse observed counter without a prefix/state join",
+      "Why-only external-server mask rule and actual cancellation/solver-group/exit-hook differences"
+    ]
+  },
+  "bookkeeping": {
+    "github_writes": false,
+    "cli_memory_updated": false,
+    "harness_written": false,
+    "live_child_goal": null,
+    "parent_owns_integration_and_publication": true
+  }
+}

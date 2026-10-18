@@ -1,0 +1,94 @@
+{
+  "process": {
+    "pid": 74171,
+    "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "LC_ALL": "C",
+      "TMPDIR": "/tmp/silver-why-inline-identifier-capture3-20261018/input_is_valid/temp",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+    },
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "1",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/tmp/silver-why-inline-identifier-capture3-20261018/overlay/why3.conf",
+      "--socket",
+      "/tmp/silver-why-inline-identifier-capture3-20261018/input_is_valid/server.sock",
+      "silver_arguments__input_is_valid.gnat-json"
+    ],
+    "initial_threads": 1
+  },
+  "capture_process_identity": {
+    "bytes": 1000,
+    "sha256": "85e44e2bfdab175567cedf3e88bb966a664c05590d5bd5f123d8e7ce797fc0d3"
+  },
+  "capture_plan_identity": {
+    "bytes": 74703,
+    "sha256": "b3a4ade6ee8fff359b7962a1063db943baff85a61616e36ae349f8ba1dcfebff"
+  },
+  "selected_plan_input": {
+    "name": "input_is_valid",
+    "cwd": "/tmp/silver-why-inline-identifier-capture3-20261018/input_is_valid",
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "1",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/tmp/silver-why-inline-identifier-capture3-20261018/overlay/why3.conf",
+      "--socket",
+      "/tmp/silver-why-inline-identifier-capture3-20261018/input_is_valid/server.sock",
+      "silver_arguments__input_is_valid.gnat-json"
+    ],
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "LC_ALL": "C",
+      "TMPDIR": "/tmp/silver-why-inline-identifier-capture3-20261018/input_is_valid/temp",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+    },
+    "input_origin": "/tmp/silver-producer-fixed-bodies-20261018/silver_arguments/obj/silver_arguments__input_is_valid.gnat-json",
+    "input": {
+      "bytes": 121828,
+      "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+    },
+    "server": {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+        "--socket",
+        "server.sock",
+        "--single-client",
+        "-j",
+        "1"
+      ],
+      "cwd": "/tmp/silver-why-inline-identifier-capture3-20261018/input_is_valid",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "LC_ALL": "C"
+      },
+      "socket": "/tmp/silver-why-inline-identifier-capture3-20261018/input_is_valid/server.sock"
+    }
+  },
+  "signal_mask_observed": false,
+  "session_graph_for_callback_charge_observed": false
+}
