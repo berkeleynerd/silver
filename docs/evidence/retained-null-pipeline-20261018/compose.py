@@ -151,22 +151,35 @@ def launch_graph(runtime, context):
     for i,case in enumerate(context.frontend_evidence['plan']['cases']):
         phase=case['name']; cwd=proof+'/phase1' if i==0 else proof
         pid='1000000003' if i==0 else '1000000004'
+        retained_options=context.frontend_evidence['raw'][phase+'/options.tmp']
+        options=json.loads(retained_options)
+        require(json.dumps(options,separators=(',',':')).encode()==retained_options.rstrip(b'\n'),
+                'retained options serialization changed')
+        if i==1:
+            options['why3_dir']=proof+'/'
+            for settings in options['file_specific'].values():
+                why_args=settings['why3_args']
+                require(why_args.count('-j')==1, 'one Why3 worker argument required')
+                why_args[why_args.index('-j')+1]=str(runtime['workers'])
+        options_content=json.dumps(options,separators=(',',':'))
+        options_digest=hashlib.sha1(options_content.encode()).hexdigest()
+        options_path=proof+'/'+options_digest[:8]+'.tmp'
         args=[]
         for arg in case['argv']:
             if arg.startswith('-gnatec='):arg='-gnatec='+generated(pid,2)
             elif arg.startswith('-gnatem='):arg='-gnatem='+generated(pid,3)
-            elif arg.startswith('-gnates='):arg='-gnates='+proof+'/00af4613.tmp'
+            elif arg.startswith('-gnates='):arg='-gnates='+options_path
             elif arg.startswith('-gnateO='):arg='-gnateO='+generated(pid,4)
             elif arg.endswith('/main.adb'):arg=main
             args.append(arg)
-        options=json.loads(context.frontend_evidence['raw'][phase+'/options.tmp'])
-        if i==1:options['why3_dir']=proof+'/'
         system=next(path for path in context.frontend_evidence['plan']['inputs']
                     if path.endswith('/adainclude/system.ads'))
         mapping=('main%b\nmain.adb\n'+main+'\nsystem%s\nsystem.ads\n'+system+'\n').encode()
         phases.append(dict(phase=phase,cwd=cwd,argv=args,
             mapping=mapping.decode(),mapping_identity=identity(mapping),
-            options_identity=identity(json.dumps(options,separators=(',',':')).encode()),
+            options_path=options_path,options_content=options_content,
+            options_hash_input_sha1=options_digest,
+            options_identity=identity((options_content+'\n').encode()),
             phase2_why3_dir=options.get('why3_dir'),
             object_path_file=(cwd+'\n') if i else None))
     return dict(project_root=root,Main=main,native=native,datarep=datarep,light=phases,
@@ -330,6 +343,8 @@ def evaluate(descriptor_path, context, source_override=None):
         JSON_refs=max(8,42,46,16)<2**32,
         parent_configuration=config<=65536,parent_command=command<=I32,
         options_files=max(opts)<=65536,options_backing=max(opts)+max(opts)//2+192<=I32,
+        rebound_options_within_envelopes=all(phase['options_identity']['bytes']<=bound
+            for phase,bound in zip(graph['light'],opts)),
         local_graph_counts=89**2+1<=I32,local_graph_backing=8192*16<=I64,
         dominator_size=178<=I32,visibility_graph=17**2<=I32,
         SARIF_character_count=sarif<=2**30-1,SARIF_segment=sarif+129<=I32,
@@ -409,7 +424,7 @@ def evaluate(descriptor_path, context, source_override=None):
         if isinstance(value,str):rebound_strings.append(value)
         elif isinstance(value,dict):
             for key,item in value.items():
-                if key not in ('mapping','mapping_identity','options_identity'):strings(item)
+                if key not in ('mapping','mapping_identity','options_identity','options_content'):strings(item)
         elif isinstance(value,list):
             for item in value:strings(item)
     strings(graph)

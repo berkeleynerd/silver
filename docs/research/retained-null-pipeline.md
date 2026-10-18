@@ -73,9 +73,16 @@ The light frontend callable retains its original observation descriptor. The
 aggregate evaluates that basis at the shared P, then explicitly binds the new
 path roles using the frontend's existing 32-role Name_Find correction. The
 canonical Main tokens, fixed System/configuration bytes, map cardinality,
-options and successful file-request graph agree. Only the phase 2 options JSON's
-`why3_dir` path changes. Its schema and corresponding 6P byte allowance are
-unchanged. Native/datarep maps have one Main triple; light maps additionally
+options and successful file-request graph agree. Phase 2's options JSON binds
+`why3_dir` to the shared proof directory and both `why3_args` worker operands
+to J (`configuration.adb:3218–3219`). These values remain ordinary argument
+Strings on the null path, which starts no Why3 clients. Its schema and existing
+6P/ten-digit-worker byte allowance are unchanged. Each `-gnates` path is derived
+from the first eight SHA1 digits of that phase's compact serialized JSON, as
+`gnat2why_opts-writing.adb:57–74` requires. The graph exposes the serialized
+content, filename and actual file identity including Text_IO's closing LF;
+reusing phase 1's filename for phase 2 would bind different bytes. Native/datarep
+maps have one Main triple; light maps additionally
 have System. Per-role maps are computed from the shared Main path and the
 selected runtime path, rather than copied from unrelated scratch fixtures.
 
@@ -120,10 +127,11 @@ is not that production launcher. Physical heap/stack/disk availability and
 libc/OS internals remain the existing boundary, and no aggregate RAM gate is
 introduced.
 
-Twelve offline checks cover the retained source, uppercase/CRLF, permitted
+Thirteen offline checks cover the retained source, uppercase/CRLF, permitted
 comments above 4096 bytes, added physical lines, overflowing columns/workers/page
 scratch, wrong binder path width, forbidden VT, changed syntax and mismatched
-naming content, plus an inconsistent socket directory. Source variants reuse
+naming content, an inconsistent socket directory and changed worker options.
+They also check the options-content hash/name/argv bindings. Source variants reuse
 successful fixed evidence. No compiler,
 assembler, linker, server, solver or Lean execution ran for this packet.
 

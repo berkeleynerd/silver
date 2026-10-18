@@ -2,6 +2,7 @@
 """Exercise the aggregate's actual-input joins and conditional conjunction."""
 import argparse
 import copy
+import hashlib
 import importlib.util
 import json
 from pathlib import Path
@@ -50,11 +51,34 @@ def main():
                 launch=result['obligations']['unified_launch_descriptor']
                 assert launch['conditions']['common_temporary_root_width']
                 assert launch['launch_graph']['process_ID_decimal_width_upper']==10
+                for phase in launch['launch_graph']['light']:
+                    compact=phase['options_content'].encode()
+                    name=hashlib.sha1(compact).hexdigest()[:8]+'.tmp'
+                    assert Path(phase['options_path']).name==name
+                    assert '-gnates='+phase['options_path'] in phase['argv']
+                    assert phase['options_identity']==m.identity(compact+b'\n')
+                    if phase['phase']=='phase2':
+                        for settings in json.loads(compact)['file_specific'].values():
+                            args=settings['why3_args']
+                            assert args[args.index('-j')+1]==str(fixture['runtime']['workers'])
                 assert all(row['semantic_payload_unchanged'] and row['aligned_extent']==8192
                            for row in launch['parent_configuration_projection'].values())
                 assert result['native_tool_executions']==0
             rows.append(dict(case=name,source_bytes=len(raw),evaluated_predicates_pass=expected,
                              failed_obligations=result['failed_obligations']))
+        modified=copy.deepcopy(fixture);modified['runtime']['workers']=3
+        descriptor.write_text(json.dumps(modified));source.write_bytes(original)
+        result=m.evaluate(descriptor,context,source)
+        assert result['whole_null_pipeline_capacity_established']
+        phases=result['obligations']['unified_launch_descriptor']['launch_graph']['light']
+        assert Path(phases[0]['options_path']).name=='00af4613.tmp'
+        for settings in json.loads(phases[1]['options_content'])['file_specific'].values():
+            args=settings['why3_args']
+            assert args[args.index('-j')+1]=='3'
+        assert phases[1]['options_hash_input_sha1']==hashlib.sha1(phases[1]['options_content'].encode()).hexdigest()
+        assert '-gnates='+phases[1]['options_path'] in phases[1]['argv']
+        rows.append(dict(case='worker_options_binding',workers=3,
+                         phase2_options_path=phases[1]['options_path']))
         for name,field,value,expected_failure in [
             ('worker_overflow','workers',2**30,'idle_why3server'),
             ('socket_directory_mismatch','socket_directory','/tmp','idle_why3server'),

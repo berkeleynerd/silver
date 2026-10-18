@@ -1,25 +1,25 @@
 {
   "cases": [
     {
-      "case": "retained",
+      "case": "90549513.tmp",
       "source_bytes": 69,
       "evaluated_predicates_pass": true,
       "failed_obligations": []
     },
     {
-      "case": "case_CRLF",
+      "case": "90549513.tmp",
       "source_bytes": 73,
       "evaluated_predicates_pass": true,
       "failed_obligations": []
     },
     {
-      "case": "comments_above_old_cap",
+      "case": "90549513.tmp",
       "source_bytes": 6069,
       "evaluated_predicates_pass": true,
       "failed_obligations": []
     },
     {
-      "case": "more_physical_lines",
+      "case": "90549513.tmp",
       "source_bytes": 2069,
       "evaluated_predicates_pass": true,
       "failed_obligations": []
@@ -35,6 +35,11 @@
         "parent_source_ALI_interfaces",
         "parent_fixed_read_projection"
       ]
+    },
+    {
+      "case": "worker_options_binding",
+      "workers": 3,
+      "phase2_options_path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/ff209aa1.tmp"
     },
     {
       "case": "worker_overflow",
@@ -74,7 +79,7 @@
       "rejected": "light and native naming configuration differ"
     }
   ],
-  "case_count": 12,
+  "case_count": 13,
   "native_tool_executions": 0,
   "all_checks_pass": true,
   "conditional_null_conjunction_checked": true
