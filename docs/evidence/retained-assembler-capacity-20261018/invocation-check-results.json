@@ -1,0 +1,37 @@
+{
+  "scope": "Indexed native Main assembler projection, named scratch sites and selected relaxation arithmetic",
+  "Binutils_complete_sources_verified": 70,
+  "GCC_complete_sources_verified": 6,
+  "indexed_descriptor_sha256": "9ffaf5d6a5248958d9d6f2ba107096321939f462cd572f92cf0e373d44376047",
+  "derived_assembler_argv": [
+    "AS_PATH",
+    "--64",
+    "-o",
+    "main~1.o",
+    "ASSEMBLY_TEMP_PATH"
+  ],
+  "assembler_argc_including_argv0": 5,
+  "copied_output_name_bytes_including_NUL": 9,
+  "notes_argument_pointer_request_bytes": 48,
+  "notes_raw_request_upper": 65528,
+  "notes_chunk_request_upper": 65769,
+  "selected_output_BFD_alloc_size_upper": 31809,
+  "named_parser_heap_request_bytes_upper": {
+    "unquoted_symbol_name_copy": 26,
+    "instruction_retry_copy": 65,
+    "register_expression_copy": 65,
+    "pseudo_suffix_copy": 65,
+    "GOT_token_scratch": 67
+  },
+  "selected_fragment_count_upper": 924,
+  "relaxation_iteration_safety_product_upper": 853776,
+  "selected_inner_relaxation_sweeps_per_section": 1,
+  "selected_outer_section_passes_upper": 2,
+  "relaxation_allocation_events": 0,
+  "fixed_point_basis": "Manual selected fragment-class and forward text-to-frame dependency argument; checker reconciles source and arithmetic",
+  "actual_indexed_argv_captured": false,
+  "controlled_environment_and_path_premises_validated_here": false,
+  "exhaustive_successful_GAS_BFD_call_inventory_complete": false,
+  "whole_assembler_or_retained_tool_capacity_complete": false,
+  "native_execution": false
+}

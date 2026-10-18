@@ -140,6 +140,19 @@ This checks source-level requests; libc allocator and `qsort` internals remain
 outside this packet. The complete GAS lifecycle and production invocation join
 remain open.
 
+The [indexed invocation and subsidiary transfer](../../research/retained-assembler-invocation.md)
+adds a separate six-file GCC source capsule and an exact copy of the reviewed
+indexed native descriptor. This source-derived projection supplies the selected
+GAS vector `AS_PATH --64 -o main~1.o ASSEMBLY_TEMP_PATH`, A=5 and output P=9.
+It gives a 65,769-byte notes-chunk bound, a 31,809-byte cumulative output-BFD
+counter bound, direct parser scratch requests at most 67 bytes, and the selected
+relaxation fixed point. It is not a new captured argv or complete GAS call audit.
+
+```sh
+python3 docs/evidence/retained-assembler-capacity-20261018/check-invocation.py \
+  --output /tmp/retained-assembler-invocation-check.json
+```
+
 No compiler, assembler, linker, solver, Lean build, test suite or near-limit
 allocation ran for this evidence. Source retrieval, hashing and arithmetic
 checks were the only new execution.
