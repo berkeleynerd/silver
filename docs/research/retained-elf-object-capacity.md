@@ -239,3 +239,45 @@ add/finalize paths and selected no-copy calls. It accepted these storage
 specializations, retaining the earlier name-count and two-initialization
 lifecycle results as inputs. It did not re-establish those inputs, whole GAS
 capacity, libc internals or the final link.
+
+## Selected symbol names contain no literal `@`
+
+The compiler's selected null stream emits `_ada_main`, fixed `main.adb`,
+internal labels with prefixes `.L`, `.LCFI`, `.LFB` and `.LFE` followed by
+decimal counters, and GNU-property numeric labels 0–4. Its section names are
+the fixed inventory above. The [native symbol/output transfer](retained-native-expansion.md#null-symbol-constructors-and-direct-unit-output-closure)
+supplies this premise; the forced dummy variable emits no assembler symbol.
+Directive tokens such as `@function` and `@progbits` are not symbol spellings.
+The following GAS/BFD transfer extends the premise to the object symbol table.
+
+| Name-producing or preserving route | Selected source argument |
+| --- | --- |
+| Ordinary and local/full symbols | `save_symbol_name` duplicates the input spelling; the selected headers define no `tc_canonicalize_symbol_name`. Both full construction and local conversion use that spelling; cloning copies the original BFD name (`gas/symbols.c:345–424,437–487,767–792`). Even optional ASCII uppercasing introduces no `@`. |
+| Temporary and expression symbols | `symbol_temp_new`, `symbol_temp_make` and `make_expr_symbol` use `FAKE_LABEL_NAME`, whose selected default is `L0\001` (`gas/write.h:24–40`, `gas/symbols.c:903–924`, `gas/expr.c:57–94`). The selected Linux/x86/ELF headers do not override it. |
+| Numeric labels | `fb_label_name` uses optional prefix `.`, literal `L`, unsigned decimal numbers and the `\002` separator (`gas/symbols.c:239,2148–2165`, `gas/config/obj-elf.h:127–129`). No arbitrary name is interpolated. |
+| Dot and predefinitions | Dot is `.` (`gas/symbols.c:3157–3167`); `GAS(version)` and optional `GAS(date)` have no `@` and do not enter the selected output chain, as the [lifecycle correction](retained-assembler-startup.md#predefined-symbol-accounting-correction) establishes. |
+| File and section symbols | The file-symbol hook uses the selected `main.adb` spelling (`gas/config/obj-elf.c:203–215`). GAS section symbols reuse BFD section names (`gas/subsegs.c:235–281`), and the BFD section hook assigns `newsect->name` directly (`bfd/section.c:817–833`). The fixed optional `.sframe` union has the same property. |
+| Version renaming | New symbols initialize `versioned_name` to null. Only the absent `.symver` input route populates its list; rename and alias creation are guarded by a nonnull list (`gas/config/obj-elf.c:1801–1862,2086–2098,2616–2656`). |
+| Serialized ELF names | The object writer emits the empty name for selected local section symbols or interns the existing `syms[idx]->name`; it does not synthesize a version suffix (`bfd/elf.c:8830–8849`). |
+
+The established stream has no user assembly, arbitrary section/group names,
+GOT operand or `.symver` directive. CFI and optional SFrame temporary labels
+use the same temporary constructors; their section symbols reuse the fixed
+names. These selected constructors and preservation paths therefore establish
+that **every serialized symbol name in the null Main object contains no
+literal `@`**. This is the input-name premise needed by the linker's symbol
+version accounting, not a claim about symbols in fixed dependency objects or
+those subsequently created by the linker.
+
+The [offline replay](../evidence/retained-assembler-capacity-20261018/check-symbol-names.py)
+checks the existing source capsule plus three complete selected include files
+(`te-linux.h`, `obj.h`, `tc.h`), retaining all earlier source identities. It
+checks name-constructor anchors and the absence of selected overrides, with
+literal LF source numbering. Its [result](../evidence/retained-assembler-capacity-20261018/symbol-name-check-results.json)
+is a conditional source transfer, not an execution or a full parser/writer
+allocation inventory. Whole-assembler and whole-tool capacity remain open.
+
+Independent review by the native-expansion lane replayed all 90 source
+identities and obtained a byte-equal result. It checked the constructor,
+selected-header, version-list and serialization paths and accepted this narrow
+transfer; no whole-assembler allocation claim was reviewed or implied.

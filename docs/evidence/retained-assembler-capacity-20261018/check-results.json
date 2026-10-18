@@ -1,6 +1,6 @@
 {
   "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
-  "source_files_checked": 87,
+  "source_files_checked": 90,
   "scope": "conditional streaming-buffer, instruction and frame consumer transfers; not whole assembler capacity",
   "input_buffer": {
     "read_block_bytes": 32768,

@@ -1,6 +1,6 @@
 {
   "scope": "Selected GAS common backing and frame requests; fixed startup/BFD inventory remains open",
-  "source_files_verified": 87,
+  "source_files_verified": 90,
   "selected_LP64_raw_request_ceilings": {
     "frchain": {
       "count_upper": 13,

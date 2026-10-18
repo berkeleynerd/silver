@@ -522,6 +522,24 @@
       "bytes": 54491,
       "sha256": "c402cec1270adbecbccbf4e1faf740798a650d217dffd3da5ee02659bcc67d10",
       "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/targets.c"
+    },
+    {
+      "path": "gas/config/te-linux.h",
+      "bytes": 874,
+      "sha256": "ea7c88251aa3159b47383d9c6cec5793a161d34beafc6da23b5481224c4ebd4f",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/config/te-linux.h"
+    },
+    {
+      "path": "gas/obj.h",
+      "bytes": 3058,
+      "sha256": "c2310c26c0ae241e15a19e84d4ea22f77e7187007f782010eca45eb039c19285",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/obj.h"
+    },
+    {
+      "path": "gas/tc.h",
+      "bytes": 2663,
+      "sha256": "5ca4a51f4c8def2c8bc8567d79d917bf96dc7b05b96f9e0e835344d503ff23eb",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/tc.h"
     }
   ]
 }

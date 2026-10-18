@@ -1,0 +1,70 @@
+{
+  "scope": "Selected null Main GAS/BFD symbol-name transfer",
+  "binutils_commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "complete_sources_verified": 90,
+  "selected_headers_checked": [
+    "gas/as.h",
+    "gas/obj.h",
+    "gas/tc.h",
+    "gas/config/te-linux.h",
+    "gas/config/tc-i386.h",
+    "gas/config/obj-elf.h"
+  ],
+  "compiler_name_classes": [
+    "_ada_main",
+    "main.adb",
+    ".L",
+    ".LCFI",
+    ".LFB",
+    ".LFE",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4"
+  ],
+  "section_name_union": [
+    ".text",
+    ".data",
+    ".bss",
+    ".eh_frame",
+    ".sframe",
+    ".comment",
+    ".note.GNU-stack",
+    ".note.gnu.property",
+    ".symtab",
+    ".strtab",
+    ".shstrtab",
+    ".rela.eh_frame",
+    ".rela.sframe",
+    "*ABS*",
+    "*UND*",
+    "*COM*",
+    "*EXPR*",
+    "*REG*"
+  ],
+  "GAS_constructor_alphabets": {
+    "temporary_and_expression": "L0\u0001",
+    "forward_backward_numeric": ".L0123456789\u0002",
+    "dot": ".",
+    "predefinition_version": "GAS(version)",
+    "predefinition_date": "GAS(date)"
+  },
+  "selected_final_ELF_symbol_names_have_no_literal_at": true,
+  "input_requirements": [
+    "Established selected null compiler stream and fixed main.adb file spelling",
+    "No user assembly, symver, arbitrary section/group/visibility or GOT operand",
+    "Selected x86 ELF target and invocation; no symbol canonicalization override"
+  ],
+  "transfer": [
+    "GAS creates names from input, fixed sections or the listed constructor alphabets",
+    "Copies, local/full conversion and clones preserve those names",
+    "Absent symver leaves the version-name rename branch disabled",
+    "BFD section symbols reuse section names; ELF serialization copies or empties names"
+  ],
+  "compiler_directive_at_tokens_are_symbol_names": false,
+  "complete_inner_parser_and_writer_call_inventory": false,
+  "complete_capacity_result": false,
+  "native_execution": false,
+  "reachability_basis": "Handwritten selected-stream/source argument; anchors are not C semantic verification"
+}

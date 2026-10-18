@@ -1,7 +1,7 @@
 {
   "scope": "Selected assembler startup defaults plus explicit null-stream/argv premises",
   "binary_sha256": "d3619db5dcbcc59a6057a832bab523c9a79b1adcd5c8e98ad52307e4d742186e",
-  "source_files_verified": 87,
+  "source_files_verified": 90,
   "initial_field_values": {
     "cfi_sections": 1,
     "flag_gen_sframe": 0,

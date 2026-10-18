@@ -175,3 +175,19 @@ python3 docs/evidence/retained-assembler-capacity-20261018/check-lifecycle.py \
 The adjoining review follows successful initialization, predefinitions, input
 setup, optional finish paths and exit cleanup. It does not claim complete
 inner parser/writer call coverage or a total emitted-line/event bound.
+
+The [selected symbol-name transfer](../../research/retained-elf-object-capacity.md#selected-symbol-names-contain-no-literal-)
+joins the compiler's fixed name classes to GAS temporary, numeric, file and
+section symbols, excludes the absent `.symver` renaming route, and follows
+BFD's name-preserving object writer. Every name in the selected null Main ELF
+symbol table has no literal `@`. Three selected include files extend the
+capsule to 90 complete sources while preserving all earlier member bytes.
+Fixed dependency and linker-generated symbols remain separate inputs.
+
+```sh
+python3 docs/evidence/retained-assembler-capacity-20261018/check-symbol-names.py \
+  --output /tmp/retained-assembler-symbol-name-check.json
+```
+
+No assembler or other native tool runs for this check. The handwritten
+selected-stream argument remains part of the transfer.
