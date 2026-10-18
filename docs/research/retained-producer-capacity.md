@@ -2235,20 +2235,40 @@ Consequently the enclosing contribution is bounded by
 
 ```text
 B_Main_wrapper <= (61,31,47,259) + 5*(136,62,95,156) + (5,0,0,0)
-                  + B_fixed_constant_assumptions
-               = (746,341,522,1039) + B_fixed_constant_assumptions
+               = (746,341,522,1039)
 C_Main_wrapper <= 4.
 ```
 
-`B_fixed_constant_assumptions` remains in the fixed dependency derivation; it
-is **not** assumed zero or a chosen empirical constant. `Assume_Value_Of_Constants`
-explicitly skips constants declared in Main, while
+There is no additional external-constant assumption body in Main under this
+selected grammar/API. `Assume_Value_Of_Constants` computes the Ada nodes of
+modules directly referenced by the supplied Why body; it does not traverse
+imported theories or the module-dependency closure
+(`gnat2why-expr.adb:2669–2703`, `why-inter.adb:140–159,165–326`). The reachable
+module identities in that body are Main's local declarations/expressions,
+predefined types and operations, the five selected subprograms, the four
+mutable output objects and their static types, or the opaque external state.
+Main has no admitted direct reference to an external constant. Generated bound
+capture constants remain declared in Main. Static subtype bounds are emitted
+as numeric values or type attributes, not as reads of their declaration's
+defining constant; no library formal is substituted into a returned Main call.
+The [selected call transfer](retained-producer-calls.md) uses registered callee
+symbols and actual expressions, without inlining the callee's postcondition.
+In particular, `Max_Length` occurs in the imported library theory, not Main's
+call expression. The Default_Priority translation above is discarded before
+the no-lock branch returns, so it is not in this body's module set.
+The assumption filter explicitly skips Main-declared constants and accepts
+neither types, subprograms, mutable globals, opaque names nor expression nodes.
+It therefore has no matching entity here. Its final Void prepend is already
+covered by the enclosing sequence allowance. This is a source exclusion, not
+an inference from an observed empty assumption list.
+
 `Assume_Dynamic_Invariant_For_Variables` skips Main-local objects and processes
 each remaining referenced entity at most once using `Already_Included`
-(`gnat2why-expr.adb:2362–2462,2669–2703`). Thus this remaining term cannot
-conceal a replay per source declaration or per use of a local constant. The
-selected fixed types, constants and their assumptions still need complete
-source accounting. The core/global allowance and four closes can now be
+(`gnat2why-expr.adb:2362–2462`). The fixed-global allowance above therefore
+does not conceal a replay per source declaration or per use of a local
+constant. Fixed types/constants and assumptions generated in their own
+dependency theories remain part of the imported closure. The core/global
+allowance and four closes can now be
 added to the ordinary Main sum without changing source-expression multiplicity.
 
 The six cached Boolean literals from `Why.Gen.Terms` and `Why.Gen.Progs` add
@@ -2358,7 +2378,17 @@ symbol set and appends each visited theory at most once (`gnat2why-util.adb:
 503–540`); serialization then visits that list (`gnat2why-driver.adb:1204–1215`).
 An include serializes its module node, while printing-plan traversal handles
 the imported theory separately. The aggregate still multiplies the all-root
-occurrence bound by the number of printed files. Fixed Standard imports are
+occurrence bound by the number of printed files. Standard's closed theory
+handles are local to type/representation translation; later entity passes
+access its cached module/name/type/identifier values. Those node kinds are
+immutable. The schema's mutable kinds are effects, statement sequences and
+theories (`xtree_sinfo.adb:115,531,724`); the only complete-source uses of theory
+append mutators are `Emit` and `Add_With_Clause`, through their current theory
+handles (`why-gen-decl.adb:46–88`, `why-inter.adb:361–381`). `Find_Decl` is used
+by the printing traversal, not to append to a closed Standard theory. Thus
+later Main translation does not enlarge the Standard-root trees whose
+occurrences are subtracted when measuring a post-Standard delta.
+Fixed Standard imports are
 already present in the measured state; a combined calculation can start there
 and charge `C` only for subsequent, unpaid closes, or conservatively charge
 those imports a second time. This does not establish the remaining imported
@@ -2417,14 +2447,79 @@ far are:
 | Current subprogram/result names | Entity translation sets `Current_Subp` to that entity and clears it afterward (`gnat2why-driver.adb:1495–1502,1589`). Fixed function completion establishes and clears its result name (`gnat2why-subprograms.adb:7521–7570`). |
 | Module dependency graph and imports | Closing a theory traverses its own Why tree and dependency sets (`why-inter.adb:165–326,562–749`). The existing global `M`/`C` allowance bounds import growth without assuming one witnessed order is maximal. |
 
-These are source-derived candidates for reducing the remaining calculation.
-A complete producer frontier still needs the fixed contract/entity closure and
-the above cache/read-dependency argument reconciled with the actual measurement
-boundaries, including any fixed external-constant assumptions performed while
-building Main. Neither a single all-operations witness nor the maximum from
-unjustified samples supplies that missing step. Separate compiler/prover
-processes for library bodies are fixed-input cases of their own; they are not
-covered by measuring Main's imported specifications.
+### Additive isolated-root envelope
+
+The marking orders need not all be measured if fixed shared work is paid more
+than once. Let `r` range over the five roots and let `D_r` be the complete
+post-Standard allocation vector from a fixed witness containing that root.
+Witness Main work is retained in `D_r`; only the common completed Standard
+phase may be subtracted. `First_Or_Default`'s witness also includes the
+`Input_Is_Valid` specification reached by its postcondition. This deliberately
+overcounts overlapping closures when the five vectors are summed. Use all
+five witnesses in the fixed constant, even when a particular Main calls no
+library operation; their repeated ordinary-Main scaffolding also covers the
+mandatory helper dependencies, such as the fixed Default_Priority reference.
+
+The sufficient source reduction for **non-import fixed work** is:
+
+- Marking a root traverses its fixed signature, fixed global contract and
+  fixed contract expressions. Repeating a root does not replay this traversal.
+  The public signatures have no controlling/access parameters, generics or
+  user predicates; the effects are the same four scalar/String output objects
+  and opaque state. Their declaration subtypes and the quantified/slice
+  expressions inside contracts belong to the fixed dependency tree. These
+  dependencies cannot refer backward to Main declarations.
+- Each fixed entity receives one information-store/registration/translation/
+  completion visit. The registration pass happens before any translation.
+  Main cannot add record descendants, invariant procedures or specializations
+  to these scalar/String/opaque shapes. Imported ordinary bodies receive no
+  Main-process VC generation. Subprogram translation resets its current-entity
+  context, and contract local bindings are scoped and restored.
+- For entity symbols/modules, a hit returns the previously generated value;
+  a miss adds the value determined by that same fixed entity and module/symbol
+  kind. Neither path uses the caller's actual String expression to specialize
+  the fixed value (`why-atree-modules.adb:297–324,465–504,3006–3059`). Main
+  references may pay a fixed cache fill earlier, but cannot give it a larger
+  tree shape. Summing complete isolated witnesses retains that fill regardless
+  of which of their phases paid it. No subtraction of witness Main work is
+  permitted.
+- The array-representation shared key is already paid by Standard.String.
+  Eager work before its cache check remains charged in every witness. The other
+  representation families in the table are unreachable from Main and these
+  fixed public interfaces. Fixed expression-module cache keys are fixed
+  expression identities; Main expressions cannot collide with them. The
+  selected specifications contain no ordinary String literal initializer
+  whose first translation could choose a caller-dependent literal type.
+- A combined closure can suppress an already-completed fixed entity or a
+  cache fill; it does not multiply a fixed entity's pass. The non-import
+  emitted shape refers to immutable cached module/name/type/identifier nodes.
+  Mutable Why effects, statement sequences and theory handles are constructed
+  for the current transformation, not specialized cached values exported by
+  a Main caller. The only whole-set traversal affecting fixed Why size is
+  dependency import closure, which is deliberately charged separately.
+- Hidden-global generation is a union by name. Root witnesses that need
+  File_System already pay its declaration. The empty exception theory and
+  other enclosing Main scaffolding may be paid repeatedly in the sum; no
+  selected operation introduces an exceptional contract or exception handler.
+  The earlier direct-module argument excludes external-constant assumptions
+  from Main's wrapper.
+
+Consequently an additive envelope can use `sum_r D_r` for non-import imported
+work, while retaining the general `C*(2+2M)` allocation and `C*(4+4M)`
+occurrence allowances for **all post-Standard closes**. Measured import nodes
+already included in the witnesses are harmless additional overcount; do not
+assume their observed import count bounds other orders. The same source
+reduction bounds the number of fixed closes by the sum of the isolated
+fixed-closure close counts; a witness's enclosing Main closes can also be
+retained conservatively. The actual snapshots, close counts and source/ALI
+inputs still need to be captured and checked before inserting numeric `D_r`
+values. Preparing witnesses does not establish their results or a complete
+capacity rule.
+
+Separate compiler/prover processes for library bodies are fixed-input cases
+of their own. Their phase-one prerequisite generation is not a measurement of
+their Why allocations, and Main's five imported-specification witnesses do
+not cover those body processes.
 
 ## Aggregate formula and finite remaining helper families
 
@@ -2434,7 +2529,8 @@ work. The fourth counts every theory root once, with repeated child references
 expanded, before repeating theories between output files. Define `B(P)` as the
 sum of all non-`Close_Theory`-import costs for program `P`, including fixed
 setup/dependencies, headers, explicit imports, and the finite helper terms
-listed below. Let `M(P)` bound all module IDs, `C(P)` all theory closes, and
+listed below. A measured fixed phase can include its already-paid close-time
+imports conservatively. Let `M(P)` bound all module IDs, `C(P)` all unpaid theory closes, and
 `F(P)` all printed files in that process. The final aggregation is
 
 ```text
@@ -2497,7 +2593,7 @@ again as standalone conversions.
 | Built-in symbol/module initializer | `(1439,0,0,0)`; includes 117 modules, no theory roots |
 | Cached Boolean literals | `(6,0,0,0)`; other package elaboration still separate |
 | Ordinary Main symbol caches and all memoized entity modules | `(36T_i+50T_s+6O+4+27E_all,0,0,0)`; richer fixed-library symbol fills separate |
-| Enclosing Main core and five selected effect roots | `(746,341,522,1039)` and four closes; fixed external-constant assumptions separate |
+| Enclosing Main core and five selected effect roots | `(746,341,522,1039)` and four closes; direct-module exclusion establishes no extra external-constant assumption body |
 | Ordinary rank-one Character representation key miss | `(148,44,76,711)`; imports separate |
 | Main type translation/completion | Five classified rows in the preceding table; representation attempts and symbol caches separate |
 | Ordinary object/loop symbol and outer theory setup | [Object component](retained-producer-objects.md): per-visit regular/split `Mk_Item`, constant/mutable definitions, constant axioms and loop exception theory pair |
@@ -2526,7 +2622,7 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | --- | --- |
 | `K_fixed` | Bootstrap/Standard is now a fixed measured phase with the source-independence argument above. Remaining: selected dependency theories, package processing, richer dependency symbol fills, external-constant assumptions, other fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
 | Fixed-library object setup | The Main registration/object/loop theory pass is now source-counted above. Price richer fixed-library shapes separately. |
-| Frontend node input | The linked Main semantic-node aggregate supplies `A_Main` used by the ignored-entry/list transfer. Separate fixed dependency node/entity counts remain to be resolved. Main's external-constant assumptions remain explicitly in `K_fixed`. |
+| Frontend node input | The linked Main semantic-node aggregate supplies `A_Main` used by the ignored-entry/list transfer. Separate fixed dependency node/entity counts remain to be resolved. |
 | Whole-process counters | Use `M <= B_N` or a sharper explicit module sum and finish the total close count with fixed setup. `F <= E_list` and `temporary counter <= B_N` are established. |
 
 The [frontend report](retained-frontend-entities.md) now supplies the Main entity,
