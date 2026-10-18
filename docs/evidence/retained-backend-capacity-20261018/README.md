@@ -71,6 +71,10 @@ String length limit from the scalar-mode lookup's unsigned-int temporary.
 The expression-copy continuation checks the callback/walker stop boundaries and
 constructor-vector copy path, and contrasts shared DAG occurrence counts with
 SAVE-protected inputs. It does not claim a source-to-whole-body copy bound.
+The whole-body continuation retains the three initial roots, protected-node
+set and declaration/type metadata traversal. Its manual transfer is at most
+three times the completed incoming-edge forest weight per function invocation;
+the checker verifies those source sites, not the missing source-to-forest join.
 The placeholder-substitution continuation reconciles the primitive sites and
 no-inline route; the source argument distinguishes its original-operand recursion
 from folder allocations and establishes the unchanged, placeholder-free case.

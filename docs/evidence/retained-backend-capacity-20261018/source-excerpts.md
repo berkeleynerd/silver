@@ -791,6 +791,104 @@ LF line numbering; complete file identities checked.
 8996:
 ```
 
+## gcc/ada/gcc-interface/trans.cc:9119–9212
+```text
+9119:   /* If we are external or global, we don't want to output the DECL_EXPR for
+9120:      this DECL node since we already have evaluated the expressions in the
+9121:      sizes and positions as globals and doing it again would be wrong.  */
+9122:   if (DECL_EXTERNAL (gnu_decl) || global_bindings_p ())
+9123:     {
+9124:       /* Mark everything as used to prevent node sharing with subprograms.
+9125: 	 Note that walk_tree knows how to deal with TYPE_DECL, but neither
+9126: 	 VAR_DECL nor CONST_DECL.  This appears to be somewhat arbitrary.  */
+9127:       MARK_VISITED (gnu_stmt);
+9128:       if (VAR_P (gnu_decl)
+9129: 	  || TREE_CODE (gnu_decl) == CONST_DECL)
+9130: 	{
+9131: 	  MARK_VISITED (DECL_SIZE (gnu_decl));
+9132: 	  MARK_VISITED (DECL_SIZE_UNIT (gnu_decl));
+9133: 	  MARK_VISITED (DECL_INITIAL (gnu_decl));
+9134: 	}
+9135:     }
+9136:   else
+9137:     add_stmt_with_node (gnu_stmt, gnat_node);
+9138:
+9139:   /* Mark our TYPE_ADA_SIZE field now since it will not be gimplified.  */
+9140:   if (TREE_CODE (gnu_decl) == TYPE_DECL
+9141:       && RECORD_OR_UNION_TYPE_P (type)
+9142:       && !TYPE_FAT_POINTER_P (type))
+9143:     MARK_VISITED (TYPE_ADA_SIZE (type));
+9144:
+9145:   if (VAR_P (gnu_decl) && (gnu_init = DECL_INITIAL (gnu_decl)))
+9146:     {
+9147:       /* If this is a variable and an initializer is attached to it, it must be
+9148: 	 valid for the context.  Similar to init_const in create_var_decl.  */
+9149:       if (!gnat_types_compatible_p (type, TREE_TYPE (gnu_init))
+9150: 	  || (TREE_STATIC (gnu_decl)
+9151: 	      && !initializer_constant_valid_p (gnu_init,
+9152: 						TREE_TYPE (gnu_init))))
+9153: 	{
+9154: 	  DECL_INITIAL (gnu_decl) = NULL_TREE;
+9155: 	  if (TREE_READONLY (gnu_decl))
+9156: 	    {
+9157: 	      TREE_READONLY (gnu_decl) = 0;
+9158: 	      DECL_READONLY_ONCE_ELAB (gnu_decl) = 1;
+9159: 	    }
+9160:
+9161: 	  /* Remove any padding so the assignment is done properly.  */
+9162: 	  gnu_decl = maybe_padded_object (gnu_decl);
+9163:
+9164: 	  gnu_stmt
+9165: 	    = build_binary_op (INIT_EXPR, NULL_TREE, gnu_decl, gnu_init);
+9166: 	  add_stmt_with_node (gnu_stmt, gnat_node);
+9167: 	}
+9168:
+9169:       /* If this is the initialization of a (potentially) large aggregate, then
+9170: 	 declare the dependence on the memcpy routine.  */
+9171:       if (AGGREGATE_TYPE_P (type)
+9172: 	  && (!TREE_CONSTANT (TYPE_SIZE (type))
+9173: 	      || compare_tree_int (TYPE_SIZE (type), 2 * BITS_PER_WORD) > 0))
+9174: 	Check_Restriction_No_Dependence_On_System (Name_Memory_Copy,
+9175: 						   gnat_node);
+9176:     }
+9177: }
+9178:
+9179: /* Callback for walk_tree to mark the visited trees rooted at *TP.  */
+9180:
+9181: static tree
+9182: mark_visited_r (tree *tp, int *walk_subtrees, void *data ATTRIBUTE_UNUSED)
+9183: {
+9184:   tree t = *tp;
+9185:
+9186:   if (TREE_VISITED (t))
+9187:     *walk_subtrees = 0;
+9188:
+9189:   /* Don't mark a dummy type as visited because we want to mark its sizes
+9190:      and fields once it's filled in.  */
+9191:   else if (!TYPE_IS_DUMMY_P (t))
+9192:     TREE_VISITED (t) = 1;
+9193:
+9194:   /* The test in gimplify_type_sizes is on the main variant.  */
+9195:   if (TYPE_P (t))
+9196:     TYPE_SIZES_GIMPLIFIED (TYPE_MAIN_VARIANT (t)) = 1;
+9197:
+9198:   return NULL_TREE;
+9199: }
+9200:
+9201: /* Mark nodes rooted at T with TREE_VISITED and types as having their
+9202:    sized gimplified.  We use this to indicate all variable sizes and
+9203:    positions in global types may not be shared by any subprogram.  */
+9204:
+9205: void
+9206: mark_visited (tree t)
+9207: {
+9208:   walk_tree (&t, mark_visited_r, NULL, NULL);
+9209: }
+9210:
+9211: /* Add GNU_CLEANUP, a cleanup action, to the current code group and
+9212:    set its location to that of GNAT_NODE if present, but with column info
+```
+
 ## gcc/ada/gcc-interface/trans.cc:9298–9305
 ```text
 9298: add_stmt_list (List_Id gnat_list)
@@ -8561,7 +8659,7 @@ LF line numbering; complete file identities checked.
 1223:
 ```
 
-## gcc/gimplify.cc:944–1050
+## gcc/gimplify.cc:944–1089
 ```text
 944: mostly_copy_tree_r (tree *tp, int *walk_subtrees, void *data)
 945: {
@@ -8670,6 +8768,45 @@ LF line numbering; complete file identities checked.
 1048: /* Callback for walk_tree to unmark the visited trees rooted at *TP.
 1049:    Subtrees are walked until the first unvisited node is encountered.  */
 1050:
+1051: static tree
+1052: unmark_visited_r (tree *tp, int *walk_subtrees, void *data ATTRIBUTE_UNUSED)
+1053: {
+1054:   tree t = *tp;
+1055:
+1056:   /* If this node has been visited, unmark it and keep looking.  */
+1057:   if (TREE_VISITED (t))
+1058:     TREE_VISITED (t) = 0;
+1059:
+1060:   /* Otherwise, don't look any deeper.  */
+1061:   else
+1062:     *walk_subtrees = 0;
+1063:
+1064:   return NULL_TREE;
+1065: }
+1066:
+1067: /* Unmark the visited trees rooted at *TP.  */
+1068:
+1069: static inline void
+1070: unmark_visited (tree *tp)
+1071: {
+1072:   walk_tree (tp, unmark_visited_r, NULL, NULL);
+1073: }
+1074:
+1075: /* Likewise, but mark all trees as not visited.  */
+1076:
+1077: static void
+1078: unvisit_body (tree fndecl)
+1079: {
+1080:   struct cgraph_node *cgn = cgraph_node::get (fndecl);
+1081:
+1082:   unmark_visited (&DECL_SAVED_TREE (fndecl));
+1083:   unmark_visited (&DECL_SIZE (DECL_RESULT (fndecl)));
+1084:   unmark_visited (&DECL_SIZE_UNIT (DECL_RESULT (fndecl)));
+1085:
+1086:   if (cgn)
+1087:     for (cgn = first_nested_function (cgn);
+1088: 	 cgn; cgn = next_nested_function (cgn))
+1089:       unvisit_body (cgn->decl);
 ```
 
 ## gcc/gimplify.cc:1096–1126
@@ -8858,6 +8995,41 @@ LF line numbering; complete file identities checked.
 1828:       gimple_bind_set_body (bind_stmt, new_body);
 1829:     }
 1830:
+```
+
+## gcc/gimplify.cc:21755–21785
+```text
+21755:
+21756:   /* Initialize for optimize_insn_for_s{ize,peed}_p possibly called during
+21757:      gimplification.  */
+21758:   default_rtl_profile ();
+21759:
+21760:   gcc_assert (gimplify_ctxp == NULL);
+21761:   push_gimplify_context (true);
+21762:
+21763:   if (flag_openacc || flag_openmp)
+21764:     {
+21765:       gcc_assert (gimplify_omp_ctxp == NULL);
+21766:       if (lookup_attribute ("omp declare target", DECL_ATTRIBUTES (fndecl)))
+21767: 	gimplify_omp_ctxp = new_omp_context (ORT_IMPLICIT_TARGET);
+21768:     }
+21769:
+21770:   /* Unshare most shared trees in the body and in that of any nested functions.
+21771:      It would seem we don't have to do this for nested functions because
+21772:      they are supposed to be output and then the outer function gimplified
+21773:      first, but the g++ front end doesn't always do it that way.  */
+21774:   unshare_body (fndecl);
+21775:   unvisit_body (fndecl);
+21776:
+21777:   /* Make sure input_location isn't set to something weird.  */
+21778:   input_location = DECL_SOURCE_LOCATION (fndecl);
+21779:
+21780:   /* Resolve callee-copies.  This has to be done before processing
+21781:      the body so that DECL_VALUE_EXPR gets processed correctly.  */
+21782:   parm_stmts = do_parms ? gimplify_parameters (&parm_cleanup) : NULL;
+21783:
+21784:   /* Gimplify the function's body.  */
+21785:   seq = NULL;
 ```
 
 ## gcc/tree-eh.cc:618–655

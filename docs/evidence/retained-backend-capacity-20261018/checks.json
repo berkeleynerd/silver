@@ -963,7 +963,7 @@
     "scope": "scalar/pointer/type-copy and ordinary Character-array transfers; symbolic folding, other aggregate layout and source request join separate"
   },
   "expression_unsharing": {
-    "scope": "ordinary unshare_expr occurrences; source-to-input and whole-body metadata roots separate",
+    "scope": "ordinary unshare_expr occurrences; source-to-input remains separate",
     "tree_copies_per_eligible_occurrence": 1,
     "String_payload_copies": 0,
     "constructor_element_bytes_lp64": 16,
@@ -1013,6 +1013,25 @@
       "copy_node": 1
     },
     "no_placeholder_substitution_tree_or_fold_requests": 0,
+    "native_execution": false
+  },
+  "whole_body_unsharing": {
+    "scope": "manual whole-body copy transfer per function invocation; source-derived input weights still required",
+    "initial_roots": 3,
+    "extra_roots": "each reachable protected identity's children and reached TYPE_DECL expression metadata",
+    "fresh_tree_node_bound": "3W, with ordinary incoming-edge occurrence weights cut at protected/type/decl/constant nodes",
+    "two_pass_counterexample": {
+      "forest_weight": 13,
+      "first_copy": 13,
+      "sibling_continuation": 10,
+      "protected_copy": 13,
+      "total": 36,
+      "twice_weight": 26,
+      "three_times_weight": 39
+    },
+    "protected_set_entries": "at most the reachable protected identity count",
+    "fresh_String_scalar_type_and_declaration_nodes": 0,
+    "aggregate_allocation_gate": false,
     "native_execution": false
   },
   "size_extrema_helpers": {

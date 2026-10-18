@@ -1055,19 +1055,103 @@ cases. Applying the result without its save/edge structure could either miss
 exponential duplication or impose an unnecessarily large charge. Every actual
 gigi unshare request still needs a source-derived input shape and multiplicity.
 
-Whole-body unsharing uses a different traversal. Ada selects deep unsharing;
-`unshare_body` supplies a hash set so SAVE/TARGET/BIND children can be visited
-once per protected node identity, though those nodes themselves remain shared
-(`misc.cc:1475–1476`, `gimplify.cc:976–1050`). The initial mark walk can also
-visit declaration/type size roots through BIND and DECL_EXPR. Therefore the
-NULL-data stop formula must not be applied to the entire body without adding
-those roots and the protected-node set. It does establish that this copy
-callback never duplicates a String constant, scalar constant, declaration or
-type. The whole-body expression forest, set capacity, generic pointer-type
-walker scratch and recursive call stack remain separate composition inputs.
 This result does not cover direct `copy_node(STRING_CST)` conversions already
 charged in the gigi payload row, arbitrary `copy_tree_r` users that can copy
 TYPE_DECL or statement lists, or folder-induced replacement trees.
+
+### Whole-body copying: include protected children and declaration metadata
+
+Ada selects deep unsharing (`misc.cc:1475–1476`). For each `unshare_body`
+invocation, `copy_if_shared` starts at the saved body and the result
+declaration's SIZE and SIZE_UNIT. A shared hash set permits a second traversal
+inside each SAVE_EXPR, TARGET_EXPR and BIND_EXPR identity, while those
+protected nodes themselves remain shared (`gimplify.cc:976–1089`). The
+ordinary NULL-data formula above therefore needs additional expression roots.
+
+Define W from the finite input graph of **one function invocation**. Use the
+same incoming-edge occurrence weight, cutting at protected nodes, types,
+declarations and constants. Sum this weight over:
+
+- the three initial roots;
+- each reachable protected identity's walker children, once per identity;
+- each reached TYPE_DECL's expression metadata roots, once per type identity.
+
+Expand that root inventory transitively when an added root reaches another
+protected identity or type declaration. For BIND, its walker children include
+every declared object's INITIAL, SIZE and SIZE_UNIT, plus the body. For TARGET,
+use the walker's deduplication of equal operands 1 and 3. DECL_EXPR introduces
+scalar MIN/MAX, record field OFFSET/SIZE/SIZE_UNIT and union QUALIFIER, and
+every declared type's SIZE/SIZE_UNIT (`tree.cc:11830–11993`). Including each
+such reached family even when an earlier visited mark would suppress it is
+conservative. Mere references to objects do not replay their initializers.
+Generic `walk_type_fields` follows type links, not further expression fields
+(`:11637–11711`). OpenMP clauses are outside this frontier.
+
+The source traversal gives the sufficient transfer
+
+```text
+fresh ordinary tree nodes <= 3W
+raw tree allocation bytes <= 3 * sum(weighted occurrences v, bytes(v))
+constructor element-copy requests <= 3 * sum(constructor occurrences v, k(v))
+fresh String payloads = fresh scalar constants = fresh types = fresh decls = 0.
+```
+
+The factor three charges up to two copies during the initial mark traversal
+and one during the permitted protected-node deep-copy traversal. On the
+initial traversal, an already marked ordinary
+node is copied with its cut subtree. A protected node is marked on its first
+visit; later visits can descend through the deep-copy callback only once,
+controlled by the shared set. Copying an ordinary subtree preserves its cut
+occurrence weight and creates no protected, type or declaration identity.
+Consequently it cannot create another protected root family or multiply that
+family's allowed traversals. Type-declaration metadata is reached only on the
+mark traversal: the copying callback stops at its TYPE_DECL before the walker
+opens the metadata. STATEMENT_LIST headers/links are not copied; their member
+occurrences still contribute to W.
+
+`copy_node` clears TREE_VISITED on every fresh ordinary copy
+(`tree.cc:1484`), but that fact alone does not establish a factor of two.
+After the copy callback sets `walk_subtrees=0`, the generic walker's special
+TREE_LIST continuation still visits its chain (`:11753–11767`). It marks fresh
+ordinary copies, yet a shared STATEMENT_LIST inside that chain retains its
+old visited bit: its member expressions can be copied again. This second
+copy is charged to the sibling continuation of the first copied cut forest.
+That invocation's outer mark traversal stops below the shared statement list;
+its inner copying traversal has no TREE_LIST stop/continuation duplication.
+Further incoming edges are already separate occurrences in W. The distinct
+protected-set traversal can add one more copy. The unmark traversal creates
+no tree nodes. Existing visited marks must be allowed: gigi deliberately
+marks externally shared trees before gimplification.
+The selected `add_decl_expr` and `mark_visited` paths retain that
+premise (`trans.cc:9119–9212`). Acyclic ordinary operand/list chains and the
+stated protected/type boundaries are the transfer's input invariants.
+
+A small counterexample explains the headroom. Let an initially unmarked SAVE
+contain a premarked two-element TREE_LIST chain. The first value is one
+ordinary leaf; the second is a premarked STATEMENT_LIST containing ten marked
+ordinary leaves. Reference SAVE twice from the body. W is 13: two list nodes
+and eleven ordinary leaves. The first SAVE visit can allocate 13 copies, then
+the sibling continuation copies the statement-list's ten members again.
+The second SAVE visit can allocate 13 more through the protected set, for
+36 fresh nodes. Thus `2W=26` is insufficient, while `3W=39` covers this case.
+This is a source-algorithm counterexample, not a claim that Silver emits that
+particular tree. Keeping the extra pass avoids an unjustified all-marks-clear
+or no-TREE_LIST assumption in the general transfer.
+
+The protected hash set has at most one entry per reachable protected identity.
+Apply the earlier hash/backing transfer to that count, and apply the ordinary
+per-object allocation/vector conditions to each occurrence charge.
+The byte sum describes requests, not an aggregate RAM or address-span gate.
+The occurrence forest and its node/constructor weights still need the
+source-to-GENERIC join. Generic pointer-type walker sets and stack depth are
+separate caller costs.
+
+Sum this transfer for every actual invocation: nested functions get their own
+set, and `gimplify_body` invokes `unshare_body` at its own entry
+(`gimplify.cc:21774`). Do not assume a single process-wide traversal or infer W
+from unique node identities. This closes the whole-body copying transfer at
+its input interface; it does not close symbolic folding or the earlier
+source-to-input bridge.
 
 ## Placeholder substitution follows the original expression
 

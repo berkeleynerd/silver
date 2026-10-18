@@ -23,7 +23,8 @@ RANGES = {
     "gcc/input.cc": [(1045, 1059)],
     "gcc/passes.def": [(25, 47)],
     "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
-    "gcc/gimplify.cc": [(944, 1050), (1096, 1126), (1270, 1282), (1699, 1830)],
+    "gcc/gimplify.cc": [(944, 1089), (1096, 1126), (1270, 1282), (1699, 1830),
+                        (21755, 21785)],
     "gcc/tree-eh.cc": [(618, 655), (710, 877), (940, 1095),
                        (1107, 1283), (1289, 1800), (2333, 2356), (3318, 3349)],
     "gcc/gimple.cc": [(251, 263), (1563, 1577), (1901, 1931), (2045, 2095), (2297, 2333)],
@@ -35,7 +36,7 @@ RANGES = {
                                        (5688, 5691), (6779, 6881), (7086, 7116),
                                        (7291, 7342), (7415, 7470), (7605, 7616),
                                        (7756, 7821), (7944, 7974), (8603, 8622),
-                                       (8968, 8996), (9298, 9305), (3301, 3306),
+                                       (8968, 8996), (9119, 9212), (9298, 9305), (3301, 3306),
                                        (9889, 10025), (11006, 11030)],
     "gcc/ada/gcc-interface/decl.cc": [(400, 445), (697, 718), (754, 766), (1278, 1291),
                                       (2664, 2712), (3142, 3177)],
@@ -179,7 +180,7 @@ def check_expression_copy_transfers(all_bytes):
         assert cost(("expr", (("save", (shared,)), ("save", (shared,))))) == 1
         rows.append(dict(distinct_binary_nodes=depth, expanded_copy_nodes=cost(shared)))
     return dict(
-        scope="ordinary unshare_expr occurrences; source-to-input and whole-body metadata roots separate",
+        scope="ordinary unshare_expr occurrences; source-to-input remains separate",
         tree_copies_per_eligible_occurrence=1,
         String_payload_copies=0,
         constructor_element_bytes_lp64=16,
@@ -188,6 +189,37 @@ def check_expression_copy_transfers(all_bytes):
         occurrence_examples=rows,
         placeholder_substitution_primitive_sites=primitive_counts,
         no_placeholder_substitution_tree_or_fold_requests=0,
+        native_execution=False,
+    )
+
+
+def check_whole_body_copy_transfer(all_bytes):
+    gimplify = all_bytes["gcc/gimplify.cc"].decode()
+    tree = all_bytes["gcc/tree.cc"].decode()
+    for root in ("DECL_SAVED_TREE (fndecl)", "DECL_SIZE (DECL_RESULT (fndecl))",
+                 "DECL_SIZE_UNIT (DECL_RESULT (fndecl))"):
+        assert f"copy_if_shared (&{root}, visited);" in gimplify
+    assert "if (data && !((hash_set<tree> *)data)->add (t))" in gimplify
+    assert "TREE_VISITED (t) = 0;" in tree
+    for root in ("DECL_INITIAL (decl)", "DECL_SIZE (decl)", "DECL_SIZE_UNIT (decl)",
+                 "DECL_FIELD_OFFSET (field)", "DECL_SIZE (field)",
+                 "DECL_SIZE_UNIT (field)", "DECL_QUALIFIER (field)",
+                 "TYPE_MIN_VALUE (type)", "TYPE_MAX_VALUE (type)", "TYPE_SIZE (type)"):
+        assert f"WALK_SUBTREE ({root});" in tree
+    assert "WALK_SUBTREE_TAIL (TYPE_SIZE_UNIT (type));" in tree
+    assert "len = (TREE_OPERAND (t, 3) == TREE_OPERAND (t, 1)) ? 2 : 3;" in tree
+    assert "if (code == TREE_LIST)\n\tWALK_SUBTREE_TAIL (TREE_CHAIN (t));" in tree
+    return dict(
+        scope="manual whole-body copy transfer per function invocation; source-derived input weights still required",
+        initial_roots=3,
+        extra_roots="each reachable protected identity's children and reached TYPE_DECL expression metadata",
+        fresh_tree_node_bound="3W, with ordinary incoming-edge occurrence weights cut at protected/type/decl/constant nodes",
+        two_pass_counterexample=dict(forest_weight=13, first_copy=13,
+                                     sibling_continuation=10, protected_copy=13,
+                                     total=36, twice_weight=26, three_times_weight=39),
+        protected_set_entries="at most the reachable protected identity count",
+        fresh_String_scalar_type_and_declaration_nodes=0,
+        aggregate_allocation_gate=False,
         native_execution=False,
     )
 
@@ -852,6 +884,7 @@ def main():
         "integer_constants": check_integer_constant_transfers(all_bytes),
         "scalar_pointer_types": check_type_transfers(all_bytes, bundle),
         "expression_unsharing": check_expression_copy_transfers(all_bytes),
+        "whole_body_unsharing": check_whole_body_copy_transfer(all_bytes),
         "size_extrema_helpers": check_size_extrema_transfers(all_bytes),
         "bitmap_storage": check_bitmap_transfers(all_bytes, bundle),
         "ordinary_vectors": {
