@@ -1,5 +1,5 @@
 {
-  "scope": "Direct literal output through conditional pass_expand and emitted constant data",
+  "scope": "Direct literal output through conditional pass_expand, emitted constant data and selected constructor lifetimes",
   "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "files": [
     {
@@ -463,6 +463,78 @@
       "path": "auto-host.h",
       "bytes": 62999,
       "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/varasm.cc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/target-def.h",
+      "bytes": 4765,
+      "sha256": "920be37d4d6ff2c8a43a61164938dba69fa7aa4944f146a5c8257dcf322e9169"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/genemit.cc",
+      "bytes": 27840,
+      "sha256": "b7f42b3f89a4889c29f149bbeb13a155fdee70dc5e7192d8957ca432660df1a2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rtl.cc",
+      "bytes": 23229,
+      "sha256": "516c1f4b2ad68750095d3c09f3c0d123d1cf8009331b439a4d0ef67bcf6910ee"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rtl.def",
+      "bytes": 61727,
+      "sha256": "29cc3589ac9b95caae287954ab3c7f8d49db7f4f06b5df14a81315522ddbe7c6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lists.cc",
+      "bytes": 6213,
+      "sha256": "ee97ef92bea9e5d7a3846de19d2eb461368281cab1f0da8e30133645e2e8526b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/simplify-rtx.cc",
+      "bytes": 311396,
+      "sha256": "918de336822964fa3c4ad1f5b241a8ca4ae7039cb3cd921e3b691c80e85bd8f5"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc.h",
+      "bytes": 11939,
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/function.h",
+      "bytes": 27144,
+      "sha256": "f0f30e429adb36d8532e7cf2f911d46387ae67c1815daa8a86c034b4cbc3956e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/coretypes.h",
+      "bytes": 16377,
+      "sha256": "9d46c5017b22872206f8fa0961b23c916dde1bfd23b33ca221bbff333c7d1d87"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/poly-int-types.h",
+      "bytes": 3868,
+      "sha256": "8b62c1890b3fb6e8047d85691e047596e3b829ce4a6a1cad429f77bf244e5599"
+    },
+    {
+      "root": "plugin",
+      "path": "insn-modes.h",
+      "bytes": 27388,
+      "sha256": "6de8c9ea5760a673d43344ba92b15620b6d378f8cf82673b4ec0e182eb1d5d85"
     }
   ]
 }

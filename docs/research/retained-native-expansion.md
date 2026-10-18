@@ -11248,9 +11248,10 @@ unchanged until its authorized implementation/proof work is completed.
 This is an evidence stream toward the complete #119 language objective, not a
 new language fragment, milestone or source cap. The
 [offline source join](../evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py)
-scans this restricted source class completely and checks 77 source/header
+scans this restricted source class completely and checks 89 source/header
 identities. Its equations cover initial lowering, CF/CFG/SSA, conditional O0
-and out-of-SSA shape preservation, pass_expand RTL output, and emitted constant data.
+and out-of-SSA shape preservation, pass_expand RTL output, emitted constant data
+and the selected constructor lifetimes below.
 Whole-unit IPA, later RTL, allocation counters and final assembly/object composition
 remain required; neither the checker nor its arithmetic proves those stages.
 
@@ -11745,7 +11746,7 @@ The interface permits that behavior. A later pass must either justify
 splitting these words independently or bound possible descriptor spills;
 zero initial stack storage does not establish zero final frame size.
 
-The pass_expand projection uses 68 complete source files and records this interface,
+The initial pass_expand projection used 68 complete source files and recorded this interface,
 including a focused signed-UID boundary check. For C=1,N=0 it yields P=3,
 I=19, B=4, E=5 and R0=80. These are source-derived ceilings, not measured
 RTL output. No compiler, prover or debugger was executed. Whole-unit IPA,
@@ -11878,13 +11879,155 @@ added to obtain the complete assembly stream; constant section switches
 during RTL expansion occur before Main's textual body starts and do not
 split the later function body into multiple emission sequences.
 
-The replay verifies 77 source/header identities, including the two installed
-configuration headers supplied by `--plugin-include`. Its ninth focused check
-reconciles the data equations and every base64 chunk size 3..255. Hello's
+The constant-data checkpoint verified 77 source/header identities, including
+the two installed configuration headers supplied by `--plugin-include`. Its
+data check reconciles the equations and every base64 chunk size 3..255; the
+constructor continuation below extends the current packet to 89 identities
+and ten focused checks. Hello's
 C=1,W=13 instance yields at most 35 `.rodata` bytes including alignment,
 21 data lines and 681 serialized data bytes. No native tool is executed and
 no measured assembly is used as a universal bound. Source correspondence,
 complete per-pass allocation and the complete Main object remain unfinished.
+
+### Literal-output selected RTL constructor lifetimes
+
+The live operand-occurrence bound R0 above is not by itself a lifetime
+allocation bound. This continuation inventories the selected Main operation
+constructors, including discarded ABI containers, and separately charges the
+final unsharing traversal. Its boundary is operation expansion through
+`pass_expand`, plus the already selected bounds-record data emission. Fixed
+target/function setup, trees, hash backbones, pass helper containers and later
+RTL still have their own ledger entries. In particular this is not a complete
+GGC event sum or an aggregate memory admission test.
+
+The per-call nonchain RTX requests are as follows. Every entry is an upper
+bound even if a constant, declaration RTL or list object is reused:
+
+| Selected constructor root | RTX requests per call |
+| --- | ---: |
+| TI descriptor pseudo |1|
+| Two pointer stores: SUBREG and SET each |4|
+| ABI argument container: two hard REG, two EXPR_LIST, PARALLEL |5|
+| Two extractions: SUBREG, new DI REG and SET each |6|
+| Temporary argument container: two EXPR_LIST and PARALLEL |3|
+| Two hard-argument move SETs |2|
+| Direct call: MEM, CALL, two USE, two EXPR_LIST and call-declaration note |7|
+| Function declaration's initial SYMBOL_REF and MEM |2|
+| String/bounds constant pools: SYMBOL_REF and MEM each |4|
+| Bounds upper endpoint during integer output |1|
+| Copied bounds-pool MEM during address expansion |1|
+| **Total** |**36**|
+
+The descriptor's `gen_reg_rtx` makes one raw REG; each full-word field path
+creates one SUBREG before its move (`emit-rtl.cc:1188–1232`,
+`expmed.cc:810–837`). `simplify_subreg` on a plain pseudo has neither the
+hard-register reconstruction nor constant/MEM/CONCAT path; the selected
+`simplify_gen_subreg` therefore creates exactly one SUBREG. The extraction's
+`force_subreg` succeeds on its first attempt and does not allocate a fallback
+register (`simplify-rtx.cc:8286–8690,8691–8713`, `explow.cc:748–764`).
+`force_reg` then makes one extraction REG and move, without a REG_EQUAL note
+because its input is a SUBREG rather than a constant (`explow.cc:672–708`).
+Each selected DI move creates one SET in `ix86_expand_move`; its generated
+`define_expand` wrapper ends at DONE, so it does not also construct the
+description's skeleton SET (`i386-expand.cc:553–589`, `i386.md:2419–2423`,
+`genemit.cc:303,483–540`).
+
+The two hard argument registers are real new RTX requests: the general REG
+reuse block is disabled, and neither RDI nor RSI is one of the special
+pointer registers reused before reload (`emit-rtl.cc:791–855`). The x86
+container makes their two EXPR_LISTs and one two-element rtvec/PARALLEL
+(`i386.cc:2927–3062`). There is no second incoming-argument container:
+`target-def.h:117–119` aliases that hook to the normal argument hook, x86
+does not override it, and `calls.cc:1560–1565` reuses the first result.
+`emit_group_load_into_temps` makes the second two-element vector and
+PARALLEL, plus two EXPR_LISTs; charge both list requests as cold even though
+`alloc_EXPR_LIST` can reuse free entries (`expr.cc:3161–3190`,
+`lists.cc:127–143`). Those two argument containers are temporary C++ local
+roots and are absent from the final instruction chain.
+
+The direct call allocates one MEM and the target retains it in its one CALL
+node. Its two hard-register USEs and list links, plus the REG_CALL_DECL link,
+complete the seven-object row (`calls.cc:407–429,477–486,3780–3794`,
+`expr.cc:3757–3816`, `i386-expand.cc:11232–11238,11346–11358`). No call
+result, clobber PARALLEL, AL setup, stack-size note or address legalization
+constructor is selected. `make_decl_rtl` can create the function SYMBOL_REF
+and MEM once, and does not assign MEM attributes for FUNCTION_DECL; charging
+that pair on every call is conservative (`varasm.cc:1655–1687`).
+
+The constant pools each create one SYMBOL_REF and one MEM
+(`varasm.cc:3761–3786`). The bounds VAR_DECL expression copies its MEM before
+extracting the address (`expr.cc:11614–11625`). `copy_rtx` shares its
+SYMBOL_REF and the attribute pointer, so this is one additional RTX, not
+a recursive copy of the declaration or symbol (`rtl.cc:285–369`). Each
+four-byte bounds component is emitted from one integer expression
+(`varasm.cc:5535–5549`). Its lower endpoint1 is cached; the upper endpoint
+can request one CONST_INT. All other selected small constants, including
+0,8 and the nonvararg -1 indicator, use the existing saved constants
+(`emit-rtl.cc:527–552`). String bytes are serialized directly and create no
+per-character RTX. The selected lifetime count therefore depends on C and N,
+not on the sum of literal lengths W.
+
+Use the conservative operation envelope **40C** over the explicit36C sum.
+The fixed initial blockage adds one nonchain RTX and one one-element rtvec.
+Final unsharing scans each instruction's pattern, notes and call usage
+(`emit-rtl.cc:3189–3205`). It creates at most one shallow RTX copy for each
+visited occurrence; REG, constants, symbols and chain objects are shared or
+skipped (`:3250–3355`). There are no stack slots or formal parameters to
+copy through the extra roots (`:2928–2991`). Hence charge at most R0 further
+RTX requests. The only reachable vector on that selected final chain is the
+blockage's one-element vector, so at most one additional rtvec is copied.
+The transient ABI PARALLELs have already ceased to be instruction roots.
+
+```text
+selected nonchain RTX lifetime requests <= 40C + 1 + R0
+selected chain + nonchain RTX requests <= I + 40C + 1 + R0
+selected rtvec lifetime requests       <= 2C + 2
+```
+
+The LP64 size formula already established in the constructor packet gives
+at most24 raw bytes for each selected nonchain RTX and72 for a chain RTX
+(CALL_INSN is72). A two-element rtvec requests24 bytes, a one-element vector
+16 (`rtl.def:99,156,197,240,295–319,346,387–437`,
+`rtl.cc:123–134,163–179`, `ggc.h:317–319`). These are individual requests
+before collector rounding, not a claim about peak or cumulative RAM.
+
+Three other selected object classes are charged separately. Setting the TI
+descriptor declaration RTL can request one16-byte reg_attrs record; the
+extraction and hard argument registers receive none
+(`emit-rtl.cc:424–443,1412–1470`). Each constant-pool MEM has two attribute
+setters, and the call MEM has one, giving at most5C requests for40-byte
+mem_attrs. The follow-up call setter is guarded by a missing MEM_EXPR and
+does not fire for the retained target MEM (`calls.cc:477–486`). A changing
+setter makes one GGC record, without recursively copying its tree
+(`emit-rtl.cc:375–395`; `rtl.h:152–201`, `coretypes.h:366`,
+`poly-int-types.h:23–25`; installed `insn-modes.h:979` selects one
+polynomial coefficient). Finally, six move wrappers, the call wrapper and
+the generic call sequence give at most8C cold24-byte sequence-stack requests
+(`calls.cc:3219`, `genemit.cc:510–540`, `function.h:29–34`). Free-list reuse
+can reduce this count but cannot increase it
+(`emit-rtl.cc:5661–5680,5754–5770`). The constant and reg-attribute hash-table
+backbones and all fixed framework sequence scopes remain separate.
+
+The dynamic register arrays also need a physical growth check. Their initial
+capacity is198. For the pre-split logical extent K=98+3C, let q be the least
+nonnegative integer such that `198*2^q >= K`. Each growth makes one ordinary
+char-array request and one GGC pointer-array request; the largest individual
+requests are `198*2^q` and `8*198*2^q` bytes
+(`emit-rtl.cc:1239–1259`). The capacity multiplication uses signed int.
+The largest permitted doubling result is `198*2^23 = 1660944384`, so the
+checker requires q<=23 in addition to the earlier logical-index checks.
+This is a source-derived representation condition, not a new chosen source
+cap. Later splitting and LRA pseudo creation must substitute their larger K
+before using the array result for the entire function.
+
+The updated offline packet pins the additional constructor/copy sources and
+corrects the earlier literal-output manifest's omission of `varasm.cc` (the
+file was already pinned in earlier native evidence). It adds focused
+constructor arithmetic and signed-doubling boundary checks. Hello World's
+C=1,N=0 gives the conservative selected counts121 nonchain RTX,140 combined
+chain/nonchain RTX and4 rtvec requests, with register capacity198. These are
+source-derived ceilings; no compiler or debugger capture was executed.
+The all-pass/all-GGC and whole-native flags remain false.
 
 ## Exact remaining obligations
 

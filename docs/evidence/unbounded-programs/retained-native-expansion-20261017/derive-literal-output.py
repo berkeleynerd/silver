@@ -64,6 +64,22 @@ def composition(counts):
     uses = 3*c+1
     chain = 7*c+3*n+12
     operand_occurrences = 64*c+n+16
+    # Selected operation constructors, including transient ABI containers and
+    # pool-output integers. Hash backbones and framework helper setup are not
+    # inferred from these individual object requests.
+    constructor_rows = dict(descriptor_REG=c, field_store_SUBREG_and_SET=4*c,
+        hard_argument_REG_EXPR_LIST_PARALLEL=5*c,
+        extraction_SUBREG_REG_SET=6*c, temporary_EXPR_LIST_PARALLEL=3*c,
+        hard_argument_move_SET=2*c, call_MEM_CALL_USE_EXPR_LIST_note=7*c,
+        function_decl_SYMBOL_REF_MEM_upper=2*c,
+        constant_pool_SYMBOL_REF_MEM_upper=4*c,
+        bounds_output_CONST_INT_upper=c, bounds_MEM_copy_upper=c)
+    needed_registers = 98+3*c
+    register_capacity = 198
+    register_growths = 0
+    while register_capacity < needed_registers:
+        register_capacity *= 2
+        register_growths += 1
     return dict(
         native_Main=dict(procedure_bodies=1, implicit_bare_returns=1,
             String_literal_subtypes=c, call_markers=c, transient_blocks=0,
@@ -147,6 +163,36 @@ def composition(counts):
             descriptor_cross_call_liveness_excluded=False,
             allocation_or_frame_bound_established=False,
             all_RTX_rtvec_lifetime_requests_bound_established=False),
+        conditional_native_selected_constructor_requests=dict(
+            scope='Main operation RTX through pass_expand plus bounds constant output; fixed helper setup separate',
+            operation_nonchain_RTX_rows_upper=constructor_rows,
+            operation_nonchain_RTX_sum_upper=sum(constructor_rows.values()),
+            operation_nonchain_RTX_envelope_upper=40*c,
+            framework_blockage_RTX_requests=1,
+            final_unsharing_nonchain_RTX_requests_upper=operand_occurrences,
+            selected_nonchain_RTX_lifetime_requests_upper=40*c+1+operand_occurrences,
+            selected_chain_and_nonchain_RTX_lifetime_requests_upper=chain+40*c+1+operand_occurrences,
+            ABI_and_temporary_two_element_rtvec_requests=2*c,
+            blockage_one_element_rtvec_construction_and_unsharing_upper=2,
+            selected_rtvec_lifetime_requests_upper=2*c+2,
+            descriptor_reg_attrs_requests_upper=c,
+            pool_and_call_mem_attrs_requests_upper=5*c,
+            call_and_move_sequence_stack_requests_upper=8*c,
+            each_selected_nonchain_RTX_raw_bytes_upper=24,
+            each_selected_chain_RTX_raw_bytes_upper=72,
+            each_two_element_rtvec_raw_bytes=24,
+            each_one_element_rtvec_raw_bytes=16,
+            each_reg_attrs_raw_bytes=16, each_mem_attrs_raw_bytes=40,
+            each_sequence_stack_raw_bytes=24,
+            register_array_logical_extent_upper=needed_registers,
+            register_array_capacity_upper=register_capacity,
+            register_array_growths_upper=register_growths,
+            register_pointer_array_GGC_growth_requests_upper=register_growths,
+            each_register_pointer_array_request_bytes_upper=8*register_capacity,
+            each_register_alignment_array_request_bytes_upper=register_capacity,
+            fixed_framework_helper_setup_included=False,
+            hash_backbones_and_other_ordinary_containers_included=False,
+            all_pass_or_GGC_lifetime_requests_accounted=False),
         conditional_native_constant_data=dict(
             requires_selected_O0_no_merge_no_anchor_no_sanitizer_options=True,
             fresh_tree_pool_descriptors_upper=2*c,
@@ -181,6 +227,8 @@ def composition(counts):
             pass_expand_pseudo_number_fits_signed_int=98+3*c<=I32,
             pass_expand_instruction_UID_fits_signed_int=chain+1<=I32,
             pass_expand_block_index_fits_signed_int=n+6<=I32,
+            pass_expand_register_array_signed_doubling=register_capacity<=I32,
+            pass_expand_register_array_size_product=8*register_capacity<=2**64-1,
             constant_label_increment_fits_signed_int=2*c<=I32,
             tree_constant_pool_hash_live_region=2*c<=1073741823,
             deferred_counter_increment_and_decrement_events_fit_unsigned32=c<=2**32-1,
@@ -208,6 +256,18 @@ def focused_checks():
             rtl['instruction_chain_lifetime_requests_upper'],
             rtl['live_nonchain_RTL_occurrences_upper']) == (6,29,145)
     assert rtl['ordinary_blocks_upper'] == 5 and rtl['edges_upper'] == 6
+    constructors = composition(c)['conditional_native_selected_constructor_requests']
+    assert constructors['operation_nonchain_RTX_sum_upper'] == 72
+    assert constructors['selected_nonchain_RTX_lifetime_requests_upper'] == 226
+    assert constructors['selected_chain_and_nonchain_RTX_lifetime_requests_upper'] == 255
+    assert constructors['selected_rtvec_lifetime_requests_upper'] == 6
+    for calls, capacity in [(33,198),(34,396),(99,396),(100,792)]:
+        counters = composition(dict(c,output_calls=calls))['conditional_native_selected_constructor_requests']
+        assert counters['register_array_capacity_upper'] == capacity
+    max_capacity = 198*2**23
+    largest_calls = (max_capacity-98)//3
+    assert composition(dict(c,output_calls=largest_calls))['local_representation_checks']['pass_expand_register_array_signed_doubling']
+    assert not composition(dict(c,output_calls=largest_calls+1))['local_representation_checks']['pass_expand_register_array_signed_doubling']
     limit = (I32-13)//7
     at_limit = dict(c, output_calls=limit, null_statements=0)
     above = dict(at_limit, output_calls=limit+1)
@@ -248,6 +308,7 @@ def focused_checks():
             '5000 calls compose without a new source cap',
             'CF CFG SSA source count composition', 'SSA operand slab transitions',
             'pass_expand shape and signed instruction UID boundary',
+            'selected constructor inventory and register array doubling boundaries',
             'constant data payload and ASCII base64 emitter bounds']
 
 
@@ -266,7 +327,7 @@ def main():
         raw = (roots[row['root']]/row['path']).read_bytes()
         require(len(raw)==row['bytes'] and sha(raw)==row['sha256'], 'changed source: '+row['path'])
     counts = source_counts(a.source.read_bytes())
-    result = dict(scope='direct literal output: source through conditional pass_expand output and emitted constant data',
+    result = dict(scope='direct literal output: source through conditional pass_expand output, emitted constant data and selected constructor lifetimes',
         source_files_verified=len(identity['files']), source_counts=counts,
         components=composition(counts), focused_checks=focused_checks(),
         native_tool_executions=0,
