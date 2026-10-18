@@ -32,6 +32,7 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_elim.adb", "sem_cat.adb", "einfo-utils.adb", "sem_ch13.adb",
          "exp_ch13.adb", "nlists.adb", "itypes.adb", "expander.adb",
          "sem_aux.adb", "ghost.adb", "sem_type.adb", "restrict.adb",
+         "gen_il-gen-gen_nodes.adb", "gen_il-gen-gen_entities.adb",
          "local_restrict.adb", "accessibility.adb", "opt.ads",
          "sem_attr.adb", "exp_attr.adb", "sem.ads", "exp_dbug.adb", "namet.ads",
          "sem_ch11.adb", "exp_ch11.adb", "sem_elab.adb", "errout.adb",
@@ -319,6 +320,49 @@ def uncached_dereference_actual_subtype(analysis_graph):
     assert total == dict(ordinary=20*a+70, lists=8, growth=6, uint=80*a+159,
                          entities_and_names=2, name_characters=29)
     return dict(analysis_graph=a, rows=rows, total=total)
+
+
+# Prove the setter inventory against the frozen source manifest, not whatever
+# untracked files might happen to be present beside the inspected snapshot.
+macro_flag_setter_sites = []
+macro_flag_searched_files = 0
+for name, entry in expected.items():
+    if not name.endswith((".adb", ".ads")):
+        continue
+    raw = (args.ada_source / name).read_bytes()
+    assert hashlib.sha256(raw).hexdigest() == entry["sha256"], name
+    macro_flag_searched_files += 1
+    for number, line in enumerate(raw.decode().splitlines(), 1):
+        if "Set_Is_Renaming_Of_Object" in line:
+            macro_flag_setter_sites.append(dict(file=name, line=number, source=line.strip()))
+assert macro_flag_setter_sites == [dict(file="exp_ch8.adb", line=174,
+    source="Set_Is_Renaming_Of_Object (Defining_Identifier (N));")]
+
+
+def normalized_native_view():
+    """Current native value shape, not cumulative allocation/query cost."""
+    low = 3
+    last = 5
+    high = low+4
+    null_low = 1+3+last+low
+    null_high = 1+3+last+high
+    assignment_low = null_low+2
+    assignment_high = null_low+4
+    common_range = 1+max(null_low+null_high, assignment_low+assignment_high)
+    syntax = 1+2+common_range
+    copied_ordinary = syntax+1+common_range
+    copied_entities = 2
+    copied_lists = 2+1+2
+    assert (null_low, null_high, assignment_low, assignment_high, common_range,
+            syntax, copied_ordinary, copied_entities, copied_lists) == (
+            12, 16, 14, 16, 31, 34, 66, 2, 5)
+    return dict(operand_low=low, last_bound=last, high_before_null=high,
+                low_after_null=null_low, high_after_null=null_high,
+                assignment_low=assignment_low, assignment_high=assignment_high,
+                common_range=common_range, current_view_syntax=syntax,
+                copied_ordinary=copied_ordinary, copied_entities=copied_entities,
+                copied_lists=copied_lists, copied_attribute_ordinary=copied_ordinary+1,
+                pending_elist_headers=1, pending_elist_elements=2, hash_wrappers=3)
 
 
 result = {
@@ -727,6 +771,21 @@ result = {
         "excluded": "source derivation of invocation count; different pointer/original-renaming class; input function/capture; action placement; whole-scope/backend",
         "composition_examples_not_thresholds": [uncached_dereference_actual_subtype(1),
                                                  uncached_dereference_actual_subtype(127)],
+    },
+    "ordinary_native_renaming_flag_inventory": {
+        "manifest_pinned_Ada_files_searched_and_hashed": macro_flag_searched_files,
+        "setter_sites": macro_flag_setter_sites,
+        "guard": "Evaluation_Required: packed/full-access/representation/discriminant cases; ordinary String names/dereferences returnFalse and ordinary slices recurse to them",
+        "Set_Renamed_Object_sets_macro_flag": False,
+        "Main_ordinary_String_macro_renaming_replays": 0,
+        "excluded": "other caller copying/reanalysis, runtime bodies and nonstandard views",
+    },
+    "normalized_native_String_view_copy": {
+        "premises": "Main first-resolved ordinary String name/literal or direct Image/concat slice; no author slices/general String-return calls; macro flagFalse; generated mutable slice bases; Force_Evaluation normalizes scalar bounds; scalar initializer/query graph excluded",
+        "shape": normalized_native_view(),
+        "name_characters": "at most13*2 for copied internal itype names under existing serial premise",
+        "Uint_or_String_values": 0,
+        "excluded": "pre-normalization direct bound-copy sizes; all cumulative allocation/invocation counts; numeric A/magnitudes; enabled checks; runtime dependencies; backend; useful admission predicate",
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",

@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 77,
+  "source_files_verified": 79,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -48,6 +48,8 @@
     "ghost.adb": "efc913c943b84328d081ff3996c85cd6eeb0f718c215784df8ecf9980dcd5f13",
     "sem_type.adb": "d278251cf4a39214e2a2f9b2fdf97f15520f6078e55a55a3cdd773016e3a810d",
     "restrict.adb": "644e05288291aece0b74bafc2719f1c03ba59464c350447c4a08298cc5c5cebf",
+    "gen_il-gen-gen_nodes.adb": "22d4802e880b126a9f251c44fd95b3cc0afa3ae5554e910327db8a181825cf2b",
+    "gen_il-gen-gen_entities.adb": "bcc305bbe1c12038f456465578c31e326f2e430044879d786d85abda7b26722f",
     "local_restrict.adb": "38405d3a674b2632427c3a2f130328c6749de5bffc238e85946e4afadd173db3",
     "accessibility.adb": "bfa2e2cb2ff37441fc191efee4fee4f6cbf79dea5031bb735b15078e363c0f27",
     "opt.ads": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e",
@@ -1509,6 +1511,44 @@
         }
       }
     ]
+  },
+  "ordinary_native_renaming_flag_inventory": {
+    "manifest_pinned_Ada_files_searched_and_hashed": 2319,
+    "setter_sites": [
+      {
+        "file": "exp_ch8.adb",
+        "line": 174,
+        "source": "Set_Is_Renaming_Of_Object (Defining_Identifier (N));"
+      }
+    ],
+    "guard": "Evaluation_Required: packed/full-access/representation/discriminant cases; ordinary String names/dereferences returnFalse and ordinary slices recurse to them",
+    "Set_Renamed_Object_sets_macro_flag": false,
+    "Main_ordinary_String_macro_renaming_replays": 0,
+    "excluded": "other caller copying/reanalysis, runtime bodies and nonstandard views"
+  },
+  "normalized_native_String_view_copy": {
+    "premises": "Main first-resolved ordinary String name/literal or direct Image/concat slice; no author slices/general String-return calls; macro flagFalse; generated mutable slice bases; Force_Evaluation normalizes scalar bounds; scalar initializer/query graph excluded",
+    "shape": {
+      "operand_low": 3,
+      "last_bound": 5,
+      "high_before_null": 7,
+      "low_after_null": 12,
+      "high_after_null": 16,
+      "assignment_low": 14,
+      "assignment_high": 16,
+      "common_range": 31,
+      "current_view_syntax": 34,
+      "copied_ordinary": 66,
+      "copied_entities": 2,
+      "copied_lists": 5,
+      "copied_attribute_ordinary": 67,
+      "pending_elist_headers": 1,
+      "pending_elist_elements": 2,
+      "hash_wrappers": 3
+    },
+    "name_characters": "at most13*2 for copied internal itype names under existing serial premise",
+    "Uint_or_String_values": 0,
+    "excluded": "pre-normalization direct bound-copy sizes; all cumulative allocation/invocation counts; numeric A/magnitudes; enabled checks; runtime dependencies; backend; useful admission predicate"
   },
   "lexical_call_sites_not_a_reachable_call_graph": [
     {

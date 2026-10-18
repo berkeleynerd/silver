@@ -2089,7 +2089,7 @@ The grammar-to-current-syntax alternatives at that boundary are:
 | Author form | Current native value entering a parent concat |
 | --- | --- |
 | Literal, including parser/semantic folded concat | String literal; separate literal subtype/value costs |
-| Ordinary declared String name | Existing object reference, or a copied/reanalyzed generated renamed view |
+| Ordinary declared String name | Existing object reference, including backend-handled object renamings |
 | Standard Integer Image | Previously expanded buffer slice; scalar argument and runtime call live in earlier actions |
 | Nonfolded child concat | Its new result object/view, optional result slice, or an already-resolved retained operand |
 | Parentheses | The enclosed form, with parenthesis metadata |
@@ -2104,13 +2104,12 @@ result is an explicit dereference; its call remains in its capture initializer
 (`exp_ch2.adb:124–236,372–533`, `sem_ch3.adb:5436–5453`,
 `exp_ch3.adb:8603–8643,9485–9487`, `exp_util.adb:8896–8916,13793–13830`).
 
-This narrows concat duplication to resolved values/views. It does **not**
-make their later analysis free. `Expand_Renaming` copies Renamed_Object,
-explicitly resets analyzed flags, then analyzes/resolves the copy
-(`exp_ch2.adb:701–719`). A copied slice consequently may build another slice
-subtype, capture a bound or follow a generated pointer renaming. Its syntax
-and owned type decorations must use the decorated-copy transfer, followed by
-the applicable replay transfer. Source object bounds also have an independent
+This narrows concat duplication to resolved values/views. The existence of
+Renamed_Object alone does not cause frontend replay: Is_Renaming_Of_Object is
+a separate flag, excluded for these ordinary String objects as established
+below. The earlier macro-renaming helper transfers remain conditional helper
+results; they are not reachable Main addends merely because a declaration was
+rewritten to a backend renaming. Source object bounds have an independent
 native declaration path: Expand_Subtype_From_Expr uses an existing slice
 index, a literal range, a constrained type or a new actual subtype; it cannot
 be replaced by the GNATprove light model's Standard.String shortcut
@@ -2121,7 +2120,7 @@ summary and its owned semantic-type/range summary, and record scalar query
 roots through captured initializers and type bounds. A runtime bound such as
 String length 4096 is not a bound on any of these graph sizes. The group-count
 inequalities above apply to first source traversal only; all caller copying
-before resolution, renamed-view replay and library-body/contract processing
+before resolution and library-body/contract processing
 must be accounted for before asserting a compilation-wide invocation count.
 
 ### Native runtime cache and direct helper seeds
@@ -2290,34 +2289,156 @@ It excludes pointer capture for a mutable original renaming, incoming-view
 decoration, input-function expansion, action placement, whole-scope/backend
 work and the source-to-invocation multiplicity.
 
-### Why a uniform incoming-view constant is not established
+### Ordinary renamings do not cause Main macro replay
 
-The ordinary concat lower-bound conditional spine is captured when its root
-remains an if expression (`exp_ch4.adb:3176–3228`). That observation alone
-does not establish a constant bound on all later value views or scalar bound
-trees. `Side_Effect_Free` has an early case for a non-entity tree whose original
-node names a mutable object renaming. When its Renamed_Object is a slice, the
-case returns True **without walking that slice's bounds or prefix**
-(`exp_util.adb:14479–14514`). Thus forcing a scalar attribute of such a view
-need not collapse the whole attribute to a captured scalar constant.
+The earlier concern about source object renamings rested on conflating two
+fields. **Renamed_Object is not Is_Renaming_Of_Object.** The former stores
+Renamed_Or_Alias; `Set_Renamed_Object` does not set the latter Boolean flag
+(`einfo-utils.adb:98–107`, `gen_il-gen-gen_entities.adb:193`).
+`Rewrite_Object_Declaration_As_Renaming` records the already analyzed view
+but likewise does not set the macro flag (`exp_util.adb:13793–13830`).
 
-This is relevant to the current grammar even though author renamings are
-excluded. A concat marks its result OK_To_Rename and can return a slice;
-the source declaration expander expressly permits rewriting an unconstrained
-String object's initializer to a renaming of a slice of such a result
-(`exp_ch4.adb:3441,3629–3632`, `exp_ch3.adb:8603–8643,9485–9487`). Later name
-expansion copies and resets analyzed flags on that recorded view. First/Last
-can simplify a compile-time bound or a bound that is already an entity, but
-their native expansion does not replace every arbitrary pure bound tree
-(`exp_attr.adb:4121–4201`).
+A search of all manifest-pinned Ada source files finds exactly one setter of
+Is_Renaming_Of_Object: `exp_ch8.adb:174`. It is guarded by Evaluation_Required.
+That function returns False for an ordinary name or explicit dereference;
+for a slice it recurses into the prefix unless the prefix is packed or a
+full-access object. Its selected-component branch concerns representation
+clauses, discriminants and full-access objects, none present in the admitted
+String views (`exp_ch8.adb:105–174`). Newly generated ordinary object entities
+start with this flag False. The native Main grammar and its String/Image/
+concat helper shapes contain no operation that turns it on.
 
-No program family growing these bounds is asserted here: full reachability,
-folding and subtype-replay induction remain to be proved. The specific
-constant-size shortcut based solely on forced evaluation is unsupported.
-Keep syntactic and owned-decoration summaries explicit, then establish a
-source/declaration recurrence or a stronger simplification invariant. In
-particular, the t/l premises in the preceding slice row and b/l premises in
-the result-storage row are not discharged by this section.
+Consequently ordinary source and generated String renamings remain backend
+renamings. `Expand_Entity_Reference` does not enter `Expand_Renaming` for them
+(`exp_ch2.adb:410–418`). There are **zero frontend macro-renaming replays**
+from these objects. An ordinary declared String reference remains an object
+name rather than a copy of its initializer view. The original-renaming
+exception in Side_Effect_Free also requires the same macro flag and cannot
+apply (`exp_util.adb:14479–14514`). This eliminates that proposed obstruction;
+it does not declare every possible caller copy/reanalysis free.
+
+The separate eight-node mutable-macro-renaming transfer and uncached
+P.all actual-subtype transfer remain valid under their stated general input
+premises. They must not be multiplied by source object-read count for Main.
+The first input initializer has its own dereference/capture processing, but
+later reads of its declared binding are ordinary names.
+
+`derive.py` hashes every searched Ada file against the complete manifest,
+records the sole setter site, and verifies the inspected flag/renaming
+sources. An independent source check confirmed this flag distinction. No
+compiler execution or source-level counterexample was needed to refute the
+mistaken reachability inference.
+
+### Uniform normalized view and bound-copy shapes
+
+A small value-copy bound now follows from the actual Main grammar. This is
+about **current value syntax and its owned types**, not constant initializers,
+Original_Node history, numeric query unfolding or accumulated abandoned trees.
+
+The incoming native String value is a literal, an ordinary object name, or a
+direct Image/concat result slice. The first input function is confined to its
+own declaration; it cannot appear as a later String atom. Its declaration may
+be a backend renaming, but subsequent source reads stay names. Image's scalar
+argument and runtime call are preceding actions; its returned value is the
+buffer slice. A concat returns a retained operand, a fresh result name, or a
+slice of that result name. The secondary-stack result is also an ordinary
+backend-renamed name. Parentheses add no node. No author slice, general
+String-returning call or String conditional is admitted.
+
+Every directly generated slice base is a mutable Image buffer or concat
+result object. Side_Effect_Free with Variable_Ref=True therefore rejects a
+slice view, independently of whether its current scalar bounds are pure:
+Safe_Prefixed_Reference checks that mutable base. There is no macro-renaming
+exception. Thus Force_Evaluation of a scalar bound containing First/Last of
+such a slice captures the entire scalar bound, leaving a constant name.
+A pure bound that survives can contain First/Last only of an ordinary name
+view (a two-node attribute), or the more conservative three-node attribute
+of a pure constant-pointer dereference. The latter allowance also covers
+the specified input helper, although later String atoms do not need it.
+
+Slice resolution performs this forcing before creating the slice's owned
+index range (`sem_res.adb:11983–12001,13127–13150`). Generated scalar if
+expressions may acquire arm actions during first child analysis; native
+expansion wraps those actions before returning. Such an exposed nonempty
+expression-with-actions is not side-effect-free and is captured too
+(`exp_ch4.adb:6497–6553`, `exp_util.adb:14561–14566`). The elementary
+Remove_Side_Effects branch still has the five-node transfer for an already
+analyzed scalar root containing actions: relocation moves the entire
+initializer, and later Analyze/Resolve return without processing its children.
+Capturing removes those owned declarations from the returned bound-copy
+shape; it does not erase their cumulative allocation costs. Empty wrappers
+are removed by native expansion. No expression action or owned entity/type
+remains within the normalized bound itself.
+
+Known bound copying has another useful source-level simplification:
+Compile_Time_Known_Value accepts, for these Integer bounds, only a current
+integer literal or constant entity name whose value is recursively known
+(`sem_eval.adb:1812–1918`). It does not accept an arbitrary arithmetic or if
+tree. Copying a known Type_Low_Bound is consequently one current syntax node,
+regardless of the size of its constant's initializer graph.
+
+Standard String uses Ityp=Artyp=Standard Integer, so To_Artyp/To_Ityp do not
+add conversions. The two explicit last-bound Convert_To calls can add two
+syntax nodes each (`exp_ch4.adb:2727–2761,2821–2824,2994–3007`). The pure
+surviving bound grammar therefore has these conservative bounds:
+
+| Current normalized component | Ordinary nodes | Syntax lists |
+| --- | ---: | ---: |
+| Ordinary operand lower bound | 3 | 0 |
+| Last operand First/Last including explicit conversion | 5 | 0 |
+| Selected low before null selection | 3 | 0 |
+| High before null selection: low + (aggregate - 1) | 7 | 0 |
+| Low after optional null-result if | 12 | 1 |
+| High after optional null-result if | 16 | 1 |
+| Result bound pair | 28 | 2 |
+| Assignment low: result low + previous aggregate | 14 | 1 |
+| Assignment high: result low + (aggregate - 1) | 16 | 1 |
+| Common slice range including range node | 31 | 2 |
+
+The selected-low row does not grow with concat arity: Get_Known_Bound
+captures its entire n-deep conditional spine whenever its root remains an
+if expression. Otherwise it returns one operand lower bound
+(`exp_ch4.adb:3176–3228`). The remaining arithmetic and null selectors add
+only their explicit nodes. Any embedded nonpure view causes capture and
+reduces these normalized bounds further. Integer Image's leaf-bound range
+is smaller. This is a structural induction on direct nested String
+expressions; declared String names do not recursively unfold their prior
+initializer views.
+
+A common view consequently has at most **34 current ordinary syntax nodes**
+(one slice, a conservative two-node base, and a 31-node range), two bound
+expression lists and exactly the slice's two owned subtype entities. Its
+owned array index adds one occurrence and one list, and its scalar index
+range copies at most31 nodes/two lists. The decorated-copy transfer gives:
+
+```text
+ordinary nodes       66
+entities/names       2
+syntax lists         5
+pending Elist headers 1
+pending elements     2
+hash wrappers        3
+Uint/String values   0.
+```
+
+Copying a First/Last/Length attribute with that view as prefix adds one
+ordinary node: **67** without a dimension argument. Source names and
+literals, the smaller Image view, and a concat's nonslice result fit the
+same envelope. Source names have no owned local type merely because their
+external nominal subtype is generated.
+
+These are normalized copy sizes. The emitter can copy a low-bound expression
+before first normalization; such a temporary may still contain an incoming
+view. The scalar constructor counts above therefore do not alone price
+every direct copy site. Nor do they bound the initializer graph A: captured
+length/low-bound constants can still form a source-dependent DAG. Caller
+copies before first resolution, compilation-wide invocation counts, enabled
+slice checks, runtime dependencies and backend costs remain separate.
+
+`derive.py` checks the component additions, the 66/67-node decorated totals,
+and the pinned macro-flag setter inventory. This replaces the uncommitted
+exponential value recurrence: declaration-name substitution is not the native
+behavior for this grammar.
 
 ## Required transitive closure
 
