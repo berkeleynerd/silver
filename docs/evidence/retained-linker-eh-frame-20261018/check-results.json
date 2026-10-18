@@ -1,0 +1,15 @@
+{
+  "scope": "Conditional EH-frame editing and header transfer, not whole link",
+  "source_files_checked": 8,
+  "LP64_entry_metadata_bytes": 48,
+  "LP64_one_entry_section_metadata_bytes": 64,
+  "LP64_CIE_record_bytes": 136,
+  "entry_local_byte_bound": "B+11E+3",
+  "cross_input_sufficient_condition": "B+11E+A+2 <= 2^32-1",
+  "header_fde_count_limit": 536870911,
+  "header_byte_bound_at_limit": 4294967300,
+  "search_array_bytes_at_limit": 12884901864,
+  "CIE_hash_prime_bound": 2147483647,
+  "whole_link_capacity_or_relocation_reach_established": false,
+  "native_tool_executions": 0
+}

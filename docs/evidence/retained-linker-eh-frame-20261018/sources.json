@@ -1,0 +1,55 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "archive_sha256": "c62bf38d465e0ddba3275e3255cfe1409cb3077e3fa16b5edf2229432c3fa4e6",
+  "files": [
+    {
+      "path": "bfd/elf-eh-frame.c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf-eh-frame.c",
+      "bytes": 75506,
+      "sha256": "4eb5169450ed408e0b8f424c49244fdf30c1c8a0faf3d8a619454dd24f24d7a8"
+    },
+    {
+      "path": "bfd/elf-bfd.h",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf-bfd.h",
+      "bytes": 131475,
+      "sha256": "18db387647db3b40525fc6f3b11aead9d7f5ca02b15df3168d29456dc16ab000",
+      "reused": "retained-linker-capacity-20261018"
+    },
+    {
+      "path": "bfd/elflink.c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elflink.c",
+      "bytes": 465443,
+      "sha256": "a858262487306c300cc30b019dadad4431ca7bad348946b1d228778d532f1be1"
+    },
+    {
+      "path": "ld/emultempl/elf.em",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/emultempl/elf.em",
+      "bytes": 39397,
+      "sha256": "6788f41572efeb56e9c39f7b07a793952824e13b7f82f5ed03e351a43f77df8f"
+    },
+    {
+      "path": "ld/emultempl/elf-x86.em",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/emultempl/elf-x86.em",
+      "bytes": 1568,
+      "sha256": "eb6dc4962a5f4f347aec1028fae7fca3a929fb90882163b7474c20bfa893b8f3"
+    },
+    {
+      "path": "ld/ldlang.c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/ld/ldlang.c",
+      "bytes": 312082,
+      "sha256": "51346229cbadc7415e3040cab429747edb810358fc4782fe65c47756bfd77b43"
+    },
+    {
+      "path": "libiberty/hashtab.c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/libiberty/hashtab.c",
+      "bytes": 29804,
+      "sha256": "fd1f80771bb0317dc96e396010db33c99116eaa921f0dd39b2171c56a9f5ac6f"
+    },
+    {
+      "path": "include/hashtab.h",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/hashtab.h",
+      "bytes": 7402,
+      "sha256": "4b966cdb947821a84b599e492da3afa8d3de47723fc23f9255c272b84ff50de5"
+    }
+  ]
+}

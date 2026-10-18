@@ -13,6 +13,12 @@ The [current language](../../language.md) remains authoritative. The earlier
 [research result](frontend-representation-result.md) retains its technical facts;
 its preferred ownership route is superseded by the owner's decision.
 
+The orchestration investigation also found a current-language defect:
+[#123](https://github.com/berkeleynerd/silver/issues/123), an admitted CR-ended
+comment can make GPR2 misread Main's unit name and stop GNATprove. A separate
+same-source generated-project repair is in progress. The conditional component
+arguments below do not establish successful execution of that broken route.
+
 ## Inputs and required conclusion
 
 The proposed capacity analysis takes the authoritative source bytes, their
@@ -146,8 +152,11 @@ instruction encodings to that 26-byte bound, charges optional SFrame and GNU
 property output, and composes the complete unit directives, optional build
 note and final fragments. At the selected 29-byte compiler identifier, payload
 is at most 420 bytes and fragment allocations at most 924, including the two
-static ABS/UND startup chains. These are separate from ELF file size;
-symbol/fixup storage, object and layout joins remain.
+static ABS/UND startup chains. The symbol/fixup transfer bounds88 GAS symbol
+objects,102 BFD symbol allocations and281 relocation-pointer slots. The
+[ELF object transfer](retained-elf-object-capacity.md) then bounds22 section
+headers,98 serialized symbol entries and14,352 complete object-file bytes.
+Remaining assembler backing, binder objects and final link layout are separate.
 
 The [fixed-setup witness assessment](retained-native-expansion.md#fixed-gcc-initialization-witness-boundary-and-counter-requirements)
 identifies a one-time capture boundary before Main translation and
@@ -227,9 +236,14 @@ accounting, not additional capacity predicates. The real function startup adds
 fourteen disjoint GGC events; the selected chain/pattern/frame constructors
 add 78, including cold sequence and frame-hash storage. Non-chain CFI adds
 43, including the initial return-address MEM and copied row-save vectors.
-Target frame-layout helpers add no allocation on this path. Remaining
-metadata/translation, generic RTL helpers and unit-emission events stay explicit in
-the native expansion record.
+Target frame-layout helpers add no allocation on this path. Out-of-SSA,
+ranger and CFG backing now contributes100 further GGC events; ranger setup
+uses ordinary storage and its Boolean ranges remain inline. Remaining
+metadata/translation, pass-manager/shared state and unit-emission events stay
+explicit in the native expansion record. The
+[unwind sizing transfer](retained-linker-eh-frame.md) bounds conditional input
+editing and header/CIE storage, including narrower32-bit intermediates;
+emitted-field validity and final relocation reach remain separate obligations.
 
 The [diagnostic-string transfer](retained-producer-diagnostic-strings.md) joins
 selected prover answers and consecutive-answer warnings to raw solver-output
@@ -254,8 +268,11 @@ This corrects the earlier native-only System exclusion; the retained fixed
 frontend/Why witnesses already included those roots. Configuration and ordinary
 report consumers remain bounded separately. The [generic ALI transfer](retained-producer-ali.md)
 prices Main/System writer and reader records, source xrefs, parser tables and
-recursive Text_IO line objects. Actual GPR compilation switches and naming
-configuration remain explicit inputs to that conditional result.
+recursive Text_IO line objects. The [GPR descriptor](retained-producer-gpr-descriptor.md)
+joins the current production project's switches and temporary naming input:
+789-byte records and29,622,766 ALI bytes bound this selected writer route.
+The indexed naming candidate for #123 requires an updated descriptor before
+those numbers can apply to the repair.
 The unconditional [SARIF/VSS transfer](retained-producer-sarif-capacity.md)
 prices 167 fixed rules and streaming output despite the empty result vector.
 The native data-representation writer emits exactly four bytes for null, with
@@ -266,8 +283,8 @@ prices two source-option rows, 26 phase-2 arguments and the fixed why3.conf
 writer. GNATprove starts the [idle C why3server](retained-idle-why3server-capacity.md)
 unconditionally even though null starts no gnatwhy3 or solver client. Its
 worker/socket representation conditions and fixed container requests are now
-explicit; libc/kernel services retain the existing trusted boundary. Non-GG
-ALI and remaining orchestration joins are still separate; null closure would
+explicit; libc/kernel services retain the existing trusted boundary. Remaining
+orchestration and native data-representation joins are separate; null closure would
 not complete the broader design.
 
 These are source-derived components with their own premises and review scope.
