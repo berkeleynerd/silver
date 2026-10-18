@@ -1022,6 +1022,59 @@ one executable list location. Proof-domain translation multiplicity and the
 proof-mode exclusion of transient scopes/itype-reference replay remain the
 producer component's separate obligations.
 
+### Generated Integer addition and subtraction
+
+One generated binary `+` or `-` has a small closed local semantic transfer
+when its operands have already been analyzed/resolved to the same frozen
+Standard Integer base, are nonoverloaded, and any constant-folded intermediate
+fits Integer. There are no operand errors, pending overflow flags, dimensions,
+modular/real/user-defined operators, transient wrapping, or applicable unset-
+reference diagnostics. The generated node uses the normal `Make_Op_Add` or
+`Make_Op_Subtract` constructor; all checks are suppressed throughout its
+analysis/resolution. Input syntax and child transfers have been charged.
+
+Its additional cost is at most **two ordinary nodes, one growing-slot event
+and two Uint appends**, with no entity, overload-table entry, list, name or
+String allocation. Uint magnitudes are bounded by the maximum of the existing
+operand magnitudes and their sum; use the preceding addition/subtraction
+digit and local-vector transfers. A nonfolded, nonzero-identity operation
+adds nothing under these premises.
+
+`Make_Op_*` already sets the Standard operator entity, so
+`Analyze_Arithmetic_Op` selects one operand-type pair without searching
+visible homonyms (`gen_il-gen.adb:2659–2693`, `sem_ch4.adb:931–989,
+6691–6793,7143–7202`). Its one interpretation is stored in the node;
+`Operator_Check` has no abstract/error route. Resolution selects the Integer
+base and reuses its operands. Artificial Standard operators create no xref
+entry (`sem_res.adb:6149–6324`, `lib-xref.adb:275–317`). Staticness and
+nonstatic-context checks either return or compare existing values
+(`sem_eval.adb:7166–7351,478–658`). Folding performs one add or subtraction,
+then `Fold_Uint`: one literal plus at most one saved original-node copy and
+one growing-slot event (`sem_eval.adb:1985–2109,5150–5222`). It introduces no
+secondary type or name. The no-overflow premise excludes the diagnostic
+branch even though runtime checks are suppressed.
+
+With a surviving arithmetic node, suppression prevents
+`Enable_Overflow_Check` (`sem_res.adb:6323–6326`). Native expansion's strict
+overflow helper returns for the clear flag; validity-operand checking is
+disabled. The only applicable optimization is `X+0`, `0+X` or `X-0`, which
+rewrites to the existing operand and costs at most one saved original and one
+growing event. Integer excludes universal narrowing, fixed/real and modular
+expansion (`exp_ch4.adb:7918–7976,10678–10728`,
+`checks.adb:756–814`). Frozen types and ordinary context exclude freeze or
+transient additions in the common Resolve epilogue.
+
+The direct concat emitter creates at most **4*n+1** such operator nodes:
+`n-1` aggregate additions, two high-bound operations, and three slice-endpoint
+operations per operand (`exp_ch4.adb:3078–3099,3246–3252,3553–3563`). For one
+initial analysis of those nodes **when all the local premises hold**, their
+extra envelope is therefore `8*n+2` ordinary nodes, `4*n+1` growing events
+and `8*n+2` Uint appends. The aggregate and slice insertions suppress checks;
+the plain-storage high-bound analysis keeps checks enabled and needs its
+separate route. Copied/reanalyzed operators and first analysis of attribute,
+conditional or other leaf operands are additional. This count is not a claim
+that every generated operator is analyzed exactly once in the compilation.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
