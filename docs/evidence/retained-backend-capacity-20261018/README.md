@@ -3,7 +3,7 @@
 Supports the [location, String and constant-pool derivation](../../research/retained-backend-capacity.md)
 for #119. No compiler, GNATprove, Lean, suite or near-limit allocation was run.
 
-`source-manifest.json` identifies twenty-one complete GCC source files at
+`source-manifest.json` identifies twenty-two complete GCC source files at
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. Six newly retrieved files are retained
 in `new-sources.tar.gz`; their immutable retrieval URLs are in the manifest.
 The three additional allocator sources are in `allocator-sources.tar.gz`;

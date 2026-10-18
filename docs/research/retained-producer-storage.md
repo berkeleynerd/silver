@@ -267,8 +267,11 @@ The global-maximum envelope may be unnecessarily restrictive for many short
 builtin names plus one long source name. Compare those alternatives when
 selecting the whole capacity predicate; this research does not adopt the
 coarser rule as language membership. Generated-name/comment/filename bounds,
-serialized numeric bounds and the complete per-file occurrence count must
-still supply `u`, `d` and `O_k` from the source and configuration.
+the complete per-file occurrence count and fixed numeric contribution must
+still supply `u`, `d` and `O_k` from the source and configuration. The
+[numeric construction argument](retained-producer-numerics.md) supplies
+`d_Main=11` and the composition `d=max(11,d_fixed)`; it does not bound the
+separate scanner powers or their temporary allocations.
 
 Without a new producer run, the checker reconstructed all five retained fixed
 library JSON files **byte for byte**, including native image whitespace,

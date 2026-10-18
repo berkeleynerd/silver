@@ -2906,9 +2906,9 @@ intentionally charged again. `U_Why <= F_Why` supplies a conservative
 cardinality bound too; compare each quantity to its separate representable
 endpoint. This measurement argument closes **Why-pool calls**; the preceding
 Common argument instead uses source structure and retained metadata domains.
-The sum of the five full Common witness counts is 13,398, but it is only a
-retained observation until the metadata-load/source-multiplicity connection is
-established. Subtracting their differing pre-Standard counts would be unsound.
+The sum of the five full Common witness counts is 13,398. It remains an
+observation, distinct from the preceding source-derived request bound.
+Subtracting their differing pre-Standard counts would be unsound.
 
 The length maxima in the table likewise remain observations of the actual
 inputs. A universal string allowance must cover source name lengths, changed

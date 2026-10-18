@@ -1,0 +1,4112 @@
+{
+  "body_calls": [
+    {
+      "file": "src/why/gnat2why-decls.adb",
+      "line": 413,
+      "enclosing_entity": "Gnat2Why.Decls.Translate_Exceptions",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (V)"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 1500,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Generate_VCs_For_Aggregate_Annotation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 1514,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Generate_VCs_For_Aggregate_Annotation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 1702,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Generate_VCs_For_Aggregate_Annotation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 1795,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Generate_VCs_For_Aggregate_Annotation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 1886,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Generate_VCs_For_Aggregate_Annotation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 2217,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Generate_VCs_For_Aggregate_Annotation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 2231,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Generate_VCs_For_Aggregate_Annotation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 2464,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Generate_VCs_For_Aggregate_Annotation",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_0, Typ => Get_Typ (Opt_Capacity)"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 2517,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Generate_VCs_For_Aggregate_Annotation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 3111,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Container_Aggregate.Compute_Aggregate_Def",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 3121,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Container_Aggregate.Compute_Aggregate_Def",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (Length)"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 3135,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Container_Aggregate.Compute_Aggregate_Def",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (Length)"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 3459,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Container_Aggregate.Compute_Aggregate_Def",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (Length)"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 3472,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Container_Aggregate.Compute_Aggregate_Def",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (Length)"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 3519,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Container_Aggregate.Compute_Aggregate_Def",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (I)"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 3545,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Container_Aggregate.Compute_Aggregate_Def",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 3635,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Container_Aggregate.Compute_Aggregate_Def",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (Length)"
+    },
+    {
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 3669,
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Container_Aggregate.Compute_Aggregate_Def",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (Length)"
+    },
+    {
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 224,
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Check_Loop_Variant",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 1481,
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Transform_Loop_Statement.Construct_Update_Stmt",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Ada_Node => Stmt, Value => Uint_1, Typ => Loop_Index_Type"
+    },
+    {
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 1486,
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Transform_Loop_Statement.Construct_Update_Stmt",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Ada_Node => Stmt, Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 2091,
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Unroll_Loop.Repeat_Loop",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Cur_Val, Typ => Loop_Index_Type"
+    },
+    {
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 2093,
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Unroll_Loop.Repeat_Loop",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Cur_Val"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 4207,
+      "enclosing_entity": "Gnat2Why.Expr.Compute_Array_Component_Size",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Comp_Size"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 5200,
+      "enclosing_entity": "Gnat2Why.Expr.Compute_Default_Check.Compute_Default_Check_Rec",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Empty, Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 7916,
+      "enclosing_entity": "Gnat2Why.Expr.Compute_Record_Component_Size",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Comp_Size"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 8077,
+      "enclosing_entity": "Gnat2Why.Expr.Compute_Size_Of_Object",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Static_Size"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 8240,
+      "enclosing_entity": "Gnat2Why.Expr.Compute_Size_Of_Type",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Static_Size"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 11349,
+      "enclosing_entity": "Gnat2Why.Expr.Get_Variants_Exprs",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 11585,
+      "enclosing_entity": "Gnat2Why.Expr.Insert_Check_For_Size_Of_Overlays",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Static_Obj_Size"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 11589,
+      "enclosing_entity": "Gnat2Why.Expr.Insert_Check_For_Size_Of_Overlays",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Static_Overlaid_Size"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 16823,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Insert_Check_For_Choices.Insert_Checks",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => UI_From_Int (Nlists.List_Length (Positionals) - 1), Typ => Index_Base"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 17004,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Insert_Check_For_Choices.Insert_Checks",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_0, Typ => Index_Base"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 17613,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Transform_Array_Component_Associations.Constrain_Value_At_Index",
+      "constructor": "New_Range_Constant",
+      "arguments": "Value => Expr_Value (Subexpr), Typ => EW_Abstract (Comp_Type)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 17619,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Transform_Array_Component_Associations.Constrain_Value_At_Index",
+      "constructor": "New_Range_Constant",
+      "arguments": "Value => Expr_Value (Subexpr), Typ => EW_Abstract (Comp_Type)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 17780,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Transform_Array_Component_Associations.Select_Nth_Index",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Expr_Value (Low) + UI_From_Int (Offset), Typ => Typ"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 17791,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Transform_Array_Component_Associations.Select_Nth_Index",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => UI_From_Int (Offset), Typ => Typ"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 18619,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Comparison",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 18804,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Logical_Op",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 18831,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Logical_Op",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_1, Typ => Index_Type"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 18965,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Negation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 19751,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Attr",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 19753,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Attr",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Typ => W_Type, Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 19787,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Attr",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 19792,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Attr",
+      "constructor": "New_Fixed_Constant",
+      "arguments": "Value => Uint_1, Typ => W_Type"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 19986,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Attr",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_0, Typ => Typ"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 19994,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Attr",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => UI_Sub (Modulus (Index_Rng), Uint_1), Typ => Typ"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 20286,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Attr",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Max_Size_Of_Img_Attr (Retysp (Etype (Var)))"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 20677,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Attr",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Align, Typ => W_Typ"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 20681,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Attr",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_0, Typ => W_Typ"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 20749,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Attr",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Attr_Value"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 22026,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Concatenation.Build_Last_Expr",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_1, Typ => EW_Int_Type"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 22063,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Concatenation.Build_Last_No_Slide",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_1, Typ => Typ"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 22308,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Concatenation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 22806,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Declaration",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Align, Typ => W_Typ"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 22810,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Declaration",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_0, Typ => W_Typ"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 23709,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Expr",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Expr_Value (Expr), Typ => Base_Why_Type (Expr_Type)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 23948,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Expr",
+      "constructor": "New_Fixed_Constant",
+      "arguments": "Ada_Node => Expr, Value => Corresponding_Integer_Value (Expr), Typ => Base_Why_Type (Expr_Type)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 23959,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Expr",
+      "constructor": "New_Real_Constant",
+      "arguments": "Ada_Node => Expr, Value => Realval (Expr)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 23964,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Expr",
+      "constructor": "New_Float_Constant",
+      "arguments": "Ada_Node => Expr, Value => Realval (Expr), Typ => (if Has_Single_Precision_Floating_Point_Type (Expr_Type) then EW_Float_32_Type elsif Has_Double_Precision_Floating_Point_Type (Expr_Type) then EW_Float_64_Type elsif Has_Extended_Precision_Floating_Point_Type (Expr_Type) then EW_Float_80_Type else raise Program_Error)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 23982,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Expr",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Ada_Node => Expr, Value => Char_Literal_Value (Expr)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 24272,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Expr",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Ada_Node => Expr, Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 24275,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Expr",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Ada_Node => Expr, Value => Uint_1, Typ => Base_Type"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 24281,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Expr",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Ada_Node => Expr, Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 24387,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Expr",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_1, Typ => Base_Type"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 24414,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Expr",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_0, Typ => Base_Type"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 29180,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Shift_Or_Rotate_Call",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Nb_Of_Buits_UI"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 29190,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Shift_Or_Rotate_Call",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_0, Typ => Typ"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 29217,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Shift_Or_Rotate_Call",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Object_Size (Etype (Subp))"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 30339,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_String_Literal",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Expr_Value (Low) + Offset, Typ => B_Ty"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 30347,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_String_Literal",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Offset, Typ => B_Ty"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 30353,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_String_Literal",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_CC (Get_String_Char (Str_Value, I))"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 30385,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_String_Literal",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_1, Typ => B_Ty"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 30393,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_String_Literal",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => UI_From_Int (Length - 1), Typ => B_Ty"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 30545,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_String_Literal",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Expr_Value (Low), Typ => B_Ty"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 30581,
+      "enclosing_entity": "Gnat2Why.Expr.Transform_String_Literal",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => UI_From_Int (Length - 1), Typ => B_Ty"
+    },
+    {
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 788,
+      "enclosing_entity": "Gnat2Why.Subprograms.Check_Ceiling_Protocol.Create_Check",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (Obj_Prio.Value)"
+    },
+    {
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 2274,
+      "enclosing_entity": "Gnat2Why.Subprograms.Compute_Cases_Entry_Checks",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 2317,
+      "enclosing_entity": "Gnat2Why.Subprograms.Compute_Cases_Entry_Checks",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 2318,
+      "enclosing_entity": "Gnat2Why.Subprograms.Compute_Cases_Entry_Checks",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 2351,
+      "enclosing_entity": "Gnat2Why.Subprograms.Compute_Cases_Entry_Checks",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 2370,
+      "enclosing_entity": "Gnat2Why.Subprograms.Compute_Cases_Entry_Checks",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 5988,
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_VCs_For_Subprogram",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 501,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Contribute_Value",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_1, Typ => Base"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 503,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Contribute_Value",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_0, Typ => Base"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 537,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Contribute_Value",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_2 ** Size - Uint_1, Typ => Base"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 550,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Contribute_Value",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_2 ** Offset, Typ => Base"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 564,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Expr_Index",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Idx, Typ => Base_Why_Type_No_Bool (Index_Typ)"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 567,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Expr_Index",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Idx"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 583,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Extract_Value",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_2 ** (Offset + Size) - Uint_1, Typ => Base"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 586,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Extract_Value",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_2 ** Offset, Typ => Base"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 614,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Extract_Value",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_1, Typ => Base"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 629,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Extract_Value",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_0, Typ => Base"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 637,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Extract_Value",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_1, Typ => Base"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 672,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Extract_Value",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_2 ** (Size - Uint_1), Typ => Base"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 685,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC.Extract_Value",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => 2 ** Size"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 990,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Composite_UC",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_0, Typ => Base"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 1114,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Integer_UC",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_2 ** (Size - Uint_1)"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 1121,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Integer_UC",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => 2 ** Size"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 1146,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Integer_UC",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => 2 ** Size"
+    },
+    {
+      "file": "src/why/gnat2why-unchecked_conversion.adb",
+      "line": 1154,
+      "enclosing_entity": "Gnat2Why.Unchecked_Conversion.Precise_Integer_UC",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/gnat2why-util.adb",
+      "line": 800,
+      "enclosing_entity": "Gnat2Why.Util.Create_Zero_Binding",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_0, Typ => Get_Type (+V)"
+    },
+    {
+      "file": "src/why/why-gen-arrays.adb",
+      "line": 566,
+      "enclosing_entity": "Why.Gen.Arrays.Build_Length_Expr",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_1, Typ => Typ"
+    },
+    {
+      "file": "src/why/why-gen-arrays.adb",
+      "line": 574,
+      "enclosing_entity": "Why.Gen.Arrays.Build_Length_Expr",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_0, Typ => Typ"
+    },
+    {
+      "file": "src/why/why-gen-arrays.adb",
+      "line": 1709,
+      "enclosing_entity": "Why.Gen.Arrays.Declare_Additional_Symbols_For_String",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/why-gen-arrays.adb",
+      "line": 1731,
+      "enclosing_entity": "Why.Gen.Arrays.Declare_Additional_Symbols_For_String",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_1, Typ => EW_Int_Type"
+    },
+    {
+      "file": "src/why/why-gen-arrays.adb",
+      "line": 2565,
+      "enclosing_entity": "Why.Gen.Arrays.Declare_Constrained.Declare_Attribute",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Value, Typ => Typ"
+    },
+    {
+      "file": "src/why/why-gen-arrays.adb",
+      "line": 2839,
+      "enclosing_entity": "Why.Gen.Arrays.Get_Array_Attr",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Static_Array_Length (Ty, Dim), Typ => Typ"
+    },
+    {
+      "file": "src/why/why-gen-arrays.adb",
+      "line": 3872,
+      "enclosing_entity": "Why.Gen.Arrays.Prepare_Indexes_Substitutions",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_1, Typ => WTyp"
+    },
+    {
+      "file": "src/why/why-gen-arrays.adb",
+      "line": 3873,
+      "enclosing_entity": "Why.Gen.Arrays.Prepare_Indexes_Substitutions",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 177,
+      "enclosing_entity": "Why.Gen.Expr.Apply_Modulus",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Modulus_Val"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 205,
+      "enclosing_entity": "Why.Gen.Expr.Apply_Modulus",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 207,
+      "enclosing_entity": "Why.Gen.Expr.Apply_Modulus",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Modulus_Val"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 235,
+      "enclosing_entity": "Why.Gen.Expr.Apply_Modulus",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Modulus_Val"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 269,
+      "enclosing_entity": "Why.Gen.Expr.Apply_Modulus",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Modulus_Val, Typ => BV_Type"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 450,
+      "enclosing_entity": "Why.Gen.Expr.Check_No_Wrap_Around_Modular_Operation",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_0, Typ => Rep_Type"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 531,
+      "enclosing_entity": "Why.Gen.Expr.Check_No_Wrap_Around_Modular_Operation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 536,
+      "enclosing_entity": "Why.Gen.Expr.Check_No_Wrap_Around_Modular_Operation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_1"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 542,
+      "enclosing_entity": "Why.Gen.Expr.Check_No_Wrap_Around_Modular_Operation",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_0, Typ => Rep_Type"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 549,
+      "enclosing_entity": "Why.Gen.Expr.Check_No_Wrap_Around_Modular_Operation",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Uint_1, Typ => Rep_Type"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 566,
+      "enclosing_entity": "Why.Gen.Expr.Check_No_Wrap_Around_Modular_Operation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (Int (Expon))"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 573,
+      "enclosing_entity": "Why.Gen.Expr.Check_No_Wrap_Around_Modular_Operation",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Nth_Roots (Expon), Typ => Rep_Type"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 586,
+      "enclosing_entity": "Why.Gen.Expr.Check_No_Wrap_Around_Modular_Operation",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Modulus, Typ => Rep_Type"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 640,
+      "enclosing_entity": "Why.Gen.Expr.Check_No_Wrap_Around_Modular_Operation",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Modulus, Typ => Next_Bv"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 1286,
+      "enclosing_entity": "Why.Gen.Expr.Insert_Array_Conversion",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_1, Typ => EW_Int_Type"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 2716,
+      "enclosing_entity": "Why.Gen.Expr.Insert_Scalar_Conversion",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Uint_1, Typ => EW_Int_Type"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 3025,
+      "enclosing_entity": "Why.Gen.Expr.Insert_Single_Conversion",
+      "constructor": "New_Range_Constant",
+      "arguments": "Ada_Node => Get_Ada_Node (+Expr), Value => Get_Value (W_Integer_Constant_Id (Current)), Typ => To"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 3679,
+      "enclosing_entity": "Why.Gen.Expr.New_Attribute_Expr",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Expr_Value (String_Literal_Low_Bound (Ty)), Typ => BT"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 3685,
+      "enclosing_entity": "Why.Gen.Expr.New_Attribute_Expr",
+      "constructor": "New_Discrete_Constant",
+      "arguments": "Value => Expr_Value (String_Literal_Low_Bound (Ty)) + String_Literal_Length (Ty) - 1, Typ => BT"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 4201,
+      "enclosing_entity": "Why.Gen.Expr.New_Binary_Op_Expr",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 4499,
+      "enclosing_entity": "Why.Gen.Expr",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Ada_Node, Value, Typ"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 4500,
+      "enclosing_entity": "Why.Gen.Expr",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Ada_Node, Value"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 5627,
+      "enclosing_entity": "Why.Gen.Expr.Transform_Non_Binary_Modular_Operation",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Modulus, Typ => Rep_Type"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 5655,
+      "enclosing_entity": "Why.Gen.Expr.Transform_Non_Binary_Modular_Operation",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Modulus, Typ => Rep_Type"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 5711,
+      "enclosing_entity": "Why.Gen.Expr.Transform_Non_Binary_Modular_Operation",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Modulus, Typ => Rep_Type"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 5777,
+      "enclosing_entity": "Why.Gen.Expr.Transform_Non_Binary_Modular_Operation",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Modulus, Typ => Next_Bv"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 5814,
+      "enclosing_entity": "Why.Gen.Expr.Transform_Non_Binary_Modular_Operation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Modulus"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 225,
+      "enclosing_entity": "Why.Gen.Hardcoded.Emit_Hardcoded_Type_Declaration",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Num (Time_Unit)"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 227,
+      "enclosing_entity": "Why.Gen.Hardcoded.Emit_Hardcoded_Type_Declaration",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Den (Time_Unit)"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 243,
+      "enclosing_entity": "Why.Gen.Hardcoded.Emit_Hardcoded_Type_Declaration",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Num (D_Small)"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 245,
+      "enclosing_entity": "Why.Gen.Hardcoded.Emit_Hardcoded_Type_Declaration",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Den (D_Small)"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 394,
+      "enclosing_entity": "Why.Gen.Hardcoded.Hardcoded_Constant_Value",
+      "constructor": "New_Fixed_Constant",
+      "arguments": "Value => Uint_0, Typ => Real_Time_Module.T"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 398,
+      "enclosing_entity": "Why.Gen.Hardcoded.Hardcoded_Constant_Value",
+      "constructor": "New_Fixed_Constant",
+      "arguments": "Value => Uint_1, Typ => Real_Time_Module.T"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 1121,
+      "enclosing_entity": "Why.Gen.Hardcoded.Transform_Hardcoded_Function_Call",
+      "constructor": "New_Real_Constant",
+      "arguments": "Ada_Node => Ada_Node, Value => Small_Value (From_Ty)"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 1353,
+      "enclosing_entity": "Why.Gen.Hardcoded.Transform_Hardcoded_Function_Call",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => N"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 1354,
+      "enclosing_entity": "Why.Gen.Hardcoded.Transform_Hardcoded_Function_Call",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => D"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 1592,
+      "enclosing_entity": "Why.Gen.Hardcoded.Transform_Hardcoded_Literal.Transform_Quotient_Of_Strings",
+      "constructor": "New_Real_Constant",
+      "arguments": "Ada_Node => Num_Node, Value => UR_From_Uint (Num_Val)"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 1595,
+      "enclosing_entity": "Why.Gen.Hardcoded.Transform_Hardcoded_Literal.Transform_Quotient_Of_Strings",
+      "constructor": "New_Real_Constant",
+      "arguments": "Ada_Node => Den_Node, Value => UR_From_Uint (Den_Val)"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 1677,
+      "enclosing_entity": "Why.Gen.Hardcoded.Transform_Hardcoded_Literal",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Ada_Node => String_Literal, Value => UI_Val"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 1793,
+      "enclosing_entity": "Why.Gen.Hardcoded.Transform_Hardcoded_Literal",
+      "constructor": "New_Real_Constant",
+      "arguments": "Ada_Node => String_Literal, Value => UR_From_Uint (Num)"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 1797,
+      "enclosing_entity": "Why.Gen.Hardcoded.Transform_Hardcoded_Literal",
+      "constructor": "New_Real_Constant",
+      "arguments": "Ada_Node => String_Literal, Value => UR_From_Uint (Den)"
+    },
+    {
+      "file": "src/why/why-gen-hardcoded.adb",
+      "line": 1945,
+      "enclosing_entity": "Why.Gen.Hardcoded.Transform_Hardcoded_Operation",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/why-gen-records.adb",
+      "line": 602,
+      "enclosing_entity": "Why.Gen.Records.Create_Compatible_Tags_Theory.Generate_Axioms_For_Type",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (Tag_Representation.Get_Tag (Descendant))"
+    },
+    {
+      "file": "src/why/why-gen-records.adb",
+      "line": 608,
+      "enclosing_entity": "Why.Gen.Records.Create_Compatible_Tags_Theory.Generate_Axioms_For_Type",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (Tag_Representation.Get_Tag (E))"
+    },
+    {
+      "file": "src/why/why-gen-records.adb",
+      "line": 1661,
+      "enclosing_entity": "Why.Gen.Records.Declare_Ada_Record",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => UI_From_Int (Tag_Representation.Get_Tag (Base_Retysp (E)))"
+    },
+    {
+      "file": "src/why/why-gen-records.adb",
+      "line": 1743,
+      "enclosing_entity": "Why.Gen.Records.Declare_Attributes",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/why-gen-records.adb",
+      "line": 1886,
+      "enclosing_entity": "Why.Gen.Records.Declare_Component_Attributes.Declare_Attribute_For_Field",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Uint_0"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 131,
+      "enclosing_entity": "Why.Gen.Scalars.Create_Fixed_Point_Theory_If_Needed",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Num (Small)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 133,
+      "enclosing_entity": "Why.Gen.Scalars.Create_Fixed_Point_Theory_If_Needed",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Den (Small)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 250,
+      "enclosing_entity": "Why.Gen.Scalars.Create_Fixed_Point_Mult_Div_Theory_If_Needed",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Num (Small_L)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 252,
+      "enclosing_entity": "Why.Gen.Scalars.Create_Fixed_Point_Mult_Div_Theory_If_Needed",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Den (Small_L)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 261,
+      "enclosing_entity": "Why.Gen.Scalars.Create_Fixed_Point_Mult_Div_Theory_If_Needed",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Num (Small_R)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 263,
+      "enclosing_entity": "Why.Gen.Scalars.Create_Fixed_Point_Mult_Div_Theory_If_Needed",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Den (Small_R)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 272,
+      "enclosing_entity": "Why.Gen.Scalars.Create_Fixed_Point_Mult_Div_Theory_If_Needed",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Num (Small_Op)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 274,
+      "enclosing_entity": "Why.Gen.Scalars.Create_Fixed_Point_Mult_Div_Theory_If_Needed",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Den (Small_Op)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 855,
+      "enclosing_entity": "Why.Gen.Scalars.Declare_Scalar_Type",
+      "constructor": "New_Range_Type_Definition",
+      "arguments": "First => Expr_Value (Low_Bound (Rng)), Last => Expr_Value (High_Bound (Rng))"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 889,
+      "enclosing_entity": "Why.Gen.Scalars.Declare_Scalar_Type",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Expr_Value (Low_Bound (Rng))"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 902,
+      "enclosing_entity": "Why.Gen.Scalars.Declare_Scalar_Type",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Expr_Value (High_Bound (Rng))"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 958,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Enumeration_Rep_Convertions",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Enumeration_Rep (Lit)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 968,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Enumeration_Rep_Convertions",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Enumeration_Pos (Lit)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 993,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Enumeration_Rep_Convertions",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Enumeration_Rep (Lit)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 995,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Enumeration_Rep_Convertions",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Enumeration_Pos (Lit)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1013,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Enumeration_Rep_Convertions",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Enumeration_Rep (Lit)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1016,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Enumeration_Rep_Convertions",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Enumeration_Pos (Lit)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1029,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Enumeration_Rep_Convertions",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Enumeration_Rep (Lit)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1035,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Enumeration_Rep_Convertions",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Enumeration_Pos (Lit)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1148,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Scalar_Attributes",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Modulus_Val, Typ => EW_BitVector_8_Type"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1155,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Scalar_Attributes",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Modulus_Val, Typ => EW_BitVector_16_Type"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1162,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Scalar_Attributes",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Modulus_Val, Typ => EW_BitVector_32_Type"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1169,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Scalar_Attributes",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Modulus_Val, Typ => EW_BitVector_64_Type"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1176,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Scalar_Attributes",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Modulus_Val, Typ => EW_BitVector_128_Type"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1180,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Scalar_Attributes",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Modulus_Val"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1201,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Scalar_Attributes",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Num (Small)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1203,
+      "enclosing_entity": "Why.Gen.Scalars.Define_Scalar_Attributes",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Norm_Den (Small)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1552,
+      "enclosing_entity": "Why.Gen.Scalars.Num_Constant",
+      "constructor": "New_Modular_Constant",
+      "arguments": "Value => Expr_Value (N), Typ => Base_Why_Type (Ty)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1555,
+      "enclosing_entity": "Why.Gen.Scalars.Num_Constant",
+      "constructor": "New_Integer_Constant",
+      "arguments": "Value => Expr_Value (N)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1558,
+      "enclosing_entity": "Why.Gen.Scalars.Num_Constant",
+      "constructor": "New_Fixed_Constant",
+      "arguments": "Value => Expr_Value (N), Typ => Base_Why_Type (Ty)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1568,
+      "enclosing_entity": "Why.Gen.Scalars.Num_Constant",
+      "constructor": "New_Float_Constant",
+      "arguments": "Value => Expr_Value_R (N), Typ => Base_Why_Type (Ty)"
+    },
+    {
+      "file": "src/why/why-gen-scalars.adb",
+      "line": 1571,
+      "enclosing_entity": "Why.Gen.Scalars.Num_Constant",
+      "constructor": "New_Real_Constant",
+      "arguments": "Value => Expr_Value_R (N)"
+    }
+  ],
+  "spec_forwarders": [
+    [
+      "why-gen-expr.ads",
+      370
+    ],
+    [
+      "why-gen-expr.ads",
+      375
+    ]
+  ],
+  "counts": {
+    "New_Discrete_Constant": 31,
+    "New_Fixed_Constant": 5,
+    "New_Float_Constant": 2,
+    "New_Integer_Constant": 103,
+    "New_Modular_Constant": 38,
+    "New_Range_Constant": 3,
+    "New_Range_Type_Definition": 1,
+    "New_Real_Constant": 7
+  },
+  "main_decimal_image_bound": 11,
+  "scope": "Lexical inventory and arithmetic; manual caller proof in retained-producer-numerics.md",
+  "verified_source_archive": {
+    "archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+    "verified_complete_ada_files": 279,
+    "why_name_enum_cardinality": 160,
+    "module_kind_cardinality": 27,
+    "nid_call_sites": 671,
+    "lexical_enclosing_call_counts": {
+      "New_Axiom": 11,
+      "New_Comment": 30,
+      "New_Function_Decl": 2,
+      "New_Guarded_Axiom": 28,
+      "New_Identifier": 450,
+      "New_Label": 5,
+      "New_Meta_Declaration": 4,
+      "New_Module": 2,
+      "New_Name": 103,
+      "New_Namespace_Declaration": 3,
+      "New_Theory_Declaration": 1,
+      "other": 32
+    },
+    "nid_calls_by_file": {
+      "src/why/gnat2why-expr-aggregates.adb": [
+        {
+          "line": 3771,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3898,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 4036,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4383,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4502,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 5000,
+          "enclosing_new_call": "New_Identifier"
+        }
+      ],
+      "src/why/gnat2why-expr-loops.adb": [
+        {
+          "line": 1745,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 2137,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 2156,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 2221,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 2231,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 2240,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 2251,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 2285,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 2325,
+          "enclosing_new_call": "New_Comment"
+        }
+      ],
+      "src/why/gnat2why-expr.adb": [
+        {
+          "line": 7558,
+          "enclosing_new_call": "New_Label"
+        },
+        {
+          "line": 13280,
+          "enclosing_new_call": "New_Label"
+        },
+        {
+          "line": 16122,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 16260,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 18534,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 30472,
+          "enclosing_new_call": "New_Axiom"
+        },
+        {
+          "line": 30508,
+          "enclosing_new_call": "New_Axiom"
+        },
+        {
+          "line": 30525,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 31200,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 31257,
+          "enclosing_new_call": "New_Comment"
+        }
+      ],
+      "src/why/gnat2why-subprograms-pointers.adb": [
+        {
+          "line": 132,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 154,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 197,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 201,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 206,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 210,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 595,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 602,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 610,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 618,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 851,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 856,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1005,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1133,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1146,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1250,
+          "enclosing_new_call": null
+        }
+      ],
+      "src/why/gnat2why-subprograms.adb": [
+        {
+          "line": 3357,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 3656,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 3702,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 3749,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 3759,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 3804,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 3855,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 4605,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 4638,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 4706,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 5371,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 5394,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 5454,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 5509,
+          "enclosing_new_call": "New_Comment"
+        },
+        {
+          "line": 6615,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 6940,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 6975,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 7177,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 7410,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 7891,
+          "enclosing_new_call": "New_Label"
+        },
+        {
+          "line": 7990,
+          "enclosing_new_call": "New_Namespace_Declaration"
+        },
+        {
+          "line": 8105,
+          "enclosing_new_call": "New_Namespace_Declaration"
+        },
+        {
+          "line": 8165,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 8278,
+          "enclosing_new_call": "New_Namespace_Declaration"
+        },
+        {
+          "line": 8965,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        }
+      ],
+      "src/why/gnat2why-types.adb": [
+        {
+          "line": 608,
+          "enclosing_new_call": "New_Function_Decl"
+        },
+        {
+          "line": 836,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1065,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1401,
+          "enclosing_new_call": "New_Identifier"
+        }
+      ],
+      "src/why/gnat2why-unchecked_conversion.adb": [
+        {
+          "line": 180,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 1446,
+          "enclosing_new_call": "New_Module"
+        },
+        {
+          "line": 1492,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1574,
+          "enclosing_new_call": "New_Identifier"
+        }
+      ],
+      "src/why/gnat2why-util.adb": [
+        {
+          "line": 938,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 954,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 959,
+          "enclosing_new_call": null
+        }
+      ],
+      "src/why/why-atree-modules.adb": [
+        {
+          "line": 389,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 402,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 456,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 514,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 515,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 516,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 518,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 519,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 532,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 537,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 542,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 547,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 552,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 707,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 710,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 713,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 717,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 724,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 730,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 738,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 745,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 752,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 759,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 766,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 773,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 780,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 788,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 795,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 802,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 810,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 817,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 824,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 831,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 838,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 845,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 852,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 859,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 866,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 883,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 890,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 894,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 895,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 923,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 929,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 940,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 946,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 952,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 958,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 964,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 970,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 985,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 995,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1001,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1008,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1014,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1020,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1041,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1054,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1063,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1069,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1075,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1081,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1100,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1106,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1112,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1118,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1124,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1130,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1136,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1142,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1148,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1154,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1160,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1166,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1172,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1178,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1184,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1190,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1196,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1202,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1208,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1214,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1218,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1224,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1243,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1250,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1257,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1278,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1284,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1290,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1302,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1308,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1314,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1326,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1332,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1338,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1350,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1356,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1362,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1374,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1380,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1386,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1398,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1404,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1410,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1422,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1428,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1434,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1445,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1451,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1457,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1469,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1475,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1481,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1492,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1498,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1504,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1515,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1521,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1527,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1556,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1561,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1567,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1573,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1579,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1585,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1591,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1597,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1603,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1609,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1615,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1621,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1627,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1633,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1639,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1645,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1651,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1657,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1663,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1669,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1675,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1681,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1687,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1693,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1699,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1705,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1711,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1717,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1723,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1729,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1735,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1741,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1747,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1753,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1759,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1765,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1772,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1778,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1784,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1810,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1817,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1823,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1829,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1847,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1873,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1879,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1885,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1894,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1900,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1906,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1915,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1921,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1927,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1982,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1988,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1994,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2000,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2006,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2012,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2018,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2024,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2030,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2036,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2042,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2048,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2054,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2060,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2066,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2072,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2078,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2084,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2090,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2096,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2102,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2108,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2114,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2120,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2126,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2132,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2138,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2144,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2150,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2156,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2162,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2168,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2174,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2180,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2186,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2192,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2198,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2204,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2210,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2216,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2222,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2228,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2234,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2240,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2246,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2252,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2258,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2264,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2270,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2276,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2282,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2288,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2294,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2300,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2306,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2312,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2318,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2324,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2330,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2336,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2342,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2348,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2354,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2360,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2366,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2372,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2378,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2384,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2390,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2396,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2402,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2408,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2414,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2427,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2433,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2439,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2445,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2451,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2457,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2463,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2469,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2475,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2481,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2487,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2493,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2499,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2505,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2511,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2517,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2523,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2529,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2535,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2558,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2575,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2581,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2587,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2593,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2610,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2628,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2634,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2651,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2668,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2674,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2680,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2686,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2692,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2709,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2715,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2721,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2727,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2733,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2739,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2745,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2755,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 2756,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 2757,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 2758,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 2773,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2780,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2785,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2790,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2796,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2799,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2801,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2803,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2809,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2828,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2846,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2864,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2870,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2887,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2893,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2899,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2905,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2911,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2917,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2923,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2940,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2957,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2963,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2966,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2971,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2977,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 2983,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3081,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3089,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3097,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3121,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3133,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3146,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3157,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3168,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3198,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3217,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3236,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3245,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3254,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3262,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3275,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3285,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3307,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3316,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3325,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3334,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3342,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3362,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3371,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3380,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3422,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3436,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3449,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3458,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3468,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3479,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3490,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3499,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3510,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3518,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3525,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3533,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3543,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3550,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3559,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3566,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3573,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3611,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3625,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3633,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3650,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3666,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3674,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3687,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3705,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3715,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3735,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3753,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3767,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3774,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3787,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3795,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3808,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3828,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3833,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3848,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3856,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3861,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3884,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3891,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3902,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3911,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3919,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3936,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3943,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3951,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3968,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3976,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3984,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 3992,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4000,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4008,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4023,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4041,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4050,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4058,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4066,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4080,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4095,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4105,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4113,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4121,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4129,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4149,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4160,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4168,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4182,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4190,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4209,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4217,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4225,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4233,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4246,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4256,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4270,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4278,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4293,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4303,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4311,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4318,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 4325,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4341,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4350,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4358,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4365,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4374,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4383,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4396,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4413,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4421,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4429,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4437,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4445,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4464,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4488,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4496,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4504,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4519,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4529,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4537,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4549,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4570,
+          "enclosing_new_call": "New_Identifier"
+        }
+      ],
+      "src/why/why-gen-arrays.adb": [
+        {
+          "line": 129,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 135,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 881,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1310,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1494,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1585,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1587,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1592,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1595,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1600,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1602,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1610,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1613,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1718,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1737,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1757,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1851,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1856,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1863,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1868,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2207,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 2321,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 2338,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 2425,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2426,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2598,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2627,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2682,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2691,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2699,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2729,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2738,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 2770,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3035,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 3859,
+          "enclosing_new_call": "New_Module"
+        },
+        {
+          "line": 3883,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3888,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3898,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3908,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3919,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3930,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3941,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3960,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3965,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3986,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 3995,
+          "enclosing_new_call": "New_Name"
+        }
+      ],
+      "src/why/why-gen-binders.adb": [
+        {
+          "line": 644,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1170,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1208,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        }
+      ],
+      "src/why/why-gen-decl.adb": [
+        {
+          "line": 100,
+          "enclosing_new_call": "New_Meta_Declaration"
+        },
+        {
+          "line": 101,
+          "enclosing_new_call": "New_Meta_Declaration"
+        },
+        {
+          "line": 107,
+          "enclosing_new_call": "New_Meta_Declaration"
+        },
+        {
+          "line": 108,
+          "enclosing_new_call": "New_Meta_Declaration"
+        },
+        {
+          "line": 279,
+          "enclosing_new_call": "New_Name"
+        }
+      ],
+      "src/why/why-gen-expr.adb": [
+        {
+          "line": 1967,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 4276,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 4718,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 4733,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 4877,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 4911,
+          "enclosing_new_call": "New_Label"
+        },
+        {
+          "line": 4918,
+          "enclosing_new_call": "New_Label"
+        },
+        {
+          "line": 5854,
+          "enclosing_new_call": "New_Name"
+        }
+      ],
+      "src/why/why-gen-hardcoded.adb": [
+        {
+          "line": 152,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 158,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 164,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 170,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 176,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 181,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 187,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 193,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 198,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 204,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 210,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 216,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 218,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 232,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 234,
+          "enclosing_new_call": "New_Name"
+        }
+      ],
+      "src/why/why-gen-init.adb": [
+        {
+          "line": 416,
+          "enclosing_new_call": "New_Axiom"
+        }
+      ],
+      "src/why/why-gen-names.adb": [
+        {
+          "line": 750,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 769,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 829,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 916,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1175,
+          "enclosing_new_call": "New_Name"
+        }
+      ],
+      "src/why/why-gen-pointers.adb": [
+        {
+          "line": 156,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 207,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 381,
+          "enclosing_new_call": "New_Axiom"
+        },
+        {
+          "line": 972,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 988,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1159,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1165,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1271,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1281,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1403,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1447,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1453,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1464,
+          "enclosing_new_call": "New_Name"
+        }
+      ],
+      "src/why/why-gen-records.adb": [
+        {
+          "line": 497,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 619,
+          "enclosing_new_call": "New_Axiom"
+        },
+        {
+          "line": 872,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1103,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1129,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1261,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1266,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1794,
+          "enclosing_new_call": "New_Axiom"
+        },
+        {
+          "line": 1805,
+          "enclosing_new_call": "New_Axiom"
+        },
+        {
+          "line": 1816,
+          "enclosing_new_call": "New_Axiom"
+        },
+        {
+          "line": 1830,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 1854,
+          "enclosing_new_call": "New_Guarded_Axiom"
+        },
+        {
+          "line": 1958,
+          "enclosing_new_call": "New_Axiom"
+        },
+        {
+          "line": 1969,
+          "enclosing_new_call": "New_Axiom"
+        },
+        {
+          "line": 1980,
+          "enclosing_new_call": "New_Axiom"
+        },
+        {
+          "line": 4349,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4412,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 4439,
+          "enclosing_new_call": "New_Identifier"
+        }
+      ],
+      "src/why/why-gen-scalars.adb": [
+        {
+          "line": 105,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 111,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 117,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 123,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 126,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 127,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 226,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 232,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 236,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 238,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 240,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 242,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 244,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 246,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 434,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 444,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 472,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 481,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 563,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 573,
+          "enclosing_new_call": "New_Identifier"
+        },
+        {
+          "line": 738,
+          "enclosing_new_call": "New_Function_Decl"
+        },
+        {
+          "line": 1344,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1354,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1359,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1365,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1386,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1515,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 1539,
+          "enclosing_new_call": null
+        }
+      ],
+      "src/why/why-inter.adb": [
+        {
+          "line": 1025,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 1136,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 1183,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1243,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1278,
+          "enclosing_new_call": "New_Theory_Declaration"
+        },
+        {
+          "line": 1499,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 1501,
+          "enclosing_new_call": null
+        },
+        {
+          "line": 1562,
+          "enclosing_new_call": "New_Name"
+        },
+        {
+          "line": 1568,
+          "enclosing_new_call": "New_Name"
+        }
+      ]
+    },
+    "maximum_vc_kind_image_length": 35,
+    "maximum_entity_module_suffix_length": 24,
+    "main_check_label_length_above_filename": 78,
+    "maximum_pretty_marker_length": 24,
+    "natural_last": 2147483647,
+    "maximum_find_length_sum": 4611686014132420609,
+    "long_long_integer_last": 9223372036854775807,
+    "scope": "Lexical inventory and arithmetic only. An enclosing New_ call is not automatically an allocation proof. Lookup multiplicities and generated-length coverage remain manual.",
+    "toolchain_or_proof_processes_run": false
+  }
+}
