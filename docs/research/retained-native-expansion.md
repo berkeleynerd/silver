@@ -4551,6 +4551,71 @@ do not introduce a cycle through a fresh subtype's endpoint result type.
 Fixed imported types retain their separate dependency analysis. This is a
 source argument over the already pinned files; no new compiler probe was run.
 
+### Null and one literal Put have no secondary-stack scaffold
+
+Specialize the selected native configuration to either the null shell or the
+static shell with no object declarations and exactly
+`Silver_IO.Put ("a");`. This is a shape derivation for these fixtures, not a
+claim that their imported runtime/type graph is empty.
+
+Neither source creates a transient scope. The output-actual trigger above
+requires a **nonstatic N_Op_Concat** actual (`sem_res.adb:4480–4498`); an ordinary
+String literal does not enter it. There is no unconstrained function result,
+Integer Image, allocator, controlled object, task or protected operation in
+either Main. No step sets Main's `Uses_Sec_Stack` flag. The declaration and
+statement cleanup scan returns False for the pragma, null statement and this
+ordinary call (`exp_util.adb:13501–13787`). Consequently every disjunct of
+`Actions_Required` is False and `Expand_Cleanup_Actions` returns before any
+construction (`exp_ch7.adb:4632–4699`). In particular these Main bodies have:
+
+```text
+transient/replacement blocks    0
+secondary-stack marks/releases 0
+Main finalizer bodies/calls     0
+ordinary temporary objects     0
+```
+
+The body expander adds exactly one implicit bare return, since neither a null
+statement nor the ordinary output call is a transfer
+(`exp_ch6.adb:6231–6296,6745–6755`). Its constructor/Yield/recursive-procedure,
+OUT-scalar, local-exception-label and tagged-primitive branches are absent
+under these source forms and the selected switches. The source null statement
+itself is unchanged by native expansion; this **does not** make its GCC
+translation empty. The O0 gigi null statement can build a label/goto pair,
+which is the backend component's separate transfer.
+
+For literal Put, `Resolve_String_Literal` invokes `Set_String_Literal_Subtype`
+once (`sem_res.adb:12039–12117,13224–13236`). It creates one
+`E_String_Literal_Subtype`, sets its Etype to Standard_String, records length1
+and shares the existing static Positive lower-bound expression1. It does not
+enter the nonstatic-low branch that creates a separate Integer index subtype,
+array subtype, range tree and conversion. The String literal remains the one
+actual of an ordinary one-formal procedure call. The formal is unconstrained
+String in mode IN; there are no scalar narrowing, packed/unaligned copying,
+predicates, type invariants, extra accessibility actuals or dispatching routes
+(`sem_res.adb:4856–4912`, `exp_ch6.adb:2940–3108`). The selected Silver_IO spec
+has no precondition; its Static postconditions/ghost observations do not add
+caller-side native checks. The Main-owned entity frontier is therefore Main
+itself for null, or Main plus one literal subtype for this Put fixture. Fixed
+Standard/Silver_IO declarations and gigi-created GCC types remain separate.
+
+There is still a frontend metadata difference: the source Put call creates
+one N_Call_Marker before the call (`sem_elab.adb:3674–3776`). It has no runtime
+semantics, but gigi's marker branch requests an empty statement list
+(`gcc-interface/trans.cc:8594–8601`). It must not be omitted from allocation
+event accounting merely because it disappears from executable control flow.
+Null has no call marker. Freeze/pragma metadata and discarded parser identities
+likewise are not claimed to be absent by the executable-body description.
+
+Adding only admitted whitespace/comments to the same null token stream does
+not introduce semantic entities or executable/generated construct families.
+Its fixed syntax shapes and lone return stay unchanged. Source-byte buffers,
+line/column maps, source-location encodings and any path/location-dependent
+output still need their own counter inequalities. This specialization supplies
+one Main body and one return, replacing the earlier conservative two-body/two-
+return scaffold allowance for these fixtures only. It is source inspection;
+no new compiler/capture/proof execution establishes an additional fixed vector.
+
 ## Numeric magnitudes in the closed concat stages
 
 The query-root bridge can also supply the missing digit bound for the combined
@@ -6091,7 +6156,7 @@ conditional formula and missing inputs explicitly.
 Each example now also carries one `selected_native_predicate`: the conjunction
 of the core tables, parser auxiliaries, source/line/name checks, supplied
 configuration-file storage, diagnostic storage, invocation containers,
-selected command-line objects and numeric/concat local objects. All eight
+selected command-line objects, ALI writer and numeric/concat local objects. All nine
 component groups pass for all five examples. This is the composed
 **selected-component** result; its `complete_native_capacity_predicate` stays
 false. The output lists the remaining obligations in dependency order:
@@ -6214,6 +6279,15 @@ file length. At P=200 all five real-source examples have maximum record size
 file bounds are approximately105–106MB, mainly because the existing Xref count
 uses the complete fixed entity allowance. The native writer streams them;
 the total is not a single allocation.
+
+This sufficient row is not a necessary capacity characterization. In
+particular, the Main header bound plus LF exceeds2112 once its identifier
+exceeds1995 characters. The loose105MB fixed Xref total does not then establish
+the whole-file alternative, even for some sources under today's4096-byte
+source limit whose actual ALI output could fit. A tighter selected Xref count
+or record-order/flush analysis could recover those cases. This research row
+has not been adopted as a language restriction and does not establish a defect
+in those programs.
 
 Regenerate this inventory, then the usual main envelope:
 
