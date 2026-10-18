@@ -26,8 +26,8 @@
   },
   {
     "path": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json",
-    "bytes": 30505,
-    "sha256": "e00cc1485378c235f7b3e81c9cf9f7731a162d50f0c1d031a35397d0b5da2e26"
+    "bytes": 33624,
+    "sha256": "9a5184718cbe12b2844727e9652f3f967aede0121f8d5e037ae2d65149833f30"
   },
   {
     "path": "docs/evidence/retained-output-rtl-20261018/check.py",
@@ -298,5 +298,20 @@
     "path": "docs/evidence/retained-literal-assembler-20261018/review-storage.md",
     "bytes": 5836,
     "sha256": "ca3931085ce86e3e2b1034f52301305460d8b6c017d3422f75a5cc826bbdceeb"
+  },
+  {
+    "path": "docs/research/retained-backend-cfg.md",
+    "bytes": 52543,
+    "sha256": "ccb4a65637e7b8bcd35f5c2618c5dcbeeba7b56c510326835fcbb1b5d945db14"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-null-initial-gimple.json",
+    "bytes": 5240,
+    "sha256": "52914e7fa3db2320af81a457afda45dae33d599d76f33f39e84cc268a7c8487c"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-initial-gimple-source-identity.json",
+    "bytes": 7133,
+    "sha256": "215575fecbbc97347c6527eae038562ea094bc23ef636c6ec99a7c2f7bea877d"
   }
 ]

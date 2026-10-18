@@ -7,7 +7,7 @@ accepted output-binder checksum checker is replayed once per context.
 
 The [source argument](../../research/retained-literal-pipeline.md) identifies
 the closed bounds-pool/shared-symbol and direct-call/IPA-summary joins,
-the literal-sized ranger/out-of-SSA backing join, and the remaining
+the literal-sized ranger/out-of-SSA and initial-SSA joins, and the remaining
 constructor-lifetime consumers. Passing the instantiated
 conditions does not establish whole-pipeline capacity: the result always
 preserves its named open joins and changes no production admission.
@@ -23,7 +23,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 38 interface checks. It reuses one context's
+arguments and `--output`, and runs 46 interface checks. It reuses one context's
 successful retained checks across source variations.
 
 `inputs.json` pins formulas, predecessor results and source arguments.
@@ -66,6 +66,14 @@ request arithmetic and the retained prime-table ceiling. C=6/7 and both
 request-width boundaries cover the independent-review correction. It returns
 zero additional GGC events, and leaves frontend/gigi/initial-GIMPLE
 constructors and shared collector composition open.
+
+`native_initial_ssa_lifetime` adds infrastructure and initial virtual-memory
+renaming, with `6C+10+L` GGC events where L is the source-derived operand-slab
+count, plus one singleton finalizer. Variable GC-vector normalization, the
+renamer's local-declaration hash request, bitmap demand, worklists and both
+dominator/preorder traversals are explicit. The global SSA creation counter,
+frontend/gimplifier/CF/CFG lifetimes and shared collector composition remain
+open; no null lifetime subtotal transfers.
 
 The independently reviewed literal assembler callable now consumes the same
 source bytes. Its counters, final chain, text bytes and rodata bytes must

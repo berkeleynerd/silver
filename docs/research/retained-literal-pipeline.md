@@ -9,7 +9,9 @@ descriptor. The available arithmetic passes for `samples/hello_world.adb`.
 declaration lifecycle and shared tree/assembler-name backing now have a
 source-derived join. The direct-call graph and IPA-summary lifetime now also
 have a conditional join, and the literal-sized ranger/out-of-SSA backing is
-substituted. The next native consumer is complete constructor/collector composition.
+substituted. Initial SSA infrastructure and renaming also have a separate
+constructor delta. The next native consumer is the remaining frontend,
+gimplifier and CF/CFG construction, followed by shared collector composition.
 No production rule or option changed; #119 remains incomplete.
 
 ## One source counter interface
@@ -593,15 +595,157 @@ returned explicitly, with **zero new GGC events** from this helper family.
 The preceding DFS/CFG helpers keep their existing separate interface; this
 closure does not silently charge all expansion to the helper result.
 
+## Initial SSA lifetime
+
+`native_initial_ssa_lifetime(C, N, context)` prices `init_tree_ssa` and the
+initial virtual-memory renamer. It consumes the established literal lowering
+interface: `u=3C+1` memory uses/fresh names, `z=u+1=3C+2` name-vector slots,
+`B=N+4` initial block slots and at most C local descriptor declarations.
+There are at most 3C memory definitions, one default `.MEM` name, no real
+SSA names, PHIs, scalar clobbers, debug bindings or new executable statements.
+The aggregate checks its slot and operand-slab values against the existing
+`initial_SSA` callable. The selected O0 and whole-unit preservation premises
+remain in force; this is not a new derivation of gimplifier or CFG shape.
+
+This scope includes SSA infrastructure initialized before the renamer and its
+one initial `REWRITE_ALL` invocation. It excludes GIMPLE tuple construction,
+CF/EH lowering, CFG blocks/edges/root loops, pass-manager TODO processing and
+later SSA updates. Those events must be composed separately. Fixed LP64 object
+layouts transfer from the pinned
+[initial-GIMPLE result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-null-initial-gimple.json)
+and the [general SSA argument](retained-backend-cfg.md#o0-initial-ssa-construction);
+the null lifetime subtotal does not transfer.
+
+### GGC constructors and vector normalization
+
+`init_tree_ssa` creates one `gimple_df` (at most 256 raw bytes), a default-def
+hash control (128), its 31-pointer backing (248), and the initial SSA-name
+vector (`tree-ssa.cc:1214–1221`). `init_ssanames` requests 50 slots and reserves
+slot zero (`tree-ssanames.cc:143–165`). The initial renamer creates one `.MEM`
+VAR_DECL (312), at most one interned identifier (40) and its five bytes,
+including NUL (`tree-ssa-operands.cc:232–277`). Its at most u fresh SSA_NAME
+objects are each at most 88 bytes, with one detached 64-byte default NOP
+(`tree-ssanames.cc:351–420`; `tree-dfa.cc:356–366`). The default-definition
+hash has one key, so its 31-slot backing does not grow. Deletion clears that
+small table without an `empty_slow` replacement. Its control contributes one
+singleton finalizer; names, backing and the slab list do not register others.
+
+The name vector receives at most u pushes after its initial allocation, so
+there are at most **z backing requests**. A growing existing vector has its
+old capacity below the desired length z. The requested capacity before GGC
+rounding is bounded by `max(50,2z)`; `3z<=UINT_MAX` protects the actual
+`alloc*3/2` intermediate (`vec.cc:150–170`). Define
+
+```text
+V = next_power_of_two(8 + 8*max(50,2z));
+normalized_capacity = (V-8)//8.
+```
+
+The power-of-two bound conservatively covers `ggc_round_alloc_size`; the
+allocator then derives its effective capacity from the rounded bytes before
+storing it in the 31-bit prefix (`vec.h:393–424`). The callable checks that
+normalized capacity, not just the requested z, and bounds each backing by V.
+It checks the LP64 size product separately. This protects the per-phase
+version/count interface. The global unsigned `ssa_name_nodes_created` counter
+is not reset here: the result exposes u additional increments and leaves its
+all-function, all-phase sum open (`tree-ssanames.cc:371,388`). The additional
+DECL_UID and identifier-table insertion likewise remain inputs to shared
+translation-unit counter/table composition.
+
+Each statement has at most one virtual use and no real scalar use, so the
+scanner's inline 16-entry temporary vector needs no heap growth. Persistent
+40-byte use entries consume slabs of 1024, 4096 and then 16,384 bytes, with
+capacities 25, 102 and 409. The strict allocator comparison is already
+accounted for (`tree-ssa-operands.cc:256–364`). Thus the slab-request count is
+
+```text
+L = 1 + [u>25] + ceil(max(0,u-127)/409).
+```
+
+The corresponding bytes are `1024 + 4096*[u>25] +
+16384*ceil(max(0,u-127)/409)`. Rebuilding a statement returns its old use list
+to the freelist **before** requesting replacement entries
+(`tree-ssa-operands.cc:424–485`), so the peak u bound still covers this scan's
+rebuilds. Initial renaming changes pointers in place. No all-phase rescan
+lifetime is inferred. The slab index always stays within its fixed 16,376-byte
+payload, independently of how many linked slabs are needed.
+
+The returned GGC event delta is therefore **6C+10+L**: three infrastructure
+objects, z vector backings, three `.MEM` declaration/identifier requests,
+u names, one NOP and L slabs. This deliberately overbounds actual vector
+growth. It is separate from the bounds-pool `5C+5` and graph `8C+33` deltas,
+and from the unclosed initial-GIMPLE/CF/CFG event families.
+
+### Renamer backing and traversals
+
+The var-info hash constructor requests the local-declaration extent, bounded
+by C, even though only `.MEM` gets a record
+(`tree-into-ssa.cc:2411–2422`). Its control is bounded by 128 bytes and its
+backing by `8*prime(max(7,C))`; the retained prime-table region and one-key
+probe arithmetic are checked. There is one 48-byte record and one pointer
+in the 16-byte temporary variable vector (`:354–375,1105–1128`). The
+default-definition hash also has only one key. Neither table grows on this
+population, and no SSA-update mapping table is constructed.
+
+The reaching-definition stack starts with capacity ten. Each visited block
+pushes one marker; each ordinary memory definition pushes at most two saved
+pointers. Hence at most `D=B+6C` pushes, capacity `max(10,2D)` and individual
+backing `8+8*max(10,2D)` suffice
+(`tree-into-ssa.cc:1139–1176,1463–1544,2285–2295`). The callable retains both
+the unsigned `3D` intermediate and 31-bit final capacity checks. No PHI
+definition adds pushes on this selected path.
+
+The three private var-info bitmap headers represent definitions, live-ins and
+PHI blocks. The first two have block indices below B and together need at most
+`2*ceil(B/128)` 40-byte elements; the PHI map is empty. One initial private
+bitmap chunk plus one possible chunk per completed header/element gives
+`4+2*ceil(B/128)` chunk requests, each at most 65,536 bytes. This uses the same
+bounded-object obstack transfer as the ranger join. The lifetime is released
+by `fini_ssa_renamer` (`tree-into-ssa.cc:2427–2437`).
+
+The shared default bitmap obstack receives at most three headers: the
+definition-scan kills map, IDF map and pruning map. Kills is cleared at each
+block, and only the single `.MEM` DECL_UID is used
+(`tree-into-ssa.cc:2370–2406`). This is a sparse bitmap: it needs one live
+element, with at most B fresh element requests conservatively allowed. Its
+index consumes the later global DECL_UID bound; the byte request is not a
+dense array extending to that UID. The IDF map stays empty because the
+straight-line CFG has no dominance frontier. Pruning may copy up to
+`ceil(B/128)` block elements before noticing that the PHI set is empty; it
+returns before allocating its larger arrays (`:765–785`). Shared chunk
+coexistence remains a later join.
+
+The dense interesting-block bitmap is bounded by `8+8*ceil(B/64)` bytes;
+the frontier array has B empty 32-byte headers. Even for an empty IDF,
+`compute_idf` constructs its block-sized work vector, conservatively bounded
+by `8+4*max(64,B)` bytes (`cfganal.cc:1681–1731`). Two dominator walks each
+allocate two 4B-byte integer arrays and a 16B-byte pointer stack
+(`domwalk.cc:273–364`). Each walk's preorder helper additionally constructs
+an edge-iterator stack bounded by `8+16*max(20,B+1)` bytes
+(`cfganal.cc:979–1008`). Inline capacities are conservatively included even
+when no heap backing is actually needed.
+
+If the forward dominance forest is not already available, its cold
+construction is covered by nine 4B-byte arrays, one 8B-byte pointer array,
+one 4(B+1)-byte order array and one 16(B+1)-byte edge-iterator array
+(`dominance.cc:148–219,302–391,725–759`). There are at most B ET nodes and
+2B ET occurrences; the retained checking-safe pool transfer gives at most
+`ceil(B/910)` and `ceil(2B/1170)` 65,536-byte backing blocks. Existing forest
+reuse reduces this demand. This describes this invocation's demand, not
+the coexistence of all later dominance clients. The selected no-checking
+route excludes verification recomputations. `4B<=INT_MAX` protects the
+walk/DFS/depth intermediates already established by the general CFG argument;
+bitmap rounding and ordinary byte products have separate checks.
+
 ## Exact next native consumer
 
 The callable keeps `native_remaining_lifetime_and_collector` as its next
-repair. The remaining constructor join must cover source/frontend, gigi and
-initial GIMPLE lifetimes, existing RTL/DF/helper ceilings, shared
+repair. The remaining constructor join must cover source/frontend, gigi,
+gimplifier and CF/CFG lifetimes, existing RTL/DF/helper ceilings, shared
 identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC
 pages/finalizers/counters. Ranger/out-of-SSA now supplies its literal-sized
 ordinary requests; the established warning gates are retained. The separate
-`5C+5` and `8C+33` deltas are usable inputs, not the complete sum; no
+`5C+5`, `8C+33` and initial-SSA `6C+10+L` deltas are usable inputs, not the complete sum; no
 40,098-event null allowance is reused.
 
 Main assembler/ELF, producer frontends/consumers, binder/link and complete
@@ -701,3 +845,14 @@ checks, including the 5000-call case; the accepted nine-case storage replay
 is reused. No native tool ran. Selected model/effort remains GPT-6 Astra /
 Extra High, with runtime confirmation, elapsed-time and token/cost evidence
 unavailable. Whole-pipeline capacity remains false.
+
+The initial-SSA round retains selected GPT-6 Astra / Extra High, with runtime
+identity, elapsed time and token/cost measurements unavailable. It prices
+initial SSA infrastructure and virtual-memory renaming separately from the
+remaining gimplifier/CF/CFG constructors. Source inspection added the preorder
+edge-iterator stack for each dominator walk and kept the global SSA-name
+creation counter open despite the per-phase name bound. The packet passes
+46 offline cases, including both operand-slab transitions, the normalized
+GC-vector boundary and the dominance extent. No native tool ran. Independent
+review remains pending against the frozen implementation commit; whole-pipeline
+capacity remains false.

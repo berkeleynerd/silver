@@ -84,6 +84,13 @@ def main():
             assert helpers['conditional_SSA_helper_backing_closed']
             assert helpers['additional_GGC_request_events_upper']==0
             assert helpers['out_of_SSA']['real_partitions']==0
+            initial=result['native_initial_SSA_lifetime']
+            assert initial['conditional_initial_SSA_lifetime_closed']
+            assert initial['source_input']['SSA_slots_upper']==3*c+2
+            assert initial['source_input']['memory_uses_upper']==3*c+1
+            assert initial['additional_singleton_finalizer_registrations_upper']==1
+            assert initial['additional_global_SSA_name_creation_events_upper']==3*c+1
+            assert not initial['global_SSA_creation_counter_lifetime_closed']
             assembler=result['Main_assembler_object_interface']
             assert assembler['local_interface_fits']
             storage=result['Main_GAS_BFD_storage']
@@ -211,6 +218,29 @@ def main():
             assert helpers['conditional_SSA_helper_backing_closed']==expected
             assert helpers['local_representation_checks']['ranger_block_plus_64_signed']==expected
             rows.append(dict(case='SSA_helper_ranger_blocks_'+str(n),nulls=n,fits=expected))
+        for c,slabs,slab_bytes in ((8,1,1024),(9,2,5120),(42,2,5120),(43,3,21504)):
+            initial=module.native_initial_ssa_lifetime(c,0,context)
+            groups=[g for g in initial['individual_GGC_request_groups'] if 'slab' in g['object']]
+            assert sum(g['requests_upper'] for g in groups)==slabs
+            assert sum(g['requests_upper']*g['raw_bytes_upper'] for g in groups)==slab_bytes
+            assert initial['initial_SSA_operand_slab_requested_bytes_upper']==slab_bytes
+            assert initial['additional_GGC_request_events_upper']==6*c+10+slabs
+            assert initial['conditional_initial_SSA_lifetime_closed']
+            rows.append(dict(case='initial_SSA_operand_slabs_'+str(c),calls=c,
+                             slab_count=slabs,slab_requested_bytes=slab_bytes))
+        for c,expected in ((357913940,True),(357913941,False)):
+            initial=module.native_initial_ssa_lifetime(c,0,context)
+            assert initial['local_representation_checks']['SSA_vector_normalized_capacity_31_bit']==expected
+            rows.append(dict(case='initial_SSA_normalized_vector_'+str(c),calls=c,
+                             capacity=initial['SSA_name_vector_normalized_capacity_upper'],fits=expected))
+        for n,expected in ((module.I32//4-4,True),(module.I32//4-3,False)):
+            initial=module.native_initial_ssa_lifetime(1,n,context)
+            ordinary=initial['ordinary_requests']
+            assert initial['local_representation_checks']['initial_CFG_and_dominance_signed_intermediate']==expected
+            assert ordinary['cold_forward_dominance_unsigned_arrays']==9
+            assert ordinary['walk_preorder_stack_bytes_upper']==8+16*(n+5)
+            assert initial['conditional_initial_SSA_lifetime_closed']==expected
+            rows.append(dict(case='initial_SSA_dominance_extent_'+str(n),nulls=n,fits=expected))
     result=dict(case_count=len(rows),cases=rows,all_checks_pass=True,
                 native_tool_executions=0,whole_literal_pipeline_capacity_established=False)
     args.output.write_text(json.dumps(result,indent=2)+'\n')

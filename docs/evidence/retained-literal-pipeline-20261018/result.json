@@ -95,6 +95,7 @@
     "native_varpool_and_shared_tree_pool": true,
     "native_graph_and_summary_lifetime": true,
     "native_SSA_helper_backing": true,
+    "native_initial_SSA_lifetime": true,
     "Main_assembler_object_interface": true,
     "Main_GAS_BFD_storage": true,
     "Why_core": true,
@@ -914,6 +915,143 @@
     "whole_native_pipeline_capacity_established": false,
     "source_argument": "docs/research/retained-literal-pipeline.md#literal-sized-ranger-and-out-of-ssa-backing"
   },
+  "native_initial_SSA_lifetime": {
+    "source_input": {
+      "calls": 1,
+      "nulls": 0,
+      "SSA_slots_upper": 5,
+      "memory_definitions_upper": 3,
+      "memory_uses_upper": 4,
+      "initial_CFG_block_slots_upper": 4
+    },
+    "default_memory_names": 1,
+    "nondefault_memory_names_upper": 3,
+    "initial_SSA_operand_slab_requested_bytes_upper": 1024,
+    "SSA_name_vector_normalized_capacity_upper": 63,
+    "default_definition_hash_entries": 1,
+    "real_SSA_names": 0,
+    "PHIs": 0,
+    "individual_GGC_request_groups": [
+      {
+        "object": "initial gimple_df",
+        "requests_upper": 1,
+        "raw_bytes_upper": 256
+      },
+      {
+        "object": "default-def hash control",
+        "requests_upper": 1,
+        "raw_bytes_upper": 128
+      },
+      {
+        "object": "default-def initial backing",
+        "requests_upper": 1,
+        "raw_bytes_upper": 248
+      },
+      {
+        "object": "initial SSA-name vector and growth",
+        "requests_upper": 5,
+        "raw_bytes_upper": 512
+      },
+      {
+        "object": "memory VAR_DECL",
+        "requests_upper": 1,
+        "raw_bytes_upper": 312
+      },
+      {
+        "object": "memory identifier",
+        "requests_upper": 1,
+        "raw_bytes_upper": 40
+      },
+      {
+        "object": "memory identifier characters",
+        "requests_upper": 1,
+        "raw_bytes_upper": 5
+      },
+      {
+        "object": "fresh memory SSA_NAME",
+        "requests_upper": 4,
+        "raw_bytes_upper": 88
+      },
+      {
+        "object": "detached default definition NOP",
+        "requests_upper": 1,
+        "raw_bytes_upper": 64
+      },
+      {
+        "object": "operand-use first slab",
+        "requests_upper": 1,
+        "raw_bytes_upper": 1024
+      },
+      {
+        "object": "operand-use second slab",
+        "requests_upper": 0,
+        "raw_bytes_upper": 4096
+      },
+      {
+        "object": "operand-use later slabs",
+        "requests_upper": 0,
+        "raw_bytes_upper": 16384
+      }
+    ],
+    "ordinary_requests": {
+      "var_info_hash_control_bytes_upper": 128,
+      "var_info_hash_backing_bytes_upper": 56,
+      "var_info_records_upper": 1,
+      "var_info_record_bytes": 48,
+      "var_info_vector_bytes": 16,
+      "interesting_block_bitmap_bytes_upper": 16,
+      "frontier_bitmap_header_array_bytes_upper": 128,
+      "frontier_elements": 0,
+      "reaching_definition_stack_capacity_upper": 20,
+      "reaching_definition_stack_bytes_upper": 168,
+      "private_SSA_bitmap_headers_upper": 3,
+      "private_SSA_bitmap_elements_upper": 2,
+      "private_SSA_bitmap_chunk_requests_upper": 6,
+      "private_SSA_bitmap_each_chunk_bytes": 65536,
+      "shared_default_bitmap_headers_upper": 3,
+      "shared_kills_bitmap_live_elements_upper": 1,
+      "shared_kills_bitmap_element_requests_upper": 4,
+      "shared_PHI_prune_bitmap_elements_upper": 1,
+      "PHI_work_set_bytes_upper": 264,
+      "PHI_pruning_large_arrays_reached": false,
+      "dominator_walks": 2,
+      "walk_int_array_bytes_each_upper": 16,
+      "walk_int_arrays_per_walk": 2,
+      "walk_pointer_stack_bytes_upper": 64,
+      "walk_preorder_stack_bytes_upper": 328,
+      "cold_forward_dominance_unsigned_arrays": 9,
+      "cold_forward_dominance_unsigned_arrays_bytes_each_upper": 16,
+      "cold_forward_dominance_pointer_array_bytes_upper": 32,
+      "cold_forward_dominance_order_array_bytes_upper": 20,
+      "cold_forward_dominance_edge_iterator_array_bytes_upper": 80,
+      "live_ET_nodes_upper": 4,
+      "live_ET_occurrences_upper": 8,
+      "ET_node_pool_blocks_upper": 1,
+      "ET_occurrence_pool_blocks_upper": 1,
+      "each_ET_pool_block_bytes": 65536
+    },
+    "additional_GGC_request_events_upper": 17,
+    "additional_singleton_finalizer_registrations_upper": 1,
+    "additional_DECL_UID_events_upper": 1,
+    "additional_identifier_misses_upper": 1,
+    "additional_global_SSA_name_creation_events_upper": 4,
+    "global_SSA_creation_counter_lifetime_closed": false,
+    "conditional_initial_SSA_lifetime_closed": true,
+    "local_representation_checks": {
+      "phase_SSA_name_versions_and_fresh_count": true,
+      "SSA_vector_growth_unsigned_intermediate": true,
+      "SSA_vector_normalized_capacity_31_bit": true,
+      "SSA_vector_size_product": true,
+      "var_info_initial_hash_region": true,
+      "initial_CFG_and_dominance_signed_intermediate": true,
+      "definition_stack_growth_unsigned_intermediate": true,
+      "definition_stack_capacity_31_bit": true,
+      "bitmap_rounding_unsigned": true,
+      "ordinary_size_products": true
+    },
+    "whole_native_pipeline_capacity_established": false,
+    "source_argument": "docs/research/retained-literal-pipeline.md#initial-ssa-lifetime"
+  },
   "Main_assembler_object_interface": {
     "counts": {
       "calls": 1,
@@ -1360,15 +1498,16 @@
   },
   "open_joins": {
     "native_remaining_lifetime_and_collector": {
-      "next_consumer": "complete frontend/gigi/initial-GIMPLE constructor lifetimes, then shared identifier/CONST_INT/reg-attribute pools and GGC collector composition.",
+      "next_consumer": "complete frontend/gigi/initial-GIMPLE and CF/CFG constructor lifetimes, then shared identifier/CONST_INT/reg-attribute pools and GGC collector composition.",
       "available": {
         "graph_scan_count_upper": 4,
         "call_edge_creation_events_upper": 4,
         "new_pool_lifecycle_GGC_events_upper": 10,
         "new_graph_lifecycle_GGC_events_upper": 41,
-        "ranger_and_out_of_SSA_backing_closed": true
+        "ranger_and_out_of_SSA_backing_closed": true,
+        "initial_SSA_GGC_events_upper": 17
       },
-      "missing": "Complete source/gigi/initial-GIMPLE constructor multiplicities; join existing RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused."
+      "missing": "Complete source/gigi/initial-GIMPLE and CF/CFG constructor multiplicities; join existing RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused."
     },
     "Main_assembler_and_object": {
       "available": {
@@ -1526,8 +1665,8 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 60,
-  "external_source_files_verified": 253,
+  "fixed_input_count": 63,
+  "external_source_files_verified": 262,
   "native_tool_executions": 0,
   "production_admission_changed": false,
   "aggregate_RAM_gate": false,

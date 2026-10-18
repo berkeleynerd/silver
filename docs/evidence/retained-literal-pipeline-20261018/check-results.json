@@ -1,5 +1,5 @@
 {
-  "case_count": 38,
+  "case_count": 46,
   "cases": [
     {
       "case": "retained",
@@ -252,6 +252,52 @@
     {
       "case": "SSA_helper_ranger_blocks_2147483579",
       "nulls": 2147483579,
+      "fits": false
+    },
+    {
+      "case": "initial_SSA_operand_slabs_8",
+      "calls": 8,
+      "slab_count": 1,
+      "slab_requested_bytes": 1024
+    },
+    {
+      "case": "initial_SSA_operand_slabs_9",
+      "calls": 9,
+      "slab_count": 2,
+      "slab_requested_bytes": 5120
+    },
+    {
+      "case": "initial_SSA_operand_slabs_42",
+      "calls": 42,
+      "slab_count": 2,
+      "slab_requested_bytes": 5120
+    },
+    {
+      "case": "initial_SSA_operand_slabs_43",
+      "calls": 43,
+      "slab_count": 3,
+      "slab_requested_bytes": 21504
+    },
+    {
+      "case": "initial_SSA_normalized_vector_357913940",
+      "calls": 357913940,
+      "capacity": 2147483647,
+      "fits": true
+    },
+    {
+      "case": "initial_SSA_normalized_vector_357913941",
+      "calls": 357913941,
+      "capacity": 4294967295,
+      "fits": false
+    },
+    {
+      "case": "initial_SSA_dominance_extent_536870907",
+      "nulls": 536870907,
+      "fits": true
+    },
+    {
+      "case": "initial_SSA_dominance_extent_536870908",
+      "nulls": 536870908,
       "fits": false
     }
   ],

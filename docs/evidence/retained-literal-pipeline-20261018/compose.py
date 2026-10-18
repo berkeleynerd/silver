@@ -375,6 +375,93 @@ def native_ssa_helper_backing(c, n, context):
         source_argument='docs/research/retained-literal-pipeline.md#literal-sized-ranger-and-out-of-ssa-backing')
 
 
+def native_initial_ssa_lifetime(c, n, context):
+    """Initial SSA infrastructure and renaming; excludes CF/CFG/gimplifier construction."""
+    require(type(c) is int and c >= 1 and type(n) is int and n >= 0,
+            'literal initial SSA counters')
+    z, uses, blocks = 3*c+2, 3*c+1, n+4
+    stack_pushes = blocks+6*c
+    stack_capacity = max(10,2*stack_pushes)
+    prime = next((p for p in context.primes if p>=max(7,c)),None)
+    vector_requested_slots = max(50,2*z)
+    vector_bytes = 1 << (8+8*vector_requested_slots-1).bit_length()
+    vector_capacity = (vector_bytes-8)//8
+    slab_4K = int(uses>25)
+    slab_16K = (max(0,uses-127)+408)//409
+    bitmap_elements = (blocks+127)//128
+    ggc = [
+        dict(object='initial gimple_df',requests_upper=1,raw_bytes_upper=256),
+        dict(object='default-def hash control',requests_upper=1,raw_bytes_upper=128),
+        dict(object='default-def initial backing',requests_upper=1,raw_bytes_upper=248),
+        dict(object='initial SSA-name vector and growth',requests_upper=z,raw_bytes_upper=vector_bytes),
+        dict(object='memory VAR_DECL',requests_upper=1,raw_bytes_upper=312),
+        dict(object='memory identifier',requests_upper=1,raw_bytes_upper=40),
+        dict(object='memory identifier characters',requests_upper=1,raw_bytes_upper=5),
+        dict(object='fresh memory SSA_NAME',requests_upper=uses,raw_bytes_upper=88),
+        dict(object='detached default definition NOP',requests_upper=1,raw_bytes_upper=64),
+        dict(object='operand-use first slab',requests_upper=1,raw_bytes_upper=1024),
+        dict(object='operand-use second slab',requests_upper=slab_4K,raw_bytes_upper=4096),
+        dict(object='operand-use later slabs',requests_upper=slab_16K,raw_bytes_upper=16384)]
+    ordinary = dict(
+        var_info_hash_control_bytes_upper=128,
+        var_info_hash_backing_bytes_upper=None if prime is None else 8*prime,
+        var_info_records_upper=1,var_info_record_bytes=48,var_info_vector_bytes=16,
+        interesting_block_bitmap_bytes_upper=8+8*((blocks+63)//64),
+        frontier_bitmap_header_array_bytes_upper=32*blocks,frontier_elements=0,
+        reaching_definition_stack_capacity_upper=stack_capacity,
+        reaching_definition_stack_bytes_upper=8+8*stack_capacity,
+        private_SSA_bitmap_headers_upper=3,
+        private_SSA_bitmap_elements_upper=2*bitmap_elements,
+        private_SSA_bitmap_chunk_requests_upper=4+2*bitmap_elements,
+        private_SSA_bitmap_each_chunk_bytes=65536,
+        shared_default_bitmap_headers_upper=3,
+        shared_kills_bitmap_live_elements_upper=1,
+        shared_kills_bitmap_element_requests_upper=blocks,
+        shared_PHI_prune_bitmap_elements_upper=bitmap_elements,
+        PHI_work_set_bytes_upper=8+4*max(64,blocks),
+        PHI_pruning_large_arrays_reached=False,
+        dominator_walks=2,walk_int_array_bytes_each_upper=4*blocks,
+        walk_int_arrays_per_walk=2,
+        walk_pointer_stack_bytes_upper=16*blocks,
+        walk_preorder_stack_bytes_upper=8+16*max(20,blocks+1),
+        cold_forward_dominance_unsigned_arrays=9,
+        cold_forward_dominance_unsigned_arrays_bytes_each_upper=4*blocks,
+        cold_forward_dominance_pointer_array_bytes_upper=8*blocks,
+        cold_forward_dominance_order_array_bytes_upper=4*(blocks+1),
+        cold_forward_dominance_edge_iterator_array_bytes_upper=16*(blocks+1),
+        live_ET_nodes_upper=blocks,live_ET_occurrences_upper=2*blocks,
+        ET_node_pool_blocks_upper=(blocks+909)//910,
+        ET_occurrence_pool_blocks_upper=(2*blocks+1169)//1170,
+        each_ET_pool_block_bytes=65536)
+    checks = dict(
+        phase_SSA_name_versions_and_fresh_count=uses <= I32,
+        SSA_vector_growth_unsigned_intermediate=3*z <= 2**32-1,
+        SSA_vector_normalized_capacity_31_bit=vector_capacity <= I32,
+        SSA_vector_size_product=vector_bytes <= I64,
+        var_info_initial_hash_region=prime is not None and prime <= I32,
+        initial_CFG_and_dominance_signed_intermediate=4*blocks <= I32,
+        definition_stack_growth_unsigned_intermediate=3*stack_pushes <= 2**32-1,
+        definition_stack_capacity_31_bit=stack_capacity <= I32,
+        bitmap_rounding_unsigned=blocks+127 <= 2**32-1,
+        ordinary_size_products=max(32*blocks,8+8*stack_capacity) <= I64)
+    return dict(source_input=dict(calls=c,nulls=n,SSA_slots_upper=z,
+                                  memory_definitions_upper=3*c,memory_uses_upper=uses,
+                                  initial_CFG_block_slots_upper=blocks),
+        default_memory_names=1,nondefault_memory_names_upper=3*c,
+        initial_SSA_operand_slab_requested_bytes_upper=1024+4096*slab_4K+16384*slab_16K,
+        SSA_name_vector_normalized_capacity_upper=vector_capacity,
+        default_definition_hash_entries=1,real_SSA_names=0,PHIs=0,
+        individual_GGC_request_groups=ggc,ordinary_requests=ordinary,
+        additional_GGC_request_events_upper=sum(row['requests_upper'] for row in ggc),
+        additional_singleton_finalizer_registrations_upper=1,
+        additional_DECL_UID_events_upper=1,additional_identifier_misses_upper=1,
+        additional_global_SSA_name_creation_events_upper=uses,
+        global_SSA_creation_counter_lifetime_closed=False,
+        conditional_initial_SSA_lifetime_closed=all(checks.values()),
+        local_representation_checks=checks,whole_native_pipeline_capacity_established=False,
+        source_argument='docs/research/retained-literal-pipeline.md#initial-ssa-lifetime')
+
+
 def evaluate(descriptor_path, context, source_override=None):
     descriptor_path = Path(descriptor_path).resolve()
     descriptor = read(descriptor_path)
@@ -422,6 +509,7 @@ def evaluate(descriptor_path, context, source_override=None):
     pools = native_pool_lifetime(c,context)
     graph = native_graph_lifetime(c,n,context)
     ssa_helpers = native_ssa_helper_backing(c,n,context)
+    initial_ssa = native_initial_ssa_lifetime(c,n,context)
     why = context.why['compose'](why_counts,context.schema,context.fixed_counts,context.fixed_modules,p)
     selected_why = context.specialization['evaluate'](raw,context.specialization_context,path_bytes=p)
     require(selected_why['source_counts'] == counts and
@@ -442,6 +530,10 @@ def evaluate(descriptor_path, context, source_override=None):
             graph['source_input']['post_CFG_statements_upper'] ==
             native['conditional_O0_out_of_SSA']['live_GIMPLE_statements_upper'],
             'literal GIMPLE graph/summary/ranger/out-of-SSA join')
+    require(initial_ssa['source_input']['SSA_slots_upper'] ==
+            native['initial_SSA']['SSA_name_vector_length_upper'] and
+            initial_ssa['initial_SSA_operand_slab_requested_bytes_upper'] ==
+            native['initial_SSA']['operand_slab_requested_bytes_upper'], 'literal initial SSA join')
     assembler = context.assembler['evaluate'](raw,context.assembler_context)
     require(assembler['source_identity'] == identity(raw) and
             assembler['counts'] == dict(calls=c,nulls=n,
@@ -472,6 +564,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_varpool_and_shared_tree_pool=pools['named_consumer_closed'],
         native_graph_and_summary_lifetime=graph['conditional_graph_and_summary_lifetime_closed'],
         native_SSA_helper_backing=ssa_helpers['conditional_SSA_helper_backing_closed'],
+        native_initial_SSA_lifetime=initial_ssa['conditional_initial_SSA_lifetime_closed'],
         Main_assembler_object_interface=assembler['local_interface_fits'],
         Main_GAS_BFD_storage=assembler_storage['storage']['selected_GAS_BFD_storage_fits'],
         Why_core=selected_why['literal_Main_core_fits'],
@@ -482,12 +575,13 @@ def evaluate(descriptor_path, context, source_override=None):
     # helper count is never substituted for the null family's lifetime total.
     opens = {
         'native_remaining_lifetime_and_collector': {
-            'next_consumer':'complete frontend/gigi/initial-GIMPLE constructor lifetimes, then shared identifier/CONST_INT/reg-attribute pools and GGC collector composition.',
+            'next_consumer':'complete frontend/gigi/initial-GIMPLE and CF/CFG constructor lifetimes, then shared identifier/CONST_INT/reg-attribute pools and GGC collector composition.',
             'available':dict(graph_scan_count_upper=4,call_edge_creation_events_upper=4*c,
                              new_pool_lifecycle_GGC_events_upper=pools['additional_GGC_request_events_upper'],
                              new_graph_lifecycle_GGC_events_upper=graph['additional_GGC_request_events_upper'],
-                             ranger_and_out_of_SSA_backing_closed=ssa_helpers['conditional_SSA_helper_backing_closed']),
-            'missing':'Complete source/gigi/initial-GIMPLE constructor multiplicities; join existing RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused.'},
+                             ranger_and_out_of_SSA_backing_closed=ssa_helpers['conditional_SSA_helper_backing_closed'],
+                             initial_SSA_GGC_events_upper=initial_ssa['additional_GGC_request_events_upper']),
+            'missing':'Complete source/gigi/initial-GIMPLE and CF/CFG constructor multiplicities; join existing RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
                              ELF_interface=assembler['ELF'],
@@ -509,6 +603,7 @@ def evaluate(descriptor_path, context, source_override=None):
         failed_predicates=[key for key,value in conditions.items() if not value],
         native_lowering_data=native,RTL_shape=rtl,selected_native_backing=backing,
         native_pool_lifetime=pools,native_graph_lifetime=graph,native_SSA_helper_backing=ssa_helpers,
+        native_initial_SSA_lifetime=initial_ssa,
         Main_assembler_object_interface=assembler,
         Main_GAS_BFD_storage=assembler_storage['storage'],
         Why_core=why,selected_Why_core=selected_why,
