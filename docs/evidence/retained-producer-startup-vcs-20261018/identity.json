@@ -1,0 +1,107 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "installed_package": "gnatprove_16.1.0_82528bef",
+  "behavior_premise": "Candidate source behavior plus retained installed library bytes; no installed binary/source identity claim.",
+  "archives": [
+    {
+      "path": "docs/evidence/retained-producer-import-context-20261018/sources.tar.gz",
+      "sha256": "73c394cf6faa83fd4ff3f2a5a8d561a571300b5a439225e5df59c807ceea53a1",
+      "files": [
+        {
+          "name": "pmodule",
+          "member": "why3/src/mlw/pmodule.ml",
+          "bytes": 69178,
+          "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+        },
+        {
+          "name": "set",
+          "member": "installed/libexec/spark/share/why3/theories/set.mlw",
+          "bytes": 19900,
+          "sha256": "7bb4c9fffa2b24efd0372f5eb6d253d69b1d0f296d0622847dfd724b2b6ac709"
+        },
+        {
+          "name": "int",
+          "member": "installed/libexec/spark/share/why3/theories/int.mlw",
+          "bytes": 18687,
+          "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+        },
+        {
+          "name": "string",
+          "member": "installed/libexec/spark/share/why3/theories/string.mlw",
+          "bytes": 17684,
+          "sha256": "ea9e41823b857ebbe08fe5ba71687f3894946efd21748703d89a83df6b99e3ec"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "sha256": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910",
+      "files": [
+        {
+          "name": "ity",
+          "member": "why3/src/mlw/ity.ml",
+          "bytes": 70996,
+          "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49"
+        },
+        {
+          "name": "typeinv",
+          "member": "why3/src/mlw/typeinv.ml",
+          "bytes": 28755,
+          "sha256": "b517faf50c123242facae815f2de8e3ba8f2a84b052f56023277d7c96d430920"
+        },
+        {
+          "name": "vc",
+          "member": "why3/src/mlw/vc.ml",
+          "bytes": 76631,
+          "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1"
+        },
+        {
+          "name": "expr",
+          "member": "why3/src/mlw/expr.ml",
+          "bytes": 62189,
+          "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+        },
+        {
+          "name": "matcher",
+          "member": "why3/src/mlw/eval_match.ml",
+          "bytes": 8322,
+          "sha256": "794bed299489c440853eb5e89ceb283a28de88bbc4db702794c7388f48a6f4ea"
+        },
+        {
+          "name": "typing",
+          "member": "why3/src/parser/typing.ml",
+          "bytes": 77035,
+          "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-typing-20261018/sources.tar.gz",
+      "sha256": "0a4a7edfa6ec0b78220bbb429ec0b503b8eb2fba864e875ce69b69936e24ce78",
+      "files": [
+        {
+          "name": "dexpr",
+          "member": "src/mlw/dexpr.ml",
+          "bytes": 72915,
+          "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-firstsplit-20261018/sources.tar.gz",
+      "sha256": "fe0199cb55c13dd36c8ba585869dc0ceaedc5d6df8031ddbc1f505fa25865ad3",
+      "files": [
+        {
+          "name": "term",
+          "member": "src/core/term.ml",
+          "bytes": 61841,
+          "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+        }
+      ]
+    }
+  ],
+  "context_result": {
+    "path": "docs/evidence/retained-producer-import-context-20261018/result.json",
+    "sha256": "294936a42d259f65692e2760158fdd7a4651b511b9e1ad8f934380d43108da9b"
+  }
+}

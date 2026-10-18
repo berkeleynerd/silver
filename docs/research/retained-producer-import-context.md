@@ -97,8 +97,10 @@ add a program-value refinement (`gnat_ast_to_ptree.ml:1241–1282`, retained
 in the earlier fixed-check source archive).
 
 These **six startup formula constructions** belong to the producer's
-allocation/lifetime account. Their size and the typed declarations around
-them still need bounds. They are imported library declarations, not extra
+allocation/lifetime account. The subsequent [six-formula analysis](retained-producer-startup-vcs.md)
+bounds their retained kode/formula shapes and direct VCgen program-variable
+births. Complete transient costs and the typed declarations around them still
+need bounds. They are imported library declarations, not extra
 registered `GP_Check` leaves in the five supplied native theories; the
 [fixed-body G/R account](retained-producer-fixed-paths.md) counts those
 registered response leaves separately. No obligation is suppressed here.

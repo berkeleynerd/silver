@@ -27,6 +27,9 @@ The [configured startup import account](retained-producer-import-context.md)
 includes all nine configured drivers, closes the static clone-warning term,
 and identifies six imported startup VC constructions. Its source dependency
 coefficients are not yet typed-term or allocation bounds.
+The [six-formula transfer](retained-producer-startup-vcs.md) bounds their
+retained kode and final lexical formulas, with temporary identifier and
+whole-context typing events still separate.
 Native/frontend, flow/final-report, Why3 lifetime counters and selected solver
 representations remain separate joins.
 

@@ -1,0 +1,36 @@
+{
+  "native_or_proof_executions": 0,
+  "per_construction": {
+    "set_witness": {
+      "copies": 2,
+      "kode_nodes": 25,
+      "attached_terms": 42,
+      "formula_E0": 41,
+      "direct_vcgen_program_variables": 7
+    },
+    "eq_refinement": {
+      "copies": 3,
+      "kode_nodes": 7,
+      "attached_terms": 17,
+      "formula_E0": 27,
+      "direct_vcgen_program_variables": 2
+    },
+    "char_existence": {
+      "copies": 1,
+      "kode_nodes": 0,
+      "attached_terms": 5,
+      "formula_E0": 5,
+      "direct_vcgen_program_variables": 0
+    }
+  },
+  "per_backend_process": {
+    "kode_nodes": 71,
+    "kode_nodes_after_general_reflow_bound": 223,
+    "attached_terms_including_char_formula": 140,
+    "sum_formula_E0": 168,
+    "direct_vcgen_program_variables": 20,
+    "exception_counter_increments": 0,
+    "type_invariant_pin_counter_increments": 0
+  },
+  "scope": "Retained kode/formula shapes and direct VCgen program-variable births only; not whole-context typing or all temporary logical identifier/hashcons events."
+}
