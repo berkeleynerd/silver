@@ -3,7 +3,7 @@
 Supports the [location, String and constant-pool derivation](../../research/retained-backend-capacity.md)
 for #119. No compiler, GNATprove, Lean, suite or near-limit allocation was run.
 
-`source-manifest.json` identifies seventy-four complete GCC source files at
+`source-manifest.json` identifies eighty-three complete GCC source files at
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. Six newly retrieved files are retained
 in `new-sources.tar.gz`; their immutable retrieval URLs are in the manifest.
 The three additional allocator sources are in `allocator-sources.tar.gz`;
@@ -19,12 +19,18 @@ four constant-folder/pattern/configuration files are in `folding-sources.tar.gz`
 eighteen type/layout/hook and selected Linux header files are in
 `type-sources.tar.gz`, reconciled against the retained complete source manifest;
 the tree-walker declaration header is in `copy-sources.tar.gz`;
+nine bitmap/obstack/pool sources are in `bitmap-sources.tar.gz`;
 `target-options-query.json` retains the selected compiler's target-option query,
 which compiles no source. These identities describe source
 bytes, not a binary attestation. The ordinary Linux LP64 layout remains an
 explicit premise of the String allocation arithmetic.
 
-`check.py` verifies all seventy-four complete-file hashes, checks reused identities
+`selected-auto-host.h` retains the installed native compiler's relevant
+statistics and host-word configuration; its digest is recorded in
+`configuration-inventory.json`. This is a build-configuration premise, not
+binary attestation.
+
+`check.py` verifies all eighty-three complete-file hashes, checks reused identities
 against their earlier manifests, extracts LF-numbered source ranges and
 recomputes local integer arithmetic, including ordinary-map growth and the two
 GNAT-node association backbones, constant-label mutation inventory and label
@@ -72,6 +78,10 @@ The size-extrema continuation checks the body-inlining gate, direct helper
 sites and the signed byte-length limit in variable-arity call construction.
 Its manual transfer covers scalar size expressions without a reached
 placeholder-reference or inlineable body; symbolic folder work is separate.
+The bitmap continuation checks word/configuration and sparse fixed-object
+allocation facts, then evaluates dense size/vector products at representation
+boundaries. Linked sparse allocations have no aggregate byte-span gate; their
+callers still supply the bit universe, valid views and obstack nesting bound.
 `checks.json` and `source-excerpts.md`
 retain its outputs. The script does not establish caller coverage or replace
 the report's manual source argument.

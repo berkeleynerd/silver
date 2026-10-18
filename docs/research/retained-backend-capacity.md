@@ -507,6 +507,83 @@ It is not a near-limit native experiment. An actual construct's element count,
 T and reservation multiplicities remain composition inputs. Coexisting old/new
 arrays and cumulative allocations are physical costs, not aggregate RAM gates.
 
+## Sparse and dense bitmap storage
+
+The CFG/SSA components index bitmaps by block, name or partition number. Let U
+bound the universe cardinality, so each used bit is in [0,U), and require
+U<=INT_MAX. Range operations additionally require start+count<=U in mathematical
+arithmetic. These inputs cover the actual signed dense-bitmap API as well as
+the sparse representation; they are not a bound on total bits across all sets.
+
+The selected native `auto-host.h` defines `GATHER_STATISTICS=0` and uses
+eight-byte long/long long. The retained header records this relevant build
+premise without claiming binary attestation. Thus the 29-bit allocation
+descriptor in `bitmap_head` is never assigned a fresh identifier: registration
+and memory-statistics updates are gated off (`bitmap.h:466–475`,
+`bitmap.cc:35–59`). It must not become a spurious lifetime bitmap-count limit.
+
+On this LP64 layout a sparse `bitmap_head` is 32 bytes and a `bitmap_element`
+is 40 bytes: two pointers, a 32-bit bucket index with alignment padding, and
+two 64-bit words (`bitmap.h:279–366`). Each element covers 128 bit positions.
+A set with k live bits has at most min(k,ceil(U/128)) nonempty elements.
+Temporary candidate elements can be constructed and discarded during set
+operations, so this live count is not a lifetime allocation count. In
+particular, the empty-destination path in `bitmap_ior_and_compl_into` calls
+`bitmap_and_compl`, which can allocate a candidate before discovering that
+its bits are zero (`bitmap.cc:1520–1616,2540–2562`).
+
+That distinction does not create another representation limit: elements and
+heads are separate fixed-size objects linked by pointers. Their freelists have
+no aggregate element number or byte-span index. GGC requests retain the
+ordinary allocator's rounding; obstack requests use 64 KiB chunks. Each
+`XOBNEW` finishes its object, so at the next allocation the partial-object
+size is zero. With eight-byte alignment and a request of at most 40 bytes,
+`_obstack_newchunk` selects the existing 65,536-byte preferred size
+(`bitmap.cc:102–148,732–812`, `coretypes.h:375–388`,
+`include/obstack.h:373–421`, `libiberty/obstack.c:188–235`). No large object is
+assembled across the chunks. The memory-block pool also links its free blocks
+without a growing integer count (`memory-block.h:26–77`,
+`memory-block.cc:33–77`). For I obstack initializations, H head allocation
+requests and L element allocation requests, I+H+L bounds chunk requests;
+reuse only reduces it. The resulting byte subtotal is descriptive, never an
+aggregate address-space or RAM gate.
+
+The sparse bucket index is floor(bit/128); bucket endpoints and range loops
+fit unsigned32 under U<=INT_MAX, including rounding the last bucket upward.
+Bit counts use unsigned long. Converting a tree-view bitmap to a list can use
+two temporary pointer vectors, each with at most ceil(U/128) entries, plus
+their 32-element inline storage (`bitmap.cc:597–660`). Apply the existing
+vector backing rule to that per-vector demand. List-only operations need no
+such vectors. The signed default-obstack nesting depth still needs the
+caller's bound below INT_MAX before increment; it counts simultaneous
+default-obstack initialization, not lifetime element allocations. Initialized
+obstacks and valid views/ranges remain caller invariants.
+
+Dense simple bitmaps use two unsigned32 header fields and 64-bit words
+(`sbitmap.h:75–139`, `hwint.h:139–156`). For U bits, put w=ceil(U/64). The
+single-object request is 8+8w bytes. Its unsigned intermediates, including
+U+63, w, 8w and the header addition, fit under U<=INT_MAX; the largest request
+is 268,435,464 bytes (`sbitmap.cc:42–134`). That is a representation ceiling
+derived from the index interface, not a promise of physical allocation.
+Resize consumes a correctly sized bitmap with size=ceil(old_n_bits/64);
+arbitrary mixing with an interface that retains larger capacity metadata is
+not covered. The initial SSA and liveness callers start with `sbitmap_alloc`.
+
+`sbitmap_vector_alloc(v,U)` makes one contiguous allocation for v pointers
+and v bitmaps. Eight-byte alignment leaves its pointer prefix unchanged, so
+the total request is v*(16+8w) bytes (`sbitmap.cc:140–176`). Even at
+v=UINT_MAX and U=INT_MAX this is below PTRDIFF_MAX on LP64; the source's
+size_t products, offset additions and unsigned loop count fit. A caller's
+stricter signed v/index limits still apply. Arrays of sparse bitmap headers
+likewise need their actual contiguous count multiplied by 32, rather than
+the lifetime number of elements in their linked sets.
+
+This closes these container representation interfaces for the stated
+universes/configuration. It does not supply every phase's universe, prove
+the caller's set invariants, or bound unrelated allocator classes. Lifetime
+event estimates remain useful for cost comparison but cannot independently
+exclude a program merely for summing many separate small allocations.
+
 ## Pseudo-register numbering and its two backing arrays
 
 The selected x86 target defines FIRST_PSEUDO_REG=92

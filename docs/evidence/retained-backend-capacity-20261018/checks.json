@@ -296,6 +296,42 @@
     {
       "path": "gcc/tree.h",
       "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c"
+    },
+    {
+      "path": "gcc/bitmap.h",
+      "sha256": "79c70e80f9987702c98a6b6dde5bd1ef87e63823ee3edb9aff0e78e31200987a"
+    },
+    {
+      "path": "gcc/bitmap.cc",
+      "sha256": "879fa506fc99e70274663eb8b6899bb34a67e22236d91b5e30adedb9927b6b3e"
+    },
+    {
+      "path": "gcc/sbitmap.h",
+      "sha256": "77a76f132aeab1883861351cb6b4361336bc01568272982d76a233d924367a2d"
+    },
+    {
+      "path": "gcc/sbitmap.cc",
+      "sha256": "4152646b5167a7bbbab482d6e1399e11934475808933b6111b7a8e126691bf5b"
+    },
+    {
+      "path": "gcc/memory-block.h",
+      "sha256": "9eef83e41d1d5d8a0fd753a900804a0350e968520c5831fef735ce8a8e3173ac"
+    },
+    {
+      "path": "gcc/memory-block.cc",
+      "sha256": "16f4beb0f9a9354ba461e8cf519bc2055db9754193e00e43ff17ee71624963dd"
+    },
+    {
+      "path": "include/obstack.h",
+      "sha256": "068560c0942ddd718dea6414f6ea332c77251c9a5d246eb869f9634af35a1632"
+    },
+    {
+      "path": "libiberty/obstack.c",
+      "sha256": "bd202f89c53690fce0d8ba7430f10d5ff6b8b71700de1499644147bb022eb658"
+    },
+    {
+      "path": "gcc/hwint.h",
+      "sha256": "888841ebffd486a935a1ed8299ed3f74c71107d0cd59402b06a91483a2035f8a"
     }
   ],
   "block_operations": {
@@ -1016,6 +1052,568 @@
       "scratch_bytes": "8a"
     },
     "symbolic_folder_internals_closed": false,
+    "native_execution": false
+  },
+  "bitmap_storage": {
+    "scope": "selected LP64 bitmap containers with source-derived universe and caller invariants",
+    "selected_statistics_enabled": false,
+    "universe_upper_bound": 2147483647,
+    "sparse_head_bytes": 32,
+    "sparse_element_bytes": 40,
+    "sparse_bucket_bits": 128,
+    "sparse_fixed_object_obstack_chunk_bytes": 65536,
+    "sparse_tree_to_list_vector_entries": "ceil(U/128) each, plus fixed inline storage",
+    "aggregate_allocation_gate": false,
+    "default_obstack_depth_requires_caller_bound": true,
+    "dense_vector_bytes": "v*(16+8*ceil(U/64))",
+    "boundary_checks": [
+      {
+        "universe": 0,
+        "dense_words": 0,
+        "single_object_bytes": 8,
+        "vector_object_at_uint_max_count": 68719476720,
+        "sparse_bucket_slots": 0
+      },
+      {
+        "universe": 1,
+        "dense_words": 1,
+        "single_object_bytes": 16,
+        "vector_object_at_uint_max_count": 103079215080,
+        "sparse_bucket_slots": 1
+      },
+      {
+        "universe": 63,
+        "dense_words": 1,
+        "single_object_bytes": 16,
+        "vector_object_at_uint_max_count": 103079215080,
+        "sparse_bucket_slots": 1
+      },
+      {
+        "universe": 64,
+        "dense_words": 1,
+        "single_object_bytes": 16,
+        "vector_object_at_uint_max_count": 103079215080,
+        "sparse_bucket_slots": 1
+      },
+      {
+        "universe": 65,
+        "dense_words": 2,
+        "single_object_bytes": 24,
+        "vector_object_at_uint_max_count": 137438953440,
+        "sparse_bucket_slots": 1
+      },
+      {
+        "universe": 127,
+        "dense_words": 2,
+        "single_object_bytes": 24,
+        "vector_object_at_uint_max_count": 137438953440,
+        "sparse_bucket_slots": 1
+      },
+      {
+        "universe": 128,
+        "dense_words": 2,
+        "single_object_bytes": 24,
+        "vector_object_at_uint_max_count": 137438953440,
+        "sparse_bucket_slots": 1
+      },
+      {
+        "universe": 129,
+        "dense_words": 3,
+        "single_object_bytes": 32,
+        "vector_object_at_uint_max_count": 171798691800,
+        "sparse_bucket_slots": 2
+      },
+      {
+        "universe": 255,
+        "dense_words": 4,
+        "single_object_bytes": 40,
+        "vector_object_at_uint_max_count": 206158430160,
+        "sparse_bucket_slots": 2
+      },
+      {
+        "universe": 256,
+        "dense_words": 4,
+        "single_object_bytes": 40,
+        "vector_object_at_uint_max_count": 206158430160,
+        "sparse_bucket_slots": 2
+      },
+      {
+        "universe": 257,
+        "dense_words": 5,
+        "single_object_bytes": 48,
+        "vector_object_at_uint_max_count": 240518168520,
+        "sparse_bucket_slots": 3
+      },
+      {
+        "universe": 511,
+        "dense_words": 8,
+        "single_object_bytes": 72,
+        "vector_object_at_uint_max_count": 343597383600,
+        "sparse_bucket_slots": 4
+      },
+      {
+        "universe": 512,
+        "dense_words": 8,
+        "single_object_bytes": 72,
+        "vector_object_at_uint_max_count": 343597383600,
+        "sparse_bucket_slots": 4
+      },
+      {
+        "universe": 513,
+        "dense_words": 9,
+        "single_object_bytes": 80,
+        "vector_object_at_uint_max_count": 377957121960,
+        "sparse_bucket_slots": 5
+      },
+      {
+        "universe": 1023,
+        "dense_words": 16,
+        "single_object_bytes": 136,
+        "vector_object_at_uint_max_count": 618475290480,
+        "sparse_bucket_slots": 8
+      },
+      {
+        "universe": 1024,
+        "dense_words": 16,
+        "single_object_bytes": 136,
+        "vector_object_at_uint_max_count": 618475290480,
+        "sparse_bucket_slots": 8
+      },
+      {
+        "universe": 1025,
+        "dense_words": 17,
+        "single_object_bytes": 144,
+        "vector_object_at_uint_max_count": 652835028840,
+        "sparse_bucket_slots": 9
+      },
+      {
+        "universe": 2047,
+        "dense_words": 32,
+        "single_object_bytes": 264,
+        "vector_object_at_uint_max_count": 1168231104240,
+        "sparse_bucket_slots": 16
+      },
+      {
+        "universe": 2048,
+        "dense_words": 32,
+        "single_object_bytes": 264,
+        "vector_object_at_uint_max_count": 1168231104240,
+        "sparse_bucket_slots": 16
+      },
+      {
+        "universe": 2049,
+        "dense_words": 33,
+        "single_object_bytes": 272,
+        "vector_object_at_uint_max_count": 1202590842600,
+        "sparse_bucket_slots": 17
+      },
+      {
+        "universe": 4095,
+        "dense_words": 64,
+        "single_object_bytes": 520,
+        "vector_object_at_uint_max_count": 2267742731760,
+        "sparse_bucket_slots": 32
+      },
+      {
+        "universe": 4096,
+        "dense_words": 64,
+        "single_object_bytes": 520,
+        "vector_object_at_uint_max_count": 2267742731760,
+        "sparse_bucket_slots": 32
+      },
+      {
+        "universe": 4097,
+        "dense_words": 65,
+        "single_object_bytes": 528,
+        "vector_object_at_uint_max_count": 2302102470120,
+        "sparse_bucket_slots": 33
+      },
+      {
+        "universe": 8191,
+        "dense_words": 128,
+        "single_object_bytes": 1032,
+        "vector_object_at_uint_max_count": 4466765986800,
+        "sparse_bucket_slots": 64
+      },
+      {
+        "universe": 8192,
+        "dense_words": 128,
+        "single_object_bytes": 1032,
+        "vector_object_at_uint_max_count": 4466765986800,
+        "sparse_bucket_slots": 64
+      },
+      {
+        "universe": 8193,
+        "dense_words": 129,
+        "single_object_bytes": 1040,
+        "vector_object_at_uint_max_count": 4501125725160,
+        "sparse_bucket_slots": 65
+      },
+      {
+        "universe": 16383,
+        "dense_words": 256,
+        "single_object_bytes": 2056,
+        "vector_object_at_uint_max_count": 8864812496880,
+        "sparse_bucket_slots": 128
+      },
+      {
+        "universe": 16384,
+        "dense_words": 256,
+        "single_object_bytes": 2056,
+        "vector_object_at_uint_max_count": 8864812496880,
+        "sparse_bucket_slots": 128
+      },
+      {
+        "universe": 16385,
+        "dense_words": 257,
+        "single_object_bytes": 2064,
+        "vector_object_at_uint_max_count": 8899172235240,
+        "sparse_bucket_slots": 129
+      },
+      {
+        "universe": 32767,
+        "dense_words": 512,
+        "single_object_bytes": 4104,
+        "vector_object_at_uint_max_count": 17660905517040,
+        "sparse_bucket_slots": 256
+      },
+      {
+        "universe": 32768,
+        "dense_words": 512,
+        "single_object_bytes": 4104,
+        "vector_object_at_uint_max_count": 17660905517040,
+        "sparse_bucket_slots": 256
+      },
+      {
+        "universe": 32769,
+        "dense_words": 513,
+        "single_object_bytes": 4112,
+        "vector_object_at_uint_max_count": 17695265255400,
+        "sparse_bucket_slots": 257
+      },
+      {
+        "universe": 65535,
+        "dense_words": 1024,
+        "single_object_bytes": 8200,
+        "vector_object_at_uint_max_count": 35253091557360,
+        "sparse_bucket_slots": 512
+      },
+      {
+        "universe": 65536,
+        "dense_words": 1024,
+        "single_object_bytes": 8200,
+        "vector_object_at_uint_max_count": 35253091557360,
+        "sparse_bucket_slots": 512
+      },
+      {
+        "universe": 65537,
+        "dense_words": 1025,
+        "single_object_bytes": 8208,
+        "vector_object_at_uint_max_count": 35287451295720,
+        "sparse_bucket_slots": 513
+      },
+      {
+        "universe": 131071,
+        "dense_words": 2048,
+        "single_object_bytes": 16392,
+        "vector_object_at_uint_max_count": 70437463638000,
+        "sparse_bucket_slots": 1024
+      },
+      {
+        "universe": 131072,
+        "dense_words": 2048,
+        "single_object_bytes": 16392,
+        "vector_object_at_uint_max_count": 70437463638000,
+        "sparse_bucket_slots": 1024
+      },
+      {
+        "universe": 131073,
+        "dense_words": 2049,
+        "single_object_bytes": 16400,
+        "vector_object_at_uint_max_count": 70471823376360,
+        "sparse_bucket_slots": 1025
+      },
+      {
+        "universe": 262143,
+        "dense_words": 4096,
+        "single_object_bytes": 32776,
+        "vector_object_at_uint_max_count": 140806207799280,
+        "sparse_bucket_slots": 2048
+      },
+      {
+        "universe": 262144,
+        "dense_words": 4096,
+        "single_object_bytes": 32776,
+        "vector_object_at_uint_max_count": 140806207799280,
+        "sparse_bucket_slots": 2048
+      },
+      {
+        "universe": 262145,
+        "dense_words": 4097,
+        "single_object_bytes": 32784,
+        "vector_object_at_uint_max_count": 140840567537640,
+        "sparse_bucket_slots": 2049
+      },
+      {
+        "universe": 524287,
+        "dense_words": 8192,
+        "single_object_bytes": 65544,
+        "vector_object_at_uint_max_count": 281543696121840,
+        "sparse_bucket_slots": 4096
+      },
+      {
+        "universe": 524288,
+        "dense_words": 8192,
+        "single_object_bytes": 65544,
+        "vector_object_at_uint_max_count": 281543696121840,
+        "sparse_bucket_slots": 4096
+      },
+      {
+        "universe": 524289,
+        "dense_words": 8193,
+        "single_object_bytes": 65552,
+        "vector_object_at_uint_max_count": 281578055860200,
+        "sparse_bucket_slots": 4097
+      },
+      {
+        "universe": 1048575,
+        "dense_words": 16384,
+        "single_object_bytes": 131080,
+        "vector_object_at_uint_max_count": 563018672766960,
+        "sparse_bucket_slots": 8192
+      },
+      {
+        "universe": 1048576,
+        "dense_words": 16384,
+        "single_object_bytes": 131080,
+        "vector_object_at_uint_max_count": 563018672766960,
+        "sparse_bucket_slots": 8192
+      },
+      {
+        "universe": 1048577,
+        "dense_words": 16385,
+        "single_object_bytes": 131088,
+        "vector_object_at_uint_max_count": 563053032505320,
+        "sparse_bucket_slots": 8193
+      },
+      {
+        "universe": 2097151,
+        "dense_words": 32768,
+        "single_object_bytes": 262152,
+        "vector_object_at_uint_max_count": 1125968626057200,
+        "sparse_bucket_slots": 16384
+      },
+      {
+        "universe": 2097152,
+        "dense_words": 32768,
+        "single_object_bytes": 262152,
+        "vector_object_at_uint_max_count": 1125968626057200,
+        "sparse_bucket_slots": 16384
+      },
+      {
+        "universe": 2097153,
+        "dense_words": 32769,
+        "single_object_bytes": 262160,
+        "vector_object_at_uint_max_count": 1126002985795560,
+        "sparse_bucket_slots": 16385
+      },
+      {
+        "universe": 4194303,
+        "dense_words": 65536,
+        "single_object_bytes": 524296,
+        "vector_object_at_uint_max_count": 2251868532637680,
+        "sparse_bucket_slots": 32768
+      },
+      {
+        "universe": 4194304,
+        "dense_words": 65536,
+        "single_object_bytes": 524296,
+        "vector_object_at_uint_max_count": 2251868532637680,
+        "sparse_bucket_slots": 32768
+      },
+      {
+        "universe": 4194305,
+        "dense_words": 65537,
+        "single_object_bytes": 524304,
+        "vector_object_at_uint_max_count": 2251902892376040,
+        "sparse_bucket_slots": 32769
+      },
+      {
+        "universe": 8388607,
+        "dense_words": 131072,
+        "single_object_bytes": 1048584,
+        "vector_object_at_uint_max_count": 4503668345798640,
+        "sparse_bucket_slots": 65536
+      },
+      {
+        "universe": 8388608,
+        "dense_words": 131072,
+        "single_object_bytes": 1048584,
+        "vector_object_at_uint_max_count": 4503668345798640,
+        "sparse_bucket_slots": 65536
+      },
+      {
+        "universe": 8388609,
+        "dense_words": 131073,
+        "single_object_bytes": 1048592,
+        "vector_object_at_uint_max_count": 4503702705537000,
+        "sparse_bucket_slots": 65537
+      },
+      {
+        "universe": 16777215,
+        "dense_words": 262144,
+        "single_object_bytes": 2097160,
+        "vector_object_at_uint_max_count": 9007267972120560,
+        "sparse_bucket_slots": 131072
+      },
+      {
+        "universe": 16777216,
+        "dense_words": 262144,
+        "single_object_bytes": 2097160,
+        "vector_object_at_uint_max_count": 9007267972120560,
+        "sparse_bucket_slots": 131072
+      },
+      {
+        "universe": 16777217,
+        "dense_words": 262145,
+        "single_object_bytes": 2097168,
+        "vector_object_at_uint_max_count": 9007302331858920,
+        "sparse_bucket_slots": 131073
+      },
+      {
+        "universe": 33554431,
+        "dense_words": 524288,
+        "single_object_bytes": 4194312,
+        "vector_object_at_uint_max_count": 18014467224764400,
+        "sparse_bucket_slots": 262144
+      },
+      {
+        "universe": 33554432,
+        "dense_words": 524288,
+        "single_object_bytes": 4194312,
+        "vector_object_at_uint_max_count": 18014467224764400,
+        "sparse_bucket_slots": 262144
+      },
+      {
+        "universe": 33554433,
+        "dense_words": 524289,
+        "single_object_bytes": 4194320,
+        "vector_object_at_uint_max_count": 18014501584502760,
+        "sparse_bucket_slots": 262145
+      },
+      {
+        "universe": 67108863,
+        "dense_words": 1048576,
+        "single_object_bytes": 8388616,
+        "vector_object_at_uint_max_count": 36028865730052080,
+        "sparse_bucket_slots": 524288
+      },
+      {
+        "universe": 67108864,
+        "dense_words": 1048576,
+        "single_object_bytes": 8388616,
+        "vector_object_at_uint_max_count": 36028865730052080,
+        "sparse_bucket_slots": 524288
+      },
+      {
+        "universe": 67108865,
+        "dense_words": 1048577,
+        "single_object_bytes": 8388624,
+        "vector_object_at_uint_max_count": 36028900089790440,
+        "sparse_bucket_slots": 524289
+      },
+      {
+        "universe": 134217727,
+        "dense_words": 2097152,
+        "single_object_bytes": 16777224,
+        "vector_object_at_uint_max_count": 72057662740627440,
+        "sparse_bucket_slots": 1048576
+      },
+      {
+        "universe": 134217728,
+        "dense_words": 2097152,
+        "single_object_bytes": 16777224,
+        "vector_object_at_uint_max_count": 72057662740627440,
+        "sparse_bucket_slots": 1048576
+      },
+      {
+        "universe": 134217729,
+        "dense_words": 2097153,
+        "single_object_bytes": 16777232,
+        "vector_object_at_uint_max_count": 72057697100365800,
+        "sparse_bucket_slots": 1048577
+      },
+      {
+        "universe": 268435455,
+        "dense_words": 4194304,
+        "single_object_bytes": 33554440,
+        "vector_object_at_uint_max_count": 144115256761778160,
+        "sparse_bucket_slots": 2097152
+      },
+      {
+        "universe": 268435456,
+        "dense_words": 4194304,
+        "single_object_bytes": 33554440,
+        "vector_object_at_uint_max_count": 144115256761778160,
+        "sparse_bucket_slots": 2097152
+      },
+      {
+        "universe": 268435457,
+        "dense_words": 4194305,
+        "single_object_bytes": 33554448,
+        "vector_object_at_uint_max_count": 144115291121516520,
+        "sparse_bucket_slots": 2097153
+      },
+      {
+        "universe": 536870911,
+        "dense_words": 8388608,
+        "single_object_bytes": 67108872,
+        "vector_object_at_uint_max_count": 288230444804079600,
+        "sparse_bucket_slots": 4194304
+      },
+      {
+        "universe": 536870912,
+        "dense_words": 8388608,
+        "single_object_bytes": 67108872,
+        "vector_object_at_uint_max_count": 288230444804079600,
+        "sparse_bucket_slots": 4194304
+      },
+      {
+        "universe": 536870913,
+        "dense_words": 8388609,
+        "single_object_bytes": 67108880,
+        "vector_object_at_uint_max_count": 288230479163817960,
+        "sparse_bucket_slots": 4194305
+      },
+      {
+        "universe": 1073741823,
+        "dense_words": 16777216,
+        "single_object_bytes": 134217736,
+        "vector_object_at_uint_max_count": 576460820888682480,
+        "sparse_bucket_slots": 8388608
+      },
+      {
+        "universe": 1073741824,
+        "dense_words": 16777216,
+        "single_object_bytes": 134217736,
+        "vector_object_at_uint_max_count": 576460820888682480,
+        "sparse_bucket_slots": 8388608
+      },
+      {
+        "universe": 1073741825,
+        "dense_words": 16777217,
+        "single_object_bytes": 134217744,
+        "vector_object_at_uint_max_count": 576460855248420840,
+        "sparse_bucket_slots": 8388609
+      },
+      {
+        "universe": 2147483647,
+        "dense_words": 33554432,
+        "single_object_bytes": 268435464,
+        "vector_object_at_uint_max_count": 1152921573057888240,
+        "sparse_bucket_slots": 16777216
+      }
+    ],
     "native_execution": false
   },
   "ordinary_vectors": {

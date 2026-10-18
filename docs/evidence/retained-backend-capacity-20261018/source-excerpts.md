@@ -13859,7 +13859,7 @@ LF line numbering; complete file identities checked.
 3763: hook returns true for all of @code{SFmode}, @code{DFmode}, \n\
 ```
 
-## gcc/coretypes.h:362–368
+## gcc/coretypes.h:362–388
 ```text
 362:    everything) and -1 (sometimes indicating that the alias set is
 363:    unknown, sometimes indicating a memory barrier) and -2 (indicating
@@ -13868,6 +13868,26 @@ LF line numbering; complete file identities checked.
 366: typedef int alias_set_type;
 367:
 368: class edge_def;
+369: typedef class edge_def *edge;
+370: typedef const class edge_def *const_edge;
+371: struct basic_block_def;
+372: typedef struct basic_block_def *basic_block;
+373: typedef const struct basic_block_def *const_basic_block;
+374:
+375: #if !defined (GENERATOR_FILE)
+376: # define OBSTACK_CHUNK_SIZE     memory_block_pool::block_size
+377: # define obstack_chunk_alloc    mempool_obstack_chunk_alloc
+378: # define obstack_chunk_free     mempool_obstack_chunk_free
+379: #else
+380: # define OBSTACK_CHUNK_SIZE     0
+381: # define obstack_chunk_alloc    xmalloc
+382: # define obstack_chunk_free     free
+383: #endif
+384:
+385: #define gcc_obstack_init(OBSTACK)				\
+386:   obstack_specify_allocation ((OBSTACK), OBSTACK_CHUNK_SIZE, 0,	\
+387: 			      obstack_chunk_alloc,		\
+388: 			      obstack_chunk_free)
 ```
 
 ## gcc/hooks.cc:152–155
@@ -13941,4 +13961,1182 @@ LF line numbering; complete file identities checked.
 5927: 	walk_tree_1 (a, b, c, d, NULL)
 5928: #define walk_tree_without_duplicates(a,b,c) \
 5929: 	walk_tree_without_duplicates_1 (a, b, c, NULL)
+```
+
+## gcc/bitmap.h:279–366
+```text
+279: /* BITMAP_WORD_BITS needs to be unsigned, but cannot contain casts as
+280:    it is used in preprocessor directives -- hence the 1u.  */
+281: #define BITMAP_WORD_BITS (CHAR_BIT * SIZEOF_LONG * 1u)
+282:
+283: /* Number of words to use for each element in the linked list.  */
+284:
+285: #ifndef BITMAP_ELEMENT_WORDS
+286: #define BITMAP_ELEMENT_WORDS ((128 + BITMAP_WORD_BITS - 1) / BITMAP_WORD_BITS)
+287: #endif
+288:
+289: /* Number of bits in each actual element of a bitmap.  */
+290:
+291: #define BITMAP_ELEMENT_ALL_BITS (BITMAP_ELEMENT_WORDS * BITMAP_WORD_BITS)
+292:
+293: /* Obstack for allocating bitmaps and elements from.  */
+294: struct bitmap_obstack {
+295:   struct bitmap_element *elements;
+296:   bitmap_head *heads;
+297:   struct obstack obstack;
+298: };
+299:
+300: /* Bitmap set element.  We use a linked list to hold only the bits that
+301:    are set.  This allows for use to grow the bitset dynamically without
+302:    having to realloc and copy a giant bit array.
+303:
+304:    The free list is implemented as a list of lists.  There is one
+305:    outer list connected together by prev fields.  Each element of that
+306:    outer is an inner list (that may consist only of the outer list
+307:    element) that are connected by the next fields.  The prev pointer
+308:    is undefined for interior elements.  This allows
+309:    bitmap_elt_clear_from to be implemented in unit time rather than
+310:    linear in the number of elements to be freed.  */
+311:
+312: struct GTY((chain_next ("%h.next"))) bitmap_element {
+313:   /* In list form, the next element in the linked list;
+314:      in tree form, the left child node in the tree.  */
+315:   struct bitmap_element *next;
+316:   /* In list form, the previous element in the linked list;
+317:      in tree form, the right child node in the tree.  */
+318:   struct bitmap_element *prev;
+319:   /* regno/BITMAP_ELEMENT_ALL_BITS.  */
+320:   unsigned int indx;
+321:   /* Bits that are set, counting from INDX, inclusive  */
+322:   BITMAP_WORD bits[BITMAP_ELEMENT_WORDS];
+323: };
+324:
+325: /* Head of bitmap linked list.  The 'current' member points to something
+326:    already pointed to by the chain started by first, so GTY((skip)) it.  */
+327:
+328: class GTY(()) bitmap_head {
+329: public:
+330:   static bitmap_obstack crashme;
+331:   /* Poison obstack to not make it not a valid initialized GC bitmap.  */
+332:   CONSTEXPR bitmap_head()
+333:     : indx (0), tree_form (false), padding (0), alloc_descriptor (0), first (NULL),
+334:       current (NULL), obstack (&crashme)
+335:   {}
+336:   /* Index of last element looked at.  */
+337:   unsigned int indx;
+338:   /* False if the bitmap is in list form; true if the bitmap is in tree form.
+339:      Bitmap iterators only work on bitmaps in list form.  */
+340:   unsigned tree_form: 1;
+341:   /* Next integer is shifted, so padding is needed.  */
+342:   unsigned padding: 2;
+343:   /* Bitmap UID used for memory allocation statistics.  */
+344:   unsigned alloc_descriptor: 29;
+345:   /* In list form, the first element in the linked list;
+346:      in tree form, the root of the tree.   */
+347:   bitmap_element *first;
+348:   /* Last element looked at.  */
+349:   bitmap_element * GTY((skip(""))) current;
+350:   /* Obstack to allocate elements from.  If NULL, then use GGC allocation.  */
+351:   bitmap_obstack * GTY((skip(""))) obstack;
+352:
+353:   /* Dump bitmap.  */
+354:   void dump ();
+355:
+356:   /* Get bitmap descriptor UID casted to an unsigned integer pointer.
+357:      Shift the descriptor because pointer_hash<Type>::hash is
+358:      doing >> 3 shift operation.  */
+359:   unsigned *get_descriptor ()
+360:   {
+361:     return (unsigned *)(ptrdiff_t)(alloc_descriptor << 3);
+362:   }
+363: };
+364:
+365: /* Global data */
+366: extern bitmap_element bitmap_zero_bits;	/* Zero bitmap element */
+```
+
+## gcc/bitmap.h:466–475
+```text
+466: inline void
+467: bitmap_initialize (bitmap head, bitmap_obstack *obstack CXX_MEM_STAT_INFO)
+468: {
+469:   head->first = head->current = NULL;
+470:   head->indx = head->tree_form = 0;
+471:   head->padding = 0;
+472:   head->alloc_descriptor = 0;
+473:   head->obstack = obstack;
+474:   if (GATHER_STATISTICS)
+475:     bitmap_register (head PASS_MEM_STAT);
+```
+
+## gcc/bitmap.cc:35–69
+```text
+35: /* Register new bitmap.  */
+36: void
+37: bitmap_register (bitmap b MEM_STAT_DECL)
+38: {
+39:   static unsigned alloc_descriptor_max_uid = 1;
+40:   gcc_assert (b->alloc_descriptor == 0);
+41:   b->alloc_descriptor = alloc_descriptor_max_uid++;
+42:
+43:   bitmap_mem_desc.register_descriptor (b->get_descriptor (), BITMAP_ORIGIN,
+44: 				       false FINAL_PASS_MEM_STAT);
+45: }
+46:
+47: /* Account the overhead.  */
+48: static void
+49: register_overhead (bitmap b, size_t amount)
+50: {
+51:   unsigned *d = b->get_descriptor ();
+52:   if (bitmap_mem_desc.contains_descriptor_for_instance (d))
+53:     bitmap_mem_desc.register_instance_overhead (amount, d);
+54: }
+55:
+56: /* Release the overhead.  */
+57: static void
+58: release_overhead (bitmap b, size_t amount, bool remove_from_map)
+59: {
+60:   unsigned *d = b->get_descriptor ();
+61:   if (bitmap_mem_desc.contains_descriptor_for_instance (d))
+62:     bitmap_mem_desc.release_instance_overhead (d, amount, remove_from_map);
+63: }
+64:
+65:
+66: /* Global data */
+67: bitmap_element bitmap_zero_bits;  /* An element of all zero bits.  */
+68: bitmap_obstack bitmap_default_obstack;    /* The default bitmap obstack.  */
+69: static int bitmap_default_obstack_depth;
+```
+
+## gcc/bitmap.cc:102–148
+```text
+102: bitmap_element_allocate (bitmap head)
+103: {
+104:   bitmap_element *element;
+105:   bitmap_obstack *bit_obstack = head->obstack;
+106:
+107:   if (bit_obstack)
+108:     {
+109:       element = bit_obstack->elements;
+110:
+111:       if (element)
+112: 	/* Use up the inner list first before looking at the next
+113: 	   element of the outer list.  */
+114: 	if (element->next)
+115: 	  {
+116: 	    bit_obstack->elements = element->next;
+117: 	    bit_obstack->elements->prev = element->prev;
+118: 	  }
+119: 	else
+120: 	  /*  Inner list was just a singleton.  */
+121: 	  bit_obstack->elements = element->prev;
+122:       else
+123: 	element = XOBNEW (&bit_obstack->obstack, bitmap_element);
+124:     }
+125:   else
+126:     {
+127:       element = bitmap_ggc_free;
+128:       if (element)
+129: 	/* Use up the inner list first before looking at the next
+130: 	   element of the outer list.  */
+131: 	if (element->next)
+132: 	  {
+133: 	    bitmap_ggc_free = element->next;
+134: 	    bitmap_ggc_free->prev = element->prev;
+135: 	  }
+136: 	else
+137: 	  /*  Inner list was just a singleton.  */
+138: 	  bitmap_ggc_free = element->prev;
+139:       else
+140: 	element = ggc_alloc<bitmap_element> ();
+141:     }
+142:
+143:   if (GATHER_STATISTICS)
+144:     register_overhead (head, sizeof (bitmap_element));
+145:
+146:   memset (element->bits, 0, sizeof (element->bits));
+147:
+148:   return element;
+```
+
+## gcc/bitmap.cc:597–660
+```text
+597: bitmap_tree_listify_from (bitmap head, bitmap_element *e)
+598: {
+599:   bitmap_element *t, *erb;
+600:
+601:   /* Detach the right branch from E (all elements with indx > E->indx),
+602:      and splay E to the root.  */
+603:   erb = e->next;
+604:   e->next = NULL;
+605:   t = bitmap_tree_splay (head, head->first, e->indx);
+606:   gcc_checking_assert (t == e);
+607:
+608:   /* Because E has no right branch, and we rotated it to the root,
+609:      the left branch is the new root.  */
+610:   t = e->prev;
+611:   head->first = t;
+612:   head->current = t;
+613:   head->indx = (t != NULL) ? t->indx : 0;
+614:
+615:   /* Detach the tree from E, and re-attach the right branch of E.  */
+616:   e->prev = NULL;
+617:   e->next = erb;
+618:
+619:   /* The tree is now valid again.  Now we need to "un-tree" E.
+620:      It is imperative that a non-recursive implementation is used
+621:      for this, because splay trees have a worst case depth of O(N)
+622:      for a tree with N nodes.  A recursive implementation could
+623:      result in a stack overflow for a sufficiently large, unbalanced
+624:      bitmap tree.  */
+625:
+626:   auto_vec<bitmap_element *, 32> stack;
+627:   auto_vec<bitmap_element *, 32> sorted_elements;
+628:   bitmap_element *n = e;
+629:
+630:   while (true)
+631:     {
+632:       while (n != NULL)
+633: 	{
+634: 	  stack.safe_push (n);
+635: 	  n = n->prev;
+636: 	}
+637:
+638:       if (stack.is_empty ())
+639: 	break;
+640:
+641:       n = stack.pop ();
+642:       sorted_elements.safe_push (n);
+643:       n = n->next;
+644:     }
+645:
+646:   gcc_assert (sorted_elements[0] == e);
+647:
+648:   bitmap_element *prev = NULL;
+649:   unsigned ix;
+650:   FOR_EACH_VEC_ELT (sorted_elements, ix, n)
+651:     {
+652:       if (prev != NULL)
+653:         prev->next = n;
+654:       n->prev = prev;
+655:       n->next = NULL;
+656:       prev = n;
+657:     }
+658:
+659:   return e;
+660: }
+```
+
+## gcc/bitmap.cc:732–812
+```text
+732: void
+733: bitmap_obstack_initialize (bitmap_obstack *bit_obstack)
+734: {
+735:   if (!bit_obstack)
+736:     {
+737:       if (bitmap_default_obstack_depth++)
+738: 	return;
+739:       bit_obstack = &bitmap_default_obstack;
+740:     }
+741:
+742: #if !defined(__GNUC__) || (__GNUC__ < 2)
+743: #define __alignof__(type) 0
+744: #endif
+745:
+746:   bit_obstack->elements = NULL;
+747:   bit_obstack->heads = NULL;
+748:   obstack_specify_allocation (&bit_obstack->obstack, OBSTACK_CHUNK_SIZE,
+749: 			      __alignof__ (bitmap_element),
+750: 			      obstack_chunk_alloc,
+751: 			      obstack_chunk_free);
+752: }
+753:
+754: /* Release the memory from a bitmap obstack.  If BIT_OBSTACK is NULL,
+755:    release the default bitmap obstack.  */
+756:
+757: void
+758: bitmap_obstack_release (bitmap_obstack *bit_obstack)
+759: {
+760:   if (!bit_obstack)
+761:     {
+762:       if (--bitmap_default_obstack_depth)
+763: 	{
+764: 	  gcc_assert (bitmap_default_obstack_depth > 0);
+765: 	  return;
+766: 	}
+767:       bit_obstack = &bitmap_default_obstack;
+768:     }
+769:
+770:   bit_obstack->elements = NULL;
+771:   bit_obstack->heads = NULL;
+772:   obstack_free (&bit_obstack->obstack, NULL);
+773: }
+774:
+775: /* Create a new bitmap on an obstack.  If BIT_OBSTACK is NULL, create
+776:    it on the default bitmap obstack.  */
+777:
+778: bitmap
+779: bitmap_alloc (bitmap_obstack *bit_obstack MEM_STAT_DECL)
+780: {
+781:   bitmap map;
+782:
+783:   if (!bit_obstack)
+784:     {
+785:       gcc_assert (bitmap_default_obstack_depth > 0);
+786:       bit_obstack = &bitmap_default_obstack;
+787:     }
+788:   map = bit_obstack->heads;
+789:   if (map)
+790:     bit_obstack->heads = (class bitmap_head *) map->first;
+791:   else
+792:     map = XOBNEW (&bit_obstack->obstack, bitmap_head);
+793:   bitmap_initialize (map, bit_obstack PASS_MEM_STAT);
+794:
+795:   if (GATHER_STATISTICS)
+796:     register_overhead (map, sizeof (bitmap_head));
+797:
+798:   return map;
+799: }
+800:
+801: /* Create a new GCd bitmap.  */
+802:
+803: bitmap
+804: bitmap_gc_alloc (ALONE_MEM_STAT_DECL)
+805: {
+806:   bitmap map;
+807:
+808:   map = ggc_alloc<bitmap_head> ();
+809:   bitmap_initialize (map, NULL PASS_MEM_STAT);
+810:
+811:   if (GATHER_STATISTICS)
+812:     register_overhead (map, sizeof (bitmap_head));
+```
+
+## gcc/bitmap.cc:1116–1147
+```text
+1116: bitmap_count_bits_in_word (const BITMAP_WORD *bits)
+1117: {
+1118:   unsigned long count = 0;
+1119:
+1120:   for (unsigned ix = 0; ix != BITMAP_ELEMENT_WORDS; ix++)
+1121:     {
+1122: #if GCC_VERSION >= 3400
+1123:       /* Note that popcountl matches BITMAP_WORD in type, so the actual size
+1124: 	 of BITMAP_WORD is not material.  */
+1125:       count += __builtin_popcountl (bits[ix]);
+1126: #else
+1127:       count += bitmap_popcount (bits[ix]);
+1128: #endif
+1129:     }
+1130:   return count;
+1131: }
+1132:
+1133: /* Count the number of bits set in the bitmap, and return it.  */
+1134:
+1135: unsigned long
+1136: bitmap_count_bits (const_bitmap a)
+1137: {
+1138:   unsigned long count = 0;
+1139:   const bitmap_element *elt;
+1140:
+1141:   gcc_checking_assert (!a->tree_form);
+1142:   for (elt = a->first; elt; elt = elt->next)
+1143:     count += bitmap_count_bits_in_word (elt->bits);
+1144:
+1145:   return count;
+1146: }
+1147:
+```
+
+## gcc/bitmap.cc:1520–1616
+```text
+1520: bitmap_and_compl (bitmap dst, const_bitmap a, const_bitmap b)
+1521: {
+1522:   bitmap_element *dst_elt = dst->first;
+1523:   const bitmap_element *a_elt = a->first;
+1524:   const bitmap_element *b_elt = b->first;
+1525:   bitmap_element *dst_prev = NULL;
+1526:   bitmap_element **dst_prev_pnext = &dst->first;
+1527:   bool changed = false;
+1528:
+1529:   gcc_checking_assert (!dst->tree_form && !a->tree_form && !b->tree_form);
+1530:   gcc_assert (dst != a && dst != b);
+1531:
+1532:   if (a == b)
+1533:     {
+1534:       changed = !bitmap_empty_p (dst);
+1535:       bitmap_clear (dst);
+1536:       return changed;
+1537:     }
+1538:
+1539:   while (a_elt)
+1540:     {
+1541:       while (b_elt && b_elt->indx < a_elt->indx)
+1542: 	b_elt = b_elt->next;
+1543:
+1544:       if (!b_elt || b_elt->indx > a_elt->indx)
+1545: 	{
+1546: 	  changed = bitmap_elt_copy (dst, dst_elt, dst_prev, a_elt, changed);
+1547: 	  dst_prev = *dst_prev_pnext;
+1548: 	  dst_prev_pnext = &dst_prev->next;
+1549: 	  dst_elt = *dst_prev_pnext;
+1550: 	  a_elt = a_elt->next;
+1551: 	}
+1552:
+1553:       else
+1554: 	{
+1555: 	  /* Matching elts, generate A & ~B.  */
+1556: 	  unsigned ix;
+1557: 	  BITMAP_WORD ior = 0;
+1558:
+1559: 	  if (!changed && dst_elt && dst_elt->indx == a_elt->indx)
+1560: 	    {
+1561: 	      for (ix = 0; ix < BITMAP_ELEMENT_WORDS; ix++)
+1562: 		{
+1563: 		  BITMAP_WORD r = a_elt->bits[ix] & ~b_elt->bits[ix];
+1564:
+1565: 		  if (dst_elt->bits[ix] != r)
+1566: 		    {
+1567: 		      changed = true;
+1568: 		      dst_elt->bits[ix] = r;
+1569: 		    }
+1570: 		  ior |= r;
+1571: 		}
+1572: 	    }
+1573: 	  else
+1574: 	    {
+1575: 	      bool new_element;
+1576: 	      if (!dst_elt || dst_elt->indx > a_elt->indx)
+1577: 		{
+1578: 		  dst_elt = bitmap_list_insert_element_after (dst, dst_prev,
+1579: 							      a_elt->indx);
+1580: 		  new_element = true;
+1581: 		}
+1582: 	      else
+1583: 		{
+1584: 		  dst_elt->indx = a_elt->indx;
+1585: 		  new_element = false;
+1586: 		}
+1587:
+1588: 	      for (ix = 0; ix < BITMAP_ELEMENT_WORDS; ix++)
+1589: 		{
+1590: 		  BITMAP_WORD r = a_elt->bits[ix] & ~b_elt->bits[ix];
+1591:
+1592: 		  dst_elt->bits[ix] = r;
+1593: 		  ior |= r;
+1594: 		}
+1595:
+1596: 	      if (ior)
+1597: 	        changed = true;
+1598: 	      else
+1599: 	        {
+1600: 	          changed |= !new_element;
+1601: 		  bitmap_list_unlink_element (dst, dst_elt);
+1602: 		  dst_elt = *dst_prev_pnext;
+1603: 		}
+1604: 	    }
+1605:
+1606: 	  if (ior)
+1607: 	    {
+1608: 	      dst_prev = *dst_prev_pnext;
+1609: 	      dst_prev_pnext = &dst_prev->next;
+1610: 	      dst_elt = *dst_prev_pnext;
+1611: 	    }
+1612: 	  a_elt = a_elt->next;
+1613: 	  b_elt = b_elt->next;
+1614: 	}
+1615:     }
+1616:
+```
+
+## gcc/bitmap.cc:1690–1820
+```text
+1690: bitmap_set_range (bitmap head, unsigned int start, unsigned int count)
+1691: {
+1692:   unsigned int first_index, end_bit_plus1, last_index;
+1693:   bitmap_element *elt, *elt_prev;
+1694:   unsigned int i;
+1695:
+1696:   gcc_checking_assert (!head->tree_form);
+1697:
+1698:   if (!count)
+1699:     return;
+1700:
+1701:   if (count == 1)
+1702:     {
+1703:       bitmap_set_bit (head, start);
+1704:       return;
+1705:     }
+1706:
+1707:   first_index = start / BITMAP_ELEMENT_ALL_BITS;
+1708:   end_bit_plus1 = start + count;
+1709:   last_index = (end_bit_plus1 - 1) / BITMAP_ELEMENT_ALL_BITS;
+1710:   elt = bitmap_list_find_element (head, first_index);
+1711:
+1712:   /* If bitmap_list_find_element returns zero, the current is the closest block
+1713:      to the result.  Otherwise, just use bitmap_element_allocate to
+1714:      ensure ELT is set; in the loop below, ELT == NULL means "insert
+1715:      at the end of the bitmap".  */
+1716:   if (!elt)
+1717:     {
+1718:       elt = bitmap_element_allocate (head);
+1719:       elt->indx = first_index;
+1720:       bitmap_list_link_element (head, elt);
+1721:     }
+1722:
+1723:   gcc_checking_assert (elt->indx == first_index);
+1724:   elt_prev = elt->prev;
+1725:   for (i = first_index; i <= last_index; i++)
+1726:     {
+1727:       unsigned elt_start_bit = i * BITMAP_ELEMENT_ALL_BITS;
+1728:       unsigned elt_end_bit_plus1 = elt_start_bit + BITMAP_ELEMENT_ALL_BITS;
+1729:
+1730:       unsigned int first_word_to_mod;
+1731:       BITMAP_WORD first_mask;
+1732:       unsigned int last_word_to_mod;
+1733:       BITMAP_WORD last_mask;
+1734:       unsigned int ix;
+1735:
+1736:       if (!elt || elt->indx != i)
+1737: 	elt = bitmap_list_insert_element_after (head, elt_prev, i);
+1738:
+1739:       if (elt_start_bit <= start)
+1740: 	{
+1741: 	  /* The first bit to turn on is somewhere inside this
+1742: 	     elt.  */
+1743: 	  first_word_to_mod = (start - elt_start_bit) / BITMAP_WORD_BITS;
+1744:
+1745: 	  /* This mask should have 1s in all bits >= start position. */
+1746: 	  first_mask =
+1747: 	    (((BITMAP_WORD) 1) << ((start % BITMAP_WORD_BITS))) - 1;
+1748: 	  first_mask = ~first_mask;
+1749: 	}
+1750:       else
+1751: 	{
+1752: 	  /* The first bit to turn on is below this start of this elt.  */
+1753: 	  first_word_to_mod = 0;
+1754: 	  first_mask = ~(BITMAP_WORD) 0;
+1755: 	}
+1756:
+1757:       if (elt_end_bit_plus1 <= end_bit_plus1)
+1758: 	{
+1759: 	  /* The last bit to turn on is beyond this elt.  */
+1760: 	  last_word_to_mod = BITMAP_ELEMENT_WORDS - 1;
+1761: 	  last_mask = ~(BITMAP_WORD) 0;
+1762: 	}
+1763:       else
+1764: 	{
+1765: 	  /* The last bit to turn on is inside to this elt.  */
+1766: 	  last_word_to_mod =
+1767: 	    (end_bit_plus1 - elt_start_bit) / BITMAP_WORD_BITS;
+1768:
+1769: 	  /* The last mask should have 1s below the end bit.  */
+1770: 	  last_mask =
+1771: 	    (((BITMAP_WORD) 1) << ((end_bit_plus1 % BITMAP_WORD_BITS))) - 1;
+1772: 	}
+1773:
+1774:       if (first_word_to_mod == last_word_to_mod)
+1775: 	{
+1776: 	  BITMAP_WORD mask = first_mask & last_mask;
+1777: 	  elt->bits[first_word_to_mod] |= mask;
+1778: 	}
+1779:       else
+1780: 	{
+1781: 	  elt->bits[first_word_to_mod] |= first_mask;
+1782: 	  if (BITMAP_ELEMENT_WORDS > 2)
+1783: 	    for (ix = first_word_to_mod + 1; ix < last_word_to_mod; ix++)
+1784: 	      elt->bits[ix] = ~(BITMAP_WORD) 0;
+1785: 	  elt->bits[last_word_to_mod] |= last_mask;
+1786: 	}
+1787:
+1788:       elt_prev = elt;
+1789:       elt = elt->next;
+1790:     }
+1791:
+1792:   head->current = elt ? elt : elt_prev;
+1793:   head->indx = head->current->indx;
+1794: }
+1795:
+1796: /* Clear COUNT bits from START in HEAD.  */
+1797: void
+1798: bitmap_clear_range (bitmap head, unsigned int start, unsigned int count)
+1799: {
+1800:   unsigned int first_index, end_bit_plus1, last_index;
+1801:   bitmap_element *elt;
+1802:
+1803:   gcc_checking_assert (!head->tree_form);
+1804:
+1805:   if (!count)
+1806:     return;
+1807:
+1808:   if (count == 1)
+1809:     {
+1810:       bitmap_clear_bit (head, start);
+1811:       return;
+1812:     }
+1813:
+1814:   first_index = start / BITMAP_ELEMENT_ALL_BITS;
+1815:   end_bit_plus1 = start + count;
+1816:   last_index = (end_bit_plus1 - 1) / BITMAP_ELEMENT_ALL_BITS;
+1817:   elt = bitmap_list_find_element (head, first_index);
+1818:
+1819:   /* If bitmap_list_find_element returns zero, the current is the closest block
+1820:      to the result.  If the current is less than first index, find the
+```
+
+## gcc/bitmap.cc:2540–2562
+```text
+2540: bitmap_ior_and_compl_into (bitmap a, const_bitmap b, const_bitmap c)
+2541: {
+2542:   bitmap_element *a_elt = a->first;
+2543:   const bitmap_element *b_elt = b->first;
+2544:   const bitmap_element *c_elt = c->first;
+2545:   bitmap_element and_elt;
+2546:   bitmap_element *a_prev = NULL;
+2547:   bitmap_element **a_prev_pnext = &a->first;
+2548:   bool changed = false;
+2549:   unsigned ix;
+2550:
+2551:   gcc_checking_assert (!a->tree_form && !b->tree_form && !c->tree_form);
+2552:
+2553:   if (a == b)
+2554:     return false;
+2555:   if (bitmap_empty_p (c))
+2556:     return bitmap_ior_into (a, b);
+2557:   else if (bitmap_empty_p (a))
+2558:     return bitmap_and_compl (a, b, c);
+2559:
+2560:   and_elt.indx = -1;
+2561:   while (b_elt)
+2562:     {
+```
+
+## gcc/sbitmap.h:75–139
+```text
+75:    This set representation works well for relatively small data flow problems
+76:    (there are special routines for that, see sbitmap_vector_*).  The set
+77:    operations can be vectorized and there is almost no computating overhead,
+78:    so that even sparse simple bitmap sets outperform dedicated sparse set
+79:    representations like linked-list bitmaps.  For larger problems, the size
+80:    overhead of simple bitmap sets gets too high and other set representations
+81:    have to be used.  */
+82:
+83: #define SBITMAP_ELT_BITS (HOST_BITS_PER_WIDEST_FAST_INT * 1u)
+84: #define SBITMAP_ELT_TYPE unsigned HOST_WIDEST_FAST_INT
+85:
+86: struct simple_bitmap_def
+87: {
+88:   unsigned int n_bits;		/* Number of bits.  */
+89:   unsigned int size;		/* Size in elements.  */
+90:   SBITMAP_ELT_TYPE elms[1];	/* The elements.  */
+91: };
+92:
+93: /* Return the set size needed for N elements.  */
+94: #define SBITMAP_SET_SIZE(N) (((N) + SBITMAP_ELT_BITS - 1) / SBITMAP_ELT_BITS)
+95:
+96: /* Return the number of bits in BITMAP.  */
+97: #define SBITMAP_SIZE(BITMAP) ((BITMAP)->n_bits)
+98:
+99: /* Verify that access at INDEX in bitmap MAP is valid.  */
+100:
+101: inline void
+102: bitmap_check_index (const_sbitmap map, int index)
+103: {
+104:   gcc_checking_assert (index >= 0);
+105:   gcc_checking_assert ((unsigned int)index < map->n_bits);
+106: }
+107:
+108: /* Verify that bitmaps A and B have same size.  */
+109:
+110: inline void
+111: bitmap_check_sizes (const_sbitmap a, const_sbitmap b)
+112: {
+113:   gcc_checking_assert (a->n_bits == b->n_bits);
+114: }
+115:
+116: /* Test if bit number bitno in the bitmap is set.  */
+117: inline bool
+118: bitmap_bit_p (const_sbitmap map, int bitno)
+119: {
+120:   bitmap_check_index (map, bitno);
+121:
+122:   size_t i = bitno / SBITMAP_ELT_BITS;
+123:   unsigned int s = bitno % SBITMAP_ELT_BITS;
+124:   return (map->elms[i] >> s) & (SBITMAP_ELT_TYPE) 1;
+125: }
+126:
+127: /* Set bit number BITNO in the sbitmap MAP.
+128:    Return true if the bit changed.  */
+129:
+130: inline bool
+131: bitmap_set_bit (sbitmap map, int bitno)
+132: {
+133:   bitmap_check_index (map, bitno);
+134:
+135:   size_t i = bitno / SBITMAP_ELT_BITS;
+136:   unsigned int s = bitno % SBITMAP_ELT_BITS;
+137:   if (map->elms[i] & ((SBITMAP_ELT_TYPE) 1 << s))
+138:     return false;
+139:   map->elms[i] |= (SBITMAP_ELT_TYPE) 1 << s;
+```
+
+## gcc/sbitmap.cc:30–176
+```text
+30:
+31: static inline unsigned int sbitmap_size_bytes (const_sbitmap map)
+32: {
+33:    return map->size * sizeof (SBITMAP_ELT_TYPE);
+34: }
+35:
+36:
+37: /* Bitmap manipulation routines.  */
+38:
+39: /* Allocate a simple bitmap of N_ELMS bits.  */
+40:
+41: sbitmap
+42: sbitmap_alloc (unsigned int n_elms)
+43: {
+44:   unsigned int bytes, size, amt;
+45:   sbitmap bmap;
+46:
+47:   size = SBITMAP_SET_SIZE (n_elms);
+48:   bytes = size * sizeof (SBITMAP_ELT_TYPE);
+49:   amt = (sizeof (struct simple_bitmap_def)
+50: 	 + bytes - sizeof (SBITMAP_ELT_TYPE));
+51:   bmap = (sbitmap) xmalloc (amt);
+52:   bmap->n_bits = n_elms;
+53:   bmap->size = size;
+54:   return bmap;
+55: }
+56:
+57: /* Resize a simple bitmap BMAP to N_ELMS bits.  If increasing the
+58:    size of BMAP, clear the new bits to zero if the DEF argument
+59:    is zero, and set them to one otherwise.  */
+60:
+61: sbitmap
+62: sbitmap_resize (sbitmap bmap, unsigned int n_elms, int def)
+63: {
+64:   unsigned int bytes, size, amt;
+65:   unsigned int last_bit;
+66:
+67:   size = SBITMAP_SET_SIZE (n_elms);
+68:   bytes = size * sizeof (SBITMAP_ELT_TYPE);
+69:   if (bytes > sbitmap_size_bytes (bmap))
+70:     {
+71:       amt = (sizeof (struct simple_bitmap_def)
+72: 	    + bytes - sizeof (SBITMAP_ELT_TYPE));
+73:       bmap = (sbitmap) xrealloc (bmap, amt);
+74:     }
+75:
+76:   if (n_elms > bmap->n_bits)
+77:     {
+78:       if (def)
+79: 	{
+80: 	  memset (bmap->elms + bmap->size, -1,
+81: 		  bytes - sbitmap_size_bytes (bmap));
+82:
+83: 	  /* Set the new bits if the original last element.  */
+84: 	  last_bit = bmap->n_bits % SBITMAP_ELT_BITS;
+85: 	  if (last_bit)
+86: 	    bmap->elms[bmap->size - 1]
+87: 	      |= ~((SBITMAP_ELT_TYPE)-1 >> (SBITMAP_ELT_BITS - last_bit));
+88:
+89: 	  /* Clear the unused bit in the new last element.  */
+90: 	  last_bit = n_elms % SBITMAP_ELT_BITS;
+91: 	  if (last_bit)
+92: 	    bmap->elms[size - 1]
+93: 	      &= (SBITMAP_ELT_TYPE)-1 >> (SBITMAP_ELT_BITS - last_bit);
+94: 	}
+95:       else
+96: 	memset (bmap->elms + bmap->size, 0, bytes - sbitmap_size_bytes (bmap));
+97:     }
+98:   else if (n_elms < bmap->n_bits)
+99:     {
+100:       /* Clear the surplus bits in the last word.  */
+101:       last_bit = n_elms % SBITMAP_ELT_BITS;
+102:       if (last_bit)
+103: 	bmap->elms[size - 1]
+104: 	  &= (SBITMAP_ELT_TYPE)-1 >> (SBITMAP_ELT_BITS - last_bit);
+105:     }
+106:
+107:   bmap->n_bits = n_elms;
+108:   bmap->size = size;
+109:   return bmap;
+110: }
+111:
+112: /* Re-allocate a simple bitmap of N_ELMS bits. New storage is uninitialized.  */
+113:
+114: sbitmap
+115: sbitmap_realloc (sbitmap src, unsigned int n_elms)
+116: {
+117:   unsigned int bytes, size, amt;
+118:   sbitmap bmap;
+119:
+120:   size = SBITMAP_SET_SIZE (n_elms);
+121:   bytes = size * sizeof (SBITMAP_ELT_TYPE);
+122:   amt = (sizeof (struct simple_bitmap_def)
+123: 	 + bytes - sizeof (SBITMAP_ELT_TYPE));
+124:
+125:   if (sbitmap_size_bytes (src)  >= bytes)
+126:     {
+127:       src->n_bits = n_elms;
+128:       return src;
+129:     }
+130:
+131:   bmap = (sbitmap) xrealloc (src, amt);
+132:   bmap->n_bits = n_elms;
+133:   bmap->size = size;
+134:   return bmap;
+135: }
+136:
+137: /* Allocate a vector of N_VECS bitmaps of N_ELMS bits.  */
+138:
+139: sbitmap *
+140: sbitmap_vector_alloc (unsigned int n_vecs, unsigned int n_elms)
+141: {
+142:   unsigned int i, size;
+143:   size_t amt, bytes, vector_bytes, elm_bytes, offset;
+144:   sbitmap *bitmap_vector;
+145:
+146:   size = SBITMAP_SET_SIZE (n_elms);
+147:   bytes = size * sizeof (SBITMAP_ELT_TYPE);
+148:   elm_bytes = (sizeof (struct simple_bitmap_def)
+149: 	       + bytes - sizeof (SBITMAP_ELT_TYPE));
+150:   vector_bytes = n_vecs * sizeof (sbitmap *);
+151:
+152:   /* Round up `vector_bytes' to account for the alignment requirements
+153:      of an sbitmap.  One could allocate the vector-table and set of sbitmaps
+154:      separately, but that requires maintaining two pointers or creating
+155:      a cover struct to hold both pointers (so our result is still just
+156:      one pointer).  Neither is a bad idea, but this is simpler for now.  */
+157:   {
+158:     /* Based on DEFAULT_ALIGNMENT computation in obstack.c.  */
+159:     struct { char x; SBITMAP_ELT_TYPE y; } align;
+160:     int alignment = (char *) & align.y - & align.x;
+161:     vector_bytes = (vector_bytes + alignment - 1) & ~ (alignment - 1);
+162:   }
+163:
+164:   amt = vector_bytes + (n_vecs * elm_bytes);
+165:   bitmap_vector = (sbitmap *) xmalloc (amt);
+166:
+167:   for (i = 0, offset = vector_bytes; i < n_vecs; i++, offset += elm_bytes)
+168:     {
+169:       sbitmap b = (sbitmap) ((char *) bitmap_vector + offset);
+170:
+171:       bitmap_vector[i] = b;
+172:       b->n_bits = n_elms;
+173:       b->size = size;
+174:     }
+175:
+176:   return bitmap_vector;
+```
+
+## gcc/memory-block.h:26–82
+```text
+26: class memory_block_pool
+27: {
+28: public:
+29:   /* Blocks have fixed size.  This is necessary for sharing.  */
+30:   static const size_t block_size = 64 * 1024;
+31:   /* Number of blocks we keep in the freelists.  */
+32:   static const size_t freelist_size = 1024 * 1024 / block_size;
+33:
+34:   memory_block_pool ();
+35:
+36:   static inline void *allocate () ATTRIBUTE_MALLOC;
+37:   static inline void release (void *);
+38:   static void trim (int nblocks = freelist_size);
+39:   void reduce_free_list (int);
+40:
+41: private:
+42:   /* memory_block_pool singleton instance, defined in memory-block.cc.  */
+43:   static memory_block_pool instance;
+44:
+45:   struct block_list
+46:   {
+47:     block_list *m_next;
+48:   };
+49:
+50:   /* Free list.  */
+51:   block_list *m_blocks;
+52: };
+53:
+54: /* Allocate a single block.  Reuse a previously returned block, if possible.  */
+55: inline void *
+56: memory_block_pool::allocate ()
+57: {
+58:   if (instance.m_blocks == NULL)
+59:     return XNEWVEC (char, block_size);
+60:
+61:   void *result = instance.m_blocks;
+62:   instance.m_blocks = instance.m_blocks->m_next;
+63:   VALGRIND_DISCARD (VALGRIND_MAKE_MEM_UNDEFINED (result, block_size));
+64:   return result;
+65: }
+66:
+67: /* Return UNCAST_BLOCK to the pool.  */
+68: inline void
+69: memory_block_pool::release (void *uncast_block)
+70: {
+71:   block_list *block = new (uncast_block) block_list;
+72:   block->m_next = instance.m_blocks;
+73:   instance.m_blocks = block;
+74:
+75:   VALGRIND_DISCARD (VALGRIND_MAKE_MEM_NOACCESS ((char *)uncast_block
+76: 						+ sizeof (block_list),
+77: 						block_size
+78: 						- sizeof (block_list)));
+79: }
+80:
+81: extern void *mempool_obstack_chunk_alloc (size_t) ATTRIBUTE_MALLOC;
+82: extern void mempool_obstack_chunk_free (void *);
+```
+
+## gcc/memory-block.cc:33–77
+```text
+33: memory_block_pool::reduce_free_list (int num)
+34: {
+35:   block_list **blocks = &m_blocks;
+36:
+37:   /* First skip NUM blocks.  */
+38:
+39:   for (;num > 0 && *blocks; num--)
+40:     blocks = &(*blocks)->m_next;
+41:
+42:   if (!*blocks)
+43:     return;
+44:
+45:   /* And free the remainder of them.  */
+46:
+47:   block_list *to_free = *blocks;
+48:   *blocks = NULL;
+49:
+50:   while (to_free)
+51:     {
+52:       block_list *next = to_free->m_next;
+53:       XDELETEVEC (to_free);
+54:       to_free = next;
+55:     }
+56: }
+57:
+58: /* Allocate a chunk for obstack.  Use the pool if requested chunk size matches
+59:    the size of blocks in the pool.  */
+60: void *
+61: mempool_obstack_chunk_alloc (size_t size)
+62: {
+63:   if (size == memory_block_pool::block_size)
+64:     return memory_block_pool::allocate ();
+65:   else
+66:     return XNEWVEC (char, size);
+67: }
+68:
+69: /* Free previously allocated obstack chunk.  */
+70: void
+71: mempool_obstack_chunk_free (void *chunk)
+72: {
+73:   size_t size = (reinterpret_cast<_obstack_chunk *> (chunk)->limit
+74: 		 - reinterpret_cast<char *> (chunk));
+75:   if (size == memory_block_pool::block_size)
+76:     memory_block_pool::release (chunk);
+77:   else
+```
+
+## include/obstack.h:108–136
+```text
+108: # define _OBSTACK_INTERFACE_VERSION 2
+109: #endif
+110:
+111: #include <stddef.h>             /* For size_t and ptrdiff_t.  */
+112: #include <string.h>             /* For __GNU_LIBRARY__, and memcpy.  */
+113:
+114: #if _OBSTACK_INTERFACE_VERSION == 1
+115: /* For binary compatibility with obstack version 1, which used "int"
+116:    and "long" for these two types.  */
+117: # define _OBSTACK_SIZE_T unsigned int
+118: # define _CHUNK_SIZE_T unsigned long
+119: # define _OBSTACK_CAST(type, expr) ((type) (expr))
+120: #else
+121: /* Version 2 with sane types, especially for 64-bit hosts.  */
+122: # define _OBSTACK_SIZE_T size_t
+123: # define _CHUNK_SIZE_T size_t
+124: # define _OBSTACK_CAST(type, expr) (expr)
+125: #endif
+126:
+127: /* If B is the base of an object addressed by P, return the result of
+128:    aligning P to the next multiple of A + 1.  B and P must be of type
+129:    char *.  A + 1 must be a power of 2.  */
+130:
+131: #define __BPTR_ALIGN(B, P, A) ((B) + (((P) - (B) + (A)) & ~(A)))
+132:
+133: /* Similar to __BPTR_ALIGN (B, P, A), except optimize the common case
+134:    where pointers can be converted to integers, aligned as integers,
+135:    and converted back again.  If ptrdiff_t is narrower than a
+136:    pointer (e.g., the AS/400), play it safe and compute the alignment
+```
+
+## include/obstack.h:373–421
+```text
+373:        (void) 0; })
+374:
+375: # define obstack_blank(OBSTACK, length)					      \
+376:   __extension__								      \
+377:     ({ struct obstack *__o = (OBSTACK);					      \
+378:        _OBSTACK_SIZE_T __len = (length);				      \
+379:        if (obstack_room (__o) < __len)					      \
+380:          _obstack_newchunk (__o, __len);				      \
+381:        obstack_blank_fast (__o, __len); })
+382:
+383: # define obstack_alloc(OBSTACK, length)					      \
+384:   __extension__								      \
+385:     ({ struct obstack *__h = (OBSTACK);					      \
+386:        obstack_blank (__h, (length));					      \
+387:        obstack_finish (__h); })
+388:
+389: # define obstack_copy(OBSTACK, where, length)				      \
+390:   __extension__								      \
+391:     ({ struct obstack *__h = (OBSTACK);					      \
+392:        obstack_grow (__h, (where), (length));				      \
+393:        obstack_finish (__h); })
+394:
+395: # define obstack_copy0(OBSTACK, where, length)				      \
+396:   __extension__								      \
+397:     ({ struct obstack *__h = (OBSTACK);					      \
+398:        obstack_grow0 (__h, (where), (length));				      \
+399:        obstack_finish (__h); })
+400:
+401: /* The local variable is named __o1 to avoid a shadowed variable
+402:    warning when invoked from other obstack macros, typically obstack_free.  */
+403: # define obstack_finish(OBSTACK)					      \
+404:   __extension__								      \
+405:     ({ struct obstack *__o1 = (OBSTACK);				      \
+406:        void *__value = (void *) __o1->object_base;			      \
+407:        if (__o1->next_free == __value)					      \
+408:          __o1->maybe_empty_object = 1;					      \
+409:        __o1->next_free							      \
+410:          = __PTR_ALIGN (__o1->object_base, __o1->next_free,		      \
+411:                         __o1->alignment_mask);				      \
+412:        if ((size_t) (__o1->next_free - (char *) __o1->chunk)		      \
+413:            > (size_t) (__o1->chunk_limit - (char *) __o1->chunk))	      \
+414:          __o1->next_free = __o1->chunk_limit;				      \
+415:        __o1->object_base = __o1->next_free;				      \
+416:        __value; })
+417:
+418: # define obstack_free(OBSTACK, OBJ)					      \
+419:   __extension__								      \
+420:     ({ struct obstack *__o = (OBSTACK);					      \
+421:        void *__obj = (void *) (OBJ);					      \
+```
+
+## libiberty/obstack.c:115–150
+```text
+115:                        _OBSTACK_SIZE_T size, _OBSTACK_SIZE_T alignment)
+116: {
+117:   struct _obstack_chunk *chunk; /* points to new chunk */
+118:
+119:   if (alignment == 0)
+120:     alignment = DEFAULT_ALIGNMENT;
+121:   if (size == 0)
+122:     /* Default size is what GNU malloc can fit in a 4096-byte block.  */
+123:     {
+124:       /* 12 is sizeof (mhead) and 4 is EXTRA from GNU malloc.
+125:          Use the values for range checking, because if range checking is off,
+126:          the extra bytes won't be missed terribly, but if range checking is on
+127:          and we used a larger request, a whole extra 4096 bytes would be
+128:          allocated.
+129:
+130:          These number are irrelevant to the new GNU malloc.  I suspect it is
+131:          less sensitive to the size of the request.  */
+132:       int extra = ((((12 + DEFAULT_ROUNDING - 1) & ~(DEFAULT_ROUNDING - 1))
+133:                     + 4 + DEFAULT_ROUNDING - 1)
+134:                    & ~(DEFAULT_ROUNDING - 1));
+135:       size = 4096 - extra;
+136:     }
+137:
+138:   h->chunk_size = size;
+139:   h->alignment_mask = alignment - 1;
+140:
+141:   chunk = (struct _obstack_chunk *) call_chunkfun (h, h->chunk_size);
+142:   if (!chunk)
+143:     (*obstack_alloc_failed_handler) ();
+144:   h->chunk = chunk;
+145:   h->next_free = h->object_base = __PTR_ALIGN ((char *) chunk, chunk->contents,
+146:                                                alignment - 1);
+147:   h->chunk_limit = chunk->limit = (char *) chunk + h->chunk_size;
+148:   chunk->prev = 0;
+149:   /* The initial chunk now contains no empty object.  */
+150:   h->maybe_empty_object = 0;
+```
+
+## libiberty/obstack.c:188–235
+```text
+188: _obstack_newchunk (struct obstack *h, _OBSTACK_SIZE_T length)
+189: {
+190:   struct _obstack_chunk *old_chunk = h->chunk;
+191:   struct _obstack_chunk *new_chunk = 0;
+192:   size_t obj_size = h->next_free - h->object_base;
+193:   char *object_base;
+194:
+195:   /* Compute size for new chunk.  */
+196:   size_t sum1 = obj_size + length;
+197:   size_t sum2 = sum1 + h->alignment_mask;
+198:   size_t new_size = sum2 + (obj_size >> 3) + 100;
+199:   if (new_size < sum2)
+200:     new_size = sum2;
+201:   if (new_size < h->chunk_size)
+202:     new_size = h->chunk_size;
+203:
+204:   /* Allocate and initialize the new chunk.  */
+205:   if (obj_size <= sum1 && sum1 <= sum2)
+206:     new_chunk = (struct _obstack_chunk *) call_chunkfun (h, new_size);
+207:   if (!new_chunk)
+208:     (*obstack_alloc_failed_handler)();
+209:   h->chunk = new_chunk;
+210:   new_chunk->prev = old_chunk;
+211:   new_chunk->limit = h->chunk_limit = (char *) new_chunk + new_size;
+212:
+213:   /* Compute an aligned object_base in the new chunk */
+214:   object_base =
+215:     __PTR_ALIGN ((char *) new_chunk, new_chunk->contents, h->alignment_mask);
+216:
+217:   /* Move the existing object to the new chunk.  */
+218:   memcpy (object_base, h->object_base, obj_size);
+219:
+220:   /* If the object just copied was the only data in OLD_CHUNK,
+221:      free that chunk and remove it from the chain.
+222:      But not if that chunk might contain an empty object.  */
+223:   if (!h->maybe_empty_object
+224:       && (h->object_base
+225:           == __PTR_ALIGN ((char *) old_chunk, old_chunk->contents,
+226:                           h->alignment_mask)))
+227:     {
+228:       new_chunk->prev = old_chunk->prev;
+229:       call_freefun (h, old_chunk);
+230:     }
+231:
+232:   h->object_base = object_base;
+233:   h->next_free = h->object_base + obj_size;
+234:   /* The new chunk certainly contains no empty object yet.  */
+235:   h->maybe_empty_object = 0;
+```
+
+## gcc/hwint.h:139–156
+```text
+139: /* Define HOST_WIDEST_FAST_INT to the widest integer type supported
+140:    efficiently in hardware.  (That is, the widest integer type that fits
+141:    in a hardware register.)  Normally this is "long" but on some hosts it
+142:    should be "long long" or "__int64".  This is no convenient way to
+143:    autodetect this, so such systems must set a flag in config.host; see there
+144:    for details.  */
+145:
+146: #ifdef USE_LONG_LONG_FOR_WIDEST_FAST_INT
+147: #  ifdef HAVE_LONG_LONG
+148: #    define HOST_WIDEST_FAST_INT long long
+149: #    define HOST_BITS_PER_WIDEST_FAST_INT HOST_BITS_PER_LONGLONG
+150: #  else
+151: #    error "Your host said it wanted to use long long but that does not exist"
+152: #  endif
+153: #else
+154: #  define HOST_WIDEST_FAST_INT long
+155: #  define HOST_BITS_PER_WIDEST_FAST_INT HOST_BITS_PER_LONG
+156: #endif
 ```

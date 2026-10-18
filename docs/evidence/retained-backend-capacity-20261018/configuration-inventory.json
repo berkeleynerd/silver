@@ -57,5 +57,13 @@
     "list_sha256": "d4f8c68756140323c638acf26c503bfcdc4dff4c84366afffc56d3639d791b6e",
     "pcc_static_struct_return_hits": [],
     "tm_h": "#ifndef GCC_TM_H\n#define GCC_TM_H\n#ifndef LIBC_GLIBC\n# define LIBC_GLIBC 1\n#endif\n#ifndef LIBC_UCLIBC\n# define LIBC_UCLIBC 2\n#endif\n#ifndef LIBC_BIONIC\n# define LIBC_BIONIC 3\n#endif\n#ifndef LIBC_MUSL\n# define LIBC_MUSL 4\n#endif\n#ifndef DEFAULT_LIBC\n# define DEFAULT_LIBC LIBC_GLIBC\n#endif\n#ifndef ANDROID_DEFAULT\n# define ANDROID_DEFAULT 0\n#endif\n#ifndef HEAP_TRAMPOLINES_INIT\n# define HEAP_TRAMPOLINES_INIT 0\n#endif\n#ifdef IN_GCC\n# include \"options.h\"\n# include \"insn-constants.h\"\n# include \"config/vxworks-dummy.h\"\n# include \"config/i386/biarch64.h\"\n# include \"config/i386/i386.h\"\n# include \"config/i386/unix.h\"\n# include \"config/i386/att.h\"\n# include \"config/elfos.h\"\n# include \"config/gnu-user.h\"\n# include \"config/glibc-stdint.h\"\n# include \"config/i386/x86-64.h\"\n# include \"config/i386/gnu-user-common.h\"\n# include \"config/i386/gnu-user64.h\"\n# include \"config/linux.h\"\n# include \"config/linux-android.h\"\n# include \"config/i386/linux-common.h\"\n# include \"config/i386/linux64.h\"\n# include \"config/initfini-array.h\"\n#endif\n#if defined IN_GCC && !defined GENERATOR_FILE && !defined USED_FOR_TARGET\n# include \"insn-flags.h\"\n#endif\n#if defined IN_GCC && !defined GENERATOR_FILE\n# include \"insn-modes.h\"\n#endif\n# include \"defaults.h\"\n#endif /* GCC_TM_H */\n"
+  },
+  "selected_host_header": {
+    "file": "selected-auto-host.h",
+    "bytes": 62999,
+    "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14",
+    "GATHER_STATISTICS": 0,
+    "SIZEOF_LONG": 8,
+    "scope": "selected native compiler installed header; relevant configuration premise, not binary attestation"
   }
 }

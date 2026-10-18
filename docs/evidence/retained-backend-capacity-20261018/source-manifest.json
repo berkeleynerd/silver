@@ -601,6 +601,87 @@
       "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree.h",
       "archive": "copy-sources.tar.gz",
       "origin": "previously retained complete pinned GCC non-tests source"
+    },
+    {
+      "path": "gcc/bitmap.h",
+      "bytes": 37720,
+      "sha256": "79c70e80f9987702c98a6b6dde5bd1ef87e63823ee3edb9aff0e78e31200987a",
+      "git_blob_sha1": "3bdfed52a16465fa267a4dd18f58cdaa393e83d9",
+      "archive": "bitmap-sources.tar.gz",
+      "origin": "retained complete GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/bitmap.h"
+    },
+    {
+      "path": "gcc/bitmap.cc",
+      "bytes": 72861,
+      "sha256": "879fa506fc99e70274663eb8b6899bb34a67e22236d91b5e30adedb9927b6b3e",
+      "git_blob_sha1": "4ba78e8bf90081b90097e49e104faf56ad043c7e",
+      "archive": "bitmap-sources.tar.gz",
+      "origin": "retained complete GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/bitmap.cc"
+    },
+    {
+      "path": "gcc/sbitmap.h",
+      "bytes": 10479,
+      "sha256": "77a76f132aeab1883861351cb6b4361336bc01568272982d76a233d924367a2d",
+      "git_blob_sha1": "04b7cdce6fb1a9295cdcdd0d1eecaac7e6a1630e",
+      "archive": "bitmap-sources.tar.gz",
+      "origin": "retained complete GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/sbitmap.h"
+    },
+    {
+      "path": "gcc/sbitmap.cc",
+      "bytes": 27107,
+      "sha256": "4152646b5167a7bbbab482d6e1399e11934475808933b6111b7a8e126691bf5b",
+      "git_blob_sha1": "91514fa0f7d5b7c629ddaaa3e810e0654807935b",
+      "archive": "bitmap-sources.tar.gz",
+      "origin": "retained complete GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/sbitmap.cc"
+    },
+    {
+      "path": "gcc/memory-block.h",
+      "bytes": 2500,
+      "sha256": "9eef83e41d1d5d8a0fd753a900804a0350e968520c5831fef735ce8a8e3173ac",
+      "git_blob_sha1": "ffac789be352419b906f659d87508e1c927d4cf6",
+      "archive": "bitmap-sources.tar.gz",
+      "origin": "retained complete GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/memory-block.h"
+    },
+    {
+      "path": "gcc/memory-block.cc",
+      "bytes": 2268,
+      "sha256": "16f4beb0f9a9354ba461e8cf519bc2055db9754193e00e43ff17ee71624963dd",
+      "git_blob_sha1": "f6fabe3c35bda0576f852df2c6fd5e33c3748242",
+      "archive": "bitmap-sources.tar.gz",
+      "origin": "retained complete GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/memory-block.cc"
+    },
+    {
+      "path": "include/obstack.h",
+      "bytes": 22405,
+      "sha256": "068560c0942ddd718dea6414f6ea332c77251c9a5d246eb869f9634af35a1632",
+      "git_blob_sha1": "799036c414c260fd04417a3a9bc50c4dd5794ade",
+      "archive": "bitmap-sources.tar.gz",
+      "origin": "retained complete GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/include/obstack.h"
+    },
+    {
+      "path": "libiberty/obstack.c",
+      "bytes": 13005,
+      "sha256": "bd202f89c53690fce0d8ba7430f10d5ff6b8b71700de1499644147bb022eb658",
+      "git_blob_sha1": "02a968970754c2653b56df12e90c420eb70d5a38",
+      "archive": "bitmap-sources.tar.gz",
+      "origin": "retained complete GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/libiberty/obstack.c"
+    },
+    {
+      "path": "gcc/hwint.h",
+      "bytes": 12336,
+      "sha256": "888841ebffd486a935a1ed8299ed3f74c71107d0cd59402b06a91483a2035f8a",
+      "git_blob_sha1": "dfe646cf980253d0f8d1f25c57f4dc9cd0ddd273",
+      "archive": "bitmap-sources.tar.gz",
+      "origin": "retained complete GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/hwint.h"
     }
   ]
 }

@@ -60,7 +60,17 @@ RANGES = {
                             (1962, 2067), (2402, 2427), (2437, 2469), (2558, 2576),
                             (2651, 2773), (2810, 2821), (2838, 2860), (2991, 3040)],
     "gcc/target.def": [(2324, 2330), (3710, 3763)],
-    "gcc/coretypes.h": [(362, 368)],
+    "gcc/coretypes.h": [(362, 388)],
+    "gcc/bitmap.h": [(279, 366), (466, 475)],
+    "gcc/bitmap.cc": [(35, 69), (102, 148), (597, 660), (732, 812),
+                       (1116, 1147), (1520, 1616), (1690, 1820), (2540, 2562)],
+    "gcc/sbitmap.h": [(75, 139)],
+    "gcc/sbitmap.cc": [(30, 176)],
+    "gcc/hwint.h": [(139, 156)],
+    "gcc/memory-block.h": [(26, 82)],
+    "gcc/memory-block.cc": [(33, 77)],
+    "include/obstack.h": [(108, 136), (373, 421)],
+    "libiberty/obstack.c": [(115, 150), (188, 235)],
     "gcc/hooks.cc": [(152, 155), (293, 298), (584, 587)],
     "gcc/params.opt": [(248, 250)],
     "gcc/fold-const.cc": [(646, 669), (844, 853), (1087, 1225), (1325, 1342),
@@ -180,6 +190,55 @@ def check_expression_copy_transfers(all_bytes):
         no_placeholder_substitution_tree_or_fold_requests=0,
         native_execution=False,
     )
+
+
+def check_bitmap_transfers(all_bytes, bundle):
+    config = json.loads((bundle / "configuration-inventory.json").read_text())
+    header_record = config["selected_host_header"]
+    header = (bundle / header_record["file"]).read_bytes()
+    assert len(header) == header_record["bytes"]
+    assert hashlib.sha256(header).hexdigest() == header_record["sha256"]
+    for macro, value in (("GATHER_STATISTICS", 0), ("SIZEOF_LONG", 8), ("SIZEOF_LONG_LONG", 8)):
+        assert re.search(rb"^#define " + macro.encode() + rb" " + str(value).encode() + rb"$", header, re.M)
+    bitmap = all_bytes["gcc/bitmap.h"].decode()
+    assert "typedef unsigned long BITMAP_WORD;" in bitmap
+    assert "#define BITMAP_ELEMENT_WORDS ((128 + BITMAP_WORD_BITS - 1) / BITMAP_WORD_BITS)" in bitmap
+    assert "if (GATHER_STATISTICS)\n    bitmap_register (head PASS_MEM_STAT);" in bitmap
+    dense = all_bytes["gcc/sbitmap.cc"].decode()
+    assert "size = SBITMAP_SET_SIZE (n_elms);" in dense
+    assert "amt = vector_bytes + (n_vecs * elm_bytes);" in dense
+    assert "static const size_t block_size = 64 * 1024;" in all_bytes["gcc/memory-block.h"].decode()
+    obstack = all_bytes["libiberty/obstack.c"].decode()
+    assert "size_t new_size = sum2 + (obj_size >> 3) + 100;" in obstack
+    int_max, uint_max = 2**31-1, 2**32-1
+    rows = []
+    for universe in sorted({0, 1, 63, 64, 65, 127, 128, 129, int_max} |
+                           {2**k+delta for k in range(8, 31) for delta in (-1, 0, 1)}):
+        words = (universe+63)//64
+        sparse_buckets = (universe+127)//128
+        single_bytes = 8+8*words
+        vector_bytes = uint_max*(16+8*words)
+        assert universe+63 <= uint_max
+        assert single_bytes <= uint_max
+        assert vector_bytes <= 2**63-1
+        assert sparse_buckets*128 <= uint_max
+        assert sparse_buckets <= int_max
+        rows.append(dict(universe=universe, dense_words=words,
+                         single_object_bytes=single_bytes,
+                         vector_object_at_uint_max_count=vector_bytes,
+                         sparse_bucket_slots=sparse_buckets))
+    assert rows[-1]["single_object_bytes"] == 268435464
+    assert max(65536, 0+40+7+(0 >> 3)+100) == 65536
+    return dict(
+        scope="selected LP64 bitmap containers with source-derived universe and caller invariants",
+        selected_statistics_enabled=False, universe_upper_bound=int_max,
+        sparse_head_bytes=32, sparse_element_bytes=40, sparse_bucket_bits=128,
+        sparse_fixed_object_obstack_chunk_bytes=65536,
+        sparse_tree_to_list_vector_entries="ceil(U/128) each, plus fixed inline storage",
+        aggregate_allocation_gate=False,
+        default_obstack_depth_requires_caller_bound=True,
+        dense_vector_bytes="v*(16+8*ceil(U/64))",
+        boundary_checks=rows, native_execution=False)
 
 
 def check_size_extrema_transfers(all_bytes):
@@ -794,6 +853,7 @@ def main():
         "scalar_pointer_types": check_type_transfers(all_bytes, bundle),
         "expression_unsharing": check_expression_copy_transfers(all_bytes),
         "size_extrema_helpers": check_size_extrema_transfers(all_bytes),
+        "bitmap_storage": check_bitmap_transfers(all_bytes, bundle),
         "ordinary_vectors": {
             "heap_maximum_requested_total": int_max,
             "heap_modular_growth_examples": heap_cases,
