@@ -722,6 +722,33 @@
       "git_blob_sha1": "74e323b0e0eeaca3e666744cea406b7cadbc3ce4",
       "origin": "complete Ada source inventory",
       "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/uintp.adb"
+    },
+    {
+      "path": "gcc/gimple.h",
+      "bytes": 166069,
+      "sha256": "33b8d4bef37de5b5395cae298f6da5707a6e07505487ee343e760282d87b96f3",
+      "git_blob_sha1": "2484a33f47651a440b5b87cba9027b5443ec9a3e",
+      "origin": "retained complete GCC source archive",
+      "archive": "gimple-sources.tar.gz",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple.h"
+    },
+    {
+      "path": "gcc/gimple.def",
+      "bytes": 17757,
+      "sha256": "29c518537aad88cd33d4cf21f2a5cea3610d19bc5837de2820f379f0f2a3ad3d",
+      "git_blob_sha1": "0a098ada32e1544c4200de1f1f3918dc61d56b1c",
+      "origin": "retained complete GCC source archive",
+      "archive": "gimple-sources.tar.gz",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple.def"
+    },
+    {
+      "path": "gcc/tree-ssa-alias.h",
+      "bytes": 8320,
+      "sha256": "3b3ee677418cbcae40dd0403a8022265d3a0334058ebc3f511d5a9cd71b7de59",
+      "git_blob_sha1": "e0785c5d4bb9d7f67e7a1142dc4e3b01cbb51257",
+      "origin": "retained complete GCC source archive",
+      "archive": "gimple-sources.tar.gz",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-ssa-alias.h"
     }
   ]
 }

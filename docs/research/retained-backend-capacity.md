@@ -1715,6 +1715,60 @@ SSA construction, machine expansion, instruction encoding or linker layout.
 The formulas carry the EH output forward without multiplying cleanup nesting
 or mistaking runtime iterations for repeated compiler traversal.
 
+## Raw GIMPLE tuples use individual operand arrays
+
+The scalar, conditional and call transfers in the [gigi join](retained-backend-gigi.md)
+produce raw GIMPLE constructor requests and operand arities. Those quantities
+have different representation consequences. `gimple_alloc` does not assign a
+global statement ID: the `uid` field is unsigned and explicitly belongs to the
+passes that assign it (`gimple.h:264–267`). Their existing counter checks remain
+required; a lifetime count of every discarded tuple is not itself that UID.
+
+`gimple_size` starts with the selected fixed structure size, then adds
+`sizeof(tree)*(num_ops-1)` when the unsigned operand count is positive
+(`gimple.cc:141–148`). Both the product and sum use size_t. On the selected LP64
+host the base structures have the following sizes, derived from their fields
+in `gimple.h:220–376,396–532` and `pt_solution` in `tree-ssa-alias.h:28–70`:
+
+| Structure | Base bytes, including its first operand where present |
+| --- | ---: |
+| Base / NOP | 48 |
+| Register operands / condition / label / goto | 64 |
+| Memory operands / assignment / return | 80 |
+| Call, including two points-to records | 120 |
+| BIND | 72 |
+| CATCH, EH_FILTER, EH_ELSE, TRY | 64 |
+| EH_MUST_NOT_THROW, RESX, EH_DISPATCH | 56 |
+
+These are source-derived layouts under the existing LP64 premise, not a new
+native sizeof experiment. The code-to-structure mapping is in `gimple.def`.
+For these constructors the maximum individual object is therefore bounded by
+`120 + 8*(UINT_MAX-1) = 34,359,738,472` bytes, less than 2^36. The already
+established GC rounding transfer fits this in size_t and signed size arithmetic.
+This bound checks representation only; it does not promise that such an object
+can be physically allocated, and most selected tuple arities are tiny.
+
+Ordinary and internal calls compute `nargs+3` **before** that size_t arithmetic
+(`gimple.cc:251–255,330–334`), so their caller must ensure
+`nargs <= UINT_MAX-3`. The source-derived call arities feed this check; no
+unsigned wrap is excused by the later allocation's wider representation.
+In particular, the two-actual overflow IFN call has five operand positions
+and requests 152 bytes. Ordinary scalar assignments use at most three
+positions, each normal conditional four, and a label or goto one
+(`gimple.cc:487–518,558–570,600–618`). A later ternary assignment can use four
+positions and remains covered by the same object formula. The child tree
+graphs, fresh temporary identities and folder replacement requests retain
+their separate charges.
+
+GIMPLE sequences are linked through the tuple's `next` and `prev` fields
+(`gimple.h:281–288`), without a total sequence-byte field or single aggregate
+allocation. No aggregate RAM or address-span admission limit follows from
+their total allocation count. The allocation statistics are guarded by
+`GATHER_STATISTICS`, which is zero in the retained selected host header
+(`gimple.cc:173–178`). Neither observation removes real per-pass statement
+counters, vector lengths, PHI backing or SSA operand-list obligations. Those
+must consume the composed statement/operand counts at their actual phases.
+
 ## Remaining backend closure
 
 The [ELF linker transfer](retained-linker-capacity.md) supplies the separate

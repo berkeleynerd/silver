@@ -11006,6 +11006,77 @@ LF line numbering; complete file identities checked.
 3349: }
 ```
 
+## gcc/gimple.cc:100–116
+```text
+100:
+101: #define DEFGSCODE(SYM, NAME, GSSCODE)	GSSCODE,
+102: EXPORTED_CONST enum gimple_statement_structure_enum gss_for_code_[] = {
+103: #include "gimple.def"
+104: };
+105: #undef DEFGSCODE
+106:
+107: /* Gimple stats.  */
+108:
+109: uint64_t gimple_alloc_counts[(int) gimple_alloc_kind_all];
+110: uint64_t gimple_alloc_sizes[(int) gimple_alloc_kind_all];
+111:
+112: /* Keep in sync with gimple.h:enum gimple_alloc_kind.  */
+113: static const char * const gimple_alloc_kind_names[] = {
+114:     "assignments",
+115:     "phi nodes",
+116:     "conditionals",
+```
+
+## gcc/gimple.cc:138–183
+```text
+138: /* Return the number of bytes needed to hold a GIMPLE statement with
+139:    code CODE.  */
+140:
+141: size_t
+142: gimple_size (enum gimple_code code, unsigned num_ops)
+143: {
+144:   size_t size = gsstruct_code_size[gss_for_code (code)];
+145:   if (num_ops > 0)
+146:     size += (sizeof (tree) * (num_ops - 1));
+147:   return size;
+148: }
+149:
+150: /* Initialize GIMPLE statement G with CODE and NUM_OPS.  */
+151:
+152: void
+153: gimple_init (gimple *g, enum gimple_code code, unsigned num_ops)
+154: {
+155:   gimple_set_code (g, code);
+156:   gimple_set_num_ops (g, num_ops);
+157:
+158:   /* Do not call gimple_set_modified here as it has other side
+159:      effects and this tuple is still not completely built.  */
+160:   g->modified = 1;
+161:   gimple_init_singleton (g);
+162: }
+163:
+164: /* Allocate memory for a GIMPLE statement with code CODE and NUM_OPS
+165:    operands.  */
+166:
+167: gimple *
+168: gimple_alloc (enum gimple_code code, unsigned num_ops MEM_STAT_DECL)
+169: {
+170:   size_t size;
+171:   gimple *stmt;
+172:
+173:   size = gimple_size (code, num_ops);
+174:   if (GATHER_STATISTICS)
+175:     {
+176:       enum gimple_alloc_kind kind = gimple_alloc_kind (code);
+177:       gimple_alloc_counts[(int) kind]++;
+178:       gimple_alloc_sizes[(int) kind] += size;
+179:     }
+180:
+181:   stmt = ggc_alloc_cleared_gimple_statement_stat (size PASS_MEM_STAT);
+182:   gimple_init (stmt, code, num_ops);
+183:   return stmt;
+```
+
 ## gcc/gimple.cc:251–263
 ```text
 251: gimple_build_call_1 (tree fn, unsigned nargs)
@@ -11021,6 +11092,125 @@ LF line numbering; complete file identities checked.
 261:   return s;
 262: }
 263:
+```
+
+## gcc/gimple.cc:330–342
+```text
+330: gimple_build_call_internal_1 (enum internal_fn fn, unsigned nargs)
+331: {
+332:   gcall *s
+333:     = as_a <gcall *> (gimple_build_with_ops (GIMPLE_CALL, ERROR_MARK,
+334: 					     nargs + 3));
+335:   s->subcode |= GF_CALL_INTERNAL;
+336:   gimple_call_set_internal_fn (s, fn);
+337:   gimple_call_reset_alias_info (s);
+338:   return s;
+339: }
+340:
+341:
+342: /* Build a GIMPLE_CALL statement to internal function FN.  NARGS is
+```
+
+## gcc/gimple.cc:487–518
+```text
+487: gimple_build_assign_1 (tree lhs, enum tree_code subcode, tree op1,
+488: 		       tree op2, tree op3 MEM_STAT_DECL)
+489: {
+490:   unsigned num_ops;
+491:   gassign *p;
+492:
+493:   /* Need 1 operand for LHS and 1 or 2 for the RHS (depending on the
+494:      code).  */
+495:   num_ops = get_gimple_rhs_num_ops (subcode) + 1;
+496:
+497:   p = as_a <gassign *> (
+498:         gimple_build_with_ops_stat (GIMPLE_ASSIGN, (unsigned)subcode, num_ops
+499: 				    PASS_MEM_STAT));
+500:   gimple_assign_set_lhs (p, lhs);
+501:   /* For COND_EXPR, op1 should not be a comparison. */
+502:   if (op1 && subcode == COND_EXPR)
+503:     gcc_assert (!COMPARISON_CLASS_P  (op1));
+504:   gimple_assign_set_rhs1 (p, op1);
+505:   if (op2)
+506:     {
+507:       gcc_assert (num_ops > 2);
+508:       gimple_assign_set_rhs2 (p, op2);
+509:     }
+510:
+511:   if (op3)
+512:     {
+513:       gcc_assert (num_ops > 3);
+514:       gimple_assign_set_rhs3 (p, op3);
+515:     }
+516:
+517:   return p;
+518: }
+```
+
+## gcc/gimple.cc:558–570
+```text
+558: gimple_build_cond (enum tree_code pred_code, tree lhs, tree rhs,
+559: 		   tree t_label, tree f_label)
+560: {
+561:   gcond *p;
+562:
+563:   gcc_assert (TREE_CODE_CLASS (pred_code) == tcc_comparison);
+564:   p = as_a <gcond *> (gimple_build_with_ops (GIMPLE_COND, pred_code, 4));
+565:   gimple_cond_set_lhs (p, lhs);
+566:   gimple_cond_set_rhs (p, rhs);
+567:   gimple_cond_set_true_label (p, t_label);
+568:   gimple_cond_set_false_label (p, f_label);
+569:   return p;
+570: }
+```
+
+## gcc/gimple.cc:600–644
+```text
+600: glabel *
+601: gimple_build_label (tree label)
+602: {
+603:   glabel *p
+604:     = as_a <glabel *> (gimple_build_with_ops (GIMPLE_LABEL, ERROR_MARK, 1));
+605:   gimple_label_set_label (p, label);
+606:   return p;
+607: }
+608:
+609: /* Build a GIMPLE_GOTO statement to label DEST.  */
+610:
+611: ggoto *
+612: gimple_build_goto (tree dest)
+613: {
+614:   ggoto *p
+615:     = as_a <ggoto *> (gimple_build_with_ops (GIMPLE_GOTO, ERROR_MARK, 1));
+616:   gimple_goto_set_dest (p, dest);
+617:   return p;
+618: }
+619:
+620:
+621: /* Build a GIMPLE_NOP statement.  */
+622:
+623: gimple *
+624: gimple_build_nop (void)
+625: {
+626:   return gimple_alloc (GIMPLE_NOP, 0);
+627: }
+628:
+629:
+630: /* Build a GIMPLE_BIND statement.
+631:    VARS are the variables in BODY.
+632:    BLOCK is the containing block.  */
+633:
+634: gbind *
+635: gimple_build_bind (tree vars, gimple_seq body, tree block)
+636: {
+637:   gbind *p = as_a <gbind *> (gimple_alloc (GIMPLE_BIND, 0));
+638:   gimple_bind_set_vars (p, vars);
+639:   if (body)
+640:     gimple_bind_set_body (p, body);
+641:   if (block)
+642:     gimple_bind_set_block (p, block);
+643:   return p;
+644: }
 ```
 
 ## gcc/gimple.cc:1563–1577
@@ -16666,4 +16856,528 @@ LF line numbering; complete file identities checked.
 2424:    end Vector_To_Uint;
 2425:
 2426: end Uintp;
+```
+
+## gcc/gimple.h:217–376
+```text
+217: /* Data structure definitions for GIMPLE tuples.  NOTE: word markers
+218:    are for 64 bit hosts.  */
+219:
+220: struct GTY((desc ("gimple_statement_structure (&%h)"), tag ("GSS_BASE"),
+221: 	    chain_next ("%h.next"), variable_size))
+222:   gimple
+223: {
+224:   /* [ WORD 1 ]
+225:      Main identifying code for a tuple.  */
+226:   ENUM_BITFIELD(gimple_code) code : 8;
+227:
+228:   /* Nonzero if a warning should not be emitted on this tuple.  */
+229:   unsigned int no_warning	: 1;
+230:
+231:   /* Nonzero if this tuple has been visited.  Passes are responsible
+232:      for clearing this bit before using it.  */
+233:   unsigned int visited		: 1;
+234:
+235:   /* Nonzero if this tuple represents a non-temporal move; currently
+236:      only stores are supported.  */
+237:   unsigned int nontemporal_move	: 1;
+238:
+239:   /* Pass local flags.  These flags are free for any pass to use as
+240:      they see fit.  Passes should not assume that these flags contain
+241:      any useful value when the pass starts.  Any initial state that
+242:      the pass requires should be set on entry to the pass.  See
+243:      gimple_set_plf and gimple_plf for usage.  */
+244:   unsigned int plf		: 2;
+245:
+246:   /* Nonzero if this statement has been modified and needs to have its
+247:      operands rescanned.  */
+248:   unsigned modified 		: 1;
+249:
+250:   /* Nonzero if this statement contains volatile operands.  */
+251:   unsigned has_volatile_ops 	: 1;
+252:
+253:   /* Infrastructure local flag.  Always clear.  */
+254:   unsigned ilf			: 1;
+255:
+256:   /* The SUBCODE field can be used for tuple-specific flags for tuples
+257:      that do not require subcodes.  Note that SUBCODE should be at
+258:      least as wide as tree codes, as several tuples store tree codes
+259:      in there.  */
+260:   unsigned int subcode		: 16;
+261:
+262:   /* UID of this statement.  This is used by passes that want to assign IDs
+263:      to statements.  It must be assigned and used by each pass.  By default
+264:      it should be assumed to contain garbage.  */
+265:   unsigned uid;
+266:
+267:   /* [ WORD 2 ]
+268:      Number of operands in this tuple.  */
+269:   unsigned num_ops;
+270:
+271:   /* Unused 32 bits padding on 64-bit hosts.  */
+272:
+273:   /* [ WORD 3 ]
+274:      Locus information for debug info.  */
+275:   location_t location;
+276:
+277:   /* [ WORD 4 ]
+278:      Basic block holding this statement.  */
+279:   basic_block bb;
+280:
+281:   /* [ WORD 5-6 ]
+282:      Linked lists of gimple statements.  The next pointers form
+283:      a NULL terminated list, the prev pointers are a cyclic list.
+284:      A gimple statement is hence also a double-ended list of
+285:      statements, with the pointer itself being the first element,
+286:      and the prev pointer being the last.  */
+287:   gimple *next;
+288:   gimple *GTY((skip)) prev;
+289: };
+290:
+291:
+292: /* Base structure for tuples with operands.  */
+293:
+294: /* This gimple subclass has no tag value.  */
+295: struct GTY(())
+296:   gimple_statement_with_ops_base : public gimple
+297: {
+298:   /* [ WORD 1-6 ] : base class */
+299:
+300:   /* [ WORD 7 ]
+301:      SSA operand vectors.  NOTE: It should be possible to
+302:      amalgamate these vectors with the operand vector OP.  However,
+303:      the SSA operand vectors are organized differently and contain
+304:      more information (like immediate use chaining).  */
+305:   struct use_optype_d GTY((skip (""))) *use_ops;
+306: };
+307:
+308:
+309: /* Statements that take register operands.  */
+310:
+311: struct GTY((tag("GSS_WITH_OPS")))
+312:   gimple_statement_with_ops : public gimple_statement_with_ops_base
+313: {
+314:   /* [ WORD 1-7 ] : base class */
+315:
+316:   /* [ WORD 8 ]
+317:      Operand vector.  NOTE!  This must always be the last field
+318:      of this structure.  In particular, this means that this
+319:      structure cannot be embedded inside another one.  */
+320:   tree GTY((length ("%h.num_ops"))) op[1];
+321: };
+322:
+323:
+324: /* Base for statements that take both memory and register operands.  */
+325:
+326: struct GTY((tag("GSS_WITH_MEM_OPS_BASE")))
+327:   gimple_statement_with_memory_ops_base : public gimple_statement_with_ops_base
+328: {
+329:   /* [ WORD 1-7 ] : base class */
+330:
+331:   /* [ WORD 8-9 ]
+332:      Virtual operands for this statement.  The GC will pick them
+333:      up via the ssa_names array.  */
+334:   tree GTY((skip (""))) vdef;
+335:   tree GTY((skip (""))) vuse;
+336: };
+337:
+338:
+339: /* Statements that take both memory and register operands.  */
+340:
+341: struct GTY((tag("GSS_WITH_MEM_OPS")))
+342:   gimple_statement_with_memory_ops :
+343:     public gimple_statement_with_memory_ops_base
+344: {
+345:   /* [ WORD 1-9 ] : base class */
+346:
+347:   /* [ WORD 10 ]
+348:      Operand vector.  NOTE!  This must always be the last field
+349:      of this structure.  In particular, this means that this
+350:      structure cannot be embedded inside another one.  */
+351:   tree GTY((length ("%h.num_ops"))) op[1];
+352: };
+353:
+354:
+355: /* Call statements that take both memory and register operands.  */
+356:
+357: struct GTY((tag("GSS_CALL")))
+358:   gcall : public gimple_statement_with_memory_ops_base
+359: {
+360:   /* [ WORD 1-9 ] : base class */
+361:
+362:   /* [ WORD 10-13 ]  */
+363:   struct pt_solution call_used;
+364:   struct pt_solution call_clobbered;
+365:
+366:   /* [ WORD 14 ]  */
+367:   union GTY ((desc ("%1.subcode & GF_CALL_INTERNAL"))) {
+368:     tree GTY ((tag ("0"))) fntype;
+369:     enum internal_fn GTY ((tag ("GF_CALL_INTERNAL"))) internal_fn;
+370:   } u;
+371:
+372:   /* [ WORD 15 ]
+373:      Operand vector.  NOTE!  This must always be the last field
+374:      of this structure.  In particular, this means that this
+375:      structure cannot be embedded inside another one.  */
+376:   tree GTY((length ("%h.num_ops"))) op[1];
+```
+
+## gcc/gimple.h:394–542
+```text
+394: /* GIMPLE_BIND */
+395:
+396: struct GTY((tag("GSS_BIND")))
+397:   gbind : public gimple
+398: {
+399:   /* [ WORD 1-6 ] : base class */
+400:
+401:   /* [ WORD 7 ]
+402:      Variables declared in this scope.  */
+403:   tree vars;
+404:
+405:   /* [ WORD 8 ]
+406:      This is different than the BLOCK field in gimple,
+407:      which is analogous to TREE_BLOCK (i.e., the lexical block holding
+408:      this statement).  This field is the equivalent of BIND_EXPR_BLOCK
+409:      in tree land (i.e., the lexical scope defined by this bind).  See
+410:      gimple-low.cc.  */
+411:   tree block;
+412:
+413:   /* [ WORD 9 ]  */
+414:   gimple_seq body;
+415: };
+416:
+417:
+418: /* GIMPLE_CATCH */
+419:
+420: struct GTY((tag("GSS_CATCH")))
+421:   gcatch : public gimple
+422: {
+423:   /* [ WORD 1-6 ] : base class */
+424:
+425:   /* [ WORD 7 ]  */
+426:   tree types;
+427:
+428:   /* [ WORD 8 ]  */
+429:   gimple_seq handler;
+430: };
+431:
+432:
+433: /* GIMPLE_EH_FILTER */
+434:
+435: struct GTY((tag("GSS_EH_FILTER")))
+436:   geh_filter : public gimple
+437: {
+438:   /* [ WORD 1-6 ] : base class */
+439:
+440:   /* [ WORD 7 ]
+441:      Filter types.  */
+442:   tree types;
+443:
+444:   /* [ WORD 8 ]
+445:      Failure actions.  */
+446:   gimple_seq failure;
+447: };
+448:
+449: /* GIMPLE_EH_ELSE */
+450:
+451: struct GTY((tag("GSS_EH_ELSE")))
+452:   geh_else : public gimple
+453: {
+454:   /* [ WORD 1-6 ] : base class */
+455:
+456:   /* [ WORD 7,8 ] */
+457:   gimple_seq n_body, e_body;
+458: };
+459:
+460: /* GIMPLE_EH_MUST_NOT_THROW */
+461:
+462: struct GTY((tag("GSS_EH_MNT")))
+463:   geh_mnt : public gimple
+464: {
+465:   /* [ WORD 1-6 ] : base class */
+466:
+467:   /* [ WORD 7 ] Abort function decl.  */
+468:   tree fndecl;
+469: };
+470:
+471: /* GIMPLE_PHI */
+472:
+473: struct GTY((tag("GSS_PHI")))
+474:   gphi : public gimple
+475: {
+476:   /* [ WORD 1-6 ] : base class */
+477:
+478:   /* [ WORD 7 ]  */
+479:   unsigned capacity;
+480:   unsigned nargs;
+481:
+482:   /* [ WORD 8 ]  */
+483:   tree result;
+484:
+485:   /* [ WORD 9-14 ]  */
+486:   struct phi_arg_d GTY ((length ("%h.nargs"))) args[1];
+487: };
+488:
+489:
+490: /* GIMPLE_RESX, GIMPLE_EH_DISPATCH */
+491:
+492: struct GTY((tag("GSS_EH_CTRL")))
+493:   gimple_statement_eh_ctrl : public gimple
+494: {
+495:   /* [ WORD 1-6 ] : base class */
+496:
+497:   /* [ WORD 7 ]
+498:      Exception region number.  */
+499:   int region;
+500: };
+501:
+502: struct GTY((tag("GSS_EH_CTRL")))
+503:   gresx : public gimple_statement_eh_ctrl
+504: {
+505:   /* No extra fields; adds invariant:
+506:        stmt->code == GIMPLE_RESX.  */
+507: };
+508:
+509: struct GTY((tag("GSS_EH_CTRL")))
+510:   geh_dispatch : public gimple_statement_eh_ctrl
+511: {
+512:   /* No extra fields; adds invariant:
+513:        stmt->code == GIMPLE_EH_DISPATH.  */
+514: };
+515:
+516:
+517: /* GIMPLE_TRY */
+518:
+519: struct GTY((tag("GSS_TRY")))
+520:   gtry : public gimple
+521: {
+522:   /* [ WORD 1-6 ] : base class */
+523:
+524:   /* [ WORD 7 ]
+525:      Expression to evaluate.  */
+526:   gimple_seq eval;
+527:
+528:   /* [ WORD 8 ]
+529:      Cleanup expression.  */
+530:   gimple_seq cleanup;
+531: };
+532:
+533: /* Kind of GIMPLE_TRY statements.  */
+534: enum gimple_try_flags
+535: {
+536:   /* A try/catch.  */
+537:   GIMPLE_TRY_CATCH = 1 << 0,
+538:
+539:   /* A try/finally.  */
+540:   GIMPLE_TRY_FINALLY = 1 << 1,
+541:   GIMPLE_TRY_KIND = GIMPLE_TRY_CATCH | GIMPLE_TRY_FINALLY,
+542:
+```
+
+## gcc/gimple.h:2566–2581
+```text
+2566: /* Return the number of operands for statement GS.  */
+2567:
+2568: inline unsigned
+2569: gimple_num_ops (const gimple *gs)
+2570: {
+2571:   return gs->num_ops;
+2572: }
+2573:
+2574:
+2575: /* Set the number of operands for statement GS.  */
+2576:
+2577: inline void
+2578: gimple_set_num_ops (gimple *gs, unsigned num_ops)
+2579: {
+2580:   gs->num_ops = num_ops;
+2581: }
+```
+
+## gcc/gimple.def:50–112
+```text
+50:
+51: /* GIMPLE_GOTO <TARGET> represents unconditional jumps.
+52:    TARGET is a LABEL_DECL or an expression node for computed GOTOs.  */
+53: DEFGSCODE(GIMPLE_GOTO, "gimple_goto", GSS_WITH_OPS)
+54:
+55: /* GIMPLE_LABEL <LABEL> represents label statements.  LABEL is a
+56:    LABEL_DECL representing a jump target.  */
+57: DEFGSCODE(GIMPLE_LABEL, "gimple_label", GSS_WITH_OPS)
+58:
+59: /* GIMPLE_SWITCH <INDEX, DEFAULT_LAB, LAB1, ..., LABN> represents the
+60:    multiway branch:
+61:
+62:    switch (INDEX)
+63:    {
+64:      case LAB1: ...; break;
+65:      ...
+66:      case LABN: ...; break;
+67:      default: ...
+68:    }
+69:
+70:    INDEX is the variable evaluated to decide which label to jump to.
+71:
+72:    DEFAULT_LAB, LAB1 ... LABN are the tree nodes representing case labels.
+73:    They must be CASE_LABEL_EXPR nodes.  */
+74: DEFGSCODE(GIMPLE_SWITCH, "gimple_switch", GSS_WITH_OPS)
+75:
+76: /* IMPORTANT.
+77:
+78:    Do not rearrange the codes between GIMPLE_ASSIGN and GIMPLE_RETURN.
+79:    It's exposed by GIMPLE_RANGE_CHECK calls. These are all the GIMPLE
+80:    statements with memory and register operands.  */
+81:
+82: /* GIMPLE_ASSIGN <SUBCODE, LHS, RHS1[, RHS2]> represents the assignment
+83:    statement
+84:
+85:    LHS = RHS1 SUBCODE RHS2.
+86:
+87:    SUBCODE is the tree code for the expression computed by the RHS of the
+88:    assignment.  It must be one of the tree codes accepted by
+89:    get_gimple_rhs_class.  If LHS is not a gimple register according to
+90:    is_gimple_reg, SUBCODE must be of class GIMPLE_SINGLE_RHS.
+91:
+92:    LHS is the operand on the LHS of the assignment.  It must be a tree node
+93:    accepted by is_gimple_lvalue.
+94:
+95:    RHS1 is the first operand on the RHS of the assignment.  It must always be
+96:    present.  It must be a tree node accepted by is_gimple_val.
+97:
+98:    RHS2 is the second operand on the RHS of the assignment.  It must be a tree
+99:    node accepted by is_gimple_val.  This argument exists only if SUBCODE is
+100:    of class GIMPLE_BINARY_RHS.  */
+101: DEFGSCODE(GIMPLE_ASSIGN, "gimple_assign", GSS_WITH_MEM_OPS)
+102:
+103: /* GIMPLE_ASM <STRING, I1, ..., IN, O1, ... OM, C1, ..., CP>
+104:    represents inline assembly statements.
+105:
+106:    STRING is the string containing the assembly statements.
+107:    I1 ... IN are the N input operands.
+108:    O1 ... OM are the M output operands.
+109:    C1 ... CP are the P clobber operands.
+110:    L1 ... LQ are the Q label operands.  */
+111: DEFGSCODE(GIMPLE_ASM, "gimple_asm", GSS_ASM)
+112:
+```
+
+## gcc/gimple.def:134–200
+```text
+134:
+135: /* GIMPLE_RETURN <RETVAL> represents return statements.
+136:
+137:    RETVAL is the value to return or NULL.  If a value is returned it
+138:    must be accepted by is_gimple_operand.  */
+139: DEFGSCODE(GIMPLE_RETURN, "gimple_return", GSS_WITH_MEM_OPS)
+140:
+141: /* GIMPLE_BIND <VARS, BLOCK, BODY> represents a lexical scope.
+142:    VARS is the set of variables declared in that scope.
+143:    BLOCK is the symbol binding block used for debug information.
+144:    BODY is the sequence of statements in the scope.  */
+145: DEFGSCODE(GIMPLE_BIND, "gimple_bind", GSS_BIND)
+146:
+147: /* GIMPLE_CATCH <TYPES, HANDLER> represents a typed exception handler.
+148:    TYPES is the type (or list of types) handled.  HANDLER is the
+149:    sequence of statements that handle these types.  */
+150: DEFGSCODE(GIMPLE_CATCH, "gimple_catch", GSS_CATCH)
+151:
+152: /* GIMPLE_EH_FILTER <TYPES, FAILURE> represents an exception
+153:    specification.  TYPES is a list of allowed types and FAILURE is the
+154:    sequence of statements to execute on failure.  */
+155: DEFGSCODE(GIMPLE_EH_FILTER, "gimple_eh_filter", GSS_EH_FILTER)
+156:
+157: /* GIMPLE_EH_MUST_NOT_THROW <DECL> represents an exception barrier.
+158:    DECL is a noreturn function decl taking no arguments that will
+159:    be invoked if an exception propagates to this point.  */
+160: DEFGSCODE(GIMPLE_EH_MUST_NOT_THROW, "gimple_eh_must_not_throw", GSS_EH_MNT)
+161:
+162: /* GIMPLE_EH_ELSE <N_BODY, E_BODY> must be the sole contents of
+163:    a GIMPLE_TRY_FINALLY node.  For all normal exits from the try block,
+164:    N_BODY is run; for all exception exits from the try block,
+165:    E_BODY is run.  */
+166: DEFGSCODE(GIMPLE_EH_ELSE, "gimple_eh_else", GSS_EH_ELSE)
+167:
+168: /* GIMPLE_RESX resumes execution after an exception.  */
+169: DEFGSCODE(GIMPLE_RESX, "gimple_resx", GSS_EH_CTRL)
+170:
+171: /* GIMPLE_EH_DISPATCH demultiplexes an exception edge based on
+172:    the FILTER argument.  */
+173: DEFGSCODE(GIMPLE_EH_DISPATCH, "gimple_eh_dispatch", GSS_EH_CTRL)
+174:
+175: /* GIMPLE_PHI <RESULT, ARG1, ..., ARGN> represents the PHI node
+176:
+177:    RESULT = PHI <ARG1, ..., ARGN>
+178:
+179:    RESULT is the SSA name created by this PHI node.
+180:
+181:    ARG1 ... ARGN are the arguments to the PHI node.  N must be
+182:    exactly the same as the number of incoming edges to the basic block
+183:    holding the PHI node.  Every argument is either an SSA name or a
+184:    tree node of class tcc_constant.  */
+185: DEFGSCODE(GIMPLE_PHI, "gimple_phi", GSS_PHI)
+186:
+187: /* GIMPLE_TRY <TRY_KIND, EVAL, CLEANUP>
+188:    represents a try/catch or a try/finally statement.
+189:
+190:    TRY_KIND is either GIMPLE_TRY_CATCH or GIMPLE_TRY_FINALLY.
+191:
+192:    EVAL is the sequence of statements to execute on entry to GIMPLE_TRY.
+193:
+194:    CLEANUP is the sequence of statements to execute according to
+195:    TRY_KIND.  If TRY_KIND is GIMPLE_TRY_CATCH, CLEANUP is only exected
+196:    if an exception is thrown during execution of EVAL.  If TRY_KIND is
+197:    GIMPLE_TRY_FINALLY, CLEANUP is always executed after executing EVAL
+198:    (regardless of whether EVAL finished normally, or jumped out or an
+199:    exception was thrown).  */
+200: DEFGSCODE(GIMPLE_TRY, "gimple_try", GSS_TRY)
+```
+
+## gcc/tree-ssa-alias.h:28–72
+```text
+28: struct GTY(()) pt_solution
+29: {
+30:   /* Nonzero if points-to analysis couldn't determine where this pointer
+31:      is pointing to.  */
+32:   unsigned int anything : 1;
+33:
+34:   /* Nonzero if the points-to set includes any global memory.  Note that
+35:      even if this is zero pt_vars can still include global variables.  */
+36:   unsigned int nonlocal : 1;
+37:
+38:   /* Nonzero if the points-to set includes the local escaped solution by
+39:      reference.  */
+40:   unsigned int escaped : 1;
+41:
+42:   /* Nonzero if the points-to set includes the IPA escaped solution by
+43:      reference.  */
+44:   unsigned int ipa_escaped : 1;
+45:
+46:   /* Nonzero if the points-to set includes 'nothing', the points-to set
+47:      includes memory at address NULL.  */
+48:   unsigned int null : 1;
+49:
+50:   /* Nonzero if the points-to set includes a readonly object like a
+51:      STRING_CST that does not have an underlying declaration but will
+52:      end up in the constant pool.  */
+53:   unsigned int const_pool : 1;
+54:
+55:   /* Nonzero if the vars bitmap includes a variable included in 'nonlocal'.  */
+56:   unsigned int vars_contains_nonlocal : 1;
+57:   /* Nonzero if the vars bitmap includes a variable included in 'escaped'.  */
+58:   unsigned int vars_contains_escaped : 1;
+59:   /* Nonzero if the vars bitmap includes a anonymous heap variable that
+60:      escaped the function and thus became global.  */
+61:   unsigned int vars_contains_escaped_heap : 1;
+62:   /* Nonzero if the vars bitmap includes a anonymous variable used to
+63:      represent storage pointed to by a restrict qualified pointer.  */
+64:   unsigned int vars_contains_restrict : 1;
+65:   /* Nonzero if the vars bitmap includes an interposable variable.  */
+66:   unsigned int vars_contains_interposable : 1;
+67:
+68:   /* Set of variables that this pointer may point to.  */
+69:   bitmap vars;
+70: };
+71:
+72:
 ```

@@ -3,7 +3,7 @@
 Supports the [location, String and constant-pool derivation](../../research/retained-backend-capacity.md)
 for #119. No compiler, GNATprove, Lean, suite or near-limit allocation was run.
 
-`source-manifest.json` identifies eighty-eight complete GCC source files at
+`source-manifest.json` identifies ninety-one complete GCC source files at
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. Six newly retrieved files are retained
 in `new-sources.tar.gz`; their immutable retrieval URLs are in the manifest.
 The three additional allocator sources are in `allocator-sources.tar.gz`;
@@ -20,6 +20,7 @@ eighteen type/layout/hook and selected Linux header files are in
 `type-sources.tar.gz`, reconciled against the retained complete source manifest;
 the tree-walker declaration header is in `copy-sources.tar.gz`;
 nine bitmap/obstack/pool sources are in `bitmap-sources.tar.gz`;
+three GIMPLE tuple/mapping/points-to headers are in `gimple-sources.tar.gz`;
 `target-options-query.json` retains the selected compiler's target-option query,
 which compiles no source. These identities describe source
 bytes, not a binary attestation. The ordinary Linux LP64 layout remains an
@@ -30,7 +31,7 @@ statistics and host-word configuration; its digest is recorded in
 `configuration-inventory.json`. This is a build-configuration premise, not
 binary attestation.
 
-`check.py` verifies all eighty-eight complete-file hashes, checks reused identities
+`check.py` verifies all ninety-one complete-file hashes, checks reused identities
 against their earlier manifests, extracts LF-numbered source ranges and
 recomputes local integer arithmetic, including ordinary-map growth and the two
 GNAT-node association backbones, constant-label mutation inventory and label
@@ -94,6 +95,10 @@ The bitmap continuation checks word/configuration and sparse fixed-object
 allocation facts, then evaluates dense size/vector products at representation
 boundaries. Linked sparse allocations have no aggregate byte-span gate; their
 callers still supply the bit universe, valid views and obstack nesting bound.
+The GIMPLE tuple continuation checks unsigned operand arities and per-object
+size_t arithmetic under the source-derived LP64 layouts. It distinguishes
+linked sequences, disabled allocation statistics and actual per-pass UID
+counters; source-to-tuple counts and later SSA operand storage remain separate.
 `checks.json` and `source-excerpts.md`
 retain its outputs. The script does not establish caller coverage or replace
 the report's manual source argument.

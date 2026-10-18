@@ -352,6 +352,18 @@
     {
       "path": "gcc/ada/uintp.adb",
       "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e"
+    },
+    {
+      "path": "gcc/gimple.h",
+      "sha256": "33b8d4bef37de5b5395cae298f6da5707a6e07505487ee343e760282d87b96f3"
+    },
+    {
+      "path": "gcc/gimple.def",
+      "sha256": "29c518537aad88cd33d4cf21f2a5cea3610d19bc5837de2820f379f0f2a3ad3d"
+    },
+    {
+      "path": "gcc/tree-ssa-alias.h",
+      "sha256": "3b3ee677418cbcae40dd0403a8022265d3a0334058ebc3f511d5a9cd71b7de59"
     }
   ],
   "block_operations": {
@@ -1707,6 +1719,34 @@
       }
     ],
     "native_execution": false
+  },
+  "gimple_tuple_storage": {
+    "scope": "selected raw GIMPLE tuples; child graphs, PHIs and SSA operand lists are separate",
+    "lp64_base_bytes": {
+      "base": 48,
+      "with_ops": 64,
+      "with_mem_ops": 80,
+      "call": 120,
+      "bind": 72,
+      "catch": 64,
+      "eh_filter": 64,
+      "eh_else": 64,
+      "eh_mnt": 56,
+      "eh_ctrl": 56,
+      "try_": 64
+    },
+    "individual_variable_object_bytes": "base + 8*max(0,num_ops-1)",
+    "largest_selected_object_from_unsigned_num_ops": 34359738472,
+    "unsigned_call_argument_bound": 4294967292,
+    "scalar_assignment_maximum_operands": 3,
+    "conditional_operands": 4,
+    "label_and_goto_operands": 1,
+    "two_actual_overflow_call_operands": 5,
+    "two_actual_overflow_call_bytes": 152,
+    "linked_sequences_have_no_aggregate_byte_span": true,
+    "allocation_statistics_disabled_by_selected_configuration": true,
+    "statement_UIDs_are_pass_assigned": true,
+    "source_to_all_tuple_counts_closed": false
   },
   "ordinary_vectors": {
     "heap_maximum_requested_total": 2147483647,

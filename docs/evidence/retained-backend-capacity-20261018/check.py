@@ -27,7 +27,12 @@ RANGES = {
                         (21755, 21785)],
     "gcc/tree-eh.cc": [(618, 655), (710, 877), (940, 1095),
                        (1107, 1283), (1289, 1800), (2333, 2356), (3318, 3349)],
-    "gcc/gimple.cc": [(251, 263), (1563, 1577), (1901, 1931), (2045, 2095), (2297, 2333)],
+    "gcc/gimple.cc": [(100, 116), (138, 183), (251, 263), (330, 342),
+                       (487, 518), (558, 570), (600, 644),
+                       (1563, 1577), (1901, 1931), (2045, 2095), (2297, 2333)],
+    "gcc/gimple.h": [(217, 376), (394, 542), (2566, 2581)],
+    "gcc/gimple.def": [(50, 112), (134, 200)],
+    "gcc/tree-ssa-alias.h": [(28, 72)],
     "gcc/tree-inline.cc": [(5735, 5795), (5861, 6060), (6667, 6720)],
     "gcc/langhooks-def.h": [(145, 158)],
     "gcc/ada/back_end.adb": [(123, 130), (155, 175)],
@@ -148,6 +153,42 @@ def read_tar(archive, name):
     with tarfile.open(archive) as src:
         with src.extractfile(name) as member:
             return member.read()
+
+
+def check_gimple_tuple_transfers(all_bytes):
+    source = all_bytes["gcc/gimple.cc"].decode()
+    assert "size += (sizeof (tree) * (num_ops - 1));" in source
+    assert source.count("nargs + 3));") == 2
+    start = source.index("\ngimple_alloc (enum gimple_code code,")
+    alloc = source[start:source.index("\n}\n", start)]
+    assert "if (GATHER_STATISTICS)" in alloc
+    assert "gimple_alloc_counts[(int) kind]++;" in alloc
+    header = all_bytes["gcc/gimple.h"].decode()
+    assert "unsigned num_ops;" in header and "unsigned uid;" in header
+    assert "gimple *next;" in header and "gimple *GTY((skip)) prev;" in header
+    # Source-derived LP64 layouts: the handwritten argument establishes these
+    # field sums; this arithmetic is not a native sizeof measurement.
+    bases = dict(base=48, with_ops=64, with_mem_ops=80, call=120,
+                 bind=72, catch=64, eh_filter=64, eh_else=64,
+                 eh_mnt=56, eh_ctrl=56, try_=64)
+    uint_max = 2**32-1
+    largest = bases["call"] + 8*(uint_max-1)
+    assert largest < 2**36 < 2**63
+    return dict(
+        scope="selected raw GIMPLE tuples; child graphs, PHIs and SSA operand lists are separate",
+        lp64_base_bytes=bases,
+        individual_variable_object_bytes="base + 8*max(0,num_ops-1)",
+        largest_selected_object_from_unsigned_num_ops=largest,
+        unsigned_call_argument_bound=uint_max-3,
+        scalar_assignment_maximum_operands=3,
+        conditional_operands=4,
+        label_and_goto_operands=1,
+        two_actual_overflow_call_operands=5,
+        two_actual_overflow_call_bytes=bases["call"]+8*4,
+        linked_sequences_have_no_aggregate_byte_span=True,
+        allocation_statistics_disabled_by_selected_configuration=True,
+        statement_UIDs_are_pass_assigned=True,
+        source_to_all_tuple_counts_closed=False)
 
 
 def check_expression_copy_transfers(all_bytes):
@@ -976,6 +1017,7 @@ def main():
         "native_backannotation": check_backannotation_transfer(all_bytes),
         "size_extrema_helpers": check_size_extrema_transfers(all_bytes),
         "bitmap_storage": check_bitmap_transfers(all_bytes, bundle),
+        "gimple_tuple_storage": check_gimple_tuple_transfers(all_bytes),
         "ordinary_vectors": {
             "heap_maximum_requested_total": int_max,
             "heap_modular_growth_examples": heap_cases,
