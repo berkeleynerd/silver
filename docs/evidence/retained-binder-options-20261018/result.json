@@ -1,0 +1,808 @@
+{
+  "scope": "Proposed stock split-wide option: fixed null/output binder object and lifetime reconciliation",
+  "native_platform": "Linux x86-64",
+  "source_files_verified": 37,
+  "artifacts_verified": 137,
+  "new_native_compiler_deliveries": 2,
+  "driver_only_queries": 2,
+  "new_full_audits": 0,
+  "new_Lean_or_solver_executions": 0,
+  "production_flags_or_admission_changed": false,
+  "null_lifetime_GGC_bytes_delta": 16,
+  "null_lifetime_event_count_delta": 0,
+  "fixed_source_path_family_no_collection_threshold_bytes": 5242880,
+  "default_parameter_binary_source_link": {
+    "installed_binary_sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e",
+    "minimum_heap_KiB": 4096,
+    "minimum_expand_percent": 30,
+    "minimum_endpoint_binary32_expansion_bytes": 1258291.25,
+    "minimum_endpoint_binary32_threshold_bytes": 5452595.0,
+    "conservative_threshold_bytes": 5242880,
+    "new_parameter_override": false
+  },
+  "varying_output_checksum_lifetime_bound_established": false,
+  "whole_tool_capacity_established": false,
+  "cases": {
+    "null": {
+      "lifetime": {
+        "managed_run_id": "20261018T141731-1615498c5848",
+        "managed_duration_seconds": 9.909053852,
+        "debugger_duration_seconds": 7.6371385189995635,
+        "counter_event_identity": {
+          "bytes": 5030936,
+          "sha256": "99d457209df7a435c8546d2d8e1d3f5cace8a2009e91e1abe229eea885a2a0a3"
+        },
+        "counter_records_replayed": 58074,
+        "counters": {
+          "ggc_bytes": {
+            "initial": 0,
+            "current": 4155416,
+            "peak": 4155416,
+            "minimum": 0,
+            "events": 48889,
+            "positive_sum": 4155416,
+            "negative_sum": 0,
+            "positive_events": 48889,
+            "negative_events": 0,
+            "largest_increment": 65536
+          },
+          "decl_uid": {
+            "initial": 0,
+            "current": 6390,
+            "peak": 6390,
+            "minimum": 0,
+            "events": 6390,
+            "positive_sum": 6390,
+            "negative_sum": 0,
+            "positive_events": 6390,
+            "negative_events": 0,
+            "largest_increment": 1
+          },
+          "type_uid": {
+            "initial": 1,
+            "current": 2068,
+            "peak": 2068,
+            "minimum": 1,
+            "events": 2795,
+            "positive_sum": 2431,
+            "negative_sum": 364,
+            "positive_events": 2431,
+            "negative_events": 364,
+            "largest_increment": 1
+          },
+          "debug_decl_uid": {
+            "initial": 0,
+            "current": 0,
+            "peak": 0,
+            "minimum": 0,
+            "events": 0,
+            "positive_sum": 0,
+            "negative_sum": 0,
+            "positive_events": 0,
+            "negative_events": 0,
+            "largest_increment": 0
+          }
+        },
+        "rounded_GGC_histogram": [
+          {
+            "bytes": 8,
+            "events": 711
+          },
+          {
+            "bytes": 16,
+            "events": 3427
+          },
+          {
+            "bytes": 24,
+            "events": 4971
+          },
+          {
+            "bytes": 32,
+            "events": 9048
+          },
+          {
+            "bytes": 40,
+            "events": 19443
+          },
+          {
+            "bytes": 48,
+            "events": 540
+          },
+          {
+            "bytes": 56,
+            "events": 225
+          },
+          {
+            "bytes": 64,
+            "events": 388
+          },
+          {
+            "bytes": 72,
+            "events": 319
+          },
+          {
+            "bytes": 80,
+            "events": 1
+          },
+          {
+            "bytes": 88,
+            "events": 186
+          },
+          {
+            "bytes": 96,
+            "events": 110
+          },
+          {
+            "bytes": 104,
+            "events": 129
+          },
+          {
+            "bytes": 112,
+            "events": 7
+          },
+          {
+            "bytes": 120,
+            "events": 108
+          },
+          {
+            "bytes": 128,
+            "events": 292
+          },
+          {
+            "bytes": 136,
+            "events": 124
+          },
+          {
+            "bytes": 152,
+            "events": 226
+          },
+          {
+            "bytes": 160,
+            "events": 176
+          },
+          {
+            "bytes": 168,
+            "events": 2441
+          },
+          {
+            "bytes": 208,
+            "events": 28
+          },
+          {
+            "bytes": 256,
+            "events": 5765
+          },
+          {
+            "bytes": 272,
+            "events": 51
+          },
+          {
+            "bytes": 400,
+            "events": 32
+          },
+          {
+            "bytes": 512,
+            "events": 13
+          },
+          {
+            "bytes": 1024,
+            "events": 41
+          },
+          {
+            "bytes": 2048,
+            "events": 52
+          },
+          {
+            "bytes": 4096,
+            "events": 5
+          },
+          {
+            "bytes": 8192,
+            "events": 16
+          },
+          {
+            "bytes": 16384,
+            "events": 8
+          },
+          {
+            "bytes": 32768,
+            "events": 3
+          },
+          {
+            "bytes": 65536,
+            "events": 3
+          }
+        ],
+        "site_events": [
+          {
+            "counter": "decl_uid",
+            "pc": "0x1693757",
+            "events": 665
+          },
+          {
+            "counter": "decl_uid",
+            "pc": "0x1693852",
+            "events": 5723
+          },
+          {
+            "counter": "decl_uid",
+            "pc": "0x16a2f67",
+            "events": 2
+          },
+          {
+            "counter": "ggc_bytes",
+            "pc": "0xda47ab",
+            "events": 48889
+          },
+          {
+            "counter": "type_uid",
+            "pc": "0x16936be",
+            "events": 2098
+          },
+          {
+            "counter": "type_uid",
+            "pc": "0x16a2f1e",
+            "events": 333
+          },
+          {
+            "counter": "type_uid",
+            "pc": "0x16a8511",
+            "events": 364
+          }
+        ],
+        "heuristic_collection_calls": 353,
+        "actual_marker_calls": 0,
+        "value_expr_insert_calls": 0,
+        "minimum_heap_bytes": 4194304,
+        "default_min_expand_percent_lower": 30,
+        "conservative_first_collection_threshold_bytes": 5242880,
+        "margin_below_threshold_bytes": 1087464,
+        "each_page_pointer_vector_slots_bound": 65536,
+        "each_page_pointer_vector_bytes_bound": 524288,
+        "each_finalizer_vector_slots_bound": 73332,
+        "scalar_finalizer_vector_bytes_bound": 1173320,
+        "array_finalizer_vector_bytes_bound": 2346632,
+        "dependency_specifications": [
+          "system.ads",
+          "s-parame.ads",
+          "s-secsta.ads",
+          "s-stoele.ads"
+        ],
+        "varying_checksum_lifetime_bound_established": false
+      },
+      "object": {
+        "before": {
+          "file": {
+            "bytes": 13432,
+            "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+          },
+          "relocations": [
+            {
+              "section": ".rela.text",
+              "count": 89
+            },
+            {
+              "section": ".rela.data.rel.ro.local",
+              "count": 1
+            },
+            {
+              "section": ".rela.eh_frame",
+              "count": 5
+            }
+          ],
+          "section_count": 16,
+          "symbol_count": 179,
+          "symbol_st_size_sum": 11766,
+          "nonlocal_symbol_st_size_sum": 1443,
+          "maximum_symbol_st_size": 10320,
+          "relocation_count": 95,
+          "maximum_section_alignment": 32,
+          "common_symbol_count": 0,
+          "merge_sections": [
+            ".comment"
+          ],
+          "allocated_merge_section_count": 0,
+          "eh_frame_section_count": 1,
+          "eh_frame_bytes": 192,
+          "sframe_section_count": 0,
+          "sframe_bytes": 0,
+          "allocated_bytes": 12023,
+          "text_bytes": 1000
+        },
+        "after": {
+          "file": {
+            "bytes": 13424,
+            "sha256": "c7dce906697df7a5b5edc21097d35f807f37deb642dbe98c07a58945d75919dc"
+          },
+          "relocations": [
+            {
+              "section": ".rela.text",
+              "count": 89
+            },
+            {
+              "section": ".rela.data.rel.ro.local",
+              "count": 1
+            },
+            {
+              "section": ".rela.eh_frame",
+              "count": 5
+            }
+          ],
+          "section_count": 16,
+          "symbol_count": 179,
+          "symbol_st_size_sum": 11760,
+          "nonlocal_symbol_st_size_sum": 1437,
+          "maximum_symbol_st_size": 10320,
+          "relocation_count": 95,
+          "maximum_section_alignment": 32,
+          "common_symbol_count": 0,
+          "merge_sections": [
+            ".comment"
+          ],
+          "allocated_merge_section_count": 0,
+          "eh_frame_section_count": 1,
+          "eh_frame_bytes": 192,
+          "sframe_section_count": 0,
+          "sframe_bytes": 0,
+          "allocated_bytes": 12017,
+          "text_bytes": 994
+        },
+        "changed_section_payloads": [
+          ".text",
+          ".rela.text",
+          ".eh_frame",
+          ".symtab"
+        ],
+        "changed_symbols": [
+          {
+            "before": {
+              "name": "ada_main___elabb",
+              "binding": 1,
+              "type": 2,
+              "section": 1,
+              "value": 962,
+              "size": 38,
+              "other": 0
+            },
+            "after": {
+              "name": "ada_main___elabb",
+              "binding": 1,
+              "type": 2,
+              "section": 1,
+              "value": 962,
+              "size": 32,
+              "other": 0
+            }
+          }
+        ],
+        "changed_relocations": [
+          {
+            "section": ".rela.text",
+            "index": 88,
+            "before": [
+              993,
+              42949672964,
+              -4
+            ],
+            "after": [
+              987,
+              42949672964,
+              -4
+            ]
+          }
+        ],
+        "nonlocal_symbol_count": 169,
+        "CIE_count": 1,
+        "FDE_count": 5,
+        "EH_changed_bytes": [
+          {
+            "offset": 172,
+            "before": 38,
+            "after": 32
+          },
+          {
+            "offset": 185,
+            "before": 97,
+            "after": 91
+          }
+        ],
+        "old_count_payload_alignment_envelope_still_dominates": true
+      }
+    },
+    "output": {
+      "lifetime": {
+        "managed_run_id": "20261018T141951-b4f17b9f45aa",
+        "managed_duration_seconds": 10.104232568,
+        "debugger_duration_seconds": 7.918112286002724,
+        "counter_event_identity": {
+          "bytes": 5229522,
+          "sha256": "404b74e6e49b9be35f4723fe79e872a53e23747a3d023cd252c7bf3f5b8aae0a"
+        },
+        "counter_records_replayed": 60311,
+        "counters": {
+          "ggc_bytes": {
+            "initial": 0,
+            "current": 4481000,
+            "peak": 4481000,
+            "minimum": 0,
+            "events": 50974,
+            "positive_sum": 4481000,
+            "negative_sum": 0,
+            "positive_events": 50974,
+            "negative_events": 0,
+            "largest_increment": 131072
+          },
+          "decl_uid": {
+            "initial": 0,
+            "current": 6512,
+            "peak": 6512,
+            "minimum": 0,
+            "events": 6512,
+            "positive_sum": 6512,
+            "negative_sum": 0,
+            "positive_events": 6512,
+            "negative_events": 0,
+            "largest_increment": 1
+          },
+          "type_uid": {
+            "initial": 1,
+            "current": 2068,
+            "peak": 2068,
+            "minimum": 1,
+            "events": 2825,
+            "positive_sum": 2446,
+            "negative_sum": 379,
+            "positive_events": 2446,
+            "negative_events": 379,
+            "largest_increment": 1
+          },
+          "debug_decl_uid": {
+            "initial": 0,
+            "current": 0,
+            "peak": 0,
+            "minimum": 0,
+            "events": 0,
+            "positive_sum": 0,
+            "negative_sum": 0,
+            "positive_events": 0,
+            "negative_events": 0,
+            "largest_increment": 0
+          }
+        },
+        "rounded_GGC_histogram": [
+          {
+            "bytes": 8,
+            "events": 754
+          },
+          {
+            "bytes": 16,
+            "events": 3556
+          },
+          {
+            "bytes": 24,
+            "events": 5685
+          },
+          {
+            "bytes": 32,
+            "events": 9377
+          },
+          {
+            "bytes": 40,
+            "events": 19768
+          },
+          {
+            "bytes": 48,
+            "events": 580
+          },
+          {
+            "bytes": 56,
+            "events": 248
+          },
+          {
+            "bytes": 64,
+            "events": 447
+          },
+          {
+            "bytes": 72,
+            "events": 390
+          },
+          {
+            "bytes": 80,
+            "events": 1
+          },
+          {
+            "bytes": 88,
+            "events": 214
+          },
+          {
+            "bytes": 96,
+            "events": 129
+          },
+          {
+            "bytes": 104,
+            "events": 189
+          },
+          {
+            "bytes": 112,
+            "events": 8
+          },
+          {
+            "bytes": 120,
+            "events": 147
+          },
+          {
+            "bytes": 128,
+            "events": 357
+          },
+          {
+            "bytes": 136,
+            "events": 139
+          },
+          {
+            "bytes": 152,
+            "events": 281
+          },
+          {
+            "bytes": 160,
+            "events": 178
+          },
+          {
+            "bytes": 168,
+            "events": 2458
+          },
+          {
+            "bytes": 208,
+            "events": 34
+          },
+          {
+            "bytes": 256,
+            "events": 5784
+          },
+          {
+            "bytes": 272,
+            "events": 66
+          },
+          {
+            "bytes": 400,
+            "events": 34
+          },
+          {
+            "bytes": 512,
+            "events": 13
+          },
+          {
+            "bytes": 1024,
+            "events": 44
+          },
+          {
+            "bytes": 2048,
+            "events": 53
+          },
+          {
+            "bytes": 4096,
+            "events": 6
+          },
+          {
+            "bytes": 8192,
+            "events": 16
+          },
+          {
+            "bytes": 16384,
+            "events": 11
+          },
+          {
+            "bytes": 32768,
+            "events": 4
+          },
+          {
+            "bytes": 65536,
+            "events": 1
+          },
+          {
+            "bytes": 131072,
+            "events": 2
+          }
+        ],
+        "site_events": [
+          {
+            "counter": "decl_uid",
+            "pc": "0x1693757",
+            "events": 772
+          },
+          {
+            "counter": "decl_uid",
+            "pc": "0x1693852",
+            "events": 5738
+          },
+          {
+            "counter": "decl_uid",
+            "pc": "0x16a2f67",
+            "events": 2
+          },
+          {
+            "counter": "ggc_bytes",
+            "pc": "0xda47ab",
+            "events": 50974
+          },
+          {
+            "counter": "type_uid",
+            "pc": "0x16936be",
+            "events": 2113
+          },
+          {
+            "counter": "type_uid",
+            "pc": "0x16a2f1e",
+            "events": 333
+          },
+          {
+            "counter": "type_uid",
+            "pc": "0x16a8511",
+            "events": 379
+          }
+        ],
+        "heuristic_collection_calls": 418,
+        "actual_marker_calls": 0,
+        "value_expr_insert_calls": 0,
+        "minimum_heap_bytes": 4194304,
+        "default_min_expand_percent_lower": 30,
+        "conservative_first_collection_threshold_bytes": 5242880,
+        "margin_below_threshold_bytes": 761880,
+        "each_page_pointer_vector_slots_bound": 65536,
+        "each_page_pointer_vector_bytes_bound": 524288,
+        "each_finalizer_vector_slots_bound": 76459,
+        "scalar_finalizer_vector_bytes_bound": 1223352,
+        "array_finalizer_vector_bytes_bound": 2446696,
+        "dependency_specifications": [
+          "ada.ads",
+          "a-except.ads",
+          "a-unccon.ads",
+          "system.ads",
+          "s-parame.ads",
+          "s-secsta.ads",
+          "s-stalib.ads",
+          "s-stoele.ads",
+          "s-traent.ads"
+        ],
+        "varying_checksum_lifetime_bound_established": false
+      },
+      "object": {
+        "before": {
+          "file": {
+            "bytes": 17952,
+            "sha256": "0e6e0066f8e24a0f5e3a158d429e1730c50f3938d02f5c9b27a927878b682290"
+          },
+          "relocations": [
+            {
+              "section": ".rela.text",
+              "count": 127
+            },
+            {
+              "section": ".rela.data.rel.ro.local",
+              "count": 1
+            },
+            {
+              "section": ".rela.eh_frame",
+              "count": 6
+            }
+          ],
+          "section_count": 16,
+          "symbol_count": 243,
+          "symbol_st_size_sum": 12206,
+          "nonlocal_symbol_st_size_sum": 1827,
+          "maximum_symbol_st_size": 10320,
+          "relocation_count": 134,
+          "maximum_section_alignment": 32,
+          "common_symbol_count": 0,
+          "merge_sections": [
+            ".comment"
+          ],
+          "allocated_merge_section_count": 0,
+          "eh_frame_section_count": 1,
+          "eh_frame_bytes": 224,
+          "sframe_section_count": 0,
+          "sframe_bytes": 0,
+          "allocated_bytes": 12499,
+          "text_bytes": 1284
+        },
+        "after": {
+          "file": {
+            "bytes": 17952,
+            "sha256": "b668f70341f147da7340df4ad5436206b052ec158a7108cd4bbc1b11fd9f3b4a"
+          },
+          "relocations": [
+            {
+              "section": ".rela.text",
+              "count": 127
+            },
+            {
+              "section": ".rela.data.rel.ro.local",
+              "count": 1
+            },
+            {
+              "section": ".rela.eh_frame",
+              "count": 6
+            }
+          ],
+          "section_count": 16,
+          "symbol_count": 243,
+          "symbol_st_size_sum": 12200,
+          "nonlocal_symbol_st_size_sum": 1821,
+          "maximum_symbol_st_size": 10320,
+          "relocation_count": 134,
+          "maximum_section_alignment": 32,
+          "common_symbol_count": 0,
+          "merge_sections": [
+            ".comment"
+          ],
+          "allocated_merge_section_count": 0,
+          "eh_frame_section_count": 1,
+          "eh_frame_bytes": 224,
+          "sframe_section_count": 0,
+          "sframe_bytes": 0,
+          "allocated_bytes": 12493,
+          "text_bytes": 1278
+        },
+        "changed_section_payloads": [
+          ".text",
+          ".rela.text",
+          ".eh_frame",
+          ".symtab"
+        ],
+        "changed_symbols": [
+          {
+            "before": {
+              "name": "ada_main___elabb",
+              "binding": 1,
+              "type": 2,
+              "section": 1,
+              "value": 1246,
+              "size": 38,
+              "other": 0
+            },
+            "after": {
+              "name": "ada_main___elabb",
+              "binding": 1,
+              "type": 2,
+              "section": 1,
+              "value": 1246,
+              "size": 32,
+              "other": 0
+            }
+          }
+        ],
+        "changed_relocations": [
+          {
+            "section": ".rela.text",
+            "index": 126,
+            "before": [
+              1277,
+              47244640260,
+              -4
+            ],
+            "after": [
+              1271,
+              47244640260,
+              -4
+            ]
+          }
+        ],
+        "nonlocal_symbol_count": 232,
+        "CIE_count": 1,
+        "FDE_count": 6,
+        "EH_changed_bytes": [
+          {
+            "offset": 204,
+            "before": 38,
+            "after": 32
+          },
+          {
+            "offset": 217,
+            "before": 97,
+            "after": 91
+          }
+        ],
+        "old_count_payload_alignment_envelope_still_dominates": true
+      }
+    }
+  }
+}

@@ -1,0 +1,1061 @@
+{
+  "scope": "Two targeted Linux x86-64 binder-option lifetime captures; no production change",
+  "archives": {
+    "artifacts.tar.gz": {
+      "bytes": 1463725,
+      "sha256": "85123c5efa4b115ab431db206c66b1cc02f7d5984564e41bdde37c07dc70b2df",
+      "members": [
+        {
+          "path": "baseline/cases/indexed-cr/b__main~1.o",
+          "bytes": 13432,
+          "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:cases/indexed-cr/b__main~1.o"
+        },
+        {
+          "path": "baseline/compiler-capture/invocation.json",
+          "bytes": 4160,
+          "sha256": "d9dc50ccd95a1a79e426fb92dd101a1431e776723725d61ce173b1c1f8a8aa2a",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:compiler-capture/invocation.json"
+        },
+        {
+          "path": "baseline/lifetime-capture/_Z11ggc_collect11ggc_collect.bin",
+          "bytes": 1283,
+          "sha256": "3f11d2ed083c5b5986b6f6dcaf708d5981d07c340d17bdba766c91c2ba41c57e",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/_Z11ggc_collect11ggc_collect.bin"
+        },
+        {
+          "path": "baseline/lifetime-capture/_Z14ggc_mark_rootsv.bin",
+          "bytes": 269,
+          "sha256": "cbf3a2af3ba81344296312ddc53a2fbb8a95ca75437eb5f12af326d0853b8226",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/_Z14ggc_mark_rootsv.bin"
+        },
+        {
+          "path": "baseline/lifetime-capture/_Z18gt_value_expr_markP10hash_tableI26tree_decl_map_cache_hasherLb0E11xcallocatorE.bin",
+          "bytes": 17,
+          "sha256": "86836456b42b682883769d9d765e72f96b921bc4aef25f6356bc436646cf9916",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/_Z18gt_value_expr_markP10hash_tableI26tree_decl_map_cache_hasherLb0E11xcallocatorE.bin"
+        },
+        {
+          "path": "baseline/lifetime-capture/_Z22decl_value_expr_insertP9tree_nodeS0_.bin",
+          "bytes": 95,
+          "sha256": "f011a84e4462704c07522b24105dda3d5a81d6a8322b6c4f6de636a1a5664c6e",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/_Z22decl_value_expr_insertP9tree_nodeS0_.bin"
+        },
+        {
+          "path": "baseline/lifetime-capture/allocate_decl_uid.disassembly",
+          "bytes": 576,
+          "sha256": "b7294798a408e50518ea9c2be31073348c80365d987d33b59d28d8edcf2af8b2",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/allocate_decl_uid.disassembly"
+        },
+        {
+          "path": "baseline/lifetime-capture/capture/counter-events.jsonl",
+          "bytes": 5030936,
+          "sha256": "11728508335f18725b0ccc93f92d7f7b8d0bea7653195d7b6c531280c105b39e",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/capture/counter-events.jsonl"
+        },
+        {
+          "path": "baseline/lifetime-capture/capture/counter-summary.json",
+          "bytes": 35134,
+          "sha256": "94da9447ed010b4554f305b3648a6ecbd607f52df716b5dbe49c8938304c5c2f",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/capture/counter-summary.json"
+        },
+        {
+          "path": "baseline/lifetime-capture/capture/frontend-exec.json",
+          "bytes": 1648,
+          "sha256": "3ba43274e45639b117bebe0d4d4f1167844a6754b7ede19ba33705ca442aefe2",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/capture/frontend-exec.json"
+        },
+        {
+          "path": "baseline/lifetime-capture/capture/probe.gdb",
+          "bytes": 606,
+          "sha256": "4abe140bdd80c817fdb6e7829b090cd737aac0295f59f8a64d10ad16e5b1e9ff",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/capture/probe.gdb"
+        },
+        {
+          "path": "baseline/lifetime-capture/capture/probe.log",
+          "bytes": 27474,
+          "sha256": "840637ebe0bb638b63a4ef65851757e3bbc6bbdf40edc2d0200eb423a5e960a0",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/capture/probe.log"
+        },
+        {
+          "path": "baseline/lifetime-capture/capture/result.json",
+          "bytes": 1929,
+          "sha256": "f2544239da84be3c28a52fcccccc93ee49319676f3d6d866c6d7252e82c19690",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/capture/result.json"
+        },
+        {
+          "path": "baseline/lifetime-capture/capture/watchpoints.txt",
+          "bytes": 675,
+          "sha256": "3428e83e17176e5f9ff484ce15ee65c5b50be5860a789b7a134ec85ba8f2c58b",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/capture/watchpoints.txt"
+        },
+        {
+          "path": "baseline/lifetime-capture/copy_node.disassembly",
+          "bytes": 10924,
+          "sha256": "77cdeb6032392a5d52c7152e522a9257120e40b7242609354ebf19506570e9c5",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/copy_node.disassembly"
+        },
+        {
+          "path": "baseline/lifetime-capture/counters.py",
+          "bytes": 7162,
+          "sha256": "6245a9fab71a162bef64d023f87177caa2a9aea854154aa6151f35248e89f9a1",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/counters.py"
+        },
+        {
+          "path": "baseline/lifetime-capture/elf-symbols.json",
+          "bytes": 3090,
+          "sha256": "9e90f9ab679c119925fe9af42a6050f754e6ee62aa5f4098d6423fd7b3282e7d",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/elf-symbols.json"
+        },
+        {
+          "path": "baseline/lifetime-capture/executable-map.json",
+          "bytes": 2300,
+          "sha256": "221018d661de1a3863cf9661f9278ed5ec78b4184d2d401c9bf19857dd31c542",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/executable-map.json"
+        },
+        {
+          "path": "baseline/lifetime-capture/ggc_internal_alloc_.disassembly",
+          "bytes": 34729,
+          "sha256": "49c9ee73e97b632894212a0e768d2cc05272028e6606537b36354326393b5d8e",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/ggc_internal_alloc_.disassembly"
+        },
+        {
+          "path": "baseline/lifetime-capture/gigi.disassembly",
+          "bytes": 82711,
+          "sha256": "6e3f3df9cefe8fe4740b50b1165a9246bfba74c67eebae6827b2af4570b6d967",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/gigi.disassembly"
+        },
+        {
+          "path": "baseline/lifetime-capture/guard-map.json",
+          "bytes": 1340,
+          "sha256": "60c6947eec8d28e96524cebcbfb57141db50b335b8ddf92ba47a31c039146d11",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/guard-map.json"
+        },
+        {
+          "path": "baseline/lifetime-capture/invocation.json",
+          "bytes": 4510,
+          "sha256": "c8f454b4570b75005a2c0df63622f97922f2e6c36a3d11270472a29ff8f41dc0",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/invocation.json"
+        },
+        {
+          "path": "baseline/lifetime-capture/make_node.disassembly",
+          "bytes": 10049,
+          "sha256": "16169041621208446df369f808dfb73a08b048f66e8fc26e3db45292fddbb6a9",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/make_node.disassembly"
+        },
+        {
+          "path": "baseline/lifetime-capture/managed/events.jsonl",
+          "bytes": 12227,
+          "sha256": "2d9717f88967298e8f0de59f18c7cf93ca982869429281efcb13540435444dc5",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/managed/events.jsonl"
+        },
+        {
+          "path": "baseline/lifetime-capture/managed/native.log",
+          "bytes": 24531,
+          "sha256": "aebf203c84bdecf97135eb4db5a3960833cd360b6351840b0cc4e81ff149ccf6",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/managed/native.log"
+        },
+        {
+          "path": "baseline/lifetime-capture/output/b__main~1.adb",
+          "bytes": 8014,
+          "sha256": "15bc56ca5a6b40c83ae4661c5c64e849d67aeaeaa58638d2b5d1813e850d8a5c",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/output/b__main~1.adb"
+        },
+        {
+          "path": "baseline/lifetime-capture/output/b__main~1.ads",
+          "bytes": 14556,
+          "sha256": "7cb2980d7078c9302955efd641b09d7ec110e5d810d232b1fca08690c9b3161e",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/output/b__main~1.ads"
+        },
+        {
+          "path": "baseline/lifetime-capture/output/b__main~1.ali",
+          "bytes": 8151,
+          "sha256": "62a93e5ace04aacb3a981ef64571c15b2f6065d77fd6deeebc0ed2e5b59b6422",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/output/b__main~1.ali"
+        },
+        {
+          "path": "baseline/lifetime-capture/output/b__main~1.o",
+          "bytes": 13432,
+          "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/output/b__main~1.o"
+        },
+        {
+          "path": "baseline/lifetime-capture/run.py",
+          "bytes": 3549,
+          "sha256": "e3f5a3d809f444df7e6e8d5c2bb428ac8afda1ed0b11354bcde90cf79bf4445b",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/run.py"
+        },
+        {
+          "path": "baseline/lifetime-capture/type_hash_canon.disassembly",
+          "bytes": 13812,
+          "sha256": "c0a81416c9b3531f5fb9355b78f86e0964eaaa7f9cb0c10e4c20b36697d704c3",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/artifacts.tar.gz:lifetime-capture/type_hash_canon.disassembly"
+        },
+        {
+          "path": "defaults/double_constants.bin",
+          "bytes": 80,
+          "sha256": "15c070e50e5692f89a7daa47bf593097dcff380f72420e9b7042d7363f69fd75",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1:0x2c3e760"
+        },
+        {
+          "path": "defaults/float_hundred.bin",
+          "bytes": 4,
+          "sha256": "2238f30df488055daf5e8f362cf904e370011a172d20df193c1b7ae8e5db8e01",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1:0x2a1dc04"
+        },
+        {
+          "path": "defaults/ggc_min_expand_heuristic.bin",
+          "bytes": 155,
+          "sha256": "b6b91a1c58140769f4a22b0f44dc7c359b38c83008f14a3d31d4a782181f033d",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1:0xf7fc50"
+        },
+        {
+          "path": "defaults/init_ggc_heuristics.bin",
+          "bytes": 374,
+          "sha256": "d0034d98b603c5b8adb048e37fa81d4156bca349ec7f89e45ec6291fb66c18d4",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1:0xf80d00"
+        },
+        {
+          "path": "defaults/mapping.json",
+          "bytes": 1008,
+          "sha256": "3334e8abed4e69697ead0699f80216d61bc88a39b59e951b6d706c0d9d3fa5c8",
+          "origin": "Read-only installed-ELF reconciliation in collect.py"
+        },
+        {
+          "path": "null/_Z11ggc_collect11ggc_collect.bin",
+          "bytes": 1283,
+          "sha256": "3f11d2ed083c5b5986b6f6dcaf708d5981d07c340d17bdba766c91c2ba41c57e",
+          "origin": "/tmp/silver-binder-split-20261018/_Z11ggc_collect11ggc_collect.bin"
+        },
+        {
+          "path": "null/_Z14ggc_mark_rootsv.bin",
+          "bytes": 269,
+          "sha256": "cbf3a2af3ba81344296312ddc53a2fbb8a95ca75437eb5f12af326d0853b8226",
+          "origin": "/tmp/silver-binder-split-20261018/_Z14ggc_mark_rootsv.bin"
+        },
+        {
+          "path": "null/_Z18gt_value_expr_markP10hash_tableI26tree_decl_map_cache_hasherLb0E11xcallocatorE.bin",
+          "bytes": 17,
+          "sha256": "86836456b42b682883769d9d765e72f96b921bc4aef25f6356bc436646cf9916",
+          "origin": "/tmp/silver-binder-split-20261018/_Z18gt_value_expr_markP10hash_tableI26tree_decl_map_cache_hasherLb0E11xcallocatorE.bin"
+        },
+        {
+          "path": "null/_Z22decl_value_expr_insertP9tree_nodeS0_.bin",
+          "bytes": 95,
+          "sha256": "f011a84e4462704c07522b24105dda3d5a81d6a8322b6c4f6de636a1a5664c6e",
+          "origin": "/tmp/silver-binder-split-20261018/_Z22decl_value_expr_insertP9tree_nodeS0_.bin"
+        },
+        {
+          "path": "null/capture/counter-events.jsonl",
+          "bytes": 5030936,
+          "sha256": "99d457209df7a435c8546d2d8e1d3f5cace8a2009e91e1abe229eea885a2a0a3",
+          "origin": "/tmp/silver-binder-split-20261018/capture/counter-events.jsonl"
+        },
+        {
+          "path": "null/capture/counter-summary.json",
+          "bytes": 36054,
+          "sha256": "19f9b0f87103343e6762a2366ee0de5c5d12ed396c0b78fa929abc10d8287a6a",
+          "origin": "/tmp/silver-binder-split-20261018/capture/counter-summary.json"
+        },
+        {
+          "path": "null/capture/dryrun.stderr",
+          "bytes": 4196,
+          "sha256": "cd47566a36d86c608343306d234e33f482172d524c98bf8e1790670f150b39f2",
+          "origin": "/tmp/silver-binder-split-20261018/capture/dryrun.stderr"
+        },
+        {
+          "path": "null/capture/dryrun.stdout",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "origin": "/tmp/silver-binder-split-20261018/capture/dryrun.stdout"
+        },
+        {
+          "path": "null/capture/frontend-exec.json",
+          "bytes": 1695,
+          "sha256": "91dee2410d66ee8235f4098ea6ab409cd1109db008eaf3a1cf611be18b6b7b78",
+          "origin": "/tmp/silver-binder-split-20261018/capture/frontend-exec.json"
+        },
+        {
+          "path": "null/capture/probe.gdb",
+          "bytes": 600,
+          "sha256": "4b532f5708e3b156b4b99b83604f256783317610d0422eedc1d55eec091f3e69",
+          "origin": "/tmp/silver-binder-split-20261018/capture/probe.gdb"
+        },
+        {
+          "path": "null/capture/probe.log",
+          "bytes": 28114,
+          "sha256": "4932cb91b9a9265e3ba64ca9bbbc925916556ce91added2054b5325efa633217",
+          "origin": "/tmp/silver-binder-split-20261018/capture/probe.log"
+        },
+        {
+          "path": "null/capture/result.json",
+          "bytes": 1954,
+          "sha256": "fa5632a71c7ee21b1992565f6ea6fdd9f811e291c5b6b306cbf0d982b400900a",
+          "origin": "/tmp/silver-binder-split-20261018/capture/result.json"
+        },
+        {
+          "path": "null/capture/watchpoints.txt",
+          "bytes": 675,
+          "sha256": "3428e83e17176e5f9ff484ce15ee65c5b50be5860a789b7a134ec85ba8f2c58b",
+          "origin": "/tmp/silver-binder-split-20261018/capture/watchpoints.txt"
+        },
+        {
+          "path": "null/counters.py",
+          "bytes": 7159,
+          "sha256": "98d5bb153aa11ae9074c70aaa644e4b95a730b2bd8fca59ef7475a9787081172",
+          "origin": "/tmp/silver-binder-split-20261018/counters.py"
+        },
+        {
+          "path": "null/elf-symbols.json",
+          "bytes": 3090,
+          "sha256": "9e90f9ab679c119925fe9af42a6050f754e6ee62aa5f4098d6423fd7b3282e7d",
+          "origin": "/tmp/silver-binder-split-20261018/elf-symbols.json"
+        },
+        {
+          "path": "null/executable-map.json",
+          "bytes": 2300,
+          "sha256": "221018d661de1a3863cf9661f9278ed5ec78b4184d2d401c9bf19857dd31c542",
+          "origin": "/tmp/silver-binder-split-20261018/executable-map.json"
+        },
+        {
+          "path": "null/guard-map.json",
+          "bytes": 1340,
+          "sha256": "60c6947eec8d28e96524cebcbfb57141db50b335b8ddf92ba47a31c039146d11",
+          "origin": "/tmp/silver-binder-split-20261018/guard-map.json"
+        },
+        {
+          "path": "null/invocation.json",
+          "bytes": 5175,
+          "sha256": "2531618c0e8971d6c18ec49822a6e13fdcd6ee039022691c98315625e725af26",
+          "origin": "/tmp/silver-binder-split-20261018/invocation.json"
+        },
+        {
+          "path": "null/managed/events.jsonl",
+          "bytes": 12508,
+          "sha256": "b5a497a61cf1ed53bd41d009b122fca0d27a37ae5662f7b9a89313a224559fdb",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T141731-1615498c5848/events.jsonl"
+        },
+        {
+          "path": "null/managed/native.log",
+          "bytes": 25192,
+          "sha256": "40165ce1d863b4f408e6ec19d53e17947c0e360f02a96f0f8e3ef9fde0f911c6",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T141731-1615498c5848/native.log"
+        },
+        {
+          "path": "null/output/b__main~1.adb",
+          "bytes": 8014,
+          "sha256": "15bc56ca5a6b40c83ae4661c5c64e849d67aeaeaa58638d2b5d1813e850d8a5c",
+          "origin": "/tmp/silver-binder-split-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.adb"
+        },
+        {
+          "path": "null/output/b__main~1.ads",
+          "bytes": 14556,
+          "sha256": "7cb2980d7078c9302955efd641b09d7ec110e5d810d232b1fca08690c9b3161e",
+          "origin": "/tmp/silver-binder-split-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.ads"
+        },
+        {
+          "path": "null/output/b__main~1.ali",
+          "bytes": 8172,
+          "sha256": "3d30c58e75ef397ddf65e7f4c0165740b76575eb2bbdde82c34f430e9fc54e4e",
+          "origin": "/tmp/silver-binder-split-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.ali"
+        },
+        {
+          "path": "null/output/b__main~1.o",
+          "bytes": 13424,
+          "sha256": "c7dce906697df7a5b5edc21097d35f807f37deb642dbe98c07a58945d75919dc",
+          "origin": "/tmp/silver-binder-split-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.o"
+        },
+        {
+          "path": "null/run.py",
+          "bytes": 4489,
+          "sha256": "a6c57aa832a4f8df09e347ca01c83ac1e8becb7b33ae5cddfb806833a4a48790",
+          "origin": "/tmp/silver-binder-split-20261018/run.py"
+        },
+        {
+          "path": "output-before/indexed/executable-identity.json",
+          "bytes": 267,
+          "sha256": "d3eb7bb0e065e4551079a816a9e6aeedef03f82bfeddf18ac15ad7e567679e98",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/executable-identity.json"
+        },
+        {
+          "path": "output-before/indexed/main.adb",
+          "bytes": 277,
+          "sha256": "141c93f40718c862147754e8156f64a2012417cefdff4ebe7ee400c879e2451c",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/main.adb"
+        },
+        {
+          "path": "output-before/indexed/obj/b__main~1.adb",
+          "bytes": 10343,
+          "sha256": "91ff1af5fe7a7a97b3e43cf3aa2387cc792bd73260f2181ea7f2f5b3b6064dfc",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/obj/b__main~1.adb"
+        },
+        {
+          "path": "output-before/indexed/obj/b__main~1.ads",
+          "bytes": 19920,
+          "sha256": "cc9ec4581c5ad7d716983389559ad4f65a53f1423bbaeb84fda1234889e3e392",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/obj/b__main~1.ads"
+        },
+        {
+          "path": "output-before/indexed/obj/b__main~1.ali",
+          "bytes": 10785,
+          "sha256": "836c85e106f755db83990468d707d9cf9d5f499d4e54d08ac90ced9b5f82e1de",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/obj/b__main~1.ali"
+        },
+        {
+          "path": "output-before/indexed/obj/b__main~1.o",
+          "bytes": 17952,
+          "sha256": "0e6e0066f8e24a0f5e3a158d429e1730c50f3938d02f5c9b27a927878b682290",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/obj/b__main~1.o"
+        },
+        {
+          "path": "output-before/indexed/obj/main~1.ali",
+          "bytes": 2419,
+          "sha256": "126ea662857a24bdaef7f61eba72f5db9db9ed6db2d069751a2cab0cbf4dc523",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/obj/main~1.ali"
+        },
+        {
+          "path": "output-before/indexed/obj/main~1.o",
+          "bytes": 2224,
+          "sha256": "c8621d4eeb30f53351c3fb5cf279cd29af9212602148b508e6d74249f09f16d8",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/obj/main~1.o"
+        },
+        {
+          "path": "output-before/indexed/obj/silver_io.ali",
+          "bytes": 4443,
+          "sha256": "3ea51b8539dfb086461b178fdb2b957a9c9269fe2731817bea66bb4682be548d",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/obj/silver_io.ali"
+        },
+        {
+          "path": "output-before/indexed/obj/silver_io.o",
+          "bytes": 2456,
+          "sha256": "3e8c216efea1ea6de110f96f02dd15403f7616025db7f0ab8dcfb183b4e179de",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/obj/silver_io.o"
+        },
+        {
+          "path": "output-before/indexed/obj/silver_output_libc.ali",
+          "bytes": 2933,
+          "sha256": "64b78184d77e4aa17927e842f3b6e0d85368ceb3aface256ade84606af88b7fa",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/obj/silver_output_libc.ali"
+        },
+        {
+          "path": "output-before/indexed/obj/silver_output_libc.o",
+          "bytes": 1000,
+          "sha256": "26c296b728cf4ea439c698f09621612683efba75624df2c79675d02bc4212f4d",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/obj/silver_output_libc.o"
+        },
+        {
+          "path": "output-before/indexed/program.gpr",
+          "bytes": 541,
+          "sha256": "3e99dd2e5c909ebfba6a7d8554d034bcc497b32f275e9a9aad3bd290221725ff",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/program.gpr"
+        },
+        {
+          "path": "output-before/indexed/silver_io.adb",
+          "bytes": 3358,
+          "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/silver_io.adb"
+        },
+        {
+          "path": "output-before/indexed/silver_io.ads",
+          "bytes": 2222,
+          "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/silver_io.ads"
+        },
+        {
+          "path": "output-before/indexed/silver_output_libc.ads",
+          "bytes": 1532,
+          "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:indexed/silver_output_libc.ads"
+        },
+        {
+          "path": "output-before/objects/literal-baseline/b__main.o",
+          "bytes": 17944,
+          "sha256": "c0b65c8a73ef11da3287e97154d6c000107597fb7a757cb1d9b68d6934c6951e",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/literal-baseline/b__main.o"
+        },
+        {
+          "path": "output-before/objects/literal-baseline/main.o",
+          "bytes": 1552,
+          "sha256": "0899f8f4bc10a8911c6cc03d8e656a11605159768e7b7455522a460b40e5d6b2",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/literal-baseline/main.o"
+        },
+        {
+          "path": "output-before/objects/literal-baseline/silver_io.o",
+          "bytes": 2456,
+          "sha256": "3e8c216efea1ea6de110f96f02dd15403f7616025db7f0ab8dcfb183b4e179de",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/literal-baseline/silver_io.o"
+        },
+        {
+          "path": "output-before/objects/literal-baseline/silver_output_libc.o",
+          "bytes": 1000,
+          "sha256": "26c296b728cf4ea439c698f09621612683efba75624df2c79675d02bc4212f4d",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/literal-baseline/silver_output_libc.o"
+        },
+        {
+          "path": "output-before/objects/literal-proposed/b__main.o",
+          "bytes": 17944,
+          "sha256": "c0b65c8a73ef11da3287e97154d6c000107597fb7a757cb1d9b68d6934c6951e",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/literal-proposed/b__main.o"
+        },
+        {
+          "path": "output-before/objects/literal-proposed/main.o",
+          "bytes": 1552,
+          "sha256": "0899f8f4bc10a8911c6cc03d8e656a11605159768e7b7455522a460b40e5d6b2",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/literal-proposed/main.o"
+        },
+        {
+          "path": "output-before/objects/literal-proposed/silver_io.o",
+          "bytes": 2456,
+          "sha256": "3e8c216efea1ea6de110f96f02dd15403f7616025db7f0ab8dcfb183b4e179de",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/literal-proposed/silver_io.o"
+        },
+        {
+          "path": "output-before/objects/literal-proposed/silver_output_libc.o",
+          "bytes": 1000,
+          "sha256": "26c296b728cf4ea439c698f09621612683efba75624df2c79675d02bc4212f4d",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/literal-proposed/silver_output_libc.o"
+        },
+        {
+          "path": "output-before/objects/long_name-baseline/b__main.o",
+          "bytes": 17944,
+          "sha256": "bd7c6c364731c67f386287fe8d0b62ca4399d140b16b591a93a5c01bcfe2f4b2",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/long_name-baseline/b__main.o"
+        },
+        {
+          "path": "output-before/objects/long_name-baseline/main.o",
+          "bytes": 3824,
+          "sha256": "7d4becef61eb2c4398de2ae3f8d8a8f03e30fa8cf133d0eea6f436837bf04be5",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/long_name-baseline/main.o"
+        },
+        {
+          "path": "output-before/objects/long_name-baseline/silver_io.o",
+          "bytes": 2456,
+          "sha256": "3e8c216efea1ea6de110f96f02dd15403f7616025db7f0ab8dcfb183b4e179de",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/long_name-baseline/silver_io.o"
+        },
+        {
+          "path": "output-before/objects/long_name-baseline/silver_output_libc.o",
+          "bytes": 1000,
+          "sha256": "26c296b728cf4ea439c698f09621612683efba75624df2c79675d02bc4212f4d",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/long_name-baseline/silver_output_libc.o"
+        },
+        {
+          "path": "output-before/objects/long_name-proposed/b__main.o",
+          "bytes": 17944,
+          "sha256": "bd7c6c364731c67f386287fe8d0b62ca4399d140b16b591a93a5c01bcfe2f4b2",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/long_name-proposed/b__main.o"
+        },
+        {
+          "path": "output-before/objects/long_name-proposed/main.o",
+          "bytes": 3824,
+          "sha256": "7d4becef61eb2c4398de2ae3f8d8a8f03e30fa8cf133d0eea6f436837bf04be5",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/long_name-proposed/main.o"
+        },
+        {
+          "path": "output-before/objects/long_name-proposed/silver_io.o",
+          "bytes": 2456,
+          "sha256": "3e8c216efea1ea6de110f96f02dd15403f7616025db7f0ab8dcfb183b4e179de",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/long_name-proposed/silver_io.o"
+        },
+        {
+          "path": "output-before/objects/long_name-proposed/silver_output_libc.o",
+          "bytes": 1000,
+          "sha256": "26c296b728cf4ea439c698f09621612683efba75624df2c79675d02bc4212f4d",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz:objects/long_name-proposed/silver_output_libc.o"
+        },
+        {
+          "path": "output/_Z11ggc_collect11ggc_collect.bin",
+          "bytes": 1283,
+          "sha256": "3f11d2ed083c5b5986b6f6dcaf708d5981d07c340d17bdba766c91c2ba41c57e",
+          "origin": "/tmp/silver-binder-output-split-20261018/_Z11ggc_collect11ggc_collect.bin"
+        },
+        {
+          "path": "output/_Z14ggc_mark_rootsv.bin",
+          "bytes": 269,
+          "sha256": "cbf3a2af3ba81344296312ddc53a2fbb8a95ca75437eb5f12af326d0853b8226",
+          "origin": "/tmp/silver-binder-output-split-20261018/_Z14ggc_mark_rootsv.bin"
+        },
+        {
+          "path": "output/_Z18gt_value_expr_markP10hash_tableI26tree_decl_map_cache_hasherLb0E11xcallocatorE.bin",
+          "bytes": 17,
+          "sha256": "86836456b42b682883769d9d765e72f96b921bc4aef25f6356bc436646cf9916",
+          "origin": "/tmp/silver-binder-output-split-20261018/_Z18gt_value_expr_markP10hash_tableI26tree_decl_map_cache_hasherLb0E11xcallocatorE.bin"
+        },
+        {
+          "path": "output/_Z22decl_value_expr_insertP9tree_nodeS0_.bin",
+          "bytes": 95,
+          "sha256": "f011a84e4462704c07522b24105dda3d5a81d6a8322b6c4f6de636a1a5664c6e",
+          "origin": "/tmp/silver-binder-output-split-20261018/_Z22decl_value_expr_insertP9tree_nodeS0_.bin"
+        },
+        {
+          "path": "output/capture/counter-events.jsonl",
+          "bytes": 5229522,
+          "sha256": "404b74e6e49b9be35f4723fe79e872a53e23747a3d023cd252c7bf3f5b8aae0a",
+          "origin": "/tmp/silver-binder-output-split-20261018/capture/counter-events.jsonl"
+        },
+        {
+          "path": "output/capture/counter-summary.json",
+          "bytes": 42035,
+          "sha256": "d7a45adec524470d491b58ad4ec8b5c2bb984ca3b1d0140b1556728b210e72ee",
+          "origin": "/tmp/silver-binder-output-split-20261018/capture/counter-summary.json"
+        },
+        {
+          "path": "output/capture/dryrun.stderr",
+          "bytes": 4196,
+          "sha256": "9f79b394485bdc9492bbb06c378523a38d38eff6c40b8758033e3a78504e67b3",
+          "origin": "/tmp/silver-binder-output-split-20261018/capture/dryrun.stderr"
+        },
+        {
+          "path": "output/capture/dryrun.stdout",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "origin": "/tmp/silver-binder-output-split-20261018/capture/dryrun.stdout"
+        },
+        {
+          "path": "output/capture/frontend-exec.json",
+          "bytes": 1695,
+          "sha256": "324237f8e9d21c67517e351c57d50d75702a2edb499ed7e4e86dd3424973b1d0",
+          "origin": "/tmp/silver-binder-output-split-20261018/capture/frontend-exec.json"
+        },
+        {
+          "path": "output/capture/probe.gdb",
+          "bytes": 614,
+          "sha256": "7f6bd37b47cb5923874f50c5e50b23fda1d4609c5a92fd4b3f1d83141bda2f62",
+          "origin": "/tmp/silver-binder-output-split-20261018/capture/probe.gdb"
+        },
+        {
+          "path": "output/capture/probe.log",
+          "bytes": 32275,
+          "sha256": "d866a1c597b735e44e7c21c8e9410e37b1f78750afa86d7ae06f67e1c37a7e11",
+          "origin": "/tmp/silver-binder-output-split-20261018/capture/probe.log"
+        },
+        {
+          "path": "output/capture/result.json",
+          "bytes": 1962,
+          "sha256": "3db94b1d382a0fd4d9ba9279ea6cb01c950309a708136cea48383d915fe4f198",
+          "origin": "/tmp/silver-binder-output-split-20261018/capture/result.json"
+        },
+        {
+          "path": "output/capture/watchpoints.txt",
+          "bytes": 675,
+          "sha256": "3428e83e17176e5f9ff484ce15ee65c5b50be5860a789b7a134ec85ba8f2c58b",
+          "origin": "/tmp/silver-binder-output-split-20261018/capture/watchpoints.txt"
+        },
+        {
+          "path": "output/counters.py",
+          "bytes": 7166,
+          "sha256": "b0a8d4c225ad390da00ca6fc424d885a1aaa98e18fa8676b4cc69e7e91e2fce3",
+          "origin": "/tmp/silver-binder-output-split-20261018/counters.py"
+        },
+        {
+          "path": "output/elf-symbols.json",
+          "bytes": 3090,
+          "sha256": "9e90f9ab679c119925fe9af42a6050f754e6ee62aa5f4098d6423fd7b3282e7d",
+          "origin": "/tmp/silver-binder-output-split-20261018/elf-symbols.json"
+        },
+        {
+          "path": "output/executable-map.json",
+          "bytes": 2300,
+          "sha256": "221018d661de1a3863cf9661f9278ed5ec78b4184d2d401c9bf19857dd31c542",
+          "origin": "/tmp/silver-binder-output-split-20261018/executable-map.json"
+        },
+        {
+          "path": "output/guard-map.json",
+          "bytes": 1340,
+          "sha256": "60c6947eec8d28e96524cebcbfb57141db50b335b8ddf92ba47a31c039146d11",
+          "origin": "/tmp/silver-binder-output-split-20261018/guard-map.json"
+        },
+        {
+          "path": "output/invocation.json",
+          "bytes": 6878,
+          "sha256": "19e30cb5d691b20eee959879245dceaa062a3ba7253d6fa77310e103ecce9a7e",
+          "origin": "/tmp/silver-binder-output-split-20261018/invocation.json"
+        },
+        {
+          "path": "output/managed/events.jsonl",
+          "bytes": 12626,
+          "sha256": "95d399ebfcbc2a1fd18440495377c5ec5884d006d7f32175bcc1e2275bb8658b",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T141951-b4f17b9f45aa/events.jsonl"
+        },
+        {
+          "path": "output/managed/native.log",
+          "bytes": 29361,
+          "sha256": "6a238ac98912169a21c428242cbc4605b3f2341128b8a057a498592dc2a2703d",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T141951-b4f17b9f45aa/native.log"
+        },
+        {
+          "path": "output/output/b__main~1.adb",
+          "bytes": 10343,
+          "sha256": "91ff1af5fe7a7a97b3e43cf3aa2387cc792bd73260f2181ea7f2f5b3b6064dfc",
+          "origin": "/tmp/silver-binder-output-split-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.adb"
+        },
+        {
+          "path": "output/output/b__main~1.ads",
+          "bytes": 19920,
+          "sha256": "cc9ec4581c5ad7d716983389559ad4f65a53f1423bbaeb84fda1234889e3e392",
+          "origin": "/tmp/silver-binder-output-split-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.ads"
+        },
+        {
+          "path": "output/output/b__main~1.ali",
+          "bytes": 10833,
+          "sha256": "9b2064a810c93ec8d5593fd3fac7526152dbd9d528d8cfa9416251f70bcd207a",
+          "origin": "/tmp/silver-binder-output-split-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.ali"
+        },
+        {
+          "path": "output/output/b__main~1.o",
+          "bytes": 17952,
+          "sha256": "b668f70341f147da7340df4ad5436206b052ec158a7108cd4bbc1b11fd9f3b4a",
+          "origin": "/tmp/silver-binder-output-split-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.o"
+        },
+        {
+          "path": "output/run.py",
+          "bytes": 4503,
+          "sha256": "fc34c4915ca2a5ebf8a106a8975534070831b104c812921a783256148dc22419",
+          "origin": "/tmp/silver-binder-output-split-20261018/run.py"
+        },
+        {
+          "path": "predecessor/binder/check.py",
+          "bytes": 71436,
+          "sha256": "672dcfc7b673967a95cda4a98cc9f3d27535c66afd9747fede6c30b979db1256",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/check.py"
+        },
+        {
+          "path": "predecessor/binder/manifest.json",
+          "bytes": 121234,
+          "sha256": "bd4c5fbc24c284da3be11c93b34e4223dbd7cd660a0656eba6af6d9d9e5662b1",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/manifest.json"
+        },
+        {
+          "path": "predecessor/binder/research.md",
+          "bytes": 96009,
+          "sha256": "10a98ba3c5834017b4d7f1d1a93974912cdccfe9f8ef220bf227c12a1c695cad",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/research/retained-binder-capacity.md"
+        },
+        {
+          "path": "predecessor/binder/result.json",
+          "bytes": 285109,
+          "sha256": "ad6c98854bc45a632c9a580308873ae7aeb5c4f10b9f1dcd4abe64ac1aaf7bba",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/result.json"
+        },
+        {
+          "path": "predecessor/output/manifest.json",
+          "bytes": 52328,
+          "sha256": "8195c73bf3dba18357d2231f1046c806726fd8dc489b94a800e7c109068756a3",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/manifest.json"
+        },
+        {
+          "path": "predecessor/output/research.md",
+          "bytes": 9784,
+          "sha256": "dfa220dde69d436e846cb925b6cb8a5bd8961b1c507191ca022044ee41a3d500",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/research/retained-linker-output-delta.md"
+        },
+        {
+          "path": "predecessor/output/result.json",
+          "bytes": 5946,
+          "sha256": "9144c966f8a7ad6cd8c74ff38542df3a794503d627e5c3ad6b74bcc0219c1d4c",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/result.json"
+        },
+        {
+          "path": "predecessor/split/research.md",
+          "bytes": 10287,
+          "sha256": "47f9640e525df66e26d699283ec019017a6a1e692a63e3bf6b8301a3b0d5afb7",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/research/retained-split-options.md"
+        },
+        {
+          "path": "predecessor/split/result.json",
+          "bytes": 2163,
+          "sha256": "23350b8d404df90367a59982c67006ca681565ffeb18fadedd372409649e6e4b",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/result.json"
+        },
+        {
+          "path": "predecessor/split/sources.json",
+          "bytes": 4889,
+          "sha256": "32d3e002382d5e4ce7d0a24e5f1d059f687f5d09a7799932fe868c6e9c5a60f0",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.json"
+        },
+        {
+          "path": "runtime/a-except.ads",
+          "bytes": 14245,
+          "sha256": "61cac87bb1541705da0a2dbcf2d4afe7bb0e95215d41e2583b0c632dcb16444a",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-except.ads"
+        },
+        {
+          "path": "runtime/a-unccon.ads",
+          "bytes": 1554,
+          "sha256": "576b8b0ecb9ab7a72b6686f06f4c30e74c8e4eff1e1ce93de7f3a32da0599864",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-unccon.ads"
+        },
+        {
+          "path": "runtime/ada.ads",
+          "bytes": 1253,
+          "sha256": "3915ec3edb9ce5eb7686ad4a3d372c12874be219d2b21fcf55bd05af22cd5bbb",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/ada.ads"
+        },
+        {
+          "path": "runtime/s-parame.ads",
+          "bytes": 8691,
+          "sha256": "69309e996793d5dfeab1a207beae3658b41d7979f099b1c248823adb7e898ac9",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-parame.ads"
+        },
+        {
+          "path": "runtime/s-secsta.ads",
+          "bytes": 17306,
+          "sha256": "25ddf544c6bd3f278ed5edaf33b6a2aefe83f736507f6e4f5c3e2ee9cd407d76",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-secsta.ads"
+        },
+        {
+          "path": "runtime/s-stalib.ads",
+          "bytes": 12615,
+          "sha256": "da57c5e674474761f1dfc4c9d3ebc2cb879aaf9e236be7c031222a25b1bd0b02",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-stalib.ads"
+        },
+        {
+          "path": "runtime/s-stoele.ads",
+          "bytes": 5401,
+          "sha256": "97f344018fd2716cbd58b046f0c5ec3062594af54ac0d9fa7656f0f75074ef33",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-stoele.ads"
+        },
+        {
+          "path": "runtime/s-traent.ads",
+          "bytes": 3759,
+          "sha256": "e55203442b4dbaf3170bfbe04389f371b16f33cc62eb12d9020d0c91a3588f4d",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-traent.ads"
+        },
+        {
+          "path": "runtime/system.ads",
+          "bytes": 7503,
+          "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads"
+        }
+      ]
+    },
+    "sources.tar.gz": {
+      "bytes": 950138,
+      "sha256": "6c96e7295a20ba5e38f70bec6db5e150663e85d406fa88521198c7776d68b261",
+      "members": [
+        {
+          "path": "gcc/ada/back_end.adb",
+          "bytes": 14372,
+          "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/ada/back_end.adb"
+        },
+        {
+          "path": "gcc/ada/backend_utils.adb",
+          "bytes": 4772,
+          "sha256": "b79d30483b0da1f91ecf5db28d0d9fcf263a97b3dcc12d86c0443c44b8acdc58",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/ada/backend_utils.adb"
+        },
+        {
+          "path": "gcc/ada/gcc-interface/decl.cc",
+          "bytes": 414991,
+          "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/sources.tar.gz:gcc/ada/gcc-interface/decl.cc"
+        },
+        {
+          "path": "gcc/ada/gcc-interface/lang-specs.h",
+          "bytes": 3476,
+          "sha256": "9f3336a58e69cc491be8db6694e121024aadf4dc461965a8bede3e1f7050cc2b",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/ada/gcc-interface/lang-specs.h"
+        },
+        {
+          "path": "gcc/ada/gcc-interface/misc.cc",
+          "bytes": 47742,
+          "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/ada/gcc-interface/misc.cc"
+        },
+        {
+          "path": "gcc/ada/gcc-interface/trans.cc",
+          "bytes": 406631,
+          "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/ada/gcc-interface/trans.cc"
+        },
+        {
+          "path": "gcc/ada/gcc-interface/utils.cc",
+          "bytes": 266602,
+          "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/sources.tar.gz:gcc/ada/gcc-interface/utils.cc"
+        },
+        {
+          "path": "gcc/ada/lib-writ.adb",
+          "bytes": 61061,
+          "sha256": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/ada/lib-writ.adb"
+        },
+        {
+          "path": "gcc/ada/lib.adb",
+          "bytes": 40494,
+          "sha256": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/ada/lib.adb"
+        },
+        {
+          "path": "gcc/ada/lib.ads",
+          "bytes": 51050,
+          "sha256": "a3ea0db298bf364eab4eff983ffaae3ff66063e4f9d17ad0eb864579a1ed53f4",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/ada/lib.ads"
+        },
+        {
+          "path": "gcc/ada/switch.adb",
+          "bytes": 8519,
+          "sha256": "b1273db8d4e14b78906d33b1aff6f1a07d19f17584bdeacfee461eff847367ec",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/ada/switch.adb"
+        },
+        {
+          "path": "gcc/common.opt",
+          "bytes": 122400,
+          "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/common.opt"
+        },
+        {
+          "path": "gcc/common/config/avr/avr-common.cc",
+          "bytes": 5576,
+          "sha256": "496f70713b4ed2a86f53833c1324135695228a4f8372630bbaa4374fd035d5c9",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/common/config/avr/avr-common.cc"
+        },
+        {
+          "path": "gcc/common/config/i386/i386-common.cc",
+          "bytes": 85914,
+          "sha256": "009711c76cc24369f035130487e1e94e2570e065018ee70544b52e1b3ef02c59",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/common/config/i386/i386-common.cc"
+        },
+        {
+          "path": "gcc/common/config/rs6000/rs6000-common.cc",
+          "bytes": 8089,
+          "sha256": "95d0f8fca2e6fd144e91d1964f5be5216d6aafe434d6f0a84e38ed439a242f83",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/common/config/rs6000/rs6000-common.cc"
+        },
+        {
+          "path": "gcc/common/config/xtensa/xtensa-common.cc",
+          "bytes": 1847,
+          "sha256": "bbdbc3d5050c45e6cbb692785f95174193d0a5b7405741da6fd45a7cbfd11068",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/common/config/xtensa/xtensa-common.cc"
+        },
+        {
+          "path": "gcc/config/avr/avr.md",
+          "bytes": 378998,
+          "sha256": "c09943eb111f75e40183844effb25549403aa071e15ecb9d051fa890181e5247",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/config/avr/avr.md"
+        },
+        {
+          "path": "gcc/config/i386/i386-options.cc",
+          "bytes": 138368,
+          "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/config/i386/i386-options.cc"
+        },
+        {
+          "path": "gcc/config/mn10300/mn10300.cc",
+          "bytes": 92340,
+          "sha256": "22395c4ecb1a4a387f5f7b0838a90f40dd128f61f22bbb239a7c7838a3689534",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/config/mn10300/mn10300.cc"
+        },
+        {
+          "path": "gcc/config/rl78/rl78.cc",
+          "bytes": 127631,
+          "sha256": "51fb64906a9074b84b139ea7d280a1983a3948ec489c151976cc588617955e55",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/config/rl78/rl78.cc"
+        },
+        {
+          "path": "gcc/gcc.cc",
+          "bytes": 331859,
+          "sha256": "59ac02bc5147a8a4d79473edc41b8d1af8bd75628e00bfafab0c80eb36614346",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/gcc.cc"
+        },
+        {
+          "path": "gcc/ggc-common.cc",
+          "bytes": 40096,
+          "sha256": "a5a41143b78a22376c6d830215ee856616db68bbf4432987479f4e4b8ded4627",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/sources.tar.gz:gcc/ggc-common.cc"
+        },
+        {
+          "path": "gcc/ggc-page.cc",
+          "bytes": 78408,
+          "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/sources.tar.gz:gcc/ggc-page.cc"
+        },
+        {
+          "path": "gcc/ggc.h",
+          "bytes": 11939,
+          "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/sources.tar.gz:gcc/ggc.h"
+        },
+        {
+          "path": "gcc/lower-subreg.cc",
+          "bytes": 53494,
+          "sha256": "4999b2c131c4742c5b59981306187c20bf2d723b748e63efbb8ecca9b1056454",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/lower-subreg.cc"
+        },
+        {
+          "path": "gcc/opts-common.cc",
+          "bytes": 64082,
+          "sha256": "9b08d0eab835c3720cb37120282ed10b270f881d37acd40733a8d12c6abb448a",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/opts-common.cc"
+        },
+        {
+          "path": "gcc/opts.cc",
+          "bytes": 127927,
+          "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/opts.cc"
+        },
+        {
+          "path": "gcc/opts.h",
+          "bytes": 20665,
+          "sha256": "ec66640207dd0a237d42e6743c8d2416095f862f9b252535e780c03d5f2d75f0",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/opts.h"
+        },
+        {
+          "path": "gcc/passes.def",
+          "bytes": 24225,
+          "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/passes.def"
+        },
+        {
+          "path": "gcc/stringpool.cc",
+          "bytes": 8292,
+          "sha256": "779d6578fa49c937be8650ea40e8fd92d7698eaf0076ae501450989174331df1",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/sources.tar.gz:gcc/stringpool.cc"
+        },
+        {
+          "path": "gcc/toplev.cc",
+          "bytes": 72691,
+          "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/toplev.cc"
+        },
+        {
+          "path": "gcc/tree.cc",
+          "bytes": 484431,
+          "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/tree.cc"
+        },
+        {
+          "path": "gcc/varasm.cc",
+          "bytes": 271386,
+          "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-linker-output-delta-20261018/sources.tar.gz:gcc/varasm.cc"
+        },
+        {
+          "path": "gcc/vec.cc",
+          "bytes": 22283,
+          "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gcc/vec.cc"
+        },
+        {
+          "path": "gprbuild/gpr/src/gpr-ali.adb",
+          "bytes": 45361,
+          "sha256": "9d2c334d8b72a3d9aa64e0ad62ebe6d5026c31367aaee4b90bb5e87125059dde",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gprbuild/gpr/src/gpr-ali.adb"
+        },
+        {
+          "path": "gprbuild/src/gprbind.adb",
+          "bytes": 43658,
+          "sha256": "aa716cf88788611d2b90c24eaa26f56aff869bd70309a46af32b1e4d4c2e0802",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-backend-gigi/docs/evidence/retained-split-options-20261018/sources.tar.gz:gprbuild/src/gprbind.adb"
+        },
+        {
+          "path": "libcpp/symtab.cc",
+          "bytes": 9383,
+          "sha256": "006987dd5863baf9520478a27958f9d450fbf76b90eed3fe6917e6c7315ff1d9",
+          "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-binder-capacity-20261018/sources.tar.gz:libcpp/symtab.cc"
+        }
+      ]
+    }
+  }
+}
