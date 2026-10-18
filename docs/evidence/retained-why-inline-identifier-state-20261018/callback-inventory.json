@@ -1306,21 +1306,42 @@
     },
     "finalisable_first": {
       "address": 16444480,
-      "first32": "00000000000000001c0100000200dd770600080000000000e0848a0000000000",
       "size": 32,
-      "symbol": "finalisable_first"
+      "symbol": "finalisable_first",
+      "storage": "ELF PT_LOAD zero-fill; symbol address and size only",
+      "load_segment": {
+        "offset": 11445264,
+        "vaddr": 11449360,
+        "filesz": 4978136,
+        "memsz": 5006688
+      },
+      "runtime_value_observed": false
     },
     "finalisable_last": {
       "address": 16444448,
-      "first32": "200000000000000050818a000000000082030000000000000000000000000000",
       "size": 32,
-      "symbol": "finalisable_last"
+      "symbol": "finalisable_last",
+      "storage": "ELF PT_LOAD zero-fill; symbol address and size only",
+      "load_segment": {
+        "offset": 11445264,
+        "vaddr": 11449360,
+        "filesz": 4978136,
+        "memsz": 5006688
+      },
+      "runtime_value_observed": false
     },
     "running_finalisation_function": {
       "address": 16444416,
-      "first32": "300000000000000010818a0000000000200000000000000030818a0000000000",
       "size": 4,
-      "symbol": "running_finalisation_function"
+      "symbol": "running_finalisation_function",
+      "storage": "ELF PT_LOAD zero-fill; symbol address and size only",
+      "load_segment": {
+        "offset": 11445264,
+        "vaddr": 11449360,
+        "filesz": 4978136,
+        "memsz": 5006688
+      },
+      "runtime_value_observed": false
     }
   },
   "observed_runtime_finalization_registry_or_pending_state": false,

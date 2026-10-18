@@ -80,7 +80,8 @@
     "Before attempt3 replaced typed auxiliary traversal with raw shallow address graph, flushed reads before interpretation, and saved core before optional work. Synthetic signatures, both constructors, empty arrays, sharing/cycles, replay and partial-failure persistence checks passed.",
     "Successful same-run state binding and counter composition checked. Parent challenged callback reentrancy: no-Hsdecl-insertion alone cannot exclude extra Ident registrations. Result leaves complete runtime endpoint open instead of adding an assumed zero callback count.",
     "Bounded offline selected-runtime attempt retained7pinned source files, six C destructor bodies and limited direct-registration references. Selected destructor bodies do not enter OCaml; indirect Gc wrapper/library registration and complete hook ownership remain unestablished.",
-    "Source review corrected apparent debug.ml signal handler: it is disabled in a comment. Only selected live GNAT terminal handler used."
+    "Source review corrected apparent debug.ml signal handler: it is disabled in a comment. Only selected live GNAT terminal handler used.",
+    "Independent review L1: three finalizer-state symbols lie in ELF zero-fill/BSS, so first32 file slices were invalid. Removed those slices; recorded exact PT_LOAD bounds and runtime_value_observed=false. Parent checked all three against the pinned installed ELF; no counter/capture/code result changed and no native execution or successful counter replay was repeated."
   ],
   "achieved": "Observed private starting counter60496; replayed exact raw bytes, unchanged guards, same-run244-input graph isomorphism and all6704-object representative selection; attached<=1145 accounted source registrations, arithmetic endpoint61641. Auxiliary counter/backing observations retained; complete runtime endpoint explicitly open.",
   "remaining_obligations": [
@@ -95,8 +96,8 @@
       "sha256": "2bb06af15855f2fcf2cfb0567c4043009a5bc4709284e2d43a0e4c95f2369f47"
     },
     "docs/evidence/retained-why-inline-identifier-state-20261018/callback-inventory.json": {
-      "bytes": 51329,
-      "sha256": "6b0a1e9a195f8edda969c3505a9039771649cbfa5d11bd9b65cfbd463d9cb477"
+      "bytes": 51827,
+      "sha256": "2c1861853f9778f61d877b38ed38cbb5679e501894b436e853ff713a83b4278f"
     },
     "docs/evidence/retained-why-inline-identifier-state-20261018/capture.tar.gz": {
       "bytes": 10999776,
@@ -120,7 +121,7 @@
     },
     "docs/evidence/retained-why-inline-identifier-state-20261018/inputs.json": {
       "bytes": 32859,
-      "sha256": "c71fc4e9947149f1eb0c97c4f4fbc8bbf0d2b4e4ddd8bc6e4a5fd6318f190257"
+      "sha256": "2bcb7638ed58dede4b1703753b7bba117519ae45e09bfd512777c6c5483cf9eb"
     },
     "docs/evidence/retained-why-inline-identifier-state-20261018/result.json": {
       "bytes": 5781,
@@ -131,8 +132,8 @@
       "sha256": "4c8f3f3ab68a3ec0fa60c48b8f0eb22181916beff3c462854c65dc3cb2ea0fa2"
     },
     "docs/research/retained-why-inline-identifier-state.md": {
-      "bytes": 12557,
-      "sha256": "b1f351adbf817d8efbd75a0fb5b7cf70ed5ac07914a81bd6b049b9f5cb32e691"
+      "bytes": 12914,
+      "sha256": "a9981e42a802835e0b30264f2f0f025a91e6a45510e1bfb973b94503786b5ff5"
     }
   },
   "review": {
@@ -155,5 +156,17 @@
     "harness_written": false,
     "live_child_goal_at_handoff": null,
     "parent_owns_integration_and_publication": true
+  },
+  "metadata_correction": {
+    "recorded_utc": "2026-10-18T22:42:18.916001+00:00",
+    "author": "root",
+    "pinned_binary": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "zero_fill_symbols_checked": 3,
+    "runtime_state_observed": false,
+    "native_executions": 0,
+    "review": "awaiting affected metadata recheck"
   }
 }

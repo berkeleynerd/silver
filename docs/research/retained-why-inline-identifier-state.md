@@ -123,6 +123,12 @@ them. Static custom-operation records for the builtin integer types and
 Zarith also have null finalizer entries; their selected record bytes are
 retained in the callback inventory.
 
+Independent review found that three finalizer-state symbols lie in the ELF
+zero-fill region, so their original inventory file-byte slices were invalid.
+The corrected inventory records their addresses, sizes and load-segment bounds
+without file bytes or observed runtime values. This correction supplies no
+evidence that a live finalizer registry is empty.
+
 The executable's direct symbol-annotated references to the two OCaml
 finalizer-registration primitives occur only in the `Stdlib.Gc` wrappers and
 alarm helpers. That scan does **not** exclude indirect higher-order use of

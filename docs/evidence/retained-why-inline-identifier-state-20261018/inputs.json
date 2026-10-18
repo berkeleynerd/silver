@@ -776,8 +776,8 @@
   },
   "local_inputs": {
     "callback-inventory.json": {
-      "bytes": 51329,
-      "sha256": "6b0a1e9a195f8edda969c3505a9039771649cbfa5d11bd9b65cfbd463d9cb477"
+      "bytes": 51827,
+      "sha256": "2c1861853f9778f61d877b38ed38cbb5679e501894b436e853ff713a83b4278f"
     }
   }
 }
