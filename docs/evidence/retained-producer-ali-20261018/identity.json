@@ -1,0 +1,227 @@
+{
+  "scope": "Offline candidate-source equations, not a production GPR descriptor or installed-binary/source attestation.",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "gcc_manifest": {
+    "path": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+    "sha256": "f0425c46cd96b9348767de5456e4e0fb1efd818ca811e244a150811b353e223c"
+  },
+  "spark_commit": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "archives": [
+    {
+      "path": "docs/evidence/retained-producer-ali-20261018/gcc-sources.tar.gz",
+      "sha256": "85dc8060d953fa893c7d6e30ea64e78ecaa5ad8fbb06c5558daa4d0e9bc93390",
+      "files": [
+        {
+          "name": "lib-writ.adb",
+          "member": "lib-writ.adb",
+          "bytes": 61061,
+          "sha256": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342",
+          "git_blob_sha1": "bee2e4972dd8927e10eb4ccf4fb88af1ddeb5700"
+        },
+        {
+          "name": "lib-util.adb",
+          "member": "lib-util.adb",
+          "bytes": 9958,
+          "sha256": "74dc8d21ab501b91a6ee323ee2beb9d3bf41808b622736ceb36a6b3509b0e22d",
+          "git_blob_sha1": "c84ca507ff9a30321b7d4a55f384505b25dc6118"
+        },
+        {
+          "name": "lib-xref.adb",
+          "member": "lib-xref.adb",
+          "bytes": 98832,
+          "sha256": "147491988f39790a213cf02e69c6997adb1809df75758940757cc0ebc7a700c4",
+          "git_blob_sha1": "1f9d17fb8f81c7e9fc8917b3fbcbd5fff54caef7"
+        },
+        {
+          "name": "lib.adb",
+          "member": "lib.adb",
+          "bytes": 40494,
+          "sha256": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e",
+          "git_blob_sha1": "bb0b297f6cb8aa83936b16bafa1d020d1957d1c8"
+        },
+        {
+          "name": "lib.ads",
+          "member": "lib.ads",
+          "bytes": 51050,
+          "sha256": "a3ea0db298bf364eab4eff983ffaae3ff66063e4f9d17ad0eb864579a1ed53f4",
+          "git_blob_sha1": "bda27010b55383850249115799b855753ea970c4"
+        },
+        {
+          "name": "ali.adb",
+          "member": "ali.adb",
+          "bytes": 105321,
+          "sha256": "a3af929177f6dcbc32b66768cad43a8466d12d030cf3360d7147455ea396f5a0",
+          "git_blob_sha1": "34ec21474b58ef370349432bc714c0f3f8895d11"
+        },
+        {
+          "name": "ali.ads",
+          "member": "ali.ads",
+          "bytes": 56611,
+          "sha256": "ed344d8db777f70fe46b3464a1ef238823ded6ee8c9e50b564e799621236f09b",
+          "git_blob_sha1": "beee3630221ea83311f784ed63757afb5471d7f4"
+        },
+        {
+          "name": "ali-util.adb",
+          "member": "ali-util.adb",
+          "bytes": 18257,
+          "sha256": "eceb00ffc060ba839cf5564d06b2535832a53cd8c1593836f4517c0433662dcb",
+          "git_blob_sha1": "3525cf5aa9f8172108f9a964acc419348960a596"
+        },
+        {
+          "name": "ali-util.ads",
+          "member": "ali-util.ads",
+          "bytes": 8496,
+          "sha256": "572cdebc1fc7f3bda2790a3d6b5229f99cbe0fea56ce35db8e514f6685f18c92",
+          "git_blob_sha1": "cab04d8e1eccdb71b6a4c6406b2aed58d6300201"
+        },
+        {
+          "name": "osint.adb",
+          "member": "osint.adb",
+          "bytes": 105542,
+          "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69",
+          "git_blob_sha1": "1e467e681c5a10b580c5a7fcfa5484aba15e9229"
+        },
+        {
+          "name": "sem_elab.adb",
+          "member": "sem_elab.adb",
+          "bytes": 698569,
+          "sha256": "f2452a63f2fe2603c660445e51c4c687f96ed5f21784da9d5f88ab9f94cd3b0c",
+          "git_blob_sha1": "5e3823c36496e4b28f77f2e078f83b80ed964fb7"
+        },
+        {
+          "name": "gnat1drv.adb",
+          "member": "gnat1drv.adb",
+          "bytes": 60186,
+          "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173",
+          "git_blob_sha1": "cbad1e0f19e8c56a0b33708089eaca529a94d9b8"
+        },
+        {
+          "name": "hostparm.ads",
+          "member": "hostparm.ads",
+          "bytes": 3615,
+          "sha256": "b2196c2e037f2f07f1cc885bef246c3f2b63cab5c6b908b3fe17c9f4a4031895",
+          "git_blob_sha1": "9416160955bdee1534339573f586bf8a94b874ef"
+        },
+        {
+          "name": "gnatvsn.ads",
+          "member": "gnatvsn.ads",
+          "bytes": 4841,
+          "sha256": "9b925fd0df77805cb2d8a2cfdfad0e890e793c114311aaf2f2a695c7da5a7440",
+          "git_blob_sha1": "3189873c231802774927ef918ecea5ee2548f618"
+        },
+        {
+          "name": "types.ads",
+          "member": "types.ads",
+          "bytes": 46466,
+          "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+          "git_blob_sha1": "6070130ac925077cf9037da84592a64b73734379"
+        },
+        {
+          "name": "namet.ads",
+          "member": "namet.ads",
+          "bytes": 29827,
+          "sha256": "129dcfd8cf6688ead4f5af052f80f8a86ad31f13ce36eb29d57c547d7b51efd8",
+          "git_blob_sha1": "c45f236bcbae9d8578e880a333d2aae876696baf"
+        },
+        {
+          "name": "alloc.ads",
+          "member": "alloc.ads",
+          "bytes": 7830,
+          "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d",
+          "git_blob_sha1": "7e36e8eb8783c8a444f6d79a5a7ea10c5e881a71"
+        },
+        {
+          "name": "opt.ads",
+          "member": "opt.ads",
+          "bytes": 93026,
+          "sha256": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e",
+          "git_blob_sha1": "9f75ce8ec221101b12b7e24dc35cc2546853338c"
+        },
+        {
+          "name": "table.adb",
+          "member": "table.adb",
+          "bytes": 13959,
+          "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4",
+          "git_blob_sha1": "124b25e925ac30a4e62f81605a4a315e81f13aee"
+        },
+        {
+          "name": "libgnat/s-rident.ads",
+          "member": "libgnat/s-rident.ads",
+          "bytes": 36946,
+          "sha256": "e9baa9af82dd10ddcd9ac016f52e230babdcdf19f4f18b0ded647643324949a8",
+          "git_blob_sha1": "895a6e63f6c86b0a0ceb386c37eecec6cfc6b07e"
+        },
+        {
+          "name": "libgnat/a-textio.adb",
+          "member": "libgnat/a-textio.adb",
+          "bytes": 61105,
+          "sha256": "4edbb70efef55003ccac05d7e6f75eb7f16b371e0d216fab5fb706c23480c671",
+          "git_blob_sha1": "c8e7638f239ecdb0999f65a1b70465d0a992a763"
+        },
+        {
+          "name": "libgnat/g-dynhta.ads",
+          "member": "libgnat/g-dynhta.ads",
+          "bytes": 21934,
+          "sha256": "f5974932d644929f906716abf69a51a42eca74a2f57378338abd52b3fb7a8b3a",
+          "git_blob_sha1": "2230446473e6d3719c2949d6b28e76ef3ec9caa1"
+        },
+        {
+          "name": "libgnat/g-dynhta.adb",
+          "member": "libgnat/g-dynhta.adb",
+          "bytes": 37669,
+          "sha256": "375eb69170cc0df545d2ba4aa9e17c4eaa7cdda41980746cc82aaa60b49e0494",
+          "git_blob_sha1": "d9199511b21c8448a67fa13433f67c88a9928ef0"
+        },
+        {
+          "name": "frontend.adb",
+          "member": "frontend.adb",
+          "bytes": 19745,
+          "sha256": "c3322dab69929c2ff3eef9f768d98574cf56d337e452b2206eb44eb552f7ee67",
+          "git_blob_sha1": "0ab416a7d324e47a1d0129857dcfbfc3c392b149"
+        },
+        {
+          "name": "prepcomp.adb",
+          "member": "prepcomp.adb",
+          "bytes": 26565,
+          "sha256": "e3b4c632c397e7ce6f92c868a0b59cabd6dbbcf912c41aa8d59ada20bd20cafe",
+          "git_blob_sha1": "41a57d50ec8336afed97ef79401e10c770d78462"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+      "files": [
+        {
+          "name": "src/why/gnat2why-driver.adb",
+          "member": "spark-source/src/why/gnat2why-driver.adb",
+          "bytes": 60922,
+          "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304"
+        },
+        {
+          "name": "src/flow/flow_generated_globals-phase_2.adb",
+          "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+          "bytes": 175085,
+          "sha256": "b4ac652e535a98d65f558cfb2d362a7b2a86478fba9012e7ae8c63b1679bf5bb"
+        }
+      ]
+    }
+  ],
+  "local_files": [
+    {
+      "path": "docs/evidence/retained-producer-null-global-20261018/system.ali",
+      "bytes": 2428,
+      "sha256": "0f35668f3b0203c2879afea68ee0f3a045d3d300648e46c60674072c4d2cedf1"
+    },
+    {
+      "path": "docs/evidence/retained-producer-fixed-20261018/main.ali",
+      "bytes": 1348,
+      "sha256": "502218f2945958f4aa887b0e51a7bf8407623ce67ae9a1001fefc5dfc3ce85ca"
+    },
+    {
+      "path": "docs/evidence/retained-producer-null-global-20261018/system.ads",
+      "bytes": 7503,
+      "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+    }
+  ]
+}

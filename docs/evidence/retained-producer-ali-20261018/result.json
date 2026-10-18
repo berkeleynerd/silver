@@ -1,0 +1,270 @@
+{
+  "scope": "Offline candidate-source equations, not a production GPR descriptor or installed-binary/source attestation.",
+  "installed_System_ALI": {
+    "bytes": 2428,
+    "lines": 95,
+    "max_line_excluding_lf": 67,
+    "A": 10,
+    "A_sum": 72,
+    "A_max": 14,
+    "U": 1,
+    "withs": 0,
+    "D": 1,
+    "constructs": 5,
+    "relations": 0,
+    "GG": 0
+  },
+  "historical_direct_probe_not_production_descriptor": {
+    "bytes": 1348,
+    "lines": 38,
+    "max_line_excluding_lf": 287,
+    "A": 8,
+    "A_sum": 45,
+    "A_max": 9,
+    "U": 1,
+    "withs": 1,
+    "D": 3,
+    "constructs": 0,
+    "relations": 0,
+    "GG": 11
+  },
+  "xref_backing_demand": 25797,
+  "record_component_bounds": {
+    "ALIs_Record": {
+      "fields": 36,
+      "component_byte_bound": 1112
+    },
+    "Unit_Record": {
+      "fields": 40,
+      "component_byte_bound": 640
+    },
+    "With_Record": {
+      "fields": 10,
+      "component_byte_bound": 160
+    },
+    "Sdep_Record": {
+      "fields": 8,
+      "component_byte_bound": 128
+    },
+    "CUDA_Kernel_Record": {
+      "fields": 1,
+      "component_byte_bound": 16
+    },
+    "Interrupt_State_Record": {
+      "fields": 3,
+      "component_byte_bound": 48
+    },
+    "Specific_Dispatching_Record": {
+      "fields": 4,
+      "component_byte_bound": 64
+    },
+    "Linker_Option_Record": {
+      "fields": 3,
+      "component_byte_bound": 48
+    },
+    "Notes_Record": {
+      "fields": 5,
+      "component_byte_bound": 80
+    },
+    "No_Dep_Record": {
+      "fields": 2,
+      "component_byte_bound": 32
+    },
+    "Xref_Section_Record": {
+      "fields": 4,
+      "component_byte_bound": 64
+    },
+    "Xref_Entity_Record": {
+      "fields": 20,
+      "component_byte_bound": 320
+    },
+    "Xref_Record": {
+      "fields": 7,
+      "component_byte_bound": 112
+    },
+    "Source_Record": {
+      "fields": 7,
+      "component_byte_bound": 112
+    },
+    "Invocation_Construct_Record": {
+      "fields": 4,
+      "component_byte_bound": 64
+    },
+    "Invocation_Relation_Record": {
+      "fields": 4,
+      "component_byte_bound": 64
+    },
+    "Invocation_Signature_Record": {
+      "fields": 5,
+      "component_byte_bound": 80
+    }
+  },
+  "reader_tables_at_historical_probe_A_C_shape_not_production": {
+    "ALIs": {
+      "population": 2,
+      "capacity": 500,
+      "component_bound": 1112,
+      "backing_byte_bound": 556000,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Units": {
+      "population": 2,
+      "capacity": 100,
+      "component_bound": 640,
+      "backing_byte_bound": 64000,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Withs": {
+      "population": 1,
+      "capacity": 5000,
+      "component_bound": 160,
+      "backing_byte_bound": 800000,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Args": {
+      "population": 18,
+      "capacity": 1000,
+      "component_bound": 8,
+      "backing_byte_bound": 8000,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Sdep": {
+      "population": 4,
+      "capacity": 5000,
+      "component_bound": 128,
+      "backing_byte_bound": 640000,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Invocation_Constructs": {
+      "population": 5,
+      "capacity": 2500,
+      "component_bound": 64,
+      "backing_byte_bound": 160000,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Invocation_Relations": {
+      "population": 0,
+      "capacity": 2500,
+      "component_bound": 64,
+      "backing_byte_bound": 160000,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Invocation_Signatures": {
+      "population": 5,
+      "capacity": 2500,
+      "component_bound": 80,
+      "backing_byte_bound": 200000,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Linker_Options": {
+      "population": 1,
+      "capacity": 200,
+      "component_bound": 48,
+      "backing_byte_bound": 9600,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Notes": {
+      "population": 1,
+      "capacity": 200,
+      "component_bound": 80,
+      "backing_byte_bound": 16000,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "No_Deps": {
+      "population": 0,
+      "capacity": 200,
+      "component_bound": 32,
+      "backing_byte_bound": 6400,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "CUDA_Kernels": {
+      "population": 0,
+      "capacity": 100,
+      "component_bound": 16,
+      "backing_byte_bound": 1600,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Interrupt_States": {
+      "population": 0,
+      "capacity": 100,
+      "component_bound": 48,
+      "backing_byte_bound": 4800,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Specific_Dispatching": {
+      "population": 0,
+      "capacity": 100,
+      "component_bound": 64,
+      "backing_byte_bound": 6400,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Xref_Section": {
+      "population": 0,
+      "capacity": 50,
+      "component_bound": 64,
+      "backing_byte_bound": 3200,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Xref_Entity": {
+      "population": 0,
+      "capacity": 500,
+      "component_bound": 320,
+      "backing_byte_bound": 160000,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Xref": {
+      "population": 0,
+      "capacity": 2000,
+      "component_bound": 112,
+      "backing_byte_bound": 224000,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    },
+    "Source": {
+      "population": 0,
+      "capacity": 1000,
+      "component_bound": 112,
+      "backing_byte_bound": 112000,
+      "capacity_and_one_past_fit_conservative_id_limit": true
+    }
+  },
+  "conditional_arithmetic_examples_not_production_evaluation": [
+    {
+      "P": 222,
+      "A": 8,
+      "A_sum": 45,
+      "A_max": 9,
+      "C": 1,
+      "file_byte_bound": 35093723,
+      "record_byte_bound_including_lf": 789,
+      "line_count_bound": 77550,
+      "writer_record_alternative": true,
+      "writer_whole_file_alternative": false,
+      "reader_buffer_bytes": 35093724,
+      "reader_signed32_with_one_past": true,
+      "quoted_name_buffer_bytes": 446,
+      "Get_Line_largest_string_object": 788,
+      "Get_Line_recursion_bound": 3,
+      "writer_sort_vector_bytes": 103192,
+      "writer_xref_backing_capacity": 80000
+    },
+    {
+      "P": 4096,
+      "A": 8,
+      "A_sum": 45,
+      "A_max": 9,
+      "C": 1,
+      "file_byte_bound": 135066167,
+      "record_byte_bound_including_lf": 8273,
+      "line_count_bound": 77550,
+      "writer_record_alternative": false,
+      "writer_whole_file_alternative": false,
+      "reader_buffer_bytes": 135066168,
+      "reader_signed32_with_one_past": true,
+      "quoted_name_buffer_bytes": 8194,
+      "Get_Line_largest_string_object": 8272,
+      "Get_Line_recursion_bound": 7,
+      "writer_sort_vector_bytes": 103192,
+      "writer_xref_backing_capacity": 80000
+    }
+  ]
+}
