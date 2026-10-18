@@ -1650,6 +1650,44 @@ def native_invocation_backing(logical,table_factor=1):
         whole_native_frontend_closed=False)
 
 
+def native_local_numeric_and_concat_backing(logical,concat_lengths):
+    """Representation-length checks for selected Uint/concat local objects.
+
+    Fixed/scanner total digit growth is a conservative operand-size bound,
+    not a new allocation charge. Main uses its tighter per-family maximum.
+    Numeric algorithm correctness remains a pinned-tool trust premise.
+    """
+    i32,i64 = 2**31-1,2**63-1
+    digits = max(3,logical["fixed"]["Uint_digits"],
+                 logical["scanner_pool_inputs"]["Uint_digits"],
+                 logical["Main_constructor"]["common_Uint_digit_bound"])
+    max_vector = max(2*digits,digits+1,3)
+    max_concat = max(concat_lengths,default=0)
+    # All seven arrays are independent objects; the six four-byte arrays
+    # include the 0..N aggregate array. No sum becomes a memory ceiling.
+    concat_objects = dict(Is_Fixed_Length=max_concat,
+        Operands=4*max_concat,Fixed_Length=4*max_concat,Max_Length=4*max_concat,
+        Opnd_Low_Bound=4*max_concat,Var_Length=4*max_concat,
+        Aggr_Length=4*(max_concat+1))
+    checks = dict(Uint_vector_dimension_and_index_additions=2*digits+3<=i32,
+        Num_Bits=15*digits<=i32,Decimal_Digits_High=5*digits<=i32,
+        Decimal_Digits_Low=1+4*(digits-1)<=i32,
+        single_UI_Vector=4*max_vector+16<=i64,
+        UI_From_Int_hash_single_wrapper=16<=i64,
+        UI_From_Int_static_bucket_array=1023*8<=i64,
+        concat_N_and_terminal_successor=max_concat+1<=i32,
+        concat_single_arrays=all(size+16<=i64 for size in concat_objects.values()))
+    return dict(Uint_operand_digit_bound=digits,maximum_UI_Vector_elements=max_vector,
+        UI_From_Int_hash_wrapper_bytes=16,UI_From_Int_static_bucket_array_bytes=1023*8,
+        maximum_concat_operands=max_concat,concat_individual_array_bytes=concat_objects,
+        checks=checks,all_selected_checks_pass=all(checks.values()),
+        retained_digit_growth_recounted=False,
+        aggregate_stack_or_heap_bytes_is_not_an_admission_gate=True,
+        backend_callback_numeric_arguments_included=False,
+        other_local_vectors_and_recursive_depth_arithmetic_included=False,
+        whole_native_frontend_closed=False)
+
+
 def source_shape(raw):
     """Physical-line sufficient rule; FF/VT included for fixed runtime files."""
     lines = re.split(rb"\r\n|[\r\n\v\f]",raw)
@@ -1988,11 +2026,12 @@ def representative_current_programs():
             parser_auxiliary_backing=native_parser_auxiliary_backing(logical),
             source_and_frontend_name_backing=native_source_and_frontend_name_backing(logical,raw),
             diagnostics=diagnostics,diagnostic_backing=native_diagnostic_backing(diagnostics),
-            invocation_backing=native_invocation_backing(logical)))
+            invocation_backing=native_invocation_backing(logical),
+            local_numeric_and_concat_backing=native_local_numeric_and_concat_backing(logical,counts["concat_lengths"])))
         selected = result[-1]
         component_checks = {name:selected[name]["all_selected_checks_pass"] for name in
             ("selected_backing_checks","parser_auxiliary_backing","source_and_frontend_name_backing",
-             "diagnostic_backing","invocation_backing")}
+             "diagnostic_backing","invocation_backing","local_numeric_and_concat_backing")}
         component_checks["selected_configuration_storage"] = logical["selected_configuration_storage"]["all_selected_checks_pass"]
         selected["selected_native_predicate"] = dict(components=component_checks,
             all_selected_component_checks_pass=all(component_checks.values()),

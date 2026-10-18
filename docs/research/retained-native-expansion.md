@@ -5821,10 +5821,44 @@ scanner/parser input, logical join and selected backing check. Validation was
 source/hash inspection and arithmetic regeneration only. No compiler,
 GNATprove, Lean, full test suite or application execution was performed.
 
+### Numeric and concatenation local objects
+
+`native_local_numeric_and_concat_backing` checks actual local representation
+lengths without adding retained allocations again. Let k bound every relevant
+Uint operand's base32768 digit length. Take the maximum of the fixed input's
+total digit growth, supplied scanner digit growth and the tighter Main
+constructor-family maximum. The two totals conservatively dominate each
+operand created in those phases. This uses74958 for the five examples; it
+does not claim that any actual operand has that many digits.
+
+The `UI_Vector` component is a four-byte Int (`uintp.adb:76`). Add/subtract
+allocate operand vectors and maximum-length+1 result/work vectors
+(`825–862`); multiplication allocates L_Length+R_Length (`2034–2048`);
+division uses operand lengths, dividend length+1 and quotient
+L_Length−R_Length+1 (`1064–1068,1134,1158–1160,1304`). Comparison, negation
+and integer conversion use at most an operand vector; UI_From_Int's fixed
+vector has three entries. No UI_From_Integral instantiation occurs in the
+pinned Ada source tree. Thus the selected largest vector has
+`max(2k,k+1,3)` entries. The join checks2k+3 for dimension/index arithmetic,
+15k for Num_Bits (`645–653`),5k and1+4(k−1) for the decimal-digit helpers
+(`972–994`), and each vector's four-byte product plus descriptor. These are
+representation-length checks; they do not re-prove the trusted numerical
+algorithms. Backend-supplied Uint arguments still need the separate phase join.
+
+UI_From_Int's existing cache is a Simple_HTable with1023 fixed buckets and
+an Int/Uint/pointer wrapper (`uintp.adb:92–107`). Its individual16-byte
+wrappers and8184-byte pointer array are checked, without an aggregate
+heap limit. For concat's N operands, `exp_ch4.adb:2598–2621` declares one
+N-byte Boolean array, five4N-byte ID/Uint arrays and one4(N+1)-byte aggregate
+array. Check each object separately and N+1 for the terminal counter/array
+endpoint. All selected local-object checks pass for the five examples;
+other local vectors, recursive-depth arithmetic and serialization remain
+separate.
+
 Each example now also carries one `selected_native_predicate`: the conjunction
 of the core tables, parser auxiliaries, source/line/name checks, supplied
-configuration-file storage, diagnostic storage and invocation containers.
-All six component groups pass for all five examples. This is the composed
+configuration-file storage, diagnostic storage, invocation containers and
+numeric/concat local objects. All seven component groups pass for all five examples. This is the composed
 **selected-component** result; its `complete_native_capacity_predicate` stays
 false. The output lists the remaining obligations in dependency order:
 complete argv/effective-search/late-path descriptor; remaining local vectors,

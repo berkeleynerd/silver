@@ -2478,6 +2478,39 @@
           "complete_ALI_serialization_and_other_process_heaps_included": false,
           "whole_native_frontend_closed": false
         },
+        "local_numeric_and_concat_backing": {
+          "Uint_operand_digit_bound": 74958,
+          "maximum_UI_Vector_elements": 149916,
+          "UI_From_Int_hash_wrapper_bytes": 16,
+          "UI_From_Int_static_bucket_array_bytes": 8184,
+          "maximum_concat_operands": 0,
+          "concat_individual_array_bytes": {
+            "Is_Fixed_Length": 0,
+            "Operands": 0,
+            "Fixed_Length": 0,
+            "Max_Length": 0,
+            "Opnd_Low_Bound": 0,
+            "Var_Length": 0,
+            "Aggr_Length": 4
+          },
+          "checks": {
+            "Uint_vector_dimension_and_index_additions": true,
+            "Num_Bits": true,
+            "Decimal_Digits_High": true,
+            "Decimal_Digits_Low": true,
+            "single_UI_Vector": true,
+            "UI_From_Int_hash_single_wrapper": true,
+            "UI_From_Int_static_bucket_array": true,
+            "concat_N_and_terminal_successor": true,
+            "concat_single_arrays": true
+          },
+          "all_selected_checks_pass": true,
+          "retained_digit_growth_recounted": false,
+          "aggregate_stack_or_heap_bytes_is_not_an_admission_gate": true,
+          "backend_callback_numeric_arguments_included": false,
+          "other_local_vectors_and_recursive_depth_arithmetic_included": false,
+          "whole_native_frontend_closed": false
+        },
         "selected_native_predicate": {
           "components": {
             "selected_backing_checks": true,
@@ -2485,6 +2518,7 @@
             "source_and_frontend_name_backing": true,
             "diagnostic_backing": true,
             "invocation_backing": true,
+            "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
           "all_selected_component_checks_pass": true,
@@ -4976,6 +5010,39 @@
           "complete_ALI_serialization_and_other_process_heaps_included": false,
           "whole_native_frontend_closed": false
         },
+        "local_numeric_and_concat_backing": {
+          "Uint_operand_digit_bound": 74958,
+          "maximum_UI_Vector_elements": 149916,
+          "UI_From_Int_hash_wrapper_bytes": 16,
+          "UI_From_Int_static_bucket_array_bytes": 8184,
+          "maximum_concat_operands": 0,
+          "concat_individual_array_bytes": {
+            "Is_Fixed_Length": 0,
+            "Operands": 0,
+            "Fixed_Length": 0,
+            "Max_Length": 0,
+            "Opnd_Low_Bound": 0,
+            "Var_Length": 0,
+            "Aggr_Length": 4
+          },
+          "checks": {
+            "Uint_vector_dimension_and_index_additions": true,
+            "Num_Bits": true,
+            "Decimal_Digits_High": true,
+            "Decimal_Digits_Low": true,
+            "single_UI_Vector": true,
+            "UI_From_Int_hash_single_wrapper": true,
+            "UI_From_Int_static_bucket_array": true,
+            "concat_N_and_terminal_successor": true,
+            "concat_single_arrays": true
+          },
+          "all_selected_checks_pass": true,
+          "retained_digit_growth_recounted": false,
+          "aggregate_stack_or_heap_bytes_is_not_an_admission_gate": true,
+          "backend_callback_numeric_arguments_included": false,
+          "other_local_vectors_and_recursive_depth_arithmetic_included": false,
+          "whole_native_frontend_closed": false
+        },
         "selected_native_predicate": {
           "components": {
             "selected_backing_checks": true,
@@ -4983,6 +5050,7 @@
             "source_and_frontend_name_backing": true,
             "diagnostic_backing": true,
             "invocation_backing": true,
+            "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
           "all_selected_component_checks_pass": true,
@@ -7476,6 +7544,39 @@
           "complete_ALI_serialization_and_other_process_heaps_included": false,
           "whole_native_frontend_closed": false
         },
+        "local_numeric_and_concat_backing": {
+          "Uint_operand_digit_bound": 74958,
+          "maximum_UI_Vector_elements": 149916,
+          "UI_From_Int_hash_wrapper_bytes": 16,
+          "UI_From_Int_static_bucket_array_bytes": 8184,
+          "maximum_concat_operands": 0,
+          "concat_individual_array_bytes": {
+            "Is_Fixed_Length": 0,
+            "Operands": 0,
+            "Fixed_Length": 0,
+            "Max_Length": 0,
+            "Opnd_Low_Bound": 0,
+            "Var_Length": 0,
+            "Aggr_Length": 4
+          },
+          "checks": {
+            "Uint_vector_dimension_and_index_additions": true,
+            "Num_Bits": true,
+            "Decimal_Digits_High": true,
+            "Decimal_Digits_Low": true,
+            "single_UI_Vector": true,
+            "UI_From_Int_hash_single_wrapper": true,
+            "UI_From_Int_static_bucket_array": true,
+            "concat_N_and_terminal_successor": true,
+            "concat_single_arrays": true
+          },
+          "all_selected_checks_pass": true,
+          "retained_digit_growth_recounted": false,
+          "aggregate_stack_or_heap_bytes_is_not_an_admission_gate": true,
+          "backend_callback_numeric_arguments_included": false,
+          "other_local_vectors_and_recursive_depth_arithmetic_included": false,
+          "whole_native_frontend_closed": false
+        },
         "selected_native_predicate": {
           "components": {
             "selected_backing_checks": true,
@@ -7483,6 +7584,7 @@
             "source_and_frontend_name_backing": true,
             "diagnostic_backing": true,
             "invocation_backing": true,
+            "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
           "all_selected_component_checks_pass": true,
@@ -10032,6 +10134,39 @@
           "complete_ALI_serialization_and_other_process_heaps_included": false,
           "whole_native_frontend_closed": false
         },
+        "local_numeric_and_concat_backing": {
+          "Uint_operand_digit_bound": 74958,
+          "maximum_UI_Vector_elements": 149916,
+          "UI_From_Int_hash_wrapper_bytes": 16,
+          "UI_From_Int_static_bucket_array_bytes": 8184,
+          "maximum_concat_operands": 4096,
+          "concat_individual_array_bytes": {
+            "Is_Fixed_Length": 4096,
+            "Operands": 16384,
+            "Fixed_Length": 16384,
+            "Max_Length": 16384,
+            "Opnd_Low_Bound": 16384,
+            "Var_Length": 16384,
+            "Aggr_Length": 16388
+          },
+          "checks": {
+            "Uint_vector_dimension_and_index_additions": true,
+            "Num_Bits": true,
+            "Decimal_Digits_High": true,
+            "Decimal_Digits_Low": true,
+            "single_UI_Vector": true,
+            "UI_From_Int_hash_single_wrapper": true,
+            "UI_From_Int_static_bucket_array": true,
+            "concat_N_and_terminal_successor": true,
+            "concat_single_arrays": true
+          },
+          "all_selected_checks_pass": true,
+          "retained_digit_growth_recounted": false,
+          "aggregate_stack_or_heap_bytes_is_not_an_admission_gate": true,
+          "backend_callback_numeric_arguments_included": false,
+          "other_local_vectors_and_recursive_depth_arithmetic_included": false,
+          "whole_native_frontend_closed": false
+        },
         "selected_native_predicate": {
           "components": {
             "selected_backing_checks": true,
@@ -10039,6 +10174,7 @@
             "source_and_frontend_name_backing": true,
             "diagnostic_backing": true,
             "invocation_backing": true,
+            "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
           "all_selected_component_checks_pass": true,
@@ -12538,6 +12674,39 @@
           "complete_ALI_serialization_and_other_process_heaps_included": false,
           "whole_native_frontend_closed": false
         },
+        "local_numeric_and_concat_backing": {
+          "Uint_operand_digit_bound": 74958,
+          "maximum_UI_Vector_elements": 149916,
+          "UI_From_Int_hash_wrapper_bytes": 16,
+          "UI_From_Int_static_bucket_array_bytes": 8184,
+          "maximum_concat_operands": 0,
+          "concat_individual_array_bytes": {
+            "Is_Fixed_Length": 0,
+            "Operands": 0,
+            "Fixed_Length": 0,
+            "Max_Length": 0,
+            "Opnd_Low_Bound": 0,
+            "Var_Length": 0,
+            "Aggr_Length": 4
+          },
+          "checks": {
+            "Uint_vector_dimension_and_index_additions": true,
+            "Num_Bits": true,
+            "Decimal_Digits_High": true,
+            "Decimal_Digits_Low": true,
+            "single_UI_Vector": true,
+            "UI_From_Int_hash_single_wrapper": true,
+            "UI_From_Int_static_bucket_array": true,
+            "concat_N_and_terminal_successor": true,
+            "concat_single_arrays": true
+          },
+          "all_selected_checks_pass": true,
+          "retained_digit_growth_recounted": false,
+          "aggregate_stack_or_heap_bytes_is_not_an_admission_gate": true,
+          "backend_callback_numeric_arguments_included": false,
+          "other_local_vectors_and_recursive_depth_arithmetic_included": false,
+          "whole_native_frontend_closed": false
+        },
         "selected_native_predicate": {
           "components": {
             "selected_backing_checks": true,
@@ -12545,6 +12714,7 @@
             "source_and_frontend_name_backing": true,
             "diagnostic_backing": true,
             "invocation_backing": true,
+            "local_numeric_and_concat_backing": true,
             "selected_configuration_storage": true
           },
           "all_selected_component_checks_pass": true,
