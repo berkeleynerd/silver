@@ -254,8 +254,10 @@ supplies dimensions for one pair, not all 459 possible pairs. Applying the
 existing generic recurrence already exceeds the representable integer bound
 at logical declaration 37; this is loss of upper-bound precision, not observed
 overflow. A symbol-sensitive, occurrence-weighted refinement and the remaining
-driver/validator/storage/printing joins are still required. Independent review
-of this new capture/decoder packet is pending.
+driver/validator/storage/printing joins are still required. The
+[independent capture/decoder review](../reviews/review-why-preparation-entry-7c89b21e24.md)
+accepts this one-pair evidence without material findings; no native capture was
+repeated.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both
