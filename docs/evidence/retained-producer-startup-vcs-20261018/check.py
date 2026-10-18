@@ -49,6 +49,8 @@ def main():
 
     has('typing', 'let ity = Ity.ity_tuple @@ List.map (fun (_,v) -> v.pv_ity) fl in')
     has('typing', 'Etuple wit')
+    has('gnat_util', 'let debug_sp = Debug.register_flag "vc_sp"')
+    has('gnat_util', 'Debug.set_flag debug_sp;')
     has('dexpr', 'let ld, v = mk_proxy_decl ~ghost:(ghost || gh) e in')
     has('ity', 'let post = create_post vs (t_equ (t_var vs) (t_tuple tl)) in')
     has('ity', 'let frg = if priv || (nfr && not mut) then false else')

@@ -99,9 +99,17 @@ are **not** included in twenty.
 
 ## Why the final envelopes are small
 
+GNAT unconditionally enables `vc_sp` before loading the controller
+(`gnat_util.ml:139–147`), so these functions start in SP mode. Reflow removes
+the nested SP tag because it selects the same mode, right-associates the
+single-outcome sequence, and pushes the final stop into the sole tuple branch.
+Each sequence then has a closed continuation: its consumed SP postcondition
+is used once in the safety formula and is not also exported. This matters
+because an open continuation could retain an additional premise copy.
+
 For a witness, the empty precondition, unit-result operations and empty
-function postcondition simplify away. The SP switch encloses a single tuple
-branch with one cut; it adds no alternative path or duplicated continuation.
+function postcondition simplify away. The sole tuple branch has one cut;
+it adds no alternative path or duplicated continuation.
 A conservative remaining shape is two nested `forall v. P(v) -> ...`
 wrappers, two retained trace lets, and the tuple case on Q. Charge the tuple
 definition once more even when the one-use substitution keeps an unused trace

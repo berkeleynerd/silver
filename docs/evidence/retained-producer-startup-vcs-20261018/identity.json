@@ -30,6 +30,12 @@
           "member": "installed/libexec/spark/share/why3/theories/string.mlw",
           "bytes": 17684,
           "sha256": "ea9e41823b857ebbe08fe5ba71687f3894946efd21748703d89a83df6b99e3ec"
+        },
+        {
+          "name": "gnat_util",
+          "member": "why3/src/gnat/gnat_util.ml",
+          "bytes": 5980,
+          "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
         }
       ]
     },
