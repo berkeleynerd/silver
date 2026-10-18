@@ -99,3 +99,26 @@ deduplication's maximum alignment, suffix removal, both output placement
 loops and final padding. It accepted the additive merge and original-plus-
 merged bounds, including the single merge-before-sizing source join.
 Generated group members/alignments and other transformations remain open.
+
+`check-properties.py` adds a complete fixed-note census and the source-derived
+property union/rewrite transfer; it rechecks all fixed ELF/member identities.
+`check-unwind-join.py` combines fixed and Main evidence with the selected
+PLT template arrays. `transformation-inputs.json` pins those three earlier
+records; `transformation-source.json` pins the complete additional x86
+backend header. Both checkers retain generated binder terms and actual narrow
+writer/editing conditions:
+
+```sh
+python3 docs/evidence/retained-linker-layout-20261018/check-properties.py --output /tmp/retained-linker-properties-replay.json
+python3 docs/evidence/retained-linker-layout-20261018/check-unwind-join.py --output /tmp/retained-linker-unwind-join-replay.json
+```
+
+Neither establishes generated DWARF/CFA semantics, relative relocation reach,
+SFrame closure or complete linker capacity.
+
+Independent narrow review replayed both outputs byte-equal, including 27/28
+source identities and the property census's 15 fixed files/1,161 members.
+It checked property union/max-data behavior, all source additions, writer
+alignment and unsigned size; PLT template assignment and four-byte FDE
+ranges; and the joined EH arithmetic. It accepted these conditional transfers
+with the binder, generated semantics and reach premises still open.

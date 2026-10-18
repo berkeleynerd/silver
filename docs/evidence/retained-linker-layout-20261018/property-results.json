@@ -1,0 +1,51 @@
+{
+  "scope": "Selected GNU property rewrite payload/alignment; binder property input remains symbolic",
+  "source_files_verified": 27,
+  "prior_inputs_verified": 7,
+  "installed_fixed_files_verified": 15,
+  "installed_archive_members_verified": 1161,
+  "explicit_weighted_fixed_property_notes": 2083,
+  "fixed_property_types": [
+    {
+      "type": "0xc0000002",
+      "data_bytes": 4,
+      "occurrences": 620
+    },
+    {
+      "type": "0xc0008002",
+      "data_bytes": 4,
+      "occurrences": 2
+    },
+    {
+      "type": "0xc0010001",
+      "data_bytes": 4,
+      "occurrences": 1463
+    },
+    {
+      "type": "0xc0010002",
+      "data_bytes": 4,
+      "occurrences": 1463
+    }
+  ],
+  "fixed_union_serialized_property_bytes": 64,
+  "extra_loader_processing_adds_no_new_property_type": true,
+  "additional_property_data_sizes_charged": [
+    4,
+    4,
+    4,
+    0,
+    8
+  ],
+  "additional_property_serialized_bytes": 72,
+  "output_note_prefix_bytes": 16,
+  "formula": "Property_output <= 152 + Pgenerated",
+  "incoming_Pgenerated": "Sum of padded serialized property-record bytes across all generated ELF notes; full generated property-note byte sum is sufficient",
+  "rewrite_alignment_bytes": 8,
+  "source_derived_Main_property_note_bytes_upper": 144,
+  "Main_substituted_formula": "Property_output <= 296 + Pbinder_property",
+  "writer_unsigned_size_condition": "152 + Pgenerated <= UINT32_MAX",
+  "sum_original_plus_full_rewrite_required_for_per_input_maxima": true,
+  "generated_inputs_or_whole_link_capacity_established": false,
+  "generated_objects_read": false,
+  "native_execution": false
+}

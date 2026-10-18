@@ -1,0 +1,36 @@
+{
+  "scope": "Fixed/Main/PLT EH payload/header join, conditional on binder and valid frame contents",
+  "source_files_verified": 28,
+  "prior_inputs_verified": 3,
+  "PLT_template_bytes": {
+    "elf_x86_64_eh_frame_lazy_plt": 64,
+    "elf_x86_64_eh_frame_lazy_bnd_plt": 64,
+    "elf_x86_64_eh_frame_lazy_bnd_ibt_plt": 64,
+    "elf_x86_64_eh_frame_lazy_ibt_plt": 64,
+    "elf_x86_64_eh_frame_non_lazy_plt": 48
+  },
+  "synthetic_PLT_EH": {
+    "sections_upper": 3,
+    "original_bytes_upper": 160,
+    "entries_upper": 6,
+    "FDEs_upper": 3,
+    "input_alignment_bytes": 8
+  },
+  "Main_original_bytes_upper": 92,
+  "Main_entries_upper": 23,
+  "Main_FDEs_upper": 1,
+  "nonbinder_original_bytes_upper": 551828,
+  "nonbinder_entries_upper": 16326,
+  "nonbinder_sections_upper": 1179,
+  "edited_payload_formula": "EHedited <= 733772 + 1179*Aeh + Bbinder_EH + 11*Ebinder_EH + (Aeh+2)*Nbinder_EH",
+  "nonbinder_edited_payload_if_Aeh_8": 743204,
+  "FDE_count_formula": "F <= 14952 + Fbinder_EH",
+  "header_bytes_formula": "EHheader <= 119628 + 8*Fbinder_EH",
+  "header_search_array_bytes_formula": "24*(14952 + Fbinder_EH)",
+  "alignment_condition": "Aeh is power of two, <=2^30, bounds all output EH alignment",
+  "each_input_editing_condition": "B + 11*E + Aeh + 2 <= UINT32_MAX",
+  "FDE_count_condition": "14952 + Fbinder_EH <= 536870911",
+  "PLT_FDE_range_encoding_condition": "Each emitted PLT byte size <= UINT32_MAX; relative-address reach separate",
+  "generated_binder_CFA_semantics_relocations_or_whole_link_established": false,
+  "native_execution": false
+}

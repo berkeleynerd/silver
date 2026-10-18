@@ -527,6 +527,82 @@ their own length/alignment/final-padding charges must be added. The fixed
 subtotal does not bound those entries or their alignment. EH, property,
 SFrame, dynamic and hidden-table transformations remain separate.
 
+### Property-note rewriting and unwind composition
+
+The [property checker](../evidence/retained-linker-layout-20261018/check-properties.py)
+parses every fixed `SHT_NOTE`, checking record extents and alignment. Every
+GNU property note is in `.note.gnu.property`; no other note section hides
+another property type. The fixed inputs contain four types, all with four
+data bytes: `0xc0000002`, `0xc0008002`, `0xc0010001` and `0xc0010002`.
+Their union needs 64 serialized bytes after eight-byte property alignment.
+Repeated archive or loader processing cannot enlarge this type union.
+
+`_bfd_elf_get_property` reuses a type and keeps the maximum data size;
+merging adds at most the union of existing types, while pruning/fixup only
+removes types or changes values (`bfd/elf-properties.c:94–133,430–567`,
+`bfd/elfxx-x86.c:4926–4970`). Charge all five possible source-added types
+even when the selected options leave them absent: x86 feature/ISA properties,
+generic needed, memory-seal and stack-size properties. Their data sizes
+4/4/4/0/8 serialize to 72 bytes (`bfd/elfxx-x86.c:4340–4363`,
+`bfd/elf-properties.c:761–802,868–884`). One note header/name prefix adds 16.
+Thus, with `Pgenerated` bounding padded property-record bytes from generated
+inputs (their complete property-note byte sum suffices),
+
+```text
+Property_output <= 152 + Pgenerated
+                <= 296 + Pbinder_property.
+```
+
+The second line uses the earlier Main emission allowance of 96 compiler
+property bytes plus 48 GAS property bytes. Rewriting aligns records to eight;
+new sections also use eight-byte alignment (`elf-properties.c:572–598,692`,
+`elfxx-x86.c:4271,4378`). Existing section alignment is included in its input
+bound. The writer takes `unsigned int size` despite the preceding wider
+size calculation, so require `152 + Pgenerated <= UINT32_MAX`
+(`elf-properties.c:604–606`). Add the whole rewritten note to the original
+payload charge for per-input maxima. This does not infer validity of future
+generated property contents from their size alone.
+
+The [unwind join checker](../evidence/retained-linker-layout-20261018/check-unwind-join.py)
+combines the prior fixed EH transfer, Main's source-derived 92-byte/one-FDE
+allowance and the linker-created PLT templates. Every lazy PLT variant is a
+64-byte array; the nonlazy template is 48 bytes. There are at most three
+sections, sized by assignment from those templates, for 160 bytes, six
+entries and three FDEs (`bfd/elf64-x86-64.c:705–869`,
+`bfd/elfxx-x86.c:2504–2526`). Each has one 24-byte CIE and one FDE; template
+selection changes instructions/values without adding entries. All three
+input sections have eight-byte alignment (`elfxx-x86.c:4795–4825`).
+
+Use `Aeh` for the eventual output EH alignment and binder inputs `Bbe/Ebe/Nbe/Fbe`
+for original EH bytes, entries, sections and FDEs. Main is conservatively
+charged `92/4 = 23` entries, including any terminator; its one-FDE source
+bound is retained. Applying the established local/cross-input editing
+transfer gives
+
+```text
+EHedited <= 733772 + 1179 Aeh + Bbe + 11 Ebe + (Aeh + 2) Nbe
+F        <= 14952 + Fbe
+EHheader <= 119628 + 8 Fbe
+EH search-array bytes <= 24 (14952 + Fbe).
+```
+
+At `Aeh = 8`, the nonbinder edited payload contribution is 743,204 bytes.
+That alignment remains an incoming generated-section condition. Retain the
+existing requirements: `Aeh` is a power of two no greater than `2^30`,
+each input satisfies `B + 11 E + Aeh + 2 <= UINT32_MAX`, and
+`14952 + Fbe <= 536870911`. The PLT-template emitter additionally writes each
+PLT byte size into a four-byte FDE range (`elfxx-x86.c:2693–2722`), so each
+such size must fit `UINT32_MAX`. Relative address encodings need the separate
+reach argument. Replacing the original EH charge with this sum would require
+a per-input phase argument; adding it in full to original bytes is sufficient.
+The generated PLT sections are included in this edited sum, rather than
+being charged as having zero payload.
+
+These joins still require the binder contribution, valid generated DWARF/CFA,
+nonoverlapping function ranges and relocation targets. The fixed EH evidence
+does not establish those semantics. SFrame has its own format, merger and
+late writer; the EH transfer does not cover it.
+
 ## Main substitution and residual work
 
 Substitute only the source-derived Main object envelope:
@@ -551,6 +627,10 @@ The checked source/header joins do not settle the remaining layout work:
   placement transfer above, plus the selected relaxation/convergence argument;
 - a final virtual span that proves signed relative relocation reach and EH
   table offsets, including symbol addends and the fixed runtime inputs;
+- a dynamic-symbol section-index bound: unlike ordinary extended ELF header
+  counts, `check_dynsym` rejects an ordinary output section index at least
+  `0xff00` (`bfd/elflink.c:10545`); the broad header envelope alone does not
+  discharge that narrower emission constraint;
 - the `Bfile` projection for the conditional file-position transfer, and
   individual BFD allocation requests/counters through all those phases.
 
