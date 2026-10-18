@@ -1,0 +1,283 @@
+{
+  "files": [
+    {
+      "bytes": 406631,
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "root": "gcc",
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "bytes": 414991,
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "root": "gcc",
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2"
+    },
+    {
+      "bytes": 266602,
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "root": "gcc",
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "bytes": 122255,
+      "path": "gcc/ada/gcc-interface/utils2.cc",
+      "root": "gcc",
+      "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af"
+    },
+    {
+      "bytes": 8340,
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "root": "gcc",
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9"
+    },
+    {
+      "bytes": 28538,
+      "path": "gcc/ada/gcc-interface/ada-tree.h",
+      "root": "gcc",
+      "sha256": "83a639f787e2624214569abfe563b2887d6604a2d62d6d0e89e1017cde33d835"
+    },
+    {
+      "bytes": 56241,
+      "path": "gcc/ada/gcc-interface/gigi.h",
+      "root": "gcc",
+      "sha256": "6e2940a89abb01b7218eff64e13b3aabbc7a9970870670816160dc5991ba48e2"
+    },
+    {
+      "bytes": 47742,
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "root": "gcc",
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "bytes": 484431,
+      "path": "gcc/tree.cc",
+      "root": "gcc",
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    {
+      "bytes": 73833,
+      "path": "gcc/tree-core.h",
+      "root": "gcc",
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71"
+    },
+    {
+      "bytes": 9984,
+      "path": "gcc/tree-iterator.cc",
+      "root": "gcc",
+      "sha256": "812e0464468f94dc5f0aaf62cf4ac5a000c741c0df43c4ba91ea9968512d5d93"
+    },
+    {
+      "bytes": 109787,
+      "path": "gcc/stor-layout.cc",
+      "root": "gcc",
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872"
+    },
+    {
+      "bytes": 560244,
+      "path": "gcc/fold-const.cc",
+      "root": "gcc",
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506"
+    },
+    {
+      "bytes": 112284,
+      "path": "gcc/alias.cc",
+      "root": "gcc",
+      "sha256": "946b1b7ea0abd23f00873024c4514c9ec360bd6fb31a761f8df655cfbbfa93f2"
+    },
+    {
+      "bytes": 9896,
+      "path": "gcc/sort.cc",
+      "root": "gcc",
+      "sha256": "c7d3068301225f78c505d882ec9e8b11082946ca4201eee0b4849b2e527795b3"
+    },
+    {
+      "bytes": 271386,
+      "path": "gcc/varasm.cc",
+      "root": "gcc",
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "bytes": 74232,
+      "path": "gcc/vec.h",
+      "root": "gcc",
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "bytes": 22283,
+      "path": "gcc/vec.cc",
+      "root": "gcc",
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "bytes": 10909,
+      "path": "gcc/hash-map.h",
+      "root": "gcc",
+      "sha256": "1a70ff56f503e7aa95b8418b2109c4ecaabcac2a67638e5846893d6c1e2d6dbb"
+    },
+    {
+      "bytes": 39688,
+      "path": "gcc/hash-table.h",
+      "root": "gcc",
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "bytes": 8292,
+      "path": "gcc/stringpool.cc",
+      "root": "gcc",
+      "sha256": "779d6578fa49c937be8650ea40e8fd92d7698eaf0076ae501450989174331df1"
+    },
+    {
+      "bytes": 154425,
+      "path": "gcc/config/i386/i386-features.cc",
+      "root": "gcc",
+      "sha256": "8177560659b4f519c41fe30c025867f075b465cff8e4f6da884d615afebf5c0f"
+    },
+    {
+      "bytes": 138368,
+      "path": "gcc/config/i386/i386-options.cc",
+      "root": "gcc",
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6"
+    },
+    {
+      "bytes": 832808,
+      "path": "gcc/config/i386/i386.cc",
+      "root": "gcc",
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "bytes": 9383,
+      "path": "libcpp/symtab.cc",
+      "root": "gcc",
+      "sha256": "006987dd5863baf9520478a27958f9d450fbf76b90eed3fe6917e6c7315ff1d9"
+    },
+    {
+      "bytes": 55041,
+      "path": "exp_dbug.adb",
+      "root": "ada",
+      "sha256": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0"
+    },
+    {
+      "bytes": 29827,
+      "path": "namet.ads",
+      "root": "ada",
+      "sha256": "129dcfd8cf6688ead4f5af052f80f8a86ad31f13ce36eb29d57c547d7b51efd8"
+    },
+    {
+      "bytes": 48624,
+      "path": "namet.adb",
+      "root": "ada",
+      "sha256": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc"
+    },
+    {
+      "bytes": 69576,
+      "path": "uintp.adb",
+      "root": "ada",
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e"
+    },
+    {
+      "bytes": 439830,
+      "path": "freeze.adb",
+      "root": "ada",
+      "sha256": "245a9badc89a6f74f3084481150eca8e0a329b378815c44d2081b1f8d7339f7d"
+    },
+    {
+      "bytes": 2222,
+      "path": "src/silver_io.ads",
+      "root": "repository",
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    {
+      "bytes": 11203,
+      "path": "docs/research/retained-literal-native-frontend.md",
+      "root": "repository",
+      "sha256": "fad49ee07adafe8fd65199e015170bec412abbd960bc3f1250f8cf1c53295801"
+    },
+    {
+      "bytes": 23155,
+      "path": "docs/research/retained-native-ingress-bound.md",
+      "root": "repository",
+      "sha256": "d47d7a8c45a9f0460ccc6bee900df04ded542f3aaf288176cc065433edc0cf7b"
+    },
+    {
+      "bytes": 17982,
+      "path": "docs/research/retained-literal-warning-residual-bound.md",
+      "root": "repository",
+      "sha256": "bef8c52601a1cf9ffc3531930cdddfae41140951fffbaad3d21fcec4b70daee7"
+    },
+    {
+      "bytes": 19399,
+      "path": "docs/research/retained-literal-counter-emission.md",
+      "root": "repository",
+      "sha256": "5f2fb948169cd1fab59f63019c65afa37aa0151d68bebeb3cc8fbc5792cefa3c"
+    },
+    {
+      "bytes": 118976,
+      "path": "docs/research/retained-literal-pipeline.md",
+      "root": "repository",
+      "sha256": "c9984e50b9ad81c8efe9fa6392ff880223d356ad4dfabd9fc232baf2e5997c1f"
+    },
+    {
+      "bytes": 117197,
+      "path": "docs/research/retained-backend-capacity.md",
+      "root": "repository",
+      "sha256": "76c0ff20d335ed613b91969fce1405dd078903595a6804186aca283db83f0013"
+    },
+    {
+      "bytes": 187178,
+      "path": "docs/research/retained-backend-gigi.md",
+      "root": "repository",
+      "sha256": "da9cdf3ddb6e2d6e02e2c173fe437a7cd70039e76adbb9d349e258fbd25644de"
+    },
+    {
+      "bytes": 781411,
+      "path": "docs/research/retained-native-expansion.md",
+      "root": "repository",
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "bytes": 18406,
+      "path": "docs/research/retained-literal-original-string-storage.md",
+      "root": "repository",
+      "sha256": "927ec892bb446e6a65d83b7515ef8436142e281215d7eafb25bf320acd78087c"
+    },
+    {
+      "bytes": 10880,
+      "path": "docs/evidence/retained-native-ingress-bound-20261018/source-manifest.json",
+      "root": "repository",
+      "sha256": "2346c508d0a94161667b9f7850705c17ed58ed80414c0b05cd96eb3dacf4d5b5"
+    },
+    {
+      "bytes": 12151,
+      "path": "docs/evidence/retained-literal-string-layout-20261018/source-manifest.json",
+      "root": "repository",
+      "sha256": "e24f319eb01adb3420f189bc8237e3d73051cd5eceef6528242de81684fa798d"
+    },
+    {
+      "bytes": 1985,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-null-gigi-helpers.json",
+      "root": "repository",
+      "sha256": "34bcf7b262ca3393afd6d94b6ea1e4e7ed861811fea650eb6e637a14bb22a084"
+    },
+    {
+      "bytes": 11939,
+      "path": "gcc/ggc.h",
+      "root": "gcc",
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8"
+    },
+    {
+      "bytes": 78408,
+      "path": "gcc/ggc-page.cc",
+      "root": "gcc",
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "bytes": 91818,
+      "path": "gcc/passes.cc",
+      "root": "gcc",
+      "sha256": "facb2b07df162fc9f9fa9478e602900e81a34de48ad99200f45dac7d42e179fc"
+    }
+  ],
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "repository_base": "ac18b3531478457609b07349af7f367034f9ca06",
+  "source_identity_origin": "retained full-source and Ada complete-source manifests; bridge copy equality checked"
+}

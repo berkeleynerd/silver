@@ -1,0 +1,15 @@
+{
+  "arithmetic_cases": 315,
+  "checked_file_identities": 46,
+  "cost": null,
+  "effort_selected": "Extra High",
+  "elapsed_seconds": 0.022082901999965543,
+  "independent_source_review": "pending",
+  "invalid_cases": 6,
+  "model_selected": "GPT-6 Astra",
+  "runtime_setting_confirmation": null,
+  "status": "passed",
+  "tokens": null,
+  "validation": "offline identity and arithmetic checks; no compiler or prover",
+  "whole_toolchain_capacity_established": false
+}

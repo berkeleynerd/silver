@@ -1,0 +1,31 @@
+{
+  "objective": "Original literal Main/elaboration/external-profile source-derived storage transfer for issue119",
+  "authorization": "Parent-assigned source/offline research only; own new note/evidence, freeze commit; no compiler/prover/build/full tests",
+  "model_selected": "GPT-6 Astra",
+  "effort_selected": "Extra High",
+  "runtime_setting_confirmation": null,
+  "start_utc_approximate_range": ["2026-10-18 21:24 UTC", "2026-10-18 21:26 UTC"],
+  "completion_clock_utc": "2026-10-18 21:56:54 UTC",
+  "approximate_elapsed_minutes_range": [30.9, 32.9],
+  "tokens": null,
+  "cost": null,
+  "achieved": [
+    "Concrete original Main/elaboration/external-profile direct allocation ledger including constant folding, discarded candidates and empty wrappers",
+    "Named shared backing and native counter demands, with symbolic fixed implicit-with input I",
+    "Original tree-pool insertion/lookup/replacement demand zero, independently of I, pending independent review",
+    "46 complete input identities and315 offline arithmetic cases checked;6 invalid input cases rejected"
+  ],
+  "self_review_corrections": [
+    "Both two-element constructor vectors initially reserve four elements and round before GGC allocation; caller ceiling128 each",
+    "Namespace hash_map has a nontrivial destructor; export one scalar finalizer-vector push",
+    "Historical null helper/tree/name totals are nonadditive; active literal aggregate did not already attach them"
+  ],
+  "independent_review": "pending; parent arranging combined Main/String review",
+  "remaining": [
+    "Supply fixed implicit-with visits outside Main source bound",
+    "Shared backing/incoming state and width endpoints",
+    "Disjoint String/helper/Main-lowering/pool/graph/collector composition"
+  ],
+  "whole_toolchain_capacity_established": false,
+  "production_admission_changed": false
+}
