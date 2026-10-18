@@ -1,0 +1,15 @@
+[
+{
+  "name": "Main.N",
+  "location": "main.adb:6:4",
+  "Size": 32,
+  "Alignment": 4
+}
+,
+{
+  "name": "Main.S",
+  "location": "main.adb:7:4",
+  "Size": "??",
+  "Alignment": 1
+}
+]

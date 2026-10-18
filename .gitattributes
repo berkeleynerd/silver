@@ -1,0 +1,3 @@
+# Retained native ALI records end with a producer-written blank line.
+# Preserve those evidence bytes while checking other whitespace normally.
+docs/evidence/indexed-main-20261018/programs/*/obj/main~1.ali whitespace=-blank-at-eof

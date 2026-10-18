@@ -1,0 +1,8 @@
+test_legacy_audits_reject_private_axiom_behind_module_import (test_lean_modules.LeanModuleTests.test_legacy_audits_reject_private_axiom_behind_module_import) ... ok
+test_proof_reuse_and_public_source_invalidation (test_lean_modules.LeanModuleTests.test_proof_reuse_and_public_source_invalidation) ... ok
+test_generated_certificates_and_witnesses_remain_kernel_checked (test_lean_source.NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 82.655s
+
+OK

@@ -1,0 +1,1 @@
+-- leading	PROCEDURE -- NOTEMAIN -- second	IS   PRAGMA SPARK_MODE (ON);BEGIN   NULL;END MAIN;-- trailing

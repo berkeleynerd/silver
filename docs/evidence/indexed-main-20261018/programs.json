@@ -1,0 +1,30 @@
+{
+  "managed_run": "20261018T085521-08d5afa2ae98",
+  "programs": {
+    "null-cr": {
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-RibQE3",
+      "executable_sha256": "825292e6bb49646fec50945132441d6bb257277cb5affe8716b0dc85c838f32f",
+      "source_sha256": "24fe92f8644ea5d48a9f0bb2f262d5649a3aede2ba9cf5c22d0dad3a69cec0a9"
+    },
+    "null-lf": {
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-rzfH0l",
+      "executable_sha256": "825292e6bb49646fec50945132441d6bb257277cb5affe8716b0dc85c838f32f",
+      "source_sha256": "6c0357311dc2d16a49307ad3f4f790bb7538c0c636a772a43e50b195851ce585"
+    },
+    "null-trivia": {
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-5aNKVl",
+      "executable_sha256": "825292e6bb49646fec50945132441d6bb257277cb5affe8716b0dc85c838f32f",
+      "source_sha256": "b42602d3547149dc1adc5ef6b2c541c54a2f15ba29364b9b3cdb15424a67738e"
+    },
+    "static-image-mutation": {
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-v86o6J",
+      "executable_sha256": "b6d8ad5359c7ecfcf171056a6f311ef519f1a623f6cc68ec83edb062080b6e6d",
+      "source_sha256": "141c93f40718c862147754e8156f64a2012417cefdff4ebe7ee400c879e2451c"
+    },
+    "argument": {
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-csPCmF",
+      "executable_sha256": "c50ada464a6b4b3af9a6a4e1b3c99fbf5dcf933e7b152546ce24c54297e19de9",
+      "source_sha256": "62ab467712146e083ec6d94d1216a49c17a86ec11eedaca271d74d792b9be3bd"
+    }
+  }
+}
