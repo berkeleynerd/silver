@@ -1,0 +1,587 @@
+{
+  "additional_implicit_with_nodes": 288,
+  "capture_files_sha256": {
+    "decoded-names.json": "cea1814abd3a6e9f91d703900c0eeeeea49b59b70145d33b0dce11fb897aabdd",
+    "inputs.json": "aa1fa98885997fc68689e3b4473448a77b18e34267cd60649bece9308495b492",
+    "summary.json": "b45803d22371cc2279f1070b7041e70cf22b0e7c3b5998d4ecc2e274b32db26b"
+  },
+  "fixed_generic_instances": 8,
+  "fixed_lifetime_table_growth": {
+    "ali__alis__last_val": 0,
+    "ali__args__last_val": 0,
+    "ali__cuda_kernels__last_val": 0,
+    "ali__interrupt_states__last_val": 0,
+    "ali__invocation_constructs__last_valX": 1,
+    "ali__invocation_relations__last_valX": 2,
+    "ali__invocation_signatures__last_valX": 3,
+    "ali__linker_options__last_val": 0,
+    "ali__no_deps__last_val": 0,
+    "ali__notes__last_val": 0,
+    "ali__sdep__last_val": 0,
+    "ali__specific_dispatching__last_val": 0,
+    "ali__units__last_val": 0,
+    "ali__withs__last_val": 0,
+    "ali__xref__last_val": 0,
+    "ali__xref_entity__last_val": 0,
+    "ali__xref_section__last_val": 0,
+    "atree__atree_private_part__node_offsets__last_val": 40888,
+    "atree__atree_private_part__slots__last_val": 438857,
+    "atree__orig_nodes__last_valX": 40888,
+    "atree__paren_counts__last_valX": 0,
+    "atree__parents_stack__last_valX": 0,
+    "checks__alignment_warnings__last_val": 0,
+    "checks__check_names__last_val": 30,
+    "elists__elists__last_valX": 977,
+    "elists__elmts__last_valX": 2096,
+    "errout__list_pragmas__last_val": 0,
+    "errout__non_instance_msgs__last_valX": 0,
+    "erroutc__edits__last_val": 0,
+    "erroutc__errors__last_val": 0,
+    "erroutc__fixes__last_val": 0,
+    "erroutc__locations__last_val": 0,
+    "erroutc__specific_warnings__last_val": 0,
+    "erroutc__warnings__last_val": 0,
+    "exp_cg__call_graph_nodes__last_valX": 0,
+    "exp_dbug__name_qualify_units__last_valX": 136,
+    "exp_unst__calls__last_valX": 0,
+    "exp_unst__subps__last_val": 0,
+    "exp_unst__urefs__last_valX": 0,
+    "expander__expander_flags__last_valX": 520,
+    "fmap__file_mapping__last_valX": 52,
+    "fmap__path_mapping__last_valX": 52,
+    "fname__uf__sfn_patterns__last_valXn": 4,
+    "fname__uf__sfn_table__last_valXn": 0,
+    "ghost__ignored_ghost_nodes__last_valX": 21,
+    "inline__called_pending_instantiations__last_valX": 0,
+    "inline__inlined__last_valX": 0,
+    "inline__inlined_bodies__last_valX": 0,
+    "inline__pending_instantiations__last_valX": 1,
+    "inline__successors__last_valX": 0,
+    "lib__compilation_switches__last_val": 5,
+    "lib__linker_option_lines__last_val": 0,
+    "lib__load_stack__last_val": 121,
+    "lib__notes__last_val": 0,
+    "lib__restriction_set_dependences__last_val": 0,
+    "lib__units__last_val": 40,
+    "lib__version_ref__last_val": 0,
+    "lib__writ__interrupt_states__last_val": 0,
+    "lib__writ__specific_dispatching__last_val": 0,
+    "lib__xref__spark_specific__drefs__last_valXnn": 0,
+    "lib__xref__xrefs__last_valXn": 353,
+    "namet__name_chars__last_val": 117918,
+    "namet__name_entries__last_val": 6222,
+    "nlists__lists__last_valX": 6526,
+    "nlists__next_node__last_valX": 40890,
+    "nlists__prev_node__last_valX": 40890,
+    "osint__file_name_chars__last_valX": 204,
+    "osint__lib_search_directories__last_valX": 4,
+    "osint__src_search_directories__last_valX": 6,
+    "par_sco__sc__last_valX": 0,
+    "par_sco__sco_raw_table__last_valX": 0,
+    "par_sco__sco_unit_number_table__last_valX": 1,
+    "par_sco__sd__last_valX": 0,
+    "prep__pp_states__last_valX": 0,
+    "prepcomp__dependencies__last_valX": 0,
+    "prepcomp__preproc_data_table__last_valX": 0,
+    "repinfo__dynamic_so_entity_table__last_valX": 0,
+    "repinfo__input__json_component_table__last_valXn": 0,
+    "repinfo__input__json_entity_table__last_valXn": 0,
+    "repinfo__input__json_variant_table__last_valXn": 0,
+    "repinfo__rep_table__last_valX": 504,
+    "restrict__no_dependences__last_val": 0,
+    "restrict__no_use_of_entity__last_val": 0,
+    "scos__sco_instance_table__last_val": 0,
+    "scos__sco_table__last_val": 0,
+    "scos__sco_unit_table__last_val": 1,
+    "sem__scope_stack__last_val": 1117,
+    "sem_aux__obsolescent_warnings__last_val": 0,
+    "sem_ch12__generic_flags__last_valX": 4,
+    "sem_ch12__generic_renamings__last_valX": 16,
+    "sem_ch12__instance_envs__last_valX": 8,
+    "sem_ch13__address_clause_checks__last_valX": 0,
+    "sem_ch13__unchecked_conversions__last_valX": 7,
+    "sem_ch8__urefs__last_valX": 0,
+    "sem_ch9__lock_free_subprogram_table__last_val": 0,
+    "sem_dim__system_table__last_valX": 0,
+    "sem_elab__active_scenarios__active_scenario_stack__last_valX": 24,
+    "sem_elab__delay_check__last_valX": 0,
+    "sem_elab__elab_call__last_valX": 0,
+    "sem_elab__elab_visited__last_valX": 0,
+    "sem_elab__elaborated_units__elaboration_attributes__last_valXb": 0,
+    "sem_elab__internal_representation__scenario_reps__last_valXb": 12,
+    "sem_elab__internal_representation__target_reps__last_valXb": 3,
+    "sem_elim__elim_entities__last_valX": 0,
+    "sem_prag__assertion_levels__last_valX": 3,
+    "sem_prag__compile_time_warnings_errors__last_valX": 0,
+    "sem_prag__externals__last_valX": 11,
+    "sem_type__all_interp__last_valX": 837,
+    "sem_warn__in_out_warnings__last_valX": 0,
+    "sem_warn__unreferenced_entities__last_valX": 0,
+    "sem_warn__warnings_off_pragmas__last_val": 0,
+    "sinput__instances__last_val": 9,
+    "sinput__source_file__last_val": 49,
+    "snames__convention_identifiers__last_valX": 7,
+    "stringt__string_chars__last_valX": 7255,
+    "stringt__strings__last_valX": 203,
+    "uintp__udigits__last_val": 74958,
+    "uintp__uints__last_val": 24324,
+    "urealp__ureals__last_valX": 60,
+    "vast__node_stack__last_valX": 0
+  },
+  "fixed_roots": [
+    "silver_io",
+    "silver_arguments",
+    "system",
+    "system.standard_library",
+    "system.exception_table",
+    "ada.exceptions",
+    "system.soft_links",
+    "system.stack_checking",
+    "ada.tags",
+    "system.put_images",
+    "system.img_int",
+    "system.secondary_stack",
+    "system.concat_2",
+    "system.concat_3",
+    "system.concat_4",
+    "system.concat_5",
+    "system.concat_6",
+    "system.concat_7",
+    "system.concat_8",
+    "system.concat_9"
+  ],
+  "names": {
+    "decimal_serial_digit_allowance": 10,
+    "decoded_characters_including_NUL": 112914,
+    "decoded_entries": 6120,
+    "fixed_Name_buffer_bound": "10*maximum_recorded_spelling_length + P + max(0,input_identifier_length-1)",
+    "locked_character_reserve": 5000,
+    "maximum_recorded_spelling_length": 170,
+    "normalization": "10*fixed_character_growth + path_spelling_allowance*(P+1) + 4*(input_identifier_length-1); P bounds each complete pathname under the same search/invocation shape",
+    "path_spelling_allowance": 60,
+    "slash_bearing_spellings": 56,
+    "undecoded_lifetime_characters": 4
+  },
+  "physical_representations_included": false,
+  "physical_source_map_matches_closure": true,
+  "scope": "Source-selected Main fixed unit closure reconciled with the retained complete all-roots capture; no execution. Manual root/freezing reduction is required for constant promotion.",
+  "selected_Silver_specifications": 2,
+  "selected_runtime_specifications": 36,
+  "selected_specifications": {
+    "ada": {
+      "bytes": 1253,
+      "dependencies": [],
+      "file": "ada.ads",
+      "generic_instances": [],
+      "sha256": "3915ec3edb9ce5eb7686ad4a3d372c12874be219d2b21fcf55bd05af22cd5bbb"
+    },
+    "ada.exceptions": {
+      "bytes": 14245,
+      "dependencies": [
+        "ada",
+        "system",
+        "system.parameters",
+        "system.standard_library",
+        "system.traceback_entries"
+      ],
+      "file": "a-except.ads",
+      "generic_instances": [],
+      "sha256": "61cac87bb1541705da0a2dbcf2d4afe7bb0e95215d41e2583b0c632dcb16444a"
+    },
+    "ada.io_exceptions": {
+      "bytes": 1409,
+      "dependencies": [
+        "ada"
+      ],
+      "file": "a-ioexce.ads",
+      "generic_instances": [],
+      "sha256": "7edd41e2d352ed7c7918526b34c00b166ac1b11d6d427e1c1f06a7cf19a84056"
+    },
+    "ada.streams": {
+      "bytes": 4451,
+      "dependencies": [
+        "ada"
+      ],
+      "file": "a-stream.ads",
+      "generic_instances": [],
+      "sha256": "1f9af89dab4acb7b5e50704165316a87ab1fb4f14d04f553e39e125234498b33"
+    },
+    "ada.strings": {
+      "bytes": 1729,
+      "dependencies": [
+        "ada"
+      ],
+      "file": "a-string.ads",
+      "generic_instances": [],
+      "sha256": "442b67ae5ce5e31702143ec2d7673a66ffa998d7b97afcdd19b552e670d96e02"
+    },
+    "ada.strings.text_buffers": {
+      "bytes": 6399,
+      "dependencies": [
+        "ada.strings",
+        "ada.strings.utf_encoding"
+      ],
+      "file": "a-sttebu.ads",
+      "generic_instances": [],
+      "sha256": "7ea218c66ba5dfc6f5870bb854f4be4ece5eaa4349dce839ea6d14c218b9e052"
+    },
+    "ada.strings.utf_encoding": {
+      "bytes": 7693,
+      "dependencies": [
+        "ada.strings",
+        "ada.unchecked_conversion",
+        "interfaces"
+      ],
+      "file": "a-stuten.ads",
+      "generic_instances": [
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 108,
+          "name": "To_Unsigned_8"
+        },
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 111,
+          "name": "To_Unsigned_16"
+        },
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 114,
+          "name": "To_Unsigned_32"
+        }
+      ],
+      "sha256": "e94fcfe456cd618544fcacbc1ea54120caf3e5ebaca1f5d346f46b235b24a865"
+    },
+    "ada.tags": {
+      "bytes": 30616,
+      "dependencies": [
+        "ada",
+        "ada.unchecked_conversion",
+        "system.storage_elements"
+      ],
+      "file": "a-tags.ads",
+      "generic_instances": [
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 628,
+          "name": "To_Address"
+        },
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 631,
+          "name": "To_Addr_Ptr"
+        },
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 634,
+          "name": "To_Type_Specific_Data_Ptr"
+        }
+      ],
+      "sha256": "984f3dd3fccc4d7a9d28c7efd8d34ee7cec531b41fd8d5477037a424535cd048"
+    },
+    "ada.text_io": {
+      "bytes": 31447,
+      "dependencies": [
+        "ada",
+        "ada.io_exceptions",
+        "ada.streams",
+        "system",
+        "system.file_control_block",
+        "system.wch_con"
+      ],
+      "file": "a-textio.ads",
+      "generic_instances": [],
+      "sha256": "2ced279c28898b6d56e0cacb75cc7a64793a9c7dc710e1841954469464b7e267"
+    },
+    "ada.unchecked_conversion": {
+      "bytes": 1554,
+      "dependencies": [
+        "ada"
+      ],
+      "file": "a-unccon.ads",
+      "generic_instances": [],
+      "sha256": "576b8b0ecb9ab7a72b6686f06f4c30e74c8e4eff1e1ce93de7f3a32da0599864"
+    },
+    "interfaces": {
+      "bytes": 9575,
+      "dependencies": [],
+      "file": "interfac.ads",
+      "generic_instances": [],
+      "sha256": "cb0812255c9176e7494a2c3a5c83b1cc3f36924adc8f7e69c54d4e7ccc73c366"
+    },
+    "interfaces.c_streams": {
+      "bytes": 12784,
+      "dependencies": [
+        "interfaces",
+        "system.crtl"
+      ],
+      "file": "i-cstrea.ads",
+      "generic_instances": [],
+      "sha256": "c879a62f21c9bb4f4bde14b9de42d943d6014e0365168bf62324fe2c0f9a94d9"
+    },
+    "silver_arguments": {
+      "bytes": 1129,
+      "dependencies": [
+        "ada.text_io",
+        "silver_io"
+      ],
+      "file": "silver_arguments.ads",
+      "generic_instances": [],
+      "sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+    },
+    "silver_io": {
+      "bytes": 2222,
+      "dependencies": [
+        "ada.text_io"
+      ],
+      "file": "silver_io.ads",
+      "generic_instances": [],
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    "system": {
+      "bytes": 7503,
+      "dependencies": [],
+      "file": "system.ads",
+      "generic_instances": [],
+      "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+    },
+    "system.concat_2": {
+      "bytes": 2911,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-conca2.ads",
+      "generic_instances": [],
+      "sha256": "9cca4fa295483828eb288a2fafdaa1ca1cefc63ee0c2dce67629e6809cda9985"
+    },
+    "system.concat_3": {
+      "bytes": 2922,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-conca3.ads",
+      "generic_instances": [],
+      "sha256": "a0e3ded6c761b5bf678f01c9330258988dbddffe6d801df16e0342feb88a97fc"
+    },
+    "system.concat_4": {
+      "bytes": 2930,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-conca4.ads",
+      "generic_instances": [],
+      "sha256": "0661c346df20ee3f12378f0031ab0330eaf4be4ba69d8b88638d4f6124686404"
+    },
+    "system.concat_5": {
+      "bytes": 2939,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-conca5.ads",
+      "generic_instances": [],
+      "sha256": "3a68b2479d735a2e8c9b49f602f460bd3de887256b16b208c4051ced54bb9576"
+    },
+    "system.concat_6": {
+      "bytes": 2947,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-conca6.ads",
+      "generic_instances": [],
+      "sha256": "b5956182332d48a44ef4f0316658d50237263dcaefdc8f5ca35b493d3004b84b"
+    },
+    "system.concat_7": {
+      "bytes": 2994,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-conca7.ads",
+      "generic_instances": [],
+      "sha256": "62c8dbabec4268ab82f8955999ceff5dc3c7665091e6f338dccf148092fa12fd"
+    },
+    "system.concat_8": {
+      "bytes": 3006,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-conca8.ads",
+      "generic_instances": [],
+      "sha256": "80aa7ac244ffe560a6fc90e4987968306ff60b7955a1c84c441fc86a0b8826b0"
+    },
+    "system.concat_9": {
+      "bytes": 3020,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-conca9.ads",
+      "generic_instances": [],
+      "sha256": "de221b475f840622c0716012177f93d390380bf7c59af4445633f1dba4eb2bd5"
+    },
+    "system.crtl": {
+      "bytes": 9186,
+      "dependencies": [
+        "system",
+        "system.parameters"
+      ],
+      "file": "s-crtl.ads",
+      "generic_instances": [],
+      "sha256": "08986ca6576f77dda5bf33014d533ca2f8fe5b5a69dc288ead6f430eede2c759"
+    },
+    "system.exception_table": {
+      "bytes": 4141,
+      "dependencies": [
+        "system",
+        "system.standard_library"
+      ],
+      "file": "s-exctab.ads",
+      "generic_instances": [],
+      "sha256": "7b47d706f502d266c30b31377b6dfa7a491be181cea388a4eaecdc51ea796c77"
+    },
+    "system.file_control_block": {
+      "bytes": 8163,
+      "dependencies": [
+        "ada.streams",
+        "interfaces.c_streams",
+        "system",
+        "system.crtl"
+      ],
+      "file": "s-ficobl.ads",
+      "generic_instances": [],
+      "sha256": "239304566b005778faf56a2e7daac9a33fb020730f78066844be96374d1eec75"
+    },
+    "system.image_i": {
+      "bytes": 3367,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-imagei.ads",
+      "generic_instances": [],
+      "sha256": "ed58b2052e1bf48de0f84a322ebc37bc4eca98b3622666ae8f2d4e90d8c14126"
+    },
+    "system.img_int": {
+      "bytes": 4158,
+      "dependencies": [
+        "system",
+        "system.image_i"
+      ],
+      "file": "s-imgint.ads",
+      "generic_instances": [
+        {
+          "generic": "Image_I",
+          "line": 41,
+          "name": "Impl"
+        }
+      ],
+      "sha256": "fdd4c20f9e61bd2c1b7f46ad580beb98c590f91cca2302ee3affec81d6402cce"
+    },
+    "system.parameters": {
+      "bytes": 8691,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-parame.ads",
+      "generic_instances": [],
+      "sha256": "69309e996793d5dfeab1a207beae3658b41d7979f099b1c248823adb7e898ac9"
+    },
+    "system.put_images": {
+      "bytes": 6550,
+      "dependencies": [
+        "ada.strings.text_buffers",
+        "system",
+        "system.unsigned_types"
+      ],
+      "file": "s-putima.ads",
+      "generic_instances": [],
+      "sha256": "f7a8721687fc233cf4b774b6db98ac1deaff3ebe42e0e2f88ddb5e9459db1910"
+    },
+    "system.secondary_stack": {
+      "bytes": 17306,
+      "dependencies": [
+        "system",
+        "system.parameters",
+        "system.storage_elements"
+      ],
+      "file": "s-secsta.ads",
+      "generic_instances": [],
+      "sha256": "25ddf544c6bd3f278ed5edaf33b6a2aefe83f736507f6e4f5c3e2ee9cd407d76"
+    },
+    "system.soft_links": {
+      "bytes": 18985,
+      "dependencies": [
+        "ada.exceptions",
+        "system",
+        "system.parameters",
+        "system.secondary_stack",
+        "system.stack_checking"
+      ],
+      "file": "s-soflin.ads",
+      "generic_instances": [],
+      "sha256": "818d0cebb13a6efc2cb7426d20751c8c45a3ed15a803d34860c39956f2e61f83"
+    },
+    "system.stack_checking": {
+      "bytes": 4445,
+      "dependencies": [
+        "system",
+        "system.storage_elements"
+      ],
+      "file": "s-stache.ads",
+      "generic_instances": [],
+      "sha256": "6691d3001b04e06b221b2c49a0052691a2dd450d084df24295de26b50d8bc98a"
+    },
+    "system.standard_library": {
+      "bytes": 12615,
+      "dependencies": [
+        "ada.unchecked_conversion",
+        "system"
+      ],
+      "file": "s-stalib.ads",
+      "generic_instances": [
+        {
+          "generic": "Ada.Unchecked_Conversion",
+          "line": 70,
+          "name": "To_Ptr"
+        }
+      ],
+      "sha256": "da57c5e674474761f1dfc4c9d3ebc2cb879aaf9e236be7c031222a25b1bd0b02"
+    },
+    "system.storage_elements": {
+      "bytes": 5401,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-stoele.ads",
+      "generic_instances": [],
+      "sha256": "97f344018fd2716cbd58b046f0c5ec3062594af54ac0d9fa7656f0f75074ef33"
+    },
+    "system.traceback_entries": {
+      "bytes": 3759,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-traent.ads",
+      "generic_instances": [],
+      "sha256": "e55203442b4dbaf3170bfbe04389f371b16f33cc62eb12d9020d0c91a3588f4d"
+    },
+    "system.unsigned_types": {
+      "bytes": 11027,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-unstyp.ads",
+      "generic_instances": [],
+      "sha256": "b98b23b18685b9a87c19905d33ea34a0dd60adbca6913431ce455ab0d0bf0d3e"
+    },
+    "system.wch_con": {
+      "bytes": 11852,
+      "dependencies": [
+        "system"
+      ],
+      "file": "s-wchcon.ads",
+      "generic_instances": [],
+      "sha256": "9b8ba9e5acda6d9101d5c1213164cabab58ca669c1fd344854b2f772cb7050e2"
+    }
+  },
+  "semantic_compilation_units_including_Main": 39,
+  "source_sensitive_unit_scope_saves_included": false,
+  "whole_native_frontend_closed": false
+}

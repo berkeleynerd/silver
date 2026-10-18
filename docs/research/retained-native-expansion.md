@@ -4330,6 +4330,101 @@ variable backend callbacks. Selected unit coverage, the explicit RE_Id/with
 residuals, and all-miss coherence are all required when its constants are
 composed.
 
+### Concrete fixed inputs and capture reconciliation
+
+The [fixed-input collector](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-fixed.py)
+now resolves Main's source-selected roots through context clauses and parent
+specifications, using hash-verified inputs of the existing native capture. Its
+[output](../evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-inputs.json)
+contains every dependency edge and all 120 retained lifetime counters. This
+is read-only reconciliation of existing evidence, not another measurement.
+
+Main imports Silver_IO and Silver_Arguments, whose specifications import
+Ada.Text_IO. Add the core System/elaboration/exception/stack/Put_Image roots
+already justified by the helper-inclusion argument, plus Img_Int, Secondary_Stack
+and Concat_2 through Concat_9. The closure contains **36 runtime specifications
+and two Silver specifications**. It excludes the six extra roots in the broader
+multi-process support union: Ada.Command_Line, Interfaces.C and assertion
+packages belong to separate Silver-body compilation, while both array-ordering
+helpers are excluded by the native String-equality route. No source or generated
+Main operation calls them. The native constructor and type frontier above,
+including generated access types, supplies this inclusion argument; observing
+a unit's absence from the capture is not the reason for exclusion.
+
+The capture's physical source map equals precisely those 38 specifications
+plus Main. Its eight virtual copies reconcile with the seven fixed
+Unchecked_Conversion instances and Image_I(Integer). Main's mode neither loads
+an external body for inlining nor instantiates a new generic body; the already
+closed input/Image/concat calls do not admit a further semantic compilation
+unit. Instance analysis uses the fixed generic syntax inside those units.
+The existing once-per-unit analyzed guard therefore gives **K_sem <=39**.
+This is a source closure, not promotion of the observed Units table top.
+
+Keep the whole witness and use its final process totals, including its fixed
+gigi numerical increments. Add 288 ordinary nodes/2592 slots for all 36
+possible Main implicit-with clauses and 1336 element-list headers for all
+RE_Id first-lookup residues. Context_Items already exists, and Maybe_Add_With
+uses Append, without another list header (`rtsfind.adb:1257–1327`). The resulting
+fixed inputs to the common table join are:
+
+| Dimension | Fixed contribution before variable Main/scanner/common addends |
+| --- | ---: |
+| Node identities | 41176 |
+| Entity identities, deliberately bounded by all captured nodes | 40888 |
+| Dynamic AST slots | 441449 |
+| Syntax-list headers | 6526 |
+| Elist headers / elements | 2313 / 2096 |
+| Uint entries / digit words / Ureal entries | 24324 / 74958 / 60 |
+| String descriptors / characters | 203 / 7255 |
+| Name entries, including retained reserve | 6222 |
+| Xref positive increments | 353 |
+| New semantic compilation units | 39 |
+
+The entity overcount uses a captured defining entity's node identity; it does
+not require a separate entity measurement. Implicit-with nodes contain no new
+entities. The fixed AST count of 41176 also dominates every fixed-scaffold
+call marker in the invocation join. Scope saves remain variable: the common
+metadata row adds 40 Elist headers and `39*(40888+E_Main+1)` elements,
+conservatively retaining the scope saves already present in the witness.
+
+Counter-dependent fixed names need a character correction. Add_Unique_Serial_Number
+writes a Nat in decimal and a fixed spec/body letter; New_Internal_Name and
+New_External_Name only add their documented fixed prefixes/suffixes
+(`tbuild.adb:58–99,638–726`). Subject to serial-counter headroom, a decimal run
+has at most ten digits. Replacing every original character by ten characters
+therefore bounds *all* serial-run growth in the fixed name table, including
+qualified occurrences, without relying on which short serials the witness
+happened to use. This is a coarse fixed normalization, not an extra source cap.
+
+Let P bound a **complete pathname** in the controlled invocation. Preserve the
+selected search-directory/invocation shape and fixed filenames: variable
+installation/workspace path prefixes occupy the slash-bearing pathname roles;
+fixed basename and relative-directory tokens remain prescribed. The corrected
+retained name inventory has 56 slash-bearing spellings. Its 112914 decoded
+characters including NUL, plus the 5000-character lock reserve, leave four
+characters of positive-growth excess. Treat each of those four characters as
+another pathname rather than assuming an unrecorded spelling. Thus 60*(P+1)
+characters safely pay complete replacement path spellings, retaining all old
+path bytes too. It does not assume that this workspace's historical paths will
+be used later, or permit extra search directories under the same constant.
+
+For input-binding length d (zero when absent), the sufficient fixed name charge
+is
+
+```text
+Name characters = 10*117918 + 60*(P+1) + 4*max(0,d-1).
+fixed Name_Buffer demand <= 1700 + P + max(0,d-1).
+```
+
+The buffer bound uses the recorded maximum spelling length170 and the same
+decimal/path/input-name corrections. These corrections add no Name entry.
+The default literal is always charged by its source scanner and standalone
+literal transfer, even if the fixed witness already paid for its one-character
+default. `native_fixed_frontend` emits the constants and corrections. Its
+4096-path example is arithmetic only: integration supplies and enforces P.
+The source/root/freezing and all-miss premises remain necessary; this collector
+does not turn the retained capture into a universal compiler proof by itself.
+
 ## Normalized Main frontier for backend composition
 
 The following finite type/constructor frontier follows from the grammar and
@@ -5162,6 +5257,32 @@ maximum is deliberately conservative; no new cap is chosen from it. Rendering,
 backend diagnostics and fixed dependency messages are distinct consumers, and
 physical table/string allocation layouts remain representation terms.
 
+## Executable native logical-table composition
+
+`native_frontend_logical_join` now composes the Main constructor vector, concrete
+fixed inputs, native common metadata, invocation metadata and stack peaks in
+one executable arithmetic interface. Its `tables` result supplies AST identities
+and slots, syntax/element lists, numeric/String/name pools, overload entries,
+qualification queue and xrefs. The node-indexed next/previous link arrays include
+the two extra initialized positions. The separate invocation result preserves
+its container types; a hash map is not silently counted as a Table array.
+
+The six scanner-pool inputs are mandatory: Name entries/characters, Uint
+entries/digits and String descriptors/characters. They must be supplied by the
+scanner component including its rescan/lookahead behavior. Parser AST/list
+inputs are already in the Main vector and are not added twice. Source with-name
+count likewise remains a separately supplied input to the native diagnostic
+transfer. The JSON's zero-scanner arithmetic fixtures are **not real-program
+capacity results** and cannot be used as admission thresholds.
+
+This closes the previously symbolic fixed entity/xref/unit inputs at these
+joins. It leaves the named parser auxiliaries, fixed non-table heap containers,
+physical backing/layout/growth/caller arithmetic, local and recursive workspace,
+complete ALI/debug/backend/object/linker and independent proof-producer terms.
+In particular the retained fixed gigi numbers do not absorb variable Main
+callbacks into Uint/Repinfo. No larger source language follows from a sum of
+logical table demands until those remaining joins and correspondence are closed.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
@@ -5210,17 +5331,18 @@ wrapper/scope handling and the diagnostic error path remain separate.
 The constructor sum supplies a common A and all source construct rows listed
 above. The native frontend/process is still incomplete at these explicit joins:
 
-- **Fixed scaffold and dependencies:** add the completed fixed native capture
-  from integration, retaining its witness Main work if no subtraction is
-  proved. Apply the source-derived input-name correction, variable default
-  literal accounting and first-runtime-lookup Elist/implicit-with corrections.
-  Source reduction and first-load/cache invariants, not a sample's observed
-  unit count, must justify any fixed dependency bound.
-- **Native common metadata:** supply source-reduced fixed inputs to the now
-  explicit qualification/queue, unit-scope save, overload and xref aggregate.
-  The separate native invocation/elaboration join supplies its scenario,
-  target, DFS, graph/signature and invocation-ALI terms; its fixed AST input
-  still needs the fixed source reduction. The native diagnostic join supplies
+- **Fixed scaffold and dependencies:** the source-root/freezing reduction and
+  concrete fixed join now supply the retained constants, first-runtime-lookup
+  Elist/implicit-with corrections, input-name normalization and configurable
+  pathname charge. Preserve the controlled invocation/search shape and supply
+  the actual path bound; charge every variable default literal through its
+  scanner/standalone-literal row. These premises still need integration into
+  the complete capacity rule.
+- **Native common metadata:** the executable logical join now supplies fixed
+  entities/xrefs/units to qualification/queue, unit-scope save, overload and
+  xrefs. The separate native invocation/elaboration join supplies its scenario,
+  target, DFS, graph/signature and invocation-ALI terms using the fixed AST
+  input. The native diagnostic join supplies
   warning attempts/history/text under the recorded defaults and fixed-source
   pragma inventory. The native stack join bounds scope/check/expander peaks;
   common auxiliary containers and physical layouts still need their own

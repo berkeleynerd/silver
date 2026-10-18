@@ -1110,6 +1110,50 @@ def native_invocation_metadata(source_calls, words, concats, images,
         whole_native_frontend_closed=False)
 
 
+fixed_native_inputs = json.loads((Path(__file__).parent/"native-fixed-inputs.json").read_text())
+
+
+def native_fixed_frontend(input_identifier_length, pathname_length):
+    """Actual retained fixed constants with source-derived corrections.
+
+    pathname_length is a controlled invocation input for a complete pathname;
+    the retained fixed search-directory/invocation shape must be preserved.
+    """
+    assert input_identifier_length >= 0 and pathname_length >= 0
+    raw = fixed_native_inputs["fixed_lifetime_table_growth"]
+    assert fixed_native_inputs["semantic_compilation_units_including_Main"] == 39
+    assert raw["atree__atree_private_part__node_offsets__last_val"] == 40888
+    assert raw["namet__name_chars__last_val"] == 117918
+    implicit = fixed_native_inputs["additional_implicit_with_nodes"]
+    assert implicit == 288
+    input_correction = 4*max(0,input_identifier_length-1)
+    normalized_names = 10*raw["namet__name_chars__last_val"]
+    paths = fixed_native_inputs["names"]["path_spelling_allowance"]
+    assert paths == 60
+    return dict(node_identities=40888+implicit,
+        entity_identities=40888,
+        dynamic_slots=raw["atree__atree_private_part__slots__last_val"]+9*implicit,
+        syntax_list_headers=raw["nlists__lists__last_valX"],
+        Elist_headers=raw["elists__elists__last_valX"]+len(re_ids),
+        Elist_elements=raw["elists__elmts__last_valX"],
+        Uint_entries=raw["uintp__uints__last_val"],
+        Uint_digits=raw["uintp__udigits__last_val"],
+        Ureal_entries=raw["urealp__ureals__last_valX"],
+        String_descriptors=raw["stringt__strings__last_valX"],
+        String_characters=raw["stringt__string_chars__last_valX"],
+        Name_entries=raw["namet__name_entries__last_val"],
+        Name_characters=normalized_names+paths*(pathname_length+1)+input_correction,
+        fixed_Name_buffer_bound=(10*fixed_native_inputs["names"]["maximum_recorded_spelling_length"]
+                                +pathname_length+max(0,input_identifier_length-1)),
+        Xrefs=raw["lib__xref__xrefs__last_valXn"],
+        semantic_units=39, implicit_with_ordinary_nodes=implicit,
+        first_RTE_Elist_headers=len(re_ids),
+        input_name_character_correction=input_correction,
+        pathname_length_input=pathname_length,
+        variable_default_literal_included=False,
+        whole_native_frontend_closed=False)
+
+
 def native_stack_peaks(*, main_nodes, main_lists, loop_depth, short_circuits,
                        output_calls, fixed_scope_pushes=1117,
                        fixed_expander_pushes=520, fixed_lists=6526):
@@ -1158,6 +1202,61 @@ def native_diagnostic_metadata(source_loops, source_with_names):
         Warnings_Main_appends=0, Specific_Warnings_Main_appends=0,
         Warnings_As_Errors_Main_appends=0, additional_Uint_appends=0,
         backend_and_fixed_dependency_diagnostics_included=False,
+        whole_native_frontend_closed=False)
+
+
+def native_frontend_logical_join(*, counts, scanner_pools,
+        max_identifier_length, input_identifier_length, loop_depth,
+        pathname_length):
+    """Join known native logical tables; not complete tool admission.
+
+    Scanner pool inputs must include all actual rescans/lookahead from their
+    own source-sensitive transfer. Parser nodes/lists already occur in counts.
+    Unlisted parser auxiliaries, fixed heaps, layouts and backend stay separate.
+    """
+    scanner_keys = {"Name_entries", "Name_characters", "Uint_entries", "Uint_digits",
+                    "String_descriptors", "String_characters"}
+    assert set(scanner_pools) == scanner_keys and min(scanner_pools.values()) >= 0
+    core = main_native_construct_vector(**counts)
+    main = core["total"]
+    fixed = native_fixed_frontend(input_identifier_length, pathname_length)
+    common = native_common_metadata(concats=len(counts["concat_lengths"]),
+        words=counts["word_tokens"], short_circuits=counts["short_circuits"],
+        images=counts["images"], output_calls=counts["output_calls"],
+        loop_depth=loop_depth, max_identifier_length=max_identifier_length,
+        main_entities=main["entity_identities"], fixed_entities=fixed["entity_identities"],
+        fixed_xrefs=fixed["Xrefs"], newly_analyzed_units=fixed["semantic_units"])
+    invocation = native_invocation_metadata(counts["source_calls"],counts["word_tokens"],
+        len(counts["concat_lengths"]),counts["images"],fixed["node_identities"])
+    # The full count of context with-names is supplied separately to the
+    # diagnostic transfer; it is deliberately not inferred from source calls.
+    stacks = native_stack_peaks(main_nodes=main["node_identities"],
+        main_lists=main["syntax_list_headers"],loop_depth=loop_depth,
+        short_circuits=counts["short_circuits"],output_calls=counts["output_calls"])
+    table = dict(
+        node_identities=fixed["node_identities"]+main["node_identities"],
+        dynamic_slots=fixed["dynamic_slots"]+main["dynamic_slots"],
+        syntax_list_headers=fixed["syntax_list_headers"]+main["syntax_list_headers"],
+        Elist_headers=fixed["Elist_headers"]+main["pending_elist_headers"]+common["unit_boundary_Elist_headers"],
+        Elist_elements=fixed["Elist_elements"]+main["pending_elist_elements"]+common["unit_boundary_Elist_elements"],
+        Uint_entries=fixed["Uint_entries"]+scanner_pools["Uint_entries"]+main["uint"],
+        Uint_digits=fixed["Uint_digits"]+scanner_pools["Uint_digits"]+main["retained_digit_words"],
+        Ureal_entries=fixed["Ureal_entries"],
+        String_descriptors=fixed["String_descriptors"]+scanner_pools["String_descriptors"]+main["string_descriptors"],
+        String_characters=fixed["String_characters"]+scanner_pools["String_characters"]+main["string_characters"],
+        Name_entries=fixed["Name_entries"]+scanner_pools["Name_entries"]+main["generated_name_entries"]+common["qualification_Name_entries"]+invocation["signature_scope_Name_entries"],
+        Name_characters=fixed["Name_characters"]+scanner_pools["Name_characters"]+main["name_characters"]+common["qualification_Name_characters"]+invocation["signature_scope_Name_characters"],
+        All_Interp_entries=837+common["All_Interp_Main_entries"],
+        Name_Qualify_Units_entries=136+common["Name_Qualify_Units_Main_appends"],
+        Xrefs_entries=common["Xrefs_backing_demand"],
+        Drefs_entries=0)
+    # Node-indexed list links have the two extra sentinel positions recorded by
+    # the pinned table initialization, not an independent per-constructor term.
+    table["node_list_link_entries"] = table["node_identities"]+2
+    return dict(tables=table,fixed=fixed,Main_constructor=core,common=common,
+        invocation=invocation,stacks=stacks,scanner_pool_inputs=scanner_pools,
+        diagnostics="native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
+        remaining="parser auxiliaries; fixed non-table heaps; all physical layouts/growth/caller arithmetic; recursion and local vectors; complete ALI/debug/backend/object/linker and independent proof producer",
         whole_native_frontend_closed=False)
 
 
@@ -1229,7 +1328,25 @@ mixed_example_counts = dict(main_example_counts, parser_nodes=100,
         native_string_bound_descriptor("input"),
         native_string_bound_descriptor("image")))])
 
+empty_scanner_pools = dict(Name_entries=0, Name_characters=0, Uint_entries=0,
+    Uint_digits=0, String_descriptors=0, String_characters=0)
+
 result = {
+    "native_fixed_source_reduction_join": {
+        "inputs": "native-fixed-inputs.json; source closure plus retained all-roots capture reconciliation, not another compiler run",
+        "fixed": native_fixed_frontend(1,4096),
+        "pathname_length": "4096 is illustrative; the invocation must supply/enforce its own complete pathname bound and fixed search shape",
+        "whole_native_frontend_closed": False,
+    },
+    "native_frontend_logical_table_join": {
+        "arithmetic_fixtures_not_programs_or_thresholds": [native_frontend_logical_join(
+            counts=counts,scanner_pools=empty_scanner_pools,
+            max_identifier_length=12,input_identifier_length=1,
+            loop_depth=counts["loops"],pathname_length=4096)
+            for counts in (main_example_counts,mixed_example_counts)],
+        "scanner_note": "zero scanner pools are arithmetic fixtures, not claims about real source; actual checked scanner row required",
+        "whole_native_frontend_closed": False,
+    },
     "native_stack_peak_join": {
         "examples_not_thresholds": [native_stack_peaks(
             main_nodes=main_native_construct_vector(**counts)["total"]["node_identities"],
@@ -1260,7 +1377,7 @@ result = {
             max_identifier_length=12,
             main_entities=main_native_construct_vector(**mixed_example_counts)["total"]["entity_identities"],
             fixed_entities=100, fixed_xrefs=100, newly_analyzed_units=10)],
-        "fixed_inputs": "actual source-reduced entity/xref/unit closure, not the illustrative values above",
+        "fixed_inputs": "native_fixed_source_reduction_join supplies entity<=40888, xrefs353, units39; the old small example above remains arithmetic only",
         "remaining_common_metadata": "separate native_invocation_metadata_join, native warning attempts/history/text, native_stack_peak_join and physical table representations",
         "whole_native_frontend_closed": False,
     },
