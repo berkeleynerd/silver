@@ -9680,7 +9680,7 @@ This joins the already established [null executable graph](retained-backend-gigi
 to its initial GIMPLE, CF/EH, CFG/root-loop and SSA allocation requests. It is
 for the selected Linux LP64, O0, no-debug and disabled-checking invocation.
 The executable Main is the only function in this slice; pass managers, later
-warnings/rangers/IPA, shared allocator lifetimes and source metadata remain
+warnings/rangers/IPA, shared pool coexistence and source metadata remain
 separate. In particular, changing source locations can preserve different
 members of the same three-block chain; no sampled one-block simplification
 is assumed.
@@ -9765,7 +9765,7 @@ and `profile_probability` at eight (`basic-block.h:25–53,83–91,117–151`,
 
 The following requests complement those GGC events. They bound individual
 objects, not an aggregate RAM gate. Existing vector/hash/bitmap transfers
-supply allocator metadata; the ordinary whole-invocation lifetime join remains
+supply allocator metadata; typed-pool coexistence and later clients remain
 explicit. Heap hash controls are below 128 bytes; a hash stored directly on
 the stack needs only its backing allocation.
 
@@ -9795,11 +9795,12 @@ does not register a new ordinary definition (`:1207–1227,1340–1370`).
 
 In total this slice requests six default-obstack bitmap headers and three
 private SSA headers. `BITMAP_ALLOC(NULL)` means the **ordinary default
-obstack**, not GGC (`bitmap.cc:775–799`). Repeated altered-block marks and
-reuse of its elements still join the shared bitmap-obstack lifetime schedule;
-the private SSA obstack has just three headers and one element. ET-pool
-reuse, block growth and final destruction also need the shared whole-invocation
-join. These open ordinary costs must not be silently replaced by the GGC
+obstack**, not GGC (`bitmap.cc:775–799`). Repeated altered-block marks use the already established fixed 32-byte
+header/40-byte element and linked-chunk transfer; they introduce no retained
+allocation-count field or cumulative RAM condition. The earlier default-bitmap
+initialization-depth bound still applies. The private SSA obstack has just
+three headers and one element, fitting its initial 65,536-byte chunk. ET-pool
+coexistence with later dominator directions still needs the shared join. These open ordinary costs must not be silently replaced by the GGC
 subtotal. Dense traversals and local counters use at most five block slots,
 four edges, two label UIDs and two SSA-name slots; forward-dominance numbering
 is at most ten and dominator-walk stack indices at most ten.
@@ -9828,7 +9829,7 @@ Independent narrow review replayed the 41-source/four-result checker and
 inspected SSA initialization, statement-list handling, CFG construction and
 merge-vector ownership, default-memory operands and empty-PHI pruning. It
 accepted the 41 GGC events and normalized vector ceilings with the ordinary
-pool and metadata remainders retained; it did not claim whole-tool capacity.
+typed-pool and metadata remainders retained; it did not claim whole-tool capacity.
 
 ```sh
 python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-initial-gimple.py \

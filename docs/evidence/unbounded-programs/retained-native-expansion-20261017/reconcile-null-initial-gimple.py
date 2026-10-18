@@ -147,7 +147,7 @@ result = {
     ],
     'remaining_terms': [
         'Source/path/line-map storage and discriminator adhoc-location requests',
-        'Shared default bitmap obstack and ET-pool whole-invocation growth/lifetime join',
+        'ET-pool coexistence across later dominator directions; existing fixed bitmap/chunk transfer applies',
         'Later warning/ranger/IPA managers and later pass allocations',
         'Collector pages, finalizers, process managers and libc bookkeeping',
     ],
