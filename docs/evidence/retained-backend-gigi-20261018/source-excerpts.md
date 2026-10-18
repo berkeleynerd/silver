@@ -2,6 +2,54 @@
 Full-file SHA256 identities are in source-manifest.json; LF numbering.
 Excerpts expand tabs to eight columns and trim trailing whitespace.
 
+## gcc/ada/checks.adb:7688–7730
+
+```text
+7688:
+7689:       --  Force evaluation of the node, so that it does not get evaluated twice
+7690:       --  (once for the check, once for the actual reference). Such a double
+7691:       --  evaluation is always a potential source of inefficiency, and is
+7692:       --  functionally incorrect in the volatile case.
+7693:
+7694:       --  We skip the evaluation of attribute references because, after these
+7695:       --  runtime checks are generated, the expander may need to rewrite this
+7696:       --  node (for example, see Attribute_Max_Size_In_Storage_Elements in
+7697:       --  Expand_N_Attribute_Reference) and, in many cases, their return type
+7698:       --  is universal integer, which is a very large type for a temporary.
+7699:
+7700:       if not Is_Single_Attribute_Reference (N)
+7701:         and then (not Is_Entity_Name (N)
+7702:                    or else Treat_As_Volatile (Entity (N)))
+7703:       then
+7704:          Force_Evaluation (N, Mode => Strict);
+7705:       end if;
+7706:
+7707:       --  The easiest case is when Source_Base_Type and Target_Base_Type are
+7708:       --  the same since in this case we can simply do a direct check of the
+7709:       --  value of N against the bounds of Target_Type.
+7710:
+7711:       --    [constraint_error when N not in Target_Type]
+7712:
+7713:       --  Note: this is by far the most common case, for example all cases of
+7714:       --  checks on the RHS of assignments are in this category, but not all
+7715:       --  cases are like this. Notably conversions can involve two types.
+7716:
+7717:       if Source_Base_Type = Target_Base_Type then
+7718:
+7719:          --  Insert the explicit range check. Note that we suppress checks for
+7720:          --  this code, since we don't want a recursive range check popping up.
+7721:
+7722:          Insert_Action (N,
+7723:            Make_Raise_Constraint_Error (Loc,
+7724:              Condition =>
+7725:                Make_Not_In (Loc,
+7726:                  Left_Opnd  => Duplicate_Subexpr (N),
+7727:                  Right_Opnd => New_Occurrence_Of (Target_Type, Loc)),
+7728:              Reason => Reason),
+7729:            Suppress => All_Checks);
+7730:
+```
+
 ## gcc/ada/exp_ch4.adb:3367–3405
 
 ```text
@@ -372,6 +420,220 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 339:       Top : Stack_Pointer;
 340:       --  The value of Stack.Top at the point in time when the mark was taken
 341:    end record;
+```
+
+## gcc/ada/libgnat/s-imgint.ads:37–76
+
+```text
+37:
+38: package System.Img_Int
+39:   with SPARK_Mode
+40: is
+41:    package Impl is new Image_I (Integer);
+42:
+43:    procedure Image_Integer
+44:      (V : Integer;
+45:       S : in out String;
+46:       P : out Natural)
+47:      renames Impl.Image_Integer;
+48:    --  Computes Integer'Image (``V``) and stores the result in
+49:    --  ``S`` (1 .. ``P``) setting the resulting value of ``P``.
+50:    --  The caller guarantees that ``S`` is long enough to hold the result,
+51:    --  and that ``S``'First is 1.
+52:    --
+53:    --  If ``V`` is not negative, the subprogram writes the leading blank in
+54:    --  ``S``. It then calls *Set_Image_Integer* unconditionally.
+55:
+56:    procedure Set_Image_Integer
+57:      (V : Integer;
+58:       S : in out String;
+59:       P : in out Natural)
+60:      renames Impl.Set_Image_Integer;
+61:    --  Stores the image of ``V`` in ``S`` starting at ``S`` (``P`` + 1), ``P``
+62:    --  is updated to point to the last character stored. The value stored is
+63:    --  identical to the value of Integer'Image (``V``) except that no leading
+64:    --  space is stored when ``V`` is non-negative. The caller guarantees that
+65:    --  ``S`` is long enough to hold the result. ``S`` need not have a lower
+66:    --  bound of 1.
+67:    --
+68:    --  If ``V`` is negative, the subprogram writes the leading '-' character,
+69:    --  otherwise work with -``V`` (always work with negative value to avoid
+70:    --  overflow: the largest negative number is not a special case).
+71:    --
+72:    --  This subprogram then uses recursion: if the value is equal or less than
+73:    --  -10, recurse with the value divided by 10. Then add the digit for the
+74:    --  remainder.
+75:
+76: end System.Img_Int;
+```
+
+## gcc/ada/libgnat/s-imagei.ads:37–58
+
+```text
+37:    type Int is range <>;
+38: package System.Image_I is
+39:
+40:    procedure Image_Integer
+41:      (V : Int;
+42:       S : in out String;
+43:       P : out Natural);
+44:    --  Computes Int'Image (V) and stores the result in S (1 .. P)
+45:    --  setting the resulting value of P. The caller guarantees that S
+46:    --  is long enough to hold the result, and that S'First is 1.
+47:
+48:    procedure Set_Image_Integer
+49:      (V : Int;
+50:       S : in out String;
+51:       P : in out Natural);
+52:    --  Stores the image of V in S starting at S (P + 1), P is updated to point
+53:    --  to the last character stored. The value stored is identical to the value
+54:    --  of Int'Image (V) except that no leading space is stored when V is
+55:    --  non-negative. The caller guarantees that S is long enough to hold the
+56:    --  result. S need not have a lower bound of 1.
+57:
+58: end System.Image_I;
+```
+
+## gcc/ada/libgnat/s-conca2.ads:32–43
+
+```text
+32: --  This package contains a procedure for runtime concatenation of two string
+33: --  operands. It is used when we want to save space in the generated code.
+34:
+35: package System.Concat_2 is
+36:
+37:    procedure Str_Concat_2 (R : out String; S1, S2 : String);
+38:    --  Performs the operation R := S1 & S2. The bounds of R are known to be
+39:    --  sufficient so no bound checks are required, and it is known that none of
+40:    --  the input operands overlaps R. No assumptions can be made about the
+41:    --  lower bounds of any of the operands.
+42:
+43: end System.Concat_2;
+```
+
+## gcc/ada/libgnat/s-conca3.ads:32–43
+
+```text
+32: --  This package contains a procedure for runtime concatenation of three string
+33: --  operands. It is used when we want to save space in the generated code.
+34:
+35: package System.Concat_3 is
+36:
+37:    procedure Str_Concat_3 (R : out String; S1, S2, S3 : String);
+38:    --  Performs the operation R := S1 & S2 & S3. The bounds of R are known to
+39:    --  be sufficient so no bound checks are required, and it is known that none
+40:    --  of the input operands overlaps R. No assumptions can be made about the
+41:    --  lower bounds of any of the operands.
+42:
+43: end System.Concat_3;
+```
+
+## gcc/ada/libgnat/s-conca4.ads:32–43
+
+```text
+32: --  This package contains a procedure for runtime concatenation of four string
+33: --  operands. It is used when we want to save space in the generated code.
+34:
+35: package System.Concat_4 is
+36:
+37:    procedure Str_Concat_4 (R : out String; S1, S2, S3, S4 : String);
+38:    --  Performs the operation R := S1 & S2 & S3 & S4. The bounds
+39:    --  of R are known to be sufficient so no bound checks are required,
+40:    --  and it is known that none of the input operands overlaps R. No
+41:    --  assumptions can be made about the lower bounds of any of the operands.
+42:
+43: end System.Concat_4;
+```
+
+## gcc/ada/libgnat/s-conca5.ads:32–43
+
+```text
+32: --  This package contains a procedure for runtime concatenation of five string
+33: --  operands. It is used when we want to save space in the generated code.
+34:
+35: package System.Concat_5 is
+36:
+37:    procedure Str_Concat_5 (R : out String; S1, S2, S3, S4, S5 : String);
+38:    --  Performs the operation R := S1 & S2 & S3 & S4 & S5. The bounds
+39:    --  of R are known to be sufficient so no bound checks are required,
+40:    --  and it is known that none of the input operands overlaps R. No
+41:    --  assumptions can be made about the lower bounds of any of the operands.
+42:
+43: end System.Concat_5;
+```
+
+## gcc/ada/libgnat/s-conca6.ads:32–43
+
+```text
+32: --  This package contains a procedure for runtime concatenation of six string
+33: --  operands. It is used when we want to save space in the generated code.
+34:
+35: package System.Concat_6 is
+36:
+37:    procedure Str_Concat_6 (R : out String; S1, S2, S3, S4, S5, S6 : String);
+38:    --  Performs the operation R := S1 & S2 & S3 & S4 & S5 & S6. The
+39:    --  bounds of R are known to be sufficient so no bound checks are required,
+40:    --  and it is known that none of the input operands overlaps R. No
+41:    --  assumptions can be made about the lower bounds of any of the operands.
+42:
+43: end System.Concat_6;
+```
+
+## gcc/ada/libgnat/s-conca7.ads:32–45
+
+```text
+32: --  This package contains a procedure for runtime concatenation of seven string
+33: --  operands. It is used when we want to save space in the generated code.
+34:
+35: package System.Concat_7 is
+36:
+37:    procedure Str_Concat_7
+38:      (R                          : out String;
+39:       S1, S2, S3, S4, S5, S6, S7 : String);
+40:    --  Performs the operation R := S1 & S2 & S3 & S4 & S5 & S6 & S7. The
+41:    --  bounds of R are known to be sufficient so no bound checks are required,
+42:    --  and it is known that none of the input operands overlaps R. No
+43:    --  assumptions can be made about the lower bounds of any of the operands.
+44:
+45: end System.Concat_7;
+```
+
+## gcc/ada/libgnat/s-conca8.ads:32–45
+
+```text
+32: --  This package contains a procedure for runtime concatenation of eight string
+33: --  operands. It is used when we want to save space in the generated code.
+34:
+35: package System.Concat_8 is
+36:
+37:    procedure Str_Concat_8
+38:      (R                              : out String;
+39:       S1, S2, S3, S4, S5, S6, S7, S8 : String);
+40:    --  Performs the operation R := S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8.
+41:    --  The bounds of R are known to be sufficient so no bound checks are
+42:    --  required and it is known that none of the input operands overlaps R. No
+43:    --  assumptions can be made about the lower bounds of any of the operands.
+44:
+45: end System.Concat_8;
+```
+
+## gcc/ada/libgnat/s-conca9.ads:32–45
+
+```text
+32: --  This package contains a procedure for runtime concatenation of eight string
+33: --  operands. It is used when we want to save space in the generated code.
+34:
+35: package System.Concat_9 is
+36:
+37:    procedure Str_Concat_9
+38:      (R                                  : out String;
+39:       S1, S2, S3, S4, S5, S6, S7, S8, S9 : String);
+40:    --  Performs the operation R := S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8 & S9.
+41:    --  The bounds of R are known to be sufficient so no bound checks are
+42:    --  required, and it is known that none of the input operands overlaps R. No
+43:    --  assumptions can be made about the lower bounds of any of the operands.
+44:
+45: end System.Concat_9;
 ```
 
 ## gcc/ada/gcc-interface/trans.cc:3026–3306
@@ -2128,9 +2390,51 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6003:   if (Nkind (gnat_unit) == N_Package_Body
 ```
 
-## gcc/ada/gcc-interface/trans.cc:6078–6095
+## gcc/ada/gcc-interface/trans.cc:6031–6065
 
 ```text
+6031:   /* Generate code for all the inlined subprograms.  */
+6032:   for (gnat_entity = First_Inlined_Subprogram (gnat_node);
+6033:        Present (gnat_entity);
+6034:        gnat_entity = Next_Inlined_Subprogram (gnat_entity))
+6035:     {
+6036:       Node_Id gnat_body;
+6037:
+6038:       /* Without optimization, process only the required subprograms.  */
+6039:       if (!optimize && !Has_Pragma_Inline_Always (gnat_entity))
+6040:         continue;
+6041:
+6042:       /* The set of inlined subprograms is computed from data recorded early
+6043:          during expansion and it can be a strict superset of the final set
+6044:          computed after semantic analysis, for example if a call to such a
+6045:          subprogram occurs in a pragma Assert and assertions are disabled.
+6046:          In that case, semantic analysis resets Is_Public to false but the
+6047:          entry for the subprogram in the inlining tables is stalled.  */
+6048:       if (!Is_Public (gnat_entity))
+6049:         continue;
+6050:
+6051:       gnat_body = Parent (Declaration_Node (gnat_entity));
+6052:       if (Nkind (gnat_body) != N_Subprogram_Body)
+6053:         {
+6054:           /* ??? This happens when only the spec of a package is provided.  */
+6055:           if (No (Corresponding_Body (gnat_body)))
+6056:             continue;
+6057:
+6058:           gnat_body
+6059:             = Parent (Declaration_Node (Corresponding_Body (gnat_body)));
+6060:         }
+6061:
+6062:       /* Define the entity first so we set DECL_EXTERNAL.  */
+6063:       gnat_to_gnu_entity (gnat_entity, NULL_TREE, false);
+6064:       add_stmt (gnat_to_gnu (gnat_body));
+6065:     }
+```
+
+## gcc/ada/gcc-interface/trans.cc:6076–6095
+
+```text
+6076:   gnat_compile_time_expr_list.release ();
+6077:
 6078:   /* Save away what we've made so far and finish it up.  */
 6079:   set_current_block_context (gnu_elab_proc_decl);
 6080:   gnat_poplevel ();
@@ -5691,6 +5995,67 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6250:
 ```
 
+## gcc/ada/gcc-interface/utils.cc:3700–3755
+
+```text
+3700:                      enum inline_status_t inline_status, bool public_flag,
+3701:                      bool linkonce_flag, bool extern_flag, bool artificial_p,
+3702:                      bool debug_info_p, bool definition,
+3703:                      struct attrib *attr_list, Node_Id gnat_node)
+3704: {
+3705:   tree subprog_decl = build_decl (input_location, FUNCTION_DECL, name, type);
+3706:   DECL_ARGUMENTS (subprog_decl) = param_decl_list;
+3707:
+3708:   DECL_ARTIFICIAL (subprog_decl) = artificial_p;
+3709:   DECL_EXTERNAL (subprog_decl) = extern_flag;
+3710:   DECL_FUNCTION_IS_DEF (subprog_decl) = definition;
+3711:   DECL_IGNORED_P (subprog_decl) = !debug_info_p;
+3712:   TREE_PUBLIC (subprog_decl) = public_flag;
+3713:
+3714:   switch (inline_status)
+3715:     {
+3716:     case is_suppressed:
+3717:       DECL_UNINLINABLE (subprog_decl) = 1;
+3718:       break;
+3719:
+3720:     case is_default:
+3721:       break;
+3722:
+3723:     case is_required:
+3724:       if (Back_End_Inlining)
+3725:         {
+3726:           decl_attributes (&subprog_decl,
+3727:                            tree_cons (get_identifier ("always_inline"),
+3728:                                       NULL_TREE, NULL_TREE),
+3729:                            ATTR_FLAG_TYPE_IN_PLACE);
+3730:
+3731:           /* Inline_Always guarantees that every direct call is inlined and
+3732:              that there is no indirect reference to the subprogram, so the
+3733:              instance in the original package (as well as its clones in the
+3734:              client packages created for inter-unit inlining) can be made
+3735:              private, which causes the out-of-line body to be eliminated.  */
+3736:           TREE_PUBLIC (subprog_decl) = 0;
+3737:         }
+3738:
+3739:       /* ... fall through ... */
+3740:
+3741:     case is_prescribed:
+3742:       DECL_DISREGARD_INLINE_LIMITS (subprog_decl) = 1;
+3743:
+3744:       /* ... fall through ... */
+3745:
+3746:     case is_requested:
+3747:       DECL_DECLARED_INLINE_P (subprog_decl) = 1;
+3748:       if (!Debug_Generated_Code)
+3749:         DECL_NO_INLINE_WARNING_P (subprog_decl) = artificial_p;
+3750:       break;
+3751:
+3752:     default:
+3753:       gcc_unreachable ();
+3754:     }
+3755:
+```
+
 ## gcc/ada/gcc-interface/decl.cc:400–445
 
 ```text
@@ -7692,7 +8057,7 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 7128: }
 ```
 
-## gcc/ada/gcc-interface/decl.cc:7169–7197
+## gcc/ada/gcc-interface/decl.cc:7169–7228
 
 ```text
 7169: update_n_elem (tree n_elem, tree min, tree max)
@@ -7724,6 +8089,37 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 7195:
 7196: /* Given GNAT_ENTITY, elaborate all expressions that are required to
 7197:    be elaborated at the point of its definition, but do nothing else.  */
+7198:
+7199: void
+7200: elaborate_entity (Entity_Id gnat_entity)
+7201: {
+7202:   switch (Ekind (gnat_entity))
+7203:     {
+7204:     case E_Signed_Integer_Subtype:
+7205:     case E_Modular_Integer_Subtype:
+7206:     case E_Enumeration_Subtype:
+7207:     case E_Ordinary_Fixed_Point_Subtype:
+7208:     case E_Decimal_Fixed_Point_Subtype:
+7209:     case E_Floating_Point_Subtype:
+7210:       {
+7211:         Node_Id gnat_lb = Type_Low_Bound (gnat_entity);
+7212:         Node_Id gnat_hb = Type_High_Bound (gnat_entity);
+7213:
+7214:         /* ??? Tests to avoid Constraint_Error in static expressions
+7215:            are needed until after the front stops generating bogus
+7216:            conversions on bounds of real types.  */
+7217:         if (!Raises_Constraint_Error (gnat_lb))
+7218:           elaborate_expression (gnat_lb, gnat_entity, "L", true, false,
+7219:                                 Needs_Debug_Info (gnat_entity));
+7220:         if (!Raises_Constraint_Error (gnat_hb))
+7221:           elaborate_expression (gnat_hb, gnat_entity, "U", true, false,
+7222:                                 Needs_Debug_Info (gnat_entity));
+7223:       break;
+7224:       }
+7225:
+7226:     case E_Record_Subtype:
+7227:     case E_Private_Subtype:
+7228:     case E_Limited_Private_Subtype:
 ```
 
 ## gcc/ada/gcc-interface/decl.cc:7532–7688
@@ -10925,4 +11321,133 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3688:
 3689:   if (root->debug_var_chain)
 3690:     {
+```
+
+## gcc/tree-inline.cc:6667–6720
+
+```text
+6667: tree
+6668: maybe_inline_call_in_expr (tree exp)
+6669: {
+6670:   tree fn = get_callee_fndecl (exp);
+6671:
+6672:   /* We can only try to inline "const" functions.  */
+6673:   if (fn && TREE_READONLY (fn) && DECL_SAVED_TREE (fn))
+6674:     {
+6675:       call_expr_arg_iterator iter;
+6676:       copy_body_data id;
+6677:       tree param, arg, t;
+6678:       hash_map<tree, tree> decl_map;
+6679:
+6680:       /* Remap the parameters.  */
+6681:       for (param = DECL_ARGUMENTS (fn), arg = first_call_expr_arg (exp, &iter);
+6682:            param;
+6683:            param = DECL_CHAIN (param), arg = next_call_expr_arg (&iter))
+6684:         decl_map.put (param, arg);
+6685:
+6686:       memset (&id, 0, sizeof (id));
+6687:       id.src_fn = fn;
+6688:       id.dst_fn = current_function_decl;
+6689:       id.src_cfun = DECL_STRUCT_FUNCTION (fn);
+6690:       id.decl_map = &decl_map;
+6691:
+6692:       id.copy_decl = copy_decl_no_change;
+6693:       id.transform_call_graph_edges = CB_CGE_DUPLICATE;
+6694:       id.transform_new_cfg = false;
+6695:       id.transform_return_to_modify = true;
+6696:       id.transform_parameter = true;
+6697:
+6698:       /* Make sure not to unshare trees behind the front-end's back
+6699:          since front-end specific mechanisms may rely on sharing.  */
+6700:       id.regimplify = false;
+6701:       id.do_not_unshare = true;
+6702:
+6703:       /* We're not inside any EH region.  */
+6704:       id.eh_lp_nr = 0;
+6705:
+6706:       t = copy_tree_body (&id);
+6707:
+6708:       /* We can only return something suitable for use in a GENERIC
+6709:          expression tree.  */
+6710:       if (TREE_CODE (t) == MODIFY_EXPR)
+6711:         return TREE_OPERAND (t, 1);
+6712:     }
+6713:
+6714:    return NULL_TREE;
+6715: }
+6716:
+6717: /* Duplicate a type, fields and all.  */
+6718:
+6719: tree
+6720: build_duplicate_type (tree type)
+```
+
+## src/silver_arguments.ads (selected Silver API, complete)
+
+```text
+1: with Ada.Text_IO;
+2: with Silver_IO;
+3:
+4: package Silver_Arguments with SPARK_Mode => On is
+5:    --  Both queries observe the immutable GNAT argument vector. An absent
+6:    --  argument selects Default; one valid argument preserves its exact bytes,
+7:    --  including the empty String. Invalid input is handled by the caller's
+8:    --  required validity guard and Reject branch, never printed as a fallback.
+9:    function Input_Is_Valid return Boolean with Global => null;
+10:
+11:    --  Return canonical one-based bounds while preserving the selected bytes.
+12:    --  This also applies to shifted and null-range Default values.
+13:    function First_Or_Default (Default : String) return String
+14:      with Global => null,
+15:           Post => First_Or_Default'Result'First = 1
+16:             and then First_Or_Default'Result'Length <= Silver_IO.Max_Length
+17:             and then (Input_Is_Valid or else First_Or_Default'Result'Length = 0)
+18:             and then (for all Ch of First_Or_Default'Result =>
+19:               Character'Pos (Ch) in 32 .. 126);
+20:
+21:    procedure Reject
+22:      with Global => (In_Out => Ada.Text_IO.File_System), Always_Terminates;
+23: end Silver_Arguments;
+```
+
+## src/silver_io.ads (selected Silver API, complete)
+
+```text
+1: with Ada.Text_IO;
+2: package Silver_IO with SPARK_Mode => On is
+3:    --  Application membership restricts literals separately. The executable
+4:    --  guard makes this implementation safe for every String argument.
+5:    Max_Length : constant Positive := 4_096;
+6:    --  Static observations record bytes only after successful libc calls.
+7:    --  GNAT erases this verification state and its assertions from execution.
+8:    Written_Bytes : String (1 .. Max_Length + 1) := (others => Character'Val (0))
+9:      with Ghost => Static;
+10:    Written_Count : Natural range 0 .. Max_Length + 1 := 0 with Ghost => Static;
+11:    Flushed : Boolean := False with Ghost => Static;
+12:    Succeeded : Boolean := False with Ghost => Static;
+13:    --  Succeeded records acceptance of every input byte and LF followed by a
+14:    --  successful fflush(NULL). On detected failure, set process exit status 1
+15:    --  and return normally with Succeeded False. The admitted Main then returns
+16:    --  with that status. Success leaves the startup success status unchanged.
+17:    --  Environmental blocking is modeled by Always_Terminates => False.
+18:    procedure Put_Line (Item : String)
+19:      with Global => (In_Out => Ada.Text_IO.File_System,
+20:                      Output => (Written_Bytes, Written_Count, Flushed, Succeeded)),
+21:           Always_Terminates => False,
+22:           Post => (Static => Succeeded = Flushed
+23:             and then (if Succeeded then Item'Length <= Max_Length
+24:               and then Written_Count = Item'Length + 1
+25:               and then Written_Bytes (1 .. Item'Length) = Item
+26:               and then Written_Bytes (Written_Count) = Character'Val (10)));
+27:    --  Put has the same completion/failure behavior without appending LF.
+28:    --  Even an empty Item requests a flush; later success never clears failure.
+29:    procedure Put (Item : String)
+30:      with Global => (In_Out => Ada.Text_IO.File_System,
+31:                      Output => (Written_Bytes, Written_Count, Flushed, Succeeded)),
+32:           Always_Terminates => False,
+33:           Post => (Static => Succeeded = Flushed
+34:             and then (if Succeeded then Item'Length <= Max_Length
+35:               and then Written_Count = Item'Length
+36:               and then Written_Bytes (1 .. Item'Length) = Item));
+37: end Silver_IO;
 ```

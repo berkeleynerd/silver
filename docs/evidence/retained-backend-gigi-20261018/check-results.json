@@ -1,6 +1,7 @@
 {
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_checked": 17,
+  "source_files_checked": 29,
+  "silver_main_api_files_checked": 2,
   "arithmetic": {
     "binding_push_coefficients": {
       "U": 1,
@@ -72,6 +73,13 @@
     "secondary_stack_allocation_call_operand_slots": 5,
     "secondary_stack_allocation_call_size_conversions": 2,
     "secondary_stack_allocator_result_pointer_conversions": 1,
+    "diagnostic_preparation_scalar_visits": "3*(D_i+J_i)",
+    "diagnostic_preparation_string_or_raise_visits": 0,
+    "normalized_signed_type_endpoint_syntax_nodes": 16,
+    "signed_type_bound_syntax_visits_per_variable_type": 32,
+    "String_literal_low_bound_syntax_visits_per_type": 16,
+    "Main_value_call_body_copy_requests_in_size_inliner": 0,
+    "compiler_generated_size_wrapper_body_copy_requests": "separate layout obligation",
     "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success"
   },
   "compiler_runs": 0,

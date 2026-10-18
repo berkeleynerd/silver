@@ -66,6 +66,131 @@ replay a Character String payload. O0 disables the loop-invariant-check
 collection at `6253–6281`, so these checks do not fill `loop_info.checks` or
 cause the later loop invariant-construction pass at `3317–3380`.
 
+### Diagnostic preparation has a selected scalar bound
+
+The extra diagnostic traversal does not recursively multiply all normalized
+expression trees. Its guard tests the **whole** raise condition for `N_Op_Not`,
+then its immediate right child for `N_In`, `N_Op_Ge` or `N_Op_Le`; it does not
+search inside a short-circuit condition (`trans.cc:6178–6207`). The selected
+native families therefore separate as follows:
+
+| Native check family | Diagnostic preparation |
+| --- | --- |
+| Integer declaration/assignment range check | May enter. `Generate_Range_Check` forces a non-name, non-single-attribute value with `Mode => Strict` before inserting same-base `Not_In` under `Suppress => All_Checks` (`checks.adb:7688–7730`). Source Integer values have no attribute/call alternative, so the value is a literal/name or a captured constant name; target object endpoints are static Integer values. |
+| String subtype and final-slice range check | The generated whole condition is `high >= low and then (...)`; it fails the top-level `N_Op_Not` test. Its scalar conditional bound expressions do not change that outer condition. |
+| String declaration/assignment length check | Its length inequality fails the same top-level test. |
+| Ordinary for-range check | The range-check builder's temporary tree is not inserted by the ordinary `N_Range` declaration path; it is not an additional executable raise. |
+| Original Integer unary/binary arithmetic | Selected strict overflow checking is delegated to the backend, so there is no frontend conditional-raise subtree to replay here. |
+| Image result slice and unconstrained String actuals | The Image slice checks are suppressed; the unconstrained formals add no range check. |
+
+The latter five rows use the corresponding closed native constructor families
+in [the native expansion analysis](retained-native-expansion.md), especially
+“Enabled range-check composition”, “Ordinary native for-loop skeleton”,
+“Ordinary Integer declarations and assignments” and “Initial native Integer
+Image construction”. The claim is specific to these families, not to arbitrary
+GNAT conditional raises or all scalar expressions.
+
+Let `H_store = D_i + J_i`, the native upper bound on Integer declaration and
+assignment range checks. Each surviving diagnostic preparation translates at
+most its scalar value and two static range endpoints. Each is one current
+name/literal occurrence. If membership simplified to a single comparison,
+there is only one explicit bound. Consequently:
+
+```text
+extra diagnostic scalar syntax visits <= 3 H_store
+extra diagnostic String visits = 0
+extra diagnostic conditional-raise visits = 0.
+```
+
+Type lookup, constant lowering, conversions and raise-call construction still
+use their ordinary helper transfers. This closes the duplicate **source
+traversal** edge; it does not claim three total GCC allocations per check.
+
+### Main value calls have no body for size-helper inlining
+
+`maybe_inline_call_in_expr` enters its body-copying path only if the resolved
+callee has both `TREE_READONLY` and `DECL_SAVED_TREE`
+(`tree-inline.cc:6667–6720`). A failed gate creates no declaration map and
+copies no body. Selecting O0 alone would not establish this condition.
+
+The Main call frontier consists of separately compiled Silver operations,
+the selected runtime signatures and backend builtins. The two Silver API
+specifications and the selected concat, Image and secondary-stack runtime
+specifications contain no `Inline_Always`. `Compilation_Unit_to_gnu` skips
+external inline-body processing at O0 unless that pragma is present
+(`trans.cc:6031–6065`). Imported function declaration construction sets up the
+declaration/profile without attaching a saved body (`utils.cc:3700–3755`).
+The saved-body writers are the translated procedure body and compilation-unit
+elaboration paths (`utils.cc:3851–3869`, `trans.cc:6076–6082`). The variable
+Main frontier's own bodies are Main and its void `_finalizer`; neither is a
+value-producing callee in an array size or bound. Fixed runtime implementations
+are separate compilation inputs, not additional bodies attached per Main call.
+
+Thus ordinary Main value calls meet the no-body-inlining premise of the
+[size extrema helper transfer](retained-backend-capacity.md#size-extrema-helpers-recursion-and-call-reconstruction).
+Compiler-generated size-wrapper functions remain a separate layout obligation:
+this call-frontier argument must not be applied to them merely because their
+eventual runtime operands came from Main. The evidence checks the exact
+selected API/spec identities and the O0/body gates; it does not infer the
+premise from a sample call graph.
+
+### Final native type-bound roots have bounded syntax
+
+Use the **completed native normalized tree**, after captures and type analysis,
+not raw pre-analysis copies. Every variable Main signed-subtype endpoint in
+that tree has at most sixteen ordinary syntax nodes:
+
+* Explicit Integer object endpoints are Ada-static and folded; ordinary for
+  endpoints are captured whole expressions or stable name/literal leaves.
+* Concat's largest normalized low/high shapes have twelve/sixteen nodes;
+  input-derived bounds use attributes/names and Image bounds use leaves.
+* A standalone literal's dynamic target low has at most twelve nodes, and
+  its constructed `low + (length - 1)` high has at most fourteen.
+* Decorated copies may own further associated index types. Those are separate
+  type identities with the same endpoint shapes, not extra descendants to
+  omit from the type count.
+
+These are the normalized endpoint bounds in
+[native expansion](retained-native-expansion.md#uniform-normalized-view-and-bound-copy-shapes),
+including its standalone-literal and for-loop extensions. Names are terminal
+for this ordinary syntax count. The native range-query recurrence that follows
+internal-constant initializers and the earlier 144-node raw-copy allowance
+measure different graphs and cannot be substituted for sixteen here.
+
+Let `T_s` count variable Main signed Integer/index subtype identities and `T_l`
+its String-literal subtype identities. `elaborate_entity` and the final signed
+subtype conversion use the same low/high root IDs
+(`decl.cc:1967–1977,7200–7225`). `elaborate_expression` tests their saved
+association before traversal and records it afterward when there is no
+placeholder (`:7532–7566`). Normalized Main bounds have no discriminant or
+record placeholder. Deferred type elaboration therefore does not multiply
+those root traversals. Constrained String subtype conversion obtains bounds
+from the converted index type rather than translating their Ada syntax again
+(`:2614–2632`). A String-literal subtype independently translates at most its
+one low-bound root (`:3142–3193`). Consequently:
+
+```text
+distinct signed-subtype bound roots translated <= 2 T_s
+ordinary syntax visits from these roots       <= 32 T_s
+String-literal low-bound syntax visits        <= 16 T_l
+combined extra type-bound syntax visits       <= 32 T_s + 16 T_l
+                                             <= 32 E_Main.
+```
+
+`E_Main` is the native constructor vector's variable Main entity count;
+`T_s` and `T_l` are disjoint subsets. Count the fixed Standard/runtime type
+frontier separately. The inequality sums each semantic root's weight and
+needs no disjointness assumption about descendants shared by different roots.
+It closes this source-traversal interface even if several semantic ranges
+refer to overlapping syntax.
+
+This is not a sixteen-node bound on the resulting GCC expression. Entity
+references, descriptor construction, protected operands, shared initializers
+and the helper transfers can produce or reference larger GCC graphs. Their
+occurrence/shape accounting, type construction and cached-entity metadata
+remain necessary. In particular this result supplies the source roots for
+gigi; it does not bound `max_value` by the number of Ada syntax nodes alone.
+
 ## Binding requests and retained BIND nodes
 
 All `gnat_pushlevel` sites in the four gigi implementation files are inventoried
@@ -819,9 +944,11 @@ allocation, and does not exempt either from the overall contract.
 These interfaces remove the per-call/per-type arity ambiguity; they do not yet
 supply one complete, usable constructor coefficient. The remaining joins are:
 
-1. Bound actual uncached entity conversions, type visits, bound traversals and
-   rewritten reference occurrences from the native expansion vector. Preserve
-   the source-preparation duplicate scalar check edges described above.
+1. Bound actual uncached entity conversions, ordinary/lazy initializer visits
+   and rewritten reference occurrences from the native expansion vector. The
+   extra diagnostic scalar visits and final normalized type-bound syntax visits
+   now have the source-derived linear terms above; their GCC helper costs and
+   the fixed imported-type frontier remain separate.
 2. Join the selected conversion/address/allocator subroutes above with the
    actual wrapper/padding and constructor-field occurrence vector. Their
    source recurrence has no secondary-stack initializer recursion, but its

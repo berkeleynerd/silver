@@ -14,15 +14,26 @@ import re
 
 PIN = "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
 RANGES = {
+    "gcc/ada/checks.adb": [(7688, 7730)],
     "gcc/ada/exp_ch4.adb": [(3367, 3405), (4639, 4654)],
     "gcc/ada/exp_ch6.adb": [(6180, 6209), (6224, 6290), (6734, 6745)],
     "gcc/ada/exp_ch7.adb": [(4780, 4821)],
     "gcc/ada/sem_res.adb": [(13249, 13335)],
     "gcc/ada/libgnat/s-secsta.ads": [(70, 73), (110, 113), (300, 308), (335, 341)],
+    "gcc/ada/libgnat/s-imgint.ads": [(37, 76)],
+    "gcc/ada/libgnat/s-imagei.ads": [(37, 58)],
+    "gcc/ada/libgnat/s-conca2.ads": [(32, 43)],
+    "gcc/ada/libgnat/s-conca3.ads": [(32, 43)],
+    "gcc/ada/libgnat/s-conca4.ads": [(32, 43)],
+    "gcc/ada/libgnat/s-conca5.ads": [(32, 43)],
+    "gcc/ada/libgnat/s-conca6.ads": [(32, 43)],
+    "gcc/ada/libgnat/s-conca7.ads": [(32, 45)],
+    "gcc/ada/libgnat/s-conca8.ads": [(32, 45)],
+    "gcc/ada/libgnat/s-conca9.ads": [(32, 45)],
     "gcc/ada/gcc-interface/trans.cc": [
         (3026, 3306), (3313, 3400), (3843, 3941), (4028, 4126),
         (4228, 4249), (4582, 4613), (4680, 5758),
-        (5990, 6003), (6078, 6095),
+        (5990, 6003), (6031, 6065), (6076, 6095),
         (6150, 6318), (7656, 7725), (7944, 8003), (8118, 8146), (8603, 8622),
         (8968, 8996), (9104, 9185), (9217, 9278), (9298, 9325),
         (9492, 9582), (9889, 10025), (10014, 10494)],
@@ -30,11 +41,11 @@ RANGES = {
         (682, 783), (894, 1062), (1522, 1613), (1691, 1935),
         (2861, 2894), (2918, 3133), (3137, 3162), (3830, 3875),
         (4401, 4460), (4794, 4905), (5009, 5635), (5764, 5851),
-        (5911, 6250)],
+        (5911, 6250), (3700, 3755)],
     "gcc/ada/gcc-interface/decl.cc": [
         (400, 445), (697, 718), (754, 766), (1177, 1205),
         (1507, 1713), (1901, 2005), (2577, 3193), (3810, 4056),
-        (4530, 5022), (5538, 5691), (7116, 7128), (7169, 7197), (7532, 7688)],
+        (4530, 5022), (5538, 5691), (7116, 7128), (7169, 7228), (7532, 7688)],
     "gcc/ada/gcc-interface/utils2.cc": [
         (216, 456), (984, 1520), (1530, 1984), (2018, 2130),
         (2166, 2435), (2564, 2761), (3009, 3380)],
@@ -48,8 +59,10 @@ RANGES = {
     "gcc/calls.cc": [(590, 630), (807, 824)],
     "gcc/tree-cfg.cc": [(2185, 2200), (2628, 2652)],
     "gcc/tree-nested.cc": [(2656, 2719), (3668, 3690)],
+    "gcc/tree-inline.cc": [(6667, 6720)],
 }
 INTERFACE = ("trans", "utils", "utils2", "decl")
+MAIN_APIS = ("src/silver_arguments.ads", "src/silver_io.ads")
 
 
 def collect(ada, gcc_root):
@@ -72,6 +85,18 @@ def collect(ada, gcc_root):
             excerpts.extend((f"{n}: " + lines[n-1].expandtabs(8)).rstrip()+"\n"
                             for n in range(low, high+1))
             excerpts.append("```\n")
+    # These two identities belong to this Silver tree, not the upstream pin.
+    repo = Path(__file__).resolve().parents[3]
+    api_manifest = []
+    for name in MAIN_APIS:
+        data = (repo / name).read_bytes()
+        sources[name] = data.decode()
+        api_manifest.append({"path": name, "bytes": len(data),
+                             "sha256": hashlib.sha256(data).hexdigest()})
+        excerpts.append(f"\n## {name} (selected Silver API, complete)\n\n```text\n")
+        excerpts.extend((f"{n}: " + line.expandtabs(8)).rstrip()+"\n"
+                        for n, line in enumerate(sources[name].splitlines(), 1))
+        excerpts.append("```\n")
     patterns = {
         "binding_push": r"\bgnat_pushlevel\s*\(",
         "cleanup_shapes": r"\b(?:TARGET_EXPR|CLEANUP_POINT_EXPR|WITH_CLEANUP_EXPR|TRY_FINALLY_EXPR|TRY_CATCH_EXPR|BIND_EXPR)\b",
@@ -86,7 +111,8 @@ def collect(ada, gcc_root):
                 line = source.count("\n", 0, match.start()) + 1
                 inventory[key].append({"path": name, "line": line,
                                        "match": match.group()})
-    return sources, {"commit": PIN, "files": manifest}, "".join(excerpts), inventory
+    return sources, {"commit": PIN, "files": manifest,
+                     "silver_main_api_files": api_manifest}, "".join(excerpts), inventory
 
 
 def check_sources(sources, inventory):
@@ -121,6 +147,26 @@ def check_sources(sources, inventory):
     assert not any(row["match"] in {"TARGET_EXPR", "CLEANUP_POINT_EXPR",
                                     "WITH_CLEANUP_EXPR"}
                    for row in inventory["cleanup_shapes"])
+    assert "if (No (gnat_cond) || Nkind (gnat_cond) != N_Op_Not)" in trans
+    assert "Nkind (gnat_rcond) == N_In" in trans
+    assert "|| Nkind (gnat_rcond) == N_Op_Ge" in trans
+    assert "|| Nkind (gnat_rcond) == N_Op_Le" in trans
+    checks = sources["gcc/ada/checks.adb"]
+    assert "Force_Evaluation (N, Mode => Strict);" in checks
+    assert "if Source_Base_Type = Target_Base_Type then" in checks
+    assert "Left_Opnd  => Duplicate_Subexpr (N)," in checks
+    assert "if (!optimize && !Has_Pragma_Inline_Always (gnat_entity))" in trans
+    assert "if (fn && TREE_READONLY (fn) && DECL_SAVED_TREE (fn))" in sources["gcc/tree-inline.cc"]
+    specs = [name for name in sources if name.startswith("gcc/ada/libgnat/")]
+    for name in specs + list(MAIN_APIS):
+        assert "inline_always" not in sources[name].lower(), name
+    decl = sources["gcc/ada/gcc-interface/decl.cc"]
+    start = decl.index("\nelaborate_expression (Node_Id")
+    end = decl.index("\n}\n", start)
+    helper = decl[start:end]
+    assert helper.index("if (present_gnu_tree (gnat_expr))") < helper.index("gnat_to_gnu (gnat_expr)")
+    assert "if (!CONTAINS_PLACEHOLDER_P (gnu_expr))" in helper
+    assert "save_gnu_tree (gnat_expr, gnu_expr, true);" in helper
 
 
 def arithmetic():
@@ -195,6 +241,13 @@ def arithmetic():
         "secondary_stack_allocation_call_operand_slots": 2+3,
         "secondary_stack_allocation_call_size_conversions": 2,
         "secondary_stack_allocator_result_pointer_conversions": 1,
+        "diagnostic_preparation_scalar_visits": "3*(D_i+J_i)",
+        "diagnostic_preparation_string_or_raise_visits": 0,
+        "normalized_signed_type_endpoint_syntax_nodes": 16,
+        "signed_type_bound_syntax_visits_per_variable_type": 2*16,
+        "String_literal_low_bound_syntax_visits_per_type": 16,
+        "Main_value_call_body_copy_requests_in_size_inliner": 0,
+        "compiler_generated_size_wrapper_body_copy_requests": "separate layout obligation",
         "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success",
     }
 
@@ -215,6 +268,12 @@ def main():
     for row in manifest["files"]:
         if row["path"].startswith("gcc/ada/"):
             assert row["sha256"] == known_ada[row["path"]]["sha256"]
+    gcc_manifest = json.loads((args.gcc_root / "manifest.json").read_text())
+    assert gcc_manifest["commit"] == PIN
+    known_gcc = {row["path"]: row for row in gcc_manifest["files"]}
+    for row in manifest["files"]:
+        if not row["path"].startswith("gcc/ada/"):
+            assert row == known_gcc[row["path"]], row["path"]
     check_sources(sources, inventory)
     records = {"source-manifest.json": manifest, "site-inventory.json": inventory}
     if args.record:
@@ -226,6 +285,7 @@ def main():
             assert json.loads((bundle / name).read_text()) == value, name
         assert (bundle / "source-excerpts.md").read_text() == excerpts
     result = {"commit": PIN, "source_files_checked": len(manifest["files"]),
+              "silver_main_api_files_checked": len(manifest["silver_main_api_files"]),
               "arithmetic": arithmetic(), "compiler_runs": 0,
               "solver_runs": 0, "lean_builds": 0}
     args.output.write_text(json.dumps(result, indent=2)+"\n")

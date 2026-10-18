@@ -3,9 +3,12 @@
 2026-10-18, Linux x86_64, Refs #119. Companion to
 [the source argument](../../research/retained-backend-gigi.md).
 
-`source-manifest.json` pins seventeen complete files at GCC
+`source-manifest.json` pins 29 complete files at GCC
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; Ada file identities also match the
-previously retained complete Ada inventory. `source-excerpts.md` retains the
+previously retained complete Ada inventory, and non-Ada GCC files match the
+full-source manifest independently. Its separate `silver_main_api_files` rows
+pin the two selected Silver API specifications in this tree; those are not
+upstream GCC files. `source-excerpts.md` retains the
 referenced regions. The three remaining files are the checker, its result,
 and a complete textual site inventory over the four gigi implementation
 files. Inventory entries include declarations/comments: the report classifies
@@ -29,3 +32,13 @@ argument, installed-source correspondence or transitive allocation bounds.
 No compiler, solver, Lean build, full test suite, assurance audit, macOS run or
 CI run was performed for this record. Native capture evidence was reused
 without rerunning its successful experiment.
+
+The final native-root extension checks the diagnostic guard, strict capture,
+type-bound association cache and O0 external-body gate. It records the source
+argument's `3*(D_i+J_i)` extra scalar diagnostic visits and
+`32*T_signed+16*T_literal` normalized type-bound syntax visits. The latter uses
+the native expansion report's sixteen-node final endpoint shape, not an
+assumption of disjoint semantic descendants. The checker also verifies absence
+of `Inline_Always` in the selected runtime and Silver API specifications.
+Compiler-generated size wrappers remain a separate layout obligation; neither
+the API scan nor these arithmetic checks close the whole backend.
