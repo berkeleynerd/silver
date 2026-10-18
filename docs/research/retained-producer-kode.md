@@ -260,5 +260,7 @@ into an aggregate RAM admission bound. Remaining representation joins concern
 actual object lengths, collection indexes/cardinalities, and finite counters
 such as identifier/hash-cons creation counters. Temporary discarded branches
 matter when they increment such a counter. Physical availability remains the
-separate environmental premise. The marked-definition E1 composition, fixed
-library processes and essential solver representations remain open.
+separate environmental premise. The [weighted E1 composition](retained-producer-match-unfold.md)
+now supplies the conditional mathematical join. Its source-derived definition
+and alias inputs, fixed library processes and essential solver representations
+remain open.
