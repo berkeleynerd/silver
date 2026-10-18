@@ -139,8 +139,11 @@ and eleven edges. Mandatory LRA adds one unused pseudo and one note; the
 postreload allowance is 26 chain nodes. The selected x86 frame/return transfer
 then reaches at most 42 cumulative chain nodes, including conservative
 location-preserving merge nops, with an eight-byte frame-pointer save and no
-local/spill slots. Fixed/lazy allocator setup, later RTL/unwind and
-output/linker capacity still need their own joins.
+local/spill slots. Late CFI reaches 52 cumulative chain nodes, with at most
+43 shortening slots and a source-derived instruction-address ceiling of 26.
+The [assembler transfer](retained-assembler-capacity.md) adds streaming-buffer
+arithmetic and conditional null CFI/eh_frame bounds; actual assembly encoding,
+configuration (including SFrame), object and link joins remain open.
 
 The [fixed-setup witness assessment](retained-native-expansion.md#fixed-gcc-initialization-witness-boundary-and-counter-requirements)
 identifies a one-time capture boundary before Main translation and
@@ -148,10 +151,16 @@ distinguishes cumulative GGC allocation from counters that can decrease.
 The fixed semantic-root read projection and absence of GGC collection through
 that boundary are established for the null token class. Its floating-bound
 callbacks have separate Ada numeric-table allowances; variable path/line/node
-metadata remains separate. Executable lifetime/event-counter and no-wrap
-coverage are still required before using a witness. No new setup capture or
-numerical fixed GCC allowance is claimed, and other source classes must match
-the root projection before reusing it.
+metadata remains separate. A single [executed prefix witness](retained-native-expansion.md#executed-null-class-gcc-setup-witness)
+now covers lifetime events and no-wrap: 47,707 counter changes were replayed
+against source pins and installed instructions. The fixed allowances retain
+39,257 GGC requests, 5,832 declaration identities and 2,277 type constructions.
+The capture intentionally stops before Main translation; it is not a completed
+compile. Its observed byte sum is not an aggregate memory admission limit.
+Other source classes must match the read projection before reusing it.
+The GGC storage join bounds individual requests, real page indices and finalizer
+backbones. First RTL initialization, fixed pass setup, later requests and
+whole-phase counter sums remain outstanding.
 
 The proposed native-only `-gnatx` removes cross-reference construction/output
 and its long-local-name ALI analysis loss; combining it with
@@ -173,7 +182,11 @@ The initial native specs search is now reduced to four filenames plus one
 override, all absent in a retained metadata-only check. Source reconstruction
 matches the six final program and nineteen final library candidates. Individual
 search-buffer and temporary-name requests are bounded without adding an
-aggregate allocation gate; full selected specs/option handling remains open.
+aggregate allocation gate. The [selected driver transfer](retained-native-driver.md)
+now bounds eleven retained switches, nineteen frontend/five assembler arguments,
+their backing growth, selected spec dispatch, relocation arithmetic, multilib
+arrays and common process storage. Canonicalization, platform launch and other
+remaining driver objects still need composition.
 The reusable [individual-obstack transfer](retained-backend-obstacks.md) joins
 the already-bounded native environment strings to chunk requests without
 imposing an aggregate memory or address-span gate.
@@ -185,9 +198,16 @@ retain all raw-output and other-warning variables. It does not assume successful
 proofs erase diagnostics, nor establish the solver-output/formula/context bounds.
 The [configured startup context](retained-producer-import-context.md) includes
 all nine installed prover drivers: 26 driver files and 21 library files. The
-fixed clone-warning contribution is now bounded; six imported startup formula
-constructions enter the remaining typed-context costs. Lexical clone dependency
-coefficients are not typed-node or allocation bounds.
+fixed clone-warning contribution is now bounded; the [six imported startup formulas](retained-producer-startup-vcs.md)
+have a combined final lexical envelope of 168, while their lifetime allocations
+and the whole typed context remain open. Lexical clone dependency coefficients
+are not typed-node or allocation bounds. These configured Why3 costs do not
+apply to the null token/trivia family, whose launch guard skips that process.
+Its [producer-tail transfer](retained-producer-null-tail.md) instead bounds
+the third symbol pool and final report: at most eight Find requests, two strings,
+one entity, and `1247+6P` emitted Linux `.spark` bytes including Text_IO's closing
+LF. Flow working storage, JSON aliases/backing and downstream orchestration
+remain separate; null-only closure would not complete the broader design.
 
 These are source-derived components with their own premises and review scope.
 They do not yet select a safe whole-program threshold or unlock production
