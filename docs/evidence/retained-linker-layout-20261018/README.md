@@ -68,3 +68,19 @@ phase reset, per-item payload condition, source alignment/page expressions,
 load-segment bias and writer walks. The review required the separate `2 V`
 trial bound before accepting the transfer. Payload/alignment projections,
 mapping convergence and relocation reach remain open.
+
+`check-fixed-payload.py` re-reads the 15 pinned fixed file spellings and 1,161
+archive members, excluding generated objects. It adds original all-section
+payload, symbol-size, common-symbol and alignment inputs to the existing
+inventory. `fixed-payload-source.json` pins the complete extra x86 ELF header
+in `fixed-payload-x86-64.h.gz`; all 27 prior sources and four inputs are
+rechecked too. The result retains explicit input multiplicities and the
+eight additional loader processings separately:
+
+```sh
+python3 docs/evidence/retained-linker-layout-20261018/check-fixed-payload.py --output /tmp/retained-linker-fixed-payload-replay.json
+```
+
+This establishes original input quantities, not post-edit payload closure.
+No fixed common symbol or alignment above 64 bytes was found. Generated
+objects, synthetic growth and final hidden tables remain separate joins.

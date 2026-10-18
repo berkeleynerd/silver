@@ -1,0 +1,7 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "path": "include/elf/x86-64.h",
+  "archive": "fixed-payload-x86-64.h.gz",
+  "bytes": 7112,
+  "sha256": "a682618b46f754325c0165f7fbc6bf16d2d8f9a1789dd3a524b30af6f6ec4f99"
+}

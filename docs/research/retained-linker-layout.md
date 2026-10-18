@@ -422,6 +422,62 @@ own source-derived interfaces.
 exclusions and writer-phase anchors; `file-results.json` records the
 conditional interface and its unresolved inputs.
 
+## Original fixed payload and alignment inputs
+
+The [fixed-payload checker](../evidence/retained-linker-layout-20261018/check-fixed-payload.py)
+reads the pinned installed ELF/archive bytes without executing them. It
+rehashes all 15 fixed file spellings and 1,161 archive members, and reconciles
+the existing section, symbol, allocated-byte and alignment-padding counts.
+Its new totals cover all original sections, including nonallocated debug,
+symbol and String sections. Section zero's extended-count fields are not
+payload. The parser checks every file-backed section range, ELF64 symbol
+width and power-of-two alignment. Generated Main and binder objects are
+neither read nor inferred from a measured output.
+
+| Original input quantity | Explicit fixed inputs | Eight extra loader processings | Processing envelope |
+| --- | ---: | ---: | ---: |
+| Logical section bytes, including NOBITS | 44,226,801 | 1,979,640 | 46,206,441 |
+| File-backed section bytes | 44,102,586 | 1,958,136 | 46,060,722 |
+| NOBITS section bytes | 124,215 | 21,504 | 145,719 |
+| Allocated section bytes | 11,474,416 | 1,968,904 | 13,443,320 |
+| Sum of original symbol sizes | 8,772,513 | 78,224 | 8,850,737 |
+| Dynamic symbol size sum | 763,664 | 78,224 | 841,888 |
+
+The last two rows are raw record sums, not automatically bounds on output
+copy storage or on repeated allocation events. The existing multiplicity
+argument supplies the eight loader allowances; the parser does not infer
+them from which objects an observed link extracted. Charging every archive
+member at each explicit archive occurrence remains conservative for original
+payload. It does not assert every such input is mapped into the output.
+
+Every original fixed section's alignment is at most **64 bytes**. No fixed
+symbol has external `SHN_COMMON` or `SHN_X86_64_LCOMMON`, so these inputs
+contribute zero common-symbol storage or common-alignment requests.
+The external constants are `0xfff2` and `0xff02`
+(`include/elf/external.h:40–46`, `include/elf/x86-64.h:123–125`); this is
+distinct from BFD's widened internal index encoding. Every fixed symbol's
+index fits the ordinary ELF field, so an extended-index companion cannot
+hide a common symbol. The checker retains the complete additional x86
+header alongside the existing 27-source capsule.
+
+There are no fixed compressed or `.zdebug` sections, `.ctf` payload,
+`.sframe` section/type, or GNU attributes section/type. The processing
+envelope includes 3,147,288 merge-section bytes, 803,284 `.eh_frame` bytes
+and 90,352 property-note bytes. These remain distinct transformation inputs;
+in particular, counting original EH bytes is not a claim that EH editing
+preserves size. The earlier ET_REL-only EH inventory and editing transfer
+are still required. The fixed alignment of 64 does not discharge generated
+sections, linker-created alignments, or table-header alignment.
+
+Thus **46,206,441** is the original fixed contribution before transformation
+to `B`, and **46,060,722** is the original file-backed input contribution
+before transformation to `Bfile`. Neither number is substituted for the
+complete post-edit envelope. The source-derived Main object transfer separately
+supplies at most 12,712 section-payload bytes (420 ordinary, 2,352 symbol,
+6,744 relocation, 2,523 symbol-String and 673 section-String bytes), with
+zero NOBITS payload. Binder, EH/SFrame/property processing, synthetic dynamic
+payloads and final hidden tables remain to be joined.
+
 ## Main substitution and residual work
 
 Substitute only the source-derived Main object envelope:
