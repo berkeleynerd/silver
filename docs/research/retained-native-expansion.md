@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records seventy-nine inspected files hash-checked against the complete source
+records eighty inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -1158,6 +1158,116 @@ Checked arithmetic may saturate at an established capacity cutoff, since
 all these demand recurrences are monotone; that implementation choice does
 not supply the missing source-correspondence argument.
 
+#### Main source bridge for original String index bounds
+
+The original String-bound graph has a source-sensitive D envelope without a
+generic exponential syntax-unfolding factor. This bridge covers the index
+bounds produced by Main's String constructors and declarations. It does not
+yet cover every scalar query introduced by a subsequent check or actual-subtype
+helper, and therefore is **not** a complete value for A in the combined vector.
+
+The leaf seeds `(D(low), D(high))` are:
+
+| Source form | Bound D seed | Source reason |
+| --- | --- | --- |
+| String literal, including a folded literal | `(1,1)` | The low bound and length are known values; a literal range has literal endpoints. |
+| Standard Integer Image | `(1,2)` | The returned slice is `Snn(1..Pnn)`; forcing the mutable Pnn makes at most one internal constant initialized by that scalar variable. |
+| Initial First_Or_Default binding | `(2,2)` | One internal scalar constant captures each of `P.all'First(1)` and `P.all'Last(1)`; neither attribute follows a scalar dependency in Determine_Range. |
+
+The Image source is `exp_imgv.adb:1413–1430`, with range forcing in
+`sem_res.adb:11983–12001,13127–13150`. A scalar constant name is already
+side-effect-free, so later relaxed Force_Evaluation does not capture it again
+(`exp_util.adb:7221–7243,14425–14455`). The scalar argument of Image affects the
+runtime Pnn value, but is not an initializer dependency of Pnn's bound capture.
+Its own source-scalar analysis remains separate.
+
+For the input seed, object analysis invokes Expand_Subtype_From_Expr before
+Find_Type_Of_Object (`sem_ch3.adb:5138–5145`). Its unconstrained-array fallback
+calls Make_Subtype_From_Expr, which explicitly creates those two scalar
+constants (`exp_util.adb:6102–6104,10943–11003`). The first duplicate captures
+the function through one access type and constant pointer, rewrites it to
+P.all, and leaves the pointer's designated type Standard String
+(`exp_util.adb:12984–13121`). The pointer is known nonnull. Resolving the
+ordinary generated dereference does not construct an actual subtype: that
+special branch requires a source packed-array dereference
+(`sem_res.adb:9351–9368`). Attribute evaluation consults only
+Get_Actual_Subtype_If_Available; it returns the existing unconstrained type and
+does not call the allocating Get_Actual_Subtype path
+(`sem_attr.adb:8723–8744`, `sem_util.adb:10380–10410`). Neither First/Last
+expansion nor Compare_Fixup substitutes unconstrained bounds
+(`exp_attr.adb:4149–4173`, `sem_eval.adb:1025–1030`). Thus no hidden sequence of
+actual-subtype bound captures sits below those seed attributes. Ordinary
+String is noncontrolled and has no user-defined indexing; the special result
+captures at `exp_ch6.adb:5696–5741` are excluded. The selected options exclude
+frontend inlining and build-in-place expansion of this nonlimited result.
+This is a bound-shape argument, not an allocation total for the input call.
+
+An ordinary declaration alias **reuses** its initializer's bound descriptor.
+For a slice initializer, Expand_Subtype_From_Expr refers to the existing slice
+index type; Evaluate_Slice_Bounds only forces its already normalized bounds
+(`exp_util.adb:5507–5527,5895–5913`). For a constrained initializer it either
+reuses its type or declares an alias of that type, without recalculating the
+bounds (`5929–5996`). This applies to immutable and mutable String objects;
+later String assignment cannot change the object's subtype. Repeated aliases
+therefore do not add D layers. Using the same alias twice in a concat still
+adds its descriptor twice to the recurrence.
+
+For a native n-operand concat group, let `L_i,H_i` be these descriptors for
+the incoming normalized values. The following conservative envelope covers
+the original bound graph through its first normalization:
+
+```text
+V_i = L_i + H_i + 2
+G   = sum V_i + 2*(n-1)
+L   = max(2, 2 + max L_i)
+H   = G + L + 5.
+```
+
+`V_i` pays for the internal length constant and its Length attribute, whose
+range query follows both operand index bounds. Each subsequent aggregate
+step adds an internal constant and one addition, giving G
+(`exp_ch4.adb:3015–3045,3054–3099`). Fixed lengths and folded aggregates are
+smaller. A low bound is a known leaf, an operand First, an existing bound
+entity after First expansion, or the captured lower-bound conditional. The
+conditional contributes at most two D visits; the additional two in L also
+allow one explicit last-operand conversion and one scalar capture. First/Last
+expansion can replace an attribute only with an **existing entity occurrence**,
+not an arbitrary copied bound expression (`exp_attr.adb:4149–4196`).
+
+The nonnull high expression contributes three visits beyond its low and
+aggregate (`low + (aggregate - 1)`). H conservatively adds another conversion
+and scalar capture. A null-selector conditional, or its nonempty
+expression-with-actions form, stops Determine_Range; capturing it adds one
+visit. If a selector folds to its last-operand arm instead, `H_i+2 <= H`
+covers that arm and its conversion/capture. Native expression normalization
+can fold these roots, replace them by an existing constant, capture a variable
+or arithmetic root once, or capture the conditional/EWA root. It does not
+repeatedly capture an already constant name. The same stability explains why
+subsequent declaration range forcing adds no descriptor layer. The normalized
+view argument below supplies the current-bound syntax premise; these D
+descriptors separately retain the initializer/Length dependencies hidden behind
+small constant-name syntax.
+
+Operand elimination and a completely folded result only reduce this envelope.
+A conservative implementation can apply the binary instance at each source
+`&`, without predicting GNAT's final retained operand count. Combining two
+already summarized subtrees adds their H values, both L values, the new L
+and 11; flattening an n-leaf group adds only `sum L_i + L + 4*n + 3` to
+`sum H_i`. Each internal combination contributes positive extra low-bound
+terms and at least the flattened constant allowance, so the binary source-tree
+envelope dominates every grouping. A sharper implementation can preserve the
+actual bound-shape summaries and known elimination/folding facts, then use the
+previous D/U/S/F recurrences. The envelope does not require compiler queries
+to decide language membership.
+
+`derive.py` records the three seeds, zero-growth alias transfer and monotone
+concat recurrence. It checks arithmetic examples, repeated incoming edges and
+representative flattened/binary compositions. It is not a semantic test or
+compiler execution. Remaining obligations include S weights for all compared
+roots, the exact generated-check/actual-subtype root closure, scalar-source
+queries, numeric magnitudes and the allocations needed to build and normalize
+this graph. A bound descriptor is not payment for those allocations.
+
 For the preceding `Get_Range_Checks` shape, `Not_Null_Range` invokes this
 comparison at most once. Its other value and conditional-branch tests only
 compare existing values. Thus the complete no-static-error selection adds at
@@ -2014,6 +2124,39 @@ no `Establish_Transient_Scope` call in the concat emitter or ordinary object
 expander itself; the three Image calls belong to the excluded Put_Image/wide
 branches (`exp_imgv.adb:1054,1868,1978`). These negative call-site observations
 do not exclude the procedure-actual caller just identified.
+
+For this specific output-actual caller, the fresh transient E_Block has
+Uses_Sec_Stack=False: Create_Transient_Scope sets it only when the caller's
+Manage_Sec_Stack argument is True (`exp_ch7.adb:4226–4247`). Main's earlier
+input can set **Main's** Uses_Sec_Stack without setting that field on a newly
+created child scope. Ordinary Integer Image and concat introduce no subsequent
+unconstrained String-return call, controlled object or explicit request to
+promote the new scope. The nested concat groups in that output actual therefore
+use ordinary result objects. This does not exclude secondary allocation for
+constructors analyzed directly in Main after the input declaration.
+
+There is at most one such fresh output scope per source output call: an
+already enclosing transient causes Establish_Transient_Scope to return, and
+the generated Image/concat procedure actuals contain resolved values, not
+unexpanded String concat roots (`exp_ch7.adb:4559–4585`). Pending action
+placement itself adds no nodes or lists. Insert_Actions passes the existing
+list to Store_Before_Actions_In_Scope; Store_Actions_In_Scope either stores and
+analyzes it, or splices it into the existing list and analyzes only its new
+entries (`exp_util.adb:8118–8128`, `exp_ch7.adb:8904–8921`). The actions'
+creation and semantic analysis remain separately charged.
+
+The **direct wrapper skeleton**, before its open helpers, adds at most five
+ordinary nodes (one shallow relocation, block, identifier occurrence, handled
+sequence and saved old call), two lists, one growing-slot event for rewrite,
+one E_Block/internal name, thirteen name characters including NUL, and one new
+scope-stack entry (`exp_ch7.adb:8723–8725,8799–8852,9529–9562`,
+`atree.adb:2109–2153,2222–2272`). Make_Transient_Block inserts pending actions
+with Clean=False and Manage_SS=False, so its insertion stage only splices the
+existing lists; it does not generate finalizers or mark/release calls
+(`exp_ch7.adb:5340–5440`). This skeleton excludes scope push/pop internals,
+Freeze_All, subsequent block analysis/expansion and name qualification. It
+does **not** close the whole wrapper merely because no secondary-stack cleanup
+is needed. Those residual costs remain explicit in the combined vector.
 
 ### Result storage and first subtype freezing
 

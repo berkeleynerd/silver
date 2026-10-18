@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 79,
+  "source_files_verified": 80,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -66,6 +66,7 @@
     "targparm.ads": "46778f4a0d8f838a87c19163d3ee159e8573475d29c9209021c5c0f167d95d21",
     "libgnat/system-linux-x86.ads": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95",
     "exp_ch7.adb": "590aeb1807f35622c08285e619951c0b7970d48d8b5c2135561956e1b17e7598",
+    "exp_ch6.adb": "b0c37423b5a93f3d7ccc678eb2391d9a462674cbef6d2c37503cdeaa0f6728cb",
     "exp_tss.adb": "42f1b3607da3da62f2d203f644f02371188280ad45de536f120d3130bce15a7f",
     "sem_ch5.adb": "00632c152c18521a921f84ca9edd3b2887b428ee5d77388d4e4f5b3844dcc49e",
     "exp_ch5.adb": "99faebd687725d617d9a0c56c2a217cb8df6d23306e01b469241238caf1804b6",
@@ -1694,6 +1695,82 @@
       }
     },
     "excluded": "source-to-bound-graph derivation, full helper invocation count and numeric magnitudes; not a compiler simulator or membership check"
+  },
+  "Main_original_String_bound_D_bridge": {
+    "seeds": {
+      "literal": [
+        1,
+        1
+      ],
+      "Integer_Image": [
+        1,
+        2
+      ],
+      "first_input": [
+        2,
+        2
+      ]
+    },
+    "ordinary_declaration_alias": "reuse initializer bound descriptor; no extra D layer",
+    "saved_operand_length_D": "low_D+high_D+2",
+    "aggregate_length_D": "sum(saved_operand_length_D)+2*(n-1)",
+    "result_low_D": "max(2,2+max(operand_low_D))",
+    "result_high_D": "aggregate_length_D+result_low_D+5",
+    "source_binary_tree": "monotone conservative envelope dominates native flattening and operand elimination; sharing counted per occurrence",
+    "premises": "Main String grammar and selected native options; normalized-view/capture stability and ordinary declaration/type reuse established in report; no source slices/general String calls",
+    "examples_not_thresholds": {
+      "literal": {
+        "low_D": 1,
+        "high_D": 1
+      },
+      "image": {
+        "low_D": 1,
+        "high_D": 2
+      },
+      "input": {
+        "low_D": 2,
+        "high_D": 2
+      },
+      "hundred_aliases": {
+        "low_D": 2,
+        "high_D": 2
+      },
+      "input_concat_image": {
+        "low_D": 4,
+        "high_D": 22,
+        "aggregate_D": 13,
+        "saved_length_D": [
+          6,
+          5
+        ]
+      },
+      "repeated_concat_aliases": {
+        "low_D": 6,
+        "high_D": 69,
+        "aggregate_D": 58,
+        "saved_length_D": [
+          28,
+          28
+        ]
+      }
+    },
+    "excluded": "same-value S weights; generated check/actual-subtype query roots; scalar source expressions; numeric magnitudes; cost of first analysis/capture; full A or admission predicate"
+  },
+  "Main_output_concat_transient_placement": {
+    "maximum_fresh_scopes": "number of source output calls with nonstatic concat actuals",
+    "Uses_Sec_Stack_of_fresh_output_scope": false,
+    "whole_Main_Uses_Sec_Stack_may_be_True": true,
+    "pending_action_placement_extra_allocations": 0,
+    "wrapper_direct_skeleton": {
+      "ordinary": 5,
+      "lists": 2,
+      "growth": 1,
+      "entities_and_names": 1,
+      "name_characters": 13,
+      "new_scope_stack_entries": 1
+    },
+    "skeleton_excludes": "supplied action creation/analysis, Push/Pop scope internals, Freeze_All, block analysis/expansion and name qualification",
+    "whole_wrapper_closed": false
   },
   "combined_Main_native_emitter_addends": {
     "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes",

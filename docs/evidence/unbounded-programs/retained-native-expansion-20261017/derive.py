@@ -37,7 +37,7 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_attr.adb", "exp_attr.adb", "sem.ads", "exp_dbug.adb", "namet.ads",
          "sem_ch11.adb", "exp_ch11.adb", "sem_elab.adb", "errout.adb",
          "targparm.adb", "targparm.ads", "libgnat/system-linux-x86.ads",
-         "exp_ch7.adb", "exp_tss.adb", "sem_ch5.adb", "exp_ch5.adb",
+         "exp_ch7.adb", "exp_ch6.adb", "exp_tss.adb", "sem_ch5.adb", "exp_ch5.adb",
          "rtsfind.adb", "libgnat/s-secsta.ads", "libgnat/s-parame.ads",
          "libgnat/s-stoele.ads"] + [f"libgnat/s-conca{i}.ads" for i in range(2, 10)]
 sources = {}
@@ -458,6 +458,68 @@ def native_query_weight_examples():
     assert (fixed_sum["D"], fixed_sum["S"]) == (1, 3)
     return {name: {key: value[key] for key in ("D", "U", "S", "F")}
             for name, value in cases.items()}
+
+
+def native_string_bound_descriptor(kind, operands=(), initializer=None):
+    """Conservative D weights for original String index bounds only.
+
+    This source-shape envelope is not all query roots, a GNAT simulator or
+    an admission predicate. Exact supplied graph summaries may be smaller.
+    Repeated alias operands contribute their weight on every use.
+    """
+    if kind == "literal":
+        return dict(low_D=1, high_D=1)
+    if kind == "image":
+        return dict(low_D=1, high_D=2)
+    if kind == "input":
+        return dict(low_D=2, high_D=2)
+    if kind == "alias":
+        assert initializer is not None
+        return {key: initializer[key] for key in ("low_D", "high_D")}
+    assert kind == "concat" and len(operands) >= 2
+    assert all(op["low_D"] >= 1 and op["high_D"] >= 1 for op in operands)
+    n = len(operands)
+    saved_lengths = [op["low_D"] + op["high_D"] + 2 for op in operands]
+    aggregate_D = sum(saved_lengths) + 2*(n-1)
+    low_D = max(2, 2+max(op["low_D"] for op in operands))
+    high_D = aggregate_D+low_D+5
+    assert high_D >= max(op["high_D"]+2 for op in operands)
+    return dict(low_D=low_D, high_D=high_D, aggregate_D=aggregate_D,
+                saved_length_D=saved_lengths)
+
+
+def native_string_bound_examples():
+    literal = native_string_bound_descriptor("literal")
+    image = native_string_bound_descriptor("image")
+    input_value = native_string_bound_descriptor("input")
+    alias = input_value
+    for _ in range(100):
+        alias = native_string_bound_descriptor("alias", initializer=alias)
+    assert alias == input_value
+    concat = native_string_bound_descriptor("concat", (input_value, image))
+    repeated = native_string_bound_descriptor("concat", (concat, concat))
+    assert concat == dict(low_D=4, high_D=22, aggregate_D=13,
+                          saved_length_D=[6, 5])
+    assert repeated == dict(low_D=6, high_D=69, aggregate_D=58,
+                            saved_length_D=[28, 28])
+    # A binary source-tree envelope dominates flattened native operand groups.
+    # Check representative arbitrary bound descriptors and both associations;
+    # the report supplies the monotone arithmetic argument for general n.
+    for n in (2, 3, 9, 10, 64):
+        operands = [dict(low_D=1+j%5, high_D=2+j*j) for j in range(n)]
+        flat = native_string_bound_descriptor("concat", operands)
+        left = operands[0]
+        for op in operands[1:]:
+            left = native_string_bound_descriptor("concat", (left, op))
+        right = operands[-1]
+        for op in reversed(operands[:-1]):
+            right = native_string_bound_descriptor("concat", (op, right))
+        for tree in (left, right):
+            assert tree["low_D"] >= flat["low_D"]
+            assert tree["high_D"] >= flat["high_D"]
+    return dict(literal=literal, image=image, input=input_value,
+                hundred_aliases=alias, input_concat_image=concat,
+                repeated_concat_aliases=repeated)
 
 
 def combined_native_emitter_vector(n, analysis_graph):
@@ -949,6 +1011,31 @@ result = {
         "reuse_existing_A_formulas": "A=max(1,max(D),max(S)) over same root set; U<=6*D,F<=S",
         "examples_not_admission_thresholds": native_query_weight_examples(),
         "excluded": "source-to-bound-graph derivation, full helper invocation count and numeric magnitudes; not a compiler simulator or membership check",
+    },
+    "Main_original_String_bound_D_bridge": {
+        "seeds": {"literal": [1, 1], "Integer_Image": [1, 2],
+                  "first_input": [2, 2]},
+        "ordinary_declaration_alias": "reuse initializer bound descriptor; no extra D layer",
+        "saved_operand_length_D": "low_D+high_D+2",
+        "aggregate_length_D": "sum(saved_operand_length_D)+2*(n-1)",
+        "result_low_D": "max(2,2+max(operand_low_D))",
+        "result_high_D": "aggregate_length_D+result_low_D+5",
+        "source_binary_tree": "monotone conservative envelope dominates native flattening and operand elimination; sharing counted per occurrence",
+        "premises": "Main String grammar and selected native options; normalized-view/capture stability and ordinary declaration/type reuse established in report; no source slices/general String calls",
+        "examples_not_thresholds": native_string_bound_examples(),
+        "excluded": "same-value S weights; generated check/actual-subtype query roots; scalar source expressions; numeric magnitudes; cost of first analysis/capture; full A or admission predicate",
+    },
+    "Main_output_concat_transient_placement": {
+        "maximum_fresh_scopes": "number of source output calls with nonstatic concat actuals",
+        "Uses_Sec_Stack_of_fresh_output_scope": False,
+        "whole_Main_Uses_Sec_Stack_may_be_True": True,
+        "pending_action_placement_extra_allocations": 0,
+        "wrapper_direct_skeleton": {"ordinary": 5, "lists": 2,
+                                    "growth": 1, "entities_and_names": 1,
+                                    "name_characters": 13,
+                                    "new_scope_stack_entries": 1},
+        "skeleton_excludes": "supplied action creation/analysis, Push/Pop scope internals, Freeze_All, block analysis/expansion and name qualification",
+        "whole_wrapper_closed": False,
     },
     "combined_Main_native_emitter_addends": {
         "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes",
