@@ -130,3 +130,39 @@ Review ran from 2026-10-18 21:26:44 UTC to 21:29:46 UTC, approximately
 3 minutes 2 seconds including source/attachment inspection, offline checks and
 reporting. Both local report links resolve; whitespace and final-newline checks
 pass. No GitHub, CLI-memory, target or unrelated worktree files were changed.
+
+## L1 disposition — #134 correction confirmed
+
+Confirmed correction `62471752d9823fe73300f03825c8716999d9e127` for
+[#134](https://github.com/berkeleynerd/silver/issues/134). **L1 is fixed.**
+This is a narrow reporting disposition, not a new capacity review. The
+constructor and attachment acceptance above retain their original freezes.
+
+`compose.py` differs from the reviewed attachment only by renaming the result
+key to `direct_files_verified`. The current note and README explicitly identify
+304 directly checked files as 301 external source/header files plus three
+repository inputs, and clarify the older 300-file population as 297 plus three.
+They distinguish the separate, overlapping 145 repository pins and nested
+inventories. The accepted source-population derivation is unchanged.
+
+An independent comparison with `08b3656268bc0aaa63a3d608dee317f4533f0303`
+confirmed recursive equality of every result value after renaming that key,
+normalizing the recorded source workspace path and removing `offline_run`.
+The source bytes/hash, four unknown conditions, all capacity values and the
+false whole-capacity verdict are unchanged. `check.py`, the successful
+177-case result, `inputs.json` and `source-join-inputs.json` are byte-identical.
+The correction's stored generation time is 3.192697962 seconds; that generation
+was performed by the lead. This confirmation ran no aggregate/leaf checker or
+native workload.
+
+Selected reviewer remains GPT-6 Astra / Extra High; runtime confirmation and
+token/cost evidence remain unavailable. Confirmation ran 2026-10-18
+21:31:20–21:31:51 UTC, approximately 31 seconds for the diff, scope and
+normalized-result checks. Only this append-only review disposition was edited;
+no target, GitHub or CLI-memory change was made by the reviewer.
+
+At 21:32 UTC the reviewer also checked follow-up
+`69a691dc997113a3d10ef0c0824d350605b9dd5a`: its only two line edits remove a
+duplicated "file" and replace the older mixed population's "source files"
+with "files". These wording corrections are confirmed, with no aggregate,
+source-pin, numerical or validation change.
