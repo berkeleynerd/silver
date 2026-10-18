@@ -107,7 +107,7 @@ the affected closure even if the author grammar is unchanged.
 
 ## Complete grammar obligations
 
-The current derivation has six reusable component records:
+The current derivation has seven reusable component groups:
 
 | Component | Established contribution | Still required for whole-source capacity |
 | --- | --- | --- |
@@ -117,6 +117,7 @@ The current derivation has six reusable component records:
 | [Main entities](retained-frontend-entities.md) | Source-sensitive generated entity/type/literal multiplicities under GNATprove light expansion | Fixed dependency entities, native expansion and actual allocation event counts |
 | [Native expansion](retained-native-expansion.md) | Direct scalar/concat costs, decorated-copy and pointer/bound captures, plain slice subtype/freezing, Integer index layout and pre-suppression range-check tree transfers | Grammar-to-copy-shape coverage, numeric helper callbacks, remaining declaration/action/insertion-context closure |
 | [GNATprove producer](retained-producer-capacity.md), [control](retained-producer-control.md), [objects](retained-producer-objects.md), [calls](retained-producer-calls.md) | Expression/declaration/call wrappers, ordinary object/loop theories, type completion, array representations, loop frames, generated-declaration helpers and serialization/import components | Generated invocation/count map, fixed dependency setup, remaining auxiliary limits and complete caller coverage |
+| [Native backend](retained-backend-capacity.md) | Whole-file line-map condition and location recurrence, Character String lowering and O0 emission transfers | Actual lowering counts, other GCC representations, code/data/frame bounds, assembler and relocation/linker closure |
 
 These are source-derived components with their own premises and review scope.
 They do not yet select a safe whole-program threshold or unlock production
@@ -194,6 +195,14 @@ selected packages, host/target, options and support inputs for each path; source
 inspection cannot silently transfer to a different executable. Follow existing
 correspondence premises without introducing unsolicited binary attestation work.
 Linux is primary; native macOS evidence is independent and nonblocking.
+
+The [focused source-identity investigation](retained-tool-source-identity.md)
+corroborates the selected archive digest, recipe and matching Linux build/upload
+job, but leaves the historical floating SPARK/sparklib downloads unidentified.
+The job logs have expired and no build artifacts remain in that run. Today's
+branch target and its commit date cannot establish the bytes consumed then.
+This is a concrete remaining correspondence obligation, not permission to
+transfer the conditional producer derivation to the installed executable.
 
 ## Initial production-route derivation
 

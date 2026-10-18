@@ -24,6 +24,16 @@ compiler and proof changes once the capacity rule is justified. Production
 another implementation go-ahead. Corrected scopes and live claims govern the work. No numerical
 safe aggregate threshold or new language domain is established yet.
 
+The active derivation is retained in [draft PR #121](https://github.com/berkeleynerd/silver/pull/121)
+on `research/retained-tool-capacity`; its component index and frozen reviews are
+in the design contract above. Keep completed component transfers distinct from
+the unfinished aggregate and the authorized, pending production packages.
+The [source-identity investigation](docs/research/retained-tool-source-identity.md)
+records the exact remaining link between the inspected SPARK source and the
+installed GNATprove archive; public release/build records did not close it.
+Continue from the live #119 checkpoint and managed run summary, preserving
+successful evidence rather than repeating component checks without a new reason.
+
 Account separately for ordinary compilation and proof-essential producer
 representations. Overflow on admitted source is a defect; physical resource
 exhaustion is distinct. Optional confirmation cannot waive required discharge.
