@@ -1754,7 +1754,68 @@
         ]
       }
     },
-    "excluded": "same-value S weights; generated check/actual-subtype query roots; scalar source expressions; numeric magnitudes; cost of first analysis/capture; full A or admission predicate"
+    "excluded": "this descriptor alone is not complete A; subsequent scoped query-root closure is separate; other constructors/helpers, scalar source expressions, numeric magnitudes and all allocation costs remain separate"
+  },
+  "Main_combined_concat_query_root_closure": {
+    "scope": "all query roots in the combined Main concat vector's closed stages; not other Main constructors/operations or open final helpers",
+    "D_root_envelope": "3*H+7, where H is the source-derived concat high-bound descriptor",
+    "S_root_envelope": 17,
+    "A": "3*H+7 (H>=18 for any concat descriptor)",
+    "extra_comparison_roots": "one-step decomposition selects an existing child; recursive scalar-type bounds are fixed signed Standard endpoints or previously covered generated String index bounds",
+    "noncircularity": "query-generated check trees are priced separately and never fed back into original String-bound H",
+    "examples_not_thresholds": [
+      {
+        "source_descriptor": {
+          "low_D": 3,
+          "high_D": 18,
+          "aggregate_D": 10,
+          "saved_length_D": [
+            4,
+            4
+          ]
+        },
+        "root_D_envelopes": {
+          "original_bounds_lengths_and_aggregates": 18,
+          "assignment_endpoints_including_captures": 18,
+          "fixed_scalar_type_endpoint": 1,
+          "First_Last_or_replacement_bound_constant": 18,
+          "regular_conversion_of_bound": 19,
+          "check_Length": 37,
+          "regular_conversion_of_check_Length": 38,
+          "optimized_double_Length_arithmetic": 59,
+          "optimized_general_Comp_arithmetic": 61
+        },
+        "max_S": 17,
+        "A": 61,
+        "whole_construct_closed": false
+      },
+      {
+        "source_descriptor": {
+          "low_D": 4,
+          "high_D": 22,
+          "aggregate_D": 13,
+          "saved_length_D": [
+            6,
+            5
+          ]
+        },
+        "root_D_envelopes": {
+          "original_bounds_lengths_and_aggregates": 22,
+          "assignment_endpoints_including_captures": 22,
+          "fixed_scalar_type_endpoint": 1,
+          "First_Last_or_replacement_bound_constant": 22,
+          "regular_conversion_of_bound": 23,
+          "check_Length": 45,
+          "regular_conversion_of_check_Length": 46,
+          "optimized_double_Length_arithmetic": 71,
+          "optimized_general_Comp_arithmetic": 73
+        },
+        "max_S": 17,
+        "A": 73,
+        "whole_construct_closed": false
+      }
+    ],
+    "excluded": "numeric magnitudes; source scalar/Image/input and source String equality/assignment outside this emitter; remaining runtime call/slice helpers; wrapper/scope work; fixed dependencies; backend; whole admission predicate"
   },
   "Main_output_concat_transient_placement": {
     "maximum_fresh_scopes": "number of source output calls with nonstatic concat actuals",
@@ -1916,14 +1977,14 @@
       "hash_wrappers": "90*c",
       "dynamic_slots": "(19260*A+38342)*c"
     },
-    "source_sensitive_composition": "sum per-invocation vectors at source-derived n_i,A_i; uniform maximum A is optional",
+    "source_sensitive_composition": "sum per-invocation vectors at n_i and A_i=3*H_i+7 from source bound descriptors for these stages; uniform maximum A is optional",
     "residual_addends": [
       "source String folding and Image/input constructors",
       "source actual-subtype lookup bridge for remaining call/slice helpers",
       "remaining runtime concat call and final enabled result-slice analysis",
       "action/transient wrapper helpers beyond closed placement/skeleton",
       "later object/whole-scope freezing and name qualification",
-      "source-derived complete query roots/magnitudes",
+      "numeric magnitudes and query roots in remaining stages",
       "fixed runtime and backend costs"
     ],
     "examples_not_thresholds": [

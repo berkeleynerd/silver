@@ -1263,10 +1263,10 @@ to decide language membership.
 `derive.py` records the three seeds, zero-growth alias transfer and monotone
 concat recurrence. It checks arithmetic examples, repeated incoming edges and
 representative flattened/binary compositions. It is not a semantic test or
-compiler execution. Remaining obligations include S weights for all compared
-roots, the exact generated-check/actual-subtype root closure, scalar-source
-queries, numeric magnitudes and the allocations needed to build and normalize
-this graph. A bound descriptor is not payment for those allocations.
+compiler execution. The next section closes S and generated-query roots for
+the combined concat stages. Scalar-source queries, other constructors/helpers,
+numeric magnitudes and the allocations needed to build and normalize this
+graph remain separate. A bound descriptor is not payment for those allocations.
 
 For the preceding `Get_Range_Checks` shape, `Not_Null_Range` invokes this
 comparison at most once. Its other value and conditional-branch tests only
@@ -1275,6 +1275,108 @@ most **2*b+28+20*A ordinary nodes, 2*l syntax lists and 80*A+60 Uint appends**,
 with the earlier purity/no-owned-decoration premises. If both bounds are known,
 the direct value-comparison route still allocates nothing. Enabled insertion
 and analysis of the resulting check remain separate from selection.
+
+#### Source-derived query roots for the combined concat stages
+
+For the exact closed stages in the combined Main vector, a usable query-weight
+parameter now follows from the preceding source descriptor:
+
+```text
+A = 3*H + 7,
+```
+
+where H is the conservative high-bound D descriptor of this source concat
+group. A binary source-tree descriptor that dominates the group may be used
+instead. This supplies the **query weight**, not a whole native capacity rule.
+The numeric-magnitude premise and the listed unclosed semantic stages remain.
+
+Here is the complete root inventory for these stages. The bounds include
+temporary roots queried during initial analysis, before their final capture
+or folding. A row's subexpressions have no greater D weight than its root
+except where the querying operation deliberately treats that root as a leaf;
+the independently analyzed scalar children of such a leaf are included in the
+earlier rows, rather than silently omitted.
+
+| Query-root family | D envelope | Source/transfer |
+| --- | ---: | --- |
+| Incoming index bounds; saved operand lengths; partial aggregate lengths; selected low, result high and optional null selectors, including first captures | H | Original-bound recurrence; `exp_ch4.adb:2870–3318` |
+| Generated assignment low/high, before and after their boundary captures | H | `low + previous aggregate`, `low + (aggregate - 1)`; `exp_ch4.adb:3554–3569` |
+| Literal or fixed Standard scalar subtype endpoint | 1 | Integer/Positive and the signed 32/64/128-bit narrowing types |
+| First/Last on an incoming/result/assignment view, including an attribute rewritten to an existing bound constant | H | Unrewritten attributes have D=1; existing bound constants use the preceding rows |
+| One regular check conversion around a bound | `H+1` | Range-check conversion sites; smaller than the Length-conversion row |
+| Length on either side of the generated assignment check | `2*H+1` | One Length plus both source/target index bounds; `checks.adb:9969–10132,10251–10412` |
+| A regular narrowing conversion around such a Length | `2*H+2` | At most one layer on each operand; `exp_ch4.adb:14372–14542` |
+| Length-optimizer arithmetic and all its intermediate operands | `3*H+7` | At most two arithmetic nodes, with the shapes below; `exp_ch4.adb:14922–15040` |
+
+For the assignment endpoints, the low has D at most L+G+1 before capture,
+and the high at most L+G+3. A possible capture adds one; both fit
+H=G+L+5. The original-bound row also covers each scalar child of the selected
+low conditional spine: each condition compares a saved length with zero,
+and each arm is an operand low bound or the next conditional. A scalar if
+itself stops Determine_Range. No arbitrarily long initializer walk is hidden
+inside its D=1 leaf.
+
+The optimizer's two possible arithmetic shapes are
+`Y'Last + (X'First - Y'First)` and `X'First + (Comp - 1)`.
+It inserts one unchecked conversion around each relevant operand. In the
+actual range worker these unchecked conversions are leaves; even charging
+them conservatively as one recursive layer gives at most `3*H+5` in the
+first case and `3*H+7` in the second, because Comp is a literal or one of
+the preceding Length/conversion roots. The two explicit optimizer comparisons
+use only the generated First/Last roots. The initial and narrowed comparisons
+have Length roots; the rewritten comparison has these arithmetic/First/Last
+roots and cannot trigger another Length optimization. There is no repeated
+conversion spine. This is the same two-entry optimizer closure used in the
+length-check allocation transfer.
+
+The other query sites add no new root shape. Generated arithmetic overflow
+analysis asks about its whole arithmetic root and, when necessary, its two
+operands; same-type conversion range analysis asks about its operand
+(`checks.adb:3325–3479,6283–6450`). Get_Known_Bound compares one operand low
+with another low or a scalar conditional (`exp_ch4.adb:3176–3209`). The range
+selector's Not_Null_Range compares the two endpoints, and its generated
+condition compares copies/conversions of those endpoints with static Positive
+bounds. Native slice-overlap analysis compares the existing slice endpoints
+(`exp_ch5.adb:838–846`). No check-created scalar is stored into the original
+String bound graph and used to define H.
+
+Compile_Time_Compare also inspects a root after one Compare_Decompose step,
+and at most four recursive comparisons against scalar-type bounds
+(`sem_eval.adb:940–978,1592–1634`). Decomposition merely selects an existing
+arithmetic child (there is no generated Succ/Pred here). The applicable types
+are the fixed Standard signed types or generated String index subtypes, whose
+endpoints are already in the table. These recursive roots therefore require
+no larger D envelope. An early invalid/untyped/cache return only reduces work.
+
+The independent S envelope is small. An original lower bound is a constant,
+attribute, conversion or conditional at its root, so its same-value walk has
+at most one visit, including one Compare_Fixup. A high or assignment endpoint
+can expose the two arithmetic nodes of `low + (aggregate - 1)`; its low
+has S<=1 and its aggregate is a captured name. Thus its S is at most five.
+An attribute fixed to that high has the same five-visit bound. The fixup is
+applied only once per visit: a resulting attribute/constant/conversion does
+not unfold again. The optimizer's two-node arithmetic skeleton has at most
+three such endpoint leaves, giving **S<=17** even if its conversions are
+ignored rather than treated as leaves. Length roots, capture names,
+conditionals and conversions themselves have S=1. Decomposition and recursive
+scalar-type-bound comparison introduce no larger S shape. F<=S still holds.
+
+Every concat descriptor has n>=2, L_i,H_i>=1 and hence H>=18. Consequently
+3*H+7 dominates both D and S for every query in these combined stages.
+The previous inequalities U<=6*D and F<=S justify substituting this source
+value for A in all their allocation rows. Repeated alias uses are charged
+by their repeated contributions to H; alias chains alone do not increase H.
+
+`native_concat_query_roots` in derive.py checks the row arithmetic, the
+assignment/capture inequalities and the two optimizer shapes. It does not
+execute or simulate GNAT. This closure does **not** price or automatically
+cover source scalar expressions, Image's argument analysis, the initial input
+call, final runtime-call helpers, source String equality/assignment elsewhere
+in Main, wrapper/scope work, fixed dependencies or backend processing.
+Those paths need their own allocations and root inventories before reuse of
+an A-based row. In particular, no 32-bit magnitude bound is inferred from the
+Integer result type: Determine_Range can return a disjoint computed range
+outside that type (`checks.adb:5585–5604`).
 
 ### Constrained subtype declaration with resolved pure bounds
 
@@ -2913,8 +3015,9 @@ and no-diagnostic premises are unchanged.
 
 `raw_bound_semantics` in derive.py checks these sums and adds the two storage
 captures. This closes first raw/copied scalar-bound analysis and capture in
-the combined stages below. It does not close Image/input construction, final
-call/result-slice processing or the complete source-derived query-root set.
+the combined stages below. Their query-root weight is supplied by the scoped
+source-derived closure above. Image/input construction, final call/result-slice
+processing and their additional queries remain separate.
 
 ## Combined Main direct-emitter vector
 
@@ -2948,10 +3051,11 @@ assignment routes. They give the following single vector of closed stages:
 
 The whole-Main column uses `sum n_i <= 2*c` and `g <= c`, and vanishes for
 c=0. A better source-sensitive calculation sums the per-invocation vector
-with each group's own **n_i and A_i** from the preceding query-weight
-recurrence; using one maximum A is optional. A_i must cover all the group's
-original and generated query roots, not just the direct emitter's initial
-operands. With the pinned slot maxima, the uniform dynamic-slot addend is
+with each group's own **n_i and A_i=3*H_i+7** from the source-bound and
+query-root recurrences; using one maximum A is optional. This scoped A_i
+covers the original and generated query roots in these combined stages;
+remaining callees still need their own root inventories. With the pinned slot
+maxima, the uniform dynamic-slot addend is
 `9*(ordinary+growth)+61*entities = (19260*A+38342)*c`. Node identities/link
 tables, physical bytes and temporary stack/workspace remain separate
 representations. Uint digit demand also needs its numeric-magnitude bound,
@@ -2966,8 +3070,8 @@ Its explicit residual addends are:
   analysis; the n assignment slices above do not stand for this final slice.
 - Transient wrapper helpers beyond the closed placement/direct skeleton,
   later object/whole-scope freezing and name qualification.
-- Source-derived query roots/magnitudes, fixed runtime processing and backend
-  costs.
+- Numeric magnitudes and query roots in the remaining stages, fixed runtime
+  processing and backend costs.
 
 The previously stated local helper premises remain binding. Normalized b/t
 are phase summaries; their raw first-pass/capture costs are now separately

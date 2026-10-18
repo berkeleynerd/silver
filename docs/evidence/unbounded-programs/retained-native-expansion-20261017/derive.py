@@ -522,6 +522,41 @@ def native_string_bound_examples():
                 repeated_concat_aliases=repeated)
 
 
+def native_concat_query_roots(operands):
+    """Source-backed query-weight bound for the combined concat stages only."""
+    descriptor = native_string_bound_descriptor("concat", operands)
+    h = descriptor["high_D"]
+    low = descriptor["low_D"]
+    aggregate = descriptor["aggregate_D"]
+    assert h >= 18
+    assert all(max(op["low_D"], op["high_D"]) <= h for op in operands)
+    assert max(descriptor["saved_length_D"]) <= aggregate <= h
+    assert low+aggregate+1+1 <= h  # assignment low and optional capture
+    assert low+aggregate+3+1 <= h  # assignment high and optional capture
+    roots = {
+        "original_bounds_lengths_and_aggregates": h,
+        "assignment_endpoints_including_captures": h,
+        "fixed_scalar_type_endpoint": 1,
+        "First_Last_or_replacement_bound_constant": h,
+        "regular_conversion_of_bound": h+1,
+        "check_Length": 1+2*h,
+        "regular_conversion_of_check_Length": 2+2*h,
+    }
+    # Although unchecked conversions are Determine_Range leaves, charging
+    # one recursive layer gives these conservative optimizer arithmetic sums.
+    double_length = 2+3*(h+1)
+    general_comp = 2+(h+1)+(roots["regular_conversion_of_check_Length"]+1)+1
+    assert double_length == 3*h+5
+    assert general_comp == 3*h+7
+    roots["optimized_double_Length_arithmetic"] = double_length
+    roots["optimized_general_Comp_arithmetic"] = general_comp
+    same_value = 2+3*5
+    a = 3*h+7
+    assert max(roots.values()) <= a and same_value <= a
+    return dict(source_descriptor=descriptor, root_D_envelopes=roots,
+                max_S=same_value, A=a, whole_construct_closed=False)
+
+
 def raw_bound_semantics(n, analysis_graph):
     """First scalar passes outside copied, already resolved String prefixes."""
     assert n >= 2 and analysis_graph >= 1
@@ -1051,7 +1086,21 @@ result = {
         "source_binary_tree": "monotone conservative envelope dominates native flattening and operand elimination; sharing counted per occurrence",
         "premises": "Main String grammar and selected native options; normalized-view/capture stability and ordinary declaration/type reuse established in report; no source slices/general String calls",
         "examples_not_thresholds": native_string_bound_examples(),
-        "excluded": "same-value S weights; generated check/actual-subtype query roots; scalar source expressions; numeric magnitudes; cost of first analysis/capture; full A or admission predicate",
+        "excluded": "this descriptor alone is not complete A; subsequent scoped query-root closure is separate; other constructors/helpers, scalar source expressions, numeric magnitudes and all allocation costs remain separate",
+    },
+    "Main_combined_concat_query_root_closure": {
+        "scope": "all query roots in the combined Main concat vector's closed stages; not other Main constructors/operations or open final helpers",
+        "D_root_envelope": "3*H+7, where H is the source-derived concat high-bound descriptor",
+        "S_root_envelope": 17,
+        "A": "3*H+7 (H>=18 for any concat descriptor)",
+        "extra_comparison_roots": "one-step decomposition selects an existing child; recursive scalar-type bounds are fixed signed Standard endpoints or previously covered generated String index bounds",
+        "noncircularity": "query-generated check trees are priced separately and never fed back into original String-bound H",
+        "examples_not_thresholds": [native_concat_query_roots((
+            native_string_bound_descriptor("literal"),
+            native_string_bound_descriptor("literal"))),
+            native_concat_query_roots((native_string_bound_descriptor("input"),
+                                       native_string_bound_descriptor("image")))],
+        "excluded": "numeric magnitudes; source scalar/Image/input and source String equality/assignment outside this emitter; remaining runtime call/slice helpers; wrapper/scope work; fixed dependencies; backend; whole admission predicate",
     },
     "Main_output_concat_transient_placement": {
         "maximum_fresh_scopes": "number of source output calls with nonstatic concat actuals",
@@ -1095,8 +1144,8 @@ result = {
             "Elist_elements": "60*c", "hash_wrappers": "90*c",
             "dynamic_slots": "(19260*A+38342)*c",
         },
-        "source_sensitive_composition": "sum per-invocation vectors at source-derived n_i,A_i; uniform maximum A is optional",
-        "residual_addends": ["source String folding and Image/input constructors", "source actual-subtype lookup bridge for remaining call/slice helpers", "remaining runtime concat call and final enabled result-slice analysis", "action/transient wrapper helpers beyond closed placement/skeleton", "later object/whole-scope freezing and name qualification", "source-derived complete query roots/magnitudes", "fixed runtime and backend costs"],
+        "source_sensitive_composition": "sum per-invocation vectors at n_i and A_i=3*H_i+7 from source bound descriptors for these stages; uniform maximum A is optional",
+        "residual_addends": ["source String folding and Image/input constructors", "source actual-subtype lookup bridge for remaining call/slice helpers", "remaining runtime concat call and final enabled result-slice analysis", "action/transient wrapper helpers beyond closed placement/skeleton", "later object/whole-scope freezing and name qualification", "numeric magnitudes and query roots in remaining stages", "fixed runtime and backend costs"],
         "examples_not_thresholds": [combined_native_emitter_vector(2, 1),
                                     combined_native_emitter_vector(64, 127),
                                     combined_native_uniform_vector(0, 1),
