@@ -1,0 +1,77 @@
+{
+  "issue": 119,
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_effort_confirmed": false,
+  "token_usage": null,
+  "cost": null,
+  "measured_start_utc": "2026-10-18T18:53:07Z",
+  "measured_end_utc": "2026-10-18T19:03:58Z",
+  "measured_elapsed_seconds": 651,
+  "timing_scope": "Research and retained offline replay through final report checkpoint, before staging and commit.",
+  "objective": "Close a source-derived selected-driver dispatch envelope after accepted initial registration, while retaining complete preparation and printer capacity as explicit open requirements.",
+  "authorization": "Parent authorized this bounded source-first #119 increment and agreed no first-task-only capture was useful. Own only a new report and packet; no new native capture, broad builds/proofs/tests, toolchain changes, GitHub writes or production/admission changes.",
+  "baseline": {
+    "accepted_initial_registration": "2c31b4e05530b3f56e401006fcea5d8da3877249",
+    "accepted_registration_review": "73ca44e73d",
+    "integration_baseline": "00df856866",
+    "worktree_head_before_new_commit": "eb0ea441f9",
+    "integration_method": "Normal merge after fast-forward was unavailable due to cherry-picked divergent history; no content conflict."
+  },
+  "completed": [
+    "At most 153 registered tasks, 459 selected task/driver pairs and 6120 outer configured transform applications across the five separate fixed processes",
+    "Pair-once source argument covers nonvalid answers, internal preparation failures, stable attempt limits, late notifications and absence of successor split or counterexample expansion",
+    "Distinct task-domain cardinality separated from repeated physical reconstruction and shared allocation/cache lifetimes",
+    "Exact generated floating-maximum subcalculation for the three direct retained ieee_float declarations, including normalized powers of five",
+    "Offline archive/dependency/source-identity joins enforced by callable compose() and full result replay passed; accepted initial-registration replay reused transitively",
+    "Standalone CLI rejects altered accepted driver evidence in an isolated copied fixture without emitting a result",
+    "New report and packet local document links checked; byte-pinned previous records preserved"
+  ],
+  "findings_and_rework": [
+    {
+      "finding": "Parent pre-freeze integration feedback: compose() originally relied on a separate checker for exact input identity verification.",
+      "disposition": "Moved dependency/member/source-join verification into one shared helper called by compose(). Added an isolated tamper-rejection check and reran offline validation once for this API change. Accepted-checker replay remains once per check.py execution."
+    },
+    {
+      "finding": "Introduction.Hsdecl uses a nonallocating tag function; same-object weak-table hits can still increment its counter.",
+      "disposition": "Explicitly open: require a per-call allocation charge or complete unused-counter consumer argument. Distinct declaration or cache-miss count is insufficient."
+    },
+    {
+      "finding": "Generated float constructor pow5 is zero, but Number.real_value can normalize significand factors into pow5.",
+      "disposition": "Recorded constructor and normalized fields separately before the successful offline replay; no native run."
+    },
+    {
+      "finding": "A first-pair capture would leave the other candidates and shared lifetime open.",
+      "disposition": "Parent agreed to freeze the finite source-derived dispatch envelope without that capture."
+    }
+  ],
+  "native_runs": [],
+  "new_native_runs": 0,
+  "solver_executions": 0,
+  "validation": {
+    "command": "python3 docs/evidence/retained-producer-driver-envelope-20261018/check.py",
+    "successful_replays": 2,
+    "passed": true,
+    "duration_seconds": 3.25101280600029,
+    "duration_note": "Final replay measured with time.perf_counter around the checker subprocess after callable-identity API change. Initial replay duration unavailable; neither replay was performed solely for timing.",
+    "tampered_prior_driver_rejected": true,
+    "local_document_links_passed": true,
+    "subsequent_changes": "Only this round record changed after the final successful replay."
+  },
+  "independent_review": "Pending parent-arranged review of the resulting implementation commit; no review result asserted.",
+  "remaining": [
+    "All selected preparation transformations and helpers over complete task contexts",
+    "Extended semantic-count operands and complete shared preparation allocation/cache/name lifetime, including interleaved result callbacks",
+    "Introduction.Hsdecl counter and structural hashing/traversal obligations",
+    "Complete reachable numeric origins, real-literal exponent materialization, syntax widths/radix and unfolded printer visits",
+    "Formatter counters, buffer growth, filenames and total task-printer bytes",
+    "Server/process/solver, output O, result, timing, session and response joins"
+  ],
+  "memory_updated": false,
+  "github_written": false,
+  "prepared_task_domain_capacity_established": false,
+  "shared_preparation_lifetime_established": false,
+  "backend_task_printer_capacity_established": false,
+  "whole_tail_capacity_established": false,
+  "whole_pipeline_capacity_established": false
+}

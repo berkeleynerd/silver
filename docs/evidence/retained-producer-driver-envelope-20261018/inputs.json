@@ -1,0 +1,162 @@
+{
+  "schema": 1,
+  "scope": "five fixed registered task domains, selected Per_Check private drivers, finite preparation/printing call envelope; no completed task-printer capacity claim",
+  "accepted_initial_registration": {
+    "implementation": "2c31b4e05530b3f56e401006fcea5d8da3877249",
+    "integration": "1a8da404ae77a47abbd1b0406135f034416a4e9e",
+    "review": "73ca44e73d",
+    "review_integration": "8072069a93",
+    "integration_baseline": "00df856866"
+  },
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "dependencies": {
+    "docs/evidence/retained-producer-fixed-tail-20261018/check.py": {
+      "bytes": 22432,
+      "sha256": "31842e12b52bc037028e66d44a2f8f7501a920264266cdcd775ab49ddf236399"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/identity.json": {
+      "bytes": 26452,
+      "sha256": "f442fcb7bcff7c045283e6effbb9ae4815d1ce1cd97c477a39e021444b59d7e6"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/result.json": {
+      "bytes": 19562,
+      "sha256": "22ff269c8ed27c52db49493fbf1f1746e6e848bbff65f15c627edb1a5867a956"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/review.md": {
+      "bytes": 10486,
+      "sha256": "bd5fe47d0ef9efa62e8274b5ef593f648d80ffa6123be3d020da98af8af9a9b1"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz": {
+      "bytes": 444034,
+      "sha256": "d07071aec5033c5b45aeb5e6b41335da3d93a8faa20aa2d2a081038b2a69ed91"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/registration.tar.gz": {
+      "bytes": 81957,
+      "sha256": "4289fbcf2cbec50fb1f24d82e5b7545613556f71321f63bd8cf507cdd0779287"
+    },
+    "docs/research/retained-producer-fixed-tail.md": {
+      "bytes": 18002,
+      "sha256": "4172429e77609c648011b4c8b72c890fbfc4ec67483e5238c806d9351622e441"
+    },
+    "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz": {
+      "bytes": 1150445,
+      "sha256": "e90b4625cd14f94fa7e594711225dd357b29769031811d3eb4d65a1edefeb15a"
+    },
+    "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-inputs.json": {
+      "bytes": 98636,
+      "sha256": "d68efe54cd9b781a6adba17110a9615e2be9ce44c15a778f0d7229d4a9434457"
+    },
+    "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz": {
+      "bytes": 341896,
+      "sha256": "9afd21d8b23dc7a58f3c7c536782af03c134bb1358ccc51f7bc24abd0a9f11bc"
+    }
+  },
+  "archive_identity": {
+    "bytes": 104488,
+    "sha256": "cde4b3e2e77cc0c714f706c87507c02116d78a35b70789a92aca31dbe5a3bd89"
+  },
+  "source_identities": {
+    "installed/ieee_float.mlw": {
+      "bytes": 44520,
+      "sha256": "e034c7f5cfb3fff284a668dcd2aa08536fdaac499dbd5d91a7147383448e0393"
+    },
+    "src/core/printer.ml": {
+      "bytes": 21006,
+      "sha256": "d003303693eb1f04847d79296b5ee106b9ad81fbb8b1eeb1ab01b7ee7cf1ac20"
+    },
+    "src/core/task.ml": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "src/core/trans.ml": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "src/driver/driver.ml": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "src/gnat/gnat_checks.ml": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "src/gnat/gnat_config.ml": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "src/gnat/gnat_main.ml": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "src/gnat/gnat_scheduler.ml": {
+      "bytes": 648,
+      "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a"
+    },
+    "src/printer/smtv2.ml": {
+      "bytes": 39812,
+      "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+    },
+    "src/session/controller_itp.ml": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "src/session/session_itp.ml": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "src/transform/eliminate_literal.ml": {
+      "bytes": 11782,
+      "sha256": "0f5719d757f919a19a632c6eb5d08b588f42f4eb858287eedcca1d2c67130e67"
+    },
+    "src/transform/introduction.ml": {
+      "bytes": 19948,
+      "sha256": "f9e5b5b0455897f3168639874c867d53faf4848b085d893d4e22ad8e497f0647"
+    },
+    "src/util/hashcons.ml": {
+      "bytes": 1865,
+      "sha256": "cb9322afc79d8f8f0169f6292833bb028953fd401d8076dc75309ae4d360bafe"
+    },
+    "src/util/number.ml": {
+      "bytes": 19428,
+      "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4"
+    }
+  },
+  "why3_sources_joined_to_accepted_archive": [
+    "src/gnat/gnat_main.ml",
+    "src/gnat/gnat_checks.ml",
+    "src/gnat/gnat_config.ml",
+    "src/gnat/gnat_scheduler.ml",
+    "src/session/controller_itp.ml",
+    "src/session/session_itp.ml",
+    "src/driver/driver.ml",
+    "src/core/task.ml",
+    "src/core/trans.ml",
+    "src/core/printer.ml",
+    "src/transform/introduction.ml",
+    "src/transform/eliminate_literal.ml",
+    "src/util/number.ml",
+    "src/util/hashcons.ml",
+    "src/printer/smtv2.ml"
+  ],
+  "installed_float_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/ieee_float.mlw",
+  "source_claims": [
+    "exact_fresh_per_check_three_automatic_drivers_serial_ce_off_debug_save_off",
+    "registered_goals_subset_of_initial_raw_tasks_with_input_is_valid_filter_classification",
+    "no_successor_split_or_counterexample_goal_growth",
+    "each_goal_driver_pair_scheduled_at_most_once_including_exception_paths",
+    "completed_attempt_stored_before_callback_and_removed_before_duplicate_result_dispatch",
+    "one_prepare_and_at_most_one_print_entry_per_queued_attempt",
+    "configured_transform_directives_count_outer_fold_only",
+    "task_domain_count_does_not_bound_reconstruction_or_shared_cache_lifetime"
+  ],
+  "remaining_requirements": [
+    "source-linked bound for every selected driver transform branch and helper over whole task context",
+    "cumulative preparation allocation/identities and cache/name lifetimes across all possible call sequences",
+    "complete post-registration semantic-count operand/rank coverage; previous maximum47 is not a future bound",
+    "Introduction.Hsdecl nonallocating tag counter and structural hashing/traversal analysis",
+    "all reachable numerical literals including generated float maxima and arbitrary real exponent materialization",
+    "syntax literal widths/radix printing and expanded term/type/template output work",
+    "formatter queue counters, buffer length/growth, filename requests and total printed bytes",
+    "server/process/solver/result/timing/session/response joins remain separate"
+  ]
+}

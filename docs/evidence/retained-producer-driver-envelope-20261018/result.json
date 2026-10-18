@@ -1,0 +1,509 @@
+{
+  "schema": 1,
+  "platform": "linux-x86_64",
+  "scope": "five fixed registered task domains, selected Per_Check private drivers, finite preparation/printing call envelope; no completed task-printer capacity claim",
+  "accepted_initial_registration": {
+    "implementation": "2c31b4e05530b3f56e401006fcea5d8da3877249",
+    "integration": "1a8da404ae77a47abbd1b0406135f034416a4e9e",
+    "review": "73ca44e73d",
+    "review_integration": "8072069a93",
+    "integration_baseline": "00df856866"
+  },
+  "cases": [
+    {
+      "name": "put_line",
+      "input_sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390",
+      "raw_initial_tasks": 64,
+      "registered_task_upper": 64,
+      "distinct_task_driver_pair_upper": 192,
+      "configured_transform_application_upper": 2560,
+      "per_driver": {
+        "cvc5": {
+          "attempt_entries": 64,
+          "prepare_task_entries": 64,
+          "configured_transform_applications": 960,
+          "print_task_prepared_entries": 64,
+          "printer": "smtv2.6"
+        },
+        "z3": {
+          "attempt_entries": 64,
+          "prepare_task_entries": 64,
+          "configured_transform_applications": 832,
+          "print_task_prepared_entries": 64,
+          "printer": "smtv2"
+        },
+        "altergo": {
+          "attempt_entries": 64,
+          "prepare_task_entries": 64,
+          "configured_transform_applications": 768,
+          "print_task_prepared_entries": 64,
+          "printer": "smtv2.6par"
+        }
+      }
+    },
+    {
+      "name": "put",
+      "input_sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff",
+      "raw_initial_tasks": 53,
+      "registered_task_upper": 53,
+      "distinct_task_driver_pair_upper": 159,
+      "configured_transform_application_upper": 2120,
+      "per_driver": {
+        "cvc5": {
+          "attempt_entries": 53,
+          "prepare_task_entries": 53,
+          "configured_transform_applications": 795,
+          "print_task_prepared_entries": 53,
+          "printer": "smtv2.6"
+        },
+        "z3": {
+          "attempt_entries": 53,
+          "prepare_task_entries": 53,
+          "configured_transform_applications": 689,
+          "print_task_prepared_entries": 53,
+          "printer": "smtv2"
+        },
+        "altergo": {
+          "attempt_entries": 53,
+          "prepare_task_entries": 53,
+          "configured_transform_applications": 636,
+          "print_task_prepared_entries": 53,
+          "printer": "smtv2.6par"
+        }
+      }
+    },
+    {
+      "name": "first_or_default",
+      "input_sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e",
+      "raw_initial_tasks": 32,
+      "registered_task_upper": 32,
+      "distinct_task_driver_pair_upper": 96,
+      "configured_transform_application_upper": 1280,
+      "per_driver": {
+        "cvc5": {
+          "attempt_entries": 32,
+          "prepare_task_entries": 32,
+          "configured_transform_applications": 480,
+          "print_task_prepared_entries": 32,
+          "printer": "smtv2.6"
+        },
+        "z3": {
+          "attempt_entries": 32,
+          "prepare_task_entries": 32,
+          "configured_transform_applications": 416,
+          "print_task_prepared_entries": 32,
+          "printer": "smtv2"
+        },
+        "altergo": {
+          "attempt_entries": 32,
+          "prepare_task_entries": 32,
+          "configured_transform_applications": 384,
+          "print_task_prepared_entries": 32,
+          "printer": "smtv2.6par"
+        }
+      }
+    },
+    {
+      "name": "input_is_valid",
+      "input_sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d",
+      "raw_initial_tasks": 4,
+      "registered_task_upper": 1,
+      "distinct_task_driver_pair_upper": 3,
+      "configured_transform_application_upper": 40,
+      "per_driver": {
+        "cvc5": {
+          "attempt_entries": 1,
+          "prepare_task_entries": 1,
+          "configured_transform_applications": 15,
+          "print_task_prepared_entries": 1,
+          "printer": "smtv2.6"
+        },
+        "z3": {
+          "attempt_entries": 1,
+          "prepare_task_entries": 1,
+          "configured_transform_applications": 13,
+          "print_task_prepared_entries": 1,
+          "printer": "smtv2"
+        },
+        "altergo": {
+          "attempt_entries": 1,
+          "prepare_task_entries": 1,
+          "configured_transform_applications": 12,
+          "print_task_prepared_entries": 1,
+          "printer": "smtv2.6par"
+        }
+      }
+    },
+    {
+      "name": "is_message",
+      "input_sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378",
+      "raw_initial_tasks": 3,
+      "registered_task_upper": 3,
+      "distinct_task_driver_pair_upper": 9,
+      "configured_transform_application_upper": 120,
+      "per_driver": {
+        "cvc5": {
+          "attempt_entries": 3,
+          "prepare_task_entries": 3,
+          "configured_transform_applications": 45,
+          "print_task_prepared_entries": 3,
+          "printer": "smtv2.6"
+        },
+        "z3": {
+          "attempt_entries": 3,
+          "prepare_task_entries": 3,
+          "configured_transform_applications": 39,
+          "print_task_prepared_entries": 3,
+          "printer": "smtv2"
+        },
+        "altergo": {
+          "attempt_entries": 3,
+          "prepare_task_entries": 3,
+          "configured_transform_applications": 36,
+          "print_task_prepared_entries": 3,
+          "printer": "smtv2.6par"
+        }
+      }
+    }
+  ],
+  "sum_raw_initial_tasks": 156,
+  "sum_registered_task_upper": 153,
+  "sum_task_driver_pair_upper": 459,
+  "sum_configured_transform_application_upper": 6120,
+  "selected_driver_dispatch": {
+    "cvc5": {
+      "printer": "smtv2.6",
+      "transformations": [
+        {
+          "kind": "transformation",
+          "name": "counterexamples_dependent_intros",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 12
+        },
+        {
+          "kind": "transformation",
+          "name": "inline_trivial",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 14
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_builtin",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 15
+        },
+        {
+          "kind": "transformation",
+          "name": "remove_unused",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 16
+        },
+        {
+          "kind": "transformation",
+          "name": "detect_polymorphism",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 17
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_definition_conditionally",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 18
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_inductive",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 19
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_gnatprove_guard_epsilon",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 20
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_epsilon",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 21
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_literal",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 22
+        },
+        {
+          "kind": "transformation",
+          "name": "simplify_formula",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 23
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_projections_sums",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 32
+        },
+        {
+          "kind": "transformation",
+          "name": "discriminate_if_poly",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 33
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_algebraic_if_poly",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 34
+        },
+        {
+          "kind": "transformation",
+          "name": "encoding_smt_if_poly",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/cvc5_gnatprove.drv",
+          "line": 35
+        }
+      ]
+    },
+    "z3": {
+      "printer": "smtv2",
+      "transformations": [
+        {
+          "kind": "transformation",
+          "name": "inline_trivial",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 24
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_builtin",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 25
+        },
+        {
+          "kind": "transformation",
+          "name": "remove_unused",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 26
+        },
+        {
+          "kind": "transformation",
+          "name": "detect_polymorphism",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 27
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_inductive",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 28
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_algebraic_if_poly",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 29
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_literal",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 30
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_gnatprove_guard_epsilon",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 31
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_epsilon",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 32
+        },
+        {
+          "kind": "transformation",
+          "name": "introduce_premises",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 35
+        },
+        {
+          "kind": "transformation",
+          "name": "simplify_formula",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 37
+        },
+        {
+          "kind": "transformation",
+          "name": "discriminate_if_poly",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 40
+        },
+        {
+          "kind": "transformation",
+          "name": "encoding_smt_if_poly",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/z3_gnatprove.drv",
+          "line": 41
+        }
+      ]
+    },
+    "altergo": {
+      "printer": "smtv2.6par",
+      "transformations": [
+        {
+          "kind": "transformation",
+          "name": "counterexamples_dependent_intros",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 25
+        },
+        {
+          "kind": "transformation",
+          "name": "monomorphise_goal",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 27
+        },
+        {
+          "kind": "transformation",
+          "name": "inline_trivial",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 28
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_builtin",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 29
+        },
+        {
+          "kind": "transformation",
+          "name": "remove_unused",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 30
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_recursion",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 31
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_inductive",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 32
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_epsilon",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 33
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_algebraic",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 34
+        },
+        {
+          "kind": "transformation",
+          "name": "eliminate_literal",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 35
+        },
+        {
+          "kind": "transformation",
+          "name": "split_premise_right",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 36
+        },
+        {
+          "kind": "transformation",
+          "name": "simplify_formula",
+          "path": "/tmp/silver-producer-fixed-tail-20261018/overlay/alt_ergo_gnatprove_smt2.drv",
+          "line": 37
+        }
+      ]
+    }
+  },
+  "finite_dispatch_envelope_established": true,
+  "bounds_independent_of_solver_answers": true,
+  "source_control_flow_machine_checked": false,
+  "source_claims_required": [
+    "exact_fresh_per_check_three_automatic_drivers_serial_ce_off_debug_save_off",
+    "registered_goals_subset_of_initial_raw_tasks_with_input_is_valid_filter_classification",
+    "no_successor_split_or_counterexample_goal_growth",
+    "each_goal_driver_pair_scheduled_at_most_once_including_exception_paths",
+    "completed_attempt_stored_before_callback_and_removed_before_duplicate_result_dispatch",
+    "one_prepare_and_at_most_one_print_entry_per_queued_attempt",
+    "configured_transform_directives_count_outer_fold_only",
+    "task_domain_count_does_not_bound_reconstruction_or_shared_cache_lifetime"
+  ],
+  "relevant_source_behavior_required": true,
+  "ordinary_external_protocol_contract_required": true,
+  "direct_imported_float_declarations": [
+    {
+      "line": 903,
+      "exponent_digits": 8,
+      "significand_digits": 24,
+      "constructor_significand_bits": 24,
+      "constructor_pow2": 104,
+      "constructor_pow5": 0,
+      "normalized_significand_bits": 22,
+      "normalized_pow2": 104,
+      "normalized_pow5": 1,
+      "expanded_numerator_bits": 128,
+      "expanded_numerator_decimal_digits": 39,
+      "expanded_denominator": 1
+    },
+    {
+      "line": 945,
+      "exponent_digits": 11,
+      "significand_digits": 53,
+      "constructor_significand_bits": 53,
+      "constructor_pow2": 971,
+      "constructor_pow5": 0,
+      "normalized_significand_bits": 53,
+      "normalized_pow2": 971,
+      "normalized_pow5": 0,
+      "expanded_numerator_bits": 1024,
+      "expanded_numerator_decimal_digits": 309,
+      "expanded_denominator": 1
+    },
+    {
+      "line": 987,
+      "exponent_digits": 15,
+      "significand_digits": 64,
+      "constructor_significand_bits": 64,
+      "constructor_pow2": 16320,
+      "constructor_pow5": 0,
+      "normalized_significand_bits": 62,
+      "normalized_pow2": 16320,
+      "normalized_pow5": 1,
+      "expanded_numerator_bits": 16384,
+      "expanded_numerator_decimal_digits": 4933,
+      "expanded_denominator": 1
+    }
+  ],
+  "float_subcalculation_scope": "eliminate_literal maximum-value construction for these three direct imported type declarations only",
+  "all_reachable_numeric_literals_bounded": false,
+  "prepared_task_domain_capacity_established": false,
+  "shared_preparation_lifetime_established": false,
+  "backend_task_printer_capacity_established": false,
+  "solver_output_bytes_bounded": false,
+  "whole_tail_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "production_configuration_adopted": false,
+  "new_native_runs": 0,
+  "remaining_requirements": [
+    "source-linked bound for every selected driver transform branch and helper over whole task context",
+    "cumulative preparation allocation/identities and cache/name lifetimes across all possible call sequences",
+    "complete post-registration semantic-count operand/rank coverage; previous maximum47 is not a future bound",
+    "Introduction.Hsdecl nonallocating tag counter and structural hashing/traversal analysis",
+    "all reachable numerical literals including generated float maxima and arbitrary real exponent materialization",
+    "syntax literal widths/radix printing and expanded term/type/template output work",
+    "formatter queue counters, buffer length/growth, filename requests and total printed bytes",
+    "server/process/solver/result/timing/session/response joins remain separate"
+  ]
+}
