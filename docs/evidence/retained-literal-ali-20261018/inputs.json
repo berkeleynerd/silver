@@ -1,0 +1,52 @@
+[
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive.py",
+    "bytes": 209431,
+    "sha256": "dc7b362649dfb8693e79248a1d9c965283bc9b54643bbf124b3de2a6f350b897"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/compose-null-capacity.py",
+    "bytes": 20379,
+    "sha256": "07d99d6ba3811f2cefe2af12ecf6d9e6b087e424250fe03b9f138801f35d049a"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+    "bytes": 21593,
+    "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-ali-inputs.json",
+    "bytes": 19357,
+    "sha256": "c10ce2d61d7d62a7611bff253d228559f7db55e6253beab11fae74d7fadeb8d9"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-invocation-inputs.json",
+    "bytes": 7883,
+    "sha256": "a1103237eaab99267c27a85f62b859c66f0877ef3cd5f59388de59c8ce8776e1"
+  },
+  {
+    "path": "docs/evidence/retained-split-options-20261018/result.json",
+    "bytes": 2163,
+    "sha256": "23350b8d404df90367a59982c67006ca681565ffeb18fadedd372409649e6e4b"
+  },
+  {
+    "path": "docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz",
+    "bytes": 271904,
+    "sha256": "a34bc5cf5fdb94fb0aa1c38a1743c2bf3198b2f1e6b7c9def9b2fe421e2e3347"
+  },
+  {
+    "path": "docs/evidence/retained-linker-output-delta-20261018/manifest.json",
+    "bytes": 52328,
+    "sha256": "8195c73bf3dba18357d2231f1046c806726fd8dc489b94a800e7c109068756a3"
+  },
+  {
+    "path": "docs/evidence/retained-native-fixed-capture-20261018/inputs.json",
+    "bytes": 11742,
+    "sha256": "aa1fa98885997fc68689e3b4473448a77b18e34267cd60649bece9308495b492"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+    "bytes": 552521,
+    "sha256": "f0425c46cd96b9348767de5456e4e0fb1efd818ca811e244a150811b353e223c"
+  }
+]

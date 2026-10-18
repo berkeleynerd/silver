@@ -1,0 +1,79 @@
+{
+  "cases": [
+    {
+      "case": "hello",
+      "calls": 1,
+      "reader_bytes": 2152397,
+      "fits": true
+    },
+    {
+      "case": "both_calls_empty_and_quotes",
+      "calls": 2,
+      "reader_bytes": 2152397,
+      "fits": true
+    },
+    {
+      "case": "large_literal",
+      "calls": 1,
+      "reader_bytes": 2152397,
+      "fits": true
+    },
+    {
+      "case": "repeated_calls",
+      "calls": 5000,
+      "reader_bytes": 2152397,
+      "fits": true
+    },
+    {
+      "case": "case_and_CR_comments",
+      "calls": 1,
+      "reader_bytes": 2152397,
+      "fits": true
+    },
+    {
+      "case": "path_976",
+      "conditions": {
+        "writer": true,
+        "Main_ALI_reader_Integer_and_EOF": true,
+        "source_byte_and_coordinate_representations": true
+      },
+      "fits": true
+    },
+    {
+      "case": "path_977",
+      "conditions": {
+        "writer": false,
+        "Main_ALI_reader_Integer_and_EOF": true,
+        "source_byte_and_coordinate_representations": true
+      },
+      "fits": false
+    },
+    {
+      "case": "path_2147483647",
+      "conditions": {
+        "writer": false,
+        "Main_ALI_reader_Integer_and_EOF": false,
+        "source_byte_and_coordinate_representations": true
+      },
+      "fits": false
+    },
+    {
+      "case": "nonliteral",
+      "rejected": true
+    },
+    {
+      "case": "forbidden_VT",
+      "rejected": true
+    },
+    {
+      "case": "physical_column_overflow",
+      "conditions": {
+        "writer": true,
+        "Main_ALI_reader_Integer_and_EOF": true,
+        "source_byte_and_coordinate_representations": false
+      }
+    }
+  ],
+  "all_checks_pass": true,
+  "native_tool_executions": 0
+}

@@ -1,0 +1,139 @@
+{
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_counts": {
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "Put": 0,
+    "Put_Line": 1,
+    "null_statements": 0,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "decoded_literal_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "path_spelling_bytes_upper": 512,
+  "physical_source": {
+    "physical_line_entries_bound": 7,
+    "max_expanded_final_column": 41,
+    "maximum_line_bytes": 40,
+    "aligned_source_extent": 4096
+  },
+  "stored_native_switches": [
+    "-Wno-free-nonheap-object",
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-gnatx",
+    "-mtune=generic",
+    "-march=x86-64",
+    "-gnateI1",
+    "-fsplit-wide-types"
+  ],
+  "ALI_A_records": 10,
+  "ALI_A_payload_characters": 110,
+  "Main_invocation_interface": {
+    "ALI_Invocation_Constructs": 19,
+    "ALI_Invocation_Relations": 361,
+    "ALI_Invocation_Signatures": 19,
+    "max_serialized_signature_characters": 97
+  },
+  "Main_ALI_writer": {
+    "source_descriptor": "native-ali-inputs.json",
+    "source_descriptor_sha256": "c10ce2d61d7d62a7611bff253d228559f7db55e6253beab11fae74d7fadeb8d9",
+    "record_character_bounds_before_LF": {
+      "version": 16,
+      "main": 44,
+      "switches": 28,
+      "parameters": 49,
+      "restriction_header": 2,
+      "restrictions": 55,
+      "unit": 739,
+      "with_unit": 1183,
+      "task_stacks": 23,
+      "dependency": 1158,
+      "invocation_attributes": 5,
+      "invocation_construct": 107,
+      "invocation_relation": 206
+    },
+    "max_record_bytes_including_LF": 1184,
+    "EOL_reserved_bytes": 2112,
+    "single_object_bytes": {
+      "Info_Buffer": 2112000,
+      "With_Flags": 41,
+      "Elab_Flags": 41,
+      "Elab_All_Flags": 41,
+      "Elab_Des_Flags": 41,
+      "Elab_All_Des_Flags": 41,
+      "Has_Implicit_With": 41,
+      "Sdep_Table": 168,
+      "With_Table": 164,
+      "Unit_Name_hash_headers": 2056,
+      "Unit_Name_hash_wrapper": 16,
+      "dependency_quoted_path": 1026
+    },
+    "Units_table": {
+      "demand": 41,
+      "low_bound": 0,
+      "initial": 30,
+      "increment_percent": 100,
+      "component_bytes_upper_bound": 104,
+      "backing_capacity_bound": 82,
+      "bytes_with_sentinel": 8632,
+      "checks": {
+        "initial_product": true,
+        "growth_product": true,
+        "backing_length_and_plus_one": true,
+        "empty_index": true,
+        "backing_index_and_sentinel": true,
+        "logical_nominal_index": true,
+        "allocation_and_pointer_difference": true
+      },
+      "all_selected_checks_pass": true
+    },
+    "Unit_Name_hash_wrapper_count": 41,
+    "serialized_file_byte_bound": 2152396,
+    "total_file_bytes_are_not_an_aggregate_heap_gate": true,
+    "late_variable_Uint_appends": 0,
+    "late_variable_name_interning": 0,
+    "checks": {
+      "record_or_complete_buffer_fit": true,
+      "EOL_reserve_arithmetic": true,
+      "quote_growth_Name_Buffer": true,
+      "local_unit_counters": true,
+      "unit_table_backing": true,
+      "xref_sort_counter": true,
+      "per_object_pointer_difference": true
+    },
+    "all_selected_checks_pass": true,
+    "complete_native_capacity_result": false,
+    "remaining": "ALI consumers/binder, backend diagnostic rendering and other late heap/callback representations"
+  },
+  "Main_ALI_reader_bytes_including_EOF_upper": 2152397,
+  "conditions": {
+    "writer": true,
+    "Main_ALI_reader_Integer_and_EOF": true,
+    "source_byte_and_coordinate_representations": true
+  },
+  "selected_Main_ALI_interface_fits": true,
+  "fixed_inputs_checked": 10,
+  "serializer_source_inputs_checked": 48,
+  "native_tool_executions": 0,
+  "whole_binder_or_parent_capacity_established": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "remaining": [
+    "Complete output launch/options/search materialization.",
+    "Join Main ALI and fixed ALIs to binder parser/graph/driver lifetimes.",
+    "Join native GPR and other ALI readers with their actual selected row policies."
+  ],
+  "premises": [
+    "Relevant installed behavior matches the reviewed source.",
+    "Selected indexed native no-Xref/split-wide configuration and fixed output dependencies.",
+    "Other source/frontend representations and physical resources are established separately."
+  ]
+}
