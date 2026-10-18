@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-18",
+  "task": "#119",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "xhigh",
+  "runtime_model_confirmation": "unavailable",
+  "objective": "Replace the excessive generic recurrence with a computable eligible-definition, symbol-hit, occurrence-weighted bound for the frozen entry graph",
+  "base": "7c89b21e2489d984bdabcae3d5bd88a6dd38e2b8",
+  "observed_work_interval_start_utc": "2026-10-18 20:21:40 UTC",
+  "observed_work_interval_end_utc": "2026-10-18 20:33:35 UTC",
+  "observed_work_interval_seconds": 715,
+  "interval_scope": "First recorded source checkpoint through successful final offline replay; excludes earlier setup and later packaging",
+  "last_offline_check_seconds": 3.417543834000753,
+  "new_native_runs": 0,
+  "achievement": "45 uniformly shape-eligible candidates, 85 symbol-matched possible hits, maximum root mass 99 and kernel fresh-variable identifier upper bound 235 for all metadata exclusions",
+  "significant_findings": [
+    "The frozen graph omits Meta payloads, so exact inline:no exclusions remain unknown and are quantified over",
+    "All 81 definitions have uniform eligibility across optional hit/miss choices",
+    "Stored delayed values must be included in conservative self-reference provenance, even when absent from opened trees",
+    "No eligibility ambiguity or unusable numerical recurrence remains for this captured pair"
+  ],
+  "review_status": "Independent review pending",
+  "remaining": "Complete hidden substitution/type/validator work; fresh tags outside kernel; process counter/cache joins; other fixed pairs and later transforms/serialization",
+  "token_cost_evidence": "unavailable"
+}

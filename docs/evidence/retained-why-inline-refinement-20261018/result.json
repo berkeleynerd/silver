@@ -1,0 +1,61 @@
+{
+  "scope": "frozen first Input_Is_Valid/cvc5 entry; all inline:no exclusion sets",
+  "graph_identity": {
+    "bytes": 1490344,
+    "sha256": "d7f49ce0181875434292f228c3d599c8c8157b3d1f0ac6793f0d12c2558184be"
+  },
+  "source_eligible_definition_candidates": 45,
+  "environment_entries_upper": 45,
+  "metadata_exclusion_set_known": false,
+  "covers_every_metadata_exclusion_set": true,
+  "eligibility_uniform_across_optional_choices": true,
+  "ordered_mapped_roots": 143,
+  "input_task_nodes": 512,
+  "output_root_coordinate_sums_upper": {
+    "n": 1613,
+    "b": 168,
+    "p": 12,
+    "a": 594
+  },
+  "output_root_coordinate_maxima_upper": {
+    "n": 91,
+    "b": 8,
+    "p": 2,
+    "a": 36
+  },
+  "maximum_output_root_mass_upper": 99,
+  "sum_output_root_mass_upper": 1793,
+  "goal_coordinate_upper": {
+    "n": 68,
+    "b": 5,
+    "p": 0,
+    "a": 36
+  },
+  "goal_mass_upper": 73,
+  "maximum_saved_hit_body_mass_upper": 5,
+  "maximum_formal_occurrence_coefficient": 1,
+  "kernel_events": {
+    "replace_recursive_entries_upper": 1613,
+    "unfold_entries_upper": 594,
+    "environment_hits_upper": 85,
+    "relocate_recursive_entries_upper": 156,
+    "type_map_term_entries_upper": 156,
+    "post_type_substitution_recursive_entries_upper": 156,
+    "fresh_variable_identifiers_inside_kernel_upper": 235
+  },
+  "output_task_nodes_upper": 512,
+  "mapped_declaration_constructor_calls_upper": 143,
+  "maximum_reconstructed_formula_mass_upper": 99,
+  "sum_reconstructed_formula_mass_upper": 2263,
+  "one_pair_conditional_semantic_inline_bound_established": true,
+  "exact_native_inlining_observed": false,
+  "all_hidden_substitution_work_bounded": false,
+  "all_type_and_validator_work_bounded": false,
+  "all_fresh_identifiers_bounded": false,
+  "process_wide_counter_join_established": false,
+  "cache_backing_capacity_established": false,
+  "all_fixed_pair_dimensions_established": false,
+  "whole_pipeline_capacity_established": false,
+  "source_argument_machine_checked": false,
+  "new_native_runs": 0
+}
