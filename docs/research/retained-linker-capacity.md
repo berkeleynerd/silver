@@ -139,6 +139,12 @@ work counts are not shared integer counters or live-storage demands. The
 compiler's generated symbols/sections, linker-created
 names and reference events must still supply D, l, B and R. Final live object
 contents alone cannot supply lifetime counts across link rollback.
+The [selected dynamic-section sizing transfer](retained-linker-dynamic-sections.md)
+now supplies GOT/PLT/relocation payload additions from explicit caller counts,
+including regular and local IFUNC paths. Its jump-table multiplication is
+unsigned32 despite the64-bit size destination, with sufficient count ceiling
+536,870,911. This event-to-size component still requires the source-to-event
+and complete-layout joins.
 GCC/assembler containers, code/data/frame sizes, relocation reach and linker
 layout still need their transfers. In particular, x86-64 PC32/PLT32/GOTPCREL
 relocations retain signed 32-bit displacement checks

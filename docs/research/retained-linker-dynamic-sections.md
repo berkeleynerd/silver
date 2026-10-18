@@ -34,7 +34,7 @@ whole-link verdict is claimed here.
 ## Payload additions
 
 For ELF64 x86-64, GOT entries are eight bytes and RELA records are24 bytes
-(`elfxx-x86.c:733–750`; `include/elf/external.h:205–212`). The selected
+(`elfxx-x86.c:733–750`; `include/elf/external.h:224–228`). The selected
 standard, BND and IBT layout variants use PLT entries of at most16 bytes;
 ordinary non-lazy entries use8 and IBT variants use16
 (`elf64-x86-64.c:576–581,1009–1161`). No VxWorks branch applies.

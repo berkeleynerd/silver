@@ -30,6 +30,8 @@ assert 'ret->got_entry_size = 8;' in generic
 assert 'ret->sizeof_reloc = sizeof (Elf64_External_Rela);' in generic
 assert '#define LAZY_PLT_ENTRY_SIZE 16' in target
 assert '#define NON_LAZY_PLT_ENTRY_SIZE 8' in target
+rela = sources['include/elf/external.h'].split('} Elf64_External_Rela;', 1)[0].rsplit('typedef struct {', 1)[1]
+assert rela.count('[8]') == 3 and '[4]' not in rela
 for fragment in ('s->size += plt_entry_size;',
                  'sreloc->size += p->count * htab->sizeof_reloc;',
                  'htab->elf.srelplt->reloc_count++;',

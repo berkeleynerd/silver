@@ -143,8 +143,11 @@ local/spill slots. Late CFI reaches 52 cumulative chain nodes, with at most
 43 shortening slots and a source-derived instruction-address ceiling of 26.
 The [assembler transfer](retained-assembler-capacity.md) connects the selected
 instruction encodings to that 26-byte bound, charges optional SFrame and GNU
-property output, and bounds their fragment/individual-obstack growth. Complete
-unit directives, other fragment/symbol events, object and layout joins remain.
+property output, and composes the complete unit directives, optional build
+note and final fragments. At the selected 29-byte compiler identifier, payload
+is at most 420 bytes and fragment allocations at most 924, including the two
+static ABS/UND startup chains. These are separate from ELF file size;
+symbol/fixup storage, object and layout joins remain.
 
 The [fixed-setup witness assessment](retained-native-expansion.md#fixed-gcc-initialization-witness-boundary-and-counter-requirements)
 identifies a one-time capture boundary before Main translation and
@@ -204,17 +207,29 @@ default script and transitive DSO dependencies. Every fixed archive member is
 inventoried; repeated group/loader passes and inner common-symbol scans are
 separately bounded. Their work totals are not shared counter or memory gates.
 The selected collect2 argument/search/launch transfer excludes nm, generated C,
-collector-owned LTO and a second link. The source transfer includes archive-map
-backing, while plugin/diagnostic storage, generated Main/binder objects,
-linker-created names/reference events and final relocation/layout remain open.
+collector-owned LTO and a second link. The proposed link descriptor now uses
+explicit `-fno-lto -fno-use-linker-plugin`, excluding the unused plugin path.
+Its retained-object link and diagnostic child-resolution follow-up succeeded;
+exact argument comparison preserves target inputs and ordering, and the
+selected linker hash matches the expected tool. Production flags remain
+unchanged. The [dynamic-section transfer](retained-linker-dynamic-sections.md)
+adds a conditional GOT/PLT sizing equation and identifies the unsigned32
+jump-count multiplication before its 64-bit destination. Its source-to-event
+join, shared diagnostics, generated Main/binder objects, linker-created
+names/reference events and final relocation/layout remain open.
 
 The selected null DF/IRA/LRA join bounds the persistent reference-order counter
 by 1,785,936, below the **signed** comparison limit, and each iterative
 dataflow solve by 1,101 visits. It excludes the optional reference tables and
 pre-frame register-note construction; local helper arrays have fixed block,
 instruction and register domains. Ordinary allocation repetitions are work
-accounting, not additional capacity predicates. Remaining GGC lifetime events
-and non-DF phase joins remain explicit in the native expansion record.
+accounting, not additional capacity predicates. The real function startup adds
+fourteen disjoint GGC events; the selected chain/pattern/frame constructors
+add 78, including cold sequence and frame-hash storage. Non-chain CFI adds
+43, including the initial return-address MEM and copied row-save vectors.
+Target frame-layout helpers add no allocation on this path. Remaining
+metadata/translation, generic RTL helpers and unit-emission events stay explicit in
+the native expansion record.
 
 The [diagnostic-string transfer](retained-producer-diagnostic-strings.md) joins
 selected prover answers and consecutive-answer warnings to raw solver-output
@@ -237,7 +252,11 @@ adds 17 visibility vertices and eleven generated-global ALI rows, including
 the implicitly analyzed System package and its five comparison declarations.
 This corrects the earlier native-only System exclusion; the retained fixed
 frontend/Why witnesses already included those roots. Configuration and ordinary
-report consumers remain bounded separately. The unconditional [SARIF/VSS transfer](retained-producer-sarif-capacity.md)
+report consumers remain bounded separately. The [generic ALI transfer](retained-producer-ali.md)
+prices Main/System writer and reader records, source xrefs, parser tables and
+recursive Text_IO line objects. Actual GPR compilation switches and naming
+configuration remain explicit inputs to that conditional result.
+The unconditional [SARIF/VSS transfer](retained-producer-sarif-capacity.md)
 prices 167 fixed rules and streaming output despite the empty result vector.
 The native data-representation writer emits exactly four bytes for null, with
 an empty table in its consumer; the gigi level-0/level-2 comparison introduces
