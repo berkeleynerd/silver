@@ -137,6 +137,11 @@ most `P+S<=Q`. The actual first-split output count therefore satisfies
 q <= 2*n^2.
 ```
 
+The later [formula-sensitive refinement](retained-producer-formula-refinements.md#first-splitting-counts-a-formula-skeleton)
+sharpens this to `q<=2*s(f)^2`, where `s` excludes application arguments,
+let definitions and quantifier triggers. Those positions remain counted in
+the term-size envelope below.
+
 ## Cost of an individual output
 
 For the same case-free input and any positive lexical weight environment,

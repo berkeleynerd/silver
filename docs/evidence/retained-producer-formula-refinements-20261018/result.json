@@ -1,0 +1,19 @@
+{
+  "source_archive_sha256": "ab96f3f6ebb9c031d41b20a9bdf0cd8abf1c45fb07ae841d26355925735b8c74",
+  "native_executions": 0,
+  "skeleton_fixtures": {
+    "large_argument_atom": 1,
+    "quantified_atom": 2,
+    "let_atom": 2,
+    "conjunction_128_atoms": 255
+  },
+  "check_formula_fixture": {
+    "range_checks": 64,
+    "ordinary_checks": 64,
+    "terminal_goal_bound": 192,
+    "assumed_result_record_bound": 128,
+    "warning_count": 0,
+    "proposed_projected_response_bytes": 977300
+  },
+  "scope": "Source identities and formula-interface arithmetic only; no source-to-formula or complete new admission-predicate claim"
+}

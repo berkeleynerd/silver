@@ -55,8 +55,10 @@ H(f,w) = A_D(f,w)                        otherwise.
 At a named projection stop this recursion and use `A_D(f,w)`; a successful
 projection selects a charged part of its argument, bounded by `w`, and
 `A_D(f,w)>=1+w`. Types and selected projection identities must remain in the
-alias input; arbitrary alias graphs must not be assumed acyclic merely because
-the source language lacks subprograms.
+alias input. The later [constructor-invariant argument](retained-producer-formula-refinements.md#unary-alias-chains-cannot-cycle-in-a-constructed-context)
+establishes acyclicity for the reached case-free alias graph of a constructed
+Why3 context. This follows from declaration ordering and logic-definition
+termination checks, not merely from Silver's lack of source subprograms.
 
 Keeping both arms matters in both directions. An unmarked alias can lead to
 a marked target whose replacement is large. Conversely, the matcher does not
@@ -154,6 +156,12 @@ identifier/hash-cons increments, fixed library-body processes, or essential
 solver representations. Counters must be evaluated with checked/saturating
 arithmetic in an eventual admission implementation. This research changes no
 admission rule.
+
+The later [formula refinements](retained-producer-formula-refinements.md)
+close the case-free alias-cycle premise and give additive retained-equality
+costs for scalar/opaque operands, plus a first-split factor based on the
+logical skeleton. Source-to-formula composition and construction-time
+identifier counters remain required.
 
 ## Source-dependent Main entries have fixed range bodies
 
