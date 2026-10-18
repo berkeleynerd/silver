@@ -19,12 +19,20 @@
       "sha256": "f47855276129159e57a9a41555635b3221ab197f1b176c98725bb481eb4b5107"
     },
     {
+      "path": "src/spark/spark_rewrite.adb",
+      "sha256": "03618ce33d8ee04912d330ee2b4a946297e3f702e2762c186c0895b03493d6ca"
+    },
+    {
       "path": "src/spark/spark_util-types.adb",
       "sha256": "61c39d0e43f4b2d8f36a723d87b9061d2e14611296c2378473b509df42979cc9"
     },
     {
       "path": "src/spark/spark_util-types.ads",
       "sha256": "527f96c5888798d023959b5a57254edd520b028017c9835a973a0ef44f5eb240"
+    },
+    {
+      "path": "src/spark/spark_util.ads",
+      "sha256": "e80839ab6bf142e6e8e28529f176745147d9722e17689508eb3262a25fc3c443"
     },
     {
       "path": "src/why/gnat2why-decls.adb",

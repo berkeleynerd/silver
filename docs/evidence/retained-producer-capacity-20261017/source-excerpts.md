@@ -559,6 +559,245 @@
    232:      (Kind : Entity_Collection; C : Cursor) return Entity_Id;
 ```
 
+## src/spark/spark_rewrite.adb:253-276
+
+```ada
+   253:    -- Rewrite_Subprogram_Reference --
+   254:    ----------------------------------
+   255:
+   256:    procedure Rewrite_Subprogram_Reference (N : Node_Id) is
+   257:       E : constant Entity_Id := Entity (N);
+   258:    begin
+   259:       --  If the subprogram is a renaming or an inherited primitive operation,
+   260:       --  replace it with the name of the actual subprogram being
+   261:       --  called. Both have an Alias component, that points to the immediate
+   262:       --  renamed or inherited subprogram. The Ultimate_Alias function
+   263:       --  retrieves the last subprogram in a chain of aliases. Note that
+   264:       --  renamings and inherited primitive operations can be distinguished
+   265:       --  by the kind of their parent node: the entity for a renaming has
+   266:       --  the function or procedure specification node as parent, while an
+   267:       --  inherited primitive operation has the derived type declaration as
+   268:       --  parent.
+   269:
+   270:       if Present (E)
+   271:         and then (Is_Overloadable (E) or else Ekind (E) = E_Subprogram_Type)
+   272:         and then Present (Alias (E))
+   273:       then
+   274:          Set_Entity (N, Ultimate_Alias (E));
+   275:       end if;
+   276:    end Rewrite_Subprogram_Reference;
+```
+
+## src/spark/spark_rewrite.adb:340-544
+
+```ada
+   340:       function Rewrite_Node (N : Node_Id) return Traverse_Result is
+   341:          subtype Rewriten_Call is Node_Kind
+   342:          with
+   343:            Static_Predicate =>
+   344:              Rewriten_Call
+   345:              in N_Block_Statement
+   346:               | N_Identifier
+   347:               | N_Integer_Literal
+   348:               | N_Null_Statement
+   349:               | N_Qualified_Expression;
+   350:          --  ??? this is copy-pasted from SPARK_Register; refactor
+   351:
+   352:       begin
+   353:          --  Set error node so that bugbox information will be correct
+   354:
+   355:          Current_Error_Node := N;
+   356:
+   357:          --  Delete lines of code passed through the --exclude-line switch, by
+   358:          --  rewriting the declaration, statement or pragma into a call marker
+   359:          --  node which is ignored by gnat2why.
+   360:
+   361:          if Gnat2Why_Args.Exclude_Line /= Null_Unbounded_String
+   362:            and then
+   363:              Nkind (N)
+   364:              in N_Declaration
+   365:               | N_Later_Decl_Item
+   366:               | N_Statement_Other_Than_Procedure_Call
+   367:               | N_Procedure_Call_Statement
+   368:               | N_Pragma
+   369:            and then Flow_Error_Messages.Is_Excluded_Line (Sloc (N))
+   370:          then
+   371:             Rewrite (N, Nmake.Make_Call_Marker (Sloc (N)));
+   372:          end if;
+   373:
+   374:          --  Explicitly traverse rewritten subprogram calls and pragmas (e.g.
+   375:          --  pragma Debug).
+   376:          if Nkind (N) in Rewriten_Call
+   377:            and then
+   378:              Nkind (Original_Node (N)) in N_Subprogram_Call | N_Pragma | N_Op
+   379:          then
+   380:             Rewrite_Nodes (Original_Node (N));
+   381:          end if;
+   382:
+   383:          --  Aspect Address, unlike other aspects, it is not translated to
+   384:          --  a semantically-equivalent pragma, and like other aspects it is
+   385:          --  not attached to the tree. We need to explicitly traverse its
+   386:          --  expression, which may contain references to objects and calls
+   387:          --  to functions.
+   388:          if Nkind (N) in N_Object_Declaration | N_Subprogram_Declaration then
+   389:             Rewrite_Aspect (Defining_Entity (N), Aspect_Address);
+   390:
+   391:          --  On type declarations, rewrite the literal aspects to use the
+   392:          --  ultimate alias if any.
+   393:
+   394:          elsif Nkind (N) = N_Full_Type_Declaration then
+   395:             Rewrite_Aspect (Defining_Entity (N), Aspect_Real_Literal);
+   396:             Rewrite_Aspect (Defining_Entity (N), Aspect_Integer_Literal);
+   397:             Rewrite_Aspect (Defining_Entity (N), Aspect_String_Literal);
+   398:          end if;
+   399:
+   400:          case Nkind (N) is
+   401:
+   402:             when N_Attribute_Reference                                     =>
+   403:
+   404:                --  References to the Old attribute might not have the
+   405:                --  type of their prefix. This might lead to discrepencies and
+   406:                --  spurious checks. Use the type of the prefix instead.
+   407:
+   408:                if Attribute_Name (N) = Name_Old then
+   409:                   Rewrite_Old_Attribute (N);
+   410:
+   411:                --  In some cases, SPARK expansion is performed before the value
+   412:                --  of size attributes is known. Reapply it here on analyzed
+   413:                --  nodes (other nodes might not have the needed semantic
+   414:                --  information).
+   415:
+   416:                elsif Analyzed (N) then
+   417:                   declare
+   418:                      Aname   : constant Name_Id := Attribute_Name (N);
+   419:                      Attr_Id : constant Attribute_Id :=
+   420:                        Get_Attribute_Id (Aname);
+   421:                   begin
+   422:                      if Attr_Id
+   423:                         in Attribute_Object_Size
+   424:                          | Attribute_Size
+   425:                          | Attribute_VADS_Size
+   426:                          | Attribute_Value_Size
+   427:                      then
+   428:                         Expand_Size_Attribute (N);
+   429:                      end if;
+   430:                   end;
+   431:                end if;
+   432:
+   433:             when N_Real_Literal                                            =>
+   434:                Rewrite_Real_Literal (N);
+   435:
+   436:             --  Replace renamings and inherited subprograms by the subprogram
+   437:             --  they rename or inherit.
+   438:
+   439:             when N_Identifier | N_Expanded_Name | N_Op | N_Operator_Symbol =>
+   440:                Rewrite_Subprogram_Reference (N);
+   441:
+   442:             when N_Subprogram_Instantiation                                =>
+   443:                Rewrite_Subprogram_Instantiation (N);
+   444:
+   445:             when N_Package_Declaration                                     =>
+   446:                Rewrite_Wrapper_Package (N);
+   447:
+   448:             --  Recursively call the tree rewriting procedure on subunits
+   449:
+   450:             when N_Body_Stub                                               =>
+   451:                if not Is_Generic_Unit (Unique_Defining_Entity (N)) then
+   452:                   Rewrite_Nodes (Unit (Library_Unit (N)));
+   453:                end if;
+   454:
+   455:             when N_Generic_Declaration                                     =>
+   456:                return Skip;
+   457:
+   458:             when N_Package_Body | N_Subprogram_Body                        =>
+   459:                if Is_Generic_Unit (Unique_Defining_Entity (N)) then
+   460:                   return Skip;
+   461:                end if;
+   462:
+   463:             --  Ignore freeze entities, because front end might not care to set
+   464:             --  all of their fields (such as Scope or Ekind).
+   465:
+   466:             when N_Freeze_Entity                                           =>
+   467:                return Skip;
+   468:
+   469:             --  Traverse expressions for DIC procedures
+   470:
+   471:             when N_Full_Type_Declaration                                   =>
+   472:
+   473:                --  Frontend rewrites declarations of derived types, so only
+   474:                --  their original node comes from source.
+   475:
+   476:                if Comes_From_Source (Original_Node (N)) then
+   477:                   declare
+   478:                      Ty        : constant Entity_Id := Defining_Entity (N);
+   479:                      Inv_Proc  : constant Entity_Id :=
+   480:                        Invariant_Procedure (Ty);
+   481:                      Inv_Exprs : Node_Lists.List;
+   482:                      DIC_Proc  : Entity_Id;
+   483:                      DIC_Exprs : Node_Lists.List;
+   484:
+   485:                   begin
+   486:                      --  ??? The following is slighly different from
+   487:                      --  SPARK_Register; both should be unified.
+   488:
+   489:                      if Present (Inv_Proc) then
+   490:                         Inv_Exprs := Get_Exprs_From_Check_Only_Proc (Inv_Proc);
+   491:
+   492:                         --  If the invariant procedure has no expression then
+   493:                         --  it calls the partial invariant procedure, so get
+   494:                         --  the expression from there. (Such partial invariant
+   495:                         --  procedures come from Type_Invariant on a private
+   496:                         --  part, which as of today is not allowed in SPARK,
+   497:                         --  but it is better to traverse it anyway.)
+   498:
+   499:                         if Inv_Exprs.Is_Empty then
+   500:                            Inv_Exprs :=
+   501:                              Get_Exprs_From_Check_Only_Proc
+   502:                                (Partial_Invariant_Procedure (Ty));
+   503:                         end if;
+   504:
+   505:                         pragma Assert (not Inv_Exprs.Is_Empty);
+   506:
+   507:                         for Inv_Expr of Inv_Exprs loop
+   508:                            Rewrite_Nodes (Inv_Expr);
+   509:                         end loop;
+   510:                      end if;
+   511:
+   512:                      if Has_Own_DIC (Ty) then
+   513:                         DIC_Proc := Partial_DIC_Procedure (Ty);
+   514:
+   515:                         if Present (DIC_Proc) then
+   516:                            DIC_Exprs :=
+   517:                              Get_Exprs_From_Check_Only_Proc (DIC_Proc);
+   518:
+   519:                            for DIC_Expr of DIC_Exprs loop
+   520:                               Rewrite_Nodes (DIC_Expr);
+   521:                            end loop;
+   522:                         end if;
+   523:                      end if;
+   524:                   end;
+   525:                end if;
+   526:
+   527:             when N_Subprogram_Declaration                                  =>
+   528:
+   529:                --  We always unconditionally complete the null procedure with a
+   530:                --  null body in GNATprove, because some checks in GNATprove are
+   531:                --  applied to this body when it is analyzed.
+   532:
+   533:                if Nkind (Specification (N)) = N_Procedure_Specification
+   534:                  and then Null_Present (Specification (N))
+   535:                then
+   536:                   Rewrite_Null_Procedure (N);
+   537:                end if;
+   538:
+   539:             when others                                                    =>
+   540:                null;
+   541:          end case;
+   542:
+   543:          return OK;
+   544:       end Rewrite_Node;
+```
+
 ## src/spark/spark_util-types.adb:1521-1620
 
 ```ada
@@ -706,6 +945,54 @@
    144:
    145:    function Check_Needed_On_Conversion
    146:      (From, To : Type_Kind_Id) return Boolean;
+```
+
+## src/spark/spark_util.ads:69-111
+
+```ada
+    69:    subtype N_Ignored_In_Marking is Node_Kind
+    70:    with
+    71:      Predicate =>
+    72:        N_Ignored_In_Marking
+    73:        in N_Call_Marker
+    74:         | N_Exception_Declaration
+    75:         | N_Freeze_Entity
+    76:         | N_Freeze_Generic_Entity
+    77:         | N_Implicit_Label_Declaration
+    78:         | N_Incomplete_Type_Declaration
+    79:         | N_Null_Statement
+    80:         | N_Number_Declaration
+    81:         | N_Representation_Clause
+    82:
+    83:         --  Renamings are replaced by the renamed object in the frontend, but
+    84:         --  the renaming declarations are not removed from the tree. We can
+    85:         --  safely ignore them, except for renaming object declarations, which
+    86:         --  need to be analyzed for possible RTE.
+    87:
+    88:         | N_Exception_Renaming_Declaration
+    89:         | N_Package_Renaming_Declaration
+    90:         | N_Subprogram_Renaming_Declaration
+    91:         | N_Generic_Renaming_Declaration
+    92:
+    93:         --  Generic instantiations are expanded into the corresponding
+    94:         --  declarations in the frontend. The instantiations themselves can be
+    95:         --  ignored.
+    96:
+    97:         | N_Package_Instantiation
+    98:         | N_Subprogram_Instantiation
+    99:         | N_Generic_Subprogram_Declaration
+   100:         | N_Generic_Package_Declaration
+   101:         | N_Use_Package_Clause
+   102:         | N_Use_Type_Clause
+   103:         | N_Validate_Unchecked_Conversion
+   104:         | N_Variable_Reference_Marker;
+   105:
+   106:    --  After marking, ignore also labels (used in marking for targets of goto),
+   107:    --  and body stubs (used in marking to reach out to the proper bodies).
+   108:    subtype N_Ignored_In_SPARK is Node_Kind
+   109:    with
+   110:      Predicate =>
+   111:        N_Ignored_In_SPARK in N_Ignored_In_Marking | N_Label | N_Body_Stub;
 ```
 
 ## src/why/gnat2why-decls.adb:66-382
@@ -10129,6 +10416,64 @@
  30086:       Append (Seq, Prog);
  30087:
  30088:       --  If we are translating a label, catch the exception which may have
+```
+
+## src/why/gnat2why-expr.adb:29496-29517
+
+```ada
+ 29496:    ----------------------------------------
+ 29497:
+ 29498:    function Transform_Statement_Or_Declaration
+ 29499:      (Stmt_Or_Decl        : Node_Id;
+ 29500:       Params              : Transformation_Params;
+ 29501:       Assert_And_Cut_Prag : out Opt_N_Pragma_Id;
+ 29502:       Assert_And_Cut_Expr : out Opt_N_Subexpr_Id;
+ 29503:       Assert_And_Cut      : out W_Pred_Id) return W_Prog_Id is
+ 29504:    begin
+ 29505:       --  Make sure that outputs are initialized
+ 29506:
+ 29507:       Assert_And_Cut_Prag := Empty;
+ 29508:       Assert_And_Cut_Expr := Empty;
+ 29509:       Assert_And_Cut := Why_Empty;
+ 29510:
+ 29511:       --  Set error node so that bugbox information will be correct
+ 29512:
+ 29513:       Current_Error_Node := Stmt_Or_Decl;
+ 29514:
+ 29515:       case Nkind (Stmt_Or_Decl) is
+ 29516:          when N_Ignored_In_SPARK                                  =>
+ 29517:             return +Void;
+```
+
+## src/why/gnat2why-expr.adb:30190-30215
+
+```ada
+ 30190:
+ 30191:    -------------------------------------------
+ 30192:    -- Transform_Statements_And_Declarations --
+ 30193:    -------------------------------------------
+ 30194:
+ 30195:    function Transform_Statements_And_Declarations
+ 30196:      (Stmts_And_Decls : List_Id; Params : Transformation_Params)
+ 30197:       return W_Prog_Id
+ 30198:    is
+ 30199:       Cur_Stmt_Or_Decl : Node_Id := Nlists.First (Stmts_And_Decls);
+ 30200:       Result           : W_Statement_Sequence_Id := Void_Sequence;
+ 30201:
+ 30202:    begin
+ 30203:       if No (Cur_Stmt_Or_Decl) then
+ 30204:          return +Void;
+ 30205:       end if;
+ 30206:
+ 30207:       while Present (Cur_Stmt_Or_Decl) loop
+ 30208:          Transform_Statement_Or_Declaration_In_List
+ 30209:            (Stmt_Or_Decl => Cur_Stmt_Or_Decl, Params => Params, Seq => Result);
+ 30210:
+ 30211:          Nlists.Next (Cur_Stmt_Or_Decl);
+ 30212:       end loop;
+ 30213:
+ 30214:       return +Result;
+ 30215:    end Transform_Statements_And_Declarations;
 ```
 
 ## src/why/gnat2why-subprograms.adb:4455-4483

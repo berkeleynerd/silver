@@ -61,6 +61,9 @@ RANGES["src/why/why-gen-progs.adb"].extend([[52, 102], [126, 150], [329, 370]])
 RANGES["src/why/xgen/xtree_sinfo.adb"].extend([[488, 511], [558, 576]])
 RANGES["src/why/gnat2why-expr.adb"].extend([[3707, 3834], [3910, 3927], [15420, 15569], [22840, 23012], [23117, 23232], [30068, 30088]])
 RANGES["src/why/gnat2why-driver.adb"].extend([[1381, 1445], [1593, 1638]])
+RANGES["src/spark/spark_rewrite.adb"] = [[253, 276], [340, 544]]
+RANGES["src/spark/spark_util.ads"] = [[69, 111]]
+RANGES["src/why/gnat2why-expr.adb"].extend([[29496, 29517], [30190, 30215]])
 
 
 def sha(data):
@@ -222,6 +225,53 @@ def main():
             "module_bound": "M <= all_nonimport_nodes",
             "main_itype_reference_translations": 0,
             "itype_reference_basis": "frontend-invocation-audit.json inventory plus manual exclusion table in research report",
+        },
+        "ordinary_expression_uniform_transfer": {
+            "per_visit": [60 + 3 + 47, 32 + 22, 49 + 31, 484 + 459],
+            "local_cases_with_boundary_allowances": {
+                "integer_leaf": [2 + 3 + 4, 1, 1, 11 + 15],
+                "integer_operator": [4 + 3 + 4, 2 + 1, 3 + 1, 20 + 15],
+                "length_including_optional_overflow": [20 + 3 + 3 + 4, 6 + 1 + 1, 9 + 1 + 1, 92 + 12 + 15],
+                "string_use": [9 + 3 + 47, 2 + 22, 3 + 31, 14 + 459],
+                "string_read": [6 + 3 + 47, 3 + 22, 5 + 31, 48 + 459],
+                "image": [5 + 3 + 47, 2 + 22, 3 + 31, 18 + 459],
+                "concat": [60 + 3 + 47, 32 + 22, 49 + 31, 484 + 459],
+                "first_or_default": [18 + 3 + 47, 9 + 22, 9 + 31, 74 + 459],
+                "input_is_valid_with_predicate_wrappers": [18 + 3 + 3, 9 + 1, 9 + 2, 78 + 13],
+                "string_comparison_with_predicate_wrappers": [25 + 3 + 3, 8 + 1, 14 + 2, 147 + 13],
+                "scalar_comparison_with_predicate_wrappers": [1 + 3 + 3, 1 + 1, 2 + 2, 8 + 13],
+                "boolean_connective_with_predicate_wrappers": [10 + 3 + 3, 2 + 1, 3 + 2, 28 + 13],
+                "not_with_predicate_wrappers": [1 + 3 + 3, 1 + 1, 1 + 2, 8 + 13],
+            },
+            "visits": "2 * (X + U + 3P) + 2G, G <= 2F",
+            "per_literal_definition": [23, 13, 10, 75],
+            "per_aggregate_literal_character": [7, 3, 6, 40],
+            "literal_identities": "K <= S + A + 3P",
+            "scope": "Ordinary Main executable/value-axiom expression forest; fixed setup, skeletons, type theories and imports separate",
+        },
+        "main_list_node_transfer": {
+            "per_entry": [2, 0, 2, 6],
+            "per_list": [1, 1, 1, 5],
+            "list_count_bound": "2 + 2*A_Main",
+            "affine_node_coefficients": [2 + 2, 2, 2 + 2, 6 + 2 * 5],
+            "constant_vector": [2, 2, 2, 10],
+            "required_input": "A source-derived frontend node-allocation bound A_Main, not an observed count",
+            "includes": "ignored/null Void cores and two optional labels per entry; nonempty statement/declaration cores separate",
+        },
+        "ordinary_main_skeleton": {
+            "integer_declaration": [13, 3, 9, 55],
+            "string_declaration": [55, 24, 36, 188],
+            "static_subtype_declaration": [1, 0, 0, 5],
+            "integer_assignment": [6, 0, 0, 8],
+            "string_assignment": [148, 61, 86, 1247],
+            "put": [9, 6, 4, 9],
+            "reject": [4, 6, 4, 13],
+            "if_condition_point": [8, 2, 2, 26],
+            "if_body_warning": [9, 1, 3, 27],
+            "loop_fixed": [69, 23, 43, 267],
+            "each_modified_root": [49, 19, 27, 126],
+            "modified_root_bound": "F * (D + 4)",
+            "excludes": "supplied expression children, list transfer, entity/type passes, symbol/module caches, enclosing Main and fixed dependency theories, imports",
         },
         "ordinary_range_loop": {
             "fixed_rows": {
@@ -391,6 +441,10 @@ def main():
     assert loop["fixed_total"] == [
         sum(row[i] for row in loop["fixed_rows"].values()) for i in range(4)
     ]
+    expression = arithmetic["ordinary_expression_uniform_transfer"]
+    assert expression["per_visit"] == [110, 54, 80, 943]
+    assert all(all(local[i] <= expression["per_visit"][i] for i in range(4))
+               for local in expression["local_cases_with_boundary_allowances"].values())
     dump(ROOT / "checks.json", arithmetic)
     print(json.dumps({"retained_modules_checked": len(result),
                       "checks": str(ROOT / "checks.json")}))

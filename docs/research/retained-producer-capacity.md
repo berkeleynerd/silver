@@ -323,10 +323,9 @@ deduplicated by Ada `Node_Id` identity in separate `No_Checks` and `Regular` map
 (`src/why/gnat2why-util.adb:1347–1454`). The frame path supplies the root entity
 node, allowing at most one frame-created snapshot per entity per loop in that
 map. This is not general deduplication of semantically equal expressions.
-`H` still needs numerical bounds for identifier/type processing, dynamic
-invariants, preservation checks and snapshot bindings. `K_loop` still needs
-the fixed index/control/warning wrapper bound. Allocation of discarded nodes
-also remains to price independently of this serialization recurrence.
+The later range-loop section supplies the numerical `H` and `K_loop`
+allocations and occurrence bounds, including eagerly discarded work. The
+recurrence here identifies the source-child multiplicities used there.
 
 ## Normalized signed Integer arithmetic cost
 
@@ -1217,7 +1216,7 @@ occurrences before imports. It has `2r` closes and `a+3r` direct module
 allocations: the attempt's representation module, plus the comparison module
 and two index-prefix modules on a miss. For ordinary Main Character Strings,
 `r <= 1`; fixed dependencies with other representation keys remain separate.
-The count of attempts still needs its source-to-helper caller closure.
+The Main entity-invocation section below closes the attempt count.
 
 **Memoized entity modules.** `Module_Kind` has twenty-seven members
 (`src/why/why-atree-modules.ads:819–851`). `Hashconsed_Entity_Module` allocates
@@ -1776,6 +1775,215 @@ exclude such nodes inside fixed library translations or native expansion,
 does not eliminate their own capacity costs, and retains the explicit
 source-to-installed-tool correspondence premise.
 
+### A uniform ordinary expression transfer
+
+There is a conservative way to assemble the closed expression rows without
+requiring a separate counter for every possible expected-type lookup. Let `X`
+count the value-expression syntax nodes in the source grammar, counting each
+literal, value-name, operator, attribute and function call once, plus its value
+children. Parentheses may be counted too, although the frontend does not need
+a separate expression node for them. Declaration range endpoints may also be
+included, even when their static type helpers already charge their processing.
+Let `U` count String `/=` source operators, and let `P` be the frontend report's
+plain-literal parser-flattening count. Define
+
+```text
+V = 2 * (X + U + 3P) + 2G,       G <= 2F.
+```
+
+This is an upper count of ordinary expression-node visits. The two-pass source
+caller argument above supplies the factor two. Scalar constant folding and
+String concatenation folding replace a value subtree with a leaf, so do not
+increase the number of visited expression nodes; the new literal's definition
+cost is charged separately below. String `/=` may add one `not` node while
+retaining its two value children. Each parser flattening creates at most the
+two replacement literals and one artificial concat, all three charged here
+without credit for the removed long chain. The relocated bound expression is
+charged in its initializer; the two generated constant reads per capture
+supply `2G`. The source byte/token budget can bound `X` directly, but `X` is
+sharper and has an explicit grammar definition. It is not a measured AST count.
+
+The producer's preliminary rewrite does not expand this Main expression
+forest. Its relevant name/operator case only changes the entity to an
+existing ultimate alias. Its other transformations require excluded real
+literals, old/size attributes, generic/wrapper units or null procedure
+declarations (`src/spark/spark_rewrite.adb:253–276,340–544`). No source line
+is excluded in the selected invocation. All normal value children are visited
+once by the closed expression transfers. The Length wrapper already prices
+its eager prefix read; counting that source prefix again in `V` is harmless.
+
+At each visit, allow three fresh nodes for construction of its supplied
+expected type, even when that type was cached or supplied by the parent.
+`Type_Of_Node` on these shapes returns an existing binder type, a one-node
+scalar split type, or an abstract/map type of at most three nodes; it creates
+no list (`src/why/why-inter.adb:1158–1224,1579–1632`). Allow the full ordinary
+String conversion once at each String visit. Scalar final conversions either
+compare identical/builtin representations or use the previously priced static
+subtype boundary. A dynamic loop-index subtype is not a source assignment or
+declaration target, and a bare loop index is not captured as a variable; its
+ordinary value-use callers request builtin Integer. The dynamic target-bound
+conversion path therefore does not enter this transfer.
+
+The largest resulting local vector is the concat row plus its expected-type
+and conversion allowances:
+
+```text
+c_expr = (60,32,49,484) + (3,0,0,0) + (47,22,31,459)
+       = (110,54,80,943).
+```
+
+All other ordinary expression cases fit componentwise below it: normalized
+Integer leaves/arithmetic and static range boundary, Length, scalar/String
+comparison, Boolean/not/short-circuit wrappers, literal **use**, ordinary
+String reads, Image, and the two selected query-function wrappers. The
+predicate-only label/Boolean-to-predicate wrappers also fit below this
+maximum: one equality call on the supplied Boolean and True, plus one
+optional label, is bounded by `(3,1,2,13)` including an allowance for a
+fresh True node (`src/why/why-gen-expr.adb:5436–5442`,
+`src/why/gnat2why-expr.adb:25500–25509`). No predicate-valued String concat
+exists. Procedure calls and
+declaration/assignment/loop/list skeletons are charged separately. One supplied
+complex child occurs once in these transfers; their cheap-reference overhead
+already covers repeated identifier/dereference uses. This bound intentionally
+does not take credit for static folding, identity conversions, or disabled
+warnings.
+
+Let `K <= S + A + 3P` bound distinct translated literal identities and let `H`
+be the frontend report's aggregate decoded-length bound:
+
+```text
+H = sum(source literal lengths)
+    + sum(length bound of each source concat result)
+    + 2 * sum(length of each parser-flattened chain).
+```
+
+The cache-miss/character formula above is bounded by
+`K*(23,13,10,75) + H*(7,3,6,40)`. It charges no per-use work a second time.
+The executable/value-axiom expression contribution consequently satisfies
+
+```text
+B_expressions <= V * (110,54,80,943)
+                 + K * (23,13,10,75)
+                 + H * (7,3,6,40)
+C_literals <= K.
+```
+
+Literal **type entities** still use `K_literal <= S+3A+5P` in the type-pass
+formula. Those entity identities and the expression module-cache misses `K`
+are different counters. This transfer excludes fixed library expressions,
+cached symbol initialization, all other theory contents and imports. Its
+source/tree relation and local case coverage are manual arguments supported
+by pinned source, not a new machine-checked producer theorem.
+
+### List transfer including ignored frontend entries
+
+Counting only source statements and bound captures is insufficient for list
+accounting: frontend freeze nodes, call markers and other ignored entries can
+remain in the lists. `N_Ignored_In_SPARK` includes them
+(`src/spark/spark_util.ads:69–111`). Their executable handler returns Void;
+the declaration handler may additionally attach its final location label
+(`src/why/gnat2why-expr.adb:23148–23194,29496–29517`). They do not replay an
+expression or create a nested body list, but the enclosing list still visits
+them and may attach its outer location label.
+
+Let `A_Main` be a **source-derived frontend node-allocation upper bound**
+covering every Main node, including generated, ignored and discarded ones.
+The whole-program rule already needs that input for frontend table capacity;
+this section does not substitute a measured node count or provide the missing
+frontend allocation derivation. Using it avoids a second, independently
+maintained source formula just for ignored producer list entries.
+
+Each ordinary Main declaration/statement list is translated once, and each
+entry has one containing list. The no-unrolling loop path translates the body
+once, while the if handler translates each arm once. Thus the total number
+of visited entries is at most `A_Main`. There are at most two top-level lists,
+one body list per loop, and `q+1` body lists for an if with `q` condition points,
+allowing an absent else as an additional empty list. Each loop, if and elsif
+has its own frontend node, giving `L_lists <= 2 + 2A_Main`.
+
+For each list, charge its initial Void sequence `(1,1,1,5)`. For every entry,
+charge two optional location nodes, at most two appended elements and four
+additional Void occurrences: `(2,0,2,6)`. This deliberately covers both the
+declaration's own final label and the executable-list outer label, even where
+one is already in the sharper declaration wrapper. Ordinary declaration
+sequences have at most two immediate elements without a location label;
+source statements carry their positive source-location wrapper and cannot
+flatten their whole subtree into the parent list. Ignored entries are smaller.
+The resulting conservative transfer is
+
+```text
+B_lists <= A_Main * (2,0,2,6) + L_lists * (1,1,1,5)
+        <= (4A_Main+2, 2A_Main+2, 4A_Main+2, 16A_Main+10).
+```
+
+This includes the Void core of null/ignored entries, whose allocations are
+otherwise zero. Supplied nonempty statement/declaration cores remain in their
+own rows. The extra label/Void allowance is an intentional overcount, not an
+additional transformation. A sharper frontend entry bound can replace
+`A_Main`; the conservative transfer itself requires no unpriced producer
+helper or invocation count.
+
+### Assembled ordinary Main contribution
+
+In addition to the source counts already defined, let `I_a` and `S_a` count
+Integer and String assignments; `P_o` count Put/Put_Line statements; `P_r`
+count Reject statements; `Q` sum the if/elsif condition points; and `B` sum
+`q+1` across source if statements, conservatively including absent else arms.
+The executable declaration/statement skeleton is bounded by
+
+```text
+B_skeleton <= (D - D_s + G) * (13,3,9,55)
+              + D_s * (55,24,36,188)
+              + (R + D_s) * (1,0,0,5)
+              + I_a * (6,0,0,8)
+              + S_a * (148,61,86,1247)
+              + P_o * (9,6,4,9)
+              + P_r * (4,6,4,13)
+              + Q * (8,2,2,26)
+              + B * (9,1,3,27)
+              + F * (69,23,43,267)
+              + F * (D + 4) * (49,19,27,126).
+```
+
+The static subtype-declaration allowance covers at most one generated subtype
+declaration per explicitly ranged Integer object and per String declaration.
+Their implicit index itypes are entity-pass work, not additional explicit
+subtype declarations. The last row uses the larger String frame vector for
+every possible modified root. There are at most `D+4` roots per containing
+loop, including the four concrete output globals; the opaque File_System
+state was excluded from frame roots above. The Integer and Not_Written rows
+are all componentwise smaller. Query functions are expression visits and are
+already in `B_expressions`, so they are not additional statement rows here.
+
+All source/generated initializer and endpoint translations are in
+`B_expressions`, including their expected-type conversion allowances. The
+String-assignment row already contains its two subsequent internal conversions;
+those are not added again as expression visits. `B_lists` intentionally
+overcounts some already-priced location/Void nodes, so it also covers the
+source SPARK_Mode pragma, null statements and ignored frontend entries.
+
+One conservative ordinary Main sum, with **no unpriced per-construct helper
+coefficient**, is therefore
+
+```text
+B_Main = B_object_pass + B_type_pass + B_expressions + B_skeleton + B_lists
+         + (D_s + K_literal) * (17,0,0,0)
+         + (148,44,76,711)
+C_Main <= (2D + 8F)
+          + (4R + 6D_lit + 2D_alias + 2K_literal + 3F)
+          + K + 2.
+```
+
+The single array miss and its two closes are charged even when fixed setup
+already created that representation. `B_Main` here explicitly excludes
+memoized entity-symbol/module setup, Main's enclosing subprogram
+definition/completion/VC wrapper, the predefined and selected library
+translations, and imports. Those setup terms still have to be derived and
+added to obtain `B(P)`; the name `B_Main` does not mean all producer work
+caused by Main has already been charged. `A_Main` also remains an input from
+the frontend allocation derivation. This is a closed transfer of ordinary
+Main syntax/entity work into the aggregate, **not a complete capacity rule**.
+
 ## Aggregate formula and finite remaining helper families
 
 Use four-component costs in the order `(nodes, lists, list elements, emitted
@@ -1871,8 +2079,8 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | --- | --- |
 | `K_fixed` | One-time predefined and selected dependency theories, package processing, symbol initialization, external-constant assumptions, fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
 | Fixed-library object setup | The Main registration/object/loop theory pass is now source-counted above. Price richer fixed-library shapes separately. |
-| Generated declaration/list invocation map | Bound captures are at most two preceding declarations per loop, with the source initializer relocated rather than replayed at reads; Main Itype-reference translations are zero. Connect all static subtype declarations and list entries to the frontend counts. |
-| Expression invocation map and counters | Finish the source-expression forest accounting, including expected-type construction and all conversion/lookups. Ordinary initializers need at most program plus term translation; Main-local constants have no third assumption pass. Main type and representation-attempt counts are now closed above. Use `M <= B_N` or a sharper explicit module sum, finish the total close count with fixed setup, and bound the temporary-name counter. `F <= E_list` is already established. |
+| Source-dependent setup and frontend node input | The ordinary Main syntax/entity sum is assembled above. Derive memoized entity-symbol/module setup and any Main subprogram-wrapper terms that depend on its local/global set, and supply the source-derived frontend allocation bound `A_Main` used by the ignored-entry/list transfer. |
+| Whole-process counters | Use `M <= B_N` or a sharper explicit module sum, finish the total close count with fixed setup, and bound the temporary-name counter. `F <= E_list` is already established. |
 
 The [frontend report](retained-frontend-entities.md) now supplies the Main entity,
 type and literal multiplicities, including generated literal lengths; they are
