@@ -1,0 +1,144 @@
+{
+  "files": [
+    {
+      "path": "allocate_decl_uid.disassembly.gz",
+      "bytes": 350,
+      "sha256": "2ea89413911cf42973541b7f7e25a54a92d30b770773044f50f465ddf7534fd7"
+    },
+    {
+      "path": "capture-identity.json",
+      "bytes": 1314,
+      "sha256": "e1ea572e9108e89e0f9be9cfb6dc605afa4f97bde9683bf0365c3f180147bc5d"
+    },
+    {
+      "path": "config.adc",
+      "bytes": 234,
+      "sha256": "2f774b0da257136905757be927f3a698c4cba8e57ba93af640e206e57cea260b"
+    },
+    {
+      "path": "copy_node.disassembly.gz",
+      "bytes": 2720,
+      "sha256": "0ec03039f7745e9098ffdb1fdcbfa67c4003c2ff5702823e9d5e7bcbc04bf760"
+    },
+    {
+      "path": "counter-events.jsonl.gz",
+      "bytes": 310168,
+      "sha256": "dc39114ab82af18706ff3cbc6a3a4f826b6ed871b66f2ad77ea145ed9837deec"
+    },
+    {
+      "path": "counter-summary.json",
+      "bytes": 3500,
+      "sha256": "c34a4d8644eaa4b505bd654ce7d67f326ef61f7d6a80a96d19670108fb93ac2c"
+    },
+    {
+      "path": "counters.py",
+      "bytes": 6466,
+      "sha256": "950c815b7ab85cf73a82e2d8e077695d2d25cfd2df5316db13ed71886496ba80"
+    },
+    {
+      "path": "dumpspecs.json",
+      "bytes": 944,
+      "sha256": "500add637ac6a988012f2f2c9e2d505a2dd4cc40767c095c69d38f3349722b40"
+    },
+    {
+      "path": "dumpspecs.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "dumpspecs.stdout.gz",
+      "bytes": 2978,
+      "sha256": "3e67c0c5d481d744c0f93b5aea1ac369cbe7be40d7240f72523303f0bb90936b"
+    },
+    {
+      "path": "elf-symbols.json",
+      "bytes": 3090,
+      "sha256": "9e90f9ab679c119925fe9af42a6050f754e6ee62aa5f4098d6423fd7b3282e7d"
+    },
+    {
+      "path": "executable-map.json",
+      "bytes": 2300,
+      "sha256": "221018d661de1a3863cf9661f9278ed5ec78b4184d2d401c9bf19857dd31c542"
+    },
+    {
+      "path": "frontend-exec.json",
+      "bytes": 2170,
+      "sha256": "68f2213db6baad8c51aa498132db15358fade388f7c80ec444d44a726735da96"
+    },
+    {
+      "path": "ggc_internal_alloc_.disassembly.gz",
+      "bytes": 7266,
+      "sha256": "8378c9e407d6b715254417c4c1366f5e55e2a8f32a65750696e1956a149b3cf7"
+    },
+    {
+      "path": "gigi.disassembly.gz",
+      "bytes": 14906,
+      "sha256": "554c6eaf28732a96ab44d406d2705e167d924c04ff5605f666627471d9a10f77"
+    },
+    {
+      "path": "invocation.json",
+      "bytes": 1637,
+      "sha256": "c73e5e2a58bc202887ccd899f9984505229ad9ca1eed063017d650a6fcf9c2ce"
+    },
+    {
+      "path": "main.adb",
+      "bytes": 70,
+      "sha256": "eeee9454c12c49124881f49a17d743c82d3e730b48933bef7338f036725cfb25"
+    },
+    {
+      "path": "make_node.disassembly.gz",
+      "bytes": 2562,
+      "sha256": "bb0671170b899ed9dbf8728f3fc80d252be744bf20cf55886b3c1206c6ba553c"
+    },
+    {
+      "path": "managed-events.jsonl",
+      "bytes": 13097,
+      "sha256": "6d2653d78566a5800ff6235fe94a209ce1a1ec853df415de06e8ba22a4c78062"
+    },
+    {
+      "path": "managed-native.log",
+      "bytes": 3266,
+      "sha256": "35c203f1f6a7e2894a9a6c4f99b8ebfbf26813367c752b6e6c240309f33f3b40"
+    },
+    {
+      "path": "mapping",
+      "bytes": 72,
+      "sha256": "4a4eef1ed92686bb9e4224bf58f11383da07fec1f33feb32202ffafc97d76bbf"
+    },
+    {
+      "path": "probe.gdb",
+      "bytes": 610,
+      "sha256": "1cfb341719dce892c15810efd694552be987df8e302a755d12d6c87ffba48244"
+    },
+    {
+      "path": "probe.log",
+      "bytes": 3713,
+      "sha256": "9e6baac7ea158ad0c4441c9df09d493daa7a7f0eb1622aabdf326cdeebfa4ecb"
+    },
+    {
+      "path": "raw-compressed-files.json",
+      "bytes": 1607,
+      "sha256": "c36b4034b80dd7fde77578b1a4403252f7ad5a2f387b03f1e7786e20cc8951dd"
+    },
+    {
+      "path": "result.json",
+      "bytes": 1300,
+      "sha256": "df1346929cf61d9df8e13bd9d7c579252511ad248ee809925cd8f594aeabf159"
+    },
+    {
+      "path": "run.py",
+      "bytes": 3356,
+      "sha256": "abc966510816c2a5db34edc1dd02be6df22e116947e3234748df00ae1fd095a5"
+    },
+    {
+      "path": "type_hash_canon.disassembly.gz",
+      "bytes": 3349,
+      "sha256": "3f2c5e6408c2bf47203b9afcc1e0f585f56bdf07ebe6255b594e540248322104"
+    },
+    {
+      "path": "watchpoints.txt.gz",
+      "bytes": 299,
+      "sha256": "4edb37010f58bdb68912e7999fa634f953f27bd396d397a6662dd240ca93e9b0"
+    }
+  ]
+}

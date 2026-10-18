@@ -1,0 +1,83 @@
+{
+  "binary_sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e",
+  "ELF_type": 2,
+  "load_segments": [
+    {
+      "offset": 0,
+      "address": 4194304,
+      "file_bytes": 52452280,
+      "memory_bytes": 52452280
+    },
+    {
+      "offset": 52453872,
+      "address": 56648176,
+      "file_bytes": 114056,
+      "memory_bytes": 7648888
+    }
+  ],
+  "sites": [
+    {
+      "counter": "ggc_bytes",
+      "address": "0xda47a4",
+      "instruction_bytes": "48012dbd60f702",
+      "post_instruction_pc": "0xda47ab",
+      "source_operation": "add rounded object_size"
+    },
+    {
+      "counter": "decl_uid",
+      "address": "0x1693751",
+      "instruction_bytes": "8915f5fd6802",
+      "post_instruction_pc": "0x1693757",
+      "source_operation": "make_node declaration"
+    },
+    {
+      "counter": "decl_uid",
+      "address": "0x169384c",
+      "instruction_bytes": "890dfafc6802",
+      "post_instruction_pc": "0x1693852",
+      "source_operation": "make_node field declaration"
+    },
+    {
+      "counter": "decl_uid",
+      "address": "0x16a2f61",
+      "instruction_bytes": "8915e5056802",
+      "post_instruction_pc": "0x16a2f67",
+      "source_operation": "copy_node declaration"
+    },
+    {
+      "counter": "type_uid",
+      "address": "0x16936b8",
+      "instruction_bytes": "89157266f801",
+      "post_instruction_pc": "0x16936be",
+      "source_operation": "make_node type"
+    },
+    {
+      "counter": "type_uid",
+      "address": "0x16a2f18",
+      "instruction_bytes": "8915126ef701",
+      "post_instruction_pc": "0x16a2f1e",
+      "source_operation": "copy_node type"
+    },
+    {
+      "counter": "type_uid",
+      "address": "0x16a850b",
+      "instruction_bytes": "89051f18f701",
+      "post_instruction_pc": "0x16a8511",
+      "source_operation": "type_hash_canon rollback"
+    },
+    {
+      "counter": "debug_decl_uid",
+      "address": "0x1693872",
+      "instruction_bytes": "8905d0fc6802",
+      "post_instruction_pc": "0x1693878",
+      "source_operation": "make_node debug declaration"
+    },
+    {
+      "counter": "pre_main_boundary",
+      "address": "0x9a9419",
+      "instruction_bytes": "e852ebffff",
+      "post_instruction_pc": "0x9a941e",
+      "source_operation": "Compilation_Unit_to_gnu call; stop before executing"
+    }
+  ]
+}

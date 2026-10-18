@@ -1,0 +1,33 @@
+/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb: warning: Couldn't determine a path for the index cache directory.
+Catchpoint 1 (exec)
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+[Attaching after Thread 0x7f864a9a5780 (LWP 262138) vfork to child process 262141]
+[New inferior 2 (process 262141)]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+[Detaching vfork parent process 262138 after child exec]
+[Inferior 1 (process 262138) detached]
+process 262141 is executing new program: /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1
+[Switching to process 262141]
+
+Thread 2.1 "gnat1" hit Catchpoint 1 (exec'd /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1), 0x00007f812c775340 in ?? () from /lib64/ld-linux-x86-64.so.2
+Hardware watchpoint 2: *(unsigned long long *)0x3d1a868
+Hardware watchpoint 3: *(int *)0x3d2354c
+Hardware watchpoint 4: *(unsigned int *)0x3619d30
+Hardware watchpoint 5: *(int *)0x3d23548
+Breakpoint 6 at 0x9a8520
+Breakpoint 7 at 0x97c6b0
+Breakpoint 8 at 0x9a909e
+Breakpoint 9 at 0x9a9419
+Breakpoint 10 at 0xda5780
+PREFIX_PHASE {"phase": "frontend_exec_before_initialization", "pc": "0x7f812c775340", "values": {"ggc_bytes": 0, "decl_uid": 0, "type_uid": 1, "debug_decl_uid": 0}, "events": {"ggc_bytes": 0, "decl_uid": 0, "type_uid": 0, "debug_decl_uid": 0}, "threads": 1}
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/x86_64-linux-gnu/libthread_db.so.1".
+PREFIX_PHASE {"phase": "gigi_entry", "pc": "0x9a8520", "values": {"ggc_bytes": 159312, "decl_uid": 14, "type_uid": 101, "debug_decl_uid": 0}, "events": {"ggc_bytes": 1062, "decl_uid": 14, "type_uid": 114, "debug_decl_uid": 0}, "threads": 1}
+PREFIX_PHASE {"phase": "builtins_entry", "pc": "0x97c6b0", "values": {"ggc_bytes": 353184, "decl_uid": 246, "type_uid": 150, "debug_decl_uid": 0}, "events": {"ggc_bytes": 2466, "decl_uid": 246, "type_uid": 319, "debug_decl_uid": 0}, "threads": 1}
+PREFIX_PHASE {"phase": "builtins_return", "pc": "0x9a909e", "values": {"ggc_bytes": 3316696, "decl_uid": 5832, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 39254, "decl_uid": 5832, "type_uid": 2618, "debug_decl_uid": 0}, "threads": 1}
+PREFIX_PHASE {"phase": "before_main_translation", "pc": "0x9a9419", "values": {"ggc_bytes": 3318816, "decl_uid": 5832, "type_uid": 1937, "debug_decl_uid": 0}, "events": {"ggc_bytes": 39257, "decl_uid": 5832, "type_uid": 2618, "debug_decl_uid": 0}, "threads": 1}
+PREFIX_COMPLETE {"ggc_bytes": {"initial": 0, "current": 3318816, "peak": 3318816, "minimum": 0, "events": 39257, "positive_sum": 3318816, "negative_sum": 0, "positive_events": 39257, "negative_events": 0, "largest_increment": 65536}, "decl_uid": {"initial": 0, "current": 5832, "peak": 5832, "minimum": 0, "events": 5832, "positive_sum": 5832, "negative_sum": 0, "positive_events": 5832, "negative_events": 0, "largest_increment": 1}, "type_uid": {"initial": 1, "current": 1937, "peak": 1938, "minimum": 1, "events": 2618, "positive_sum": 2277, "negative_sum": 341, "positive_events": 2277, "negative_events": 341, "largest_increment": 1}, "debug_decl_uid": {"initial": 0, "current": 0, "peak": 0, "minimum": 0, "events": 0, "positive_sum": 0, "negative_sum": 0, "positive_events": 0, "negative_events": 0, "largest_increment": 0}}
+gcc: fatal error: Killed signal terminated program gnat1
+compilation terminated.

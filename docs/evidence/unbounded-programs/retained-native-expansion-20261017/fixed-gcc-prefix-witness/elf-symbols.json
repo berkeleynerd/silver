@@ -1,0 +1,136 @@
+{
+  "binary": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+  "sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e",
+  "bytes": 52570368,
+  "ELF_type": 2,
+  "debug_info_present": false,
+  "symbol_table_present": false,
+  "symbols": [
+    {
+      "name": "main",
+      "address": 9627328,
+      "size": 95,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    },
+    {
+      "name": "_ZN3ana20analyzer_state_graph12make_node_idB5cxx11ERKNS_6regionE",
+      "address": 39285392,
+      "size": 4936,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    },
+    {
+      "name": "_Z23build_optimization_nodeP11gcc_optionsS0_",
+      "address": 23796048,
+      "size": 152,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    },
+    {
+      "name": "_Z21gnat_install_builtinsv",
+      "address": 9946800,
+      "size": 6575,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    },
+    {
+      "name": "_Z26ggc_internal_alloc_no_dtormPFvPvEmm",
+      "address": 14304240,
+      "size": 2402,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    },
+    {
+      "name": "_Z13lhd_make_node9tree_code",
+      "address": 18129616,
+      "size": 5,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    },
+    {
+      "name": "ggc_internal_alloc_",
+      "address": 14304240,
+      "size": 2402,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    },
+    {
+      "name": "_ZN3ana20analyzer_state_graph12make_node_idB5cxx11EPKc",
+      "address": 39282816,
+      "size": 2565,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    },
+    {
+      "name": "timevar_ggc_mem_total",
+      "address": 64071784,
+      "size": 8,
+      "type": 1,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".bss"
+    },
+    {
+      "name": "_Z18ggc_internal_allocmPFvPvEmm",
+      "address": 14304240,
+      "size": 2402,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    },
+    {
+      "name": "_Z11ggc_collect11ggc_collect",
+      "address": 14309248,
+      "size": 1283,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    },
+    {
+      "name": "_Z17allocate_decl_uidv",
+      "address": 23672272,
+      "size": 16,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    },
+    {
+      "name": "gigi",
+      "address": 10126624,
+      "size": 5597,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    },
+    {
+      "name": "_Z9make_node9tree_code",
+      "address": 23672288,
+      "size": 730,
+      "type": 2,
+      "binding": 1,
+      "table": ".dynsym",
+      "section": ".text"
+    }
+  ]
+}

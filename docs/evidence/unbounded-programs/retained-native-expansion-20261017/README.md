@@ -33,3 +33,13 @@ derivation. The frozen initial component and first delta received
 [delta review](../../../reviews/review-native-delta-26b438ab5c.md), respectively.
 Those reviews cover their named commits; later scalar, loop, input and runtime
 root additions still require review. Whole-Main composition remains open.
+
+The later `fixed-gcc-prefix-witness/` bundle is a separate executed native
+Linux setup capture, stopped before Main translation. It retains four hardware
+counter watchpoints and 47,707 changes, with the actual driver-created frontend
+environment. `reconcile-gcc-prefix-witness.py` replays that stream without
+executing a compiler or prover; `native-gcc-prefix-witness.json` records its
+result. Its fixed semantic setup allowances depend on the source read
+projection in the research report. Source-varying metadata, individual backing
+checks and the remaining native phases are still separate; this is not a
+complete capacity rule or a completed compiler run.

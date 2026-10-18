@@ -5027,12 +5027,12 @@ dependency; it does not make G.allocated monotone, since explicit frees remain.
 Keep the cumulative/event counter requirements above and separately bound
 each variable metadata allocation and hash/table backing request.
 
-These results justify the fixed semantic setup projection for one prospective
+These results justify the fixed semantic setup projection for one
 null-class witness. They do not authorize extending the constant to a class
 whose frontend changes root flags, runtime/configuration restrictions, gigi
 mode or target options. Such a class must match this read projection; its
-variable Main graph is always outside the fixed prefix. No executable-counter
-availability or measured setup constant is asserted here. The
+variable Main graph is always outside the fixed prefix. The source inventory
+itself asserts no executable-counter availability or measured constant. The
 [retained inventory](../evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-prefix-collection.json)
 states those limits explicitly.
 
@@ -5040,6 +5040,108 @@ states those limits explicitly.
 python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-fixed-prefix.py \
   --gcc-root /tmp/silver-backend-compose-20261018/full-source \
   --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-prefix-collection.json
+```
+
+### Executed null-class GCC setup witness
+
+The one native Linux capture on 2026-10-18 closes the executable event-counter
+gap for this prefix. Managed run `20261018T070510-e42a87f0a42b` used one worker
+and an isolated `/tmp/silver-native-gcc-prefix-20261018` workspace. Its debugger
+capture took 6.164 seconds; no tool rebuild, solver or Lean execution occurred.
+The [raw bundle](../evidence/unbounded-programs/retained-native-expansion-20261017/fixed-gcc-prefix-witness/manifest.json)
+retains the runner, input bytes, commands, actual environment/arguments,
+debugger/compiler identities, disassembly, compressed event stream, logs and
+managed ledger. The [reconciled record](../evidence/unbounded-programs/retained-native-expansion-20261017/native-gcc-prefix-witness.json)
+replays all 47,707 counter changes against 27 pinned source files and the
+installed executable's instruction bytes. This is an observed fixed-prefix
+witness joined to the preceding source projection, not a sample-only claim
+about arbitrary source programs.
+
+The runner starts the actual GCC driver with the selected seven-entry initial
+environment and follows its child through exec into gnat1. At the exec stop,
+before the dynamic loader executes frontend initializers, it records
+`/proc/<pid>/environ` and `/proc/<pid>/cmdline`. The effective frontend
+environment has exactly ten entries: the original seven plus GCC_EXEC_PREFIX,
+COLLECT_GCC and COLLECT_GCC_OPTIONS. GCC_EXEC_PREFIX is the raw relocated
+`<driver-bin>/../lib/gcc/` spelling. No debugger LD_LIBRARY_PATH enters the
+inferior. The arguments contain the selected `-gnatx`, `-gnata`, `-gnato`,
+generic x86-64 target and naming/mapping inputs; they do not contain `-gnatp`.
+The initial environment therefore is not mistaken for the child environment.
+A driver-only `-dumpspecs` query under the same seven entries also retains the
+10,038-byte configured spec text and its successful result.
+
+The Main input is the exact 70-byte retained null source. Its 234-byte config
+contains only the two default naming pragmas; it is explicitly a prepared
+fixture, not the earlier 244-byte GPR-generated artifact. Its 72-byte map
+contains one exact Main unit/basename/path triple. Configuration source bytes
+and path metadata are separately charged. A future producer descriptor must
+match the naming-only semantic projection or establish its own projection.
+
+Four hardware write watchpoints cover the counter storage from exec onward:
+
+| Counter | Address | Width | Observed lifetime result |
+| --- | --- | --- | --- |
+| Cumulative rounded GGC bytes | `0x3d1a868` | unsigned 64 | 39,257 positive events, totaling 3,318,816 bytes; largest increment 65,536 |
+| next_decl_uid | `0x3d2354c` | signed 32 | 5,832 increments, initial 0, final/peak 5,832 |
+| next_type_uid | `0x3619d30` | unsigned 32 | 2,277 increments and 341 rollbacks; initial 1, final 1,937, peak 1,938 |
+| next_debug_decl_uid | `0x3d23548` | signed 32 | no changes; initial/final 0 |
+
+The record verifies actual hardware watchpoint installation. Every changed
+value has its old value, new value and post-write PC retained. Positive GGC
+increments come only from the installed allocator instruction; declaration
+increments come from make_node/copy_node; type increments come from those
+constructors, and all 341 decrements come from type_hash_canon. The counter
+initial values are checked at exec. Every event is checked for its allowed
+delta and representable value, and the replay reconstructs all peaks and
+phase snapshots. A wrapped positive addition would decrease the cumulative
+unsigned counter, and the observed monotone stream excludes that case; the
+signed/unsigned identity streams likewise exclude wrap or reset. Unchanged
+stores do not constitute constructor/allocation events. The selected source
+allocator always charges a positive rounded size.
+
+| Boundary | Cumulative GGC events | Rounded GGC bytes | Declaration UID | Current next type UID |
+| --- | ---: | ---: | ---: | ---: |
+| Frontend exec, before initialization | 0 | 0 | 0 | 1 |
+| gigi entry | 1,062 | 159,312 | 14 | 101 |
+| gnat_install_builtins entry | 2,466 | 353,184 | 246 | 150 |
+| gnat_install_builtins return | 39,254 | 3,316,696 | 5,832 | 1,937 |
+| Before Compilation_Unit_to_gnu | 39,257 | 3,318,816 | 5,832 | 1,937 |
+
+The exact final stop is `0x9a9419`, before the call corresponding to
+`trans.cc:685`. The installed gnat1 hash is
+`5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e`.
+A guard at ggc_collect sees no call, consistent with the source exclusion;
+there is one frontend thread throughout. GDB then deliberately kills the
+stopped frontend. The detached driver consequently prints “Killed signal
+terminated program gnat1.” That is the intended capture termination, not a
+successful full compilation claim or an unexpected compiler rejection. Main,
+the empty elaboration body, forced dummy, later initialize_rtl and assembler
+never run in this witness.
+
+Together with the fixed-root read projection, these observations supply the
+missing fixed semantic setup allowances: 5,832 normal declaration identities,
+2,277 fresh type-constructor events, and a conservative 39,257 positive GGC
+allocation events. Keeping the full sampled allowance is conservative; no
+sampled metadata is subtracted. Source-dependent filenames/line maps, the two
+max_gnat_nodes pointer arrays, translation-unit filename identifier and all
+shared identifier/hash backing growth must still be charged in full through
+their separate source-derived transfers. The observed 3,318,816 bytes are an
+event-accounting witness, **not** an aggregate memory/admission limit or a
+universal byte bound for those variable objects. The 65,536-byte largest
+increment likewise describes this input only. Individual allocation arithmetic,
+non-GGC containers, stacks/recursion and later phases retain their own checks.
+The Ada floating callbacks retain the following separate table/digit charges.
+No whole-program capacity rule or production admission change follows from
+this prefix witness alone.
+
+Replay without running any compiler or prover:
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-gcc-prefix-witness.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --ada /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --gnat1 /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1 \
+  --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-gcc-prefix-witness.json
 ```
 
 ### Fixed floating bounds still allocate Ada numeric metadata
