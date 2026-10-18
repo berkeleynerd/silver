@@ -3745,6 +3745,125 @@ visits, qualified names, metadata and backend costs are additional.
 `source_integer_stores` regenerates this composition without taking credit
 for a successful local range-check elimination.
 
+## Source predicates and conditional control flow
+
+Let P count source relational comparisons of all three admitted families:
+Integer, String equality/inequality, and Length. Let B count source `and then`
+and `or else`, Z source Boolean `not`, I source if statements and E their
+elsif parts. All branch bodies count once, regardless of static reachability.
+Use a uniform query envelope A covering source scalar roots and every String
+bound/length optimizer root, rather than reusing only the scalar A above.
+Operand constructors, literal/name processing and library calls are separate.
+
+An Integer source comparison has the existing generated comparison transfer
+plus at most two source-warning Test_Comparison queries: one from semantic
+evaluation and one from Rewrite_Comparison (`sem_eval.adb:3548–3638`,
+`exp_ch4.adb:15251–15306`, `sem_warn.adb:3548–3649`). Thus `80A+5` ordinary
+nodes, two growth events, one possible equality Bodies list and `320A+240`
+Uint appends suffice. Ordinary ordering takes the same query/rewriting path.
+Source-only reference/diagnostic records remain common metadata.
+
+For String equality, native Character components use the target's ordinary
+composite comparison; no local equality function/body is generated
+(`exp_ch4.adb:8589–8656`). The one empty Bodies list still counts. The values
+are aligned, nonpacked String names, literals or normalized slices. String
+inequality additionally rewrites to Not(Eq), resolves those two operators,
+and leaves the already resolved children alone (`:10217–10256`). Two complete
+source-comparison allowances plus five direct rewrite/not-fold nodes therefore
+cover either String operator: `160A+15` nodes, six growth events, two lists,
+and `640A+492` Uints. The last twelve Uint appends conservatively pay two
+Static_Length calls in each of the two relational evaluators. String
+Compile_Time_Compare usually returns Unknown without scalar arithmetic; this
+bound does not take that credit.
+
+Length predicates initially resolve both operands to Universal_Integer. Their
+source attributes therefore return at the result-type guard of
+Apply_Universal_Integer_Attribute_Checks (`checks.adb:3985–3993`); they do not
+create its narrowing conversion. The subsequent native comparison may use
+Narrow_Large_Operation and Optimize_Length_Comparison. The already closed
+`280A+144` node/39-growth/`1156A+1262` Uint length-check envelope includes
+both initial Length evaluations, initial and narrowed comparisons and two
+optimizer entries; its check/raise/discard row is extra safe allowance for a
+source predicate. There are two differences from that artificial suppressed
+case:
+
+- All four possible comparison stages may retain a source Original_Node.
+  Add two warning-query roots for each, or eight Compile_Time_Compare calls.
+- Narrow_Large_Operation suppresses overflow checks itself (`exp_ch4.adb:
+  14529–14533`), but range checks remain enabled. Its two conversions target
+  the existing signed base type selected to contain both operand intervals.
+  Their semantic and native Apply_Scalar_Range_Check calls repeat the same
+  already bounded Determine_Range and return on containment; they neither
+  generate a range-check tree nor narrow again (`checks.adb:3348–3400`,
+  `exp_ch4.adb:14454–14533,12333`). Charge four such range-query calls.
+  The two optimizer entries each contain two signed arithmetic operations;
+  allow two additional range queries per operation under enabled strict
+  overflow checks. Their backend-overflow path adds no frontend syntax.
+
+These twelve extra range queries and eight comparison queries give a uniform
+bound for **any source comparison**, including the smaller Integer/String
+cases:
+
+```text
+ordinary nodes <= 440A+144
+growing events <= 39
+syntax lists   <= 4
+Uint appends   <= 1868A+1742.
+```
+
+The four lists allow equality's initially empty Bodies list at every
+comparison stage. Optimizer-produced roots contain First/Last/arithmetic,
+not root Length; no third optimizer layer is possible. The known 32/64/128-bit
+Standard signed type frontier and earlier `2^126` cache allowance remain in
+force. A source Length literal is scanned separately; it is a single existing
+numeric value in this transfer. The scalar-query digit bound with width128
+covers both these values and the optimizer's arithmetic.
+
+Short-circuit child resolution and generated actions are not counted a second
+time. Resolve_Short_Circuit creates its left EWA with one empty list; useful
+right actions can create another Boolean EWA. Charge the complete existing
+eight-node/two-entity/two-growth/one-depth-addition wrapper for each side,
+even though the resolver-only left wrapper does not normally need both
+entities. Add two nodes/one growth for the short-circuit's own fold or
+known-operand rewrite. Thus each source short circuit costs at most eighteen
+nodes, five growth events, four entities/names, fifty-two name characters,
+one list and two Uint depth increments. The moved actions are already analyzed
+and have no controlled/finalizable types, so their wrapper does not replay
+String constructors or create a cleanup procedure. A source Boolean `not`
+adds at most two fold nodes and one growth event; Standard Boolean adjustment
+adds nothing (`exp_ch4.adb:10305–10313,13123–13274`,
+`sem_res.adb:11668–11700`).
+
+Native if expansion moves existing statements/conditions; it does not clone
+them. Each elsif with actions or a known condition can be moved into one new
+if node with at most two list headers. It is removed from its old list before
+recursive processing, so at most E such moves occur. Existing analyzed body
+statements return without reanalysis. Each original/new if can have at most
+one terminal rewrite to an existing statement or null. Hence `2I+3E` nodes,
+`I+E` growth events and `2E` lists suffice (`exp_ch5.adb:4767–4938`). There
+are no source return statements for its return-pair optimization. The
+controlled-object scan has the earlier zero-construction result for these
+ordinary scalar/String bodies. It creates no case, goto, exit, finally list
+or variable family of local procedures.
+
+The resulting predicate/control subtotal is
+
+```text
+ordinary nodes <= (440A+144)P + 18B + 2Z + 2I + 3E
+syntax lists   <= 4P + B + 2E
+growing events <= 39P + 5B + Z + I + E
+entities/names <= 4B
+name characters <= 52B
+Uint appends   <= (1868A+1742)P + 2B.
+```
+
+The final `2B` values are scope-depth increments: bound their magnitude by
+the enclosing depth plus two per live enclosing short circuit, separately
+from scalar-query digits. `source_predicates_and_control` records the two
+digit populations. Qualification, diagnostics/xrefs/elaboration, source
+calls/operands, action constructors and physical stack/backing remain
+separate composition terms.
+
 ## Fixed input and Main secondary-stack scaffold
 
 The initial input construction and Main's secondary-stack cleanup reduce to

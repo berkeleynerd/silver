@@ -815,6 +815,30 @@ def source_integer_stores(declarations, assignments, constraints,
                 whole_construct_closed=False)
 
 
+def source_predicates_and_control(comparisons, short_circuits, negations,
+                                 if_count, elsif_count, analysis_graph,
+                                 incoming_scope_depth):
+    assert min(comparisons, short_circuits, negations, if_count, elsif_count,
+               incoming_scope_depth) >= 0 and analysis_graph >= 1
+    a = analysis_graph
+    nodes = ((440*a+144)*comparisons + 18*short_circuits + 2*negations
+             + 2*if_count + 3*elsif_count)
+    growth = 39*comparisons+5*short_circuits+negations+if_count+elsif_count
+    entities = 4*short_circuits
+    query_uint = (1868*a+1742)*comparisons
+    return dict(comparisons=comparisons, short_circuits=short_circuits,
+                negations=negations, ifs=if_count, elsifs=elsif_count, A=a,
+                ordinary_nodes=nodes, growth=growth,
+                syntax_lists=4*comparisons+short_circuits+2*elsif_count,
+                entities=entities, names=entities, name_characters=13*entities,
+                query_Uint_appends=query_uint,
+                query_digits_per_Uint=(130*a+2+14)//15,
+                scope_Uint_appends=2*short_circuits,
+                scope_Uint_magnitude=incoming_scope_depth+2*short_circuits,
+                dynamic_slots=9*(nodes+growth)+61*entities,
+                whole_construct_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -858,6 +882,17 @@ def combined_native_uniform_vector(c, analysis_graph):
 
 
 result = {
+    "Main_source_predicates_and_control": {
+        "examples_not_thresholds": [source_predicates_and_control(0, 0, 0, 0, 0, 1, 1),
+                                    source_predicates_and_control(8, 3, 2, 2, 1, 17, 3)],
+        "Length_comparison_delta_from_suppressed_check_envelope": {
+            "source_warning_comparison_queries": 8,
+            "enabled_range_queries": 12, "possible_equality_Bodies_lists": 4},
+        "per_short_circuit": {"ordinary_nodes": 18, "growth": 5,
+                              "entities_and_names": 4, "name_characters": 52,
+                              "syntax_lists": 1, "scope_Uint_appends": 2},
+        "excluded": "source operand/name/literal/call and action constructors; qualification/common metadata; physical workspace/backend",
+    },
     "Main_source_Integer_declarations_and_assignments": {
         "examples_not_thresholds": [source_integer_stores(0, 0, 0, 0, 1),
                                     source_integer_stores(3, 5, 2, 8, 9)],
