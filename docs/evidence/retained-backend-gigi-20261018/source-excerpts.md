@@ -3077,6 +3077,21 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6318:
 ```
 
+## gcc/ada/gcc-interface/trans.cc:6765–6774
+
+```text
+6765:     case N_Subtype_Declaration:
+6766:     case N_Full_Type_Declaration:
+6767:     case N_Incomplete_Type_Declaration:
+6768:     case N_Private_Type_Declaration:
+6769:     case N_Private_Extension_Declaration:
+6770:     case N_Task_Type_Declaration:
+6771:       process_type (Defining_Entity (gnat_node));
+6772:       gnu_result = alloc_stmt_list ();
+6773:       break;
+6774:
+```
+
 ## gcc/ada/gcc-interface/trans.cc:6826–6917
 
 ```text
@@ -3735,7 +3750,7 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 8146:       break;
 ```
 
-## gcc/ada/gcc-interface/trans.cc:8603–8622
+## gcc/ada/gcc-interface/trans.cc:8603–8638
 
 ```text
 8603:     case N_Expression_With_Actions:
@@ -3758,6 +3773,22 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 8620:         = build_compound_expr (TREE_TYPE (gnu_expr), gnu_result, gnu_expr);
 8621:       gnu_result_type = get_unpadded_type (Etype (gnat_node));
 8622:       break;
+8623:
+8624:     case N_Freeze_Entity:
+8625:       start_stmt_group ();
+8626:       process_freeze_entity (gnat_node);
+8627:       process_decls (Actions (gnat_node), Empty, true, true);
+8628:       gnu_result = end_stmt_group ();
+8629:       break;
+8630:
+8631:     case N_Freeze_Generic_Entity:
+8632:       gnu_result = alloc_stmt_list ();
+8633:       break;
+8634:
+8635:     case N_Itype_Reference:
+8636:       if (!present_gnu_tree (Itype (gnat_node)))
+8637:         process_type (Itype (gnat_node));
+8638:       gnu_result = alloc_stmt_list ();
 ```
 
 ## gcc/ada/gcc-interface/trans.cc:8968–8996
@@ -4109,6 +4140,50 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 9580:
 9581:     case EXIT_STMT:
 9582:       /* Build a statement to jump to the corresponding end label, then
+```
+
+## gcc/ada/gcc-interface/trans.cc:9757–9795
+
+```text
+9757:   /* Check for an old definition if this isn't an object with address clause,
+9758:      since the saved GCC tree is the address expression in that case.  */
+9759:   gnu_old
+9760:     = present_gnu_tree (gnat_entity) && No (Address_Clause (gnat_entity))
+9761:       ? get_gnu_tree (gnat_entity) : NULL_TREE;
+9762:
+9763:   /* Don't do anything for subprograms that may have been elaborated before
+9764:      their freeze nodes.  This can happen, for example, because of an inner
+9765:      call in an instance body or because of previous compilation of a spec
+9766:      for inlining purposes.  */
+9767:   if (gnu_old
+9768:       && ((TREE_CODE (gnu_old) == FUNCTION_DECL
+9769:            && (kind == E_Function || kind == E_Procedure))
+9770:           || (FUNC_OR_METHOD_TYPE_P (TREE_TYPE (gnu_old))
+9771:               && kind == E_Subprogram_Type)))
+9772:     return;
+9773:
+9774:   /* If we have a non-dummy type old tree, we have nothing to do, except for
+9775:      aborting, since this node was never delayed as it should have been.  We
+9776:      let this happen for concurrent types and their Corresponding_Record_Type,
+9777:      however, because each might legitimately be elaborated before its own
+9778:      freeze node, e.g. while processing the other.  */
+9779:   if (gnu_old
+9780:       && !(TREE_CODE (gnu_old) == TYPE_DECL
+9781:            && TYPE_IS_DUMMY_P (TREE_TYPE (gnu_old))))
+9782:     {
+9783:       gcc_assert (Is_Concurrent_Type (gnat_entity)
+9784:                   || (Is_Record_Type (gnat_entity)
+9785:                       && Is_Concurrent_Record_Type (gnat_entity)));
+9786:       return;
+9787:     }
+9788:
+9789:   /* Reset the saved tree, if any, and elaborate the object or type for real.
+9790:      If there is a full view, elaborate it and use the result.  And, if this
+9791:      is the root type of a class-wide type, reuse it for the latter.  */
+9792:   if (gnu_old)
+9793:     {
+9794:       save_gnu_tree (gnat_entity, NULL_TREE, false);
+9795:
 ```
 
 ## gcc/ada/gcc-interface/trans.cc:9846–9856
@@ -4753,6 +4828,109 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 10492:    at the language level, except for bit-fields.  This means that these
 10493:    compilers will take the address of any tree that doesn't represent
 10494:    a bit-field reference and expect the result to be the first storage
+```
+
+## gcc/ada/gcc-interface/trans.cc:10708–10752
+
+```text
+10708: process_type (Entity_Id gnat_entity)
+10709: {
+10710:   tree gnu_old
+10711:     = present_gnu_tree (gnat_entity) ? get_gnu_tree (gnat_entity) : NULL_TREE;
+10712:
+10713:   /* If we are to delay elaboration of this type, just do any elaboration
+10714:      needed for expressions within the declaration and make a dummy node
+10715:      for it and its Full_View (if any), in case something points to it.
+10716:      Do not do this if it has already been done (the only way that can
+10717:      happen is if the private completion is also delayed).  */
+10718:   if (Present (Freeze_Node (gnat_entity)))
+10719:     {
+10720:       elaborate_entity (gnat_entity);
+10721:
+10722:       if (!gnu_old)
+10723:         {
+10724:           tree gnu_decl = TYPE_STUB_DECL (make_dummy_type (gnat_entity));
+10725:           save_gnu_tree (gnat_entity, gnu_decl, false);
+10726:           if (Is_Incomplete_Or_Private_Type (gnat_entity)
+10727:               && Present (Full_View (gnat_entity)))
+10728:             {
+10729:               if (Has_Completion_In_Body (gnat_entity))
+10730:                 DECL_TAFT_TYPE_P (gnu_decl) = 1;
+10731:               save_gnu_tree (Full_View (gnat_entity), gnu_decl, false);
+10732:             }
+10733:         }
+10734:
+10735:       return;
+10736:     }
+10737:
+10738:   /* If we saved away a dummy type for this node, it means that this made the
+10739:      type that corresponds to the full type of an incomplete type.  Clear that
+10740:      type for now and then update the type in the pointers below.  But, if the
+10741:      saved type is not dummy, it very likely means that we have a use before
+10742:      declaration for the type in the tree, what we really cannot handle.  */
+10743:   if (gnu_old)
+10744:     {
+10745:       gcc_assert (TREE_CODE (gnu_old) == TYPE_DECL
+10746:                   && TYPE_IS_DUMMY_P (TREE_TYPE (gnu_old)));
+10747:
+10748:       save_gnu_tree (gnat_entity, NULL_TREE, false);
+10749:     }
+10750:
+10751:   /* Now fully elaborate the type.  */
+10752:   tree gnu_new = gnat_to_gnu_entity (gnat_entity, NULL_TREE, true);
+```
+
+## gcc/ada/gcc-interface/utils.cc:521–568
+
+```text
+521: make_dummy_type (Entity_Id gnat_type)
+522: {
+523:   Entity_Id gnat_equiv = Gigi_Equivalent_Type (Underlying_Type (gnat_type));
+524:   tree gnu_type, debug_type;
+525:
+526:   /* If there was no equivalent type (can only happen when just annotating
+527:      types) or underlying type, go back to the original type.  */
+528:   if (No (gnat_equiv))
+529:     gnat_equiv = gnat_type;
+530:
+531:   /* If there is already a dummy type, use that one.  Else make one.  */
+532:   if (PRESENT_DUMMY_NODE (gnat_equiv))
+533:     return GET_DUMMY_NODE (gnat_equiv);
+534:
+535:   /* If this is a record, make a RECORD_TYPE or UNION_TYPE; else make
+536:      an ENUMERAL_TYPE.  */
+537:   gnu_type = make_node (Is_Record_Type (gnat_equiv)
+538:                         ? tree_code_for_record_type (gnat_equiv)
+539:                         : ENUMERAL_TYPE);
+540:   TYPE_NAME (gnu_type) = get_entity_name (gnat_type);
+541:   TYPE_DUMMY_P (gnu_type) = 1;
+542:   TYPE_STUB_DECL (gnu_type)
+543:     = create_type_stub_decl (TYPE_NAME (gnu_type), gnu_type);
+544:   if (Is_By_Reference_Type (gnat_equiv))
+545:     TYPE_BY_REFERENCE_P (gnu_type) = 1;
+546:   if (Has_Discriminants (gnat_equiv))
+547:     decl_attributes (&gnu_type,
+548:                      tree_cons (get_identifier ("may_alias"), NULL_TREE,
+549:                                 NULL_TREE),
+550:                      ATTR_FLAG_TYPE_IN_PLACE);
+551:
+552:   SET_DUMMY_NODE (gnat_equiv, gnu_type);
+553:
+554:   /* Create a debug type so that debuggers only see an unspecified type.  */
+555:   if (Needs_Debug_Info (gnat_type))
+556:     {
+557:       debug_type = make_node (LANG_TYPE);
+558:       TYPE_NAME (debug_type) = TYPE_NAME (gnu_type);
+559:       TYPE_ARTIFICIAL (debug_type) = TYPE_ARTIFICIAL (gnu_type);
+560:       SET_TYPE_DEBUG_TYPE (gnu_type, debug_type);
+561:     }
+562:
+563:   return gnu_type;
+564: }
+565:
+566: /* Return the dummy type that was made for GNAT_TYPE, if any.  */
+567:
+568: tree
 ```
 
 ## gcc/ada/gcc-interface/utils.cc:682–783
@@ -7038,9 +7216,57 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3755:
 ```
 
-## gcc/ada/gcc-interface/decl.cc:400–445
+## gcc/ada/gcc-interface/decl.cc:352–445
 
 ```text
+352:      because it's actually a use of the latter type.  */
+353:   if (!definition
+354:       && is_type
+355:       && Is_Itype (gnat_entity)
+356:       && Ekind (gnat_entity) != E_Access_Subtype
+357:       && !(Ekind (gnat_entity) == E_Class_Wide_Subtype
+358:            && Present (Equivalent_Type (gnat_entity)))
+359:       && !present_gnu_tree (gnat_entity)
+360:       && In_Extended_Main_Code_Unit (gnat_entity))
+361:     {
+362:       /* Unless it's for an anonymous access type, whose scope is irrelevant,
+363:          ensure that we are in a subprogram mentioned in the Scope chain of
+364:          this entity, our current scope is global, or we encountered a task
+365:          or entry (where we can't currently accurately check scoping).  */
+366:       if (Ekind (gnat_entity) == E_Anonymous_Access_Type
+367:           || !current_function_decl
+368:           || DECL_ELABORATION_PROC_P (current_function_decl))
+369:         {
+370:           process_type (gnat_entity);
+371:           return get_gnu_tree (gnat_entity);
+372:         }
+373:
+374:       for (gnat_temp = Scope (gnat_entity);
+375:            Present (gnat_temp);
+376:            gnat_temp = Scope (gnat_temp))
+377:         {
+378:           if (Is_Type (gnat_temp))
+379:             gnat_temp = Underlying_Type (gnat_temp);
+380:
+381:           if (Is_Subprogram (gnat_temp)
+382:               && Present (Protected_Body_Subprogram (gnat_temp)))
+383:             gnat_temp = Protected_Body_Subprogram (gnat_temp);
+384:
+385:           if (Ekind (gnat_temp) == E_Entry
+386:               || Ekind (gnat_temp) == E_Entry_Family
+387:               || Ekind (gnat_temp) == E_Task_Type
+388:               || (Is_Subprogram (gnat_temp)
+389:                   && present_gnu_tree (gnat_temp)
+390:                   && (current_function_decl
+391:                       == gnat_to_gnu_entity (gnat_temp, NULL_TREE, false))))
+392:             {
+393:               process_type (gnat_entity);
+394:               return get_gnu_tree (gnat_entity);
+395:             }
+396:         }
+397:
+398:       /* This abort means the itype has an incorrect scope, i.e. that its
+399:          scope does not correspond to the subprogram it is first used in.  */
 400:       gcc_unreachable ();
 401:     }
 402:
@@ -7134,9 +7360,22 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 766:         /* Get the type after elaborating the renamed object.  */
 ```
 
-## gcc/ada/gcc-interface/decl.cc:1177–1205
+## gcc/ada/gcc-interface/decl.cc:1164–1205
 
 ```text
+1164:                 gnu_decl = gnu_expr;
+1165:                 save_gnu_tree (gnat_entity, gnu_decl, true);
+1166:                 saved = true;
+1167:                 annotate_object (gnat_entity, gnu_type, NULL_TREE, false);
+1168:
+1169:                 /* If this is only a reference to the entity, we are done.  */
+1170:                 if (!definition)
+1171:                   break;
+1172:
+1173:                 /* Otherwise, emit the initialization statement, if any.  */
+1174:                 if (gnu_init)
+1175:                   add_stmt (gnu_init);
+1176:
 1177:                 /* If it needs to be materialized for debugging purposes, build
 1178:                    the entity as indirect reference to the renamed object.  */
 1179:                 if (Materialize_Entity (gnat_entity))
@@ -8383,7 +8622,28 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4056:       }
 ```
 
-## gcc/ada/gcc-interface/decl.cc:4530–5022
+## gcc/ada/gcc-interface/decl.cc:4480–4495
+
+```text
+4480:
+4481:     case E_Block:
+4482:     case E_Loop:
+4483:       /* Nothing at all to do here, so just return an ERROR_MARK and claim
+4484:          we've already saved it, so we don't try to.  */
+4485:       gnu_decl = error_mark_node;
+4486:       saved = true;
+4487:       break;
+4488:
+4489:     case E_Abstract_State:
+4490:       /* This is a SPARK annotation that only reaches here when compiling in
+4491:          ASIS mode.  */
+4492:       gcc_assert (type_annotate_only);
+4493:       gnu_decl = error_mark_node;
+4494:       saved = true;
+4495:       break;
+```
+
+## gcc/ada/gcc-interface/decl.cc:4530–5026
 
 ```text
 4530:   /* If we are processing a type and there is either no DECL for it or
@@ -8879,6 +9139,10 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 5020:                                      debug_info_p, gnat_entity);
 5021:     }
 5022:
+5023:   /* If we haven't already, associate the ..._DECL node that we just made with
+5024:      the input GNAT entity node.  */
+5025:   if (!saved)
+5026:     save_gnu_tree (gnat_entity, gnu_decl, false);
 ```
 
 ## gcc/ada/gcc-interface/decl.cc:5538–5691

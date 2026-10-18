@@ -35,19 +35,20 @@ RANGES = {
         (3026, 3306), (3313, 3400), (3843, 3941), (4028, 4126),
         (4228, 4249), (4582, 4613), (4680, 5758),
         (5990, 6003), (6031, 6065), (6076, 6095),
-        (6118, 6144), (6150, 6318), (6826, 6917), (7086, 7097),
-        (7291, 7655), (7656, 7725), (7944, 8003), (8118, 8146), (8603, 8622),
+        (6118, 6144), (6150, 6318), (6765, 6774), (6826, 6917), (7086, 7097),
+        (7291, 7655), (7656, 7725), (7944, 8003), (8118, 8146), (8603, 8638),
         (8968, 8996), (9104, 9185), (9217, 9278), (9298, 9325),
-        (9378, 9406), (9492, 9582), (9846, 9856), (9889, 10025), (10014, 10494)],
+        (9378, 9406), (9492, 9582), (9757, 9795), (9846, 9856),
+        (9889, 10025), (10014, 10494), (10708, 10752)],
     "gcc/ada/gcc-interface/utils.cc": [
-        (682, 783), (894, 1062), (1522, 1613), (1691, 1935),
+        (521, 568), (682, 783), (894, 1062), (1522, 1613), (1691, 1935),
         (2861, 2894), (2918, 3133), (3137, 3162), (3830, 3875),
         (4401, 4460), (4794, 4905), (5009, 5635), (5764, 5851),
         (5911, 6250), (3700, 3755)],
     "gcc/ada/gcc-interface/decl.cc": [
-        (400, 445), (697, 718), (754, 766), (1177, 1205), (1278, 1291),
+        (352, 445), (697, 718), (754, 766), (1164, 1205), (1278, 1291),
         (1507, 1713), (1901, 2005), (2577, 3193), (3810, 4056),
-        (4530, 5022), (5538, 5691), (7116, 7128), (7169, 7228), (7532, 7688)],
+        (4480, 4495), (4530, 5026), (5538, 5691), (7116, 7128), (7169, 7228), (7532, 7688)],
     "gcc/ada/gcc-interface/utils2.cc": [
         (216, 456), (984, 1520), (1530, 1984), (2018, 2130),
         (2166, 2435), (2564, 2761), (3009, 3380)],
@@ -246,6 +247,20 @@ def check_sources(sources, inventory):
     assert call.index("if (want_value)\n\t    return GS_ALL_DONE;") < call.index("gimplify_arg (")
     assert "auto_vec<tree> vargs (nargs);" in gimplify
     assert sources["gcc/gimple.cc"].count("nargs + 3))") == 2
+    assert "if (!saved)\n    save_gnu_tree (gnat_entity, gnu_decl, false);" in decl
+    assert "case N_Itype_Reference:\n      if (!present_gnu_tree (Itype (gnat_node)))" in trans
+    start = trans.index("\nprocess_type (Entity_Id")
+    end = trans.index("\n}\n", start)
+    process_type = trans[start:end]
+    assert process_type.count("gnat_to_gnu_entity (") == 1
+    assert "&& TYPE_IS_DUMMY_P (TREE_TYPE (gnu_old))" in process_type
+    utils = sources["gcc/ada/gcc-interface/utils.cc"]
+    start = utils.index("\nmake_dummy_type (Entity_Id")
+    end = utils.index("\n}\n", start)
+    dummy = utils[start:end]
+    assert dummy.index("if (PRESENT_DUMMY_NODE") < dummy.index("make_node (")
+    assert dummy.count("make_node (") == 2
+    assert dummy.count("create_type_stub_decl (") == 1
 
 
 def arithmetic():
@@ -359,6 +374,9 @@ def arithmetic():
         "nonbuiltin_scalar_call_actual_visits": "<= 3*P",
         "nonbuiltin_scalar_call_raw_operand_positions": "<= P+3*X",
         "nonbuiltin_scalar_call_unshare_nodes_and_slots": "<= 3*X nodes, P+5*X slots",
+        "Main_constructor_bearing_full_entity_conversions": "O+Ts+Ta+Tl+Tp <= E_Main, each entity once",
+        "Main_direct_ordinary_object_declaration_requests": "<= 4*O",
+        "Main_deferred_dummy_type_and_decl_requests": "<= 2*T type/debug nodes and T TYPE_DECL, T=Ts+Ta+Tl+Tp",
         "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success",
     }
 

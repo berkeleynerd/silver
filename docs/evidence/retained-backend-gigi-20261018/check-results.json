@@ -112,6 +112,9 @@
     "nonbuiltin_scalar_call_actual_visits": "<= 3*P",
     "nonbuiltin_scalar_call_raw_operand_positions": "<= P+3*X",
     "nonbuiltin_scalar_call_unshare_nodes_and_slots": "<= 3*X nodes, P+5*X slots",
+    "Main_constructor_bearing_full_entity_conversions": "O+Ts+Ta+Tl+Tp <= E_Main, each entity once",
+    "Main_direct_ordinary_object_declaration_requests": "<= 4*O",
+    "Main_deferred_dummy_type_and_decl_requests": "<= 2*T type/debug nodes and T TYPE_DECL, T=Ts+Ta+Tl+Tp",
     "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success"
   },
   "compiler_runs": 0,

@@ -840,6 +840,95 @@ In particular, a complete local-variable bound must add the named-bound,
 padding-XVZ, object/capture and generic temporary events to `C+P`; the call
 bound alone is not a bound on all BIND locals.
 
+### Constructor-bearing Main entities are fully converted once
+
+The local rows above can now consume **entity counts**, rather than an
+unbounded number of reference visits. Let O count variable Main ordinary
+objects, generated captures/renamings and for indices; let Ts, Ta, Tl and Tp
+count respectively its signed scalar subtypes, constrained String subtypes,
+String-literal subtypes and generated access-to-constrained-String types.
+These are disjoint native entity families, so
+
+```text
+O + Ts + Ta + Tl + Tp <= E_Main.
+```
+
+Count a full conversion when `gnat_to_gnu_entity` reaches the relevant kind
+branch, rather than counting its cached returns or itype dispatch wrapper.
+On the selected Main frontier, each of these entities has at most one full
+conversion. The argument has three parts.
+
+First, the existing-association path returns before the kind switch
+(`decl.cc:404–445`). Completed ordinary conversions save the resulting
+declaration at `:5025–5026`; object renamings that save an expression instead
+do so explicitly at `:1164–1166`. An unassociated itype reference can enter
+`process_type`, but that wrapper delegates to its one defining conversion;
+it does not itself enter the type-construction branch (`:352–400`).
+
+Second, definition sites do not repeatedly bypass that cache. The ordered
+declaration pass and EWA rules established above translate each object/type
+declaration once. A for index is defined once before the loop body, independent
+of the runtime trip count. An N_Itype_Reference checks for an association
+before invoking `process_type` (`trans.cc:8635–8638`). A declaration deferred
+to its freeze stores its initializer without defining the entity; its freeze
+performs the full definition (`:6865–6878,6905–6915,9846–9856`). For a deferred
+type, `process_type` creates at most a dummy association first; the freeze
+replaces that dummy with the full type. The second declaration pass visits
+only the freeze's body actions, not `process_freeze_entity` again
+(`:9899–10001`). Neither `process_type` nor `process_freeze_entity` can replace
+an already completed type on this frontier: their only relevant replacement
+is a dummy (`:9757–9795,10708–10752`). Concurrent/private full-view cases in
+those routines are absent from variable Main.
+
+Third, the kind branches cannot reenter the same unfinished Main type before
+it is cached. This needs more than the cache's existence: the general signed
+subtype branch explicitly allows such reentrancy (`decl.cc:1990–1995`). The
+native [endpoint-type dependency argument](retained-native-expansion.md#scalar-endpoint-types-precede-their-new-subtype)
+shows that Main endpoint expression types are base or earlier types, not the
+fresh subtype being declared. Already analyzed names can retain an earlier
+object's subtype; they are not all retagged to a base type. Constrained String
+types depend on their already constructed index subtype and fixed parent/
+Character types; generated access types depend on their earlier complete
+constrained String type. String-literal lower bounds and signed bounds refer
+only to the earlier objects/types established by that argument and the
+object-dependency induction above. The resulting dependency graph is acyclic.
+Main has no recursive record, incomplete/private view, packed-array
+implementation replacement, extended access or address-clause reset route.
+Imported types and declarations have their own fixed graph, paid separately.
+
+Consequently the principal variable-branch event bounds are
+
+```text
+ordinary-object full conversions      <= O
+signed-subtype full conversions       <= Ts
+constrained-String full conversions    <= Ta
+String-literal full conversions       <= Tl
+local constrained-access conversions  <= Tp.
+```
+
+For example, the earlier four direct ordinary-declaration sites contribute
+at most `4O` declarations; they do not become `4O` times the number of object
+references. Common type finishing and each per-kind helper-request row are
+likewise multiplied by the corresponding type count once. These are request
+coefficients, still subject to their layout/folding/metadata transfers.
+
+Allow separately one deferred-type dummy construction per local type. The
+dummy cache is keyed by its underlying equivalent type; a hit allocates
+nothing. A miss requests one ENUMERAL_TYPE, one TYPE_DECL and at most one
+debug LANG_TYPE on this nonrecord/nondiscriminated Main frontier
+(`utils.cc:521–568`). Thus `T=Ts+Ta+Tl+Tp` supplies at most `2T` dummy/debug
+type nodes and T dummy declarations, including dummies later replaced. Its
+name/identifier metadata is separate. `elaborate_entity`'s deferred scalar
+bound preparation uses the same cached endpoint roots already charged in
+the `32E_Main` source-visit interface; no second syntax traversal is added.
+
+This claim deliberately excludes scope-only E_Block/E_Loop entries:
+`decl.cc:4480–4486` returns an error marker without caching them. Such entries
+do not construct the object/type families above; their name/context work must
+remain in the metadata visit count. Main/finalizer subprogram profiles and all
+fixed imported entities are also separate. The bound is not a claim that
+every `gnat_to_gnu_entity` invocation, or every possible GNAT kind, occurs once.
+
 ## One-dimensional descriptors and shared references
 
 A String template has two scalar fields. `build_template`
@@ -1433,8 +1522,8 @@ the earlier materialization interface, with SAVE requests selecting VAR_DECL.
 These interfaces remove the per-call/per-type arity ambiguity; they do not yet
 supply one complete, usable constructor coefficient. The remaining joins are:
 
-1. Bound actual uncached entity conversions and their synthetic GCC type and
-   declaration constructors. Variable Main ordinary/initializer visits,
+1. Join the now-bounded constructor-bearing Main entity conversions with
+   their synthetic GCC type and declaration helper transfers. Variable Main ordinary/initializer visits,
    diagnostic replay and normalized type-bound roots now compose into the
    source-derived linear term above. Preserve its per-kind native syntax
    counts where useful; neither that term nor the entity cache prices the
