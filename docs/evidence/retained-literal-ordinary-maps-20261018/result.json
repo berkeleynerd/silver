@@ -1,0 +1,51 @@
+{
+  "file_count_upper": 1589,
+  "logical_lines_upper": 16777216,
+  "guards": {
+    "one_map_per_file": true,
+    "location_space": true
+  },
+  "source_map_size_bytes": 32,
+  "allocation_rows": [
+    {
+      "used_before": 0,
+      "requested_maps": 256,
+      "raw_before_rounding": 8192,
+      "reallocator_caller_bytes": 8192,
+      "rounded_GGC_bytes": 8192,
+      "allocated_map_slots": 256
+    },
+    {
+      "used_before": 256,
+      "requested_maps": 514,
+      "raw_before_rounding": 16448,
+      "reallocator_caller_bytes": 32768,
+      "rounded_GGC_bytes": 32768,
+      "allocated_map_slots": 1024
+    },
+    {
+      "used_before": 1024,
+      "requested_maps": 2050,
+      "raw_before_rounding": 65600,
+      "reallocator_caller_bytes": 131072,
+      "rounded_GGC_bytes": 131072,
+      "allocated_map_slots": 4096
+    }
+  ],
+  "additional_GGC_events_upper": 3,
+  "additional_finalizers_upper": 0,
+  "complete_ordinary_map_lifetime_closed": false,
+  "total_GGC_events": null,
+  "complete_native_capacity": false,
+  "aggregate_RAM_gate": false,
+  "production_admission_changed": false,
+  "native_tool_executions": 0,
+  "allocated_map_slots_upper": 4096,
+  "each_caller_bytes_upper": 131072,
+  "individual_size_t_products_fit": true,
+  "map_count_and_index_uint64_fit": true,
+  "highest_location_upper": 6824703033345,
+  "gigi_source_map_preallocation_closed_under_premises": true,
+  "later_ordinary_map_mutators_excluded_here": false,
+  "complete_source_identities_checked": 10
+}

@@ -1,0 +1,66 @@
+{
+  "scope": "Selected gigi ordinary-source-map preallocation; reuse retained GCC/ADA sources",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "libcpp/line-map.cc",
+      "bytes": 86805,
+      "sha256": "d451c89e3145c6bea1e1f3f413c9071b61139aabbbe15a004dabf81b51e0b8fd"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/include/line-map.h",
+      "bytes": 53179,
+      "sha256": "4088fa107d3b3c6d1f750b43e284178aeffd0679d091956744eb62462b9a1ab5"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc-common.cc",
+      "bytes": 40096,
+      "sha256": "a5a41143b78a22376c6d830215ee856616db68bbf4432987479f4e4b8ded4627"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "root": "ada",
+      "path": "gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "root": "ada",
+      "path": "gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "root": "ada",
+      "path": "back_end.adb",
+      "bytes": 14372,
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+    },
+    {
+      "root": "ada",
+      "path": "sinput.adb",
+      "bytes": 37385,
+      "sha256": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8"
+    },
+    {
+      "root": "ada",
+      "path": "sinput-l.adb",
+      "bytes": 30951,
+      "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd"
+    }
+  ]
+}
