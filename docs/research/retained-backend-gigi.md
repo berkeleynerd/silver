@@ -1934,6 +1934,184 @@ out-of-SSA, RTL, object emission or linking. The offline checker pins the
 stated source branches and arithmetic; it does not run these passes or infer
 compiler success from this fixture.
 
+### Null Main through the remaining O0 GIMPLE stages
+
+Continue with three ordinary blocks, four edges, at most two labels and a
+bare return, one default `.MEM` SSA name, and no local variables. This is a
+**conditional per-function join**: whole-unit IPA must preserve this incoming
+body, the selected native options must remain O0 without instrumentation, and
+the selected target must use `default_instruction_selection`. In particular,
+this does not assume that the compilation unit has no global variables: gigi's
+dummy hard-register varpool symbol belongs to the separate whole-unit account.
+
+The three optimization superpasses require `optimize>=1` and are skipped
+(`passes.cc:519–610`). The pass registrations nevertheless include active
+warnings, local summaries and mandatory lowering (`passes.def:54–122,195–208,
+432–461`). The following branch audit preserves the input shape:
+
+- Early inlining finds no callees, including no always-inline callee. Ordinary
+  early inlining is disabled at O0 (`ipa-inline.cc:3009–3059,3215–3360`). The
+  two local function summaries still allocate/update their summaries and scan
+  the body; their O0 path omits stack-size estimation and optimizing analyses,
+  not the entire pass (`ipa-fnsummary.cc:2856–2920,3386–3540`). Summary storage
+  belongs to the whole-unit account. SSA-name release only compacts the
+  existing vector (`tree-ssanames.cc:983–1013`).
+- Alignment has no local declarations to visit. EH dispatch has no dispatch
+  or RESX statements, and RESX lowering likewise finds none. However
+  `assign_filter_values` unconditionally requests a 16-entry type vector,
+  a 64-entry exception-specification vector and two hashes of requested size
+  31, even with no regions (`except.cc:852–866`). The later EH cleanup gate
+  requires a region tree (`tree-eh.cc:5015–5018`).
+- Varargs lowering finds no IFN_VA_ARG; vector lowering finds no assignment or
+  vector-conversion call; complex lowering's initial scan returns with no
+  complex operation; bitint lowering finds no bitint name or statement and
+  returns before its transformation. O0 switch lowering collects no switch,
+  while still requesting its initial one-entry statement vector. The
+  unconditional SSA/CFG TODOs do not invent a definition or branch on this
+  unchanged straight path. These are the concrete no-transform cases in
+  `tree-stdarg.cc:995–1104`, `tree-vect-generic.cc:2461–2490`,
+  `tree-complex.cc:215–331,1994–2002`,
+  `gimple-lower-bitint.cc:6943–6997` and
+  `tree-switch-conversion.cc:3045–3092`.
+- Assumption-function, SIMD-ID and musttail gates are false on this body.
+  NRV requires optimization. The selected configuration has no OpenMP,
+  OpenACC, TM, sanitizer, vtable-verification or hardening instrumentation.
+  GIMPLE instruction selection first calls the target hook; its selected
+  default returns false. Both generic vector helpers reject these statements,
+  and the subsequent noncall/nonassignment branch continues without change
+  (`gimple-isel.cc:63–73,174–183,1350–1393`,
+  `targhooks.cc:2787–2790`). The target-hook premise is deliberately explicit;
+  the generic pass alone does not establish it for arbitrary targets.
+- Nonnull comparison has no formal parameters. The selected warning options
+  leave uninitialized, format-overflow/truncation and recursion warnings
+  disabled. In particular, do not treat O0 uninitialized warning as an empty
+  scan if later enabled: it can invoke value numbering. The final noreturn
+  warning sees the existing exit predecessor. Final CFG cleanup has no
+  unreachable call or abnormal/critical edge and preserves the path bounds
+  (`tree-cfgcleanup.cc:1413–1485`).
+
+The bound entering out-of-SSA remains `b<=3`, `e<=4`, `t<=3`, `num_ssa_names=2`,
+`local_decls=0`. This is a shape result, not zero pass cost or a byte bound on
+all mandatory setup. The source checker pins the cited branches; configuration
+and whole-unit preservation are separate join premises.
+
+#### Warning and expansion range-cache setup remains payable
+
+The alloca warning enables a ranger before looking for alloca calls
+(`gimple-ssa-warn-alloca.cc:258–273`). Its normal limit gate admits the default
+limit after adjustment to PTRDIFF_MAX (`:81–88,149–161`). Both early and late
+access warnings also enable a ranger; `warn_free_nonheap_object` enables them
+in the selected configuration. Their statement checks return for labels and
+a bare return. The early instance still runs dangling-use/store scans,
+including a bitmap, an empty store hash and an inline-eight worklist requested
+with `n_basic_blocks+1<=6` (`gimple-ssa-warn-access.cc:2270–2275,4480–4537,
+4733–4760,4857–4904`). Its visited set includes the entry block, so path depth
+is at most four. Each access invocation computes both dominator directions
+and DFS backedges. Those graph-sized costs do not disappear with empty
+pointer-check work.
+
+Expansion creates another ranger unconditionally. There are therefore at most
+four ranger instances in this selected continuation: alloca, two access
+warnings, and expansion. At the warning sites the block-index bound is five;
+at expansion the initialization block has already been added, so use **six**.
+No instance requests a scalar range from the null body. Its mandatory setup
+still has the following typed request bounds, per instance, with `n<=6` and
+`s=num_ssa_names=2`:
+
+| Setup object | Requested logical extent |
+| --- | ---: |
+| Ranger temporary-statement vector | `s=2`, then truncated |
+| Block-range pointer vector; temporal timestamp vector | `s=2` each |
+| GORI definition-chain vector | `s=2` |
+| GORI incoming/outgoing vectors | `n<=6` each |
+| GORI incoming/outgoing bitmap headers | `2*n<=12` |
+| GORI maybe-variant bitmap | 1 header |
+| Infer exit vector; cached nonzero vector | `n+1<=7`; `s+1=3` |
+| Infer seen bitmap | at most 1 header |
+| Propagation update vector and bitmap | `n+64<=70`; 1 header |
+| Optional dominator-oracle equivalence/relation vectors | `n+1<=7` each |
+| Optional dominator-oracle self/partial vectors | `s+1=3` each |
+| Optional dominator-oracle bitmaps | 5 headers |
+
+`ranger_cache` contains a global SSA cache and block-range cache; each creates
+one range allocator, and the infer manager creates a third. Each allocator
+selects an obstack allocator by default. The infer list always initializes
+another obstack; the optional equivalence oracle initializes its chain
+obstack. These object and chunk allocations, bitmap backing, vector growth
+rounding and the two Boolean ranges in `gori_compute` still need their typed
+allocator sizes. The global SSA-cache vector remains empty. The outgoing
+switch-range helper starts with null table and allocator pointers.
+
+The relevant constructors are `gimple-range.cc:40–66`,
+`gimple-range-cache.cc:366–373,540–545,828–835,940–948,998–1022`,
+`gimple-range-gori.cc:96–103,359–366,479–523,582–599`,
+`gimple-range-infer.cc:331–351`, `value-query.cc:194–255`,
+`value-relation.cc:312–330,1064–1073`, and
+`value-range-storage.cc:47–56,82–88`. Every existing block has one successor
+except the exit, whose terminal statement is absent. `calculate_gori`
+therefore stops after its two bitmap headers, without a definition chain,
+range demand or switch-table allocation. No `sbr_vector` is created merely
+by constructing `block_range_cache`.
+
+#### Out-of-SSA selects no real partition
+
+The default `.MEM` name is virtual and its variable is ignored. There is no
+formal parameter, static chain, nonvoid result, PHI, assignment, call, asm or
+clobber. `rewrite_out_of_ssa` and its parameter/default-definition loop add
+none (`tree-outof-ssa.cc:919–944,1057–1088,1382–1405`). `init_var_map` requests
+a partition of two and at most three block pointers. The coalesce constructor
+still allocates its record, a requested-size-40 hash and an obstack, and
+same-variable population constructs a requested-size-10 hash. No coalesce
+pair is added. Partition-view selection excludes the virtual name, yielding
+zero real partitions (`tree-ssa-live.cc:84–117,198–230`).
+
+The optimized-base helper still constructs its zero-element tentative
+partition and zero-length mapping requests. `coalesce_ssa_name` then returns
+before liveness analysis, conflict-graph construction, pair sorting or
+coalescing (`tree-ssa-coalesce.cc:1601–1742,1843–1871`). Normal partition view
+again selects none. Parameter/default and undefined-value bitmaps are empty.
+No fresh GIMPLE statement, name, label, edge or RTL copy is generated.
+Temporary-expression replacement is disabled at selected O0; this condition
+is part of the selected-option premise, not inferred just from the body.
+
+`expand_phi_nodes` nevertheless constructs its elimination graph. The vector
+constructor requests are 30, 20, 10, 30, 20, 20 and 10, and its visited bitmap
+has zero partition bits (`tree-outof-ssa.cc:433–438,1012–1049`). No PHI means
+no copy, edge insertion or splitting. `partition_to_pseudo` has requested
+length zero; allocator minimums remain distinct from logical emptiness.
+
+#### Executed body expansion adds labels and notes only
+
+Before expanding the final GIMPLE block, `expand_gimple_basic_block` removes
+the bare return when its next block is EXIT, turning the edge into fallthrough
+(`cfgexpand.cc:6167–6206`). This condition holds for the last block of the
+straight path. Consequently this body makes **zero** `expand_null_return`
+calls. The actual function-return machinery is a separate entry/exit phase.
+
+At most two remaining GIMPLE labels each allocate one CODE_LABEL through
+`label_rtx`; neither label is forced or nonlocal (`stmt.cc:96–109,157–179`,
+`emit-rtl.cc:2873–2878`). Every ordinary block receives one BASIC_BLOCK note.
+All successors are the next block, so the implicit-goto footer emits no jump.
+The last emitted item is a note or label, so its dummy-move guard is also
+false (`cfgexpand.cc:6495–6566`). With no call or dynamic allocation there is
+no pending stack adjustment from this body. Thus its direct contribution is
+at most **two RTL labels and three block notes**, no value-expression
+expansion, arithmetic, load, store, call, barrier or jump.
+
+This excludes the separately payable function framework. In particular,
+`expand_used_vars` can allocate the selected target's PIC pseudo despite no
+real SSA partitions or locals (`cfgexpand.cc:2466–2500`). Function start
+allocates a return label and establishes parameter/target state. The
+initialization block adds one block and one split edge (`:6574–6615`). Function
+end emits its return label and may emit a blockage for non-call exceptions;
+void result suppresses scalar result transfers, not all target work
+(`function.cc:5104–5220,5400–5646`). Constructing the exit block adds at most
+one block and edge (`cfgexpand.cc:6633–6701`). This gives a pre-subdivision
+shape ceiling of five ordinary blocks and six edges, under the separately
+verified fixed entry/exit routes. Later RTL block subdivision, target stack
+alignment, unsharing, epilogue generation, emission and linking are not closed
+by the two-label/three-note body count.
+
 ## Unresolved terms for whole-backend composition
 
 These interfaces remove the per-call/per-type arity ambiguity; they do not yet

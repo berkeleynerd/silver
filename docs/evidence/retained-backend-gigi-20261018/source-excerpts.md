@@ -12654,6 +12654,134 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 42:   NEXT_PASS (pass_warn_function_return);
 ```
 
+## gcc/passes.def:54–122
+
+```text
+54:   NEXT_PASS (pass_ipa_function_and_variable_visibility);
+55:   NEXT_PASS (pass_ipa_strub_mode);
+56:   NEXT_PASS (pass_build_ssa_passes);
+57:   PUSH_INSERT_PASSES_WITHIN (pass_build_ssa_passes)
+58:       NEXT_PASS (pass_fixup_cfg);
+59:       NEXT_PASS (pass_build_ssa);
+60:       NEXT_PASS (pass_walloca, /*strict_mode_p=*/true);
+61:       NEXT_PASS (pass_warn_printf);
+62:       NEXT_PASS (pass_warn_nonnull_compare);
+63:       NEXT_PASS (pass_early_warn_uninitialized);
+64:       NEXT_PASS (pass_warn_access, /*early=*/true, /*check_dangling=*/true);
+65:       NEXT_PASS (pass_ubsan);
+66:       NEXT_PASS (pass_nothrow);
+67:       NEXT_PASS (pass_rebuild_cgraph_edges);
+68:   POP_INSERT_PASSES ()
+69:   NEXT_PASS (pass_target_clone, true);
+70:
+71:   NEXT_PASS (pass_local_optimization_passes);
+72:   PUSH_INSERT_PASSES_WITHIN (pass_local_optimization_passes)
+73:       NEXT_PASS (pass_fixup_cfg);
+74:       NEXT_PASS (pass_rebuild_cgraph_edges);
+75:       NEXT_PASS (pass_local_fn_summary);
+76:       NEXT_PASS (pass_early_inline);
+77:       NEXT_PASS (pass_warn_recursion);
+78:       NEXT_PASS (pass_all_early_optimizations);
+79:       PUSH_INSERT_PASSES_WITHIN (pass_all_early_optimizations)
+80:           NEXT_PASS (pass_remove_cgraph_callee_edges);
+81:           NEXT_PASS (pass_early_object_sizes);
+82:           /* Don't record nonzero bits before IPA to avoid
+83:              using too much memory.  */
+84:           NEXT_PASS (pass_ccp, false /* nonzero_p */);
+85:           /* After CCP we rewrite no longer addressed locals into SSA
+86:              form if possible.  */
+87:           NEXT_PASS (pass_forwprop, /*full_walk=*/true);
+88:           NEXT_PASS (pass_early_thread_jumps, /*first=*/true);
+89:           NEXT_PASS (pass_sra_early);
+90:           /* pass_build_ealias is a dummy pass that ensures that we
+91:              execute TODO_rebuild_alias at this point.  */
+92:           NEXT_PASS (pass_build_ealias);
+93:           /* Do phiprop before FRE so we optimize std::min and std::max well.  */
+94:           NEXT_PASS (pass_phiprop);
+95:           NEXT_PASS (pass_fre, true /* may_iterate */);
+96:           NEXT_PASS (pass_early_vrp);
+97:           NEXT_PASS (pass_merge_phi);
+98:           NEXT_PASS (pass_dse);
+99:           NEXT_PASS (pass_cd_dce, false /* update_address_taken_p */, true /* remove_unused_locals */);
+100:           NEXT_PASS (pass_phiopt, true /* early_p */);
+101:           /* Cleanup eh is done before tail recusision to remove empty (only clobbers)
+102:              finally blocks which would block tail recursion.  */
+103:           NEXT_PASS (pass_cleanup_eh);
+104:           NEXT_PASS (pass_tail_recursion);
+105:           NEXT_PASS (pass_if_to_switch);
+106:           NEXT_PASS (pass_convert_switch);
+107:           NEXT_PASS (pass_sccopy);
+108:           NEXT_PASS (pass_profile);
+109:           NEXT_PASS (pass_local_pure_const);
+110:           NEXT_PASS (pass_modref);
+111:           /* Split functions creates parts that are not run through
+112:              early optimizations again.  It is thus good idea to do this
+113:               late.  */
+114:           NEXT_PASS (pass_split_functions);
+115:           NEXT_PASS (pass_strip_predict_hints, true /* early_p */);
+116:       POP_INSERT_PASSES ()
+117:       NEXT_PASS (pass_release_ssa_names);
+118:       NEXT_PASS (pass_rebuild_cgraph_edges);
+119:       NEXT_PASS (pass_local_fn_summary);
+120:   POP_INSERT_PASSES ()
+121:
+122:   NEXT_PASS (pass_ipa_remove_symbols);
+```
+
+## gcc/passes.def:195–208
+
+```text
+195:   TERMINATE_PASS_LIST (all_late_ipa_passes)
+196:
+197:   /* These passes are run after IPA passes on every function that is being
+198:      output to the assembler file.  */
+199:   INSERT_PASSES_AFTER (all_passes)
+200:   NEXT_PASS (pass_fixup_cfg);
+201:   NEXT_PASS (pass_lower_eh_dispatch);
+202:   NEXT_PASS (pass_oacc_loop_designation);
+203:   NEXT_PASS (pass_omp_oacc_neuter_broadcast);
+204:   NEXT_PASS (pass_oacc_device_lower);
+205:   NEXT_PASS (pass_omp_device_lower);
+206:   NEXT_PASS (pass_omp_target_link);
+207:   NEXT_PASS (pass_adjust_alignment);
+208:   NEXT_PASS (pass_harden_control_flow_redundancy);
+```
+
+## gcc/passes.def:432–461
+
+```text
+432:   NEXT_PASS (pass_tm_init);
+433:   PUSH_INSERT_PASSES_WITHIN (pass_tm_init)
+434:       NEXT_PASS (pass_tm_mark);
+435:       NEXT_PASS (pass_tm_memopt);
+436:       NEXT_PASS (pass_tm_edges);
+437:   POP_INSERT_PASSES ()
+438:   NEXT_PASS (pass_simduid_cleanup);
+439:   NEXT_PASS (pass_vtable_verify);
+440:   NEXT_PASS (pass_lower_vaarg);
+441:   NEXT_PASS (pass_lower_vector);
+442:   NEXT_PASS (pass_lower_complex_O0);
+443:   NEXT_PASS (pass_lower_bitint_O0);
+444:   NEXT_PASS (pass_sancov_O0);
+445:   NEXT_PASS (pass_lower_switch_O0);
+446:   NEXT_PASS (pass_asan_O0);
+447:   NEXT_PASS (pass_tsan_O0);
+448:   NEXT_PASS (pass_musttail);
+449:   NEXT_PASS (pass_sanopt);
+450:   NEXT_PASS (pass_cleanup_eh);
+451:   NEXT_PASS (pass_lower_resx);
+452:   NEXT_PASS (pass_nrv);
+453:   NEXT_PASS (pass_gimple_isel);
+454:   NEXT_PASS (pass_harden_conditional_branches);
+455:   NEXT_PASS (pass_harden_compares);
+456:   NEXT_PASS (pass_warn_access, /*early=*/false, /*check_dangling=*/false);
+457:   NEXT_PASS (pass_cleanup_cfg_post_optimizing);
+458:   NEXT_PASS (pass_warn_function_noreturn);
+459:
+460:   NEXT_PASS (pass_expand);
+461:
+```
+
 ## gcc/gimple-low.cc:122–214
 
 ```text
@@ -17534,6 +17662,131 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3401:       else
 ```
 
+## gcc/tree-eh.cc:3653–3700
+
+```text
+3653: pass_lower_resx::execute (function *fun)
+3654: {
+3655:   basic_block bb;
+3656:   bool dominance_invalidated = false;
+3657:   bool any_rewritten = false;
+3658:
+3659:   hash_map<eh_region, tree> mnt_map;
+3660:
+3661:   FOR_EACH_BB_FN (bb, fun)
+3662:     {
+3663:       if (gresx *last = safe_dyn_cast <gresx *> (*gsi_last_bb (bb)))
+3664:         {
+3665:           dominance_invalidated |= lower_resx (bb, last, &mnt_map);
+3666:           any_rewritten = true;
+3667:         }
+3668:     }
+3669:
+3670:   if (dominance_invalidated)
+3671:     {
+3672:       free_dominance_info (CDI_DOMINATORS);
+3673:       free_dominance_info (CDI_POST_DOMINATORS);
+3674:     }
+3675:
+3676:   return any_rewritten ? TODO_update_ssa_only_virtuals : 0;
+3677: }
+3678:
+3679: } // anon namespace
+3680:
+3681: gimple_opt_pass *
+3682: make_pass_lower_resx (gcc::context *ctxt)
+3683: {
+3684:   return new pass_lower_resx (ctxt);
+3685: }
+3686:
+3687: /* Try to optimize var = {v} {CLOBBER} stmts followed just by
+3688:    external throw.  */
+3689:
+3690: static void
+3691: optimize_clobbers (basic_block bb)
+3692: {
+3693:   gimple_stmt_iterator gsi = gsi_last_bb (bb);
+3694:   bool any_clobbers = false;
+3695:   bool seen_stack_restore = false;
+3696:   edge_iterator ei;
+3697:   edge e;
+3698:
+3699:   /* Only optimize anything if the bb contains at least one clobber,
+3700:      ends with resx (checked by caller), optionally contains some
+```
+
+## gcc/tree-eh.cc:4083–4140
+
+```text
+4083: pass_lower_eh_dispatch::execute (function *fun)
+4084: {
+4085:   basic_block bb;
+4086:   int flags = 0;
+4087:   bool redirected = false;
+4088:   bool any_resx_to_process = false;
+4089:
+4090:   assign_filter_values ();
+4091:
+4092:   FOR_EACH_BB_FN (bb, fun)
+4093:     {
+4094:       gimple *last = *gsi_last_bb (bb);
+4095:       if (last == NULL)
+4096:         continue;
+4097:       if (gimple_code (last) == GIMPLE_EH_DISPATCH)
+4098:         {
+4099:           redirected |= lower_eh_dispatch (bb,
+4100:                                            as_a <geh_dispatch *> (last));
+4101:           flags |= TODO_update_ssa_only_virtuals;
+4102:         }
+4103:       else if (gimple_code (last) == GIMPLE_RESX)
+4104:         {
+4105:           if (stmt_can_throw_external (fun, last))
+4106:             optimize_clobbers (bb);
+4107:           else if (!any_resx_to_process)
+4108:             sink_clobbers (bb, NULL, &any_resx_to_process);
+4109:         }
+4110:       bb->flags &= ~BB_VISITED;
+4111:     }
+4112:   if (redirected)
+4113:     {
+4114:       free_dominance_info (CDI_DOMINATORS);
+4115:       delete_unreachable_blocks ();
+4116:     }
+4117:
+4118:   if (any_resx_to_process)
+4119:     {
+4120:       /* Make sure to catch all secondary sinking opportunities by processing
+4121:          blocks in RPO order and after all CFG modifications from lowering
+4122:          and unreachable block removal.  */
+4123:       int *rpo = XNEWVEC  (int, n_basic_blocks_for_fn (fun));
+4124:       int rpo_n = pre_and_rev_post_order_compute_fn (fun, NULL, rpo, false);
+4125:       gimple_seq *sunk = XCNEWVEC (gimple_seq, last_basic_block_for_fn (fun));
+4126:       for (int i = 0; i < rpo_n; ++i)
+4127:         {
+4128:           bb = BASIC_BLOCK_FOR_FN (fun, rpo[i]);
+4129:           gimple *last = *gsi_last_bb (bb);
+4130:           if (last
+4131:               && gimple_code (last) == GIMPLE_RESX
+4132:               && !stmt_can_throw_external (fun, last))
+4133:             flags |= sink_clobbers (bb, sunk);
+4134:           /* If there were any clobbers sunk into this BB, insert them now.  */
+4135:           if (!gimple_seq_empty_p (sunk[bb->index]))
+4136:             {
+4137:               gimple_stmt_iterator gsi = gsi_after_labels (bb);
+4138:               gsi_insert_seq_before (&gsi, sunk[bb->index], GSI_NEW_STMT);
+4139:               sunk[bb->index] = NULL;
+4140:             }
+```
+
+## gcc/tree-eh.cc:5015–5018
+
+```text
+5015:   bool gate (function *fun) final override
+5016:     {
+5017:       return fun->eh != NULL && fun->eh->region_tree != NULL;
+5018:     }
+```
+
 ## gcc/tree-cfgcleanup.cc:476–519
 
 ```text
@@ -17614,6 +17867,84 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 896:
 897:   return false;
 898: }
+```
+
+## gcc/tree-cfgcleanup.cc:1413–1485
+
+```text
+1413: execute_cleanup_cfg_post_optimizing (void)
+1414: {
+1415:   unsigned int todo = execute_fixup_cfg ();
+1416:   if (cleanup_tree_cfg ())
+1417:     todo |= TODO_update_ssa;
+1418:   maybe_remove_unreachable_handlers ();
+1419:   cleanup_dead_labels ();
+1420:   if (group_case_labels () && cleanup_tree_cfg ())
+1421:     todo |= TODO_update_ssa;
+1422:
+1423:   /* When optimizing undo the merging of forwarder blocks
+1424:      that phis for better out of ssa expansion.  */
+1425:   if (optimize)
+1426:     make_forwarders_with_degenerate_phis (cfun, true);
+1427:
+1428:   /* Make sure todo does not have cleanup cfg as we don't want
+1429:      remove the forwarder blocks we just created. cleanup cfg
+1430:      has already happened.  */
+1431:   todo &= ~TODO_cleanup_cfg;
+1432:
+1433:   basic_block bb = single_succ (ENTRY_BLOCK_PTR_FOR_FN (cfun));
+1434:   gimple_stmt_iterator gsi = gsi_start_nondebug_after_labels_bb (bb);
+1435:   /* If the first (and only) bb and the only non debug
+1436:      statement is __builtin_unreachable call, then replace it with a trap
+1437:      so the function is at least one instruction in size.  */
+1438:   if (!gsi_end_p (gsi)
+1439:       && gimple_call_builtin_p (gsi_stmt (gsi), BUILT_IN_UNREACHABLE))
+1440:     {
+1441:       if (targetm.have_trap ())
+1442:         {
+1443:           gimple_call_set_fndecl (gsi_stmt (gsi), builtin_decl_implicit (BUILT_IN_UNREACHABLE_TRAP));
+1444:           update_stmt (gsi_stmt (gsi));
+1445:         }
+1446:       /* If the target does not have a trap, convert it into an infinite loop. */
+1447:       else
+1448:         {
+1449:           gsi_remove (&gsi, true);
+1450:           make_single_succ_edge (bb, bb, EDGE_FALLTHRU);
+1451:           fix_loop_structure (NULL);
+1452:         }
+1453:     }
+1454:
+1455:   if ((flag_compare_debug_opt || flag_compare_debug)
+1456:       && flag_dump_final_insns)
+1457:     {
+1458:       FILE *final_output = fopen (flag_dump_final_insns, "a");
+1459:
+1460:       if (!final_output)
+1461:         {
+1462:           error ("could not open final insn dump file %qs: %m",
+1463:                  flag_dump_final_insns);
+1464:           flag_dump_final_insns = NULL;
+1465:         }
+1466:       else
+1467:         {
+1468:           int save_unnumbered = flag_dump_unnumbered;
+1469:           int save_noaddr = flag_dump_noaddr;
+1470:
+1471:           flag_dump_noaddr = flag_dump_unnumbered = 1;
+1472:           fprintf (final_output, "\n");
+1473:           dump_enumerated_decls (final_output,
+1474:                                  dump_flags | TDF_SLIM | TDF_NOUID);
+1475:           flag_dump_noaddr = save_noaddr;
+1476:           flag_dump_unnumbered = save_unnumbered;
+1477:           if (fclose (final_output))
+1478:             {
+1479:               error ("could not close final insn dump file %qs: %m",
+1480:                      flag_dump_final_insns);
+1481:               flag_dump_final_insns = NULL;
+1482:             }
+1483:         }
+1484:     }
+1485:   return todo;
 ```
 
 ## gcc/tree-ssa-operands.cc:228–278
@@ -18299,6 +18630,3303 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6718: tree
 6719: build_duplicate_type (tree type)
 6720: {
+```
+
+## gcc/passes.cc:519–610
+
+```text
+519: class pass_all_early_optimizations : public gimple_opt_pass
+520: {
+521: public:
+522:   pass_all_early_optimizations (gcc::context *ctxt)
+523:     : gimple_opt_pass (pass_data_all_early_optimizations, ctxt)
+524:   {}
+525:
+526:   /* opt_pass methods: */
+527:   bool gate (function *) final override
+528:     {
+529:       return (optimize >= 1
+530:               /* Don't bother doing anything if the program has errors.  */
+531:               && !seen_error ());
+532:     }
+533:
+534: }; // class pass_all_early_optimizations
+535:
+536: } // anon namespace
+537:
+538: static gimple_opt_pass *
+539: make_pass_all_early_optimizations (gcc::context *ctxt)
+540: {
+541:   return new pass_all_early_optimizations (ctxt);
+542: }
+543:
+544: namespace {
+545:
+546: const pass_data pass_data_all_optimizations =
+547: {
+548:   GIMPLE_PASS, /* type */
+549:   "*all_optimizations", /* name */
+550:   OPTGROUP_NONE, /* optinfo_flags */
+551:   TV_OPTIMIZE, /* tv_id */
+552:   0, /* properties_required */
+553:   0, /* properties_provided */
+554:   0, /* properties_destroyed */
+555:   0, /* todo_flags_start */
+556:   0, /* todo_flags_finish */
+557: };
+558:
+559: class pass_all_optimizations : public gimple_opt_pass
+560: {
+561: public:
+562:   pass_all_optimizations (gcc::context *ctxt)
+563:     : gimple_opt_pass (pass_data_all_optimizations, ctxt)
+564:   {}
+565:
+566:   /* opt_pass methods: */
+567:   bool gate (function *) final override
+568:   {
+569:     return optimize >= 1 && !optimize_debug;
+570:   }
+571:
+572: }; // class pass_all_optimizations
+573:
+574: } // anon namespace
+575:
+576: static gimple_opt_pass *
+577: make_pass_all_optimizations (gcc::context *ctxt)
+578: {
+579:   return new pass_all_optimizations (ctxt);
+580: }
+581:
+582: namespace {
+583:
+584: const pass_data pass_data_all_optimizations_g =
+585: {
+586:   GIMPLE_PASS, /* type */
+587:   "*all_optimizations_g", /* name */
+588:   OPTGROUP_NONE, /* optinfo_flags */
+589:   TV_OPTIMIZE, /* tv_id */
+590:   0, /* properties_required */
+591:   0, /* properties_provided */
+592:   0, /* properties_destroyed */
+593:   0, /* todo_flags_start */
+594:   0, /* todo_flags_finish */
+595: };
+596:
+597: class pass_all_optimizations_g : public gimple_opt_pass
+598: {
+599: public:
+600:   pass_all_optimizations_g (gcc::context *ctxt)
+601:     : gimple_opt_pass (pass_data_all_optimizations_g, ctxt)
+602:   {}
+603:
+604:   /* opt_pass methods: */
+605:   bool gate (function *) final override
+606:   {
+607:     return optimize >= 1 && optimize_debug;
+608:   }
+609:
+610: }; // class pass_all_optimizations_g
+```
+
+## gcc/ipa-inline.cc:3009–3059
+
+```text
+3009: inline_always_inline_functions (struct cgraph_node *node)
+3010: {
+3011:   struct cgraph_edge *e;
+3012:   bool inlined = false;
+3013:
+3014:   for (e = node->callees; e; e = e->next_callee)
+3015:     {
+3016:       struct cgraph_node *callee = e->callee->ultimate_alias_target ();
+3017:       gcc_checking_assert (!callee->aux || callee->aux == (void *)(size_t)1);
+3018:       if (!DECL_DISREGARD_INLINE_LIMITS (callee->decl)
+3019:           /* Watch for self-recursive cycles.  */
+3020:           || callee->aux)
+3021:         continue;
+3022:
+3023:       if (e->recursive_p ())
+3024:         {
+3025:           if (dump_enabled_p ())
+3026:             dump_printf_loc (MSG_MISSED_OPTIMIZATION, e->call_stmt,
+3027:                              "  Not inlining recursive call to %C.\n",
+3028:                              e->callee);
+3029:           e->inline_failed = CIF_RECURSIVE_INLINING;
+3030:           continue;
+3031:         }
+3032:       if (callee->definition
+3033:           && !ipa_fn_summaries->get (callee))
+3034:         compute_fn_summary (callee, true);
+3035:
+3036:       if (!can_early_inline_edge_p (e))
+3037:         {
+3038:           /* Set inlined to true if the callee is marked "always_inline" but
+3039:              is not inlinable.  This will allow flagging an error later in
+3040:              expand_call_inline in tree-inline.cc.  */
+3041:           if (lookup_attribute ("always_inline",
+3042:                                  DECL_ATTRIBUTES (callee->decl)) != NULL)
+3043:             inlined = true;
+3044:           continue;
+3045:         }
+3046:
+3047:       if (dump_enabled_p ())
+3048:         dump_printf_loc (MSG_OPTIMIZED_LOCATIONS, e->call_stmt,
+3049:                          "  Inlining %C into %C (always_inline).\n",
+3050:                          e->callee, e->caller);
+3051:       inline_call (e, true, NULL, NULL, false);
+3052:       callee->aux = (void *)(size_t)1;
+3053:       /* Inline recursively to handle the case where always_inline function was
+3054:          not optimized yet since it is a part of a cycle in callgraph.  */
+3055:       inline_always_inline_functions (e->callee);
+3056:       callee->aux = NULL;
+3057:       inlined = true;
+3058:     }
+3059:   return inlined;
+```
+
+## gcc/ipa-inline.cc:3215–3360
+
+```text
+3215: early_inliner (function *fun)
+3216: {
+3217:   struct cgraph_node *node = cgraph_node::get (current_function_decl);
+3218:   struct cgraph_edge *edge;
+3219:   unsigned int todo = 0;
+3220:   int iterations = 0;
+3221:   bool inlined = false;
+3222:
+3223:   if (seen_error ())
+3224:     return 0;
+3225:
+3226:   /* Do nothing if datastructures for ipa-inliner are already computed.  This
+3227:      happens when some pass decides to construct new function and
+3228:      cgraph_add_new_function calls lowering passes and early optimization on
+3229:      it.  This may confuse ourself when early inliner decide to inline call to
+3230:      function clone, because function clones don't have parameter list in
+3231:      ipa-prop matching their signature.  */
+3232:   if (ipa_node_params_sum)
+3233:     return 0;
+3234:
+3235:   if (flag_checking)
+3236:     node->verify ();
+3237:   node->remove_all_references ();
+3238:
+3239:   /* Even when not optimizing or not inlining inline always-inline
+3240:      functions.  */
+3241:   inlined = inline_always_inline_functions (node);
+3242:
+3243:   if (!optimize
+3244:       || flag_no_inline
+3245:       || !flag_early_inlining)
+3246:     ;
+3247:   else if (lookup_attribute ("flatten",
+3248:                              DECL_ATTRIBUTES (node->decl)) != NULL)
+3249:     {
+3250:       /* When the function is marked to be flattened, recursively inline
+3251:          all calls in it.  */
+3252:       if (dump_enabled_p ())
+3253:         dump_printf (MSG_OPTIMIZED_LOCATIONS,
+3254:                      "Flattening %C\n", node);
+3255:       flatten_function (node, true, true);
+3256:       inlined = true;
+3257:     }
+3258:   else
+3259:     {
+3260:       /* If some always_inline functions was inlined, apply the changes.
+3261:          This way we will not account always inline into growth limits and
+3262:          moreover we will inline calls from always inlines that we skipped
+3263:          previously because of conditional in can_early_inline_edge_p
+3264:          which prevents some inlining to always_inline.  */
+3265:       if (inlined)
+3266:         {
+3267:           timevar_push (TV_INTEGRATION);
+3268:           todo |= optimize_inline_calls (current_function_decl);
+3269:           /* optimize_inline_calls call above might have introduced new
+3270:              statements that don't have inline parameters computed.  */
+3271:           for (edge = node->callees; edge; edge = edge->next_callee)
+3272:             {
+3273:               /* We can enounter not-yet-analyzed function during
+3274:                  early inlining on callgraphs with strongly
+3275:                  connected components.  */
+3276:               ipa_call_summary *es = ipa_call_summaries->get_create (edge);
+3277:               es->call_stmt_size
+3278:                 = estimate_num_insns (edge->call_stmt, &eni_size_weights);
+3279:               es->call_stmt_time
+3280:                 = estimate_num_insns (edge->call_stmt, &eni_time_weights);
+3281:             }
+3282:           ipa_update_overall_fn_summary (node);
+3283:           inlined = false;
+3284:           timevar_pop (TV_INTEGRATION);
+3285:         }
+3286:       /* We iterate incremental inlining to get trivial cases of indirect
+3287:          inlining.  */
+3288:       while (iterations < opt_for_fn (node->decl,
+3289:                                       param_early_inliner_max_iterations))
+3290:         {
+3291:           bool inlined = early_inline_small_functions (node);
+3292:           bool speculative_calls = false;
+3293:           inlined |= inline_functions_by_afdo (node, &speculative_calls);
+3294:           if (!inlined)
+3295:             break;
+3296:           timevar_push (TV_INTEGRATION);
+3297:           if (speculative_calls)
+3298:             {
+3299:               cgraph_edge *next;
+3300:               for (cgraph_edge *e = node->callees; e; e = next)
+3301:                 {
+3302:                   next = e->next_callee;
+3303:                   cgraph_edge::redirect_call_stmt_to_callee (e);
+3304:                 }
+3305:             }
+3306:           todo |= optimize_inline_calls (current_function_decl);
+3307:
+3308:           /* Technically we ought to recompute inline parameters so the new
+3309:              iteration of early inliner works as expected.  We however have
+3310:              values approximately right and thus we only need to update edge
+3311:              info that might be cleared out for newly discovered edges.  */
+3312:           for (edge = node->callees; edge; edge = edge->next_callee)
+3313:             {
+3314:               /* We have no summary for new bound store calls yet.  */
+3315:               ipa_call_summary *es = ipa_call_summaries->get_create (edge);
+3316:               es->call_stmt_size
+3317:                 = estimate_num_insns (edge->call_stmt, &eni_size_weights);
+3318:               es->call_stmt_time
+3319:                 = estimate_num_insns (edge->call_stmt, &eni_time_weights);
+3320:             }
+3321:           if (iterations < opt_for_fn (node->decl,
+3322:                                        param_early_inliner_max_iterations) - 1)
+3323:             ipa_update_overall_fn_summary (node);
+3324:           timevar_pop (TV_INTEGRATION);
+3325:           iterations++;
+3326:           inlined = false;
+3327:         }
+3328:       if (dump_file)
+3329:         fprintf (dump_file, "Iterations: %i\n", iterations);
+3330:     }
+3331:
+3332:   /* do AFDO inlining in case it was not done as part of early inlining.  */
+3333:   if (optimize
+3334:       && !flag_no_inline
+3335:       && !flag_early_inlining
+3336:       && flag_auto_profile_inlining)
+3337:     {
+3338:       bool speculative_calls = false;
+3339:       inlined |= inline_functions_by_afdo (node, &speculative_calls);
+3340:       if (speculative_calls)
+3341:         {
+3342:           cgraph_edge *next;
+3343:           for (cgraph_edge *e = node->callees; e; e = next)
+3344:             {
+3345:               next = e->next_callee;
+3346:               cgraph_edge::redirect_call_stmt_to_callee (e);
+3347:             }
+3348:         }
+3349:     }
+3350:
+3351:   if (inlined)
+3352:     {
+3353:       timevar_push (TV_INTEGRATION);
+3354:       todo |= optimize_inline_calls (current_function_decl);
+3355:       timevar_pop (TV_INTEGRATION);
+3356:     }
+3357:
+3358:   fun->always_inline_functions_inlined = true;
+3359:
+3360:   return todo;
+```
+
+## gcc/ipa-fnsummary.cc:2856–2920
+
+```text
+2856: analyze_function_body (struct cgraph_node *node, bool early)
+2857: {
+2858:   sreal time = opt_for_fn (node->decl, param_uninlined_function_time);
+2859:   /* Estimate static overhead for function prologue/epilogue and alignment. */
+2860:   int size = opt_for_fn (node->decl, param_uninlined_function_insns);
+2861:   /* Benefits are scaled by probability of elimination that is in range
+2862:      <0,2>.  */
+2863:   basic_block bb;
+2864:   struct function *my_function = DECL_STRUCT_FUNCTION (node->decl);
+2865:   sreal freq;
+2866:   class ipa_fn_summary *info = ipa_fn_summaries->get_create (node);
+2867:   ipa_node_params *params_summary
+2868:     = early ? NULL : ipa_node_params_sum->get (node);
+2869:   ipa_predicate bb_predicate;
+2870:   struct ipa_func_body_info fbi;
+2871:   vec<ipa_predicate> nonconstant_names = vNULL;
+2872:   int nblocks, n;
+2873:   int *order;
+2874:   gimple *fix_builtin_expect_stmt;
+2875:
+2876:   gcc_assert (my_function && my_function->cfg);
+2877:   gcc_assert (cfun == my_function);
+2878:
+2879:   memset(&fbi, 0, sizeof(fbi));
+2880:   vec_free (info->conds);
+2881:   info->conds = NULL;
+2882:   info->size_time_table.release ();
+2883:   info->call_size_time_table.release ();
+2884:
+2885:   /* When optimizing and analyzing for IPA inliner, initialize loop optimizer
+2886:      so we can produce proper inline hints.
+2887:
+2888:      When optimizing and analyzing for early inliner, initialize node params
+2889:      so we can produce correct BB predicates.  */
+2890:
+2891:   if (opt_for_fn (node->decl, optimize))
+2892:     {
+2893:       calculate_dominance_info (CDI_DOMINATORS);
+2894:       calculate_dominance_info (CDI_POST_DOMINATORS);
+2895:       if (!early)
+2896:         loop_optimizer_init (LOOPS_NORMAL | LOOPS_HAVE_RECORDED_EXITS);
+2897:       else
+2898:         {
+2899:           ipa_check_create_node_params ();
+2900:           ipa_initialize_node_params (node);
+2901:         }
+2902:
+2903:       if (ipa_node_params_sum)
+2904:         {
+2905:           fbi.node = node;
+2906:           fbi.info = ipa_node_params_sum->get (node);
+2907:           fbi.bb_infos = vNULL;
+2908:           fbi.bb_infos.safe_grow_cleared (last_basic_block_for_fn (cfun), true);
+2909:           fbi.param_count = count_formal_params (node->decl);
+2910:           fbi.aa_walk_budget = opt_for_fn (node->decl, param_ipa_max_aa_steps);
+2911:
+2912:           nonconstant_names.safe_grow_cleared
+2913:             (SSANAMES (my_function)->length (), true);
+2914:         }
+2915:     }
+2916:
+2917:   if (dump_file)
+2918:     fprintf (dump_file, "\nAnalyzing function body size: %s\n",
+2919:              node->dump_name ());
+2920:
+```
+
+## gcc/ipa-fnsummary.cc:3386–3540
+
+```text
+3386: compute_fn_summary (struct cgraph_node *node, bool early)
+3387: {
+3388:   HOST_WIDE_INT self_stack_size;
+3389:   struct cgraph_edge *e;
+3390:
+3391:   gcc_assert (!node->inlined_to);
+3392:
+3393:   if (!ipa_fn_summaries)
+3394:     ipa_fn_summary_alloc ();
+3395:
+3396:   /* Create a new ipa_fn_summary.  */
+3397:   ((ipa_fn_summary_t *)ipa_fn_summaries)->remove_callees (node);
+3398:   ipa_fn_summaries->remove (node);
+3399:   class ipa_fn_summary *info = ipa_fn_summaries->get_create (node);
+3400:   class ipa_size_summary *size_info = ipa_size_summaries->get_create (node);
+3401:
+3402:   /* Estimate the stack size for the function if we're optimizing.  */
+3403:   self_stack_size = optimize && !node->thunk
+3404:                     ? estimated_stack_frame_size (node) : 0;
+3405:   size_info->estimated_self_stack_size = self_stack_size;
+3406:   info->estimated_stack_size = self_stack_size;
+3407:
+3408:   if (node->thunk)
+3409:     {
+3410:       ipa_call_summary *es = ipa_call_summaries->get_create (node->callees);
+3411:       ipa_predicate t = true;
+3412:
+3413:       node->can_change_signature = false;
+3414:       es->call_stmt_size = eni_size_weights.call_cost;
+3415:       es->call_stmt_time = eni_time_weights.call_cost;
+3416:       info->account_size_time (ipa_fn_summary::size_scale
+3417:                                * opt_for_fn (node->decl,
+3418:                                  param_uninlined_function_thunk_insns),
+3419:                                opt_for_fn (node->decl,
+3420:                                  param_uninlined_function_thunk_time), t, t);
+3421:       t = ipa_predicate::not_inlined ();
+3422:       info->account_size_time (2 * ipa_fn_summary::size_scale, 0, t, t);
+3423:       ipa_update_overall_fn_summary (node);
+3424:       size_info->self_size = size_info->size;
+3425:       if (stdarg_p (TREE_TYPE (node->decl)))
+3426:         {
+3427:           info->inlinable = false;
+3428:           node->callees->inline_failed = CIF_VARIADIC_THUNK;
+3429:         }
+3430:       else
+3431:         info->inlinable = true;
+3432:     }
+3433:   else
+3434:     {
+3435:        /* Even is_gimple_min_invariant rely on current_function_decl.  */
+3436:        push_cfun (DECL_STRUCT_FUNCTION (node->decl));
+3437:
+3438:        /* During IPA profile merging we may be called w/o virtual SSA form
+3439:           built.  */
+3440:        update_ssa (TODO_update_ssa_only_virtuals);
+3441:
+3442:        /* Can this function be inlined at all?  */
+3443:        if (!opt_for_fn (node->decl, optimize)
+3444:            && !lookup_attribute ("always_inline",
+3445:                                  DECL_ATTRIBUTES (node->decl)))
+3446:          info->inlinable = false;
+3447:        else
+3448:          info->inlinable = tree_inlinable_function_p (node->decl);
+3449:
+3450:        bool no_signature = false;
+3451:
+3452:        /* Don't allow signature changes for functions which have
+3453:           [[gnu::musttail]] or [[clang::musttail]] calls.  Sometimes
+3454:           (more often on targets which pass everything on the stack)
+3455:           signature changes can result in tail calls being impossible
+3456:           even when without the signature changes they would be ok.
+3457:           See PR121023.  */
+3458:        if (cfun->has_musttail)
+3459:          {
+3460:            if (dump_file)
+3461:             fprintf (dump_file, "No signature change:"
+3462:                      " function has calls with musttail attribute.\n");
+3463:            no_signature = true;
+3464:          }
+3465:
+3466:        /* Type attributes can use parameter indices to describe them.
+3467:           Special case fn spec since we can safely preserve them in
+3468:           modref summaries.  */
+3469:        for (tree list = TYPE_ATTRIBUTES (TREE_TYPE (node->decl));
+3470:             list && !no_signature; list = TREE_CHAIN (list))
+3471:         if (!ipa_param_adjustments::type_attribute_allowed_p
+3472:                         (get_attribute_name (list)))
+3473:            {
+3474:              if (dump_file)
+3475:                 {
+3476:                   fprintf (dump_file, "No signature change:"
+3477:                            " function type has unhandled attribute %s.\n",
+3478:                            IDENTIFIER_POINTER (get_attribute_name (list)));
+3479:                 }
+3480:              no_signature = true;
+3481:            }
+3482:        for (tree parm = DECL_ARGUMENTS (node->decl);
+3483:             parm && !no_signature; parm = DECL_CHAIN (parm))
+3484:          if (variably_modified_type_p (TREE_TYPE (parm), node->decl))
+3485:            {
+3486:              if (dump_file)
+3487:                 {
+3488:                   fprintf (dump_file, "No signature change:"
+3489:                            " has parameter with variably modified type.\n");
+3490:                 }
+3491:              no_signature = true;
+3492:            }
+3493:
+3494:        /* Likewise for #pragma omp declare simd functions or functions
+3495:           with simd attribute.  */
+3496:        if (no_signature
+3497:            || lookup_attribute ("omp declare simd",
+3498:                                 DECL_ATTRIBUTES (node->decl)))
+3499:          node->can_change_signature = false;
+3500:        else
+3501:          {
+3502:            /* Otherwise, inlinable functions always can change signature.  */
+3503:            if (info->inlinable)
+3504:              node->can_change_signature = true;
+3505:            else
+3506:              {
+3507:                /* Functions calling builtin_apply cannot change signature.  */
+3508:                for (e = node->callees; e; e = e->next_callee)
+3509:                  {
+3510:                    tree cdecl = e->callee->decl;
+3511:                    if (fndecl_built_in_p (cdecl, BUILT_IN_APPLY_ARGS,
+3512:                                                  BUILT_IN_VA_START))
+3513:                      break;
+3514:                  }
+3515:                node->can_change_signature = !e;
+3516:              }
+3517:          }
+3518:        analyze_function_body (node, early);
+3519:        pop_cfun ();
+3520:      }
+3521:
+3522:   /* Inlining characteristics are maintained by the cgraph_mark_inline.  */
+3523:   size_info->size = size_info->self_size;
+3524:   info->estimated_stack_size = size_info->estimated_self_stack_size;
+3525:
+3526:   /* Code above should compute exactly the same result as
+3527:      ipa_update_overall_fn_summary except for case when speculative
+3528:      edges are present since these are accounted to size but not
+3529:      self_size. Do not compare time since different order the roundoff
+3530:      errors result in slight changes.  */
+3531:   ipa_update_overall_fn_summary (node);
+3532:   if (flag_checking)
+3533:     {
+3534:       for (e = node->indirect_calls; e; e = e->next_callee)
+3535:        if (e->speculative)
+3536:          break;
+3537:       gcc_assert (e || size_info->size == size_info->self_size);
+3538:     }
+3539: }
+3540:
+```
+
+## gcc/tree-ssanames.cc:983–1013
+
+```text
+983: release_free_names_and_compact_live_names (function *fun)
+984: {
+985:   unsigned i, j;
+986:   int n = vec_safe_length (FREE_SSANAMES (fun));
+987:
+988:   /* Now release the freelist.  */
+989:   vec_free (FREE_SSANAMES (fun));
+990:
+991:   /* And compact the SSA number space.  We make sure to not change the
+992:      relative order of SSA versions.  */
+993:   for (i = 1, j = 1; i < fun->gimple_df->ssa_names->length (); ++i)
+994:     {
+995:       tree name = ssa_name (i);
+996:       if (name)
+997:         {
+998:           if (i != j)
+999:             {
+1000:               SSA_NAME_VERSION (name) = j;
+1001:               (*fun->gimple_df->ssa_names)[j] = name;
+1002:             }
+1003:           j++;
+1004:         }
+1005:     }
+1006:   fun->gimple_df->ssa_names->truncate (j);
+1007:
+1008:   statistics_counter_event (fun, "SSA names released", n);
+1009:   statistics_counter_event (fun, "SSA name holes removed", i - j);
+1010:   if (dump_file)
+1011:     fprintf (dump_file, "Released %i names, %.2f%%, removed %i holes\n",
+1012:              n, n * 100.0 / num_ssa_names, i - j);
+1013: }
+```
+
+## gcc/adjust-alignment.cc:60–78
+
+```text
+60: pass_adjust_alignment::execute (function *fun)
+61: {
+62:   size_t i;
+63:   tree var;
+64:
+65:   FOR_EACH_LOCAL_DECL (fun, i, var)
+66:     {
+67:       /* Don't adjust aligment for static local var and hard register var.  */
+68:       if (is_global_var (var) || DECL_HARD_REGISTER (var))
+69:         continue;
+70:
+71:       unsigned align = LOCAL_DECL_ALIGNMENT (var);
+72:
+73:       /* Make sure alignment only increase.  */
+74:       gcc_assert (align >= DECL_ALIGN (var));
+75:
+76:       SET_DECL_ALIGN (var, align);
+77:     }
+78:   return 0;
+```
+
+## gcc/except.cc:852–875
+
+```text
+852: assign_filter_values (void)
+853: {
+854:   int i;
+855:   eh_region r;
+856:   eh_catch c;
+857:
+858:   vec_alloc (cfun->eh->ttype_data, 16);
+859:   if (targetm.arm_eabi_unwinder)
+860:     vec_alloc (cfun->eh->ehspec_data.arm_eabi, 64);
+861:   else
+862:     vec_alloc (cfun->eh->ehspec_data.other, 64);
+863:
+864:   ehspec_hash_type ehspec (31);
+865:   ttypes_hash_type ttypes (31);
+866:
+867:   for (i = 1; vec_safe_iterate (cfun->eh->region_array, i, &r); ++i)
+868:     {
+869:       if (r == NULL)
+870:         continue;
+871:
+872:       switch (r->type)
+873:         {
+874:         case ERT_TRY:
+875:           for (c = r->u.eh_try.first_catch; c ; c = c->next_catch)
+```
+
+## gcc/tree-stdarg.cc:995–1104
+
+```text
+995: expand_ifn_va_arg_1 (function *fun)
+996: {
+997:   bool modified = false;
+998:   basic_block bb;
+999:   gimple_stmt_iterator i;
+1000:   location_t saved_location;
+1001:
+1002:   FOR_EACH_BB_FN (bb, fun)
+1003:     for (i = gsi_start_bb (bb); !gsi_end_p (i); gsi_next (&i))
+1004:       {
+1005:         gimple *stmt = gsi_stmt (i);
+1006:         tree ap, aptype, expr, lhs, type;
+1007:         gimple_seq pre = NULL, post = NULL;
+1008:
+1009:         if (!gimple_call_internal_p (stmt, IFN_VA_ARG))
+1010:           continue;
+1011:
+1012:         modified = true;
+1013:
+1014:         type = TREE_TYPE (TREE_TYPE (gimple_call_arg (stmt, 1)));
+1015:         ap = gimple_call_arg (stmt, 0);
+1016:         aptype = TREE_TYPE (gimple_call_arg (stmt, 2));
+1017:         gcc_assert (POINTER_TYPE_P (aptype));
+1018:
+1019:         /* Balanced out the &ap, usually added by build_va_arg.  */
+1020:         ap = build2 (MEM_REF, TREE_TYPE (aptype), ap,
+1021:                      build_int_cst (aptype, 0));
+1022:
+1023:         push_gimplify_context (false);
+1024:         saved_location = input_location;
+1025:         input_location = gimple_location (stmt);
+1026:
+1027:         /* Make it easier for the backends by protecting the valist argument
+1028:            from multiple evaluations.  */
+1029:         gimplify_expr (&ap, &pre, &post, is_gimple_min_lval, fb_lvalue);
+1030:
+1031:         expr = targetm.gimplify_va_arg_expr (ap, type, &pre, &post);
+1032:
+1033:         lhs = gimple_call_lhs (stmt);
+1034:         if (lhs != NULL_TREE)
+1035:           {
+1036:             unsigned int nargs = gimple_call_num_args (stmt);
+1037:             gcc_assert (useless_type_conversion_p (TREE_TYPE (lhs), type));
+1038:
+1039:             if (nargs == 4)
+1040:               {
+1041:                 /* We've transported the size of with WITH_SIZE_EXPR here as
+1042:                    the last argument of the internal fn call.  Now reinstate
+1043:                    it.  */
+1044:                 tree size = gimple_call_arg (stmt, nargs - 1);
+1045:                 expr = build2 (WITH_SIZE_EXPR, TREE_TYPE (expr), expr, size);
+1046:               }
+1047:
+1048:             /* We use gimplify_assign here, rather than gimple_build_assign,
+1049:                because gimple_assign knows how to deal with variable-sized
+1050:                types.  */
+1051:             gimplify_assign (lhs, expr, &pre);
+1052:           }
+1053:         else
+1054:           gimplify_and_add (expr, &pre);
+1055:
+1056:         input_location = saved_location;
+1057:         pop_gimplify_context (NULL);
+1058:
+1059:         gimple_seq_add_seq (&pre, post);
+1060:         update_modified_stmts (pre);
+1061:
+1062:         /* Add the sequence after IFN_VA_ARG.  This splits the bb right
+1063:            after IFN_VA_ARG, and adds the sequence in one or more new bbs
+1064:            inbetween.  */
+1065:         gimple_find_sub_bbs (pre, &i);
+1066:
+1067:         /* Remove the IFN_VA_ARG gimple_call.  It's the last stmt in the
+1068:            bb.  */
+1069:         unlink_stmt_vdef (stmt);
+1070:         release_ssa_name_fn (fun, gimple_vdef (stmt));
+1071:         gsi_remove (&i, true);
+1072:         gcc_assert (gsi_end_p (i));
+1073:
+1074:         /* We're walking here into the bbs which contain the expansion of
+1075:            IFN_VA_ARG, and will not contain another IFN_VA_ARG that needs
+1076:            expanding.  We could try to skip walking these bbs, perhaps by
+1077:            walking backwards over gimples and bbs.  */
+1078:         break;
+1079:       }
+1080:
+1081:   if (!modified)
+1082:     return;
+1083:
+1084:   free_dominance_info (CDI_DOMINATORS);
+1085:   update_ssa (TODO_update_ssa);
+1086: }
+1087:
+1088: /* Expand IFN_VA_ARGs in FUN, if necessary.  */
+1089:
+1090: static void
+1091: expand_ifn_va_arg (function *fun)
+1092: {
+1093:   if ((fun->curr_properties & PROP_gimple_lva) == 0)
+1094:     expand_ifn_va_arg_1 (fun);
+1095:
+1096:   if (flag_checking)
+1097:     {
+1098:       basic_block bb;
+1099:       gimple_stmt_iterator i;
+1100:       FOR_EACH_BB_FN (bb, fun)
+1101:         for (i = gsi_start_bb (bb); !gsi_end_p (i); gsi_next (&i))
+1102:           gcc_assert (!gimple_call_internal_p (gsi_stmt (i), IFN_VA_ARG));
+1103:     }
+1104: }
+```
+
+## gcc/tree-vect-generic.cc:2185–2200
+
+```text
+2185: expand_vector_operations_1 (gimple_stmt_iterator *gsi)
+2186: {
+2187:   tree lhs, rhs1, rhs2 = NULL, type, compute_type = NULL_TREE;
+2188:   enum tree_code code;
+2189:   optab op = unknown_optab;
+2190:   enum gimple_rhs_class rhs_class;
+2191:   tree new_rhs;
+2192:
+2193:   /* Only consider code == GIMPLE_ASSIGN. */
+2194:   gassign *stmt = dyn_cast <gassign *> (gsi_stmt (*gsi));
+2195:   if (!stmt)
+2196:     {
+2197:       if (gimple_call_internal_p (gsi_stmt (*gsi), IFN_VEC_CONVERT))
+2198:         expand_vector_conversion (gsi);
+2199:       return;
+2200:     }
+```
+
+## gcc/tree-vect-generic.cc:2461–2490
+
+```text
+2461:   gimple_stmt_iterator gsi;
+2462:   basic_block bb;
+2463:   bool cfg_changed = false;
+2464:
+2465:   FOR_EACH_BB_FN (bb, cfun)
+2466:     {
+2467:       for (gsi = gsi_start_bb (bb); !gsi_end_p (gsi); gsi_next (&gsi))
+2468:         {
+2469:           expand_vector_operations_1 (&gsi);
+2470:           /* ???  If we do not cleanup EH then we will ICE in
+2471:              verification.  But in reality we have created wrong-code
+2472:              as we did not properly transition EH info and edges to
+2473:              the piecewise computations.  */
+2474:           if (maybe_clean_eh_stmt (gsi_stmt (gsi))
+2475:               && gimple_purge_dead_eh_edges (bb))
+2476:             cfg_changed = true;
+2477:           /* If a .LOOP_DIST_ALIAS call prevailed loops got elided
+2478:              before vectorization got a chance to get at them.  Simply
+2479:              fold as if loop distribution wasn't performed.  */
+2480:           if (gimple_call_internal_p (gsi_stmt (gsi), IFN_LOOP_DIST_ALIAS))
+2481:             {
+2482:               fold_loop_internal_call (gsi_stmt (gsi), boolean_false_node);
+2483:               cfg_changed = true;
+2484:             }
+2485:         }
+2486:     }
+2487:
+2488:   return cfg_changed ? TODO_cleanup_cfg : 0;
+2489: }
+2490:
+```
+
+## gcc/tree-complex.cc:215–331
+
+```text
+215: init_dont_simulate_again (void)
+216: {
+217:   basic_block bb;
+218:   bool saw_a_complex_op = false;
+219:
+220:   FOR_EACH_BB_FN (bb, cfun)
+221:     {
+222:       for (gphi_iterator gsi = gsi_start_phis (bb); !gsi_end_p (gsi);
+223:            gsi_next (&gsi))
+224:         {
+225:           gphi *phi = gsi.phi ();
+226:           prop_set_simulate_again (phi,
+227:                                    is_complex_reg (gimple_phi_result (phi)));
+228:         }
+229:
+230:       for (gimple_stmt_iterator gsi = gsi_start_bb (bb); !gsi_end_p (gsi);
+231:            gsi_next (&gsi))
+232:         {
+233:           gimple *stmt;
+234:           tree op0, op1;
+235:           bool sim_again_p;
+236:
+237:           stmt = gsi_stmt (gsi);
+238:           op0 = op1 = NULL_TREE;
+239:
+240:           /* Most control-altering statements must be initially
+241:              simulated, else we won't cover the entire cfg.  */
+242:           sim_again_p = stmt_ends_bb_p (stmt);
+243:
+244:           switch (gimple_code (stmt))
+245:             {
+246:             case GIMPLE_CALL:
+247:               if (gimple_call_lhs (stmt))
+248:                 {
+249:                   sim_again_p = is_complex_reg (gimple_call_lhs (stmt));
+250:                   switch (gimple_call_combined_fn (stmt))
+251:                     {
+252:                     CASE_CFN_CABS:
+253:                       /* Expand cabs only if unsafe math and optimizing. */
+254:                       if (optimize && flag_unsafe_math_optimizations)
+255:                         saw_a_complex_op = true;
+256:                       break;
+257:                     default:;
+258:                     }
+259:                 }
+260:               break;
+261:
+262:             case GIMPLE_ASSIGN:
+263:               sim_again_p = is_complex_reg (gimple_assign_lhs (stmt));
+264:               if (gimple_assign_rhs_code (stmt) == REALPART_EXPR
+265:                   || gimple_assign_rhs_code (stmt) == IMAGPART_EXPR)
+266:                 op0 = TREE_OPERAND (gimple_assign_rhs1 (stmt), 0);
+267:               else
+268:                 op0 = gimple_assign_rhs1 (stmt);
+269:               if (gimple_num_ops (stmt) > 2)
+270:                 op1 = gimple_assign_rhs2 (stmt);
+271:               break;
+272:
+273:             case GIMPLE_COND:
+274:               op0 = gimple_cond_lhs (stmt);
+275:               op1 = gimple_cond_rhs (stmt);
+276:               break;
+277:
+278:             default:
+279:               break;
+280:             }
+281:
+282:           if (op0 || op1)
+283:             switch (gimple_expr_code (stmt))
+284:               {
+285:               case EQ_EXPR:
+286:               case NE_EXPR:
+287:               case PLUS_EXPR:
+288:               case MINUS_EXPR:
+289:               case MULT_EXPR:
+290:               case TRUNC_DIV_EXPR:
+291:               case CEIL_DIV_EXPR:
+292:               case FLOOR_DIV_EXPR:
+293:               case ROUND_DIV_EXPR:
+294:               case RDIV_EXPR:
+295:                 if (TREE_CODE (TREE_TYPE (op0)) == COMPLEX_TYPE
+296:                     || TREE_CODE (TREE_TYPE (op1)) == COMPLEX_TYPE)
+297:                   saw_a_complex_op = true;
+298:                 break;
+299:
+300:               case NEGATE_EXPR:
+301:               case CONJ_EXPR:
+302:               case PAREN_EXPR:
+303:                 if (TREE_CODE (TREE_TYPE (op0)) == COMPLEX_TYPE)
+304:                   saw_a_complex_op = true;
+305:                 break;
+306:
+307:               case REALPART_EXPR:
+308:               case IMAGPART_EXPR:
+309:                 /* The total store transformation performed during
+310:                   gimplification creates such uninitialized loads
+311:                   and we need to lower the statement to be able
+312:                   to fix things up.  */
+313:                 if (TREE_CODE (op0) == SSA_NAME
+314:                     && ssa_undefined_value_p (op0))
+315:                   saw_a_complex_op = true;
+316:                 break;
+317:
+318:               default:
+319:                 /* When expand_complex_move would trigger make sure we
+320:                    perform lowering even when there is no actual complex
+321:                    operation.  This helps consistency and vectorization.  */
+322:                 if (TREE_CODE (TREE_TYPE (gimple_op (stmt, 0))) == COMPLEX_TYPE)
+323:                   saw_a_complex_op = true;
+324:                 break;
+325:               }
+326:
+327:           prop_set_simulate_again (stmt, sim_again_p);
+328:         }
+329:     }
+330:
+331:   return saw_a_complex_op;
+```
+
+## gcc/tree-complex.cc:1994–2002
+
+```text
+1994: {
+1995:   gimple_stmt_iterator gsi;
+1996:   basic_block bb;
+1997:   int n_bbs, i;
+1998:   int *rpo;
+1999:
+2000:   if (!init_dont_simulate_again ())
+2001:     return 0;
+2002:
+```
+
+## gcc/gimple-lower-bitint.cc:6943–6997
+
+```text
+6943: gimple_lower_bitint (void)
+6944: {
+6945:   small_max_prec = mid_min_prec = large_min_prec = huge_min_prec = 0;
+6946:   limb_prec = abi_limb_prec = 0;
+6947:   bitint_big_endian = false;
+6948:
+6949:   unsigned int i;
+6950:   for (i = 0; i < num_ssa_names; ++i)
+6951:     {
+6952:       tree s = ssa_name (i);
+6953:       if (s == NULL)
+6954:         continue;
+6955:       tree type = TREE_TYPE (s);
+6956:       if (TREE_CODE (type) == COMPLEX_TYPE)
+6957:         {
+6958:           if (arith_overflow_arg_kind (SSA_NAME_DEF_STMT (s))
+6959:               != bitint_prec_small)
+6960:             break;
+6961:           type = TREE_TYPE (type);
+6962:         }
+6963:       if (TREE_CODE (type) == BITINT_TYPE
+6964:           && bitint_precision_kind (type) != bitint_prec_small)
+6965:         break;
+6966:       /* We need to also rewrite stores of large/huge _BitInt INTEGER_CSTs
+6967:          into memory.  Such functions could have no large/huge SSA_NAMEs.  */
+6968:       if (SSA_NAME_IS_VIRTUAL_OPERAND (s))
+6969:         {
+6970:           gimple *g = SSA_NAME_DEF_STMT (s);
+6971:           if (is_gimple_assign (g) && gimple_store_p (g))
+6972:             {
+6973:               tree t = gimple_assign_rhs1 (g);
+6974:               if (TREE_CODE (TREE_TYPE (t)) == BITINT_TYPE
+6975:                   && (bitint_precision_kind (TREE_TYPE (t))
+6976:                       >= bitint_prec_large))
+6977:                 break;
+6978:             }
+6979:         }
+6980:       /* Similarly, e.g. with -frounding-math casts from _BitInt INTEGER_CSTs
+6981:          to floating point types need to be rewritten.  */
+6982:       else if (SCALAR_FLOAT_TYPE_P (type))
+6983:         {
+6984:           gimple *g = SSA_NAME_DEF_STMT (s);
+6985:           if (is_gimple_assign (g) && gimple_assign_rhs_code (g) == FLOAT_EXPR)
+6986:             {
+6987:               tree t = gimple_assign_rhs1 (g);
+6988:               if (TREE_CODE (t) == INTEGER_CST
+6989:                   && TREE_CODE (TREE_TYPE (t)) == BITINT_TYPE
+6990:                   && (bitint_precision_kind (TREE_TYPE (t))
+6991:                       != bitint_prec_small))
+6992:                 break;
+6993:             }
+6994:         }
+6995:     }
+6996:   if (i == num_ssa_names)
+6997:     return 0;
+```
+
+## gcc/tree-switch-conversion.cc:3045–3092
+
+```text
+3045: pass_lower_switch<O0>::execute (function *fun)
+3046: {
+3047:   basic_block bb;
+3048:   bool expanded = false;
+3049:
+3050:   auto_vec<gimple *> switch_statements;
+3051:   switch_statements.create (1);
+3052:
+3053:   FOR_EACH_BB_FN (bb, fun)
+3054:     {
+3055:       if (gswitch *swtch = safe_dyn_cast <gswitch *> (*gsi_last_bb (bb)))
+3056:         {
+3057:           if (!O0)
+3058:             group_case_labels_stmt (swtch);
+3059:           switch_statements.safe_push (swtch);
+3060:         }
+3061:     }
+3062:
+3063:   for (unsigned i = 0; i < switch_statements.length (); i++)
+3064:     {
+3065:       gimple *stmt = switch_statements[i];
+3066:       if (dump_file)
+3067:         {
+3068:           expanded_location loc = expand_location (gimple_location (stmt));
+3069:
+3070:           fprintf (dump_file, "beginning to process the following "
+3071:                    "SWITCH statement (%s:%d) : ------- \n",
+3072:                    loc.file, loc.line);
+3073:           print_gimple_stmt (dump_file, stmt, 0, TDF_SLIM);
+3074:           putc ('\n', dump_file);
+3075:         }
+3076:
+3077:       gswitch *swtch = dyn_cast<gswitch *> (stmt);
+3078:       if (swtch)
+3079:         {
+3080:           switch_decision_tree dt (swtch);
+3081:           expanded |= dt.analyze_switch_statement ();
+3082:         }
+3083:     }
+3084:
+3085:   if (expanded)
+3086:     {
+3087:       free_dominance_info (CDI_DOMINATORS);
+3088:       free_dominance_info (CDI_POST_DOMINATORS);
+3089:       mark_virtual_operands_for_renaming (cfun);
+3090:     }
+3091:
+3092:   return 0;
+```
+
+## gcc/tree-assume.cc:417–430
+
+```text
+417: public:
+418:   pass_assumptions (gcc::context *ctxt)
+419:     : gimple_opt_pass (pass_data_assumptions, ctxt)
+420:   {}
+421:
+422:   /* opt_pass methods: */
+423:   bool gate (function *fun) final override { return fun->assume_function; }
+424:   unsigned int execute (function *fun) final override
+425:     {
+426:       // Create a bitmap of all the parameters in this function.
+427:       // Invoke the assume_query to determine what values these parameters
+428:       // have when the function returns TRUE, and set the global values of
+429:       // those parameters in this function based on that.  This will later be
+430:       // utilized by ranger when processing builtin IFN_ASSUME function calls.
+```
+
+## gcc/tree-vectorizer.cc:1468–1480
+
+```text
+1468:
+1469:   /* opt_pass methods: */
+1470:   opt_pass * clone () final override
+1471:   {
+1472:     return new pass_simduid_cleanup (m_ctxt);
+1473:   }
+1474:   bool gate (function *fun) final override { return fun->has_simduid_loops; }
+1475:   unsigned int execute (function *) final override;
+1476:
+1477: }; // class pass_simduid_cleanup
+1478:
+1479: unsigned int
+1480: pass_simduid_cleanup::execute (function *fun)
+```
+
+## gcc/tree-tailcall.cc:2243–2255
+
+```text
+2243:     : gimple_opt_pass (pass_data_musttail, ctxt)
+2244:   {}
+2245:
+2246:   /* opt_pass methods: */
+2247:   /* This pass is only used when the other tail call pass
+2248:      doesn't run to make [[musttail]] still work.  But only
+2249:      run it when there is actually a musttail in the function.  */
+2250:   bool gate (function *f) final override
+2251:   {
+2252:     return f->has_musttail;
+2253:   }
+2254:   unsigned int execute (function *) final override
+2255:   {
+```
+
+## gcc/tree-nrv.cc:123–132
+
+```text
+123:   pass_nrv (gcc::context *ctxt)
+124:     : gimple_opt_pass (pass_data_nrv, ctxt)
+125:   {}
+126:
+127:   /* opt_pass methods: */
+128:   bool gate (function *) final override { return optimize > 0; }
+129:
+130:   unsigned int execute (function *) final override;
+131:
+132: }; // class pass_nrv
+```
+
+## gcc/gimple-isel.cc:63–73
+
+```text
+63: gimple_expand_vec_set_extract_expr (struct function *fun,
+64:                                     gimple_stmt_iterator *gsi)
+65: {
+66:   gcall *new_stmt = NULL;
+67:   gassign *ass_stmt = NULL;
+68:   bool cfg_changed = false;
+69:
+70:   /* Only consider code == GIMPLE_ASSIGN.  */
+71:   gassign *stmt = dyn_cast<gassign *> (gsi_stmt (*gsi));
+72:   if (!stmt)
+73:     return false;
+```
+
+## gcc/gimple-isel.cc:174–183
+
+```text
+174: gimple_expand_vec_cond_expr (gimple_stmt_iterator *gsi)
+175: {
+176:   tree lhs, op0a = NULL_TREE;
+177:   enum tree_code code;
+178:   enum tree_code tcode;
+179:
+180:   /* Only consider code == GIMPLE_ASSIGN.  */
+181:   gassign *stmt = dyn_cast<gassign *> (gsi_stmt (*gsi));
+182:   if (!stmt)
+183:     return NULL;
+```
+
+## gcc/gimple-isel.cc:1350–1393
+
+```text
+1350: pass_gimple_isel::execute (struct function *fun)
+1351: {
+1352:   gimple_stmt_iterator gsi;
+1353:   basic_block bb;
+1354:   bool cfg_changed = false;
+1355:
+1356:   FOR_EACH_BB_FN (bb, fun)
+1357:     {
+1358:       for (gsi = gsi_start_bb (bb); !gsi_end_p (gsi); gsi_next (&gsi))
+1359:         {
+1360:           /* Give the target first try at replacing the instruction.  */
+1361:           cfg_changed |= targetm.instruction_selection (fun, &gsi);
+1362:
+1363:           /* Pre-expand VEC_COND_EXPRs to .VCOND* internal function
+1364:              calls mapping to supported optabs.  */
+1365:           gimple *g = gimple_expand_vec_cond_expr (&gsi);
+1366:           if (g != NULL)
+1367:             {
+1368:               tree lhs = gimple_assign_lhs (gsi_stmt (gsi));
+1369:               gimple_set_lhs (g, lhs);
+1370:               gsi_replace (&gsi, g, false);
+1371:             }
+1372:
+1373:           /* Recognize .VEC_SET and .VEC_EXTRACT patterns.  */
+1374:           cfg_changed |= gimple_expand_vec_set_extract_expr (fun, &gsi);
+1375:           if (gsi_end_p (gsi))
+1376:             break;
+1377:
+1378:           if (gcall *call = dyn_cast <gcall*>(*gsi))
+1379:             {
+1380:               gimple_isel_builtin_call (call, &gsi);
+1381:               continue;
+1382:             }
+1383:           gassign *stmt = dyn_cast <gassign *> (*gsi);
+1384:           if (!stmt)
+1385:             continue;
+1386:
+1387:           tree_code code = gimple_assign_rhs_code (stmt);
+1388:           if (TREE_CODE_CLASS (code) == tcc_comparison)
+1389:             maybe_duplicate_comparison (stmt, bb);
+1390:         }
+1391:     }
+1392:
+1393:   return cfg_changed ? TODO_cleanup_cfg : 0;
+```
+
+## gcc/targhooks.cc:2783–2790
+
+```text
+2783:
+2784: /* The default implementation of TARGET_INSTRUCTION_SELECTION.  */
+2785:
+2786: bool
+2787: default_instruction_selection (function *, gimple_stmt_iterator *)
+2788: {
+2789:   return false;
+2790: }
+```
+
+## gcc/gimple-ssa-nonnull-compare.cc:136–143
+
+```text
+136: pass_warn_nonnull_compare::execute (function *fun)
+137: {
+138:   if (fun->static_chain_decl)
+139:     do_warn_nonnull_compare (fun, fun->static_chain_decl);
+140:
+141:   for (tree arg = DECL_ARGUMENTS (cfun->decl); arg; arg = DECL_CHAIN (arg))
+142:     do_warn_nonnull_compare (fun, arg);
+143:   return 0;
+```
+
+## gcc/gimple-ssa-warn-alloca.cc:81–88
+
+```text
+81: pass_walloca::gate (function *fun ATTRIBUTE_UNUSED)
+82: {
+83:   // Warning is disabled when its size limit is greater than PTRDIFF_MAX
+84:   // for the target maximum, which makes the limit negative since when
+85:   // represented in signed HOST_WIDE_INT.
+86:   unsigned HOST_WIDE_INT max = tree_to_uhwi (TYPE_MAX_VALUE (ptrdiff_type_node));
+87:   return (adjusted_warn_limit (false) <= max
+88:           || adjusted_warn_limit (true) <= max);
+```
+
+## gcc/gimple-ssa-warn-alloca.cc:149–161
+
+```text
+149: adjusted_warn_limit (bool idx)
+150: {
+151:   static HOST_WIDE_INT limits[2];
+152:   if (limits[idx])
+153:     return limits[idx];
+154:
+155:   limits[idx] = idx ? warn_vla_limit : warn_alloca_limit;
+156:   if (limits[idx] != HOST_WIDE_INT_MAX)
+157:     return limits[idx];
+158:
+159:   limits[idx] = tree_to_shwi (TYPE_MAX_VALUE (ptrdiff_type_node));
+160:   return limits[idx];
+161: }
+```
+
+## gcc/gimple-ssa-warn-alloca.cc:258–273
+
+```text
+258: pass_walloca::execute (function *fun)
+259: {
+260:   enable_ranger (fun);
+261:   basic_block bb;
+262:   FOR_EACH_BB_FN (bb, fun)
+263:     {
+264:       for (gimple_stmt_iterator si = gsi_start_bb (bb); !gsi_end_p (si);
+265:            gsi_next (&si))
+266:         {
+267:           gimple *stmt = gsi_stmt (si);
+268:           if (!gimple_alloca_call_p (stmt))
+269:             continue;
+270:
+271:           location_t loc = gimple_nonartificial_location (stmt);
+272:           loc = expansion_point_location_if_in_system_header (loc);
+273:
+```
+
+## gcc/gimple-ssa-warn-access.cc:2270–2275
+
+```text
+2270: pass_waccess::gate (function *)
+2271: {
+2272:   return (warn_free_nonheap_object
+2273:           || warn_mismatched_alloc
+2274:           || warn_mismatched_new_delete);
+2275: }
+```
+
+## gcc/gimple-ssa-warn-access.cc:4480–4537
+
+```text
+4480: pass_waccess::check_stmt (gimple *stmt)
+4481: {
+4482:   if (m_check_dangling_p
+4483:       && gimple_clobber_p (stmt, CLOBBER_STORAGE_END))
+4484:     {
+4485:       /* Ignore clobber statements in blocks with exceptional edges.  */
+4486:       basic_block bb = gimple_bb (stmt);
+4487:       edge e = EDGE_PRED (bb, 0);
+4488:       if (e->flags & EDGE_EH)
+4489:         return;
+4490:
+4491:       tree var = gimple_assign_lhs (stmt);
+4492:       m_clobbers.put (var, stmt);
+4493:       return;
+4494:     }
+4495:
+4496:   if (is_gimple_assign (stmt))
+4497:     {
+4498:       /* Clobbered unnamed temporaries such as compound literals can be
+4499:          revived.  Check for an assignment to one and remove it from
+4500:          M_CLOBBERS.  */
+4501:       tree lhs = gimple_assign_lhs (stmt);
+4502:       while (handled_component_p (lhs))
+4503:         lhs = TREE_OPERAND (lhs, 0);
+4504:
+4505:       if (auto_var_p (lhs))
+4506:         m_clobbers.remove (lhs);
+4507:       return;
+4508:     }
+4509:
+4510:   if (greturn *ret = dyn_cast <greturn *> (stmt))
+4511:     {
+4512:       if (optimize && flag_isolate_erroneous_paths_dereference)
+4513:         /* Avoid interfering with -Wreturn-local-addr (which runs only
+4514:            with optimization enabled).  */
+4515:         return;
+4516:
+4517:       tree arg = gimple_return_retval (ret);
+4518:       if (!arg || TREE_CODE (arg) != ADDR_EXPR)
+4519:         return;
+4520:
+4521:       arg = TREE_OPERAND (arg, 0);
+4522:       while (handled_component_p (arg))
+4523:         arg = TREE_OPERAND (arg, 0);
+4524:
+4525:       if (!auto_var_p (arg))
+4526:         return;
+4527:
+4528:       gimple **pclobber = m_clobbers.get (arg);
+4529:       if (!pclobber)
+4530:         return;
+4531:
+4532:       if (!use_after_inval_p (*pclobber, stmt))
+4533:         return;
+4534:
+4535:       warn_invalid_pointer (NULL_TREE, stmt, *pclobber, arg, false);
+4536:     }
+4537: }
+```
+
+## gcc/gimple-ssa-warn-access.cc:4733–4760
+
+```text
+4733: pass_waccess::check_dangling_stores ()
+4734: {
+4735:   if (EDGE_COUNT (EXIT_BLOCK_PTR_FOR_FN (m_func)->preds) == 0)
+4736:     return;
+4737:
+4738:   auto_bitmap bbs;
+4739:   hash_set<tree> stores;
+4740:   auto_vec<edge_iterator, 8> worklist (n_basic_blocks_for_fn (cfun) + 1);
+4741:   worklist.quick_push (ei_start (EXIT_BLOCK_PTR_FOR_FN (m_func)->preds));
+4742:   do
+4743:     {
+4744:       edge_iterator ei = worklist.last ();
+4745:       basic_block src = ei_edge (ei)->src;
+4746:       if (bitmap_set_bit (bbs, src->index))
+4747:         {
+4748:           if (check_dangling_stores (src, stores)
+4749:               && EDGE_COUNT (src->preds) > 0)
+4750:             worklist.quick_push (ei_start (src->preds));
+4751:         }
+4752:       else
+4753:         {
+4754:           if (ei_one_before_end_p (ei))
+4755:             worklist.pop ();
+4756:           else
+4757:             ei_next (&worklist.last ());
+4758:         }
+4759:     }
+4760:   while (!worklist.is_empty ());
+```
+
+## gcc/gimple-ssa-warn-access.cc:4857–4904
+
+```text
+4857: pass_waccess::execute (function *fun)
+4858: {
+4859:   auto_urlify_attributes sentinel;
+4860:
+4861:   calculate_dominance_info (CDI_DOMINATORS);
+4862:   calculate_dominance_info (CDI_POST_DOMINATORS);
+4863:
+4864:   /* Set or clear EDGE_DFS_BACK bits on back edges.  */
+4865:   mark_dfs_back_edges (fun);
+4866:
+4867:   /* Create a new ranger instance and associate it with FUN.  */
+4868:   m_ptr_qry.rvals = enable_ranger (fun);
+4869:   m_func = fun;
+4870:
+4871:   auto_bitmap bb_uids_set (&bitmap_default_obstack);
+4872:   m_bb_uids_set = bb_uids_set;
+4873:
+4874:   set_gimple_stmt_max_uid (m_func, 0);
+4875:
+4876:   basic_block bb;
+4877:   FOR_EACH_BB_FN (bb, fun)
+4878:     check_block (bb);
+4879:
+4880:   if (m_check_dangling_p)
+4881:     {
+4882:       check_dangling_uses ();
+4883:       check_dangling_stores ();
+4884:     }
+4885:
+4886:   if (dump_file)
+4887:     m_ptr_qry.dump (dump_file, (dump_flags & TDF_DETAILS) != 0);
+4888:
+4889:   m_ptr_qry.flush_cache ();
+4890:
+4891:   /* Release the ranger instance and replace it with a global ranger.
+4892:      Also reset the pointer since calling disable_ranger() deletes it.  */
+4893:   disable_ranger (fun);
+4894:   m_ptr_qry.rvals = NULL;
+4895:
+4896:   m_clobbers.empty ();
+4897:   m_bb_uids_set = NULL;
+4898:
+4899:   free_dominance_info (CDI_POST_DOMINATORS);
+4900:   free_dominance_info (CDI_DOMINATORS);
+4901:   return 0;
+4902: }
+4903:
+4904: }   // namespace
+```
+
+## gcc/gimple-range.cc:40–66
+
+```text
+40: gimple_ranger::gimple_ranger (bool use_imm_uses) :
+41:         non_executable_edge_flag (cfun),
+42:         m_cache (non_executable_edge_flag, use_imm_uses),
+43:         tracer (""),
+44:         current_bb (NULL)
+45: {
+46:   // Share the oracle from the cache.
+47:   share_query (m_cache);
+48:   if (dump_file && (param_ranger_debug & RANGER_DEBUG_TRACE))
+49:     tracer.enable_trace ();
+50:   m_stmt_list.create (0);
+51:   m_stmt_list.safe_grow (num_ssa_names);
+52:   m_stmt_list.truncate (0);
+53:
+54:   // Ensure the not_executable flag is clear everywhere.
+55:   if (flag_checking)
+56:     {
+57:       basic_block bb;
+58:       FOR_ALL_BB_FN (bb, cfun)
+59:         {
+60:           edge_iterator ei;
+61:           edge e;
+62:           FOR_EACH_EDGE (e, ei, bb->succs)
+63:             gcc_checking_assert ((e->flags & non_executable_edge_flag) == 0);
+64:         }
+65:     }
+66: }
+```
+
+## gcc/gimple-range-cache.cc:366–373
+
+```text
+366: block_range_cache::block_range_cache ()
+367: {
+368:   bitmap_obstack_initialize (&m_bitmaps);
+369:   m_ssa_ranges.create (0);
+370:   m_ssa_ranges.safe_grow_cleared (num_ssa_names);
+371:   m_range_allocator = new vrange_allocator;
+372: }
+373:
+```
+
+## gcc/gimple-range-cache.cc:540–545
+
+```text
+540: ssa_cache::ssa_cache ()
+541: {
+542:   m_tab.create (0);
+543:   m_range_allocator = new vrange_allocator;
+544: }
+545:
+```
+
+## gcc/gimple-range-cache.cc:828–835
+
+```text
+828: temporal_cache::temporal_cache ()
+829: {
+830:   m_current_time = 1;
+831:   m_timestamp.create (0);
+832:   m_timestamp.safe_grow_cleared (num_ssa_names);
+833: }
+834:
+835: inline
+```
+
+## gcc/gimple-range-cache.cc:940–948
+
+```text
+940: update_list::update_list ()
+941: {
+942:   m_update_list.create (0);
+943:   m_update_list.safe_grow_cleared (last_basic_block_for_fn (cfun) + 64);
+944:   m_update_head = -1;
+945:   bitmap_obstack_initialize (&m_bitmaps);
+946:   m_propfail = BITMAP_ALLOC (&m_bitmaps);
+947: }
+948:
+```
+
+## gcc/gimple-range-cache.cc:998–1022
+
+```text
+998: ranger_cache::ranger_cache (int not_executable_flag, bool use_imm_uses)
+999: {
+1000:   m_workback = vNULL;
+1001:   m_temporal = new temporal_cache;
+1002:
+1003:   // If DOM info is available, spawn an oracle as well.
+1004:   create_relation_oracle ();
+1005:   // Create an infer oracle using this cache as the range query.  The cache
+1006:   // version acts as a read-only query, and will spawn no additional lookups.
+1007:   // It just ues what is already known.
+1008:   create_infer_oracle (this, use_imm_uses);
+1009:   create_gori (not_executable_flag, param_vrp_switch_limit);
+1010:
+1011:   unsigned x, lim = last_basic_block_for_fn (cfun);
+1012:   // Calculate outgoing range info upfront.  This will fully populate the
+1013:   // m_maybe_variant bitmap which will help eliminate processing of names
+1014:   // which never have their ranges adjusted.
+1015:   for (x = 0; x < lim ; x++)
+1016:     {
+1017:       basic_block bb = BASIC_BLOCK_FOR_FN (cfun, x);
+1018:       if (bb)
+1019:         gori_ssa ()->exports (bb);
+1020:     }
+1021:   m_update = new update_list ();
+1022: }
+```
+
+## gcc/gimple-range-cache.h:101–149
+
+```text
+101: class ranger_cache : public range_query
+102: {
+103: public:
+104:   ranger_cache (int not_executable_flag, bool use_imm_uses);
+105:   ~ranger_cache ();
+106:
+107:   bool range_of_expr (vrange &r, tree name, gimple *stmt) final override;
+108:   bool range_on_edge (vrange &r, edge e, tree expr) final override;
+109:   bool block_range (vrange &r, basic_block bb, tree name, bool calc = true);
+110:
+111:   bool get_global_range (vrange &r, tree name) const;
+112:   bool get_global_range (vrange &r, tree name, bool &current_p);
+113:   void set_global_range (tree name, const vrange &r, bool changed = true);
+114:   void update_consumers (tree name);
+115:   range_query &const_query () { return m_globals; }
+116:
+117:   void propagate_updated_value (tree name, basic_block bb);
+118:
+119:   void register_inferred_value (const vrange &r, tree name, basic_block bb);
+120:   void apply_inferred_ranges (gimple *s);
+121:
+122:   void dump_bb (FILE *f, basic_block bb);
+123:   virtual void dump (FILE *f) override;
+124: private:
+125:   ssa_cache m_globals;
+126:   block_range_cache m_on_entry;
+127:   class temporal_cache *m_temporal;
+128:   void fill_block_cache (tree name, basic_block bb, basic_block def_bb);
+129:   void propagate_cache (tree name);
+130:
+131:   enum rfd_mode
+132:     {
+133:       RFD_NONE,         // Only look at current block cache.
+134:       RFD_READ_ONLY,    // Scan DOM tree, do not write to cache.
+135:       RFD_FILL          // Scan DOM tree, updating important nodes.
+136:     };
+137:   bool range_from_dom (vrange &r, tree name, basic_block bb, enum rfd_mode);
+138:   void resolve_dom (vrange &r, tree name, basic_block bb);
+139:   void range_of_def (vrange &r, tree name, basic_block bb = NULL);
+140:   void entry_range (vrange &r, tree expr, basic_block bb, enum rfd_mode);
+141:   void exit_range (vrange &r, tree expr, basic_block bb, enum rfd_mode);
+142:   bool edge_range (vrange &r, edge e, tree name, enum rfd_mode);
+143:
+144:   vec<basic_block> m_workback;
+145:   class update_list *m_update;
+146: };
+147:
+148: #endif // GCC_SSA_RANGE_CACHE_H
+149:
+```
+
+## gcc/gimple-range-gori.cc:96–103
+
+```text
+96: range_def_chain::range_def_chain ()
+97: {
+98:   bitmap_obstack_initialize (&m_bitmaps);
+99:   m_def_chain.create (0);
+100:   m_def_chain.safe_grow_cleared (num_ssa_names);
+101:   m_logical_depth = 0;
+102: }
+103:
+```
+
+## gcc/gimple-range-gori.cc:359–366
+
+```text
+359: gori_map::gori_map ()
+360: {
+361:   m_outgoing.create (0);
+362:   m_outgoing.safe_grow_cleared (last_basic_block_for_fn (cfun));
+363:   m_incoming.create (0);
+364:   m_incoming.safe_grow_cleared (last_basic_block_for_fn (cfun));
+365:   m_maybe_variant = BITMAP_ALLOC (&m_bitmaps);
+366: }
+```
+
+## gcc/gimple-range-gori.cc:479–523
+
+```text
+479: gori_map::calculate_gori (basic_block bb)
+480: {
+481:   tree name;
+482:   if (bb->index >= (signed int)m_outgoing.length ())
+483:     {
+484:       m_outgoing.safe_grow_cleared (last_basic_block_for_fn (cfun));
+485:       m_incoming.safe_grow_cleared (last_basic_block_for_fn (cfun));
+486:     }
+487:   gcc_checking_assert (m_outgoing[bb->index] == NULL);
+488:   m_outgoing[bb->index] = BITMAP_ALLOC (&m_bitmaps);
+489:   m_incoming[bb->index] = BITMAP_ALLOC (&m_bitmaps);
+490:
+491:   if (single_succ_p (bb))
+492:     return;
+493:
+494:   // If this block's last statement may generate range information, go
+495:   // calculate it.
+496:   gimple *stmt = gimple_outgoing_range_stmt_p (bb);
+497:   if (!stmt)
+498:     return;
+499:   if (is_a<gcond *> (stmt))
+500:     {
+501:       gcond *gc = as_a<gcond *>(stmt);
+502:       name = gimple_range_ssa_p (gimple_cond_lhs (gc));
+503:       maybe_add_gori (name, gimple_bb (stmt));
+504:
+505:       name = gimple_range_ssa_p (gimple_cond_rhs (gc));
+506:       maybe_add_gori (name, gimple_bb (stmt));
+507:     }
+508:   else
+509:     {
+510:       // Do not process switches if they are too large.
+511:       if (EDGE_COUNT (bb->succs) > (unsigned)param_vrp_switch_limit)
+512:         return;
+513:       gswitch *gs = as_a<gswitch *>(stmt);
+514:       name = gimple_range_ssa_p (gimple_switch_index (gs));
+515:       maybe_add_gori (name, gimple_bb (stmt));
+516:     }
+517:   // Add this bitmap to the aggregate list of all outgoing names.
+518:   bitmap_ior_into (m_maybe_variant, m_outgoing[bb->index]);
+519: }
+520:
+521: // Dump the table information for BB to file F.
+522:
+523: void
+```
+
+## gcc/gimple-range-gori.cc:582–599
+
+```text
+582: gori_compute::gori_compute (gori_map &map, int not_executable_flag,
+583:                             int sw_max_edges)
+584:   : gimple_outgoing_range (sw_max_edges), m_map (map), tracer ("GORI ")
+585: {
+586:   m_not_executable_flag = not_executable_flag;
+587:   // Create a boolean_type true and false range.
+588:   m_bool_zero = range_false ();
+589:   m_bool_one = range_true ();
+590:   if (dump_file && (param_ranger_debug & RANGER_DEBUG_GORI))
+591:     tracer.enable_trace ();
+592:
+593:   // Reduce maximum recompute depth based on the size of the CFG to avoid
+594:   // excessive compuations in large CFGs.
+595:   m_recompute_depth = (int) param_ranger_recompute_depth
+596:                       - (int) last_basic_block_for_fn (cfun) / 4096;
+597:   if (m_recompute_depth < 1)
+598:     m_recompute_depth = 1;
+599: }
+```
+
+## gcc/gimple-range-edge.cc:71–76
+
+```text
+71: gimple_outgoing_range::gimple_outgoing_range (int max_sw_edges)
+72: {
+73:   m_edge_table = NULL;
+74:   m_range_allocator = NULL;
+75:   m_max_edges = max_sw_edges;
+76: }
+```
+
+## gcc/gimple-range-infer.cc:331–351
+
+```text
+331: infer_range_manager::infer_range_manager (bool do_search, range_query *q)
+332: {
+333:   // Set the range query to use.
+334:   m_query = q ? q : get_global_range_query ();
+335:
+336:   bitmap_obstack_initialize (&m_bitmaps);
+337:   m_on_exit.create (0);
+338:   m_on_exit.safe_grow_cleared (last_basic_block_for_fn (cfun) + 1);
+339:   // m_seen == NULL indicates no scanning.  Otherwise the bit indicates a
+340:   // scan has been performed on NAME.
+341:   if (do_search)
+342:     m_seen = BITMAP_ALLOC (&m_bitmaps);
+343:   else
+344:     m_seen = NULL;
+345:   obstack_init (&m_list_obstack);
+346:   // Non-zero elements are very common, so cache them for each ssa-name.
+347:   m_nonzero.create (0);
+348:   m_nonzero.safe_grow_cleared (num_ssa_names + 1);
+349:   m_range_allocator = new vrange_allocator;
+350: }
+351:
+```
+
+## gcc/value-query.cc:194–255
+
+```text
+194: range_query::create_gori (int not_executable_flag, int sw_max_edges)
+195: {
+196:   gcc_checking_assert (m_gori == &default_gori);
+197:   gcc_checking_assert (m_map == NULL);
+198:   m_map = new gori_map ();
+199:   gcc_checking_assert (m_map);
+200:   m_gori = new gori_compute (*m_map, not_executable_flag, sw_max_edges);
+201:   gcc_checking_assert (m_gori);
+202: }
+203:
+204: void
+205: range_query::destroy_gori ()
+206: {
+207:   if (m_gori && m_gori != &default_gori)
+208:     delete m_gori;
+209:   if (m_map)
+210:     delete m_map;
+211:   m_map = NULL;
+212:   m_gori= &default_gori;
+213: }
+214:
+215: // Create an infer oracle using Q as the default range query if needed.
+216: // if DO_SEARCH is true, use immediate uses to scan alluses of a NAME the first
+217: // time it is queried.  This is primarily for passes which operate in the
+218: // on-demand model where earlier uses may not have been seen.
+219: // VRP and DOM walk passes set this to FALSE as they will walk all statements
+220: // in order.
+221: void
+222: range_query::create_infer_oracle (range_query *q, bool do_search)
+223: {
+224:   gcc_checking_assert (m_infer == &default_infer_oracle);
+225:   m_infer = new infer_range_manager (do_search, q);
+226:   gcc_checking_assert (m_infer);
+227: }
+228:
+229: void
+230: range_query::destroy_infer_oracle ()
+231: {
+232:   if (m_infer && m_infer != &default_infer_oracle)
+233:     delete m_infer;
+234:   m_infer = &default_infer_oracle;
+235: }
+236:
+237: // Create dominance based range oracle for the current query if dom info is
+238: // available.  DO_TRANS_P indicates whether transitive relations should
+239: // be created.  This can cost more in compile time.
+240:
+241: void
+242: range_query::create_relation_oracle (bool do_trans_p)
+243: {
+244:   gcc_checking_assert (this != &global_ranges);
+245:   gcc_checking_assert (m_relation == &default_relation_oracle);
+246:
+247:   if (!dom_info_available_p (CDI_DOMINATORS))
+248:     return;
+249:   m_relation = new dom_oracle (do_trans_p);
+250:   gcc_checking_assert (m_relation);
+251: }
+252:
+253: // Destroy any relation oracle that was created.
+254:
+255: void
+```
+
+## gcc/value-relation.cc:312–330
+
+```text
+312: equiv_oracle::equiv_oracle ()
+313: {
+314:   bitmap_obstack_initialize (&m_bitmaps);
+315:   m_equiv.create (0);
+316:   m_equiv.safe_grow_cleared (last_basic_block_for_fn (cfun) + 1);
+317:   m_equiv_set = BITMAP_ALLOC (&m_bitmaps);
+318:   bitmap_tree_view (m_equiv_set);
+319:   obstack_init (&m_chain_obstack);
+320:   m_self_equiv.create (0);
+321:   m_self_equiv.safe_grow_cleared (num_ssa_names + 1);
+322:   m_partial.create (0);
+323:   m_partial.safe_grow_cleared (num_ssa_names + 1);
+324:   // Create a bitmap to avoid registering multiple equivalences from a LHS.
+325:   // See PR 124809.
+326:   m_lhs_equiv_set_p = BITMAP_ALLOC (&m_bitmaps);
+327:   bitmap_tree_view (m_lhs_equiv_set_p);
+328: }
+329:
+330: // Destruct an equivalency oracle.
+```
+
+## gcc/value-relation.cc:1064–1073
+
+```text
+1064: dom_oracle::dom_oracle (bool do_trans_p)
+1065: {
+1066:   m_do_trans_p = do_trans_p;
+1067:   m_relations.create (0);
+1068:   m_relations.safe_grow_cleared (last_basic_block_for_fn (cfun) + 1);
+1069:   m_relation_set = BITMAP_ALLOC (&m_bitmaps);
+1070:   m_tmp = BITMAP_ALLOC (&m_bitmaps);
+1071:   m_tmp2 = BITMAP_ALLOC (&m_bitmaps);
+1072: }
+1073:
+```
+
+## gcc/value-range-storage.cc:47–56
+
+```text
+47: class vrange_obstack_alloc final: public vrange_internal_alloc
+48: {
+49: public:
+50:   vrange_obstack_alloc ()
+51:   {
+52:     obstack_init (&m_obstack);
+53:   }
+54:   virtual ~vrange_obstack_alloc () final override
+55:   {
+56:     obstack_free (&m_obstack, NULL);
+```
+
+## gcc/value-range-storage.cc:82–88
+
+```text
+82: vrange_allocator::vrange_allocator (bool gc)
+83: {
+84:   if (gc)
+85:     m_alloc = new vrange_ggc_alloc;
+86:   else
+87:     m_alloc = new vrange_obstack_alloc;
+88: }
+```
+
+## gcc/value-range-storage.h:27–34
+
+```text
+27: class vrange_allocator
+28: {
+29: public:
+30:   // Use GC memory when GC is true, otherwise use obstacks.
+31:   vrange_allocator (bool gc = false);
+32:   ~vrange_allocator ();
+33:   class vrange_storage *clone (const vrange &r);
+34:   vrange_storage *clone_varying (tree type);
+```
+
+## gcc/tree-outof-ssa.cc:433–438
+
+```text
+433: elim_graph::elim_graph (var_map map) :
+434:   nodes (30), edge_list (20), edge_locus (10), visited (map->num_partitions),
+435:   stack (30), map (map), const_dests (20), const_copies (20), copy_locus (10)
+436: {
+437: }
+438:
+```
+
+## gcc/tree-outof-ssa.cc:919–944
+
+```text
+919:   tree ssa = get_or_create_ssa_default_def (cfun, var);
+920:   gcc_assert (ssa);
+921: }
+922:
+923: /* Call CALLBACK for all PARM_DECLs and RESULT_DECLs for which
+924:    assign_parms may ask for a default partition.  */
+925:
+926: static void
+927: for_all_parms (void (*callback)(tree var, void *arg), void *arg)
+928: {
+929:   for (tree var = DECL_ARGUMENTS (current_function_decl); var;
+930:        var = DECL_CHAIN (var))
+931:     callback (var, arg);
+932:   if (!VOID_TYPE_P (TREE_TYPE (DECL_RESULT (current_function_decl))))
+933:     callback (DECL_RESULT (current_function_decl), arg);
+934:   if (cfun->static_chain_decl)
+935:     callback (cfun->static_chain_decl, arg);
+936: }
+937:
+938: /* We need to pass two arguments to set_parm_default_def_partition,
+939:    but for_all_parms only supports one.  Use a pair.  */
+940:
+941: typedef std::pair<var_map, bitmap> parm_default_def_partition_arg;
+942:
+943: /* Set in ARG's PARTS bitmap the bit corresponding to the partition in
+944:    ARG's MAP containing VAR's default def.  */
+```
+
+## gcc/tree-outof-ssa.cc:985–1088
+
+```text
+985: static bitmap
+986: get_undefined_value_partitions (var_map map)
+987: {
+988:   bitmap undefined_value_parts = BITMAP_ALLOC (NULL);
+989:
+990:   for (unsigned int i = 1; i < num_ssa_names; i++)
+991:     {
+992:       tree var = ssa_name (i);
+993:       if (var
+994:           && !virtual_operand_p (var)
+995:           && !has_zero_uses (var)
+996:           && ssa_undefined_value_p (var))
+997:         {
+998:           const int p = var_to_partition (map, var);
+999:           if (p != NO_PARTITION)
+1000:             bitmap_set_bit (undefined_value_parts, p);
+1001:         }
+1002:     }
+1003:
+1004:   return undefined_value_parts;
+1005: }
+1006:
+1007: /* Given the out-of-ssa info object SA (with prepared partitions)
+1008:    eliminate all phi nodes in all basic blocks.  Afterwards there
+1009:    are possibly some RTL instructions inserted on edges.  */
+1010:
+1011: void
+1012: expand_phi_nodes (struct ssaexpand *sa)
+1013: {
+1014:   basic_block bb;
+1015:   elim_graph g (sa->map);
+1016:
+1017:   FOR_BB_BETWEEN (bb, ENTRY_BLOCK_PTR_FOR_FN (cfun)->next_bb,
+1018:                   EXIT_BLOCK_PTR_FOR_FN (cfun), next_bb)
+1019:     if (!gimple_seq_empty_p (phi_nodes (bb)))
+1020:       {
+1021:         edge e;
+1022:         edge_iterator ei;
+1023:         FOR_EACH_EDGE (e, ei, bb->preds)
+1024:           eliminate_phi (e, &g);
+1025:         /* We can't redirect EH edges in RTL land, so we need to do this
+1026:            here.  Redirection happens only when splitting is necessary,
+1027:            which it is only for critical edges, normally.  For EH edges
+1028:            it might also be necessary when the successor has more than
+1029:            one predecessor.  In that case the edge is either required to
+1030:            be fallthru (which EH edges aren't), or the predecessor needs
+1031:            to end with a jump (which again, isn't the case with EH edges).
+1032:            Hence, split all EH edges on which we inserted instructions
+1033:            and whose successor has multiple predecessors.  */
+1034:         for (ei = ei_start (bb->preds); (e = ei_safe_edge (ei)); )
+1035:           {
+1036:             if (e->insns.r && (e->flags & EDGE_EH)
+1037:                 && !single_pred_p (e->dest))
+1038:               {
+1039:                 rtx_insn *insns = e->insns.r;
+1040:                 basic_block bb;
+1041:                 e->insns.r = NULL;
+1042:                 bb = split_edge (e);
+1043:                 single_pred_edge (bb)->insns.r = insns;
+1044:               }
+1045:             else
+1046:               ei_next (&ei);
+1047:           }
+1048:       }
+1049: }
+1050:
+1051:
+1052: /* Remove the ssa-names in the current function and translate them into normal
+1053:    compiler variables.  PERFORM_TER is true if Temporary Expression Replacement
+1054:    should also be used.  */
+1055:
+1056: static void
+1057: remove_ssa_form (bool perform_ter, struct ssaexpand *sa)
+1058: {
+1059:   bitmap values = NULL;
+1060:   var_map map;
+1061:
+1062:   for_all_parms (create_default_def, NULL);
+1063:   map = init_var_map (num_ssa_names);
+1064:   coalesce_ssa_name (map);
+1065:
+1066:   /* Return to viewing the variable list as just all reference variables after
+1067:      coalescing has been performed.  */
+1068:   partition_view_normal (map);
+1069:
+1070:   if (dump_file && (dump_flags & TDF_DETAILS))
+1071:     {
+1072:       fprintf (dump_file, "After Coalescing:\n");
+1073:       dump_var_map (dump_file, map);
+1074:     }
+1075:
+1076:   if (perform_ter)
+1077:     {
+1078:       values = find_replaceable_exprs (map);
+1079:       if (values && dump_file && (dump_flags & TDF_DETAILS))
+1080:         dump_replaceable_exprs (dump_file, values);
+1081:     }
+1082:
+1083:   rewrite_trees (map);
+1084:
+1085:   sa->map = map;
+1086:   sa->values = values;
+1087:   sa->partitions_for_parm_default_defs = get_parm_default_def_partitions (map);
+1088:   sa->partitions_for_undefined_values = get_undefined_value_partitions (map);
+```
+
+## gcc/tree-outof-ssa.cc:1382–1405
+
+```text
+1382: rewrite_out_of_ssa (struct ssaexpand *sa)
+1383: {
+1384:   /* Remove remaining indirect clobbers as we do not need those anymore.
+1385:      Those might extend SSA lifetime and restrict coalescing.  */
+1386:   remove_indirect_clobbers ();
+1387:
+1388:   /* If elimination of a PHI requires inserting a copy on a backedge,
+1389:      then we will have to split the backedge which has numerous
+1390:      undesirable performance effects.
+1391:
+1392:      A significant number of such cases can be handled here by inserting
+1393:      copies into the loop itself.  */
+1394:   insert_backedge_copies ();
+1395:
+1396:   /* Eliminate PHIs which are of no use, such as virtual or dead phis.  */
+1397:   eliminate_useless_phis ();
+1398:
+1399:   if (dump_file && (dump_flags & TDF_DETAILS))
+1400:     gimple_dump_cfg (dump_file, dump_flags & ~TDF_DETAILS);
+1401:
+1402:   remove_ssa_form (flag_tree_ter, sa);
+1403:
+1404:   return 0;
+1405: }
+```
+
+## gcc/tree-ssa-live.cc:84–117
+
+```text
+84: init_var_map (int size, class loop *loop, bitmap bitint)
+85: {
+86:   var_map map;
+87:
+88:   map = (var_map) xmalloc (sizeof (struct _var_map));
+89:   map->var_partition = partition_new (size);
+90:
+91:   map->partition_to_view = NULL;
+92:   map->view_to_partition = NULL;
+93:   map->num_partitions = size;
+94:   map->partition_size = size;
+95:   map->num_basevars = 0;
+96:   map->partition_to_base_index = NULL;
+97:   map->vec_bbs = vNULL;
+98:   if (loop)
+99:     {
+100:       map->bmp_bbs = BITMAP_ALLOC (NULL);
+101:       map->outofssa_p = false;
+102:       basic_block *bbs = get_loop_body_in_dom_order (loop);
+103:       for (unsigned i = 0; i < loop->num_nodes; ++i)
+104:         {
+105:           bitmap_set_bit (map->bmp_bbs, bbs[i]->index);
+106:           map->vec_bbs.safe_push (bbs[i]);
+107:         }
+108:       free (bbs);
+109:     }
+110:   else
+111:     {
+112:       map->bmp_bbs = NULL;
+113:       map->outofssa_p = bitint == NULL;
+114:       map->bitint = bitint;
+115:       basic_block bb;
+116:       map->vec_bbs.reserve_exact (n_basic_blocks_for_fn (cfun)
+117:                                   - NUM_FIXED_BLOCKS);
+```
+
+## gcc/tree-ssa-live.cc:198–278
+
+```text
+198: partition_view_init (var_map map)
+199: {
+200:   bitmap used;
+201:   int tmp;
+202:   unsigned int x;
+203:
+204:   used = BITMAP_ALLOC (NULL);
+205:
+206:   /* Already in a view? Abandon the old one.  */
+207:   if (map->partition_to_view)
+208:     {
+209:       free (map->partition_to_view);
+210:       map->partition_to_view = NULL;
+211:     }
+212:   if (map->view_to_partition)
+213:     {
+214:       free (map->view_to_partition);
+215:       map->view_to_partition = NULL;
+216:     }
+217:
+218:   /* Find out which partitions are actually referenced.  */
+219:   for (x = 0; x < map->partition_size; x++)
+220:     {
+221:       tmp = partition_find (map->var_partition, x);
+222:       if (ssa_name (tmp) != NULL_TREE && !virtual_operand_p (ssa_name (tmp))
+223:           && (!has_zero_uses (ssa_name (tmp))
+224:               || !SSA_NAME_IS_DEFAULT_DEF (ssa_name (tmp))
+225:               || (SSA_NAME_VAR (ssa_name (tmp))
+226:                   && !VAR_P (SSA_NAME_VAR (ssa_name (tmp))))))
+227:         bitmap_set_bit (used, tmp);
+228:     }
+229:
+230:   map->num_partitions = map->partition_size;
+231:   return used;
+232: }
+233:
+234:
+235: /* This routine will finalize the view data for MAP based on the partitions
+236:    set in SELECTED.  This is either the same bitmap returned from
+237:    partition_view_init, or a trimmed down version if some of those partitions
+238:    were not desired in this view.  SELECTED is freed before returning.  */
+239:
+240: static void
+241: partition_view_fini (var_map map, bitmap selected)
+242: {
+243:   bitmap_iterator bi;
+244:   unsigned count, i, x, limit;
+245:
+246:   gcc_assert (selected);
+247:
+248:   count = bitmap_count_bits (selected);
+249:   limit = map->partition_size;
+250:
+251:   /* If its a one-to-one ratio, we don't need any view compaction.  */
+252:   if (count < limit)
+253:     {
+254:       map->partition_to_view = (int *)xmalloc (limit * sizeof (int));
+255:       memset (map->partition_to_view, 0xff, (limit * sizeof (int)));
+256:       map->view_to_partition = (int *)xmalloc (count * sizeof (int));
+257:
+258:       i = 0;
+259:       /* Give each selected partition an index.  */
+260:       EXECUTE_IF_SET_IN_BITMAP (selected, 0, x, bi)
+261:         {
+262:           map->partition_to_view[x] = i;
+263:           map->view_to_partition[i] = x;
+264:           i++;
+265:         }
+266:       gcc_assert (i == count);
+267:       map->num_partitions = i;
+268:     }
+269:
+270:   BITMAP_FREE (selected);
+271: }
+272:
+273:
+274: /* Create a partition view which includes all the used partitions in MAP.  */
+275:
+276: void
+277: partition_view_normal (var_map map)
+278: {
+```
+
+## gcc/tree-ssa-coalesce.cc:262–276
+
+```text
+262: create_coalesce_list (void)
+263: {
+264:   coalesce_list *list;
+265:   unsigned size = num_ssa_names * 3;
+266:
+267:   if (size < 40)
+268:     size = 40;
+269:
+270:   list = (coalesce_list *) xmalloc (sizeof (struct coalesce_list));
+271:   list->list = new coalesce_table_type (size);
+272:   list->sorted = NULL;
+273:   list->num_sorted = 0;
+274:   list->cost_one_list = NULL;
+275:   gcc_obstack_init (&list->ob);
+276:   return list;
+```
+
+## gcc/tree-ssa-coalesce.cc:1046–1145
+
+```text
+1046: create_coalesce_list_for_region (var_map map, bitmap used_in_copy)
+1047: {
+1048:   gimple_stmt_iterator gsi;
+1049:   basic_block bb;
+1050:   coalesce_list *cl = create_coalesce_list ();
+1051:   gimple *stmt;
+1052:   int v1, v2, cost;
+1053:
+1054:   for (unsigned j = 0; map->vec_bbs.iterate (j, &bb); ++j)
+1055:     {
+1056:       tree arg;
+1057:
+1058:       for (gphi_iterator gpi = gsi_start_phis (bb);
+1059:            !gsi_end_p (gpi);
+1060:            gsi_next (&gpi))
+1061:         {
+1062:           gphi *phi = gpi.phi ();
+1063:           size_t i;
+1064:           int ver;
+1065:           tree res;
+1066:           bool saw_copy = false;
+1067:
+1068:           res = gimple_phi_result (phi);
+1069:           if (virtual_operand_p (res))
+1070:             continue;
+1071:           ver = SSA_NAME_VERSION (res);
+1072:           if (map->bitint && !bitmap_bit_p (map->bitint, ver))
+1073:             continue;
+1074:
+1075:           /* Register ssa_names and coalesces between the args and the result
+1076:              of all PHI.  */
+1077:           for (i = 0; i < gimple_phi_num_args (phi); i++)
+1078:             {
+1079:               edge e = gimple_phi_arg_edge (phi, i);
+1080:               arg = PHI_ARG_DEF (phi, i);
+1081:               if (TREE_CODE (arg) != SSA_NAME)
+1082:                 continue;
+1083:
+1084:               if (gimple_can_coalesce_p (arg, res)
+1085:                   || (e->flags & EDGE_ABNORMAL))
+1086:                 {
+1087:                   saw_copy = true;
+1088:                   bitmap_set_bit (used_in_copy, SSA_NAME_VERSION (arg));
+1089:                   if ((e->flags & EDGE_ABNORMAL) == 0)
+1090:                     {
+1091:                       int cost = coalesce_cost_edge (e);
+1092:                       if (cost == 1 && has_single_use (arg))
+1093:                         add_cost_one_coalesce (cl, ver, SSA_NAME_VERSION (arg));
+1094:                       else
+1095:                         add_coalesce (cl, ver, SSA_NAME_VERSION (arg), cost);
+1096:                     }
+1097:                 }
+1098:             }
+1099:           if (saw_copy)
+1100:             bitmap_set_bit (used_in_copy, ver);
+1101:         }
+1102:
+1103:       for (gsi = gsi_start_bb (bb); !gsi_end_p (gsi); gsi_next (&gsi))
+1104:         {
+1105:           stmt = gsi_stmt (gsi);
+1106:
+1107:           if (is_gimple_debug (stmt))
+1108:             continue;
+1109:
+1110:           /* Check for copy coalesces.  */
+1111:           switch (gimple_code (stmt))
+1112:             {
+1113:             case GIMPLE_ASSIGN:
+1114:               {
+1115:                 tree lhs = gimple_assign_lhs (stmt);
+1116:                 tree rhs1 = gimple_assign_rhs1 (stmt);
+1117:                 if (gimple_assign_ssa_name_copy_p (stmt)
+1118:                     && gimple_can_coalesce_p (lhs, rhs1))
+1119:                   {
+1120:                     v1 = SSA_NAME_VERSION (lhs);
+1121:                     v2 = SSA_NAME_VERSION (rhs1);
+1122:                     if (map->bitint && !bitmap_bit_p (map->bitint, v1))
+1123:                       break;
+1124:                     cost = coalesce_cost_bb (bb);
+1125:                     add_coalesce (cl, v1, v2, cost);
+1126:                     bitmap_set_bit (used_in_copy, v1);
+1127:                     bitmap_set_bit (used_in_copy, v2);
+1128:                   }
+1129:               }
+1130:               break;
+1131:
+1132:             case GIMPLE_RETURN:
+1133:               {
+1134:                 tree res = DECL_RESULT (current_function_decl);
+1135:                 if (VOID_TYPE_P (TREE_TYPE (res))
+1136:                     || !is_gimple_reg (res))
+1137:                   break;
+1138:                 tree rhs1 = gimple_return_retval (as_a <greturn *> (stmt));
+1139:                 if (!rhs1)
+1140:                   break;
+1141:                 tree lhs = ssa_default_def (cfun, res);
+1142:                 if (map->bitint && !lhs)
+1143:                   break;
+1144:                 gcc_assert (lhs);
+1145:                 if (TREE_CODE (rhs1) == SSA_NAME
+```
+
+## gcc/tree-ssa-coalesce.cc:1249–1333
+
+```text
+1249: populate_coalesce_list_for_outofssa (coalesce_list *cl, bitmap used_in_copy)
+1250: {
+1251:   tree var;
+1252:   tree first;
+1253:   int v1, v2, cost;
+1254:   unsigned i;
+1255:
+1256:   /* Process result decls and live on entry variables for entry into the
+1257:      coalesce list.  */
+1258:   first = NULL_TREE;
+1259:   FOR_EACH_SSA_NAME (i, var, cfun)
+1260:     {
+1261:       if (!virtual_operand_p (var))
+1262:         {
+1263:           coalesce_with_default (var, cl, used_in_copy);
+1264:
+1265:           /* Add coalesces between all the result decls.  */
+1266:           if (SSA_NAME_VAR (var)
+1267:               && TREE_CODE (SSA_NAME_VAR (var)) == RESULT_DECL)
+1268:             {
+1269:               bitmap_set_bit (used_in_copy, SSA_NAME_VERSION (var));
+1270:               if (first == NULL_TREE)
+1271:                 first = var;
+1272:               else
+1273:                 {
+1274:                   gcc_assert (gimple_can_coalesce_p (var, first));
+1275:                   v1 = SSA_NAME_VERSION (first);
+1276:                   v2 = SSA_NAME_VERSION (var);
+1277:                   cost = coalesce_cost_bb (EXIT_BLOCK_PTR_FOR_FN (cfun));
+1278:                   add_coalesce (cl, v1, v2, cost);
+1279:                 }
+1280:             }
+1281:           /* Mark any default_def variables as being in the coalesce list
+1282:              since they will have to be coalesced with the base variable.  If
+1283:              not marked as present, they won't be in the coalesce view. */
+1284:           if (SSA_NAME_IS_DEFAULT_DEF (var)
+1285:               && (!has_zero_uses (var)
+1286:                   || (SSA_NAME_VAR (var)
+1287:                       && !VAR_P (SSA_NAME_VAR (var)))))
+1288:             bitmap_set_bit (used_in_copy, SSA_NAME_VERSION (var));
+1289:         }
+1290:     }
+1291:
+1292:   /* If this optimization is disabled, we need to coalesce all the
+1293:      names originating from the same SSA_NAME_VAR so debug info
+1294:      remains undisturbed.  */
+1295:   if (!flag_tree_coalesce_vars)
+1296:     {
+1297:       tree a;
+1298:       hash_table<ssa_name_var_hash> ssa_name_hash (10);
+1299:
+1300:       FOR_EACH_SSA_NAME (i, a, cfun)
+1301:         {
+1302:           if (SSA_NAME_VAR (a)
+1303:               && !DECL_IGNORED_P (SSA_NAME_VAR (a))
+1304:               && (!has_zero_uses (a) || !SSA_NAME_IS_DEFAULT_DEF (a)
+1305:                   || !VAR_P (SSA_NAME_VAR (a))))
+1306:             {
+1307:               tree *slot = ssa_name_hash.find_slot (a, INSERT);
+1308:
+1309:               if (!*slot)
+1310:                 *slot = a;
+1311:               else
+1312:                 {
+1313:                   /* If the variable is a PARM_DECL or a RESULT_DECL, we
+1314:                      _require_ that all the names originating from it be
+1315:                      coalesced, because there must be a single partition
+1316:                      containing all the names so that it can be assigned
+1317:                      the canonical RTL location of the DECL safely.
+1318:                      If in_lto_p, a function could have been compiled
+1319:                      originally with optimizations and only the link
+1320:                      performed at -O0, so we can't actually require it.  */
+1321:                   const int cost
+1322:                     = (VAR_P (SSA_NAME_VAR (a)) || in_lto_p)
+1323:                       ? MUST_COALESCE_COST - 1 : MUST_COALESCE_COST;
+1324:                   add_coalesce (cl, SSA_NAME_VERSION (a),
+1325:                                 SSA_NAME_VERSION (*slot), cost);
+1326:                   bitmap_set_bit (used_in_copy, SSA_NAME_VERSION (a));
+1327:                   bitmap_set_bit (used_in_copy, SSA_NAME_VERSION (*slot));
+1328:                 }
+1329:             }
+1330:         }
+1331:     }
+1332: }
+1333:
+```
+
+## gcc/tree-ssa-coalesce.cc:1601–1742
+
+```text
+1601: compute_optimized_partition_bases (var_map map, bitmap used_in_copies,
+1602:                                    coalesce_list *cl)
+1603: {
+1604:   int parts = num_var_partitions (map);
+1605:   partition tentative = partition_new (parts);
+1606:
+1607:   /* Partition the SSA versions so that, for each coalescible
+1608:      pair, both of its members are in the same partition in
+1609:      TENTATIVE.  */
+1610:   gcc_assert (!cl->sorted);
+1611:   coalesce_pair *node;
+1612:   coalesce_iterator_type ppi;
+1613:   FOR_EACH_PARTITION_PAIR (node, ppi, cl)
+1614:     {
+1615:       tree v1 = ssa_name (node->first_element);
+1616:       int p1 = partition_find (tentative, var_to_partition (map, v1));
+1617:       tree v2 = ssa_name (node->second_element);
+1618:       int p2 = partition_find (tentative, var_to_partition (map, v2));
+1619:
+1620:       if (p1 == p2)
+1621:         continue;
+1622:
+1623:       partition_union (tentative, p1, p2);
+1624:     }
+1625:
+1626:   /* We have to deal with cost one pairs too.  */
+1627:   for (cost_one_pair *co = cl->cost_one_list; co; co = co->next)
+1628:     {
+1629:       tree v1 = ssa_name (co->first_element);
+1630:       int p1 = partition_find (tentative, var_to_partition (map, v1));
+1631:       tree v2 = ssa_name (co->second_element);
+1632:       int p2 = partition_find (tentative, var_to_partition (map, v2));
+1633:
+1634:       if (p1 == p2)
+1635:         continue;
+1636:
+1637:       partition_union (tentative, p1, p2);
+1638:     }
+1639:
+1640:   /* And also with abnormal edges.  */
+1641:   basic_block bb;
+1642:   edge e;
+1643:   unsigned i;
+1644:   edge_iterator ei;
+1645:   for (i = 0; map->vec_bbs.iterate (i, &bb); ++i)
+1646:     {
+1647:       FOR_EACH_EDGE (e, ei, bb->preds)
+1648:         if (e->flags & EDGE_ABNORMAL)
+1649:           {
+1650:             gphi_iterator gsi;
+1651:             for (gsi = gsi_start_phis (bb); !gsi_end_p (gsi);
+1652:                  gsi_next (&gsi))
+1653:               {
+1654:                 gphi *phi = gsi.phi ();
+1655:                 tree res = PHI_RESULT (phi);
+1656:                 if (virtual_operand_p (res))
+1657:                   continue;
+1658:                 tree arg = PHI_ARG_DEF (phi, e->dest_idx);
+1659:                 if (SSA_NAME_IS_DEFAULT_DEF (arg)
+1660:                     && (!SSA_NAME_VAR (arg)
+1661:                         || TREE_CODE (SSA_NAME_VAR (arg)) != PARM_DECL))
+1662:                   continue;
+1663:
+1664:                 int p1 = partition_find (tentative, var_to_partition (map, res));
+1665:                 int p2 = partition_find (tentative, var_to_partition (map, arg));
+1666:
+1667:                 if (p1 == p2)
+1668:                   continue;
+1669:
+1670:                 partition_union (tentative, p1, p2);
+1671:               }
+1672:           }
+1673:     }
+1674:
+1675:   if (map->bitint
+1676:       && flag_tree_coalesce_vars
+1677:       && (optimize > 1 || parts < 500))
+1678:     for (i = 0; i < (unsigned) parts; ++i)
+1679:       {
+1680:         tree s1 = partition_to_var (map, i);
+1681:         int p1 = partition_find (tentative, i);
+1682:         for (unsigned j = i + 1; j < (unsigned) parts; ++j)
+1683:           {
+1684:             tree s2 = partition_to_var (map, j);
+1685:             if (s1 == s2)
+1686:               continue;
+1687:             if (tree_int_cst_equal (TYPE_SIZE (TREE_TYPE (s1)),
+1688:                                     TYPE_SIZE (TREE_TYPE (s2))))
+1689:               {
+1690:                 int p2 = partition_find (tentative, j);
+1691:
+1692:                 if (p1 == p2)
+1693:                   continue;
+1694:
+1695:                 partition_union (tentative, p1, p2);
+1696:                 if (partition_find (tentative, i) != p1)
+1697:                   break;
+1698:               }
+1699:           }
+1700:       }
+1701:
+1702:   map->partition_to_base_index = XCNEWVEC (int, parts);
+1703:   auto_vec<unsigned int> index_map (parts);
+1704:   if (parts)
+1705:     index_map.quick_grow (parts);
+1706:
+1707:   const unsigned no_part = -1;
+1708:   unsigned count = parts;
+1709:   while (count)
+1710:     index_map[--count] = no_part;
+1711:
+1712:   /* Initialize MAP's mapping from partition to base index, using
+1713:      as base indices an enumeration of the TENTATIVE partitions in
+1714:      which each SSA version ended up, so that we compute conflicts
+1715:      between all SSA versions that ended up in the same potential
+1716:      coalesce partition.  */
+1717:   bitmap_iterator bi;
+1718:   EXECUTE_IF_SET_IN_BITMAP (used_in_copies, 0, i, bi)
+1719:     {
+1720:       int pidx = var_to_partition (map, ssa_name (i));
+1721:       int base = partition_find (tentative, pidx);
+1722:       if (index_map[base] != no_part)
+1723:         continue;
+1724:       index_map[base] = count++;
+1725:     }
+1726:
+1727:   map->num_basevars = count;
+1728:
+1729:   EXECUTE_IF_SET_IN_BITMAP (used_in_copies, 0, i, bi)
+1730:     {
+1731:       int pidx = var_to_partition (map, ssa_name (i));
+1732:       int base = partition_find (tentative, pidx);
+1733:       gcc_assert (index_map[base] < count);
+1734:       map->partition_to_base_index[pidx] = index_map[base];
+1735:     }
+1736:
+1737:   if (dump_file && (dump_flags & TDF_DETAILS))
+1738:     dump_part_var_map (dump_file, tentative, map);
+1739:
+1740:   partition_delete (tentative);
+1741: }
+1742:
+```
+
+## gcc/tree-ssa-coalesce.cc:1843–1871
+
+```text
+1843: coalesce_ssa_name (var_map map)
+1844: {
+1845:   tree_live_info_p liveinfo;
+1846:   ssa_conflicts *graph;
+1847:   coalesce_list *cl;
+1848:   auto_bitmap used_in_copies;
+1849:
+1850:   bitmap_tree_view (used_in_copies);
+1851:   cl = create_coalesce_list_for_region (map, used_in_copies);
+1852:   if (map->outofssa_p)
+1853:     populate_coalesce_list_for_outofssa (cl, used_in_copies);
+1854:   bitmap_list_view (used_in_copies);
+1855:   if (map->bitint)
+1856:     bitmap_ior_into (used_in_copies, map->bitint);
+1857:
+1858:   if (dump_file && (dump_flags & TDF_DETAILS))
+1859:     dump_var_map (dump_file, map);
+1860:
+1861:   partition_view_bitmap (map, used_in_copies);
+1862:
+1863:   compute_optimized_partition_bases (map, used_in_copies, cl);
+1864:
+1865:   if (num_var_partitions (map) < 1)
+1866:     {
+1867:       delete_coalesce_list (cl);
+1868:       return;
+1869:     }
+1870:
+1871:   if (dump_file && (dump_flags & TDF_DETAILS))
+```
+
+## gcc/cfgexpand.cc:2466–2500
+
+```text
+2466: expand_used_vars (bitmap forced_stack_vars)
+2467: {
+2468:   tree var, outer_block = DECL_INITIAL (current_function_decl);
+2469:   auto_vec<tree> maybe_local_decls;
+2470:   rtx_insn *var_end_seq = NULL;
+2471:   unsigned i;
+2472:   unsigned len;
+2473:   bool gen_stack_protect_signal = false;
+2474:
+2475:   /* Compute the phase of the stack frame for this function.  */
+2476:   {
+2477:     int align = PREFERRED_STACK_BOUNDARY / BITS_PER_UNIT;
+2478:     int off = targetm.starting_frame_offset () % align;
+2479:     frame_phase = off ? align - off : 0;
+2480:   }
+2481:
+2482:   /* Set TREE_USED on all variables in the local_decls.  */
+2483:   FOR_EACH_LOCAL_DECL (cfun, i, var)
+2484:     TREE_USED (var) = 1;
+2485:   /* Clear TREE_USED on all variables associated with a block scope.  */
+2486:   clear_tree_used (DECL_INITIAL (current_function_decl));
+2487:
+2488:   init_vars_expansion ();
+2489:
+2490:   if (targetm.use_pseudo_pic_reg ())
+2491:     pic_offset_table_rtx = gen_reg_rtx (Pmode);
+2492:
+2493:   for (i = 0; i < SA.map->num_partitions; i++)
+2494:     {
+2495:       if (bitmap_bit_p (SA.partitions_for_parm_default_defs, i))
+2496:         continue;
+2497:
+2498:       tree var = partition_to_var (SA.map, i);
+2499:
+2500:       gcc_assert (!virtual_operand_p (var));
+```
+
+## gcc/cfgexpand.cc:6167–6250
+
+```text
+6167: expand_gimple_basic_block (basic_block bb, rtx_insn *asan_epilog_seq)
+6168: {
+6169:   gimple_stmt_iterator gsi;
+6170:   gimple *stmt = NULL;
+6171:   rtx_note *note = NULL;
+6172:   rtx_insn *last;
+6173:   edge e;
+6174:   edge_iterator ei;
+6175:   bool nondebug_stmt_seen = false;
+6176:
+6177:   if (dump_file)
+6178:     fprintf (dump_file, "\n;; Generating RTL for gimple basic block %d\n",
+6179:              bb->index);
+6180:
+6181:   /* Note that since we are now transitioning from GIMPLE to RTL, we
+6182:      cannot use the gsi_*_bb() routines because they expect the basic
+6183:      block to be in GIMPLE, instead of RTL.  Therefore, we need to
+6184:      access the BB sequence directly.  */
+6185:   if (optimize)
+6186:     reorder_operands (bb);
+6187:   rtl_profile_for_bb (bb);
+6188:
+6189:   /* Remove the RETURN_EXPR if we may fall though to the exit
+6190:      instead.  */
+6191:   gsi = gsi_last_bb (bb);
+6192:   if (!gsi_end_p (gsi) && gimple_code (gsi_stmt (gsi)) == GIMPLE_RETURN)
+6193:     {
+6194:       greturn *ret_stmt = as_a <greturn *> (gsi_stmt (gsi));
+6195:
+6196:       gcc_assert (single_succ_p (bb));
+6197:       gcc_assert (single_succ (bb) == EXIT_BLOCK_PTR_FOR_FN (cfun));
+6198:
+6199:       if (bb->next_bb == EXIT_BLOCK_PTR_FOR_FN (cfun)
+6200:           && !gimple_return_retval (ret_stmt))
+6201:         {
+6202:           gsi_remove (&gsi, false);
+6203:           single_succ_edge (bb)->flags |= EDGE_FALLTHRU;
+6204:         }
+6205:     }
+6206:
+6207:   gsi = gsi_start_bb (bb);
+6208:   if (!gsi_end_p (gsi))
+6209:     {
+6210:       stmt = gsi_stmt (gsi);
+6211:       if (gimple_code (stmt) != GIMPLE_LABEL)
+6212:         stmt = NULL;
+6213:     }
+6214:
+6215:   rtx_code_label **elt = lab_rtx_for_bb->get (bb);
+6216:   if ((unsigned) bb->index >= head_end_for_bb.length ())
+6217:     head_end_for_bb.safe_grow_cleared (bb->index + 1);
+6218:
+6219:   if (stmt || elt)
+6220:     {
+6221:       gcc_checking_assert (!note);
+6222:       last = get_last_insn ();
+6223:
+6224:       if (stmt)
+6225:         {
+6226:           expand_gimple_stmt (stmt);
+6227:           gsi_next (&gsi);
+6228:         }
+6229:
+6230:       if (elt)
+6231:         emit_label (*elt);
+6232:
+6233:       head_end_for_bb[bb->index].first = NEXT_INSN (last);
+6234:       if (NOTE_P (head_end_for_bb[bb->index].first))
+6235:         head_end_for_bb[bb->index].first
+6236:           = NEXT_INSN (head_end_for_bb[bb->index].first);
+6237:       gcc_assert (LABEL_P (head_end_for_bb[bb->index].first));
+6238:       note = emit_note_after (NOTE_INSN_BASIC_BLOCK,
+6239:                               head_end_for_bb[bb->index].first);
+6240:
+6241:       maybe_dump_rtl_for_gimple_stmt (stmt, last);
+6242:     }
+6243:   else
+6244:     head_end_for_bb[bb->index].first = note = emit_note (NOTE_INSN_BASIC_BLOCK);
+6245:
+6246:   if (note)
+6247:     NOTE_BASIC_BLOCK (note) = bb;
+6248:
+6249:   for (; !gsi_end_p (gsi); gsi_next (&gsi))
+6250:     {
+```
+
+## gcc/cfgexpand.cc:6495–6615
+
+```text
+6495:               def_operand_p def_p;
+6496:               def_p = SINGLE_SSA_DEF_OPERAND (stmt, SSA_OP_DEF);
+6497:
+6498:               if (def_p != NULL)
+6499:                 {
+6500:                   /* Ignore this stmt if it is in the list of
+6501:                      replaceable expressions.  */
+6502:                   if (SA.values
+6503:                       && bitmap_bit_p (SA.values,
+6504:                                        SSA_NAME_VERSION (DEF_FROM_PTR (def_p))))
+6505:                     continue;
+6506:                 }
+6507:               last = expand_gimple_stmt (stmt);
+6508:               maybe_dump_rtl_for_gimple_stmt (stmt, last);
+6509:             }
+6510:         }
+6511:     }
+6512:
+6513:   currently_expanding_gimple_stmt = NULL;
+6514:
+6515:   /* Expand implicit goto and convert goto_locus.  */
+6516:   FOR_EACH_EDGE (e, ei, bb->succs)
+6517:     {
+6518:       if (e->goto_locus != UNKNOWN_LOCATION || !nondebug_stmt_seen)
+6519:         set_curr_insn_location (e->goto_locus);
+6520:       if ((e->flags & EDGE_FALLTHRU) && e->dest != bb->next_bb)
+6521:         {
+6522:           emit_jump (label_rtx_for_bb (e->dest));
+6523:           e->flags &= ~EDGE_FALLTHRU;
+6524:         }
+6525:     }
+6526:
+6527:   /* Expanded RTL can create a jump in the last instruction of block.
+6528:      This later might be assumed to be a jump to successor and break edge insertion.
+6529:      We need to insert dummy move to prevent this. PR41440. */
+6530:   if (single_succ_p (bb)
+6531:       && (single_succ_edge (bb)->flags & EDGE_FALLTHRU)
+6532:       && (last = get_last_insn ())
+6533:       && (JUMP_P (last)
+6534:           || (DEBUG_INSN_P (last)
+6535:               && JUMP_P (prev_nondebug_insn (last)))))
+6536:     {
+6537:       rtx dummy = gen_reg_rtx (SImode);
+6538:       emit_insn_after_noloc (gen_move_insn (dummy, dummy), last, NULL);
+6539:     }
+6540:
+6541:   /* A __builtin_unreachable () will insert a barrier that should end
+6542:      the basic block.  In gimple, any code after it will have already
+6543:      deleted, even without optimization.  If we emit additional code
+6544:      here, as we would to adjust the stack after a call, it should be
+6545:      eventually deleted, but it confuses internal checkers (PR118006)
+6546:      and optimizers before it does, because we don't expect to find
+6547:      barriers inside basic blocks.  */
+6548:   if (!BARRIER_P (get_last_insn ()))
+6549:     do_pending_stack_adjust ();
+6550:   else
+6551:     discard_pending_stack_adjust ();
+6552:
+6553:   /* Find the block tail.  The last insn in the block is the insn
+6554:      before a barrier and/or table jump insn.  */
+6555:   last = get_last_insn ();
+6556:   if (BARRIER_P (last))
+6557:     last = PREV_INSN (last);
+6558:   if (JUMP_TABLE_DATA_P (last))
+6559:     last = PREV_INSN (PREV_INSN (last));
+6560:   if (BARRIER_P (last))
+6561:     last = PREV_INSN (last);
+6562:   head_end_for_bb[bb->index].second = last;
+6563:
+6564:   update_bb_for_insn_chain (head_end_for_bb[bb->index].first,
+6565:                             head_end_for_bb[bb->index].second, bb);
+6566:
+6567:   return bb;
+6568: }
+6569:
+6570:
+6571: /* Create a basic block for initialization code.  */
+6572:
+6573: static basic_block
+6574: construct_init_block (void)
+6575: {
+6576:   basic_block init_block;
+6577:   edge e = NULL;
+6578:   int flags;
+6579:
+6580:   /* Multiple entry points not supported yet.  */
+6581:   gcc_assert (EDGE_COUNT (ENTRY_BLOCK_PTR_FOR_FN (cfun)->succs) == 1);
+6582:   init_rtl_bb_info (ENTRY_BLOCK_PTR_FOR_FN (cfun));
+6583:   init_rtl_bb_info (EXIT_BLOCK_PTR_FOR_FN (cfun));
+6584:   ENTRY_BLOCK_PTR_FOR_FN (cfun)->flags |= BB_RTL;
+6585:   EXIT_BLOCK_PTR_FOR_FN (cfun)->flags |= BB_RTL;
+6586:
+6587:   e = EDGE_SUCC (ENTRY_BLOCK_PTR_FOR_FN (cfun), 0);
+6588:
+6589:   /* When entry edge points to first basic block, we don't need jump,
+6590:      otherwise we have to jump into proper target.  */
+6591:   if (e && e->dest != ENTRY_BLOCK_PTR_FOR_FN (cfun)->next_bb)
+6592:     {
+6593:       tree label = gimple_block_label (e->dest);
+6594:
+6595:       emit_jump (jump_target_rtx (label));
+6596:       flags = 0;
+6597:     }
+6598:   else
+6599:     flags = EDGE_FALLTHRU;
+6600:
+6601:   init_block = create_basic_block (NEXT_INSN (get_insns ()),
+6602:                                    get_last_insn (),
+6603:                                    ENTRY_BLOCK_PTR_FOR_FN (cfun));
+6604:   init_block->count = ENTRY_BLOCK_PTR_FOR_FN (cfun)->count;
+6605:   add_bb_to_loop (init_block, ENTRY_BLOCK_PTR_FOR_FN (cfun)->loop_father);
+6606:   if (e)
+6607:     expand_split_edge (e, init_block, flags);
+6608:   else
+6609:     make_single_succ_edge (init_block, EXIT_BLOCK_PTR_FOR_FN (cfun),
+6610:                            EDGE_FALLTHRU);
+6611:
+6612:   update_bb_for_insn (init_block);
+6613:   return init_block;
+6614: }
+6615:
+```
+
+## gcc/cfgexpand.cc:6633–6701
+
+```text
+6633: construct_exit_block (void)
+6634: {
+6635:   rtx_insn *head = get_last_insn ();
+6636:   rtx_insn *end;
+6637:   basic_block exit_block;
+6638:   edge e, e2;
+6639:   unsigned ix;
+6640:   edge_iterator ei;
+6641:   basic_block prev_bb = EXIT_BLOCK_PTR_FOR_FN (cfun)->prev_bb;
+6642:   rtx_insn *orig_end = BB_END (prev_bb);
+6643:
+6644:   rtl_profile_for_bb (EXIT_BLOCK_PTR_FOR_FN (cfun));
+6645:
+6646:   /* Make sure the locus is set to the end of the function, so that
+6647:      epilogue line numbers and warnings are set properly.  */
+6648:   if (LOCATION_LOCUS (cfun->function_end_locus) != UNKNOWN_LOCATION)
+6649:     input_location = cfun->function_end_locus;
+6650:
+6651:   /* Generate rtl for function exit.  */
+6652:   expand_function_end ();
+6653:
+6654:   end = get_last_insn ();
+6655:   if (head == end)
+6656:     return;
+6657:   /* While emitting the function end we could move end of the last basic
+6658:      block.  */
+6659:   BB_END (prev_bb) = orig_end;
+6660:   while (NEXT_INSN (head) && NOTE_P (NEXT_INSN (head)))
+6661:     head = NEXT_INSN (head);
+6662:   /* But make sure exit_block starts with RETURN_LABEL, otherwise the
+6663:      bb count counting will be confused.  Any instructions before that
+6664:      label are emitted for the case where PREV_BB falls through into the
+6665:      exit block, so append those instructions to prev_bb in that case.  */
+6666:   if (NEXT_INSN (head) != return_label)
+6667:     {
+6668:       while (NEXT_INSN (head) != return_label)
+6669:         {
+6670:           if (!NOTE_P (NEXT_INSN (head)))
+6671:             BB_END (prev_bb) = NEXT_INSN (head);
+6672:           head = NEXT_INSN (head);
+6673:         }
+6674:     }
+6675:   exit_block = create_basic_block (NEXT_INSN (head), end, prev_bb);
+6676:   exit_block->count = EXIT_BLOCK_PTR_FOR_FN (cfun)->count;
+6677:   add_bb_to_loop (exit_block, EXIT_BLOCK_PTR_FOR_FN (cfun)->loop_father);
+6678:
+6679:   ix = 0;
+6680:   while (ix < EDGE_COUNT (EXIT_BLOCK_PTR_FOR_FN (cfun)->preds))
+6681:     {
+6682:       e = EDGE_PRED (EXIT_BLOCK_PTR_FOR_FN (cfun), ix);
+6683:       if (!(e->flags & EDGE_ABNORMAL))
+6684:         redirect_edge_succ (e, exit_block);
+6685:       else
+6686:         ix++;
+6687:     }
+6688:
+6689:   e = make_single_succ_edge (exit_block, EXIT_BLOCK_PTR_FOR_FN (cfun),
+6690:                              EDGE_FALLTHRU);
+6691:   FOR_EACH_EDGE (e2, ei, EXIT_BLOCK_PTR_FOR_FN (cfun)->preds)
+6692:     if (e2 != e)
+6693:       {
+6694:         exit_block->count -= e2->count ();
+6695:       }
+6696:   update_bb_for_insn (exit_block);
+6697: }
+6698:
+6699: /* Helper function for discover_nonconstant_array_refs.
+6700:    Look for ARRAY_REF nodes with non-constant indexes and mark them
+6701:    addressable.  */
+```
+
+## gcc/cfgexpand.cc:7218–7285
+
+```text
+7218:      to run global initializers, etc.  */
+7219:   if (DECL_NAME (current_function_decl)
+7220:       && MAIN_NAME_P (DECL_NAME (current_function_decl))
+7221:       && DECL_FILE_SCOPE_P (current_function_decl))
+7222:     expand_main_function ();
+7223:
+7224:   /* Initialize the stack_protect_guard field.  This must happen after the
+7225:      call to __main (if any) so that the external decl is initialized.  */
+7226:   if (crtl->stack_protect_guard && targetm.stack_protect_runtime_enabled_p ())
+7227:     stack_protect_prologue ();
+7228:
+7229:   expand_phi_nodes (&SA);
+7230:
+7231:   /* Release any stale SSA redirection data.  */
+7232:   redirect_edge_var_map_empty ();
+7233:
+7234:   /* Register rtl specific functions for cfg.  */
+7235:   rtl_register_cfg_hooks ();
+7236:
+7237:   init_block = construct_init_block ();
+7238:
+7239:   /* Clear EDGE_EXECUTABLE on the entry edge(s).  It is cleaned from the
+7240:      remaining edges later.  */
+7241:   FOR_EACH_EDGE (e, ei, ENTRY_BLOCK_PTR_FOR_FN (fun)->succs)
+7242:     e->flags &= ~EDGE_EXECUTABLE;
+7243:
+7244:   /* If the function has too many markers, drop them while expanding.  */
+7245:   if (cfun->debug_marker_count
+7246:       >= param_max_debug_marker_count)
+7247:     cfun->debug_nonbind_markers = false;
+7248:
+7249:   enable_ranger (fun);
+7250:   lab_rtx_for_bb = new hash_map<basic_block, rtx_code_label *>;
+7251:   head_end_for_bb.create (last_basic_block_for_fn (fun));
+7252:   FOR_BB_BETWEEN (bb, init_block->next_bb, EXIT_BLOCK_PTR_FOR_FN (fun),
+7253:                   next_bb)
+7254:     bb = expand_gimple_basic_block (bb, var_ret_seq);
+7255:   disable_ranger (fun);
+7256:   FOR_BB_BETWEEN (bb, init_block->next_bb, EXIT_BLOCK_PTR_FOR_FN (fun),
+7257:                   next_bb)
+7258:     {
+7259:       if ((bb->flags & BB_RTL) == 0)
+7260:         {
+7261:           bb->il.gimple.seq = NULL;
+7262:           bb->il.gimple.phi_nodes = NULL;
+7263:           init_rtl_bb_info (bb);
+7264:           bb->flags |= BB_RTL;
+7265:           BB_HEAD (bb) = head_end_for_bb[bb->index].first;
+7266:           BB_END (bb) = head_end_for_bb[bb->index].second;
+7267:         }
+7268:       /* These flags have no purpose in RTL land.  */
+7269:       if (EDGE_COUNT (bb->succs) == 2)
+7270:         {
+7271:           EDGE_SUCC (bb, 0)->flags &= ~(EDGE_TRUE_VALUE | EDGE_FALSE_VALUE);
+7272:           EDGE_SUCC (bb, 1)->flags &= ~(EDGE_TRUE_VALUE | EDGE_FALSE_VALUE);
+7273:         }
+7274:       else if (single_succ_p (bb))
+7275:         single_succ_edge (bb)->flags &= ~(EDGE_TRUE_VALUE | EDGE_FALSE_VALUE);
+7276:     }
+7277:   head_end_for_bb.release ();
+7278:
+7279:   if (MAY_HAVE_DEBUG_BIND_INSNS)
+7280:     expand_debug_locations ();
+7281:
+7282:   if (deep_ter_debug_map)
+7283:     {
+7284:       delete deep_ter_debug_map;
+7285:       deep_ter_debug_map = NULL;
+```
+
+## gcc/function.cc:5104–5220
+
+```text
+5104: expand_function_start (tree subr)
+5105: {
+5106:   currently_expanding_function_start = true;
+5107:
+5108:   /* Make sure volatile mem refs aren't considered
+5109:      valid operands of arithmetic insns.  */
+5110:   init_recog_no_volatile ();
+5111:
+5112:   crtl->profile
+5113:     = (profile_flag
+5114:        && ! DECL_NO_INSTRUMENT_FUNCTION_ENTRY_EXIT (subr));
+5115:
+5116:   crtl->limit_stack
+5117:     = (stack_limit_rtx != NULL_RTX && ! DECL_NO_LIMIT_STACK (subr));
+5118:
+5119:   /* Make the label for return statements to jump to.  Do not special
+5120:      case machines with special return instructions -- they will be
+5121:      handled later during jump, ifcvt, or epilogue creation.  */
+5122:   return_label = gen_label_rtx ();
+5123:
+5124:   /* Initialize rtx used to return the value.  */
+5125:   /* Do this before assign_parms so that we copy the struct value address
+5126:      before any library calls that assign parms might generate.  */
+5127:
+5128:   /* Decide whether to return the value in memory or in a register.  */
+5129:   tree res = DECL_RESULT (subr);
+5130:   if (aggregate_value_p (res, subr))
+5131:     {
+5132:       /* Returning something that won't go in a register.  */
+5133:       rtx value_address = 0;
+5134:
+5135: #ifdef PCC_STATIC_STRUCT_RETURN
+5136:       if (cfun->returns_pcc_struct)
+5137:         {
+5138:           int size = int_size_in_bytes (TREE_TYPE (res));
+5139:           value_address = assemble_static_space (size);
+5140:         }
+5141:       else
+5142: #endif
+5143:         {
+5144:           rtx sv = targetm.calls.struct_value_rtx (TREE_TYPE (subr), 2);
+5145:           /* Expect to be passed the address of a place to store the value.
+5146:              If it is passed as an argument, assign_parms will take care of
+5147:              it.  */
+5148:           if (sv)
+5149:             {
+5150:               value_address = gen_reg_rtx (Pmode);
+5151:               emit_move_insn (value_address, sv);
+5152:             }
+5153:         }
+5154:       if (value_address)
+5155:         {
+5156:           rtx x = value_address;
+5157:           if (!DECL_BY_REFERENCE (res))
+5158:             {
+5159:               x = gen_rtx_MEM (DECL_MODE (res), x);
+5160:               set_mem_attributes (x, res, 1);
+5161:             }
+5162:           set_parm_rtl (res, x);
+5163:         }
+5164:     }
+5165:   else if (DECL_MODE (res) == VOIDmode)
+5166:     /* If return mode is void, this decl rtl should not be used.  */
+5167:     set_parm_rtl (res, NULL_RTX);
+5168:   else
+5169:     {
+5170:       /* Compute the return values into a pseudo reg, which we will copy
+5171:          into the true return register after the cleanups are done.  */
+5172:       tree return_type = TREE_TYPE (res);
+5173:
+5174:       /* If we may coalesce this result, make sure it has the expected mode
+5175:          in case it was promoted.  But we need not bother about BLKmode.  */
+5176:       machine_mode promoted_mode
+5177:         = flag_tree_coalesce_vars && is_gimple_reg (res)
+5178:           ? promote_ssa_mode (ssa_default_def (cfun, res), NULL)
+5179:           : BLKmode;
+5180:
+5181:       if (promoted_mode != BLKmode)
+5182:         set_parm_rtl (res, gen_reg_rtx (promoted_mode));
+5183:       else if (TYPE_MODE (return_type) != BLKmode
+5184:                && targetm.calls.return_in_msb (return_type))
+5185:         /* expand_function_end will insert the appropriate padding in
+5186:            this case.  Use the return value's natural (unpadded) mode
+5187:            within the function proper.  */
+5188:         set_parm_rtl (res, gen_reg_rtx (TYPE_MODE (return_type)));
+5189:       else
+5190:         {
+5191:           /* In order to figure out what mode to use for the pseudo, we
+5192:              figure out what the mode of the eventual return register will
+5193:              actually be, and use that.  */
+5194:           rtx hard_reg = hard_function_value (return_type, subr, 0, 1);
+5195:
+5196:           /* Structures that are returned in registers are not
+5197:              aggregate_value_p, so we may see a PARALLEL or a REG.  */
+5198:           if (REG_P (hard_reg))
+5199:             set_parm_rtl (res, gen_reg_rtx (GET_MODE (hard_reg)));
+5200:           else
+5201:             {
+5202:               gcc_assert (GET_CODE (hard_reg) == PARALLEL);
+5203:               set_parm_rtl (res, gen_group_rtx (hard_reg));
+5204:             }
+5205:         }
+5206:
+5207:       /* Set DECL_REGISTER flag so that expand_function_end will copy the
+5208:          result to the real return register(s).  */
+5209:       DECL_REGISTER (res) = 1;
+5210:     }
+5211:
+5212:   /* Initialize rtx for parameters and local variables.
+5213:      In some cases this requires emitting insns.  */
+5214:   assign_parms (subr);
+5215:
+5216:   /* If function gets a static chain arg, store it.  */
+5217:   if (cfun->static_chain_decl)
+5218:     {
+5219:       tree parm = cfun->static_chain_decl;
+5220:       rtx local, chain;
+```
+
+## gcc/function.cc:5400–5456
+
+```text
+5400: expand_function_end (void)
+5401: {
+5402:   /* If arg_pointer_save_area was referenced only from a nested
+5403:      function, we will not have initialized it yet.  Do that now.  */
+5404:   if (arg_pointer_save_area && ! crtl->arg_pointer_save_area_init)
+5405:     get_arg_pointer_save_area ();
+5406:
+5407:   /* If we are doing generic stack checking and this function makes calls,
+5408:      do a stack probe at the start of the function to ensure we have enough
+5409:      space for another stack frame.  */
+5410:   if (flag_stack_check == GENERIC_STACK_CHECK)
+5411:     {
+5412:       rtx_insn *insn, *seq;
+5413:
+5414:       for (insn = get_insns (); insn; insn = NEXT_INSN (insn))
+5415:         if (CALL_P (insn))
+5416:           {
+5417:             rtx max_frame_size = GEN_INT (STACK_CHECK_MAX_FRAME_SIZE);
+5418:             start_sequence ();
+5419:             if (STACK_CHECK_MOVING_SP)
+5420:               anti_adjust_stack_and_probe (max_frame_size, true);
+5421:             else
+5422:               probe_stack_range (STACK_OLD_CHECK_PROTECT, max_frame_size);
+5423:             seq = end_sequence ();
+5424:             set_insn_locations (seq, prologue_location);
+5425:             emit_insn_before (seq, stack_check_probe_note);
+5426:             break;
+5427:           }
+5428:     }
+5429:
+5430:   /* End any sequences that failed to be closed due to syntax errors.  */
+5431:   while (in_sequence_p ())
+5432:     end_sequence ();
+5433:
+5434:   clear_pending_stack_adjust ();
+5435:   do_pending_stack_adjust ();
+5436:
+5437:   /* Output a linenumber for the end of the function.
+5438:      SDB depended on this.  */
+5439:   set_curr_insn_location (input_location);
+5440:
+5441:   /* Before the return label (if any), clobber the return
+5442:      registers so that they are not propagated live to the rest of
+5443:      the function.  This can only happen with functions that drop
+5444:      through; if there had been a return statement, there would
+5445:      have either been a return rtx, or a jump to the return label.
+5446:
+5447:      We delay actual code generation after the current_function_value_rtx
+5448:      is computed.  */
+5449:   rtx_insn *clobber_after = get_last_insn ();
+5450:
+5451:   /* Output the label for the actual return from the function.  */
+5452:   emit_label (return_label);
+5453:
+5454:   if (targetm_common.except_unwind_info (&global_options) == UI_SJLJ)
+5455:     {
+5456:       /* Let except.cc know where it should emit the call to unregister
+```
+
+## gcc/function.cc:5580–5646
+
+```text
+5580:       /* Mark this as a function return value so integrate will delete the
+5581:          assignment and USE below when inlining this function.  */
+5582:       REG_FUNCTION_VALUE_P (outgoing) = 1;
+5583:
+5584:       /* The address may be ptr_mode and OUTGOING may be Pmode.  */
+5585:       scalar_int_mode mode = as_a <scalar_int_mode> (GET_MODE (outgoing));
+5586:       value_address = convert_memory_address (mode, value_address);
+5587:
+5588:       emit_move_insn (outgoing, value_address);
+5589:
+5590:       /* Show return register used to hold result (in this case the address
+5591:          of the result.  */
+5592:       crtl->return_rtx = outgoing;
+5593:     }
+5594:
+5595:   /* Emit the actual code to clobber return register.  Don't emit
+5596:      it if clobber_after is a barrier, then the previous basic block
+5597:      certainly doesn't fall thru into the exit block.  */
+5598:   if (!BARRIER_P (clobber_after))
+5599:     {
+5600:       start_sequence ();
+5601:       clobber_return_register ();
+5602:       rtx_insn *seq = end_sequence ();
+5603:
+5604:       emit_insn_after (seq, clobber_after);
+5605:     }
+5606:
+5607:   /* Output the label for the naked return from the function.  */
+5608:   if (naked_return_label)
+5609:     emit_label (naked_return_label);
+5610:
+5611:   /* @@@ This is a kludge.  We want to ensure that instructions that
+5612:      may trap are not moved into the epilogue by scheduling, because
+5613:      we don't always emit unwind information for the epilogue.  */
+5614:   if (cfun->can_throw_non_call_exceptions
+5615:       && targetm_common.except_unwind_info (&global_options) != UI_SJLJ)
+5616:     emit_insn (gen_blockage ());
+5617:
+5618:   /* If stack protection is enabled for this function, check the guard.  */
+5619:   if (crtl->stack_protect_guard
+5620:       && targetm.stack_protect_runtime_enabled_p ()
+5621:       && naked_return_label)
+5622:     stack_protect_epilogue ();
+5623:
+5624:   /* If we had calls to alloca, and this machine needs
+5625:      an accurate stack pointer to exit the function,
+5626:      insert some code to save and restore the stack pointer.  */
+5627:   if (! EXIT_IGNORE_STACK
+5628:       && cfun->calls_alloca)
+5629:     {
+5630:       rtx tem = 0;
+5631:
+5632:       start_sequence ();
+5633:       emit_stack_save (SAVE_FUNCTION, &tem);
+5634:       rtx_insn *seq = end_sequence ();
+5635:       emit_insn_before (seq, parm_birth_insn);
+5636:
+5637:       emit_stack_restore (SAVE_FUNCTION, tem);
+5638:     }
+5639:
+5640:   /* ??? This should no longer be necessary since stupid is no longer with
+5641:      us, but there are some parts of the compiler (eg reload_combine, and
+5642:      sh mach_dep_reorg) that still try and compute their own lifetime info
+5643:      instead of using the general framework.  */
+5644:   use_return_register ();
+5645: }
+5646:
+```
+
+## gcc/stmt.cc:96–109
+
+```text
+96: label_rtx (tree label)
+97: {
+98:   gcc_assert (TREE_CODE (label) == LABEL_DECL);
+99:
+100:   if (!DECL_RTL_SET_P (label))
+101:     {
+102:       rtx_code_label *r = gen_label_rtx ();
+103:       SET_DECL_RTL (label, r);
+104:       if (FORCED_LABEL (label) || DECL_NONLOCAL (label))
+105:         LABEL_PRESERVE_P (r) = 1;
+106:     }
+107:
+108:   return as_a <rtx_insn *> (DECL_RTL (label));
+109: }
+```
+
+## gcc/stmt.cc:157–179
+
+```text
+157: expand_label (tree label)
+158: {
+159:   rtx_code_label *label_r = jump_target_rtx (label);
+160:
+161:   do_pending_stack_adjust ();
+162:   emit_label (label_r);
+163:   if (DECL_NAME (label))
+164:     LABEL_NAME (DECL_RTL (label)) = IDENTIFIER_POINTER (DECL_NAME (label));
+165:
+166:   if (DECL_NONLOCAL (label))
+167:     {
+168:       expand_builtin_setjmp_receiver (NULL);
+169:       nonlocal_goto_handler_labels
+170:         = gen_rtx_INSN_LIST (VOIDmode, label_r,
+171:                              nonlocal_goto_handler_labels);
+172:     }
+173:
+174:   if (FORCED_LABEL (label))
+175:     vec_safe_push<rtx_insn *> (forced_labels, label_r);
+176:
+177:   if (DECL_NONLOCAL (label) || FORCED_LABEL (label))
+178:     maybe_set_first_label_num (label_r);
+179: }
+```
+
+## gcc/emit-rtl.cc:2873–2878
+
+```text
+2873: gen_label_rtx (void)
+2874: {
+2875:   return as_a <rtx_code_label *> (
+2876:             gen_rtx_CODE_LABEL (VOIDmode, NULL_RTX, NULL_RTX,
+2877:                                 NULL, label_num++, NULL));
+2878: }
 ```
 
 ## src/silver_arguments.ads (selected Silver API, complete)

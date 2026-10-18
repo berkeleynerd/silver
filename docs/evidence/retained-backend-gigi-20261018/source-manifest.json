@@ -210,6 +210,191 @@
       "path": "gcc/tree-inline.cc",
       "bytes": 214934,
       "sha256": "fd7e55d826abce9e7e8ffd47a52fd11befec98346c9a73982620d322e232f903"
+    },
+    {
+      "path": "gcc/passes.cc",
+      "bytes": 91818,
+      "sha256": "facb2b07df162fc9f9fa9478e602900e81a34de48ad99200f45dac7d42e179fc"
+    },
+    {
+      "path": "gcc/ipa-inline.cc",
+      "bytes": 112365,
+      "sha256": "17a339c37db9d130c93300a6f1cdfb7fd585bac69e70ba20e21d3f48c8d61955"
+    },
+    {
+      "path": "gcc/ipa-fnsummary.cc",
+      "bytes": 161148,
+      "sha256": "977298c2bb09af16adc45786fd8a2bd4e768d44ecd22c0f3e59c3b957b5b4f2c"
+    },
+    {
+      "path": "gcc/tree-ssanames.cc",
+      "bytes": 32186,
+      "sha256": "912f01856cb72bd68199c99d6c57d91384f857cf281a4a02bf294ff37089ed86"
+    },
+    {
+      "path": "gcc/adjust-alignment.cc",
+      "bytes": 2215,
+      "sha256": "c49802c9f66feb435fc8845a823c493da89b6e869eb7744af958f6b82b265d3c"
+    },
+    {
+      "path": "gcc/except.cc",
+      "bytes": 99184,
+      "sha256": "90ef6fe4750300cb1985cb1df0af450cc0d806dad85874f631bfd8e411e0e5f0"
+    },
+    {
+      "path": "gcc/tree-stdarg.cc",
+      "bytes": 31943,
+      "sha256": "0a2d8cb361a03d4e8b78bec39c9d227c8bada0f34874f77ab7060e50578a1314"
+    },
+    {
+      "path": "gcc/tree-vect-generic.cc",
+      "bytes": 81382,
+      "sha256": "61f56c9759b777d60a7391d2745099bdcb0ac1162bb93473ee47f072b3082048"
+    },
+    {
+      "path": "gcc/tree-complex.cc",
+      "bytes": 61338,
+      "sha256": "328a62d965228b1964dbc8200dc2bd8e0b8cf0f91052ea2d05462d01bccff417"
+    },
+    {
+      "path": "gcc/gimple-lower-bitint.cc",
+      "bytes": 263982,
+      "sha256": "f2c19b60431affbea75c7bee2d7e4aa683f0176f86b8db2869301163d612cf9a"
+    },
+    {
+      "path": "gcc/tree-switch-conversion.cc",
+      "bytes": 95004,
+      "sha256": "25687a39fd7f1ac7f20b61e9ba41929dd2da3a2d5f150b4c34294a6c6eb61e71"
+    },
+    {
+      "path": "gcc/tree-assume.cc",
+      "bytes": 15237,
+      "sha256": "9501ca8e00e225e88b3dbb98e28508440b7977d782430d06376bb45fb4e0293a"
+    },
+    {
+      "path": "gcc/tree-vectorizer.cc",
+      "bytes": 61104,
+      "sha256": "39c2283f19a44ec464242f335f4c3a46f1435aa490bd15a2d47ec6e786d6eff8"
+    },
+    {
+      "path": "gcc/tree-tailcall.cc",
+      "bytes": 67401,
+      "sha256": "65fb0805db028819c984314f6f3083c619b4f1dfc19ef4cc6a063de16b71309c"
+    },
+    {
+      "path": "gcc/tree-nrv.cc",
+      "bytes": 11593,
+      "sha256": "156388b90e05281cd048c8674ca8c43a61ece452b8d392de165cfc718faf252b"
+    },
+    {
+      "path": "gcc/gimple-isel.cc",
+      "bytes": 40402,
+      "sha256": "6e9e5152d17e4b265cdfc704e7520451bf0b367d7a5b5eaf442b3939617abdf2"
+    },
+    {
+      "path": "gcc/targhooks.cc",
+      "bytes": 75641,
+      "sha256": "18278aab3517619d6e10b397d5a6869b78965dd59db4b286e699ff0512ad05c0"
+    },
+    {
+      "path": "gcc/gimple-ssa-nonnull-compare.cc",
+      "bytes": 3809,
+      "sha256": "34d24a3841b77227dda2a13f8e1cbc0a68717afff51ed7c69c5f8caf2ac48064"
+    },
+    {
+      "path": "gcc/gimple-ssa-warn-alloca.cc",
+      "bytes": 11880,
+      "sha256": "e260cbf58b2c0e9fde3eaf16f717b611ecd1394096d3dd090b975bb0c72cb3d0"
+    },
+    {
+      "path": "gcc/gimple-ssa-warn-access.cc",
+      "bytes": 148420,
+      "sha256": "ddd9a77ea6a7ac598a37ad5345c0faba38ef3ded821550428f4e9b86dfea4d5d"
+    },
+    {
+      "path": "gcc/gimple-range.cc",
+      "bytes": 26571,
+      "sha256": "d20f96362464e04c170310122112205c1292bdb4f922f65ed39fbef4957a22a3"
+    },
+    {
+      "path": "gcc/gimple-range-cache.cc",
+      "bytes": 52642,
+      "sha256": "9a28c5c2cef285bc4cb33b5f732b201473378364988d89d261274da650873f30"
+    },
+    {
+      "path": "gcc/gimple-range-cache.h",
+      "bytes": 5198,
+      "sha256": "163ac7740e5069a0f72d46dee535b051f81bd343af4c2cbd0a5335688c9165d8"
+    },
+    {
+      "path": "gcc/gimple-range-gori.cc",
+      "bytes": 50932,
+      "sha256": "0b8e2a22ed4e5c81beca4dd43dadef049664f11fe102df51edd08495e0b3def1"
+    },
+    {
+      "path": "gcc/gimple-range-edge.cc",
+      "bytes": 6985,
+      "sha256": "0e86dbb6e7b9e1b0b751aa57c577bb9411e021f48cb96cb80a18c6b264f97883"
+    },
+    {
+      "path": "gcc/gimple-range-infer.cc",
+      "bytes": 15372,
+      "sha256": "b99845dd77fa57be4bc8dec74f7962c864086a92a073bb0c7b1231778aa0f3f9"
+    },
+    {
+      "path": "gcc/value-query.cc",
+      "bytes": 14366,
+      "sha256": "e97a7138bc7049beaa03eba13080a5ad243e50a7380b5e66783c5cb83086a921"
+    },
+    {
+      "path": "gcc/value-relation.cc",
+      "bytes": 53665,
+      "sha256": "7f6344806336bab51ceb23bf8eff068829cfbdb9caf8dcb5a054f3e0306f2f82"
+    },
+    {
+      "path": "gcc/value-range-storage.cc",
+      "bytes": 17488,
+      "sha256": "b8845463227db35962dfde38f3becfc7c570f496af07a94906e7b8136a4a3857"
+    },
+    {
+      "path": "gcc/value-range-storage.h",
+      "bytes": 5166,
+      "sha256": "25fe030876a97b61ebdabd4a1a3c48d2c108d7d4b02271a7bc1da804f13836da"
+    },
+    {
+      "path": "gcc/tree-outof-ssa.cc",
+      "bytes": 38337,
+      "sha256": "db74cee5a9579f29a38c6c6dc50fa98bd14175313a29e0ffa2c15b348f8f1115"
+    },
+    {
+      "path": "gcc/tree-ssa-live.cc",
+      "bytes": 49687,
+      "sha256": "52edc87c7b0d3a45f92c72322cb18a20b0fbd481e8a8eb17f9d1d936c6cf3872"
+    },
+    {
+      "path": "gcc/tree-ssa-coalesce.cc",
+      "bytes": 52827,
+      "sha256": "8ac41e33d2b4c97e1f6d0700e444d64cd1064a4a1ac5947da552ef54f24e8ac5"
+    },
+    {
+      "path": "gcc/cfgexpand.cc",
+      "bytes": 226526,
+      "sha256": "31027cc2a135939da3d49147e647e4f95f50bfeaa5597b82dddef38ae1aced53"
+    },
+    {
+      "path": "gcc/function.cc",
+      "bytes": 221482,
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "path": "gcc/stmt.cc",
+      "bytes": 44121,
+      "sha256": "5aaddfdfdfd786efd5e510bd2909ccfc75a65cb2399a77d6f5039dcaaec7dd2d"
+    },
+    {
+      "path": "gcc/emit-rtl.cc",
+      "bytes": 193419,
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
     }
   ],
   "silver_main_api_files": [

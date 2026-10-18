@@ -1,6 +1,6 @@
 {
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_checked": 42,
+  "source_files_checked": 79,
   "silver_main_api_files_checked": 2,
   "arithmetic": {
     "binding_push_coefficients": {
@@ -11,6 +11,36 @@
       "C": 1,
       "X": 1
     },
+    "null_o0_body_block_edge_statement_ceilings": [
+      3,
+      4,
+      3
+    ],
+    "null_o0_real_ssa_partitions": 0,
+    "null_o0_ranger_instances_upper_bound": 4,
+    "null_ranger_max_block_index_slots": 6,
+    "null_ranger_update_vector_length_upper_bound": 70,
+    "null_ranger_gori_bitmap_headers_upper_bound": 12,
+    "null_ranger_infer_exit_vector_length_upper_bound": 7,
+    "null_ranger_range_allocators_per_instance": 3,
+    "null_phi_elimination_vector_requests": [
+      30,
+      20,
+      10,
+      30,
+      20,
+      20,
+      10
+    ],
+    "null_expanded_body_rtl_label_note_ceilings": [
+      2,
+      3
+    ],
+    "null_expanded_body_return_expansions": 0,
+    "null_pre_subdivision_ordinary_block_edge_ceilings": [
+      5,
+      6
+    ],
     "retained_bind_coefficients": {
       "U": 1,
       "F": 1,

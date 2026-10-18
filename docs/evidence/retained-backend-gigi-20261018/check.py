@@ -61,7 +61,7 @@ RANGES = {
         (11020, 11077), (11194, 11224), (13147, 13192), (13390, 13415)],
     "gcc/tree.def": [(633, 633), (973, 990)],
     "gcc/tree-iterator.cc": [(34, 105), (188, 239)],
-    "gcc/passes.def": [(27, 42)],
+    "gcc/passes.def": [(27, 42), (54, 122), (195, 208), (432, 461)],
     "gcc/gimple-low.cc": [(122, 214), (695, 810), (900, 982),
                            (1178, 1223), (1438, 1468)],
     "gcc/gimplify.cc": [
@@ -87,8 +87,9 @@ RANGES = {
                         (1858, 1932), (2185, 2200), (2628, 2652),
                         (10017, 10138)],
     "gcc/tree-eh.cc": [(200, 259), (702, 715), (2056, 2215),
-                       (2241, 2285), (3351, 3401)],
-    "gcc/tree-cfgcleanup.cc": [(476, 519), (871, 898)],
+                       (2241, 2285), (3351, 3401), (3653, 3700),
+                       (4083, 4140), (5015, 5018)],
+    "gcc/tree-cfgcleanup.cc": [(476, 519), (871, 898), (1413, 1485)],
     "gcc/tree-ssa-operands.cc": [(228, 278), (424, 485), (951, 995)],
     "gcc/tree-into-ssa.cc": [(648, 704), (1203, 1228), (1337, 1411),
                             (2411, 2438), (2490, 2581)],
@@ -96,6 +97,47 @@ RANGES = {
     "gcc/cfganal.cc": [(1639, 1668)],
     "gcc/tree-nested.cc": [(2656, 2719), (3668, 3690)],
     "gcc/tree-inline.cc": [(6667, 6720)],
+    "gcc/passes.cc": [(519, 610)],
+    "gcc/ipa-inline.cc": [(3009, 3059), (3215, 3360)],
+    "gcc/ipa-fnsummary.cc": [(2856, 2920), (3386, 3540)],
+    "gcc/tree-ssanames.cc": [(983, 1013)],
+    "gcc/adjust-alignment.cc": [(60, 78)],
+    "gcc/except.cc": [(852, 875)],
+    "gcc/tree-stdarg.cc": [(995, 1104)],
+    "gcc/tree-vect-generic.cc": [(2185, 2200), (2461, 2490)],
+    "gcc/tree-complex.cc": [(215, 331), (1994, 2002)],
+    "gcc/gimple-lower-bitint.cc": [(6943, 6997)],
+    "gcc/tree-switch-conversion.cc": [(3045, 3092)],
+    "gcc/tree-assume.cc": [(417, 430)],
+    "gcc/tree-vectorizer.cc": [(1468, 1480)],
+    "gcc/tree-tailcall.cc": [(2243, 2255)],
+    "gcc/tree-nrv.cc": [(123, 132)],
+    "gcc/gimple-isel.cc": [(63, 73), (174, 183), (1350, 1393)],
+    "gcc/targhooks.cc": [(2783, 2790)],
+    "gcc/gimple-ssa-nonnull-compare.cc": [(136, 143)],
+    "gcc/gimple-ssa-warn-alloca.cc": [(81, 88), (149, 161), (258, 273)],
+    "gcc/gimple-ssa-warn-access.cc": [(2270, 2275), (4480, 4537),
+                                    (4733, 4760), (4857, 4904)],
+    "gcc/gimple-range.cc": [(40, 66)],
+    "gcc/gimple-range-cache.cc": [(366, 373), (540, 545), (828, 835),
+                                 (940, 948), (998, 1022)],
+    "gcc/gimple-range-cache.h": [(101, 149)],
+    "gcc/gimple-range-gori.cc": [(96, 103), (359, 366), (479, 523), (582, 599)],
+    "gcc/gimple-range-edge.cc": [(71, 76)],
+    "gcc/gimple-range-infer.cc": [(331, 351)],
+    "gcc/value-query.cc": [(194, 255)],
+    "gcc/value-relation.cc": [(312, 330), (1064, 1073)],
+    "gcc/value-range-storage.cc": [(47, 56), (82, 88)],
+    "gcc/value-range-storage.h": [(27, 34)],
+    "gcc/tree-outof-ssa.cc": [(433, 438), (919, 944), (985, 1088), (1382, 1405)],
+    "gcc/tree-ssa-live.cc": [(84, 117), (198, 278)],
+    "gcc/tree-ssa-coalesce.cc": [(262, 276), (1046, 1145), (1249, 1333),
+                                 (1601, 1742), (1843, 1871)],
+    "gcc/cfgexpand.cc": [(2466, 2500), (6167, 6250), (6495, 6615),
+                        (6633, 6701), (7218, 7285)],
+    "gcc/function.cc": [(5104, 5220), (5400, 5456), (5580, 5646)],
+    "gcc/stmt.cc": [(96, 109), (157, 179)],
+    "gcc/emit-rtl.cc": [(2873, 2878)],
 }
 INTERFACE = ("trans", "utils", "utils2", "decl")
 MAIN_APIS = ("src/silver_arguments.ads", "src/silver_io.ads")
@@ -375,6 +417,42 @@ def check_sources(sources, inventory):
     assert "rewrite_blocks (ENTRY_BLOCK_PTR_FOR_FN (fun), REWRITE_ALL);" in into
     assert "ddef = make_ssa_name_fn (fn, var, gimple_build_nop ());" in sources["gcc/tree-dfa.cc"]
     assert "if (EDGE_COUNT (b->preds) >= 2)" in sources["gcc/cfganal.cc"]
+    # Concrete O0 continuation. These pins support the manual shape argument,
+    # not a claim that arbitrary options or target hooks preserve this body.
+    assert "return optimize >= 1 && !optimize_debug;" in sources["gcc/passes.cc"]
+    assert "vec_alloc (cfun->eh->ttype_data, 16);" in sources["gcc/except.cc"]
+    assert "ehspec_hash_type ehspec (31);" in sources["gcc/except.cc"]
+    assert "ttypes_hash_type ttypes (31);" in sources["gcc/except.cc"]
+    for name in ("gcc/gimple-ssa-warn-alloca.cc", "gcc/gimple-ssa-warn-access.cc",
+                 "gcc/cfgexpand.cc"):
+        assert "enable_ranger (fun);" in sources[name]
+    cache = sources["gcc/gimple-range-cache.cc"]
+    assert "last_basic_block_for_fn (cfun) + 64" in cache
+    assert "m_ssa_ranges.safe_grow_cleared (num_ssa_names);" in cache
+    gori = sources["gcc/gimple-range-gori.cc"]
+    assert "if (single_succ_p (bb))\n    return;" in gori
+    assert "m_def_chain.safe_grow_cleared (num_ssa_names);" in gori
+    coalesce = sources["gcc/tree-ssa-coalesce.cc"]
+    begin = coalesce.index("\ncoalesce_ssa_name (")
+    end = coalesce.index("\n}\n", begin)
+    body = coalesce[begin:end]
+    assert body.index("if (num_var_partitions (map) < 1)") < body.index(
+        "liveinfo = calculate_live_ranges (map, false);")
+    assert "&& !virtual_operand_p (ssa_name (tmp))" in sources["gcc/tree-ssa-live.cc"]
+    out = sources["gcc/tree-outof-ssa.cc"]
+    assert "nodes (30), edge_list (20), edge_locus (10), visited (map->num_partitions)," in out
+    assert "stack (30), map (map), const_dests (20), const_copies (20), copy_locus (10)" in out
+    expand = sources["gcc/cfgexpand.cc"]
+    begin = expand.index("\nexpand_gimple_basic_block (")
+    end = expand.index("\n}\n", begin)
+    body = expand[begin:end]
+    assert body.index("&& !gimple_return_retval (ret_stmt))") < body.index(
+        "gsi_remove (&gsi, false);") < body.index("expand_gimple_stmt (stmt);")
+    assert "single_succ_edge (bb)->flags |= EDGE_FALLTHRU;" in body
+    assert "(e->flags & EDGE_FALLTHRU) && e->dest != bb->next_bb" in body
+    assert "note = emit_note (NOTE_INSN_BASIC_BLOCK);" in body
+    assert expand.index("init_block = construct_init_block ();") < expand.index(
+        "enable_ranger (fun);")
     iterator = sources["gcc/tree-iterator.cc"]
     start = iterator.index("\ntsi_link_after (")
     end = iterator.index("\n}\n", start)
@@ -404,6 +482,18 @@ def arithmetic():
     bind = {"U": 1, "F": 1, "B": 1, "L": 2, "C": 1, "X": 0}
     return {
         "binding_push_coefficients": push,
+        "null_o0_body_block_edge_statement_ceilings": [3, 4, 3],
+        "null_o0_real_ssa_partitions": 0,
+        "null_o0_ranger_instances_upper_bound": 1+2+1,
+        "null_ranger_max_block_index_slots": 5+1,
+        "null_ranger_update_vector_length_upper_bound": 5+1+64,
+        "null_ranger_gori_bitmap_headers_upper_bound": 2*(5+1),
+        "null_ranger_infer_exit_vector_length_upper_bound": 5+1+1,
+        "null_ranger_range_allocators_per_instance": 3,
+        "null_phi_elimination_vector_requests": [30, 20, 10, 30, 20, 20, 10],
+        "null_expanded_body_rtl_label_note_ceilings": [2, 3],
+        "null_expanded_body_return_expansions": 0,
+        "null_pre_subdivision_ordinary_block_edge_ceilings": [3+1+1, 4+1+1],
         "retained_bind_coefficients": bind,
         "main_fixed_framework_push_requests": push["U"] + 2*push["F"],
         "main_fixed_framework_bind_upper_bound": bind["U"] + 2*bind["F"],

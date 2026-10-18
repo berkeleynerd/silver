@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Companion to
 [the source argument](../../research/retained-backend-gigi.md).
 
-`source-manifest.json` pins 42 complete files at GCC
+`source-manifest.json` pins 79 complete files at GCC
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; Ada file identities also match the
 previously retained complete Ada inventory, and non-Ada GCC files match the
 full-source manifest independently. Its separate `silver_main_api_files` rows
@@ -77,3 +77,12 @@ shifted some displayed line numbers. The corrected excerpts retain the same
 full-file identities; the null specialization's references were reconciled
 against LF lines. This correction changes evidence presentation, not compiler
 inputs or any claimed pass result.
+
+The O0 continuation extension pins mandatory lowering, warning ranger setup,
+zero-real-partition out-of-SSA and the removal of the terminal bare return
+before body RTL expansion. Its result remains conditional on the selected
+options, default instruction-selection hook and whole-unit preservation.
+The retained typed container requests are not a complete setup byte bound.
+The checker records four possible ranger instances, the expansion-time
+six-slot block-index ceiling, and the two-label/three-note body contribution.
+Function entry/exit, subsequent RTL passes and linker costs stay separate.
