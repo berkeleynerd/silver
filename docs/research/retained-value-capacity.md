@@ -574,8 +574,10 @@ A_scan <= 2 * (W + S + N + N_colon).
 Charging all source word tokens instead of `W` is also sufficient. Uint and
 String pool costs remain the earlier per-token formulas. Parser constructors,
 defining-identifier kind changes, implicit loop labels, generated data and
-dependency scanning remain separate. This contribution does not yet supply
-the complete `A_Main` input needed by the producer aggregate.
+dependency scanning remain separate. The later [Main semantic
+bridge](retained-main-semantics.md) combines this scanner contribution with
+parser and semantic construction to supply the producer's `A_Main` node input;
+the numeric resource obligations below remain independent.
 
 ## Semantic caller coverage still required
 

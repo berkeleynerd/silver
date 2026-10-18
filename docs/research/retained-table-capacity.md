@@ -641,9 +641,11 @@ lists and `2F` elements remain separate. Ordinary syntax membership links are
 already one pair per allocated node identity, not one extra node per append.
 
 This closes the ordinary parser constructor/slot contribution, with source
-hashes and formulas in the existing table evidence. Semantic type creation,
-constant evaluation, freeze/check generation, copies and final phase table
-locking still need to be added before this can bound the producer's `A_Main`.
+hashes and formulas in the existing table evidence. The later
+[Main semantic bridge](retained-main-semantics.md) adds generated types,
+copies, folds, checks, freezes and markers to bound the producer's `A_Main`
+node input. Semantic slot/list/value demands and final phase table locking
+remain additional requirements for the complete frontend resource bound.
 
 ### Source-sensitive versus uniform parser envelope
 
