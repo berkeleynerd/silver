@@ -9,6 +9,9 @@ table/byte bound, whole-process bound or admission predicate.**
 The subsequent aggregates also close Main's scalar range/comparison query
 invocations, literal/subtype and ordinary freeze-layout Uint contributions,
 and semantic syntax-list headers under the stated source shapes.
+The auxiliary sections also bound overload storage, the two deferred-warning
+tables, and cross-reference keys, and identify element-list costs at the
+compilation-unit boundary. Warning suppression differs between producer phases.
 Native expansion is a separate process contribution; no production, proof,
 language, Oracle or tool-pin file changes here.
 
@@ -16,7 +19,9 @@ The source is GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. Its relation to
 the embedded frontend in the inspected/installed SPARK producer remains the
 explicit premise in the [capacity contract](retained-tool-capacity.md).
 The evidence checks the relevant files against the retained complete GCC
-manifest. No compiler, prover or Lean run was performed.
+manifest, hashes the three archived SPARK mode-selection files and records the
+current Silver command/interface inputs. No compiler, prover or Lean run was
+performed.
 
 ## Source counters and boundary
 
@@ -44,6 +49,7 @@ and `D_s`, `D_lit`, `D_alias`, `K_literal` from
 | `N_ref` | Source occurrences of mutable object names, including assignment targets; all source identifier-token occurrences are a conservative alternative |
 | `D_copy <= D_s` | String declarations whose constant-name initializer is replaced by a literal copy; `D_s` is the conservative syntactic bound |
 | `N_assign` | Source assignments of either type; counting String assignments too conservatively covers every scalar assignment |
+| `N_word` | All source identifier/keyword tokens, including context clauses and closing names; used as a conservative name-analysis allowance |
 
 `B_loop` is computed from recognized source, not a measured decorated tree.
 The static declaration classes can conservatively use `D_lit + D_alias <= D_s`.
@@ -946,6 +952,256 @@ Their IDs/counters, array rounding and one-past arithmetic still need the
 general representation checks. This closes these elaboration caller counts;
 it does not claim that all semantic auxiliary containers have been covered.
 
+## Overload records and their index map
+
+`All_Interp` is lifetime storage: resolving an expression does not reclaim its
+records. `New_Interps` appends a sentinel and installs a node-to-index binding;
+adding an interpretation fills that sentinel and appends another. `Interp_Map`
+is a Simple_HTable with 3079 fixed headers, while All_Interp starts at 1000
+entries with 100-percent growth (`sem_type.adb:77–109,197–310,3134–3142`;
+`alloc.ads:40–41`). An interpretation has four entity-valued fields
+(`sem_type.ads:65–77`). These are separate resources from AST identities.
+
+The current Main grammar has a small overload domain:
+
+- Standard creates one entity per unary/binary operator, except concatenation,
+  which has three entities for String, Wide_String and Wide_Wide_String
+  (`cstand.adb:306–415`). Main creates no overloadable declaration except its
+  parameterless procedure. Its objects and loop indexes hide names rather
+  than extending overload sets. The two admitted package interfaces contain
+  exactly one declaration of each admitted operation and no explicit operator
+  declarations; qualification does not add overload candidates.
+- Scalar operands have Integer or universal-integer type. The arithmetic and
+  unary analyzers therefore find one interpretation, stored directly on the
+  node, without starting an All_Interp list
+  (`sem_ch4.adb:930–984,6546–6588,6770–6881,7724–7754`). The generated String
+  range arithmetic has the same property. Boolean operations and comparisons
+  likewise have one result interpretation; a String comparison may resolve
+  an overloaded concatenation operand but does not copy its alternatives into
+  a Boolean overload set (`:2073–2115,6268–6300,7505–7571`).
+- Before contextual resolution, a String concatenation with literal operands
+  can match all three standard String families. Each concat analyzer visits
+  each operator entity once and adds at most one interpretation for it
+  (`:1917–2064,7580–7612`). Thus one concatenation contributes at most three
+  records and one sentinel. The nonrecursive left-spine traversal still
+  visits each source concatenation once. Scalar range copies contain no
+  String concatenations. The later inequality rewrite reuses resolved
+  operands; folding and late constant-name copies create literals, not new
+  concatenation analyses.
+- A direct operation name can still call Collect_Interps because another,
+  invisible declaration occurs on its homonym chain. Do not infer zero
+  allocation from the unique legal callee: Collect_Interps first allocates a
+  list, then discovers its singleton result (`sem_ch8.adb:6643–6652`;
+  `sem_type.adb:613–745`). This costs at most one interpretation plus its
+  sentinel per name analysis. The expanded-name path only collects same-scope
+  homonyms (`sem_ch8.adb:7705–7748`), absent from these five interfaces.
+  Scalar source names, including all three loop-bound passes, denote objects
+  or types and are not overloadable.
+
+String literals spelling an operator do not invalidate that domain:
+Analyze_Operator_Symbol converts them to ordinary String literals in the
+admitted expression positions (`sem_ch6.adb:1555–1591`). No explicit quoted
+operator call or operator-valued generic/renaming context is admitted.
+Successful resolution clears Is_Overloaded (`sem_res.adb:3572–3576`); the
+explicit lower-bound replay calls Resolve, not a fresh bottom-up overload
+collection. It therefore does not allocate a second scalar interpretation list.
+
+Copying overload metadata is not free. Save_Interps calls New_Interps and then
+replaces its map value with the old index, leaving an abandoned sentinel
+(`sem_type.adb:3324–3346`). Among Main's live source shapes, its only possibly
+relevant explicit caller is the parameterless-function rewrite
+(`sem_res.adb:1462–1480`). Charge one such sentinel and one additional map key
+per source name even though the uniquely resolved validity function normally
+has no overload flag. Other Save_Interps callers require operator-as-call
+syntax, explicit/implicit dereferences, object-operation notation, renamings,
+generic actuals or native expansion. Ordinary Atree shallow copies do not
+themselves call Save_Interps.
+
+A conservative source-token transfer is consequently:
+
+```text
+All_Interp Main entries <= 4A + 3N_word.
+Interp_Map Main bindings <= A + 2N_word.
+```
+
+These include discarded singleton/sentinel work. Keep the Standard and fixed
+dependency interpretations, their map bindings, initial tables and actual
+hash-entry layouts as separate process terms. This is a storage count, not a
+bound on the number of unsuccessful homonym lookups.
+
+## Warning and cross-reference mode distinction
+
+The inspected SPARK driver has three distinct modes here. Its source snapshot
+is `42554fc241fcd1fdf08d3a2feccb3f86912acbc0`; correspondence to the installed
+producer remains the existing explicit premise.
+
+| Frontend process | Warning collection | Cross-reference collection |
+| --- | --- | --- |
+| Native data representation | `-gnatws` suppresses warnings | `-gnatx` disables xrefs |
+| gnat2why global-generation/ALI pass | Back_End sets Warning_Mode=Suppress | Remains active |
+| gnat2why flow/proof translation | Current `--warnings=continue` maps to Normal; null uses Treat_As_Error | Remains active, although ALI output is disabled |
+
+The native switches are added only in the `not Call_Gnat2Why` arm
+(`spark/src/gnatprove/gnatprove.adb:297–310`). The two gnat2why modes are set
+in `spark/src/why/back_end.adb:156–187`, and `--warnings` is interpreted by
+`spark/src/gnatprove/configuration.adb:2802–2818`. The current Silver command is
+`src/silver.adb:116–125`. Xref_Active defaults True (`opt.ads:1725`), and
+Disable_ALI_File makes Write_ALI return before Output_References
+(`lib-writ.adb:1059–1065,1618–1619`). It does **not** disable the earlier
+Generate_Definition/Generate_Reference collection. These are existing mode
+differences, not a proposal to suppress any diagnostic or proof obligation.
+
+### Deferred-warning tables
+
+Check_References returns immediately in Suppress mode. Otherwise it walks
+the scope's entity chain once and recurses only into packages/blocks, not loop
+scopes (`sem_warn.adb:1241–1271,1840–1860`). Main's body invokes it once
+(`sem_ch6.adb:4930–4983`). Main has no nested subprogram, block/package,
+separate spec, formal or generic declaration. Only source entities pass its
+Source_E1 gate, and every append to Unreferenced_Entities is in this one walk
+(`sem_warn.adb:1179–1201,1807–1835`). Therefore:
+
+```text
+Unreferenced_Entities Main appends <= D.
+In_Out_Warnings Main appends = 0.
+```
+
+The second table requires an in-out formal (`:1450–1492`), which Main has
+none. Their initial capacities are 1000 and 100, both growing by 100 percent,
+with Entity_Id elements (`:63–88`; `alloc.ads:61–62,148–149`). Suppress mode gives zero Main additions to
+these tables, not permission to omit their package initialization. This closes
+these two deferred tables only: diagnostic text, fix edits and other warning
+routes still need the separate diagnostic argument.
+
+### Cross-reference table and deduplication
+
+`lib-xref.adb:67–158` defines an Xref_Key containing entity, source location,
+reference-kind Character, two unit numbers and two enclosing-scope entities.
+Xref_Set has 65536 fixed headers and links records in Xrefs itself. Add_Entry
+first increments Xrefs.Last, then rolls that increment back on a duplicate
+(`:188–207`). Thus duplicates do not accumulate records, but the backing
+capacity and one-past check must allow **one additional tentative entry**.
+Xrefs starts at 5000 with 300-percent growth (`alloc.ads:157–158`).
+
+Here is a deliberately conservative interface bound that avoids treating
+each visit or rewrite as a distinct reference. Let `n` be Main's source-byte
+length and `E_X = E_fixed + E_Main` bound every entity identity in this process,
+including fixed dependencies. A Main reference has a source location in its
+unchanged source buffer. In GNATprove mode the location is Sloc(Nod), not a
+fresh cursor for each reference; scalar range copies and light rewrites retain
+their source locations. Its reference scope is Main or Empty (context items),
+because there are no nested subprogram/package scopes. Its entity scope and
+entity/source unit numbers are determined by the existing source entity and
+the reference location (`lib-xref.adb:956–1162`;
+`lib-xref-spark_specific.adb:175–310`). Hence there are at most:
+
+```text
+ordinary Main reference keys <= 512(n+1) E_X.
+Main definition/orphan keys <= 2E_X.
+Xref table backing demand <= X_fixed + 512(n+1) E_X + 2E_X + 1.
+```
+
+The factor 512 allows all 256 Character values and both reference scopes.
+The extra source position covers the buffer boundary; no fresh virtual source
+is introduced by these Main transforms. Two definition forms are allowed:
+Generate_Definition uses a blank reference kind, while ALI orphan-type handling
+uses Character'First, both with No_Location and empty scopes
+(`lib-xref.adb:224–267,1693–1712`). This is an upper bound with intentionally
+overlapping fixed terms, not a claim that every combination is reachable or
+that all fixed dependency allocations are already closed.
+
+The separate Drefs table has zero Main additions: Generate_Dereference
+requires explicit/implicit dereference or a reference through a renaming to
+untracked heap storage, none of which the light-mode Main closure creates
+(`sem_ch4.adb:2211–2230`; `sem_util.adb:26130–26150`;
+`lib-xref.adb:1069–1087`). Its initial five records still count. Its SPARK
+iterator traverses existing Drefs/Xrefs entries without creating another
+frontend table (`lib-xref-spark_specific.adb:61–169,315–358`). The producer's
+callback allocations remain a separate producer obligation.
+
+In the ALI pass, Output_References can add the already-budgeted orphan keys
+and allocates a sorting vector of `Xrefs.Last+1` Nat words
+(`lib-xref.adb:1678–1840`). No source-defined tagged types exist to enter its
+primitive-operation expansion path. Translation disables this output path, so
+does not allocate that sorting vector; its collected Xrefs table remains live.
+The bound is intentionally loose and may be tightened before selecting a
+useful capacity predicate. Its fixed-entity term must be supplied by the
+complete dependency component, never silently set to zero.
+
+## Semantic element-list boundary
+
+Elists are distinct from the Nlists syntax lists already counted. The common
+Main helpers do not allocate them merely because an object has String type:
+
+- Check_Function_Writable_Actuals returns unless Check_Actuals is set
+  (`sem_util.adb:2920–2954`). Its relevant producer requires an out/in-out
+  formal (`sem_ch4.adb:1047–1110`); every admitted actual is String `in`, and
+  the other admitted operations have no actuals. This excludes both writable
+  and identifier list construction, including the ordinary-read list at
+  `sem_util.adb:2851`.
+- Ordinary use-package clauses alter entity visibility chains. Their hidden
+  element lists require an instance; use-type lists require the excluded
+  use-type syntax (`sem_ch8.adb:10772–10784,10861–10875,10906–10918,11128–11174`).
+- Create_Itype only creates/decorates an entity (`itypes.adb:38–81`). Private
+  dependent lists in subtype construction require private or incomplete
+  types, not Integer or ordinary String
+  (`sem_ch3.adb:6033–6041,6150–6178,23125–23161`). Pending-itype lists in
+  New_Copy_Tree are excluded for raw scalar copies by the earlier copy-shape
+  argument; the shallow/static-leaf copies do not enter them.
+- Collect_Primitive_Operations really would allocate a list for Standard.String
+  (`sem_util.adb:5799–5831`); it is excluded by the **caller**, not the type.
+  Its relevant semantic callers require derived/private/record types,
+  use-type clauses, generic instances or membership tests. The equality
+  resolver's call requires both In_Instance and an untagged record, and
+  Resolve_Membership_Equality requires a record
+  (`sem_res.adb:9148–9178,10187–10215,10328–10335`). Native expansion callers
+  belong to the separate native process. Main's predefined String comparisons
+  do not call it.
+- Limited-view exchange/deferred-formal lists require incomplete/limited views
+  or Expander_Active (`sem_ch6.adb:3154–3195,13380–13513`). Part_Of reference
+  lists require that excluded pragma (`sem_util.adb:27745–27783`). Record,
+  dispatching, discriminant, controlled-type and contract helper lists are
+  likewise outside the established Main type/construct closure.
+
+There is nevertheless a mandatory element-list cost at every new compilation
+unit: Semantics.Do_Analyze calls Save_Scope_Stack, which creates an empty list
+before checking whether there are visible entities to save. After analysis,
+Semantics may append the unit through Append_New_Elmt to Comp_Unit_List
+(`sem.adb:1431–1491,1650–1673`; `sem_ch8.adb:10270–10324`). Let `K_sem` count
+newly analyzed units in the complete process closure. The Analyzed guard
+prevents repeated with clauses from multiplying that count. Each scope-save
+visits each currently visible entity at most once, and removes its immediate
+visibility before any later encounter. A conservative boundary transfer is:
+
+```text
+element-list headers at unit boundaries <= K_sem + 1.
+element records at unit boundaries <= K_sem (E_X + 1).
+```
+
+This pays even an empty Main scope-save, all dependency saves made while Main
+is active, and the one process-wide compilation-unit list. It is an interface
+to the full unit/entity closure, not a replacement for fixed dependencies'
+own internal element lists or a complete inventory of every semantic package.
+
+Three additional auxiliary paths have zero Main additions under the stated
+closure, while their fixed storage remains charged:
+
+| Resource | Why Main adds no entries | Fixed storage |
+| --- | --- | --- |
+| Urefs | Its only append follows an undefined/not-visible name error; successful legality excludes it (`sem_ch8.adb:6160–6238`) | initial 10 entries, 100-percent growth (`:325–352`) |
+| NCT_New_Entities / NCT_Pending_Itypes | Main deep copies contain no defining entities or owned itypes; their Set sites are reached only while copying those objects (`sem_util.adb:24322–24364`) | 511 headers per Simple_HTable (`:24070–24124`) |
+| Suppress_Stack_Entry linked records | Main has no Suppress/Unsuppress pragma, aggregate copying or discriminated iterator renaming: these are the only allocating caller families (`sem_prag.adb:11945–12000,12060–12101`; `sem.adb:912–950`; `sem_aggr.adb:747–748`; `sem_ch8.adb:877–900`) | fixed dependency/configuration records still count |
+
+In particular, scalar current-value tracking in the assignment and branch
+analyzers stores existing node references in entity fields
+(`sem_ch5.adb:1190–1220`); it does not create an independent value-cache table.
+The inspected Sem_Eval body likewise has no allocating table/map cache.
+Do not add a fictional per-query cache term, or omit actual node/Uint work
+already counted in the query and fold sections. The only Uint arithmetic in
+Sem_Warn is in Warn_On_Suspicious_Index, an array-index warning route absent
+from Main (`sem_warn.adb:4117–4246`); this excludes that particular numeric
+route, not general diagnostic buffer allocation.
+
 ## Remaining resource obligations
 
 Remaining whole-frontend obligations are:
@@ -953,11 +1209,15 @@ Remaining whole-frontend obligations are:
 1. **Other semantic numeric helpers and mutations.** Close the remaining
    numeric caller inventory beyond the five named families, including any
    diagnostic/value-cache routes. The query envelope does not make them free.
-   Keep overload tables and value caches distinct from node identities.
+   Keep value caches distinct from node identities. Serialized Uint values
+   must also meet the exact Image_Out decimal-image bound; large scanner
+   scratch powers are a different value population.
 2. **Other semantic auxiliary storage.** Charge element lists, overload/value
-   caches, warning/xref tables and traversal stacks. Their ordinary syntax
-   nodes are covered above; it would be incorrect to infer their complete
-   storage cost from that node-identity count.
+   caches, diagnostic text/fixes and traversal stacks, and finish checking
+   semantic packages outside the explicit element-list inventory above.
+   The named overload/warning/xref tables and unit-boundary element lists
+   now have separate counts; they still require fixed-process inputs and
+   actual representation/growth checks.
 3. **Complete table/resource connection.** Add all remaining ordinary/entity
    slot demand, name spelling/qualification, auxiliary table events,
    remaining Uint work and peak/growth arithmetic to the existing table and

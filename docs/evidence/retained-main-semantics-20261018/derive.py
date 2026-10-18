@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check pinned source and reproduce Main node/query/list equations.
+"""Check pinned source and reproduce Main node/query/list/auxiliary equations.
 
 No compiler/prover invocation. This does not prove semantic caller coverage,
 the equations' soundness, or source-to-installed-tool correspondence.
@@ -8,6 +8,7 @@ the equations' soundness, or source-to-installed-tool correspondence.
 import argparse
 import hashlib
 import json
+import tarfile
 from collections import Counter
 from pathlib import Path
 
@@ -74,6 +75,54 @@ RANGES = {
     "uintp.adb": [(1683, 1696)],
 }
 
+RANGES.update({
+    "itypes.adb": [(38, 81)],
+    "lib-writ.adb": [(1059, 1065), (1618, 1619)],
+    "lib-xref.adb": [(67, 158), (188, 267), (956, 1162), (1678, 1840)],
+    "lib-xref-spark_specific.adb": [(61, 169), (175, 310), (315, 358)],
+    "opt.ads": [(1725, 1730)],
+    "sem_type.adb": [(77, 109), (197, 525), (613, 745), (3134, 3142), (3324, 3346)],
+    "sem_type.ads": [(65, 77)],
+    "sem_aggr.adb": [(747, 748)],
+})
+RANGES["alloc.ads"] += [(40, 41), (61, 62), (148, 149), (157, 161)]
+RANGES["cstand.adb"] += [(306, 415)]
+RANGES["sem.adb"] += [(1431, 1491), (1650, 1673)]
+RANGES["sem.adb"] += [(912, 950), (1387, 1421)]
+RANGES["sem_ch5.adb"] += [(1190, 1220)]
+RANGES["sem_ch3.adb"] += [(6033, 6041), (6150, 6178), (23125, 23161)]
+RANGES["sem_ch4.adb"] += [(930, 984), (1047, 1110), (1917, 2064),
+                          (2073, 2115), (2211, 2230), (6268, 6300),
+                          (6546, 6588), (6770, 6881), (7505, 7571),
+                          (7580, 7612), (7724, 7754)]
+RANGES["sem_ch6.adb"] += [(1555, 1591), (3154, 3195), (4930, 4983),
+                          (13380, 13513)]
+RANGES["sem_ch8.adb"] += [(6643, 6652), (7705, 7748), (10270, 10324),
+                          (10772, 10784), (10861, 10875), (10906, 10918),
+                          (11128, 11174)]
+RANGES["sem_ch8.adb"] += [(325, 352), (877, 900), (6160, 6238)]
+RANGES["sem_res.adb"] += [(3572, 3576), (9148, 9178), (10187, 10215),
+                          (10328, 10335)]
+RANGES["sem_util.adb"] += [(2774, 2856), (2920, 2954), (5799, 5831),
+                           (26130, 26150), (27745, 27783)]
+RANGES["sem_util.adb"] += [(24070, 24124), (24322, 24364)]
+RANGES["sem_prag.adb"] += [(11945, 12000), (12060, 12101)]
+RANGES["sem_warn.adb"] += [(63, 88), (1179, 1201), (1241, 1271),
+                           (1450, 1492), (1807, 1860)]
+RANGES["sem_warn.adb"] += [(4117, 4246)]
+
+SPARK = {
+    "src/why/back_end.adb": (
+        "a366cc199ce5c10ba35a7ddcfa0faf04d714deb6f53bc18903f087a845bc8775",
+        [(156, 187), (199, 208)]),
+    "src/gnatprove/gnatprove.adb": (
+        "80becb96eeb45a6ef4cc096d1c8896c5cf53cf6f59a635483f3ced3447731590",
+        [(297, 310)]),
+    "src/gnatprove/configuration.adb": (
+        "8ebece58c5f04d0a1cd16db5945a0acb432419235fc1564cd683e162e12f1697",
+        [(2802, 2818)]),
+}
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -99,6 +148,26 @@ def main():
             assert 1 <= first <= last <= len(lines), (name, first, last)
         records.append({"path": name, "bytes": len(data), "sha256": digest,
                         "cited_ranges": ranges})
+
+    spark_archive = repo / (
+        "docs/evidence/unbounded-programs/frontend-representation-20261017/"
+        "toolchain/raw-evidence.tar.gz")
+    spark_records = []
+    with tarfile.open(spark_archive) as archive:
+        for name, (expected_digest, ranges) in SPARK.items():
+            data = archive.extractfile("spark-source/" + name).read()
+            digest = hashlib.sha256(data).hexdigest()
+            assert digest == expected_digest, name
+            lines = data.decode().split('\n')
+            for first, last in ranges:
+                assert 1 <= first <= last <= len(lines), (name, first, last)
+            spark_records.append({"path": name, "bytes": len(data),
+                                  "sha256": digest, "cited_ranges": ranges})
+    silver_inputs = []
+    for name in ("src/silver.adb", "src/silver_io.ads", "src/silver_arguments.ads"):
+        data = (repo / name).read_bytes()
+        silver_inputs.append({"path": name, "bytes": len(data),
+                              "sha256": hashlib.sha256(data).hexdigest()})
 
     folds = Counter(O=1, P=1, O_loop=2, F=3, R=1, D_lit=3, U=2, H_len=3)
     direct = Counter(B_loop=4, F=28, R=2, D_lit=13, D_alias=4, G=5,
@@ -184,6 +253,10 @@ def main():
         "verified_against": str(prior.relative_to(repo)),
         "scope": "Pinned-source identity and node/query/list-equation arithmetic only",
         "files": records,
+        "spark_inspected_commit": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+        "spark_source_archive": str(spark_archive.relative_to(repo)),
+        "spark_files": spark_records,
+        "silver_inputs": silver_inputs,
         "equations": {
             "T_fold_coefficients": dict(sorted(folds.items())),
             "A_struct_direct_coefficients": dict(sorted(direct.items())),
@@ -256,12 +329,46 @@ def main():
                 "SPARK_Scenarios": 100,
             },
             "elaboration_scope": "Main caller/entry counts; exact hash/set backing and target layouts separate",
+            "All_Interp_Main_entries": "<= 4*A + 3*N_word",
+            "Interp_Map_Main_bindings": "<= A + 2*N_word",
+            "overload_backing": {"All_Interp_initial": 1000,
+                                 "All_Interp_increment_percent": 100,
+                                 "Interp_Map_fixed_headers": 3079},
+            "deferred_warning_Main_appends": {"Unreferenced_Entities": "<= D",
+                                               "In_Out_Warnings": 0},
+            "deferred_warning_backing": {"Unreferenced_Entities_initial": 1000,
+                                          "In_Out_Warnings_initial": 100,
+                                          "increment_percent": 100},
+            "producer_warning_modes": {"native_data_representation": "Suppress",
+                                        "gnat2why_ALI": "Suppress",
+                                        "gnat2why_translation_output": "Normal",
+                                        "gnat2why_translation_null": "Treat_As_Error"},
+            "producer_xref_modes": {"native_data_representation": "disabled",
+                                     "gnat2why_ALI": "enabled, output enabled",
+                                     "gnat2why_translation": "enabled, output disabled"},
+            "Xrefs_demand_interface": "<= X_fixed + 512*(n+1)*E_X + 2*E_X + 1",
+            "Xrefs_demand_scope": "E_X=E_fixed+E_Main; fixed caller closure still required",
+            "Xrefs_backing": {"initial": 5000, "increment_percent": 300,
+                               "fixed_hash_headers": 65536},
+            "Drefs_Main_additions": 0,
+            "Drefs_backing": {"initial": 5, "increment_percent": 1000},
+            "ALI_xref_sort_vector_words": "Xrefs.Last+1 Nat words",
+            "unit_boundary_elist_headers": "<= K_sem+1",
+            "unit_boundary_elist_elements": "<= K_sem*(E_X+1)",
+            "additional_zero_Main_contributions": [
+                "Urefs", "NCT_New_Entities", "NCT_Pending_Itypes",
+                "Suppress_Stack_Entry records", "Warn_On_Suspicious_Index Uint work",
+            ],
+            "additional_fixed_backing": {"Urefs_initial": 10,
+                                          "Urefs_increment_percent": 100,
+                                          "NCT_each_hash_headers": 511},
             "query_scope": "Root counts exclude helper-internal recursion already paid by transfer",
         },
         "remaining": [
             "Other semantic numeric caller inventory including diagnostic/value-cache routes",
-            "Overload tables and other auxiliary allocation",
-            "Other semantic element-list, warning/xref and traversal auxiliary storage",
+            "Other auxiliary value caches and diagnostic text/fix allocation",
+            "Semantic element-list inventory outside named packages and traversal storage",
+            "Fixed inputs to overload/xref and unit-boundary element-list transfer",
             "Complete table/growth, numeric, name and auxiliary-resource connection",
             "Fixed dependency contributions and source-to-installed-tool relation",
         ],
@@ -270,7 +377,7 @@ def main():
     args.output.mkdir(parents=True, exist_ok=True)
     target = args.output / "result.json"
     target.write_text(json.dumps(result, indent=2) + "\n")
-    print(f"Verified {len(records)} pinned files and Main node/query/list equation expansion")
+    print(f"Verified {len(records)} GCC and {len(spark_records)} SPARK inputs and Main equations")
     print(f"result.json sha256 {hashlib.sha256(target.read_bytes()).hexdigest()}")
 
 
