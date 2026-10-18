@@ -761,7 +761,7 @@ def source_scalar_arithmetic(source_ops, loop_ops, source_names, loop_names,
                 ordinary_nodes=nodes, growth=growth,
                 Uint_appends=uint, Uint_digits=k * uint,
                 digits_per_Uint=k, dynamic_slots=9 * (nodes + growth),
-                entities=0, syntax_lists=0, String_values=0,
+                entities=0, syntax_lists=names, String_values=0,
                 whole_construct_closed=False)
 
 
@@ -1414,6 +1414,7 @@ result = {
         "query_A": "1+largest source scalar expression tree (including all type-bound expression roots); source constants do not unfold in Determine_Range; internal loop capture contributes at most one initializer edge",
         "ordinary_nodes": "2*B_loop+4*T+3*V",
         "growth": "2*T+V",
+        "syntax_lists": "V (immediate source variable-marker insertion wrappers)",
         "Uint_appends": "(12*A+3)*T",
         "digits_per_Uint": "ceil((130*A+2)/15), conservative signed-target-width128 query bound",
         "premises": "current scalar grammar and successful static legality; source values/intermediates fit Integer32; strict overflow/O0/backend overflow enabled; frozen scalar types or their first freezes charged separately; no user operators/types/validity override; syntactic tree copies have no owned decoration",

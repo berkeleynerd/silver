@@ -3510,14 +3510,18 @@ unary/binary expressions are side-effect-free under its default
 Source exponentiation, modular/fixed/real arithmetic and intrinsic operators
 cannot enter their alternative expansions.
 
-For each Integer-name visit, reserve one variable-reference marker and one
+For each Integer-name visit, reserve one variable-reference marker with its
+one-list Insert_Action wrapper, and one
 native Current_Value replacement, the latter two ordinary nodes and one
 growing event. The replacement constructs one literal with an existing
 Expr_Rep_Value; it never copies an arithmetic initializer tree
 (`sem_ch8.adb:7118–7128`, `exp_ch2.adb:124–222,482–522`). Reanalysis of that
 literal cannot re-enter identifier expansion. This overcounts readonly names,
-lvalues and preanalysis passes. Marker-associated bookkeeping and xref records
-remain their own common-table contribution.
+lvalues and preanalysis passes. Marker insertion precedes the enclosing
+short-circuit's first resolution, so it parks or appends the insertion list
+without creating an additional EWA (`exp_util.adb:8143–8191,8290–8417`).
+Marker-associated bookkeeping and xref records remain their own common-table
+contribution.
 
 For these scalar roots alone, set `A=1+max scalar-expression tree size`, also
 including source range-endpoint roots. Captured loop-bound constants contribute
@@ -3540,7 +3544,8 @@ ordinary nodes <= 2*B_l + 4*T + 3*V
 growing events <= 2*T + V
 Uint appends   <= (12*A+3)*T
 Uint digits    <= k*(12*A+3)*T
-entities, new names, syntax lists and String values = 0.
+syntax lists   <= V
+entities, new names and String values = 0.
 ```
 
 `source_scalar_arithmetic` regenerates this transfer. It covers syntax copies,
