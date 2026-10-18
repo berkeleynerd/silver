@@ -3,6 +3,38 @@
     "retained-producer-main-types-20261018": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910",
     "retained-producer-postsplit-20261018": "4f56faf31f0988eb48b0e8d626f0aa078aa8c59970281dad758b10f5cc15e3f1"
   },
+  "spark_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "spark_source_files": 279,
+  "inline_marker_emitters": [
+    {
+      "path": "spark-source/src/why/gnat2why-subprograms.adb",
+      "line": 3357,
+      "text": "then Symbol_Sets.To_Set (NID (GP_Inline_Marker))"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-types.adb",
+      "line": 608,
+      "text": "Labels   => Symbol_Sets.To_Set (NID (GP_Inline_Marker)),"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-scalars.adb",
+      "line": 738,
+      "text": "Labels   => Symbol_Sets.To_Set (NID (GP_Inline_Marker)),"
+    }
+  ],
+  "new_main_range_profiles": {
+    "static": [
+      5,
+      2
+    ],
+    "dynamic": [
+      3,
+      1,
+      1,
+      2
+    ],
+    "possible_boolean_axiom_wrapper": 3
+  },
   "nested_duplication": 7,
   "alias_fixtures": [
     {

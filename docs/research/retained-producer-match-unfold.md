@@ -154,3 +154,57 @@ identifier/hash-cons increments, fixed library-body processes, or essential
 solver representations. Counters must be evaluated with checked/saturating
 arithmetic in an eventual admission implementation. This research changes no
 admission rule.
+
+## Source-dependent Main entries have fixed range bodies
+
+The complete retained SPARK `src/` tree contains 279 Ada source files and
+only three emitters of `GP_Inline_Marker`:
+
+| Emitter | Condition / generated family |
+| --- | --- |
+| `gnat2why-subprograms.adb:3352–3358` | Nonrecursive Ada expression function without post/contract cases |
+| `gnat2why-types.adb:571–614` | Explicit type-invariant predicate |
+| `why-gen-scalars.adb:542–751` | Scalar range/dynamic-property predicate |
+
+The symbol constant itself is defined in `vc_kinds.ads`; no other literal
+`GP_Inline` emitter is present in that source tree. The checker inventories
+these sites in the retained archive. Main has neither Ada expression-function
+declarations nor explicit type invariants. Its internal WhyML Abstract_expr
+functions are created later by the converter and do not call these Ada
+emitters. The selected public API operations are not expression functions,
+as established by the existing fixed marking frontier. Existing imported
+entries and clones remain a separately paid fixed map; this inventory does
+not declare that map empty.
+
+Consequently the new source-dependent Main entries are scalar range predicates.
+For ordinary Integer/Character integral representations,
+`Generate_Range_Predicate` starts at true and constructs
+
+```text
+first <= x /\ x <= last.
+```
+
+`New_And_Expr` removes the initial true (`why-gen-expr.adb:3485–3504`), and
+`New_Range_Expr` adds the two pretty-labelled comparisons (`:4883–4926`).
+Pretty labels add no term nodes. Static bounds are nullary named constants;
+dynamic bounds are explicit formal parameters. Their original source
+expressions are not inserted into this definition body. The logical
+predicate's affine costs are therefore
+
+```text
+static:  5 + 2*w_x
+dynamic: 3 + w_first + w_last + 2*w_x.
+```
+
+If an actual map entry came from the Boolean-axiom extraction path instead
+of the logical predicate definition, charge its additional three-node
+`if ... then True else False` wrapper. The original-application arm of A_D
+remains required. The Image adapter's copied Integer range template is a
+fixed instance of this family, not a source-sized expression-function body.
+
+This closes the size and formal-use profile of **new Main range entries**;
+their number is bounded by the already charged scalar-type declarations.
+It does not yet classify every reachable fixed imported D entry or prove an
+aggregate bound on marked-call nesting in the initial formula. Those fixed
+inputs and the source-to-formula transfer remain necessary for the complete
+producer predicate.

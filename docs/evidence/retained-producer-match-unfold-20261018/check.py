@@ -3,6 +3,8 @@
 import hashlib
 import json
 from pathlib import Path
+import re
+import tarfile
 
 HERE = Path(__file__).resolve().parent
 EVIDENCE = HERE.parent
@@ -24,6 +26,28 @@ def main():
     for dirname, expected in SOURCES.items():
         path = EVIDENCE / dirname / 'sources.tar.gz'
         assert hashlib.sha256(path.read_bytes()).hexdigest() == expected
+    spark_path = EVIDENCE/'unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz'
+    spark_digest = hashlib.sha256(spark_path.read_bytes()).hexdigest()
+    assert spark_digest == 'f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952'
+    emitters = []
+    with tarfile.open(spark_path) as archive:
+        sources = {m.name: archive.extractfile(m).read().decode()
+                   for m in archive.getmembers()
+                   if m.name.startswith('spark-source/src/')
+                   and m.name.endswith(('.ads', '.adb'))}
+    assert len(sources) == 279
+    for name, source in sources.items():
+        for line, text in enumerate(source.splitlines(), 1):
+            if 'GP_Inline_Marker' in text and name.endswith('.adb'):
+                emitters.append(dict(path=name, line=line, text=text.strip()))
+    assert sorted(x['path'] for x in emitters) == [
+        'spark-source/src/why/gnat2why-subprograms.adb',
+        'spark-source/src/why/gnat2why-types.adb',
+        'spark-source/src/why/why-gen-scalars.adb',
+    ]
+    literal_sites = [name for name, source in sources.items()
+                     if re.search(r'"GP_Inline"', source)]
+    assert literal_sites == ['spark-source/src/common/vc_kinds.ads']
     # Affine equality cost <= its unit cost times the positive argument product.
     # Finite examples corroborate the algebra; they are not a universal proof.
     for c0 in range(1, 5):
@@ -46,6 +70,11 @@ def main():
     assert (marked_original, unmarked_target) == (66, 8)
     result = dict(
         source_archive_sha256=SOURCES,
+        spark_archive_sha256=spark_digest,
+        spark_source_files=len(sources),
+        inline_marker_emitters=emitters,
+        new_main_range_profiles=dict(static=[5,2], dynamic=[3,1,1,2],
+                                     possible_boolean_axiom_wrapper=3),
         nested_duplication=7,
         alias_fixtures=[dict(original=8, target=39, envelope=39),
                         dict(original=66, target=8, envelope=66)],
