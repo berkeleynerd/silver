@@ -333,6 +333,7 @@
     "maximum_payload_bytes": 27
   },
   "Gprbind_Main_reader": {
+    "reader_role": "Gprbind Main A/U-only parser; not parent GPRbuild D/W parser",
     "raw_buffer_bytes_including_EOF_upper": 2152397,
     "table_demands_upper": {
       "ALIs": 1,
@@ -377,11 +378,13 @@
   "consumer_source_members_checked": 151,
   "native_tool_executions": 0,
   "aggregate_RAM_gate": false,
+  "parent_GPRbuild_DW_reader_capacity_established": false,
   "whole_binder_or_parent_capacity_established": false,
   "whole_literal_pipeline_capacity_established": false,
   "remaining": [
     "Native nonparser name producers and complete shared name-table backing.",
     "GPR incoming names, entry metadata/vector backing and all driver argument/search/response lifetimes.",
+    "Native parent GPRbuild D/W ALI reader, including its own tables, buffers and lifetimes.",
     "Invocation/library graph containers and transient backing under variable signature IDs and Main edges.",
     "Complete output launch/options/search materialization and the remaining producer pipeline."
   ],

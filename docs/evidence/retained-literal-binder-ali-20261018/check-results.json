@@ -289,6 +289,7 @@
       "maximum_payload_bytes": 27
     },
     "Gprbind_Main_reader": {
+      "reader_role": "Gprbind Main A/U-only parser; not parent GPRbuild D/W parser",
       "raw_buffer_bytes_including_EOF_upper": 2152397,
       "table_demands_upper": {
         "ALIs": 1,

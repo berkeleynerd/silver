@@ -30,6 +30,7 @@ def main():
         result = api['evaluate'](raw, context)
         assert result['selected_ALI_consumer_local_interfaces_fit']
         assert not result['whole_binder_or_parent_capacity_established']
+        assert not result['parent_GPRbuild_DW_reader_capacity_established']
         assert not result['whole_literal_pipeline_capacity_established']
         assert not result['aggregate_RAM_gate']
         assert result['native_tool_executions'] == 0

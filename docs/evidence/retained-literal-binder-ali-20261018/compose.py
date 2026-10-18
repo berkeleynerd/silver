@@ -217,7 +217,8 @@ def evaluate(raw, context, path_bytes=512):
         native_dependency_recursion_depth_upper=demands['ALIs'],
         cumulative_bytes_are_not_peak_live_or_RAM_gate=True)
     main_arg_max = max(map(len, main['stored_native_switches']))
-    gpr = dict(raw_buffer_bytes_including_EOF_upper=reader,
+    gpr = dict(reader_role='Gprbind Main A/U-only parser; not parent GPRbuild D/W parser',
+        raw_buffer_bytes_including_EOF_upper=reader,
         table_demands_upper=dict(ALIs=1, Units=u, Args=a, Withs=0, Sdep=0),
         table_backing_slot_bounds=dict(ALIs=500, Units=100, Args=1000, Withs=0, Sdep=0),
         argument_string_payload_bytes=main['ALI_A_payload_characters'],
@@ -249,9 +250,11 @@ def evaluate(raw, context, path_bytes=512):
         selected_ALI_consumer_local_interfaces_fit=all(conditions.values()),
         fixed_inputs_checked=context.pins, consumer_source_members_checked=context.source_members,
         native_tool_executions=0, aggregate_RAM_gate=False,
+        parent_GPRbuild_DW_reader_capacity_established=False,
         whole_binder_or_parent_capacity_established=False, whole_literal_pipeline_capacity_established=False,
         remaining=['Native nonparser name producers and complete shared name-table backing.',
             'GPR incoming names, entry metadata/vector backing and all driver argument/search/response lifetimes.',
+            'Native parent GPRbuild D/W ALI reader, including its own tables, buffers and lifetimes.',
             'Invocation/library graph containers and transient backing under variable signature IDs and Main edges.',
             'Complete output launch/options/search materialization and the remaining producer pipeline.'],
         premises=['Relevant installed behavior matches the retained reviewed consumer/serializer sources on x86-64 Linux.',

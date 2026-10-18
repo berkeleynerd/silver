@@ -32,7 +32,9 @@ cmp docs/evidence/retained-literal-binder-ali-20261018/check-results.json \
 All required examples pass `selected_ALI_consumer_local_interfaces_fit`.
 This boolean covers local table/buffer/payload checks and exported additive
 contracts, not complete shared name pools or the binder. Whole-binder and
-whole-pipeline fields remain false. The separate 5,000-call linker sufficient
+whole-pipeline fields remain false. Native parent GPRbuild's D/W reader is a
+distinct open join; `Gprbind_Main_reader` covers only Gprbind's A/U read.
+The separate 5,000-call linker sufficient
 bound remains failing; this packet neither reruns nor overrides it.
 
 The accepted ALI adapter's Ada source root and content-checked fixed-capture

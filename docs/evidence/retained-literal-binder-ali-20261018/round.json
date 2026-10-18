@@ -35,5 +35,11 @@
     "Complete output launch and remaining pipeline"
   ],
   "publication": "Local bounded commit only; no GitHub writes",
-  "CLI_memory_updated": false
+  "CLI_memory_updated": false,
+  "parent_scope_clarification": {
+    "original_implementation_commit": "f57e42a53ab911ccbd497359af58af30536e3fef",
+    "recorded_UTC": "2026-10-18T18:49:39+00:00",
+    "change": "Explicitly identify native parent GPRbuild D/W reader as a distinct open join; Gprbind reader remains A/U-only. Compact 5000-call summary already present in original implementation.",
+    "validation": "Fourteen cases and Hello callable pass again after output scope-field change; no native execution."
+  }
 }

@@ -242,7 +242,8 @@ backing argument. Counts 1,290/367 bound the serialized construct/relation
 input interface; they are not an invented graph object-size allowance.
 
 The complete native nonparser name projection, GPR incoming name/vector
-storage, mapping/search/response/argument lifetimes, graph backing, complete
+storage, the native parent **GPRbuild D/W reader** (distinct from the
+Gprbind A/U-only parser above), mapping/search/response/argument lifetimes, graph backing, complete
 output launch descriptor and remaining producer pipeline are open. The
 result therefore keeps `whole_binder_or_parent_capacity_established=False`
 and `whole_literal_pipeline_capacity_established=False`. No aggregate RAM
