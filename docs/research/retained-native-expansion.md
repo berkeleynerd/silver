@@ -1,4 +1,4 @@
-# Native String concatenation allocation component
+# Native Main expansion allocation components
 
 2026-10-17, #119. This component closes the **direct native concatenation
 emitter's** control-flow and primitive allocation accounting. It does **not**
@@ -13,8 +13,12 @@ records eighty-nine inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
-No compiler, prover, Lean build or large program probe was run. Independent
-review remains required.
+No compiler, prover, Lean build or large program probe was run for this source
+derivation. Independent reviews cover the frozen
+[initial component](../reviews/review-retained-native-cbcd679320.md) and
+[first delta](../reviews/review-native-delta-26b438ab5c.md); their scope does not
+extend automatically to the later additions here. Whole-Main closure and
+review of those later additions remain required.
 
 ## Phase and type premises
 
@@ -3555,6 +3559,95 @@ declarations, scalar assignment/initializer range checks, Image/Length
 attributes, relational operators or whole-program metadata. Those distinct
 constructors must be added before claiming Main closure.
 
+## Ordinary native for-loop skeleton
+
+The admitted `for I in [reverse] L .. H loop` adds one loop skeleton after
+the original scalar/copy transfer above and its body constructors are charged.
+There is no runtime-trip-count multiplier on frontend allocations. Let F be
+the source loop count, `G<=2F` the bound-capture allowance, and A the preceding
+source scalar-query envelope.
+
+The parser already supplies the implicit loop label/scope and parameter
+identities; the missing-identifier fallback in Analyze_Loop_Statement is not
+another allocation. Both native range preanalyses are counted above.
+`Process_Bounds.One_Bound` either analyzes the original directly or analyzes
+and forces evaluation of the whole scalar expression
+(`sem_ch5.adb:3113–3167`). The separate secondary-stack assignment route
+cannot occur because scalar bounds contain no calls. Its Ensure_Valid adds
+nothing for an arithmetic operator or literal; ordinary bound names take the
+earlier direct branch. Expr_Known_Valid expressly accepts nonfloating operator
+results (`checks.adb:6777–6832,6921–7041`). Subsequent range processing may
+capture a mutable name, but a previously captured constant is side-effect-free
+and cannot be captured twice. Thus the existing complete scalar-capture
+transfer contributes at most `5G` ordinary nodes, G entities/names/lists and
+`13G` name characters. The related subtype parameter is empty for these loops,
+so `_FIRST`/`_LAST` names are not used. Initializer expression analysis is not
+repeated by the capture.
+
+`Make_Index` creates one internal signed Integer index subtype, sharing the
+range and copying the base type's layout; it does not add another range tree
+(`sem_ch3.adb:20478–20761`). Source pure-universal endpoints are resolved to
+Standard Integer. Allow one 95-Uint discrete-size helper call and at most two
+first-freeze nodes/lists for the new subtype and parameter, even though their
+copied layout and ordinary no-delay path usually avoid them. Previously
+declared types' first freezes belong to their declarations. Loops inherit
+their enclosing Scope_Depth Uint instead of incrementing it; their live scope
+stack entries and deferred qualification remain separate.
+
+The range-processing cost has a useful bound that does not require analyzing
+a generated check condition. Force_Evaluation leaves each endpoint as a
+literal or stable scalar name, so its copy size is one. Get_Range_Checks may
+still build its full conditional range-check tree; the earlier builder gives
+`2*2+28=32` ordinary nodes, zero entities/lists. For the source loop's direct
+`N_Range`, Process_Range_Expr_In_Decl searches upward for an enclosing
+`N_Subtype_Indication` before inserting checks. There is none in the admitted
+loop header. Consequently the returned check nodes are discarded without
+Analyze (`sem_ch3.adb:22724–22784`). This does **not** erase their allocation.
+Dynamic bounds inherited from an enclosing index type can change the check
+selection but not that insertion guard or the raw builder shape. Successful
+source legality excludes its static out-of-subtype error: two bound names
+of the same subtype are already within it, while mixed types/arithmetic choose
+the Standard Integer base, within which all admitted endpoint values lie.
+
+Three range resolutions, two null-loop classification tests and the check
+selector give at most six Compile_Time_Compare roots per source loop
+(`sem_res.adb:11277–11289`, `sem_ch5.adb:3489–3490`,
+`checks.adb:10994`). Source subtype-indication-only warnings/checks do not
+apply. Their existing generic transfer is `120A` ordinary nodes and
+`480A+360` Uints per loop; its syntax allowance is conservative because these
+scalar roots have no String-literal Last fixups. Native final range resolution
+additionally folds at most two static endpoints, adding four nodes/two growth
+events. The preanalyses have expansion disabled and do not perform those
+explicit endpoint folds. The only loop-expander rewrite is an optional null
+statement for a proven empty loop, at most two nodes/one growth event
+(`exp_ch5.adb:5841–6052`). There is no predicate, iterator filter, enumeration
+representation or Loop_Entry expansion.
+
+Process_Statements_For_Controlled_Objects scans the body and constructs no
+block: ordinary String/Integer temporaries, their access-to-String captures,
+and the already handled output wrappers require no controlled-object cleanup
+(`exp_util.adb:12192–12342`). This scan does not replay body statements.
+Scalar expression conditions may still generate warnings; their text and
+deferred records belong to the common diagnostic contribution.
+
+Combining these stages with two optional freeze nodes gives the conservative
+loop-skeleton vector
+
+```text
+ordinary nodes <= (120A+40)F + 5G
+syntax lists   <= 2F + G
+growing events <= 3F
+entities/names <= F + G
+name characters <= 13(F+G)
+Uint appends   <= (480A+455)F.
+```
+
+Use the scalar-query digit bound (at least three) for this subtotal. The
+`source_for_loop_skeleton` evaluator substitutes G=2F. Parser scope identities,
+raw range copies, original scalar work, body work, qualification, diagnostics,
+xrefs/elaboration records, scope-stack backing and backend lowering must still
+be composed separately.
+
 ## Fixed input and Main secondary-stack scaffold
 
 The initial input construction and Main's secondary-stack cleanup reduce to
@@ -3650,6 +3743,89 @@ or add them explicitly. Capturing immediately before `gigi` directly measures
 the frontend scaffold. A complete-process fixed witness is also useful as
 conservative fixed overhead, but variable backend callbacks require their
 own source-derived addend; a fixed witness cannot establish their absence.
+
+### Native runtime roots and first freezes
+
+The additional native fixed roots are System.Img_Int, System.Concat_2 through
+System.Concat_9 and System.Secondary_Stack. They are part of the selected
+[fixed support closure](retained-fixed-support.md), together with the existing
+Silver context roots. A fixed native capture must exercise every selected RTE
+identity or charge its first-lookup residue, not merely load each unit: RTE calls Load_RTU on the first lookup of
+each RE_Table entry, and Load_RTU constructs its Priv_Par list before testing
+whether the unit is already loaded (`rtsfind.adb:1022–1030,1104–1107,1562–1565`).
+Later lookup of that same identity skips Load_RTU. For an already loaded
+runtime unit, that early return precedes all parent-chain scanning, so one
+extra element-list header per RE identity bounds this residue. The generated
+evidence counts the complete RE_Id enumeration, deliberately including
+ineligible identities, as a conservative bound. RE_Chars looks up the existing
+entity spelling from the parsed runtime source, and successful Check_CRT
+constructs no syntax (`rtsfind.adb:269–319,1401–1424`). This residual allowance
+does not authorize loading an additional runtime unit.
+The per-unit implicit with
+clause is created once per current semantic compilation unit; subsequent
+lookups return at the matching-clause guard (`:1257–1327`). Fixed queries that
+intern a unit name without loading it remain included as described above.
+
+RTE disables frontend inlining while loading a runtime unit. Load_RTU analyzes
+that unit only if its compilation unit has not already been analyzed, under
+reset Ghost/SPARK and saved instance/private visibility contexts
+(`rtsfind.adb:1113–1115,1162–1204,1530–1535,1558–1565`). The unit loader and
+semantic unit guards therefore make repeated or reordered Main uses reuse
+the completed fixed unit; the dependent scope-save cost remains variable.
+The runtime specs cannot name Main's declarations. Their internal source
+order, generic instantiation actuals and full-type completions are fixed.
+The separate coherent all-miss numeric capture removes cache-hit credit; it
+does not remove the need for this source reduction.
+
+The native signature frontier requires a stronger first-freeze argument than
+the light-mode Boolean/String interface. At the end of each nongeneric
+library package, the private part is analyzed before Freeze_All is called
+(`sem_ch3.adb:2782–2867`). Freeze_All recursively enters ordinary nested
+packages and instances, installs their private declarations and freezes their
+entity lists (`freeze.adb:2586–2611,2649–2652`). Consequently:
+
+- Concat2 through Concat9 expose only ordinary subprogram signatures with
+  Standard String actuals; there is no private or generic actual type.
+- System.Img_Int's Image_Integer is a renaming of the ordinary
+  Image_I(Integer) instance operation. The generic's fixed instantiation and
+  its internal generic-freeze triggers occur while the fixed spec is analyzed;
+  arbitrary Main Image expressions reference the instance operation, never
+  the generic package (`libgnat/s-imgint.ads:42–54`, `s-imagei.ads:37–47`).
+- SS_Allocate has Address and Storage_Count formals. SS_Mark and SS_Release
+  expose Mark_Id. Its private completion is the non-tagged record containing
+  an SS_Stack_Ptr and Stack_Pointer; the stack and chunk access-designated
+  types have full completions in the same specification. There is no
+  Main-dependent completion, tagged/classwide profile or formal type
+  (`libgnat/s-secsta.ads:43–53,70–95,275–341`).
+
+The potentially repeated paths in Freeze_Entity are explicit. Generic-package
+freezing occurs before setting Is_Frozen, and incomplete/private/classwide
+profile paths can reset it (`freeze.adb:4720–4742,4791,6536–6565,7352,7502,
+7643–7653`). Main cannot name the generic packages, introduce an instance, or
+remove those already analyzed full views. The exposed ordinary runtime
+entities therefore take the already-frozen guard after their fixed unit's
+first processing. Order changes cannot make a completed Mark_Id/stack/chunk
+completion incomplete again or reinstantiate Image_I. Any finite premature
+freeze inside a fixed specification remains part of its captured fixed work.
+
+The retained [native fixed capture](../evidence/retained-native-fixed-capture-20261018/README.md)
+uses input, nonstatic Image and each concat arity from two through ten, both
+in declarations and output statements. It therefore exercises the selected
+unit roots, secondary-pool allocation and Main cleanup. First-lookup cache
+entries were not inventoried; the RE_Id residual above avoids assuming that
+inventory or repeating the capture just to obtain it. Any unrepresented
+Main implicit-with clause needs at most eight ordinary nodes: one with node
+and a unit occurrence plus up to three parent qualification pairs (the
+selected dependency package depth is at most four). Each selected unit has
+at most one such clause in Main; fixed-unit clauses are already captured.
+
+This reduction permits a complete native all-roots witness to supply fixed
+frontend overhead, retaining the entire witness Main conservatively. It does
+not absorb source constructors, generated Main types' own first freezes,
+counter-dependent names, installation paths, saved scopes, common metadata or
+variable backend callbacks. Selected unit coverage, the explicit RE_Id/with
+residuals, and all-miss coherence are all required when its constants are
+composed.
 
 ## Normalized Main frontier for backend composition
 

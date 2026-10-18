@@ -1,4 +1,4 @@
-# Native concat local accounting evidence
+# Native Main expansion accounting evidence
 
 This supports the [native expansion component](../../../research/retained-native-expansion.md).
 It is a source-derived direct emitter envelope, not a complete native construct
@@ -11,10 +11,14 @@ directory and an output path:
 python3 derive.py /path/to/gcc/ada /tmp/native-concat-local-envelope.json
 ```
 
-`derive.py` verifies forty-one source files against the checked-in complete
+`derive.py` verifies eighty-nine source files against the checked-in complete
 manifest. It sums the manually derived control-flow rows and emits a lexical
 call-site list to help inspect coverage. Neither the sums nor the lexical list
 establish transitive helper closure. `local-envelope.json` is the retained
 result; it includes the assumptions/omissions and bounded arithmetic examples.
-No native compiler, GNATprove or Lean run was performed. No independent review
-has yet been completed for this component.
+No native compiler, GNATprove or Lean run was performed for this source
+derivation. The frozen initial component and first delta received
+[independent review](../../../reviews/review-retained-native-cbcd679320.md) and
+[delta review](../../../reviews/review-native-delta-26b438ab5c.md), respectively.
+Those reviews cover their named commits; later scalar, loop, input and runtime
+root additions still require review. Whole-Main composition remains open.

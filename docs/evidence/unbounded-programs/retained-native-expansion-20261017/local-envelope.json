@@ -1,4 +1,11 @@
 {
+  "native_fixed_runtime_first_lookup_residue": {
+    "all_RE_Id_values_including_ineligible": 1336,
+    "additional_element_list_headers": 1336,
+    "implicit_with_ordinary_nodes_per_selected_unit": 8,
+    "premise": "selected fixed unit parse/analysis/full-view freeze and all-miss numeric work already captured; no additional unit admitted",
+    "scope": "residual RTE-cache identities need no duplicate compiler capture"
+  },
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "source_files_verified": 89,
   "source_sha256": {
@@ -2681,6 +2688,52 @@
     ],
     "excluded": "source scanner/parser; full range/loop/declaration/assignment/attribute processing; capture constructors; first freezes; non-arithmetic diagnostics and shared xref/elaboration metadata; physical recursion stack and backend lowering"
   },
+  "Main_source_for_loop_skeleton": {
+    "scope": "ordinary scalar for/reverse-loop skeleton beyond parser, scalar-expression/copy transfer and body constructors",
+    "examples_not_thresholds": [
+      {
+        "source_loops": 0,
+        "A": 2,
+        "capture_allowance": 0,
+        "ordinary_nodes": 0,
+        "syntax_lists": 0,
+        "growth": 0,
+        "entities": 0,
+        "names": 0,
+        "name_characters": 0,
+        "Uint_appends": 0,
+        "digits_per_Uint": 18,
+        "dynamic_slots": 0,
+        "source_condition_comparison_queries": 0,
+        "runtime_trip_count_multiplier": 1,
+        "whole_construct_closed": false
+      },
+      {
+        "source_loops": 3,
+        "A": 10,
+        "capture_allowance": 6,
+        "ordinary_nodes": 3750,
+        "syntax_lists": 12,
+        "growth": 9,
+        "entities": 9,
+        "names": 9,
+        "name_characters": 117,
+        "Uint_appends": 15765,
+        "digits_per_Uint": 87,
+        "dynamic_slots": 34380,
+        "source_condition_comparison_queries": 18,
+        "runtime_trip_count_multiplier": 1,
+        "whole_construct_closed": false
+      }
+    ],
+    "raw_range_copies_and_arithmetic": "charged by Main_source_scalar_arithmetic, not repeated here",
+    "source_captures": "G<=2F, each5ordinary+1entity+1name+13namechars+1list; already analyzed scalar initializer is not replayed",
+    "range_checks": "Get_Range_Checks may construct <=32 ordinary nodes after capture; direct N_Range loop has no enclosing N_Subtype_Indication, so Process_Range_Expr_In_Decl does not insert/analyze its returned check tree",
+    "range_comparisons": "<=6F: three range-resolution comparisons, two loop classification comparisons, one Get_Range_Checks Not_Null_Range selection",
+    "range_folds": "at most two explicit final endpoint folds per loop; preanalyses have Expander_Active=False",
+    "new_index_type": "one internal Integer index subtype; copied base layout, allow one95-Uint discrete-size call and two optional first-freeze nodes/lists for index subtype+parameter",
+    "excluded": "parser's existing loop scope/parameter identities; scalar-expression work and raw copies; body constructors; name qualification; warning text/xrefs/elaboration metadata and scope-stack backing; backend and physical recursion stack"
+  },
   "Main_input_and_secondary_stack_fixed_skeleton_reduction": {
     "scope": "native initial input construction and Main secondary-stack cleanup, after original literal/source call analysis; fixed capture not included here",
     "witness": "with Silver_Arguments, Silver_IO; procedure Main is pragma SPARK_Mode (On); D : constant String := Silver_Arguments.First_Or_Default (\"x\"); begin null; end Main;",
@@ -3517,11 +3570,10 @@
     }
   ],
   "limitations": [
-    "no native compiler/prover/build execution",
-    "no complete source-to-event bound",
-    "no semantic/generated-action/recursive-copy closure",
+    "no native compiler/prover/build execution for this source derivation",
+    "no complete Main source-to-event bound",
     "no safe language threshold",
-    "no backend or dependency cost included",
-    "no independent review yet"
+    "no backend or fixed dependency cost included",
+    "frozen reviews cbcd679320 and 26b438ab5c do not cover later additions"
   ]
 }

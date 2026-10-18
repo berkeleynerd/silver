@@ -52,6 +52,13 @@ for name in files:
     assert blob == expected[name]["git_blob_sha1"], name
     sources[name] = raw.decode()
 
+# Residual first RTE lookups need one already-loaded-unit Priv_Par header each.
+# Count all enumeration values, conservatively including ineligible roots.
+re_enum = re.search(r"type RE_Id is \((.*?)\);", sources["rtsfind.ads"], re.S).group(1)
+re_enum = re.sub(r"--[^\n]*", "", re_enum)
+re_ids = re.findall(r"\b(?:RE|RO)_[A-Za-z0-9_]+\b", re_enum)
+assert len(re_ids) == len(set(re_ids)) and re_ids[0] == "RE_Null"
+
 # Each pair denotes n_coefficient * n + constant, where n >= 2.
 ordinary_rows = [
     ("initial aggregate zero", "2829", 0, 1),
@@ -765,6 +772,25 @@ def source_scalar_arithmetic(source_ops, loop_ops, source_names, loop_names,
                 whole_construct_closed=False)
 
 
+def source_for_loop_skeleton(loop_count, largest_scalar_tree):
+    assert loop_count >= 0 and largest_scalar_tree >= 1
+    a = largest_scalar_tree + 1
+    captures = 2 * loop_count
+    nodes = (120 * a + 40) * loop_count + 5 * captures
+    uint = (480 * a + 455) * loop_count
+    entities = loop_count + captures
+    growth = 3 * loop_count
+    return dict(source_loops=loop_count, A=a, capture_allowance=captures,
+                ordinary_nodes=nodes, syntax_lists=captures+2*loop_count,
+                growth=growth, entities=entities, names=entities,
+                name_characters=13*entities, Uint_appends=uint,
+                digits_per_Uint=(130*a+2+14)//15,
+                dynamic_slots=9*(nodes+growth)+61*entities,
+                source_condition_comparison_queries=6*loop_count,
+                runtime_trip_count_multiplier=1,
+                whole_construct_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -808,6 +834,13 @@ def combined_native_uniform_vector(c, analysis_graph):
 
 
 result = {
+    "native_fixed_runtime_first_lookup_residue": {
+        "all_RE_Id_values_including_ineligible": len(re_ids),
+        "additional_element_list_headers": len(re_ids),
+        "implicit_with_ordinary_nodes_per_selected_unit": 8,
+        "premise": "selected fixed unit parse/analysis/full-view freeze and all-miss numeric work already captured; no additional unit admitted",
+        "scope": "residual RTE-cache identities need no duplicate compiler capture",
+    },
     "source_commit": pin,
     "source_files_verified": len(files),
     "source_sha256": hashes,
@@ -1422,6 +1455,18 @@ result = {
                                     source_scalar_arithmetic(12, 4, 18, 6, 20, 9)],
         "excluded": "source scanner/parser; full range/loop/declaration/assignment/attribute processing; capture constructors; first freezes; non-arithmetic diagnostics and shared xref/elaboration metadata; physical recursion stack and backend lowering",
     },
+    "Main_source_for_loop_skeleton": {
+        "scope": "ordinary scalar for/reverse-loop skeleton beyond parser, scalar-expression/copy transfer and body constructors",
+        "examples_not_thresholds": [source_for_loop_skeleton(0, 1),
+                                    source_for_loop_skeleton(3, 9)],
+        "raw_range_copies_and_arithmetic": "charged by Main_source_scalar_arithmetic, not repeated here",
+        "source_captures": "G<=2F, each5ordinary+1entity+1name+13namechars+1list; already analyzed scalar initializer is not replayed",
+        "range_checks": "Get_Range_Checks may construct <=32 ordinary nodes after capture; direct N_Range loop has no enclosing N_Subtype_Indication, so Process_Range_Expr_In_Decl does not insert/analyze its returned check tree",
+        "range_comparisons": "<=6F: three range-resolution comparisons, two loop classification comparisons, one Get_Range_Checks Not_Null_Range selection",
+        "range_folds": "at most two explicit final endpoint folds per loop; preanalyses have Expander_Active=False",
+        "new_index_type": "one internal Integer index subtype; copied base layout, allow one95-Uint discrete-size call and two optional first-freeze nodes/lists for index subtype+parameter",
+        "excluded": "parser's existing loop scope/parameter identities; scalar-expression work and raw copies; body constructors; name qualification; warning text/xrefs/elaboration metadata and scope-stack backing; backend and physical recursion stack",
+    },
     "Main_input_and_secondary_stack_fixed_skeleton_reduction": {
         "scope": "native initial input construction and Main secondary-stack cleanup, after original literal/source call analysis; fixed capture not included here",
         "witness": 'with Silver_Arguments, Silver_IO; procedure Main is pragma SPARK_Mode (On); D : constant String := Silver_Arguments.First_Or_Default ("x"); begin null; end Main;',
@@ -1471,9 +1516,10 @@ result = {
         "whole_construct_closed": False,
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
-    "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",
-                    "no semantic/generated-action/recursive-copy closure", "no safe language threshold",
-                    "no backend or dependency cost included", "no independent review yet"],
+    "limitations": ["no native compiler/prover/build execution for this source derivation",
+                    "no complete Main source-to-event bound", "no safe language threshold",
+                    "no backend or fixed dependency cost included",
+                    "frozen reviews cbcd679320 and 26b438ab5c do not cover later additions"],
 }
 assert (result["ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers"]["n_coefficient"],
         result["ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers"]["constant"]) == (25, 45)
