@@ -131,7 +131,10 @@ Copying an already flagged node is covered separately from flag writers.
 The context copy/transfer routes are child-spec synthesis
 (`sem_ch10.adb:1009–1058`), instantiation spec/body conversion
 (`sem_ch12.adb:7642–7687`) and copying a generic subunit
-(`:9885–9903`). All are absent for selected Main. Generic inheritance's
+(`:9885–9903`). `Walk_Library_Items` also transfers an instance body's
+context to its spec (`sem.adb:2163–2173`), guarded by `N_Package_Body` and
+`Is_Generic_Instance`; selected Main satisfies neither guard. All these
+routes are absent for selected Main. Generic inheritance's
 explicit `New_Copy` is already excluded in the table. No whole-Main generic
 copy is selected. The complete setter/constructor and context-field scan is
 retained in the evidence; it is a source review aid, not a replacement for
