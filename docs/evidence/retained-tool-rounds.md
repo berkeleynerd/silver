@@ -627,3 +627,69 @@ condition and catches both an allocation omission and a shared-state scope gap;
 it does not establish a causal
 model-quality comparison or near-completion of #119. CLI memory is unavailable
 and was not updated.
+
+## Round 9 — actual representative state and original native construction
+
+Date: 2026-10-18. This round continues #119 from published `ac18b35314`.
+Oracle, installed tools, pins and production admission remain unchanged;
+no research stop is selected.
+
+| Work | Selected model / effort | Frozen input and result |
+| --- | --- | --- |
+| Why3 selectable declaration state | GPT-6 Astra / Extra High | `25f6e96a12`: complete retained table, distinct-key insertion and opened-body induction attach the local representative contract |
+| Independent representative-state review | GPT-6 Astra / Extra High | `25db369173`: scoped acceptance; independent raw traversal reproduces all 143 input coordinate vectors, three excluded old propositions and the complete weak-slot count |
+| Cold String layout constructor residual | GPT-6 Astra / Extra High | `e652db280a`: 216 direct GGC requests, separately from accepted helper94 and later synthetic173 |
+| Original Main/elaboration/profile construction | GPT-6 Astra / Extra High | `d528110ba9`: source-sensitive direct-request and shared-demand ledger, with fixed context visits I explicit |
+| Independent native source/disjointness review | GPT-6 Astra / Extra High | `911cc98f7e`: accepts both conditional interfaces and the source basis for restoring the imported tree-pool condition; confirms #135 repair |
+| Integer-storage explanation correction | Lead; live settings unavailable | `341f9ff8af`, attribution follow-up `c608e3873e`: extended stored units corrected to three; unchanged 40-byte factory ceiling and capacity totals |
+
+The Why3 projection retains 5,003 buckets, 11,968 allocated slots and 6,704
+distinct old declarations. Necessary kind/symbol filtering leaves 142 exact
+input objects and three older propositions excluded by opened coordinates.
+The fresh fold memo, distinct mapped keys and physical wrapper identities
+support the insertion/environment induction. Under the existing source/runtime,
+well-formedness and freshness premises, the selected entry now instantiates
+E=8, V=6, T=3, A=80 and the previously conditional local arithmetic, including
+1,145 fresh identifier registrations. Complete comparator costs, other shared
+states/counters, runtime composition, other entries and downstream capacities
+remain open. This covers one retained entry, not all process histories.
+
+The old capture lacked the shared table, so a new capture answered a specific
+missing question. Attempt `20261018T213006-c14a891efb1a` failed on a zero-byte
+decoder read; its complete diagnostics were preserved. An offline empty-array
+regression justified corrected attempt `20261018T213147-a12cd442bb5e`, which
+succeeded. Managed times were 7.138342259s and 9.737730754s, totaling
+**16.876073013s**; debugger times totaled 12.419726581s. Neither attempt ran the
+inlining transform or submitted a solver request. No further capture was needed.
+The worker's focused checker passed in 2.06714s. Independent review passed it in
+2.071712s, retained a separate raw-coordinate/slot audit (0.669154s), and checked
+complete source-archive correspondence (0.270122s). The worker recorded
+1,080.802831s through packet preparation; review recorded 289s. Their scopes and
+overlapping activity are not additive team runtime.
+
+Native review found [#135](https://github.com/berkeleynerd/silver/issues/135):
+128-bit precision bounds ordinary value words by two, but an unsigned high-bit
+INTEGER_CST can store three extended words. The existing 40-byte allowance
+already covers its 16-byte typed prefix and three 8-byte units. The repair
+corrects the source explanation and audit metadata and checks GCC's actual
+extended-unit and allocation formulas. All capacity arithmetic is unchanged.
+The corrected 45-check replay passed in 0.150s; the original 42-check worker
+result (0.126s, 1,216.22s through that checkpoint) remains historical. Replay
+attribution no longer silently copies the original worker's model and interval.
+
+The native reviewer accepts zero unowned pool demand across original Main,
+context and imported profiles, String216, helper94 and synthetic173. This
+argument is independent of the number of implicit-with visits: their selected
+gigi branch only requests an empty statement list. The aggregate must still
+bind all exact interfaces and preserve its existing 2C entries/3C pool lookups.
+Shared backing, global counter endpoints, complete constructor/collector
+lifetime and whole-stream/invocation conditions remain separate. The review
+replayed String's 42 checks and Main's 46 source identities/315 arithmetic
+cases, then ran 11 independent grouped checks and 54 mixed composition cases.
+Its recorded interval was 399s through source checks, excluding final report
+authoring. No native execution belongs to either native source packet or review.
+
+Runtime-confirmed model settings and per-round token/monetary costs are
+unavailable. These observations record integration progress and review rework;
+they do not establish a causal model-quality comparison. CLI memory remains
+unavailable and was not updated.

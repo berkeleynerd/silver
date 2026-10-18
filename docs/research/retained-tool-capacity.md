@@ -223,9 +223,29 @@ accepts the source/capacity joins. Its reporting finding
 [#134](https://github.com/berkeleynerd/silver/issues/134) is corrected: 304
 directly checked files comprise 301 external sources/headers and three
 repository inputs; the renamed result field preserves that mixed population.
-Broader original Standard.String,
-Main/elaboration, global counters and shared backing remain open; no complete
-imported allocation total follows from the two attached slices.
+At that attachment checkpoint, broader original Standard.String,
+Main/elaboration, global counters and shared backing remained open; no complete
+imported allocation total followed from the two attached slices.
+
+The subsequent [cold String constructor residual](retained-literal-string-layout-storage.md),
+frozen at `e652db280a`, contributes 216 direct GGC requests, 13,149 caller
+bytes, 17,112 separately rounded bytes and three ordinary requests/192 bytes.
+Together with helper94 once, the cold conversion has 310 direct requests;
+synthetic173 remains separate. Review found
+[#135](https://github.com/berkeleynerd/silver/issues/135): unsigned high-bit
+constants can need three extended words even at precision 128. The existing
+40-byte factory charge already covers them. Correction `341f9ff8af` fixes the
+explanation and metadata without changing any capacity total.
+The [original Main ledger](retained-literal-original-main-storage.md), frozen
+at `d528110ba9`, covers Main, empty elaboration, namespace and imported profile
+construction, literal layout/descriptor candidates and shared demands. Fixed
+context visits I and shared backing/counter endpoints are explicit inputs.
+The [combined source review](../reviews/review-original-native-storage-round9.md)
+accepts both scoped interfaces, their disjointness and #135's repair. It also
+establishes zero unowned tree-pool demand across these intervals, helper94 and
+synthetic173, independently of I. The aggregate attachment must bind these
+interfaces before restoring the local pool condition. Complete constructor,
+shared-counter, collector and whole-pipeline capacity remain unestablished.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -336,18 +356,32 @@ need a selectable-representative premise, beyond the acknowledged collision
 comparand input. This witness does not refute the 1,145 identifier arithmetic.
 Correction `e150a8483f` makes every representation-dependent full-transform
 number, including 1,145 identifier registrations and 669 type requests,
-conditional on a source-checkable representative contract. Actual coverage
-and envelope remain null; the local established flag remains false. Numeric
+conditional on a source-checkable representative contract. In that frozen packet,
+actual coverage and envelope remain null and the local established flag is false. Numeric
 hypotheses cannot certify coverage. The
 [focused correction review](../reviews/review-why-inline-representatives-e150a8483f.md)
 accepts this interface repair without a material finding.
-The captured graph contains 244 task-declaration roots, without the shared
-declaration table. The next missing input is its complete selectable live
-representative state, joined to weak-table decoding, local insertion closure
-and actual opened-body/eligibility correspondence. Initial counters/backing,
-runtime allocation/collector composition, other entries and downstream
-consumers remain open. Focused offline correction checks pass; no native
-capture was repeated.
+The original captured graph contains 244 task-declaration roots, without the
+shared declaration table. That correction reused the capture; it did not
+establish actual representative coverage.
+
+The new [representative-state packet](retained-why-inline-representative-state.md),
+frozen at `25f6e96a12`, supplies the complete table for the retained first
+Input_Is_Valid/cvc5 entry: 5,003 buckets, 11,968 allocated slots and 6,704
+distinct old declarations. Exhaustive kind/symbol filtering leaves 142 exact
+input objects and three old propositions excluded by opened coordinates.
+Distinct mapped keys, the fresh fold memo, physical wrapper identities and
+the all-miss input alternatives close local insertion and opened-body
+correspondence. It attaches E=8, V=6, T=3, A=80 and the conditional local
+arithmetic, including 1,145 identifier registrations, under the stated
+source/runtime, well-formedness and freshness premises. The
+[independent review](../reviews/review-why-inline-representative-state-25f6e96a12.md)
+accepts that scope without a material finding and independently reproduces
+the full slot count and opened coordinates. The earlier frozen
+conditional packet remains unchanged. Complete comparator costs, other shared
+states and counters, runtime allocation/collector composition, other entries
+and downstream consumers remain open. This is one retained entry, not a
+universal state-membership or complete transformation capacity result.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both
