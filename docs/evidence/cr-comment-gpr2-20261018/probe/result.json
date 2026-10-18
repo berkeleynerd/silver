@@ -1,0 +1,83 @@
+{
+  "purpose": "Two-source diagnostic, not a full audit or capacity proof",
+  "executables": {
+    "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver": "4b220663a0a00cd6dc3f92915e21d2327ce8766f4daa06f4ca940c3eabbd95f3",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove": "544e6da2eedc24ce87d9200d44f61e8e789726466e81e68bf8935489d7f5323e"
+  },
+  "runs": [
+    {
+      "variant": "lf",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/tmp/silver-gpr2-cr-comment-20261018/lf/main.adb"
+      ],
+      "returncode": 0,
+      "seconds": 0.023125402003643103,
+      "stdout": "Accepted: silver.\n",
+      "stderr": ""
+    },
+    {
+      "variant": "lf",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/tmp/silver-gpr2-cr-comment-20261018/lf/program.gpr",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--steps=100000",
+        "--timeout=0",
+        "--memlimit=1000",
+        "-j1",
+        "--no-loop-unrolling",
+        "--subdirs=explore/cr-comment"
+      ],
+      "returncode": 0,
+      "seconds": 0.8594366820034338,
+      "stdout": "Phase 1 of 3: generation of data representation information ...\nPhase 2 of 3: generation of Global contracts ...\nPhase 3 of 3: flow analysis and proof ...\nSummary logged in /tmp/silver-gpr2-cr-comment-20261018/lf/obj/explore/cr-comment/gnatprove/gnatprove.out\n",
+      "stderr": ""
+    },
+    {
+      "variant": "cr",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/tmp/silver-gpr2-cr-comment-20261018/cr/main.adb"
+      ],
+      "returncode": 0,
+      "seconds": 0.02537572399887722,
+      "stdout": "Accepted: silver.\n",
+      "stderr": ""
+    },
+    {
+      "variant": "cr",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "-P",
+        "/tmp/silver-gpr2-cr-comment-20261018/cr/program.gpr",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--steps=100000",
+        "--timeout=0",
+        "--memlimit=1000",
+        "-j1",
+        "--no-loop-unrolling",
+        "--subdirs=explore/cr-comment"
+      ],
+      "returncode": 1,
+      "seconds": 0.11734583099314477,
+      "stdout": "Try \"gnatprove --help\" for more information.\n",
+      "stderr": "main.adb: warning: unit name \"SPARK_MODE\" does not match source name. The source will be ignored.\nStopping analysis due incorrectly named source files\n"
+    }
+  ]
+}

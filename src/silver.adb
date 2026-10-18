@@ -92,7 +92,7 @@ procedure Silver with SPARK_Mode => On is
             else Silver_Library_Reports.Static_Output);
          Snapshot : constant String := Directory & "/main.adb";
          Project : constant String := Directory & "/program.gpr";
-         Report_Name : constant String := Directory & "/obj/gnatprove/main.spark";
+         Report_Name : constant String := Directory & "/obj/gnatprove/main~1.spark";
          Executable : constant String := Directory & "/bin/main";
          --  Bootstrap quotes the fixed installation path. mkdtemp supplies
          --  only the checked six-character alphanumeric suffix below.
@@ -110,6 +110,12 @@ procedure Silver with SPARK_Mode => On is
            "   for Main use (""main.adb"");" & LF &
            "   for Object_Dir use ""obj"";" & LF &
            "   for Exec_Dir use ""bin"";" & LF &
+           --  Admission establishes one library-level Main. Its explicit
+           --  index bypasses GPR2's LF-only comment scan without changing
+           --  the authoritative source (whose comments may end at CR).
+           "   package Naming is" & LF &
+           "      for Body (""Main"") use ""main.adb"" at 1;" & LF &
+           "   end Naming;" & LF &
            "   package Compiler is" & LF &
            "      for Default_Switches (""Ada"") use (""-gnat2022"", ""-gnata"", ""-gnato"");" & LF &
            "   end Compiler;" & LF &

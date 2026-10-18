@@ -174,7 +174,7 @@ class StatementSequencingTests(unittest.TestCase):
         count = body.count(b'Put_Line')
         self.assertGreater(count, 100)
         self.run_program(executable, b'\n' * count)
-        report_path = executable.parent.parent / 'obj/gnatprove/main.spark'
+        report_path = executable.parent.parent / 'obj/gnatprove/main~1.spark'
         self.assertGreater(report_path.stat().st_size, 262_144)
         self.assertEqual(len(report['flow']), 4 * (count - 1))
 

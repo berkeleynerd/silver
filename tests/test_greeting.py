@@ -127,8 +127,8 @@ class GreetingTests(unittest.TestCase):
                 reports = workspace / 'obj/gnatprove'
                 audit_reports(reports, {'main', 'silver_io', 'silver_output_libc',
                                         'silver_arguments', 'silver_runtime'},
-                              {'silver_output_libc', 'silver_runtime'})
-                main = json.loads((reports / 'main.spark').read_text())
+                              {'silver_output_libc', 'silver_runtime'}, indexed_main=True)
+                main = json.loads((reports / 'main~1.spark').read_text())
                 self.assertEqual(main['flow'], [])
                 self.assertEqual(main['proof'], [])
                 run = subprocess.run([str(executable)], capture_output=True, timeout=10)

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+    "run",
+    "/tmp/silver-gpr2-cr-comment-20261018/cr/main.adb"
+  ],
+  "returncode": 3,
+  "seconds": 0.3932992140034912,
+  "stdout": "Accepted: silver.\nTry \"gnatprove --help\" for more information.\nVerification failure for admitted Silver: toolchain or implementation defect.\n",
+  "stderr": "main.adb: warning: unit name \"SPARK_MODE\" does not match source name. The source will be ignored.\nStopping analysis due incorrectly named source files\nERROR: Command [\"/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove\", \"-P\", \"/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-wf2RPe/program.gpr\", \"-U\", \"--mode=all\", \"--report=all\", \"--warnings=error\", \"--checks-as-errors=on\", \"--level=2\", \"--prover=cvc5,z3,altergo\", \"--steps=100000\", \"--timeout=0\", \"--memlimit=1000\", \"-j0\", \"--no-loop-unrolling\"] exited with code 1\n",
+  "new_program_directories": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-wf2RPe"
+  ]
+}

@@ -1,0 +1,11 @@
+project Program is
+   for Languages use ("Ada");
+   for Source_Dirs use (".");
+   for Source_Files use ("main.adb");
+   for Main use ("main.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022", "-gnata", "-gnato");
+   end Compiler;
+end Program;

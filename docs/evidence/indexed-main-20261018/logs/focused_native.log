@@ -1,0 +1,6 @@
+test_indexed_main_preserves_cr_source_in_all_shells (test_main_discovery.MainDiscoveryTests.test_indexed_main_preserves_cr_source_in_all_shells) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 19.393s
+
+OK

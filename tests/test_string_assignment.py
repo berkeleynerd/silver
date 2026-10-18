@@ -145,8 +145,8 @@ class StringAssignmentTests(unittest.TestCase):
                 audit_reports(reports, {'main', 'silver_io', 'silver_output_libc',
                                         'silver_arguments', 'silver_runtime'},
                               {'silver_output_libc', 'silver_runtime'},
-                              application_kind="assigned")
-                main = json.loads((reports / 'main.spark').read_text())
+                              application_kind="assigned", indexed_main=True)
+                main = json.loads((reports / 'main~1.spark').read_text())
                 self.assertLessEqual(len(main['flow']), 1)
                 for advisory in main['flow']:
                     self.assertEqual(advisory['rule'], 'INEFFECTIVE')

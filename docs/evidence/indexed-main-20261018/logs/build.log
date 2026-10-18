@@ -1,0 +1,58 @@
+Setup
+   [mkdir]        object directory for project Silver_Proof_Containers
+   [mkdir]        object directory for project Silver
+   [mkdir]        exec directory for project Silver
+Compile
+   [Ada]          silver.adb
+   [Ada]          silver_image_adapter.adb
+   [Ada]          silver_image_config.ads
+   [Ada]          silver_image_files.adb
+   [Ada]          silver_image_install.adb
+   [Ada]          silver_image_model.adb
+   [Ada]          silver_image_runtime.ads
+   [Ada]          silver_platform.adb
+   [Ada]          silver_process_runtime.ads
+   [Ada]          silver_runtime.ads
+   [Ada]          silver_build.ads
+   [Ada]          silver_catalogue.adb
+   [Ada]          silver_libraries.adb
+   [Ada]          silver_library_reports.adb
+   [Ada]          silver_numbers.adb
+   [Ada]          silver_output_profile.adb
+   [Ada]          silver_profile.adb
+   [Ada]          silver_report_reader.adb
+   [Ada]          silver_report_storage.ads
+   [Ada]          silver_reports.adb
+   [Ada]          silver_image_libc.ads
+   [Ada]          silver_libc.ads
+   [Ada]          silver_image_theory.ads
+   [Ada]          silver_image_model_templates.adb
+   [Ada]          silver_library_sources.ads
+   [Ada]          spark-containers-functional-base.adb
+   [Ada]          spark-containers-functional-holder.adb
+   [Ada]          spark-containers-functional-infinite_sequences.adb
+   [Ada]          spark-containers-parameter_checks.adb
+   [Ada]          spark.ads
+   [Ada]          spark-big_integers.ads
+   [Ada]          spark-containers.ads
+   [Ada]          spark-containers-functional.ads
+   [Ada]          spark-containers-types.ads
+   [Ada]          silver_report_projection.adb
+   [Ada]          silver_integer_image.ads
+   [Ada]          silver_integer_literals.adb
+   [Ada]          silver_length_intervals.adb
+   [Ada]          silver_names.adb
+   [Ada]          silver_output_lexical.adb
+   [Ada]          silver_path_facts.ads
+   [Ada]          silver_scalar_expressions.adb
+   [Ada]          silver_scalar_literals.adb
+   [Ada]          silver_scalars.ads
+   [Ada]          silver_report_projection_types.ads
+Bind
+   [gprbind]      silver.bexch
+   [gprbind]      silver_image_adapter.bexch
+   [Ada]          silver.ali
+   [Ada]          silver_image_adapter.ali
+Link
+   [link]         silver.adb
+   [link]         silver_image_adapter.adb

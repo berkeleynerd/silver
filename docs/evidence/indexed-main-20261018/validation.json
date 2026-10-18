@@ -1,0 +1,329 @@
+{
+  "clean_rebuild": false,
+  "hosted_ci_run": false,
+  "implementation_commit": "ce4d2fee363771ae5bd3c4fbe4e53e03dfddca7c",
+  "independent_kernel_replay": false,
+  "lean_audit": {
+    "declarations": 89369,
+    "foundations": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "modules": 466
+  },
+  "macos_run": false,
+  "native_audit": {
+    "entities": 1000,
+    "flow_checks": 1295,
+    "proof_checks": 13860,
+    "units": 75
+  },
+  "platform": "linux-x86_64",
+  "runs": {
+    "build": {
+      "duration_seconds": 4.855955236,
+      "events_sha256": "09ad3c88232f7f103e07e59c6be36a37d64f57ad2e5edb321be2df43e7391f69",
+      "input_fingerprint": "d69fc216a87abfc8f301a43af0fa623a7773c8dfdab36c4bcf621f6827e0b0ba",
+      "log_sha256": "f8187b619fb3d537da394f0adc1425b48c6101298df504ef787a9aff563f26a8",
+      "outcome": "success",
+      "phases": [
+        {
+          "event": "phase-start",
+          "phase": "preflight",
+          "utc": "2026-10-18T08:53:59.070786+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "preflight",
+          "utc": "2026-10-18T08:54:00.878711+00:00"
+        },
+        {
+          "event": "phase-start",
+          "phase": "native-tool",
+          "utc": "2026-10-18T08:54:00.888534+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "native-tool",
+          "returncode": 0,
+          "utc": "2026-10-18T08:54:03.500909+00:00"
+        }
+      ],
+      "run_id": "20261018T085358-871d98dedac3",
+      "utc": "2026-10-18T08:54:03.908629+00:00",
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery"
+      }
+    },
+    "complete_lean": {
+      "duration_seconds": 34.262485708,
+      "events_sha256": "88e0ebc55ac0cc62759ccb8fa016200ee52c672f0d38fc6f1916a4b75fd2c083",
+      "input_fingerprint": "f452c73bf13d27b5724182e1cd0e92cffa1a44746cb6a2f1ba0a453c66317ebd",
+      "log_sha256": "d81729174104cb9d222494ff5cf40adf19268004e78a584c423ad6e52954be31",
+      "outcome": "success",
+      "phases": [],
+      "run_id": "20261018T085735-f1237f05d1fa",
+      "utc": "2026-10-18T08:58:10.796481+00:00",
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean"
+      }
+    },
+    "complete_native": {
+      "duration_seconds": 315.613774773,
+      "events_sha256": "c1cccf61a8377586f10fb40ab5b9e1934f5a3acb5bf18025ff736d6d5cbf46f8",
+      "input_fingerprint": "2492467a625f67e0a5651af407807b5f67b8d6118651910a2c10f2cc714eb1b1",
+      "log_sha256": "b49cb0c860103400de209fc60955156b881fdbb753781a1f20fb28c739efb676",
+      "outcome": "success",
+      "phases": [
+        {
+          "event": "phase-start",
+          "phase": "preflight",
+          "utc": "2026-10-18T08:57:36.540634+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "preflight",
+          "utc": "2026-10-18T08:57:40.281296+00:00"
+        },
+        {
+          "event": "phase-start",
+          "phase": "native-tool",
+          "utc": "2026-10-18T08:57:41.462542+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "native-tool",
+          "returncode": 0,
+          "utc": "2026-10-18T09:02:43.022291+00:00"
+        },
+        {
+          "event": "phase-start",
+          "phase": "audit",
+          "utc": "2026-10-18T09:02:43.030256+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "audit",
+          "utc": "2026-10-18T09:02:51.641011+00:00"
+        }
+      ],
+      "run_id": "20261018T085735-f1f2c112a63d",
+      "utc": "2026-10-18T09:02:51.649964+00:00",
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native"
+      }
+    },
+    "evidence_tests": {
+      "duration_seconds": 2.053695427,
+      "events_sha256": "b818ea93fd8a06aae4f716349ef3d138af5d221ba3654b0b36305a8ef7a060be",
+      "input_fingerprint": "44933a5f48cdefb7badd9428f0e96968560142b0d2f72a2b5fdff3e2f1fd784e",
+      "log_sha256": "db0c2e721d8a841b5f719d35c9d2a55865207849959c3e963e0b51a94ae5d41e",
+      "outcome": "success",
+      "phases": [
+        {
+          "event": "phase-start",
+          "phase": "preflight",
+          "utc": "2026-10-18T08:55:05.245676+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "preflight",
+          "utc": "2026-10-18T08:55:05.710094+00:00"
+        },
+        {
+          "event": "phase-start",
+          "phase": "test",
+          "utc": "2026-10-18T08:55:05.718803+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "test",
+          "returncode": 0,
+          "utc": "2026-10-18T08:55:07.160200+00:00"
+        }
+      ],
+      "run_id": "20261018T085504-1ebe6ccb2efd",
+      "skipped_methods": [],
+      "test_methods": 54,
+      "test_seconds": 1.33,
+      "utc": "2026-10-18T08:55:07.281111+00:00",
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery"
+      }
+    },
+    "focused_native": {
+      "duration_seconds": 20.160722833,
+      "events_sha256": "cdd742e554ab438b0d3cbaf8180d863d5b13425135e5dcd72a58223a644e6f1c",
+      "input_fingerprint": "edcbd33bef862698bee21c4428a0d1bb5fede9da4151abb4cb7572cca535c01c",
+      "log_sha256": "e601d8b6f088392572fdf83ed29345d65982a3dfd866fd02f1dbcbc5244ba182",
+      "outcome": "success",
+      "phases": [
+        {
+          "event": "phase-start",
+          "phase": "preflight",
+          "utc": "2026-10-18T08:55:22.121962+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "preflight",
+          "utc": "2026-10-18T08:55:22.585078+00:00"
+        },
+        {
+          "event": "phase-start",
+          "phase": "test",
+          "utc": "2026-10-18T08:55:22.593449+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "test",
+          "returncode": 0,
+          "utc": "2026-10-18T08:55:42.103543+00:00"
+        }
+      ],
+      "run_id": "20261018T085521-08d5afa2ae98",
+      "skipped_methods": [],
+      "test_methods": 1,
+      "test_seconds": 19.393,
+      "utc": "2026-10-18T08:55:42.248248+00:00",
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery"
+      }
+    },
+    "full_tests": {
+      "duration_seconds": 1401.826639195,
+      "events_sha256": "4cabf2b472540a1d9f917b725e4db920c960c9d502187b7ac4fb78f289c198e9",
+      "input_fingerprint": "fda584fb31ef5d2794b24c7d52f82b2837c990509e998aac49be3506b2a45204",
+      "log_sha256": "9fcb7456ad884663740c4dfe35ec896f03543354d3a1b6e39d0a7192bb8be0e2",
+      "outcome": "success",
+      "phases": [
+        {
+          "event": "phase-start",
+          "phase": "preflight",
+          "utc": "2026-10-18T08:57:36.537945+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "preflight",
+          "utc": "2026-10-18T08:57:37.138958+00:00"
+        },
+        {
+          "event": "phase-start",
+          "phase": "test",
+          "utc": "2026-10-18T08:57:37.142418+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "test",
+          "returncode": 0,
+          "utc": "2026-10-18T09:20:57.280236+00:00"
+        }
+      ],
+      "run_id": "20261018T085735-b252c88fe515",
+      "skipped_methods": [
+        "test_actual_audit_accepts_foundations_and_rejects_other_assumptions (test_lean_evidence.LeanNativeAxiomAuditTests.test_actual_audit_accepts_foundations_and_rejects_other_assumptions) ... skipped 'install the pinned native Lean tools to check the real axiom audit'",
+        "test_changed_resource_settings_apply_without_discarding_cached_objects (test_lean_evidence.LeanNativeDependencyTests.test_changed_resource_settings_apply_without_discarding_cached_objects) ... skipped 'install the pinned native Lean tools to check Lake configuration'",
+        "test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects (test_lean_evidence.LeanNativeDependencyTests.test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects) ... skipped 'install the pinned native Lean tools to check actual Lake invalidation'",
+        "test_removed_dependency_fails_closed_without_discarding_unrelated_objects (test_lean_evidence.LeanNativeDependencyTests.test_removed_dependency_fails_closed_without_discarding_unrelated_objects) ... skipped 'install the pinned native Lean tools to check module removal'",
+        "test_legacy_audits_reject_private_axiom_behind_module_import (test_lean_modules.LeanModuleTests.test_legacy_audits_reject_private_axiom_behind_module_import) ... skipped 'install the pinned native Lean tools to check module boundaries'",
+        "test_proof_reuse_and_public_source_invalidation (test_lean_modules.LeanModuleTests.test_proof_reuse_and_public_source_invalidation) ... skipped 'install the pinned native Lean tools to check module boundaries'",
+        "test_generated_certificates_and_witnesses_remain_kernel_checked (test_lean_source.NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked) ... skipped 'install pinned native Lean to check generated certificates'"
+      ],
+      "test_methods": 473,
+      "test_seconds": 1399.748,
+      "utc": "2026-10-18T09:20:57.385026+00:00",
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery"
+      }
+    },
+    "lean_evidence_tests": {
+      "duration_seconds": 174.222610252,
+      "events_sha256": "bf47d38a774041be8e8967f8a18c169ebb86ea70494862aad66c6c14e06aeb08",
+      "input_fingerprint": "c6f507a1e3c6930d3ccceb40220cfcb3b072d131e32d19f09286b16092002414",
+      "log_sha256": "8c2f0f2172a26a28cef5b4a7328272ba82b0527a80b94f40ff47ee58841913fd",
+      "outcome": "success",
+      "phases": [
+        {
+          "event": "phase-start",
+          "phase": "preflight",
+          "utc": "2026-10-18T09:03:51.683977+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "preflight",
+          "utc": "2026-10-18T09:03:52.439368+00:00"
+        },
+        {
+          "event": "phase-start",
+          "phase": "test",
+          "utc": "2026-10-18T09:03:52.448637+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "test",
+          "returncode": 0,
+          "utc": "2026-10-18T09:06:45.741480+00:00"
+        }
+      ],
+      "run_id": "20261018T090350-32ee26af82c4",
+      "skipped_methods": [],
+      "test_methods": 4,
+      "test_seconds": 173.087,
+      "utc": "2026-10-18T09:06:45.863983+00:00",
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean"
+      }
+    },
+    "lean_module_certificate_tests": {
+      "duration_seconds": 84.51468138,
+      "events_sha256": "f498c17283c6a5b0653d26a0f9863eb03ffc4f457da89e2988e5cd5e68631f8e",
+      "input_fingerprint": "322a97d9329a369e4f4f75ed133222270e8435f5efd05fac701a1fc0872f3b6d",
+      "log_sha256": "f5d0b915881519bba73cd25aa4ea360b235c58301d05c85e0c7c411a8a889ae3",
+      "outcome": "success",
+      "phases": [
+        {
+          "event": "phase-start",
+          "phase": "preflight",
+          "utc": "2026-10-18T09:02:10.838981+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "preflight",
+          "utc": "2026-10-18T09:02:12.162037+00:00"
+        },
+        {
+          "event": "phase-start",
+          "phase": "test",
+          "utc": "2026-10-18T09:02:12.171958+00:00"
+        },
+        {
+          "event": "phase-end",
+          "phase": "test",
+          "returncode": 0,
+          "utc": "2026-10-18T09:03:35.083326+00:00"
+        }
+      ],
+      "run_id": "20261018T090210-375df9aed269",
+      "skipped_methods": [],
+      "test_methods": 3,
+      "test_seconds": 82.655,
+      "utc": "2026-10-18T09:03:35.325752+00:00",
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean"
+      }
+    }
+  },
+  "shared_input_matches": {
+    "lean": 581,
+    "native": 141,
+    "tests": 680
+  }
+}

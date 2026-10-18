@@ -50,7 +50,7 @@ end Main;
         executed = subprocess.run([str(executable)], capture_output=True, timeout=10)
         self.assertEqual(executed.returncode, 0, executed.stderr)
         self.assertEqual(executed.stdout, b" 3\n-1\n 0\n 1\n")
-        report = json.loads((workspace / "obj/gnatprove/main.spark").read_text())
+        report = json.loads((workspace / "obj/gnatprove/main~1.spark").read_text())
         checks = [item for item in report["proof"] if item["rule"] == "VC_LENGTH_CHECK"]
         self.assertTrue(checks, "loop assignment lost its original required length check")
         self.assertTrue(all(item["severity"] == "info" for item in checks), checks)
