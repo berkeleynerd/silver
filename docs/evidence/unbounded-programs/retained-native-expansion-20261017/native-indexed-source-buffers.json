@@ -1,0 +1,81 @@
+{
+  "additional_Source_File_records": 1,
+  "additional_System_buffer_single_object_bytes_upper_bound": 7520,
+  "additional_System_input": {
+    "aligned_source_extent": 8192,
+    "bytes": 7503,
+    "git_blob_sha1": "852279e7562364b58c62af8069508e5f031c1e1f",
+    "physical_line_entries_bound": 156,
+    "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+  },
+  "additional_System_line_table_capacity": 500,
+  "additional_System_line_table_single_object_bytes": 2000,
+  "additional_nonnull_System_loads_upper_bound": 1,
+  "additional_null_System_loads": 0,
+  "checked_source_and_fixture_identities": 20,
+  "complete_capacity_result": false,
+  "frontend_all_tables_recomposed": false,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "general_source_search_enforced": false,
+  "imported_SFN_index_premise": "Only generated main%b naming entry is indexed; all permitted imported unit indices are zero",
+  "indexed_configuration_aligned_extent": 4096,
+  "indexed_configuration_bytes": 327,
+  "native_runtime_inventory": {
+    "aligned_source_sum": 20496384,
+    "bytes": 17847599,
+    "file_count": 1575,
+    "manifest_sha256": "76a5413f5083da098347755f795a1d1d84804c9984ffc97da8199b0c3e77014c"
+  },
+  "no_compiler_prover_or_capture_executed": true,
+  "nonindexed_runtime_naming_pragmas": [
+    {
+      "file": "memtrack.adb",
+      "line": 69
+    }
+  ],
+  "physical_runtime_aligned_extent_with_index_correction": 20504576,
+  "prior_generic_one_buffer_per_request_name_premise_repaired_for_this_native_class": true,
+  "producer_scope_covered": false,
+  "request_name_premise": "Retain controlled basename-to-source mapping and search closure; aliases must be counted separately",
+  "scope": "Native indexed single Main; physical source-buffer multiplicity correction only",
+  "source_cursor_limit": 2147479551,
+  "source_load_routes": [
+    {
+      "disposition": "Check_Bad_Body: only called on Main; subprogram body is outside load predicate",
+      "file": "gnat1drv.adb",
+      "line": 809,
+      "operation": "Load_Source_File"
+    },
+    {
+      "disposition": "Startup target parameters: one system.ads physical read before semantic unit load",
+      "file": "gnat1drv.adb",
+      "line": 1066,
+      "operation": "Load_Source_File"
+    },
+    {
+      "disposition": "Change_Main_Unit_To_Spec: requires Main No_Body pragma; absent from admitted Main",
+      "file": "lib-load.adb",
+      "line": 124,
+      "operation": "Load_Source_File"
+    },
+    {
+      "disposition": "Load_Main_Source: one author source in this invocation",
+      "file": "lib-load.adb",
+      "line": 332,
+      "operation": "Load_Source_File"
+    },
+    {
+      "disposition": "Load_Unit: at most one successful physical read per non-indexed imported Fname",
+      "file": "lib-load.adb",
+      "line": 738,
+      "operation": "Load_Source_File"
+    },
+    {
+      "disposition": "External_Initialization: absent from admitted Main and selected fixed input bytes",
+      "file": "sem_ch3.adb",
+      "line": 4006,
+      "operation": "Load_Source_File"
+    }
+  ],
+  "source_union_formula": "q(Main bytes) + 20504576 + selected Silver physical union + 4096 + aliases + virtual extents"
+}

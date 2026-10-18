@@ -26,8 +26,8 @@ review of those later additions remain required.
 The command/configuration arithmetic predating the indexed-Main repair is
 **historical unindexed evidence**. The
 [indexed invocation delta](#indexed-main-invocation-and-source-buffer-delta)
-below records the current repair's separate descriptor and the remaining
-source-buffer reconciliation. Existing `derive.py` examples still use the
+below records the current repair's separate descriptor and the subsequent
+native source-buffer correction. Existing `derive.py` examples still use the
 historical descriptor; they are not current indexed invocation capacity results.
 
 ## Phase and type premises
@@ -6995,7 +6995,8 @@ premise cannot be carried over merely because the actual files are unchanged.
 For example, the startup `system.ads` load (`gnat1drv.adb:1050–1066`) can precede
 a semantic System load reached from indexed Main. Unit-table reuse still occurs
 before the physical read (`lib-load.adb:695–729`), but a complete general
-runtime-load multiplicity argument remains required.
+runtime-load multiplicity argument was still required by this invocation packet;
+the next subsection supplies it for the native class.
 
 For the selected null Main family there is no semantic runtime load. The later
 `Ensure_System_Dependency` creates a unit-table dependency referring to the
@@ -7004,8 +7005,8 @@ saved `System_Source_File_Index` and parses that buffer with index temporarily0
 delta is therefore zero. The observed repair ALI confirms only Main and System
 dependencies, but that sample does not prove the general-family result. Until
 the broader load multiplicity is reconciled, the old physical runtime-union
-bound is not current indexed evidence. General indexed Main and proof-producer
-source-loading remain separate open obligations.
+bound is not current indexed evidence. The follow-up below adds the native
+correction; proof-producer source-loading remains a separate obligation.
 
 Reproduce this packet offline:
 
@@ -7031,6 +7032,101 @@ SFN record/hash layout and null System buffer reuse. It found no arithmetic
 defect and corrected the native Ada-spec line citation above. It did not
 independently reprove the earlier scanner/node allowances or general load
 multiplicity argument.
+
+### Indexed native Main physical source-load correction
+
+The [source-buffer follow-up](../evidence/unbounded-programs/retained-native-expansion-20261017/native-indexed-source-buffers.json)
+closes the native physical-load multiplicity question from the preceding
+packet. Its [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-indexed-source-buffers.py)
+binds20 source/fixture identities, reconciles the complete1,575-file installed
+native runtime against the earlier manifest, and classifies all six
+Load_Source_File call sites in the retained complete-source inventory. The
+result retains the earlier controlled request-name/search premises. It does
+not infer one request name per filesystem inode, and does not cover the
+proof producer or unconfigured source aliases.
+
+Every permitted imported runtime/Silver unit has Get_Unit_Index=0: the only
+indexed naming entry supplied by the generated configuration is `main%b`.
+The complete installed runtime has no External_Initialization token, and its
+only Source_File_Name pragma is `memtrack.adb:69`, with no Index argument.
+The six fixed Silver source templates have neither construct. These negative
+checks are tied to the runtime file-set digest and the individual Silver source
+hashes; the admitted Main grammar excludes both constructs. Existing
+configuration controls still exclude injected naming/preprocessing pragmas.
+
+`Load_Unit` first looks up the actual unit name. If it has not been seen and
+the **imported** unit's index is0, it checks the requested Fname against every
+unit-table record and exits without reading when one matches
+(`lib-load.adb:615–678`). This gate is independent of the **caller's** current
+Multiple_Unit_Index. Existing unit names also return before the source read
+(`695–729`). A successful read installs a persistent unit record with that
+Fname (`738–774`); the only Remove_Unit calls are in the unsuccessful-read
+branch (`917,924`). `Remove_Unit` clears the name mapping and removes the final
+unit record (`lib.adb:1134–1139`), while failed physical loads have already
+decremented Source_File.Last (`sinput-l.adb:420–430`). Thus repeated failed
+lookups do not accumulate physical buffers, and successful imported loads
+contribute at most one physical buffer per permitted requested Fname even
+with indexed Main.
+
+The other physical-source call sites are finite and explicit:
+
+| Call site | Selected native Main disposition |
+| --- | --- |
+| `gnat1drv.adb:1066` | One startup System read for target parameters, before a semantic unit record exists |
+| `lib-load.adb:332` | One authoritative Main source in this invocation |
+| `lib-load.adb:124` | Change_Main_Unit_To_Spec requires a No_Body Main (`frontend.adb:304–305`), excluded |
+| `gnat1drv.adb:809` | Check_Bad_Body is called on Main (`1181`); its load predicate covers package/renaming/instantiation units, not the admitted subprogram body (`789–809`) |
+| `sem_ch3.adb:4006` | External_Initialization aspect, excluded by the grammar and the fixed-source inventory |
+
+The startup System read is the sole additional read outside Main and the
+unit-loader bound. When a later semantic System load sees index1, it can allocate
+a second buffer; allowing **one extra System buffer** is sufficient whether or
+not that load actually occurs. The selected null family still needs no duplicate,
+by the saved-buffer dependency path established above. Configuration has one
+distinct generated input; `-gnatA` suppresses the ambient gnat.adc lookup and the
+selected class has no target-info/preprocessing/debug-source input. Mapping-file
+read buffers are separate from Sinput physical ranges, as before.
+
+The pinned native `system.ads` is7,503bytes, SHA-256
+`545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95`.
+Its additional aligned range is
+`q(7503) = 4096 * ceil((7503+1)/4096) = 8192`.
+The prior physical runtime-union term therefore becomes
+**20,504,576 = 20,496,384 + 8,192** for the general indexed native Main class.
+The current327-byte configuration still has q=4,096, so the source-cursor
+component can use:
+
+```text
+q(Main bytes) + 20,504,576 + selected Silver physical union
+             + 4,096 + source aliases + all virtual extents
+    <= 2,147,479,551
+```
+
+This repairs the multiplicity premise under the same basename-to-source
+mapping/search assumptions; those assumptions are still not enforced by a
+production launcher. The ordinary physical backing must also add one
+Source_File record to the table demand and one System source allocation,
+bounded by7,520bytes including EOF and the established descriptor allowance.
+Its physical line bound is below the initial500-entry line-table capacity, so
+one additional2,000-byte line-table object suffices; System has no
+Source_Reference pragma, hence no logical-line table. These are individual
+objects, not a combined RAM admission ceiling. `Sinput.L.Load_File` allocates
+the initial line table even for the startup target-parameter buffer
+(`sinput-l.adb:488–542`, `sinput.adb:143–175`, `alloc.ads:76`).
+
+This packet does not silently alter the older `derive.py` examples or claim
+that their complete tables have been recomposed for indexed Main. It supplies
+the explicit correction to add during that composition. Likewise, fixed native
+captures retain their actual historical inputs, and no successful capture is
+repeated. This is source reading, file hashing and offline arithmetic only.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-indexed-source-buffers.py \
+  --ada /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --native-runtime /path/to/pinned/native/adainclude \
+  --silver-root /path/to/this/checkout \
+  --output /tmp/native-indexed-source-buffers.json
+```
 
 ## Real-source composition checks
 
