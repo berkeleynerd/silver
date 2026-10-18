@@ -412,7 +412,7 @@ eight bytes under the pinned 32-bit representations. Its index starts at zero,
 initial allocation is ten entries, and growth increment is 200 percent; apply
 the generic demand envelope and sentinel/byte checks separately.
 
-The retained complete top-level source inventory finds nineteen setter calls
+The retained complete top-level source inventory finds twenty setter calls
 and its declaration/body headers. Only the four parser
 parenthesization paths increment a count. Other calls copy/preserve a count,
 set zero or one, or remove one pair. Consequently a sufficient value bound
@@ -422,6 +422,12 @@ the byte bound also covers the parser's next increment. Repeated copying
 can enlarge auxiliary **entry count** but does not increase this value bound.
 The lexical site inventory in the evidence corroborates this manual caller
 classification; it is not an automated reachability proof.
+
+The initial inventory missed `atree.adb:2273` because its spelling has extra
+spaces before the opening parenthesis. The corrected case-insensitive scan
+accepts arbitrary whitespace, including line breaks. This `Rewrite` call
+restores `Old_Paren_Count`; including it changes the inventory, not the entry
+or value bounds above.
 
 This closes this auxiliary table's local source/value connection once the
 whole-phase node event count and selected source inventory are supplied. It

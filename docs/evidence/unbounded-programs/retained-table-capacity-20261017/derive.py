@@ -73,10 +73,11 @@ if {path.name for path in inventory_paths} != expected_names:
     raise SystemExit('Pinned top-level Ada source inventory mismatch')
 for path in inventory_paths:
     source = verify_source(path).decode()
-    for number, line in enumerate(source.split('\n'), 1):
-        if 'Set_Paren_Count (' in line:
-            paren_count_sites.append({'file': path.name, 'line_lf': number,
-                                      'source': line.strip()})
+    lines = source.split('\n')
+    for match in re.finditer(r'\bSet_Paren_Count\s*\(', source, re.I):
+        number = source.count('\n', 0, match.start()) + 1
+        paren_count_sites.append({'file': path.name, 'line_lf': number,
+                                  'source': lines[number - 1].strip()})
     # Lexical inventory only: comments, reachability, alternate allocators and
     # generated sources require separate source review, not inference here.
     for m in re.finditer(r'package\s+(\w+)\s+is\s+new\s+Table\.Table\s*\((.*?)\);', source, re.S | re.I):

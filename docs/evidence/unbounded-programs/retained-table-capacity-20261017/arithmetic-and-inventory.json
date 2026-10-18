@@ -554,6 +554,11 @@
       },
       {
         "file": "atree.adb",
+        "line_lf": 2273,
+        "source": "Set_Paren_Count     (Old_Node, Old_Paren_Count);"
+      },
+      {
+        "file": "atree.adb",
         "line_lf": 2331,
         "source": "procedure Set_Paren_Count (N : Node_Id; Val : Nat) is"
       },
