@@ -408,6 +408,11 @@ the selected target. The recurrence is not an aggregate emitted-code bound.
 
 ## Remaining backend closure
 
+The [ELF linker transfer](retained-linker-capacity.md) supplies the separate
+32-bit String-name offset, signed name-length, reference-count, lifetime hash
+entry and backing-allocation bounds. Those inputs still need source/generated
+symbol and reference counts; they are not established by payload lengths.
+
 The default x86-64 target chooses `CM_SMALL_PIC` when PIC is effective and
 `CM_SMALL` otherwise (`gcc/config/i386/i386-options.cc:2275–2286`). The retained
 installation uses default PIE. Existing medium/large-model experiments remain

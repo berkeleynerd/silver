@@ -1,0 +1,188 @@
+{
+  "scope": "local representation arithmetic; no compiler/linker/prover execution",
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "verified_source_files": 11,
+  "elf_strtab": {
+    "maximum_nonempty_name_bytes": 2147483646,
+    "maximum_distinct_lifetime_names": 805306341,
+    "maximum_unshared_section_bytes_including_initial_nul": 4294967296,
+    "maximum_positive_refcount_events_per_entry": 4294967295,
+    "maximum_pointer_array_capacity": 1073741824,
+    "maximum_pointer_array_bytes": 8589934592,
+    "maximum_sorting_array_bytes": 6442450736,
+    "maximum_save_record_bytes": 3221225380,
+    "offset_endpoint_example": {
+      "lengths_including_nul": [
+        2147483647,
+        2147483646,
+        2
+      ],
+      "offsets": [
+        1,
+        2147483648,
+        4294967294
+      ],
+      "section_bytes": 4294967296
+    }
+  },
+  "bfd_hash": {
+    "primes": [
+      31,
+      61,
+      127,
+      251,
+      509,
+      1021,
+      2039,
+      4093,
+      8191,
+      16381,
+      32749,
+      65521,
+      131071,
+      262139,
+      524287,
+      1048573,
+      2097143,
+      4194301,
+      8388593,
+      16777213,
+      33554393,
+      67108859,
+      134217689,
+      268435399,
+      536870909,
+      1073741789,
+      2147483647,
+      4294967291
+    ],
+    "largest_no_wrap_growth_capacity": 1073741789,
+    "maximum_distinct_names_for_this_region": 805306341,
+    "largest_default_setter_capacity": 134217689,
+    "growth_thresholds": [
+      {
+        "capacity": 4051,
+        "threshold": 3038,
+        "next_capacity": 4093,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 4093,
+        "threshold": 3069,
+        "next_capacity": 8191,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 8191,
+        "threshold": 6143,
+        "next_capacity": 16381,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 16381,
+        "threshold": 12285,
+        "next_capacity": 32749,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 32749,
+        "threshold": 24561,
+        "next_capacity": 65521,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 65521,
+        "threshold": 49140,
+        "next_capacity": 131071,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 131071,
+        "threshold": 98303,
+        "next_capacity": 262139,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 262139,
+        "threshold": 196604,
+        "next_capacity": 524287,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 524287,
+        "threshold": 393215,
+        "next_capacity": 1048573,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 1048573,
+        "threshold": 786429,
+        "next_capacity": 2097143,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 2097143,
+        "threshold": 1572857,
+        "next_capacity": 4194301,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 4194301,
+        "threshold": 3145725,
+        "next_capacity": 8388593,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 8388593,
+        "threshold": 6291444,
+        "next_capacity": 16777213,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 16777213,
+        "threshold": 12582909,
+        "next_capacity": 33554393,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 33554393,
+        "threshold": 25165794,
+        "next_capacity": 67108859,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 67108859,
+        "threshold": 50331644,
+        "next_capacity": 134217689,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 134217689,
+        "threshold": 100663266,
+        "next_capacity": 268435399,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 268435399,
+        "threshold": 201326549,
+        "next_capacity": 536870909,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 536870909,
+        "threshold": 402653181,
+        "next_capacity": 1073741789,
+        "growth_in_region": true
+      },
+      {
+        "capacity": 1073741789,
+        "threshold": 805306341,
+        "next_capacity": 2147483647,
+        "growth_in_region": false
+      }
+    ],
+    "next_capacity_wrapped_threshold": 536870911,
+    "maximum_backbone_request": 8589934312,
+    "conservative_cumulative_backbone_requests": 18253608168
+  }
+}
