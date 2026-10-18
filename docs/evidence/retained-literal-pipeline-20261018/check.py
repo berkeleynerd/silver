@@ -135,6 +135,12 @@ def main():
             assert ingress['selected_helper_subtotal_GGC_events_upper']==8*c
             assert ingress['protected_set']['distinct_entries_upper']==c+1
             assert result['conditions']['native_whole_body_copy_local_interface']
+            protected=result['native_unshare_protected_set_storage']
+            assert protected['source_input']['distinct_protected_entries_upper']==c+1
+            assert protected['object_request_bytes_upper']==64
+            assert protected['backing_requests_upper']==c+2
+            assert protected['additional_GGC_request_events_upper']==0
+            assert protected['conditional_protected_set_storage_closed']
             assert not ingress['complete_gimplifier_lifetime_closed']
             assert ingress['complete_gimplifier_GGC_request_events_upper'] is None
             assembler=result['Main_assembler_object_interface']
@@ -250,6 +256,23 @@ def main():
             raise AssertionError('native ingress accepted a mismatched direct subtotal')
         finally:
             context.ingress['evaluate']=ingress_evaluate
+
+        for calls,expected in ((1073741822,True),(1073741823,False),
+                               (2147483646,False)):
+            ingress=context.ingress['evaluate'](calls,0)
+            protected=module.native_unshare_protected_set_storage(ingress)
+            assert protected['conditional_protected_set_storage_closed']==expected
+            rows.append(dict(case='protected_set_probe_boundary_'+str(calls),fits=expected))
+        for key,value in (('distinct_entries_upper',3),('backing_requests_upper',4)):
+            ingress=context.ingress['evaluate'](1,0)
+            ingress['protected_set'][key]=value
+            try:
+                module.native_unshare_protected_set_storage(ingress)
+            except ValueError as error:
+                assert str(error)=='literal unshare protected-set storage interface'
+                rows.append(dict(case='protected_set_mismatch_'+key,rejected=str(error)))
+            else:
+                raise AssertionError('mismatched protected set accepted')
 
         rejections=[('VT_rejected',b'\v'+original,fixture),
                     ('concat_rejected',shell+b'Silver_IO.Put ("a" & "b");'+tail,fixture),

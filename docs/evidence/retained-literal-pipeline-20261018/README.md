@@ -23,7 +23,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 67 interface checks. It reuses one context's
+arguments and `--output`, and runs 72 interface checks. It reuses one context's
 successful retained checks across source variations. `--gcc-match FILE` selects
 the pinned `match.pd`; by default its retained source-manifest path is used.
 
@@ -91,7 +91,10 @@ and the additional 2C data-address requests. Its selected 8C subtotal includes
 that earlier 6C component. Exact direct/CF/bind/stack/helper joins are checked;
 the protected-set prime, probe arithmetic and individual backing request have
 separate conditions. Original frontend/gigi, incoming warning-map backing,
-remaining helpers, set-object bookkeeping and collector composition stay open.
+remaining helpers and collector composition stay open. The ordinary protected-set
+control/backing join now checks selected statistics/checking configuration,
+prices one <=64-byte object and C+2 backings, and contributes zero GGC events.
+Boundary checks distinguish prime existence from no-wrap probe arithmetic.
 
 The independently reviewed literal assembler callable now consumes the same
 source bytes. Its counters, final chain, text bytes and rodata bytes must

@@ -82,6 +82,10 @@ class Context:
                     'changed native ingress source: '+str(path))
             checked.add(str(path))
         self.ingress = runpy.run_path(str(ingress_packet/'derive.py'))
+        selected_host = (roots['plugin']/'auto-host.h').read_text()
+        require(re.search(r'^#define GATHER_STATISTICS 0$', selected_host, re.M) and
+                re.search(r'^#define CHECKING_P 0$', selected_host, re.M),
+                'selected unshare set statistics/checking configuration')
         self.source_files_verified = len(checked)
         # These are retained evidence inputs, not a newly observed prefix.
         self.prefix = read(NATIVE/'native-gcc-prefix-witness.json')
@@ -658,6 +662,34 @@ def native_gimplifier_selected_helpers(c, n):
         source_argument='docs/research/retained-literal-pipeline.md#selected-gimplifier-helpers-and-the-ingress-obstruction')
 
 
+def native_unshare_protected_set_storage(ingress):
+    """Ordinary backing/control lifetime; uses the reviewed C+1 set population."""
+    c = ingress['source_input']['calls']
+    protected = ingress['protected_set']
+    require(protected['distinct_entries_upper']==c+1 and
+            protected['backing_requests_upper']==c+2 and
+            protected['object_requests_upper']==1 and
+            protected['initial_slots']==13 and protected['slot_bytes']==8 and
+            protected['deletions']==0,
+            'literal unshare protected-set storage interface')
+    p = protected['maximum_backing_slots_upper']
+    fits = (p is not None and 2*p-3<=2**32-1 and
+            max(8*p,4*(c+1),3*p,2*(c+1))<=I64)
+    return dict(
+        source_input=dict(calls=c,distinct_protected_entries_upper=c+1),
+        object_requests_upper=1,object_request_bytes_upper=64,
+        backing_requests_upper=c+2,
+        maximum_backing_slots_upper=p,
+        maximum_backing_request_bytes_upper=None if p is None else 8*p,
+        destruction_additional_allocation_requests=0,
+        memory_statistics_registration_and_update_requests=0,
+        search_collision_counters='unsigned observational; not allocation indexes',
+        allocation_domain='ordinary; external allocator internals retain existing trust',
+        additional_GGC_request_events_upper=0,
+        conditional_protected_set_storage_closed=fits,
+        complete_gimplifier_lifetime_closed=False)
+
+
 def evaluate(descriptor_path, context, source_override=None):
     descriptor_path = Path(descriptor_path).resolve()
     descriptor = read(descriptor_path)
@@ -725,7 +757,7 @@ def evaluate(descriptor_path, context, source_override=None):
             ingress['selected_helper_subtotal_GGC_events_upper']==gimplifier_helpers['selected_site_GGC_request_events_upper']+
                 ingress['materialization_data_address_delta']['tree_requests_upper'],
             'literal native ingress/direct/helper interface join')
-    protected_slots=ingress['protected_set']['maximum_backing_slots_upper']
+    protected_storage=native_unshare_protected_set_storage(ingress)
     why = context.why['compose'](why_counts,context.schema,context.fixed_counts,context.fixed_modules,p)
     selected_why = context.specialization['evaluate'](raw,context.specialization_context,path_bytes=p)
     require(selected_why['source_counts'] == counts and
@@ -811,8 +843,8 @@ def evaluate(descriptor_path, context, source_override=None):
         native_initial_SSA_lifetime=initial_ssa['conditional_initial_SSA_lifetime_closed'],
         native_initial_CF_CFG_lifetime=initial_cf_cfg['conditional_initial_CF_CFG_lifetime_closed'],
         native_whole_body_copy_local_interface=(counts['maximum_literal_length']<=ingress['source_input']['each_literal_length_max'] and
-            ingress['conditional_whole_body_ingress_closed'] and protected_slots is not None and
-            2*protected_slots-3<=2**32-1 and 8*protected_slots<=I64),
+            ingress['conditional_whole_body_ingress_closed'] and
+            protected_storage['conditional_protected_set_storage_closed']),
         Main_assembler_object_interface=assembler['local_interface_fits'],
         Main_GAS_BFD_storage=assembler_storage['storage']['selected_GAS_BFD_storage_fits'],
         literal_output_linker_representation=linker['selected_literal_assembler_and_linker_representation_fits'],
@@ -837,7 +869,7 @@ def evaluate(descriptor_path, context, source_override=None):
                              direct_gimplifier_GGC_events_upper=initial_cf_cfg['direct_gimplifier_interface']['direct_site_GGC_request_events_upper'],
                              whole_body_copy_GGC_events_upper=ingress['whole_body_GGC_request_events_upper'],
                              selected_gimplifier_helper_GGC_events_upper=ingress['selected_helper_subtotal_GGC_events_upper']),
-            'missing':'Original frontend/gigi construction, post-gigi warning-map backing and remaining helper lifetimes. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Protected-set object/allocator bookkeeping, remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
+            'missing':'Original frontend/gigi construction, post-gigi warning-map backing and remaining helper lifetimes. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
                              ELF_interface=assembler['ELF'],
@@ -869,6 +901,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_initial_CF_CFG_lifetime=initial_cf_cfg,
         native_gimplifier_selected_helpers=gimplifier_helpers,
         native_gimplifier_ingress=ingress,
+        native_unshare_protected_set_storage=protected_storage,
         Main_assembler_object_interface=assembler,
         Main_GAS_BFD_storage=assembler_storage['storage'],
         literal_output_linker=linker,linker_path_bytes_including_NUL_upper=p+1,

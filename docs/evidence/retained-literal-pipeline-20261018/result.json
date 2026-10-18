@@ -1462,6 +1462,24 @@
     "whole_pipeline_capacity_established": false,
     "production_admission_changed": false
   },
+  "native_unshare_protected_set_storage": {
+    "source_input": {
+      "calls": 1,
+      "distinct_protected_entries_upper": 2
+    },
+    "object_requests_upper": 1,
+    "object_request_bytes_upper": 64,
+    "backing_requests_upper": 3,
+    "maximum_backing_slots_upper": 13,
+    "maximum_backing_request_bytes_upper": 104,
+    "destruction_additional_allocation_requests": 0,
+    "memory_statistics_registration_and_update_requests": 0,
+    "search_collision_counters": "unsigned observational; not allocation indexes",
+    "allocation_domain": "ordinary; external allocator internals retain existing trust",
+    "additional_GGC_request_events_upper": 0,
+    "conditional_protected_set_storage_closed": true,
+    "complete_gimplifier_lifetime_closed": false
+  },
   "Main_assembler_object_interface": {
     "counts": {
       "calls": 1,
@@ -3142,7 +3160,7 @@
         "whole_body_copy_GGC_events_upper": 36,
         "selected_gimplifier_helper_GGC_events_upper": 8
       },
-      "missing": "Original frontend/gigi construction, post-gigi warning-map backing and remaining helper lifetimes. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Protected-set object/allocator bookkeeping, remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused."
+      "missing": "Original frontend/gigi construction, post-gigi warning-map backing and remaining helper lifetimes. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused."
     },
     "Main_assembler_and_object": {
       "available": {

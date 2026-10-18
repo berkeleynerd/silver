@@ -1,5 +1,5 @@
 {
-  "case_count": 67,
+  "case_count": 72,
   "cases": [
     {
       "case": "retained",
@@ -129,6 +129,26 @@
     {
       "case": "native_ingress_direct_subtotal_mismatch",
       "rejected": "literal native ingress/direct/helper interface join"
+    },
+    {
+      "case": "protected_set_probe_boundary_1073741822",
+      "fits": true
+    },
+    {
+      "case": "protected_set_probe_boundary_1073741823",
+      "fits": false
+    },
+    {
+      "case": "protected_set_probe_boundary_2147483646",
+      "fits": false
+    },
+    {
+      "case": "protected_set_mismatch_distinct_entries_upper",
+      "rejected": "literal unshare protected-set storage interface"
+    },
+    {
+      "case": "protected_set_mismatch_backing_requests_upper",
+      "rejected": "literal unshare protected-set storage interface"
     },
     {
       "case": "VT_rejected",

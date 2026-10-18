@@ -1083,12 +1083,51 @@ warning-copy calls and helper subtotal. It checks all 28 pinned source files,
 including the separately retained `match.pd`. It also checks each literal
 length against INT_MAX. The protected-set prime must exist, its probe
 intermediate `2p-3` must fit UINT_MAX, and its `8p` backing request must fit the
-selected signed-size domain. Prime existence alone is insufficient. The set
-object and allocator bookkeeping remain open and separate from the GGC sum.
+selected signed-size domain. Prime existence alone is insufficient. The ordinary
+set control/backing lifetime is supplied by the following separate join.
 
 Original frontend/gigi construction, incoming warning-map backing, other
 helper lifetimes, global counter and collector joins remain unestablished.
 The aggregate retains every complete-lifetime/capacity flag as false.
+
+### Protected unshare set: control object and ordinary allocator interface
+
+`native_unshare_protected_set_storage` completes this local ordinary container
+interface using the accepted population/backing transfer. The source pins
+already cover `gimplify.cc`, `hash-set.h`, `hash-table.h`, `hash-traits.h` and
+the selected `auto-host.h`; the aggregate explicitly requires the recorded
+`GATHER_STATISTICS=0` and `CHECKING_P=0` configuration.
+
+`unshare_body` creates one nonlazy ordinary `hash_set<tree>`, destroys it after
+its three root traversals, and has no nested-function recursion in this shell
+(`gimplify.cc:1027–1050`). The set contains only its `hash_table` member
+(`hash-set.h:144–154`). With checking and statistics disabled, that table has
+one pointer, three size_t fields, three unsigned integers and two booleans
+(`hash-table.h:591–631`). Under the retained LP64 layout this is 48 bytes;
+a **64-byte object-request upper bound** includes tail padding conservatively.
+There is no vtable or inherited object payload.
+
+The constructor and expansions dispatch through `xcallocator<tree>::data_alloc`
+to `xcalloc(count,sizeof(tree))`; destruction frees the ordinary backing
+(`hash-table.h:262–285,646–675,727–777,833–895`). Registration/update callbacks
+are gated off by the checked statistics setting. Pointer entry removal is
+`ggc_remove<T*>::remove`, an empty function, and moving/destroying a pointer
+allocates nothing (`hash-traits.h:251–254,321,469`). There is no `empty()` call
+before this local set is deleted, so no terminal-empty replacement request.
+C++ new/delete and libc allocation internals retain the existing external
+allocator trust boundary; this join accounts for all selected GCC requests,
+without inventing a proof obligation for external allocator internals.
+
+The accepted no-deletion population C+1 gives at most C+2 backing requests,
+including initialization, each at most 8p bytes. The predicate checks that the
+prime exists, `2p-3` fits unsigned32, and `8p`, `3p`, `4(C+1)` and `2(C+1)`
+fit the selected signed-size domain. This covers lookup/growth products and
+pointer differences. Search/collision fields are unsigned observational
+statistics rather than capacity indexes; their defined wrap needs no new cap.
+There are **zero additional GGC events**. Ordinary requests are returned
+separately, and no sum of allocation requests becomes a RAM admission gate.
+The frozen ingress packet retains its historical open bookkeeping flag; this
+new aggregate interface closes that specific obligation without rewriting it.
 
 ## Accepted linker and Main ALI interfaces
 
@@ -1340,3 +1379,12 @@ passes in 2.876774008 seconds on Linux x86-64. The additional mismatch case
 rejects divergence in the direct subtotal; existing source variants check the
 new W, whole-body, address-copy and subtotal interfaces. This is offline
 validation with zero new native executions. Full capacity remains false.
+
+### Protected-set closure validation
+
+The following local control/backing closure passes all 72 aggregate offline
+cases in 3.387878811 seconds; default generation takes 3.014706657 seconds.
+The added cases cover the last-safe-prime transition, prime exhaustion and
+mismatched population/request interfaces. Existing source cases check the
+ordinary object/backing fields and zero added GGC events. No native execution
+was needed. Complete gimplifier and whole-pipeline capacity remain open.
