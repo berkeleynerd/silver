@@ -23,7 +23,8 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 177 interface checks. It reuses one context's
+arguments and `--output`, and runs 253 interface checks, recorded in
+`check-results.json`. It reuses one context's
 successful retained checks across source variations. `--gcc-match FILE` selects
 the pinned `match.pd`; by default its retained source-manifest path is used.
 
@@ -56,7 +57,7 @@ earlier exclusion of additional imported helper bodies: Main's literal extents
 do not discharge Standard.String's placeholder-derived layout. The numerical
 pool and graph transfers expose `conditional_arithmetic_fits`. The reviewed
 counter/emission attachment now closes the graph's selected registration/pass
-frontier and restores its local condition. Pool, complete assembly, GAS storage
+frontier and restores its local condition. Complete assembly, GAS storage
 and link conditions remain `null`, each with its exact residual below. They
 appear in `unresolved_predicates`, never as failed capacity checks. Raw
 arithmetic remains in `conditional_conditions`; `evaluated_predicates_pass`
@@ -70,7 +71,8 @@ includes both helpers. Their two cgraph-node requests are charged below.
 Source identities and the exact fixed interface are joined; six new rejection
 cases prevent silent removal of these costs or promotion of unknown allocation
 totals to zero. The later counter attachment reassesses all five conditions
-individually and restores only the graph condition.
+individually and restores the graph condition. The original-storage attachment
+below additionally restores the local tree-pool condition.
 
 `native_graph_lifetime` adds the direct-call edge/summary lifecycle, ordinary
 IPA backing, signed-size and edge-ID checks, seven fixed symbol constructor
@@ -132,7 +134,7 @@ the terminal NUL (`P+1`); ALI path bytes are spelling-only (`P`). The returned
 `literal_output_linker` and `Main_ALI_interface` preserve their full conditional
 results. Hello and the 8192-byte literal pass the conditional arithmetic;
 5000 calls fail only the linker's conservative signed-relocation sufficient
-bound. All retain the four unknown source-family conditions above. This is not
+bound. All retain the three unknown source-family conditions above. This is not
 an observed native failure or adopted cap.
 ALI parser/graph/driver and complete launch joins remain open.
 
@@ -191,8 +193,8 @@ against the existing assembler callable.
 `native_unit_frontier.source_family_condition_assessments` records all five
 decisions. The graph/summary slice's missing symbol inventory and ordinary
 lowering/IPA frontier are established, so its arithmetic is evaluated. The
-pool condition still needs complete imported tree-pool entry/lookup/replacement
-lifetime. Assembly/object still needs complete final-RTL/data-to-whole-stream,
+pool condition also evaluates after the original-storage attachment below
+joins the reviewed zero-demand interfaces. Assembly/object still needs complete final-RTL/data-to-whole-stream,
 global label endpoints and production materialization; GAS/BFD and linker
 inherit the complete stream/object and invocation gaps. Zero helper emission
 never supplies zero pool allocation. Original allocation totals remain null;
@@ -248,12 +250,14 @@ remain counter demands. Private-name fnno starts at zero and next becomes two;
 incoming global DECL/type counters remain null with required maxima exposed.
 Six insertion-capable identifier lookups/four possible entries and two
 insertion-capable type-cache lookups/two possible records remain shared demands;
-complete backing is null. Broader String/Main/elaboration construction,
-imported allocation totals, complete global counters, collector and whole
-capacity retain their open/false/null status. The four unknown conditions and
-null's unused 40,098-event lifetime are preserved.
+complete backing is null. At that helper-only checkpoint, broader
+String/Main/elaboration construction and four source-family conditions were
+still open. The following attachment supplies their direct request interfaces
+and the local pool premise. Imported allocation totals, complete global
+counters, collector and whole capacity retain their open/false/null status;
+null's 40,098-event lifetime remains unused.
 
-The affected aggregate passes 177 cases in 4.927832739998848 seconds; Hello
+That helper-only aggregate passed 177 cases in 4.927832739998848 seconds; Hello
 generation takes 3.6048516829996515 seconds. Thirty new cases cover omitted
 copies/substitutions, altered request/counter/shared demand, premature closure,
 exact manifest and stale-source rejection, both name-arithmetic endpoints,
@@ -270,12 +274,57 @@ subthread owns no GitHub, publication or CLI-memory updates.
 The direct-file count includes repository inputs as well as external sources.
 Finding [#134](https://github.com/berkeleynerd/silver/issues/134) corrects the
 former `external_source_files_verified` label to `direct_files_verified`. The
-current 304-file population is 301 external source/header files plus three
+earlier 304-file population was 301 external source/header files plus three
 repository inputs; the preceding 300-file population was 297 plus the same
 three. These overlap the separately reported repository pins and nested
 inventories and must not be added as disjoint populations. Hash checks and
-capacity formulas are unchanged; the 177-case success remains applicable.
+capacity formulas were unchanged by the label correction; its 177-case success
+remains historical evidence.
 The corrected result was regenerated in 3.192697962s. Its values match the
 frozen result after normalizing workspace/run attribution and renaming the
 count key; the 177-case suite was not repeated. The preceding timing describes
 the original attachment run.
+
+The reviewed original-storage attachment now joins cold String residual216,
+original Main and fixed context I<=114. It pins their complete evidence packets,
+source inventories, arguments and accepted reviews, preserving frozen leaves.
+String216 plus the existing helper94 appears once as a 310-request direct
+slice; synthetic173 remains separate. The corrected 128-bit INTEGER_CST
+explanation allows three extended storage words within the unchanged 40-byte
+caller ceiling. Main receives the complete recognizer's decoded lengths,
+C/N, D=(Put>0)+(Put_Line>0), and exact V equality with the frontend interface.
+The source-bound context contributes 114 requests, 3,648 caller/rounded bytes
+and 114 cache pushes; the Main direct count is 609C+24N+54D+284+114.
+
+Every identifier/type/integer, vector, Uint and finalizer demand remains
+exported. Shared backing, incoming global counters, complete imported
+allocation and collector capacity remain unknown. The historical null helper,
+structural and name charges are not added. The
+[source/disjointness review](../../reviews/review-original-native-storage-round9.md)
+and [context review](../../reviews/review-literal-context-visits-684ec8ab64.md)
+establish zero additional imported tree-pool demand for these intervals,
+independently of I. The local pool condition now evaluates, preserving the
+39,257-entry incoming bound, Main's 2C entries/3C lookups, replacement requests
+and existing local arithmetic. Only assembly/object, GAS/BFD and linker
+source-family conditions remain unknown. Whole-pipeline capacity stays false.
+
+The affected 253-case check passed in 4.939249 seconds on Linux x86-64;
+default generation took 3.113589 seconds. The run verified 175 repository
+input pins and 2,627 distinct current files. The Main leaf's 46-file inventory
+contains 45 current files and one historical aggregate note checked at its
+recorded `ac18b35314` revision; that historical file is excluded from the current
+file count. String's 34 files and the context's 2,320 files overlap the current
+inventory. These populations are not additive. A first attempt stopped at the
+historical note because the inherited join read its evolving current version;
+the corrected join and an explicit historical-mismatch regression preserve
+the frozen leaf. Existing successful leaf checks were reused.
+
+Selected settings were GPT-6.1 Sol / Extra High for the initial worker, then
+GPT-6 Astra / Extra High after the first worker reported model capacity
+unavailable. Its edits were preserved. Runtime confirmation and token/cost
+measurements are unavailable; no model-quality comparison follows from that
+service failure or the source-join repair. The successful affected check ran
+22:13:29–22:13:34 UTC and generation 22:13:41–22:13:45 UTC. Total-round timing
+was not captured. Compiler, prover, debugger, solver, build and full-suite
+executions are zero. Independent review of this aggregate attachment remains
+the parent's next step.

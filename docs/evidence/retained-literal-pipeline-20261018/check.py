@@ -49,6 +49,8 @@ def main():
             ('case_CRLF',original.upper().replace(b'\n',b'\r\n'),1,0,13),
             ('equal_literals_are_distinct',shell+b'Silver_IO.Put ("x");\nnull;\nSilver_IO.Put_Line ("x");'+tail,2,1,2),
             ('quotes_empty_and_comment',shell+b'-- Silver_IO.Put ("ignored");\nSilver_IO.Put ("a""b"); Silver_IO.Put_Line ("");'+tail,2,0,3),
+            ('literal_keyword_is_not_procedure',shell+b'Silver_IO.Put ("Put_Line"); null; Silver_IO.Put ("a""b"); null;'+tail,2,2,11),
+            ('literal_scratch_boundary',shell+b'Silver_IO.Put ("'+b'a'*999+b'"); null; Silver_IO.Put_Line ("'+b'b'*1000+b'"); Silver_IO.Put ("");'+tail,3,1,1999),
             ('comments_above_old_cap',b'-- ordinary comment\n'*300+original,1,0,13),
             ('literal_above_old_cap',shell+b'Silver_IO.Put ("'+b'a'*8192+b'");'+tail,1,0,8192),
             ('5000_calls',shell+b'Silver_IO.Put ("x");\n'*5000+tail,5000,0,5000),
@@ -111,6 +113,66 @@ def main():
             assert not original_helper['complete_collector_lifetime_closed']
             assert not original_helper['whole_literal_pipeline_capacity_established']
             assert result['native_original_helper_source_validation']['complete_source_files_verified']==27
+            original_string=result['native_original_String_storage']
+            original_main=result['native_original_Main_storage']
+            assert original_string['interface']==context.original_string_expected
+            assert original_string['helper94_additions']==1
+            assert original_string['synthetic173_additions']==original_string['null_helper11_additions']==0
+            assert original_string['cold_String_including_helpers']==dict(GGC_events=310,
+                GGC_caller_bytes=13149+6832+2*local_p,
+                GGC_separately_rounded_bytes=17112+7912+2*context.original_helper['rho'](local_p+33),
+                ordinary_requests=5,ordinary_caller_bytes=272)
+            assert original_string['corrected_integer_constant_storage']==dict(
+                precision_bits=128,value_words=2,extended_words=3,typed_prefix_bytes=16,caller_bytes=40)
+            assert original_string['identity_demands']==dict(DECL_UID=13,type_UID=10,alias_ID=1)
+            assert original_string['shared_container_demands']==dict(identifier_lookups=11,
+                identifier_new_entries=11,identifier_character_bytes=93,global_decls_pushes=5,
+                alias_sets_pushes_envelope=2,large_integer_insertion_capable_lookups_envelope=129,
+                large_integer_new_entries_envelope=129,small_integer_cache_writes_envelope=129,
+                new_integer_cache_vectors=0,type_hash_insertion_capable_lookups=0,finalizers=0)
+            d=int(counts['Put']>0)+int(counts['Put_Line']>0)
+            lengths=counts['decoded_literal_lengths']
+            main_leaf=original_main['interface']
+            assert main_leaf['inputs']==dict(C=c,N=n,D=d,lengths=lengths,I=114)
+            assert main_leaf['derived']['V']==frontend['gigi_source_interface']['Main_source_syntax_visit_bound']
+            assert main_leaf['conditional_direct_totals']['GGC_events']==609*c+24*n+54*d+284+114
+            assert all(main_leaf['conditional_direct_totals'][key]==
+                value['constant']+114*value['I_coefficient']
+                for key,value in main_leaf['symbolic_direct_totals'].items())
+            assert main_leaf['ordinary_literal_scratch']==dict(requests=sum(x>=1000 for x in lengths),
+                caller_bytes=sum(x for x in lengths if x>=1000),
+                largest_alloca_bytes=max((x for x in lengths if x<1000),default=0))
+            assert original_main['shared_container_demands']==dict(identifier_lookups=c+4*d+5,
+                type_hash_lookups=2*(d+1),integer_hash_lookups=164*c+16*d+8,global_decls_pushes=d+3,
+                stmt_list_cache_pushes=dict(constant=151+167*c+12*n,I_coefficient=1),
+                alias_sets_pushes=2,scalar_finalizer_vector_pushes=1,
+                Uint_entries=2*c,Udigits_words=10*c,UI_Ints_wrapper_calls=2*c)
+            assert original_main['identity_demands']==dict(DECL_UID=2*c+n+3*d+5,
+                type_UID=6*c+5*d+3,alias_ID=1,function_definition_numbers=0,
+                helper_name_fnno=0,annotation_var_count=0)
+            assert original_main['evaluated_stmt_list_cache_pushes_upper']==151+167*c+12*n+114
+            assert original_main['fixed_context_I']==114 and original_main['fixed_context_I_source_bound_established']
+            assert original_main['fixed_context_interface']==context.context_visits_expected['context_input']
+            assert original_main['helper94_additions']==original_main['synthetic173_additions']==0
+            assert original_main['null_helper11_additions']==0
+            assert original_main['historical_null_structural_and_name_packets_additions']==0
+            assert main_leaf['original_tree_constant_pool_demands']['independent_review_pending']
+            assert original_main['fixed_context_interface']['independent_review_pending']
+            for attached in (original_string,original_main):
+                assert attached['shared_container_backing'] is None
+                assert attached['incoming_global_counters'] is None
+                assert attached['complete_imported_allocation_events'] is None
+                assert attached['complete_imported_allocation_bytes'] is None
+                assert not attached['complete_global_counter_lifetime_closed']
+                assert not attached['complete_collector_lifetime_closed']
+                assert not attached['whole_literal_pipeline_capacity_established']
+            assert result['native_original_storage_source_validation']['fixed_context']['complete_files_verified']==2320
+            assert result['native_original_storage_source_validation']['String']['complete_files_verified']==34
+            assert result['native_original_storage_source_validation']['Main']['complete_files_verified']==46
+            assert result['native_original_storage_source_validation']['Main']['direct_files_verified']==45
+            assert result['native_original_storage_source_validation']['Main']['historical_repository_files_verified']==1
+            assert result['native_original_storage_source_validation']['String']['direct_files_verified']==34
+            assert result['native_original_storage_source_validation']['String']['historical_repository_files_verified']==0
             synthetic=result['native_synthetic_function_storage']
             assert synthetic['function_structure_calls']==3
             assert synthetic['initial_helper_gimplifications']==2
@@ -139,7 +201,13 @@ def main():
             assert pools['bounds_lifecycle']['initializer_outgoing_references']==0
             assert pools['additional_GGC_request_events_upper']==5*c+7
             assert pools['conditional_arithmetic_fits']
-            assert not pools['named_consumer_closed']
+            assert pools['named_consumer_closed']
+            assert pools['selected_imported_tree_pool_frontier_established']
+            assert result['conditions']['native_varpool_and_shared_tree_pool']
+            assert pools['imported_tree_pool_demands']==dict(original_Main_context_profiles=0,
+                cold_String_residual216=0,original_helpers94=0,synthetic173=0,
+                implicit_with_visits_independent=True,
+                source_review='docs/reviews/review-original-native-storage-round9.md')
             assert not pools['imported_constructor_frontier_established']
             assert 'native_varpool_and_shared_tree_pool' not in result['open_joins']
             graph=result['native_graph_lifetime']
@@ -295,7 +363,6 @@ def main():
             assert not result['evaluated_predicates_pass']
             assert result['failed_predicates']==[]
             assert set(result['unresolved_predicates'])=={
-                'native_varpool_and_shared_tree_pool',
                 'Main_assembler_object_interface','Main_GAS_BFD_storage',
                 'literal_output_linker_representation'}
             frontier=result['native_unit_frontier']
@@ -321,7 +388,8 @@ def main():
             assessments=frontier['source_family_condition_assessments']
             assert len(assessments)==5
             assert {key for key,row in assessments.items() if row['source_family_premises_closed']}=={
-                'native_graph_and_summary_lifetime'}
+                'native_varpool_and_shared_tree_pool','native_graph_and_summary_lifetime'}
+            assert assessments['native_varpool_and_shared_tree_pool']['residual'] is None
             assert assessments['native_graph_and_summary_lifetime']['residual'] is None
             assert all(assessments[key]['residual'] for key in result['unresolved_predicates'])
             assert linker['link']['failed_sufficient_checks']==(
@@ -564,6 +632,161 @@ def main():
             rows.append(dict(case='original_helper_complete_source_mismatch',rejected=str(error)))
         else:
             raise AssertionError('accepted stale original helper source')
+
+        # Challenge the new direct-request interfaces without replaying leaves.
+        def altered(result,path,value):
+            changed=result
+            for key in path[:-1]:
+                changed=changed[key]
+            changed[path[-1]]=value
+            return result
+
+        def rejects(name,operation,message):
+            try:
+                operation()
+            except ValueError as error:
+                assert str(error)==message,(name,str(error))
+                rows.append(dict(case=name,rejected=str(error)))
+            else:
+                raise AssertionError('accepted altered original storage interface: '+name)
+
+        string_evaluate=context.original_string['evaluate']
+        for field,value in (
+            ('GGC_events',310),('identifier_lookups',0),('identifier_new_entries',0),
+            ('identifier_character_bytes',0),('global_decls_pushes',0),
+            ('alias_sets_pushes_envelope',0),('large_integer_insertion_capable_lookups_envelope',0),
+            ('large_integer_new_entries_envelope',0),('small_integer_cache_writes_envelope',0),
+            ('helper_94_included',True),('synthetic_173_included',True),('Main_null_helper_11_included',True),
+            ('tree_pool_entries',1),('tree_pool_insertion_capable_lookups',1),
+            ('tree_pool_replacement_objects',1),('shared_table_backing_included',True),
+            ('complete_imported_frontend',True),('complete_global_containers',True),
+            ('complete_collector',True),('complete_whole_pipeline',True)):
+            context.original_string['evaluate']=lambda: altered(string_evaluate(),(field,),value)
+            try:
+                rejects('original_String_'+field,lambda:evaluate(original),
+                    'literal original String residual storage interface join')
+            finally:
+                context.original_string['evaluate']=string_evaluate
+        audit=context.original_string_audit
+        context.original_string_audit=copy.deepcopy(audit)
+        context.original_string_audit['constant_extended_words_ceiling']=2
+        try:
+            rejects('original_String_extension_word_regression',lambda:evaluate(original),
+                'literal original String residual storage interface join')
+        finally:
+            context.original_string_audit=audit
+
+        main_evaluate=context.original_main['evaluate']
+        mixed=variants[3][1]
+        for name,path,value in (
+            ('calls',('inputs','C'),1),('nulls',('inputs','N'),1),
+            ('procedures',('inputs','D'),1),('decoded_lengths',('inputs','lengths'),[2,1]),
+            ('context_I',('inputs','I'),0),('syntax_V',('derived','V'),0),
+            ('identifier',('shared_demands','identifier_lookups'),0),
+            ('type',('shared_demands','type_hash_lookups'),0),
+            ('integer',('shared_demands','integer_hash_lookups'),0),
+            ('global_decls',('shared_demands','global_decls_pushes'),0),
+            ('statement_cache_I',('shared_demands','stmt_list_cache_pushes','I_coefficient'),0),
+            ('alias_sets',('shared_demands','alias_sets_pushes'),0),
+            ('namespace_finalizer',('shared_demands','scalar_finalizer_vector_pushes'),0),
+            ('Uint',('shared_demands','Uint_entries'),0),
+            ('Udigits',('shared_demands','Udigits_words'),0),
+            ('UI_Ints',('shared_demands','UI_Ints_wrapper_calls'),0),
+            ('pool_insertions',('original_tree_constant_pool_demands','insertions'),1),
+            ('pool_lookups',('original_tree_constant_pool_demands','lookups'),1),
+            ('pool_replacements',('original_tree_constant_pool_demands','replacements'),1),
+            ('pool_depends_on_I',('original_tree_constant_pool_demands','independent_of_unsupplied_I'),False),
+            ('duplicate_intervals',('exclusions',),[]),
+            ('caller_I',('symbolic_direct_totals','caller_bytes','I_coefficient'),0),
+            ('concrete_events',('conditional_direct_totals','GGC_events'),0),
+            ('premature_original_closure',('complete_original_gigi_storage_closed',),True),
+            ('premature_whole_closure',('whole_toolchain_capacity_established',),True)):
+            def mismatched_main(lengths,*args,**kwargs):
+                result=main_evaluate(lengths,*args,**kwargs)
+                return altered(result,path,value) if len(lengths)==2 else result
+            context.original_main['evaluate']=mismatched_main
+            try:
+                rejects('original_Main_'+name,lambda:evaluate(mixed),
+                    'literal original Main storage interface join')
+            finally:
+                context.original_main['evaluate']=main_evaluate
+        context_evaluate=context.context_visits['evaluate']
+        for field,value in (
+            ('I_upper_bound',113),('runtime_implicit_with_visits',35),
+            ('new_elaboration_implicit_with_visits',38),('old_elaboration_implicit_with_visits',38),
+            ('additional_statement_list_GGC_requests',0),('additional_caller_bytes',0),
+            ('additional_rounded_slot_bytes',0),('additional_stmt_list_cache_pushes',0),
+            ('pool_demands',dict(insertions=0,lookups=1,replacements=0)),
+            ('complete_frontend_storage_closed',True),('complete_original_gigi_storage_closed',True),
+            ('whole_toolchain_capacity_established',True)):
+            context.context_visits['evaluate']=lambda: altered(context_evaluate(),(field,),value)
+            try:
+                rejects('original_Main_fixed_context_'+field,lambda:evaluate(original),
+                    'literal fixed Main context visits interface join')
+            finally:
+                context.context_visits['evaluate']=context_evaluate
+
+        for label,directory,manifest_name in (
+            ('String','retained-literal-string-layout-storage-20261018','source-manifest.json'),
+            ('Main','retained-literal-original-main-storage-20261018','inputs.json')):
+            frozen_manifest=module.read(module.EVIDENCE/directory/manifest_name)
+            for change in ('missing_file','changed_hash','changed_revision'):
+                manifest=copy.deepcopy(frozen_manifest)
+                if change=='missing_file':
+                    manifest['files'].pop()
+                elif change=='changed_hash':
+                    manifest['files'][0]['sha256']='0'*64
+                else:
+                    manifest['commit' if label=='String' else 'gcc_commit']='unreviewed'
+                rejects('original_'+label+'_manifest_'+change,
+                    lambda:module.verify_original_storage_sources(manifest,label,
+                        args.gcc_root,args.ada_root,args.gcc_match),
+                    'literal original '+label+' exact source-manifest join')
+            first=next(row for row in frozen_manifest['files'] if row['root']=='gcc')
+            fake_gcc=root/('fake-'+label+'-gcc')
+            bad_source=fake_gcc/first['path']
+            bad_source.parent.mkdir(parents=True)
+            bad_source.write_bytes(b'changed source\n')
+            rejects('original_'+label+'_complete_source_mismatch',
+                lambda:module.verify_original_storage_sources(frozen_manifest,label,
+                    fake_gcc,args.ada_root,args.gcc_match),
+                'literal original '+label+' complete source join: '+first['path'])
+        historical_read=module.read_historical_repository_file
+        module.read_historical_repository_file=lambda revision,path:b'changed historical note\n'
+        try:
+            rejects('original_Main_historical_note_mismatch',
+                lambda:module.verify_original_storage_sources(frozen_manifest,'Main',
+                    args.gcc_root,args.ada_root,args.gcc_match),
+                'literal original Main complete source join: docs/research/retained-literal-pipeline.md')
+        finally:
+            module.read_historical_repository_file=historical_read
+        manifest=copy.deepcopy(context.context_visit_manifest)
+        manifest['repository_inputs'].pop()
+        rejects('original_Main_fixed_context_manifest_missing_file',
+            lambda:module.verify_context_visit_sources(manifest,args.ada_root),
+            'literal fixed context exact source-manifest join')
+        original_read=module.read
+        for relative in (
+            'retained-literal-string-layout-storage-20261018/fold-audit.json',
+            'retained-literal-string-layout-storage-20261018/interface.json',
+            'retained-literal-original-main-storage-20261018/derive.py',
+            'retained-literal-original-main-storage-20261018/result.json',
+            'retained-literal-context-visits-20261018/inputs.json',
+            'retained-literal-context-visits-20261018/result.json'):
+            pin_path='docs/evidence/'+relative
+            def changed_pin(path):
+                result=original_read(path)
+                if path==HERE/'inputs.json':
+                    pin=next(row for row in result if row['path']==pin_path)
+                    pin['sha256']='0'*64
+                return result
+            module.read=changed_pin
+            try:
+                rejects('original_storage_repository_pin_'+relative,
+                    lambda:module.Context(args.gcc_root,args.ada_root,args.plugin_include,args.gcc_match),
+                    'changed aggregate input: '+pin_path)
+            finally:
+                module.read=original_read
 
         synthetic_evaluate=context.synthetic['evaluate']
         counter_evaluate=context.counter['evaluate']

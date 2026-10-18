@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 import re
 import runpy
+import subprocess
 import sys
 import tempfile
 import time
@@ -80,6 +81,64 @@ def verify_original_helper_sources(manifest, gcc_root, ada_root, matcher):
                 ==row['git_blob_sha1'],
                 'literal original helper complete source join: '+row['path'])
         checked.add(str(path))
+    return checked
+
+
+def verify_original_storage_sources(manifest, packet, gcc_root, ada_root, matcher):
+    """Bind each complete reviewed String/Main inventory without rewriting it."""
+    name, manifest_name = {
+        'String': ('retained-literal-string-layout-storage-20261018', 'source-manifest.json'),
+        'Main': ('retained-literal-original-main-storage-20261018', 'inputs.json'),
+    }[packet]
+    require(manifest == read(EVIDENCE/name/manifest_name),
+            'literal original '+packet+' exact source-manifest join')
+    checked = set()
+    for row in manifest['files']:
+        # Main's frozen source argument refers to the preceding aggregate note.
+        # This attachment evolves that note; verify its historical bytes without
+        # relabeling a Git object as a currently checked filesystem source.
+        historical=(row['root']=='repository' and
+                    row['path']=='docs/research/retained-literal-pipeline.md')
+        path = (REPO/row['path'] if row['root']=='repository' else
+                Path(ada_root)/row['path'].removeprefix('gcc/ada/') if row['root']=='ada' else
+                Path(matcher) if row['root']=='matcher' else Path(gcc_root)/row['path'])
+        raw = (read_historical_repository_file(manifest['repository_base'],row['path'])
+               if historical else path.read_bytes())
+        require(identity(raw)=={key:row[key] for key in ('bytes','sha256')} and
+                ('git_blob_sha1' not in row or
+                 hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
+                    == row['git_blob_sha1']),
+                'literal original '+packet+' complete source join: '+row['path'])
+        if not historical:
+            checked.add(str(path))
+    return checked
+
+
+def read_historical_repository_file(revision, path):
+    require(re.fullmatch('[0-9a-f]{40}',revision),'historical repository revision')
+    return subprocess.run(['git','show',revision+':'+path],cwd=REPO,
+        check=True,capture_output=True).stdout
+
+
+def verify_context_visit_sources(manifest, ada_root):
+    packet=EVIDENCE/'retained-literal-context-visits-20261018'
+    require(manifest==read(packet/'inputs.json'),
+            'literal fixed context exact source-manifest join')
+    for row in manifest['repository_inputs']:
+        require(identity((REPO/row['path']).read_bytes())==
+                {key:row[key] for key in ('bytes','sha256')},
+                'literal fixed context repository join: '+row['path'])
+    complete=read(EVIDENCE/
+        'unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json')
+    require(complete['commit']==manifest['gcc_commit'],'literal fixed context source revision')
+    checked=set()
+    for row in complete['files']:
+        if row['path'].endswith(('.adb','.ads')) or row['path']=='gcc-interface/trans.cc':
+            path=Path(ada_root)/row['path']
+            require(identity(path.read_bytes())=={key:row[key] for key in ('bytes','sha256')},
+                    'literal fixed context complete source join: '+row['path'])
+            checked.add(str(path))
+    require(len(checked)==2320,'literal fixed context complete source inventory')
     return checked
 
 
@@ -198,6 +257,41 @@ class Context:
             counts_overlap_direct_source_validation=True)
         self.original_helper=runpy.run_path(str(original_packet/'derive.py'))
         self.original_helper_expected=read(original_packet/'interface.json')
+        self.original_storage_source_validation={}
+        for label, directory, manifest_name, output_name in (
+                ('String','retained-literal-string-layout-storage-20261018',
+                 'source-manifest.json','interface.json'),
+                ('Main','retained-literal-original-main-storage-20261018',
+                 'inputs.json','result.json')):
+            packet=EVIDENCE/directory
+            manifest=read(packet/manifest_name)
+            verified=verify_original_storage_sources(
+                manifest,label,roots['gcc'],roots['ada'],match_path)
+            checked.update(verified)
+            self.original_storage_source_validation[label]=dict(
+                source_manifest=identity((packet/manifest_name).read_bytes()),
+                complete_files_verified=len(manifest['files']),
+                direct_files_verified=len(verified),
+                historical_repository_files_verified=len(manifest['files'])-len(verified),
+                historical_repository_revision=manifest.get('repository_base'),
+                gcc_revision=manifest.get('commit',manifest.get('gcc_commit')),
+                historical_repository_identity_fields_preserved=True,
+                counts_overlap_direct_source_validation=True)
+            setattr(self,'original_'+label.lower(),runpy.run_path(str(packet/'derive.py')))
+            setattr(self,'original_'+label.lower()+'_expected',read(packet/output_name))
+        self.original_string_audit=read(EVIDENCE/
+            'retained-literal-string-layout-storage-20261018/fold-audit.json')
+        context_packet=EVIDENCE/'retained-literal-context-visits-20261018'
+        self.context_visit_manifest=read(context_packet/'inputs.json')
+        context_sources=verify_context_visit_sources(self.context_visit_manifest,roots['ada'])
+        checked.update(context_sources)
+        self.context_visits=runpy.run_path(str(context_packet/'derive.py'))
+        self.context_visits_expected=read(context_packet/'result.json')
+        self.original_storage_source_validation['fixed_context']=dict(
+            source_manifest=identity((context_packet/'inputs.json').read_bytes()),
+            complete_files_verified=len(context_sources),
+            historical_repository_identity_fields_preserved=True,
+            counts_overlap_direct_source_validation=True)
         self.source_files_verified = len(checked)
         frontend_packet=EVIDENCE/'retained-literal-native-frontend-20261018'
         self.frontend = runpy.run_path(str(frontend_packet/'compose.py'))
@@ -638,6 +732,172 @@ def native_original_helper_storage(native_main, context, cold, counter):
         complete_global_counter_lifetime_closed=False,
         complete_imported_allocation_events=None,complete_imported_allocation_bytes=None,
         complete_collector_lifetime_closed=False,whole_literal_pipeline_capacity_established=False)
+
+
+def native_original_string_storage(context, helper):
+    """Attach the reviewed residual once, outside both complete helper calls."""
+    leaf=context.original_string['evaluate']()
+    audit=context.original_string_audit
+    require(leaf==context.original_string_expected and
+            leaf['GGC_events']==216 and leaf['GGC_caller_bytes']==13149 and
+            leaf['GGC_separately_rounded_bytes']==17112 and
+            leaf['ordinary_requests']==3 and leaf['ordinary_caller_bytes']==192 and
+            leaf['type_UID_increments']==10 and leaf['decl_UID_increments']==13 and
+            leaf['identifier_lookups']==leaf['identifier_new_entries']==11 and
+            leaf['large_integer_insertion_capable_lookups_envelope']==129 and
+            leaf['complete_cold_String_direct_constructor_transfer'] and
+            not any(leaf[key] for key in (
+                'helper_94_included','synthetic_173_included','Main_null_helper_11_included',
+                'original_Main_and_elaboration_included','per_literal_subtype_and_constructor_included',
+                'shared_table_backing_included','complete_imported_frontend',
+                'complete_global_containers','complete_collector','complete_whole_pipeline')) and
+            audit['constant_precision_ceiling']==128 and
+            audit['constant_value_words_ceiling']==2 and
+            audit['constant_extended_words_ceiling']==3 and
+            audit['constant_typed_prefix_bytes']==16 and
+            audit['constant_factory_caller_bytes_ceiling']==16+3*8==40,
+            'literal original String residual storage interface join')
+    numeric=helper['evaluated_requests']
+    combined=None if numeric is None else dict(
+        GGC_events=leaf['GGC_events']+numeric['GGC_events'],
+        GGC_caller_bytes=leaf['GGC_caller_bytes']+numeric['GGC_caller_bytes_sum_ceiling'],
+        GGC_separately_rounded_bytes=leaf['GGC_separately_rounded_bytes']+
+            numeric['GGC_rounded_slots_sum_ceiling'],
+        ordinary_requests=leaf['ordinary_requests']+helper['ordinary_requests'],
+        ordinary_caller_bytes=leaf['ordinary_caller_bytes']+
+            helper['ordinary_caller_bytes_sum_ceiling'])
+    return dict(interface=leaf,cold_String_including_helpers=combined,
+        helper94_additions=1,synthetic173_additions=0,null_helper11_additions=0,
+        identity_demands=dict(DECL_UID=leaf['decl_UID_increments'],
+            type_UID=leaf['type_UID_increments'],alias_ID=leaf['alias_ID_increments_envelope']),
+        shared_container_demands={key:leaf[key] for key in (
+            'identifier_lookups','identifier_new_entries','identifier_character_bytes',
+            'global_decls_pushes','alias_sets_pushes_envelope',
+            'large_integer_insertion_capable_lookups_envelope','large_integer_new_entries_envelope',
+            'small_integer_cache_writes_envelope','new_integer_cache_vectors',
+            'type_hash_insertion_capable_lookups','finalizers')},
+        corrected_integer_constant_storage=dict(precision_bits=128,value_words=2,
+            extended_words=3,typed_prefix_bytes=16,caller_bytes=40),
+        shared_container_backing=None,incoming_global_counters=None,
+        complete_imported_allocation_events=None,complete_imported_allocation_bytes=None,
+        complete_global_counter_lifetime_closed=False,complete_collector_lifetime_closed=False,
+        whole_literal_pipeline_capacity_established=False)
+
+
+def native_original_main_storage(counts, frontend, context):
+    """Join actual Main literals/procedures to the conditional reviewed ledger."""
+    c,n=counts['output_calls'],counts['null_statements']
+    lengths=counts['decoded_literal_lengths']
+    d=int(counts['Put']>0)+int(counts['Put_Line']>0)
+    # The complete grammar recognizer supplies both procedure populations and
+    # decoded lengths. No additional lexical search interprets literal contents.
+    require(c==len(lengths)==counts['Put']+counts['Put_Line'] and
+            sum(lengths)==counts['decoded_literal_bytes'] and
+            max(lengths)==counts['maximum_literal_length'] and
+            frontend['selected_source']==counts,
+            'literal original Main actual source inputs join')
+    require(context.original_main['evaluate']([13])==context.original_main_expected,
+            'literal original Main frozen output join')
+    fixed=context.context_visits['evaluate']()
+    i=fixed['I_upper_bound']
+    require(fixed==context.context_visits_expected['context_input'] and
+            fixed['runtime_implicit_with_visits']==36 and
+            fixed['new_elaboration_implicit_with_visits']==fixed['old_elaboration_implicit_with_visits']==39 and
+            i==36+39+39==114 and
+            fixed['additional_statement_list_GGC_requests']==fixed['additional_stmt_list_cache_pushes']==i and
+            fixed['additional_caller_bytes']==fixed['additional_rounded_slot_bytes']==32*i and
+            fixed['pool_demands']==dict(insertions=0,lookups=0,replacements=0) and
+            fixed['fixed_context_input_closed_under_selected_premises'] and
+            not any(fixed[key] for key in ('complete_frontend_storage_closed',
+                'complete_original_gigi_storage_closed','whole_toolchain_capacity_established',
+                'production_admission_changed')) and
+            context.original_main['evaluate']([13],implicit_with_visits=i)==
+                context.context_visits_expected['original_Main'],
+            'literal fixed Main context visits interface join')
+    leaf=context.original_main['evaluate'](lengths,n,d,implicit_with_visits=i)
+    v=frontend['gigi_source_interface']['Main_source_syntax_visit_bound']
+    h=2*v+5*c+4*n+5
+    r=164*c+16*d+8
+    k=c+4*d+5
+    exclusions=['cold_Standard_String_conversion','self_referential_size_94',
+        'synthetic_function_and_initial_helper_173','Main_struct_function',
+        'direct_Main_gimplifier_10C_2N_2','Main_ingress_33C_9N_3',
+        'materialization_helpers_8C','pool_10C','cgraph_symbols_dummy',
+        'warning_map','source_locations','shared_backing','collector']
+    rows=leaf['rows']
+    string_rows=[row for row in rows if row['family'].startswith('STRING_CST_')]
+    symbolic=leaf['symbolic_direct_totals']
+    require(set(leaf)==set(context.original_main_expected) and
+            leaf['inputs']==dict(C=c,N=n,D=d,lengths=lengths,I=i) and
+            leaf['derived']==dict(V=v,G=v+c+n+3,A=4*c+3*n+2,
+                H_constant=h,H_I_coefficient=1,R=r,K=k) and v==73+81*c+4*n and
+            leaf['identities']==dict(DECL_UID=2*c+n+3*d+5,type_UID=6*c+5*d+3,
+                alias_ID=1,function_definition_numbers=0,helper_name_fnno=0,annotation_var_count=0) and
+            leaf['shared_demands']==dict(identifier_lookups=k,type_hash_lookups=2*(d+1),
+                integer_hash_lookups=r,global_decls_pushes=d+3,
+                stmt_list_cache_pushes=dict(constant=h,I_coefficient=1),alias_sets_pushes=2,
+                scalar_finalizer_vector_pushes=1,Uint_entries=2*c,Udigits_words=10*c,
+                UI_Ints_wrapper_calls=2*c) and
+            leaf['zero_demands']==['tree_constant_pool','Rep_Table','annotation_cache',
+                                  'deferred_decl_context_entries'] and
+            leaf['original_tree_constant_pool_demands']==dict(insertions=0,lookups=0,replacements=0,
+                independent_of_unsupplied_I=True,excludes_later_Main_gimplification_pool=True,
+                independent_review_pending=True) and
+            leaf['ordinary_literal_scratch']==dict(requests=sum(x>=1000 for x in lengths),
+                caller_bytes=sum(x for x in lengths if x>=1000),
+                largest_alloca_bytes=max((x for x in lengths if x<1000),default=0)) and
+            len(rows)==23+c and len({row['family'] for row in rows})==len(rows) and
+            string_rows==[dict(family='STRING_CST_'+str(i),requests=1,caller_bytes_each=x+21,
+                rounded_slot_bytes_each=context.original_main['rho'](x+21))
+                for i,x in enumerate(lengths)] and
+            all(row['rounded_slot_bytes_each']==context.original_main['rho'](row['caller_bytes_each'])
+                for row in rows) and
+            symbolic==dict(
+                GGC_events=dict(constant=sum(row['requests'] for row in rows),I_coefficient=1),
+                caller_bytes=dict(constant=sum(row['requests']*row['caller_bytes_each'] for row in rows),I_coefficient=32),
+                rounded_slot_bytes=dict(constant=sum(row['requests']*row['rounded_slot_bytes_each'] for row in rows),I_coefficient=32)) and
+            symbolic['GGC_events']['constant']==609*c+24*n+54*d+284 and
+            leaf['exclusions']==exclusions and
+            leaf['conditional_direct_totals']=={key:val['constant']+val['I_coefficient']*i
+                                                for key,val in symbolic.items()} and
+            leaf['fixed_context_input_supplied'] and
+            not any(leaf[key] for key in ('complete_original_gigi_storage_closed','whole_toolchain_capacity_established',
+                'production_admission_changed')),
+            'literal original Main storage interface join')
+    return dict(interface=leaf,
+        source_input_basis='Existing complete source recognizer: D=(Put>0)+(Put_Line>0); individual decoded literal lengths, C and N; V equals the joined Main-only gigi interface.',
+        fixed_context_I=i,fixed_context_I_source_bound_established=True,
+        fixed_context_interface=fixed,
+        fixed_context_source_review='docs/reviews/review-literal-context-visits-684ec8ab64.md',
+        frozen_leaf_review_pending_fields_preserved_as_history=True,
+        evaluated_stmt_list_cache_pushes_upper=h+i,
+        helper94_additions=0,synthetic173_additions=0,null_helper11_additions=0,
+        historical_null_structural_and_name_packets_additions=0,
+        identity_demands=leaf['identities'],shared_container_demands=leaf['shared_demands'],
+        incoming_global_counters=None,shared_container_backing=None,
+        complete_imported_allocation_events=None,complete_imported_allocation_bytes=None,
+        complete_global_counter_lifetime_closed=False,complete_collector_lifetime_closed=False,
+        whole_literal_pipeline_capacity_established=False)
+
+
+def attach_original_tree_pool_frontier(pools, string, main, helper, synthetic):
+    """Apply only the reviewed zero-demand premise, independently of Main I."""
+    cold=string['interface']
+    require(cold['tree_pool_insertion_capable_lookups']==cold['tree_pool_entries']==
+            cold['tree_pool_replacement_objects']==0 and
+            helper['shared_container_demands']['constant_pool_entries']==0 and
+            all(main['interface']['original_tree_constant_pool_demands'][key]==0
+                for key in ('insertions','lookups','replacements')) and
+            main['interface']['original_tree_constant_pool_demands']['independent_of_unsupplied_I'] and
+            synthetic['GGC_events']==173 and not synthetic['original_gigi_predecessor_construction_included'],
+            'literal original imported tree-pool zero-demand join')
+    pools.update(selected_imported_tree_pool_frontier_established=True,
+        imported_tree_pool_demands=dict(original_Main_context_profiles=0,
+            cold_String_residual216=0,original_helpers94=0,synthetic173=0,
+            implicit_with_visits_independent=True,
+            source_review='docs/reviews/review-original-native-storage-round9.md'),
+        required_premise='The exact original Main/context/profile, String216, helper94 and synthetic173 interfaces are joined. The accepted source review establishes zero additional imported tree-pool insertion/lookup/replacement demand, independently of I. Existing 2C entries, 3C insertion-capable lookups and pre-hit replacements remain charged; retained native configuration/source and local no-wrap/probe checks apply.',
+        named_consumer_closed=pools['conditional_arithmetic_fits'])
 
 
 def native_ssa_helper_backing(c, n, context):
@@ -1200,6 +1460,9 @@ def evaluate(descriptor_path, context, source_override=None):
     counter=native_counter_emission(c,n,context,imported,synthetic,pools,graph,assembler)
     original_helper=native_original_helper_storage(launch['native_Main'],context,
         native_cold_string_interface(context),counter)
+    original_string=native_original_string_storage(context,original_helper)
+    original_main=native_original_main_storage(counts,frontend,context)
+    attach_original_tree_pool_frontier(pools,original_string,original_main,original_helper,synthetic)
     # The descriptor bounds path spelling bytes; storage includes the terminal NUL.
     assembler_storage = context.assembler_storage['evaluate'](
         raw,context.assembler_storage_context,path_bytes=p+1)
@@ -1268,13 +1531,14 @@ def evaluate(descriptor_path, context, source_override=None):
             'universal_rounded_GGC_bytes_bound_subject_to_reviewed_source_projection']
             < context.checksum['first_collection_threshold'])
     # Assess each former #131 condition independently. Counter/name closure
-    # supplies the graph's missing population/pass premises; it does not supply
-    # complete tree-pool lifetime, whole-stream or production launch premises.
+    # supplies the graph's population/pass premises. Reviewed original storage
+    # now supplies the tree-pool premise; whole-stream/launch premises differ.
     conditional_conditions=conditions.copy()
     assessments={
-        'native_varpool_and_shared_tree_pool':dict(source_family_premises_closed=False,
-            closed='C+6 cumulative symbol registrations, next UID C+7 and next order C+6, including both discarded helper holes; empty elaboration registers zero.',
-            residual='Complete imported tree-pool entries, insertion-capable lookups and replacement lifetime, including constant-label endpoint composition. No-emission does not establish no pool allocation.'),
+        'native_varpool_and_shared_tree_pool':dict(source_family_premises_closed=True,
+            closed='C+6 cumulative symbol registrations and the exact joined original Main/context/profile, String216/helper94 and synthetic173 source intervals establish zero additional imported tree-pool demand, independently of I. Accepted 2C entries, 3C insertion-capable lookups, pre-hit replacements, retained prefix D_in=39257 and local counter/probe checks remain charged.',
+            residual=None,
+            scope='Only this varpool/shared-tree-pool delta and local arithmetic. Incoming global identifiers/containers/counters, complete original allocation, whole-stream/invocation and collector composition remain open.'),
         'native_graph_and_summary_lifetime':dict(source_family_premises_closed=True,
             closed='Complete selected registration inventory bounds cumulative graph symbols by C+6. Main alone reaches graph analysis/ordinary lowering/IPA; both helpers are removed without edges or summary IDs. These discharge the graph slice constructor/pass premises.',
             residual=None,
@@ -1301,6 +1565,9 @@ def evaluate(descriptor_path, context, source_override=None):
         cold_String_layout=native_cold_string_interface(context),
         selected_generated_function_frontier=imported,
         original_helper_storage=original_helper,
+        original_String_residual_storage=original_string,
+        original_Main_storage=original_main,
+        selected_imported_tree_pool_frontier_established=True,
         synthetic_function_storage=synthetic,
         selected_counter_emission_interface=counter,
         selected_empty_elaboration_symbol_registration_established=True,
@@ -1312,14 +1579,14 @@ def evaluate(descriptor_path, context, source_override=None):
         complete_imported_allocation_bytes=None,
         source_family_condition_assessments=assessments,
         affected_predicates=list(unit_dependent),
-        missing='The generated-body, selected registration inventory and function/symbol-counter-to-name joins are established, restoring the local graph/summary condition. Complete imported tree-pool lifetime, original imported construction, shared identifier/container backing, global counter no-wrap, whole-stream/invocation correspondence and collector composition remain; absent emission does not erase allocation.',
+        missing='The selected registration/counter-to-name joins and exact original constructor zero-pool interfaces restore the local graph/summary and varpool/tree-pool conditions. Fixed Main context I<=114 supplies the original Main direct-request input. Shared identifier/container backing, incoming global counter no-wrap, remaining allocation, whole-stream/invocation correspondence and collector composition remain open.',
         finding='https://github.com/berkeleynerd/silver/issues/131')
     # These fields deliberately name the actual unclosed consumers. A partial
     # helper count is never substituted for the null family's lifetime total.
     opens = {
         'native_post_prefix_imported_frontier':frontier,
         'native_remaining_lifetime_and_collector': {
-            'next_consumer':'original frontend/gigi constructors and remaining gimplifier helper lifetimes, then remaining pass, shared-pool and GGC collector composition.',
+            'next_consumer':'incoming shared backing/counters, remaining helper/pass lifetimes and GGC collector composition.',
             'available':dict(conditional_graph_scan_count_upper=4,conditional_call_edge_creation_events_upper=4*c,
                              Main_frontend_node_identities_upper=frontend['Main_constructor']['total']['node_identities'],
                              Main_frontend_entity_identities_upper=frontend['Main_constructor']['total']['entity_identities'],
@@ -1340,11 +1607,19 @@ def evaluate(descriptor_path, context, source_override=None):
                              original_helper_GGC_caller_bytes=original_helper['evaluated_requests'],
                              original_helper_identity_demands=original_helper['identity_demands'],
                              original_helper_shared_container_demands=original_helper['shared_container_demands'],
+                             original_String_residual_GGC_events_upper=original_string['interface']['GGC_events'],
+                             original_String_including_helpers=original_string['cold_String_including_helpers'],
+                             original_String_shared_container_demands=original_string['shared_container_demands'],
+                             original_Main_symbolic_direct_totals=original_main['interface']['symbolic_direct_totals'],
+                             original_Main_conditional_direct_totals=original_main['interface']['conditional_direct_totals'],
+                             original_Main_fixed_context_I_upper=original_main['fixed_context_I'],
+                             original_Main_identity_demands=original_main['identity_demands'],
+                             original_Main_shared_container_demands=original_main['shared_container_demands'],
                              synthetic_function_GGC_events_upper=synthetic['GGC_events'],
                              synthetic_function_singleton_finalizers_upper=synthetic['shared_container_demands']['singleton_finalizer_registrations'],
                              collector_callback_additional_GGC_events=collector['collector_callback_additional_GGC_events'],
                              collector_marker_individual_ordinary_request_bytes=104),
-            'missing':'Fixed/configuration/frontend physical and late-heap joins, imported gigi type graph and per-kind/helper construction, and remaining helper lifetimes. Original-gigi R<=5 and initial Main warning-map requests are joined; later warning consumers remain separate. Concrete Main constructor and source-syntax visits are not helper/GGC events. Whole-body metadata ingress, data-address copies and possible call binds are joined; no complete gimplifier sum is supplied. Remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
+            'missing':'Fixed/configuration/frontend physical and late-heap joins, incoming shared-container state and counter endpoints, and remaining helper/pass lifetimes. String216, helper94, original Main conditional requests with fixed I<=114, synthetic173, original-gigi R<=5 and initial Main warning-map requests are joined; shared backing and complete gigi/GGC totals are not supplied. Later warning consumers, remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
                              ELF_interface=assembler['ELF'],
@@ -1386,6 +1661,8 @@ def evaluate(descriptor_path, context, source_override=None):
         native_warning_map_demand=warning,
         native_collector_callbacks=collector,
         native_original_helper_storage=original_helper,
+        native_original_String_storage=original_string,
+        native_original_Main_storage=original_main,
         native_synthetic_function_storage=synthetic,
         native_counter_emission_interface=counter,
         native_Main_frontend_interface=frontend,
@@ -1404,6 +1681,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_collector_nested_inputs_verified=context.collector_context.inputs_verified,
         native_counter_source_validation=context.counter_source_validation,
         native_original_helper_source_validation=context.original_source_validation,
+        native_original_storage_source_validation=context.original_storage_source_validation,
         native_tool_executions=0,production_admission_changed=False,aggregate_RAM_gate=False,
         conditional_premises=['Relevant installed behavior matches the reviewed source.',
             'The selected O0, Linux x86-64, no-debug, small-PIC, ordinary PLT descriptor and unchanged Silver library semantics apply.',

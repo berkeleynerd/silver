@@ -1,5 +1,5 @@
 {
-  "case_count": 177,
+  "case_count": 253,
   "cases": [
     {
       "case": "retained",
@@ -10,7 +10,6 @@
       "conditional_arithmetic_pass": true,
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
-        "native_varpool_and_shared_tree_pool",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -30,7 +29,6 @@
       "conditional_arithmetic_pass": true,
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
-        "native_varpool_and_shared_tree_pool",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -50,7 +48,6 @@
       "conditional_arithmetic_pass": true,
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
-        "native_varpool_and_shared_tree_pool",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -70,7 +67,6 @@
       "conditional_arithmetic_pass": true,
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
-        "native_varpool_and_shared_tree_pool",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -78,6 +74,44 @@
       "failed_conditional_predicates": [],
       "failed_predicates": [],
       "hypothetical_general_Why_JSON_byte_bound": 233303941,
+      "source_selected_Main_JSON_bytes": 0,
+      "whole_pipeline_closed": false
+    },
+    {
+      "case": "literal_keyword_is_not_procedure",
+      "source_bytes": 138,
+      "calls": 2,
+      "nulls": 2,
+      "decoded_characters": 11,
+      "conditional_arithmetic_pass": true,
+      "evaluated_predicates_pass": false,
+      "unresolved_predicates": [
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ],
+      "failed_conditional_predicates": [],
+      "failed_predicates": [],
+      "hypothetical_general_Why_JSON_byte_bound": 239302597,
+      "source_selected_Main_JSON_bytes": 0,
+      "whole_pipeline_closed": false
+    },
+    {
+      "case": "literal_scratch_boundary",
+      "source_bytes": 2144,
+      "calls": 3,
+      "nulls": 1,
+      "decoded_characters": 1999,
+      "conditional_arithmetic_pass": true,
+      "evaluated_predicates_pass": false,
+      "unresolved_predicates": [
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ],
+      "failed_conditional_predicates": [],
+      "failed_predicates": [],
+      "hypothetical_general_Why_JSON_byte_bound": 1031233346,
       "source_selected_Main_JSON_bytes": 0,
       "whole_pipeline_closed": false
     },
@@ -90,7 +124,6 @@
       "conditional_arithmetic_pass": true,
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
-        "native_varpool_and_shared_tree_pool",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -110,7 +143,6 @@
       "conditional_arithmetic_pass": true,
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
-        "native_varpool_and_shared_tree_pool",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -130,7 +162,6 @@
       "conditional_arithmetic_pass": false,
       "evaluated_predicates_pass": false,
       "unresolved_predicates": [
-        "native_varpool_and_shared_tree_pool",
         "Main_assembler_object_interface",
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
@@ -374,6 +405,302 @@
     {
       "case": "original_helper_complete_source_mismatch",
       "rejected": "literal original helper complete source join: gcc/builtins.cc"
+    },
+    {
+      "case": "original_String_GGC_events",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_identifier_lookups",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_identifier_new_entries",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_identifier_character_bytes",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_global_decls_pushes",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_alias_sets_pushes_envelope",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_large_integer_insertion_capable_lookups_envelope",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_large_integer_new_entries_envelope",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_small_integer_cache_writes_envelope",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_helper_94_included",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_synthetic_173_included",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_Main_null_helper_11_included",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_tree_pool_entries",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_tree_pool_insertion_capable_lookups",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_tree_pool_replacement_objects",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_shared_table_backing_included",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_complete_imported_frontend",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_complete_global_containers",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_complete_collector",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_complete_whole_pipeline",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_String_extension_word_regression",
+      "rejected": "literal original String residual storage interface join"
+    },
+    {
+      "case": "original_Main_calls",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_nulls",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_procedures",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_decoded_lengths",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_context_I",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_syntax_V",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_identifier",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_type",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_integer",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_global_decls",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_statement_cache_I",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_alias_sets",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_namespace_finalizer",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_Uint",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_Udigits",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_UI_Ints",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_pool_insertions",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_pool_lookups",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_pool_replacements",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_pool_depends_on_I",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_duplicate_intervals",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_caller_I",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_concrete_events",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_premature_original_closure",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_premature_whole_closure",
+      "rejected": "literal original Main storage interface join"
+    },
+    {
+      "case": "original_Main_fixed_context_I_upper_bound",
+      "rejected": "literal fixed Main context visits interface join"
+    },
+    {
+      "case": "original_Main_fixed_context_runtime_implicit_with_visits",
+      "rejected": "literal fixed Main context visits interface join"
+    },
+    {
+      "case": "original_Main_fixed_context_new_elaboration_implicit_with_visits",
+      "rejected": "literal fixed Main context visits interface join"
+    },
+    {
+      "case": "original_Main_fixed_context_old_elaboration_implicit_with_visits",
+      "rejected": "literal fixed Main context visits interface join"
+    },
+    {
+      "case": "original_Main_fixed_context_additional_statement_list_GGC_requests",
+      "rejected": "literal fixed Main context visits interface join"
+    },
+    {
+      "case": "original_Main_fixed_context_additional_caller_bytes",
+      "rejected": "literal fixed Main context visits interface join"
+    },
+    {
+      "case": "original_Main_fixed_context_additional_rounded_slot_bytes",
+      "rejected": "literal fixed Main context visits interface join"
+    },
+    {
+      "case": "original_Main_fixed_context_additional_stmt_list_cache_pushes",
+      "rejected": "literal fixed Main context visits interface join"
+    },
+    {
+      "case": "original_Main_fixed_context_pool_demands",
+      "rejected": "literal fixed Main context visits interface join"
+    },
+    {
+      "case": "original_Main_fixed_context_complete_frontend_storage_closed",
+      "rejected": "literal fixed Main context visits interface join"
+    },
+    {
+      "case": "original_Main_fixed_context_complete_original_gigi_storage_closed",
+      "rejected": "literal fixed Main context visits interface join"
+    },
+    {
+      "case": "original_Main_fixed_context_whole_toolchain_capacity_established",
+      "rejected": "literal fixed Main context visits interface join"
+    },
+    {
+      "case": "original_String_manifest_missing_file",
+      "rejected": "literal original String exact source-manifest join"
+    },
+    {
+      "case": "original_String_manifest_changed_hash",
+      "rejected": "literal original String exact source-manifest join"
+    },
+    {
+      "case": "original_String_manifest_changed_revision",
+      "rejected": "literal original String exact source-manifest join"
+    },
+    {
+      "case": "original_String_complete_source_mismatch",
+      "rejected": "literal original String complete source join: gcc/tree.cc"
+    },
+    {
+      "case": "original_Main_manifest_missing_file",
+      "rejected": "literal original Main exact source-manifest join"
+    },
+    {
+      "case": "original_Main_manifest_changed_hash",
+      "rejected": "literal original Main exact source-manifest join"
+    },
+    {
+      "case": "original_Main_manifest_changed_revision",
+      "rejected": "literal original Main exact source-manifest join"
+    },
+    {
+      "case": "original_Main_complete_source_mismatch",
+      "rejected": "literal original Main complete source join: gcc/ada/gcc-interface/trans.cc"
+    },
+    {
+      "case": "original_Main_historical_note_mismatch",
+      "rejected": "literal original Main complete source join: docs/research/retained-literal-pipeline.md"
+    },
+    {
+      "case": "original_Main_fixed_context_manifest_missing_file",
+      "rejected": "literal fixed context exact source-manifest join"
+    },
+    {
+      "case": "original_storage_repository_pin_retained-literal-string-layout-storage-20261018/fold-audit.json",
+      "rejected": "changed aggregate input: docs/evidence/retained-literal-string-layout-storage-20261018/fold-audit.json"
+    },
+    {
+      "case": "original_storage_repository_pin_retained-literal-string-layout-storage-20261018/interface.json",
+      "rejected": "changed aggregate input: docs/evidence/retained-literal-string-layout-storage-20261018/interface.json"
+    },
+    {
+      "case": "original_storage_repository_pin_retained-literal-original-main-storage-20261018/derive.py",
+      "rejected": "changed aggregate input: docs/evidence/retained-literal-original-main-storage-20261018/derive.py"
+    },
+    {
+      "case": "original_storage_repository_pin_retained-literal-original-main-storage-20261018/result.json",
+      "rejected": "changed aggregate input: docs/evidence/retained-literal-original-main-storage-20261018/result.json"
+    },
+    {
+      "case": "original_storage_repository_pin_retained-literal-context-visits-20261018/inputs.json",
+      "rejected": "changed aggregate input: docs/evidence/retained-literal-context-visits-20261018/inputs.json"
+    },
+    {
+      "case": "original_storage_repository_pin_retained-literal-context-visits-20261018/result.json",
+      "rejected": "changed aggregate input: docs/evidence/retained-literal-context-visits-20261018/result.json"
     },
     {
       "case": "counter_calls",
@@ -943,8 +1270,8 @@
   "native_tool_executions": 0,
   "whole_literal_pipeline_capacity_established": false,
   "offline_run": {
-    "started_utc": "2026-10-18T21:24:53.590007+00:00",
-    "completed_utc": "2026-10-18T21:24:58.517844+00:00",
-    "elapsed_seconds": 4.927832739998848
+    "started_utc": "2026-10-18T22:13:29.191876+00:00",
+    "completed_utc": "2026-10-18T22:13:34.131137+00:00",
+    "elapsed_seconds": 4.939248997001414
   }
 }

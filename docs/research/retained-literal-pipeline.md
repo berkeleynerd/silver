@@ -6,17 +6,20 @@ now drives the established literal-output native and Why formulas from one
 actual source byte string and a checked common configuration/System/library
 descriptor. The conditional arithmetic passes for `samples/hello_world.adb`.
 **Whole literal-pipeline capacity remains unestablished.** Following
-[finding #131](https://github.com/berkeleynerd/silver/issues/131), the shared
-pool and complete emitted-stream joins retain unproved lifetime/correspondence
-premises. The counter/emission attachment below closes the graph's selected
-registration/pass frontier. The aggregate reports four conditions as unknown,
+[finding #131](https://github.com/berkeleynerd/silver/issues/131), the
+complete emitted-stream joins retain unproved correspondence premises. The
+counter/emission attachment closes the graph's selected registration/pass
+frontier; the reviewed original String/Main/context attachment now supplies
+the local tree-pool premise. The aggregate reports three conditions as unknown,
 separately from arithmetic failure; its evaluated-predicates result is false
 even for Hello. The literal-sized ranger/out-of-SSA backing is
 substituted. Initial SSA infrastructure and renaming also have a separate
 constructor delta. Initial CF/EH/CFG/root-loop constructors now also have a
 conditional join. The two original String size-helper constructors now have the separate request
-join below. The next native consumer is the remaining frontend/gigi and
-gimplifier helper lifetime, followed by shared collector composition.
+join below. Cold String residual and original Main requests now also join,
+with source-bound fixed context I<=114. The next native consumer is incoming
+shared backing/counters and remaining helper/pass lifetime, followed by shared
+collector composition.
 The reviewed whole-body copy and data-address bounds are now attached separately.
 The independently accepted literal linker and Main ALI adapters also join the
 same source interface; binder parser/graph and complete launch work remain open.
@@ -1254,8 +1257,9 @@ function-definition increment, giving +3 non-Main definition increments
 with the helpers. This frozen leaf's symbol registration and allocation totals
 remain null as historical fields. The later counter/emission interface below
 establishes zero symbol registrations separately, leaving allocation totals
-unresolved. `Main_is_only_emitted_body_established` is true; complete pool and
-stream/storage/link conditions retain their own residual premises. The accepted
+unresolved. `Main_is_only_emitted_body_established` is true. The original-storage
+attachment later closes the local pool premise; stream/storage/link conditions
+retain their own residual premises. The accepted
 warning source/attachment review is recorded below.
 
 ## Accepted linker and Main ALI interfaces
@@ -1330,8 +1334,8 @@ results. No production invocation or capacity rule changes.
 ## Exact next native consumer
 
 The callable keeps `native_remaining_lifetime_and_collector` as its next
-repair. The remaining constructor join must cover original source/frontend and
-gigi construction, remaining gimplifier helpers, existing RTL/DF/helper ceilings, shared
+repair. The remaining constructor join must cover fixed/configuration/frontend
+physical and late-heap storage, remaining gimplifier helpers, existing RTL/DF/helper ceilings, shared
 identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC
 pages/finalizers/counters. Ranger/out-of-SSA now supplies its literal-sized
 ordinary requests; initial CF/EH/CFG/root-loop constructors now provide their
@@ -1652,7 +1656,7 @@ Each formerly unknown condition has its own decision in
 
 | Condition | Current evaluation | Remaining source-family premise |
 | --- | --- | --- |
-| `native_varpool_and_shared_tree_pool` | Unknown | Complete imported tree-pool entries, insertion-capable lookups and replacement lifetime, including constant-label endpoint composition. A symbol inventory or absence of emitted helper data does not bound every pool allocation. |
+| `native_varpool_and_shared_tree_pool` | Evaluate the local arithmetic | None for this slice after the original-storage join below: Main/context/profiles, String216/helper94 and synthetic173 add zero imported pool demand independently of I. Existing prefix, 2C entries, 3C lookups, replacements and local counter/probe checks remain charged. |
 | `native_graph_and_summary_lifetime` | Evaluate the local arithmetic | None for this graph/summary slice: the full selected registration inventory and sole Main graph-analysis/ordinary-lowering/IPA frontier are joined. Original tree/helper allocation, identifiers and collector composition remain outside this slice. |
 | `Main_assembler_object_interface` | Unknown | Complete final-RTL/data-to-whole-stream correspondence, remaining global RTL/constant-label endpoints and complete production invocation/materialization. |
 | `Main_GAS_BFD_storage` | Unknown | Complete incoming assembly-stream correspondence and production GAS/BFD invocation/materialization, including the remaining stream/label premises. |
@@ -1678,8 +1682,9 @@ total. Return-register RTX allocation has no graph/symbol constructor or edge.
 Accordingly `selected_graph_constructor_frontier_established` is true and
 `conditional_graph_and_summary_lifetime_closed` equals that slice's checked
 arithmetic. The broader `imported_constructor_frontier_established` remains
-false. This restores only the graph condition; it does not use completed graph
-arithmetic as an imported-construction or global allocation bound. The four
+false. This counter attachment restored only the graph condition; the later
+original-storage attachment restores the distinct local pool condition. Neither
+uses completed local arithmetic as a global allocation bound. The three
 remaining unknowns still make `evaluated_predicates_pass` false even for Hello.
 The 5,000-call case retains its separate failed conditional signed-relocation
 sufficient check, rather than becoming an observed native failure or adopted cap.
@@ -1790,11 +1795,12 @@ lookups permit at most two new records. Scalar-constant lookups and the existing
 small-constant cache demand remain in the exact interface. Their complete shared
 backing is null. Broader String conversion, original Main and empty elaboration
 construction, shared containers and collector backing retain their exclusions.
-The four existing unknown source-family conditions are unchanged; imported
-allocation totals remain null and complete global-counter, collector and whole
-pipeline closure remain false.
+At that helper-only checkpoint four source-family conditions remained unknown.
+The later original-storage attachment below closes only the local pool
+premise; imported allocation totals remain null and complete global-counter,
+collector and whole pipeline closure remain false.
 
-All 177 affected aggregate cases pass in 4.927832739998848 seconds; Hello
+The helper-only checkpoint's 177 affected aggregate cases passed in 4.927832739998848 seconds; Hello
 generation takes 3.6048516829996515 seconds. Thirty new cases reject altered
 constructor interfaces, omitted private copying or parameter substitutions,
 erased identifier/type/UID demand, premature completeness, changed complete
@@ -1819,12 +1825,138 @@ were not changed by this bounded subthread.
 The direct-file count includes repository inputs as well as external sources.
 Finding [#134](https://github.com/berkeleynerd/silver/issues/134) corrects the
 former `external_source_files_verified` label to `direct_files_verified`. The
-current 304-file population is 301 external source/header files plus three
+earlier 304-file population was 301 external source/header files plus three
 repository inputs; the preceding 300-file population was 297 plus the same
 three. These overlap the separately reported repository pins and nested
 inventories and must not be added as disjoint populations. Hash checks and
-capacity formulas are unchanged; the 177-case success remains applicable.
+capacity formulas were unchanged by the label correction; its 177-case success
+remains historical evidence.
 The corrected result was regenerated in 3.192697962s. After normalizing the
 recorded workspace path and run timestamps, every field matches the frozen
 attachment result except the count's renamed key. The earlier timing above
 describes that frozen attachment; its suite was not repeated.
+
+## Reviewed original String, Main and fixed-context attachment
+
+The aggregate now joins cold String residual freeze `e652db280a`, with the
+arithmetic-neutral [#135](https://github.com/berkeleynerd/silver/issues/135)
+corrections `341f9ff8af`/`c608e3873e`, and original Main freeze `d528110ba9`.
+The [independent source/disjointness review](../reviews/review-original-native-storage-round9.md)
+accepts their direct-request interfaces and the imported tree-pool premise.
+Fixed context freeze `684ec8ab64` is separately
+[accepted](../reviews/review-literal-context-visits-684ec8ab64.md). The complete
+leaf packets, source arguments, exact recorded outputs and reviews are input
+pins; the aggregate does not rewrite frozen leaf formulas, historical revision
+identities or their then-pending review flags. New attachment fields and these
+review records state the later disposition.
+
+`native_original_String_storage` exports 216 residual GGC requests,
+13,149 caller bytes and 17,112 separately rounded bytes, plus three ordinary
+requests totaling 192 caller bytes. It excludes both complete allocating
+`self_referential_size` calls. Adding the already joined helper94 exactly once
+gives 310 requests, `19981+2P_local` caller bytes and
+`25024+2*rho(P_local+33)` rounded bytes; the combined ordinary slice has five
+requests and 272 caller bytes. Synthetic173 stays separate. The correction
+checks at most two value words but **three extended storage words**, with a
+16-byte typed prefix, so the unchanged INTEGER_CST request ceiling is 40 bytes.
+No null helper11 or historical null structural/name interval is added.
+
+`native_original_Main_storage` takes C, N and every decoded literal length
+from the existing complete grammar recognizer. It derives
+`D=(Put>0)+(Put_Line>0)` from that recognizer's procedure populations and checks
+`V=73+81C+4N` exactly against the joined Main-only gigi interface. Identical
+literals retain distinct requests; escaped quotes, empty lengths and procedure
+names inside strings cannot alter D. STRING_CST requests are individually
+`length+21` and individually rounded. Ordinary literal scratch switches at
+length 1000; the check includes 999, 1000 and empty literals in one source.
+
+The fixed-source argument supplies `I<=36+39+39=114`, retaining the separate
+runtime, new-elaboration and old-elaboration guards without relying on mode
+exclusivity. The aggregate checks the exact context interface and its supplied
+Main result. This adds 114 statement-list requests, 3,648 caller and rounded
+bytes and 114 cache pushes, with zero tree-pool demand. The symbolic Main ledger
+is preserved and evaluated at the upper bound: its direct request count is
+`609C+24N+54D+284+114`. Hello therefore has 1,061 requests. This is a conditional
+direct-site ledger, not a complete imported-allocation or process-memory total.
+
+The Main exclusions remain exact: cold String216, helper94, synthetic173,
+Main struct-function, direct GIMPLE `10C+2N+2`, ingress `33C+9N+3`, selected
+materialization helpers `8C`, direct pool `10C`, graph/dummy, warnings/locations,
+shared backing and collector. All String/helper/Main identifier, type and
+integer lookups and entries, global-declaration/statement-cache/alias-vector
+demands, Uint/Udigits/UI_Ints contributions and singleton-finalizer demand are
+exported. Main's namespace finalizer remains one, distinct from the pool's
+assembler-name singleton. Incoming global counters and complete shared backing
+remain unknown. No whole-import sum is manufactured from the separate slices.
+
+The source review supports restoring exactly
+`native_varpool_and_shared_tree_pool`: original Main/context/profiles,
+String216/helper94 and synthetic173 add zero unowned pool entries, lookups or
+replacements, independently of I. The accepted incoming bound 39,257, Main's
+2C entries and 3C insertion-capable lookups, pre-hit replacement requests,
+retention/rebuilding and local no-wrap/probe checks are unchanged. The returned
+pool component now names this narrower established frontier while its broader
+imported-constructor flag stays false. Absence of helper emission is not the
+reason for the zero-demand result.
+
+Only three source-family conditions remain unknown: whole assembly/object,
+GAS/BFD storage and linker representation. Their whole-stream, global-label and
+invocation/materialization premises remain distinct from the local pool
+argument. Complete global-counter, imported-allocation, shared-backing,
+collector and literal-pipeline capacity remain false or null. Hello and the
+8,192-byte literal retain their conditional arithmetic success; 5,000 calls
+retain the conservative signed-relocation sufficient-bound failure. There is
+no production admission change, RAM gate or native failure claim.
+
+The affected aggregate passed 253 cases in 4.939248997 seconds; default Hello
+generation took 3.113588611 seconds. Hello's original Main direct slice is
+1,061 requests, 420,346 caller bytes and 426,928 separately rounded bytes.
+Its String216/helper94 slice is 310 requests, 20,129 caller bytes and 25,280
+rounded bytes, plus five ordinary requests/272 caller bytes. These are named
+disjoint request intervals, not a complete gigi or process total.
+
+The 76 added cases and expanded source-variant assertions exercise actual C/N/D
+and decoded-length joins, V equality, all context terms, every shared demand
+including the namespace finalizer, omitted/duplicated intervals, extended
+integer storage, pool zeros, incomplete flags, and repository/source pins.
+The original 5,000-call conservative relocation failure is preserved. The run
+checked 175 repository input pins and 2,627 distinct current files. String's
+34-file and context's 2,320-file inventories overlap that population. Original
+Main's 46 complete inputs contain 45 current files and one historical aggregate
+note; the latter is checked against its frozen bytes at manifest repository
+base `ac18b3531478457609b07349af7f367034f9ca06`, separately from current files.
+The complete historical manifest and its identity fields remain unchanged.
+
+The first attempted affected run stopped during source validation with
+`literal original Main complete source join: docs/research/retained-literal-pipeline.md`
+(about 0.038 seconds reported process time). The inherited join had treated
+the leaf's historical aggregate-note attachment as a current-file requirement,
+although this integration evolves that note. The repair reads that single
+historical object from its exact recorded Git revision, keeps every other
+current-file check, exports separate historical/current counts, and adds a
+negative historical-note test. The following affected run and default generation
+both passed; no identical successful suite was repeated. Existing leaf-check
+successes are retained rather than rerun. The context citation-only follow-up
+`13daeca1e9` is pinned alongside the accepted `684ec8ab64` source result and
+`5ca8b79de9` review, without changing leaf arithmetic or historical review flags.
+
+Selected attachment settings: initially GPT-6.1 Sol / Extra High, then GPT-6
+Astra / Extra High after the first worker reported **Selected model is at
+capacity**. The takeover preserved its uncommitted implementation, inspected it
+and completed checks/documentation. Serving-runtime confirmation and token/cost
+measurements are unavailable. The service-capacity failure and the manifest
+integration repair are separate observations, not evidence of comparative
+model quality. Successful check timestamps were 22:13:29–22:13:34 UTC and
+generation 22:13:41–22:13:45 UTC on Linux x86-64; total-round timing was not
+captured. No compiler, debugger, prover, solver, build or full-suite execution
+occurred. This subthread did not change the harness goal, GitHub, CLI memory or
+publication state. The parent's independent aggregate review is still required.
+
+The next concrete native obligation is the shared identifier/type/integer and
+vector/finalizer state join: establish incoming occupancies/counter endpoints
+at the fixed-prefix cut, combine the exported Main, String and helper demands
+with their later consumers exactly once, and price table/vector growth plus
+counter no-wrap under the selected source configuration. The Main namespace
+finalizer, scalar cache vectors and statement-list cache pushes must remain in
+that composition. It is distinct from later collector pages and whole-stream
+correspondence, and is not implemented by this attachment.
