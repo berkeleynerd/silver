@@ -1065,6 +1065,9 @@ def native_invocation_metadata(source_calls, words, concats, images,
         f"system__concat_{n}__str_concat_{n}" for n in range(2, 10))
     target_count = len(names)
     assert target_count == 19 and max(map(len, names)) == 36
+    # Runtime targets are excluded from actual invocation signatures by
+    # In_Internal_Unit. Their interface spellings only enlarge the allowance;
+    # no assumption about the Image generic alias's canonical name is needed.
     # Get_Qualified_Name(scope) may see an already qualified child-package
     # spelling and prefix its parent again; pay that extra System prefix.
     scopes = ("standard", "main", "silver_io", "silver_arguments",
@@ -1104,6 +1107,33 @@ def native_invocation_metadata(source_calls, words, concats, images,
         invocation_ALI_characters=20+(target_count+relations)*(2*sig_chars+48),
         signature_location_local_buffer=2052,
         additional_Uint_appends=0,
+        whole_native_frontend_closed=False)
+
+
+def native_stack_peaks(*, main_nodes, main_lists, loop_depth, short_circuits,
+                       output_calls, fixed_scope_pushes=1117,
+                       fixed_expander_pushes=520, fixed_lists=6526):
+    """Logical stack peaks; fixed lifetime captures safely dominate fixed peaks.
+
+    Fixed arguments require the source root/freezing reduction. Main node/list
+    counts are the complete constructor vector, not the final surviving tree.
+    Physical Ada call-stack bytes are a separate representation obligation.
+    """
+    assert min(main_nodes, main_lists, loop_depth, short_circuits, output_calls,
+               fixed_scope_pushes, fixed_expander_pushes, fixed_lists) >= 0
+    permanent = loop_depth+2*short_circuits+bool(output_calls)
+    return dict(
+        Scope_Stack_live_entries=fixed_scope_pushes+permanent+2,
+        Scope_Stack_variable_permanent=permanent,
+        Scope_Stack_temporary_freeze_allowance=2,
+        Expander_Flags_live_entries=fixed_expander_pushes+main_nodes+1,
+        Saved_Checks_TOS_peak=fixed_lists+main_lists+1,
+        Saved_Checks_Main_records=0,
+        Saved_Checks_fixed_records=200,
+        Saved_Checks_Stack_fixed_Nat_words=100,
+        semantic_scope_depth_additional_Uints=0,
+        counters_require_signed_Int_headroom=True,
+        physical_call_stack_bytes_included=False,
         whole_native_frontend_closed=False)
 
 
@@ -1200,6 +1230,17 @@ mixed_example_counts = dict(main_example_counts, parser_nodes=100,
         native_string_bound_descriptor("image")))])
 
 result = {
+    "native_stack_peak_join": {
+        "examples_not_thresholds": [native_stack_peaks(
+            main_nodes=main_native_construct_vector(**counts)["total"]["node_identities"],
+            main_lists=main_native_construct_vector(**counts)["total"]["syntax_list_headers"],
+            loop_depth=counts["loops"], short_circuits=counts["short_circuits"],
+            output_calls=counts["output_calls"])
+            for counts in (main_example_counts, mixed_example_counts)],
+        "fixed_counts": "native all-roots lifetime growth 1117 scope pushes, 520 expander pushes, 6526 list headers; source-reduced fixed overhead, never measured stack depths",
+        "separate_obligations": "table backing/layout and recursive physical stack bytes; source-sensitive counters must fit Int",
+        "whole_native_frontend_closed": False,
+    },
     "native_diagnostic_metadata_join": {
         "examples_not_thresholds": [native_diagnostic_metadata(0, 0),
                                     native_diagnostic_metadata(3, 8)],
@@ -1220,7 +1261,7 @@ result = {
             main_entities=main_native_construct_vector(**mixed_example_counts)["total"]["entity_identities"],
             fixed_entities=100, fixed_xrefs=100, newly_analyzed_units=10)],
         "fixed_inputs": "actual source-reduced entity/xref/unit closure, not the illustrative values above",
-        "remaining_common_metadata": "separate native_invocation_metadata_join, native warning attempts/history/text, scope/check/expander stack peaks and physical table representations",
+        "remaining_common_metadata": "separate native_invocation_metadata_join, native warning attempts/history/text, native_stack_peak_join and physical table representations",
         "whole_native_frontend_closed": False,
     },
     "composed_Main_native_constructor_core": {

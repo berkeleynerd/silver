@@ -1,4 +1,39 @@
 {
+  "native_stack_peak_join": {
+    "examples_not_thresholds": [
+      {
+        "Scope_Stack_live_entries": 1119,
+        "Scope_Stack_variable_permanent": 0,
+        "Scope_Stack_temporary_freeze_allowance": 2,
+        "Expander_Flags_live_entries": 528,
+        "Saved_Checks_TOS_peak": 6531,
+        "Saved_Checks_Main_records": 0,
+        "Saved_Checks_fixed_records": 200,
+        "Saved_Checks_Stack_fixed_Nat_words": 100,
+        "semantic_scope_depth_additional_Uints": 0,
+        "counters_require_signed_Int_headroom": true,
+        "physical_call_stack_bytes_included": false,
+        "whole_native_frontend_closed": false
+      },
+      {
+        "Scope_Stack_live_entries": 1123,
+        "Scope_Stack_variable_permanent": 4,
+        "Scope_Stack_temporary_freeze_allowance": 2,
+        "Expander_Flags_live_entries": 670618,
+        "Saved_Checks_TOS_peak": 7253,
+        "Saved_Checks_Main_records": 0,
+        "Saved_Checks_fixed_records": 200,
+        "Saved_Checks_Stack_fixed_Nat_words": 100,
+        "semantic_scope_depth_additional_Uints": 0,
+        "counters_require_signed_Int_headroom": true,
+        "physical_call_stack_bytes_included": false,
+        "whole_native_frontend_closed": false
+      }
+    ],
+    "fixed_counts": "native all-roots lifetime growth 1117 scope pushes, 520 expander pushes, 6526 list headers; source-reduced fixed overhead, never measured stack depths",
+    "separate_obligations": "table backing/layout and recursive physical stack bytes; source-sensitive counters must fit Int",
+    "whole_native_frontend_closed": false
+  },
   "native_diagnostic_metadata_join": {
     "examples_not_thresholds": [
       {
@@ -133,7 +168,7 @@
       }
     ],
     "fixed_inputs": "actual source-reduced entity/xref/unit closure, not the illustrative values above",
-    "remaining_common_metadata": "separate native_invocation_metadata_join, native warning attempts/history/text, scope/check/expander stack peaks and physical table representations",
+    "remaining_common_metadata": "separate native_invocation_metadata_join, native warning attempts/history/text, native_stack_peak_join and physical table representations",
     "whole_native_frontend_closed": false
   },
   "composed_Main_native_constructor_core": {

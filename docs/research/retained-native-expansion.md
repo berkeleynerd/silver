@@ -4957,8 +4957,13 @@ deduplicate their complete name/scope/line/column/location tuple
 so at most T signature records/map bindings are needed.
 
 Signature_Of does not format source-dependent arbitrary object identifiers.
-Its targets have the fixed spellings listed in `native_invocation_metadata`;
-their longest fully qualified spelling is 36 characters. Qualified_Scope calls
+The actual signatures belong to Main, its finalizer and the five fixed Silver
+APIs: In_Internal_Unit returns before recording runtime targets. In particular,
+Image_Integer's canonical generic-instance alias is not formatted here.
+The interface spellings listed in `native_invocation_metadata` include the
+excluded runtime targets only to enlarge the allowance; their maximum of 36
+characters safely bounds every actual signature name without assuming that
+all runtime canonical names have that spelling. Qualified_Scope calls
 Get_Qualified_Name (`sem_elab.adb:13309–13399`, `sem_util.adb:11155–11216`).
 Allow an already qualified child-package spelling to receive its parent
 prefix again: `system__system__secondary_stack` is 31 characters and dominates
@@ -4987,6 +4992,94 @@ container initial sizes from the shared primitive inventory still apply even
 when Main adds zero members. Table/hash/list target layouts and growth peaks
 must be joined separately. No extra source constructor, Uint or dependency
 body work is hidden in these metadata rows.
+
+## Native scope, check and expander stack peaks
+
+Use the complete Main constructor vector's node and syntax-list counts,
+`A_Main` and `L_Main`, including discarded rewrites and list headers. Let
+`d_loop` bound simultaneously enclosing source loops, B count source short
+circuits and o count output calls. The fixed native source reduction above
+permits the retained all-roots lifetime totals to dominate fixed stack peaks;
+these are **not observed stack depths**. Keeping the witness's entire Main
+work, use 1117 scope pushes, 520 expander-flag pushes and 6526 list headers.
+The resulting logical bounds are
+
+```text
+Scope_Stack live entries <= 1117 + d_loop + 2B + [o>0] + 2
+Expander_Flags live entries <= 520 + A_Main + 1
+Saved_Checks_TOS <= 6526 + L_Main + 1.
+```
+
+The scope term counts source loops, at most two analyzed EWA scopes per source
+short circuit, and at most one output transient/replacement-block scope on an
+active path. The output transient is popped before its replacement block is
+analyzed, so those pushes are sequential. Main's scope and its fixed finalizer
+are already overcounted in the retained fixed total. Conditions, ordinary
+scalar/check conditionals, declarations, assignments and native concat helper
+calls introduce no additional permanent scope. The type frontier excludes
+variable packages, record declarations, task/protected scopes and subprograms.
+
+For native first freezing, Expand_N_Freeze_Entity can push the entity's outer
+or currently closed scope, and can separately push the scope of a generated
+renaming-as-body (`exp_ch13.adb:470–594,637–649,686–694`). The latter is absent
+from the Main constructor frontier, but two entries conservatively pay both
+sites. Main's scalar/String/index/access freezes have the closed no-body
+transfers above: they create no nested init/assignment/equality or contract
+subprogram body. Thus those temporary pushes do not form a source-dependent
+recursive chain. Freeze_Before's nested-package push, Freeze_Entity's delayed
+record-component-aspect push and Freeze_Expr_Types' expression-function scope
+are excluded by their own guards (`freeze.adb:2844–2865,6728–6770,9529–9545`).
+Fixed-runtime analysis may occur under the current Main stack; adding its
+whole lifetime total pays that ambient join without assuming a favorable load
+order. Push_Scope reuses an existing Scope_Depth. The only new block-depth
+Uints are already in the output/EWA constructor rows; this peak join adds none.
+
+For expander flags, Analyze_If_Statement can hold at most one save per active
+if node. A compile-time-true arm sets Del, so later elsif arms take the Del
+branch without another save; false-arm saves are restored before the next
+arm (`sem_ch5.adb:2008–2052,2064–2103`). Generated concat assignment guards
+are if nodes already counted in A_Main. Every concurrently active variable
+if has a distinct node identity; rewritten/copy nodes remain in A_Main even
+when the final tree discards them. Each ordinary loop-bound preanalysis can
+add one further save, but its scalar expression has no nested statement or
+preanalysis construct (`:4868–4886`). The two raw loop preanalyses are sequential.
+All other variable saves require target-name assignments, entry/interface/BIP
+calls, aggregates, quantified/iterator filters, contracts/aspects, protected
+access, generic bodies, errors or legacy elaboration, excluded by the grammar,
+constructor frontier and selected mode. Fixed semantic-unit and generic/spec
+preanalysis saves stay in the 520 fixed lifetime allowance. This deliberately
+uses all Main nodes rather than estimating a maximum source-if depth that
+would omit generated guards.
+
+Analyze_Statements is the only caller of Conditional_Statements_Begin/End
+(`sem_ch5.adb:4523–4582`). Each active nonempty call processes its own statement
+list. Analyzed children are not recursively reanalyzed; an inserted wrapper
+gets a distinct list, while branch lists and loop bodies are nested structural
+children. Already analyzed statements moved into an output block therefore do
+not make a recursively active duplicate of the enclosing list. There are no
+body-inlining or contract-copy routes in variable Main. Hence active nonempty
+calls inject into the lifetime list identities. An empty/No_List call returns
+without another Analyze call, so one extra entry pays that possible leaf.
+Adding fixed list identities also covers a first dependency analysis nested
+inside Main without needing a separate check-stack capture.
+
+At O0 the selected range/overflow helpers return before saving a redundant
+check, so there are no variable Main Saved_Check records. The fixed storage
+remains 200 Saved_Check records and 100 Nat stack entries. Begin increments
+the Nat counter **before** checking the 100-entry array limit; above that limit
+it kills the optimization cache, and End safely resets/decrements it
+(`checks.adb:174–201,4921–4973`). The 100-entry array is consequently not a
+100-level language limit. Require the derived peak to fit Nat/Int to protect
+the increment, independently of physical stack exhaustion.
+
+`native_stack_peaks` regenerates these terms. Scope_Stack uses low bound zero,
+initial length10 and 200-percent growth; Expander_Flags uses low bound zero,
+initial length32 and 200-percent growth (`sem.ads:499–596`,
+`alloc.ads:118–119`, `expander.adb:65–71`). The generic table backing envelope
+must still be applied to their live-entry counts and actual target layouts.
+These logical bounds do not price recursive Ada call frames, local numeric
+vectors or semantic helper stacks, and do not make physical exhaustion a
+language-membership test.
 
 ## Native frontend diagnostic join
 
@@ -5129,8 +5222,9 @@ above. The native frontend/process is still incomplete at these explicit joins:
   target, DFS, graph/signature and invocation-ALI terms; its fixed AST input
   still needs the fixed source reduction. The native diagnostic join supplies
   warning attempts/history/text under the recorded defaults and fixed-source
-  pragma inventory. Scope/check/expander stacks and common
-  auxiliary containers need their own counts even where constructors are zero.
+  pragma inventory. The native stack join bounds scope/check/expander peaks;
+  common auxiliary containers and physical layouts still need their own
+  counts even where constructors are zero.
 - **Representations and late consumers:** join source scanner names/Uint/String
   pools; physical backing capacities, growth peaks and byte products for all
   node/slot/list/entity/name/numeric/common tables; temporary numeric vectors,
