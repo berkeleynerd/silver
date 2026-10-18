@@ -94,6 +94,12 @@ whole-file parameter is
 d = max(11, d_fixed).
 ```
 
+The [fixed numeric snapshots](retained-producer-fixed-numerics.md) now supply
+`d_fixed=40`, attained by Standard's negative 128-bit endpoint. The independent
+raw-entry reconciliation covers every numeric field at all 18 retained stops.
+Consequently **`d=40`** is sufficient under the stated source/tool and fixed
+closure premises, well inside the serializer's exact-output region `d<=1019`.
+
 The fixed-state reduction is the same one used for
 [isolated-root contributions](retained-producer-capacity.md#additive-isolated-root-envelope):
 Main cannot change a fixed type, signature, contract, numeric value or cached
@@ -102,11 +108,17 @@ all five isolated API closures is sufficient despite order and overlapping
 work. Import growth adds module references and does not synthesize numeric
 values. Fixed library outputs additionally cover their own body VCs. The
 five retained library JSON files have observed `d=11`; that observation alone
-does not bound unprinted Standard nodes. The fixed-state numeric evidence
-must supply the remaining parameter before whole-rule adoption.
+does not bound unprinted Standard nodes. The new fixed-state evidence includes
+those wider Standard nodes, including discarded/unprinted numeric allocations.
 
 The Ureal serializer emits its stored numerator, stored denominator, radix
 and sign (`why-atree-to_json.adb-tmpl:32–43`). It does not expand a radix power
 into a rational numerator. A measurement or bound must use those actual fields.
 None of these magnitude results pays for decimal-conversion scratch, producer
 node counts or output-column growth; those remain separate components.
+
+A focused independent source/evidence review of `61eaf8fb45`/`a7a7bf19a5`
+found no substantive issue in the Main argument. It independently checked the
+numeric schema, immutable fields, constructor inventory, literal/index cases
+and excluded overlay paths. That review predates the fixed numeric snapshot
+package; the latter has its separate raw-byte reconciliation above.

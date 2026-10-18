@@ -267,10 +267,10 @@ The global-maximum envelope may be unnecessarily restrictive for many short
 builtin names plus one long source name. Compare those alternatives when
 selecting the whole capacity predicate; this research does not adopt the
 coarser rule as language membership. Generated-name/comment/filename bounds,
-the complete per-file occurrence count and fixed numeric contribution must
-still supply `u`, `d` and `O_k` from the source and configuration. The
-[numeric construction argument](retained-producer-numerics.md) supplies
-`d_Main=11` and the composition `d=max(11,d_fixed)`; it does not bound the
+the complete per-file occurrence count must still supply `u` and `O_k` from
+the source and configuration. The
+[numeric construction argument](retained-producer-numerics.md) and fixed
+numeric evidence supply `d=max(11,40)=40`; they do not bound the
 separate scanner powers or their temporary allocations.
 
 Without a new producer run, the checker reconstructed all five retained fixed
