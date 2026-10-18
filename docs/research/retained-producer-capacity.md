@@ -6,6 +6,13 @@ identifies the remaining source-to-producer obligations. **It does not establish
 a complete capacity rule, choose a new language limit, or authorize admission
 changes.** The dependent implementation still needs that complete rule.
 
+The 2026-10-18 [composed Main producer bound](retained-producer-composition.md)
+now joins these local costs, the fixed envelope, source/configuration string
+bounds and auxiliary domains. It derives a nonempty region containing null,
+concat, assignment and loop structures, including a source larger than today's
+byte cap. Its fixed-import and one-file arguments sharpen the general aggregate
+below. Separate process and whole-tool requirements remain explicit there.
+
 The inspected source is SPARK revision
 `42554fc241fcd1fdf08d3a2feccb3f86912acbc0`, from the source archive already retained
 by the [frontend representation research](frontend-representation-result.md).
@@ -2559,7 +2566,9 @@ existing scoped key adds two: restore the old item and remove its replacement
 boundaries plus **twice** the number of outstanding scoped insertions, **not**
 by the current map's distinct-key count: repeated replacement of the same key
 adds actions.
-This source identity exposes the additional peak bound still required.
+The [scoped undo derivation](retained-producer-undo.md) now supplies that peak:
+with `X=36 E_total+7 U_Common+1`, it is at most
+`204(A_total+1)+2 B_N+30X`. Distinct-key cardinality alone remains insufficient.
 
 ### Two separate symbol pools
 
@@ -3162,14 +3171,12 @@ python3 docs/evidence/retained-producer-capacity-20261017/string_lengths.py \
   --source-archive docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz
 ```
 
-The remaining closure work is precise: handle any required failed-proof
-Common-pool diagnostic extension; propagate the frontend name and path lengths through the
-remaining identifier constructors, including `Localize_Binders` composition;
-and bound scoped undo peaks. Comments and `To_Local` are closed by the preceding
-source argument. The additive fixed Why
-measurements do not supply these quantities. The checked map domains and
-64-bit-sum reduction above remain usable independently of that unfinished
-connection.
+The [string-family derivation](retained-producer-strings.md) closes the remaining
+identifier constructors, fixed-template width/path inflation and single effective
+`Localize_Binders` composition. The [undo bound](retained-producer-undo.md)
+supplies scoped peaks. Those source arguments are independent of the additive
+fixed Why allocation measurements. A required failed-proof Common-pool
+diagnostic extension remains separate from the successful producer prefix.
 
 Reproduce the auxiliary source inventory, dependency-file checks and arithmetic:
 
@@ -3183,6 +3190,12 @@ This verifies all 279 archived Ada files and the complete 671-site inventory;
 it launches no compiler, proof process or debugger inferior.
 
 ## Aggregate formula and finite remaining helper families
+
+This section retains the general aggregate, usable before a tighter module or
+file-count proof is available. The [current Main composition](retained-producer-composition.md)
+supplies those proofs, preserves paid fixed imports, and evaluates the independent
+representation inequalities. It supersedes the earlier interpretation of the
+named ordinary Main components below as still-unpriced helper families.
 
 Use four-component costs in the order `(nodes, lists, list elements, emitted
 occurrences)`. The first three count lifetime allocations, including discarded
@@ -3266,44 +3279,39 @@ again as standalone conversions.
 | Mixed statement list with `m` source and `g` generated entries | `(m+g+1,1,m+2g+1,m+g+5)` |
 | Selected library call wrappers | [Call component](retained-producer-calls.md): Put/Put_Line `(9,6,4,9)`, Reject `(4,6,4,13)`, First_Or_Default `(18,9,9,74)`, Input_Is_Valid `(18,9,9,78)`; argument/result conversions separate |
 
-Thus write the single pre-import sum as
+The previously open form of the pre-import sum was
 
 ```text
 B(P) = K_fixed + sum(n_q(P) * c_q for the closed rows q)
                 + sum(n_h(P) * K_h for the finite helper families h below).
 ```
 
-`K_h` is a **missing source-derived cost**, not an experimentally fitted
-constant or a usable admission allowance. Where a helper receives an expression,
-its cost must specify the supplied-child multiplicity; it cannot conceal
-retranslation or repeated serialization in a constant. The remaining table is a
-coverage obligation, not a claim that the whole producer is already bounded.
+An unresolved `K_h` would be a **missing source-derived cost**, never an
+experimentally fitted admission allowance. The current ordinary Main sum has
+no such local helper coefficient: its complete composition is
+`K_fixed+B_Main+B_Main_wrapper+(83 E_Main+4,0,0,0)`, with the source counts and
+import/byte inequalities given in the linked composition. Current status is:
 
-| Remaining family | Exact work and source-count connection still required |
+| Family | Established connection and remaining scope |
 | --- | --- |
-| `K_fixed` | Bootstrap/Standard plus selected imported dependencies now have the additive four-component envelope above; Main external-constant assumptions are zero. Other fixed entry/exit work and non-Main frontend entity/list contribution remain separate. Distinct fixed library processes have their own measured four-component results in the linked fixed-process record. |
-| Auxiliary producer domains | Source/Why map key domains, projection counters and GNATCOLL 64-bit string sums are bounded above; Why-pool calls are at most `6097+13B_N`, and ordinary Common-pool producer calls at most `71831+E_total+13E_Main`. Failed-proof diagnostic extensions, complete generated-name lengths and undo-stack peaks remain separate; the four-component fixed envelope does not supply them. |
-| Frontend node input | The linked Main semantic-node aggregate supplies `A_Main` used by the ignored-entry/list transfer. Separate fixed dependency node/entity counts remain to be resolved. |
-| Whole-process counters | Use `M <= B_N` or a sharper explicit module sum and finish the total close count with fixed setup. `F <= E_list` and `temporary counter <= B_N` are established. |
+| `K_fixed` | Bootstrap/Standard plus selected imports have the additive `(15349,3310,4729,22621)` envelope. The sharper source argument preserves their paid imports and gives 741 fixed module nodes. Main external-constant assumptions are zero. Separate library processes retain their own measured results. |
+| Auxiliary producer domains | Source/Why map domains, projection serials, intern calls, 64-bit byte sums, per-family String lengths and scoped undo peaks are connected. Failed-proof diagnostic extensions lie beyond the successful producer prefix. |
+| Frontend node input | The Main semantic-node formula and fixed light frontier supply `A_total=12784+A_Main`, with a conservative matching entity-domain bound. The fixed Main constant is not a separate library-body frontend bound. |
+| Whole-process counters | The current Main composition bounds modules, all unpaid closes, JSON bytes and lifetime occurrences with `F_Main<=1`. It evaluates node/list/element, map, pool and undo endpoints separately. |
 
 The [frontend report](retained-frontend-entities.md) now supplies the Main entity,
 type and literal multiplicities, including generated literal lengths; they are
 no longer an undifferentiated missing frontend inventory. The linked semantic
-aggregate closes the ordinary Main node-identity input. Standard is paid by its
-fixed phase; selected dependencies still contribute separately to `E_list` and
-the remaining fixed terms.
-Known caller bounds include twenty-seven memoized module kinds per entity,
-two object/loop outer closes, the type/completion close table, and one close
-per distinct literal theory. Remaining direct modules and helper closes must
-be added; source entities are not themselves counts of translation attempts.
+aggregate closes the ordinary Main node-identity input. Standard and imported
+dependencies are paid by the fixed envelope. The source-counted transfer counts
+translation attempts, discarded work and repeated serialization; it does not
+equate source entities with helper invocations.
 
-This is one aggregate target with finitely named reachable helper families.
-It still has unpriced terms and unclosed invocation counts, so it is **not** a
-source-capacity rule and supplies no new admission threshold. The derivation
-must additionally compare every independent representation counter with its
-actual range. Samples, retained JSON sizes and successful proof runs cannot
-replace those missing source arguments. Continue closing these helper families
-before dependent admission changes; retain the current language and Oracle.
+The successful Main producer component is now concrete and evaluated. It is
+still **not the complete unchanged-tool capacity rule**: separate fixed process
+domains, frontend/native/backend composition and whole-rule review remain
+required before expanded admission. Retained sample executions do not replace
+those arguments, and this record selects no new language threshold.
 
 ## Reproducing the evidence checks
 

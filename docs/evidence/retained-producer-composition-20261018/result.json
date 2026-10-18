@@ -1,0 +1,418 @@
+{
+  "input_sha256": {
+    "retained-producer-dependencies-20261018/graphs.tar.gz": "1cd8b9986aaa4673204fd2599b5ca85d20ff5d1c0cf79468fc334cc2f6e6a983",
+    "retained-producer-storage-20261018/serialization.json": "aa96e05309bfa259237637f6dbfeb1d1463a8fde75b91ced4a28353d0970f4cc"
+  },
+  "fixed_modules": 741,
+  "fixed_kind_occurrences": {
+    "W_ABSTRACT_EXPR": 10,
+    "W_ASSERT": 6,
+    "W_ASSIGNMENT": 2,
+    "W_AXIOM": 26,
+    "W_AXIOM_DEP": 26,
+    "W_BINDER": 567,
+    "W_BINDING": 34,
+    "W_CALL": 463,
+    "W_CLONE_DECLARATION": 104,
+    "W_CLONE_SUBSTITUTION": 447,
+    "W_COMMENT": 20,
+    "W_CONDITIONAL": 25,
+    "W_CONNECTION": 104,
+    "W_DEREF": 24,
+    "W_EFFECTS": 334,
+    "W_EPSILON": 1,
+    "W_FIXED_CONSTANT": 2,
+    "W_FLOAT_CONSTANT": 8,
+    "W_FUNCTION_DECL": 416,
+    "W_GLOBAL_REF_DECLARATION": 29,
+    "W_HANDLER": 5,
+    "W_IDENTIFIER": 2519,
+    "W_INCLUDE_DECLARATION": 1251,
+    "W_INTEGER_CONSTANT": 144,
+    "W_LABEL": 176,
+    "W_LITERAL": 710,
+    "W_LOC_LABEL": 22,
+    "W_META_DECLARATION": 200,
+    "W_MODULE": 2859,
+    "W_NAME": 7433,
+    "W_RAISE": 5,
+    "W_RANGE_TYPE_DEFINITION": 34,
+    "W_RECORD_ACCESS": 51,
+    "W_RECORD_BINDER": 49,
+    "W_RECORD_DEFINITION": 49,
+    "W_STATEMENT_SEQUENCE": 72,
+    "W_THEORY_DECLARATION": 317,
+    "W_TRANSPARENT_TYPE_DEFINITION": 21,
+    "W_TRIGGER": 10,
+    "W_TRIGGERS": 10,
+    "W_TRY_BLOCK": 5,
+    "W_TYPE": 3898,
+    "W_TYPE_DECL": 112,
+    "W_UNIVERSAL_QUANTIF": 21
+  },
+  "path_bytes": 256,
+  "cases": [
+    {
+      "name": "null",
+      "source": "procedure Main is\npragma SPARK_Mode (On);\nbegin\nnull;\nend Main;\n",
+      "counts": {
+        "null": 1,
+        "W": 10,
+        "S": 0,
+        "N": 0,
+        "I": 10,
+        "literal_chars": 0
+      },
+      "bound": {
+        "A_parse": 28,
+        "A_Main": 39,
+        "E_Main": 1,
+        "V": 0,
+        "K": 0,
+        "K_literal": 0,
+        "preimport": [
+          16488,
+          3775,
+          5485,
+          25005
+        ],
+        "unpaid_closes": 6,
+        "modules": 1722,
+        "imports": 20676,
+        "totals": [
+          37164,
+          3775,
+          26161,
+          66357
+        ],
+        "string_lengths": {
+          "names": 1702,
+          "comments": 2280,
+          "labels": 2202,
+          "string_attributes": 33,
+          "filenames": 256,
+          "symbol_set_characters": 6606
+        },
+        "json_bytes": 262303673,
+        "json_parts": {
+          "fixed": 86901508,
+          "body": 32944496,
+          "characters": 0,
+          "imports": 142457640
+        },
+        "auxiliary": {
+          "A_total": 12823,
+          "E_total": 12785,
+          "common_calls": 84629,
+          "why_calls": 220441,
+          "why_symbol_map": 2045600,
+          "undo_peak": 34228992
+        },
+        "producer_core_fits": true
+      }
+    },
+    {
+      "name": "concat",
+      "source": "with Silver_IO;\nprocedure Main is\npragma SPARK_Mode (On);\nbegin\nSilver_IO.Put (\"a\" & \"b\");\nend Main;\n",
+      "counts": {
+        "context": 1,
+        "dots": 1,
+        "calls_with_actual": 1,
+        "C_lib": 1,
+        "output": 1,
+        "concat": 1,
+        "O": 1,
+        "X": 3,
+        "H_chars": 4,
+        "W": 13,
+        "S": 2,
+        "N": 0,
+        "I": 10,
+        "literal_chars": 2
+      },
+      "bound": {
+        "A_parse": 41,
+        "A_Main": 68,
+        "E_Main": 6,
+        "V": 6,
+        "K": 3,
+        "K_literal": 5,
+        "preimport": [
+          18055,
+          4284,
+          6194,
+          31806
+        ],
+        "unpaid_closes": 19,
+        "modules": 3145,
+        "imports": 119548,
+        "totals": [
+          137603,
+          4284,
+          125742,
+          270902
+        ],
+        "string_lengths": {
+          "names": 1702,
+          "comments": 2280,
+          "labels": 3001,
+          "string_attributes": 33,
+          "filenames": 256,
+          "symbol_set_characters": 6606
+        },
+        "json_bytes": 1036399892,
+        "json_parts": {
+          "fixed": 86901508,
+          "body": 124716475,
+          "characters": 1096160,
+          "imports": 823685720
+        },
+        "auxiliary": {
+          "A_total": 12852,
+          "E_total": 12790,
+          "common_calls": 84699,
+          "why_calls": 240812,
+          "why_symbol_map": 2046400,
+          "undo_peak": 34258142
+        },
+        "producer_core_fits": true
+      }
+    },
+    {
+      "name": "assignment",
+      "source": "with Silver_IO;\nprocedure Main is\npragma SPARK_Mode (On);\nA : Integer range 0 .. 9 := 0;\nbegin\nA := 1;\nend Main;\n",
+      "counts": {
+        "context": 1,
+        "D": 1,
+        "R": 1,
+        "I_assign": 1,
+        "X": 4,
+        "W": 15,
+        "S": 0,
+        "N": 4,
+        "I": 10,
+        "literal_chars": 0
+      },
+      "bound": {
+        "A_parse": 51,
+        "A_Main": 74,
+        "E_Main": 3,
+        "V": 8,
+        "K": 0,
+        "K_literal": 0,
+        "preimport": [
+          17864,
+          4342,
+          6328,
+          33515
+        ],
+        "unpaid_closes": 12,
+        "modules": 2958,
+        "imports": 71016,
+        "totals": [
+          88880,
+          4342,
+          77344,
+          175547
+        ],
+        "string_lengths": {
+          "names": 1702,
+          "comments": 2280,
+          "labels": 3265,
+          "string_attributes": 33,
+          "filenames": 256,
+          "symbol_set_characters": 6606
+        },
+        "json_bytes": 726745963,
+        "json_parts": {
+          "fixed": 86901508,
+          "body": 150544186,
+          "characters": 0,
+          "imports": 489300240
+        },
+        "auxiliary": {
+          "A_total": 12858,
+          "E_total": 12787,
+          "common_calls": 84657,
+          "why_calls": 238329,
+          "why_symbol_map": 2045920,
+          "undo_peak": 34246924
+        },
+        "producer_core_fits": true
+      }
+    },
+    {
+      "name": "loop",
+      "source": "with Silver_IO;\nprocedure Main is\npragma SPARK_Mode (On);\nA : Integer range 0 .. 9 := 0;\nbegin\nfor I in 1 .. 9 loop\nA := I;\nend loop;\nend Main;\n",
+      "counts": {
+        "context": 1,
+        "D": 1,
+        "R": 1,
+        "F": 1,
+        "I_assign": 1,
+        "X": 6,
+        "B_loop": 3,
+        "W": 22,
+        "S": 0,
+        "N": 5,
+        "I": 10,
+        "literal_chars": 0
+      },
+      "bound": {
+        "A_parse": 74,
+        "A_Main": 169,
+        "E_Main": 8,
+        "V": 16,
+        "K": 0,
+        "K_literal": 0,
+        "preimport": [
+          20081,
+          5158,
+          7597,
+          43896
+        ],
+        "unpaid_closes": 23,
+        "modules": 4795,
+        "imports": 220616,
+        "totals": [
+          240697,
+          5158,
+          228213,
+          485128
+        ],
+        "string_lengths": {
+          "names": 1702,
+          "comments": 2280,
+          "labels": 7445,
+          "string_attributes": 33,
+          "filenames": 256,
+          "symbol_set_characters": 7823
+        },
+        "json_bytes": 1952728352,
+        "json_parts": {
+          "fixed": 86901508,
+          "body": 345782575,
+          "characters": 0,
+          "imports": 1520044240
+        },
+        "auxiliary": {
+          "A_total": 12953,
+          "E_total": 12792,
+          "common_calls": 84727,
+          "why_calls": 267150,
+          "why_symbol_map": 2046720,
+          "undo_peak": 34290838
+        },
+        "producer_core_fits": true
+      }
+    }
+  ],
+  "sensitivity": [
+    {
+      "literal_characters": 1,
+      "source_bytes": 94,
+      "path_bytes": 64,
+      "json_bytes": 398744434,
+      "producer_core_fits": true
+    },
+    {
+      "literal_characters": 1,
+      "source_bytes": 94,
+      "path_bytes": 256,
+      "json_bytes": 413599090,
+      "producer_core_fits": true
+    },
+    {
+      "literal_characters": 1,
+      "source_bytes": 94,
+      "path_bytes": 1024,
+      "json_bytes": 473017714,
+      "producer_core_fits": true
+    },
+    {
+      "literal_characters": 64,
+      "source_bytes": 157,
+      "path_bytes": 64,
+      "json_bytes": 416008954,
+      "producer_core_fits": true
+    },
+    {
+      "literal_characters": 64,
+      "source_bytes": 157,
+      "path_bytes": 256,
+      "json_bytes": 430863610,
+      "producer_core_fits": true
+    },
+    {
+      "literal_characters": 64,
+      "source_bytes": 157,
+      "path_bytes": 1024,
+      "json_bytes": 490282234,
+      "producer_core_fits": true
+    },
+    {
+      "literal_characters": 1024,
+      "source_bytes": 1117,
+      "path_bytes": 64,
+      "json_bytes": 679087354,
+      "producer_core_fits": true
+    },
+    {
+      "literal_characters": 1024,
+      "source_bytes": 1117,
+      "path_bytes": 256,
+      "json_bytes": 693942010,
+      "producer_core_fits": true
+    },
+    {
+      "literal_characters": 1024,
+      "source_bytes": 1117,
+      "path_bytes": 1024,
+      "json_bytes": 753360634,
+      "producer_core_fits": true
+    },
+    {
+      "literal_characters": 4096,
+      "source_bytes": 4189,
+      "path_bytes": 64,
+      "json_bytes": 1520938234,
+      "producer_core_fits": true
+    },
+    {
+      "literal_characters": 4096,
+      "source_bytes": 4189,
+      "path_bytes": 256,
+      "json_bytes": 1535792890,
+      "producer_core_fits": true
+    },
+    {
+      "literal_characters": 4096,
+      "source_bytes": 4189,
+      "path_bytes": 1024,
+      "json_bytes": 1595211514,
+      "producer_core_fits": true
+    },
+    {
+      "literal_characters": 8192,
+      "source_bytes": 8285,
+      "path_bytes": 64,
+      "json_bytes": 2643406074,
+      "producer_core_fits": false
+    },
+    {
+      "literal_characters": 8192,
+      "source_bytes": 8285,
+      "path_bytes": 256,
+      "json_bytes": 2658260730,
+      "producer_core_fits": false
+    },
+    {
+      "literal_characters": 8192,
+      "source_bytes": 8285,
+      "path_bytes": 1024,
+      "json_bytes": 2717679354,
+      "producer_core_fits": false
+    }
+  ],
+  "scope": "producer core only; source/config inequalities, not admission or native execution"
+}
