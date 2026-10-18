@@ -2552,10 +2552,12 @@ Ada container arithmetic; these rows supply the actual key domains.
 | `Common_Containers.Name_Cache` | At most `E_total`, because it is keyed by entity (`common_containers.adb:38–43,87–103`). Its separate `Symbol_Cache` and `String_Cache` each have at most `U_entity` entries, the number of distinct nonempty names passed to the string overload. `U_entity` includes names loaded from dependency metadata; it is not automatically equal to `E_total`. |
 
 The scoped symbol table also has an undo list. Each `Push_Scope` adds one
-boundary and each insertion while scoped adds one inverse action
+boundary. A new scoped key adds one inverse action, while replacing an
+existing scoped key adds two: restore the old item and remove its replacement
 (`gnat2why-util.adb:159–219,255–284`). Its length is bounded by outstanding
-boundaries plus outstanding scoped insertions, **not** by the current map's
-distinct-key count: repeated replacement of the same key adds actions.
+boundaries plus **twice** the number of outstanding scoped insertions, **not**
+by the current map's distinct-key count: repeated replacement of the same key
+adds actions.
 This source identity exposes the additional peak bound still required.
 
 ### Two separate symbol pools
@@ -2666,6 +2668,60 @@ introducing their names is not itself that connection. In particular distinct
 array keys do not bound `F_array`, and emitted pretty labels do not bound
 `F_pretty`.
 
+### Array-name lookup requests have an allocation charge
+
+The representation-map hit path still interns names, but the callers provide
+an allocation injection. The complete `Get_Array_Theory_Name` caller family
+is the two creator routines and seven accessors at
+`why-gen-arrays.adb:653–654,1078,2933–2985`; the String-literal-subtype recursion
+at `:3000–3002` delegates without performing an extra intern. The accessor
+families issue one lookup, or two for conversion and wrapper pairs.
+
+| Caller family | Fresh allocation funding each invocation |
+| --- | --- |
+| Conversion-theory creation | Two lookups at `why-gen-arrays.adb:653–654` precede a fresh module at `:658–660`, even when the cache hit later returns at `:694–695`. |
+| Representation-theory creation | One lookup at `:1078` precedes its fresh module at `:1080–1081`, before the cache test at `:1085–1086`. |
+| Array type symbols and declaration | Each lookup at `why-atree-modules.adb:3310,3328` belongs to a fresh identifier. The lookup at `why-gen-arrays.adb:1571` precedes an unconditional fresh type declaration at `:1577–1581`. |
+| Direct expression/accessor calls | Every lookup in `gnat2why-expr.adb:18591–18709,18850–18997,22176–22320`, `why-gen-expr.adb:1227,1387,1430`, and `why-gen-arrays.adb:3274,3296,3693,3715,3735` is the name/type argument of a fresh call. The two-name wrapper accessors consume at most two lookup credits per such call. |
+| Precomputed array operation names | `New_Array_Access` and `New_Array_Update` query at `why-gen-arrays.adb:3052,3117` and allocate their result calls on every returning branch. `Transform_Array_Logical_Op` queries at `gnat2why-expr.adb:18774` and allocates its operator call at `:18867–18873`. The Boolean-array case is outside current Main, but this charge covers it too. |
+| Array `Conversion_Name` branch | Its two-name query at `why-gen-names.adb:347` is reached from the final fresh call in `Insert_Single_Conversion` (`why-gen-expr.adb:3032–3038`). Other `Conversion_Name` callers select scalar component/index or scalar attribute conversions in the current rank-one Character-array domain, so they do not execute this branch. |
+
+These funding allocations are distinct between invocations and caller rows;
+the two queries of one pair share only their own allocation. This gives
+`F_array <= 2 B_N`, without extrapolating from the number of representation
+keys or observed cache misses. Consequently the current-domain pool bound
+simplifies to
+
+```text
+F_Why <= 10 + 13 B_N + F_pretty + F_fixed_point.
+```
+
+### Serialized label sets have cardinality at most three
+
+All nonempty symbol-label construction paths produce singleton markers,
+trace labels, counterexample labels or VC labels. The entity trace helper
+constructs at most two symbols and its String overload one
+(`gnat2why-util.adb:932–959`). `Get_Counterexample_Labels` can add at most one
+`Model_Projected` symbol to that two-element trace set (`:375–444`).
+`New_VC_Labels` adds one check label, at most one shape label, and exactly one
+of `Model_VC_Post`/`VC_Annotation` (`why-gen-expr.adb:5329–5372`), hence at
+most **three** elements. Its bound of two *intern calls* above does not count
+the preinterned third symbol and must not be mistaken for set cardinality.
+Other marker paths use `Symbol_Sets.To_Set`; binder, declaration and projection
+paths pass the constructed set unchanged rather than unioning independently
+growing sets (`why-gen-binders.adb:1139,1300,1332`;
+`why-gen-decl.adb:131–134,223`).
+
+The separate `String_Sets.Set` identifier-attribute field has at most two
+members: temporary identifiers add `model_trace` and `introduced`
+(`why-gen-names.adb:850–867`); Old and Loop_Entry helpers add at most one
+(`gnat2why-util.adb:1379–1417,1478–1505`). Identifier/binder copies preserve
+that field unchanged (`why-gen-names.adb:1157`; `why-gen-binders.adb:648`).
+The constructors otherwise default to an empty set. Therefore a serializer
+weight may use **`h = 3`** for every set-valued primitive field in this source
+domain. This bounds each individual set; it imposes no aggregate physical-
+memory limit on copies of those sets.
+
 Several compositional length costs are already explicit:
 
 | Name operation | Additional characters or bound |
@@ -2730,8 +2786,8 @@ must be charged along that path. Location labels follow instantiation locations
 inlining, while fixed dependencies remain fixed cases. These functions cannot
 be replaced by a fixed short-label assumption.
 
-The remaining closure work is precise: bound lifetime array-representation-name
-queries, precomputed pretty-expression markers, fixed-point and metadata-name calls from the source
+The remaining closure work is precise: bound precomputed pretty-expression
+markers, fixed-point and metadata-name calls from the source
 invocation counts; propagate the frontend name and path lengths through the
 listed constructors; and bound scoped undo peaks. The additive fixed Why
 measurements do not supply these quantities. The checked map domains and
