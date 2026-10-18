@@ -1,6 +1,6 @@
 {
-  "scope": "direct literal output: source through conditional pass_expand output and data operands",
-  "source_files_verified": 68,
+  "scope": "direct literal output: source through conditional pass_expand output and emitted constant data",
+  "source_files_verified": 77,
   "source_counts": {
     "source_bytes": 118,
     "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
@@ -148,6 +148,34 @@
       "allocation_or_frame_bound_established": false,
       "all_RTX_rtvec_lifetime_requests_bound_established": false
     },
+    "conditional_native_constant_data": {
+      "requires_selected_O0_no_merge_no_anchor_no_sanitizer_options": true,
+      "fresh_tree_pool_descriptors_upper": 2,
+      "fresh_RTL_pool_descriptors": 0,
+      "literal_pool_definitions_upper": 1,
+      "bounds_pool_definitions_upper": 1,
+      "constant_label_increments_upper": 2,
+      "bounds_deferred_increment_events_upper": 1,
+      "bounds_deferred_decrement_events_upper": 1,
+      "pool_object_alignment_bytes_upper": 8,
+      "literal_payload_bytes_upper": 13,
+      "bounds_payload_bytes_upper": 8,
+      "pool_alignment_padding_bytes_upper": 14,
+      "rodata_payload_including_padding_bytes_upper": 35,
+      "data_relocations": 0,
+      "additional_data_sections_upper": 1,
+      "LC_label_definitions_upper": 2,
+      "ASCII_or_base64_payload_lines_upper": 13,
+      "bound_integer_directive_lines_upper": 2,
+      "section_alignment_label_lines_upper": 6,
+      "emitted_constant_data_lines_upper": 21,
+      "emitted_constant_data_bytes_upper": 681,
+      "maximum_constant_data_line_bytes_excluding_LF": 512,
+      "selected_ASCII_outer_chunk_bytes": 16384,
+      "selected_base64_payload_chunk_bytes_upper": 255,
+      "selected_base64_scratch_buffer_bytes": 347,
+      "complete_Main_assembly_or_ELF_envelope_established": false
+    },
     "local_representation_checks": {
       "literal_length_fits_String_Length_and_Integer": true,
       "String_constructor_unsigned_size": true,
@@ -158,6 +186,10 @@
       "pass_expand_pseudo_number_fits_signed_int": true,
       "pass_expand_instruction_UID_fits_signed_int": true,
       "pass_expand_block_index_fits_signed_int": true,
+      "constant_label_increment_fits_signed_int": true,
+      "tree_constant_pool_hash_live_region": true,
+      "deferred_counter_increment_and_decrement_events_fit_unsigned32": true,
+      "emitted_constant_data_extent_fits_signed64": true,
       "descriptor_objects_have_fixed_size": true
     },
     "semantic_library_admissibility": "separate parameter; current 4096-byte rule is not promoted into this backend bound",
@@ -174,7 +206,8 @@
     "5000 calls compose without a new source cap",
     "CF CFG SSA source count composition",
     "SSA operand slab transitions",
-    "pass_expand shape and signed instruction UID boundary"
+    "pass_expand shape and signed instruction UID boundary",
+    "constant data payload and ASCII base64 emitter bounds"
   ],
   "native_tool_executions": 0,
   "arithmetic_requires_companion_manual_source_argument": true

@@ -1,5 +1,5 @@
 {
-  "scope": "Direct literal output through conditional pass_expand output projection",
+  "scope": "Direct literal output through conditional pass_expand and emitted constant data",
   "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "files": [
     {
@@ -409,6 +409,60 @@
       "path": "gcc/df-scan.cc",
       "bytes": 121906,
       "sha256": "ded9f1492d06364e32669846c8ca29bced387035e5629fd465d6675c0144561d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cgraph.h",
+      "bytes": 138341,
+      "sha256": "344057ec2e4c787585ebff364b2f972b7aae7e775e3104f8c491c1c57ab7edb1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-traits.h",
+      "bytes": 11226,
+      "sha256": "afb85a25b0c691cb181adaf013f664516debda8681563a1179053b602f097a49"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-table.h",
+      "bytes": 39688,
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/varpool.cc",
+      "bytes": 24150,
+      "sha256": "d450a01353495f850293c2266900abfe6e915ee5be50ff068eccd1fd1cddbdf8"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/att.h",
+      "bytes": 3186,
+      "sha256": "a915b51760c40265932d6e41c37f76d5b5d33dfee9c49e211ebb58a0e8c46e39"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/defaults.h",
+      "bytes": 42480,
+      "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/target.def",
+      "bytes": 349626,
+      "sha256": "a4201f0ce18dbbfdbe7b10da98a386e1c79973659be5032abdd3346e125d7763"
+    },
+    {
+      "root": "plugin",
+      "path": "tm.h",
+      "bytes": 1254,
+      "sha256": "f1fa248e3924d90b354187f716399e37ce552fa7346adf158b9769260949eb51"
+    },
+    {
+      "root": "plugin",
+      "path": "auto-host.h",
+      "bytes": 62999,
+      "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14"
     }
   ]
 }

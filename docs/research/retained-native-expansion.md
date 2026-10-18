@@ -11248,9 +11248,9 @@ unchanged until its authorized implementation/proof work is completed.
 This is an evidence stream toward the complete #119 language objective, not a
 new language fragment, milestone or source cap. The
 [offline source join](../evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py)
-scans this restricted source class completely and checks 68 complete source
+scans this restricted source class completely and checks 77 source/header
 identities. Its equations cover initial lowering, CF/CFG/SSA, conditional O0
-and out-of-SSA shape preservation, pass_expand RTL output, and data operands.
+and out-of-SSA shape preservation, pass_expand RTL output, and emitted constant data.
 Whole-unit IPA, later RTL, allocation counters and final assembly/object composition
 remain required; neither the checker nor its arithmetic proves those stages.
 
@@ -11745,12 +11745,146 @@ The interface permits that behavior. A later pass must either justify
 splitting these words independently or bound possible descriptor spills;
 zero initial stack storage does not establish zero final frame size.
 
-The replay now verifies 68 complete source files and records this interface,
+The pass_expand projection uses 68 complete source files and records this interface,
 including a focused signed-UID boundary check. For C=1,N=0 it yields P=3,
 I=19, B=4, E=5 and R0=80. These are source-derived ceilings, not measured
 RTL output. No compiler, prover or debugger was executed. Whole-unit IPA,
 ordinary/GGC allocation, later RTL, final assembly and object composition
 remain explicit unfinished joins.
+
+### Literal and bounds data emission
+
+The corresponding constant-data delta uses the same native configuration,
+with O0 constant merging and section anchors disabled, and no sanitizer or
+verbose assembly. It is independent of final register allocation: the source
+argument bounds all possible literal/bounds definitions before any deletion
+of unused data. It does not charge pointer descriptors as emitted static
+objects; those descriptors are the TI pseudos handled above.
+
+Each call can request one String tree constant and one bounds-record tree
+constant. The latter is a two-field record of 32-bit integer bounds at byte
+offsets 0 and 4, total size 8. Its initializer contains no further addressed
+constant. String contents also contain no addresses. Thus
+`output_addressed_constants` does not recursively introduce another pool
+entry (`varasm.cc:4888–4937`). Tree-pool hashing retains and shares entries
+regardless of the O0 no-merge-section flag (`:3808–3842`). The rooted table
+uses `ggc_ptr_hash`, whose marker retains every live entry rather than
+dropping a weak cache entry (`cgraph.h:3535–3539`,
+`hash-traits.h:250–267,321`, `hash-table.h:1240–1256`). Its selected lifecycle
+has no clearing before finalization (`varasm.cc:3352,6963,9116`). Hence even
+repeated requests or GC do not create more than **2C** fresh descriptors and
+constant-label increments for these source constants.
+
+`tree_output_constant_def` initially finalizes each bounds declaration but
+does not increment the deferred-constant counter (`varasm.cc:3989–3995`).
+Its first `make_decl_rtl` can call `output_constant_def(...,1)` once, before
+caching the resulting RTL (`:1533–1538`); this gives at most C deferred
+increments. String addresses use `output_constant_def(...,0)` and are emitted
+immediately (`expr.cc:9207–9241`). Each still-pending referenced bounds
+constant can be emitted/decremented once, at most C times
+(`varasm.cc:3855–3893,4495–4523`). Already-written constants return before
+either path repeats output. Direct varpool assembly recognizes the same
+tree-pool symbol and delegates to that guarded output routine rather than
+defining it again (`:2575–2601`; `varpool.cc:568–604`). The selected DI
+addresses and integer-bound emission need no fresh RTL-pool descriptor.
+These event ceilings join the existing
+[constant-pool counter/hash transfer](retained-backend-capacity.md#constant-pools-entries-requests-and-labels-are-different-costs);
+they do not price all associated GGC objects.
+
+**Data layout.** String constants have their natural character alignment,
+raised to at most one 8-byte word by `ix86_constant_alignment` for lengths
+at least 31 (`i386.cc:18473–18489`). Bounds-record alignment is at most 8
+bytes: its size is only 64 bits and its first field has SImode, so the x86
+aggregate/cache-line and wider-field promotions do not enlarge it
+(`i386.cc:18589–18696`; `varasm.cc:3749–3762`). The precise alignment may be
+smaller; use eight for both. `get_constant_section` routes both values to
+readonly data: the constructor is constant with zero relocation, and the
+String merge helper falls back to readonly data when `flag_merge_constants`
+is zero (`varasm.cc:868–920,3692–3711,7368–7444,7490–7512`). Section anchors
+are disabled, so there is no object-block positioning path (`:385–388`).
+The only additional data section is `.rodata`.
+
+For a literal of length L, its type size and TREE_STRING_LENGTH are L.
+`output_constant` emits exactly that many bytes; no merge-string NUL or
+type-tail padding is added (`varasm.cc:5442–5449,5619–5634,5669–5672`).
+An empty literal contributes a label and possibly alignment but no payload.
+`output_constructor` sends the two ordinary bounds fields through
+`output_constructor_regular_field` with no gap or tail padding
+(`:5807–5911,6085–6210`). Each integer emits one aligned `.long` and four
+bytes (`:3078–3159,5534–5545`; `i386.cc:28251–28252`; `att.h:35`). All
+values are nonnegative and fit signed 32-bit under the literal-length
+premise; they are immediate integers, not symbol relocations. Consequently:
+
+```text
+literal / bounds payload               <= W / 8C bytes
+alignment padding across <=2C objects  <= 14C bytes
+.rodata extent including padding       <= W + 22C bytes
+data relocation records                = 0
+constant-pool labels / data sections    <= 2C / 1
+```
+
+This is an object **section payload** bound. ELF headers, symbols, strings,
+section alignment, file layout and relocations in the calling machine code
+remain separate. The data's internal alignment padding is already included
+and must not be confused with ELF file alignment.
+
+**Assembly serialization.** The pinned installed `tm.h` includes `elfos.h`
+after the AT&T header; no later selected header overrides its ASCII writer.
+The pinned `auto-host.h` defines `HAVE_GAS_BASE64=1`. Thus
+`assemble_string` limits each call to the writer to 16,384 bytes
+(`varasm.cc:2304–2335`), and ELF selects `default_elf_asm_output_ascii`, with
+`ELF_STRING_LIMIT=256` (`elfos.h:443–470`). This is a build/source premise,
+not an assumption that literal contents always use `.ascii`.
+
+Every decoded literal byte is printable ASCII, so there is no embedded NUL.
+The `.string` and `.zero` subpaths are therefore absent. The remaining
+writer emits either ordinary ASCII chunks or base64
+(`varasm.cc:8735–8929`). Ordinary escaped data contributes at most two output
+characters per decoded byte. The writer checks its 60-character threshold
+before the next byte, giving at most 61 escaped payload characters on one
+ordinary line. With the eight-byte directive, two quotes and LF, a nonempty
+chunk of k decoded bytes costs at most `2k+11 <= 13k` bytes.
+
+The optional base64 scan consumes at most 255 decoded bytes per chunk and
+only selects this form for k>=3. Its encoding has `4*ceil(k/3)` characters,
+plus the nine-byte directive, quotes and LF. Thus it also costs at most
+`13k` bytes; the longest such line is 351 bytes excluding LF. The local
+base64 scratch buffer is exactly 347 bytes. All chunk loops advance, and
+each emitted payload line consumes at least one decoded byte. This proves
+at most W payload lines and at most 13W serialized payload bytes, without
+using the current 4096-byte semantic String restriction. The explicit
+per-literal `L<=INT_MAX` check also protects the writer's signed `size`,
+`pos` and subtraction; its chunk parameter is at most 16,384.
+
+Every pool definition additionally emits at most one section-selection line,
+one alignment line and one label line (`varasm.cc:3949–3958,8151–8156,
+8226–8287`). The selected default constant-name hook emits only the label,
+and the decl-end hook is empty (`target.def:111–116,258–271`). Under the
+existing signed constant-label bound, every such scaffold line fits 64 bytes
+excluding LF. The two integer lines per bounds record each fit 22 bytes
+including LF. Charging all section switches even when suppressed gives:
+
+```text
+constant-data lines/events          <= W + 8C
+constant-data serialized bytes      <= 13W + 512C
+longest constant-data line          <= 512 bytes excluding LF
+```
+
+The 512C allowance exceeds the `6C*65 + 2C*22 = 434C` scaffold/integer sum.
+The longest-line bound includes both ordinary and base64 forms. These
+coefficients come from the selected emitters and do not impose a new source
+cap. Machine instructions, CFI, Main's outline and file-level notes must be
+added to obtain the complete assembly stream; constant section switches
+during RTL expansion occur before Main's textual body starts and do not
+split the later function body into multiple emission sequences.
+
+The replay verifies 77 source/header identities, including the two installed
+configuration headers supplied by `--plugin-include`. Its ninth focused check
+reconciles the data equations and every base64 chunk size 3..255. Hello's
+C=1,W=13 instance yields at most 35 `.rodata` bytes including alignment,
+21 data lines and 681 serialized data bytes. No native tool is executed and
+no measured assembly is used as a universal bound. Source correspondence,
+complete per-pass allocation and the complete Main object remain unfinished.
 
 ## Exact remaining obligations
 

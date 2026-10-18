@@ -147,6 +147,30 @@ def composition(counts):
             descriptor_cross_call_liveness_excluded=False,
             allocation_or_frame_bound_established=False,
             all_RTX_rtvec_lifetime_requests_bound_established=False),
+        conditional_native_constant_data=dict(
+            requires_selected_O0_no_merge_no_anchor_no_sanitizer_options=True,
+            fresh_tree_pool_descriptors_upper=2*c,
+            fresh_RTL_pool_descriptors=0,
+            literal_pool_definitions_upper=c, bounds_pool_definitions_upper=c,
+            constant_label_increments_upper=2*c,
+            bounds_deferred_increment_events_upper=c,
+            bounds_deferred_decrement_events_upper=c,
+            pool_object_alignment_bytes_upper=8,
+            literal_payload_bytes_upper=w, bounds_payload_bytes_upper=8*c,
+            pool_alignment_padding_bytes_upper=14*c,
+            rodata_payload_including_padding_bytes_upper=w+22*c,
+            data_relocations=0, additional_data_sections_upper=1,
+            LC_label_definitions_upper=2*c,
+            ASCII_or_base64_payload_lines_upper=w,
+            bound_integer_directive_lines_upper=2*c,
+            section_alignment_label_lines_upper=6*c,
+            emitted_constant_data_lines_upper=w+8*c,
+            emitted_constant_data_bytes_upper=13*w+512*c,
+            maximum_constant_data_line_bytes_excluding_LF=512,
+            selected_ASCII_outer_chunk_bytes=16384,
+            selected_base64_payload_chunk_bytes_upper=255,
+            selected_base64_scratch_buffer_bytes=347,
+            complete_Main_assembly_or_ELF_envelope_established=False),
         local_representation_checks=dict(
             literal_length_fits_String_Length_and_Integer=length<=I32,
             String_constructor_unsigned_size=length+21<=2**32-1,
@@ -157,6 +181,10 @@ def composition(counts):
             pass_expand_pseudo_number_fits_signed_int=98+3*c<=I32,
             pass_expand_instruction_UID_fits_signed_int=chain+1<=I32,
             pass_expand_block_index_fits_signed_int=n+6<=I32,
+            constant_label_increment_fits_signed_int=2*c<=I32,
+            tree_constant_pool_hash_live_region=2*c<=1073741823,
+            deferred_counter_increment_and_decrement_events_fit_unsigned32=c<=2**32-1,
+            emitted_constant_data_extent_fits_signed64=w+22*c<=2**63-1,
             descriptor_objects_have_fixed_size=True),
         semantic_library_admissibility='separate parameter; current 4096-byte rule is not promoted into this backend bound',
         later_GIMPLE_IPA_RTL_allocation_and_counter_composition_established=False,
@@ -185,6 +213,18 @@ def focused_checks():
     above = dict(at_limit, output_calls=limit+1)
     assert composition(at_limit)['local_representation_checks']['pass_expand_instruction_UID_fits_signed_int']
     assert not composition(above)['local_representation_checks']['pass_expand_instruction_UID_fits_signed_int']
+    data = composition(c)['conditional_native_constant_data']
+    assert (data['rodata_payload_including_padding_bytes_upper'],
+            data['emitted_constant_data_lines_upper'],
+            data['emitted_constant_data_bytes_upper']) == (47,19,1063)
+    # Printable bytes have no NUL and their ordinary escape expansion is <=2.
+    # Cover every size accepted by the fixed base64 chunk loop, independently
+    # of source-literal lengths or current semantic String capacity.
+    for size in range(3,256):
+        encoded = 4*((size+2)//3)
+        assert encoded+12 <= 13*size and encoded+11 <= 512
+    for size in range(1,16385):
+        assert 2*size+11 <= 13*size
     for uses, expected in [(25,1024),(28,5120),(127,5120),(130,21504)]:
         artificial = dict(c,output_calls=(uses-1)//3)
         assert composition(artificial)['initial_SSA']['operand_slab_requested_bytes_upper'] == expected
@@ -207,7 +247,8 @@ def focused_checks():
             'unsupported constructs rejected', 'comment terminators and EOF',
             '5000 calls compose without a new source cap',
             'CF CFG SSA source count composition', 'SSA operand slab transitions',
-            'pass_expand shape and signed instruction UID boundary']
+            'pass_expand shape and signed instruction UID boundary',
+            'constant data payload and ASCII base64 emitter bounds']
 
 
 def main():
@@ -215,15 +256,17 @@ def main():
     p.add_argument('--source',type=Path,required=True)
     p.add_argument('--gcc-root',type=Path,required=True)
     p.add_argument('--ada-root',type=Path,required=True)
+    p.add_argument('--plugin-include',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
     a = p.parse_args()
-    roots = {'gcc':a.gcc_root,'ada':a.ada_root,'silver':HERE.parents[3]}
+    roots = {'gcc':a.gcc_root,'ada':a.ada_root,'silver':HERE.parents[3],
+             'plugin':a.plugin_include}
     identity = json.loads((HERE/'literal-output-source-inputs.json').read_bytes())
     for row in identity['files']:
         raw = (roots[row['root']]/row['path']).read_bytes()
         require(len(raw)==row['bytes'] and sha(raw)==row['sha256'], 'changed source: '+row['path'])
     counts = source_counts(a.source.read_bytes())
-    result = dict(scope='direct literal output: source through conditional pass_expand output and data operands',
+    result = dict(scope='direct literal output: source through conditional pass_expand output and emitted constant data',
         source_files_verified=len(identity['files']), source_counts=counts,
         components=composition(counts), focused_checks=focused_checks(),
         native_tool_executions=0,

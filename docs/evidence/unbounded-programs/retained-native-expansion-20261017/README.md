@@ -195,7 +195,7 @@ optional parameters; the earlier default `derive.py` result remains unchanged.
 
 ### Direct literal-output initial lowering
 
-`literal-output-source-inputs.json` pins 68 complete GCC/Ada/API sources,
+`literal-output-source-inputs.json` pins 77 GCC/Ada/API source and installed-header identities,
 including 22 for the initial native/gigi/GIMPLE projection.
 `derive-literal-output.py` scans a canonical direct-literal Put/Put_Line/null
 sequence completely and composes the manual native/gigi/initial-GIMPLE source
@@ -215,6 +215,7 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/deri
   --source samples/hello_world.adb \
   --gcc-root /tmp/silver-backend-compose-20261018/full-source \
   --ada-root /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --plugin-include /path/to/pinned/plugin/include \
   --output /tmp/native-literal-output-initial.json
 ```
 
@@ -240,8 +241,18 @@ For C calls and N nulls it supplies up to 3C pseudos, 6C DI moves, C direct
 calls, N+4 ordinary blocks, and 7C+3N+12 cumulative instruction-chain
 requests. Its live RTL occurrence interface includes operands, notes and call
 usage, separately from lifetime allocation requests. A focused arithmetic
-check covers the signed instruction-UID boundary. All 68 pinned sources are
+check covers the signed instruction-UID boundary. The RTL projection uses 68 source identities; all current packet inputs are
 verified offline; no compiler, prover or debugger executes. Initial descriptor
 storage is in registers, but possible later descriptor spills remain open.
 The selected whole-unit IPA premise, allocation, final frame and Main object
 bounds are still unfinished.
+
+The same replay now adds a constant-data envelope, with the pinned installed
+`tm.h` and `auto-host.h` supplied by `--plugin-include`. Literal and bounds
+pools emit at most W+22C `.rodata` bytes including internal padding, no data
+relocations, W+8C assembly lines and 13W+512C serialized assembly bytes.
+The selected ELF `.ascii`/`.base64` writers keep data lines below512bytes
+independently of literal length; semantic library limits remain separate.
+The retained hello fixture and nine focused checks replay all77 identities.
+This closes the data delta, not final machine code, Main ELF layout or lifetime
+allocation accounting. No native tool is executed.
