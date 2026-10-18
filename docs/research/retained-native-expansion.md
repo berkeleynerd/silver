@@ -3440,7 +3440,8 @@ bounds its qualified name. The two-character separator is `__`. Reusing an
 already fully qualified prefix only substitutes that same bounded path prefix;
 it does not concatenate its scope a second time. Get_Unqualified_Name_String
 uses the unqualified suffix of an already locally qualified name. Thus require
-`Q(e)<=Name_Buffer'Length` and add **one name entry and Q(e)+1 name characters**
+`Q(e)<=32767` (Name_Entry's Short length) and
+`Q(e)<=Name_Buffer'Length`, then add **one name entry and Q(e)+1 name characters**
 per such entity, including its NUL. Name_Enter's possible reuse is not credited.
 All intermediate prefixes fit the same bound. There are no new ordinary/entity
 nodes, syntax/Elists, Uint values, Strings or xrefs in these selected routes.
@@ -5288,6 +5289,116 @@ complete ALI/debug/backend/object/linker and independent proof-producer terms.
 In particular the retained fixed gigi numbers do not absorb variable Main
 callbacks into Uint/Repinfo. No larger source language follows from a sum of
 logical table demands until those remaining joins and correspondence are closed.
+
+## Core native table backing and caller checks
+
+`native_core_table_backing` applies the previously derived generic table
+capacity envelope to 22 concrete native tables, using the logical join above.
+The selected Linux64 representation premise is explicit: Int/IDs/Char_Code
+are32 bits, Character/Boolean are bytes, addresses are64 bits, and an access
+to an unconstrained String occupies at most the two-address descriptor.
+No new compiler/layout measurement was run. Source clauses and the existing
+node-layout derivation give the C-facing sizes; ordinary native record sizes
+below are upper bounds including target alignment.
+
+| Table family | Bytes per component used by the bound |
+| --- | ---: |
+| Node_Offsets header | 16 |
+| Orig_Nodes, Next_Node, Prev_Node, Slots | 4 |
+| Syntax-list header | 12 |
+| Elist header, element record, Uint descriptor, String descriptor | 8 |
+| Uint digit, String character | 4 |
+| Ureal record | 16 |
+| Name entry / Name character | 16 / 1 |
+| Interpretation record | 16 |
+| Name_Qualify_Units | 4 |
+| Xref record | 40 |
+| Scope_Stack entry | 320, a padded upper bound |
+| Expander_Flags | 1 |
+| Paren_Counts / Parents_Stack | 8 / 4 |
+
+In particular, Node_Offsets is the **16-byte header**, not one four-byte offset
+per node (`atree.ads:725–740`). Slots are separate four-byte words. Uint/String
+records each contain two Int fields (`uintp.ads:564–570`,
+`stringt.adb:48–51`). Ureal has three four-byte scalars and a Boolean, bounded
+by16 bytes (`urealp.adb:36–49`). Interp has four entity IDs
+(`sem_type.ads:65–70`). The Xref key has six four-byte fields and one Character;
+rounding that to28 bytes and adding its three remaining Int fields gives40
+(`lib-xref.adb:68–114`). Scope_Stack has20 immediate components. Each fits a
+16-byte slot after alignment: its two potentially wider values are the String
+access descriptor and Suppress_Record (30 packed Boolean bits plus two small
+enums); its Scope_Actions array is three List_Ids. Hence20*16=320 is sufficient
+without claiming an exact packed Scope_Stack layout (`sem.ads:489–583`,
+`types.ads:725–726,775–788`). The collector checks the20-field/30-check source
+facts on regeneration.
+
+For each table use its actual initial size, increment, low bound, nominal
+logical ID domain and the configured Table_Factor. The default factor is1;
+configuration must preserve that or supply its actual value. For logical
+demand D, initial i, factor f and increment g, all calculations below are
+mathematical integers:
+
+```text
+p = max(D,i)
+C = max(i*f, D+floor(D/1000), floor(p*(100+g)/100), p+10).
+```
+
+C bounds backing capacity through growth and release. Check i*f and C+1 in
+signed Int, p*(100+g) in signed64, low-1 in signed Int, low+C in signed Int,
+and low+D-1 against the actual logical ID upper bound. The zero No_List ID
+is excluded from allocated list headers. Other ID domains preserve their own
+sentinels and first valid IDs; using one generic positive-count limit would
+miss their offsets. The backing sentinel uses the table's actual Base/Int
+index conversion, distinct from the logical ID subtype. Include (C+1)*bytes
+in the signed64 pointer-difference/address bound, which also implies the
+unsigned64 allocation-size bound. These are sufficient checks; a failing
+conservative bound does not establish that GNAT would fail at that input.
+
+The 22-table byte subtotal is `2*sum((C+1)*component_bytes)`. This pays old/new
+storage during a relocating realloc for every table simultaneously, and thus
+overcounts any single growth event. It is an addressable allocation-demand
+bound under the trusted allocator model, not a guarantee of available memory
+or successful physical allocation. Hash containers, local temporaries and
+unlisted tables are not hidden in this subtotal.
+
+Two auxiliary table demands now close without a new construct inventory:
+Set_Paren_Count searches by node before appending, so Paren_Counts has at most
+the complete lifetime node count (`atree.adb:2331–2361`). Copies/rewrite nodes
+are already in that count. The parent-aware traversal stack holds one root
+parent plus one entry per active syntactic node. Its three callbacks only
+check/fix parent links; they do not recursively start another parent-aware
+traversal (`sem_util.adb:3943–3977`, `sem_ch13.adb:11310–11332`,
+`contracts.adb:4750–4782`). Use A_total+1, preserving the traversal's enforced
+nonreentrancy (`atree.adb:2747–2765`). Neither result prices recursive Ada frames
+or permits cyclic syntactic child edges.
+
+The accompanying non-table subtotal charges3079 eight-byte Interp_Map bucket
+pointers and16 bytes per key/element/next wrapper. Fixed bindings are bounded
+by all fixed nodes; Main bindings use the native common-metadata transfer.
+Xref hash headers are65536 four-byte entry indices with links already inside
+the Xrefs records. Its output sort vector is `(Xrefs+1)` Nat words. Saved-check
+fixed arrays use200 records of at most20 bytes and100 Nat words. Reaching zero
+Main additions does not erase these initial arrays.
+
+There is a distinct name-length conversion beyond Name_Buffer capacity.
+Name_Enter and Name_Find cast Buf.Length to **Short**, whose maximum is32767
+(`namet.adb:1146,1252`, `types.ads:74`). Therefore **every interned spelling**,
+including source identifiers, generated/qualified names and path spellings,
+must fit32767 even though Name_Buffer holds4*32766 characters. The checker uses
+the maximum of the fixed normalized spelling bound and Main's qualified and
+unqualified spelling bounds. It also checks the Saved_Checks_TOS Nat increment.
+The path-bound200 fixtures illustrate these calculations only; the earlier
+P=4096 fixture fails this conservative fixed-name check because it deliberately
+allows17 entire paths in one spelling. Neither fixture is a selected language
+threshold. Integration must use the controlled invocation's actual bound or
+justify a tighter name-producer shape.
+
+The remaining physical surface is still explicit: other native tables and
+heap containers, parser/source/line state, diagnostics and invocation records,
+Repinfo/backend callbacks, numeric/local workspace and recursive stack,
+serialization/ALI, and the independent proof producer. The selected arithmetic
+checker reports this incomplete scope even when every check in its subtotal
+passes.
 
 ## Required transitive closure
 

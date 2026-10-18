@@ -24,7 +24,8 @@ expected = {entry["path"]: entry for entry in manifest["files"]}
 files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_eval.adb", "tbuild.adb", "namet.adb", "lib.adb", "validsw.ads", "stringt.adb",
          "cstand.adb", "ttypes.ads", "contracts.adb", "uname.adb",
-         "atree.adb", "types.ads", "uintp.ads", "uintp.adb", "gen_il-gen.adb", "sinfo-cn.adb",
+         "atree.adb", "atree.ads", "alloc.ads", "table.adb", "table.ads", "hostparm.ads",
+         "urealp.adb", "urealp.ads", "sem_type.ads", "types.ads", "uintp.ads", "uintp.adb", "gen_il-gen.adb", "sinfo-cn.adb",
          "exp_imgv.adb", "exp_put_image.adb", "exp_ch2.adb", "exp_ch3.adb",
          "exp_ch8.adb", "sem_ch4.adb", "sem_dim.adb", "rtsfind.ads",
          "elists.adb", "libgnat/g-htable.ads", "libgnat/s-htable.adb",
@@ -1261,6 +1262,94 @@ def native_frontend_logical_join(*, counts, scanner_pools,
         whole_native_frontend_closed=False)
 
 
+def native_core_table_backing(logical, *, table_factor=1):
+    """Concrete sufficient backing/byte checks for the named native tables.
+
+    Linux64 target ABI: 32-bit Int/IDs, byte Character/Boolean, 64-bit addresses,
+    16-byte unconstrained-array access descriptor. Bytes are upper bounds;
+    Scope_Stack's 320-byte bound deliberately avoids an exact record-layout claim.
+    """
+    assert table_factor >= 0
+    scope_record = re.search(r"type Scope_Stack_Entry is record(.*?)end record;",
+                             sources["sem.ads"],re.S).group(1)
+    scope_record = re.sub(r"--[^\n]*", "", scope_record)
+    assert len(re.findall(r"\b\w+\s*:",scope_record)) == 20
+    assert "All_Checks : constant := 30;" in sources["types.ads"]
+    values = logical["tables"]
+    stacks = logical["stacks"]
+    i32, i64 = 2**31-1, 2**63-1
+    specifications = [
+        ("Node_Offsets",values["node_identities"],0,500000,100,16,1999999999),
+        ("Orig_Nodes",values["node_identities"],0,500000,100,4,1999999999),
+        ("Next_Node",values["node_list_link_entries"],0,500000,100,4,i32),
+        ("Prev_Node",values["node_list_link_entries"],0,500000,100,4,i32),
+        ("Slots",values["dynamic_slots"],1,2000000,100,4,i32),
+        ("Lists",values["syntax_list_headers"],-99999999,4000,200,12,-1),
+        ("Elists",values["Elist_headers"],-199999998,200,100,8,-100000000),
+        ("Elmts",values["Elist_elements"],-299999998,1200,100,8,-200000000),
+        ("Uints",values["Uint_entries"],-699999999,5000,100,8,-600000000),
+        ("Udigits",values["Uint_digits"],0,10000,100,4,i32),
+        ("Ureals",values["Ureal_entries"],-599999998,200,100,16,-500000000),
+        ("Strings",values["String_descriptors"],-499999998,500,150,8,-400000000),
+        ("String_Chars",values["String_characters"],0,2500,150,4,i32),
+        ("Name_Entries",values["Name_entries"],-399999997,6000,100,16,-300000000),
+        ("Name_Chars",values["Name_characters"],0,50000,100,1,i32),
+        ("All_Interp",values["All_Interp_entries"],0,1000,100,16,i32),
+        ("Name_Qualify_Units",values["Name_Qualify_Units_entries"],1,200,300,4,i32),
+        ("Xrefs",values["Xrefs_entries"],1,5000,300,40,i32),
+        ("Scope_Stack",stacks["Scope_Stack_live_entries"],0,10,200,320,i32),
+        ("Expander_Flags",stacks["Expander_Flags_live_entries"],0,32,200,1,i32),
+        ("Paren_Counts",values["node_identities"],0,10,200,8,i32),
+        ("Parents_Stack",values["node_identities"]+1,1,256,100,4,i32),
+    ]
+    rows = {}
+    for name,demand,low,initial,increment,size,nominal_high in specifications:
+        assert demand >= 0
+        p = max(demand,initial)
+        capacity = max(initial*table_factor,demand+demand//1000,
+                       p*(100+increment)//100,p+10)
+        last = low+demand-1
+        bytes_with_sentinel = (capacity+1)*size
+        checks = dict(initial_product=initial*table_factor<=i32,
+            growth_product=p*(100+increment)<=i64,
+            backing_length_and_plus_one=capacity+1<=i32,
+            empty_index=low-1>=-2**31,
+            backing_index_and_sentinel=low+capacity<=i32,
+            logical_nominal_index=last<=nominal_high,
+            allocation_and_pointer_difference=bytes_with_sentinel<=i64)
+        rows[name] = dict(demand=demand,low_bound=low,initial=initial,
+            increment_percent=increment,component_bytes_upper_bound=size,
+            backing_capacity_bound=capacity,bytes_with_sentinel=bytes_with_sentinel,
+            checks=checks,all_selected_checks_pass=all(checks.values()))
+    # All New_Interp keys are nodes. The fixed-node overcount pays fixed keys;
+    # Main key insertions use the separately source-derived map transfer.
+    interp_bindings = logical["fixed"]["node_identities"]+logical["common"]["Interp_Map_Main_bindings"]
+    auxiliary = dict(Interp_Map_buckets=3079*8,
+        Interp_Map_wrapper_bytes=16*interp_bindings,
+        Xref_static_hash_headers=65536*4,
+        Xref_sort_vector=4*(values["Xrefs_entries"]+1),
+        Saved_Checks=200*20, Saved_Checks_stack=100*4)
+    name_length = max(logical["fixed"]["fixed_Name_buffer_bound"],
+                      logical["common"]["max_qualified_name"],
+                      logical["common"]["max_unqualified_name"],31)
+    assert "type Short is range -32768 .. +32767;" in sources["types.ads"]
+    checks = dict(all_selected_tables=all(row["all_selected_checks_pass"] for row in rows.values()),
+        interned_name_Short_length=name_length<=32767,
+        name_buffer=name_length<=4*32766,
+        saved_check_counter=stacks["Saved_Checks_TOS_peak"]<=i32,
+        auxiliary_byte_products=max(auxiliary.values())<=i64)
+    # Two copies of each bounded allocation pay a relocating realloc's old/new
+    # overlap. Summing that for every table overcounts simultaneous growth.
+    bytes_peak = 2*sum(row["bytes_with_sentinel"] for row in rows.values())+sum(auxiliary.values())
+    checks["selected_aggregate_address_span"] = bytes_peak<=i64
+    return dict(tables=rows,auxiliary_bytes=auxiliary,
+        selected_tables_reallocation_peak_bytes=bytes_peak,
+        interned_name_length_bound=name_length,checks=checks,
+        all_selected_checks_pass=all(checks.values()),
+        allocation_success_claimed=False,
+        whole_process_memory_or_capacity_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -1333,6 +1422,16 @@ empty_scanner_pools = dict(Name_entries=0, Name_characters=0, Uint_entries=0,
     Uint_digits=0, String_descriptors=0, String_characters=0)
 
 result = {
+    "native_core_table_backing_join": {
+        "arithmetic_fixtures_not_programs_or_thresholds": [native_core_table_backing(
+            native_frontend_logical_join(counts=counts,scanner_pools=empty_scanner_pools,
+                max_identifier_length=12,input_identifier_length=1,
+                loop_depth=counts["loops"],pathname_length=200))
+            for counts in (main_example_counts,mixed_example_counts)],
+        "target_layout_premise": "selected Linux64 ABI; exact scalar/C-facing sizes and conservative native record padding; no layout compiler run",
+        "name_conversion": "Name_Enter and Name_Find convert Buf.Length to signed Short, so require <=32767 independently of Name_Buffer",
+        "whole_native_frontend_closed": False,
+    },
     "native_fixed_source_reduction_join": {
         "inputs": "native-fixed-inputs.json; source closure plus retained all-roots capture reconciliation, not another compiler run",
         "fixed": native_fixed_frontend(1,4096),
