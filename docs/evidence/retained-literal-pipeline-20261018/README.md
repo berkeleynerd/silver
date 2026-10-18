@@ -23,7 +23,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 64 interface checks. It reuses one context's
+arguments and `--output`, and runs 66 interface checks. It reuses one context's
 successful retained checks across source variations.
 
 `inputs.json` pins formulas, predecessor results and source arguments.
@@ -78,10 +78,15 @@ open; no null lifetime subtotal transfers.
 `native_initial_cf_cfg_lifetime` closes initial CF/EH/CFG/root-loop direct
 constructors from the established GIMPLE shape, including local-declaration
 and index vectors, variable finally/discriminator hashes, ordinary traversal
-backing and shared metadata/bitmap/ET demand. A separate `9C+2N+2` direct-site
+backing and shared metadata/bitmap/ET demand. A separate `10C+2N+2` direct-site
 gimplifier subtotal is exposed without claiming the complete gimplifier
 lifetime: deep unsharing, materialization copies/folding and shared helper
-work remain explicit. Later passes and complete collector composition stay open.
+work remain explicit. The corrected direct bound includes up to C call-local
+binds as well as Main, with a depth-two binding stack (72/136-byte requests).
+The selected helper interface separately prices 6C constructor/vector/bounds
+address requests and zero selected GIMPLE-fold replacements; whole-body W,
+data-address copy and incoming warning-map backing remain open. Later passes
+and complete collector composition stay open.
 
 The independently reviewed literal assembler callable now consumes the same
 source bytes. Its counters, final chain, text bytes and rodata bytes must
@@ -104,6 +109,13 @@ ALI parser/graph/driver and complete launch joins remain open.
 The accepted ALI consumer packet is attached as `ALI_consumer_interfaces`,
 with exact equality to the existing Main ALI result and spelling-only P.
 Local native parser tables/buffers and Gprbind A/U interfaces contribute their
-predicate. Complete name pools, invocation/library graph storage, native
-parent GPRbuild's D/W reader, driver and launch remain open; the returned
+predicate. Complete name pools, invocation/library graph storage, parent
+source/project/driver storage and launch remain open; the returned
 component retains its additive contracts and false complete-capacity fields.
+
+The separate reviewed GPRbuild D/W component is attached as
+`native_GPR_parent_DW_interface`, with the same source/count/P and exact nested
+Main writer result. It supplies only the local three-scan consumer predicate
+and persistent Names contribution. Fixed-child regeneration correspondence,
+complete Names backing, parent storage and launch remain false/open. The
+historical binder packet's parent-reader flag is preserved, not rewritten.

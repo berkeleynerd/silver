@@ -853,7 +853,7 @@ the selected invocation does not use their diagnostic ratios for allocation
 or compilation decisions.
 
 At most K calls reach `location_with_discriminator`. CF's `lower_stmt` also
-makes at most `3C+2N+2` block-location reassociation calls
+makes at most `4C+2N+2` block-location reassociation calls
 (`gimple-low.cc:695–705`; `gimple.h:1934–1936`). These counts are exported to
 the still-open source-location/adhoc-map lifetime; their subsidiary backing
 is not hidden in the CFG GGC delta. Gimplifier-side metadata calls remain
@@ -897,7 +897,7 @@ trivial destructors, so this constructor family adds no singleton finalizer.
 ### Direct gimplifier interface and the remaining boundary
 
 The source-established initial sequence requires C one-argument call tuples,
-at most 2C stores, N goto/label pairs, one return and one outer bind. Raw
+at most 2C stores, N goto/label pairs, one return and at most C+1 binds. Raw
 ceilings are 256 bytes for a call and 128 for the other tuples; these
 conservatively charge the GIMPLE header, virtual-use fields, two call
 points-to records and four call operand positions
@@ -910,10 +910,34 @@ C outer and 2C field INIT_EXPRs (40 bytes each), and 2C COMPONENT_REFs (48)
 (`gimplify.cc:629–721,6157–6284`). The constructor has no name, so `get_name`
 returns null and `create_tmp_var_raw` requests no temporary identifier
 (`tree.cc:12055–12083`; `gimple-expr.cc:439–466`). The context is at most
-128 ordinary bytes and its one binding stack is 72 bytes. Component-lvalue
+128 ordinary bytes. Its binding stack has maximum simultaneous depth two:
+the body and one nonnested call. `gimple_push_bind_expr` reserves eight
+**additional** slots before each push (`gimplify.cc:427–430`). The first
+reserve requests capacity eight (72 bytes); at length one the second requests
+nine and doubles capacity eight to sixteen (`vec.cc:151–174`), requiring
+136 bytes. There are at most two backing requests, cumulatively 208 bytes;
+this is individual-allocation accounting, not an aggregate RAM gate. Component-lvalue
 walks have one reference and fit their ten inline pointers
 (`gimplify.cc:347–434,3504–3555`). These explicitly listed direct sites give
-**9C+2N+2** GGC events and C additional DECL_UID increments.
+**10C+2N+2** GGC events and C additional DECL_UID increments.
+
+This corrects the earlier one-bind assumption in
+[finding #130](https://github.com/berkeleynerd/silver/issues/130).
+The [gigi binding transfer](retained-backend-gigi.md#binding-requests-and-retained-bind-nodes)
+gives at most C+1 retained binds for this family (U=B=L=0, F=1).
+`Call_to_gnu` opens a call binding before translating actual types
+(`trans.cc:4899–4921`); a nonempty declaration list retains that block
+(`utils.cc:735–766`), and `end_stmt_group` emits its BIND (`trans.cc:9271`).
+The conservative bound includes every possible call bind without requiring
+an exact first-translation timing or claiming a new native observation.
+`gimplify_bind_expr` allocates one tuple per bind (`gimplify.cc:1680`).
+CF assigns its block location before removing it (`gimple-low.cc:701–705`),
+so that interface also gains C calls. The post-CF executable sequence and
+CFG remain unchanged. `record_vars_into` skips every non-VAR_DECL
+(`gimple-low.cc:1446–1449`), keeping the local-variable vector demand at C;
+bind handling adds no direct `copy_warning` call. Historical reviews retain
+their original inputs; this corrected direct interface supersedes their
+one-bind subtotal and 72-byte-only stack claim.
 
 That direct-site subtotal deliberately excludes copies made by
 `unshare_expr(val)`, address/constructor folding and their shared type/cache

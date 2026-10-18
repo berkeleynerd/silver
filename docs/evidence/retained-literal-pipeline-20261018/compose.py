@@ -516,7 +516,8 @@ def native_initial_cf_cfg_lifetime(c, n, context):
     # This list deliberately identifies direct sites, not a whole-gimplifier sum.
     direct = [
         dict(object='initial one-argument call tuple',requests_upper=c,raw_bytes_upper=256),
-        dict(object='initial store/goto/label/return/bind tuple',requests_upper=2*c+2*n+2,raw_bytes_upper=128),
+        dict(object='initial store/goto/label/return tuple',requests_upper=2*c+2*n+1,raw_bytes_upper=128),
+        dict(object='outer and possible call-local bind tuples',requests_upper=c+1,raw_bytes_upper=128),
         dict(object='gimplifier descriptor VAR_DECL',requests_upper=c,raw_bytes_upper=312),
         dict(object='descriptor and field INIT_EXPR',requests_upper=3*c,raw_bytes_upper=40),
         dict(object='descriptor field COMPONENT_REF',requests_upper=2*c,raw_bytes_upper=48)]
@@ -567,7 +568,7 @@ def native_initial_cf_cfg_lifetime(c, n, context):
         additional_singleton_finalizer_registrations_upper=0,
         additional_DECL_UID_events_upper=1,
         additional_GIMPLE_tuple_count_upper=2,
-        additional_CF_block_location_requests_upper=3*c+2*n+2,
+        additional_CF_block_location_requests_upper=4*c+2*n+2,
         discriminator_assignment_calls_upper=discriminator_calls,
         discriminator_block_ID_endpoint_upper=discriminator_endpoint,
         additional_discriminator_location_requests_upper=discriminator_calls,
@@ -575,8 +576,11 @@ def native_initial_cf_cfg_lifetime(c, n, context):
             individual_GGC_request_groups=direct,
             direct_site_GGC_request_events_upper=sum(g['requests_upper'] for g in direct),
             additional_DECL_UID_events_upper=c,temporary_identifier_misses=0,
-            initial_tuple_requests_upper=3*c+2*n+2,
-            context_bytes_upper=128,bind_stack_bytes=72,
+            initial_tuple_requests_upper=4*c+2*n+2,
+            retained_source_bind_tuples_upper=c+1,simultaneous_bind_depth_upper=2,
+            context_bytes_upper=128,bind_stack_bytes=136,
+            bind_stack_allocated_slots_upper=16,bind_stack_backing_requests_upper=2,
+            bind_stack_cumulative_requested_bytes_upper=208,
             compound_lvalue_stack_heap_growth=False,
             complete_gimplifier_lifetime_closed=False,
             missing=['Whole-body deep unsharing and declaration/type-field ingress.',

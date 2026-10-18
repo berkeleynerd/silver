@@ -96,7 +96,16 @@ def main():
             assert cfg['source_input']['initial_CFG_block_slots_upper']==n+4
             assert cfg['source_input']['post_goto_statements_upper']==3*c+n+2
             assert cfg['additional_singleton_finalizer_registrations_upper']==0
-            assert cfg['direct_gimplifier_interface']['direct_site_GGC_request_events_upper']==9*c+2*n+2
+            direct=cfg['direct_gimplifier_interface']
+            assert direct['direct_site_GGC_request_events_upper']==10*c+2*n+2
+            assert direct['retained_source_bind_tuples_upper']==c+1
+            assert direct['initial_tuple_requests_upper']==4*c+2*n+2
+            assert direct['simultaneous_bind_depth_upper']==2
+            assert direct['bind_stack_allocated_slots_upper']==16
+            assert direct['bind_stack_bytes']==136
+            assert direct['bind_stack_backing_requests_upper']==2
+            assert direct['bind_stack_cumulative_requested_bytes_upper']==208
+            assert cfg['additional_CF_block_location_requests_upper']==4*c+2*n+2
             assert not cfg['direct_gimplifier_interface']['complete_gimplifier_lifetime_closed']
             assert not cfg['shared_metadata_bitmap_ET_pool_and_global_counters_closed']
             gimplifier=result['native_gimplifier_selected_helpers']
