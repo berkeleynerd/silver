@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records sixty-one inspected files hash-checked against the complete source
+records sixty-three inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -1785,6 +1785,126 @@ actual generated query graphs; neither 4096 source bytes nor the runtime
 String-length bound can simply be substituted for it. The executable rows
 make these remaining composition obligations visible rather than absorbing
 them into an unexplained multiplier.
+
+### Input transient lifetime and later concat placement
+
+The admitted input form has exactly one source call returning unconstrained
+String: the first declaration's `First_Or_Default`, with a literal actual.
+Later String expressions consist of literals, names, concatenations and
+Standard Integer Image; source scalar calls return scalars. The native ordinary
+Integer Image path uses its previously described local buffer/procedure/slice,
+not Put_Image or wide-image paths. Concat generates no function returning
+unconstrained String: the runtime concatenation helpers are procedures.
+
+When the initial input call requests a transient scope, its context search
+stops at the input object declaration (`sem_res.adb:7069–7091`,
+`exp_ch7.adb:4369–4377`). The expander marks that declaration analyzed and
+immediately invokes `Wrap_Transient_Declaration` after its expansion
+(`expander.adb:530–550`). The wrapper inserts the pending actions, pops the
+transient scope, transfers its entities and can mark the enclosing dynamic
+scope `Uses_Sec_Stack` (`exp_ch7.adb:9424–9451`). It cannot leave that transient
+scope open while the following declaration or statement is analyzed.
+
+`Scope_Stack.Is_Transient` and an entity's `Uses_Sec_Stack` are separate fields:
+`Create_Transient_Scope` sets both only on its new E_Block, while the declaration
+wrapper propagates only secondary-stack use after popping it
+(`exp_ch7.adb:4226–4247`). Thus subsequent concat initial placement is
+nontransient under this grammar, but secondary-stack allocation of the concat
+result remains reachable. It would be wrong to exclude that storage branch
+from the absence of an active transient scope.
+
+This induction concerns the current Main analysis context. It does not price
+the input call's own actions or runtime-library body analysis. Conditional
+action attachment and later Boolean EWA wrappers still use their separate
+transfers; they are not transient scopes. Copy/reanalysis multiplicity remains
+a separate obligation. There is no `Establish_Transient_Scope` call in the
+concat emitter or ordinary object expander; the three Image calls belong to
+the excluded Put_Image/wide branches (`exp_imgv.adb:1054,1868,1978`).
+
+### Result storage and first subtype freezing
+
+Continue with the earlier pure, already-resolved bound class: b nodes and l
+lists, no owned entities/itypes/actions or pending checks, exact Integer-base
+values, frozen Standard types, ordinary same current scope, no diagnostics or
+allocating callbacks. The result object's directly emitted syntax/entity/name
+are already in the direct envelope. These are declaration costs after first
+bound analysis and any required capture; they do not establish those incoming
+premises for every source expression.
+
+For the plain `Sxx : String (Low .. High)` path, Find_Type's two-node explicit
+subtype wrapper, one extra entity/name and one insertion list precede the
+enabled subtype transfer. No initializer means no constraint-on-initializer,
+actual-subtype, literal-propagation or rename transformation. The generated
+object has no aspects, predicates, controlled/task components, return-object,
+aliased, imported or statically allocated properties. Native default
+initialization adds nothing: Standard String has no base initialization
+procedure; `Simple_Initialization_OK` rejects the internal result entity; and
+the full initializer builder returns its unchanged `No_List` because it has
+neither component nor controlled-object initialization
+(`exp_ch3.adb:969–1223,1363–1380,1386–1496,7508–7574,7930–8004`). The Standard
+String exception is explicit in its freeze expansion (`5703–5748`);
+`Has_Non_Null_Base_Init_Proc` only looks up the existing procedure
+(`exp_tss.adb:49–91,222–229`). The no-initializer object skeleton therefore adds
+zero core-table allocations beyond the named subtype/placement stages.
+
+The object declaration freezes its subtype (`sem_ch3.adb:4620–4643`). The
+explicit array subtype copies Standard String's unknown Esize, and its index
+copies Positive's Integer size fields (`14339–14484,15457–15491`). No delayed
+freeze is inherited from frozen Standard String
+(`sem_util.adb:6326–6331`). Reuse the previously closed String/index pair's
+freezing route, except that its first compile-time-size computation may still
+be needed: charge at most **four Uint appends**, magnitude `8*(2*H+1)` for
+bound magnitude H (`freeze.adb:855–913`). Known size is remembered, while an
+unknown nonattribute bound performs no arithmetic. No ordinary freeze node or
+list is created on the plain path. Later freezing/layout of the **object** is
+a separate stage from this subtype freeze.
+
+The secondary path uses the previously closed suppressed subtype transfer,
+one array `Freeze_Itype`, named access declaration/first freeze, allocator and
+renaming skeleton. `Freeze_Itype` explicitly sets the delayed flag
+(`freeze.adb:10209–10217`), so charge one array freeze node/list in addition to
+the named access type's at-most-one freeze node/list. Include the same four
+Uint first-size charge, one empty Elist from access-type setup and the
+allocator's orphan entity/name. Runtime lookups remain separate. Componentwise
+branch charges, beyond direct syntax, are:
+
+| Demand | Plain object | Secondary storage | Common envelope |
+| --- | ---: | ---: | ---: |
+| Ordinary nodes | `2*b+140*A+83` | `2*b+20*A+34` | `2*b+140*A+83` |
+| Lists | `2*l+3` | `2*l+2` | `2*l+3` |
+| Growing events | `23` | `2` | `23` |
+| Uint appends | `596*A+519` | `80*A+159` | `596*A+519` |
+| Entities/names | `2` | `2` | `2` |
+| Name characters including NUL | `33` | `29` | `33` |
+| Elist headers | `0` | `1` | `1` |
+
+The name bound uses the direct internal-name length at most12: the plain
+derived array/index pair uses at most33 characters; secondary storage's index
+name and allocator orphan use at most16+13. This is a maximum over the two
+branches, not their sum. Neither path adds String values at these closed
+stages. Index-layout Uint digits still require the earlier at-least-three-digit
+bound, combined with scalar-query and first-size arithmetic magnitudes.
+
+Adding this envelope to the preceding executable direct/scalar aggregate gives
+the next partial recurrence:
+
+```text
+ordinary nodes       (120*n+220)*A + 52*n + 156 + 2*b
+entities/names       2*n + 6
+syntax lists         3*n + 2*l + 16
+growing events       12*n + 36
+Uint appends         (504*n+940)*A + 385*n + 769
+name characters      26*n + 85
+Elist headers        1.
+```
+
+`result_storage` and `direct_scalar_and_storage_concat` regenerate these rows
+and assert the polynomial totals. The unresolved boundary still includes
+remaining direct copies/duplicators, first bound captures, runtime dependency
+loading, later object freezing, final result/call/assignment analysis, wrapper
+placement and source-to-invocation multiplicity. The values A, b and l have
+not yet been replaced by source-derived summaries. This is still not a native
+capacity predicate and does not authorize admission changes.
 
 ## Required transitive closure
 

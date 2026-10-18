@@ -35,7 +35,8 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "local_restrict.adb", "accessibility.adb", "opt.ads",
          "sem_attr.adb", "exp_attr.adb", "sem.ads", "exp_dbug.adb", "namet.ads",
          "sem_ch11.adb", "exp_ch11.adb", "sem_elab.adb", "errout.adb",
-         "targparm.adb", "targparm.ads", "libgnat/system-linux-x86.ads"]
+         "targparm.adb", "targparm.ads", "libgnat/system-linux-x86.ads",
+         "exp_ch7.adb", "exp_tss.adb"]
 sources = {}
 hashes = {}
 for name in files:
@@ -175,6 +176,40 @@ def direct_and_scalar_concat(n, analysis_graph):
                          growth=12*n+13, uint=(504*n+344)*a+385*n+250)
     total.update(entities_and_names=2*n+4, name_characters=13*(2*n+4))
     return dict(operands=n, analysis_graph=a, rows=rows, total=total)
+
+
+def result_storage(b, lists, analysis_graph):
+    """Resolved pure bounds; initial bound analysis and later object freeze excluded."""
+    a = analysis_graph
+    check = enabled_range_check(b, lists, a)["total"]
+    plain = dict(ordinary=check["ordinary"]+6, lists=check["lists"]+1,
+                 growth=check["growth"]+2, uint=check["uint"]+99,
+                 entities_and_names=2, name_characters=33, elists=0)
+    secondary = dict(ordinary=2*b+20*a+34, lists=2*lists+2,
+                     growth=2, uint=80*a+159,
+                     entities_and_names=2, name_characters=29, elists=1)
+    envelope = {key: max(plain[key], secondary[key]) for key in plain}
+    assert envelope == dict(ordinary=2*b+140*a+83, lists=2*lists+3,
+                            growth=23, uint=596*a+519, entities_and_names=2,
+                            name_characters=33, elists=1)
+    return dict(bound_nodes=b, bound_lists=lists, analysis_graph=a,
+                plain=plain, secondary=secondary, envelope=envelope)
+
+
+def direct_scalar_and_storage_concat(n, b, lists, analysis_graph):
+    """Partial composed recurrence, with explicit unresolved boundary."""
+    first = direct_and_scalar_concat(n, analysis_graph)["total"]
+    storage = result_storage(b, lists, analysis_graph)["envelope"]
+    total = {key: first.get(key, 0)+storage.get(key, 0)
+             for key in sorted(first.keys() | storage.keys())}
+    a = analysis_graph
+    assert total == dict(ordinary=(120*n+220)*a+52*n+156+2*b,
+                         lists=3*n+2*lists+16, growth=12*n+36,
+                         uint=(504*n+940)*a+385*n+769,
+                         entities_and_names=2*n+6,
+                         name_characters=26*n+85, elists=1)
+    return dict(operands=n, bound_nodes=b, bound_lists=lists,
+                analysis_graph=a, total=total)
 
 
 result = {
@@ -510,6 +545,33 @@ result = {
         "composition_examples_not_thresholds": [direct_and_scalar_concat(2, 1),
                                                direct_and_scalar_concat(9, 127),
                                                direct_and_scalar_concat(64, 4095)],
+    },
+    "input_transient_lifecycle": {
+        "source_premises": "only source unconstrained String function is first input declaration with literal actual; later grammar contains literals/names/concat/Integer Image and scalar-return calls; ordinary Integer Image excludes Put_Image and wide-image routes",
+        "boundary": "Find_Transient_Context selects input object declaration; Expand marks analyzed then Wrap_Transient_Declaration pops its temporary scope before next declaration",
+        "persistent_flag": "Wrap_Transient_Declaration can mark enclosing procedure Uses_Sec_Stack; this is distinct from Scope_Stack.Is_Transient",
+        "consequence": "later concat's initial action placement is nontransient, but its secondary-stack storage branch remains reachable",
+        "excluded": "input initialization's own allocation/finalization costs; unrelated runtime body analysis; conditional action-wrapper allocation; source-copy/reanalysis multiplicity",
+    },
+    "result_storage_and_subtype_freezing": {
+        "premises": "direct emitted storage syntax separately charged; already analyzed/resolved pure Integer bounds with b nodes/l lists, no owned itypes/entities/actions or pending checks; frozen Standard types; ordinary same current scope; names length at most12; no aspects/diagnostics/callbacks; first array size computation may still be needed",
+        "plain_no_initializer_object_skeleton_extra": 0,
+        "first_array_size_check_Uint": 4,
+        "first_array_size_magnitude": "8*(2*H+1)",
+        "ordinary_nodes": "2*b+140*A+83", "lists": "2*l+3", "growth": 23,
+        "Uint": "596*A+519", "entities_and_names": 2,
+        "name_characters": 33, "elists": 1,
+        "excluded": "first bound analysis/captures; initial syntax already charged directly; runtime lookup/loading; later object freezing; other source shapes; final slice/call/assignment analysis; placement/reanalysis/backend",
+        "composition_examples_not_thresholds": [result_storage(2, 0, 1), result_storage(31, 4, 127)],
+    },
+    "direct_scalar_storage_aggregate": {
+        "ordinary_nodes": "(120*n+220)*A+52*n+156+2*b",
+        "lists": "3*n+2*l+16", "growth": "12*n+36",
+        "Uint": "(504*n+940)*A+385*n+769",
+        "entities_and_names": "2*n+6", "name_characters": "26*n+85", "elists": 1,
+        "excluded": "remaining copies/duplicators; first bound captures; runtime dependencies; object freezing; final result/call/assignment analysis; wrapper placement; reanalysis/source multiplicity; backend",
+        "composition_examples_not_thresholds": [direct_scalar_and_storage_concat(2, 2, 0, 1),
+                                               direct_scalar_and_storage_concat(64, 31, 4, 4095)],
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",

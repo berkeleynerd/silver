@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 61,
+  "source_files_verified": 63,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -62,7 +62,9 @@
     "errout.adb": "ba9c6654fed11edaa6b8c2e5a0eab6cfa1f91ef2a60d31d2ba3875ef93ea93b2",
     "targparm.adb": "a4a4720e4859263138a9138587521b9d2df7ba6da88f45a81ea86570b3438596",
     "targparm.ads": "46778f4a0d8f838a87c19163d3ee159e8573475d29c9209021c5c0f167d95d21",
-    "libgnat/system-linux-x86.ads": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+    "libgnat/system-linux-x86.ads": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95",
+    "exp_ch7.adb": "590aeb1807f35622c08285e619951c0b7970d48d8b5c2135561956e1b17e7598",
+    "exp_tss.adb": "42f1b3607da3da62f2d203f644f02371188280ad45de536f120d3130bce15a7f"
   },
   "scope": "native String concat direct emitter and specified primitive helpers; not transitive closure",
   "ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers": {
@@ -1040,6 +1042,135 @@
           "uint": 133521890,
           "entities_and_names": 132,
           "name_characters": 1716
+        }
+      }
+    ]
+  },
+  "input_transient_lifecycle": {
+    "source_premises": "only source unconstrained String function is first input declaration with literal actual; later grammar contains literals/names/concat/Integer Image and scalar-return calls; ordinary Integer Image excludes Put_Image and wide-image routes",
+    "boundary": "Find_Transient_Context selects input object declaration; Expand marks analyzed then Wrap_Transient_Declaration pops its temporary scope before next declaration",
+    "persistent_flag": "Wrap_Transient_Declaration can mark enclosing procedure Uses_Sec_Stack; this is distinct from Scope_Stack.Is_Transient",
+    "consequence": "later concat's initial action placement is nontransient, but its secondary-stack storage branch remains reachable",
+    "excluded": "input initialization's own allocation/finalization costs; unrelated runtime body analysis; conditional action-wrapper allocation; source-copy/reanalysis multiplicity"
+  },
+  "result_storage_and_subtype_freezing": {
+    "premises": "direct emitted storage syntax separately charged; already analyzed/resolved pure Integer bounds with b nodes/l lists, no owned itypes/entities/actions or pending checks; frozen Standard types; ordinary same current scope; names length at most12; no aspects/diagnostics/callbacks; first array size computation may still be needed",
+    "plain_no_initializer_object_skeleton_extra": 0,
+    "first_array_size_check_Uint": 4,
+    "first_array_size_magnitude": "8*(2*H+1)",
+    "ordinary_nodes": "2*b+140*A+83",
+    "lists": "2*l+3",
+    "growth": 23,
+    "Uint": "596*A+519",
+    "entities_and_names": 2,
+    "name_characters": 33,
+    "elists": 1,
+    "excluded": "first bound analysis/captures; initial syntax already charged directly; runtime lookup/loading; later object freezing; other source shapes; final slice/call/assignment analysis; placement/reanalysis/backend",
+    "composition_examples_not_thresholds": [
+      {
+        "bound_nodes": 2,
+        "bound_lists": 0,
+        "analysis_graph": 1,
+        "plain": {
+          "ordinary": 227,
+          "lists": 3,
+          "growth": 23,
+          "uint": 1115,
+          "entities_and_names": 2,
+          "name_characters": 33,
+          "elists": 0
+        },
+        "secondary": {
+          "ordinary": 58,
+          "lists": 2,
+          "growth": 2,
+          "uint": 239,
+          "entities_and_names": 2,
+          "name_characters": 29,
+          "elists": 1
+        },
+        "envelope": {
+          "ordinary": 227,
+          "lists": 3,
+          "growth": 23,
+          "uint": 1115,
+          "entities_and_names": 2,
+          "name_characters": 33,
+          "elists": 1
+        }
+      },
+      {
+        "bound_nodes": 31,
+        "bound_lists": 4,
+        "analysis_graph": 127,
+        "plain": {
+          "ordinary": 17925,
+          "lists": 11,
+          "growth": 23,
+          "uint": 76211,
+          "entities_and_names": 2,
+          "name_characters": 33,
+          "elists": 0
+        },
+        "secondary": {
+          "ordinary": 2636,
+          "lists": 10,
+          "growth": 2,
+          "uint": 10319,
+          "entities_and_names": 2,
+          "name_characters": 29,
+          "elists": 1
+        },
+        "envelope": {
+          "ordinary": 17925,
+          "lists": 11,
+          "growth": 23,
+          "uint": 76211,
+          "entities_and_names": 2,
+          "name_characters": 33,
+          "elists": 1
+        }
+      }
+    ]
+  },
+  "direct_scalar_storage_aggregate": {
+    "ordinary_nodes": "(120*n+220)*A+52*n+156+2*b",
+    "lists": "3*n+2*l+16",
+    "growth": "12*n+36",
+    "Uint": "(504*n+940)*A+385*n+769",
+    "entities_and_names": "2*n+6",
+    "name_characters": "26*n+85",
+    "elists": 1,
+    "excluded": "remaining copies/duplicators; first bound captures; runtime dependencies; object freezing; final result/call/assignment analysis; wrapper placement; reanalysis/source multiplicity; backend",
+    "composition_examples_not_thresholds": [
+      {
+        "operands": 2,
+        "bound_nodes": 2,
+        "bound_lists": 0,
+        "analysis_graph": 1,
+        "total": {
+          "elists": 1,
+          "entities_and_names": 10,
+          "growth": 60,
+          "lists": 22,
+          "name_characters": 137,
+          "ordinary": 724,
+          "uint": 3487
+        }
+      },
+      {
+        "operands": 64,
+        "bound_nodes": 31,
+        "bound_lists": 4,
+        "analysis_graph": 4095,
+        "total": {
+          "elists": 1,
+          "entities_and_names": 134,
+          "growth": 804,
+          "lists": 216,
+          "name_characters": 1749,
+          "ordinary": 32354046,
+          "uint": 135963029
         }
       }
     ]
