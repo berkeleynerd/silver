@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "freeze": "7f7600ec25f992e392c6b3fe58db744630457ecf",
+  "new_repository_pins": 30,
+  "earlier_pin_prefix_unchanged": true,
+  "Main_inventory": 46,
+  "Main_current_files": 45,
+  "Main_historical_files": 1,
+  "historical_revision": "ac18b3531478457609b07349af7f367034f9ca06",
+  "source_adapter_cases": 4,
+  "targeted_rejections": [
+    "historical_object_mismatch",
+    "frontend_V_mismatch",
+    "frontend_V_mismatch",
+    "frontend_V_mismatch",
+    "frontend_V_mismatch",
+    "nonzero_unowned_pool_lookup"
+  ],
+  "retained_253_case_success_replayed": false,
+  "native_execution": false,
+  "elapsed_seconds": 0.10918227100046352
+}
