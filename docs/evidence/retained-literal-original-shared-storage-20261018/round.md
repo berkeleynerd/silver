@@ -74,3 +74,57 @@ remain open. The 5000-call source retains the inherited
 `literal_output_linker_representation` conditional failure. No production
 admission, Oracle or aggregate RAM policy changes. No GitHub, memory, harness
 or publication action was taken by this subthread.
+
+## Exact emission-integration compatibility
+
+Parent-authorized correction after independent acceptance of
+`e12e010fd1da984a45a6955928f3fc979aec4306` in review
+`bee47bdef117d904931141ab4142a62ba6837058`. Selected settings remain
+**GPT-6 Astra / Extra High**; runtime confirmation and token/cost measurements
+are unavailable. Worktree checkpoint: 2026-10-18 22:44:26 UTC. The new worktree
+is `/tmp/silver-literal-original-shared-storage-compat-20261018`, branch
+`research/literal-original-shared-storage-compat`, based on
+`7573e127ffb020ddfb1214491179c59442e7798b`. Original packet and review were
+cherry-picked unchanged as `25ec8ee1c31b9d077a78e10ba332eb0489546dad` and
+`45e00a63a5565868fb5b559973495797bf9bdf81`.
+
+The base includes emission attachment
+`aec7f1754b7ecaf5a9cc05893560ce3fc7b0d7a1` and its acceptance
+`51dcdd02ce7685272949739a98b101610430bd03`. These changed exactly three of
+this packet's 38 pinned inputs: aggregate `compose.py` (128015 bytes),
+`inputs.json` (35727 bytes), and `result.json` (285628 bytes). The focused
+record retains both old and new SHA-256 identities and checks the new bytes
+against that exact integrated Git revision. All other pins are unchanged.
+The shared compose/check code, source manifest, Hello result and 208-check
+result remain byte-identical to the accepted freeze.
+
+Semantic compatibility was checked before treating the new pins as usable:
+
+- Every directly read top-level aggregate key in the shared derivation is in
+  the explicit projection inventory (14 distinct keys, enumerated from its
+  AST). Old and integrated retained results agree on all of them: source,
+  counts, path bound, original Main/String/helpers, synthetic storage,
+  warning/pool/collector/counter interfaces and failed/unresolved/broad verdicts.
+- Among pre-existing top-level aggregate functions, only `evaluate` changed.
+  The source recognizer and original consumer builders are unchanged. The
+  aggregate Context additionally validates emission sources/review; the
+  historical original-Main input and historical emission predecessor are
+  still verified at their recorded revisions. The new emission join does not
+  mutate any consumed original-storage projection.
+- A fresh Context against the combined tree succeeds. Fresh default Hello is
+  exactly equal to the accepted shared result after removing only its old
+  run-timing metadata. Actual mixed empty/8192-byte calls with a null and the
+  5000-call source agree between old and integrated aggregate projections and
+  shared results. The exact 5000-call linker-representation failure remains.
+- Helper multiplicity, zero collector demand, function frontier and warning
+  finalizer mutations remain rejected; nonliteral source and an unrecognized
+  future input pin remain rejected. No general pin bypass was introduced.
+
+`check-compatibility.py` passed **31 focused checks in 7.149088 seconds**, from
+22:46:07.809580 to 22:46:14.958678 UTC on Linux x86_64. It freshly validates old
+and current source Contexts and evaluates the three named valid source cases;
+it does not repeat the accepted broad 208-check run. No native tool execution
+or expensive validation occurred. The only semantic change is which exact
+accepted aggregate bytes the shared packet accepts; its formulas, claims and
+broad residuals are unchanged. The correction touches only the owned shared
+note and packet. Parent handles narrow recheck, integration and publication.

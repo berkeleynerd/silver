@@ -21,10 +21,15 @@ Files:
   accepted reviews. Predecessor manifests retain their historical identities.
 - `sources.json`: 60 complete new-argument source/header identities, separate
   from the larger overlapping source sets verified by the aggregate Context.
-- `result.json`: fresh default composition for the retained Hello source.
+- `result.json`: accepted default composition for the retained Hello source;
+  its semantic result also matches the fresh integrated compatibility run.
 - `check.py` and `check-results.json`: 208 passing source-variant, mutation,
   arithmetic and independent growth-simulation checks.
 - `round.md`: selected settings, actual timing, rework and residuals.
+- `check-compatibility.py` and `compatibility-results.json`: 31 focused checks
+  for the exact emission integration at `7573e127ff`, preserving the accepted
+  208-check success and shared derivation byte-for-byte. Only aggregate
+  `compose.py`, `inputs.json` and `result.json` identities are retargeted.
 
 Run offline from the repository root, substituting retained source locations
 if needed:
@@ -53,6 +58,19 @@ preserves the inherited conservative relocation failure; its local shared
 container conditions passing does not erase that failure. Finite arithmetic
 boundary checks operate directly on arithmetic helpers, without allocating
 enormous source files or executing the compiler.
+
+The focused compatibility checker takes the same retained-source flags plus
+`--previous-repo /tmp/silver-literal-original-shared-storage-round10-20261018`
+and its own `--output .../compatibility-results.json`. That previous checkout
+supplies the accepted Context; its relevant files are verified against exact
+freeze `e12e010fd1`. The current Context validates the combined tree, including
+the aggregate's historical predecessor checks. The checker compares Hello,
+mixed empty/8192-byte literals and 5000 calls, then exercises the affected
+ownership/callback/counter/source/pin rejections. It validates exact target
+identities before evaluation and cannot automatically bless later changes.
+See the independent [acceptance and integration requirement](../../reviews/review-literal-original-shared-e12e010fd1.md)
+and the compatibility entry in `round.md`. The broad checker was not rerun for
+this identity adaptation.
 
 The packet owns new shared backings only. Existing direct identifier objects,
 small-cache vectors, warning/symbol controls, String/helpers and the forced

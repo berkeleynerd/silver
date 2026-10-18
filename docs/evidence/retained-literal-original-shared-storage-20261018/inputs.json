@@ -81,8 +81,8 @@
   },
   {
     "path": "docs/evidence/retained-literal-pipeline-20261018/compose.py",
-    "bytes": 115213,
-    "sha256": "2de84a58d7c18f37a641a322e1d3457229f59af13ed0b039e752c6896db10425"
+    "bytes": 128015,
+    "sha256": "d9c6c6ae53411dfeef1d5e5539b08339a95c0fe7fb0979476f98af7dfc4d1fd4"
   },
   {
     "path": "docs/evidence/retained-literal-pipeline-20261018/fixture.json",
@@ -91,13 +91,13 @@
   },
   {
     "path": "docs/evidence/retained-literal-pipeline-20261018/inputs.json",
-    "bytes": 33646,
-    "sha256": "8ba9aa4fcea108f86503a33cf2f0bb550c551686f2d58c603439ebd9d3804710"
+    "bytes": 35727,
+    "sha256": "c47f1a014f8ce30f1484d4d6dd0c46ec2bb5f3caee983a7afb3c063665d7de75"
   },
   {
     "path": "docs/evidence/retained-literal-pipeline-20261018/result.json",
-    "bytes": 265151,
-    "sha256": "afd15fc6efc026bb3ddaf75c90b2fad59631b298652d5fbd3231a736f18db478"
+    "bytes": 285628,
+    "sha256": "6ce3e21dd9a061effc5b812a66f93725a2a5804b7597c466a3f51e8ed13a18b5"
   },
   {
     "path": "docs/evidence/retained-literal-pipeline-20261018/source-join-inputs.json",

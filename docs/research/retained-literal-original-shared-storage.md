@@ -21,6 +21,22 @@ it does not accept independently supplied call counts. The aggregate still
 reads the one historical Main manifest input at its recorded Git revision.
 No predecessor packet or accepted attachment is changed here.
 
+The shared-storage freeze `e12e010fd1da984a45a6955928f3fc979aec4306` was
+[independently accepted](../reviews/review-literal-original-shared-e12e010fd1.md)
+in `bee47bdef117d904931141ab4142a62ba6837058`. A subsequent compatibility
+adaptation binds the exact aggregate integrated at
+`7573e127ffb020ddfb1214491179c59442e7798b`, which includes the separately
+accepted emission attachment. Only the three aggregate input identities
+change; the shared derivation, source manifest and accepted 208-check result
+remain byte-identical. The
+[focused compatibility record](../evidence/retained-literal-original-shared-storage-20261018/compatibility-results.json)
+checks every directly consumed aggregate projection, current and historical
+source validation, three actual source cases and affected negative cases.
+The fresh default shared semantic result is unchanged. This binds one exact
+integration; it does not authorize arbitrary future pin updates. The concurrent
+emission closure narrows its selected-stream source residual, while actual
+production invocation/materialization and the broad negatives below remain.
+
 The selected retained GCC revision is
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The new manifest checks complete
 GCC/Ada files and installed target headers; the aggregate checks the broader

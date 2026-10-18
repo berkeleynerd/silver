@@ -1,0 +1,254 @@
+{
+  "accepted_review": "bee47bdef117d904931141ab4142a62ba6837058",
+  "actual_source_cases": [
+    {
+      "name": "Hello",
+      "retained_failed_conditional_predicates": [],
+      "shared_result_matches_accepted": true,
+      "source": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      }
+    },
+    {
+      "name": "mixed_empty_8192",
+      "retained_failed_conditional_predicates": [],
+      "shared_result_matches_previous": true,
+      "source": {
+        "bytes": 8317,
+        "sha256": "94d411ca4fdf792a22838a75925a44666901ed4e3904f2828f574f113518ed5c"
+      },
+      "source_counts": {
+        "Put": 1,
+        "Put_Line": 1,
+        "decoded_literal_bytes": 8192,
+        "maximum_literal_length": 8192,
+        "null_statements": 1,
+        "output_calls": 2,
+        "source_bytes": 8317,
+        "source_sha256": "94d411ca4fdf792a22838a75925a44666901ed4e3904f2828f574f113518ed5c"
+      }
+    },
+    {
+      "name": "5000_calls",
+      "retained_failed_conditional_predicates": [
+        "literal_output_linker_representation"
+      ],
+      "shared_result_matches_previous": true,
+      "source": {
+        "bytes": 105075,
+        "sha256": "234c2d636b062978236d028ecf1a20757488e5a2537e249d54ea47fe34537d43"
+      },
+      "source_counts": {
+        "Put": 5000,
+        "Put_Line": 0,
+        "decoded_literal_bytes": 5000,
+        "maximum_literal_length": 1,
+        "null_statements": 0,
+        "output_calls": 5000,
+        "source_bytes": 105075,
+        "source_sha256": "234c2d636b062978236d028ecf1a20757488e5a2537e249d54ea47fe34537d43"
+      }
+    }
+  ],
+  "aggregate_Context_has_additional_emission_validation": true,
+  "all_passed": true,
+  "broad_208_success_rerun": false,
+  "changed_preexisting_top_level_aggregate_functions": [
+    "evaluate"
+  ],
+  "checks": 31,
+  "checks_detail": [
+    {
+      "name": "exact integrated compose.py",
+      "passed": true
+    },
+    {
+      "name": "exact integrated inputs.json",
+      "passed": true
+    },
+    {
+      "name": "exact integrated result.json",
+      "passed": true
+    },
+    {
+      "name": "only three exact input pins changed",
+      "passed": true
+    },
+    {
+      "name": "accepted shared file retained compose.py",
+      "passed": true
+    },
+    {
+      "name": "accepted shared file retained check.py",
+      "passed": true
+    },
+    {
+      "name": "accepted shared file retained sources.json",
+      "passed": true
+    },
+    {
+      "name": "accepted shared file retained result.json",
+      "passed": true
+    },
+    {
+      "name": "accepted shared file retained check-results.json",
+      "passed": true
+    },
+    {
+      "name": "exact independent review retained",
+      "passed": true
+    },
+    {
+      "name": "only pre-existing top-level evaluate changed",
+      "passed": true
+    },
+    {
+      "name": "consumed projection inventory covers every direct aggregate read",
+      "passed": true
+    },
+    {
+      "name": "previous Context source compose.py",
+      "passed": true
+    },
+    {
+      "name": "previous Context source inputs.json",
+      "passed": true
+    },
+    {
+      "name": "previous Context source sources.json",
+      "passed": true
+    },
+    {
+      "name": "combined Context succeeds with historical source checks",
+      "passed": true
+    },
+    {
+      "name": "all consumed retained projections unchanged",
+      "passed": true
+    },
+    {
+      "name": "fresh default equals accepted shared semantic result",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 actual-source consumed projections match",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 shared result matches",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 broad negatives preserved",
+      "passed": true
+    },
+    {
+      "name": "5000_calls actual-source consumed projections match",
+      "passed": true
+    },
+    {
+      "name": "5000_calls shared result matches",
+      "passed": true
+    },
+    {
+      "name": "5000_calls broad negatives preserved",
+      "passed": true
+    },
+    {
+      "name": "5000 relocation failure remains exact",
+      "passed": true
+    },
+    {
+      "name": "helper ownership mutation rejected",
+      "passed": true
+    },
+    {
+      "name": "collector zero demand mutation rejected",
+      "passed": true
+    },
+    {
+      "name": "function frontier mutation rejected",
+      "passed": true
+    },
+    {
+      "name": "warning finalizer mutation rejected",
+      "passed": true
+    },
+    {
+      "name": "nonliteral source still rejected",
+      "passed": true
+    },
+    {
+      "name": "future pin mismatch still rejected",
+      "passed": true
+    }
+  ],
+  "completed_utc": "2026-10-18T22:46:14.958678+00:00",
+  "consumed_projection_keys": [
+    "source",
+    "source_counts",
+    "complete_path_bound",
+    "native_original_Main_storage",
+    "native_original_String_storage",
+    "native_original_helper_storage",
+    "native_synthetic_function_storage",
+    "native_warning_map_demand",
+    "native_pool_lifetime",
+    "native_collector_callbacks",
+    "native_counter_emission_interface",
+    "unresolved_predicates",
+    "failed_conditional_predicates",
+    "whole_literal_pipeline_capacity_established"
+  ],
+  "elapsed_seconds": 7.1490880960009235,
+  "exact_retargeted_inputs": [
+    {
+      "current": {
+        "bytes": 128015,
+        "sha256": "d9c6c6ae53411dfeef1d5e5539b08339a95c0fe7fb0979476f98af7dfc4d1fd4"
+      },
+      "path": "docs/evidence/retained-literal-pipeline-20261018/compose.py",
+      "previous": {
+        "bytes": 115213,
+        "sha256": "2de84a58d7c18f37a641a322e1d3457229f59af13ed0b039e752c6896db10425"
+      }
+    },
+    {
+      "current": {
+        "bytes": 35727,
+        "sha256": "c47f1a014f8ce30f1484d4d6dd0c46ec2bb5f3caee983a7afb3c063665d7de75"
+      },
+      "path": "docs/evidence/retained-literal-pipeline-20261018/inputs.json",
+      "previous": {
+        "bytes": 33646,
+        "sha256": "8ba9aa4fcea108f86503a33cf2f0bb550c551686f2d58c603439ebd9d3804710"
+      }
+    },
+    {
+      "current": {
+        "bytes": 285628,
+        "sha256": "6ce3e21dd9a061effc5b812a66f93725a2a5804b7597c466a3f51e8ed13a18b5"
+      },
+      "path": "docs/evidence/retained-literal-pipeline-20261018/result.json",
+      "previous": {
+        "bytes": 265151,
+        "sha256": "afd15fc6efc026bb3ddaf75c90b2fad59631b298652d5fbd3231a736f18db478"
+      }
+    }
+  ],
+  "integration_base": "7573e127ffb020ddfb1214491179c59442e7798b",
+  "native_tool_executions": 0,
+  "previous_shared_freeze": "e12e010fd1da984a45a6955928f3fc979aec4306",
+  "retained_208_check_identity": {
+    "bytes": 22555,
+    "sha256": "639bf7240a67781cb82e6b297930e5c74aaea0ae1a2e20b54931817e226fe1d7"
+  },
+  "runtime_model_confirmation": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "shared_derivation_unchanged": true,
+  "started_utc": "2026-10-18T22:46:07.809580+00:00",
+  "token_cost_measurements": null,
+  "whole_pipeline_capacity_established": false
+}
