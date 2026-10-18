@@ -89,3 +89,11 @@ cache marker. It checks54 complete sources
 and eight earlier inputs without rerunning their scripts or native witnesses.
 Its result closes the null Ada numeric callback join, while complete generated
 root/custom collector callback and process composition remain open.
+
+`reconcile-collector-closure.py` follows registration sinks and selected typed
+constructors, checks the full 4,929-file source manifest and generated options
+header, and records the 149-type/223-site lexical census. The report supplies
+the selected member/destructor and generated/custom-marker arguments. The
+selected null collector adds no GGC events and retains the existing 104-byte
+ordinary cache-marker scratch; the known subtotal remains 40,098. Whole-process
+setup, ordinary library storage and teardown remain open. No native tool ran.

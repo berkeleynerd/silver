@@ -1,0 +1,3072 @@
+{
+  "aggregate_RAM_admission_gate": false,
+  "closure_depends_on_handwritten_source_argument": true,
+  "collector_backing_substitution": {
+    "active_pages_at_most": 40098,
+    "array_finalizer_backing_bytes_at_most": 1924648,
+    "context_depth": 0,
+    "depth_vector_bytes": 40,
+    "each_finalizer_vector_capacity_at_most": 60145,
+    "each_outer_finalizer_vector_bytes": 40,
+    "each_page_pointer_vector_bytes_at_most": 524288,
+    "finalizer_registrations_at_most": 40098,
+    "individual_page_entry_bytes_at_most": 128,
+    "old_context_bitmap_backup_requests": 0,
+    "page_lookup_chain_bytes": 2064,
+    "page_quire_bytes": 2097152,
+    "page_vector_capacity_at_most": 65536,
+    "scalar_finalizer_backing_bytes_at_most": 962328,
+    "secondary_page_lookup_bytes": 32768
+  },
+  "common_Ada_x86_table_creation_sites": {
+    "addr_hasher": [
+      {
+        "line": 5169,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "annotation_node_hasher": [
+      {
+        "line": 13747,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "asmname_hasher": [
+      {
+        "line": 265,
+        "path": "gcc/symtab.cc"
+      }
+    ],
+    "block_die_hasher": [
+      {
+        "line": 24963,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "cgraph_edge_hasher": [
+      {
+        "line": 944,
+        "path": "gcc/cgraph.cc"
+      }
+    ],
+    "cl_option_hasher": [
+      {
+        "line": 787,
+        "path": "gcc/tree.cc"
+      }
+    ],
+    "const_double_hasher": [
+      {
+        "line": 6360,
+        "path": "gcc/emit-rtl.cc"
+      }
+    ],
+    "const_fixed_hasher": [
+      {
+        "line": 6365,
+        "path": "gcc/emit-rtl.cc"
+      }
+    ],
+    "const_int_hasher": [
+      {
+        "line": 6355,
+        "path": "gcc/emit-rtl.cc"
+      }
+    ],
+    "const_poly_int_hasher": [
+      {
+        "line": 6363,
+        "path": "gcc/emit-rtl.cc"
+      }
+    ],
+    "const_rtx_desc_hasher": [
+      {
+        "line": 4154,
+        "path": "gcc/varasm.cc"
+      }
+    ],
+    "const_wide_int_hasher": [
+      {
+        "line": 6358,
+        "path": "gcc/emit-rtl.cc"
+      }
+    ],
+    "ctfc_dtd_hasher": [
+      {
+        "line": 1011,
+        "path": "gcc/ctfc.cc"
+      }
+    ],
+    "ctfc_dvd_hasher": [
+      {
+        "line": 1013,
+        "path": "gcc/ctfc.cc"
+      },
+      {
+        "line": 1015,
+        "path": "gcc/ctfc.cc"
+      }
+    ],
+    "decl_die_hasher": [
+      {
+        "line": 30179,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "decl_loc_hasher": [
+      {
+        "line": 30182,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "dummy_type_hasher": [
+      {
+        "line": 11331,
+        "path": "gcc/ada/gcc-interface/decl.cc"
+      }
+    ],
+    "dw_loc_list_hasher": [
+      {
+        "line": 30185,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "dwarf_file_hasher": [
+      {
+        "line": 30175,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "function_version_hasher": [
+      {
+        "line": 329,
+        "path": "gcc/cgraph.cc"
+      }
+    ],
+    "indirect_string_hasher": [
+      {
+        "line": 4763,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "line": 4858,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "line": 11403,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "line": 12579,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "line": 32800,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "inline_entry_data_hasher": [
+      {
+        "line": 28939,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "insn_cache_hasher": [
+      {
+        "line": 5740,
+        "path": "gcc/function.cc"
+      }
+    ],
+    "int_cst_hasher": [
+      {
+        "line": 781,
+        "path": "gcc/tree.cc"
+      }
+    ],
+    "ipa_vr_ggc_hash_traits": [
+      {
+        "line": 4938,
+        "path": "gcc/ipa-prop.cc"
+      },
+      {
+        "line": 4970,
+        "path": "gcc/ipa-prop.cc"
+      },
+      {
+        "line": 5993,
+        "path": "gcc/ipa-prop.cc"
+      }
+    ],
+    "libfunc_decl_hasher": [
+      {
+        "line": 763,
+        "path": "gcc/optabs-libfuncs.cc"
+      }
+    ],
+    "libfunc_hasher": [
+      {
+        "line": 868,
+        "path": "gcc/optabs-libfuncs.cc"
+      }
+    ],
+    "loop_exit_hasher": [
+      {
+        "line": 1141,
+        "path": "gcc/cfgloop.cc"
+      }
+    ],
+    "noted_fnptr_hasher": [
+      {
+        "line": 3270,
+        "path": "gcc/ipa-prop.cc"
+      }
+    ],
+    "object_block_hasher": [
+      {
+        "line": 6962,
+        "path": "gcc/varasm.cc"
+      }
+    ],
+    "packable_type_hasher": [
+      {
+        "line": 442,
+        "path": "gcc/ada/gcc-interface/utils.cc"
+      }
+    ],
+    "pad_type_hasher": [
+      {
+        "line": 445,
+        "path": "gcc/ada/gcc-interface/utils.cc"
+      }
+    ],
+    "poly_int_cst_hasher": [
+      {
+        "line": 783,
+        "path": "gcc/tree.cc"
+      }
+    ],
+    "reg_attr_hasher": [
+      {
+        "line": 6367,
+        "path": "gcc/emit-rtl.cc"
+      }
+    ],
+    "scev_info_hasher": [
+      {
+        "line": 3078,
+        "path": "gcc/tree-scalar-evolution.cc"
+      }
+    ],
+    "section_hasher": [
+      {
+        "line": 6961,
+        "path": "gcc/varasm.cc"
+      }
+    ],
+    "section_name_hasher": [
+      {
+        "line": 1771,
+        "path": "gcc/symtab.cc"
+      }
+    ],
+    "sized_type_hasher": [
+      {
+        "line": 448,
+        "path": "gcc/ada/gcc-interface/utils.cc"
+      }
+    ],
+    "ssa_name_hasher": [
+      {
+        "line": 1217,
+        "path": "gcc/tree-ssa.cc"
+      }
+    ],
+    "temp_address_hasher": [
+      {
+        "line": 1249,
+        "path": "gcc/function.cc"
+      }
+    ],
+    "tm_clone_hasher": [
+      {
+        "line": 6729,
+        "path": "gcc/varasm.cc"
+      }
+    ],
+    "tm_restart_hasher": [
+      {
+        "line": 3217,
+        "path": "gcc/trans-mem.cc"
+      },
+      {
+        "line": 3303,
+        "path": "gcc/trans-mem.cc"
+      }
+    ],
+    "tm_wrapper_hasher": [
+      {
+        "line": 484,
+        "path": "gcc/trans-mem.cc"
+      }
+    ],
+    "tree_decl_map_cache_hasher": [
+      {
+        "line": 776,
+        "path": "gcc/tree.cc"
+      },
+      {
+        "line": 779,
+        "path": "gcc/tree.cc"
+      }
+    ],
+    "tree_descriptor_hasher": [
+      {
+        "line": 6963,
+        "path": "gcc/varasm.cc"
+      }
+    ],
+    "tree_type_map_cache_hasher": [
+      {
+        "line": 96,
+        "path": "gcc/ubsan.cc"
+      }
+    ],
+    "tree_vec_map_cache_hasher": [
+      {
+        "line": 6185,
+        "path": "gcc/tree.cc"
+      }
+    ],
+    "type_cache_hasher": [
+      {
+        "line": 773,
+        "path": "gcc/tree.cc"
+      }
+    ],
+    "used_type_hasher": [
+      {
+        "line": 6555,
+        "path": "gcc/function.cc"
+      }
+    ],
+    "value_annotation_hasher": [
+      {
+        "line": 11328,
+        "path": "gcc/ada/gcc-interface/decl.cc"
+      }
+    ],
+    "variable_value_hasher": [
+      {
+        "line": 33526,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ]
+  },
+  "common_Ada_x86_typed_allocation_sites": 223,
+  "common_Ada_x86_typed_allocation_types": {
+    "addr_table_entry": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 5175,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "alias_set_entry": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 858,
+        "path": "gcc/alias.cc"
+      }
+    ],
+    "asm_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 3159,
+        "path": "gcc/cgraph.h"
+      }
+    ],
+    "basic_block_def": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 142,
+        "path": "gcc/cfg.cc"
+      }
+    ],
+    "bitmap_element": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 140,
+        "path": "gcc/bitmap.cc"
+      }
+    ],
+    "bitmap_head": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 808,
+        "path": "gcc/bitmap.cc"
+      }
+    ],
+    "cached_dw_loc_list": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 21334,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "call_arg_loc_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 28762,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "call_site_record_d": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 2507,
+        "path": "gcc/except.cc"
+      }
+    ],
+    "cgraph_edge": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 1086,
+        "path": "gcc/cgraph.cc"
+      }
+    ],
+    "cgraph_function_version_info": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 324,
+        "path": "gcc/cgraph.cc"
+      }
+    ],
+    "cgraph_indirect_call_info": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 1201,
+        "path": "gcc/cgraph.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 137,
+        "path": "gcc/cgraphclones.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 148,
+        "path": "gcc/cgraphclones.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 1623,
+        "path": "gcc/lto-cgraph.cc"
+      }
+    ],
+    "cgraph_node": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 445,
+        "path": "gcc/cgraph.cc"
+      }
+    ],
+    "cgraph_polymorphic_indirect_info": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 1191,
+        "path": "gcc/cgraph.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 127,
+        "path": "gcc/cgraphclones.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 1615,
+        "path": "gcc/lto-cgraph.cc"
+      }
+    ],
+    "cgraph_rtl_info": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 2424,
+        "path": "gcc/cgraph.cc"
+      }
+    ],
+    "cgraph_simple_indirect_info": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 1197,
+        "path": "gcc/cgraph.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 132,
+        "path": "gcc/cgraphclones.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 1619,
+        "path": "gcc/lto-cgraph.cc"
+      }
+    ],
+    "char": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 1781,
+        "path": "gcc/symtab.cc"
+      }
+    ],
+    "class loop": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 342,
+        "path": "gcc/cfgloop.cc"
+      }
+    ],
+    "comdat_type_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 8796,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "constant_descriptor_rtx": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 4224,
+        "path": "gcc/varasm.cc"
+      }
+    ],
+    "constant_descriptor_tree": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 3729,
+        "path": "gcc/varasm.cc"
+      }
+    ],
+    "control_flow_graph": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 69,
+        "path": "gcc/cfg.cc"
+      }
+    ],
+    "control_iv": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 4145,
+        "path": "gcc/tree-ssa-loop-niter.cc"
+      }
+    ],
+    "coverage_data": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 699,
+        "path": "gcc/coverage.cc"
+      }
+    ],
+    "cpp_hashnode_extra": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 66,
+        "path": "gcc/stringpool.cc"
+      }
+    ],
+    "ctf_container_t": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 1009,
+        "path": "gcc/ctfc.cc"
+      }
+    ],
+    "ctf_dmdef_t": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 700,
+        "path": "gcc/ctfc.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 738,
+        "path": "gcc/ctfc.cc"
+      }
+    ],
+    "ctf_dtdef_ref": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 1494,
+        "path": "gcc/btfout.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 1713,
+        "path": "gcc/btfout.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 333,
+        "path": "gcc/ctfout.cc"
+      }
+    ],
+    "ctf_dtdef_t": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 980,
+        "path": "gcc/btfout.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 1691,
+        "path": "gcc/btfout.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 388,
+        "path": "gcc/ctfc.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 458,
+        "path": "gcc/ctfc.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 489,
+        "path": "gcc/ctfc.cc"
+      }
+    ],
+    "ctf_dtdef_t*": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 321,
+        "path": "gcc/ctfout.cc"
+      }
+    ],
+    "ctf_dvdef_ref": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 1432,
+        "path": "gcc/btfout.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 303,
+        "path": "gcc/ctfout.cc"
+      }
+    ],
+    "ctf_dvdef_t": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 770,
+        "path": "gcc/ctfc.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 787,
+        "path": "gcc/ctfc.cc"
+      }
+    ],
+    "ctf_dvdef_t*": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 293,
+        "path": "gcc/ctfout.cc"
+      }
+    ],
+    "ctf_func_arg_t": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 817,
+        "path": "gcc/ctfc.cc"
+      }
+    ],
+    "ctf_string_t": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 264,
+        "path": "gcc/ctfc.cc"
+      }
+    ],
+    "die_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 5852,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "dw_cfa_location": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 467,
+        "path": "gcc/dwarf2cfi.cc"
+      }
+    ],
+    "dw_cfi_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 6304,
+        "path": "gcc/config/i386/i386.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 6309,
+        "path": "gcc/config/i386/i386.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 429,
+        "path": "gcc/dwarf2cfi.cc"
+      }
+    ],
+    "dw_cfi_row": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 442,
+        "path": "gcc/dwarf2cfi.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 454,
+        "path": "gcc/dwarf2cfi.cc"
+      }
+    ],
+    "dw_discr_list_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 26072,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 26125,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 26155,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "dw_fde_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 1050,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "dw_line_info_table": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 29004,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "dw_loc_descr_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 1417,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 18219,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "dw_loc_list_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 10265,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "dwarf_file_data": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 28351,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "edge_def": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 281,
+        "path": "gcc/cfg.cc"
+      }
+    ],
+    "eh_catch_d": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 427,
+        "path": "gcc/except.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 711,
+        "path": "gcc/lto-streamer-in.cc"
+      }
+    ],
+    "eh_landing_pad_d": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 461,
+        "path": "gcc/except.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 828,
+        "path": "gcc/lto-streamer-in.cc"
+      }
+    ],
+    "eh_region_d": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 370,
+        "path": "gcc/except.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 751,
+        "path": "gcc/lto-streamer-in.cc"
+      }
+    ],
+    "eh_status": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 353,
+        "path": "gcc/except.cc"
+      }
+    ],
+    "elab_info": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 6086,
+        "path": "gcc/ada/gcc-interface/trans.cc"
+      }
+    ],
+    "fixed_value": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 206,
+        "path": "gcc/tree-streamer-in.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 2499,
+        "path": "gcc/tree.cc"
+      }
+    ],
+    "frame_space": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 357,
+        "path": "gcc/function.cc"
+      }
+    ],
+    "function": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 4852,
+        "path": "gcc/function.cc"
+      }
+    ],
+    "gimple_df": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 1216,
+        "path": "gcc/tree-ssa.cc"
+      }
+    ],
+    "gimple_omp_for_iter": [
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 997,
+        "path": "gcc/gimple.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 2128,
+        "path": "gcc/gimple.cc"
+      }
+    ],
+    "gnat_binding_level": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 693,
+        "path": "gcc/ada/gcc-interface/utils.cc"
+      }
+    ],
+    "hash_map": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 159,
+        "path": "gcc/hash-map.h"
+      }
+    ],
+    "hash_set": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 48,
+        "path": "gcc/hash-set.h"
+      }
+    ],
+    "hash_table": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 396,
+        "path": "gcc/hash-table.h"
+      }
+    ],
+    "ht_identifier_ptr": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 299,
+        "path": "gcc/stringpool.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 306,
+        "path": "gcc/stringpool.cc"
+      }
+    ],
+    "htab": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 212,
+        "path": "gcc/ggc-common.cc"
+      }
+    ],
+    "indirect_string_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 4746,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "initial_value_pair": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 1310,
+        "path": "gcc/function.cc"
+      }
+    ],
+    "initial_value_struct": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 1307,
+        "path": "gcc/function.cc"
+      }
+    ],
+    "inline_entry_data": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 28952,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "ipa_param_adjustments": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 5124,
+        "path": "gcc/ipa-cp.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 5141,
+        "path": "gcc/ipa-cp.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 4227,
+        "path": "gcc/ipa-sra.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 2259,
+        "path": "gcc/lto-cgraph.cc"
+      }
+    ],
+    "ipa_replace_map": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 4493,
+        "path": "gcc/ipa-cp.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 2266,
+        "path": "gcc/lto-cgraph.cc"
+      }
+    ],
+    "ipa_vr": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 2386,
+        "path": "gcc/ipa-prop.cc"
+      }
+    ],
+    "lambda_int": [
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 733,
+        "path": "gcc/tree-data-ref.h"
+      }
+    ],
+    "language_function": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 4025,
+        "path": "gcc/ada/gcc-interface/trans.cc"
+      }
+    ],
+    "libfunc_entry": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 823,
+        "path": "gcc/optabs-libfuncs.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 852,
+        "path": "gcc/optabs-libfuncs.cc"
+      }
+    ],
+    "limbo_die_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 5903,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 22476,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "line_maps": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 1269,
+        "path": "gcc/input.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 1285,
+        "path": "gcc/input.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 1145,
+        "path": "gcc/toplev.cc"
+      }
+    ],
+    "location_t": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 731,
+        "path": "gcc/input.cc"
+      }
+    ],
+    "loop_exit": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 344,
+        "path": "gcc/cfgloop.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 1090,
+        "path": "gcc/cfgloop.cc"
+      }
+    ],
+    "loop_info_d": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 3029,
+        "path": "gcc/ada/gcc-interface/trans.cc"
+      }
+    ],
+    "loops": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 1763,
+        "path": "gcc/cgraphunit.cc"
+      }
+    ],
+    "lto_in_decl_state": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 390,
+        "path": "gcc/lto-section-in.cc"
+      }
+    ],
+    "machine_function": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 1995,
+        "path": "gcc/config/i386/i386-options.cc"
+      }
+    ],
+    "mem_attrs": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 390,
+        "path": "gcc/emit-rtl.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 6302,
+        "path": "gcc/emit-rtl.cc"
+      }
+    ],
+    "modref_base_node <T>": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 362,
+        "path": "gcc/ipa-modref-tree.h"
+      }
+    ],
+    "modref_ref_node <T>": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 265,
+        "path": "gcc/ipa-modref-tree.h"
+      }
+    ],
+    "nb_iter_bound": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 4098,
+        "path": "gcc/tree-ssa-loop-niter.cc"
+      }
+    ],
+    "niter_desc": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 3016,
+        "path": "gcc/loop-iv.cc"
+      }
+    ],
+    "noted_fnptr_store": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 3286,
+        "path": "gcc/ipa-prop.cc"
+      }
+    ],
+    "object_block": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 415,
+        "path": "gcc/varasm.cc"
+      }
+    ],
+    "odr_type_d": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 2047,
+        "path": "gcc/ipa-devirt.cc"
+      }
+    ],
+    "packable_type_hash": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 1212,
+        "path": "gcc/ada/gcc-interface/utils.cc"
+      }
+    ],
+    "pad_type_hash": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 1673,
+        "path": "gcc/ada/gcc-interface/utils.cc"
+      }
+    ],
+    "param_access": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 476,
+        "path": "gcc/ipa-sra.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 2466,
+        "path": "gcc/ipa-sra.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 2965,
+        "path": "gcc/ipa-sra.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 3769,
+        "path": "gcc/ipa-sra.cc"
+      }
+    ],
+    "parm_attr_d": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 2246,
+        "path": "gcc/ada/gcc-interface/trans.cc"
+      }
+    ],
+    "ptr_info_def": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 803,
+        "path": "gcc/tree-ssanames.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 847,
+        "path": "gcc/tree-ssanames.cc"
+      }
+    ],
+    "range_check_info_d": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 6261,
+        "path": "gcc/ada/gcc-interface/trans.cc"
+      }
+    ],
+    "reg_attrs": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 438,
+        "path": "gcc/emit-rtl.cc"
+      }
+    ],
+    "reg_saved_in_data": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 3283,
+        "path": "gcc/dwarf2cfi.cc"
+      }
+    ],
+    "rtl_bb_info": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 5308,
+        "path": "gcc/cfgrtl.cc"
+      }
+    ],
+    "rtx": [
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 6000,
+        "path": "gcc/emit-rtl.cc"
+      }
+    ],
+    "rtx_constant_pool": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 4153,
+        "path": "gcc/varasm.cc"
+      }
+    ],
+    "scev_info_str": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 323,
+        "path": "gcc/tree-scalar-evolution.cc"
+      }
+    ],
+    "section": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 257,
+        "path": "gcc/varasm.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 274,
+        "path": "gcc/varasm.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 305,
+        "path": "gcc/varasm.cc"
+      }
+    ],
+    "section_hash_entry": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 1779,
+        "path": "gcc/symtab.cc"
+      }
+    ],
+    "sequence_stack": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 5671,
+        "path": "gcc/emit-rtl.cc"
+      }
+    ],
+    "sized_type_hash": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 1507,
+        "path": "gcc/ada/gcc-interface/utils.cc"
+      }
+    ],
+    "stack_local_entry": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 17882,
+        "path": "gcc/config/i386/i386.cc"
+      }
+    ],
+    "stack_usage": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 4830,
+        "path": "gcc/function.cc"
+      }
+    ],
+    "stmt_group": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 9055,
+        "path": "gcc/ada/gcc-interface/trans.cc"
+      }
+    ],
+    "string_concat": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 761,
+        "path": "gcc/input.cc"
+      }
+    ],
+    "string_pool_data": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 296,
+        "path": "gcc/stringpool.cc"
+      }
+    ],
+    "string_pool_data_extra": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 303,
+        "path": "gcc/stringpool.cc"
+      }
+    ],
+    "struct annotation_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 13780,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "struct cl_optimization": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 1417,
+        "path": "gcc/tree.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 1545,
+        "path": "gcc/tree.cc"
+      }
+    ],
+    "struct cl_target_option": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 1412,
+        "path": "gcc/tree.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 1539,
+        "path": "gcc/tree.cc"
+      }
+    ],
+    "struct lang_decl": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 61,
+        "path": "gcc/ada/gcc-interface/ada-tree.h"
+      }
+    ],
+    "struct lang_type": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 1392,
+        "path": "gcc/ada/gcc-interface/misc.cc"
+      }
+    ],
+    "struct loops": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 428,
+        "path": "gcc/cfgloop.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 1102,
+        "path": "gcc/lto-streamer-in.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 7925,
+        "path": "gcc/tree-cfg.cc"
+      }
+    ],
+    "symbol_table": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 4881,
+        "path": "gcc/cgraph.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 1166,
+        "path": "gcc/toplev.cc"
+      }
+    ],
+    "target_globals": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 71,
+        "path": "gcc/target-globals.cc"
+      }
+    ],
+    "target_libfuncs": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 81,
+        "path": "gcc/target-globals.cc"
+      }
+    ],
+    "target_optabs": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 485,
+        "path": "gcc/optabs-tree.cc"
+      }
+    ],
+    "target_rtl": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 74,
+        "path": "gcc/target-globals.cc"
+      }
+    ],
+    "temp_slot": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 854,
+        "path": "gcc/function.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 877,
+        "path": "gcc/function.cc"
+      }
+    ],
+    "temp_slot_address_entry": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 715,
+        "path": "gcc/function.cc"
+      }
+    ],
+    "test_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 354,
+        "path": "gcc/ggc-tests.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 358,
+        "path": "gcc/ggc-tests.cc"
+      }
+    ],
+    "test_of_length": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 78,
+        "path": "gcc/ggc-tests.cc"
+      }
+    ],
+    "test_of_union": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 142,
+        "path": "gcc/ggc-tests.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 147,
+        "path": "gcc/ggc-tests.cc"
+      }
+    ],
+    "test_other": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 149,
+        "path": "gcc/ggc-tests.cc"
+      }
+    ],
+    "test_struct": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 47,
+        "path": "gcc/ggc-tests.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 48,
+        "path": "gcc/ggc-tests.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 144,
+        "path": "gcc/ggc-tests.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 151,
+        "path": "gcc/ggc-tests.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 210,
+        "path": "gcc/ggc-tests.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 227,
+        "path": "gcc/ggc-tests.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 239,
+        "path": "gcc/ggc-tests.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 252,
+        "path": "gcc/ggc-tests.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 263,
+        "path": "gcc/ggc-tests.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 427,
+        "path": "gcc/ggc-tests.cc"
+      }
+    ],
+    "test_struct_with_dtor": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 191,
+        "path": "gcc/ggc-tests.cc"
+      }
+    ],
+    "thunk_info": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 162,
+        "path": "gcc/symtab-thunks.cc"
+      }
+    ],
+    "tm_restart_node": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 3228,
+        "path": "gcc/trans-mem.cc"
+      }
+    ],
+    "tree": [
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 436,
+        "path": "gcc/ada/gcc-interface/utils.cc"
+      },
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 439,
+        "path": "gcc/ada/gcc-interface/utils.cc"
+      }
+    ],
+    "tree_decl_map": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 6119,
+        "path": "gcc/tree.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 6149,
+        "path": "gcc/tree.cc"
+      }
+    ],
+    "tree_entity_vec_map": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 5944,
+        "path": "gcc/ada/gcc-interface/decl.cc"
+      }
+    ],
+    "tree_int_map": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 9515,
+        "path": "gcc/ada/gcc-interface/decl.cc"
+      }
+    ],
+    "tree_map": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 486,
+        "path": "gcc/trans-mem.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 6731,
+        "path": "gcc/varasm.cc"
+      }
+    ],
+    "tree_statement_list_node": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 136,
+        "path": "gcc/tree-iterator.cc"
+      },
+      {
+        "allocator": "ggc_alloc",
+        "line": 213,
+        "path": "gcc/tree-iterator.cc"
+      }
+    ],
+    "tree_type_map": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 115,
+        "path": "gcc/ubsan.cc"
+      }
+    ],
+    "tree_vec_map": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 6186,
+        "path": "gcc/tree.cc"
+      }
+    ],
+    "type_hash": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 6486,
+        "path": "gcc/tree.cc"
+      }
+    ],
+    "types_used_by_vars_entry": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 6561,
+        "path": "gcc/function.cc"
+      }
+    ],
+    "unsigned char": [
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 17013,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 17592,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 17635,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 20691,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 20714,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 21414,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_vec_alloc",
+        "line": 31350,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 2048,
+        "path": "gcc/lto-streamer-in.cc"
+      }
+    ],
+    "user_struct": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 426,
+        "path": "gcc/ggc-tests.cc"
+      }
+    ],
+    "value_type": [
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 767,
+        "path": "gcc/hash-table.h"
+      }
+    ],
+    "var_loc_list": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 6472,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "var_loc_node": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 6497,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 6587,
+        "path": "gcc/dwarf2out.cc"
+      },
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 6604,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "variable_value_struct": [
+      {
+        "allocator": "ggc_cleared_alloc",
+        "line": 33536,
+        "path": "gcc/dwarf2out.cc"
+      }
+    ],
+    "varpool_node": [
+      {
+        "allocator": "ggc_alloc",
+        "line": 138,
+        "path": "gcc/varpool.cc"
+      }
+    ],
+    "void **": [
+      {
+        "allocator": "ggc_cleared_vec_alloc",
+        "line": 221,
+        "path": "gcc/ggc-common.cc"
+      }
+    ]
+  },
+  "common_Ada_x86_user_marker_mentions": [
+    {
+      "line": 220,
+      "path": "gcc/bbitmap.h",
+      "text": "gt_ggc_mx (bbitmap<N> *)"
+    },
+    {
+      "line": 1618,
+      "path": "gcc/ggc-page.cc",
+      "text": "gt_ggc_mx (const char *& x)"
+    },
+    {
+      "line": 1624,
+      "path": "gcc/ggc-page.cc",
+      "text": "gt_ggc_mx (char *& x)"
+    },
+    {
+      "line": 1630,
+      "path": "gcc/ggc-page.cc",
+      "text": "gt_ggc_mx (unsigned char *& x)"
+    },
+    {
+      "line": 1636,
+      "path": "gcc/ggc-page.cc",
+      "text": "gt_ggc_mx (unsigned char& x ATTRIBUTE_UNUSED)"
+    },
+    {
+      "line": 399,
+      "path": "gcc/ggc-tests.cc",
+      "text": "gt_ggc_mx (user_struct *p)"
+    },
+    {
+      "line": 348,
+      "path": "gcc/ggc.h",
+      "text": "gt_ggc_mx (const char *s)"
+    },
+    {
+      "line": 371,
+      "path": "gcc/ggc.h",
+      "text": "inline void gt_ggc_mx (bool) { }"
+    },
+    {
+      "line": 372,
+      "path": "gcc/ggc.h",
+      "text": "inline void gt_ggc_mx (char) { }"
+    },
+    {
+      "line": 373,
+      "path": "gcc/ggc.h",
+      "text": "inline void gt_ggc_mx (signed char) { }"
+    },
+    {
+      "line": 374,
+      "path": "gcc/ggc.h",
+      "text": "inline void gt_ggc_mx (unsigned char) { }"
+    },
+    {
+      "line": 375,
+      "path": "gcc/ggc.h",
+      "text": "inline void gt_ggc_mx (short) { }"
+    },
+    {
+      "line": 376,
+      "path": "gcc/ggc.h",
+      "text": "inline void gt_ggc_mx (unsigned short) { }"
+    },
+    {
+      "line": 377,
+      "path": "gcc/ggc.h",
+      "text": "inline void gt_ggc_mx (int) { }"
+    },
+    {
+      "line": 378,
+      "path": "gcc/ggc.h",
+      "text": "inline void gt_ggc_mx (unsigned int) { }"
+    },
+    {
+      "line": 379,
+      "path": "gcc/ggc.h",
+      "text": "inline void gt_ggc_mx (long int) { }"
+    },
+    {
+      "line": 380,
+      "path": "gcc/ggc.h",
+      "text": "inline void gt_ggc_mx (unsigned long int) { }"
+    },
+    {
+      "line": 381,
+      "path": "gcc/ggc.h",
+      "text": "inline void gt_ggc_mx (long long int) { }"
+    },
+    {
+      "line": 382,
+      "path": "gcc/ggc.h",
+      "text": "inline void gt_ggc_mx (unsigned long long int) { }"
+    },
+    {
+      "line": 47,
+      "path": "gcc/gimple-ssa.h",
+      "text": "extern void gt_ggc_mx (gimple *&);"
+    },
+    {
+      "line": 75,
+      "path": "gcc/hash-map.h",
+      "text": "gt_ggc_mx (e.m_key);"
+    },
+    {
+      "line": 76,
+      "path": "gcc/hash-map.h",
+      "text": "gt_ggc_mx (e.m_value);"
+    },
+    {
+      "line": 307,
+      "path": "gcc/hash-map.h",
+      "text": "template<typename T, typename U, typename V> friend void gt_ggc_mx (hash_map<T, U, V> *);"
+    },
+    {
+      "line": 319,
+      "path": "gcc/hash-map.h",
+      "text": "gt_ggc_mx (hash_map<K, V, H> *h)"
+    },
+    {
+      "line": 321,
+      "path": "gcc/hash-map.h",
+      "text": "gt_ggc_mx (&h->m_table);"
+    },
+    {
+      "line": 147,
+      "path": "gcc/hash-set.h",
+      "text": "friend void gt_ggc_mx (hash_set<T, false, U> *);"
+    },
+    {
+      "line": 198,
+      "path": "gcc/hash-set.h",
+      "text": "gt_ggc_mx (hash_set<K, false, H> *h)"
+    },
+    {
+      "line": 200,
+      "path": "gcc/hash-set.h",
+      "text": "gt_ggc_mx (&h->m_table);"
+    },
+    {
+      "line": 515,
+      "path": "gcc/hash-table.h",
+      "text": "template<typename T> friend void gt_ggc_mx (hash_table<T> *);"
+    },
+    {
+      "line": 1240,
+      "path": "gcc/hash-table.h",
+      "text": "gt_ggc_mx (hash_table<E> *h)"
+    },
+    {
+      "line": 258,
+      "path": "gcc/hash-traits.h",
+      "text": "extern void gt_ggc_mx (T &);"
+    },
+    {
+      "line": 259,
+      "path": "gcc/hash-traits.h",
+      "text": "gt_ggc_mx (p);"
+    },
+    {
+      "line": 57,
+      "path": "gcc/input.h",
+      "text": "\"error: redefinition of 'void gt_ggc_mx(location_hash&)'\" etc.)."
+    },
+    {
+      "line": 1041,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "gt_ggc_mx (modref_tree < int >*const &tt)"
+    },
+    {
+      "line": 1046,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "gt_ggc_mx (tt->bases);"
+    },
+    {
+      "line": 1051,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "gt_ggc_mx (modref_tree < tree_node * >*const &tt)"
+    },
+    {
+      "line": 1056,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "gt_ggc_mx (tt->bases);"
+    },
+    {
+      "line": 1065,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "void gt_ggc_mx (modref_base_node<int>* &b)"
+    },
+    {
+      "line": 1071,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "gt_ggc_mx (b->refs);"
+    },
+    {
+      "line": 1075,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "void gt_ggc_mx (modref_base_node<tree_node*>* &b)"
+    },
+    {
+      "line": 1081,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "gt_ggc_mx (b->refs);"
+    },
+    {
+      "line": 1084,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "gt_ggc_mx (b->base);"
+    },
+    {
+      "line": 1092,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "void gt_ggc_mx (modref_ref_node<int>* &r)"
+    },
+    {
+      "line": 1098,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "gt_ggc_mx (r->accesses);"
+    },
+    {
+      "line": 1102,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "void gt_ggc_mx (modref_ref_node<tree_node*>* &r)"
+    },
+    {
+      "line": 1108,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "gt_ggc_mx (r->accesses);"
+    },
+    {
+      "line": 1111,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "gt_ggc_mx (r->ref);"
+    },
+    {
+      "line": 1119,
+      "path": "gcc/ipa-modref-tree.cc",
+      "text": "void gt_ggc_mx (modref_access_node &)"
+    },
+    {
+      "line": 740,
+      "path": "gcc/ipa-modref-tree.h",
+      "text": "void gt_ggc_mx (modref_tree <int>* const&);"
+    },
+    {
+      "line": 741,
+      "path": "gcc/ipa-modref-tree.h",
+      "text": "void gt_ggc_mx (modref_tree <tree_node*>* const&);"
+    },
+    {
+      "line": 748,
+      "path": "gcc/ipa-modref-tree.h",
+      "text": "void gt_ggc_mx (modref_base_node <int>*);"
+    },
+    {
+      "line": 749,
+      "path": "gcc/ipa-modref-tree.h",
+      "text": "void gt_ggc_mx (modref_base_node <tree_node*>* &);"
+    },
+    {
+      "line": 757,
+      "path": "gcc/ipa-modref-tree.h",
+      "text": "void gt_ggc_mx (modref_ref_node <int>*);"
+    },
+    {
+      "line": 758,
+      "path": "gcc/ipa-modref-tree.h",
+      "text": "void gt_ggc_mx (modref_ref_node <tree_node*>* &);"
+    },
+    {
+      "line": 246,
+      "path": "gcc/ipa-prop.cc",
+      "text": "// hash-traits.h defines an extern of gt_ggc_mx (T &) instead of"
+    },
+    {
+      "line": 247,
+      "path": "gcc/ipa-prop.cc",
+      "text": "// picking up the gt_ggc_mx (T *) version."
+    },
+    {
+      "line": 255,
+      "path": "gcc/ipa-prop.cc",
+      "text": "gt_ggc_mx (ipa_vr *&x)"
+    },
+    {
+      "line": 257,
+      "path": "gcc/ipa-prop.cc",
+      "text": "return gt_ggc_mx ((ipa_vr *) x);"
+    },
+    {
+      "line": 322,
+      "path": "gcc/ipa-prop.h",
+      "text": "friend void gt_ggc_mx (struct ipa_vr &);"
+    },
+    {
+      "line": 1274,
+      "path": "gcc/machmode.h",
+      "text": "gt_ggc_mx (pod_mode<T> *)"
+    },
+    {
+      "line": 2667,
+      "path": "gcc/poly-int.h",
+      "text": "gt_ggc_mx (poly_int<N, C> *)"
+    },
+    {
+      "line": 4698,
+      "path": "gcc/rtl.h",
+      "text": "extern void gt_ggc_mx (rtx &);"
+    },
+    {
+      "line": 261,
+      "path": "gcc/symbol-summary.h",
+      "text": "template <typename U> friend void gt_ggc_mx (function_summary <U *> * const &);"
+    },
+    {
+      "line": 319,
+      "path": "gcc/symbol-summary.h",
+      "text": "gt_ggc_mx(function_summary<T *>* const &summary)"
+    },
+    {
+      "line": 322,
+      "path": "gcc/symbol-summary.h",
+      "text": "gt_ggc_mx (&summary->m_map);"
+    },
+    {
+      "line": 447,
+      "path": "gcc/symbol-summary.h",
+      "text": "template <typename U> friend void gt_ggc_mx (fast_function_summary <U *, va_gc> * const &);"
+    },
+    {
+      "line": 522,
+      "path": "gcc/symbol-summary.h",
+      "text": "gt_ggc_mx (fast_function_summary<T *, va_heap>* const &)"
+    },
+    {
+      "line": 541,
+      "path": "gcc/symbol-summary.h",
+      "text": "gt_ggc_mx (fast_function_summary<T *, va_gc>* const &summary)"
+    },
+    {
+      "line": 544,
+      "path": "gcc/symbol-summary.h",
+      "text": "gt_ggc_mx (summary->m_vector);"
+    },
+    {
+      "line": 757,
+      "path": "gcc/symbol-summary.h",
+      "text": "template <typename U> friend void gt_ggc_mx (call_summary <U *> * const &);"
+    },
+    {
+      "line": 802,
+      "path": "gcc/symbol-summary.h",
+      "text": "gt_ggc_mx(call_summary<T *>* const &summary)"
+    },
+    {
+      "line": 805,
+      "path": "gcc/symbol-summary.h",
+      "text": "gt_ggc_mx (&summary->m_map);"
+    },
+    {
+      "line": 918,
+      "path": "gcc/symbol-summary.h",
+      "text": "template <typename U> friend void gt_ggc_mx (fast_call_summary <U *, va_gc> * const &);"
+    },
+    {
+      "line": 973,
+      "path": "gcc/symbol-summary.h",
+      "text": "gt_ggc_mx (fast_call_summary<T *, va_heap>* const &summary ATTRIBUTE_UNUSED)"
+    },
+    {
+      "line": 993,
+      "path": "gcc/symbol-summary.h",
+      "text": "gt_ggc_mx (fast_call_summary<T *, va_gc>* const &summary)"
+    },
+    {
+      "line": 996,
+      "path": "gcc/symbol-summary.h",
+      "text": "gt_ggc_mx (&summary->m_vector);"
+    },
+    {
+      "line": 10470,
+      "path": "gcc/tree-cfg.cc",
+      "text": "extern void gt_ggc_mx (tree&);"
+    },
+    {
+      "line": 10471,
+      "path": "gcc/tree-cfg.cc",
+      "text": "extern void gt_ggc_mx (gimple *&);"
+    },
+    {
+      "line": 10472,
+      "path": "gcc/tree-cfg.cc",
+      "text": "extern void gt_ggc_mx (rtx&);"
+    },
+    {
+      "line": 10473,
+      "path": "gcc/tree-cfg.cc",
+      "text": "extern void gt_ggc_mx (basic_block&);"
+    },
+    {
+      "line": 10476,
+      "path": "gcc/tree-cfg.cc",
+      "text": "gt_ggc_mx (rtx_insn *& x)"
+    },
+    {
+      "line": 10483,
+      "path": "gcc/tree-cfg.cc",
+      "text": "gt_ggc_mx (edge_def *e)"
+    },
+    {
+      "line": 10486,
+      "path": "gcc/tree-cfg.cc",
+      "text": "gt_ggc_mx (e->src);"
+    },
+    {
+      "line": 10487,
+      "path": "gcc/tree-cfg.cc",
+      "text": "gt_ggc_mx (e->dest);"
+    },
+    {
+      "line": 10489,
+      "path": "gcc/tree-cfg.cc",
+      "text": "gt_ggc_mx (e->insns.g);"
+    },
+    {
+      "line": 10491,
+      "path": "gcc/tree-cfg.cc",
+      "text": "gt_ggc_mx (e->insns.r);"
+    },
+    {
+      "line": 10492,
+      "path": "gcc/tree-cfg.cc",
+      "text": "gt_ggc_mx (block);"
+    },
+    {
+      "line": 28,
+      "path": "gcc/tree-cfg.h",
+      "text": "extern void gt_ggc_mx (edge_def *e);"
+    },
+    {
+      "line": 271,
+      "path": "gcc/tree.cc",
+      "text": "gt_ggc_mx (v);"
+    },
+    {
+      "line": 15858,
+      "path": "gcc/tree.cc",
+      "text": "gt_ggc_mx (tree_raw_data *x)"
+    },
+    {
+      "line": 6960,
+      "path": "gcc/tree.h",
+      "text": "extern void gt_ggc_mx (tree &);"
+    },
+    {
+      "line": 6963,
+      "path": "gcc/tree.h",
+      "text": "extern void gt_ggc_mx (tree_raw_data *);"
+    },
+    {
+      "line": 1453,
+      "path": "gcc/vec.h",
+      "text": "gt_ggc_mx (vec<T, va_gc> *v)"
+    },
+    {
+      "line": 1456,
+      "path": "gcc/vec.h",
+      "text": "extern void gt_ggc_mx (T &);"
+    },
+    {
+      "line": 1458,
+      "path": "gcc/vec.h",
+      "text": "gt_ggc_mx ((*v)[i]);"
+    },
+    {
+      "line": 1463,
+      "path": "gcc/vec.h",
+      "text": "gt_ggc_mx (vec<T, va_gc_atomic, vl_embed> *v ATTRIBUTE_UNUSED)"
+    },
+    {
+      "line": 2408,
+      "path": "gcc/wide-int.cc",
+      "text": "void gt_ggc_mx (widest_int *) { }"
+    },
+    {
+      "line": 3888,
+      "path": "gcc/wide-int.h",
+      "text": "void gt_ggc_mx (generic_wide_int <wide_int_storage> *) = delete;"
+    },
+    {
+      "line": 3895,
+      "path": "gcc/wide-int.h",
+      "text": "gt_ggc_mx (generic_wide_int <fixed_wide_int_storage <N> > *)"
+    },
+    {
+      "line": 3913,
+      "path": "gcc/wide-int.h",
+      "text": "void gt_ggc_mx (generic_wide_int <widest_int_storage <N> > *) = delete;"
+    },
+    {
+      "line": 3924,
+      "path": "gcc/wide-int.h",
+      "text": "gt_ggc_mx (trailing_wide_ints <N> *)"
+    }
+  ],
+  "complete_source_files_verified": 4929,
+  "full_corpus_hash_map_creation_helper_mentions": [
+    {
+      "line": 1594,
+      "path": "gcc/cp/constexpr.cc",
+      "text": "tree *slot = &(hash_map_safe_get_or_insert<hm_ggc>"
+    },
+    {
+      "line": 733,
+      "path": "gcc/cp/constraint.cc",
+      "text": "hash_map_safe_put<hm_ggc> (normalized_map, d, norm);"
+    },
+    {
+      "line": 786,
+      "path": "gcc/cp/constraint.cc",
+      "text": "hash_map_safe_put<hm_ggc> (normalized_map, expr, norm);"
+    },
+    {
+      "line": 1056,
+      "path": "gcc/cp/constraint.cc",
+      "text": "bool found = hash_map_safe_put<hm_ggc> (decl_constraints, t, ci);"
+    },
+    {
+      "line": 2782,
+      "path": "gcc/cp/constraint.cc",
+      "text": "hash_map_safe_put<hm_ggc> (decl_satisfied_cache, saved_t, result);"
+    },
+    {
+      "line": 620,
+      "path": "gcc/cp/contracts.cc",
+      "text": "hash_map_maybe_create<hm_ggc> (decl_pre_fn);"
+    },
+    {
+      "line": 624,
+      "path": "gcc/cp/contracts.cc",
+      "text": "hash_map_maybe_create<hm_ggc> (orig_from_outlined);"
+    },
+    {
+      "line": 635,
+      "path": "gcc/cp/contracts.cc",
+      "text": "hash_map_maybe_create<hm_ggc> (decl_post_fn);"
+    },
+    {
+      "line": 639,
+      "path": "gcc/cp/contracts.cc",
+      "text": "hash_map_maybe_create<hm_ggc> (orig_from_outlined);"
+    },
+    {
+      "line": 880,
+      "path": "gcc/cp/contracts.cc",
+      "text": "hash_map_maybe_create<hm_ggc> (decl_wrapper_fn);"
+    },
+    {
+      "line": 885,
+      "path": "gcc/cp/contracts.cc",
+      "text": "hash_map_maybe_create<hm_ggc> (decl_for_wrapper);"
+    },
+    {
+      "line": 1569,
+      "path": "gcc/cp/contracts.cc",
+      "text": "= hash_map_safe_get_or_insert<hm_ggc> (contract_decl_map, decl, &existed);"
+    },
+    {
+      "line": 1595,
+      "path": "gcc/cp/contracts.cc",
+      "text": "= hash_map_safe_get_or_insert<hm_ggc> (contract_decl_map, decl, &existed);"
+    },
+    {
+      "line": 295,
+      "path": "gcc/cp/cp-objcp-common.cc",
+      "text": "hash_map_safe_put<hm_ggc> (debug_type_map, ktype, dtype);"
+    },
+    {
+      "line": 11033,
+      "path": "gcc/cp/decl.cc",
+      "text": "hash_map_safe_put<hm_ggc> (decomp_type_table, t, eltype);"
+    },
+    {
+      "line": 11079,
+      "path": "gcc/cp/decl.cc",
+      "text": "hash_map_safe_put<hm_ggc> (decomp_type_table, v[i], eltype);"
+    },
+    {
+      "line": 5942,
+      "path": "gcc/cp/decl2.cc",
+      "text": "hash_map_safe_put<hm_ggc> (dynamic_initializers,"
+    },
+    {
+      "line": 267,
+      "path": "gcc/cp/error.cc",
+      "text": "= hash_map_safe_get_or_insert<true> (erroneous_templates,"
+    },
+    {
+      "line": 7571,
+      "path": "gcc/cp/pt.cc",
+      "text": "hash_map_safe_put<hm_ggc> (tparm_obj_values, decl, copy);"
+    },
+    {
+      "line": 8281,
+      "path": "gcc/cp/pt.cc",
+      "text": "hash_map_safe_put<hm_ggc> (defaulted_ttp_cache, otmpl, ntmpl);"
+    },
+    {
+      "line": 32423,
+      "path": "gcc/cp/pt.cc",
+      "text": "= hash_map_safe_get_or_insert<hm_ggc> (dguide_cache, tmpl))"
+    },
+    {
+      "line": 1008,
+      "path": "gcc/cp/semantics.cc",
+      "text": "hash_map_safe_put<true> (boolish_class_type_p_cache, type, boolish);"
+    },
+    {
+      "line": 227,
+      "path": "gcc/d/imports.cc",
+      "text": "hash_map_maybe_create<hm_ggc> (imported_decls);"
+    },
+    {
+      "line": 1556,
+      "path": "gcc/d/typeinfo.cc",
+      "text": "hash_map_maybe_create<hm_ggc> (cpp_type_info_ptrs);"
+    },
+    {
+      "line": 376,
+      "path": "gcc/hash-map.h",
+      "text": "return hash_map_maybe_create<ggc> (h, size)->get_or_insert (k, e);"
+    },
+    {
+      "line": 385,
+      "path": "gcc/hash-map.h",
+      "text": "return hash_map_maybe_create<ggc> (h, size)->put (k, v);"
+    },
+    {
+      "line": 445,
+      "path": "gcc/rust/backend/rust-constexpr.cc",
+      "text": "= &(hash_map_safe_get_or_insert<hm_ggc> (fundef_copies_table, fundef->decl,"
+    }
+  ],
+  "full_corpus_named_GTY_cache_callbacks": [
+    {
+      "line": 280,
+      "path": "gcc/tree.cc",
+      "text": "static GTY ((cache (\"gt_value_expr_mark\")))"
+    }
+  ],
+  "full_corpus_raw_allocation_mentions": [
+    {
+      "line": 9933,
+      "path": "gcc/c/c-decl.cc",
+      "text": "ggc_internal_cleared_alloc (c_dialect_objc ()"
+    },
+    {
+      "line": 9938,
+      "path": "gcc/c/c-decl.cc",
+      "text": "ggc_internal_alloc (sizeof (struct sorted_fields_type)"
+    },
+    {
+      "line": 10421,
+      "path": "gcc/c/c-decl.cc",
+      "text": "ggc_internal_cleared_alloc (c_dialect_objc ()"
+    },
+    {
+      "line": 1007,
+      "path": "gcc/cp/lex.cc",
+      "text": "= (struct lang_decl *) ggc_internal_cleared_alloc (size);"
+    },
+    {
+      "line": 1109,
+      "path": "gcc/cp/lex.cc",
+      "text": "struct lang_decl *ld = (struct lang_decl *) ggc_internal_alloc (size);"
+    },
+    {
+      "line": 1148,
+      "path": "gcc/cp/lex.cc",
+      "text": "auto *lt = (struct lang_type *) ggc_internal_alloc (sz);"
+    },
+    {
+      "line": 1182,
+      "path": "gcc/cp/lex.cc",
+      "text": "auto *lt = (struct lang_type *) (ggc_internal_cleared_alloc (sz));"
+    },
+    {
+      "line": 4608,
+      "path": "gcc/dwarf2out.cc",
+      "text": "= (dw_wide_int *) ggc_internal_alloc (sizeof (dw_wide_int)"
+    },
+    {
+      "line": 38,
+      "path": "gcc/genmatch.cc",
+      "text": "ggc_internal_cleared_alloc (size_t, void (*)(void *),"
+    },
+    {
+      "line": 127,
+      "path": "gcc/ggc-common.cc",
+      "text": "void *buf = ggc_internal_alloc (size, f, s, n PASS_MEM_STAT);"
+    },
+    {
+      "line": 133,
+      "path": "gcc/ggc-common.cc",
+      "text": "ggc_internal_cleared_alloc (size_t size, void (*f)(void *), size_t s,"
+    },
+    {
+      "line": 142,
+      "path": "gcc/ggc-common.cc",
+      "text": "ggc_internal_cleared_alloc (size_t size, void (*f)(void *), size_t s, size_t n"
+    },
+    {
+      "line": 145,
+      "path": "gcc/ggc-common.cc",
+      "text": "void *buf = ggc_internal_alloc (size, f, s, n PASS_MEM_STAT);"
+    },
+    {
+      "line": 157,
+      "path": "gcc/ggc-common.cc",
+      "text": "return ggc_internal_cleared_alloc (size, f, s, n PASS_MEM_STAT);"
+    },
+    {
+      "line": 169,
+      "path": "gcc/ggc-common.cc",
+      "text": "return ggc_internal_alloc (size PASS_MEM_STAT);"
+    },
+    {
+      "line": 191,
+      "path": "gcc/ggc-common.cc",
+      "text": "r = ggc_internal_alloc (size PASS_MEM_STAT);"
+    },
+    {
+      "line": 229,
+      "path": "gcc/ggc-common.cc",
+      "text": "return ggc_internal_alloc (sz);"
+    },
+    {
+      "line": 61,
+      "path": "gcc/ggc-none.cc",
+      "text": "ggc_internal_alloc (size_t size, void (*f)(void *), size_t s,"
+    },
+    {
+      "line": 69,
+      "path": "gcc/ggc-none.cc",
+      "text": "ggc_internal_cleared_alloc (size_t size, void (*f)(void *),"
+    },
+    {
+      "line": 78,
+      "path": "gcc/ggc-none.cc",
+      "text": "ggc_internal_alloc (size_t size, void (*f)(void *), size_t, size_t"
+    },
+    {
+      "line": 86,
+      "path": "gcc/ggc-none.cc",
+      "text": "ggc_internal_cleared_alloc (size_t size, void (*f)(void *), size_t, size_t"
+    },
+    {
+      "line": 97,
+      "path": "gcc/ggc-none.cc",
+      "text": "return ggc_internal_alloc (size, f, s, n PASS_MEM_STAT);"
+    },
+    {
+      "line": 104,
+      "path": "gcc/ggc-none.cc",
+      "text": "return ggc_internal_cleared_alloc (size, f, s, n PASS_MEM_STAT);"
+    },
+    {
+      "line": 1355,
+      "path": "gcc/ggc-page.cc",
+      "text": "ggc_internal_alloc (size_t size, void (*f)(void *), size_t s, size_t n"
+    },
+    {
+      "line": 1542,
+      "path": "gcc/ggc-page.cc",
+      "text": "ggc_internal_alloc (size_t size, void (*f)(void *), size_t s,"
+    },
+    {
+      "line": 1557,
+      "path": "gcc/ggc-page.cc",
+      "text": "return ggc_internal_alloc (size, f, s, n PASS_MEM_STAT);"
+    },
+    {
+      "line": 75,
+      "path": "gcc/ggc-tests.cc",
+      "text": "root_test_of_length = (test_of_length *)ggc_internal_cleared_alloc (sz);"
+    },
+    {
+      "line": 233,
+      "path": "gcc/ggc-tests.cc",
+      "text": "return ggc_internal_cleared_alloc (sz);"
+    },
+    {
+      "line": 129,
+      "path": "gcc/ggc.h",
+      "text": "extern void *ggc_internal_alloc (size_t, void (*)(void *), size_t,"
+    },
+    {
+      "line": 139,
+      "path": "gcc/ggc.h",
+      "text": "ggc_internal_alloc (size_t s CXX_MEM_STAT_INFO)"
+    },
+    {
+      "line": 147,
+      "path": "gcc/ggc.h",
+      "text": "extern void *ggc_internal_cleared_alloc (size_t, void (*)(void *),"
+    },
+    {
+      "line": 156,
+      "path": "gcc/ggc.h",
+      "text": "ggc_internal_cleared_alloc (size_t s CXX_MEM_STAT_INFO)"
+    },
+    {
+      "line": 196,
+      "path": "gcc/ggc.h",
+      "text": "return static_cast<T *> (ggc_internal_alloc (sizeof (T), finalize<T>, 0, 1"
+    },
+    {
+      "line": 220,
+      "path": "gcc/ggc.h",
+      "text": "return static_cast<T *> (ggc_internal_cleared_alloc (sizeof (T),"
+    },
+    {
+      "line": 234,
+      "path": "gcc/ggc.h",
+      "text": "return static_cast<T *> (ggc_internal_alloc (c * sizeof (T), finalize<T>,"
+    },
+    {
+      "line": 247,
+      "path": "gcc/ggc.h",
+      "text": "return static_cast<T *> (ggc_internal_cleared_alloc (c * sizeof (T),"
+    },
+    {
+      "line": 261,
+      "path": "gcc/ggc.h",
+      "text": "return ggc_internal_alloc (s PASS_MEM_STAT);"
+    },
+    {
+      "line": 318,
+      "path": "gcc/ggc.h",
+      "text": "(rtvec_def *) ggc_internal_alloc (sizeof (struct rtvec_def)\t\t\\"
+    },
+    {
+      "line": 326,
+      "path": "gcc/ggc.h",
+      "text": "return (struct rtx_def *) ggc_internal_alloc (s PASS_MEM_STAT);"
+    },
+    {
+      "line": 332,
+      "path": "gcc/ggc.h",
+      "text": "return (union tree_node *) ggc_internal_alloc (s PASS_MEM_STAT);"
+    },
+    {
+      "line": 338,
+      "path": "gcc/ggc.h",
+      "text": "return (union tree_node *) ggc_internal_cleared_alloc (s PASS_MEM_STAT);"
+    },
+    {
+      "line": 344,
+      "path": "gcc/ggc.h",
+      "text": "return (gimple *) ggc_internal_cleared_alloc (s PASS_MEM_STAT);"
+    },
+    {
+      "line": 2171,
+      "path": "gcc/jit/jit-playback.cc",
+      "text": "return ggc_internal_cleared_alloc (sz, wrapper_finalizer, 0, 1);"
+    },
+    {
+      "line": 2461,
+      "path": "gcc/jit/jit-playback.cc",
+      "text": "char *wrapped = (char *)ggc_internal_alloc (sz);"
+    },
+    {
+      "line": 69,
+      "path": "gcc/objcp/objcp-decl.h",
+      "text": "ggc_internal_cleared_alloc (SIZEOF_OBJC_TYPE_LANG_SPECIFIC))"
+    },
+    {
+      "line": 268,
+      "path": "gcc/omp-simd-clone.cc",
+      "text": "ggc_internal_cleared_alloc (len);"
+    },
+    {
+      "line": 1160,
+      "path": "gcc/read-rtl-function.cc",
+      "text": "rtx new_x = (rtx) ggc_internal_alloc (size);"
+    },
+    {
+      "line": 1579,
+      "path": "gcc/rust/backend/rust-tree.cc",
+      "text": "auto *lt = (struct lang_type *) (ggc_internal_cleared_alloc ("
+    },
+    {
+      "line": 108,
+      "path": "gcc/symbol-summary.h",
+      "text": "return is_ggc () ? new (ggc_internal_alloc (sizeof (T))) T ()"
+    },
+    {
+      "line": 615,
+      "path": "gcc/symbol-summary.h",
+      "text": "return is_ggc () ? new (ggc_internal_alloc (sizeof (T))) T ()"
+    },
+    {
+      "line": 586,
+      "path": "gcc/symtab.cc",
+      "text": "char *s = (char *)ggc_internal_cleared_alloc (l + EXTRA);"
+    },
+    {
+      "line": 119,
+      "path": "gcc/tree-phinodes.cc",
+      "text": "phi = static_cast <gphi *> (ggc_internal_alloc (size));"
+    },
+    {
+      "line": 2623,
+      "path": "gcc/tree.cc",
+      "text": "tree s = (tree) ggc_internal_alloc (size);"
+    },
+    {
+      "line": 11009,
+      "path": "gcc/tree.cc",
+      "text": "t = (tree) ggc_internal_alloc (size);"
+    },
+    {
+      "line": 74,
+      "path": "gcc/value-range-storage.cc",
+      "text": "return ggc_internal_alloc (size);"
+    },
+    {
+      "line": 435,
+      "path": "gcc/varasm.cc",
+      "text": "symbol = (rtx) ggc_internal_alloc (size);"
+    }
+  ],
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "generated_options_header_verified": {
+    "bytes": 587028,
+    "sha256": "07b582033a21cd48bdbf07fed6f9e72c2633be43e430933daf88d1563f1419d7"
+  },
+  "known_GGC_events_after_selected_collector_join": 40098,
+  "lexical_census_is_not_reachability_proof": true,
+  "native_execution": false,
+  "prior_result_files_verified": 4,
+  "remaining_terms": [
+    "Whole-process setup, ordinary library buffers and teardown",
+    "Other phase/request interfaces and assembler/binder/linker/proof-producer joins"
+  ],
+  "scope": "Selected null collector allocation closure; whole invocation remains separate",
+  "selected_finalizer_effects": {
+    "IPA_summary_managers": "Explicit no_dtor; raw summary records have no registered callback",
+    "additional_GGC_events": 0,
+    "alternate_target_JIT_selftest": "Excluded by selected target/options/frontend",
+    "hash_table_map_set": "No-op or unlink/free entry removal; selected map values scalar/pointer/nowarn bitset",
+    "line_maps": "Delete ordinary ad-hoc htab with NULL element destructor",
+    "ordinary_allocation_requests": 0,
+    "raw_and_no_dtor_allocation_callbacks": null,
+    "selected_typed_record_fields": "Scalars/pointers/fixed scalar storage/plain vec; trivial destructors",
+    "symbol_table": "Ordinary pointer hash_set member frees existing backing"
+  },
+  "selected_mark_and_cache_effects": {
+    "PCH_contexts": "Absent; context depth zero",
+    "additional_GGC_events": 0,
+    "custom_markers": "Delegate existing members or scalar no-op; profile_probability fields are scalar",
+    "dynamic_plugin_JIT_roots": "Absent",
+    "generated_markers": "Mark before recursively visiting existing bounded fields/arrays",
+    "memory_statistics_and_time_reports": "Disabled; quiet frontend has no g_timer",
+    "other_ordinary_allocation_requests": 0,
+    "value_expression_marker": {
+      "collector_call_count_not_used_as_capacity_condition": true,
+      "dynamic_vector_backing_requests": 0,
+      "individual_ordinary_hash_backing_bytes": 104,
+      "inline_vector_elements": 16,
+      "new_GGC_events": 0,
+      "ordinary_hash_backing_requests_per_callback": 1,
+      "ordinary_hash_slots": 13,
+      "selected_null_pushes": 0,
+      "selected_null_value_expression_insertions": 0,
+      "table_initialized_even_when_empty": true
+    }
+  },
+  "selected_null_collector_allocation_closure": true,
+  "table_descriptor_removal_join": {
+    "addr_hasher": {
+      "base": "ggc_ptr_hash<addr_table_entry>",
+      "line": 5086,
+      "path": "gcc/dwarf2out.cc",
+      "remove": "inherited no-op"
+    },
+    "annotation_node_hasher": {
+      "base": "ggc_ptr_hash<annotation_node>",
+      "line": 3710,
+      "path": "gcc/dwarf2out.cc",
+      "remove": "inherited no-op"
+    },
+    "asmname_hasher": {
+      "base": "ggc_ptr_hash <symtab_node>",
+      "line": 2533,
+      "path": "gcc/cgraph.h",
+      "remove": "inherited no-op"
+    },
+    "block_die_hasher": {
+      "base": "ggc_ptr_hash<die_struct>",
+      "line": 3508,
+      "path": "gcc/dwarf2out.cc",
+      "remove": "inherited no-op"
+    },
+    "cgraph_edge_hasher": {
+      "base": "ggc_ptr_hash<cgraph_edge>",
+      "line": 910,
+      "path": "gcc/cgraph.h",
+      "remove": "inherited no-op"
+    },
+    "cl_option_hasher": {
+      "base": "ggc_cache_ptr_hash<tree_node>",
+      "line": 209,
+      "path": "gcc/tree.cc",
+      "remove": "inherited no-op"
+    },
+    "const_double_hasher": {
+      "base": "ggc_cache_ptr_hash<rtx_def>",
+      "line": 178,
+      "path": "gcc/emit-rtl.cc",
+      "remove": "inherited no-op"
+    },
+    "const_fixed_hasher": {
+      "base": "ggc_cache_ptr_hash<rtx_def>",
+      "line": 187,
+      "path": "gcc/emit-rtl.cc",
+      "remove": "inherited no-op"
+    },
+    "const_int_hasher": {
+      "base": "ggc_cache_ptr_hash<rtx_def>",
+      "line": 140,
+      "path": "gcc/emit-rtl.cc",
+      "remove": "inherited no-op"
+    },
+    "const_poly_int_hasher": {
+      "base": "ggc_cache_ptr_hash<rtx_def>",
+      "line": 158,
+      "path": "gcc/emit-rtl.cc",
+      "remove": "inherited no-op"
+    },
+    "const_rtx_desc_hasher": {
+      "base": "ggc_ptr_hash<constant_descriptor_rtx>",
+      "line": 4011,
+      "path": "gcc/varasm.cc",
+      "remove": "inherited no-op"
+    },
+    "const_wide_int_hasher": {
+      "base": "ggc_cache_ptr_hash<rtx_def>",
+      "line": 150,
+      "path": "gcc/emit-rtl.cc",
+      "remove": "inherited no-op"
+    },
+    "ctfc_dtd_hasher": {
+      "base": "ggc_ptr_hash <ctf_dtdef_t>",
+      "line": 245,
+      "path": "gcc/ctfc.h",
+      "remove": "inherited no-op"
+    },
+    "ctfc_dvd_hasher": {
+      "base": "ggc_ptr_hash <ctf_dvdef_t>",
+      "line": 265,
+      "path": "gcc/ctfc.h",
+      "remove": "inherited no-op"
+    },
+    "decl_die_hasher": {
+      "base": "ggc_ptr_hash<die_node>",
+      "line": 3480,
+      "path": "gcc/dwarf2out.cc",
+      "remove": "inherited no-op"
+    },
+    "decl_loc_hasher": {
+      "base": "ggc_ptr_hash<var_loc_list>",
+      "line": 3573,
+      "path": "gcc/dwarf2out.cc",
+      "remove": "inherited no-op"
+    },
+    "dummy_type_hasher": {
+      "base": "ggc_cache_ptr_hash<tree_entity_vec_map>",
+      "line": 167,
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "remove": "inherited no-op"
+    },
+    "dw_loc_list_hasher": {
+      "base": "ggc_ptr_hash<cached_dw_loc_list>",
+      "line": 3603,
+      "path": "gcc/dwarf2out.cc",
+      "remove": "inherited no-op"
+    },
+    "dwarf_file_hasher": {
+      "base": "ggc_ptr_hash<dwarf_file_data>",
+      "line": 3469,
+      "path": "gcc/dwarf2out.cc",
+      "remove": "inherited no-op"
+    },
+    "function_version_hasher": {
+      "base": "ggc_ptr_hash<cgraph_function_version_info>",
+      "line": 114,
+      "path": "gcc/cgraph.cc",
+      "remove": "inherited no-op"
+    },
+    "indirect_string_hasher": {
+      "base": "ggc_ptr_hash<indirect_string_node>",
+      "line": 226,
+      "path": "gcc/dwarf2out.cc",
+      "remove": "inherited no-op"
+    },
+    "inline_entry_data_hasher": {
+      "base": "ggc_ptr_hash <inline_entry_data>",
+      "line": 24801,
+      "path": "gcc/dwarf2out.cc",
+      "remove": "inherited no-op"
+    },
+    "insn_cache_hasher": {
+      "base": "ggc_cache_ptr_hash<rtx_def>",
+      "line": 126,
+      "path": "gcc/function.cc",
+      "remove": "inherited no-op"
+    },
+    "int_cst_hasher": {
+      "base": "ggc_cache_ptr_hash<tree_node>",
+      "line": 182,
+      "path": "gcc/tree.cc",
+      "remove": "inherited no-op"
+    },
+    "ipa_vr_ggc_hash_traits": {
+      "base": "public ggc_cache_remove <ipa_vr *>",
+      "line": 77,
+      "path": "gcc/ipa-prop.cc",
+      "remove": "inherited no-op"
+    },
+    "libfunc_decl_hasher": {
+      "base": "ggc_ptr_hash<tree_node>",
+      "line": 708,
+      "path": "gcc/optabs-libfuncs.cc",
+      "remove": "inherited no-op"
+    },
+    "libfunc_hasher": {
+      "base": "ggc_ptr_hash<libfunc_entry>",
+      "line": 48,
+      "path": "gcc/libfuncs.h",
+      "remove": "inherited no-op"
+    },
+    "loop_exit_hasher": {
+      "base": "ggc_ptr_hash<loop_exit>",
+      "line": 89,
+      "path": "gcc/cfgloop.h",
+      "remove": "unlink/free only"
+    },
+    "noted_fnptr_hasher": {
+      "base": "ggc_ptr_hash <noted_fnptr_store>",
+      "line": 300,
+      "path": "gcc/ipa-prop.cc",
+      "remove": "inherited no-op"
+    },
+    "object_block_hasher": {
+      "base": "ggc_ptr_hash<object_block>",
+      "line": 194,
+      "path": "gcc/varasm.cc",
+      "remove": "inherited no-op"
+    },
+    "packable_type_hasher": {
+      "base": "ggc_cache_ptr_hash<packable_type_hash>",
+      "line": 333,
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "remove": "inherited no-op"
+    },
+    "pad_type_hasher": {
+      "base": "ggc_cache_ptr_hash<pad_type_hash>",
+      "line": 356,
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "remove": "inherited no-op"
+    },
+    "poly_int_cst_hasher": {
+      "base": "ggc_cache_ptr_hash<tree_node>",
+      "line": 192,
+      "path": "gcc/tree.cc",
+      "remove": "inherited no-op"
+    },
+    "reg_attr_hasher": {
+      "base": "ggc_cache_ptr_hash<reg_attrs>",
+      "line": 169,
+      "path": "gcc/emit-rtl.cc",
+      "remove": "inherited no-op"
+    },
+    "scev_info_hasher": {
+      "base": "ggc_ptr_hash<scev_info_str>",
+      "line": 307,
+      "path": "gcc/tree-scalar-evolution.cc",
+      "remove": "inherited no-op"
+    },
+    "section_hasher": {
+      "base": "ggc_ptr_hash<section>",
+      "line": 183,
+      "path": "gcc/varasm.cc",
+      "remove": "inherited no-op"
+    },
+    "section_name_hasher": {
+      "base": "ggc_ptr_hash<section_hash_entry>",
+      "line": 65,
+      "path": "gcc/cgraph.h",
+      "remove": "inherited no-op"
+    },
+    "sized_type_hasher": {
+      "base": "ggc_cache_ptr_hash<sized_type_hash>",
+      "line": 376,
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "remove": "inherited no-op"
+    },
+    "ssa_name_hasher": {
+      "base": "ggc_ptr_hash<tree_node>",
+      "line": 50,
+      "path": "gcc/gimple-ssa.h",
+      "remove": "inherited no-op"
+    },
+    "temp_address_hasher": {
+      "base": "ggc_ptr_hash<temp_slot_address_entry>",
+      "line": 604,
+      "path": "gcc/function.cc",
+      "remove": "inherited no-op"
+    },
+    "tm_clone_hasher": {
+      "base": "ggc_cache_ptr_hash<tree_map>",
+      "line": 6709,
+      "path": "gcc/varasm.cc",
+      "remove": "inherited no-op"
+    },
+    "tm_restart_hasher": {
+      "base": "ggc_ptr_hash<tm_restart_node>",
+      "line": 36,
+      "path": "gcc/gimple-ssa.h",
+      "remove": "inherited no-op"
+    },
+    "tm_wrapper_hasher": {
+      "base": "ggc_cache_ptr_hash<tree_map>",
+      "line": 452,
+      "path": "gcc/trans-mem.cc",
+      "remove": "inherited no-op"
+    },
+    "tree_decl_map_cache_hasher": {
+      "base": "ggc_cache_ptr_hash<tree_decl_map>",
+      "line": 6065,
+      "path": "gcc/tree.h",
+      "remove": "inherited no-op"
+    },
+    "tree_descriptor_hasher": {
+      "base": "ggc_ptr_hash<constant_descriptor_tree>",
+      "line": 3535,
+      "path": "gcc/cgraph.h",
+      "remove": "inherited no-op"
+    },
+    "tree_type_map_cache_hasher": {
+      "base": "ggc_cache_ptr_hash<tree_type_map>",
+      "line": 63,
+      "path": "gcc/ubsan.cc",
+      "remove": "inherited no-op"
+    },
+    "tree_vec_map_cache_hasher": {
+      "base": "ggc_cache_ptr_hash<tree_vec_map>",
+      "line": 6089,
+      "path": "gcc/tree.h",
+      "remove": "inherited no-op"
+    },
+    "type_cache_hasher": {
+      "base": "ggc_cache_ptr_hash<type_hash>",
+      "line": 158,
+      "path": "gcc/tree.cc",
+      "remove": "inherited no-op"
+    },
+    "used_type_hasher": {
+      "base": "ggc_ptr_hash<types_used_by_vars_entry>",
+      "line": 498,
+      "path": "gcc/function.h",
+      "remove": "inherited no-op"
+    },
+    "value_annotation_hasher": {
+      "base": "ggc_cache_ptr_hash<tree_int_map>",
+      "line": 137,
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "remove": "inherited no-op"
+    },
+    "variable_value_hasher": {
+      "base": "ggc_ptr_hash<variable_value_struct>",
+      "line": 3496,
+      "path": "gcc/dwarf2out.cc",
+      "remove": "inherited no-op"
+    }
+  },
+  "whole_invocation_event_count_complete": false,
+  "whole_process_capacity_established": false
+}

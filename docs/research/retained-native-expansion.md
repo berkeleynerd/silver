@@ -10425,6 +10425,164 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
   --output /tmp/native-null-callback-collector.json
 ```
 
+## Selected null collector callback closure
+
+The preceding root-address census is not used to infer which finalizers can
+run. This join starts at the registration sink and follows its actual typed
+constructors. The [offline checker](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-collector-closure.py)
+reuses the complete 4,929-file source manifest, checks the installed generated
+options header and four earlier result identities, and retains the lexical
+inventories in [its result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-collector-closure.json).
+The inventories detect missing source families; the effect and selection
+arguments below remain handwritten source arguments, not an automatically
+proved C++ call graph. No native tool or previous witness is rerun.
+
+### Registration and destructor effects
+
+`add_finalizer` has one caller, the nonnull-callback branch of the primitive
+allocator (`ggc-page.cc:1331,1500–1501`). Four typed wrappers supply
+`finalize<T>` when `T` has a nontrivial destructor; raw allocations and
+`ggc_alloc_no_dtor` supply a null callback (`ggc.h:139–158,174–251`). The
+cleared primitive forwards that callback unchanged. The full-corpus raw-call
+inventory has one custom frontend callback, JIT's `wrapper_finalizer`, whose
+frontend is unselected. Tree, RTL, GIMPLE, String and variable-size slab
+allocations therefore do not hide a separately registered tree-walking
+destructor. Neither an exported finalizer name nor a template's compiled
+ordinary/GGC branch proves a selected registration.
+
+The common GCC, Ada interface and x86 source census contains 223 typed
+allocation sites with 149 literal type spellings. It includes self-tests,
+debug formats, LTO and unselected optimization paths. The selected phase
+ledgers reduce them as follows:
+
+| Constructor family | Destructor/member join |
+| --- | --- |
+| Gigi binding levels, statement groups, elaboration/language-function records, language declaration/type fields, type-hash and tree-map records | Scalar and pointer fields, including pointers to GGC vectors; no owning member or user destructor (`ada-tree.h:36–37`, `trans.cc:131–178`, `utils.cc:299–385`, `decl.cc:161–167`, `tree-core.h:2335–2366`). |
+| Fixed scalar/option/type records and scalar/pointer array elements | Scalar/pointer/fixed-array storage. The generated `cl_optimization` and `cl_target_option` definitions are separately hash-pinned. `target_optabs` consists of Boolean/signed-char arrays emitted by `genopinit.cc:312–321`. `fixed_value` contains fixed `double_int` and mode storage (`fixed-value.h:23–28`). |
+| Function, CFG, basic blocks, edges, SSA and loop records | Pointer/scalar fields, profile bitfields, fixed integer/mode storage and plain vectors. `gimple_df`'s embedded `pt_solution` and `ssa_operands` also contain only scalar/pointer fields (`function.h:249–453`, `cfg.h:38–91`, `basic-block.h:26–149`, `gimple-ssa.h:72–115`, `tree-ssa-alias.h:27–65`, `tree-ssa-operands.h:54–65`). Loop `bound_wide_int` explicitly uses **fixed** storage, not dynamically owned `wide_int_storage` (`cfgloop.h:47–48,120–233`). |
+| Cgraph/varpool/asm nodes, symbol/version/alias records | Base `toplevel_node`/`symtab_node` and `ipa_ref_list` contain scalar/pointer fields and plain `vec` members. Plain heap `vec` has a default trivial destructor and requires explicit release (`cgraph.h:105–139,532–707,922–1580,2241–2388`, `ipa-ref.h:74–150`, `vec.h:1545–1557`). Their explicit lifecycle cleanup was charged separately; it is not a GC finalizer. |
+| RTL constant pools/descriptors, register/memory attributes, stack/frame/sequence records, sections and bitmaps | Pointer/scalar/fixed-mode/poly-int storage. The x86 machine record embeds only scalar frame records; the section union's alternatives contain pointers, flags and callback addresses, not owning callable objects (`rtl.h:152–264,3950–3995,4631–4642`, `function.h:29–36,187–234`, `output.h:461–522`, `bitmap.h:312–368`, `i386.h:2722–2798,2849–2977`). |
+| CFI/FDE/CFA records | Their vectors are pointer typedefs (`dwarf2out.h:58–67,77–125,159–168`, `dwarf2cfi.cc:70–96`). They do not acquire a destructor that regenerates unwind state. |
+| Line-map control | Its sole destructor calls `htab_delete` on the ordinary ad-hoc table. `linemap_init` installed a **null element deletion callback**, so deletion frees existing table/control storage without allocating (`libcpp/line-map.cc:57–61,427–440`). |
+| Symbol-table control | Its nontrivial member is the ordinary `hash_set<const cgraph_node *> cloned_nodes`; pointer removal is a no-op and table destruction frees existing backing. The remaining members are scalar/pointer/plain-vector storage (`cgraph.h:2551–2915`, `hash-set.h:36–41`, `hash-table.h:727–751`). |
+
+The selected IPA function/parameter/edge summary managers explicitly allocate
+with `ggc_alloc_no_dtor` (`ipa-fnsummary.h:230–234`,
+`ipa-prop.h:1166–1171`, `ipa-prop.cc:4933–4937`). Summary records use placement
+construction over raw `ggc_internal_alloc`, deliberately avoiding finalizer
+registration (`symbol-summary.h:103–109,613–615`). Their embedded GC hash-map
+entry values are record pointers. The earlier pass/lifecycle joins cover the
+managers' explicit cleanup and hooks.
+
+No selected instance comes from the debug-DIE/location/CTF/BTF constructors,
+LTO input records, self-test types, transaction/OpenMP/offload transformations,
+virtual/indirect-call specialization or user loop/range/parameter caches.
+Those exclusions are the existing null graph and selected-options argument,
+not a claim that those types never occur in GCC. In particular the dynamic
+`target_globals` constructor is excluded by the unchanged default target
+and option-state join; its more complicated destructor is not silently
+classified as trivial. Other frontend and non-x86 constructors are outside
+the selected executable path.
+
+The 60 literal `hash_table<Descriptor>::create_ggc` sites use 51 descriptors.
+Fifty inherit `ggc_ptr_hash`, `ggc_cache_ptr_hash` or `ggc_cache_remove`
+without overriding removal; inherited removal is a no-op
+(`hash-traits.h:250–255`). The sole override is `loop_exit_hasher::remove`,
+which unlinks existing exit records and calls `ggc_free`
+(`cfgloop.cc:1043–1055`). During collection `ggc_free` immediately returns
+(`ggc-page.cc:1715–1716`). The installed single-coefficient target additionally
+excludes `const_poly_int_hasher`; including its no-op removal in this census
+does not weaken the bound.
+
+Map/set constructors also reach the generic table. Selected map values are
+pointers or scalar records: the internal-label `long`, EH/alias integers,
+symbol-priority scalar pair and `nowarn_spec_t`'s unsigned bitset. Their
+key-removal/value-destructor sequence allocates nothing
+(`hash-map-traits.h:64–68`, `tree.cc:798–810`,
+`gcc-diagnostic-spec.h:29–110,144`). The source join includes the typedef
+aliases, and the census retains map-creation helpers: all calls to these
+helpers outside their definition are in other frontends. Pointer hash sets have the same no-op
+entry removal. Memory statistics are disabled, so hash destruction does not
+enter a statistics registration path. Finalizer dispatch visits existing
+records and removes them with `unordered_remove`, never growing its vectors
+(`ggc-page.cc:2021–2062`). Thus selected finalizers add **zero GGC events and
+zero ordinary allocation requests**, regardless of which unreachable objects
+they collect.
+
+### Generated marking, custom marking and cache clearing
+
+The installed root table bounds from the previous packet still apply.
+Dynamic root registration is reachable only through unselected plugin/JIT
+entry points; no PCH context is entered. The generator's normal marker
+dispatch marks before descending, emits bounded array visits with `size_t`
+indices, follows the selected chain fields, and dispatches nested markers;
+scalar and callback-address fields do nothing. Reorder/PCH object recording
+is a separate, unselected generator mode
+(`gengtype.cc:2860–2940,3185–3295,3483–3658`). Selected discriminants and length
+expressions read existing tree/RTL/GIMPLE tags and array counts; they do not
+construct data. The same is true of the CFI operand-tag switches and gigi's
+pointer conversion fields.
+
+The handwritten marker families complete that recursion:
+
+- Hash tables mark their existing backing then visit existing entries;
+  maps and sets delegate to that table (`hash-table.h:1240–1258`,
+  `hash-map.h:73–83,319–322`, `hash-set.h:198–201`).
+- GC vectors visit existing elements, and atomic vectors do nothing. Both
+  require trivially destructible element types (`vec.h:1453–1468`).
+  Summary markers delegate to existing maps/vectors, with heap variants
+  doing nothing (`symbol-summary.h:319–323,522–545,802–806,973–997`).
+- `tree_raw_data`, edge and string markers mark existing owners/endpoints,
+  instructions and blocks (`tree.cc:15858–15861`,
+  `tree-cfg.cc:10476–10492`, `ggc-page.cc:1618–1638`). Fixed wide integers,
+  polynomial integers, fixed bitmaps and mode wrappers have scalar no-op
+  markers. `profile_probability` is scalar bitfields; it does **not** need
+  an invented no-op marker to justify edge traversal.
+- The remaining common custom `ipa_vr` marker delegates to its generated
+  record marker; modref markers only mark/delegate existing members and
+  are unselected here (`ipa-prop.cc:246–257`,
+  `ipa-modref-tree.cc:1041–1120`). Other target/frontend and self-test markers
+  are unselected.
+
+Generic weak-cache predicates test mark bits; clearing removes slots without
+growth (`hash-table.h:1303–1320`, `tree.h:6075–6104`,
+`ada/gcc-interface/utils.cc:339–386`, `decl.cc:152–186`,
+`varasm.cc:6715–6718`). The complete source corpus contains one named
+`GTY(cache("..."))` callback: `gt_value_expr_mark`. Its selected null graph
+has the previously established zero insertions/pushes, but the initialized
+table still constructs its **104-byte ordinary hash backing on every call**.
+Keep that request; it is not a GGC event. This empty-cache specialization
+does not apply to the generated binder, whose graph-union scratch remains
+a separate incoming requirement.
+
+Identifier marking/purging changes only mark bits or existing slots
+(`stringpool.cc:151–196`, `libcpp/symtab.cc:240–292`). Collector plugin hooks
+are absent. The selected frontend is quiet with no time report or detailed
+statistics: `toplev::start_timevars` therefore leaves `g_timer` null, and
+collector timevar pushes/pops do nothing (`toplev.cc:2264–2270`,
+`timevar.h:205–217,224–243,265–287`). This is an option-specific exclusion; an enabled detailed
+timer can allocate child maps and is not covered by a nominal stack-record
+size alone.
+
+Consequently the selected null collector introduces **zero additional GGC
+events**, no finalizer allocation, no additional ordinary request beyond the
+104-byte cache-marker backing, and no old-context mark bitmap. The known
+event subtotal remains **40,098**. Its page/finalizer substitutions remain
+65,536 page slots (524,288 bytes per pointer vector), 60,145 finalizer slots
+(962,328/1,924,648 bytes for scalar/array backings), and the previously bounded
+page entries, lookup arrays and 2,097,152-byte page quire.
+
+This closes the selected collector's allocation effects, conditional on the
+phase and option premises above. It does **not** turn the known subtotal into
+a completed whole-invocation count: process setup, ordinary host-library
+buffers and teardown still need their join. No aggregate RAM/address-space
+admission gate or whole native capacity claim is introduced.
+
+Independent narrow source review replayed the 4,929-source checker byte-for-byte
+and accepted the registration/type, destructor and custom-marker joins. The
+review corrected only the timevar citation above. It did not execute a native
+tool or extend this result to whole-process closure.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
