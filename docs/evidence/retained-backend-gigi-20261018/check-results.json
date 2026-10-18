@@ -80,6 +80,10 @@
     "String_literal_low_bound_syntax_visits_per_type": 16,
     "Main_value_call_body_copy_requests_in_size_inliner": 0,
     "compiler_generated_size_wrapper_body_copy_requests": "separate layout obligation",
+    "variable_Main_lazy_constant_or_renaming_initializers": 0,
+    "variable_Main_source_syntax_visits": "O_Main+32*E_Main+3*(D_i+J_i)",
+    "variable_Main_source_syntax_visits_cumulative_upper_bound": "A_Main+32*E_Main+3*(D_i+J_i)",
+    "unchanged_protected_arithmetic_frontier": "branching arithmetic over recursively invariant leaves; not only a spine",
     "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success"
   },
   "compiler_runs": 0,

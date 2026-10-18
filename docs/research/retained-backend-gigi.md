@@ -191,6 +191,106 @@ occurrence/shape accounting, type construction and cached-entity metadata
 remain necessary. In particular this result supplies the source roots for
 gigi; it does not bound `max_value` by the number of Ada syntax nodes alone.
 
+### Variable Main object initializers are not lazily replayed
+
+`gnat_to_gnu_external` is a real extra source-traversal edge for an unassociated
+constant or object renaming. Its two object callers are the reference-only
+branches at `decl.cc:697–718,754–766`; the existing-association return precedes
+both (`400–445`). A general GNAT program therefore cannot use source node
+identity alone to bound initializer visits. The selected normalized Main has
+a stronger **object dependency order**:
+
+| Constructor family | Order before a dependent object reference |
+| --- | --- |
+| Original Integer/String declarations | The recognizer permits only earlier visible objects in an initializer. Ordinary declaration lowering converts the initializer, then defines its object. |
+| Concat | Operand actions, length and aggregate captures, and the selected-low capture precede the dependent constrained subtype, access type, result object and final copies. |
+| Integer Image | Buffer and position declarations precede the runtime call and returned slice. |
+| Initial input | The reference/access capture precedes the source `D` renaming and its dependent bound uses. |
+| Forced scalar bound or value | `Force_Evaluation` inserts the capture declaration at the current action point before replacing the expression by that capture's name. Its initializer may contain a nested expression with actions. |
+| Conditional actions | Actions precede their own EWA expression; Boolean forcing appends its flag declaration after the existing actions. Nested captured initializers preserve this same order recursively. |
+| For index | Outer endpoint captures precede the loop; gigi defines the index before converting its body. |
+| Main finalizer | The declaration pass defines Main's objects before the second pass converts the fixed finalizer body that refers to the mark object. |
+
+The native placement and constructor sources are recorded in
+[native expansion](retained-native-expansion.md), especially “First raw-bound
+analysis and capture”, “Ordinary initial action placement”, “Boolean
+expression-with-actions wrapper”, “Initial native Integer Image construction”
+and “Fixed input and Main secondary-stack scaffold”. These establish the
+dependency directions, including actions retained **inside** a captured
+initializer. This is not an assumption that every initializer is action-free.
+
+Gigi preserves this order. Ordinary declaration lowering translates its
+initializer before `gnat_to_gnu_entity(..., true)`
+(`trans.cc:6826–6880`); a deferred declaration stores the translated initializer
+for its freeze rather than retranslating it (`9846–9856`). Object renamings
+likewise translate their renamed expression before definition (`6883–6917`).
+`process_decls` converts ordinary objects only on the first, ordered pass;
+the second pass is for bodies and the stated package/freeze/subprogram-renaming
+cases (`9889–10025`). EWA lowering explicitly converts actions before its
+expression and result type (`8603–8622`). Slices convert their prefix before
+the slice type (`7086–7097`), and the for index is defined before its body
+(`3240–3245,3301–3306`). Calls resolve an actual's type before translating its
+value, but the only EWA actuals in this frontier have Integer/Boolean result
+types with no object-dependent endpoints; String value actions are already
+outside the call or in the surrounding Boolean EWA. The String actual's
+captured-bound dependencies are therefore already defined.
+
+Lazy **type** conversion is still permitted: a subtype may be elaborated at a
+reference or its freeze. Its completed endpoints contain only literals,
+already defined object names and their ordinary attributes, as established
+above. It cannot force a later variable Main object initializer. An identifier
+uses its Actual_Subtype only when that subtype already has an association
+(`trans.cc:1233–1256`). The ordinary Main objects have no address clause,
+deferred private full view or representation-reset route that removes their
+saved association; source constants with an address clause would be a
+different replay edge (`1265–1302`, `decl.cc:1278–1291`).
+
+Thus induction over these constructor dependencies gives:
+
+```text
+variable Main constant/renaming gnat_to_gnu_external calls = 0
+variable Main initializer source translations             <= 1 per declaration
+variable Main EWA action-list source translations          <= 1 per ordinary occurrence.
+```
+
+The last line counts a list when its enclosing initializer is reached, not
+again merely because a later name references that initializer. The other
+`gnat_to_gnu_external` caller processes compile-time diagnostic pragmas;
+variable Main supplies none. Imported declarations and their initializer
+dependencies belong to the fixed runtime frontier. A constant name can still
+return its **already lowered GCC initializer**; the GCC graph/copy transfers
+must charge that sharing separately.
+
+### Source visits compose without an entity-times-syntax product
+
+Let `O_Main` count current ordinary syntax occurrences reached in the final
+normalized variable Main declaration/statement/operand forest, excluding
+semantic type-bound root edges. This is a forest of occurrences, not of GCC
+nodes. The native cumulative ordinary-node allocation bound `A_Main` safely
+dominates it, although the per-kind current counts are usually much tighter.
+The selected ordinary cases visit their children once: scalar unary/binary
+and conditional expressions, explicit membership bounds, assignment sides,
+String view prefixes, call names/actuals, and ordered statement/action lists.
+The call's later adaptation/copy-out work uses the saved GCC operands. Ordinary
+First/Last/Length attributes convert their prefix once; the unrelated Size
+attribute's alternate dereference traversal is outside this frontier
+(`trans.cc:1741–1750,2141–2319,4912–4952,6118–6144,7086–7097,7291–7660`).
+
+Combining this with the preceding two root transfers gives:
+
+```text
+variable Main source-syntax visits <= O_Main + 32 E_Main + 3 (D_i + J_i)
+                                  <= A_Main + 32 E_Main + 3 (D_i + J_i).
+```
+
+Use separate fixed-input terms for Main's fixed scaffold and imported
+Standard/runtime declarations. No multiplication by the number of object
+references, type references or later loop iterations is required for this
+source-traversal bound. It does not yet bound a helper's GCC traversal:
+ordinary name lowering, type descriptors and folders can follow an already
+constructed GCC graph. The remaining composition must consume that graph's
+ordinary occurrence weights and protected identities.
+
 ## Binding requests and retained BIND nodes
 
 All `gnat_pushlevel` sites in the four gigi implementation files are inventoried
@@ -468,6 +568,31 @@ not construct an expression. This justifies shared operands in the checked
 operation rows; later generic unsharing must respect or separately price this
 SAVE_EXPR behavior. It does not justify assigning zero cost to those later
 passes.
+
+The word “simple” in the implementation does not mean a linear arithmetic
+spine. `skip_simple_arithmetic` can skip **either** invariant operand of a
+binary arithmetic operation, and `tree_invariant_p` recursively recognizes
+readonly declarations, constants and SAVE/TARGET boundaries
+(`tree.cc:4080–4106,4173–4223`). An arbitrarily branching pure arithmetic tree
+over such leaves can therefore be returned unchanged by both protection and
+`save_expr`. The single-spine bound above is for newly reconstructed
+conversion/reference wrappers, not for the unchanged arithmetic input.
+
+Two properties keep this frontier concrete without claiming a global folder
+bound. Dynamic readonly captures are not initializer macros:
+`create_var_decl` sets `TREE_CONSTANT` only when its initializer is constant,
+whereas `TREE_READONLY` alone does not satisfy
+`constant_decl_with_initializer_p`
+(`utils.cc:3018–3057,3088–3099`, `trans.cc:1047–1059,1330–1369`). Checked unary
+and binary operations protect before reusing operands. Constant multiply uses
+its dynamic operand in at most the result and two comparisons; constant
+add/subtract uses at most the result and one comparison. The two-dynamic case
+uses one shared saved overflow call for REALPART/IMAGPART. `emit_check`'s
+surviving conditional has a side-effecting raise arm, so it is not a pure
+arithmetic region that protection can skip. If folding removes that check,
+the removed branch is no longer a live duplicate. Pure unchecked regions,
+shared already-lowered constant initializers and generic fold transformations
+still need their own occurrence-weight transfer.
 
 ## Raise-call filenames and direct call operands
 
@@ -944,11 +1069,12 @@ allocation, and does not exempt either from the overall contract.
 These interfaces remove the per-call/per-type arity ambiguity; they do not yet
 supply one complete, usable constructor coefficient. The remaining joins are:
 
-1. Bound actual uncached entity conversions, ordinary/lazy initializer visits
-   and rewritten reference occurrences from the native expansion vector. The
-   extra diagnostic scalar visits and final normalized type-bound syntax visits
-   now have the source-derived linear terms above; their GCC helper costs and
-   the fixed imported-type frontier remain separate.
+1. Bound actual uncached entity conversions and their synthetic GCC type and
+   declaration constructors. Variable Main ordinary/initializer visits,
+   diagnostic replay and normalized type-bound roots now compose into the
+   source-derived linear term above. Preserve its per-kind native syntax
+   counts where useful; neither that term nor the entity cache prices the
+   resulting GCC helper work or the fixed imported-type frontier.
 2. Join the selected conversion/address/allocator subroutes above with the
    actual wrapper/padding and constructor-field occurrence vector. Their
    source recurrence has no secondary-stack initializer recursion, but its

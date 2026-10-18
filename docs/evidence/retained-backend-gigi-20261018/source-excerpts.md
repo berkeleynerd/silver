@@ -636,6 +636,422 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 45: end System.Concat_9;
 ```
 
+## gcc/ada/gcc-interface/trans.cc:1047–1059
+
+```text
+1047: constant_decl_with_initializer_p (tree t)
+1048: {
+1049:   if (!TREE_CONSTANT (t) || !DECL_P (t) || !DECL_INITIAL (t))
+1050:     return false;
+1051:
+1052:   /* Return false for aggregate types that contain a placeholder since
+1053:      their initializers cannot be manipulated easily.  */
+1054:   if (AGGREGATE_TYPE_P (TREE_TYPE (t))
+1055:       && !TYPE_IS_FAT_POINTER_P (TREE_TYPE (t))
+1056:       && type_contains_placeholder_p (TREE_TYPE (t)))
+1057:     return false;
+1058:
+1059:   return true;
+```
+
+## gcc/ada/gcc-interface/trans.cc:1189–1380
+
+```text
+1189:   Entity_Id gnat_entity = (Nkind (gnat_node) == N_Defining_Identifier
+1190:                            || Nkind (gnat_node) == N_Defining_Operator_Symbol)
+1191:                           ? gnat_node : Entity (gnat_node);
+1192:   Entity_Id gnat_result_type;
+1193:   tree gnu_result, gnu_result_type;
+1194:   /* If GNAT_NODE is a constant, whether we should use the initialization
+1195:      value instead of the constant entity, typically for scalars with an
+1196:      address clause when the parent doesn't require an lvalue.  */
+1197:   bool use_constant_initializer;
+1198:   /* Whether we should require an lvalue for GNAT_NODE.  Needed in
+1199:      specific circumstances only, so evaluated lazily.  < 0 means
+1200:      unknown, > 0 means known true, 0 means known false.  */
+1201:   int require_lvalue;
+1202:
+1203:   /* If the Etype of this node is not the same as that of the Entity, then
+1204:      something went wrong, probably in generic instantiation.  However, this
+1205:      does not apply to types.  Since we sometime have strange Ekind's, just
+1206:      do this test for objects, except for discriminants because their type
+1207:      may have been changed to a subtype by Exp_Ch3.Adjust_Discriminants.  */
+1208:   gcc_assert (!Is_Object (gnat_entity)
+1209:               || Ekind (gnat_entity) == E_Discriminant
+1210:               || Etype (gnat_node) == Etype (gnat_entity)
+1211:               || Gigi_Types_Compatible (Etype (gnat_node),
+1212:                                         Etype (gnat_entity)));
+1213:
+1214:   /* If this is a reference to a deferred constant whose partial view is of
+1215:      unconstrained private type, the proper type is on the full view of the
+1216:      constant, not on the full view of the type which may be unconstrained.  */
+1217:   const Entity_Id gnat_full_view = Full_View_Of_Private_Constant (gnat_entity);
+1218:   if (Present (gnat_full_view))
+1219:     {
+1220:       gnat_entity = gnat_full_view;
+1221:       gnat_result_type = Etype (gnat_entity);
+1222:     }
+1223:   else
+1224:     {
+1225:       /* We use the Actual_Subtype only if it has already been elaborated,
+1226:          as we may be invoked precisely during its elaboration, otherwise
+1227:          the Etype.  Avoid using it for packed arrays to simplify things,
+1228:          except in a return statement because we need the actual size and
+1229:          the front-end does not make it explicit in this case.  */
+1230:       if ((Ekind (gnat_entity) == E_Constant
+1231:            || Ekind (gnat_entity) == E_Variable
+1232:            || Is_Formal (gnat_entity))
+1233:           && !(Is_Array_Type (Etype (gnat_entity))
+1234:                && Present (Packed_Array_Impl_Type (Etype (gnat_entity)))
+1235:                && Nkind (Parent (gnat_node)) != N_Simple_Return_Statement)
+1236:           && Present (Actual_Subtype (gnat_entity))
+1237:           && present_gnu_tree (Actual_Subtype (gnat_entity)))
+1238:         gnat_result_type = Actual_Subtype (gnat_entity);
+1239:       else
+1240:         gnat_result_type = Etype (gnat_node);
+1241:     }
+1242:
+1243:   /* Expand the type of this identifier first if it is needed, in case it is an
+1244:      enumeral literal, which only get made when the type is expanded.  There is
+1245:      no order-of-elaboration issue here.  */
+1246:   if (Is_Subprogram (gnat_entity))
+1247:     gnu_result_type = NULL_TREE;
+1248:   else if (Nkind (Original_Node (gnat_node)) == N_Explicit_Dereference
+1249:            && Is_Extended_Access_Type
+1250:               (Etype (Prefix (Original_Node (gnat_node)))))
+1251:     gnu_result_type = get_unpadded_extended_type (gnat_result_type);
+1252:   else
+1253:     gnu_result_type = get_unpadded_type (gnat_result_type);
+1254:
+1255:   /* If this is a non-imported elementary constant with an address clause,
+1256:      retrieve the value instead of a pointer to be dereferenced unless
+1257:      an lvalue is required.  This is generally more efficient and actually
+1258:      required if this is a static expression because it might be used
+1259:      in a context where a dereference is inappropriate, such as a case
+1260:      statement alternative or a record discriminant.  There is no possible
+1261:      volatile-ness short-circuit here since Volatile constants must be
+1262:      imported per C.6.  */
+1263:   if (Ekind (gnat_entity) == E_Constant
+1264:       && Is_Elementary_Type (gnat_result_type)
+1265:       && !Is_Imported (gnat_entity)
+1266:       && Present (Address_Clause (gnat_entity)))
+1267:     {
+1268:       require_lvalue
+1269:         = lvalue_required_p (gnat_node, gnu_result_type, true, false);
+1270:       use_constant_initializer = !require_lvalue;
+1271:     }
+1272:   else
+1273:     {
+1274:       require_lvalue = -1;
+1275:       use_constant_initializer = false;
+1276:     }
+1277:
+1278:   /* Fetch the initialization value of a constant if requested.  */
+1279:   if (use_constant_initializer)
+1280:     {
+1281:       /* If this is a deferred constant, the initializer is attached to
+1282:          the full view.  */
+1283:       if (Present (Full_View (gnat_entity)))
+1284:         gnat_entity = Full_View (gnat_entity);
+1285:
+1286:       gnu_result = gnat_to_gnu (Expression (Declaration_Node (gnat_entity)));
+1287:     }
+1288:   else
+1289:     gnu_result = gnat_to_gnu_entity (gnat_entity, NULL_TREE, false);
+1290:
+1291:   /* Some objects (such as parameters passed by reference, globals of
+1292:      variable size, and renamed objects) actually represent the address
+1293:      of the object.  In that case, we must do the dereference.  Likewise,
+1294:      deal with parameters to foreign convention subprograms.  */
+1295:   if (DECL_P (gnu_result)
+1296:       && (DECL_BY_REF_P (gnu_result)
+1297:           || (TREE_CODE (gnu_result) == PARM_DECL
+1298:               && DECL_BY_COMPONENT_PTR_P (gnu_result))))
+1299:     {
+1300:       const bool read_only = DECL_POINTS_TO_READONLY_P (gnu_result);
+1301:
+1302:       /* If it's a PARM_DECL to foreign convention subprogram, convert it.  */
+1303:       if (TREE_CODE (gnu_result) == PARM_DECL
+1304:           && DECL_BY_COMPONENT_PTR_P (gnu_result))
+1305:         gnu_result
+1306:           = convert (build_pointer_type (gnu_result_type), gnu_result);
+1307:
+1308:       /* If it's a CONST_DECL, return the underlying constant like below.  */
+1309:       else if (TREE_CODE (gnu_result) == CONST_DECL
+1310:                && !(DECL_CONST_ADDRESS_P (gnu_result)
+1311:                     && lvalue_required_p (gnat_node, gnu_result_type, true,
+1312:                                           true)))
+1313:         gnu_result = DECL_INITIAL (gnu_result);
+1314:
+1315:       /* Do the final dereference.  */
+1316:       gnu_result = build_unary_op (INDIRECT_REF, NULL_TREE, gnu_result);
+1317:
+1318:       if ((INDIRECT_REF_P (gnu_result)
+1319:            || TREE_CODE (gnu_result) == UNCONSTRAINED_ARRAY_REF)
+1320:           && No (Address_Clause (gnat_entity)))
+1321:         TREE_THIS_NOTRAP (gnu_result) = 1;
+1322:
+1323:       if (read_only)
+1324:         TREE_READONLY (gnu_result) = 1;
+1325:     }
+1326:
+1327:   /* If we have a constant declaration and its initializer, try to return the
+1328:      latter to avoid the need to call fold in lots of places and the need for
+1329:      elaboration code if this identifier is used as an initializer itself.  */
+1330:   if (constant_decl_with_initializer_p (gnu_result))
+1331:     {
+1332:       bool constant_only = (TREE_CODE (gnu_result) == CONST_DECL
+1333:                             && !DECL_CONST_CORRESPONDING_VAR (gnu_result));
+1334:       bool address_of_constant = (TREE_CODE (gnu_result) == CONST_DECL
+1335:                                   && DECL_CONST_ADDRESS_P (gnu_result));
+1336:
+1337:       /* If there is a (corresponding) variable or this is the address of a
+1338:          constant, we only want to return the initializer if an lvalue isn't
+1339:          required.  Evaluate this now if we have not already done so.  */
+1340:       if ((!constant_only || address_of_constant) && require_lvalue < 0)
+1341:         require_lvalue
+1342:           = lvalue_required_p (gnat_node, gnu_result_type, true,
+1343:                                address_of_constant)
+1344:             || (AGGREGATE_TYPE_P (gnu_result_type)
+1345:                 && lvalue_for_aggregate_p (gnat_node, gnu_result_type));
+1346:
+1347:       /* Finally retrieve the initializer if this is deemed valid.  */
+1348:       if ((constant_only && !address_of_constant) || !require_lvalue)
+1349:         gnu_result = DECL_INITIAL (gnu_result);
+1350:     }
+1351:
+1352:   /* But for a constant renaming we couldn't do that incrementally for its
+1353:      definition because of the need to return an lvalue so, if the present
+1354:      context doesn't itself require an lvalue, we try again here.  */
+1355:   else if (Ekind (gnat_entity) == E_Constant
+1356:            && Is_Elementary_Type (gnat_result_type)
+1357:            && Present (Renamed_Object (gnat_entity)))
+1358:     {
+1359:       if (require_lvalue < 0)
+1360:         require_lvalue
+1361:           = lvalue_required_p (gnat_node, gnu_result_type, true, false);
+1362:       if (!require_lvalue)
+1363:         gnu_result = fold_constant_decl_in_expr (gnu_result);
+1364:     }
+1365:
+1366:   /* The GNAT tree has the type of a function set to its result type, so we
+1367:      adjust here.  Also use the type of the result if the Etype is a subtype
+1368:      that is nominally unconstrained.  Likewise if this is a deferred constant
+1369:      of a discriminated type whose full view can be elaborated statically, to
+1370:      avoid problematic conversions to the nominal subtype.  But remove any
+1371:      padding from the resulting type.  */
+1372:   if (FUNC_OR_METHOD_TYPE_P (TREE_TYPE (gnu_result))
+1373:       || Is_Constr_Array_Subt_With_Bounds (gnat_result_type)
+1374:       || (Ekind (gnat_entity) == E_Constant
+1375:           && Present (Full_View (gnat_entity))
+1376:           && Has_Discriminants (gnat_result_type)
+1377:           && TREE_CODE (gnu_result) == CONSTRUCTOR))
+1378:     {
+1379:       gnu_result_type = TREE_TYPE (gnu_result);
+1380:       if (TYPE_IS_PADDING_P (gnu_result_type))
+```
+
+## gcc/ada/gcc-interface/trans.cc:1741–1752
+
+```text
+1741: Attribute_to_gnu (Node_Id gnat_node, tree *gnu_result_type_p,
+1742:                   Attribute_Id attribute)
+1743: {
+1744:   const Node_Id gnat_prefix = Prefix (gnat_node);
+1745:   tree gnu_prefix = gnat_to_gnu (gnat_prefix);
+1746:   tree gnu_type = TREE_TYPE (gnu_prefix);
+1747:   tree gnu_expr, gnu_result_type, gnu_result = error_mark_node;
+1748:   bool prefix_unused = false;
+1749:   Entity_Id gnat_smo;
+1750:
+1751:   /* If the input is a NULL_EXPR, make a new one.  */
+1752:   if (TREE_CODE (gnu_prefix) == NULL_EXPR)
+```
+
+## gcc/ada/gcc-interface/trans.cc:2141–2319
+
+```text
+2141:           if (attribute == Attr_First)
+2142:             gnu_result = TYPE_MIN_VALUE (gnu_type);
+2143:           else if (attribute == Attr_Last)
+2144:             gnu_result = TYPE_MAX_VALUE (gnu_type);
+2145:           else
+2146:             gnu_result = get_type_length (gnu_type, gnu_result_type);
+2147:           break;
+2148:         }
+2149:
+2150:       /* ... fall through ... */
+2151:
+2152:     case Attr_Length:
+2153:       {
+2154:         int Dimension = (Present (Expressions (gnat_node))
+2155:                          ? UI_To_Int (Intval (First (Expressions (gnat_node))))
+2156:                          : 1), i;
+2157:         struct parm_attr_d *pa = NULL;
+2158:         Entity_Id gnat_param = Empty;
+2159:         bool unconstrained_ptr_deref = false;
+2160:
+2161:         gnu_prefix = maybe_padded_object (gnu_prefix);
+2162:         gnu_prefix = maybe_unconstrained_array (gnu_prefix);
+2163:
+2164:         /* We treat unconstrained array In parameters specially.  We also note
+2165:            whether we are dereferencing a pointer to unconstrained array.  */
+2166:         if (!Is_Constrained (Etype (gnat_prefix)))
+2167:           switch (Nkind (gnat_prefix))
+2168:             {
+2169:             case N_Identifier:
+2170:               /* This is the direct case.  */
+2171:               if (Ekind (Entity (gnat_prefix)) == E_In_Parameter)
+2172:                 gnat_param = Entity (gnat_prefix);
+2173:               break;
+2174:
+2175:             case N_Explicit_Dereference:
+2176:               /* This is the indirect case.  Note that we need to be sure that
+2177:                  the access value cannot be null as we'll hoist the load.  */
+2178:               if (Nkind (Prefix (gnat_prefix)) == N_Identifier
+2179:                   && Ekind (Entity (Prefix (gnat_prefix))) == E_In_Parameter)
+2180:                 {
+2181:                   if (Can_Never_Be_Null (Entity (Prefix (gnat_prefix))))
+2182:                     gnat_param = Entity (Prefix (gnat_prefix));
+2183:                 }
+2184:               else
+2185:                 unconstrained_ptr_deref = true;
+2186:               break;
+2187:
+2188:             default:
+2189:               break;
+2190:           }
+2191:
+2192:         /* If the prefix is the view conversion of a constrained array to an
+2193:            unconstrained form, we retrieve the constrained array because we
+2194:            might not be able to substitute the PLACEHOLDER_EXPR coming from
+2195:            the conversion.  This can occur with the 'Old attribute applied
+2196:            to a parameter with an unconstrained type, which gets rewritten
+2197:            into a constrained local variable very late in the game.  */
+2198:         if (TREE_CODE (gnu_prefix) == VIEW_CONVERT_EXPR
+2199:             && CONTAINS_PLACEHOLDER_P (TYPE_SIZE (TREE_TYPE (gnu_prefix)))
+2200:             && !CONTAINS_PLACEHOLDER_P
+2201:                 (TYPE_SIZE (TREE_TYPE (TREE_OPERAND (gnu_prefix, 0)))))
+2202:           gnu_type = TREE_TYPE (TREE_OPERAND (gnu_prefix, 0));
+2203:         else
+2204:           gnu_type = TREE_TYPE (gnu_prefix);
+2205:
+2206:         prefix_unused = true;
+2207:         gnu_result_type = get_unpadded_type (Etype (gnat_node));
+2208:
+2209:         if (TYPE_CONVENTION_FORTRAN_P (gnu_type))
+2210:           {
+2211:             int ndim;
+2212:             tree gnu_type_temp;
+2213:
+2214:             for (ndim = 1, gnu_type_temp = gnu_type;
+2215:                  TREE_CODE (TREE_TYPE (gnu_type_temp)) == ARRAY_TYPE
+2216:                  && TYPE_MULTI_ARRAY_P (TREE_TYPE (gnu_type_temp));
+2217:                  ndim++, gnu_type_temp = TREE_TYPE (gnu_type_temp))
+2218:               ;
+2219:
+2220:             Dimension = ndim + 1 - Dimension;
+2221:           }
+2222:
+2223:         for (i = 1; i < Dimension; i++)
+2224:           gnu_type = TREE_TYPE (gnu_type);
+2225:
+2226:         gcc_assert (TREE_CODE (gnu_type) == ARRAY_TYPE);
+2227:
+2228:         /* When not optimizing, look up the slot associated with the parameter
+2229:            and the dimension in the cache and create a new one on failure.
+2230:            Don't do this when the actual subtype needs debug info (this happens
+2231:            with -gnatD): in elaborate_expression_1, we create variables that
+2232:            hold the bounds, so caching attributes isn't very interesting and
+2233:            causes dependency issues between these variables and cached
+2234:            expressions.  */
+2235:         if (!optimize
+2236:             && Present (gnat_param)
+2237:             && !(Present (Actual_Subtype (gnat_param))
+2238:                  && Needs_Debug_Info (Actual_Subtype (gnat_param))))
+2239:           {
+2240:             FOR_EACH_VEC_SAFE_ELT (f_parm_attr_cache, i, pa)
+2241:               if (pa->id == gnat_param && pa->dim == Dimension)
+2242:                 break;
+2243:
+2244:             if (!pa)
+2245:               {
+2246:                 pa = ggc_cleared_alloc<parm_attr_d> ();
+2247:                 pa->id = gnat_param;
+2248:                 pa->dim = Dimension;
+2249:                 vec_safe_push (f_parm_attr_cache, pa);
+2250:               }
+2251:           }
+2252:
+2253:         /* Return the cached expression or build a new one.  */
+2254:         if (attribute == Attr_First)
+2255:           {
+2256:             if (pa && pa->first)
+2257:               {
+2258:                 gnu_result = pa->first;
+2259:                 break;
+2260:               }
+2261:
+2262:             gnu_result
+2263:               = TYPE_MIN_VALUE (TYPE_INDEX_TYPE (TYPE_DOMAIN (gnu_type)));
+2264:           }
+2265:
+2266:         else if (attribute == Attr_Last)
+2267:           {
+2268:             if (pa && pa->last)
+2269:               {
+2270:                 gnu_result = pa->last;
+2271:                 break;
+2272:               }
+2273:
+2274:             gnu_result
+2275:               = TYPE_MAX_VALUE (TYPE_INDEX_TYPE (TYPE_DOMAIN (gnu_type)));
+2276:           }
+2277:
+2278:         else /* attribute == Attr_Range_Length || attribute == Attr_Length  */
+2279:           {
+2280:             if (pa && pa->length)
+2281:               {
+2282:                 gnu_result = pa->length;
+2283:                 break;
+2284:               }
+2285:
+2286:             gnu_result
+2287:               = get_type_length (TYPE_INDEX_TYPE (TYPE_DOMAIN (gnu_type)),
+2288:                                  gnu_result_type);
+2289:           }
+2290:
+2291:         /* If this has a PLACEHOLDER_EXPR, qualify it by the object we are
+2292:            handling.  Note that these attributes could not have been used on
+2293:            an unconstrained array type.  */
+2294:         gnu_result = SUBSTITUTE_PLACEHOLDER_IN_EXPR (gnu_result, gnu_prefix);
+2295:         if (Present (gnat_smo)
+2296:             && Present (Storage_Model_Copy_From (gnat_smo)))
+2297:           gnu_result = INSTANTIATE_LOAD_IN_EXPR (gnu_result, gnat_smo);
+2298:
+2299:         /* Cache the expression we have just computed.  Since we want to do it
+2300:            at run time, we force the use of a SAVE_EXPR and let the gimplifier
+2301:            create the temporary in the outermost binding level.  We will make
+2302:            sure in Subprogram_Body_to_gnu that it is evaluated on all possible
+2303:            paths by forcing its evaluation on entry of the function.  */
+2304:         if (pa)
+2305:           {
+2306:             gnu_result
+2307:               = build1 (SAVE_EXPR, TREE_TYPE (gnu_result), gnu_result);
+2308:             switch (attribute)
+2309:               {
+2310:               case Attr_First:
+2311:                 pa->first = gnu_result;
+2312:                 break;
+2313:
+2314:               case Attr_Last:
+2315:                 pa->last = gnu_result;
+2316:                 break;
+2317:
+2318:               case Attr_Length:
+2319:               case Attr_Range_Length:
+```
+
 ## gcc/ada/gcc-interface/trans.cc:3026–3306
 
 ```text
@@ -2455,6 +2871,38 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6095:
 ```
 
+## gcc/ada/gcc-interface/trans.cc:6118–6144
+
+```text
+6118: Range_to_gnu (Node_Id gnat_range, tree *gnu_low, tree *gnu_high)
+6119: {
+6120:   /* GNAT_RANGE is either an N_Range or an identifier denoting a subtype.  */
+6121:   switch (Nkind (gnat_range))
+6122:     {
+6123:     case N_Range:
+6124:       *gnu_low = gnat_to_gnu (Low_Bound (gnat_range));
+6125:       *gnu_high = gnat_to_gnu (High_Bound (gnat_range));
+6126:       break;
+6127:
+6128:     case N_Expanded_Name:
+6129:     case N_Identifier:
+6130:       {
+6131:         tree gnu_range_type = get_unpadded_type (Entity (gnat_range));
+6132:         tree gnu_range_base_type = get_base_type (gnu_range_type);
+6133:
+6134:         *gnu_low
+6135:           = convert (gnu_range_base_type, TYPE_MIN_VALUE (gnu_range_type));
+6136:         *gnu_high
+6137:           = convert (gnu_range_base_type, TYPE_MAX_VALUE (gnu_range_type));
+6138:       }
+6139:       break;
+6140:
+6141:     default:
+6142:       gcc_unreachable ();
+6143:     }
+6144: }
+```
+
 ## gcc/ada/gcc-interface/trans.cc:6150–6318
 
 ```text
@@ -2627,6 +3075,490 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6316:       gnu_result = build1 (NULL_EXPR, *gnu_result_type_p, gnu_result);
 6317:     }
 6318:
+```
+
+## gcc/ada/gcc-interface/trans.cc:6826–6917
+
+```text
+6826:         }
+6827:
+6828:       if (Present (Expression (gnat_node))
+6829:           && !(kind == N_Object_Declaration && No_Initialization (gnat_node))
+6830:           && (!type_annotate_only
+6831:               || Compile_Time_Known_Value (Expression (gnat_node))))
+6832:         {
+6833:           gigi_checking_assert (!Do_Range_Check (Expression (gnat_node)));
+6834:
+6835:           gnu_expr = gnat_to_gnu (Expression (gnat_node));
+6836:
+6837:           /* First deal with erroneous expressions.  */
+6838:           if (TREE_CODE (gnu_expr) == ERROR_MARK)
+6839:             {
+6840:               /* If this is a named number for which we cannot manipulate
+6841:                  the value, just skip the declaration altogether.  */
+6842:               if (kind == N_Number_Declaration)
+6843:                 break;
+6844:               else if (type_annotate_only)
+6845:                 gnu_expr = NULL_TREE;
+6846:             }
+6847:
+6848:           /* Then a special case: we do not want the SLOC of the expression
+6849:              of the tag to pop up every time it is referenced somewhere.  */
+6850:           else if (EXPR_P (gnu_expr) && Is_Tag (gnat_temp))
+6851:             SET_EXPR_LOCATION (gnu_expr, UNKNOWN_LOCATION);
+6852:         }
+6853:       else
+6854:         gnu_expr = NULL_TREE;
+6855:
+6856:       /* If this is a deferred constant with an address clause, we ignore the
+6857:          full view since the clause is on the partial view and we cannot have
+6858:          2 different GCC trees for the object.  The only bits of the full view
+6859:          we will use is the initializer, but it will be directly fetched.  */
+6860:       if (Ekind (gnat_temp) == E_Constant
+6861:           && Present (Address_Clause (gnat_temp))
+6862:           && Present (Full_View (gnat_temp)))
+6863:         save_gnu_tree (Full_View (gnat_temp), error_mark_node, true);
+6864:
+6865:       /* If this object has its elaboration delayed, we must force evaluation
+6866:          of GNU_EXPR now and save it for the freeze point.  Note that we need
+6867:          not do anything special at the global level since the lifetime of the
+6868:          temporary is fully contained within the elaboration routine.  */
+6869:       if (Present (Freeze_Node (gnat_temp)))
+6870:         {
+6871:           if (gnu_expr)
+6872:             {
+6873:               gnu_result = gnat_save_expr (gnu_expr);
+6874:               save_gnu_tree (gnat_node, gnu_result, true);
+6875:             }
+6876:         }
+6877:       else
+6878:         gnat_to_gnu_entity (gnat_temp, gnu_expr, true);
+6879:       break;
+6880:
+6881:     case N_Object_Renaming_Declaration:
+6882:       gnat_temp = Defining_Entity (gnat_node);
+6883:       gnu_result = alloc_stmt_list ();
+6884:
+6885:       /* Don't do anything if this renaming is handled by the front end and it
+6886:          does not need debug info.  Note that we consider renamings don't need
+6887:          debug info when optimizing: our way to describe them has a
+6888:          memory/elaboration footprint.
+6889:
+6890:          Don't do anything neither if we are just annotating types and this
+6891:          object has a composite or task type, don't elaborate it.  */
+6892:       if ((!Is_Renaming_Of_Object (gnat_temp)
+6893:            || (Needs_Debug_Info (gnat_temp)
+6894:                && !optimize
+6895:                && can_materialize_object_renaming_p
+6896:                     (Renamed_Object (gnat_temp))))
+6897:           && ! (type_annotate_only
+6898:                 && (Is_Array_Type (Etype (gnat_temp))
+6899:                     || Is_Record_Type (Etype (gnat_temp))
+6900:                     || Is_Concurrent_Type (Etype (gnat_temp)))))
+6901:         {
+6902:           gnu_expr = gnat_to_gnu (Renamed_Object (gnat_temp));
+6903:
+6904:           /* The elaboration of object renamings present in the source code
+6905:              never needs to be deferred.  But regular objects may be turned
+6906:              into renamings during expansion and their elaboration may need
+6907:              to be deferred, in which case we expect the renamed references
+6908:              to have been stabilized, so we do not do it again here.  */
+6909:           if (Present (Freeze_Node (gnat_temp)))
+6910:             {
+6911:               gcc_assert (!Comes_From_Source (gnat_node));
+6912:               save_gnu_tree (gnat_node, gnu_expr, true);
+6913:             }
+6914:           else
+6915:             gnat_to_gnu_entity (gnat_temp, gnu_expr, true);
+6916:         }
+6917:       break;
+```
+
+## gcc/ada/gcc-interface/trans.cc:7086–7097
+
+```text
+7086:     case N_Slice:
+7087:       {
+7088:         const Entity_Id gnat_array_object = Prefix (gnat_node);
+7089:         tree gnu_array_object = gnat_to_gnu (gnat_array_object);
+7090:
+7091:         /* Get the storage model of the array.  */
+7092:         gnat_smo = get_storage_model (gnat_array_object);
+7093:
+7094:         gnu_array_object = maybe_padded_object (gnu_array_object);
+7095:         gnu_array_object = maybe_unconstrained_array (gnu_array_object);
+7096:
+7097:         gnu_result_type = get_unpadded_type (Etype (gnat_node));
+```
+
+## gcc/ada/gcc-interface/trans.cc:7291–7655
+
+```text
+7291:     case N_Type_Conversion:
+7292:     case N_Qualified_Expression:
+7293:       gnu_expr = maybe_character_value (gnat_to_gnu (Expression (gnat_node)));
+7294:       gnu_result_type = get_unpadded_type (Etype (gnat_node));
+7295:
+7296:       /* If this is a qualified expression for a tagged type, we mark the type
+7297:          as used.  Because of polymorphism, this might be the only reference to
+7298:          the tagged type in the program while objects have it as dynamic type.
+7299:          The debugger needs to see it to display these objects properly.  */
+7300:       if (kind == N_Qualified_Expression && Is_Tagged_Type (Etype (gnat_node)))
+7301:         used_types_insert (gnu_result_type);
+7302:
+7303:       gigi_checking_assert (!Do_Range_Check (Expression (gnat_node)));
+7304:
+7305:       gnu_result
+7306:         = convert_with_check (Etype (gnat_node), gnu_expr,
+7307:                               Do_Overflow_Check (gnat_node),
+7308:                               kind == N_Type_Conversion
+7309:                               && Float_Truncate (gnat_node), gnat_node);
+7310:       break;
+7311:
+7312:     case N_Unchecked_Type_Conversion:
+7313:       gnu_result_type = get_unpadded_type (Etype (gnat_node));
+7314:       gnu_expr = maybe_character_value (gnat_to_gnu (Expression (gnat_node)));
+7315:
+7316:       /* Skip further processing if the conversion is deemed a no-op.  */
+7317:       if (unchecked_conversion_nop (gnat_node))
+7318:         {
+7319:           gnu_result = gnu_expr;
+7320:           gnu_result_type = TREE_TYPE (gnu_result);
+7321:           break;
+7322:         }
+7323:
+7324:       /* If the result is a pointer type, see if we are improperly
+7325:          converting to a stricter alignment.  */
+7326:       if (STRICT_ALIGNMENT && POINTER_TYPE_P (gnu_result_type)
+7327:           && Is_Access_Type (Etype (gnat_node)))
+7328:         {
+7329:           unsigned int align = known_alignment (gnu_expr);
+7330:           tree gnu_obj_type = TREE_TYPE (gnu_result_type);
+7331:           unsigned int oalign = TYPE_ALIGN (gnu_obj_type);
+7332:
+7333:           /* Skip tagged types because conversions to the class-wide type are
+7334:              translated into conversions to the root type, which may be less
+7335:              aligned than some of its derived types.  */
+7336:           if (align != 0
+7337:               && align < oalign
+7338:               && !type_is_tagged_or_cw_equivalent (gnu_obj_type))
+7339:             post_error_ne_tree_2
+7340:               ("??source alignment (^) '< alignment of & (^)",
+7341:                gnat_node, Designated_Type (Etype (gnat_node)),
+7342:                size_int (align / BITS_PER_UNIT), oalign / BITS_PER_UNIT);
+7343:         }
+7344:
+7345:       /* If we are converting a descriptor to a function pointer, first
+7346:          build the pointer.  */
+7347:       if (TARGET_VTABLE_USES_DESCRIPTORS
+7348:           && TREE_TYPE (gnu_expr) == fdesc_type_node
+7349:           && POINTER_TYPE_P (gnu_result_type))
+7350:         gnu_expr = build_unary_op (ADDR_EXPR, NULL_TREE, gnu_expr);
+7351:
+7352:       gnu_result = unchecked_convert (gnu_result_type, gnu_expr,
+7353:                                       No_Truncation (gnat_node));
+7354:       break;
+7355:
+7356:     case N_In:
+7357:     case N_Not_In:
+7358:       {
+7359:         tree gnu_obj = gnat_to_gnu (Left_Opnd (gnat_node));
+7360:         tree gnu_low, gnu_high;
+7361:
+7362:         Range_to_gnu (Right_Opnd (gnat_node), &gnu_low, &gnu_high);
+7363:         gnu_result_type = get_unpadded_type (Etype (gnat_node));
+7364:
+7365:         tree gnu_op_type = maybe_character_type (TREE_TYPE (gnu_obj));
+7366:         if (TREE_TYPE (gnu_obj) != gnu_op_type)
+7367:           {
+7368:             gnu_obj = convert (gnu_op_type, gnu_obj);
+7369:             gnu_low = convert (gnu_op_type, gnu_low);
+7370:             gnu_high = convert (gnu_op_type, gnu_high);
+7371:           }
+7372:
+7373:         /* If LOW and HIGH are identical, perform an equality test.  Otherwise,
+7374:            ensure that GNU_OBJ is evaluated only once and perform a full range
+7375:            test.  */
+7376:         if (operand_equal_p (gnu_low, gnu_high, 0))
+7377:           gnu_result
+7378:             = build_binary_op (EQ_EXPR, gnu_result_type, gnu_obj, gnu_low);
+7379:         else
+7380:           {
+7381:             tree t1, t2;
+7382:             gnu_obj = gnat_protect_expr (gnu_obj);
+7383:             t1 = build_binary_op (GE_EXPR, gnu_result_type, gnu_obj, gnu_low);
+7384:             if (EXPR_P (t1))
+7385:               set_expr_location_from_node (t1, gnat_node);
+7386:             t2 = build_binary_op (LE_EXPR, gnu_result_type, gnu_obj, gnu_high);
+7387:             if (EXPR_P (t2))
+7388:               set_expr_location_from_node (t2, gnat_node);
+7389:             gnu_result
+7390:               = build_binary_op (TRUTH_ANDIF_EXPR, gnu_result_type, t1, t2);
+7391:           }
+7392:
+7393:         if (kind == N_Not_In)
+7394:           gnu_result
+7395:             = invert_truthvalue_loc (EXPR_LOCATION (gnu_result), gnu_result);
+7396:       }
+7397:       break;
+7398:
+7399:     case N_Op_Divide:
+7400:       gnu_lhs = gnat_to_gnu (Left_Opnd (gnat_node));
+7401:       gnu_rhs = gnat_to_gnu (Right_Opnd (gnat_node));
+7402:       gnu_result_type = get_unpadded_type (Etype (gnat_node));
+7403:       gnu_result = build_binary_op (FLOAT_TYPE_P (gnu_result_type)
+7404:                                     ? RDIV_EXPR
+7405:                                     : (Rounded_Result (gnat_node)
+7406:                                        ? ROUND_DIV_EXPR : TRUNC_DIV_EXPR),
+7407:                                     gnu_result_type, gnu_lhs, gnu_rhs);
+7408:       /* If the result type is larger than a word, then declare the dependence
+7409:          on the libgcc routine.  */
+7410:       if (INTEGRAL_TYPE_P (gnu_result_type)
+7411:           && TYPE_PRECISION (gnu_result_type) > BITS_PER_WORD)
+7412:         Check_Restriction_No_Dependence_On_System (Name_Gcc, gnat_node);
+7413:       break;
+7414:
+7415:     case N_Op_Eq:
+7416:     case N_Op_Ne:
+7417:     case N_Op_Lt:
+7418:     case N_Op_Le:
+7419:     case N_Op_Gt:
+7420:     case N_Op_Ge:
+7421:     case N_Op_Add:
+7422:     case N_Op_Subtract:
+7423:     case N_Op_Multiply:
+7424:     case N_Op_Mod:
+7425:     case N_Op_Rem:
+7426:     case N_Op_Rotate_Left:
+7427:     case N_Op_Rotate_Right:
+7428:     case N_Op_Shift_Left:
+7429:     case N_Op_Shift_Right:
+7430:     case N_Op_Shift_Right_Arithmetic:
+7431:     case N_Op_And:
+7432:     case N_Op_Or:
+7433:     case N_Op_Xor:
+7434:     case N_And_Then:
+7435:     case N_Or_Else:
+7436:       {
+7437:         enum tree_code code = gnu_codes[kind];
+7438:         bool ignore_lhs_overflow = false;
+7439:         location_t saved_location = input_location;
+7440:         tree gnu_type, gnu_max_shift = NULL_TREE;
+7441:
+7442:         /* Fix operations set up for boolean types in GNU_CODES above.  */
+7443:         if (Is_Modular_Integer_Type (Underlying_Type (Etype (gnat_node))))
+7444:           switch (kind)
+7445:             {
+7446:             case N_Op_And:
+7447:               code = BIT_AND_EXPR;
+7448:               break;
+7449:             case N_Op_Or:
+7450:               code = BIT_IOR_EXPR;
+7451:               break;
+7452:             case N_Op_Xor:
+7453:               code = BIT_XOR_EXPR;
+7454:               break;
+7455:             default:
+7456:               break;
+7457:             }
+7458:
+7459:         gnu_lhs = gnat_to_gnu (Left_Opnd (gnat_node));
+7460:         gnu_rhs = gnat_to_gnu (Right_Opnd (gnat_node));
+7461:         gnu_type = gnu_result_type = get_unpadded_type (Etype (gnat_node));
+7462:
+7463:         /* If this is a shift, take the count as unsigned since that is what
+7464:            most machines do and will generate simpler adjustments below.  */
+7465:         if (IN (kind, N_Op_Shift))
+7466:           {
+7467:             tree gnu_count_type
+7468:               = gnat_unsigned_type_for (get_base_type (TREE_TYPE (gnu_rhs)));
+7469:             gnu_rhs = convert (gnu_count_type, gnu_rhs);
+7470:             gnu_max_shift
+7471:               = convert (TREE_TYPE (gnu_rhs), TYPE_SIZE (gnu_type));
+7472:             /* If the result type is larger than a word, then declare the
+7473:                dependence on the libgcc routine.  */
+7474:             if (TYPE_PRECISION (gnu_type) > BITS_PER_WORD)
+7475:               Check_Restriction_No_Dependence_On_System (Name_Gcc, gnat_node);
+7476:           }
+7477:
+7478:         /* If this is a comparison between (potentially) large aggregates, then
+7479:            declare the dependence on the memcmp routine.  */
+7480:         else if ((kind == N_Op_Eq || kind == N_Op_Ne)
+7481:                  && AGGREGATE_TYPE_P (TREE_TYPE (gnu_lhs))
+7482:                  && (!TREE_CONSTANT (TYPE_SIZE (TREE_TYPE (gnu_lhs)))
+7483:                      || compare_tree_int (TYPE_SIZE (TREE_TYPE (gnu_lhs)),
+7484:                                           2 * BITS_PER_WORD) > 0))
+7485:           Check_Restriction_No_Dependence_On_System (Name_Memory_Compare,
+7486:                                                      gnat_node);
+7487:
+7488:         /* If this is a modulo/remainder and the result type is larger than a
+7489:            word, then declare the dependence on the libgcc routine.  */
+7490:         else if ((kind == N_Op_Mod ||kind == N_Op_Rem)
+7491:                  && TYPE_PRECISION (gnu_type) > BITS_PER_WORD)
+7492:           Check_Restriction_No_Dependence_On_System (Name_Gcc, gnat_node);
+7493:
+7494:         /* Pending generic support for efficient vector logical operations in
+7495:            GCC, convert vectors to their representative array type view.  */
+7496:         gnu_lhs = maybe_vector_array (gnu_lhs);
+7497:         gnu_rhs = maybe_vector_array (gnu_rhs);
+7498:
+7499:         /* If this is a comparison operator, convert any references to an
+7500:            unconstrained array value into a reference to the actual array.  */
+7501:         if (TREE_CODE_CLASS (code) == tcc_comparison)
+7502:           {
+7503:             gnu_lhs = maybe_unconstrained_array (gnu_lhs);
+7504:             gnu_rhs = maybe_unconstrained_array (gnu_rhs);
+7505:
+7506:             tree gnu_op_type = maybe_character_type (TREE_TYPE (gnu_lhs));
+7507:             if (TREE_TYPE (gnu_lhs) != gnu_op_type)
+7508:               {
+7509:                 gnu_lhs = convert (gnu_op_type, gnu_lhs);
+7510:                 gnu_rhs = convert (gnu_op_type, gnu_rhs);
+7511:               }
+7512:           }
+7513:
+7514:         /* If this is a shift whose count is not guaranteed to be correct,
+7515:            we need to adjust the shift count.  */
+7516:         if ((kind == N_Op_Rotate_Left || kind == N_Op_Rotate_Right)
+7517:             && !Shift_Count_OK (gnat_node))
+7518:           gnu_rhs = build_binary_op (TRUNC_MOD_EXPR, TREE_TYPE (gnu_rhs),
+7519:                                      gnu_rhs, gnu_max_shift);
+7520:         else if (kind == N_Op_Shift_Right_Arithmetic
+7521:                  && !Shift_Count_OK (gnat_node))
+7522:           gnu_rhs
+7523:             = build_binary_op (MIN_EXPR, TREE_TYPE (gnu_rhs),
+7524:                                build_binary_op (MINUS_EXPR,
+7525:                                                 TREE_TYPE (gnu_rhs),
+7526:                                                 gnu_max_shift,
+7527:                                                 build_int_cst
+7528:                                                 (TREE_TYPE (gnu_rhs), 1)),
+7529:                                gnu_rhs);
+7530:
+7531:         /* For right shifts, the type says what kind of shift to do,
+7532:            so we may need to choose a different type.  In this case,
+7533:            we have to ignore integer overflow lest it propagates all
+7534:            the way down and causes a CE to be explicitly raised.  */
+7535:         if (kind == N_Op_Shift_Right && !TYPE_UNSIGNED (gnu_type))
+7536:           {
+7537:             gnu_type = gnat_unsigned_type_for (gnu_type);
+7538:             ignore_lhs_overflow = true;
+7539:           }
+7540:         else if (kind == N_Op_Shift_Right_Arithmetic
+7541:                  && TYPE_UNSIGNED (gnu_type))
+7542:           {
+7543:             gnu_type = gnat_signed_type_for (gnu_type);
+7544:             ignore_lhs_overflow = true;
+7545:           }
+7546:
+7547:         if (gnu_type != gnu_result_type)
+7548:           {
+7549:             tree gnu_old_lhs = gnu_lhs;
+7550:             gnu_lhs = convert (gnu_type, gnu_lhs);
+7551:             if (TREE_CODE (gnu_lhs) == INTEGER_CST && ignore_lhs_overflow)
+7552:               TREE_OVERFLOW (gnu_lhs) = TREE_OVERFLOW (gnu_old_lhs);
+7553:             gnu_rhs = convert (gnu_type, gnu_rhs);
+7554:             if (gnu_max_shift)
+7555:               gnu_max_shift = convert (gnu_type, gnu_max_shift);
+7556:           }
+7557:
+7558:         /* For integer addition, subtraction and multiplication, perform an
+7559:            overflow check if required.  */
+7560:         if ((code == PLUS_EXPR || code == MINUS_EXPR || code == MULT_EXPR)
+7561:             && !FLOAT_TYPE_P (gnu_type)
+7562:             && Do_Overflow_Check (gnat_node))
+7563:           gnu_result
+7564:             = build_binary_op_trapv (code, gnu_type, gnu_lhs, gnu_rhs,
+7565:                                      gnat_node);
+7566:
+7567:           /* For an unsigned modulo operation with nonbinary constant modulus,
+7568:              we first try to do a reduction by means of a (multiplier, shifter)
+7569:              pair in the needed precision up to the word size.  But not when
+7570:              optimizing for size, because it will be longer than a div+mul+sub
+7571:              sequence.  */
+7572:         else if (!optimize_size
+7573:                  && (code == FLOOR_MOD_EXPR || code == TRUNC_MOD_EXPR)
+7574:                  && TYPE_UNSIGNED (gnu_type)
+7575:                  && TYPE_PRECISION (gnu_type) <= BITS_PER_WORD
+7576:                  && TREE_CODE (gnu_rhs) == INTEGER_CST
+7577:                  && !integer_pow2p (gnu_rhs)
+7578:                  && (gnu_expr
+7579:                      = fast_modulo_reduction (gnu_lhs, gnu_rhs,
+7580:                                               TYPE_PRECISION (gnu_type))))
+7581:           gnu_result = gnu_expr;
+7582:
+7583:         else
+7584:           {
+7585:             /* Some operations, e.g. comparisons of arrays, generate complex
+7586:                trees that need to be annotated while they are being built.  */
+7587:             input_location = saved_location;
+7588:             gnu_result = build_binary_op (code, gnu_type, gnu_lhs, gnu_rhs);
+7589:           }
+7590:
+7591:         /* If this is a logical shift with the shift count not verified,
+7592:            we must return zero if it is too large.  We cannot compensate
+7593:            beforehand in this case.  */
+7594:         if ((kind == N_Op_Shift_Left || kind == N_Op_Shift_Right)
+7595:             && !Shift_Count_OK (gnat_node))
+7596:           gnu_result
+7597:             = build_cond_expr (gnu_type,
+7598:                                build_binary_op (GE_EXPR, boolean_type_node,
+7599:                                                 gnu_rhs, gnu_max_shift),
+7600:                                build_int_cst (gnu_type, 0),
+7601:                                gnu_result);
+7602:       }
+7603:       break;
+7604:
+7605:     case N_If_Expression:
+7606:       {
+7607:         tree gnu_cond = gnat_to_gnu (First (Expressions (gnat_node)));
+7608:         tree gnu_true = gnat_to_gnu (Next (First (Expressions (gnat_node))));
+7609:         tree gnu_false
+7610:           = gnat_to_gnu (Next (Next (First (Expressions (gnat_node)))));
+7611:
+7612:         gnu_result_type = get_unpadded_type (Etype (gnat_node));
+7613:         gnu_result
+7614:           = build_cond_expr (gnu_result_type, gnu_cond, gnu_true, gnu_false);
+7615:       }
+7616:       break;
+7617:
+7618:     case N_Op_Plus:
+7619:       gnu_result = gnat_to_gnu (Right_Opnd (gnat_node));
+7620:       gnu_result_type = get_unpadded_type (Etype (gnat_node));
+7621:       break;
+7622:
+7623:     case N_Op_Not:
+7624:       /* This case can apply to a boolean or a modular type.
+7625:          Fall through for a boolean operand since GNU_CODES is set
+7626:          up to handle this.  */
+7627:       if (Is_Modular_Integer_Type (Underlying_Type (Etype (gnat_node))))
+7628:         {
+7629:           gnu_expr = gnat_to_gnu (Right_Opnd (gnat_node));
+7630:           gnu_result_type = get_unpadded_type (Etype (gnat_node));
+7631:           gnu_result = build_unary_op (BIT_NOT_EXPR, gnu_result_type,
+7632:                                        gnu_expr);
+7633:           break;
+7634:         }
+7635:
+7636:       /* ... fall through ... */
+7637:
+7638:     case N_Op_Minus:
+7639:     case N_Op_Abs:
+7640:       gnu_expr = gnat_to_gnu (Right_Opnd (gnat_node));
+7641:       gnu_result_type = get_unpadded_type (Etype (gnat_node));
+7642:
+7643:       /* For integer negation and absolute value, perform an overflow check
+7644:          if required.  */
+7645:       if ((gnu_codes[kind] == NEGATE_EXPR || gnu_codes[kind] == ABS_EXPR)
+7646:           && !FLOAT_TYPE_P (gnu_result_type)
+7647:           && Do_Overflow_Check (gnat_node))
+7648:         gnu_result
+7649:           = build_unary_op_trapv (gnu_codes[kind], gnu_result_type, gnu_expr,
+7650:                                   gnat_node);
+7651:       else
+7652:         gnu_result
+7653:           = build_unary_op (gnu_codes[kind], gnu_result_type, gnu_expr);
+7654:       break;
+7655:
 ```
 
 ## gcc/ada/gcc-interface/trans.cc:7656–7725
@@ -3143,6 +4075,22 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 9580:
 9581:     case EXIT_STMT:
 9582:       /* Build a statement to jump to the corresponding end label, then
+```
+
+## gcc/ada/gcc-interface/trans.cc:9846–9856
+
+```text
+9846:       /* For an object whose elaboration is deferred, the GCC tree of the
+9847:          declaration, if any, is the initialization expression.  */
+9848:       const Node_Id gnat_decl = Declaration_Node (gnat_entity);
+9849:       tree gnu_init
+9850:         = (Nkind (gnat_decl) == N_Object_Declaration
+9851:            || Nkind (gnat_decl) == N_Object_Renaming_Declaration)
+9852:           && Present (Freeze_Node (gnat_entity))
+9853:           && present_gnu_tree (gnat_decl)
+9854:           ? get_gnu_tree (gnat_decl) : NULL_TREE;
+9855:
+9856:       gnu_new = gnat_to_gnu_entity (gnat_entity, gnu_init, true);
 ```
 
 ## gcc/ada/gcc-interface/trans.cc:9889–10025
@@ -6184,6 +7132,25 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1203:                                      artificial_p, debug_info_p, attr_list,
 1204:                                      gnat_entity, false);
 1205:                   }
+```
+
+## gcc/ada/gcc-interface/decl.cc:1278–1291
+
+```text
+1278:            either get the address expression from the saved GCC tree for the
+1279:            object if it has a Freeze node, or elaborate the address expression
+1280:            here since the front-end has guaranteed that the elaboration has no
+1281:            effects in this case.  */
+1282:         if (definition && Present (Address_Clause (gnat_entity)))
+1283:           {
+1284:             const Node_Id gnat_clause = Address_Clause (gnat_entity);
+1285:             const Node_Id gnat_address = Expression (gnat_clause);
+1286:             tree gnu_address = present_gnu_tree (gnat_entity)
+1287:                                ? TREE_OPERAND (get_gnu_tree (gnat_entity), 0)
+1288:                                : gnat_to_gnu (gnat_address);
+1289:
+1290:             save_gnu_tree (gnat_entity, NULL_TREE, false);
+1291:
 ```
 
 ## gcc/ada/gcc-interface/decl.cc:1507–1713
@@ -10560,7 +11527,39 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1479:   record_node_allocation_statistics (code, length);
 ```
 
-## gcc/tree.cc:4132–4164
+## gcc/tree.cc:4080–4106
+
+```text
+4080:
+4081:   STRIP_ANY_LOCATION_WRAPPER (t);
+4082:   return CONSTANT_CLASS_P (t) || decl_address_invariant_p (t);
+4083: }
+4084:
+4085:
+4086: /* Return true if T is function-invariant (internal function, does
+4087:    not handle arithmetic; that's handled in skip_simple_arithmetic and
+4088:    tree_invariant_p).  */
+4089:
+4090: static bool
+4091: tree_invariant_p_1 (tree t)
+4092: {
+4093:   if (TREE_CONSTANT (t) || (TREE_READONLY (t) && !TREE_SIDE_EFFECTS (t)))
+4094:     return true;
+4095:
+4096:   switch (TREE_CODE (t))
+4097:     {
+4098:     case SAVE_EXPR:
+4099:     case TARGET_EXPR:
+4100:       return true;
+4101:
+4102:     case ADDR_EXPR:
+4103:       return address_invariant_p (TREE_OPERAND (t, 0));
+4104:
+4105:     default:
+4106:       break;
+```
+
+## gcc/tree.cc:4132–4223
 
 ```text
 4132:    *at compile time* generate code to use the saved value.
@@ -10596,6 +11595,65 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4162:      the value within another field.
 4163:
 4164:      Note that it must not be the case that EXPR contains both a PLACEHOLDER_EXPR
+4165:      and some variable since it would then need to be both evaluated once and
+4166:      evaluated more than once.  Front-ends must assure this case cannot
+4167:      happen by surrounding any such subexpressions in their own SAVE_EXPR
+4168:      and forcing evaluation at the proper time.  */
+4169:   if (contains_placeholder_p (inner))
+4170:     return expr;
+4171:
+4172:   expr = build1_loc (EXPR_LOCATION (expr), SAVE_EXPR, TREE_TYPE (expr), expr);
+4173:
+4174:   /* This expression might be placed ahead of a jump to ensure that the
+4175:      value was computed on both sides of the jump.  So make sure it isn't
+4176:      eliminated as dead.  */
+4177:   TREE_SIDE_EFFECTS (expr) = 1;
+4178:   return expr;
+4179: }
+4180:
+4181: /* Look inside EXPR into any simple arithmetic operations.  Return the
+4182:    outermost non-arithmetic or non-invariant node.  */
+4183:
+4184: tree
+4185: skip_simple_arithmetic (tree expr)
+4186: {
+4187:   /* We don't care about whether this can be used as an lvalue in this
+4188:      context.  */
+4189:   while (TREE_CODE (expr) == NON_LVALUE_EXPR)
+4190:     expr = TREE_OPERAND (expr, 0);
+4191:
+4192:   /* If we have simple operations applied to a SAVE_EXPR or to a SAVE_EXPR and
+4193:      a constant, it will be more efficient to not make another SAVE_EXPR since
+4194:      it will allow better simplification and GCSE will be able to merge the
+4195:      computations if they actually occur.  */
+4196:   while (true)
+4197:     {
+4198:       if (UNARY_CLASS_P (expr))
+4199:         expr = TREE_OPERAND (expr, 0);
+4200:       else if (BINARY_CLASS_P (expr))
+4201:         {
+4202:           /* Before commutative binary operands are canonicalized,
+4203:              it is quite common to have constants in the first operand.
+4204:              Check for that common case first so that we don't walk
+4205:              large expressions with tree_invariant_p unnecessarily.
+4206:              This can still have terrible compile time complexity,
+4207:              we should limit the depth of the tree_invariant_p and
+4208:              skip_simple_arithmetic recursion.  */
+4209:           if ((TREE_CONSTANT (TREE_OPERAND (expr, 0))
+4210:                || (TREE_READONLY (TREE_OPERAND (expr, 0))
+4211:                    && !TREE_SIDE_EFFECTS (TREE_OPERAND (expr, 0))))
+4212:               && tree_invariant_p (TREE_OPERAND (expr, 0)))
+4213:             expr = TREE_OPERAND (expr, 1);
+4214:           else if (tree_invariant_p (TREE_OPERAND (expr, 1)))
+4215:             expr = TREE_OPERAND (expr, 0);
+4216:           else if (tree_invariant_p (TREE_OPERAND (expr, 0)))
+4217:             expr = TREE_OPERAND (expr, 1);
+4218:           else
+4219:             break;
+4220:         }
+4221:       else
+4222:         break;
+4223:     }
 ```
 
 ## gcc/tree.cc:6982–7023

@@ -31,19 +31,21 @@ RANGES = {
     "gcc/ada/libgnat/s-conca8.ads": [(32, 45)],
     "gcc/ada/libgnat/s-conca9.ads": [(32, 45)],
     "gcc/ada/gcc-interface/trans.cc": [
+        (1047, 1059), (1189, 1380), (1741, 1752), (2141, 2319),
         (3026, 3306), (3313, 3400), (3843, 3941), (4028, 4126),
         (4228, 4249), (4582, 4613), (4680, 5758),
         (5990, 6003), (6031, 6065), (6076, 6095),
-        (6150, 6318), (7656, 7725), (7944, 8003), (8118, 8146), (8603, 8622),
+        (6118, 6144), (6150, 6318), (6826, 6917), (7086, 7097),
+        (7291, 7655), (7656, 7725), (7944, 8003), (8118, 8146), (8603, 8622),
         (8968, 8996), (9104, 9185), (9217, 9278), (9298, 9325),
-        (9492, 9582), (9889, 10025), (10014, 10494)],
+        (9492, 9582), (9846, 9856), (9889, 10025), (10014, 10494)],
     "gcc/ada/gcc-interface/utils.cc": [
         (682, 783), (894, 1062), (1522, 1613), (1691, 1935),
         (2861, 2894), (2918, 3133), (3137, 3162), (3830, 3875),
         (4401, 4460), (4794, 4905), (5009, 5635), (5764, 5851),
         (5911, 6250), (3700, 3755)],
     "gcc/ada/gcc-interface/decl.cc": [
-        (400, 445), (697, 718), (754, 766), (1177, 1205),
+        (400, 445), (697, 718), (754, 766), (1177, 1205), (1278, 1291),
         (1507, 1713), (1901, 2005), (2577, 3193), (3810, 4056),
         (4530, 5022), (5538, 5691), (7116, 7128), (7169, 7228), (7532, 7688)],
     "gcc/ada/gcc-interface/utils2.cc": [
@@ -51,7 +53,7 @@ RANGES = {
         (2166, 2435), (2564, 2761), (3009, 3380)],
     "gcc/ada/gcc-interface/gigi.h": [(1299, 1307)],
     "gcc/tree.cc": [
-        (1212, 1230), (1468, 1479), (4132, 4164), (6982, 7023),
+        (1212, 1230), (1468, 1479), (4080, 4106), (4132, 4223), (6982, 7023),
         (11020, 11077), (11194, 11224)],
     "gcc/passes.def": [(27, 42)],
     "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
@@ -167,6 +169,29 @@ def check_sources(sources, inventory):
     assert helper.index("if (present_gnu_tree (gnat_expr))") < helper.index("gnat_to_gnu (gnat_expr)")
     assert "if (!CONTAINS_PLACEHOLDER_P (gnu_expr))" in helper
     assert "save_gnu_tree (gnat_expr, gnu_expr, true);" in helper
+    # Source-site/order checks support the separately argued Main dependency
+    # frontier. They do not prove every source reference has an association.
+    assert decl.index("&& present_gnu_tree (gnat_entity))") < decl.index(
+        "gnu_expr = gnat_to_gnu_external (gnat_temp);")
+    external_calls = re.findall(r"\bgnat_to_gnu_external\s*\(", decl)
+    assert len(external_calls) == 2
+    start = trans.index("    case N_Object_Declaration:\n", trans.index("\ngnat_to_gnu (Node_Id"))
+    end = trans.index("    case N_Object_Renaming_Declaration:", start)
+    object_case = trans[start:end]
+    assert object_case.index("gnu_expr = gnat_to_gnu (Expression (gnat_node));") < object_case.index(
+        "gnat_to_gnu_entity (gnat_temp, gnu_expr, true);")
+    assert "save_gnu_tree (gnat_node, gnu_result, true);" in object_case
+    start = trans.index("    case N_Expression_With_Actions:", trans.index("\ngnat_to_gnu (Node_Id"))
+    end = trans.index("    case N_Freeze_Entity:", start)
+    ewa = trans[start:end]
+    assert ewa.index("add_stmt_list (Actions (gnat_node));") < ewa.index(
+        "gnu_expr = gnat_to_gnu (Expression (gnat_node));") < ewa.index(
+        "gnu_result_type = get_unpadded_type (Etype (gnat_node));")
+    assert "? get_gnu_tree (gnat_decl) : NULL_TREE;" in trans
+    assert "TREE_CONSTANT (t)" in trans[trans.index("\nconstant_decl_with_initializer_p ("):trans.index("\nconstant_decl_with_initializer_p (")+450]
+    tree = sources["gcc/tree.cc"]
+    assert "else if (tree_invariant_p (TREE_OPERAND (expr, 1)))" in tree
+    assert "else if (tree_invariant_p (TREE_OPERAND (expr, 0)))" in tree
 
 
 def arithmetic():
@@ -248,6 +273,10 @@ def arithmetic():
         "String_literal_low_bound_syntax_visits_per_type": 16,
         "Main_value_call_body_copy_requests_in_size_inliner": 0,
         "compiler_generated_size_wrapper_body_copy_requests": "separate layout obligation",
+        "variable_Main_lazy_constant_or_renaming_initializers": 0,
+        "variable_Main_source_syntax_visits": "O_Main+32*E_Main+3*(D_i+J_i)",
+        "variable_Main_source_syntax_visits_cumulative_upper_bound": "A_Main+32*E_Main+3*(D_i+J_i)",
+        "unchanged_protected_arithmetic_frontier": "branching arithmetic over recursively invariant leaves; not only a spine",
         "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success",
     }
 

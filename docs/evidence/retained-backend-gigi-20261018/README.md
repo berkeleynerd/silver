@@ -42,3 +42,14 @@ assumption of disjoint semantic descendants. The checker also verifies absence
 of `Inline_Always` in the selected runtime and Silver API specifications.
 Compiler-generated size wrappers remain a separate layout obligation; neither
 the API scan nor these arithmetic checks close the whole backend.
+
+The initializer-order extension pins the two lazy constant/renaming callers,
+the earlier entity-association return, ordinary initializer-before-definition
+order, EWA actions-before-value order and deferred initializer reuse. The
+report joins those sites to the native constructor dependency argument to
+exclude variable Main lazy initializer replay. It records the composed
+`O_Main+32*E_Main+3*(D_i+J_i)` source-syntax visit bound, with `O_Main<=A_Main`.
+These checks do not establish a bound on the resulting GCC expression graph.
+The protection extension retains the actual recursively invariant arithmetic
+frontier: unchanged expressions may branch, even though newly reconstructed
+conversion/reference wrappers follow one spine.
