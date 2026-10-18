@@ -239,19 +239,26 @@ has no prover overrides. Alongside it, four private driver snapshots differ
 from the installed files only by deleting six `steps` directives: one in
 `cvc5_gnatprove.drv`, two in its imported `cvc5.gen`, one in `z3_gnatprove.drv`
 and two in `alt_ergo_gnatprove_smt2.drv`. The offline checker verifies the exact
-deletions and the complete 14-file import closure. They are research fixtures,
-not installed or executed configuration.
+deletions and the complete 14-file import closure. This retains the original
+source-only proposal as history. A later guarded prefix attempt rejected its
+ambiguous `cvc5.gen` import; the
+[corrected private overlay](retained-producer-prefix-per-check.md#correct-the-private-import-ambiguity)
+renames that private import and records actual driver-open evidence. Neither
+configuration is installed for production.
 
 GNATprove passes `--why3-conf` through (`configuration.adb:3249–3253`). Although
 gnatwhy3 rejects attempts to redefine built-in prover records
 (`gnat_config.ml:283–290`), it resolves each built-in driver beside the extra
 configuration before its installed fallback (`gnat_util.ml:63–106`, called
-from `gnat_config.ml:354–355`). Imported files prefer their importing file's
-directory before the installed driver directory (`driver_lexer.mll:126–133`).
-Thus a private copy of `cvc5.gen` is selected with its private parent. The
-effective working directory must contain no competing same-named drivers;
-the selected files and imported dependency bytes belong in configuration
-identity. External executables and installed files remain unchanged.
+from `gnat_config.ml:354–355`). Import resolution has a different rule:
+`driver_lexer.mll:126–133` supplies both directories, and
+`Sysutil.resolve_from_paths` requires exactly one existing match
+(`sysutil.ml:261–270`). A private `cvc5.gen` beside its installed namesake is
+ambiguous. The corrected overlay uses `silver_cvc5_no_steps.gen` and changes
+the single import string in its private parent. The effective working directory
+must contain no competing same-named top-level drivers; the selected files,
+unique import resolution and dependency bytes belong in configuration identity.
+External executables and installed files remain unchanged.
 
 With no `StepRegexp` in any selected driver/import, `grep_steps` returns None
 without parsing a numeric substring. Why3 stores `pr_steps = -1`

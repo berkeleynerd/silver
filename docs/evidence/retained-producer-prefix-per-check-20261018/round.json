@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-18",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_effort_confirmation_available": false,
+  "objective": "Resolve proof-mode and actual-driver common-input joins for five fixed prefixes and existing Per_Check tail transfer",
+  "result": "Corrected unique private import, actual-open evidence, independent recomputation of complete conditional prefix bounds, digest joins to fixed task/response transfer; review pending",
+  "review_target": "new Per_Check packet and source-transfer delta; original progressive prefix remains frozen at 74b788520a",
+  "native_prefix_executions": 6,
+  "successful_prefix_executions": 5,
+  "failed_configuration_attempts": 1,
+  "solver_executions": 0,
+  "managed_runs": {
+    "failed": "20261018T180105-748c5015ab5c",
+    "success": "20261018T180438-23287dc5b0a3"
+  },
+  "debugger_success_seconds": 28.32482163800023,
+  "managed_success_seconds": 30.690766144,
+  "validation": {
+    "offline_replay_seconds": 2.637273353999717,
+    "top_level_dependency_checkers": 6,
+    "local_links_checked": 22,
+    "authored_whitespace_check": "git diff --check passed"
+  },
+  "packaging_interval": {
+    "start_utc": "2026-10-18T18:06:01.838368+00:00",
+    "end_utc": "2026-10-18T18:07:08.219262+00:00",
+    "seconds": 66.380894,
+    "scope": "Measured from first archive packaging to final offline replay; excludes preparation, source review and managed captures"
+  },
+  "full_turn_elapsed_seconds": null,
+  "token_use": null,
+  "cost": null,
+  "rework": "First proposed-overlay run exposed incorrect import-precedence assumption. Inspected unique-match resolver; corrected only private cvc5 import name/path, preserved failure, and completed new isolated capture. Corrected current research claim; historical proposal/evidence unchanged."
+}

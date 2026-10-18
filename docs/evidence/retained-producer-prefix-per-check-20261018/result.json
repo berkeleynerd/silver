@@ -1,0 +1,280 @@
+{
+  "scope": "five exact fresh Per_Check prefixes with private no-step driver overlay",
+  "platform": "linux-x86_64",
+  "managed_run": "20261018T180438-23287dc5b0a3",
+  "cases": [
+    {
+      "name": "put_line",
+      "input_sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390",
+      "allocation_words": 86627697,
+      "startup_word_overcount": 43186,
+      "successful_read_paths": 51,
+      "arithmetic": {
+        "union_add": {
+          "hits": 15327,
+          "minimum_left": 1,
+          "minimum_right": 1,
+          "maximum_left": 25,
+          "maximum_right": 29,
+          "maximum_result": 30
+        },
+        "substitution_multiply": {
+          "hits": 16165,
+          "minimum_left": 2,
+          "minimum_right": 1,
+          "maximum_left": 24,
+          "maximum_right": 1,
+          "maximum_result": 24
+        },
+        "occurrence_add": {
+          "hits": 8649,
+          "minimum_left": 0,
+          "minimum_right": 1,
+          "maximum_left": 28,
+          "maximum_right": 24,
+          "maximum_result": 29
+        }
+      },
+      "debugger_seconds": 7.607221112999923
+    },
+    {
+      "name": "put",
+      "input_sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff",
+      "allocation_words": 85930265,
+      "startup_word_overcount": 43186,
+      "successful_read_paths": 51,
+      "arithmetic": {
+        "union_add": {
+          "hits": 14843,
+          "minimum_left": 1,
+          "minimum_right": 1,
+          "maximum_left": 25,
+          "maximum_right": 29,
+          "maximum_result": 30
+        },
+        "substitution_multiply": {
+          "hits": 14222,
+          "minimum_left": 2,
+          "minimum_right": 1,
+          "maximum_left": 24,
+          "maximum_right": 1,
+          "maximum_result": 24
+        },
+        "occurrence_add": {
+          "hits": 8510,
+          "minimum_left": 0,
+          "minimum_right": 1,
+          "maximum_left": 28,
+          "maximum_right": 24,
+          "maximum_result": 29
+        }
+      },
+      "debugger_seconds": 6.765692856999976
+    },
+    {
+      "name": "first_or_default",
+      "input_sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e",
+      "allocation_words": 82025326,
+      "startup_word_overcount": 43192,
+      "successful_read_paths": 51,
+      "arithmetic": {
+        "union_add": {
+          "hits": 13705,
+          "minimum_left": 1,
+          "minimum_right": 1,
+          "maximum_left": 34,
+          "maximum_right": 46,
+          "maximum_result": 47
+        },
+        "substitution_multiply": {
+          "hits": 2924,
+          "minimum_left": 2,
+          "minimum_right": 1,
+          "maximum_left": 46,
+          "maximum_right": 1,
+          "maximum_result": 46
+        },
+        "occurrence_add": {
+          "hits": 8419,
+          "minimum_left": 0,
+          "minimum_right": 1,
+          "maximum_left": 28,
+          "maximum_right": 24,
+          "maximum_result": 32
+        }
+      },
+      "debugger_seconds": 4.776327114000196
+    },
+    {
+      "name": "input_is_valid",
+      "input_sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d",
+      "allocation_words": 78586315,
+      "startup_word_overcount": 43192,
+      "successful_read_paths": 51,
+      "arithmetic": {
+        "union_add": {
+          "hits": 12385,
+          "minimum_left": 1,
+          "minimum_right": 1,
+          "maximum_left": 25,
+          "maximum_right": 29,
+          "maximum_result": 30
+        },
+        "substitution_multiply": {
+          "hits": 1770,
+          "minimum_left": 2,
+          "minimum_right": 1,
+          "maximum_left": 24,
+          "maximum_right": 1,
+          "maximum_result": 24
+        },
+        "occurrence_add": {
+          "hits": 7686,
+          "minimum_left": 0,
+          "minimum_right": 1,
+          "maximum_left": 28,
+          "maximum_right": 24,
+          "maximum_result": 29
+        }
+      },
+      "debugger_seconds": 4.495824208000158
+    },
+    {
+      "name": "is_message",
+      "input_sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378",
+      "allocation_words": 77781930,
+      "startup_word_overcount": 43190,
+      "successful_read_paths": 51,
+      "arithmetic": {
+        "union_add": {
+          "hits": 12284,
+          "minimum_left": 1,
+          "minimum_right": 1,
+          "maximum_left": 25,
+          "maximum_right": 29,
+          "maximum_result": 30
+        },
+        "substitution_multiply": {
+          "hits": 1721,
+          "minimum_left": 2,
+          "minimum_right": 1,
+          "maximum_left": 24,
+          "maximum_right": 1,
+          "maximum_result": 24
+        },
+        "occurrence_add": {
+          "hits": 7649,
+          "minimum_left": 0,
+          "minimum_right": 1,
+          "maximum_left": 28,
+          "maximum_right": 24,
+          "maximum_result": 29
+        }
+      },
+      "debugger_seconds": 4.6797563459999765
+    }
+  ],
+  "maximum_prefix_allocation_words": 86627697,
+  "combined_managed_and_static_word_budget": 88823660,
+  "loaded_image_word_overcount": 2152771,
+  "configured_text_files": 170,
+  "numeric_conditions": {
+    "identity_counter": {
+      "upper": 86627698,
+      "limit": 4611686018427387903
+    },
+    "synthetic_line": {
+      "upper": 86627698,
+      "limit": 140737488355327
+    },
+    "physical_words": {
+      "upper": 88823660,
+      "limit": 4611686018427387903
+    },
+    "dependency_rank_and_midpoint": {
+      "upper": 177647322,
+      "limit": 4611686018427387903
+    },
+    "projection_height": {
+      "upper": 88889196,
+      "limit": 4611686018427387903
+    },
+    "byte_length_arithmetic": {
+      "upper": 1421178562,
+      "limit": 4611686018427387903
+    },
+    "source_line": {
+      "upper": 3022,
+      "limit": 140737488355327
+    },
+    "source_column": {
+      "upper": 5148,
+      "limit": 65535
+    },
+    "semantic_count": {
+      "upper": 47,
+      "limit": 4611686018427387903
+    }
+  },
+  "guarded_semantic_operations": 146259,
+  "maximum_semantic_result": 47,
+  "tail_shape": [
+    {
+      "name": "put_line",
+      "G": 1145,
+      "R": 22,
+      "N": 3435,
+      "A": 4580,
+      "S": 110,
+      "raw_response_constant": 14874719
+    },
+    {
+      "name": "put",
+      "G": 629,
+      "R": 18,
+      "N": 1887,
+      "A": 2516,
+      "S": 90,
+      "raw_response_constant": 8200295
+    },
+    {
+      "name": "first_or_default",
+      "G": 1203,
+      "R": 9,
+      "N": 3609,
+      "A": 4812,
+      "S": 45,
+      "raw_response_constant": 15574751
+    },
+    {
+      "name": "input_is_valid",
+      "G": 1,
+      "R": 1,
+      "N": 3,
+      "A": 4,
+      "S": 5,
+      "raw_response_constant": 31883
+    },
+    {
+      "name": "is_message",
+      "G": 3,
+      "R": 1,
+      "N": 9,
+      "A": 12,
+      "S": 5,
+      "raw_response_constant": 57695
+    }
+  ],
+  "complete_prefix_capacity_established": true,
+  "prefix_and_fixed_tail_configuration_joined": true,
+  "source_argument_machine_checked": false,
+  "whole_pipeline_capacity_established": false,
+  "solver_output_bytes_bounded": false,
+  "production_configuration_adopted": false,
+  "new_native_prefix_executions": 6,
+  "completed_prefix_executions": 5,
+  "failed_configuration_attempts": 1,
+  "solver_executions": 0,
+  "managed_success_seconds": 30.690766144,
+  "debugger_seconds": 28.32482163800023
+}
