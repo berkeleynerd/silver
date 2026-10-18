@@ -1,4 +1,132 @@
 {
+  "Main_source_String_declarations_and_assignments": {
+    "examples_not_thresholds": [
+      {
+        "later_String_declarations": 0,
+        "String_assignments": 0,
+        "A": 1,
+        "declaration_per_occurrence": {
+          "ordinary": 274,
+          "growth": 30,
+          "lists": 11,
+          "entities_and_names": 4,
+          "uint": 1187
+        },
+        "assignment_per_occurrence": {
+          "ordinary": 1298,
+          "growth": 84,
+          "lists": 18,
+          "entities_and_names": 2,
+          "uint": 7739
+        },
+        "total": {
+          "ordinary": 0,
+          "growth": 0,
+          "lists": 0,
+          "entities_and_names": 0,
+          "uint": 0,
+          "name_characters": 0,
+          "dynamic_slots": 0
+        },
+        "declaration_debug_Uint_allowance": 0,
+        "debug_name_buffer_peak": 32,
+        "whole_construct_closed": false
+      },
+      {
+        "later_String_declarations": 3,
+        "String_assignments": 5,
+        "A": 17,
+        "declaration_per_occurrence": {
+          "ordinary": 2514,
+          "growth": 30,
+          "lists": 11,
+          "entities_and_names": 4,
+          "uint": 11107
+        },
+        "assignment_per_occurrence": {
+          "ordinary": 16338,
+          "growth": 84,
+          "lists": 18,
+          "entities_and_names": 2,
+          "uint": 71355
+        },
+        "total": {
+          "ordinary": 89232,
+          "growth": 510,
+          "lists": 123,
+          "entities_and_names": 22,
+          "uint": 390096,
+          "name_characters": 313,
+          "dynamic_slots": 809020
+        },
+        "declaration_debug_Uint_allowance": 126,
+        "debug_name_buffer_peak": 32,
+        "whole_construct_closed": false
+      }
+    ],
+    "premises": "later declarations nominally Standard String; first input fixed separately; already normalized source initializer/RHS, first operand analysis separate; A covers String bound/optimizer graphs; ordinary aligned Character arrays, no source slices, no explicit String constraint",
+    "debug_renaming": "at most one terminal normalized slice after name-renaming chain, no packed encoding; two bound renderings of at most10 decimal digits, one sign and two Uint appends per digit; transient released arithmetic counted in lifetime demand",
+    "excluded": "source operand constructors and literal resolution, first input, parser/source entities, shared metadata/name qualification/backend"
+  },
+  "Main_standalone_String_literal_suffix": {
+    "examples_not_thresholds": [
+      {
+        "nonconcat_literal_resolutions": 0,
+        "possibly_dynamic_assignment_literals": 0,
+        "A": 1,
+        "dynamic_branch": {
+          "ordinary": 42,
+          "growth": 4,
+          "lists": 6,
+          "entities_and_names": 3,
+          "name_characters": 39,
+          "uint": 18
+        },
+        "total": {
+          "ordinary": 0,
+          "growth": 0,
+          "lists": 0,
+          "entities_and_names": 0,
+          "name_characters": 0,
+          "uint": 0,
+          "dynamic_slots": 0
+        },
+        "normalized_copied_low_nodes": 12,
+        "normalized_copied_low_lists": 1,
+        "new_String_values": 0,
+        "whole_construct_closed": false
+      },
+      {
+        "nonconcat_literal_resolutions": 7,
+        "possibly_dynamic_assignment_literals": 3,
+        "A": 17,
+        "dynamic_branch": {
+          "ordinary": 42,
+          "growth": 4,
+          "lists": 6,
+          "entities_and_names": 3,
+          "name_characters": 39,
+          "uint": 114
+        },
+        "total": {
+          "ordinary": 126,
+          "growth": 12,
+          "lists": 18,
+          "entities_and_names": 16,
+          "name_characters": 208,
+          "uint": 384,
+          "dynamic_slots": 2218
+        },
+        "normalized_copied_low_nodes": 12,
+        "normalized_copied_low_lists": 1,
+        "new_String_values": 0,
+        "whole_construct_closed": false
+      }
+    ],
+    "dynamic_route": "Set_String_Literal_Subtype against target's dynamic low bound creates ordinary index/array subtype and unchecked String conversion; two copies of normalized low, one Integer addition; no per-character aggregate",
+    "scalar_query_root": "existing normalized target low plus (literal length-1); A includes this root",
+    "source_multiplicity": "one outside-concat literal resolution per original literal occurrence; only direct assignment RHS can have dynamic low; all source literals/assignments are conservative counters"
+  },
   "Main_source_predicates_and_control": {
     "examples_not_thresholds": [
       {
@@ -2296,8 +2424,8 @@
     "growth": "c",
     "entities_and_names": "5*c",
     "name_characters": "65*c",
-    "Uint_appends": "19*c",
-    "Uint_digits": "57*c",
+    "Uint_appends": "22*c",
+    "Uint_digits": "66*c",
     "String_descriptors": "c",
     "String_character_appends": "sum B(e) over source concats",
     "dynamic_slots": "332*c",
@@ -2305,7 +2433,7 @@
     "literal_suffix_per_resolution": {
       "entities_and_names": 1,
       "name_characters": 13,
-      "uint": 5,
+      "uint": 6,
       "other_core_allocations": 0
     },
     "direct_subtype_and_first_freeze": {
@@ -2346,7 +2474,7 @@
           "growth": 3,
           "entities_and_names": 15,
           "name_characters": 195,
-          "uint": 57,
+          "uint": 66,
           "string_descriptors": 3,
           "string_characters": 9,
           "lists": 0
@@ -2369,7 +2497,7 @@
           "growth": 4,
           "entities_and_names": 20,
           "name_characters": 260,
-          "uint": 76,
+          "uint": 88,
           "string_descriptors": 4,
           "string_characters": 30,
           "lists": 0

@@ -628,10 +628,10 @@ def source_concat_folding(concat_length_bounds):
     total = dict(ordinary=2*c, growth=c,
                  entities_and_names=resolving_literals+direct_subtypes,
                  name_characters=13*(resolving_literals+direct_subtypes),
-                 uint=5*resolving_literals+2*direct_subtypes,
+                 uint=6*resolving_literals+2*direct_subtypes,
                  string_descriptors=c,
                  string_characters=sum(concat_length_bounds), lists=0)
-    assert total["entities_and_names"] == 5*c and total["uint"] == 19*c
+    assert total["entities_and_names"] == 5*c and total["uint"] == 22*c
     slots = 9*(total["ordinary"]+total["growth"])+61*total["entities_and_names"]
     assert slots == 332*c
     return dict(source_concat_operators=c, source_concat_length_bounds=concat_length_bounds,
@@ -839,6 +839,55 @@ def source_predicates_and_control(comparisons, short_circuits, negations,
                 whole_construct_closed=False)
 
 
+def source_string_stores(declarations, assignments, declaration_name_chars,
+                         analysis_graph):
+    """Excludes first input declaration and first analysis of source operands."""
+    assert min(declarations, assignments) >= 0
+    assert declaration_name_chars >= declarations and analysis_graph >= 1
+    a = analysis_graph
+    declaration = dict(ordinary=140*a+134, growth=30, lists=11,
+                       entities_and_names=4, uint=620*a+567)
+    assignment = dict(ordinary=940*a+358, growth=84, lists=18,
+                      entities_and_names=2, uint=3976*a+3763)
+    total = {key: declarations*declaration[key]+assignments*assignment[key]
+             for key in declaration}
+    total["name_characters"] = (2*declaration_name_chars+48*declarations
+                                +29*assignments)
+    total["dynamic_slots"] = (9*(total["ordinary"]+total["growth"])
+                              +61*total["entities_and_names"])
+    return dict(later_String_declarations=declarations,
+                String_assignments=assignments, A=a,
+                declaration_per_occurrence=declaration,
+                assignment_per_occurrence=assignment, total=total,
+                declaration_debug_Uint_allowance=42*declarations,
+                debug_name_buffer_peak=32,
+                whole_construct_closed=False)
+
+
+def source_string_literal_suffix(literals, dynamic_assignment_literals,
+                                analysis_graph):
+    """Literal resolutions outside concat; dynamic-low RHS continuation."""
+    assert 0 <= dynamic_assignment_literals <= literals and analysis_graph >= 1
+    a = analysis_graph
+    # All resolutions receive the static suffix, and each possibly dynamic
+    # one additionally receives the complete dynamic branch (overcounting it).
+    dynamic = dict(ordinary=42, growth=4, lists=6,
+                   entities_and_names=3, name_characters=39, uint=6*a+12)
+    total = {key: dynamic_assignment_literals*value
+             for key, value in dynamic.items()}
+    total["entities_and_names"] += literals
+    total["name_characters"] += 13*literals
+    total["uint"] += 6*literals
+    total["dynamic_slots"] = (9*(total["ordinary"]+total["growth"])
+                              +61*total["entities_and_names"])
+    return dict(nonconcat_literal_resolutions=literals,
+                possibly_dynamic_assignment_literals=dynamic_assignment_literals,
+                A=a, dynamic_branch=dynamic, total=total,
+                normalized_copied_low_nodes=12,
+                normalized_copied_low_lists=1,
+                new_String_values=0, whole_construct_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -885,6 +934,20 @@ def combined_native_uniform_vector(c, analysis_graph):
 
 
 result = {
+    "Main_source_String_declarations_and_assignments": {
+        "examples_not_thresholds": [source_string_stores(0, 0, 0, 1),
+                                    source_string_stores(3, 5, 12, 17)],
+        "premises": "later declarations nominally Standard String; first input fixed separately; already normalized source initializer/RHS, first operand analysis separate; A covers String bound/optimizer graphs; ordinary aligned Character arrays, no source slices, no explicit String constraint",
+        "debug_renaming": "at most one terminal normalized slice after name-renaming chain, no packed encoding; two bound renderings of at most10 decimal digits, one sign and two Uint appends per digit; transient released arithmetic counted in lifetime demand",
+        "excluded": "source operand constructors and literal resolution, first input, parser/source entities, shared metadata/name qualification/backend",
+    },
+    "Main_standalone_String_literal_suffix": {
+        "examples_not_thresholds": [source_string_literal_suffix(0, 0, 1),
+                                    source_string_literal_suffix(7, 3, 17)],
+        "dynamic_route": "Set_String_Literal_Subtype against target's dynamic low bound creates ordinary index/array subtype and unchecked String conversion; two copies of normalized low, one Integer addition; no per-character aggregate",
+        "scalar_query_root": "existing normalized target low plus (literal length-1); A includes this root",
+        "source_multiplicity": "one outside-concat literal resolution per original literal occurrence; only direct assignment RHS can have dynamic low; all source literals/assignments are conservative counters",
+    },
     "Main_source_predicates_and_control": {
         "examples_not_thresholds": [source_predicates_and_control(0, 0, 0, 0, 0, 1, 1),
                                     source_predicates_and_control(8, 3, 2, 2, 1, 17, 3)],
@@ -1461,11 +1524,11 @@ result = {
         "source_counts": "<=c folds, <=2*c original literal-operand resolutions, <=2*c post-concat subtype registrations; no runtime-trip multiplier",
         "source_lengths": "B(left&right)=B(left)+B(right); alias uses existing declaration bound; folded values reuse these same source bounds; each B<=IntegerLast is an input-domain premise",
         "ordinary_nodes": "2*c", "growth": "c", "entities_and_names": "5*c",
-        "name_characters": "65*c", "Uint_appends": "19*c", "Uint_digits": "57*c",
+        "name_characters": "65*c", "Uint_appends": "22*c", "Uint_digits": "66*c",
         "String_descriptors": "c", "String_character_appends": "sum B(e) over source concats",
         "dynamic_slots": "332*c", "syntax_lists_Elists_hashes_Xrefs": 0,
         "literal_suffix_per_resolution": {"entities_and_names": 1, "name_characters": 13,
-            "uint": 5, "other_core_allocations": 0},
+            "uint": 6, "other_core_allocations": 0},
         "direct_subtype_and_first_freeze": {"entities_and_names": 1, "name_characters": 13,
             "uint": 2, "other_core_allocations": 0},
         "premises": "Main String-only concat; Standard String/Character/Integer frozen; no diagnostics/pending checks; ordinary local/pending placement; literal low bound is static1; no delayed freeze; internal-name serial bound; native source correspondence remains separate",

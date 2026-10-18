@@ -3875,6 +3875,172 @@ digit populations. Qualification, diagnostics/xrefs/elaboration, source
 calls/operands, action constructors and physical stack/backing remain
 separate composition terms.
 
+## Ordinary String declarations and assignments
+
+This component excludes the first input declaration, whose construction is the
+fixed scaffold below. Let D_s count all later String declarations, J_s all
+String assignments, and L_s the sum of the later declaration identifier lengths.
+Initializers/RHS values have already received their source expression and
+constructor transfers. All source String declarations use nominal Standard
+String without an explicit constraint. Let A cover the original and generated
+String-bound query graphs, including the Length optimizer; a scalar-source-only
+tree bound is insufficient here.
+
+`Expand_Subtype_From_Expr` partitions these already resolved initializers into
+a literal, slice or constrained name (`exp_util.adb:5884–6014`). Source String
+names have their actual constrained subtype as Etype after declaration
+(`sem_ch3.adb:5138–5145,5341`); Image and concat yield the normalized views
+proved earlier. The later declaration cannot enter the first input's general
+unconstrained-function branch. The three relevant alternatives are bounded by
+the following deliberately overlapping charges:
+
+| Stage | Ordinary nodes | Lists | Growth | Entities/names | Uint appends |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Existing plain result-storage transfer, b=6,l=0 | `140A+95` | 3 | 23 | 2 | `596A+519` |
+| Literal/slice subtype indication and saved original | 11 | 1 | 1 | 0 | 0 |
+| Two literal-range scalar operations and endpoint folds | 8 | 0 | 4 | 0 | `24A+6` |
+| Up to two already analyzed whole-bound captures | 10 | 2 | 0 | 2 | 0 |
+| Late constant-name initializer literal copy | 2 | 0 | 1 | 0 | 0 |
+| Object declaration rewritten as ordinary renaming | 3 | 0 | 1 | 0 | 0 |
+| First-freeze reserve for object and four new entities | 5 | 5 | 0 | 0 | 0 |
+| Debug-renaming numeric rendering reserve | 0 | 0 | 0 | 0 | 42 |
+
+The literal case's Make_Literal_Range has seven nodes including its range
+root; its lower bound is a one-node static literal/constant. Its two operations
+are ordinary signed Integer addition/subtraction (`exp_util.adb:10664–10707`).
+The b=6 storage row covers those two endpoint trees after their first analysis.
+The slice case uses the existing slice index **subtype mark**, without copying
+its bound trees or constructing another index subtype: Constrain_Index's
+subtype-mark branch analyzes that occurrence and returns
+(`sem_ch3.adb:15420–15448`). Evaluate_Slice_Bounds can capture the two current
+bounds but does not replay their children (`exp_util.adb:5507–5528`). A
+constrained name either reuses its itype or creates one simple subtype alias;
+its four-node/one-list/one-entity row is dominated by the table. Thus b=6 is
+used for the literal alternative, not asserted for a dynamic slice's index
+graph. Both alternatives preserve the normalized bound-shape invariant.
+
+Find_Type names the literal's array/index pair `T<object>S` and
+`TT<object>SP1`, requiring `2|object|+9` characters including NUL. Together
+with two capture names and a separate alias-name allowance, use
+`2|object|+48`; subsequent qualification remains separate. The actual subtype
+is marked Is_Constr_Subt_For_U_Nominal. Native initializer expansion therefore
+skips its additional constraint check, and Check_Initialization's scalar-only
+light-mode test is absent (`sem_ch3.adb:5156–5159,13042–13124`,
+`exp_ch3.adb:8420–8439`). Ordinary String excludes controlled, tagged,
+special-return and source-defined initialization helpers. The late literal
+copy retains its String_Id and analyzed subtype; the renaming rewrite does
+not reanalyze its components (`sem_ch3.adb:5436–5453`,
+`exp_util.adb:13790–13830`).
+
+Debug_Renaming_Declaration returns no encoding for these unpacked views, but
+it can examine subscripts before testing that condition. Its traversal follows
+Original_Node and ordinary renaming-name chains. Such a chain has at most one
+terminal normalized slice (Image/concat buffer) or pointer dereference; its
+buffer/pointer is generated storage, not another source String initializer.
+Original_Node may stop the traversal earlier at the constructor. Thus at most
+two bounds reach Output_Subscript. Each accepted bound is a known signed
+Integer value or a local internal constant name; other bounds stop without
+rendering. Decimal output has at most ten digits and one sign. Charge one
+negation plus two Uint appends per digit, hence 21 per bound, including the
+arithmetic subsequently released by UI_Image. The unreleased sign negation
+is also covered (`exp_dbug.adb:350–367,392–530,1148–1157`,
+`uintp.adb:386–452,1030–1147`). No name is interned because encoding is disabled.
+The temporary Name_Buffer suffix needs at most32 characters (two internal
+names or numeric strings plus the fixed selectors/dereference); its backing
+storage is separate from retained name characters. Insert_Action with Empty
+returns before creating a list (`exp_util.adb:7984–7997`).
+
+For one source String assignment, charge two complete enabled Length-check
+comparison envelopes from the predicate section, one uncached referenced-input
+actual subtype, and two overlap comparison queries. The first two cover the
+semantic/native check passes and their possible raise construction; add their
+two insertion-wrapper lists. Get_Referenced_Object on the RHS can reach input
+`P.all`, as in the corrected concat assignment transfer. The LHS cannot be
+the constant input, and later mutable objects or renamed constructor results
+have constrained designated types. In particular OK_To_Rename_Ref only accepts
+E_Variable, so the input constant cannot propagate its unconstrained pointer
+view into a mutable declaration through that branch
+(`exp_ch3.adb:7761–7764`, `sem_util.adb:11265–11278`,
+`exp_ch5.adb:346–355`). The aligned, nonpacked Character array route does not
+set Loop_Required; the overlap checks add no generated element loop
+(`exp_ch5.adb:356–870`). Source operand/literal construction is separate.
+
+The resulting closed local sums are:
+
+| Demand | Per later String declaration | Per String assignment |
+| --- | ---: | ---: |
+| Ordinary nodes | `140A+134` | `940A+358` |
+| Growth events | 30 | 84 |
+| Lists | 11 | 18 |
+| Entities/names | 4 | 2 |
+| Name characters including NUL | `2|object|+48` | 29 |
+| Uint appends | `620A+567` | `3976A+3763` |
+
+The assignment's arithmetic is exactly twice `(440A+144,39,4,1868A+1742)`
+for nodes/growth/lists/Uints, plus `(20A+70,6,8,80A+159)` for the actual
+subtype, `(40A,0,0,160A+120)` for two overlap queries and two insertion lists.
+No new retained String value or Elist is introduced in these stages. The
+source-derived graph/numeric envelope must also cover their queries. The
+executable `source_string_stores` records these rows; parser entities, source
+expressions, common metadata, name qualification and backend work remain
+additive.
+
+## Standalone String literal resolution
+
+Literal operands of concat were separately resolved in base Standard String.
+A standalone literal assignment instead resolves the RHS in the **target
+object's subtype** (`sem_ch5.adb:790`). A target initialized from input or a
+dynamic constructor can have a nonstatic low bound. Therefore native closure
+must include Set_String_Literal_Subtype's dynamic-low branch; the static-low
+concat suffix cannot stand in for it.
+
+For a static low, reuse the corrected six-Uint suffix below: one fresh literal
+subtype/name, thirteen name characters, at most six Uint appends, and no other
+core allocations. The dynamic branch (`sem_res.adb:13249–13335`) creates the
+same literal subtype, then an ordinary signed index subtype and String array
+subtype. It copies the existing normalized target low twice. That low has at
+most12 ordinary nodes and one syntax list, no owned types/actions, under the
+earlier bound-shape induction. Source String declarations have no user-written
+constraints; aliases preserve this invariant. It builds `low+(length-1)`, one
+range and index occurrence, and wraps the literal in an unchecked conversion
+to the new String subtype. It does not build a character aggregate.
+
+The direct syntax is at most33 ordinary nodes:24 copied bound nodes, two
+upper-expression nodes, the literal subtype's static low1, one range, one
+index occurrence, and four conversion/relocation/saved-original nodes.
+One generated Integer addition adds at most two fold nodes/one growth and
+`6A+2` Uints; the range's two final endpoint folds add at most four nodes/two
+growth. The final conversion rewrite adds one growth. Reserve one freeze
+node/list for each of the three subtypes. Including the index list and two
+copied lists gives **42 ordinary nodes, four growth events, six lists, three
+entities/names and39 name characters**. The new signed index copies existing
+size fields; there is no new Set_Discrete_RM_Size call. Charge length conversion,
+the four-Uint literal evaluation allowance, literal first-size multiplication,
+and the ordinary array's four-Uint size allowance: with the addition this is
+**6A+12 Uints**. The dynamic lower-bound graph and its one new upper addition
+must be included in A.
+
+Resolve_Range does not apply a target-subtype check; it resolves its endpoints,
+checks their base-type legality and performs the already charged folds
+(`sem_res.adb:11161–11289`). The copied low retains Analyzed. The conversion
+does not force another temporary: its enclosing assignment already supplies a
+target, and input/output share Standard String's implementation base
+(`exp_ch4.adb:12861–12891`, `exp_util.adb:13846–13861,13909–13915`).
+The newly nonstatic ordinary subtype makes Eval_String_Literal return before
+its static-length branch; charging that branch's four Uint allowance anyway
+is conservative. Standard Character's complete range prevents per-character
+conversion/aggregate construction. String contents reuse their existing
+String_Id throughout.
+
+Let S count original source String literals outside concat and J_l<=J_s the
+direct literal assignment RHS occurrences. Charge the static suffix S times
+and the entire dynamic branch J_l times, deliberately overlapping the static
+part. Counting all source literals for S and all String assignments for J_l
+is also conservative if the corresponding literal-resolution counter is
+enlarged to contain J_l; precise source counters avoid that unnecessary
+overcount. Source literal parser costs and operator-symbol normalization are
+separate. `source_string_literal_suffix` records this transfer.
+
 ## Fixed input and Main secondary-stack scaffold
 
 The initial input construction and Main's secondary-stack cleanup reduce to
@@ -4173,8 +4339,8 @@ It dominates each row above. Thus the per-group retained Uint digit charge is
 `k*((3816*n+2296)*A+3696*n+1697)`; a whole-Main uniform A gives
 `k*(9928*A+9089)*c`. The previously derived local arithmetic-vector peak becomes
 **5*k+3 digit words**, separate from recursive stack and table-growth storage.
-The per-group k can be used instead of a uniform maximum. Uint-entry counts
-are unchanged; no warm-cache assumption is introduced.
+The per-group k can be used instead of a uniform maximum. This magnitude
+calculation adds no further Uint appends; no warm-cache assumption is introduced.
 
 `native_concat_numeric_magnitude` checks these arithmetic envelopes, including
 the maximal permitted n. Its examples are not language thresholds. This closes
@@ -4271,10 +4437,13 @@ placement list (`freeze.adb:2804–2850,6537–6552,8143–8187,8265–8286`). A
 registered only after operand resolution may freeze later; its same one-time
 cost is charged here, without claiming the entire later scope walk is free.
 
-Consequently one literal-resolution suffix, including potential first subtype
-creation and freezing, adds at most **one entity/name, thirteen name characters
-including NUL, and five Uint appends**. The five are length conversion, three
-range-length operations, and one size multiplication. A direct
+The mixed comparison `Len > String_Type_Len(Bas)` additionally converts Len
+through UI_From_Int; charge one Uint append even if an earlier conversion
+of that same length exists (`uintp.adb:1683–1686`). Consequently one
+literal-resolution suffix, including potential first subtype creation and
+freezing, adds at most **one entity/name, thirteen name characters including
+NUL, and six Uint appends**: length conversion, three range-length operations,
+the mixed comparison conversion, and one size multiplication. A direct
 Set_String_Literal_Subtype plus its first freeze, without Eval_String_Literal,
 costs one entity/name, thirteen characters and two Uint appends. Each Uint
 magnitude is at most `8*(2^31-1)`, hence at most **three base-32768 digits**.
@@ -4294,7 +4463,7 @@ does not replay these suffixes. This gives the separate whole-Main addend:
 | Growing-slot events | c |
 | Entities/internal names | `5*c` |
 | Name characters, including NUL | `65*c` |
-| Uint appends / retained digit words | `19*c` / `57*c` |
+| Uint appends / retained digit words | `22*c` / `66*c` |
 | String descriptors | c |
 | Retained String characters | `sum B(e)` over source concats |
 | Syntax lists, Elists, hash wrappers, Xrefs | 0 |
