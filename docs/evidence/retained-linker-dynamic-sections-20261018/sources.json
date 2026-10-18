@@ -1,0 +1,45 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "archive_sha256": "9f09fc111ee2434d6e1d0b0449a98e3e7050ed867b63c34e16f1fb3f44bbc8ba",
+  "files": [
+    {
+      "path": "bfd/elfxx-x86.c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elfxx-x86.c",
+      "bytes": 143875,
+      "sha256": "d3b089435efad4528b6cb4565819d997f50480ec35fbcbb0d90b06d20b57d517"
+    },
+    {
+      "path": "bfd/elfxx-x86.h",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elfxx-x86.h",
+      "bytes": 35916,
+      "sha256": "3d03a65f74e14eb2807567c0ba3bba8769ffba4faf05c38febae4e8e8f3faff2"
+    },
+    {
+      "path": "bfd/elf-ifunc.c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf-ifunc.c",
+      "bytes": 10671,
+      "sha256": "434fda9a9a58826db224d9aaf76ab33b449bf12cb01b5af7dfac2d14d4413443"
+    },
+    {
+      "path": "bfd/elf64-x86-64.c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elf64-x86-64.c",
+      "bytes": 195139,
+      "sha256": "81668a45629ad4d77f250173a250bfda6561dd810d9e7ab02d8a988de496ee6b",
+      "reused": "retained-linker-capacity-20261018"
+    },
+    {
+      "path": "include/elf/external.h",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/elf/external.h",
+      "bytes": 12359,
+      "sha256": "938745254f7353db20cb9edcee910713ef9b2e8be8b42131d81582b107791d06",
+      "reused": "retained-linker-capacity-20261018"
+    },
+    {
+      "path": "bfd/section.c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/section.c",
+      "bytes": 53125,
+      "sha256": "7637e3efbaad1dccb7e092174c0c8a8ab8d0dcb15ed21a0e640fde64823a2d61",
+      "reused": "retained-assembler-capacity-20261018"
+    }
+  ]
+}

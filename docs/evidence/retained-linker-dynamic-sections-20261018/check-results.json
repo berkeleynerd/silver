@@ -1,0 +1,11 @@
+{
+  "source_files_checked": 6,
+  "ordinary_callback_bytes_excluding_q": 184,
+  "IFUNC_callback_bytes_excluding_q": 112,
+  "local_positive_GOT_entry_bytes": 104,
+  "per_phase_shared_TLS_bytes": 80,
+  "per_incoming_dynamic_relocation_bytes": 24,
+  "unsigned32_jump_count_sufficient_bound": 536870911,
+  "whole_link_capacity_established": false,
+  "native_tool_executions": 0
+}
