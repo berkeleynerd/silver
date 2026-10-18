@@ -449,3 +449,79 @@ useful-domain comparison remain required.
 #119 stays open; #88–#94 remain authorized and unstarted. Oracle, installed
 tools, production admission and the completed For loops harness goal are
 unchanged. CLI memory is unavailable and was not updated.
+
+## Round 7 — imported helpers, warning closure and one useful Why3 transfer
+
+Date: 2026-10-18. Published starting technical checkpoint: `3323db9252`;
+owner-goal decision: `d5a63e4ca0`. #119 is now the active harness goal;
+#88–#94 remain authorized but outside this goal pending its prerequisite.
+The selections below are requested settings, not independently confirmed
+runtime settings. Lead settings and token/monetary costs are unavailable.
+
+| Work | Selected model / effort | Integrated result and review |
+| --- | --- | --- |
+| Cold Standard.String layout | GPT-6 Astra / Extra High | `4f640ec4f8`, explanation repair `696a8a995d`; review `ad54d400df` accepts frozen `bd15740afc` with that correction |
+| Helper graph/symbol attachment | Lead; runtime unavailable | `5f9641d1a0`; Astra Extra High review `4eaa42a07f` accepts the conditional join |
+| Original-gigi warning residual | GPT-6 Astra / Extra High | `a409ff9db1`; source target `6f3a5af341` accepted by review `3f522a927d` |
+| Warning-map aggregate attachment | Lead; runtime unavailable | `2f595d4300`; the same Astra Extra High review `3f522a927d` accepts this separate frozen target |
+| Actual Why3 preparation entry | GPT-6 Astra / Extra High | `44808fb7f7`; review `215a1488fc` accepts frozen `7c89b21e24` |
+| Symbol/occurrence-sensitive inlining | GPT-6 Astra / Extra High | `ae92d30035`; review `8f5bddb16a` accepts frozen `3509848447` |
+
+The [cold-layout review](../reviews/review-literal-string-layout-bd15740afc.md)
+accepts exactly two helpers, initially gimplified/registered and discarded
+before ordinary lowering, IPA, RTL or emission. Its XVE explanation correction
+preserves the zero-additional-helper result. The
+[attachment review](../reviews/review-cold-helper-attachment-5f9641d1a0.md)
+accepts persistent counter increments and conditional pool/graph event deltas
+5C+7 and 8C+35. Helper function/tree/GIMPLE allocation totals remain separate.
+The component's 26 offline checks and attachment's 89 cases pass; the latter
+took 3.860516321 seconds, with default generation taking 2.996767486 seconds.
+
+The [warning source/attachment review](../reviews/review-literal-warning-residual-6f3a5af341.md)
+accepts R<=5, including replacement puts, and zero helper/Standard-layout puts.
+Incoming/outgoing occupancies are bounded by 4098+2C+N / 4099+4C+N;
+the initial-map GGC event ceiling is 4C+N+7. The generated-body frontier also
+accounts for the empty elaboration's allocated function structure and +1
+definition number: three non-Main definition increments with the two helpers,
+but zero additional emitted functions. Unknown registration/allocation costs
+remain unknown. The source packet's 32 cases and aggregate's 95 cases pass;
+aggregate checks/default generation took 3.953564226/3.267231906 seconds.
+All five broader source-family conditions and whole-pipeline capacity remain
+unestablished. The 5,000-call conservative relocation failure is unchanged.
+
+The [entry review](../reviews/review-why-preparation-entry-7c89b21e24.md)
+accepts one actual Input_Is_Valid/cvc5 entry: 512 task nodes, 143 mapped roots,
+opened mass 1,793 and all 157 binder checks. Missing Meta payloads are explicit.
+The [refinement review](../reviews/review-why-inline-refinement-3509848447.md)
+accepts the all-exclusion-set bound: 45 eligible candidates, 85 possible hits,
+maximum root/goal masses 99/73 and at most 235 kernel identifiers. Its focused
+independent raw-graph traversal matches every hit. The worker's 156 exclusion
+scenarios and focused regression cases pass in 3.417543834 seconds. This
+replaces an unusably large semantic bound for one pair; hidden operations,
+types/validators, other tags/caches, remaining pairs and downstream consumers
+are still required.
+
+One successful native read-only capture ran on Linux x86-64:
+`20261018T201352-407bbd8ad0f5`, 7.153969065 managed seconds, including
+4.873981385 debugger seconds. Setup-only attempt `20261018T201256-979e7151f456`
+failed before target execution because the integration worktree had no native
+installation; the successful launcher used the root checkout installation.
+No inferior calls/writes, printer/prover request, solver, broad build/proof/test,
+clean rebuild or full audit ran. The successful capture was not repeated.
+
+Recorded worker/review intervals: cold layout 787/349 seconds; helper attachment
+review 153 seconds; warning source worker 624 seconds and combined review 291
+seconds; capture review 341 seconds; refinement worker/review 715/220 seconds.
+Intervals overlap and cover different activities; they are not additive team
+runtime or model-inference cost. Reviews reused successful checks and added
+focused source/interface arithmetic checks. No material review finding remains
+against these frozen targets after the XVE explanation correction.
+
+Round outcome: the initial warning condition is closed and one actual Why3
+semantic transfer becomes useful. The first nonnull whole-pipeline conjunction
+is still unfinished. A separate Astra Extra High synthetic-function-storage
+task is active, with no accepted result counted here. Original imported
+construction, shared lifetimes/counters, producer preparation/consumers,
+parent/launch composition, full grammar and complete-rule comparison/review
+remain. Oracle, installed tools and production admission are unchanged.
+CLI memory is unavailable and was not updated.

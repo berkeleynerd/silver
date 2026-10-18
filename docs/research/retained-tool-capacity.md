@@ -127,9 +127,10 @@ C+2 backings, explicit growth/probe products, and zero added GGC events. The
 [accepted](../reviews/review-literal-warning-map-dcfd30d999.md), adds the separate
 C location-setter calls to the direct C+1 warning copies. Its fixed-prefix
 capacity ceiling is 4093 entries; local original-gigi suppressions are at most
-2C+N. Remaining original-gigi insertion demand R is still uninstantiated.
-The aggregate's 73 checks include rejection of a silent zero substitution;
-no map allocation subtotal or fit claim assumes that missing count.
+2C+N. At that checkpoint, remaining original-gigi insertion demand R was
+uninstantiated. Its 73 aggregate checks reject a silent zero substitution.
+The subsequent source-derived R<=5 result below closes that parameter for
+the selected initial interval, without closing later warning consumers.
 
 The [literal Main frontend adapter](retained-literal-native-frontend.md),
 [independently accepted](../reviews/review-literal-native-frontend-de30957c9e.md),
@@ -169,9 +170,21 @@ before ordinary helper lowering, IPA, RTL or emission. Symbol UID/order,
 function-definition and private size-name counters each retain a +2 increment.
 Review corrected the XVE field-size explanation in `696a8a995d`: its variable
 field becomes a constant-size pointer; the exported zero-helper result is
-unchanged. Warning residual R, helper allocation totals and the affected
-counter/storage/emission joins remain open. Discard does not erase their
-earlier costs or restore the aggregate conditions by itself.
+unchanged. The [reviewed aggregate attachment](../reviews/review-cold-helper-attachment-5f9641d1a0.md)
+carries both helpers' graph/symbol increments and changes the conditional
+pool/graph GGC event deltas to 5C+7 and 8C+35. Discard does not erase their
+earlier allocation costs or restore the aggregate conditions by itself.
+
+The [warning residual and attachment review](../reviews/review-literal-warning-residual-6f3a5af341.md)
+accepts R<=5, including replacement puts, and zero warning puts from Standard
+layout and both helpers. The initial warning-map condition is now joined to
+the aggregate; all 95 focused offline cases pass. The same source argument
+establishes one empty elaboration function and two helpers, with three
+non-Main function-definition increments and no additional emitted function.
+Synthetic-function storage, original imported construction, empty-elaboration
+registration and counter-to-emission joins remain open. The five broader
+source-family conditions remain unknown and whole literal capacity remains
+false. These are reviewed component closures, not a complete useful rule.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -253,11 +266,20 @@ stops before inlining, printing or prover submission and is not rerun. This
 supplies dimensions for one pair, not all 459 possible pairs. Applying the
 existing generic recurrence already exceeds the representable integer bound
 at logical declaration 37; this is loss of upper-bound precision, not observed
-overflow. A symbol-sensitive, occurrence-weighted refinement and the remaining
-driver/validator/storage/printing joins are still required. The
+overflow. The
 [independent capture/decoder review](../reviews/review-why-preparation-entry-7c89b21e24.md)
 accepts this one-pair evidence without material findings; no native capture was
 repeated.
+
+The [weighted inlining refinement](retained-why-inline-refinement.md),
+[independently accepted](../reviews/review-why-inline-refinement-3509848447.md),
+now resolves that semantic recurrence's excessive bound for this retained pair.
+It covers every metadata exclusion set, with 45 uniformly eligible definitions
+and 85 possible symbol-matched hits. Output root coordinates do not exceed the
+inputs: maximum root mass 99, goal mass 73 and at most 235 kernel fresh
+identifiers. These are upper bounds, not observed native hit counts. Hidden
+substitution/type/validator work, other tags and shared counters/caches, other
+input/driver pairs, later transforms and printing remain required joins.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both

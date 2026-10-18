@@ -1539,7 +1539,8 @@ an unknown allocation total, and premature imported-frontier closure.
 The aggregate checks 108 repository inputs and 290 direct external source
 files, with overlapping nested inventories still reported separately.
 All five source-family conditions remain unknown and whole-pipeline capacity
-remains false. This attachment is pending independent review. No native run
+remains false. The [independent review](../reviews/review-cold-helper-attachment-5f9641d1a0.md)
+accepts frozen attachment `5f9641d1a0` without material findings. No native run
 or broad proof/test was performed; lead runtime settings and token/cost data
 are unavailable.
 
@@ -1556,5 +1557,7 @@ files; overlapping source inventories are not added together.
 
 The new initial warning-map predicate passes for the selected source cases.
 The broader five unknown conditions, the conservative 5,000-call relocation
-failure and false whole-pipeline verdict remain. Review of the R source packet
-and this attachment is pending. No native tool or broad audit was run.
+failure and false whole-pipeline verdict remain. The [independent review](../reviews/review-literal-warning-residual-6f3a5af341.md)
+accepts source target `6f3a5af341` and attachment `2f595d4300` without material
+findings, preserving all their remaining obligations. No native tool or broad
+audit was run for this attachment or review.
