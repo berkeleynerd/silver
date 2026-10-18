@@ -31,18 +31,20 @@ RANGES = {
     "gcc/ada/libgnat/s-conca8.ads": [(32, 45)],
     "gcc/ada/libgnat/s-conca9.ads": [(32, 45)],
     "gcc/ada/gcc-interface/trans.cc": [
-        (1047, 1059), (1189, 1380), (1741, 1752), (2141, 2319),
+        (1047, 1059), (1189, 1380), (1393, 1415), (1649, 1658),
+        (1741, 1752), (2141, 2319),
         (3026, 3306), (3313, 3400), (3540, 3585), (3843, 3941), (4028, 4126),
         (4228, 4249), (4582, 4613), (4680, 5758),
         (5990, 6003), (6031, 6065), (6076, 6095),
         (6118, 6144), (6150, 6318), (6765, 6774), (6826, 6917), (7086, 7097),
-        (7291, 7655), (7656, 7725), (7944, 8003), (8118, 8146), (8603, 8638),
-        (8968, 8996), (9104, 9185), (9217, 9278), (9298, 9325),
+        (7291, 7655), (7656, 7755), (7944, 8003), (8118, 8146),
+        (8217, 8225), (8603, 8638),
+        (8968, 8996), (9066, 9098), (9104, 9185), (9217, 9278), (9298, 9325),
         (9378, 9406), (9492, 9582), (9757, 9795), (9846, 9856),
         (9889, 10025), (10014, 10494), (10708, 10752)],
     "gcc/ada/gcc-interface/utils.cc": [
         (521, 568), (682, 783), (894, 1062), (1522, 1613), (1691, 1935),
-        (2861, 2894), (2918, 3133), (3137, 3162), (3830, 3875),
+        (2861, 2894), (2918, 3133), (3137, 3162), (3660, 3671), (3830, 3875),
         (4401, 4460), (4794, 4905), (5009, 5635), (5764, 5851),
         (5911, 6250), (3700, 3755)],
     "gcc/ada/gcc-interface/decl.cc": [
@@ -54,24 +56,28 @@ RANGES = {
         (2166, 2435), (2564, 2761), (3009, 3380)],
     "gcc/ada/gcc-interface/gigi.h": [(1299, 1307)],
     "gcc/tree.cc": [
-        (1212, 1230), (1468, 1479), (4080, 4106), (4132, 4223), (4257, 4283), (6982, 7023),
+        (1212, 1230), (1468, 1479), (4080, 4106), (4132, 4223), (4257, 4283),
+        (5194, 5230), (6982, 7023),
         (11020, 11077), (11194, 11224), (13147, 13192), (13390, 13415)],
+    "gcc/tree.def": [(633, 633), (973, 990)],
+    "gcc/tree-iterator.cc": [(34, 105), (188, 239)],
     "gcc/passes.def": [(27, 42)],
     "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
     "gcc/gimplify.cc": [
         (83, 124), (387, 395), (460, 488), (619, 751), (944, 973), (1097, 1101),
-        (1270, 1282), (1677, 1845),
+        (1270, 1282), (1677, 1891),
         (1971, 2008), (2124, 2157), (2198, 2225), (3221, 3235),
-        (3264, 3442), (3523, 3727),
+        (3165, 3185), (3264, 3442), (3523, 3727),
         (3830, 3939), (4651, 4656), (4886, 5013),
         (5036, 5137), (5184, 5809), (5835, 5891), (6288, 6307),
         (6887, 6920), (7002, 7048), (7315, 7510),
         (7547, 7710), (7723, 7799), (7811, 7918),
         (19462, 19467), (20411, 20429), (20483, 20500),
-        (20933, 20943), (21253, 21288),
-        (21295, 21348), (21502, 21558), (21584, 21761)],
+        (20695, 20718), (20933, 20943), (21253, 21288),
+        (21295, 21348), (21502, 21558), (21584, 21836)],
     "gcc/gimplify.h": [(53, 54)],
     "gcc/gimple.cc": [(251, 263), (328, 340), (385, 405)],
+    "gcc/gimple.def": [(51, 57), (135, 145)],
     "gcc/builtins.cc": [(11051, 11089)],
     "gcc/internal-fn.def": [(520, 522)],
     "gcc/calls.cc": [(590, 630), (807, 824)],
@@ -316,6 +322,26 @@ def check_sources(sources, inventory):
     assert compare.count("fold_build2_loc (") == 1
     assert compare.index("if (code != EQ_EXPR && code != NE_EXPR)") < compare.index(
         "BUILT_IN_BSWAP16")
+    start = trans.index("    case N_Null_Statement:\n", trans.index("\ngnat_to_gnu (Node_Id"))
+    end = trans.index("\n      break;", start)
+    null = trans[start:end]
+    assert "if (!optimize && Comes_From_Source (gnat_node))" in null
+    assert null.count("create_label_decl (") == 1
+    assert null.count("build1 (GOTO_EXPR,") == 1
+    assert null.count("build1 (LABEL_EXPR,") == 1
+    assert null.count("add_stmt (stmt);") == 2
+    for code in ("DECL_EXPR", "GOTO_EXPR", "LABEL_EXPR", "RETURN_EXPR"):
+        assert re.search(r"DEFTREECODE \(" + code + r', "[^"]+", tcc_statement, 1\)',
+                         sources["gcc/tree.def"])
+    assert 'DEFGSCODE(GIMPLE_RETURN, "gimple_return", GSS_WITH_MEM_OPS)' in sources["gcc/gimple.def"]
+    assert 'DEFGSCODE(GIMPLE_GOTO, "gimple_goto", GSS_WITH_OPS)' in sources["gcc/gimple.def"]
+    assert 'DEFGSCODE(GIMPLE_LABEL, "gimple_label", GSS_WITH_OPS)' in sources["gcc/gimple.def"]
+    iterator = sources["gcc/tree-iterator.cc"]
+    start = iterator.index("\ntsi_link_after (")
+    end = iterator.index("\n}\n", start)
+    splice = iterator[start:end]
+    assert splice.index("if (TREE_CODE (t) == STATEMENT_LIST)") < splice.index(
+        "free_stmt_list (t);") < splice.index("ggc_alloc<tree_statement_list_node> ()")
 
 
 def arithmetic():
@@ -453,6 +479,18 @@ def arithmetic():
         "scalar_mode_aggregate_equality_view_and_comparison_fold_requests": [2, 1],
         "non_scalar_mode_aggregate_equality_memcmp_call_and_compare_operand_slots": [6, 2],
         "non_scalar_mode_aggregate_equality_address_fold_requests": 2,
+        "null_Main_body_direct_expression_nodes": 4+1,
+        "null_Main_body_direct_expression_operand_slots": 4+3,
+        "null_Main_body_label_declarations": 1,
+        "null_Main_body_statement_list_header_requests": "<= 3",
+        "null_Main_body_statement_list_link_requests": 4,
+        "null_Main_body_binding_requests_including_unit_level": 1+2,
+        "null_Main_body_ordinary_unshare_weight": 4,
+        "null_Main_body_fresh_unshare_expression_nodes_and_slots": 3*4,
+        "null_Main_body_lifetime_expression_nodes_and_operand_slots": [5+3*4, 7+3*4],
+        "null_Main_initial_raw_GIMPLE_tuple_count": 4,
+        "null_Main_initial_raw_GIMPLE_tuple_bytes_LP64": 64+64+80+72,
+        "null_Main_body_symbolic_folder_entries": 0,
         "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success",
     }
 

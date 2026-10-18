@@ -851,6 +851,49 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1380:       if (TYPE_IS_PADDING_P (gnu_result_type))
 ```
 
+## gcc/ada/gcc-interface/trans.cc:1393–1415
+
+```text
+1393: Pragma_to_gnu (Node_Id gnat_node)
+1394: {
+1395:   tree gnu_result = alloc_stmt_list ();
+1396:   Node_Id gnat_temp;
+1397:
+1398:   /* Check for (and ignore) unrecognized pragmas.  */
+1399:   if (!Is_Pragma_Name (Chars (Pragma_Identifier (gnat_node))))
+1400:     return gnu_result;
+1401:
+1402:   const Pragma_Id id
+1403:     = Get_Pragma_Id (Chars (Pragma_Identifier (gnat_node)));
+1404:
+1405:   /* Save the expression of pragma Compile_Time_{Error|Warning} for later.  */
+1406:   if (id == Pragma_Compile_Time_Error || id == Pragma_Compile_Time_Warning)
+1407:     {
+1408:       gnat_temp = First (Pragma_Argument_Associations (gnat_node));
+1409:       gnat_compile_time_expr_list.safe_push (Expression (gnat_temp));
+1410:       return gnu_result;
+1411:     }
+1412:
+1413:   /* Stop there if we are just annotating types.  */
+1414:   if (type_annotate_only)
+1415:     return gnu_result;
+```
+
+## gcc/ada/gcc-interface/trans.cc:1649–1658
+
+```text
+1649:       break;
+1650:
+1651:     default:
+1652:       break;
+1653:     }
+1654:
+1655:   return gnu_result;
+1656: }
+1657:
+1658: /* Check the inline status of nested function FNDECL wrt its parent function.
+```
+
 ## gcc/ada/gcc-interface/trans.cc:1741–1752
 
 ```text
@@ -3627,7 +3670,7 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 7655:
 ```
 
-## gcc/ada/gcc-interface/trans.cc:7656–7725
+## gcc/ada/gcc-interface/trans.cc:7656–7755
 
 ```text
 7656:     case N_Allocator:
@@ -3700,6 +3743,36 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 7723:                                 gnat_pool, gnat_node, ignore_init_type);
 7724:       }
 7725:       break;
+7726:
+7727:     /**************************/
+7728:     /* Chapter 5: Statements  */
+7729:     /**************************/
+7730:
+7731:     case N_Label:
+7732:       gnu_result = build1 (LABEL_EXPR, void_type_node,
+7733:                            gnat_to_gnu (Identifier (gnat_node)));
+7734:       break;
+7735:
+7736:     case N_Null_Statement:
+7737:       /* When not optimizing, turn null statements from source into gotos to
+7738:          the next statement that the middle-end knows how to preserve.  */
+7739:       if (!optimize && Comes_From_Source (gnat_node))
+7740:         {
+7741:           tree stmt, label = create_label_decl (NULL_TREE, gnat_node);
+7742:           DECL_IGNORED_P (label) = 1;
+7743:           start_stmt_group ();
+7744:           stmt = build1 (GOTO_EXPR, void_type_node, label);
+7745:           set_expr_location_from_node (stmt, gnat_node);
+7746:           add_stmt (stmt);
+7747:           stmt = build1 (LABEL_EXPR, void_type_node, label);
+7748:           set_expr_location_from_node (stmt, gnat_node);
+7749:           add_stmt (stmt);
+7750:           gnu_result = end_stmt_group ();
+7751:         }
+7752:       else
+7753:         gnu_result = alloc_stmt_list ();
+7754:       break;
+7755:
 ```
 
 ## gcc/ada/gcc-interface/trans.cc:7944–8003
@@ -3801,6 +3874,20 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 8146:       break;
 ```
 
+## gcc/ada/gcc-interface/trans.cc:8217–8225
+
+```text
+8217:     case N_Subprogram_Body:
+8218:       Subprogram_Body_to_gnu (gnat_node);
+8219:       gnu_result = alloc_stmt_list ();
+8220:       break;
+8221:
+8222:     case N_Function_Call:
+8223:     case N_Procedure_Call_Statement:
+8224:       gnu_result = Call_to_gnu (gnat_node, &gnu_result_type, NULL_TREE,
+8225:                                 NOT_ATOMIC, false, Empty);
+```
+
 ## gcc/ada/gcc-interface/trans.cc:8603–8638
 
 ```text
@@ -3874,6 +3961,44 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 8994:   if (CAN_HAVE_LOCATION_P (gnu_result))
 8995:     SET_EXPR_LOCATION (gnu_result, UNKNOWN_LOCATION);
 8996:
+```
+
+## gcc/ada/gcc-interface/trans.cc:9066–9098
+
+```text
+9066: add_stmt (tree gnu_stmt)
+9067: {
+9068:   append_to_statement_list (gnu_stmt, &current_stmt_group->stmt_list);
+9069: }
+9070:
+9071: /* Similar, but the statement is always added, regardless of side-effects.  */
+9072:
+9073: void
+9074: add_stmt_force (tree gnu_stmt)
+9075: {
+9076:   append_to_statement_list_force (gnu_stmt, &current_stmt_group->stmt_list);
+9077: }
+9078:
+9079: /* Like add_stmt, but set the location of GNU_STMT to that of GNAT_NODE.  */
+9080:
+9081: void
+9082: add_stmt_with_node (tree gnu_stmt, Node_Id gnat_node)
+9083: {
+9084:   if (Present (gnat_node))
+9085:     set_expr_location_from_node (gnu_stmt, gnat_node);
+9086:   add_stmt (gnu_stmt);
+9087: }
+9088:
+9089: /* Similar, but the statement is always added, regardless of side-effects.  */
+9090:
+9091: void
+9092: add_stmt_with_node_force (tree gnu_stmt, Node_Id gnat_node)
+9093: {
+9094:   if (Present (gnat_node))
+9095:     set_expr_location_from_node (gnu_stmt, gnat_node);
+9096:   add_stmt_force (gnu_stmt);
+9097: }
+9098:
 ```
 
 ## gcc/ada/gcc-interface/trans.cc:9104–9185
@@ -5901,6 +6026,23 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3160:   return var_decl;
 3161: }
 3162:
+```
+
+## gcc/ada/gcc-interface/utils.cc:3660–3671
+
+```text
+3660: create_label_decl (tree name, Node_Id gnat_node)
+3661: {
+3662:   tree label_decl
+3663:     = build_decl (input_location, LABEL_DECL, name, void_type_node);
+3664:
+3665:   SET_DECL_MODE (label_decl, VOIDmode);
+3666:
+3667:   /* Add this decl to the current binding level.  */
+3668:   gnat_pushdecl (label_decl, gnat_node);
+3669:
+3670:   return label_decl;
+3671: }
 ```
 
 ## gcc/ada/gcc-interface/utils.cc:3830–3875
@@ -12058,6 +12200,48 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4283:     for (i = 1; i < TREE_OPERAND_LENGTH (t); i++)
 ```
 
+## gcc/tree.cc:5194–5230
+
+```text
+5194:    enough for all extant tree codes.  */
+5195:
+5196: tree
+5197: build0 (enum tree_code code, tree tt MEM_STAT_DECL)
+5198: {
+5199:   tree t;
+5200:
+5201:   gcc_assert (TREE_CODE_LENGTH (code) == 0);
+5202:
+5203:   t = make_node (code PASS_MEM_STAT);
+5204:   TREE_TYPE (t) = tt;
+5205:
+5206:   return t;
+5207: }
+5208:
+5209: tree
+5210: build1 (enum tree_code code, tree type, tree node MEM_STAT_DECL)
+5211: {
+5212:   int length = sizeof (struct tree_exp);
+5213:   tree t;
+5214:
+5215:   record_node_allocation_statistics (code, length);
+5216:
+5217:   gcc_assert (TREE_CODE_LENGTH (code) == 1);
+5218:
+5219:   t = ggc_alloc_tree_node_stat (length PASS_MEM_STAT);
+5220:
+5221:   memset (t, 0, sizeof (struct tree_common));
+5222:
+5223:   TREE_SET_CODE (t, code);
+5224:
+5225:   TREE_TYPE (t) = type;
+5226:   SET_EXPR_LOCATION (t, UNKNOWN_LOCATION);
+5227:   TREE_OPERAND (t, 0) = node;
+5228:   if (node && !TYPE_P (node))
+5229:     {
+5230:       TREE_SIDE_EFFECTS (t) = TREE_SIDE_EFFECTS (node);
+```
+
 ## gcc/tree.cc:6982–7023
 
 ```text
@@ -12284,6 +12468,169 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 13413: /* Return a tree representing the offset, in bytes, of the field referenced
 13414:    by EXP.  This does not include any offset in DECL_FIELD_BIT_OFFSET.  */
 13415:
+```
+
+## gcc/tree.def:633–633
+
+```text
+633:    In order for the BIND_EXPR to be known at all, the code that creates it
+```
+
+## gcc/tree.def:973–990
+
+```text
+973:
+974: /* These types of expressions have no useful value,
+975:    and always have side effects.  */
+976:
+977: /* Used to represent a local declaration. The operand is DECL_EXPR_DECL.  */
+978: DEFTREECODE (DECL_EXPR, "decl_expr", tcc_statement, 1)
+979:
+980: /* A label definition, encapsulated as a statement.
+981:    Operand 0 is the LABEL_DECL node for the label that appears here.
+982:    The type should be void and the value should be ignored.  */
+983: DEFTREECODE (LABEL_EXPR, "label_expr", tcc_statement, 1)
+984:
+985: /* GOTO.  Operand 0 is a LABEL_DECL node or an expression.
+986:    The type should be void and the value should be ignored.  */
+987: DEFTREECODE (GOTO_EXPR, "goto_expr", tcc_statement, 1)
+988:
+989: /* RETURN.  Evaluates operand 0, then returns from the current function.
+990:    Presumably that operand is an assignment that stores into the
+```
+
+## gcc/tree-iterator.cc:34–105
+
+```text
+34: alloc_stmt_list (void)
+35: {
+36:   tree list;
+37:   if (!vec_safe_is_empty (stmt_list_cache))
+38:     {
+39:       list = stmt_list_cache->pop ();
+40:       memset (list, 0, sizeof (struct tree_base));
+41:       TREE_SET_CODE (list, STATEMENT_LIST);
+42:     }
+43:   else
+44:     {
+45:       list = make_node (STATEMENT_LIST);
+46:       TREE_SIDE_EFFECTS (list) = 0;
+47:     }
+48:   TREE_TYPE (list) = void_type_node;
+49:   return list;
+50: }
+51:
+52: void
+53: free_stmt_list (tree t)
+54: {
+55:   gcc_assert (!STATEMENT_LIST_HEAD (t));
+56:   gcc_assert (!STATEMENT_LIST_TAIL (t));
+57:   vec_safe_push (stmt_list_cache, t);
+58: }
+59:
+60: /* A subroutine of append_to_statement_list{,_force}.  T is not NULL.  */
+61:
+62: static void
+63: append_to_statement_list_1 (tree t, tree *list_p)
+64: {
+65:   tree list = *list_p;
+66:   tree_stmt_iterator i;
+67:
+68:   if (!list)
+69:     {
+70:       if (t && TREE_CODE (t) == STATEMENT_LIST)
+71:         {
+72:           *list_p = t;
+73:           return;
+74:         }
+75:       *list_p = list = alloc_stmt_list ();
+76:     }
+77:   else if (TREE_CODE (list) != STATEMENT_LIST)
+78:     {
+79:       tree first = list;
+80:       *list_p = list = alloc_stmt_list ();
+81:       i = tsi_last (list);
+82:       tsi_link_after (&i, first, TSI_CONTINUE_LINKING);
+83:     }
+84:
+85:   i = tsi_last (list);
+86:   tsi_link_after (&i, t, TSI_CONTINUE_LINKING);
+87: }
+88:
+89: /* Add T to the end of the list container pointed to by LIST_P.
+90:    If T is an expression with no effects, it is ignored.  */
+91:
+92: void
+93: append_to_statement_list (tree t, tree *list_p)
+94: {
+95:   if (t && (TREE_SIDE_EFFECTS (t) || TREE_CODE (t) == DEBUG_BEGIN_STMT))
+96:     append_to_statement_list_1 (t, list_p);
+97: }
+98:
+99: /* Similar, but the statement is always added, regardless of side effects.  */
+100:
+101: void
+102: append_to_statement_list_force (tree t, tree *list_p)
+103: {
+104:   if (t != NULL_TREE)
+105:     append_to_statement_list_1 (t, list_p);
+```
+
+## gcc/tree-iterator.cc:188–239
+
+```text
+188: tsi_link_after (tree_stmt_iterator *i, tree t, enum tsi_iterator_update mode)
+189: {
+190:   struct tree_statement_list_node *head, *tail, *cur;
+191:
+192:   /* Die on looping.  */
+193:   gcc_assert (t != i->container);
+194:
+195:   if (TREE_CODE (t) == STATEMENT_LIST)
+196:     {
+197:       head = STATEMENT_LIST_HEAD (t);
+198:       tail = STATEMENT_LIST_TAIL (t);
+199:       STATEMENT_LIST_HEAD (t) = NULL;
+200:       STATEMENT_LIST_TAIL (t) = NULL;
+201:
+202:       free_stmt_list (t);
+203:
+204:       /* Empty statement lists need no work.  */
+205:       if (!head || !tail)
+206:         {
+207:           gcc_assert (head == tail);
+208:           return;
+209:         }
+210:     }
+211:   else
+212:     {
+213:       head = ggc_alloc<tree_statement_list_node> ();
+214:       head->prev = NULL;
+215:       head->next = NULL;
+216:       head->stmt = t;
+217:       tail = head;
+218:     }
+219:
+220:   if (TREE_CODE (t) != DEBUG_BEGIN_STMT)
+221:     TREE_SIDE_EFFECTS (i->container) = 1;
+222:
+223:   cur = i->ptr;
+224:
+225:   /* Link it into the list.  */
+226:   if (cur)
+227:     {
+228:       tail->next = cur->next;
+229:       if (tail->next)
+230:         tail->next->prev = tail;
+231:       else
+232:         STATEMENT_LIST_TAIL (i->container) = tail;
+233:       head->prev = cur;
+234:       cur->next = head;
+235:     }
+236:   else
+237:     {
+238:       gcc_assert (!STATEMENT_LIST_TAIL (i->container));
+239:       STATEMENT_LIST_HEAD (i->container) = head;
 ```
 
 ## gcc/passes.def:27–42
@@ -12752,7 +13099,7 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1282:                          1, tmp_var);
 ```
 
-## gcc/gimplify.cc:1677–1845
+## gcc/gimplify.cc:1677–1891
 
 ```text
 1677:           if (DECL_HARD_REGISTER (t) && !is_global_var (t) && cfun)
@@ -12924,6 +13271,52 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1843:     {
 1844:       *expr_p = temp;
 1845:       return GS_OK;
+1846:     }
+1847:
+1848:   *expr_p = NULL_TREE;
+1849:   return GS_ALL_DONE;
+1850: }
+1851:
+1852: /* Maybe add early return predict statement to PRE_P sequence.  */
+1853:
+1854: static void
+1855: maybe_add_early_return_predict_stmt (gimple_seq *pre_p)
+1856: {
+1857:   /* If we are not in a conditional context, add PREDICT statement.  */
+1858:   if (gimple_conditional_context ())
+1859:     {
+1860:       gimple *predict = gimple_build_predict (PRED_TREE_EARLY_RETURN,
+1861:                                               NOT_TAKEN);
+1862:       gimplify_seq_add_stmt (pre_p, predict);
+1863:     }
+1864: }
+1865:
+1866: /* Gimplify a RETURN_EXPR.  If the expression to be returned is not a
+1867:    GIMPLE value, it is assigned to a new temporary and the statement is
+1868:    re-written to return the temporary.
+1869:
+1870:    PRE_P points to the sequence where side effects that must happen before
+1871:    STMT should be stored.  */
+1872:
+1873: static enum gimplify_status
+1874: gimplify_return_expr (tree stmt, gimple_seq *pre_p)
+1875: {
+1876:   greturn *ret;
+1877:   tree ret_expr = TREE_OPERAND (stmt, 0);
+1878:   tree result_decl, result;
+1879:
+1880:   if (ret_expr == error_mark_node)
+1881:     return GS_ERROR;
+1882:
+1883:   if (!ret_expr
+1884:       || TREE_CODE (ret_expr) == RESULT_DECL)
+1885:     {
+1886:       maybe_add_early_return_predict_stmt (pre_p);
+1887:       greturn *ret = gimple_build_return (ret_expr);
+1888:       copy_warning (ret, stmt);
+1889:       gimplify_seq_add_stmt (pre_p, ret);
+1890:       return GS_ALL_DONE;
+1891:     }
 ```
 
 ## gcc/gimplify.cc:1971–2008
@@ -13059,6 +13452,32 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3233:       *label_p = label;
 3234:     }
 3235:
+```
+
+## gcc/gimplify.cc:3165–3185
+
+```text
+3165: /* Gimplify the LABEL_EXPR pointed to by EXPR_P.  */
+3166:
+3167: static enum gimplify_status
+3168: gimplify_label_expr (tree *expr_p, gimple_seq *pre_p)
+3169: {
+3170:   gcc_assert (decl_function_context (LABEL_EXPR_LABEL (*expr_p))
+3171:               == current_function_decl);
+3172:
+3173:   tree label = LABEL_EXPR_LABEL (*expr_p);
+3174:   glabel *label_stmt = gimple_build_label (label);
+3175:   gimple_set_location (label_stmt, EXPR_LOCATION (*expr_p));
+3176:   gimplify_seq_add_stmt (pre_p, label_stmt);
+3177:
+3178:   if (lookup_attribute ("cold", DECL_ATTRIBUTES (label)))
+3179:     gimple_seq_add_stmt (pre_p, gimple_build_predict (PRED_COLD_LABEL,
+3180:                                                       NOT_TAKEN));
+3181:   else if (lookup_attribute ("hot", DECL_ATTRIBUTES (label)))
+3182:     gimple_seq_add_stmt (pre_p, gimple_build_predict (PRED_HOT_LABEL,
+3183:                                                       TAKEN));
+3184:
+3185:   return GS_ALL_DONE;
 ```
 
 ## gcc/gimplify.cc:3264–3442
@@ -15253,6 +15672,35 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 20500:                                      org_type, boolean_false_node));
 ```
 
+## gcc/gimplify.cc:20695–20718
+
+```text
+20695:           ret = gimplify_exit_expr (expr_p);
+20696:           break;
+20697:
+20698:         case GOTO_EXPR:
+20699:           /* If the target is not LABEL, then it is a computed jump
+20700:              and the target needs to be gimplified.  */
+20701:           if (TREE_CODE (GOTO_DESTINATION (*expr_p)) != LABEL_DECL)
+20702:             {
+20703:               ret = gimplify_expr (&GOTO_DESTINATION (*expr_p), pre_p,
+20704:                                    NULL, is_gimple_val, fb_rvalue);
+20705:               if (ret == GS_ERROR)
+20706:                 break;
+20707:             }
+20708:           gimplify_seq_add_stmt (pre_p,
+20709:                           gimple_build_goto (GOTO_DESTINATION (*expr_p)));
+20710:           ret = GS_ALL_DONE;
+20711:           break;
+20712:
+20713:         case PREDICT_EXPR:
+20714:           gimplify_seq_add_stmt (pre_p,
+20715:                         gimple_build_predict (PREDICT_EXPR_PREDICTOR (*expr_p),
+20716:                                               PREDICT_EXPR_OUTCOME (*expr_p)));
+20717:           ret = GS_ALL_DONE;
+20718:           break;
+```
+
 ## gcc/gimplify.cc:20933–20943
 
 ```text
@@ -15431,7 +15879,7 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 21558: #endif
 ```
 
-## gcc/gimplify.cc:21584–21761
+## gcc/gimplify.cc:21584–21836
 
 ```text
 21584:    evaluating *EXPR_P may be still SSA names.  */
@@ -15612,6 +16060,81 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 21759:   /* Initialize for optimize_insn_for_s{ize,peed}_p possibly called during
 21760:      gimplification.  */
 21761:   default_rtl_profile ();
+21762:
+21763:   gcc_assert (gimplify_ctxp == NULL);
+21764:   push_gimplify_context (true);
+21765:
+21766:   if (flag_openacc || flag_openmp)
+21767:     {
+21768:       gcc_assert (gimplify_omp_ctxp == NULL);
+21769:       if (lookup_attribute ("omp declare target", DECL_ATTRIBUTES (fndecl)))
+21770:         gimplify_omp_ctxp = new_omp_context (ORT_IMPLICIT_TARGET);
+21771:     }
+21772:
+21773:   /* Unshare most shared trees in the body and in that of any nested functions.
+21774:      It would seem we don't have to do this for nested functions because
+21775:      they are supposed to be output and then the outer function gimplified
+21776:      first, but the g++ front end doesn't always do it that way.  */
+21777:   unshare_body (fndecl);
+21778:   unvisit_body (fndecl);
+21779:
+21780:   /* Make sure input_location isn't set to something weird.  */
+21781:   input_location = DECL_SOURCE_LOCATION (fndecl);
+21782:
+21783:   /* Resolve callee-copies.  This has to be done before processing
+21784:      the body so that DECL_VALUE_EXPR gets processed correctly.  */
+21785:   parm_stmts = do_parms ? gimplify_parameters (&parm_cleanup) : NULL;
+21786:
+21787:   /* Gimplify the function's body.  */
+21788:   seq = NULL;
+21789:   gimplify_stmt (&DECL_SAVED_TREE (fndecl), &seq);
+21790:   outer_stmt = gimple_seq_first_nondebug_stmt (seq);
+21791:   if (!outer_stmt)
+21792:     {
+21793:       outer_stmt = gimple_build_nop ();
+21794:       gimplify_seq_add_stmt (&seq, outer_stmt);
+21795:     }
+21796:
+21797:   /* The body must contain exactly one statement, a GIMPLE_BIND.  If this is
+21798:      not the case, wrap everything in a GIMPLE_BIND to make it so.  */
+21799:   if (gimple_code (outer_stmt) == GIMPLE_BIND
+21800:       && (gimple_seq_first_nondebug_stmt (seq)
+21801:           == gimple_seq_last_nondebug_stmt (seq)))
+21802:     {
+21803:       outer_bind = as_a <gbind *> (outer_stmt);
+21804:       if (gimple_seq_first_stmt (seq) != outer_stmt
+21805:           || gimple_seq_last_stmt (seq) != outer_stmt)
+21806:         {
+21807:           /* If there are debug stmts before or after outer_stmt, move them
+21808:              inside of outer_bind body.  */
+21809:           gimple_stmt_iterator gsi = gsi_for_stmt (outer_stmt, &seq);
+21810:           gimple_seq second_seq = NULL;
+21811:           if (gimple_seq_first_stmt (seq) != outer_stmt
+21812:               && gimple_seq_last_stmt (seq) != outer_stmt)
+21813:             {
+21814:               second_seq = gsi_split_seq_after (gsi);
+21815:               gsi_remove (&gsi, false);
+21816:             }
+21817:           else if (gimple_seq_first_stmt (seq) != outer_stmt)
+21818:             gsi_remove (&gsi, false);
+21819:           else
+21820:             {
+21821:               gsi_remove (&gsi, false);
+21822:               second_seq = seq;
+21823:               seq = NULL;
+21824:             }
+21825:           gimple_seq_add_seq_without_update (&seq,
+21826:                                              gimple_bind_body (outer_bind));
+21827:           gimple_seq_add_seq_without_update (&seq, second_seq);
+21828:           gimple_bind_set_body (outer_bind, seq);
+21829:         }
+21830:     }
+21831:   else
+21832:     outer_bind = gimple_build_bind (NULL_TREE, seq, NULL);
+21833:
+21834:   DECL_SAVED_TREE (fndecl) = NULL_TREE;
+21835:
+21836:   /* If we had callee-copies statements, insert them at the beginning
 ```
 
 ## gcc/gimplify.h:53–54
@@ -15681,6 +16204,34 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 403:   for (i = 0; i < nargs; i++)
 404:     gimple_call_set_arg (call, i, CALL_EXPR_ARG (t, i));
 405:
+```
+
+## gcc/gimple.def:51–57
+
+```text
+51: /* GIMPLE_GOTO <TARGET> represents unconditional jumps.
+52:    TARGET is a LABEL_DECL or an expression node for computed GOTOs.  */
+53: DEFGSCODE(GIMPLE_GOTO, "gimple_goto", GSS_WITH_OPS)
+54:
+55: /* GIMPLE_LABEL <LABEL> represents label statements.  LABEL is a
+56:    LABEL_DECL representing a jump target.  */
+57: DEFGSCODE(GIMPLE_LABEL, "gimple_label", GSS_WITH_OPS)
+```
+
+## gcc/gimple.def:135–145
+
+```text
+135: /* GIMPLE_RETURN <RETVAL> represents return statements.
+136:
+137:    RETVAL is the value to return or NULL.  If a value is returned it
+138:    must be accepted by is_gimple_operand.  */
+139: DEFGSCODE(GIMPLE_RETURN, "gimple_return", GSS_WITH_MEM_OPS)
+140:
+141: /* GIMPLE_BIND <VARS, BLOCK, BODY> represents a lexical scope.
+142:    VARS is the set of variables declared in that scope.
+143:    BLOCK is the symbol binding block used for debug information.
+144:    BODY is the sequence of statements in the scope.  */
+145: DEFGSCODE(GIMPLE_BIND, "gimple_bind", GSS_BIND)
 ```
 
 ## gcc/builtins.cc:11051–11089

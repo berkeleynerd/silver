@@ -40,8 +40,8 @@ lexical source constructs:
 | `A` | `N_Expression_With_Actions` |
 | `R` | implicit bare procedure return |
 
-Main's own compilation/body scaffold has `U=1`, `F=2`, `R<=2`: Main and its
-one secondary-stack `_finalizer`. Other compilation units and imported fixed
+Main's own compilation/body scaffold has `U=1`, `F<=2`, `R<=2`: Main and,
+when secondary-stack cleanup is required, its `_finalizer`. Other compilation units and imported fixed
 declarations must be added separately. Actual expanded copies belong to the
 native-expansion count; runtime loop iterations do not multiply any of these
 compiler visits. Reachability can reduce counts, but is not needed for the
@@ -332,7 +332,7 @@ by `gnat_poplevel`; otherwise `end_stmt_group` creates at most one BIND
 The remaining push sites are for case alternatives, exception handlers,
 copy-in/copy-out procedure bodies and named-return-value optimization. They are
 absent from this variable Main frontier: source/expanded Main has no case,
-handler or user subprogram; its two procedures have no parameters/results;
+handler or user subprogram; its at most two procedures have no parameters/results;
 and O0 excludes the optimizing NRV path. Fixed imported-unit conversions must
 still use their own inventory. This exclusion is not a claim about arbitrary
 Ada input.
@@ -1726,6 +1726,99 @@ This helper does not scan the array bytes. Its memcmp call enters builtin-call
 folding and gimplification, so the earlier **nonbuiltin** scalar-call bound
 cannot be substituted. Size copies, scalar-mode view folding, constructor
 initialization and eventual memcpy/memcmp expansion remain distinct joins.
+
+## Concrete null Main body: source to initial GIMPLE
+
+The [native specialization](retained-native-expansion.md#null-and-one-literal-put-have-no-secondary-stack-scaffold)
+establishes that the exact 64-byte null fixture in the
+[producer specialization](retained-producer-zero-check-sources.md#null-source)
+has one Main body, no local objects/types, no transient block, no secondary-stack
+mark/release/finalizer and one implicit bare return. Thus its actual scaffold
+has F=1, not the general upper bound two. This subsection composes the **executed
+Main body**, with the compilation-unit elaboration scaffold, fixed imported
+type/declaration conversion and compiler initialization retained separately.
+
+At the selected O0, source `null` is not erased by gigi.
+`trans.cc:7736–7753` builds a fresh LABEL_DECL, GOTO_EXPR and LABEL_EXPR. The
+label helper inserts the declaration through `gnat_pushdecl`
+(`utils.cc:3660–3671,894–990`), which requests a DECL_EXPR
+(`trans.cc:9117`) and links the label into the current body's BLOCK_VARS.
+All four unary statement kinds have side effects by construction, so their
+statement-list appends are retained (`tree.cc:5194–5230`). The implicit bare
+return requests one RETURN_EXPR (`trans.cc:3848–3906,8119–8146`).
+
+The label is a local declaration even though it is not a local variable. Its
+presence prevents the body block from taking the empty-block merge route in
+`gnat_poplevel`; `end_stmt_group` therefore requests a BIND_EXPR around the
+four statements (`utils.cc:744–767`, `trans.cc:9255–9276`). The local graph is
+
+```text
+BIND_EXPR(vars = label, block = body block)
+  STATEMENT_LIST
+    DECL_EXPR(label)
+    GOTO_EXPR(label)
+    LABEL_EXPR(label)
+    RETURN_EXPR(null)
+```
+
+The source-null group has two members; appending it into the handled-statement
+group splices its links instead of retaining a nested STATEMENT_LIST
+(`tree-iterator.cc:63–86,188–233`). The body adopts that handled list. The
+SPARK_Mode pragma can request one empty list, which contributes no executable
+statement. Consequently the local cumulative constructor interface is
+
+```text
+direct executable expression nodes = 5
+direct executable operand slots   = 7
+LABEL_DECL requests               = 1
+statement-list header requests   <= 3
+statement-list link requests      = 4
+binding-level/BLOCK requests       = 3 including the unit elaboration level.
+```
+
+The three bindings are the compilation-unit level plus Main's framework and
+body levels. Only the body BIND is included in the five executable nodes above;
+the unit's elaboration BIND and Main's FUNCTION_DECL/RESULT_DECL construction
+remain outside this executed-body row. No user literal payload, variable
+bound, arithmetic operator, overflow check, array/reference conversion,
+ordinary call or cleanup is hidden in the row.
+
+For whole-body unsharing, the ordinary copy weight is W=4: the four unary
+statements. The BIND is a protected cut root, and STATEMENT_LIST headers and
+links are preserved by this pass. Types and the repeatedly referenced label
+declaration are also cut points. The
+[general whole-body transfer](retained-backend-capacity.md#expression-unsharing-preserves-payload-and-save-boundaries)
+therefore permits at most 12 further ordinary expression nodes and 12 operand
+slots, with no new labels, types, constants, list headers or links. This is a
+conservative lifetime allowance, not a claim that the initially unshared null
+body actually needs all twelve copies. The executed-body subtotal is at most
+17 expression nodes, 19 operand slots, three list headers and four list links.
+That graph has no symbolic folder entry; fixed imported type/layout work may
+still have such entries and has not been paid by this subtotal.
+
+Initial gimplification drops the label's DECL_EXPR without constructing a
+statement (`gimplify.cc:2124–2225`). The direct GOTO and LABEL each request one
+tuple (`:20695–20718,3165–3185`), and the bare return requests one GIMPLE_RETURN
+(`:1872–1891`). The label has no hot/cold attribute and the return is outside
+a conditional context, so neither path adds a prediction tuple. There is no
+VAR_DECL to clobber or dynamic storage to restore. One GIMPLE_BIND contains
+the resulting sequence; `gimplify_body` reuses it rather than adding a second
+outer bind (`:21789–21836`). Thus
+
+```text
+initial raw GIMPLE = 1 GOTO + 1 LABEL + 1 RETURN + 1 BIND = 4 tuples
+raw tuple bytes   = 64 + 64 + 80 + 72 = 280 bytes on selected LP64.
+```
+
+The RETURN uses the memory-operands structure, not the smaller register-operands
+structure (`gimple.def:51–57,135–145`); the
+[tuple-size transfer](retained-backend-capacity.md#raw-gimple-tuples-use-individual-operand-arrays)
+supplies those bytes. These are individual raw requests before GC rounding,
+not aggregate RAM or emitted-code bounds. Generic lowering/CFG, O0 mandatory
+passes, fixed compiler graphs, target expansion and linker work remain needed
+for whole native closure. Together with the producer's zero Main Why3 tasks,
+the fixture now has concrete zeros and small counts at two backend interfaces;
+neither interface substitutes for the intervening or fixed work.
 
 ## Unresolved terms for whole-backend composition
 

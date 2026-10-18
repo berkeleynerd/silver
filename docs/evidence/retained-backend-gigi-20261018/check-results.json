@@ -1,6 +1,6 @@
 {
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_checked": 33,
+  "source_files_checked": 36,
   "silver_main_api_files_checked": 2,
   "arithmetic": {
     "binding_push_coefficients": {
@@ -151,6 +151,21 @@
       2
     ],
     "non_scalar_mode_aggregate_equality_address_fold_requests": 2,
+    "null_Main_body_direct_expression_nodes": 5,
+    "null_Main_body_direct_expression_operand_slots": 7,
+    "null_Main_body_label_declarations": 1,
+    "null_Main_body_statement_list_header_requests": "<= 3",
+    "null_Main_body_statement_list_link_requests": 4,
+    "null_Main_body_binding_requests_including_unit_level": 3,
+    "null_Main_body_ordinary_unshare_weight": 4,
+    "null_Main_body_fresh_unshare_expression_nodes_and_slots": 12,
+    "null_Main_body_lifetime_expression_nodes_and_operand_slots": [
+      17,
+      19
+    ],
+    "null_Main_initial_raw_GIMPLE_tuple_count": 4,
+    "null_Main_initial_raw_GIMPLE_tuple_bytes_LP64": 280,
+    "null_Main_body_symbolic_folder_entries": 0,
     "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success"
   },
   "compiler_runs": 0,

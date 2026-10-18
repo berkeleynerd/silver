@@ -112,6 +112,16 @@
       "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
     },
     {
+      "path": "gcc/tree.def",
+      "bytes": 77644,
+      "sha256": "a4e197d6980769233efcddbe92f5464591e5d27c042f3a4fd1156fee8877439d"
+    },
+    {
+      "path": "gcc/tree-iterator.cc",
+      "bytes": 9984,
+      "sha256": "812e0464468f94dc5f0aaf62cf4ac5a000c741c0df43c4ba91ea9968512d5d93"
+    },
+    {
       "path": "gcc/passes.def",
       "bytes": 24225,
       "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736"
@@ -135,6 +145,11 @@
       "path": "gcc/gimple.cc",
       "bytes": 106015,
       "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803"
+    },
+    {
+      "path": "gcc/gimple.def",
+      "bytes": 17757,
+      "sha256": "29c518537aad88cd33d4cf21f2a5cea3610d19bc5837de2820f379f0f2a3ad3d"
     },
     {
       "path": "gcc/builtins.cc",
