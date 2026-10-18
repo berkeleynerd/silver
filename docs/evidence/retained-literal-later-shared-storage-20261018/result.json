@@ -1,0 +1,273 @@
+{
+  "accepted_component_suites_rerun": 0,
+  "aggregate_Context_instantiations": 0,
+  "aggregate_RAM_gate": false,
+  "complete_collector_lifetime_closed": false,
+  "complete_gimplifier_lifetime_closed": false,
+  "complete_global_counter_lifetime_closed": false,
+  "complete_later_shared_storage_closed": false,
+  "complete_source_files_verified": 31,
+  "conditional_full_arithmetic_fits": null,
+  "conditional_full_endpoint": {
+    "checks": {},
+    "identifier_hash": null,
+    "next_DECL_UID_upper": null,
+    "next_type_UID_upper": null,
+    "scalar_finalizers": null,
+    "temporary_name_serial_upper": null
+  },
+  "consumer_rows": [
+    {
+      "DECL_UID": 1,
+      "identifiers": 0,
+      "owner": "Main direct gimplifier",
+      "scalar_finalizers": 0,
+      "type_UID": 0
+    },
+    {
+      "DECL_UID": 1,
+      "identifiers": 0,
+      "owner": "CF return label",
+      "scalar_finalizers": 0,
+      "type_UID": 0
+    },
+    {
+      "DECL_UID": 1,
+      "identifiers": 1,
+      "owner": "initial SSA .MEM and default-def control",
+      "scalar_finalizers": 1,
+      "type_UID": 0
+    },
+    {
+      "DECL_UID": 2,
+      "identifiers": 2,
+      "owner": "direct String/bounds pool objects",
+      "scalar_finalizers": 0,
+      "type_UID": 0
+    },
+    {
+      "DECL_UID": 0,
+      "identifiers": 0,
+      "owner": "graph call-site and value-range controls",
+      "scalar_finalizers": 5,
+      "type_UID": 0
+    }
+  ],
+  "explicit_residual_ceilings": {
+    "DECL_UID_increments": null,
+    "identifier_insertions": null,
+    "scalar_finalizer_registrations": null,
+    "type_UID_increments": null
+  },
+  "incoming_corrected_identifier_state": {
+    "allocated_slots_upper": 65536,
+    "checks": {
+      "doubling_unsigned": true,
+      "historical_insertions_unsigned": true,
+      "individual_request": true,
+      "slot_threshold_unsigned": true
+    },
+    "each_ordinary_backing_bytes_upper": 524288,
+    "fits": true,
+    "historical_insertions_upper": 40883,
+    "incoming_allocated_slots_upper": 65536,
+    "incoming_historical_insertions_upper": 40847,
+    "incoming_occupied_upper": 40847,
+    "occupied_upper": 40883,
+    "post_prefix_backing_requests_upper": 36,
+    "variable_ingress_backing_requests_upper": 1590
+  },
+  "incoming_original_counters": {
+    "alias_ID_upper": 414854,
+    "checks": {
+      "DECL_UID_signed": true,
+      "alias_ID_signed": true,
+      "temporary_name_serial_unsigned": true,
+      "type_UID_unsigned": true
+    },
+    "function_definition_numbers": {
+      "Main": 1,
+      "String_bit_size_helper": 2,
+      "String_byte_size_helper": 3,
+      "empty_elaboration": 0
+    },
+    "helper_name_fnno_next": 2,
+    "incoming_DECL_UID_upper": 5832,
+    "incoming_temporary_name_serial_upper": 40846,
+    "incoming_type_UID_upper": 2278,
+    "next_DECL_UID_upper": 5872,
+    "next_function_definition_number": 4,
+    "next_temporary_name_serial_upper": 40882,
+    "next_type_UID_upper": 2306
+  },
+  "incoming_original_shared_source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "incoming_scalar_finalizers": {
+    "additional_ordinary_backing_requests_upper": 5,
+    "additional_pushes": 5,
+    "allocated_slots_upper": 58891,
+    "checks": {
+      "capacity_31_bits": true,
+      "growth_unsigned": true,
+      "length_unsigned": true,
+      "request_span": true
+    },
+    "each_ordinary_backing_bytes_upper": 942264,
+    "fits": true,
+    "incoming_allocated_slots_upper": 58884,
+    "incoming_occupied_upper": 39257,
+    "occupied_upper": 39262
+  },
+  "named_consumer_demand_join_closed": true,
+  "named_only_projection": {
+    "byte_bounds_exclude_interleaved_unjoined_consumers": true,
+    "checks": {
+      "DECL_UID": true,
+      "identifier": true,
+      "scalar_finalizers": true,
+      "type_UID": true
+    },
+    "identifier_hash": {
+      "additional_ordinary_backing_requests_upper": 3,
+      "allocated_slots_upper": 65536,
+      "checks": {
+        "doubling_unsigned": true,
+        "historical_insertions_unsigned": true,
+        "individual_request": true,
+        "slot_threshold_unsigned": true
+      },
+      "each_ordinary_backing_bytes_upper": 524288,
+      "fits": true,
+      "historical_insertions_upper": 40886,
+      "incoming_allocated_slots_upper": 65536,
+      "incoming_historical_insertions_upper": 40883,
+      "occupied_upper": 40886
+    },
+    "next_DECL_UID_upper": 5877,
+    "next_type_UID_upper": 2306,
+    "scalar_finalizers": {
+      "additional_ordinary_backing_requests_upper": 6,
+      "allocated_slots_upper": 58900,
+      "checks": {
+        "capacity_31_bits": true,
+        "growth_unsigned": true,
+        "length_unsigned": true,
+        "request_span": true
+      },
+      "each_ordinary_backing_bytes_upper": 942408,
+      "fits": true,
+      "incoming_allocated_slots_upper": 58891,
+      "incoming_occupied_upper": 39262,
+      "occupied_upper": 39268
+    },
+    "temporary_name_serial_upper": 40886,
+    "valid_as_complete_lifetime_endpoint": false
+  },
+  "named_source_demands": {
+    "DECL_UID_increments": 5,
+    "identifier_insertions": 3,
+    "scalar_finalizer_registrations": 6,
+    "type_UID_increments": 0
+  },
+  "native_tool_executions": 0,
+  "ownership": {
+    "Main_struct_function_five_direct_requests_added_again": 0,
+    "additional_identifier_ordinary_backing_requests_upper": 3,
+    "additional_named_scalar_finalizer_ordinary_backing_requests_upper": 6,
+    "already_owned_direct_pool_GGC_events": 10,
+    "graph_pool_and_SSA_direct_request_subtotals_added_again": 0,
+    "new_direct_GGC_objects_added": 0,
+    "new_named_shared_GGC_backing_events": 0,
+    "original_dummy_identifier_and_DECL_UID_added_again": 0,
+    "original_five_scalar_registrations_added_again": 0,
+    "original_synthetic173_function_structures_added_again": 0,
+    "original_warning_and_assembler_name_controls_added_again": 0
+  },
+  "production_admission_changed": false,
+  "remaining_shared_families": [
+    {
+      "closed_here": "Named Main gimplifier/CF/SSA/direct-pool/graph demands: identifiers 2C+1, DECL_UID 3C+2, type_UID 0.",
+      "family": "Remaining tree identity and identifier consumers",
+      "next_join": "Finish the constructor partition through fixed RTL setup, expansion, frame/passes and unit output; reuse fixed setup's source-projected zero tree-UID change, and check pointer/type helpers, spill/debug declarations and name setters before assigning any residual zero. Bind every endpoint to the same source and corrected identifier history.",
+      "required_input": "R_identifier, R_decl, R_type: insertion/increment ceilings for all other consumers after finalize_size_functions, including any interleaving with these named owners."
+    },
+    {
+      "closed_here": "No request is attributed to these containers by the five named rows; their accepted incoming state is not reset.",
+      "family": "Tree type/integer caches and shared frontend vectors",
+      "next_join": "Exhaust later type/pointer/alias and scalar folding consumers. In particular get_alias_set still constructs type aliases under no-strict-aliasing. GIMPLE tuple construction is not a statement-list-cache append. Use the existing original-shared hash/vector transfers once these demands are closed.",
+      "required_input": "Remaining insertion-capable type_hash/integer_hash calls and new entries; global_decls/stmt_list_cache/alias_sets pushes, with actual incoming allocated state."
+    },
+    {
+      "closed_here": "Existing operation inventory contributes at most C upper-bound constant candidates; first target setup separately owns 120 candidates and at most 121 backing events inside its 437-event envelope.",
+      "family": "CONST_INT weak cache",
+      "next_join": "Join emit-rtl.cc gen_rtx_CONST_INT with fixed setup, operation expansion, alias analysis, splitting/LRA, frame and emission. Charge pre-hit expansion and GC-triggered reinsertion. Reuse the 121 setup events rather than adding them again. Constructor, empty(), resizing traverse() and explicit resize backbones need separate ownership from the lookup-driven subtotal.",
+      "required_input": "Complete incoming historical occupancy and allocated slots, plus insertion-capable lookups/new entries or an independently justified replacement bound for the remaining selected phases."
+    },
+    {
+      "closed_here": "Existing operation and split inventories expose C plus 2C potential direct records; these records are already owned.",
+      "family": "reg_attrs weak cache",
+      "next_join": "Join declaration RTL assignment, split gen_reg_rtx_offset and later copy/rename/LRA routes, including hits and weak-cache deletion. Evaluate the exported conditional RTL hash transfer only after its inputs are sourced. Constructor, empty(), resizing traverse() and explicit resize backbones need separate ownership from the lookup-driven subtotal.",
+      "required_input": "Complete incoming historical occupancy/capacity and insertion-capable get_reg_attrs calls beyond the known selected constructor sites."
+    },
+    {
+      "closed_here": "The existing operation inventory owns at most 5C direct records. set_mem_attrs allocates changed records directly; there is no shared mem_attrs hash to grow.",
+      "family": "mem_attrs direct records",
+      "next_join": "Reconcile all selected setters with the operation/frame inventories. Do not count the 5C records again and do not infer the remaining setters are zero from absence of an interned table.",
+      "required_input": "Additional successful changing setters in fixed setup, copies/adjustments, frame and any selected spills; each record's existing individual size/layout guard."
+    },
+    {
+      "closed_here": "Six named registrations: initial SSA one plus graph five. Original five already include warning and assembler-name controls.",
+      "family": "Remaining scalar finalizer registrations",
+      "next_join": "Bind the two fixed-startup controls, one real pool control and at most two frame controls to their existing direct owners, then exhaust selected loop-exit/pass controls and their recreation lifetimes using the retained typed-destructor census. Propagate 39262+6+R_finalizer through the scalar vector without assuming interleaving is absent.",
+      "required_input": "R_finalizer: all other post-cutoff scalar registrations. Known separate owners include cold dummy pool/temp-address controls, real Main pool control and prologue/epilogue controls."
+    },
+    {
+      "closed_here": "The named rows add zero vector-finalizer registrations; raw trees/tuples/records and pointer backbones have no typed array destructor.",
+      "family": "Vector finalizers, outer vectors and collector state",
+      "next_join": "Combine the existing callback zero-allocation result with the complete allocation ledger and typed-allocation census. Apply the retained page-index/mark-array/finalizer vector guards; callback closure alone is not registration closure.",
+      "required_input": "Complete scalar/vector registration histories, depth/outer-vector state, complete positive GGC events and per-object rounded ceilings."
+    },
+    {
+      "closed_here": "Function/symbol/label and per-phase SSA/RTL/DF bounds keep their existing separate owners; this packet supplies no total counter or RAM result.",
+      "family": "Other global counters and ordinary shared allocators",
+      "next_join": "Reconcile the accepted counter/emission, CFG/SSA, split/LRA/DF and pool interfaces by chronological reset/reuse boundaries. Retain dynamic register capacity, signed UID and allocator products. Other frontend tables and external invocation/producer/link/storage obligations remain outside this native shared-family checklist.",
+      "required_input": "Incoming-plus-lifetime deltas for SSA-name creation, instruction/label/register counters, alias IDs and ordinary non-DF pools/stacks across their selected lifetimes."
+    },
+    {
+      "closed_here": "No line-map events are counted here. Parent preallocation slice 9c52c43a6f is completed but unreviewed; its values are not consumed by this packet.",
+      "family": "Ordinary source line-map backing (GGC)",
+      "next_join": "Parent packet docs/research/retained-literal-ordinary-maps.md covers Source_File preallocation; subsequent selected writers remain open. Keep ordinary-map GGC backing distinct from combined-location maps/hash and ordinary-heap identifier/finalizer arrays.",
+      "required_input": "Review and attach the separate indexed preallocation slice, then close all later selected ordinary-map writers and their allocated-capacity endpoint."
+    }
+  ],
+  "repository_inputs_verified": 21,
+  "scope": "Disjoint named Main gimplifier/CF/SSA/pool/graph shared demands after finalize_size_functions",
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_counts": {
+    "Put": 0,
+    "Put_Line": 1,
+    "decoded_literal_bytes": 13,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "maximum_literal_length": 13,
+    "null_statements": 0,
+    "output_calls": 1,
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "supplied_residual_source_bounds_established": false,
+  "total_GGC_events": null,
+  "unresolved_endpoint_inputs": [
+    "identifier_insertions",
+    "DECL_UID_increments",
+    "type_UID_increments",
+    "scalar_finalizer_registrations"
+  ],
+  "whole_literal_pipeline_capacity_established": false
+}

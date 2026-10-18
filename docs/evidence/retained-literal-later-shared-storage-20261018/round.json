@@ -1,0 +1,42 @@
+{
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_cost_evidence": null,
+  "started_utc": "2026-10-18T23:47:29.842646+00:00",
+  "base": "e8c320431fd3edf034da3d77d6bbc9a8a85768a0",
+  "native_platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "native_tool_executions": 0,
+  "scope": "Named later shared consumers and explicit residual endpoint interfaces; no aggregate edits or accepted suite reruns",
+  "completed_utc": "2026-10-18T23:55:49.668417+00:00",
+  "achieved_result": "Five disjoint named rows joined; four full endpoints remain explicit residual inputs; nine remaining shared-family categories retained.",
+  "focused_checks": 40,
+  "focused_check_elapsed_seconds": 0.23321988499810686,
+  "independent_review": "pending; parent owns frozen-commit review",
+  "significant_findings": [
+    "Assembler-name registration is already one of the original five; named later scalar delta is six.",
+    "Fixed target/real-pool/frame controls remain outside the named six; empty loop-exit sets do not exclude their control.",
+    "mem_attrs are direct records, not an interned hash.",
+    "Generic hash empty() and resizing traverse() can allocate without lookup; exported helper is only a lookup-driven subtotal."
+  ],
+  "rework": [
+    "Load only the accepted pinned function/width ASTs in an isolated namespace, avoiding aggregate module execution."
+  ],
+  "accepted_component_suites_rerun": 0,
+  "aggregate_Context_instantiations": 0,
+  "CLI_memory_updated": false,
+  "focused_runs": [
+    {
+      "passed": true,
+      "checks": 40,
+      "elapsed_seconds": 0.17605136500060325,
+      "reason": "Initial complete packet verification."
+    },
+    {
+      "passed": true,
+      "checks": 40,
+      "elapsed_seconds": 0.23321988499810686,
+      "reason": "Refresh source-argument identity after clarifying residual ownership; no code or result change."
+    }
+  ]
+}

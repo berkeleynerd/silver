@@ -1,0 +1,353 @@
+{
+  "accepted_function_ASTs": {
+    "native_cold_string_interface": {
+      "bytes": 3168,
+      "sha256": "295cb038c7275bb1cf9652e4d86aee6af97d6bcecae81ad781a5da46f09986f0"
+    },
+    "native_gimplifier_selected_helpers": {
+      "bytes": 5329,
+      "sha256": "2c98b1c77988b9a1af4e3b5e7787a0afc99e47a38a5c2171c1b9fe831dcc21dc"
+    },
+    "native_graph_lifetime": {
+      "bytes": 20952,
+      "sha256": "4d5872ce4269533db3bdcfbcc5f5b67fb686a912d2196840962d42f88e65c44b"
+    },
+    "native_initial_cf_cfg_lifetime": {
+      "bytes": 24263,
+      "sha256": "50e41d66a2407432b7c55d646725f70dca681962549f33c7fb97f5fee1df9814"
+    },
+    "native_initial_ssa_lifetime": {
+      "bytes": 16703,
+      "sha256": "5061ca9d91a338d6722ad8dec88a1e0ad7554598211c4179f1aa8f9597b16e98"
+    },
+    "native_pool_lifetime": {
+      "bytes": 13572,
+      "sha256": "9263bbdb3bb4e523701be4502cad228d9337fe9ffdeccec1d0d4589e74cffa76"
+    },
+    "require": {
+      "bytes": 264,
+      "sha256": "2407e108a9bab0667a8b0fc9e12a4ef08a70d8fbae9d87b3cfe5ea649dd9ba19"
+    }
+  },
+  "accepted_native_width_assignment_AST": {
+    "bytes": 361,
+    "sha256": "e00c32ebd6eae30669c6a73e354d144fac8897de29b83264ce0bcf8007dcedfd"
+  },
+  "files": [
+    {
+      "bytes": 406631,
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "root": "gcc",
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "bytes": 266602,
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "root": "gcc",
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "bytes": 112284,
+      "path": "gcc/alias.cc",
+      "root": "gcc",
+      "sha256": "946b1b7ea0abd23f00873024c4514c9ec360bd6fb31a761f8df655cfbbfa93f2"
+    },
+    {
+      "bytes": 56182,
+      "path": "gcc/cfgloop.cc",
+      "root": "gcc",
+      "sha256": "85733a1157f28b71ddda81e333da35776ae4562698deece8a2c8d4cede480ff3"
+    },
+    {
+      "bytes": 193419,
+      "path": "gcc/emit-rtl.cc",
+      "root": "gcc",
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "bytes": 221482,
+      "path": "gcc/function.cc",
+      "root": "gcc",
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "bytes": 27144,
+      "path": "gcc/function.h",
+      "root": "gcc",
+      "sha256": "f0f30e429adb36d8532e7cf2f911d46387ae67c1815daa8a86c034b4cbc3956e"
+    },
+    {
+      "bytes": 78408,
+      "path": "gcc/ggc-page.cc",
+      "root": "gcc",
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "bytes": 11939,
+      "path": "gcc/ggc.h",
+      "root": "gcc",
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8"
+    },
+    {
+      "bytes": 29310,
+      "path": "gcc/gimple-expr.cc",
+      "root": "gcc",
+      "sha256": "ca1f1b80b838d06739cbd47ac4b3713b5571d308e1fc59ba92df6ce281e06d4f"
+    },
+    {
+      "bytes": 45880,
+      "path": "gcc/gimple-low.cc",
+      "root": "gcc",
+      "sha256": "da94ffa5208c13411156858f93ccb9f772f30da912ccaff6c8119ffd82edbafb"
+    },
+    {
+      "bytes": 703569,
+      "path": "gcc/gimplify.cc",
+      "root": "gcc",
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e"
+    },
+    {
+      "bytes": 10909,
+      "path": "gcc/hash-map.h",
+      "root": "gcc",
+      "sha256": "1a70ff56f503e7aa95b8418b2109c4ecaabcac2a67638e5846893d6c1e2d6dbb"
+    },
+    {
+      "bytes": 4564,
+      "path": "gcc/hash-table.cc",
+      "root": "gcc",
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457"
+    },
+    {
+      "bytes": 39688,
+      "path": "gcc/hash-table.h",
+      "root": "gcc",
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "bytes": 16054,
+      "path": "gcc/ipa-fnsummary.h",
+      "root": "gcc",
+      "sha256": "6ca5272ad5d106752ca6cd4e24ce8af990c2651a20710602fbcc33f2e5122a57"
+    },
+    {
+      "bytes": 38706,
+      "path": "gcc/ipa-free-lang-data.cc",
+      "root": "gcc",
+      "sha256": "9552e4fef23511063faa4f55df4c37c8e248170364e6f43180bf1d0121eac632"
+    },
+    {
+      "bytes": 205107,
+      "path": "gcc/ipa-prop.cc",
+      "root": "gcc",
+      "sha256": "ef76526046f808127da51d0330694458fcb534ad8a373e6fea82a8e59d18278c"
+    },
+    {
+      "bytes": 44289,
+      "path": "gcc/ipa-prop.h",
+      "root": "gcc",
+      "sha256": "a7912be259bfea09b22ef8a1a48d68ca9b42110e6ed27a26671d1261285cb72a"
+    },
+    {
+      "bytes": 8292,
+      "path": "gcc/stringpool.cc",
+      "root": "gcc",
+      "sha256": "779d6578fa49c937be8650ea40e8fd92d7698eaf0076ae501450989174331df1"
+    },
+    {
+      "bytes": 27512,
+      "path": "gcc/symbol-summary.h",
+      "root": "gcc",
+      "sha256": "f962ce1611e397217abd47c7abc188ffe70c62521742bfa78f1f8449ab93aed5"
+    },
+    {
+      "bytes": 73833,
+      "path": "gcc/tree-core.h",
+      "root": "gcc",
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71"
+    },
+    {
+      "bytes": 29688,
+      "path": "gcc/tree-dfa.cc",
+      "root": "gcc",
+      "sha256": "667e7dac0ad096613e3f30a81f827c9bdf83baae877cf75f4fd9a698b2961ae2"
+    },
+    {
+      "bytes": 38594,
+      "path": "gcc/tree-ssa-operands.cc",
+      "root": "gcc",
+      "sha256": "61c73f75dbe24d2c87ba0f176d9f7085fc86811099abf000d98746c8c54514bf"
+    },
+    {
+      "bytes": 32186,
+      "path": "gcc/tree-ssanames.cc",
+      "root": "gcc",
+      "sha256": "912f01856cb72bd68199c99d6c57d91384f857cf281a4a02bf294ff37089ed86"
+    },
+    {
+      "bytes": 484431,
+      "path": "gcc/tree.cc",
+      "root": "gcc",
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    {
+      "bytes": 271386,
+      "path": "gcc/varasm.cc",
+      "root": "gcc",
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "bytes": 22283,
+      "path": "gcc/vec.cc",
+      "root": "gcc",
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "bytes": 74232,
+      "path": "gcc/vec.h",
+      "root": "gcc",
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "bytes": 3800,
+      "path": "libcpp/include/symtab.h",
+      "root": "gcc",
+      "sha256": "44711b95df747e070c150eab63ca6b5de19121ca39775ac99551df10691a8fe1"
+    },
+    {
+      "bytes": 9383,
+      "path": "libcpp/symtab.cc",
+      "root": "gcc",
+      "sha256": "006987dd5863baf9520478a27958f9d450fbf76b90eed3fe6917e6c7315ff1d9"
+    },
+    {
+      "bytes": 18966,
+      "path": "docs/evidence/retained-literal-location-lifetime-20261018/derive.py",
+      "root": "repository",
+      "sha256": "f001f6f9262d820c1419517debc37a2d3c86da4e398e704229c4cbbc832caf45"
+    },
+    {
+      "bytes": 2456,
+      "path": "docs/evidence/retained-literal-location-lifetime-20261018/shared-identifier-correction.json",
+      "root": "repository",
+      "sha256": "52dc439c996600bc864a399ed863f4b022a5aea34f0620b4b4afa34f22dc26e8"
+    },
+    {
+      "bytes": 17889,
+      "path": "docs/evidence/retained-literal-original-shared-storage-20261018/compose.py",
+      "root": "repository",
+      "sha256": "c67ea8781a195a0206ccb5c337f4546e5991bba5764e9a993e85af33350b1433"
+    },
+    {
+      "bytes": 9040,
+      "path": "docs/evidence/retained-literal-original-shared-storage-20261018/result.json",
+      "root": "repository",
+      "sha256": "e97d03b2a63337f769f2b6d718561c5617f9b105b06fed14ecfff79b39df3164"
+    },
+    {
+      "bytes": 10030,
+      "path": "docs/evidence/retained-literal-pipeline-20261018/review-cf-cfg.md",
+      "root": "repository",
+      "sha256": "211f31fa7b3cb81c8bb2d816c6147b2bbe914b8929bb8d809b7fbb78d1dc955c"
+    },
+    {
+      "bytes": 9369,
+      "path": "docs/evidence/retained-literal-pipeline-20261018/review-initial-ssa.md",
+      "root": "repository",
+      "sha256": "7ab083f98f0da5052533f0a793081049208634165aa4f46e8ef4dd796f41495d"
+    },
+    {
+      "bytes": 8870,
+      "path": "docs/evidence/retained-literal-pipeline-20261018/review-native-graph.md",
+      "root": "repository",
+      "sha256": "e8c8da95448453ccfe5134e068872dff8344fd9d59bc07973f6679fc3fc2bb94"
+    },
+    {
+      "bytes": 4872,
+      "path": "docs/evidence/retained-literal-pipeline-20261018/review-native-pool.md",
+      "root": "repository",
+      "sha256": "a7bc3c8c8603bacdef4f8d7aecb199c850c5f48decc7915d9afd4385e00ec405"
+    },
+    {
+      "bytes": 1186,
+      "path": "docs/evidence/retained-literal-string-layout-20261018/interface.json",
+      "root": "repository",
+      "sha256": "c163292c7972dfa9893ed84dcb817629be6b962b95d220d3b689c452b59b32d7"
+    },
+    {
+      "bytes": 4105,
+      "path": "docs/evidence/retained-literal-warning-map-20261018/derive.py",
+      "root": "repository",
+      "sha256": "8353bc0cfcfe20903447a0f4e4490f9717ea031a5499b8bb00eaebfbeec94731"
+    },
+    {
+      "bytes": 21593,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+      "root": "repository",
+      "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+    },
+    {
+      "bytes": 1862,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-real-function-start.json",
+      "root": "repository",
+      "sha256": "76475972486a00aa98f84f1cb8fcf8f1e920ee0b015825018f24aa63c28f8126"
+    },
+    {
+      "bytes": 2989,
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-setup.json",
+      "root": "repository",
+      "sha256": "302806a957f307d7cd4704f0e7c9d0f303bdda46b37e935dc93c402645b43612"
+    },
+    {
+      "bytes": 8346,
+      "path": "docs/research/retained-literal-collector-callbacks.md",
+      "root": "repository",
+      "sha256": "06ef59ac1533fc1b9f21e0089e1facf938008113ede679e51736451899692936"
+    },
+    {
+      "bytes": 21040,
+      "path": "docs/research/retained-literal-original-shared-storage.md",
+      "root": "repository",
+      "sha256": "bac51ab37640bff6e6d94db3460ceb0305d40c969208681b62e1f7d1fee2179d"
+    },
+    {
+      "bytes": 23056,
+      "path": "docs/research/retained-literal-synthetic-function-storage.md",
+      "root": "repository",
+      "sha256": "b8a664861e2fe87b6b4c870dc1d0904b83f89d9005c8a29bc9aaf29947ad5f2e"
+    },
+    {
+      "bytes": 23155,
+      "path": "docs/research/retained-native-ingress-bound.md",
+      "root": "repository",
+      "sha256": "d47d7a8c45a9f0460ccc6bee900df04ded542f3aaf288176cc065433edc0cf7b"
+    },
+    {
+      "bytes": 21155,
+      "path": "docs/research/retained-output-rtl.md",
+      "root": "repository",
+      "sha256": "5b121ec81373e0efb772f78494ea4e8bd9a1bb2ba9f052feec79db75207f462c"
+    },
+    {
+      "bytes": 13228,
+      "path": "docs/reviews/review-literal-location-11057399b9.md",
+      "root": "repository",
+      "sha256": "1ffb21ade5fc78fbabcbb2c5ec7dd8642e0aba75442a042f48697cd2078b9072"
+    },
+    {
+      "bytes": 15555,
+      "path": "docs/reviews/review-literal-original-shared-e12e010fd1.md",
+      "root": "repository",
+      "sha256": "ec79e7e97f8b0ca5bd92bd039ce316b34e547ac06fe54764a2be5f8407b9d77f"
+    },
+    {
+      "bytes": 11740,
+      "path": "docs/reviews/review-native-ingress-eb0471fa33.md",
+      "root": "repository",
+      "sha256": "1c0a397315dbc957d2e2ca9ad2ce9790da8a7daffe13bce4765ad5656948d544"
+    }
+  ],
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "scope": "Named later shared-consumer source join; accepted pure constructors and direct source evidence only",
+  "silver_base": "e8c320431fd3edf034da3d77d6bbc9a8a85768a0"
+}
