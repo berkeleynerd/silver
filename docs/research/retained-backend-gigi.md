@@ -1172,6 +1172,140 @@ evaluation across these roots. This closes the root-count interface, while
 the actual bound/size expressions and non-scalar gimplifier branches remain
 required inputs.
 
+## Scalar conditionals preserve branch bodies during gimplification
+
+This component is a transfer on the **actual GENERIC occurrence forest**
+after the preceding construction/unsharing transfers. Protected SAVE children
+are charged once as above. It covers void conditionals and nonaddressable
+integral value conditionals, including the scalar register destination case
+of assignment distribution. Predicates are Boolean truth operators,
+comparisons or Boolean-valued leaves; there is no `__builtin_expect` special
+case, annotation wrapper, OpenMP or lvalue-valued conditional. Other producers
+and folder replacements must supply their own resulting occurrences. This is
+not a claim that a source `if` translates to a single GENERIC conditional.
+
+Initial gimplification has `allow_rhs_cond_expr=false`: the default argument
+is false (`gimplify.h:53–54`), `gimplify_body` passes only `true` for the SSA
+argument, and the temporary enabling site is in the excluded OpenMP atomic
+route (`gimplify.cc:19462–19467,21760`). A scalar value conditional consequently
+requests at most one VAR_DECL and two INIT_EXPR arm wrappers, then gimplifies
+the same conditional as void (`:5564–5641`). An assignment to a scalar register
+destination can instead distribute its assignment into the two arms, reusing
+that destination (`:7002–7048`). The result's optional unshares cut at the
+declaration/SSA identity in this specialization, so they do not duplicate a
+branch expression. Count the two wrappers even when one or both disappear
+while lowering another conditional. Nested branch bodies are consumed once.
+
+For a void conditional whose predicate is no longer ANDIF/ORIF, the direct
+normal path requests at most:
+
+```text
+raw GIMPLE_COND                 1
+raw GIMPLE_LABEL                3
+raw GIMPLE_GOTO                 1
+fresh LABEL_DECL               3
+maybe_fold_stmt entry          1.
+```
+
+Each predicate and arm is gimplified once on this path
+(`gimplify.cc:5673–5809`). Hijacking an existing jump can only remove the
+corresponding arm traversal/construction. If both arms become empty, the last
+predicate statement replay sees the already gimplified predicate; it does not
+replay its original child tree. The rows price raw control tuples, not a
+folder's replacement sequence. Ordinary child expression and assignment costs
+remain in their own transfers.
+
+### Short-circuit normalization has a linear constructor transfer
+
+Let C count incoming COND_EXPR occurrences, A count incoming ANDIF/ORIF
+occurrences, and V count the latter that first reach the generic value-context
+dispatch. That dispatch creates one value conditional around the existing
+short-circuit expression and two converted Boolean constants
+(`gimplify.cc:20483–20500`), so `V<=A`. Set `C'=C+V`. Price those `2V`
+constant conversion requests separately; they do not copy a predicate or arm.
+
+`shortcut_cond_expr` first strips simple no-else ANDIF or no-then ORIF cases,
+creating one conditional for each consumed operator. The general case invokes
+`shortcut_cond_r` and forwards each original arm once; its additional join
+code has at most one GOTO_EXPR, two LABEL_EXPRs and six statement-list append
+requests (`gimplify.cc:5214–5385`). Let As and Ar count respectively shortcut
+operators consumed by these simple and recursive routes; `As+Ar<=A`. Let R
+count general recursive-route roots. Each such root consumes a still-present
+shortcut operator, so `R<=Ar`.
+
+In the recursive route (`:5036–5137`), a shortcut operator has two recursive
+children and at most one local LABEL_EXPR. A nonvoid ternary predicate has
+two recursive arm children, creates one void conditional around its original
+predicate, and leaves that predicate for ordinary later gimplification. Let K
+count these ternary visits. They consume original value-conditional
+occurrences, so `K<=C'`. The remaining leaves each create one void conditional
+and at most two GOTO_EXPRs through `build_and_jump`; each jump can create at
+most one label (`:3221–3235`). The binary-forest identity gives
+
+```text
+recursive-route leaves L = Ar + K + R.
+```
+
+The created ternary wrapper replaces that original ternary. Each recursive
+route root also replaces its incoming wrapper. Thus the count of conditionals
+that eventually reach the normal control-tuple path is bounded by
+
+```text
+Q <= C' + As + (L+K) - R - K
+  =  C' + As + Ar + K
+  <= 2C' + A.
+```
+
+Here the subtractions account for consumed wrappers, not reclaimed memory.
+For **lifetime constructor requests**, retain all newly created intermediates.
+The simple route creates at most As conditional nodes; the recursive route
+creates `L+K=Ar+2K+R`. Including the V value wrappers gives at most
+`V+2A+2C'` new COND_EXPR requests. The recursive route and its joins also give
+
+```text
+new GENERIC GOTO_EXPR requests        <= 2L+R <= 5A+2C'
+new GENERIC LABEL_EXPR requests       <= Ar+2R <= 3A
+fresh shortcut LABEL_DECL requests    <= 2L+R <= 5A+2C'
+direct statement-list append requests <= 3Ar+6R <= 9A.
+```
+
+Append requests remain an interface to the separate statement-list backing
+transfer; an input list's element occurrences are not inferred from the
+number of calls. Predicates, then bodies and else bodies are forwarded rather
+than copied by these routes. `gimple_boolify` mutates truth/comparison types
+and their children without allocation on the stated Boolean frontier
+(`:5391–5470`). If a different producer introduces a non-Boolean leaf, account
+for its `fold_convert_loc` request and result shape separately.
+
+Combining normal conditional tuples with every generated jump/label, even
+when label hijacking later removes them, gives the following sufficient raw
+control interface:
+
+```text
+raw control GIMPLE tuples             <= 12C'+13A
+fresh control LABEL_DECL requests     <= 8C'+8A
+maybe_fold_stmt control entries       <= 2C'+A
+value-conditional VAR_DECL requests   <= C'
+value/distributed assignment wrappers <= 2C'
+raw assignments from those wrappers   <= 2C'.
+```
+
+The final assignment row excludes child arithmetic materializations and
+ordinary source stores. Its wrappers have four operand slots per conditional
+at most, and its raw assignments at most six. All outputs of GIMPLE folding
+remain a separate obligation.
+
+Condition coverage is disabled on the retained invocation. Both condition
+association helpers return before allocating a hash map
+(`gimplify.cc:113–124,5537–5547`). `next_cond_uid` nevertheless increments its
+unsigned counter, starting at one for each function. Normal tests and
+shortcut-root entries together request at most `Q+A<=2C'+2A` identifiers.
+Requiring that bound below UINT_MAX preserves a nonzero next value. Those
+same entries bound this component's nested conditional-context pushes; add
+any other producer's pushes before applying the signed-int peak check
+(`:469–488`). These are representation/counter checks, not execution-time or
+aggregate-memory limits.
+
 ## Unresolved terms for whole-backend composition
 
 These interfaces remove the per-call/per-type arity ambiguity; they do not yet

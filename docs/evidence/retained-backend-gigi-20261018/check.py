@@ -58,10 +58,13 @@ RANGES = {
     "gcc/passes.def": [(27, 42)],
     "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
     "gcc/gimplify.cc": [
-        (387, 395), (619, 721), (1270, 1282), (1677, 1845),
-        (1971, 2008), (2124, 2157), (2198, 2225), (6288, 6307),
+        (83, 124), (387, 395), (460, 488), (619, 721), (1270, 1282), (1677, 1845),
+        (1971, 2008), (2124, 2157), (2198, 2225), (3221, 3235),
+        (5036, 5137), (5184, 5809), (6288, 6307), (7002, 7048),
         (7430, 7470), (7599, 7625), (7723, 7799),
+        (19462, 19467), (20483, 20500),
         (21295, 21348), (21502, 21558), (21584, 21761)],
+    "gcc/gimplify.h": [(53, 54)],
     "gcc/calls.cc": [(590, 630), (807, 824)],
     "gcc/tree-cfg.cc": [(2185, 2200), (2628, 2652)],
     "gcc/tree-nested.cc": [(2656, 2719), (3668, 3690)],
@@ -211,6 +214,21 @@ def check_sources(sources, inventory):
     start = trans.index("\ngnat_gimplify_expr (")
     end = trans.index("\n}\n", start)
     assert trans[start:end].count("gimplify_one_sizepos (") == 2
+    assert "bool rhs_cond_ok = false" in sources["gcc/gimplify.h"]
+    start = gimplify.index("\ngimplify_cond_expr (tree *expr_p,")
+    end = gimplify.index("\n}\n", start)
+    cond = gimplify[start:end]
+    assert cond.count("gimple_build_cond (") == 1
+    assert cond.count("gimple_build_label (") == 3
+    assert cond.count("gimple_build_goto (") == 1
+    assert cond.count("create_artificial_label (") == 3
+    assert cond.count("maybe_fold_stmt (") == 1
+    assert cond.count("build2 (INIT_EXPR,") == 2
+    for name in ("tree_associate_condition_with_expr", "gimple_associate_condition_with_expr"):
+        start = gimplify.index("\n" + name + " (")
+        end = gimplify.index("\n}\n", start)
+        helper = gimplify[start:end]
+        assert helper.index("if (!condition_coverage_flag)") < helper.index("new hash_map")
 
 
 def arithmetic():
@@ -302,6 +320,19 @@ def arithmetic():
         "scalar_gimplification_raw_assignment_operand_positions": "<= 3*(N+S+M)",
         "scalar_gimplification_SSA_and_VAR_identities": "each <= N+S+M, counted separately",
         "gimplification_size_position_root_requests": "2*T+2*Ts+3*F+2*Dv+2*Ds",
+        "normal_conditional_raw_control_GIMPLE_requests": 1+3+1,
+        "normal_conditional_fresh_label_requests": 3,
+        "shortcut_context_input": "Cprime=C+V, V<=A",
+        "shortcut_normal_control_test_requests": "<= 2*Cprime+A",
+        "shortcut_new_COND_EXPR_requests": "<= V+2*A+2*Cprime",
+        "shortcut_new_GOTO_EXPR_requests": "<= 5*A+2*Cprime",
+        "shortcut_new_LABEL_EXPR_requests": "<= 3*A",
+        "shortcut_direct_statement_append_requests": "<= 9*A",
+        "conditional_raw_control_GIMPLE_requests": "<= 12*Cprime+13*A",
+        "conditional_fresh_control_label_requests": "<= 8*Cprime+8*A",
+        "conditional_extra_VAR_requests": "<= Cprime",
+        "conditional_extra_assignment_wrappers_and_raw_assignments": "each <= 2*Cprime",
+        "conditional_UID_and_context_push_requests": "<= 2*Cprime+2*A",
         "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success",
     }
 

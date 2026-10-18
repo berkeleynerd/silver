@@ -1,6 +1,6 @@
 {
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_checked": 29,
+  "source_files_checked": 30,
   "silver_main_api_files_checked": 2,
   "arithmetic": {
     "binding_push_coefficients": {
@@ -90,6 +90,19 @@
     "scalar_gimplification_raw_assignment_operand_positions": "<= 3*(N+S+M)",
     "scalar_gimplification_SSA_and_VAR_identities": "each <= N+S+M, counted separately",
     "gimplification_size_position_root_requests": "2*T+2*Ts+3*F+2*Dv+2*Ds",
+    "normal_conditional_raw_control_GIMPLE_requests": 5,
+    "normal_conditional_fresh_label_requests": 3,
+    "shortcut_context_input": "Cprime=C+V, V<=A",
+    "shortcut_normal_control_test_requests": "<= 2*Cprime+A",
+    "shortcut_new_COND_EXPR_requests": "<= V+2*A+2*Cprime",
+    "shortcut_new_GOTO_EXPR_requests": "<= 5*A+2*Cprime",
+    "shortcut_new_LABEL_EXPR_requests": "<= 3*A",
+    "shortcut_direct_statement_append_requests": "<= 9*A",
+    "conditional_raw_control_GIMPLE_requests": "<= 12*Cprime+13*A",
+    "conditional_fresh_control_label_requests": "<= 8*Cprime+8*A",
+    "conditional_extra_VAR_requests": "<= Cprime",
+    "conditional_extra_assignment_wrappers_and_raw_assignments": "each <= 2*Cprime",
+    "conditional_UID_and_context_push_requests": "<= 2*Cprime+2*A",
     "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success"
   },
   "compiler_runs": 0,
