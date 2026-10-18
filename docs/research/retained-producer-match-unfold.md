@@ -208,3 +208,10 @@ It does not yet classify every reachable fixed imported D entry or prove an
 aggregate bound on marked-call nesting in the initial formula. Those fixed
 inputs and the source-to-formula transfer remain necessary for the complete
 producer predicate.
+
+Independent source review on 2026-10-18 found no material issue in the affine
+application envelope, alias maxima, equality inequality, quantifier weights or
+the two new range profiles. It checked the retained matcher/quantifier and
+marked-definition extraction paths, including the skipped-trigger case. It
+did not independently rederive the supplied Main type/alias frontier and
+performed no native or Lean execution.
