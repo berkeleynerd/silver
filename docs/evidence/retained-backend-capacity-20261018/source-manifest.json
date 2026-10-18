@@ -775,6 +775,33 @@
       "git_blob_sha1": "3604d4df761cb702c326366f3ba6349fb37f4fc6",
       "origin": "exact pinned upstream comparison",
       "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/utils2.cc"
+    },
+    {
+      "path": "gcc/gimple-ssa-warn-access.cc",
+      "bytes": 148420,
+      "sha256": "ddd9a77ea6a7ac598a37ad5345c0faba38ef3ded821550428f4e9b86dfea4d5d",
+      "git_blob_sha1": "98de5df86b0230b72f5846bcd45e4b40562a1b65",
+      "origin": "exact pinned upstream comparison",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gimple-ssa-warn-access.cc",
+      "archive": "access-warning-sources.tar.gz"
+    },
+    {
+      "path": "gcc/c-family/c.opt",
+      "bytes": 94462,
+      "sha256": "4f2ce8e203572397aed66e9bd7f5d179b42ab788543a42ec84832f2ceae6332a",
+      "git_blob_sha1": "3d96a73eceecc8eb6eb70fbd8841afa0e80e5bc7",
+      "origin": "exact pinned upstream comparison",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/c-family/c.opt",
+      "archive": "access-warning-sources.tar.gz"
+    },
+    {
+      "path": "gcc/optc-gen.awk",
+      "bytes": 23930,
+      "sha256": "fe21b68987c2547036c090c42d759cc08f6e78f54dddb7d15aca41fd1303bf47",
+      "git_blob_sha1": "fb4e5c19d74a12f8adc27e700d3bfeea8bb302a7",
+      "origin": "exact pinned upstream comparison",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/optc-gen.awk",
+      "archive": "access-warning-sources.tar.gz"
     }
   ]
 }

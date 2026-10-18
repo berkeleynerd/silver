@@ -52,7 +52,7 @@ RANGES = {
                                       (2370, 2380), (2664, 2712), (3142, 3177),
                                       (7265, 7402), (9322, 9520),
                                       (10460, 10501), (10685, 10723), (11324, 11343)],
-    "gcc/ada/gcc-interface/misc.cc": [(376, 377), (1475, 1476)],
+    "gcc/ada/gcc-interface/misc.cc": [(193, 204), (376, 377), (1475, 1476)],
     "gcc/ada/gcc-interface/utils2.cc": [(1556, 1566)],
     "gcc/ada/gcc-interface/utils.cc": [(259, 280), (430, 450), (770, 783),
                                       (2410, 2426), (4095, 4390)],
@@ -135,7 +135,10 @@ RANGES = {
     "libiberty/hashtab.c": [(134, 195), (282, 324), (464, 510), (517, 575),
                             (633, 705), (780, 792)],
     "gcc/opts.cc": [(470, 560), (596, 605), (819, 825)],
-    "gcc/common.opt": [(2080, 2094), (2411, 2420)],
+    "gcc/common.opt": [(648, 650), (2080, 2094), (2411, 2420)],
+    "gcc/c-family/c.opt": [(1033, 1041)],
+    "gcc/optc-gen.awk": [(227, 276)],
+    "gcc/gimple-ssa-warn-access.cc": [(2270, 2275), (4857, 4904)],
     "gcc/config/i386/i386-options.cc": [(2275, 2286)],
     "gcc/common/config/i386/i386-common.cc": [(2033, 2059)],
     "libcpp/include/line-map.h": [(48, 55), (295, 324), (425, 471), (747, 805)],
@@ -195,6 +198,37 @@ def check_gimple_tuple_transfers(all_bytes):
         allocation_statistics_disabled_by_selected_configuration=True,
         statement_UIDs_are_pass_assigned=True,
         source_to_all_tuple_counts_closed=False)
+
+
+def check_optional_access_warning(all_bytes):
+    common = all_bytes["gcc/common.opt"].decode()
+    assert "Wfree-nonheap-object\nCommon Var(warn_free_nonheap_object) Init(1) Warning" in common
+    c_options = all_bytes["gcc/c-family/c.opt"].decode()
+    for name in ("warn_mismatched_alloc", "warn_mismatched_new_delete"):
+        lines = [line for line in c_options.split("\n") if f"Var({name})" in line]
+        assert len(lines) == 1 and "Init(" not in lines[0]
+        assert "LangEnabledBy(C ObjC C++ ObjC++,Wall)" in lines[0]
+    generation = all_bytes["gcc/optc-gen.awk"].decode()
+    assert 'if (name in var_init)\n\t\tinit = var_init[name]\n\telse\n\t\tinit = "0"' in generation
+    source = all_bytes["gcc/gimple-ssa-warn-access.cc"].decode()
+    start = source.index("\npass_waccess::gate (")
+    gate = source[start:source.index("\n}\n", start)]
+    for flag in ("warn_free_nonheap_object", "warn_mismatched_alloc",
+                 "warn_mismatched_new_delete"):
+        assert flag in gate
+    assert "inhibit_warnings" not in gate
+    assert "m_ptr_qry.rvals = enable_ranger (fun);" in source
+    return dict(
+        status="proposed native-only configuration simplification, not implemented",
+        current_selected_free_nonheap_warning_default=1,
+        C_family_mismatch_warning_initial_values=[0, 0],
+        proposed_added_native_option="-Wno-free-nonheap-object",
+        required_gate_vector=[0, 0, 0],
+        access_warning_execute_entries_if_gate_vector_established=0,
+        generic_w_option_does_not_close_gate=True,
+        current_invocation_descriptor_changed=False,
+        GNATprove_configuration_changed=False,
+        native_validation_performed=False)
 
 
 def check_boolean_inversion_transfer(all_bytes, bundle):
@@ -1122,6 +1156,7 @@ def main():
         "gimple_tuple_storage": check_gimple_tuple_transfers(all_bytes),
         "generic_capture_copies": check_generic_capture_transfer(all_bytes),
         "boolean_inversion": check_boolean_inversion_transfer(all_bytes, bundle),
+        "optional_native_access_warning": check_optional_access_warning(all_bytes),
         "ordinary_vectors": {
             "heap_maximum_requested_total": int_max,
             "heap_modular_growth_examples": heap_cases,

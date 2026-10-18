@@ -376,6 +376,18 @@
     {
       "path": "gcc/ada/gcc-interface/utils2.cc",
       "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af"
+    },
+    {
+      "path": "gcc/gimple-ssa-warn-access.cc",
+      "sha256": "ddd9a77ea6a7ac598a37ad5345c0faba38ef3ded821550428f4e9b86dfea4d5d"
+    },
+    {
+      "path": "gcc/c-family/c.opt",
+      "sha256": "4f2ce8e203572397aed66e9bd7f5d179b42ab788543a42ec84832f2ceae6332a"
+    },
+    {
+      "path": "gcc/optc-gen.awk",
+      "sha256": "fe21b68987c2547036c090c42d759cc08f6e78f54dddb7d15aca41fd1303bf47"
     }
   ],
   "block_operations": {
@@ -1855,6 +1867,25 @@
         "comparison_and_connective_requests": 511
       }
     ]
+  },
+  "optional_native_access_warning": {
+    "status": "proposed native-only configuration simplification, not implemented",
+    "current_selected_free_nonheap_warning_default": 1,
+    "C_family_mismatch_warning_initial_values": [
+      0,
+      0
+    ],
+    "proposed_added_native_option": "-Wno-free-nonheap-object",
+    "required_gate_vector": [
+      0,
+      0,
+      0
+    ],
+    "access_warning_execute_entries_if_gate_vector_established": 0,
+    "generic_w_option_does_not_close_gate": true,
+    "current_invocation_descriptor_changed": false,
+    "GNATprove_configuration_changed": false,
+    "native_validation_performed": false
   },
   "ordinary_vectors": {
     "heap_maximum_requested_total": 2147483647,

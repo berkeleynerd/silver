@@ -1081,6 +1081,22 @@ LF line numbering; complete file identities checked.
 11030:
 ```
 
+## gcc/ada/gcc-interface/misc.cc:193–204
+```text
+193: /* Initialize options structure OPTS.  */
+194:
+195: static void
+196: gnat_init_options_struct (struct gcc_options *opts)
+197: {
+198:   /* Uninitialized really means uninitialized in Ada.  */
+199:   opts->x_flag_zero_initialized_in_bss = 0;
+200:
+201:   /* We don't care about errno in Ada and it causes __builtin_sqrt to
+202:      call the libm function rather than do it inline.  */
+203:   opts->x_flag_errno_math = 0;
+204:   opts->frontend_set_flag_errno_math = true;
+```
+
 ## gcc/ada/gcc-interface/misc.cc:376–377
 ```text
 376:   /* In Ada, we do not use location ranges.  */
@@ -4415,6 +4431,13 @@ LF line numbering; complete file identities checked.
 823: 	}
 824:     }
 825:
+```
+
+## gcc/common.opt:648–650
+```text
+648: Wfree-nonheap-object
+649: Common Var(warn_free_nonheap_object) Init(1) Warning
+650: Warn when attempting to free a non-heap object.
 ```
 
 ## gcc/common.opt:2080–2094
@@ -18196,4 +18219,133 @@ LF line numbering; complete file identities checked.
 1564: 	result = fold (result);
 1565:       break;
 1566:
+```
+
+## gcc/gimple-ssa-warn-access.cc:2270–2275
+```text
+2270: pass_waccess::gate (function *)
+2271: {
+2272:   return (warn_free_nonheap_object
+2273: 	  || warn_mismatched_alloc
+2274: 	  || warn_mismatched_new_delete);
+2275: }
+```
+
+## gcc/gimple-ssa-warn-access.cc:4857–4904
+```text
+4857: pass_waccess::execute (function *fun)
+4858: {
+4859:   auto_urlify_attributes sentinel;
+4860:
+4861:   calculate_dominance_info (CDI_DOMINATORS);
+4862:   calculate_dominance_info (CDI_POST_DOMINATORS);
+4863:
+4864:   /* Set or clear EDGE_DFS_BACK bits on back edges.  */
+4865:   mark_dfs_back_edges (fun);
+4866:
+4867:   /* Create a new ranger instance and associate it with FUN.  */
+4868:   m_ptr_qry.rvals = enable_ranger (fun);
+4869:   m_func = fun;
+4870:
+4871:   auto_bitmap bb_uids_set (&bitmap_default_obstack);
+4872:   m_bb_uids_set = bb_uids_set;
+4873:
+4874:   set_gimple_stmt_max_uid (m_func, 0);
+4875:
+4876:   basic_block bb;
+4877:   FOR_EACH_BB_FN (bb, fun)
+4878:     check_block (bb);
+4879:
+4880:   if (m_check_dangling_p)
+4881:     {
+4882:       check_dangling_uses ();
+4883:       check_dangling_stores ();
+4884:     }
+4885:
+4886:   if (dump_file)
+4887:     m_ptr_qry.dump (dump_file, (dump_flags & TDF_DETAILS) != 0);
+4888:
+4889:   m_ptr_qry.flush_cache ();
+4890:
+4891:   /* Release the ranger instance and replace it with a global ranger.
+4892:      Also reset the pointer since calling disable_ranger() deletes it.  */
+4893:   disable_ranger (fun);
+4894:   m_ptr_qry.rvals = NULL;
+4895:
+4896:   m_clobbers.empty ();
+4897:   m_bb_uids_set = NULL;
+4898:
+4899:   free_dominance_info (CDI_POST_DOMINATORS);
+4900:   free_dominance_info (CDI_DOMINATORS);
+4901:   return 0;
+4902: }
+4903:
+4904: }   // namespace
+```
+
+## gcc/c-family/c.opt:1033–1041
+```text
+1033: Wmismatched-dealloc
+1034: C ObjC C++ ObjC++ Var(warn_mismatched_alloc) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)
+1035: Warn for deallocation calls with arguments returned from mismatched allocation
+1036: functions.
+1037:
+1038: Wmismatched-new-delete
+1039: C++ ObjC++ Var(warn_mismatched_new_delete) Warning LangEnabledBy(C ObjC C++ ObjC++,Wall)
+1040: Warn for mismatches between calls to operator new or delete and the corresponding
+1041: call to the allocation or deallocation function.
+```
+
+## gcc/optc-gen.awk:227–276
+```text
+227: print "const struct gcc_options global_options_init =\n{"
+228: for (i = 0; i < n_extra_vars; i++) {
+229: 	var = extra_vars[i]
+230: 	init = extra_vars[i]
+231: 	if (var ~ "=" ) {
+232: 		sub(".*= *", "", init)
+233: 	} else {
+234: 		init = "0"
+235: 	}
+236: 	sub(" *=.*", "", var)
+237: 	name = var
+238: 	sub("^.*[ *]", "", name)
+239: 	sub("\\[.*\\]$", "", name)
+240: 	var_seen[name] = 1
+241: 	print "  " init ", /* " name " */"
+242: }
+243: for (i = 0; i < n_opts; i++) {
+244: 	name = var_name(flags[i]);
+245: 	init = opt_args("Init", flags[i])
+246:
+247: 	if (name == "") {
+248: 		if (init != "")
+249: 		    print "#error " opts[i] " must specify Var to use Init"
+250: 		continue;
+251: 	}
+252:
+253: 	if (init != "") {
+254: 		if (name in var_init && var_init[name] != init)
+255: 			print "#error multiple initializers for " name
+256: 		var_init[name] = init
+257: 	}
+258: }
+259: for (i = 0; i < n_opts; i++) {
+260: 	name = var_name(flags[i]);
+261: 	if (name == "")
+262: 		continue;
+263:
+264: 	if (name in var_seen)
+265: 		continue;
+266:
+267: 	if (name in var_init)
+268: 		init = var_init[name]
+269: 	else
+270: 		init = "0"
+271:
+272: 	print "  " init ", /* " name " */"
+273:
+274: 	var_seen[name] = 1;
+275: }
+276: for (i = 0; i < n_opts; i++) {
 ```

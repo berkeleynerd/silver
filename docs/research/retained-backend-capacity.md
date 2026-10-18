@@ -1907,6 +1907,37 @@ their total allocation count. The allocation statistics are guarded by
 counters, vector lengths, PHI backing or SSA operand-list obligations. Those
 must consume the composed statement/operand counts at their actual phases.
 
+## A targeted native configuration simplification
+
+The current O0 configuration still runs the access-warning pass, which creates
+a ranger and both dominator directions before scanning the function
+(`gimple-ssa-warn-access.cc:4857–4904`). Its gate depends solely on three
+warning fields (`:2270–2275`). `warn_free_nonheap_object` is a common option
+initialized to one (`common.opt:648–650`); the other two, mismatched allocation
+and mismatched new/delete, are C-family options enabled by that frontend's
+Wall processing, with no explicit initializer (`c-family/c.opt:1033–1041`).
+The option generator initializes fields without an explicit initializer to
+zero (`optc-gen.awk:227–276`). Ada's option-structure initializer does not
+enable them (`gcc-interface/misc.cc:193–204`).
+
+For the proposed controlled native launch, add
+**`-Wno-free-nonheap-object`** and retain zero for the two C-family fields.
+Once that effective vector is established, both early and late access-warning
+pass entries are absent, so their ranger, dominance and diagnostic costs need
+no capacity allowance. Plain `-w` does not establish this: `inhibit_warnings`
+is not part of the pass gate. There is no reason to pass C/C++-only warning
+options to the Ada frontend.
+
+This is a proposed reduction of optional **native compiler diagnostics**;
+it changes no Ada meaning, GNATprove configuration, required Bronze/Silver
+obligation or strict proof-report audit. Keep GNAT's source legality checks
+and every other mandatory pass. The production launcher, argument/ALI
+descriptor and relevant source/configuration evidence must be updated and
+validated together before using the smaller phase inventory. None is changed
+in this research checkpoint, and the current invocation's capacity accounting
+must still include the warning pass. Other ranger users, generic folding,
+required lowering and machine expansion remain independent obligations.
+
 ## Remaining backend closure
 
 The [ELF linker transfer](retained-linker-capacity.md) supplies the separate
