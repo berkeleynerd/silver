@@ -23,8 +23,10 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 301 interface checks, recorded in
-`check-results.json`. It reuses one context's
+arguments and `--output`; `check-results.json` retains the preceding emission
+checkpoint's 301-check success. The affected attachment uses the separate
+`check-attachment.py` and `attachment-check-results.json` described below.
+The broad checker reuses one context's
 successful retained checks across source variations. `--gcc-match FILE` selects
 the pinned `match.pd`; by default its retained source-manifest path is used.
 
@@ -387,3 +389,64 @@ documentation/commit handoff follows it. Native compiler/capture/build/proof/
 solver runs were zero. Oracle, production toolchain pins/options, admission,
 GitHub, memory and harness state were unchanged. Parent owns integration review
 and subsequent production graph/shared-capacity work.
+
+## Original shared storage and refined linker attachment
+
+On base `e67e2a9a26`, the accepted original shared-storage result now supplies
+`native_original_shared_storage`, with nine named guards and a partial event
+ledger through `finalize_size_functions` return. The accepted relocation
+refinement supplies `literal_output_linker_refinement`; the active
+`literal_output_linker` changes only its common signed-reach guard and derived
+summaries. The complete old formula result, evaluated on the same current
+source, remains `literal_output_linker_historical_conservative`. All 39 other
+linker guards, separate storage conjunctions and production unknowns remain.
+
+The shared adapter calls only the leaf's pure derivation. It verifies the
+three exact historical aggregate inputs at `7573e127ff`, 35 other current
+inputs and 60 complete source/header files. It does not instantiate the leaf
+Context or rewrite its manifests. The historical inputs cannot be counted as
+current validation; the standalone leaf Context remains evidence for its
+accepted earlier aggregate, not the current aggregate. Historical acceptance
+reviews and exact revisions are recorded in `attachment-inputs.json`.
+
+Unchanged original recognizer/builders, exact source/ownership interfaces and
+actual-source comparisons establish the current semantic join. The eleven
+source/capacity projections stay separate from three diagnostic projections.
+Shared `retained_aggregate_*` fields explicitly describe the current aggregate
+after linker refinement but before adding the shared guards; final aggregate
+verdicts include those guards. Thus the 5000-call inherited linker diagnostic
+changes for the reviewed reason without being mistaken for the final verdict.
+
+Hello's partial GGC ledger is Main 1061 + String 216 + helpers 94 + synthetic 173 +
+shared backings 768 = **2312**. Shared ordinary backings contribute separately
+at most 41 requests. Prefix/filename ingress and separately owned direct
+dummy/warning/symbol controls are excluded; Main cache vectors are not counted
+twice. Complete imported event/byte totals remain null. Original gigi,
+global-counter, collector and whole-pipeline completion remain false; Ada
+integer incoming state and later shared consumers remain open.
+
+The 5000-call old signed bound 2162324017 remains available as conservative
+evidence. The refined bound 1082171536 and every other selected local check
+pass. Its aggregate conditional arithmetic now passes, while actual
+assembly/object, GAS/BFD and linker predicates remain null. No production cap,
+admission or physical-resource guarantee is inferred from this refinement.
+
+`check-attachment.py` accepts the same source-root and `--gcc-match` flags and
+`--output`. Its single affected run passed **45 checks in 5.695187s** at
+22:58:15–22:58:21 UTC; default generation took **4.194964s**. Hello, mixed
+empty/8192-byte literals plus a null, and 5000 calls agree with the historical
+source/capacity interfaces. Tests preserve independent linker failures, check
+the partial ledger, exercise exact source/interface and pin mutations, and
+distinguish pre-guard diagnostics from final shared-guard failure. The current
+default verifies 205 aggregate pins and 2711 distinct current files; historical
+and overlapping nested counts remain separate. The broad checker's expected
+5000-call result was updated, but its retained success and all broad leaf
+successes were not rerun.
+
+Selected model/effort: GPT-6 Astra / Extra High; runtime confirmation and
+token/cost evidence unavailable. The recorded implementation checkpoint was
+22:55:09 UTC; total round-start time was not captured. No focused check failed,
+and no compiler/assembler/linker/debugger/capture/build/prover/solver or
+full-suite execution occurred. Only this packet and the aggregate source note
+changed. Parent owns independent review and integration. The detailed current
+argument and scope are in the final section of the linked source note.

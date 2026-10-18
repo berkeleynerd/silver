@@ -4,7 +4,7 @@
     "bytes": 118,
     "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
   },
-  "source_path": "/tmp/silver-literal-emission-attachment-20261018/samples/hello_world.adb",
+  "source_path": "/tmp/silver-literal-shared-linker-attachment-20261018/samples/hello_world.adb",
   "actual_shared_inputs": {
     "configuration": {
       "bytes": 327,
@@ -113,7 +113,16 @@
     "ALI_consumer_local_interfaces": true,
     "GPR_parent_DW_local_interface": true,
     "Why_core": true,
-    "output_binder_checksum_no_collection": true
+    "output_binder_checksum_no_collection": true,
+    "native_original_shared_identifier_hash": true,
+    "native_original_shared_type_hash": true,
+    "native_original_shared_integer_hash": true,
+    "native_original_shared_global_decls": true,
+    "native_original_shared_stmt_list_cache": true,
+    "native_original_shared_alias_sets": true,
+    "native_original_shared_scalar_finalizers": true,
+    "native_original_shared_selected_counter_endpoints": true,
+    "native_original_shared_filename_ingress": true
   },
   "conditional_conditions": {
     "shared_launch_paths": true,
@@ -146,7 +155,16 @@
     "ALI_consumer_local_interfaces": true,
     "GPR_parent_DW_local_interface": true,
     "Why_core": true,
-    "output_binder_checksum_no_collection": true
+    "output_binder_checksum_no_collection": true,
+    "native_original_shared_identifier_hash": true,
+    "native_original_shared_type_hash": true,
+    "native_original_shared_integer_hash": true,
+    "native_original_shared_global_decls": true,
+    "native_original_shared_stmt_list_cache": true,
+    "native_original_shared_alias_sets": true,
+    "native_original_shared_scalar_finalizers": true,
+    "native_original_shared_selected_counter_endpoints": true,
+    "native_original_shared_filename_ingress": true
   },
   "conditional_arithmetic_pass": true,
   "failed_conditional_predicates": [],
@@ -984,6 +1002,321 @@
       "complete_collector_lifetime_closed": false,
       "whole_literal_pipeline_capacity_established": false
     },
+    "original_shared_storage": {
+      "interface": {
+        "scope": "Selected original construction through finalize_size_functions return, before ordinary Main analysis/gimplification.",
+        "source": {
+          "bytes": 118,
+          "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+        },
+        "source_counts": {
+          "source_bytes": 118,
+          "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+          "output_calls": 1,
+          "Put": 0,
+          "Put_Line": 1,
+          "null_statements": 0,
+          "decoded_literal_lengths": [
+            13
+          ],
+          "decoded_literal_bytes": 13,
+          "maximum_literal_length": 13
+        },
+        "path_spelling_bytes_upper": 512,
+        "source_bound_demands": {
+          "identifier_lookups": 38,
+          "identifier_new_entries": 36,
+          "type_hash_lookups": 6,
+          "type_hash_entries": 6,
+          "integer_hash_lookups": 317,
+          "integer_hash_entries": 317,
+          "small_integer_cache_writes": 320,
+          "already_owned_small_integer_cache_vectors": 188,
+          "global_decls_pushes": 9,
+          "stmt_list_cache_pushes": 432,
+          "alias_sets_pushes": 4,
+          "scalar_finalizer_pushes": 5,
+          "vector_finalizer_pushes": 0,
+          "dummy_identifier_entries": 1,
+          "dummy_DECL_UIDs": 1
+        },
+        "filename_ingress": {
+          "runtime_physical_union": 1575,
+          "Silver_specifications": 2,
+          "Main": 1,
+          "configuration": 1,
+          "spec_virtual_copies": 8,
+          "possible_Image_I_body_virtual_copy": 1,
+          "source_file_entries_upper": 1588,
+          "optional_Image_I_physical_body_already_in_union": true,
+          "identifier_lookups_upper": 1589,
+          "each_identifier_node_bytes": 40,
+          "each_character_request_bytes_upper": 513,
+          "each_identifier_node_rounded_bytes_upper": 64,
+          "each_character_rounded_bytes_upper": 1024,
+          "direct_identifier_and_character_requests_upper": 3178,
+          "direct_requests_not_added_to_shared_backing_events": true,
+          "checks": {
+            "spelling_short": true,
+            "identifier_length_unsigned": true,
+            "terminal_NUL_request": true,
+            "source_file_count_signed": true
+          },
+          "actual_invocation_materialization_established": false
+        },
+        "identifier_hash": {
+          "incoming_historical_insertions_upper": 40846,
+          "incoming_occupied_upper": 40846,
+          "incoming_allocated_slots_upper": 65536,
+          "historical_insertions_upper": 40882,
+          "occupied_upper": 40882,
+          "allocated_slots_upper": 65536,
+          "each_ordinary_backing_bytes_upper": 524288,
+          "variable_ingress_backing_requests_upper": 1589,
+          "post_prefix_backing_requests_upper": 36,
+          "checks": {
+            "historical_insertions_unsigned": true,
+            "slot_threshold_unsigned": true,
+            "doubling_unsigned": true,
+            "individual_request": true
+          },
+          "fits": true
+        },
+        "type_hash": {
+          "incoming_occupied_upper": 39257,
+          "incoming_allocated_slots_upper": 131071,
+          "additional_insertion_capable_lookups": 6,
+          "additional_new_entries_upper": 6,
+          "occupied_upper": 39263,
+          "allocated_slots_upper": 131071,
+          "additional_GGC_backing_requests_upper": 6,
+          "each_caller_bytes_upper": 1048568,
+          "each_rounded_bytes_upper": 1048576,
+          "successful_lookup_can_replace_backing": true,
+          "checks": {
+            "prime_exists": true,
+            "load_products": true,
+            "empty_threshold_unsigned": true,
+            "probe_addition": true,
+            "request_and_pointer_span": true,
+            "allocator_order_region": true
+          },
+          "fits": true
+        },
+        "integer_hash": {
+          "incoming_occupied_upper": 39257,
+          "incoming_allocated_slots_upper": 131071,
+          "additional_insertion_capable_lookups": 317,
+          "additional_new_entries_upper": 317,
+          "occupied_upper": 39574,
+          "allocated_slots_upper": 131071,
+          "additional_GGC_backing_requests_upper": 317,
+          "each_caller_bytes_upper": 1048568,
+          "each_rounded_bytes_upper": 1048576,
+          "successful_lookup_can_replace_backing": true,
+          "checks": {
+            "prime_exists": true,
+            "load_products": true,
+            "empty_threshold_unsigned": true,
+            "probe_addition": true,
+            "request_and_pointer_span": true,
+            "allocator_order_region": true
+          },
+          "fits": true
+        },
+        "global_decls": {
+          "incoming_occupied_upper": 414851,
+          "incoming_allocated_slots_upper": 414851,
+          "additional_pushes": 9,
+          "additional_GGC_backing_requests_upper": 9,
+          "occupied_upper": 414860,
+          "allocated_slots_upper": 1048575,
+          "each_caller_bytes_upper": 8388608,
+          "each_rounded_bytes_upper": 8388608,
+          "checks": {
+            "length_unsigned": true,
+            "growth_unsigned": true,
+            "normalized_capacity_31_bits": true,
+            "request_and_pointer_span": true,
+            "allocator_order_region": true
+          },
+          "fits": true
+        },
+        "stmt_list_cache": {
+          "incoming_occupied_upper": 0,
+          "incoming_allocated_slots_upper": 0,
+          "additional_pushes": 432,
+          "additional_GGC_backing_requests_upper": 432,
+          "occupied_upper": 432,
+          "allocated_slots_upper": 1023,
+          "each_caller_bytes_upper": 8192,
+          "each_rounded_bytes_upper": 8192,
+          "checks": {
+            "length_unsigned": true,
+            "growth_unsigned": true,
+            "normalized_capacity_31_bits": true,
+            "request_and_pointer_span": true,
+            "allocator_order_region": true
+          },
+          "fits": true
+        },
+        "alias_sets": {
+          "incoming_occupied_upper": 414851,
+          "incoming_allocated_slots_upper": 414851,
+          "additional_pushes": 4,
+          "additional_GGC_backing_requests_upper": 4,
+          "occupied_upper": 414855,
+          "allocated_slots_upper": 1048575,
+          "each_caller_bytes_upper": 8388608,
+          "each_rounded_bytes_upper": 8388608,
+          "checks": {
+            "length_unsigned": true,
+            "growth_unsigned": true,
+            "normalized_capacity_31_bits": true,
+            "request_and_pointer_span": true,
+            "allocator_order_region": true
+          },
+          "fits": true
+        },
+        "scalar_finalizers": {
+          "incoming_occupied_upper": 39257,
+          "incoming_allocated_slots_upper": 58884,
+          "additional_pushes": 5,
+          "additional_ordinary_backing_requests_upper": 5,
+          "occupied_upper": 39262,
+          "allocated_slots_upper": 58891,
+          "each_ordinary_backing_bytes_upper": 942264,
+          "checks": {
+            "length_unsigned": true,
+            "growth_unsigned": true,
+            "capacity_31_bits": true,
+            "request_span": true
+          },
+          "fits": true
+        },
+        "small_integer_cache": {
+          "max_slots_per_vector": 252,
+          "each_existing_or_new_vector_caller_bytes_upper": 2040,
+          "extra_GGC_requests": 0,
+          "direct_vector_requests_already_owned_by_Main": true
+        },
+        "counter_endpoints": {
+          "incoming_DECL_UID_upper": 5832,
+          "next_DECL_UID_upper": 5872,
+          "incoming_type_UID_upper": 2278,
+          "next_type_UID_upper": 2306,
+          "incoming_temporary_name_serial_upper": 40846,
+          "next_temporary_name_serial_upper": 40882,
+          "alias_ID_upper": 414854,
+          "function_definition_numbers": {
+            "empty_elaboration": 0,
+            "Main": 1,
+            "String_bit_size_helper": 2,
+            "String_byte_size_helper": 3
+          },
+          "next_function_definition_number": 4,
+          "helper_name_fnno_next": 2,
+          "checks": {
+            "DECL_UID_signed": true,
+            "type_UID_unsigned": true,
+            "alias_ID_signed": true,
+            "temporary_name_serial_unsigned": true
+          }
+        },
+        "additional_shared_GGC_backing_request_events_upper": 768,
+        "conditions": {
+          "identifier_hash": true,
+          "type_hash": true,
+          "integer_hash": true,
+          "global_decls": true,
+          "stmt_list_cache": true,
+          "alias_sets": true,
+          "scalar_finalizers": true,
+          "selected_counter_endpoints": true,
+          "filename_ingress": true
+        },
+        "selected_original_shared_container_interface_fits": true,
+        "failed_conditions": [],
+        "retained_aggregate_unresolved_predicates": [
+          "Main_assembler_object_interface",
+          "Main_GAS_BFD_storage",
+          "literal_output_linker_representation"
+        ],
+        "retained_aggregate_failed_conditional_predicates": [],
+        "remaining_Ada_integer_storage": {
+          "Uint_entries": 2,
+          "Udigits_words": 10,
+          "UI_Ints_wrapper_calls": 2,
+          "incoming_occupied": null,
+          "incoming_allocated": null,
+          "complete_backing_closed": false
+        },
+        "later_consumers_included": false,
+        "complete_original_gigi_storage_closed": false,
+        "complete_global_counter_lifetime_closed": false,
+        "complete_collector_lifetime_closed": false,
+        "complete_imported_allocation_events": null,
+        "complete_imported_allocation_bytes": null,
+        "whole_literal_pipeline_capacity_established": false,
+        "aggregate_RAM_gate": false,
+        "production_admission_changed": false,
+        "native_tool_executions": 0,
+        "repository_inputs_verified": 38,
+        "complete_source_files_verified": 60,
+        "premises": [
+          "Retained source/installed-behavior and selected native configuration.",
+          "Existing single-name, one-unit, no-preprocessing source-search and fixed virtual-copy closure.",
+          "Complete path spelling descriptor bounds every selected filename; actual invocation materialization remains open.",
+          "Existing fixed-prefix read projection; B only seeds source-independent GGC-backed containers."
+        ]
+      },
+      "review": {
+        "revision": "29d806872e179e03d55f3c0f83ba49c8f8a2f106",
+        "path": "docs/reviews/review-literal-original-shared-e12e010fd1.md",
+        "required_acceptance_text": "**Accepted:** compatibility correction `c2ec0d195e` together with provenance",
+        "bytes": 15555,
+        "sha256": "ec79e7e97f8b0ca5bd92bd039ce316b34e547ac06fe54764a2be5f8407b9d77f"
+      },
+      "inherited_diagnostics_scope": "Current source aggregate after accepted linker refinement, before adding the original-shared guards; not the final aggregate verdict.",
+      "source_capacity_projection_keys": [
+        "source",
+        "source_counts",
+        "complete_path_bound",
+        "native_original_Main_storage",
+        "native_original_String_storage",
+        "native_original_helper_storage",
+        "native_synthetic_function_storage",
+        "native_warning_map_demand",
+        "native_pool_lifetime",
+        "native_collector_callbacks",
+        "native_counter_emission_interface"
+      ],
+      "inherited_diagnostic_keys": [
+        "unresolved_predicates",
+        "failed_conditional_predicates",
+        "whole_literal_pipeline_capacity_established"
+      ],
+      "partial_ledger": {
+        "scope": "Selected original construction through finalize_size_functions return, before ordinary Main analysis/gimplification.",
+        "GGC_groups": {
+          "original_Main": 1061,
+          "original_String216": 216,
+          "original_helpers94": 94,
+          "synthetic173": 173,
+          "new_shared_backings": 768
+        },
+        "known_selected_GGC_event_subtotal": 2312,
+        "new_shared_ordinary_backing_events_upper": 41,
+        "prefix_and_filename_ingress_in_subtotal": false,
+        "forced_dummy_and_warning_symbol_controls_in_subtotal": false,
+        "direct_small_cache_vectors_added_again": 0,
+        "historical_null_packets_added": 0,
+        "complete_original_gigi_storage_closed": false,
+        "complete_imported_allocation_events": null,
+        "complete_imported_allocation_bytes": null,
+        "complete_collector_lifetime_closed": false
+      }
+    },
     "selected_imported_tree_pool_frontier_established": true,
     "synthetic_function_storage": {
       "scope": "three struct-function allocations and two initial gimplifications",
@@ -1468,7 +1801,7 @@
       "Main_GAS_BFD_storage",
       "literal_output_linker_representation"
     ],
-    "missing": "Selected registration and original zero-pool joins restore the local graph/summary and varpool/tree-pool conditions; fixed Main context I<=114 supplies the original direct-request input. The complete selected stream and label sources are now attached with explicit endpoint guards. Actual production argv/invocation/materialization and fixed link inputs, shared identifier/container backing, incoming non-label global counters, remaining allocation and collector composition remain open.",
+    "missing": "Selected registration, original zero-pool, Main I<=114 and original shared storage/counter guards are attached through finalize_size_functions return. The selected stream/label source guards and refined linker sufficient bound are separate. Later shared consumers, Ada integer backing, remaining direct/metadata allocation, global counter and collector lifetimes, actual production invocation/materialization and fixed link inputs remain open.",
     "finding": "https://github.com/berkeleynerd/silver/issues/131"
   },
   "native_lowering_data": {
@@ -3712,6 +4045,321 @@
     "complete_collector_lifetime_closed": false,
     "whole_literal_pipeline_capacity_established": false
   },
+  "native_original_shared_storage": {
+    "interface": {
+      "scope": "Selected original construction through finalize_size_functions return, before ordinary Main analysis/gimplification.",
+      "source": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      },
+      "source_counts": {
+        "source_bytes": 118,
+        "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          13
+        ],
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "path_spelling_bytes_upper": 512,
+      "source_bound_demands": {
+        "identifier_lookups": 38,
+        "identifier_new_entries": 36,
+        "type_hash_lookups": 6,
+        "type_hash_entries": 6,
+        "integer_hash_lookups": 317,
+        "integer_hash_entries": 317,
+        "small_integer_cache_writes": 320,
+        "already_owned_small_integer_cache_vectors": 188,
+        "global_decls_pushes": 9,
+        "stmt_list_cache_pushes": 432,
+        "alias_sets_pushes": 4,
+        "scalar_finalizer_pushes": 5,
+        "vector_finalizer_pushes": 0,
+        "dummy_identifier_entries": 1,
+        "dummy_DECL_UIDs": 1
+      },
+      "filename_ingress": {
+        "runtime_physical_union": 1575,
+        "Silver_specifications": 2,
+        "Main": 1,
+        "configuration": 1,
+        "spec_virtual_copies": 8,
+        "possible_Image_I_body_virtual_copy": 1,
+        "source_file_entries_upper": 1588,
+        "optional_Image_I_physical_body_already_in_union": true,
+        "identifier_lookups_upper": 1589,
+        "each_identifier_node_bytes": 40,
+        "each_character_request_bytes_upper": 513,
+        "each_identifier_node_rounded_bytes_upper": 64,
+        "each_character_rounded_bytes_upper": 1024,
+        "direct_identifier_and_character_requests_upper": 3178,
+        "direct_requests_not_added_to_shared_backing_events": true,
+        "checks": {
+          "spelling_short": true,
+          "identifier_length_unsigned": true,
+          "terminal_NUL_request": true,
+          "source_file_count_signed": true
+        },
+        "actual_invocation_materialization_established": false
+      },
+      "identifier_hash": {
+        "incoming_historical_insertions_upper": 40846,
+        "incoming_occupied_upper": 40846,
+        "incoming_allocated_slots_upper": 65536,
+        "historical_insertions_upper": 40882,
+        "occupied_upper": 40882,
+        "allocated_slots_upper": 65536,
+        "each_ordinary_backing_bytes_upper": 524288,
+        "variable_ingress_backing_requests_upper": 1589,
+        "post_prefix_backing_requests_upper": 36,
+        "checks": {
+          "historical_insertions_unsigned": true,
+          "slot_threshold_unsigned": true,
+          "doubling_unsigned": true,
+          "individual_request": true
+        },
+        "fits": true
+      },
+      "type_hash": {
+        "incoming_occupied_upper": 39257,
+        "incoming_allocated_slots_upper": 131071,
+        "additional_insertion_capable_lookups": 6,
+        "additional_new_entries_upper": 6,
+        "occupied_upper": 39263,
+        "allocated_slots_upper": 131071,
+        "additional_GGC_backing_requests_upper": 6,
+        "each_caller_bytes_upper": 1048568,
+        "each_rounded_bytes_upper": 1048576,
+        "successful_lookup_can_replace_backing": true,
+        "checks": {
+          "prime_exists": true,
+          "load_products": true,
+          "empty_threshold_unsigned": true,
+          "probe_addition": true,
+          "request_and_pointer_span": true,
+          "allocator_order_region": true
+        },
+        "fits": true
+      },
+      "integer_hash": {
+        "incoming_occupied_upper": 39257,
+        "incoming_allocated_slots_upper": 131071,
+        "additional_insertion_capable_lookups": 317,
+        "additional_new_entries_upper": 317,
+        "occupied_upper": 39574,
+        "allocated_slots_upper": 131071,
+        "additional_GGC_backing_requests_upper": 317,
+        "each_caller_bytes_upper": 1048568,
+        "each_rounded_bytes_upper": 1048576,
+        "successful_lookup_can_replace_backing": true,
+        "checks": {
+          "prime_exists": true,
+          "load_products": true,
+          "empty_threshold_unsigned": true,
+          "probe_addition": true,
+          "request_and_pointer_span": true,
+          "allocator_order_region": true
+        },
+        "fits": true
+      },
+      "global_decls": {
+        "incoming_occupied_upper": 414851,
+        "incoming_allocated_slots_upper": 414851,
+        "additional_pushes": 9,
+        "additional_GGC_backing_requests_upper": 9,
+        "occupied_upper": 414860,
+        "allocated_slots_upper": 1048575,
+        "each_caller_bytes_upper": 8388608,
+        "each_rounded_bytes_upper": 8388608,
+        "checks": {
+          "length_unsigned": true,
+          "growth_unsigned": true,
+          "normalized_capacity_31_bits": true,
+          "request_and_pointer_span": true,
+          "allocator_order_region": true
+        },
+        "fits": true
+      },
+      "stmt_list_cache": {
+        "incoming_occupied_upper": 0,
+        "incoming_allocated_slots_upper": 0,
+        "additional_pushes": 432,
+        "additional_GGC_backing_requests_upper": 432,
+        "occupied_upper": 432,
+        "allocated_slots_upper": 1023,
+        "each_caller_bytes_upper": 8192,
+        "each_rounded_bytes_upper": 8192,
+        "checks": {
+          "length_unsigned": true,
+          "growth_unsigned": true,
+          "normalized_capacity_31_bits": true,
+          "request_and_pointer_span": true,
+          "allocator_order_region": true
+        },
+        "fits": true
+      },
+      "alias_sets": {
+        "incoming_occupied_upper": 414851,
+        "incoming_allocated_slots_upper": 414851,
+        "additional_pushes": 4,
+        "additional_GGC_backing_requests_upper": 4,
+        "occupied_upper": 414855,
+        "allocated_slots_upper": 1048575,
+        "each_caller_bytes_upper": 8388608,
+        "each_rounded_bytes_upper": 8388608,
+        "checks": {
+          "length_unsigned": true,
+          "growth_unsigned": true,
+          "normalized_capacity_31_bits": true,
+          "request_and_pointer_span": true,
+          "allocator_order_region": true
+        },
+        "fits": true
+      },
+      "scalar_finalizers": {
+        "incoming_occupied_upper": 39257,
+        "incoming_allocated_slots_upper": 58884,
+        "additional_pushes": 5,
+        "additional_ordinary_backing_requests_upper": 5,
+        "occupied_upper": 39262,
+        "allocated_slots_upper": 58891,
+        "each_ordinary_backing_bytes_upper": 942264,
+        "checks": {
+          "length_unsigned": true,
+          "growth_unsigned": true,
+          "capacity_31_bits": true,
+          "request_span": true
+        },
+        "fits": true
+      },
+      "small_integer_cache": {
+        "max_slots_per_vector": 252,
+        "each_existing_or_new_vector_caller_bytes_upper": 2040,
+        "extra_GGC_requests": 0,
+        "direct_vector_requests_already_owned_by_Main": true
+      },
+      "counter_endpoints": {
+        "incoming_DECL_UID_upper": 5832,
+        "next_DECL_UID_upper": 5872,
+        "incoming_type_UID_upper": 2278,
+        "next_type_UID_upper": 2306,
+        "incoming_temporary_name_serial_upper": 40846,
+        "next_temporary_name_serial_upper": 40882,
+        "alias_ID_upper": 414854,
+        "function_definition_numbers": {
+          "empty_elaboration": 0,
+          "Main": 1,
+          "String_bit_size_helper": 2,
+          "String_byte_size_helper": 3
+        },
+        "next_function_definition_number": 4,
+        "helper_name_fnno_next": 2,
+        "checks": {
+          "DECL_UID_signed": true,
+          "type_UID_unsigned": true,
+          "alias_ID_signed": true,
+          "temporary_name_serial_unsigned": true
+        }
+      },
+      "additional_shared_GGC_backing_request_events_upper": 768,
+      "conditions": {
+        "identifier_hash": true,
+        "type_hash": true,
+        "integer_hash": true,
+        "global_decls": true,
+        "stmt_list_cache": true,
+        "alias_sets": true,
+        "scalar_finalizers": true,
+        "selected_counter_endpoints": true,
+        "filename_ingress": true
+      },
+      "selected_original_shared_container_interface_fits": true,
+      "failed_conditions": [],
+      "retained_aggregate_unresolved_predicates": [
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ],
+      "retained_aggregate_failed_conditional_predicates": [],
+      "remaining_Ada_integer_storage": {
+        "Uint_entries": 2,
+        "Udigits_words": 10,
+        "UI_Ints_wrapper_calls": 2,
+        "incoming_occupied": null,
+        "incoming_allocated": null,
+        "complete_backing_closed": false
+      },
+      "later_consumers_included": false,
+      "complete_original_gigi_storage_closed": false,
+      "complete_global_counter_lifetime_closed": false,
+      "complete_collector_lifetime_closed": false,
+      "complete_imported_allocation_events": null,
+      "complete_imported_allocation_bytes": null,
+      "whole_literal_pipeline_capacity_established": false,
+      "aggregate_RAM_gate": false,
+      "production_admission_changed": false,
+      "native_tool_executions": 0,
+      "repository_inputs_verified": 38,
+      "complete_source_files_verified": 60,
+      "premises": [
+        "Retained source/installed-behavior and selected native configuration.",
+        "Existing single-name, one-unit, no-preprocessing source-search and fixed virtual-copy closure.",
+        "Complete path spelling descriptor bounds every selected filename; actual invocation materialization remains open.",
+        "Existing fixed-prefix read projection; B only seeds source-independent GGC-backed containers."
+      ]
+    },
+    "review": {
+      "revision": "29d806872e179e03d55f3c0f83ba49c8f8a2f106",
+      "path": "docs/reviews/review-literal-original-shared-e12e010fd1.md",
+      "required_acceptance_text": "**Accepted:** compatibility correction `c2ec0d195e` together with provenance",
+      "bytes": 15555,
+      "sha256": "ec79e7e97f8b0ca5bd92bd039ce316b34e547ac06fe54764a2be5f8407b9d77f"
+    },
+    "inherited_diagnostics_scope": "Current source aggregate after accepted linker refinement, before adding the original-shared guards; not the final aggregate verdict.",
+    "source_capacity_projection_keys": [
+      "source",
+      "source_counts",
+      "complete_path_bound",
+      "native_original_Main_storage",
+      "native_original_String_storage",
+      "native_original_helper_storage",
+      "native_synthetic_function_storage",
+      "native_warning_map_demand",
+      "native_pool_lifetime",
+      "native_collector_callbacks",
+      "native_counter_emission_interface"
+    ],
+    "inherited_diagnostic_keys": [
+      "unresolved_predicates",
+      "failed_conditional_predicates",
+      "whole_literal_pipeline_capacity_established"
+    ],
+    "partial_ledger": {
+      "scope": "Selected original construction through finalize_size_functions return, before ordinary Main analysis/gimplification.",
+      "GGC_groups": {
+        "original_Main": 1061,
+        "original_String216": 216,
+        "original_helpers94": 94,
+        "synthetic173": 173,
+        "new_shared_backings": 768
+      },
+      "known_selected_GGC_event_subtotal": 2312,
+      "new_shared_ordinary_backing_events_upper": 41,
+      "prefix_and_filename_ingress_in_subtotal": false,
+      "forced_dummy_and_warning_symbol_controls_in_subtotal": false,
+      "direct_small_cache_vectors_added_again": 0,
+      "historical_null_packets_added": 0,
+      "complete_original_gigi_storage_closed": false,
+      "complete_imported_allocation_events": null,
+      "complete_imported_allocation_bytes": null,
+      "complete_collector_lifetime_closed": false
+    }
+  },
   "native_synthetic_function_storage": {
     "scope": "three struct-function allocations and two initial gimplifications",
     "function_structure_calls": 3,
@@ -4673,7 +5321,7 @@
         "file_endpoint": 42767885394910
       },
       "relocation_bounds": {
-        "common_signed32": 1747437035,
+        "common_signed32": 874728045,
         "Main_PC32_PLT32": 872708994,
         "unsigned32": 873002922,
         "EH_relative": 874728030
@@ -4835,6 +5483,384 @@
     "native_tool_executions": 0
   },
   "linker_path_bytes_including_NUL_upper": 513,
+  "literal_output_linker_refinement": {
+    "source_identity": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "counts": {
+      "calls": 1,
+      "nulls": 0,
+      "decoded_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "retained_endpoint": 872708990,
+    "operand_domains": {
+      "rows": {
+        "ordinary_PC_relative": 874728030,
+        "mapped_merge_target": 872708990,
+        "TLS_thread_endpoint_with_addend": 874728045,
+        "TLS_dynamic_endpoint_with_addend": 874728030,
+        "TLS_GD_to_IE_instruction_bias": 872709003,
+        "optional_GOT_PC32_place_adjustment": 874728031,
+        "synthetic_PLT_address_difference": 872709006,
+        "EH_relative": 874728030,
+        "Main_PC32_PLT32": 872708994
+      },
+      "common_signed32": 874728045,
+      "simplified_common_signed32": 874728045,
+      "fits_signed32": true
+    },
+    "predecessor_common_signed32": 1747437035,
+    "predecessor_failed_checks": [],
+    "checks": {
+      "assembler_interface": true,
+      "dynamic_section_index": true,
+      "external_section_header_product": true,
+      "external_program_header_product": true,
+      "dynamic_symbol_count": true,
+      "global_hash_domain": true,
+      "GNU_hash_signed_shift": true,
+      "ordinary_symbol_uint32_product": true,
+      "ordinary_string_bytes": true,
+      "dynstr_bytes": true,
+      "dynstr_names": true,
+      "dynstr_positive_references": true,
+      "section_string_bytes": true,
+      "section_string_references": true,
+      "section_string_table_product": true,
+      "version_index": true,
+      "PLT_jump_count": true,
+      "property_writer_size": true,
+      "EH_edit_size": true,
+      "EH_FDE_count": true,
+      "EH_function_range": true,
+      "trial_address_arithmetic": true,
+      "file_offset_arithmetic": true,
+      "fixed_signed_relocation_reach": true,
+      "fixed_unsigned_relocation_reach": true,
+      "Main_PC32_PLT32_reach": true,
+      "EH_signed_fields": true,
+      "PLT_relocation_index": true,
+      "PLT_range_fields": true,
+      "dynstr_string_growth": true,
+      "ordinary_string_growth": true,
+      "sections_string_growth": true,
+      "BFD_object_ID": true,
+      "BFD_section_ID": true,
+      "merge_offset_and_capacity": true,
+      "shared_counts": true,
+      "global_hash_capacity": true,
+      "individual_requests": true,
+      "host_page_arithmetic": true,
+      "Main_file_reader": true
+    },
+    "failed_sufficient_checks": [],
+    "assembler_interface_fits": true,
+    "assembler_storage_fits": true,
+    "selected_literal_assembler_and_linker_representation_fits": true,
+    "unchanged_other_checks": {
+      "assembler_interface": true,
+      "dynamic_section_index": true,
+      "external_section_header_product": true,
+      "external_program_header_product": true,
+      "dynamic_symbol_count": true,
+      "global_hash_domain": true,
+      "GNU_hash_signed_shift": true,
+      "ordinary_symbol_uint32_product": true,
+      "ordinary_string_bytes": true,
+      "dynstr_bytes": true,
+      "dynstr_names": true,
+      "dynstr_positive_references": true,
+      "section_string_bytes": true,
+      "section_string_references": true,
+      "section_string_table_product": true,
+      "version_index": true,
+      "PLT_jump_count": true,
+      "property_writer_size": true,
+      "EH_edit_size": true,
+      "EH_FDE_count": true,
+      "EH_function_range": true,
+      "trial_address_arithmetic": true,
+      "file_offset_arithmetic": true,
+      "fixed_unsigned_relocation_reach": true,
+      "Main_PC32_PLT32_reach": true,
+      "EH_signed_fields": true,
+      "PLT_relocation_index": true,
+      "PLT_range_fields": true,
+      "dynstr_string_growth": true,
+      "ordinary_string_growth": true,
+      "sections_string_growth": true,
+      "BFD_object_ID": true,
+      "BFD_section_ID": true,
+      "merge_offset_and_capacity": true,
+      "shared_counts": true,
+      "global_hash_capacity": true,
+      "individual_requests": true,
+      "host_page_arithmetic": true,
+      "Main_file_reader": true
+    },
+    "inherited_conditions_of_claim": [
+      "retained sources describe the selected installed tools relevant behavior",
+      "selected ELF64 x86-64 LP64 no-LTO/no-plugin descriptor and fixed lookup outcomes",
+      "accepted literal Main emission/object/storage and fixed library/binder projections",
+      "retained null generic linker contracts with the substitutions documented here",
+      "manual no-plugin, external-resolution, relocation and EH source arguments",
+      "separate filesystem, path, host-page, allocation, stack and I/O resource premises"
+    ],
+    "open_joins": [
+      "production_invocation_and_materialization",
+      "other_producer_compiler_and_binder_phases",
+      "whole_pipeline_composition"
+    ],
+    "source_argument_required": true,
+    "independent_review_accepted": false,
+    "whole_literal_pipeline_capacity_established": false,
+    "production_admission_rule": false,
+    "aggregate_RAM_gate": false,
+    "physical_resource_guarantee": false,
+    "native_tool_executions": 0
+  },
+  "literal_output_linker_refinement_review": {
+    "revision": "eef110623213c1b4bd3953b9ded919b3e0a54454",
+    "path": "docs/reviews/review-literal-relocation-refinement-96b261688a.md",
+    "required_acceptance_text": "Accepted at **`96b261688a54c8e60083bc1e512e7e1e7799c5dd`**",
+    "bytes": 11089,
+    "sha256": "465bc30a557a465aac1ada051549a421a9f9f576cd4a460416bacc10c2fb2657"
+  },
+  "literal_output_linker_historical_conservative": {
+    "source_identity": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "counts": {
+      "calls": 1,
+      "nulls": 0,
+      "decoded_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "assembler_interface_fits": true,
+    "assembler_storage_fits": true,
+    "link": {
+      "counts": {
+        "R": 49493,
+        "Q": 36497,
+        "P": 1485,
+        "Qrel": 7920,
+        "Trel": 546796,
+        "H": 221545,
+        "I": 48907,
+        "S": 49000,
+        "N": 49005,
+        "T": 147013,
+        "J": 3028836,
+        "D": 3250382,
+        "Z": 764615
+      },
+      "Main_original_section_bytes": 15810,
+      "Main_external_size_sum_upper": 53,
+      "Main_instruction_relocations": {
+        "PC32": 2,
+        "PLT32": 1
+      },
+      "generated_names": {
+        "occurrences": 463,
+        "NUL_bytes": 10786
+      },
+      "payload_components": {
+        "original_sections": 46251188,
+        "full_fixed_merge_output": 3168199,
+        "full_generated_merge_output": 124,
+        "full_EH_edited_output_including_PLT_templates": 743654,
+        "EH_header": 119692,
+        "full_property_rewrite": 440,
+        "copy_storage": 49411299,
+        "interpreter": 28,
+        "dynsym": 78009168,
+        "versym": 6500764,
+        "SysV_hash": 13132620,
+        "GNU_hash": 1279424,
+        "ordinary_symtab": 18350760,
+        "optional_symtab_indices": 3058460,
+        "ordinary_strtab": 150629156,
+        "shstrtab": 26901733,
+        "GOT_PLT_and_dynamic_relocations_including_copy_relocations": 64351840,
+        "dynamic_tags": 1232,
+        "dynstr": 1580505,
+        "version_definitions": 1456,
+        "version_requirements": 2048
+      },
+      "payload_union_bytes": 463493790,
+      "layout": {
+        "alignment": 4096,
+        "padding": 400982408,
+        "headers": 8232792,
+        "retained_endpoint": 872708990,
+        "trial_endpoint": 1745417980,
+        "file_endpoint": 42767885394910
+      },
+      "relocation_bounds": {
+        "common_signed32": 1747437035,
+        "Main_PC32_PLT32": 872708994,
+        "unsigned32": 873002922,
+        "EH_relative": 874728030
+      },
+      "EH": {
+        "entries": 16336,
+        "original_bytes": 552148,
+        "FDEs": 14960,
+        "edited_bytes": 743654
+      },
+      "administrative": {
+        "BFD_object_ID_events": 3292,
+        "BFD_section_ID_highwater": 268824,
+        "start_stop_capacity": 327670,
+        "statement_iterations": 16,
+        "sizing_iterations": 9,
+        "mapping_iterations": 2,
+        "output_statement_hash_keys": 49001
+      },
+      "host_page_bytes": 4096,
+      "individual_request_upper_bytes": {
+        "link_order": 1048592,
+        "mapper": 392000,
+        "segment_map": 392080,
+        "final_PHDRs": 864,
+        "header_pointers": 392040,
+        "internal_header": 80,
+        "merge_bucket": 2097152,
+        "merge_entry": 3147444,
+        "merge_copy": 6294824,
+        "merge_offset_map": 474420,
+        "merge_entry_map": 948840,
+        "merge_fast_lookup": 393428,
+        "merge_sort": 932456,
+        "merge_padding": 64,
+        "EH_entry_info": 1045520,
+        "EH_local_CIE": 4182016,
+        "EH_CIE": 256,
+        "EH_hash_control": 128,
+        "EH_hash_backing": 261992,
+        "EH_set_loc": 2208596,
+        "EH_search": 359040,
+        "final_content_scratch": 463493797,
+        "external_relocations": 13123104,
+        "internal_relocations": 13123104,
+        "external_symbols": 1187832,
+        "internal_symbols": 1583776,
+        "symbol_indices_or_pointers": 395944,
+        "local_extended_indices": 197972,
+        "output_symbol_cache": 61169200,
+        "output_symbols": 18350760,
+        "output_extended_indices": 3058460,
+        "Main_header_array": 1920,
+        "Main_header_pointers": 192,
+        "Main_creation_flags": 24,
+        "input_mmap_span": 463501982,
+        "start_stop_pointers": 2621360,
+        "section_check_array": 784000,
+        "explicit_PHDR_pointer_array": 80,
+        "global_hash_entry": 512,
+        "global_hash_name": 197,
+        "global_hash_backing": 4194296,
+        "global_hash_snapshot": 234601096,
+        "dynstr_string_hash": 1048568,
+        "dynstr_string_array": 1048576,
+        "dynstr_string_sort": 580512,
+        "ordinary_string_hash": 8388584,
+        "ordinary_string_array": 8388608,
+        "ordinary_string_sort": 6116928,
+        "sections_string_hash": 2097112,
+        "sections_string_array": 2097152,
+        "sections_string_sort": 1176040
+      },
+      "string_tables": {
+        "dynstr": {
+          "distinct_names": 72563,
+          "hash_capacity": 131071,
+          "array_slots": 131072
+        },
+        "ordinary": {
+          "distinct_names": 764615,
+          "hash_capacity": 1048573,
+          "array_slots": 1048576
+        },
+        "sections": {
+          "distinct_names": 147004,
+          "hash_capacity": 262139,
+          "array_slots": 262144
+        }
+      },
+      "checks": {
+        "assembler_interface": true,
+        "dynamic_section_index": true,
+        "external_section_header_product": true,
+        "external_program_header_product": true,
+        "dynamic_symbol_count": true,
+        "global_hash_domain": true,
+        "GNU_hash_signed_shift": true,
+        "ordinary_symbol_uint32_product": true,
+        "ordinary_string_bytes": true,
+        "dynstr_bytes": true,
+        "dynstr_names": true,
+        "dynstr_positive_references": true,
+        "section_string_bytes": true,
+        "section_string_references": true,
+        "section_string_table_product": true,
+        "version_index": true,
+        "PLT_jump_count": true,
+        "property_writer_size": true,
+        "EH_edit_size": true,
+        "EH_FDE_count": true,
+        "EH_function_range": true,
+        "trial_address_arithmetic": true,
+        "file_offset_arithmetic": true,
+        "fixed_signed_relocation_reach": true,
+        "fixed_unsigned_relocation_reach": true,
+        "Main_PC32_PLT32_reach": true,
+        "EH_signed_fields": true,
+        "PLT_relocation_index": true,
+        "PLT_range_fields": true,
+        "dynstr_string_growth": true,
+        "ordinary_string_growth": true,
+        "sections_string_growth": true,
+        "BFD_object_ID": true,
+        "BFD_section_ID": true,
+        "merge_offset_and_capacity": true,
+        "shared_counts": true,
+        "global_hash_capacity": true,
+        "individual_requests": true,
+        "host_page_arithmetic": true,
+        "Main_file_reader": true
+      },
+      "failed_sufficient_checks": [],
+      "selected_output_link_representation_fits": true
+    },
+    "selected_literal_assembler_and_linker_representation_fits": true,
+    "source_argument_required": true,
+    "independent_review_accepted": false,
+    "selected_no_LTO_no_plugin_descriptor": true,
+    "historical_output_witness_was_exact_descriptor": false,
+    "source_no_plugin_compatibility_transfer": true,
+    "conditions_of_claim": [
+      "retained sources describe the selected installed tools relevant behavior",
+      "selected ELF64 x86-64 LP64 no-LTO/no-plugin descriptor and fixed lookup outcomes",
+      "accepted literal Main emission/object/storage and fixed library/binder projections",
+      "retained null generic linker contracts with the substitutions documented here",
+      "manual no-plugin, external-resolution, relocation and EH source arguments",
+      "separate filesystem, path, host-page, allocation, stack and I/O resource premises"
+    ],
+    "production_admission_rule": false,
+    "whole_literal_pipeline_capacity_established": false,
+    "aggregate_RAM_gate": false,
+    "physical_resource_guarantee": false,
+    "open_joins": [
+      "production_invocation_and_materialization",
+      "other_producer_compiler_and_binder_phases",
+      "whole_pipeline_composition"
+    ],
+    "native_tool_executions": 0
+  },
   "Main_ALI_interface": {
     "source": {
       "bytes": 118,
@@ -6916,6 +7942,321 @@
         "complete_collector_lifetime_closed": false,
         "whole_literal_pipeline_capacity_established": false
       },
+      "original_shared_storage": {
+        "interface": {
+          "scope": "Selected original construction through finalize_size_functions return, before ordinary Main analysis/gimplification.",
+          "source": {
+            "bytes": 118,
+            "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+          },
+          "source_counts": {
+            "source_bytes": 118,
+            "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+            "output_calls": 1,
+            "Put": 0,
+            "Put_Line": 1,
+            "null_statements": 0,
+            "decoded_literal_lengths": [
+              13
+            ],
+            "decoded_literal_bytes": 13,
+            "maximum_literal_length": 13
+          },
+          "path_spelling_bytes_upper": 512,
+          "source_bound_demands": {
+            "identifier_lookups": 38,
+            "identifier_new_entries": 36,
+            "type_hash_lookups": 6,
+            "type_hash_entries": 6,
+            "integer_hash_lookups": 317,
+            "integer_hash_entries": 317,
+            "small_integer_cache_writes": 320,
+            "already_owned_small_integer_cache_vectors": 188,
+            "global_decls_pushes": 9,
+            "stmt_list_cache_pushes": 432,
+            "alias_sets_pushes": 4,
+            "scalar_finalizer_pushes": 5,
+            "vector_finalizer_pushes": 0,
+            "dummy_identifier_entries": 1,
+            "dummy_DECL_UIDs": 1
+          },
+          "filename_ingress": {
+            "runtime_physical_union": 1575,
+            "Silver_specifications": 2,
+            "Main": 1,
+            "configuration": 1,
+            "spec_virtual_copies": 8,
+            "possible_Image_I_body_virtual_copy": 1,
+            "source_file_entries_upper": 1588,
+            "optional_Image_I_physical_body_already_in_union": true,
+            "identifier_lookups_upper": 1589,
+            "each_identifier_node_bytes": 40,
+            "each_character_request_bytes_upper": 513,
+            "each_identifier_node_rounded_bytes_upper": 64,
+            "each_character_rounded_bytes_upper": 1024,
+            "direct_identifier_and_character_requests_upper": 3178,
+            "direct_requests_not_added_to_shared_backing_events": true,
+            "checks": {
+              "spelling_short": true,
+              "identifier_length_unsigned": true,
+              "terminal_NUL_request": true,
+              "source_file_count_signed": true
+            },
+            "actual_invocation_materialization_established": false
+          },
+          "identifier_hash": {
+            "incoming_historical_insertions_upper": 40846,
+            "incoming_occupied_upper": 40846,
+            "incoming_allocated_slots_upper": 65536,
+            "historical_insertions_upper": 40882,
+            "occupied_upper": 40882,
+            "allocated_slots_upper": 65536,
+            "each_ordinary_backing_bytes_upper": 524288,
+            "variable_ingress_backing_requests_upper": 1589,
+            "post_prefix_backing_requests_upper": 36,
+            "checks": {
+              "historical_insertions_unsigned": true,
+              "slot_threshold_unsigned": true,
+              "doubling_unsigned": true,
+              "individual_request": true
+            },
+            "fits": true
+          },
+          "type_hash": {
+            "incoming_occupied_upper": 39257,
+            "incoming_allocated_slots_upper": 131071,
+            "additional_insertion_capable_lookups": 6,
+            "additional_new_entries_upper": 6,
+            "occupied_upper": 39263,
+            "allocated_slots_upper": 131071,
+            "additional_GGC_backing_requests_upper": 6,
+            "each_caller_bytes_upper": 1048568,
+            "each_rounded_bytes_upper": 1048576,
+            "successful_lookup_can_replace_backing": true,
+            "checks": {
+              "prime_exists": true,
+              "load_products": true,
+              "empty_threshold_unsigned": true,
+              "probe_addition": true,
+              "request_and_pointer_span": true,
+              "allocator_order_region": true
+            },
+            "fits": true
+          },
+          "integer_hash": {
+            "incoming_occupied_upper": 39257,
+            "incoming_allocated_slots_upper": 131071,
+            "additional_insertion_capable_lookups": 317,
+            "additional_new_entries_upper": 317,
+            "occupied_upper": 39574,
+            "allocated_slots_upper": 131071,
+            "additional_GGC_backing_requests_upper": 317,
+            "each_caller_bytes_upper": 1048568,
+            "each_rounded_bytes_upper": 1048576,
+            "successful_lookup_can_replace_backing": true,
+            "checks": {
+              "prime_exists": true,
+              "load_products": true,
+              "empty_threshold_unsigned": true,
+              "probe_addition": true,
+              "request_and_pointer_span": true,
+              "allocator_order_region": true
+            },
+            "fits": true
+          },
+          "global_decls": {
+            "incoming_occupied_upper": 414851,
+            "incoming_allocated_slots_upper": 414851,
+            "additional_pushes": 9,
+            "additional_GGC_backing_requests_upper": 9,
+            "occupied_upper": 414860,
+            "allocated_slots_upper": 1048575,
+            "each_caller_bytes_upper": 8388608,
+            "each_rounded_bytes_upper": 8388608,
+            "checks": {
+              "length_unsigned": true,
+              "growth_unsigned": true,
+              "normalized_capacity_31_bits": true,
+              "request_and_pointer_span": true,
+              "allocator_order_region": true
+            },
+            "fits": true
+          },
+          "stmt_list_cache": {
+            "incoming_occupied_upper": 0,
+            "incoming_allocated_slots_upper": 0,
+            "additional_pushes": 432,
+            "additional_GGC_backing_requests_upper": 432,
+            "occupied_upper": 432,
+            "allocated_slots_upper": 1023,
+            "each_caller_bytes_upper": 8192,
+            "each_rounded_bytes_upper": 8192,
+            "checks": {
+              "length_unsigned": true,
+              "growth_unsigned": true,
+              "normalized_capacity_31_bits": true,
+              "request_and_pointer_span": true,
+              "allocator_order_region": true
+            },
+            "fits": true
+          },
+          "alias_sets": {
+            "incoming_occupied_upper": 414851,
+            "incoming_allocated_slots_upper": 414851,
+            "additional_pushes": 4,
+            "additional_GGC_backing_requests_upper": 4,
+            "occupied_upper": 414855,
+            "allocated_slots_upper": 1048575,
+            "each_caller_bytes_upper": 8388608,
+            "each_rounded_bytes_upper": 8388608,
+            "checks": {
+              "length_unsigned": true,
+              "growth_unsigned": true,
+              "normalized_capacity_31_bits": true,
+              "request_and_pointer_span": true,
+              "allocator_order_region": true
+            },
+            "fits": true
+          },
+          "scalar_finalizers": {
+            "incoming_occupied_upper": 39257,
+            "incoming_allocated_slots_upper": 58884,
+            "additional_pushes": 5,
+            "additional_ordinary_backing_requests_upper": 5,
+            "occupied_upper": 39262,
+            "allocated_slots_upper": 58891,
+            "each_ordinary_backing_bytes_upper": 942264,
+            "checks": {
+              "length_unsigned": true,
+              "growth_unsigned": true,
+              "capacity_31_bits": true,
+              "request_span": true
+            },
+            "fits": true
+          },
+          "small_integer_cache": {
+            "max_slots_per_vector": 252,
+            "each_existing_or_new_vector_caller_bytes_upper": 2040,
+            "extra_GGC_requests": 0,
+            "direct_vector_requests_already_owned_by_Main": true
+          },
+          "counter_endpoints": {
+            "incoming_DECL_UID_upper": 5832,
+            "next_DECL_UID_upper": 5872,
+            "incoming_type_UID_upper": 2278,
+            "next_type_UID_upper": 2306,
+            "incoming_temporary_name_serial_upper": 40846,
+            "next_temporary_name_serial_upper": 40882,
+            "alias_ID_upper": 414854,
+            "function_definition_numbers": {
+              "empty_elaboration": 0,
+              "Main": 1,
+              "String_bit_size_helper": 2,
+              "String_byte_size_helper": 3
+            },
+            "next_function_definition_number": 4,
+            "helper_name_fnno_next": 2,
+            "checks": {
+              "DECL_UID_signed": true,
+              "type_UID_unsigned": true,
+              "alias_ID_signed": true,
+              "temporary_name_serial_unsigned": true
+            }
+          },
+          "additional_shared_GGC_backing_request_events_upper": 768,
+          "conditions": {
+            "identifier_hash": true,
+            "type_hash": true,
+            "integer_hash": true,
+            "global_decls": true,
+            "stmt_list_cache": true,
+            "alias_sets": true,
+            "scalar_finalizers": true,
+            "selected_counter_endpoints": true,
+            "filename_ingress": true
+          },
+          "selected_original_shared_container_interface_fits": true,
+          "failed_conditions": [],
+          "retained_aggregate_unresolved_predicates": [
+            "Main_assembler_object_interface",
+            "Main_GAS_BFD_storage",
+            "literal_output_linker_representation"
+          ],
+          "retained_aggregate_failed_conditional_predicates": [],
+          "remaining_Ada_integer_storage": {
+            "Uint_entries": 2,
+            "Udigits_words": 10,
+            "UI_Ints_wrapper_calls": 2,
+            "incoming_occupied": null,
+            "incoming_allocated": null,
+            "complete_backing_closed": false
+          },
+          "later_consumers_included": false,
+          "complete_original_gigi_storage_closed": false,
+          "complete_global_counter_lifetime_closed": false,
+          "complete_collector_lifetime_closed": false,
+          "complete_imported_allocation_events": null,
+          "complete_imported_allocation_bytes": null,
+          "whole_literal_pipeline_capacity_established": false,
+          "aggregate_RAM_gate": false,
+          "production_admission_changed": false,
+          "native_tool_executions": 0,
+          "repository_inputs_verified": 38,
+          "complete_source_files_verified": 60,
+          "premises": [
+            "Retained source/installed-behavior and selected native configuration.",
+            "Existing single-name, one-unit, no-preprocessing source-search and fixed virtual-copy closure.",
+            "Complete path spelling descriptor bounds every selected filename; actual invocation materialization remains open.",
+            "Existing fixed-prefix read projection; B only seeds source-independent GGC-backed containers."
+          ]
+        },
+        "review": {
+          "revision": "29d806872e179e03d55f3c0f83ba49c8f8a2f106",
+          "path": "docs/reviews/review-literal-original-shared-e12e010fd1.md",
+          "required_acceptance_text": "**Accepted:** compatibility correction `c2ec0d195e` together with provenance",
+          "bytes": 15555,
+          "sha256": "ec79e7e97f8b0ca5bd92bd039ce316b34e547ac06fe54764a2be5f8407b9d77f"
+        },
+        "inherited_diagnostics_scope": "Current source aggregate after accepted linker refinement, before adding the original-shared guards; not the final aggregate verdict.",
+        "source_capacity_projection_keys": [
+          "source",
+          "source_counts",
+          "complete_path_bound",
+          "native_original_Main_storage",
+          "native_original_String_storage",
+          "native_original_helper_storage",
+          "native_synthetic_function_storage",
+          "native_warning_map_demand",
+          "native_pool_lifetime",
+          "native_collector_callbacks",
+          "native_counter_emission_interface"
+        ],
+        "inherited_diagnostic_keys": [
+          "unresolved_predicates",
+          "failed_conditional_predicates",
+          "whole_literal_pipeline_capacity_established"
+        ],
+        "partial_ledger": {
+          "scope": "Selected original construction through finalize_size_functions return, before ordinary Main analysis/gimplification.",
+          "GGC_groups": {
+            "original_Main": 1061,
+            "original_String216": 216,
+            "original_helpers94": 94,
+            "synthetic173": 173,
+            "new_shared_backings": 768
+          },
+          "known_selected_GGC_event_subtotal": 2312,
+          "new_shared_ordinary_backing_events_upper": 41,
+          "prefix_and_filename_ingress_in_subtotal": false,
+          "forced_dummy_and_warning_symbol_controls_in_subtotal": false,
+          "direct_small_cache_vectors_added_again": 0,
+          "historical_null_packets_added": 0,
+          "complete_original_gigi_storage_closed": false,
+          "complete_imported_allocation_events": null,
+          "complete_imported_allocation_bytes": null,
+          "complete_collector_lifetime_closed": false
+        }
+      },
       "selected_imported_tree_pool_frontier_established": true,
       "synthetic_function_storage": {
         "scope": "three struct-function allocations and two initial gimplifications",
@@ -7400,11 +8741,11 @@
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
       ],
-      "missing": "Selected registration and original zero-pool joins restore the local graph/summary and varpool/tree-pool conditions; fixed Main context I<=114 supplies the original direct-request input. The complete selected stream and label sources are now attached with explicit endpoint guards. Actual production argv/invocation/materialization and fixed link inputs, shared identifier/container backing, incoming non-label global counters, remaining allocation and collector composition remain open.",
+      "missing": "Selected registration, original zero-pool, Main I<=114 and original shared storage/counter guards are attached through finalize_size_functions return. The selected stream/label source guards and refined linker sufficient bound are separate. Later shared consumers, Ada integer backing, remaining direct/metadata allocation, global counter and collector lifetimes, actual production invocation/materialization and fixed link inputs remain open.",
       "finding": "https://github.com/berkeleynerd/silver/issues/131"
     },
     "native_remaining_lifetime_and_collector": {
-      "next_consumer": "incoming shared backing/counters, remaining helper/pass lifetimes and GGC collector composition.",
+      "next_consumer": "remaining original/Ada metadata storage, later shared consumers, helper/pass lifetimes and GGC collector composition.",
       "available": {
         "conditional_graph_scan_count_upper": 4,
         "conditional_call_edge_creation_events_upper": 4,
@@ -7516,12 +8857,327 @@
           "Udigits_words": 10,
           "UI_Ints_wrapper_calls": 2
         },
+        "original_shared_storage": {
+          "interface": {
+            "scope": "Selected original construction through finalize_size_functions return, before ordinary Main analysis/gimplification.",
+            "source": {
+              "bytes": 118,
+              "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+            },
+            "source_counts": {
+              "source_bytes": 118,
+              "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+              "output_calls": 1,
+              "Put": 0,
+              "Put_Line": 1,
+              "null_statements": 0,
+              "decoded_literal_lengths": [
+                13
+              ],
+              "decoded_literal_bytes": 13,
+              "maximum_literal_length": 13
+            },
+            "path_spelling_bytes_upper": 512,
+            "source_bound_demands": {
+              "identifier_lookups": 38,
+              "identifier_new_entries": 36,
+              "type_hash_lookups": 6,
+              "type_hash_entries": 6,
+              "integer_hash_lookups": 317,
+              "integer_hash_entries": 317,
+              "small_integer_cache_writes": 320,
+              "already_owned_small_integer_cache_vectors": 188,
+              "global_decls_pushes": 9,
+              "stmt_list_cache_pushes": 432,
+              "alias_sets_pushes": 4,
+              "scalar_finalizer_pushes": 5,
+              "vector_finalizer_pushes": 0,
+              "dummy_identifier_entries": 1,
+              "dummy_DECL_UIDs": 1
+            },
+            "filename_ingress": {
+              "runtime_physical_union": 1575,
+              "Silver_specifications": 2,
+              "Main": 1,
+              "configuration": 1,
+              "spec_virtual_copies": 8,
+              "possible_Image_I_body_virtual_copy": 1,
+              "source_file_entries_upper": 1588,
+              "optional_Image_I_physical_body_already_in_union": true,
+              "identifier_lookups_upper": 1589,
+              "each_identifier_node_bytes": 40,
+              "each_character_request_bytes_upper": 513,
+              "each_identifier_node_rounded_bytes_upper": 64,
+              "each_character_rounded_bytes_upper": 1024,
+              "direct_identifier_and_character_requests_upper": 3178,
+              "direct_requests_not_added_to_shared_backing_events": true,
+              "checks": {
+                "spelling_short": true,
+                "identifier_length_unsigned": true,
+                "terminal_NUL_request": true,
+                "source_file_count_signed": true
+              },
+              "actual_invocation_materialization_established": false
+            },
+            "identifier_hash": {
+              "incoming_historical_insertions_upper": 40846,
+              "incoming_occupied_upper": 40846,
+              "incoming_allocated_slots_upper": 65536,
+              "historical_insertions_upper": 40882,
+              "occupied_upper": 40882,
+              "allocated_slots_upper": 65536,
+              "each_ordinary_backing_bytes_upper": 524288,
+              "variable_ingress_backing_requests_upper": 1589,
+              "post_prefix_backing_requests_upper": 36,
+              "checks": {
+                "historical_insertions_unsigned": true,
+                "slot_threshold_unsigned": true,
+                "doubling_unsigned": true,
+                "individual_request": true
+              },
+              "fits": true
+            },
+            "type_hash": {
+              "incoming_occupied_upper": 39257,
+              "incoming_allocated_slots_upper": 131071,
+              "additional_insertion_capable_lookups": 6,
+              "additional_new_entries_upper": 6,
+              "occupied_upper": 39263,
+              "allocated_slots_upper": 131071,
+              "additional_GGC_backing_requests_upper": 6,
+              "each_caller_bytes_upper": 1048568,
+              "each_rounded_bytes_upper": 1048576,
+              "successful_lookup_can_replace_backing": true,
+              "checks": {
+                "prime_exists": true,
+                "load_products": true,
+                "empty_threshold_unsigned": true,
+                "probe_addition": true,
+                "request_and_pointer_span": true,
+                "allocator_order_region": true
+              },
+              "fits": true
+            },
+            "integer_hash": {
+              "incoming_occupied_upper": 39257,
+              "incoming_allocated_slots_upper": 131071,
+              "additional_insertion_capable_lookups": 317,
+              "additional_new_entries_upper": 317,
+              "occupied_upper": 39574,
+              "allocated_slots_upper": 131071,
+              "additional_GGC_backing_requests_upper": 317,
+              "each_caller_bytes_upper": 1048568,
+              "each_rounded_bytes_upper": 1048576,
+              "successful_lookup_can_replace_backing": true,
+              "checks": {
+                "prime_exists": true,
+                "load_products": true,
+                "empty_threshold_unsigned": true,
+                "probe_addition": true,
+                "request_and_pointer_span": true,
+                "allocator_order_region": true
+              },
+              "fits": true
+            },
+            "global_decls": {
+              "incoming_occupied_upper": 414851,
+              "incoming_allocated_slots_upper": 414851,
+              "additional_pushes": 9,
+              "additional_GGC_backing_requests_upper": 9,
+              "occupied_upper": 414860,
+              "allocated_slots_upper": 1048575,
+              "each_caller_bytes_upper": 8388608,
+              "each_rounded_bytes_upper": 8388608,
+              "checks": {
+                "length_unsigned": true,
+                "growth_unsigned": true,
+                "normalized_capacity_31_bits": true,
+                "request_and_pointer_span": true,
+                "allocator_order_region": true
+              },
+              "fits": true
+            },
+            "stmt_list_cache": {
+              "incoming_occupied_upper": 0,
+              "incoming_allocated_slots_upper": 0,
+              "additional_pushes": 432,
+              "additional_GGC_backing_requests_upper": 432,
+              "occupied_upper": 432,
+              "allocated_slots_upper": 1023,
+              "each_caller_bytes_upper": 8192,
+              "each_rounded_bytes_upper": 8192,
+              "checks": {
+                "length_unsigned": true,
+                "growth_unsigned": true,
+                "normalized_capacity_31_bits": true,
+                "request_and_pointer_span": true,
+                "allocator_order_region": true
+              },
+              "fits": true
+            },
+            "alias_sets": {
+              "incoming_occupied_upper": 414851,
+              "incoming_allocated_slots_upper": 414851,
+              "additional_pushes": 4,
+              "additional_GGC_backing_requests_upper": 4,
+              "occupied_upper": 414855,
+              "allocated_slots_upper": 1048575,
+              "each_caller_bytes_upper": 8388608,
+              "each_rounded_bytes_upper": 8388608,
+              "checks": {
+                "length_unsigned": true,
+                "growth_unsigned": true,
+                "normalized_capacity_31_bits": true,
+                "request_and_pointer_span": true,
+                "allocator_order_region": true
+              },
+              "fits": true
+            },
+            "scalar_finalizers": {
+              "incoming_occupied_upper": 39257,
+              "incoming_allocated_slots_upper": 58884,
+              "additional_pushes": 5,
+              "additional_ordinary_backing_requests_upper": 5,
+              "occupied_upper": 39262,
+              "allocated_slots_upper": 58891,
+              "each_ordinary_backing_bytes_upper": 942264,
+              "checks": {
+                "length_unsigned": true,
+                "growth_unsigned": true,
+                "capacity_31_bits": true,
+                "request_span": true
+              },
+              "fits": true
+            },
+            "small_integer_cache": {
+              "max_slots_per_vector": 252,
+              "each_existing_or_new_vector_caller_bytes_upper": 2040,
+              "extra_GGC_requests": 0,
+              "direct_vector_requests_already_owned_by_Main": true
+            },
+            "counter_endpoints": {
+              "incoming_DECL_UID_upper": 5832,
+              "next_DECL_UID_upper": 5872,
+              "incoming_type_UID_upper": 2278,
+              "next_type_UID_upper": 2306,
+              "incoming_temporary_name_serial_upper": 40846,
+              "next_temporary_name_serial_upper": 40882,
+              "alias_ID_upper": 414854,
+              "function_definition_numbers": {
+                "empty_elaboration": 0,
+                "Main": 1,
+                "String_bit_size_helper": 2,
+                "String_byte_size_helper": 3
+              },
+              "next_function_definition_number": 4,
+              "helper_name_fnno_next": 2,
+              "checks": {
+                "DECL_UID_signed": true,
+                "type_UID_unsigned": true,
+                "alias_ID_signed": true,
+                "temporary_name_serial_unsigned": true
+              }
+            },
+            "additional_shared_GGC_backing_request_events_upper": 768,
+            "conditions": {
+              "identifier_hash": true,
+              "type_hash": true,
+              "integer_hash": true,
+              "global_decls": true,
+              "stmt_list_cache": true,
+              "alias_sets": true,
+              "scalar_finalizers": true,
+              "selected_counter_endpoints": true,
+              "filename_ingress": true
+            },
+            "selected_original_shared_container_interface_fits": true,
+            "failed_conditions": [],
+            "retained_aggregate_unresolved_predicates": [
+              "Main_assembler_object_interface",
+              "Main_GAS_BFD_storage",
+              "literal_output_linker_representation"
+            ],
+            "retained_aggregate_failed_conditional_predicates": [],
+            "remaining_Ada_integer_storage": {
+              "Uint_entries": 2,
+              "Udigits_words": 10,
+              "UI_Ints_wrapper_calls": 2,
+              "incoming_occupied": null,
+              "incoming_allocated": null,
+              "complete_backing_closed": false
+            },
+            "later_consumers_included": false,
+            "complete_original_gigi_storage_closed": false,
+            "complete_global_counter_lifetime_closed": false,
+            "complete_collector_lifetime_closed": false,
+            "complete_imported_allocation_events": null,
+            "complete_imported_allocation_bytes": null,
+            "whole_literal_pipeline_capacity_established": false,
+            "aggregate_RAM_gate": false,
+            "production_admission_changed": false,
+            "native_tool_executions": 0,
+            "repository_inputs_verified": 38,
+            "complete_source_files_verified": 60,
+            "premises": [
+              "Retained source/installed-behavior and selected native configuration.",
+              "Existing single-name, one-unit, no-preprocessing source-search and fixed virtual-copy closure.",
+              "Complete path spelling descriptor bounds every selected filename; actual invocation materialization remains open.",
+              "Existing fixed-prefix read projection; B only seeds source-independent GGC-backed containers."
+            ]
+          },
+          "review": {
+            "revision": "29d806872e179e03d55f3c0f83ba49c8f8a2f106",
+            "path": "docs/reviews/review-literal-original-shared-e12e010fd1.md",
+            "required_acceptance_text": "**Accepted:** compatibility correction `c2ec0d195e` together with provenance",
+            "bytes": 15555,
+            "sha256": "ec79e7e97f8b0ca5bd92bd039ce316b34e547ac06fe54764a2be5f8407b9d77f"
+          },
+          "inherited_diagnostics_scope": "Current source aggregate after accepted linker refinement, before adding the original-shared guards; not the final aggregate verdict.",
+          "source_capacity_projection_keys": [
+            "source",
+            "source_counts",
+            "complete_path_bound",
+            "native_original_Main_storage",
+            "native_original_String_storage",
+            "native_original_helper_storage",
+            "native_synthetic_function_storage",
+            "native_warning_map_demand",
+            "native_pool_lifetime",
+            "native_collector_callbacks",
+            "native_counter_emission_interface"
+          ],
+          "inherited_diagnostic_keys": [
+            "unresolved_predicates",
+            "failed_conditional_predicates",
+            "whole_literal_pipeline_capacity_established"
+          ],
+          "partial_ledger": {
+            "scope": "Selected original construction through finalize_size_functions return, before ordinary Main analysis/gimplification.",
+            "GGC_groups": {
+              "original_Main": 1061,
+              "original_String216": 216,
+              "original_helpers94": 94,
+              "synthetic173": 173,
+              "new_shared_backings": 768
+            },
+            "known_selected_GGC_event_subtotal": 2312,
+            "new_shared_ordinary_backing_events_upper": 41,
+            "prefix_and_filename_ingress_in_subtotal": false,
+            "forced_dummy_and_warning_symbol_controls_in_subtotal": false,
+            "direct_small_cache_vectors_added_again": 0,
+            "historical_null_packets_added": 0,
+            "complete_original_gigi_storage_closed": false,
+            "complete_imported_allocation_events": null,
+            "complete_imported_allocation_bytes": null,
+            "complete_collector_lifetime_closed": false
+          }
+        },
         "synthetic_function_GGC_events_upper": 173,
         "synthetic_function_singleton_finalizers_upper": 2,
         "collector_callback_additional_GGC_events": 0,
         "collector_marker_individual_ordinary_request_bytes": 104
       },
-      "missing": "Fixed/configuration/frontend physical and late-heap joins, incoming shared-container state and counter endpoints, and remaining helper/pass lifetimes. String216, helper94, original Main conditional requests with fixed I<=114, synthetic173, original-gigi R<=5 and initial Main warning-map requests are joined; shared backing and complete gigi/GGC totals are not supplied. Later warning consumers, remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused."
+      "missing": "Original shared identifier/type/integer hashes, global/statement/alias vectors, scalar finalizers and selected counters now have conditional bounds through finalize_size_functions return. The partial direct/shared event ledger is not a complete original-gigi or process total. Uint/Udigits/UI_Ints incoming state, other metadata/physical/late heaps, later warning and shared consumers, remaining passes, RTL/DF ceilings and complete global event/UID/collector lifetimes remain open. The null 40098 allowance is not reused."
     },
     "Main_assembler_and_object": {
       "available": {
@@ -7845,7 +9501,8 @@
         "selected_ALI_consumer_local_interfaces_fit": true,
         "selected_parent_DW_reader_local_interface_fits": true,
         "selected_literal_assembler_and_linker_representation_fits": true,
-        "failed_linker_sufficient_checks": []
+        "failed_linker_sufficient_checks": [],
+        "historical_conservative_failed_linker_sufficient_checks": []
       },
       "missing": "Complete native and GPR shared name-pool backing, invocation/library graph containers, parent source/project/driver routes, fixed-child ALI regeneration correspondence and output launch. Main/fixed ALI local parser tables/buffers, Gprbind A/U-only and native parent GPRbuild D/W local interfaces are attached with explicit additive name contracts; selected ELF/link and checksum interfaces remain joined."
     },
@@ -7855,8 +9512,8 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 186,
-  "direct_files_verified": 2657,
+  "fixed_input_count": 205,
+  "direct_files_verified": 2711,
   "native_Main_frontend_nested_validation": {
     "repository_inputs": 21,
     "native_selected_files": 151,
@@ -7946,6 +9603,31 @@
       "counts_overlap_direct_source_validation": true
     }
   },
+  "native_original_shared_source_validation": {
+    "historical_repository_revision": "7573e127ffb020ddfb1214491179c59442e7798b",
+    "historical_repository_files_verified": 3,
+    "historical_paths": [
+      "docs/evidence/retained-literal-pipeline-20261018/compose.py",
+      "docs/evidence/retained-literal-pipeline-20261018/inputs.json",
+      "docs/evidence/retained-literal-pipeline-20261018/result.json"
+    ],
+    "current_repository_files_verified": 35,
+    "complete_source_files_verified": 60,
+    "source_manifest": {
+      "bytes": 10853,
+      "sha256": "f1a959c538806c05ed702c6432f432f1d4356842cae1174ac0a1f5adede485e9"
+    },
+    "unchanged_preexisting_builders_except_evaluate": true,
+    "leaf_Context_executed": false,
+    "historical_files_counted_as_current": false,
+    "counts_overlap_direct_source_validation": true
+  },
+  "literal_relocation_refinement_source_validation": {
+    "repository_inputs_verified": 13,
+    "complete_capsule_files_verified": 12,
+    "capsule_revision": "5e56594815854de5eca35c7c04b11705d0f19c02",
+    "inherited_linker_Context_reused": true
+  },
   "native_tool_executions": 0,
   "production_admission_changed": false,
   "aggregate_RAM_gate": false,
@@ -7956,8 +9638,8 @@
     "Physical resources and ordinary external OS/libc services remain separate."
   ],
   "offline_run": {
-    "started_utc": "2026-10-18T22:34:20.534441+00:00",
-    "completed_utc": "2026-10-18T22:34:23.633617+00:00",
-    "elapsed_seconds": 3.0991632739969646
+    "started_utc": "2026-10-18T22:58:15.364755+00:00",
+    "completed_utc": "2026-10-18T22:58:19.559733+00:00",
+    "elapsed_seconds": 4.19496405999962
   }
 }

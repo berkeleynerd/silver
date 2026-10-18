@@ -1,0 +1,23 @@
+{
+  "shared_freeze": "e12e010fd1da984a45a6955928f3fc979aec4306",
+  "shared_compatibility": "c2ec0d195eea30e5ed4c1fd553ae5f8c04056bb2",
+  "shared_provenance_repair": "20db3fc952adffdeb58ecbff163aef80a51f804b",
+  "shared_aggregate_predecessor_revision": "7573e127ffb020ddfb1214491179c59442e7798b",
+  "linker_freeze": "96b261688a54c8e60083bc1e512e7e1e7799c5dd",
+  "accepted_reviews": {
+    "shared": {
+      "revision": "29d806872e179e03d55f3c0f83ba49c8f8a2f106",
+      "path": "docs/reviews/review-literal-original-shared-e12e010fd1.md",
+      "required_acceptance_text": "**Accepted:** compatibility correction `c2ec0d195e` together with provenance",
+      "bytes": 15555,
+      "sha256": "ec79e7e97f8b0ca5bd92bd039ce316b34e547ac06fe54764a2be5f8407b9d77f"
+    },
+    "linker": {
+      "revision": "eef110623213c1b4bd3953b9ded919b3e0a54454",
+      "path": "docs/reviews/review-literal-relocation-refinement-96b261688a.md",
+      "required_acceptance_text": "Accepted at **`96b261688a54c8e60083bc1e512e7e1e7799c5dd`**",
+      "bytes": 11089,
+      "sha256": "465bc30a557a465aac1ada051549a421a9f9f576cd4a460416bacc10c2fb2657"
+    }
+  }
+}

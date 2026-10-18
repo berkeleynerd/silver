@@ -1,0 +1,259 @@
+{
+  "checks": 45,
+  "all_passed": true,
+  "checks_detail": [
+    {
+      "name": "shared partition is current35 historical3 source60",
+      "passed": true
+    },
+    {
+      "name": "relocation source13 capsule12",
+      "passed": true
+    },
+    {
+      "name": "Hello eleven source/capacity projections unchanged",
+      "passed": true
+    },
+    {
+      "name": "Hello actual pure derivation unchanged except inherited diagnostics",
+      "passed": true
+    },
+    {
+      "name": "Hello diagnostic scope explicit",
+      "passed": true
+    },
+    {
+      "name": "Hello named shared guards feed both maps",
+      "passed": true
+    },
+    {
+      "name": "Hello partial ledger has exact ownership",
+      "passed": true
+    },
+    {
+      "name": "Hello historical linker is exact source predecessor",
+      "passed": true
+    },
+    {
+      "name": "Hello all39 other linker guards retained",
+      "passed": true
+    },
+    {
+      "name": "Hello only reviewed linker fields changed",
+      "passed": true
+    },
+    {
+      "name": "Hello local arithmetic passes with three actual unknowns",
+      "passed": true
+    },
+    {
+      "name": "Hello broad negatives and missing totals preserved",
+      "passed": true
+    },
+    {
+      "name": "Hello exact accepted shared result",
+      "passed": true
+    },
+    {
+      "name": "Hello partial subtotal2312 backing768",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 eleven source/capacity projections unchanged",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 actual pure derivation unchanged except inherited diagnostics",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 diagnostic scope explicit",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 named shared guards feed both maps",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 partial ledger has exact ownership",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 historical linker is exact source predecessor",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 all39 other linker guards retained",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 only reviewed linker fields changed",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 local arithmetic passes with three actual unknowns",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 broad negatives and missing totals preserved",
+      "passed": true
+    },
+    {
+      "name": "5000_calls eleven source/capacity projections unchanged",
+      "passed": true
+    },
+    {
+      "name": "5000_calls actual pure derivation unchanged except inherited diagnostics",
+      "passed": true
+    },
+    {
+      "name": "5000_calls diagnostic scope explicit",
+      "passed": true
+    },
+    {
+      "name": "5000_calls named shared guards feed both maps",
+      "passed": true
+    },
+    {
+      "name": "5000_calls partial ledger has exact ownership",
+      "passed": true
+    },
+    {
+      "name": "5000_calls historical linker is exact source predecessor",
+      "passed": true
+    },
+    {
+      "name": "5000_calls all39 other linker guards retained",
+      "passed": true
+    },
+    {
+      "name": "5000_calls only reviewed linker fields changed",
+      "passed": true
+    },
+    {
+      "name": "5000_calls local arithmetic passes with three actual unknowns",
+      "passed": true
+    },
+    {
+      "name": "5000_calls broad negatives and missing totals preserved",
+      "passed": true
+    },
+    {
+      "name": "5000 old failure retained with refined pass",
+      "passed": true
+    },
+    {
+      "name": "helper multiplicity",
+      "passed": true
+    },
+    {
+      "name": "collector demand",
+      "passed": true
+    },
+    {
+      "name": "source count",
+      "passed": true
+    },
+    {
+      "name": "shared failed guard affects final verdict only after inherited diagnostic",
+      "passed": true
+    },
+    {
+      "name": "independent linker failure retained EH_signed_fields",
+      "passed": true
+    },
+    {
+      "name": "independent linker failure retained fixed_unsigned_relocation_reach",
+      "passed": true
+    },
+    {
+      "name": "wrong conservative predecessor",
+      "passed": true
+    },
+    {
+      "name": "historical aggregate pin mutation",
+      "passed": true
+    },
+    {
+      "name": "shared current inputs.json mutation",
+      "passed": true
+    },
+    {
+      "name": "shared current sources.json mutation",
+      "passed": true
+    }
+  ],
+  "actual_source_cases": [
+    {
+      "name": "Hello",
+      "source": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      },
+      "calls": 1,
+      "nulls": 0,
+      "partial_GGC_events": 2312,
+      "shared_backing_events": 768,
+      "old_signed_bound": 1747437035,
+      "refined_signed_bound": 874728045,
+      "conditional_arithmetic_pass": true,
+      "historical_failed_linker_checks": [],
+      "unresolved_predicates": [
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ]
+    },
+    {
+      "name": "mixed_empty_8192",
+      "source": {
+        "bytes": 8317,
+        "sha256": "f569f8f23e1e04cafd4d2a2c07b1c6c501abc1f3a476fd5183980be1f8161223"
+      },
+      "calls": 2,
+      "nulls": 1,
+      "partial_GGC_events": 3361,
+      "shared_backing_events": 1130,
+      "old_signed_bound": 1747600475,
+      "refined_signed_bound": 874809765,
+      "conditional_arithmetic_pass": true,
+      "historical_failed_linker_checks": [],
+      "unresolved_predicates": [
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ]
+    },
+    {
+      "name": "5000_calls",
+      "source": {
+        "bytes": 105075,
+        "sha256": "234c2d636b062978236d028ecf1a20757488e5a2537e249d54ea47fe34537d43"
+      },
+      "calls": 5000,
+      "nulls": 0,
+      "partial_GGC_events": 4701372,
+      "shared_backing_events": 1655437,
+      "old_signed_bound": 2162324017,
+      "refined_signed_bound": 1082171536,
+      "conditional_arithmetic_pass": true,
+      "historical_failed_linker_checks": [
+        "fixed_signed_relocation_reach"
+      ],
+      "unresolved_predicates": [
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ]
+    }
+  ],
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "token_cost_measurements": null,
+  "broad_leaf_or_aggregate_success_rerun": false,
+  "native_tool_executions": 0,
+  "started_utc": "2026-10-18T22:58:15.350093+00:00",
+  "completed_utc": "2026-10-18T22:58:21.045283+00:00",
+  "elapsed_seconds": 5.6951872919999005
+}

@@ -5,7 +5,9 @@ One complete source scan drives the established native and Why formulas.
 Passing their arithmetic is not a whole-pipeline capacity verdict.
 """
 import argparse
+import ast
 import contextlib
+import copy
 from datetime import datetime, timezone
 import gzip
 import hashlib
@@ -16,8 +18,10 @@ import re
 import runpy
 import subprocess
 import sys
+import tarfile
 import tempfile
 import time
+from types import SimpleNamespace
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[2]
@@ -192,6 +196,145 @@ def verify_context_visit_sources(manifest, ada_root):
             checked.add(str(path))
     require(len(checked)==2320,'literal fixed context complete source inventory')
     return checked
+
+
+def verify_shared_attachment(roots):
+    """Validate the leaf without instantiating its recursive aggregate Context."""
+    packet=EVIDENCE/'retained-literal-original-shared-storage-20261018'
+    attachment=read(HERE/'attachment-inputs.json')
+    revision=attachment['shared_aggregate_predecessor_revision']
+    historical_paths={str(HERE.relative_to(REPO)/name) for name in ('compose.py','inputs.json','result.json')}
+    current,historical,checked=[],[],set()
+    predecessor={}
+    for row in read(packet/'inputs.json'):
+        path=row['path']
+        raw=(read_historical_repository_file(revision,path) if path in historical_paths else
+             (REPO/path).read_bytes())
+        require(identity(raw)=={key:row[key] for key in ('bytes','sha256')},
+                'original shared predecessor input join: '+path)
+        if path in historical_paths:
+            historical.append(path);predecessor[path]=raw
+        else:
+            current.append(path);checked.add(str(REPO/path))
+    require(len(current)==35 and set(historical)==historical_paths,
+            'original shared historical/current input partition')
+    manifest=read(packet/'sources.json')
+    for row in manifest['files']:
+        path=roots[row['root']]/row['path']
+        require(identity(path.read_bytes())=={key:row[key] for key in ('bytes','sha256')},
+                'original shared complete source join: '+row['path'])
+        checked.add(str(path))
+    # Guard unchanged recognizer and consumer builders; evaluate is the explicit
+    # new composition. Context adds validation but still builds the same inputs.
+    def functions(raw):
+        return {n.name:ast.dump(n,include_attributes=False) for n in ast.parse(raw).body
+                if isinstance(n,ast.FunctionDef)}
+    old=functions(predecessor[str(HERE.relative_to(REPO)/'compose.py')])
+    new=functions((HERE/'compose.py').read_bytes())
+    require([name for name,body in old.items() if new.get(name)!=body]==['evaluate'],
+            'original shared current builder equivalence')
+    corpus=read(EVIDENCE/'unbounded-programs/retained-source-closure-20261017/source-inventory.json')
+    fixed=read(NATIVE/'native-fixed-inputs.json')
+    require(corpus['installed_runtime_corpora']['all_names_and_bytes_equal'] and
+            corpus['installed_runtime_corpora']['native']['file_count']==1575 and
+            len(fixed['selected_specifications'])==38 and fixed['fixed_generic_instances']==8,
+            'original shared fixed physical and virtual input join')
+    reviews={}
+    for key,row in attachment['accepted_reviews'].items():
+        raw=read_historical_repository_file(row['revision'],row['path'])
+        require(identity(raw)=={name:row[name] for name in ('bytes','sha256')} and
+                row['required_acceptance_text'].encode() in raw,
+                'shared/linker historical accepted review join: '+key)
+        reviews[key]=row
+    return checked,dict(historical_repository_revision=revision,
+        historical_repository_files_verified=len(historical),historical_paths=sorted(historical),
+        current_repository_files_verified=len(current),complete_source_files_verified=len(manifest['files']),
+        source_manifest=identity((packet/'sources.json').read_bytes()),
+        unchanged_preexisting_builders_except_evaluate=True,leaf_Context_executed=False,
+        historical_files_counted_as_current=False,counts_overlap_direct_source_validation=True),reviews
+
+
+def verify_relocation_refinement_sources():
+    packet=EVIDENCE/'retained-literal-relocation-refinement-20261018'
+    pins=read(packet/'inputs.json')['files']
+    for row in pins:
+        require(identity((REPO/row['path']).read_bytes())=={key:row[key] for key in ('bytes','sha256')},
+                'literal relocation refinement input join: '+row['path'])
+    source_packet=EVIDENCE/'retained-linker-relocations-20261018'
+    manifest=read(source_packet/'sources.json')
+    with tarfile.open(source_packet/'sources.tar.gz') as archive:
+        require(sorted(archive.getnames())==sorted(row['path'] for row in manifest['files']),
+                'literal relocation refinement source inventory')
+        for row in manifest['files']:
+            require(identity(archive.extractfile(row['path']).read())==
+                    {key:row[key] for key in ('bytes','sha256')},
+                    'literal relocation refinement complete source join: '+row['path'])
+    require(read(source_packet/'result.json')['bounds']['original_addend_absolute']==2019040,
+            'literal relocation refinement fixed addend join')
+    return dict(repository_inputs_verified=len(pins),complete_capsule_files_verified=len(manifest['files']),
+                capsule_revision=manifest['commit'],inherited_linker_Context_reused=True)
+
+
+def attach_relocation_refinement(base,context):
+    """Replace one sufficient bound; preserve the entire conservative result."""
+    refined=context.relocation_refinement['refine'](base)
+    require(refined['operand_domains']==context.relocation_refinement['operand_domains'](
+                base['link']['layout']['retained_endpoint']),
+            'literal relocation refinement operand-domain join')
+    other={key:value for key,value in base['link']['checks'].items() if key!='fixed_signed_relocation_reach'}
+    require(refined['source_identity']==base['source_identity'] and refined['counts']==base['counts'] and
+            refined['unchanged_other_checks']==other and len(other)==39 and
+            refined['inherited_conditions_of_claim']==base['conditions_of_claim'] and
+            refined['open_joins']==base['open_joins'] and
+            not refined['whole_literal_pipeline_capacity_established'] and
+            not refined['production_admission_rule'] and not refined['aggregate_RAM_gate'] and
+            not refined['physical_resource_guarantee'], 'literal relocation refinement exact preserved interface')
+    checks=dict(other,fixed_signed_relocation_reach=refined['operand_domains']['fits_signed32'])
+    require(refined['checks']==checks and refined['failed_sufficient_checks']==
+            [key for key,value in refined['checks'].items() if not value] and
+            refined['selected_literal_assembler_and_linker_representation_fits']==
+                (base['assembler_storage_fits'] and all(checks.values())),
+            'literal relocation refinement complete conjunction')
+    current=copy.deepcopy(base)
+    current['link']['relocation_bounds']['common_signed32']=refined['operand_domains']['common_signed32']
+    current['link']['checks']=refined['checks']
+    current['link']['failed_sufficient_checks']=refined['failed_sufficient_checks']
+    current['link']['selected_output_link_representation_fits']=all(checks.values())
+    current['selected_literal_assembler_and_linker_representation_fits']=refined[
+        'selected_literal_assembler_and_linker_representation_fits']
+    return current,refined
+
+
+def attach_original_shared_storage(projection,context):
+    """Consume current source interfaces; diagnostics precede this guard addition."""
+    interface=context.original_shared['derive'](projection,context.original_shared_context)
+    require(interface['source']==projection['source'] and interface['source_counts']==projection['source_counts'] and
+            interface['path_spelling_bytes_upper']==projection['complete_path_bound'] and
+            interface['retained_aggregate_unresolved_predicates']==projection['unresolved_predicates'] and
+            interface['retained_aggregate_failed_conditional_predicates']==projection['failed_conditional_predicates'] and
+            not interface['later_consumers_included'] and not interface['complete_original_gigi_storage_closed'] and
+            not interface['complete_global_counter_lifetime_closed'] and not interface['complete_collector_lifetime_closed'] and
+            interface['complete_imported_allocation_events'] is None and
+            interface['complete_imported_allocation_bytes'] is None and
+            not interface['whole_literal_pipeline_capacity_established'], 'original shared exact source and scope join')
+    main=projection['native_original_Main_storage']['interface']['conditional_direct_totals']['GGC_events']
+    groups=dict(original_Main=main,original_String216=216,original_helpers94=94,synthetic173=173,
+                new_shared_backings=interface['additional_shared_GGC_backing_request_events_upper'])
+    return dict(interface=interface,review=context.attachment_reviews['shared'],
+        inherited_diagnostics_scope='Current source aggregate after accepted linker refinement, before adding the original-shared guards; not the final aggregate verdict.',
+        source_capacity_projection_keys=['source','source_counts','complete_path_bound',
+            'native_original_Main_storage','native_original_String_storage','native_original_helper_storage',
+            'native_synthetic_function_storage','native_warning_map_demand','native_pool_lifetime',
+            'native_collector_callbacks','native_counter_emission_interface'],
+        inherited_diagnostic_keys=['unresolved_predicates','failed_conditional_predicates','whole_literal_pipeline_capacity_established'],
+        partial_ledger=dict(scope=interface['scope'],GGC_groups=groups,
+            known_selected_GGC_event_subtotal=sum(groups.values()),
+            new_shared_ordinary_backing_events_upper=interface['identifier_hash']['post_prefix_backing_requests_upper']+
+                interface['scalar_finalizers']['additional_ordinary_backing_requests_upper'],
+            prefix_and_filename_ingress_in_subtotal=False,forced_dummy_and_warning_symbol_controls_in_subtotal=False,
+            direct_small_cache_vectors_added_again=0,historical_null_packets_added=0,
+            complete_original_gigi_storage_closed=False,complete_imported_allocation_events=None,
+            complete_imported_allocation_bytes=None,complete_collector_lifetime_closed=False))
 
 
 class Context:
@@ -423,6 +566,13 @@ class Context:
         self.configuration = (NATIVE/'null-capacity-fixture.adc').read_bytes()
         checksum = runpy.run_path(str(EVIDENCE/'retained-binder-checksum-closure-20261018/check.py'))
         self.checksum = checksum['evaluate']()
+        shared_files,self.original_shared_source_validation,self.attachment_reviews=verify_shared_attachment(roots)
+        checked.update(shared_files);self.source_files_verified=len(checked)
+        self.original_shared=runpy.run_path(str(EVIDENCE/'retained-literal-original-shared-storage-20261018/compose.py'))
+        self.original_shared_context=SimpleNamespace(aggregate_context=self,prefix=self.prefix,primes=self.primes,
+            repository_inputs_verified=38,complete_source_files_verified=60)
+        self.relocation_refinement_source_validation=verify_relocation_refinement_sources()
+        self.relocation_refinement=runpy.run_path(str(EVIDENCE/'retained-literal-relocation-refinement-20261018/derive.py'))
 
 
 def shared_counts(raw, context):
@@ -1635,6 +1785,8 @@ def evaluate(descriptor_path, context, source_override=None):
             linker['link'] == context.linker['link'](assembler,context.linker_context,4096) and
             linker['assembler_storage_fits'] == assembler_storage['storage']['selected_GAS_BFD_storage_fits'],
             'literal linker common source/text/ELF/storage join')
+    historical_conservative_linker=linker
+    linker,linker_refinement=attach_relocation_refinement(linker,context)
     # Main ALI takes spelling bytes without NUL, matching the descriptor.
     ali = context.ali['evaluate'](raw,context.ali_context,path_bytes=p)
     physical = context.physical(raw)
@@ -1727,6 +1879,17 @@ def evaluate(descriptor_path, context, source_override=None):
                          if not row['source_family_premises_closed'])
     for key in unit_dependent:
         conditions[key]=None
+    shared_projection=dict(source=identity(raw),source_counts=counts,complete_path_bound=p,
+        native_original_Main_storage=original_main,native_original_String_storage=original_string,
+        native_original_helper_storage=original_helper,native_synthetic_function_storage=synthetic,
+        native_warning_map_demand=warning,native_pool_lifetime=pools,native_collector_callbacks=collector,
+        native_counter_emission_interface=counter,whole_literal_pipeline_capacity_established=False,
+        unresolved_predicates=[key for key,value in conditions.items() if value is None],
+        failed_conditional_predicates=[key for key,value in conditional_conditions.items() if not value])
+    original_shared=attach_original_shared_storage(shared_projection,context)
+    for key,value in original_shared['interface']['conditions'].items():
+        conditions['native_original_shared_'+key]=value
+        conditional_conditions['native_original_shared_'+key]=value
     frontier=dict(imported_constructor_frontier_established=False,
         Main_is_only_defined_body_established=False,
         Main_is_only_emitted_body_established=True,
@@ -1740,6 +1903,7 @@ def evaluate(descriptor_path, context, source_override=None):
         original_helper_storage=original_helper,
         original_String_residual_storage=original_string,
         original_Main_storage=original_main,
+        original_shared_storage=original_shared,
         selected_imported_tree_pool_frontier_established=True,
         synthetic_function_storage=synthetic,
         selected_counter_emission_interface=counter,
@@ -1756,14 +1920,14 @@ def evaluate(descriptor_path, context, source_override=None):
         complete_imported_allocation_bytes=None,
         source_family_condition_assessments=assessments,
         affected_predicates=list(unit_dependent),
-        missing='Selected registration and original zero-pool joins restore the local graph/summary and varpool/tree-pool conditions; fixed Main context I<=114 supplies the original direct-request input. The complete selected stream and label sources are now attached with explicit endpoint guards. Actual production argv/invocation/materialization and fixed link inputs, shared identifier/container backing, incoming non-label global counters, remaining allocation and collector composition remain open.',
+        missing='Selected registration, original zero-pool, Main I<=114 and original shared storage/counter guards are attached through finalize_size_functions return. The selected stream/label source guards and refined linker sufficient bound are separate. Later shared consumers, Ada integer backing, remaining direct/metadata allocation, global counter and collector lifetimes, actual production invocation/materialization and fixed link inputs remain open.',
         finding='https://github.com/berkeleynerd/silver/issues/131')
     # These fields deliberately name the actual unclosed consumers. A partial
     # helper count is never substituted for the null family's lifetime total.
     opens = {
         'native_post_prefix_imported_frontier':frontier,
         'native_remaining_lifetime_and_collector': {
-            'next_consumer':'incoming shared backing/counters, remaining helper/pass lifetimes and GGC collector composition.',
+            'next_consumer':'remaining original/Ada metadata storage, later shared consumers, helper/pass lifetimes and GGC collector composition.',
             'available':dict(conditional_graph_scan_count_upper=4,conditional_call_edge_creation_events_upper=4*c,
                              Main_frontend_node_identities_upper=frontend['Main_constructor']['total']['node_identities'],
                              Main_frontend_entity_identities_upper=frontend['Main_constructor']['total']['entity_identities'],
@@ -1792,11 +1956,12 @@ def evaluate(descriptor_path, context, source_override=None):
                              original_Main_fixed_context_I_upper=original_main['fixed_context_I'],
                              original_Main_identity_demands=original_main['identity_demands'],
                              original_Main_shared_container_demands=original_main['shared_container_demands'],
+                             original_shared_storage=original_shared,
                              synthetic_function_GGC_events_upper=synthetic['GGC_events'],
                              synthetic_function_singleton_finalizers_upper=synthetic['shared_container_demands']['singleton_finalizer_registrations'],
                              collector_callback_additional_GGC_events=collector['collector_callback_additional_GGC_events'],
                              collector_marker_individual_ordinary_request_bytes=104),
-            'missing':'Fixed/configuration/frontend physical and late-heap joins, incoming shared-container state and counter endpoints, and remaining helper/pass lifetimes. String216, helper94, original Main conditional requests with fixed I<=114, synthetic173, original-gigi R<=5 and initial Main warning-map requests are joined; shared backing and complete gigi/GGC totals are not supplied. Later warning consumers, remaining passes, RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, metadata/Ada callbacks and complete global event/UID/collector bounds remain open. The null 40098 allowance is not reused.'},
+            'missing':'Original shared identifier/type/integer hashes, global/statement/alias vectors, scalar finalizers and selected counters now have conditional bounds through finalize_size_functions return. The partial direct/shared event ledger is not a complete original-gigi or process total. Uint/Udigits/UI_Ints incoming state, other metadata/physical/late heaps, later warning and shared consumers, remaining passes, RTL/DF ceilings and complete global event/UID/collector lifetimes remain open. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
             'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
                              ELF_interface=assembler['ELF'],
@@ -1814,7 +1979,8 @@ def evaluate(descriptor_path, context, source_override=None):
                 selected_ALI_consumer_local_interfaces_fit=ali_consumers['selected_ALI_consumer_local_interfaces_fit'],
                 selected_parent_DW_reader_local_interface_fits=gpr_parent['selected_parent_DW_reader_local_interface_fits'],
                 selected_literal_assembler_and_linker_representation_fits=linker['selected_literal_assembler_and_linker_representation_fits'],
-                failed_linker_sufficient_checks=linker['link']['failed_sufficient_checks']),
+                failed_linker_sufficient_checks=linker['link']['failed_sufficient_checks'],
+                historical_conservative_failed_linker_sufficient_checks=historical_conservative_linker['link']['failed_sufficient_checks']),
             'missing':'Complete native and GPR shared name-pool backing, invocation/library graph containers, parent source/project/driver routes, fixed-child ALI regeneration correspondence and output launch. Main/fixed ALI local parser tables/buffers, Gprbind A/U-only and native parent GPRbuild D/W local interfaces are attached with explicit additive name contracts; selected ELF/link and checksum interfaces remain joined.'},
         'complete_output_launch_materialization': {
             'missing':'Bind complete output-family project/options/map/search graph and fixed dependency compiler/producer subprocesses. This descriptor binds common bytes and selected roles, not that entire frontier.'}}
@@ -1842,6 +2008,7 @@ def evaluate(descriptor_path, context, source_override=None):
         native_original_helper_storage=original_helper,
         native_original_String_storage=original_string,
         native_original_Main_storage=original_main,
+        native_original_shared_storage=original_shared,
         native_synthetic_function_storage=synthetic,
         native_counter_emission_interface=counter,
         native_complete_emission_interface=emission,
@@ -1849,6 +2016,9 @@ def evaluate(descriptor_path, context, source_override=None):
         Main_assembler_object_interface=assembler,
         Main_GAS_BFD_storage=assembler_storage['storage'],
         literal_output_linker=linker,linker_path_bytes_including_NUL_upper=p+1,
+        literal_output_linker_refinement=linker_refinement,
+        literal_output_linker_refinement_review=context.attachment_reviews['linker'],
+        literal_output_linker_historical_conservative=historical_conservative_linker,
         Main_ALI_interface=ali,
         ALI_consumer_interfaces=ali_consumers,
         native_GPR_parent_DW_interface=gpr_parent,
@@ -1864,6 +2034,8 @@ def evaluate(descriptor_path, context, source_override=None):
         native_emission_review=context.emission_review,
         native_original_helper_source_validation=context.original_source_validation,
         native_original_storage_source_validation=context.original_storage_source_validation,
+        native_original_shared_source_validation=context.original_shared_source_validation,
+        literal_relocation_refinement_source_validation=context.relocation_refinement_source_validation,
         native_tool_executions=0,production_admission_changed=False,aggregate_RAM_gate=False,
         conditional_premises=['Relevant installed behavior matches the reviewed source.',
             'The selected O0, Linux x86-64, no-debug, small-PIC, ordinary PLT descriptor and unchanged Silver library semantics apply.',

@@ -384,7 +384,7 @@ def main():
             assert not parent['complete_GPR_Names_backing_established']
             assert not parent['whole_native_parent_capacity_established']
             assert not parent['output_launch_descriptor_materialized']
-            expected=name!='5000_calls'
+            expected=True
             assert result['conditional_arithmetic_pass']==expected,(name,result['failed_conditional_predicates'])
             assert not result['evaluated_predicates_pass']
             assert result['failed_predicates']==[]
@@ -427,10 +427,11 @@ def main():
                 assert assessments[key]['selected_emission_source_premises_closed']
                 assert not assessments[key]['production_invocation_materialized']
                 assert 'production' in assessments[key]['residual']
-            assert linker['link']['failed_sufficient_checks']==(
+            assert result['literal_output_linker_historical_conservative']['link']['failed_sufficient_checks']==(
                 ['fixed_signed_relocation_reach'] if name=='5000_calls' else [])
+            assert linker['link']['failed_sufficient_checks']==[]
             if name=='5000_calls':
-                assert result['failed_conditional_predicates']==['literal_output_linker_representation']
+                assert result['failed_conditional_predicates']==[]
             if name in ('literal_above_old_cap','5000_calls'):
                 assert not result['Why_core']['producer_core_fits']
                 assert result['selected_Why_core']['literal_Main_core_fits']

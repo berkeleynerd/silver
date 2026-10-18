@@ -19,9 +19,10 @@ substituted. Initial SSA infrastructure and renaming also have a separate
 constructor delta. Initial CF/EH/CFG/root-loop constructors now also have a
 conditional join. The two original String size-helper constructors now have the separate request
 join below. Cold String residual and original Main requests now also join,
-with source-bound fixed context I<=114. The next native consumer is incoming
-shared backing/counters and remaining helper/pass lifetime, followed by shared
-collector composition.
+with source-bound fixed context I<=114. Reviewed original shared storage and
+selected counters now join through `finalize_size_functions` return, before
+ordinary Main analysis. Remaining original/Ada metadata, later shared consumers
+and helper/pass lifetime still precede complete collector composition.
 The reviewed whole-body copy and data-address bounds are now attached separately.
 The independently accepted literal linker and Main ALI adapters also join the
 same source interface; binder parser/graph and complete launch work remain open.
@@ -1266,9 +1267,9 @@ warning source/attachment review is recorded below.
 
 ## Accepted linker and Main ALI interfaces
 
-The aggregate attaches the independently accepted
+The aggregate first evaluates the independently accepted
 [literal linker](retained-literal-linker.md) implementation `d8f31fb036`, reviewed
-in `4c2b1fc61f`, without changing its equations. `evaluate(raw, Context(),
+in `4c2b1fc61f`, with its original equations. `evaluate(raw, Context(),
 path_bytes=P+1)` receives the same complete source bytes and the descriptor's
 path spelling bound plus the terminal NUL. The returned source identity and
 C/N/decoded-byte/maximum-literal counts must equal the assembler's. Applying
@@ -1279,12 +1280,15 @@ must equal the aggregate's separately joined storage verdict. The selected
 host-page premise remains 4096 bytes, distinct from layout alignment and from
 a new native measurement.
 
-The returned `literal_output_linker` retains every failed sufficient check.
-The Hello and 8192-byte-literal examples pass. The 5000-call example now fails
-the aggregate's `literal_output_linker_representation` conjunct only because
-the retained conservative `fixed_signed_relocation_reach` bound fails; its
-native, GAS/BFD and selected Why conditions still pass. This is not evidence
-of native rejection, an inherent maximum, or an adopted language cap. The
+The complete old result is preserved as
+`literal_output_linker_historical_conservative`, evaluated on the current
+actual source. The accepted [relocation refinement](retained-literal-relocation-refinement.md)
+then replaces only the common signed-reach bound; all 39 other linker checks
+remain required. The returned `literal_output_linker` is that refined result.
+Hello, the 8192-byte literal and 5000 calls now pass the local conditional
+arithmetic. The 5000-call old signed-bound failure remains in the separately
+named conservative result. Neither calculation establishes native rejection,
+an inherent maximum, or an adopted language cap. The
 linker's conditional no-LTO/no-plugin and fixed-lookup premises remain
 explicit; the aggregate's partial descriptor does not establish their complete
 production materialization.
@@ -1337,8 +1341,8 @@ results. No production invocation or capacity rule changes.
 
 The callable keeps `native_remaining_lifetime_and_collector` as its next
 repair. The remaining constructor join must cover fixed/configuration/frontend
-physical and late-heap storage, remaining gimplifier helpers, existing RTL/DF/helper ceilings, shared
-identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC
+physical and late-heap storage, remaining gimplifier helpers, existing RTL/DF/helper ceilings, later shared
+identifier/CONST_INT/reg-attribute backing, Ada integer/callback storage and complete GGC
 pages/finalizers/counters. Ranger/out-of-SSA now supplies its literal-sized
 ordinary requests; initial CF/EH/CFG/root-loop constructors now provide their
 separate event sum and shared metadata/bitmap/ET demand. The established warning
@@ -1890,6 +1894,8 @@ integer lookups and entries, global-declaration/statement-cache/alias-vector
 demands, Uint/Udigits/UI_Ints contributions and singleton-finalizer demand are
 exported. Main's namespace finalizer remains one, distinct from the pool's
 assembler-name singleton. Incoming global counters and complete shared backing
+were unjoined at this checkpoint. The later original shared-storage attachment
+below supplies a selected interval and partial ledger; complete lifetimes
 remain unknown. No whole-import sum is manufactured from the separate slices.
 
 The source review supports restoring exactly
@@ -2053,3 +2059,130 @@ validation was preserved. Compiler, debugger/capture, build, proof/prover,
 solver and unrelated full-suite runs were zero. No GitHub, memory, harness,
 Oracle, production toolchain pin/option or admission state was changed. The parent owns
 independent integration review and the next production-graph/shared-capacity work.
+
+## Reviewed original shared storage and linker refinement attachment
+
+This attachment starts from published base
+`e67e2a9a267220e9ef87e4ffee2028839a9ed598`. It consumes original shared-storage
+freeze `e12e010fd1da984a45a6955928f3fc979aec4306`, compatibility correction
+`c2ec0d195eea30e5ed4c1fd553ae5f8c04056bb2` and provenance repair
+`20db3fc952adffdeb58ecbff163aef80a51f804b`, accepted in the
+[shared review and recheck](../reviews/review-literal-original-shared-e12e010fd1.md)
+at `29d806872e179e03d55f3c0f83ba49c8f8a2f106`. It also consumes relocation
+refinement `96b261688a54c8e60083bc1e512e7e1e7799c5dd`, accepted in
+[review](../reviews/review-literal-relocation-refinement-96b261688a.md)
+`eef110623213c1b4bd3953b9ded919b3e0a54454`. Review identities are retained as
+historical evidence in `attachment-inputs.json`; an evolving report is not
+required to remain byte-identical to its acceptance snapshot.
+
+The [shared source argument](retained-literal-original-shared-storage.md)
+establishes occupied and allocated incoming state separately, then bounds
+identifier/type/integer hashes, global-declaration/statement-cache/alias
+vectors, scalar finalizers and selected counters. Its cut ends after
+`finalize_size_functions`, before ordinary Main analysis/gimplification. The
+source-derived fixed context, filename ingress, dummy ownership and five
+scalar registrations retain their exact premises. Later consumers and Ada
+Uint/Udigits/UI_Ints incoming state remain open.
+
+The aggregate calls only the unchanged leaf's pure `derive` function. It never
+instantiates the leaf Context, whose standalone input contract loads the older
+aggregate and would create recursion here. The adapter instead checks all
+38 original repository inputs: **35 current files and three historical
+aggregate files** (`compose.py`, `inputs.json`, `result.json`) at exact
+`7573e127ffb020ddfb1214491179c59442e7798b`. It also checks all **60 complete
+source/header files** and the original physical/virtual source-count join.
+The current aggregate Context already validates and builds every original
+consumer interface used by the pure derivation. No manifest is repinned to a
+file that depends cyclically on that manifest; the historical aggregate inputs
+are not reported as current files.
+
+Historical hashes establish identity, not current semantic correspondence.
+The attachment additionally verifies that all pre-existing top-level aggregate
+functions other than the intentionally changed `evaluate` have identical ASTs
+to that predecessor, including the recognizer and original consumer builders.
+The current Context retains their source checks and adds these validations.
+The actual-source join checks exactly the reviewed Main/String/helper/
+synthetic, warning/pool/collector/counter interfaces against their independent
+leaf inputs. Focused evaluations compare the **eleven source/capacity
+projections** and the full pure shared result against the historical evaluator
+using those validated current inputs; Hello also equals the accepted shared
+result exactly. These checks and the unchanged builder source together justify
+reusing the source/ownership argument. They do not authorize later pin updates.
+
+The remaining **three verdict/diagnostic projections** are treated separately.
+The inherited unresolved conditions and false whole-pipeline flag remain.
+The inherited failed-conditional list can change because the independently
+accepted linker refinement is now applied. In
+`native_original_shared_storage.interface`, the fields named
+`retained_aggregate_*` describe the current source aggregate **after linker
+refinement but before adding original-shared guards**. The wrapper explicitly
+records that scope; those fields are not the final aggregate verdict. The final
+verdict includes each `native_original_shared_` condition. A targeted injected
+shared-counter failure checks this distinction without introducing a
+self-referential condition.
+
+The nine named guards cover identifier, type and integer hashes, global_decls,
+stmt_list_cache, alias_sets, scalar finalizers, selected counter endpoints and
+filename ingress. They appear in both the conditional and actual condition
+maps, with the same interval restrictions. No global-lifetime flag becomes
+true. The returned partial ledger records disjoint reviewed original Main,
+String216, helper94, synthetic173 and new shared-backing events exactly once.
+For Hello:
+
+| Partial GGC event group | Upper bound |
+| --- | ---: |
+| Original Main, I<=114 | 1061 |
+| Original String | 216 |
+| Original helpers | 94 |
+| Synthetic functions | 173 |
+| New shared backings | 768 |
+| Known selected subtotal | 2312 |
+
+There are separately at most 41 new ordinary shared-backing requests in this
+interval. Prefix/filename ingress and the direct dummy/warning/symbol controls
+owned elsewhere are not added to this subtotal. Main's directly owned
+small-cache vectors and historical null packets are not added again. Other
+original construction, Main struct-function and later infrastructure,
+metadata/Ada storage and collector families still prevent a complete total.
+`complete_imported_allocation_events` and bytes remain null; original gigi,
+global counter, collector and whole-pipeline completeness remain false.
+
+The relocation adapter uses the already checked same-source/text/ELF/storage
+linker result. Its 13 repository inputs and 12 complete source-capsule files
+are verified; the existing linker Context is reused. The refinement changes
+`fixed_signed_relocation_reach` from `2V+K+15` to `max(V+K+15,V+16)`, with
+K=2019040. All 39 other check values, trial-layout arithmetic, source/count
+identity, conditions of claim, open joins and separate assembler-storage
+conjunction remain. Only the derived common bound, its guard and the associated
+failure/conjunction summaries change. Review acceptance is attached separately
+from the leaf's historical `independent_review_accepted=False` field.
+
+For 5000 one-byte Put calls, the old common bound 2162324017 remains in the
+conservative result; the refined bound 1082171536 and the other local checks
+pass. The final `conditional_arithmetic_pass` is now true for that source.
+The three actual assembly/object, GAS/BFD and linker predicates remain null
+because production invocation/materialization is still missing. The accepted
+30653/30654-call local boundary remains leaf evidence and was not rerun or
+adopted as a production limit. No admission, whole-capacity, physical-resource
+or RAM claim follows from the refined arithmetic.
+
+The single affected aggregate run passed **45 focused checks in 5.695187s**,
+22:58:15.350093–22:58:21.045283 UTC on Linux x86_64. It evaluated Hello,
+mixed empty/8192-byte calls plus a null, and 5000 calls; compared actual current
+and historical projections/results; checked ownership/subtotals and the 39
+preserved linker guards; retained independent linker failures; and challenged
+source/callback/ownership, historical/current input and complete-source guards.
+Default generation took **4.194964s**, 22:58:15.364755–22:58:19.559733 UTC.
+It reports 205 current aggregate input pins and 2711 distinct current files;
+overlapping nested inventories and historical inputs are reported separately.
+
+Selected model/effort: **GPT-6 Astra / Extra High**, assigned by the parent.
+Runtime confirmation and token/cost measurements are unavailable. The recorded
+implementation checkpoint was 22:55:09 UTC; total round-start time was not
+captured. No focused check failed; no broad leaf or aggregate success was
+rerun. The prior 301 aggregate, 208 shared, 31 compatibility and accepted
+relocation/review successes remain historical evidence. The broad aggregate
+checker's 5000-call expectation is updated for future runs, while its old
+result is retained. No compiler, assembler, linker, capture/debugger,
+proof/prover/solver, build or full-suite execution occurred. Only the aggregate
+packet and this note changed; parent owns independent review and integration.
