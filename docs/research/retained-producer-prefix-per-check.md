@@ -35,10 +35,12 @@ The new launch preserves the exact five native JSON inputs, executable and
 plugin identities, `--steps 0 --timeout 0 --counterexample off`, three selected
 provers, environment and `OCAMLRUNPARAM=s=256M,h=16M,M=1000`. It changes the proof
 mode to `per_check` and adds `--why3-conf <private-overlay>/why3.conf`. Each case
-has a new private directory with no saved session. The unused local `why3.conf`
-copy is preserved for identity correspondence; the supplied extra configuration
-is the explicit private path, and the installed base configuration is still
-read as `gnat_config.ml:350–383` specifies.
+has a new private directory with no saved session. Its local `why3.conf` is the
+base configuration actually read: `gnat_util.ml:46` supplies that relative name,
+and the successful-open observations resolve it in each case's working
+directory. That pinned copy is merged with the extra configuration at the
+explicit private path, as `gnat_config.ml:350–383` specifies. Both inputs are
+included in the capture identities; no installed-base-file read is assumed.
 
 ## Correct the private import ambiguity
 
