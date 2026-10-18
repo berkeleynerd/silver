@@ -32,7 +32,8 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_elim.adb", "sem_cat.adb", "einfo-utils.adb", "sem_ch13.adb",
          "exp_ch13.adb", "nlists.adb", "itypes.adb", "expander.adb",
          "sem_aux.adb", "ghost.adb", "sem_type.adb", "restrict.adb",
-         "local_restrict.adb", "accessibility.adb", "opt.ads"]
+         "local_restrict.adb", "accessibility.adb", "opt.ads",
+         "sem_attr.adb", "exp_attr.adb"]
 sources = {}
 hashes = {}
 for name in files:
@@ -348,6 +349,21 @@ result = {
             "syntax_lists": 2,
         },
         "not_included": "first child analysis, generated range-check comparisons, copies/reanalysis/source-to-event multiplicity, backend",
+    },
+    "generated_String_bound_attribute_semantic_transfer": {
+        "premises": "artificial First/Last/Length without dimension; analyzed/resolved nonoverloaded ordinary String object/view/subtype prefix with frozen referenced entities, frozen ordinary nonpacked/nonprivate/nongeneric/nonpredicated non-literal String nominal/actual subtype and Integer indices; no access-typed prefix/BIP/concurrent/union/error/dimension/pending check/transient/spec/callback additions; Integer base context and folded results fit; checks suppressed, strict overflow; existing known bound values",
+        "First_Last": {"ordinary_nodes": 2, "growing_slot_events": 1, "Uint_appends": 0},
+        "Length": {"ordinary_nodes": "20*A+4", "growing_slot_events": 2, "Uint_appends": "80*A+64"},
+        "extra_Length_arithmetic_magnitude": "2*H+1, combined with comparison magnitude envelope",
+        "entity_name_list_elist_String_overload_allocations": 0,
+        "direct_concat_First_Last_nodes": "n+2",
+        "direct_concat_Length_nodes": "n",
+        "one_initial_analysis_if_all_premises_hold": {
+            "ordinary_nodes": "20*n*A+6*n+4",
+            "growing_slot_events": "3*n+2",
+            "Uint_appends": "n*(80*A+64)",
+        },
+        "not_included": "first prefix analysis, outer conversions, nonfrozen copied slice itypes, insertion contexts, copies/reanalysis/source-to-event multiplicity, backend",
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",

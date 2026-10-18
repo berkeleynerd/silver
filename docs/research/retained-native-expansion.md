@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records forty-nine inspected files hash-checked against the complete source
+records fifty-one inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -1213,6 +1213,90 @@ nodes, `4*n+4` growing events and `(2*n+2)*(160*A+120)` Uint appends, plus at
 most **two syntax lists** for the equality expander. This does not include
 additional comparisons constructed while analyzing inserted range checks,
 first analysis of scalar children, or source-to-reanalysis multiplicity.
+
+### Generated ordinary String bounds and length attributes
+
+For one artificial First, Last or Length attribute, take an already analyzed,
+resolved and nonoverloaded prefix denoting an ordinary one-dimensional String
+object/view or constrained subtype. Referenced prefix entities are frozen.
+Its nominal and available actual subtypes are ordinary String subtypes, with
+signed Integer indices; they are frozen,
+nonpacked, nonprivate, nongeneric, nonpredicated and not String-literal
+subtypes. The prefix is not access-typed (an already expanded explicit
+dereference whose result is String is allowed), a build-in-place function,
+concurrent self-reference or unchecked union. There is no dimension argument,
+error, dimension annotation, transient/spec context or pending prefix check.
+The result context is the frozen Standard Integer base, constant-folded values
+fit it, checks are suppressed and overflow mode is strict. Known bound values
+are existing literal/constant chains. Prefix/input syntax and its first
+analysis are charged earlier; native rewrite callbacks add nothing.
+
+The extra envelopes are:
+
+| Attribute | Ordinary nodes | Growing events | Uint appends |
+| --- | ---: | ---: | ---: |
+| First or Last | `2` | `1` | `0` |
+| Length | `20*A+4` | `2` | `80*A+64` |
+
+A is the preceding finite graph bound for a comparison of the chosen index
+bounds, including its queried type bounds. There are no additional entities,
+names, syntax lists, Elists, String values or overload entries. Use a numeric
+magnitude bound covering both the comparison transfer and `2*H+1` for the
+extra length arithmetic, where H bounds the two existing index values. Uint
+digit charges follow that maximum. An unconstrained ordinary String object
+with no constrained actual subtype also fits: its evaluation returns without
+folding and native expansion leaves the attribute for gigi.
+
+The common analysis prologue analyzes the existing prefix and finds no
+attribute expressions. Check_Array_Type's dereference helper only resolves
+the already analyzed prefix; it does not insert a dereference when the
+prefix's type is already String. First/Last select the Integer index base,
+and Length initially selects Universal_Integer. There are no source-only
+restriction/predicate additions
+(`sem_attr.adb:1794–2015,2097–2138,3208–3450,4434–4440,4832–4834`,
+`restrict.adb:661–705`). Resolution resets a universal result to the context
+base, resolves the prefix, and calls Eval_Attribute once. Frozen prefix
+entities/types, already resolved expressions and ordinary context exclude
+freeze additions (`sem_attr.adb:11559–11620,13628–13736`).
+
+The evaluator's Get_Actual_Subtype_If_Available is a lookup, **not** the
+separate allocating Get_Actual_Subtype helper. It selects an existing actual
+subtype or Etype without constructing one (`sem_util.adb:10380–10409`,
+`sem_attr.adb:8727–8750`). Set_Bounds reads the existing index range; the
+String-literal-subtype branch that manufactures a high bound is excluded
+(`sem_attr.adb:8308–8405`). Static-subtype checks only inspect existing bounds
+under the no-error/known-value premises.
+
+First and Last fold a known bound through Fold_Uint, at most one literal,
+one saved original and one growing event. Otherwise the concurrent-
+discriminant helper cannot apply. Native expansion may replace a local
+constrained array's bound attribute with one occurrence of an existing
+nondiscriminant bound entity, with the same two-node/one-growth envelope.
+The semantic-fold and surviving-attribute routes are mutually exclusive
+(`sem_attr.adb:9590–9620,9817–9847`, `exp_attr.adb:4121–4201`,
+`exp_util.adb:7756–7779`).
+
+Length performs its known-bounds calculation, if available, using one
+subtraction and one addition: at most three Uint appends. **It does not
+return after this fold.** It next performs one Compile_Time_Compare of the
+bounds, then may fold again using the returned Diff plus one, adding at most
+one further Uint append. The two Fold_Uint calls are conservatively charged
+as four nodes and two growing events, in addition to the comparison's
+`20*A` nodes and `80*A+60` Uint appends
+(`sem_attr.adb:9898–9977`). Its common evaluation tail only updates staticness
+or checks the empty expression list (`11425–11459`). A surviving native
+Length has no packed/access/minimized-overflow expansion; its universal-
+integer check returns for suppression (and independently for artificial
+attributes) before constructing anything
+(`exp_attr.adb:2496–2588,5129–5346`, `checks.adb:3978–4007`).
+
+There are at most **n+2** direct First/Last attributes and **n** direct Length
+attributes in the concat emitter. One initial pass satisfying these premises
+therefore adds at most `20*n*A+6*n+4` ordinary nodes, `3*n+2` growing events,
+and `n*(80*A+64)` Uint appends. Earlier scalar conversions around last-operand
+bounds, first prefix analysis, nonfrozen copied slice itypes, insertion
+contexts and compilation-wide reanalysis remain separate charges. This
+attribute result does not silently establish their shape or freezing premises.
 
 ## Required transitive closure
 
