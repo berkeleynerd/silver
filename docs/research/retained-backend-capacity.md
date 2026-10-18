@@ -511,6 +511,97 @@ inventories are retained with this component. This exclusion does not bound
 C_tree or C_rtl, or imply that every optimization/transformation is disabled
 at O0.
 
+## Bulk String movement: local expansion transfers
+
+Bulk movement is not necessarily expanded once per byte. The selected compiler
+reports `-march=x86-64`, `-mtune=generic`, and no inline-string-operation
+override in the retained `-Q --help=target` query. This query compiles no
+program. The application configuration supplies the same defaults; an
+environment or option override requires rechecking this transfer.
+
+For an ordinary `emit_block_move_hints` request, with the epilogue-only
+`by_pieces_in_use` flag clear, the piecewise selection test requires
+`by_pieces_ninsns < MOVE_RATIO`. The generic target's ratio is 17 when
+speed-oriented and 3 otherwise (`x86-tune-costs.h:4212–4213`,
+`i386.h:1957`, `targhooks.cc:2156–2220`, `i386.cc:11583–11594`).
+Do not infer the size-oriented case merely from O0. The bound 17 covers both.
+Every piece has at most 64 bytes even across the wider x86 configurations;
+the selected non-AVX configuration has a smaller maximum. `MOVE_MAX_PIECES`
+defaults to `MOVE_MAX` (`defaults.h:977–986`) with no selected x86 override.
+The estimator
+covers the input length with positive-sized pieces and may round it up for
+overlap (`expr.cc:1122–1176`). Thus piecewise selection implies
+**`L<=16*64=1024`**. This is a bound on this expansion path's input, not an
+admission cap or an exact count of its emitted machine instructions. Other
+paths handle larger L. With `L<=Integer'Last`, the estimator's 64-bit length,
+round-up and piece-count arithmetic is also representable.
+
+In particular, both x86 `cpymem` and `movmem` expanders return false when a
+known positive length is above `2^30`, before address-register construction
+or algorithm expansion (`i386-expand.cc:9510–9586,10453–10506`). This is a
+**fallback boundary**, not a compiler rejection. For a normal, nonoverlapping
+block copy in generic address space, with inline-string overrides absent,
+`emit_block_move_hints` then calls `emit_block_copy_via_libcall` once
+(`expr.cc:2024–2154`). Its wrapper selects `BUILT_IN_MEMCPY`; the implementation
+forms one three-argument call and calls `expand_call` once
+(`expr.h:85–99`, `expr.cc:2540–2579`). No payload-sized compile-time loop is
+introduced by that wrapper. Selected machine patterns exist for SI and DI
+only, so the pattern-selection loop makes at most two attempts
+(`expr.cc:2237–2329`, `i386.md:25924–25962`). Their failed temporary operand
+construction still requires its ordinary RTL allocation charge.
+
+The result is useful for composing larger value ranges: **no 1-GiB String
+restriction follows from this early return**. At most two pattern attempts
+and one fixed-arity call replace the large normal copy at this layer.
+This claim does not cover `BLOCK_OP_NO_LIBCALL`, call-parameter copies,
+overlapping-copy fallback, or arbitrary addressing spaces; each has its own
+caller and transfer. It also does not bound the internal work of `expand_call`
+or the runtime execution cost of memcpy.
+
+### Overlapping-move template, independent of runtime length
+
+The separately selected `ix86_expand_movmem` template has a finite expansion
+bound independent of the runtime copy length. Its fully unrolled branch uses
+at most eight full registers and one tail register. Its other loops run over
+fixed groups of two, four or eight registers; the forward/backward copying
+loops are emitted runtime loops, not repeated compiler execution. The small
+tail dispatch has five fixed size bands plus the single-byte case
+(`i386-expand.cc:10010–10715`).
+
+Sum both alternatives conservatively, counting even mutually exclusive
+branches. Expanding just the six named movmem helpers gives this per-invocation
+interface to the ordinary RTL helpers:
+
+| Primitive request | Upper bound |
+| --- | ---: |
+| Explicit `gen_reg_rtx` | 53 |
+| `emit_move_insn` | 111 |
+| `gen_label_rtx` / `emit_label`, each | 14 |
+| `emit_cmp_and_jump_insns` | 14 |
+| `emit_jump_insn` / `emit_barrier`, each | 17 |
+| `expand_simple_binop` | 8 |
+| `change_address` | 28 |
+| `offset_address` | 98 |
+| `adjust_address` | 2 |
+| `ix86_copy_addr_to_reg` | 2 |
+
+The helper subtotal for explicit pseudos/move requests is respectively
+`(9,18)` for the initial unroll; `(14,28)` for the outer groups 2/8/4;
+`(10,20)` for the five two-register tail groups; `(8,8)` for the two
+four-register loads; `(0,8)` for their stores; and `(8,16)` for the two
+four-register loop bodies. The caller and small-tail dispatcher add `(4,13)`.
+All counted compiler loops have these fixed positive bounds. The checker
+reconciles the loop-free callers' direct sites and the handwritten helper
+subtotals against the complete pinned file.
+
+These are **primitive request counts**, not a transitive bound on all RTL
+objects, pseudo-register allocations or final instruction bytes. The named
+primitives may allocate further objects; mode/address conversion, instruction
+recognition and later passes remain composition obligations. Multiply the
+interface by actual invocations, including failed speculative attempts. This
+closes a length-dependent expansion concern without substituting an observed
+instruction count or an unexplained whole-backend multiplier.
+
 ## Remaining backend closure
 
 The [ELF linker transfer](retained-linker-capacity.md) supplies the separate

@@ -124,8 +124,137 @@
     {
       "path": "gcc/read-rtl-function.cc",
       "sha256": "658b151d970faf4046ef98fd21d227abea1fd6c5b1878acc4403ce40a7f21072"
+    },
+    {
+      "path": "gcc/expr.cc",
+      "sha256": "97b7c529f38ae0dbb7fb39a2d85d5c27c18bc145a9d21a08f3e5a5135f571e4f"
+    },
+    {
+      "path": "gcc/expr.h",
+      "sha256": "3c1fde596448b9e4c910fc2d5a103a5ce1d360ed22f8d56684a355720ffed594"
+    },
+    {
+      "path": "gcc/targhooks.cc",
+      "sha256": "18278aab3517619d6e10b397d5a6869b78965dd59db4b286e699ff0512ad05c0"
+    },
+    {
+      "path": "gcc/config/i386/i386.h",
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "path": "gcc/config/i386/i386.cc",
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "path": "gcc/config/i386/i386-expand.cc",
+      "sha256": "195b3f74e04375027ef71c84bc3eeb5985adae3ca5d4bd7257f0d2e33d226214"
+    },
+    {
+      "path": "gcc/config/i386/x86-tune-costs.h",
+      "sha256": "ecc203626dfb80631fb7651f62000fd30eb2293734d520cfbaffed3df844944a"
+    },
+    {
+      "path": "gcc/defaults.h",
+      "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a"
     }
   ],
+  "block_operations": {
+    "scope": "local primitive requests, not transitive RTL or machine instructions",
+    "ordinary_piecewise_move_ratio_upper_bound": 17,
+    "ordinary_piecewise_estimated_pieces_maximum": 16,
+    "universal_x86_piece_bytes_upper_bound": 64,
+    "ordinary_piecewise_input_bytes_upper_bound": 1024,
+    "constant_pattern_early_return_above": 1073741824,
+    "large_constant_normal_copy_libcall_requests": 1,
+    "libcall_arguments": 3,
+    "pattern_mode_attempts_upper_bound": 2,
+    "direct_lexical_primitive_inventory": {
+      "ix86_expand_movmem": {
+        "gen_reg_rtx": 3,
+        "emit_move_insn": 11,
+        "gen_label_rtx": 8,
+        "emit_label": 8,
+        "emit_cmp_and_jump_insns": 8,
+        "emit_jump_insn": 6,
+        "emit_barrier": 6,
+        "expand_simple_binop": 8,
+        "change_address": 4,
+        "offset_address": 2,
+        "ix86_copy_addr_to_reg": 2
+      },
+      "ix86_expand_less_move_movmem": {
+        "gen_reg_rtx": 1,
+        "emit_move_insn": 2,
+        "gen_label_rtx": 6,
+        "emit_label": 6,
+        "emit_cmp_and_jump_insns": 6,
+        "emit_jump_insn": 11,
+        "emit_barrier": 11,
+        "expand_simple_binop": 0,
+        "change_address": 2,
+        "offset_address": 0,
+        "ix86_copy_addr_to_reg": 0
+      }
+    },
+    "manually_derived_helper_bounds": {
+      "unroll_at_most_8_plus_tail": {
+        "gen_reg_rtx": 9,
+        "emit_move_insn": 18,
+        "change_address": 2,
+        "offset_address": 20,
+        "adjust_address": 2
+      },
+      "three_outer_overlap_helpers_moves_2_8_4": {
+        "gen_reg_rtx": 14,
+        "emit_move_insn": 28,
+        "change_address": 6,
+        "offset_address": 28,
+        "adjust_address": 0
+      },
+      "five_small_overlap_helpers_moves_2": {
+        "gen_reg_rtx": 10,
+        "emit_move_insn": 20,
+        "change_address": 10,
+        "offset_address": 20,
+        "adjust_address": 0
+      },
+      "two_load_helpers_moves_4": {
+        "gen_reg_rtx": 8,
+        "emit_move_insn": 8,
+        "change_address": 2,
+        "offset_address": 8,
+        "adjust_address": 0
+      },
+      "two_store_helpers_moves_4": {
+        "gen_reg_rtx": 0,
+        "emit_move_insn": 8,
+        "change_address": 2,
+        "offset_address": 8,
+        "adjust_address": 0
+      },
+      "two_move_helpers_moves_4": {
+        "gen_reg_rtx": 8,
+        "emit_move_insn": 16,
+        "change_address": 0,
+        "offset_address": 12,
+        "adjust_address": 0
+      }
+    },
+    "movmem_transitive_over_named_helpers_only": {
+      "gen_reg_rtx": 53,
+      "emit_move_insn": 111,
+      "gen_label_rtx": 14,
+      "emit_label": 14,
+      "emit_cmp_and_jump_insns": 14,
+      "emit_jump_insn": 17,
+      "emit_barrier": 17,
+      "expand_simple_binop": 8,
+      "change_address": 28,
+      "offset_address": 98,
+      "ix86_copy_addr_to_reg": 2,
+      "adjust_address": 2
+    }
+  },
   "ordinary_vectors": {
     "heap_maximum_requested_total": 2147483647,
     "heap_modular_growth_examples": [

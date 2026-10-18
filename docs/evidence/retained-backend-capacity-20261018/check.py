@@ -40,10 +40,20 @@ RANGES = {
     "gcc/function.cc": [(203, 218), (5133, 5144)],
     "gcc/vec.h": [(220, 260), (302, 325), (393, 425), (599, 660), (1394, 1415)],
     "gcc/vec.cc": [(150, 169)],
+    "gcc/expr.cc": [(1096, 1176), (1506, 1590), (2024, 2169),
+                     (2237, 2329), (2540, 2579)],
+    "gcc/expr.h": [(85, 105)],
+    "gcc/targhooks.cc": [(2156, 2220)],
+    "gcc/defaults.h": [(977, 995)],
+    "gcc/config/i386/i386.h": [(1916, 1966)],
+    "gcc/config/i386/i386.cc": [(11580, 11596)],
+    "gcc/config/i386/i386-expand.cc": [(9135, 9294), (9510, 9586),
+                                      (10010, 10715)],
+    "gcc/config/i386/x86-tune-costs.h": [(4139, 4157), (4208, 4220)],
     "gcc/emit-rtl.cc": [(80, 85), (1184, 1232), (1239, 1262), (5980, 6005)],
     "gcc/rtl.h": [(4091, 4146)],
     "gcc/bb-reorder.cc": [(2616, 2641), (2665, 2672), (2977, 3011)],
-    "gcc/config/i386/i386.md": [(500, 515)],
+    "gcc/config/i386/i386.md": [(500, 515), (25924, 25962)],
     "gcc/read-rtl-function.cc": [(1435, 1450)],
     "gcc/genmodes.cc": [(828, 845), (1012, 1023)],
     "gcc/config/elfos.h": [(114, 132)],
@@ -52,7 +62,7 @@ RANGES = {
     "gcc/hash-table.cc": [(44, 78), (87, 110)],
     "include/hashtab.h": [(32, 46)],
     "gcc/opts.cc": [(470, 560), (596, 605), (819, 825)],
-    "gcc/common.opt": [(2411, 2420)],
+    "gcc/common.opt": [(2080, 2094), (2411, 2420)],
     "gcc/config/i386/i386-options.cc": [(2275, 2286)],
     "gcc/common/config/i386/i386-common.cc": [(2033, 2059)],
     "libcpp/include/line-map.h": [(48, 55), (295, 324), (425, 471), (747, 777)],
@@ -64,6 +74,73 @@ def read_tar(archive, name):
     with tarfile.open(archive) as src:
         with src.extractfile(name) as member:
             return member.read()
+
+
+def check_block_transfers(all_bytes, bundle):
+    source = all_bytes["gcc/config/i386/i386-expand.cc"].decode()
+    primitives = ("gen_reg_rtx", "emit_move_insn", "gen_label_rtx", "emit_label",
+                  "emit_cmp_and_jump_insns", "emit_jump_insn", "emit_barrier",
+                  "expand_simple_binop", "change_address", "offset_address",
+                  "ix86_copy_addr_to_reg")
+    expected = {
+        "ix86_expand_movmem": (3, 11, 8, 8, 8, 6, 6, 8, 4, 2, 2),
+        "ix86_expand_less_move_movmem": (1, 2, 6, 6, 6, 11, 11, 0, 2, 0, 0),
+    }
+    bodies, direct = {}, {}
+    for name, counts in expected.items():
+        start = re.search(r"\n" + name + r"\s*\(", source).start()
+        end = source.index("\n}\n", start)
+        bodies[name] = source[start:end]
+        observed = tuple(len(re.findall(r"\b" + p + r"\s*\(", bodies[name]))
+                         for p in primitives)
+        assert observed == counts
+        direct[name] = dict(zip(primitives, counts))
+    # The report derives bounded loop multiplicities in these helpers.
+    # Rows are (fresh explicit pseudos, move requests, address changes, offsets,
+    #           adjust_address requests). Callee expansions remain separate.
+    helpers = {
+        "unroll_at_most_8_plus_tail": (9, 18, 2, 20, 2),
+        "three_outer_overlap_helpers_moves_2_8_4": (14, 28, 6, 28, 0),
+        "five_small_overlap_helpers_moves_2": (10, 20, 10, 20, 0),
+        "two_load_helpers_moves_4": (8, 8, 2, 8, 0),
+        "two_store_helpers_moves_4": (0, 8, 2, 8, 0),
+        "two_move_helpers_moves_4": (8, 16, 0, 12, 0),
+    }
+    aggregate = {p: sum(row[p] for row in direct.values()) for p in primitives}
+    aggregate["adjust_address"] = 0
+    helper_fields = ("gen_reg_rtx", "emit_move_insn", "change_address",
+                     "offset_address", "adjust_address")
+    for row in helpers.values():
+        for p, value in zip(helper_fields, row):
+            aggregate[p] += value
+    assert tuple(aggregate[p] for p in helper_fields) == (53, 111, 28, 98, 2)
+    for name in ("ix86_expand_movmem", "ix86_expand_set_or_cpymem"):
+        start = re.search(r"\n" + name + r"\s*\(", source).start()
+        end = source.index("\n}\n", start)
+        body = source[start:end]
+        guard = "if (count > (HOST_WIDE_INT_1U << 30))\n    return false;"
+        assert body.index(guard) < body.index("decide_alg (")
+        assert body.index(guard) < body.index("ix86_copy_addr_to_reg (")
+    query = json.loads((bundle / "target-options-query.json").read_text())
+    for pattern in (r"-mtune=\s+generic", r"-march=\s+x86-64",
+                    r"-minline-all-stringops\s+\[disabled\]",
+                    r"-minline-stringops-dynamically\s+\[disabled\]"):
+        assert re.search(pattern, query["stdout"])
+    return {
+        "scope": "local primitive requests, not transitive RTL or machine instructions",
+        "ordinary_piecewise_move_ratio_upper_bound": 17,
+        "ordinary_piecewise_estimated_pieces_maximum": 16,
+        "universal_x86_piece_bytes_upper_bound": 64,
+        "ordinary_piecewise_input_bytes_upper_bound": 16*64,
+        "constant_pattern_early_return_above": 2**30,
+        "large_constant_normal_copy_libcall_requests": 1,
+        "libcall_arguments": 3,
+        "pattern_mode_attempts_upper_bound": 2,
+        "direct_lexical_primitive_inventory": direct,
+        "manually_derived_helper_bounds": dict(zip(helpers, (
+            dict(zip(helper_fields, row)) for row in helpers.values()))),
+        "movmem_transitive_over_named_helpers_only": aggregate,
+    }
 
 
 def check_configuration_inventory(bundle, gcc_root, plugin):
@@ -276,6 +353,7 @@ def main():
     results = {
         "scope": "local source-derived arithmetic; no native compiler/prover run",
         "verified_sources": verified,
+        "block_operations": check_block_transfers(all_bytes, bundle),
         "ordinary_vectors": {
             "heap_maximum_requested_total": int_max,
             "heap_modular_growth_examples": heap_cases,

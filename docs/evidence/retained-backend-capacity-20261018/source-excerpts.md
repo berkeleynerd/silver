@@ -1827,6 +1827,25 @@ LF line numbering; complete file identities checked.
 825:
 ```
 
+## gcc/common.opt:2080–2094
+```text
+2080: -finline-limit=<number>	Limit the size of inlined functions to <number>.
+2081:
+2082: finline-atomics
+2083: Common Var(flag_inline_atomics) Init(1) Optimization
+2084: Inline __atomic operations when a lock free instruction sequence is available.
+2085:
+2086: finline-stringops
+2087: Common RejectNegative Enum(ilsop_fn) Var(flag_inline_stringops, ILSOP_ALL) Enum(ilsop_fn) Init(ILSOP_NONE) Optimization Undocumented
+2088:
+2089: fno-inline-stringops
+2090: Common RejectNegative Enum(ilsop_fn) Var(flag_inline_stringops, ILSOP_NONE) Enum(ilsop_fn) Optimization Undocumented
+2091:
+2092: finline-stringops=
+2093: Common Joined Var(flag_inline_stringops) EnumSet Enum(ilsop_fn) Optimization
+2094: -finline-stringops[=memcmp|memcpy|memmove|memset]
+```
+
 ## gcc/common.opt:2411–2420
 ```text
 2411: ; This will attempt to merge constant section constants, if 1 only
@@ -3824,6 +3843,49 @@ LF line numbering; complete file identities checked.
 515: (define_constants
 ```
 
+## gcc/config/i386/i386.md:25924–25962
+```text
+25924: (define_expand "movmem<mode>"
+25925:   [(use (match_operand:BLK 0 "memory_operand"))
+25926:    (use (match_operand:BLK 1 "memory_operand"))
+25927:    (use (match_operand:SWI48 2 "nonmemory_operand"))
+25928:    (use (match_operand:SWI48 3 "const_int_operand"))
+25929:    (use (match_operand:SI 4 "const_int_operand"))
+25930:    (use (match_operand:SI 5 "const_int_operand"))
+25931:    (use (match_operand:SI 6 ""))
+25932:    (use (match_operand:SI 7 ""))
+25933:    (use (match_operand:SI 8 ""))]
+25934:   ""
+25935: {
+25936:   if (ix86_expand_movmem (operands))
+25937:     DONE;
+25938:   FAIL;
+25939: })
+25940:
+25941: (define_expand "cpymem<mode>"
+25942:   [(use (match_operand:BLK 0 "memory_operand"))
+25943:    (use (match_operand:BLK 1 "memory_operand"))
+25944:    (use (match_operand:SWI48 2 "nonmemory_operand"))
+25945:    (use (match_operand:SWI48 3 "const_int_operand"))
+25946:    (use (match_operand:SI 4 "const_int_operand"))
+25947:    (use (match_operand:SI 5 "const_int_operand"))
+25948:    (use (match_operand:SI 6 ""))
+25949:    (use (match_operand:SI 7 ""))
+25950:    (use (match_operand:SI 8 ""))]
+25951:   ""
+25952: {
+25953:  if (ix86_expand_set_or_cpymem (operands[0], operands[1],
+25954: 			        operands[2], NULL, operands[3],
+25955: 			        operands[4], operands[5],
+25956: 				operands[6], operands[7],
+25957: 				operands[8], false))
+25958:    DONE;
+25959:  else
+25960:    FAIL;
+25961: })
+25962:
+```
+
 ## gcc/read-rtl-function.cc:1435–1450
 ```text
 1435:
@@ -3842,4 +3904,1657 @@ LF line numbering; complete file identities checked.
 1448:   crtl->emit.ensure_regno_capacity ();
 1449:   gcc_assert (regno < crtl->emit.regno_pointer_align_length);
 1450: }
+```
+
+## gcc/expr.cc:1096–1176
+```text
+1096:
+1097: /* Determine whether an operation OP on LEN bytes with alignment ALIGN can
+1098:    and should be performed piecewise.  */
+1099:
+1100: static bool
+1101: can_do_by_pieces (unsigned HOST_WIDE_INT len, unsigned int align,
+1102: 		  enum by_pieces_operation op)
+1103: {
+1104:   return targetm.use_by_pieces_infrastructure_p (len, align, op,
+1105: 						 optimize_insn_for_speed_p ());
+1106: }
+1107:
+1108: /* Determine whether the LEN bytes can be moved by using several move
+1109:    instructions.  Return nonzero if a call to move_by_pieces should
+1110:    succeed.  */
+1111:
+1112: bool
+1113: can_move_by_pieces (unsigned HOST_WIDE_INT len, unsigned int align)
+1114: {
+1115:   return can_do_by_pieces (len, align, MOVE_BY_PIECES);
+1116: }
+1117:
+1118: /* Return number of insns required to perform operation OP by pieces
+1119:    for L bytes.  ALIGN (in bits) is maximum alignment we can assume.  */
+1120:
+1121: unsigned HOST_WIDE_INT
+1122: by_pieces_ninsns (unsigned HOST_WIDE_INT l, unsigned int align,
+1123: 		  unsigned int max_size, by_pieces_operation op)
+1124: {
+1125:   unsigned HOST_WIDE_INT n_insns = 0;
+1126:   fixed_size_mode mode;
+1127:
+1128:   if (targetm.overlap_op_by_pieces_p ())
+1129:     {
+1130:       /* NB: Round up L and ALIGN to the widest integer mode for
+1131: 	 MAX_SIZE.  */
+1132:       mode = widest_fixed_size_mode_for_size (max_size, op);
+1133:       gcc_assert (optab_handler (mov_optab, mode) != CODE_FOR_nothing);
+1134:       unsigned HOST_WIDE_INT up = ROUND_UP (l, GET_MODE_SIZE (mode));
+1135:       if (up > l)
+1136: 	l = up;
+1137:       align = GET_MODE_ALIGNMENT (mode);
+1138:     }
+1139:
+1140:   align = alignment_for_piecewise_move (MOVE_MAX_PIECES, align);
+1141:
+1142:   while (max_size > 1 && l > 0)
+1143:     {
+1144:       mode = widest_fixed_size_mode_for_size (max_size, op);
+1145:       gcc_assert (optab_handler (mov_optab, mode) != CODE_FOR_nothing);
+1146:
+1147:       unsigned int modesize = GET_MODE_SIZE (mode);
+1148:
+1149:       if (align >= GET_MODE_ALIGNMENT (mode))
+1150: 	{
+1151: 	  unsigned HOST_WIDE_INT n_pieces = l / modesize;
+1152: 	  l %= modesize;
+1153: 	  switch (op)
+1154: 	    {
+1155: 	    default:
+1156: 	      n_insns += n_pieces;
+1157: 	      break;
+1158:
+1159: 	    case COMPARE_BY_PIECES:
+1160: 	      int batch = targetm.compare_by_pieces_branch_ratio (mode);
+1161: 	      int batch_ops = 4 * batch - 1;
+1162: 	      unsigned HOST_WIDE_INT full = n_pieces / batch;
+1163: 	      n_insns += full * batch_ops;
+1164: 	      if (n_pieces % batch != 0)
+1165: 		n_insns++;
+1166: 	      break;
+1167:
+1168: 	    }
+1169: 	}
+1170:       max_size = modesize;
+1171:     }
+1172:
+1173:   gcc_assert (!l);
+1174:   return n_insns;
+1175: }
+1176:
+```
+
+## gcc/expr.cc:1506–1590
+```text
+1506: op_by_pieces_d::run ()
+1507: {
+1508:   if (m_len == 0)
+1509:     return;
+1510:
+1511:   unsigned HOST_WIDE_INT length = m_len;
+1512:
+1513:   /* widest_fixed_size_mode_for_size checks M_MAX_SIZE > 1.  */
+1514:   fixed_size_mode mode
+1515:     = widest_fixed_size_mode_for_size (m_max_size, m_op);
+1516:   mode = get_usable_mode (mode, length);
+1517:
+1518:   by_pieces_prev to_prev = { nullptr, mode };
+1519:   by_pieces_prev from_prev = { nullptr, mode };
+1520:
+1521:   do
+1522:     {
+1523:       unsigned int size = GET_MODE_SIZE (mode);
+1524:       rtx to1 = NULL_RTX, from1;
+1525:
+1526:       while (length >= size)
+1527: 	{
+1528: 	  if (m_reverse)
+1529: 	    m_offset -= size;
+1530:
+1531: 	  to1 = m_to.adjust (mode, m_offset, &to_prev);
+1532: 	  to_prev.data = to1;
+1533: 	  to_prev.mode = mode;
+1534: 	  from1 = m_from.adjust (mode, m_offset, &from_prev);
+1535: 	  from_prev.data = from1;
+1536: 	  from_prev.mode = mode;
+1537:
+1538: 	  m_to.maybe_predec (-(HOST_WIDE_INT)size);
+1539: 	  m_from.maybe_predec (-(HOST_WIDE_INT)size);
+1540:
+1541: 	  generate (to1, from1, mode);
+1542:
+1543: 	  m_to.maybe_postinc (size);
+1544: 	  m_from.maybe_postinc (size);
+1545:
+1546: 	  if (!m_reverse)
+1547: 	    m_offset += size;
+1548:
+1549: 	  length -= size;
+1550: 	}
+1551:
+1552:       finish_mode (mode);
+1553:
+1554:       if (length == 0)
+1555: 	return;
+1556:
+1557:       if (!m_push && m_overlap_op_by_pieces)
+1558: 	{
+1559: 	  /* NB: Generate overlapping operations if it is not a stack
+1560: 	     push since stack push must not overlap.  Get the smallest
+1561: 	     fixed size mode for M_LEN bytes.  */
+1562: 	  mode = smallest_fixed_size_mode_for_size (length);
+1563: 	  mode = get_usable_mode (mode, GET_MODE_SIZE (mode));
+1564: 	  int gap = GET_MODE_SIZE (mode) - length;
+1565: 	  if (gap > 0)
+1566: 	    {
+1567: 	      /* If size of MODE > M_LEN, generate the last operation
+1568: 		 in MODE for the remaining bytes with ovelapping memory
+1569: 		 from the previois operation.  */
+1570: 	      if (m_reverse)
+1571: 		m_offset += gap;
+1572: 	      else
+1573: 		m_offset -= gap;
+1574: 	      length += gap;
+1575: 	    }
+1576: 	}
+1577:       else
+1578: 	{
+1579: 	  /* widest_fixed_size_mode_for_size checks SIZE > 1.  */
+1580: 	  mode = widest_fixed_size_mode_for_size (size, m_op);
+1581: 	  mode = get_usable_mode (mode, length);
+1582: 	}
+1583:     }
+1584:   while (1);
+1585: }
+1586:
+1587: /* Derived class from op_by_pieces_d, providing support for block move
+1588:    operations.  */
+1589:
+1590: #ifdef PUSH_ROUNDING
+```
+
+## gcc/expr.cc:2024–2169
+```text
+2024: emit_block_move_hints (rtx x, rtx y, rtx size, enum block_op_methods method,
+2025: 		       unsigned int expected_align, HOST_WIDE_INT expected_size,
+2026: 		       unsigned HOST_WIDE_INT min_size,
+2027: 		       unsigned HOST_WIDE_INT max_size,
+2028: 		       unsigned HOST_WIDE_INT probable_max_size,
+2029: 		       bool bail_out_libcall, bool *is_move_done,
+2030: 		       bool might_overlap, unsigned ctz_size)
+2031: {
+2032:   int may_use_call;
+2033:   rtx retval = 0;
+2034:   unsigned int align;
+2035:
+2036:   if (is_move_done)
+2037:     *is_move_done = true;
+2038:
+2039:   gcc_assert (size);
+2040:   if (CONST_INT_P (size) && INTVAL (size) == 0)
+2041:     return 0;
+2042:
+2043:   switch (method)
+2044:     {
+2045:     case BLOCK_OP_NORMAL:
+2046:     case BLOCK_OP_TAILCALL:
+2047:       may_use_call = 1;
+2048:       break;
+2049:
+2050:     case BLOCK_OP_CALL_PARM:
+2051:       may_use_call = block_move_libcall_safe_for_call_parm ();
+2052:
+2053:       /* Make inhibit_defer_pop nonzero around the library call
+2054: 	 to force it to pop the arguments right away.  */
+2055:       NO_DEFER_POP;
+2056:       break;
+2057:
+2058:     case BLOCK_OP_NO_LIBCALL:
+2059:       may_use_call = 0;
+2060:       break;
+2061:
+2062:     case BLOCK_OP_NO_LIBCALL_RET:
+2063:       may_use_call = -1;
+2064:       break;
+2065:
+2066:     default:
+2067:       gcc_unreachable ();
+2068:     }
+2069:
+2070:   gcc_assert (MEM_P (x) && MEM_P (y));
+2071:   align = MIN (MEM_ALIGN (x), MEM_ALIGN (y));
+2072:   gcc_assert (align >= BITS_PER_UNIT);
+2073:
+2074:   /* Make sure we've got BLKmode addresses; store_one_arg can decide that
+2075:      block copy is more efficient for other large modes, e.g. DCmode.  */
+2076:   x = adjust_address (x, BLKmode, 0);
+2077:   y = adjust_address (y, BLKmode, 0);
+2078:
+2079:   /* If source and destination are the same, no need to copy anything.  */
+2080:   if (rtx_equal_p (x, y)
+2081:       && !MEM_VOLATILE_P (x)
+2082:       && !MEM_VOLATILE_P (y))
+2083:     return 0;
+2084:
+2085:   /* Set MEM_SIZE as appropriate for this block copy.  The main place this
+2086:      can be incorrect is coming from __builtin_memcpy.  */
+2087:   poly_int64 const_size;
+2088:   if (poly_int_rtx_p (size, &const_size))
+2089:     {
+2090:       x = shallow_copy_rtx (x);
+2091:       y = shallow_copy_rtx (y);
+2092:       set_mem_size (x, const_size);
+2093:       set_mem_size (y, const_size);
+2094:     }
+2095:
+2096:   bool pieces_ok = CONST_INT_P (size)
+2097:     && can_move_by_pieces (INTVAL (size), align);
+2098:   bool pattern_ok = false;
+2099:
+2100:   if (!pieces_ok || might_overlap)
+2101:     {
+2102:       pattern_ok
+2103: 	= emit_block_move_via_pattern (x, y, size, align,
+2104: 				       expected_align, expected_size,
+2105: 				       min_size, max_size, probable_max_size,
+2106: 				       might_overlap);
+2107:       if (!pattern_ok && might_overlap)
+2108: 	{
+2109: 	  /* Do not try any of the other methods below as they are not safe
+2110: 	     for overlapping moves.  */
+2111: 	  *is_move_done = false;
+2112: 	  return retval;
+2113: 	}
+2114:     }
+2115:
+2116:   bool dynamic_direction = false;
+2117:   if (!pattern_ok && !pieces_ok && may_use_call
+2118:       && (flag_inline_stringops & (might_overlap ? ILSOP_MEMMOVE : ILSOP_MEMCPY)))
+2119:     {
+2120:       may_use_call = 0;
+2121:       dynamic_direction = might_overlap;
+2122:     }
+2123:
+2124:   if (pattern_ok)
+2125:     ;
+2126:   else if (pieces_ok)
+2127:     move_by_pieces (x, y, INTVAL (size), align, RETURN_BEGIN);
+2128:   else if (may_use_call && !might_overlap
+2129: 	   && ADDR_SPACE_GENERIC_P (MEM_ADDR_SPACE (x))
+2130: 	   && ADDR_SPACE_GENERIC_P (MEM_ADDR_SPACE (y)))
+2131:     {
+2132:       if (bail_out_libcall)
+2133: 	{
+2134: 	  if (is_move_done)
+2135: 	    *is_move_done = false;
+2136: 	  return retval;
+2137: 	}
+2138:
+2139:       if (may_use_call < 0)
+2140: 	return pc_rtx;
+2141:
+2142:       retval = emit_block_copy_via_libcall (x, y, size,
+2143: 					    method == BLOCK_OP_TAILCALL);
+2144:     }
+2145:   else if (dynamic_direction)
+2146:     emit_block_move_via_oriented_loop (x, y, size, align, ctz_size);
+2147:   else if (might_overlap)
+2148:     *is_move_done = false;
+2149:   else
+2150:     emit_block_move_via_sized_loop (x, y, size, align, ctz_size);
+2151:
+2152:   if (method == BLOCK_OP_CALL_PARM)
+2153:     OK_DEFER_POP;
+2154:
+2155:   return retval;
+2156: }
+2157:
+2158: rtx
+2159: emit_block_move (rtx x, rtx y, rtx size, enum block_op_methods method,
+2160: 		 unsigned int ctz_size)
+2161: {
+2162:   unsigned HOST_WIDE_INT max, min = 0;
+2163:   if (GET_CODE (size) == CONST_INT)
+2164:     min = max = UINTVAL (size);
+2165:   else
+2166:     max = GET_MODE_MASK (GET_MODE (size));
+2167:   return emit_block_move_hints (x, y, size, method, 0, -1,
+2168: 				min, max, max,
+2169: 				false, NULL, false, ctz_size);
+```
+
+## gcc/expr.cc:2237–2329
+```text
+2237: emit_block_move_via_pattern (rtx x, rtx y, rtx size, unsigned int align,
+2238: 			     unsigned int expected_align,
+2239: 			     HOST_WIDE_INT expected_size,
+2240: 			     unsigned HOST_WIDE_INT min_size,
+2241: 			     unsigned HOST_WIDE_INT max_size,
+2242: 			     unsigned HOST_WIDE_INT probable_max_size,
+2243: 			     bool might_overlap)
+2244: {
+2245:   if (expected_align < align)
+2246:     expected_align = align;
+2247:   if (expected_size != -1)
+2248:     {
+2249:       if ((unsigned HOST_WIDE_INT)expected_size > probable_max_size)
+2250: 	expected_size = probable_max_size;
+2251:       if ((unsigned HOST_WIDE_INT)expected_size < min_size)
+2252: 	expected_size = min_size;
+2253:     }
+2254:
+2255:   /* Since this is a move insn, we don't care about volatility.  */
+2256:   temporary_volatile_ok v (true);
+2257:
+2258:   /* Try the most limited insn first, because there's no point
+2259:      including more than one in the machine description unless
+2260:      the more limited one has some advantage.  */
+2261:
+2262:   opt_scalar_int_mode mode_iter;
+2263:   FOR_EACH_MODE_IN_CLASS (mode_iter, MODE_INT)
+2264:     {
+2265:       scalar_int_mode mode = mode_iter.require ();
+2266:       enum insn_code code;
+2267:       if (might_overlap)
+2268: 	code = direct_optab_handler (movmem_optab, mode);
+2269:       else
+2270: 	code = direct_optab_handler (cpymem_optab, mode);
+2271:
+2272:       if (code != CODE_FOR_nothing
+2273: 	  /* We don't need MODE to be narrower than BITS_PER_HOST_WIDE_INT
+2274: 	     here because if SIZE is less than the mode mask, as it is
+2275: 	     returned by the macro, it will definitely be less than the
+2276: 	     actual mode mask.  Since SIZE is within the Pmode address
+2277: 	     space, we limit MODE to Pmode.  */
+2278: 	  && ((CONST_INT_P (size)
+2279: 	       && ((unsigned HOST_WIDE_INT) INTVAL (size)
+2280: 		   <= (GET_MODE_MASK (mode) >> 1)))
+2281: 	      || max_size <= (GET_MODE_MASK (mode) >> 1)
+2282: 	      || GET_MODE_BITSIZE (mode) >= GET_MODE_BITSIZE (Pmode)))
+2283: 	{
+2284: 	  class expand_operand ops[9];
+2285: 	  unsigned int nops;
+2286:
+2287: 	  /* ??? When called via emit_block_move_for_call, it'd be
+2288: 	     nice if there were some way to inform the backend, so
+2289: 	     that it doesn't fail the expansion because it thinks
+2290: 	     emitting the libcall would be more efficient.  */
+2291: 	  nops = insn_data[(int) code].n_generator_args;
+2292: 	  gcc_assert (nops == 4 || nops == 6 || nops == 8 || nops == 9);
+2293:
+2294: 	  create_fixed_operand (&ops[0], x);
+2295: 	  create_fixed_operand (&ops[1], y);
+2296: 	  /* The check above guarantees that this size conversion is valid.  */
+2297: 	  create_convert_operand_to (&ops[2], size, mode, true);
+2298: 	  create_integer_operand (&ops[3], align / BITS_PER_UNIT);
+2299: 	  if (nops >= 6)
+2300: 	    {
+2301: 	      create_integer_operand (&ops[4], expected_align / BITS_PER_UNIT);
+2302: 	      create_integer_operand (&ops[5], expected_size);
+2303: 	    }
+2304: 	  if (nops >= 8)
+2305: 	    {
+2306: 	      create_integer_operand (&ops[6], min_size);
+2307: 	      /* If we cannot represent the maximal size,
+2308: 		 make parameter NULL.  */
+2309: 	      if ((HOST_WIDE_INT) max_size != -1)
+2310: 	        create_integer_operand (&ops[7], max_size);
+2311: 	      else
+2312: 		create_fixed_operand (&ops[7], NULL);
+2313: 	    }
+2314: 	  if (nops == 9)
+2315: 	    {
+2316: 	      /* If we cannot represent the maximal size,
+2317: 		 make parameter NULL.  */
+2318: 	      if ((HOST_WIDE_INT) probable_max_size != -1)
+2319: 	        create_integer_operand (&ops[8], probable_max_size);
+2320: 	      else
+2321: 		create_fixed_operand (&ops[8], NULL);
+2322: 	    }
+2323: 	  if (maybe_expand_insn (code, nops, ops))
+2324: 	    return true;
+2325: 	}
+2326:     }
+2327:
+2328:   return false;
+2329: }
+```
+
+## gcc/expr.cc:2540–2579
+```text
+2540: {
+2541:   rtx dst_addr, src_addr;
+2542:   tree call_expr, dst_tree, src_tree, size_tree;
+2543:   machine_mode size_mode;
+2544:
+2545:   /* Since dst and src are passed to a libcall, mark the corresponding
+2546:      tree EXPR as addressable.  */
+2547:   tree dst_expr = MEM_EXPR (dst);
+2548:   tree src_expr = MEM_EXPR (src);
+2549:   if (dst_expr)
+2550:     mark_addressable (dst_expr);
+2551:   if (src_expr)
+2552:     mark_addressable (src_expr);
+2553:
+2554:   dst_addr = copy_addr_to_reg (XEXP (dst, 0));
+2555:   dst_addr = convert_memory_address (ptr_mode, dst_addr);
+2556:   dst_tree = make_tree (ptr_type_node, dst_addr);
+2557:
+2558:   src_addr = copy_addr_to_reg (XEXP (src, 0));
+2559:   src_addr = convert_memory_address (ptr_mode, src_addr);
+2560:   src_tree = make_tree (ptr_type_node, src_addr);
+2561:
+2562:   size_mode = TYPE_MODE (sizetype);
+2563:   size = convert_to_mode (size_mode, size, 1);
+2564:   size = copy_to_mode_reg (size_mode, size);
+2565:   size_tree = make_tree (sizetype, size);
+2566:
+2567:   /* It is incorrect to use the libcall calling conventions for calls to
+2568:      memcpy/memmove/memcmp because they can be provided by the user.  */
+2569:   tree fn = builtin_decl_implicit (fncode);
+2570:   call_expr = build_call_expr (fn, 3, dst_tree, src_tree, size_tree);
+2571:   CALL_EXPR_TAILCALL (call_expr) = tailcall;
+2572:
+2573:   return expand_call (call_expr, NULL_RTX, false);
+2574: }
+2575:
+2576: /* Try to expand cmpstrn or cmpmem operation ICODE with the given operands.
+2577:    ARG3_TYPE is the type of ARG3_RTX.  Return the result rtx on success,
+2578:    otherwise return null.  */
+2579:
+```
+
+## gcc/expr.h:85–105
+```text
+85: /* Expand a call to memcpy or memmove or memcmp, and return the result.  */
+86: extern rtx emit_block_op_via_libcall (enum built_in_function, rtx, rtx, rtx,
+87: 				      bool);
+88:
+89: inline rtx
+90: emit_block_copy_via_libcall (rtx dst, rtx src, rtx size, bool tailcall = false)
+91: {
+92:   return emit_block_op_via_libcall (BUILT_IN_MEMCPY, dst, src, size, tailcall);
+93: }
+94:
+95: inline rtx
+96: emit_block_move_via_libcall (rtx dst, rtx src, rtx size, bool tailcall = false)
+97: {
+98:   return emit_block_op_via_libcall (BUILT_IN_MEMMOVE, dst, src, size, tailcall);
+99: }
+100:
+101: inline rtx
+102: emit_block_comp_via_libcall (rtx dst, rtx src, rtx size, bool tailcall = false)
+103: {
+104:   return emit_block_op_via_libcall (BUILT_IN_MEMCMP, dst, src, size, tailcall);
+105: }
+```
+
+## gcc/targhooks.cc:2156–2220
+```text
+2156: /* For hooks which use the MOVE_RATIO macro, this gives the legacy default
+2157:    behavior.  SPEED_P is true if we are compiling for speed.  */
+2158:
+2159: unsigned int
+2160: get_move_ratio (bool speed_p ATTRIBUTE_UNUSED)
+2161: {
+2162:   unsigned int move_ratio;
+2163: #ifdef MOVE_RATIO
+2164:   move_ratio = (unsigned int) MOVE_RATIO (speed_p);
+2165: #else
+2166: #if defined (HAVE_cpymemqi) || defined (HAVE_cpymemhi) || defined (HAVE_cpymemsi) || defined (HAVE_cpymemdi) || defined (HAVE_cpymemti)
+2167:   move_ratio = 2;
+2168: #else /* No cpymem patterns, pick a default.  */
+2169:   move_ratio = ((speed_p) ? 15 : 3);
+2170: #endif
+2171: #endif
+2172:   return move_ratio;
+2173: }
+2174:
+2175: /* Return TRUE if the move_by_pieces/set_by_pieces infrastructure should be
+2176:    used; return FALSE if the cpymem/setmem optab should be expanded, or
+2177:    a call to memcpy emitted.  */
+2178:
+2179: bool
+2180: default_use_by_pieces_infrastructure_p (unsigned HOST_WIDE_INT size,
+2181: 					unsigned int alignment,
+2182: 					enum by_pieces_operation op,
+2183: 					bool speed_p)
+2184: {
+2185:   unsigned int max_size = 0;
+2186:   unsigned int ratio = 0;
+2187:
+2188:   switch (op)
+2189:     {
+2190:     case CLEAR_BY_PIECES:
+2191:       max_size = STORE_MAX_PIECES;
+2192:       ratio = CLEAR_RATIO (speed_p);
+2193:       break;
+2194:     case MOVE_BY_PIECES:
+2195:       max_size = MOVE_MAX_PIECES;
+2196:       ratio = get_move_ratio (speed_p);
+2197:       break;
+2198:     case SET_BY_PIECES:
+2199:       max_size = STORE_MAX_PIECES;
+2200:       ratio = SET_RATIO (speed_p);
+2201:       break;
+2202:     case STORE_BY_PIECES:
+2203:       max_size = STORE_MAX_PIECES;
+2204:       ratio = get_move_ratio (speed_p);
+2205:       break;
+2206:     case COMPARE_BY_PIECES:
+2207:       max_size = COMPARE_MAX_PIECES;
+2208:       /* Pick a likely default, just as in get_move_ratio.  */
+2209:       ratio = speed_p ? 15 : 3;
+2210:       break;
+2211:     }
+2212:
+2213:   return by_pieces_ninsns (size, alignment, max_size + 1, op) < ratio;
+2214: }
+2215:
+2216: /* This hook controls code generation for expanding a memcmp operation by
+2217:    pieces.  Return 1 for the normal pattern of compare/jump after each pair
+2218:    of loads, or a higher number to reduce the number of branches.  */
+2219:
+2220: int
+```
+
+## gcc/config/i386/i386.h:1916–1966
+```text
+1916:    locations.  */
+1917: #define MAX_MOVE_MAX 64
+1918:
+1919: /* Max number of bytes we can move from memory to memory in one
+1920:    reasonably fast instruction, as opposed to MOVE_MAX_PIECES which
+1921:    is the number of bytes at a time which we can move efficiently.
+1922:    MOVE_MAX_PIECES defaults to MOVE_MAX.  */
+1923:
+1924: #define MOVE_MAX \
+1925:   ((TARGET_AVX512F && ix86_move_max == PVW_AVX512) \
+1926:    ? 64 \
+1927:    : ((TARGET_AVX && ix86_move_max >= PVW_AVX256) \
+1928:       ? 32 \
+1929:       : ((TARGET_SSE2 \
+1930: 	  && TARGET_SSE_UNALIGNED_LOAD_OPTIMAL \
+1931: 	  && TARGET_SSE_UNALIGNED_STORE_OPTIMAL) \
+1932: 	 ? 16 : UNITS_PER_WORD)))
+1933:
+1934: /* STORE_MAX_PIECES is the number of bytes at a time that we can store
+1935:    efficiently.  Allow 16/32/64 bytes only if inter-unit move is enabled
+1936:    since vec_duplicate enabled by inter-unit move is used to implement
+1937:    store_by_pieces of 16/32/64 bytes.  */
+1938: #define STORE_MAX_PIECES \
+1939:   (TARGET_INTER_UNIT_MOVES_TO_VEC \
+1940:    ? ((TARGET_AVX512F && ix86_move_max == PVW_AVX512) \
+1941:       ? 64 \
+1942:       : ((TARGET_AVX && ix86_move_max >= PVW_AVX256) \
+1943: 	  ? 32 \
+1944: 	  : ((TARGET_SSE2 \
+1945: 	      && TARGET_SSE_UNALIGNED_STORE_OPTIMAL) \
+1946: 	     ? 16 : UNITS_PER_WORD)))		     \
+1947:       : UNITS_PER_WORD)
+1948:
+1949: /* If a memory-to-memory move would take MOVE_RATIO or more simple
+1950:    move-instruction pairs, we will do a cpymem or libcall instead.
+1951:    Increasing the value will always make code faster, but eventually
+1952:    incurs high cost in increased code size.
+1953:
+1954:    If you don't define this, a reasonable default is used.  */
+1955:
+1956: #define MOVE_RATIO(speed) ((speed) ? ix86_cost->move_ratio : 3)
+1957:
+1958: /* If a clear memory operation would take CLEAR_RATIO or more simple
+1959:    move-instruction sequences, we will do a clrmem or libcall instead.  */
+1960:
+1961: #define CLEAR_RATIO(speed) ((speed) ? ix86_cost->clear_ratio : 2)
+1962:
+1963: /* Define if shifts truncate the shift count which implies one can
+1964:    omit a sign-extension or zero-extension of a shift count.
+1965:
+1966:    On i386, shifts do truncate the count.  But bit test instructions
+```
+
+## gcc/config/i386/i386.cc:11580–11596
+```text
+11580: /* Implement TARGET_USE_BY_PIECES_INFRASTRUCTURE_P.  */
+11581:
+11582: bool
+11583: ix86_use_by_pieces_infrastructure_p (unsigned HOST_WIDE_INT size,
+11584: 				     unsigned int align,
+11585: 				     enum by_pieces_operation op,
+11586: 				     bool speed_p)
+11587: {
+11588:   /* Return true when we are currently expanding memcpy/memset epilogue
+11589:      with move_by_pieces or store_by_pieces.  */
+11590:   if (cfun->machine->by_pieces_in_use)
+11591:     return true;
+11592:
+11593:   return default_use_by_pieces_infrastructure_p (size, align, op,
+11594: 						 speed_p);
+11595: }
+11596:
+```
+
+## gcc/config/i386/i386-expand.cc:9135–9294
+```text
+9135: decide_alg (HOST_WIDE_INT count, HOST_WIDE_INT expected_size,
+9136: 	    unsigned HOST_WIDE_INT min_size, unsigned HOST_WIDE_INT max_size,
+9137: 	    bool memset, bool zero_memset, addr_space_t dst_as,
+9138: 	    addr_space_t src_as, int *dynamic_check, bool *noalign, bool recur)
+9139: {
+9140:   const struct stringop_algs *algs;
+9141:   bool optimize_for_speed;
+9142:   int max = 0;
+9143:   const struct processor_costs *cost;
+9144:   int i;
+9145:   bool any_alg_usable_p = false;
+9146:
+9147:   *noalign = false;
+9148:   *dynamic_check = -1;
+9149:
+9150:   /* Even if the string operation call is cold, we still might spend a lot
+9151:      of time processing large blocks.  */
+9152:   if (optimize_function_for_size_p (cfun)
+9153:       || (optimize_insn_for_size_p ()
+9154:  	  && (max_size < 256
+9155:               || (expected_size != -1 && expected_size < 256))))
+9156:     optimize_for_speed = false;
+9157:   else
+9158:     optimize_for_speed = true;
+9159:
+9160:   cost = optimize_for_speed ? ix86_cost : &ix86_size_cost;
+9161:   if (memset)
+9162:     algs = &cost->memset[TARGET_64BIT != 0];
+9163:   else
+9164:     algs = &cost->memcpy[TARGET_64BIT != 0];
+9165:
+9166:   /* See maximal size for user defined algorithm.  */
+9167:   for (i = 0; i < MAX_STRINGOP_ALGS; i++)
+9168:     {
+9169:       enum stringop_alg candidate = algs->size[i].alg;
+9170:       bool usable = alg_usable_p (candidate, memset, dst_as, src_as);
+9171:       any_alg_usable_p |= usable;
+9172:
+9173:       if (candidate != libcall && candidate && usable)
+9174: 	max = algs->size[i].max;
+9175:     }
+9176:
+9177:   /* If expected size is not known but max size is small enough
+9178:      so inline version is a win, set expected size into
+9179:      the range.  */
+9180:   if (((max > 1 && (unsigned HOST_WIDE_INT) max >= max_size) || max == -1)
+9181:       && expected_size == -1)
+9182:     expected_size = min_size / 2 + max_size / 2;
+9183:
+9184:   /* If user specified the algorithm, honor it if possible.  */
+9185:   if (ix86_stringop_alg != no_stringop
+9186:       && alg_usable_p (ix86_stringop_alg, memset, dst_as, src_as))
+9187:     return ix86_stringop_alg;
+9188:   /* rep; movq or rep; movl is the smallest variant.  */
+9189:   else if (!optimize_for_speed)
+9190:     {
+9191:       *noalign = true;
+9192:       if (!count || (count & 3) || (memset && !zero_memset))
+9193: 	return alg_usable_p (rep_prefix_1_byte, memset, dst_as, src_as)
+9194: 	       ? rep_prefix_1_byte : loop_1_byte;
+9195:       else
+9196: 	return alg_usable_p (rep_prefix_4_byte, memset, dst_as, src_as)
+9197: 	       ? rep_prefix_4_byte : loop;
+9198:     }
+9199:   /* Very tiny blocks are best handled via the loop, REP is expensive to
+9200:      setup.  */
+9201:   else if (expected_size != -1 && expected_size < 4)
+9202:     return loop_1_byte;
+9203:   else if (expected_size != -1)
+9204:     {
+9205:       enum stringop_alg alg = libcall;
+9206:       bool alg_noalign = false;
+9207:       for (i = 0; i < MAX_STRINGOP_ALGS; i++)
+9208: 	{
+9209: 	  /* We get here if the algorithms that were not libcall-based
+9210: 	     were rep-prefix based and we are unable to use rep prefixes
+9211: 	     based on global register usage.  Break out of the loop and
+9212: 	     use the heuristic below.  */
+9213: 	  if (algs->size[i].max == 0)
+9214: 	    break;
+9215: 	  if (algs->size[i].max >= expected_size || algs->size[i].max == -1)
+9216: 	    {
+9217: 	      enum stringop_alg candidate = algs->size[i].alg;
+9218:
+9219: 	      if (candidate != libcall
+9220: 		  && alg_usable_p (candidate, memset, dst_as, src_as))
+9221: 		{
+9222: 		  alg = candidate;
+9223: 		  alg_noalign = algs->size[i].noalign;
+9224: 		}
+9225: 	      /* Honor TARGET_INLINE_ALL_STRINGOPS by picking
+9226: 		 last non-libcall inline algorithm.  */
+9227: 	      if (TARGET_INLINE_ALL_STRINGOPS)
+9228: 		{
+9229: 		  /* When the current size is best to be copied by a libcall,
+9230: 		     but we are still forced to inline, run the heuristic below
+9231: 		     that will pick code for medium sized blocks.  */
+9232: 		  if (alg != libcall)
+9233: 		    {
+9234: 		      *noalign = alg_noalign;
+9235: 		      return alg;
+9236: 		    }
+9237: 		  else if (!any_alg_usable_p)
+9238: 		    break;
+9239: 		}
+9240: 	      else if (alg_usable_p (candidate, memset, dst_as, src_as)
+9241: 		       && !(TARGET_PREFER_KNOWN_REP_MOVSB_STOSB
+9242: 			    && candidate == rep_prefix_1_byte
+9243: 			    /* NB: If min_size != max_size, size is
+9244: 			       unknown.  */
+9245: 			    && min_size != max_size))
+9246: 		{
+9247: 		  *noalign = algs->size[i].noalign;
+9248: 		  return candidate;
+9249: 		}
+9250: 	    }
+9251: 	}
+9252:     }
+9253:   /* When asked to inline the call anyway, try to pick meaningful choice.
+9254:      We look for maximal size of block that is faster to copy by hand and
+9255:      take blocks of at most of that size guessing that average size will
+9256:      be roughly half of the block.
+9257:
+9258:      If this turns out to be bad, we might simply specify the preferred
+9259:      choice in ix86_costs.  */
+9260:   if ((TARGET_INLINE_ALL_STRINGOPS || TARGET_INLINE_STRINGOPS_DYNAMICALLY)
+9261:       && (algs->unknown_size == libcall
+9262: 	  || !alg_usable_p (algs->unknown_size, memset, dst_as, src_as)))
+9263:     {
+9264:       enum stringop_alg alg;
+9265:       HOST_WIDE_INT new_expected_size = (max > 0 ? max : 4096) / 2;
+9266:
+9267:       /* If there aren't any usable algorithms or if recursing already,
+9268: 	 then recursing on smaller sizes or same size isn't going to
+9269: 	 find anything.  Just return the simple byte-at-a-time copy loop.  */
+9270:       if (!any_alg_usable_p || recur)
+9271: 	{
+9272: 	  /* Pick something reasonable.  */
+9273: 	  if (TARGET_INLINE_STRINGOPS_DYNAMICALLY && !recur)
+9274: 	    *dynamic_check = 128;
+9275: 	  return loop_1_byte;
+9276: 	}
+9277:       alg = decide_alg (count, new_expected_size, min_size, max_size,
+9278: 			memset, zero_memset, dst_as, src_as,
+9279: 			dynamic_check, noalign, true);
+9280:       gcc_assert (*dynamic_check == -1);
+9281:       if (TARGET_INLINE_STRINGOPS_DYNAMICALLY)
+9282: 	*dynamic_check = max;
+9283:       else
+9284: 	gcc_assert (alg != libcall);
+9285:       return alg;
+9286:     }
+9287:
+9288:   /* Try to use some reasonable fallback algorithm.  Note that for
+9289:      non-default address spaces we default to a loop instead of
+9290:      a libcall.  */
+9291:
+9292:   bool have_as = !(ADDR_SPACE_GENERIC_P (dst_as)
+9293: 		   && ADDR_SPACE_GENERIC_P (src_as));
+9294:
+```
+
+## gcc/config/i386/i386-expand.cc:9510–9586
+```text
+9510:   rtx srcreg = NULL;
+9511:   rtx_code_label *label = NULL;
+9512:   rtx tmp;
+9513:   rtx_code_label *jump_around_label = NULL;
+9514:   HOST_WIDE_INT align = 1;
+9515:   unsigned HOST_WIDE_INT count = 0;
+9516:   HOST_WIDE_INT expected_size = -1;
+9517:   int size_needed = 0, epilogue_size_needed;
+9518:   int desired_align = 0, align_bytes = 0;
+9519:   enum stringop_alg alg;
+9520:   rtx promoted_val = NULL;
+9521:   rtx vec_promoted_val = NULL;
+9522:   bool force_loopy_epilogue = false;
+9523:   int dynamic_check;
+9524:   bool need_zero_guard = false;
+9525:   bool noalign;
+9526:   machine_mode move_mode = VOIDmode;
+9527:   int unroll_factor = 1;
+9528:   /* TODO: Once value ranges are available, fill in proper data.  */
+9529:   unsigned HOST_WIDE_INT min_size = HOST_WIDE_INT_0U;
+9530:   unsigned HOST_WIDE_INT max_size = HOST_WIDE_INT_M1U;
+9531:   unsigned HOST_WIDE_INT probable_max_size = HOST_WIDE_INT_M1U;
+9532:   bool misaligned_prologue_used = false;
+9533:   addr_space_t dst_as, src_as = ADDR_SPACE_GENERIC;
+9534:
+9535:   if (CONST_INT_P (align_exp))
+9536:     align = INTVAL (align_exp);
+9537:   /* i386 can do misaligned access on reasonably increased cost.  */
+9538:   if (CONST_INT_P (expected_align_exp)
+9539:       && INTVAL (expected_align_exp) > align)
+9540:     align = INTVAL (expected_align_exp);
+9541:   /* ALIGN is the minimum of destination and source alignment, but we care here
+9542:      just about destination alignment.  */
+9543:   else if (!issetmem
+9544: 	   && MEM_ALIGN (dst) > (unsigned HOST_WIDE_INT) align * BITS_PER_UNIT)
+9545:     align = MEM_ALIGN (dst) / BITS_PER_UNIT;
+9546:
+9547:   if (CONST_INT_P (count_exp))
+9548:     {
+9549:       min_size = max_size = probable_max_size = count = expected_size
+9550: 	= INTVAL (count_exp);
+9551:       /* When COUNT is 0, there is nothing to do.  */
+9552:       if (!count)
+9553: 	return true;
+9554:     }
+9555:   else
+9556:     {
+9557:       if (min_size_exp)
+9558: 	min_size = INTVAL (min_size_exp);
+9559:       if (max_size_exp)
+9560: 	max_size = INTVAL (max_size_exp);
+9561:       if (probable_max_size_exp)
+9562: 	probable_max_size = INTVAL (probable_max_size_exp);
+9563:       if (CONST_INT_P (expected_size_exp))
+9564: 	expected_size = INTVAL (expected_size_exp);
+9565:      }
+9566:
+9567:   /* Make sure we don't need to care about overflow later on.  */
+9568:   if (count > (HOST_WIDE_INT_1U << 30))
+9569:     return false;
+9570:
+9571:   dst_as = MEM_ADDR_SPACE (dst);
+9572:   if (!issetmem)
+9573:     src_as = MEM_ADDR_SPACE (src);
+9574:
+9575:   /* Step 0: Decide on preferred algorithm, desired alignment and
+9576:      size of chunks to be copied by main loop.  */
+9577:   alg = decide_alg (count, expected_size, min_size, probable_max_size,
+9578: 		    issetmem, issetmem && val_exp == const0_rtx,
+9579: 		    dst_as, src_as, &dynamic_check, &noalign, false);
+9580:
+9581:   if (dump_file)
+9582:     fprintf (dump_file, "Selected stringop expansion strategy: %s\n",
+9583: 	     stringop_alg_names[alg]);
+9584:
+9585:   if (alg == libcall)
+9586:     return false;
+```
+
+## gcc/config/i386/i386-expand.cc:10010–10715
+```text
+10010:
+10011: static bool
+10012: ix86_expand_unroll_movmem (rtx dst, rtx src, rtx destreg, rtx srcreg,
+10013: 			   unsigned HOST_WIDE_INT count,
+10014: 			   machine_mode mode)
+10015: {
+10016:   /* If 8 registers registers can cover all memory, load them into
+10017:      registers and store them together to avoid possible address
+10018:      overlap between source and destination.  */
+10019:   unsigned HOST_WIDE_INT moves = count / GET_MODE_SIZE (mode);
+10020:   if (moves == 0)
+10021:     {
+10022:       mode = smallest_int_mode_for_size
+10023: 	(count * BITS_PER_UNIT).require ();
+10024:       if (count == GET_MODE_SIZE (mode))
+10025: 	moves = 1;
+10026:       else
+10027: 	{
+10028: 	  /* Reduce the smallest move size by half so that MOVES == 1.  */
+10029: 	  mode = smallest_int_mode_for_size
+10030: 	    (GET_MODE_BITSIZE (mode) / 2).require ();
+10031: 	  moves = count / GET_MODE_SIZE (mode);
+10032: 	  gcc_assert (moves == 1);
+10033: 	}
+10034:     }
+10035:   else if (moves > 8)
+10036:     return false;
+10037:
+10038:   unsigned int i;
+10039:   rtx tmp[9];
+10040:
+10041:   for (i = 0; i < moves; i++)
+10042:     tmp[i] = gen_reg_rtx (mode);
+10043:
+10044:   rtx srcmem = change_address (src, mode, srcreg);
+10045:   for (i = 0; i < moves; i++)
+10046:     {
+10047:       emit_move_insn (tmp[i], srcmem);
+10048:       srcmem = offset_address (srcmem,
+10049: 			       GEN_INT (GET_MODE_SIZE (mode)),
+10050: 			       GET_MODE_SIZE (mode));
+10051:     }
+10052:
+10053:   unsigned int epilogue_size = count & (GET_MODE_SIZE (mode) - 1);
+10054:   machine_mode epilogue_mode = VOIDmode;
+10055:   if (epilogue_size)
+10056:     {
+10057:       /* Handle the remaining bytes with overlapping move.  */
+10058:       epilogue_mode = smallest_int_mode_for_size
+10059: 	(epilogue_size * BITS_PER_UNIT).require ();
+10060:       tmp[8] = gen_reg_rtx (epilogue_mode);
+10061:       srcmem = adjust_address (srcmem, epilogue_mode, 0);
+10062:       srcmem = offset_address (srcmem, GEN_INT (epilogue_size), 1);
+10063:       srcmem = offset_address (srcmem,
+10064: 			       GEN_INT (-GET_MODE_SIZE (epilogue_mode)),
+10065: 			       GET_MODE_SIZE (epilogue_mode));
+10066:       emit_move_insn (tmp[8], srcmem);
+10067:     }
+10068:
+10069:   rtx destmem = change_address (dst, mode, destreg);
+10070:   for (i = 0; i < moves; i++)
+10071:     {
+10072:       emit_move_insn (destmem, tmp[i]);
+10073:       destmem = offset_address (destmem,
+10074: 				GEN_INT (GET_MODE_SIZE (mode)),
+10075: 				GET_MODE_SIZE (mode));
+10076:     }
+10077:
+10078:   if (epilogue_size)
+10079:     {
+10080:       /* Use overlapping move.  */
+10081:       destmem = adjust_address (destmem, epilogue_mode, 0);
+10082:       destmem = offset_address (destmem, GEN_INT (epilogue_size), 1);
+10083:       destmem = offset_address (destmem,
+10084: 				GEN_INT (-GET_MODE_SIZE (epilogue_mode)),
+10085: 				GET_MODE_SIZE (epilogue_mode));
+10086:       emit_move_insn (destmem, tmp[8]);
+10087:     }
+10088:
+10089:   return true;
+10090: }
+10091:
+10092: /* Expand memmove of size with MOVES * mode size and MOVES <= 4.  If
+10093:    FORWARD is true, copy forward.  Otherwise copy backward.  */
+10094:
+10095: static void
+10096: ix86_expand_n_move_movmem (rtx destmem, rtx srcmem, machine_mode mode,
+10097: 			   unsigned int moves, bool forward)
+10098: {
+10099:   gcc_assert (moves <= 4);
+10100:
+10101:   unsigned int i;
+10102:   rtx tmp[8];
+10103:
+10104:   for (i = 0; i < moves; i++)
+10105:     tmp[i] = gen_reg_rtx (mode);
+10106:
+10107:   rtx step;
+10108:   if (forward)
+10109:     step = GEN_INT (GET_MODE_SIZE (mode));
+10110:   else
+10111:     step = GEN_INT (-GET_MODE_SIZE (mode));
+10112:
+10113:   /* Load MOVES.  */
+10114:   for (i = 0; i < moves - 1; i++)
+10115:     {
+10116:       emit_move_insn (tmp[i], srcmem);
+10117:       srcmem = offset_address (srcmem, step, GET_MODE_SIZE (mode));
+10118:     }
+10119:   emit_move_insn (tmp[i], srcmem);
+10120:
+10121:   /* Store MOVES.  */
+10122:   for (i = 0; i < moves - 1; i++)
+10123:     {
+10124:       emit_move_insn (destmem, tmp[i]);
+10125:       destmem = offset_address (destmem, step, GET_MODE_SIZE (mode));
+10126:     }
+10127:   emit_move_insn (destmem, tmp[i]);
+10128: }
+10129:
+10130: /* Load MOVES of mode size into REGS.  If LAST is true, load the
+10131:    last MOVES.  Otherwise, load the first MOVES.  */
+10132:
+10133: static void
+10134: ix86_expand_load_movmem (rtx src, rtx srcreg, rtx count_exp,
+10135: 			 machine_mode mode, unsigned int moves,
+10136: 			 rtx regs[], bool last)
+10137: {
+10138:   unsigned int i;
+10139:
+10140:   for (i = 0; i < moves; i++)
+10141:     regs[i] = gen_reg_rtx (mode);
+10142:
+10143:   rtx srcmem = change_address (src, mode, srcreg);
+10144:   rtx step;
+10145:   if (last)
+10146:     {
+10147:       srcmem = offset_address (srcmem, count_exp, 1);
+10148:       step = GEN_INT (-GET_MODE_SIZE (mode));
+10149:       srcmem = offset_address (srcmem, step, GET_MODE_SIZE (mode));
+10150:     }
+10151:   else
+10152:     step = GEN_INT (GET_MODE_SIZE (mode));
+10153:
+10154:   for (i = 0; i < moves - 1; i++)
+10155:     {
+10156:       emit_move_insn (regs[i], srcmem);
+10157:       srcmem = offset_address (srcmem, step, GET_MODE_SIZE (mode));
+10158:     }
+10159:   emit_move_insn (regs[i], srcmem);
+10160: }
+10161:
+10162: /* Store MOVES of mode size into REGS.  If LAST is true, store the
+10163:    last MOVES.  Otherwise, store the first MOVES.  */
+10164:
+10165: static void
+10166: ix86_expand_store_movmem (rtx dst, rtx destreg, rtx count_exp,
+10167: 			  machine_mode mode, unsigned int moves,
+10168: 			  rtx regs[], bool last)
+10169: {
+10170:   unsigned int i;
+10171:
+10172:   rtx destmem = change_address (dst, mode, destreg);
+10173:   rtx step;
+10174:   if (last)
+10175:     {
+10176:       destmem = offset_address (destmem, count_exp, 1);
+10177:       step = GEN_INT (-GET_MODE_SIZE (mode));
+10178:       destmem = offset_address (destmem, step, GET_MODE_SIZE (mode));
+10179:     }
+10180:   else
+10181:     step = GEN_INT (GET_MODE_SIZE (mode));
+10182:
+10183:   for (i = 0; i < moves - 1; i++)
+10184:     {
+10185:       emit_move_insn (destmem, regs[i]);
+10186:       destmem = offset_address (destmem, step, GET_MODE_SIZE (mode));
+10187:     }
+10188:   emit_move_insn (destmem, regs[i]);
+10189: }
+10190:
+10191: /* Expand memmove of size between (MOVES / 2) * mode size and
+10192:    MOVES * mode size with overlapping load and store.  MOVES is even.
+10193:    MOVES >= 2 and MOVES <= 8.  */
+10194:
+10195: static void
+10196: ix86_expand_n_overlapping_move_movmem (rtx dst, rtx src, rtx destreg,
+10197: 				       rtx srcreg, rtx count_exp,
+10198: 				       machine_mode mode,
+10199: 				       unsigned int moves)
+10200: {
+10201:   gcc_assert (moves >= 2 && moves <= 8 && (moves & 1) == 0);
+10202:
+10203:   unsigned int half_moves = moves / 2;
+10204:   unsigned int i, j;
+10205:   rtx tmp[8];
+10206:
+10207:   for (i = 0; i < moves; i++)
+10208:     tmp[i] = gen_reg_rtx (mode);
+10209:
+10210:   rtx base_srcmem = change_address (src, mode, srcreg);
+10211:
+10212:   /* Load the first half.  */
+10213:   rtx srcmem = base_srcmem;
+10214:   for (i = 0; i < half_moves - 1; i++)
+10215:     {
+10216:       emit_move_insn (tmp[i], srcmem);
+10217:       srcmem = offset_address (srcmem,
+10218: 			       GEN_INT (GET_MODE_SIZE (mode)),
+10219: 			       GET_MODE_SIZE (mode));
+10220:     }
+10221:   emit_move_insn (tmp[i], srcmem);
+10222:
+10223:   /* Load the second half.  */
+10224:   srcmem = offset_address (base_srcmem, count_exp, 1);
+10225:   srcmem = offset_address (srcmem,
+10226: 			   GEN_INT (-GET_MODE_SIZE (mode)),
+10227: 			   GET_MODE_SIZE (mode));
+10228:   for (j = half_moves, i = 0; i < half_moves - 1; i++, j++)
+10229:     {
+10230:       emit_move_insn (tmp[j], srcmem);
+10231:       srcmem = offset_address (srcmem,
+10232: 			       GEN_INT (-GET_MODE_SIZE (mode)),
+10233: 			       GET_MODE_SIZE (mode));
+10234:     }
+10235:   emit_move_insn (tmp[j], srcmem);
+10236:
+10237:   rtx base_destmem = change_address (dst, mode, destreg);
+10238:
+10239:   /* Store the first half.  */
+10240:   rtx destmem = base_destmem;
+10241:   for (i = 0; i < half_moves - 1; i++)
+10242:     {
+10243:       emit_move_insn (destmem, tmp[i]);
+10244:       destmem = offset_address (destmem,
+10245: 				GEN_INT (GET_MODE_SIZE (mode)),
+10246: 				GET_MODE_SIZE (mode));
+10247:     }
+10248:   emit_move_insn (destmem, tmp[i]);
+10249:
+10250:   /* Store the second half.  */
+10251:   destmem = offset_address (base_destmem, count_exp, 1);
+10252:   destmem = offset_address (destmem, GEN_INT (-GET_MODE_SIZE (mode)),
+10253: 			    GET_MODE_SIZE (mode));
+10254:   for (j = half_moves, i = 0; i < half_moves - 1; i++, j++)
+10255:     {
+10256:       emit_move_insn (destmem, tmp[j]);
+10257:       destmem = offset_address (destmem, GEN_INT (-GET_MODE_SIZE (mode)),
+10258: 				GET_MODE_SIZE (mode));
+10259:     }
+10260:   emit_move_insn (destmem, tmp[j]);
+10261: }
+10262:
+10263: /* Expand memmove of size < mode size which is <= 64.  */
+10264:
+10265: static void
+10266: ix86_expand_less_move_movmem (rtx dst, rtx src, rtx destreg,
+10267: 			      rtx srcreg, rtx count_exp,
+10268: 			      unsigned HOST_WIDE_INT min_size,
+10269: 			      machine_mode mode,
+10270: 			      rtx_code_label *done_label)
+10271: {
+10272:   bool skip = false;
+10273:   machine_mode count_mode = counter_mode (count_exp);
+10274:
+10275:   rtx_code_label *between_32_63_label
+10276:     = GET_MODE_SIZE (mode) > 32 ? gen_label_rtx () : nullptr;
+10277:   /* Jump to BETWEEN_32_64_LABEL if size >= 32 and size < 64.  */
+10278:   if (between_32_63_label)
+10279:     {
+10280:       if (min_size && min_size >= 32)
+10281: 	{
+10282: 	  emit_jump_insn (gen_jump (between_32_63_label));
+10283: 	  emit_barrier ();
+10284: 	  skip = true;
+10285: 	}
+10286:       else
+10287: 	emit_cmp_and_jump_insns (count_exp, GEN_INT (32), GEU,
+10288: 				 nullptr, count_mode, 1,
+10289: 				 between_32_63_label);
+10290:     }
+10291:
+10292:   rtx_code_label *between_16_31_label
+10293:     = (!skip && GET_MODE_SIZE (mode) > 16) ? gen_label_rtx () : nullptr;
+10294:   /* Jump to BETWEEN_16_31_LABEL if size >= 16 and size < 31.  */
+10295:   if (between_16_31_label)
+10296:     {
+10297:       if (min_size && min_size >= 16)
+10298: 	{
+10299: 	  emit_jump_insn (gen_jump (between_16_31_label));
+10300: 	  emit_barrier ();
+10301: 	  skip = true;
+10302: 	}
+10303:       else
+10304: 	emit_cmp_and_jump_insns (count_exp, GEN_INT (16), GEU,
+10305: 				 nullptr, count_mode, 1,
+10306: 				 between_16_31_label);
+10307:     }
+10308:
+10309:   rtx_code_label *between_8_15_label
+10310:     = (!skip && GET_MODE_SIZE (mode) > 8) ? gen_label_rtx () : nullptr;
+10311:   /* Jump to BETWEEN_8_15_LABEL if size >= 8 and size < 15.  */
+10312:   if (between_8_15_label)
+10313:     {
+10314:       if (min_size && min_size >= 8)
+10315: 	{
+10316: 	  emit_jump_insn (gen_jump (between_8_15_label));
+10317: 	  emit_barrier ();
+10318: 	  skip = true;
+10319: 	}
+10320:       else
+10321: 	emit_cmp_and_jump_insns (count_exp, GEN_INT (8), GEU,
+10322: 				 nullptr, count_mode, 1,
+10323: 				 between_8_15_label);
+10324:     }
+10325:
+10326:   rtx_code_label *between_4_7_label
+10327:     = (!skip && GET_MODE_SIZE (mode) > 4) ? gen_label_rtx () : nullptr;
+10328:   /* Jump to BETWEEN_4_7_LABEL if size >= 4 and size < 7.  */
+10329:   if (between_4_7_label)
+10330:     {
+10331:       if (min_size && min_size >= 4)
+10332: 	{
+10333: 	  emit_jump_insn (gen_jump (between_4_7_label));
+10334: 	  emit_barrier ();
+10335: 	  skip = true;
+10336: 	}
+10337:       else
+10338: 	emit_cmp_and_jump_insns (count_exp, GEN_INT (4), GEU,
+10339: 				 nullptr, count_mode, 1,
+10340: 				 between_4_7_label);
+10341:     }
+10342:
+10343:   rtx_code_label *between_2_3_label
+10344:     = (!skip && GET_MODE_SIZE (mode) > 2) ? gen_label_rtx () : nullptr;
+10345:   /* Jump to BETWEEN_2_3_LABEL if size >= 2 and size < 3.  */
+10346:   if (between_2_3_label)
+10347:     {
+10348:       if (min_size && min_size >= 2)
+10349: 	{
+10350: 	  emit_jump_insn (gen_jump (between_2_3_label));
+10351: 	  emit_barrier ();
+10352: 	  skip = true;
+10353: 	}
+10354:       else
+10355: 	emit_cmp_and_jump_insns (count_exp, GEN_INT (1), GT,
+10356: 				 nullptr, count_mode, 1,
+10357: 				 between_2_3_label);
+10358:     }
+10359:
+10360:   if (!skip)
+10361:     {
+10362:       rtx_code_label *zero_label
+10363: 	= min_size == 0 ? gen_label_rtx () : nullptr;
+10364:       /* Skip if size == 0.  */
+10365:       if (zero_label)
+10366: 	emit_cmp_and_jump_insns (count_exp, GEN_INT (1), LT,
+10367: 				 nullptr, count_mode, 1,
+10368: 				 zero_label,
+10369: 				 profile_probability::unlikely ());
+10370:
+10371:       /* Move 1 byte.  */
+10372:       rtx tmp0 = gen_reg_rtx (QImode);
+10373:       rtx srcmem = change_address (src, QImode, srcreg);
+10374:       emit_move_insn (tmp0, srcmem);
+10375:       rtx destmem = change_address (dst, QImode, destreg);
+10376:       emit_move_insn (destmem, tmp0);
+10377:
+10378:       if (zero_label)
+10379: 	emit_label (zero_label);
+10380:
+10381:       emit_jump_insn (gen_jump (done_label));
+10382:       emit_barrier ();
+10383:     }
+10384:
+10385:   if (between_32_63_label)
+10386:     {
+10387:       emit_label (between_32_63_label);
+10388:       ix86_expand_n_overlapping_move_movmem (dst, src, destreg, srcreg,
+10389: 					     count_exp, OImode, 2);
+10390:       emit_jump_insn (gen_jump (done_label));
+10391:       emit_barrier ();
+10392:     }
+10393:
+10394:   if (between_16_31_label)
+10395:     {
+10396:       emit_label (between_16_31_label);
+10397:       ix86_expand_n_overlapping_move_movmem (dst, src, destreg, srcreg,
+10398: 					     count_exp, TImode, 2);
+10399:       emit_jump_insn (gen_jump (done_label));
+10400:       emit_barrier ();
+10401:     }
+10402:
+10403:   if (between_8_15_label)
+10404:     {
+10405:       emit_label (between_8_15_label);
+10406:       ix86_expand_n_overlapping_move_movmem (dst, src, destreg, srcreg,
+10407: 					     count_exp, DImode, 2);
+10408:       emit_jump_insn (gen_jump (done_label));
+10409:       emit_barrier ();
+10410:     }
+10411:
+10412:   if (between_4_7_label)
+10413:     {
+10414:       emit_label (between_4_7_label);
+10415:       ix86_expand_n_overlapping_move_movmem (dst, src, destreg, srcreg,
+10416: 					     count_exp, SImode, 2);
+10417:       emit_jump_insn (gen_jump (done_label));
+10418:       emit_barrier ();
+10419:     }
+10420:
+10421:   if (between_2_3_label)
+10422:     {
+10423:       emit_label (between_2_3_label);
+10424:       ix86_expand_n_overlapping_move_movmem (dst, src, destreg, srcreg,
+10425: 					     count_exp, HImode, 2);
+10426:       emit_jump_insn (gen_jump (done_label));
+10427:       emit_barrier ();
+10428:     }
+10429: }
+10430:
+10431: /* Expand movmem with overlapping unaligned loads and stores:
+10432:    1. Load all sources into registers and store them together to avoid
+10433:       possible address overlap between source and destination.
+10434:    2. For known size, first try to fully unroll with 8 registers.
+10435:    3. For size <= 2 * MOVE_MAX, load all sources into 2 registers first
+10436:       and then store them together.
+10437:    4. For size > 2 * MOVE_MAX and size <= 4 * MOVE_MAX, load all sources
+10438:       into 4 registers first and then store them together.
+10439:    5. For size > 4 * MOVE_MAX and size <= 8 * MOVE_MAX, load all sources
+10440:       into 8 registers first and then store them together.
+10441:    6. For size > 8 * MOVE_MAX,
+10442:       a. If address of destination > address of source, copy backward
+10443: 	 with a 4 * MOVE_MAX loop with unaligned loads and stores.  Load
+10444: 	 the first 4 * MOVE_MAX into 4 registers before the loop and
+10445: 	 store them after the loop to support overlapping addresses.
+10446:       b. Otherwise, copy forward with a 4 * MOVE_MAX loop with unaligned
+10447: 	 loads and stores.  Load the last 4 * MOVE_MAX into 4 registers
+10448: 	 before the loop and store them after the loop to support
+10449: 	 overlapping addresses.
+10450:  */
+10451:
+10452: bool
+10453: ix86_expand_movmem (rtx operands[])
+10454: {
+10455:   /* Since there are much less registers available in 32-bit mode, don't
+10456:      inline movmem in 32-bit mode.  */
+10457:   if (!TARGET_64BIT)
+10458:     return false;
+10459:
+10460:   rtx dst = operands[0];
+10461:   rtx src = operands[1];
+10462:   rtx count_exp = operands[2];
+10463:   rtx expected_size_exp = operands[5];
+10464:   rtx min_size_exp = operands[6];
+10465:   rtx probable_max_size_exp = operands[8];
+10466:   unsigned HOST_WIDE_INT count = HOST_WIDE_INT_0U;
+10467:   HOST_WIDE_INT expected_size = HOST_WIDE_INT_M1U;
+10468:   unsigned HOST_WIDE_INT min_size = HOST_WIDE_INT_0U;
+10469:   unsigned HOST_WIDE_INT probable_max_size = HOST_WIDE_INT_M1U;
+10470:
+10471:   if (CONST_INT_P (count_exp))
+10472:     {
+10473:       min_size = probable_max_size = count = expected_size
+10474: 	= INTVAL (count_exp);
+10475:       /* When COUNT is 0, there is nothing to do.  */
+10476:       if (!count)
+10477: 	return true;
+10478:     }
+10479:   else
+10480:     {
+10481:       if (min_size_exp)
+10482: 	min_size = INTVAL (min_size_exp);
+10483:       if (probable_max_size_exp)
+10484: 	probable_max_size = INTVAL (probable_max_size_exp);
+10485:       if (CONST_INT_P (expected_size_exp))
+10486: 	expected_size = INTVAL (expected_size_exp);
+10487:      }
+10488:
+10489:   /* Make sure we don't need to care about overflow later on.  */
+10490:   if (count > (HOST_WIDE_INT_1U << 30))
+10491:     return false;
+10492:
+10493:   addr_space_t dst_as = MEM_ADDR_SPACE (dst);
+10494:   addr_space_t src_as = MEM_ADDR_SPACE (src);
+10495:   int dynamic_check;
+10496:   bool noalign;
+10497:   enum stringop_alg alg = decide_alg (count, expected_size, min_size,
+10498: 				      probable_max_size, false, false,
+10499: 				      dst_as, src_as, &dynamic_check,
+10500: 				      &noalign, false);
+10501:   if (alg == libcall)
+10502:     return false;
+10503:
+10504:   rtx destreg = ix86_copy_addr_to_reg (XEXP (dst, 0));
+10505:   rtx srcreg = ix86_copy_addr_to_reg (XEXP (src, 0));
+10506:
+10507:   unsigned int move_max = MOVE_MAX;
+10508:   machine_mode mode = smallest_int_mode_for_size
+10509:     (move_max * BITS_PER_UNIT).require ();
+10510:   if (probable_max_size && probable_max_size < move_max)
+10511:     {
+10512:       /* Get a usable MOVE_MAX.  */
+10513:       mode = smallest_int_mode_for_size
+10514: 	(probable_max_size * BITS_PER_UNIT).require ();
+10515:       /* Reduce MOVE_MAX by half so that MOVE_MAX can be used.  */
+10516:       if (GET_MODE_SIZE (mode) > probable_max_size)
+10517: 	mode = smallest_int_mode_for_size
+10518: 	  (GET_MODE_BITSIZE (mode) / 2).require ();
+10519:       move_max = GET_MODE_SIZE (mode);
+10520:     }
+10521:
+10522:   /* Try to fully unroll memmove of known size first.  */
+10523:   if (count
+10524:       && ix86_expand_unroll_movmem (dst, src, destreg, srcreg, count,
+10525: 				    mode))
+10526:     return true;
+10527:
+10528:   rtx_code_label *done_label = gen_label_rtx ();
+10529:
+10530:   rtx_code_label *less_vec_label = nullptr;
+10531:   if (min_size == 0 || min_size < move_max)
+10532:     less_vec_label = gen_label_rtx ();
+10533:
+10534:   machine_mode count_mode = counter_mode (count_exp);
+10535:
+10536:   /* Jump to LESS_VEC_LABEL if size < MOVE_MAX.  */
+10537:   if (less_vec_label)
+10538:     emit_cmp_and_jump_insns (count_exp, GEN_INT (move_max), LTU,
+10539: 			     nullptr, count_mode, 1,
+10540: 			     less_vec_label);
+10541:
+10542:   rtx_code_label *more_2x_vec_label = nullptr;
+10543:   if (probable_max_size == 0 || probable_max_size > 2 * move_max)
+10544:     more_2x_vec_label = gen_label_rtx ();
+10545:
+10546:   /* Jump to MORE_2X_VEC_LABEL if size > 2 * MOVE_MAX.  */
+10547:   if (more_2x_vec_label)
+10548:     emit_cmp_and_jump_insns (count_exp, GEN_INT (2 * move_max), GTU,
+10549: 			     nullptr, count_mode, 1,
+10550: 			     more_2x_vec_label);
+10551:
+10552:   if (min_size == 0 || min_size <= 2 * move_max)
+10553:     {
+10554:       /* Size >= MOVE_MAX and size <= 2 * MOVE_MAX.  */
+10555:       ix86_expand_n_overlapping_move_movmem (dst, src, destreg, srcreg,
+10556: 					     count_exp, mode, 2);
+10557:       emit_jump_insn (gen_jump (done_label));
+10558:       emit_barrier ();
+10559:     }
+10560:
+10561:   if (less_vec_label)
+10562:     {
+10563:       /* Size < MOVE_MAX.  */
+10564:       emit_label (less_vec_label);
+10565:       ix86_expand_less_move_movmem (dst, src, destreg, srcreg,
+10566: 				    count_exp, min_size, mode,
+10567: 				    done_label);
+10568:       emit_jump_insn (gen_jump (done_label));
+10569:       emit_barrier ();
+10570:     }
+10571:
+10572:   if (more_2x_vec_label)
+10573:     {
+10574:       /* Size > 2 * MOVE_MAX and destination may overlap with source.  */
+10575:       emit_label (more_2x_vec_label);
+10576:
+10577:       rtx_code_label *more_8x_vec_label = nullptr;
+10578:       if (probable_max_size == 0 || probable_max_size > 8 * move_max)
+10579: 	more_8x_vec_label = gen_label_rtx ();
+10580:
+10581:       /* Jump to MORE_8X_VEC_LABEL if size > 8 * MOVE_MAX.  */
+10582:       if (more_8x_vec_label)
+10583: 	emit_cmp_and_jump_insns (count_exp, GEN_INT (8 * move_max), GTU,
+10584: 				 nullptr, count_mode, 1,
+10585: 				 more_8x_vec_label);
+10586:
+10587:       rtx_code_label *last_4x_vec_label = nullptr;
+10588:       if (min_size == 0 || min_size < 4 * move_max)
+10589: 	last_4x_vec_label = gen_label_rtx ();
+10590:
+10591:       /* Jump to LAST_4X_VEC_LABEL if size < 4 * MOVE_MAX.  */
+10592:       if (last_4x_vec_label)
+10593: 	emit_cmp_and_jump_insns (count_exp, GEN_INT (4 * move_max), LTU,
+10594: 				 nullptr, count_mode, 1,
+10595: 				 last_4x_vec_label);
+10596:
+10597:       if (probable_max_size == 0 || probable_max_size > 4 * move_max)
+10598: 	{
+10599: 	  /* Size > 4 * MOVE_MAX and size <= 8 * MOVE_MAX.  */
+10600: 	  ix86_expand_n_overlapping_move_movmem (dst, src, destreg,
+10601: 						 srcreg, count_exp,
+10602: 						 mode, 8);
+10603: 	  emit_jump_insn (gen_jump (done_label));
+10604: 	  emit_barrier ();
+10605: 	}
+10606:
+10607:       if (last_4x_vec_label)
+10608: 	{
+10609: 	  /* Size > 2 * MOVE_MAX and size <= 4 * MOVE_MAX.  */
+10610: 	  emit_label (last_4x_vec_label);
+10611: 	  ix86_expand_n_overlapping_move_movmem (dst, src, destreg,
+10612: 						 srcreg, count_exp,
+10613: 						 mode, 4);
+10614: 	  emit_jump_insn (gen_jump (done_label));
+10615: 	  emit_barrier ();
+10616: 	}
+10617:
+10618:       if (more_8x_vec_label)
+10619: 	{
+10620: 	  /* Size > 8 * MOVE_MAX.  */
+10621: 	  emit_label (more_8x_vec_label);
+10622:
+10623: 	  rtx loop_count = gen_reg_rtx (count_mode);
+10624: 	  emit_move_insn (loop_count, count_exp);
+10625:
+10626: 	  /* Jump to MORE_8X_VEC_BACKWARD_LABEL if source address is
+10627: 	     lower than destination address.  */
+10628: 	  rtx_code_label *more_8x_vec_backward_label = gen_label_rtx ();
+10629: 	  emit_cmp_and_jump_insns (srcreg, destreg, LTU, nullptr,
+10630: 				   GET_MODE (destreg), 1,
+10631: 				   more_8x_vec_backward_label);
+10632:
+10633: 	  /* Skip if source == destination which is less common.  */
+10634: 	  emit_cmp_and_jump_insns (srcreg, destreg, EQ, nullptr,
+10635: 				   GET_MODE (destreg), 1, done_label,
+10636: 				   profile_probability::unlikely ());
+10637:
+10638: 	  rtx base_destreg = gen_reg_rtx (GET_MODE (destreg));
+10639: 	  emit_move_insn (base_destreg, destreg);
+10640:
+10641: 	  /* Load the last 4 * MOVE_MAX.  */
+10642: 	  rtx regs[4];
+10643: 	  ix86_expand_load_movmem (src, srcreg, count_exp, mode,
+10644: 				   ARRAY_SIZE (regs), regs, true);
+10645:
+10646: 	  rtx srcmem = change_address (src, mode, srcreg);
+10647: 	  rtx destmem = change_address (dst, mode, destreg);
+10648:
+10649: 	  /* Copy forward with a 4 * MOVE_MAX loop.  */
+10650: 	  rtx_code_label *loop_4x_vec_forward_label = gen_label_rtx ();
+10651: 	  emit_label (loop_4x_vec_forward_label);
+10652:
+10653: 	  ix86_expand_n_move_movmem (destmem, srcmem, mode, 4, true);
+10654:
+10655: 	  rtx tmp;
+10656: 	  rtx delta = GEN_INT (4 * MOVE_MAX);
+10657:
+10658: 	  /* Decrement LOOP_COUNT by 4 * MOVE_MAX.  */
+10659: 	  tmp = expand_simple_binop (GET_MODE (loop_count), MINUS,
+10660: 				     loop_count, delta, nullptr, 1,
+10661: 				     OPTAB_DIRECT);
+10662: 	  if (tmp != loop_count)
+10663: 	    emit_move_insn (loop_count, tmp);
+10664:
+10665: 	  /* Increment DESTREG and SRCREG by 4 * MOVE_MAX.  */
+10666: 	  tmp = expand_simple_binop (GET_MODE (destreg), PLUS,
+10667: 				     destreg, delta, nullptr, 1,
+10668: 				     OPTAB_DIRECT);
+10669: 	  if (tmp != destreg)
+10670: 	    emit_move_insn (destreg, tmp);
+10671: 	  tmp = expand_simple_binop (GET_MODE (srcreg), PLUS, srcreg,
+10672: 				     delta, nullptr, 1, OPTAB_DIRECT);
+10673: 	  if (tmp != srcreg)
+10674: 	    emit_move_insn (srcreg, tmp);
+10675:
+10676: 	  /* Stop if LOOP_EXP <= 4 * MOVE_MAX.  */
+10677: 	  emit_cmp_and_jump_insns (loop_count, delta, GTU, nullptr,
+10678: 				   GET_MODE (loop_count), 1,
+10679: 				   loop_4x_vec_forward_label);
+10680:
+10681: 	  /* Store the last 4 * MOVE_MAX.  */
+10682: 	  ix86_expand_store_movmem (dst, base_destreg, count_exp, mode,
+10683: 				    ARRAY_SIZE (regs), regs, true);
+10684:
+10685: 	  emit_jump_insn (gen_jump (done_label));
+10686: 	  emit_barrier ();
+10687:
+10688: 	  /* Copy backward with a 4 * MOVE_MAX loop.  */
+10689: 	  emit_label (more_8x_vec_backward_label);
+10690:
+10691: 	  base_destreg = gen_reg_rtx (GET_MODE (destreg));
+10692: 	  emit_move_insn (base_destreg, destreg);
+10693:
+10694: 	  /* Load the first 4 * MOVE_MAX.  */
+10695: 	  ix86_expand_load_movmem (src, srcreg, count_exp, mode,
+10696: 				   ARRAY_SIZE (regs), regs, false);
+10697:
+10698: 	  /* Increment DESTREG and SRCREG by COUNT_EXP.  */
+10699: 	  tmp = expand_simple_binop (GET_MODE (destreg), PLUS,
+10700: 				     destreg, count_exp, nullptr, 1,
+10701: 				     OPTAB_DIRECT);
+10702: 	  if (tmp != destreg)
+10703: 	    emit_move_insn (destreg, tmp);
+10704: 	  tmp = expand_simple_binop (GET_MODE (srcreg), PLUS, srcreg,
+10705: 				     count_exp, nullptr, 1, OPTAB_DIRECT);
+10706: 	  if (tmp != srcreg)
+10707: 	    emit_move_insn (srcreg, tmp);
+10708:
+10709: 	  srcmem = change_address (src, mode, srcreg);
+10710: 	  destmem = change_address (dst, mode, destreg);
+10711: 	  rtx step = GEN_INT (-GET_MODE_SIZE (mode));
+10712: 	  srcmem = offset_address (srcmem, step, GET_MODE_SIZE (mode));
+10713: 	  destmem = offset_address (destmem, step, GET_MODE_SIZE (mode));
+10714:
+10715: 	  rtx_code_label *loop_4x_vec_backward_label = gen_label_rtx ();
+```
+
+## gcc/config/i386/x86-tune-costs.h:4139–4157
+```text
+4139: static stringop_algs generic_memcpy[2] = {
+4140:   {libcall,
+4141:    {{256, vector_loop, true},
+4142:     {256, unrolled_loop, true},
+4143:     {-1, libcall, true}}},
+4144:   {libcall,
+4145:    {{256, vector_loop, true},
+4146:     {256, unrolled_loop, true},
+4147:     {-1, libcall, true}}}};
+4148: static stringop_algs generic_memset[2] = {
+4149:   {libcall,
+4150:    {{256, vector_loop, true},
+4151:     {256, unrolled_loop, true},
+4152:     {-1, libcall, true}}},
+4153:   {libcall,
+4154:    {{256, vector_loop, true},
+4155:     {256, unrolled_loop, true},
+4156:     {-1, libcall, true}}}};
+4157: static const
+```
+
+## gcc/config/i386/x86-tune-costs.h:4208–4220
+```text
+4208:    COSTS_N_INSNS (74)},			/*			    other */
+4209:   COSTS_N_INSNS (1),			/* cost of movsx */
+4210:   COSTS_N_INSNS (1),			/* cost of movzx */
+4211:   8,					/* "large" insn */
+4212:   17,					/* MOVE_RATIO */
+4213:   10,					/* CLEAR_RATIO */
+4214:   {6, 6, 6},				/* cost of loading integer registers
+4215: 					   in QImode, HImode and SImode.
+4216: 					   Relative to reg-reg move (2).  */
+4217:   {6, 6, 6},				/* cost of storing integer registers */
+4218:   {6, 6, 6, 10, 15},			/* cost of loading SSE register
+4219: 					   in 32bit, 64bit, 128bit, 256bit and 512bit */
+4220:   {6, 6, 6, 10, 15},			/* cost of storing SSE register
+```
+
+## gcc/defaults.h:977–995
+```text
+977: /* This macro is used to determine what the largest unit size that
+978:    move_by_pieces can use is.  */
+979:
+980: /* MOVE_MAX_PIECES is the number of bytes at a time which we can
+981:    move efficiently, as opposed to  MOVE_MAX which is the maximum
+982:    number of bytes we can move with a single instruction.  */
+983:
+984: #ifndef MOVE_MAX_PIECES
+985: #define MOVE_MAX_PIECES   MOVE_MAX
+986: #endif
+987:
+988: /* STORE_MAX_PIECES is the number of bytes at a time that we can
+989:    store efficiently.  Due to internal GCC limitations, this is
+990:    MOVE_MAX_PIECES limited by the number of bytes GCC can represent
+991:    for an immediate constant.  */
+992:
+993: #ifndef STORE_MAX_PIECES
+994: #define STORE_MAX_PIECES  MIN (MOVE_MAX_PIECES, 2 * sizeof (HOST_WIDE_INT))
+995: #endif
 ```

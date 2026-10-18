@@ -258,6 +258,70 @@
       "git_blob_sha1": "7490a6eb81b735599ab78c7de98166b104ff61ce",
       "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/read-rtl-function.cc",
       "archive": "vector-sources.tar.gz"
+    },
+    {
+      "path": "gcc/expr.cc",
+      "bytes": 472318,
+      "sha256": "97b7c529f38ae0dbb7fb39a2d85d5c27c18bc145a9d21a08f3e5a5135f571e4f",
+      "git_blob_sha1": "7ca5dd84ce92b59b41beedc78dfee1f165a91012",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/expr.cc",
+      "archive": "block-sources.tar.gz"
+    },
+    {
+      "path": "gcc/expr.h",
+      "bytes": 15026,
+      "sha256": "3c1fde596448b9e4c910fc2d5a103a5ce1d360ed22f8d56684a355720ffed594",
+      "git_blob_sha1": "1e89a142d8cde66a72e220e2c57703abc8b547b7",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/expr.h",
+      "archive": "block-sources.tar.gz"
+    },
+    {
+      "path": "gcc/targhooks.cc",
+      "bytes": 75641,
+      "sha256": "18278aab3517619d6e10b397d5a6869b78965dd59db4b286e699ff0512ad05c0",
+      "git_blob_sha1": "5f1eac75122c9cc945012a02426784f6c2584328",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/targhooks.cc",
+      "archive": "block-sources.tar.gz"
+    },
+    {
+      "path": "gcc/config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380",
+      "git_blob_sha1": "888edfed88f00db6322f84cc2a353e986aebfad9",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/config/i386/i386.h",
+      "archive": "block-sources.tar.gz"
+    },
+    {
+      "path": "gcc/config/i386/i386.cc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973",
+      "git_blob_sha1": "4249c55ce6e926329f68532c70bda10aaf30c9f2",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/config/i386/i386.cc",
+      "archive": "block-sources.tar.gz"
+    },
+    {
+      "path": "gcc/config/i386/i386-expand.cc",
+      "bytes": 790498,
+      "sha256": "195b3f74e04375027ef71c84bc3eeb5985adae3ca5d4bd7257f0d2e33d226214",
+      "git_blob_sha1": "366ad513da961e986adfb06e415b6da21a93c5ea",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/config/i386/i386-expand.cc",
+      "archive": "block-sources.tar.gz"
+    },
+    {
+      "path": "gcc/config/i386/x86-tune-costs.h",
+      "bytes": 200039,
+      "sha256": "ecc203626dfb80631fb7651f62000fd30eb2293734d520cfbaffed3df844944a",
+      "git_blob_sha1": "99d97ab03147b6935e996b91cd4e4025b389347d",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/config/i386/x86-tune-costs.h",
+      "archive": "block-sources.tar.gz"
+    },
+    {
+      "path": "gcc/defaults.h",
+      "bytes": 42480,
+      "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a",
+      "git_blob_sha1": "6364216d9681b4c8560af455f3758ce035314c1c",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/defaults.h",
+      "archive": "block-sources.tar.gz"
     }
   ]
 }
