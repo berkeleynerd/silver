@@ -37,6 +37,7 @@ assert '#define GATHER_STATISTICS 0' in headers['auto-host.h']
 assert '#define FIRST_PSEUDO_REG 92' in headers['insn-constants.h']
 assert '#define MAX_RECOG_OPERANDS 30' in headers['insn-config.h']
 assert '#define MAX_DUP_OPERANDS 14' in headers['insn-config.h']
+assert '#define NUM_POLY_INT_COEFFS 1' in headers['insn-modes.h']
 
 binary = args.gnat1.read_bytes()
 assert digest(binary) == identity['binary']['sha256']
@@ -88,6 +89,9 @@ assert 'if (n_operands == 0)\n    return 0;' in sources['gcc/recog.cc']
 assert 'static const size_t block_size = 64 * 1024;' in sources['gcc/memory-block.h']
 assert 'if (size == 0)\n    size = 1;' in sources['libiberty/xmalloc.c']
 assert 'if (nelem == 0 || elsize == 0)\n    nelem = elsize = 1;' in sources['libiberty/xmalloc.c']
+assert '\n#define IRA_NO_OBSTACK\n' in sources['gcc/ira.cc']
+assert 'vec_safe_reserve (reg_equivs, max_regno);' in sources['gcc/reload1.cc']
+assert 'if (! loops_p)\n    return;' in sources['gcc/ira-emit.cc']
 
 R, U, B, H, LRA_U = 99, 53, 12, 92, 27
 reg_slots = R + R // 4
@@ -108,6 +112,33 @@ assert pool_counts['lra_insn_recog_data'] >= 10
 primes = [int(n) for n in re.findall(r'\{\s*(\d+), 0x', sources['libiberty/hashtab.c'])]
 invariant_prime = min(p for p in primes if p >= 100)
 assert invariant_prime == 127
+cost_prime = min(p for p in primes if p >= 200)
+assert cost_prime == 251
+# Reproduce the selected unsigned32 sparse-set request at n=0. Both unsigned
+# arithmetic stages are intentional: a natural-number substitution is wrong.
+sparse_zero = (40 + ((((0 - 1) % 2**32) * 2) % 2**32) * 4) % 2**32
+assert sparse_zero == 32
+
+# GC vectors reserve free slots, then round their backing. An upper power of
+# two bounds the selected >=1024-byte requests. This is not a total-memory sum.
+round_power_two = lambda n: 1 << (n - 1).bit_length()
+equiv_length, equiv_capacity = 0, 0
+equiv_steps = []
+for call in range(2):
+    reserve = 98
+    desired = equiv_length + reserve
+    if equiv_capacity < desired:
+        allocated = max(4, reserve) if not equiv_capacity else max(equiv_capacity * 3 // 2, desired)
+        raw = 8 + allocated * 56
+        rounded = round_power_two(raw)
+        equiv_capacity = (rounded - 8) // 56
+        equiv_steps.append({'call': call + 1, 'logical_before': equiv_length,
+                            'additional_slots_reserved': reserve,
+                            'requested_slots_upper': allocated,
+                            'raw_bytes_upper': raw, 'rounded_bytes_upper': rounded,
+                            'stored_capacity_upper': equiv_capacity})
+    equiv_length = 98
+assert [r['rounded_bytes_upper'] for r in equiv_steps] == [8192, 16384]
 
 result = {
     'scope': identity['scope'],
@@ -180,17 +211,83 @@ result = {
     'pool_backing': {'individual_block_bytes': pool_block,
                      'header_bytes': 8,
                      'typed_object_sizes': pool_sizes,
-                     'objects_per_block': pool_counts},
+                     'objects_per_block': pool_counts,
+                     'checking_pool_ID_consumers_compiled_out': True,
+                     'pool_ID_wrap_is_not_a_capacity_failure': True},
+    'ira_and_lra_helper_requests': {
+        'ira_allocate_uses_malloc_not_obstack': True,
+        'ira_bitmap_initial_chunk_bytes': 65536,
+        'reg_renumber_and_preference_arrays': {'entries_bound': 149,
+                                               'short_array_bytes': 298,
+                                               'three_char_array_bytes': 447},
+        'regstat_set_ref_array_bytes': 98 * 8,
+        'regstat_info_array_bytes': 98 * 16,
+        'ira_equivalence_array': {'entries': 148, 'each_bytes': 40, 'bytes': 5920},
+        'temporary_equivalence_array_bytes': 98 * 32,
+        'reload_equivalence_vector': {'logical_length': 98, 'GGC_events_bound': 2,
+                                      'steps': equiv_steps},
+        'allocno_and_object_id_vectors': {'count': 2, 'each_bytes': heap_pointer_vector(196)},
+        'global_and_root_register_maps': {'count': 2, 'each_bytes': 98 * 8},
+        'IRA_block_nodes': {'count_bound': B, 'each_bytes': 256, 'array_bytes_bound': B * 256},
+        'IRA_root_node_bytes': 256,
+        'IRA_root_bitmap_headers': {'count': 4, 'each_bytes': 32, 'elements': 0},
+        'preference_and_copy_vectors': {'count': 2, 'each_bytes_bound': heap_pointer_vector(LRA_U)},
+        'cost_pool_wrappers': {'count_bound': 34, 'each_bytes': 136,
+                              'initialized_pool_blocks': 0},
+        'subreg_valid_mode_pointer_array_bytes': 98 * 8,
+        'subreg_valid_mode_initial_obstack_bytes': 65536,
+        'cost_register_int_arrays': {'count': 3, 'each_bytes': 98 * 4},
+        'cost_class_pointer_array_bytes': 98 * 8,
+        'cost_class_hash': {'wrapper_bytes': 48, 'slots': cost_prime,
+                            'backbone_bytes': cost_prime * 8},
+        'cost_class_objects': {'count_bound': 6, 'each_bytes': 644},
+        'ordinary_blocks_bound': 12, 'pre_LRA_real_insns_bound': 10,
+        'IRA_points_before_compression_bound': 2 * 10 + 12,
+        'IRA_points_after_compression': 0,
+        'IRA_empty_sparse_sets': {'count': 2, 'each_bytes': sparse_zero},
+        'IRA_live_range_pointer_arrays_before_compression': {'count': 2, 'each_bytes_bound': 32 * 8},
+        'IRA_live_point_map_bytes_bound': 32 * 4,
+        'IRA_point_bitmaps': {'count': 3, 'each_bytes_bound': simple_bitmap(32)},
+        'empty_IRA_requests_reach_library_as_one_byte': True,
+        'root_only_region_sort_array_bytes': 8,
+        'region_children_and_removed_vectors': {'count_bound': 2,
+                                               'each_bytes_bound': heap_pointer_vector(B + 1)},
+        'IRA_emit_pointer_vector_bytes': heap_pointer_vector(50),
+        'IRA_emit_region_arrays_allocated': False,
+        'LRA_pointer_equiv_hash': {'wrapper_bytes': 48, 'slots': 13,
+                                  'backbone_bytes': 13 * 8, 'entries': 0},
+        'LRA_elimination_array': {'entries': 4, 'each_bytes': 48, 'bytes': 192},
+        'LRA_elimination_direct_REG_requests_bound': 8,
+        'LRA_equivalence_RTL_copy_requests': 0,
+        'whole_IRA_DF_schedule_closed': False,
+    },
     'unresolved_whole_function_inputs': [
         'A: DF analysis/optional-problem invocations and solver scratch lifetimes',
         'C_bb: total artificial-reference block collections including entry/exit updates',
         'C_ref: instruction/REG_NOTE reference creations including deferred rescans',
         'C_mw: multiword hard-register descriptor creations',
         'F_peak and bitmap_addend: DF ref-table backing and signed resize intermediates',
-        'IRA root/cost/color/emit and register-class/equivalence helper requests',
-        'LRA equivalence/elimination helpers and shared reg_obstack incoming demand',
+        'CFG loop/dominance helper local sizes and shared obstack/pool retained-count arithmetic',
+        'selected IRA traversal multiplicities only where they affect persistent DF/GGC state',
+        'target frame-layout helper route within LRA elimination',
         'real-function startup and later RTL/regnote/CFI/unit-emission GGC events',
     ],
+    'capacity_vs_work_accounting': {
+        'required_cumulative_behavior_counter': 'DF unsigned32 ref_order',
+        'required_peak_checks': [
+            'DF signed32 reference-table resize intermediates and pointer product',
+            'local array/vector/bitmap size and index arithmetic',
+            'pool retained counts and behavior-relevant GGC page/finalizer arithmetic',
+        ],
+        'already_bounded_locally': [
+            'selected IRA/LRA helper arrays and traversal stack requests',
+            'LRA last_reg_value <= 149 and selected fixed iteration counters',
+        ],
+        'not_admission_conditions_by_themselves': [
+            'count of repeated bounded ordinary allocations',
+            'pool initializations or unsigned pool-ID wrap with CHECKING_P=0',
+        ],
+    },
     'whole_native_capacity_established': False,
     'aggregate_memory_gate': False,
     'compiler_or_prover_executed_by_reconciler': False,

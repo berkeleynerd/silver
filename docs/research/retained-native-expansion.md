@@ -7554,7 +7554,12 @@ long. `last_id` advances once when a pool is initialized, not for each object.
 If `N` objects may be simultaneously retained in a pool generation, its
 backbone needs at most `ceil(N/objects_per_block)` blocks. A lifetime-object
 count is also a conservative input. This bound does not justify silently
-dropping generation counts or the shared incoming pool-ID state.
+dropping peak retained objects when checking pool count arithmetic. The shared
+pool ID is not an additional hard limit here: its unsigned increment wraps
+with defined behavior, skips zero, and all object-ID stores and comparisons
+are excluded by `CHECKING_P=0` (`alloc-pool.h:292–296,402–404,419–421,440–450`).
+Counting pool initializations is useful allocation accounting, but no
+behavior-relevant uniqueness requirement follows in this selected build.
 
 Sparse bitmap headers are32 bytes and elements40 bytes, with128 represented
 bits per element (`bitmap.h:277–351`). Register sets below99, block sets below12
@@ -7703,19 +7708,130 @@ live-point arrays are allocated even when their member sets are empty
 (`lra-lives.cc:1373–1438`), and the selected translation unit contains only this
 function. No live-range object, spill slot or coalescing graph follows.
 
+### IRA helper arrays and LRA equivalence join
+
+The next source pass closes the direct helper requests below, retaining CFG
+loop/dominance and whole DF scheduling as explicit joins. IRA does **not** use
+its ordinary-object obstack in this build: `ira.cc:642` unconditionally defines
+`IRA_NO_OBSTACK`, so `ira_allocate` calls `xmalloc` and `ira_free` calls `free`
+(`:655–675`). The separate IRA bitmap obstack still allocates its initial64-KiB
+chunk. This matters for empty arrays: an `ira_allocate(0)` is a one-byte library
+allocation, whereas it would merely finish an empty object on an obstack.
+
+`resize_reg_info` provides at most149 slots, each with one two-byte renumber
+entry and one three-byte preference entry:298 and447 bytes
+(`reginfo.cc:794–814,858–913`). The selected pre-LRA regstat requests are98
+eight-byte set/ref records and98 sixteen-byte lifetime records:784 and1568
+bytes (`regstat.cc:49–81,234–267`, `regs.h:58–62,104–110`). Regstat also creates
+two32-byte bitmap headers on `df_bitmap_obstack`; their member domain is
+bounded by the register count and shared obstack demand remains separate.
+The `ira_reg_equiv` array starts at148 forty-byte records,5920 bytes;
+LRA's99 registers fit without resizing. The temporary equivalence array has98
+thirty-two-byte records,3136 bytes (`ira.cc:3062–3075,3094–3123,5828`).
+There is no instruction SET to populate memory, invariant or initializer
+equivalences on this body, so LRA's subsequent equivalence-copy loop has
+nothing to clone (`lra-constraints.cc:520–533`).
+
+The GC reload-equivalence vector is different. `grow_reg_equivs` reserves
+`max_reg_num()` **additional** free slots, then inserts only the missing logical
+elements (`reload1.cc:644–657`). The two selected calls are `ira.cc:5872,5997`;
+no old-reload, region-emission or splitting call is reached. With seven-pointer,
+56-byte records (`reload.h:209–243`), the capacities are bounded as follows:
+
+| Call | Logical length before / after | Extra slots requested | Rounded GGC bytes | Stored capacity |
+| --- | --- | ---: | ---: | ---: |
+| Initial |0 /98|98|8192|146|
+| Non-conflict finish |98 /98|98|16384|292|
+
+The first raw request is`8+98*56=5496` bytes. The second requires196 slots;
+ordinary vector growth chooses`max(146*3/2,196)=219`, giving12272 raw bytes
+before rounding. `va_gc::reserve` records the rounded backing's capacity
+(`vec.h:393–422`, `vec.cc:150–166`), so logical length98 does not justify a
+98-slot backing bound. These are at most two GGC allocation events. No
+cumulative-memory admission gate follows from either request.
+
+The root-only, zero-allocno IRA graph still has these direct objects:
+
+| Request | Individual backing |
+| --- | --- |
+| Allocno/object-ID vectors |two196-pointer vectors,1576 bytes each |
+| Global/root register-to-allocno maps |two784-byte arrays |
+| Block/root loop-tree nodes |up to12 and1 records of256 bytes:3072/256 bytes |
+| Root sets |four32-byte bitmap headers; no allocno/copy/modified-pseudo member |
+| Preference/copy vectors |at most27 pointer slots each:224 bytes each |
+| Cost-vector allocator wrappers |at most34 objects of136 bytes; no pool initialized |
+| Subregister mode-change map |98 pointers:784 bytes, plus initial64-KiB obstack |
+| Cost register class/gain/best-class arrays |three392-byte arrays |
+| Per-register cost-class map |784-byte array |
+| Cost-class hash |48-byte wrapper,251 slots/2008-byte backbone |
+| Cost-class records |at most six records of644 bytes |
+| Optional root-region sort/vector setup |8-byte sort array and two at most13-pointer/112-byte vectors |
+| Emit-data pointer vector |50 pointer slots:408 bytes |
+
+Sources: `ira-build.cc:98–159,429–440,1179–1184,1366–1371,1622–1633,2280–2305,2650–2666`,
+`ira-int.h:81–140`, `ira-costs.cc:110–124,202–215,329–415,1975–2043,2589–2634`,
+`reginfo.cc:1316–1337`, `ira-emit.cc:101–115`. Root bitmaps have no live elements
+because allocnos, copies and modified pseudos are absent. Cost-class setup
+nevertheless visits the six virtual-register positions92 through97. Each
+position reaches at most one `setup_cost_classes` allocation on this first
+O0 cost pass: the mode path makes at most one restricted set; the class
+fallback is used only for a null register slot, which skips its subsequent
+mode restriction. Six entries fit the initial251-slot hash without growth.
+The zero-allocno cost, priority, conflict-index and emit-data arrays still
+reach `xmalloc(0)` and request one byte. `ira_emit(false)` returns before
+region shuffle arrays and edge-move construction (`ira-emit.cc:1252–1268`).
+
+IRA's live-point setup is not the LRA early-return case. Before compression,
+`process_bb_node_lives` advances twice per real instruction and once per
+ordinary block; the other increment requires a pseudo conflict, absent here.
+Thus `P<=2*10+12=32` conservatively
+(`ira-lives.cc:574–590,1373–1390,1515,1545,1604,1810–1822`). It allocates two
+`8P`-byte start/finish arrays, a`4P`-byte compression map and three simple
+bitmaps, each at most16 bytes. With no allocno object, born/dead sets are
+empty and compression assigns `ira_max_point=0`
+(`:1630–1635,1660–1705`). The rebuilt chains and the fast allocator's
+hard-register-per-point array are consequently empty requests.
+
+The two initial `sparseset_alloc(0)` calls still request32 bytes each.
+This result requires preserving the source's unsigned arithmetic:
+`(n-1)*2` wraps in unsigned32, its multiplication by `sizeof(unsigned)` is
+in64-bit `size_t`, and the final request is converted to unsigned32. At n=0,
+`40+4294967294*4` converts to32. There is no negative-length allocation and
+no member access into these empty sets (`sparseset.cc:28–44`,
+`ira-lives.cc:1812–1813`). The reconciler evaluates those stages explicitly.
+
+All graph traversal vectors are small on this root-only shape. Every
+`ira_traverse_loop_tree` preorder vector holds at most12 block pointers;
+single-element pushes grow through capacities4,8,16, so each request is at
+most136 bytes. A postorder traversal additionally allocates two exact
+12-pointer vectors, at most104 bytes each. Its visited bit is cleared before
+pushing a block, so the DFS stack never exceeds the number of blocks
+(`ira-build.cc:1681–1747,1773–1822`). The exact number of selected traversals
+and separate CFG loop/dominance helpers remain part of the schedule join.
+
+Finally LRA creates an empty pointer-equivalence hash with a48-byte wrapper
+and13 slots/104-byte backbone (`hash-set.h:34–41`,
+`lra-constraints.cc:520–533`), plus four48-byte elimination records,192 bytes
+(`lra-eliminations.cc:74–115,1298–1338`, `i386.h:1789–1793`). Its initialization
+makes eight direct `gen_rtx_REG` calls; charging eight GGC objects conservatively
+allows cold register caches. These calls are independent of the later empty
+instruction bitmaps. Target frame-layout helpers still have their own route
+join; this direct-call charge does not claim to price arbitrary target hooks.
+
 ### Counter composition and finite remaining frontier
 
 For the null function, keep ordinary pools/obstacks separate from GGC events.
 The partial GGC lifetime envelope is
 
 ```text
-E_GGC <= 39257 + 437 + 2
+E_GGC <= 39257 + 437 + 2 + 2 + 8
        + E_metadata + E_Main_translation + E_real_function_start
        + E_RTL_passes + E_regnotes + E_CFI + E_unit_emit
 ```
 
 Here39,257 is the established fixed pre-Main GCC prefix,437 the cold first RTL
-target setup above, and2 the selected alias vectors. The residuals are
+target setup above,2 the selected alias vectors,2 reload-equivalence vector
+events and8 direct elimination-register requests. The residuals are
 nonnegative required inputs, never implicit zeros. Their disjoint boundaries
 and constructors still require completion:
 
@@ -7724,25 +7840,41 @@ and constructors still require completion:
 | `E_metadata` |path/source-location/unit/name corrections between the fixed prefix and Main; charge actual source descriptor, argv/path and shared hash inputs |
 | `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation; combine the backend's logical graph with each constructor/allocation route |
 | `E_real_function_start` |real `allocate_struct_function`/`prepare_function_start`/`init_emit`, distinct from the dummy setup; include EH/machine/function objects, RTL vectors and shared constant/temp hash state |
-| `E_RTL_passes` |expansion and selected O0 RTL/IRA/LRA helpers; include underlying pattern/vector copies and pseudo/equivalence/register-class objects, beyond the52 chain nodes already bounded |
+| `E_RTL_passes` |expansion and selected O0 RTL helpers; include underlying pattern/vector copies and pseudo/target frame-layout objects, beyond the52 chain nodes already bounded and excluding the equivalence/elimination events charged separately |
 | `E_regnotes` |DF NOTE and late register-note construction; needs DF analysis invocations, artificial/instruction ref lifetime counts and each note's RTL allocation |
 | `E_CFI` |dwarf2cfi scan/trace and frame descriptions; needs selected instruction operands, unwind state and emitted row/vector counts |
 | `E_unit_emit` |final/varasm/debug/cgraph unit finalization; needs the selected unit's symbol/string/output and shared-cache growth terms |
 
 For ordinary backing, the remaining concrete joins are DF optional-problem
-and solver scratch (`df-core.cc`, `df-problems.cc`), IRA root-loop maps/costs/
-coloring/emission and register-class/equivalence helpers (`ira-build.cc`,
-`ira-costs.cc`, `ira-color.cc`, `ira-emit.cc`, `reginfo.cc`, `reload1.cc`), LRA
-equivalence/elimination helpers (`lra-constraints.cc`, `lra-eliminations.cc`),
-and shared bitmap/pool incoming demand. The known no-allocno/no-live-pseudo
+and solver scratch (`df-core.cc`, `df-problems.cc`), exact selected IRA
+traversal multiplicities and CFG loop/dominance helpers, target frame-layout
+helpers within LRA elimination, and shared bitmap/pool incoming demand.
+The known no-allocno/no-live-pseudo
 shape excludes candidate-dependent objects; it does not remove their setup.
-The global DF reference-order equation above, pool-ID initializations and
-shared GGC page/finalizer counts must join the same full function schedule.
+The global DF reference-order equation above and shared GGC page/finalizer
+count arithmetic must join the same full function schedule.
 This enumerates the remaining native frontier; it does not assert whole
 native capacity or account for the independent GNATprove producer.
 
+Capacity obligations must remain distinct from total-work accounting:
+
+| Quantity | Why it matters for the retained-tool capacity rule |
+| --- | --- |
+| DF `ref_order` over the function lifetime | A behavior-relevant unsigned32 ordering counter; all increments require a bound, including rescans after a full scan reset. |
+| DF peak reference tables and bitmap addends | Signed32 resize intermediates, vector indexes and pointer-byte products must fit at each request. |
+| Local IRA/LRA arrays, bitmap dimensions and traversal stacks | The source-derived bounds above discharge their local size/index arithmetic independently of the number of identical invocations. |
+| LRA `last_reg_value` and selected fixed iteration counters | The null shape bounds the former by149 and excludes further pseudo-value updates; selected loop limits are finite local counts. |
+| Pool live counts and GGC page/finalizer backing | Check the actual retained counts and behavior-relevant arithmetic; an allocation-event envelope is a conservative input where it bounds them. |
+| Ordinary bounded `malloc`/obstack repetitions and pool initializations | Repetition counts describe work and resources. They are not by themselves admission conditions; pool-ID wrap has no active checking consumer here. |
+
+Consequently, exact ordinary traversal multiplicities are not a prerequisite
+to close already-bounded local arrays. The schedule join remains necessary
+where a traversal creates DF references, GGC objects or another state whose
+representation persists across invocations. No row introduces an aggregate
+RAM or address-space admission gate.
+
 The [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-df-backing.py)
-checks38 source hashes, seven retained installed headers,131 installed ELF
+checks50 source hashes, eight retained installed headers,131 installed ELF
 instruction fragments and the local arithmetic. The
 [result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-df-backing.json)
 preserves the source-shape premises and unresolved inputs explicitly. The

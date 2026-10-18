@@ -1,7 +1,7 @@
 {
   "scope": "Local null DF/alias/IRA/LRA backing and explicit residual counter inputs; not complete capacity",
-  "source_files_verified": 38,
-  "installed_headers_verified": 7,
+  "source_files_verified": 50,
+  "installed_headers_verified": 8,
   "instruction_fragments_verified": 131,
   "backend_interface_premises": {
     "registers": 99,
@@ -124,7 +124,133 @@
       "df_reg_info": 4095,
       "df_mw_hardreg": 2047,
       "lra_insn_recog_data": 819
-    }
+    },
+    "checking_pool_ID_consumers_compiled_out": true,
+    "pool_ID_wrap_is_not_a_capacity_failure": true
+  },
+  "ira_and_lra_helper_requests": {
+    "ira_allocate_uses_malloc_not_obstack": true,
+    "ira_bitmap_initial_chunk_bytes": 65536,
+    "reg_renumber_and_preference_arrays": {
+      "entries_bound": 149,
+      "short_array_bytes": 298,
+      "three_char_array_bytes": 447
+    },
+    "regstat_set_ref_array_bytes": 784,
+    "regstat_info_array_bytes": 1568,
+    "ira_equivalence_array": {
+      "entries": 148,
+      "each_bytes": 40,
+      "bytes": 5920
+    },
+    "temporary_equivalence_array_bytes": 3136,
+    "reload_equivalence_vector": {
+      "logical_length": 98,
+      "GGC_events_bound": 2,
+      "steps": [
+        {
+          "call": 1,
+          "logical_before": 0,
+          "additional_slots_reserved": 98,
+          "requested_slots_upper": 98,
+          "raw_bytes_upper": 5496,
+          "rounded_bytes_upper": 8192,
+          "stored_capacity_upper": 146
+        },
+        {
+          "call": 2,
+          "logical_before": 98,
+          "additional_slots_reserved": 98,
+          "requested_slots_upper": 219,
+          "raw_bytes_upper": 12272,
+          "rounded_bytes_upper": 16384,
+          "stored_capacity_upper": 292
+        }
+      ]
+    },
+    "allocno_and_object_id_vectors": {
+      "count": 2,
+      "each_bytes": 1576
+    },
+    "global_and_root_register_maps": {
+      "count": 2,
+      "each_bytes": 784
+    },
+    "IRA_block_nodes": {
+      "count_bound": 12,
+      "each_bytes": 256,
+      "array_bytes_bound": 3072
+    },
+    "IRA_root_node_bytes": 256,
+    "IRA_root_bitmap_headers": {
+      "count": 4,
+      "each_bytes": 32,
+      "elements": 0
+    },
+    "preference_and_copy_vectors": {
+      "count": 2,
+      "each_bytes_bound": 224
+    },
+    "cost_pool_wrappers": {
+      "count_bound": 34,
+      "each_bytes": 136,
+      "initialized_pool_blocks": 0
+    },
+    "subreg_valid_mode_pointer_array_bytes": 784,
+    "subreg_valid_mode_initial_obstack_bytes": 65536,
+    "cost_register_int_arrays": {
+      "count": 3,
+      "each_bytes": 392
+    },
+    "cost_class_pointer_array_bytes": 784,
+    "cost_class_hash": {
+      "wrapper_bytes": 48,
+      "slots": 251,
+      "backbone_bytes": 2008
+    },
+    "cost_class_objects": {
+      "count_bound": 6,
+      "each_bytes": 644
+    },
+    "ordinary_blocks_bound": 12,
+    "pre_LRA_real_insns_bound": 10,
+    "IRA_points_before_compression_bound": 32,
+    "IRA_points_after_compression": 0,
+    "IRA_empty_sparse_sets": {
+      "count": 2,
+      "each_bytes": 32
+    },
+    "IRA_live_range_pointer_arrays_before_compression": {
+      "count": 2,
+      "each_bytes_bound": 256
+    },
+    "IRA_live_point_map_bytes_bound": 128,
+    "IRA_point_bitmaps": {
+      "count": 3,
+      "each_bytes_bound": 16
+    },
+    "empty_IRA_requests_reach_library_as_one_byte": true,
+    "root_only_region_sort_array_bytes": 8,
+    "region_children_and_removed_vectors": {
+      "count_bound": 2,
+      "each_bytes_bound": 112
+    },
+    "IRA_emit_pointer_vector_bytes": 408,
+    "IRA_emit_region_arrays_allocated": false,
+    "LRA_pointer_equiv_hash": {
+      "wrapper_bytes": 48,
+      "slots": 13,
+      "backbone_bytes": 104,
+      "entries": 0
+    },
+    "LRA_elimination_array": {
+      "entries": 4,
+      "each_bytes": 48,
+      "bytes": 192
+    },
+    "LRA_elimination_direct_REG_requests_bound": 8,
+    "LRA_equivalence_RTL_copy_requests": 0,
+    "whole_IRA_DF_schedule_closed": false
   },
   "unresolved_whole_function_inputs": [
     "A: DF analysis/optional-problem invocations and solver scratch lifetimes",
@@ -132,10 +258,27 @@
     "C_ref: instruction/REG_NOTE reference creations including deferred rescans",
     "C_mw: multiword hard-register descriptor creations",
     "F_peak and bitmap_addend: DF ref-table backing and signed resize intermediates",
-    "IRA root/cost/color/emit and register-class/equivalence helper requests",
-    "LRA equivalence/elimination helpers and shared reg_obstack incoming demand",
+    "CFG loop/dominance helper local sizes and shared obstack/pool retained-count arithmetic",
+    "selected IRA traversal multiplicities only where they affect persistent DF/GGC state",
+    "target frame-layout helper route within LRA elimination",
     "real-function startup and later RTL/regnote/CFI/unit-emission GGC events"
   ],
+  "capacity_vs_work_accounting": {
+    "required_cumulative_behavior_counter": "DF unsigned32 ref_order",
+    "required_peak_checks": [
+      "DF signed32 reference-table resize intermediates and pointer product",
+      "local array/vector/bitmap size and index arithmetic",
+      "pool retained counts and behavior-relevant GGC page/finalizer arithmetic"
+    ],
+    "already_bounded_locally": [
+      "selected IRA/LRA helper arrays and traversal stack requests",
+      "LRA last_reg_value <= 149 and selected fixed iteration counters"
+    ],
+    "not_admission_conditions_by_themselves": [
+      "count of repeated bounded ordinary allocations",
+      "pool initializations or unsigned pool-ID wrap with CHECKING_P=0"
+    ]
+  },
   "whole_native_capacity_established": false,
   "aggregate_memory_gate": false,
   "compiler_or_prover_executed_by_reconciler": false
