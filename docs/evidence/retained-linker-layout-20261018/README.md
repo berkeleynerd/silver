@@ -32,3 +32,39 @@ guards, synthetic union, script/orphan counts, hidden ELF headers and
 actual/preliminary program-header cases. It found no defect in the narrow
 `I/S/N/T` transfer or the unsigned header-product conditions. The review made
 no whole-file, virtual-layout or relocation-reach claim.
+
+`check-virtual.py` and `virtual-results.json` extend this with the conditional
+script placement transfer from symbolic post-edit payload `B` and alignment
+`A`. `B` sums per-item upper bounds across passes. The retained endpoint
+bound is `V`, while temporary changed-base RELRO passes have the separate
+bound `2 V`; the arithmetic condition covers both. They reuse the same
+capsule/input identities and check the script alignment inventory plus
+reset/RELRO source anchors:
+
+```sh
+python3 docs/evidence/retained-linker-layout-20261018/check-virtual.py --output /tmp/retained-linker-virtual-replay.json
+```
+
+This extension does not supply concrete generated payload/alignment inputs,
+file length, relocation reach or mapping-iteration convergence.
+
+`check-file.py` and `file-results.json` supply a second conditional transfer
+from the virtual envelope, effective alignment and the still-symbolic
+`Bfile` section/table payload envelope. They cover load-segment placement,
+the initial and pending non-load walks, direct symbol-table output, the
+section-name table and header suffix. Replay:
+
+```sh
+python3 docs/evidence/retained-linker-layout-20261018/check-file.py --output /tmp/retained-linker-file-replay.json
+```
+
+Its per-phase multiplicities are a handwritten source argument. Neither
+conditional extension completes the generated payload/alignment projection
+or claims a concrete whole-program layout bound.
+
+Independent focused review replayed both conditional checkers byte-equal
+against all 27 source identities. It checked the RELRO target/revert and
+phase reset, per-item payload condition, source alignment/page expressions,
+load-segment bias and writer walks. The review required the separate `2 V`
+trial bound before accepting the transfer. Payload/alignment projections,
+mapping convergence and relocation reach remain open.

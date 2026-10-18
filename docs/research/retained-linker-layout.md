@@ -237,6 +237,191 @@ to eight, then adds the section-header product (`bfd/elf.c:7203–7215`). The
 independent condition `O + 7 + 64 N <= INT64_MAX` would keep this suffix in
 the selected signed file-offset range. This does not yet derive `O`.
 
+## Conditional virtual placement transfer
+
+The selected script also supplies a placement transfer once payload and
+alignment envelopes arrive. Define these caller inputs over every layout
+pass, after common allocation, input decompression/merging, target relaxation,
+EH editing and dynamic sizing:
+
+- `B`: the sum of per-input-section upper bounds on logical payload lengths
+  that can be mapped, plus per-item upper bounds on script-emitted data such
+  as `LINKER_VERSION`. Each individual bound holds over every layout pass;
+  a bound only on the largest aggregate single-pass total is insufficient
+  for the prefix/suffix argument below.
+  Include NOBITS and nonallocated contents. Exclude only the padding that
+  `ldlang` itself adds and that is charged below.
+- `A`: a power of two at least 4,096, bounding every effective input and
+  output section alignment, including target adjustments. This is a maximum
+  alignment in bytes, not an alignment exponent. It is an incoming bound;
+  the fixed inventory alone does not discharge generated/common alignment.
+- `Hfile = 64 + 56 T`: the file plus reserved program-header envelope.
+
+Then a sufficient envelope for retained section virtual/load-address endpoints is
+
+```text
+V = Hfile + B + (I + S + 5) (A - 1) + 8 * 4096.
+```
+
+This is a transfer from still-symbolic payload/alignment inputs, not a
+numerical final-layout result for null Main. Its terms follow from the
+selected layout source:
+
+| Advance | Bound | Source |
+| --- | ---: | --- |
+| Initial location | `Hfile` | Script `SEGMENT_START("text-segment", 0) + SIZEOF_HEADERS`; selected command has no segment-address override |
+| Mapped input payloads and script bytes | `B` | `size_input_section`, `ld/ldlang.c:5665–5671`; script data sizing |
+| One alignment per mapped input | `I (A-1)` | `ld/ldlang.c:5610–5633` |
+| One alignment per output section | `S (A-1)` | `ld/ldlang.c:6100–6114` |
+| Five ordinary script ALIGN expressions | `5 (A-1)` | ALIGNOF(NEXT_SECTION), inside .bss, after .lbss, inside .ldata, after .ldata |
+| Data-segment initial adjustment | `2 * 4096` | ALIGN plus possible page residue, `ld/ldexp.c:453–495` |
+| RELRO adjustment | `2 * 4096` | Rounded desired end and checked recomputation, `ld/ldlang.c:6627–6686`, `ld/ldexp.c:499–534` |
+| Two large-data address expressions | `4 * 4096` | Each script expression is ALIGN(page) plus a residue below one page |
+
+There is one mapped occurrence per input section: duplicate wildcard matches
+return without adding another statement when noncontiguous regions are
+disabled (`ld/ldlang.c:2701–2736`). Orphan insertion adds no new address
+expression for allocated input sections; nonallocated orphans use address
+zero (`2009–2055`). Output block size defaults to one, and its only
+target-specific alteration is for TIC54x (`1367,2898–2903,7876`), outside this
+descriptor. Thus block rounding adds no further padding. Every listed
+ordinary ALIGN advances by at most `A-1`; script expressions specifying
+address zero cannot increase the envelope.
+
+The RELRO term does not assume that the backwards packing loop moves each
+section by less than a page. That would be false when it also eliminates
+old gaps. Instead, its target end is the preceding RELRO end rounded up to
+a page (`6633–6637`). After the changed-base pass, if the actual RELRO end
+exceeds that target the code restores the original base and reruns
+(`6674–6686,6710–6714`). Hence the retained RELRO prefix end is bounded by
+the initial prefix end plus one page; two pages conservatively cover the
+rounding and `DATA_SEGMENT_RELRO_END` expression. Prefix payload/padding are
+charged in the initial pass, suffix payload/padding in the retained pass,
+without adding entire passes together. Existing padding statements are
+reset and recomputed (`6470–6476`), and memory regions are reset before each
+recalculation. The same `I/S/B/A/Hfile` envelopes cover every iteration.
+
+The changed-base pass executes before the check and may exceed the retained
+envelope before being discarded. Its new base is no larger than the rounded
+initial RELRO end: backwards packing subtracts section lengths and rounds
+down, and the initial RELRO target is already covered by `V`
+(`6633–6663`). Before that base, the original prefix is bounded by `V`.
+After it, a fresh full payload/alignment/script envelope is also at most
+`V`. Therefore a separate bound on temporary endpoints is
+
+```text
+Vtrial = 2 V.
+```
+
+This charges the entire envelope again for the trial suffix, without relying
+on the subsequent revert to protect arithmetic already executed. Rerunning
+with the original base restores the retained bound. The later adjustment
+without RELRO uses the common/max-page expression already charged above
+(`ld/ldexp.c:469–473`), rather than this changed-base pass.
+
+There is no `AT`, separate load region or overlay in this script.
+`bfd_set_section_vma` sets both VMA and LMA (`bfd/section.c:637–643`), and the
+default LMA inheritance preserves their equality
+(`ld/ldlang.c:6167–6240`). Default region origin is zero (`1516`). Nonallocated
+debug sections at zero do not advance the allocated region cursor
+(`6284–6291`). TLS BSS can overlap the following non-TLS address domain, but
+counting its whole payload in `B` still bounds both endpoints. Therefore
+every retained section start/end is in `[0,V]`, with LMA equal to VMA,
+subject to the stated input projections and representable arithmetic.
+
+For this placement calculation, requiring `2 V + A <= INT64_MAX` suffices to
+keep the positive sums and alignment round-up intermediates, including
+discarded changed-base trials, in the selected 64-bit address/file-offset
+arithmetic. It is a derived arithmetic condition,
+not a host-memory budget. It does not by itself establish relocation reach:
+that also needs the selected relocation operand/addend domains and the
+signed widths of each encoding. Nor does it prove termination within the
+linker's ten mapping attempts or rule out semantic linker diagnostics.
+
+`check-virtual.py` reuses the unchanged source capsule, checks the selected
+script's five ordinary alignments/two large-data expressions and the reviewed
+reset/recompute guards, and retains this symbolic transfer. No measured
+binder object or executed link supplies `B` or `A`.
+
+## Conditional file-position transfer
+
+Given the preceding retained `V`, add a separate caller input `Bfile`: a bound on the
+sum of file-backed ELF section payload lengths, including hidden symbol,
+index, relocation and String tables, at every writer sizing stage. This
+includes `ldlang` padding inside output sections and any late compressed/CTF
+contents. It excludes file/program/section headers and file-placement gaps,
+which are charged here. Extend `A` to bound these headers' effective byte
+alignments too. The existing `A >= 4096` already covers the fixed 1/4/8-byte
+hidden-table alignments.
+
+A conservative file-position envelope is
+
+```text
+F = (64 + 56 T) + (S + 1) (V + A)
+    + 4 Bfile + (3 N + 5) A + 64 N.
+```
+
+This is an arithmetic envelope, not a file-size prediction. It intentionally
+recharges payloads across disjoint writer phases to avoid assuming that
+initial and final non-load section sets are identical. The writer uses the
+retained layout after RELRO trial/revert processing; its `V` input does not
+replace the separate `2 V + A` condition on trial placement arithmetic.
+
+The load-position routine starts at the 64-byte file header and adds the
+reserved program-header area exactly once, whether outside or inside the
+header-containing load segment (`bfd/elf.c:5996–6014,6078–6079`). Automatic
+mapping has at most `S+1` load segments. Each uses one bias below `A` to make
+file position congruent to its virtual address (`6083–6136`). The selected
+x86 target has `no_page_alias = 0`, so it does not add the HPPA extra page
+(`6141–6148`; default `bfd/elfxx-target.h:121–122`, with no x86 override).
+
+Within a load segment, the code advances through section LMAs and contents;
+NOBITS holes later followed by contents are charged through the segment
+memory extent (`bfd/elf.c:6295–6433`). Under the preceding selected-script
+placement, LMAs equal VMAs, sections are ordered, and all endpoints are in
+`[0,V]`. TLS BSS is explicitly excluded from the ordinary load extent. Each
+load segment can therefore add at most `V` bytes beyond its alignment.
+Charging `V+A` to each of `S+1` segments also covers temporary NOBITS offsets
+that are subsequently subtracted (`6136–6161,6452`). The result is saved in
+`elf_next_file_pos` (`6512`).
+
+The remaining phases have the following upper bounds:
+
+| Writer phase | Payload allowance | Alignment allowance |
+| --- | ---: | ---: |
+| Initial non-load-header walk (`bfd/elf.c:6600–6673`) | `Bfile` | `2 N A`, allowing both page bias and section alignment |
+| Direct symtab, optional index table and strtab append (`bfd/elflink.c:13023–13031,13442–13478`) | `Bfile` | `3 A` |
+| Pending relocation/debug/CTF header walk (`bfd/elf.c:7122–7201`) | `Bfile` | `N A` |
+| Final section-name table (`7203–7208`) | `Bfile` | `A` |
+| Section-header suffix (`7210–7215`) | `64 N` | `A` |
+
+Each header walk visits at most `N` entries once. The placement helper aligns
+the current offset by the section alignment (or a smaller fixed cap) and
+adds its size unless it is NOBITS (`bfd/elf.c:4663–4687`). The special
+`.shstrtab` finalization is charged separately even if that header was
+visited in the preceding walk. The direct symbol-table writer advances its
+recorded table size and then corrects `elf_next_file_pos`; its whole payload
+is included in `Bfile`. Subsequent content writes seek to the assigned
+section offsets and use their bounded section lengths
+(`bfd/elf.c:7245–7288`). The selected x86 backend has no begin/section-write
+override; its generic final processing changes header flags/OSABI, not file
+placement (`bfd/elfxx-target.h:434–435,509–513`,
+`bfd/elf.c:13485–13525`). There is no output archive or import-library writer
+in this descriptor.
+
+Together with the preceding header-product conditions, `F + A <= INT64_MAX`
+is sufficient for these nonnegative file-offset additions, alignment
+intermediates and recorded offsets to fit signed64. It leaves physical file
+capacity and I/O success external. It also leaves the actual `Bfile` source
+projection, relocation processing and layout convergence open. In
+particular, it does not infer `Bfile` from input file bytes: decompression,
+NOBITS, merged sections, new tables and late writer changes require their
+own source-derived interfaces.
+
+`check-file.py` checks the retained source identities, selected hook
+exclusions and writer-phase anchors; `file-results.json` records the
+conditional interface and its unresolved inputs.
+
 ## Main substitution and residual work
 
 Substitute only the source-derived Main object envelope:
@@ -257,16 +442,18 @@ The checked source/header joins do not settle the remaining layout work:
 
 - source-derived binder section/payload/alignment and symbol interfaces;
 - synthetic payload/event joins, common storage, EH editing and table bytes;
-- input/output alignment padding, script page adjustments and relaxation;
+- concrete input/output payload and alignment projections for the conditional
+  placement transfer above, plus the selected relaxation/convergence argument;
 - a final virtual span that proves signed relative relocation reach and EH
   table offsets, including symbol addends and the fixed runtime inputs;
-- file-position growth before the suffix, and individual BFD allocation
-  requests/counters through all those phases.
+- the `Bfile` projection for the conditional file-position transfer, and
+  individual BFD allocation requests/counters through all those phases.
 
 The selected Linux target's maximum/common page size is 4,096
 (`bfd/elf64-x86-64.c:6337–6344`); other target vectors in that file use other
 constants. The selected script starts at `SIZEOF_HEADERS` and has
 `DATA_SEGMENT_ALIGN`, RELRO alignment, and two large-data page expressions.
-Those facts are retained for the next join; a section-count bound alone is
-not a proof of address or file-position bounds. No aggregate host-RAM cap,
+The conditional placement transfer now charges those script adjustments;
+the source-to-payload and alignment joins remain open. A section-count bound
+alone is not a proof of address or file-position bounds. No aggregate host-RAM cap,
 compiler/linker execution, solver run or Lean run is introduced here.

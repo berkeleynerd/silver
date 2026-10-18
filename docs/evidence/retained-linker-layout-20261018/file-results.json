@@ -1,0 +1,48 @@
+{
+  "scope": "Conditional selected ELF writer file-position arithmetic",
+  "source_files_verified": 27,
+  "load_segments_upper": "S + 1",
+  "incoming_V": "Retained endpoint envelope after RELRO trial/revert; separate 2*V + A placement-arithmetic condition still required",
+  "load_prefix_formula": "(64 + 56*T) + (S + 1)*(V + A)",
+  "remaining_writer_phases": [
+    {
+      "phase": "initial non-load walk",
+      "payload_coefficient": 1,
+      "alignment_N_coefficient": 2,
+      "alignment_constant": 0
+    },
+    {
+      "phase": "symbol/index/string tables",
+      "payload_coefficient": 1,
+      "alignment_N_coefficient": 0,
+      "alignment_constant": 3
+    },
+    {
+      "phase": "pending non-load walk",
+      "payload_coefficient": 1,
+      "alignment_N_coefficient": 1,
+      "alignment_constant": 0
+    },
+    {
+      "phase": "final section names",
+      "payload_coefficient": 1,
+      "alignment_N_coefficient": 0,
+      "alignment_constant": 1
+    },
+    {
+      "phase": "section header suffix",
+      "payload_coefficient": 0,
+      "alignment_N_coefficient": 0,
+      "alignment_constant": 1
+    }
+  ],
+  "formula": "F = (64 + 56*T) + (S + 1)*(V + A) + 4*Bfile + (3*N + 5)*A + 64*N",
+  "arithmetic_sufficient_condition": "F + A <= INT64_MAX, plus prior unsigned header-product conditions",
+  "incoming_Bfile": "Sum of file-backed section lengths including ldlang padding and hidden tables, bounded over all writer sizing stages",
+  "incoming_A_extension": "Power-of-two byte alignment also bounds every file-backed header effective alignment",
+  "selected_extra_page_alias_adjustment": false,
+  "generated_payload_alignment_projection_complete": false,
+  "concrete_final_file_size_or_relocation_reach_established": false,
+  "complete_retained_tool_capacity": false,
+  "native_execution": false
+}

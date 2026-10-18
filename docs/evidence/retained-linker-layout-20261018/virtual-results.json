@@ -1,0 +1,31 @@
+{
+  "scope": "Conditional selected-script retained and trial virtual/load address placement",
+  "source_files_verified": 27,
+  "prior_input_identities_verified": 4,
+  "ordinary_script_alignments": [
+    ". = ALIGN(ALIGNOF(NEXT_SECTION));",
+    ". = ALIGN(. != 0 ? 64 / 8 : 1);",
+    ". = ALIGN(64 / 8);",
+    ". = ALIGN(. != 0 ? 64 / 8 : 1);",
+    ". = ALIGN(64 / 8);"
+  ],
+  "large_data_script_expressions": [
+    ".lrodata   ALIGN(CONSTANT (MAXPAGESIZE)) + (. & (CONSTANT (MAXPAGESIZE) - 1)) :",
+    ".ldata   ALIGN(CONSTANT (MAXPAGESIZE)) + (. & (CONSTANT (MAXPAGESIZE) - 1)) :"
+  ],
+  "page_size": 4096,
+  "charged_page_adjustment_bytes": 32768,
+  "formula": "V = (64 + 56*T) + B + (I + S + 5)*(A - 1) + 32768",
+  "retained_endpoint_bound": "V",
+  "temporary_endpoint_bound": "Vtrial = 2*V",
+  "arithmetic_sufficient_condition": "2*V + A <= INT64_MAX",
+  "incoming_B": "Sum of per-input-section and script-item upper bounds valid over every layout pass, not maximum aggregate single-pass total; includes NOBITS/nonallocated; excludes charged ldlang padding",
+  "incoming_A": "Power-of-two byte alignment >=4096 bounding every effective input/output section alignment over every layout pass",
+  "LMA_equals_VMA": true,
+  "retained_RELRO_end_uses_checked_recomputation": true,
+  "concrete_generated_payload_alignment_projection_complete": false,
+  "final_file_size_or_relocation_reach_established": false,
+  "mapping_iteration_convergence_established": false,
+  "complete_retained_tool_capacity": false,
+  "native_execution": false
+}
