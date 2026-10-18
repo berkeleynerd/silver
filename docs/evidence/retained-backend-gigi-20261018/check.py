@@ -102,7 +102,7 @@ RANGES = {
     "gcc/ipa-fnsummary.cc": [(2856, 2920), (3386, 3540)],
     "gcc/tree-ssanames.cc": [(983, 1013)],
     "gcc/adjust-alignment.cc": [(60, 78)],
-    "gcc/except.cc": [(852, 875)],
+    "gcc/except.cc": [(852, 875), (1280, 1284), (1818, 1896), (2287, 2293)],
     "gcc/tree-stdarg.cc": [(995, 1104)],
     "gcc/tree-vect-generic.cc": [(2185, 2200), (2461, 2490)],
     "gcc/tree-complex.cc": [(215, 331), (1994, 2002)],
@@ -133,11 +133,38 @@ RANGES = {
     "gcc/tree-ssa-live.cc": [(84, 117), (198, 278)],
     "gcc/tree-ssa-coalesce.cc": [(262, 276), (1046, 1145), (1249, 1333),
                                  (1601, 1742), (1843, 1871)],
-    "gcc/cfgexpand.cc": [(2466, 2500), (6167, 6250), (6495, 6615),
-                        (6633, 6701), (7218, 7285)],
-    "gcc/function.cc": [(5104, 5220), (5400, 5456), (5580, 5646)],
+    "gcc/cfgexpand.cc": [(2043, 2100), (2169, 2182), (2371, 2398), (2466, 2500), (6167, 6250), (6495, 6615),
+                        (6633, 6701), (6856, 6935), (7070, 7093), (7218, 7285),
+                        (7286, 7455)],
+    "gcc/function.cc": [(1239, 1252), (1348, 1363), (2055, 2095),
+                        (2307, 2330), (2383, 2429), (3641, 3880),
+                        (4904, 4907), (4941, 4957), (5026, 5041),
+                        (5104, 5303), (5400, 5456), (5580, 5646)],
     "gcc/stmt.cc": [(96, 109), (157, 179)],
-    "gcc/emit-rtl.cc": [(2873, 2878)],
+    "gcc/emit-rtl.cc": [(2873, 2878), (2928, 2991), (3189, 3355),
+                        (4146, 4158), (5782, 5791), (5979, 6040),
+                        (6692, 6697), (6940, 7058), (7075, 7100)],
+    "gcc/ada/gcc-interface/misc.cc": [(402, 435)],
+    "gcc/config/i386/i386.cc": [(1464, 1471), (1795, 1803), (1874, 2026),
+                               (7990, 8111)],
+    "gcc/config/i386/i386.h": [(778, 801), (986, 992)],
+    "gcc/config/i386/i386.md": [(505, 513), (20923, 20928), (21055, 21062)],
+    "gcc/config/i386/i386-options.cc": [(2273, 2286), (2654, 2685)],
+    "gcc/config/elfos.h": [(212, 220)],
+    "gcc/rtl.h": [(3019, 3024), (4091, 4146)],
+    "gcc/rtl.cc": [(222, 244)],
+    "gcc/varasm.cc": [(4149, 4168)],
+    "gcc/expr.cc": [(209, 213)],
+    "gcc/genemit.cc": [(175, 179), (447, 465)],
+    "gcc/gensupport.cc": [(154, 164)],
+    "gcc/cfgrtl.cc": [(295, 390), (783, 851), (857, 965), (1053, 1093),
+                     (1317, 1332), (1444, 1471)],
+    "gcc/cfgbuild.cc": [(73, 119), (200, 380), (438, 652), (738, 807)],
+    "gcc/cfgcleanup.cc": [(402, 600), (725, 762), (2633, 2669),
+                         (2778, 2817), (2916, 2935), (3110, 3207)],
+    "gcc/jump.cc": [(70, 101)],
+    "gcc/target.def": [(2140, 2155), (6268, 6278)],
+
 }
 INTERFACE = ("trans", "utils", "utils2", "decl")
 MAIN_APIS = ("src/silver_arguments.ads", "src/silver_io.ads")
@@ -453,6 +480,26 @@ def check_sources(sources, inventory):
     assert "note = emit_note (NOTE_INSN_BASIC_BLOCK);" in body
     assert expand.index("init_block = construct_init_block ();") < expand.index(
         "enable_ranger (fun);")
+    # Selected-target scaffolding and the location-preserving O0 merger.
+    assert '(FIRST_PSEUDO_REG\t\t92)' in sources["gcc/config/i386/i386.md"]
+    emit = sources["gcc/emit-rtl.cc"]
+    assert "crtl->emit.regno_pointer_align_length = LAST_VIRTUAL_REGISTER + 101;" in emit
+    assert "reg_rtx_no = LAST_VIRTUAL_REGISTER + 1;" in emit
+    assert "if (VOID_TYPE_P (type))\n    return false;" in sources["gcc/function.cc"]
+    i386 = sources["gcc/config/i386/i386.cc"]
+    assert "ix86_cmodel == CM_SMALL_PIC" in i386
+    assert "return virtual_incoming_args_rtx;" in i386
+    assert "if (TARGET_64BIT)\n    return 0;" in i386
+    assert "opts->x_flag_pic ? CM_SMALL_PIC : CM_SMALL" in sources["gcc/config/i386/i386-options.cc"]
+    assert "if (! crtl->eh.ehr_label)\n    return;" in sources["gcc/except.cc"]
+    assert "emit_nop_for_unique_locus_between (a, b);" in sources["gcc/cfgrtl.cc"]
+    assert "emit_insn_after_noloc (gen_nop (), BB_END (a), a)" in sources["gcc/cfgrtl.cc"]
+    assert '(define_insn "nop"\n  [(const_int 0)]' in sources["gcc/config/i386/i386.md"]
+    assert '(define_insn "blockage"\n  [(unspec_volatile [(const_int 0)] UNSPECV_BLOCKAGE)]' in sources["gcc/config/i386/i386.md"]
+    assert "if (GET_NUM_ELEM (vec) == 1)\n    return RTVEC_ELT (vec, 0);" in sources["gcc/gensupport.cc"]
+    assert "case CONST_INT:\n      return GEN_INT (get_uint ());" in emit
+    assert "if (copied && len > 0)" in emit
+    assert "if (ivs == 0)\n    return;" in sources["gcc/function.cc"]
     iterator = sources["gcc/tree-iterator.cc"]
     start = iterator.index("\ntsi_link_after (")
     end = iterator.index("\n}\n", start)
@@ -494,6 +541,16 @@ def arithmetic():
         "null_expanded_body_rtl_label_note_ceilings": [2, 3],
         "null_expanded_body_return_expansions": 0,
         "null_pre_subdivision_ordinary_block_edge_ceilings": [3+1+1, 4+1+1],
+        "null_rtl_hard_and_virtual_reg_identifiers": [92, 6],
+        "null_rtl_first_dynamic_pseudo_number": 92+6,
+        "null_rtl_alignment_and_pointer_array_lengths": [92+5+101]*2,
+        "null_rtl_register_array_raw_bytes_lp64": (92+5+101)*(1+8),
+        "null_rtl_max_block_index_slots": 5+1+1,
+        "null_rtl_lifetime_label_note_insn_ceilings": [2+1, 3+1+1+1+1, 1+4],
+        "null_rtl_lifetime_chain_node_ceiling": 3+7+5,
+        "null_rtl_cleanup_nop_ceiling": 5-1,
+        "null_rtl_blockage_nodes_and_one_element_vectors_including_unshare": [2, 2],
+        "null_rtl_dynamic_pseudos_stack_slots_calls_jumps": [0, 0, 0, 0],
         "retained_bind_coefficients": bind,
         "main_fixed_framework_push_requests": push["U"] + 2*push["F"],
         "main_fixed_framework_bind_upper_bound": bind["U"] + 2*bind["F"],

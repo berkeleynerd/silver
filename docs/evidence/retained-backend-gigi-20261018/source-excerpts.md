@@ -19255,6 +19255,112 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 875:           for (c = r->u.eh_try.first_catch; c ; c = c->next_catch)
 ```
 
+## gcc/except.cc:1280–1284
+
+```text
+1280: sjlj_emit_function_exit_after (rtx_insn *after)
+1281: {
+1282:   crtl->eh.sjlj_exit_after = after;
+1283: }
+1284:
+```
+
+## gcc/except.cc:1818–1896
+
+```text
+1818:
+1819: static bool
+1820: get_eh_region_and_lp_from_rtx (const_rtx insn, eh_region *pr,
+1821:                                eh_landing_pad *plp)
+1822: {
+1823:   eh_landing_pad lp = NULL;
+1824:   eh_region r = NULL;
+1825:   bool ret = false;
+1826:   rtx note;
+1827:   int lp_nr;
+1828:
+1829:   if (! INSN_P (insn))
+1830:     goto egress;
+1831:
+1832:   if (NONJUMP_INSN_P (insn)
+1833:       && GET_CODE (PATTERN (insn)) == SEQUENCE)
+1834:     insn = XVECEXP (PATTERN (insn), 0, 0);
+1835:
+1836:   note = find_reg_note (insn, REG_EH_REGION, NULL_RTX);
+1837:   if (!note)
+1838:     {
+1839:       ret = !insn_could_throw_p (insn);
+1840:       goto egress;
+1841:     }
+1842:
+1843:   lp_nr = INTVAL (XEXP (note, 0));
+1844:   if (lp_nr == 0 || lp_nr == INT_MIN)
+1845:     {
+1846:       ret = true;
+1847:       goto egress;
+1848:     }
+1849:
+1850:   if (lp_nr < 0)
+1851:     r = (*cfun->eh->region_array)[-lp_nr];
+1852:   else
+1853:     {
+1854:       lp = (*cfun->eh->lp_array)[lp_nr];
+1855:       r = lp->region;
+1856:     }
+1857:
+1858:  egress:
+1859:   *plp = lp;
+1860:   *pr = r;
+1861:   return ret;
+1862: }
+1863:
+1864: /* Return the landing pad to which INSN may go, or NULL if it does not
+1865:    have a reachable landing pad within this function.  */
+1866:
+1867: eh_landing_pad
+1868: get_eh_landing_pad_from_rtx (const_rtx insn)
+1869: {
+1870:   eh_landing_pad lp;
+1871:   eh_region r;
+1872:
+1873:   get_eh_region_and_lp_from_rtx (insn, &r, &lp);
+1874:   return lp;
+1875: }
+1876:
+1877: /* Return the region to which INSN may go, or NULL if it does not
+1878:    have a reachable region within this function.  */
+1879:
+1880: eh_region
+1881: get_eh_region_from_rtx (const_rtx insn)
+1882: {
+1883:   eh_landing_pad lp;
+1884:   eh_region r;
+1885:
+1886:   get_eh_region_and_lp_from_rtx (insn, &r, &lp);
+1887:   return r;
+1888: }
+1889:
+1890: /* Return true if INSN throws and is caught by something in this function.  */
+1891:
+1892: bool
+1893: can_throw_internal (const_rtx insn)
+1894: {
+1895:   return get_eh_landing_pad_from_rtx (insn) != NULL;
+1896: }
+```
+
+## gcc/except.cc:2287–2293
+
+```text
+2287: expand_eh_return (void)
+2288: {
+2289:   rtx_code_label *around_label;
+2290:
+2291:   if (! crtl->eh.ehr_label)
+2292:     return;
+2293:
+```
+
 ## gcc/tree-stdarg.cc:995–1104
 
 ```text
@@ -21213,6 +21319,121 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1871:   if (dump_file && (dump_flags & TDF_DETAILS))
 ```
 
+## gcc/cfgexpand.cc:2043–2100
+
+```text
+2043: expand_one_var (tree var, bool toplevel, bool really_expand,
+2044:                 bitmap forced_stack_var = NULL)
+2045: {
+2046:   unsigned int align = BITS_PER_UNIT;
+2047:   tree origvar = var;
+2048:
+2049:   var = SSAVAR (var);
+2050:
+2051:   if (TREE_TYPE (var) != error_mark_node && VAR_P (var))
+2052:     {
+2053:       if (is_global_var (var))
+2054:         return 0;
+2055:
+2056:       /* Because we don't know if VAR will be in register or on stack,
+2057:          we conservatively assume it will be on stack even if VAR is
+2058:          eventually put into register after RA pass.  For non-automatic
+2059:          variables, which won't be on stack, we collect alignment of
+2060:          type and ignore user specified alignment.  Similarly for
+2061:          SSA_NAMEs for which use_register_for_decl returns true.  */
+2062:       if (TREE_STATIC (var)
+2063:           || DECL_EXTERNAL (var)
+2064:           || (TREE_CODE (origvar) == SSA_NAME && use_register_for_decl (var)))
+2065:         align = MINIMUM_ALIGNMENT (TREE_TYPE (var),
+2066:                                    TYPE_MODE (TREE_TYPE (var)),
+2067:                                    TYPE_ALIGN (TREE_TYPE (var)));
+2068:       else if (DECL_HAS_VALUE_EXPR_P (var)
+2069:                || (DECL_RTL_SET_P (var) && MEM_P (DECL_RTL (var))))
+2070:         /* Don't consider debug only variables with DECL_HAS_VALUE_EXPR_P set
+2071:            or variables which were assigned a stack slot already by
+2072:            expand_one_stack_var_at - in the latter case DECL_ALIGN has been
+2073:            changed from the offset chosen to it.  */
+2074:         align = crtl->stack_alignment_estimated;
+2075:       else
+2076:         align = MINIMUM_ALIGNMENT (var, DECL_MODE (var), DECL_ALIGN (var));
+2077:
+2078:       /* If the variable alignment is very large we'll dynamicaly allocate
+2079:          it, which means that in-frame portion is just a pointer.  */
+2080:       if (align > MAX_SUPPORTED_STACK_ALIGNMENT)
+2081:         align = GET_MODE_ALIGNMENT (Pmode);
+2082:     }
+2083:
+2084:   record_alignment_for_reg_var (align);
+2085:
+2086:   poly_uint64 size;
+2087:   if (TREE_CODE (origvar) == SSA_NAME)
+2088:     {
+2089:       gcc_assert (!VAR_P (var)
+2090:                   || (!DECL_EXTERNAL (var)
+2091:                       && !DECL_HAS_VALUE_EXPR_P (var)
+2092:                       && !TREE_STATIC (var)
+2093:                       && TREE_TYPE (var) != error_mark_node
+2094:                       && !DECL_HARD_REGISTER (var)
+2095:                       && really_expand));
+2096:     }
+2097:   if (!VAR_P (var) && TREE_CODE (origvar) != SSA_NAME)
+2098:     ;
+2099:   else if (DECL_EXTERNAL (var))
+2100:     ;
+```
+
+## gcc/cfgexpand.cc:2169–2182
+
+```text
+2169: expand_used_vars_for_block (tree block, bool toplevel, bitmap forced_stack_vars)
+2170: {
+2171:   tree t;
+2172:
+2173:   /* Expand all variables at this level.  */
+2174:   for (t = BLOCK_VARS (block); t ; t = DECL_CHAIN (t))
+2175:     if (TREE_USED (t)
+2176:         && ((!VAR_P (t) && TREE_CODE (t) != RESULT_DECL)
+2177:             || !DECL_NONSHAREABLE (t)))
+2178:       expand_one_var (t, toplevel, true, forced_stack_vars);
+2179:
+2180:   /* Expand all variables at containing levels.  */
+2181:   for (t = BLOCK_SUBBLOCKS (block); t ; t = BLOCK_CHAIN (t))
+2182:     expand_used_vars_for_block (t, false, forced_stack_vars);
+```
+
+## gcc/cfgexpand.cc:2371–2398
+
+```text
+2371: init_vars_expansion (void)
+2372: {
+2373:   /* Conflict bitmaps, and a few related temporary bitmaps, go here.  */
+2374:   bitmap_obstack_initialize (&stack_var_bitmap_obstack);
+2375:
+2376:   /* A map from decl to stack partition.  */
+2377:   decl_to_stack_part = new hash_map<tree, unsigned>;
+2378:
+2379:   /* Initialize local stack smashing state.  */
+2380:   has_protected_decls = false;
+2381:   has_short_buffer = false;
+2382:   if (hwassist_sanitize_stack_p ())
+2383:     hwasan_record_frame_init ();
+2384: }
+2385:
+2386: /* Free up stack variable graph data.  */
+2387: static void
+2388: fini_vars_expansion (void)
+2389: {
+2390:   bitmap_obstack_release (&stack_var_bitmap_obstack);
+2391:   if (stack_vars)
+2392:     XDELETEVEC (stack_vars);
+2393:   if (stack_vars_sorted)
+2394:     XDELETEVEC (stack_vars_sorted);
+2395:   stack_vars = NULL;
+2396:   stack_vars_sorted = NULL;
+2397:   stack_vars_alloc = stack_vars_num = 0;
+2398:   delete decl_to_stack_part;
+```
+
 ## gcc/cfgexpand.cc:2466–2500
 
 ```text
@@ -21542,6 +21763,120 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6701:    addressable.  */
 ```
 
+## gcc/cfgexpand.cc:6856–6935
+
+```text
+6856: expand_stack_alignment (void)
+6857: {
+6858:   rtx drap_rtx;
+6859:   unsigned int preferred_stack_boundary;
+6860:
+6861:   if (! SUPPORTS_STACK_ALIGNMENT)
+6862:     return;
+6863:
+6864:   if (cfun->calls_alloca
+6865:       || cfun->has_nonlocal_label
+6866:       || crtl->has_nonlocal_goto)
+6867:     crtl->need_drap = true;
+6868:
+6869:   /* Call update_stack_boundary here again to update incoming stack
+6870:      boundary.  It may set incoming stack alignment to a different
+6871:      value after RTL expansion.  TARGET_FUNCTION_OK_FOR_SIBCALL may
+6872:      use the minimum incoming stack alignment to check if it is OK
+6873:      to perform sibcall optimization since sibcall optimization will
+6874:      only align the outgoing stack to incoming stack boundary.  */
+6875:   if (targetm.calls.update_stack_boundary)
+6876:     targetm.calls.update_stack_boundary ();
+6877:
+6878:   /* The incoming stack frame has to be aligned at least at
+6879:      parm_stack_boundary.  */
+6880:   gcc_assert (crtl->parm_stack_boundary <= INCOMING_STACK_BOUNDARY);
+6881:
+6882:   /* Update crtl->stack_alignment_estimated and use it later to align
+6883:      stack.  We check PREFERRED_STACK_BOUNDARY if there may be non-call
+6884:      exceptions since callgraph doesn't collect incoming stack alignment
+6885:      in this case.  */
+6886:   if (cfun->can_throw_non_call_exceptions
+6887:       && PREFERRED_STACK_BOUNDARY > crtl->preferred_stack_boundary)
+6888:     preferred_stack_boundary = PREFERRED_STACK_BOUNDARY;
+6889:   else
+6890:     preferred_stack_boundary = crtl->preferred_stack_boundary;
+6891:   if (preferred_stack_boundary > crtl->stack_alignment_estimated)
+6892:     crtl->stack_alignment_estimated = preferred_stack_boundary;
+6893:   if (preferred_stack_boundary > crtl->stack_alignment_needed)
+6894:     crtl->stack_alignment_needed = preferred_stack_boundary;
+6895:
+6896:   gcc_assert (crtl->stack_alignment_needed
+6897:               <= crtl->stack_alignment_estimated);
+6898:
+6899:   crtl->stack_realign_needed
+6900:     = INCOMING_STACK_BOUNDARY < crtl->stack_alignment_estimated;
+6901:   crtl->stack_realign_tried = crtl->stack_realign_needed;
+6902:
+6903:   crtl->stack_realign_processed = true;
+6904:
+6905:   /* Target has to redefine TARGET_GET_DRAP_RTX to support stack
+6906:      alignment.  */
+6907:   gcc_assert (targetm.calls.get_drap_rtx != NULL);
+6908:   drap_rtx = targetm.calls.get_drap_rtx ();
+6909:
+6910:   /* stack_realign_drap and drap_rtx must match.  */
+6911:   gcc_assert ((stack_realign_drap != 0) == (drap_rtx != NULL));
+6912:
+6913:   /* Do nothing if NULL is returned, which means DRAP is not needed.  */
+6914:   if (drap_rtx != NULL)
+6915:     {
+6916:       crtl->args.internal_arg_pointer = drap_rtx;
+6917:
+6918:       /* Call fixup_tail_calls to clean up REG_EQUIV note if DRAP is
+6919:          needed. */
+6920:       fixup_tail_calls ();
+6921:     }
+6922: }
+6923:
+6924:
+6925: static void
+6926: expand_main_function (void)
+6927: {
+6928: #if (defined(INVOKE__main)                              \
+6929:      || (!defined(HAS_INIT_SECTION)                     \
+6930:          && !defined(INIT_SECTION_ASM_OP)               \
+6931:          && !defined(INIT_ARRAY_SECTION_ASM_OP)))
+6932:   emit_library_call (init_one_libfunc (NAME__MAIN), LCT_NORMAL, VOIDmode);
+6933: #endif
+6934: }
+6935:
+```
+
+## gcc/cfgexpand.cc:7070–7093
+
+```text
+7070:   else
+7071:     set_curr_insn_location (UNKNOWN_LOCATION);
+7072:   prologue_location = curr_insn_location ();
+7073:
+7074: #ifdef INSN_SCHEDULING
+7075:   init_sched_attrs ();
+7076: #endif
+7077:
+7078:   /* Make sure first insn is a note even if we don't want linenums.
+7079:      This makes sure the first insn will never be deleted.
+7080:      Also, final expects a note to appear there.  */
+7081:   emit_note (NOTE_INSN_DELETED);
+7082:
+7083:   targetm.expand_to_rtl_hook ();
+7084:   crtl->init_stack_alignment ();
+7085:   fun->cfg->max_jumptable_ents = 0;
+7086:
+7087:   /* Resovle the function section.  Some targets, like ARM EABI rely on knowledge
+7088:      of the function section at exapnsion time to predict distance of calls.  */
+7089:   resolve_unique_section (current_function_decl, 0, flag_function_sections);
+7090:
+7091:   /* Expand the variables recorded during gimple lowering.  */
+7092:   timevar_push (TV_VAR_EXPAND);
+7093:   start_sequence ();
+```
+
 ## gcc/cfgexpand.cc:7218–7285
 
 ```text
@@ -21615,7 +21950,646 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 7285:       deep_ter_debug_map = NULL;
 ```
 
-## gcc/function.cc:5104–5220
+## gcc/cfgexpand.cc:7286–7455
+
+```text
+7286:     }
+7287:
+7288:   /* Free stuff we no longer need after GIMPLE optimizations.  */
+7289:   free_dominance_info (CDI_DOMINATORS);
+7290:   free_dominance_info (CDI_POST_DOMINATORS);
+7291:   delete_tree_cfg_annotations (fun);
+7292:
+7293:   timevar_push (TV_OUT_OF_SSA);
+7294:   finish_out_of_ssa (&SA);
+7295:   timevar_pop (TV_OUT_OF_SSA);
+7296:
+7297:   timevar_push (TV_POST_EXPAND);
+7298:   /* We are no longer in SSA form.  */
+7299:   fun->gimple_df->in_ssa_p = false;
+7300:   loops_state_clear (LOOP_CLOSED_SSA);
+7301:
+7302:   /* Expansion is used by optimization passes too, set maybe_hot_insn_p
+7303:      conservatively to true until they are all profile aware.  */
+7304:   delete lab_rtx_for_bb;
+7305:   free_histograms (fun);
+7306:
+7307:   construct_exit_block ();
+7308:   insn_locations_finalize ();
+7309:
+7310:   if (var_ret_seq)
+7311:     {
+7312:       rtx_insn *after = return_label;
+7313:       rtx_insn *next = NEXT_INSN (after);
+7314:       if (next && NOTE_INSN_BASIC_BLOCK_P (next))
+7315:         after = next;
+7316:       emit_insn_after (var_ret_seq, after);
+7317:     }
+7318:
+7319:   if (hwassist_sanitize_stack_p ())
+7320:     hwasan_maybe_emit_frame_base_init ();
+7321:
+7322:   /* Zap the tree EH table.  */
+7323:   set_eh_throw_stmt_table (fun, NULL);
+7324:
+7325:   /* We need JUMP_LABEL be set in order to redirect jumps, and hence
+7326:      split edges which edge insertions might do.  */
+7327:   rebuild_jump_labels (get_insns ());
+7328:
+7329:   /* If we have a single successor to the entry block, put the pending insns
+7330:      after parm birth, but before NOTE_INSNS_FUNCTION_BEG.  */
+7331:   if (single_succ_p (ENTRY_BLOCK_PTR_FOR_FN (fun)))
+7332:     {
+7333:       edge e = single_succ_edge (ENTRY_BLOCK_PTR_FOR_FN (fun));
+7334:       if (e->insns.r)
+7335:         {
+7336:           rtx_insn *insns = e->insns.r;
+7337:           e->insns.r = NULL;
+7338:           rebuild_jump_labels_chain (insns);
+7339:           if (NOTE_P (parm_birth_insn)
+7340:               && NOTE_KIND (parm_birth_insn) == NOTE_INSN_FUNCTION_BEG)
+7341:             emit_insn_before_noloc (insns, parm_birth_insn, e->dest);
+7342:           else
+7343:             emit_insn_after_noloc (insns, parm_birth_insn, e->dest);
+7344:         }
+7345:     }
+7346:
+7347:   /* Otherwise, as well as for other edges, take the usual way.  */
+7348:   commit_edge_insertions ();
+7349:
+7350:   /* We're done expanding trees to RTL.  */
+7351:   currently_expanding_to_rtl = 0;
+7352:
+7353:   flush_mark_addressable_queue ();
+7354:
+7355:   FOR_BB_BETWEEN (bb, ENTRY_BLOCK_PTR_FOR_FN (fun)->next_bb,
+7356:                   EXIT_BLOCK_PTR_FOR_FN (fun), next_bb)
+7357:     {
+7358:       edge e;
+7359:       edge_iterator ei;
+7360:       for (ei = ei_start (bb->succs); (e = ei_safe_edge (ei)); )
+7361:         {
+7362:           /* Clear EDGE_EXECUTABLE.  This flag is never used in the backend.  */
+7363:           e->flags &= ~EDGE_EXECUTABLE;
+7364:
+7365:           /* At the moment not all abnormal edges match the RTL
+7366:              representation.  It is safe to remove them here as
+7367:              find_many_sub_basic_blocks will rediscover them.
+7368:              In the future we should get this fixed properly.  */
+7369:           if ((e->flags & EDGE_ABNORMAL)
+7370:               && !(e->flags & EDGE_SIBCALL))
+7371:             remove_edge (e);
+7372:           else
+7373:             ei_next (&ei);
+7374:         }
+7375:     }
+7376:
+7377:   auto_sbitmap blocks (last_basic_block_for_fn (fun));
+7378:   bitmap_ones (blocks);
+7379:   find_many_sub_basic_blocks (blocks);
+7380:   purge_all_dead_edges ();
+7381:
+7382:   /* After initial rtl generation, call back to finish generating
+7383:      exception support code.  We need to do this before cleaning up
+7384:      the CFG as the code does not expect dead landing pads.  */
+7385:   if (fun->eh->region_tree != NULL)
+7386:     finish_eh_generation ();
+7387:
+7388:   /* Call expand_stack_alignment after finishing all
+7389:      updates to crtl->preferred_stack_boundary.  */
+7390:   expand_stack_alignment ();
+7391:
+7392:   /* Fixup REG_EQUIV notes in the prologue if there are tailcalls in this
+7393:      function.  */
+7394:   if (crtl->tail_call_emit)
+7395:     fixup_tail_calls ();
+7396:
+7397:   HOST_WIDE_INT patch_area_size, patch_area_entry;
+7398:   parse_and_check_patch_area (flag_patchable_function_entry, false,
+7399:                               &patch_area_size, &patch_area_entry);
+7400:
+7401:   tree patchable_function_entry_attr
+7402:     = lookup_attribute ("patchable_function_entry",
+7403:                         DECL_ATTRIBUTES (cfun->decl));
+7404:   if (patchable_function_entry_attr)
+7405:     {
+7406:       tree pp_val = TREE_VALUE (patchable_function_entry_attr);
+7407:       tree patchable_function_entry_value1 = TREE_VALUE (pp_val);
+7408:
+7409:       patch_area_size = tree_to_uhwi (patchable_function_entry_value1);
+7410:       patch_area_entry = 0;
+7411:       if (TREE_CHAIN (pp_val) != NULL_TREE)
+7412:         {
+7413:           tree patchable_function_entry_value2
+7414:             = TREE_VALUE (TREE_CHAIN (pp_val));
+7415:           patch_area_entry = tree_to_uhwi (patchable_function_entry_value2);
+7416:         }
+7417:     }
+7418:
+7419:   if (patch_area_entry > patch_area_size)
+7420:     {
+7421:       if (patch_area_size > 0)
+7422:         warning (OPT_Wattributes,
+7423:                  "patchable function entry %wu exceeds size %wu",
+7424:                  patch_area_entry, patch_area_size);
+7425:       patch_area_entry = 0;
+7426:     }
+7427:
+7428:   crtl->patch_area_size = patch_area_size;
+7429:   crtl->patch_area_entry = patch_area_entry;
+7430:
+7431:   /* BB subdivision may have created basic blocks that are only reachable
+7432:      from unlikely bbs but not marked as such in the profile.  */
+7433:   if (optimize)
+7434:     propagate_unlikely_bbs_forward ();
+7435:
+7436:   /* Remove unreachable blocks, otherwise we cannot compute dominators
+7437:      which are needed for loop state verification.  As a side-effect
+7438:      this also compacts blocks.
+7439:      ???  We cannot remove trivially dead insns here as for example
+7440:      the DRAP reg on i?86 is not magically live at this point.
+7441:      gcc.c-torture/execute/ipa-sra-2.c execution, -Os -m32 fails otherwise.  */
+7442:   cleanup_cfg (CLEANUP_NO_INSN_DEL);
+7443:
+7444:   checking_verify_flow_info ();
+7445:
+7446:   /* Initialize pseudos allocated for hard registers.  */
+7447:   emit_initial_value_sets ();
+7448:
+7449:   /* And finally unshare all RTL.  */
+7450:   unshare_all_rtl ();
+7451:
+7452:   /* There's no need to defer outputting this function any more; we
+7453:      know we want to output it.  */
+7454:   DECL_DEFER_OUTPUT (current_function_decl) = 0;
+7455:
+```
+
+## gcc/function.cc:1239–1252
+
+```text
+1239: init_temp_slots (void)
+1240: {
+1241:   /* We have not allocated any temporaries yet.  */
+1242:   avail_temp_slots = 0;
+1243:   vec_alloc (used_temp_slots, 0);
+1244:   temp_slot_level = 0;
+1245:   n_temp_slots_in_use = 0;
+1246:
+1247:   /* Set up the table to map addresses to temp slots.  */
+1248:   if (! temp_slot_address_table)
+1249:     temp_slot_address_table = hash_table<temp_address_hasher>::create_ggc (32);
+1250:   else
+1251:     temp_slot_address_table->empty ();
+1252: }
+```
+
+## gcc/function.cc:1348–1363
+
+```text
+1348: emit_initial_value_sets (void)
+1349: {
+1350:   struct initial_value_struct *ivs = crtl->hard_reg_initial_vals;
+1351:   int i;
+1352:   rtx_insn *seq;
+1353:
+1354:   if (ivs == 0)
+1355:     return;
+1356:
+1357:   start_sequence ();
+1358:   for (i = 0; i < ivs->num_entries; i++)
+1359:     emit_move_insn (ivs->entries[i].pseudo, ivs->entries[i].hard_reg);
+1360:   seq = end_sequence ();
+1361:
+1362:   emit_insn_at_entry (seq);
+1363: }
+```
+
+## gcc/function.cc:2055–2095
+
+```text
+2055: aggregate_value_p (const_tree exp, const_tree fntype)
+2056: {
+2057:   const_tree type = (TYPE_P (exp)) ? exp : TREE_TYPE (exp);
+2058:   int i, regno, nregs;
+2059:   rtx reg;
+2060:
+2061:   if (fntype)
+2062:     switch (TREE_CODE (fntype))
+2063:       {
+2064:       case CALL_EXPR:
+2065:         {
+2066:           tree fndecl = get_callee_fndecl (fntype);
+2067:           if (fndecl)
+2068:             fntype = TREE_TYPE (fndecl);
+2069:           else if (CALL_EXPR_FN (fntype))
+2070:             fntype = TREE_TYPE (TREE_TYPE (CALL_EXPR_FN (fntype)));
+2071:           else
+2072:             /* For internal functions, assume nothing needs to be
+2073:                returned in memory.  */
+2074:             return false;
+2075:         }
+2076:         break;
+2077:       case FUNCTION_DECL:
+2078:         fntype = TREE_TYPE (fntype);
+2079:         break;
+2080:       case FUNCTION_TYPE:
+2081:       case METHOD_TYPE:
+2082:         break;
+2083:       case IDENTIFIER_NODE:
+2084:         fntype = NULL_TREE;
+2085:         break;
+2086:       default:
+2087:         /* We don't expect other tree types here.  */
+2088:         gcc_unreachable ();
+2089:       }
+2090:
+2091:   if (VOID_TYPE_P (type))
+2092:     return false;
+2093:
+2094:   if (error_operand_p (fntype))
+2095:     return false;
+```
+
+## gcc/function.cc:2307–2330
+
+```text
+2307: assign_parms_initialize_all (struct assign_parm_data_all *all)
+2308: {
+2309:   tree fntype ATTRIBUTE_UNUSED;
+2310:
+2311:   memset (all, 0, sizeof (*all));
+2312:
+2313:   fntype = TREE_TYPE (current_function_decl);
+2314:
+2315: #ifdef INIT_CUMULATIVE_INCOMING_ARGS
+2316:   INIT_CUMULATIVE_INCOMING_ARGS (all->args_so_far_v, fntype, NULL_RTX);
+2317: #else
+2318:   INIT_CUMULATIVE_ARGS (all->args_so_far_v, fntype, NULL_RTX,
+2319:                         current_function_decl, -1);
+2320: #endif
+2321:   all->args_so_far = pack_cumulative_args (&all->args_so_far_v);
+2322:
+2323: #ifdef INCOMING_REG_PARM_STACK_SPACE
+2324:   all->reg_parm_stack_space
+2325:     = INCOMING_REG_PARM_STACK_SPACE (current_function_decl);
+2326: #endif
+2327: }
+2328:
+2329: /* If ARGS contains entries with complex types, split the entry into two
+2330:    entries of the component type.  Return a new list of substitutions are
+```
+
+## gcc/function.cc:2383–2429
+
+```text
+2383: assign_parms_augmented_arg_list (struct assign_parm_data_all *all)
+2384: {
+2385:   tree fndecl = current_function_decl;
+2386:   tree fntype = TREE_TYPE (fndecl);
+2387:   vec<tree> fnargs = vNULL;
+2388:   tree arg;
+2389:
+2390:   for (arg = DECL_ARGUMENTS (fndecl); arg; arg = DECL_CHAIN (arg))
+2391:     fnargs.safe_push (arg);
+2392:
+2393:   all->orig_fnargs = DECL_ARGUMENTS (fndecl);
+2394:
+2395:   /* If struct value address is treated as the first argument, make it so.  */
+2396:   if (aggregate_value_p (DECL_RESULT (fndecl), fndecl)
+2397:       && ! cfun->returns_pcc_struct
+2398:       && targetm.calls.struct_value_rtx (TREE_TYPE (fndecl), 1) == 0)
+2399:     {
+2400:       tree type = build_pointer_type (TREE_TYPE (fntype));
+2401:       tree decl;
+2402:
+2403:       decl = build_decl (DECL_SOURCE_LOCATION (fndecl),
+2404:                          PARM_DECL, get_identifier (".result_ptr"), type);
+2405:       DECL_ARG_TYPE (decl) = type;
+2406:       DECL_ARTIFICIAL (decl) = 1;
+2407:       DECL_NAMELESS (decl) = 1;
+2408:       TREE_CONSTANT (decl) = 1;
+2409:       /* We don't set DECL_IGNORED_P or DECL_REGISTER here.  If this
+2410:          changes, the end of the RESULT_DECL handling block in
+2411:          use_register_for_decl must be adjusted to match.  */
+2412:
+2413:       DECL_CHAIN (decl) = all->orig_fnargs;
+2414:       all->orig_fnargs = decl;
+2415:       fnargs.safe_insert (0, decl);
+2416:
+2417:       all->function_result_decl = decl;
+2418:     }
+2419:
+2420:   /* If the target wants to split complex arguments into scalars, do so.  */
+2421:   if (targetm.calls.split_complex_arg)
+2422:     split_complex_args (&fnargs);
+2423:
+2424:   return fnargs;
+2425: }
+2426:
+2427: /* A subroutine of assign_parms.  Examine PARM and pull out type and mode
+2428:    data for the parameter.  Incorporate ABI specifics such as pass-by-
+2429:    reference and type promotion.  */
+```
+
+## gcc/function.cc:3641–3880
+
+```text
+3641: assign_parms (tree fndecl)
+3642: {
+3643:   struct assign_parm_data_all all;
+3644:   tree parm;
+3645:   vec<tree> fnargs;
+3646:   unsigned i;
+3647:
+3648:   crtl->args.internal_arg_pointer
+3649:     = targetm.calls.internal_arg_pointer ();
+3650:
+3651:   assign_parms_initialize_all (&all);
+3652:   fnargs = assign_parms_augmented_arg_list (&all);
+3653:
+3654:   if (TYPE_NO_NAMED_ARGS_STDARG_P (TREE_TYPE (fndecl))
+3655:       && fnargs.is_empty ())
+3656:     {
+3657:       struct assign_parm_data_one data = {};
+3658:       assign_parms_setup_varargs (&all, &data, false);
+3659:     }
+3660:
+3661:   FOR_EACH_VEC_ELT (fnargs, i, parm)
+3662:     {
+3663:       struct assign_parm_data_one data;
+3664:
+3665:       /* Extract the type of PARM; adjust it according to ABI.  */
+3666:       assign_parm_find_data_types (&all, parm, &data);
+3667:
+3668:       /* Early out for errors and void parameters.  */
+3669:       if (data.passed_mode == VOIDmode)
+3670:         {
+3671:           SET_DECL_RTL (parm, const0_rtx);
+3672:           DECL_INCOMING_RTL (parm) = DECL_RTL (parm);
+3673:           continue;
+3674:         }
+3675:
+3676:       /* Estimate stack alignment from parameter alignment.  */
+3677:       if (SUPPORTS_STACK_ALIGNMENT)
+3678:         {
+3679:           unsigned int align
+3680:             = targetm.calls.function_arg_boundary (data.arg.mode,
+3681:                                                    data.arg.type);
+3682:           align = MINIMUM_ALIGNMENT (data.arg.type, data.arg.mode, align);
+3683:           if (TYPE_ALIGN (data.nominal_type) > align)
+3684:             align = MINIMUM_ALIGNMENT (data.nominal_type,
+3685:                                        TYPE_MODE (data.nominal_type),
+3686:                                        TYPE_ALIGN (data.nominal_type));
+3687:           if (crtl->stack_alignment_estimated < align)
+3688:             {
+3689:               gcc_assert (!crtl->stack_realign_processed);
+3690:               crtl->stack_alignment_estimated = align;
+3691:             }
+3692:         }
+3693:
+3694:       /* Find out where the parameter arrives in this function.  */
+3695:       assign_parm_find_entry_rtl (&all, &data);
+3696:
+3697:       /* Find out where stack space for this parameter might be.  */
+3698:       if (assign_parm_is_stack_parm (&all, &data))
+3699:         {
+3700:           assign_parm_find_stack_rtl (parm, &data);
+3701:           assign_parm_adjust_entry_rtl (&data);
+3702:           /* For arguments that occupy no space in the parameter
+3703:              passing area, have non-zero size and have address taken,
+3704:              force creation of a stack slot so that they have distinct
+3705:              address from other parameters.  */
+3706:           if (TYPE_EMPTY_P (data.arg.type)
+3707:               && TREE_ADDRESSABLE (parm)
+3708:               && data.entry_parm == data.stack_parm
+3709:               && MEM_P (data.entry_parm)
+3710:               && int_size_in_bytes (data.arg.type))
+3711:             data.stack_parm = NULL_RTX;
+3712:         }
+3713:       /* Record permanently how this parm was passed.  */
+3714:       if (data.arg.pass_by_reference)
+3715:         {
+3716:           rtx incoming_rtl
+3717:             = gen_rtx_MEM (TYPE_MODE (TREE_TYPE (data.arg.type)),
+3718:                            data.entry_parm);
+3719:           set_decl_incoming_rtl (parm, incoming_rtl, true);
+3720:         }
+3721:       else
+3722:         set_decl_incoming_rtl (parm, data.entry_parm, false);
+3723:
+3724:       assign_parm_adjust_stack_rtl (parm, &data);
+3725:
+3726:       if (assign_parm_setup_block_p (&data))
+3727:         assign_parm_setup_block (&all, parm, &data);
+3728:       else if (data.arg.pass_by_reference || use_register_for_decl (parm))
+3729:         assign_parm_setup_reg (&all, parm, &data);
+3730:       else
+3731:         assign_parm_setup_stack (&all, parm, &data);
+3732:
+3733:       if (cfun->stdarg && !DECL_CHAIN (parm))
+3734:         assign_parms_setup_varargs (&all, &data, false);
+3735:
+3736:       /* Update info on where next arg arrives in registers.  */
+3737:       targetm.calls.function_arg_advance (all.args_so_far, data.arg);
+3738:     }
+3739:
+3740:   if (targetm.calls.split_complex_arg)
+3741:     assign_parms_unsplit_complex (&all, fnargs);
+3742:
+3743:   fnargs.release ();
+3744:
+3745:   /* Output all parameter conversion instructions (possibly including calls)
+3746:      now that all parameters have been copied out of hard registers.  */
+3747:   emit_insn (all.first_conversion_insn);
+3748:
+3749:   do_pending_stack_adjust ();
+3750:
+3751:   /* Estimate reload stack alignment from scalar return mode.  */
+3752:   if (SUPPORTS_STACK_ALIGNMENT)
+3753:     {
+3754:       if (DECL_RESULT (fndecl))
+3755:         {
+3756:           tree type = TREE_TYPE (DECL_RESULT (fndecl));
+3757:           machine_mode mode = TYPE_MODE (type);
+3758:
+3759:           if (mode != BLKmode
+3760:               && mode != VOIDmode
+3761:               && !AGGREGATE_TYPE_P (type))
+3762:             {
+3763:               unsigned int align = GET_MODE_ALIGNMENT (mode);
+3764:               if (crtl->stack_alignment_estimated < align)
+3765:                 {
+3766:                   gcc_assert (!crtl->stack_realign_processed);
+3767:                   crtl->stack_alignment_estimated = align;
+3768:                 }
+3769:             }
+3770:         }
+3771:     }
+3772:
+3773:   /* If we are receiving a struct value address as the first argument, set up
+3774:      the RTL for the function result. As this might require code to convert
+3775:      the transmitted address to Pmode, we do this here to ensure that possible
+3776:      preliminary conversions of the address have been emitted already.  */
+3777:   if (all.function_result_decl)
+3778:     {
+3779:       tree result = DECL_RESULT (current_function_decl);
+3780:       rtx addr = DECL_RTL (all.function_result_decl);
+3781:       rtx x;
+3782:
+3783:       if (DECL_BY_REFERENCE (result))
+3784:         {
+3785:           SET_DECL_VALUE_EXPR (result, all.function_result_decl);
+3786:           x = addr;
+3787:         }
+3788:       else
+3789:         {
+3790:           SET_DECL_VALUE_EXPR (result,
+3791:                                build1 (INDIRECT_REF, TREE_TYPE (result),
+3792:                                        all.function_result_decl));
+3793:           addr = convert_memory_address (Pmode, addr);
+3794:           x = gen_rtx_MEM (DECL_MODE (result), addr);
+3795:           set_mem_attributes (x, result, 1);
+3796:         }
+3797:
+3798:       DECL_HAS_VALUE_EXPR_P (result) = 1;
+3799:
+3800:       set_parm_rtl (result, x);
+3801:     }
+3802:
+3803:   /* We have aligned all the args, so add space for the pretend args.  */
+3804:   crtl->args.pretend_args_size = all.pretend_args_size;
+3805:   all.stack_args_size.constant += all.extra_pretend_bytes;
+3806:   crtl->args.size = all.stack_args_size.constant;
+3807:
+3808:   /* Adjust function incoming argument size for alignment and
+3809:      minimum length.  */
+3810:
+3811:   crtl->args.size = upper_bound (crtl->args.size, all.reg_parm_stack_space);
+3812:   crtl->args.size = aligned_upper_bound (crtl->args.size,
+3813:                                          PARM_BOUNDARY / BITS_PER_UNIT);
+3814:
+3815:   if (ARGS_GROW_DOWNWARD)
+3816:     {
+3817:       crtl->args.arg_offset_rtx
+3818:         = (all.stack_args_size.var == 0
+3819:            ? gen_int_mode (-all.stack_args_size.constant, Pmode)
+3820:            : expand_expr (size_diffop (all.stack_args_size.var,
+3821:                                        size_int (-all.stack_args_size.constant)),
+3822:                           NULL_RTX, VOIDmode, EXPAND_NORMAL));
+3823:     }
+3824:   else
+3825:     crtl->args.arg_offset_rtx = ARGS_SIZE_RTX (all.stack_args_size);
+3826:
+3827:   /* See how many bytes, if any, of its args a function should try to pop
+3828:      on return.  */
+3829:
+3830:   crtl->args.pops_args = targetm.calls.return_pops_args (fndecl,
+3831:                                                          TREE_TYPE (fndecl),
+3832:                                                          crtl->args.size);
+3833:
+3834:   /* For stdarg.h function, save info about
+3835:      regs and stack space used by the named args.  */
+3836:
+3837:   crtl->args.info = all.args_so_far_v;
+3838:
+3839:   /* Set the rtx used for the function return value.  Put this in its
+3840:      own variable so any optimizers that need this information don't have
+3841:      to include tree.h.  Do this here so it gets done when an inlined
+3842:      function gets output.  */
+3843:
+3844:   crtl->return_rtx
+3845:     = (DECL_RTL_SET_P (DECL_RESULT (fndecl))
+3846:        ? DECL_RTL (DECL_RESULT (fndecl)) : NULL_RTX);
+3847:
+3848:   /* If scalar return value was computed in a pseudo-reg, or was a named
+3849:      return value that got dumped to the stack, copy that to the hard
+3850:      return register.  */
+3851:   if (DECL_RTL_SET_P (DECL_RESULT (fndecl)))
+3852:     {
+3853:       tree decl_result = DECL_RESULT (fndecl);
+3854:       rtx decl_rtl = DECL_RTL (decl_result);
+3855:
+3856:       if (REG_P (decl_rtl)
+3857:           ? REGNO (decl_rtl) >= FIRST_PSEUDO_REGISTER
+3858:           : DECL_REGISTER (decl_result))
+3859:         {
+3860:           rtx real_decl_rtl;
+3861:
+3862:           /* Unless the psABI says not to.  */
+3863:           if (TYPE_EMPTY_P (TREE_TYPE (decl_result)))
+3864:             real_decl_rtl = NULL_RTX;
+3865:           else
+3866:             {
+3867:               real_decl_rtl
+3868:                 = targetm.calls.function_value (TREE_TYPE (decl_result),
+3869:                                                 fndecl, true);
+3870:               REG_FUNCTION_VALUE_P (real_decl_rtl) = 1;
+3871:             }
+3872:           /* The delay slot scheduler assumes that crtl->return_rtx
+3873:              holds the hard register containing the return value, not a
+3874:              temporary pseudo.  */
+3875:           crtl->return_rtx = real_decl_rtl;
+3876:         }
+3877:     }
+3878: }
+3879:
+3880: /* Gimplify the parameter list for current_function_decl.  This involves
+```
+
+## gcc/function.cc:4904–4907
+
+```text
+4904:       /* ??? This could be set on a per-function basis by the front-end
+4905:          but is this worth the hassle?  */
+4906:       cfun->can_throw_non_call_exceptions = flag_non_call_exceptions;
+4907:       cfun->can_delete_dead_exceptions = flag_delete_dead_exceptions;
+```
+
+## gcc/function.cc:4941–4957
+
+```text
+4941:
+4942: static void
+4943: prepare_function_start (void)
+4944: {
+4945:   gcc_assert (!get_last_insn ());
+4946:
+4947:   if (in_dummy_function)
+4948:     crtl->abi = &default_function_abi;
+4949:   else
+4950:     crtl->abi = &fndecl_abi (cfun->decl).base_abi ();
+4951:
+4952:   init_temp_slots ();
+4953:   init_emit ();
+4954:   init_varasm_status ();
+4955:   init_expr ();
+4956:   default_rtl_profile ();
+4957:
+```
+
+## gcc/function.cc:5026–5041
+
+```text
+5026: init_function_start (tree subr)
+5027: {
+5028:   /* Initialize backend, if needed.  */
+5029:   initialize_rtl ();
+5030:
+5031:   prepare_function_start ();
+5032:   decide_function_section (subr);
+5033:
+5034:   /* Warn if this value is an aggregate type,
+5035:      regardless of which calling convention we are using for it.  */
+5036:   if (AGGREGATE_TYPE_P (TREE_TYPE (DECL_RESULT (subr))))
+5037:     warning_at (DECL_SOURCE_LOCATION (DECL_RESULT (subr)),
+5038:                 OPT_Waggregate_return, "function returns an aggregate");
+5039: }
+5040:
+5041: /* Expand code to verify the stack_protect_guard.  This is invoked at
+```
+
+## gcc/function.cc:5104–5303
 
 ```text
 5104: expand_function_start (tree subr)
@@ -21735,6 +22709,89 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 5218:     {
 5219:       tree parm = cfun->static_chain_decl;
 5220:       rtx local, chain;
+5221:       rtx_insn *insn;
+5222:       int unsignedp;
+5223:
+5224:       local = gen_reg_rtx (promote_decl_mode (parm, &unsignedp));
+5225:       chain = targetm.calls.static_chain (current_function_decl, true);
+5226:
+5227:       set_decl_incoming_rtl (parm, chain, false);
+5228:       set_parm_rtl (parm, local);
+5229:       mark_reg_pointer (local, TYPE_ALIGN (TREE_TYPE (TREE_TYPE (parm))));
+5230:
+5231:       if (GET_MODE (local) != GET_MODE (chain))
+5232:         {
+5233:           convert_move (local, chain, unsignedp);
+5234:           insn = get_last_insn ();
+5235:         }
+5236:       else
+5237:         insn = emit_move_insn (local, chain);
+5238:
+5239:       /* Mark the register as eliminable, similar to parameters.  */
+5240:       if (MEM_P (chain)
+5241:           && reg_mentioned_p (arg_pointer_rtx, XEXP (chain, 0)))
+5242:         set_dst_reg_note (insn, REG_EQUIV, chain, local);
+5243:
+5244:       /* If we aren't optimizing, save the static chain onto the stack.  */
+5245:       if (!optimize)
+5246:         {
+5247:           tree saved_static_chain_decl
+5248:             = build_decl (DECL_SOURCE_LOCATION (parm), VAR_DECL,
+5249:                           DECL_NAME (parm), TREE_TYPE (parm));
+5250:           rtx saved_static_chain_rtx
+5251:             = assign_stack_local (Pmode, GET_MODE_SIZE (Pmode), 0);
+5252:           SET_DECL_RTL (saved_static_chain_decl, saved_static_chain_rtx);
+5253:           emit_move_insn (saved_static_chain_rtx, chain);
+5254:           SET_DECL_VALUE_EXPR (parm, saved_static_chain_decl);
+5255:           DECL_HAS_VALUE_EXPR_P (parm) = 1;
+5256:         }
+5257:     }
+5258:
+5259:   /* The following was moved from init_function_start.
+5260:      The move was supposed to make sdb output more accurate.  */
+5261:   /* Indicate the beginning of the function body,
+5262:      as opposed to parm setup.  */
+5263:   emit_note (NOTE_INSN_FUNCTION_BEG);
+5264:
+5265:   gcc_assert (NOTE_P (get_last_insn ()));
+5266:
+5267:   function_beg_insn = parm_birth_insn = get_last_insn ();
+5268:
+5269:   /* If the function receives a non-local goto, then store the
+5270:      bits we need to restore the frame pointer.  */
+5271:   if (cfun->nonlocal_goto_save_area)
+5272:     {
+5273:       tree t_save;
+5274:       rtx r_save;
+5275:
+5276:       tree var = TREE_OPERAND (cfun->nonlocal_goto_save_area, 0);
+5277:       gcc_assert (DECL_RTL_SET_P (var));
+5278:
+5279:       t_save = build4 (ARRAY_REF,
+5280:                        TREE_TYPE (TREE_TYPE (cfun->nonlocal_goto_save_area)),
+5281:                        cfun->nonlocal_goto_save_area,
+5282:                        integer_zero_node, NULL_TREE, NULL_TREE);
+5283:       r_save = expand_expr (t_save, NULL_RTX, VOIDmode, EXPAND_WRITE);
+5284:       gcc_assert (GET_MODE (r_save) == Pmode);
+5285:
+5286:       emit_move_insn (r_save, hard_frame_pointer_rtx);
+5287:       update_nonlocal_goto_save_area ();
+5288:     }
+5289:
+5290:   if (crtl->profile)
+5291:     {
+5292: #ifdef PROFILE_HOOK
+5293:       PROFILE_HOOK (current_function_funcdef_no);
+5294: #endif
+5295:     }
+5296:
+5297:   /* If we are doing generic stack checking, the probe should go here.  */
+5298:   if (flag_stack_check == GENERIC_STACK_CHECK)
+5299:     stack_check_probe_note = emit_note (NOTE_INSN_DELETED);
+5300:
+5301:   currently_expanding_function_start = false;
+5302: }
+5303:
 ```
 
 ## gcc/function.cc:5400–5456
@@ -21927,6 +22984,2656 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2876:             gen_rtx_CODE_LABEL (VOIDmode, NULL_RTX, NULL_RTX,
 2877:                                 NULL, label_num++, NULL));
 2878: }
+```
+
+## gcc/emit-rtl.cc:2928–2991
+
+```text
+2928: unshare_all_rtl_1 (rtx_insn *insn)
+2929: {
+2930:   /* Unshare just about everything else.  */
+2931:   unshare_all_rtl_in_chain (insn);
+2932:
+2933:   /* Make sure the addresses of stack slots found outside the insn chain
+2934:      (such as, in DECL_RTL of a variable) are not shared
+2935:      with the insn chain.
+2936:
+2937:      This special care is necessary when the stack slot MEM does not
+2938:      actually appear in the insn chain.  If it does appear, its address
+2939:      is unshared from all else at that point.  */
+2940:   unsigned int i;
+2941:   rtx temp;
+2942:   FOR_EACH_VEC_SAFE_ELT (stack_slot_list, i, temp)
+2943:     (*stack_slot_list)[i] = copy_rtx_if_shared (temp);
+2944: }
+2945:
+2946: /* Go through all the RTL insn bodies and copy any invalid shared
+2947:    structure, again.  This is a fairly expensive thing to do so it
+2948:    should be done sparingly.  */
+2949:
+2950: void
+2951: unshare_all_rtl_again (rtx_insn *insn)
+2952: {
+2953:   rtx_insn *p;
+2954:   tree decl;
+2955:
+2956:   for (p = insn; p; p = NEXT_INSN (p))
+2957:     if (INSN_P (p))
+2958:       {
+2959:         reset_used_flags (PATTERN (p));
+2960:         reset_used_flags (REG_NOTES (p));
+2961:         if (CALL_P (p))
+2962:           reset_used_flags (CALL_INSN_FUNCTION_USAGE (p));
+2963:       }
+2964:
+2965:   /* Make sure that virtual stack slots are not shared.  */
+2966:   set_used_decls (DECL_INITIAL (cfun->decl));
+2967:
+2968:   /* Make sure that virtual parameters are not shared.  */
+2969:   for (decl = DECL_ARGUMENTS (cfun->decl); decl; decl = DECL_CHAIN (decl))
+2970:     set_used_flags (DECL_RTL (decl));
+2971:
+2972:   rtx temp;
+2973:   unsigned int i;
+2974:   FOR_EACH_VEC_SAFE_ELT (stack_slot_list, i, temp)
+2975:     reset_used_flags (temp);
+2976:
+2977:   unshare_all_rtl_1 (insn);
+2978: }
+2979:
+2980: void
+2981: unshare_all_rtl (void)
+2982: {
+2983:   unshare_all_rtl_1 (get_insns ());
+2984:
+2985:   for (tree decl = DECL_ARGUMENTS (cfun->decl); decl; decl = DECL_CHAIN (decl))
+2986:     {
+2987:       if (DECL_RTL_SET_P (decl))
+2988:         SET_DECL_RTL (decl, copy_rtx_if_shared (DECL_RTL (decl)));
+2989:       DECL_INCOMING_RTL (decl) = copy_rtx_if_shared (DECL_INCOMING_RTL (decl));
+2990:     }
+2991: }
+```
+
+## gcc/emit-rtl.cc:3189–3355
+
+```text
+3189: unshare_all_rtl_in_chain (rtx_insn *insn)
+3190: {
+3191:   for (; insn; insn = NEXT_INSN (insn))
+3192:     if (INSN_P (insn))
+3193:       {
+3194:         PATTERN (insn) = copy_rtx_if_shared (PATTERN (insn));
+3195:         REG_NOTES (insn) = copy_rtx_if_shared (REG_NOTES (insn));
+3196:         if (CALL_P (insn))
+3197:           CALL_INSN_FUNCTION_USAGE (insn)
+3198:             = copy_rtx_if_shared (CALL_INSN_FUNCTION_USAGE (insn));
+3199:       }
+3200: }
+3201:
+3202: /* Go through all virtual stack slots of a function and mark them as
+3203:    shared.  We never replace the DECL_RTLs themselves with a copy,
+3204:    but expressions mentioned into a DECL_RTL cannot be shared with
+3205:    expressions in the instruction stream.
+3206:
+3207:    Note that reload may convert pseudo registers into memories in-place.
+3208:    Pseudo registers are always shared, but MEMs never are.  Thus if we
+3209:    reset the used flags on MEMs in the instruction stream, we must set
+3210:    them again on MEMs that appear in DECL_RTLs.  */
+3211:
+3212: static void
+3213: set_used_decls (tree blk)
+3214: {
+3215:   tree t;
+3216:
+3217:   /* Mark decls.  */
+3218:   for (t = BLOCK_VARS (blk); t; t = DECL_CHAIN (t))
+3219:     if (DECL_RTL_SET_P (t))
+3220:       set_used_flags (DECL_RTL (t));
+3221:
+3222:   /* Now process sub-blocks.  */
+3223:   for (t = BLOCK_SUBBLOCKS (blk); t; t = BLOCK_CHAIN (t))
+3224:     set_used_decls (t);
+3225: }
+3226:
+3227: /* Mark ORIG as in use, and return a copy of it if it was already in use.
+3228:    Recursively does the same for subexpressions.  Uses
+3229:    copy_rtx_if_shared_1 to reduce stack space.  */
+3230:
+3231: rtx
+3232: copy_rtx_if_shared (rtx orig)
+3233: {
+3234:   copy_rtx_if_shared_1 (&orig);
+3235:   return orig;
+3236: }
+3237:
+3238: /* Mark *ORIG1 as in use, and set it to a copy of it if it was already in
+3239:    use.  Recursively does the same for subexpressions.  */
+3240:
+3241: static void
+3242: copy_rtx_if_shared_1 (rtx *orig1)
+3243: {
+3244:   rtx x;
+3245:   int i;
+3246:   enum rtx_code code;
+3247:   rtx *last_ptr;
+3248:   const char *format_ptr;
+3249:   int copied = 0;
+3250:   int length;
+3251:
+3252:   /* Repeat is used to turn tail-recursion into iteration.  */
+3253: repeat:
+3254:   x = *orig1;
+3255:
+3256:   if (x == 0)
+3257:     return;
+3258:
+3259:   code = GET_CODE (x);
+3260:
+3261:   /* These types may be freely shared.  */
+3262:
+3263:   switch (code)
+3264:     {
+3265:     case REG:
+3266:     case DEBUG_EXPR:
+3267:     case VALUE:
+3268:     CASE_CONST_ANY:
+3269:     case SYMBOL_REF:
+3270:     case LABEL_REF:
+3271:     case CODE_LABEL:
+3272:     case PC:
+3273:     case RETURN:
+3274:     case SIMPLE_RETURN:
+3275:     case SCRATCH:
+3276:       /* SCRATCH must be shared because they represent distinct values.  */
+3277:       return;
+3278:     case CLOBBER:
+3279:       /* Share clobbers of hard registers, but do not share pseudo reg
+3280:          clobbers or clobbers of hard registers that originated as pseudos.
+3281:          This is needed to allow safe register renaming.  */
+3282:       if (REG_P (XEXP (x, 0))
+3283:           && HARD_REGISTER_NUM_P (REGNO (XEXP (x, 0)))
+3284:           && HARD_REGISTER_NUM_P (ORIGINAL_REGNO (XEXP (x, 0))))
+3285:         return;
+3286:       break;
+3287:
+3288:     case CONST:
+3289:       if (shared_const_p (x))
+3290:         return;
+3291:       break;
+3292:
+3293:     case DEBUG_INSN:
+3294:     case INSN:
+3295:     case JUMP_INSN:
+3296:     case CALL_INSN:
+3297:     case NOTE:
+3298:     case BARRIER:
+3299:       /* The chain of insns is not being copied.  */
+3300:       return;
+3301:
+3302:     default:
+3303:       break;
+3304:     }
+3305:
+3306:   /* This rtx may not be shared.  If it has already been seen,
+3307:      replace it with a copy of itself.  */
+3308:
+3309:   if (RTX_FLAG (x, used))
+3310:     {
+3311:       x = shallow_copy_rtx (x);
+3312:       copied = 1;
+3313:     }
+3314:   RTX_FLAG (x, used) = 1;
+3315:
+3316:   /* Now scan the subexpressions recursively.
+3317:      We can store any replaced subexpressions directly into X
+3318:      since we know X is not shared!  Any vectors in X
+3319:      must be copied if X was copied.  */
+3320:
+3321:   format_ptr = GET_RTX_FORMAT (code);
+3322:   length = GET_RTX_LENGTH (code);
+3323:   last_ptr = NULL;
+3324:
+3325:   for (i = 0; i < length; i++)
+3326:     {
+3327:       switch (*format_ptr++)
+3328:         {
+3329:         case 'e':
+3330:           if (last_ptr)
+3331:             copy_rtx_if_shared_1 (last_ptr);
+3332:           last_ptr = &XEXP (x, i);
+3333:           break;
+3334:
+3335:         case 'E':
+3336:           if (XVEC (x, i) != NULL)
+3337:             {
+3338:               int j;
+3339:               int len = XVECLEN (x, i);
+3340:
+3341:               /* Copy the vector iff I copied the rtx and the length
+3342:                  is nonzero.  */
+3343:               if (copied && len > 0)
+3344:                 XVEC (x, i) = gen_rtvec_v (len, XVEC (x, i)->elem);
+3345:
+3346:               /* Call recursively on all inside the vector.  */
+3347:               for (j = 0; j < len; j++)
+3348:                 {
+3349:                   if (last_ptr)
+3350:                     copy_rtx_if_shared_1 (last_ptr);
+3351:                   last_ptr = &XVECEXP (x, i, j);
+3352:                 }
+3353:             }
+3354:           break;
+3355:         }
+```
+
+## gcc/emit-rtl.cc:4146–4158
+
+```text
+4146: make_insn_raw (rtx pattern)
+4147: {
+4148:   rtx_insn *insn;
+4149:
+4150:   insn = as_a <rtx_insn *> (rtx_alloc (INSN));
+4151:
+4152:   INSN_UID (insn) = cur_insn_uid++;
+4153:   PATTERN (insn) = pattern;
+4154:   INSN_CODE (insn) = -1;
+4155:   REG_NOTES (insn) = NULL;
+4156:   INSN_LOCATION (insn) = curr_insn_location ();
+4157:   BLOCK_FOR_INSN (insn) = NULL;
+4158:
+```
+
+## gcc/emit-rtl.cc:5782–5791
+
+```text
+5782: init_virtual_regs (void)
+5783: {
+5784:   regno_reg_rtx[VIRTUAL_INCOMING_ARGS_REGNUM] = virtual_incoming_args_rtx;
+5785:   regno_reg_rtx[VIRTUAL_STACK_VARS_REGNUM] = virtual_stack_vars_rtx;
+5786:   regno_reg_rtx[VIRTUAL_STACK_DYNAMIC_REGNUM] = virtual_stack_dynamic_rtx;
+5787:   regno_reg_rtx[VIRTUAL_OUTGOING_ARGS_REGNUM] = virtual_outgoing_args_rtx;
+5788:   regno_reg_rtx[VIRTUAL_CFA_REGNUM] = virtual_cfa_rtx;
+5789:   regno_reg_rtx[VIRTUAL_PREFERRED_STACK_BOUNDARY_REGNUM]
+5790:     = virtual_preferred_stack_boundary_rtx;
+5791: }
+```
+
+## gcc/emit-rtl.cc:5979–6040
+
+```text
+5979: init_emit (void)
+5980: {
+5981:   set_first_insn (NULL);
+5982:   set_last_insn (NULL);
+5983:   if (param_min_nondebug_insn_uid)
+5984:     cur_insn_uid = param_min_nondebug_insn_uid;
+5985:   else
+5986:     cur_insn_uid = 1;
+5987:   cur_debug_insn_uid = 1;
+5988:   reg_rtx_no = LAST_VIRTUAL_REGISTER + 1;
+5989:   first_label_num = label_num;
+5990:   get_current_sequence ()->next = NULL;
+5991:
+5992:   /* Init the tables that describe all the pseudo regs.  */
+5993:
+5994:   crtl->emit.regno_pointer_align_length = LAST_VIRTUAL_REGISTER + 101;
+5995:
+5996:   crtl->emit.regno_pointer_align
+5997:     = XCNEWVEC (unsigned char, crtl->emit.regno_pointer_align_length);
+5998:
+5999:   regno_reg_rtx
+6000:     = ggc_cleared_vec_alloc<rtx> (crtl->emit.regno_pointer_align_length);
+6001:
+6002:   /* Put copies of all the hard registers into regno_reg_rtx.  */
+6003:   memcpy (regno_reg_rtx,
+6004:           initial_regno_reg_rtx,
+6005:           FIRST_PSEUDO_REGISTER * sizeof (rtx));
+6006:
+6007:   /* Put copies of all the virtual register rtx into regno_reg_rtx.  */
+6008:   init_virtual_regs ();
+6009:
+6010:   /* Indicate that the virtual registers and stack locations are
+6011:      all pointers.  */
+6012:   REG_POINTER (stack_pointer_rtx) = 1;
+6013:   REG_POINTER (frame_pointer_rtx) = 1;
+6014:   REG_POINTER (hard_frame_pointer_rtx) = 1;
+6015:   REG_POINTER (arg_pointer_rtx) = 1;
+6016:
+6017:   REG_POINTER (virtual_incoming_args_rtx) = 1;
+6018:   REG_POINTER (virtual_stack_vars_rtx) = 1;
+6019:   REG_POINTER (virtual_stack_dynamic_rtx) = 1;
+6020:   REG_POINTER (virtual_outgoing_args_rtx) = 1;
+6021:   REG_POINTER (virtual_cfa_rtx) = 1;
+6022:
+6023: #ifdef STACK_BOUNDARY
+6024:   REGNO_POINTER_ALIGN (STACK_POINTER_REGNUM) = STACK_BOUNDARY;
+6025:   REGNO_POINTER_ALIGN (FRAME_POINTER_REGNUM) = STACK_BOUNDARY;
+6026:   REGNO_POINTER_ALIGN (HARD_FRAME_POINTER_REGNUM) = STACK_BOUNDARY;
+6027:   REGNO_POINTER_ALIGN (ARG_POINTER_REGNUM) = STACK_BOUNDARY;
+6028:
+6029:   REGNO_POINTER_ALIGN (VIRTUAL_INCOMING_ARGS_REGNUM) = STACK_BOUNDARY;
+6030:   REGNO_POINTER_ALIGN (VIRTUAL_STACK_VARS_REGNUM) = STACK_BOUNDARY;
+6031:   REGNO_POINTER_ALIGN (VIRTUAL_STACK_DYNAMIC_REGNUM) = STACK_BOUNDARY;
+6032:   REGNO_POINTER_ALIGN (VIRTUAL_OUTGOING_ARGS_REGNUM) = STACK_BOUNDARY;
+6033:
+6034:   REGNO_POINTER_ALIGN (VIRTUAL_CFA_REGNUM) = BITS_PER_WORD;
+6035: #endif
+6036:
+6037: #ifdef INIT_EXPANDERS
+6038:   INIT_EXPANDERS;
+6039: #endif
+6040: }
+```
+
+## gcc/emit-rtl.cc:6692–6697
+
+```text
+6692: insn_locations_init (void)
+6693: {
+6694:   prologue_location = epilogue_location = 0;
+6695:   curr_location = UNKNOWN_LOCATION;
+6696: }
+6697:
+```
+
+## gcc/emit-rtl.cc:6940–7058
+
+```text
+6940: {
+6941:   switch (code)
+6942:     {
+6943:       /* Please keep the cases below in sync with gengenrtl.cc:special_rtx.  */
+6944:
+6945:     case EXPR_LIST:
+6946:     case INSN_LIST:
+6947:     case INSN:
+6948:       gcc_unreachable ();
+6949:
+6950:     case CONST_INT:
+6951:       return GEN_INT (get_uint ());
+6952:
+6953:     case REG:
+6954:       if (mode == NUM_MACHINE_MODES)
+6955:         mode = get_mode ();
+6956:       return gen_rtx_REG (mode, get_uint ());
+6957:
+6958:     case SUBREG:
+6959:       {
+6960:         if (mode == NUM_MACHINE_MODES)
+6961:           mode = get_mode ();
+6962:         auto reg = get_rtx ();
+6963:         auto byte = get_uint ();
+6964:         return gen_rtx_SUBREG (mode, reg, byte);
+6965:       }
+6966:
+6967:     case MEM:
+6968:       if (mode == NUM_MACHINE_MODES)
+6969:         mode = get_mode ();
+6970:       return gen_rtx_MEM (mode, get_rtx ());
+6971:
+6972:     case PC:
+6973:       return pc_rtx;
+6974:
+6975:     case RETURN:
+6976:       return ret_rtx;
+6977:
+6978:     case SIMPLE_RETURN:
+6979:       return simple_return_rtx;
+6980:
+6981:     case CONST_VECTOR:
+6982:       if (mode == NUM_MACHINE_MODES)
+6983:         mode = get_mode ();
+6984:       return gen_rtx_CONST_VECTOR (mode, get_rtvec ());
+6985:
+6986:       /* Please keep the cases below in sync with
+6987:          gengenrtl.cc:excluded_rtx.  */
+6988:
+6989:     case VAR_LOCATION:
+6990:       gcc_unreachable ();
+6991:
+6992:     case CONST_DOUBLE:
+6993:       /* genemit.cc only accepts zero const_doubles.  */
+6994:       if (mode == NUM_MACHINE_MODES)
+6995:         mode = get_mode ();
+6996:       return CONST0_RTX (mode);
+6997:
+6998:     case CONST_WIDE_INT:
+6999:     case CONST_POLY_INT:
+7000:     case CONST_FIXED:
+7001:       gcc_unreachable ();
+7002:
+7003:     default:
+7004:       break;
+7005:     }
+7006:
+7007:   rtx x = rtx_alloc (code);
+7008:   if (!always_void_p (code))
+7009:     {
+7010:       if (mode == NUM_MACHINE_MODES)
+7011:         mode = get_mode ();
+7012:       PUT_MODE_RAW (x, mode);
+7013:     }
+7014:
+7015:   const char *fmt = GET_RTX_FORMAT (code);
+7016:   for (unsigned int i = 0; fmt[i]; ++i)
+7017:     switch (fmt[i])
+7018:       {
+7019:         /* Please keep these cases in sync with
+7020:            gengenrtl.cc:type_from_format.  */
+7021:
+7022:       case 'i':
+7023:         XINT (x, i) = get_uint ();
+7024:         break;
+7025:
+7026:       case 'L':
+7027:       case 'w':
+7028:       case 'p':
+7029:       case 's':
+7030:         gcc_unreachable ();
+7031:
+7032:       case 'e':  case 'u':
+7033:         XEXP (x, i) = get_rtx ();
+7034:         break;
+7035:
+7036:       case 'E':
+7037:         XVEC (x, i) = get_rtvec ();
+7038:         break;
+7039:
+7040:       case 't':
+7041:       case 'B':
+7042:       default:
+7043:         gcc_unreachable ();
+7044:       }
+7045:
+7046:   return x;
+7047: }
+7048:
+7049: /* Read an encoded rtvec.  */
+7050:
+7051: rtvec
+7052: rtx_expander::get_rtvec ()
+7053: {
+7054:   unsigned int len = get_uint ();
+7055:   rtvec v = rtvec_alloc (len);
+7056:   for (unsigned int i = 0; i < len; ++i)
+7057:     RTVEC_ELT (v, i) = get_rtx ();
+7058:   return v;
+```
+
+## gcc/emit-rtl.cc:7075–7100
+
+```text
+7075: expand_rtx (const uint8_t *seq, rtx *operands)
+7076: {
+7077:   return rtx_expander (seq, operands).get_rtx ();
+7078: }
+7079:
+7080: /* Read and emit a sequence of instructions from the bytecode in SEQ,
+7081:    which was generated by genemit.cc.  Replace operand placeholders with
+7082:    the values given in OPERANDS.  */
+7083:
+7084: rtx_insn *
+7085: complete_seq (const uint8_t *seq, rtx *operands)
+7086: {
+7087:   rtx_expander (seq, operands).expand_seq ();
+7088:   return end_sequence ();
+7089: }
+7090:
+7091: /* Initialize fields of rtl_data related to stack alignment.  */
+7092:
+7093: void
+7094: rtl_data::init_stack_alignment ()
+7095: {
+7096:   stack_alignment_needed = STACK_BOUNDARY;
+7097:   max_used_stack_slot_alignment = STACK_BOUNDARY;
+7098:   stack_alignment_estimated = 0;
+7099:   preferred_stack_boundary = STACK_BOUNDARY;
+7100: }
+```
+
+## gcc/ada/gcc-interface/misc.cc:402–435
+
+```text
+402:
+403:   /* Turn on -fexceptions, -fnon-call-exceptions and -fdelete-dead-exceptions.
+404:      The first one activates the support for exceptions in the compiler.
+405:      The second one is useful for two reasons: 1/ we map some asynchronous
+406:      signals like SEGV to exceptions, so we need to ensure that the insns
+407:      which can lead to such signals are correctly attached to the exception
+408:      region they pertain to, 2/ some calls to pure subprograms are handled as
+409:      libcall blocks and then marked as "cannot trap" if the flag is not set
+410:      (see emit_libcall_block).  We should not let this be since it is possible
+411:      for such calls to actually raise in Ada.
+412:      The third one is an optimization that makes it possible to delete dead
+413:      instructions that may throw exceptions, most notably loads and stores,
+414:      as permitted in Ada.
+415:      Turn off -faggressive-loop-optimizations because it may optimize away
+416:      out-of-bound array accesses that we want to be able to catch.
+417:      If checks are disabled, we use the same settings as the C++ compiler,
+418:      except for the runtime on platforms where S'Machine_Overflow is true
+419:      because the runtime depends on FP (hardware) checks being properly
+420:      handled despite being compiled in -gnatp mode.  */
+421:   flag_exceptions = 1;
+422:   flag_delete_dead_exceptions = 1;
+423:   if (Suppress_Checks)
+424:     {
+425:       if (!OPTION_SET_P (flag_non_call_exceptions))
+426:         flag_non_call_exceptions = Machine_Overflows_On_Target && GNAT_Mode;
+427:     }
+428:   else
+429:     {
+430:       if (!OPTION_SET_P (flag_non_call_exceptions))
+431:         flag_non_call_exceptions = 1;
+432:       flag_aggressive_loop_optimizations = 0;
+433:       warn_aggressive_loop_optimizations = 0;
+434:     }
+435:
+```
+
+## gcc/config/i386/i386.cc:1464–1471
+
+```text
+1464: ix86_return_pops_args (tree fundecl, tree funtype, poly_int64 size)
+1465: {
+1466:   unsigned int ccvt;
+1467:
+1468:   /* None of the 64-bit ABIs pop arguments.  */
+1469:   if (TARGET_64BIT)
+1470:     return 0;
+1471:
+```
+
+## gcc/config/i386/i386.cc:1795–1803
+
+```text
+1795: ix86_use_pseudo_pic_reg (void)
+1796: {
+1797:   if ((TARGET_64BIT
+1798:        && (ix86_cmodel == CM_SMALL_PIC
+1799:            || TARGET_PECOFF))
+1800:       || !flag_pic)
+1801:     return false;
+1802:   return true;
+1803: }
+```
+
+## gcc/config/i386/i386.cc:1874–2026
+
+```text
+1874: init_cumulative_args (CUMULATIVE_ARGS *cum,  /* Argument info to initialize */
+1875:                       tree fntype,      /* tree ptr for function decl */
+1876:                       rtx libname,      /* SYMBOL_REF of library name or 0 */
+1877:                       tree fndecl,
+1878:                       int caller)
+1879: {
+1880:   struct cgraph_node *local_info_node = NULL;
+1881:   struct cgraph_node *target = NULL;
+1882:
+1883:   /* Set silent_p to false to raise an error for invalid calls when
+1884:      expanding function body.  */
+1885:   cfun->machine->silent_p = false;
+1886:
+1887:   memset (cum, 0, sizeof (*cum));
+1888:
+1889:   tree preserve_none_type;
+1890:   if (fndecl)
+1891:     {
+1892:       target = cgraph_node::get (fndecl);
+1893:       if (target)
+1894:         {
+1895:           target = target->function_symbol ();
+1896:           local_info_node = cgraph_node::local_info_node (target->decl);
+1897:           cum->call_abi = ix86_function_abi (target->decl);
+1898:           preserve_none_type = TREE_TYPE (target->decl);
+1899:         }
+1900:       else
+1901:         {
+1902:           cum->call_abi = ix86_function_abi (fndecl);
+1903:           preserve_none_type = TREE_TYPE (fndecl);
+1904:         }
+1905:     }
+1906:   else
+1907:     {
+1908:       cum->call_abi = ix86_function_type_abi (fntype);
+1909:       preserve_none_type = fntype;
+1910:     }
+1911:   cum->preserve_none_abi
+1912:     = (preserve_none_type
+1913:        && (lookup_attribute ("preserve_none",
+1914:                              TYPE_ATTRIBUTES (preserve_none_type))
+1915:            != nullptr));
+1916:
+1917:   cum->caller = caller;
+1918:
+1919:   /* Set up the number of registers to use for passing arguments.  */
+1920:   cum->nregs = ix86_regparm;
+1921:   if (TARGET_64BIT)
+1922:     {
+1923:       cum->nregs = (cum->call_abi == SYSV_ABI
+1924:                    ? X86_64_REGPARM_MAX
+1925:                    : X86_64_MS_REGPARM_MAX);
+1926:     }
+1927:   if (TARGET_SSE)
+1928:     {
+1929:       cum->sse_nregs = SSE_REGPARM_MAX;
+1930:       if (TARGET_64BIT)
+1931:         {
+1932:           cum->sse_nregs = (cum->call_abi == SYSV_ABI
+1933:                            ? X86_64_SSE_REGPARM_MAX
+1934:                            : X86_64_MS_SSE_REGPARM_MAX);
+1935:         }
+1936:     }
+1937:   if (TARGET_MMX)
+1938:     cum->mmx_nregs = MMX_REGPARM_MAX;
+1939:   cum->warn_avx512f = true;
+1940:   cum->warn_avx = true;
+1941:   cum->warn_sse = true;
+1942:   cum->warn_mmx = true;
+1943:
+1944:   /* Because type might mismatch in between caller and callee, we need to
+1945:      use actual type of function for local calls.
+1946:      FIXME: cgraph_analyze can be told to actually record if function uses
+1947:      va_start so for local functions maybe_vaarg can be made aggressive
+1948:      helping K&R code.
+1949:      FIXME: once typesytem is fixed, we won't need this code anymore.  */
+1950:   if (local_info_node && local_info_node->local
+1951:       && local_info_node->can_change_signature)
+1952:     fntype = TREE_TYPE (target->decl);
+1953:   cum->stdarg = stdarg_p (fntype);
+1954:   cum->maybe_vaarg = (fntype
+1955:                       ? (!prototype_p (fntype) || stdarg_p (fntype))
+1956:                       : !libname);
+1957:
+1958:   cum->decl = fndecl;
+1959:
+1960:   cum->warn_empty = !warn_abi || cum->stdarg;
+1961:   if (!cum->warn_empty && fntype)
+1962:     {
+1963:       function_args_iterator iter;
+1964:       tree argtype;
+1965:       bool seen_empty_type = false;
+1966:       FOREACH_FUNCTION_ARGS (fntype, argtype, iter)
+1967:         {
+1968:           if (argtype == error_mark_node || VOID_TYPE_P (argtype))
+1969:             break;
+1970:           if (TYPE_EMPTY_P (argtype))
+1971:             seen_empty_type = true;
+1972:           else if (seen_empty_type)
+1973:             {
+1974:               cum->warn_empty = true;
+1975:               break;
+1976:             }
+1977:         }
+1978:     }
+1979:
+1980:   if (!TARGET_64BIT)
+1981:     {
+1982:       /* If there are variable arguments, then we won't pass anything
+1983:          in registers in 32-bit mode. */
+1984:       if (stdarg_p (fntype))
+1985:         {
+1986:           cum->nregs = 0;
+1987:           /* Since in 32-bit, variable arguments are always passed on
+1988:              stack, there is scratch register available for indirect
+1989:              sibcall.  */
+1990:           cfun->machine->arg_reg_available = true;
+1991:           cum->sse_nregs = 0;
+1992:           cum->mmx_nregs = 0;
+1993:           cum->warn_avx512f = false;
+1994:           cum->warn_avx = false;
+1995:           cum->warn_sse = false;
+1996:           cum->warn_mmx = false;
+1997:           return;
+1998:         }
+1999:
+2000:       /* Use ecx and edx registers if function has fastcall attribute,
+2001:          else look for regparm information.  */
+2002:       if (fntype)
+2003:         {
+2004:           unsigned int ccvt = ix86_get_callcvt (fntype);
+2005:           if ((ccvt & IX86_CALLCVT_THISCALL) != 0)
+2006:             {
+2007:               cum->nregs = 1;
+2008:               cum->fastcall = 1; /* Same first register as in fastcall.  */
+2009:             }
+2010:           else if ((ccvt & IX86_CALLCVT_FASTCALL) != 0)
+2011:             {
+2012:               cum->nregs = 2;
+2013:               cum->fastcall = 1;
+2014:             }
+2015:           else
+2016:             cum->nregs = ix86_function_regparm (fntype, fndecl);
+2017:         }
+2018:
+2019:       /* Set up the number of SSE registers used for passing SFmode
+2020:          and DFmode arguments.  Warn for mismatching ABI.  */
+2021:       cum->float_in_sse = ix86_function_sseregparm (fntype, fndecl, true);
+2022:     }
+2023:
+2024:   cfun->machine->arg_reg_available = (cum->nregs > 0);
+2025: }
+2026:
+```
+
+## gcc/config/i386/i386.cc:7990–8111
+
+```text
+7990: ix86_minimum_incoming_stack_boundary (bool sibcall)
+7991: {
+7992:   unsigned int incoming_stack_boundary;
+7993:
+7994:   /* Stack of interrupt handler is aligned to 128 bits in 64bit mode.  */
+7995:   if (cfun->machine->func_type != TYPE_NORMAL)
+7996:     incoming_stack_boundary = TARGET_64BIT ? 128 : MIN_STACK_BOUNDARY;
+7997:   /* Prefer the one specified at command line. */
+7998:   else if (ix86_user_incoming_stack_boundary)
+7999:     incoming_stack_boundary = ix86_user_incoming_stack_boundary;
+8000:   /* In 32bit, use MIN_STACK_BOUNDARY for incoming stack boundary
+8001:      if -mstackrealign is used, it isn't used for sibcall check and
+8002:      estimated stack alignment is 128bit.  */
+8003:   else if (!sibcall
+8004:            && ix86_force_align_arg_pointer
+8005:            && crtl->stack_alignment_estimated == 128)
+8006:     incoming_stack_boundary = MIN_STACK_BOUNDARY;
+8007:   else
+8008:     incoming_stack_boundary = ix86_default_incoming_stack_boundary;
+8009:
+8010:   /* Incoming stack alignment can be changed on individual functions
+8011:      via force_align_arg_pointer attribute.  We use the smallest
+8012:      incoming stack boundary.  */
+8013:   if (incoming_stack_boundary > MIN_STACK_BOUNDARY
+8014:       && lookup_attribute ("force_align_arg_pointer",
+8015:                            TYPE_ATTRIBUTES (TREE_TYPE (current_function_decl))))
+8016:     incoming_stack_boundary = MIN_STACK_BOUNDARY;
+8017:
+8018:   /* The incoming stack frame has to be aligned at least at
+8019:      parm_stack_boundary.  */
+8020:   if (incoming_stack_boundary < crtl->parm_stack_boundary)
+8021:     incoming_stack_boundary = crtl->parm_stack_boundary;
+8022:
+8023:   /* Stack at entrance of main is aligned by runtime.  We use the
+8024:      smallest incoming stack boundary. */
+8025:   if (incoming_stack_boundary > MAIN_STACK_BOUNDARY
+8026:       && DECL_NAME (current_function_decl)
+8027:       && MAIN_NAME_P (DECL_NAME (current_function_decl))
+8028:       && DECL_FILE_SCOPE_P (current_function_decl))
+8029:     incoming_stack_boundary = MAIN_STACK_BOUNDARY;
+8030:
+8031:   return incoming_stack_boundary;
+8032: }
+8033:
+8034: /* Update incoming stack boundary and estimated stack alignment.  */
+8035:
+8036: static void
+8037: ix86_update_stack_boundary (void)
+8038: {
+8039:   ix86_incoming_stack_boundary
+8040:     = ix86_minimum_incoming_stack_boundary (false);
+8041:
+8042:   /* x86_64 vararg needs 16byte stack alignment for register save area.  */
+8043:   if (TARGET_64BIT
+8044:       && cfun->stdarg
+8045:       && crtl->stack_alignment_estimated < 128)
+8046:     crtl->stack_alignment_estimated = 128;
+8047:
+8048:   /* __tls_get_addr needs to be called with 16-byte aligned stack.  */
+8049:   if (ix86_tls_descriptor_calls_expanded_in_cfun
+8050:       && crtl->preferred_stack_boundary < 128)
+8051:     crtl->preferred_stack_boundary = 128;
+8052:
+8053:   /* For 32-bit MS ABI, both the incoming and preferred stack boundaries
+8054:      are 32 bits, but if force_align_arg_pointer is specified, it should
+8055:      prefer 128 bits for a backward-compatibility reason, which is also
+8056:      what the doc suggests.  */
+8057:   if (lookup_attribute ("force_align_arg_pointer",
+8058:                         TYPE_ATTRIBUTES (TREE_TYPE (current_function_decl)))
+8059:       && crtl->preferred_stack_boundary < 128)
+8060:     crtl->preferred_stack_boundary = 128;
+8061: }
+8062:
+8063: /* Handle the TARGET_GET_DRAP_RTX hook.  Return NULL if no DRAP is
+8064:    needed or an rtx for DRAP otherwise.  */
+8065:
+8066: static rtx
+8067: ix86_get_drap_rtx (void)
+8068: {
+8069:   /* We must use DRAP if there are outgoing arguments on stack or
+8070:      the stack pointer register is clobbered by asm statement and
+8071:      ACCUMULATE_OUTGOING_ARGS is false.  */
+8072:   if (ix86_force_drap
+8073:       || ((cfun->machine->outgoing_args_on_stack
+8074:            || crtl->sp_is_clobbered_by_asm)
+8075:           && !ACCUMULATE_OUTGOING_ARGS))
+8076:     crtl->need_drap = true;
+8077:
+8078:   if (stack_realign_drap)
+8079:     {
+8080:       /* Assign DRAP to vDRAP and returns vDRAP */
+8081:       unsigned int regno = find_drap_reg ();
+8082:       rtx drap_vreg;
+8083:       rtx arg_ptr;
+8084:       rtx_insn *seq, *insn;
+8085:
+8086:       arg_ptr = gen_rtx_REG (Pmode, regno);
+8087:       crtl->drap_reg = arg_ptr;
+8088:
+8089:       start_sequence ();
+8090:       drap_vreg = copy_to_reg (arg_ptr);
+8091:       seq = end_sequence ();
+8092:
+8093:       insn = emit_insn_before (seq, NEXT_INSN (entry_of_function ()));
+8094:       if (!optimize)
+8095:         {
+8096:           add_reg_note (insn, REG_CFA_SET_VDRAP, drap_vreg);
+8097:           RTX_FRAME_RELATED_P (insn) = 1;
+8098:         }
+8099:       return drap_vreg;
+8100:     }
+8101:   else
+8102:     return NULL;
+8103: }
+8104:
+8105: /* Handle the TARGET_INTERNAL_ARG_POINTER hook.  */
+8106:
+8107: static rtx
+8108: ix86_internal_arg_pointer (void)
+8109: {
+8110:   return virtual_incoming_args_rtx;
+8111: }
+```
+
+## gcc/config/i386/i386.h:778–801
+
+```text
+778: #define MAIN_STACK_BOUNDARY (TARGET_64BIT ? 128 : 32)
+779:
+780: /* Minimum stack boundary.  */
+781: #define MIN_STACK_BOUNDARY BITS_PER_WORD
+782:
+783: /* Boundary (in *bits*) on which the stack pointer prefers to be
+784:    aligned; the compiler cannot rely on having this alignment.  */
+785: #define PREFERRED_STACK_BOUNDARY ix86_preferred_stack_boundary
+786:
+787: /* It should be MIN_STACK_BOUNDARY.  But we set it to 128 bits for
+788:    both 32bit and 64bit, to support codes that need 128 bit stack
+789:    alignment for SSE instructions, but can't realign the stack.  */
+790: #define PREFERRED_STACK_BOUNDARY_DEFAULT \
+791:   (TARGET_IAMCU ? MIN_STACK_BOUNDARY : 128)
+792:
+793: /* 1 if -mstackrealign should be turned on by default.  It will
+794:    generate an alternate prologue and epilogue that realigns the
+795:    runtime stack if nessary.  This supports mixing codes that keep a
+796:    4-byte aligned stack, as specified by i386 psABI, with codes that
+797:    need a 16-byte aligned stack, as required by SSE instructions.  */
+798: #define STACK_REALIGN_DEFAULT 0
+799:
+800: /* Boundary (in *bits*) on which the incoming stack is aligned.  */
+801: #define INCOMING_STACK_BOUNDARY ix86_incoming_stack_boundary
+```
+
+## gcc/config/i386/i386.h:986–992
+
+```text
+986:    appears in the RTL as an argument pointer prior to reload, and is
+987:    eliminated during reloading in favor of either the stack or frame
+988:    pointer.  */
+989:
+990: #define FIRST_PSEUDO_REGISTER FIRST_PSEUDO_REG
+991:
+992: /* Number of hardware registers that go into the DWARF-2 unwind info.
+```
+
+## gcc/config/i386/i386.md:505–513
+
+```text
+505:    (R26_REG                     86)
+506:    (R27_REG                     87)
+507:    (R28_REG                     88)
+508:    (R29_REG                     89)
+509:    (R30_REG                     90)
+510:    (R31_REG                     91)
+511:    (FIRST_PSEUDO_REG            92)
+512:   ])
+513:
+```
+
+## gcc/config/i386/i386.md:20923–20928
+
+```text
+20923: (define_insn "blockage"
+20924:   [(unspec_volatile [(const_int 0)] UNSPECV_BLOCKAGE)]
+20925:   ""
+20926:   ""
+20927:   [(set_attr "length" "0")])
+20928:
+```
+
+## gcc/config/i386/i386.md:21055–21062
+
+```text
+21055: (define_insn "nop"
+21056:   [(const_int 0)]
+21057:   ""
+21058:   "nop"
+21059:   [(set_attr "length" "1")
+21060:    (set_attr "length_immediate" "0")
+21061:    (set_attr "modrm" "0")])
+21062:
+```
+
+## gcc/config/i386/i386-options.cc:2273–2286
+
+```text
+2273:     }
+2274:   else
+2275:     {
+2276:       /* For TARGET_64BIT and MS_ABI, force pic on, in order to enable the
+2277:          use of rip-relative addressing.  This eliminates fixups that
+2278:          would otherwise be needed if this object is to be placed in a
+2279:          DLL, and is essentially just as efficient as direct addressing.  */
+2280:       if (TARGET_64BIT_P (opts->x_ix86_isa_flags)
+2281:           && (TARGET_RDOS || TARGET_PECOFF))
+2282:         opts->x_ix86_cmodel = CM_MEDIUM_PIC, opts->x_flag_pic = 1;
+2283:       else if (TARGET_64BIT_P (opts->x_ix86_isa_flags))
+2284:         opts->x_ix86_cmodel = opts->x_flag_pic ? CM_SMALL_PIC : CM_SMALL;
+2285:       else
+2286:         opts->x_ix86_cmodel = CM_32;
+```
+
+## gcc/config/i386/i386-options.cc:2654–2685
+
+```text
+2654:   /* Validate -mpreferred-stack-boundary= value or default it to
+2655:      PREFERRED_STACK_BOUNDARY_DEFAULT.  */
+2656:   ix86_preferred_stack_boundary = PREFERRED_STACK_BOUNDARY_DEFAULT;
+2657:   if (opts_set->x_ix86_preferred_stack_boundary_arg)
+2658:     {
+2659:       int min = TARGET_64BIT_P (opts->x_ix86_isa_flags)? 3 : 2;
+2660:       int max = TARGET_SEH ? 4 : 12;
+2661:
+2662:       if (opts->x_ix86_preferred_stack_boundary_arg < min
+2663:           || opts->x_ix86_preferred_stack_boundary_arg > max)
+2664:         {
+2665:           if (min == max)
+2666:             error ("%<-mpreferred-stack-boundary%> is not supported "
+2667:                    "for this target");
+2668:           else
+2669:             error ("%<-mpreferred-stack-boundary=%d%> is not between %d and %d",
+2670:                    opts->x_ix86_preferred_stack_boundary_arg, min, max);
+2671:         }
+2672:       else
+2673:         ix86_preferred_stack_boundary
+2674:           = (1 << opts->x_ix86_preferred_stack_boundary_arg) * BITS_PER_UNIT;
+2675:     }
+2676:
+2677:   /* Set the default value for -mstackrealign.  */
+2678:   SET_OPTION_IF_UNSET (opts, opts_set, ix86_force_align_arg_pointer,
+2679:                        STACK_REALIGN_DEFAULT);
+2680:
+2681:   ix86_default_incoming_stack_boundary = PREFERRED_STACK_BOUNDARY;
+2682:
+2683:   /* Validate -mincoming-stack-boundary= value or default it to
+2684:      MIN_STACK_BOUNDARY/PREFERRED_STACK_BOUNDARY.  */
+2685:   ix86_incoming_stack_boundary = ix86_default_incoming_stack_boundary;
+```
+
+## gcc/config/elfos.h:212–220
+
+```text
+212:    can put stuff in there to be executed before and after `main'.  We let
+213:    crtstuff.c and other files know this by defining the following symbols.
+214:    The definitions say how to change sections to the .init and .fini
+215:    sections.  This is the same for all known svr4 assemblers.  */
+216:
+217: #define INIT_SECTION_ASM_OP     "\t.section\t.init"
+218: #define FINI_SECTION_ASM_OP     "\t.section\t.fini"
+219:
+220: /* Output assembly directive to move to the beginning of current section.  */
+```
+
+## gcc/rtl.h:3019–3024
+
+```text
+3019: rtx_init (rtx rt, RTX_CODE code)
+3020: {
+3021:   memset (rt, 0, RTX_HDR_SIZE);
+3022:   PUT_CODE (rt, code);
+3023:   return rt;
+3024: }
+```
+
+## gcc/rtl.h:4091–4146
+
+```text
+4091: #define FIRST_VIRTUAL_REGISTER  (FIRST_PSEUDO_REGISTER)
+4092:
+4093: /* This points to the first word of the incoming arguments passed on the stack,
+4094:    either by the caller or by the callee when pretending it was passed by the
+4095:    caller.  */
+4096:
+4097: #define virtual_incoming_args_rtx       (global_rtl[GR_VIRTUAL_INCOMING_ARGS])
+4098:
+4099: #define VIRTUAL_INCOMING_ARGS_REGNUM    (FIRST_VIRTUAL_REGISTER)
+4100:
+4101: /* If FRAME_GROWS_DOWNWARD, this points to immediately above the first
+4102:    variable on the stack.  Otherwise, it points to the first variable on
+4103:    the stack.  */
+4104:
+4105: #define virtual_stack_vars_rtx          (global_rtl[GR_VIRTUAL_STACK_ARGS])
+4106:
+4107: #define VIRTUAL_STACK_VARS_REGNUM       ((FIRST_VIRTUAL_REGISTER) + 1)
+4108:
+4109: /* This points to the location of dynamically-allocated memory on the stack
+4110:    immediately after the stack pointer has been adjusted by the amount
+4111:    desired.  */
+4112:
+4113: #define virtual_stack_dynamic_rtx       (global_rtl[GR_VIRTUAL_STACK_DYNAMIC])
+4114:
+4115: #define VIRTUAL_STACK_DYNAMIC_REGNUM    ((FIRST_VIRTUAL_REGISTER) + 2)
+4116:
+4117: /* This points to the location in the stack at which outgoing arguments should
+4118:    be written when the stack is pre-pushed (arguments pushed using push
+4119:    insns always use sp).  */
+4120:
+4121: #define virtual_outgoing_args_rtx       (global_rtl[GR_VIRTUAL_OUTGOING_ARGS])
+4122:
+4123: #define VIRTUAL_OUTGOING_ARGS_REGNUM    ((FIRST_VIRTUAL_REGISTER) + 3)
+4124:
+4125: /* This points to the Canonical Frame Address of the function.  This
+4126:    should correspond to the CFA produced by INCOMING_FRAME_SP_OFFSET,
+4127:    but is calculated relative to the arg pointer for simplicity; the
+4128:    frame pointer nor stack pointer are necessarily fixed relative to
+4129:    the CFA until after reload.  */
+4130:
+4131: #define virtual_cfa_rtx                 (global_rtl[GR_VIRTUAL_CFA])
+4132:
+4133: #define VIRTUAL_CFA_REGNUM              ((FIRST_VIRTUAL_REGISTER) + 4)
+4134:
+4135: #define LAST_VIRTUAL_POINTER_REGISTER   ((FIRST_VIRTUAL_REGISTER) + 4)
+4136:
+4137: /* This is replaced by crtl->preferred_stack_boundary / BITS_PER_UNIT
+4138:    when finalized.  */
+4139:
+4140: #define virtual_preferred_stack_boundary_rtx \
+4141:         (global_rtl[GR_VIRTUAL_PREFERRED_STACK_BOUNDARY])
+4142:
+4143: #define VIRTUAL_PREFERRED_STACK_BOUNDARY_REGNUM \
+4144:                                         ((FIRST_VIRTUAL_REGISTER) + 5)
+4145:
+4146: #define LAST_VIRTUAL_REGISTER           ((FIRST_VIRTUAL_REGISTER) + 5)
+```
+
+## gcc/rtl.cc:222–244
+
+```text
+222: rtx_alloc_stat_v (RTX_CODE code MEM_STAT_DECL, int extra)
+223: {
+224:   rtx rt = ggc_alloc_rtx_def_stat (RTX_CODE_SIZE (code) + extra
+225:                                    PASS_MEM_STAT);
+226:
+227:   rtx_init (rt, code);
+228:
+229:   if (GATHER_STATISTICS)
+230:     {
+231:       rtx_alloc_counts[code]++;
+232:       rtx_alloc_sizes[code] += RTX_CODE_SIZE (code);
+233:     }
+234:
+235:   return rt;
+236: }
+237:
+238: /* Allocate an rtx of code CODE.  The CODE is stored in the rtx;
+239:    all the rest is initialized to zero.  */
+240:
+241: rtx
+242: rtx_alloc (RTX_CODE code MEM_STAT_DECL)
+243: {
+244:   return rtx_alloc_stat_v (code PASS_MEM_STAT, 0);
+```
+
+## gcc/varasm.cc:4149–4168
+
+```text
+4149: create_constant_pool (void)
+4150: {
+4151:   struct rtx_constant_pool *pool;
+4152:
+4153:   pool = ggc_alloc<rtx_constant_pool> ();
+4154:   pool->const_rtx_htab = hash_table<const_rtx_desc_hasher>::create_ggc (31);
+4155:   pool->first = NULL;
+4156:   pool->last = NULL;
+4157:   pool->offset = 0;
+4158:   return pool;
+4159: }
+4160:
+4161: /* Initialize constant pool hashing for a new function.  */
+4162:
+4163: void
+4164: init_varasm_status (void)
+4165: {
+4166:   crtl->varasm.pool = create_constant_pool ();
+4167:   crtl->varasm.deferred_constants = 0;
+4168: }
+```
+
+## gcc/expr.cc:209–213
+
+```text
+209: init_expr (void)
+210: {
+211:   memset (&crtl->expr, 0, sizeof (crtl->expr));
+212: }
+213:
+```
+
+## gcc/genemit.cc:175–179
+
+```text
+175:     case CONST_INT:
+176:       add_code (CONST_INT);
+177:       add_uint (UINTVAL (x));
+178:       return;
+179:
+```
+
+## gcc/genemit.cc:447–465
+
+```text
+447: gen_insn (const md_rtx_info &info, FILE *file)
+448: {
+449:   struct pattern_stats stats;
+450:
+451:   /* Find out how many operands this function has.  */
+452:   rtx insn = info.def;
+453:   get_pattern_stats (&stats, XVEC (insn, 1));
+454:   if (stats.max_dup_opno > stats.max_opno)
+455:     fatal_at (info.loc, "match_dup operand number has no match_operand");
+456:
+457:   /* Output the function name and argument declarations.  */
+458:   const char *operands = start_gen_insn (file, XSTR (insn, 0), stats);
+459:
+460:   /* Output code to construct and return the rtl for the instruction body.  */
+461:
+462:   rtx pattern = add_implicit_parallel (XVEC (insn, 1));
+463:   const char *table = generator (info).gen_exp (file, pattern);
+464:   fprintf (file, "  return expand_rtx (%s, %s);\n}\n\n", table, operands);
+465: }
+```
+
+## gcc/gensupport.cc:154–164
+
+```text
+154: add_implicit_parallel (rtvec vec)
+155: {
+156:   if (GET_NUM_ELEM (vec) == 1)
+157:     return RTVEC_ELT (vec, 0);
+158:   else
+159:     {
+160:       rtx pattern = rtx_alloc (PARALLEL);
+161:       XVEC (pattern, 0) = vec;
+162:       return pattern;
+163:     }
+164: }
+```
+
+## gcc/cfgrtl.cc:295–390
+
+```text
+295: create_basic_block_structure (rtx_insn *head, rtx_insn *end, rtx_note *bb_note,
+296:                               basic_block after)
+297: {
+298:   basic_block bb;
+299:
+300:   if (bb_note
+301:       && (bb = NOTE_BASIC_BLOCK (bb_note)) != NULL
+302:       && bb->aux == NULL)
+303:     {
+304:       /* If we found an existing note, thread it back onto the chain.  */
+305:
+306:       rtx_insn *after;
+307:
+308:       if (LABEL_P (head))
+309:         after = head;
+310:       else
+311:         {
+312:           after = PREV_INSN (head);
+313:           head = bb_note;
+314:         }
+315:
+316:       if (after != bb_note && NEXT_INSN (after) != bb_note)
+317:         reorder_insns_nobb (bb_note, bb_note, after);
+318:     }
+319:   else
+320:     {
+321:       /* Otherwise we must create a note and a basic block structure.  */
+322:
+323:       bb = alloc_block ();
+324:
+325:       init_rtl_bb_info (bb);
+326:       if (!head && !end)
+327:         head = end = bb_note
+328:           = emit_note_after (NOTE_INSN_BASIC_BLOCK, get_last_insn ());
+329:       else if (LABEL_P (head) && end)
+330:         {
+331:           bb_note = emit_note_after (NOTE_INSN_BASIC_BLOCK, head);
+332:           if (head == end)
+333:             end = bb_note;
+334:         }
+335:       else
+336:         {
+337:           bb_note = emit_note_before (NOTE_INSN_BASIC_BLOCK, head);
+338:           head = bb_note;
+339:           if (!end)
+340:             end = head;
+341:         }
+342:
+343:       NOTE_BASIC_BLOCK (bb_note) = bb;
+344:     }
+345:
+346:   /* Always include the bb note in the block.  */
+347:   if (NEXT_INSN (end) == bb_note)
+348:     end = bb_note;
+349:
+350:   BB_HEAD (bb) = head;
+351:   BB_END (bb) = end;
+352:   bb->index = last_basic_block_for_fn (cfun)++;
+353:   bb->flags = BB_NEW | BB_RTL;
+354:   link_block (bb, after);
+355:   SET_BASIC_BLOCK_FOR_FN (cfun, bb->index, bb);
+356:   df_bb_refs_record (bb->index, false);
+357:   update_bb_for_insn (bb);
+358:   BB_SET_PARTITION (bb, BB_UNPARTITIONED);
+359:
+360:   /* Tag the block so that we know it has been used when considering
+361:      other basic block notes.  */
+362:   bb->aux = bb;
+363:
+364:   return bb;
+365: }
+366:
+367: /* Create new basic block consisting of instructions in between HEAD and END
+368:    and place it to the BB chain after block AFTER.  END can be NULL to
+369:    create a new empty basic block before HEAD.  Both END and HEAD can be
+370:    NULL to create basic block at the end of INSN chain.  */
+371:
+372: static basic_block
+373: rtl_create_basic_block (void *headp, void *endp, basic_block after)
+374: {
+375:   rtx_insn *head = (rtx_insn *) headp;
+376:   rtx_insn *end = (rtx_insn *) endp;
+377:   basic_block bb;
+378:
+379:   /* Grow the basic block array if needed.  */
+380:   if ((size_t) last_basic_block_for_fn (cfun)
+381:       >= basic_block_info_for_fn (cfun)->length ())
+382:     vec_safe_grow_cleared (basic_block_info_for_fn (cfun),
+383:                            last_basic_block_for_fn (cfun) + 1);
+384:
+385:   n_basic_blocks_for_fn (cfun)++;
+386:
+387:   bb = create_basic_block_structure (head, end, NULL, after);
+388:   bb->aux = NULL;
+389:   return bb;
+390: }
+```
+
+## gcc/cfgrtl.cc:783–851
+
+```text
+783: static bool
+784: loc_equal (location_t loc1, location_t loc2)
+785: {
+786:   if (loc1 == loc2)
+787:     return true;
+788:
+789:   expanded_location loce1 = expand_location (loc1);
+790:   expanded_location loce2 = expand_location (loc2);
+791:
+792:   if (loce1.line != loce2.line
+793:       || loce1.column != loce2.column
+794:       || loce1.data != loce2.data)
+795:     return false;
+796:   if (loce1.file == loce2.file)
+797:     return true;
+798:   return (loce1.file != NULL
+799:           && loce2.file != NULL
+800:           && filename_cmp (loce1.file, loce2.file) == 0);
+801: }
+802:
+803: /* Return true if the single edge between blocks A and B is the only place
+804:    in RTL which holds some unique locus.  */
+805:
+806: static bool
+807: unique_locus_on_edge_between_p (basic_block a, basic_block b)
+808: {
+809:   const location_t goto_locus = EDGE_SUCC (a, 0)->goto_locus;
+810:   rtx_insn *insn, *end;
+811:
+812:   if (LOCATION_LOCUS (goto_locus) == UNKNOWN_LOCATION)
+813:     return false;
+814:
+815:   /* First scan block A backward.  */
+816:   insn = BB_END (a);
+817:   end = PREV_INSN (BB_HEAD (a));
+818:   while (insn != end && (!NONDEBUG_INSN_P (insn) || !INSN_HAS_LOCATION (insn)))
+819:     insn = PREV_INSN (insn);
+820:
+821:   if (insn != end && loc_equal (INSN_LOCATION (insn), goto_locus))
+822:     return false;
+823:
+824:   /* Then scan block B forward.  */
+825:   insn = BB_HEAD (b);
+826:   if (insn)
+827:     {
+828:       end = NEXT_INSN (BB_END (b));
+829:       while (insn != end && !NONDEBUG_INSN_P (insn))
+830:         insn = NEXT_INSN (insn);
+831:
+832:       if (insn != end && INSN_HAS_LOCATION (insn)
+833:           && loc_equal (INSN_LOCATION (insn), goto_locus))
+834:         return false;
+835:     }
+836:
+837:   return true;
+838: }
+839:
+840: /* If the single edge between blocks A and B is the only place in RTL which
+841:    holds some unique locus, emit a nop with that locus between the blocks.  */
+842:
+843: static void
+844: emit_nop_for_unique_locus_between (basic_block a, basic_block b)
+845: {
+846:   if (!unique_locus_on_edge_between_p (a, b))
+847:     return;
+848:
+849:   BB_END (a) = emit_insn_after_noloc (gen_nop (), BB_END (a), a);
+850:   INSN_LOCATION (BB_END (a)) = EDGE_SUCC (a, 0)->goto_locus;
+851: }
+```
+
+## gcc/cfgrtl.cc:857–965
+
+```text
+857: rtl_merge_blocks (basic_block a, basic_block b)
+858: {
+859:   /* If B is a forwarder block whose outgoing edge has no location, we'll
+860:      propagate the locus of the edge between A and B onto it.  */
+861:   const bool forward_edge_locus
+862:     = (b->flags & BB_FORWARDER_BLOCK) != 0
+863:       && LOCATION_LOCUS (EDGE_SUCC (b, 0)->goto_locus) == UNKNOWN_LOCATION;
+864:   rtx_insn *b_head = BB_HEAD (b), *b_end = BB_END (b), *a_end = BB_END (a);
+865:   rtx_insn *del_first = NULL, *del_last = NULL;
+866:   rtx_insn *b_debug_start = b_end, *b_debug_end = b_end;
+867:   bool b_empty = false;
+868:
+869:   if (dump_file)
+870:     fprintf (dump_file, "Merging block %d into block %d...\n", b->index,
+871:              a->index);
+872:
+873:   while (DEBUG_INSN_P (b_end))
+874:     b_end = PREV_INSN (b_debug_start = b_end);
+875:
+876:   /* If there was a CODE_LABEL beginning B, delete it.  */
+877:   if (LABEL_P (b_head))
+878:     {
+879:       /* Detect basic blocks with nothing but a label.  This can happen
+880:          in particular at the end of a function.  */
+881:       if (b_head == b_end)
+882:         b_empty = true;
+883:
+884:       del_first = del_last = b_head;
+885:       b_head = NEXT_INSN (b_head);
+886:     }
+887:
+888:   /* Delete the basic block note and handle blocks containing just that
+889:      note.  */
+890:   if (NOTE_INSN_BASIC_BLOCK_P (b_head))
+891:     {
+892:       if (b_head == b_end)
+893:         b_empty = true;
+894:       if (! del_last)
+895:         del_first = b_head;
+896:
+897:       del_last = b_head;
+898:       b_head = NEXT_INSN (b_head);
+899:     }
+900:
+901:   /* If there was a jump out of A, delete it.  */
+902:   if (JUMP_P (a_end))
+903:     {
+904:       rtx_insn *prev;
+905:
+906:       for (prev = PREV_INSN (a_end); ; prev = PREV_INSN (prev))
+907:         if (!NOTE_P (prev)
+908:             || NOTE_INSN_BASIC_BLOCK_P (prev)
+909:             || prev == BB_HEAD (a))
+910:           break;
+911:
+912:       del_first = a_end;
+913:
+914:       a_end = PREV_INSN (del_first);
+915:     }
+916:   else if (BARRIER_P (NEXT_INSN (a_end)))
+917:     del_first = NEXT_INSN (a_end);
+918:
+919:   /* Delete everything marked above as well as crap that might be
+920:      hanging out between the two blocks.  */
+921:   BB_END (a) = a_end;
+922:   BB_HEAD (b) = b_empty ? NULL : b_head;
+923:   delete_insn_chain (del_first, del_last, true);
+924:
+925:   /* If not optimizing, preserve the locus of the single edge between
+926:      blocks A and B if necessary by emitting a nop.  */
+927:   if (!optimize
+928:       && !forward_edge_locus
+929:       && !DECL_IGNORED_P (current_function_decl))
+930:     {
+931:       emit_nop_for_unique_locus_between (a, b);
+932:       a_end = BB_END (a);
+933:     }
+934:
+935:   /* Reassociate the insns of B with A.  */
+936:   if (!b_empty)
+937:     {
+938:       update_bb_for_insn_chain (a_end, b_debug_end, a);
+939:
+940:       BB_END (a) = b_debug_end;
+941:       BB_HEAD (b) = NULL;
+942:     }
+943:   else if (b_end != b_debug_end)
+944:     {
+945:       /* Move any deleted labels and other notes between the end of A
+946:          and the debug insns that make up B after the debug insns,
+947:          bringing the debug insns into A while keeping the notes after
+948:          the end of A.  */
+949:       if (NEXT_INSN (a_end) != b_debug_start)
+950:         reorder_insns_nobb (NEXT_INSN (a_end), PREV_INSN (b_debug_start),
+951:                             b_debug_end);
+952:       update_bb_for_insn_chain (b_debug_start, b_debug_end, a);
+953:       BB_END (a) = b_debug_end;
+954:     }
+955:
+956:   df_bb_delete (b->index);
+957:
+958:   if (forward_edge_locus)
+959:     EDGE_SUCC (b, 0)->goto_locus = EDGE_SUCC (a, 0)->goto_locus;
+960:
+961:   if (dump_file)
+962:     fprintf (dump_file, "Merged blocks %d and %d.\n", a->index, b->index);
+963: }
+964:
+965:
+```
+
+## gcc/cfgrtl.cc:1053–1093
+
+```text
+1053: try_redirect_by_replacing_jump (edge e, basic_block target, bool in_cfglayout)
+1054: {
+1055:   basic_block src = e->src;
+1056:   rtx_insn *insn = BB_END (src);
+1057:   rtx set;
+1058:   bool fallthru = false;
+1059:
+1060:   /* If we are partitioning hot/cold basic blocks, we don't want to
+1061:      mess up unconditional or indirect jumps that cross between hot
+1062:      and cold sections.
+1063:
+1064:      Basic block partitioning may result in some jumps that appear to
+1065:      be optimizable (or blocks that appear to be mergeable), but which really
+1066:      must be left untouched (they are required to make it safely across
+1067:      partition boundaries).  See  the comments at the top of
+1068:      bb-reorder.cc:partition_hot_cold_basic_blocks for complete details.  */
+1069:
+1070:   if (BB_PARTITION (src) != BB_PARTITION (target))
+1071:     return NULL;
+1072:
+1073:   /* We can replace or remove a complex jump only when we have exactly
+1074:      two edges.  Also, if we have exactly one outgoing edge, we can
+1075:      redirect that.  */
+1076:   if (EDGE_COUNT (src->succs) >= 3
+1077:       /* Verify that all targets will be TARGET.  Specifically, the
+1078:          edge that is not E must also go to TARGET.  */
+1079:       || (EDGE_COUNT (src->succs) == 2
+1080:           && EDGE_SUCC (src, EDGE_SUCC (src, 0) == e)->dest != target))
+1081:     return NULL;
+1082:
+1083:   if (!onlyjump_p (insn))
+1084:     return NULL;
+1085:   if ((!optimize || reload_completed) && tablejump_p (insn, NULL, NULL))
+1086:     return NULL;
+1087:
+1088:   /* Avoid removing branch with side effects.  */
+1089:   set = single_set (insn);
+1090:   if (!set || side_effects_p (set))
+1091:     return NULL;
+1092:
+1093:   /* See if we can create the fallthru edge.  */
+```
+
+## gcc/cfgrtl.cc:1317–1332
+
+```text
+1317: {
+1318:   rtx_insn *old_label = BB_HEAD (e->dest);
+1319:   basic_block src = e->src;
+1320:   rtx_insn *insn = BB_END (src);
+1321:
+1322:   /* We can only redirect non-fallthru edges of jump insn.  */
+1323:   if (e->flags & EDGE_FALLTHRU)
+1324:     return NULL;
+1325:   else if (!JUMP_P (insn) && !currently_expanding_to_rtl)
+1326:     return NULL;
+1327:
+1328:   if (!currently_expanding_to_rtl)
+1329:     {
+1330:       if (!patch_jump_insn (as_a <rtx_jump_insn *> (insn), old_label, target))
+1331:         return NULL;
+1332:     }
+```
+
+## gcc/cfgrtl.cc:1444–1471
+
+```text
+1444: rtl_redirect_edge_and_branch (edge e, basic_block target)
+1445: {
+1446:   edge ret;
+1447:   basic_block src = e->src;
+1448:   basic_block dest = e->dest;
+1449:
+1450:   if (e->flags & (EDGE_ABNORMAL_CALL | EDGE_EH))
+1451:     return NULL;
+1452:
+1453:   if (dest == target)
+1454:     return e;
+1455:
+1456:   if ((ret = try_redirect_by_replacing_jump (e, target, false)) != NULL)
+1457:     {
+1458:       df_set_bb_dirty (src);
+1459:       fixup_partition_crossing (ret);
+1460:       return ret;
+1461:     }
+1462:
+1463:   ret = redirect_branch_edge (e, target);
+1464:   if (!ret)
+1465:     return NULL;
+1466:
+1467:   df_set_bb_dirty (src);
+1468:   fixup_partition_crossing (ret);
+1469:   return ret;
+1470: }
+1471:
+```
+
+## gcc/cfgbuild.cc:73–119
+
+```text
+73: control_flow_insn_p (const rtx_insn *insn)
+74: {
+75:   switch (GET_CODE (insn))
+76:     {
+77:     case NOTE:
+78:     case CODE_LABEL:
+79:     case DEBUG_INSN:
+80:       return false;
+81:
+82:     case JUMP_INSN:
+83:       return true;
+84:
+85:     case CALL_INSN:
+86:       /* Noreturn and sibling call instructions terminate the basic blocks
+87:          (but only if they happen unconditionally).  */
+88:       if ((SIBLING_CALL_P (insn)
+89:            || find_reg_note (insn, REG_NORETURN, 0))
+90:           && GET_CODE (PATTERN (insn)) != COND_EXEC)
+91:         return true;
+92:
+93:       /* Call insn may return to the nonlocal goto handler.  */
+94:       if (can_nonlocal_goto (insn))
+95:         return true;
+96:       break;
+97:
+98:     case INSN:
+99:       /* Treat trap instructions like noreturn calls (same provision).  */
+100:       if (GET_CODE (PATTERN (insn)) == TRAP_IF
+101:           && XEXP (PATTERN (insn), 0) == const1_rtx)
+102:         return true;
+103:       if (!cfun->can_throw_non_call_exceptions)
+104:         return false;
+105:       break;
+106:
+107:     case JUMP_TABLE_DATA:
+108:     case BARRIER:
+109:       /* It is nonsense to reach this when looking for the
+110:          end of basic block, but before dead code is eliminated
+111:          this may happen.  */
+112:       return false;
+113:
+114:     default:
+115:       gcc_unreachable ();
+116:     }
+117:
+118:   return can_throw_internal (insn);
+119: }
+```
+
+## gcc/cfgbuild.cc:200–380
+
+```text
+200: make_edges (basic_block min, basic_block max, int update_p)
+201: {
+202:   basic_block bb;
+203:   sbitmap edge_cache = NULL;
+204:
+205:   /* Heavy use of computed goto in machine-generated code can lead to
+206:      nearly fully-connected CFGs.  In that case we spend a significant
+207:      amount of time searching the edge lists for duplicates.  */
+208:   if (!vec_safe_is_empty (forced_labels)
+209:       || cfun->cfg->max_jumptable_ents > 100)
+210:     edge_cache = sbitmap_alloc (last_basic_block_for_fn (cfun));
+211:
+212:   /* By nature of the way these get numbered, ENTRY_BLOCK_PTR->next_bb block
+213:      is always the entry.  */
+214:   if (min == ENTRY_BLOCK_PTR_FOR_FN (cfun)->next_bb)
+215:     make_edge (ENTRY_BLOCK_PTR_FOR_FN (cfun), min, EDGE_FALLTHRU);
+216:
+217:   FOR_BB_BETWEEN (bb, min, max->next_bb, next_bb)
+218:     {
+219:       rtx_insn *insn;
+220:       enum rtx_code code;
+221:       edge e;
+222:       edge_iterator ei;
+223:
+224:       if (STATE (bb) == BLOCK_ORIGINAL)
+225:         continue;
+226:
+227:       /* If we have an edge cache, cache edges going out of BB.  */
+228:       if (edge_cache)
+229:         {
+230:           bitmap_clear (edge_cache);
+231:           if (update_p)
+232:             {
+233:               FOR_EACH_EDGE (e, ei, bb->succs)
+234:                 if (e->dest != EXIT_BLOCK_PTR_FOR_FN (cfun))
+235:                   bitmap_set_bit (edge_cache, e->dest->index);
+236:             }
+237:         }
+238:
+239:       if (LABEL_P (BB_HEAD (bb))
+240:           && LABEL_ALT_ENTRY_P (BB_HEAD (bb)))
+241:         cached_make_edge (NULL, ENTRY_BLOCK_PTR_FOR_FN (cfun), bb, 0);
+242:
+243:       /* Examine the last instruction of the block, and discover the
+244:          ways we can leave the block.  */
+245:
+246:       insn = BB_END (bb);
+247:       code = GET_CODE (insn);
+248:
+249:       /* A branch.  */
+250:       if (code == JUMP_INSN)
+251:         {
+252:           rtx tmp;
+253:           rtx_jump_table_data *table;
+254:
+255:           /* Recognize a non-local goto as a branch outside the
+256:              current function.  */
+257:           if (find_reg_note (insn, REG_NON_LOCAL_GOTO, NULL_RTX))
+258:             ;
+259:
+260:           /* Recognize a tablejump and do the right thing.  */
+261:           else if (tablejump_p (insn, NULL, &table))
+262:             {
+263:               rtvec vec = table->get_labels ();
+264:               int j;
+265:
+266:               for (j = GET_NUM_ELEM (vec) - 1; j >= 0; --j)
+267:                 make_label_edge (edge_cache, bb,
+268:                                  XEXP (RTVEC_ELT (vec, j), 0), 0);
+269:
+270:               /* Some targets (eg, ARM) emit a conditional jump that also
+271:                  contains the out-of-range target.  Scan for these and
+272:                  add an edge if necessary.  */
+273:               if ((tmp = single_set (insn)) != NULL
+274:                   && SET_DEST (tmp) == pc_rtx
+275:                   && GET_CODE (SET_SRC (tmp)) == IF_THEN_ELSE
+276:                   && GET_CODE (XEXP (SET_SRC (tmp), 2)) == LABEL_REF)
+277:                 make_label_edge (edge_cache, bb,
+278:                                  label_ref_label (XEXP (SET_SRC (tmp), 2)), 0);
+279:             }
+280:
+281:           /* If this is a computed jump, then mark it as reaching
+282:              everything on the forced_labels list.  */
+283:           else if (computed_jump_p (insn))
+284:             {
+285:               rtx_insn *insn;
+286:               unsigned int i;
+287:               FOR_EACH_VEC_SAFE_ELT (forced_labels, i, insn)
+288:                 make_label_edge (edge_cache, bb, insn, EDGE_ABNORMAL);
+289:             }
+290:
+291:           /* Returns create an exit out.  */
+292:           else if (returnjump_p (insn))
+293:             cached_make_edge (edge_cache, bb, EXIT_BLOCK_PTR_FOR_FN (cfun), 0);
+294:
+295:           /* Recognize asm goto and do the right thing.  */
+296:           else if ((tmp = extract_asm_operands (PATTERN (insn))) != NULL)
+297:             {
+298:               int i, n = ASM_OPERANDS_LABEL_LENGTH (tmp);
+299:               for (i = 0; i < n; ++i)
+300:                 make_label_edge (edge_cache, bb,
+301:                                  XEXP (ASM_OPERANDS_LABEL (tmp, i), 0), 0);
+302:             }
+303:
+304:           /* Otherwise, we have a plain conditional or unconditional jump.  */
+305:           else
+306:             {
+307:               gcc_assert (JUMP_LABEL (insn));
+308:               make_label_edge (edge_cache, bb, JUMP_LABEL (insn), 0);
+309:             }
+310:         }
+311:
+312:       /* If this is a sibling call insn, then this is in effect a combined call
+313:          and return, and so we need an edge to the exit block.  No need to
+314:          worry about EH edges, since we wouldn't have created the sibling call
+315:          in the first place.  */
+316:       if (code == CALL_INSN && SIBLING_CALL_P (insn))
+317:         cached_make_edge (edge_cache, bb, EXIT_BLOCK_PTR_FOR_FN (cfun),
+318:                           EDGE_SIBCALL | EDGE_ABNORMAL);
+319:
+320:       /* If this is a CALL_INSN, then mark it as reaching the active EH
+321:          handler for this CALL_INSN.  If we're handling non-call
+322:          exceptions then any insn can reach any of the active handlers.
+323:          Also mark the CALL_INSN as reaching any nonlocal goto handler.  */
+324:       else if (code == CALL_INSN || cfun->can_throw_non_call_exceptions)
+325:         {
+326:           /* Add any appropriate EH edges.  */
+327:           rtl_make_eh_edge (edge_cache, bb, insn);
+328:
+329:           if (code == CALL_INSN)
+330:             {
+331:               if (can_nonlocal_goto (insn))
+332:                 {
+333:                   /* ??? This could be made smarter: in some cases it's
+334:                      possible to tell that certain calls will not do a
+335:                      nonlocal goto.  For example, if the nested functions
+336:                      that do the nonlocal gotos do not have their addresses
+337:                      taken, then only calls to those functions or to other
+338:                      nested functions that use them could possibly do
+339:                      nonlocal gotos.  */
+340:                   for (rtx_insn_list *x = nonlocal_goto_handler_labels;
+341:                        x;
+342:                        x = x->next ())
+343:                     make_label_edge (edge_cache, bb, x->insn (),
+344:                                      EDGE_ABNORMAL | EDGE_ABNORMAL_CALL);
+345:                 }
+346:
+347:               if (flag_tm)
+348:                 {
+349:                   rtx note;
+350:                   for (note = REG_NOTES (insn); note; note = XEXP (note, 1))
+351:                     if (REG_NOTE_KIND (note) == REG_TM)
+352:                       make_label_edge (edge_cache, bb, XEXP (note, 0),
+353:                                        EDGE_ABNORMAL | EDGE_ABNORMAL_CALL);
+354:                 }
+355:             }
+356:         }
+357:
+358:       /* Find out if we can drop through to the next block.  */
+359:       insn = NEXT_INSN (insn);
+360:       e = find_edge (bb, EXIT_BLOCK_PTR_FOR_FN (cfun));
+361:       if (e && e->flags & EDGE_FALLTHRU)
+362:         insn = NULL;
+363:
+364:       while (insn
+365:              && NOTE_P (insn)
+366:              && NOTE_KIND (insn) != NOTE_INSN_BASIC_BLOCK)
+367:         insn = NEXT_INSN (insn);
+368:
+369:       if (!insn)
+370:         cached_make_edge (edge_cache, bb, EXIT_BLOCK_PTR_FOR_FN (cfun),
+371:                           EDGE_FALLTHRU);
+372:       else if (bb->next_bb != EXIT_BLOCK_PTR_FOR_FN (cfun))
+373:         {
+374:           if (insn == BB_HEAD (bb->next_bb))
+375:             cached_make_edge (edge_cache, bb, bb->next_bb, EDGE_FALLTHRU);
+376:         }
+377:     }
+378:
+379:   if (edge_cache)
+380:     sbitmap_free (edge_cache);
+```
+
+## gcc/cfgbuild.cc:438–652
+
+```text
+438: find_bb_boundaries (basic_block bb)
+439: {
+440:   basic_block orig_bb = bb;
+441:   rtx_insn *insn = BB_HEAD (bb);
+442:   rtx_insn *end = BB_END (bb), *x;
+443:   rtx_jump_table_data *table;
+444:   rtx_insn *flow_transfer_insn = NULL;
+445:   rtx_insn *debug_insn = NULL;
+446:   edge fallthru = NULL;
+447:   bool skip_purge;
+448:   bool seen_note_after_debug = false;
+449:
+450:   if (insn == end)
+451:     return;
+452:
+453:   if (DEBUG_INSN_P (insn) || DEBUG_INSN_P (end))
+454:     {
+455:       /* Check whether, without debug insns, the insn==end test above
+456:          would have caused us to return immediately, and behave the
+457:          same way even with debug insns.  If we don't do this, debug
+458:          insns could cause us to purge dead edges at different times,
+459:          which could in turn change the cfg and affect codegen
+460:          decisions in subtle but undesirable ways.  */
+461:       while (insn != end && DEBUG_INSN_P (insn))
+462:         insn = NEXT_INSN (insn);
+463:       rtx_insn *e = end;
+464:       while (insn != e && DEBUG_INSN_P (e))
+465:         e = PREV_INSN (e);
+466:       if (insn == e)
+467:         {
+468:           /* If there are debug insns after a single insn that is a
+469:              control flow insn in the block, we'd have left right
+470:              away, but we should clean up the debug insns after the
+471:              control flow insn, because they can't remain in the same
+472:              block.  So, do the debug insn cleaning up, but then bail
+473:              out without purging dead edges as we would if the debug
+474:              insns hadn't been there.  */
+475:           if (e != end && !DEBUG_INSN_P (e) && control_flow_insn_p (e))
+476:             {
+477:               skip_purge = true;
+478:               flow_transfer_insn = e;
+479:               goto clean_up_debug_after_control_flow;
+480:             }
+481:           return;
+482:         }
+483:     }
+484:
+485:   if (LABEL_P (insn))
+486:     insn = NEXT_INSN (insn);
+487:
+488:   /* Scan insn chain and try to find new basic block boundaries.  */
+489:   while (1)
+490:     {
+491:       enum rtx_code code = GET_CODE (insn);
+492:
+493:       if (code == DEBUG_INSN)
+494:         {
+495:           if (flow_transfer_insn && !debug_insn)
+496:             {
+497:               debug_insn = insn;
+498:               seen_note_after_debug = false;
+499:             }
+500:         }
+501:       /* In case we've previously seen an insn that effects a control
+502:          flow transfer, split the block.  */
+503:       else if ((flow_transfer_insn || code == CODE_LABEL)
+504:                && inside_basic_block_p (insn))
+505:         {
+506:           rtx_insn *prev = PREV_INSN (insn);
+507:
+508:           /* If the first non-debug inside_basic_block_p insn after a control
+509:              flow transfer is not a label, split the block before the debug
+510:              insn instead of before the non-debug insn, so that the debug
+511:              insns are not lost.  */
+512:           if (debug_insn && code != CODE_LABEL && code != BARRIER)
+513:             {
+514:               prev = PREV_INSN (debug_insn);
+515:               if (seen_note_after_debug)
+516:                 {
+517:                   /* Though, if there are NOTEs intermixed with DEBUG_INSNs,
+518:                      move the NOTEs before the DEBUG_INSNs and split after
+519:                      the last NOTE.  */
+520:                   rtx_insn *first = NULL, *last = NULL;
+521:                   for (x = debug_insn; x != insn; x = NEXT_INSN (x))
+522:                     {
+523:                       if (NOTE_P (x))
+524:                         {
+525:                           if (first == NULL)
+526:                             first = x;
+527:                           last = x;
+528:                         }
+529:                       else
+530:                         {
+531:                           gcc_assert (DEBUG_INSN_P (x));
+532:                           if (first)
+533:                             {
+534:                               reorder_insns_nobb (first, last, prev);
+535:                               prev = last;
+536:                               first = last = NULL;
+537:                             }
+538:                         }
+539:                     }
+540:                   if (first)
+541:                     {
+542:                       reorder_insns_nobb (first, last, prev);
+543:                       prev = last;
+544:                     }
+545:                 }
+546:             }
+547:           fallthru = split_block (bb, prev);
+548:           if (flow_transfer_insn)
+549:             {
+550:               BB_END (bb) = flow_transfer_insn;
+551:
+552:               rtx_insn *next;
+553:               /* Clean up the bb field for the insns between the blocks.  */
+554:               for (x = NEXT_INSN (flow_transfer_insn);
+555:                    x != BB_HEAD (fallthru->dest);
+556:                    x = next)
+557:                 {
+558:                   next = NEXT_INSN (x);
+559:                   /* Debug insns should not be in between basic blocks,
+560:                      drop them on the floor.  */
+561:                   if (DEBUG_INSN_P (x))
+562:                     delete_insn (x);
+563:                   else if (!BARRIER_P (x))
+564:                     set_block_for_insn (x, NULL);
+565:                 }
+566:             }
+567:
+568:           bb = fallthru->dest;
+569:           remove_edge (fallthru);
+570:           /* BB is unreachable at this point - we need to determine its profile
+571:              once edges are built.  */
+572:           bb->count = profile_count::uninitialized ();
+573:           flow_transfer_insn = NULL;
+574:           debug_insn = NULL;
+575:           if (code == CODE_LABEL && LABEL_ALT_ENTRY_P (insn))
+576:             make_edge (ENTRY_BLOCK_PTR_FOR_FN (cfun), bb, 0);
+577:         }
+578:       else if (code == BARRIER)
+579:         {
+580:           /* __builtin_unreachable () may cause a barrier to be emitted in
+581:              the middle of a BB.  We need to split it in the same manner as
+582:              if the barrier were preceded by a control_flow_insn_p insn.  */
+583:           if (!flow_transfer_insn)
+584:             flow_transfer_insn = prev_nonnote_nondebug_insn_bb (insn);
+585:           debug_insn = NULL;
+586:         }
+587:       else if (debug_insn)
+588:         {
+589:           if (code == NOTE)
+590:             seen_note_after_debug = true;
+591:           else
+592:             /* Jump tables.  */
+593:             debug_insn = NULL;
+594:         }
+595:
+596:       if (control_flow_insn_p (insn))
+597:         flow_transfer_insn = insn;
+598:       if (insn == end)
+599:         break;
+600:       insn = NEXT_INSN (insn);
+601:     }
+602:
+603:   /* In case expander replaced normal insn by sequence terminating by
+604:      return and barrier, or possibly other sequence not behaving like
+605:      ordinary jump, we need to take care and move basic block boundary.  */
+606:   if (flow_transfer_insn && flow_transfer_insn != end)
+607:     {
+608:       skip_purge = false;
+609:
+610:     clean_up_debug_after_control_flow:
+611:       BB_END (bb) = flow_transfer_insn;
+612:
+613:       /* Clean up the bb field for the insns that do not belong to BB.  */
+614:       rtx_insn *next;
+615:       for (x = NEXT_INSN (flow_transfer_insn); ; x = next)
+616:         {
+617:           next = NEXT_INSN (x);
+618:           /* Debug insns should not be in between basic blocks,
+619:              drop them on the floor.  */
+620:           if (DEBUG_INSN_P (x))
+621:             delete_insn (x);
+622:           else if (!BARRIER_P (x))
+623:             set_block_for_insn (x, NULL);
+624:           if (x == end)
+625:             break;
+626:         }
+627:
+628:       if (skip_purge)
+629:         return;
+630:     }
+631:
+632:   /* We've possibly replaced the conditional jump by conditional jump
+633:      followed by cleanup at fallthru edge, so the outgoing edges may
+634:      be dead.  */
+635:   purge_dead_edges (bb);
+636:
+637:   /* purge_dead_edges doesn't handle tablejump's, but if we have split the
+638:      basic block, we might need to kill some edges.  */
+639:   if (bb != orig_bb && tablejump_p (BB_END (bb), NULL, &table))
+640:     purge_dead_tablejump_edges (bb, table);
+641: }
+642:
+643: /*  Assume that frequency of basic block B is known.  Compute frequencies
+644:     and probabilities of outgoing edges.  */
+645:
+646: static void
+647: compute_outgoing_frequencies (basic_block b)
+648: {
+649:   edge e, f;
+650:   edge_iterator ei;
+651:
+652:   if (EDGE_COUNT (b->succs) == 2)
+```
+
+## gcc/cfgbuild.cc:738–807
+
+```text
+738: find_many_sub_basic_blocks (sbitmap blocks)
+739: {
+740:   basic_block bb, min, max;
+741:   bool found = false;
+742:   auto_vec<unsigned int> n_succs;
+743:   n_succs.safe_grow_cleared (last_basic_block_for_fn (cfun), true);
+744:
+745:   FOR_EACH_BB_FN (bb, cfun)
+746:     SET_STATE (bb,
+747:                bitmap_bit_p (blocks, bb->index) ? BLOCK_TO_SPLIT : BLOCK_ORIGINAL);
+748:
+749:   FOR_EACH_BB_FN (bb, cfun)
+750:     if (STATE (bb) == BLOCK_TO_SPLIT)
+751:       {
+752:         int n = last_basic_block_for_fn (cfun);
+753:         unsigned int ns = EDGE_COUNT (bb->succs);
+754:
+755:         find_bb_boundaries (bb);
+756:         if (n == last_basic_block_for_fn (cfun) && ns == EDGE_COUNT (bb->succs))
+757:           n_succs[bb->index] = EDGE_COUNT (bb->succs);
+758:       }
+759:
+760:   FOR_EACH_BB_FN (bb, cfun)
+761:     if (STATE (bb) != BLOCK_ORIGINAL)
+762:       {
+763:         found = true;
+764:         break;
+765:       }
+766:
+767:   if (!found)
+768:     return;
+769:
+770:   min = max = bb;
+771:   for (; bb != EXIT_BLOCK_PTR_FOR_FN (cfun); bb = bb->next_bb)
+772:     if (STATE (bb) != BLOCK_ORIGINAL)
+773:       max = bb;
+774:
+775:   /* Now re-scan and wire in all edges.  This expect simple (conditional)
+776:      jumps at the end of each new basic blocks.  */
+777:   make_edges (min, max, 1);
+778:
+779:   /* Update branch probabilities.  Expect only (un)conditional jumps
+780:      to be created with only the forward edges.  */
+781:   if (profile_status_for_fn (cfun) != PROFILE_ABSENT)
+782:     FOR_BB_BETWEEN (bb, min, max->next_bb, next_bb)
+783:       {
+784:         if (STATE (bb) == BLOCK_ORIGINAL)
+785:           continue;
+786:         if (STATE (bb) == BLOCK_NEW)
+787:           {
+788:             update_profile_for_new_sub_basic_block (bb);
+789:             continue;
+790:           }
+791:         /* If nothing changed, there is no need to create new BBs.  */
+792:         if (EDGE_COUNT (bb->succs) == n_succs[bb->index])
+793:           {
+794:             /* In rare occassions RTL expansion might have mistakely assigned
+795:                a probabilities different from what is in CFG.  This happens
+796:                when we try to split branch to two but optimize out the
+797:                second branch during the way. See PR81030.  */
+798:             if (JUMP_P (BB_END (bb)) && any_condjump_p (BB_END (bb))
+799:                 && EDGE_COUNT (bb->succs) >= 2)
+800:               update_br_prob_note (bb);
+801:             continue;
+802:           }
+803:         compute_outgoing_frequencies (bb);
+804:       }
+805:
+806:   FOR_EACH_BB_FN (bb, cfun)
+807:     SET_STATE (bb, 0);
+```
+
+## gcc/cfgcleanup.cc:402–600
+
+```text
+402: try_forward_edges (int mode, basic_block b)
+403: {
+404:   bool changed = false;
+405:   edge_iterator ei;
+406:   edge e, *threaded_edges = NULL;
+407:
+408:   for (ei = ei_start (b->succs); (e = ei_safe_edge (ei)); )
+409:     {
+410:       basic_block target, first;
+411:       location_t goto_locus;
+412:       int counter;
+413:       bool threaded = false;
+414:       int nthreaded_edges = 0;
+415:       bool may_thread = first_pass || (b->flags & BB_MODIFIED) != 0;
+416:       bool new_target_threaded = false;
+417:
+418:       /* Skip complex edges because we don't know how to update them.
+419:
+420:          Still handle fallthru edges, as we can succeed to forward fallthru
+421:          edge to the same place as the branch edge of conditional branch
+422:          and turn conditional branch to an unconditional branch.  */
+423:       if (e->flags & EDGE_COMPLEX)
+424:         {
+425:           ei_next (&ei);
+426:           continue;
+427:         }
+428:
+429:       target = first = e->dest;
+430:       counter = NUM_FIXED_BLOCKS;
+431:       goto_locus = e->goto_locus;
+432:
+433:       while (counter < n_basic_blocks_for_fn (cfun))
+434:         {
+435:           basic_block new_target = NULL;
+436:           may_thread |= (target->flags & BB_MODIFIED) != 0;
+437:
+438:           if (FORWARDER_BLOCK_P (target)
+439:               && single_succ (target) != EXIT_BLOCK_PTR_FOR_FN (cfun))
+440:             {
+441:               /* Bypass trivial infinite loops.  */
+442:               new_target = single_succ (target);
+443:               if (target == new_target)
+444:                 counter = n_basic_blocks_for_fn (cfun);
+445:               else if (!optimize)
+446:                 {
+447:                   /* When not optimizing, ensure that edges or forwarder
+448:                      blocks with different locus are not optimized out.  */
+449:                   location_t new_locus = single_succ_edge (target)->goto_locus;
+450:                   location_t locus = goto_locus;
+451:
+452:                   if (LOCATION_LOCUS (new_locus) != UNKNOWN_LOCATION
+453:                       && LOCATION_LOCUS (locus) != UNKNOWN_LOCATION
+454:                       && new_locus != locus)
+455:                     new_target = NULL;
+456:                   else
+457:                     {
+458:                       if (LOCATION_LOCUS (new_locus) != UNKNOWN_LOCATION)
+459:                         locus = new_locus;
+460:
+461:                       rtx_insn *last = BB_END (target);
+462:                       if (DEBUG_INSN_P (last))
+463:                         last = prev_nondebug_insn (last);
+464:                       if (last && INSN_P (last))
+465:                         new_locus = INSN_LOCATION (last);
+466:                       else
+467:                         new_locus = UNKNOWN_LOCATION;
+468:
+469:                       if (LOCATION_LOCUS (new_locus) != UNKNOWN_LOCATION
+470:                           && LOCATION_LOCUS (locus) != UNKNOWN_LOCATION
+471:                           && new_locus != locus)
+472:                         new_target = NULL;
+473:                       else
+474:                         {
+475:                           if (LOCATION_LOCUS (new_locus) != UNKNOWN_LOCATION)
+476:                             locus = new_locus;
+477:
+478:                           goto_locus = locus;
+479:                         }
+480:                     }
+481:                 }
+482:             }
+483:
+484:           /* Allow to thread only over one edge at time to simplify updating
+485:              of probabilities.  */
+486:           else if ((mode & CLEANUP_THREADING) && may_thread)
+487:             {
+488:               edge t = thread_jump (e, target);
+489:               if (t)
+490:                 {
+491:                   if (!threaded_edges)
+492:                     threaded_edges = XNEWVEC (edge,
+493:                                               n_basic_blocks_for_fn (cfun));
+494:                   else
+495:                     {
+496:                       int i;
+497:
+498:                       /* Detect an infinite loop across blocks not
+499:                          including the start block.  */
+500:                       for (i = 0; i < nthreaded_edges; ++i)
+501:                         if (threaded_edges[i] == t)
+502:                           break;
+503:                       if (i < nthreaded_edges)
+504:                         {
+505:                           counter = n_basic_blocks_for_fn (cfun);
+506:                           break;
+507:                         }
+508:                     }
+509:
+510:                   /* Detect an infinite loop across the start block.  */
+511:                   if (t->dest == b)
+512:                     break;
+513:
+514:                   gcc_assert (nthreaded_edges
+515:                               < (n_basic_blocks_for_fn (cfun)
+516:                                  - NUM_FIXED_BLOCKS));
+517:                   threaded_edges[nthreaded_edges++] = t;
+518:
+519:                   new_target = t->dest;
+520:                   new_target_threaded = true;
+521:                 }
+522:             }
+523:
+524:           if (!new_target)
+525:             break;
+526:
+527:           counter++;
+528:           /* Do not turn non-crossing jump to crossing.  Depending on target
+529:              it may require different instruction pattern.  */
+530:           if ((e->flags & EDGE_CROSSING)
+531:               || BB_PARTITION (first) == BB_PARTITION (new_target))
+532:             {
+533:               target = new_target;
+534:               threaded |= new_target_threaded;
+535:             }
+536:         }
+537:
+538:       if (counter >= n_basic_blocks_for_fn (cfun))
+539:         {
+540:           if (dump_file)
+541:             fprintf (dump_file, "Infinite loop in BB %i.\n",
+542:                      target->index);
+543:         }
+544:       else if (target == first)
+545:         ; /* We didn't do anything.  */
+546:       else
+547:         {
+548:           /* Save the values now, as the edge may get removed.  */
+549:           profile_count edge_count = e->count ();
+550:           int n = 0;
+551:
+552:           e->goto_locus = goto_locus;
+553:
+554:           /* Don't force if target is exit block.  */
+555:           if (threaded && target != EXIT_BLOCK_PTR_FOR_FN (cfun))
+556:             {
+557:               notice_new_block (redirect_edge_and_branch_force (e, target));
+558:               if (dump_file)
+559:                 fprintf (dump_file, "Conditionals threaded.\n");
+560:             }
+561:           else if (!redirect_edge_and_branch (e, target))
+562:             {
+563:               if (dump_file)
+564:                 fprintf (dump_file,
+565:                          "Forwarding edge %i->%i to %i failed.\n",
+566:                          b->index, e->dest->index, target->index);
+567:               ei_next (&ei);
+568:               continue;
+569:             }
+570:
+571:           /* We successfully forwarded the edge.  Now update profile
+572:              data: for each edge we traversed in the chain, remove
+573:              the original edge's execution count.  */
+574:           do
+575:             {
+576:               edge t;
+577:
+578:               if (!single_succ_p (first))
+579:                 {
+580:                   gcc_assert (n < nthreaded_edges);
+581:                   t = threaded_edges [n++];
+582:                   gcc_assert (t->src == first);
+583:                   update_bb_profile_for_threading (first, edge_count, t);
+584:                   update_br_prob_note (first);
+585:                 }
+586:               else
+587:                 {
+588:                   first->count -= edge_count;
+589:                   /* It is possible that as the result of
+590:                      threading we've removed edge as it is
+591:                      threaded to the fallthru edge.  Avoid
+592:                      getting out of sync.  */
+593:                   if (n < nthreaded_edges
+594:                       && first == threaded_edges [n]->src)
+595:                     n++;
+596:                   t = single_succ_edge (first);
+597:                 }
+598:
+599:               first = t->dest;
+600:             }
+```
+
+## gcc/cfgcleanup.cc:725–762
+
+```text
+725: merge_blocks_move (edge e, basic_block b, basic_block c, int mode)
+726: {
+727:   basic_block next;
+728:
+729:   /* If we are partitioning hot/cold basic blocks, we don't want to
+730:      mess up unconditional or indirect jumps that cross between hot
+731:      and cold sections.
+732:
+733:      Basic block partitioning may result in some jumps that appear to
+734:      be optimizable (or blocks that appear to be mergeable), but which really
+735:      must be left untouched (they are required to make it safely across
+736:      partition boundaries).  See the comments at the top of
+737:      bb-reorder.cc:partition_hot_cold_basic_blocks for complete details.  */
+738:
+739:   if (BB_PARTITION (b) != BB_PARTITION (c))
+740:     return NULL;
+741:
+742:   /* If B has a fallthru edge to C, no need to move anything.  */
+743:   if (e->flags & EDGE_FALLTHRU)
+744:     {
+745:       int b_index = b->index, c_index = c->index;
+746:
+747:       /* Protect the loop latches.  */
+748:       if (current_loops && c->loop_father->latch == c)
+749:         return NULL;
+750:
+751:       merge_blocks (b, c);
+752:       update_forwarder_flag (b);
+753:
+754:       if (dump_file)
+755:         fprintf (dump_file, "Merged %d and %d without moving.\n",
+756:                  b_index, c_index);
+757:
+758:       return b->prev_bb == ENTRY_BLOCK_PTR_FOR_FN (cfun) ? b : b->prev_bb;
+759:     }
+760:
+761:   /* Otherwise we will need to move code around.  Do that only if expensive
+762:      transformations are allowed.  */
+```
+
+## gcc/cfgcleanup.cc:2633–2669
+
+```text
+2633: try_optimize_cfg (int mode)
+2634: {
+2635:   bool changed_overall = false;
+2636:   bool changed;
+2637:   int iterations = 0;
+2638:   basic_block bb, b, next;
+2639:
+2640:   if (mode & (CLEANUP_CROSSJUMP | CLEANUP_THREADING))
+2641:     clear_bb_flags ();
+2642:
+2643:   crossjumps_occurred = false;
+2644:
+2645:   FOR_EACH_BB_FN (bb, cfun)
+2646:     update_forwarder_flag (bb);
+2647:
+2648:   if (! targetm.cannot_modify_jumps_p ())
+2649:     {
+2650:       first_pass = true;
+2651:       /* Attempt to merge blocks as made possible by edge removal.  If
+2652:          a block has only one successor, and the successor has only
+2653:          one predecessor, they may be combined.  */
+2654:       do
+2655:         {
+2656:           block_was_dirty = false;
+2657:           changed = false;
+2658:           iterations++;
+2659:
+2660:           if (dump_file)
+2661:             fprintf (dump_file,
+2662:                      "\n\ntry_optimize_cfg iteration %i\n\n",
+2663:                      iterations);
+2664:
+2665:           for (b = ENTRY_BLOCK_PTR_FOR_FN (cfun)->next_bb; b
+2666:                != EXIT_BLOCK_PTR_FOR_FN (cfun);)
+2667:             {
+2668:               basic_block c;
+2669:               edge s;
+```
+
+## gcc/cfgcleanup.cc:2778–2817
+
+```text
+2778:               /* Merge B with its single successor, if any.  */
+2779:               if (single_succ_p (b)
+2780:                   && (s = single_succ_edge (b))
+2781:                   && !(s->flags & EDGE_COMPLEX)
+2782:                   && (c = s->dest) != EXIT_BLOCK_PTR_FOR_FN (cfun)
+2783:                   && single_pred_p (c)
+2784:                   && b != c)
+2785:                 {
+2786:                   /* When not in cfg_layout mode use code aware of reordering
+2787:                      INSN.  This code possibly creates new basic blocks so it
+2788:                      does not fit merge_blocks interface and is kept here in
+2789:                      hope that it will become useless once more of compiler
+2790:                      is transformed to use cfg_layout mode.  */
+2791:
+2792:                   if ((mode & CLEANUP_CFGLAYOUT)
+2793:                       && can_merge_blocks_p (b, c))
+2794:                     {
+2795:                       merge_blocks (b, c);
+2796:                       update_forwarder_flag (b);
+2797:                       changed_here = true;
+2798:                     }
+2799:                   else if (!(mode & CLEANUP_CFGLAYOUT)
+2800:                            /* If the jump insn has side effects,
+2801:                               we can't kill the edge.  */
+2802:                            && (!JUMP_P (BB_END (b))
+2803:                                || (reload_completed
+2804:                                    ? simplejump_p (BB_END (b))
+2805:                                    : (onlyjump_p (BB_END (b))
+2806:                                       && !tablejump_p (BB_END (b),
+2807:                                                        NULL, NULL))))
+2808:                            && (next = merge_blocks_move (s, b, c, mode)))
+2809:                       {
+2810:                         b = next;
+2811:                         changed_here = true;
+2812:                       }
+2813:                 }
+2814:
+2815:               /* Try to change a branch to a return to just that return.  */
+2816:               rtx_insn *ret, *use;
+2817:               if (single_succ_p (b)
+```
+
+## gcc/cfgcleanup.cc:2916–2935
+
+```text
+2916:                  can either delete the jump entirely, or replace it
+2917:                  with a simple unconditional jump.  */
+2918:               if (single_succ_p (b)
+2919:                   && single_succ (b) != EXIT_BLOCK_PTR_FOR_FN (cfun)
+2920:                   && onlyjump_p (BB_END (b))
+2921:                   && !CROSSING_JUMP_P (BB_END (b))
+2922:                   && try_redirect_by_replacing_jump (single_succ_edge (b),
+2923:                                                      single_succ (b),
+2924:                                                      (mode & CLEANUP_CFGLAYOUT) != 0))
+2925:                 {
+2926:                   update_forwarder_flag (b);
+2927:                   changed_here = true;
+2928:                 }
+2929:
+2930:               /* Simplify branch to branch.  */
+2931:               if (try_forward_edges (mode, b))
+2932:                 {
+2933:                   update_forwarder_flag (b);
+2934:                   changed_here = true;
+2935:                 }
+```
+
+## gcc/cfgcleanup.cc:3110–3207
+
+```text
+3110: cleanup_cfg (int mode)
+3111: {
+3112:   bool changed = false;
+3113:
+3114:   /* Set the cfglayout mode flag here.  We could update all the callers
+3115:      but that is just inconvenient, especially given that we eventually
+3116:      want to have cfglayout mode as the default.  */
+3117:   if (current_ir_type () == IR_RTL_CFGLAYOUT)
+3118:     mode |= CLEANUP_CFGLAYOUT;
+3119:
+3120:   timevar_push (TV_CLEANUP_CFG);
+3121:   if (delete_unreachable_blocks ())
+3122:     {
+3123:       changed = true;
+3124:       /* We've possibly created trivially dead code.  Cleanup it right
+3125:          now to introduce more opportunities for try_optimize_cfg.  */
+3126:       if (!(mode & (CLEANUP_NO_INSN_DEL))
+3127:           && !reload_completed)
+3128:         delete_trivially_dead_insns (get_insns (), max_reg_num ());
+3129:     }
+3130:
+3131:   compact_blocks ();
+3132:
+3133:   /* To tail-merge blocks ending in the same noreturn function (e.g.
+3134:      a call to abort) we have to insert fake edges to exit.  Do this
+3135:      here once.  The fake edges do not interfere with any other CFG
+3136:      cleanups.  */
+3137:   if (mode & CLEANUP_CROSSJUMP)
+3138:     add_noreturn_fake_exit_edges ();
+3139:
+3140:   if (!dbg_cnt (cfg_cleanup))
+3141:     return changed;
+3142:
+3143:   while (try_optimize_cfg (mode))
+3144:     {
+3145:       delete_unreachable_blocks (), changed = true;
+3146:       if (!(mode & CLEANUP_NO_INSN_DEL))
+3147:         {
+3148:           /* Try to remove some trivially dead insns when doing an expensive
+3149:              cleanup.  But delete_trivially_dead_insns doesn't work after
+3150:              reload (it only handles pseudos) and run_fast_dce is too costly
+3151:              to run in every iteration.
+3152:
+3153:              For effective cross jumping, we really want to run a fast DCE to
+3154:              clean up any dead conditions, or they get in the way of performing
+3155:              useful tail merges.
+3156:
+3157:              Other transformations in cleanup_cfg are not so sensitive to dead
+3158:              code, so delete_trivially_dead_insns or even doing nothing at all
+3159:              is good enough.  */
+3160:           if ((mode & CLEANUP_EXPENSIVE) && !reload_completed
+3161:               && !delete_trivially_dead_insns (get_insns (), max_reg_num ()))
+3162:             break;
+3163:           if ((mode & CLEANUP_CROSSJUMP) && crossjumps_occurred)
+3164:             {
+3165:               run_fast_dce ();
+3166:               mode &= ~CLEANUP_FORCE_FAST_DCE;
+3167:             }
+3168:         }
+3169:       else
+3170:         break;
+3171:     }
+3172:
+3173:   if (mode & CLEANUP_CROSSJUMP)
+3174:     remove_fake_exit_edges ();
+3175:
+3176:   if (mode & CLEANUP_FORCE_FAST_DCE)
+3177:     run_fast_dce ();
+3178:
+3179:   /* Don't call delete_dead_jumptables in cfglayout mode, because
+3180:      that function assumes that jump tables are in the insns stream.
+3181:      But we also don't _have_ to delete dead jumptables in cfglayout
+3182:      mode because we shouldn't even be looking at things that are
+3183:      not in a basic block.  Dead jumptables are cleaned up when
+3184:      going out of cfglayout mode.  */
+3185:   if (!(mode & CLEANUP_CFGLAYOUT))
+3186:     delete_dead_jumptables ();
+3187:
+3188:   /* ???  We probably do this way too often.  */
+3189:   if (current_loops
+3190:       && (changed
+3191:           || (mode & CLEANUP_CFG_CHANGED)))
+3192:     {
+3193:       timevar_push (TV_REPAIR_LOOPS);
+3194:       /* The above doesn't preserve dominance info if available.  */
+3195:       gcc_assert (!dom_info_available_p (CDI_DOMINATORS));
+3196:       calculate_dominance_info (CDI_DOMINATORS);
+3197:       fix_loop_structure (NULL);
+3198:       free_dominance_info (CDI_DOMINATORS);
+3199:       timevar_pop (TV_REPAIR_LOOPS);
+3200:     }
+3201:
+3202:   timevar_pop (TV_CLEANUP_CFG);
+3203:
+3204:   return changed;
+3205: }
+3206:
+3207: namespace {
+```
+
+## gcc/jump.cc:70–101
+
+```text
+70: rebuild_jump_labels_1 (rtx_insn *f, bool count_forced)
+71: {
+72:   timevar_push (TV_REBUILD_JUMP);
+73:   init_label_info (f);
+74:   mark_all_labels (f);
+75:
+76:   /* Keep track of labels used from static data; we don't track them
+77:      closely enough to delete them here, so make sure their reference
+78:      count doesn't drop to zero.  */
+79:
+80:   if (count_forced)
+81:     {
+82:       rtx_insn *insn;
+83:       unsigned int i;
+84:       FOR_EACH_VEC_SAFE_ELT (forced_labels, i, insn)
+85:         if (LABEL_P (insn))
+86:           LABEL_NUSES (insn)++;
+87:     }
+88:   timevar_pop (TV_REBUILD_JUMP);
+89: }
+90:
+91: /* This function rebuilds the JUMP_LABEL field and REG_LABEL_TARGET
+92:    notes in jumping insns and REG_LABEL_OPERAND notes in non-jumping
+93:    instructions and jumping insns that have labels as operands
+94:    (e.g. cbranchsi4).  */
+95: void
+96: rebuild_jump_labels (rtx_insn *f)
+97: {
+98:   rebuild_jump_labels_1 (f, true);
+99: }
+100:
+101: /* This function is like rebuild_jump_labels, but doesn't run over
+```
+
+## gcc/target.def:2140–2155
+
+```text
+2140: DEFHOOK
+2141: (instruction_selection,
+2142:  "This hook allows a target to perform custom instruction selection for an\n\
+2143: instruction or sequence of instructions before expand to allow expansion to\n\
+2144: generate more efficient code.\n\
+2145: \n\
+2146: @var{fun} is the current function being considered and @var{gsi} is the\n\
+2147: iterator pointing to the current instruction being optimized.  The default\n\
+2148: implementation does not do any rewriting and returns false.  The result of\n\
+2149: the function should be whether any changes were made to the CFG or not.  If a\n\
+2150: change was made then the @var{gsi} should be left at the same position as at\n\
+2151: the function start.  The caller is allowed to change the CFG at any point\n\
+2152: before the current statement @var{gsi} is pointing to but not afterwards.",
+2153:  bool,
+2154:  (function *fun, gimple_stmt_iterator *gsi),
+2155:  default_instruction_selection)
+```
+
+## gcc/target.def:6268–6278
+
+```text
+6268: DEFHOOK
+6269: (expand_to_rtl_hook,
+6270:  "This hook is called just before expansion into rtl, allowing the target\n\
+6271: to perform additional initializations or analysis before the expansion.\n\
+6272: For example, the rs6000 port uses it to allocate a scratch stack slot\n\
+6273: for use in copying SDmode values between memory and floating point\n\
+6274: registers whenever the function being expanded has any SDmode\n\
+6275: usage.",
+6276:  void, (void),
+6277:  hook_void_void)
+6278:
 ```
 
 ## src/silver_arguments.ads (selected Silver API, complete)

@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Companion to
 [the source argument](../../research/retained-backend-gigi.md).
 
-`source-manifest.json` pins 79 complete files at GCC
+`source-manifest.json` pins 96 complete files at GCC
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; Ada file identities also match the
 previously retained complete Ada inventory, and non-Ada GCC files match the
 full-source manifest independently. Its separate `silver_main_api_files` rows
@@ -86,3 +86,13 @@ The retained typed container requests are not a complete setup byte bound.
 The checker records four possible ranger instances, the expansion-time
 six-slot block-index ceiling, and the two-label/three-note body contribution.
 Function entry/exit, subsequent RTL passes and linker costs stay separate.
+
+The selected x86 framework extension continues through the end of pass_expand.
+It retains no dynamic pseudo or stack-slot demand for the null signature,
+while charging function/block notes, the non-call-exception blockage and up to
+four location-preserving O0 nops. The cumulative instruction-chain ceiling is
+15 nodes, with at most two blockage nodes/two one-element vectors including
+unsharing. The register-array raw subtotal is 1,782 bytes on LP64; one-time
+backend, manager, allocator and later RTL/emission costs remain outside it.
+The checker verifies 96 source files and 2 Silver API specifications; the 74
+non-Ada full-file identities also match the retained full-source inventory.

@@ -2112,6 +2112,137 @@ verified fixed entry/exit routes. Later RTL block subdivision, target stack
 alignment, unsharing, epilogue generation, emission and linking are not closed
 by the two-label/three-note body count.
 
+#### Selected x86 function framework and the end of `pass_expand`
+
+For the recorded Linux x86_64 native configuration, strengthen the preceding
+body-only result with the ordinary SysV ABI, default code model and stack
+boundaries, no forced realignment or target attributes, no stack checking,
+stack protection, instrumentation or debug emission, and the default
+`expand_to_rtl_hook`. These remain effective-configuration/source-correspondence
+premises. In particular this is not an assertion about arbitrary command-line
+flags or arbitrary implementations of GCC's target hooks.
+
+The default x86_64 code model is CM_SMALL or CM_SMALL_PIC according to PIC
+selection (`i386-options.cc:2273–2286`). `ix86_use_pseudo_pic_reg` is false in
+both cases (`i386.cc:1795–1803`). Thus the earlier generic PIC-pseudo allowance
+specializes to zero. `init_vars_expansion` still initializes its bitmap obstack
+and constructs the declaration-to-stack-partition hash; the absence of local
+variables does not skip that setup (`cfgexpand.cc:2371–2398`). Label declarations
+in lexical scopes do not allocate object storage. No real SSA partition,
+local object, dynamic allocation or protected declaration contributes a stack
+slot, stack-conflict graph or variable initialization sequence.
+
+The void result makes `aggregate_value_p` return before target return-layout
+queries (`function.cc:2055–2095`). `expand_function_start` allocates one return
+CODE_LABEL and gives the result null RTL. Its parameter setup has an empty
+argument vector, no hidden struct-result parameter, no varargs save area and
+no parameter conversions (`:2307–2330,2383–2429,3641–3880`). The selected
+`ix86_internal_arg_pointer` returns the existing virtual incoming-arguments
+register; cumulative-argument initialization only updates scalar bookkeeping
+for this void/no-parameter signature, and the 64-bit return-pop hook returns
+zero (`i386.cc:1464–1471,1874–2026,8108–8111`). The argument offset is cached
+zero. There is no static chain, nonlocal goto area or profiling/stack-probe
+instruction. Function start emits one FUNCTION_BEG note
+(`function.cc:5214–5303`). The selected ELF initialization-section definition
+makes `expand_main_function` empty even if its name test succeeds
+(`cfgexpand.cc:6925–6935`, `config/elfos.h:217`).
+
+Checked Ada enables non-call exceptions; the function captures that flag
+(`gcc-interface/misc.cc:402–435`, `function.cc:4904–4907`). Function end emits
+the existing return label and, for non-SJLJ unwinding, one blockage. It has no
+EH-return label, stack protection, return-register transfer, naked-return label or alloca restoration.
+`expand_eh_return` returns immediately without its private EH-return label
+(`except.cc:2287–2293`). The x86 blockage is exactly
+`UNSPEC_VOLATILE [CONST_INT 0]` with encoded machine length zero
+(`i386.md:20923–20928`). The generated constructor/runtime expander creates
+one UNSPEC_VOLATILE node and one one-element rtvec, reusing cached const0;
+`emit_insn` adds one INSN (`genemit.cc:447–465`,
+`emit-rtl.cc:4146–4158,6940–7058`). It does not create a call, symbol, jump or
+hardware return at this stage. Machine prologue/epilogue return generation
+belongs to later RTL passes.
+
+The initialization and exit block constructors each add one BASIC_BLOCK note
+(`cfgrtl.cc:295–390`). Add the initial DELETED note emitted by `pass_expand`,
+the FUNCTION_BEG note and the body counts already established:
+
+```text
+ordinary RTL blocks <= 3 + 1 + 1 = 5
+edges including entry/exit <= 4 + 1 + 1 = 6
+block-index slots before compaction <= 5 + 1 + 1 = 7
+CODE_LABEL allocations <= 2 + 1 = 3
+NOTE allocations <= 3 + 1 + 1 + 1 + 1 = 7
+INSN allocations before CFG cleanup <= 1 blockage
+new dynamic pseudos / stack slots / calls / jumps = 0 / 0 / 0 / 0
+```
+
+No instruction has an internal EH landing-pad note. RTL block-boundary
+scanning therefore creates no subdivision: every label is a block head, and
+the blockage is neither a jump, trap nor internally throwing instruction
+(`cfgbuild.cc:73–119,438–652`; `except.cc:1818–1896`). Its successor-count vector
+and input bitmap still have at most seven logical entries/bits. Edge rebuilding
+requests only already-existing fallthrough edges; no forced label, jump table,
+call, EH target or nonlocal target is present (`cfgbuild.cc:200–380,738–807`).
+
+Default preferred and incoming stack boundaries are both 128 bits; Main's
+special minimum is also 128. The void signature and absent variables add no
+larger alignment requirement. Non-call exceptions lift the initially word-size
+preferred requirement to 128, which still does not require realignment.
+There is no alloca, nonlocal transfer, stack-clobbering asm or outgoing argument
+area to require DRAP. The x86 DRAP hook consequently returns null without
+creating a pseudo or move (`i386.h:778–801`,
+`i386-options.cc:2654–2685`, `i386.cc:7990–8111`,
+`cfgexpand.cc:6856–6920`).
+
+**O0 CFG cleanup can add nops.** On this path every merge is of adjacent
+fallthrough blocks; there is no jump-threading or crossjump mode. The direct
+fallthrough branch of `merge_blocks_move` cannot move or add blocks
+(`cfgcleanup.cc:725–762`). Its RTL merger may call
+`emit_nop_for_unique_locus_between` to retain a source location, independently
+of debug output (`cfgrtl.cc:783–851,857–965`). Each successful merge removes
+one ordinary block, so at most four nops can be requested. The target nop
+pattern is cached CONST_INT zero and costs one INSN per request
+(`i386.md:21055–21062`). The remaining branch-to-branch path cannot force an
+edge here: threading is disabled, `onlyjump_p` is false, and ordinary branch
+redirection rejects fallthrough (`cfgcleanup.cc:402–600`,
+`cfgrtl.cc:1053–1093,1317–1332,1444–1471`). Cleanup can remove labels and notes,
+but introduces no new labels, edges, blocks, pseudos or calls. Its dominance,
+loop-repair, dataflow and manager bookkeeping still require their own storage.
+
+The lifetime instruction-chain allocation ceiling through this cleanup is
+therefore **15 nodes**: three CODE_LABELs, seven NOTEs and five INSNs (one
+blockage plus at most four nops). This is cumulative allocation, not a claim
+that all fifteen survive. Initial-value materialization finds no saved
+hard-register/pseudo pair and returns. Final RTL unsharing visits only the
+blockage and cached nop constants; registers, constants and labels are shareable.
+Conservatively allow at most one additional copy of the blockage node and its
+one-element rtvec if its used flag is already marked. Thus the entire
+non-chain pattern allowance is at most **two UNSPEC_VOLATILE nodes and two
+one-element rtvec allocations**, including construction and unsharing
+(`function.cc:1348–1363`, `emit-rtl.cc:2928–2991,3189–3355`). There is no operand
+DAG expansion or stack-slot/parameter unsharing on this signature.
+
+This closes a small **RTL shape output of `pass_expand`** under the stated
+entry/configuration premises. It does not price all work performed along the
+way. For example, per-function preparation still requests a temporary-address
+hash of size 32 and an RTL constant-pool record/hash of size 31, both empty
+for this body (`function.cc:1239–1252,4941–4957`, `varasm.cc:4149–4168`).
+`init_emit` requests a 198-byte alignment array and a 198-entry RTL-pointer
+array, because x86 has 92 hard-register identifiers and six virtual-register
+identifiers, followed by 100 spare slots. On LP64 those two raw requests total
+`198 + 198*8 = 1,782` bytes before allocator rounding. They reference existing
+hard/virtual REG nodes; `init_virtual_regs` does not allocate another six
+(`i386.md:511`, `i386.h:990`, `rtl.h:4091–4146`,
+`emit-rtl.cc:5782–5791,5979–6040`). The logical first dynamic pseudo number is
+98 and does not advance in this expansion.
+
+Other retained requests include the empty label-to-RTL hash, at most six
+head/end pairs before exit-block construction, a seven-bit subdivision bitmap
+and seven-entry successor vector. The general one-time `initialize_rtl`, target
+state, pass-manager/GC/dataflow setup, lexical-block/location stores, allocator
+rounding and subsequent RTL passes remain separate fixed obligations. The
+1,782-byte subtotal and 15-node count cannot be substituted for those costs
+or for an assembled-object/linker bound.
+
 ## Unresolved terms for whole-backend composition
 
 These interfaces remove the per-call/per-type arity ambiguity; they do not yet

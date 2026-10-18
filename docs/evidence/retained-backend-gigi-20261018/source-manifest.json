@@ -395,6 +395,91 @@
       "path": "gcc/emit-rtl.cc",
       "bytes": 193419,
       "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "path": "gcc/config/i386/i386.cc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "path": "gcc/config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "path": "gcc/config/i386/i386.md",
+      "bytes": 1013857,
+      "sha256": "2d2c09314aca1b0cd2cd887f7a637142e94a07cebca7847d7094e11353c61bcb"
+    },
+    {
+      "path": "gcc/config/i386/i386-options.cc",
+      "bytes": 138368,
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6"
+    },
+    {
+      "path": "gcc/config/elfos.h",
+      "bytes": 18059,
+      "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70"
+    },
+    {
+      "path": "gcc/rtl.h",
+      "bytes": 162393,
+      "sha256": "0dc2f54d53a6149d7bb6363dc1a947101c7003e1154233b6b0d417cddd1f7f3e"
+    },
+    {
+      "path": "gcc/rtl.cc",
+      "bytes": 23229,
+      "sha256": "516c1f4b2ad68750095d3c09f3c0d123d1cf8009331b439a4d0ef67bcf6910ee"
+    },
+    {
+      "path": "gcc/varasm.cc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "path": "gcc/expr.cc",
+      "bytes": 472318,
+      "sha256": "97b7c529f38ae0dbb7fb39a2d85d5c27c18bc145a9d21a08f3e5a5135f571e4f"
+    },
+    {
+      "path": "gcc/genemit.cc",
+      "bytes": 27840,
+      "sha256": "b7f42b3f89a4889c29f149bbeb13a155fdee70dc5e7192d8957ca432660df1a2"
+    },
+    {
+      "path": "gcc/gensupport.cc",
+      "bytes": 102367,
+      "sha256": "e361396a790c1ddb6675c92e2a4e42cb94ec6dea14dd34f8d6844fef3ba1f125"
+    },
+    {
+      "path": "gcc/cfgrtl.cc",
+      "bytes": 154498,
+      "sha256": "7aabb0ebf9549a4e03c0a63a7c5f09e6df23b6b140d1d1ffcdc49deabd95a70c"
+    },
+    {
+      "path": "gcc/cfgbuild.cc",
+      "bytes": 24326,
+      "sha256": "9509fe1d1ed2db58755e04b6074000d031e79bfba6dffd552b3f4ca7951620e6"
+    },
+    {
+      "path": "gcc/cfgcleanup.cc",
+      "bytes": 96782,
+      "sha256": "bc8a425854ca62c0db4cfba05249d44bbd85d54624d483cfb5f9ac19ccd69eb4"
+    },
+    {
+      "path": "gcc/jump.cc",
+      "bytes": 50713,
+      "sha256": "af89576f040abe9a7e58c6506a7ff259f907b7b9416a751bd5f34e2deefee91b"
+    },
+    {
+      "path": "gcc/target.def",
+      "bytes": 349626,
+      "sha256": "a4201f0ce18dbbfdbe7b10da98a386e1c79973659be5032abdd3346e125d7763"
     }
   ],
   "silver_main_api_files": [
