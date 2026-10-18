@@ -1,0 +1,77 @@
+{
+  "target": "99b7247d180b851187e653710b7e56d39f2f35d3",
+  "base": "e67e2a9a267220e9ef87e4ffee2028839a9ed598",
+  "historical_predecessor": "7573e127ffb020ddfb1214491179c59442e7798b",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": null,
+  "token_cost_measurements": null,
+  "host": {
+    "system": "Linux",
+    "release": "7.0.14",
+    "machine": "x86_64"
+  },
+  "checks": 14,
+  "passed": true,
+  "check_names": [
+    "exact nine frozen target files",
+    "all 205 current aggregate pins",
+    "exact accepted historical review snapshots",
+    "shared exact three historical and 35 current partition",
+    "only Context and evaluate changed among inherited definitions",
+    "all 106 existing Context statements remain exact prefix",
+    "leaf reads exactly eleven capacity and three diagnostic projections",
+    "actual projection supplies every direct leaf read",
+    "adapter invokes derive and no Context",
+    "retained Hello shared interface exactly equals accepted leaf result",
+    "retained partial ledger exact disjoint named groups",
+    "retained linker differs only in reviewed bound and verdict fields",
+    "reused 45-check record has complete successful detail",
+    "retained actual predicates and whole verdict remain open"
+  ],
+  "frozen_inputs": {
+    "docs/evidence/retained-literal-pipeline-20261018/README.md": {
+      "bytes": 29805,
+      "sha256": "fbcb44d7b18e7623363a6b9a072ac7f159c59ff42d0033a0695844d37f4784d1"
+    },
+    "docs/evidence/retained-literal-pipeline-20261018/attachment-check-results.json": {
+      "bytes": 6831,
+      "sha256": "fc5671df3b88f370393c84c684183cbb421f573c6492e8cc9749edbbe79fc96d"
+    },
+    "docs/evidence/retained-literal-pipeline-20261018/attachment-inputs.json": {
+      "bytes": 1134,
+      "sha256": "a89ffc04b5e7538945a72a5a781abb48da14be19ae5e86b88345416d6be9538b"
+    },
+    "docs/evidence/retained-literal-pipeline-20261018/check-attachment.py": {
+      "bytes": 13516,
+      "sha256": "8f78fb48420af978e3cdbe8956bfefa327fd781359987628335cf531553966cc"
+    },
+    "docs/evidence/retained-literal-pipeline-20261018/check.py": {
+      "bytes": 90801,
+      "sha256": "3c4f6c4dffc7ef3fe2ed458c79d57e8891062e1c96c3983ab0dfa1ac058d2339"
+    },
+    "docs/evidence/retained-literal-pipeline-20261018/compose.py": {
+      "bytes": 140462,
+      "sha256": "9ee527a80ed4082e51828278ee3d3173576631d0d32d2a4d2c44aa16e573f0be"
+    },
+    "docs/evidence/retained-literal-pipeline-20261018/inputs.json": {
+      "bytes": 39497,
+      "sha256": "4ea265586238a5b97980fab2c6a7b685534400d0fe2166def8229e12a63b9796"
+    },
+    "docs/evidence/retained-literal-pipeline-20261018/result.json": {
+      "bytes": 352848,
+      "sha256": "ade1163258eb4b2529f5519afa153c91ec055d1d3bc8d20a59cbea2ea08e1c13"
+    },
+    "docs/research/retained-literal-pipeline.md": {
+      "bytes": 142912,
+      "sha256": "c1fe38f618ed38b4f76bce3deb89d09ae59027eafe11e83f29ebd40cb7ea6010"
+    }
+  },
+  "source_root_validation_reused": true,
+  "aggregate_evaluator_executions": 0,
+  "native_tool_executions": 0,
+  "broad_success_reruns": 0,
+  "started_utc": "2026-10-18T23:04:48.180965+00:00",
+  "completed_utc": "2026-10-18T23:04:48.368520+00:00",
+  "elapsed_seconds": 0.18754853599966737
+}
