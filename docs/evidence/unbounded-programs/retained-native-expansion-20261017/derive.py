@@ -36,7 +36,9 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_attr.adb", "exp_attr.adb", "sem.ads", "exp_dbug.adb", "namet.ads",
          "sem_ch11.adb", "exp_ch11.adb", "sem_elab.adb", "errout.adb",
          "targparm.adb", "targparm.ads", "libgnat/system-linux-x86.ads",
-         "exp_ch7.adb", "exp_tss.adb"]
+         "exp_ch7.adb", "exp_tss.adb", "sem_ch5.adb", "exp_ch5.adb",
+         "rtsfind.adb", "libgnat/s-secsta.ads", "libgnat/s-parame.ads",
+         "libgnat/s-stoele.ads"] + [f"libgnat/s-conca{i}.ads" for i in range(2, 10)]
 sources = {}
 hashes = {}
 for name in files:
@@ -210,6 +212,67 @@ def direct_scalar_and_storage_concat(n, b, lists, analysis_graph):
                          name_characters=26*n+85, elists=1)
     return dict(operands=n, bound_nodes=b, bound_lists=lists,
                 analysis_graph=a, total=total)
+
+
+def native_length_optimizer(analysis_graph):
+    """Artificial one-dimensional Length Ne, absent dimension arguments."""
+    a = analysis_graph
+    assert a >= 1
+    rows = {
+        "builder_including_abandoned_trees": dict(ordinary=27, growth=1, uint=0),
+        "four_First_Last_attributes": dict(ordinary=8, growth=4, uint=0),
+        "four_unchecked_signed_conversions": dict(ordinary=8, growth=4, uint=0),
+        "two_signed_arithmetic_operations": dict(ordinary=4, growth=2, uint=4),
+        "one_concrete_non_Length_comparison": dict(ordinary=40*a+5, growth=2,
+                                                   uint=160*a+120),
+        "two_explicit_comparison_queries": dict(ordinary=40*a, growth=0,
+                                                uint=160*a+120),
+        "two_range_queries_and_power_cache_extensions": dict(ordinary=0, growth=0,
+                                                              uint=12*a+64),
+    }
+    total = {key: sum(row[key] for row in rows.values())
+             for key in ("ordinary", "growth", "uint")}
+    assert total == dict(ordinary=80*a+52, growth=13, uint=332*a+308)
+    return dict(analysis_graph=a, rows=rows, total=total)
+
+
+def suppressed_native_length_check(analysis_graph):
+    """Frozen constrained String types or literal; excludes actual-subtype creation."""
+    a = analysis_graph
+    opt = native_length_optimizer(a)["total"]
+    rows = {
+        "two_initial_Length_attributes": dict(ordinary=40*a+8, growth=4,
+                                              uint=160*a+128),
+        "initial_universal_comparison": dict(ordinary=40*a+5, growth=2,
+                                              uint=160*a+120),
+        "narrowing_builder_and_two_conversion_analyses": dict(ordinary=12, growth=3,
+                                                              uint=0),
+        "narrowing_range_and_size_queries": dict(ordinary=0, growth=0, uint=12*a+272),
+        "narrowed_concrete_comparison": dict(ordinary=40*a+5, growth=2,
+                                             uint=160*a+120),
+        "up_to_two_length_optimizer_entries": {key: 2*value for key, value in opt.items()},
+        "check_builder_static_lengths_raise_and_discard": dict(ordinary=10, growth=2,
+                                                                uint=6),
+    }
+    total = {key: sum(row[key] for row in rows.values())
+             for key in ("ordinary", "growth", "uint")}
+    assert total == dict(ordinary=280*a+144, growth=39, uint=1156*a+1262)
+    return dict(analysis_graph=a, rows=rows, total=total)
+
+
+def suppressed_slice_assignment_checks(analysis_graph):
+    """Checks/overlap/optional guard only; excludes slice and child analysis."""
+    a = analysis_graph
+    one = suppressed_native_length_check(a)["total"]
+    rows = {
+        "semantic_and_native_length_check_passes": {key: 2*value for key, value in one.items()},
+        "two_overlap_queries": dict(ordinary=40*a, growth=0, uint=160*a+120),
+        "optional_if_skeleton": dict(ordinary=2, growth=1, uint=0),
+    }
+    total = {key: sum(row[key] for row in rows.values())
+             for key in ("ordinary", "growth", "uint")}
+    assert total == dict(ordinary=600*a+290, growth=79, uint=2472*a+2644)
+    return dict(analysis_graph=a, rows=rows, total=total)
 
 
 result = {
@@ -572,6 +635,33 @@ result = {
         "excluded": "remaining copies/duplicators; first bound captures; runtime dependencies; object freezing; final result/call/assignment analysis; wrapper placement; reanalysis/source multiplicity; backend",
         "composition_examples_not_thresholds": [direct_scalar_and_storage_concat(2, 2, 0, 1),
                                                direct_scalar_and_storage_concat(64, 31, 4, 4095)],
+    },
+    "suppressed_native_slice_assignment_checks": {
+        "premises": "ordinary one-dimensional String slice assignment; constrained/frozen/cache-resolved actual subtypes or literal RHS; all checks suppressed; no diagnostics, pending checks, callbacks, packed/alignment/atomic/controlled work; artificial dimensionless Length Ne; A bounds all original and newly generated query graphs",
+        "one_length_optimizer": "80*A+52 nodes,13 growth,332*A+308 Uint",
+        "one_length_check_pass": "280*A+144 nodes,39 growth,1156*A+1262 Uint",
+        "two_passes_overlap_and_guard": "600*A+290 nodes,79 growth,2472*A+2644 Uint",
+        "extra_lists_entities_names_Elists_String_values": 0,
+        "power_cache_largest_new_magnitude": "2^126",
+        "excluded": "slice/bound/operand analysis and captures; actual-subtype construction; type/object freezing; direct assignment/guard syntax; guard condition analysis already in scalar aggregate; callback placement; source multiplicity/backend",
+        "composition_examples_not_thresholds": [suppressed_slice_assignment_checks(1),
+                                                 suppressed_slice_assignment_checks(127)],
+    },
+    "general_analyzed_scalar_bound_capture": {
+        "premises": "already analyzed signed Integer tree, no actions/pending checks/volatile/packed/unaligned aspects; root attributes have object-name prefixes; existing scalar types frozen; ordinary nonallocating placement; Related_Id empty",
+        "ordinary_nodes": 5, "entities_and_names": 1, "lists": 1,
+        "growth": 0, "Uint": 0, "name_characters": 13,
+        "second_capture_extra": 0,
+        "excluded": "first bound analysis; external related-name construction; source derivation of retained pure bound size; action placement",
+    },
+    "concat_runtime_cache": {
+        "entity_seeds": [f"RE_Str_Concat_{i}" for i in range(2, 10)] + ["RE_SS_Pool", "RE_SS_Allocate"],
+        "distinct_seed_units": 9, "direct_successful_entity_cache_misses": 10,
+        "direct_Load_RTU_empty_Elist_headers": 10,
+        "Main_private_ancestor_elements": 0,
+        "Main_implicit_with_clauses": 9, "ordinary_nodes_per_implicit_with": 4,
+        "Main_implicit_with_ordinary_nodes": 36,
+        "excluded": "recursive dependency semantic/parse/expansion costs; implicit-with pairs in other units; fixed helper declaration and call analysis; failed lookup/retry configurations; source-to-installed runtime identity",
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",

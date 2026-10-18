@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records sixty-three inspected files hash-checked against the complete source
+records seventy-seven inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -650,8 +650,33 @@ entity-name branch before examining `Original_Node`
 (`exp_util.adb:14447–14475`). This differs from the dereference case above,
 where a mutable original renaming can remain relevant. Consequently the
 `Resolve_Slice` force followed by `Set_Slice_Subtype`'s second force does not
-recapture an already-captured scalar bound. More general scalar expression
-capture/reanalysis still needs its corresponding shape transfer.
+recapture an already-captured scalar bound.
+
+The same five-node/one-entity/one-list transfer extends to an **already
+analyzed scalar bound tree** under the same frozen-type, suppression,
+no-pending-check and ordinary-placement premises. Permit signed Integer
+arithmetic/conversions, scalar conditionals, ordinary scalar references and
+First/Last/Length attributes whose prefixes are object-name views. Exclude
+expression actions, packed/unaligned references, volatile/aspect-bearing
+objects, non-name attribute prefixes and allocating rewrite callbacks.
+`Side_Effect_Free` either accepts the whole tree or the elementary branch
+captures its whole root with one shallow relocation; it does not copy or
+reanalyze the initializer's children. The attribute-prefix special case
+cannot intercept this route because each permitted prefix is a name reference;
+slices and explicit dereferences satisfy that predicate
+(`exp_util.adb:12717–12828,14425–14697`,
+`sem_util.adb:19072–19116`). The relocated tree retains Analyzed, so both
+Analyze and Resolve return before child processing. The prior declaration
+skeleton applies without requiring the initializer to be an identifier.
+Every possible captured root has at least the identifier's slot size, so the
+final rewrite does not grow a node. A second forced evaluation still costs
+zero. This closes capture **after** first bound analysis; it does not give a
+size bound for a tree left intact because it is already side-effect-free.
+
+With `Related_Id` empty, the existing internal-name allowance remains 13
+characters. A caller supplying a related subtype name must instead charge
+the external `_FIRST`/`_LAST` name construction
+(`exp_util.adb:12557–12617`); it cannot reuse the serial-name allowance.
 
 ### Building the subtype of an ordinary String slice
 
@@ -1905,6 +1930,245 @@ loading, later object freezing, final result/call/assignment analysis, wrapper
 placement and source-to-invocation multiplicity. The values A, b and l have
 not yet been replaced by source-derived summaries. This is still not a native
 capacity predicate and does not authorize admission changes.
+
+### Suppressed native slice-assignment length checks
+
+The slice assignments at `exp_ch4.adb:3554–3620` pass `Suppress => All_Checks`.
+This does **not** avoid length-check condition construction or analysis.
+`Apply_Length_Check_On_Assignment` skips only when its node carries
+`Suppress_Assignment_Checks`; the emitter does not set that flag
+(`checks.adb:2248–2281`). `Apply_Selected_Length_Checks` calls its selector,
+then analyzes the generated conditional raise even when `Checks_On=False`,
+before rewriting it to null (`3509–3614`). Both semantic assignment analysis
+and native array assignment expansion can call this path
+(`sem_ch5.adb:1040–1054`, `exp_ch5.adb:341–900`). Charge **two passes**.
+
+The following transfer covers only checks and the assignment/optional-if
+skeleton. Its premises are ordinary nonpacked one-dimensional Standard String
+slices in Main; no atomic, controlled, alignment, representation or access-
+assignment special case; frozen target/source types; source actual subtype
+already cached or constrained (or a literal RHS); no diagnostics, pending
+checks or allocating callbacks; and the preceding finite query graph class,
+with A bounding every original **and generated** scalar query. Slice and
+operand analysis, any actual-subtype construction, type/object freezing,
+first bound captures and action placement remain separate.
+
+With those premises the length selector uses type-based Length references,
+or an existing literal length. For dimension one it **omits** an explicit
+dimension argument, so those attributes own no syntax lists. It builds at
+most six ordinary nodes: two two-node attributes, one Ne and one conditional
+raise. A statically known pair of lengths costs at most six Uint appends;
+the matching/subtype comparisons otherwise only read existing scalar bounds.
+There is one check, no OR tree and no access guard
+(`checks.adb:9969–10132,10186–10451`, `sem_eval.adb:6702–6835`).
+
+These Length operands initially have **Universal_Integer** type. The earlier
+exact-Integer/no-root-Length comparison transfer therefore does not close
+their native expansion. `Expand_N_Op_Ne` can first call
+`Narrow_Large_Operation`, then `Optimize_Length_Comparison`
+(`exp_ch4.adb:10162–10258`). For a comparison, narrowing performs two
+Determine_Range calls, two Get_Size_For_Range calls, builds one operator and
+two ordinary conversions, then reanalyzes the concrete signed comparison.
+The canonical type is an existing 32-, 64- or 128-bit Standard signed type;
+the inner comparison cannot narrow again. There are consequently at most
+**two** Length-optimizer entries: the narrowed comparison's entry and the
+outer caller's entry (`14372–14542`, `exp_util.adb:8852–8890`).
+
+One Get_Size_For_Range tests sizes 32, 63, 64 and 127. Its greatest cached
+power is `2^126`, and it performs at most eight negations. Charge a conservative
+136 Uint appends per call, including up to 126 cold power-cache extensions;
+the `Siz-1` arithmetic stays directly represented
+(`exp_ch4.adb:13566–13608`, `uintp.adb:1357–1405`). Two calls cost at most 272.
+For the two generated regular conversions, the target is a static Standard
+integer type, and the operand is the already analyzed Length or a fitting
+literal. A fold costs two nodes/one growth; an unfolder conversion cannot enter
+the dynamic-literal or nested-universal conversion simplifiers. Suppression
+prevents new checks. The remaining signed-integer native conversion branches
+add nothing (`sem_ch4.adb:6419–6458`, `sem_res.adb:12337–12480,13343–13425`,
+`sem_eval.adb:4178–4343`, `checks.adb:3805–3919`,
+`exp_ch4.adb:12210–12312,12340–12860`).
+
+Each Length optimizer can try both operand orders, hence up to two range
+queries and two `2^32` requests. It can construct four First/Last attributes,
+four unchecked signed conversions and two arithmetic nodes, and perform two
+explicit Compile_Time_Compare queries. The `Maybe_Superflat` early return
+occurs **after** speculative construction, so abandoned nodes still count.
+Otherwise it rewrites to one concrete comparison whose operands are
+First/Last or arithmetic, not root Length; this new comparison cannot enter
+another Length optimization (`exp_ch4.adb:14584–15164`).
+
+Unchecked conversions to Long_Long_Integer cost at most three constructor
+nodes and two analysis nodes/one growth each. Their children are existing
+resolved scalar expressions or the four new First/Last attributes, with no
+intermediate conversion to Universal_Integer. They have no unsafe-conversion
+capture, biased representation or modular arithmetic route
+(`tbuild.adb:912–984`, `sem_ch4.adb:6591–6602`,
+`sem_res.adb:12940–12980`, `sem_eval.adb:4442–4500`,
+`exp_ch4.adb:12861–12893`, `exp_util.adb:13839–13947`). The preceding scalar
+arithmetic/comparison transfers apply to the existing signed Standard types
+with checks suppressed: the relevant cases depend on signed Integer kind,
+not a 32-bit subtype, and the no-root-Length condition now holds. The
+query-magnitude premise must include the wider types; a 32-bit digit bound
+cannot be carried across this transfer.
+
+`derive.py` records and sums the following rows. Builder cost includes a
+saved original for rewriting and the smaller constant-result alternative.
+The four attributes are charged once each even when two are analyzed early
+for the explicit comparisons; later Analyze calls retain their Analyzed flag.
+
+| One optimizer entry | Ordinary nodes | Growth | Uint appends |
+| --- | ---: | ---: | ---: |
+| Constructor nodes, including abandoned alternatives | `27` | `1` | `0` |
+| Four First/Last analyses | `8` | `4` | `0` |
+| Four unchecked conversion analyses | `8` | `4` | `0` |
+| Two signed arithmetic analyses | `4` | `2` | `4` |
+| One concrete comparison | `40*A+5` | `2` | `160*A+120` |
+| Two explicit comparison queries | `40*A` | `0` | `160*A+120` |
+| Range queries and cold power-cache allowance | `0` | `0` | `12*A+64` |
+| Total | `80*A+52` | `13` | `332*A+308` |
+
+Two initial Length analyses, the initial and narrowed comparisons, narrowing
+construction/conversions/queries, two optimizer entries, the check builder,
+static length arithmetic, conditional-raise analysis and final null rewrite
+give **`280*A+144` nodes, 39 growing events, `1156*A+1262` Uint appends** per
+length-check pass. There are no new lists, entities, names, Elists or String
+values in these closed stages. Retained numeric digits must cover both the
+query/arithmetic magnitude bound and `2^126` (nine base-32768 digits).
+
+The ordinary String assignment's native overlap handling performs at most
+two more Compile_Time_Compare queries when both sides are slices. With no
+reason to require an element loop, it returns to the backend even when
+overlap is possible (`exp_ch5.adb:341–900,3321–3337`). An optional generated
+if around one assignment adds at most two nodes/one growth after condition
+and child analysis: known conditions move existing statements or become null;
+there is no elsif/else, controlled cleanup or return-statement optimization
+(`sem_ch5.adb:1991–2157`, `exp_ch5.adb:4767–5037`,
+`exp_util.adb:12192–12378,14018–14140`). Current-value bookkeeping only sets
+fields; a generated assignment in Main does not record a library elaboration
+scenario (`sem_ch5.adb:1065–1135`, `sem_elab.adb:13995–14009`).
+
+Thus two length passes, overlap queries and the optional guard skeleton add
+at most **`600*A+290` nodes, 79 growth events, `2472*A+2644` Uint appends** per
+generated slice assignment, under the stated premises. Its direct syntax and
+guard comparison are already counted in the direct/scalar aggregate. This
+row deliberately excludes the slice's own analysis/copy/capture and incoming
+subtype costs; it cannot yet be multiplied by source concat count to obtain
+a whole-native bound.
+
+### Source grammar, concat groups and replay boundary
+
+The String grammar includes parentheses, so a nested concat can be a right
+operand; it is not sufficient to count one expansion per source expression.
+`Resolve_Op_Concat` resolves the first leaf, then each right operand before
+processing its enclosing concat. Every operator's result base is Standard
+String. A concat folded by Eval_Concatenation becomes a literal; otherwise
+native `Expand_N_Op_Concat` defers a left-child concat, gathers its same-type
+left spine and expands that group (`sem_res.adb:10570–10839`,
+`exp_ch4.adb:8006–8095`). The grouping ignores parenthesis metadata; right
+subtrees have already been resolved and expanded.
+
+For one first traversal of a source String-expression forest with c binary
+concat nodes, let its actual surviving native groups have arities n_i>=2.
+Each group consumes n_i-1 distinct, previously unexpanded concat nodes, and
+those sets are disjoint. Thus:
+
+```text
+group count g <= c
+sum_i (n_i - 1) <= c
+sum_i n_i <= c + g <= 2*c.
+```
+
+Parser/static folding can only reduce those source groups. This gives a
+useful linear multiplier for direct **group** stages. It does not bound
+operand-copy size, scalar query unfolding, String literal folding volume or
+whole-program reanalysis. In particular, a native group having two retained
+operands can still copy a large decorated view produced by a child group.
+
+The grammar-to-current-syntax alternatives at that boundary are:
+
+| Author form | Current native value entering a parent concat |
+| --- | --- |
+| Literal, including parser/semantic folded concat | String literal; separate literal subtype/value costs |
+| Ordinary declared String name | Existing object reference, or a copied/reanalyzed generated renamed view |
+| Standard Integer Image | Previously expanded buffer slice; scalar argument and runtime call live in earlier actions |
+| Nonfolded child concat | Its new result object/view, optional result slice, or an already-resolved retained operand |
+| Parentheses | The enclosed form, with parenthesis metadata |
+
+The only author function returning unconstrained String is the first input
+initializer; it is not a String atom in later expressions. The later name
+does not cause arbitrary initializer substitution: Expand_Current_Value is
+restricted to discrete types, and the late constant-String initializer
+propagation copies only a literal. Native declaration rewriting can instead
+record an already analyzed renamed object. A renamable captured function
+result is an explicit dereference; its call remains in its capture initializer
+(`exp_ch2.adb:124–236,372–533`, `sem_ch3.adb:5436–5453`,
+`exp_ch3.adb:8603–8643,9485–9487`, `exp_util.adb:8896–8916,13793–13830`).
+
+This narrows concat duplication to resolved values/views. It does **not**
+make their later analysis free. `Expand_Renaming` copies Renamed_Object,
+explicitly resets analyzed flags, then analyzes/resolves the copy
+(`exp_ch2.adb:701–719`). A copied slice consequently may build another slice
+subtype, capture a bound or follow a generated pointer renaming. Its syntax
+and owned type decorations must use the decorated-copy transfer, followed by
+the applicable replay transfer. Source object bounds also have an independent
+native declaration path: Expand_Subtype_From_Expr uses an existing slice
+index, a literal range, a constrained type or a new actual subtype; it cannot
+be replaced by the GNATprove light model's Standard.String shortcut
+(`exp_util.adb:5864–6115`, `sem_ch3.adb:5020–5159,5341`).
+
+For the still-open grammar bridge, record per value both its syntax-tree
+summary and its owned semantic-type/range summary, and record scalar query
+roots through captured initializers and type bounds. A runtime bound such as
+String length 4096 is not a bound on any of these graph sizes. The group-count
+inequalities above apply to first source traversal only; all caller copying
+before resolution, renamed-view replay and library-body/contract processing
+must be accounted for before asserting a compilation-wide invocation count.
+
+### Native runtime cache and direct helper seeds
+
+The concat emitter's Str_Concat_2 through Str_Concat_9 and SS_Pool lookups,
+plus the generated allocator's SS_Allocate lookup, give **ten entity seeds
+in nine runtime units**. The eight concat specs contain only their ordinary
+String procedure declaration and depend on parent System; Secondary_Stack
+also names Parameters and Storage_Elements. SS_Pool and SS_Allocate map to
+the same Secondary_Stack spec (`rtsfind.ads:3493–3498`,
+`libgnat/s-conca2.ads` through `s-conca9.ads`, `libgnat/s-secsta.ads:32–111`).
+Its private types and generic declaration remain real fixed-dependency
+semantic work; this small seed list does not make that work zero.
+
+For an available, correct installation, `RTE` caches a successful entity in
+RE_Table. Every distinct seed can therefore enter Load_RTU at most once from
+these direct calls; the following RTE_Available/RTE pair does not parse the
+same runtime again. Load_RTU also checks the unit cache and only runs
+Semantics if the selected compilation unit is not already analyzed. RTE
+temporarily disables front-end inlining while loading
+(`rtsfind.adb:1102–1215,1530–1635,1642–1672`).
+
+There is a small cost **before** Load_RTU's unit-cache guard: its Priv_Par
+initializer always creates an Elist header (`1022–1032`). The direct ten
+entity cache misses can therefore allocate ten such headers, although only
+nine different units are involved. Main has no private package ancestors,
+so its Save_Private_Visibility adds zero elements. Recursive calls made
+while analyzing runtime units need their own closure; this direct allowance
+does not cover those calls.
+
+`Maybe_Add_With` deduplicates implicit with clauses by both runtime unit and
+current semantic unit. Repeated direct lookups in Main add at most nine
+clauses, not one per concat. Every seed is a two-level System child;
+Make_Unit_Name constructs at most three nodes, and the with clause adds one,
+for **36 ordinary nodes** total. It appends to Main's existing Context_Items
+list and creates no new header. RTE_Available suppresses this addition in the
+selected non-SCIL mode (`rtsfind.adb:1236–1261,1266–1335`). Other semantic
+units require a bound on distinct (requesting unit, runtime unit) pairs;
+nine is not a compilation-wide with-clause bound.
+
+No new array entry is appended to the fixed RE_Table or RT_Unit_Table.
+Name interning, unit loading and semantic processing have separate costs;
+the target package's successful parse already interns each selected entity
+identifier. Failed availability queries can be retried and do not satisfy
+the successful-cache invariant. The frozen tool/runtime identity and full
+fixed-dependency parse/semantic/expansion envelope remain prerequisites for
+using this cache result in a whole-native capacity predicate.
 
 ## Required transitive closure
 
