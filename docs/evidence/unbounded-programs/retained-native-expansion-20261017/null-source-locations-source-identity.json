@@ -1,0 +1,334 @@
+{
+  "scope": "Selected null Main source filenames, source maps, GNAT associations and ad-hoc locations",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_numbering": "Literal LF",
+  "files": [
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/gigi.h",
+      "bytes": 56241,
+      "sha256": "6e2940a89abb01b7218eff64e13b3aabbc7a9970870670816160dc5991ba48e2",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/toplev.cc",
+      "bytes": 72691,
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/input.cc",
+      "bytes": 117157,
+      "sha256": "8016245a4a83cc704e505be8e69bc5b46722721f86338bc23ddc55419a286fc7",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/input.h",
+      "bytes": 8377,
+      "sha256": "606f75d9a6689e18935cb4e18a2e06532ba408722848531123e36be5b28dc92c",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree.h",
+      "bytes": 281689,
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/stringpool.cc",
+      "bytes": 8292,
+      "sha256": "779d6578fa49c937be8650ea40e8fd92d7698eaf0076ae501450989174331df1",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/gimple-low.cc",
+      "bytes": 45880,
+      "sha256": "da94ffa5208c13411156858f93ccb9f772f30da912ccaff6c8119ffd82edbafb",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/gimple.h",
+      "bytes": 166069,
+      "sha256": "33b8d4bef37de5b5395cae298f6da5707a6e07505487ee343e760282d87b96f3",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/gimple.cc",
+      "bytes": 106015,
+      "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/gimplify.cc",
+      "bytes": 703569,
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree-cfg.cc",
+      "bytes": 306672,
+      "sha256": "8a3ee6948a9580197089f40217c960679658223901fef53dee3d50c26862fe44",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree-ssa-live.cc",
+      "bytes": 49687,
+      "sha256": "52edc87c7b0d3a45f92c72322cb18a20b0fbd481e8a8eb17f9d1d936c6cf3872",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree-eh.cc",
+      "bytes": 147108,
+      "sha256": "ec91367a1c50765f9ef7bd0f7e66f121e38289aba315ae0302399b510e024431",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree-inline.cc",
+      "bytes": 214934,
+      "sha256": "fd7e55d826abce9e7e8ffd47a52fd11befec98346c9a73982620d322e232f903",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/gimple-fold.cc",
+      "bytes": 371680,
+      "sha256": "e0c4eff5300b96ffe9303db8c2ebdfeb8097b34b574a215b82e777d70d2db497",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ipa-param-manipulation.cc",
+      "bytes": 84347,
+      "sha256": "599c00bbe1f3a7b4bcd7728fa36a35373a33ab79813a7e7fb5dbfbca54947b21",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ipa-split.cc",
+      "bytes": 66168,
+      "sha256": "315666da244ecaf91a29cfb82b445145c2b2c64500f46a2ccf05ae636f2eaca7",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/lto-streamer-in.cc",
+      "bytes": 64470,
+      "sha256": "48dd36a7756a37b424616579d07de740ed9ff23733e546a337e6bbb2837a9917",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/tree-streamer-in.cc",
+      "bytes": 39585,
+      "sha256": "89c58ec2149c306fed86b90cf06db7b64e00a8c6bab8fd56e51f3d06292b71eb",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/config/i386/i386-features.cc",
+      "bytes": 154425,
+      "sha256": "8177560659b4f519c41fe30c025867f075b465cff8e4f6da884d615afebf5c0f",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/hierarchical_discriminator.cc",
+      "bytes": 9547,
+      "sha256": "6ce6683801a4f0c37926a8302155965cbb1b2f087eceddb960194cfe05ea41eb",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/cfgloopmanip.cc",
+      "bytes": 63269,
+      "sha256": "fa3cb898895e40bc2671b4f2ec8aab3199cc5938eeb4431cbc815c163ed0d30a",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/ggc.h",
+      "bytes": 11939,
+      "sha256": "7347400b56f734e1f8c6cd0c3406470bbbcb6fed43392920d67fc53cd1e589a8",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/emit-rtl.cc",
+      "bytes": 193419,
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90",
+      "root": "gcc"
+    },
+    {
+      "path": "gcc/cfgexpand.cc",
+      "bytes": 226526,
+      "sha256": "31027cc2a135939da3d49147e647e4f95f50bfeaa5597b82dddef38ae1aced53",
+      "root": "gcc"
+    },
+    {
+      "path": "libcpp/line-map.cc",
+      "bytes": 86805,
+      "sha256": "d451c89e3145c6bea1e1f3f413c9071b61139aabbbe15a004dabf81b51e0b8fd",
+      "root": "gcc"
+    },
+    {
+      "path": "libcpp/include/line-map.h",
+      "bytes": 53179,
+      "sha256": "4088fa107d3b3c6d1f750b43e284178aeffd0679d091956744eb62462b9a1ab5",
+      "root": "gcc"
+    },
+    {
+      "path": "libcpp/symtab.cc",
+      "bytes": 9383,
+      "sha256": "006987dd5863baf9520478a27958f9d450fbf76b90eed3fe6917e6c7315ff1d9",
+      "root": "gcc"
+    },
+    {
+      "path": "include/hashtab.h",
+      "bytes": 7398,
+      "sha256": "f8df4e157b05833188c1580dff3462e4faef56919fa865d4584faba6f5cb8c18",
+      "root": "gcc"
+    },
+    {
+      "path": "libiberty/hashtab.c",
+      "bytes": 29804,
+      "sha256": "fd1f80771bb0317dc96e396010db33c99116eaa921f0dd39b2171c56a9f5ac6f",
+      "root": "gcc"
+    },
+    {
+      "path": "back_end.adb",
+      "bytes": 14372,
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8",
+      "root": "ada"
+    },
+    {
+      "path": "sinput.adb",
+      "bytes": 37385,
+      "sha256": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8",
+      "root": "ada"
+    },
+    {
+      "path": "sinput-l.adb",
+      "bytes": 30951,
+      "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd",
+      "root": "ada"
+    },
+    {
+      "path": "sinput.ads",
+      "bytes": 43979,
+      "sha256": "48657f3ca583b754d10f2798fb61c54d85b556c2cd6f10036acff685d57a682b",
+      "root": "ada"
+    },
+    {
+      "path": "gnat1drv.adb",
+      "bytes": 60186,
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173",
+      "root": "ada"
+    },
+    {
+      "path": "frontend.adb",
+      "bytes": 19745,
+      "sha256": "c3322dab69929c2ff3eef9f768d98574cf56d337e452b2206eb44eb552f7ee67",
+      "root": "ada"
+    },
+    {
+      "path": "lib-load.adb",
+      "bytes": 39122,
+      "sha256": "4f589143677f09575bebbd041abe3d0001c480b6392cccbfd60e699f7fa8f09b",
+      "root": "ada"
+    },
+    {
+      "path": "lib-writ.adb",
+      "bytes": 61061,
+      "sha256": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342",
+      "root": "ada"
+    },
+    {
+      "path": "adaint.c",
+      "bytes": 85922,
+      "sha256": "4cc1ffe9386f4164bd613a356a096340463e9f2d26a6e70dbfc9632968b2318c",
+      "root": "ada"
+    },
+    {
+      "path": "opt.ads",
+      "bytes": 93026,
+      "sha256": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e",
+      "root": "ada"
+    },
+    {
+      "path": "switch-c.adb",
+      "bytes": 59201,
+      "sha256": "dbb1b360a6a58368d21cdf71cc3cf55c2803741f4dcf97aaf45b71e13d170c58",
+      "root": "ada"
+    },
+    {
+      "path": "namet.adb",
+      "bytes": 48624,
+      "sha256": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc",
+      "root": "ada"
+    },
+    {
+      "path": "types.ads",
+      "bytes": 46466,
+      "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+      "root": "ada"
+    },
+    {
+      "path": "types.h",
+      "bytes": 14364,
+      "sha256": "3b688be6eaba2108885ddaa0342be93416f3f53da12d3e4f6dc2fb38ee787fa3",
+      "root": "ada"
+    }
+  ],
+  "reused_results": [
+    {
+      "path": "native-null-cgraph-lifecycle.json",
+      "bytes": 1575,
+      "sha256": "e11e7a9ff861dfcd5aafc700fd7a11d5ccec8ab3a50ec74c0f705d8523d1b33e"
+    },
+    {
+      "path": "native-null-initial-gimple.json",
+      "bytes": 5240,
+      "sha256": "52914e7fa3db2320af81a457afda45dae33d599d76f33f39e84cc268a7c8487c"
+    },
+    {
+      "path": "native-null-gigi-inputs.json",
+      "bytes": 6725,
+      "sha256": "c65e452a6386cfca32986638b830d8867f6b0dbb21d4fab0a2ca4753ec8625d7"
+    },
+    {
+      "path": "native-null-gigi-metadata.json",
+      "bytes": 2544,
+      "sha256": "3eda86898f726a203d6a56c86f6a2cb01e380d687ad7081a40e0171440063e5a"
+    },
+    {
+      "path": "native-indexed-source-buffers.json",
+      "bytes": 3203,
+      "sha256": "4f2e91941ccc91fed0fcc3e93f45d96e06a112a4548ac9857dc07803ed047089"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "scope": "Selected null Main source filenames, source maps, GNAT associations and ad-hoc locations",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "complete_sources_verified": 50,
+  "reused_results_verified": 5,
+  "source_files_at_most": 3,
+  "source_file_roles": [
+    "startup System",
+    "one selected -gnatec",
+    "single indexed Main"
+  ],
+  "virtual_sources_and_macro_maps": 0,
+  "Ada_file_info_array_component_bytes": 12,
+  "Ada_file_info_array_bytes_at_most": 36,
+  "source_line_maximum_required": 16777216,
+  "maximum_encoded_location_with_later_columns": 12884901881,
+  "filename_spellings_at_most": 4,
+  "identifier_length_existing_requirement": 32767,
+  "shared_identifier_insertions_at_most": 39266,
+  "shared_identifier_table_slots_at_most": 65536,
+  "shared_identifier_table_individual_bytes_at_most": 524288,
+  "new_GGC_requests": [
+    {
+      "object": "filename_identifier_nodes",
+      "events": 4,
+      "individual_raw_bytes_at_most": 40
+    },
+    {
+      "object": "filename_NUL_strings",
+      "events": 4,
+      "individual_raw_bytes_at_most": 32768
+    },
+    {
+      "object": "ordinary_line_map_vector",
+      "events": 1,
+      "individual_raw_bytes_at_most": 8192
+    },
+    {
+      "object": "GNAT_association_arrays",
+      "events": 2,
+      "individual_raw_bytes_at_most": 17179869176
+    },
+    {
+      "object": "ad_hoc_location_backing",
+      "events": 1,
+      "individual_raw_bytes_at_most": 5120
+    }
+  ],
+  "new_GGC_events": 12,
+  "updated_selected_known_GGC_subtotal": 40098,
+  "ad_hoc_location_requests_at_most": 12,
+  "ad_hoc_backing_capacity": 128,
+  "ad_hoc_backing_rounded_bytes_at_most": 8192,
+  "ordinary_ad_hoc_hash_control_bytes_at_most": 128,
+  "ordinary_ad_hoc_hash_backing_bytes": 1016,
+  "GNAT_association_array_rounded_bytes_at_most": 17179869184,
+  "input_requirements": [
+    "Controlled selected invocation: one -gnatec, -gnatA, no target-description/JSON/SCO/PCH/LTO/debug inputs",
+    "Declaration-free null Main source closure and indexed-null System reuse",
+    "Existing complete-path descriptor and every interned spelling <=32767",
+    "Positive last logical line <=16777216 for each actual physical file",
+    "Existing frontend node inventory N=Last_Node_Id-First_Node_Id+1 <=IntLast"
+  ],
+  "remaining_terms": [
+    "Ada Uint/Repinfo callbacks",
+    "Collector pages/finalizers",
+    "Whole-invocation process/library setup and teardown",
+    "Separate assembler/binder/linker/proof-producer composition"
+  ],
+  "reachability_basis": "Handwritten selected-route source argument; anchors do not prove reachability",
+  "complete_capacity_result": false,
+  "native_execution": false,
+  "aggregate_RAM_admission_gate": false
+}

@@ -10167,6 +10167,135 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
   --output /tmp/native-null-cgraph-lifecycle.json
 ```
 
+## Null source, filename and location join
+
+This joins the earlier [backend location transfers](retained-backend-capacity.md#whole-file-native-line-maps)
+to the selected declaration-free null Main. It preserves the controlled native
+invocation, including one generated `-gnatec` file, `-gnatA`, the indexed Main
+correction and the existing complete-path descriptor. It does not generalize
+the null file count to output-capable programs or count the old capture's
+configuration bytes as the delivered configuration.
+
+**Source-file multiplicity.** `Sinput.Initialize` clears the source table;
+the synthetic Standard declarations do not create a file (`sinput.adb:616–623`).
+Startup loads System once for target parameters and saves its index
+(`gnat1drv.adb:1047–1088`). The frontend loads the one selected configuration;
+`-gnatA` disables the separate default `gnat.adc` branch
+(`frontend.adb:167–239`, `switch-c.adb:313–315`). Main adds one physical file.
+The null root closure above has no semantic imported unit, generic instance,
+inline body or inherited-pragma virtual copy. The source-table constructors
+are the physical-load and instantiation-copy routes in `sinput-l.adb`; the
+selected invocation adds neither target-description nor JSON representation
+input. The indexed-null ALI path reuses `System_Source_File_Index` rather than
+loading System again (`lib-writ.adb:149–208` and the indexed-source-buffer
+result above). Therefore **F <=3**: System, configuration and Main. The
+configuration descriptor is the delivered **327-byte** indexed configuration.
+No failed source-load entry survives to the successful backend call.
+
+`back_end.adb:80–87,123–130` constructs one three-Int file-info record per
+active file. Its LP64 component size is12bytes and its array is at most36bytes;
+the C mirror has the same three signed32-bit fields (`gigi.h:238–243`). The
+supplied line number is the maximum logical line, not merely the LF count.
+Retain the existing per-file condition **1 <= n_i <=16,777,216** and count
+actual logical lines for every selected file. With no preexisting ordinary
+map, h=1 and F<=3, the prior normal-location recurrence, including four later
+column positions, is bounded by **12,884,901,881**. This is below
+`0x50000000 <<31`; it does not remove the independent per-file map-reuse guard.
+The ordinary-map vector needs one256-entry/8192-byte GGC allocation, with no
+growth. Ada uses no macro maps here. `Generate_SCO_Instance_Table=False`
+(`opt.ads:738`, selected argv excludes `switch-c.adb:822`) leaves `file_map`
+null, so Sloc conversion cannot allocate declaration-to-instance entries
+(`trans.cc:339–343,11006–11036`).
+
+**Filenames and node associations.** `File_Name_to_gnu` interns each file's
+`Full_Debug_Name` (`trans.cc:282–292`). On this host,
+`__gnat_to_canonical_file_spec` returns its input pointer unchanged
+(`adaint.c:3158–3161`), without another string or canonicalization workspace.
+`get_global_context` can additionally intern `main_input_filename`
+(`utils.cc:877–885`). Charge all four requests as cold misses, even when
+the fourth spelling duplicates a full-debug name or a prior prefix name.
+Each miss contributes one40-byte identifier and one NUL-terminated string.
+The existing complete-path/name check requires every such spelling<=32767,
+so each string requests at most32768bytes; this is the frontend's actual Short
+conversion condition, not a newly chosen pathname cap. Complete-path descriptor
+enforcement remains part of the larger unfinished invocation join.
+
+These insertions join the shared identifier hash: **39257+5+4=39266** is below
+the65536-slot table's75% threshold. Its maximum pointer request stays524288bytes;
+filenames do not start a separate identifier table. The earlier gigi initialization
+also allocates the ordinary and dummy-node association arrays
+(`utils.cc:430–439`). Charge their two GGC events here, using the existing
+frontend node input **N=Last_Node_Id-First_Node_Id+1 <=Int'Last**. Each raw
+request is8N<=17,179,869,176bytes and rounds to at most2^34. This retains the
+required frontend node proof and does not infer N from a sample.
+
+**Ad-hoc locations.** Plain gigi Sloc conversion returns encoded ordinary
+locations; its `SET_EXPR_LOCATION` calls introduce no combined-location map.
+Lowering the sole null body can call `gimple_set_block` once per initial tuple;
+four initial tuples plus a conservatively charged fallthrough return give
+at most five requests (`gimple-low.cc:173,705`). Lowered return replacement
+copies the existing location rather than creating another combined location
+(`gimple-low.cc:1180–1217`). The initial CFG's at most three statements and
+four edges give at most seven discriminator requests, with no PHIs or calls
+(`tree-cfg.cc:1085–1187`). Thus **H<=5+3+4=12** is a conservative request count,
+not an observed count or an assumption that repeated locations are distinct.
+
+The remaining combined-location writers are excluded by the selected graph
+and pass interfaces already established above: there are no call arguments,
+throwing assignments or cleanup bodies, no outlined/inlined/cloned function,
+no LTO/PCH input, no dispatcher or loop cloning/vectorization, and no debug
+statements. Specifically, `tree-ssa-live.cc:605–679` needs variable value
+expressions, debug or clobber statements to clear block pointers; null has
+none. `tree-eh.cc:971,1222,2128` needs cleanup or throwing-assignment paths;
+`tree-cfg.cc:546` needs an abnormal-goto assignment. Call/debug constructors
+in `gimple.cc:406,932,953`, argument block attachment in
+`gimple-low.cc:810–819`, call folding/parameter manipulation, moving regions,
+tree-inline remapping and i386 dispatcher generation have no null input.
+Hierarchical discriminator writers require loop duplication/vectorization or
+inlining, absent here (`cfgloopmanip.cc:1486–1509`,
+`hierarchical_discriminator.cc:78–181`). Generic `make_location` consumers
+are other frontends, excluded diagnostics/string-range extraction or selftests;
+the prior warning interface emits no null diagnostic. RTL location assignment
+copies encoded locations; its selected non-cloning path adds no such writer.
+The fixed prefix has no lowered GIMPLE body; its synthetic RTL cost setup
+does not create a source-location constructor. Reuse of a block/location
+does not consume a new entry, and the bound still charges each selected request.
+
+The ad-hoc backing therefore allocates once:128*40=5120 rawbytes, rounded by
+GGC to8192. Its ordinary libiberty hash starts at127pointers/1016bytes plus
+a control object bounded by128bytes; twelve entries cannot trigger growth.
+`linemap_init` creates that empty hash (`line-map.cc:426–440`), so its fixed
+requests remain present even when all location requests reuse entries. They
+are ordinary allocations, outside the GGC event sum. Destruction frees the
+hash/backing; no PCH reconstruction or hash-pointer rebasing is selected.
+
+The complete metadata allowance is **8 filename +1 ordinary-map +2 association
++1 ad-hoc =12 GGC events**, bringing the known subtotal to **40,098**. Ada
+Uint/Repinfo callbacks, collector pages/finalizers and whole-process/library
+setup/teardown remain separate. No sum of allocation bytes becomes an
+aggregate memory admission gate, and no completed capacity rule follows yet.
+
+The [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-source-locations.py)
+verifies50 complete source identities and five retained results, including the
+indexed-null correction and initial CFG shape. Its
+[result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-null-source-locations.json)
+retains the incoming requirements and unresolved joins. Source anchors support
+reconciliation of the handwritten reachability argument; they do not prove
+the C/C++ semantics. No compiler, prover, debugger or new capture ran.
+
+Independent narrow review replayed the50 source identities and five inputs
+byte-for-byte, then checked the file multiplicity, name/association routes,
+lowering/discriminator writers and backing arithmetic. It accepted F<=3,
+H<=12 and the12-event transfer under the stated null/invocation premises;
+path/node enforcement and the other phase joins remain required.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-source-locations.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --ada-root /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --output /tmp/native-null-source-locations.json
+```
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available

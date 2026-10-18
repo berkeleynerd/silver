@@ -73,3 +73,10 @@ expansion, adds two 104-byte ordinary hash backings and the fixed IFUNC bitmap,
 and adds zero GGC events. Independent source review replayed and accepted this
 lifecycle interface. Source metadata, collector callbacks and whole-process
 composition remain open.
+
+`reconcile-null-source-locations.py` joins the null source/filename/ordinary-map,
+GNAT association-array and ad-hoc location interfaces. It checks50 complete
+sources and five prior results, adding12GGC events for a known subtotal40,098.
+The result retains the actual line/name/node requirements and the delivered
+indexed configuration; it does not complete Ada callbacks, collector/process
+composition or capacity assurance. No native tool ran.
