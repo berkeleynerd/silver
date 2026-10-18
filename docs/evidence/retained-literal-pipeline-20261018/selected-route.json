@@ -1,0 +1,9 @@
+{
+  "scope": "selected literal invocation and numeric design route",
+  "core_descriptor": "selected-core-fixture.json",
+  "runtime": {
+    "cwd": "/tmp/silver-literal-route-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+    "binder_temporary_root": "/tmp/silver-literal-route-20261018/ttttttttttttt"
+  },
+  "host_page_bytes": 4096
+}

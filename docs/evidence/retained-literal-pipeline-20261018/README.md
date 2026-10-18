@@ -450,3 +450,54 @@ and no compiler/assembler/linker/debugger/capture/build/prover/solver or
 full-suite execution occurred. Only this packet and the aggregate source note
 changed. Parent owns independent review and integration. The detailed current
 argument and scope are in the final section of the linked source note.
+
+## Current selected-route wrapper
+
+`selected-route.py` is the current design-route entry point. It uses the
+unchanged `compose.py` with `selected-core-fixture.json`, then attaches the
+accepted invocation graph and Ada numeric leaf. `fixture.json`, the original
+core result and every pre-existing core/leaf input pin remain unchanged.
+
+```sh
+python3 docs/evidence/retained-literal-pipeline-20261018/selected-route.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --ada-root /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --plugin-include /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/plugin/include \
+  --gcc-match /tmp/silver-backend-compose-20261018/folding-sources/match.pd \
+  --output /tmp/selected-literal-route.json
+```
+
+`--source` selects other actual source bytes in the same recognized family.
+`selected-route.json` fixes cwd109/TMP48, P=512 spelling bytes and 4096-byte
+host pages. Native, datarep and both proof phases bind the same Main role,
+without implying a complete producer/proof argv graph. Invocation and storage
+interfaces receive P+1=513 including NUL. The historical short root is a
+different route. The selected graph contains no GPR or fixed-child rebuild
+job; fixed native reuse does not waive Silver library proof.
+
+`selected-route-result.json` is the current Hello result. Its top-level
+predicates and open joins are final for this attachment. `core_result` is the
+unchanged core evaluation before the outer invocation/numeric join; its three
+unknowns and nested shared diagnostics remain explicitly scoped intermediate
+results. The invocation's conservative linker input likewise stays visible;
+the active joined result is `core_result.literal_output_linker`. All 40 core
+local guards remain, the three unknowns take their existing conditional values,
+and three invocation plus five numeric guards give 48 final predicates.
+
+Hello, mixed empty/8192 literals and 5,000 calls have all 48 predicates true,
+with no unresolved selected-route condition. The numeric totals are
+28420+9C / 107726+71C / 67 / 504; the separate GCC partial ledger is unchanged.
+Whole native/proof/pipeline capacity, parent storage and production adoption
+remain false, and complete imported totals remain null. No costs are summed
+across these separate intervals.
+
+`check-selected-route.py` takes the same source-root flags and `--output`.
+Its retained 97 checks passed in 5.222947 seconds, including a real capacity
+failure that still returns the graph, all old/new guard failures and interface
+mutations. The default was generated inside that run. One earlier harness
+expectation missed propagated ALI/consumer/GPR scalar failures for the long-line
+case; one isolated diagnosis and an expectation-only fix preceded the recorded
+success. Existing broad and leaf success evidence was reused without rerunning
+those suites. See `selected-route-check-results.json` and the final section of
+the source note for exact scope, source correspondence, validation counts and
+remaining work. Parent owns independent review and integration.

@@ -1,32 +1,31 @@
 # Literal-output pipeline composition checkpoint
 
 2026-10-18, Linux x86-64, research [#119](https://github.com/berkeleynerd/silver/issues/119).
-The [callable aggregate](../evidence/retained-literal-pipeline-20261018/README.md)
-now drives the established literal-output native and Why formulas from one
-actual source byte string and a checked common configuration/System/library
-descriptor. The conditional arithmetic passes for `samples/hello_world.adb`.
-**Whole literal-pipeline capacity remains unestablished.** Following
-[finding #131](https://github.com/berkeleynerd/silver/issues/131), the
-reviewed emission attachment now closes the complete selected compiler-stream
-and global label sources, with explicit next-value guards. Actual production
-argv, invocation/materialization and fixed link inputs remain unestablished. The
-counter/emission attachment closes the graph's selected registration/pass
-frontier; the reviewed original String/Main/context attachment now supplies
-the local tree-pool premise. The aggregate reports three conditions as unknown,
-separately from arithmetic failure; its evaluated-predicates result is false
-even for Hello. The literal-sized ranger/out-of-SSA backing is
-substituted. Initial SSA infrastructure and renaming also have a separate
-constructor delta. Initial CF/EH/CFG/root-loop constructors now also have a
-conditional join. The two original String size-helper constructors now have the separate request
-join below. Cold String residual and original Main requests now also join,
-with source-bound fixed context I<=114. Reviewed original shared storage and
-selected counters now join through `finalize_size_functions` return, before
-ordinary Main analysis. Remaining original/Ada metadata, later shared consumers
-and helper/pass lifetime still precede complete collector composition.
-The reviewed whole-body copy and data-address bounds are now attached separately.
-The independently accepted literal linker and Main ALI adapters also join the
-same source interface; binder parser/graph and complete launch work remain open.
-No production rule or option changed; #119 remains incomplete.
+The [selected-route wrapper](../evidence/retained-literal-pipeline-20261018/selected-route.py)
+now joins the reviewed native invocation graph and Ada numeric interval to the
+unchanged source-driven core. Its selected design result has no unresolved
+local predicates for Hello or 5,000 calls. **Whole literal-pipeline capacity
+remains unestablished.** Complete native lifetimes/collector storage, the
+materializing parent and producer/proof graph remain separate; production
+adoption stays false. The three former source-family invocation gaps are
+closed for this explicitly selected design route, with every old local guard,
+the refined linker guard and the new graph/numeric guards still conjunctive.
+No production rule, tool option or admission limit changed; #119 remains open.
+
+The original `compose.py`, `fixture.json`, input pins and result remain
+byte-identical to the accepted shared/linker attachment. They preserve the
+short-root route and its three unknown invocation predicates. The wrapper's
+`core_result` instead evaluates that same core on a new descriptor with the
+selected graph's 109-byte root; it retains the three intermediate unknowns
+until the outer join supplies their source argument. Those inner diagnostics,
+and the shared leaf's still-earlier inherited diagnostics, are explicitly
+scoped historical-in-derivation results. Only the wrapper's top-level
+conditions, assessments and `open_joins` describe the current selected route.
+
+The detailed current attachment is recorded in the final section. The
+following core sections explain their existing source/accounting intervals;
+references there to unresolved invocation or numeric joins describe the
+preserved core before the selected-route attachment.
 
 ## One source counter interface
 
@@ -2186,3 +2185,115 @@ checker's 5000-call expectation is updated for future runs, while its old
 result is retained. No compiler, assembler, linker, capture/debugger,
 proof/prover/solver, build or full-suite execution occurred. Only the aggregate
 packet and this note changed; parent owns independent review and integration.
+
+## Selected native design route and Ada numeric attachment
+
+The wrapper is based on integrated `6b21533df0` and consumes these accepted
+packets without changing their bytes:
+
+- Shared/linker attachment `99b7247d18`, reviewed in `b04b32a184`.
+- [Selected invocation graph](retained-literal-invocation-join.md)
+  `f3bc1d023b`, reviewed in `a9b1436f3b`.
+- [Ada numeric interval](retained-literal-ada-numeric.md) `3a7d590389`,
+  reviewed in `9fd3629370`.
+
+`selected-route.json` supplies explicit runtime configuration and points to
+`selected-core-fixture.json`. Native, datarep, phase1 and phase2 all bind the
+same actual Main byte identity to `runtime.cwd/main.adb`. The selected cwd is
+109 ASCII spelling bytes and the temporary root is 48; this is the accepted
+path class, not arbitrary-width coverage. P remains 512 spelling bytes. The
+invocation, GAS/BFD and linker interfaces therefore receive the identical
+513-byte NUL-inclusive envelope, with 4096-byte host pages. The original
+short-root fixture is preserved as a distinct route and cannot satisfy this
+join. The core's existing library directory is the checked source origin;
+the native graph copies those exact three sources into its project root.
+No files are materialized by this evidence callable.
+
+The invocation join compares actual source identities and complete counts,
+all four Main path bindings, configuration bytes, System identity and the
+three fixed Silver source identities. Both fixed Silver object identities
+are checked against the core linker's accepted artifact manifest; their
+selected ALIs are checked against the accepted closure. The reviewed leaf
+also retains the timestamp, installed-runtime and ordered-link-search
+configuration checks. Its complete emission result equals the core's
+emission result, and its assembler evaluation equals the entire assembly,
+GAS, ELF and storage projection. Its conservative linker result equals
+`core_result.literal_output_linker_historical_conservative` on this source.
+Applying the accepted refinement gives exactly the core's active linker
+result and refinement interface, including all 39 unchanged other guards.
+The old conservative signed failure for 5,000 calls remains diagnostic;
+it is not added as an extra final guard after the accepted refinement.
+
+The binder is a checksum/object family, not a fixed captured object identity.
+The join checks the reviewed section/symbol/relocation/alignment/text/data/file
+bounds and the actual Main ALI version edge, covering the full uint32 domain.
+Its 5,167,732 rounded GGC byte, 56,378 event and 262,144 largest rounded request
+bounds equal the core's accepted checksum projection. No binder hash equality
+is introduced. The selected native graph contains Main compilation, direct
+binding, binder compilation and linking. It has zero fixed Silver compile
+jobs and zero GPR/Gprbind jobs, with no rebuild or fallback. The core's
+pre-existing GPR local scalar checks are conservatively retained as guards;
+that does not insert a GPR process or a GPR allocation cost into this graph.
+Fixed native object reuse does not waive verification of the Silver library
+implementations, whose producer/proof job graph remains open.
+
+For each of the three old unknown conditions, the wrapper substitutes its
+existing conditional arithmetic value only after these correspondence joins.
+The source-family assessment is then closed for the selected design route,
+independently of whether that arithmetic passes. Three graph guards are added
+conjunctively. The graph remains computable for legitimate capacity failures;
+correspondence/configuration mismatches are rejected, while false capacity
+predicates are returned with their full graph and diagnostics. This closes
+the source-family invocation/input residual without requiring a production
+launcher. It does not establish complete materializing-parent storage.
+
+The numeric leaf receives the same raw source. Its complete frontend
+projection equals `core_result.native_Main_frontend_interface`; evaluating its
+unchanged original-Main builder with the core's I=114 gives the exact original
+interface. The scanner, 7C/61C constructor, 2C/10C original callback and UI_Ints
+wrapper-demand projections are explicitly equated. The full fixed incoming
+24,324/74,958/60/504 allowance and fixed floating 4,096/32,768/7/0 allowance
+remain charged. No overlap or cache credit is subtracted. Their sum is
+**28,420+9C Uints, 107,726+71C Udigits, 67 Ureals and 504 Rep_Table records**.
+All five numeric table/local-object/callback/index checks are added to both
+selected condition maps, preserving the nominal-ID, allocation and individual
+object constraints inside the accepted leaf.
+
+This is one selected Ada numeric interval. The shared leaf's historical
+incoming numeric nulls remain visible within its preserved interface; they
+are not current selected-route claims that this particular numeric interval
+is missing. The full frontend, original gigi, native, collector and proof
+capacity claims remain false, with complete imported event/byte totals null.
+The GCC partial event ledger remains unchanged (Hello: 2,312 known events),
+and no numeric or invocation row is added to it. Repeated interface projections
+are correspondence checks, not duplicate costs. Complete cache history and
+aggregate heap/RAM gates are not inferred.
+
+`selected-route-inputs.json` adds 21 current attachment input records and
+three exact historical acceptance-review identities. Existing validation
+remains: 205 core pins and 2,711 distinct current core files; invocation's
+37 repository records, 16 complete retained sources and 109 installed
+configuration identities; numeric's 61 identity records. These sets overlap
+and are reported separately, never summed into a unique-file count. The
+wrapper leaves the shared manifest's 35 current and three historical
+aggregate dependencies unchanged. Its new descriptor, wrapper and outputs
+are outside the core and leaf manifests, avoiding cyclic pins.
+
+The affected check passed **97 checks in 5.222947 seconds**,
+23:12:31–23:12:36 UTC on Linux x86-64. It generated the default selected Hello
+result during that same run. Cases include mixed empty/8,192-byte literals,
+5,000 calls, every inherited and new guard's independent failure, and
+source/count/path/System/emission/ELF/linker/Binder/object/ownership mutations.
+A 33,000-column source returns the full graph with four failures:
+`Main_expanded_columns`, `Main_ALI_interface`, `ALI_consumer_local_interfaces`
+and `GPR_parent_DW_local_interface`. The first run's test incorrectly expected
+only the first; an isolated diagnostic confirmed propagation, then only that
+test expectation was corrected before the successful affected run. No
+implementation correction or repeated successful broad run was needed.
+The checked record retains this rework and the exact implementation hashes.
+
+Selected settings were GPT-6 Astra / Extra High; runtime confirmation and
+token/cost measurements are unavailable. No compiler, assembler, binder,
+linker, prover, solver, debugger, capture, build, predecessor suite or full
+suite ran. Only the owned aggregate note/packet changed; the parent owns
+independent review, integration, index and round records, and publication.

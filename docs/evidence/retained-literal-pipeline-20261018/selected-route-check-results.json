@@ -1,0 +1,557 @@
+{
+  "started_utc": "2026-10-18T23:12:31.198846+00:00",
+  "completed_utc": "2026-10-18T23:12:36.421814+00:00",
+  "elapsed_seconds": 5.222946714999125,
+  "checks": 97,
+  "passed": [
+    {
+      "name": "Hello same actual source identities",
+      "passed": true
+    },
+    {
+      "name": "Hello all old predicates preserved except three source gaps",
+      "passed": true
+    },
+    {
+      "name": "Hello selected final diagnostics",
+      "passed": true
+    },
+    {
+      "name": "Hello selected source assessments closed independently of production",
+      "passed": true
+    },
+    {
+      "name": "Hello all numeric guards conjunctive",
+      "passed": true
+    },
+    {
+      "name": "Hello immutable core GGC ledger unchanged",
+      "passed": true
+    },
+    {
+      "name": "Hello missing totals and broad flags remain open",
+      "passed": true
+    },
+    {
+      "name": "Hello 39 linker guards and exact conservative input preserved",
+      "passed": true
+    },
+    {
+      "name": "Hello accepted numeric exact equality",
+      "passed": true
+    },
+    {
+      "name": "Hello separate partial2312 and numeric28429",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 same actual source identities",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 all old predicates preserved except three source gaps",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 selected final diagnostics",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 selected source assessments closed independently of production",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 all numeric guards conjunctive",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 immutable core GGC ledger unchanged",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 missing totals and broad flags remain open",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 39 linker guards and exact conservative input preserved",
+      "passed": true
+    },
+    {
+      "name": "5000_calls same actual source identities",
+      "passed": true
+    },
+    {
+      "name": "5000_calls all old predicates preserved except three source gaps",
+      "passed": true
+    },
+    {
+      "name": "5000_calls selected final diagnostics",
+      "passed": true
+    },
+    {
+      "name": "5000_calls selected source assessments closed independently of production",
+      "passed": true
+    },
+    {
+      "name": "5000_calls all numeric guards conjunctive",
+      "passed": true
+    },
+    {
+      "name": "5000_calls immutable core GGC ledger unchanged",
+      "passed": true
+    },
+    {
+      "name": "5000_calls missing totals and broad flags remain open",
+      "passed": true
+    },
+    {
+      "name": "5000_calls 39 linker guards and exact conservative input preserved",
+      "passed": true
+    },
+    {
+      "name": "5000 old conservative failure remains diagnostic",
+      "passed": true
+    },
+    {
+      "name": "expanded_column_failure same actual source identities",
+      "passed": true
+    },
+    {
+      "name": "expanded_column_failure all old predicates preserved except three source gaps",
+      "passed": true
+    },
+    {
+      "name": "expanded_column_failure selected final diagnostics",
+      "passed": true
+    },
+    {
+      "name": "expanded_column_failure selected source assessments closed independently of production",
+      "passed": true
+    },
+    {
+      "name": "expanded_column_failure all numeric guards conjunctive",
+      "passed": true
+    },
+    {
+      "name": "expanded_column_failure immutable core GGC ledger unchanged",
+      "passed": true
+    },
+    {
+      "name": "expanded_column_failure missing totals and broad flags remain open",
+      "passed": true
+    },
+    {
+      "name": "expanded_column_failure 39 linker guards and exact conservative input preserved",
+      "passed": true
+    },
+    {
+      "name": "real capacity failure returns full graph and all guards",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive shared_launch_paths",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive Main_source_EOF",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive Main_source_request",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive Main_line_table",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive Main_expanded_columns",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_Main_logical_lines",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_Main_frontend_literal_length",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_lowering_and_data",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_RTL_shape",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_selected_helper_backing",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_varpool_and_shared_tree_pool",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_graph_and_summary_lifetime",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_function_and_symbol_counter_endpoints",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_global_RTL_label_endpoint",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_global_constant_label_endpoint",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_SSA_helper_backing",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_initial_SSA_lifetime",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_initial_CF_CFG_lifetime",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_whole_body_copy_local_interface",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_initial_warning_map_lifetime",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_collector_callback_local_interface",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_original_helper_name_arithmetic",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_synthetic_individual_request_sizes",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive Main_assembler_object_interface",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive Main_GAS_BFD_storage",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive literal_output_linker_representation",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive Main_ALI_interface",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive ALI_consumer_local_interfaces",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive GPR_parent_DW_local_interface",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive Why_core",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive output_binder_checksum_no_collection",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_original_shared_identifier_hash",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_original_shared_type_hash",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_original_shared_integer_hash",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_original_shared_global_decls",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_original_shared_stmt_list_cache",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_original_shared_alias_sets",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_original_shared_scalar_finalizers",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_original_shared_selected_counter_endpoints",
+      "passed": true
+    },
+    {
+      "name": "inherited guard failure stays conjunctive native_original_shared_filename_ingress",
+      "passed": true
+    },
+    {
+      "name": "numeric guard failure stays conjunctive numeric_tables",
+      "passed": true
+    },
+    {
+      "name": "numeric guard failure stays conjunctive selected_local_numeric_objects",
+      "passed": true
+    },
+    {
+      "name": "numeric guard failure stays conjunctive float_callback_vector",
+      "passed": true
+    },
+    {
+      "name": "numeric guard failure stays conjunctive original_constant_callback_digits",
+      "passed": true
+    },
+    {
+      "name": "numeric guard failure stays conjunctive Rep_Table_index_negation",
+      "passed": true
+    },
+    {
+      "name": "invocation guard failure stays conjunctive selected_native_launch_graph_computable",
+      "passed": true
+    },
+    {
+      "name": "invocation guard failure stays conjunctive selected_main_emission_to_GAS_object_route_bound",
+      "passed": true
+    },
+    {
+      "name": "invocation guard failure stays conjunctive selected_fixed_link_input_materialization_computable",
+      "passed": true
+    },
+    {
+      "name": "source identity",
+      "passed": true
+    },
+    {
+      "name": "counts",
+      "passed": true
+    },
+    {
+      "name": "common path",
+      "passed": true
+    },
+    {
+      "name": "System",
+      "passed": true
+    },
+    {
+      "name": "emission",
+      "passed": true
+    },
+    {
+      "name": "link input",
+      "passed": true
+    },
+    {
+      "name": "binder family",
+      "passed": true
+    },
+    {
+      "name": "fixed object hash",
+      "passed": true
+    },
+    {
+      "name": "exact ELF interface",
+      "passed": true
+    },
+    {
+      "name": "numeric ownership",
+      "passed": true
+    },
+    {
+      "name": "historical short root cannot impersonate graph",
+      "passed": true
+    },
+    {
+      "name": "fixed route path conventions",
+      "passed": true
+    },
+    {
+      "name": "historical fixture unchanged and distinct route",
+      "passed": true
+    }
+  ],
+  "variants": [
+    {
+      "name": "Hello",
+      "source": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      },
+      "calls": 1,
+      "demands": {
+        "Uints": 28429,
+        "Udigits": 107797,
+        "Ureals": 67,
+        "Rep_Table": 504
+      },
+      "evaluated_predicates_pass": true,
+      "failed_predicates": [],
+      "unresolved_predicates": [],
+      "core_unresolved_predicates": [
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ]
+    },
+    {
+      "name": "mixed_empty_8192",
+      "source": {
+        "bytes": 8317,
+        "sha256": "f569f8f23e1e04cafd4d2a2c07b1c6c501abc1f3a476fd5183980be1f8161223"
+      },
+      "calls": 2,
+      "demands": {
+        "Uints": 28438,
+        "Udigits": 107868,
+        "Ureals": 67,
+        "Rep_Table": 504
+      },
+      "evaluated_predicates_pass": true,
+      "failed_predicates": [],
+      "unresolved_predicates": [],
+      "core_unresolved_predicates": [
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ]
+    },
+    {
+      "name": "5000_calls",
+      "source": {
+        "bytes": 105075,
+        "sha256": "234c2d636b062978236d028ecf1a20757488e5a2537e249d54ea47fe34537d43"
+      },
+      "calls": 5000,
+      "demands": {
+        "Uints": 73420,
+        "Udigits": 462726,
+        "Ureals": 67,
+        "Rep_Table": 504
+      },
+      "evaluated_predicates_pass": true,
+      "failed_predicates": [],
+      "unresolved_predicates": [],
+      "core_unresolved_predicates": [
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ]
+    },
+    {
+      "name": "expanded_column_failure",
+      "source": {
+        "bytes": 33094,
+        "sha256": "676f90ff58cfb3bf707b4974bccb239c055726aff632d922f76b0a7c4989c271"
+      },
+      "calls": 1,
+      "demands": {
+        "Uints": 28429,
+        "Udigits": 107797,
+        "Ureals": 67,
+        "Rep_Table": 504
+      },
+      "evaluated_predicates_pass": false,
+      "failed_predicates": [
+        "Main_expanded_columns",
+        "Main_ALI_interface",
+        "ALI_consumer_local_interfaces",
+        "GPR_parent_DW_local_interface"
+      ],
+      "unresolved_predicates": [],
+      "core_unresolved_predicates": [
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ]
+    }
+  ],
+  "validation": {
+    "current_attachment_input_records": 21,
+    "historical_acceptance_review_records": 3,
+    "core_current_input_records": 205,
+    "core_distinct_current_files": 2711,
+    "invocation_current_repository_records": 37,
+    "invocation_complete_retained_sources": 16,
+    "invocation_installed_configuration_records": 109,
+    "numeric_identity_records": 61,
+    "counts_overlap_and_must_not_be_added": true,
+    "accepted_reviews": [
+      {
+        "path": "docs/reviews/review-literal-shared-linker-attachment-99b7247d18.md",
+        "bytes": 8871,
+        "sha256": "48a1bbcf5d7f92c136bf216b6a4285ef68fe56f4861bfc7bba8a71459b904683",
+        "revision": "b04b32a18424d3fb6520cce671b5eeb59d58dead"
+      },
+      {
+        "path": "docs/reviews/review-literal-invocation-f3bc1d023b.md",
+        "bytes": 9898,
+        "sha256": "cc31c13d7f5409b30ebb7c07a347c16560c3812b1651a4a043c7a403fc8a56e9",
+        "revision": "a9b1436f3b5b3b37b2a809cee6901ba2c4d7e153"
+      },
+      {
+        "path": "docs/reviews/review-literal-ada-numeric-3a7d590389.md",
+        "bytes": 10993,
+        "sha256": "e148c176f1ea28b51154d90ff0b8acb19a3723acd87c004ebd38719e0022b565",
+        "revision": "9fd3629370f3e3277f6e8768bb2644863594ded9"
+      }
+    ]
+  },
+  "implementation_inputs": {
+    "selected-route.py": {
+      "bytes": 19049,
+      "sha256": "cc428a306f86692fbaeb7d357978fb5876f726ca596ec7dbea3a2d06c5ec7157"
+    },
+    "selected-route.json": {
+      "bytes": 372,
+      "sha256": "d93641709c95115f856ed1ab778dca481616d228b57b1b9dd6e07dec4d2f0562"
+    },
+    "selected-core-fixture.json": {
+      "bytes": 1475,
+      "sha256": "e85eeee8318825a1582a9c87c8a92e9466992c9ed3f393ab505fb244967360d5"
+    },
+    "selected-route-inputs.json": {
+      "bytes": 5283,
+      "sha256": "374256377b732b7f2bb2765486fdbaf6f3ef1acea76329b555521c81b10bf880"
+    },
+    "check-selected-route.py": {
+      "bytes": 12421,
+      "sha256": "3db85b9e34853c4f699139d7d417dd30a0f30bcd2912e4d23f2c2fde0f1775cf"
+    }
+  },
+  "native_tool_executions": 0,
+  "predecessor_suites_rerun": false,
+  "broad_suites_rerun": false,
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_cost_measurements": null,
+  "validation_rework": {
+    "first_run": "Stopped at an overly narrow expected failure list for the 33000-column case; no implementation change.",
+    "diagnostic": "One isolated case confirmed four existing scalar failures and full 48-guard graph.",
+    "correction": "Expected propagated ALI/consumer/GPR local failures as well as expanded columns.",
+    "rerun_reason": "Failed first affected run retained no result; corrected affected run provides complete reviewable evidence."
+  }
+}
