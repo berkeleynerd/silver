@@ -84,3 +84,18 @@ python3 docs/evidence/retained-linker-layout-20261018/check-fixed-payload.py --o
 This establishes original input quantities, not post-edit payload closure.
 No fixed common symbol or alignment above 64 bytes was found. Generated
 objects, synthetic growth and final hidden tables remain separate joins.
+
+The checker also retains the fixed merge-entry segmentation and alignment
+charges. Its 3,168,199-byte merge-output transfer follows the pinned
+`bfd/merge.c` grouping/deduplication/suffix and placement paths. The full
+merged allowance is added to original input bytes for per-input maxima
+across pre/post merge placement. Generated merge entries and other linker
+transformations remain open.
+
+Independent narrow review replayed this extended checker byte-equal against
+28 sources, four inputs, 15 fixed files and 1,161 archive members. It checked
+entry segmentation/extra zero, effective alignment, group matching,
+deduplication's maximum alignment, suffix removal, both output placement
+loops and final padding. It accepted the additive merge and original-plus-
+merged bounds, including the single merge-before-sizing source join.
+Generated group members/alignments and other transformations remain open.

@@ -478,6 +478,55 @@ supplies at most 12,712 section-payload bytes (420 ordinary, 2,352 symbol,
 zero NOBITS payload. Binder, EH/SFrame/property processing, synthetic dynamic
 payloads and final hidden tables remain to be joined.
 
+### Fixed merge-section growth
+
+Merge output can add inter-entry padding, so the original merge-byte sum
+is not used as its output bound. The same checker now segments every fixed
+`SHF_MERGE` section into strings or fixed-width entries, including the
+possible extra zero character supplied by `record_section`
+(`bfd/merge.c:354–386,736–776`). It finds 116,433 weighted entries in 4,895
+weighted sections. Every fixed String is already terminated, so the extra
+terminator allowance is zero. The per-entry effective alignment is the
+smaller of the section alignment and the largest power of two dividing its
+input offset; offset zero takes the section alignment (`758–771`).
+
+| Merge allowance | Bytes |
+| --- | ---: |
+| Original entry lengths, including terminators | 3,147,288 |
+| Sum of each entry's alignment minus one | 17,428 |
+| One final alignment minus one per input section | 3,483 |
+| Total merged payload envelope | **3,168,199** |
+
+These are additive charges, so they remain valid for any subset of archive
+members actually selected. A merge group requires the same entity size,
+String status, section alignment and output section (`677–684`). Hash
+deduplication retains one equal-length entry and the maximum of its
+occurrences' alignments (`403–427`); its charge is no larger than the sum
+of those occurrences' charges. Suffix folding removes entries. Both the
+String and fixed-entry output paths align once per retained entry and add
+its length (`938–950,1021–1039`), then align the representative section at
+most once (`1042–1045`). Charging that final alignment to every input section
+covers any grouping. A skipped/nonmerged input retains its original length,
+which is also no larger than its assigned charge.
+
+For the `B` requirement on per-input maxima across passes, retain the
+**entire** merged allowance in addition to the original fixed payload:
+
+```text
+fixed original payload + fixed merge output <= 49,374,640.
+```
+
+This deliberately charges the pre-merge payload and the possible merged
+representative payload together. It does not presume that the representative
+keeps only its original bytes, nor subtract absorbed members before a
+possible earlier placement. `bfd_merge_sections` is called once on the
+selected ordinary link path before final sizing (`ld/ldlang.c:8695,8747`);
+representatives and their merged lengths then remain fixed through RELRO
+recomputation. Generated entries may share a group with fixed entries:
+their own length/alignment/final-padding charges must be added. The fixed
+subtotal does not bound those entries or their alignment. EH, property,
+SFrame, dynamic and hidden-table transformations remain separate.
+
 ## Main substitution and residual work
 
 Substitute only the source-derived Main object envelope:

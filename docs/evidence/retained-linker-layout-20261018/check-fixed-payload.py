@@ -30,6 +30,15 @@ sources[extra['path']] = raw.decode()
 assert re.search(r'#define\s+SHN_COMMON\s+0xFFF2', sources['include/elf/external.h'])
 assert re.search(r'#define\s+SHN_LORESERVE\s+0xFF00', sources['include/elf/external.h'])
 assert re.search(r'#define\s+SHN_X86_64_LCOMMON\s+\(SHN_LORESERVE \+ 2\)', sources[extra['path']])
+for anchor in ['repr->entsize == sec->entsize',
+               'repr->alignment_power == sec->alignment_power',
+               'repr->output_section == sec->output_section',
+               'amt += sec->entsize;',
+               'eltalign = ((eltalign ^ (eltalign - 1)) + 1) >> 1;',
+               'if (hashp->alignment < alignment)',
+               'size += e->len;',
+               'secinfo->sec->size = (secinfo->sec->size + align - 1) & -align;']:
+    assert anchor in sources['bfd/merge.c'], anchor
 inputs = json.loads((root / 'inputs.json').read_text())
 for row in inputs:
     raw = (repo / row['path']).read_bytes()
@@ -76,7 +85,11 @@ def elf(raw, prior):
                      eh_frame_bytes=0, sframe_bytes=0, ctf_bytes=0,
                      attributes_bytes=0, property_note_bytes=0,
                      sframe_section_types=0, attributes_section_types=0,
-                     sframe_named_sections=0, attributes_named_sections=0)
+                     sframe_named_sections=0, attributes_named_sections=0,
+                     merge_input_sections=0, merge_entries=0,
+                     merge_entry_bytes=0, merge_entry_alignment_padding=0,
+                     merge_final_alignment_padding=0,
+                     merge_added_terminator_bytes=0)
     for name, h in zip(names, headers):
         if h[1] == 0:
             continue  # Header zero's extended-count fields are not payload.
@@ -89,6 +102,29 @@ def elf(raw, prior):
             result['alloc_alignment_padding'] += max(0, h[8] - 1)
         if h[2] & 0x10:
             result['merge_section_bytes'] += h[5]
+            result['merge_input_sections'] += 1
+            result['merge_final_alignment_padding'] += max(0, h[8] - 1)
+            # Mirror only the blob segmentation and element-alignment
+            # arithmetic of record_section/hashit, not linker execution.
+            # Charge every input even when relocation/type guards skip it.
+            assert h[9] > 0 and h[5] % h[9] == 0
+            data = payload(h) + bytes(h[9])
+            at = 0
+            while at < h[5]:
+                if h[2] & 0x20:  # SHF_STRINGS
+                    end = at
+                    while any(data[end:end + h[9]]):
+                        end += h[9]
+                    length = end - at + h[9]
+                else:
+                    length = h[9]
+                alignment = max(1, h[8])
+                element_alignment = min(at & -at if at else alignment, alignment)
+                result['merge_entries'] += 1
+                result['merge_entry_bytes'] += length
+                result['merge_entry_alignment_padding'] += element_alignment - 1
+                result['merge_added_terminator_bytes'] += max(0, at + length - h[5])
+                at += length
         if h[1] == 0x6ffffff4:
             result['sframe_section_types'] += 1
         if h[1] == 0x6ffffff5:
@@ -171,6 +207,11 @@ assert fixed['nobits_section_bytes'] == 124215
 assert fixed['common_symbols'] == 0 and maximum_alignment == 64
 assert fixed['sframe_section_types'] == fixed['attributes_section_types'] == 0
 assert fixed['sframe_named_sections'] == fixed['attributes_named_sections'] == 0
+assert fixed['merge_entries'] == 116433
+assert fixed['merge_entry_bytes'] == 3147288
+assert fixed['merge_entry_alignment_padding'] == 17428
+assert fixed['merge_final_alignment_padding'] == 3483
+assert fixed['merge_added_terminator_bytes'] == 0
 # Preserve the prior dependency-processing allowance, rather than assuming
 # the one explicit loader occurrence is the only one processed.
 additional = {k: 8 * v for k, v in loader.items()}
@@ -182,6 +223,10 @@ main_section_components = {key: main['object_file_components_upper'][key]
     for key in ['ordinary_payload', 'symbol_table', 'relocations',
                 'symbol_strings', 'section_strings']}
 assert sum(main_section_components.values()) == 12712
+merge_bound = (processed['merge_entry_bytes']
+               + processed['merge_entry_alignment_padding']
+               + processed['merge_final_alignment_padding'])
+assert merge_bound == 3168199
 result = {
     'scope': 'Original fixed section payload/alignment/common-symbol input; not post-edit layout closure',
     'source_files_verified': len(sources), 'prior_inputs_verified': len(inputs),
@@ -193,6 +238,8 @@ result = {
     'maximum_fixed_section_alignment': maximum_alignment,
     'source_derived_Main_original_section_components': main_section_components,
     'source_derived_Main_original_section_bytes_upper': 12712,
+    'fixed_merge_output_payload_upper': merge_bound,
+    'fixed_original_plus_merge_output_payload_upper': processed['all_section_bytes'] + merge_bound,
     'fixed_compressed_or_zdebug_sections': 0,
     'fixed_common_or_large_common_symbols': 0,
     'generated_objects_read': False,
