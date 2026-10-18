@@ -1,0 +1,71 @@
+{
+  "review_target": "f3bc1d023b0459c78c1fb70a33ffb93b8b9fa6ba",
+  "started_UTC": "2026-10-18T23:01:08.895788+00:00",
+  "finished_UTC": "2026-10-18T23:01:09.633445+00:00",
+  "elapsed_seconds": 0.7376531879999675,
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "probe_scope": "Retained hello-result equality; current complete Context identities; raw/resolved frontend, AS, collect2 and ld routing; fixed resolved-link paths; local early-search absence under materialized inventory; exact Silver D timestamp divergence",
+  "retained_result_equal": true,
+  "installed_inputs_checked": 109,
+  "raw_resolved_tool_routes": {
+    "frontend": {
+      "raw": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+      "bytes": 52570368,
+      "sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e",
+      "raw_path_bytes_with_nul": 164,
+      "resolved_path_bytes_with_nul": 157
+    },
+    "assembler": {
+      "raw": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/bin/as",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/x86_64-pc-linux-gnu/bin/as",
+      "bytes": 9792824,
+      "sha256": "d3619db5dcbcc59a6057a832bab523c9a79b1adcd5c8e98ad52307e4d742186e",
+      "raw_path_bytes_with_nul": 193,
+      "resolved_path_bytes_with_nul": 139
+    },
+    "linker": {
+      "raw": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/bin/ld",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/x86_64-pc-linux-gnu/bin/ld",
+      "bytes": 11063688,
+      "sha256": "5fedbb6086b0234eb990800507c0670cb572b48ad864a4d8e8f961ddddef09a0",
+      "raw_path_bytes_with_nul": 193,
+      "resolved_path_bytes_with_nul": 139
+    },
+    "collect2": {
+      "raw": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../libexec/gcc/x86_64-pc-linux-gnu/16.1.0/collect2",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/collect2",
+      "bytes": 1404416,
+      "sha256": "49afc5dd53ea83667299fbf42b96dd09f4faba2340ba507ccbefbbdf11d1377b",
+      "raw_path_bytes_with_nul": 167,
+      "resolved_path_bytes_with_nul": 160
+    }
+  },
+  "fixed_link_routes_checked": 15,
+  "local_early_absent_probes_checked": 24,
+  "Silver_ALI_dependency_rows": {
+    "silver_io.ali": {
+      "closure": [
+        "D silver_io.ads\t\t20261018061955 daeb09a6 silver_io%s",
+        "D silver_io.adb\t\t20261018061955 8325db53 silver_io%b",
+        "D silver_output_libc.ads  20261018061955 0639e720 silver_output_libc%s"
+      ],
+      "indexed/obj": [
+        "D silver_io.ads\t\t20261018085527 daeb09a6 silver_io%s",
+        "D silver_io.adb\t\t20261018085527 8325db53 silver_io%b",
+        "D silver_output_libc.ads  20261018085527 0639e720 silver_output_libc%s"
+      ]
+    },
+    "silver_output_libc.ali": {
+      "closure": [
+        "D silver_output_libc.ads  20261018061955 0639e720 silver_output_libc%s"
+      ],
+      "indexed/obj": [
+        "D silver_output_libc.ads  20261018085527 0639e720 silver_output_libc%s"
+      ]
+    }
+  },
+  "native_tool_executions": 0,
+  "proof_or_solver_executions": 0,
+  "full_focused_suite_repeated": false
+}
