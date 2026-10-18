@@ -12,8 +12,8 @@ separate historical unindexed proposed-option witness and the complete
 specifications. Original paths are in `manifest.json`.
 The installed files were read; no workspace or artifact was modified.
 
-`sources.tar.gz` contains ninety-four complete inspected source files:
-sixty-two GCC Ada files, twenty-five GCC backend files, one libcpp file, four
+`sources.tar.gz` contains one hundred complete inspected source files:
+sixty-seven GCC Ada files, twenty-five GCC backend files, one libcpp file, five
 GPR files and two Silver workspace-construction files. The GCC/libcpp files were reconciled against
 the earlier complete-source manifests for
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; GPR retains its previously used
@@ -32,6 +32,17 @@ additionally checks builtin/optab naming alphabets and reconciles the observed
 extra object names with generated elaboration/init names. It does not infer
 a universal object bound from those comparisons; the source
 argument and its remaining joins are stated in the component.
+
+Generation-buffer results combine that source projection with the append/reset
+invariant: 139 characters suffice for `Statement_Buffer`'s intermediate
+occupancy; direct path comments and the separate object-list buffer are charged
+independently. The six-argument indexed invocation template has at most 233
+bytes at the retained installation with `/tmp`, below the Linux driver's
+8,192-byte response threshold. The retained unindexed `build.stdout` confirms
+the historical command's shape without becoming an indexed command capture.
+The 1,000-character Gprbind exchange-row interface and its still-open fixed
+configuration/producer join are stated explicitly; final `.bexch` output is
+not represented as an original input capture.
 
 Replay without access to the original installations:
 

@@ -217,6 +217,74 @@ def analyze(artifacts, sources):
         "fixed_installation_noncomment_byte_projection": digest(outside_comments(indexed_bodies[0])),
     }
     assert body_constant+sum(map(len, paths)) == 7551+3*len(installation_root)+len(paths[3])
+    # A source read projection establishes the emitted family first. The
+    # monotone append/reset helpers then make the greatest fixed output-line
+    # width a bound on every intermediate statement-buffer occupancy.
+    bindgen = sources["gcc/ada/bindgen.adb"]
+    stm_assignments = re.findall(rb"^\s*Stm_Last\s*:=\s*([^;]+);", bindgen, re.M)
+    assert stm_assignments == [b"Stm_Last + True_Str'Length", b"Stm_Last + False_Str'Length",
+                               b"Stm_Last + 1", b"Stm_Last + 1", b"Stm_Last + S'Length", b"0"]
+    assert b"Statement_Buffer : String (1 .. 1000);" in bindgen
+    assert b"Statement_Buffer (Stm_Last - S'Length + 1 .. Stm_Last) := S;" in bindgen
+    object_options = re.search(rb"   procedure Gen_Object_Files_Options [^\n]+ is\n(.*?)   end Gen_Object_Files_Options;",
+                               bindgen, re.S)[1]
+    assert b"Set_String" not in object_options and b"Set_Char" not in object_options
+    assert b'WBI ("   --   " & Name_Buffer (1 .. Name_Len));' in object_options
+    assert b'WBI ("   --   " & Name_Buffer (Start .. Stop - 1));' in object_options
+    fixed_lines = indexed_specs[0].split(b"\n") + [line for i,line in enumerate(lines, 1)
+                                                 if i not in (194, 195, 196, 197)]
+    assert max(map(len, fixed_lines)) == 139
+    write_info = re.search(rb"   procedure Write_Info \(Info : String\) is\n(.*?)   end Write_Info;",
+                           sources["gcc/ada/osint.adb"], re.S)[1]
+    assert write_info.strip() == (b"begin\n      Write_With_Check (Info'Address, Info'Length);\n"
+                                  b"      Write_With_Check (EOL'Address, 1);")
+    assert b"type Column_Number is range 0 .. 32767;" in sources["gcc/ada/types.ads"]
+    assert b"Types.Column_Number'Pred (Types.Column_Number'Last)" in sources["gcc/ada/hostparm.ads"]
+    assert b"Buffer_Max : constant := Hostparm.Max_Line_Length;" in sources["gcc/ada/output.ads"]
+    assert b"Buffer : String (1 .. Buffer_Max + 1)" in sources["gcc/ada/output.adb"]
+    result["generation_buffers"] = {
+        "statement_capacity": 1000, "statement_occupancy_bound": 139,
+        "fixed_output_line_bound": 139,
+        "fixed_installation_all_output_line_bound": max(map(len, indexed_specs[0].split(b"\n") + lines)),
+        "stmt_index_assignments": [s.decode() for s in stm_assignments],
+        "variable_path_comments_bypass_statement_buffer": True,
+        "generated_source_sink_accumulates_whole_file": False,
+        "object_list_path_bytes": len(paths[0]),
+        "output_buffer_bytes": 32767,
+        "object_list_line_including_lf_bytes": len(paths[0])+1,
+        "scope": "selected generation and output buffers; compiler and driver allocations remain separate",
+    }
+    # Keep the historical unindexed command separate from the indexed
+    # source-derived template. The log corroborates the shape, not its bound.
+    old_command = re.findall(rb"^\S+/gnatbind (.*)$",
+                             artifacts["cases/unindexed-proposed/build.stdout"], re.M)
+    assert len(old_command) == 1
+    old_args = old_command[0].split()
+    assert len(old_args) == 6 and old_args[:2] == [b"-o", b"b__main.adb"]
+    assert old_args[2].endswith(b"/main.ali") and old_args[3] == b"-x"
+    assert old_args[4].startswith(b"-F=/tmp/GPR.") and old_args[5].startswith(b"-O=/tmp/GPR.")
+    main_ali_path = len(paths[0])+2
+    argv_constant = sum(map(len, [b"-o", b"b__main~1.adb", b"-x", b"-F=", b"-O="]))+6
+    assert argv_constant == 29
+    linux_link = sources["gcc/ada/link.c"].split(b"#elif defined (__linux__) || defined (__GLIBC__)")[1].split(b"#elif")[0]
+    assert b"int __gnat_link_max = 8192;" in linux_link
+    assert b'pragma Import (C, Maximum_Size, "__gnat_link_max");' in sources["gpr/gpr/src/gpr-util.ads"]
+    assert b"Line : String (1 .. 1_000);" in sources["gpr/src/gprbind.adb"]
+    result["selected_binder_arguments"] = {
+        "historical_unindexed_arguments": [a.decode() for a in old_args],
+        "argument_count": 6, "size_constant_excluding_ali_and_two_temp_paths": argv_constant,
+        "main_ali_path_bytes": main_ali_path, "tmp_root_example_bytes": 4,
+        "temp_path_bound_at_tmp_root": 40,
+        "size_including_argument_terminators_at_tmp_root": main_ali_path+argv_constant+2*40,
+        "linux_response_threshold": 8192,
+        "exchange_row_capacity": 1000,
+        "size_if_each_temp_path_fits_exchange_row": main_ali_path+argv_constant+2*1000,
+        "filename_pointer_and_index_array_slots_each": 8,
+        "filename_array_used_slots": 1,
+        "scan_retained_string_bytes_at_tmp_root": main_ali_path+13+2*40,
+        "main_directory_two_copy_bytes": 2*len(paths[1]),
+        "scope": "six-argument descriptor; exchange-row producer/configuration and search storage remain separate",
+    }
     compiler_support = {k.removeprefix("compiler-support/"): digest(v)
                         for k,v in artifacts.items() if k.startswith("compiler-support/")}
     for case in cases[:3]:
@@ -292,6 +360,9 @@ def analyze(artifacts, sources):
                 assert line == b"G a e"  # no invocation relation record
             assert not line.startswith(b"R ")  # no No_Dependence entries
     assert len(signature_texts) == len(set(signature_texts)) == 900
+    assert records["I"] == records["S"] == 0
+    result["generation_buffers"]["interrupt_and_dispatch_table_slots_each"] = 100
+    result["generation_buffers"]["interrupt_and_dispatch_setting_records"] = 0
     assert all(len(values) == 1 for values in dep_versions.values())
     assert not re.search(rb"^X ", main_proposed, re.M)
     assert b"-gnatx\n" in main_proposed and b"-Wno-free-nonheap-object\n" in main_proposed

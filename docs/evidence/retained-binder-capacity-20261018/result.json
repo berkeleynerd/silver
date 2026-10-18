@@ -9975,6 +9975,28 @@
     "source_union_including_fixed_runtime_and_virtual": 20541440,
     "spec_bytes": 14556
   },
+  "generation_buffers": {
+    "fixed_installation_all_output_line_bound": 191,
+    "fixed_output_line_bound": 139,
+    "generated_source_sink_accumulates_whole_file": false,
+    "interrupt_and_dispatch_setting_records": 0,
+    "interrupt_and_dispatch_table_slots_each": 100,
+    "object_list_line_including_lf_bytes": 123,
+    "object_list_path_bytes": 122,
+    "output_buffer_bytes": 32767,
+    "scope": "selected generation and output buffers; compiler and driver allocations remain separate",
+    "statement_capacity": 1000,
+    "statement_occupancy_bound": 139,
+    "stmt_index_assignments": [
+      "Stm_Last + True_Str'Length",
+      "Stm_Last + False_Str'Length",
+      "Stm_Last + 1",
+      "Stm_Last + 1",
+      "Stm_Last + S'Length",
+      "0"
+    ],
+    "variable_path_comments_bypass_statement_buffer": true
+  },
   "indexed_body_differing_lines": [
     [
       194,
@@ -10069,6 +10091,30 @@
     "observed_source_external_name_count": 152,
     "scope": "source naming alphabet and constructors; object counts and name-length bound remain open",
     "selected_explicit_section_and_assembly_ingress_absent": true
+  },
+  "selected_binder_arguments": {
+    "argument_count": 6,
+    "exchange_row_capacity": 1000,
+    "filename_array_used_slots": 1,
+    "filename_pointer_and_index_array_slots_each": 8,
+    "historical_unindexed_arguments": [
+      "-o",
+      "b__main.adb",
+      "/tmp/silver-native-option-probe-20261018/null-proposed/obj/main.ali",
+      "-x",
+      "-F=/tmp/GPR.251034/GNAT-TEMP-000005.TMP",
+      "-O=/tmp/GPR.251057/GNAT-TEMP-000001.TMP"
+    ],
+    "linux_response_threshold": 8192,
+    "main_ali_path_bytes": 124,
+    "main_directory_two_copy_bytes": 228,
+    "scan_retained_string_bytes_at_tmp_root": 217,
+    "scope": "six-argument descriptor; exchange-row producer/configuration and search storage remain separate",
+    "size_constant_excluding_ali_and_two_temp_paths": 29,
+    "size_if_each_temp_path_fits_exchange_row": 2153,
+    "size_including_argument_terminators_at_tmp_root": 233,
+    "temp_path_bound_at_tmp_root": 40,
+    "tmp_root_example_bytes": 4
   },
   "signature_hash_max_bytes": 37
 }

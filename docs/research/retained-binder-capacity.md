@@ -230,6 +230,56 @@ the binder compiler's arguments. It remains a bounded driver/binder input,
 with fixed normalized temp-root spelling and ordinary accessible temporary
 storage as configuration premises.
 
+### Generation scratch and output buffers
+
+`Bindgen.Statement_Buffer` has 1,000 characters (`bindgen.adb:46–50`). Its
+only index assignments are the five append increments in `Set_Boolean`,
+`Set_Char`, `Set_Int` and `Set_String`, and the zero reset after
+`Write_Statement_Buffer` (`:3435–3480,3579–3591,3644–3654`).
+`Set_String_Replace` overwrites an equal-length suffix; it does not shrink
+the occupied interval. Every selected append sequence reaches its flush,
+and its strings, names, Boolean spellings and decimal digits contain no LF.
+Therefore its occupancy is monotone between flushes and cannot exceed the
+length of the line eventually emitted. The fixed generation route also
+preserves `Set_Int`'s arguments, none of which is `Int'First`; its negative
+conversion does not introduce a new arithmetic failure for this family.
+
+The four path-bearing comments bypass this buffer: `Gen_Object_Files_Options`
+calls `WBI` directly for the object path and `-L` options
+(`bindgen.adb:2259–2351`). The already-derived generated source family thus
+gives **139 characters** as a conservative bound on every buffered line and
+every intermediate occupancy, including the fixed buffered comments. The
+checker computes this value after excluding only those four direct-write
+lines and checks the index-update and replacement sites. This is a transfer
+from the source read projection plus a buffer invariant, not a claim that
+the longest line in a few executions bounds an otherwise unknown generator.
+
+`WBI` renames `Write_Binder_Info`, which renames `Osint.Write_Info`.
+`Write_Info` writes its String argument and one LF directly through
+`Write_With_Check` (`osint-b.adb:193`, `osint.adb:3255–3260,3295–3300`).
+These routines do not accumulate a generated file in memory. The direct
+path-line concatenations have at most `max(O+8,D1+10,D2+10,R+10)` characters,
+**191** for this installation; their lengths and native write counts fit
+`Integer`. The file/source-buffer representation remains charged by the
+earlier generated-size formula.
+
+The separate `-O=` object list uses `Output.Write_Str`/`Write_Eol`, after
+`Set_List_File` selects its descriptor (`osint-b.adb:177–187`). Its single
+selected line is the Main object path: **122 characters plus LF**.
+`Output` has a **32,767-character** fixed buffer
+(`output.adb:28,423–463,559–564`, `output.ads:166`,
+`hostparm.ads:43–44`, `types.ads:181`). This selected line stays below its
+flush boundary; no whole object-list String is accumulated. Optional
+verbose/closure/listing routes retain their exclusion in the descriptor.
+
+The generated interrupt-state and priority-dispatch tables have 100 character
+slots each (`bindgen.adb:145–165`). The closure has no I or S records;
+`Set_IS_Pragma_Table` and `Set_PSD_Pragma_Table` traverse empty input ranges
+and append nothing (`:3486–3511,3552–3573`). No bind-environment entries are
+selected. These initial representations remain charged even though they
+contain no generated settings. This closes these generation/output buffers,
+not the generated-source compiler or the complete GPR driver allocation.
+
 ## ALI parser and signature-table capacity
 
 This extension bounds the native binder's ALI parser tables, signature map and
@@ -519,6 +569,78 @@ This closes the selected binder process's shared name-table representation
 capacity under the stated filesystem and invocation descriptor. It does not
 reuse these totals for Gprbind, the binder compiler or a broader Silver shell.
 Their separate processes and input structures retain their own obligations.
+
+### Selected argument storage and exchange-row constraint
+
+For the fixed static-runtime descriptor with no additional configured,
+project or command-line binder switches, Gprbind supplies six arguments:
+
+```text
+-o  b__main~1.adb  <Main ALI path>  -x  -F=<mapping file>  -O=<object list>
+```
+
+`gprbind.adb:561–611,674–696` constructs this list from one Main, no extra
+project dependency files and the two temporary paths. The proposed Main
+compiler options do not enter that construction. The retained historical
+unindexed `build.stdout` corroborates this shape, with its original basename
+and installation; it is not an indexed invocation capture.
+
+Let `Tm,To` be the two complete temporary-path lengths. Gprbind's `Size` is
+the sum of each argument's length plus one (`:727–745`), hence exactly
+`A+29+Tm+To`. For this installation and normalized `/tmp` root it is at most
+**233 bytes**. The Linux `__gnat_link_max` is **8,192**
+(`link.c:130–135`, imported by `gpr-util.ads:800–801`), under the same
+relevant-behavior premise. Thus the selected call uses direct arguments,
+without constructing or recursively expanding a response file.
+
+This direct-argument result also holds if both temporary names are at most
+1,000 characters: `124+29+2,000 = 2,153 < 8,192`. That number arises from a
+different existing tool representation: Gprbind reads its exchange file
+with `Line : String (1 .. 1_000)` and `Get_Line`
+(`gprbind.adb:85,270–273`). A longer logical row would be split and could be
+misinterpreted. The mapping path is one such row
+(`gprbuild-post_compile.adb:4412–4422`); the object-list path is generated
+by the same temporary-path template in Gprbind. Consequently an admissible
+installation descriptor must establish that every exchange row fits the
+1,000-character reader. The preceding `Short'Last` calculation is solely a
+Namet bound, not permission to use temporary names that violate this reader.
+
+The source-side exchange-row interface separates the quantities to charge:
+
+| Producer | Maximum row length to supply |
+| --- | ---: |
+| Mapping file | `T_root+36` |
+| Main dependency file | `A = K+30` |
+| Main project path | `K+27` |
+| Compiler path, fixed options, language/version and suffix fields, section labels and project checkline | Maximum of their fixed configured spellings |
+
+These rows are emitted at `gprbuild-post_compile.adb:4412–4561,4662–4793`;
+the null project contributes no imported project or additional source row.
+At the retained installation, Main ALI and project rows are 124 and 121
+characters, and the compiler path is 146. The complete original input
+exchange file was not retained: the surviving `.bexch` is Gprbind's rewritten
+output. The fixed configuration fields and complete producer inventory must
+still be joined before calling this a fully instantiated exchange-file bound.
+The 1,000-character condition is an identified tool interface requirement,
+not an adopted Silver source-size cap.
+
+In Gnatbind itself, `Generic_Scan_Bind_Args` constructs one argument-sized
+local String at a time (`gnatbind.adb:545–578`). The selected `-o`, `-F=` and
+`-O=` cases retain Strings of 13, `Tm` and `To` bytes; `Add_File` retains the
+`A`-byte Main path (`:350–359,485–491`, `switch-b.adb:61–76,451–454`,
+`osint.adb:570–585`). These four payloads total **217 bytes** at the `/tmp`
+bound, with at most **124 bytes** for the current argument copy.
+`Osint.File_Names` and `File_Indexes` each allocate `Argument_Count+2 = 8`
+slots (`osint.ads:733–749`); only one slot is used and no doubling occurs.
+The artificial runtime seed is an ALI parser input, not another argv file.
+
+`Next_Main_File` additionally allocates the Main directory substring and
+its normalized copy (`osint.adb:2005–2052,2128–2129`): **228 character bytes**
+for two 114-byte copies. The first allocation is charged even though its
+pointer is overwritten. This inventory closes the selected scanner's retained
+argument/file payloads and arrays. Default-path/environment reads,
+search-directory normalization and tables, OS spawn storage and GPR vectors
+remain separate allocations; none is assigned zero by this calculation.
 
 ## Fixed library/invocation graph projection
 

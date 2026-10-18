@@ -53,6 +53,7 @@ def main():
     add(artifacts, "cases/unindexed-proposed/probe.gpr", old/"probe.gpr")
     for file in ("main.ali", "b__main.ads", "b__main.adb", "b__main.ali", "b__main.o"):
         add(artifacts, f"cases/unindexed-proposed/{file}", old/"obj"/file)
+    add(artifacts, "cases/unindexed-proposed/build.stdout", old/"build.stdout")
     adalib = install/".tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
     for file in ["system.ads", "s-parame.ads", "s-secsta.ads", "s-stoele.ads"]:
         add(artifacts, "compiler-support/"+file, adalib.parent/"adainclude"/file)
@@ -80,7 +81,8 @@ def main():
                  "snames.ads-tmpl", "snames.adb-tmpl", "xsnamest.adb", "bcheck.adb",
                  "uname.adb", "targparm.adb", "csets.adb", "uintp.adb", "scans.adb", "fname.adb",
                  "exp_attr.adb", "exp_tss.adb", "exp_tss.ads", "sem_util.adb", "exp_ch11.adb", "adaint.c",
-                 "gcc-interface/utils.cc", "gcc-interface/ada-builtins.def"]
+                 "gcc-interface/utils.cc", "gcc-interface/ada-builtins.def",
+                 "osint.ads", "output.adb", "output.ads", "hostparm.ads", "link.c"]
     for file in ada_files:
         add(sources, "gcc/ada/"+file, args.gcc_ada/file)
     backend_files = ["cfgrtl.cc", "tree.cc", "varasm.cc", "stringpool.cc",
@@ -94,7 +96,8 @@ def main():
         add(sources, "gcc/"+file, args.gcc_backend/file)
     add(sources, "libcpp/symtab.cc", args.gcc_backend.parent/"libcpp/symtab.cc")
     for file in ["src/gprbind.adb", "src/gprbuild-post_compile.adb",
-                 "gpr/src/gpr_build_util.adb", "gpr/src/gpr-tempdir.adb"]:
+                 "gpr/src/gpr_build_util.adb", "gpr/src/gpr-tempdir.adb",
+                 "gpr/src/gpr-util.ads"]:
         add(sources, "gpr/"+file, args.gpr_source/file)
     for file in ["silver.adb", "silver_platform.adb"]:
         add(sources, "silver/src/"+file, install/"src"/file)

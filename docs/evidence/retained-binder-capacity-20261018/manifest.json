@@ -2,8 +2,8 @@
   "archives": {
     "artifacts.tar.gz": {
       "archive": {
-        "bytes": 206335,
-        "sha256": "1e2baea1fe58e347d24595c1024b9958189356245a9c21c0313ab635d923e247"
+        "bytes": 206780,
+        "sha256": "3a81a17f0d6aa42f61c8216ae22db4390990aa762cd8bd0e6bf92117aa7f9583"
       },
       "members": {
         "cases/indexed-cr/b__main~1.adb": {
@@ -130,6 +130,11 @@
           "bytes": 13424,
           "original_path": "/tmp/silver-native-option-probe-20261018/null-proposed/obj/b__main.o",
           "sha256": "e3262ab76ba603391cfc0b96f891d901db5553a0c2a95e89b1265d399a308a61"
+        },
+        "cases/unindexed-proposed/build.stdout": {
+          "bytes": 2378,
+          "original_path": "/tmp/silver-native-option-probe-20261018/null-proposed/build.stdout",
+          "sha256": "aa39e52a2492a2fdc985eec444a869718b80e02cf2afa9dc2f34cce83e396d2c"
         },
         "cases/unindexed-proposed/main.adb": {
           "bytes": 70,
@@ -475,8 +480,8 @@
     },
     "sources.tar.gz": {
       "archive": {
-        "bytes": 1826574,
-        "sha256": "ed0ce1546641c415dd31b428d895751d07c294c4ff16e23787e0f6f1aa0e4fb6"
+        "bytes": 1854684,
+        "sha256": "3753d18231316899a2f805a9b293ba9c0897a004e267074260bfaf4e2cac3fc8"
       },
       "members": {
         "gcc/ada/adaint.c": {
@@ -644,6 +649,11 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gnatbind.adb",
           "sha256": "d5bb79bcf0186aad36eb4e1d2714087497e8a0e4a0544b3ebca70af96cca9f06"
         },
+        "gcc/ada/hostparm.ads": {
+          "bytes": 3615,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/hostparm.ads",
+          "sha256": "b2196c2e037f2f07f1cc885bef246c3f2b63cab5c6b908b3fe17c9f4a4031895"
+        },
         "gcc/ada/lib-load.adb": {
           "bytes": 39122,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/lib-load.adb",
@@ -684,6 +694,11 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/s-os_lib.ads",
           "sha256": "ea714bd0754c1fe909b6bc4b9c25575e9f700ad0cdbf6714aa9b05e9ad260b91"
         },
+        "gcc/ada/link.c": {
+          "bytes": 10700,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/link.c",
+          "sha256": "277788244762287f640eff273144df29beff246d14fd632d36c7ec352984b6e4"
+        },
         "gcc/ada/namet.adb": {
           "bytes": 48624,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/namet.adb",
@@ -708,6 +723,21 @@
           "bytes": 105542,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/osint.adb",
           "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69"
+        },
+        "gcc/ada/osint.ads": {
+          "bytes": 38709,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/osint.ads",
+          "sha256": "f3c98d4108e17a7e7716dcde0603e5a557f55cccca82f9448c2c3bf119f19993"
+        },
+        "gcc/ada/output.adb": {
+          "bytes": 14658,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/output.adb",
+          "sha256": "11bd6d34393cd24f56f00e5fa56bafdc0bad140f30f83e6124a94de23a467c2b"
+        },
+        "gcc/ada/output.ads": {
+          "bytes": 9639,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/output.ads",
+          "sha256": "3213e4db907c7e66caea78acc8df3b5888f801ff1ac024f5110a7fd4a1c53285"
         },
         "gcc/ada/scans.adb": {
           "bytes": 9137,
@@ -918,6 +948,11 @@
           "bytes": 9084,
           "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tempdir.adb",
           "sha256": "5583152f80a95f0de5989522c9ccd9debc5c0bd04c412e2a8d0bb0675c363d03"
+        },
+        "gpr/gpr/src/gpr-util.ads": {
+          "bytes": 40562,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.ads",
+          "sha256": "6b0960e8cb073ed5046084655c2c3bdb4f0f5249feb147ae4ed98a05cd1dbd88"
         },
         "gpr/gpr/src/gpr_build_util.adb": {
           "bytes": 97750,
