@@ -365,6 +365,42 @@ def normalized_native_view():
                 pending_elist_headers=1, pending_elist_elements=2, hash_wrappers=3)
 
 
+def direct_native_copy_costs(n):
+    """Emitter copies, including raw bounds; excludes later analysis."""
+    assert n >= 2
+    view = normalized_native_view()
+    operand_low = view["copied_attribute_ordinary"]
+    last_bound = operand_low+2
+    high = operand_low+4
+    null_low = 4+last_bound+operand_low
+    null_high = 4+last_bound+high
+    raw_lists = 2*view["copied_lists"]+1
+    raw_entities = 2*view["copied_entities"]
+    copies = 4*n+4
+    duplications = 2*n+2
+    total = dict(
+        ordinary=copies*null_high+duplications*view["copied_ordinary"],
+        entities_and_names=copies*raw_entities+duplications*view["copied_entities"],
+        lists=copies*raw_lists+duplications*view["copied_lists"],
+        pending_elist_headers=copies*2+duplications,
+        pending_elist_elements=copies*4+duplications*2,
+        hash_wrappers=copies*6+duplications*3,
+        name_characters=13*(copies*raw_entities+duplications*view["copied_entities"]),
+        growth=0, uint=0)
+    assert (operand_low, last_bound, high, null_low, null_high,
+            raw_entities, raw_lists) == (67, 69, 71, 140, 144, 4, 11)
+    assert total == dict(ordinary=708*n+708, entities_and_names=20*n+20,
+                        lists=54*n+54, pending_elist_headers=10*n+10,
+                        pending_elist_elements=20*n+20, hash_wrappers=30*n+30,
+                        name_characters=260*n+260, growth=0, uint=0)
+    return dict(operands=n, raw_operand_low=operand_low,
+                raw_last_bound=last_bound, raw_high_before_null=high,
+                raw_null_low=null_low, raw_null_high=null_high,
+                raw_copy_entities=raw_entities, raw_copy_lists=raw_lists,
+                direct_remaining_copies=copies, direct_duplications=duplications,
+                total=total)
+
+
 result = {
     "source_commit": pin,
     "source_files_verified": len(files),
@@ -786,6 +822,18 @@ result = {
         "name_characters": "at most13*2 for copied internal itype names under existing serial premise",
         "Uint_or_String_values": 0,
         "excluded": "pre-normalization direct bound-copy sizes; all cumulative allocation/invocation counts; numeric A/magnitudes; enabled checks; runtime dependencies; backend; useful admission predicate",
+    },
+    "remaining_direct_native_copy_costs": {
+        "premises": "Main normalized incoming String views; raw operand bounds contain at most one such view, null selectors at most two; direct later copies occur after completed action analysis, not midway through scalar expansion; macro flagFalse; default Variable_Ref=False makes direct Duplicate_Subexpr inputs side-effect-free",
+        "each_remaining_New_Copy_Tree": "144 ordinary,4 entities/names,11 lists,2 pending Elist headers,4 elements,6 hash wrappers",
+        "each_Duplicate_Subexpr": "66 ordinary,2 entities/names,5 lists,1 pending Elist header,2 elements,3 hash wrappers",
+        "ordinary_nodes": "708*n+708", "entities_and_names": "20*n+20",
+        "syntax_lists": "54*n+54", "pending_elist_headers": "10*n+10",
+        "pending_elist_elements": "20*n+20", "hash_wrappers": "30*n+30",
+        "name_characters": "260*n+260", "growth_or_Uint_or_String_values": 0,
+        "excluded": "first raw bound analysis/captures; semantic helpers; generated subtype/call/assignment analysis; later freezing; placement; numeric queries; source-to-invocation count; backend/runtime closure",
+        "composition_examples_not_thresholds": [direct_native_copy_costs(2),
+                                                 direct_native_copy_costs(64)],
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",

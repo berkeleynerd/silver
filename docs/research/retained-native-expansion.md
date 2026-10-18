@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records seventy-seven inspected files hash-checked against the complete source
+records seventy-nine inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -2440,6 +2440,77 @@ and the pinned macro-flag setter inventory. This replaces the uncommitted
 exponential value recurrence: declaration-name substitution is not the native
 behavior for this grammar.
 
+### Remaining direct copies, including raw bounds
+
+The normalized value envelope also closes the remaining direct copy sites,
+without prematurely using normalized scalar bounds for the emitter's raw
+temporaries. Before first scalar analysis, an operand lower-bound attribute
+can still contain a complete incoming view. Its decorated-copy cost is at
+most 67 ordinary nodes, two owned entities and five lists. The last operand's
+explicit conversion adds two current nodes, giving 69. The selected low bound
+is either one operand lower bound or the one-node captured conditional-spine
+name. The high bound adds four nodes to that low expression. The two optional
+null selectors therefore have these decorated-copy envelopes:
+
+| Raw component | Ordinary nodes | Owned entities | Lists |
+| --- | ---: | ---: | ---: |
+| Operand/selected low | 67 | 2 | 5 |
+| Last operand bound with conversion | 69 | 2 | 5 |
+| High before null selection | 71 | 2 | 5 |
+| Low after null selection | 140 | 4 | 11 |
+| High after null selection | 144 | 4 | 11 |
+
+Each selector adds one conditional, its equality/aggregate/zero condition
+(three nodes), one three-element list, and its two bound arms. These are
+**decorated-copy** totals, including each embedded view's owned ranges; they
+are not counts of current syntax alone. Distinct associated slice nodes give
+at most two pending Elist headers, four elements and six hash wrappers.
+The known scalar-bound copies at 2905/2976 and the last-literal copies at
+2881/2886 are leaves. The `Get_Known_Bound` sites at 3179/3205 copy one
+operand bound each; they do not copy the recursively assembled conditional
+spine. The high-bound site at 3249 copies the selected low. The error and
+assignment sites at 3453/3556/3561 copy the result low. Thus **144 ordinary
+nodes, four entities/names and eleven lists** bounds each of the remaining
+`4*n+4` direct copies.
+
+No such direct copy occurs midway through action analysis. Before insertion,
+the raw grammar above applies. After completed storage/action analysis, bounds
+are either retained raw expressions or their smaller normalized/captured
+forms; transient scalar arm actions have been normalized as described above.
+The `New_Copy_Tree` of an object definition in `Find_Type_Of_Object`
+(`sem_ch3.adb:19135`) is specifically inside `In_Spec_Expression`. Main's
+native path instead relocates that definition (`19166`); this does not add a
+second raw definition-tree copy.
+
+The `2*n+2` direct `Duplicate_Subexpr` calls take incoming normalized String
+values. They pass `Name_Req=True` and leave `Variable_Ref=False`
+(`exp_util.adb:5323–5333,12527–12536`). Ordinary names and normalized views
+are side-effect-free with those arguments; the macro-renaming exception is
+unreachable. `Remove_Side_Effects` therefore returns before allocation
+(`12718–12723`). Each duplication costs only the **66-node, two-entity,
+five-list** decorated copy. Capture work from forcing a scalar *bound* remains
+a different event and is not erased by this result.
+
+Together, the remaining direct copies and duplicators contribute:
+
+```text
+ordinary nodes        708*n + 708
+entities/names         20*n + 20
+syntax lists           54*n + 54
+pending Elist headers  10*n + 10
+pending elements       20*n + 20
+hash wrappers          30*n + 30
+name characters       260*n + 260, including NUL
+growth/Uint/String     0.
+```
+
+The earlier direct/scalar/storage aggregate can add this vector; its own
+premises still require first raw-bound analysis/captures and exclude final
+call/assignment analysis, later freezing, placement and whole-source
+multiplicity. This is a closure of the direct copy addend, not of those
+semantic costs. The script checks these additions for representative `n`
+without running a compiler.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
@@ -2486,11 +2557,10 @@ The following missing addends prevent calling the native construct closed:
 
 - Bound incoming String subtype/operand shapes and values. Earlier semantic
   `Eval_Concatenation`/`Fold_Str` work needs its own String/Uint/node/entity costs.
-- Derive the decoration summaries for `4*n+4` remaining direct copies and
-  `2*n+2` duplications. The transfer and pure-view/Image cases above supply
-  their costs when the class invariant holds. Establish the incoming premises
-  for the closed mutable-renaming/scalar captures and slice subtype transfer,
-  and cover operands outside those classes.
+- Complete first raw-bound analysis/captures and incoming premises for the
+  slice subtype transfer. The Main grammar now supplies finite decoration
+  summaries for all direct copies and duplicators; the general mutable macro
+  renaming helper is unreachable for its ordinary String objects.
 - Close `2*n` collected declarations, `n+5` individual insertion calls, one
   explicit `Freeze_Itype`, up to two runtime-availability and two runtime-entity
   lookups, final analysis, value/comparison helpers and conditional error path.

@@ -1550,6 +1550,68 @@
     "Uint_or_String_values": 0,
     "excluded": "pre-normalization direct bound-copy sizes; all cumulative allocation/invocation counts; numeric A/magnitudes; enabled checks; runtime dependencies; backend; useful admission predicate"
   },
+  "remaining_direct_native_copy_costs": {
+    "premises": "Main normalized incoming String views; raw operand bounds contain at most one such view, null selectors at most two; direct later copies occur after completed action analysis, not midway through scalar expansion; macro flagFalse; default Variable_Ref=False makes direct Duplicate_Subexpr inputs side-effect-free",
+    "each_remaining_New_Copy_Tree": "144 ordinary,4 entities/names,11 lists,2 pending Elist headers,4 elements,6 hash wrappers",
+    "each_Duplicate_Subexpr": "66 ordinary,2 entities/names,5 lists,1 pending Elist header,2 elements,3 hash wrappers",
+    "ordinary_nodes": "708*n+708",
+    "entities_and_names": "20*n+20",
+    "syntax_lists": "54*n+54",
+    "pending_elist_headers": "10*n+10",
+    "pending_elist_elements": "20*n+20",
+    "hash_wrappers": "30*n+30",
+    "name_characters": "260*n+260",
+    "growth_or_Uint_or_String_values": 0,
+    "excluded": "first raw bound analysis/captures; semantic helpers; generated subtype/call/assignment analysis; later freezing; placement; numeric queries; source-to-invocation count; backend/runtime closure",
+    "composition_examples_not_thresholds": [
+      {
+        "operands": 2,
+        "raw_operand_low": 67,
+        "raw_last_bound": 69,
+        "raw_high_before_null": 71,
+        "raw_null_low": 140,
+        "raw_null_high": 144,
+        "raw_copy_entities": 4,
+        "raw_copy_lists": 11,
+        "direct_remaining_copies": 12,
+        "direct_duplications": 6,
+        "total": {
+          "ordinary": 2124,
+          "entities_and_names": 60,
+          "lists": 162,
+          "pending_elist_headers": 30,
+          "pending_elist_elements": 60,
+          "hash_wrappers": 90,
+          "name_characters": 780,
+          "growth": 0,
+          "uint": 0
+        }
+      },
+      {
+        "operands": 64,
+        "raw_operand_low": 67,
+        "raw_last_bound": 69,
+        "raw_high_before_null": 71,
+        "raw_null_low": 140,
+        "raw_null_high": 144,
+        "raw_copy_entities": 4,
+        "raw_copy_lists": 11,
+        "direct_remaining_copies": 260,
+        "direct_duplications": 130,
+        "total": {
+          "ordinary": 46020,
+          "entities_and_names": 1300,
+          "lists": 3510,
+          "pending_elist_headers": 650,
+          "pending_elist_elements": 1300,
+          "hash_wrappers": 1950,
+          "name_characters": 16900,
+          "growth": 0,
+          "uint": 0
+        }
+      }
+    ]
+  },
   "lexical_call_sites_not_a_reachable_call_graph": [
     {
       "line": 2829,
