@@ -113,10 +113,10 @@ The current derivation has seven reusable component groups:
 | --- | --- | --- |
 | [Source ranges](retained-source-closure.md), [fixed support](retained-fixed-support.md) | Physical-loader inventory, runtime union, grammar-to-helper seed coverage and conditional virtual-template/binder-source bounds | Effective invocation/search premises and source/tool correspondence; helper AST/value/backend costs are separate |
 | [Values and parsing](retained-value-capacity.md) | Main lexical/static String totals, at most two scans per literal, local Uint arithmetic and range-query costs | Fixed dependency parsing, generated value events and query multiplicities |
-| [Tables and nodes](retained-table-capacity.md) | Allocator demand envelope, Main line/column/name charges, qualification/homonym transfers, exact node layout and slot/list coupling | Complete generated-scope/name caller coverage, source-to-demand bounds and auxiliary representations |
+| [Tables and nodes](retained-table-capacity.md) | Allocator demand envelope, Main line/column/name charges, qualification/homonym transfers, exact node layout and slot/list coupling; parenthesis and Main parser auxiliary transfers | Complete generated-scope/name caller coverage, ordinary parser/semantic source-to-demand bounds and remaining auxiliary representations |
 | [Main entities](retained-frontend-entities.md) | Source-sensitive generated entity/type/literal multiplicities under GNATprove light expansion | Fixed dependency entities, native expansion and actual allocation event counts |
-| [Native expansion](retained-native-expansion.md) | Direct scalar/concat costs, decorated-copy and pointer/bound captures, plain slice subtype/freezing, Integer index layout and pre-suppression range-check tree transfers | Grammar-to-copy-shape coverage, numeric helper callbacks, remaining declaration/action/insertion-context closure |
-| [GNATprove producer](retained-producer-capacity.md), [control](retained-producer-control.md), [objects](retained-producer-objects.md), [calls](retained-producer-calls.md) | Expression/declaration/call wrappers, ordinary object/loop theories, type completion, array representations, loop frames, generated-declaration helpers and serialization/import components | Generated invocation/count map, fixed dependency setup, remaining auxiliary limits and complete caller coverage |
+| [Native expansion](retained-native-expansion.md) | Direct scalar/concat costs, decorated-copy and pointer/bound captures, plain slice subtype/freezing, Integer index layout, range-check trees and conditional generated arithmetic/comparison/attribute transfers | Grammar-to-copy-shape coverage, generated-child premises and multiplicities, remaining declaration/action/insertion-context closure |
+| [GNATprove producer](retained-producer-capacity.md), [control](retained-producer-control.md), [objects](retained-producer-objects.md), [calls](retained-producer-calls.md) | Assembled ordinary Main expression/entity/statement/list transfer, including literal definitions, loop frames and ignored frontend entries; serialization/import components | Source-derived frontend node input, memoized symbol/module setup, enclosing Main wrappers, fixed dependencies and remaining auxiliary limits |
 | [Native backend](retained-backend-capacity.md) | Whole-file line-map condition and location recurrence, Character String lowering and O0 emission transfers | Actual lowering counts, other GCC representations, code/data/frame bounds, assembler and relocation/linker closure |
 
 These are source-derived components with their own premises and review scope.
@@ -131,6 +131,14 @@ found no material issue in their respective frozen targets. The
 also found no material issue in the fixed support, control/object/call,
 type-completion/array-representation and name transfers at `0cd5b74cc7`.
 Its exclusions include later executable-loop and generated-declaration work.
+The [producer/parenthesis review](../reviews/review-retained-producer-5d4fd26cbb.md)
+checks those producer additions through `5d4fd26cbb`. Its low inventory
+finding [L1/#122](https://github.com/berkeleynerd/silver/issues/122) is repaired
+in `b6061a8458` and independently verified: the missed call preserves the old
+parenthesis count, so the capacity formulas are unchanged. Later Main aggregate
+and parser auxiliary additions are outside that review. The
+[backend review](../reviews/review-retained-backend-2324105a9b.md) checks the
+line-map, Character String and O0 emission transfers at `2324105a9b`.
 These reviews do not
 establish complete soundness of the integrated predicate or later additions;
 the review reports specify the included and excluded components.
