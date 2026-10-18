@@ -1,9 +1,14 @@
 {
   "input_sha256": {
     "retained-producer-dependencies-20261018/graphs.tar.gz": "1cd8b9986aaa4673204fd2599b5ca85d20ff5d1c0cf79468fc334cc2f6e6a983",
-    "retained-producer-storage-20261018/serialization.json": "aa96e05309bfa259237637f6dbfeb1d1463a8fde75b91ced4a28353d0970f4cc"
+    "retained-producer-storage-20261018/serialization.json": "aa96e05309bfa259237637f6dbfeb1d1463a8fde75b91ced4a28353d0970f4cc",
+    "retained-producer-bodies-20261018/graphs.tar.gz": "3ef58fe54c3202ed2a1755fc85474d35d9ed7ec269344d5a829989a4d2dc50d3",
+    "retained-producer-bodies-20261018/summary.json": "32ad06b36ff85e19cf70c77a2b56894b2fd5e98d41713e9358c63bffb6e03672",
+    "retained-producer-capacity-20261017/intern-counters/summary.json": "795ef2f14c05a2b34423ad60bcee1399da4b0da4f671a121952407f10b11e7fb",
+    "retained-main-semantics-20261018/library-capture/summary.json": "c51ef7647b3433e1a4b9eb277b07f65f8d399597d72abf9a370c96fa9b2c5328"
   },
   "module_file_inventory": {
+    "source_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
     "source_files": 279,
     "named_calls": {
       "GNATCOLL.Symbols.No_Symbol": 2,
@@ -24,6 +29,80 @@
     },
     "maximum": 19
   },
+  "fixed_library_processes": [
+    {
+      "case": "silver_arguments",
+      "A_total": 19921,
+      "E_total": 19921,
+      "nodes": 13070,
+      "lists": 2796,
+      "elements": 4111,
+      "module_nodes": 668,
+      "files": 3,
+      "lifetime_emitted_bound": 62199,
+      "per_file_json_bound": 91379300,
+      "all_root_json_bound": 91379300,
+      "why_calls": 5224,
+      "common_calls": 2571,
+      "why_symbol_map": 3187360,
+      "undo_peak": 26144848,
+      "producer_core_fits": true
+    },
+    {
+      "case": "silver_io",
+      "A_total": 19837,
+      "E_total": 19837,
+      "nodes": 16547,
+      "lists": 3222,
+      "elements": 5108,
+      "module_nodes": 955,
+      "files": 2,
+      "lifetime_emitted_bound": 53002,
+      "per_file_json_bound": 110585977,
+      "all_root_json_bound": 110585977,
+      "why_calls": 6796,
+      "common_calls": 1901,
+      "why_symbol_map": 3173920,
+      "undo_peak": 25903246,
+      "producer_core_fits": true
+    },
+    {
+      "case": "silver_output_libc",
+      "A_total": 18575,
+      "E_total": 18575,
+      "nodes": 8714,
+      "lists": 1683,
+      "elements": 2476,
+      "module_nodes": 452,
+      "files": 0,
+      "lifetime_emitted_bound": 0,
+      "per_file_json_bound": 0,
+      "all_root_json_bound": 60122824,
+      "why_calls": 3454,
+      "common_calls": 1253,
+      "why_symbol_map": 2972000,
+      "undo_peak": 24131092,
+      "producer_core_fits": true
+    },
+    {
+      "case": "silver_runtime",
+      "A_total": 1510,
+      "E_total": 1510,
+      "nodes": 7376,
+      "lists": 1574,
+      "elements": 2120,
+      "module_nodes": 275,
+      "files": 0,
+      "lifetime_emitted_bound": 0,
+      "per_file_json_bound": 0,
+      "all_root_json_bound": 49585666,
+      "why_calls": 2886,
+      "common_calls": 142,
+      "why_symbol_map": 241600,
+      "undo_peak": 1983646,
+      "producer_core_fits": true
+    }
+  ],
   "fixed_modules": 741,
   "fixed_kind_occurrences": {
     "W_ABSTRACT_EXPR": 10,

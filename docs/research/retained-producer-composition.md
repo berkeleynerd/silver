@@ -5,8 +5,9 @@ This composes the ordinary Main producer transfer with fixed dependencies,
 imports, JSON fields and auxiliary container domains. The inputs are source
 syntax counts and configured path lengths. No prover result decides membership.
 The unchanged-tool capacity design still has to combine this component with
-the complete frontend, native expansion/backend and fixed library-process
-arguments. This record changes no production admission rule.
+the complete frontend and native expansion/backend arguments. The four fixed
+library producer processes are joined separately below. This record changes
+no production admission rule.
 
 The [offline checker](../evidence/retained-producer-composition-20261018/check.py)
 and [result](../evidence/retained-producer-composition-20261018/result.json)
@@ -327,11 +328,48 @@ separately. The old aggregate rejected two loops already; preserving occurrence
 counts in imports and keeping field/module classes distinct improves the useful
 region without changing the external tool or selecting a new arbitrary cap.
 
-The four separate fixed library processes retain their own measured graphs,
-files and intern counters. Their ordinary Main frontend constant must not be
-reused as a library-body frontend bound. Process-specific frontend/domain
-connection, native/backend bounds, and the whole-rule review remain separate
-delivery requirements; passing the calculations here does not complete #119.
+## Four fixed library producer processes
+
+The [separate library frontend captures](retained-main-semantics.md#separate-fixed-library-frontend-domains)
+now give each process its own `A_total` and conservative `E_total=A_total`.
+The [fixed producer graphs](retained-producer-fixed.md#separate-fixed-library-processes)
+give node/list/element and all-root occurrence counts. Their existing
+[intern-counter records](../evidence/retained-producer-capacity-20261017/intern-counters/summary.json)
+supply each process's complete prefix pool calls; using calls for distinct-name
+counts is conservative. The current source/configuration is fixed in each case,
+with no Main source included. No sum across separate processes is required.
+
+The checker joins those records by compilation unit, checks the 2/3/0/0 emitted
+file counts against the independent frontend captures, expands every retained
+theory graph, and applies that unit's fixed string-family bound with `d=40`.
+Every file's printing plan uses a subset of those retained roots. Thus the
+lifetime emitted counter is bounded by file count times all-root occurrences;
+the per-file byte bound needs no file-count multiplier. With `P_path=256`:
+
+| Process | A_total/E_total | Files | Lifetime emitted bound | Per-file JSON bound | Undo peak bound |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Silver_IO body | 19,837 | 2 | 53,002 | 110,585,977 | 25,903,246 |
+| Silver_Arguments body | 19,921 | 3 | 62,199 | 91,379,300 | 26,144,848 |
+| Silver_Output_Libc spec | 18,575 | 0 | 0 | no file | 24,131,092 |
+| Silver_Runtime spec | 1,510 | 0 | 0 | no file | 1,983,646 |
+
+The four measured Why/Common lifetime call counts are respectively
+`6796/1901`, `5224/2571`, `3454/1253` and `2886/142`. The largest
+`160 E_total` map domain is 3,187,360. The source-derived undo formula applies
+to this reviewed ordinary scalar/String fixed-body frontier, including its
+range loops, quantified contracts and scalar Character aggregates; its
+non-reentrant batch argument is not generalized to arbitrary library bodies.
+All independent producer representation inequalities fit. The zero-file
+processes retain table/pool/undo obligations even though they have no JSON
+column or emitted-node increment.
+
+This join reuses successful retained producer/native observations and the
+new frontend evidence; the composition checker performs only offline work.
+It does not measure another solver result or rerun an expensive proof suite.
+Changing the library/runtime bytes or selected configuration requires reviewing
+these fixed cases, as the #93 dependency already requires. Complete frontend,
+native/backend composition and whole-rule review remain delivery requirements;
+passing these producer calculations does not complete #119.
 
 Reproduce the arithmetic and graph expansion with:
 

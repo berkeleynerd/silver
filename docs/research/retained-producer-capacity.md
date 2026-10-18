@@ -2533,8 +2533,10 @@ of their own. Their phase-one prerequisite generation is not a measurement of
 their Why allocations, and Main's five imported-specification witnesses do
 not cover those body processes. The separate four fixed-unit measurements
 are now retained in the [fixed-process record](retained-producer-fixed.md#separate-fixed-library-processes);
-their per-process resource domains must be checked independently rather than
-added to Main's simultaneous table lengths.
+the [composition](retained-producer-composition.md#four-fixed-library-producer-processes)
+joins their own frontend captures, producer graphs, intern calls and
+string/undo bounds. Their per-process resource domains fit independently;
+they are not added to Main's simultaneous table lengths.
 
 ## Auxiliary map domains and interned-name arithmetic
 
@@ -3296,8 +3298,8 @@ import/byte inequalities given in the linked composition. Current status is:
 | --- | --- |
 | `K_fixed` | Bootstrap/Standard plus selected imports have the additive `(15349,3310,4729,22621)` envelope. The sharper source argument preserves their paid imports and gives 741 fixed module nodes. Main external-constant assumptions are zero. Separate library processes retain their own measured results. |
 | Auxiliary producer domains | Source/Why map domains, projection serials, intern calls, 64-bit byte sums, per-family String lengths and scoped undo peaks are connected. Failed-proof diagnostic extensions lie beyond the successful producer prefix. |
-| Frontend node input | The Main semantic-node formula and fixed light frontier supply `A_total=12784+A_Main`, with a conservative matching entity-domain bound. The fixed Main constant is not a separate library-body frontend bound. |
-| Whole-process counters | The current Main composition bounds modules, all unpaid closes, JSON bytes and lifetime occurrences with `F_Main<=1`. It evaluates node/list/element, map, pool and undo endpoints separately. |
+| Frontend node input | The Main semantic-node formula and fixed light frontier supply `A_total=12784+A_Main`, with a conservative matching entity-domain bound. The four separate library captures supply their own frontend domains; they do not reuse Main's fixed constant. |
+| Whole-process counters | The current Main composition bounds modules, all unpaid closes, JSON bytes and lifetime occurrences with `F_Main<=1`. The separate fixed-library composition joins their 2/3/0/0 files and complete prefix counters. Both evaluate node/list/element, map, pool and undo endpoints separately. |
 
 The [frontend report](retained-frontend-entities.md) now supplies the Main entity,
 type and literal multiplicities, including generated literal lengths; they are
@@ -3307,10 +3309,10 @@ dependencies are paid by the fixed envelope. The source-counted transfer counts
 translation attempts, discarded work and repeated serialization; it does not
 equate source entities with helper invocations.
 
-The successful Main producer component is now concrete and evaluated. It is
-still **not the complete unchanged-tool capacity rule**: separate fixed process
-domains, frontend/native/backend composition and whole-rule review remain
-required before expanded admission. Retained sample executions do not replace
+The successful Main and four fixed-library producer components are now concrete
+and evaluated. They are still **not the complete unchanged-tool capacity rule**:
+frontend/native/backend composition and whole-rule review remain required before
+expanded admission. Retained sample executions do not replace
 those arguments, and this record selects no new language threshold.
 
 ## Reproducing the evidence checks

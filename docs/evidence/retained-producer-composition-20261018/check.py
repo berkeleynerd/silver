@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Compose source-counted producer bounds; no native tools or membership test."""
+import argparse
 from collections import Counter
 import hashlib
 import importlib.util
@@ -131,6 +132,8 @@ def check_module_files():
     spec.loader.exec_module(strings)
     counts, positional = Counter(), []
     source_path = EVIDENCE/'unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz'
+    source_digest = hashlib.sha256(source_path.read_bytes()).hexdigest()
+    assert source_digest == 'f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952'
     with tarfile.open(source_path) as archive:
         files = {m.name: archive.extractfile(m).read().decode()
                  for m in archive.getmembers()
@@ -155,7 +158,7 @@ def check_module_files():
     assert values == dict(Int_File='int',Real_File='real',Ref_File='ref',
                          Gnatprove_Standard_File='_gnatprove_standard',Ada_Model_File='ada__model')
     assert max(map(len,values.values())) == 19
-    return dict(source_files=len(files),named_calls=dict(counts),
+    return dict(source_archive_sha256=source_digest,source_files=len(files),named_calls=dict(counts),
                 positional_forwarders=len(positional),file_symbols=values,maximum=19)
 
 
@@ -281,10 +284,63 @@ def examples():
         yield name,source,{**counts,**lexical(source)}
 
 
+def library_processes(schema,path_bytes=256):
+    frontend = {r['case']:r for r in json.loads((EVIDENCE/
+        'retained-main-semantics-20261018/library-capture/summary.json').read_text())['cases']}
+    intern = {r['case']:r for r in json.loads((EVIDENCE/
+        'retained-producer-capacity-20261017/intern-counters/summary.json').read_text())['cases']}
+    producer = {r['case']:r for r in json.loads((EVIDENCE/
+        'retained-producer-bodies-20261018/summary.json').read_text())['cases']}
+    graphs = {}
+    with tarfile.open(EVIDENCE/'retained-producer-bodies-20261018/graphs.tar.gz') as archive:
+        for entry in archive.getmembers():
+            if entry.name.endswith('/graph-before_free.json'):
+                graphs[entry.name.split('/')[0]] = json.load(archive.extractfile(entry))
+    maximum = dict(silver_io=211,silver_arguments=225,silver_output_libc=229,silver_runtime=221)
+    assert set(producer) == set(frontend) == set(graphs) == set(maximum)
+    assert set(producer) <= set(intern)
+    result = []
+    for name in sorted(producer):
+        a = frontend[name]['A_total']
+        e = frontend[name]['E_total_bound']
+        p = producer[name]
+        g = graphs[name]
+        count,modules = graph_counts(g)
+        assert sum(count.values()) == p['final']['all_theory_occurrences']
+        assert frontend[name]['backend_calls'] == p['false_backend_calls']
+        files = p['false_backend_calls']
+        pools = intern[name]['final']
+        calls = {k:pools[k]['calls_to_find'] for k in ('why','entity')}
+        assert pools['why']['maximum_symbol_length'] == maximum[name]
+        lengths = dict(names=10*maximum[name]+12,comments=10*maximum[name]+2*path_bytes,
+            labels=10*maximum[name]+2*path_bytes,string_attributes=33,filenames=path_bytes,
+            symbol_set_characters=3*(10*maximum[name]+2*path_bytes),module_file=19)
+        weight = weights(schema,lengths)
+        file_bound = 29+sum(n*(weight[k]+1) for k,n in count.items())
+        n,l,j = (p['final'][k] for k in ('nodes','lists','retained_elements'))
+        x = 36*e+7*calls['entity']+1
+        undo = 204*(a+1)+2*n+30*x
+        emitted = files*sum(count.values())
+        fits = (n<=2**30-1 and l<=2**30 and j<=2**31-1 and emitted<=2**31-1
+                and max(calls.values())<=1610612741 and 160*e<=1610612741
+                and a<=1610612741
+                and max(v for k,v in lengths.items() if k!='symbol_set_characters')<=1073741822
+                and undo<=2**31-1 and (files==0 or file_bound<=2147483646))
+        assert fits
+        result.append(dict(case=name,A_total=a,E_total=e,nodes=n,lists=l,elements=j,
+            module_nodes=modules,files=files,lifetime_emitted_bound=emitted,
+            per_file_json_bound=file_bound if files else 0,all_root_json_bound=file_bound,
+            why_calls=calls['why'],common_calls=calls['entity'],why_symbol_map=160*e,
+            undo_peak=undo,producer_core_fits=fits))
+    return result
+
+
 def main():
+    argparse.ArgumentParser(description=__doc__).parse_args()
     schema = json.loads((EVIDENCE/'retained-producer-storage-20261018/serialization.json').read_text())['schema']
     fixed_counts,fixed_modules = fixed_envelope()
     module_files = check_module_files()
+    libraries = library_processes(schema)
     cases = []
     for name,source,counts in examples():
         cases.append(dict(name=name,source=source,counts=counts,
@@ -314,10 +370,15 @@ def main():
             json_bytes=bound['json_bytes'],json_parts=bound['json_parts'],
             producer_core_fits=bound['producer_core_fits']))
     inputs = ('retained-producer-dependencies-20261018/graphs.tar.gz',
-              'retained-producer-storage-20261018/serialization.json')
+              'retained-producer-storage-20261018/serialization.json',
+              'retained-producer-bodies-20261018/graphs.tar.gz',
+              'retained-producer-bodies-20261018/summary.json',
+              'retained-producer-capacity-20261017/intern-counters/summary.json',
+              'retained-main-semantics-20261018/library-capture/summary.json')
     input_hashes = {name: hashlib.sha256((EVIDENCE/name).read_bytes()).hexdigest() for name in inputs}
     result = dict(input_sha256=input_hashes,
                   module_file_inventory=module_files,
+                  fixed_library_processes=libraries,
                   fixed_modules=fixed_modules,fixed_kind_occurrences=dict(sorted(fixed_counts.items())),
                   path_bytes=256,cases=cases,sensitivity=sensitivity,
                   loop_sensitivity=loop_sensitivity,
