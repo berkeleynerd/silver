@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records eighty-one inspected files hash-checked against the complete source
+records eighty-six inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -2247,7 +2247,7 @@ analyzes it, or splices it into the existing list and analyzes only its new
 entries (`exp_util.adb:8118–8128`, `exp_ch7.adb:8904–8921`). The actions'
 creation and semantic analysis remain separately charged.
 
-The **direct wrapper skeleton**, before its open helpers, adds at most five
+The **direct wrapper skeleton** adds at most five
 ordinary nodes (one shallow relocation, block, identifier occurrence, handled
 sequence and saved old call), two lists, one growing-slot event for rewrite,
 one E_Block/internal name, thirteen name characters including NUL, and one new
@@ -2255,10 +2255,71 @@ scope-stack entry (`exp_ch7.adb:8723–8725,8799–8852,9529–9562`,
 `atree.adb:2109–2153,2222–2272`). Make_Transient_Block inserts pending actions
 with Clean=False and Manage_SS=False, so its insertion stage only splices the
 existing lists; it does not generate finalizers or mark/release calls
-(`exp_ch7.adb:5340–5440`). This skeleton excludes scope push/pop internals,
-Freeze_All, subsequent block analysis/expansion and name qualification. It
-does **not** close the whole wrapper merely because no secondary-stack cleanup
-is needed. Those residual costs remain explicit in the combined vector.
+(`exp_ch7.adb:5340–5440`). Its remaining local helpers now have the following
+closure, under the ordinary analyzed-child/type premises of the components
+whose actions it encloses:
+
+- The first Push_Scope sets the new block's depth to its parent's depth plus
+  one, with at most one Uint append. Make_Transient_Block pops that scope;
+  Analyze_Block_Statement later pushes the same entity, whose depth is already
+  set. These pushes are sequential, so the extra live scope-stack demand is
+  one, not two (`sem_ch8.adb:9814–10008`). Pop_Scope and End_Scope restore
+  links and empty action/use fields, without allocation on these paths.
+- Insert_Actions_In_Scope_Around moves existing before/after lists without
+  adding a wrapper. Freeze_All walks the existing entity chain. First
+  freezes are charged once to their entity constructors, including any
+  result-object size work; previously frozen entities without aspects add
+  nothing. The selected Integer/Boolean/String objects and ordinary types
+  have no nested package/task, subprogram/default-expression or finalizable
+  access route (`freeze.adb:2539–2798`). Existing freeze-action lists are
+  spliced and analyzed under their component's first-freeze charge.
+- The rewritten block has the existing bound block identifier and an empty
+  declaration list. The moved output call and inserted actions retain
+  Analyzed. Analyze_Block_Statement/Analyze_Handled_Statements therefore do
+  not replay their analysis (`sem_ch5.adb:1273–1434,4523–4598`,
+  `sem_ch11.adb:388–447`). Empty Analyze_Declarations still has a postlude:
+  Analyze_Contracts and Build_Assertion_Bodies each walk the empty list;
+  Check_State_Refinements examines that same empty block declaration list
+  (`sem_ch3.adb:2460–2480,2955–3022`, `contracts.adb:444–539`,
+  `sem_util.adb:4786–4971`). None creates an assertion helper here.
+- No deferred source constants, source block-local declarations, source
+  assignments or source out actuals are introduced. Inspect_Deferred_Constant_Completion
+  and Check_References are consequently nonallocating; the latter's Source_E1
+  excludes the artificial entities. Last_Assignment is set only for source
+  assignments/calls, so Warn_On_Useless_Assignments creates no warning for
+  these entities (`sem_util.adb:15910–15942`,
+  `sem_warn.adb:1177–1200,1240–1278,4739–4955`,
+  `sem_ch5.adb:1229–1247`, `sem_res.adb:7174–7197`). General source diagnostics
+  remain a separate component. Conditional statement tracking updates its
+  fixed Saved_Checks_Stack; its saturating fallback clears cached checks
+  without dynamic allocation (`checks.adb:4918–4975`).
+- Requires_Cleanup_Actions finds no controlled, task, protected or finalizable
+  access object. The block has no secondary-stack/custom cleanup flag and
+  Expand_Cleanup_Actions returns before constructing a finalizer
+  (`exp_util.adb:13501–13787`, `exp_ch7.adb:4632–4698`). **Is_RTE is
+  nonloading, not necessarily nonallocating:** its Get_Unit_Name/Name_Find
+  calls can intern `system.finalization_primitives%s` and `standard%s`.
+  Charge those two fixed names once per process: two name entries and
+  44 characters including NULs. Later lookups reuse the entries
+  (`rtsfind.adb:643–761,778–878`, `uname.adb:181–419`,
+  `namet.adb:1185–1275`). Ordinary types scoped in a local block do not
+  introduce a third package-unit name on this path.
+- Expand_N_Block_Statement appends one Name_Qualify_Units entry. Deferred
+  qualification of generated types uses the separate per-type path transfer
+  below; qualification of this ordinary block itself adds no name.
+
+For **o source output calls**, charging every call even if no transient is
+created, the local wrapper adds `5o` ordinary nodes, `o` growing-slot events,
+`o` entities, `2o` lists, `o` Uint appends, `o` qualification-queue entries,
+and `115o` dynamic slots. It adds `o+2` name entries and `13o+44` name
+characters when o>0 (all zero when o=0). For maximum incoming scope depth d,
+the Uint magnitude is at most d+1; require that increment to fit the selected
+scope arithmetic and charge `o*digits_32768(d+1)` retained digits. This is a
+closed local wrapper transfer, recorded as `output_transient_wrapper`; it
+excludes the separately priced child creation/analysis/first freezes,
+per-type qualification, original output-call processing and physical stack
+bytes. The initial input wrapper and Main's secondary-stack cleanup remain
+different paths to close.
 
 ### Result storage and first subtype freezing
 
@@ -3532,9 +3593,9 @@ Its explicit residual addends are:
   initial Image/input and other source operand construction still to close.
 - First runtime lookups/spec processing; their local call, final-result and
   assignment-slice processing are now closed under the fixed-source premise.
-- Transient wrapper helpers beyond the closed placement/direct skeleton,
-  later whole-scope freezing, and the scope/name/enqueue inputs to the separate
-  local name-qualification transfer above.
+- The separately closed ordinary output wrapper; the initial input wrapper
+  and Main's secondary-stack cleanup, remaining first entity freezes, and the
+  scope/name/enqueue inputs to the separate local name-qualification transfer.
 - Numeric magnitudes and query roots in the remaining stages, fixed runtime
   processing and backend costs.
 
@@ -3597,7 +3658,8 @@ The following missing addends prevent calling the native construct closed:
   literal suffix now have the separate source-sensitive addend above. It does
   not close outer name/overload resolution, standalone literal resolution into
   a dynamic target subtype, or the complete source-value analysis.
-- Close later scope freezing and input/output wrapper helpers. Local runtime
+- Close remaining first freezes, the input wrapper and Main secondary-stack
+  cleanup. The ordinary output wrapper and its later scope walk, local runtime
   call processing, the result/assignment slice lookup bridge and first
   result-object freeze are closed above. The ordinary macro renaming helper
   remains unreachable for Main's String objects.

@@ -23,7 +23,7 @@ assert manifest["commit"] == pin
 expected = {entry["path"]: entry for entry in manifest["files"]}
 files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_eval.adb", "tbuild.adb", "namet.adb", "lib.adb", "validsw.ads", "stringt.adb",
-         "cstand.adb", "ttypes.ads",
+         "cstand.adb", "ttypes.ads", "contracts.adb", "uname.adb",
          "atree.adb", "types.ads", "uintp.ads", "uintp.adb", "gen_il-gen.adb",
          "exp_imgv.adb", "exp_put_image.adb", "exp_ch2.adb", "exp_ch3.adb",
          "exp_ch8.adb", "sem_ch4.adb", "sem_dim.adb", "rtsfind.ads",
@@ -678,6 +678,33 @@ def local_name_qualification(scope_path_name_lengths, queued_scopes):
                 whole_construct_closed=False)
 
 
+def output_transient_wrapper(output_calls, parent_scope_depth):
+    """Ordinary non-secondary output wrapper, excluding its priced children."""
+    assert output_calls >= 0 and 0 <= parent_scope_depth < 2**31-1
+    depth = parent_scope_depth+1
+    k = max(1, (depth.bit_length()+14)//15)
+    fixed_names = ("system.finalization_primitives%s", "standard%s")
+    # Is_RTE is nonloading but its name lookups can intern these two names.
+    # Name_Find retains at most one copy of either throughout the process.
+    fixed_count = len(fixed_names) if output_calls else 0
+    fixed_chars = sum(len(name)+1 for name in fixed_names) if output_calls else 0
+    return dict(output_call_envelope=output_calls,
+                parent_scope_depth_envelope=parent_scope_depth,
+                total=dict(ordinary=5*output_calls, growth=output_calls,
+                           entities=output_calls, name_entries=output_calls+fixed_count,
+                           name_characters=13*output_calls+fixed_chars,
+                           lists=2*output_calls, uint=output_calls,
+                           retained_digit_words=k*output_calls,
+                           Name_Qualify_Units_appends=output_calls,
+                           dynamic_slots=115*output_calls),
+                fixed_names=fixed_names,
+                additional_peak_scope_entries=1 if output_calls else 0,
+                child_analysis_replay=False,
+                cleanup_or_finalizer_generated=False,
+                whole_local_wrapper_closed=True,
+                whole_construct_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -1210,8 +1237,12 @@ result = {
                                     "growth": 1, "entities_and_names": 1,
                                     "name_characters": 13,
                                     "new_scope_stack_entries": 1},
-        "skeleton_excludes": "supplied action creation/analysis, Push/Pop scope internals, Freeze_All, block analysis/expansion and name qualification",
-        "whole_wrapper_closed": False,
+        "closed_local_wrapper": "direct skeleton plus first scope-depth Uint, qualification queue append, and at most two fixed names from nonloading Is_RTE; first entity freezes charged to their constructors",
+        "examples_not_thresholds": [output_transient_wrapper(0, 1),
+                                    output_transient_wrapper(1, 1),
+                                    output_transient_wrapper(8, 4)],
+        "excluded": "supplied action creation/analysis/first freezes; deferred per-type qualification, source output-call processing; initial input wrapper and Main secondary-stack cleanup; physical stack bytes",
+        "whole_wrapper_closed": True,
     },
     "Main_raw_copied_bound_semantics": {
         "prefix_stability": "New_Copy_Tree preserves Analyzed; owned normalized slice types have no Freeze_Node and retain Is_Frozen; copying does not replay prefix resolution or append conditional-arm actions",
@@ -1329,7 +1360,7 @@ result = {
             "positive_Xrefs_increments": "2*c",
         },
         "source_sensitive_composition": "sum per-invocation vectors at n_i and A_i=3*H_i+7 from source bound descriptors for these stages; uniform maximum A is optional",
-        "residual_addends": ["separately closed source-concat folding/literal suffix", "initial Image/input and other source operand constructors", "action/transient wrapper helpers beyond closed placement/skeleton", "later whole-scope freezing and name qualification", "numeric magnitudes and query roots in remaining stages", "runtime first lookup/spec processing, fixed runtime and backend costs"],
+        "residual_addends": ["separately closed source-concat folding/literal suffix and output transient wrapper", "initial Image/input and other source operand constructors", "input wrapper and Main secondary-stack cleanup", "remaining source/generated first freezes and deferred name qualification", "numeric magnitudes and query roots in remaining stages", "runtime first lookup/spec processing, fixed runtime and backend costs"],
         "examples_not_thresholds": [combined_native_emitter_vector(2, 1),
                                     combined_native_emitter_vector(64, 127),
                                     combined_native_uniform_vector(0, 1),
