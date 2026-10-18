@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "freeze": "684ec8ab64c0c97a4d5cb9f84c0e4ea7ba964a6c",
+  "repository_attachments": 8,
+  "focused_source_identities": 15,
+  "lexical_Ada_files": 2319,
+  "setter_sites": 10,
+  "constructor_sites": 11,
+  "kind_mutation_sites": 0,
+  "mixed_arithmetic_cases": 3,
+  "I_upper_bound": 114,
+  "additional_bytes": 3648,
+  "elapsed_seconds": 2.132293957998627,
+  "native_execution": false,
+  "complete_capacity_claim": false
+}
