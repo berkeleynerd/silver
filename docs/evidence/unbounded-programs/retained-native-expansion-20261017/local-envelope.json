@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 88,
+  "source_files_verified": 89,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -73,6 +73,7 @@
     "libgnat/system-linux-x86.ads": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95",
     "exp_ch7.adb": "590aeb1807f35622c08285e619951c0b7970d48d8b5c2135561956e1b17e7598",
     "exp_ch6.adb": "b0c37423b5a93f3d7ccc678eb2391d9a462674cbef6d2c37503cdeaa0f6728cb",
+    "exp_ch9.adb": "a8fba38c78853fef1d47973927a580841961663f96cfa4483ef4f7ac92884454",
     "exp_tss.adb": "42f1b3607da3da62f2d203f644f02371188280ad45de536f120d3130bce15a7f",
     "sem_ch5.adb": "00632c152c18521a921f84ca9edd3b2887b428ee5d77388d4e4f5b3844dcc49e",
     "exp_ch5.adb": "99faebd687725d617d9a0c56c2a217cb8df6d23306e01b469241238caf1804b6",
@@ -2621,6 +2622,55 @@
       }
     ],
     "excluded": "original source attribute/prefix/scalar-argument semantic analysis and numeric work; runtime first loading/spec freezing and fixed unit-name lookups; context/action-wrapper placement; per-type deferred qualification; backend and physical stack bytes"
+  },
+  "Main_input_and_secondary_stack_fixed_skeleton_reduction": {
+    "scope": "native initial input construction and Main secondary-stack cleanup, after original literal/source call analysis; fixed capture not included here",
+    "witness": "with Silver_Arguments, Silver_IO; procedure Main is pragma SPARK_Mode (On); D : constant String := Silver_Arguments.First_Or_Default (\"x\"); begin null; end Main;",
+    "input_shape": "one transient scope, one access-all String type, one constant reference capture, two bound constants, one constrained subtype, original D rewritten as renaming; transient entities transferred to Main without a block",
+    "main_cleanup_shape": "one secondary-stack mark object; one fixed _finalizer spec/body with one SS_Release call; one at-end reference; no task/controlled/tagged cleanup or frontend handler cloning",
+    "source_name_delta": "Find_Type_Of_Object creates T<D>S, length len(D)+2; Constrain_Index creates TT<D>SP1, length len(D)+5; each has at most one fully qualified name with main__ prefix; against D fixture add 4*(len(D)-1) character appends, in addition to source scanner name accounting",
+    "serial_name_correction": "bound each generated Main internal name by 12 characters (13 with NUL); sum positive difference against captured length, and include same difference for each qualified-name occurrence; source serial counter must fit Nat",
+    "separate_variable_charges": [
+      "source lexical/parser/name/context work",
+      "literal resolution, subtype, range-query and first-size arithmetic",
+      "source D references and diagnostics",
+      "all later source/generated constructors and first freezes",
+      "qualification of variable entities and loop/block scopes",
+      "backend callbacks and emitted representation"
+    ],
+    "capture_boundary": "before gigi directly covers frontend skeleton; complete-process witness totals may conservatively supply fixed overhead, but do not replace variable backend callback accounting",
+    "fixed_query_name_premise": "baseline must include fixed unit-name interning from Is_RTE queries, even for runtime units never loaded",
+    "whole_construct_closed": false
+  },
+  "normalized_Main_backend_frontier": {
+    "source_scalar_types": [
+      "Standard_Integer32 and constrained subtypes",
+      "Standard_Boolean",
+      "Standard_Character8"
+    ],
+    "source_array_type": "one-dimensional Standard_String with Positive32/Integer32 index bounds; source literals remain String literals, not character aggregates",
+    "generated_storage": [
+      "constrained String objects",
+      "String slices",
+      "access-all unconstrained String for first input capture",
+      "access-to-constrained String and secondary-stack allocator for selected concatenations",
+      "ordinary scalar bound/length/position temporaries"
+    ],
+    "fixed_record_value": "System.Secondary_Stack.Mark_Id: stack pointer plus nested Stack_Pointer (Memory_Index, chunk pointer); imported runtime type, no source-dependent record fields",
+    "direct_calls": [
+      "Silver_IO.Put",
+      "Silver_IO.Put_Line",
+      "Silver_Arguments.First_Or_Default",
+      "Silver_Arguments.Input_Is_Valid",
+      "Silver_Arguments.Reject",
+      "System.Img_Int.Image_Integer alias of System.Image_I(Integer)",
+      "System.Concat_2..Concat_9.Str_Concat_2..Str_Concat_9",
+      "System.Secondary_Stack.SS_Allocate",
+      "System.Secondary_Stack.SS_Mark",
+      "System.Secondary_Stack.SS_Release"
+    ],
+    "generated_local_subprogram": "at most Main's fixed _finalizer for the input/secondary-stack scaffold; no source nested subprograms or per-character helper bodies",
+    "excluded": "complete source scalar/assignment/comparison/loop expansion multiplicities; backend lowering helpers/checks/ABI representations and exact GCC modes; fixed library bodies; this is a type/constructor frontier, not a complete backend allocation count"
   },
   "combined_Main_native_emitter_addends": {
     "composition": "direct/scalar/storage at normalized b28/l2 + remaining copies/duplications + up to n suppressed assignment slices at t31/l2, including both check passes + first raw-copied scalar passes and result-storage bound captures + one enabled final result slice at t31/l2 + local runtime-call processing; result-object freeze and constrained actual-subtype lookups add zero",

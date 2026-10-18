@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records eighty-eight inspected files hash-checked against the complete source
+records eighty-nine inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -3442,6 +3442,142 @@ does not close the surrounding block analysis, scope freezing, total enqueue
 multiplicity from initial Image/input/finalizer constructors, fixed-runtime
 qualification, or later backend external/debug-name production.
 
+## Fixed input and Main secondary-stack scaffold
+
+The initial input construction and Main's secondary-stack cleanup reduce to
+a fixed native scaffold. This is a source reduction for obtaining a fixed
+capture, not a measured baseline in this evidence directory. Use the native
+application options above and the actual selected library specs. A suitable
+one-character-name, nonempty-literal witness is:
+
+```ada
+with Silver_Arguments, Silver_IO;
+procedure Main is
+   pragma SPARK_Mode (On);
+   D : constant String := Silver_Arguments.First_Or_Default ("x");
+begin
+   null;
+end Main;
+```
+
+The default literal's scanner data, resolution, subtype, scalar range queries
+and first-size arithmetic remain variable source components. A capture with
+this literal does not bound those components for every default length. An
+empty-literal companion can isolate the null-literal early-return branch.
+After its ordinary source argument is resolved, the input's declared result
+is always unconstrained Standard String; its length or contents do not select
+different result-storage/cleanup constructors. The function has no precondition,
+default actual, private result, build-in-place result or frontend inline body.
+Its library contracts and imported declarations remain fixed dependency work.
+
+`Resolve_Call` establishes one transient scope for this nonintrinsic,
+non-build-in-place unconstrained String result (`sem_res.adb:7030–7091`).
+`Expand_Subtype_From_Expr` selects its final `Make_Subtype_From_Expr` branch
+(`exp_util.adb:5864–6107`). Standard String has one dimension, so the latter
+creates exactly two captured bounds and one subtype indication
+(`10865–11065`). The first `Duplicate_Subexpr_No_Checks` captures the call;
+later copies see the normalized reference. Native `Remove_Side_Effects`
+creates one access-all String type, one constant initialized by the call's
+`Reference`, and a dereference; it does not replay the already analyzed child
+call (`12984–13121`). The ordinary object is subsequently rewritten as a
+renaming without reanalysis (`13790–13830`). Its debug-renaming inspection
+returns before name encoding: the original node is a function call, and even
+the normalized pointer path has no packed-component reason to enable an
+encoding (`exp_dbug.adb:392–530`).
+
+There are nevertheless two binding-name-dependent generated subtype names.
+`Related_Id` is empty in `Expand_Subtype_From_Expr` because D is local
+(`sem_ch3.adb:5113–5139`), but the following `Find_Type_Of_Object` creates
+`New_External_Name(Chars(D), 'S', 0, 'T')` (`19119–19121`). Its spelling is
+`T<D>S`, length `|D|+2`, and its later fully qualified spelling is
+`main__T<D>S`, length `|D|+8` (`tbuild.adb:632–666` and the qualification
+transfer above). `Constrain_Index` creates its index itype `TT<D>SP1`, length
+`|D|+5`, with a qualified name of length `|D|+11`, as in the closed explicit
+subtype transfer. Against the one-character D witness, charge
+**`4*(|D|-1)` additional name characters**, separately from D's source name.
+All four names need their usual NUL allowance in the captured baseline. The
+input-related internal temporaries use serial names, independent of D and
+the default literal. Normalize each to at most 12 characters (13 including
+NUL), subject to the existing serial-counter headroom condition; apply the
+same length correction to each retained qualified occurrence. These are
+length corrections, not extra entities or extra Name entries.
+
+`Wrap_Transient_Declaration` transfers actions and entities into Main and
+sets Main's secondary-stack flag; it creates no enclosing block and does not
+mark/release at the input declaration (`exp_ch7.adb:9411–9451`). With
+`Manage_SS=False`, the insertion helper only moves existing lists. Its
+transient scan finds no finalizable String, scalar or ordinary pointer
+(`5101–5440`, `exp_util.adb:9454–9505`). `Transfer_Entities` updates existing
+links, scopes and public flags; `Set_Public_Status` performs only tests and
+setters (`sem_util.adb:28975–29050,29510–29603`). No input-name-dependent
+allocation is hidden in that transfer.
+
+At Main completion only `Needs_Sec_Stack_Mark` requires cleanup
+(`exp_ch7.adb:4632–4819`). There are no tasks, controlled/tagged objects,
+protected operations, asynchronous statements, custom cleanup or a
+build-in-place return. Task activation returns on the absent activation
+chain before constructing a call (`exp_ch9.adb:4386–4456`).
+`Build_Cleanup_Statements` creates one empty list (`exp_ch7.adb:1392–1523`).
+Main receives one mark object and one `_finalizer` specification/body. The
+finalizer body contains just `SS_Release(M)`; there is no master, controlled
+object list, abort-defer pair, exception object or reraising path
+(`1791–2235,2237–2359,2455–2660,3139–3285`). The ordinary declaration and
+statement preprocessing is a scan, with zero controlled-object count; it
+does not copy Main or create one finalizer per user object. First freezes
+of those objects still belong to their constructor charges.
+`Expand_At_End_Handler` itself is only an assertion in this pin
+(`exp_ch11.adb:83–88`); it does not construct frontend exception handlers.
+
+Thus additions of later ordinary Main declarations, expressions, assignments,
+loops and conditionals do not enlarge this fixed scaffold. They retain their
+own source/generated costs. Calls to `Is_RTE` during a scan may intern a fixed
+unit name even without loading a runtime unit: the fixed baseline must cover
+those names, including `system.finalization_primitives%s` and `standard%s`,
+or add them explicitly. Capturing immediately before `gigi` directly measures
+the frontend scaffold. A complete-process fixed witness is also useful as
+conservative fixed overhead, but variable backend callbacks require their
+own source-derived addend; a fixed witness cannot establish their absence.
+
+## Normalized Main frontier for backend composition
+
+The following finite type/constructor frontier follows from the grammar and
+the closed String/input/Image paths. It narrows backend transfer cases; it
+is **not** a complete native node count or a claim that source scalar,
+assignment, comparison and loop expansion multiplicities are closed.
+
+| Family | Form reaching the backend |
+| --- | --- |
+| Source scalars | Standard Integer32 and constrained subtypes, Boolean, and Character8 components; no source real/fixed/modular/user-defined scalar type |
+| String values | One-dimensional Standard String with Positive32/Integer32 index bounds; literals remain String literals, not per-character frontend aggregates |
+| Ordinary result storage | Constrained String objects, scalar bound/length/position temporaries and String slices |
+| Input capture | Access-all unconstrained String, reference capture and dereference; source D is a renaming |
+| Secondary concat storage | Access-to-constrained String, allocator using `SS_Pool`, and dereference renaming; allocator selects `SS_Allocate` (`exp_ch4.adb:3347–3420,4652–4654`) |
+| Integer Image | String(1..11), Natural position, Image_Integer call, and returned String(1..position) slice |
+| Concat movement | Str_Concat_2 through Str_Concat_9 calls at O0; ten or more retained operands use slice assignments with optional Boolean guards |
+| Main cleanup | One fixed nested `_finalizer` carrying SS_Release; mark object of imported runtime Mark_Id type |
+
+`Mark_Id` contains a stack pointer and a `Stack_Pointer` record containing
+Memory_Index and a chunk pointer (`libgnat/s-secsta.ads:295–308,335–341`).
+Memory_Index uses the target's System.Parameters.Size_Type
+(`s-secsta.ads:251–260`, `s-parame.ads:57`); address/size lowering is therefore
+not restricted to Integer32. The recursively declared runtime chunk and stack
+types belong to the fixed dependency graph, not a source-dependent family of
+record fields. No source construct introduces a record aggregate or a nested
+subprogram. The fixed finalizer is the only additional local subprogram
+created by these String/input/Image paths.
+
+Direct application calls are the five admitted Silver library operations,
+Image_Integer (the System.Img_Int alias of System.Image_I(Integer)), the eight
+concat helpers, SS_Allocate, SS_Mark and SS_Release. Runtime/check lowering
+may introduce further fixed backend helpers. Bounds/checks leave ordinary
+Integer arithmetic, comparisons, Boolean operations, conversions and
+conditional expressions; scalar source multiplication is a separate admitted
+operator, not part of the additive-only concat-bound graph. Source if/for
+control flow and generated blocks remain structural constructs. Backend
+GCC modes, fat/thin pointer descriptors, check lowering, GCC aggregate
+construction and code-size/identity costs must be derived against this
+interface; the Ada frontier does not prescribe their exact representation.
+
 ## Numeric magnitudes in the closed concat stages
 
 The query-root bridge can also supply the missing digit bound for the combined
@@ -3776,8 +3912,9 @@ The following missing addends prevent calling the native construct closed:
   literal suffix now have the separate source-sensitive addend above. It does
   not close outer name/overload resolution, standalone literal resolution into
   a dynamic target subtype, or the complete source-value analysis.
-- Close remaining first freezes, the input wrapper and Main secondary-stack
-  cleanup. The ordinary output wrapper and its later scope walk, local runtime
+- Close remaining first freezes and instantiate the source-reduced fixed input
+  and Main secondary-stack capture, including its variable corrections. The
+  ordinary output wrapper and its later scope walk, local runtime
   call processing, the result/assignment slice lookup bridge and first
   result-object freeze are closed above. The ordinary macro renaming helper
   remains unreachable for Main's String objects.
