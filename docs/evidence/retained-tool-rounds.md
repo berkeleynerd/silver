@@ -172,3 +172,77 @@ production changes. It does not show that the full useful-language rule is near
 completion or establish a causal model-quality comparison. The next work must
 continue narrowing the aggregate's named open joins; producing more component
 inventories without integration would not meet that criterion.
+
+## Round 4 — initial native constructors and literal consumer joins
+
+Date: 2026-10-18. Research workers and independent subthread reviewers were
+selected as GPT-6 Astra, Extra High. Parent integration/review model and effort
+are unavailable and unchanged; no lead switch is claimed. This documentation
+packaging was selected as GPT-6.1 Sol, High. Serving-runtime confirmation and
+token/monetary measurements are unavailable.
+
+| Intended result | Integrated result | Review and rework |
+| --- | --- | --- |
+| Bound initial SSA constructors and renaming | `b305bb9b2e` joins variable SSA infrastructure, dominance and renamer lifetime | Accepted in `15f59e8a7d`, no material finding; 216-second inspection/replay window, excluding report authoring |
+| Join literal assembler/storage outputs to the selected linker | `66b243cff7` supplies a conditional source-derived representation predicate | Parent review `4c2b1fc61f` accepted without material finding; 81 seconds, excluding report/status writing |
+| Export literal Main ALI writer and reader-buffer bounds | `e8b931aa77` joins actual source positions, switches and deduplicated invocation records | Accepted in `4bdd9d083b`, no required correction; 187.392-second review |
+| Bound initial CF/EH/CFG/root-loop constructors and attach linker/ALI interfaces | `b1fce355e1` and `bc4dabb6ad` extend the same-source aggregate; all 64 offline cases pass | Accepted in `366397271b`, no material finding; 151-second inspection/replay window, excluding report authoring |
+| Extend five fixed Why3 inputs through initial splitting and registration | `1a8da404ae` closes the segment to entry of `Gnat_checks.iter`, before scheduling | Accepted in `8072069a93`, no unresolved material finding; 143-second inspection/replay window, excluding report authoring |
+| Join Main/fixed ALIs to native binder and Gprbind consumers | `6685a96df1`, clarified in `6de8f8608d`, exports local tables, signature maps, buffers and additive names; 14 offline cases pass | Parent review `00df856866` accepted without material arithmetic finding; approximately four-minute source/replay inspection, excluding report writing |
+
+The [literal aggregate](../research/retained-literal-pipeline.md) now includes
+the accepted [linker](../research/retained-literal-linker.md) and
+[Main ALI](../research/retained-literal-ali.md) interfaces. Hello and an
+8,192-byte literal pass the evaluated bounds. The 5,000-call fixture now fails
+the linker's conservative sufficient signed-relocation bound; this is neither
+an observed native rejection nor an adopted language limit. Whole literal
+pipeline capacity remains false. The
+[ALI consumer join](../research/retained-literal-binder-ali.md) retains shared
+name pools, graph backing, drivers and the native parent GPRbuild D/W reader
+as separate open obligations. The parent requested that the latter be named
+explicitly, distinct from Gprbind's A/U-only read; `6de8f8608d` supplies that
+scope clarification, not an arithmetic repair. The first parent replay rejected
+a review-link-only uncommitted edit to a pinned predecessor argument; removing
+that edit preserved its historical bytes and allowed exact replay. No pin or
+mathematical condition was weakened.
+
+The [Why3 continuation](../research/retained-producer-fixed-tail.md) found four
+raw Input_Is_Valid split tasks, of which three unlabelled trivial goals are
+discarded and one is registered. The existing reported-leaf `G <= 1` and its
+dependent response constants remain valid. The new record supersedes broader
+historical raw-task wording while preserving byte-pinned historical evidence.
+The full protected allocation/semantic-count interval includes the discarded
+goals. Later scheduling, selected driver transformations, printers, server and
+solver representations, results and serialization remain open.
+
+New managed native execution was **90.163823312 seconds**: five fixed-input
+captures in `20261018T182701-4554d278376e` (83.367528516 seconds), then the
+separate Input_Is_Valid registration diagnostic
+`20261018T183727-b79953f86b46` (6.796294796 seconds). Both reserved one worker,
+ran serially and executed no solvers. The diagnostic answered the new
+raw/registered-goal question; it did not repeat the successful five-case run.
+No other new native execution, proof/build, complete audit or broad suite was
+run. All other validation above was offline source/identity/arithmetic replay.
+These are execution and review intervals, not total engineering or model cost.
+
+Worker-reported implementation intervals were 831.619 seconds for the linker,
+1,213 seconds for the Why3 continuation and 781 seconds for ALI consumers;
+their scopes differ and include source work and replay. They cannot be summed
+with overlapping reviews as total elapsed time. The checkpoint assessment noted
+underuse of Sol; this bounded packaging uses Sol High, and subsequent established or routine
+work should follow the routing policy. The current record supplies no causal
+cost or model-quality comparison.
+
+Round outcome: additional conditional native constructors and useful local
+consumer joins are integrated. Remaining frontend/gigi/gimplifier lifetime,
+shared collectors/metadata, producer/parent/launch joins, Why3 tail, broader
+grammar and useful-domain comparison still prevent #119 completion. #88–#94
+remain authorized but unstarted; Oracle, tools and admission are unchanged.
+No new harness goal was created. The next work should close a named aggregate
+join using these accepted results.
+
+The Sol High packaging interval was 18:50:19–18:52:46 UTC
+(147 seconds), measured from worktree/branch creation through draft and
+round-record preparation, excluding final commit and parent inspection. It
+produced this entry and local PR/issue drafts; it ran no technical replay or
+native tool. CLI memory was not updated.
