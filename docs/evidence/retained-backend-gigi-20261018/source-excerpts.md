@@ -2,6 +2,71 @@
 Full-file SHA256 identities are in source-manifest.json; LF numbering.
 Excerpts expand tabs to eight columns and trim trailing whitespace.
 
+## gcc/ada/exp_ch4.adb:3367–3405
+
+```text
+3367:             ConstrT : constant Entity_Id := Make_Temporary (Loc, 'A');
+3368:             Acc_Typ : constant Entity_Id := Make_Temporary (Loc, 'A');
+3369:
+3370:             Alloc : Node_Id;
+3371:             Temp  : Entity_Id;
+3372:
+3373:          begin
+3374:             Insert_Action (Cnode,
+3375:               Make_Subtype_Declaration (Loc,
+3376:                 Defining_Identifier => ConstrT,
+3377:                 Subtype_Indication  => Subtyp_Ind),
+3378:               Suppress => All_Checks);
+3379:
+3380:             Freeze_Itype (ConstrT, Cnode);
+3381:
+3382:             Insert_Action (Cnode,
+3383:               Make_Full_Type_Declaration (Loc,
+3384:                 Defining_Identifier => Acc_Typ,
+3385:                 Type_Definition     =>
+3386:                   Make_Access_To_Object_Definition (Loc,
+3387:                     Subtype_Indication => New_Occurrence_Of (ConstrT, Loc))),
+3388:               Suppress => All_Checks);
+3389:
+3390:             Mutate_Ekind (Acc_Typ, E_Access_Type);
+3391:             Set_Associated_Storage_Pool (Acc_Typ, RTE (RE_SS_Pool));
+3392:
+3393:             Alloc :=
+3394:               Make_Allocator (Loc,
+3395:                 Expression => New_Occurrence_Of (ConstrT, Loc));
+3396:
+3397:             --  This is currently done only for type String, which normally
+3398:             --  doesn't have default initialization, but we need to set the
+3399:             --  No_Initialization flag in case of either Initialize_Scalars
+3400:             --  or Normalize_Scalars.
+3401:
+3402:             Set_No_Initialization (Alloc);
+3403:
+3404:             Temp := Make_Temporary (Loc, 'R', Alloc);
+3405:             Insert_Action (Cnode,
+```
+
+## gcc/ada/exp_ch4.adb:4639–4654
+
+```text
+4639:       --  Set the storage pool and find the appropriate version of Allocate to
+4640:       --  call. Do not overwrite the storage pool if it is already set, which
+4641:       --  can occur for BIP function returns (see Expand_N_Object_Declaration).
+4642:
+4643:       if No (Storage_Pool (N)) then
+4644:          Pool := Associated_Storage_Pool (Root_Type (PtrT));
+4645:
+4646:          if Present (Pool) then
+4647:             Set_Storage_Pool (N, Pool);
+4648:
+4649:             if Is_RTE (Pool, RE_RS_Pool) then
+4650:                Set_Procedure_To_Call (N, RTE (RE_RS_Allocate));
+4651:
+4652:             elsif Is_RTE (Pool, RE_SS_Pool) then
+4653:                Check_Restriction (No_Secondary_Stack, N);
+4654:                Set_Procedure_To_Call (N, RTE (RE_SS_Allocate));
+```
+
 ## gcc/ada/exp_ch6.adb:6180–6209
 
 ```text
@@ -263,6 +328,50 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 13333:             Rewrite (N, Unchecked_Convert_To (Array_Subtype, N));
 13334:             Set_Etype (N, Array_Subtype);
 13335:          end;
+```
+
+## gcc/ada/libgnat/s-secsta.ads:70–73
+
+```text
+70:    procedure SS_Allocate
+71:      (Addr         : out Address;
+72:       Storage_Size : SSE.Storage_Count;
+73:       Alignment    : SSE.Storage_Count := Standard'Maximum_Alignment);
+```
+
+## gcc/ada/libgnat/s-secsta.ads:110–113
+
+```text
+110: private
+111:    SS_Pool : Integer;
+112:    --  Unused entity that is just present to ease the sharing of the pool
+113:    --  mechanism for specific allocation/deallocation in the compiler.
+```
+
+## gcc/ada/libgnat/s-secsta.ads:300–308
+
+```text
+300:    type Stack_Pointer is record
+301:       Byte : Memory_Index;
+302:       --  The position of the first free byte within the memory storage of
+303:       --  Chunk.all. Byte - 1 denotes the last occupied byte within Chunk.all.
+304:
+305:       Chunk : SS_Chunk_Ptr;
+306:       --  Reference to the chunk that accommodated the most recent allocation.
+307:       --  This could be the static or any dynamic chunk.
+308:    end record;
+```
+
+## gcc/ada/libgnat/s-secsta.ads:335–341
+
+```text
+335:    type Mark_Id is record
+336:       Stack : SS_Stack_Ptr;
+337:       --  The secondary stack whose mark was taken
+338:
+339:       Top : Stack_Pointer;
+340:       --  The value of Stack.Top at the point in time when the mark was taken
+341:    end record;
 ```
 
 ## gcc/ada/gcc-interface/trans.cc:3026–3306
@@ -2214,6 +2323,81 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6316:       gnu_result = build1 (NULL_EXPR, *gnu_result_type_p, gnu_result);
 6317:     }
 6318:
+```
+
+## gcc/ada/gcc-interface/trans.cc:7656–7725
+
+```text
+7656:     case N_Allocator:
+7657:       {
+7658:         const Entity_Id gnat_desig_type
+7659:           = Designated_Type (Underlying_Type (Etype (gnat_node)));
+7660:         const Entity_Id gnat_pool = Storage_Pool (gnat_node);
+7661:
+7662:         tree gnu_type, gnu_init;
+7663:         bool ignore_init_type;
+7664:
+7665:         gnat_temp = Expression (gnat_node);
+7666:
+7667:         /* The expression can be either an N_Identifier or an Expanded_Name,
+7668:            which must represent a type, or a N_Qualified_Expression, which
+7669:            contains both the type and an initial value for the object.  */
+7670:         if (Nkind (gnat_temp) == N_Identifier
+7671:             || Nkind (gnat_temp) == N_Expanded_Name)
+7672:           {
+7673:             ignore_init_type = false;
+7674:             gnu_init = NULL_TREE;
+7675:             gnu_type = gnat_to_gnu_type (Entity (gnat_temp));
+7676:           }
+7677:
+7678:         else if (Nkind (gnat_temp) == N_Qualified_Expression)
+7679:           {
+7680:             ignore_init_type = Has_Constrained_Partial_View (gnat_desig_type);
+7681:
+7682:             gnu_init = gnat_to_gnu (Expression (gnat_temp));
+7683:             gnu_init = maybe_unconstrained_array (gnu_init);
+7684:
+7685:             gigi_checking_assert (!Do_Range_Check (Expression (gnat_temp)));
+7686:
+7687:             if (Is_Elementary_Type (gnat_desig_type)
+7688:                 || Is_Constrained (gnat_desig_type))
+7689:               gnu_type = gnat_to_gnu_type (gnat_desig_type);
+7690:             else
+7691:               {
+7692:                 gnu_type = gnat_to_gnu_type (Etype (Expression (gnat_temp)));
+7693:                 if (TREE_CODE (gnu_type) == UNCONSTRAINED_ARRAY_TYPE)
+7694:                   gnu_type = TREE_TYPE (gnu_init);
+7695:               }
+7696:
+7697:             /* See the N_Qualified_Expression case for the rationale.  */
+7698:             if (Is_Tagged_Type (gnat_desig_type))
+7699:               used_types_insert (gnu_type);
+7700:
+7701:             gnu_init = convert (gnu_type, gnu_init);
+7702:           }
+7703:         else
+7704:           gcc_unreachable ();
+7705:
+7706:         /* If this is an array allocated with its bounds, use the thin pointer
+7707:            as the result type to trigger the machinery in build_allocator, but
+7708:            make sure not to do it for allocations on the return and secondary
+7709:            stacks (see build_call_alloc_dealloc_proc for more details).  */
+7710:         if (Is_Constr_Array_Subt_With_Bounds (gnat_desig_type)
+7711:             && Is_Record_Type (Underlying_Type (Etype (gnat_pool)))
+7712:             && !type_annotate_only)
+7713:           {
+7714:             tree gnu_array = gnat_to_gnu_type (Base_Type (gnat_desig_type));
+7715:             gnu_result_type
+7716:               = build_pointer_type (TYPE_OBJECT_RECORD_TYPE (gnu_array));
+7717:           }
+7718:         else
+7719:           gnu_result_type = get_unpadded_type (Etype (gnat_node));
+7720:
+7721:         return build_allocator (gnu_type, gnu_init, gnu_result_type,
+7722:                                 Procedure_To_Call (gnat_node),
+7723:                                 gnat_pool, gnat_node, ignore_init_type);
+7724:       }
+7725:       break;
 ```
 
 ## gcc/ada/gcc-interface/trans.cc:7944–8003
@@ -4437,9 +4621,160 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4905:   tree p_array_type = TREE_TYPE (TYPE_FIELDS (type));
 ```
 
-## gcc/ada/gcc-interface/utils.cc:5160–5184
+## gcc/ada/gcc-interface/utils.cc:5009–5635
 
 ```text
+5009:   /* If both input and output have padding and are of variable size, do this
+5010:      as an unchecked conversion.  Likewise if one is a mere variant of the
+5011:      other, so we avoid a pointless unpad/repad sequence.  */
+5012:   else if (code == RECORD_TYPE && ecode == RECORD_TYPE
+5013:            && TYPE_PADDING_P (type) && TYPE_PADDING_P (etype)
+5014:            && (!TREE_CONSTANT (TYPE_SIZE (type))
+5015:                || !TREE_CONSTANT (TYPE_SIZE (etype))
+5016:                || TYPE_MAIN_VARIANT (type) == TYPE_MAIN_VARIANT (etype)
+5017:                || TYPE_NAME (TREE_TYPE (TYPE_FIELDS (type)))
+5018:                   == TYPE_NAME (TREE_TYPE (TYPE_FIELDS (etype)))))
+5019:     ;
+5020:
+5021:   /* If the output type has padding, convert to the inner type and make a
+5022:      constructor to build the record, unless a variable size is involved.  */
+5023:   else if (code == RECORD_TYPE && TYPE_PADDING_P (type))
+5024:     {
+5025:       /* If we previously converted from another type and our type is
+5026:          of variable size, remove the conversion to avoid the need for
+5027:          variable-sized temporaries.  Likewise for a conversion between
+5028:          original and packable version.  */
+5029:       if (TREE_CODE (expr) == VIEW_CONVERT_EXPR
+5030:           && (!TREE_CONSTANT (TYPE_SIZE (type))
+5031:               || (ecode == RECORD_TYPE
+5032:                   && TYPE_NAME (etype)
+5033:                      == TYPE_NAME (TREE_TYPE (TREE_OPERAND (expr, 0))))))
+5034:         expr = TREE_OPERAND (expr, 0);
+5035:
+5036:       /* If we are just removing the padding from expr, convert the original
+5037:          object if we have variable size in order to avoid the need for some
+5038:          variable-sized temporaries.  Likewise if the padding is a variant
+5039:          of the other, so we avoid a pointless unpad/repad sequence.  */
+5040:       if (TREE_CODE (expr) == COMPONENT_REF
+5041:           && TYPE_IS_PADDING_P (TREE_TYPE (TREE_OPERAND (expr, 0)))
+5042:           && (!TREE_CONSTANT (TYPE_SIZE (type))
+5043:               || TYPE_MAIN_VARIANT (type)
+5044:                  == TYPE_MAIN_VARIANT (TREE_TYPE (TREE_OPERAND (expr, 0)))
+5045:               || (ecode == RECORD_TYPE
+5046:                   && TYPE_NAME (etype)
+5047:                      == TYPE_NAME (TREE_TYPE (TYPE_FIELDS (type))))))
+5048:         return convert (type, TREE_OPERAND (expr, 0));
+5049:
+5050:       /* If the inner type is of self-referential size and the expression type
+5051:          is a record, do this as an unchecked conversion unless both types are
+5052:          essentially the same.  */
+5053:       if (ecode == RECORD_TYPE
+5054:           && CONTAINS_PLACEHOLDER_P (DECL_SIZE (TYPE_FIELDS (type)))
+5055:           && TYPE_MAIN_VARIANT (etype)
+5056:              != TYPE_MAIN_VARIANT (TREE_TYPE (TYPE_FIELDS (type))))
+5057:         return unchecked_convert (type, expr, false);
+5058:
+5059:       /* If we are converting between array types with variable size, do the
+5060:          final conversion as an unchecked conversion, again to avoid the need
+5061:          for some variable-sized temporaries.  If valid, this conversion is
+5062:          very likely purely technical and without real effects.  */
+5063:       if (ecode == ARRAY_TYPE
+5064:           && TREE_CODE (TREE_TYPE (TYPE_FIELDS (type))) == ARRAY_TYPE
+5065:           && !TREE_CONSTANT (TYPE_SIZE (etype))
+5066:           && !TREE_CONSTANT (TYPE_SIZE (type)))
+5067:         return unchecked_convert (type,
+5068:                                   convert (TREE_TYPE (TYPE_FIELDS (type)),
+5069:                                            expr),
+5070:                                   false);
+5071:
+5072:       tree t = convert (TREE_TYPE (TYPE_FIELDS (type)), expr);
+5073:
+5074:       /* If converting to the inner type has already created a CONSTRUCTOR with
+5075:          the right size, then reuse it instead of creating another one.  This
+5076:          can happen for the padding type built to overalign local variables.  */
+5077:       if (TREE_CODE (t) == VIEW_CONVERT_EXPR
+5078:           && TREE_CODE (TREE_OPERAND (t, 0)) == CONSTRUCTOR
+5079:           && TREE_CONSTANT (TYPE_SIZE (TREE_TYPE (TREE_OPERAND (t, 0))))
+5080:           && tree_int_cst_equal (TYPE_SIZE (type),
+5081:                                  TYPE_SIZE (TREE_TYPE (TREE_OPERAND (t, 0)))))
+5082:         return build1 (VIEW_CONVERT_EXPR, type, TREE_OPERAND (t, 0));
+5083:
+5084:       vec<constructor_elt, va_gc> *v;
+5085:       vec_alloc (v, 1);
+5086:       CONSTRUCTOR_APPEND_ELT (v, TYPE_FIELDS (type), t);
+5087:       return gnat_build_constructor (type, v);
+5088:     }
+5089:
+5090:   /* If the input type has padding, remove it and convert to the output type.
+5091:      The conditions ordering is arranged to ensure that the output type is not
+5092:      a padding type here, as it is not clear whether the conversion would
+5093:      always be correct if this was to happen.  */
+5094:   else if (ecode == RECORD_TYPE && TYPE_PADDING_P (etype))
+5095:     {
+5096:       tree unpadded;
+5097:
+5098:       /* If we have just converted to this padded type, just get the
+5099:          inner expression.  */
+5100:       if (TREE_CODE (expr) == CONSTRUCTOR)
+5101:         unpadded = CONSTRUCTOR_ELT (expr, 0)->value;
+5102:
+5103:       /* Otherwise, build an explicit component reference.  */
+5104:       else
+5105:         unpadded = build_component_ref (expr, TYPE_FIELDS (etype), false);
+5106:
+5107:       return convert (type, unpadded);
+5108:     }
+5109:
+5110:   /* If the input is a biased type, convert first to the base type and add
+5111:      the bias.  Note that the bias must go through a full conversion to the
+5112:      base type, lest it is itself a biased value; this happens for subtypes
+5113:      of biased types.  */
+5114:   if (ecode == INTEGER_TYPE && TYPE_BIASED_REPRESENTATION_P (etype))
+5115:     return convert (type, fold_build2 (PLUS_EXPR, TREE_TYPE (etype),
+5116:                                        fold_convert (TREE_TYPE (etype), expr),
+5117:                                        convert (TREE_TYPE (etype),
+5118:                                                 TYPE_MIN_VALUE (etype))));
+5119:
+5120:   /* If the input is a justified modular type, we need to extract the actual
+5121:      object before converting it to an other type with the exceptions of an
+5122:      [unconstrained] array or a mere type variant.  It is useful to avoid
+5123:      the extraction and conversion in these cases because it could end up
+5124:      replacing a VAR_DECL by a constructor and we might be about the take
+5125:      the address of the result.  */
+5126:   if (ecode == RECORD_TYPE && TYPE_JUSTIFIED_MODULAR_P (etype)
+5127:       && code != ARRAY_TYPE
+5128:       && code != UNCONSTRAINED_ARRAY_TYPE
+5129:       && TYPE_MAIN_VARIANT (type) != TYPE_MAIN_VARIANT (etype))
+5130:     return
+5131:       convert (type, build_component_ref (expr, TYPE_FIELDS (etype), false));
+5132:
+5133:   /* If converting to a type that contains a template, convert to the data
+5134:      type and then build the template. */
+5135:   if (code == RECORD_TYPE && TYPE_CONTAINS_TEMPLATE_P (type))
+5136:     {
+5137:       tree obj_type = TREE_TYPE (DECL_CHAIN (TYPE_FIELDS (type)));
+5138:       vec<constructor_elt, va_gc> *v;
+5139:       vec_alloc (v, 2);
+5140:
+5141:       /* If the source already has a template, get a reference to the
+5142:          associated array only, as we are going to rebuild a template
+5143:          for the target type anyway.  */
+5144:       expr = maybe_unconstrained_array (expr);
+5145:
+5146:       CONSTRUCTOR_APPEND_ELT (v, TYPE_FIELDS (type),
+5147:                               build_template (TREE_TYPE (TYPE_FIELDS (type)),
+5148:                                               obj_type, NULL_TREE));
+5149:       if (expr)
+5150:         CONSTRUCTOR_APPEND_ELT (v, DECL_CHAIN (TYPE_FIELDS (type)),
+5151:                                 convert (obj_type, expr));
+5152:       return gnat_build_constructor (type, v);
+5153:     }
+5154:
+5155:   /* There are some cases of expressions that we process specially.  */
+5156:   switch (TREE_CODE (expr))
+5157:     {
+5158:     case ERROR_MARK:
+5159:       return expr;
 5160:
 5161:     case NULL_EXPR:
 5162:       /* Just set its type here.  For TRANSFORM_EXPR, we will do the actual
@@ -4465,11 +4800,412 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 5182:     case VECTOR_CST:
 5183:       /* If we are converting a VECTOR_CST to a mere type variant, just make
 5184:          a new one in the proper type.  */
-```
-
-## gcc/ada/gcc-interface/utils.cc:5591–5627
-
-```text
+5185:       if (code == ecode && gnat_types_compatible_p (type, etype))
+5186:         {
+5187:           expr = copy_node (expr);
+5188:           TREE_TYPE (expr) = type;
+5189:           return expr;
+5190:         }
+5191:       break;
+5192:
+5193:     case CONSTRUCTOR:
+5194:       /* If we are converting a CONSTRUCTOR to a mere type variant, or to
+5195:          another padding type around the same type, just make a new one in
+5196:          the proper type.  */
+5197:       if (code == ecode
+5198:           && (gnat_types_compatible_p (type, etype)
+5199:               || (code == RECORD_TYPE
+5200:                   && TYPE_PADDING_P (type) && TYPE_PADDING_P (etype)
+5201:                   && TREE_TYPE (TYPE_FIELDS (type))
+5202:                      == TREE_TYPE (TYPE_FIELDS (etype)))))
+5203:         {
+5204:           expr = copy_node (expr);
+5205:           TREE_TYPE (expr) = type;
+5206:           CONSTRUCTOR_ELTS (expr) = vec_safe_copy (CONSTRUCTOR_ELTS (expr));
+5207:           return expr;
+5208:         }
+5209:
+5210:       /* Likewise for a conversion between original and packable version, or
+5211:          conversion between types of the same size and with the same list of
+5212:          fields, but we have to work harder to preserve type consistency.  */
+5213:       if (code == ecode
+5214:           && code == RECORD_TYPE
+5215:           && (TYPE_NAME (type) == TYPE_NAME (etype)
+5216:               || tree_int_cst_equal (TYPE_SIZE (type), TYPE_SIZE (etype))))
+5217:
+5218:         {
+5219:           vec<constructor_elt, va_gc> *e = CONSTRUCTOR_ELTS (expr);
+5220:           unsigned HOST_WIDE_INT len = vec_safe_length (e);
+5221:           vec<constructor_elt, va_gc> *v;
+5222:           vec_alloc (v, len);
+5223:           tree efield = TYPE_FIELDS (etype), field = TYPE_FIELDS (type);
+5224:           unsigned HOST_WIDE_INT idx;
+5225:           tree index, value;
+5226:
+5227:           /* Whether we need to clear TREE_CONSTANT et al. on the output
+5228:              constructor when we convert in place.  */
+5229:           bool clear_constant = false;
+5230:
+5231:           FOR_EACH_CONSTRUCTOR_ELT(e, idx, index, value)
+5232:             {
+5233:               /* Skip the missing fields in the CONSTRUCTOR.  */
+5234:               while (efield && field && !SAME_FIELD_P (efield, index))
+5235:                 {
+5236:                   efield = DECL_CHAIN (efield);
+5237:                   field = DECL_CHAIN (field);
+5238:                 }
+5239:               /* The field must be the same.  */
+5240:               if (!(efield && field && SAME_FIELD_P (efield, field)))
+5241:                 break;
+5242:               constructor_elt elt
+5243:                 = {field, convert (TREE_TYPE (field), value)};
+5244:               v->quick_push (elt);
+5245:
+5246:               /* If packing has made this field a bitfield and the input
+5247:                  value couldn't be emitted statically any more, we need to
+5248:                  clear TREE_CONSTANT on our output.  */
+5249:               if (!clear_constant
+5250:                   && TREE_CONSTANT (expr)
+5251:                   && !CONSTRUCTOR_BITFIELD_P (efield)
+5252:                   && CONSTRUCTOR_BITFIELD_P (field)
+5253:                   && !initializer_constant_valid_for_bitfield_p (value))
+5254:                 clear_constant = true;
+5255:
+5256:               efield = DECL_CHAIN (efield);
+5257:               field = DECL_CHAIN (field);
+5258:             }
+5259:
+5260:           /* If we have been able to match and convert all the input fields
+5261:              to their output type, convert in place now.  We'll fallback to a
+5262:              view conversion downstream otherwise.  */
+5263:           if (idx == len)
+5264:             {
+5265:               expr = copy_node (expr);
+5266:               TREE_TYPE (expr) = type;
+5267:               CONSTRUCTOR_ELTS (expr) = v;
+5268:               if (clear_constant)
+5269:                 TREE_CONSTANT (expr) = TREE_STATIC (expr) = 0;
+5270:               return expr;
+5271:             }
+5272:         }
+5273:
+5274:       /* Likewise for a conversion between array type and vector type with a
+5275:          compatible representative array.  */
+5276:       else if (code == VECTOR_TYPE
+5277:                && ecode == ARRAY_TYPE
+5278:                && gnat_types_compatible_p (TYPE_REPRESENTATIVE_ARRAY (type),
+5279:                                            etype))
+5280:         {
+5281:           vec<constructor_elt, va_gc> *e = CONSTRUCTOR_ELTS (expr);
+5282:           unsigned HOST_WIDE_INT len = vec_safe_length (e);
+5283:           vec<constructor_elt, va_gc> *v;
+5284:           unsigned HOST_WIDE_INT ix;
+5285:           tree value;
+5286:
+5287:           /* Build a VECTOR_CST from a *constant* array constructor.  */
+5288:           if (TREE_CONSTANT (expr))
+5289:             {
+5290:               bool constant_p = true;
+5291:
+5292:               /* Iterate through elements and check if all constructor
+5293:                  elements are *_CSTs.  */
+5294:               FOR_EACH_CONSTRUCTOR_VALUE (e, ix, value)
+5295:                 if (!CONSTANT_CLASS_P (value))
+5296:                   {
+5297:                     constant_p = false;
+5298:                     break;
+5299:                   }
+5300:
+5301:               if (constant_p)
+5302:                 return build_vector_from_ctor (type,
+5303:                                                CONSTRUCTOR_ELTS (expr));
+5304:             }
+5305:
+5306:           /* Otherwise, build a regular vector constructor.  */
+5307:           vec_alloc (v, len);
+5308:           FOR_EACH_CONSTRUCTOR_VALUE (e, ix, value)
+5309:             {
+5310:               constructor_elt elt = {NULL_TREE, value};
+5311:               v->quick_push (elt);
+5312:             }
+5313:           expr = copy_node (expr);
+5314:           TREE_TYPE (expr) = type;
+5315:           CONSTRUCTOR_ELTS (expr) = v;
+5316:           return expr;
+5317:         }
+5318:       break;
+5319:
+5320:     case UNCONSTRAINED_ARRAY_REF:
+5321:       /* First retrieve the underlying array.  */
+5322:       expr = maybe_unconstrained_array (expr);
+5323:       etype = TREE_TYPE (expr);
+5324:       ecode = TREE_CODE (etype);
+5325:       break;
+5326:
+5327:     case VIEW_CONVERT_EXPR:
+5328:       {
+5329:         /* GCC 4.x is very sensitive to type consistency overall, and view
+5330:            conversions thus are very frequent.  Even though just "convert"ing
+5331:            the inner operand to the output type is fine in most cases, it
+5332:            might expose unexpected input/output type mismatches in special
+5333:            circumstances so we avoid such recursive calls when we can.  */
+5334:         tree op0 = TREE_OPERAND (expr, 0);
+5335:
+5336:         /* If we are converting back to the original type, we can just
+5337:            lift the input conversion.  This is a common occurrence with
+5338:            switches back-and-forth amongst type variants.  */
+5339:         if (type == TREE_TYPE (op0))
+5340:           return op0;
+5341:
+5342:         /* Otherwise, if we're converting between two aggregate or vector
+5343:            types, we might be allowed to substitute the VIEW_CONVERT_EXPR
+5344:            target type in place or to just convert the inner expression.  */
+5345:         if ((AGGREGATE_TYPE_P (type) && AGGREGATE_TYPE_P (etype))
+5346:             || (VECTOR_TYPE_P (type) && VECTOR_TYPE_P (etype)))
+5347:           {
+5348:             /* If we are converting between mere variants, we can just
+5349:                substitute the VIEW_CONVERT_EXPR in place.  */
+5350:             if (gnat_types_compatible_p (type, etype))
+5351:               return build1 (VIEW_CONVERT_EXPR, type, op0);
+5352:
+5353:             /* Otherwise, we may just bypass the input view conversion unless
+5354:                one of the types is a fat pointer,  which is handled by
+5355:                specialized code below which relies on exact type matching.  */
+5356:             else if (!TYPE_IS_FAT_POINTER_P (type)
+5357:                      && !TYPE_IS_FAT_POINTER_P (etype))
+5358:               return convert (type, op0);
+5359:           }
+5360:
+5361:         break;
+5362:       }
+5363:
+5364:     default:
+5365:       break;
+5366:     }
+5367:
+5368:   /* Check for converting to a pointer to an unconstrained array.  */
+5369:   if (TYPE_IS_FAT_POINTER_P (type) && !TYPE_IS_FAT_POINTER_P (etype))
+5370:     return convert_to_fat_pointer (type, expr);
+5371:   if (TYPE_IS_EXTENDED_POINTER_P (type) && !TYPE_IS_EXTENDED_POINTER_P (etype))
+5372:     return convert_to_extended_pointer (type, expr);
+5373:
+5374:   /* If we are converting between two aggregate or vector types that are mere
+5375:      variants, just make a VIEW_CONVERT_EXPR.  Likewise when we are converting
+5376:      to a vector type from its representative array type.  */
+5377:   else if ((code == ecode
+5378:             && (AGGREGATE_TYPE_P (type) || VECTOR_TYPE_P (type))
+5379:             && gnat_types_compatible_p (type, etype))
+5380:            || (code == VECTOR_TYPE
+5381:                && ecode == ARRAY_TYPE
+5382:                && gnat_types_compatible_p (TYPE_REPRESENTATIVE_ARRAY (type),
+5383:                                            etype)))
+5384:     return build1 (VIEW_CONVERT_EXPR, type, expr);
+5385:
+5386:   /* If we are converting between tagged types, try to upcast properly.
+5387:      But don't do it if we are just annotating types since tagged types
+5388:      aren't fully laid out in this mode.  */
+5389:   else if (ecode == RECORD_TYPE && code == RECORD_TYPE
+5390:            && type_is_tagged_or_cw_equivalent (etype)
+5391:            && type_is_tagged_or_cw_equivalent (type)
+5392:            && !type_annotate_only)
+5393:     {
+5394:       tree child_etype = etype;
+5395:       /* Loop through the nested _Parent fields until we find one with either
+5396:          directly the right type (simple record case), or only the right size
+5397:          (discriminated record case), and extract it to be the new expression.
+5398:          Note that build_component_ref will automatically build the chain of
+5399:          COMPONENT_REFs in the case where it is not the immediate parent.  */
+5400:       do {
+5401:         tree field = TYPE_FIELDS (child_etype);
+5402:         if (DECL_NAME (field) == parent_name_id)
+5403:           {
+5404:             if (TREE_TYPE (field) == type)
+5405:               return build_component_ref (expr, field, false);
+5406:             if (operand_equal_p (DECL_SIZE (field), TYPE_SIZE (type), 0))
+5407:               return convert (type, build_component_ref (expr, field, false));
+5408:          }
+5409:         child_etype = TREE_TYPE (field);
+5410:       } while (TREE_CODE (child_etype) == RECORD_TYPE);
+5411:     }
+5412:
+5413:   /* If we are converting from a smaller form of record type back to it, just
+5414:      make a VIEW_CONVERT_EXPR.  But first pad the expression to have the same
+5415:      size on both sides.  */
+5416:   else if (ecode == RECORD_TYPE && code == RECORD_TYPE
+5417:            && smaller_form_type_p (etype, type))
+5418:     {
+5419:       expr = convert (maybe_pad_type (etype, TYPE_SIZE (type), 0, Empty,
+5420:                                       false, false, true),
+5421:                       expr);
+5422:       return build1 (VIEW_CONVERT_EXPR, type, expr);
+5423:     }
+5424:
+5425:   /* In all other cases of related types, make a NOP_EXPR.  */
+5426:   else if (TYPE_MAIN_VARIANT (type) == TYPE_MAIN_VARIANT (etype))
+5427:     return fold_convert (type, expr);
+5428:
+5429:   switch (code)
+5430:     {
+5431:     case VOID_TYPE:
+5432:       return fold_build1 (CONVERT_EXPR, type, expr);
+5433:
+5434:     case INTEGER_TYPE:
+5435:       if (TYPE_HAS_ACTUAL_BOUNDS_P (type)
+5436:           && (ecode == ARRAY_TYPE || ecode == UNCONSTRAINED_ARRAY_TYPE
+5437:               || (ecode == RECORD_TYPE && TYPE_CONTAINS_TEMPLATE_P (etype))))
+5438:         return unchecked_convert (type, expr, false);
+5439:
+5440:       /* If the output is a biased type, convert first to the base type and
+5441:          subtract the bias.  Note that the bias itself must go through a full
+5442:          conversion to the base type, lest it is a biased value; this happens
+5443:          for subtypes of biased types.  */
+5444:       if (TYPE_BIASED_REPRESENTATION_P (type))
+5445:         return fold_convert (type,
+5446:                              fold_build2 (MINUS_EXPR, TREE_TYPE (type),
+5447:                                           convert (TREE_TYPE (type), expr),
+5448:                                           convert (TREE_TYPE (type),
+5449:                                                    TYPE_MIN_VALUE (type))));
+5450:
+5451:       /* If we are converting an additive expression to an integer type
+5452:          with lower precision, be wary of the optimization that can be
+5453:          applied by convert_to_integer.  There are 2 problematic cases:
+5454:            - if the first operand was originally of a biased type,
+5455:              because we could be recursively called to convert it
+5456:              to an intermediate type and thus rematerialize the
+5457:              additive operator endlessly,
+5458:            - if the expression contains a placeholder, because an
+5459:              intermediate conversion that changes the sign could
+5460:              be inserted and thus introduce an artificial overflow
+5461:              at compile time when the placeholder is substituted.  */
+5462:       if (ecode == INTEGER_TYPE
+5463:           && TYPE_PRECISION (type) < TYPE_PRECISION (etype)
+5464:           && (TREE_CODE (expr) == PLUS_EXPR || TREE_CODE (expr) == MINUS_EXPR))
+5465:         {
+5466:           tree op0 = get_unwidened (TREE_OPERAND (expr, 0), type);
+5467:
+5468:           if ((TREE_CODE (TREE_TYPE (op0)) == INTEGER_TYPE
+5469:                && TYPE_BIASED_REPRESENTATION_P (TREE_TYPE (op0)))
+5470:               || CONTAINS_PLACEHOLDER_P (expr))
+5471:             return fold_convert (type, expr);
+5472:         }
+5473:
+5474:       if (TREE_CODE (expr) == INTEGER_CST)
+5475:         return int_const_convert (type, expr,
+5476:                                   type == sizetype || type == bitsizetype
+5477:                                   ? -1 : !POINTER_TYPE_P (etype));
+5478:
+5479:       /* ... fall through ... */
+5480:
+5481:     case ENUMERAL_TYPE:
+5482:       return fold (convert_to_integer (type, expr));
+5483:
+5484:     case BOOLEAN_TYPE:
+5485:       /* Do not use convert_to_integer with boolean types.  */
+5486:       return fold_convert_loc (EXPR_LOCATION (expr), type, expr);
+5487:
+5488:     case POINTER_TYPE:
+5489:     case REFERENCE_TYPE:
+5490:       /* If converting between two thin pointers, adjust if needed to account
+5491:          for differing offsets from the base pointer, depending on whether
+5492:          there is a TYPE_UNCONSTRAINED_ARRAY attached to the record type.  */
+5493:       if (TYPE_IS_THIN_POINTER_P (etype) && TYPE_IS_THIN_POINTER_P (type))
+5494:         {
+5495:           tree etype_pos
+5496:             = TYPE_UNCONSTRAINED_ARRAY (TREE_TYPE (etype))
+5497:               ? byte_position (DECL_CHAIN (TYPE_FIELDS (TREE_TYPE (etype))))
+5498:               : size_zero_node;
+5499:           tree type_pos
+5500:             = TYPE_UNCONSTRAINED_ARRAY (TREE_TYPE (type))
+5501:               ? byte_position (DECL_CHAIN (TYPE_FIELDS (TREE_TYPE (type))))
+5502:               : size_zero_node;
+5503:           tree byte_diff = size_diffop (type_pos, etype_pos);
+5504:
+5505:           expr = fold_convert (type, expr);
+5506:           if (integer_zerop (byte_diff))
+5507:             return expr;
+5508:
+5509:           return build_binary_op (POINTER_PLUS_EXPR, type, expr,
+5510:                                   fold_convert (sizetype, byte_diff));
+5511:         }
+5512:
+5513:       /* If converting from a thin pointer with zero offset from the base to
+5514:          a pointer to the array, add the offset of the array field.  */
+5515:       if (TYPE_IS_THIN_POINTER_P (etype)
+5516:           && !TYPE_UNCONSTRAINED_ARRAY (TREE_TYPE (etype)))
+5517:         {
+5518:           tree arr_field = DECL_CHAIN (TYPE_FIELDS (TREE_TYPE (etype)));
+5519:
+5520:           if (TREE_TYPE (type) == TREE_TYPE (arr_field))
+5521:             {
+5522:               expr = fold_convert (type, expr);
+5523:               return build_binary_op (POINTER_PLUS_EXPR, type, expr,
+5524:                                       byte_position (arr_field));
+5525:             }
+5526:         }
+5527:
+5528:       /* If converting fat pointer to normal or thin pointer, get the pointer
+5529:          to the array and then convert it.  */
+5530:       if (TYPE_IS_FAT_POINTER_P (etype) || TYPE_IS_EXTENDED_POINTER_P (etype))
+5531:         expr = build_component_ref (expr, TYPE_FIELDS (etype), false);
+5532:
+5533:       return fold (convert_to_pointer (type, expr));
+5534:
+5535:     case REAL_TYPE:
+5536:       return fold (convert_to_real (type, expr));
+5537:
+5538:     case RECORD_TYPE:
+5539:       /* Do a normal conversion between scalar and justified modular type.  */
+5540:       if (TYPE_JUSTIFIED_MODULAR_P (type) && !AGGREGATE_TYPE_P (etype))
+5541:         {
+5542:           vec<constructor_elt, va_gc> *v;
+5543:           vec_alloc (v, 1);
+5544:
+5545:           CONSTRUCTOR_APPEND_ELT (v, TYPE_FIELDS (type),
+5546:                                   convert (TREE_TYPE (TYPE_FIELDS (type)),
+5547:                                            expr));
+5548:           return gnat_build_constructor (type, v);
+5549:         }
+5550:
+5551:       /* In these cases, assume the front-end has validated the conversion.
+5552:          If the conversion is valid, it will be a bit-wise conversion, so
+5553:          it can be viewed as an unchecked conversion.  */
+5554:       return unchecked_convert (type, expr, false);
+5555:
+5556:     case ARRAY_TYPE:
+5557:       /* Do a normal conversion between unconstrained and constrained array
+5558:          type, assuming the latter is a constrained version of the former.  */
+5559:       if (TREE_CODE (expr) == INDIRECT_REF
+5560:           && ecode == ARRAY_TYPE
+5561:           && TREE_TYPE (etype) == TREE_TYPE (type))
+5562:         {
+5563:           tree ptr_type = build_pointer_type (type);
+5564:           tree t = build_unary_op (INDIRECT_REF, NULL_TREE,
+5565:                                    fold_convert (ptr_type,
+5566:                                                  TREE_OPERAND (expr, 0)));
+5567:           TREE_READONLY (t) = TREE_READONLY (expr);
+5568:           TREE_THIS_NOTRAP (t) = TREE_THIS_NOTRAP (expr);
+5569:           return t;
+5570:         }
+5571:
+5572:       /* In these cases, assume the front-end has validated the conversion.
+5573:          If the conversion is valid, it will be a bit-wise conversion, so
+5574:          it can be viewed as an unchecked conversion.  */
+5575:       return unchecked_convert (type, expr, false);
+5576:
+5577:     case UNION_TYPE:
+5578:       /* This is a either a conversion between a tagged type and some
+5579:          subtype, which we have to mark as a UNION_TYPE because of
+5580:          overlapping fields or a conversion of an Unchecked_Union.  */
+5581:       return unchecked_convert (type, expr, false);
+5582:
+5583:     case UNCONSTRAINED_ARRAY_TYPE:
+5584:       /* If the input is a VECTOR_TYPE, convert to the representative
+5585:          array type first.  */
+5586:       if (ecode == VECTOR_TYPE)
+5587:         {
+5588:           expr = convert (TYPE_REPRESENTATIVE_ARRAY (etype), expr);
+5589:           etype = TREE_TYPE (expr);
+5590:           ecode = TREE_CODE (etype);
 5591:         }
 5592:
 5593:       /* If EXPR is a constrained array, take its address, convert it to a
@@ -4507,6 +5243,14 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 5625:                                    build_unary_op (ADDR_EXPR,
 5626:                                                    NULL_TREE, expr)));
 5627:       else
+5628:         gcc_unreachable ();
+5629:
+5630:     case COMPLEX_TYPE:
+5631:       return fold (convert_to_complex (type, expr));
+5632:
+5633:     default:
+5634:       gcc_unreachable ();
+5635:     }
 ```
 
 ## gcc/ada/gcc-interface/utils.cc:5764–5851
@@ -4602,9 +5346,162 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 5851:   return exp;
 ```
 
-## gcc/ada/gcc-interface/utils.cc:6064–6111
+## gcc/ada/gcc-interface/utils.cc:5911–6250
 
 ```text
+5911: unchecked_convert (tree type, tree expr, bool notrunc_p)
+5912: {
+5913:   tree etype = TREE_TYPE (expr);
+5914:   enum tree_code ecode = TREE_CODE (etype);
+5915:   enum tree_code code = TREE_CODE (type);
+5916:   const bool ebiased
+5917:     = (ecode == INTEGER_TYPE && TYPE_BIASED_REPRESENTATION_P (etype));
+5918:   const bool biased
+5919:     = (code == INTEGER_TYPE && TYPE_BIASED_REPRESENTATION_P (type));
+5920:   const bool ereverse
+5921:     = (AGGREGATE_TYPE_P (etype) && TYPE_REVERSE_STORAGE_ORDER (etype));
+5922:   const bool reverse
+5923:     = (AGGREGATE_TYPE_P (type) && TYPE_REVERSE_STORAGE_ORDER (type));
+5924:   tree tem;
+5925:   int c = 0;
+5926:
+5927:   /* If the expression is already of the right type, we are done.  */
+5928:   if (etype == type)
+5929:     return expr;
+5930:
+5931:   /* If both types are integral or regular pointer, then just do a normal
+5932:      conversion.  Likewise for a conversion to an unconstrained array.  */
+5933:   if (((INTEGRAL_TYPE_P (type)
+5934:         || (POINTER_TYPE_P (type) && !TYPE_IS_THIN_POINTER_P (type))
+5935:         || (code == RECORD_TYPE && TYPE_JUSTIFIED_MODULAR_P (type)))
+5936:        && (INTEGRAL_TYPE_P (etype)
+5937:            || (POINTER_TYPE_P (etype) && !TYPE_IS_THIN_POINTER_P (etype))
+5938:            || (ecode == RECORD_TYPE && TYPE_JUSTIFIED_MODULAR_P (etype))))
+5939:       || code == UNCONSTRAINED_ARRAY_TYPE)
+5940:     {
+5941:       if (ebiased)
+5942:         {
+5943:           tree ntype = copy_type (etype);
+5944:           TYPE_BIASED_REPRESENTATION_P (ntype) = 0;
+5945:           TYPE_MAIN_VARIANT (ntype) = ntype;
+5946:           expr = build1 (NOP_EXPR, ntype, expr);
+5947:         }
+5948:
+5949:       if (biased)
+5950:         {
+5951:           tree rtype = copy_type (type);
+5952:           TYPE_BIASED_REPRESENTATION_P (rtype) = 0;
+5953:           TYPE_MAIN_VARIANT (rtype) = rtype;
+5954:           expr = convert (rtype, expr);
+5955:           expr = build1 (NOP_EXPR, type, expr);
+5956:         }
+5957:       else
+5958:         expr = convert (type, expr);
+5959:     }
+5960:
+5961:   /* If we are converting to an integral type whose precision is not equal
+5962:      to its size, first unchecked convert to a record type that contains a
+5963:      field of the given precision.  Then extract the result from the field.
+5964:
+5965:      There is a subtlety if the source type is an aggregate type with reverse
+5966:      storage order because its representation is not contiguous in the native
+5967:      storage order, i.e. a direct unchecked conversion to an integral type
+5968:      with N bits of precision cannot read the first N bits of the aggregate
+5969:      type.  To overcome it, we do an unchecked conversion to an integral type
+5970:      with reverse storage order and return the resulting value.  This also
+5971:      ensures that the result of the unchecked conversion doesn't depend on
+5972:      the endianness of the target machine, but only on the storage order of
+5973:      the aggregate type.
+5974:
+5975:      Finally, for the sake of consistency, we do the unchecked conversion
+5976:      to an integral type with reverse storage order as soon as the source
+5977:      type is an aggregate type with reverse storage order, even if there
+5978:      are no considerations of precision or size involved.  Ultimately, we
+5979:      further extend this processing to any scalar type.  */
+5980:   else if ((INTEGRAL_TYPE_P (type)
+5981:             && TYPE_RM_SIZE (type)
+5982:             && ((c = tree_int_cst_compare (TYPE_RM_SIZE (type),
+5983:                                            TYPE_SIZE (type))) < 0
+5984:                 || ereverse))
+5985:            || (SCALAR_FLOAT_TYPE_P (type) && ereverse))
+5986:     {
+5987:       tree rec_type = make_node (RECORD_TYPE);
+5988:       tree field_type, field;
+5989:
+5990:       TYPE_REVERSE_STORAGE_ORDER (rec_type) = ereverse;
+5991:
+5992:       if (c < 0)
+5993:         {
+5994:           const unsigned HOST_WIDE_INT prec
+5995:             = TREE_INT_CST_LOW (TYPE_RM_SIZE (type));
+5996:           if (type_unsigned_for_rm (type))
+5997:             field_type = make_unsigned_type (prec);
+5998:           else
+5999:             field_type = make_signed_type (prec);
+6000:           SET_TYPE_RM_SIZE (field_type, TYPE_RM_SIZE (type));
+6001:         }
+6002:       else
+6003:         field_type = type;
+6004:
+6005:       field = create_field_decl (get_identifier ("OBJ"), field_type, rec_type,
+6006:                                  NULL_TREE, bitsize_zero_node, c < 0, 0);
+6007:
+6008:       finish_record_type (rec_type, field, 1, false);
+6009:
+6010:       expr = unchecked_convert (rec_type, expr, notrunc_p);
+6011:       expr = build_component_ref (expr, field, false);
+6012:       expr = fold_build1 (NOP_EXPR, type, expr);
+6013:     }
+6014:
+6015:   /* Similarly if we are converting from an integral type whose precision is
+6016:      not equal to its size, first copy into a field of the given precision
+6017:      and unchecked convert the record type.
+6018:
+6019:      The same considerations as above apply if the target type is an aggregate
+6020:      type with reverse storage order and we also proceed similarly.  */
+6021:   else if ((INTEGRAL_TYPE_P (etype)
+6022:             && TYPE_RM_SIZE (etype)
+6023:             && ((c = tree_int_cst_compare (TYPE_RM_SIZE (etype),
+6024:                                            TYPE_SIZE (etype))) < 0
+6025:                 || reverse))
+6026:            || (SCALAR_FLOAT_TYPE_P (etype) && reverse))
+6027:     {
+6028:       tree rec_type = make_node (RECORD_TYPE);
+6029:       vec<constructor_elt, va_gc> *v;
+6030:       vec_alloc (v, 1);
+6031:       tree field_type, field;
+6032:
+6033:       TYPE_REVERSE_STORAGE_ORDER (rec_type) = reverse;
+6034:
+6035:       if (c < 0)
+6036:         {
+6037:           const unsigned HOST_WIDE_INT prec
+6038:             = TREE_INT_CST_LOW (TYPE_RM_SIZE (etype));
+6039:           if (type_unsigned_for_rm (etype))
+6040:             field_type = make_unsigned_type (prec);
+6041:           else
+6042:             field_type = make_signed_type (prec);
+6043:           SET_TYPE_RM_SIZE (field_type, TYPE_RM_SIZE (etype));
+6044:         }
+6045:       else
+6046:         field_type = etype;
+6047:
+6048:       field = create_field_decl (get_identifier ("OBJ"), field_type, rec_type,
+6049:                                  NULL_TREE, bitsize_zero_node, c < 0, 0);
+6050:
+6051:       finish_record_type (rec_type, field, 1, false);
+6052:
+6053:       expr = fold_build1 (NOP_EXPR, field_type, expr);
+6054:       CONSTRUCTOR_APPEND_ELT (v, field, expr);
+6055:       expr = gnat_build_constructor (rec_type, v);
+6056:       expr = unchecked_convert (type, expr, notrunc_p);
+6057:     }
+6058:
+6059:   /* If we are converting between fixed-size types with different sizes, we
+6060:      need to pad to have the same size on both sides.
+6061:
+6062:      ??? We cannot do it unconditionally because unchecked conversions are
+6063:      used liberally by the front-end to implement interface thunks:
 6064:
 6065:        type ada__tags__addr_ptr is access system.address;
 6066:        S191s : constant ada__tags__addr_ptr := ada__tags__addr_ptr!(S190s);
@@ -4653,11 +5550,86 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6109:                                           false, false, true),
 6110:                           expr);
 6111:           expr = unchecked_convert (type, expr, notrunc_p);
-```
-
-## gcc/ada/gcc-interface/utils.cc:6192–6204
-
-```text
+6112:         }
+6113:       else
+6114:         {
+6115:           tree rec_type = maybe_pad_type (type, TYPE_SIZE (etype), 0, Empty,
+6116:                                           false, false, true);
+6117:           expr = unchecked_convert (rec_type, expr, notrunc_p);
+6118:           expr = build3 (COMPONENT_REF, type, expr, TYPE_FIELDS (rec_type),
+6119:                          NULL_TREE);
+6120:         }
+6121:     }
+6122:
+6123:   /* We have a special case when we are converting between two unconstrained
+6124:      array types.  In that case, take the address, convert the fat pointer
+6125:      types, and dereference.  */
+6126:   else if (ecode == code && code == UNCONSTRAINED_ARRAY_TYPE)
+6127:     expr = build_unary_op (INDIRECT_REF, NULL_TREE,
+6128:                            build1 (VIEW_CONVERT_EXPR, TREE_TYPE (type),
+6129:                                    build_unary_op (ADDR_EXPR, NULL_TREE,
+6130:                                                    expr)));
+6131:
+6132:   /* Another special case is when we are converting to a vector type from its
+6133:      representative array type; this a regular conversion.  */
+6134:   else if (code == VECTOR_TYPE
+6135:            && ecode == ARRAY_TYPE
+6136:            && gnat_types_compatible_p (TYPE_REPRESENTATIVE_ARRAY (type),
+6137:                                        etype))
+6138:     expr = convert (type, expr);
+6139:
+6140:   /* And, if the array type is not the representative, we try to build an
+6141:      intermediate vector type of which the array type is the representative
+6142:      and to do the unchecked conversion between the vector types, in order
+6143:      to enable further simplifications in the middle-end.  */
+6144:   else if (code == VECTOR_TYPE
+6145:            && ecode == ARRAY_TYPE
+6146:            && (tem = build_vector_type_for_array (etype, NULL_TREE)))
+6147:     {
+6148:       expr = convert (tem, expr);
+6149:       return unchecked_convert (type, expr, notrunc_p);
+6150:     }
+6151:
+6152:   /* If we are converting a CONSTRUCTOR to a more aligned aggregate type, bump
+6153:      the alignment of the CONSTRUCTOR to speed up the copy operation.  But do
+6154:      not do it for a conversion between original and packable version to avoid
+6155:      an infinite recursion.  */
+6156:   else if (TREE_CODE (expr) == CONSTRUCTOR
+6157:            && AGGREGATE_TYPE_P (type)
+6158:            && TYPE_NAME (type) != TYPE_NAME (etype)
+6159:            && TYPE_ALIGN (etype) < TYPE_ALIGN (type))
+6160:     {
+6161:       expr = convert (maybe_pad_type (etype, NULL_TREE, TYPE_ALIGN (type),
+6162:                                       Empty, false, false, true),
+6163:                       expr);
+6164:       return unchecked_convert (type, expr, notrunc_p);
+6165:     }
+6166:
+6167:   /* If we are converting a CONSTRUCTOR to a larger aggregate type, bump the
+6168:      size of the CONSTRUCTOR to make sure there are enough allocated bytes.
+6169:      But do not do it for a conversion between original and packable version
+6170:      to avoid an infinite recursion.  */
+6171:   else if (TREE_CODE (expr) == CONSTRUCTOR
+6172:            && AGGREGATE_TYPE_P (type)
+6173:            && TYPE_NAME (type) != TYPE_NAME (etype)
+6174:            && TREE_CONSTANT (TYPE_SIZE (type))
+6175:            && (!TREE_CONSTANT (TYPE_SIZE (etype))
+6176:                || tree_int_cst_lt (TYPE_SIZE (etype), TYPE_SIZE (type))))
+6177:     {
+6178:       expr = convert (maybe_pad_type (etype, TYPE_SIZE (type), 0,
+6179:                                       Empty, false, false, true),
+6180:                       expr);
+6181:       return unchecked_convert (type, expr, notrunc_p);
+6182:     }
+6183:
+6184:   /* If we are converting a string constant to a pointer to character, make
+6185:      sure that the string is not folded into an integer constant.  */
+6186:   else if (TREE_CODE (expr) == STRING_CST
+6187:            && POINTER_TYPE_P (type)
+6188:            && TYPE_STRING_FLAG (TREE_TYPE (type)))
+6189:     expr = build1 (VIEW_CONVERT_EXPR, type, expr);
+6190:
+6191:   /* Otherwise, just build a VIEW_CONVERT_EXPR of the expression.  */
 6192:   else
 6193:     {
 6194:       expr = maybe_unconstrained_array (expr);
@@ -4671,6 +5643,52 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6202:
 6203:   /* If the result is a non-biased integral type whose precision is not equal
 6204:      to its size, sign- or zero-extend the result.  But we need not do this
+6205:      if the input is also an integral type and both are unsigned or both are
+6206:      signed and have the same precision.  */
+6207:   tree type_rm_size;
+6208:   if (!notrunc_p
+6209:       && !biased
+6210:       && INTEGRAL_TYPE_P (type)
+6211:       && (type_rm_size = TYPE_RM_SIZE (type))
+6212:       && tree_int_cst_compare (type_rm_size, TYPE_SIZE (type)) < 0
+6213:       && !(INTEGRAL_TYPE_P (etype)
+6214:            && type_unsigned_for_rm (type) == type_unsigned_for_rm (etype)
+6215:            && (type_unsigned_for_rm (type)
+6216:                || tree_int_cst_compare (type_rm_size,
+6217:                                         TYPE_RM_SIZE (etype)
+6218:                                         ? TYPE_RM_SIZE (etype)
+6219:                                         : TYPE_SIZE (etype)) == 0)))
+6220:     {
+6221:       if (integer_zerop (type_rm_size))
+6222:         expr = build_int_cst (type, 0);
+6223:       else
+6224:         {
+6225:           tree base_type
+6226:             = gnat_type_for_size (TREE_INT_CST_LOW (TYPE_SIZE (type)),
+6227:                                   type_unsigned_for_rm (type));
+6228:           tree shift_expr
+6229:             = convert (base_type,
+6230:                        size_binop (MINUS_EXPR,
+6231:                                    TYPE_SIZE (type), type_rm_size));
+6232:           expr
+6233:             = convert (type,
+6234:                        build_binary_op (RSHIFT_EXPR, base_type,
+6235:                                         build_binary_op (LSHIFT_EXPR, base_type,
+6236:                                                          convert (base_type,
+6237:                                                                   expr),
+6238:                                                          shift_expr),
+6239:                                         shift_expr));
+6240:         }
+6241:     }
+6242:
+6243:   /* An unchecked conversion should never raise Constraint_Error.  The code
+6244:      below assumes that GCC's conversion routines overflow the same way that
+6245:      the underlying hardware does.  This is probably true.  In the rare case
+6246:      when it is false, we can rely on the fact that such conversions are
+6247:      erroneous anyway.  */
+6248:   if (TREE_CODE (expr) == INTEGER_CST)
+6249:     TREE_OVERFLOW (expr) = 0;
+6250:
 ```
 
 ## gcc/ada/gcc-interface/decl.cc:400–445
@@ -6656,6 +7674,24 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 5691: type_requires_init_of_formal (Entity_Id type)
 ```
 
+## gcc/ada/gcc-interface/decl.cc:7116–7128
+
+```text
+7116: allocatable_size_p (tree gnu_size, bool static_p)
+7117: {
+7118:   /* We can allocate a fixed size if it is a valid for the middle-end but, for
+7119:      a static allocation, we do not allocate more than 2 GB because this would
+7120:      very likely be unintended and problematic for usual code models.  */
+7121:   if (TREE_CODE (gnu_size) == INTEGER_CST)
+7122:     return valid_constant_size_p (gnu_size)
+7123:            && (!static_p || tree_to_uhwi (gnu_size) <= INT_MAX);
+7124:
+7125:   /* We can allocate a variable size if this isn't a static allocation.  */
+7126:   else
+7127:     return !static_p;
+7128: }
+```
+
 ## gcc/ada/gcc-interface/decl.cc:7169–7197
 
 ```text
@@ -8218,7 +9254,7 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2130: }
 ```
 
-## gcc/ada/gcc-interface/utils2.cc:2166–2347
+## gcc/ada/gcc-interface/utils2.cc:2166–2435
 
 ```text
 2166: tree
@@ -8403,11 +9439,338 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2345:   return build1 (NULL_EXPR, TREE_TYPE (field),
 2346:                  build_call_raise (PE_Explicit_Raise, Empty,
 2347:                                    N_Raise_Program_Error));
+2348: }
+2349:
+2350: /* Helper for build_call_alloc_dealloc, with arguments to be interpreted
+2351:    identically.  Process the case where a GNAT_PROC to call is provided.  */
+2352:
+2353: static inline tree
+2354: build_call_alloc_dealloc_proc (tree gnu_obj, tree gnu_size, tree gnu_type,
+2355:                                Entity_Id gnat_proc, Entity_Id gnat_pool)
+2356: {
+2357:   tree gnu_proc = gnat_to_gnu (gnat_proc);
+2358:   tree gnu_align = size_int (TYPE_ALIGN (gnu_type) / BITS_PER_UNIT);
+2359:
+2360:   tree gnu_call;
+2361:
+2362:   /* A storage pool's underlying type is a record type for both predefined
+2363:      storage pools and GNAT simple storage pools.  The return and secondary
+2364:      stacks use the same mechanism, but their pool object is an integer.  */
+2365:   if (Is_Record_Type (Underlying_Type (Etype (gnat_pool))))
+2366:     {
+2367:       /* The size is the third parameter; the alignment is the
+2368:          same type.  */
+2369:       Entity_Id gnat_size_type
+2370:         = Etype (Next_Formal (Next_Formal (First_Formal (gnat_proc))));
+2371:       tree gnu_size_type = gnat_to_gnu_type (gnat_size_type);
+2372:
+2373:       tree gnu_pool = gnat_to_gnu (gnat_pool);
+2374:       tree gnu_pool_addr = build_unary_op (ADDR_EXPR, NULL_TREE, gnu_pool);
+2375:
+2376:       gnu_size = convert (gnu_size_type, gnu_size);
+2377:       gnu_align = convert (gnu_size_type, gnu_align);
+2378:
+2379:       /* The first arg is always the address of the storage pool; next
+2380:          comes the address of the object, for a deallocator, then the
+2381:          size and alignment.  */
+2382:       if (gnu_obj)
+2383:         gnu_call = build_call_n_expr (gnu_proc, 4, gnu_pool_addr, gnu_obj,
+2384:                                       gnu_size, gnu_align);
+2385:       else
+2386:         gnu_call = build_call_n_expr (gnu_proc, 3, gnu_pool_addr,
+2387:                                       gnu_size, gnu_align);
+2388:     }
+2389:
+2390:   else
+2391:     {
+2392:       /* The size is the second parameter.  */
+2393:       Entity_Id gnat_size_type
+2394:         = Etype (Next_Formal (First_Formal (gnat_proc)));
+2395:       tree gnu_size_type = gnat_to_gnu_type (gnat_size_type);
+2396:
+2397:       /* Deallocation is not supported for return and secondary stacks.  */
+2398:       gcc_assert (!gnu_obj);
+2399:
+2400:       gnu_size = convert (gnu_size_type, gnu_size);
+2401:       gnu_align = convert (gnu_size_type, gnu_align);
+2402:
+2403:       if (DECL_BUILT_IN_CLASS (gnu_proc) == BUILT_IN_FRONTEND
+2404:           && DECL_FE_FUNCTION_CODE (gnu_proc) == BUILT_IN_RETURN_SLOT)
+2405:         {
+2406:           /* This must be a function that returns by invisible reference.  */
+2407:           gcc_assert (current_function_decl
+2408:                       && TREE_ADDRESSABLE (TREE_TYPE (current_function_decl)));
+2409:           tree gnu_ret_size;
+2410:
+2411:           gnu_call = DECL_RESULT (current_function_decl);
+2412:
+2413:           /* The allocation has already been done by the caller so we check that
+2414:              we are not going to overflow the return slot.  */
+2415:           if (TYPE_CI_CO_LIST (TREE_TYPE (current_function_decl)))
+2416:             gnu_ret_size
+2417:               = TYPE_SIZE_UNIT
+2418:                 (TREE_TYPE (TYPE_FIELDS (TREE_TYPE (TREE_TYPE (gnu_call)))));
+2419:           else
+2420:             gnu_ret_size = TYPE_SIZE_UNIT (TREE_TYPE (TREE_TYPE (gnu_call)));
+2421:
+2422:           gnu_call
+2423:             = fold_build3 (COND_EXPR, TREE_TYPE (gnu_call),
+2424:                            fold_build2 (LE_EXPR, boolean_type_node,
+2425:                                         fold_convert (sizetype, gnu_size),
+2426:                                         gnu_ret_size),
+2427:                            gnu_call,
+2428:                            build_call_raise (PE_Explicit_Raise, Empty,
+2429:                                              N_Raise_Program_Error));
+2430:         }
+2431:
+2432:       else
+2433:         gnu_call = build_call_n_expr (gnu_proc, 2, gnu_size, gnu_align);
+2434:     }
+2435:
 ```
 
-## gcc/ada/gcc-interface/utils2.cc:3045–3380
+## gcc/ada/gcc-interface/utils2.cc:2564–2761
 
 ```text
+2564: build_call_alloc_dealloc (tree gnu_obj, tree gnu_size, tree gnu_type,
+2565:                           Entity_Id gnat_proc, Entity_Id gnat_pool,
+2566:                           Node_Id gnat_node)
+2567: {
+2568:   /* Explicit proc to call ?  This one is assumed to deal with the type
+2569:      alignment constraints.  */
+2570:   if (Present (gnat_proc))
+2571:     return build_call_alloc_dealloc_proc (gnu_obj, gnu_size, gnu_type,
+2572:                                           gnat_proc, gnat_pool);
+2573:
+2574:   /* Otherwise, object to "free" or "malloc" with possible special processing
+2575:      for alignments stricter than what the default allocator honors.  */
+2576:   else if (gnu_obj)
+2577:     return maybe_wrap_free (gnu_obj, gnu_type, gnat_node);
+2578:   else
+2579:     {
+2580:       /* Assert that we no longer can be called with this special pool.  */
+2581:       gcc_assert (gnat_pool != -1);
+2582:
+2583:       /* Check that we aren't violating the associated restriction.  */
+2584:       if (!(Nkind (gnat_node) == N_Allocator && Comes_From_Source (gnat_node)))
+2585:         {
+2586:           Check_No_Implicit_Heap_Alloc (gnat_node);
+2587:           if (Has_Task (Etype (gnat_node)))
+2588:             Check_No_Implicit_Task_Alloc (gnat_node);
+2589:           if (Has_Protected (Etype (gnat_node)))
+2590:             Check_No_Implicit_Protected_Alloc (gnat_node);
+2591:         }
+2592:       return maybe_wrap_malloc (gnu_size, gnu_type, gnat_node);
+2593:     }
+2594: }
+2595:
+2596: /* Build a GCC tree that corresponds to allocating an object of TYPE whose
+2597:    initial value is INIT, if INIT is nonzero.  Convert the expression to
+2598:    RESULT_TYPE, which must be some pointer type, and return the result.
+2599:
+2600:    GNAT_PROC and GNAT_POOL optionally give the procedure to call and
+2601:    the storage pool to use.  GNAT_NODE is used to provide an error
+2602:    location for restriction violation messages.  If IGNORE_INIT_TYPE is
+2603:    true, ignore the type of INIT for the purpose of determining the size;
+2604:    this will cause the maximum size to be allocated if TYPE is of
+2605:    self-referential size.  */
+2606:
+2607: tree
+2608: build_allocator (tree type, tree init, tree result_type, Entity_Id gnat_proc,
+2609:                  Entity_Id gnat_pool, Node_Id gnat_node, bool ignore_init_type)
+2610: {
+2611:   const bool pool_is_storage_model
+2612:     = Present (gnat_pool)
+2613:       && Has_Storage_Model_Type_Aspect (Etype (gnat_pool))
+2614:       && Present (Storage_Model_Copy_To (gnat_pool));
+2615:   tree size, storage, storage_deref, storage_init;
+2616:
+2617:   /* If the initializer, if present, is a NULL_EXPR, just return a new one.  */
+2618:   if (init && TREE_CODE (init) == NULL_EXPR)
+2619:     return build1 (NULL_EXPR, result_type, TREE_OPERAND (init, 0));
+2620:
+2621:   /* If we are just annotating types, also return a NULL_EXPR.  */
+2622:   else if (type_annotate_only)
+2623:     return build1 (NULL_EXPR, result_type,
+2624:                    build_call_raise (CE_Range_Check_Failed, gnat_node,
+2625:                                      N_Raise_Constraint_Error));
+2626:
+2627:   /* If the initializer, if present, is a COND_EXPR, deal with each branch.  */
+2628:   else if (init && TREE_CODE (init) == COND_EXPR)
+2629:     return build3 (COND_EXPR, result_type, TREE_OPERAND (init, 0),
+2630:                    build_allocator (type, TREE_OPERAND (init, 1), result_type,
+2631:                                     gnat_proc, gnat_pool, gnat_node,
+2632:                                     ignore_init_type),
+2633:                    build_allocator (type, TREE_OPERAND (init, 2), result_type,
+2634:                                     gnat_proc, gnat_pool, gnat_node,
+2635:                                     ignore_init_type));
+2636:
+2637:   /* If RESULT_TYPE is a fat or thin pointer, set SIZE to be the sum of the
+2638:      sizes of the object and its template.  Allocate the whole thing and
+2639:      fill in the parts that are known.  */
+2640:   else if (TYPE_IS_FAT_OR_THIN_POINTER_P (result_type)
+2641:            || TYPE_IS_EXTENDED_POINTER_P (result_type))
+2642:     {
+2643:       tree storage_type
+2644:         = build_unc_object_type_from_ptr (result_type, type,
+2645:                                           get_identifier ("ALLOC"), false);
+2646:       tree template_type = TREE_TYPE (TYPE_FIELDS (storage_type));
+2647:       tree storage_ptr_type = build_pointer_type (storage_type);
+2648:       tree lhs, rhs;
+2649:
+2650:       size = TYPE_SIZE_UNIT (storage_type);
+2651:       size = SUBSTITUTE_PLACEHOLDER_IN_EXPR (size, init);
+2652:
+2653:       /* If the size overflows, pass -1 so Storage_Error will be raised.  */
+2654:       if (TREE_CODE (size) == INTEGER_CST && !valid_constant_size_p (size))
+2655:         size = size_int (-1);
+2656:
+2657:       storage = build_call_alloc_dealloc (NULL_TREE, size, storage_type,
+2658:                                           gnat_proc, gnat_pool, gnat_node);
+2659:       storage = convert (storage_ptr_type, gnat_protect_expr (storage));
+2660:       storage_deref = build_unary_op (INDIRECT_REF, NULL_TREE, storage);
+2661:       TREE_THIS_NOTRAP (storage_deref) = 1;
+2662:
+2663:       /* If there is an initializing expression, then make a constructor for
+2664:          the entire object including the bounds and copy it into the object.
+2665:          If there is no initializing expression, just set the bounds.  Note
+2666:          that, if we have a storage model, we need to copy the initializing
+2667:          expression separately from the bounds.  */
+2668:       if (init && !pool_is_storage_model)
+2669:         {
+2670:           vec<constructor_elt, va_gc> *v;
+2671:           vec_alloc (v, 2);
+2672:
+2673:           CONSTRUCTOR_APPEND_ELT (v, TYPE_FIELDS (storage_type),
+2674:                                   build_template (template_type, type, init));
+2675:           CONSTRUCTOR_APPEND_ELT (v, DECL_CHAIN (TYPE_FIELDS (storage_type)),
+2676:                                   init);
+2677:
+2678:           lhs = storage_deref;
+2679:           rhs = gnat_build_constructor (storage_type, v);
+2680:         }
+2681:       else
+2682:         {
+2683:           lhs = build_component_ref (storage_deref, TYPE_FIELDS (storage_type),
+2684:                                      false);
+2685:           rhs = build_template (template_type, type, init);
+2686:         }
+2687:
+2688:       if (pool_is_storage_model)
+2689:         {
+2690:           storage_init = build_storage_model_store (gnat_pool, lhs, rhs);
+2691:           if (init)
+2692:             {
+2693:               start_stmt_group ();
+2694:               add_stmt (storage_init);
+2695:               lhs
+2696:                 = build_component_ref (storage_deref,
+2697:                                        DECL_CHAIN (TYPE_FIELDS (storage_type)),
+2698:                                        false);
+2699:               rhs = init;
+2700:               size = TYPE_SIZE_UNIT (TREE_TYPE (lhs));
+2701:               size = SUBSTITUTE_PLACEHOLDER_IN_EXPR (size, init);
+2702:               tree t = build_storage_model_store (gnat_pool, lhs, rhs, size);
+2703:               add_stmt (t);
+2704:               storage_init = end_stmt_group ();
+2705:             }
+2706:         }
+2707:       else
+2708:         storage_init = build_binary_op (INIT_EXPR, NULL_TREE, lhs, rhs);
+2709:
+2710:       return build2 (COMPOUND_EXPR, result_type,
+2711:                      storage_init, convert (result_type, storage));
+2712:     }
+2713:
+2714:   size = TYPE_SIZE_UNIT (type);
+2715:
+2716:   /* If we have an initializing expression, see if its size is simpler
+2717:      than the size from the type.  */
+2718:   if (!ignore_init_type && init && TYPE_SIZE_UNIT (TREE_TYPE (init))
+2719:       && (TREE_CODE (TYPE_SIZE_UNIT (TREE_TYPE (init))) == INTEGER_CST
+2720:           || CONTAINS_PLACEHOLDER_P (size)))
+2721:     size = TYPE_SIZE_UNIT (TREE_TYPE (init));
+2722:
+2723:   /* If the size is still self-referential, reference the initializing
+2724:      expression, if it is present.  If not, this must have been a call
+2725:      to allocate a library-level object, in which case we just use the
+2726:      maximum size.  */
+2727:   if (!ignore_init_type && init)
+2728:     size = SUBSTITUTE_PLACEHOLDER_IN_EXPR (size, init);
+2729:   else if (CONTAINS_PLACEHOLDER_P (size))
+2730:     size = max_size (size, true);
+2731:
+2732:   /* If the size overflows, pass -1 so Storage_Error will be raised.  */
+2733:   if (TREE_CODE (size) == INTEGER_CST && !valid_constant_size_p (size))
+2734:     size = size_int (-1);
+2735:
+2736:   storage = convert (result_type,
+2737:                      build_call_alloc_dealloc (NULL_TREE, size, type,
+2738:                                                gnat_proc, gnat_pool,
+2739:                                                gnat_node));
+2740:
+2741:   /* If we have an initial value, protect the new address, assign the value
+2742:      and return the address with a COMPOUND_EXPR.  */
+2743:   if (init)
+2744:     {
+2745:       storage = gnat_protect_expr (storage);
+2746:       storage_deref = build_unary_op (INDIRECT_REF, NULL_TREE, storage);
+2747:       TREE_THIS_NOTRAP (storage_deref) = 1;
+2748:       if (pool_is_storage_model)
+2749:         storage_init
+2750:           = build_storage_model_store (gnat_pool, storage_deref, init, size);
+2751:       else
+2752:         storage_init
+2753:           = build_binary_op (INIT_EXPR, NULL_TREE, storage_deref, init);
+2754:       return build2 (COMPOUND_EXPR, result_type, storage_init, storage);
+2755:     }
+2756:
+2757:   return storage;
+2758: }
+2759:
+2760: /* Build a call to a copy procedure of a storage model given by an object.
+2761:    DEST, SRC and SIZE are as for a call to memcpy.  GNAT_SMO is the entity
+```
+
+## gcc/ada/gcc-interface/utils2.cc:3009–3380
+
+```text
+3009: gnat_mark_addressable (tree t)
+3010: {
+3011:   while (true)
+3012:     switch (TREE_CODE (t))
+3013:       {
+3014:       case ADDR_EXPR:
+3015:       case COMPONENT_REF:
+3016:       case ARRAY_REF:
+3017:       case ARRAY_RANGE_REF:
+3018:       case REALPART_EXPR:
+3019:       case IMAGPART_EXPR:
+3020:       case VIEW_CONVERT_EXPR:
+3021:       case NON_LVALUE_EXPR:
+3022:       CASE_CONVERT:
+3023:         t = TREE_OPERAND (t, 0);
+3024:         break;
+3025:
+3026:       case COMPOUND_EXPR:
+3027:         t = TREE_OPERAND (t, 1);
+3028:         break;
+3029:
+3030:       case CONSTRUCTOR:
+3031:         TREE_ADDRESSABLE (t) = 1;
+3032:         return true;
+3033:
+3034:       case VAR_DECL:
+3035:       case PARM_DECL:
+3036:       case RESULT_DECL:
+3037:         TREE_ADDRESSABLE (t) = 1;
+3038:         return true;
+3039:
+3040:       case FUNCTION_DECL:
+3041:         TREE_ADDRESSABLE (t) = 1;
+3042:         return true;
+3043:
+3044:       case CONST_DECL:
 3045:         return DECL_CONST_CORRESPONDING_VAR (t)
 3046:                && gnat_mark_addressable (DECL_CONST_CORRESPONDING_VAR (t));
 3047:
@@ -8837,6 +10200,53 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4162:      the value within another field.
 4163:
 4164:      Note that it must not be the case that EXPR contains both a PLACEHOLDER_EXPR
+```
+
+## gcc/tree.cc:6982–7023
+
+```text
+6982: compare_tree_int (const_tree t, unsigned HOST_WIDE_INT u)
+6983: {
+6984:   if (tree_int_cst_sgn (t) < 0)
+6985:     return -1;
+6986:   else if (!tree_fits_uhwi_p (t))
+6987:     return 1;
+6988:   else if (TREE_INT_CST_LOW (t) == u)
+6989:     return 0;
+6990:   else if (TREE_INT_CST_LOW (t) < u)
+6991:     return -1;
+6992:   else
+6993:     return 1;
+6994: }
+6995:
+6996: /* Return true if SIZE represents a constant size that is in bounds of
+6997:    what the middle-end and the backend accepts (covering not more than
+6998:    half of the address-space).
+6999:    When PERR is non-null, set *PERR on failure to the description of
+7000:    why SIZE is not valid.  */
+7001:
+7002: bool
+7003: valid_constant_size_p (const_tree size, cst_size_error *perr /* = NULL */)
+7004: {
+7005:   if (POLY_INT_CST_P (size))
+7006:     {
+7007:       if (TREE_OVERFLOW (size))
+7008:         return false;
+7009:       for (unsigned int i = 0; i < NUM_POLY_INT_COEFFS; ++i)
+7010:         if (!valid_constant_size_p (POLY_INT_CST_COEFF (size, i)))
+7011:           return false;
+7012:       return true;
+7013:     }
+7014:
+7015:   cst_size_error error;
+7016:   if (!perr)
+7017:     perr = &error;
+7018:
+7019:   if (TREE_CODE (size) != INTEGER_CST)
+7020:     {
+7021:       *perr = cst_size_not_constant;
+7022:       return false;
+7023:     }
 ```
 
 ## gcc/tree.cc:11020–11077

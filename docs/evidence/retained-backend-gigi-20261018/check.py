@@ -14,32 +14,33 @@ import re
 
 PIN = "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
 RANGES = {
+    "gcc/ada/exp_ch4.adb": [(3367, 3405), (4639, 4654)],
     "gcc/ada/exp_ch6.adb": [(6180, 6209), (6224, 6290), (6734, 6745)],
     "gcc/ada/exp_ch7.adb": [(4780, 4821)],
     "gcc/ada/sem_res.adb": [(13249, 13335)],
+    "gcc/ada/libgnat/s-secsta.ads": [(70, 73), (110, 113), (300, 308), (335, 341)],
     "gcc/ada/gcc-interface/trans.cc": [
         (3026, 3306), (3313, 3400), (3843, 3941), (4028, 4126),
         (4228, 4249), (4582, 4613), (4680, 5758),
         (5990, 6003), (6078, 6095),
-        (6150, 6318), (7944, 8003), (8118, 8146), (8603, 8622),
+        (6150, 6318), (7656, 7725), (7944, 8003), (8118, 8146), (8603, 8622),
         (8968, 8996), (9104, 9185), (9217, 9278), (9298, 9325),
         (9492, 9582), (9889, 10025), (10014, 10494)],
     "gcc/ada/gcc-interface/utils.cc": [
         (682, 783), (894, 1062), (1522, 1613), (1691, 1935),
         (2861, 2894), (2918, 3133), (3137, 3162), (3830, 3875),
-        (4401, 4460), (4794, 4905), (5160, 5184),
-        (5591, 5627), (5764, 5851),
-        (6064, 6111), (6192, 6204)],
+        (4401, 4460), (4794, 4905), (5009, 5635), (5764, 5851),
+        (5911, 6250)],
     "gcc/ada/gcc-interface/decl.cc": [
         (400, 445), (697, 718), (754, 766), (1177, 1205),
         (1507, 1713), (1901, 2005), (2577, 3193), (3810, 4056),
-        (4530, 5022), (5538, 5691), (7169, 7197), (7532, 7688)],
+        (4530, 5022), (5538, 5691), (7116, 7128), (7169, 7197), (7532, 7688)],
     "gcc/ada/gcc-interface/utils2.cc": [
         (216, 456), (984, 1520), (1530, 1984), (2018, 2130),
-        (2166, 2347), (3045, 3380)],
+        (2166, 2435), (2564, 2761), (3009, 3380)],
     "gcc/ada/gcc-interface/gigi.h": [(1299, 1307)],
     "gcc/tree.cc": [
-        (1212, 1230), (1468, 1479), (4132, 4164),
+        (1212, 1230), (1468, 1479), (4132, 4164), (6982, 7023),
         (11020, 11077), (11194, 11224)],
     "gcc/passes.def": [(27, 42)],
     "gcc/gimple-low.cc": [(122, 214), (1178, 1223)],
@@ -184,6 +185,16 @@ def arithmetic():
         "string_equality_conversion_requests": 3+4+1+2,
         "string_equality_scalar_binary_requests": 2+3+1+2,
         "string_equality_fold_build2_requests": 3+1,
+        "ordinary_address_pointer_type_requests": "2*h",
+        "ordinary_address_conversion_requests": "2*h",
+        "ordinary_address_compound_nodes": "h-1",
+        "ordinary_address_terminal_fold_requests": 1,
+        "unchecked_scalar_conversion_requests_including_truncation": 1+3,
+        "unchecked_integral_tail_binary_requests": 2,
+        "secondary_stack_allocation_call_actuals": 2,
+        "secondary_stack_allocation_call_operand_slots": 2+3,
+        "secondary_stack_allocation_call_size_conversions": 2,
+        "secondary_stack_allocator_result_pointer_conversions": 1,
         "scope": "source identities, local event counts and interface only; not transitive gigi allocation or compiler success",
     }
 

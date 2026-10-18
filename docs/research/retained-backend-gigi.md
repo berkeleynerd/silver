@@ -675,6 +675,145 @@ The generic folder and gimplifier must therefore price aggregate EQ/NE, not
 only scalar comparisons. This local transfer does not enumerate characters or
 copy the compared arrays; subsequent memcmp/block lowering remains separate.
 
+## Conversion, address and allocation subroutes
+
+Ordinary nonbiased scalar conversion has a small gigi dispatch interface
+(`utils.cc:5414–5484`). An integer constant requests one `int_const_convert`;
+other integer/enumeral values request one `convert_to_integer` and one `fold`.
+Boolean and mere scalar variants request one `fold_convert`. Complex
+conversion, if requested for the internal overflow pair, requests one
+`convert_to_complex` and one `fold`. These are alternatives, and none is a
+promise about the generic helper's transitive allocations.
+
+Ordinary pointer conversion requests one `convert_to_pointer` and one `fold`.
+A fat-pointer input adds one data-field component-reference helper
+(`utils.cc:5486–5530`). Thin-pointer adjustments instead request at most two
+`byte_position`, one `size_diffop`, two `fold_convert` and one pointer-plus
+binary helper. Generated pointers to constrained String are ordinary pointers;
+the fixed runtime's unconstrained String ABI can use fat pointers.
+
+For two ordinary array types, `convert` has four principal alternatives:
+reuse the expression, copy a STRING_CST as already counted, build one plain
+VIEW_CONVERT_EXPR for a mere type variant, or request `unchecked_convert`.
+For an existing indirect array reference it can instead request one pointer
+type, one `fold_convert` and one indirect-reference helper
+(`utils.cc:5547–5571`). A preexisting aggregate-view-conversion spine may be
+removed recursively (`5327–5367`); each such step consumes one existing wrapper,
+not another source expression traversal.
+
+For a two-field descriptor CONSTRUCTOR, conversion between mere variants
+copies one node and its two element entries (`utils.cc:5191–5206`). The
+compatible-record alternative allocates a replacement element vector, converts
+each supplied field value once and then copies the node (`5208–5273`); partial
+failed attempts are charged too. The fields of a flat bounds template are
+scalars, and the fields of a fat pointer are ordinary pointers, so these field
+conversions terminate in the scalar/pointer rows. Fixed `Mark_Id` metadata has
+two record levels, not an arbitrary source-defined record depth:
+`Mark_Id=(Stack pointer, Top)` and `Top=(Byte, Chunk pointer)`
+(`libgnat/s-secsta.ads:300–308,335–341`). Other fixed imported-record work stays
+in the fixed-root type graph.
+
+Padding and template-containing-record conversions have their own request
+edges (`utils.cc:5009–5158`). An input-padding step requests at most one
+component-reference helper, then converts the inner value. An output-padding
+step converts the inner target and wraps it in a one-element CONSTRUCTOR or
+view conversion. A template-containing target requests one template helper,
+one `maybe_unconstrained_array`, at most one data-field conversion and one
+two-element constructor. These reduce to the descriptor/array cases after
+removing the relevant type wrapper. The natural-layout argument must bound
+the number of actual padding layers; it must not replace that obligation with
+an assumption that all conversions are scalar.
+
+The native expansion frontier excludes a variable Main type with
+`Is_Constr_Array_Subt_With_Bounds`: its setters require an aliased object or
+controlled array component, neither of which is selected. Generated String
+storage has no aliased flag and Character is noncontrolled. Thus the
+template-containing object route is retained for the fixed imported-type
+interface, not multiplied by each ordinary String declaration or concatenation.
+
+For ordinary array-to-array `unchecked_convert`, excluding constructor
+realignment, the selected transfer is one `maybe_unconstrained_array` and one
+plain or folded VIEW_CONVERT_EXPR (`utils.cc:5911–6204`). Fixed-size padding
+branches explicitly exclude both STRING_CST and aggregate-to-aggregate
+conversion. This covers the generated literal-subtype-to-constrained-String
+conversion; it does not copy one character node per byte.
+
+An unchecked ordinary scalar/pointer conversion first requests one `convert`.
+Do not infer that its final truncation branch is absent merely because the
+source has no modular types: a subtype's RM size can differ from its allocated
+size. The conservative integral tail (`utils.cc:6207–6240`) adds at most one
+`gnat_type_for_size`, one `size_binop`, three ordinary conversions and two
+scalar binary helpers, or one integer constant for a zero-bit value. Reverse
+storage, scalar/aggregate reinterpretation and vector construction are outside
+the selected conversion pairs. Constructor realignment/size growth remains
+tied to actual record layout and must be counted if that pair is reachable.
+
+### Address and dereference are not subtree copies
+
+For ordinary ADDR_EXPR requests, `build_unary_op`
+(`utils2.cc:1567–1728`) follows at most one existing operand-zero/operand-one
+spine through eligible aggregate conversions, padded constructors and special
+compound expressions. Let `h` count the visited spine positions, including the
+terminal one. Its local envelope is at most `2h` pointer/reference-type
+requests, `2h` conversions, `h-1` plain COMPOUND_EXPR nodes and one terminal
+`build_fold_addr_expr`. The large allowance covers the terminal indirect
+reference's pointer type and alias-all variant, the optional common-path
+unpadding conversion, and each return conversion. Generic address folding is
+separate. ATTR_ADDR_EXPR field-offset construction is a distinct route; it is
+not silently charged as this ordinary address helper.
+
+`gnat_mark_addressable` (`utils2.cc:3009–3051`) only follows existing wrappers,
+sets flags and consults an existing corresponding constant variable. It neither
+constructs a copy nor creates the corresponding variable lazily.
+
+An INDIRECT_REF helper (`1729–1792`) requests at most one thin-pointer
+`byte_position`, one thin-to-fat conversion and one final result conversion.
+Its terminal choice is one unary UNCONSTRAINED_ARRAY_REF, reuse of an ADDR
+operand, or one `build_fold_indirect_ref`. `gnat_save_expr`
+(`3068–3095`) similarly follows just a unary/ternary descriptor spine and adds
+at most one terminal SAVE_EXPR. Its wrapper slots are `h1+3*h3`, plus one
+for that terminal save; it does not unfold the saved value's expression tree.
+
+### The selected concatenation allocator
+
+The frontend supplies `new ConstrT`, without an initializer, through a named
+access type designating constrained String. The pool is the Integer
+`SS_Pool` marker and the procedure is `SS_Allocate`
+(`exp_ch4.adb:3367–3405,4639–4654`; `libgnat/s-secsta.ads:70–73,110–113`).
+At `trans.cc:7656–7725`, this requires one allocated-type lookup and one result
+type lookup, then `build_allocator`. It does not follow the qualified-expression
+initializer route. The secondary-stack pool also explicitly bypasses the
+template-containing thin-pointer result adjustment.
+
+Consequently `build_allocator` (`utils2.cc:2608–2761`) uses the ordinary-pointer,
+no-initializer path: one allocation-call helper and one result-pointer
+conversion; it adds at most one `size_int(-1)` if the constant size is invalid.
+Its size is from a constrained String subtype, so no record-discriminant
+placeholder requires `max_size`. The caller's native bound/capture evaluation
+was already charged. The initializer's recursive COND_EXPR split, protected
+initialization, template-object construction and storage-model branches do not
+apply to this frontend form.
+
+`build_call_alloc_dealloc_proc` (`2354–2435`) on the secondary-stack marker
+requests one existing procedure conversion, one allocation-size type lookup,
+one alignment `size_int`, two ordinary conversions and a two-actual call
+helper. The out Address formal is the GCC function result; the two actuals are
+size and alignment. This is an ordinary runtime function, not the invisible
+return-slot frontend builtin. The resulting call has five operand slots as
+established earlier, plus its function-address and type helper requests.
+
+There is also an independent size check for excluding implicit heap allocation
+in ordinary declarations. `allocatable_size_p` permits a valid constant local
+size, and permits a static size through `INT_MAX` inclusive
+(`decl.cc:7116–7128`). Natural-layout Character String has one byte per element
+and length at most `Integer'Last`, while the fixed pointer/scalar/Mark_Id
+objects are smaller. GCC `valid_constant_size_p` accepts nonnegative,
+nonoverflowed constants up to half of sizetype's maximum
+(`tree.cc:6982–7023`). Once the type/layout transfer establishes these size
+premises, the declaration's oversized-object `malloc` branch is excluded.
+This does not establish a physical-memory guarantee or bound backend frame
+allocation, and does not exempt either from the overall contract.
+
 ## Unresolved terms for whole-backend composition
 
 These interfaces remove the per-call/per-type arity ambiguity; they do not yet
@@ -683,11 +822,11 @@ supply one complete, usable constructor coefficient. The remaining joins are:
 1. Bound actual uncached entity conversions, type visits, bound traversals and
    rewritten reference occurrences from the native expansion vector. Preserve
    the source-preparation duplicate scalar check edges described above.
-2. Price gigi `convert`/`unchecked_convert`, address/dereference and allocator
-   helpers over the selected scalar, ordinary pointer, String, fat pointer,
-   bounds/template and secondary-stack frontier, including padding wrappers.
-   The descriptor alternatives above are local pieces of this closure, not a
-   flat cost for every possible conversion pair.
+2. Join the selected conversion/address/allocator subroutes above with the
+   actual wrapper/padding and constructor-field occurrence vector. Their
+   source recurrence has no secondary-stack initializer recursion, but its
+   input shape counts and natural-layout premises are still necessary; a
+   flat cost for every possible conversion pair is not supplied here.
 3. Price generic folding, `convert_to_integer`/pointer/complex, placeholder
    substitution, `max_value`/`max_size`, type/range/array layout and copy/unshare
    work on the actual incoming edge/shape vector. SAVE_EXPR protection and

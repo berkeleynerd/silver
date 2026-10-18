@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Companion to
 [the source argument](../../research/retained-backend-gigi.md).
 
-`source-manifest.json` pins fifteen complete files at GCC
+`source-manifest.json` pins seventeen complete files at GCC
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; Ada file identities also match the
 previously retained complete Ada inventory. `source-excerpts.md` retains the
 referenced regions. The three remaining files are the checker, its result,

@@ -2,6 +2,11 @@
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "files": [
     {
+      "path": "gcc/ada/exp_ch4.adb",
+      "bytes": 574199,
+      "sha256": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669"
+    },
+    {
       "path": "gcc/ada/exp_ch6.adb",
       "bytes": 408010,
       "sha256": "b0c37423b5a93f3d7ccc678eb2391d9a462674cbef6d2c37503cdeaa0f6728cb"
@@ -15,6 +20,11 @@
       "path": "gcc/ada/sem_res.adb",
       "bytes": 559989,
       "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8"
+    },
+    {
+      "path": "gcc/ada/libgnat/s-secsta.ads",
+      "bytes": 17306,
+      "sha256": "25ddf544c6bd3f278ed5edaf33b6a2aefe83f736507f6e4f5c3e2ee9cd407d76"
     },
     {
       "path": "gcc/ada/gcc-interface/trans.cc",
