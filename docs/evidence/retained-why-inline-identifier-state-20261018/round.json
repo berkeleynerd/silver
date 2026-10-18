@@ -1,0 +1,159 @@
+{
+  "issue": "https://github.com/berkeleynerd/silver/issues/119",
+  "base": "e6005221312ad953471ab22290d7dff576495162",
+  "objective": "Establish private Ident starting ref at retained first Input_Is_Valid/cvc5 inline entry, bind accepted<=1145 source registrations to same process, inventory immediate shared states, and delimit continuing runtime scope.",
+  "authorization": "Parent-delegated owner-authorized research #119; new note/evidence only. Parent separately coordinated each of three one-worker read-only captures after missing-state/diagnostic plans. No inline/print/submit, builds, proofs or solvers; no delegation. Parent owns independent review, integration, publication and issue/memory updates.",
+  "worker": {
+    "agent": "/root/why_inline_operations",
+    "selected_model": "GPT-6 Astra",
+    "selected_reasoning_effort": "Extra High",
+    "runtime_model_confirmation": null,
+    "runtime_effort_confirmation": null,
+    "token_usage": null,
+    "monetary_cost": null,
+    "unavailable_measurements": "Live model/effort confirmation and token/cost were not exposed."
+  },
+  "started_utc": "2026-10-18T22:18:22+00:00",
+  "recorded_utc": "2026-10-18T22:38:07.113289+00:00",
+  "elapsed_seconds_through_record": 1185.113289,
+  "elapsed_scope": "Worker elapsed through final record preparation; independent review/integration excluded.",
+  "host": "Linux x86_64",
+  "native_capture_attempts": [
+    {
+      "managed_run": "20261018T222321-73a9532920c5",
+      "outcome": "failure",
+      "managed_seconds": 7.114868897,
+      "debugger_seconds": 5.284053192001011,
+      "failure": [
+        "inline entry observer: AssertionError(('block shape', 140027919961040, 31744, 0, 32))"
+      ]
+    },
+    {
+      "managed_run": "20261018T222428-4462a2d77b63",
+      "outcome": "failure",
+      "managed_seconds": 6.77264473,
+      "debugger_seconds": 4.930910454000696,
+      "failure": [
+        "inline entry observer: AssertionError(('block shape', 140702445757296, 5121, 0, None))"
+      ]
+    },
+    {
+      "managed_run": "20261018T222813-b996544ccae9",
+      "outcome": "success",
+      "managed_seconds": 13.306743622,
+      "debugger_seconds": 11.077953020001587,
+      "failure": []
+    }
+  ],
+  "total_debugger_seconds": 21.292916666003293,
+  "total_managed_seconds": 27.194257249,
+  "workers_per_attempt": 1,
+  "diagnostic_address_space_GiB": 6,
+  "diagnostic_timeout_seconds": 120,
+  "new_native_target_executions": 3,
+  "successful_core_captures": 1,
+  "native_inlining_executed": false,
+  "compiler_runs": 0,
+  "builds": 0,
+  "proof_runs": 0,
+  "solver_runs": 0,
+  "checks": [
+    {
+      "status": "pass",
+      "elapsed_seconds": 5.499616,
+      "new_native_target_runs": 0,
+      "checks": [
+        "preincrement overflow at maximum",
+        "Boolean initial state",
+        "negative starting state",
+        "Boolean event bound",
+        "additional registration propagates instead of being silently excluded",
+        "PASS: projected signature, private ref, raw Leaf/Branch/sharing/cycle, zero arrays, exact persisted-read replay, partial auxiliary preserving core, durable rejected counter"
+      ],
+      "command": "python3 -B docs/evidence/retained-why-inline-identifier-state-20261018/check.py"
+    }
+  ],
+  "diagnostics_and_rework": [
+    "Earlier artifacts omit private ref; max reachable tag cannot bound dead registrations. Focused capture warranted and coordinated before target execution.",
+    "Attempt1 failed on internal32 versus exported31-field MakeSet signature projection. Source disassembly established singleton closure route; fixture corrected; complete attempt retained.",
+    "Attempt2 passed that route but shallow helper incorrectly constrained Hcpt.Branch to tag0; actual tag1/5words. Native retries stopped pending source-case inventory and parent coordination.",
+    "Before attempt3 replaced typed auxiliary traversal with raw shallow address graph, flushed reads before interpretation, and saved core before optional work. Synthetic signatures, both constructors, empty arrays, sharing/cycles, replay and partial-failure persistence checks passed.",
+    "Successful same-run state binding and counter composition checked. Parent challenged callback reentrancy: no-Hsdecl-insertion alone cannot exclude extra Ident registrations. Result leaves complete runtime endpoint open instead of adding an assumed zero callback count.",
+    "Bounded offline selected-runtime attempt retained7pinned source files, six C destructor bodies and limited direct-registration references. Selected destructor bodies do not enter OCaml; indirect Gc wrapper/library registration and complete hook ownership remain unestablished.",
+    "Source review corrected apparent debug.ml signal handler: it is disabled in a comment. Only selected live GNAT terminal handler used."
+  ],
+  "achieved": "Observed private starting counter60496; replayed exact raw bytes, unchanged guards, same-run244-input graph isomorphism and all6704-object representative selection; attached<=1145 accounted source registrations, arithmetic endpoint61641. Auxiliary counter/backing observations retained; complete runtime endpoint explicitly open.",
+  "remaining_obligations": [
+    "Independent source/state/counter review",
+    "Complete linked initialization/callback reachability argument excluding registered OCaml/library closures that can reach Ident, including indirect Gc wrapper/alarm use and hook ownership",
+    "Other shared continuing capacities, runtime lowering/allocation/collector composition",
+    "Family invariance, other calls/pairs, downstream/full transformation and whole-pipeline capacity"
+  ],
+  "exact_review_inputs": {
+    "docs/evidence/retained-why-inline-identifier-state-20261018/README.md": {
+      "bytes": 2357,
+      "sha256": "2bb06af15855f2fcf2cfb0567c4043009a5bc4709284e2d43a0e4c95f2369f47"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/callback-inventory.json": {
+      "bytes": 51329,
+      "sha256": "6b0a1e9a195f8edda969c3505a9039771649cbfa5d11bd9b65cfbd463d9cb477"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/capture.tar.gz": {
+      "bytes": 10999776,
+      "sha256": "ea87227e886cee89222e7e1eed8ccd60964fa61de99720e5f1ea11067b73f816"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/check.py": {
+      "bytes": 2676,
+      "sha256": "588355526c867427e2dea0d9e8db69521062c328a50560177b30477974edc758"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/compose.py": {
+      "bytes": 14460,
+      "sha256": "d1710c4fe810a8fadad14954c64c3e2d019c457d8d44da51e2d4ee3c35e1f444"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/counter.py": {
+      "bytes": 1051,
+      "sha256": "38c033ccfa2fbe41ff2d8fa08f126d685b41f4236f07a4b4bf0238302bbb6ea7"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/failed-attempts.tar.gz": {
+      "bytes": 273398,
+      "sha256": "014f9071c41c38a700fe84127df1f4f23ccbb215b0603afb6a1e9d619321bc62"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/inputs.json": {
+      "bytes": 32859,
+      "sha256": "c71fc4e9947149f1eb0c97c4f4fbc8bbf0d2b4e4ddd8bc6e4a5fd6318f190257"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/result.json": {
+      "bytes": 5781,
+      "sha256": "d9fe8d884c8d890df0b4b7718106f78774bdc4f265f420c28ef15af2cfd49a0d"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/runtime-sources.tar.gz": {
+      "bytes": 40574,
+      "sha256": "4c8f3f3ab68a3ec0fa60c48b8f0eb22181916beff3c462854c65dc3cb2ea0fa2"
+    },
+    "docs/research/retained-why-inline-identifier-state.md": {
+      "bytes": 12557,
+      "sha256": "b1f351adbf817d8efbd75a0fb5b7cf70ed5ac07914a81bd6b049b9f5cb32e691"
+    }
+  },
+  "review": {
+    "status": "pending parent-coordinated independent review",
+    "reviewer_model": null,
+    "reviewer_effort": null,
+    "review_elapsed_seconds": null,
+    "requested_focus": [
+      "Exact Ident module/closure/ref source/native layout and preincrement semantics",
+      "Preserved original guards/launcher plus core-first raw persistence and independent bytes replay",
+      "Same-run input graph and complete representative-table attachment to1145 source registrations",
+      "Meaningful difference between accounted source endpoint and complete runtime continuation; no new capacity-specific reentrancy assumption discharged",
+      "Selected C destructor source/native findings and limited direct-reference scan; residual callback/hook reachability",
+      "All three attempts retained, accurate timings, auxiliary observations only, no family/history broadening"
+    ]
+  },
+  "bookkeeping": {
+    "github_writes": false,
+    "cli_memory_updated": false,
+    "harness_written": false,
+    "live_child_goal_at_handoff": null,
+    "parent_owns_integration_and_publication": true
+  }
+}

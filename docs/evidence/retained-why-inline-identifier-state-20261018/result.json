@@ -1,0 +1,204 @@
+{
+  "scope": "this retained first Input_Is_Valid/cvc5 inline entry and one bounded continuing invocation",
+  "private_counter_observed": true,
+  "same_run_graph_and_complete_Hsdecl_binding_checked": true,
+  "exact_input_graph_isomorphism_blocks": 14477,
+  "input_roots": 244,
+  "Hsdecl_unique_old_objects": 6704,
+  "Hsdecl_next_tag": 6836,
+  "representative_envelope": {
+    "seed_saved_entries_per_formula": 8,
+    "delayed_value_nodes": 6,
+    "type_occurrence_nodes": 3,
+    "attribute_universe_entries": 80
+  },
+  "same_run_representative_projection": {
+    "mapped_keys_unique": 143,
+    "all_miss_input_alternatives_checked": 143,
+    "kind_or_symbol_excluded_old_declarations": 6559,
+    "excluded_kind_counts": {
+      "0": 296,
+      "5": 2735,
+      "2": 2336,
+      "3": 1122,
+      "1": 59,
+      "4": 11
+    },
+    "same_key_old_declarations": 145,
+    "strict_shape_exclusions": [
+      {
+        "declaration_index": 143,
+        "name": "concat_singleton_left_def",
+        "address": 140564295289336,
+        "opened_coordinates": [
+          72,
+          8,
+          0,
+          19
+        ],
+        "candidate_coordinates_upper": [
+          72,
+          7,
+          0,
+          19
+        ],
+        "strict_shape_exclusion_coordinates": [
+          "b"
+        ]
+      },
+      {
+        "declaration_index": 152,
+        "name": "bool_eq_rev",
+        "address": 140564294085432,
+        "opened_coordinates": [
+          53,
+          7,
+          0,
+          18
+        ],
+        "candidate_coordinates_upper": [
+          52,
+          7,
+          0,
+          18
+        ],
+        "strict_shape_exclusion_coordinates": [
+          "n"
+        ]
+      },
+      {
+        "declaration_index": 242,
+        "name": "argument_count__post_axiom",
+        "address": 140564287121488,
+        "opened_coordinates": [
+          17,
+          2,
+          0,
+          8
+        ],
+        "candidate_coordinates_upper": [
+          16,
+          2,
+          0,
+          8
+        ],
+        "strict_shape_exclusion_coordinates": [
+          "n"
+        ]
+      }
+    ],
+    "remaining_old_representatives_are_input_roots": 142
+  },
+  "registration_transfer": {
+    "initial": 60496,
+    "registrations_upper": 1145,
+    "first_tag_if_called": 60497,
+    "last_tag_upper": 61641,
+    "counter_after_call_upper": 61641,
+    "value_bits": 63,
+    "signed_maximum": 4611686018427387903,
+    "remaining_headroom": 4611686018427326262,
+    "no_overflow_during_bounded_call": true
+  },
+  "private_counter_plus_accounted_source_increment_fit": true,
+  "complete_continuing_call_counter_capacity_established": false,
+  "runtime_identifier_reentrancy_closure_established": false,
+  "selected_C_destructor_source_and_native_bodies_retained": true,
+  "complete_OCaml_callback_registration_reachability_established": false,
+  "source_transfer_premises_and_open_runtime_boundary": [
+    "accepted relevant source/runtime correspondence and valid caches",
+    "accepted well-formed input and existing noncolliding freshness",
+    "extension to all continuing runtime behavior requires separately closing uncharged identifier-producing callbacks, finalizers and returning signal handlers; this packet leaves that obligation open"
+  ],
+  "prior_history_no_overflow_established": false,
+  "family_wide_counter_invariance_established": false,
+  "future_or_other_invocations_bounded": false,
+  "auxiliary_observations": {
+    "Task.Hstask": {
+      "counter": 799,
+      "outer_length": 5003,
+      "allocated_key_slots": 2277,
+      "nonempty_key_slots": 799,
+      "maximum_bucket_length": 3,
+      "limit": 7,
+      "oversize": 0,
+      "rover": 0,
+      "continuing_capacity_established": false
+    },
+    "Theory.Hstdecl": {
+      "counter": 10815,
+      "outer_length": 5003,
+      "allocated_key_slots": 17099,
+      "nonempty_key_slots": 10815,
+      "maximum_bucket_length": 13,
+      "limit": 7,
+      "oversize": 1,
+      "rover": 3,
+      "continuing_capacity_established": false
+    },
+    "Ty.Hsty": {
+      "counter": 570,
+      "outer_length": 5003,
+      "allocated_key_slots": 1647,
+      "nonempty_key_slots": 570,
+      "maximum_bucket_length": 3,
+      "limit": 7,
+      "oversize": 0,
+      "rover": 0,
+      "continuing_capacity_established": false
+    },
+    "Task.Stdecl": {
+      "counter": 772,
+      "outer_length": 8192,
+      "bucket_nodes": 771,
+      "seed": 0,
+      "initial_size": 8192,
+      "retained_variants": [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "continuing_capacity_established": false
+    }
+  },
+  "auxiliary_raw_blocks": 27147,
+  "raw_memory_read_records": 785851,
+  "auxiliary_continuing_capacity_established": false,
+  "native_inlining_executed": false,
+  "complete_transform_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "source_argument_machine_checked": false,
+  "managed_capture_attempts": [
+    {
+      "managed_run": "20261018T222321-73a9532920c5",
+      "outcome": "failure",
+      "managed_seconds": 7.114868897,
+      "debugger_seconds": 5.284053192001011,
+      "failure": [
+        "inline entry observer: AssertionError(('block shape', 140027919961040, 31744, 0, 32))"
+      ]
+    },
+    {
+      "managed_run": "20261018T222428-4462a2d77b63",
+      "outcome": "failure",
+      "managed_seconds": 6.77264473,
+      "debugger_seconds": 4.930910454000696,
+      "failure": [
+        "inline entry observer: AssertionError(('block shape', 140702445757296, 5121, 0, None))"
+      ]
+    },
+    {
+      "managed_run": "20261018T222813-b996544ccae9",
+      "outcome": "success",
+      "managed_seconds": 13.306743622,
+      "debugger_seconds": 11.077953020001587,
+      "failure": []
+    }
+  ],
+  "solver_runs": 0
+}
