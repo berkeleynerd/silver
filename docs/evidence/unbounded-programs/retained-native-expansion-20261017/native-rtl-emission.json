@@ -1,0 +1,80 @@
+{
+  "emission": {
+    "FDE_ordinary_label_bytes_upper_each": 26,
+    "FDE_ordinary_label_requests": 2,
+    "additional_GGC_events_upper": 5,
+    "final_insn_counter_upper": 52,
+    "initial_insn_counter": 0,
+    "named_section_events_upper": 2,
+    "named_section_raw_bytes": 32,
+    "ordinary_shortening_and_alignment_bytes": {
+      "automatic_alignment_table": 136,
+      "insn_addresses_vector": 180,
+      "insn_lengths": 172,
+      "label_alignment_vector": 72,
+      "uid_align": 344,
+      "uid_shuid": 172,
+      "varying_length": 43
+    },
+    "raw_DWARF_unit_emission_selected": false,
+    "section_hash_growth_events": 0,
+    "section_hash_initial_slots": 31,
+    "section_name_GGC_string_events_upper": 2,
+    "section_name_raw_bytes": {
+      ".note.GNU-stack": 16,
+      ".note.gnu.property": 19
+    },
+    "shortening_address_upper": 26,
+    "switch_text_ranges_initial_slots": 16,
+    "switch_text_ranges_raw_bytes_before_GGC_rounding": 136,
+    "switch_text_ranges_rounded_bytes_upper": 256,
+    "switch_text_ranges_vector_events_upper": 1
+  },
+  "known_GGC_subtotal": 39957,
+  "late_RTL": {
+    "additional_GGC_events_upper": 1,
+    "cgraph_RTL_info_raw_bytes": 24,
+    "nonmatching_split_simple_bitmap_bits_upper": 12,
+    "nonmatching_split_simple_bitmap_raw_bytes": 16,
+    "remaining_pass_specific_GGC_constructor_residual": 0
+  },
+  "premises": [
+    "Selected Linux LP64 O0 null family, H92, selected x86 MD closure",
+    "No AVX, CF_BRANCH, patch area, debug, instrumentation, custom attributes or plugins",
+    "One emitted Main, empty elaboration not finalized, forced dummy is hard-register declaration",
+    "Existing shape/DF/IRA/LRA/CFG/CFI packets, source config and installed headers unchanged",
+    "CFI assembler directives enabled and configured personality/encoding support",
+    "Selected no-section-attribute null translation and default init_sections hook",
+    "Main DECL_RTL and assembler-name construction owned by translation/expansion"
+  ],
+  "required_remaining_inputs": [
+    "Metadata/source path, location and shared identifier/hash corrections",
+    "Main gigi/GIMPLE/cgraph/IPA constructors including pending external declarations",
+    "Whole-unit symbol finalization and output-order helpers outside selected emission",
+    "Shared GGC page/finalizer and non-DF pool retained-count composition",
+    "Libc FILE and formatted-output contract; ordinary requests are not GGC events",
+    "Independent producer, assembler and linker capacity joins"
+  ],
+  "schedule_dispositions": {
+    "emission_join": 3,
+    "existing_CFG": 4,
+    "existing_CFI": 1,
+    "existing_DF": 3,
+    "existing_IRA_LRA": 2,
+    "existing_expansion": 1,
+    "existing_frame": 1,
+    "false_gate_cleanup": 1,
+    "framework_container": 4,
+    "new_cgraph_RTL_record": 1,
+    "nonmatching_split": 2,
+    "optimization_gate_false": 53,
+    "parent_loop_gate_false": 5,
+    "selected_option_or_target_gate_false": 14,
+    "shape_early_return": 4,
+    "source_no_constructor": 7
+  },
+  "schedule_occurrences": 106,
+  "scope": "Selected null RTL constructor schedule completion, shortening backing and function/CFI/section emission; metadata/Main translation and remaining whole-unit finalization stay explicit",
+  "source_files_verified": 179,
+  "whole_native_capacity_established": false
+}

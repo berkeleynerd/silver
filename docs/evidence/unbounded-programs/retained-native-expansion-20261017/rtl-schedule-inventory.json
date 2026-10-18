@@ -1,0 +1,855 @@
+{
+  "scope": "Selected null O0 Main RTL schedule, including all x86 insertions; constructor dispositions are handwritten source arguments, not mechanically derived gate evaluations",
+  "generic_occurrences": 98,
+  "target_insertions": 8,
+  "rows": [
+    {
+      "kind": "generic",
+      "index": 0,
+      "name": "pass_expand",
+      "disposition": "existing_expansion",
+      "path": "gcc/cfgexpand.cc",
+      "class_line": 7010
+    },
+    {
+      "kind": "generic",
+      "index": 1,
+      "name": "pass_rest_of_compilation",
+      "disposition": "framework_container",
+      "path": "gcc/passes.cc",
+      "class_line": 635
+    },
+    {
+      "kind": "generic",
+      "index": 2,
+      "name": "pass_instantiate_virtual_regs",
+      "disposition": "source_no_constructor",
+      "path": "gcc/function.cc",
+      "class_line": 2024
+    },
+    {
+      "kind": "generic",
+      "index": 3,
+      "name": "pass_into_cfg_layout_mode",
+      "disposition": "existing_CFG",
+      "path": "gcc/cfgrtl.cc",
+      "class_line": 3741
+    },
+    {
+      "kind": "generic",
+      "index": 4,
+      "name": "pass_jump",
+      "disposition": "existing_CFG",
+      "path": "gcc/cfgcleanup.cc",
+      "class_line": 3222
+    },
+    {
+      "kind": "generic",
+      "index": 5,
+      "name": "pass_lower_subreg",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/lower-subreg.cc",
+      "class_line": 1793
+    },
+    {
+      "kind": "generic",
+      "index": 6,
+      "name": "pass_df_initialize_opt",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/df-core.cc",
+      "class_line": 731
+    },
+    {
+      "kind": "generic",
+      "index": 7,
+      "name": "pass_cse",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/cse.cc",
+      "class_line": 7662
+    },
+    {
+      "kind": "generic",
+      "index": 8,
+      "name": "pass_rtl_fwprop",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/fwprop.cc",
+      "class_line": 1025
+    },
+    {
+      "kind": "generic",
+      "index": 9,
+      "name": "pass_rtl_cprop",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/cprop.cc",
+      "class_line": 1974
+    },
+    {
+      "kind": "generic",
+      "index": 10,
+      "name": "pass_rtl_pre",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/gcse.cc",
+      "class_line": 4290
+    },
+    {
+      "kind": "generic",
+      "index": 11,
+      "name": "pass_rtl_hoist",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/gcse.cc",
+      "class_line": 4393
+    },
+    {
+      "kind": "generic",
+      "index": 12,
+      "name": "pass_hardreg_pre",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/gcse.cc",
+      "class_line": 4343
+    },
+    {
+      "kind": "generic",
+      "index": 13,
+      "name": "pass_rtl_cprop",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/cprop.cc",
+      "class_line": 1974
+    },
+    {
+      "kind": "generic",
+      "index": 14,
+      "name": "pass_rtl_store_motion",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/store-motion.cc",
+      "class_line": 1238
+    },
+    {
+      "kind": "generic",
+      "index": 15,
+      "name": "pass_cse_after_global_opts",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/cse.cc",
+      "class_line": 7812
+    },
+    {
+      "kind": "generic",
+      "index": 16,
+      "name": "pass_rtl_ifcvt",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/ifcvt.cc",
+      "class_line": 6411
+    },
+    {
+      "kind": "generic",
+      "index": 17,
+      "name": "pass_reginfo_init",
+      "disposition": "source_no_constructor",
+      "path": "gcc/reginfo.cc",
+      "class_line": 963
+    },
+    {
+      "kind": "generic",
+      "index": 18,
+      "name": "pass_loop2",
+      "disposition": "false_gate_cleanup",
+      "path": "gcc/loop-init.cc",
+      "class_line": 352
+    },
+    {
+      "kind": "generic",
+      "index": 19,
+      "name": "pass_rtl_loop_init",
+      "disposition": "parent_loop_gate_false",
+      "path": "gcc/loop-init.cc",
+      "class_line": 424
+    },
+    {
+      "kind": "generic",
+      "index": 20,
+      "name": "pass_rtl_move_loop_invariants",
+      "disposition": "parent_loop_gate_false",
+      "path": "gcc/loop-init.cc",
+      "class_line": 518
+    },
+    {
+      "kind": "generic",
+      "index": 21,
+      "name": "pass_rtl_unroll_loops",
+      "disposition": "parent_loop_gate_false",
+      "path": "gcc/loop-init.cc",
+      "class_line": 560
+    },
+    {
+      "kind": "generic",
+      "index": 22,
+      "name": "pass_rtl_doloop",
+      "disposition": "parent_loop_gate_false",
+      "path": "gcc/loop-init.cc",
+      "class_line": 621
+    },
+    {
+      "kind": "generic",
+      "index": 23,
+      "name": "pass_rtl_loop_done",
+      "disposition": "parent_loop_gate_false",
+      "path": "gcc/loop-init.cc",
+      "class_line": 462
+    },
+    {
+      "kind": "generic",
+      "index": 24,
+      "name": "pass_lower_subreg2",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/lower-subreg.cc",
+      "class_line": 1835
+    },
+    {
+      "kind": "generic",
+      "index": 25,
+      "name": "pass_web",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/web.cc",
+      "class_line": 318
+    },
+    {
+      "kind": "generic",
+      "index": 26,
+      "name": "pass_rtl_cprop",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/cprop.cc",
+      "class_line": 1974
+    },
+    {
+      "kind": "generic",
+      "index": 27,
+      "name": "pass_cse2",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/cse.cc",
+      "class_line": 7736
+    },
+    {
+      "kind": "generic",
+      "index": 28,
+      "name": "pass_rtl_dse1",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/dse.cc",
+      "class_line": 3784
+    },
+    {
+      "kind": "generic",
+      "index": 29,
+      "name": "pass_rtl_fwprop_addr",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/fwprop.cc",
+      "class_line": 1061
+    },
+    {
+      "kind": "generic",
+      "index": 30,
+      "name": "pass_inc_dec",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/auto-inc-dec.cc",
+      "class_line": 1686
+    },
+    {
+      "kind": "generic",
+      "index": 31,
+      "name": "pass_initialize_regs",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/init-regs.cc",
+      "class_line": 147
+    },
+    {
+      "kind": "generic",
+      "index": 32,
+      "name": "pass_ud_rtl_dce",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/dce.cc",
+      "class_line": 844
+    },
+    {
+      "kind": "generic",
+      "index": 33,
+      "name": "pass_ext_dce",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/ext-dce.cc",
+      "class_line": 1378
+    },
+    {
+      "kind": "generic",
+      "index": 34,
+      "name": "pass_combine",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/combine.cc",
+      "class_line": 15268
+    },
+    {
+      "kind": "generic",
+      "index": 35,
+      "name": "pass_late_combine",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/late-combine.cc",
+      "class_line": 916
+    },
+    {
+      "kind": "generic",
+      "index": 36,
+      "name": "pass_if_after_combine",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/ifcvt.cc",
+      "class_line": 6459
+    },
+    {
+      "kind": "generic",
+      "index": 37,
+      "name": "pass_jump_after_combine",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/cfgcleanup.cc",
+      "class_line": 3269
+    },
+    {
+      "kind": "generic",
+      "index": 38,
+      "name": "pass_partition_blocks",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/bb-reorder.cc",
+      "class_line": 2963
+    },
+    {
+      "kind": "generic",
+      "index": 39,
+      "name": "pass_outof_cfg_layout_mode",
+      "disposition": "existing_CFG",
+      "path": "gcc/cfgrtl.cc",
+      "class_line": 3780
+    },
+    {
+      "kind": "generic",
+      "index": 40,
+      "name": "pass_split_all_insns",
+      "disposition": "nonmatching_split",
+      "path": "gcc/recog.cc",
+      "class_line": 4508
+    },
+    {
+      "kind": "generic",
+      "index": 41,
+      "name": "pass_lower_subreg3",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/lower-subreg.cc",
+      "class_line": 1880
+    },
+    {
+      "kind": "generic",
+      "index": 42,
+      "name": "pass_df_initialize_no_opt",
+      "disposition": "existing_DF",
+      "path": "gcc/df-core.cc",
+      "class_line": 771
+    },
+    {
+      "kind": "generic",
+      "index": 43,
+      "name": "pass_stack_ptr_mod",
+      "disposition": "existing_DF",
+      "path": "gcc/stack-ptr-mod.cc",
+      "class_line": 66
+    },
+    {
+      "kind": "generic",
+      "index": 44,
+      "name": "pass_mode_switching",
+      "disposition": "shape_early_return",
+      "path": "gcc/mode-switching.cc",
+      "class_line": 1299
+    },
+    {
+      "kind": "generic",
+      "index": 45,
+      "name": "pass_match_asm_constraints",
+      "disposition": "shape_early_return",
+      "path": "gcc/function.cc",
+      "class_line": 7158
+    },
+    {
+      "kind": "generic",
+      "index": 46,
+      "name": "pass_sms",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/modulo-sched.cc",
+      "class_line": 3340
+    },
+    {
+      "kind": "generic",
+      "index": 47,
+      "name": "pass_live_range_shrinkage",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/sched-rgn.cc",
+      "class_line": 3796
+    },
+    {
+      "kind": "generic",
+      "index": 48,
+      "name": "pass_sched",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/sched-rgn.cc",
+      "class_line": 3843
+    },
+    {
+      "kind": "generic",
+      "index": 49,
+      "name": "pass_rtl_avoid_store_forwarding",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/avoid-store-forwarding.cc",
+      "class_line": 74
+    },
+    {
+      "kind": "generic",
+      "index": 50,
+      "name": "pass_early_remat",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/early-remat.cc",
+      "class_line": 2608
+    },
+    {
+      "kind": "generic",
+      "index": 51,
+      "name": "pass_dep_fusion",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/dep-fusion.cc",
+      "class_line": 56
+    },
+    {
+      "kind": "generic",
+      "index": 52,
+      "name": "pass_ira",
+      "disposition": "existing_IRA_LRA",
+      "path": "gcc/ira.cc",
+      "class_line": 6205
+    },
+    {
+      "kind": "generic",
+      "index": 53,
+      "name": "pass_reload",
+      "disposition": "existing_IRA_LRA",
+      "path": "gcc/ira.cc",
+      "class_line": 6250
+    },
+    {
+      "kind": "generic",
+      "index": 54,
+      "name": "pass_postreload",
+      "disposition": "framework_container",
+      "path": "gcc/passes.cc",
+      "class_line": 679
+    },
+    {
+      "kind": "generic",
+      "index": 55,
+      "name": "pass_postreload_cse",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/postreload.cc",
+      "class_line": 2437
+    },
+    {
+      "kind": "generic",
+      "index": 56,
+      "name": "pass_late_combine",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/late-combine.cc",
+      "class_line": 916
+    },
+    {
+      "kind": "generic",
+      "index": 57,
+      "name": "pass_gcse2",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/postreload-gcse.cc",
+      "class_line": 1442
+    },
+    {
+      "kind": "generic",
+      "index": 58,
+      "name": "pass_split_after_reload",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/recog.cc",
+      "class_line": 4553
+    },
+    {
+      "kind": "generic",
+      "index": 59,
+      "name": "pass_ree",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/ree.cc",
+      "class_line": 1411
+    },
+    {
+      "kind": "generic",
+      "index": 60,
+      "name": "pass_compare_elim_after_reload",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/compare-elim.cc",
+      "class_line": 952
+    },
+    {
+      "kind": "generic",
+      "index": 61,
+      "name": "pass_thread_prologue_and_epilogue",
+      "disposition": "existing_frame",
+      "path": "gcc/function.cc",
+      "class_line": 6691
+    },
+    {
+      "kind": "generic",
+      "index": 62,
+      "name": "pass_rtl_dse2",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/dse.cc",
+      "class_line": 3827
+    },
+    {
+      "kind": "generic",
+      "index": 63,
+      "name": "pass_stack_adjustments",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/combine-stack-adj.cc",
+      "class_line": 817
+    },
+    {
+      "kind": "generic",
+      "index": 64,
+      "name": "pass_jump2",
+      "disposition": "existing_CFG",
+      "path": "gcc/cfgcleanup.cc",
+      "class_line": 3317
+    },
+    {
+      "kind": "generic",
+      "index": 65,
+      "name": "pass_duplicate_computed_gotos",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/bb-reorder.cc",
+      "class_line": 2820
+    },
+    {
+      "kind": "generic",
+      "index": 66,
+      "name": "pass_sched_fusion",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/sched-rgn.cc",
+      "class_line": 3942
+    },
+    {
+      "kind": "generic",
+      "index": 67,
+      "name": "pass_peephole2",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/recog.cc",
+      "class_line": 4463
+    },
+    {
+      "kind": "generic",
+      "index": 68,
+      "name": "pass_if_after_reload",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/ifcvt.cc",
+      "class_line": 6505
+    },
+    {
+      "kind": "generic",
+      "index": 69,
+      "name": "pass_dep_fusion",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/dep-fusion.cc",
+      "class_line": 56
+    },
+    {
+      "kind": "generic",
+      "index": 70,
+      "name": "pass_regrename",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/regrename.cc",
+      "class_line": 2028
+    },
+    {
+      "kind": "generic",
+      "index": 71,
+      "name": "pass_fold_mem_offsets",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/fold-mem-offsets.cc",
+      "class_line": 112
+    },
+    {
+      "kind": "generic",
+      "index": 72,
+      "name": "pass_cprop_hardreg",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/regcprop.cc",
+      "class_line": 1353
+    },
+    {
+      "kind": "generic",
+      "index": 73,
+      "name": "pass_fast_rtl_dce",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/dce.cc",
+      "class_line": 1278
+    },
+    {
+      "kind": "generic",
+      "index": 74,
+      "name": "pass_reorder_blocks",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/bb-reorder.cc",
+      "class_line": 2659
+    },
+    {
+      "kind": "generic",
+      "index": 75,
+      "name": "pass_leaf_regs",
+      "disposition": "source_no_constructor",
+      "path": "gcc/function.cc",
+      "class_line": 6584
+    },
+    {
+      "kind": "generic",
+      "index": 76,
+      "name": "pass_split_before_sched2",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/recog.cc",
+      "class_line": 4608
+    },
+    {
+      "kind": "generic",
+      "index": 77,
+      "name": "pass_sched2",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/sched-rgn.cc",
+      "class_line": 3892
+    },
+    {
+      "kind": "generic",
+      "index": 78,
+      "name": "pass_stack_regs",
+      "disposition": "framework_container",
+      "path": "gcc/reg-stack.cc",
+      "class_line": 3463
+    },
+    {
+      "kind": "generic",
+      "index": 79,
+      "name": "pass_split_before_regstack",
+      "disposition": "nonmatching_split",
+      "path": "gcc/recog.cc",
+      "class_line": 4652
+    },
+    {
+      "kind": "generic",
+      "index": 80,
+      "name": "pass_stack_regs_run",
+      "disposition": "shape_early_return",
+      "path": "gcc/reg-stack.cc",
+      "class_line": 3518
+    },
+    {
+      "kind": "generic",
+      "index": 81,
+      "name": "pass_late_thread_prologue_and_epilogue",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/function.cc",
+      "class_line": 6725
+    },
+    {
+      "kind": "generic",
+      "index": 82,
+      "name": "pass_late_compilation",
+      "disposition": "framework_container",
+      "path": "gcc/passes.cc",
+      "class_line": 722
+    },
+    {
+      "kind": "generic",
+      "index": 83,
+      "name": "pass_zero_call_used_regs",
+      "disposition": "shape_early_return",
+      "path": "gcc/function.cc",
+      "class_line": 6779
+    },
+    {
+      "kind": "generic",
+      "index": 84,
+      "name": "pass_compute_alignments",
+      "disposition": "emission_join",
+      "path": "gcc/final.cc",
+      "class_line": 788
+    },
+    {
+      "kind": "generic",
+      "index": 85,
+      "name": "pass_variable_tracking",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/var-tracking.cc",
+      "class_line": 10603
+    },
+    {
+      "kind": "generic",
+      "index": 86,
+      "name": "pass_free_cfg",
+      "disposition": "source_no_constructor",
+      "path": "gcc/cfgrtl.cc",
+      "class_line": 477
+    },
+    {
+      "kind": "generic",
+      "index": 87,
+      "name": "pass_machine_reorg",
+      "disposition": "source_no_constructor",
+      "path": "gcc/reorg.cc",
+      "class_line": 3909
+    },
+    {
+      "kind": "generic",
+      "index": 88,
+      "name": "pass_cleanup_barriers",
+      "disposition": "source_no_constructor",
+      "path": "gcc/jump.cc",
+      "class_line": 177
+    },
+    {
+      "kind": "generic",
+      "index": 89,
+      "name": "pass_delay_slots",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/reorg.cc",
+      "class_line": 3857
+    },
+    {
+      "kind": "generic",
+      "index": 90,
+      "name": "pass_split_for_shorten_branches",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/recog.cc",
+      "class_line": 4711
+    },
+    {
+      "kind": "generic",
+      "index": 91,
+      "name": "pass_convert_to_eh_region_ranges",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/except.cc",
+      "class_line": 2753
+    },
+    {
+      "kind": "generic",
+      "index": 92,
+      "name": "pass_shorten_branches",
+      "disposition": "emission_join",
+      "path": "gcc/final.cc",
+      "class_line": 4387
+    },
+    {
+      "kind": "generic",
+      "index": 93,
+      "name": "pass_set_nothrow_function_flags",
+      "disposition": "source_no_constructor",
+      "path": "gcc/except.cc",
+      "class_line": 2055
+    },
+    {
+      "kind": "generic",
+      "index": 94,
+      "name": "pass_dwarf2_frame",
+      "disposition": "existing_CFI",
+      "path": "gcc/dwarf2cfi.cc",
+      "class_line": 3787
+    },
+    {
+      "kind": "generic",
+      "index": 95,
+      "name": "pass_final",
+      "disposition": "emission_join",
+      "path": "gcc/final.cc",
+      "class_line": 4340
+    },
+    {
+      "kind": "generic",
+      "index": 96,
+      "name": "pass_df_finish",
+      "disposition": "existing_DF",
+      "path": "gcc/df-core.cc",
+      "class_line": 841
+    },
+    {
+      "kind": "generic",
+      "index": 97,
+      "name": "pass_clean_state",
+      "disposition": "new_cgraph_RTL_record",
+      "path": "gcc/final.cc",
+      "class_line": 4562
+    },
+    {
+      "kind": "target_insertion",
+      "index": 0,
+      "name": "pass_insert_vzeroupper",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/config/i386/i386-features.cc",
+      "class_line": 2913
+    },
+    {
+      "kind": "target_insertion",
+      "index": 1,
+      "name": "pass_stv",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/config/i386/i386-features.cc",
+      "class_line": 2946
+    },
+    {
+      "kind": "target_insertion",
+      "index": 2,
+      "name": "pass_stv",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/config/i386/i386-features.cc",
+      "class_line": 2946
+    },
+    {
+      "kind": "target_insertion",
+      "index": 3,
+      "name": "pass_insert_endbr_and_patchable_area",
+      "disposition": "selected_option_or_target_gate_false",
+      "path": "gcc/config/i386/i386-features.cc",
+      "class_line": 3174
+    },
+    {
+      "kind": "target_insertion",
+      "index": 4,
+      "name": "pass_align_tight_loops",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/config/i386/i386-features.cc",
+      "class_line": 5192
+    },
+    {
+      "kind": "target_insertion",
+      "index": 5,
+      "name": "pass_x86_cse",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/config/i386/i386-features.cc",
+      "class_line": 4311
+    },
+    {
+      "kind": "target_insertion",
+      "index": 6,
+      "name": "pass_remove_partial_avx_dependency",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/config/i386/i386-features.cc",
+      "class_line": 3567
+    },
+    {
+      "kind": "target_insertion",
+      "index": 7,
+      "name": "pass_apx_nf_convert",
+      "disposition": "optimization_gate_false",
+      "path": "gcc/config/i386/i386-features.cc",
+      "class_line": 5004
+    }
+  ]
+}

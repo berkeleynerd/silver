@@ -8705,15 +8705,209 @@ Residual pass-specific/global constructor coverage and shared GGC
 page/finalizer composition still require their separate completion; this
 section is not a whole-native certificate.
 
+### Complete null RTL schedule and late constructor coverage
+
+The [schedule inventory](../evidence/unbounded-programs/retained-native-expansion-20261017/rtl-schedule-inventory.json)
+accounts for all98 generic pass occurrences from `pass_expand` through
+`pass_clean_state`, plus all8 x86 insertions. It retains repeated instances,
+including the two STV insertions, instead of treating a pass name as a unique
+execution. The [source inventory](../evidence/unbounded-programs/retained-native-expansion-20261017/rtl-emission-source-identity.json)
+pins their class/gate implementations and the selected machine-description
+closure. Dispositions below are handwritten source arguments under the
+already stated options and null shape; an inventory matching the pass list
+does not itself prove a gate value.
+
+| Selected path | Constructor/backing disposition |
+| --- | --- |
+| Expansion |The100-event expansion/CFG packet, out-of-SSA/ranger ordinary backing, real startup and chain/pattern packets above supply the constructors. |
+| Rest-of-compilation, postreload, late-compilation and stack-register containers |No execute method; their fixed pass objects already exist in the prefix. Wrapper/TODO work is covered by the preceding framework packet. |
+| Virtual-register instantiation |No operand/declaration substitution for the operand-free pre-frame body; no stack-local list. No new object. |
+| Into/out-of-CFG-layout, jump and jump2 |Copy maps, register-use array, graph objects, vector ownership histories and location nops are charged above. `loop2`'s false gate can finalize existing loop state; it constructs no new loop. |
+| Register-info initialization |No earlier O0 DF object; scalar resets only. IRA's later register-array resize is already priced. |
+| Split-all and split-before-regstack |Both execute; the selected patterns match no splitter. Each requests a12-bit simple bitmap,16 ordinary bytes. Failed recognizer matching does not enter a generated split constructor/sequence scope (`recog.cc:3492–3615`, `emit-rtl.cc:3942–3971`). |
+| O0 DF initialization, SP modification, DF finish |Existing DF lifetime, ref-order, artificial-reference, solver and pool bounds apply. SP scan changes flags/artificial uses without an RTL constructor. |
+| Mode switching, assembly constraint matching, register-stack conversion, zero-call-used-register processing |Selected body/defaults take their early returns before graph/transform storage. No x87 liveness, assembly statement or enabled register-zeroing request. |
+| IRA, reload, prologue/epilogue threading and dwarf2 frame |The already priced alias, equivalence, root-loop, register allocator, frame, chain and CFI packets apply. |
+| Leaf-register check, free CFG, machine reorg, barrier cleanup |Scalar/association updates or deletion only. x86 reorg rebuilds block associations; its optimized transformation and SEH routes are absent. |
+| Set-nothrow flags |No call/EH edge; the cgraph node already exists. Its flag/alias/caller traversal only writes existing flags; there are no aliases/thunks/callers (`except.cc:1989–2036`, `cgraph.cc:2954–3011`). |
+| Alignment, shortening and final |The explicit emission join below supplies the remaining arrays, labels, range vector and section storage. |
+| Clean state |One additional cold cgraph RTL-info allocation, described below; all other selected work releases/clears already priced state. |
+
+The remaining generic and target passes are excluded by their actual gates,
+not by their names. Positive-optimization gates cover propagation, PRE/hoist,
+DSE/DCE, combine, if-conversion, ordinary scheduling, rematerialization,
+reordering and the optimized x86 transforms. Five loop subpasses are skipped
+because `pass_loop2` returns false. The three wide-subregister passes,
+compare elimination, stack-adjustment combination and live-range shrinking
+use their disabled O0 flags; variable tracking uses the disabled debug flag.
+Late prologue/epilogue generation uses the default-false target hook.
+Delay-slot and separate split-for-shortening gates are false on this selected
+x86 path, and the EH-range gate sees no region tree. x86 vzeroupper requires
+absent AVX; endbr/patch insertion requires absent branch protection/patch
+bytes. The target flags are additional premises: O0 alone would not imply
+these two exclusions. The complete per-occurrence classification is retained
+in the inventory, including the O0-disabled `initialize_regs` pass.
+
+**Clean state is not allocation-free at O0.** `flag_ipa_stack_alignment`
+defaults to1 independently of optimization (`common.opt:2219–2221`). When
+Main's binding predicate permits it, `rest_of_clean_state` calls
+`cgraph_node::rtl_info` to store the preferred incoming stack boundary
+(`final.cc:4521–4528`). This lazily creates one cleared `cgraph_rtl_info`
+(`cgraph.cc:2408–2427`). Its unsigned32 field followed by the92-register
+hard-register set occupies24 bytes on the selected LP64 ABI
+(`rtl.h:4631–4637`). Charge one GGC event even if the binding predicate
+skips it or an earlier query has populated the cache. No selected path
+clears `node->rtl` and then queries it again. The positive-optimization
+`flag_ipa_ra` consumer is disabled, but that does not disable this separate
+stack-alignment consumer.
+
+The rest of clean state unlinks the bounded chain, releases instruction
+length storage, empties the still-empty temp-slot hash, deletes SSA state,
+resets recognition and clears function structures
+(`final.cc:4451–4548`, `function.cc:198–225`). The no-temp-slot argument in
+the real-startup packet still applies: `init_temp_slots` does not resize an
+empty hash. No final-insn dump is selected. Therefore the remaining
+pass-specific **GGC constructor** residual is now discharged by this one
+additional event, using the earlier packets for the other active passes.
+Shared collector/page/finalizer and non-DF pool retained-count conditions
+remain separate; schedule coverage does not discharge them.
+
+### Shortening, final scan and unit emission backing
+
+This join uses the backend's [null assembly transfer](retained-backend-gigi.md#null-compilation-unit-assembly-emission)
+and its52-node final chain,43 pre-CFI UID slots,26-byte shortening-address
+ceiling and selected GAS CFI-directive route. It prices the corresponding
+GCC objects; it does not assert assembler, linker or whole-unit driver
+capacity.
+
+The ordinary shortening requests are bounded as follows:
+
+| Request | Individual raw bytes |
+| --- | ---: |
+| Four-entry `label_align` vector,16-byte `align_flags` |72 |
+| `uid_shuid` and `insn_lengths`,43 ints each |172 each |
+| `insn_addresses_`,43 ints plus vector prefix |180 |
+| `varying_length`,43 chars |43 |
+| `uid_align`,43 RTL pointers |344 |
+| Automatic `align_tab`,17 RTL pointers |136 |
+
+`compute_alignments` explicitly requests exact capacity, clears the entries
+and returns at O0 (`final.cc:613–626`). The two alignment tuples each contain
+two ints (`align.h:23–87`). The address macro uses `create(size)` and exact
+growth, so its43-element request is not rounded to the generic next vector
+growth factor (`insn-addr.h:27–36`, `vec.h:2015–2020`). The other four
+shortening arrays use their explicit signed-UID bound
+(`final.cc:825–925`). No new chain label appears between alignment and
+shortening. The CFI notes arrive later and do not grow the address vector;
+final emission handles their out-of-vector UIDs with address-1.
+
+The global signed `insn_counter` starts at0, not at an unknown inherited
+function value. Its only modifying statements are its static initializer
+and the increment in `final_scan_insn_1`; its third occurrence only prints
+it (`final.cc:162,2165,3502`). Neither the fixed prefix, synthetic target-cost
+setup nor the unfinalized elaboration emits a function. Main is the sole
+emitted function; the selected literal output templates cause no recursive
+sequence, peephole, reinsertion or final splitting. Thus the counter is at
+most52 for the whole invocation. This closes the earlier
+`initial_insn_counter <= INT_MAX-52` premise. The separate global RTL-label
+counter is still owned by the metadata/Main/initialization composition;
+it must not be replaced with this final-scan counter.
+
+Final recognition also does not add a hidden constraint-table constructor.
+`extract_insn_cached`, `cleanup_subreg_operands` and
+`constrain_operands_cached` use the static recognition arrays and constraint
+strings. The selected frame operands have no SUBREG; walking the two stack
+MEM addresses changes nothing (`final.cc:3065–3100`,
+`recog.cc:2770–2817,2884–2920,3135–3459`). This final route does not call
+`preprocess_insn_constraints`, whose ordinary cached operand-alternative
+allocation is a different API. The default `init_recog` only sets
+`volatile_ok` (`recog.cc:113–116`). The fixed push/move/pop/return templates
+and register-printing route create no RTL operand, identifier or string
+object. In particular `assemble_name_resolve` uses `maybe_get_identifier`
+and does not intern missing internal labels (`varasm.cc:2943–2960`).
+Main's existing declaration RTL and assembler-name construction remain
+owned by the translation/expansion join.
+
+**No debug output does not eliminate the unwind range vector.**
+`dwarf2out_begin_prologue` and `dwarf2out_end_epilogue` each duplicate an FDE
+label with ordinary `xstrdup`; each request is at most26 bytes including NUL
+and is constructed in a40-byte local buffer. They reuse the existing FDE.
+`end_epilogue` then unconditionally calls `mark_ignored_debug_section`.
+For normal Main in `.text`, `fde->ignored_debug` is false and the first
+`switch_text_ranges` allocation requests16 pointers:136 raw bytes before
+GGC rounding, at most256 rounded bytes. There is no second function or cold
+section, and the first allocation leaves the vector empty; this adds one
+GGC event, not a debug-DIE tree or an unbounded range list
+(`dwarf2out.cc:1071–1139,1194–1241,1249–1276`). Conservatively charging that
+one event also covers a branch that omits it.
+
+With the explicit GAS CFI support/encoding premises, the begin wrapper
+prints `.cfi_startproc`; the selected default post-CFI hook is empty, and
+no personality or LSDA exists. Scalar offset/register CFA directives only
+format their existing fields (`target.def:97–106`,
+`dwarf2cfi.cc:3545–3664`). At unit finish, `output_call_frame_info` returns
+at `dwarf2out_do_cfi_asm()` **before** creating frame-table sections or
+running raw-DWARF output (`dwarf2out.cc:750–780,1280–1293`). No-debug hooks
+are no-ops. The indirect DWARF constant pool remains null and its finish
+routine returns immediately (`dwarf2asm.cc:1066–1071`). This argument uses
+the configured directive route, not an unsupported assumption that unwind
+is disabled.
+
+The `.text` object is an unnamed section already constructed during the
+fixed prefix. The selected Linux default `init_sections` hook is empty;
+no function/data sections, custom section attributes, constants, debug
+sections, cold partition or LSDA add another named section. The two possible
+late named sections are `.note.GNU-stack` and `.note.gnu.property`. The
+latter is shared by all three possible GNU-property emissions, so it is
+created at most once (`varasm.cc:8183–8192`,
+`config/i386/gnu-property.cc:29–132`). Each cold `get_section` costs one
+32-byte `section` union and one duplicated name string; requests are16 and19
+bytes including NUL (`output.h:461–522`, `varasm.cc:291–310`).
+`ggc_alloc_string` makes one atomic GGC allocation for either name, without
+interning it or growing an identifier table (`stringpool.cc:83–96`). The initial
+31-pointer section hash belongs to the fixed prefix; at most two named
+entries cannot reach its3/4 growth threshold, even when later property
+calls look up the same entry (`varasm.cc:6959–7027`,
+`hash-table.h:1039`). There are no deletions/shrinks. Consequently these
+sections add at most four GGC events and no hash growth event.
+
+`notice_global_symbol` adds no final-phase string: gigi already established
+`first_global_object_name` before Main, and the guard returns immediately
+(`trans.cc:367–370`, `varasm.cc:1975–2001`). The installed GCC identification
+string is assembled with ordinary stack concatenation at final output; at
+length29 it requires30 bytes including NUL. `symtab->state` is past PARSING,
+so `default_asm_output_ident_directive` prints directly instead of constructing
+a top-level ASM tree (`toplev.cc:566–578`, `varasm.cc:8995–9010`). The forced
+hard-register dummy emits no data; the previously derived code/directive
+stream is unchanged.
+
+Thus the selected final/CFI/section-emission addition is **five GGC events**:
+one range vector, two sections and two name strings. Together with the one
+late RTL-info event, this packet adds six to the known event subtotal.
+Ordinary FILE buffering/formatted output is not counted as GGC storage;
+its libc contract, actual path/line lengths, pending external-declaration
+handling and remaining unit-level symbol/output-order helpers retain their
+own joins. This section does not silently set those requirements to zero.
+
+The [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-rtl-emission.py)
+checks179 source identities, the106 schedule occurrences, reused packet
+identities, source anchors and individual arithmetic. Its
+[result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-emission.json)
+is a reproducibility check, not a semantic proof of the C++ route exclusions.
+No compiler, debugger, native audit, solver, Lean build or full-suite run was
+added, and no successful fixed witness was repeated. An independent narrow
+source review accepted the two late allocations, section-hash occupancy,
+name-string accounting and CFI/debug-output route. It did not independently
+audit all106 schedule occurrences or the expressly retained whole-unit joins.
+
 ### Counter composition and finite remaining frontier
 
 For the null function, keep ordinary pools/obstacks separate from GGC events.
 The partial GGC lifetime envelope is
 
 ```text
-E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78 + 43 + 100
-       + E_metadata + E_Main_translation
-       + E_RTL_helpers + E_unit_emit
+E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78 + 43 + 100 + 1 + 5
+       + E_metadata + E_Main_translation + E_unit_emit
 ```
 
 Here39,257 is the established fixed pre-Main GCC prefix,437 the cold first RTL
@@ -8721,7 +8915,8 @@ target setup above,10 the two gigi struct-function constructors,4 real Main
 RTL-preparation events,2 the selected alias vectors,2 reload-equivalence
 vector events,8 direct elimination-register requests,10 IRA loop-setup
 events,78 chain/pattern/frame events,43 non-chain CFI events and100
-expansion/CFG helper events just established (known subtotal39,951).
+expansion/CFG helper events,1 cold late RTL-info event and5 selected
+final/CFI/section-emission events (known subtotal39,957).
 The residuals are
 nonnegative required inputs, never implicit zeros. Their disjoint boundaries
 and constructors still require completion:
@@ -8730,12 +8925,11 @@ and constructors still require completion:
 | --- | --- |
 | `E_metadata` |path/source-location/unit/name corrections between the fixed prefix and Main; charge actual source descriptor, argv/path and shared hash inputs |
 | `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation, excluding the ten struct-function constructor events charged above; include Main's separate language_function and combine the backend's logical graph with each remaining constructor/allocation route |
-| `E_RTL_helpers` |remaining pass-specific/global non-DF constructor coverage; the framework wrapper above adds no objects, and expansion/CFG envelope100 plus ranger ordinary backing are supplied, in addition to the52 chain nodes, blockage/pseudo/frame objects, equivalence/elimination/IRA-loop events and frame sequence/hashes already charged separately |
-| `E_unit_emit` |final/varasm/debug/cgraph unit finalization and final unwind assembly emission; needs the selected unit's symbol/string/output and shared-cache growth terms |
+| `E_unit_emit` |remaining whole-unit symbol/output-order/finalization helpers and pending external-declaration handling; the selected final scan, unwind wrappers/directive output and two named sections are supplied above; retain actual source/path/output and shared-cache premises |
 
 For ordinary backing, the remaining concrete joins include
-shared non-DF pool retained-count arithmetic and any remaining
-pass-specific/global helper containers. Shared bitmap initialization depth
+shared non-DF pool retained-count arithmetic, remaining whole-unit
+helper containers and the selected libc FILE/formatting contract. Shared bitmap initialization depth
 is now bounded above; its ordinary chunk chain has no retained-count field.
 The selected target frame-layout
 helpers add no allocations. Exact selected IRA
