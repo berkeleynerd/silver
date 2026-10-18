@@ -1,0 +1,114 @@
+{
+  "scope": "Unchanged predecessor formula/document inputs; historical examples may be evaluated by model loading but are not attached as an invocation",
+  "base_commit": "789e7ddf4cfb3112b2184433f12dd2c548ef7bfc",
+  "repository_inputs": [
+    {
+      "path": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "bytes": 552521,
+      "sha256": "f0425c46cd96b9348767de5456e4e0fb1efd818ca811e244a150811b353e223c"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/compose-null-capacity.py",
+      "bytes": 20379,
+      "sha256": "07d99d6ba3811f2cefe2af12ecf6d9e6b087e424250fe03b9f138801f35d049a"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+      "bytes": 21593,
+      "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive.py",
+      "bytes": 209431,
+      "sha256": "dc7b362649dfb8693e79248a1d9c965283bc9b54643bbf124b3de2a6f350b897"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-ali-inputs.json",
+      "bytes": 19357,
+      "sha256": "c10ce2d61d7d62a7611bff253d228559f7db55e6253beab11fae74d7fadeb8d9"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-fixed-inputs.json",
+      "bytes": 27601,
+      "sha256": "da7e677ac1d93aa5aa9fb808a1a5277f778e88fd225f40b27856beca6768700a"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-invocation-inputs.json",
+      "bytes": 7883,
+      "sha256": "a1103237eaab99267c27a85f62b859c66f0877ef3cd5f59388de59c8ce8776e1"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/representative-inputs.json",
+      "bytes": 3486,
+      "sha256": "a698327c2c2b961d4da46feedff5d0e9741ed30c62bb777e6e6187cc23c9aab9"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-source-closure-20261017/driver-reconciliation.json",
+      "bytes": 40806,
+      "sha256": "4e13dd90e90226cb8f0df9761e68c420884616cb761e7b9a71639821b68ca78d"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-source-closure-20261017/driver-snapshots/293256/GNAT-TEMP-000002.TMP",
+      "bytes": 244,
+      "sha256": "3d84ea27f99f81f20bd402e0c255538ad3d04c82d26e10ee32ea68c9fd4b1574"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-source-closure-20261017/driver-snapshots/293256/GNAT-TEMP-000003.TMP",
+      "bytes": 4882,
+      "sha256": "0fb149910a09f6de3282ed37f6c4a5d487490538004130e582d0e65ebc56f38d"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-source-closure-20261017/driver-snapshots/293256/GNAT-TEMP-000004.TMP",
+      "bytes": 151,
+      "sha256": "87329741c7109bc74a62fc58d4732be17cedd4287cfadc3e4b8b2c31285595a6"
+    },
+    {
+      "path": "docs/research/retained-backend-gigi.md",
+      "bytes": 187178,
+      "sha256": "da9cdf3ddb6e2d6e02e2c173fe437a7cd70039e76adbb9d349e258fbd25644de"
+    },
+    {
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 781411,
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "path": "docs/research/retained-table-capacity.md",
+      "bytes": 44509,
+      "sha256": "b0fa831c1483f260e7e4ed8f63ba3fb5c920fc6fffed657144730f8f813a3334"
+    },
+    {
+      "path": "docs/research/retained-value-capacity.md",
+      "bytes": 39525,
+      "sha256": "1ddb4898341b985832886e64d8555bc49cd30c2bd83132ae501609bbda120b9f"
+    },
+    {
+      "path": "samples/command_line_greeting.adb",
+      "bytes": 355,
+      "sha256": "bde96907d4d27894bb3d116b482720f800f23a4e582b774672825cc18a949d27"
+    },
+    {
+      "path": "samples/find_square_difference.adb",
+      "bytes": 330,
+      "sha256": "7321d8b442fcc5d122bdfd4dc175417fc688df2639111783bb895288a8fe747c"
+    },
+    {
+      "path": "samples/for_loop_step.adb",
+      "bytes": 202,
+      "sha256": "dc8f33010a2b0a1bb77afc55a184a1f6b4e73d7bed1ca6e94ab0880c984a7e6c"
+    },
+    {
+      "path": "samples/hello_world.adb",
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    {
+      "path": "samples/null.adb",
+      "bytes": 69,
+      "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021"
+    }
+  ],
+  "native_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "native_selected_files": 151,
+  "native_complete_Ada_macro_inventory_files": 2319
+}

@@ -1,0 +1,24 @@
+{
+  "task": "Bounded literal native Main/gigi source-visit attachment for #119",
+  "base_commit": "789e7ddf4cfb3112b2184433f12dd2c548ef7bfc",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "setting_evidence": "Parent task selection; runtime model/effort not independently inspected",
+  "started_utc": "2026-10-18T19:42:24+00:00",
+  "completed_utc": "2026-10-18T19:51:33+00:00",
+  "elapsed_seconds": 549,
+  "objective": "Attach actual selected literal source bytes to existing Main constructor and named gigi source-visit formulas",
+  "result": "Concrete Main constructor counts and gigi syntax visit input; predecessor sample equality and seven focused check groups passed",
+  "rework": "Focused checker initially iterated the representative_current_programs result dictionary instead of its programs field; fixed before passing checks",
+  "review": "Source mapping and implementation self-reviewed; no independent review performed in this leaf",
+  "tokens": "unavailable",
+  "cost": "unavailable",
+  "native_tool_executions": 0,
+  "native_platform": "Linux x86_64",
+  "remaining": [
+    "fixed/configuration/indexed invocation attachment",
+    "physical source/table/backing and late heaps",
+    "annotation roots and fixed imported gigi graph",
+    "per-kind/helpers/folder and subsequent phase allocations"
+  ]
+}

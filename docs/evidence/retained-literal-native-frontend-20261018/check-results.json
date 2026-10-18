@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "focused_checks": [
+    "actual word, dot, decoded-quote, empty literal and parser/pool projection",
+    "case, HT/CR/LF, CRLF, quoted comment text and EOF comment equality",
+    "monotone call/null/literal growth and syntax-looking literal content",
+    "84 finite call/null combinations and visibly unattached fixed fields",
+    "byte-identical current hello sample equals predecessor Main projection",
+    "5000-call offline input exceeds current cap without changing admission",
+    "23 negative shell, grammar, whole-token, quote and alphabet cases"
+  ],
+  "source_files_checked": 151,
+  "complete_Ada_macro_inventory_files": 2319,
+  "native_tool_executions": 0,
+  "universal_proof_claimed": false,
+  "production_admission_changed": false
+}
