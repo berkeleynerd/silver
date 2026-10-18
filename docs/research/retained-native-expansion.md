@@ -9344,8 +9344,8 @@ identifier insertion, plus these three, still needs at most 65,536 slots or
 later phases; later names must join the same shared table rather than receive
 an independent empty table. Search/collision fields are statistics, not lookup
 indices. The gigi-created first_global_object_name is already initialized
-from the compilation unit's encoded name `main` in the prefix
-(`trans.cc:367–370`). Main finalization's notice_global_symbol therefore returns
+from the compilation unit's external name `_ada_main` in the prefix
+(`trans.cc:367–370`, `decl.cc:11282–11304`). Main finalization's notice_global_symbol therefore returns
 immediately (`cgraphunit.cc:467–470`, `varasm.cc:1975–2004`): there is no
 additional name string at that point.
 
