@@ -11,6 +11,7 @@ import json
 import re
 import tarfile
 from pathlib import Path
+from success_check import check_success
 
 HERE = Path(__file__).resolve().parent
 
@@ -259,11 +260,14 @@ def main():
             assert len(data) == row['bytes'] and digest(data) == row['sha256']
             sources[row['path']] = data
     result = calculate(args.prior_repo, identity, sources)
+    success = check_success(HERE, args.prior_repo, identity, sources)
+    assert success == json.loads((HERE / 'success-result.json').read_text())
     if args.output:
         args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + '\n')
     else:
         assert result == json.loads((HERE / 'result.json').read_text())
     print(json.dumps({k: v for k, v in result.items() if k not in ('inputs', 'library_closure')}, sort_keys=True))
+    print(json.dumps({k: v for k, v in success.items() if k != 'byte_equal_inputs'}, sort_keys=True))
 
 
 if __name__ == '__main__':

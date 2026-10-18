@@ -177,7 +177,62 @@
       "path": "why3/plugins/gnat_json/ptree_constructors.ml",
       "bytes": 8974,
       "sha256": "cb8c9fa19ba7f8229fb89d10eb53e87a44c45fccd82c8c4751cf2fc580f53c0c"
+    },
+    {
+      "path": "why3/src/gnat/gnat_checks.ml",
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    {
+      "path": "why3/src/gnat/gnat_config.ml",
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    {
+      "path": "why3/src/gnat/gnat_main.ml",
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    {
+      "path": "why3/src/gnat/gnat_util.ml",
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    {
+      "path": "why3/src/session/controller_itp.ml",
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    {
+      "path": "why3/src/session/session_itp.ml",
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    {
+      "path": "why3/src/driver/driver.ml",
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    {
+      "path": "why3/src/util/weakhtbl.ml",
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    },
+    {
+      "path": "why3/src/util/wstdlib.ml",
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    },
+    {
+      "path": "why3/src/util/extmap.ml",
+      "bytes": 22508,
+      "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+    },
+    {
+      "path": "why3/src/core/ty.ml",
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
     }
   ],
-  "source_archive_sha256": "285bc4459cd3b567f34a93e4254c65b0ef8dfd2065e659d6519ad0bd15df7d77"
+  "source_archive_sha256": "bb96c9680211b3904549a3b6885a934b6bb4d2065c15226210aeb301775b19ed"
 }

@@ -1,0 +1,244 @@
+{
+  "byte_equal_inputs": {
+    "first_or_default": {
+      "byte_equal_to_fixed_capture": true,
+      "bytes": 286340,
+      "file_proved": true,
+      "proof_attempt_results": {
+        "highfailure": 5,
+        "valid": 71
+      },
+      "provers": [
+        {
+          "id": "0",
+          "memlimit": "1000",
+          "name": "altergo",
+          "steplimit": "100000",
+          "timelimit": "0",
+          "version": "1.30-gnatprove"
+        },
+        {
+          "id": "1",
+          "memlimit": "1000",
+          "name": "CVC5",
+          "steplimit": "3515000",
+          "timelimit": "0",
+          "version": "0.0.7-gnatprove"
+        },
+        {
+          "id": "2",
+          "memlimit": "1000",
+          "name": "Z3",
+          "steplimit": "80450000",
+          "timelimit": "0",
+          "version": "4.5.1-gnatprove"
+        },
+        {
+          "alternative": "trivial",
+          "id": "3",
+          "memlimit": "1000",
+          "name": "Trivial",
+          "steplimit": "1",
+          "timelimit": "1",
+          "version": "1.0"
+        }
+      ],
+      "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+    },
+    "input_is_valid": {
+      "byte_equal_to_fixed_capture": true,
+      "bytes": 121828,
+      "file_proved": true,
+      "proof_attempt_results": {
+        "highfailure": 2,
+        "valid": 4
+      },
+      "provers": [
+        {
+          "id": "0",
+          "memlimit": "1000",
+          "name": "altergo",
+          "steplimit": "100000",
+          "timelimit": "0",
+          "version": "1.30-gnatprove"
+        },
+        {
+          "id": "1",
+          "memlimit": "1000",
+          "name": "CVC5",
+          "steplimit": "3515000",
+          "timelimit": "0",
+          "version": "0.0.7-gnatprove"
+        },
+        {
+          "id": "2",
+          "memlimit": "1000",
+          "name": "Z3",
+          "steplimit": "80450000",
+          "timelimit": "0",
+          "version": "4.5.1-gnatprove"
+        },
+        {
+          "alternative": "trivial",
+          "id": "3",
+          "memlimit": "1000",
+          "name": "Trivial",
+          "steplimit": "1",
+          "timelimit": "1",
+          "version": "1.0"
+        }
+      ],
+      "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+    },
+    "is_message": {
+      "byte_equal_to_fixed_capture": true,
+      "bytes": 85809,
+      "file_proved": true,
+      "proof_attempt_results": {
+        "highfailure": 2,
+        "valid": 5
+      },
+      "provers": [
+        {
+          "id": "0",
+          "memlimit": "1000",
+          "name": "altergo",
+          "steplimit": "100000",
+          "timelimit": "0",
+          "version": "1.30-gnatprove"
+        },
+        {
+          "id": "1",
+          "memlimit": "1000",
+          "name": "CVC5",
+          "steplimit": "3515000",
+          "timelimit": "0",
+          "version": "0.0.7-gnatprove"
+        },
+        {
+          "id": "2",
+          "memlimit": "1000",
+          "name": "Z3",
+          "steplimit": "80450000",
+          "timelimit": "0",
+          "version": "4.5.1-gnatprove"
+        },
+        {
+          "alternative": "trivial",
+          "id": "3",
+          "memlimit": "1000",
+          "name": "Trivial",
+          "steplimit": "1",
+          "timelimit": "1",
+          "version": "1.0"
+        }
+      ],
+      "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+    },
+    "put": {
+      "byte_equal_to_fixed_capture": true,
+      "bytes": 274756,
+      "file_proved": true,
+      "proof_attempt_results": {
+        "highfailure": 2,
+        "valid": 133
+      },
+      "provers": [
+        {
+          "id": "0",
+          "memlimit": "1000",
+          "name": "altergo",
+          "steplimit": "100000",
+          "timelimit": "0",
+          "version": "1.30-gnatprove"
+        },
+        {
+          "id": "1",
+          "memlimit": "1000",
+          "name": "CVC5",
+          "steplimit": "3515000",
+          "timelimit": "0",
+          "version": "0.0.7-gnatprove"
+        },
+        {
+          "id": "2",
+          "memlimit": "1000",
+          "name": "Z3",
+          "steplimit": "80450000",
+          "timelimit": "0",
+          "version": "4.5.1-gnatprove"
+        },
+        {
+          "alternative": "trivial",
+          "id": "3",
+          "memlimit": "1000",
+          "name": "Trivial",
+          "steplimit": "1",
+          "timelimit": "1",
+          "version": "1.0"
+        }
+      ],
+      "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+    },
+    "put_line": {
+      "byte_equal_to_fixed_capture": true,
+      "bytes": 288617,
+      "file_proved": true,
+      "proof_attempt_results": {
+        "highfailure": 3,
+        "valid": 161
+      },
+      "provers": [
+        {
+          "id": "0",
+          "memlimit": "1000",
+          "name": "altergo",
+          "steplimit": "100000",
+          "timelimit": "0",
+          "version": "1.30-gnatprove"
+        },
+        {
+          "id": "1",
+          "memlimit": "1000",
+          "name": "CVC5",
+          "steplimit": "3515000",
+          "timelimit": "0",
+          "version": "0.0.7-gnatprove"
+        },
+        {
+          "id": "2",
+          "memlimit": "1000",
+          "name": "Z3",
+          "steplimit": "80450000",
+          "timelimit": "0",
+          "version": "4.5.1-gnatprove"
+        },
+        {
+          "alternative": "trivial",
+          "id": "3",
+          "memlimit": "1000",
+          "name": "Trivial",
+          "steplimit": "1",
+          "timelimit": "1",
+          "version": "1.0"
+        }
+      ],
+      "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+    }
+  },
+  "current_library_source_files_equal": 6,
+  "exact_counter_history_or_aggregate_heap_bound_claimed": false,
+  "fixed_library_proof_record_total": 47,
+  "fixed_library_proof_records": {
+    "Silver_Arguments.First_Or_Default": 9,
+    "Silver_Arguments.Input_Is_Valid": 1,
+    "Silver_Arguments.Is_Message": 1,
+    "Silver_IO.Put": 16,
+    "Silver_IO.Put_Line": 20
+  },
+  "historical_gnatwhy3_executable_hash_captured_by_test_run": false,
+  "local_log_is_exact_substring_of_managed_log": true,
+  "managed_run": "20261017T121442-e0df446200f8",
+  "scope": "retained successful fixed ordinary inputs; no new native execution",
+  "workspace": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-Z0j19G"
+}

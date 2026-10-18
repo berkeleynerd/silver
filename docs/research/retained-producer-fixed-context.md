@@ -5,10 +5,12 @@ The five retained fixed-library JSON inputs now have an exact pretyping
 declaration projection and a complete explicit imported-file closure. All five
 load the same **11 files, 318,006 bytes and 252 modules**, containing **304 use
 and 174 clone directives**. These are input counts, not typed allocation or
-lifetime-identifier counts. Admission remains unchanged.
+lifetime-identifier counts. A retained ordinary application run also supplies
+successful acceptance of all five **byte-identical** inputs, including their
+typing and VC construction. Admission remains unchanged.
 
 The [packet](../evidence/retained-producer-fixed-context-20261018/README.md)
-retains all eleven installed library files and fifteen complete Why3 source
+retains all eleven installed library files and twenty-six complete Why3 source
 files at `9390baf120ef260547dfa14f08e11c890b203d9c`, with hashes. Its offline
 checker reads the existing five complete native JSON files from the
 [fixed-body packet](../evidence/retained-producer-bodies-20261018/README.md).
@@ -174,7 +176,128 @@ quantifiers creates fresh variables; lazy substitutions, maps, tuple types,
 effects and intermediate terms still allocate. It is not a lifetime creation
 bound, nor does it assert that all imported declarations are case-free.
 
-## Exact remaining quantitative join
+## Retained ordinary acceptance and its read projection
+
+The historical application workspace
+`.silver/linux-x86_64/program-Z0j19G` belongs to successful managed test run
+`20261017T121442-e0df446200f8` on 2026-10-17. Its complete local test log is an
+exact substring of the retained managed log. The latter names the workspace,
+reports `Success: all checks proved (71 checks)`, and records compilation,
+binding and linking through its executable. The archived `gnatprove.out`
+separates 19 flow checks and 52 proof checks. Five proof checks belong to that
+historical Main; **47 belong to the unchanged fixed libraries**.
+
+All five complete `.gnat-json` files are byte-for-byte equal to the fixed-body
+capture used above. This comparison does not erase native IDs, names, labels,
+locations or any other fields. All six copied library sources equal both the
+current source files and the historical test run's captured source hashes.
+The archived `.spark` records and Why3 sessions reconcile as follows:
+
+| Fixed input | Native JSON bytes | Library proof records | Session file status |
+| --- | ---: | ---: | --- |
+| First_Or_Default | 286,340 | 9 | proved |
+| Input_Is_Valid | 121,828 | 1 | proved |
+| Is_Message | 85,809 | 1 | proved |
+| Put | 274,756 | 16 | proved |
+| Put_Line | 288,617 | 20 | proved |
+
+Each session identifies its matching `gnat-json` filename. Some individual
+prover attempts are recorded as `highfailure`; alternate attempts completed
+the goals. Neither the table nor the managed run means every attempted prover
+invocation succeeded. No native tool was rerun to assemble this packet.
+
+The source read projection establishes what that acceptance covers:
+
+1. The ordinary controller loads drivers, then adds the selected file or
+   reloads the existing session (`gnat_checks.ml:380–450`). A new session calls
+   `Controller_itp.add_file`, which calls `Session_itp.read_file`
+   (`controller_itp.ml:271–290`). Reload calls `merge_files`, whose reparse
+   function calls the same reader (`:249–271`; `session_itp.ml:1921–1928`).
+   `Env.read_file` opens and parses the file; it does not recover a previously
+   typed input from the solver-result cache (`env.ml:157–166`). Thus ordinary
+   proof caching does not by itself bypass this typing prefix.
+2. The JSON reader converts the complete input and calls `Typing.type_mlw_file`
+   (`gnat_ast_to_ptree.ml:1382–1418`). That function folds all native modules;
+   `add_decl` types their declarations and generates their VCs in ordinary
+   proof mode (`typing.ml:1675–1769`). The successful prefix includes the
+   imported typing/clone work above, native declarations, and body VCs. It is
+   stronger evidence than a diagnostic which enables `type_only`.
+3. Driver loading is earlier than native input typing
+   (`controller_itp.ml:114–136`). Drivers themselves read theories
+   (`driver.ml:235–249`), and the environment's load path comes from the fixed
+   configuration (`gnat_util.ml:101–124`). Therefore the **eleven-file table is
+   the explicit native/import closure, not a whole-process load inventory**.
+   Driver-selected context is an additional fixed configuration component.
+   Its successful historical processing is covered by this witness; changing
+   driver/configuration/library bytes requires a new read projection.
+4. `gnat_main.ml:332–360` initializes the controller before registering and
+   scheduling proof tasks. In `gnat_config.ml`, the requested step limit is
+   consumed by `steps`/`limit` (`:629–655`). Changing only `--steps=100000` to
+   `--steps=0` changes later prover limits, not this typing/VC prefix. Changing
+   to `No_WP` would change it: that mode enables `Typing.debug_type_only`
+   (`:687–689`). Solver limits, races and later driver transformations remain
+   separate from this acceptance transfer.
+
+Under the existing source-to-installed-tool and unchanged-configuration
+premises, the fixed prefix's ordinary input/representation requests can
+therefore be reused as an accepted fixed component. The
+[isolated-library source reduction](retained-producer-fixed.md#separate-fixed-library-processes)
+keeps Main out of these inputs, and the
+[zero-Main-check family](retained-producer-zero-check-sources.md#literal-output-source)
+adds no Main backend process. Extending a Main in that family does not add
+module/clone work to any of the five fixed processes. Each process starts its
+own counters; they are not accumulated across Main or the other four files.
+
+This is a fixed-input/configuration transfer, not permission to erase arbitrary
+metadata. Native IDs mostly annotate conversion diagnostics, but loop-variant
+temporary names also use them (`gnat_ast_to_ptree.ml:807–813`); source-location
+labels enter attributes (`:60–64,249–256`). The witness needs no renaming
+argument because those bytes are equal. Input/session paths, driver paths,
+diagnostic formatting, generated dummy locations and later session records
+retain their separate representation obligations. A future input differing
+in one of those fields must satisfy the corresponding source projection,
+not merely resemble this input after normalization.
+
+The historical test ledger records the Silver executable hash and its source
+and generated configuration inputs, but no separate historical `gnatwhy3`
+executable hash or complete historical driver/library inventory. The archived
+`src/silver.adb` is taken from executed snapshot `78cf419452` and hash-equals
+that ledger input. It is not silently replaced by today's later indexed-Main
+implementation. The producer's temporary option files named in the `.cswi`
+records are gone. These limits remain; the witness does not manufacture a
+stronger installed-tool identity than the retained evidence supplies.
+
+## Counter behavior and the remaining boundary
+
+The acceptance transfer does not establish an exact lifetime-allocation trace
+or a bound independent of garbage-collection schedules. `Ident.id_register`
+increments a private counter on every call (`ident.ml:187–192`). Each `Hashcons.Make`
+has its own weak table and counter; only a fresh merge or `unique` increments
+it (`hashcons.ml:37–50`). A dead value can be collected and later reconstructed.
+Retained typed nodes therefore cannot be substituted for lifetime creation
+requests. Ephemeron memoization retains an entry while its key remains live
+(`weakhtbl.ml:65–104`), but that fact does not establish that every potential
+key stays live throughout typing or across later transformations.
+
+OCaml integer arithmetic wraps by its ordinary integer semantics. Crossing
+positive `max_int` is consequently not itself a checked overflow failure;
+the cited map/set/hash consumers compare integer tags with `Int.compare` or
+integer equality (`wstdlib.ml:61–66,87–100`; `weakhtbl.ml:69–75`). This does
+**not** remove the finite-identity obligation. `Weakhtbl.tag_hash` asserts
+that a tag is not the reserved `-1` (`:50–58`), and a full-cycle reused tag
+makes the cited consumers equate otherwise distinct live objects. `Extmap`
+then finds/replaces an entry when the comparator returns zero
+(`extmap.ml:150–176`). Type and program-type tables use exactly these consumers
+(`ty.ml:92–114`; `ity.ml:125–154`). The modular arithmetic is defined; these
+identity collisions would still be semantically wrong.
+
+A sufficient positive-counter bound remains valid, although `max_int` is
+conservative rather than an established exact failure threshold for every
+consumer. This packet neither assumes wrap is harmless nor claims a concrete
+counter failure occurs in the fixed context. Ordinary request acceptance can
+transfer without an invented aggregate heap number. Any quantitative claim
+about all lifetime counter histories still needs a separate bound or a more
+specific source reduction; the successful witness alone does not supply it.
 
 For the literal-output family, the
 [zero-Main-check source argument](retained-producer-zero-check-sources.md)
@@ -186,21 +309,16 @@ Fresh native IDs and source-location metadata remain separately bounded and
 must preserve their established semantic role; this record does not infer
 execution identity merely from similar-looking names.
 
-The largest remaining fixed source-to-typed join is now concrete: bound the
-**lifetime creation requests and representation sizes while typing all 252
-modules and expanding their 174 clone directives**, then the per-input native
-7–13 clones, contracts, and one program body. The required vector includes
-typed formula/definition/alias occurrences, variable-use multiplicities,
-types/regions, namespace and known-declaration maps, and fresh identifier and
-hash-cons requests. `Ident.id_register` increments its own counter
-(`ident.ml:187–192`); each `Hashcons.Make` instance has a separate `next_tag`,
-which increments on a fresh weak-table entry or `unique` request
-(`hashcons.ml:37–50`). Retained node counts do not bound these lifetime totals
-when weak entries can be collected and recreated.
+The earlier task bounds `G <= 2981`, `R <= 51` remain valid but do not by
+themselves price context creation or later driver transformations. The exact
+pretyping/import projection, two local typed transfers and retained fixed
+ordinary acceptance now stand together. No full typed-lifetime vector or
+whole-tool capacity predicate is claimed, and #119 remains incomplete. The
+remaining work should address a concrete uncovered representation or changing
+component; rerunning this fixed proof prefix merely to duplicate success would
+not establish the absent counter bound.
 
-The earlier task bounds `G <= 2981`, `R <= 51` remain valid but do not price
-this context. Each backend process owns its own counters; adding all five
-counts into one artificial identity space is unnecessary. This packet closes
-the exact pretyping/import projection and two local typed transfers; it does
-not supply the missing full typed-lifetime vector or complete #119. No broader
-proof or validation rerun is warranted by these source-only findings.
+The native-expansion reviewer independently replayed the packet and checked
+the add/reload/parser route, hash-cons increments and weak-table consumers.
+The scoped transfer was accepted without a blocking finding; that review
+performed no native execution.
