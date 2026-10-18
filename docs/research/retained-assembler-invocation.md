@@ -166,3 +166,8 @@ and relaxer, and outer changed-address loop. It accepted the argument projection
 request bounds and selected fixed point, retaining the earlier emitted-stream
 and fragment/section inventory as inputs. It did not re-establish that earlier
 inventory or exhaustive successful GAS coverage.
+
+The subsequent [inner allocation join](retained-assembler-inner-allocation.md)
+combines this invocation and scratch transfer with the later total-line/event
+bound, completes the selected GAS-owned parser/writer dynamic-request
+inventory, and retains the BFD and host-library interfaces explicitly.

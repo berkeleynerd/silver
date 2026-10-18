@@ -313,3 +313,8 @@ material finding. The review relied on the previously reviewed generated
 stream inventory; it did not claim a fresh derivation of that inventory or
 complete GAS capacity. The adjoining guard wording retained its inner-call,
 event-count and host-library gaps.
+
+The later [event transfer](retained-backend-gigi.md#total-emitted-lines-and-assembler-events)
+and [inner allocation join](retained-assembler-inner-allocation.md) supply the
+selected total-line bound and GAS-owned parser/writer dynamic-request coverage.
+They retain the BFD and host-library interfaces and do not close #119.

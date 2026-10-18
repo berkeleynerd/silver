@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Supports the
 [source derivation](../../research/retained-assembler-capacity.md).
 
-`sources.tar.gz` retains 87 complete files from Binutils release commit
+`sources.tar.gz` retains 90 complete files from Binutils release commit
 `5e56594815854de5eca35c7c04b11705d0f19c02`. `source-manifest.json` records
 their byte counts, SHA256 identities and immutable retrieval URLs. The checker
 also matches the commit against the previously retained linker release-tag
@@ -197,8 +197,8 @@ charges zero-byte directives and labels independently of emitted payload.
 The selected null compiler emits at most 114 LF-terminated lines, hence at
 most 7,410 assembly bytes at the retained 64-byte line bound. This also bounds
 selected nonempty parser events by 114 and the physical line counter by 115;
-the logical line counter remains disabled. The whole inner allocation call
-inventory remains open. The additional GCC manifest binds 24 complete sources
+the logical line counter remains disabled. That packet left the inner allocation
+inventory open. The additional GCC manifest binds 24 complete sources
 and two reused arithmetic results; it leaves the existing manifests unchanged.
 
 ```sh
@@ -206,3 +206,25 @@ python3 docs/evidence/retained-assembler-capacity-20261018/check-events.py \
   --gcc-root /tmp/silver-backend-compose-20261018/full-source \
   --output /tmp/retained-assembler-event-check.json
 ```
+
+The subsequent [inner allocation join](../../research/retained-assembler-inner-allocation.md)
+reviews all 40 candidate GAS C modules and 37 GAS headers, following the
+selected input dispatch and writer callbacks. `inner-sources.tar.gz` and
+`inner-source-manifest.json` add 33 complete files at the same pinned commit
+without changing the earlier 90-file capsule or its result identities.
+`inner-allocation-inventory.json` classifies all 264 lexical allocator,
+wrapper, callback and declaration occurrences. This count is a reproducible
+census, not an allocation-event count or automatic C reachability proof.
+
+```sh
+python3 docs/evidence/retained-assembler-capacity-20261018/check-inner.py \
+  --output /tmp/retained-assembler-inner-check.json
+```
+
+The handwritten selected-path argument finds no additional allocation family:
+the existing GAS request ceilings remain unchanged. It closes GAS-owned
+parser/writer dynamic-request coverage for the source-derived null Main input.
+The earlier BFD transfer interfaces, host-library and stack premises, actual
+controlled invocation, and other native phases remain separate. The checker
+performs only archive/hash, inventory, source-anchor and arithmetic checks;
+no compiler, assembler, linker, solver, Lean build or test suite runs.

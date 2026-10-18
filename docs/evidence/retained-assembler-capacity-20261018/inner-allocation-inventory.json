@@ -1,0 +1,2016 @@
+{
+  "basis": "Lexical allocation/wrapper census reconciled with the handwritten selected dispatch, callback and exclusion argument; not a semantic proof.",
+  "pattern": "\\b(?:[a-z_]*malloc|[a-z_]*calloc|[a-z_]*realloc|alloca|xstrdup|xmemdup\\w*|xasprintf|xvasprintf|reconcat|concat|X[A-Z]*(?:NEW|RESIZE)[A-Z]*|notes_(?:alloc|calloc|memdup\\w*|strdup|concat)|obstack_(?:\\w*grow\\w*|\\w*blank\\w*|alloc|\\w*begin\\w*|copy\\w*)|htab_create_alloc|str_htab_create|alloc_f)\\s*\\(",
+  "families": {
+    "startup": {
+      "disposition": "bounded",
+      "argument": "Fixed options, selected argv/output copy, predefinitions and initial obstacks; retained-assembler-startup.md and retained-assembler-invocation.md."
+    },
+    "hash": {
+      "disposition": "bounded",
+      "argument": "Five selected hash tables, callback-allocated controls, arrays and tuples; retained-assembler-hashes.md."
+    },
+    "input-buffer": {
+      "disposition": "bounded",
+      "argument": "Initial 65539-byte scrub buffer; selected 7410-byte input never reaches resize; retained-assembler-capacity.md and event-check-results.json."
+    },
+    "fragment": {
+      "disposition": "bounded",
+      "argument": "924 fragments, 420 payload bytes and per-chain 4064-byte obstack requests; retained-assembler-capacity.md."
+    },
+    "symbols": {
+      "disposition": "bounded",
+      "argument": "90 GAS and 104 BFD symbol allocation ceilings, copied names and local conversions; retained-assembler-capacity.md and retained-assembler-startup.md."
+    },
+    "expression": {
+      "disposition": "bounded",
+      "argument": "Expression-symbol line records within the existing symbol allocation envelope; retained-assembler-capacity.md."
+    },
+    "scratch": {
+      "disposition": "bounded",
+      "argument": "Unquoted names <=26 bytes and instruction/expression scratch <=67 bytes; retained-assembler-invocation.md."
+    },
+    "strings": {
+      "disposition": "bounded",
+      "argument": "Quoted file/ident and section strings <=32 bytes; retained-assembler-backing.md."
+    },
+    "size": {
+      "disposition": "bounded",
+      "argument": "One .size expression <=40 bytes; retained-assembler-capacity.md."
+    },
+    "cfi": {
+      "disposition": "bounded",
+      "argument": "One FDE, one state, twelve CFI nodes and one CIE; retained-assembler-backing.md."
+    },
+    "subsections": {
+      "disposition": "bounded",
+      "argument": "Thirteen section/chain records; retained-assembler-backing.md."
+    },
+    "fixup-reloc-symbol-output": {
+      "disposition": "bounded",
+      "argument": "279 fixups, 281 relocations, 2248-byte relocation pointer request and 704-byte output-symbol array; retained-assembler-capacity.md."
+    },
+    "close-composite": {
+      "disposition": "bounded",
+      "argument": "Thirteen fragment-obstack pointers plus terminator: 112 bytes; retained-assembler-backing.md."
+    },
+    "optional-sframe": {
+      "disposition": "excluded-but-charged",
+      "argument": "Installed flag_gen_sframe=0 and no enabling option; prior optional six-row SFrame bound is preserved."
+    },
+    "wrapper": {
+      "disposition": "wrapper",
+      "argument": "Notes/hash declarations and implementations forward to the bounded allocators; no independent object count."
+    },
+    "input-push-macro": {
+      "disposition": "excluded",
+      "argument": "No include, #APP, macro, repeat, local-macro labels or nested input; the empty startup macro hash is separately charged."
+    },
+    "floating": {
+      "disposition": "excluded",
+      "argument": "No floating numeral or floating-data directive; integer/data forms stay in fixed-width/static-bignum storage."
+    },
+    "debug": {
+      "disposition": "excluded",
+      "argument": "No debug option, .loc, numbered .file, STABS or CodeView; bare .file uses the ordinary file route."
+    },
+    "ecoff": {
+      "disposition": "excluded",
+      "argument": "Selected ELF x86 configuration does not define ECOFF_DEBUGGING."
+    },
+    "conditional": {
+      "disposition": "excluded",
+      "argument": "No conditional assembly directives; the initial conditional obstack is charged separately."
+    },
+    "dependency": {
+      "disposition": "excluded",
+      "argument": "No dependency option: dep_file stays null and registration/finish return before allocation."
+    },
+    "listing": {
+      "disposition": "excluded",
+      "argument": "No listing option/directive: listing stays zero and ordinary callbacks return before allocation."
+    },
+    "cfi-grouping": {
+      "disposition": "excluded",
+      "argument": "No multiple/linkonce/compact CFI grouping; no lazy dwcfi_hash, composed debug names or debugseg records."
+    },
+    "cfi-extra": {
+      "disposition": "excluded",
+      "argument": "No CFI label/remember-state/escape/personality/inline-LSDA directives."
+    },
+    "synthetic-cfi": {
+      "disposition": "excluded",
+      "argument": "flag_synth_cfi stays zero; no ginsn graph, SCFI state or related hash is constructed."
+    },
+    "section-extra": {
+      "disposition": "excluded",
+      "argument": "No group names, pushsection, link-order target or %S section-name substitution."
+    },
+    "symver": {
+      "disposition": "excluded",
+      "argument": "No .symver; version-name lists stay null."
+    },
+    "option-extra": {
+      "disposition": "excluded",
+      "argument": "Selected argv/stream has no listing, definition, MRI/debug remap, architecture or .arch, comment, or help option/directive."
+    },
+    "directive-extra": {
+      "disposition": "excluded",
+      "argument": "No .lcomm/MRI section/.nop/.reloc/.func/.endfunc/.errif/.warnif or .startof./.sizeof. source form."
+    },
+    "broken-word": {
+      "disposition": "excluded",
+      "argument": "Selected WORKING_DOT_WORD x86 target and no .word symbol-difference reconstruction."
+    },
+    "clone": {
+      "disposition": "excluded",
+      "argument": "No volatile/equated/redefined symbols; dot replacement uses the separately counted location symbol, not an ordinary symbol clone."
+    },
+    "folded-name": {
+      "disposition": "excluded",
+      "argument": "Symbols remain case-sensitive and the selected target has no canonicalization hook."
+    },
+    "large-numeric-label": {
+      "disposition": "excluded",
+      "argument": "Only numeric labels 0..4; they use static low counters, and no dollar label occurs."
+    },
+    "diagnostic": {
+      "disposition": "excluded",
+      "argument": "Selected valid expressions need no symbol-cycle/error-name diagnostic allocation; host diagnostic internals remain an external boundary."
+    },
+    "complex-reloc": {
+      "disposition": "excluded",
+      "argument": "OBJ_COMPLEX_RELC is absent in the selected target configuration."
+    },
+    "compression": {
+      "disposition": "excluded",
+      "argument": "No debug section or compression option: write_object_file never calls compress_debug or compression engines."
+    },
+    "nonzero-subsection": {
+      "disposition": "excluded",
+      "argument": "All subsections and their zero-initialized cached subseg fields stay zero; i386_elf_section_change_hook returns on equality before subsidiary-state allocation."
+    },
+    "intel": {
+      "disposition": "excluded",
+      "argument": "Selected compiler emits AT&T operands; Intel operand copying is not reached."
+    },
+    "unused-inline": {
+      "disposition": "excluded",
+      "argument": "No selected caller of xmemdup0, notes_memdup0 or str_hash_find_n; callers present in the corpus belong to excluded macro/debug/listing paths."
+    },
+    "quoted-symbol": {
+      "disposition": "excluded",
+      "argument": "No quoted symbol names; .file/.ident strings use demand_copy_string instead, already bounded."
+    }
+  },
+  "sites": [
+    {
+      "path": "gas/app.c",
+      "line": 313,
+      "allocator": "XNEW",
+      "text": "saved = XNEW (struct app_save);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/app.c",
+      "line": 323,
+      "allocator": "XNEWVEC",
+      "text": "saved->saved_input = XNEWVEC (char, saved_input_len);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/as.c",
+      "line": 623,
+      "allocator": "concat",
+      "text": "shortopts = concat (std_shortopts, md_shortopts, (char *) NULL);",
+      "family": "startup"
+    },
+    {
+      "path": "gas/as.c",
+      "line": 624,
+      "allocator": "xmalloc",
+      "text": "longopts = (struct option *) xmalloc (sizeof (std_longopts)",
+      "family": "startup"
+    },
+    {
+      "path": "gas/as.c",
+      "line": 636,
+      "allocator": "notes_alloc",
+      "text": "new_argv = notes_alloc (sizeof (char *) * (old_argc + 1));",
+      "family": "startup"
+    },
+    {
+      "path": "gas/as.c",
+      "line": 811,
+      "allocator": "XNEW",
+      "text": "n = XNEW (struct defsym_list);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/as.c",
+      "line": 1084,
+      "allocator": "notes_strdup",
+      "text": "listing_filename = notes_strdup (optarg);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/as.c",
+      "line": 1141,
+      "allocator": "notes_strdup",
+      "text": "listing_filename = notes_strdup (optarg + 1);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/as.c",
+      "line": 1167,
+      "allocator": "notes_strdup",
+      "text": "char *temp = notes_strdup (optarg);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/as.c",
+      "line": 1174,
+      "allocator": "notes_strdup",
+      "text": "out_file_name = notes_strdup (optarg);",
+      "family": "startup"
+    },
+    {
+      "path": "gas/as.c",
+      "line": 1209,
+      "allocator": "xasprintf",
+      "text": "char *name = xasprintf (\"GAS(%s)\", tmpl);",
+      "family": "startup"
+    },
+    {
+      "path": "gas/as.c",
+      "line": 1332,
+      "allocator": "obstack_begin",
+      "text": "obstack_begin (&notes, chunksize);",
+      "family": "startup"
+    },
+    {
+      "path": "gas/atof-generic.c",
+      "line": 398,
+      "allocator": "xcalloc",
+      "text": "digits_binary_low = xcalloc (size_of_digits_in_littlenums,",
+      "family": "floating"
+    },
+    {
+      "path": "gas/atof-generic.c",
+      "line": 512,
+      "allocator": "xmalloc",
+      "text": "power_binary_low = xmalloc (size_of_power_in_chars);",
+      "family": "floating"
+    },
+    {
+      "path": "gas/atof-generic.c",
+      "line": 513,
+      "allocator": "xmalloc",
+      "text": "temporary_binary_low = xmalloc (size_of_power_in_chars);",
+      "family": "floating"
+    },
+    {
+      "path": "gas/codeview.c",
+      "line": 427,
+      "allocator": "xmalloc",
+      "text": "sf = xmalloc (sizeof (struct source_file));",
+      "family": "debug"
+    },
+    {
+      "path": "gas/codeview.c",
+      "line": 482,
+      "allocator": "xmalloc",
+      "text": "lb = xmalloc (sizeof (struct line_block));",
+      "family": "debug"
+    },
+    {
+      "path": "gas/codeview.c",
+      "line": 504,
+      "allocator": "xmalloc",
+      "text": "lf = xmalloc (sizeof (struct line_file));",
+      "family": "debug"
+    },
+    {
+      "path": "gas/codeview.c",
+      "line": 522,
+      "allocator": "xmalloc",
+      "text": "l = xmalloc (sizeof (struct line));",
+      "family": "debug"
+    },
+    {
+      "path": "gas/cond.c",
+      "line": 85,
+      "allocator": "obstack_1grow",
+      "text": "obstack_1grow (&cond_obstack, 0);",
+      "family": "conditional"
+    },
+    {
+      "path": "gas/cond.c",
+      "line": 113,
+      "allocator": "obstack_alloc",
+      "text": "current_cframe = obstack_alloc (&cond_obstack, sizeof cframe);",
+      "family": "conditional"
+    },
+    {
+      "path": "gas/cond.c",
+      "line": 170,
+      "allocator": "obstack_alloc",
+      "text": "current_cframe = obstack_alloc (&cond_obstack, sizeof cframe);",
+      "family": "conditional"
+    },
+    {
+      "path": "gas/cond.c",
+      "line": 206,
+      "allocator": "obstack_alloc",
+      "text": "current_cframe = obstack_alloc (&cond_obstack, sizeof cframe);",
+      "family": "conditional"
+    },
+    {
+      "path": "gas/cond.c",
+      "line": 286,
+      "allocator": "obstack_alloc",
+      "text": "current_cframe = obstack_alloc (&cond_obstack, sizeof cframe);",
+      "family": "conditional"
+    },
+    {
+      "path": "gas/cond.c",
+      "line": 480,
+      "allocator": "obstack_alloc",
+      "text": "current_cframe = obstack_alloc (&cond_obstack, sizeof cframe);",
+      "family": "conditional"
+    },
+    {
+      "path": "gas/depend.c",
+      "line": 70,
+      "allocator": "XNEW",
+      "text": "dep = XNEW (struct dependency);",
+      "family": "dependency"
+    },
+    {
+      "path": "gas/depend.c",
+      "line": 71,
+      "allocator": "xstrdup",
+      "text": "dep->file = xstrdup (filename);",
+      "family": "dependency"
+    },
+    {
+      "path": "gas/dwarf2dbg.c",
+      "line": 287,
+      "allocator": "XNEW",
+      "text": "s = XNEW (struct line_seg);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/dwarf2dbg.c",
+      "line": 306,
+      "allocator": "XNEW",
+      "text": "lss = XNEW (struct line_subseg);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/dwarf2dbg.c",
+      "line": 529,
+      "allocator": "XNEW",
+      "text": "e = XNEW (struct line_entry);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/dwarf2dbg.c",
+      "line": 677,
+      "allocator": "XRESIZEVEC",
+      "text": "dirs = XRESIZEVEC (char *, dirs, dirs_allocated);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/dwarf2dbg.c",
+      "line": 681,
+      "allocator": "xmemdup0",
+      "text": "dirs[d] = xmemdup0 (dirname, dirlen);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/dwarf2dbg.c",
+      "line": 703,
+      "allocator": "XRESIZEVEC",
+      "text": "files = XRESIZEVEC (struct file_entry, files, want);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/dwarf2dbg.c",
+      "line": 889,
+      "allocator": "XCNEWVEC",
+      "text": "dirs = XCNEWVEC (char *, dirs_allocated);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/dwarf2dbg.c",
+      "line": 892,
+      "allocator": "xmemdup0",
+      "text": "dirs[files[num].dir] = xmemdup0 (dirname, strlen (dirname));",
+      "family": "debug"
+    },
+    {
+      "path": "gas/dwarf2dbg.c",
+      "line": 919,
+      "allocator": "XCNEWVEC",
+      "text": "dirs = XCNEWVEC (char *, dirs_allocated);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/dwarf2dbg.c",
+      "line": 922,
+      "allocator": "xmemdup0",
+      "text": "dirs[files[num].dir] = xmemdup0 (filename, file - filename);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/dwarf2dbg.c",
+      "line": 1303,
+      "allocator": "XNEWVEC",
+      "text": "char *cp = XNEWVEC (char, dir_len + 1 + file_len + 1);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/dwarf2dbg.c",
+      "line": 2023,
+      "allocator": "concat",
+      "text": "name = concat (\".debug_line\", sec_name, (char *) NULL);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 225,
+      "allocator": "notes_strdup",
+      "text": "return notes_strdup (base_name);",
+      "family": "cfi-grouping"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 234,
+      "allocator": "notes_concat",
+      "text": "return notes_concat (base_name, \".\", name, (const char *) NULL);",
+      "family": "cfi-grouping"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 247,
+      "allocator": "notes_concat",
+      "text": "return notes_concat (base_name, name, (const char *) NULL);",
+      "family": "cfi-grouping"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 257,
+      "allocator": "notes_alloc",
+      "text": "r = notes_alloc (sizeof (*r) + strlen (name));",
+      "family": "cfi-grouping"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 331,
+      "allocator": "str_htab_create",
+      "text": "dwcfi_hash = str_htab_create ();",
+      "family": "cfi-grouping"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 398,
+      "allocator": "notes_calloc",
+      "text": "struct fde_entry *fde = notes_calloc (1, sizeof (*fde));",
+      "family": "cfi"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 400,
+      "allocator": "notes_calloc",
+      "text": "frchain_now->frch_cfi_data = notes_calloc (1, sizeof (struct frch_cfi_data));",
+      "family": "cfi"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 432,
+      "allocator": "notes_calloc",
+      "text": "struct cfi_insn_data *insn = notes_calloc (1, sizeof (*insn));",
+      "family": "cfi"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 567,
+      "allocator": "notes_strdup",
+      "text": "insn->u.sym_name = notes_strdup (name);",
+      "family": "cfi-extra"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 661,
+      "allocator": "notes_alloc",
+      "text": "p = notes_alloc (sizeof (*p));",
+      "family": "cfi-extra"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 973,
+      "allocator": "notes_alloc",
+      "text": "struct cfi_escape_data *e = notes_alloc (sizeof (*e));",
+      "family": "cfi-extra"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 1488,
+      "allocator": "XNEW",
+      "text": "e = XNEW (struct cfi_escape_data);",
+      "family": "cfi-extra"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 1513,
+      "allocator": "XNEWVEC",
+      "text": "last_fde->eh_data =  XNEWVEC (bfd_byte, num_ops);",
+      "family": "cfi-extra"
+    },
+    {
+      "path": "gas/dw2gencfi.c",
+      "line": 2263,
+      "allocator": "XNEW",
+      "text": "cie = XNEW (struct cie_entry);",
+      "family": "cfi"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 1479,
+      "allocator": "str_htab_create",
+      "text": "tag_hash = str_htab_create ();",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 1527,
+      "allocator": "xcalloc",
+      "text": "new_links->datum = xcalloc (1, vp->object_size);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 2032,
+      "allocator": "xstrdup",
+      "text": "perm = xstrdup (tag);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 2261,
+      "allocator": "str_htab_create",
+      "text": "fil_ptr->str_hash = str_htab_create ();",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 2502,
+      "allocator": "xstrdup",
+      "text": "coff_sym_name = xstrdup (name);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 2728,
+      "allocator": "xstrdup",
+      "text": "coff_tag = xstrdup (name);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 3566,
+      "allocator": "XRESIZEVEC",
+      "text": "*buf = XRESIZEVEC (char, *buf, want);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 4634,
+      "allocator": "XNEWVEC",
+      "text": "buf = XNEWVEC (char, PAGE_SIZE);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 4718,
+      "allocator": "xmalloc",
+      "text": "page_type *value = xmalloc (npages * PAGE_USIZE);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 4755,
+      "allocator": "xmalloc",
+      "text": "ptr = xmalloc (PAGE_USIZE);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 4792,
+      "allocator": "XNEW",
+      "text": "ptr = XNEW (scope_t);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 4840,
+      "allocator": "XNEW",
+      "text": "ptr = XNEW (vlinks_t);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 4873,
+      "allocator": "XNEW",
+      "text": "ptr = XNEW (shash_t);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 4906,
+      "allocator": "XNEW",
+      "text": "ptr = XNEW (thash_t);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 4945,
+      "allocator": "XNEW",
+      "text": "ptr = XNEW (tag_t);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 4993,
+      "allocator": "XNEW",
+      "text": "ptr = XNEW (forward_t);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 5032,
+      "allocator": "XNEW",
+      "text": "ptr = XNEW (thead_t);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "line": 5078,
+      "allocator": "XNEW",
+      "text": "ptr = XNEW (lineno_list_t);",
+      "family": "ecoff"
+    },
+    {
+      "path": "gas/expr.c",
+      "line": 94,
+      "allocator": "notes_alloc",
+      "text": "n = notes_alloc (sizeof (*n));",
+      "family": "expression"
+    },
+    {
+      "path": "gas/expr.c",
+      "line": 133,
+      "allocator": "concat",
+      "text": "char *buf = concat (start ? \".startof.\" : \".sizeof.\", name, (char *) NULL);",
+      "family": "directive-extra"
+    },
+    {
+      "path": "gas/expr.c",
+      "line": 161,
+      "allocator": "XRESIZEVEC",
+      "text": "seen[start] = XRESIZEVEC (symbolS *, seen[start], nr);",
+      "family": "directive-extra"
+    },
+    {
+      "path": "gas/frags.c",
+      "line": 88,
+      "allocator": "obstack_blank",
+      "text": "obstack_blank (ob, extra + SIZEOF_STRUCT_FRAG);",
+      "family": "fragment"
+    },
+    {
+      "path": "gas/frags.c",
+      "line": 218,
+      "allocator": "obstack_blank_fast",
+      "text": "obstack_blank_fast (&frchain_now->frch_obstack, nchars);",
+      "family": "fragment"
+    },
+    {
+      "path": "gas/frags.c",
+      "line": 265,
+      "allocator": "obstack_blank_fast",
+      "text": "obstack_blank_fast (&frchain_now->frch_obstack, max_chars);",
+      "family": "fragment"
+    },
+    {
+      "path": "gas/frags.c",
+      "line": 404,
+      "allocator": "obstack_1grow",
+      "text": "obstack_1grow (&frchain_now->frch_obstack, datum);",
+      "family": "fragment"
+    },
+    {
+      "path": "gas/gen-sframe.c",
+      "line": 594,
+      "allocator": "XCNEW",
+      "text": "struct sframe_row_entry *fre = XCNEW (struct sframe_row_entry);",
+      "family": "optional-sframe"
+    },
+    {
+      "path": "gas/gen-sframe.c",
+      "line": 627,
+      "allocator": "XCNEW",
+      "text": "return XCNEW (struct sframe_func_entry);",
+      "family": "optional-sframe"
+    },
+    {
+      "path": "gas/gen-sframe.c",
+      "line": 923,
+      "allocator": "XNEWVEC",
+      "text": "symbolS **fde_fre_symbols = XNEWVEC (symbolS *, num_fdes);",
+      "family": "optional-sframe"
+    },
+    {
+      "path": "gas/gen-sframe.c",
+      "line": 1073,
+      "allocator": "XCNEW",
+      "text": "struct sframe_xlate_ctx* xlate_ctx = XCNEW (struct sframe_xlate_ctx);",
+      "family": "optional-sframe"
+    },
+    {
+      "path": "gas/ginsn.c",
+      "line": 38,
+      "allocator": "XCNEW",
+      "text": "ginsnS *ginsn = XCNEW (ginsnS);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/ginsn.c",
+      "line": 473,
+      "allocator": "XNEWVEC",
+      "text": "char *src_str = XNEWVEC (char, len);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/ginsn.c",
+      "line": 505,
+      "allocator": "XNEWVEC",
+      "text": "char *dst_str = XNEWVEC (char, len);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/ginsn.c",
+      "line": 554,
+      "allocator": "XNEWVEC",
+      "text": "char *ginsn_str = XNEWVEC (char, len);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/ginsn.c",
+      "line": 650,
+      "allocator": "XCNEW",
+      "text": "gedge = XCNEW (gedgeS);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/ginsn.c",
+      "line": 783,
+      "allocator": "XCNEW",
+      "text": "root_bb = XCNEW (gbbS);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/ginsn.c",
+      "line": 827,
+      "allocator": "XCNEW",
+      "text": "current_bb = XCNEW (gbbS);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/ginsn.c",
+      "line": 1026,
+      "allocator": "XCNEW",
+      "text": "gcfg = XCNEW (gcfgS);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/ginsn.c",
+      "line": 1107,
+      "allocator": "XCNEW",
+      "text": "frchain_now->frch_ginsn_data = XCNEW (struct frch_ginsn_data);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/ginsn.c",
+      "line": 1117,
+      "allocator": "str_htab_create",
+      "text": "frchain_now->frch_ginsn_data->label_ginsn_map = str_htab_create ();",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/input-file.c",
+      "line": 84,
+      "allocator": "XNEW",
+      "text": "saved = XNEW (struct saved_file);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/input-scrub.c",
+      "line": 149,
+      "allocator": "XNEWVEC",
+      "text": "buffer_start = XNEWVEC (char, BEFORE_SIZE + AFTER_SIZE + 1 + buffer_length);",
+      "family": "input-buffer"
+    },
+    {
+      "path": "gas/input-scrub.c",
+      "line": 177,
+      "allocator": "XNEW",
+      "text": "saved = XNEW (struct input_save);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/input-scrub.c",
+      "line": 434,
+      "allocator": "XRESIZEVEC",
+      "text": "buffer_start = XRESIZEVEC (char, buffer_start,",
+      "family": "input-buffer"
+    },
+    {
+      "path": "gas/listing.c",
+      "line": 228,
+      "allocator": "concat",
+      "text": "char *n = concat (name, message, (char *) NULL);",
+      "family": "listing"
+    },
+    {
+      "path": "gas/listing.c",
+      "line": 229,
+      "allocator": "XNEW",
+      "text": "struct list_message *lm = XNEW (struct list_message);",
+      "family": "listing"
+    },
+    {
+      "path": "gas/listing.c",
+      "line": 267,
+      "allocator": "XNEW",
+      "text": "p = XNEW (file_info_type);",
+      "family": "listing"
+    },
+    {
+      "path": "gas/listing.c",
+      "line": 270,
+      "allocator": "xstrdup",
+      "text": "p->filename = xstrdup (file_name);",
+      "family": "listing"
+    },
+    {
+      "path": "gas/listing.c",
+      "line": 332,
+      "allocator": "XNEW",
+      "text": "new_i = XNEW (list_info_type);",
+      "family": "listing"
+    },
+    {
+      "path": "gas/listing.c",
+      "line": 367,
+      "allocator": "XNEWVEC",
+      "text": "copy = XNEWVEC (char, len);",
+      "family": "listing"
+    },
+    {
+      "path": "gas/listing.c",
+      "line": 390,
+      "allocator": "XNEW",
+      "text": "new_i = XNEW (list_info_type);",
+      "family": "listing"
+    },
+    {
+      "path": "gas/listing.c",
+      "line": 1053,
+      "allocator": "xmalloc",
+      "text": "cache->buffer = xmalloc (width);",
+      "family": "listing"
+    },
+    {
+      "path": "gas/listing.c",
+      "line": 1230,
+      "allocator": "XNEWVEC",
+      "text": "buffer = XNEWVEC (char, listing_rhs_width);",
+      "family": "listing"
+    },
+    {
+      "path": "gas/listing.c",
+      "line": 1231,
+      "allocator": "XNEWVEC",
+      "text": "data_buffer = XNEWVEC (char, MAX_BYTES);",
+      "family": "listing"
+    },
+    {
+      "path": "gas/listing.c",
+      "line": 1600,
+      "allocator": "xmemdup0",
+      "text": "ttl = xmemdup0 (start, length);",
+      "family": "listing"
+    },
+    {
+      "path": "gas/macro.c",
+      "line": 62,
+      "allocator": "htab_create_alloc",
+      "text": "macro_hash = htab_create_alloc (16, hash_string_tuple, eq_string_tuple,",
+      "family": "hash"
+    },
+    {
+      "path": "gas/macro.c",
+      "line": 108,
+      "allocator": "xasprintf",
+      "text": "linefile = xasprintf (\"\\t%slinefile %u \\\"%s\\\"\", prefix, line + 1, file);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/macro.c",
+      "line": 110,
+      "allocator": "xasprintf",
+      "text": "linefile = xasprintf (\"\\t%slinefile %u .\", prefix, line + 1);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/macro.c",
+      "line": 389,
+      "allocator": "XNEWVEC",
+      "text": "char *br_buf = XNEWVEC (char, 1);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/macro.c",
+      "line": 421,
+      "allocator": "XNEWVEC",
+      "text": "br_buf = XNEWVEC (char, strlen (in_br) + 2);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/macro.c",
+      "line": 454,
+      "allocator": "XNEW",
+      "text": "formal = XNEW (formal_entry);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/macro.c",
+      "line": 633,
+      "allocator": "XNEW",
+      "text": "macro = XNEW (macro_entry);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/macro.c",
+      "line": 640,
+      "allocator": "str_htab_create",
+      "text": "macro->formal_hash = str_htab_create ();",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/macro.c",
+      "line": 1229,
+      "allocator": "xmemdup0",
+      "text": "copy = xmemdup0 (line, s - line);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/macro.c",
+      "line": 1266,
+      "allocator": "XNEWVEC",
+      "text": "copy = XNEWVEC (char, len + 1);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/macro.c",
+      "line": 1311,
+      "allocator": "str_htab_create",
+      "text": "h = str_htab_create ();",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/output-file.c",
+      "line": 63,
+      "allocator": "obstack_ptr_grow",
+      "text": "obstack_ptr_grow (&notes, &frchp->frch_obstack);",
+      "family": "close-composite"
+    },
+    {
+      "path": "gas/output-file.c",
+      "line": 94,
+      "allocator": "obstack_ptr_grow",
+      "text": "obstack_ptr_grow (&notes, NULL);",
+      "family": "close-composite"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 260,
+      "allocator": "obstack_begin",
+      "text": "obstack_begin (&cond_obstack, chunksize);",
+      "family": "startup"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 590,
+      "allocator": "str_htab_create",
+      "text": "po_hash = str_htab_create ();",
+      "family": "hash"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 969,
+      "allocator": "XNEWVEC",
+      "text": "copy = XNEWVEC (char, len + macro_nest + 2);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 1733,
+      "allocator": "XNEWVEC",
+      "text": "start = name = XNEWVEC (char, len + 1);",
+      "family": "quoted-symbol"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 1745,
+      "allocator": "XRESIZEVEC",
+      "text": "start = XRESIZEVEC (char, start, len + 1);",
+      "family": "quoted-symbol"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 1776,
+      "allocator": "XNEWVEC",
+      "text": "start = XNEWVEC (char, len + 1);",
+      "family": "scratch"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 1929,
+      "allocator": "XNEWVEC",
+      "text": "alc = XNEWVEC (char, strlen (S_GET_NAME (line_label))",
+      "family": "directive-extra"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 2263,
+      "allocator": "XNEW",
+      "text": "struct deferred_diag *diag = XNEW (struct deferred_diag);",
+      "family": "directive-extra"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 3065,
+      "allocator": "xstrdup",
+      "text": "name = xstrdup (name);",
+      "family": "directive-extra"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 3351,
+      "allocator": "notes_calloc",
+      "text": "fragS *dummy_frag = notes_calloc (1, sizeof (*dummy_frag));",
+      "family": "listing"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 3670,
+      "allocator": "xasprintf",
+      "text": "nop = xasprintf (\"%s\", md_single_noop_insn);",
+      "family": "directive-extra"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 4012,
+      "allocator": "concat",
+      "text": "loop = concat (S_GET_NAME (symbolP),",
+      "family": "diagnostic"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 4021,
+      "allocator": "concat",
+      "text": "loop = concat (loop, \" => \", S_GET_NAME (symp),",
+      "family": "diagnostic"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 4428,
+      "allocator": "notes_alloc",
+      "text": "reloc = notes_alloc (sizeof (*reloc));",
+      "family": "directive-extra"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 4701,
+      "allocator": "XNEW",
+      "text": "x = XNEW (struct broken_word);",
+      "family": "broken-word"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6356,
+      "allocator": "obstack_1grow",
+      "text": "obstack_1grow (&notes, c);",
+      "family": "strings"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6361,
+      "allocator": "obstack_1grow",
+      "text": "obstack_1grow (&notes, '\\0');",
+      "family": "strings"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6489,
+      "allocator": "XNEWVEC",
+      "text": "path = XNEWVEC (char, len + include_dir_maxlen + 2);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6575,
+      "allocator": "obstack_1grow",
+      "text": "obstack_1grow (&notes, *input_line_pointer);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6580,
+      "allocator": "obstack_1grow",
+      "text": "obstack_1grow (&notes, '\\0');",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6588,
+      "allocator": "notes_alloc",
+      "text": "path = notes_alloc (i + include_dir_maxlen + 2);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6600,
+      "allocator": "XNEWVEC",
+      "text": "include_dirs = XNEWVEC (const char *, 1);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6610,
+      "allocator": "XRESIZEVEC",
+      "text": "include_dirs = XRESIZEVEC (const char *, include_dirs, include_dir_count);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6700,
+      "allocator": "xstrdup",
+      "text": "name = xstrdup (name);",
+      "family": "directive-extra"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6706,
+      "allocator": "xasprintf",
+      "text": "label = xasprintf (\"%s%s\", default_prefix, name);",
+      "family": "directive-extra"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6713,
+      "allocator": "xasprintf",
+      "text": "label = xasprintf (\"%c%s\", leading_char, name);",
+      "family": "directive-extra"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6715,
+      "allocator": "xstrdup",
+      "text": "label = xstrdup (name);",
+      "family": "directive-extra"
+    },
+    {
+      "path": "gas/read.c",
+      "line": 6723,
+      "allocator": "xstrdup",
+      "text": "label = xstrdup (label);",
+      "family": "directive-extra"
+    },
+    {
+      "path": "gas/remap.c",
+      "line": 56,
+      "allocator": "XNEW",
+      "text": "map = XNEW (debug_prefix_map);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/remap.c",
+      "line": 57,
+      "allocator": "xstrdup",
+      "text": "o = xstrdup (arg);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/remap.c",
+      "line": 62,
+      "allocator": "xstrdup",
+      "text": "map->new_prefix = xstrdup (p);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/remap.c",
+      "line": 81,
+      "allocator": "concat",
+      "text": "return concat (map->new_prefix, name, (const char *) NULL);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/remap.c",
+      "line": 84,
+      "allocator": "xstrdup",
+      "text": "return xstrdup (filename);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/sb.c",
+      "line": 60,
+      "allocator": "XNEWVEC",
+      "text": "ptr->ptr = XNEWVEC (char, size + 1);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/sb.c",
+      "line": 161,
+      "allocator": "XRESIZEVEC",
+      "text": "ptr->ptr = XRESIZEVEC (char, ptr->ptr, max + 1);",
+      "family": "input-push-macro"
+    },
+    {
+      "path": "gas/scfi.c",
+      "line": 123,
+      "allocator": "XCNEW",
+      "text": "scfi_opS *op = XCNEW (scfi_opS);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/scfi.c",
+      "line": 314,
+      "allocator": "XCNEW",
+      "text": "ginsn->scfi_ops = XCNEW (scfi_opS *);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/scfi.c",
+      "line": 459,
+      "allocator": "XCNEW",
+      "text": "op->op_data = XCNEW (scfi_op_dataS);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/scfi.c",
+      "line": 975,
+      "allocator": "XCNEW",
+      "text": "gbb->entry_state = XCNEW (scfi_stateS);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/scfi.c",
+      "line": 987,
+      "allocator": "XCNEW",
+      "text": "gbb->exit_state = XCNEW (scfi_stateS);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/scfi.c",
+      "line": 1045,
+      "allocator": "XCNEWVEC",
+      "text": "prog_order_bbs = XCNEWVEC (gbbS *, gcfg->num_gbbs);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/scfi.c",
+      "line": 1047,
+      "allocator": "XCNEWVEC",
+      "text": "restore_bbs = XCNEWVEC (gbbS *, gcfg->num_gbbs);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/scfi.c",
+      "line": 1108,
+      "allocator": "XCNEW",
+      "text": "init_state = XCNEW (scfi_stateS);",
+      "family": "synthetic-cfi"
+    },
+    {
+      "path": "gas/stabs.c",
+      "line": 410,
+      "allocator": "notes_concat",
+      "text": "stabstr_secname = notes_concat (stab_secname, \"str\", (char *) NULL);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/stabs.c",
+      "line": 473,
+      "allocator": "concat",
+      "text": "dir2 = concat (dir, \"/\", NULL);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/stabs.c",
+      "line": 507,
+      "allocator": "XNEWVEC",
+      "text": "bufp = buf = XNEWVEC (char, 2 * strlen (file) + strlen (sym) + 12);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/stabs.c",
+      "line": 537,
+      "allocator": "xstrdup",
+      "text": "last_asm_file = xstrdup (file);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/stabs.c",
+      "line": 572,
+      "allocator": "xstrdup",
+      "text": "prev_line_file = xstrdup (file);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/stabs.c",
+      "line": 588,
+      "allocator": "XNEWVEC",
+      "text": "buf = XNEWVEC (char, 100 + strlen (current_function_label));",
+      "family": "debug"
+    },
+    {
+      "path": "gas/stabs.c",
+      "line": 594,
+      "allocator": "XNEWVEC",
+      "text": "buf = XNEWVEC (char, 100);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/stabs.c",
+      "line": 626,
+      "allocator": "xasprintf",
+      "text": "buf = xasprintf (\"\\\"%s:F1\\\",%d,0,%d,%s\",",
+      "family": "debug"
+    },
+    {
+      "path": "gas/stabs.c",
+      "line": 634,
+      "allocator": "xstrdup",
+      "text": "current_function_label = xstrdup (startlabname);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/stabs.c",
+      "line": 650,
+      "allocator": "xasprintf",
+      "text": "buf = xasprintf (\"\\\"\\\",%d,0,0,%s-%s\", N_FUN, sym, startlabname);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/subsegs.c",
+      "line": 38,
+      "allocator": "obstack_begin",
+      "text": "obstack_begin (&frchains, chunksize);",
+      "family": "subsections"
+    },
+    {
+      "path": "gas/subsegs.c",
+      "line": 75,
+      "allocator": "obstack_alloc",
+      "text": "seginfo = obstack_alloc (&notes, sizeof (*seginfo));",
+      "family": "subsections"
+    },
+    {
+      "path": "gas/subsegs.c",
+      "line": 135,
+      "allocator": "obstack_alloc",
+      "text": "newP = obstack_alloc (&frchains, sizeof (frchainS));",
+      "family": "subsections"
+    },
+    {
+      "path": "gas/subsegs.c",
+      "line": 139,
+      "allocator": "obstack_begin",
+      "text": "obstack_begin (&newP->frch_obstack, chunksize);",
+      "family": "subsections"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 252,
+      "allocator": "notes_alloc",
+      "text": "notes_alloc (size_t size)",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 254,
+      "allocator": "obstack_alloc",
+      "text": "return obstack_alloc (&notes, size);",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 258,
+      "allocator": "notes_calloc",
+      "text": "notes_calloc (size_t n, size_t size)",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 267,
+      "allocator": "notes_alloc",
+      "text": "ret = notes_alloc (amt);",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 273,
+      "allocator": "notes_memdup",
+      "text": "notes_memdup (const void *src, size_t copy_size, size_t alloc_size)",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 275,
+      "allocator": "obstack_alloc",
+      "text": "void *ret = obstack_alloc (&notes, alloc_size);",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 283,
+      "allocator": "notes_strdup",
+      "text": "notes_strdup (const char *str)",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 286,
+      "allocator": "notes_memdup",
+      "text": "return notes_memdup (str, len, len);",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 290,
+      "allocator": "notes_concat",
+      "text": "notes_concat (const char *first, ...)",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 299,
+      "allocator": "obstack_grow",
+      "text": "obstack_grow (&notes, str, size);",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 302,
+      "allocator": "obstack_1grow",
+      "text": "obstack_1grow (&notes, 0);",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 350,
+      "allocator": "notes_strdup",
+      "text": "ret = notes_strdup (name);",
+      "family": "symbols"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 415,
+      "allocator": "notes_alloc",
+      "text": "symbolP = notes_alloc (size);",
+      "family": "symbols"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 449,
+      "allocator": "notes_alloc",
+      "text": "ret = notes_alloc (sizeof *ret);",
+      "family": "symbols"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 475,
+      "allocator": "notes_alloc",
+      "text": "xtra = notes_alloc (sizeof (*xtra));",
+      "family": "symbols"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 783,
+      "allocator": "notes_alloc",
+      "text": "newsymP = notes_alloc (sizeof (symbolS) + sizeof (struct xsymbol));",
+      "family": "clone"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 967,
+      "allocator": "xstrdup",
+      "text": "copy = xstrdup (name);",
+      "family": "folded-name"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 981,
+      "allocator": "XNEWVEC",
+      "text": "name = copy = XNEWVEC (char, strlen (name) + 1);",
+      "family": "folded-name"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 1975,
+      "allocator": "XNEWVEC",
+      "text": "dollar_labels = XNEWVEC (dollar_ent, DOLLAR_LABEL_BUMP_BY);",
+      "family": "large-numeric-label"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 1976,
+      "allocator": "XNEWVEC",
+      "text": "dollar_label_instances = XNEWVEC (dollar_ent, DOLLAR_LABEL_BUMP_BY);",
+      "family": "large-numeric-label"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 1977,
+      "allocator": "XNEWVEC",
+      "text": "dollar_label_defines = XNEWVEC (char, DOLLAR_LABEL_BUMP_BY);",
+      "family": "large-numeric-label"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 1984,
+      "allocator": "XRESIZEVEC",
+      "text": "dollar_labels = XRESIZEVEC (dollar_ent, dollar_labels,",
+      "family": "large-numeric-label"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 1986,
+      "allocator": "XRESIZEVEC",
+      "text": "dollar_label_instances = XRESIZEVEC (dollar_ent,",
+      "family": "large-numeric-label"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 1989,
+      "allocator": "XRESIZEVEC",
+      "text": "dollar_label_defines = XRESIZEVEC (char, dollar_label_defines,",
+      "family": "large-numeric-label"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 2092,
+      "allocator": "XNEWVEC",
+      "text": "fb_labels = XNEWVEC (fb_ent, FB_LABEL_BUMP_BY);",
+      "family": "large-numeric-label"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 2093,
+      "allocator": "XNEWVEC",
+      "text": "fb_label_instances = XNEWVEC (fb_ent, FB_LABEL_BUMP_BY);",
+      "family": "large-numeric-label"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 2101,
+      "allocator": "XRESIZEVEC",
+      "text": "fb_labels = XRESIZEVEC (fb_ent, fb_labels, fb_label_max);",
+      "family": "large-numeric-label"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 2102,
+      "allocator": "XRESIZEVEC",
+      "text": "fb_label_instances = XRESIZEVEC (fb_ent, fb_label_instances,",
+      "family": "large-numeric-label"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 2205,
+      "allocator": "notes_alloc",
+      "text": "symbol_decode = notes_alloc (strlen (message_format) + 30);",
+      "family": "diagnostic"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 3136,
+      "allocator": "htab_create_alloc",
+      "text": "sy_hash = htab_create_alloc (1024, hash_symbol_entry, eq_symbol_entry,",
+      "family": "hash"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 3423,
+      "allocator": "xstrdup",
+      "text": "return xstrdup (\".\");",
+      "family": "complex-reloc"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 3436,
+      "allocator": "XNEWVEC",
+      "text": "terminal = XNEWVEC (char, (1 /* S or s */",
+      "family": "complex-reloc"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 3454,
+      "allocator": "XNEWVEC",
+      "text": "char * terminal = XNEWVEC (char, 28);  /* Enough for long long.  */",
+      "family": "complex-reloc"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 3582,
+      "allocator": "xstrdup",
+      "text": "concat_string = xstrdup (opstr);",
+      "family": "complex-reloc"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 3584,
+      "allocator": "concat",
+      "text": "concat_string = concat (opstr, \":\", operands[0], (char *) NULL);",
+      "family": "complex-reloc"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 3586,
+      "allocator": "concat",
+      "text": "concat_string = concat (opstr, \":\", operands[0], \":\", operands[1],",
+      "family": "complex-reloc"
+    },
+    {
+      "path": "gas/symbols.c",
+      "line": 3589,
+      "allocator": "concat",
+      "text": "concat_string = concat (opstr, \":\", operands[0], \":\", operands[1], \":\",",
+      "family": "complex-reloc"
+    },
+    {
+      "path": "gas/write.c",
+      "line": 150,
+      "allocator": "obstack_alloc",
+      "text": "fixP = obstack_alloc (&notes, sizeof (fixS));",
+      "family": "fixup-reloc-symbol-output"
+    },
+    {
+      "path": "gas/write.c",
+      "line": 1300,
+      "allocator": "notes_alloc",
+      "text": "relocs = notes_alloc (n * sizeof (arelent *));",
+      "family": "fixup-reloc-symbol-output"
+    },
+    {
+      "path": "gas/write.c",
+      "line": 1470,
+      "allocator": "obstack_blank_fast",
+      "text": "obstack_blank_fast (ob, avail_out);",
+      "family": "compression"
+    },
+    {
+      "path": "gas/write.c",
+      "line": 1481,
+      "allocator": "obstack_blank_fast",
+      "text": "obstack_blank_fast (ob, -avail_out);",
+      "family": "compression"
+    },
+    {
+      "path": "gas/write.c",
+      "line": 1583,
+      "allocator": "obstack_blank_fast",
+      "text": "obstack_blank_fast (ob, avail_out);",
+      "family": "compression"
+    },
+    {
+      "path": "gas/write.c",
+      "line": 1593,
+      "allocator": "obstack_blank_fast",
+      "text": "obstack_blank_fast (ob, -avail_out);",
+      "family": "compression"
+    },
+    {
+      "path": "gas/write.c",
+      "line": 1786,
+      "allocator": "notes_alloc",
+      "text": "asympp = notes_alloc (nsyms * sizeof (asymbol *));",
+      "family": "fixup-reloc-symbol-output"
+    },
+    {
+      "path": "gas/write.c",
+      "line": 1941,
+      "allocator": "notes_alloc",
+      "text": "reloc = notes_alloc (sizeof (*reloc));",
+      "family": "fixup-reloc-symbol-output"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 2187,
+      "allocator": "xstrdup",
+      "text": "copy = xstrdup (suffix_string);",
+      "family": "scratch"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 3294,
+      "allocator": "reconcat",
+      "text": "cpu_sub_arch_name = reconcat (cpu_sub_arch_name, cpu_sub_arch_name,",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 3297,
+      "allocator": "concat",
+      "text": "cpu_sub_arch_name = concat (pfx, name, (const char *) NULL);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 3364,
+      "allocator": "XNEW",
+      "text": "arch_stack_entry *top = XNEW (arch_stack_entry);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 3368,
+      "allocator": "xstrdup",
+      "text": "top->sub_name = xstrdup (cpu_sub_arch_name);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 3650,
+      "allocator": "str_htab_create",
+      "text": "op_hash = str_htab_create ();",
+      "family": "hash"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 3662,
+      "allocator": "str_htab_create",
+      "text": "reg_hash = str_htab_create ();",
+      "family": "hash"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 7256,
+      "allocator": "xstrdup",
+      "text": "xstrdup_copy = xstrdup (line);",
+      "family": "scratch"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 13432,
+      "allocator": "XNEWVEC",
+      "text": "tmpbuf = XNEWVEC (char, first + second + 2);",
+      "family": "scratch"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 17060,
+      "allocator": "xstrdup",
+      "text": "char *buf = xstrdup (reg_string), *name;",
+      "family": "scratch"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 17428,
+      "allocator": "XNEWVEC",
+      "text": "n = XNEWVEC (char, strlen (i386_comment_chars) + 1);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 17440,
+      "allocator": "xstrdup",
+      "text": "saved = xstrdup (arg);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 17794,
+      "allocator": "xstrdup",
+      "text": "saved = xstrdup (arg);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 17975,
+      "allocator": "xasprintf",
+      "text": "str = xasprintf (\"no%s\", cpu_arch[j].name);",
+      "family": "option-extra"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 18635,
+      "allocator": "notes_alloc",
+      "text": "rel = notes_alloc (sizeof (arelent));",
+      "family": "fixup-reloc-symbol-output"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 18636,
+      "allocator": "notes_alloc",
+      "text": "rel->sym_ptr_ptr = notes_alloc (sizeof (asymbol *));",
+      "family": "fixup-reloc-symbol-output"
+    },
+    {
+      "path": "gas/config/tc-i386.c",
+      "line": 18814,
+      "allocator": "notes_alloc",
+      "text": "curr = notes_alloc (sizeof (*curr));",
+      "family": "nonzero-subsection"
+    },
+    {
+      "path": "gas/config/obj-elf.c",
+      "line": 211,
+      "allocator": "obstack_grow",
+      "text": "obstack_grow (&notes, s, name_length + 1);",
+      "family": "strings"
+    },
+    {
+      "path": "gas/config/obj-elf.c",
+      "line": 512,
+      "allocator": "htab_create_alloc",
+      "text": "groups.indexes = htab_create_alloc (16, hash_string_tuple, eq_string_tuple,",
+      "family": "section-extra"
+    },
+    {
+      "path": "gas/config/obj-elf.c",
+      "line": 548,
+      "allocator": "XRESIZEVEC",
+      "text": "groups.head = XRESIZEVEC (asection *, groups.head, i + 128);",
+      "family": "section-extra"
+    },
+    {
+      "path": "gas/config/obj-elf.c",
+      "line": 604,
+      "allocator": "XNEW",
+      "text": "elt = XNEW (struct section_stack);",
+      "family": "section-extra"
+    },
+    {
+      "path": "gas/config/obj-elf.c",
+      "line": 1100,
+      "allocator": "obstack_grow0",
+      "text": "obstack_grow0 (&notes, input_line_pointer, end - input_line_pointer);",
+      "family": "strings"
+    },
+    {
+      "path": "gas/config/obj-elf.c",
+      "line": 1114,
+      "allocator": "obstack_blank",
+      "text": "obstack_blank (&notes, slen - 2);",
+      "family": "section-extra"
+    },
+    {
+      "path": "gas/config/obj-elf.c",
+      "line": 1427,
+      "allocator": "notes_memdup",
+      "text": "= notes_memdup (beg, length, length + 1);",
+      "family": "section-extra"
+    },
+    {
+      "path": "gas/config/obj-elf.c",
+      "line": 1856,
+      "allocator": "notes_alloc",
+      "text": "versioned_name = notes_alloc (sizeof (*versioned_name));",
+      "family": "symver"
+    },
+    {
+      "path": "gas/config/obj-elf.c",
+      "line": 1857,
+      "allocator": "notes_strdup",
+      "text": "versioned_name->name = notes_strdup (version_name);",
+      "family": "symver"
+    },
+    {
+      "path": "gas/config/obj-elf.c",
+      "line": 2221,
+      "allocator": "notes_alloc",
+      "text": "symbol_get_obj (sym)->size = notes_alloc (sizeof (exp));",
+      "family": "size"
+    },
+    {
+      "path": "gas/config/obj-elf.c",
+      "line": 2527,
+      "allocator": "concat",
+      "text": "name = concat (sec->name, \"str\", (const char *) NULL);",
+      "family": "debug"
+    },
+    {
+      "path": "gas/config/tc-i386-intel.c",
+      "line": 651,
+      "allocator": "xstrdup",
+      "text": "input_line_pointer = buf = xstrdup (operand_string);",
+      "family": "intel"
+    },
+    {
+      "path": "gas/as.h",
+      "line": 579,
+      "allocator": "xmemdup0",
+      "text": "xmemdup0 (const char *in, size_t len)",
+      "family": "unused-inline"
+    },
+    {
+      "path": "gas/as.h",
+      "line": 581,
+      "allocator": "xmemdup",
+      "text": "return xmemdup (in, len, len + 1);",
+      "family": "unused-inline"
+    },
+    {
+      "path": "gas/hash.h",
+      "line": 55,
+      "allocator": "alloc_f",
+      "text": "string_tuple_t *tuple = table->alloc_f (1, sizeof (*tuple));",
+      "family": "hash"
+    },
+    {
+      "path": "gas/hash.h",
+      "line": 80,
+      "allocator": "XNEWVEC",
+      "text": "char *tmp = XNEWVEC (char, n + 1);",
+      "family": "unused-inline"
+    },
+    {
+      "path": "gas/hash.h",
+      "line": 113,
+      "allocator": "str_htab_create",
+      "text": "str_htab_create (void)",
+      "family": "hash"
+    },
+    {
+      "path": "gas/hash.h",
+      "line": 115,
+      "allocator": "htab_create_alloc",
+      "text": "return htab_create_alloc (16, hash_string_tuple, eq_string_tuple,",
+      "family": "hash"
+    },
+    {
+      "path": "gas/symbols.h",
+      "line": 41,
+      "allocator": "notes_alloc",
+      "text": "extern void *notes_alloc (size_t);",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.h",
+      "line": 42,
+      "allocator": "notes_calloc",
+      "text": "extern void *notes_calloc (size_t, size_t);",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.h",
+      "line": 43,
+      "allocator": "notes_memdup",
+      "text": "extern void *notes_memdup (const void *, size_t, size_t);",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.h",
+      "line": 44,
+      "allocator": "notes_strdup",
+      "text": "extern char *notes_strdup (const char *);",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.h",
+      "line": 45,
+      "allocator": "notes_concat",
+      "text": "extern char *notes_concat (const char *, ...);",
+      "family": "wrapper"
+    },
+    {
+      "path": "gas/symbols.h",
+      "line": 49,
+      "allocator": "notes_memdup0",
+      "text": "notes_memdup0 (const char *in, size_t len)",
+      "family": "unused-inline"
+    },
+    {
+      "path": "gas/symbols.h",
+      "line": 51,
+      "allocator": "notes_memdup",
+      "text": "return notes_memdup (in, len, len + 1);",
+      "family": "unused-inline"
+    }
+  ]
+}

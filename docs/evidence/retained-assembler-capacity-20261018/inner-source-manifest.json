@@ -1,0 +1,341 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "files": [
+    {
+      "path": "gas/asintl.h",
+      "bytes": 2082,
+      "sha256": "acdb6a17bc7a02e9e8dd078cb6ec04b7c93363f8bf3f6877fecc296e8026a32e",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/asintl.h"
+    },
+    {
+      "path": "gas/atof-generic.c",
+      "bytes": 18869,
+      "sha256": "877ad90b52ed16a4d09f26eede6eb1e8121e7f84524dd9481b2b30d7dbf8d9ad",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/atof-generic.c"
+    },
+    {
+      "path": "gas/bignum.h",
+      "bytes": 1653,
+      "sha256": "1d8ff5715dfa9a5ea9fb2eb2f2ddc5c97eb1ad51230a7160589b05226a382974",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/bignum.h"
+    },
+    {
+      "path": "gas/bit_fix.h",
+      "bytes": 1951,
+      "sha256": "7551081983e6534c93a2ae0fbe8e299b33dc1322ce93726d734351e43ef072fc",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/bit_fix.h"
+    },
+    {
+      "path": "gas/cgen.h",
+      "bytes": 3668,
+      "sha256": "dbe3ab3ce30d8fdec7d4b5d4aa06b34fdebd6ebade5210355edd1952f0709569",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/cgen.h"
+    },
+    {
+      "path": "gas/codeview.h",
+      "bytes": 2551,
+      "sha256": "576c1ace3e59b16a22168d186035462097b3dce614b0f75b7a87ab58c813dc00",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/codeview.h"
+    },
+    {
+      "path": "gas/compress-debug.c",
+      "bytes": 3525,
+      "sha256": "847a6a01db75a5ca77125100ea83b5dae434f87d1fd455dd879a2197b52b0ff0",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/compress-debug.c"
+    },
+    {
+      "path": "gas/compress-debug.h",
+      "bytes": 1428,
+      "sha256": "3587e951c2b73620ee6717141eb849bef242ac77a31c3352384ed653b6dca488",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/compress-debug.h"
+    },
+    {
+      "path": "gas/config/obj-elf-attr.h",
+      "bytes": 1689,
+      "sha256": "8310e98fccebf4321b44954c4acc5193ab48be8f583a9567c350a2a2f7935467",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/config/obj-elf-attr.h"
+    },
+    {
+      "path": "gas/config/tc-i386-ginsn.c",
+      "bytes": 37553,
+      "sha256": "091f842b6e20c56ab9a98cba796c20eed1ebadeb64dca081f0c8f15b6436f1b3",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/config/tc-i386-ginsn.c"
+    },
+    {
+      "path": "gas/config/tc-i386-intel.c",
+      "bytes": 31333,
+      "sha256": "2944e7aab2f22801b07e4621beabb85956e3d5fd0eb9d917c1dad92b7a36c49d",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/config/tc-i386-intel.c"
+    },
+    {
+      "path": "gas/dwarf2dbg.h",
+      "bytes": 4550,
+      "sha256": "4bc86d1b17bcbd861d3f623d5da499bef8b915ee8c63a2ccb854ac886f89a884",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/dwarf2dbg.h"
+    },
+    {
+      "path": "gas/ecoff.c",
+      "bytes": 146079,
+      "sha256": "6c0771f0cf05006a2bd624ba2d8e494d9906c4200c48a3a8c8e1a1e741027d19",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/ecoff.c"
+    },
+    {
+      "path": "gas/ecoff.h",
+      "bytes": 3992,
+      "sha256": "bf99db4637b01d9d9fa00a5d79cb61a8452c467a56c19c423dfa219fbd073485",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/ecoff.h"
+    },
+    {
+      "path": "gas/emul-target.h",
+      "bytes": 1522,
+      "sha256": "9da8fc73baf83bb6696fcfa8933cb6dba99b12224317c9e99aff3eedfdef6530",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/emul-target.h"
+    },
+    {
+      "path": "gas/emul.h",
+      "bytes": 1473,
+      "sha256": "1b821e7ec0d252b38f7bfd7e456ffea8453eb02257383633dd8343dfbd2543e3",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/emul.h"
+    },
+    {
+      "path": "gas/flonum-copy.c",
+      "bytes": 2161,
+      "sha256": "62859101818e774f33e9eb913a88f222a97b435cdd0f3f1dda1dabf816d5be14",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/flonum-copy.c"
+    },
+    {
+      "path": "gas/flonum-konst.c",
+      "bytes": 8263,
+      "sha256": "0a4bc6cde728ac99cb88e0d787bdc143cbf89ed5d48379151c70a0e68daf6827",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/flonum-konst.c"
+    },
+    {
+      "path": "gas/flonum-mult.c",
+      "bytes": 5050,
+      "sha256": "e83bbf53bd7995c6baff1e59fbde703a61d05233a62f24e0c093747479703b12",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/flonum-mult.c"
+    },
+    {
+      "path": "gas/flonum.h",
+      "bytes": 4337,
+      "sha256": "61e79db2067ec85baa32aaf448d918675cb066c3ae6228bf9f6bea760c850af9",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/flonum.h"
+    },
+    {
+      "path": "gas/ginsn.c",
+      "bytes": 32217,
+      "sha256": "9a04925081f438fc8538686d2b1e698c2b45f1bbb58f14e8897311da3ff86ba1",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/ginsn.c"
+    },
+    {
+      "path": "gas/ginsn.h",
+      "bytes": 13154,
+      "sha256": "30c7ef2429cbf1819808d2172c121fe2cb705e34b40b92f3fd84844654531b2f",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/ginsn.h"
+    },
+    {
+      "path": "gas/itbl-lex.h",
+      "bytes": 897,
+      "sha256": "efcd4057494ee127dd3617534ea9f3f12dfa1719897cf2c65ee31dff608cf06c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/itbl-lex.h"
+    },
+    {
+      "path": "gas/itbl-ops.h",
+      "bytes": 2862,
+      "sha256": "9af76fcee906d22e225a1c6df9cb592fe323b33c0842fa08dc782c0c8e0cfdad",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/itbl-ops.h"
+    },
+    {
+      "path": "gas/listing.h",
+      "bytes": 2647,
+      "sha256": "3aea8592a4bec89db725fa67017287a3b65fd1ba64374e7ef32d2ff81ac5259c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/listing.h"
+    },
+    {
+      "path": "gas/literal.c",
+      "bytes": 3091,
+      "sha256": "c90a2e8d7a0b2c4c7a9ac10c147da8f567db4258b787d3e8c652ef28db7cce1d",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/literal.c"
+    },
+    {
+      "path": "gas/macro.h",
+      "bytes": 3142,
+      "sha256": "ac2f64ea2e67eaae6fe5133d01d1b1c2bb1df6d8909bb4c2a924188dafe08089",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/macro.h"
+    },
+    {
+      "path": "gas/output-file.h",
+      "bytes": 1005,
+      "sha256": "92c9673b8572145ef022fb4a283285f4cebd4dd1dfd7de78e262570278207893",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/output-file.h"
+    },
+    {
+      "path": "gas/sb.h",
+      "bytes": 2649,
+      "sha256": "97301afe038a927f2ed0f69a3b389118b90dbdbcce1d1961bbb9939f78b24a6b",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/sb.h"
+    },
+    {
+      "path": "gas/scfi.c",
+      "bytes": 35437,
+      "sha256": "1754589bee256659d3ab1c1ed8ae0afa42e9551ce7dc8c8f3f6b26eaa6704b77",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/scfi.c"
+    },
+    {
+      "path": "gas/scfi.h",
+      "bytes": 1380,
+      "sha256": "c43354e578fe4906c6407b99f1eaa92e71ddf90ae42ca163543fe2415218a287",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/scfi.h"
+    },
+    {
+      "path": "gas/scfidw2gen.c",
+      "bytes": 6915,
+      "sha256": "33a431f0eca549c7ce1a211a0bbf145a339cd2d1f74de93dbcde93e893c707d9",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/scfidw2gen.c"
+    },
+    {
+      "path": "gas/scfidw2gen.h",
+      "bytes": 1235,
+      "sha256": "c16034a3b57c6521d4e3e10905769045777e9064b4daed770ed9e0cf22cb5b8e",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/scfidw2gen.h"
+    }
+  ],
+  "scanned_c_modules": [
+    "gas/app.c",
+    "gas/as.c",
+    "gas/atof-generic.c",
+    "gas/codeview.c",
+    "gas/compress-debug.c",
+    "gas/cond.c",
+    "gas/depend.c",
+    "gas/dwarf2dbg.c",
+    "gas/dw2gencfi.c",
+    "gas/ecoff.c",
+    "gas/ehopt.c",
+    "gas/expr.c",
+    "gas/flonum-copy.c",
+    "gas/flonum-konst.c",
+    "gas/flonum-mult.c",
+    "gas/frags.c",
+    "gas/gen-sframe.c",
+    "gas/ginsn.c",
+    "gas/hash.c",
+    "gas/input-file.c",
+    "gas/input-scrub.c",
+    "gas/listing.c",
+    "gas/literal.c",
+    "gas/macro.c",
+    "gas/messages.c",
+    "gas/output-file.c",
+    "gas/read.c",
+    "gas/remap.c",
+    "gas/sb.c",
+    "gas/scfidw2gen.c",
+    "gas/scfi.c",
+    "gas/sframe-opt.c",
+    "gas/stabs.c",
+    "gas/subsegs.c",
+    "gas/symbols.c",
+    "gas/write.c",
+    "gas/config/tc-i386.c",
+    "gas/config/obj-elf.c",
+    "gas/config/tc-i386-ginsn.c",
+    "gas/config/tc-i386-intel.c"
+  ],
+  "scanned_gas_headers": [
+    "gas/as.h",
+    "gas/asintl.h",
+    "gas/bignum.h",
+    "gas/bit_fix.h",
+    "gas/cgen.h",
+    "gas/codeview.h",
+    "gas/compress-debug.h",
+    "gas/dwarf2dbg.h",
+    "gas/dw2gencfi.h",
+    "gas/ecoff.h",
+    "gas/emul-target.h",
+    "gas/emul.h",
+    "gas/expr.h",
+    "gas/flonum.h",
+    "gas/frags.h",
+    "gas/gen-sframe.h",
+    "gas/ginsn.h",
+    "gas/hash.h",
+    "gas/input-file.h",
+    "gas/itbl-lex.h",
+    "gas/itbl-ops.h",
+    "gas/listing.h",
+    "gas/macro.h",
+    "gas/obj.h",
+    "gas/output-file.h",
+    "gas/read.h",
+    "gas/sb.h",
+    "gas/scfidw2gen.h",
+    "gas/scfi.h",
+    "gas/subsegs.h",
+    "gas/symbols.h",
+    "gas/tc.h",
+    "gas/write.h",
+    "gas/config/tc-i386.h",
+    "gas/config/obj-elf.h",
+    "gas/config/te-linux.h",
+    "gas/config/obj-elf-attr.h"
+  ],
+  "reused_results": [
+    {
+      "path": "check-results.json",
+      "bytes": 5622,
+      "sha256": "a0cf4524ceb9a7549f8a0b429dc5126411536453bdc8c159a12422055e330008"
+    },
+    {
+      "path": "object-check-results.json",
+      "bytes": 1785,
+      "sha256": "e534dc4c33a8cb10473f58aea6e079ab794dd45fa2466430defc3b00005e2ab3"
+    },
+    {
+      "path": "backing-check-results.json",
+      "bytes": 1756,
+      "sha256": "6425aa670cf8c487627e08b7acfb7b140137a14d3ebe8f083a50c297beea85c7"
+    },
+    {
+      "path": "hash-check-results.json",
+      "bytes": 1949,
+      "sha256": "89264e101106488b9a995751df6095fee20376be7c28fc5452d2bd3ed004defd"
+    },
+    {
+      "path": "startup-check-results.json",
+      "bytes": 2639,
+      "sha256": "f265521ff71b9466dd27ff0e02c74610612db20e099db9fe25d241a61fe4341a"
+    },
+    {
+      "path": "elf-string-check-results.json",
+      "bytes": 1845,
+      "sha256": "82165cf42ac0b3e2175a8beb76224fd63eb76833ab34bc46e727748dcc9eded7"
+    },
+    {
+      "path": "defaults-check-results.json",
+      "bytes": 652,
+      "sha256": "c45ea859e42fe3484091f433e56ffefa06dc5880a3c684cd1a662a8d8f7e3a9e"
+    },
+    {
+      "path": "invocation-check-results.json",
+      "bytes": 1519,
+      "sha256": "9269f5b7a0f11d189e4b9e569ee200cbbec98c061c5fc32dff9ecdded06995fe"
+    },
+    {
+      "path": "lifecycle-check-results.json",
+      "bytes": 1524,
+      "sha256": "5f36250d12332b3a02f146a65c815508c03f0e10c589631ee362be909af6fe0f"
+    },
+    {
+      "path": "symbol-name-check-results.json",
+      "bytes": 2019,
+      "sha256": "c865ab1082fdda69a7d0679af9c13c8ee3d1c19070c13696b2ddf6aa92fbd361"
+    },
+    {
+      "path": "event-check-results.json",
+      "bytes": 1835,
+      "sha256": "81cd3ea69b4f7f0eba8ae50fc1804ba85dee691b01cc5764916ea8470f237277"
+    }
+  ]
+}

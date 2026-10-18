@@ -1,0 +1,36 @@
+{
+  "scope": "Selected null Main GAS-owned parser/writer dynamic allocation coverage",
+  "binutils_commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "existing_source_identities_checked": 90,
+  "supplementary_source_identities_checked": 33,
+  "prior_result_identities_checked": 11,
+  "GAS_C_modules_reviewed": 40,
+  "GAS_headers_reviewed": 37,
+  "lexical_allocation_wrapper_and_declaration_occurrences": 264,
+  "lexical_occurrences_by_disposition": {
+    "bounded": 52,
+    "excluded": 192,
+    "excluded-but-charged": 4,
+    "wrapper": 16
+  },
+  "new_selected_dynamic_allocation_families": 0,
+  "unchanged_notes_raw_request_upper": 65528,
+  "unchanged_notes_chunk_request_upper": 65769,
+  "unchanged_symbol_hash_pointer_array_upper": 16312,
+  "unchanged_parser_scratch_request_upper": 67,
+  "unchanged_fragment_and_frchain_chunk_upper": 4064,
+  "initial_input_scrub_buffer_request": 65539,
+  "selected_input_bytes_upper": 7410,
+  "reused_BFD_lifetime_counter_upper": 32065,
+  "reused_ELF_object_bytes_upper": 14352,
+  "selected_GAS_owned_parser_writer_dynamic_request_inventory_complete": true,
+  "coverage_basis": "Handwritten selected dispatch, exclusion and callback review; lexical census and anchors are not C semantic verification",
+  "remaining_interfaces": [
+    "Earlier BFD object/backing transfers; no fresh exhaustive BFD internal-call proof",
+    "Host allocation success, pointer placement, stack, stdio, locale and diagnostics",
+    "Selected source/configuration-to-installed-tool premise and controlled invocation environment",
+    "Compiler, binder, fixed-library and final-link phase composition"
+  ],
+  "complete_retained_tool_capacity": false,
+  "native_execution": false
+}
