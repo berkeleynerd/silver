@@ -1,0 +1,24 @@
+{
+  "archive": {
+    "bytes": 2305979,
+    "sha256": "cc573810dd47ae90145aea6860d74a4d811f9307b70f9881b66b785bd047dd84"
+  },
+  "original_files": {
+    "check.py": {
+      "bytes": 7522,
+      "sha256": "747ea51d83c455d7ec0a3bd41e9ef1ada7121b6eeb62fc9107971bb4e35e2a7a"
+    },
+    "manifest.json": {
+      "bytes": 8235,
+      "sha256": "94dc2b96e07d565744feaa58214340dc1ee62556bd63bce9d9f028734c2ed77b"
+    },
+    "derivation.md": {
+      "bytes": 17732,
+      "sha256": "def401cc2f015d477117f777db938b6cd2ba03f0ec55917a85540d63f38c42a8"
+    },
+    "result.json": {
+      "bytes": 1479,
+      "sha256": "9390d644e4423182c5ecd339ad1c7ac1503e5173ebd4e375543f7ceb7965e2b3"
+    }
+  }
+}

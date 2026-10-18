@@ -9,6 +9,14 @@ binder needed for literal output. The [offline packet](../evidence/retained-bind
 retains the complete executions, predecessor inputs and source/binary checks.
 Production flags, supported language and admission rules are unchanged.
 
+The subsequent independently accepted
+[checksum lifetime closure](retained-binder-checksum-closure.md) supersedes this
+packet's open varying-output-checksum transfer. Its conditional family bound is
+5,167,732 rounded GGC bytes, 56,378 positive allocation events, and a
+262,144-byte largest rounded request; it stays 75,148 bytes below 5 MiB.
+The fixed captures, their original result fields and the historical gap below
+remain unchanged. Whole-tool and Main/link/producer composition remain separate.
+
 ## Exact executions and source interface
 
 The old null object/compiler run is `20261018T111407-352fea7c3696`; its
@@ -165,6 +173,10 @@ of 1,223,352 / 2,446,696. These are individual backing-request bounds,
 not measured process peaks.
 
 ## Transfer boundary and remaining obligation
+
+The final output-checksum paragraphs below record the gap at this packet's
+capture checkpoint. The linked checksum closure now discharges that particular
+transfer under the same inherited conditional premises.
 
 For the **null family**, the predecessor's same-width-comment/filename,
 location, name-interning and fixed dependency read projection applies with

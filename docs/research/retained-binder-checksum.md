@@ -1,5 +1,14 @@
 # Output binder checksum ingress checkpoint
 
+Historical checkpoint, superseded by the independently accepted
+[checksum lifetime closure](retained-binder-checksum-closure.md). The closure
+bounds every uint32 Main checksum in the selected output binder by 5,167,732
+cumulative rounded GGC bytes, below the inherited 5 MiB threshold by 75,148
+bytes, and supplies the semantic-consumer, cache-lifetime and Uint corrections
+that were missing here. The original packet and its false/unestablished result
+fields remain unchanged as evidence of this earlier stage. The text below
+describes that historical state; it is not the current checksum verdict.
+
 Research #119, 2026-10-18. This bounded source-only investigation identifies the
 remaining transfer needed to extend the fixed output-binder lifetime capture to
 every Main checksum. It does **not** close that transfer. Production options and

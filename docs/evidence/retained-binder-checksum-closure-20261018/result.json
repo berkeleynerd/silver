@@ -1,0 +1,46 @@
+{
+  "status": "Source derivation supplied for independent review; no new compiler execution",
+  "model_effort": "GPT-6 Astra Max (named hash-lifetime escalation)",
+  "native_executions": 0,
+  "source_files_retained": 31,
+  "baseline": {
+    "events": 50974,
+    "rounded_GGC_bytes": 4481000,
+    "prefix_bytes": 3550088,
+    "suffix_allocations_at_least24": 10700,
+    "whole16_byte_allocations": 3556
+  },
+  "tree_cache": {
+    "extra_miss_allowance": 32,
+    "suffix_miss_bound": 10732,
+    "initial_capacity_bound": 16381,
+    "initial_occupied_bound": 12286,
+    "maximum_capacity": 32749,
+    "maximum_rounded_array": 262144,
+    "amortized_bytes_per_later_empty_insertion": 33,
+    "all_variant_suffix_arrays_bytes": 616300,
+    "all_variant_suffix_array_event_bound": 5367
+  },
+  "rtl_cache": {
+    "maximum_unique_keys": 3557,
+    "maximum_capacity": 8191,
+    "extra_array_bytes": 65536
+  },
+  "direct_correction_bytes": 4896,
+  "total_correction_bytes": 686732,
+  "universal_rounded_GGC_bytes_bound_subject_to_reviewed_source_projection": 5167732,
+  "first_collection_threshold": 5242880,
+  "margin_bytes": 75148,
+  "allocation_event_bound": 56378,
+  "maximum_rounded_request_bound": 262144,
+  "Uint_scanner": {
+    "row_bound": 2,
+    "digit_bound": 6,
+    "baseline_rows": 2,
+    "baseline_digits": 6,
+    "extra_UI_From_Int_wrapper_bound": 1,
+    "wrapper_request_bytes": 16,
+    "rare_cache_values_first": 1073676290,
+    "rare_cache_values_last": 1073676303
+  }
+}
