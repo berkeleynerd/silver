@@ -10013,6 +10013,23 @@
     "source_argument_bound_for_this_root": 311,
     "temporary_root_bytes": 43
   },
+  "controlled_compiler_capture": {
+    "argument_count": 15,
+    "compiler_duration_seconds": 0.041512120005791076,
+    "complete_child_environment": {
+      "LC_ALL": "C",
+      "PATH": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin:/usr/bin:/bin",
+      "TMPDIR": "/tmp/silver-binder-compiler-fixed-20261018/temporary"
+    },
+    "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "managed_duration_seconds": 2.312163111,
+    "managed_run": "20261018T111407-352fea7c3696",
+    "object_hash_equal_baseline": true,
+    "retained_inputs_unchanged": true,
+    "returncode": 0,
+    "scope": "one proposed indexed compiler/assembler execution and driver selection query; source projection supplies family transfer",
+    "source_fullname_bytes": 127
+  },
   "generated_source_bound": {
     "aligned_combined_at_example": 40960,
     "body_constant_bytes": 7483,
@@ -10150,7 +10167,7 @@
       "system__traceback__symbolic___elabb"
     ],
     "observed_source_external_name_count": 152,
-    "scope": "source naming alphabet and constructors; object counts and name-length bound remain open",
+    "scope": "source naming alphabet and constructors; object-shape transfer is recorded separately",
     "selected_explicit_section_and_assembly_ingress_absent": true,
     "selected_ifunc_attribute_and_lto_ingress_absent": true
   },
@@ -10177,6 +10194,39 @@
     "size_including_argument_terminators_at_tmp_root": 233,
     "temp_path_bound_at_tmp_root": 40,
     "tmp_root_example_bytes": 4
+  },
+  "selected_binder_object_transfer": {
+    "full_inventory_equal_to_case": "indexed-cr",
+    "maximum_nonlocal_name_bytes": 40,
+    "nonlocal_symbol_count": 169,
+    "object_summary": {
+      "allocated_bytes": 12023,
+      "allocated_merge_section_count": 0,
+      "common_symbol_count": 0,
+      "eh_frame_bytes": 192,
+      "eh_frame_section_count": 1,
+      "file": {
+        "bytes": 13432,
+        "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+      },
+      "maximum_section_alignment": 32,
+      "merge_sections": [
+        ".comment"
+      ],
+      "relocation_count": 95,
+      "section_count": 16,
+      "sframe_bytes": 0,
+      "sframe_section_count": 0,
+      "symbol_count": 179,
+      "text_bytes": 1000
+    },
+    "premises": [
+      "selected proposed indexed options and installed target/runtime",
+      "fixed code, token offsets, file order and logical locations",
+      "injective same-length full-filename substitution disjoint from all existing identifier strings",
+      "no debug, PCH, LTO, plugin, offload, instrumentation or user assembly"
+    ],
+    "scope": "object shape under the documented source read projection; whole compiler/GC transient storage remains open"
   },
   "selected_gpr_driver_inputs": {
     "additional_ali_vector_entries": 0,
@@ -10228,7 +10278,7 @@
     "project_checkline_bytes": 47,
     "project_record_count": 1,
     "project_vector_entries_and_capacity": 1,
-    "scope": "selected configuration and source-derived exchange/vector bounds; full GPR process allocation and compiler/object transfer remain separate",
+    "scope": "selected configuration and source-derived exchange/vector bounds; full GPR process allocation remains separate",
     "trailing_options_vector_entries": 0
   },
   "selected_object_kind_exclusions": {
@@ -10240,7 +10290,7 @@
       "no Machine_Attribute, Linker_Section, assembly, plugins or OpenMP",
       "selected Linux ELF target"
     ],
-    "scope": "source routes; no universal payload, section-count or alignment bound"
+    "scope": "source kind exclusions; payload/count/alignment transfer is a separate source projection"
   },
   "selected_search_directories": {
     "each_table_initial_capacity": 10,

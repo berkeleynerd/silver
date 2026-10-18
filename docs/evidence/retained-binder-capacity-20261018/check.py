@@ -179,7 +179,7 @@ def analyze(artifacts, sources):
                      "no Machine_Attribute, Linker_Section, assembly, plugins or OpenMP",
                      "selected Linux ELF target"],
         "nonallocated_comment_merge_section_excluded": False,
-        "scope": "source routes; no universal payload, section-count or alignment bound",
+        "scope": "source kind exclusions; payload/count/alignment transfer is a separate source projection",
     }
     selected_interfaces = re.findall(rb'pragma\s+(?:Import|Export)\s*\([^;]+"([^"\n]+)"\s*\)',
                                     outside_comments(selected_source), re.I)
@@ -204,7 +204,7 @@ def analyze(artifacts, sources):
         "observed_gnu_warning_sections": 0,
         "observed_gnu_ifunc_symbols": 0,
         "selected_ifunc_attribute_and_lto_ingress_absent": True,
-        "scope": "source naming alphabet and constructors; object counts and name-length bound remain open",
+        "scope": "source naming alphabet and constructors; object-shape transfer is recorded separately",
     }
     # Only the three workspace comment lines change in these retained cases.
     differences = []
@@ -496,7 +496,7 @@ def analyze(artifacts, sources):
         "binding_options_vector_entries": 0, "trailing_options_vector_entries": 0,
         "additional_ali_vector_entries": 0,
         "compiler_argument_projection": selected_compile,
-        "scope": "selected configuration and source-derived exchange/vector bounds; full GPR process allocation and compiler/object transfer remain separate",
+        "scope": "selected configuration and source-derived exchange/vector bounds; full GPR process allocation remains separate",
     }
     compiler_support = {k.removeprefix("compiler-support/"): digest(v)
                         for k,v in artifacts.items() if k.startswith("compiler-support/")}
@@ -505,6 +505,85 @@ def analyze(artifacts, sources):
         compiler_dependencies = set(re.findall(rb"^D (\S+)", binder_ali, re.M))
         assert compiler_dependencies == {b"b__main~1.ads", b"b__main~1.adb"} | {k.encode() for k in compiler_support}
     result["binder_compiler_retained_dependency_sources"] = compiler_support
+    # This capture selects exactly the proposed indexed command above. It
+    # supplies the successful fixed execution used by the source projection;
+    # matching objects alone does not establish that family argument.
+    cp = "compiler-capture/"
+    ci = json.loads(artifacts[cp+"invocation.json"])
+    cr = json.loads(artifacts[cp+"result.json"])
+    assert ci["argv"] == [compiler_path.decode()]+[a.decode() for a in compiler_args]
+    assert set(ci["environment"]) == {"PATH", "LC_ALL", "TMPDIR"}
+    assert ci["environment"]["LC_ALL"] == "C"
+    assert ci["environment"]["PATH"] == str(Path(ci["argv"][0]).parent)+":/usr/bin:/bin"
+    assert ci["source_fullname_bytes"] == len(ci["cwd"])+len("/b__main~1.adb") == 127
+    assert ci["source_fullname_bytes"] == result["compiler_filename_interning"]["each_full_path_bytes"]
+    assert cr["returncode"] == cr["dryrun_returncode"] == 0
+    assert cr["retained_inputs_unchanged"] is cr["object_hash_equal_baseline"] is True
+    assert cr["host"].startswith("Linux-")
+    assert len(ci["input_identities"]) == 11
+    for path, row in ci["input_identities"].items():
+        name = Path(path).name
+        if name.startswith("b__main~1."):
+            assert digest(artifacts["cases/indexed-cr/"+name]) == row
+        elif name in compiler_support:
+            assert compiler_support[name] == row
+    for name in ("stdout", "stderr"):
+        assert artifacts[cp+name] == b"" and digest(b"") == cr[name]
+    assert artifacts[cp+"dryrun.stdout"] == b""
+    driver_query = artifacts[cp+"dryrun.stderr"]
+    assert b"/gnat1 -quiet -Wno-free-nonheap-object" in driver_query
+    assert b'/bin/as --64 -o "b__main~1.o"' in driver_query
+    for name, row in cr["generated"].items():
+        assert digest(artifacts[cp+"output/"+name]) == row
+    assert set(cr["generated"]) == {"b__main~1."+s for s in ("adb", "ads", "ali", "o")}
+    for suffix in ("adb", "ads", "o"):
+        name = "b__main~1."+suffix
+        assert artifacts[cp+"output/"+name] == artifacts["cases/indexed-cr/"+name]
+    assert set(re.findall(rb"^D (\S+)", artifacts[cp+"output/b__main~1.ali"], re.M)) == {
+        b"b__main~1.ads", b"b__main~1.adb"} | {k.encode() for k in compiler_support}
+    ce = [json.loads(line) for line in artifacts[cp+"managed/events.jsonl"].splitlines()]
+    cprep, = [e for e in ce if e["event"] == "prepared"]
+    cfinish, = [e for e in ce if e["event"] == "finished"]
+    cphase, = [e for e in ce if e["event"] == "phase-end" and e["phase"] == "native-tool"]
+    assert cfinish["outcome"] == "success" and cphase["returncode"] == 0
+    cpins = cprep["inputs"]["inputs_sha256"]
+    cscript, = [v for p,v in cpins.items() if p.endswith("/silver-binder-compiler-fixed-20261018/run.py")]
+    assert cscript == digest(artifacts[cp+"run.py"])["sha256"]
+    for path, row in ci["input_identities"].items():
+        if path in cpins:
+            assert cpins[path] == row["sha256"]
+    assert b"#define LANG_HOOKS_IDENTIFIER_SIZE\tsizeof (struct tree_identifier)" in sources["gcc/ada/gcc-interface/misc.cc"]
+    assert b"struct ht_identifier id;" in sources["gcc/tree-core.h"]
+    assert b"t = ggc_alloc_cleared_tree_node_stat (length PASS_MEM_STAT);" in sources["gcc/tree.cc"]
+    assert b"ht_forall (ident_hash, mark_ident, NULL);" in sources["gcc/stringpool.cc"]
+    assert b"ht_purge (ident_hash, maybe_delete_ident, NULL);" in sources["gcc/stringpool.cc"]
+    assert b"map->to_file = to_file;" in sources["libcpp/line-map.cc"]
+    assert b"entry->num_free_objects -= 1;" in sources["gcc/ggc-page.cc"]
+    assert b"gt_clear_caches ();" in sources["gcc/ggc-common.cc"]
+    result["controlled_compiler_capture"] = {
+        "managed_run": cfinish["run_id"], "host": cr["host"],
+        "compiler_duration_seconds": cr["duration_seconds"],
+        "managed_duration_seconds": cfinish["duration_seconds"],
+        "returncode": 0, "retained_inputs_unchanged": True,
+        "complete_child_environment": ci["environment"],
+        "source_fullname_bytes": ci["source_fullname_bytes"],
+        "argument_count": len(ci["argv"])-1,
+        "object_hash_equal_baseline": True,
+        "scope": "one proposed indexed compiler/assembler execution and driver selection query; source projection supplies family transfer",
+    }
+    ce_object = elf(artifacts[cp+"output/b__main~1.o"])
+    result["selected_binder_object_transfer"] = {
+        "object_summary": {k: v for k,v in ce_object.items()
+                           if k not in ("sections", "symbols", "external_names", "relocations")},
+        "nonlocal_symbol_count": len(ce_object["external_names"]),
+        "maximum_nonlocal_name_bytes": max(map(len, ce_object["external_names"])),
+        "full_inventory_equal_to_case": "indexed-cr",
+        "premises": ["selected proposed indexed options and installed target/runtime",
+                     "fixed code, token offsets, file order and logical locations",
+                     "injective same-length full-filename substitution disjoint from all existing identifier strings",
+                     "no debug, PCH, LTO, plugin, offload, instrumentation or user assembly"],
+        "scope": "object shape under the documented source read projection; whole compiler/GC transient storage remains open",
+    }
     alis = {k.removeprefix("closure/"): v for k, v in artifacts.items() if k.startswith("closure/")}
     units = sorted(u.decode() for v in alis.values() for u in re.findall(rb"^U (\S+)", v, re.M))
     assert len(units) == len(set(units))

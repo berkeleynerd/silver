@@ -2,16 +2,19 @@
 
 2026-10-18, Linux x86_64, [#119](https://github.com/berkeleynerd/silver/issues/119).
 This component derives the binder-generated source family for the indexed null
-program. It identifies a much smaller route to binder object capacity: fixed
-code and source locations, with bounded trailing path comments. The complete
-[capacity rule](retained-tool-capacity.md) remains unfinished. In particular,
-the observed object inventory below is **not yet a universal object bound**.
+program and transfers its fixed object shape under the selected installation,
+options and filename descriptor. The source argument preserves code, locations
+and semantic requests while allowing bounded trailing path comments and an
+injective filename substitution. The complete
+[capacity rule](retained-tool-capacity.md) remains unfinished: compiler transient
+storage, whole GPR process storage and the final composition remain separate.
 
 The [portable evidence](../evidence/retained-binder-capacity-20261018/README.md)
 contains complete reviewed source files, the selected ALI closure and existing
 generated sources/objects. The extension includes one controlled binder-only
-capture and one configuration-only capture, described below. No compiler build, assembler/linker execution, prover
-run or Lean check was performed for this component. Existing successful
+capture, one configuration-only capture and one proposed-options binder
+compiler/assembler execution, described below. No link, prover run, Lean check
+or full validation was performed for this component. Existing successful
 executions are reused only with their original identities and scope.
 
 ## Descriptor and input contract
@@ -47,8 +50,13 @@ generated source and `-o b__main~1.o` (`gprbind.adb:865–943`). Thus Main's
 `-gnateI1` and proposed `-gnatx` do not make the binder an indexed compilation
 or suppress its Xrefs. The proposed `-Wno-free-nonheap-object` **does** propagate;
 the existing [option experiment](../evidence/retained-native-options-20261018/README.md)
-records that unindexed descriptor separately. The current indexed witness
-uses baseline options; the two configurations are not silently conflated.
+records that unindexed descriptor separately. The three historical indexed
+witnesses use baseline options. The new controlled compiler capture uses the
+exact proposed indexed command, including that warning option. This matters:
+`pass_waccess::gate` selects a whole analysis pass using warning controls
+(`gimple-ssa-warn-access.cc:2267–2275`); execution changes analysis state,
+statement UIDs and diagnostic suppression (`:4857–4905`). No assumption that
+the option changes only diagnostic text is needed for the new witness.
 
 ## Read projection of variable Main metadata
 
@@ -214,12 +222,55 @@ absolute path syntax is outside the symbol alphabet. The fixed runtime and
 virtual-file names retain their existing contribution. This is an additive
 filename contribution, not a bound assigning the other identifiers zero.
 
-This closes the local filename-hash allocation objection. It does **not yet
-establish the complete frontend/backend transient allocation projection** or
-a universal binder object bound. In particular, a changed bucket layout is
-not an identical whole-compiler execution trace: later table traversal, GC,
-selected compilation phases and all non-filename allocations still need the
-composition argument before upgrading the observed ELF inventory below.
+The substitution must be injective across **all** existing identifier strings,
+including full filenames and the relative translation-unit name. At the
+selected paths this holds: both changed names remain absolute workspace paths,
+are distinct from the installed runtime and virtual names, and cannot equal
+the relative `b__main~1.adb` name or semantic naming alphabet. File resolution
+still selects the same source bytes in the same order. The controlled compiler
+capture additionally uses a same-length padded scratch path satisfying these
+conditions, so its transfer to the generated workspace family uses this same
+argument, not a claim that the scratch prefix is the production prefix.
+
+Changing hash layout has no semantic enumeration route in the selected Ada
+frontend. Its identifier hook allocates exactly `tree_identifier`, with no
+C/C++ language-specific payload (`misc.cc:1405–1406`, `tree-core.h:1620–1623`).
+`make_node` clears that node (`tree.cc:1326–1340`), and Gigi's filename consumer
+returns only `IDENTIFIER_POINTER` (`trans.cc:282–292`): these disjoint filename
+identifiers acquire no declaration/type links. The string pool's remaining
+traversals are statistics, GC marking/purging and PCH support
+(`stringpool.cc:142–196` and its PCH routines); statistics/PCH are unselected.
+Ada does not use a bucket-order traversal to emit declarations or instructions.
+
+GC marking is set membership: marking an already marked object returns
+immediately, and first marking sets one bit (`ggc-page.cc:1645–1675`).
+`ggc_mark_roots` then clears caches and conditionally purges unreferenced
+identifiers (`ggc-common.cc:93–119`); plugins are excluded. A different visit
+order through these filename leaves cannot change the reachable semantic
+graph or purge a live identifier. Equality of reachable graphs is sufficient
+here; equality of physical addresses, hash buckets or allocation traces is
+not claimed. In particular `gt_value_expr_mark` owns a hash set and a growing
+work vector (`tree.cc:217–269`). Their scratch is **not zero**, and a transient
+capacity argument must bound the relevant graph union and coexistence rather
+than assuming one observed traversal order or an empty binder value-expression
+table.
+
+The source-file sequence, entry/exit reasons and line/column requests remain
+fixed. `linemap_add` assigns numeric locations from the existing location and
+range state and stores the filename separately (`libcpp/line-map.cc:571–671`).
+The filename equality checks are preserved by the injective substitution.
+Together with the consumer table above, this leaves the selected semantic
+declaration/CFG/RTL requests and their emission order unchanged. The fixed
+relative `.file` basename, symbol names, location-sensitive nop decisions and
+target/options therefore transfer the emitted object **shape**: section
+payloads and alignments, symbol/relocation inventory and name lengths. The
+proposed-options compiler witness below supplies that fixed successful shape.
+No debug/PCH/LTO/plugin path or source-path-dependent naming branch is enabled.
+
+This closes the filename/GC objection to **semantic request and object-shape
+transfer**. It does not establish the complete frontend/backend transient
+allocation projection. Source buffers, ordinary compiler tables, GC marker
+scratch and process storage still need their separate capacity composition.
 
 The specialization does not extend to all GPR temporary paths. GPR creates
 `<normalized-temp-root>/GPR.<pid>/GNAT-TEMP-<six digits>.TMP`
@@ -948,7 +999,7 @@ Ada `Machine_Attribute` ingress (`decl.cc:7428–7502`). Plugins and assembly
 are also absent. Thus neither explicit nor compiler-created resolver ingress
 is selected. The zero type-10 (`STT_GNU_IFUNC`) records in each retained binder
 object corroborate this source argument. This supplies the binder's empty
-local-IFUNC contribution independently of the remaining object-count bound.
+local-IFUNC contribution independently of the separate object-count transfer.
 
 Two further selected section-kind exclusions follow from source. **No COMMON
 variable is produced.** The compiler's default is `flag_no_common=1`
@@ -968,14 +1019,13 @@ constant merging require the resulting nonzero flag; otherwise they select
 ordinary read-only data (`varasm.cc:865–917,922–943`). No selected target or
 explicit-section/assembly route adds an allocated merge section. This does
 not exclude the assembler's nonallocated `.comment` merge section, which the
-retained object contains. These kind exclusions do not establish a payload,
-section-count or maximum-alignment bound for the generated object.
+retained object contains. These source kind exclusions are independent of the
+object-shape transfer, which supplies payload, count and alignment below.
 
 Under this descriptor, **generated binder nonlocal symbols have no `@` in
 their names**. This supplies the binder part of the linker's `W=0` suffix
-condition. It is a spelling invariant, independent of the still-open symbol
-count, maximum name-length and object-size bounds. It does not infer those
-bounds from the observed object. The retained inventory reconciles 152 source
+condition. It is a spelling invariant, independent of the separate object-shape
+transfer. The retained inventory reconciles 152 source
 interface spellings with 19 additional object spellings: 16 elaboration names,
 the package counter and two secondary-stack init procedures; two source imports
 are unused. The object has 169 global/weak symbol records, all without `@`.
@@ -992,7 +1042,28 @@ itself remains in the [fixed link-input closure](retained-link-inputs.md).
 The existing #123 regressions at implementation target `ce4d2fee36` supply
 the indexed CR, LF and uppercase/trivia objects. Their specs hash-equal; their
 bodies differ only in workspace names in three comment lines; their objects
-are byte-identical. The following are **observed fixed-witness quantities**:
+are byte-identical. Managed run `20261018T111407-352fea7c3696` adds the missing
+**proposed indexed** compiler witness. It copied the retained source bytes to
+a fresh directory with the same 113-byte full directory length, so both full
+source names remain 127 bytes. Its complete child environment contains only
+the selected tool `PATH`, `LC_ALL=C` and scratch `TMPDIR`. The packet retains
+the exact 15-argument compiler command, script, driver-only `-###` selection
+query, generated sources/ALI/object, stdout/stderr and managed events/log.
+The query and actual compile use the same options; the query's temporary
+assembly filename is not represented as the actual compiler's filename.
+
+The compiler/assembler exited zero in **0.0415 seconds** (managed run
+**2.3122 seconds**), with empty stdout/stderr. All 11 retained source, runtime
+specification and executable inputs stayed hash-equal. The proposed object
+hash-equals the baseline indexed object:
+`368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883`.
+The new 8,151-byte ALI separately records the proposed compilation; no claim
+of ALI byte equality is made. Its six dependency names match the same two
+generated sources and four installed runtime specifications.
+
+The following fixed-witness quantities **transfer to the selected null binder
+family under the source projection above**. Agreement between the captures
+corroborates that argument; it does not replace it.
 
 | Indexed binder object property | Retained value |
 | --- | ---: |
@@ -1012,8 +1083,10 @@ are byte-identical. The following are **observed fixed-witness quantities**:
 | `.sframe` sections/bytes | 0 / 0 |
 
 All object section headers lack LTO/offload/object-only/compressed data. These
-facts are relevant to the linker transfer but remain witness observations
-until the source-to-object projection is completed. The historical proposed
+object-shape terms can now enter the selected null-family linker composition,
+conditional on the upstream null ALI contract and descriptor. This is not yet
+a whole-tool acceptance capacity or proof of every compiler intermediate.
+The historical proposed
 unindexed object is separately retained at 13,424 bytes; its different basename
 and options are not normalized into the indexed witness.
 
@@ -1028,17 +1101,12 @@ and options are not normalized into the indexed witness.
    binder arguments/search directories, exchange rows, argument vectors,
    generation buffers, name tables and graph core are bounded above; those
    results do not cover every allocation in the GPR/driver or compiler process.
-3. Complete the compiler/assembler read projection from this fixed code and
-   location interface to object shape and transient representations. Account
-   for source buffers, target/runtime dependencies, all generated code and
-   every relevant option. Filename interning and the nonlocal no-`@` naming
-   invariant are now separate source-derived joins; they do not establish the
-   complete compiler allocation or object-count projection. Either justify reuse of
-   the retained fixed witness for this projected class or identify the exact
-   additional state requiring a focused witness; a fresh sample by itself
-   would add no family argument.
-4. Compose the resulting certified object inventory with Main's variable
-   native object bound and the fixed-library/linker components. Only then may
-   the object quantities above become whole-family linker inputs. Broader
+3. Complete the compiler/assembler transient-capacity composition. The fixed
+   semantic request and object-shape transfer now closes the linker-input
+   term; source buffers, ordinary compiler tables, GC graph-walk scratch and
+   process storage remain separate. Fixed code is not permission to assign
+   those representations zero or infer peak allocation from object size.
+4. Compose the transferred object inventory with Main's variable
+   native object bound and the fixed-library/linker components. Broader
    shells need their own binder closure/projection; this null progress does
    not complete #119 or unlock admission changes.

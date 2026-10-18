@@ -33,6 +33,8 @@ def main():
     parser.add_argument("--binder-managed-run", type=Path, required=True)
     parser.add_argument("--gprconfig-capture", type=Path, required=True)
     parser.add_argument("--gprconfig-managed-run", type=Path, required=True)
+    parser.add_argument("--compiler-capture", type=Path, required=True)
+    parser.add_argument("--compiler-managed-run", type=Path, required=True)
     parser.add_argument("--gcc-ada", type=Path, required=True)
     parser.add_argument("--gcc-backend", type=Path, required=True)
     parser.add_argument("--gpr-source", type=Path, required=True)
@@ -69,6 +71,14 @@ def main():
         add(artifacts, "configuration-capture/"+file, args.gprconfig_capture/file)
     for file in ("events.jsonl", "native.log"):
         add(artifacts, "configuration-capture/managed/"+file, args.gprconfig_managed_run/file)
+    for file in ("run.py", "invocation.json", "result.json", "stdout", "stderr",
+                 "dryrun.stdout", "dryrun.stderr"):
+        add(artifacts, "compiler-capture/"+file, args.compiler_capture/file)
+    compiler_invocation = json.loads((args.compiler_capture/"invocation.json").read_text())
+    for file in ("b__main~1.ads", "b__main~1.adb", "b__main~1.ali", "b__main~1.o"):
+        add(artifacts, "compiler-capture/output/"+file, Path(compiler_invocation["cwd"])/file)
+    for file in ("events.jsonl", "native.log"):
+        add(artifacts, "compiler-capture/managed/"+file, args.compiler_managed_run/file)
     adalib = install/".tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
     knowledge = install/".tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig"
     for path in sorted(knowledge.rglob("*")):
@@ -104,13 +114,14 @@ def main():
                  "snames.ads-tmpl", "snames.adb-tmpl", "xsnamest.adb", "bcheck.adb",
                  "uname.adb", "targparm.adb", "csets.adb", "uintp.adb", "scans.adb", "fname.adb",
                  "exp_attr.adb", "exp_tss.adb", "exp_tss.ads", "sem_util.adb", "exp_ch11.adb", "adaint.c",
-                 "gcc-interface/utils.cc", "gcc-interface/ada-builtins.def",
+                 "gcc-interface/utils.cc", "gcc-interface/misc.cc", "gcc-interface/ada-builtins.def",
                  "osint.ads", "output.adb", "output.ads", "hostparm.ads", "link.c", "Make-generated.in",
                  "libgnat/g-md5.ads", "libgnat/g-sechas.ads", "libgnat/g-sehamd.ads",
                  "libgnat/a-coinve.ads", "libgnat/a-coinve.adb"]
     for file in ada_files:
         add(sources, "gcc/ada/"+file, args.gcc_ada/file)
-    backend_files = ["cfgrtl.cc", "tree.cc", "varasm.cc", "stringpool.cc",
+    backend_files = ["cfgrtl.cc", "tree.cc", "tree-core.h", "varasm.cc", "stringpool.cc",
+                     "ggc-common.cc", "ggc-page.cc", "gimple-ssa-warn-access.cc",
                      "langhooks.cc", "cgraphclones.cc", "cgraphunit.cc", "cgraph.cc", "cgraph.h",
                      "lto-cgraph.cc", "symtab.cc", "defaults.h", "common.opt", "opts.cc",
                      "builtins.def", "sync-builtins.def", "omp-builtins.def", "gtm-builtins.def",
@@ -120,7 +131,9 @@ def main():
                      "config/i386/i386-builtin.def", "config/i386/att.h", "config/elfos.h", "prefix.cc"]
     for file in backend_files:
         add(sources, "gcc/"+file, args.gcc_backend/file)
-    add(sources, "libcpp/symtab.cc", args.gcc_backend.parent/"libcpp/symtab.cc")
+    libcpp_files = ["symtab.cc", "line-map.cc"]
+    for file in libcpp_files:
+        add(sources, "libcpp/"+file, args.gcc_backend.parent/"libcpp"/file)
     for file in ["src/gprbind.adb", "src/gprbuild-post_compile.adb",
                  "gpr/src/gpr_build_util.adb", "gpr/src/gpr-tempdir.adb",
                  "gpr/src/gpr-util.ads", "src/gprbuild-compile.adb", "gpr/src/gpr-opt.ads",
@@ -138,8 +151,9 @@ def main():
     backend_pins = {f["path"]: f for f in backend_manifest["files"]}
     for file in backend_files:
         assert digest(sources["gcc/"+file][1]) == {k: backend_pins["gcc/"+file][k] for k in ("bytes", "sha256")}
-    assert digest(sources["libcpp/symtab.cc"][1]) == {
-        k: backend_pins["libcpp/symtab.cc"][k] for k in ("bytes", "sha256")}
+    for file in libcpp_files:
+        assert digest(sources["libcpp/"+file][1]) == {
+            k: backend_pins["libcpp/"+file][k] for k in ("bytes", "sha256")}
     result = analyze({k: v for k, (_, v) in artifacts.items()},
                      {k: v for k, (_, v) in sources.items()})
     (args.output/"result.json").write_text(json.dumps(result, indent=2, sort_keys=True)+"\n")

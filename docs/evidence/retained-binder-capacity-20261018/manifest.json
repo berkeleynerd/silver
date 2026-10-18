@@ -2,8 +2,8 @@
   "archives": {
     "artifacts.tar.gz": {
       "archive": {
-        "bytes": 282961,
-        "sha256": "b6ce5ddea1dafc0307034b9e732f6d4249968beef2e49a79b48fdb8f802993ab"
+        "bytes": 301959,
+        "sha256": "48839fc47daf70a0f5ce0bb152d40ff677fe5a2e7b229c424fff09fef52f2203"
       },
       "members": {
         "cases/indexed-cr/b__main~1.adb": {
@@ -455,6 +455,71 @@
           "bytes": 2428,
           "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/system.ali",
           "sha256": "0f35668f3b0203c2879afea68ee0f3a045d3d300648e46c60674072c4d2cedf1"
+        },
+        "compiler-capture/dryrun.stderr": {
+          "bytes": 4114,
+          "original_path": "/tmp/silver-binder-compiler-fixed-20261018/dryrun.stderr",
+          "sha256": "d182044e12694d8dfaffddd77674270ed51638dd7748495ac7cfd7fcf8d2b766"
+        },
+        "compiler-capture/dryrun.stdout": {
+          "bytes": 0,
+          "original_path": "/tmp/silver-binder-compiler-fixed-20261018/dryrun.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "compiler-capture/invocation.json": {
+          "bytes": 4160,
+          "original_path": "/tmp/silver-binder-compiler-fixed-20261018/invocation.json",
+          "sha256": "d9dc50ccd95a1a79e426fb92dd101a1431e776723725d61ce173b1c1f8a8aa2a"
+        },
+        "compiler-capture/managed/events.jsonl": {
+          "bytes": 12463,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T111407-352fea7c3696/events.jsonl",
+          "sha256": "6710481d14364373ee9834861c0f7928837bcf89442bd8bc74f429bff013318b"
+        },
+        "compiler-capture/managed/native.log": {
+          "bytes": 978,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T111407-352fea7c3696/native.log",
+          "sha256": "1944e2a94f9ffc44a09ef86d0d7cd870b48eb42f3b3a33ed2c2b07f5d9468e94"
+        },
+        "compiler-capture/output/b__main~1.adb": {
+          "bytes": 8014,
+          "original_path": "/tmp/silver-binder-compiler-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.adb",
+          "sha256": "15bc56ca5a6b40c83ae4661c5c64e849d67aeaeaa58638d2b5d1813e850d8a5c"
+        },
+        "compiler-capture/output/b__main~1.ads": {
+          "bytes": 14556,
+          "original_path": "/tmp/silver-binder-compiler-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.ads",
+          "sha256": "7cb2980d7078c9302955efd641b09d7ec110e5d810d232b1fca08690c9b3161e"
+        },
+        "compiler-capture/output/b__main~1.ali": {
+          "bytes": 8151,
+          "original_path": "/tmp/silver-binder-compiler-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.ali",
+          "sha256": "15f62c292050150448bf63b69b094668c75fb1dfdb39eeabe58bd507522813c3"
+        },
+        "compiler-capture/output/b__main~1.o": {
+          "bytes": 13432,
+          "original_path": "/tmp/silver-binder-compiler-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/b__main~1.o",
+          "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+        },
+        "compiler-capture/result.json": {
+          "bytes": 1116,
+          "original_path": "/tmp/silver-binder-compiler-fixed-20261018/result.json",
+          "sha256": "130c81f4113fe6e4e112910fd4fc44cd844d8bdf2c828ffbd52eeebe00e129d0"
+        },
+        "compiler-capture/run.py": {
+          "bytes": 3612,
+          "original_path": "/tmp/silver-binder-compiler-fixed-20261018/run.py",
+          "sha256": "f2d863af551db058c304318baa3b348a18d0164a6dca5706edc9ecf042013728"
+        },
+        "compiler-capture/stderr": {
+          "bytes": 0,
+          "original_path": "/tmp/silver-binder-compiler-fixed-20261018/stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "compiler-capture/stdout": {
+          "bytes": 0,
+          "original_path": "/tmp/silver-binder-compiler-fixed-20261018/stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
         },
         "compiler-support/s-parame.ads": {
           "bytes": 8691,
@@ -940,8 +1005,8 @@
     },
     "sources.tar.gz": {
       "archive": {
-        "bytes": 2125278,
-        "sha256": "0301f9cad039eb2123c07e8dbba19d320b63cefd543755afc9c42567c26e8587"
+        "bytes": 2247228,
+        "sha256": "3f315331757fe4b9f2e9b93ad4d295985e9773a6c0270ae650d01287530554ad"
       },
       "members": {
         "gcc/ada/Make-generated.in": {
@@ -1093,6 +1158,11 @@
           "bytes": 414991,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gcc-interface/decl.cc",
           "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2"
+        },
+        "gcc/ada/gcc-interface/misc.cc": {
+          "bytes": 47742,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gcc-interface/misc.cc",
+          "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
         },
         "gcc/ada/gcc-interface/trans.cc": {
           "bytes": 406631,
@@ -1394,6 +1464,21 @@
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/defaults.h",
           "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a"
         },
+        "gcc/ggc-common.cc": {
+          "bytes": 40096,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ggc-common.cc",
+          "sha256": "a5a41143b78a22376c6d830215ee856616db68bbf4432987479f4e4b8ded4627"
+        },
+        "gcc/ggc-page.cc": {
+          "bytes": 78408,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/ggc-page.cc",
+          "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+        },
+        "gcc/gimple-ssa-warn-access.cc": {
+          "bytes": 148420,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/gimple-ssa-warn-access.cc",
+          "sha256": "ddd9a77ea6a7ac598a37ad5345c0faba38ef3ded821550428f4e9b86dfea4d5d"
+        },
         "gcc/gtm-builtins.def": {
           "bytes": 10158,
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/gtm-builtins.def",
@@ -1453,6 +1538,11 @@
           "bytes": 27679,
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/sync-builtins.def",
           "sha256": "40f9ba305a29fa68389a92b50fa5b04393594c2ab5385a23c0405d3d7f9b64c0"
+        },
+        "gcc/tree-core.h": {
+          "bytes": 73833,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/tree-core.h",
+          "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71"
         },
         "gcc/tree.cc": {
           "bytes": 484431,
@@ -1518,6 +1608,11 @@
           "bytes": 4500,
           "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprexch.ads",
           "sha256": "8f2fb3b60ac5f4da3621237f2ebbbd349739ff5cb85a32d4ca3633d58cdbb13b"
+        },
+        "libcpp/line-map.cc": {
+          "bytes": 86805,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/libcpp/line-map.cc",
+          "sha256": "d451c89e3145c6bea1e1f3f413c9071b61139aabbbe15a004dabf81b51e0b8fd"
         },
         "libcpp/symtab.cc": {
           "bytes": 9383,
