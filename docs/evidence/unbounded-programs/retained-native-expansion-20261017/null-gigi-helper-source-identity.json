@@ -1,0 +1,35 @@
+{
+  "files": [
+    {
+      "bytes": 406631,
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "bytes": 266602,
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "bytes": 74232,
+      "path": "gcc/vec.h",
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "bytes": 154498,
+      "path": "gcc/cfgrtl.cc",
+      "sha256": "7aabb0ebf9549a4e03c0a63a7c5f09e6df23b6b140d1d1ffcdc49deabd95a70c"
+    },
+    {
+      "bytes": 306672,
+      "path": "gcc/tree-cfg.cc",
+      "sha256": "8a3ee6948a9580197089f40217c960679658223901fef53dee3d50c26862fe44"
+    },
+    {
+      "bytes": 86805,
+      "path": "libcpp/line-map.cc",
+      "sha256": "d451c89e3145c6bea1e1f3f413c9071b61139aabbbe15a004dabf81b51e0b8fd"
+    }
+  ],
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+}

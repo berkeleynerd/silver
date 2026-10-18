@@ -1,0 +1,62 @@
+{
+  "GGC_event_allowance": 11,
+  "allocation_policy": "Charge every request cold; free-list reuse can only reduce events",
+  "checked_source_identities": 6,
+  "complete_capacity_result": false,
+  "constructor_peak_stack": {
+    "binding_levels": 3,
+    "statement_groups": 4
+  },
+  "debug_disabled_implies_exact_assembly_invariance": false,
+  "exception_pointer_stack_already_in_prefix": true,
+  "existing_selected_known_GGC_subtotal": 39957,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "no_additional_capture_authorized_or_performed": true,
+  "objects": [
+    {
+      "excludes": "The corresponding three BLOCK tree requests are not priced by this row",
+      "object": "gnat_binding_level",
+      "raw_bytes": 16,
+      "requests": 3
+    },
+    {
+      "excludes": "Statement-list headers, links and BIND_EXPR trees stay in the tree join",
+      "object": "stmt_group",
+      "raw_bytes": 32,
+      "requests": 4
+    },
+    {
+      "excludes": "Two struct-function constructors were already charged separately",
+      "object": "language_function",
+      "raw_bytes": 32,
+      "requests": 1
+    },
+    {
+      "object": "elab_info",
+      "raw_bytes": 24,
+      "requests": 1
+    },
+    {
+      "object": "gnu_elab_proc_stack",
+      "raw_bytes": 40,
+      "requested_capacity": 4,
+      "requests": 1
+    },
+    {
+      "object": "gnu_return_label_stack",
+      "raw_bytes": 40,
+      "requested_capacity": 4,
+      "requests": 1
+    }
+  ],
+  "required_inputs": [
+    "Complete tree/identifier/global-vector and gigi helper transitive joins",
+    "Initial GIMPLE/SSA/cgraph/IPA allocation composition",
+    "Variable source/path/line-map metadata and whole-unit emission"
+  ],
+  "return_value_or_parameter_helper_allocations": 0,
+  "scope": "Selected null Main non-tree gigi helper constructors only",
+  "selected_null_exact_output_invariance_established": false,
+  "source_location_opaque_to_code_layout": false,
+  "updated_selected_known_GGC_subtotal": 39968
+}

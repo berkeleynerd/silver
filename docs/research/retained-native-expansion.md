@@ -7120,6 +7120,13 @@ the explicit correction to add during that composition. Likewise, fixed native
 captures retain their actual historical inputs, and no successful capture is
 repeated. This is source reading, file hashing and offline arithmetic only.
 
+Independent narrow review replayed the20-identity/runtime-manifest checker and
+searched the complete Ada tree for Load_Source_File, Load_Main_Source and
+Remove_Unit callers. It accepted the imported-index filename gate, successful
+unit-record persistence, failed-load decrement, excluded alternative reads and
+the extra System/object arithmetic. It did not re-establish the earlier full
+source/search closure or cover producer paths.
+
 ```sh
 python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-indexed-source-buffers.py \
   --ada /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
@@ -9149,13 +9156,90 @@ source review accepted the two late allocations, section-hash occupancy,
 name-string accounting and CFI/debug-output route. It did not independently
 audit all106 schedule occurrences or the expressly retained whole-unit joins.
 
+### Null gigi helper backing and source-location sensitivity
+
+The [null helper reconciliation](../evidence/unbounded-programs/retained-native-expansion-20261017/native-null-gigi-helpers.json)
+adds the small non-tree gigi objects around Main's already established body
+shape. It charges each constructor request cold, so free-list reuse and any
+intervening collection do not enlarge the bound. The two struct-function
+constructors remain in their earlier ten-event row.
+
+| Object | Requests | Raw bytes per request on selected LP64 |
+| --- | ---: | ---: |
+| gnat_binding_level |3|16|
+| stmt_group |4|32|
+| Main language_function |1|32|
+| elab_info |1|24|
+| gnu_elab_proc_stack initial vector |1|40|
+| gnu_return_label_stack initial vector |1|40|
+
+The three bindings are the compilation-unit elaboration scope, Main framework
+and Main body (`trans.cc:6000,4111`, `utils.cc:3845`). Their wrapper has two
+pointers; `gnat_pushlevel` can additionally request one BLOCK tree per call,
+which is deliberately left in the separate tree-constructor join
+(`utils.cc:299–304,681–706`). The four statement groups are the unit scope,
+Main body, handled sequence and source-null group
+(`trans.cc:5999,4110,5686,7743`). Each wrapper has four pointers and is created
+by `start_stmt_group` only when its free list is empty (`:150–166,9048–9062`).
+The selected no-parameters/no-cleanup/no-handlers shape excludes the conditional
+CICO, parameter-cache, handler, finally and At_End groups. Statement-list
+headers/links and BIND_EXPR trees remain separate.
+
+Main's language_function has three pointers and one int, padded to32bytes
+(`trans.cc:131–136,4025`). Its parameter-attribute cache, named-return bitmap
+and other-return vector remain null: Main has no parameters or return value,
+and O0 excludes NRV finalization (`:4133–4158,4274–4288`). Compilation-unit
+completion always appends one elab_info (two pointers and one int,24bytes)
+even when the elaboration body is empty (`:172–176,6086–6091`). The subsequent
+empty-body check sets Has_No_Elaboration_Code without compiling another
+function (`:695–716`).
+
+The elaboration-procedure stack receives one declaration and the return-label
+stack one null entry (`trans.cc:5990,4107`). Each starts null and is pushed
+once, then popped; vec_safe_push's initial request is four pointers with an
+eight-byte prefix,40raw bytes before GGC rounding
+(`vec.h:253–260,833–837`). This is distinct from gnu_except_ptr_stack, whose
+initial null push at `trans.cc:663` is already before the fixed-prefix marker.
+These six rows add **11 GGC allocation events**, without assuming cached
+reuse. The [offline checker](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-gigi-helpers.py)
+binds six complete source identities and the exact constructor sites. It
+does not complete the tree, identifier, global-vector, source-map, initial
+GIMPLE/SSA or cgraph/IPA allocation joins.
+
+Independent narrow review replayed the checker and read the four statement-group
+and three binding constructors, helper layouts, initial vector growth, empty
+elaboration skip and source-location nop branches. It accepted these eleven
+events, conditional on the earlier null shape and fixed-prefix boundary; it
+did not claim complete constructor or capacity closure.
+
+There is also a limit to a tempting downstream simplification: **debug output
+disabled does not imply an invariant emitted body under source trivia changes**.
+GIMPLE's O0 merge predicate reads goto_locus (`tree-cfg.cc:1915–1930`). The RTL
+merge paths call `emit_nop_for_unique_locus_between` when preserving a distinct
+edge location; its comparison reads expanded file, line, column and block data,
+and its selected action emits a real `gen_nop()`
+(`cfgrtl.cc:784–849,925–932,4917–4923`). These branches are guarded by O0 and
+DECL_IGNORED_P, not the absence of a debug-info output hook. Gigi still supplies
+source locations and preallocates252-column maps; the later location encoder
+can mask columns or omit them past its location limit
+(`trans.cc:343–363,11006–11036`, `libcpp/line-map.cc:1055–1077`). Therefore source
+locations cannot be treated as opaque payloads merely because DWARF emission
+is disabled. This refutes that shortcut, without claiming a newly executed
+counterexample or a fully classified set of emitted variants.
+
+The established finite bounds on blocks, labels, instruction count and
+shortened code size still apply. A future linker argument may preserve a fixed
+symbol/name inventory while allowing bounded payload offsets or local nops,
+but it must prove that input projection. No exact-assembly witness or new
+capture is justified by the debug setting alone, and none was performed here.
+
 ### Counter composition and finite remaining frontier
 
 For the null function, keep ordinary pools/obstacks separate from GGC events.
 The partial GGC lifetime envelope is
 
 ```text
-E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78 + 43 + 100 + 1 + 5
+E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10 + 78 + 43 + 100 + 1 + 5 + 11
        + E_metadata + E_Main_translation + E_unit_emit
 ```
 
@@ -9165,7 +9249,8 @@ RTL-preparation events,2 the selected alias vectors,2 reload-equivalence
 vector events,8 direct elimination-register requests,10 IRA loop-setup
 events,78 chain/pattern/frame events,43 non-chain CFI events and100
 expansion/CFG helper events,1 cold late RTL-info event and5 selected
-final/CFI/section-emission events (known subtotal39,957).
+final/CFI/section-emission events and11 non-tree gigi helper events (known
+subtotal39,968).
 The residuals are
 nonnegative required inputs, never implicit zeros. Their disjoint boundaries
 and constructors still require completion:
@@ -9173,7 +9258,7 @@ and constructors still require completion:
 | Residual | Source route and required input |
 | --- | --- |
 | `E_metadata` |path/source-location/unit/name corrections between the fixed prefix and Main; charge actual source descriptor, argv/path and shared hash inputs |
-| `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation, excluding the ten struct-function constructor events charged above; include Main's separate language_function and combine the backend's logical graph with each remaining constructor/allocation route |
+| `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation, excluding the ten struct-function and eleven non-tree gigi helper events charged above; combine the backend's logical graph with each remaining tree, identifier, vector and helper constructor/allocation route |
 | `E_unit_emit` |remaining whole-unit symbol/output-order/finalization helpers and pending external-declaration handling; the selected final scan, unwind wrappers/directive output and two named sections are supplied above; retain actual source/path/output and shared-cache premises |
 
 For ordinary backing, the remaining concrete joins include
