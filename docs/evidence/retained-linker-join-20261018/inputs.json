@@ -106,5 +106,11 @@
     "path": "docs/evidence/retained-linker-join-20261018/binder-object.elf",
     "bytes": 13432,
     "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+  },
+  {
+    "key": "layout_shape",
+    "path": "docs/evidence/retained-linker-layout-20261018/layout-shape-results.json",
+    "bytes": 13139,
+    "sha256": "61daa5c984b5232b2e0f59d233e5577c4c09a2d8e67177dd28c7c66d5d310c55"
   }
 ]

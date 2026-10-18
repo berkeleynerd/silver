@@ -1,4 +1,4 @@
-"""Compose selected null linker counts/payloads; keep layout/reach premises explicit."""
+"""Compose selected null linker counts, payloads and reviewed layout bounds."""
 import argparse
 import hashlib
 import json
@@ -138,7 +138,11 @@ payloads = {
     'version_requirements': records['versions']['version_need_bytes_upper'],
 }
 B = sum(payloads.values())
-A = 4096  # Effective-alignment premise; separate source join required.
+shape = records['layout_shape']
+A = shape['selected_page_and_general_layout_alignment_upper']
+assert A == 4096 and shape['selected_EH_alignment_upper'] == 8
+assert shape['mapping_convergence_established']
+assert shape['selected_segment_mapping_iterations_upper'] == 2
 padding = (I + S + 5) * (A - 1) + 32768
 Hfile = 64 + 56 * T
 V = Hfile + B + padding
@@ -171,7 +175,7 @@ conditions = {
 }
 assert all(conditions.values()), conditions
 result = {
-    'scope': 'Selected null linker count/payload composition; layout alignment, convergence, relocation and auxiliary storage not completed',
+    'scope': 'Selected null linker count/payload/layout composition; relocation and complete auxiliary storage not completed',
     'prior_inputs_verified': len(records),
     'binder_EH_entries': eh_entries,
     'counts': dict(R=R, Q=Q, P=P, Qrel=Qrel, Trel=Trel, H=H, I=I, S=S, N=N, T=T, D=D, Z=Z),
@@ -183,6 +187,10 @@ result = {
     'conditional_layout': dict(alignment_premise=A, padding=padding, headers=Hfile,
                               retained_endpoint=V, trial_endpoint=2 * V,
                               file_payload_with_padding=Bfile, file_endpoint=F),
+    'layout_shape_join': dict(effective_alignment_established=True,
+                             EH_alignment=shape['selected_EH_alignment_upper'],
+                             mapping_iterations_upper=shape['selected_segment_mapping_iterations_upper'],
+                             source_premises=shape['mapping_convergence_premises']),
     'component_arithmetic_conditions': conditions,
     'trial_span_is_signed32': 2 * V < 2**31,
     'trial_span_alone_establishes_relocation_reach': False,

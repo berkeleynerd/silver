@@ -1,6 +1,6 @@
 {
-  "scope": "Selected null linker count/payload composition; layout alignment, convergence, relocation and auxiliary storage not completed",
-  "prior_inputs_verified": 18,
+  "scope": "Selected null linker count/payload/layout composition; relocation and complete auxiliary storage not completed",
+  "prior_inputs_verified": 19,
   "binder_EH_entries": [
     {
       "offset": 0,
@@ -88,6 +88,16 @@
     "trial_endpoint": 1743402614,
     "file_payload_with_padding": 863474395,
     "file_endpoint": 42687993785710
+  },
+  "layout_shape_join": {
+    "effective_alignment_established": true,
+    "EH_alignment": 8,
+    "mapping_iterations_upper": 2,
+    "source_premises": [
+      "accepted generated emission and fixed-input family",
+      "selected default script/options and source behavior",
+      "prior nonwrapping virtual-address arithmetic"
+    ]
   },
   "component_arithmetic_conditions": {
     "dynamic_section_index": true,

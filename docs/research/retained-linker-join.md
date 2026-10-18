@@ -3,10 +3,10 @@
 Research for #119, 2026-10-18. The source-derived Main envelope and accepted
 [binder object transfer](retained-binder-capacity.md) now supply the remaining
 generated-object inputs to the linker count and payload formulas. Every
-listed component arithmetic condition passes. This is a conditional layout
-result: effective alignment, mapping convergence, relocation operands and
-auxiliary representations must still be joined before claiming whole-link
-capacity. It changes no admission rule.
+listed component arithmetic condition passes. The reviewed alignment and
+mapping-convergence transfer now supplies the layout inputs. Relocation operands
+and complete auxiliary representations still need their joins before claiming
+whole-link capacity. This changes no admission rule.
 
 ## Counts and names
 
@@ -94,7 +94,7 @@ NULs; binder supplies the accepted section inventory. These entries cannot
 raise an existing fixed group's alignment. Add62 bytes to the fixed merge
 allowance, in addition to their original payload already charged above.
 
-EH uses Aeh=8 as an incoming alignment premise. Binder's192-byte EH frame
+The reviewed layout transfer establishes Aeh=8. Binder's192-byte EH frame
 supplies at most48 entries, one section and five FDEs, yielding743,934 edited
 bytes and119,668 header bytes. The five FDEs come from the accepted binder
 frame inventory; a byte-length bound alone would not justify that exact count.
@@ -118,9 +118,11 @@ copy-storage row is its separately allocated target, so neither is omitted
 or confused with the other. Hidden ordinary tables are included in B even
 where they are not mapped input payload; overcounting them is conservative.
 
-## Conditional address and file positions
+## Address and file positions
 
-Substituting **A=4096 as an effective-alignment premise** into the existing
+The [effective-alignment and mapping transfer](retained-linker-layout.md)
+establishes **A=4096**, Aeh=8 and convergence in at most two mapping iterations
+for this input family. Substituting that alignment into the existing
 virtual/file transfer gives:
 
 ```text
@@ -146,7 +148,7 @@ domains and transformations.
 ## Evidence and remaining joins
 
 The [offline checker](../evidence/retained-linker-join-20261018/check.py)
-checks18 retained input identities, computes every row and verifies the
+checks19 retained input identities, computes every row and verifies the
 component count, product, String offset/reference, hash shift, version and
 EH conditions. It is arithmetic reconciliation of the source arguments,
 not a machine proof of C semantics. No compiler, assembler, linker, prover,
@@ -170,8 +172,10 @@ count directly; the retained-object parse above resolves that point. The
 review's acceptance is limited to counts, payloads and conditional arithmetic,
 with the remaining obligations below unchanged.
 
-Effective-alignment and mapping-convergence composition is still pending in
-this record. Relocation/addend legality and auxiliary BFD/LD storage also
-remain open. Finishing the selected null linker is itself only one part of
+The effective-alignment and mapping-convergence source result is now an input
+to the checker. Its sharper twelve-program-header bound does not require
+replacing the valid conservative T used above. Relocation/addend legality and
+complete auxiliary BFD/LD storage remain open. Finishing the selected null
+linker is itself only one part of
 #119; broader grammar, native/producer phase composition and useful-domain
 comparison remain necessary before production changes #88–#94.

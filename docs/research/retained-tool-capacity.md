@@ -307,11 +307,12 @@ placement includes reverted RELRO trials. The
 [numerical composition](retained-linker-join.md) now joins fixed/Main/binder
 counts and per-item payload maxima:48,965 output sections,3,243,678 dynamic
 symbol high-water and462,778,637 payload bytes. The dynamic section-index
-guard and the component arithmetic conditions pass. With effective alignment
-4096 as an incoming premise, the retained/trial address endpoints are
-871,701,307/1,743,402,614; this does not establish relocation reach. Effective
-alignment, mapping convergence, operand/addend domains and remaining auxiliary
-requests still need composition. The [selected defaults](retained-linker-defaults.md)
+guard and the component arithmetic conditions pass. The reviewed layout
+transfer establishes effective alignment4096, EH alignment8 and mapping
+convergence in at most two iterations. Retained/trial address endpoints are
+871,701,307/1,743,402,614; this does not establish relocation reach.
+Operand/addend domains and remaining auxiliary requests still need composition.
+The [selected defaults](retained-linker-defaults.md)
 exclude compression, RELR packing, STABS rewriting and additional script data.
 Fixed symbols plus generated
 Main/binder type projection establish an empty local-IFUNC table, leaving
@@ -341,8 +342,15 @@ selected collector constructors/finalizers/custom markers are now joined:
 no additional GGC events, with the104-byte ordinary cache-marker scratch kept.
 The selected argument/diagnostic buffers and explicit successful GCC cleanup
 are bounded; the config/map option prefix correction uses `P+8`, including
-the equals sign. Fixed startup-manager/target requests and remaining process
-composition remain open in the native expansion record. The
+the equals sign. The fixed startup pass-registry transfer now covers394
+instances from304 factories, with largest ordinary request65,536 bytes;
+unconditional coverage filename and cwd buffers are charged separately.
+Remaining GCC-owned startup/static-exit and process composition remain open.
+The binder's accepted filename projection now transfers a complete fixed
+compiler lifetime:48,889 GGC allocation events and4,155,400 rounded bytes.
+The first-collection argument excludes actual collection for that family;
+this byte total is used for that argument, not as an aggregate RAM gate.
+The
 [unwind sizing transfer](retained-linker-eh-frame.md) bounds conditional input
 editing and header/CIE storage, including narrower32-bit intermediates;
 emitted-field validity and final relocation reach remain separate obligations.
