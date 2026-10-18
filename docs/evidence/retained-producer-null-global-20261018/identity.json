@@ -139,6 +139,12 @@
           "member": "spark-source/src/common/vc_kinds.adb",
           "bytes": 101197,
           "sha256": "8a532e5528c36837e9a63eb41985644c74a3b83084155a1356b42638eef28b1e"
+        },
+        {
+          "name": "data_decomposition",
+          "member": "spark-source/src/why/gnat2why-data_decomposition.adb",
+          "bytes": 10603,
+          "sha256": "efc943681bd3d8b898e7daec1aa998868cbcb3a94bdf6deb49603110ca566d6f"
         }
       ]
     },
@@ -162,7 +168,7 @@
     },
     {
       "path": "docs/evidence/retained-producer-null-global-20261018/extra-sources.tar.gz",
-      "sha256": "297173e5c54fad27a1c67f69149474278a1af3d61b761f1d715396f1aaecfc53",
+      "sha256": "b79678271411c6159ec596da31b5cebd9f33272b73f44249d658588704cd1600",
       "files": [
         {
           "name": "unique_names",
@@ -175,6 +181,36 @@
           "member": "installed-runtime/g-comlin.ads",
           "bytes": 53758,
           "sha256": "6b604eb32cfdc1f2eb8662dbfbea79be6c648c733c2ddf6cec3f3e99511b31ac"
+        },
+        {
+          "name": "switches",
+          "member": "gcc-source/gcc/ada/switch-c.adb",
+          "bytes": 59201,
+          "sha256": "dbb1b360a6a58368d21cdf71cc3cf55c2803741f4dcf97aaf45b71e13d170c58"
+        },
+        {
+          "name": "options",
+          "member": "gcc-source/gcc/ada/opt.ads",
+          "bytes": 93026,
+          "sha256": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e"
+        },
+        {
+          "name": "repinfo",
+          "member": "gcc-source/gcc/ada/repinfo.adb",
+          "bytes": 84581,
+          "sha256": "24e670ae6e224b10aba210800188749e23ad90afa57dddaa61d381164f870085"
+        },
+        {
+          "name": "osint",
+          "member": "gcc-source/gcc/ada/osint.adb",
+          "bytes": 105542,
+          "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69"
+        },
+        {
+          "name": "osint_c",
+          "member": "gcc-source/gcc/ada/osint-c.adb",
+          "bytes": 15980,
+          "sha256": "4be1e193fe80bbfc0cc0d70a025311087b751af69189b39832cb4455c286766e"
         }
       ]
     }

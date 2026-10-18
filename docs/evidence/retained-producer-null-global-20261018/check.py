@@ -50,6 +50,17 @@ def main():
     has('phase2', 'Name => Main_Entity_Name, Instances => 1, Node => S')
     has('phase2_traversal', 'Scope_Map (Outer_Pos).Units.Include (Entity);')
     has('phase2_visibility', 'Add (Map => Children, Key => Info.Parent, New_Item => E);')
+    has('gnatprove', 'Args.Append ("-gnatR2js");')
+    has('switches', 'Back_Annotate_Rep_Info := True;')
+    has('switches', "when 'm' => List_Representation_Info_Mechanisms := True;")
+    has('options', 'List_Representation_Info_Mechanisms : Boolean := False;')
+    has('repinfo', 'if In_Extended_Main_Source_Unit (Cunit_Entity (U)) then')
+    has('repinfo', 'if List_Representation_Info_Mechanisms and then Is_Subprogram_Or_Entry (Ent) and then not In_Subprogram then')
+    has('repinfo', 'if List_Representation_Info_To_JSON then Write_Line ("]"); end if; Cancel_Special_Output; Close_Repinfo_File;')
+    has('repinfo', "Write_Repinfo_Line (S (S'First .. S'Last - 1));")
+    has('osint', "Write_With_Check (Info'Address, Info'Length); Write_With_Check (EOL'Address, 1);")
+    has('data_decomposition', 'for Index in 1 .. Length (Entries) loop Handle_Entry (Get (Entries, Index)); end loop;')
+    has('data_decomposition', 'File_Names.Insert (Source_File_Name);')
     has('gnatprove', 'Set_Field (JSON_Rec, "cmdline", Cmdline_JSON);')
     has('gnatprove', 'Set_Field (JSON_Rec, "proof_switches", FS_Switches_JSON);')
     has('gnatprove', 'if CL_Switches.Output_Header then')
@@ -152,6 +163,10 @@ def main():
         'phase1_scope_contract_entries':1,'phase2_scope_contract_entries':2,
         'global_fold_patch_count':2,'global_scope_recursion_depth':2,
         'main_task_instances':1,'main_only_call_graph_vertices':1,
+        'data_representation_file_bytes':4,'data_representation_entries':0,
+        'data_representation_read_filename_keys':1,
+        'data_representation_uint_field_conversions':0,
+        'data_representation_native_variant_requires_backannotation_join':True,
         'configuration_fields':len(configuration),
         'configuration_depth':2,'configuration_array_max':len(args),
         'configuration_array_backing_capacity':16,

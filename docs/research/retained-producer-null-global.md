@@ -95,6 +95,43 @@ These are independent per-container bounds. The existing fixed-context
 name-pool charge continues to cover elaboration names and Standard metadata;
 the GG reader does not introduce arbitrary program text into those pools.
 
+## Data representation JSON
+
+GNATprove's data-representation phase uses a separate native invocation with
+`-S -gnatR2js -gnatws -gnatx -gnatis` (`gnatprove.adb:298–319`). The `R2js`
+switch sets representation level two, JSON format and file output. It leaves
+mechanism output false; only `m` would enable that
+(`switch-c.adb:1236–1299`; `opt.ads:984`). `Repinfo.List_Rep_Info` visits units
+in the extended Main source and brackets each file's entries. Null has one
+Main unit, no source type, object, formal, nested scope or block to list.
+Compiler-generated child entities are excluded by the Comes_From_Source
+test at level two; `-gnatdA` and level four are absent. Main itself gets no
+subprogram-mechanism entry (`repinfo.adb:493–632,1910–1982`).
+
+Thus the sole selected `main.adb.json` consists exactly of `[` LF `]` LF:
+**four bytes and zero data entries**, for the whole case/trivia family.
+`Write_Info_Line` removes the output package's final LF before forwarding;
+`Osint.Write_Info` writes one LF again. File close adds no data
+(`repinfo.adb:2556–2559`; `osint.adb:3255–3259`;
+`osint-c.adb:136–147,270–280,518`). Each line is only one payload byte, so its
+output counters and String slices are constant-sized.
+
+`Read_Data_Decomposition_JSON_File` ignores units without a compilation unit,
+probes existing representation files, and records a filename only after a
+successful parse. Only Main's four-byte array exists in the selected fresh
+data-representation directory. The optional implicit System dependency has
+no representation file. Therefore its File_Names set has one entry, the JSON
+array has no element, and `Data_Decomposition_Table` stays empty. `Handle_Entry`
+and its `UI_From_Integral` field conversions execute zero times
+(`gnat2why-data_decomposition.adb:155–271`). No path, location or source-text
+string enters the data table.
+
+This closes the data file's writer/consumer storage, not the entire alternate
+native invocation. `-gnatR2js` also enables `Back_Annotate_Rep_Info`; its effect
+on native gigi/representation callbacks must be included in the native
+capacity argument. Ordinary native-build flags alone do not establish that
+variant's callback allocation bound.
+
 ## Configuration and ordinary report consumption
 
 The selected project has one source and one object directory, no imported
