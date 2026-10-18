@@ -1,0 +1,82 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "native_or_proof_executions": 0,
+  "fixed_inputs": [
+    {
+      "entity": "input_is_valid",
+      "native_input_sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d",
+      "native_check_labels": [
+        "GP_Check:0:VC_PRECONDITION:silver_arguments.adb:14:43"
+      ],
+      "program_body_kind_counts": {
+        "W_ABSTRACT_EXPR": 2,
+        "W_ASSIGNMENT": 5,
+        "W_BINDER": 1,
+        "W_BINDING": 2,
+        "W_CALL": 6,
+        "W_COMMENT": 4,
+        "W_CONDITIONAL": 2,
+        "W_DEREF": 1,
+        "W_EFFECTS": 1,
+        "W_FUNCTION_DECL": 1,
+        "W_GLOBAL_REF_DECLARATION": 1,
+        "W_HANDLER": 1,
+        "W_IDENTIFIER": 33,
+        "W_INTEGER_CONSTANT": 3,
+        "W_LABEL": 6,
+        "W_LITERAL": 7,
+        "W_LOC_LABEL": 10,
+        "W_MODULE": 11,
+        "W_NAME": 97,
+        "W_RAISE": 4,
+        "W_RECORD_ACCESS": 2,
+        "W_STATEMENT_SEQUENCE": 18,
+        "W_TRY_BLOCK": 1,
+        "W_TYPE": 59
+      },
+      "additional_context_program_bodies": 0,
+      "empty_contract_helpers": 2,
+      "other_true_helpers": 0,
+      "source_derived_terminal_task_bound": 1,
+      "response_record_bound": 1
+    },
+    {
+      "entity": "is_message",
+      "native_input_sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378",
+      "native_check_labels": [
+        "GP_Check:10:VC_RANGE_CHECK:silver_arguments.adb:6:11"
+      ],
+      "program_body_kind_counts": {
+        "W_ABSTRACT_EXPR": 3,
+        "W_ANY_EXPR": 2,
+        "W_ASSERT": 1,
+        "W_ASSIGNMENT": 1,
+        "W_BINDER": 2,
+        "W_BINDING": 8,
+        "W_CALL": 25,
+        "W_COMMENT": 4,
+        "W_CONDITIONAL": 1,
+        "W_CONNECTION": 5,
+        "W_EFFECTS": 1,
+        "W_FUNCTION_DECL": 1,
+        "W_GLOBAL_REF_DECLARATION": 1,
+        "W_IDENTIFIER": 62,
+        "W_INTEGER_CONSTANT": 5,
+        "W_LABEL": 7,
+        "W_LITERAL": 11,
+        "W_LOC_LABEL": 1,
+        "W_MODULE": 48,
+        "W_NAME": 167,
+        "W_STATEMENT_SEQUENCE": 9,
+        "W_TYPE": 105,
+        "W_UNIVERSAL_QUANTIF": 1
+      },
+      "additional_context_program_bodies": 0,
+      "empty_contract_helpers": 2,
+      "other_true_helpers": 1,
+      "source_derived_terminal_task_bound": 3,
+      "response_record_bound": 1
+    }
+  ],
+  "scope": "Source derivation reconciled with complete fixed producer inputs; no mechanical SP/WP verification, no bound for the other three fixed library files or whole-tool representations"
+}

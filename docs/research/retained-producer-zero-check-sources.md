@@ -172,7 +172,10 @@ removes variable Main formulas from a second concrete path. Neither needs a
 worst-case SP/WP or splitter formula to establish its Main task count. For the
 output path, the next producer join is therefore the **fixed selected library
 bodies and their dependency contexts**, rather than another conditional Main
-goal-headroom inequality. Programs with assignments, arithmetic checks,
+goal-headroom inequality. The [fixed check-path joins](retained-producer-fixed-check-spines.md)
+now bound Input_Is_Valid by one terminal task and Is_Message by three;
+First_Or_Default, Put and Put_Line still need their branch/outcome joins.
+Programs with assignments, arithmetic checks,
 branches or loops still require the previously developed transfer bounds.
 
 Keep these domains distinct: native construction (even when discarded), raw

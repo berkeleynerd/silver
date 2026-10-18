@@ -1,0 +1,60 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "source_archive_sha256": "ba76e2c3d8176a36ad1b0c0560a043cc9e13619e1c38ce8bc3e1ee4f17ce67a1",
+  "source_files": [
+    {
+      "path": "src/mlw/vc.ml",
+      "bytes": 76631,
+      "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1"
+    },
+    {
+      "path": "src/mlw/eval_match.ml",
+      "bytes": 8322,
+      "sha256": "794bed299489c440853eb5e89ceb283a28de88bbc4db702794c7388f48a6f4ea"
+    },
+    {
+      "path": "src/transform/split_goal.ml",
+      "bytes": 23450,
+      "sha256": "142dfbfef8cff67bbc396bbc986a91b36d527a58ee96316601cc317a2ef7f28f"
+    },
+    {
+      "path": "src/transform/gnat_split_conj.ml",
+      "bytes": 11171,
+      "sha256": "dcbe7341850e8b50d53c9ede7fbc61bb331ebf57d70720363bf741856ef180ee"
+    },
+    {
+      "path": "plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    }
+  ],
+  "local_sources": [
+    {
+      "path": "src/silver_arguments.adb",
+      "sha256": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918"
+    },
+    {
+      "path": "src/silver_arguments.ads",
+      "sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+    },
+    {
+      "path": "src/silver_runtime.ads",
+      "sha256": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+    }
+  ],
+  "fixed_archive_sha256": "bde678ccd1116e041ec8756ecd44d3e2374461335aa59752165322084378c19f",
+  "fixed_inputs": [
+    {
+      "name": "input_is_valid",
+      "path": "silver_arguments/obj/silver_arguments__input_is_valid.gnat-json",
+      "bytes": 121828,
+      "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+    },
+    {
+      "name": "is_message",
+      "path": "silver_arguments/obj/silver_arguments__is_message.gnat-json",
+      "bytes": 85809,
+      "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+    }
+  ]
+}

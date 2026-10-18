@@ -169,6 +169,14 @@ The authorized runtime-capacity changes must refresh these fixed cases and
 their dependencies before delivery, as #93 already requires. They do not
 establish the cost of a future changed library or an Image-tool process.
 
+The retained native inputs also support the [fixed check-path source
+joins](retained-producer-fixed-check-spines.md): Input_Is_Valid has at most one
+terminal Why3 task and Is_Message at most three, each with at most one response
+record. These bounds use the fixed semantic input tree and actual converter,
+SP/WP and splitter rules; the observed number of native check labels alone
+does not establish a terminal-task bound. First_Or_Default, Put and Put_Line
+remain separate unfinished joins.
+
 ## Remaining limits
 
 This applies to the recorded installed Linux producer and the finite fixed
