@@ -99,6 +99,8 @@ class Context:
         self.linker_context = self.linker['Context']()
         self.ali = runpy.run_path(str(EVIDENCE/'retained-literal-ali-20261018/compose.py'))
         self.ali_context = self.ali['Context'](ada_root)
+        self.ali_consumers = runpy.run_path(str(EVIDENCE/'retained-literal-binder-ali-20261018/compose.py'))
+        self.ali_consumers_context = self.ali_consumers['Context'](ada_root)
         self.system = read(NATIVE/'native-indexed-source-buffers.json')['additional_System_input']
         self.configuration = (NATIVE/'null-capacity-fixture.adc').read_bytes()
         checksum = runpy.run_path(str(EVIDENCE/'retained-binder-checksum-closure-20261018/check.py'))
@@ -689,6 +691,11 @@ def evaluate(descriptor_path, context, source_override=None):
     require(ali['source'] == identity(raw) and ali['source_counts'] == counts and
             ali['physical_source'] == physical and ali['path_spelling_bytes_upper'] == p,
             'literal Main ALI common-input join')
+    ali_consumers = context.ali_consumers['evaluate'](raw,context.ali_consumers_context,path_bytes=p)
+    require(ali_consumers['source'] == identity(raw) and
+            ali_consumers['source_counts'] == counts and
+            ali_consumers['path_spelling_bytes_upper'] == p and
+            ali_consumers['Main_ALI_interface'] == ali, 'literal ALI consumer interface join')
     line_capacity = 500
     while line_capacity < physical['physical_line_entries_bound']:
         line_capacity *= 2
@@ -711,6 +718,7 @@ def evaluate(descriptor_path, context, source_override=None):
         Main_GAS_BFD_storage=assembler_storage['storage']['selected_GAS_BFD_storage_fits'],
         literal_output_linker_representation=linker['selected_literal_assembler_and_linker_representation_fits'],
         Main_ALI_interface=ali['selected_Main_ALI_interface_fits'],
+        ALI_consumer_local_interfaces=ali_consumers['selected_ALI_consumer_local_interfaces_fit'],
         Why_core=selected_why['literal_Main_core_fits'],
         output_binder_checksum_no_collection=context.checksum[
             'universal_rounded_GGC_bytes_bound_subject_to_reviewed_source_projection']
@@ -739,9 +747,10 @@ def evaluate(descriptor_path, context, source_override=None):
         'binder_and_linker_composition': {
             'available':dict(selected_Main_ALI_interface_fits=ali['selected_Main_ALI_interface_fits'],
                 Main_ALI_reader_bytes_including_EOF_upper=ali['Main_ALI_reader_bytes_including_EOF_upper'],
+                selected_ALI_consumer_local_interfaces_fit=ali_consumers['selected_ALI_consumer_local_interfaces_fit'],
                 selected_literal_assembler_and_linker_representation_fits=linker['selected_literal_assembler_and_linker_representation_fits'],
                 failed_linker_sufficient_checks=linker['link']['failed_sufficient_checks']),
-            'missing':'Join Main/fixed ALIs to binder parser/graph/driver lifetimes and GPR reader policies under one complete output launch descriptor. Main ALI writer/reader-buffer and selected fixed-plus-variable ELF/link interfaces are conditionally joined; checksum variation itself is closed.'},
+            'missing':'Complete native and GPR shared name-pool backing, invocation/library graph containers, native parent GPRbuild D/W reader, driver and output launch. Main/fixed ALI local parser tables/buffers and Gprbind A/U-only local interfaces are attached with explicit additive pool contracts; selected ELF/link and checksum interfaces remain joined.'},
         'complete_output_launch_materialization': {
             'missing':'Bind complete output-family project/options/map/search graph and fixed dependency compiler/producer subprocesses. This descriptor binds common bytes and selected roles, not that entire frontier.'}}
     return dict(scope=descriptor['scope'],source=identity(raw),source_path=str(source_path),
@@ -759,6 +768,7 @@ def evaluate(descriptor_path, context, source_override=None):
         Main_GAS_BFD_storage=assembler_storage['storage'],
         literal_output_linker=linker,linker_path_bytes_including_NUL_upper=p+1,
         Main_ALI_interface=ali,
+        ALI_consumer_interfaces=ali_consumers,
         Why_core=why,selected_Why_core=selected_why,
         accepted_output_binder_checksum=context.checksum,
         open_joins=opens,whole_literal_pipeline_capacity_established=False,

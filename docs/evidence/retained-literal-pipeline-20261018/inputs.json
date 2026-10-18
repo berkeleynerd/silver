@@ -373,5 +373,35 @@
     "path": "docs/evidence/retained-literal-linker-20261018/sources.json",
     "bytes": 2141,
     "sha256": "076ead1fda0d00941c2c1ca1859d5960e98b0786c42cb8e14f57e0a0e9c5b52c"
+  },
+  {
+    "path": "docs/evidence/retained-literal-binder-ali-20261018/compose.py",
+    "bytes": 17734,
+    "sha256": "c58355d3a1184627cbe3fd5ed38ca594f1df0f633b544031241b21ead9c8c2ed"
+  },
+  {
+    "path": "docs/evidence/retained-literal-binder-ali-20261018/inputs.json",
+    "bytes": 2171,
+    "sha256": "425589a21d7741e9f188367d61861e18c56b9f1c82675ba5569e72a02526821b"
+  },
+  {
+    "path": "docs/evidence/retained-literal-binder-ali-20261018/result.json",
+    "bytes": 12647,
+    "sha256": "16f58c7dc6aaf9f047af5d67e6d56c375bda11f8a54e402cf0da67c8c305ec2b"
+  },
+  {
+    "path": "docs/evidence/retained-literal-binder-ali-20261018/review.md",
+    "bytes": 4221,
+    "sha256": "10e47650bedc9011d2658ac58f31fd25e6926adc707b53808a9dc2a1dbd2f9bc"
+  },
+  {
+    "path": "docs/research/retained-literal-binder-ali.md",
+    "bytes": 14611,
+    "sha256": "5d096e6e175d967f72410d94fd7644da4d36f4da4abeb77cc2d6e4426504b329"
+  },
+  {
+    "path": "docs/evidence/retained-literal-pipeline-20261018/review-cf-cfg.md",
+    "bytes": 10030,
+    "sha256": "211f31fa7b3cb81c8bb2d816c6147b2bbe914b8929bb8d809b7fbb78d1dc955c"
   }
 ]

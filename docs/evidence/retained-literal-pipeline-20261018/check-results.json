@@ -91,7 +91,8 @@
       "case": "physical_column_overflow",
       "failed_predicates": [
         "Main_expanded_columns",
-        "Main_ALI_interface"
+        "Main_ALI_interface",
+        "ALI_consumer_local_interfaces"
       ]
     },
     {
@@ -111,7 +112,8 @@
       "path_spelling_bytes": 977,
       "Main_ALI_interface_fits": false,
       "failed_predicates": [
-        "Main_ALI_interface"
+        "Main_ALI_interface",
+        "ALI_consumer_local_interfaces"
       ]
     },
     {

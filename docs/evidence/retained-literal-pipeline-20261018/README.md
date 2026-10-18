@@ -100,3 +100,10 @@ results. Hello and the 8192-byte literal pass; 5000 calls fail only the linker's
 conservative signed-relocation sufficient bound, while the other instantiated
 components still pass. This is not an observed native failure or adopted cap.
 ALI parser/graph/driver and complete launch joins remain open.
+
+The accepted ALI consumer packet is attached as `ALI_consumer_interfaces`,
+with exact equality to the existing Main ALI result and spelling-only P.
+Local native parser tables/buffers and Gprbind A/U interfaces contribute their
+predicate. Complete name pools, invocation/library graph storage, native
+parent GPRbuild's D/W reader, driver and launch remain open; the returned
+component retains its additive contracts and false complete-capacity fields.

@@ -966,6 +966,17 @@ fixed ALI parser/graph/driver lifetimes, GPR reader policies, and the complete
 output launch remain open. They do not turn the checksum closure or a
 reader-buffer export into complete binder capacity.
 
+The subsequently accepted [ALI consumer packet](retained-literal-binder-ali.md)
+is now attached as `ALI_consumer_interfaces`. Its `Context(ada_root)` and
+`evaluate(raw, context, path_bytes=P)` use spelling bytes, without NUL. The
+aggregate requires exact source/count/P agreement and equality of the entire
+nested `Main_ALI_interface` with the already attached adapter. The local
+consumer predicate covers the selected native parser tables, raw buffers,
+signature map and Gprbind A/U-only interfaces. It returns additive native/GPR
+name contributions, with complete shared-pool backing explicitly false.
+Invocation/library graph storage, native parent GPRbuild's distinct D/W reader,
+driver and complete output launch remain open. No component equation changed.
+
 ## Exact next native consumer
 
 The callable keeps `native_remaining_lifetime_and_collector` as its next
@@ -1113,3 +1124,12 @@ retained. The aggregate passes 64 offline checks, including ALI path-envelope
 Existing accepted component reviews are reused; this paragraph does not claim
 independent acceptance of the new aggregate attachment. No native tool ran,
 and whole-pipeline capacity remains false.
+
+The ALI-consumer attachment reuses the independently accepted implementation
+and review integrated in `00df856866`. Selected model/effort remains GPT-6
+Astra / Extra High, with runtime confirmation and token/cost measurements
+unavailable. This bounded attachment ran during the native-dependency round
+started at 18:52:40 UTC; no separate attachment timer was recorded. Its exact
+Main-ALI equality and P=976/977 checks join the existing 64 offline cases.
+The 5000-call linker sufficient-bound failure and false complete-pool, parent
+D/W, binder and whole-pipeline verdicts are preserved. No native tool ran.

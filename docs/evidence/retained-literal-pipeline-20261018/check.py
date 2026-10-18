@@ -117,6 +117,13 @@ def main():
             assert ali['path_spelling_bytes_upper']==fixture['complete_path_bound']
             assert ali['selected_Main_ALI_interface_fits']
             assert not ali['whole_binder_or_parent_capacity_established']
+            consumers=result['ALI_consumer_interfaces']
+            assert consumers['Main_ALI_interface']==ali
+            assert consumers['selected_ALI_consumer_local_interfaces_fit']
+            assert not consumers['native_parser_name_contribution']['complete_pool_backing_established']
+            assert not consumers['Gprbind_Main_reader']['complete_name_vector_backing_established']
+            assert not consumers['parent_GPRbuild_DW_reader_capacity_established']
+            assert not consumers['whole_binder_or_parent_capacity_established']
             expected=name!='5000_calls'
             assert result['evaluated_predicates_pass']==expected,(name,result['failed_predicates'])
             assert linker['link']['failed_sufficient_checks']==(
@@ -144,6 +151,8 @@ def main():
             changed=copy.deepcopy(fixture);changed['complete_path_bound']=p
             result=evaluate(original,changed)
             assert result['conditions']['Main_ALI_interface']==expected
+            assert result['conditions']['ALI_consumer_local_interfaces']==expected
+            assert result['ALI_consumer_interfaces']['Main_ALI_interface']==result['Main_ALI_interface']
             assert result['Main_ALI_interface']['path_spelling_bytes_upper']==p
             assert result['Main_GAS_BFD_storage']['path_bytes']==p+1
             assert result['linker_path_bytes_including_NUL_upper']==p+1
