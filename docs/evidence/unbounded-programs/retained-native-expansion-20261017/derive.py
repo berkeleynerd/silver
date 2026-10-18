@@ -32,7 +32,7 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_elim.adb", "sem_cat.adb", "einfo-utils.adb", "sem_ch13.adb",
          "exp_ch13.adb", "nlists.adb", "itypes.adb", "expander.adb",
          "sem_aux.adb", "ghost.adb", "sem_type.adb", "restrict.adb",
-         "local_restrict.adb"]
+         "local_restrict.adb", "accessibility.adb", "opt.ads"]
 sources = {}
 hashes = {}
 for name in files:
@@ -319,6 +319,17 @@ result = {
             "Uint_appends": "8*n+2",
         },
         "not_included": "child/attribute/conditional analysis, enabled-check plain-storage route, copies/reanalysis/source-to-event multiplicity, backend",
+    },
+    "generated_Integer_conditional_semantic_transfer": {
+        "premises": "artificial complete if expression; already analyzed/resolved Standard Boolean condition and same frozen Standard Integer base/context branches; no actions/delayed expansion/diagnostics/dimensions/checks/conversion-return-aggregate-transient-spec context; strict overflow; validity-test and coverage overrides disabled; no allocating rewrite callbacks; known values are existing literal/constant chains",
+        "extra_ordinary_nodes": 2,
+        "extra_growing_slot_events": 1,
+        "Uint_String_entity_name_overload_list_allocations": 0,
+        "direct_concat_conditional_nodes": "n+2",
+        "one_initial_analysis_if_all_premises_hold": {
+            "ordinary_nodes": "2*n+4", "growing_slot_events": "n+2",
+        },
+        "not_included": "child comparison/arithmetic/attribute transfers, input Expressions lists, enabled-check route, copies/reanalysis/source-to-event multiplicity, backend",
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",

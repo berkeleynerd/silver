@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 47,
+  "source_files_verified": 49,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -48,7 +48,9 @@
     "ghost.adb": "efc913c943b84328d081ff3996c85cd6eeb0f718c215784df8ecf9980dcd5f13",
     "sem_type.adb": "d278251cf4a39214e2a2f9b2fdf97f15520f6078e55a55a3cdd773016e3a810d",
     "restrict.adb": "644e05288291aece0b74bafc2719f1c03ba59464c350447c4a08298cc5c5cebf",
-    "local_restrict.adb": "38405d3a674b2632427c3a2f130328c6749de5bffc238e85946e4afadd173db3"
+    "local_restrict.adb": "38405d3a674b2632427c3a2f130328c6749de5bffc238e85946e4afadd173db3",
+    "accessibility.adb": "bfa2e2cb2ff37441fc191efee4fee4f6cbf79dea5031bb735b15078e363c0f27",
+    "opt.ads": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e"
   },
   "scope": "native String concat direct emitter and specified primitive helpers; not transitive closure",
   "ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers": {
@@ -586,6 +588,18 @@
       "Uint_appends": "8*n+2"
     },
     "not_included": "child/attribute/conditional analysis, enabled-check plain-storage route, copies/reanalysis/source-to-event multiplicity, backend"
+  },
+  "generated_Integer_conditional_semantic_transfer": {
+    "premises": "artificial complete if expression; already analyzed/resolved Standard Boolean condition and same frozen Standard Integer base/context branches; no actions/delayed expansion/diagnostics/dimensions/checks/conversion-return-aggregate-transient-spec context; strict overflow; validity-test and coverage overrides disabled; no allocating rewrite callbacks; known values are existing literal/constant chains",
+    "extra_ordinary_nodes": 2,
+    "extra_growing_slot_events": 1,
+    "Uint_String_entity_name_overload_list_allocations": 0,
+    "direct_concat_conditional_nodes": "n+2",
+    "one_initial_analysis_if_all_premises_hold": {
+      "ordinary_nodes": "2*n+4",
+      "growing_slot_events": "n+2"
+    },
+    "not_included": "child comparison/arithmetic/attribute transfers, input Expressions lists, enabled-check route, copies/reanalysis/source-to-event multiplicity, backend"
   },
   "lexical_call_sites_not_a_reachable_call_graph": [
     {

@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records forty-seven inspected files hash-checked against the complete source
+records forty-nine inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -1074,6 +1074,65 @@ the plain-storage high-bound analysis keeps checks enabled and needs its
 separate route. Copied/reanalyzed operators and first analysis of attribute,
 conditional or other leaf operands are additional. This count is not a claim
 that every generated operator is analyzed exactly once in the compilation.
+
+### Generated scalar conditional expressions
+
+One artificial three-expression `if` has an additional envelope of **two
+ordinary nodes and one growing-slot event**, and zero Uint, String, entity,
+name, overload-table or list allocations, under these premises:
+
+- The condition has already been analyzed/resolved as Standard Boolean; both
+  branches have already been analyzed/resolved as the same frozen Standard
+  Integer base used for the conditional's context. Input syntax, including
+  the three-element Expressions list, and child transfers are charged earlier.
+- No branch has attached Then/Else actions, delayed expansion, errors,
+  dimensions, unset-reference diagnostic or pending check. No enclosing
+  conversion, return, aggregate, transient or spec-expression context changes
+  this shape. All checks are suppressed and overflow mode is strict.
+- The retained default `Validity_Check_Tests = False` and
+  `Suppress_Control_Flow_Optimizations = False` apply; Standard Boolean has no
+  hardbool representation. Native rewriting callbacks add no allocation.
+  Known condition values and static branch values are existing literals or
+  constant chains, not new scalar evaluations.
+
+`Analyze_If_Expression` analyzes/resolves the condition and analyzes both
+branches. The children's Analyzed guards return. With compatible,
+nonoverloaded branch types it stores just one interpretation in the node;
+no interpretation-table entry is needed (`sem_ch4.adb:2528–2720`,
+`sem.adb:104–116`, `sem_res.adb:2545–2551`). `Resolve_If_Expression` resolves
+the same children, but its Apply_Check returns because their types equal the
+context. Excluding an enclosing conversion avoids the distinct generated
+conversion route in `Resolve_Dependent_Expression`
+(`sem_res.adb:7866–7893,9521–9689`).
+
+When all three operands are static, `Eval_If_Expression` rewrites to a shallow
+relocation of the selected branch (`sem_eval.adb:2534–2614`): one relocation,
+at most one saved original, and at most one growing event. Subsequent native
+dispatch sees the replacement node, so this does not also incur the if
+expander's fold. For a surviving conditional, `Adjust_Condition` returns for
+Standard Boolean; its preceding optional validity path is disabled by the
+stated setting (`exp_util.adb:316–447`, `validsw.ads:114`).
+
+Integer is a definite copy type and cannot be an anonymous-access actual
+(`exp_ch4.adb:5774–5797`, `accessibility.adb:1965–1984`). The parent scan only
+reads the chain (`exp_util.adb:15023–15050`), and the excluded contexts prevent
+delayed expansion/assignment/return/object optimizations. With a nonstatic
+but known condition, the expander performs the same relocate-and-rewrite
+charge. Both action helpers return for No_List; no selected delayed child is
+unanalyzed, so final Analyze_And_Resolve returns on the relocated child's
+Analyzed flag (`exp_ch4.adb:5857–5974,15228–15245`,
+`exp_util.adb:8030–8050`, `atree.adb:2109–2160,2222–2311`). With an unknown
+condition, empty actions and the default coverage option, the node is left
+for gigi without allocation (`exp_ch4.adb:6498–6653`, `opt.ads:1471`).
+
+The direct concat emitter constructs at most **n+2** conditional expressions:
+the lower-bound selector spine plus two null-result selectors. One initial
+pass for which these local premises hold therefore adds at most `2*n+4`
+ordinary nodes and `n+2` growing events. First analysis of the generated
+Boolean comparisons and their scalar children remains additional. The two
+null-result selectors can enter the plain-storage path with checks enabled;
+this suppressed local transfer alone does not close that route or prove
+single compilation-wide analysis multiplicity.
 
 ## Required transitive closure
 
