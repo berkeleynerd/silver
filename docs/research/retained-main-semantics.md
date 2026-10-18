@@ -1779,7 +1779,10 @@ producer numeric work. Managed run `20261018T031419-02510f8acb09` completed in
 mismatch and no real-range call. The complete tiny Main remains included.
 
 A complete executable text scan identifies 121 generic table Last positions,
-2,299 direct stores and no address-taking reference to those positions. The
+2,299 direct stores. The ELF supplement checks all executable sections,
+width-overlapping references, immediate/absolute candidates, relocations, aliases
+and allocated-data pointer patterns; no additional store or address escape is
+found. The private nonaliased `Last_Val` source has no address/access export. The
 capture hooks all 1,265 decrease-capable or unknown stores, including inlined
 copies; the 1,034 omitted stores are source-proved monotone allocation paths.
 The release identity below therefore recovers every positive logical increase.

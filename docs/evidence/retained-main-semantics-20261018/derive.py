@@ -253,7 +253,7 @@ def main():
                              (7502, 7502), (7643, 7653)]
     # Complete source identities for the monotone-store exclusions. The
     # executable store partition retains unknown and decrease-capable sites.
-    for name in ("table.adb", "atree.adb", "elists.adb", "nlists.adb",
+    for name in ("table.ads", "table.adb", "atree.adb", "elists.adb", "nlists.adb",
                  "namet.adb", "stringt.adb", "uintp.adb", "urealp.adb"):
         RANGES.setdefault(name, []).append((1, len((args.source / name).read_text().split('\n'))))
     records = []

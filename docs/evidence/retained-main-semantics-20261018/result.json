@@ -2360,6 +2360,17 @@
       ]
     },
     {
+      "path": "table.ads",
+      "bytes": 12010,
+      "sha256": "e82f128c9e68d286d433c8848d81b00eb9b01f1fd75f3e5cee018223b9c4e5db",
+      "cited_ranges": [
+        [
+          1,
+          241
+        ]
+      ]
+    },
+    {
       "path": "table.adb",
       "bytes": 13959,
       "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4",

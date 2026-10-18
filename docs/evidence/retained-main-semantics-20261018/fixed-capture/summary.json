@@ -129,7 +129,8 @@
   "source_map_rows": 22,
   "runtime_seconds": 9.709460420999676,
   "artifact_sha256": {
-    "README.md": "25bdbd5f969c4ed7dae9ed1de9b4e5c12cb604d51a89af7aca6e52b993b26ec9",
+    "README.md": "50fbbd226e7917bc0d3865df1a39227fb167c0ef604fa96eacf2c09038db1b8a",
+    "address-coverage.json": "c7a0512a9a3daeab11dc96e6406c8d8f653a112e9b4cbc48d5e88b958971d628",
     "address-escape-candidates.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "all-hooks.json": "eda66c0a906aa448bb1e29f06b39d1862a7366ba1d647972fdafc4bb7047968f",
     "all-last-symbols.json": "4597d85d81d3b584c74ebf42e861b66471d0123f973d842950bedbe887e0be88",
@@ -154,6 +155,7 @@
     "run_all.py": "2a0a0e3a29a07703304010a7556ed30b1512528218d3feb9178d57d292bc3693",
     "static-all-tables.json": "b4f35a96b3c10e69d2b1fa0ec8224c33eb2a96eb851746c8f4c7a39350b1c9b1",
     "static_all_tables.py": "4ad1aa84c7416cea02237691e59604d6ecaa1fed5f27bef56637332fba37713b",
-    "verify_capture.py": "32a2f94c3e6923caf2e9df78f664b54774bc006dffe1b9f9e30fafd2271e8cb6"
+    "verify_address_coverage.py": "9db8f573702c615c9061dd5d02d9927571eb838d5408ef9e75f417e36b91c060",
+    "verify_capture.py": "f07439a81c7680b9f009536318505b74587556e34f2f74ca1540141bf6423e10"
   }
 }

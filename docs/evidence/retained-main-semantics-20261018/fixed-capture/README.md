@@ -18,6 +18,21 @@ address-taking references concern the cache array only; none takes a table
 position's address. The inventory includes Ureal.Release copies in comparisons
 and Is_Fixed_Model_Number, which a symbol-only Release breakpoint misses.
 
+The [ELF coverage supplement](address-coverage.json) checks all five executable
+sections, memory-operand widths that overlap any byte of a Last position,
+absolute/immediate address candidates, dynamic relocations and GOT references,
+overlapping symbol aliases, dynamic exports, and 4/8-byte pointer patterns at
+every offset in allocated file-backed data sections. It finds no additional
+reference, alias, relocation, exported position, address-taking instruction or
+data pointer. All 4,375 direct Last references match the earlier inventory;
+the other five references address the range-cache array. The executable is
+x86-64 PIE (`ET_DYN`). Generic `Last_Val` is a private, nonaliased scalar
+(`table.ads:224–239`); its complete body has no address/access export of that
+scalar. Together this source property and the selected ELF checks exclude an
+unobserved indirect store route under the source-to-installed-tool premise.
+The supplemental reader needs the same scratch Python packages; no compiler
+execution was repeated for this coverage check.
+
 The monotone exclusions use generic Table.Append/Append_All/Increment_Last/
 Set_Item, Atree's node/slot/growing-kind and copy allocators, Nlists allocation,
 Elists append/new/insert operations, Namet.Name_Find/Name_Enter, Uint append

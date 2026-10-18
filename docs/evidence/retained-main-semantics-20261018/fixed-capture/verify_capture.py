@@ -15,6 +15,15 @@ for r in x['returns']:
  assert key not in coherence or coherence[key]==value
  coherence[key]=value
 assert len(coherence)==152
+coverage=read('address-coverage.json')
+assert coverage['sha256']==scan['sha256'] and coverage['elf_type']=='ET_DYN'
+for key in ('immediate_candidates','absolute_candidates','relocations',
+            'dynamic_symbols','symbol_aliases','data_pointer_candidates',
+            'additional_direct_instructions','original_direct_missing'):
+ assert coverage[key]==[],key
+assert len(coverage['direct_overlaps'])==4375
+assert not any(r['address_take'] for r in coverage['direct_overlaps'])
+assert all(r['bytes']==r['decoded_bytes'] for r in coverage['executable_sections'])
 stores={int(r['address'],16):r for r in scan['references'] if r['write']}
 kept={r['address']:r for r in read('decrease-hooks.json')}
 excluded={r['address']:r for r in read('excluded-positive-stores.json')}
