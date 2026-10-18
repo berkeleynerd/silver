@@ -163,17 +163,21 @@ def physical_sources(model, inputs):
         checks=checks, all_selected_checks_pass=all(checks.values()))
 
 
-def compose(descriptor_path, model):
+def compose(descriptor_path, model, producer_datarep=False):
     identity, prior = records()
     raw_descriptor = descriptor_path.read_bytes()
     descriptor = json.loads(raw_descriptor)
     require(set(descriptor) == {'scope','files','launch_paths','complete_path_bound'},
             'descriptor fields do not match the scoped schema')
-    require(descriptor['scope'] == 'selected indexed native null compiler', 'wrong descriptor scope')
+    expected_scope = ('selected indexed producer data representation null compiler'
+                      if producer_datarep else 'selected indexed native null compiler')
+    require(descriptor['scope'] == expected_scope, 'wrong descriptor scope')
     files = descriptor['files']; launch = descriptor['launch_paths']
     require(set(files) == {'Main','configuration','mapping','System','gnat1'}, 'unexpected file roles')
     required = {'Main','configuration','mapping','System','gnat1','cwd','assembly',
                 'native_include','native_objects','raw_default_prefix','source_path_probe','object_path_probe'}
+    if producer_datarep:
+        required.add('representation_json')
     require(set(launch) == required, 'launch path roles do not match the scoped schema')
     require(all(isinstance(s,str) and s.startswith('/') and
                 all(32<=ord(c)<=126 for c in s) for s in launch.values()),
@@ -185,10 +189,17 @@ def compose(descriptor_path, model):
             'listed normalized/resolved path exceeds supplied bound')
     require(Path(launch['Main']).name == 'main.adb', 'Main launch basename must be main.adb')
     require(Path(launch['System']).name == 'system.ads', 'System launch basename must be system.ads')
+    if producer_datarep:
+        require(Path(launch['representation_json']) == Path(launch['cwd'])/'main.adb.json',
+                'wrong selected representation JSON pathname')
+        require(Path(launch['assembly']) == Path(launch['cwd'])/'main~1.o',
+                'wrong selected data-representation assembly pathname')
     require(Path(launch['source_path_probe']).name == 'ada_source_path' and
             Path(launch['object_path_probe']).name == 'ada_object_path', 'wrong default search probes')
     loaded = {role:(descriptor_path.parent/name).read_bytes() for role,name in files.items()}
-    require(sha(loaded['gnat1']) == prior['native-gcc-prefix-witness.json']['gnat1_sha256'],
+    expected_compiler = ('5e93a62546d5538c3744c04c1b5989dc248f4a90ff47f6ea2f2d0bf3e2e2e1f6'
+                        if producer_datarep else prior['native-gcc-prefix-witness.json']['gnat1_sha256'])
+    require(sha(loaded['gnat1']) == expected_compiler,
             'gnat1 differs from the supported executable')
     system = prior['native-indexed-source-buffers.json']['additional_System_input']
     require(len(loaded['System']) == system['bytes'] and sha(loaded['System']) == system['sha256'],
@@ -214,6 +225,12 @@ def compose(descriptor_path, model):
         max_identifier_length=lexical['max_identifier_length'], input_identifier_length=1,
         loop_depth=0, pathname_length=p, configuration_storage=configuration,
         indexed_configuration_delta=delta)
+    if producer_datarep:
+        # Create_Repinfo_File and Create_Auxiliary_File each call Name_Find.
+        # Even charge the existing Main basename as fresh; the output-name
+        # role is covered by P. Namet is unlocked before this late output.
+        logical['tables']['Name_entries'] += 2
+        logical['tables']['Name_characters'] += 2*(p+1)
     # The selected native-only -gnatx disables recording/output, not semantic
     # reference marking. Keep the common semantic transfer and initialized
     # table/hash backing while setting only the actual appended entry count.
@@ -229,6 +246,14 @@ def compose(descriptor_path, model):
         logical['tables'][key] += floating[extra]
     diagnostic = model['native_diagnostic_metadata'](0,0)
     command = current_command(model,p)
+    if producer_datarep:
+        # Same conservative argv/backing bound, with the separately derived
+        # 19-argument GCC / 23-entry gnat1 descriptor. The alternate fixed
+        # prefix is checked by the producer wrapper, not inferred from a
+        # version string or the native executable's witness.
+        command.pop('selected_native_only_switches')
+        command['selected_datarep_switches'] = [
+            '-S','-gnatR2js','-gnatws','-gnatx','-gnatis','-Wno-free-nonheap-object']
     components = dict(
         configuration=configuration,
         core_tables=model['native_core_table_backing'](logical),
@@ -269,7 +294,7 @@ def compose(descriptor_path, model):
     require(lifecycle['known_GGC_subtotal_unchanged'] == 40098, 'changed lifecycle event bound')
     require(loc['updated_selected_known_GGC_subtotal'] == 40098, 'changed metadata event bound')
     checks = {name:value['all_selected_checks_pass'] for name,value in components.items()}
-    return dict(scope='selected native-null compiler component composition',
+    result = dict(scope='selected native-null compiler component composition',
         descriptor_sha256=sha(raw_descriptor), source_counter_kind='complete restricted null-token scan',
         inputs={role:dict(bytes=len(raw),sha256=sha(raw),launch_path=launch.get(role))
                 for role,raw in loaded.items()}, supplied_complete_path_bound=p,
@@ -291,6 +316,17 @@ def compose(descriptor_path, model):
         whole_toolchain_capacity_established=False, production_admission_changed=False,
         aggregate_RAM_or_address_space_admission_gate=False,
         compiler_prover_debugger_executions=0)
+    if producer_datarep:
+        result['scope'] = 'selected producer data-representation null compiler component composition'
+        result['representation_output'] = dict(file_bytes=4, array_entries=0,
+            maximum_payload_line=1, additional_Name_find_requests=2,
+            additional_Name_entries=2, additional_Name_characters=2*(p+1),
+            independent_source_reasoning_required=True)
+        result['external_prerequisites'][4] = (
+            'GPR/GCC parent process and remaining GNATprove frontend/report/server composition; '
+            '-S selects no assembler, binder or linker in this process')
+        result['alternate_fixed_prefix_checked_by_wrapper'] = True
+    return result
 
 
 def main():

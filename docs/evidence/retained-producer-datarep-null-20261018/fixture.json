@@ -1,0 +1,26 @@
+{
+  "scope": "selected indexed producer data representation null compiler",
+  "files": {
+    "Main": "../../../samples/null.adb",
+    "configuration": "../retained-producer-parent-20261018/fixed-gcc-prefix-witness/config.adc",
+    "mapping": "fixture.map",
+    "System": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
+    "gnat1": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1"
+  },
+  "launch_paths": {
+    "Main": "/tmp/silver-producer-null-capacity/main.adb",
+    "configuration": "/tmp/silver-producer-null-capacity/config.adc",
+    "mapping": "/tmp/silver-producer-null-capacity/main.map",
+    "System": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
+    "gnat1": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+    "cwd": "/tmp/silver-producer-null-capacity/obj",
+    "assembly": "/tmp/silver-producer-null-capacity/obj/main~1.o",
+    "representation_json": "/tmp/silver-producer-null-capacity/obj/main.adb.json",
+    "native_include": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+    "native_objects": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+    "raw_default_prefix": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/../lib/gcc/",
+    "source_path_probe": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/ada_source_path",
+    "object_path_probe": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/ada_object_path"
+  },
+  "complete_path_bound": 512
+}

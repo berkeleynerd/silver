@@ -1,0 +1,42 @@
+[
+  {
+    "path": "docs/evidence/retained-producer-parent-20261018/prefix-result.json",
+    "bytes": 3918,
+    "sha256": "ad4466c75ecb858ee67f1a0ca1f4366e3b2c96534c059c6b0b029415424a89a3"
+  },
+  {
+    "path": "docs/evidence/retained-producer-parent-20261018/sources.json",
+    "bytes": 16040,
+    "sha256": "5de1200ec81b7bf9383bea39401a90b719cfe572b39cb21543c9163a51946619"
+  },
+  {
+    "path": "docs/evidence/retained-producer-parent-20261018/fixed-gcc-prefix-witness/manifest.json",
+    "bytes": 4445,
+    "sha256": "510074e85cd6fa378545610388bb2cd4b7b12d11d31c9dd56217ebd6274c6c42"
+  },
+  {
+    "path": "docs/evidence/retained-backend-gigi-20261018/check-results.json",
+    "bytes": 15172,
+    "sha256": "862e75ff2db28cce02f97ca85caab3928bac8d4569e7f2117f21dc06e8538b59"
+  },
+  {
+    "path": "docs/evidence/retained-backend-gigi-20261018/source-manifest.json",
+    "bytes": 32026,
+    "sha256": "79170efba70a9491d9b5fcf1a29000fd1b63f22e935aa2967b50ded57f00e44f"
+  },
+  {
+    "path": "docs/evidence/retained-producer-null-global-20261018/result.json",
+    "bytes": 6362,
+    "sha256": "3e09fab99e8139c3f0c7444fe6ea07e9af154df98e68d48e343cb33e17ea4f1a"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-gcc-prefix-witness.json",
+    "bytes": 3891,
+    "sha256": "bd7b5f8243da91daca3dbc7d7afeeabda69df140e9b2588d4fe85ff16057af95"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/compose-null-capacity.py",
+    "bytes": 20379,
+    "sha256": "07d99d6ba3811f2cefe2af12ecf6d9e6b087e424250fe03b9f138801f35d049a"
+  }
+]
