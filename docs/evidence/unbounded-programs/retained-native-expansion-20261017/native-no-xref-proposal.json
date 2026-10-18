@@ -1,0 +1,190 @@
+{
+  "ALI_A_record_max_characters": 16,
+  "ALI_A_total_bytes_including_LF": 81,
+  "Ada_argument_pointer_count_bound": 39,
+  "Compilation_Switches": [
+    "-gnatA",
+    "-gnat2022",
+    "-gnata",
+    "-gnato",
+    "-mtune=generic",
+    "-march=x86-64",
+    "-gnatx"
+  ],
+  "Compilation_Switches_count": 7,
+  "GNATprove_configuration_changed": false,
+  "Xref_current_name_objects": 0,
+  "Xref_hash_header_bytes": 262144,
+  "Xref_serialized_records": 0,
+  "Xref_sort_vector_objects": 0,
+  "Xrefs_initial_slots": 5000,
+  "Xrefs_lifetime_appends": 0,
+  "added_native_switch": "-gnatx",
+  "canonical_save_argc_bound": 40,
+  "canonical_save_argv_pointer_count_including_sentinel": 41,
+  "comparison_examples": [
+    {
+      "baseline_non_xref_ALI_bounds_reused": true,
+      "max_record_bytes_including_LF": 560,
+      "per_record_reserve_fits": true,
+      "serialized_file_byte_bound": 1065017,
+      "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021",
+      "source": "samples/null.adb",
+      "source_identifier_length_in_remaining_ALI_records": false
+    },
+    {
+      "baseline_non_xref_ALI_bounds_reused": true,
+      "max_record_bytes_including_LF": 560,
+      "per_record_reserve_fits": true,
+      "serialized_file_byte_bound": 1065017,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "source": "samples/hello_world.adb",
+      "source_identifier_length_in_remaining_ALI_records": false
+    },
+    {
+      "baseline_non_xref_ALI_bounds_reused": true,
+      "max_record_bytes_including_LF": 560,
+      "per_record_reserve_fits": true,
+      "serialized_file_byte_bound": 1065017,
+      "sha256": "dc8f33010a2b0a1bb77afc55a184a1f6b4e73d7bed1ca6e94ab0880c984a7e6c",
+      "source": "samples/for_loop_step.adb",
+      "source_identifier_length_in_remaining_ALI_records": false
+    },
+    {
+      "baseline_non_xref_ALI_bounds_reused": true,
+      "max_record_bytes_including_LF": 560,
+      "per_record_reserve_fits": true,
+      "serialized_file_byte_bound": 1065017,
+      "sha256": "bde96907d4d27894bb3d116b482720f800f23a4e582b774672825cc18a949d27",
+      "source": "samples/command_line_greeting.adb",
+      "source_identifier_length_in_remaining_ALI_records": false
+    },
+    {
+      "baseline_non_xref_ALI_bounds_reused": true,
+      "max_record_bytes_including_LF": 560,
+      "per_record_reserve_fits": true,
+      "serialized_file_byte_bound": 1065017,
+      "sha256": "7321d8b442fcc5d122bdfd4dc175417fc688df2639111783bb895288a8fe747c",
+      "source": "samples/find_square_difference.adb",
+      "source_identifier_length_in_remaining_ALI_records": false
+    }
+  ],
+  "compiler_binder_or_test_execution": false,
+  "decoded_option_count_bound": 20,
+  "decoded_option_object_bytes": 1920,
+  "existing_descriptors_or_production_flags_changed": false,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "gnat1_argc_bound": 20,
+  "gpr_commit": "bdfb879cf03643ec8e48a09ce07b08c4a6ff0263",
+  "native_GCC_argument_count": 11,
+  "remaining": "actual native configuration selection/implementation and validation, descriptor and provenance updates, complete tool-route capacity",
+  "scope": "Proposed Linux x86_64 native Main -gnatx configuration; not selected, executed or implemented",
+  "semantic_reference_marking": "Generate_Reference work before Xref_Active guard remains; do not delete its semantic/warning transfers",
+  "source_inputs": {
+    "baseline/local-envelope.json": {
+      "bytes": 762445,
+      "git_blob_sha1": "096bf51d10b4905f0f6a279a1fdf27856ca5155e",
+      "sha256": "026a7d2f4ed5d677319306865830f2285f129908ba9052ead6591b0465e37879"
+    },
+    "baseline/native-invocation-inputs.json": {
+      "bytes": 7883,
+      "git_blob_sha1": "8b2ecd4b1637c815ef23568425ad38b70cbaebc4",
+      "sha256": "a1103237eaab99267c27a85f62b859c66f0877ef3cd5f59388de59c8ce8776e1"
+    },
+    "gcc/ada/ali.adb": {
+      "bytes": 105321,
+      "git_blob_sha1": "34ec21474b58ef370349432bc714c0f3f8895d11",
+      "sha256": "a3af929177f6dcbc32b66768cad43a8466d12d030cf3360d7147455ea396f5a0"
+    },
+    "gcc/ada/ali.ads": {
+      "bytes": 56611,
+      "git_blob_sha1": "beee3630221ea83311f784ed63757afb5471d7f4",
+      "sha256": "ed344d8db777f70fe46b3464a1ef238823ded6ee8c9e50b564e799621236f09b"
+    },
+    "gcc/ada/alloc.ads": {
+      "bytes": 7830,
+      "git_blob_sha1": "7e36e8eb8783c8a444f6d79a5a7ea10c5e881a71",
+      "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d"
+    },
+    "gcc/ada/gcc-interface/lang-specs.h": {
+      "bytes": 3476,
+      "git_blob_sha1": "13048bee32bede46b1e6abfa81b876f4608cda5f",
+      "sha256": "9f3336a58e69cc491be8db6694e121024aadf4dc461965a8bede3e1f7050cc2b"
+    },
+    "gcc/ada/gnat1drv.adb": {
+      "bytes": 60186,
+      "git_blob_sha1": "cbad1e0f19e8c56a0b33708089eaca529a94d9b8",
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173"
+    },
+    "gcc/ada/gnatbind.adb": {
+      "bytes": 29989,
+      "git_blob_sha1": "c6e07dd071c99ff2086ba04ffb9c1359957a908c",
+      "sha256": "d5bb79bcf0186aad36eb4e1d2714087497e8a0e4a0544b3ebca70af96cca9f06"
+    },
+    "gcc/ada/lib-writ.adb": {
+      "bytes": 61061,
+      "git_blob_sha1": "bee2e4972dd8927e10eb4ccf4fb88af1ddeb5700",
+      "sha256": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342"
+    },
+    "gcc/ada/lib-xref.adb": {
+      "bytes": 98832,
+      "git_blob_sha1": "1f9d17fb8f81c7e9fc8917b3fbcbd5fff54caef7",
+      "sha256": "147491988f39790a213cf02e69c6997adb1809df75758940757cc0ebc7a700c4"
+    },
+    "gcc/ada/lib.adb": {
+      "bytes": 40494,
+      "git_blob_sha1": "bb0b297f6cb8aa83936b16bafa1d020d1957d1c8",
+      "sha256": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e"
+    },
+    "gcc/ada/lib.ads": {
+      "bytes": 51050,
+      "git_blob_sha1": "bda27010b55383850249115799b855753ea970c4",
+      "sha256": "a3ea0db298bf364eab4eff983ffaae3ff66063e4f9d17ad0eb864579a1ed53f4"
+    },
+    "gcc/ada/opt.ads": {
+      "bytes": 93026,
+      "git_blob_sha1": "9f75ce8ec221101b12b7e24dc35cc2546853338c",
+      "sha256": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e"
+    },
+    "gcc/ada/switch-c.adb": {
+      "bytes": 59201,
+      "git_blob_sha1": "840915e83a4316530bf71a443d98e9ba222132c6",
+      "sha256": "dbb1b360a6a58368d21cdf71cc3cf55c2803741f4dcf97aaf45b71e13d170c58"
+    },
+    "gprbuild/gpr/src/gpr-ali.adb": {
+      "bytes": 45361,
+      "git_blob_sha1": "83fa40c735f7ceed54174c14babed1b1ed15a217",
+      "sha256": "9d2c334d8b72a3d9aa64e0ad62ebe6d5026c31367aaee4b90bb5e87125059dde"
+    },
+    "gprbuild/gpr/src/gpr-ali.ads": {
+      "bytes": 22579,
+      "git_blob_sha1": "9e30aa622f83a0911f7cd18d3b13301d8c727944",
+      "sha256": "c9f4ba8eeb3f53c749803554571bf0ec1e83213f5f002f27f95b53637d0fcfca"
+    },
+    "gprbuild/gpr/src/gpr-util.adb": {
+      "bytes": 200047,
+      "git_blob_sha1": "3495ce52aa10b4fba6ad5762bd7dcb876e566a2a",
+      "sha256": "ea41517db36fa2cb3a09bfcf6f2827d5d7d1fbaf3dbafd9f3ded491196821ca1"
+    },
+    "gprbuild/src/gprbind.adb": {
+      "bytes": 43658,
+      "git_blob_sha1": "90698c6c36d2156518ae93176586378fbcf1ffd9",
+      "sha256": "aa716cf88788611d2b90c24eaa26f56aff869bd70309a46af32b1e4d4c2e0802"
+    },
+    "gprbuild/src/gprbuild-compile.adb": {
+      "bytes": 138514,
+      "git_blob_sha1": "0777c048ca25f81a9ff6d4726cdb82606195aa7e",
+      "sha256": "6a0a2bb3cad840f8d5330b829e4b83e4ff0a0f8d08fe15b36b034d8c6bbffcad"
+    },
+    "gprbuild/src/gprbuild-post_compile.adb": {
+      "bytes": 185437,
+      "git_blob_sha1": "30944faf7bb057b58a76efa5d0b6e2c07b7b6704",
+      "sha256": "1d3c92430ce32dca0dc88feb7be644342707dc644b9c46002ed218a07c976d02"
+    },
+    "gprbuild/src/gprlib.adb": {
+      "bytes": 87369,
+      "git_blob_sha1": "eb2ba94e22e7f8eb658876f35dff0d32be05edb4",
+      "sha256": "b125ed38c8f41fadc21a47cc2738b00b51de13e2f2b693a9129612e66334634b"
+    }
+  }
+}

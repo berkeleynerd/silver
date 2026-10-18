@@ -6391,6 +6391,96 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
 
 No new native compilation, debugger capture, proof, Lean run or test was used.
 
+## Proposed native-only suppression of cross-reference output
+
+The source review supports adding **`-gnatx` to the native Main compile class**
+as a controlled build option in #89. This is a proposed configuration of the
+unchanged tool, not a compiler modification or a selected production flag.
+The baseline invocation, ALI descriptors and selected ten-component results
+above remain unchanged. The separate
+[proposal reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-no-xref.py)
+and [record](../evidence/unbounded-programs/retained-native-expansion-20261017/native-no-xref-proposal.json)
+pin the inspected sources and compute the difference without running tools.
+
+The `x` switch case increments the option cursor and sets only
+Xref_Active=False (`switch-c.adb:1445–1449`). The only later True resets in
+gnat1drv belong to CodePeer and GNATprove modes (`:208–315,425–504`), both
+excluded by the native compile class. In particular this proposal does **not**
+change GNATprove options: that mode requires cross-references for computing
+subprogram effects and explicitly reenables them.
+
+Native cross-reference construction has three entrances, all disabled by this
+flag: Generate_Definition's guard (`lib-xref.adb:232–262`), the final recording
+branch of Generate_Reference (`:952–1203`), and Output_References itself
+(`lib-writ.adb:1618–1620`). Every Add_Entry call belongs to one of those routes.
+The semantic Referenced marks, unused/unreferenced warning logic and other
+work **before** Generate_Reference's guard still execute. Their existing
+transfers must not be removed merely because the xref table becomes empty.
+Has_Xref_Entry is written by Add_Entry and read only within Output_References;
+there is no selected execution or legality consumer of that flag.
+
+The suppressed data serves source navigation, not the selected build dependency
+or binder computation. GNAT's ALI.Scan_ALI accepts EOF immediately after
+invocation-graph records and explicitly ignores the X section
+(`ali.adb:3348–3377`); gnatbind uses it for both artificial and directly supplied
+ALI inputs (`gnatbind.adb:113–132,767–783`). It still consumes U/W/D/G and other
+ordinary records. The inspected GPR parser likewise accepts EOF after
+dependency/unknown-line handling (`gpr/src/gpr-ali.adb:274–292,1312–1320,
+1428–1469`). Its D-loop calls Check_Unknown_Line before exiting, so the current
+G records, unknown to this older parser, are skipped through EOF when X is
+absent. The build's ALI queries read W or DW; project utilities and library
+building read selected A/P/D/W/U rows. The binder-driver query reads A
+(`src/gprbuild-compile.adb:1617–1622,2059–2064`,
+`src/gprbuild-post_compile.adb:492–497,897–902,4342–4347`,
+`src/gprbind.adb:896–901`). Thus these consumers require no synthetic X header.
+The explanatory Read_XREF text in gpr-ali.ads is stale: its actual current
+signature has no such parameter, and the body does not parse X entities.
+
+With `-gnatx`, lifetime Xrefs appends and serialized X records are zero. Keep
+the initial 5,000-slot Xrefs table and its 65,536 signed-index hash buckets
+(`alloc.ads:157–158`, `lib-xref.adb:116–159,1317–1320`); the flag does not
+remove package initialization. The Xref sort vector, Curnam and
+Exact_Source_Name-result objects inside Output_References are absent, as are
+its orphan-type reference expansion, generic-position formatting, entity
+headers and continuation item lengths. The original capture's larger xref
+allowance remains conservative if temporarily retained, but must not be
+presented as measured behavior of the new configuration.
+
+This removes the source-identifier-dependent `L+116` ALI header bound and hence
+the earlier sufficient-rule loss at identifiers longer than 1,995 characters.
+The remaining selected ALI names are fixed unit/runtime/signature spellings
+or paths; Main's library name is always Main. At P=200 all five comparison
+examples have a largest record of **560 bytes including LF** and a conservative
+complete file bound of **1,065,017 bytes**, including the new A record.
+The result removes this particular analysis loss; source/name-table,
+qualification, backend identifier and other capacity checks remain required.
+
+The option is stored as one additional compilation switch
+(`switch-c.adb:299,1692–1694`), so the proposed class has 11 GCC arguments
+excluding the executable, at most 20 gnat1/decoded-option positions, two
+separate 1,920-byte decoded-option arrays, at most 40 canonical arguments and
+41 C pointer slots including the sentinel. The Ada argument array has at most
+39 entries. Seven compilation switches still fit the existing initial table.
+The new `A -gnatx` record adds 9 bytes including LF: A records total 81 bytes
+and retain their 16-character maximum before LF. This is the `-gnatx` delta
+alone; combining it with any separate proposed warning option requires an
+updated complete descriptor. Gprbind filters `-gnat*` records when deriving
+the binder-generated source's compiler options (`src/gprbind.adb:914–925`),
+so this Main-only choice does not silently select a new binder compile class.
+
+Reproduce this source-only proposal comparison:
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-no-xref.py \
+  --ada /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --gpr-archive /tmp/silver-retained-gpr-source-20261017/gprbuild-v26.0.0.tar.gz \
+  --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-no-xref-proposal.json
+```
+
+Adoption still needs production option separation, corresponding invocation
+and provenance records, and focused native compile/bind validation. This
+source derivation is neither that validation nor whole-route capacity.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
@@ -6470,8 +6560,9 @@ above. The native frontend/process is still incomplete at these explicit joins:
   non-table heaps. Parser Scope/Suspicious_Labels and their loop serial,
   diagnostic tables/strings, and invocation graph/hash/DFS containers now
   have the composed backing joins above. Temporary numeric vectors and the
-  selected Main ALI writer now have concrete joins; ALI consumers, diagnostic
-  rendering and remaining fixed buffers stay separate. The
+  selected Main ALI writer and frontend diagnostic rendering now have concrete
+  joins; ALI consumers, backend diagnostic rendering and remaining fixed buffers
+  stay separate. The
   backend's callbacks into Ada Uint/Repinfo allocation are additional to this
   before-gigi constructor sum, even if the AST identity count stays unchanged;
   their phase-unlock/growth state must join the same physical table checks.
