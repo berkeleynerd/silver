@@ -209,10 +209,20 @@ iteration and pointer-repair loops also require `C <= INT_MAX`. At most 4C²
 pointer repairs bound the cumulative work without turning time into an
 admission budget.
 
-No bounds node is reclaimed and recreated between these scans: Main's
-unchanged reachable pointer stores refer to it throughout the selected
-whole-unit preservation path. IPA unreachable-node removal therefore retains
-it; later releases do not rerun gimplification. `get_constructor` returns the
+No bounds node is reclaimed and recreated between these scans. The early
+inliner clears Main's references (`ipa-inline.cc:3239`), but without
+always-inline bodies its O0 route makes no body change or additional scan;
+the last scheduled graph rebuild restores the bounds references before
+whole-unit unreachable-node removal. The queued inline transform clears the
+references again after the whole-unit IPA passes
+(`ipa-inline-transform.cc:809–883`); its O0/no-inline guard skips
+`optimize_inline_calls`, and later releases do not rerun gimplification.
+`cgraph_node::get_body` would add another rebuild when consuming queued
+transforms, but its only callers are SIMD cloning and IPA PTA
+(`omp-simd-clone.cc:241,642,2004`;
+`gimple-ssa-pta-constraints.cc:3905`), both excluded here. Main's actual
+expansion calls `get_untransformed_body` and
+`execute_all_ipa_transforms(false)` (`cgraphunit.cc:1845–1869`). `get_constructor` returns the
 existing initializer in this non-LTO process (`varpool.cc:275–285`). Assembly
 uses the existing pool guard and emits each descriptor at most once
 (`varpool.cc:568–604`; `varasm.cc:2565–2601`). The possible later

@@ -414,6 +414,18 @@
       "path": "gcc/gimple-walk.cc",
       "bytes": 26386,
       "sha256": "7961afc473aead688648198056658ca5d591f83fbe2595d6ad3c2ecd55e3fc48"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ipa-inline-transform.cc",
+      "bytes": 30301,
+      "sha256": "152ccc17a9c38cf8226a0ade7abde662430c58d0e25b0482f2957725441a9fc3"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/omp-simd-clone.cc",
+      "bytes": 69159,
+      "sha256": "3e2268711d72d3fbc202c1ef6c9029f4461e4983420bcbf1da378b828f782276"
     }
   ]
 }
