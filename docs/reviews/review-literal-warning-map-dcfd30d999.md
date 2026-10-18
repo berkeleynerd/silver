@@ -189,3 +189,47 @@ remain open. No compiler, prover, debugger, broad suite, aggregate replay,
 delegation or GitHub write occurred. The live harness returned no goal; none
 was created or changed. CLI memory was not updated. The parent owns aggregate
 attachment, task integration and publication.
+
+## Attachment addendum: 6803ee54ca
+
+**Disposition: scoped acceptance; no material finding.** At the parent's
+request, I separately reviewed exact attachment target
+`6803ee54ca8d0a20bde4d2ce14562b84a9e46fd4` through its Git objects. Its
+seven-file diff changes the aggregate research document and the pipeline
+packet's `README.md`, `compose.py`, `check.py`, `inputs.json`, `result.json`
+and `check-results.json`. The warning-map component's six files are unchanged
+from the component target reviewed above, permitting reuse of that source
+assessment and successful focused replay.
+
+The attachment checks all 28 warning source identities and all four retained
+input identities before loading the callable. Its five new aggregate pins
+cover the formula, checker, source manifest, retained check and argument;
+direct calculation against the exact target matched each recorded length
+and SHA-256. The existing plugin configuration check still requires disabled
+statistics and checking. Shared C/N, C+1 direct copies, C additional location
+copies, 2C+1 selected calls and 2C+N local suppressions are explicitly joined.
+The prefix join retains the independent maximum-request/16-byte-entry
+derivation of 4093 rather than substituting an allocation-event count.
+
+`context.warning['evaluate'](c,n)` omits R, and the join requires both R and
+`conditional_map_transfer` to remain null, with source closure false. The
+negative test replaces this callable with a wrapper supplying R=0 and checks
+the expected join rejection. The attached output adds demand information
+and names the remaining source obligation. It adds neither a map GGC-event
+subtotal nor a conditional map-fit predicate, and it leaves complete
+gimplifier and whole-pipeline closure false. No earlier direct-call count is
+recast as a complete warning lifetime.
+
+I inspected the retained 73-case result, including the new silent-zero-R
+rejection, and directly checked that the retained default warning interface
+equals the reviewed leaf's `evaluate(1,0)`. The parent's recorded aggregate
+run was 3.343617804 seconds and default generation 2.869469845 seconds. These
+are reused implementation evidence, not new reviewer runs; no aggregate or
+native replay was performed for this addendum.
+
+The selected reviewer setting remains GPT-6 Astra / Extra High; runtime
+confirmation and token/cost evidence remain unavailable. This bounded
+attachment review began at 2026-10-18 19:48:51 UTC; source and retained-data
+checks completed at 19:49:20 UTC, elapsed 29 seconds. No implementation
+rework was needed. R, later location-changing phases and collector integration
+retain exactly the open status described in the component review.
