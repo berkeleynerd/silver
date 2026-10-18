@@ -4616,6 +4616,115 @@ one Main body and one return, replacing the earlier conservative two-body/two-
 return scaffold allowance for these fixtures only. It is source inspection;
 no new compiler/capture/proof execution establishes an additional fixed vector.
 
+### Null Main's fixed gigi roots and hidden global declaration
+
+The [source-root reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-gigi.py)
+and [inventory](../evidence/unbounded-programs/retained-native-expansion-20261017/native-null-gigi-inputs.json)
+narrow the semantic roots for this exact null source. The retained all-roots
+40,888-entity allowance is not an actual imported-entity conversion count.
+Normal native Compilation_Unit_to_gnu does **not** call
+elaborate_all_entities; that walk is confined to type_annotate_only
+(`gcc-interface/trans.cc:6007–6017,9596–9723`). A with clause itself either
+requests an empty statement list or a namespace; it does not translate the
+imported package's declarations (`:8333–8341`). Null has no source with clause.
+
+Reading System's text is also distinct from compiling its declarations.
+Targparm reads system.ads to acquire target constants
+(`gnat1drv.adb:1050–1095`). If it was not semantically loaded,
+Ensure_System_Dependency creates an ALI dependency-table entry with empty
+Cunit and Cunit_Entity (`lib-writ.adb:140–185`). The dependency alone therefore
+does not imply an imported gigi tree. Null has no input/output, Image, concat,
+type, object, allocator, task or cleanup route that requests an additional
+runtime unit. Main's Interrupt_Priority implicit load is GNATprove-only
+(`sem_ch10.adb:1408–1445`).
+
+The unconditional gigi entry setup installs four Standard base-type cache
+entries: Address, Integer, Character and Boolean. It then constructs and caches
+the two Boolean literal declarations (`trans.cc:398–438`). Despite the helper's
+name create_var_decl, these are **CONST_DECL**, since their scalar initializers
+are constant and the default const_decl_allowed_p is True
+(`utils.cc:3018–3058`, `gigi.h:706`). Character's signed/unsigned debug view is
+fixed GCC type work, not another imported GNAT entity (`utils.cc:2090–2165`).
+
+The remaining direct semantic type roots are:
+
+| Root | Selected structure and next semantic demands |
+| --- | --- |
+| Standard_Exception_Type | One nonvariant, nondiscriminated, untagged record with exactly seven components, listed below. |
+| Standard_Natural | One signed Integer subtype, with static 0 through Integer'Last bounds and cached Integer base. |
+| Standard_A_Char | One ordinary access type designating cached Character. |
+| Standard_Long_Long_Float | One self-typed floating-point base type with fixed target layout and bounds. |
+
+Gigi explicitly requests the exception and floating roots at `trans.cc:522`
+and `:648–650`. Cstand constructs the exception components in order as
+Boolean, Character, Natural, Address, A_Char, Address, A_Char
+(`cstand.adb:1526–1587`). Thus record conversion has seven component declarations
+and only Natural/A_Char add uncached semantic types. Natural's static subtype
+construction is at `cstand.adb:1015–1036`. A_Char's Directly_Designated_Type is
+Character (`:1161–1168`); its Etype=A_String does **not** make it an access
+subtype or demand an unconstrained String descriptor. Is_Base_Type uses its
+entity kind, while the ordinary access conversion follows the directly
+designated type (`einfo-utils.adb:665–690,1509–1512`,
+`gcc-interface/decl.cc:3809–4020`). Copy_Float_Type invokes Build_Float_Type,
+which sets Ekind to E_Floating_Point_Type and Etype to itself
+(`cstand.adb:192–220,294–300,519–523`). Its name does not denote a chain of
+imported floating subtypes. The GCC conversion/cache/layout work on these
+roots still requires its own quantities.
+
+Null's compilation-unit auxiliary declarations do not add an elaboration
+counter: that creator requires a package or subprogram **declaration**, not
+this body acting as its own spec (`sem_ch10.adb:1452–1524`). The other
+Add_Global_Declaration callers need a parameter-validity contract or a generated
+itype reference; both are absent in the no-formal, void-return null body
+(`checks.adb:2565–2615`, `sem_ch3.adb:11266–11297`). It has no aspects, trailing
+source pragmas, package renaming or imported compile-time warning to populate
+Pragmas_After/Actions (`par-ch10.adb:620–644`,
+`sem_ch13.adb:2009–2023,5806–5823`, `exp_ch8.adb:220–248`,
+`sem_prag.adb:36000–36035`). No generic/body-inlining route applies.
+
+The final Main freeze may contribute its own freeze node to Aux.Actions, but
+its profile has no parameters or function result, alias, foreign convention,
+imported contract or generated extra-formal type. The source freeze therefore
+has no transitive imported-type roots (`freeze.adb:4748–4935,6843–6900,
+8265–8285`, `sem_ch6.adb:8905–8956,9217–9222`). At the backend, Actions follow
+the already translated Main body (`trans.cc:6029,6069–6071`); a freeze of its
+cached FUNCTION_DECL returns immediately (`:9757–9776`). This bounds that
+possible metadata node without pretending it was never allocated.
+
+The fixed setup also contains direct GCC declarations that are not GNAT
+semantic roots. Before common/target builtin installation, there are at most
+**92 runtime FUNCTION_DECL/RESULT_DECL pairs**: 12 named helpers (counting both
+optional 128-bit multiply helpers) and 40 ordinary plus 40 extended raise
+helpers. LAST_REASON_CODE=39 fixes the latter counts
+(`trans.cc:442–616`, `types.h:441`); the largest signature has five arguments.
+The three OTHERS/ALL_OTHERS/UNHANDLED_OTHERS declarations are external VAR_DECLs
+without initializers and with ignored debug information (`trans.cc:568–586`),
+so global-declaration output skips them (`utils.cc:6492–6517`). Builtin/target
+installation and its additional declarations remain a separate fixed graph.
+
+Finally, the null source does **not** imply zero backend variables. Gigi always
+sets first_global_object_name from the Main entity (`trans.cc:367–370`). After
+the frontend returns, gnat_write_global_declarations therefore constructs one
+private-name VAR_DECL of void type and one varpool node, setting HARD_REGISTER,
+STATIC, definition and force_output (`misc.cc:123`, `utils.cc:6455–6490`). This
+dummy has no initializer from that path. It is distinct from the Main function,
+its label, and the empty compilation-unit elaboration function. Its later
+varpool/assembly treatment must be included even though the executable Main
+body has no variables. The inventory does not claim an emitted data object or
+a complete backend allocation bound from the presence of this declaration.
+
+Reproduce this source-only inventory:
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-gigi.py \
+  --ada /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada \
+  --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-null-gigi-inputs.json
+```
+
+The output verifies 22 source identities. It is a finite root/shape inventory,
+not a count of every descendant GCC allocation, a new native capture, or the
+complete capacity predicate.
+
 ## Numeric magnitudes in the closed concat stages
 
 The query-root bridge can also supply the missing digit bound for the combined

@@ -1,0 +1,180 @@
+{
+  "Boolean_literal_CONST_DECLs": 2,
+  "GCC_helper_requests_layout_backannotation_and_caches_priced": false,
+  "Main_FUNCTION_DECLs": 1,
+  "Main_aux_elaboration_counter_objects": 0,
+  "Main_aux_source_or_generated_pragmas_with_executable_effect": 0,
+  "Main_final_freeze_new_semantic_type_conversions": 0,
+  "Main_final_freeze_nodes_upper_bound": 1,
+  "System_text_dependency_implies_semantic_Unit_or_gigi_walk": false,
+  "body_local_LABEL_DECLs": 1,
+  "compilation_unit_elaboration_FUNCTION_DECLs": 1,
+  "compiler_or_prover_execution": false,
+  "complete_native_capacity_result": false,
+  "direct_fixed_runtime_FUNCTION_DECL_upper_bound": 92,
+  "direct_fixed_runtime_RESULT_DECL_upper_bound": 92,
+  "direct_uncached_semantic_type_roots": [
+    "Standard_Exception_Type",
+    "Standard_Natural",
+    "Standard_A_Char",
+    "Standard_Long_Long_Float"
+  ],
+  "exception_components": [
+    {
+      "name": "Not_Handled_By_Others",
+      "type": "Standard_Boolean"
+    },
+    {
+      "name": "Lang",
+      "type": "Standard_Character"
+    },
+    {
+      "name": "Name_Length",
+      "type": "Standard_Natural"
+    },
+    {
+      "name": "Full_Name",
+      "type": "Standard_Address"
+    },
+    {
+      "name": "HTable_Ptr",
+      "type": "Standard_A_Char"
+    },
+    {
+      "name": "Foreign_Data",
+      "type": "Standard_Address"
+    },
+    {
+      "name": "Raise_Hook",
+      "type": "Standard_A_Char"
+    }
+  ],
+  "external_ignored_OTHERS_VAR_DECLs": 3,
+  "forced_dummy_global_VAR_DECLs": 1,
+  "forced_dummy_global_varpool_nodes": 1,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "gigi_cached_Standard_bases": [
+    "Address",
+    "Integer",
+    "Character",
+    "Boolean"
+  ],
+  "largest_direct_fixed_runtime_argument_count": 5,
+  "native_walk_all_withed_entities": false,
+  "remaining": "Common/target GCC builtin inventory and initialization; helper/identifier/type/field layout and callback quantities; global declaration/cgraph/varpool pipeline and object/link consumers",
+  "scope": "Exact declaration-free null Main, selected ordinary native mode; source-root inventory, not tool execution or complete GCC capacity",
+  "source_inputs": {
+    "checks.adb": {
+      "bytes": 408092,
+      "git_blob_sha1": "3a0f86fc7f2cea6354c6e5eaaf011a7dc2fdc4c5",
+      "sha256": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c"
+    },
+    "cstand.adb": {
+      "bytes": 85030,
+      "git_blob_sha1": "68007f35587992eaa8e181fb2939bdc7ccbab48f",
+      "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737"
+    },
+    "einfo-utils.adb": {
+      "bytes": 97564,
+      "git_blob_sha1": "d50956db69b961fc4cf069842cc2c2f553a30d23",
+      "sha256": "177ee4fd85c802e6ee810b35ac253da8fcf3e979c12b7de4c62250ef544d67fa"
+    },
+    "exp_ch8.adb": {
+      "bytes": 14982,
+      "git_blob_sha1": "488ed9fd1c1335061aebd88616933ab1fe473d07",
+      "sha256": "056480e05660cceab25424f6544f981d28dce6ec1e8b7fa5990439937e9d51bd"
+    },
+    "exp_util.adb": {
+      "bytes": 533310,
+      "git_blob_sha1": "c2346844d0be427d313421214ba07bd8ed4b6b70",
+      "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1"
+    },
+    "freeze.adb": {
+      "bytes": 439830,
+      "git_blob_sha1": "19f365117c2eb7d4a1b5c7572d315c5dc74ff174",
+      "sha256": "245a9badc89a6f74f3084481150eca8e0a329b378815c44d2081b1f8d7339f7d"
+    },
+    "frontend.adb": {
+      "bytes": 19745,
+      "git_blob_sha1": "0ab416a7d324e47a1d0129857dcfbfc3c392b149",
+      "sha256": "c3322dab69929c2ff3eef9f768d98574cf56d337e452b2206eb44eb552f7ee67"
+    },
+    "gcc-interface/decl.cc": {
+      "bytes": 414991,
+      "git_blob_sha1": "4ccc8d7a0e10950c784bf95471644a4e201ed63f",
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2"
+    },
+    "gcc-interface/gigi.h": {
+      "bytes": 56241,
+      "git_blob_sha1": "793d7145b5e73d78a7294b2e4614e85f1bf73812",
+      "sha256": "6e2940a89abb01b7218eff64e13b3aabbc7a9970870670816160dc5991ba48e2"
+    },
+    "gcc-interface/misc.cc": {
+      "bytes": 47742,
+      "git_blob_sha1": "547aae5438c88ee4f15699566778eab905a52a3b",
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    "gcc-interface/trans.cc": {
+      "bytes": 406631,
+      "git_blob_sha1": "6db0aa0a6bec9a8f855167a7989ae36e0df9cb0c",
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    "gcc-interface/utils.cc": {
+      "bytes": 266602,
+      "git_blob_sha1": "3da24fdb61a6d359d1a08a723fb64c9d9bb626d9",
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    "gnat1drv.adb": {
+      "bytes": 60186,
+      "git_blob_sha1": "cbad1e0f19e8c56a0b33708089eaca529a94d9b8",
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173"
+    },
+    "lib-writ.adb": {
+      "bytes": 61061,
+      "git_blob_sha1": "bee2e4972dd8927e10eb4ccf4fb88af1ddeb5700",
+      "sha256": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342"
+    },
+    "par-ch10.adb": {
+      "bytes": 39645,
+      "git_blob_sha1": "7b019662f7f28aef596fef1b1c4710c197b98f48",
+      "sha256": "4ed233f32ad1a0ba61daadeca145fb7169fa97368341913513b418cf6769c7c6"
+    },
+    "sem_ch10.adb": {
+      "bytes": 276225,
+      "git_blob_sha1": "756032f6a4cb386f93d40b8833053999518abb6d",
+      "sha256": "234e1a651e8121eda2042d4b26fdd0c16732524262fd51316fe6df670d5e1a58"
+    },
+    "sem_ch13.adb": {
+      "bytes": 743731,
+      "git_blob_sha1": "f2493e53a719854deeb5c08d3675a04e2493db41",
+      "sha256": "570d8a1cc74520fd95a12a9921bfe0893da7857517b4a2910da2bf65c880fd96"
+    },
+    "sem_ch3.adb": {
+      "bytes": 916035,
+      "git_blob_sha1": "6bf7e308f1c2aec993629e309f795408de7e76c6",
+      "sha256": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f"
+    },
+    "sem_ch6.adb": {
+      "bytes": 545826,
+      "git_blob_sha1": "022590444537538d284100588047d28267086d41",
+      "sha256": "4dbe4ecbf943e6d2fef4fb90882da7c8570752c46c05c682a3e2beba955d7089"
+    },
+    "sem_prag.adb": {
+      "bytes": 1304902,
+      "git_blob_sha1": "02e06dbb8b02846b01496f6f0e8fb323b12d47cb",
+      "sha256": "492afe76210ea5539460fd417bbc03cad3bde8fd86889d56144522d71c931093"
+    },
+    "sem_util.adb": {
+      "bytes": 1074489,
+      "git_blob_sha1": "05e7844d3613767c82df9125906d54b127e4897f",
+      "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4"
+    },
+    "types.h": {
+      "bytes": 14364,
+      "git_blob_sha1": "2c4156b014ad47b10fb3ea37294fe63038c98eba",
+      "sha256": "3b688be6eaba2108885ddaa0342be93416f3f53da12d3e4f6dc2fb38ee787fa3"
+    }
+  },
+  "source_object_declarations": 0,
+  "target_and_common_GCC_builtins_included": false
+}
