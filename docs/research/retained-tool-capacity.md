@@ -136,7 +136,12 @@ The current derivation has seven reusable component groups:
 
 The concrete zero-check source join gives null Main no Why3 or solver
 subprocess, and gives straight-line literal-output Main no backend tasks of
-its own. Output still selects the fixed library verification processes. On
+its own. Output still selects the fixed library verification processes. The
+[fixed-context projection](retained-producer-fixed-context.md) now identifies
+their complete11-file/252-module import closure,174 library clone directives
+and exact native pretyping declarations. It supplies native clone-path
+exclusions and the retained axiom/callable formula bound2F+3. Complete typed
+lifetime/context capacity still needs its fixed-input transfer. On
 the native path, null and one literal Put have no secondary-stack/finalizer
 scaffold; their executable graph is now separate from the conservative fixed
 import allowance. These are useful source specializations, not complete
@@ -314,8 +319,12 @@ convergence in at most two iterations. Retained/trial address endpoints are
 The [relocation transfer](retained-linker-relocations.md) now checks462,574
 fixed and95 binder relocations, supplies Main's source-derived operand forms,
 and establishes the conditional signed32 envelope1,745,421,669 with merged
-addends and TLS treated explicitly. Symbol/instruction compatibility and edited
-EH fields remain separate. Selected layout, merge/EH and final-link auxiliary
+addends and TLS treated explicitly. The
+[Main/fixed-link interface](retained-linker-interface.md) now supplies the
+selected symbol and fixed-instruction compatibility transfer; the
+[EH range join](retained-linker-eh-frame.md#selected-function-ranges-and-emitted-fields)
+establishes nonoverlapping local function ranges and emitted-field bounds.
+Selected layout, merge/EH and final-link auxiliary
 requests are bounded; complete linker/process closure still needs composition.
 The [selected defaults](retained-linker-defaults.md)
 exclude compression, RELR packing, STABS rewriting and additional script data.
@@ -350,7 +359,9 @@ are bounded; the config/map option prefix correction uses `P+8`, including
 the equals sign. The fixed startup pass-registry transfer now covers394
 instances from304 factories, with largest ordinary request65,536 bytes;
 unconditional coverage filename and cwd buffers are charged separately.
-Remaining GCC-owned startup/static-exit and process composition remain open.
+The reviewed fixed-prefix/read projection and actual executable lifecycle
+census now close GCC-owned fixed startup and static exit. Variable
+source/invocation/table predicate integration and process composition remain.
 The binder's accepted filename projection now transfers a complete fixed
 compiler lifetime:48,889 GGC allocation events and4,155,400 rounded bytes.
 The first-collection argument excludes actual collection for that family;

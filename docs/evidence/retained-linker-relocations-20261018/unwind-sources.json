@@ -1,0 +1,12 @@
+[
+  {
+    "path": "bfd/elf-eh-frame.c",
+    "bytes": 75506,
+    "sha256": "4eb5169450ed408e0b8f424c49244fdf30c1c8a0faf3d8a619454dd24f24d7a8"
+  },
+  {
+    "path": "include/dwarf2.def",
+    "bytes": 29189,
+    "sha256": "975ebd21b7e0c4d0b4f311cb0dc63dc81786ae53eab1c32d3b0799727058922d"
+  }
+]

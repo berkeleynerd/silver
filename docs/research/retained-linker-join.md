@@ -177,8 +177,12 @@ to the checker. Its sharper twelve-program-header bound does not require
 replacing the valid conservative T used above. The reviewed
 [operand census and reach transfer](retained-linker-relocations.md) now supplies
 original and rewritten address domains, including merge cancellation and TLS;
-its common signed32 envelope is1,745,421,669. Symbol/instruction compatibility
-and edited EH fields remain separate. The
+its common signed32 envelope is1,745,421,669. The
+[external-interface projection](retained-linker-interface.md) connects stable
+Main metadata and the accepted indexed binder to the retained successful link,
+establishing selected symbol/fixed-instruction compatibility. The
+[EH range and field join](retained-linker-eh-frame.md#selected-function-ranges-and-emitted-fields)
+checks local function intervals, nonoverlap and rewritten relative fields. The
 [auxiliary storage transfer](retained-linker-layout.md) covers layout, merge/EH
 and final-link scratch requests; complete BFD/LD closure remains open.
 Finishing the selected null

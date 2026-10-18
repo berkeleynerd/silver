@@ -18,3 +18,15 @@ python3 docs/evidence/retained-linker-relocations-20261018/check.py --output /tm
 No compiler, assembler, linker or prover is executed. This is an offline
 inventory/arithmetic check, not a proof of C control flow, symbol resolution,
 instruction compatibility or complete linker capacity.
+
+`check-unwind.py` adds the FDE range/nonoverlap and CFA operand-length census
+described in the [unwind record](../../research/retained-linker-eh-frame.md).
+Its supplemental `unwind-sources` files retain `elf-eh-frame.c` and the DWARF
+opcode definitions, for fourteen checked sources in total. The result retains
+a digest of the complete per-input range inventory; the checker reconstructs
+that inventory from the pinned ELF inputs. It does not execute the CFA
+expressions or infer universal unwind semantics from the inventory.
+
+```sh
+python3 docs/evidence/retained-linker-relocations-20261018/check-unwind.py --output /tmp/retained-unwind-range-replay.json
+```

@@ -189,3 +189,83 @@ hash growth and header-array lifecycle, finding no defect in these conditional
 claims. It corrected the two source citations above. That review does not
 establish the remaining emitter or final-layout obligations.
 The fixed-byte join was added afterward and has its own retained checker scope.
+
+## Selected function ranges and emitted fields
+
+The later [operand/layout join](retained-linker-relocations.md) supplies
+V=871,701,307, output EH alignment8 and the743,934-byte union of edited EH
+payloads. The [range checker](../evidence/retained-linker-relocations-20261018/check-unwind.py)
+now independently reads the original ELF relocation targets and function ranges
+for all888 fixed EH sections and the accepted binder object. It rehashes the
+fixed files and archive members and retains fourteen complete source files
+across its shared and supplemental packets. No native tool runs.
+
+There are **14,267 fixed FDEs** and **five binder FDEs** in this unweighted input
+census. Earlier14,948 remains the conservative fixed processing-occurrence
+bound, so these counts do not contradict one another. Every original FDE:
+
+- uses four-byte signed PC-relative initial-location encoding (`0x1b`);
+- has exactly one PC32 initial-location relocation naming a local symbol in
+  a defined executable section, independent of global symbol resolution;
+- has a positive, literal function range, with no relocation on that range;
+- starts and ends inside that section, which is neither mergeable nor TLS;
+- does not overlap another FDE range in the same input code section.
+
+The largest range is36,684 bytes. The checks cover1,080 code sections including
+binder. The CIE and FDE instruction walks consume163,618 CFA operations, using
+the operand-length grammar of `skip_cfa_op` (`bfd/elf-eh-frame.c:345–418`);
+there is **no DW_CFA_set_loc**. Expression blocks are skipped by their checked
+length, not interpreted as a proof of unwinder semantics. All present
+personality encodings are indirect signed PC-relative32 (`0x9b`), and all
+present LSDA encodings are signed PC-relative32 (`0x1b`). These exact fixed
+streams retain their meaning under the accepted fixed-input projection;
+their variable address fields have the separate relocation bounds.
+
+Input code mapping concatenates these nonmerge, non-TLS sections into disjoint
+output intervals. There is no overlay, code-folding option or executable merge
+section in the selected descriptor. The selected x86 GOT/TLS instruction
+rewrites replace bytes in place. They do not change these original function
+intervals. Removing an EH record or merging a CIE cannot introduce a new
+function interval. This transfers the within-section nonoverlap check to the
+fixed and binder output functions.
+
+Main contributes its single source-derived interval, of length at most26,
+in a separately mapped `.text` input. It has no personality, LSDA or set_loc.
+The three possible linker PLT FDEs each cover their separately generated
+`.plt`, `.plt.got` or `.plt.sec` section. Their range fields are exactly the
+associated PLT section sizes (`bfd/elfxx-x86.c:2693–2723`); their start fields
+are the corresponding output-section address minus the EH field address
+(`:2903–2976`). The fixed/generated input census has no other PLT code input,
+and the selected script keeps these output families separate. Therefore these
+ranges are disjoint from each other and from ordinary input code. Each PLT
+range fits unsigned32 because its section payload is already bounded by the
+joined payload union, itself below signed32.
+
+The remaining writer fields now have concrete domains:
+
+| Field | Source and bound |
+| --- | --- |
+| Edited entry length and CIE back-reference | Nonnegative offsets within the743,934-byte EH output bound; `elf-eh-frame.c:2010–2027,2145–2154`. The output EH walk follows link order (`elflink.c:15237–15280`), and CIE merging selects an earlier representative (`elf-eh-frame.c:1302–1335`); the reference is a backward distance. |
+| FDE initial location | The writer adds old offset minus new offset to the already relocated PC-relative field, preserving its code target; `:2188–2207`. The result is a difference of mapped addresses and fits signed32. |
+| Personality and LSDA address | The same offset adjustment preserves the relocated target; `:2100–2120,2232–2256`. The operand transfer's V+K bound covers the final relative value, including original addends. No smaller16-bit encoding occurs. |
+| set_loc adjustment | Absent from all selected fixed, binder and Main inputs; PLT templates have no such opcode. |
+| Header's EH pointer | The generic selected encoder subtracts the header field address from the EH address; `:2624–2632`. Both are mapped addresses within V. |
+| Header search entries | Function-start and FDE addresses minus header address have magnitude at most V; `:2523–2545`. Each function start plus range is its already bounded code endpoint. |
+
+The existing FDE-count bound covers the header count field and array indexing.
+The source-derived Main interval and exact original range census above also
+discharge the header writer's nonoverlap guard (`:2546–2557`); an image-span
+bound alone could not do that. All edited relative fields use the intended
+modular address subtraction before writing the signed displacement. No
+representation limit is hidden by ignoring an overlapping range or wrapping
+a growing counter.
+
+This closes the selected range and emitted-field representation join, under
+the existing input/emission/layout premises. It does not claim a new general
+DWARF semantic proof or complete linker/process capacity. Symbol/instruction
+compatibility and whole-source composition retain their separate records.
+
+Independent review replayed the packet byte-equal and accepted this field/range
+scope. It requested an overlap check for complete relocation fields around each
+FDE range, rather than checking only one starting byte, and the explicit
+output-order/CIE citations above. Both are included. No native tool ran.

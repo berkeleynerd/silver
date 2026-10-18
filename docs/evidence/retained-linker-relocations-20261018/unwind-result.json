@@ -1,0 +1,39 @@
+{
+  "scope": "Selected original FDE code ranges, CFA decoding and conditional edited-field reach; not full unwind semantic proof",
+  "source_files_verified": 14,
+  "input_counts": {
+    "fixed_files_verified": 15,
+    "archive_members_verified": 1161,
+    "fixed_ET_REL_files": 1166,
+    "fixed_symbol_records": 40885,
+    "fixed_merge_section_symbol_relocations": 113432,
+    "DSOs_excluded_from_relocation_scan": 3,
+    "binder_ET_REL_files": 1,
+    "binder_symbol_records": 179
+  },
+  "EH_counts": {
+    "fixed_EH_sections": 888,
+    "CIE_R_encoding_0x1b": 1060,
+    "CFA_operations": 163618,
+    "fixed_FDEs": 14267,
+    "maximum_range": 36684,
+    "zero_ranges": 0,
+    "code_sections_with_FDEs": 1080,
+    "CIE_P_encoding_0x9b": 175,
+    "CIE_L_encoding_0x1b": 174,
+    "binder_EH_sections": 1,
+    "binder_FDEs": 5,
+    "CFA_set_loc": 0
+  },
+  "original_FDE_ranges_in_nonmerge_nonTLS_code": true,
+  "original_FDE_ranges_nonoverlapping_within_each_input_section": true,
+  "original_FDE_initial_location_encoding": "DW_EH_PE_pcrel | DW_EH_PE_sdata4",
+  "range_inventory_sha256": "c0b7d5261ebc891ee30daa3c16ae00b29579ad2574bdacd8496272e3903b51cf",
+  "function_and_FDE_address_upper": 871701307,
+  "original_and_edited_EH_payload_union": 743934,
+  "original_FDE_range_maximum": 36684,
+  "Main_range_upper": 26,
+  "final_signed32_fields_fit_under_operand_projection": true,
+  "native_tool_executions": 0,
+  "whole_link_capacity_established": false
+}
