@@ -706,7 +706,7 @@ suffix domain.
 The global table owns an independent objalloc, not an output-BFD arena.
 Objalloc stores a current pointer, unsigned32 remaining space in a small
 chunk and a linked list of chunks. It has **no cumulative byte counter**
-(`include/objalloc.h:51–56`). Each small chunk is4064 bytes; large requests
+(`include/objalloc.h:44–49`). Each small chunk is4064 bytes; large requests
 add a16-byte header after eight-byte alignment
 (`libiberty/objalloc.c:62–175`). A request taken from the current small chunk
 is guarded by its remaining space. Individual names, fixed-size records and
@@ -716,10 +716,12 @@ RAM is not another representation predicate. Allocation failure remains an
 external resource outcome under the proposed capacity contract.
 
 This closes the selected global hash count, per-request arithmetic and
-rollback-snapshot storage interface. It does **not** close BFD's separate
-actual cumulative `alloc_size` counter, the local-IFUNC table, other link
-arenas, ordinary symbol/section String tables, generated input counts or
-final layout. Those remain separate joins.
+rollback-snapshot storage interface. The separate
+[cache-statistic consumer argument](retained-linker-capacity.md#cache-statistics-do-not-constrain-the-selected-link)
+now shows that BFD's `alloc_size` is unobserved under this descriptor; it
+requires no cumulative byte gate. The local-IFUNC table, other link allocation
+requests, ordinary symbol/section String tables, generated input counts and
+final layout remain separate joins.
 
 The [offline checker](../evidence/retained-linker-symbols-20261018/check-hash-storage.py)
 verifies37 complete source identities, the reviewed bitfield inventory and
@@ -733,3 +735,11 @@ compiler, assembler, linker or prover was executed for this result.
 python3 docs/evidence/retained-linker-symbols-20261018/check-hash-storage.py \
   --output /tmp/linker-hash-storage.json
 ```
+
+
+Independent narrow review replayed37 source identities and the hash result
+byte-for-byte, then checked the derived record constructor/layout, warning
+and common snapshot cases, count/size restoration, length/NUL arithmetic and
+objalloc paths. It accepted this transfer and the preceding W=0 composition;
+the objalloc field citation was corrected after review. Generated count/length
+and whole-link closure remain outside that acceptance.

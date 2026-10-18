@@ -1,0 +1,12 @@
+[
+  {
+    "path": "docs/evidence/retained-link-no-lto-20261018/capture/result.json",
+    "bytes": 4593,
+    "sha256": "5a9d78fc608e5db40b615d2ebac74a4016679394ef0d0d3308c0486b5d7e5b9e"
+  },
+  {
+    "path": "docs/evidence/retained-link-no-lto-20261018/capture/driver-only.stderr",
+    "bytes": 6427,
+    "sha256": "0750c576ae23423da4e5283cb1cefeff6a49c580494aa18e3012afb1d9edb432"
+  }
+]

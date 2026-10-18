@@ -1,0 +1,191 @@
+{
+  "scope": "Selected x86-64 link without --max-cache-size or plugins",
+  "complete_source_files_verified": 1516,
+  "retained_input_identities_verified": 2,
+  "member_access_inventory": {
+    "bfd/elf32-i386.c": [
+      {
+        "line": 2019,
+        "text": "info->cache_size += sec->size;"
+      }
+    ],
+    "bfd/elf64-x86-64.c": [
+      {
+        "line": 3109,
+        "text": "info->cache_size += sec->size;"
+      }
+    ],
+    "bfd/elflink.c": [
+      {
+        "line": 72,
+        "text": "if (info->max_cache_size == (bfd_size_type) -1)"
+      },
+      {
+        "line": 76,
+        "text": "size = info->cache_size;"
+      },
+      {
+        "line": 79,
+        "text": "if (size >= info->max_cache_size)"
+      },
+      {
+        "line": 87,
+        "text": "size += abfd->alloc_size;"
+      },
+      {
+        "line": 2922,
+        "text": "info->cache_size += size;"
+      }
+    ],
+    "bfd/libbfd.c": [
+      {
+        "line": 457,
+        "text": "abfd->alloc_size += size;"
+      }
+    ],
+    "ld/ldmain.c": [
+      {
+        "line": 762,
+        "text": "link_info.max_cache_size = (bfd_size_type) -1;"
+      }
+    ],
+    "ld/lexsup.c": [
+      {
+        "line": 1776,
+        "text": "link_info.max_cache_size = cache_size;"
+      }
+    ]
+  },
+  "other_identifier_inventory": {
+    "bfd/bfd-in2.h": [
+      {
+        "line": 2202,
+        "text": "bfd_size_type alloc_size;"
+      }
+    ],
+    "bfd/bfd.c": [
+      {
+        "line": 359,
+        "text": ".  bfd_size_type alloc_size;"
+      }
+    ],
+    "bfd/elf32-xtensa.c": [
+      {
+        "line": 2107,
+        "text": "static bfd_size_type alloc_size = 0;"
+      },
+      {
+        "line": 2119,
+        "text": "if (len > alloc_size)"
+      },
+      {
+        "line": 2122,
+        "text": "alloc_size = len;"
+      }
+    ],
+    "bfd/elflink.c": [
+      {
+        "line": 2893,
+        "text": "update cache_size.  */"
+      }
+    ],
+    "include/ansidecl.h": [
+      {
+        "line": 254,
+        "text": "/* Attribute `alloc_size' was valid as of gcc 4.3.  */"
+      },
+      {
+        "line": 257,
+        "text": "#  define ATTRIBUTE_RESULT_SIZE_1 __attribute__ ((alloc_size (1)))"
+      },
+      {
+        "line": 265,
+        "text": "#  define ATTRIBUTE_RESULT_SIZE_2 __attribute__ ((alloc_size (2)))"
+      },
+      {
+        "line": 273,
+        "text": "#  define ATTRIBUTE_RESULT_SIZE_1_2 __attribute__ ((alloc_size (1, 2)))"
+      }
+    ],
+    "include/bfdlink.h": [
+      {
+        "line": 771,
+        "text": "bfd_size_type cache_size;"
+      },
+      {
+        "line": 773,
+        "text": "/* The maximum cache size.  Backend can use cache_size and and"
+      },
+      {
+        "line": 774,
+        "text": "max_cache_size to decide if keep_memory should be honored.  */"
+      },
+      {
+        "line": 775,
+        "text": "bfd_size_type max_cache_size;"
+      }
+    ],
+    "ld/ldlang.c": [
+      {
+        "line": 197,
+        "text": "stat_memdup (const void *src, size_t copy_size, size_t alloc_size)"
+      },
+      {
+        "line": 199,
+        "text": "void *ret = obstack_alloc (&stat_obstack, alloc_size);"
+      },
+      {
+        "line": 201,
+        "text": "if (alloc_size > copy_size)"
+      },
+      {
+        "line": 202,
+        "text": "memset ((char *) ret + copy_size, 0, alloc_size - copy_size);"
+      }
+    ],
+    "ld/lexsup.c": [
+      {
+        "line": 1773,
+        "text": "bfd_size_type cache_size = strtoul (optarg, &end, 0);"
+      }
+    ],
+    "libiberty/xmemdup.c": [
+      {
+        "line": 8,
+        "text": "size_t @var{copy_size}, size_t @var{alloc_size})"
+      },
+      {
+        "line": 10,
+        "text": "Duplicates a region of memory without fail.  First, @var{alloc_size} bytes"
+      },
+      {
+        "line": 35,
+        "text": "xmemdup (const void *input, size_t copy_size, size_t alloc_size)"
+      },
+      {
+        "line": 37,
+        "text": "void *output = xmalloc (alloc_size);"
+      },
+      {
+        "line": 38,
+        "text": "if (alloc_size > copy_size)"
+      },
+      {
+        "line": 39,
+        "text": "memset ((char *) output + copy_size, 0, alloc_size - copy_size);"
+      }
+    ]
+  },
+  "selected_unobserved_unsigned_fields": [
+    "bfd.alloc_size",
+    "bfd_link_info.cache_size"
+  ],
+  "selected_max_cache_size": "UINT64_MAX",
+  "semantic_justification": "Every selected reader returns before observing either field; modular updates affect only those fields",
+  "mathematical_cumulative_totals_no_wrap_claim": false,
+  "additional_cumulative_memory_predicate_required_for_these_fields": false,
+  "individual_allocation_size_and_container_obligations_unchanged": true,
+  "source_reachability_automatically_proved": false,
+  "whole_link_capacity_established": false,
+  "native_execution": false
+}

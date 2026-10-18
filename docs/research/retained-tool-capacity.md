@@ -41,6 +41,11 @@ environment premises, every source passing the rule avoids representation
 overflow throughout the selected build and all assurance-essential production
 paths. This is separate from semantic safety, complete obligation generation
 and automatic discharge; those guarantees still need their existing arguments.
+Defined modular arithmetic needs no no-wrap bound when its selected meaning
+is modular (such as hashing), or a specific consumer argument proves that
+its result cannot affect allocation, representation, output or success. The
+[linker cache statistics](retained-linker-capacity.md#cache-statistics-do-not-constrain-the-selected-link)
+are such an unobserved case; this does not waive any live capacity counter.
 
 The bound concerns tool representation, not available RAM, disk or elapsed time.
 Physical resource exhaustion can still interrupt a permitted operation. A
@@ -281,7 +286,11 @@ unshared-byte and positive-reference bounds, including rollback losses; its
 generated count/length and section-visit inputs remain open. The global
 hash join now bounds actual count high water, record/backbone requests and
 as-needed rollback snapshots. Its objalloc has no cumulative byte counter;
-the separate BFD `alloc_size` and other arenas remain open.
+the separate BFD cache statistics are now shown unobserved under the
+selected configuration. Other allocation requests remain open. The
+[section/header join](retained-linker-layout.md) supplies input/output walk
+bounds and actual/reserved ELF header counts; final payload, file/virtual
+layout and relocation reach remain open.
 
 The selected null DF/IRA/LRA join bounds the persistent reference-order counter
 by 1,785,936, below the **signed** comparison limit, and each iterative
@@ -297,12 +306,14 @@ ranger and CFG backing now contributes100 further GGC events; ranger setup
 uses ordinary storage and its Boolean ranges remain inline. The complete
 98-pass generic RTL schedule and eight target insertions add one late
 RTL-info allocation; selected final/CFI/section emission adds five further
-GGC requests. Null gigi helper objects and vectors add11 more, making the
-known subtotal 40,086 after the structural, shared-cache, unit-symbol,
-initial GIMPLE/CFG/SSA and warning/IPA joins. The cgraph lifecycle adds
-zero GGC events and establishes one lowering and expansion of Main; variable
-metadata and shared collector/process composition remain explicit in the
-native expansion record. The
+GGC requests. Null gigi helper objects and vectors add11 more. Including
+the structural, shared-cache, unit-symbol, initial GIMPLE/CFG/SSA, warning/IPA
+and source/location joins, the known GGC subtotal is40,098. The cgraph lifecycle adds
+zero GGC events and establishes one lowering and expansion of Main. The
+source/location join adds12 events under its path/node premises, bounding
+at most three files and twelve ad-hoc location requests. Ada callbacks and
+shared collector/process composition remain explicit in the native
+expansion record. The
 [unwind sizing transfer](retained-linker-eh-frame.md) bounds conditional input
 editing and header/CIE storage, including narrower32-bit intermediates;
 emitted-field validity and final relocation reach remain separate obligations.

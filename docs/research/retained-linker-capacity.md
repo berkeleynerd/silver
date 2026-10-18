@@ -130,6 +130,70 @@ its unsigned-long alignment addition and subsequent header addition. Small
 chunk requests are fixed at 4064 bytes. These facts close the allocation-size
 arithmetic for this table family; available RAM remains a separate condition.
 
+## Cache statistics do not constrain the selected link
+
+The earlier global-hash result left BFD's `alloc_size` as a separate possible
+cumulative counter. Inspecting its consumers resolves that question for the
+selected descriptor without a lifetime-RAM condition. `bfd.alloc_size` and
+`bfd_link_info.cache_size` are unsigned64 statistics on this target. The
+former is updated after a successful `bfd_alloc`; the latter is updated for
+cached relocation and converted-section contents
+(`libbfd.c:434–458`, `elflink.c:2900–2925`, `elf64-x86-64.c:3100–3110`).
+Neither update uses the accumulated value to construct the allocation or
+index an object.
+
+Their sole reader is `_bfd_elf_link_keep_memory`. It returns before either
+read when `max_cache_size == (bfd_size_type)-1`
+(`elflink.c:53–93`). `ldmain.c:760–762` initializes that value, and the sole
+selected setter is the parser's `--max-cache-size` case
+(`lexsup.c:1770–1778`). That option is absent from the selected fixed link
+command; plugins and user-supplied options remain excluded. The optional
+mmap and `!keep_memory` branches return even earlier. None observes either
+statistic. There is no later reset of the maximum that makes old accumulated
+values visible.
+
+Consequently, two selected executions with identical meaningful state and
+arbitrary different values of these two statistics make the same allocation
+requests, decisions and output. Each update changes only its own statistic
+using defined unsigned modular addition; each potential reader returns
+before looking at it. This gives an erasure invariant for these fields under
+the descriptor. It **does not assert that their mathematical cumulative
+byte totals never wrap**. Such wrapping is unobserved and cannot corrupt a
+representation or cause a rejection. As with modular hash arithmetic, it
+needs no no-wrap predicate. If `--max-cache-size` becomes reachable, this
+argument no longer applies and the cache heuristic needs its own analysis.
+
+All individual BFD allocation sizes, alignment/header additions, array
+counts, section/string/symbol offsets and other live counters retain their
+existing obligations. This result closes only the two statistic-consumer
+questions; it does not establish complete BFD allocation-request coverage.
+No aggregate RAM/address-span gate is added across independent objects.
+
+The [offline checker](../evidence/retained-linker-capacity-20261018/check-cache-statistics.py)
+hash-verifies the retained inventory of1,516 complete non-test BFD, LD,
+include and libiberty files, including generation templates. Its
+[result](../evidence/retained-linker-capacity-20261018/cache-statistics-results.json)
+records all ten member accesses: the unused i386 update is included in the
+inventory and excluded from the x86-64 execution. Other identifier uses are
+field declarations, comments, allocation-size attributes and unrelated local
+variables/parameters. Two retained no-LTO command records are checked
+separately. The written consumer argument establishes the scope; source
+hashes and lexical searches are reconciliation checks, not a C proof.
+The selected source/tool behavior premise is unchanged.
+
+Replay uses the already retained full source tree, whose immutable archive
+URL, archive digest and per-file identities are in
+[the source inventory](../evidence/retained-linker-capacity-20261018/cache-source-inventory.json):
+
+```sh
+python3 docs/evidence/retained-linker-capacity-20261018/check-cache-statistics.py \
+  --binutils-root /tmp/silver-link-layout-20261018/sources \
+  --output /tmp/linker-cache-statistics.json
+```
+
+Independent focused source review confirmed the unsigned type, initialization,
+sole option setter and early-return consumer argument. No native tool ran.
+
 ## Remaining native composition
 
 The [fixed input closure](retained-link-inputs.md) supplies the selected null
