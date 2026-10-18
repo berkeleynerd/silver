@@ -2865,6 +2865,7 @@ Several compositional length costs are already explicit:
 | `Ref_Append`, content and havoc | Base length + 5, + 9 and + 7 respectively (`why-gen-names.adb:151,564,916,956,961,971`). |
 | Entity modules | `Full_Name` plus one of the 27 fixed suffixes (`why-atree-modules.adb:134–167`); this concatenation happens before a module-cache hit returns. |
 | Projection name | Type-name length + field-name length + 25: separating underscore, optional `__` and at most ten digits, then `__projection` (`why-gen-decl.adb:171–190`). The occurrence counter bound above makes those digits representable. |
+| `To_Local` | No change to the symbol length: all three overloads copy `Get_Symb` unchanged while clearing the module (`why-gen-names.adb:1137–1171`). Localization does not concatenate a qualification prefix. |
 
 `Full_Name` delegates to frontend `Unique_Name` except for Standard Boolean
 (`spark_util.adb:2323–2340`). For an ordinary non-child, non-generic scope path
@@ -2947,9 +2948,61 @@ bounds are ready for the serializer's per-string parameter, but are not by
 themselves an exhaustive maximum for generated identifiers, localized binders,
 projection names or theory comments.
 
+### Complete comment-length family
+
+The archived producer has **107** named `Comment` actuals: 106 direct
+`Open_Theory`/`New_Comment` calls and the unchanged forwarding from `Open_Theory`
+to its theory declaration. Every direct constructor call supplies its comment
+by name. The source inventory in
+[`string-length-check.json`](../evidence/retained-producer-capacity-20261017/string-length-check.json)
+records their lexical enclosing entities and length coefficients, without
+duplicating the source excerpts.
+
+Let `Q` bound raw frontend names **and** opaque Common entity-name strings,
+and let `L_build` bound the result of `Build_Location_String` for the relevant
+locations. Then every emitted comment is bounded by
+
+```text
+u_comment <= 2 Q + 2 L_build + 226.
+```
+
+Each actual contains at most two raw names and two locations. Summing all
+string-literal arms, even mutually exclusive ones, and the lexical
+`GNAT.Source_Info.Enclosing_Entity` length gives at most **226** fixed
+characters. The longest lexical enclosing path has 85 characters.
+`Enclosing_Entity` emits the enclosing source-entity path; it skips generated
+scopes and changes only name casing (`gcc/ada/exp_intr.adb:130–146`;
+`sem_util.adb:771–838`). The two parameterized exceptions are closed as follows:
+`Translate_External_Object` uses `To_String(E)` for `Object_Name`
+(`gnat2why-decls.adb:424–439`), covered by `Q`; the two
+`Transform_All_Pragmas` callers pass the fixed strings
+`checking of pragma precondition` and `checking of pragma postcondition`
+(`gnat2why-subprograms.adb:5856–5857,5887–5888`), both shorter than 226 even
+after the helper's extra space. `Open_Theory` forwards its `Comment` unchanged
+(`why-inter.adb:1268–1282`), so it introduces no additional length recurrence.
+
+For Main, use `L_build <= P_ref+11` as above. For a fixed dependency with at
+most `D_loc` locations in an instantiation/inlining chain, the same formatter
+has the sufficient bound `L_build <= D_loc*(P_ref+28)`: each location contributes
+at most `P_ref+11`, and each separator is at most the 17 characters of
+` instantiated at ` (`gcc/ada/sinput.adb:231–277`). Fixed dependency names and
+location-chain bounds remain explicit inputs; the observed interned-string
+maxima do not replace them. The comment bound applies to intermediate
+concatenations too, because they are constituent nonnegative-length prefixes.
+
+The inventory and arithmetic check, including all archived SPARK file hashes,
+requires no compiler/prover execution:
+
+```sh
+python3 docs/evidence/retained-producer-capacity-20261017/string_lengths.py \
+  --source-root /path/to/archived/spark-source \
+  --source-archive docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz
+```
+
 The remaining closure work is precise: bound Common-pool metadata-name calls
 from source/load invocation counts; propagate the frontend name and path lengths through the
-listed constructors; and bound scoped undo peaks. The additive fixed Why
+remaining identifier constructors; and bound scoped undo peaks. Comments and
+localization are closed by the preceding source argument. The additive fixed Why
 measurements do not supply these quantities. The checked map domains and
 64-bit-sum reduction above remain usable independently of that unfinished
 connection.
