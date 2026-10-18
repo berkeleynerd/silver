@@ -193,6 +193,31 @@ def composition(counts):
             fixed_framework_helper_setup_included=False,
             hash_backbones_and_other_ordinary_containers_included=False,
             all_pass_or_GGC_lifetime_requests_accounted=False),
+        conditional_native_call_pool_helpers=dict(
+            call_argument_array_requests=c, arguments_per_call=1,
+            each_argument_array_raw_bytes_upper=184,
+            sibling_argument_sbitmaps=0, unaligned_argument_arrays=0,
+            requires_default_push_and_nonaccumulating_outgoing_arguments=True,
+            outgoing_stack_usage_map_arrays=0,
+            selected_temporary_slot_level_upper=1,
+            temporary_slot_list_vector_length_upper=2,
+            temporary_slot_list_vector_GGC_requests_upper=2,
+            each_temporary_slot_list_vector_request_bytes_upper=32,
+            temporary_payload_slots=0,
+            fresh_tree_pool_descriptor_requests_upper=2*c,
+            each_tree_pool_descriptor_raw_bytes=24,
+            fresh_pool_VAR_DECL_requests_upper=2*c,
+            each_pool_VAR_DECL_raw_bytes_upper=312,
+            fresh_pool_identifier_tree_requests_upper=2*c,
+            each_pool_identifier_tree_raw_bytes=40,
+            pool_identifier_and_RTL_label_string_requests_upper=4*c,
+            each_pool_label_string_bytes_upper=64,
+            duplicated_String_payload_bytes=0,
+            selected_pool_direct_GGC_requests_upper=10*c,
+            tree_pool_insertion_capable_lookups_upper=3*c,
+            tree_pool_entry_backing_replacement_requests_upper=3*c,
+            bounds_varpool_finalize_calls_upper=c,
+            shared_prefix_hash_backing_and_varpool_join_complete=False),
         conditional_native_constant_data=dict(
             requires_selected_O0_no_merge_no_anchor_no_sanitizer_options=True,
             fresh_tree_pool_descriptors_upper=2*c,
@@ -261,6 +286,10 @@ def focused_checks():
     assert constructors['selected_nonchain_RTX_lifetime_requests_upper'] == 226
     assert constructors['selected_chain_and_nonchain_RTX_lifetime_requests_upper'] == 255
     assert constructors['selected_rtvec_lifetime_requests_upper'] == 6
+    helpers = composition(c)['conditional_native_call_pool_helpers']
+    assert helpers['selected_pool_direct_GGC_requests_upper'] == 20
+    assert helpers['tree_pool_insertion_capable_lookups_upper'] == 6
+    assert helpers['duplicated_String_payload_bytes'] == 0
     for calls, capacity in [(33,198),(34,396),(99,396),(100,792)]:
         counters = composition(dict(c,output_calls=calls))['conditional_native_selected_constructor_requests']
         assert counters['register_array_capacity_upper'] == capacity
@@ -309,6 +338,7 @@ def focused_checks():
             'CF CFG SSA source count composition', 'SSA operand slab transitions',
             'pass_expand shape and signed instruction UID boundary',
             'selected constructor inventory and register array doubling boundaries',
+            'call and constant pool direct helper composition',
             'constant data payload and ASCII base64 emitter bounds']
 
 
@@ -327,7 +357,7 @@ def main():
         raw = (roots[row['root']]/row['path']).read_bytes()
         require(len(raw)==row['bytes'] and sha(raw)==row['sha256'], 'changed source: '+row['path'])
     counts = source_counts(a.source.read_bytes())
-    result = dict(scope='direct literal output: source through conditional pass_expand output, emitted constant data and selected constructor lifetimes',
+    result = dict(scope='direct literal output: source through conditional pass_expand output, emitted constant data, selected constructor lifetimes and direct helpers',
         source_files_verified=len(identity['files']), source_counts=counts,
         components=composition(counts), focused_checks=focused_checks(),
         native_tool_executions=0,

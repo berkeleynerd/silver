@@ -1,6 +1,6 @@
 {
-  "scope": "direct literal output: source through conditional pass_expand output, emitted constant data and selected constructor lifetimes",
-  "source_files_verified": 89,
+  "scope": "direct literal output: source through conditional pass_expand output, emitted constant data, selected constructor lifetimes and direct helpers",
+  "source_files_verified": 96,
   "source_counts": {
     "source_bytes": 118,
     "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
@@ -192,6 +192,34 @@
       "hash_backbones_and_other_ordinary_containers_included": false,
       "all_pass_or_GGC_lifetime_requests_accounted": false
     },
+    "conditional_native_call_pool_helpers": {
+      "call_argument_array_requests": 1,
+      "arguments_per_call": 1,
+      "each_argument_array_raw_bytes_upper": 184,
+      "sibling_argument_sbitmaps": 0,
+      "unaligned_argument_arrays": 0,
+      "requires_default_push_and_nonaccumulating_outgoing_arguments": true,
+      "outgoing_stack_usage_map_arrays": 0,
+      "selected_temporary_slot_level_upper": 1,
+      "temporary_slot_list_vector_length_upper": 2,
+      "temporary_slot_list_vector_GGC_requests_upper": 2,
+      "each_temporary_slot_list_vector_request_bytes_upper": 32,
+      "temporary_payload_slots": 0,
+      "fresh_tree_pool_descriptor_requests_upper": 2,
+      "each_tree_pool_descriptor_raw_bytes": 24,
+      "fresh_pool_VAR_DECL_requests_upper": 2,
+      "each_pool_VAR_DECL_raw_bytes_upper": 312,
+      "fresh_pool_identifier_tree_requests_upper": 2,
+      "each_pool_identifier_tree_raw_bytes": 40,
+      "pool_identifier_and_RTL_label_string_requests_upper": 4,
+      "each_pool_label_string_bytes_upper": 64,
+      "duplicated_String_payload_bytes": 0,
+      "selected_pool_direct_GGC_requests_upper": 10,
+      "tree_pool_insertion_capable_lookups_upper": 3,
+      "tree_pool_entry_backing_replacement_requests_upper": 3,
+      "bounds_varpool_finalize_calls_upper": 1,
+      "shared_prefix_hash_backing_and_varpool_join_complete": false
+    },
     "conditional_native_constant_data": {
       "requires_selected_O0_no_merge_no_anchor_no_sanitizer_options": true,
       "fresh_tree_pool_descriptors_upper": 2,
@@ -254,6 +282,7 @@
     "SSA operand slab transitions",
     "pass_expand shape and signed instruction UID boundary",
     "selected constructor inventory and register array doubling boundaries",
+    "call and constant pool direct helper composition",
     "constant data payload and ASCII base64 emitter bounds"
   ],
   "native_tool_executions": 0,

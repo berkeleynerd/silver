@@ -1,5 +1,5 @@
 {
-  "scope": "Direct literal output through conditional pass_expand, emitted constant data and selected constructor lifetimes",
+  "scope": "Direct literal output through conditional pass_expand, constant data, selected constructor lifetimes and direct call/pool helpers",
   "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "files": [
     {
@@ -535,6 +535,48 @@
       "path": "insn-modes.h",
       "bytes": 27388,
       "sha256": "6de8c9ea5760a673d43344ba92b15620b6d378f8cf82673b4ec0e182eb1d5d85"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/stringpool.cc",
+      "bytes": 8292,
+      "sha256": "779d6578fa49c937be8650ea40e8fd92d7698eaf0076ae501450989174331df1"
+    },
+    {
+      "root": "gcc",
+      "path": "libcpp/symtab.cc",
+      "bytes": 9383,
+      "sha256": "006987dd5863baf9520478a27958f9d450fbf76b90eed3fe6917e6c7315ff1d9"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/hash-table.cc",
+      "bytes": 4564,
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/x86-tune.def",
+      "bytes": 37691,
+      "sha256": "00de5185a5031ba9f4e8bdb5cb18a29a2d278244969cf907ecc2e6fe1b5afd51"
     }
   ]
 }

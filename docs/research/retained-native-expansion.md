@@ -11248,10 +11248,10 @@ unchanged until its authorized implementation/proof work is completed.
 This is an evidence stream toward the complete #119 language objective, not a
 new language fragment, milestone or source cap. The
 [offline source join](../evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py)
-scans this restricted source class completely and checks 89 source/header
+scans this restricted source class completely and checks 96 source/header
 identities. Its equations cover initial lowering, CF/CFG/SSA, conditional O0
 and out-of-SSA shape preservation, pass_expand RTL output, emitted constant data
-and the selected constructor lifetimes below.
+and the selected constructor and direct-helper lifetimes below.
 Whole-unit IPA, later RTL, allocation counters and final assembly/object composition
 remain required; neither the checker nor its arithmetic proves those stages.
 
@@ -11882,7 +11882,7 @@ split the later function body into multiple emission sequences.
 The constant-data checkpoint verified 77 source/header identities, including
 the two installed configuration headers supplied by `--plugin-include`. Its
 data check reconciles the equations and every base64 chunk size 3..255; the
-constructor continuation below extends the current packet to 89 identities
+constructor checkpoint extended that packet to 89 identities
 and ten focused checks. Hello's
 C=1,W=13 instance yields at most 35 `.rodata` bytes including alignment,
 21 data lines and 681 serialized data bytes. No native tool is executed and
@@ -12028,6 +12028,94 @@ C=1,N=0 gives the conservative selected counts121 nonchain RTX,140 combined
 chain/nonchain RTX and4 rtvec requests, with register capacity198. These are
 source-derived ceilings; no compiler or debugger capture was executed.
 The all-pass/all-GGC and whole-native flags remain false.
+
+### Literal-output direct pool and call-helper storage
+
+The next direct-object transfer fills two gaps left explicitly outside the
+RTX inventory. It retains the selected generic x86 tune, ordinary function,
+SysV/ELF, no-probe configuration. Generic tuning does not select outgoing
+argument accumulation (`x86-tune.def:179–189`), and the exceptional terms in
+`ACCUMULATE_OUTGOING_ARGS` are false (`i386.h:1645–1652`). The push hook is
+therefore true for its zero-size query (`i386.cc:4538–4545`). These are
+configuration premises; a different argument-accumulation policy must price
+its own zero-size map allocation instead of reusing this zero-map result.
+
+**Call argument storage.** `expand_call` allocates one zeroed `arg_data` array
+of length `num_actuals`, which is1 here, then frees it before returning
+(`calls.cc:3038,4091–4092`). On the selected LP64 layout the array requests
+184 bytes: one tree pointer, one mode enum, five RTL pointers, two ints and
+a bool before the padded72-byte `locate_and_pad_arg_data`, followed by four
+pointers and one int (`calls.cc:76–120`, `function.h:562–590`). Each of the
+four `args_size` fields in the nested record is one64-bit polynomial value
+and one pointer. Requests occur once per call and are not nested because
+the argument is an existing descriptor; this is C individual184-byte
+ordinary requests, not one184C-byte allocation.
+
+The sibling-call pass is disabled, so no stored-arguments sbitmap is made
+(`calls.cc:3264–3278`). No argument is a stack or unaligned BLKmode actual,
+so there is no aligned-register array (`:1195–1222`). Default push policy,
+zero stack size and no accumulation exclude the stack-usage map routes
+(`:3316–3353,3437–3461`). The selected `arg_data` array is the remaining
+direct variable-size ordinary call-helper request; this does not include
+global hashes, earlier call-expression trees or later call-graph records.
+
+There is still a GGC vector even though the function has no temporary stack
+payload. `precompute_register_parameters` pushes a temporary-slot level,
+reads the existing register descriptor, and pops it (`calls.cc:1021–1024`).
+The level is at most1. `preserve_temp_slots` returns for that nonpointer REG,
+but `free_temp_slots` always indexes the current level
+(`function.cc:1159–1175,1197–1233`). `temp_slots_at_level` grows the pointer
+vector to `level+1`, so its logical length is at most2
+(`:645–650`). Initialization leaves that vector null, and all lists remain
+empty. Charge at most two GGC requests, each at most32 bytes including the
+8-byte vector prefix and collector rounding. Exact growth requests one or
+two pointer slots, and the selected rounding cannot exceed the next power
+of two (`vec.h:253–260,394–424,736–740,1394–1403`,
+`ggc-page.cc:1292–1325`). Repeated calls reuse those entries; the level
+counter increments and decrements within0..1. There is no temporary-slot
+object or payload, and the fixed empty temp-address hash remains separate.
+
+**Tree-pool direct objects.** Every one of at most2C fresh pool entries creates
+one24-byte `constant_descriptor_tree` and one VAR_DECL
+(`cgraph.h:3437–3448`, `varasm.cc:3720–3748`). The descriptor retains `exp`
+directly; it does not copy the String payload or the bounds CONSTRUCTOR.
+`build_decl` creates one declaration and lays it out from its already complete
+type (`tree.cc:5567–5586`). Static sizes/alignment are reused, no RTL exists
+yet, and the size is below the selected large-object warning boundary
+(`stor-layout.cc:661–846`). The earlier conservative312-byte
+`tree_decl_with_vis` bound also bounds `tree_var_decl`, whose only field is
+that structure (`tree-core.h:2008–2047`).
+
+Charge one40-byte identifier and its NUL-terminated payload on each missed
+`get_identifier(label)` lookup, plus the separate `ggc_strdup(label)` used
+by SYMBOL_REF (`stringpool.cc:40–80,105–114`, `libcpp/symtab.cc:148–180`,
+`varasm.cc:3737–3738,3776`). Each label string fits the earlier64-byte
+constant-name envelope. Identifier reuse only decreases these requests.
+Thus the selected direct pool objects contribute at most **10C GGC requests**:
+2C descriptors,2C VAR_DECLs,2C identifiers and4C label strings. The four pool
+RTX per call and their attributes are already charged in the preceding
+inventory and must not be added again here. There is no additional W-byte
+String copy on this route.
+
+Pool-hash work is not bounded merely by the number of fresh entries. A bounds
+CONSTRUCTOR enters through `tree_output_constant_def`; realizing its flagged
+pool VAR_DECL's RTL can call `output_constant_def` again. Each literal also
+calls `output_constant_def` directly (`varasm.cc:1535–1539,3855–3858,
+3989–3995`). This gives at most3C insertion-capable lookups for these roots,
+and at most3C entry-backing replacements, since `find_slot_with_hash` can
+expand once **before** finding an existing entry (`hash-table.h:1028–1041`).
+The underlying table is initialized with request1009, rounded to1021 slots
+(`varasm.cc:6959–6963`, `hash-table.cc:43–76`), but a whole-process join
+must retain any earlier population rather than assume an empty table here.
+Shared identifier, CONST_INT and reg-attribute hash backing similarly needs
+its actual incoming extent. Finally, each bounds entry has a
+`varpool_node::finalize_decl` call whose graph/helper allocations are a
+separate obligation. These explicit shared-container and varpool inputs keep
+the helper and whole-native completeness flags false.
+
+The offline composition now includes these direct-object counts and the
+two-entry temporary-list ceiling, with 96 source/header identities and eleven
+focused checks. No native compiler or prover was run.
 
 ## Exact remaining obligations
 
