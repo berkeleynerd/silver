@@ -348,16 +348,21 @@ budget cannot be substituted for a bound on these additions and products.
 The retained runs neither demonstrate overflow nor record the needed maxima.
 This is a missing capacity argument, not an observed tool defect.
 
-Closing it requires a source bound for the selected generated/imported terms,
-including intermediate products, or separately authorized guarded-arithmetic
-evidence with the same fixed-context transfer. The existing allocation capture
-does not answer it and should not be repeated identically. Other unfolded
+The subsequent [semantic-count component](retained-producer-prefix-counts.md)
+closes this gap with a focused guarded-arithmetic observation under the same
+fixed-context transfer. Its complete three-site operand trace contains 146,259
+operations, with maximum mathematical result 47. Independent source review
+accepted the count-origin/preservation and first-overflow argument and replayed
+every operand pair; it also checked the three sites against the installed ELF.
+The allocation capture itself remains unchanged and cannot answer this question.
+Other unfolded
 traversal totals need the same distinction: `term_size` (`:1840–1845`) has an
 explicit overflow assertion, but its selected reachability and installed
 assertion behavior have not been established here. Therefore the supplementary
-result explicitly keeps `semantic_free_variable_multiplicity_bound_established`,
+historical allocation-only result explicitly keeps `semantic_free_variable_multiplicity_bound_established`,
 `complete_prefix_capacity_established` and
-`whole_pipeline_capacity_established` **false**.
+`whole_pipeline_capacity_established` **false**. The new component establishes
+only the first of these; full prefix composition remains separate.
 
 ## Diagnostic history and cost
 

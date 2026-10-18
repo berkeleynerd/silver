@@ -1,5 +1,19 @@
 # Session memory
 
+## 2026-10-18 — Model routing and outcome monitoring
+
+The owner adopted general model/effort guidance, then raised every recommended
+effort by one level and replaced Luna with Sol. The global `AGENTS.md` carries
+the actual routing policy. On **“Proceed and monitor the effectiveness of this
+new approach across rounds”**, resume the authorized retained-tool capacity
+work and its dependent implementation scope. Use concise outcome monitoring:
+integrated results, resolved obligations, material findings/rework and available
+cost evidence. Do not infer model quality from token or document volume, invent
+unavailable measurements or add approval steps. The
+[round record](evidence/retained-tool-rounds.md) records actual agent selections
+and outcomes; it does not claim that the lead model was changed. The completed
+For loops and integers harness goal remains complete.
+
 ## 2026-10-18 — Keep capacity work focused
 
 The owner instructed **“Don't get bogged down in red tape.”** Keep tracking

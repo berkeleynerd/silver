@@ -23,16 +23,40 @@ This branch includes that delivery. Historical unindexed capacity descriptors
 remain historical; the indexed invocation and source-load corrections below
 must be applied before composing them for the current route.
 
-The latest integration supplies a callable actual-byte native-null component,
+The integration supplies a callable actual-byte native-null component,
 the [selected null-link composition](retained-linker-null-composition.md), and
 the [native GPR source/ALI join](retained-gpr-parent.md). The compiler checker
 evaluates twelve local predicates; the linker result closes its selected
 ld/BFD representations under the recorded interface/configuration premises.
 The GPR join supplies the three-file source frontier, physical-column and
-line-table conditions, and 379-byte Main-ALI buffer. These remain components:
-the complete null compiler/producer/parent conjunction is not yet established.
-Literal-output native and linker deltas, broader grammar composition and the
-useful-domain comparison remain required before #119 completes.
+line-table conditions, and 379-byte Main-ALI buffer. The
+[bundled data-representation join](retained-producer-datarep-null.md) applies
+the twelve compiler predicates to the producer's separate executable,
+including its extra output-name storage. The
+[selected null-pipeline conjunction](retained-null-pipeline.md) now binds these
+components, both light frontends, parents, Why/report/server and native
+assembler/binder/linker to one shared source and launch graph. It evaluates
+15 named conditions; 13 offline cases exercise source and interface boundaries.
+The conjunction is conditional on the documented source, path, configuration
+and external-service premises. It is neither the useful-language rule required
+by #119 nor a production launcher. The indexed parent configurations, temporary
+paths, socket directory and content-derived phase-options files are explicitly
+joined; component fixtures are not silently treated as one execution.
+
+The [literal-output native derivation](retained-native-expansion.md#direct-literal-output-source-to-initial-gimple-and-data-operands)
+now connects source counts through initial GIMPLE/CFG/SSA, conditional O0
+preservation and native RTL expansion. Its constant-data bound is `W+22C`
+bytes including padding for C calls and W literal bytes. The reviewed
+[split-wide RTL transfer](retained-output-rtl.md) establishes call-local
+allocation, frame/CFI and final text bounds under stock `-fsplit-wide-types`.
+The [option join](retained-split-options.md) prices its argv/ALI effects and
+identifies its propagation into binder compilation. The integrated native
+storage extension prices selected RTX/pool/call helpers and DF/LRA backing;
+remaining shared containers and lifetime joins stay explicit. The
+[fixed output-link delta](retained-linker-output-delta.md) separately accounts
+for both Silver objects and the changed binder/runtime frontier. Later native
+allocation/lifetime and final code/object joins, broader grammar composition
+and the useful-domain comparison remain required before #119 completes.
 
 The [producer-parent join](retained-producer-parent.md) identifies the separate
 bundled GCC binary and supplies its own guarded fixed-prefix witness: 47,707
@@ -46,9 +70,16 @@ complete phase conjunction remains separate from this fixed-prefix result.
 The [fixed Why3 context](retained-producer-fixed-context.md) now has a retained
 managed successful witness for all five exact JSON inputs and all six selected
 library sources. Its ordinary typing/VC requests transfer under the stated
-source-read projection; finite identity lifetimes remain separate because weak
-hash-consing can change with garbage collection. No such backend process is
-launched for the null token family.
+source-read projection. The [controlled collection prefix](retained-producer-prefix-gc.md)
+extends that argument to selected allocation-charged identity counters under
+explicit runtime, path and fresh-session premises. Its largest fixed prefix
+allocates 86,632,681 managed words; source and installed-constructor inspection
+join that observation to the named counters. This is not a default production
+configuration, all-counter bound or variable-Main capacity result. The
+[semantic-count component](retained-producer-prefix-counts.md) closes the
+specific cached-occurrence arithmetic gap: complete first-overflow guards
+recorded 146,259 operations, with largest mathematical result 47. No such
+backend process is launched for the null token family.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both
@@ -322,8 +353,19 @@ The source-derived filename/token/semantic projection now transfers the
 selected installation/path/options premises. Exact proposed-options compilation
 corroborates that transfer. The later complete fixed compiler lifetime capture
 and [native GPR join](retained-gpr-parent.md) supply the transient compiler and
-parent source/ALI terms under their selected descriptors; actual whole-pipeline
-configuration realization remains separate.
+parent source/ALI terms under their selected descriptors. The
+[split-option reconciliation](retained-binder-options.md) supersedes the null
+binder object identity with the 13,424-byte selected object and supplies the
+17,952-byte fixed output-binder object. Both remain within the earlier linker
+size/count envelopes. Installed heuristic instructions and parameters establish
+a conservative 5 MiB first-collection threshold for their fixed source/path
+classes. The independently reviewed
+[checksum lifetime extension](retained-binder-checksum-closure.md) bounds every
+32-bit Main checksum at 5,167,732 cumulative rounded GGC bytes, 56,378 allocation
+events and a 262,144-byte maximum rounded request. This closes that varying
+binder input under the retained source/options/path projection, including
+cache compaction and the Ada Uint correction. The literal-output whole-pipeline
+conjunction remains separate.
 
 The [dynamic-symbol/version transfer](retained-linker-symbols.md) now bounds
 the selected hash and version output representations, including signed
@@ -468,7 +510,14 @@ unconditionally even though null starts no gnatwhy3 or solver client. Its
 worker/socket representation conditions and fixed container requests are now
 explicit; libc/kernel services retain the existing trusted boundary. Remaining
 orchestration and native data-representation joins are separate; null closure would
-not complete the broader design.
+not complete the broader design. The
+[exact two-phase frontend conjunction](retained-producer-null-frontend.md)
+now accepts actual null-family source bytes and a frozen selected descriptor.
+It joins the 121-table source transfer with corrected names/path characters and
+four physical sources, including both indexed System loads. The conditional
+component and 15 offline boundary checks passed independent review. The
+[null aggregate](retained-null-pipeline.md) now supplies the corresponding
+parent, Why/ALI/report and native/linker conjunction under a shared descriptor.
 
 These are source-derived components with their own premises and review scope.
 They do not yet select a safe whole-program threshold or unlock production
@@ -618,22 +667,35 @@ quality and implementation/proof cost. Samples illustrate differences; soundness
 requires the composition argument. No global optimality proof is required, but
 an arbitrary safety margin is not a derived tool maximum or a justified choice.
 
+The [round monitoring record](../evidence/retained-tool-rounds.md) tracks the
+owner-selected model/effort routing by integrated outcomes and actual evidence.
 The next derivation work, in dependency order, is below. Steps 1–3 are internal
 phases of the single #119 deliverable, not independently completed work packages:
 
-1. Close the phase-specific configuration, selected dependency/virtual-source
-   inventory and source-position component above; preserve separate producer
-   source-correspondence gaps. This is the first technical checkpoint.
-2. Complete the reachable allocation inventory and grammar transfers, including
-   growth intermediates, retained/temporary values and generated support. Derive
-   frontend and essential-producer bounds separately; include backend/link closure.
-3. Establish decidability, sound composition and correspondence for the selected
-   accounting, compare the candidates, and select explicit capacity predicates.
+1. The callable null-pipeline conjunction is established under its explicit
+   premises. Preserve its common actual inputs and launch-role bindings when
+   extending the evaluator. The older broad phase-2 `first_or_default` capture
+   remains reusable instrumentation, not the selected null vectors. This is
+   a composition checkpoint, not completion of the useful-domain argument.
+2. Complete literal output as the first nonnull conjunction, then close the
+   current grammar through coordinated native/producer source summaries.
+   Every construct/composition and required predicate input needs coverage,
+   including the remaining fixed-library Why3 and general Main producers.
+   New investigations must discharge a named missing input or correctness
+   condition in these aggregate evaluators.
+3. Establish decidability, sound composition and correspondence for the complete
+   accounting, compare the source-sensitive and uniform candidates under the
+   same configuration, and select explicit capacity predicates. Check losses
+   against current admitted shapes and refine demonstrated conservative losses.
    Existing lower-bound obstructions alone cannot supply their thresholds.
 4. Only with those dependencies established, implement and verify membership,
    diagnostics and consistent language/catalogue/proof changes through #91–#94.
 
-This checkpoint does **not** complete steps 1–3, #91, #93 or milestone 5.
+This checkpoint does **not** complete steps 2–3, #119, #91, #93 or milestone 5.
+The existing trusted boundary supplies ordinary allocator/OS behavior and
+sufficient physical stack/memory/disk; it does not require an aggregate RAM
+admission gate or a proof of allocator internals. Explicit finite indices,
+request-size arithmetic and correctness-relevant counters remain required.
 Current caps remain until their replacement assurance is established. Validation
 comprises source inspection and arithmetic/document checks, the isolated
 standalone node-layout generator, and the explicitly scoped installed-producer
