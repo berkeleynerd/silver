@@ -34,6 +34,7 @@ with tarfile.open(fileobj=io.BytesIO(raw), mode='r:gz') as bundle:
         headers[row['path']] = raw.decode()
 assert '#define CHECKING_P 0' in headers['auto-host.h']
 assert '#define GATHER_STATISTICS 0' in headers['auto-host.h']
+assert '/* #undef ENABLE_DF_CHECKING */' in headers['auto-host.h']
 assert '#define FIRST_PSEUDO_REG 92' in headers['insn-constants.h']
 assert '#define MAX_RECOG_OPERANDS 30' in headers['insn-config.h']
 assert '#define MAX_DUP_OPERANDS 14' in headers['insn-config.h']
@@ -80,6 +81,8 @@ assert 'new_size += new_size / 4;' in scan
 assert 'unsigned int new_size = get_max_uid () + 1;' in scan
 assert 'DF_REF_ORDER (this_ref) = df->ref_order++;' in scan
 assert 'hardreg->mw_order = df->ref_order++;' in scan
+assert 'return (int)DF_REF_ORDER (ref1) - (int)DF_REF_ORDER (ref2);' in scan
+assert 'Init(CHECKING_P ? ENABLE_EXTRA_CHECKING ? 2 : 1 : 0)' in sources['gcc/common.opt']
 assert '/* Skip over the DF_SCAN problem. */' in sources['gcc/df-core.cc']
 assert '#define MAX_ALIAS_LOOP_PASSES 10' in sources['gcc/alias.cc']
 assert 'while (changed && ++pass < MAX_ALIAS_LOOP_PASSES);' in sources['gcc/alias.cc']
@@ -94,6 +97,13 @@ assert 'vec_safe_reserve (reg_equivs, max_regno);' in sources['gcc/reload1.cc']
 assert 'if (! loops_p)\n    return;' in sources['gcc/ira-emit.cc']
 
 R, U, B, H, LRA_U = 99, 53, 12, 92, 27
+df_artificial_collections = 2 * B + 2 * H + 3
+df_artificial_refs = H * H * df_artificial_collections
+df_instruction_refs = 4 * 2 * 4
+df_lifetime_order = df_artificial_refs + df_instruction_refs
+df_solver_visits = B + R * 11
+assert df_lifetime_order < 2**31 - 1
+assert df_solver_visits < 2**31 - 1
 reg_slots = R + R // 4
 insn_slots = U + 1 + (U + 1) // 4
 block_slots = B + 1 + (B + 1) // 4
@@ -167,6 +177,36 @@ result = {
         'reg_pool_blocks_bound': 1,
         'hard_regs_live_count_bytes': H * 4,
         'hard_regs_live_count_created_once_per_df_instance': True,
+    },
+    'df_selected_lifetime_and_solver': {
+        'checking_verification_scans': 0,
+        'requires_no_fchecking_override': True,
+        'selected_problems': ['SCAN', 'LR', 'LR_DCE', 'NOTE'],
+        'LR_DCE_wrapper_flag_is_false': True,
+        'selected_analyze_calls_bound': 4,
+        'reference_tables_enabled': False,
+        'signed_reference_table_resize_reached': False,
+        'regs_ever_live_only_false_to_true_after_initial_DF_reset': True,
+        'state_change_entry_exit_refresh_pairs_bound': H,
+        'direct_extra_entry_exit_refreshes_bound': 3,
+        'artificial_collection_calls_bound': df_artificial_collections,
+        'artificial_ref_creations_bound': df_artificial_refs,
+        'instruction_ref_creations_bound': df_instruction_refs,
+        'multiword_ref_descriptors': 0,
+        'ref_order_lifetime_upper': df_lifetime_order,
+        'required_upper_due_to_signed_comparison': 2**31 - 1,
+        'non_DF_GGC_events_included': False,
+        'LR_solver_counter_visits_upper_per_call': df_solver_visits,
+        'LR_solver_scratch': {
+            'postorder_arrays': {'count': 2, 'each_bytes_bound': B * 4},
+            'block_index_to_postorder_bytes_bound': B * 4,
+            'considered_bitmap_bytes': simple_bitmap(B),
+            'last_visit_age_vector_bytes_bound': 8 + B * 4,
+            'last_change_age_vector_bytes_bound': 8 + (B + 1) * 4,
+            'worklist_bitmaps': {'count': 2, 'each_element_bytes_bound': 40},
+        },
+        'NOTE_RTL_regnote_creations': 0,
+        'selected_DF_width_and_local_backing_join_closed': True,
     },
     'alias_selected_pre_LRA_call': {
         'maximum_iterations': 10,
@@ -262,27 +302,23 @@ result = {
         'whole_IRA_DF_schedule_closed': False,
     },
     'unresolved_whole_function_inputs': [
-        'A: DF analysis/optional-problem invocations and solver scratch lifetimes',
-        'C_bb: total artificial-reference block collections including entry/exit updates',
-        'C_ref: instruction/REG_NOTE reference creations including deferred rescans',
-        'C_mw: multiword hard-register descriptor creations',
-        'F_peak and bitmap_addend: DF ref-table backing and signed resize intermediates',
         'CFG loop/dominance helper local sizes and shared obstack/pool retained-count arithmetic',
-        'selected IRA traversal multiplicities only where they affect persistent DF/GGC state',
+        'selected IRA traversal multiplicities only where they affect persistent non-DF GGC state',
         'target frame-layout helper route within LRA elimination',
         'real-function startup and later RTL/regnote/CFI/unit-emission GGC events',
     ],
     'capacity_vs_work_accounting': {
-        'required_cumulative_behavior_counter': 'DF unsigned32 ref_order',
+        'required_cumulative_behavior_counter': 'DF unsigned32 ref_order with signed32 comparison; bounded here',
         'required_peak_checks': [
-            'DF signed32 reference-table resize intermediates and pointer product',
             'local array/vector/bitmap size and index arithmetic',
             'pool retained counts and behavior-relevant GGC page/finalizer arithmetic',
         ],
         'already_bounded_locally': [
             'selected IRA/LRA helper arrays and traversal stack requests',
             'LRA last_reg_value <= 149 and selected fixed iteration counters',
+            'DF ref_order <= 1785936 and LR solver signed counters <= 1101',
         ],
+        'excluded_for_selected_family': 'DF reference-table creation and signed resize route',
         'not_admission_conditions_by_themselves': [
             'count of repeated bounded ordinary allocations',
             'pool initializations or unsigned pool-ID wrap with CHECKING_P=0',

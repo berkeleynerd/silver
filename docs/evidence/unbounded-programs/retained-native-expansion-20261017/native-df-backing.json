@@ -1,6 +1,6 @@
 {
   "scope": "Local null DF/alias/IRA/LRA backing and explicit residual counter inputs; not complete capacity",
-  "source_files_verified": 50,
+  "source_files_verified": 64,
   "installed_headers_verified": 8,
   "instruction_fragments_verified": 131,
   "backend_interface_premises": {
@@ -45,6 +45,47 @@
     "reg_pool_blocks_bound": 1,
     "hard_regs_live_count_bytes": 368,
     "hard_regs_live_count_created_once_per_df_instance": true
+  },
+  "df_selected_lifetime_and_solver": {
+    "checking_verification_scans": 0,
+    "requires_no_fchecking_override": true,
+    "selected_problems": [
+      "SCAN",
+      "LR",
+      "LR_DCE",
+      "NOTE"
+    ],
+    "LR_DCE_wrapper_flag_is_false": true,
+    "selected_analyze_calls_bound": 4,
+    "reference_tables_enabled": false,
+    "signed_reference_table_resize_reached": false,
+    "regs_ever_live_only_false_to_true_after_initial_DF_reset": true,
+    "state_change_entry_exit_refresh_pairs_bound": 92,
+    "direct_extra_entry_exit_refreshes_bound": 3,
+    "artificial_collection_calls_bound": 211,
+    "artificial_ref_creations_bound": 1785904,
+    "instruction_ref_creations_bound": 32,
+    "multiword_ref_descriptors": 0,
+    "ref_order_lifetime_upper": 1785936,
+    "required_upper_due_to_signed_comparison": 2147483647,
+    "non_DF_GGC_events_included": false,
+    "LR_solver_counter_visits_upper_per_call": 1101,
+    "LR_solver_scratch": {
+      "postorder_arrays": {
+        "count": 2,
+        "each_bytes_bound": 48
+      },
+      "block_index_to_postorder_bytes_bound": 48,
+      "considered_bitmap_bytes": 16,
+      "last_visit_age_vector_bytes_bound": 56,
+      "last_change_age_vector_bytes_bound": 60,
+      "worklist_bitmaps": {
+        "count": 2,
+        "each_element_bytes_bound": 40
+      }
+    },
+    "NOTE_RTL_regnote_creations": 0,
+    "selected_DF_width_and_local_backing_join_closed": true
   },
   "alias_selected_pre_LRA_call": {
     "maximum_iterations": 10,
@@ -253,27 +294,23 @@
     "whole_IRA_DF_schedule_closed": false
   },
   "unresolved_whole_function_inputs": [
-    "A: DF analysis/optional-problem invocations and solver scratch lifetimes",
-    "C_bb: total artificial-reference block collections including entry/exit updates",
-    "C_ref: instruction/REG_NOTE reference creations including deferred rescans",
-    "C_mw: multiword hard-register descriptor creations",
-    "F_peak and bitmap_addend: DF ref-table backing and signed resize intermediates",
     "CFG loop/dominance helper local sizes and shared obstack/pool retained-count arithmetic",
-    "selected IRA traversal multiplicities only where they affect persistent DF/GGC state",
+    "selected IRA traversal multiplicities only where they affect persistent non-DF GGC state",
     "target frame-layout helper route within LRA elimination",
     "real-function startup and later RTL/regnote/CFI/unit-emission GGC events"
   ],
   "capacity_vs_work_accounting": {
-    "required_cumulative_behavior_counter": "DF unsigned32 ref_order",
+    "required_cumulative_behavior_counter": "DF unsigned32 ref_order with signed32 comparison; bounded here",
     "required_peak_checks": [
-      "DF signed32 reference-table resize intermediates and pointer product",
       "local array/vector/bitmap size and index arithmetic",
       "pool retained counts and behavior-relevant GGC page/finalizer arithmetic"
     ],
     "already_bounded_locally": [
       "selected IRA/LRA helper arrays and traversal stack requests",
-      "LRA last_reg_value <= 149 and selected fixed iteration counters"
+      "LRA last_reg_value <= 149 and selected fixed iteration counters",
+      "DF ref_order <= 1785936 and LR solver signed counters <= 1101"
     ],
+    "excluded_for_selected_family": "DF reference-table creation and signed resize route",
     "not_admission_conditions_by_themselves": [
       "count of repeated bounded ordinary allocations",
       "pool initializations or unsigned pool-ID wrap with CHECKING_P=0"

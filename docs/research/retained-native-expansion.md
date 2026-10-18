@@ -7620,7 +7620,7 @@ that every scan reset recreates LR (`df-problems.cc:724–792`). Initializing th
 scan's five register bitmaps and three instruction bitmaps does not imply that
 they remain empty.
 
-The remaining DF reference equation is explicit. Let `C_bb` be all calls that
+The DF reference equation is explicit. Let `C_bb` be all calls that
 collect a block's artificial refs, including initial scans, entry/exit updates
 and block recreation; let `C_ref` and `C_mw` count instruction/REG_NOTE reference
 and multiword-descriptor creations across all deferred rescans. Then
@@ -7637,12 +7637,128 @@ raw mode occupies one hard register. Null excludes EH/nonlocal-goto additions
 (`df-scan.cc:3270–3322,3582–3592,3742–3761`). Every reference and multiword
 descriptor increments the unsigned32 `df->ref_order`
 (`:2470–2516,2580–2628`); full scan reset does **not** reset this counter.
-Thus the final right-hand side must fit unsigned32 even when peak storage is
-small. Per-reference-table resize separately needs
+The comparison function casts two such orders to signed `int` before
+subtracting (`:2070–2111`), so a sufficient bound is **INT_MAX**, stronger than
+merely avoiding unsigned32 wrap even when peak storage is small.
+Per-reference-table resize, if a table is enabled, separately needs
 `F_peak+bitmap_addend+floor(F_peak/4)<=INT_MAX` and an eight-byte pointer product
 in `size_t` (`:503–529`); its assignment and addition use a signed `int`.
-The pass schedule must still supply `C_bb`, `C_ref`, `C_mw`, peak refs and the
-actual bitmap addends. Two scan generations alone do not bound those values.
+Two scan generations alone do not bound those values. The selected null-path
+join below supplies the counts and excludes the optional ref-table route.
+
+### DF lifetime counters and selected solver closure
+
+The installed `CHECKING_P=0`, undefined `ENABLE_DF_CHECKING`, and absent
+`-fchecking` override make runtime `flag_checking=0`
+(`common.opt:1277–1283`). Therefore `df_finish_pass` and IRA do not schedule
+`df_verify`, and `df_analyze_1` does not perform the verification scan
+(`df-core.cc:621–678,1236–1251`, `ira.cc:5786–5789`). This exclusion matters:
+the verification collector creates temporary references and advances their
+order even though it frees them afterward. The selected invocation, not
+the small source alone, supplies the exclusion.
+
+The active problems are SCAN, LR, LR_DCE and temporarily NOTE. The initial
+setup adds SCAN and LR; LR setup also adds the LR_DCE wrapper. NOTE is added
+at IRA entry and depends only on LR. LIVE requires `optimize>1`; RD/CHAIN,
+WORD_LR, MIR and MD have no active constructor on the selected pass schedule
+(`df-core.cc:694–702`, `df-problems.cc:1213–1317,3785–3823`). The LR_DCE
+wrapper returns because `DF_LR_RUN_DCE` is never enabled on this path
+(`:1246–1249`). NOTE is removed by the reload finish before frame threading.
+There are at most four selected `df_analyze` calls: IRA entry, its conditional
+dead-instruction-deletion follow-up, `ira_build`, and frame threading
+(`ira.cc:5789,5805–5806`, `ira-build.cc:3482`, `function.cc:6094`). The gated
+optimization, successful-split, x87-regstack, zero-register and delay-slot
+routes add none; O0 CFG cleanup does not enter the crossjump branch that
+reanalyzes dataflow (`cfgcleanup.cc:2961–2966`). This is a pass-shape bound,
+not an observation of a single execution.
+
+No active problem reorganizes refs into a table. SCAN sets both orders to
+`DF_REF_ORDER_NO_TABLE`; LR and NOTE use chains and register bitmaps. The
+sole problem-side table request here belongs to RD
+(`df-problems.cc:401`), which is absent. Pass finishing only requests
+NO_TABLE (`df-core.cc:632–633`). Consequently `df_install_ref` never takes
+its `add_to_table` branch, and the signed resize at `df-scan.cc:524–529` is
+unreachable for this family. The always-maintained per-register counts,
+hard-register-live counts and `total_size` still need and receive the finite
+reference bound below (`:2285–2326`).
+
+Artificial-reference lifetime can be bounded without counting every finish
+or analysis invocation. There are two whole scans, each collecting at most
+B blocks. After DF initialization, `regs_ever_live` is monotone: the selected
+IRA/LRA setters only set bits true, and later `df_compute_regs_ever_live`
+calls have `reset=false`. The earlier `reginfo_init` has no DF instance;
+the x86 reset route is already excluded. A state-changing entry/exit refresh
+therefore consumes at least one of the92 false-to-true register transitions
+(`df-scan.cc:3897–3929`, `ira.cc:2491,2517,2539,3616`,
+`lra.cc:2475`, `reginfo.cc:934–938`). The leaf-register remapping that can
+clear these bits is inside `LEAF_REGISTERS`, absent on the selected x86
+target (`final.cc:4134–4254`); it is not another mutation on this path.
+Deferred processing and the compute
+helper clear the pending flag; processing the same unchanged set cannot
+create another artificial reference. Charge two collections per transition.
+The stack-pointer-modification pass adds one direct exit refresh, and frame
+threading adds two direct entry/exit refreshes
+(`stack-ptr-mod.cc:100–104`, `function.cc:6314–6325`). No blocks are created
+after the initial DF boundary on the selected shape. The later x86
+`compute_bb_for_insn` only restores instruction/block links and does not
+recreate blocks (`cfgrtl.cc:433–450`, `i386.cc:24740–24744`). The frame
+subdivision helpers scan existing blocks and split only at an interior
+label/control transfer, absent here (`cfgbuild.cc:447–605,738–824`). Hence
+
+```text
+C_bb <= 2B + 2H + 3 = 211
+F_art <= H*H*C_bb = 1,785,904, where H=92
+```
+
+All scans before frame insertion have zero instruction references: nops and
+the blockage contain no REG operand. The four frame/return instructions add
+only DI hard registers. Push and pop each collect three references, the move
+two and simple return none; REG_CFA/restore notes are ignored by the
+REG_EQUAL/REG_EQUIV/nonlocal-note collector
+(`df-scan.cc:2660–2730,2805–3062,3175–3237`). Each sequence is inserted once;
+the before/after insertion helpers scan each member once. Allowing a second
+collection for its first block association and four refs per member gives
+`C_ref<=4*2*4=32` conservatively
+(`emit-rtl.cc:4359–4403,4657–4678,4753–4777`,
+`df-scan.cc:1743–1766`, `cfgrtl.cc:2005–2129`). Later merges only change
+the block link of an already-scanned instruction; failed splitters do not
+rescan, and location-preserving nops add no refs. No REG_EQUAL/REG_EQUIV note,
+conditional execution, call, SUBREG or multiword hard-register operand is
+introduced, so `C_mw=0`. Thus
+
+```text
+ref_order_final <= 1,785,936 < INT_MAX
+```
+
+This also bounds live reference counts and all pool count increments by the
+same conservative lifetime envelope. Each collection vector has at most
+`H*H` artificial entries or four instruction refs; its 1.5-times heap-vector
+growth and pointer-byte product fit the selected widths. Small operand modes
+and register domains also discharge subtraction of register numbers and
+reference flags in the comparison. The bound is intentionally loose; it is
+not a memory budget or a claimed measurement.
+
+LR is the only iterative DF solver reached. Its per-call `age` and `dcount`
+are signed ints. Initialization sets each IN to USE and OUT to empty;
+confluence only unions sets and transfer computes `USE union (OUT minus DEF)`
+(`df-problems.cc:982–1055`). Within one solve, a successful transfer therefore
+adds at least one previously absent register bit. There are at most R such
+changes at each block, and each change queues a predecessor only along an
+existing edge. With at most11 edges, the total visits are at most
+`B+R*11=1101`, including the first full pass. Bitmap deduplication can only
+reduce this count (`df-core.cc:951–1109`). This bounds both signed counters
+without relying on a sampled iteration count or CFG traversal order.
+
+Solver scratch is indexed by block slots, not reference orders: two48-byte
+postorder arrays, a48-byte index map, a16-byte considered bitmap and age
+vectors of at most12 and13 ints (56 and60 bytes including vector prefixes).
+Its two bitmap worklists each have at most one40-byte element
+(`df-core.cc:1003–1163,1286–1335`). LR's four bitmaps per block have at most
+one element each because R<128. NOTE's three temporary register bitmaps also
+have at most one element. NOTE runs only on the operand-free pre-frame
+instructions, so it constructs no REG_DEAD/REG_UNUSED RTL note. These facts
+close the selected DF reference/solver widths and local backing; they do not
+establish the remaining non-DF GGC event or whole-native capacity joins.
 
 ### Alias analysis and LRA's nonempty fixed setup
 
@@ -7841,18 +7957,19 @@ and constructors still require completion:
 | `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation; combine the backend's logical graph with each constructor/allocation route |
 | `E_real_function_start` |real `allocate_struct_function`/`prepare_function_start`/`init_emit`, distinct from the dummy setup; include EH/machine/function objects, RTL vectors and shared constant/temp hash state |
 | `E_RTL_passes` |expansion and selected O0 RTL helpers; include underlying pattern/vector copies and pseudo/target frame-layout objects, beyond the52 chain nodes already bounded and excluding the equivalence/elimination events charged separately |
-| `E_regnotes` |DF NOTE and late register-note construction; needs DF analysis invocations, artificial/instruction ref lifetime counts and each note's RTL allocation |
+| `E_regnotes` |late target/frame register-note construction; DF NOTE constructs none on the selected operand-free instructions |
 | `E_CFI` |dwarf2cfi scan/trace and frame descriptions; needs selected instruction operands, unwind state and emitted row/vector counts |
 | `E_unit_emit` |final/varasm/debug/cgraph unit finalization; needs the selected unit's symbol/string/output and shared-cache growth terms |
 
-For ordinary backing, the remaining concrete joins are DF optional-problem
-and solver scratch (`df-core.cc`, `df-problems.cc`), exact selected IRA
-traversal multiplicities and CFG loop/dominance helpers, target frame-layout
-helpers within LRA elimination, and shared bitmap/pool incoming demand.
+For ordinary backing, the remaining concrete joins are CFG loop/dominance
+helper local sizes, target frame-layout helpers within LRA elimination, and
+shared non-DF bitmap/pool retained-count arithmetic. Exact selected IRA
+traversal multiplicities matter only where they affect persistent non-DF
+state; the selected DF lifetime and solver joins are now closed above.
 The known no-allocno/no-live-pseudo
 shape excludes candidate-dependent objects; it does not remove their setup.
-The global DF reference-order equation above and shared GGC page/finalizer
-count arithmetic must join the same full function schedule.
+Shared GGC page/finalizer count arithmetic still needs the full function
+schedule's non-DF event input.
 This enumerates the remaining native frontier; it does not assert whole
 native capacity or account for the independent GNATprove producer.
 
@@ -7860,8 +7977,9 @@ Capacity obligations must remain distinct from total-work accounting:
 
 | Quantity | Why it matters for the retained-tool capacity rule |
 | --- | --- |
-| DF `ref_order` over the function lifetime | A behavior-relevant unsigned32 ordering counter; all increments require a bound, including rescans after a full scan reset. |
-| DF peak reference tables and bitmap addends | Signed32 resize intermediates, vector indexes and pointer-byte products must fit at each request. |
+| DF `ref_order` over the function lifetime | A behavior-relevant unsigned32 ordering counter with signed32 comparison; bounded by1,785,936 above, including full scan reset. |
+| DF reference tables and bitmap addends | The selected family never enables the optional ref table, so its signed32 resize route is excluded. |
+| DF solver visits and local arrays | At most1101 visits per solve; block/register domains bound every indexed local request. |
 | Local IRA/LRA arrays, bitmap dimensions and traversal stacks | The source-derived bounds above discharge their local size/index arithmetic independently of the number of identical invocations. |
 | LRA `last_reg_value` and selected fixed iteration counters | The null shape bounds the former by149 and excludes further pseudo-value updates; selected loop limits are finite local counts. |
 | Pool live counts and GGC page/finalizer backing | Check the actual retained counts and behavior-relevant arithmetic; an allocation-event envelope is a conservative input where it bounds them. |
@@ -7874,7 +7992,7 @@ representation persists across invocations. No row introduces an aggregate
 RAM or address-space admission gate.
 
 The [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-df-backing.py)
-checks50 source hashes, eight retained installed headers,131 installed ELF
+checks64 source hashes, eight retained installed headers,131 installed ELF
 instruction fragments and the local arithmetic. The
 [result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-df-backing.json)
 preserves the source-shape premises and unresolved inputs explicitly. The
