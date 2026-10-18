@@ -1,0 +1,96 @@
+{
+  "target": "cbcd679320",
+  "upstream_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_sha256": {
+    "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
+    "checks.adb": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c",
+    "sem_eval.adb": "0dfbf5f1bede0b9e011f21649c7f4d34851c6267cd72acebcb53e7a7fb4c7d30",
+    "sem_ch3.adb": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
+    "sem_ch4.adb": "19e5386e0a2535c501d41c1d2338760fb4b3c7acaecef614e9bdd4a0cf2fb555",
+    "sem_res.adb": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8",
+    "sem_type.adb": "d278251cf4a39214e2a2f9b2fdf97f15520f6078e55a55a3cdd773016e3a810d",
+    "sem_warn.adb": "698effea285660dfe3513e64231d0947e0579b3635cb7b55420e9ebf35dd1e55",
+    "sem_ch13.adb": "570d8a1cc74520fd95a12a9921bfe0893da7857517b4a2910da2bf65c880fd96",
+    "uintp.adb": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e",
+    "tbuild.adb": "db30e8c054e8e3f53af3a01f108f8bec563ce936ebe9988734bc007142643b2c",
+    "itypes.adb": "1f1482d8147358ca0c8b1de6c665cd61584f3e08527729b92f058b7820cf2e9a"
+  },
+  "operator_constructor_sites": [
+    {
+      "line": 2884,
+      "constructor": "Make_Op_Subtract"
+    },
+    {
+      "line": 3095,
+      "constructor": "Make_Op_Add"
+    },
+    {
+      "line": 3196,
+      "constructor": "Make_If_Expression"
+    },
+    {
+      "line": 3199,
+      "constructor": "Make_Op_Ne"
+    },
+    {
+      "line": 3248,
+      "constructor": "Make_Op_Add"
+    },
+    {
+      "line": 3251,
+      "constructor": "Make_Op_Subtract"
+    },
+    {
+      "line": 3275,
+      "constructor": "Make_If_Expression"
+    },
+    {
+      "line": 3277,
+      "constructor": "Make_Op_Eq"
+    },
+    {
+      "line": 3284,
+      "constructor": "Make_If_Expression"
+    },
+    {
+      "line": 3286,
+      "constructor": "Make_Op_Eq"
+    },
+    {
+      "line": 3555,
+      "constructor": "Make_Op_Add"
+    },
+    {
+      "line": 3560,
+      "constructor": "Make_Op_Add"
+    },
+    {
+      "line": 3563,
+      "constructor": "Make_Op_Subtract"
+    },
+    {
+      "line": 3613,
+      "constructor": "Make_Op_Ne"
+    }
+  ],
+  "direct_arithmetic_coefficient_and_constant": [
+    4,
+    2
+  ],
+  "direct_conditional_coefficient_and_constant": [
+    1,
+    2
+  ],
+  "direct_comparison_coefficient_and_constant": [
+    2,
+    2
+  ],
+  "index_layout_Uint_appends": 95,
+  "range_tree_constant_nodes": 28,
+  "Compile_Time_Compare_Uint_A_and_constant": [
+    80,
+    60
+  ],
+  "Compile_Time_Compare_ordinary_A": 20,
+  "limitation": "Manual conditional transfers only; no source-to-shape, reanalysis-multiplicity, exact installed source identity or whole-program closure claim"
+}
