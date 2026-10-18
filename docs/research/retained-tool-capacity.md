@@ -62,20 +62,44 @@ The [assembler interface](retained-literal-assembler.md) connects final RTL and
 literal data to assembly, fragments, symbols, relocations and an ELF envelope.
 Its reviewed [GAS/BFD storage join](retained-literal-assembler-storage.md) is
 attached with the same source/interface and the NUL-inclusive path bound.
-All 38 aggregate offline cases pass. Remaining native lifetime/collector and
+The storage-attachment checkpoint's 38 aggregate offline cases pass. Remaining native lifetime/collector and
 production invocation joins stay explicit. The
 [fixed output-link delta](retained-linker-output-delta.md) separately accounts
 for both Silver objects and the changed binder/runtime frontier. Later native
 allocation/lifetime and linker joins, broader grammar composition
 and the useful-domain comparison remain required before #119 completes.
 
+The subsequent reviewed initial-SSA constructor/renamer attachment passes 46
+aggregate checks and supplies its allocation/counter delta without claiming
+the global SSA counter or collector lifetime. The reviewed
+[Main ALI interface](retained-literal-ali.md) exports native writer and reader
+buffer bounds from the same source family, retaining the fixed invocation
+frontier despite repeated calls. The reviewed
+[literal linker composition](retained-literal-linker.md) joins the Main ELF
+interface and fixed output objects to the generic linker formulas. Its Hello
+and 8,192-byte-literal cases pass; 5,000 calls fail the inherited conservative
+signed-relocation envelope. That sufficient-condition boundary is neither a
+native failure nor an adopted language limit. Both components now attach to
+the literal aggregate using the same source, text/ELF fields and explicit path
+units. The aggregate passes 64 offline checks, including the intentionally
+failing 5,000-call sufficient bound. The
+[independent review](../evidence/retained-literal-pipeline-20261018/review-cf-cfg.md)
+accepts this attachment and the initial CF/EH/CFG/root-loop constructor increment.
+The [ALI consumer join](retained-literal-binder-ali.md), separately
+[reviewed](../evidence/retained-literal-binder-ali-20261018/review.md), adds native
+parser tables, signatures and raw-buffer bounds plus additive native/Gprbind
+name requirements. Its fourteen offline cases pass. Complete shared name pools,
+graph backing, the native GPRbuild D/W reader, native collector and
+production-launch composition remain open.
+
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
 file or Main Why3 launch. It removes only the hypothetical Main JSON-byte
 condition and keeps the ten other general producer-core conditions, all fixed
-library jobs and final reports. The 8,192-byte literal and 5,000-call examples
-now pass the available aggregate predicates; they still do not have a complete
-whole-pipeline capacity verdict.
+library jobs and final reports. At that checkpoint, the 8,192-byte literal
+and 5,000-call examples pass the attached predicates. The later linker result
+above retains a failing sufficient bound for 5,000 calls; neither example has
+a complete whole-pipeline capacity verdict.
 
 The [producer-parent join](retained-producer-parent.md) identifies the separate
 bundled GCC binary and supplies its own guarded fixed-prefix witness: 47,707
@@ -109,9 +133,18 @@ guarded prefix captures pass with uniquely resolved private driver imports;
 the retained earlier failure exposed and corrected a duplicate `cvc5.gen`
 import. Actual file-open observations bind the local base configuration and
 private extra configuration. The recomputed allocation bound is 86,627,697
-words, with B=88,823,660. These results establish prefix selection/initialization;
-later transformed-context, task-printing, solver and report consumers remain
-separate obligations.
+words, with B=88,823,660. The subsequent
+[initial split and registration argument](retained-producer-fixed-tail.md)
+extends the protected interval through entry to `Gnat_checks.iter`, before
+scheduling. Its five fixed inputs have a largest allocation of 128,847,761
+words, B=131,043,754, and 514,906 guarded semantic operations with maximum
+result 47. The [independent review](../evidence/retained-producer-fixed-tail-20261018/review.md)
+accepts this conditional extension. It also clarifies
+the historical task-count wording: `G` bounds reported check-tree leaves after
+registration, not every raw split task. Input_Is_Valid produces four raw tasks;
+three unlabelled trivial goals are discarded and one is registered, preserving
+the reported `G <= 1` bound. Later driver transformations, task-printing,
+solver and report consumers remain separate obligations.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both

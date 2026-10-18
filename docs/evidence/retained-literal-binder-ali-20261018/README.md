@@ -3,7 +3,8 @@
 Research for [#119](https://github.com/berkeleynerd/silver/issues/119).
 Read the [source argument](../../research/retained-literal-binder-ali.md)
 for the conditional local-consumer claim and explicit name-pool, graph,
-driver and launch gaps. Independent review is pending.
+driver and launch gaps. The [independent review](review.md) accepts the
+local-consumer scope and reproduces both retained outputs byte-for-byte.
 
 From the repository root:
 

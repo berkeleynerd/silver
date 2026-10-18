@@ -6,8 +6,9 @@ joins the accepted [literal Main ALI interface](retained-literal-ali.md) to the
 retained output closure and the native binder/Gprbind scanners. It establishes
 local parser-table, signature-map, reader-buffer and payload bounds, and exports
 additive shared-name requirements. It does **not** establish complete name-pool,
-graph, driver, binder or pipeline capacity. Independent review of this join is
-pending; predecessor results retain their own accepted scopes.
+graph, driver, binder or pipeline capacity. The
+[independent review](../evidence/retained-literal-binder-ali-20261018/review.md)
+accepts this local scope; predecessor results retain their own accepted scopes.
 
 The descriptor is the selected indexed no-Xref native output configuration,
 including `-fsplit-wide-types`, x86-64 Linux, `Table_Factor=1`, a case-sensitive
