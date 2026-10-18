@@ -50,3 +50,11 @@ active-page index backing and finalizer-vector growth. Its result is
 `native-ggc-storage.json`. The concrete prefix substitution uses the existing
 event witness; it executes no compiler and imposes no aggregate memory gate.
 Later phase event/request bounds and whole native capacity remain open.
+
+`reconcile-null-initial-gimple.py` joins the selected null body through initial
+GIMPLE, CF/EH, CFG/root-loop setup and SSA. It verifies 41 complete source
+identities and four earlier results, then reconciles 41 additional GGC events
+and the separate ordinary-container interface. `native-null-initial-gimple.json`
+retains the source/location, shared-pool, later-pass and process remainders.
+Independent narrow review replayed and accepted that join; it is not a complete
+ordinary lifetime inventory or a capacity rule. No native tool was executed.

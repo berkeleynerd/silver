@@ -9674,6 +9674,168 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
   --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-df-backing.json
 ```
 
+## Null initial GIMPLE, CFG and SSA allocation join
+
+This joins the already established [null executable graph](retained-backend-gigi.md#concrete-null-main-body-source-to-initial-gimple)
+to its initial GIMPLE, CF/EH, CFG/root-loop and SSA allocation requests. It is
+for the selected Linux LP64, O0, no-debug and disabled-checking invocation.
+The executable Main is the only function in this slice; pass managers, later
+warnings/rangers/IPA, shared allocator lifetimes and source metadata remain
+separate. In particular, changing source locations can preserve different
+members of the same three-block chain; no sampled one-block simplification
+is assumed.
+
+Gimplification constructs GOTO, LABEL, RETURN and BIND. CF lowering splices
+the BIND body, adds a return LABEL_DECL and two tuples, and reuses the RETURN.
+The cumulative six tuple requests have 408 raw bytes in the exact selected
+layouts; charging each at 80 bytes is a sufficient individual ceiling. EH
+refactoring has no TRY and EH lowering creates no EH region or replacement
+statement. Its temporary finally table and bitmap are ordinary allocations,
+listed below. `gimplify_statement_list` consumes the existing list without
+freeing its header or pushing the statement-list cache (`gimplify.cc:2286–2305`),
+so this join adds no cache-vector request to the earlier gigi inventory.
+
+CFG construction creates three ordinary blocks, entry and exit, and four
+edges. The two 20-pointer maps do not grow; label UIDs stay below two
+(`tree-cfg.cc:145–215,631–663`, `cfg.cc:66–85,139–145,278–292`). Each edge
+initially has its own source-successor and destination-predecessor vector:
+eight backing requests. Their initial four slots suffice. On this straight
+path, forwarder removal returns before redirection and merges only remove
+blocks/edges. `merge_blocks` transfers the successor vector from the removed
+block rather than appending another edge (`cfghooks.cc:842–921`). The growing
+predecessor callback sees no PHIs (`tree-cfg.cc:9232–9237`). Thus no cleanup
+replacement edge, label, statement, map growth or edge-vector growth is
+hidden in this inventory. The first fixup has no call or abnormal-edge work.
+
+`execute_build_cfg` performs the initial cleanup then one root-loop setup
+with `AVOID_CFG_MODIFICATIONS` (`tree-cfg.cc:328–345`). The graph has no
+backedge; root setup requests only the loops control, root loop, exit sentinel
+and one-pointer loop vector. The [earlier source-layout derivation](#cfg-traversal-loop-roots-and-dominance-widths)
+supplies their individual ceilings. These are **additional initial GIMPLE
+objects**, not the later RTL setup objects already counted there.
+
+SSA infrastructure begins during `gimplify_body`: one `gimple_df`, a GGC hash
+control/backing for default definitions (request 20, prime 31), and the
+50-pointer name vector (`gimplify.cc:21745–21761`, `tree-ssa.cc:1214–1220`,
+`tree-ssanames.cc:146–166`). The two points-to solutions reset flags/pointers;
+they do not allocate bitmaps. A conservative field layout charges each of the
+11 points-to bitfields separately, giving 56 bytes per solution, 32 bytes for
+`ssa_operands` and 216 bytes for `gimple_df`, below its 256-byte allowance
+(`tree-ssa-alias.h:28–70`, `gimple-ssa.h:72–117`,
+`tree-ssa-operands.h:54–63`).
+
+The initial SSA pass constructs `.MEM`, scans RETURN's one virtual use, and
+creates one default SSA_NAME with its detached GIMPLE_NOP. The use consumes
+one 40-byte entry in the first 1,024-byte operand slab
+(`tree-ssa-operands.cc:228–278,306–345,951–995`, `tree-dfa.cc:353–365`).
+The statement builder's 16 inline use pointers cover this one use. No
+ordinary/virtual definition or PHI exists, and the name vector's logical
+length is two, including slot zero. The default-def hash has one insertion
+and cannot grow. Declaration/type layout uses the existing void type and
+the previously priced VAR_DECL constructor; no new type is synthesized.
+The `.MEM` identifier/payload miss is charged conservatively even if present.
+This raises the post-prefix identifier allowance from four to five, still
+within the same 65,536-slot shared-table ceiling.
+
+| GGC object class | Lifetime requests in this slice | Individual raw request ceiling |
+| --- | ---: | ---: |
+| Initial and CF GIMPLE tuples | 6 | 80 |
+| CF return LABEL_DECL | 1 | 256 |
+| `gimple_df` | 1 | 256 |
+| Default-def hash control / backing | 1 / 1 | 128 / 248 |
+| SSA-name vector | 1 | 512 |
+| `.MEM` VAR_DECL / identifier / characters | 1 / 1 / 1 | 312 / 40 / 5 |
+| Default SSA_NAME / detached NOP / use slab | 1 / 1 / 1 | 88 / 64 / 1,024 |
+| CFG control / five blocks | 1 / 5 | 128 / 128 |
+| Block and label maps | 2 | 256 |
+| Edges / predecessor-successor vectors | 4 / 8 | 64 / 64 |
+| Loops control / root / sentinel / vector | 1 / 1 / 1 / 1 | 32 / 1,024 / 32 / 16 |
+
+There are **41 GGC allocation events**. GGC vectors normalize their requested
+capacity using `ggc_round_alloc_size` *before* calling `ggc_realloc`
+(`vec.h:394–423`); their table entries therefore bound that caller request,
+not just the nominal 408/168/40-byte vector sizes. Ordinary tree/tuple/hash
+requests retain their pre-collector sizes. CFG block/edge/control source
+layouts fit the stated ceilings even charging `profile_count` at 16 bytes
+and `profile_probability` at eight (`basic-block.h:25–53,83–91,117–151`,
+`cfg.h:38–84`, `profile-count.h`). The SSA_NAME allowance covers the larger
+88-byte checking layout even though checking is disabled in the selected run.
+
+### Ordinary containers and pool interface
+
+The following requests complement those GGC events. They bound individual
+objects, not an aggregate RAM gate. Existing vector/hash/bitmap transfers
+supply allocator metadata; the ordinary whole-invocation lifetime join remains
+explicit. Heap hash controls are below 128 bytes; a hash stored directly on
+the stack needs only its backing allocation.
+
+| Selected work | Ordinary request/interface |
+| --- | --- |
+| Gimplifier context and one binding | Context at most 128 bytes; one 72-byte eight-pointer stack, released at pop. The context itself returns to the context pool. No temp hash, switch state or parameter temporaries (`gimplify.cc:242–265,347–434`). |
+| CF return records | One 136-byte vector for eight two-pointer records, with one live record (`gimple-low.cc:61–65,122–150`). |
+| EH lowering | One hash control and 31-pointer/248-byte backing; two 16-byte finally records; one empty default-obstack bitmap header. Both entries have null parents (`tree-eh.cc:200–259,2245–2275`). |
+| CFG labels/discriminators | Two arrays of five 16-byte label records, 80 bytes each. One stack-resident discriminator hash with 13 entries of 12 bytes, 156-byte backing; at most nine insertion requests, below its growth threshold (`tree-cfg.cc:1085–1187,1420–1427,1507–1511`). Adhoc source-location storage is still metadata work. |
+| CFG cleanup | One 16-byte dense visited bitmap, two default-obstack bitmap headers (`altered_bbs`, `touched_switch_bbs`), one empty edge-case hash control with 13 two-pointer entries/208-byte backing. Its traversal fits the 20 inline edge iterators; abnormal-dispatcher storage remains empty (`tree-cfgcleanup.cc:994–1011,1184–1247`, `tree-cfg.cc:1246–1280`). |
+| Forward dominance | One instance: nine 20-byte unsigned arrays, one 40-byte pointer array, one 24-byte DFS-order array and one 96-byte iterator array. At most five 64-byte ET nodes and ten 48-byte occurrences are live; their shared typed pools have 65,536-byte blocks. Cleanup preserves the maintained forest; loop discovery and SSA request fast numbering without reconstructing it. |
+| Root-loop analysis | One 20-byte reverse-order array and one 16-byte one-pointer candidate vector. Its preorder traversal fits inline storage (`cfgloop.cc:416–450`). |
+| Initial SSA renamer | One hash control and seven-pointer/56-byte backing, one 48-byte `var_info`, one 16-byte variable-pointer vector, one 88-byte ten-pointer definition stack and one 16-byte dense interesting-block bitmap (`tree-into-ssa.cc:56–174,351–365,1117–1131,2285–2292,2412–2437,2490–2538`). |
+| SSA frontiers and private bitmaps | One five-header array, 160 bytes; all frontier sets stay empty. Three 32-byte headers on `update_ssa_obstack`, only the live-in set acquiring one 40-byte element. Its private obstack is initialized/released once for this pass. |
+| SSA walks and PHI analysis | Two dominator walks, each with two int arrays at most 20 bytes each and an 80-byte pointer stack. The reverse-order helper's edge stack stays inline. Three further empty default-obstack headers: kills, IDF and prune `to_remove`. |
+
+The last row is not zero merely because no PHI is inserted. `.MEM` has a use
+and no definition, so its `need_phi_state` remains UNKNOWN and enters the
+PHI candidate vector. `compute_idf` creates an empty bitmap, with its work set
+fitting 64 inline integers. `prune_unused_phi_nodes` creates `to_remove`, then
+returns at the empty-PHI test; it never reaches its larger interval arrays,
+liveness worklist or live-PHI bitmap (`cfganal.cc:1680–1713`,
+`tree-into-ssa.cc:766–781,1117–1131`). The kills bitmap has no definitions to
+mark. No UID-sized dense bitmap is hidden here. The definition stack contains
+only block markers and fits its ten slots; looking up a default definition
+does not register a new ordinary definition (`:1207–1227,1340–1370`).
+
+In total this slice requests six default-obstack bitmap headers and three
+private SSA headers. `BITMAP_ALLOC(NULL)` means the **ordinary default
+obstack**, not GGC (`bitmap.cc:775–799`). Repeated altered-block marks and
+reuse of its elements still join the shared bitmap-obstack lifetime schedule;
+the private SSA obstack has just three headers and one element. ET-pool
+reuse, block growth and final destruction also need the shared whole-invocation
+join. These open ordinary costs must not be silently replaced by the GGC
+subtotal. Dense traversals and local counters use at most five block slots,
+four edges, two label UIDs and two SSA-name slots; forward-dominance numbering
+is at most ten and dominator-walk stack indices at most ten.
+
+The combined known GGC subtotal is now `40,031 + 41 = 40,072`:
+
+```text
+E_GGC <= 40,072 + E_metadata + E_Main_translation_remaining + E_unit_emit_remaining
+```
+
+The translation remainder excludes the initial GIMPLE/CF/EH/CFG/SSA requests
+above, but still contains later warning/ranger/cgraph/IPA allocations and
+manager backing. Metadata still includes source/path/line maps, discriminator
+locations and Ada callbacks. Unit/process managers, collector pages/finalizers
+and libc remain explicit. This is not a complete #119 capacity predicate and
+does not unlock dependent admission changes.
+
+The [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-initial-gimple.py)
+checks 41 complete source identities, four earlier result identities and the
+local arithmetic. Its [result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-null-initial-gimple.json)
+records both the joined events and open terms. The route argument is manual;
+source anchors do not claim automatic C/C++ reachability verification. No
+compiler/prover/debugger capture or successful witness was rerun.
+
+Independent narrow review replayed the 41-source/four-result checker and
+inspected SSA initialization, statement-list handling, CFG construction and
+merge-vector ownership, default-memory operands and empty-PHI pruning. It
+accepted the 41 GGC events and normalized vector ceilings with the ordinary
+pool and metadata remainders retained; it did not claim whole-tool capacity.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-initial-gimple.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --output /tmp/native-null-initial-gimple.json
+```
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available

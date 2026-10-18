@@ -1,0 +1,191 @@
+{
+  "scope": "Null Main initial GIMPLE, CF/EH, CFG, root loop and SSA allocation join",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "complete_sources_verified": 41,
+  "reused_results_verified": 4,
+  "incoming_shape": {
+    "ordinary_blocks": 3,
+    "blocks_including_entry_exit": 5,
+    "edges": 4,
+    "CF_statements": 5,
+    "label_UIDs": 2,
+    "SSA_live_statements_maximum": 3,
+    "real_loops": 0
+  },
+  "GGC_requests": [
+    {
+      "object": "initial_and_CF_tuples",
+      "events": 6,
+      "individual_raw_bytes_at_most": 80
+    },
+    {
+      "object": "CF_return_LABEL_DECL",
+      "events": 1,
+      "individual_raw_bytes_at_most": 256
+    },
+    {
+      "object": "gimple_df",
+      "events": 1,
+      "individual_raw_bytes_at_most": 256
+    },
+    {
+      "object": "default_defs_hash_control",
+      "events": 1,
+      "individual_raw_bytes_at_most": 128
+    },
+    {
+      "object": "default_defs_hash_backing_31_pointers",
+      "events": 1,
+      "individual_raw_bytes_at_most": 248
+    },
+    {
+      "object": "SSA_names_50_pointers",
+      "events": 1,
+      "individual_raw_bytes_at_most": 512
+    },
+    {
+      "object": "memory_VAR_DECL",
+      "events": 1,
+      "individual_raw_bytes_at_most": 312
+    },
+    {
+      "object": "memory_identifier",
+      "events": 1,
+      "individual_raw_bytes_at_most": 40
+    },
+    {
+      "object": "memory_identifier_characters",
+      "events": 1,
+      "individual_raw_bytes_at_most": 5
+    },
+    {
+      "object": "default_memory_SSA_NAME",
+      "events": 1,
+      "individual_raw_bytes_at_most": 88
+    },
+    {
+      "object": "detached_default_definition_NOP",
+      "events": 1,
+      "individual_raw_bytes_at_most": 64
+    },
+    {
+      "object": "operand_use_slab",
+      "events": 1,
+      "individual_raw_bytes_at_most": 1024
+    },
+    {
+      "object": "CFG_control",
+      "events": 1,
+      "individual_raw_bytes_at_most": 128
+    },
+    {
+      "object": "CFG_blocks_including_entry_exit",
+      "events": 5,
+      "individual_raw_bytes_at_most": 128
+    },
+    {
+      "object": "block_and_label_map_20_pointers_each",
+      "events": 2,
+      "individual_raw_bytes_at_most": 256
+    },
+    {
+      "object": "CFG_edges",
+      "events": 4,
+      "individual_raw_bytes_at_most": 64
+    },
+    {
+      "object": "edge_predecessor_successor_vectors",
+      "events": 8,
+      "individual_raw_bytes_at_most": 64
+    },
+    {
+      "object": "loops_control",
+      "events": 1,
+      "individual_raw_bytes_at_most": 32
+    },
+    {
+      "object": "root_loop",
+      "events": 1,
+      "individual_raw_bytes_at_most": 1024
+    },
+    {
+      "object": "root_exit_sentinel",
+      "events": 1,
+      "individual_raw_bytes_at_most": 32
+    },
+    {
+      "object": "root_loop_vector",
+      "events": 1,
+      "individual_raw_bytes_at_most": 16
+    }
+  ],
+  "new_GGC_events": 41,
+  "updated_selected_known_GGC_subtotal": 40072,
+  "SSA": {
+    "memory_declarations": 1,
+    "default_names": 1,
+    "NOPs": 1,
+    "persistent_use_entries": 1,
+    "PHIs": 0,
+    "name_vector_length": 2
+  },
+  "shared_identifier_additions_after_prefix_total": 5,
+  "identifier_table_slot_ceiling_unchanged": 65536,
+  "ordinary_direct_request_examples": {
+    "gimplify_context_bytes_at_most": 128,
+    "bind_stack_bytes": 72,
+    "return_records_bytes": 136,
+    "EH_hash_backing_bytes": 248,
+    "EH_record_bytes_each": 16,
+    "EH_record_count": 2,
+    "label_arrays_count": 2,
+    "label_array_bytes_each": 80,
+    "discriminator_hash_backing_bytes": 156,
+    "empty_case_map_backing_bytes": 208,
+    "SSA_var_info_hash_backing_bytes": 56,
+    "SSA_var_info_bytes": 48,
+    "SSA_frontier_header_array_bytes": 160,
+    "SSA_var_vector_bytes": 16,
+    "SSA_definition_stack_bytes": 88,
+    "dominator_walks": 2,
+    "walk_int_arrays_each_bytes": 20,
+    "walk_pointer_stack_bytes": 80,
+    "dominance_array_bytes_individually": [
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      40,
+      24,
+      96
+    ],
+    "root_loop_order_array_bytes": 20,
+    "root_loop_candidate_vector_bytes": 16,
+    "default_bitmap_header_requests": 6,
+    "private_SSA_bitmap_header_requests": 3,
+    "private_SSA_bitmap_element_requests": 1,
+    "bitmap_header_bytes": 32,
+    "bitmap_element_bytes": 40,
+    "PHI_pruning_large_arrays_reached": false
+  },
+  "input_requirements": [
+    "Previously established null Main GENERIC graph and selected O0/no-debug/no-checking route",
+    "LP64 installed target and existing source-to-tool correspondence premise",
+    "Existing type/decl/hash/vector/loop layout transfers; source locations may vary"
+  ],
+  "remaining_terms": [
+    "Source/path/line-map storage and discriminator adhoc-location requests",
+    "Shared default bitmap obstack and ET-pool whole-invocation growth/lifetime join",
+    "Later warning/ranger/IPA managers and later pass allocations",
+    "Collector pages, finalizers, process managers and libc bookkeeping"
+  ],
+  "complete_ordinary_lifetime_inventory": false,
+  "complete_capacity_result": false,
+  "native_execution": false,
+  "reachability_basis": "Handwritten selected-route/source derivation; anchors are not semantic verification"
+}

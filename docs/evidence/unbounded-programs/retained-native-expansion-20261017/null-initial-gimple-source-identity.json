@@ -1,0 +1,234 @@
+{
+  "scope": "Null Main initial GIMPLE, CF/EH, CFG, root loop and SSA allocation join",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_numbering": "Literal LF, not Python splitlines (source contains form feeds)",
+  "files": [
+    {
+      "path": "gcc/gimplify.cc",
+      "bytes": 703569,
+      "sha256": "eda46de03ec6f0b5fd4e6793d1cfcb07cc4f493a5d62ab75bebfbfaea3ec7a6e"
+    },
+    {
+      "path": "gcc/gimple.cc",
+      "bytes": 106015,
+      "sha256": "14ade6a58d72f51ad2f3e862736eca6addcdafba31e692e365b4a523a354d803"
+    },
+    {
+      "path": "gcc/gimple.h",
+      "bytes": 166069,
+      "sha256": "33b8d4bef37de5b5395cae298f6da5707a6e07505487ee343e760282d87b96f3"
+    },
+    {
+      "path": "gcc/gimple.def",
+      "bytes": 17757,
+      "sha256": "29c518537aad88cd33d4cf21f2a5cea3610d19bc5837de2820f379f0f2a3ad3d"
+    },
+    {
+      "path": "gcc/gimple-low.cc",
+      "bytes": 45880,
+      "sha256": "da94ffa5208c13411156858f93ccb9f772f30da912ccaff6c8119ffd82edbafb"
+    },
+    {
+      "path": "gcc/gimple-ssa.h",
+      "bytes": 5539,
+      "sha256": "8de9708a65db22dcab01a8026dd54805e789a5d61b095149d9a4fca136173eed"
+    },
+    {
+      "path": "gcc/tree-eh.cc",
+      "bytes": 147108,
+      "sha256": "ec91367a1c50765f9ef7bd0f7e66f121e38289aba315ae0302399b510e024431"
+    },
+    {
+      "path": "gcc/tree-ssa.cc",
+      "bytes": 66992,
+      "sha256": "b4bcae1ef8545e38573ee2be4dd02f66e9a6976485046acecdda192bddbf5a03"
+    },
+    {
+      "path": "gcc/tree-ssanames.cc",
+      "bytes": 32186,
+      "sha256": "912f01856cb72bd68199c99d6c57d91384f857cf281a4a02bf294ff37089ed86"
+    },
+    {
+      "path": "gcc/tree-ssa-operands.cc",
+      "bytes": 38594,
+      "sha256": "61c73f75dbe24d2c87ba0f176d9f7085fc86811099abf000d98746c8c54514bf"
+    },
+    {
+      "path": "gcc/tree-ssa-operands.h",
+      "bytes": 3972,
+      "sha256": "7f2c5b095b973ab9d2dee364e4c25684faa602c654d5dcae90151c7ac138ed59"
+    },
+    {
+      "path": "gcc/tree-ssa-alias.h",
+      "bytes": 8320,
+      "sha256": "3b3ee677418cbcae40dd0403a8022265d3a0334058ebc3f511d5a9cd71b7de59"
+    },
+    {
+      "path": "gcc/tree-dfa.cc",
+      "bytes": 29688,
+      "sha256": "667e7dac0ad096613e3f30a81f827c9bdf83baae877cf75f4fd9a698b2961ae2"
+    },
+    {
+      "path": "gcc/tree-core.h",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71"
+    },
+    {
+      "path": "gcc/tree-cfg.cc",
+      "bytes": 306672,
+      "sha256": "8a3ee6948a9580197089f40217c960679658223901fef53dee3d50c26862fe44"
+    },
+    {
+      "path": "gcc/tree-cfgcleanup.cc",
+      "bytes": 48340,
+      "sha256": "75582d69d7f785c21e49fec38c286ba059ef5dfac8caa1f22a31a2e09497614a"
+    },
+    {
+      "path": "gcc/cfg.cc",
+      "bytes": 30890,
+      "sha256": "a0e0a84a305fa6b6ddf7bce124cfda6c35994555788b3000e3aa73eaba2a816b"
+    },
+    {
+      "path": "gcc/cfg.h",
+      "bytes": 6695,
+      "sha256": "2d6d9e1878b701a4e3410fb07ac65c293802cb35561f60b414c3e3ee085972be"
+    },
+    {
+      "path": "gcc/basic-block.h",
+      "bytes": 18376,
+      "sha256": "85841b8d8c11e9ccd2c80d67531747d658e8346fa1a113996e2cfe78c70d74a8"
+    },
+    {
+      "path": "gcc/profile-count.h",
+      "bytes": 41935,
+      "sha256": "0d638dc150f8da15c97a155c3d333fb77576c80ee8baa4ee3d1fb8e3e51248ec"
+    },
+    {
+      "path": "gcc/cfghooks.cc",
+      "bytes": 45042,
+      "sha256": "cc9020e0a6cf256aa1b02b8d8d05977b82212e1266e0acc36cce47f6424f4c32"
+    },
+    {
+      "path": "gcc/cfgloop.cc",
+      "bytes": 56182,
+      "sha256": "85733a1157f28b71ddda81e333da35776ae4562698deece8a2c8d4cede480ff3"
+    },
+    {
+      "path": "gcc/cfgloop.h",
+      "bytes": 28358,
+      "sha256": "c3d43490b4a32e3ab1534fcc9da1fcdead1007db5ae54305315019e38a6e4b17"
+    },
+    {
+      "path": "gcc/loop-init.cc",
+      "bytes": 16620,
+      "sha256": "475ea3527abbea9ca7582753bc9ebea01ecfd6bbae3c62cedc63af2dfe9ecb92"
+    },
+    {
+      "path": "gcc/cfganal.cc",
+      "bytes": 57472,
+      "sha256": "e2c13056e8fde97f6a9008baf73fa9ab6527e376996bd9a537f95c9c2150ad1e"
+    },
+    {
+      "path": "gcc/tree-into-ssa.cc",
+      "bytes": 106038,
+      "sha256": "5894563f80909562e1f85ce010a3a981055f55c18f05fe3bcc5f6f48e609f659"
+    },
+    {
+      "path": "gcc/domwalk.cc",
+      "bytes": 11096,
+      "sha256": "65705a9c30c57d051316efe5a5ba0a2d7661ec568e0efb456f200f8cfd206e23"
+    },
+    {
+      "path": "gcc/dominance.cc",
+      "bytes": 48171,
+      "sha256": "83ae712d69a2424e7d401a49024221a7fa950da2a7ce587b75a0b6b59d7ee930"
+    },
+    {
+      "path": "gcc/et-forest.cc",
+      "bytes": 17433,
+      "sha256": "d2a9395270619f63779a5cdb2b1dd3e64fbccfbac8b8951d9028d904bd8d60cd"
+    },
+    {
+      "path": "gcc/et-forest.h",
+      "bytes": 2693,
+      "sha256": "c7f245d7ab7ba523b666724f69a4ea32006462130b90f4d7a104d56c9b00a060"
+    },
+    {
+      "path": "gcc/alloc-pool.h",
+      "bytes": 15523,
+      "sha256": "0c667b8aee5aa002b2d859fd6e50120c5d84c7ed782af5e04c83fa5be8821eda"
+    },
+    {
+      "path": "gcc/memory-block.h",
+      "bytes": 2500,
+      "sha256": "9eef83e41d1d5d8a0fd753a900804a0350e968520c5831fef735ce8a8e3173ac"
+    },
+    {
+      "path": "gcc/bitmap.h",
+      "bytes": 37720,
+      "sha256": "79c70e80f9987702c98a6b6dde5bd1ef87e63823ee3edb9aff0e78e31200987a"
+    },
+    {
+      "path": "gcc/bitmap.cc",
+      "bytes": 72861,
+      "sha256": "879fa506fc99e70274663eb8b6899bb34a67e22236d91b5e30adedb9927b6b3e"
+    },
+    {
+      "path": "gcc/sbitmap.h",
+      "bytes": 10479,
+      "sha256": "77a76f132aeab1883861351cb6b4361336bc01568272982d76a233d924367a2d"
+    },
+    {
+      "path": "gcc/sbitmap.cc",
+      "bytes": 27107,
+      "sha256": "4152646b5167a7bbbab482d6e1399e11934475808933b6111b7a8e126691bf5b"
+    },
+    {
+      "path": "gcc/hash-table.h",
+      "bytes": 39688,
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "path": "gcc/hash-map.h",
+      "bytes": 10909,
+      "sha256": "1a70ff56f503e7aa95b8418b2109c4ecaabcac2a67638e5846893d6c1e2d6dbb"
+    },
+    {
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "path": "gcc/wide-int.h",
+      "bytes": 132268,
+      "sha256": "a1d7eb9e01a6ec0efacc4f92975db4f2e25c7629ccbdeaaf263751705b7ee820"
+    }
+  ],
+  "reused_results": [
+    {
+      "path": "native-null-unit-symbols.json",
+      "bytes": 2845,
+      "sha256": "9be6c08aed9008646c23eaa66eddbb5446681e738ff448ccae3ed47a05c17a43"
+    },
+    {
+      "path": "native-null-gigi-trees.json",
+      "bytes": 2053,
+      "sha256": "1f3f7a91db3f087618c4b199dfeafd564f40bac51357f2ab914a9f3fd199ee9b"
+    },
+    {
+      "path": "native-null-gigi-metadata.json",
+      "bytes": 2544,
+      "sha256": "3eda86898f726a203d6a56c86f6a2cb01e380d687ad7081a40e0171440063e5a"
+    },
+    {
+      "path": "native-df-backing.json",
+      "bytes": 11222,
+      "sha256": "fc6b87125fa2314f185f69b338d685011900ceb7277922afd0a0ade3b7c3834a"
+    }
+  ]
+}
