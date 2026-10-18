@@ -108,7 +108,10 @@ external-state reference.
 The JSON converter creates no ordinary expression/term match. Its only
 `E.mk_match` is an exception block with no ordinary branches and at most one
 payload variable. The corresponding `vc.ml` branch makes no `Kcase`, as
-recorded in the first-split analysis. There are two additional typing paths
+recorded in the first-split analysis. The [typing bridge](retained-producer-typing.md)
+also checks Dexpr's intervening handler elaboration: Main's generated try
+blocks have singleton simple handlers, so its duplicate/complex-handler
+fallback does not synthesize an ordinary match. There are two additional typing paths
 to check rather than assuming the parsed shape survives unchanged:
 
 1. Regular generated postconditions use one result-variable pattern
@@ -167,6 +170,7 @@ does not yet yield a numerical admission rule: source-to-typed-expression
 growth, SP/WP size, match preprocessing size, imported declaration storage
 and the four fixed library-body processes remain distinct obligations.
 
-The [subsequent matcher envelope](retained-producer-matchsize.md) supplies a
-lexical/product size transfer for this concrete frontier. It leaves its
-source-to-SP/WP and marked-definition joins explicit.
+The [subsequent matcher envelope](retained-producer-matchsize.md) and
+[weighted unfolding join](retained-producer-match-unfold.md) supply
+lexical/product transfers for this frontier. Their formula, definition-map
+and alias-map inputs still need to be derived from source.

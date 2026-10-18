@@ -1,0 +1,6 @@
+{
+  "source_archive_sha256": "0a4a7edfa6ec0b78220bbb429ec0b503b8eb2fba864e875ce69b69936e24ce78",
+  "source_files": 4,
+  "native_executions": 0,
+  "scope": "Identity and branch anchors only; source reachability is reviewed, not mechanically inferred; quantitative whole-producer join remains open"
+}

@@ -1,0 +1,27 @@
+{
+  "repository": "AdaCore/why3",
+  "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "files": [
+    {
+      "path": "src/mlw/dexpr.ml",
+      "bytes": 72915,
+      "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9"
+    },
+    {
+      "path": "src/mlw/expr.ml",
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+    },
+    {
+      "path": "src/parser/typing.ml",
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    {
+      "path": "plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    }
+  ],
+  "source_archive_sha256": "0a4a7edfa6ec0b78220bbb429ec0b503b8eb2fba864e875ce69b69936e24ce78"
+}

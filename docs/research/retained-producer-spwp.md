@@ -101,7 +101,9 @@ including a true safety formula where the implementation returns it.
 transfer must exclude it for ordinary Main. A case-free input contract or
 an all-solid type list alone is not a proof that no program match introduced
 a `Kcase`. Generated unit/variable handlers and the reviewed converter paths
-are the relevant source restriction.
+are the relevant source restriction; the [typing bridge](retained-producer-typing.md)
+now checks that Dexpr's handler elaboration preserves this restriction for
+ordinary Main.
 
 | Intermediate form | Sufficient bound on `W` |
 | --- | --- |
