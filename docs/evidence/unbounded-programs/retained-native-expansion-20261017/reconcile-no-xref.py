@@ -35,7 +35,8 @@ def record(name, raw, digest=None):
 ada = {}
 for name in ("switch-c.adb", "gnat1drv.adb", "lib-xref.adb", "lib-writ.adb",
              "ali.adb", "ali.ads", "gnatbind.adb", "alloc.ads", "opt.ads",
-             "lib.ads", "lib.adb", "gcc-interface/lang-specs.h"):
+             "lib.ads", "lib.adb", "gcc-interface/lang-specs.h", "back_end.adb",
+             "backend_utils.adb", "gcc-interface/misc.cc"):
     ada[name] = record("gcc/ada/"+name, (args.ada/name).read_bytes(), expected[name]["sha256"])
 archive_raw = args.gpr_archive.read_bytes()
 assert hashlib.sha256(archive_raw).hexdigest() == driver["gpr_source_archive"]["sha256"]
@@ -56,6 +57,9 @@ assert "if C = EOF then\n         --  Check that gnatprove generated .ali files 
 assert '(Argv\'Last <= 5 or else Argv (1 .. 5) /= "-gnat")' in gpr["src/gprbind.adb"]
 assert "Xrefs_Initial                    : constant := 5_000;" in ada["alloc.ads"]
 assert "Num_Buckets : constant := 2**16;" in ada["lib-xref.adb"]
+assert "if not Scan_Common_Back_End_Switch (Switch_Chars) then" in ada["back_end.adb"]
+assert "Store_Compilation_Switch (Switch_Chars);" in ada["back_end.adb"]
+assert "else\n         return False;" in ada["backend_utils.adb"]
 
 baseline = json.loads(record("baseline/native-invocation-inputs.json",
     (evidence/"native-invocation-inputs.json").read_bytes()))
@@ -106,6 +110,29 @@ result = dict(
     compiler_binder_or_test_execution=False,
     semantic_reference_marking="Generate_Reference work before Xref_Active guard remains; do not delete its semantic/warning transfers",
     remaining="actual native configuration selection/implementation and validation, descriptor and provenance updates, complete tool-route capacity")
+warning = "-Wno-free-nonheap-object"
+combined_stored = stored+[warning]
+assert len(warning) == 24
+result["combined_with_native_warning_option"] = dict(
+    scope="Arithmetic and forwarding consequences of the separately justified optional native warning-pass selector",
+    added_switches=["-gnatx",warning], native_GCC_argument_count=12,
+    gnat1_argc_bound=21, decoded_option_count_bound=21,
+    decoded_option_object_bytes=96*21,
+    canonical_save_argc_bound=42,
+    canonical_save_argv_pointer_count_including_sentinel=43,
+    Ada_argument_pointer_count_bound=41,
+    Compilation_Switches=combined_stored, Compilation_Switches_count=8,
+    ALI_A_record_max_characters=max(2+len(s) for s in combined_stored),
+    ALI_A_total_bytes_including_LF=sum(3+len(s) for s in combined_stored),
+    largest_argument_characters="max(24,P+7)",
+    gprbind_drops_from_replayed_Main_A_records=["-gnatx"],
+    gprbind_retains_from_replayed_Main_A_records=[warning],
+    comparison_examples=[dict(row,
+        serialized_file_byte_bound=row["serialized_file_byte_bound"]+3+len(warning))
+        for row in rows],
+    warning_pass_semantics_proved_by_this_reconciler=False,
+    production_or_proof_options_changed=False,
+    binder_compile_descriptor_update_required=True)
 args.output.write_text(json.dumps(result, indent=2, sort_keys=True)+"\n")
 print(json.dumps(dict(source_inputs=len(identities), examples=len(rows),
     proposed_gnat1_argc=argc, complete_capacity_result=False)))

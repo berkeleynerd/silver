@@ -22,6 +22,90 @@
   "added_native_switch": "-gnatx",
   "canonical_save_argc_bound": 40,
   "canonical_save_argv_pointer_count_including_sentinel": 41,
+  "combined_with_native_warning_option": {
+    "ALI_A_record_max_characters": 26,
+    "ALI_A_total_bytes_including_LF": 108,
+    "Ada_argument_pointer_count_bound": 41,
+    "Compilation_Switches": [
+      "-gnatA",
+      "-gnat2022",
+      "-gnata",
+      "-gnato",
+      "-mtune=generic",
+      "-march=x86-64",
+      "-gnatx",
+      "-Wno-free-nonheap-object"
+    ],
+    "Compilation_Switches_count": 8,
+    "added_switches": [
+      "-gnatx",
+      "-Wno-free-nonheap-object"
+    ],
+    "binder_compile_descriptor_update_required": true,
+    "canonical_save_argc_bound": 42,
+    "canonical_save_argv_pointer_count_including_sentinel": 43,
+    "comparison_examples": [
+      {
+        "baseline_non_xref_ALI_bounds_reused": true,
+        "max_record_bytes_including_LF": 560,
+        "per_record_reserve_fits": true,
+        "serialized_file_byte_bound": 1065044,
+        "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021",
+        "source": "samples/null.adb",
+        "source_identifier_length_in_remaining_ALI_records": false
+      },
+      {
+        "baseline_non_xref_ALI_bounds_reused": true,
+        "max_record_bytes_including_LF": 560,
+        "per_record_reserve_fits": true,
+        "serialized_file_byte_bound": 1065044,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+        "source": "samples/hello_world.adb",
+        "source_identifier_length_in_remaining_ALI_records": false
+      },
+      {
+        "baseline_non_xref_ALI_bounds_reused": true,
+        "max_record_bytes_including_LF": 560,
+        "per_record_reserve_fits": true,
+        "serialized_file_byte_bound": 1065044,
+        "sha256": "dc8f33010a2b0a1bb77afc55a184a1f6b4e73d7bed1ca6e94ab0880c984a7e6c",
+        "source": "samples/for_loop_step.adb",
+        "source_identifier_length_in_remaining_ALI_records": false
+      },
+      {
+        "baseline_non_xref_ALI_bounds_reused": true,
+        "max_record_bytes_including_LF": 560,
+        "per_record_reserve_fits": true,
+        "serialized_file_byte_bound": 1065044,
+        "sha256": "bde96907d4d27894bb3d116b482720f800f23a4e582b774672825cc18a949d27",
+        "source": "samples/command_line_greeting.adb",
+        "source_identifier_length_in_remaining_ALI_records": false
+      },
+      {
+        "baseline_non_xref_ALI_bounds_reused": true,
+        "max_record_bytes_including_LF": 560,
+        "per_record_reserve_fits": true,
+        "serialized_file_byte_bound": 1065044,
+        "sha256": "7321d8b442fcc5d122bdfd4dc175417fc688df2639111783bb895288a8fe747c",
+        "source": "samples/find_square_difference.adb",
+        "source_identifier_length_in_remaining_ALI_records": false
+      }
+    ],
+    "decoded_option_count_bound": 21,
+    "decoded_option_object_bytes": 2016,
+    "gnat1_argc_bound": 21,
+    "gprbind_drops_from_replayed_Main_A_records": [
+      "-gnatx"
+    ],
+    "gprbind_retains_from_replayed_Main_A_records": [
+      "-Wno-free-nonheap-object"
+    ],
+    "largest_argument_characters": "max(24,P+7)",
+    "native_GCC_argument_count": 12,
+    "production_or_proof_options_changed": false,
+    "scope": "Arithmetic and forwarding consequences of the separately justified optional native warning-pass selector",
+    "warning_pass_semantics_proved_by_this_reconciler": false
+  },
   "comparison_examples": [
     {
       "baseline_non_xref_ALI_bounds_reused": true,
@@ -106,10 +190,25 @@
       "git_blob_sha1": "7e36e8eb8783c8a444f6d79a5a7ea10c5e881a71",
       "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d"
     },
+    "gcc/ada/back_end.adb": {
+      "bytes": 14372,
+      "git_blob_sha1": "a5c0b70f20eea80cfdec60806e167a2475c38eb2",
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+    },
+    "gcc/ada/backend_utils.adb": {
+      "bytes": 4772,
+      "git_blob_sha1": "3e014a8f98b4aff11d789e1ab1ce63e718537a90",
+      "sha256": "b79d30483b0da1f91ecf5db28d0d9fcf263a97b3dcc12d86c0443c44b8acdc58"
+    },
     "gcc/ada/gcc-interface/lang-specs.h": {
       "bytes": 3476,
       "git_blob_sha1": "13048bee32bede46b1e6abfa81b876f4608cda5f",
       "sha256": "9f3336a58e69cc491be8db6694e121024aadf4dc461965a8bede3e1f7050cc2b"
+    },
+    "gcc/ada/gcc-interface/misc.cc": {
+      "bytes": 47742,
+      "git_blob_sha1": "547aae5438c88ee4f15699566778eab905a52a3b",
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
     },
     "gcc/ada/gnat1drv.adb": {
       "bytes": 60186,

@@ -6481,6 +6481,34 @@ Adoption still needs production option separation, corresponding invocation
 and provenance records, and focused native compile/bind validation. This
 source derivation is neither that validation nor whole-route capacity.
 
+### Combined native option descriptor
+
+The proposal record also supplies the argv/ALI delta when `-gnatx` is combined
+with the separately researched native `-Wno-free-nonheap-object` selector.
+This arithmetic does not establish the warning pass's semantics; that belongs
+to the [backend source analysis](retained-backend-capacity.md).
+
+The 24-character warning option is forwarded by the Ada specs' `%{W*}` entry
+and stored in A records by Scan_Back_End_Switches: it is neither internal nor
+quiet, and Backend_Utils' common switch recognizer returns False for it
+(`gcc-interface/lang-specs.h:41–50`, `back_end.adb:240–289`,
+`backend_utils.adb:36–120`). The combined class therefore has 12 GCC arguments
+excluding its executable; at most 21 gnat1/decoded-option positions; separate
+2,016-byte decoded arrays; at most 42 canonical arguments, 43 C pointer slots
+including sentinel, and 41 Ada argument entries. The longest argument becomes
+`max(24,P+7)`. Its eight stored switches produce 108 A-record bytes including
+LF, with a largest record of 26 characters before LF.
+
+The extra warning record adds 27 bytes to the no-xref comparison files: at
+P=200 their bound is 1,065,044 bytes and the largest record remains 560 bytes
+including LF. The Xref objects remain absent as in the single-option proposal.
+
+Unlike `-gnatx`, **the warning option is retained by gprbind** when it replays
+Main's backend A switches for the binder-generated source compile
+(`src/gprbind.adb:906–925`). Any adopted complete configuration must price and
+record that propagation in the binder compile descriptor as well. The current
+production and GNATprove flags and both baseline descriptors remain unchanged.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
