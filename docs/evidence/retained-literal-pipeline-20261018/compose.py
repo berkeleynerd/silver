@@ -101,6 +101,8 @@ class Context:
         self.ali_context = self.ali['Context'](ada_root)
         self.ali_consumers = runpy.run_path(str(EVIDENCE/'retained-literal-binder-ali-20261018/compose.py'))
         self.ali_consumers_context = self.ali_consumers['Context'](ada_root)
+        self.gpr_parent = runpy.run_path(str(EVIDENCE/'retained-literal-gpr-parent-20261018/compose.py'))
+        self.gpr_parent_context = self.gpr_parent['Context'](ada_root)
         self.system = read(NATIVE/'native-indexed-source-buffers.json')['additional_System_input']
         self.configuration = (NATIVE/'null-capacity-fixture.adc').read_bytes()
         checksum = runpy.run_path(str(EVIDENCE/'retained-binder-checksum-closure-20261018/check.py'))
@@ -747,6 +749,11 @@ def evaluate(descriptor_path, context, source_override=None):
             ali_consumers['source_counts'] == counts and
             ali_consumers['path_spelling_bytes_upper'] == p and
             ali_consumers['Main_ALI_interface'] == ali, 'literal ALI consumer interface join')
+    gpr_parent = context.gpr_parent['evaluate'](raw,context.gpr_parent_context,path_bytes=p)
+    require(gpr_parent['source'] == identity(raw) and
+            gpr_parent['source_counts'] == counts and
+            gpr_parent['path_spelling_bytes_upper'] == p and
+            gpr_parent['Main_ALI_interface'] == ali, 'literal GPR parent DW interface join')
     line_capacity = 500
     while line_capacity < physical['physical_line_entries_bound']:
         line_capacity *= 2
@@ -770,6 +777,7 @@ def evaluate(descriptor_path, context, source_override=None):
         literal_output_linker_representation=linker['selected_literal_assembler_and_linker_representation_fits'],
         Main_ALI_interface=ali['selected_Main_ALI_interface_fits'],
         ALI_consumer_local_interfaces=ali_consumers['selected_ALI_consumer_local_interfaces_fit'],
+        GPR_parent_DW_local_interface=gpr_parent['selected_parent_DW_reader_local_interface_fits'],
         Why_core=selected_why['literal_Main_core_fits'],
         output_binder_checksum_no_collection=context.checksum[
             'universal_rounded_GGC_bytes_bound_subject_to_reviewed_source_projection']
@@ -799,9 +807,10 @@ def evaluate(descriptor_path, context, source_override=None):
             'available':dict(selected_Main_ALI_interface_fits=ali['selected_Main_ALI_interface_fits'],
                 Main_ALI_reader_bytes_including_EOF_upper=ali['Main_ALI_reader_bytes_including_EOF_upper'],
                 selected_ALI_consumer_local_interfaces_fit=ali_consumers['selected_ALI_consumer_local_interfaces_fit'],
+                selected_parent_DW_reader_local_interface_fits=gpr_parent['selected_parent_DW_reader_local_interface_fits'],
                 selected_literal_assembler_and_linker_representation_fits=linker['selected_literal_assembler_and_linker_representation_fits'],
                 failed_linker_sufficient_checks=linker['link']['failed_sufficient_checks']),
-            'missing':'Complete native and GPR shared name-pool backing, invocation/library graph containers, native parent GPRbuild D/W reader, driver and output launch. Main/fixed ALI local parser tables/buffers and Gprbind A/U-only local interfaces are attached with explicit additive pool contracts; selected ELF/link and checksum interfaces remain joined.'},
+            'missing':'Complete native and GPR shared name-pool backing, invocation/library graph containers, parent source/project/driver routes, fixed-child ALI regeneration correspondence and output launch. Main/fixed ALI local parser tables/buffers, Gprbind A/U-only and native parent GPRbuild D/W local interfaces are attached with explicit additive name contracts; selected ELF/link and checksum interfaces remain joined.'},
         'complete_output_launch_materialization': {
             'missing':'Bind complete output-family project/options/map/search graph and fixed dependency compiler/producer subprocesses. This descriptor binds common bytes and selected roles, not that entire frontier.'}}
     return dict(scope=descriptor['scope'],source=identity(raw),source_path=str(source_path),
@@ -821,6 +830,7 @@ def evaluate(descriptor_path, context, source_override=None):
         literal_output_linker=linker,linker_path_bytes_including_NUL_upper=p+1,
         Main_ALI_interface=ali,
         ALI_consumer_interfaces=ali_consumers,
+        native_GPR_parent_DW_interface=gpr_parent,
         Why_core=why,selected_Why_core=selected_why,
         accepted_output_binder_checksum=context.checksum,
         open_joins=opens,whole_literal_pipeline_capacity_established=False,

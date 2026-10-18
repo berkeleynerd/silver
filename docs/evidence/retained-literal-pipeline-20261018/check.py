@@ -143,6 +143,19 @@ def main():
             assert not consumers['Gprbind_Main_reader']['complete_name_vector_backing_established']
             assert not consumers['parent_GPRbuild_DW_reader_capacity_established']
             assert not consumers['whole_binder_or_parent_capacity_established']
+            parent=result['native_GPR_parent_DW_interface']
+            assert parent['source']==module.identity(raw) and parent['source_counts']==counts
+            assert parent['Main_ALI_interface']==ali
+            assert parent['path_spelling_bytes_upper']==fixture['complete_path_bound']
+            assert parent['selected_parent_DW_reader_local_interface_fits']
+            assert parent['schedule']['Phase_2_ALI_DW_calls_upper']==3
+            assert parent['schedule']['Record_ALI_For_additional_W_reads_upper']==0
+            assert parent['parser_name_contribution']['entry_events_upper']==5470
+            assert parent['parser_name_contribution']['value_bytes_upper']==6225037
+            assert not parent['fixed_child_regeneration_correspondence_established']
+            assert not parent['complete_GPR_Names_backing_established']
+            assert not parent['whole_native_parent_capacity_established']
+            assert not parent['output_launch_descriptor_materialized']
             expected=name!='5000_calls'
             assert result['evaluated_predicates_pass']==expected,(name,result['failed_predicates'])
             assert linker['link']['failed_sufficient_checks']==(
@@ -171,12 +184,37 @@ def main():
             result=evaluate(original,changed)
             assert result['conditions']['Main_ALI_interface']==expected
             assert result['conditions']['ALI_consumer_local_interfaces']==expected
+            assert result['conditions']['GPR_parent_DW_local_interface']==expected
+            assert result['native_GPR_parent_DW_interface']['Main_ALI_interface']==result['Main_ALI_interface']
             assert result['ALI_consumer_interfaces']['Main_ALI_interface']==result['Main_ALI_interface']
             assert result['Main_ALI_interface']['path_spelling_bytes_upper']==p
             assert result['Main_GAS_BFD_storage']['path_bytes']==p+1
             assert result['linker_path_bytes_including_NUL_upper']==p+1
             rows.append(dict(case='Main_ALI_path_envelope_'+str(p),path_spelling_bytes=p,
                              Main_ALI_interface_fits=expected,failed_predicates=result['failed_predicates']))
+
+        # A component must refer to the same writer result, not merely source
+        # counts and a plausible success flag. Exercise both join failures.
+        parent_evaluate=context.gpr_parent['evaluate']
+        for field in ('path_spelling_bytes_upper','Main_ALI_interface'):
+            def mismatched_parent(*args, **kwargs):
+                result=parent_evaluate(*args, **kwargs)
+                if field=='path_spelling_bytes_upper':
+                    result[field]+=1
+                else:
+                    result[field]=copy.deepcopy(result[field])
+                    result[field]['Main_ALI_reader_bytes_including_EOF_upper']+=1
+                return result
+            context.gpr_parent['evaluate']=mismatched_parent
+            try:
+                evaluate(original)
+            except ValueError as error:
+                assert str(error)=='literal GPR parent DW interface join'
+                rows.append(dict(case='GPR_parent_'+field+'_mismatch',rejected=str(error)))
+            else:
+                raise AssertionError('GPR parent accepted mismatched '+field)
+            finally:
+                context.gpr_parent['evaluate']=parent_evaluate
 
         rejections=[('VT_rejected',b'\v'+original,fixture),
                     ('concat_rejected',shell+b'Silver_IO.Put ("a" & "b");'+tail,fixture),

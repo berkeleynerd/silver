@@ -403,5 +403,35 @@
     "path": "docs/evidence/retained-literal-pipeline-20261018/review-cf-cfg.md",
     "bytes": 10030,
     "sha256": "211f31fa7b3cb81c8bb2d816c6147b2bbe914b8929bb8d809b7fbb78d1dc955c"
+  },
+  {
+    "path": "docs/evidence/retained-literal-gpr-parent-20261018/compose.py",
+    "bytes": 18617,
+    "sha256": "6d2bfeb57aacd6a25d509d784ac17bd029dc31cda1ac1a5c45ecc524a9e31c17"
+  },
+  {
+    "path": "docs/evidence/retained-literal-gpr-parent-20261018/inputs.json",
+    "bytes": 1798,
+    "sha256": "afee9b08be99ad0d64e6d0e654cd6c7ae1b9aa906e343ed704a9d1d16e278e7d"
+  },
+  {
+    "path": "docs/evidence/retained-literal-gpr-parent-20261018/sources.json",
+    "bytes": 1102,
+    "sha256": "b7930be2ae2cef80bf0cb557f3f5f30b9acd00cd12844ed2f1213c484a7b4463"
+  },
+  {
+    "path": "docs/evidence/retained-literal-gpr-parent-20261018/result.json",
+    "bytes": 15238,
+    "sha256": "b0ca3dc913241c95753d8fc5ba53bd4b5c6e38b3247152a2a593e77041f82aec"
+  },
+  {
+    "path": "docs/research/retained-literal-gpr-parent.md",
+    "bytes": 15320,
+    "sha256": "decc4d580a81c006660a08ee5fc3effe5a922ad06bcb9a5fe5dbb7253e7f791d"
+  },
+  {
+    "path": "docs/reviews/review-literal-gpr-parent-f7904ce722.md",
+    "bytes": 9054,
+    "sha256": "2cdb84fd29fbf4d7c3e8b5606be36442d64b19be01ec5ea39e9b229a03d53122"
   }
 ]

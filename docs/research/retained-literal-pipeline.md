@@ -1083,6 +1083,23 @@ name contributions, with complete shared-pool backing explicitly false.
 Invocation/library graph storage, native parent GPRbuild's distinct D/W reader,
 driver and complete output launch remain open. No component equation changed.
 
+The subsequent [native GPRbuild D/W reader](retained-literal-gpr-parent.md)
+is attached as `native_GPR_parent_DW_interface`. Its callable receives the
+same complete source bytes and P excluding NUL, and must return identical
+source counts and the entire already attached `Main_ALI_interface`. Its
+local predicate joins the conjunction without modifying its component
+equations. The source argument bounds three fresh scans, with zero additional
+W rereads, and keeps persistent Names contributions across table resets.
+The fixed-child contract preserves the retained U/W/Y/Z/D row inventory,
+including multiplicities, as well as its spelling/width and non-A byte
+envelopes. This required interface is not proof that the later launcher
+realizes it. Complete fixed-child regeneration, shared name backing, parent
+source/project/driver storage and output launch remain explicitly false/open.
+The historical binder-consumer result's unestablished parent-reader flag
+remains intact; the distinct new field supplies only this conditional local
+reader result. Two added aggregate cases reject mismatched P and nested writer
+results. No production invocation or capacity rule changes.
+
 ## Exact next native consumer
 
 The callable keeps `native_remaining_lifetime_and_collector` as its next
