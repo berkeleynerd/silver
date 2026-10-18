@@ -109,3 +109,27 @@ python3 docs/evidence/retained-linker-symbols-20261018/check-dynamic-strings.py 
 Its bounds retain generated-input name counts/bytes, configured rpath length
 and the earlier registration term J. They do not cover the separate ordinary
 symbol/section String tables or supply a whole-link capacity result.
+
+`check-symtab.py` reconciles the selected ordinary `.symtab`/`.strtab`
+transfer against ten complete sources and six prior input identities:
+
+```sh
+python3 docs/evidence/retained-linker-symbols-20261018/check-symtab.py --output /tmp/symtab-check.json
+```
+
+It derives a conditional output-count/name bound and the unsigned32
+`24*symcount` intermediate condition. Generated binder counts, section-name
+storage and dynamic section-index legality remain explicit dependencies.
+No native tool executes and no whole-link capacity is established.
+
+`check-shstrtab.py` reuses the section/header source capsule and fixed name
+tables, with the complete `bfd/compress.c` source for the one-byte debug-name
+rewrite. It checks all identities and the conditional `.shstrtab` event,
+length, offset and refcount bounds:
+
+```sh
+python3 docs/evidence/retained-linker-symbols-20261018/check-shstrtab.py --output /tmp/shstrtab-check.json
+```
+
+The sample excludes outstanding binder terms. These are representation
+conditions for one table, not a whole-link or physical-memory guarantee.

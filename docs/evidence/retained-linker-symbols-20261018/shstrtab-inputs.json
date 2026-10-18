@@ -1,0 +1,41 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "supplement": {
+    "path": "bfd/compress.c",
+    "bytes": 33340,
+    "sha256": "f43524f1846fa7514a89d6202f6c9397d412f384e17c71baa6ebc990308e64f1",
+    "archive_sha256": "3301a1781a99f3f37e3be02eb8435cf5e8bd27bd36b703fd061d27c5c2ba7566"
+  },
+  "retained_inputs": [
+    {
+      "path": "retained-linker-layout-20261018/sources.json",
+      "bytes": 8303,
+      "sha256": "54489cc4f18723747c733510c39de9e5667ff39ef79f3b4e3e7bab86e7029ed0"
+    },
+    {
+      "path": "retained-linker-layout-20261018/sources.tar.gz",
+      "bytes": 590526,
+      "sha256": "dc2ddbb7584f37b05ada300faebb2bd754ea831a617b76e175c53c4f31a4d79c"
+    },
+    {
+      "path": "retained-linker-layout-20261018/check-results.json",
+      "bytes": 3250,
+      "sha256": "6776f29d903b98ff0814c648cb611c9276fe9a3345c8605347ed2f41e81d6789"
+    },
+    {
+      "path": "retained-linker-layout-20261018/section-families.json",
+      "bytes": 2239,
+      "sha256": "8fd62098c2ae077f77e24d4df23607b3bac44a98338d0d434ecf4901e49c0e49"
+    },
+    {
+      "path": "retained-linker-symbols-20261018/fixed-name-inputs.json",
+      "bytes": 257279,
+      "sha256": "ee4d2949edadd4f4490402b3a2a75d22508f87c808319a04b3d997b932686cb6"
+    },
+    {
+      "path": "retained-linker-symbols-20261018/fixed-name-regions.tar.gz",
+      "bytes": 17161,
+      "sha256": "4228c05a56ec57ea21ac5f6a77563ed3422451096fd95a6e9ed853a58e5f56c6"
+    }
+  ]
+}

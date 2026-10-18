@@ -1,4 +1,4 @@
-# Retained ELF dynamic symbol, hash and version capacities
+# Retained ELF symbol, hash and version capacities
 
 2026-10-18, Linux LP64, [#119](https://github.com/berkeleynerd/silver/issues/119).
 This source-derived transfer extends the [linker representation argument](retained-linker-capacity.md).
@@ -799,3 +799,184 @@ remain separate.
 python3 docs/evidence/retained-linker-symbols-20261018/check-local-ifunc.py \
   --output /tmp/linker-local-ifunc.json
 ```
+
+## Ordinary output symbol and String tables
+
+The selected `.symtab` and `.strtab` use a separate instance from the dynamic
+tables. Retain the previous definitions: R bounds input symbol records over
+all selected processing occurrences; P bounds input ELF occurrences; S bounds
+output BFD sections; H bounds the live global hash domain at each traversal.
+Then a sufficient ordinary output symbol count, including the null entry, is
+
+```text
+Z = R + P + S + 3H + 2
+  = 10R + 8Q + 4P + 346                     when V=51
+  = 789704 + 10R_binder + 8Q_binder + 4P_binder
+```
+
+The last line substitutes the fixed input and source-derived Main contributions
+only. It does not treat the observed binder object as a universal bound.
+
+`bfd/elflink.c:13204–13220` processes each input BFD at most once: it resets
+`output_has_begun` before the section walk and sets it after successful input
+processing. The local-symbol loop emits at most one symbol per local index
+(`:11458–11622`), plus at most one fallback FILE symbol per BFD when its first
+retained local symbol lacks one (`:11551–11583`). Later group/relocation paths
+also use the same index array and emit only while that entry is -1, immediately
+storing the output index (`:11685–11718,12129–12185`). Thus their emissions
+cannot duplicate an already emitted local symbol, even without using the
+selected nonrelocatable/no-emit-relocs exclusions. All local emissions together
+are at most R, with at most P fallback FILE symbols. The three global hash
+traversals add at most 3H (`:13292,13408,13417`); the once-only nameless FILE
+marker and initial null symbol add two (`:11230–11251,13041`). Optional output
+section symbols add at most S (`:13046–13078`). The selected target's global
+architecture-symbol hook is NULL, and the earlier empty local-IFUNC join
+excludes emissions from its local architecture-symbol hook. These cases cover
+every call/callback to `elf_link_output_symstrtab` on the selected target.
+
+The longest possible ordinary name payload is bounded by
+
+```text
+L = max(171, L_generated) + 25
+positive String-table references <= Z
+distinct String-table entries <= Z
+unshared String-table bytes <= 1 + Z(L+1).
+```
+
+Here `L_generated` covers generated symbol and section names as in the dynamic
+String-table join. The fixed maximum is 171; the 51-version domain has maximum
+length 23, so the extra 25 covers two `@` delimiters and its suffix. Ordinary
+output normalization only removes one `@` (`:10363–10390`). Local
+`.COUNT` suffixes require `unique_symbol`, whose only true setter is the
+absent `-z unique-symbol` option (`ld/emultempl/elf.em:1012`). The fallback FILE
+name is `lbasename(bfd_get_filename(input_bfd))`. For ordinary archives,
+`bfd/archive.c:688,769–774` assigns the member name itself; all fixed member
+and standalone file basenames are at most 26 bytes. Generated basenames are
+at most 11 bytes. Both fit the fixed 171 allowance. Nameless section/FILE
+symbols add no String-table entry. Every named output event makes exactly
+one `_bfd_elf_strtab_add`, which bounds positive references even when names
+repeat. No suffix-sharing credit is needed for the byte bound.
+
+### The output multiplication has a 32-bit intermediate
+
+`bfd.symcount` is unsigned int (`bfd/bfd.c:370`) and the target's `sizeof_sym`
+is unsigned char (`bfd/elf-bfd.h:842`). Consequently the two expressions
+`bed->s->sizeof_sym * output_bfd->symcount` in `elf_link_swap_symbols_out`
+(`elflink.c:10481,10525`) multiply in **unsigned 32-bit arithmetic**, before
+assignment to 64-bit `size_t`. On ELF64 the selected entry width is 24, giving
+this explicit sufficient condition:
+
+```text
+Z <= floor((2^32-1)/24) = 178956970.
+```
+
+This follows from the actual expression types; it is not an arbitrary lower
+cap or an observed failure threshold. The next count would wrap this product.
+The output symbol array then uses at most 24Z bytes; the optional extended
+section-index array uses 4Z. The internal symbol has 32 bytes and the internal
+symbol/destination pair has 40 on LP64. Its backing array starts with
+`max(20,max_input_local_symbols)` slots and doubles before appending to a full
+array (`:10438–10456,13011–13018`), hence capacity at most
+`2*max(20,R,Z)`. These products and the growth arithmetic fit signed pointer
+differences and `size_t` under the stated condition. There is only one call
+to `elf_link_swap_symbols_out`, so output size does not accumulate across
+multiple flushes. The earlier ELF String-table conditions still apply:
+`L <= 2^31-2` and `1+Z(L+1) <= 2^32`; Z's product condition is already
+stricter than that table's hash-entry ceiling.
+
+For illustration, omitting the still-open binder terms and assuming
+`L_generated <= 171`, the substituted contributions are 18,952,896 symbol
+bytes, 3,158,816 optional index bytes and 155,571,689 unshared String bytes.
+These are separate representation requests, not a total-memory predicate or
+a complete link envelope.
+
+The [offline checker](../evidence/retained-linker-symbols-20261018/check-symtab.py)
+checks ten complete source identities, six previous evidence inputs and the
+arithmetic. Section-name storage is separate. Extended ordinary symbol indices
+also do not settle dynamic-symbol legality: `check_dynsym` rejects an ordinary
+dynamic symbol's section index in the reserved external range
+(`elflink.c:10542–10555`). The final layout must keep those dynamic section
+indices representable, alongside relocation reach and the other outstanding
+layout conditions. No whole-link capacity or enlarged admission is claimed.
+
+## Output section-name String table
+
+The `.shstrtab` instance has a smaller source-derived event bound. Let S be
+the existing output BFD-section bound, and let `Lsection_generated` bound
+original generated Main/binder section-name payloads. Then
+
+```text
+K = 3S + 4                                      distinct names/add events
+U = 6S + 7                                      positive reference events
+Lsh = max(171, Lsection_generated) + 11          largest payload
+Bsh = 1 + K(Lsh+1)                              unshared output bytes.
+```
+
+`_bfd_elf_compute_section_file_positions` checks `output_has_begun` before
+initialization, creates headers/names once and sets the flag on successful
+completion (`bfd/elf.c:4705–4721,4789`). Later writes reuse them. Generic
+file-header initialization inserts `.symtab`, `.strtab` and `.shstrtab`
+(`:7072–7077`); the x86 target does not override it. `elf_fake_sections`
+inserts one name per BFD section and at most two relocation-header names
+(`:3650–3657,3846–3871`). A delayed debug-compression name skips those
+initial insertions and inserts them later, once its header name is no
+longer the -1 sentinel (`:7141–7189`). It does not add a second copy of
+those events. Extended ordinary symbol indices add at most the one
+`.symtab_shndx` name (`:4199–4212`). These give K, including unused/dead
+names retained in the table.
+
+Section-number assignment first clears references, then makes at most 3S
+section/relocation addrefs and three special-table addrefs
+(`:4129,4163–4219`). Adding these events to K gives U. This charges both
+sides of the clear, so it bounds each individual reference count without
+assuming that all events remain live together. All other ELF name additions
+in this selected output flow belong to the separate symbol/dynamic tables.
+
+The fixed name capsule contains 1,169 complete section-name tables. The
+longest NUL-delimited run, including unused bytes, is 65; every actual name
+or suffix is no longer. All 93 selected script names and the fixed synthetic
+names in the earlier section-constructor partition fit the already established
+171 allowance. The remaining name transformations are bounded:
+
+- Dynamic relocation sections prefix an original input section name with at
+  most five bytes, `.rela` (`elflink.c:15560–15579`). The previously reviewed
+  `sreloc`/input-relocation guard prevents recursive generation from newly
+  created relocation sections.
+- Orphan placement preserves the input name or uses one of the fixed
+  `.rel.dyn`, `.rela.dyn` and four `.mbind.*` names
+  (`ld/ldelf.c:2163–2181,2217–2226,2391`; `ldlang.c:2009–2036`).
+  It adds no numeric suffix.
+- GNU debug-name rewriting can add one `z`
+  (`bfd/compress.c:64–73`; `elf.c:7161–7172`). Charging it is conservative
+  even if that compression path is excluded by the final descriptor.
+- Relocation-header naming can prepend another `.rela`, at most five bytes
+  (`elf.c:3536–3552`). Hidden table names are shorter than 171.
+
+Thus the extra eleven bytes cover the entire selected transformation chain.
+Each generated name allocation includes its terminating NUL; its individual
+request and pointer arithmetic fit the length condition below.
+
+Apply the earlier ELF String-table transfer to this instance with
+
+```text
+Lsh <= 2^31-2
+1 + (3S+4)(Lsh+1) <= 2^32.
+```
+
+The existing header-trailer condition `64(3S+5) <= 2^32-1` already implies
+`K < 805306341` and `U < 2^32`, covering hash growth and reference widths.
+With only the fixed-plus-Main contribution S=77,484 and generated name
+lengths at most 171, K=232,456, U=464,911 and Bsh=42,539,449. Binder terms
+remain to be added; this is not a complete program or a memory-budget claim.
+
+The [checker](../evidence/retained-linker-symbols-20261018/check-shstrtab.py)
+replays 28 complete source identities, six prior inputs and all retained
+fixed name tables, then checks the formulas. It executes no native tool.
+This completes this conditional name-table transfer; generated binder
+composition, other linker storage, final layout and the whole capacity rule
+remain separate.
+
+Independent narrow review replayed the ordinary symbol and section-name
+checkers with byte-equal results and checked their call/guard coverage,
+name transformations, refcounts and arithmetic against the retained sources.
+It accepted both conditional transfers; the whole-link exclusions above remain.
