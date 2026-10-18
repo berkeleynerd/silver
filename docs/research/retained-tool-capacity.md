@@ -90,9 +90,35 @@ The [ALI consumer join](retained-literal-binder-ali.md), separately
 parser tables, signatures and raw-buffer bounds plus additive native/Gprbind
 name requirements. Its fourteen offline cases pass; the
 [reviewed aggregate attachment](../reviews/review-literal-ali-attachment-819b6a8cfb.md)
-preserves exact Main-interface equality and all 64 aggregate checks. Complete shared name pools,
-graph backing, the native GPRbuild D/W reader, native collector and
-production-launch composition remain open.
+preserves exact Main-interface equality and all 64 aggregate checks. The
+[GPRbuild D/W reader](retained-literal-gpr-parent.md) subsequently supplies a
+reviewed conditional three-scan table/buffer and additive persistent-name
+interface, distinct from Gprbind. Its [aggregate attachment review](../reviews/review-literal-gpr-attachment-f7dabafac5.md)
+confirms source/count/P and complete nested writer equality; 66 aggregate
+checks pass. The review's README sync note was repaired in `e4d170e8ed`.
+Complete shared name pools, graph backing, parent source/project/driver
+storage, fixed-child regeneration, native collector and production-launch
+composition remain open.
+
+The [selected gimplifier helper review](../reviews/review-literal-gimplifier-helpers-d60dc37edb.md)
+accepts the added 6C constructor/vector/bounds-address request subtotal, with
+zero selected initial GIMPLE-fold replacements. The concurrent ingress work
+identified [#130](https://github.com/berkeleynerd/silver/issues/130): call-local
+binds were omitted from the earlier direct subtotal. `e4d170e8ed` corrects
+that interface to 10C+2N+2, the CF block-location demand to 4C+2N+2, and the
+depth-two binding stack to 72/136-byte requests. Post-CF executable/CFG shape
+and the C local-variable demand are unchanged. This is a research correction;
+complete gimplifier/collector capacity and production admission remain unchanged.
+
+The independently accepted [whole-body ingress packet](retained-native-ingress-bound.md)
+is now joined to the aggregate. Its occurrence bound W<=9C+3N+1 gives
+33C+9N+3 whole-body requests. The retained data address adds 2C requests to the
+selected helper subtotal, making 8C inclusive of the prior 6C. The
+[source review](../reviews/review-native-ingress-eb0471fa33.md) also accepts the
+binding repair. Exact direct/CF/stack/helper joins and prime/probe/request
+conditions are explicit; the [attachment review](../reviews/review-native-ingress-attachment-ee3ea76e28.md)
+accepts these joins and all 67 aggregate checks pass. Original frontend/gigi,
+remaining helper/warning-map lifetimes and shared collector accounting stay open.
 
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
@@ -145,7 +171,16 @@ accepts this conditional extension. It also clarifies
 the historical task-count wording: `G` bounds reported check-tree leaves after
 registration, not every raw split task. Input_Is_Valid produces four raw tasks;
 three unlabelled trivial goals are discarded and one is registered, preserving
-the reported `G <= 1` bound. Later driver transformations, task-printing,
+the reported `G <= 1` bound. The subsequently
+[reviewed selected-driver envelope](retained-producer-driver-envelope.md)
+bounds 153 registered tasks, 459 task/driver pairs and 6,120 outer transform
+applications, independent of solver answers. It includes failure and late
+callback paths but does not bound recursive transformations or task printing.
+The [private introduction counter argument](retained-why-introduction-counter.md),
+[accepted on review](../reviews/review-why-introduction-counter-17ca2f6e21.md),
+shows that this one discarded counter value can wrap with defined OCaml
+semantics without affecting behavior. Real tags, event/traversal counts,
+weak-table/cache backing, later driver transformations, task-printing,
 solver and report consumers remain separate obligations.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the

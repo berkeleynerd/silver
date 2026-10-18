@@ -34,6 +34,10 @@ checks are accurately described as corroboration of inspected semantics,
 not a machine-checked source proof. The downloaded sources retain exact
 revision URLs and the previously recorded complete Why3 archive join; they
 make no new historical installed-binary source-identity claim.
+The parent also hash-checked the retained complete archive at
+`/tmp/silver-producer-response-20261018/why3-complete.zip` against the recorded
+digest and independently confirmed both new Why3 interfaces byte-equal its
+unique corresponding members. No additional source download was needed.
 
 The independent replay ran once in the worker's clean frozen worktree:
 

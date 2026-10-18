@@ -250,7 +250,8 @@ native tool. CLI memory was not updated.
 ## Round 5 — attach local consumers and resolve selected source gaps
 
 Date: 2026-10-18. Packaging baseline `15951d909a`; last published draft
-PR #121 head `54a5c273d5`. **Published checkpoint head: pending parent update.**
+PR #121 head `54a5c273d5`. Technical checkpoint `ee3ea76e28`; publication
+is tracked on [#119](https://github.com/berkeleynerd/silver/issues/119) and PR #121.
 The lead setting remains uninspectable and unchanged; no switch is claimed.
 All subthread settings below are selected settings, not runtime confirmation.
 Token and monetary measurements are unavailable.
@@ -258,11 +259,11 @@ Token and monetary measurements are unavailable.
 | Work and selected setting | Intended result and checkpoint outcome | Review and rework |
 | --- | --- | --- |
 | ALI attachment and selected native helpers; Astra Extra High | `1182820f99` attaches the accepted ALI consumers; `61242e0638` adds the selected 6C helper interface | ALI attachment accepted in `bb7f8cae36`; parent helper review retained in `e4d170e8ed`. Inherited BIND omission #130 repaired there, with historical evidence preserved |
-| Native ingress argument; Astra Max | Resolve whole-body W and data-copy demand beyond the selected helper subtotal | **Pending parent finalization: not frozen, independently reviewed or accepted at this checkpoint.** Do not infer whole native capacity |
+| Native ingress argument; Astra Max | Resolve whole-body W and data-copy demand beyond the selected helper subtotal | Frozen `eb0471fa33`, integrated `28a7a47f0b`; Astra Extra High review `fa74d21e58` accepted without new material findings, integrated `ab5a273e78`. Aggregate attachment `ee3ea76e28` accepted in `2adde28890`, integrated `991bb05a0c`; 67 offline cases pass and whole native capacity remains open |
 | Fixed Why3 dispatch; Astra Extra High | `1498f9f8cb` bounds 153 registered nodes, 459 selected pairs and 6,120 outer transform applications | Accepted in `6180f77708`; callable identity verification repaired before freeze. Preparation/printer capacity remains open |
 | GPR parent DW reader; Sol Extra High | `58ca7c38d8` integrates worker `f7904ce722`; `f7dabafac5` attaches its local reader interface | Astra Extra High reviews `5ce9feb5d8` and `3527bace11` accept the component and attachment. Low README sync finding fixed in `e4d170e8ed` |
 | Private introduction counter; Sol Extra High | `ca0f3b1444` establishes that the unused private modular counter value is observationally irrelevant | Parent acceptance `15951d909a`; no implementation rework. Useful identities, events, tables and traversal remain separate obligations |
-| Round packaging; Sol High | Append this record and prepare local PR/issue drafts | Parent owns final integration, pending-slot resolution and publication; no technical replay performed by packaging |
+| Round packaging; Sol High | Append this record and prepare local PR/issue drafts | Parent integrates the accepted packets and publishes the checkpoint; no technical replay performed by packaging |
 
 The [native helper/binding review](../reviews/review-literal-gimplifier-helpers-d60dc37edb.md)
 records the actual #130 correction: direct events 10C+2N+2, initial tuples and
@@ -271,7 +272,11 @@ grown stack backing requests are 72/136 bytes, cumulatively 208. The parent
 caught an intermediate twelve-slot/104-byte draft: the actual small-vector
 branch doubles eight to sixteen slots. That draft was never integrated. The
 selected 6C helper subtotal still excludes the data-address subtree; neither
-it nor the repaired binding interface establishes W or complete lifetime.
+it nor the repaired binding interface alone establishes W or complete lifetime.
+The later ingress packet establishes W<=9C+3N+1, 33C+9N+3 whole-body
+requests and 2C data-address copies. Its 8C selected-helper subtotal already
+includes 6C. The aggregate checks their exact joins and separate protected-set
+prime, probe and request-size conditions; complete capacity remains open.
 
 The [GPR component](../reviews/review-literal-gpr-parent-f7904ce722.md) supplies
 conditional local table/buffer/scratch and additive persistent-name bounds for
@@ -282,15 +287,21 @@ vector backing, and complete parent capacity remain open. The reviewed frozen
 attachment still contained #130; its review explicitly excluded those formulas,
 which were repaired separately in `e4d170e8ed`.
 
-Current offline evidence passes all **16 component and 66 aggregate cases**.
+Current offline evidence passes all **16 GPR component and 67 aggregate cases**.
 The GPR reviewer replays took 0.609622367 and 3.562564307 seconds. An initial
 attachment-review setup used the wrong GCC root and stopped before evaluation
 in 0.088759318 seconds; correcting the path required no source or pin change.
 The parent helper replay passed 64 cases in 3.481395906 seconds; its default
 replay took 2.459534552 seconds and differed only in source-path attribution.
 After binding repair, the 66-case aggregate and regenerated default passed in
-3.678089316 and 3.264462293 seconds. These retained checks are scoped evidence,
-not new execution by this packaging task.
+3.678089316 and 3.264462293 seconds. After ingress attachment, the 67-case
+aggregate passed in 3.542503305 seconds and the default in 2.876774008 seconds.
+The [focused attachment review](../reviews/review-native-ingress-attachment-ee3ea76e28.md)
+accepted `ee3ea76e28` without findings. Its 67-case replay took 3.604305878
+seconds and matched the frozen result; changed matcher bytes were rejected,
+and the final-prime/probe boundary was checked separately. Its selected Astra
+Extra High review took 125 seconds. These retained checks are scoped evidence,
+not new execution by the packaging subthread.
 
 The [Why3 dispatch review](retained-producer-driver-envelope-20261018/review.md)
 took 138 seconds excluding report writing, with a 3.215907666-second offline
@@ -301,7 +312,11 @@ argument; its parent replay byte-equaled the retained result in 0.383575865
 seconds. That Sol worker recorded 426 seconds. GPR implementation recorded
 811 seconds; its two Astra reviews took approximately four and three minutes,
 including report preparation. The native helper worker's reported 691 seconds
-also includes ALI attachment work. These intervals overlap, cover different
+also includes ALI attachment work. Native ingress used a bounded Astra Max
+escalation, completed in 1,136 seconds. Its Astra Extra High source review
+took 227 seconds, including a 0.076890647-second offline replay over 28 source
+identities, 882 matcher forms, 19 conversion roots, 257 hash populations, eight
+boundaries and six invalid-counter cases. These intervals overlap, cover different
 activities and are not a total team elapsed time or an inference-cost measure.
 The parent source-review interval is not separately measured.
 
@@ -316,8 +331,9 @@ Round outcome: accepted consumer joins and named counter/helper arguments are
 integrated, with one inherited arithmetic omission repaired. Direct joins
 reduced some integration uncertainty; they also exposed the limits of local
 review and required parent source/arithmetic reconciliation. Sol completed two
-bounded source arguments without material review rework; native ingress still
-requires the named escalation's frozen result and independent review. This
+bounded source arguments without material review rework; native ingress also
+passed its independent source review. The parent caught the intermediate stack
+growth error before freeze. This
 uncontrolled observation supports no causal claim about model quality or cost.
 The complete useful source-decidable capacity rule, remaining frontend/native
 and shared-storage lifetimes, Why3 preparation/printers and downstream joins,
@@ -326,11 +342,6 @@ open; #88–#94 are authorized but unstarted until the complete rule is justifie
 Oracle, GNAT/GNATprove, production admission and toolchain remain unchanged.
 The old completed For loops harness goal is unchanged; no new goal was created.
 CLI memory was not updated by packaging.
-
-**Parent finalization slot:** record the frozen native-ingress commit, exact
-independent-review target/result and available timing, or retain the argument
-as pending; then replace the published-head placeholder above. No acceptance
-or #119 completion is asserted by this slot.
 
 Sol High packaging interval: 19:20:21–19:23:37 UTC (196 seconds),
 from worktree/branch creation through draft preparation and record completion,
