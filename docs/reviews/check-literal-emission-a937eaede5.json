@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "freeze": "a937eaede5b01b438b2b2fb4dccc49cb3a8469d5",
+  "focused_source_identities": 9,
+  "historical_shape_inputs": 4,
+  "supplemental_generator_origin_matches_retained_fetch": true,
+  "independent_endpoint_pairs": 3,
+  "unchanged_assembler_compositions": 3,
+  "actual_source_cases": 2,
+  "broad_302_check_success_replayed": false,
+  "native_execution": false,
+  "elapsed_seconds": 0.10538799099958851
+}
