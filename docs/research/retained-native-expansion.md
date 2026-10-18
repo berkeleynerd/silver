@@ -4514,6 +4514,43 @@ GCC modes, fat/thin pointer descriptors, check lowering, GCC aggregate
 construction and code-size/identity costs must be derived against this
 interface; the Ada frontier does not prescribe their exact representation.
 
+### Scalar endpoint types precede their new subtype
+
+The selected variable-Main scalar subtypes have no endpoint-to-own-new-type
+edge. This is stronger than the earlier-object ordering alone and is needed
+when gigi elaborates an endpoint before saving the current type association.
+It does **not** assert that every endpoint's Etype is the base type: an
+already analyzed name may retain an earlier object's subtype.
+
+- Integer object constraints use `Constrain_Integer`, then
+  `Set_Scalar_Range_For_Subtype`, then `Process_Range_Expr_In_Decl`. The last
+  resolves the range against `Base_Type(T)` where T is the existing subtype
+  mark (`sem_ch3.adb:15481–15498,23676–23707,22600`). `Resolve_Range` resolves
+  both endpoints with that type (`sem_res.adb:11161–11212`). No endpoint
+  receives the new defining entity's Etype.
+- `Constrain_Index` likewise resolves the supplied range against the parent
+  index T. Its final `Set_Etype(S,Def_Id)` changes the range root, not its
+  endpoints (`sem_ch3.adb:15331–15369,15472`). This covers explicit generated
+  String index constraints, including concat result storage.
+- `Set_Slice_Subtype` forces evaluation of existing bounds before creating
+  the new index subtype, then copies the decorated range without retagging
+  either endpoint (`sem_res.adb:13106–13176`). This covers the selected
+  String/input/Image views and their existing bound captures.
+- Ordinary for bounds are resolved/captured before `Make_Index`.
+  `Make_Index` processes the range against existing T before allocating its
+  new scalar subtype (`sem_ch5.adb:3202–3258,3434`;
+  `sem_ch3.adb:20588–20590,20712–20725`). A bound may refer to an earlier
+  outer loop index, subject to the already established visibility/order rule.
+
+The apparent self-tagging at `sem_ch3.adb:22656–22657` belongs to the Any_Type
+error-repair path, which admitted successful source excludes. Self-typed
+endpoints at `20860–20861` construct a modular type, outside variable Main's
+frontier. Earlier scalar types and earlier bound objects still need their
+own conversion. With those dependencies included, the listed constructors
+do not introduce a cycle through a fresh subtype's endpoint result type.
+Fixed imported types retain their separate dependency analysis. This is a
+source argument over the already pinned files; no new compiler probe was run.
+
 ## Numeric magnitudes in the closed concat stages
 
 The query-root bridge can also supply the missing digit bound for the combined
