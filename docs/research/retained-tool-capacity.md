@@ -1,6 +1,6 @@
 # Capacity contract for the retained tools
 
-**2026-10-17 — design checkpoint; derivation unfinished.** The owner
+**2026-10-18 — design checkpoint; derivation unfinished.** The owner
 [selected the unchanged-toolchain direction](../session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
 in [decision #117](https://github.com/berkeleynerd/silver/issues/117).
 This [#119 work package](https://github.com/berkeleynerd/silver/issues/119)
@@ -111,12 +111,12 @@ The current derivation has six reusable component records:
 
 | Component | Established contribution | Still required for whole-source capacity |
 | --- | --- | --- |
-| [Source ranges](retained-source-closure.md), [fixed support](retained-fixed-support.md) | Physical-loader inventory, runtime union, conditional fixed virtual-template and binder-source bounds | Complete grammar-to-runtime-helper coverage and effective invocation/search premises |
+| [Source ranges](retained-source-closure.md), [fixed support](retained-fixed-support.md) | Physical-loader inventory, runtime union, grammar-to-helper seed coverage and conditional virtual-template/binder-source bounds | Effective invocation/search premises and source/tool correspondence; helper AST/value/backend costs are separate |
 | [Values and parsing](retained-value-capacity.md) | Main lexical/static String totals, at most two scans per literal, local Uint arithmetic and range-query costs | Fixed dependency parsing, generated value events and query multiplicities |
-| [Tables and nodes](retained-table-capacity.md) | Allocator demand envelope, Main line/column/name charges, exact node layout and slot/list coupling | Remaining generated-name/source-to-demand bounds and auxiliary representations |
+| [Tables and nodes](retained-table-capacity.md) | Allocator demand envelope, Main line/column/name charges, qualification/homonym transfers, exact node layout and slot/list coupling | Complete generated-scope/name caller coverage, source-to-demand bounds and auxiliary representations |
 | [Main entities](retained-frontend-entities.md) | Source-sensitive generated entity/type/literal multiplicities under GNATprove light expansion | Fixed dependency entities, native expansion and actual allocation event counts |
-| [Native expansion](retained-native-expansion.md) | Direct scalar/concat costs, conditional decorated-copy and analyzed pointer-capture transfers; secondary-stack allocator dispatch | Grammar-to-copy-shape coverage, remaining generated declarations/actions and helper closure |
-| [GNATprove producer](retained-producer-capacity.md), [control](retained-producer-control.md), [objects](retained-producer-objects.md) | Scalar/String expression and declaration wrappers, ordinary object/loop theory setup, array-representation cache miss, imports and serialization components | Type completion, executable loops, generated/dependency setup, remaining auxiliary limits and caller coverage |
+| [Native expansion](retained-native-expansion.md) | Direct scalar/concat costs, decorated-copy and pointer/bound captures, plain slice subtype/freezing, Integer index layout and pre-suppression range-check tree transfers | Grammar-to-copy-shape coverage, numeric helper callbacks, remaining declaration/action/insertion-context closure |
+| [GNATprove producer](retained-producer-capacity.md), [control](retained-producer-control.md), [objects](retained-producer-objects.md), [calls](retained-producer-calls.md) | Expression/declaration/call wrappers, ordinary object/loop theories, type completion, array representations, loop frames, generated-declaration helpers and serialization/import components | Generated invocation/count map, fixed dependency setup, remaining auxiliary limits and complete caller coverage |
 
 These are source-derived components with their own premises and review scope.
 They do not yet select a safe whole-program threshold or unlock production
@@ -125,7 +125,12 @@ reviews, and the [entity/scalar review](../reviews/review-retained-entity-produc
 cover their named frozen components. The
 [later frontend/native review](../reviews/review-retained-capacity-components-63b0c9671f.md)
 and [producer review](../reviews/review-retained-producer-4073ab0820.md)
-found no material issue in their respective frozen targets. They do not
+found no material issue in their respective frozen targets. The
+[2026-10-18 component review](../reviews/review-retained-components-0cd5b74cc7.md)
+also found no material issue in the fixed support, control/object/call,
+type-completion/array-representation and name transfers at `0cd5b74cc7`.
+Its exclusions include later executable-loop and generated-declaration work.
+These reviews do not
 establish complete soundness of the integrated predicate or later additions;
 the review reports specify the included and excluded components.
 
@@ -212,9 +217,12 @@ current exported package APIs and expression-function helper from that route.
 The [fixed-support derivation](retained-fixed-support.md) now bounds generic,
 inline and inherited-contract source contributions for the selected helper
 seeds, including the text-buffer contract path and Image generic body. It also
-bounds generated binder sources from the retained ALI closure. The remaining
-source-range dependency is complete grammar-to-helper seed coverage, plus
-establishing the effective invocation/search premises in production #89.
+bounds generated binder sources from the retained ALI closure. The
+[grammar-to-helper coverage](retained-fixed-support.md) now closes those seeds
+conditionally for the current grammar and selected options. The remaining
+source-range dependencies are the source/tool relation and establishing the
+effective invocation/search premises in production #89, including inherited Ada
+search variables after Alire selects the environment.
 These source-range results do not bound the helpers' AST, value or backend costs.
 
 ## Comparison and next derivation
