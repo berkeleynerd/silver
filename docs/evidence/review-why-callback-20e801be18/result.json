@@ -1,0 +1,20 @@
+{
+  "status": "pass",
+  "reviewed_commit": "20e801be186ce6e41cb7c53d44d6cd072fa06dda",
+  "source_member": "why3/src/session/session_itp.ml",
+  "witness_start_lines": [
+    310,
+    369,
+    385,
+    2222
+  ],
+  "session_raw_tasks_occurrence_lines": [
+    136,
+    311,
+    631,
+    687
+  ],
+  "scope": "Frozen source identity and exact membership-guard witnesses; no whole-program mutation or exception theorem",
+  "new_native_target_runs": 0,
+  "elapsed_seconds": 0.010100455001520459
+}
