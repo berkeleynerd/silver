@@ -1,0 +1,2752 @@
+{
+  "archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "lexical_enclosing_call_counts": {
+    "New_Axiom": 11,
+    "New_Comment": 30,
+    "New_Function_Decl": 2,
+    "New_Guarded_Axiom": 28,
+    "New_Identifier": 450,
+    "New_Label": 5,
+    "New_Meta_Declaration": 4,
+    "New_Module": 2,
+    "New_Name": 103,
+    "New_Namespace_Declaration": 3,
+    "New_Theory_Declaration": 1,
+    "other": 32
+  },
+  "long_long_integer_last": 9223372036854775807,
+  "maximum_find_length_sum": 4611686014132420609,
+  "module_kind_cardinality": 27,
+  "natural_last": 2147483647,
+  "nid_call_sites": 671,
+  "nid_calls_by_file": {
+    "src/why/gnat2why-expr-aggregates.adb": [
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3771
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 3898
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4036
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4383
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 4502
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 5000
+      }
+    ],
+    "src/why/gnat2why-expr-loops.adb": [
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 1745
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 2137
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 2156
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 2221
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 2231
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 2240
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 2251
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 2285
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 2325
+      }
+    ],
+    "src/why/gnat2why-expr.adb": [
+      {
+        "enclosing_new_call": "New_Label",
+        "line": 7558
+      },
+      {
+        "enclosing_new_call": "New_Label",
+        "line": 13280
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 16122
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 16260
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 18534
+      },
+      {
+        "enclosing_new_call": "New_Axiom",
+        "line": 30472
+      },
+      {
+        "enclosing_new_call": "New_Axiom",
+        "line": 30508
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 30525
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 31200
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 31257
+      }
+    ],
+    "src/why/gnat2why-subprograms-pointers.adb": [
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 132
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 154
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 197
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 201
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 206
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 210
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 595
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 602
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 610
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 618
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 851
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 856
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1005
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1133
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1146
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 1250
+      }
+    ],
+    "src/why/gnat2why-subprograms.adb": [
+      {
+        "enclosing_new_call": null,
+        "line": 3357
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 3656
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 3702
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 3749
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 3759
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 3804
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 3855
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 4605
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 4638
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 4706
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 5371
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 5394
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 5454
+      },
+      {
+        "enclosing_new_call": "New_Comment",
+        "line": 5509
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 6615
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 6940
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 6975
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 7177
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 7410
+      },
+      {
+        "enclosing_new_call": "New_Label",
+        "line": 7891
+      },
+      {
+        "enclosing_new_call": "New_Namespace_Declaration",
+        "line": 7990
+      },
+      {
+        "enclosing_new_call": "New_Namespace_Declaration",
+        "line": 8105
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 8165
+      },
+      {
+        "enclosing_new_call": "New_Namespace_Declaration",
+        "line": 8278
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 8965
+      }
+    ],
+    "src/why/gnat2why-types.adb": [
+      {
+        "enclosing_new_call": "New_Function_Decl",
+        "line": 608
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 836
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1065
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1401
+      }
+    ],
+    "src/why/gnat2why-unchecked_conversion.adb": [
+      {
+        "enclosing_new_call": null,
+        "line": 180
+      },
+      {
+        "enclosing_new_call": "New_Module",
+        "line": 1446
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1492
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1574
+      }
+    ],
+    "src/why/gnat2why-util.adb": [
+      {
+        "enclosing_new_call": null,
+        "line": 938
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 954
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 959
+      }
+    ],
+    "src/why/why-atree-modules.adb": [
+      {
+        "enclosing_new_call": null,
+        "line": 389
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 402
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 456
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 514
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 515
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 516
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 518
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 519
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 532
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 537
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 542
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 547
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 552
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 707
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 710
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 713
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 717
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 724
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 730
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 738
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 745
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 752
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 759
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 766
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 773
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 780
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 788
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 795
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 802
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 810
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 817
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 824
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 831
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 838
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 845
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 852
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 859
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 866
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 883
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 890
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 894
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 895
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 923
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 929
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 940
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 946
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 952
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 958
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 964
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 970
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 985
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 995
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1001
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1008
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1014
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1020
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1041
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1054
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1063
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1069
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1075
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1081
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1100
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1106
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1112
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1118
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1124
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1130
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1136
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1142
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1148
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1154
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1160
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1166
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1172
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1178
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1184
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1190
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1196
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1202
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1208
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1214
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1218
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1224
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1243
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1250
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1257
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1278
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1284
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1290
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1302
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1308
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1314
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1326
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1332
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1338
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1350
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1356
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1362
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1374
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1380
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1386
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1398
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1404
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1410
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1422
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1428
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1434
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1445
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1451
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1457
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1469
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1475
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1481
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1492
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1498
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1504
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1515
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1521
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1527
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1556
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1561
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1567
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1573
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1579
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1585
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1591
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1597
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1603
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1609
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1615
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1621
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1627
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1633
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1639
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1645
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1651
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1657
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1663
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1669
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1675
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1681
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1687
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1693
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1699
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1705
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1711
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1717
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1723
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1729
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1735
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1741
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1747
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1753
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1759
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1765
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1772
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1778
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1784
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1810
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1817
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1823
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1829
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1847
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1873
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1879
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1885
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1894
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1900
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1906
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1915
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1921
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1927
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1982
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1988
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1994
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2000
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2006
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2012
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2018
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2024
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2030
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2036
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2042
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2048
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2054
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2060
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2066
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2072
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2078
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2084
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2090
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2096
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2102
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2108
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2114
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2120
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2126
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2132
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2138
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2144
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2150
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2156
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2162
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2168
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2174
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2180
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2186
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2192
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2198
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2204
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2210
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2216
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2222
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2228
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2234
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2240
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2246
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2252
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2258
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2264
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2270
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2276
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2282
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2288
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2294
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2300
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2306
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2312
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2318
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2324
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2330
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2336
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2342
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2348
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2354
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2360
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2366
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2372
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2378
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2384
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2390
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2396
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2402
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2408
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2414
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2427
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2433
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2439
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2445
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2451
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2457
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2463
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2469
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2475
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2481
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2487
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2493
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2499
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2505
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2511
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2517
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2523
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2529
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2535
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2558
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2575
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2581
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2587
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2593
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2610
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2628
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2634
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2651
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2668
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2674
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2680
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2686
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2692
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2709
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2715
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2721
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2727
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2733
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2739
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2745
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 2755
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 2756
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 2757
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 2758
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2773
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2780
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2785
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2790
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2796
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2799
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2801
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2803
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2809
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2828
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2846
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2864
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2870
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2887
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2893
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2899
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2905
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2911
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2917
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2923
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2940
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2957
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2963
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2966
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2971
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2977
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 2983
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3081
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3089
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3097
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3121
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3133
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3146
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3157
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3168
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3198
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3217
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3236
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3245
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3254
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3262
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3275
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3285
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3307
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3316
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3325
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3334
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3342
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3362
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3371
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3380
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3422
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3436
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3449
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3458
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3468
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3479
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3490
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3499
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3510
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3518
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3525
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3533
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3543
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3550
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3559
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3566
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3573
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3611
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3625
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3633
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3650
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3666
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3674
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3687
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3705
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3715
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3735
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3753
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3767
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3774
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3787
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3795
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3808
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3828
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3833
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3848
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3856
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3861
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3884
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3891
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3902
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3911
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3919
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3936
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3943
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3951
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3968
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3976
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3984
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 3992
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4000
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4008
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4023
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4041
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4050
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4058
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4066
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4080
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4095
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4105
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4113
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4121
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4129
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4149
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4160
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4168
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4182
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4190
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4209
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4217
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4225
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4233
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4246
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4256
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4270
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4278
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4293
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4303
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4311
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 4318
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4325
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4341
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4350
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4358
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4365
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4374
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4383
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4396
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4413
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4421
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4429
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4437
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4445
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4464
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4488
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4496
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4504
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4519
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4529
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4537
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4549
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4570
+      }
+    ],
+    "src/why/why-gen-arrays.adb": [
+      {
+        "enclosing_new_call": null,
+        "line": 129
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 135
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 881
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1310
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1494
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1585
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1587
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1592
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1595
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1600
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1602
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1610
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1613
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1718
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1737
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1757
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1851
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1856
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1863
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1868
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 2207
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 2321
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 2338
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2425
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2426
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2598
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2627
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2682
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2691
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2699
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2729
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2738
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 2770
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 3035
+      },
+      {
+        "enclosing_new_call": "New_Module",
+        "line": 3859
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3883
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3888
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3898
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3908
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3919
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3930
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3941
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3960
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3965
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3986
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 3995
+      }
+    ],
+    "src/why/why-gen-binders.adb": [
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 644
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1170
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1208
+      }
+    ],
+    "src/why/why-gen-decl.adb": [
+      {
+        "enclosing_new_call": "New_Meta_Declaration",
+        "line": 100
+      },
+      {
+        "enclosing_new_call": "New_Meta_Declaration",
+        "line": 101
+      },
+      {
+        "enclosing_new_call": "New_Meta_Declaration",
+        "line": 107
+      },
+      {
+        "enclosing_new_call": "New_Meta_Declaration",
+        "line": 108
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 279
+      }
+    ],
+    "src/why/why-gen-expr.adb": [
+      {
+        "enclosing_new_call": null,
+        "line": 1967
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 4276
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 4718
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 4733
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 4877
+      },
+      {
+        "enclosing_new_call": "New_Label",
+        "line": 4911
+      },
+      {
+        "enclosing_new_call": "New_Label",
+        "line": 4918
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 5854
+      }
+    ],
+    "src/why/why-gen-hardcoded.adb": [
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 152
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 158
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 164
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 170
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 176
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 181
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 187
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 193
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 198
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 204
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 210
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 216
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 218
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 232
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 234
+      }
+    ],
+    "src/why/why-gen-init.adb": [
+      {
+        "enclosing_new_call": "New_Axiom",
+        "line": 416
+      }
+    ],
+    "src/why/why-gen-names.adb": [
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 750
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 769
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 829
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 916
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1175
+      }
+    ],
+    "src/why/why-gen-pointers.adb": [
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 156
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 207
+      },
+      {
+        "enclosing_new_call": "New_Axiom",
+        "line": 381
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 972
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 988
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1159
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1165
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1271
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1281
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1403
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1447
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1453
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1464
+      }
+    ],
+    "src/why/why-gen-records.adb": [
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 497
+      },
+      {
+        "enclosing_new_call": "New_Axiom",
+        "line": 619
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 872
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1103
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1129
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1261
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1266
+      },
+      {
+        "enclosing_new_call": "New_Axiom",
+        "line": 1794
+      },
+      {
+        "enclosing_new_call": "New_Axiom",
+        "line": 1805
+      },
+      {
+        "enclosing_new_call": "New_Axiom",
+        "line": 1816
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 1830
+      },
+      {
+        "enclosing_new_call": "New_Guarded_Axiom",
+        "line": 1854
+      },
+      {
+        "enclosing_new_call": "New_Axiom",
+        "line": 1958
+      },
+      {
+        "enclosing_new_call": "New_Axiom",
+        "line": 1969
+      },
+      {
+        "enclosing_new_call": "New_Axiom",
+        "line": 1980
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4349
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4412
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 4439
+      }
+    ],
+    "src/why/why-gen-scalars.adb": [
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 105
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 111
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 117
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 123
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 126
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 127
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 226
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 232
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 236
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 238
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 240
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 242
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 244
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 246
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 434
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 444
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 472
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 481
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 563
+      },
+      {
+        "enclosing_new_call": "New_Identifier",
+        "line": 573
+      },
+      {
+        "enclosing_new_call": "New_Function_Decl",
+        "line": 738
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1344
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1354
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1359
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1365
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1386
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 1515
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 1539
+      }
+    ],
+    "src/why/why-inter.adb": [
+      {
+        "enclosing_new_call": null,
+        "line": 1025
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 1136
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1183
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1243
+      },
+      {
+        "enclosing_new_call": "New_Theory_Declaration",
+        "line": 1278
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 1499
+      },
+      {
+        "enclosing_new_call": null,
+        "line": 1501
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1562
+      },
+      {
+        "enclosing_new_call": "New_Name",
+        "line": 1568
+      }
+    ]
+  },
+  "scope": "Lexical inventory and arithmetic only. An enclosing New_ call is not automatically an allocation proof. Lookup multiplicities and generated-length coverage remain manual.",
+  "toolchain_or_proof_processes_run": false,
+  "verified_complete_ada_files": 279,
+  "why_name_enum_cardinality": 160
+}

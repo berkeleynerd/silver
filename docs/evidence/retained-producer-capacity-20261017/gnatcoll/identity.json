@@ -1,0 +1,17 @@
+{
+  "downloaded_archive_sha256": "945ec0ba0af2f33361ed80de7aabafa6aa8f4d4a6149896e70f2fb1c6c2ef676",
+  "files": {
+    "gnatcoll-symbols.adb": "0d8ced1ebfa6f093918e7565b49af53382a4eb726d985d17ff20d49af313d718",
+    "gnatcoll-symbols.ads": "bed897d58ab7db3f71ab91f685ea44f14c260117956bba39a0395630ab6c3a45",
+    "gnatcoll.anod": "ac2a0f41f95430ebd26f6e9e5aa012311a12426425b5361ed785b0d025de397c",
+    "symbol-static-gdb.txt": "bf1e81e7b4dc6580f99672840ff9e953cc40cc35280664cb7702b9476b108f34"
+  },
+  "gdb_scope": "ptype and disassemble only; no inferior started; selected checks corroborated in installed code",
+  "inspected_revision": "1d4374ae9187fd14d42ca99a3deb0ab2ff1ebc55",
+  "installed_producer_sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1",
+  "recipe_revision": "0334dd54a2c479faa3dfad47a911373581b11739",
+  "recipe_url": "https://raw.githubusercontent.com/alire-project/GNAT-FSF-builds/0334dd54a2c479faa3dfad47a911373581b11739/specs/gnatcoll.anod",
+  "selected_branch": "26-sustained",
+  "source_scope": "Complete symbols spec/body retained; source-to-installed behavior remains an explicit premise. No historical branch-resolution claim.",
+  "source_url": "https://codeload.github.com/AdaCore/gnatcoll-core/zip/1d4374ae9187fd14d42ca99a3deb0ab2ff1ebc55"
+}

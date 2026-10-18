@@ -2511,15 +2511,173 @@ already included in the witnesses are harmless additional overcount; do not
 assume their observed import count bounds other orders. The same source
 reduction bounds the number of fixed closes by the sum of the isolated
 fixed-closure close counts; a witness's enclosing Main closes can also be
-retained conservatively. The actual snapshots, close counts and source/ALI
-inputs still need to be captured and checked before inserting numeric `D_r`
-values. Preparing witnesses does not establish their results or a complete
-capacity rule.
+retained conservatively. The [checked five-root measurements](retained-producer-fixed.md#selected-imported-dependencies)
+now give `sum_r D_r = (8868,2017,3015,13059)`, and hence the completed
+Standard plus selected imported-dependency envelope is
+**`(15349,3310,4729,22621)`**. The 219 additional retained theory roots bound
+the corresponding completed close paths by the source argument in that
+record; they are not an independently observed close-call counter. These
+measurements close these four fixed components, not auxiliary peaks or
+whole-process name/counter domains.
 
 Separate compiler/prover processes for library bodies are fixed-input cases
 of their own. Their phase-one prerequisite generation is not a measurement of
 their Why allocations, and Main's five imported-specification witnesses do
 not cover those body processes.
+
+## Auxiliary map domains and interned-name arithmetic
+
+The four-component Why bound does not by itself bound every producer
+representation. The following source domains connect several auxiliary
+containers to already identified quantities. Write `A_total` for all available
+frontend node identities in this process, including fixed dependencies and
+reserved node values that can be keys, and
+`E_total <= A_total` for its entity subset. `A_Main` alone omits the fixed
+dependencies. Cardinalities are per container, not sums of all containers.
+The [storage argument](retained-producer-storage.md) supplies the corresponding
+Ada container arithmetic; these rows supply the actual key domains.
+
+| Container family | Cardinality bound and source |
+| --- | --- |
+| Node/entity-keyed map or set | At most `A_total` (`E_total` for entity-only keys). This includes `Common_Containers.Node_Maps`, `Node_Graphs`, `Node_To_Bool_Maps`, `Node_To_Int_Maps`, marking sets, information maps and `Ada_Ent_To_Why.Entity_Ids`. Every inner node set in `Node_Graphs` has the same bound; total graph edges can be quadratic and are not bounded by the outer cardinality. |
+| `Entity_Modules` outer map | At most `A_total`; each ordered inner map has at most **27** `Module_Kind` values (`why-atree-modules.adb:84–95,465–504,2991–3000`; `.ads:819–857`). The nonentity insertion path may retain an empty inner map, so counting modules alone is insufficient for its outer map. |
+| `Why_Symb_Map` and `Why_Relaxed_Symb_Map` | Each at most **`160 E_total`**, from the product key `(Entity_Id, Why_Name_Enum)` (`why-atree-modules.adb:97–125,3048–3059`). The enumeration has 160 values. A sharper allocation injection may be useful, but is unnecessary to establish this domain. |
+| `Symbol_To_Theory_Map` | At most the number of completed theory roots, including Standard, hence at most `B_N`. Its sole insertion associates the current theory's name at close (`why-inter.adb:60–67,747`). |
+| `Entity_For_Axiom_Module` | At most `M <= B_N`, because its keys are actual module-node IDs (`why-inter.adb:69–81,1359`). All other Why-node-keyed maps have domain at most the allocated Why-node count. |
+| `Projection_Names_Decls` | At most `B_N`; every new key accompanies a fresh function declaration (`why-gen-decl.adb:138–236`). For a key used `p` times the stored Positive value is `p+1`, because the first insertion stores 2. Each use allocates that function declaration, so the largest stored value is at most `B_N+1`, safely representable when `B_N <= 2^30-1`. This is separate from the number of keys. |
+| Symbol-keyed representation maps | Each at most the number of distinct names in the Why symbol pool. For Main, ordinary rank-one Character array representations already exist after Standard, and the richer specialization families are unreachable as established above (`why-atree-modules.ads:539–599,631–652,732–803`). Counting distinct representation keys does not count subsequent name lookups. |
+| `Common_Containers.Name_Cache` | At most `E_total`, because it is keyed by entity (`common_containers.adb:38–43,87–103`). Its separate `Symbol_Cache` and `String_Cache` each have at most `U_entity` entries, the number of distinct nonempty names passed to the string overload. `U_entity` includes names loaded from dependency metadata; it is not automatically equal to `E_total`. |
+
+The scoped symbol table also has an undo list. Each `Push_Scope` adds one
+boundary and each insertion while scoped adds one inverse action
+(`gnat2why-util.adb:159–219,255–284`). Its length is bounded by outstanding
+boundaries plus outstanding scoped insertions, **not** by the current map's
+distinct-key count: repeated replacement of the same key adds actions.
+This source identity exposes the additional peak bound still required.
+
+### Two separate symbol pools
+
+`Why.Gen.Names.NID` calls `GNATCOLL.Symbols.Find` on `Why3_Symbol_Alloc`
+(`why-gen-names.adb:42,816–819`). `Common_Containers.To_Entity_Name` uses a
+different `Intern_Strings` pool (`common_containers.adb:50–63`). These are
+GNATCOLL allocators, not the frontend Namet table.
+
+The retained recipe selects GNATCOLL's `26-sustained` branch. The inspected
+revision is `1d4374ae9187fd14d42ca99a3deb0ab2ff1ebc55`; the complete relevant
+[specification](../evidence/retained-producer-capacity-20261017/gnatcoll/gnatcoll-symbols.ads)
+and [body](../evidence/retained-producer-capacity-20261017/gnatcoll/gnatcoll-symbols.adb),
+recipe and hashes are retained with the
+[source/inspection record](../evidence/retained-producer-capacity-20261017/gnatcoll/identity.json).
+This retains the external-tool relevant-behavior premise; it does not establish
+the branch resolution at the historical build or a complete binary attestation.
+
+`Symbol_Table_Record` holds an ordinary Ada hashed set and three counters
+(`gnatcoll-symbols.ads:102–118`). `Allocate` reserves 98,317 buckets through
+the ordinary `Reserve_Capacity` routine (`.adb:35–40,222–227`). `Find`
+(`.adb:79–103`) has these independent charges:
+
+1. An empty string returns the static empty symbol with no counter charge.
+2. Every nonempty call increments `Calls_To_Find : Natural`, **including hits**.
+3. A miss adds the string length to `Total_Size : Long_Long_Integer`, allocates
+   a complete String and inserts its pointer into the set.
+4. A hit instead adds the same length to `Size_Saved : Long_Long_Integer`.
+
+Static GDB type inspection and disassembly, with no inferior execution,
+confirm that the installed `Find` uses a 32-bit `0 .. 2147483647` call counter
+and checks its increment before lookup. The two 64-bit byte accumulators
+also have explicit overflow checks. The retained
+[disassembly](../evidence/retained-producer-capacity-20261017/gnatcoll/symbol-static-gdb.txt)
+identifies these checks at offsets `+48..+62`, `+124..+134` and `+203..+213`.
+Their diagnostic purpose does not make their capacity irrelevant.
+
+For either pool, let `F_pool` bound lifetime nonempty calls and `U_pool` bound
+distinct nonempty strings. Sufficient conditions are
+
+```text
+F_pool <= 2^31 - 1
+U_pool <= 1,610,612,741       (the checked hashed-container growth envelope)
+each constructed String and intermediate concatenation is representable.
+```
+
+The byte accumulators then need no additional independent numeric restriction:
+every valid String has length at most `2^31-1`, and each call contributes to
+only one sum, so each is at most
+`(2^31-1)^2 = 4,611,686,014,132,420,609 < 2^63-1`.
+Likewise an individual String allocation plus its small descriptor/alignment
+overhead fits 64-bit allocation arithmetic. This proves representability, not
+availability of physical memory.
+
+`Common_Containers.To_Entity_Name (S)` also evaluates
+`String_Cache.Last_Index + 1` **before** testing whether the symbol is already
+cached (`common_containers.adb:63–82`). Consequently reaching
+`Entity_Name'Last` entries would make a later hit unsafe as well as a miss.
+The sufficient hashed-container bound on `U_entity` is already smaller than
+that 2,147,483,647 endpoint. Nevertheless, lifetime interning calls still require
+their own bound. The entity overload caches `Unique_Name(E)` and interns only
+on a missing entity key; direct string calls used for dependency records must
+be counted separately.
+
+### Name construction and the remaining lookup connection
+
+The complete archived SPARK Ada-source inventory contains **671** calls to
+`NID`. The checker retains their locations and lexical enclosing constructors;
+it does not promote lexical containment to an allocation theorem. Most calls
+name fresh identifiers, modules, axioms, comments or labels. The finite
+exceptions include initializer constants, trace/VC labels and representation
+name lookups. In particular `Get_Array_Theory_Name`
+(`why-gen-arrays.adb:2990–3036`) calls `NID` even when its caller only reads
+an already populated representation map. All Main String types share that
+ordinary rank-one Character key, but every lookup still increments the pool
+counter. Therefore neither `U_pool` nor `B_N` alone establishes `F_pool`.
+
+Several compositional length costs are already explicit:
+
+| Name operation | Additional characters or bound |
+| --- | --- |
+| `Short_Name` | At most underlying `Chars` length + 2, because keyword avoidance only changes case and possibly appends `__` (`gnat2why-util.adb:466–475,1594–1595`). |
+| `New_Temp_Identifier` | At most base length + 18: `temp___`, optional underscore and at most ten decimal digits. Its independent counter is bounded above by `B_N` (`why-gen-names.adb:838–848`). |
+| `Append_Num` | At most base length + 11, for underscore and Positive decimal suffix (`why-gen-names.adb:68–71`). |
+| `Ref_Append`, content and havoc | Base length + 5, + 9 and + 7 respectively (`why-gen-names.adb:151,564,916,956,961,971`). |
+| Entity modules | `Full_Name` plus one of the 27 fixed suffixes (`why-atree-modules.adb:134–167`); this concatenation happens before a module-cache hit returns. |
+| Projection name | Type-name length + field-name length + 25: separating underscore, optional `__` and at most ten digits, then `__projection` (`why-gen-decl.adb:171–190`). The occurrence counter bound above makes those digits representable. |
+
+`Full_Name` delegates to frontend `Unique_Name` except for Standard Boolean
+(`spark_util.adb:2323–2340`). For an ordinary non-child, non-generic scope path
+of `d` unique entities, this is bounded by the sum of their `Chars` lengths
+plus `14d`: each homonym suffix contributes at most `__` and ten digits,
+and each enclosing separator contributes `__`
+(`gcc/ada/sem_util.adb:30080–30200`). This is a compositional bound; establishing
+the generated frontend `Chars` lengths and scope-path domain remains part of
+the frontend name argument. `New_Internal_Name` itself contributes one prefix,
+at most ten serial digits and one body/spec character
+(`gcc/ada/tbuild.adb:61–99,719–726`); its serial counter must also fit.
+
+VC/trace labels add source names, node/VC decimal IDs, source locations and
+`Shape_Of_Node`. The latter walks the parent path, not a complete repeated
+subtree (`spark_util.adb:7005–7338`); its loop-name and source-name contributions
+must be charged along that path. Location labels follow instantiation locations
+(`spark_util.adb:5944–6006`); Main has neither generic instantiations nor enabled
+inlining, while fixed dependencies remain fixed cases. These functions cannot
+be replaced by a fixed short-label assumption.
+
+The remaining closure work is precise: bound all lifetime representation-name
+queries, trace/VC-label requests and metadata-name calls from the source
+invocation counts; propagate the frontend name and path lengths through the
+listed constructors; and bound scoped undo peaks. The additive fixed Why
+measurements do not supply these quantities. The checked map domains and
+64-bit-sum reduction above remain usable independently of that unfinished
+connection.
+
+Reproduce the auxiliary source inventory, dependency-file checks and arithmetic:
+
+```sh
+python3 docs/evidence/retained-producer-capacity-20261017/auxiliary_domains.py \
+  --source-root /path/to/archived/spark-source \
+  --source-archive docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz
+```
+
+This verifies all 279 archived Ada files and the complete 671-site inventory;
+it launches no compiler, proof process or debugger inferior.
 
 ## Aggregate formula and finite remaining helper families
 
@@ -2620,8 +2778,8 @@ coverage obligation, not a claim that the whole producer is already bounded.
 
 | Remaining family | Exact work and source-count connection still required |
 | --- | --- |
-| `K_fixed` | Bootstrap/Standard is now a fixed measured phase with the source-independence argument above. Remaining: selected dependency theories, package processing, richer dependency symbol fills, external-constant assumptions, other fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
-| Fixed-library object setup | The Main registration/object/loop theory pass is now source-counted above. Price richer fixed-library shapes separately. |
+| `K_fixed` | Bootstrap/Standard plus selected imported dependencies now have the additive four-component envelope above; Main external-constant assumptions are zero. Other fixed entry/exit work and non-Main frontend entity/list contribution remain separate, as do distinct producer processes for library bodies. |
+| Auxiliary producer domains | Source/Why map key domains, projection counters and GNATCOLL 64-bit string sums are bounded above. Lifetime intern calls, generated-name lengths and undo-stack peaks still require source connections; the four-component fixed envelope does not supply them. |
 | Frontend node input | The linked Main semantic-node aggregate supplies `A_Main` used by the ignored-entry/list transfer. Separate fixed dependency node/entity counts remain to be resolved. |
 | Whole-process counters | Use `M <= B_N` or a sharper explicit module sum and finish the total close count with fixed setup. `F <= E_list` and `temporary counter <= B_N` are established. |
 

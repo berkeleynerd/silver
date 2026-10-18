@@ -1,0 +1,124 @@
+type = tagged record
+    hash: gnatcoll.symbols.string_htable.set;
+    calls_to_find: natural;
+    total_size: long_long_integer;
+    size_saved: long_long_integer;
+end record
+type = range 0 .. 2147483647
+type = <8-byte integer>
+Dump of assembler code for function gnatcoll__symbols__find:
+   0x0000000001045a90 <+0>:	41 57              	push   %r15
+   0x0000000001045a92 <+2>:	41 56              	push   %r14
+   0x0000000001045a94 <+4>:	41 55              	push   %r13
+   0x0000000001045a96 <+6>:	41 54              	push   %r12
+   0x0000000001045a98 <+8>:	55                 	push   %rbp
+   0x0000000001045a99 <+9>:	53                 	push   %rbx
+   0x0000000001045a9a <+10>:	48 83 ec 28        	sub    $0x28,%rsp
+   0x0000000001045a9e <+14>:	80 3d cf 48 63 00 00	cmpb   $0x0,0x6348cf(%rip)        # 0x167a374 <gnatcoll__symbols__findE43b>
+   0x0000000001045aa5 <+21>:	0f 84 24 01 00 00  	je     0x1045bcf <gnatcoll__symbols__find+319>
+   0x0000000001045aab <+27>:	4c 63 62 04        	movslq 0x4(%rdx),%r12
+   0x0000000001045aaf <+31>:	4c 63 3a           	movslq (%rdx),%r15
+   0x0000000001045ab2 <+34>:	48 89 d5           	mov    %rdx,%rbp
+   0x0000000001045ab5 <+37>:	45 39 fc           	cmp    %r15d,%r12d
+   0x0000000001045ab8 <+40>:	7c 76              	jl     0x1045b30 <gnatcoll__symbols__find+160>
+   0x0000000001045aba <+42>:	8b 47 38           	mov    0x38(%rdi),%eax
+   0x0000000001045abd <+45>:	48 89 fb           	mov    %rdi,%rbx
+   0x0000000001045ac0 <+48>:	3d ff ff ff 7f     	cmp    $0x7fffffff,%eax
+   0x0000000001045ac5 <+53>:	0f 84 15 01 00 00  	je     0x1045be0 <gnatcoll__symbols__find+336>
+   0x0000000001045acb <+59>:	83 c0 01           	add    $0x1,%eax
+   0x0000000001045ace <+62>:	4c 8d 77 08        	lea    0x8(%rdi),%r14
+   0x0000000001045ad2 <+66>:	48 89 f2           	mov    %rsi,%rdx
+   0x0000000001045ad5 <+69>:	48 89 e9           	mov    %rbp,%rcx
+   0x0000000001045ad8 <+72>:	89 47 38           	mov    %eax,0x38(%rdi)
+   0x0000000001045adb <+75>:	49 89 f5           	mov    %rsi,%r13
+   0x0000000001045ade <+78>:	48 89 e7           	mov    %rsp,%rdi
+   0x0000000001045ae1 <+81>:	4c 89 f6           	mov    %r14,%rsi
+   0x0000000001045ae4 <+84>:	e8 a7 dd ff ff     	call   0x1043890 <gnatcoll__symbols__string_htable__find>
+   0x0000000001045ae9 <+89>:	48 8b 4c 24 08     	mov    0x8(%rsp),%rcx
+   0x0000000001045aee <+94>:	8b 55 04           	mov    0x4(%rbp),%edx
+   0x0000000001045af1 <+97>:	48 63 75 00        	movslq 0x0(%rbp),%rsi
+   0x0000000001045af5 <+101>:	48 85 c9           	test   %rcx,%rcx
+   0x0000000001045af8 <+104>:	74 56              	je     0x1045b50 <gnatcoll__symbols__find+192>
+   0x0000000001045afa <+106>:	8d 42 01           	lea    0x1(%rdx),%eax
+   0x0000000001045afd <+109>:	29 f0              	sub    %esi,%eax
+   0x0000000001045aff <+111>:	39 d6              	cmp    %edx,%esi
+   0x0000000001045b01 <+113>:	ba 00 00 00 00     	mov    $0x0,%edx
+   0x0000000001045b06 <+118>:	48 98              	cltq
+   0x0000000001045b08 <+120>:	48 0f 4f c2        	cmovg  %rdx,%rax
+   0x0000000001045b0c <+124>:	48 03 43 48        	add    0x48(%rbx),%rax
+   0x0000000001045b10 <+128>:	0f 80 db 00 00 00  	jo     0x1045bf1 <gnatcoll__symbols__find+353>
+   0x0000000001045b16 <+134>:	48 89 43 48        	mov    %rax,0x48(%rbx)
+   0x0000000001045b1a <+138>:	48 8b 51 08        	mov    0x8(%rcx),%rdx
+   0x0000000001045b1e <+142>:	48 8b 01           	mov    (%rcx),%rax
+   0x0000000001045b21 <+145>:	48 83 c4 28        	add    $0x28,%rsp
+   0x0000000001045b25 <+149>:	5b                 	pop    %rbx
+   0x0000000001045b26 <+150>:	5d                 	pop    %rbp
+   0x0000000001045b27 <+151>:	41 5c              	pop    %r12
+   0x0000000001045b29 <+153>:	41 5d              	pop    %r13
+   0x0000000001045b2b <+155>:	41 5e              	pop    %r14
+   0x0000000001045b2d <+157>:	41 5f              	pop    %r15
+   0x0000000001045b2f <+159>:	c3                 	ret
+   0x0000000001045b30 <+160>:	48 8d 05 f9 66 1c 00	lea    0x1c66f9(%rip),%rax        # 0x120c230 <gnatcoll__symbols__string_htable__ht_types__implementation__t_check>
+   0x0000000001045b37 <+167>:	48 8d 50 f8        	lea    -0x8(%rax),%rdx
+   0x0000000001045b3b <+171>:	48 83 c4 28        	add    $0x28,%rsp
+   0x0000000001045b3f <+175>:	5b                 	pop    %rbx
+   0x0000000001045b40 <+176>:	5d                 	pop    %rbp
+   0x0000000001045b41 <+177>:	41 5c              	pop    %r12
+   0x0000000001045b43 <+179>:	41 5d              	pop    %r13
+   0x0000000001045b45 <+181>:	41 5e              	pop    %r14
+   0x0000000001045b47 <+183>:	41 5f              	pop    %r15
+   0x0000000001045b49 <+185>:	c3                 	ret
+   0x0000000001045b4a <+186>:	66 0f 1f 44 00 00  	nopw   0x0(%rax,%rax,1)
+   0x0000000001045b50 <+192>:	39 d6              	cmp    %edx,%esi
+   0x0000000001045b52 <+194>:	7f 74              	jg     0x1045bc8 <gnatcoll__symbols__find+312>
+   0x0000000001045b54 <+196>:	8d 42 01           	lea    0x1(%rdx),%eax
+   0x0000000001045b57 <+199>:	29 f0              	sub    %esi,%eax
+   0x0000000001045b59 <+201>:	48 98              	cltq
+   0x0000000001045b5b <+203>:	48 03 43 40        	add    0x40(%rbx),%rax
+   0x0000000001045b5f <+207>:	0f 80 9d 00 00 00  	jo     0x1045c02 <gnatcoll__symbols__find+370>
+   0x0000000001045b65 <+213>:	48 63 fa           	movslq %edx,%rdi
+   0x0000000001045b68 <+216>:	48 89 43 40        	mov    %rax,0x40(%rbx)
+   0x0000000001045b6c <+220>:	48 83 c7 0c        	add    $0xc,%rdi
+   0x0000000001045b70 <+224>:	48 29 f7           	sub    %rsi,%rdi
+   0x0000000001045b73 <+227>:	48 83 e7 fc        	and    $0xfffffffffffffffc,%rdi
+   0x0000000001045b77 <+231>:	e8 a4 0d 06 00     	call   0x10a6920 <__gnat_malloc>
+   0x0000000001045b7c <+236>:	49 83 c4 01        	add    $0x1,%r12
+   0x0000000001045b80 <+240>:	4c 89 ee           	mov    %r13,%rsi
+   0x0000000001045b83 <+243>:	48 89 c3           	mov    %rax,%rbx
+   0x0000000001045b86 <+246>:	48 8b 45 00        	mov    0x0(%rbp),%rax
+   0x0000000001045b8a <+250>:	4d 29 fc           	sub    %r15,%r12
+   0x0000000001045b8d <+253>:	48 8d 6b 08        	lea    0x8(%rbx),%rbp
+   0x0000000001045b91 <+257>:	4c 89 e2           	mov    %r12,%rdx
+   0x0000000001045b94 <+260>:	48 89 03           	mov    %rax,(%rbx)
+   0x0000000001045b97 <+263>:	48 89 ef           	mov    %rbp,%rdi
+   0x0000000001045b9a <+266>:	e8 61 b5 0e ff     	call   0x131100 <memcpy@plt>
+   0x0000000001045b9f <+271>:	48 89 da           	mov    %rbx,%rdx
+   0x0000000001045ba2 <+274>:	48 89 ee           	mov    %rbp,%rsi
+   0x0000000001045ba5 <+277>:	4c 89 f7           	mov    %r14,%rdi
+   0x0000000001045ba8 <+280>:	e8 63 fe ff ff     	call   0x1045a10 <gnatcoll__symbols__string_htable__include>
+   0x0000000001045bad <+285>:	48 89 e8           	mov    %rbp,%rax
+   0x0000000001045bb0 <+288>:	48 89 da           	mov    %rbx,%rdx
+   0x0000000001045bb3 <+291>:	48 83 c4 28        	add    $0x28,%rsp
+   0x0000000001045bb7 <+295>:	5b                 	pop    %rbx
+   0x0000000001045bb8 <+296>:	5d                 	pop    %rbp
+   0x0000000001045bb9 <+297>:	41 5c              	pop    %r12
+   0x0000000001045bbb <+299>:	41 5d              	pop    %r13
+   0x0000000001045bbd <+301>:	41 5e              	pop    %r14
+   0x0000000001045bbf <+303>:	41 5f              	pop    %r15
+   0x0000000001045bc1 <+305>:	c3                 	ret
+   0x0000000001045bc2 <+306>:	66 0f 1f 44 00 00  	nopw   0x0(%rax,%rax,1)
+   0x0000000001045bc8 <+312>:	bf 08 00 00 00     	mov    $0x8,%edi
+   0x0000000001045bcd <+317>:	eb a8              	jmp    0x1045b77 <gnatcoll__symbols__find+231>
+   0x0000000001045bcf <+319>:	be 4f 00 00 00     	mov    $0x4f,%esi
+   0x0000000001045bd4 <+324>:	48 8d 3d 62 62 1c 00	lea    0x1c6262(%rip),%rdi        # 0x120be3d
+   0x0000000001045bdb <+331>:	e8 2c 1e 02 00     	call   0x1067a0c <__gnat_rcheck_PE_Access_Before_Elaboration>
+   0x0000000001045be0 <+336>:	be 59 00 00 00     	mov    $0x59,%esi
+   0x0000000001045be5 <+341>:	48 8d 3d 51 62 1c 00	lea    0x1c6251(%rip),%rdi        # 0x120be3d
+   0x0000000001045bec <+348>:	e8 b3 1d 02 00     	call   0x10679a4 <__gnat_rcheck_CE_Overflow_Check>
+   0x0000000001045bf1 <+353>:	be 62 00 00 00     	mov    $0x62,%esi
+   0x0000000001045bf6 <+358>:	48 8d 3d 40 62 1c 00	lea    0x1c6240(%rip),%rdi        # 0x120be3d
+   0x0000000001045bfd <+365>:	e8 a2 1d 02 00     	call   0x10679a4 <__gnat_rcheck_CE_Overflow_Check>
+   0x0000000001045c02 <+370>:	be 5d 00 00 00     	mov    $0x5d,%esi
+   0x0000000001045c07 <+375>:	48 8d 3d 2f 62 1c 00	lea    0x1c622f(%rip),%rdi        # 0x120be3d
+   0x0000000001045c0e <+382>:	e8 91 1d 02 00     	call   0x10679a4 <__gnat_rcheck_CE_Overflow_Check>
+End of assembler dump.
