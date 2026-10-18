@@ -266,7 +266,9 @@
     "signed_integer_type": 36
   },
   "ordinary_expression_uniform_transfer": {
-    "literal_identities": "K <= S + A + 3P",
+    "copied_literal_lengths": "H includes sum(length bound of each copied declaration initializer); charging every String declaration is conservative",
+    "late_constant_propagation": "GCC sem_ch3:5436-5453 replaces a name leaf by a literal, sharing analyzed type and Strval; V and K_literal unchanged",
+    "literal_identities": "K <= S + A + 3P + D_copy, D_copy <= D_s",
     "local_cases_with_boundary_allowances": {
       "boolean_connective_with_predicate_wrappers": [
         16,

@@ -1,0 +1,211 @@
+{
+  "archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "call_lines_by_file": {
+    "src/why/gnat2why-decls.adb": [
+      503
+    ],
+    "src/why/gnat2why-expr-aggregates.adb": [
+      1228,
+      1231,
+      1358,
+      1392,
+      1654,
+      1721,
+      1939,
+      1943,
+      1947,
+      2374,
+      2565,
+      2949,
+      2982,
+      3197,
+      3268,
+      3704,
+      3941,
+      3950,
+      3973,
+      4194,
+      4317,
+      4591,
+      4627,
+      4698,
+      4796,
+      4980,
+      5479,
+      5790,
+      5976,
+      6009
+    ],
+    "src/why/gnat2why-expr-loops-inv.adb": [
+      828,
+      908
+    ],
+    "src/why/gnat2why-expr-loops.adb": [
+      769,
+      770,
+      835,
+      1043,
+      1614,
+      1617
+    ],
+    "src/why/gnat2why-expr.adb": [
+      2163,
+      2474,
+      3238,
+      3311,
+      3563,
+      3565,
+      3671,
+      4128,
+      4602,
+      4714,
+      4973,
+      4991,
+      5074,
+      5953,
+      6194,
+      7371,
+      9037,
+      9115,
+      10523,
+      10884,
+      10904,
+      11643,
+      11970,
+      12069,
+      12122,
+      13147,
+      13211,
+      13465,
+      13884,
+      14364,
+      14585,
+      15841,
+      15981,
+      16034,
+      16310,
+      16590,
+      16592,
+      16960,
+      17069,
+      18404,
+      19490,
+      20396,
+      20723,
+      21161,
+      21540,
+      22426,
+      22461,
+      23284,
+      25285,
+      26324,
+      26739,
+      27819,
+      27837,
+      28014,
+      28910,
+      29537,
+      30263,
+      30276,
+      30682
+    ],
+    "src/why/gnat2why-subprograms-pointers.adb": [
+      57,
+      342,
+      1108
+    ],
+    "src/why/gnat2why-subprograms.adb": [
+      2197,
+      3343,
+      4238,
+      4870,
+      4914,
+      5627,
+      5909,
+      7253,
+      7535,
+      7666,
+      8779
+    ],
+    "src/why/gnat2why-types.adb": [
+      98,
+      175,
+      295,
+      300,
+      393,
+      398,
+      403,
+      408,
+      418,
+      584,
+      1245,
+      1247,
+      1332,
+      1334
+    ],
+    "src/why/gnat2why-unchecked_conversion.adb": [
+      1474,
+      1579
+    ],
+    "src/why/gnat2why-util.adb": [
+      1508
+    ],
+    "src/why/why-gen-arrays.adb": [
+      488,
+      755,
+      1232,
+      1234,
+      1236,
+      1402,
+      1404,
+      1406,
+      1979
+    ],
+    "src/why/why-gen-expr.adb": [
+      4987,
+      5065,
+      5124
+    ],
+    "src/why/why-gen-names.adb": [
+      865,
+      880,
+      893
+    ],
+    "src/why/why-gen-records.adb": [
+      317,
+      924,
+      927,
+      970,
+      1022,
+      1122,
+      1369
+    ]
+  },
+  "conclusion": "Every increment can be charged to a distinct pre-import node; temporary counter <= B_N for the complete bounded producer",
+  "identifier_overload_call_sites": 145,
+  "manual_charges": {
+    "aggregates:2565": "fresh module via 3687/3713 or 4300/4329 and 2576",
+    "expr:15981": "fresh module via 15989 and 16051",
+    "expr:30276": "literal identifier at 30278, also fresh module at 30282",
+    "expr:7371": "enclosing New_Identifier",
+    "names:865,880": "fresh identifier returned by each wrapper"
+  },
+  "scan_manifest_sha256": "73228e199ea9b9f4814012da05206943ff343ca112c42d68b23c0cac5eb25173",
+  "scope": "Lexical completeness and source identity are checked; the allocation charging argument is manual",
+  "string_overload_call_lines": {
+    "src/why/gnat2why-expr-aggregates.adb": [
+      2565
+    ],
+    "src/why/gnat2why-expr.adb": [
+      7371,
+      15981,
+      30276
+    ],
+    "src/why/why-gen-names.adb": [
+      865,
+      880
+    ]
+  },
+  "toolchain_or_proof_processes_run": false,
+  "verified_complete_ada_files": 279
+}

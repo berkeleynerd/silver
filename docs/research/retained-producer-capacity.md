@@ -1848,14 +1848,34 @@ already covers repeated identifier/dereference uses. This bound intentionally
 does not take credit for static folding, identity conversions, or disabled
 warnings.
 
-Let `K <= S + A + 3P` bound distinct translated literal identities and let `H`
-be the frontend report's aggregate decoded-length bound:
+Let `D_copy <= D_s` count String declarations whose initializer is replaced
+by a copied literal. GNAT performs this late in object-declaration analysis
+when the initializer names a constant whose `Constant_Value` is a literal
+(`gcc/ada/sem_ch3.adb:5436–5453`, `sem_aux.adb:93–141`). The target object may
+be mutable; the source object must be constant. Constant chains may propagate
+the same bytes through several declarations. `New_Copy` shares `Strval` and
+the analyzed type but creates a distinct expression identity. The producer
+keys each static literal's module by its actual node, not by `String_Id` or
+`Original_Node` (`gnat2why-expr.adb:30226–30256`,
+`why-atree-modules.adb:465–504`). Therefore these copies need additional
+literal-definition/character charges even though they add no Stringt bytes.
+
+Let `K <= S + A + 3P + D_copy` bound distinct translated literal identities
+and define the corrected aggregate decoded-length bound:
 
 ```text
 H = sum(source literal lengths)
     + sum(length bound of each source concat result)
-    + 2 * sum(length of each parser-flattened chain).
+    + 2 * sum(length of each parser-flattened chain)
+    + sum(length bound of each copied declaration initializer).
 ```
+
+Charging every String declaration in the final sum and using `D_copy = D_s`
+is a conservative source-computable alternative that avoids needing a separate
+propagation classifier. Replacing one name leaf by one literal leaf does not
+increase `V`; sharing the analyzed type leaves `K_literal` unchanged. These
+distinctions matter: an expression cache miss can create a complete character
+axiom even when frontend character storage and type identities are shared.
 
 The cache-miss/character formula above is bounded by
 `K*(23,13,10,75) + H*(7,3,6,40)`. It charges no per-use work a second time.
@@ -2225,6 +2245,55 @@ occurrences are charged at use sites. `Init_Why_Sections` initializes Ada lists,
 not Why list IDs (`gnat2why-util.adb:1035–1040,1265–1268`). This still does not
 claim an exhaustive package-elaboration allocation inventory.
 
+### Temporary-name counter and the fixed-case alternative
+
+`New_Temp_Identifier_Counter` starts at zero and increments once in the
+String-returning overload (`why-gen-names.adb:838–848`). The complete scan in
+[`producer-counter-inventory.json`](../evidence/retained-producer-capacity-20261017/producer-counter-inventory.json)
+checks all 279 Ada source files against the retained source archive. There
+are 145 calls selecting the identifier overload and six direct String calls.
+Each identifier overload call invokes the String overload once and allocates
+a fresh name/identifier pair (`:850–868`). The six direct String-call sites
+are accounted for as follows:
+
+| Direct String call | Distinct fresh node charged to its increment |
+| --- | --- |
+| Identifier and generated-identifier wrappers, `why-gen-names.adb:865,880` | The returned identifier; the first is the same wrapper already counted above, not another increment. |
+| Dynamic invariant name, `gnat2why-expr.adb:7371` | Its enclosing `New_Identifier`. |
+| String literal name, `gnat2why-expr.adb:30276` | The identifier immediately declared at `:30278`; its module is additional. |
+| Container aggregate helper, `gnat2why-expr-aggregates.adb:2565` | The first module created by `Insert_Extra_Modules` at `:2576`. Both callers (`:3687,4300`) unconditionally insert their modules. |
+| Array aggregate helper, `gnat2why-expr.adb:15981` | The first module unconditionally created at `:16051`, after the name is obtained at `:15989`. |
+
+These allocations are fresh and distinct for different increments; none is a
+close-time include. Thus the complete producer bound implies
+`temporary counter <= B_N`. Its `Natural` range does not add a tighter
+restriction once `B_N` fits the Why node domain. This is an allocation charging
+argument, including discarded allocations, rather than an observation about
+names appearing in JSON. It applies to the aggregate/other fixed paths too;
+no Main-only exclusion is needed. The inventory checks source completeness
+and overload sites, while the call-to-allocation connection remains a manual
+source argument.
+
+Fixed dependency bytes suggest an alternative to manually pricing every
+fixed subprogram: exhaustively enumerate the relevant fixed configurations
+and measure their producer allocations. The driver always translates Standard
+first (20 `S_Types` entries and five explicit types), then processes each
+selected entity once in registration, translation and completion. VC generation
+only runs where `Analysis_Requested` is `Analyzed`
+(`gnat2why-driver.adb:998–1013,1318–1457,1644–1687`). Imported ordinary package
+bodies are therefore not replayed per Main call. However, fixed bytes alone
+do not prove that all dependency subsets, translation orders, cache states and
+context-sensitive paths have been covered.
+
+Retained JSON cannot supply the missing allocation measurements: its IDs count
+emitted occurrences, and eager discarded work is absent. `Why.Atree.Free`
+clears both lifetime tables after translation (`why-atree.adb:38–54`,
+`gnat2why-driver.adb:1452–1457`). A complete fixed-case method would need either
+actual table/element counters at those phase boundaries or source bounds for
+the omitted work, together with an argument covering all reached fixed cases.
+No such enumeration or measurement is claimed here, and no fixed constant is
+inferred from one observed JSON file.
+
 ## Aggregate formula and finite remaining helper families
 
 Use four-component costs in the order `(nodes, lists, list elements, emitted
@@ -2241,6 +2310,7 @@ Why nodes       <= B_N(P) + C(P) * (2 + 2 M(P))
 Why lists       <= B_L(P)
 Why elements    <= B_J(P) + C(P) * (2 + 2 M(P))
 emitted counter <= F(P) * (B_O(P) + C(P) * (4 + 4 M(P)))
+temporary counter <= B_N(P)
 ```
 
 Each `Add_With_Clause` allocates one include node, appends one element to the
@@ -2325,7 +2395,7 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | `K_fixed` | The built-in symbol/module initializer is priced above. Remaining: predefined and selected dependency theories, package processing, richer dependency symbol fills, external-constant assumptions, other fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
 | Fixed-library object setup | The Main registration/object/loop theory pass is now source-counted above. Price richer fixed-library shapes separately. |
 | Frontend node input | The ordinary Main syntax/entity sum, symbol/module caches and enclosing core/effect wrapper are assembled above. Supply the source-derived frontend allocation bound `A_Main` used by the ignored-entry/list transfer. Main's external-constant assumptions remain explicitly in `K_fixed`. |
-| Whole-process counters | Use `M <= B_N` or a sharper explicit module sum, finish the total close count with fixed setup, and bound the temporary-name counter. `F <= E_list` is already established. |
+| Whole-process counters | Use `M <= B_N` or a sharper explicit module sum and finish the total close count with fixed setup. `F <= E_list` and `temporary counter <= B_N` are established. |
 
 The [frontend report](retained-frontend-entities.md) now supplies the Main entity,
 type and literal multiplicities, including generated literal lengths; they are
@@ -2383,6 +2453,17 @@ python3 docs/evidence/retained-producer-capacity-20261017/initializer_inventory.
 The helper source file is also hash-checked against the archive by `capture.py`.
 This inventory counts source constructor execution and does not invoke or
 instrument a compiler.
+
+To reproduce the whole-source temporary-name inventory, run
+
+```sh
+python3 docs/evidence/retained-producer-capacity-20261017/producer_counter_inventory.py \
+  --source-root /path/to/pinned/spark-source \
+  --source-archive docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz
+```
+
+This checks the complete scanned source set against the retained archive and
+does not execute the producer.
 
 A focused independent source/evidence review found no defect in the numerical
 literal components. Its loop-entry wording correction above distinguishes

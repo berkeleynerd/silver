@@ -313,7 +313,9 @@ def main():
             "visits": "2 * (X + U + 3P) + 2G, G <= 2F",
             "per_literal_definition": [23, 13, 10, 75],
             "per_aggregate_literal_character": [7, 3, 6, 40],
-            "literal_identities": "K <= S + A + 3P",
+            "literal_identities": "K <= S + A + 3P + D_copy, D_copy <= D_s",
+            "copied_literal_lengths": "H includes sum(length bound of each copied declaration initializer); charging every String declaration is conservative",
+            "late_constant_propagation": "GCC sem_ch3:5436-5453 replaces a name leaf by a literal, sharing analyzed type and Strval; V and K_literal unchanged",
             "scope": "Ordinary Main executable/value-axiom expression forest; fixed setup, skeletons, type theories and imports separate",
         },
         "main_list_node_transfer": {
