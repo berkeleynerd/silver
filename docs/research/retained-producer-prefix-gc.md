@@ -206,13 +206,158 @@ inequality rules out that first overflow without assuming counter correctness
 circularly. Synthetic positions use column zero; real imported-file positions
 remain the separately pinned fixed-file context.
 
-This table is intentionally an explicit inventory, not a claim that every
-integer in Why3 has been covered. In particular, the separate Hashcons instance
-in `transform/introduction.ml:33–51` returns its input from `H.tag`, so it does
-not inherit the fresh-tag-record argument. Session IDs, other traversal/output
-counters and later transformations require their own joins if used in a
-whole-process claim. The packet does not extend this result to variable Main,
-solver internal domains, solver output or final report capacity.
+This table is an explicit inventory, not a claim that every integer in Why3 has
+been covered. The following offline extension adds selected prefix dimensions;
+the semantic occurrence-count gap below still prevents a complete prefix claim.
+The packet does not extend this result to variable Main, later prover
+transformations, solver internal domains, solver output or final report capacity.
+
+## Additional prefix dimensions
+
+The supplementary `dimensions-sources.tar.gz` retains 27 complete additional
+Why3 files, three ELF header/program-header excerpts, all 165 configured
+installed driver/library text files in the original pinned plan, and a raw
+counter-candidate scan. The text set deliberately includes unused files.
+`dimensions_check.py` checks their identities, joins the installed inputs to the
+original successful plan, and derives the following bounds without executing
+the toolchain. Source joins remain inspected arguments under the tool/source
+correspondence premise, not machine-checked source semantics.
+
+### Physical storage and imported positions
+
+For the selected fixed context, use the conservative storage budget
+
+```text
+W = 86,632,681 protected allocated words
+       43,164 startup managed-word overcount
+    2,152,771 loaded-image word overcount
+B = 88,828,616 words < 2^27
+8B = 710,628,928 bytes < 2^30.
+```
+
+The startup term includes accumulated minor/major allocation statistics and
+current minor/major allocation at the boundary; promoted words and earlier
+garbage may be counted twice. The image term is the ceiling of the sum of
+`PT_LOAD.p_memsz` over the executable and the two mapped OCaml plugins, divided
+by eight: 17,222,167 bytes before rounding. Using segment **memory size** includes
+zero-filled data. Treating all loaded code and data as possible static managed
+storage overcounts further. This bounds the managed/static storage from which
+the selected physical containers are constructed; C/runtime-owned backing
+remains under the existing runtime contracts. It is a fixed-context evidence
+bound, not a variable-program memory admission rule.
+
+The 165 fixed text files have at most 104,227 bytes, 3,022 LF-delimited lines,
+and 5,148 bytes in one line. None contains `[#`, excluding the Why3 lexer's
+location-override syntax. UTF-8 column adjustment cannot enlarge the byte
+column. These real-file positions fit the 47-bit line and 16-bit column fields.
+The generated native JSON is handled separately: its converter constructs
+synthetic positions, already bounded above. Recursively reading the retained
+JSON shows all scalar integer fields fit the native signed OCaml domain:
+
+| Input | Integer fields | Minimum | Maximum |
+| --- | ---: | ---: | ---: |
+| Put_Line | 16,673 | 0 | 7,120 |
+| Put | 15,606 | 0 | 13,772 |
+| First_Or_Default | 16,274 | 0 | 10,062 |
+| Input_Is_Valid | 7,163 | 0 | 3,068 |
+| Is_Message | 4,911 | 0 | 12,176 |
+
+Mathematical literal values use separate string/BigInt representations; this
+table does not turn them into machine-integer literals.
+
+### Session, shape and remaining selected counters
+
+Initial session population does more than extract explanations:
+`session_itp.ml:679–694` computes both `Termcode.task_checksum` and
+`Sshape.compute_and_add_shape`. The fresh-session version is SV6. Its checksum
+uses `task_v3` and `Trans.fold` (`termcode.ml:900–931`; `trans.ml:80–106`), whose
+weak memoization is covered by the no-collection argument. This ordinary
+checksum fold is inside the measured prefix; the prover strategy remains
+outside it.
+
+The following additional joins use the same lifetime allocation charge. Unless
+a smaller value is stated, each counter has at most `W` increments and value at
+most `W + 1` from its stated initialization. Any reused saved value was itself
+produced by earlier charged increments.
+
+| Counter family | Initialization and source join |
+| --- | --- |
+| Theory metadata tags | Starts at -1; each tag belongs to a fresh metadata record, `theory.ml:135–153` |
+| Type-invariant pin indices | Starts at 0; both callers construct a pin and store it in a fresh persistent-map binding, `typeinv.ml:88–90,126–130,335–339` |
+| VC exception IDs | Starts at 0 per environment; the three callers construct exception continuations, list cells or map bindings carrying the new ID, `vc.ml:153,167,654,860–873,1016` |
+| Session file ID | Starts at 0 and increments exactly once in this fresh single-file branch, `session_itp.ml:626,1790–1799` |
+| Session proof-node IDs | Starts at 0; the initial `List.map` creates a fresh cons for every generated ID, `session_itp.ml:1754–1755` |
+| Session transformation/proof-attempt IDs | Remain 0: loading/merging and prover scheduling paths do not run in this fresh prefix, `session_itp.ml:621–626,645–738,1130–1192,1487–1544` |
+| Global shape IDs | Starts at 0; a new shape allocates persistent-map bindings before increment, `termcode.ml:552–577` |
+| Shape alpha-renaming IDs | Starts at -1; every increment formats a fresh integer string and stores a persistent-map binding, `termcode.ml:382–387,606–607` |
+| SV6 checksum identifier IDs | Starts at 0; a miss creates a persistent-map binding, `termcode.ml:669–675`; `task_v3` may restore an earlier saved value, `:900–929` |
+| Two Mlw printer synthetic-location counters, if selected | Start at 0 and construct fresh location records, `mlw_printer.ml:23–27,78–81` |
+| Declaration argument and postcondition-axiom ordinals | Count existing list elements, `decl.ml:116–119`, `pdecl.ml:556–564` |
+| Driver time-pattern regex group count | Each increment creates a fresh list cell, `call_provers.ml:84–86` |
+
+The shape-buffer truncation checks `>= 1024` **after** an append
+(`termcode.ml:345–354`). Consequently this threshold is not a 1,024-byte
+allocation bound: the append and any overshoot are charged to the retained
+allocation total. It is an existing shape heuristic, not a proposed restriction
+on Silver source.
+
+The separate Hashcons instance in `transform/introduction.ml:33–51` returns its
+input from `H.tag`; the fresh-tag-record argument does not cover it. Its sole
+`Hsdecl.hashcons` call is in introduction processing at `:176`. Prefix setup
+registers the unique prefix (`gnat_main.ml:320`) but does not execute those
+later introduction transformations, so this instance has no increments in the
+selected prefix.
+
+Pretty-printer suffix search (`ident.ml:233–258`) is bounded by lifetime
+occupied candidate spellings plus one, rather than by the count of distinct
+input identifiers. `advance` passes occupied candidates; `retreat` decreases
+the candidate. A previously stored suffix came from this same search, and
+removing spellings cannot increase the lifetime insertion bound. String and
+binding allocations charge these insertions. SCC stack indices
+(`wstdlib.ml:113–140`) are bounded by the number of charged stack cells.
+
+For de Bruijn-style binder counters in `term.ml:284–386,420–507`, each
+increment is accompanied by fresh persistent-map bindings in the traversal
+state: singleton maps for let/epsilon, or bindings at each quantified or
+pattern variable. Their increasing assigned values make these fresh updates
+even where input structures share nodes. This is an allocation argument about
+the traversal state; the cardinality of a shared input DAG alone would not
+bound an unfolded occurrence count. Hash-combination arithmetic is deliberately
+modular and is not an increasing identifier/cardinality counter.
+
+### Physical containers and the remaining semantic gap
+
+Acyclic list spines, ordered-map/set nodes, hash entries, stack/queue cells,
+array slots and buffer bytes fit in the conservative `B`-word or `8B`-byte
+storage budget. Sharing does not increase a list's spine length; ordered-map
+subtrees have disjoint key domains. Selected cardinality, height, stack-depth
+and backing-length operations therefore fit the signed OCaml integer domain,
+including sums/doubling at `2B + 1` or `16B + 1`. `Vector.unsafe_resize` checks
+doubling against `Sys.max_array_length`; append and merge add the existing
+backing-bounded lengths (`vector.ml:48–120`). Ordinary stdlib/runtime container
+contracts remain in force. This argument concerns physically represented
+cardinalities, not arbitrary semantic integers stored in those containers.
+
+In particular, **cached free-variable multiplicities remain unbounded by this
+argument**. `term.ml:604` adds multiplicities in `vars_union`; `:623–624`
+multiplies them when applying delayed substitution. `bv_subst_unsafe`
+(`:765–778`) propagates these cached unfolded-occurrence counts, and
+`t_v_occurs` (`:1442–1455`) adds them for later semantic decisions. A shared DAG
+can represent more unfolded occurrences than allocated nodes, so the storage
+budget cannot be substituted for a bound on these additions and products.
+The retained runs neither demonstrate overflow nor record the needed maxima.
+This is a missing capacity argument, not an observed tool defect.
+
+Closing it requires a source bound for the selected generated/imported terms,
+including intermediate products, or separately authorized guarded-arithmetic
+evidence with the same fixed-context transfer. The existing allocation capture
+does not answer it and should not be repeated identically. Other unfolded
+traversal totals need the same distinction: `term_size` (`:1840–1845`) has an
+explicit overflow assertion, but its selected reachability and installed
+assertion behavior have not been established here. Therefore the supplementary
+result explicitly keeps `semantic_free_variable_multiplicity_bound_established`,
+`complete_prefix_capacity_established` and
+`whole_pipeline_capacity_established` **false**.
 
 ## Diagnostic history and cost
 

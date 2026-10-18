@@ -22,11 +22,18 @@
   existing fixed-body packet, checks configuration and endpoint/guard states,
   recomputes allocation deltas and trigger margins, and preserves the distinction
   between successful and stopped diagnostics. `result.json` is its output.
+- `dimensions-sources.tar.gz` adds 27 complete Why3 files, three ELF header
+  excerpts, 165 pinned configured driver/library text files and the counter
+  search evidence. `dimensions-inputs.json` pins these members and the original
+  evidence. `dimensions_check.py` derives the conservative managed/static
+  storage budget, real imported-file location dimensions and native JSON
+  scalar integer ranges. `dimensions-result.json` is its offline output.
 
 Run from an integrated checkout:
 
 ```sh
 python3 docs/evidence/retained-producer-prefix-gc-20261018/check.py
+python3 docs/evidence/retained-producer-prefix-gc-20261018/dimensions_check.py
 ```
 
 Use `--prior-repo /path/to/checkout` if the fixed-body packet is elsewhere.
@@ -43,3 +50,10 @@ record. It is neither the default production runner nor a variable-program
 memory cap, complete proof run or whole-pipeline capacity result. Stopped setup,
 forced-startup collection, missing-entity and custom-resource-trigger attempts
 are retained as diagnosed attempts, not successful validation.
+
+The supplementary dimensions argument covers selected session, checksum,
+shape and physical-container counters. Cached free-variable multiplicities
+count unfolded occurrences in shared terms; the allocation bound does not
+bound their additions and products. No overflow is established, but this gap
+keeps complete-prefix and whole-pipeline capacity false. The supplement uses
+only retained captures and source inspection; it adds no native execution.

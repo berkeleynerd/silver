@@ -1,0 +1,58 @@
+{
+  "scope": "additional fixed-prefix counter and container dimensions",
+  "dynamic_allocation_words": 86632681,
+  "startup_managed_word_overcount": 43164,
+  "loaded_image_memory_bytes": 17222167,
+  "loaded_image_word_overcount": 2152771,
+  "combined_managed_and_static_word_budget": 88828616,
+  "byte_payload_upper": 710628928,
+  "fixed_text_files": 165,
+  "fixed_text_maximum_bytes": 104227,
+  "fixed_text_maximum_lines": 3022,
+  "fixed_text_maximum_line_bytes": 5148,
+  "native_JSON_integer_fields": [
+    {
+      "name": "put_line",
+      "integer_fields": 16673,
+      "minimum": 0,
+      "maximum": 7120
+    },
+    {
+      "name": "put",
+      "integer_fields": 15606,
+      "minimum": 0,
+      "maximum": 13772
+    },
+    {
+      "name": "first_or_default",
+      "integer_fields": 16274,
+      "minimum": 0,
+      "maximum": 10062
+    },
+    {
+      "name": "input_is_valid",
+      "integer_fields": 7163,
+      "minimum": 0,
+      "maximum": 3068
+    },
+    {
+      "name": "is_message",
+      "integer_fields": 4911,
+      "minimum": 0,
+      "maximum": 12176
+    }
+  ],
+  "checks": {
+    "combined_word_budget_below_2_pow_27": true,
+    "single_byte_payload_below_2_pow_30": true,
+    "double_byte_payload_arithmetic_fits_signed_OCaml": true,
+    "scalar_collection_counts_fit_signed_OCaml": true,
+    "synthetic_locations_fit_47_bits": true,
+    "fixed_imported_lines_fit_47_bits": true,
+    "fixed_imported_byte_columns_fit_16_bits": true
+  },
+  "semantic_free_variable_multiplicity_bound_established": false,
+  "complete_prefix_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "native_executions": 0
+}
