@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records forty-one inspected files hash-checked against the complete source
+records forty-two inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -530,6 +530,121 @@ count. This does not include `ConstrT` construction/freezing, the allocator's
 enclosing object/renaming declarations, action placement, runtime loading or
 backend data. Do not treat it as the completed secondary-storage branch.
 
+## Scalar bound capture and slice subtype transfer
+
+The following closes two more **specified helper transfers**. It does not
+silently include the rest of `Resolve_Slice` or the action-placement callback.
+
+### Capturing an analyzed scalar variable
+
+For `Force_Evaluation` of an already-analyzed ordinary scalar identifier,
+assume it denotes a nonvolatile local Integer-family variable, has no renaming,
+`Current_Value`, `Actual_Subtype` or `OK_To_Rename`, has no pending
+`Do_Range_Check`, and its type/base/first subtype are already frozen. The new
+object has the same local, fresh, internal, non-Ghost/no-aspect/no-delayed-freeze
+properties specified for the pointer capture above; `Related_Id` is empty.
+This is the shape of the mutable bound capture to be established at its caller,
+not a claim that every arbitrary scalar expression has this cost.
+
+`Force_Evaluation` sets `Variable_Ref => True`
+(`exp_util.adb:7221–7245`). `Side_Effect_Free` rejects the variable name
+(`14465–14468`), and the elementary branch builds a constant of the existing
+type (`12749–12828`). Including relocation and a possible saved original in
+`Rewrite`, the transfer is at most **five ordinary nodes, one entity/internal
+name and one insertion-wrapper list**. There is no growing-slot event: an
+identifier is rewritten to another identifier. The name requires at most 13
+characters including NUL under the shared serial-bound premise.
+
+Analysis of that declaration and final reference adds no further node, entity,
+list, name, String or Uint allocations, for these reasons in addition to the
+common object-declaration/freezing trace above:
+
+- The analyzed initializer survives relocation. `Analyze` and `Resolve`
+  return without re-expanding it. `Assignment_OK` bypasses initialization
+  checking, and `Apply_Scalar_Range_Check` returns under the local suppression
+  before range arithmetic because no `Do_Range_Check` is pending
+  (`sem_ch3.adb:4750–4760,4848–4849`, `checks.adb:3238–3274`).
+- If the source variable is known valid, the optional `In_Subrange_Of` call
+  compares its exact same type and returns at the identity guard
+  (`sem_ch3.adb:4823–4831`, `sem_eval.adb:5336–5337`). The inherited
+  `Actual_Subtype` is that same existing type. Scalar types do not enter the
+  array/access branch of `Selected_Length_Checks`
+  (`checks.adb:10251–10272`).
+- Explicit-initialization expansion's constraint check is likewise suppressed.
+  The identifier has no renaming flag, function result or unaligned view, and
+  a scalar has no tag, finalization or special-return machinery
+  (`exp_ch3.adb:8395–8715`). The new constant has no `Current_Value`;
+  `Expand_Entity_Reference` therefore introduces no replacement
+  (`exp_ch2.adb:482–522`).
+
+A **second** forced evaluation of this result costs zero. Its current root is
+an identifier of an `E_Constant`, so `Side_Effect_Free` returns true in the
+entity-name branch before examining `Original_Node`
+(`exp_util.adb:14447–14475`). This differs from the dereference case above,
+where a mutable original renaming can remain relevant. Consequently the
+`Resolve_Slice` force followed by `Set_Slice_Subtype`'s second force does not
+recapture an already-captured scalar bound. More general scalar expression
+capture/reanalysis still needs its corresponding shape transfer.
+
+### Building the subtype of an ordinary String slice
+
+Consider `Set_Slice_Subtype` with an already-resolved, nonpacked one-dimensional
+String slice whose discrete range is `N_Range`. After any separately charged
+bound captures, assume each bound is side-effect-free under `Variable_Ref`,
+its scalar types/entities are external to the copied range, and the range
+has no owned actions/entities/itypes or syntax lists. Let **t** be the number
+of ordinary nodes in that range including both bound expressions. For the
+literal/name leaf case, `t = 3`. This scalar-tree premise permits already
+resolved scalar operators over immutable references; it does not require
+every bound to be a leaf.
+
+The helper adds **t + 2 ordinary nodes, two entities/internal names and two
+syntax-list headers**, with no growing-slot event, Elist/hash entry or String
+value. The transfer follows the whole body (`sem_res.adb:13100–13199`):
+
+1. It creates one index-list header, one signed index itype, and a
+   `New_Copy_Tree` of the range. The decorated-copy transfer above reduces to
+   exactly `t` ordinary nodes here because there is no owned semantic type or
+   list. `Set_Size_Info`/`Set_RM_Size` reuse the existing scalar values.
+2. It creates one String array-subtype itype and one occurrence of the index
+   itype, appending that occurrence to the existing list. Both entity names
+   use the internal serial scheme, so together require at most 26 characters
+   including their NULs.
+3. Native `Ensure_Defined` adds one `N_Itype_Reference` and its immediate
+   insertion-wrapper list (`exp_util.adb:5400–5413`). Its semantic analyzer is
+   explicitly empty (`sem_ch3.adb:3718–3722`); the native expander selects its
+   `when others => null` arm (`expander.adb:519–522`). **It does not call
+   `Freeze_Itype`**. Later freezing and backend elaboration must be charged
+   where they actually occur. `Insert_Actions` context/transient handling
+   remains a separate callback.
+
+`Check_Compile_Time_Size` adds at most **four retained Uint entries** on this
+path (`freeze.adb:800–915`). Standard Character's component size is 8. When both
+bounds are compile-time-known, it computes `High - Low + 1`, then, for a
+positive length, multiplies by 8. The subtraction allocates at most two
+entries; addition and multiplication at most one each. With bound magnitudes
+at most **H**, every newly retained value has magnitude at most
+`8*(2*H+1)`. A stored result needs at most the base-32768 digit count of that
+value. `Expr_Value` for these scalar literals/constant-name chains returns
+existing Uints and only writes its fixed cache (`sem_eval.adb:4589–4689`).
+When either bound's value is unknown, the nonattribute scalar `Value_Known`
+walk performs no arithmetic and this size calculation allocates no Uint.
+
+`UI_Mul` has two operand vectors and one product vector, with total transient
+length `2*(left_digits+right_digits)`; the product conversion adds at most one
+retained Uint and its significant digits (`uintp.adb:2020–2071,2361–2433`).
+Thus multiplication by 8 needs at most `2*(k+1)` transient digit words when
+the other operand has at most k digits. This is a peak working-storage charge,
+separate from the retained four-entry envelope and the addition/subtraction
+peaks already recorded. No narrowing to host `Int` occurs for the mathematical
+bound value in this path.
+
+This transfer excludes the input slice syntax, earlier resolution and range
+checks, incoming bound-expression analysis, separate scalar captures, action
+placement, later type freezing and backend costs. For the three-node
+post-capture range, its ordinary allocation is **five**, not a recursive
+re-expansion of the original Image or concat operand.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
@@ -578,8 +693,9 @@ The following missing addends prevent calling the native construct closed:
   `Eval_Concatenation`/`Fold_Str` work needs its own String/Uint/node/entity costs.
 - Derive the decoration summaries for `4*n+4` remaining direct copies and
   `2*n+2` duplications. The transfer and pure-view/Image cases above supply
-  their costs when the class invariant holds. Close mutable-renaming capture
-  declaration/reanalysis and any operands outside that invariant.
+  their costs when the class invariant holds. Establish the incoming premises
+  for the closed mutable-renaming/scalar captures and slice subtype transfer,
+  and cover operands outside those classes.
 - Close `2*n` collected declarations, `n+5` individual insertion calls, one
   explicit `Freeze_Itype`, up to two runtime-availability and two runtime-entity
   lookups, final analysis, value/comparison helpers and conditional error path.

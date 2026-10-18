@@ -30,7 +30,7 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_ch3.adb", "sem.adb", "sem_ch2.adb", "sem_ch8.adb", "checks.adb",
          "freeze.adb", "layout.adb", "lib-xref.adb", "sem_warn.adb",
          "sem_elim.adb", "sem_cat.adb", "einfo-utils.adb", "sem_ch13.adb",
-         "exp_ch13.adb", "nlists.adb", "itypes.adb"]
+         "exp_ch13.adb", "nlists.adb", "itypes.adb", "expander.adb"]
 sources = {}
 hashes = {}
 for name in files:
@@ -201,6 +201,30 @@ result = {
         "name_characters_including_NUL": 13,
         "retention": "E_Allocator_Type remains retained after expression type replaced with named access type",
         "not_included": "direct allocator syntax, enclosing object/renaming declaration, runtime lookup/loading, later whole-scope/backend processing",
+    },
+    "scalar_variable_bound_capture": {
+        "premises": "already-analyzed nonvolatile ordinary local Integer-family variable identifier; no renaming/current value/actual subtype/OK_To_Rename/pending Do_Range_Check; relevant types frozen; fresh internal non-Ghost constant with no aspects/delayed freeze; empty Related_Id",
+        "ordinary_nodes": 5, "entities_and_internal_names": 1,
+        "syntax_list_wrappers": 1, "name_characters_including_NUL": 13,
+        "growing_slot_events": 0,
+        "extra_analysis_node_entity_list_name_String_Uint_allocations": 0,
+        "repeated_Force_Evaluation_of_result_allocations": 0,
+        "not_included": "Insert_Actions context/transient handling, source-to-shape derivation, backend",
+    },
+    "ordinary_String_Set_Slice_Subtype": {
+        "premises": "resolved nonpacked one-dimensional String slice; N_Range with t scalar-tree ordinary nodes, no lists/owned entities/itypes/actions; separately charged bounds already side-effect-free under Variable_Ref; no dimension/type attributes; compile-time-known bounds reduce to literals or finite constant-name chains",
+        "ordinary_nodes": "t + 2",
+        "entities_and_internal_names": 2, "name_characters_including_NUL": 26,
+        "syntax_list_headers": 2,
+        "growing_slot_events_elist_hash_String_allocations": 0,
+        "retained_Uint_entries": 4,
+        "retained_Uint_magnitude": "8*(2*H+1), H bounds both input magnitudes",
+        "Uint_entries_when_a_bound_value_unknown": 0,
+        "UI_Mul_transient_digit_words_for_multiplication_by_8": "2*(k+1), k digits in other operand",
+        "Itype_Reference_semantic_and_expander_allocations": 0,
+        "Itype_Reference_invokes_Freeze_Itype": False,
+        "leaf_range_example": {"t": 3, "ordinary_nodes": 5},
+        "not_included": "input syntax/resolution/range checks, bound capture/analysis, Insert_Actions context/transient handling, later freezing/backend",
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",
