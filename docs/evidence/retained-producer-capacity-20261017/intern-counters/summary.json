@@ -1,0 +1,2694 @@
+{
+  "cases": [
+    {
+      "after_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2296,
+          "distinct_nonempty_symbols": 792,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 36887,
+          "sum_symbol_lengths": 25614,
+          "total_size": 25614
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "after_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 2592,
+          "distinct_nonempty_symbols": 914,
+          "maximum_symbol_latin1": "Module for axiomatizing comparison for the array theory associated to type \"wide_wide_string\", created in Why.Gen.Arrays.Declare_Comparison_Symbols",
+          "maximum_symbol_length": 147,
+          "size_saved": 18026,
+          "sum_symbol_lengths": 25018,
+          "total_size": 25018
+        }
+      },
+      "before_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2296,
+          "distinct_nonempty_symbols": 792,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 36887,
+          "sum_symbol_lengths": 25614,
+          "total_size": 25614
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 790,
+          "distinct_nonempty_symbols": 324,
+          "maximum_symbol_latin1": "Array_BV128_Rep_Comparison_Axiom",
+          "maximum_symbol_length": 32,
+          "size_saved": 3328,
+          "sum_symbol_lengths": 3471,
+          "total_size": 3471
+        }
+      },
+      "case": "put",
+      "elapsed_seconds": 0.6886375799949747,
+      "false_backend_calls": 0,
+      "final": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2297,
+          "distinct_nonempty_symbols": 793,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 36887,
+          "sum_symbol_lengths": 25620,
+          "total_size": 25620
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_symbol_free",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 3644,
+          "distinct_nonempty_symbols": 1213,
+          "maximum_symbol_latin1": "Module giving a predicate for the default initial assumption of type \"interrupt_priority\" defined at system.ads:110, created in Gnat2Why.Types.Generate_Type_Completion",
+          "maximum_symbol_length": 167,
+          "size_saved": 29006,
+          "sum_symbol_lengths": 38494,
+          "total_size": 38494
+        }
+      },
+      "run_id": "20261018T020500-52699fa26f08"
+    },
+    {
+      "after_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2296,
+          "distinct_nonempty_symbols": 792,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 36897,
+          "sum_symbol_lengths": 25614,
+          "total_size": 25614
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "after_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 2592,
+          "distinct_nonempty_symbols": 914,
+          "maximum_symbol_latin1": "Module for axiomatizing comparison for the array theory associated to type \"wide_wide_string\", created in Why.Gen.Arrays.Declare_Comparison_Symbols",
+          "maximum_symbol_length": 147,
+          "size_saved": 18026,
+          "sum_symbol_lengths": 25018,
+          "total_size": 25018
+        }
+      },
+      "before_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2296,
+          "distinct_nonempty_symbols": 792,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 36897,
+          "sum_symbol_lengths": 25614,
+          "total_size": 25614
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 790,
+          "distinct_nonempty_symbols": 324,
+          "maximum_symbol_latin1": "Array_BV128_Rep_Comparison_Axiom",
+          "maximum_symbol_length": 32,
+          "size_saved": 3328,
+          "sum_symbol_lengths": 3471,
+          "total_size": 3471
+        }
+      },
+      "case": "put_line",
+      "elapsed_seconds": 0.660652268998092,
+      "false_backend_calls": 0,
+      "final": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2297,
+          "distinct_nonempty_symbols": 793,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 36897,
+          "sum_symbol_lengths": 25620,
+          "total_size": 25620
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_symbol_free",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 3665,
+          "distinct_nonempty_symbols": 1214,
+          "maximum_symbol_latin1": "Module giving a predicate for the default initial assumption of type \"interrupt_priority\" defined at system.ads:110, created in Gnat2Why.Types.Generate_Type_Completion",
+          "maximum_symbol_length": 167,
+          "size_saved": 29441,
+          "sum_symbol_lengths": 38577,
+          "total_size": 38577
+        }
+      },
+      "run_id": "20261018T020514-718b7279352c"
+    },
+    {
+      "after_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2933,
+          "distinct_nonempty_symbols": 809,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 52519,
+          "sum_symbol_lengths": 26095,
+          "total_size": 26095
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "after_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 2592,
+          "distinct_nonempty_symbols": 914,
+          "maximum_symbol_latin1": "Module for axiomatizing comparison for the array theory associated to type \"wide_wide_string\", created in Why.Gen.Arrays.Declare_Comparison_Symbols",
+          "maximum_symbol_length": 147,
+          "size_saved": 18026,
+          "sum_symbol_lengths": 25018,
+          "total_size": 25018
+        }
+      },
+      "before_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2933,
+          "distinct_nonempty_symbols": 809,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 52519,
+          "sum_symbol_lengths": 26095,
+          "total_size": 26095
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 790,
+          "distinct_nonempty_symbols": 324,
+          "maximum_symbol_latin1": "Array_BV128_Rep_Comparison_Axiom",
+          "maximum_symbol_length": 32,
+          "size_saved": 3328,
+          "sum_symbol_lengths": 3471,
+          "total_size": 3471
+        }
+      },
+      "case": "first_or_default",
+      "elapsed_seconds": 0.6572665550047532,
+      "false_backend_calls": 0,
+      "final": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2934,
+          "distinct_nonempty_symbols": 810,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 52519,
+          "sum_symbol_lengths": 26101,
+          "total_size": 26101
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_symbol_free",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 3368,
+          "distinct_nonempty_symbols": 1114,
+          "maximum_symbol_latin1": "Module for initial declaration of the logic function for \"first_or_default\" defined at silver_arguments.ads:13, created in Gnat2Why.Subprograms.Translate_Subprogram_Spec",
+          "maximum_symbol_length": 169,
+          "size_saved": 26529,
+          "sum_symbol_lengths": 33978,
+          "total_size": 33978
+        }
+      },
+      "run_id": "20261018T020517-a5f4ee69e15b"
+    },
+    {
+      "after_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2930,
+          "distinct_nonempty_symbols": 808,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 52449,
+          "sum_symbol_lengths": 26088,
+          "total_size": 26088
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "after_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 2592,
+          "distinct_nonempty_symbols": 914,
+          "maximum_symbol_latin1": "Module for axiomatizing comparison for the array theory associated to type \"wide_wide_string\", created in Why.Gen.Arrays.Declare_Comparison_Symbols",
+          "maximum_symbol_length": 147,
+          "size_saved": 18026,
+          "sum_symbol_lengths": 25018,
+          "total_size": 25018
+        }
+      },
+      "before_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2930,
+          "distinct_nonempty_symbols": 808,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 52449,
+          "sum_symbol_lengths": 26088,
+          "total_size": 26088
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 790,
+          "distinct_nonempty_symbols": 324,
+          "maximum_symbol_latin1": "Array_BV128_Rep_Comparison_Axiom",
+          "maximum_symbol_length": 32,
+          "size_saved": 3328,
+          "sum_symbol_lengths": 3471,
+          "total_size": 3471
+        }
+      },
+      "case": "input_is_valid",
+      "elapsed_seconds": 0.6695820309978444,
+      "false_backend_calls": 0,
+      "final": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2931,
+          "distinct_nonempty_symbols": 809,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 52449,
+          "sum_symbol_lengths": 26094,
+          "total_size": 26094
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_symbol_free",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 2838,
+          "distinct_nonempty_symbols": 1020,
+          "maximum_symbol_latin1": "Module giving a predicate for the default initial assumption of type \"interrupt_priority\" defined at system.ads:110, created in Gnat2Why.Types.Generate_Type_Completion",
+          "maximum_symbol_length": 167,
+          "size_saved": 19659,
+          "sum_symbol_lengths": 30217,
+          "total_size": 30217
+        }
+      },
+      "run_id": "20261018T020520-3abc135f1ba3"
+    },
+    {
+      "after_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2938,
+          "distinct_nonempty_symbols": 808,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 52682,
+          "sum_symbol_lengths": 26088,
+          "total_size": 26088
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "after_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 2592,
+          "distinct_nonempty_symbols": 914,
+          "maximum_symbol_latin1": "Module for axiomatizing comparison for the array theory associated to type \"wide_wide_string\", created in Why.Gen.Arrays.Declare_Comparison_Symbols",
+          "maximum_symbol_length": 147,
+          "size_saved": 18026,
+          "sum_symbol_lengths": 25018,
+          "total_size": 25018
+        }
+      },
+      "before_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2938,
+          "distinct_nonempty_symbols": 808,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 52682,
+          "sum_symbol_lengths": 26088,
+          "total_size": 26088
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 790,
+          "distinct_nonempty_symbols": 324,
+          "maximum_symbol_latin1": "Array_BV128_Rep_Comparison_Axiom",
+          "maximum_symbol_length": 32,
+          "size_saved": 3328,
+          "sum_symbol_lengths": 3471,
+          "total_size": 3471
+        }
+      },
+      "case": "reject",
+      "elapsed_seconds": 0.6628640260023531,
+      "false_backend_calls": 0,
+      "final": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2939,
+          "distinct_nonempty_symbols": 809,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 52682,
+          "sum_symbol_lengths": 26094,
+          "total_size": 26094
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_symbol_free",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 2940,
+          "distinct_nonempty_symbols": 1038,
+          "maximum_symbol_latin1": "Module giving a predicate for the default initial assumption of type \"interrupt_priority\" defined at system.ads:110, created in Gnat2Why.Types.Generate_Type_Completion",
+          "maximum_symbol_length": 167,
+          "size_saved": 21685,
+          "sum_symbol_lengths": 31319,
+          "total_size": 31319
+        }
+      },
+      "run_id": "20261018T020524-34fce2360d36"
+    },
+    {
+      "after_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 1900,
+          "distinct_nonempty_symbols": 888,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 24654,
+          "sum_symbol_lengths": 29238,
+          "total_size": 29238
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "after_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 2592,
+          "distinct_nonempty_symbols": 914,
+          "maximum_symbol_latin1": "Module for axiomatizing comparison for the array theory associated to type \"wide_wide_string\", created in Why.Gen.Arrays.Declare_Comparison_Symbols",
+          "maximum_symbol_length": 147,
+          "size_saved": 18026,
+          "sum_symbol_lengths": 25018,
+          "total_size": 25018
+        }
+      },
+      "before_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 1900,
+          "distinct_nonempty_symbols": 888,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 24654,
+          "sum_symbol_lengths": 29238,
+          "total_size": 29238
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 790,
+          "distinct_nonempty_symbols": 324,
+          "maximum_symbol_latin1": "Array_BV128_Rep_Comparison_Axiom",
+          "maximum_symbol_length": 32,
+          "size_saved": 3328,
+          "sum_symbol_lengths": 3471,
+          "total_size": 3471
+        }
+      },
+      "case": "silver_io",
+      "elapsed_seconds": 0.7210311219969299,
+      "false_backend_calls": 2,
+      "final": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 1901,
+          "distinct_nonempty_symbols": 889,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 24654,
+          "sum_symbol_lengths": 29244,
+          "total_size": 29244
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_symbol_free",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 6796,
+          "distinct_nonempty_symbols": 1769,
+          "maximum_symbol_latin1": "Module for checking absence of run-time errors and package initial condition on package elaboration of \"silver_io\" defined at silver_io.ads:2, created in Gnat2Why.Subprograms.Generate_VCs_For_Package_Elaboration",
+          "maximum_symbol_length": 211,
+          "size_saved": 72629,
+          "sum_symbol_lengths": 62560,
+          "total_size": 62560
+        }
+      },
+      "run_id": "20261018T020527-e27bb8a27c71"
+    },
+    {
+      "after_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2570,
+          "distinct_nonempty_symbols": 910,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 40963,
+          "sum_symbol_lengths": 30007,
+          "total_size": 30007
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "after_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 2592,
+          "distinct_nonempty_symbols": 914,
+          "maximum_symbol_latin1": "Module for axiomatizing comparison for the array theory associated to type \"wide_wide_string\", created in Why.Gen.Arrays.Declare_Comparison_Symbols",
+          "maximum_symbol_length": 147,
+          "size_saved": 18026,
+          "sum_symbol_lengths": 25018,
+          "total_size": 25018
+        }
+      },
+      "before_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2570,
+          "distinct_nonempty_symbols": 910,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 40963,
+          "sum_symbol_lengths": 30007,
+          "total_size": 30007
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 790,
+          "distinct_nonempty_symbols": 324,
+          "maximum_symbol_latin1": "Array_BV128_Rep_Comparison_Axiom",
+          "maximum_symbol_length": 32,
+          "size_saved": 3328,
+          "sum_symbol_lengths": 3471,
+          "total_size": 3471
+        }
+      },
+      "case": "silver_arguments",
+      "elapsed_seconds": 0.707664082001429,
+      "false_backend_calls": 3,
+      "final": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 2571,
+          "distinct_nonempty_symbols": 911,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 40963,
+          "sum_symbol_lengths": 30013,
+          "total_size": 30013
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_symbol_free",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 5224,
+          "distinct_nonempty_symbols": 1461,
+          "maximum_symbol_latin1": "Module for checking absence of run-time errors and package initial condition on package elaboration of \"silver_arguments\" defined at silver_arguments.ads:4, created in Gnat2Why.Subprograms.Generate_VCs_For_Package_Elaboration",
+          "maximum_symbol_length": 225,
+          "size_saved": 51546,
+          "sum_symbol_lengths": 51597,
+          "total_size": 51597
+        }
+      },
+      "run_id": "20261018T020530-2c6b8a8540dd"
+    },
+    {
+      "after_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 1252,
+          "distinct_nonempty_symbols": 871,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 8901,
+          "sum_symbol_lengths": 28852,
+          "total_size": 28852
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "after_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 2592,
+          "distinct_nonempty_symbols": 914,
+          "maximum_symbol_latin1": "Module for axiomatizing comparison for the array theory associated to type \"wide_wide_string\", created in Why.Gen.Arrays.Declare_Comparison_Symbols",
+          "maximum_symbol_length": 147,
+          "size_saved": 18026,
+          "sum_symbol_lengths": 25018,
+          "total_size": 25018
+        }
+      },
+      "before_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 1252,
+          "distinct_nonempty_symbols": 871,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 8901,
+          "sum_symbol_lengths": 28852,
+          "total_size": 28852
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 790,
+          "distinct_nonempty_symbols": 324,
+          "maximum_symbol_latin1": "Array_BV128_Rep_Comparison_Axiom",
+          "maximum_symbol_length": 32,
+          "size_saved": 3328,
+          "sum_symbol_lengths": 3471,
+          "total_size": 3471
+        }
+      },
+      "case": "silver_output_libc",
+      "elapsed_seconds": 0.6890063710015966,
+      "false_backend_calls": 0,
+      "final": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 1253,
+          "distinct_nonempty_symbols": 872,
+          "maximum_symbol_latin1": "ada___ada___ada__strings__text_buffers__root_buffer_typePartial_DIC___object",
+          "maximum_symbol_length": 76,
+          "size_saved": 8901,
+          "sum_symbol_lengths": 28858,
+          "total_size": 28858
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_symbol_free",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 3454,
+          "distinct_nonempty_symbols": 1148,
+          "maximum_symbol_latin1": "Module for checking absence of run-time errors and package initial condition on package elaboration of \"silver_output_libc\" defined at silver_output_libc.ads:4, created in Gnat2Why.Subprograms.Generate_VCs_For_Package_Elaboration",
+          "maximum_symbol_length": 229,
+          "size_saved": 30338,
+          "sum_symbol_lengths": 37473,
+          "total_size": 37473
+        }
+      },
+      "run_id": "20261018T020534-8440cb7d637b"
+    },
+    {
+      "after_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 141,
+          "distinct_nonempty_symbols": 103,
+          "maximum_symbol_latin1": "ada___ada__command_line__set_exit_status__code",
+          "maximum_symbol_length": 46,
+          "size_saved": 824,
+          "sum_symbol_lengths": 1555,
+          "total_size": 1555
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "after_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 2592,
+          "distinct_nonempty_symbols": 914,
+          "maximum_symbol_latin1": "Module for axiomatizing comparison for the array theory associated to type \"wide_wide_string\", created in Why.Gen.Arrays.Declare_Comparison_Symbols",
+          "maximum_symbol_length": 147,
+          "size_saved": 18026,
+          "sum_symbol_lengths": 25018,
+          "total_size": 25018
+        }
+      },
+      "before_standard": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 141,
+          "distinct_nonempty_symbols": 103,
+          "maximum_symbol_latin1": "ada___ada__command_line__set_exit_status__code",
+          "maximum_symbol_length": 46,
+          "size_saved": 824,
+          "sum_symbol_lengths": 1555,
+          "total_size": 1555
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_standard",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 790,
+          "distinct_nonempty_symbols": 324,
+          "maximum_symbol_latin1": "Array_BV128_Rep_Comparison_Axiom",
+          "maximum_symbol_length": 32,
+          "size_saved": 3328,
+          "sum_symbol_lengths": 3471,
+          "total_size": 3471
+        }
+      },
+      "case": "silver_runtime",
+      "elapsed_seconds": 0.6133193790010409,
+      "false_backend_calls": 0,
+      "final": {
+        "entity": {
+          "bucket_count": 98317,
+          "calls_to_find": 142,
+          "distinct_nonempty_symbols": 104,
+          "maximum_symbol_latin1": "ada___ada__command_line__set_exit_status__code",
+          "maximum_symbol_length": 46,
+          "size_saved": 824,
+          "sum_symbol_lengths": 1561,
+          "total_size": 1561
+        },
+        "layout": {
+          "buckets": {
+            "P_ARRAY": [
+              0,
+              8
+            ],
+            "P_BOUNDS": [
+              8,
+              8
+            ]
+          },
+          "hash_set": {
+            "_parent": [
+              0,
+              8
+            ],
+            "ht": [
+              8,
+              40
+            ]
+          },
+          "hash_table": {
+            "_tag": [
+              0,
+              8
+            ],
+            "buckets": [
+              8,
+              16
+            ],
+            "length": [
+              24,
+              4
+            ],
+            "tc": [
+              28,
+              8
+            ]
+          },
+          "node": {
+            "element": [
+              0,
+              16
+            ],
+            "next": [
+              16,
+              8
+            ]
+          },
+          "pool_record": {
+            "_tag": [
+              0,
+              8
+            ],
+            "calls_to_find": [
+              56,
+              4
+            ],
+            "hash": [
+              8,
+              48
+            ],
+            "size_saved": [
+              72,
+              8
+            ],
+            "total_size": [
+              64,
+              8
+            ]
+          }
+        },
+        "phase": "before_symbol_free",
+        "why": {
+          "bucket_count": 98317,
+          "calls_to_find": 2886,
+          "distinct_nonempty_symbols": 1039,
+          "maximum_symbol_latin1": "Module for checking absence of run-time errors and package initial condition on package elaboration of \"silver_runtime\" defined at silver_runtime.ads:3, created in Gnat2Why.Subprograms.Generate_VCs_For_Package_Elaboration",
+          "maximum_symbol_length": 221,
+          "size_saved": 20305,
+          "sum_symbol_lengths": 32086,
+          "total_size": 32086
+        }
+      },
+      "run_id": "20261018T020537-084c0696cde8"
+    }
+  ],
+  "common_five_complete_witness_sum": 13398,
+  "managed_runs": [
+    {
+      "case": "put",
+      "outcome": "failure",
+      "run_id": "20261018T020424-67f097b73898",
+      "seconds": 2.555057511
+    },
+    {
+      "case": "put",
+      "outcome": "success",
+      "run_id": "20261018T020500-52699fa26f08",
+      "seconds": 2.909385771
+    },
+    {
+      "case": "put_line",
+      "outcome": "success",
+      "run_id": "20261018T020514-718b7279352c",
+      "seconds": 2.880043483
+    },
+    {
+      "case": "first_or_default",
+      "outcome": "success",
+      "run_id": "20261018T020517-a5f4ee69e15b",
+      "seconds": 2.764438442
+    },
+    {
+      "case": "input_is_valid",
+      "outcome": "success",
+      "run_id": "20261018T020520-3abc135f1ba3",
+      "seconds": 2.834223521
+    },
+    {
+      "case": "reject",
+      "outcome": "success",
+      "run_id": "20261018T020524-34fce2360d36",
+      "seconds": 2.839687006
+    },
+    {
+      "case": "silver_io",
+      "outcome": "success",
+      "run_id": "20261018T020527-e27bb8a27c71",
+      "seconds": 2.989746463
+    },
+    {
+      "case": "silver_arguments",
+      "outcome": "success",
+      "run_id": "20261018T020530-2c6b8a8540dd",
+      "seconds": 3.002611776
+    },
+    {
+      "case": "silver_output_libc",
+      "outcome": "success",
+      "run_id": "20261018T020534-8440cb7d637b",
+      "seconds": 2.898999981
+    },
+    {
+      "case": "silver_runtime",
+      "outcome": "success",
+      "run_id": "20261018T020537-084c0696cde8",
+      "seconds": 2.872059995
+    }
+  ],
+  "observed_maximum_common_calls": 2939,
+  "observed_maximum_common_symbol_length": 76,
+  "observed_maximum_why_calls": 6796,
+  "observed_maximum_why_symbol_length": 229,
+  "scope": "Additional missing counter/length observations; read-only debugger, false backend; no solver, proof or admission change",
+  "successful_inferior_seconds": 6.070023414999014,
+  "why_fixed_additive_allowance": 6087,
+  "why_post_standard_delta_sum": 3495
+}

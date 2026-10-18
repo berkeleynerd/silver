@@ -26,10 +26,11 @@ that pinned source tree. Every complete file in the current manifest
 hash-match their copies in the previously retained source archive, checked by
 [`source-archive-check.json`](../evidence/retained-producer-capacity-20261017/source-archive-check.json).
 This derivation lane performed source and retained-evidence analysis, with
-read-only debugger metadata inspection. The separately coordinated
-[fixed-producer measurement](retained-producer-fixed.md) records its actual
-producer invocations and their narrower scope; no proof run or toolchain
-modification was performed by this lane.
+read-only debugger metadata inspection and the additional managed intern-counter
+measurements below. The separately coordinated
+[fixed-producer measurement](retained-producer-fixed.md) records the preceding
+allocation measurements. Neither measurement is a proof run; this lane changed
+no toolchain or production source.
 
 ## The producer has two different counting problems
 
@@ -2728,6 +2729,106 @@ The predicate-function early return (`:24996–25000`) is another reason not to
 claim a universal allocation injection outside this grammar. The ordinary
 Main domain and fixed dependencies must remain distinct in this accounting.
 
+### Fixed intern counters close the Why lookup residual
+
+The earlier AST snapshots could not recover symbol-pool calls: cache hits have
+no retained node of their own. Nine additional small, managed Linux x86_64
+measurements therefore read the two pool records before Standard, after
+Standard and after all translation/VC generation, immediately before
+`Why.Gen.Names.Free` (`gnat2why-driver.adb:1454`). They reused byte-identical
+copies of the existing current-source phase-one ALIs; no prerequisite,
+compiler-toolchain rebuild or proof validation was repeated. Each process had
+one managed worker and `/usr/bin/false` configured as backend. The two library
+body processes made two and three false-backend calls respectively; no solver
+was used and no result collection was entered.
+
+The compact [retained bundle](../evidence/retained-producer-capacity-20261017/intern-counters/manifest.json)
+contains exact source/ALI copies, options/argv, raw GDB logs, reader, static
+complete DWARF layouts and all ten managed records. The first probe's final
+snapshot failed because `Why.Atree.Free` follows symbol-pool freeing; that
+failed attempt is retained. Moving the breakpoint to symbol freeing produced
+all three snapshots in all nine subsequent cases. The successful inferior
+processes took **6.070 seconds** in total; the failed initial probe took
+0.639 seconds. This is an additional representation measurement, not a
+successful-validation rerun.
+
+Both pointers and every offset were verified against the complete DWARF type
+layout before execution. The reader accesses memory only, makes no inferior
+function calls and modifies no program variable. Besides the counters, it
+walks each hash chain, checks its node count against container `Length` and
+checks the summed String lengths against `Total_Size`. That also records the
+observed maximum interned-string length without assuming every symbol has
+fixed length. All copied prerequisites and their retained originals still
+hash-match after execution.
+
+Why calls before/after Standard were **790 / 2,592** in all nine cases.
+Common-pool calls were unchanged across Standard, but their earlier metadata
+work differed by input and must not be treated as the same fixed Standard
+counter.
+
+| Case | Final Why calls | Why distinct symbols | Observed max Why length | Final Common calls | Common distinct symbols | Observed max Common length |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Put witness | 3,644 | 1,213 | 167 | 2,297 | 793 | 76 |
+| Put_Line witness | 3,665 | 1,214 | 167 | 2,297 | 793 | 76 |
+| First_Or_Default witness | 3,368 | 1,114 | 169 | 2,934 | 810 | 76 |
+| Input_Is_Valid witness | 2,838 | 1,020 | 167 | 2,931 | 809 | 76 |
+| Reject witness | 2,940 | 1,038 | 167 | 2,939 | 809 | 76 |
+| Separate Silver_IO process | 6,796 | 1,769 | 211 | 1,901 | 889 | 76 |
+| Separate Silver_Arguments process | 5,224 | 1,461 | 225 | 2,571 | 911 | 76 |
+| Separate Silver_Output_Libc process | 3,454 | 1,148 | 229 | 1,253 | 872 | 76 |
+| Separate Silver_Runtime process | 2,886 | 1,039 | 221 | 142 | 104 | 46 |
+
+The fixed **Why-call** allowance is additive, not the maximum of witnesses:
+`2,592 + ((3,644-2,592) + (3,665-2,592) + (3,368-2,592) +
+(2,838-2,592) + (2,940-2,592)) = 6,087`.
+It deliberately retains all five witness Main contributions and overlaps.
+Its use for the residual has a narrower source justification than assuming
+all cache activity is identical:
+
+- All Main-dependent array lookup hits are already charged to allocations.
+  Ordinary Main does not enable pretty markers or use fixed-point types.
+- Fixed-point name requests belong to the immutable Standard translation.
+  The same measured Standard phase runs before source-sized Main translation.
+- Pretty requests belong to the fixed imported-contract translation/completion
+  passes. Their expression trees and parameters cannot be specialized by Main
+  actual values. Each fixed entity is processed once, as established by the
+  additive isolated-root reduction. Shared closure/cache state can suppress a
+  completed entity or a cache-fill body; it does not add a new marker-producing
+  invocation. Every invocation that remains still pays its intern call,
+  whether that particular symbol lookup is a hit or miss.
+- Import-closure growth can allocate additional include nodes, but does not
+  evaluate these fixed-point/pretty name helpers. Its other intern requests
+  remain in the general allocation charge.
+
+Hence `F_pretty + F_fixed_point <= 6,087` for this Main process, and the
+complete Why-pool call bound is
+
+```text
+F_Why <= 6,097 + 13 B_N.
+```
+
+The ten startup literals and all fixed allocation-funded calls are
+intentionally charged again. `U_Why <= F_Why` supplies a conservative
+cardinality bound too; compare each quantity to its separate representable
+endpoint. This closes **Why-pool calls**, not Common-pool metadata requests.
+The sum of the five full Common witness counts is 13,398, but it is only a
+retained observation until the metadata-load/source-multiplicity connection is
+established. Subtracting their differing pre-Standard counts would be unsound.
+
+The length maxima in the table likewise remain observations of the actual
+inputs. A universal string allowance must cover source name lengths, changed
+frontend/VC/temporary serial widths, source paths and caller composition;
+these observed maxima alone do not establish it. Separate fixed library
+processes have the fixed inputs and counters in their own rows, not a sum of
+simultaneous Main-process storage.
+
+The offline checker verifies raw/summary equality, layouts, archive and
+managed input hashes, current library bytes and complete successful boundaries:
+
+```sh
+python3 docs/evidence/retained-producer-capacity-20261017/intern-counters/check.py
+```
+
 ### Serialized label sets have cardinality at most three
 
 All nonempty symbol-label construction paths produce singleton markers,
@@ -2846,9 +2947,8 @@ bounds are ready for the serializer's per-string parameter, but are not by
 themselves an exhaustive maximum for generated identifiers, localized binders,
 projection names or theory comments.
 
-The remaining closure work is precise: bound precomputed pretty-expression
-markers, fixed-point and metadata-name calls from the source
-invocation counts; propagate the frontend name and path lengths through the
+The remaining closure work is precise: bound Common-pool metadata-name calls
+from source/load invocation counts; propagate the frontend name and path lengths through the
 listed constructors; and bound scoped undo peaks. The additive fixed Why
 measurements do not supply these quantities. The checked map domains and
 64-bit-sum reduction above remain usable independently of that unfinished
@@ -2965,7 +3065,7 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | Remaining family | Exact work and source-count connection still required |
 | --- | --- |
 | `K_fixed` | Bootstrap/Standard plus selected imported dependencies now have the additive four-component envelope above; Main external-constant assumptions are zero. Other fixed entry/exit work and non-Main frontend entity/list contribution remain separate. Distinct fixed library processes have their own measured four-component results in the linked fixed-process record. |
-| Auxiliary producer domains | Source/Why map key domains, projection counters and GNATCOLL 64-bit string sums are bounded above. Lifetime intern calls, generated-name lengths and undo-stack peaks still require source connections; the four-component fixed envelope does not supply them. |
+| Auxiliary producer domains | Source/Why map key domains, projection counters and GNATCOLL 64-bit string sums are bounded above; Why-pool calls are at most `6097+13B_N`. Common-pool metadata calls, complete generated-name lengths and undo-stack peaks still require source connections; the four-component fixed envelope does not supply them. |
 | Frontend node input | The linked Main semantic-node aggregate supplies `A_Main` used by the ignored-entry/list transfer. Separate fixed dependency node/entity counts remain to be resolved. |
 | Whole-process counters | Use `M <= B_N` or a sharper explicit module sum and finish the total close count with fixed setup. `F <= E_list` and `temporary counter <= B_N` are established. |
 
