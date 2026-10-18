@@ -23,7 +23,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 32 interface checks. It reuses one context's
+arguments and `--output`, and runs 38 interface checks. It reuses one context's
 successful retained checks across source variations.
 
 `inputs.json` pins formulas, predecessor results and source arguments.
@@ -61,7 +61,10 @@ and collector lifetime. No null whole-lifetime allowance is reused.
 `native_ssa_helper_backing` substitutes `z=3C+2` SSA slots and `R=N+5`
 ranger block slots, including ordinary vectors, partition views and variable
 private bitmap chunk lifetimes. It checks the native lowering interface,
-returns zero additional GGC events, and leaves frontend/gigi/initial-GIMPLE
+including the eager coalescer backing `8*prime(max(40,3z))`, its unsigned
+request arithmetic and the retained prime-table ceiling. C=6/7 and both
+request-width boundaries cover the independent-review correction. It returns
+zero additional GGC events, and leaves frontend/gigi/initial-GIMPLE
 constructors and shared collector composition open.
 
 The independently reviewed literal assembler callable now consumes the same

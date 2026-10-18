@@ -1,5 +1,5 @@
 {
-  "case_count": 32,
+  "case_count": 38,
   "cases": [
     {
       "case": "retained",
@@ -204,6 +204,44 @@
     {
       "case": "SSA_helper_SSA_slots_715827882",
       "calls": 715827882,
+      "fits": false
+    },
+    {
+      "case": "coalesce_initial_backing_6",
+      "calls": 6,
+      "request_slots": 60,
+      "slots": 61,
+      "bytes": 488
+    },
+    {
+      "case": "coalesce_initial_backing_7",
+      "calls": 7,
+      "request_slots": 69,
+      "slots": 127,
+      "bytes": 1016
+    },
+    {
+      "case": "coalesce_prime_request_238609293",
+      "calls": 238609293,
+      "request_slots": 2147483643,
+      "fits": true
+    },
+    {
+      "case": "coalesce_prime_request_238609294",
+      "calls": 238609294,
+      "request_slots": 2147483652,
+      "fits": false
+    },
+    {
+      "case": "coalesce_unsigned_request_477218587",
+      "calls": 477218587,
+      "request_slots": 4294967289,
+      "fits": true
+    },
+    {
+      "case": "coalesce_unsigned_request_477218588",
+      "calls": 477218588,
+      "request_slots": 4294967298,
       "fits": false
     },
     {

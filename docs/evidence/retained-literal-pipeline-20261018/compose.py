@@ -315,6 +315,8 @@ def native_ssa_helper_backing(c, n, context):
     require(type(c) is int and c >= 1 and type(n) is int and n >= 0,
             'literal SSA helper counters')
     z, b, r = 3*c+2, n+2, n+5
+    coalesce_request = max(40,3*z)
+    coalesce_slots = next((p for p in context.primes if p >= coalesce_request),None)
     vec = lambda count,size: 8+max(4,count)*size
     fixed = context.ssa_helper_layout
     vectors = dict(
@@ -327,6 +329,9 @@ def native_ssa_helper_backing(c, n, context):
     checks = dict(
         initial_partition_signed_count=z <= I32,
         SSA_plus_one_vector_31_bit=z+1 <= I32,
+        coalesce_initial_request_unsigned=3*z <= 2**32-1,
+        coalesce_prime_capacity=coalesce_request <= I32 and coalesce_slots is not None,
+        coalesce_empty_iteration_index=coalesce_slots is not None and coalesce_slots <= I32,
         ranger_block_plus_64_signed=r+64 <= I32,
         partition_and_view_byte_products=max(8+16*z,4*z) <= I64,
         ranger_vector_byte_products=max(vectors.values()) <= I64,
@@ -340,7 +345,11 @@ def native_ssa_helper_backing(c, n, context):
             real_partitions=0,tentative_zero_partition_bytes=8,
             zero_xmalloc_or_xcalloc_actual_bytes=1,
             coalesce_record_bytes=120,coalesce_hash_wrapper_bytes=48,
-            coalesce_hash_backing_bytes=488,same_variable_hash_backing_bytes=104,
+            coalesce_hash_request_slots_upper=coalesce_request,
+            coalesce_hash_slots_upper=coalesce_slots,
+            coalesce_hash_backing_bytes=None if coalesce_slots is None else 8*coalesce_slots,
+            coalesce_hash_live_entries=0,coalesce_hash_probe_calls=0,
+            same_variable_hash_backing_bytes=104,
             coalesce_obstack_chunk_bytes=65536,
             elimination_vector_bytes=fixed['out_of_SSA']['elimination_vector_raw_bytes'],
             zero_partition_simple_bitmap_bytes=8,

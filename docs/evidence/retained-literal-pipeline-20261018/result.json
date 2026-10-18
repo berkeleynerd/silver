@@ -833,7 +833,11 @@
       "zero_xmalloc_or_xcalloc_actual_bytes": 1,
       "coalesce_record_bytes": 120,
       "coalesce_hash_wrapper_bytes": 48,
+      "coalesce_hash_request_slots_upper": 40,
+      "coalesce_hash_slots_upper": 61,
       "coalesce_hash_backing_bytes": 488,
+      "coalesce_hash_live_entries": 0,
+      "coalesce_hash_probe_calls": 0,
       "same_variable_hash_backing_bytes": 104,
       "coalesce_obstack_chunk_bytes": 65536,
       "elimination_vector_bytes": [
@@ -898,6 +902,9 @@
     "local_representation_checks": {
       "initial_partition_signed_count": true,
       "SSA_plus_one_vector_31_bit": true,
+      "coalesce_initial_request_unsigned": true,
+      "coalesce_prime_capacity": true,
+      "coalesce_empty_iteration_index": true,
       "ranger_block_plus_64_signed": true,
       "partition_and_view_byte_products": true,
       "ranger_vector_byte_products": true,

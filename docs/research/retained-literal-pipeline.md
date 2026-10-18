@@ -565,9 +565,19 @@ though it does not create a real partition.
 
 The existing zero-real-partition route then transfers unchanged: no coalesce
 pair, sorted-pair vector, liveness/conflict graph or PHI copy is created.
-The coalescer still requests its 120-byte record, 48-byte wrapper,
-488-byte backing and 65,536-byte initial chunk; the same-variable hash
-retains its empty 104-byte backing. The tentative zero-element partition
+The coalescer still requests its 120-byte record, 48-byte wrapper and
+65,536-byte initial chunk. Its eager hash constructor receives
+`max(40,3z)` **before** the zero-partition return, so its backing is bounded
+by `8*prime(max(40,3z))` bytes, not by the null case's 488 bytes
+(`tree-ssa-coalesce.cc:262–275,1843–1871`; `hash-table.h:650–680`). The
+callable checks the unsigned `3z` multiplication and availability of the
+ceiling prime within the retained table ending at `INT_MAX`. No pair is
+inserted or looked up: this empty table has zero probe calls. Its linear
+iterator/destructor scans stay within the checked prime capacity; a
+live-population probe bound is therefore unnecessary. At C=6 the request
+is 60, rounded to 61 slots and 488 bytes; at C=7 it is 69, rounded to 127
+slots and 1016 bytes. The same-variable hash retains its empty 104-byte
+backing. The tentative zero-element partition
 requests eight bytes using the previously evaluated unsigned arithmetic;
 other zero-length `xmalloc`/`xcalloc` requests become one byte. Five empty
 32-byte bitmap headers use the shared default obstack. The elimination
@@ -665,3 +675,16 @@ All 32 aggregate checks pass with the new shared-source/RTL/data equality
 checks and the assembler's local predicate. This integration does not claim
 new independent review of the ranger/out-of-SSA extension, complete GAS/BFD
 allocation lifetimes or a complete output launch.
+
+Independent review of that helper checkpoint found that the coalescer's
+eager constructor uses `3z`, even with zero real partitions. The former
+constant 488-byte backing undercounted C=7 and larger prime regions. The
+correction replaces it with the source-derived prime ceiling, retains both
+unsigned-request and prime-table limits, and states the empty-table scan
+and zero-probe premise explicitly. The selected setting remains GPT-6 Astra
+/ Extra High; runtime identity and token/cost measurements are unavailable.
+The corrected packet passes 38 offline checks, adding C=6/7 and prime-table
+and unsigned-multiplication boundaries. The earlier 32-check result records
+the historical checkpoint; it did not cover this omission. No native tool
+ran, and whole-pipeline capacity remains false. The correction is sent for
+the reviewer's focused replay; no acceptance is claimed by this paragraph.

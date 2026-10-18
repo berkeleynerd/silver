@@ -171,9 +171,37 @@ def main():
                              endpoint=graph['edge_uid_endpoint_upper'],fits=expected))
         for c,expected in (((module.I32-3)//3,True),((module.I32-3)//3+1,False)):
             helpers=module.native_ssa_helper_backing(c,0,context)
-            assert helpers['conditional_SSA_helper_backing_closed']==expected
             assert helpers['local_representation_checks']['SSA_plus_one_vector_31_bit']==expected
+            assert not helpers['conditional_SSA_helper_backing_closed']
             rows.append(dict(case='SSA_helper_SSA_slots_'+str(c),calls=c,fits=expected))
+        for c,request,slots in ((6,60,61),(7,69,127)):
+            helpers=module.native_ssa_helper_backing(c,0,context)
+            coalesce=helpers['out_of_SSA']
+            assert coalesce['coalesce_hash_request_slots_upper']==request
+            assert coalesce['coalesce_hash_slots_upper']==slots
+            assert coalesce['coalesce_hash_backing_bytes']==8*slots
+            assert coalesce['coalesce_hash_live_entries']==0
+            assert coalesce['coalesce_hash_probe_calls']==0
+            assert helpers['conditional_SSA_helper_backing_closed']
+            rows.append(dict(case='coalesce_initial_backing_'+str(c),calls=c,
+                             request_slots=request,slots=slots,bytes=8*slots))
+        coalesce_boundary=(module.I32-6)//9
+        for c,expected in ((coalesce_boundary,True),(coalesce_boundary+1,False)):
+            helpers=module.native_ssa_helper_backing(c,0,context)
+            assert helpers['local_representation_checks']['coalesce_initial_request_unsigned']
+            assert helpers['local_representation_checks']['coalesce_prime_capacity']==expected
+            assert helpers['local_representation_checks']['coalesce_empty_iteration_index']==expected
+            assert helpers['conditional_SSA_helper_backing_closed']==expected
+            assert (helpers['out_of_SSA']['coalesce_hash_backing_bytes'] is not None)==expected
+            rows.append(dict(case='coalesce_prime_request_'+str(c),calls=c,
+                             request_slots=9*c+6,fits=expected))
+        coalesce_unsigned_boundary=(2**32-1-6)//9
+        for c,expected in ((coalesce_unsigned_boundary,True),(coalesce_unsigned_boundary+1,False)):
+            helpers=module.native_ssa_helper_backing(c,0,context)
+            assert helpers['local_representation_checks']['coalesce_initial_request_unsigned']==expected
+            assert not helpers['conditional_SSA_helper_backing_closed']
+            rows.append(dict(case='coalesce_unsigned_request_'+str(c),calls=c,
+                             request_slots=9*c+6,fits=expected))
         for n,expected in ((module.I32-69,True),(module.I32-68,False)):
             helpers=module.native_ssa_helper_backing(1,n,context)
             assert helpers['conditional_SSA_helper_backing_closed']==expected
