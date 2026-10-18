@@ -1,0 +1,183 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "fixed_archive": {
+    "path": "docs/evidence/retained-producer-bodies-20261018/inputs-and-outputs.tar.gz",
+    "sha256": "bde678ccd1116e041ec8756ecd44d3e2374461335aa59752165322084378c19f"
+  },
+  "fixed_inputs": [
+    {
+      "path": "silver_arguments/obj/silver_arguments__first_or_default.gnat-json",
+      "name": "first_or_default",
+      "bytes": 286340,
+      "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+    },
+    {
+      "path": "silver_arguments/obj/silver_arguments__input_is_valid.gnat-json",
+      "name": "input_is_valid",
+      "bytes": 121828,
+      "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+    },
+    {
+      "path": "silver_arguments/obj/silver_arguments__is_message.gnat-json",
+      "name": "is_message",
+      "bytes": 85809,
+      "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+    },
+    {
+      "path": "silver_io/obj/silver_io__put.gnat-json",
+      "name": "put",
+      "bytes": 274756,
+      "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+    },
+    {
+      "path": "silver_io/obj/silver_io__put_line.gnat-json",
+      "name": "put_line",
+      "bytes": 288617,
+      "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+    }
+  ],
+  "files": [
+    {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "library_path": "_gnatprove_standard",
+      "bytes": 104227,
+      "sha256": "918b73544c7e499c2aa11c10c497924ff141e2321aa96cf6d16038dce72f6235"
+    },
+    {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "library_path": "ada__model",
+      "bytes": 84712,
+      "sha256": "bb27b8013711690d9ee00e32aa6b37a66294a10b2b55ecdf0626b3a049577657"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/int.mlw",
+      "library_path": "int",
+      "bytes": 18687,
+      "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+    },
+    {
+      "path": "installed/share/spark/theories/_gnatprove_standard_th.why",
+      "library_path": "_gnatprove_standard_th",
+      "bytes": 3777,
+      "sha256": "5dfb0b132c3d2fecc2adbe6fdc6e3b75d9063cc5622ce8d0a72ea789682f7ed6"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/bool.mlw",
+      "library_path": "bool",
+      "bytes": 819,
+      "sha256": "b7072fdd8dd5004d0627b82a66b054518ee54eb4dd66f0883988e363bed251fa"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/bv.mlw",
+      "library_path": "bv",
+      "bytes": 35807,
+      "sha256": "00e72b4c0ec8b49bca2f5796e636eae47667d6544e439f7d8e771e771a529cb3"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/ieee_float.mlw",
+      "library_path": "ieee_float",
+      "bytes": 44520,
+      "sha256": "e034c7f5cfb3fff284a668dcd2aa08536fdaac499dbd5d91a7147383448e0393"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/number.mlw",
+      "library_path": "number",
+      "bytes": 5466,
+      "sha256": "4d0d83a9718774a342234ff8ef67e4545840629ffb0ee508f900d8fd67f83911"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/real.mlw",
+      "library_path": "real",
+      "bytes": 11048,
+      "sha256": "de458986ac8cf2da145dafdb412509f0bb2fc0538468e91ee5dcfbee73be694a"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "library_path": "algebra",
+      "bytes": 4910,
+      "sha256": "39d64b3f351a3a08a391d6d26467e427d9ad61799a0ea93ad9cf85d0acbc4fb4"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "library_path": "relations",
+      "bytes": 4033,
+      "sha256": "0a367aecd2cd627de87d5f4011ddbf930bf49283e0b94b792a338faf921b2cae"
+    },
+    {
+      "path": "why3/plugins/gnat_json/gnat_ast.ml",
+      "bytes": 107935,
+      "sha256": "f97b55166ba583cd97bbb0c73dd4ae96241e63091853d7a3f0e3b1f6f5d998ca"
+    },
+    {
+      "path": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    },
+    {
+      "path": "why3/src/parser/typing.ml",
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    {
+      "path": "why3/src/core/env.ml",
+      "bytes": 8690,
+      "sha256": "0164457ed8f719547b3de999838e1f17069177f4463777beab49b28b277738a1"
+    },
+    {
+      "path": "why3/src/mlw/pmodule.ml",
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    {
+      "path": "why3/src/mlw/pdecl.ml",
+      "bytes": 35645,
+      "sha256": "74f46fe481ca7a8f531466754ccb463a57f324e22f6527f7527955a3f12b1ea6"
+    },
+    {
+      "path": "why3/src/mlw/expr.ml",
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+    },
+    {
+      "path": "why3/src/core/ident.ml",
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    {
+      "path": "why3/src/util/hashcons.ml",
+      "bytes": 1865,
+      "sha256": "cb9322afc79d8f8f0169f6292833bb028953fd401d8076dc75309ae4d360bafe"
+    },
+    {
+      "path": "why3/src/parser/parser.mly",
+      "bytes": 5191,
+      "sha256": "b24b0f69680cee19d7e7242b233d3310d5126e2b5081abe8273fed1a03e8bc32"
+    },
+    {
+      "path": "why3/src/parser/lexer.mll",
+      "bytes": 9094,
+      "sha256": "f464fc08195ff31387cbb062134d86dd667232af733c92c53f8f52b88d28ac96"
+    },
+    {
+      "path": "why3/src/util/lexlib.mll",
+      "bytes": 6587,
+      "sha256": "f7e5acf02b1aadfdaa3478bee724f2063f83e7c8c11ac3a1458b2eb022d6ad20"
+    },
+    {
+      "path": "why3/src/core/term.ml",
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    {
+      "path": "why3/src/mlw/ity.ml",
+      "bytes": 70996,
+      "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49"
+    },
+    {
+      "path": "why3/plugins/gnat_json/ptree_constructors.ml",
+      "bytes": 8974,
+      "sha256": "cb8c9fa19ba7f8229fb89d10eb53e87a44c45fccd82c8c4751cf2fc580f53c0c"
+    }
+  ],
+  "source_archive_sha256": "285bc4459cd3b567f34a93e4254c65b0ef8dfd2065e659d6519ad0bd15df7d77"
+}

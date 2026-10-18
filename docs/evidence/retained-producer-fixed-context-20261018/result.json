@@ -1,0 +1,6422 @@
+{
+  "inputs": {
+    "first_or_default": {
+      "clone_origins": {
+        "_gnatprove_standard.Array__1": 1,
+        "ada__model.Constr_Array": 2,
+        "ada__model.Rep_Proj_Int": 2,
+        "ada__model.Static_Discrete": 4,
+        "ada__model.Unconstr_Array": 1
+      },
+      "external_file_roots": [
+        "_gnatprove_standard",
+        "ada__model",
+        "int"
+      ],
+      "function_declarations": [
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "integer__ref_integer__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "integer__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "positive__ref_positive__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "positive__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "character__ref_character__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "character__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 1,
+          "name": "index_I1_one",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Array__Int__Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 217,
+          "domain": 2,
+          "name": "bool_eq",
+          "parameters": 6,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Array__Int__Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 13,
+          "domain": 1,
+          "name": "to_rep",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer___rep"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 4,
+          "domain": 1,
+          "name": "index_1_id",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "string____ref_string____content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "string____havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 70,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__string___axiom"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "input_is_valid",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__input_is_valid___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 3,
+          "name": "input_is_valid__function_guard",
+          "parameters": 2,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__input_is_valid___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "input_is_valid",
+          "parameters": 1,
+          "post_nodes": 18,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__input_is_valid___program_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "default",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__default"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 189,
+          "domain": 2,
+          "name": "is_message",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__is_message___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 3,
+          "name": "is_message__function_guard",
+          "parameters": 2,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__is_message___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "is_message",
+          "parameters": 1,
+          "post_nodes": 19,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__is_message___program_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "is_message",
+          "parameters": 1,
+          "post_nodes": 206,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__is_message___program_fun.Refine"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__natural"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__natural"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__natural"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "natural__ref_natural__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__natural"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "natural__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__natural"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__natural___axiom"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "argument_count",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_runtime__argument_count___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 3,
+          "name": "argument_count__function_guard",
+          "parameters": 2,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_runtime__argument_count___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "argument_count",
+          "parameters": 1,
+          "post_nodes": 50,
+          "pre_nodes": 1,
+          "scope": "Silver_runtime__argument_count___program_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "argument",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_runtime__argument___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 3,
+          "name": "argument__function_guard",
+          "parameters": 2,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_runtime__argument___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "argument",
+          "parameters": 1,
+          "post_nodes": 53,
+          "pre_nodes": 65,
+          "scope": "Silver_runtime__argument___program_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "result____first",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__R8b__result"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "result____last",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__R8b__result"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "item",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__B_1__item"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "result____first",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__B_1__R9b__result"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "result____last",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__B_1__R9b__result"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "tresultS__ref_tresultS__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__R8b__TresultS"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "tresultS__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__R8b__TresultS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "tresultS__ref_tresultS__content__2__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__B_1__R9b__TresultS"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "tresultS__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__B_1__R9b__TresultS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 144,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__first_or_default__R8b__TresultS___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 144,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__first_or_default__B_1__R9b__TresultS___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__T7b"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__T7b"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "temp___String_Literal_251",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Temp___String_Literal_251"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__T11b"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__first_or_default__T11b"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "temp___String_Literal_268",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Temp___String_Literal_268"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 2502,
+          "domain": 4,
+          "name": "def",
+          "parameters": 1,
+          "post_nodes": 282,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__first_or_default__subprogram_def"
+        }
+      ],
+      "includes_after_deduplication": {
+        "Array__Int__Standard__character": 10,
+        "Silver_arguments__first_or_default__B_1__R9b__TresultS": 2,
+        "Silver_arguments__first_or_default__B_1__R9b__TresultS___axiom": 1,
+        "Silver_arguments__first_or_default__B_1__R9b__result": 1,
+        "Silver_arguments__first_or_default__B_1__item": 2,
+        "Silver_arguments__first_or_default__R8b__TresultS": 2,
+        "Silver_arguments__first_or_default__R8b__TresultS___axiom": 1,
+        "Silver_arguments__first_or_default__R8b__result": 1,
+        "Silver_arguments__first_or_default__T11b": 2,
+        "Silver_arguments__first_or_default__T11b___axiom": 1,
+        "Silver_arguments__first_or_default__T7b": 2,
+        "Silver_arguments__first_or_default__T7b___axiom": 1,
+        "Silver_arguments__first_or_default__default": 2,
+        "Silver_arguments__input_is_valid": 1,
+        "Silver_arguments__input_is_valid___logic_fun": 5,
+        "Silver_arguments__input_is_valid___post__axiom": 1,
+        "Silver_arguments__input_is_valid___program_fun": 1,
+        "Silver_arguments__is_message___logic_fun": 2,
+        "Silver_arguments__is_message___program_fun": 1,
+        "Silver_runtime__argument": 1,
+        "Silver_runtime__argument___logic_fun": 5,
+        "Silver_runtime__argument___post__axiom": 1,
+        "Silver_runtime__argument___program_fun": 1,
+        "Silver_runtime__argument_count": 3,
+        "Silver_runtime__argument_count___logic_fun": 7,
+        "Silver_runtime__argument_count___post__axiom": 1,
+        "Silver_runtime__argument_count___program_fun": 1,
+        "Standard__character": 9,
+        "Standard__character___axiom": 1,
+        "Standard__character___rep": 4,
+        "Standard__integer": 5,
+        "Standard__integer___rep": 2,
+        "Standard__natural": 2,
+        "Standard__natural___axiom": 3,
+        "Standard__positive": 4,
+        "Standard__positive___axiom": 2,
+        "Standard__string": 14,
+        "Standard__string___axiom": 3,
+        "Temp___String_Literal_251": 1,
+        "Temp___String_Literal_268": 1,
+        "_gnatprove_standard.Boolean": 2,
+        "_gnatprove_standard.Integer": 2,
+        "_gnatprove_standard.Main": 42,
+        "int.Int": 41
+      },
+      "modules": 41,
+      "native_kinds": {
+        "W_ABSTRACT_EXPR": 5,
+        "W_ANY_EXPR": 4,
+        "W_ASSERT": 11,
+        "W_ASSIGNMENT": 11,
+        "W_AXIOM": 8,
+        "W_AXIOM_DEP": 8,
+        "W_BINDER": 93,
+        "W_BINDING": 32,
+        "W_CALL": 281,
+        "W_CLONE_DECLARATION": 10,
+        "W_CLONE_SUBSTITUTION": 54,
+        "W_COMMENT": 4,
+        "W_CONDITIONAL": 18,
+        "W_CONNECTION": 53,
+        "W_DEREF": 20,
+        "W_EFFECTS": 45,
+        "W_EPSILON": 2,
+        "W_FUNCTION_DECL": 62,
+        "W_GLOBAL_REF_DECLARATION": 3,
+        "W_HANDLER": 3,
+        "W_IDENTIFIER": 831,
+        "W_INCLUDE_DECLARATION": 281,
+        "W_INTEGER_CONSTANT": 56,
+        "W_LABEL": 101,
+        "W_LITERAL": 127,
+        "W_LOC_LABEL": 39,
+        "W_META_DECLARATION": 24,
+        "W_MODULE": 947,
+        "W_NAME": 2329,
+        "W_NAMESPACE_DECLARATION": 1,
+        "W_NOT": 1,
+        "W_RAISE": 7,
+        "W_RANGE_TYPE_DEFINITION": 3,
+        "W_RECORD_ACCESS": 12,
+        "W_RECORD_BINDER": 7,
+        "W_RECORD_DEFINITION": 7,
+        "W_STATEMENT_SEQUENCE": 41,
+        "W_THEORY_DECLARATION": 41,
+        "W_TRANSPARENT_TYPE_DEFINITION": 7,
+        "W_TRIGGER": 5,
+        "W_TRIGGERS": 5,
+        "W_TRY_BLOCK": 3,
+        "W_TYPE": 1362,
+        "W_TYPE_DECL": 18,
+        "W_UNIVERSAL_QUANTIF": 12
+      },
+      "native_node_occurrences": 6994,
+      "ptree_declaration_total": 343,
+      "ptree_declarations": {
+        "Dcloneexport": 10,
+        "Dlet": 55,
+        "Dlogic": 22,
+        "Dmeta": 32,
+        "Dprop_axiom": 8,
+        "Dscope": 1,
+        "Dtype": 18,
+        "Duseexport": 5,
+        "Duseimport": 192
+      },
+      "roles": {
+        "Ptree_Eany": 54,
+        "Ptree_Efun": 1,
+        "axiom_callable_candidates": 8,
+        "axiom_native_nodes": 626,
+        "clone_logic_function": 21,
+        "clone_logic_predicate": 18,
+        "clone_substitutions": 54,
+        "clone_type_symbol": 15,
+        "generated_application_post": 2,
+        "generated_constant_post": 12,
+        "generated_predicate_post": 10,
+        "logic_defined": 22,
+        "program_body_nodes": 2502,
+        "type_RANGE_TYPE_DEFINITION": 3,
+        "type_RECORD_DEFINITION": 7,
+        "type_TRANSPARENT_TYPE_DEFINITION": 7,
+        "type_abstract": 1
+      }
+    },
+    "input_is_valid": {
+      "clone_origins": {
+        "_gnatprove_standard.Array__1": 1,
+        "ada__model.Rep_Proj_Int": 2,
+        "ada__model.Static_Discrete": 4,
+        "ada__model.Unconstr_Array": 1
+      },
+      "external_file_roots": [
+        "_gnatprove_standard",
+        "ada__model",
+        "int"
+      ],
+      "function_declarations": [
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "integer__ref_integer__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "integer__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "positive__ref_positive__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "positive__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "character__ref_character__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "character__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 1,
+          "name": "index_I1_one",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Array__Int__Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 217,
+          "domain": 2,
+          "name": "bool_eq",
+          "parameters": 6,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Array__Int__Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 13,
+          "domain": 1,
+          "name": "to_rep",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer___rep"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 4,
+          "domain": 1,
+          "name": "index_1_id",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "string____ref_string____content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "string____havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 189,
+          "domain": 2,
+          "name": "is_message",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__is_message___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 3,
+          "name": "is_message__function_guard",
+          "parameters": 2,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__is_message___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "is_message",
+          "parameters": 1,
+          "post_nodes": 19,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__is_message___program_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "is_message",
+          "parameters": 1,
+          "post_nodes": 206,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__is_message___program_fun.Refine"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__natural"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__natural"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__natural"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "natural__ref_natural__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__natural"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "natural__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__natural"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__natural___axiom"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "argument_count",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_runtime__argument_count___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 3,
+          "name": "argument_count__function_guard",
+          "parameters": 2,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_runtime__argument_count___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "argument_count",
+          "parameters": 1,
+          "post_nodes": 50,
+          "pre_nodes": 1,
+          "scope": "Silver_runtime__argument_count___program_fun"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 70,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__string___axiom"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "argument",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_runtime__argument___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 3,
+          "name": "argument__function_guard",
+          "parameters": 2,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_runtime__argument___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "argument",
+          "parameters": 1,
+          "post_nodes": 53,
+          "pre_nodes": 65,
+          "scope": "Silver_runtime__argument___program_fun"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 259,
+          "domain": 4,
+          "name": "def",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__input_is_valid__subprogram_def"
+        }
+      ],
+      "includes_after_deduplication": {
+        "Array__Int__Standard__character": 4,
+        "Silver_arguments__is_message___logic_fun": 2,
+        "Silver_arguments__is_message___program_fun": 1,
+        "Silver_runtime__argument___logic_fun": 2,
+        "Silver_runtime__argument___program_fun": 1,
+        "Silver_runtime__argument_count": 2,
+        "Silver_runtime__argument_count___logic_fun": 6,
+        "Silver_runtime__argument_count___post__axiom": 1,
+        "Silver_runtime__argument_count___program_fun": 1,
+        "Standard__character": 7,
+        "Standard__character___axiom": 1,
+        "Standard__character___rep": 4,
+        "Standard__integer": 3,
+        "Standard__integer___rep": 2,
+        "Standard__natural": 2,
+        "Standard__natural___axiom": 3,
+        "Standard__positive": 4,
+        "Standard__positive___axiom": 1,
+        "Standard__string": 6,
+        "Standard__string___axiom": 2,
+        "_gnatprove_standard.Boolean": 2,
+        "_gnatprove_standard.Integer": 2,
+        "_gnatprove_standard.Main": 22,
+        "int.Int": 21
+      },
+      "modules": 21,
+      "native_kinds": {
+        "W_ABSTRACT_EXPR": 2,
+        "W_ASSIGNMENT": 5,
+        "W_AXIOM": 2,
+        "W_AXIOM_DEP": 2,
+        "W_BINDER": 67,
+        "W_BINDING": 7,
+        "W_CALL": 99,
+        "W_CLONE_DECLARATION": 8,
+        "W_CLONE_SUBSTITUTION": 40,
+        "W_COMMENT": 4,
+        "W_CONDITIONAL": 9,
+        "W_CONNECTION": 23,
+        "W_DEREF": 1,
+        "W_EFFECTS": 36,
+        "W_EPSILON": 1,
+        "W_FUNCTION_DECL": 41,
+        "W_GLOBAL_REF_DECLARATION": 1,
+        "W_HANDLER": 1,
+        "W_IDENTIFIER": 384,
+        "W_INCLUDE_DECLARATION": 122,
+        "W_INTEGER_CONSTANT": 18,
+        "W_LABEL": 33,
+        "W_LITERAL": 79,
+        "W_LOC_LABEL": 10,
+        "W_META_DECLARATION": 20,
+        "W_MODULE": 302,
+        "W_NAME": 1072,
+        "W_NAMESPACE_DECLARATION": 1,
+        "W_RAISE": 4,
+        "W_RANGE_TYPE_DEFINITION": 3,
+        "W_RECORD_ACCESS": 7,
+        "W_RECORD_BINDER": 5,
+        "W_RECORD_DEFINITION": 5,
+        "W_STATEMENT_SEQUENCE": 18,
+        "W_THEORY_DECLARATION": 21,
+        "W_TRANSPARENT_TYPE_DEFINITION": 3,
+        "W_TRIGGER": 1,
+        "W_TRIGGERS": 1,
+        "W_TRY_BLOCK": 1,
+        "W_TYPE": 591,
+        "W_TYPE_DECL": 12,
+        "W_UNIVERSAL_QUANTIF": 6
+      },
+      "native_node_occurrences": 3068,
+      "ptree_declaration_total": 199,
+      "ptree_declarations": {
+        "Dcloneexport": 8,
+        "Dlet": 34,
+        "Dlogic": 18,
+        "Dmeta": 22,
+        "Dprop_axiom": 2,
+        "Dscope": 1,
+        "Dtype": 12,
+        "Duseexport": 1,
+        "Duseimport": 101
+      },
+      "roles": {
+        "Ptree_Eany": 33,
+        "Ptree_Efun": 1,
+        "axiom_callable_candidates": 2,
+        "axiom_native_nodes": 362,
+        "clone_logic_function": 15,
+        "clone_logic_predicate": 14,
+        "clone_substitutions": 40,
+        "clone_type_symbol": 11,
+        "generated_application_post": 2,
+        "generated_constant_post": 8,
+        "generated_predicate_post": 8,
+        "logic_defined": 18,
+        "program_body_nodes": 259,
+        "type_RANGE_TYPE_DEFINITION": 3,
+        "type_RECORD_DEFINITION": 5,
+        "type_TRANSPARENT_TYPE_DEFINITION": 3,
+        "type_abstract": 1
+      }
+    },
+    "is_message": {
+      "clone_origins": {
+        "_gnatprove_standard.Array__1": 1,
+        "ada__model.Rep_Proj_Int": 2,
+        "ada__model.Static_Discrete": 3,
+        "ada__model.Unconstr_Array": 1
+      },
+      "external_file_roots": [
+        "_gnatprove_standard",
+        "ada__model",
+        "int"
+      ],
+      "function_declarations": [
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "integer__ref_integer__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "integer__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "character__ref_character__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "character__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 1,
+          "name": "index_I1_one",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Array__Int__Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 217,
+          "domain": 2,
+          "name": "bool_eq",
+          "parameters": 6,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Array__Int__Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "positive__ref_positive__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "positive__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 13,
+          "domain": 1,
+          "name": "to_rep",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer___rep"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 4,
+          "domain": 1,
+          "name": "index_1_id",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "string____ref_string____content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "string____havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 70,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__string___axiom"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "item",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_arguments__is_message__item"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 452,
+          "domain": 4,
+          "name": "def",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 1,
+          "scope": "Silver_arguments__is_message__subprogram_def"
+        }
+      ],
+      "includes_after_deduplication": {
+        "Array__Int__Standard__character": 2,
+        "Silver_arguments__is_message__item": 1,
+        "Standard__character": 5,
+        "Standard__character___axiom": 1,
+        "Standard__character___rep": 2,
+        "Standard__integer": 3,
+        "Standard__integer___rep": 2,
+        "Standard__positive": 4,
+        "Standard__positive___axiom": 1,
+        "Standard__string": 3,
+        "Standard__string___axiom": 1,
+        "_gnatprove_standard.Boolean": 1,
+        "_gnatprove_standard.Main": 12,
+        "int.Int": 12
+      },
+      "modules": 12,
+      "native_kinds": {
+        "W_ABSTRACT_EXPR": 3,
+        "W_ANY_EXPR": 2,
+        "W_ASSERT": 1,
+        "W_ASSIGNMENT": 1,
+        "W_AXIOM": 1,
+        "W_AXIOM_DEP": 1,
+        "W_BINDER": 44,
+        "W_BINDING": 8,
+        "W_CALL": 71,
+        "W_CLONE_DECLARATION": 7,
+        "W_CLONE_SUBSTITUTION": 36,
+        "W_COMMENT": 4,
+        "W_CONDITIONAL": 6,
+        "W_CONNECTION": 16,
+        "W_EFFECTS": 21,
+        "W_FUNCTION_DECL": 26,
+        "W_GLOBAL_REF_DECLARATION": 1,
+        "W_IDENTIFIER": 264,
+        "W_INCLUDE_DECLARATION": 69,
+        "W_INTEGER_CONSTANT": 12,
+        "W_LABEL": 15,
+        "W_LITERAL": 46,
+        "W_LOC_LABEL": 1,
+        "W_META_DECLARATION": 18,
+        "W_MODULE": 210,
+        "W_NAME": 762,
+        "W_RANGE_TYPE_DEFINITION": 2,
+        "W_RECORD_ACCESS": 4,
+        "W_RECORD_BINDER": 4,
+        "W_RECORD_DEFINITION": 4,
+        "W_STATEMENT_SEQUENCE": 9,
+        "W_THEORY_DECLARATION": 12,
+        "W_TRANSPARENT_TYPE_DEFINITION": 3,
+        "W_TYPE": 416,
+        "W_TYPE_DECL": 10,
+        "W_UNIVERSAL_QUANTIF": 4
+      },
+      "native_node_occurrences": 2114,
+      "ptree_declaration_total": 121,
+      "ptree_declarations": {
+        "Dcloneexport": 7,
+        "Dlet": 20,
+        "Dlogic": 14,
+        "Dmeta": 19,
+        "Dprop_axiom": 1,
+        "Dtype": 10,
+        "Duseimport": 50
+      },
+      "roles": {
+        "Ptree_Eany": 19,
+        "Ptree_Efun": 1,
+        "axiom_callable_candidates": 1,
+        "axiom_native_nodes": 300,
+        "clone_logic_function": 13,
+        "clone_logic_predicate": 13,
+        "clone_substitutions": 36,
+        "clone_type_symbol": 10,
+        "generated_application_post": 1,
+        "generated_constant_post": 6,
+        "generated_predicate_post": 6,
+        "logic_defined": 14,
+        "program_body_nodes": 452,
+        "type_RANGE_TYPE_DEFINITION": 2,
+        "type_RECORD_DEFINITION": 4,
+        "type_TRANSPARENT_TYPE_DEFINITION": 3,
+        "type_abstract": 1
+      }
+    },
+    "put": {
+      "clone_origins": {
+        "_gnatprove_standard.Array__1": 1,
+        "ada__model.Constr_Array": 2,
+        "ada__model.Rep_Proj_Int": 2,
+        "ada__model.Static_Discrete": 7,
+        "ada__model.Unconstr_Array": 1
+      },
+      "external_file_roots": [
+        "_gnatprove_standard",
+        "ada__model",
+        "int"
+      ],
+      "function_declarations": [
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "integer__ref_integer__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "integer__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "character__ref_character__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "character__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 1,
+          "name": "index_I1_one",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Array__Int__Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 217,
+          "domain": 2,
+          "name": "bool_eq",
+          "parameters": 6,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Array__Int__Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "positive__ref_positive__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "positive__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 13,
+          "domain": 1,
+          "name": "to_rep",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer___rep"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 4,
+          "domain": 1,
+          "name": "index_1_id",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "string____ref_string____content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "string____havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 70,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__string___axiom"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "item",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put__item"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "set_exit_status",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_output_libc__set_exit_status___program_fun"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Ada___interfaces__c__int"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Ada___interfaces__c__int"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Ada___interfaces__c__int"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "int____ref_int____content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Ada___interfaces__c__int"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "int____havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Ada___interfaces__c__int"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Ada___interfaces__c__int___axiom"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "put_byte",
+          "parameters": 1,
+          "post_nodes": 16,
+          "pre_nodes": 1,
+          "scope": "Silver_output_libc__put_byte___program_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "flush",
+          "parameters": 1,
+          "post_nodes": 16,
+          "pre_nodes": 1,
+          "scope": "Silver_output_libc__flush___program_fun"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__TTwritten_bytesSP1"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__TTwritten_bytesSP1"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__TTwritten_bytesSP1"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "tTwritten_bytesSP1__ref_tTwritten_bytesSP1__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__TTwritten_bytesSP1"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "tTwritten_bytesSP1__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__TTwritten_bytesSP1"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__Twritten_bytesS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__Twritten_bytesS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__Twritten_bytesS___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__Twritten_countS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__Twritten_countS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__Twritten_countS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "twritten_countS__ref_twritten_countS__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__Twritten_countS"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "twritten_countS__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__Twritten_countS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__Twritten_countS___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "t6s__ref_t6s__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put__T6s"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "t6s__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put__T6s"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 3,
+          "name": "default_initial_assumption",
+          "parameters": 2,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Ada___interfaces__c__int___default_init"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__put__T14b"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__put__T14b"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__put__T14b"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "t14b__ref_t14b__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put__T14b"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "t14b__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put__T14b"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put__T15b"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put__T15b"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "temp_____aggregate_def_314",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Temp_____aggregate_def_314___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "temp_____aggregate_def_314",
+          "parameters": 1,
+          "post_nodes": 142,
+          "pre_nodes": 1,
+          "scope": "Temp_____aggregate_def_314___program_fun"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 2591,
+          "domain": 4,
+          "name": "def",
+          "parameters": 1,
+          "post_nodes": 331,
+          "pre_nodes": 1,
+          "scope": "Silver_io__put__subprogram_def"
+        }
+      ],
+      "includes_after_deduplication": {
+        "Ada___ada__text_io__current_err": 4,
+        "Ada___ada__text_io__current_in": 4,
+        "Ada___ada__text_io__current_out": 4,
+        "Ada___ada__text_io__file_system": 4,
+        "Ada___ada__text_io__standard_err": 4,
+        "Ada___ada__text_io__standard_in": 4,
+        "Ada___ada__text_io__standard_out": 4,
+        "Ada___interfaces__c__int": 2,
+        "Ada___interfaces__c__int___axiom": 3,
+        "Ada___interfaces__c__int___default_init": 1,
+        "Array__Int__Standard__character": 8,
+        "Silver_io__TTwritten_bytesSP1": 1,
+        "Silver_io__TTwritten_bytesSP1___axiom": 1,
+        "Silver_io__Twritten_bytesS": 2,
+        "Silver_io__Twritten_bytesS___axiom": 1,
+        "Silver_io__Twritten_countS": 2,
+        "Silver_io__Twritten_countS___axiom": 1,
+        "Silver_io__flushed": 1,
+        "Silver_io__put__L_2": 1,
+        "Silver_io__put__L_2__index": 1,
+        "Silver_io__put__T14b": 2,
+        "Silver_io__put__T14b___axiom": 1,
+        "Silver_io__put__T15b": 2,
+        "Silver_io__put__T15b___axiom": 1,
+        "Silver_io__put__T6s": 1,
+        "Silver_io__put__T6s___axiom": 1,
+        "Silver_io__put__item": 1,
+        "Silver_io__put__status": 1,
+        "Silver_io__succeeded": 1,
+        "Silver_io__written_bytes": 1,
+        "Silver_io__written_count": 1,
+        "Silver_output_libc__flush___program_fun": 1,
+        "Silver_output_libc__put_byte___program_fun": 1,
+        "Silver_output_libc__set_exit_status___program_fun": 1,
+        "Standard__character": 8,
+        "Standard__character___axiom": 1,
+        "Standard__character___rep": 3,
+        "Standard__integer": 3,
+        "Standard__integer___rep": 2,
+        "Standard__positive": 4,
+        "Standard__positive___axiom": 1,
+        "Standard__string": 5,
+        "Standard__string___axiom": 1,
+        "Temp_____aggregate_def_314___logic_fun": 2,
+        "Temp_____aggregate_def_314___program_fun": 1,
+        "_gnatprove_standard.BV64": 2,
+        "_gnatprove_standard.Boolean": 1,
+        "_gnatprove_standard.Main": 47,
+        "int.Int": 46
+      },
+      "modules": 46,
+      "native_kinds": {
+        "W_ABSTRACT_EXPR": 5,
+        "W_ANY_EXPR": 2,
+        "W_ASSERT": 10,
+        "W_ASSIGNMENT": 15,
+        "W_AXIOM": 1,
+        "W_AXIOM_DEP": 1,
+        "W_BINDER": 82,
+        "W_BINDING": 24,
+        "W_CALL": 204,
+        "W_CLONE_DECLARATION": 13,
+        "W_CLONE_SUBSTITUTION": 66,
+        "W_COMMENT": 10,
+        "W_CONDITIONAL": 15,
+        "W_CONNECTION": 40,
+        "W_DEREF": 44,
+        "W_EFFECTS": 47,
+        "W_EXCEPTION_DECLARATION": 2,
+        "W_FUNCTION_DECL": 61,
+        "W_GLOBAL_REF_DECLARATION": 13,
+        "W_HANDLER": 3,
+        "W_IDENTIFIER": 769,
+        "W_INCLUDE_DECLARATION": 326,
+        "W_INTEGER_CONSTANT": 38,
+        "W_LABEL": 95,
+        "W_LITERAL": 131,
+        "W_LOC_LABEL": 63,
+        "W_LOOP": 1,
+        "W_META_DECLARATION": 28,
+        "W_MODULAR_CONSTANT": 1,
+        "W_MODULE": 928,
+        "W_NAME": 2192,
+        "W_RAISE": 5,
+        "W_RANGE_TYPE_DEFINITION": 6,
+        "W_RECORD_ACCESS": 12,
+        "W_RECORD_BINDER": 9,
+        "W_RECORD_DEFINITION": 9,
+        "W_STATEMENT_SEQUENCE": 37,
+        "W_THEORY_DECLARATION": 46,
+        "W_TRANSPARENT_TYPE_DEFINITION": 6,
+        "W_TRIGGER": 1,
+        "W_TRIGGERS": 1,
+        "W_TRY_BLOCK": 3,
+        "W_TYPE": 1259,
+        "W_TYPE_DECL": 22,
+        "W_UNIVERSAL_QUANTIF": 6
+      },
+      "native_node_occurrences": 6652,
+      "ptree_declaration_total": 352,
+      "ptree_declarations": {
+        "Dcloneexport": 13,
+        "Dexn": 2,
+        "Dlet": 62,
+        "Dlogic": 27,
+        "Dmeta": 29,
+        "Dprop_axiom": 1,
+        "Dtype": 22,
+        "Duseexport": 1,
+        "Duseimport": 195
+      },
+      "roles": {
+        "Ptree_Eany": 61,
+        "Ptree_Efun": 1,
+        "axiom_callable_candidates": 1,
+        "axiom_native_nodes": 300,
+        "clone_logic_function": 27,
+        "clone_logic_predicate": 21,
+        "clone_substitutions": 66,
+        "clone_type_symbol": 18,
+        "generated_application_post": 1,
+        "generated_constant_post": 18,
+        "generated_predicate_post": 14,
+        "logic_defined": 27,
+        "program_body_nodes": 2591,
+        "type_RANGE_TYPE_DEFINITION": 6,
+        "type_RECORD_DEFINITION": 9,
+        "type_TRANSPARENT_TYPE_DEFINITION": 6,
+        "type_abstract": 1
+      }
+    },
+    "put_line": {
+      "clone_origins": {
+        "_gnatprove_standard.Array__1": 1,
+        "ada__model.Constr_Array": 2,
+        "ada__model.Rep_Proj_Int": 2,
+        "ada__model.Static_Discrete": 7,
+        "ada__model.Unconstr_Array": 1
+      },
+      "external_file_roots": [
+        "_gnatprove_standard",
+        "ada__model",
+        "int"
+      ],
+      "function_declarations": [
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "integer__ref_integer__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "integer__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__integer"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "character__ref_character__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "character__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 1,
+          "name": "index_I1_one",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Array__Int__Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 217,
+          "domain": 2,
+          "name": "bool_eq",
+          "parameters": 6,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Array__Int__Standard__character"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "positive__ref_positive__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "positive__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__positive"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 13,
+          "domain": 1,
+          "name": "to_rep",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__integer___rep"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 4,
+          "domain": 1,
+          "name": "index_1_id",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "string____ref_string____content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "string____havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Standard__string"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 70,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__string___axiom"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "item",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put_line__item"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "set_exit_status",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_output_libc__set_exit_status___program_fun"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Ada___interfaces__c__int"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Ada___interfaces__c__int"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Ada___interfaces__c__int"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "int____ref_int____content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Ada___interfaces__c__int"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "int____havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Ada___interfaces__c__int"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Ada___interfaces__c__int___axiom"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "put_byte",
+          "parameters": 1,
+          "post_nodes": 16,
+          "pre_nodes": 1,
+          "scope": "Silver_output_libc__put_byte___program_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "flush",
+          "parameters": 1,
+          "post_nodes": 16,
+          "pre_nodes": 1,
+          "scope": "Silver_output_libc__flush___program_fun"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__TTwritten_bytesSP1"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__TTwritten_bytesSP1"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__TTwritten_bytesSP1"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "tTwritten_bytesSP1__ref_tTwritten_bytesSP1__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__TTwritten_bytesSP1"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "tTwritten_bytesSP1__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__TTwritten_bytesSP1"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__Twritten_bytesS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__Twritten_bytesS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__Twritten_bytesS___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__Twritten_countS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__Twritten_countS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__Twritten_countS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "twritten_countS__ref_twritten_countS__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__Twritten_countS"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "twritten_countS__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__Twritten_countS"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__Twritten_countS___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "t4s__ref_t4s__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put_line__T4s"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "t4s__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put_line__T4s"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 3,
+          "name": "default_initial_assumption",
+          "parameters": 2,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Ada___interfaces__c__int___default_init"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__put_line__T2b"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__put_line__T2b"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 35,
+          "domain": 3,
+          "name": "in_range",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Silver_io__put_line__T2b"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 9,
+          "domain": 1,
+          "name": "t2b__ref_t2b__content__projection",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put_line__T2b"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "t2b__havoc",
+          "parameters": 1,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put_line__T2b"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "first",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put_line__T3b"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 1,
+          "domain": 2,
+          "name": "last",
+          "parameters": 0,
+          "post_nodes": 0,
+          "pre_nodes": 0,
+          "scope": "Silver_io__put_line__T3b"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 2,
+          "name": "temp_____aggregate_def_255",
+          "parameters": 1,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Temp_____aggregate_def_255___logic_fun"
+        },
+        {
+          "defined": false,
+          "definition_nodes": 0,
+          "domain": 4,
+          "name": "temp_____aggregate_def_255",
+          "parameters": 1,
+          "post_nodes": 142,
+          "pre_nodes": 1,
+          "scope": "Temp_____aggregate_def_255___program_fun"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__positive___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 25,
+          "domain": 3,
+          "name": "dynamic_invariant",
+          "parameters": 5,
+          "post_nodes": 1,
+          "pre_nodes": 1,
+          "scope": "Standard__character___axiom"
+        },
+        {
+          "defined": true,
+          "definition_nodes": 2999,
+          "domain": 4,
+          "name": "def",
+          "parameters": 1,
+          "post_nodes": 391,
+          "pre_nodes": 1,
+          "scope": "Silver_io__put_line__subprogram_def"
+        }
+      ],
+      "includes_after_deduplication": {
+        "Ada___ada__text_io__current_err": 4,
+        "Ada___ada__text_io__current_in": 4,
+        "Ada___ada__text_io__current_out": 4,
+        "Ada___ada__text_io__file_system": 4,
+        "Ada___ada__text_io__standard_err": 4,
+        "Ada___ada__text_io__standard_in": 4,
+        "Ada___ada__text_io__standard_out": 4,
+        "Ada___interfaces__c__int": 2,
+        "Ada___interfaces__c__int___axiom": 3,
+        "Ada___interfaces__c__int___default_init": 1,
+        "Array__Int__Standard__character": 8,
+        "Silver_io__TTwritten_bytesSP1": 1,
+        "Silver_io__TTwritten_bytesSP1___axiom": 1,
+        "Silver_io__Twritten_bytesS": 2,
+        "Silver_io__Twritten_bytesS___axiom": 1,
+        "Silver_io__Twritten_countS": 2,
+        "Silver_io__Twritten_countS___axiom": 1,
+        "Silver_io__flushed": 1,
+        "Silver_io__put_line__L_1": 1,
+        "Silver_io__put_line__L_1__index": 1,
+        "Silver_io__put_line__T2b": 2,
+        "Silver_io__put_line__T2b___axiom": 1,
+        "Silver_io__put_line__T3b": 2,
+        "Silver_io__put_line__T3b___axiom": 1,
+        "Silver_io__put_line__T4s": 1,
+        "Silver_io__put_line__T4s___axiom": 1,
+        "Silver_io__put_line__item": 1,
+        "Silver_io__put_line__status": 1,
+        "Silver_io__succeeded": 1,
+        "Silver_io__written_bytes": 1,
+        "Silver_io__written_count": 1,
+        "Silver_output_libc__flush___program_fun": 1,
+        "Silver_output_libc__put_byte___program_fun": 1,
+        "Silver_output_libc__set_exit_status___program_fun": 1,
+        "Standard__character": 8,
+        "Standard__character___axiom": 1,
+        "Standard__character___rep": 3,
+        "Standard__integer": 3,
+        "Standard__integer___rep": 2,
+        "Standard__positive": 4,
+        "Standard__positive___axiom": 1,
+        "Standard__string": 5,
+        "Standard__string___axiom": 1,
+        "Temp_____aggregate_def_255___logic_fun": 2,
+        "Temp_____aggregate_def_255___program_fun": 1,
+        "_gnatprove_standard.BV64": 2,
+        "_gnatprove_standard.Boolean": 1,
+        "_gnatprove_standard.Main": 47,
+        "int.Int": 46
+      },
+      "modules": 46,
+      "native_kinds": {
+        "W_ABSTRACT_EXPR": 5,
+        "W_ANY_EXPR": 2,
+        "W_ASSERT": 12,
+        "W_ASSIGNMENT": 19,
+        "W_AXIOM": 1,
+        "W_AXIOM_DEP": 1,
+        "W_BINDER": 82,
+        "W_BINDING": 26,
+        "W_CALL": 224,
+        "W_CLONE_DECLARATION": 13,
+        "W_CLONE_SUBSTITUTION": 66,
+        "W_COMMENT": 10,
+        "W_CONDITIONAL": 16,
+        "W_CONNECTION": 44,
+        "W_DEREF": 52,
+        "W_EFFECTS": 47,
+        "W_EXCEPTION_DECLARATION": 2,
+        "W_FUNCTION_DECL": 61,
+        "W_GLOBAL_REF_DECLARATION": 13,
+        "W_HANDLER": 3,
+        "W_IDENTIFIER": 826,
+        "W_INCLUDE_DECLARATION": 326,
+        "W_INTEGER_CONSTANT": 47,
+        "W_LABEL": 110,
+        "W_LITERAL": 131,
+        "W_LOC_LABEL": 82,
+        "W_LOOP": 1,
+        "W_META_DECLARATION": 28,
+        "W_MODULAR_CONSTANT": 1,
+        "W_MODULE": 978,
+        "W_NAME": 2356,
+        "W_RAISE": 6,
+        "W_RANGE_TYPE_DEFINITION": 6,
+        "W_RECORD_ACCESS": 13,
+        "W_RECORD_BINDER": 9,
+        "W_RECORD_DEFINITION": 9,
+        "W_STATEMENT_SEQUENCE": 42,
+        "W_THEORY_DECLARATION": 46,
+        "W_TRANSPARENT_TYPE_DEFINITION": 6,
+        "W_TRIGGER": 1,
+        "W_TRIGGERS": 1,
+        "W_TRY_BLOCK": 3,
+        "W_TYPE": 1365,
+        "W_TYPE_DECL": 22,
+        "W_UNIVERSAL_QUANTIF": 6
+      },
+      "native_node_occurrences": 7120,
+      "ptree_declaration_total": 352,
+      "ptree_declarations": {
+        "Dcloneexport": 13,
+        "Dexn": 2,
+        "Dlet": 62,
+        "Dlogic": 27,
+        "Dmeta": 29,
+        "Dprop_axiom": 1,
+        "Dtype": 22,
+        "Duseexport": 1,
+        "Duseimport": 195
+      },
+      "roles": {
+        "Ptree_Eany": 61,
+        "Ptree_Efun": 1,
+        "axiom_callable_candidates": 1,
+        "axiom_native_nodes": 300,
+        "clone_logic_function": 27,
+        "clone_logic_predicate": 21,
+        "clone_substitutions": 66,
+        "clone_type_symbol": 18,
+        "generated_application_post": 1,
+        "generated_constant_post": 18,
+        "generated_predicate_post": 14,
+        "logic_defined": 27,
+        "program_body_nodes": 2999,
+        "type_RANGE_TYPE_DEFINITION": 6,
+        "type_RECORD_DEFINITION": 9,
+        "type_TRANSPARENT_TYPE_DEFINITION": 6,
+        "type_abstract": 1
+      }
+    }
+  },
+  "library_bytes": 318006,
+  "library_clone_directives": 174,
+  "library_closure": {
+    "_gnatprove_standard": {
+      "directives": [
+        {
+          "file": "_gnatprove_standard_th",
+          "kind": "use",
+          "line": 2,
+          "target": "_gnatprove_standard_th.Main_Main"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 95,
+          "target": "bool.Bool"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 155,
+          "target": "Main"
+        },
+        {
+          "file": "_gnatprove_standard_th",
+          "kind": "use",
+          "line": 221,
+          "target": "_gnatprove_standard_th.Integer"
+        },
+        {
+          "file": "number",
+          "kind": "use",
+          "line": 241,
+          "target": "number.Gcd"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 242,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 256,
+          "target": "int.Power"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 260,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 261,
+          "target": "int.MinMax"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 270,
+          "target": "int.Abs"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 274,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 275,
+          "target": "int.ComputerDivision"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 276,
+          "target": "int.EuclideanDivision"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 322,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 323,
+          "target": "int.Power"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 324,
+          "target": "int.ComputerDivision"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 379,
+          "target": "real.RealInfix"
+        },
+        {
+          "file": "_gnatprove_standard_th",
+          "kind": "use",
+          "line": 380,
+          "target": "_gnatprove_standard_th.Real"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 405,
+          "target": "real.PowerInt"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 411,
+          "target": "real.RealInfix"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 412,
+          "target": "real.MinMax"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 425,
+          "target": "real.FromInt"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 433,
+          "target": "real.Abs"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 449,
+          "target": "int.Int"
+        },
+        {
+          "file": "_gnatprove_standard_th",
+          "kind": "clone",
+          "line": 1011,
+          "target": "_gnatprove_standard_th.Floating_Func"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1036,
+          "target": "ieee_float.Float32"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1099,
+          "target": "ieee_float.Float64"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1156,
+          "target": "ieee_float.Float80"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1213,
+          "target": "Float32RNE"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1215,
+          "target": "Floating_power"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1226,
+          "target": "Float64RNE"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1228,
+          "target": "Floating_power"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1239,
+          "target": "Float80RNE"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1241,
+          "target": "Floating_power"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1252,
+          "target": "Float32RNE"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1258,
+          "target": "Floating_next_prev"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1271,
+          "target": "Float64RNE"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1277,
+          "target": "Floating_next_prev"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1290,
+          "target": "Float80RNE"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1296,
+          "target": "Floating_next_prev"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1309,
+          "target": "Float32RNE"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1311,
+          "target": "Floating"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1336,
+          "target": "Float64RNE"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1338,
+          "target": "Floating"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1363,
+          "target": "Float80RNE"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1365,
+          "target": "Floating"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1390,
+          "target": "Float32RNE"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1423,
+          "target": "Floating_operations"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1443,
+          "target": "Float64RNE"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1476,
+          "target": "Floating_operations"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1496,
+          "target": "Float80RNE"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1529,
+          "target": "Floating_operations"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1549,
+          "target": "ieee_float.Float32_64_Converter"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1565,
+          "target": "ieee_float.Float32_80_Converter"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1581,
+          "target": "ieee_float.Float64_80_Converter"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1597,
+          "target": "ieee_float.Float32_BV_Converter"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1598,
+          "target": "ieee_float.Float32"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1658,
+          "target": "ieee_float.Float64_BV_Converter"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1659,
+          "target": "ieee_float.Float64"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1719,
+          "target": "ieee_float.Float80_BV_Converter"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1720,
+          "target": "ieee_float.Float80"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 1780,
+          "target": "bool.Bool"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 1781,
+          "target": "bool.Ite"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 1782,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1783,
+          "target": "Main"
+        },
+        {
+          "file": "_gnatprove_standard_th",
+          "kind": "use",
+          "line": 1785,
+          "target": "_gnatprove_standard_th.Boolean_Func"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 1874,
+          "target": "bool.Bool"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1876,
+          "target": "Array__Index"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 2133,
+          "target": "bool.Bool"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2135,
+          "target": "Array__Index"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2136,
+          "target": "Array__Index"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 2271,
+          "target": "bool.Bool"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2273,
+          "target": "Array__Index"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2274,
+          "target": "Array__Index"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2275,
+          "target": "Array__Index"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 2421,
+          "target": "bool.Bool"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2423,
+          "target": "Array__Index"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2424,
+          "target": "Array__Index"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2425,
+          "target": "Array__Index"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2426,
+          "target": "Array__Index"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 2590,
+          "target": "bool.Bool"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 2614,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 2653,
+          "target": "int.MinMax"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2684,
+          "target": "bv.BV8"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2690,
+          "target": "BVAda"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2725,
+          "target": "bv.BV16"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2731,
+          "target": "BVAda"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2766,
+          "target": "bv.BV32"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2772,
+          "target": "BVAda"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2807,
+          "target": "bv.BV64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2813,
+          "target": "BVAda"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2848,
+          "target": "bv.BV128"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2854,
+          "target": "BVAda"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2893,
+          "target": "bv.BVConverter_128_256"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2901,
+          "target": "bv.BVConverter_64_128"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2909,
+          "target": "bv.BVConverter_32_128"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2917,
+          "target": "bv.BVConverter_16_128"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2925,
+          "target": "bv.BVConverter_8_128"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2933,
+          "target": "bv.BVConverter_32_64"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2941,
+          "target": "bv.BVConverter_16_64"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2949,
+          "target": "bv.BVConverter_8_64"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2957,
+          "target": "bv.BVConverter_16_32"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2965,
+          "target": "bv.BVConverter_8_32"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 2973,
+          "target": "bv.BVConverter_8_16"
+        }
+      ],
+      "external_files": [
+        "_gnatprove_standard_th",
+        "bool",
+        "bv",
+        "ieee_float",
+        "int",
+        "number",
+        "real"
+      ],
+      "modules": [
+        "Main",
+        "Boolean__init_wrapper",
+        "Builtin_from_image",
+        "Compatible_Tags",
+        "Integer",
+        "Int_Gcd",
+        "Int_Power",
+        "Int_Minmax",
+        "Int_Abs",
+        "Int_Division",
+        "Int_Shift",
+        "Real",
+        "Real_Power",
+        "Real_Minmax",
+        "Real_FromInt",
+        "Real_Abs",
+        "Floating_power",
+        "Floating_next_prev",
+        "Floating_operations",
+        "Floating",
+        "Float32RNE",
+        "Float64RNE",
+        "Float80RNE",
+        "Float32_power",
+        "Float64_power",
+        "Float80_power",
+        "Float32_next_prev",
+        "Float64_next_prev",
+        "Float80_next_prev",
+        "Float32",
+        "Float64",
+        "Float80",
+        "Float32_operations",
+        "Float64_operations",
+        "Float80_operations",
+        "Float32_64_Converter",
+        "Float32_80_Converter",
+        "Float64_80_Converter",
+        "Float32_BV_Converter",
+        "Float64_BV_Converter",
+        "Float80_BV_Converter",
+        "Boolean",
+        "Array__Index",
+        "Array__1",
+        "Array__2",
+        "Array__3",
+        "Array__4",
+        "BVAda",
+        "BV8",
+        "BV16",
+        "BV32",
+        "BV64",
+        "BV128",
+        "BVConv_128_256",
+        "BVConv_64_128",
+        "BVConv_32_128",
+        "BVConv_16_128",
+        "BVConv_8_128",
+        "BVConv_32_64",
+        "BVConv_16_64",
+        "BVConv_8_64",
+        "BVConv_16_32",
+        "BVConv_8_32",
+        "BVConv_8_16",
+        "Subprogram_Pointer_Rep"
+      ],
+      "tokens": 20416
+    },
+    "_gnatprove_standard_th": {
+      "directives": [
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 2,
+          "target": "bool.Bool"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 14,
+          "target": "int.Int"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 15,
+          "target": "bool.Bool"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 66,
+          "target": "real.RealInfix"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 67,
+          "target": "bool.Bool"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 115,
+          "target": "bool.Bool"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 135,
+          "target": "bool.Bool"
+        }
+      ],
+      "external_files": [
+        "bool",
+        "int",
+        "real"
+      ],
+      "modules": [
+        "Main_Main",
+        "Integer",
+        "Real",
+        "Floating_Func",
+        "Boolean_Func"
+      ],
+      "tokens": 757
+    },
+    "ada__model": {
+      "directives": [
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 34,
+          "target": "_gnatprove_standard.Main"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 71,
+          "target": "Discrete_Base"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 95,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 97,
+          "target": "Static_Discrete_Base"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 103,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 105,
+          "target": "Rep_Proj_Base"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 114,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 116,
+          "target": "Static_Discrete_Base"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 135,
+          "target": "Rep_Proj_Base"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 161,
+          "target": "Rep_Proj_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 181,
+          "target": "_gnatprove_standard.BV128"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 186,
+          "target": "Static_Modular_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 194,
+          "target": "_gnatprove_standard.BV128"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 199,
+          "target": "Rep_Proj_ltBVGen"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 208,
+          "target": "_gnatprove_standard.BV128"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 213,
+          "target": "Static_Modular_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 219,
+          "target": "_gnatprove_standard.BV128"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 224,
+          "target": "Rep_Proj_BVGen"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 232,
+          "target": "_gnatprove_standard.BV64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 237,
+          "target": "Static_Modular_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 245,
+          "target": "_gnatprove_standard.BV64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 250,
+          "target": "Rep_Proj_ltBVGen"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 259,
+          "target": "_gnatprove_standard.BV64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 264,
+          "target": "Static_Modular_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 270,
+          "target": "_gnatprove_standard.BV64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 275,
+          "target": "Rep_Proj_BVGen"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 283,
+          "target": "_gnatprove_standard.BV32"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 288,
+          "target": "Static_Modular_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 296,
+          "target": "_gnatprove_standard.BV32"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 301,
+          "target": "Rep_Proj_ltBVGen"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 310,
+          "target": "_gnatprove_standard.BV32"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 315,
+          "target": "Static_Modular_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 321,
+          "target": "_gnatprove_standard.BV32"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 326,
+          "target": "Rep_Proj_BVGen"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 334,
+          "target": "_gnatprove_standard.BV16"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 339,
+          "target": "Static_Modular_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 347,
+          "target": "_gnatprove_standard.BV16"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 352,
+          "target": "Rep_Proj_ltBVGen"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 361,
+          "target": "_gnatprove_standard.BV16"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 366,
+          "target": "Static_Modular_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 372,
+          "target": "_gnatprove_standard.BV16"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 377,
+          "target": "Rep_Proj_BVGen"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 385,
+          "target": "_gnatprove_standard.BV8"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 390,
+          "target": "Static_Modular_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 398,
+          "target": "_gnatprove_standard.BV8"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 403,
+          "target": "Rep_Proj_ltBVGen"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 412,
+          "target": "_gnatprove_standard.BV8"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 417,
+          "target": "Static_Modular_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 423,
+          "target": "_gnatprove_standard.BV8"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 428,
+          "target": "Rep_Proj_BVGen"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 453,
+          "target": "Discrete_Base"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 473,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 475,
+          "target": "Dynamic_Discrete"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 487,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 494,
+          "target": "int.EuclideanDivision"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 569,
+          "target": "int.Int"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 570,
+          "target": "real.RealInfix"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 571,
+          "target": "real.FromInt"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 572,
+          "target": "_gnatprove_standard.Main"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 573,
+          "target": "_gnatprove_standard.Int_Division"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 574,
+          "target": "Fixed_Point_Shared"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 700,
+          "target": "int.Int"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 701,
+          "target": "_gnatprove_standard.Main"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 737,
+          "target": "int.Int"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 738,
+          "target": "_gnatprove_standard.Main"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 739,
+          "target": "Fixed_Point_Shared"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 861,
+          "target": "_gnatprove_standard.Main"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 862,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 864,
+          "target": "Fixed_Point_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 889,
+          "target": "_gnatprove_standard.Main"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 890,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 892,
+          "target": "Rep_Proj_Base"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 906,
+          "target": "_gnatprove_standard.Main"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 907,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 919,
+          "target": "Fixed_Point_Base"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 940,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 941,
+          "target": "int.EuclideanDivision"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 942,
+          "target": "real.RealInfix"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 943,
+          "target": "real.FromInt"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 944,
+          "target": "_gnatprove_standard.Main"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 945,
+          "target": "_gnatprove_standard.Int_Division"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 946,
+          "target": "Fixed_Point_Shared"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 1069,
+          "target": "_gnatprove_standard.Main"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1102,
+          "target": "Floating_Point_Base"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1126,
+          "target": "ieee_float.Float32"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1128,
+          "target": "Static_Floating_Point"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1136,
+          "target": "ieee_float.Float32"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1138,
+          "target": "Rep_Proj_Base"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1147,
+          "target": "ieee_float.Float64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1149,
+          "target": "Static_Floating_Point"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1157,
+          "target": "ieee_float.Float64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1159,
+          "target": "Rep_Proj_Base"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1168,
+          "target": "ieee_float.Float80"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1170,
+          "target": "Static_Floating_Point"
+        },
+        {
+          "file": "ieee_float",
+          "kind": "use",
+          "line": 1178,
+          "target": "ieee_float.Float80"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1180,
+          "target": "Rep_Proj_Base"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1191,
+          "target": "Floating_Point_Base"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 1274,
+          "target": "int.Int"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "clone",
+          "line": 1282,
+          "target": "_gnatprove_standard.Array__Index"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 1393,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1395,
+          "target": "Array_Comparison_Axiom"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 1402,
+          "target": "bv.BV8"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1404,
+          "target": "Array_Comparison_Axiom"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 1411,
+          "target": "bv.BV16"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1413,
+          "target": "Array_Comparison_Axiom"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 1420,
+          "target": "bv.BV32"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1422,
+          "target": "Array_Comparison_Axiom"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 1429,
+          "target": "bv.BV64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1431,
+          "target": "Array_Comparison_Axiom"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 1438,
+          "target": "bv.BV128"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1440,
+          "target": "Array_Comparison_Axiom"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "clone",
+          "line": 1450,
+          "target": "_gnatprove_standard.Array__Index"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 1471,
+          "target": "bool.Bool"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "clone",
+          "line": 1481,
+          "target": "_gnatprove_standard.Array__Index"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1494,
+          "target": "Array_Generic_Op_Axiom"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1510,
+          "target": "Array_Generic_Op_Axiom"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1526,
+          "target": "Array_Generic_Op_Axiom"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 1565,
+          "target": "bool.Bool"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1569,
+          "target": "Array_Logical_Op_Generic_Axioms"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 1576,
+          "target": "int.Int"
+        },
+        {
+          "file": "_gnatprove_standard",
+          "kind": "use",
+          "line": 1577,
+          "target": "_gnatprove_standard.Boolean"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1586,
+          "target": "Array_Logical_Op_Generic_Axioms"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1617,
+          "target": "Index_Type"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 1634,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1734,
+          "target": "Index_Type"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1742,
+          "target": "Index_Type"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 1765,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1896,
+          "target": "Index_Type"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1904,
+          "target": "Index_Type"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1912,
+          "target": "Index_Type"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 1938,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2102,
+          "target": "Index_Type"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2110,
+          "target": "Index_Type"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2118,
+          "target": "Index_Type"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 2126,
+          "target": "Index_Type"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 2157,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 2308,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 2372,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 2440,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 2512,
+          "target": "int.Int"
+        }
+      ],
+      "external_files": [
+        "_gnatprove_standard",
+        "bool",
+        "bv",
+        "ieee_float",
+        "int",
+        "real"
+      ],
+      "modules": [
+        "Rep_Proj_Base",
+        "Discrete_Base",
+        "Static_Discrete_Base",
+        "Static_Discrete",
+        "Rep_Proj_Int",
+        "Static_Modular_Base",
+        "Rep_Proj_ltBVGen",
+        "Rep_Proj_BVGen",
+        "Static_Modular_lt128",
+        "Rep_Proj_ltBV128",
+        "Static_Modular_128",
+        "Rep_Proj_BV128",
+        "Static_Modular_lt64",
+        "Rep_Proj_ltBV64",
+        "Static_Modular_64",
+        "Rep_Proj_BV64",
+        "Static_Modular_lt32",
+        "Rep_Proj_ltBV32",
+        "Static_Modular_32",
+        "Rep_Proj_BV32",
+        "Static_Modular_lt16",
+        "Rep_Proj_ltBV16",
+        "Static_Modular_16",
+        "Rep_Proj_BV16",
+        "Static_Modular_lt8",
+        "Rep_Proj_ltBV8",
+        "Static_Modular_8",
+        "Rep_Proj_BV8",
+        "Dynamic_Discrete",
+        "Dynamic_Modular",
+        "Fixed_Point_Shared",
+        "Fixed_Point_Rep",
+        "Fixed_Point_Base",
+        "Fixed_Point_Mult_Div",
+        "Static_Fixed_Point",
+        "Rep_Proj_Fixed",
+        "Dynamic_Fixed_Point",
+        "Real_time__model",
+        "Floating_Point_Base",
+        "Static_Floating_Point",
+        "Static_Float32",
+        "Rep_Proj_Float32",
+        "Static_Float64",
+        "Rep_Proj_Float64",
+        "Static_Float80",
+        "Rep_Proj_Float80",
+        "Dynamic_Floating_Point",
+        "Index_Type",
+        "Array_Comparison_Axiom",
+        "Array_Int_Rep_Comparison_Axiom",
+        "Array_BV8_Rep_Comparison_Axiom",
+        "Array_BV16_Rep_Comparison_Axiom",
+        "Array_BV32_Rep_Comparison_Axiom",
+        "Array_BV64_Rep_Comparison_Axiom",
+        "Array_BV128_Rep_Comparison_Axiom",
+        "Array_Generic_Op_Axiom",
+        "Array_Logical_Op_Generic_Axioms",
+        "Standard_Array_Logical_Op_Axioms",
+        "Subtype_Array_Logical_Op_Axioms",
+        "Unconstr_Array",
+        "Unconstr_Array_2",
+        "Unconstr_Array_3",
+        "Unconstr_Array_4",
+        "Constr_Array",
+        "Constr_Array_2",
+        "Constr_Array_3",
+        "Constr_Array_4",
+        "Incomplete_type",
+        "Pledge"
+      ],
+      "tokens": 12044
+    },
+    "algebra": {
+      "directives": [
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 28,
+          "target": "Assoc"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 29,
+          "target": "Comm"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 38,
+          "target": "Assoc"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 49,
+          "target": "Monoid"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 50,
+          "target": "Comm"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 59,
+          "target": "Monoid"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 74,
+          "target": "Group"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 75,
+          "target": "Comm"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 90,
+          "target": "CommutativeGroup"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 96,
+          "target": "Assoc"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 107,
+          "target": "Ring"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 108,
+          "target": "Comm"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 117,
+          "target": "CommutativeRing"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 128,
+          "target": "UnitaryCommutativeRing"
+        },
+        {
+          "file": "relations",
+          "kind": "clone",
+          "line": 132,
+          "target": "relations.TotalOrder"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 150,
+          "target": "UnitaryCommutativeRing"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 192,
+          "target": "Field"
+        },
+        {
+          "file": "relations",
+          "kind": "clone",
+          "line": 196,
+          "target": "relations.TotalOrder"
+        }
+      ],
+      "external_files": [
+        "relations"
+      ],
+      "modules": [
+        "Assoc",
+        "Comm",
+        "AC",
+        "Monoid",
+        "CommutativeMonoid",
+        "Group",
+        "CommutativeGroup",
+        "Ring",
+        "CommutativeRing",
+        "UnitaryCommutativeRing",
+        "OrderedUnitaryCommutativeRing",
+        "Field",
+        "OrderedField"
+      ],
+      "tokens": 959
+    },
+    "bool": {
+      "directives": [],
+      "external_files": [],
+      "modules": [
+        "Bool",
+        "Ite"
+      ],
+      "tokens": 191
+    },
+    "bv": {
+      "directives": [
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 7,
+          "target": "int.Int"
+        },
+        {
+          "file": "bool",
+          "kind": "use",
+          "line": 178,
+          "target": "bool.Bool"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 179,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 287,
+          "target": "int.EuclideanDivision"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 288,
+          "target": "int.ComputerDivision"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 307,
+          "target": "Pow2int"
+        },
+        {
+          "file": "why3/WellFounded",
+          "kind": "use",
+          "line": 370,
+          "target": "why3.WellFounded.WellFounded"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 610,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 618,
+          "target": "BV_Gen"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 643,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 651,
+          "target": "BV_Gen"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 674,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 682,
+          "target": "BV_Gen"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 705,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 713,
+          "target": "BV_Gen"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 736,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 744,
+          "target": "BV_Gen"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 767,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 775,
+          "target": "BV_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 824,
+          "target": "BV128"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 825,
+          "target": "BV256"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 829,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 840,
+          "target": "BV64"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 841,
+          "target": "BV256"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 845,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 856,
+          "target": "BV32"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 857,
+          "target": "BV256"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 861,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 872,
+          "target": "BV16"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 873,
+          "target": "BV256"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 877,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 888,
+          "target": "BV8"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 889,
+          "target": "BV256"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 893,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 904,
+          "target": "BV64"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 905,
+          "target": "BV128"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 909,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 920,
+          "target": "BV32"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 921,
+          "target": "BV128"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 925,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 936,
+          "target": "BV16"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 937,
+          "target": "BV128"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 941,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 952,
+          "target": "BV8"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 953,
+          "target": "BV128"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 957,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 968,
+          "target": "BV32"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 969,
+          "target": "BV64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 973,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 984,
+          "target": "BV16"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 985,
+          "target": "BV64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 989,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1000,
+          "target": "BV8"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1001,
+          "target": "BV64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1005,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1016,
+          "target": "BV16"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1017,
+          "target": "BV32"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1021,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1032,
+          "target": "BV8"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1033,
+          "target": "BV32"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1037,
+          "target": "BVConverter_Gen"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1048,
+          "target": "BV8"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1049,
+          "target": "BV16"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1053,
+          "target": "BVConverter_Gen"
+        }
+      ],
+      "external_files": [
+        "bool",
+        "int"
+      ],
+      "modules": [
+        "Pow2int",
+        "BV_Gen",
+        "BV256",
+        "BV128",
+        "BV64",
+        "BV32",
+        "BV16",
+        "BV8",
+        "BVConverter_Gen",
+        "BVConverter_128_256",
+        "BVConverter_64_256",
+        "BVConverter_32_256",
+        "BVConverter_16_256",
+        "BVConverter_8_256",
+        "BVConverter_64_128",
+        "BVConverter_32_128",
+        "BVConverter_16_128",
+        "BVConverter_8_128",
+        "BVConverter_32_64",
+        "BVConverter_16_64",
+        "BVConverter_8_64",
+        "BVConverter_16_32",
+        "BVConverter_8_32",
+        "BVConverter_8_16"
+      ],
+      "tokens": 5757
+    },
+    "ieee_float": {
+      "directives": [
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 36,
+          "target": "int.Int"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 37,
+          "target": "bv.Pow2int"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 38,
+          "target": "real.Abs"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 39,
+          "target": "real.FromInt"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 40,
+          "target": "real.Truncate"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 41,
+          "target": "real.RealInfix"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 42,
+          "target": "RoundingMode"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 539,
+          "target": "real.Square"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 693,
+          "target": "real.Truncate"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 833,
+          "target": "bv.BV8"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 834,
+          "target": "bv.BV16"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 835,
+          "target": "bv.BV32"
+        },
+        {
+          "file": "bv",
+          "kind": "use",
+          "line": 836,
+          "target": "bv.BV64"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 837,
+          "target": "RoundingMode"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 869,
+          "target": "real.RealInfix"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 870,
+          "target": "real.FromInt"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 900,
+          "target": "int.Int"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 901,
+          "target": "real.Real"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 909,
+          "target": "GenericFloat"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 942,
+          "target": "int.Int"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 943,
+          "target": "real.Real"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 951,
+          "target": "GenericFloat"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 984,
+          "target": "int.Int"
+        },
+        {
+          "file": "real",
+          "kind": "use",
+          "line": 985,
+          "target": "real.Real"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 993,
+          "target": "GenericFloat"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1030,
+          "target": "RoundingMode"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1063,
+          "target": "Float32"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1064,
+          "target": "Float64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1066,
+          "target": "FloatConverter"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1081,
+          "target": "Float32"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1082,
+          "target": "Float80"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1084,
+          "target": "FloatConverter"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1099,
+          "target": "Float64"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1100,
+          "target": "Float80"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1102,
+          "target": "FloatConverter"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1116,
+          "target": "Float32"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1118,
+          "target": "Float_BV_Converter"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1133,
+          "target": "Float64"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1135,
+          "target": "Float_BV_Converter"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 1150,
+          "target": "Float80"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 1152,
+          "target": "Float_BV_Converter"
+        }
+      ],
+      "external_files": [
+        "bv",
+        "int",
+        "real"
+      ],
+      "modules": [
+        "RoundingMode",
+        "GenericFloat",
+        "Float_BV_Converter",
+        "Float32",
+        "Float64",
+        "Float80",
+        "FloatConverter",
+        "Float32_64_Converter",
+        "Float32_80_Converter",
+        "Float64_80_Converter",
+        "Float32_BV_Converter",
+        "Float64_BV_Converter",
+        "Float80_BV_Converter"
+      ],
+      "tokens": 7704
+    },
+    "int": {
+      "directives": [
+        {
+          "file": "algebra",
+          "kind": "clone",
+          "line": 28,
+          "target": "algebra.OrderedUnitaryCommutativeRing"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 56,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 76,
+          "target": "Int"
+        },
+        {
+          "file": "relations",
+          "kind": "clone",
+          "line": 78,
+          "target": "relations.MinMax"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 95,
+          "target": "Int"
+        },
+        {
+          "file": "relations",
+          "kind": "clone",
+          "line": 99,
+          "target": "relations.Lex"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 116,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 117,
+          "target": "Abs"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 195,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 212,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 213,
+          "target": "Abs"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 300,
+          "target": "Int"
+        },
+        {
+          "file": "algebra",
+          "kind": "clone",
+          "line": 306,
+          "target": "algebra.Monoid"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 351,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 356,
+          "target": "Exponentiation"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 377,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 446,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 494,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 551,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 564,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 582,
+          "target": "Int"
+        },
+        {
+          "file": "relations",
+          "kind": "clone",
+          "line": 615,
+          "target": "relations.TotalOrder"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 630,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 644,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 663,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 678,
+          "target": "Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 690,
+          "target": "Int"
+        },
+        {
+          "file": "relations",
+          "kind": "use",
+          "line": 691,
+          "target": "relations.WellFounded"
+        }
+      ],
+      "external_files": [
+        "algebra",
+        "relations"
+      ],
+      "modules": [
+        "Int",
+        "Abs",
+        "MinMax",
+        "Lex2",
+        "EuclideanDivision",
+        "Div2",
+        "ComputerDivision",
+        "Exponentiation",
+        "Power",
+        "NumOf",
+        "Sum",
+        "SumParam",
+        "Fact",
+        "Iter",
+        "IntInf",
+        "SimpleInduction",
+        "Induction",
+        "HOInduction",
+        "Fibonacci",
+        "WFltof"
+      ],
+      "tokens": 4572
+    },
+    "number": {
+      "directives": [
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 9,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 28,
+          "target": "int.ComputerDivision"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 39,
+          "target": "int.Int"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 40,
+          "target": "int.ComputerDivision"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 78,
+          "target": "int.Abs"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 83,
+          "target": "int.EuclideanDivision"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 90,
+          "target": "int.ComputerDivision"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 97,
+          "target": "Parity"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 108,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 109,
+          "target": "Divisibility"
+        },
+        {
+          "file": "algebra",
+          "kind": "clone",
+          "line": 126,
+          "target": "algebra.AC"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 135,
+          "target": "int.ComputerDivision"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 141,
+          "target": "int.EuclideanDivision"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 155,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 156,
+          "target": "Divisibility"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 174,
+          "target": "Parity"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 186,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 187,
+          "target": "Divisibility"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 188,
+          "target": "Gcd"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 192,
+          "target": "Prime"
+        }
+      ],
+      "external_files": [
+        "algebra",
+        "int"
+      ],
+      "modules": [
+        "Parity",
+        "Divisibility",
+        "Gcd",
+        "Prime",
+        "Coprime"
+      ],
+      "tokens": 1528
+    },
+    "real": {
+      "directives": [
+        {
+          "file": "algebra",
+          "kind": "clone",
+          "line": 27,
+          "target": "algebra.OrderedField"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 67,
+          "target": "Real"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 92,
+          "target": "Real"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 117,
+          "target": "Real"
+        },
+        {
+          "file": "relations",
+          "kind": "clone",
+          "line": 118,
+          "target": "relations.MinMax"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 126,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 127,
+          "target": "Real"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 154,
+          "target": "Real"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 155,
+          "target": "FromInt"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 211,
+          "target": "Real"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 239,
+          "target": "Real"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 273,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 274,
+          "target": "RealInfix"
+        },
+        {
+          "file": "int",
+          "kind": "clone",
+          "line": 276,
+          "target": "int.Exponentiation"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 289,
+          "target": "Real"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 290,
+          "target": "ExpLog"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 315,
+          "target": "Square"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 323,
+          "target": "FromInt"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 324,
+          "target": "int.Power"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 340,
+          "target": "Real"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 341,
+          "target": "Square"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 342,
+          "target": "Abs"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 404,
+          "target": "Real"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 405,
+          "target": "Square"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 406,
+          "target": "ExpLog"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 430,
+          "target": "Real"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 431,
+          "target": "Square"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 432,
+          "target": "Trigonometry"
+        },
+        {
+          "file": "int",
+          "kind": "use",
+          "line": 446,
+          "target": "int.Int"
+        },
+        {
+          "file": null,
+          "kind": "use",
+          "line": 447,
+          "target": "RealInfix"
+        }
+      ],
+      "external_files": [
+        "algebra",
+        "int",
+        "relations"
+      ],
+      "modules": [
+        "Real",
+        "RealInfix",
+        "Abs",
+        "MinMax",
+        "FromInt",
+        "Truncate",
+        "Square",
+        "ExpLog",
+        "PowerInt",
+        "PowerReal",
+        "Trigonometry",
+        "Hyperbolic",
+        "Polar",
+        "Sum"
+      ],
+      "tokens": 2826
+    },
+    "relations": {
+      "directives": [
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 12,
+          "target": "EndoRelation"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 17,
+          "target": "EndoRelation"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 22,
+          "target": "EndoRelation"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 27,
+          "target": "EndoRelation"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 32,
+          "target": "EndoRelation"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 37,
+          "target": "EndoRelation"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 42,
+          "target": "EndoRelation"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 47,
+          "target": "Reflexive"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 48,
+          "target": "Transitive"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 52,
+          "target": "PreOrder"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 53,
+          "target": "Symmetric"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 57,
+          "target": "PreOrder"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 58,
+          "target": "Total"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 62,
+          "target": "PreOrder"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 63,
+          "target": "Antisymmetric"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 68,
+          "target": "PartialOrder"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 69,
+          "target": "Total"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 73,
+          "target": "Transitive"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 74,
+          "target": "Asymmetric"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 78,
+          "target": "PartialStrictOrder"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 83,
+          "target": "EndoRelation"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 91,
+          "target": "EndoRelation"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 99,
+          "target": "EndoRelation"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 110,
+          "target": "EndoRelation"
+        },
+        {
+          "file": null,
+          "kind": "clone",
+          "line": 145,
+          "target": "TotalOrder"
+        },
+        {
+          "file": "why3/WellFounded",
+          "kind": "use",
+          "line": 165,
+          "target": "why3.WellFounded.WellFounded"
+        }
+      ],
+      "external_files": [],
+      "modules": [
+        "EndoRelation",
+        "Reflexive",
+        "Irreflexive",
+        "Transitive",
+        "Symmetric",
+        "Asymmetric",
+        "Antisymmetric",
+        "Total",
+        "PreOrder",
+        "Equivalence",
+        "TotalPreOrder",
+        "PartialOrder",
+        "TotalOrder",
+        "PartialStrictOrder",
+        "TotalStrictOrder",
+        "Inverse",
+        "ReflClosure",
+        "TransClosure",
+        "ReflTransClosure",
+        "Lex",
+        "MinMax",
+        "WellFounded"
+      ],
+      "tokens": 844
+    }
+  },
+  "library_files": 11,
+  "library_modules": 252,
+  "library_use_directives": 304,
+  "native_backend_processes": 5,
+  "scope": "exact pretyping declaration counts and whole-file import closure; not typed allocations"
+}
