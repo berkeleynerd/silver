@@ -1539,7 +1539,7 @@ All 89 aggregate offline cases pass in 3.860516321 seconds; default generation
 takes 2.996767486 seconds. Six new negative cases reject erased helpers,
 gimplifications or counter increments, added emission, zero substitution for
 an unknown allocation total, and premature imported-frontier closure.
-The aggregate checks 108 repository inputs and 290 directly checked file
+The aggregate checks 108 repository inputs and 290 directly checked
 files, with overlapping nested inventories still reported separately.
 All five source-family conditions remain unknown and whole-pipeline capacity
 remains false. The [independent review](../reviews/review-cold-helper-attachment-5f9641d1a0.md)
@@ -1709,7 +1709,7 @@ source-count and pool/graph-bound mismatches, changed complete source manifests
 and actual files, altered name/line envelopes and premature whole/global/collector
 closure; they also check the last passing/first failing signed symbol endpoint.
 The aggregate now checks 137 repository pins and 300 unique directly checked
-source files; its 48 counter files overlap that population and nested inventories
+files; its 48 counter files overlap that population and nested inventories
 remain separately reported. The earlier successful 109-case aggregate and
 134-case counter checks are reused as historical evidence. The affected
 aggregate check was rerun because the attachment code and corrected leaf changed.
