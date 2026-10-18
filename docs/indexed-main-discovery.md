@@ -95,11 +95,11 @@ every validation lane; final evidence/documentation edits do not change them.
 
 | Check | Actual workspace and result |
 | --- | --- |
-| Complete native audit `20261018T085735-f1f2c112a63d` | `tmp/bounded-mutable-integers-native`, 4 workers, 315.614 s: 75 units, 1,000 entities, 1,295 flow checks and 13,860 proof checks (15,155 total); complete report/provenance audit passed. Original-path sessions and solver cache were retained. |
-| Complete cached Lean `20261018T085735-f1237f05d1fa` | `tmp/review-b79-b1-lean`, 4 Lake workers and 4 threads per process, 35.541 s: 466 modules and 89,369 declarations; fresh audit passed with only `propext`, `Classical.choice` and `Quot.sound`. `--provenance` records shared, workspace and compiled-object hashes. |
-| Full suite `20261018T085735-b252c88fe515` | `tmp/indexed-main-discovery`, 4 reserved workers, 473 methods in 1,399.748 s: 466 passed, 7 skipped because this fresh native installation has no Lean executable. All seven tool-dependent methods passed in the identical frozen Lean lane in the two runs below. |
-| Native Lean module/certificate tests `20261018T090210-375df9aed269` | The same frozen Lean lane: all 3 methods passed in 82.655 s. |
-| Native Lean evidence tests `20261018T090350-32ee26af82c4` | The same frozen Lean lane: all 4 methods passed in 173.087 s. |
+| Complete native audit `20261018T085735-f1f2c112a63d` | `tmp/bounded-mutable-integers-native`, 4 workers, 315.614 s managed duration: 75 units, 1,000 entities, 1,295 flow checks and 13,860 proof checks (15,155 total); complete report/provenance audit passed. Original-path sessions and solver cache were retained. |
+| Complete cached Lean `20261018T085735-f1237f05d1fa` | `tmp/review-b79-b1-lean`, 4 Lake workers and 4 threads per process, 34.262 s managed duration (35.541 s outer command): 466 modules and 89,369 declarations; fresh audit passed with only `propext`, `Classical.choice` and `Quot.sound`. `--provenance` records shared, workspace and compiled-object hashes. |
+| Full suite `20261018T085735-b252c88fe515` | `tmp/indexed-main-discovery`, 4 reserved workers, 473 methods, 1,399.748 s reported by unittest: 466 passed, 7 skipped because this fresh native installation has no Lean executable. All seven tool-dependent methods passed in the identical frozen Lean lane in the two runs below. |
+| Native Lean module/certificate tests `20261018T090210-375df9aed269` | The same frozen Lean lane: all 3 methods passed; 82.655 s reported by unittest. |
+| Native Lean evidence tests `20261018T090350-32ee26af82c4` | The same frozen Lean lane: all 4 methods passed; 173.087 s reported by unittest. |
 
 The native lane began at `1023037fcb` with three prior tracked modifications.
 Their exact bytes already matched the stable implementation. Its HEAD, status,
