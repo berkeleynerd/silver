@@ -61,7 +61,7 @@ class OutputIntegrityTests(unittest.TestCase):
         # literal-only output whose Main checks simplify away. Retain its
         # Main/Put_Line entities and approved effects dependency.
         main = output_call_report()
-        for name, data in (("main.spark", main), ("silver_io.spark", runtime_report()),
+        for name, data in (("main~1.spark", main), ("silver_io.spark", runtime_report()),
                            ("silver_output_libc.spark", runtime_report(True)),
                            ("silver_arguments.spark", argument_report()),
                            ("silver_runtime.spark", argument_report(True))):
@@ -96,7 +96,7 @@ class OutputIntegrityTests(unittest.TestCase):
                 (root / "proof_invoked").touch()
                 target = workspace / "obj/gnatprove"
                 target.mkdir(parents=True)
-                for name in ("main.spark", "silver_io.spark", "silver_output_libc.spark", "silver_arguments.spark", "silver_runtime.spark"):
+                for name in ("main~1.spark", "silver_io.spark", "silver_output_libc.spark", "silver_arguments.spark", "silver_runtime.spark"):
                     if name != scenario.get("missing"):
                         shutil.copyfile(root / "reports" / name, target / name)
                 if scenario.get("rejected"):
@@ -264,7 +264,7 @@ class OutputIntegrityTests(unittest.TestCase):
         self.assertTrue((self.sandbox / "run_invoked").exists())
 
     def test_application_report_capacity_accepts_exact_bound_without_truncation(self) -> None:
-        fixture = self.fixtures / "main.spark"
+        fixture = self.fixtures / "main~1.spark"
         original = fixture.read_bytes()
         self.addCleanup(fixture.write_bytes, original)
         maximum = original + b" " * (16_777_216 - len(original))
@@ -278,13 +278,13 @@ class OutputIntegrityTests(unittest.TestCase):
         # Exercise the real report readers for Main and selected runtime units.
         # Only external proof/build tools are fixtures. The opaque loser text
         # exceeds both the application and runtime audit-storage bounds.
-        for name in ("main.spark", "silver_io.spark", "silver_arguments.spark"):
+        for name in ("main~1.spark", "silver_io.spark", "silver_arguments.spark"):
             with self.subTest(report=name):
                 fixture = self.fixtures / name
                 original = fixture.read_bytes()
                 try:
                     data = json.loads(original)
-                    if name == "main.spark":
+                    if name == "main~1.spark":
                         data["proof"] = main_report(1)["proof"]
                     data["proof"][0]["check_tree"] = [{"proof_attempts": {
                         "Z3": {"result": 'Failure\\\"[]{}\n' + "x" * 17_000_000}}}]
@@ -298,7 +298,7 @@ class OutputIntegrityTests(unittest.TestCase):
                     fixture.write_bytes(original)
 
     def test_malformed_opaque_proof_tree_stops_before_build(self) -> None:
-        fixture = self.fixtures / "main.spark"
+        fixture = self.fixtures / "main~1.spark"
         original = fixture.read_bytes()
         self.addCleanup(fixture.write_bytes, original)
         data = json.loads(original)
@@ -313,7 +313,7 @@ class OutputIntegrityTests(unittest.TestCase):
 
     def test_dense_review_construction_accepts_maximal_credit_report(self) -> None:
         from tests.test_capacity import dense_report, dense_source
-        fixture = self.fixtures / "main.spark"
+        fixture = self.fixtures / "main~1.spark"
         original = fixture.read_bytes()
         self.addCleanup(fixture.write_bytes, original)
         self.addCleanup(self.source.write_bytes, SOURCE)
@@ -326,7 +326,7 @@ class OutputIntegrityTests(unittest.TestCase):
         workspace = Path((self.sandbox / "workspace").read_text())
         self.addCleanup(shutil.rmtree, workspace)
         self.assertEqual((workspace / "main.adb").read_bytes(), dense_source())
-        self.assertEqual((workspace / "obj/gnatprove/main.spark").read_bytes(), raw)
+        self.assertEqual((workspace / "obj/gnatprove/main~1.spark").read_bytes(), raw)
         self.assertTrue((self.sandbox / "build_invoked").exists())
 
     def test_missing_runtime_report_stops_before_build(self) -> None:

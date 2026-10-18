@@ -384,7 +384,7 @@ class SilverIntegrationTests(unittest.TestCase):
         reports = list(workspace.rglob("gnatprove.sarif"))
         self.assertEqual(len(reports), 1)
         from scripts.check_evidence import audit_reports
-        statistics = audit_reports(reports[0].parent, {snapshots[0].stem})
+        statistics = audit_reports(reports[0].parent, {snapshots[0].stem}, indexed_main=True)
         self.assertEqual(statistics["units"], 1)
         self.assertEqual(statistics["proof_checks"], 0)
         shutil.rmtree(workspace)
@@ -485,7 +485,9 @@ class SilverIntegrationTests(unittest.TestCase):
                     report["pragma_assume"] = [1]
                 if mode == "warning":
                     report["warn_error"] = [{"severity": "warning"}]
-                target = project.parent / "obj/gnatprove/main.spark"
+                target = project.parent / "obj/gnatprove/main~1.spark"
+                if mode == "unindexed_report":
+                    target = target.with_name("main.spark")
                 target.parent.mkdir(parents=True)
                 if mode in ("large_report", "maximum_report", "oversized_report", "large_rejected"):
                     # Non-whitespace padding BEFORE the recognized fields
@@ -520,7 +522,7 @@ class SilverIntegrationTests(unittest.TestCase):
             '''))
         alr.chmod(0o755)
         self.source.write_bytes(CANONICAL)
-        for mode in ("tool_failure", "missing_report", "flow_only", "outside_spark", "extra_entity",
+        for mode in ("tool_failure", "missing_report", "unindexed_report", "flow_only", "outside_spark", "extra_entity",
                      "unproved", "nonempty_flow", "skipped_flow", "stopped", "skipped", "assumption", "warning",
                      "source_changed_during_proof", "build_failure", "source_changed_during_build",
                      "success", "run_failure", "large_report", "maximum_report", "oversized_report", "large_rejected",

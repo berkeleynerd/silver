@@ -94,9 +94,9 @@ class LiteralOutputTests(unittest.TestCase):
             self.assertEqual((workspace / name).read_bytes(), (ROOT / "src" / name).read_bytes())
         statistics = audit_reports(workspace / "obj/gnatprove",
                                    {"main", "silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"},
-                                   {"silver_output_libc", "silver_runtime"})
+                                   {"silver_output_libc", "silver_runtime"}, indexed_main=True)
         self.assertGreater(statistics["proof_checks"], 0)
-        main = json.loads((workspace / "obj/gnatprove/main.spark").read_text())
+        main = json.loads((workspace / "obj/gnatprove/main~1.spark").read_text())
         self.assertEqual(main["flow"], [])
         self.assertEqual(main["proof"], [])
         return executable

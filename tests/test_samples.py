@@ -108,7 +108,8 @@ class SupportedSampleTests(unittest.TestCase):
                                            {"silver_output_libc", "silver_runtime"} if output else set(),
                                            application_kind=("selected" if assignment else "argument")
                                            if "argument_context" in sample["capabilities"]
-                                           else ("assigned" if assignment else "static") if output else None)
+                                           else ("assigned" if assignment else "static") if output else None,
+                                           indexed_main=True)
                 self.assertEqual(statistics["units"], len(units))
                 if output:
                     self.assertGreater(statistics["proof_checks"], 0)
@@ -164,7 +165,7 @@ class SupportedSampleTests(unittest.TestCase):
                                        {snapshots[0].stem, "silver_io", "silver_output_libc",
                                         "silver_arguments", "silver_runtime"},
                                        {"silver_output_libc", "silver_runtime"},
-                                       application_kind="argument")
+                                       application_kind="argument", indexed_main=True)
             self.assertEqual(statistics["units"], 5)
             self.assertGreater(statistics["proof_checks"], 0)
             for arguments, expected in (([], b"\n"), (["x" * 64], b"x" * 4096 + b"\n")):

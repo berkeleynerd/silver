@@ -2,9 +2,10 @@
 
 2026-10-18, blocker [#123](https://github.com/berkeleynerd/silver/issues/123),
 found during [#119](https://github.com/berkeleynerd/silver/issues/119)'s producer
-orchestration inspection. **The installed pipeline rejects a currently admitted
-null program.** Indexed explicit naming of Main is a successful same-source
-candidate repair; it has not yet been implemented in Silver by this record.
+orchestration inspection. **The pre-repair installed pipeline rejects a currently
+admitted null program.** This record retains the discovery and same-source
+candidate evidence. The [implementation record](../indexed-main-discovery.md)
+tracks the repair and its validation separately.
 
 ## Reproduction and root cause
 
@@ -72,11 +73,12 @@ GPRbuild compiles, binds and links it. Its `bin/main` exits0 with no output.
 The candidate adds `-gnateI1` and produces `main~1.ali` and `main~1.spark`.
 The representation JSON remains `main.adb.json`, and the executable remains
 `bin/main`. The proof report still identifies entity `Main` and source
-`main.adb`. Silver currently reads `main.spark`; implementing the candidate must
-update the exact report path, source correspondence/pins and affected tests
+`main.adb`; the coverage summary uses `main~1`. The pre-repair Silver reads
+`main.spark`; implementing the candidate must update the exact report path,
+applicable source correspondence and affected tests
 together, and verify broader current-language behavior proportionately.
 
-For the [producer descriptor](retained-producer-gpr-descriptor.md), the candidate
+For the [research-branch producer descriptor](https://github.com/berkeleynerd/silver/blob/research/retained-tool-capacity/docs/research/retained-producer-gpr-descriptor.md), the candidate
 phase1 has nine stored A switches, payload sum53, maximum9, with the additional
 eight-byte `-gnateI1`. Its two D dependencies remain Main and System; U/D/X source
 filenames remain `main.adb`/`system.ads`. The previous unindexed descriptor is

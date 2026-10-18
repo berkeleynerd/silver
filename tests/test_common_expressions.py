@@ -43,8 +43,8 @@ class CommonExpressionsTests(unittest.TestCase):
         reports = workspace / 'obj/gnatprove'
         audit_reports(reports, {'main', 'silver_io', 'silver_output_libc',
                                 'silver_arguments', 'silver_runtime'},
-                      {'silver_output_libc', 'silver_runtime'}, application_kind=kind)
-        return executable, json.loads((reports / 'main.spark').read_text())
+                      {'silver_output_libc', 'silver_runtime'}, application_kind=kind, indexed_main=True)
+        return executable, json.loads((reports / 'main~1.spark').read_text())
 
     def run_program(self, executable: Path, expected: bytes,
                     arguments: tuple[bytes, ...] = (), status: int = 0) -> None:

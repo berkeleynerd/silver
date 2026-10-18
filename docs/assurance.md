@@ -643,6 +643,13 @@ states the remaining executable-selection, filesystem and process assumptions.
 These distinct arguments do not add an unproved model axiom or a whole-CLI
 correspondence claim.
 
+The [indexed Main repair](indexed-main-discovery.md) uses admission's existing
+one-unit property to select Main explicitly in the generated project. The
+driver reads `main~1.spark`; its report policies continue to require the entity
+and source identities `Main` and `main.adb`. This project configuration and
+artifact selection belong to the native driver guards and reviewed tool
+ordering, not an embedded Lean source certificate for the complete CLI.
+
 ## Selected library sources and evidence
 
 Every output project selects the unchanged application `main.adb` and exactly
