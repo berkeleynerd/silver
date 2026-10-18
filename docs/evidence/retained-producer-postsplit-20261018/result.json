@@ -1,0 +1,14 @@
+{
+  "conversion_example": {
+    "before": 109,
+    "after": 305,
+    "lexical_envelope": 313
+  },
+  "nested_marked_example": {
+    "before": 3,
+    "after": 7,
+    "unfolding_envelope": 7
+  },
+  "native_executions": 0,
+  "scope": "Identity/arithmetic fixtures; semantic argument is source-reviewed, source-to-VC/first-split join remains open"
+}

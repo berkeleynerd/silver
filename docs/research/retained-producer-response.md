@@ -41,7 +41,9 @@ duplicate insertion is forbidden; the 65-kind domain gives only
 [final-split transfer](retained-producer-splitting.md) proves
 `G <= sum L(h_j) <= sum term_occurrences(h_j)` for goals after the first split,
 marked unfolding and conversion rewrite. Its preceding source-to-`h_j` join
-remains open.
+is refined by the [lexical occurrence transfer](retained-producer-postsplit.md):
+the two middle transformations are bounded by `E1` on each first-split goal.
+The source-to-VC and first-split joins remain open.
 
 With the three selected real provers and the synthetic Trivial attempt, the
 proof-attempt map has at most four entries per leaf: `A <= 4G`. Final statistics

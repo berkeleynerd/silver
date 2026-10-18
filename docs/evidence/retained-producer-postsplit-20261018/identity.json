@@ -1,0 +1,22 @@
+{
+  "repository": "AdaCore/why3",
+  "revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "source_archive_sha256": "4f56faf31f0988eb48b0e8d626f0aa078aa8c59970281dad758b10f5cc15e3f1",
+  "files": [
+    {
+      "path": "src/core/term.ml",
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343",
+      "bytes": 61841
+    },
+    {
+      "path": "src/transform/gnat_split_conj.ml",
+      "sha256": "dcbe7341850e8b50d53c9ede7fbc61bb331ebf57d70720363bf741856ef180ee",
+      "bytes": 11171
+    },
+    {
+      "path": "src/transform/gnat_rewrite.ml",
+      "sha256": "f57a18e137321395bf114b5a6fbd0ddb92e08af56a6f1b8b002592f1a0abbee5",
+      "bytes": 4283
+    }
+  ]
+}
