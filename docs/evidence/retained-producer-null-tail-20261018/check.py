@@ -68,6 +68,38 @@ def main():
     has('textio', 'if File.Col /= 1 then New_Line (File);')
     has('textio', "File.Col := File.Col + Item'Length;")
     has('textio_spec', 'Page_Length : Count := 0;')
+    has('json_spec', 'type JSON_Value is new Ada.Finalization.Controlled with record')
+    has('json', 'Read_States : Read_State_Array_Access := new Read_State_Array (1 .. 32);')
+    has('gnatcoll_atomic', 'subtype Atomic_Counter is System.Atomic_Counters.Atomic_Unsigned;')
+    has('atomic_spec', 'type Atomic_Unsigned is mod 2 ** 32 with Default_Value => 0, Atomic;')
+    has('xstrings', 'New_Size : constant String_Size := Growth_Strategy (0, Size);')
+    has('xstrings', 'String_Size\'Max (Current * 3 / 2, Min_Size);')
+    has('unbounded', 'Growth_Factor : constant := 2;')
+    has('unbounded', 'DR := Allocate (DL, DL / Growth_Factor);')
+    has('unbounded', '((Static_Size + Required_Length + Reserved_Length - 1) / Min_Mul_Alloc + 2) * Min_Mul_Alloc - Static_Size;')
+    has('unbounded_spec', 'type Shared_String (Max_Length : Natural) is limited record')
+    has('target_types', 'return BIGGEST_ALIGNMENT / BITS_PER_UNIT;')
+    has('target_types', 'return get_target_maximum_default_alignment ();')
+    has('x86_target', '(TARGET_IAMCU ? 32 : (TARGET_AVX512F')
+    has('x86_target', '? 512 : (TARGET_AVX ? 256 : 128)))')
+    has('graphs_spec', 'type Vertex_Id is new Natural;')
+    has('graphs', 'Stack.Append (V); Will_Visit (V) := True;')
+    has('graphs', "(Parent => Current.Child, Child => W));")
+    has('graphs', 'subtype V_To_V is Vertex_To_Vertex_T (0 .. G.Vertices.Last_Index);')
+    has('graphs', 'Size (V) := Size (V) + Size (W);')
+    has('graphs', 'Size (Child (S)) := Size (S);')
+    has('graphs', 'Link (Parent (W), W);')
+    has('cfg', 'Ctx.Unwind_Lengths.Append (Ctx.Unwind_Actions.Length);')
+    has('cfg', 'Move_Connections (CM, Dst => Union_Id (N), Src => Union_Id (Stmts));')
+    has('cfg', 'Add_Vertex (FA, Null_Attributes, FA.Helper_End_Vertex);')
+    has('cfg', 'Add_Vertex (FA, Null_Attributes, FA.Exceptional_End_Vertex);')
+    has('cfg', 'Add_Vertex (FA, Null_Attributes, FA.End_Vertex);')
+    has('data_graph', 'FA.DDG := FA.CFG.Create;')
+    has('ip_graph', 'FA.TDG := FA.CFG.Create;')
+    has('program_graph', 'FA.PDG := FA.CFG.Create;')
+    has('src/silver_reports.ads', 'Max_Report_Length : constant Positive := 262_144;')
+    has('src/silver_library_reports.ads', 'Max_Report_Length : constant Positive := 16_777_216;')
+    has('src/silver_platform.ads', 'Max_Path_Length : constant Positive := 4_096;')
 
     # Retain all native callers, not merely the four selected semantic calls.
     scan_path = HERE.parent / 'retained-producer-strings-20261018/check.py'
@@ -166,6 +198,53 @@ def main():
         'scope': 'Source specialization and report shape/byte envelope; not whole flow working-storage, JSON refcounts, downstream orchestration or complete tool feasibility.'
     }
     (HERE / 'result.json').write_text(json.dumps(result, indent=2)+'\n')
+    composition_path = PROJECT / identity['composition']['path']
+    assert hashlib.sha256(composition_path.read_bytes()).hexdigest() == identity['composition']['sha256']
+    composition = json.loads(composition_path.read_text())
+    main_nodes = next(c['bound']['A_Main'] for c in composition['cases'] if c['name'] == 'null')
+    assert main_nodes == 39
+    vertex_bound = 2*main_nodes + (6+1+3+1)
+    pending = vertex_bound**2+1
+    storage = {
+        'native_or_proof_executions': 0,
+        'json_producer_live_reference_bound': 2+2+4,
+        'json_parser_live_reference_bound': 32+3+1+2+4,
+        'json_counter_unsigned_bits': 32,
+        'target_maximum_alignment_bytes': 64,
+        'selected_layout_header_envelope_bytes': 64,
+        'source_main_node_bound': main_nodes,
+        'cfg_vertex_bound': vertex_bound,
+        'graph_edge_bound': vertex_bound**2,
+        'ordinary_dfs_pending_bound': vertex_bound,
+        'dominator_dfs_pending_bound': pending,
+        'dominator_dfs_vector_capacity_bound': 1 << (pending-1).bit_length(),
+        'dominator_array_bound': vertex_bound+1,
+        'dominator_size_bound': vertex_bound,
+        'dominator_size_comparison_arithmetic_bound': 2*vertex_bound,
+        'path_evaluations': [],
+        'scope': 'Producer/parser JSON aliases, backing/reader dimensions and local flow graph; global visibility/ALI metadata and whole report executables remain separate.'
+    }
+    for p in [222, 256, 4096]:
+        b = constant+6*p
+        d = max(p,32)
+        read_d = max(2*p,32)
+        capacity = b+b//2+2*storage['target_maximum_alignment_bytes']
+        row = {
+            'filename_bytes': p, 'write_string': b, 'file': b+1,
+            'producer_xstring_capacity': d+4096,
+            'parser_xstring_capacity': 3*read_d//2+4096,
+            'unbounded_string_capacity': capacity,
+            'unbounded_allocation_with_header_64': capacity+64,
+            'text_io_column': b+1,
+            'fits_existing_null_report_recognizer': b+1 <= 262144,
+            'fits_existing_raw_report_buffer': b+1 <= 16777216,
+            'fits_64KiB_file_buffer': b+1 <= 65536,
+        }
+        assert 3*row['parser_xstring_capacity'] < 2**32
+        assert capacity+64 < 2**31
+        assert all(row[k] for k in row if k.startswith('fits_'))
+        storage['path_evaluations'].append(row)
+    (HERE / 'storage.json').write_text(json.dumps(storage, indent=2)+'\n')
     print(json.dumps({k: result[k] for k in ['assumption_pool_find_calls', 'schema', 'pretty_string_bytes', 'emitted_file_bytes', 'emitted_file_bytes_at_P_222']}))
 
 

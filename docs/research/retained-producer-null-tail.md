@@ -168,7 +168,10 @@ all flow algorithm working data, so those caller/storage joins remain explicit.
 No new aggregate RAM admission gate is inferred. The final contiguous String,
 its backing-growth arithmetic, each individual path/string, each typed counter
 and each container capacity require their own representability conditions.
-The null family is a focused whole-pipeline composition test; closing it alone
+The subsequent [storage analysis](retained-producer-null-storage.md) closes
+producer/parser JSON alias and backing dimensions, the current Silver null
+reader and local flow graph dimensions. Whole-unit metadata and report
+executables remain separate. The null family is a focused whole-pipeline composition test; closing it alone
 would not close #119 for output, integer, branch or loop programs.
 
 A focused independent source review confirmed the caller/schema and zero-flow

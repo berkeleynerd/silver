@@ -10,6 +10,7 @@ null recognizer and dispatch source separately. These are the existing
 candidate-source/installed-behavior premises, not new binary attestations.
 `runtime-sources.tar.gz` retains the complete installed GNAT 16.1 runtime
 source files used for Text_IO closing and the following storage analysis.
+`target-sources.tar.gz` retains the pinned GCC target/alignment source files.
 
 Run `python3 docs/evidence/retained-producer-null-tail-20261018/check.py`.
 It checks identities and decisive source fragments, inventories every
@@ -20,6 +21,14 @@ The number/image/filename bounds are stated in the report. The checker does
 not execute or formally verify the external toolchain. Its schema is a bound,
 not a captured native report.
 
-`result.json` keeps remaining flow-storage, JSON-reference and downstream
-orchestration obligations explicit. No source-length or aggregate-RAM gate
-is introduced by this evidence.
+`result.json` retains the original metadata/schema result. The subsequent
+[storage analysis](../../research/retained-producer-null-storage.md) and
+`storage.json` compose producer/parser references, backing arithmetic, current
+null-reader limits and local flow graph dimensions. Whole-unit scope/ALI
+metadata and report-executable orchestration still remain explicit. No
+source-length or aggregate-RAM gate is introduced by this evidence.
+
+The focused peer check corrected the writer's temporary `Element` handles and
+expanded the alignment envelope to cover the target's AVX/AVX512 alternatives.
+The report records the selected runtime layout premise separately from the
+source-derived alignment maximum.

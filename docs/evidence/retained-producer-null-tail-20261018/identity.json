@@ -111,6 +111,36 @@
           "member": "spark-source/src/utils/errout_wrapper.ads",
           "bytes": 10000,
           "sha256": "48cb7c655e97be52d736f0b45a3ebd5458ba17978adee784f3b6a10a6076d72d"
+        },
+        {
+          "name": "graphs",
+          "member": "spark-source/src/flow/graphs.adb",
+          "bytes": 55924,
+          "sha256": "808ab3cb3dfb3bc733a54f1f846d281e628cb9dd66e7d6597ef53f52bcb05b78"
+        },
+        {
+          "name": "graphs_spec",
+          "member": "spark-source/src/flow/graphs.ads",
+          "bytes": 27590,
+          "sha256": "b0cb35a675466d68ca706c14296074c23f95650bbee6bf95259eea01edea2775"
+        },
+        {
+          "name": "data_graph",
+          "member": "spark-source/src/flow/flow-data_dependence_graph.adb",
+          "bytes": 12465,
+          "sha256": "826577cdc5ee4ee3c17aaf43fa2041a4361830f457c61829bcfd5e15ba60e53d"
+        },
+        {
+          "name": "ip_graph",
+          "member": "spark-source/src/flow/flow-interprocedural.adb",
+          "bytes": 19054,
+          "sha256": "f9ab766a9495aec5b8216f5482f42913e2dbf5231f6e9fe56a294317fd0e3b6e"
+        },
+        {
+          "name": "program_graph",
+          "member": "spark-source/src/flow/flow-program_dependence_graph.adb",
+          "bytes": 2260,
+          "sha256": "ca28e033086258536c6f356d2c2c44e175ff27d9ca52468c76eaca8cce1cabfb"
         }
       ]
     },
@@ -135,6 +165,24 @@
           "member": "gnatcoll/core/src/gnatcoll-json-utility.adb",
           "bytes": 8919,
           "sha256": "6217658e47a8a2a0bb6e32eaa24928852d311b8aa129b437db5336b7491ac6ae"
+        },
+        {
+          "name": "xstrings",
+          "member": "gnatcoll/core/src/gnatcoll-strings_impl.adb",
+          "bytes": 73732,
+          "sha256": "e9c95ad6b0899821852a787c586bb772017fabee1a2a852d5edf21f026687e3b"
+        },
+        {
+          "name": "xstrings_spec",
+          "member": "gnatcoll/core/src/gnatcoll-strings_impl.ads",
+          "bytes": 47219,
+          "sha256": "b1c3f51b54c10c154b80c75d9d258fce1629ffaa5a4da154f8e82a5409b8463d"
+        },
+        {
+          "name": "gnatcoll_atomic",
+          "member": "gnatcoll/minimal/src/gnatcoll-atomic.ads",
+          "bytes": 6045,
+          "sha256": "9c0888038655503581202e93ad21321ccf5116d194b891d343575590f1fba712"
         }
       ]
     },
@@ -174,6 +222,25 @@
         }
       ],
       "premise": "Complete installed GNAT 16.1 runtime source; external runtime source-behavior premise, no historical binary/source attestation."
+    },
+    {
+      "path": "docs/evidence/retained-producer-null-tail-20261018/target-sources.tar.gz",
+      "sha256": "f0792b84e31c1f65f7a68e2bb8af96f2b6d23b7729eb0ac6399b7dc18d112be1",
+      "files": [
+        {
+          "name": "x86_target",
+          "member": "gcc-source/gcc/config/i386/i386.h",
+          "bytes": 122286,
+          "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+        },
+        {
+          "name": "target_types",
+          "member": "gcc-source/gcc/ada/gcc-interface/targtyps.cc",
+          "bytes": 6209,
+          "sha256": "c1e3a6c527e331cf56203616ac1bf32058e13c586bf833d5a4a9cb4d1d805b3d"
+        }
+      ],
+      "premise": "Pinned GCC candidate-source revision 6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea; selected x86 source-behavior premise, not installed-binary attestation."
     }
   ],
   "local_files": [
@@ -191,6 +258,40 @@
       "path": "src/silver.adb",
       "bytes": 22230,
       "sha256": "9da875a136d52adc818c1ac6a0b2fb217580cf8ee29c18b823538ff91d9b310b"
+    },
+    {
+      "path": "src/silver_reports.ads",
+      "bytes": 900,
+      "sha256": "6119bc57f8aad423ed3a857a907fac94156cbddfa7020d4d117d3d2a0b6110f6"
+    },
+    {
+      "path": "src/silver_reports.adb",
+      "bytes": 13140,
+      "sha256": "4ab5a17be1e723fb44815df51f6a97df963bad15df6115abce55c8c3fb419e63"
+    },
+    {
+      "path": "src/silver_platform.ads",
+      "bytes": 4332,
+      "sha256": "404a30302d0fd869f73be72f446d32c761eede3523e8bcaf1eb5efc440f8e891"
+    },
+    {
+      "path": "src/silver_platform.adb",
+      "bytes": 8708,
+      "sha256": "8a33d93c63e9b30247173dee1658fb7aad59caacdde1a760195e0ede3a39dc87"
+    },
+    {
+      "path": "src/silver_library_reports.ads",
+      "bytes": 5504,
+      "sha256": "aa2d4d9f44cf6b73c77885a986917887ca782f4c0b2815dfa284180cb3143039"
+    },
+    {
+      "path": "src/silver_report_storage.ads",
+      "bytes": 416,
+      "sha256": "3cf147a4740b35bd421626325324fe79608c0ff741cec434c95a146804658c16"
     }
-  ]
+  ],
+  "composition": {
+    "path": "docs/evidence/retained-producer-composition-20261018/result.json",
+    "sha256": "99cf6651615344eb7335020697a808187b32288ed8cd418b98e96368851d143b"
+  }
 }

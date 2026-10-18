@@ -1,0 +1,59 @@
+{
+  "native_or_proof_executions": 0,
+  "json_producer_live_reference_bound": 8,
+  "json_parser_live_reference_bound": 42,
+  "json_counter_unsigned_bits": 32,
+  "target_maximum_alignment_bytes": 64,
+  "selected_layout_header_envelope_bytes": 64,
+  "source_main_node_bound": 39,
+  "cfg_vertex_bound": 89,
+  "graph_edge_bound": 7921,
+  "ordinary_dfs_pending_bound": 89,
+  "dominator_dfs_pending_bound": 7922,
+  "dominator_dfs_vector_capacity_bound": 8192,
+  "dominator_array_bound": 90,
+  "dominator_size_bound": 89,
+  "dominator_size_comparison_arithmetic_bound": 178,
+  "path_evaluations": [
+    {
+      "filename_bytes": 222,
+      "write_string": 2578,
+      "file": 2579,
+      "producer_xstring_capacity": 4318,
+      "parser_xstring_capacity": 4762,
+      "unbounded_string_capacity": 3995,
+      "unbounded_allocation_with_header_64": 4059,
+      "text_io_column": 2579,
+      "fits_existing_null_report_recognizer": true,
+      "fits_existing_raw_report_buffer": true,
+      "fits_64KiB_file_buffer": true
+    },
+    {
+      "filename_bytes": 256,
+      "write_string": 2782,
+      "file": 2783,
+      "producer_xstring_capacity": 4352,
+      "parser_xstring_capacity": 4864,
+      "unbounded_string_capacity": 4301,
+      "unbounded_allocation_with_header_64": 4365,
+      "text_io_column": 2783,
+      "fits_existing_null_report_recognizer": true,
+      "fits_existing_raw_report_buffer": true,
+      "fits_64KiB_file_buffer": true
+    },
+    {
+      "filename_bytes": 4096,
+      "write_string": 25822,
+      "file": 25823,
+      "producer_xstring_capacity": 8192,
+      "parser_xstring_capacity": 16384,
+      "unbounded_string_capacity": 38861,
+      "unbounded_allocation_with_header_64": 38925,
+      "text_io_column": 25823,
+      "fits_existing_null_report_recognizer": true,
+      "fits_existing_raw_report_buffer": true,
+      "fits_64KiB_file_buffer": true
+    }
+  ],
+  "scope": "Producer/parser JSON aliases, backing/reader dimensions and local flow graph; global visibility/ALI metadata and whole report executables remain separate."
+}
