@@ -175,8 +175,10 @@ the output BFD's actual cumulative `alloc_size` counter by `P+32056`, retaining
 the separate individual-request condition. The two ELF string-table arenas
 have independent 4,051-bucket backbones and bounded entry/sort vectors.
 Their allocations are distinct from that counter and the shared notes arena;
-these results introduce no aggregate memory gate. Remaining GAS parser/relaxation
-and actual argument/path joins stay explicit.
+these results introduce no aggregate memory gate. The [GAS parser/writer inventory](retained-assembler-inner-allocation.md)
+now closes the selected GAS-owned dynamic-request coverage over40 C modules
+and37 headers, without changing the earlier bounds. Separate BFD internals,
+actual argument/path joins and other phases remain explicit.
 
 The [fixed-setup witness assessment](retained-native-expansion.md#fixed-gcc-initialization-witness-boundary-and-counter-requirements)
 identifies a one-time capture boundary before Main translation and
@@ -272,7 +274,11 @@ and source-to-count joins remain explicit. The retained fixed input records
 bound imported dependencies by117 and their groups by11. A separate exact
 version-name inventory supplies51 possible fixed suffixes even through default
 aliases, giving `V <= 51+W` and maximum version index `169+W` for an additional
-generated/synthetic suffix budget W. It does not assume V=0 or supply W yet.
+generated/synthetic suffix budget W. It does not assume V=0. Main and binder
+symbol naming now have no-`@` transfers; the generated warning-section join
+remains explicit. The `.dynstr` lifetime transfer supplies distinct-name,
+unshared-byte and positive-reference bounds, including rollback losses; its
+generated count/length and section-visit inputs remain open.
 
 The selected null DF/IRA/LRA join bounds the persistent reference-order counter
 by 1,785,936, below the **signed** comparison limit, and each iterative
@@ -289,9 +295,9 @@ uses ordinary storage and its Boolean ranges remain inline. The complete
 98-pass generic RTL schedule and eight target insertions add one late
 RTL-info allocation; selected final/CFI/section emission adds five further
 GGC requests. Null gigi helper objects and vectors add11 more, making the
-known subtotal 40,072 after the structural, shared-cache, unit-symbol and
-initial GIMPLE/CFG/SSA joins, with variable metadata,
-remaining whole-unit managers and shared collector composition still
+known subtotal 40,086 after the structural, shared-cache, unit-symbol,
+initial GIMPLE/CFG/SSA and warning/IPA joins, with variable metadata,
+remaining cgraph lifecycle and shared collector composition still
 explicit in the native expansion record. The
 [unwind sizing transfer](retained-linker-eh-frame.md) bounds conditional input
 editing and header/CIE storage, including narrower32-bit intermediates;

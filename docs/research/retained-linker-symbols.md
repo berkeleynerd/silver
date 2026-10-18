@@ -626,3 +626,11 @@ and section String tables and the final file/layout are separate. The
 [offline reconciliation](../evidence/retained-linker-symbols-20261018/dynamic-string-results.json)
 checks the retained identities, direct-site partition and arithmetic without
 executing a native tool.
+
+Independent combined review of `ca6fd8c437` and `54200120f7` replayed all three
+name/String-table checkers byte-equal. It checked the script walk, empty
+constructor-set path despite SORT(CONSTRUCTORS), fixed/generated name routes,
+existing-name guards, version dependencies, SONAME/audit inputs and
+DT_NEEDED's pre-deduplication increment. It accepted the displayed bounds
+without a material finding, retaining the generated-input and lifetime-arena
+obligations and the generated warning-section premise.
