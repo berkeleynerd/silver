@@ -2320,13 +2320,110 @@ pool chunks, hash capacities or bitmap storage. In particular, a body with no
 explicit REG operands does not imply an empty artificial liveness problem.
 
 `pass_ira` and `pass_reload` are mandatory for the selected x86 target
-(`ira.cc:6205–6269`). Their work remains beyond this join. IRA initializes
+(`ira.cc:6205–6269`). Their work remains beyond this first join. IRA initializes
 obstacks, runs dataflow, equivalence/alias/loop setup and allocation even at
 O0 (`:5745–5847`); its early PIC hook does return without instructions for
 CM_SMALL/CM_SMALL_PIC (`i386.cc:1831–1840`). The absence of dynamic pseudos
 removes coloring candidates but does not remove those setups. Hardware frame
 setup/teardown, the return, unwind notes, final emission and assembled output
 are still unpaid by the 25-node interface.
+
+#### Null IRA and LRA: shape through reload
+
+The next boundary is the end of `pass_reload`, before machine prologue/epilogue
+generation. The incoming chain contains only labels, notes, cached-const0 nops
+and the operand-free blockage. There are no dynamic pseudos, explicit register
+operands, calls, exceptional edges, SETs, scratches or loop backedges. Artificial
+dataflow references are hard registers and do not introduce pseudo-register
+operands into this chain.
+
+IRA's two allocno constructors require either an actual `REG` numbered at least
+`FIRST_PSEUDO_REGISTER` or a live-in pseudo. Both sets are empty
+(`ira-build.cc:1839–1958`). Thus the allocno and allocno-object counts are zero.
+O0 selects the non-conflict allocator, removes all regions except the root and
+makes `ira_emit` return before creating region-boundary copies
+(`ira.cc:5735`, `ira-build.cc:3478–3564`, `ira-emit.cc:1252–1265`). The earlier
+equivalence scan has no SET to move, scratch removal has no constrained operand,
+and there are no initial pseudo values to materialize. The positive-optimization
+movement paths are disabled (`ira.cc:3630–3657,5447–5510,5564–5610,5789–6027`).
+These facts preserve the incoming chain and zero stack-slot demand through IRA;
+they do not erase alias, loop, cost, liveness or allocator setup.
+
+**LRA unconditionally adds a pseudo and a note.** Its entry calls
+`gen_reg_rtx (Pmode)` and `emit_note (NOTE_INSN_DELETED)` before instruction
+recognition (`lra.cc:2420–2439`). For selected pointer mode this is one unused
+dynamic pseudo, numbered 98, so `max_reg_num()` becomes 99. The existing
+198-entry register arrays have room. No instruction refers to this synthetic
+pseudo; the zero-dynamic-pseudo statement above is deliberately limited to
+the earlier boundaries.
+
+The LRA loop terminates without reload or spill transformations on this shape:
+
+- The constraint transformer returns false for zero constrained operands or
+  zero alternatives (`lra-constraints.cc:4335–4378`). Both nop and blockage have
+  zero constrained operands. Equivalence processing likewise requires a
+  referenced pseudo (`:5584–5606`). Elimination recalculates target frame
+  offsets but visits only instruction bitmaps containing eliminable registers;
+  those bitmaps are empty (`lra-eliminations.cc:1504–1563`).
+- Inheritance can record artificial hard-register liveness at block boundaries,
+  but its transformation cases require a SET or an instruction register operand,
+  absent here (`lra-constraints.cc:7075–7275,7534–7594`). It creates no inherited,
+  split or optional-reload pseudo. The corresponding undo bitmaps are empty;
+  their instruction scan changes nothing (`:7666–7871,7880–8065`).
+- Live-range construction returns before its sparse sets and graph traversal
+  when every pseudo has zero references (`lra-lives.cc:1373–1424`). Assignment
+  still initializes its containers, but all candidate-pseudo sets are empty,
+  `fails_p` stays false and its return reports no spills
+  (`lra-assigns.cc:1394–1610,1624–1717`). Neither failure splitting nor coalescing
+  is entered.
+- The first constraint iteration therefore reaches one assignment, after which
+  no instruction is requeued. The second finds no reloads and an empty
+  constraint-stack bitmap and exits the inner loop. The outer spill test is
+  false because it too requires a referenced pseudo
+  (`lra.cc:2500–2652`, `lra-spills.cc:642–651`). There is one live-range call and
+  at most one inheritance/undo pass, irrespective of the simple-LRA flag.
+- Final code changes have no pseudo operands or SETs to replace
+  (`lra-spills.cc:770–878`). Abnormal-edge fixup finds no qualifying edge
+  (`cfgrtl.cc:3434–3452`). The non-call-exception block-subdivision scan runs,
+  but none of these patterns ends a block or can throw internally, so it adds
+  no block. Final RTL unsharing may copy the blockage pattern and its
+  one-element vector, not instruction-chain nodes (`lra.cc:2653–2688`).
+
+After LRA, `do_reload` rebuilds dataflow scan state. Its CFG cleanup and final
+dataflow analysis require positive optimization, so there is no additional O0
+chain construction (`ira.cc:6074–6152`). The resulting conditional interface is:
+
+```text
+ordinary blocks / edges / block-index slots <= 10 / 11 / 12
+cumulative CODE_LABEL / NOTE / INSN allocations <= 3 / 13 / 10
+cumulative instruction-chain allocations <= 26
+first unused per-function chain UID <= 27
+new dynamic pseudos / local stack slots / calls / jumps = 1 / 0 / 0 / 0
+cumulative blockage nodes / one-element vectors, including unsharing <= 3 / 3
+```
+
+Several selected fixed container requests can now be substituted without a
+whole-phase memory claim:
+
+| Container | Selected request ceiling |
+| --- | --- |
+| IRA allocno and object-ID vectors | 196 entries each (`ira-build.cc:429–440`) |
+| IRA register-to-allocno map | 98 entries (`:437–440`) |
+| IRA block and root-loop nodes | 12 and 1 typed nodes (`:125–159`) |
+| LRA common register information | `floor(99*3/2)+1 = 149` typed entries (`lra.cc:1380–1388`) |
+| LRA constraint vector and bitmap | 27 entries/bits requested (`:2480–2482`) |
+| LRA recognition pointer-array growth | At most 40 entries per resize, from index at most 27 and `floor(index*3/2)` with the `index+1` fallback (`:775–789`) |
+| LRA invariant vector and hash | Initial request 100 each, plus its allocator object (`lra-constraints.cc:5914–5922`) |
+| LRA inheritance usage array | 99 typed entries if regular inheritance runs (`:7547–7550`) |
+| LRA assignment's four main arrays | 99 entries each; one additional 99-int preference-check array (`lra-assigns.cc:1411,1639–1642`) |
+
+These are request lengths, not promises that vector/hash/pool capacities equal
+the requested values. Other fixed setup arrays, bitmap elements, allocator
+chunks, lazy recognition cache entries, regnotes and dataflow artificial
+references remain to be composed. In particular, the absence of referenced
+pseudos is a shape and iteration result, not a zero-memory register allocator.
+Machine frame generation, unwind, final emission and object/link output still
+lie beyond this boundary. No compiler or proof execution supplied these counts.
 
 #### Late RTL initialization and retained fixed witnesses
 

@@ -212,6 +212,21 @@ EXTRA_RANGES = {
     "gcc/rtl.h": [(862, 868)],
     "gcc/params.opt": [(869, 871)],
 }
+RELOAD_RANGES = {
+    "gcc/ira.cc": [(3630, 3657), (5447, 5510), (5564, 5610),
+                    (5735, 5767), (5789, 6027), (6074, 6152)],
+    "gcc/ira-build.cc": [(125, 159), (429, 440), (1839, 1958), (3478, 3564)],
+    "gcc/ira-emit.cc": [(1252, 1265)],
+    "gcc/lra.cc": [(775, 789), (1380, 1388), (2420, 2688)],
+    "gcc/lra-constraints.cc": [(4335, 4378), (5559, 5606), (5790, 5826),
+                              (5914, 5922), (7075, 7275), (7534, 7594),
+                              (7666, 7871), (7880, 8065)],
+    "gcc/lra-eliminations.cc": [(1504, 1563)],
+    "gcc/lra-lives.cc": [(1373, 1424)],
+    "gcc/lra-assigns.cc": [(1394, 1610), (1624, 1717)],
+    "gcc/lra-spills.cc": [(642, 651), (770, 878)],
+    "gcc/cfgrtl.cc": [(3434, 3452)],
+}
 GATE_FILES = (
     "fwprop.cc", "cprop.cc", "gcse.cc", "store-motion.cc", "ifcvt.cc",
     "loop-init.cc", "web.cc", "dse.cc", "auto-inc-dec.cc", "init-regs.cc",
@@ -226,6 +241,8 @@ MD_FILES = (
     "predicates.md", "constraints.md", "mmx.md", "sse.md", "sync.md", "subst.md",
 )
 for _name, _ranges in EXTRA_RANGES.items():
+    RANGES.setdefault(_name, []).extend(_ranges)
+for _name, _ranges in RELOAD_RANGES.items():
     RANGES.setdefault(_name, []).extend(_ranges)
 for _name in GATE_FILES:
     RANGES.setdefault("gcc/" + _name, [])
@@ -589,6 +606,30 @@ def check_sources(sources, inventory):
         source = sources["gcc/config/i386/" + name]
         for include in re.findall(r'\(include "([^"]+)"\)', source):
             assert include in MD_FILES, (name, include)
+    lra = sources["gcc/lra.cc"]
+    start = lra.index("\nlra (FILE *f, int verbose)")
+    end = lra.index("\n}\n", start)
+    body = lra[start:end]
+    assert body.index("lra_pmode_pseudo = gen_reg_rtx (Pmode);") < body.index(
+        "emit_note (NOTE_INSN_DELETED);") < body.index("init_reg_info ();")
+    assert "reg_info_size = max_reg_num () * 3 / 2 + 1;" in lra
+    assert "lra_insn_recog_data_len = index * 3U / 2;" in lra
+    assert "lra_insn_recog_data_len = index + 1;" in lra
+    assert "if (! reloads_p && lra_constraint_iter > 1)" in body
+    assert "if (! lra_need_for_spills_p ())\n\tbreak;" in body
+    assert "unshare_all_rtl_again (get_insns ());" in body
+    constraints = sources["gcc/lra-constraints.cc"]
+    assert "if (n_operands == 0 || n_alternatives == 0)\n    return false;" in constraints
+    assert "invariants.create (100);" in constraints
+    assert "invariant_table = htab_create (100," in constraints
+    lives = sources["gcc/lra-lives.cc"]
+    start = lives.index("\nlra_create_live_ranges_1 (")
+    assert lives.index("if (! have_referenced_pseudos)", start) < lives.index(
+        "pseudos_live = sparseset_alloc (max_regno);", start)
+    allocnos = sources["gcc/ira-build.cc"]
+    assert "allocno_vec.create (max_reg_num () * 2);" in allocnos
+    assert "ira_object_id_map_vec.create (max_reg_num () * 2);" in allocnos
+    assert "if (! loops_p)\n    return;" in sources["gcc/ira-emit.cc"]
     iterator = sources["gcc/tree-iterator.cc"]
     start = iterator.index("\ntsi_link_after (")
     end = iterator.index("\n}\n", start)
@@ -649,6 +690,22 @@ def arithmetic():
         "null_pre_IRA_CFG_copy_hash_initial_requests": [10, 10, 10],
         "null_pre_IRA_trivial_dead_count_array_length": 98,
         "null_pre_IRA_hard_regs_live_count_array_length": 92,
+        "null_post_reload_block_edge_slot_ceilings": [10, 11, 12],
+        "null_post_reload_lifetime_label_note_insn_ceilings": [3, 12+1, 10],
+        "null_post_reload_lifetime_chain_node_ceiling": 25+1,
+        "null_post_reload_first_unused_chain_uid_ceiling": 1+25+1,
+        "null_post_reload_new_dynamic_pseudos_stack_slots_calls_jumps": [1, 0, 0, 0],
+        "null_post_reload_blockage_nodes_and_vectors_including_unshare": [3, 3],
+        "null_IRA_allocno_and_object_ID_vector_requests": [98*2, 98*2],
+        "null_IRA_regno_allocno_map_request": 98,
+        "null_IRA_block_and_root_loop_node_requests": [12, 1],
+        "null_LRA_common_register_info_request": 99*3//2+1,
+        "null_LRA_constraint_vector_and_bitmap_requests": [27, 27],
+        "null_LRA_recognition_pointer_resize_ceiling": max(27*3//2, 27+1),
+        "null_LRA_invariant_vector_and_hash_requests": [100, 100],
+        "null_LRA_inheritance_usage_array_request": 99,
+        "null_LRA_assignment_main_and_preference_array_requests": [99]*5,
+        "null_LRA_constraint_and_assignment_iterations": [2, 1],
         "ira_init_once_selected_dynamic_allocation_requests": 0,
         "retained_bind_coefficients": bind,
         "main_fixed_framework_push_requests": push["U"] + 2*push["F"],

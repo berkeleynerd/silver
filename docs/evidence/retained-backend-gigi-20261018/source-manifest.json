@@ -592,6 +592,41 @@
       "sha256": "2dbbbbe2917d9a5427bf0d294e09cf59458e910bb684f7163931edbd8320855f"
     },
     {
+      "path": "gcc/ira-build.cc",
+      "bytes": 106712,
+      "sha256": "6c53fecf840e57dd804ca369909d78c3576172fb5cbceed86d19df08aec7ec4a"
+    },
+    {
+      "path": "gcc/ira-emit.cc",
+      "bytes": 41804,
+      "sha256": "66b08bc37fb42cafc7df53eb99b794bfbbce07c58fb108fa6dd44b7a5c6a1163"
+    },
+    {
+      "path": "gcc/lra-constraints.cc",
+      "bytes": 270051,
+      "sha256": "a03b8a69bbf4c986ce20f569c240219b3fe4db8d0f62068013ac99075224e305"
+    },
+    {
+      "path": "gcc/lra-eliminations.cc",
+      "bytes": 51361,
+      "sha256": "1ef368dc765538d358f8e75544e27f63a580cb7fda73e9d002088f26f14e5f07"
+    },
+    {
+      "path": "gcc/lra-lives.cc",
+      "bytes": 49339,
+      "sha256": "cd3924118ac97c22514602020a9fb1e0f85608d4bc9d53f932415f3b70d48b08"
+    },
+    {
+      "path": "gcc/lra-assigns.cc",
+      "bytes": 69333,
+      "sha256": "5e3172f83b97c4a6573bf8b160491a3c15ba57467fadea4de107776261bb88f6"
+    },
+    {
+      "path": "gcc/lra-spills.cc",
+      "bytes": 29811,
+      "sha256": "b7235f8bd56302114b92c557f9fdf9b954c23ab03fd72596bf235b0b3eb9e6fd"
+    },
+    {
       "path": "gcc/fwprop.cc",
       "bytes": 33900,
       "sha256": "5f47c4b15bb38847b910ac950203822cbfdb55c98002b4572c41b85575cefda5"

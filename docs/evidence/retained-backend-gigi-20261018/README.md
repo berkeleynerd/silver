@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Companion to
 [the source argument](../../research/retained-backend-gigi.md).
 
-`source-manifest.json` pins 96 complete files at GCC
+`source-manifest.json` pins 167 complete files at GCC
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; Ada file identities also match the
 previously retained complete Ada inventory, and non-Ada GCC files match the
 full-source manifest independently. Its separate `silver_main_api_files` rows
@@ -108,3 +108,13 @@ source-independence obligations. IRA/LRA, machine frame/return generation and
 output costs are not closed. The updated checker verifies 160 GCC/Ada source
 files and two Silver API specifications; all 138 non-Ada source identities
 also match the retained full-source manifest. No native/prover run was made.
+
+The reload extension follows the zero-allocno IRA route and the operand-free
+LRA loop. LRA nevertheless creates one unused Pmode pseudo and a deleted note;
+the post-reload chain ceiling is 26, with first unused UID at most 27. There
+are two constraint iterations, one assignment, and no reloads or spill slots.
+Typed request lengths are retained for selected IRA/LRA containers, while the
+remaining setup/allocator costs stay explicit. The checker now verifies 167
+GCC/Ada source files and two Silver API specifications; all 145 non-Ada source
+identities match the full-source manifest. Machine frame generation and later
+output are outside this boundary. No native/prover run was made.

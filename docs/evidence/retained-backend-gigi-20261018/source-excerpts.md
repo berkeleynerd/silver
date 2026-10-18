@@ -26485,6 +26485,30 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4994: }
 ```
 
+## gcc/cfgrtl.cc:3434–3452
+
+```text
+3434: fixup_abnormal_edges (void)
+3435: {
+3436:   bool inserted = false;
+3437:   basic_block bb;
+3438:
+3439:   FOR_EACH_BB_FN (bb, cfun)
+3440:     {
+3441:       edge e;
+3442:       edge_iterator ei;
+3443:
+3444:       /* Look for cases we are interested in - calls or instructions causing
+3445:          exceptions.  */
+3446:       FOR_EACH_EDGE (e, ei, bb->succs)
+3447:         if ((e->flags & EDGE_ABNORMAL_CALL)
+3448:             || ((e->flags & (EDGE_ABNORMAL | EDGE_EH))
+3449:                 == (EDGE_ABNORMAL | EDGE_EH)))
+3450:           break;
+3451:
+3452:       if (e && !CALL_P (BB_END (bb)) && !can_throw_internal (BB_END (bb)))
+```
+
 ## gcc/cfgbuild.cc:73–119
 
 ```text
@@ -28955,6 +28979,526 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6269:
 ```
 
+## gcc/ira.cc:3630–3657
+
+```text
+3630: update_equiv_regs (void)
+3631: {
+3632:   rtx_insn *insn;
+3633:   basic_block bb;
+3634:
+3635:   /* Scan the insns and find which registers have equivalences.  Do this
+3636:      in a separate scan of the insns because (due to -fcse-follow-jumps)
+3637:      a register can be set below its use.  */
+3638:   bitmap setjmp_crosses = regstat_get_setjmp_crosses ();
+3639:   FOR_EACH_BB_FN (bb, cfun)
+3640:     {
+3641:       int loop_depth = bb_loop_depth (bb);
+3642:
+3643:       for (insn = BB_HEAD (bb);
+3644:            insn != NEXT_INSN (BB_END (bb));
+3645:            insn = NEXT_INSN (insn))
+3646:         {
+3647:           rtx note;
+3648:           rtx set;
+3649:           rtx dest, src;
+3650:           int regno;
+3651:
+3652:           if (! INSN_P (insn))
+3653:             continue;
+3654:
+3655:           for (note = REG_NOTES (insn); note; note = XEXP (note, 1))
+3656:             if (REG_NOTE_KIND (note) == REG_INC)
+3657:               no_equiv (XEXP (note, 0), note, NULL);
+```
+
+## gcc/ira.cc:5447–5510
+
+```text
+5447:   return false;
+5448: }
+5449:
+5450: /* Change INSN's scratches into pseudos and save their location.
+5451:    Return true if we changed any scratch.  */
+5452: bool
+5453: ira_remove_insn_scratches (rtx_insn *insn, bool all_p, FILE *dump_file,
+5454:                            rtx (*get_reg) (rtx original))
+5455: {
+5456:   int i;
+5457:   bool insn_changed_p;
+5458:   rtx reg, *loc;
+5459:
+5460:   extract_insn (insn);
+5461:   insn_changed_p = false;
+5462:   for (i = 0; i < recog_data.n_operands; i++)
+5463:     {
+5464:       loc = recog_data.operand_loc[i];
+5465:       if (GET_CODE (*loc) == SCRATCH && GET_MODE (*loc) != VOIDmode)
+5466:         {
+5467:           if (! all_p && contains_X_constraint_p (recog_data.constraints[i]))
+5468:             continue;
+5469:           insn_changed_p = true;
+5470:           *loc = reg = get_reg (*loc);
+5471:           ira_register_new_scratch_op (insn, i, INSN_CODE (insn));
+5472:           if (ira_dump_file != NULL)
+5473:             fprintf (dump_file,
+5474:                      "Removing SCRATCH to p%u in insn #%u (nop %d)\n",
+5475:                      REGNO (reg), INSN_UID (insn), i);
+5476:         }
+5477:     }
+5478:   return insn_changed_p;
+5479: }
+5480:
+5481: /* Return new register of the same mode as ORIGINAL.  Used in
+5482:    remove_scratches.  */
+5483: static rtx
+5484: get_scratch_reg (rtx original)
+5485: {
+5486:   return gen_reg_rtx (GET_MODE (original));
+5487: }
+5488:
+5489: /* Change scratches into pseudos and save their location.  Return true
+5490:    if we changed any scratch.  */
+5491: static bool
+5492: remove_scratches (void)
+5493: {
+5494:   bool change_p = false;
+5495:   basic_block bb;
+5496:   rtx_insn *insn;
+5497:
+5498:   scratches.create (get_max_uid ());
+5499:   bitmap_initialize (&scratch_bitmap, &reg_obstack);
+5500:   bitmap_initialize (&scratch_operand_bitmap, &reg_obstack);
+5501:   FOR_EACH_BB_FN (bb, cfun)
+5502:     FOR_BB_INSNS (bb, insn)
+5503:     if (INSN_P (insn)
+5504:         && ira_remove_insn_scratches (insn, false, ira_dump_file, get_scratch_reg))
+5505:       {
+5506:         /* Because we might use DF, we need to keep DF info up to date.  */
+5507:         df_insn_rescan (insn);
+5508:         change_p = true;
+5509:       }
+5510:   return change_p;
+```
+
+## gcc/ira.cc:5564–5610
+
+```text
+5564: allocate_initial_values (void)
+5565: {
+5566:   if (targetm.allocate_initial_value)
+5567:     {
+5568:       rtx hreg, preg, x;
+5569:       int i, regno;
+5570:
+5571:       for (i = 0; HARD_REGISTER_NUM_P (i); i++)
+5572:         {
+5573:           if (! initial_value_entry (i, &hreg, &preg))
+5574:             break;
+5575:
+5576:           x = targetm.allocate_initial_value (hreg);
+5577:           regno = REGNO (preg);
+5578:           if (x && REG_N_SETS (regno) <= 1)
+5579:             {
+5580:               if (MEM_P (x))
+5581:                 reg_equiv_memory_loc (regno) = x;
+5582:               else
+5583:                 {
+5584:                   basic_block bb;
+5585:                   int new_regno;
+5586:
+5587:                   gcc_assert (REG_P (x));
+5588:                   new_regno = REGNO (x);
+5589:                   reg_renumber[regno] = new_regno;
+5590:                   /* Poke the regno right into regno_reg_rtx so that even
+5591:                      fixed regs are accepted.  */
+5592:                   SET_REGNO (preg, new_regno);
+5593:                   /* Update global register liveness information.  */
+5594:                   FOR_EACH_BB_FN (bb, cfun)
+5595:                     {
+5596:                       if (REGNO_REG_SET_P (df_get_live_in (bb), regno))
+5597:                         SET_REGNO_REG_SET (df_get_live_in (bb), new_regno);
+5598:                       if (REGNO_REG_SET_P (df_get_live_out (bb), regno))
+5599:                         SET_REGNO_REG_SET (df_get_live_out (bb), new_regno);
+5600:                     }
+5601:                 }
+5602:             }
+5603:         }
+5604:
+5605:       gcc_checking_assert (! initial_value_entry (FIRST_PSEUDO_REGISTER,
+5606:                                                   &hreg, &preg));
+5607:     }
+5608: }
+5609:
+5610:
+```
+
+## gcc/ira.cc:5735–5767
+
+```text
+5735:   ira_conflicts_p = optimize > 0;
+5736:
+5737:   /* Determine the number of pseudos actually requiring coloring.  */
+5738:   unsigned int num_used_regs = 0;
+5739:   for (unsigned int i = FIRST_PSEUDO_REGISTER; i < DF_REG_SIZE (df); i++)
+5740:     if (DF_REG_DEF_COUNT (i) || DF_REG_USE_COUNT (i))
+5741:       num_used_regs++;
+5742:
+5743:   /* If there are too many pseudos and/or basic blocks (e.g. 10K pseudos and
+5744:      10K blocks or 100K pseudos and 1K blocks) or we have too many function
+5745:      insns, we will use simplified and faster algorithms in LRA.  */
+5746:   lra_simple_p
+5747:     = (ira_use_lra_p
+5748:        && (num_used_regs >= (1U << 26) / last_basic_block_for_fn (cfun)
+5749:            /* max uid is a good evaluation of the number of insns as most
+5750:               optimizations are done on tree-SSA level.  */
+5751:            || ((uint64_t) get_max_uid ()
+5752:                > (uint64_t) param_ira_simple_lra_insn_threshold * 1000)));
+5753:
+5754:   if (lra_simple_p)
+5755:     {
+5756:       /* It permits to skip live range splitting in LRA.  */
+5757:       flag_caller_saves = false;
+5758:       /* There is no sense to do regional allocation when we use
+5759:         simplified LRA.  */
+5760:       flag_ira_region = IRA_REGION_ONE;
+5761:       ira_conflicts_p = false;
+5762:     }
+5763:
+5764: #ifndef IRA_NO_OBSTACK
+5765:   gcc_obstack_init (&ira_obstack);
+5766: #endif
+5767:   bitmap_obstack_initialize (&ira_bitmap_obstack);
+```
+
+## gcc/ira.cc:5789–6027
+
+```text
+5789:   df_analyze ();
+5790:
+5791:   init_reg_equiv ();
+5792:   if (ira_conflicts_p)
+5793:     {
+5794:       calculate_dominance_info (CDI_DOMINATORS);
+5795:
+5796:       if (split_live_ranges_for_shrink_wrap ())
+5797:         df_analyze ();
+5798:
+5799:       free_dominance_info (CDI_DOMINATORS);
+5800:     }
+5801:
+5802:   df_clear_flags (DF_NO_INSN_RESCAN);
+5803:
+5804:   indirect_jump_optimize ();
+5805:   if (delete_trivially_dead_insns (get_insns (), max_reg_num ()))
+5806:     df_analyze ();
+5807:
+5808:   regstat_init_n_sets_and_refs ();
+5809:   regstat_compute_ri ();
+5810:
+5811:   /* If we are not optimizing, then this is the only place before
+5812:      register allocation where dataflow is done.  And that is needed
+5813:      to generate these warnings.  */
+5814:   if (warn_clobbered)
+5815:     generate_setjmp_warnings ();
+5816:
+5817:   /* update_equiv_regs can use reg classes of pseudos and they are set up in
+5818:      register pressure sensitive scheduling and loop invariant motion and in
+5819:      live range shrinking.  This info can become obsolete if we add new pseudos
+5820:      since the last set up.  Recalculate it again if the new pseudos were
+5821:      added.  */
+5822:   if (resize_reg_info () && (flag_sched_pressure || flag_live_range_shrinkage
+5823:                              || flag_ira_loop_pressure))
+5824:     ira_set_pseudo_classes (true, ira_dump_file);
+5825:
+5826:   init_alias_analysis ();
+5827:   loop_optimizer_init (AVOID_CFG_MODIFICATIONS);
+5828:   reg_equiv = XCNEWVEC (struct equivalence, max_reg_num ());
+5829:   update_equiv_regs_prescan ();
+5830:   update_equiv_regs ();
+5831:
+5832:   /* Don't move insns if live range shrinkage or register
+5833:      pressure-sensitive scheduling were done because it will not
+5834:      improve allocation but likely worsen insn scheduling.  */
+5835:   if (optimize
+5836:       && !flag_live_range_shrinkage
+5837:       && !(flag_sched_pressure && flag_schedule_insns))
+5838:     combine_and_move_insns ();
+5839:
+5840:   /* Gather additional equivalences with memory.  */
+5841:   if (optimize && flag_expensive_optimizations)
+5842:     add_store_equivs ();
+5843:
+5844:   loop_optimizer_finalize ();
+5845:   free_dominance_info (CDI_DOMINATORS);
+5846:   end_alias_analysis ();
+5847:   free (reg_equiv);
+5848:
+5849:   /* Once max_regno changes, we need to free and re-init/re-compute
+5850:      some data structures like regstat_n_sets_and_refs and reg_info_p.  */
+5851:   auto regstat_recompute_for_max_regno = []() {
+5852:     regstat_free_n_sets_and_refs ();
+5853:     regstat_free_ri ();
+5854:     regstat_init_n_sets_and_refs ();
+5855:     regstat_compute_ri ();
+5856:     resize_reg_info ();
+5857:   };
+5858:
+5859:   int max_regno_before_rm = max_reg_num ();
+5860:   if (ira_use_lra_p && remove_scratches ())
+5861:     {
+5862:       ira_expand_reg_equiv ();
+5863:       /* For now remove_scatches is supposed to create pseudos when it
+5864:          succeeds, assert this happens all the time.  Once it doesn't
+5865:          hold, we should guard the regstat recompute for the case
+5866:          max_regno changes.  */
+5867:       gcc_assert (max_regno_before_rm != max_reg_num ());
+5868:       regstat_recompute_for_max_regno ();
+5869:     }
+5870:
+5871:   setup_reg_equiv ();
+5872:   grow_reg_equivs ();
+5873:   setup_reg_equiv_init ();
+5874:
+5875:   allocated_reg_info_size = max_reg_num ();
+5876:
+5877:   /* It is not worth to do such improvement when we use a simple
+5878:      allocation because of -O0 usage or because the function is too
+5879:      big.  */
+5880:   if (ira_conflicts_p)
+5881:     find_moveable_pseudos ();
+5882:
+5883:   max_regno_before_ira = max_reg_num ();
+5884:   ira_setup_eliminable_regset ();
+5885:
+5886:   ira_overall_cost = ira_reg_cost = ira_mem_cost = 0;
+5887:   ira_load_cost = ira_store_cost = ira_shuffle_cost = 0;
+5888:   ira_move_loops_num = ira_additional_jumps_num = 0;
+5889:
+5890:   ira_assert (current_loops == NULL);
+5891:   if (flag_ira_region == IRA_REGION_ALL || flag_ira_region == IRA_REGION_MIXED)
+5892:     loop_optimizer_init (AVOID_CFG_MODIFICATIONS | LOOPS_HAVE_RECORDED_EXITS);
+5893:
+5894:   if (internal_flag_ira_verbose > 0 && ira_dump_file != NULL)
+5895:     fprintf (ira_dump_file, "Building IRA IR\n");
+5896:   loops_p = ira_build ();
+5897:
+5898:   ira_assert (ira_conflicts_p || !loops_p);
+5899:
+5900:   saved_flag_ira_share_spill_slots = flag_ira_share_spill_slots;
+5901:   if (too_high_register_pressure_p () || cfun->calls_setjmp)
+5902:     /* It is just wasting compiler's time to pack spilled pseudos into
+5903:        stack slots in this case -- prohibit it.  We also do this if
+5904:        there is setjmp call because a variable not modified between
+5905:        setjmp and longjmp the compiler is required to preserve its
+5906:        value and sharing slots does not guarantee it.  */
+5907:     flag_ira_share_spill_slots = false;
+5908:
+5909:   ira_color ();
+5910:
+5911:   ira_max_point_before_emit = ira_max_point;
+5912:
+5913:   ira_initiate_emit_data ();
+5914:
+5915:   ira_emit (loops_p);
+5916:
+5917:   max_regno = max_reg_num ();
+5918:   if (ira_conflicts_p)
+5919:     {
+5920:       if (! loops_p)
+5921:         {
+5922:           if (! ira_use_lra_p)
+5923:             ira_initiate_assign ();
+5924:         }
+5925:       else
+5926:         {
+5927:           expand_reg_info ();
+5928:
+5929:           if (ira_use_lra_p)
+5930:             {
+5931:               ira_allocno_t a;
+5932:               ira_allocno_iterator ai;
+5933:
+5934:               FOR_EACH_ALLOCNO (a, ai)
+5935:                 {
+5936:                   int old_regno = ALLOCNO_REGNO (a);
+5937:                   int new_regno = REGNO (ALLOCNO_EMIT_DATA (a)->reg);
+5938:
+5939:                   ALLOCNO_REGNO (a) = new_regno;
+5940:
+5941:                   if (old_regno != new_regno)
+5942:                     setup_reg_classes (new_regno, reg_preferred_class (old_regno),
+5943:                                        reg_alternate_class (old_regno),
+5944:                                        reg_allocno_class (old_regno));
+5945:                 }
+5946:             }
+5947:           else
+5948:             {
+5949:               if (internal_flag_ira_verbose > 0 && ira_dump_file != NULL)
+5950:                 fprintf (ira_dump_file, "Flattening IR\n");
+5951:               ira_flattening (max_regno_before_ira, ira_max_point_before_emit);
+5952:             }
+5953:           /* New insns were generated: add notes and recalculate live
+5954:              info.  */
+5955:           df_analyze ();
+5956:
+5957:           /* ??? Rebuild the loop tree, but why?  Does the loop tree
+5958:              change if new insns were generated?  Can that be handled
+5959:              by updating the loop tree incrementally?  */
+5960:           loop_optimizer_finalize ();
+5961:           free_dominance_info (CDI_DOMINATORS);
+5962:           loop_optimizer_init (AVOID_CFG_MODIFICATIONS
+5963:                                | LOOPS_HAVE_RECORDED_EXITS);
+5964:
+5965:           if (! ira_use_lra_p)
+5966:             {
+5967:               setup_allocno_assignment_flags ();
+5968:               ira_initiate_assign ();
+5969:               ira_reassign_conflict_allocnos (max_regno);
+5970:             }
+5971:         }
+5972:     }
+5973:
+5974:   ira_finish_emit_data ();
+5975:
+5976:   setup_reg_renumber ();
+5977:
+5978:   calculate_allocation_cost ();
+5979:
+5980: #ifdef ENABLE_IRA_CHECKING
+5981:   if (ira_conflicts_p && ! ira_use_lra_p)
+5982:     /* Opposite to reload pass, LRA does not use any conflict info
+5983:        from IRA.  We don't rebuild conflict info for LRA (through
+5984:        ira_flattening call) and cannot use the check here.  We could
+5985:        rebuild this info for LRA in the check mode but there is a risk
+5986:        that code generated with the check and without it will be a bit
+5987:        different.  Calling ira_flattening in any mode would be a
+5988:        wasting CPU time.  So do not check the allocation for LRA.  */
+5989:     check_allocation ();
+5990: #endif
+5991:
+5992:   if (max_regno != max_regno_before_ira)
+5993:     regstat_recompute_for_max_regno ();
+5994:
+5995:   overall_cost_before = ira_overall_cost;
+5996:   if (! ira_conflicts_p)
+5997:     grow_reg_equivs ();
+5998:   else
+5999:     {
+6000:       fix_reg_equiv_init ();
+6001:
+6002: #ifdef ENABLE_IRA_CHECKING
+6003:       print_redundant_copies ();
+6004: #endif
+6005:       if (! ira_use_lra_p)
+6006:         {
+6007:           ira_spilled_reg_stack_slots_num = 0;
+6008:           ira_spilled_reg_stack_slots
+6009:             = ((class ira_spilled_reg_stack_slot *)
+6010:                ira_allocate (max_regno
+6011:                              * sizeof (class ira_spilled_reg_stack_slot)));
+6012:           memset ((void *)ira_spilled_reg_stack_slots, 0,
+6013:                   max_regno * sizeof (class ira_spilled_reg_stack_slot));
+6014:         }
+6015:     }
+6016:   allocate_initial_values ();
+6017:
+6018:   /* See comment for find_moveable_pseudos call.  */
+6019:   if (ira_conflicts_p)
+6020:     move_unallocated_pseudos ();
+6021:
+6022:   /* Restore original values.  */
+6023:   if (lra_simple_p)
+6024:     {
+6025:       flag_caller_saves = saved_flag_caller_saves;
+6026:       flag_ira_region = saved_flag_ira_region;
+6027:     }
+```
+
+## gcc/ira.cc:6074–6152
+
+```text
+6074:       ira_destroy ();
+6075:
+6076:       lra (ira_dump_file, internal_flag_ira_verbose);
+6077:       /* ???!!! Move it before lra () when we use ira_reg_equiv in
+6078:          LRA.  */
+6079:       vec_free (reg_equivs);
+6080:       reg_equivs = NULL;
+6081:       need_dce = false;
+6082:     }
+6083:   else
+6084:     {
+6085:       df_set_flags (DF_NO_INSN_RESCAN);
+6086:       build_insn_chain ();
+6087:
+6088:       need_dce = reload (get_insns (), ira_conflicts_p);
+6089:     }
+6090:
+6091:   timevar_pop (TV_RELOAD);
+6092:
+6093:   timevar_push (TV_IRA);
+6094:
+6095:   if (ira_conflicts_p && ! ira_use_lra_p)
+6096:     {
+6097:       ira_free (ira_spilled_reg_stack_slots);
+6098:       ira_finish_assign ();
+6099:     }
+6100:
+6101:   if (internal_flag_ira_verbose > 0 && ira_dump_file != NULL
+6102:       && overall_cost_before != ira_overall_cost)
+6103:     fprintf (ira_dump_file, "+++Overall after reload %" PRId64 "\n",
+6104:              ira_overall_cost);
+6105:
+6106:   flag_ira_share_spill_slots = saved_flag_ira_share_spill_slots;
+6107:
+6108:   if (! ira_use_lra_p)
+6109:     {
+6110:       ira_destroy ();
+6111:       if (current_loops != NULL)
+6112:         {
+6113:           loop_optimizer_finalize ();
+6114:           free_dominance_info (CDI_DOMINATORS);
+6115:         }
+6116:       FOR_ALL_BB_FN (bb, cfun)
+6117:         bb->loop_father = NULL;
+6118:       current_loops = NULL;
+6119:
+6120:       regstat_free_ri ();
+6121:       regstat_free_n_sets_and_refs ();
+6122:     }
+6123:
+6124:   if (optimize)
+6125:     cleanup_cfg (CLEANUP_EXPENSIVE);
+6126:
+6127:   finish_reg_equiv ();
+6128:
+6129:   bitmap_obstack_release (&ira_bitmap_obstack);
+6130: #ifndef IRA_NO_OBSTACK
+6131:   obstack_free (&ira_obstack, NULL);
+6132: #endif
+6133:
+6134:   /* The code after the reload has changed so much that at this point
+6135:      we might as well just rescan everything.  Note that
+6136:      df_rescan_all_insns is not going to help here because it does not
+6137:      touch the artificial uses and defs.  */
+6138:   df_finish_pass (true);
+6139:   df_scan_alloc (NULL);
+6140:   df_scan_blocks ();
+6141:
+6142:   if (optimize > 1)
+6143:     {
+6144:       df_live_add_problem ();
+6145:       df_live_set_all_dirty ();
+6146:     }
+6147:
+6148:   if (optimize)
+6149:     df_analyze ();
+6150:
+6151:   if (need_dce && optimize)
+6152:     run_fast_dce ();
+```
+
 ## gcc/ira-costs.cc:2529–2542
 
 ```text
@@ -28991,6 +29535,314 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2699: {
 2700:   init_insn_code_data_once ();
 2701: }
+```
+
+## gcc/lra.cc:775–789
+
+```text
+775: check_and_expand_insn_recog_data (int index)
+776: {
+777:   int i, old;
+778:
+779:   if (lra_insn_recog_data_len > index)
+780:     return;
+781:   old = lra_insn_recog_data_len;
+782:   lra_insn_recog_data_len = index * 3U / 2;
+783:   if (lra_insn_recog_data_len <= index)
+784:     lra_insn_recog_data_len = index + 1;
+785:   lra_insn_recog_data = XRESIZEVEC (lra_insn_recog_data_t,
+786:                                     lra_insn_recog_data,
+787:                                     lra_insn_recog_data_len);
+788:   for (i = old; i < lra_insn_recog_data_len; i++)
+789:     lra_insn_recog_data[i] = NULL;
+```
+
+## gcc/lra.cc:1380–1388
+
+```text
+1380: init_reg_info (void)
+1381: {
+1382:   int i;
+1383:
+1384:   last_reg_value = 0;
+1385:   reg_info_size = max_reg_num () * 3 / 2 + 1;
+1386:   lra_reg_info = XNEWVEC (class lra_reg, reg_info_size);
+1387:   for (i = 0; i < reg_info_size; i++)
+1388:     initialize_lra_reg_info_element (i);
+```
+
+## gcc/lra.cc:2420–2688
+
+```text
+2420: lra (FILE *f, int verbose)
+2421: {
+2422:   int i;
+2423:   bool live_p, inserted_p;
+2424:
+2425:   lra_dump_file = f;
+2426:   lra_verbose = verbose;
+2427:   lra_asm_error_p = false;
+2428:   lra_pmode_pseudo = gen_reg_rtx (Pmode);
+2429:
+2430:   timevar_push (TV_LRA);
+2431:
+2432:   /* Make sure that the last insn is a note.  Some subsequent passes
+2433:      need it.  */
+2434:   emit_note (NOTE_INSN_DELETED);
+2435:
+2436:   lra_no_alloc_regs = ira_no_alloc_regs;
+2437:
+2438:   init_reg_info ();
+2439:   expand_reg_info ();
+2440:
+2441:   init_insn_recog_data ();
+2442:
+2443:   /* Some quick check on RTL generated by previous passes.  */
+2444:   if (flag_checking)
+2445:     check_rtl (false);
+2446:
+2447:   lra_in_progress = true;
+2448:
+2449:   lra_live_range_iter = lra_coalesce_iter = lra_constraint_iter = 0;
+2450:   lra_assignment_iter = lra_assignment_iter_after_spill = 0;
+2451:   lra_inheritance_iter = lra_undo_inheritance_iter = 0;
+2452:   lra_rematerialization_iter = 0;
+2453:
+2454:   setup_reg_spill_flag ();
+2455:
+2456:   /* Function remove_scratches can creates new pseudos for clobbers --
+2457:      so set up lra_constraint_new_regno_start before its call to
+2458:      permit changing reg classes for pseudos created by this
+2459:      simplification.  */
+2460:   lra_constraint_new_regno_start = lra_new_regno_start = max_reg_num ();
+2461:   lra_bad_spill_regno_start = INT_MAX;
+2462:   remove_scratches ();
+2463:
+2464:   /* A function that has a non-local label that can reach the exit
+2465:      block via non-exceptional paths must save all call-saved
+2466:      registers.  */
+2467:   if (cfun->has_nonlocal_label && has_nonexceptional_receiver ())
+2468:     crtl->saves_all_registers = 1;
+2469:
+2470:   if (crtl->saves_all_registers)
+2471:     for (i = 0; i < FIRST_PSEUDO_REGISTER; i++)
+2472:       if (!crtl->abi->clobbers_full_reg_p (i)
+2473:           && !fixed_regs[i]
+2474:           && !LOCAL_REGNO (i))
+2475:         df_set_regs_ever_live (i, true);
+2476:
+2477:   /* We don't DF from now and avoid its using because it is to
+2478:      expensive when a lot of RTL changes are made.  */
+2479:   df_set_flags (DF_NO_INSN_RESCAN);
+2480:   lra_constraint_insn_stack.create (get_max_uid ());
+2481:   lra_constraint_insn_stack_bitmap = sbitmap_alloc (get_max_uid ());
+2482:   bitmap_clear (lra_constraint_insn_stack_bitmap);
+2483:   lra_live_ranges_init ();
+2484:   lra_constraints_init ();
+2485:   lra_curr_reload_num = 0;
+2486:   push_insns (get_last_insn (), NULL);
+2487:   /* It is needed for the 1st coalescing.  */
+2488:   bitmap_initialize (&lra_inheritance_pseudos, &reg_obstack);
+2489:   bitmap_initialize (&lra_split_regs, &reg_obstack);
+2490:   bitmap_initialize (&lra_optional_reload_pseudos, &reg_obstack);
+2491:   bitmap_initialize (&lra_subreg_reload_pseudos, &reg_obstack);
+2492:   bitmap_initialize (&lra_postponed_insns, &reg_obstack);
+2493:   live_p = false;
+2494:   if (maybe_ne (get_frame_size (), 0) && crtl->stack_alignment_needed)
+2495:     /* If we have a stack frame, we must align it now.  The stack size
+2496:        may be a part of the offset computation for register
+2497:        elimination.  */
+2498:     assign_stack_local (BLKmode, 0, crtl->stack_alignment_needed);
+2499:   lra_init_equiv ();
+2500:   for (;;)
+2501:     {
+2502:       for (;;)
+2503:         {
+2504:           bool reloads_p = lra_constraints (lra_constraint_iter == 0);
+2505:           /* Constraint transformations may result in that eliminable
+2506:              hard regs become uneliminable and pseudos which use them
+2507:              should be spilled.  It is better to do it before pseudo
+2508:              assignments.
+2509:
+2510:              For example, rs6000 can make
+2511:              RS6000_PIC_OFFSET_TABLE_REGNUM uneliminable if we started
+2512:              to use a constant pool.  */
+2513:           lra_eliminate (false, false);
+2514:           /* We should try to assign hard registers to scratches even
+2515:              if there were no RTL transformations in lra_constraints.
+2516:              Also we should check IRA assignments on the first
+2517:              iteration as they can be wrong because of early clobbers
+2518:              operands which are ignored in IRA.  */
+2519:           if (! reloads_p && lra_constraint_iter > 1)
+2520:             {
+2521:               /* Stack is not empty here only when there are changes
+2522:                  during the elimination sub-pass.  */
+2523:               if (bitmap_empty_p (lra_constraint_insn_stack_bitmap))
+2524:                 break;
+2525:               else
+2526:                 /* If there are no reloads but changing due
+2527:                    elimination, restart the constraint sub-pass
+2528:                    first.  */
+2529:                 continue;
+2530:             }
+2531:           /* Do inheritance only for regular algorithms.  */
+2532:           if (! lra_simple_p)
+2533:             lra_inheritance ();
+2534:           if (live_p)
+2535:             lra_clear_live_ranges ();
+2536:           bool fails_p;
+2537:           lra_hard_reg_split_p = false;
+2538:           int split_fails_num = 0;
+2539:           do
+2540:             {
+2541:               /* We need live ranges for lra_assign -- so build them.
+2542:                  But don't remove dead insns or change global live
+2543:                  info as we can undo inheritance transformations after
+2544:                  inheritance pseudo assigning.  */
+2545:               lra_create_live_ranges (true, !lra_simple_p);
+2546:               live_p = true;
+2547:               /* If we don't spill non-reload and non-inheritance
+2548:                  pseudos, there is no sense to run memory-memory move
+2549:                  coalescing.  If inheritance pseudos were spilled, the
+2550:                  memory-memory moves involving them will be removed by
+2551:                  pass undoing inheritance.  */
+2552:               if (lra_simple_p || lra_hard_reg_split_p)
+2553:                 lra_assign (fails_p);
+2554:               else
+2555:                 {
+2556:                   bool spill_p = !lra_assign (fails_p);
+2557:
+2558:                   if (lra_undo_inheritance ())
+2559:                     live_p = false;
+2560:                   if (spill_p && ! fails_p)
+2561:                     {
+2562:                       if (! live_p)
+2563:                         {
+2564:                           lra_create_live_ranges (true, true);
+2565:                           live_p = true;
+2566:                         }
+2567:                       if (lra_coalesce ())
+2568:                         live_p = false;
+2569:                     }
+2570:                   if (! live_p)
+2571:                     lra_clear_live_ranges ();
+2572:                 }
+2573:               if (fails_p)
+2574:                 {
+2575:                   /* It is a very rare case.  It is the last hope to
+2576:                      split a hard regno live range for a reload
+2577:                      pseudo.  */
+2578:                   if (live_p)
+2579:                     lra_clear_live_ranges ();
+2580:                   live_p = false;
+2581:                   /* See a comment for LRA_MAX_FAILED_SPLITS definition.  */
+2582:                   bool last_failed_split_p
+2583:                     = split_fails_num > LRA_MAX_FAILED_SPLITS;
+2584:                   if (! lra_split_hard_reg_for (last_failed_split_p))
+2585:                     {
+2586:                       if (last_failed_split_p)
+2587:                         break;
+2588:                       split_fails_num++;
+2589:                     }
+2590:                   lra_hard_reg_split_p = true;
+2591:                 }
+2592:             }
+2593:           while (fails_p && !lra_asm_error_p);
+2594:           if (! live_p) {
+2595:             /* We need the correct reg notes for work of constraint sub-pass.  */
+2596:             lra_create_live_ranges (true, true);
+2597:             live_p = true;
+2598:           }
+2599:           bitmap_iterator bi;
+2600:           unsigned int uid;
+2601:           EXECUTE_IF_SET_IN_BITMAP (&lra_postponed_insns, 0, uid, bi)
+2602:             lra_push_insn_by_uid (uid);
+2603:           bitmap_clear (&lra_postponed_insns);
+2604:         }
+2605:       /* Don't clear optional reloads bitmap until all constraints are
+2606:          satisfied as we need to differ them from regular reloads.  */
+2607:       bitmap_clear (&lra_optional_reload_pseudos);
+2608:       bitmap_clear (&lra_subreg_reload_pseudos);
+2609:       bitmap_clear (&lra_inheritance_pseudos);
+2610:       bitmap_clear (&lra_split_regs);
+2611:       if (! live_p)
+2612:         {
+2613:           /* We need full live info for spilling pseudos into
+2614:              registers instead of memory.  */
+2615:           lra_create_live_ranges (lra_reg_spill_p, true);
+2616:           live_p = true;
+2617:         }
+2618:       /* We should check necessity for spilling here as the above live
+2619:          range pass can remove spilled pseudos.  */
+2620:       if (! lra_need_for_spills_p ())
+2621:         break;
+2622:       /* Now we know what pseudos should be spilled.  Try to
+2623:          rematerialize them first.  */
+2624:       if (lra_remat ())
+2625:         {
+2626:           /* We need full live info -- see the comment above.  We also might
+2627:              need live info if we have a pseudo assigned to hard frame pointer
+2628:              reg and will need FP for usual purposes.  */
+2629:           lra_create_live_ranges (lra_reg_spill_p || lra_fp_pseudo_p (),
+2630:                                   true);
+2631:           live_p = true;
+2632:           if (! lra_need_for_spills_p ())
+2633:             {
+2634:               if (lra_need_for_scratch_reg_p ())
+2635:                 continue;
+2636:               break;
+2637:             }
+2638:         }
+2639:       lra_spill ();
+2640:       /* Assignment of stack slots changes elimination offsets for
+2641:          some eliminations.  So update the offsets here.  */
+2642:       lra_eliminate (false, false);
+2643:       lra_constraint_new_regno_start = max_reg_num ();
+2644:       if (lra_bad_spill_regno_start == INT_MAX
+2645:           && lra_inheritance_iter > LRA_MAX_INHERITANCE_PASSES
+2646:           && lra_rematerialization_iter > LRA_MAX_REMATERIALIZATION_PASSES)
+2647:         /* After switching off inheritance and rematerialization
+2648:            passes, avoid spilling reload pseudos will be created to
+2649:            prevent LRA cycling in some complicated cases.  */
+2650:         lra_bad_spill_regno_start = lra_constraint_new_regno_start;
+2651:       lra_assignment_iter_after_spill = 0;
+2652:     }
+2653:   ira_restore_scratches (lra_dump_file);
+2654:   lra_eliminate (true, false);
+2655:   lra_final_code_change ();
+2656:   lra_in_progress = false;
+2657:   if (live_p)
+2658:     lra_clear_live_ranges ();
+2659:   lra_live_ranges_finish ();
+2660:   lra_constraints_finish ();
+2661:   finish_reg_info ();
+2662:   sbitmap_free (lra_constraint_insn_stack_bitmap);
+2663:   lra_constraint_insn_stack.release ();
+2664:   finish_insn_recog_data ();
+2665:   lra_finish_equiv ();
+2666:   regstat_free_n_sets_and_refs ();
+2667:   regstat_free_ri ();
+2668:   reload_completed = 1;
+2669:   update_inc_notes ();
+2670:
+2671:   inserted_p = fixup_abnormal_edges ();
+2672:
+2673:   /* Split basic blocks if we've possibly turned single trapping insn
+2674:      into multiple ones or otherwise the backend requested to do so.  */
+2675:   if (cfun->can_throw_non_call_exceptions
+2676:       || cfun->split_basic_blocks_after_reload)
+2677:     {
+2678:       auto_sbitmap blocks (last_basic_block_for_fn (cfun));
+2679:       bitmap_ones (blocks);
+2680:       find_many_sub_basic_blocks (blocks);
+2681:     }
+2682:
+2683:   if (inserted_p)
+2684:     commit_edge_insertions ();
+2685:
+2686:   /* Subsequent passes expect that rtl is unshared, so unshare everything
+2687:      here.  */
+2688:   unshare_all_rtl_again (get_insns ());
 ```
 
 ## gcc/expmed.cc:252–344
@@ -29202,6 +30054,1703 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 869: -param=min-nondebug-insn-uid=
 870: Common Joined UInteger Var(param_min_nondebug_insn_uid) Param IntegerRange(0, 1073741824)
 871: The minimum UID to be used for a nondebug insn.
+```
+
+## gcc/ira-build.cc:125–159
+
+```text
+125: create_loop_tree_nodes (void)
+126: {
+127:   unsigned int i, j;
+128:   bool skip_p;
+129:   edge_iterator ei;
+130:   edge e;
+131:   loop_p loop;
+132:
+133:   ira_bb_nodes
+134:     = ((struct ira_loop_tree_node *)
+135:        ira_allocate (sizeof (struct ira_loop_tree_node)
+136:                      * last_basic_block_for_fn (cfun)));
+137:   last_basic_block_before_change = last_basic_block_for_fn (cfun);
+138:   for (i = 0; i < (unsigned int) last_basic_block_for_fn (cfun); i++)
+139:     {
+140:       ira_bb_nodes[i].regno_allocno_map = NULL;
+141:       memset (ira_bb_nodes[i].reg_pressure, 0,
+142:               sizeof (ira_bb_nodes[i].reg_pressure));
+143:       ira_bb_nodes[i].all_allocnos = NULL;
+144:       ira_bb_nodes[i].modified_regnos = NULL;
+145:       ira_bb_nodes[i].border_allocnos = NULL;
+146:       ira_bb_nodes[i].local_copies = NULL;
+147:     }
+148:   if (current_loops == NULL)
+149:     {
+150:       ira_loop_nodes_count = 1;
+151:       ira_loop_nodes = ((struct ira_loop_tree_node *)
+152:                         ira_allocate (sizeof (struct ira_loop_tree_node)));
+153:       init_loop_tree_node (ira_loop_nodes, 0);
+154:       return;
+155:     }
+156:   ira_loop_nodes_count = number_of_loops (cfun);
+157:   ira_loop_nodes = ((struct ira_loop_tree_node *)
+158:                     ira_allocate (sizeof (struct ira_loop_tree_node)
+159:                                   * ira_loop_nodes_count));
+```
+
+## gcc/ira-build.cc:429–440
+
+```text
+429: initiate_allocnos (void)
+430: {
+431:   allocno_vec.create (max_reg_num () * 2);
+432:   ira_allocnos = NULL;
+433:   ira_allocnos_num = 0;
+434:   ira_objects_num = 0;
+435:   ira_object_id_map_vec.create (max_reg_num () * 2);
+436:   ira_object_id_map = NULL;
+437:   ira_regno_allocno_map
+438:     = (ira_allocno_t *) ira_allocate (max_reg_num ()
+439:                                       * sizeof (ira_allocno_t));
+440:   memset (ira_regno_allocno_map, 0, max_reg_num () * sizeof (ira_allocno_t));
+```
+
+## gcc/ira-build.cc:1839–1958
+
+```text
+1839: create_insn_allocnos (rtx x, rtx outer, bool output_p)
+1840: {
+1841:   int i, j;
+1842:   const char *fmt;
+1843:   enum rtx_code code = GET_CODE (x);
+1844:
+1845:   if (code == REG)
+1846:     {
+1847:       int regno;
+1848:
+1849:       if ((regno = REGNO (x)) >= FIRST_PSEUDO_REGISTER)
+1850:         {
+1851:           ira_allocno_t a;
+1852:
+1853:           if ((a = ira_curr_regno_allocno_map[regno]) == NULL)
+1854:             a = ira_create_allocno (regno, false, ira_curr_loop_tree_node);
+1855:
+1856:           /* This used to only trigger at allocno creation which seems
+1857:              wrong.  We care about the WMODE propery across all the uses.  */
+1858:           if (outer != NULL && GET_CODE (outer) == SUBREG)
+1859:             {
+1860:               machine_mode wmode = GET_MODE (outer);
+1861:               if (partial_subreg_p (ALLOCNO_WMODE (a), wmode))
+1862:                 ALLOCNO_WMODE (a) = wmode;
+1863:             }
+1864:
+1865:           ALLOCNO_NREFS (a)++;
+1866:           ALLOCNO_FREQ (a) += REG_FREQ_FROM_BB (curr_bb);
+1867:           if (output_p)
+1868:             bitmap_set_bit (ira_curr_loop_tree_node->modified_regnos, regno);
+1869:         }
+1870:       return;
+1871:     }
+1872:   else if (code == SET)
+1873:     {
+1874:       create_insn_allocnos (SET_DEST (x), NULL, true);
+1875:       create_insn_allocnos (SET_SRC (x), NULL, false);
+1876:       return;
+1877:     }
+1878:   else if (code == CLOBBER)
+1879:     {
+1880:       create_insn_allocnos (XEXP (x, 0), NULL, true);
+1881:       return;
+1882:     }
+1883:   else if (code == MEM)
+1884:     {
+1885:       create_insn_allocnos (XEXP (x, 0), NULL, false);
+1886:       return;
+1887:     }
+1888:   else if (code == PRE_DEC || code == POST_DEC || code == PRE_INC ||
+1889:            code == POST_INC || code == POST_MODIFY || code == PRE_MODIFY)
+1890:     {
+1891:       create_insn_allocnos (XEXP (x, 0), NULL, true);
+1892:       create_insn_allocnos (XEXP (x, 0), NULL, false);
+1893:       return;
+1894:     }
+1895:
+1896:   fmt = GET_RTX_FORMAT (code);
+1897:   for (i = GET_RTX_LENGTH (code) - 1; i >= 0; i--)
+1898:     {
+1899:       if (fmt[i] == 'e')
+1900:         create_insn_allocnos (XEXP (x, i), x, output_p);
+1901:       else if (fmt[i] == 'E')
+1902:         for (j = 0; j < XVECLEN (x, i); j++)
+1903:           create_insn_allocnos (XVECEXP (x, i, j), x, output_p);
+1904:     }
+1905: }
+1906:
+1907: /* Create allocnos corresponding to pseudo-registers living in the
+1908:    basic block represented by the corresponding loop tree node
+1909:    BB_NODE.  */
+1910: static void
+1911: create_bb_allocnos (ira_loop_tree_node_t bb_node)
+1912: {
+1913:   basic_block bb;
+1914:   rtx_insn *insn;
+1915:   unsigned int i;
+1916:   bitmap_iterator bi;
+1917:
+1918:   curr_bb = bb = bb_node->bb;
+1919:   ira_assert (bb != NULL);
+1920:   FOR_BB_INSNS_REVERSE (bb, insn)
+1921:     if (NONDEBUG_INSN_P (insn))
+1922:       create_insn_allocnos (PATTERN (insn), NULL, false);
+1923:   /* It might be a allocno living through from one subloop to
+1924:      another.  */
+1925:   EXECUTE_IF_SET_IN_REG_SET (df_get_live_in (bb), FIRST_PSEUDO_REGISTER, i, bi)
+1926:     if (ira_curr_regno_allocno_map[i] == NULL)
+1927:       ira_create_allocno (i, false, ira_curr_loop_tree_node);
+1928: }
+1929:
+1930: /* Create allocnos corresponding to pseudo-registers living on edge E
+1931:    (a loop entry or exit).  Also mark the allocnos as living on the
+1932:    loop border. */
+1933: static void
+1934: create_loop_allocnos (edge e)
+1935: {
+1936:   unsigned int i;
+1937:   bitmap live_in_regs, border_allocnos;
+1938:   bitmap_iterator bi;
+1939:   ira_loop_tree_node_t parent;
+1940:
+1941:   live_in_regs = df_get_live_in (e->dest);
+1942:   border_allocnos = ira_curr_loop_tree_node->border_allocnos;
+1943:   EXECUTE_IF_SET_IN_REG_SET (df_get_live_out (e->src),
+1944:                              FIRST_PSEUDO_REGISTER, i, bi)
+1945:     if (bitmap_bit_p (live_in_regs, i))
+1946:       {
+1947:         if (ira_curr_regno_allocno_map[i] == NULL)
+1948:           {
+1949:             /* The order of creations is important for right
+1950:                ira_regno_allocno_map.  */
+1951:             if ((parent = ira_curr_loop_tree_node->parent) != NULL
+1952:                 && parent->regno_allocno_map[i] == NULL)
+1953:               ira_create_allocno (i, false, parent);
+1954:             ira_create_allocno (i, false, ira_curr_loop_tree_node);
+1955:           }
+1956:         bitmap_set_bit (border_allocnos,
+1957:                         ALLOCNO_NUM (ira_curr_regno_allocno_map[i]));
+1958:       }
+```
+
+## gcc/ira-build.cc:3478–3564
+
+```text
+3478: ira_build (void)
+3479: {
+3480:   bool loops_p;
+3481:
+3482:   df_analyze ();
+3483:   initiate_cost_vectors ();
+3484:   initiate_allocnos ();
+3485:   initiate_prefs ();
+3486:   initiate_copies ();
+3487:   create_loop_tree_nodes ();
+3488:   form_loop_tree ();
+3489:   create_allocnos ();
+3490:   ira_costs ();
+3491:   create_allocno_objects ();
+3492:   ira_create_allocno_live_ranges ();
+3493:   remove_unnecessary_regions (false);
+3494:   ira_compress_allocno_live_ranges ();
+3495:   update_bad_spill_attribute ();
+3496:   loops_p = more_one_region_p ();
+3497:   if (loops_p)
+3498:     {
+3499:       propagate_allocno_info ();
+3500:       create_caps ();
+3501:     }
+3502:   ira_tune_allocno_costs ();
+3503: #ifdef ENABLE_IRA_CHECKING
+3504:   check_allocno_creation ();
+3505: #endif
+3506:   setup_min_max_allocno_live_range_point ();
+3507:   sort_conflict_id_map ();
+3508:   setup_min_max_conflict_allocno_ids ();
+3509:   ira_build_conflicts ();
+3510:   update_conflict_hard_reg_costs ();
+3511:   if (! ira_conflicts_p)
+3512:     {
+3513:       ira_allocno_t a;
+3514:       ira_allocno_iterator ai;
+3515:
+3516:       /* Remove all regions but root one.  */
+3517:       if (loops_p)
+3518:         {
+3519:           remove_unnecessary_regions (true);
+3520:           loops_p = false;
+3521:         }
+3522:       /* We don't save hard registers around calls for fast allocation
+3523:          -- add caller clobbered registers as conflicting ones to
+3524:          allocno crossing calls.  */
+3525:       FOR_EACH_ALLOCNO (a, ai)
+3526:         if (ALLOCNO_CALLS_CROSSED_NUM (a) != 0)
+3527:           ior_hard_reg_conflicts (a, ira_need_caller_save_regs (a));
+3528:     }
+3529:   if (internal_flag_ira_verbose > 2 && ira_dump_file != NULL)
+3530:     print_copies (ira_dump_file);
+3531:   if (internal_flag_ira_verbose > 2 && ira_dump_file != NULL)
+3532:     print_prefs (ira_dump_file);
+3533:   if (internal_flag_ira_verbose > 0 && ira_dump_file != NULL)
+3534:     {
+3535:       int n, nr, nr_big;
+3536:       ira_allocno_t a;
+3537:       live_range_t r;
+3538:       ira_allocno_iterator ai;
+3539:
+3540:       n = 0;
+3541:       nr = 0;
+3542:       nr_big = 0;
+3543:       FOR_EACH_ALLOCNO (a, ai)
+3544:         {
+3545:           int j, nobj = ALLOCNO_NUM_OBJECTS (a);
+3546:
+3547:           if (nobj > 1)
+3548:             nr_big++;
+3549:           for (j = 0; j < nobj; j++)
+3550:             {
+3551:               ira_object_t obj = ALLOCNO_OBJECT (a, j);
+3552:               n += OBJECT_NUM_CONFLICTS (obj);
+3553:               for (r = OBJECT_LIVE_RANGES (obj); r != NULL; r = r->next)
+3554:                 nr++;
+3555:             }
+3556:         }
+3557:       fprintf (ira_dump_file, "  regions=%d, blocks=%d, points=%d\n",
+3558:                current_loops == NULL ? 1 : number_of_loops (cfun),
+3559:                n_basic_blocks_for_fn (cfun), ira_max_point);
+3560:       fprintf (ira_dump_file,
+3561:                "    allocnos=%d (big %d), copies=%d, conflicts=%d, ranges=%d\n",
+3562:                ira_allocnos_num, nr_big, ira_copies_num, n, nr);
+3563:     }
+3564:   return loops_p;
+```
+
+## gcc/ira-emit.cc:1252–1265
+
+```text
+1252: ira_emit (bool loops_p)
+1253: {
+1254:   basic_block bb;
+1255:   rtx_insn *insn;
+1256:   edge_iterator ei;
+1257:   edge e;
+1258:   ira_allocno_t a;
+1259:   ira_allocno_iterator ai;
+1260:   size_t sz;
+1261:
+1262:   FOR_EACH_ALLOCNO (a, ai)
+1263:     ALLOCNO_EMIT_DATA (a)->reg = regno_reg_rtx[ALLOCNO_REGNO (a)];
+1264:   if (! loops_p)
+1265:     return;
+```
+
+## gcc/lra-constraints.cc:4335–4378
+
+```text
+4335: curr_insn_transform (bool check_only_p)
+4336: {
+4337:   int i, j, k;
+4338:   int n_operands;
+4339:   int n_alternatives;
+4340:   int n_outputs;
+4341:   int commutative;
+4342:   signed char goal_alt_matched[MAX_RECOG_OPERANDS][MAX_RECOG_OPERANDS];
+4343:   signed char match_inputs[MAX_RECOG_OPERANDS + 1];
+4344:   signed char outputs[MAX_RECOG_OPERANDS + 1];
+4345:   rtx_insn *before, *after;
+4346:   bool alt_p = false;
+4347:   /* Flag that the insn has been changed through a transformation.  */
+4348:   bool change_p;
+4349:   bool sec_mem_p;
+4350:   bool use_sec_mem_p;
+4351:   int max_regno_before;
+4352:   int reused_alternative_num;
+4353:
+4354:   curr_insn_set = single_set (curr_insn);
+4355:   if (curr_insn_set != NULL_RTX && simple_move_p ())
+4356:     {
+4357:       /* We assume that the corresponding insn alternative has no
+4358:          earlier clobbers.  If it is not the case, don't define move
+4359:          cost equal to 2 for the corresponding register classes.  */
+4360:       lra_set_used_insn_alternative (curr_insn, LRA_NON_CLOBBERED_ALT);
+4361:       return false;
+4362:     }
+4363:
+4364:   no_input_reloads_p = no_output_reloads_p = false;
+4365:   goal_alt_number = -1;
+4366:   change_p = sec_mem_p = false;
+4367:
+4368:   /* CALL_INSNs are not allowed to have any output reloads.  */
+4369:   if (CALL_P (curr_insn))
+4370:     no_output_reloads_p = true;
+4371:
+4372:   n_operands = curr_static_id->n_operands;
+4373:   n_alternatives = curr_static_id->n_alternatives;
+4374:
+4375:   /* Just return "no reloads" if insn has no operands with
+4376:      constraints.  */
+4377:   if (n_operands == 0 || n_alternatives == 0)
+4378:     return false;
+```
+
+## gcc/lra-constraints.cc:5559–5606
+
+```text
+5559: lra_constraints (bool first_p)
+5560: {
+5561:   bool changed_p;
+5562:   int i, hard_regno, new_insns_num;
+5563:   unsigned int min_len, new_min_len, uid;
+5564:   rtx set, x, reg, nosubreg_dest;
+5565:   rtx_insn *original_insn;
+5566:   basic_block last_bb;
+5567:   bitmap_iterator bi;
+5568:
+5569:   lra_constraint_iter++;
+5570:   if (lra_dump_file != NULL)
+5571:     fprintf (lra_dump_file, "\n********** Local #%d: **********\n\n",
+5572:              lra_constraint_iter);
+5573:   changed_p = false;
+5574:   if (pic_offset_table_rtx
+5575:       && REGNO (pic_offset_table_rtx) >= FIRST_PSEUDO_REGISTER)
+5576:     check_and_force_assignment_correctness_p = true;
+5577:   else if (first_p)
+5578:     /* On the first iteration we should check IRA assignment
+5579:        correctness.  In rare cases, the assignments can be wrong as
+5580:        early clobbers operands are ignored in IRA or usages of
+5581:        paradoxical sub-registers are not taken into account by
+5582:        IRA.  */
+5583:     check_and_force_assignment_correctness_p = true;
+5584:   new_insn_uid_start = get_max_uid ();
+5585:   new_regno_start = first_p ? lra_constraint_new_regno_start : max_reg_num ();
+5586:   /* Mark used hard regs for target stack size calulations.  */
+5587:   for (i = FIRST_PSEUDO_REGISTER; i < new_regno_start; i++)
+5588:     if (lra_reg_info[i].nrefs != 0
+5589:         && (hard_regno = lra_get_regno_hard_regno (i)) >= 0)
+5590:       {
+5591:         int j, nregs;
+5592:
+5593:         nregs = hard_regno_nregs (hard_regno, lra_reg_info[i].biggest_mode);
+5594:         for (j = 0; j < nregs; j++)
+5595:           df_set_regs_ever_live (hard_regno + j, true);
+5596:       }
+5597:   /* Do elimination before the equivalence processing as we can spill
+5598:      some pseudos during elimination.  */
+5599:   lra_eliminate (false, first_p);
+5600:   auto_bitmap equiv_insn_bitmap (&reg_obstack);
+5601:
+5602:   /* Register elimination can create new pseudos via the addptr pattern,
+5603:      so make sure the equivalency tables are resized appropriately.  */
+5604:   ira_expand_reg_equiv ();
+5605:   for (i = FIRST_PSEUDO_REGISTER; i < new_regno_start; i++)
+5606:     if (lra_reg_info[i].nrefs != 0)
+```
+
+## gcc/lra-constraints.cc:5790–5826
+
+```text
+5790:           curr_id = lra_get_insn_recog_data (curr_insn);
+5791:           curr_static_id = curr_id->insn_static_data;
+5792:           init_curr_insn_input_reloads ();
+5793:           init_curr_operand_mode ();
+5794:           if (curr_insn_transform (false))
+5795:             changed_p = true;
+5796:           /* Check non-transformed insns too for equiv change as USE
+5797:              or CLOBBER don't need reloads but can contain pseudos
+5798:              being changed on their equivalences.  */
+5799:           else if (bitmap_bit_p (equiv_insn_bitmap, INSN_UID (curr_insn))
+5800:                    && loc_equivalence_change_p (&PATTERN (curr_insn)))
+5801:             {
+5802:               lra_update_insn_regno_info (curr_insn);
+5803:               lra_push_insn_by_uid (INSN_UID (curr_insn));
+5804:               changed_p = true;
+5805:             }
+5806:         }
+5807:     }
+5808:
+5809:   /* If we used a new hard regno, changed_p should be true because the
+5810:      hard reg is assigned to a new pseudo.  */
+5811:   if (flag_checking && !changed_p)
+5812:     {
+5813:       for (i = FIRST_PSEUDO_REGISTER; i < new_regno_start; i++)
+5814:         if (lra_reg_info[i].nrefs != 0
+5815:             && (hard_regno = lra_get_regno_hard_regno (i)) >= 0)
+5816:           {
+5817:             int j, nregs = hard_regno_nregs (hard_regno,
+5818:                                              PSEUDO_REGNO_MODE (i));
+5819:
+5820:             for (j = 0; j < nregs; j++)
+5821:               lra_assert (df_regs_ever_live_p (hard_regno + j));
+5822:           }
+5823:     }
+5824:   if (changed_p)
+5825:     lra_dump_insns_if_possible ("changed func after local");
+5826:   return changed_p;
+```
+
+## gcc/lra-constraints.cc:5914–5922
+
+```text
+5914: /* Initiate the invariant table.  */
+5915: static void
+5916: initiate_invariants (void)
+5917: {
+5918:   invariants.create (100);
+5919:   invariants_pool
+5920:     = new object_allocator<lra_invariant> ("Inheritance invariants");
+5921:   invariant_table = htab_create (100, invariant_hash, invariant_eq_p, NULL);
+5922: }
+```
+
+## gcc/lra-constraints.cc:7075–7275
+
+```text
+7075: inherit_in_ebb (rtx_insn *head, rtx_insn *tail)
+7076: {
+7077:   int i, src_regno, dst_regno, nregs;
+7078:   bool change_p, succ_p, update_reloads_num_p;
+7079:   rtx_insn *prev_insn, *last_insn;
+7080:   rtx next_usage_insns, curr_set;
+7081:   enum reg_class cl;
+7082:   struct lra_insn_reg *reg;
+7083:   basic_block last_processed_bb, curr_bb = NULL;
+7084:   HARD_REG_SET potential_reload_hard_regs, live_hard_regs;
+7085:   bitmap to_process;
+7086:   unsigned int j;
+7087:   bitmap_iterator bi;
+7088:   bool head_p, after_p;
+7089:
+7090:   change_p = false;
+7091:   curr_usage_insns_check++;
+7092:   clear_invariants ();
+7093:   reloads_num = calls_num = 0;
+7094:   for (unsigned int i = 0; i < NUM_ABI_IDS; ++i)
+7095:     last_call_for_abi[i] = 0;
+7096:   CLEAR_HARD_REG_SET (full_and_partial_call_clobbers);
+7097:   bitmap_clear (&check_only_regs);
+7098:   bitmap_clear (&invalid_invariant_regs);
+7099:   last_processed_bb = NULL;
+7100:   CLEAR_HARD_REG_SET (potential_reload_hard_regs);
+7101:   live_hard_regs = eliminable_regset | lra_no_alloc_regs;
+7102:   /* We don't process new insns generated in the loop.  */
+7103:   for (curr_insn = tail; curr_insn != PREV_INSN (head); curr_insn = prev_insn)
+7104:     {
+7105:       prev_insn = PREV_INSN (curr_insn);
+7106:       if (BLOCK_FOR_INSN (curr_insn) != NULL)
+7107:         curr_bb = BLOCK_FOR_INSN (curr_insn);
+7108:       if (last_processed_bb != curr_bb)
+7109:         {
+7110:           /* We are at the end of BB.  Add qualified living
+7111:              pseudos for potential splitting.  */
+7112:           to_process = df_get_live_out (curr_bb);
+7113:           if (last_processed_bb != NULL)
+7114:             {
+7115:               /* We are somewhere in the middle of EBB.  */
+7116:               get_live_on_other_edges (curr_bb, last_processed_bb,
+7117:                                        &temp_bitmap);
+7118:               to_process = &temp_bitmap;
+7119:             }
+7120:           last_processed_bb = curr_bb;
+7121:           last_insn = get_last_insertion_point (curr_bb);
+7122:           after_p = (! JUMP_P (last_insn)
+7123:                      && (! CALL_P (last_insn)
+7124:                          || (find_reg_note (last_insn,
+7125:                                            REG_NORETURN, NULL_RTX) == NULL_RTX
+7126:                              && ! SIBLING_CALL_P (last_insn))));
+7127:           CLEAR_HARD_REG_SET (potential_reload_hard_regs);
+7128:           EXECUTE_IF_SET_IN_BITMAP (to_process, 0, j, bi)
+7129:             {
+7130:               if ((int) j >= lra_constraint_new_regno_start)
+7131:                 break;
+7132:               if (j < FIRST_PSEUDO_REGISTER || reg_renumber[j] >= 0)
+7133:                 {
+7134:                   if (j < FIRST_PSEUDO_REGISTER)
+7135:                     SET_HARD_REG_BIT (live_hard_regs, j);
+7136:                   else
+7137:                     add_to_hard_reg_set (&live_hard_regs,
+7138:                                          PSEUDO_REGNO_MODE (j),
+7139:                                          reg_renumber[j]);
+7140:                   setup_next_usage_insn (j, last_insn, reloads_num, after_p);
+7141:                 }
+7142:             }
+7143:         }
+7144:       src_regno = dst_regno = -1;
+7145:       curr_set = single_set (curr_insn);
+7146:       if (curr_set != NULL_RTX && REG_P (SET_DEST (curr_set)))
+7147:         dst_regno = REGNO (SET_DEST (curr_set));
+7148:       if (curr_set != NULL_RTX && REG_P (SET_SRC (curr_set)))
+7149:         src_regno = REGNO (SET_SRC (curr_set));
+7150:       update_reloads_num_p = true;
+7151:       if (src_regno < lra_constraint_new_regno_start
+7152:           && src_regno >= FIRST_PSEUDO_REGISTER
+7153:           && reg_renumber[src_regno] < 0
+7154:           && dst_regno >= lra_constraint_new_regno_start
+7155:           && (cl = lra_get_allocno_class (dst_regno)) != NO_REGS)
+7156:         {
+7157:           /* 'reload_pseudo <- original_pseudo'.  */
+7158:           if (ira_class_hard_regs_num[cl] <= max_small_class_regs_num)
+7159:             reloads_num++;
+7160:           update_reloads_num_p = false;
+7161:           succ_p = false;
+7162:           if (usage_insns[src_regno].check == curr_usage_insns_check
+7163:               && (next_usage_insns = usage_insns[src_regno].insns) != NULL_RTX)
+7164:             succ_p = inherit_reload_reg (false, src_regno, cl,
+7165:                                          curr_insn, next_usage_insns);
+7166:           if (succ_p)
+7167:             change_p = true;
+7168:           else
+7169:             setup_next_usage_insn (src_regno, curr_insn, reloads_num, false);
+7170:           if (hard_reg_set_subset_p (reg_class_contents[cl], live_hard_regs))
+7171:             potential_reload_hard_regs |= reg_class_contents[cl];
+7172:         }
+7173:       else if (src_regno < 0
+7174:                && dst_regno >= lra_constraint_new_regno_start
+7175:                && invariant_p (SET_SRC (curr_set))
+7176:                && (cl = lra_get_allocno_class (dst_regno)) != NO_REGS
+7177:                && ! bitmap_bit_p (&invalid_invariant_regs, dst_regno)
+7178:                && ! bitmap_bit_p (&invalid_invariant_regs,
+7179:                                   ORIGINAL_REGNO(regno_reg_rtx[dst_regno])))
+7180:         {
+7181:           /* 'reload_pseudo <- invariant'.  */
+7182:           if (ira_class_hard_regs_num[cl] <= max_small_class_regs_num)
+7183:             reloads_num++;
+7184:           update_reloads_num_p = false;
+7185:           if (process_invariant_for_inheritance (SET_DEST (curr_set), SET_SRC (curr_set)))
+7186:             change_p = true;
+7187:           if (hard_reg_set_subset_p (reg_class_contents[cl], live_hard_regs))
+7188:             potential_reload_hard_regs |= reg_class_contents[cl];
+7189:         }
+7190:       else if (src_regno >= lra_constraint_new_regno_start
+7191:                && dst_regno < lra_constraint_new_regno_start
+7192:                && dst_regno >= FIRST_PSEUDO_REGISTER
+7193:                && reg_renumber[dst_regno] < 0
+7194:                && (cl = lra_get_allocno_class (src_regno)) != NO_REGS
+7195:                && usage_insns[dst_regno].check == curr_usage_insns_check
+7196:                && (next_usage_insns
+7197:                    = usage_insns[dst_regno].insns) != NULL_RTX)
+7198:         {
+7199:           if (ira_class_hard_regs_num[cl] <= max_small_class_regs_num)
+7200:             reloads_num++;
+7201:           update_reloads_num_p = false;
+7202:           /* 'original_pseudo <- reload_pseudo'.  */
+7203:           if (! JUMP_P (curr_insn)
+7204:               && inherit_reload_reg (true, dst_regno, cl,
+7205:                                      curr_insn, next_usage_insns))
+7206:             change_p = true;
+7207:           /* Invalidate.  */
+7208:           usage_insns[dst_regno].check = 0;
+7209:           if (hard_reg_set_subset_p (reg_class_contents[cl], live_hard_regs))
+7210:             potential_reload_hard_regs |= reg_class_contents[cl];
+7211:         }
+7212:       else if (INSN_P (curr_insn))
+7213:         {
+7214:           int iter;
+7215:           int max_uid = get_max_uid ();
+7216:
+7217:           curr_id = lra_get_insn_recog_data (curr_insn);
+7218:           curr_static_id = curr_id->insn_static_data;
+7219:           to_inherit_num = 0;
+7220:           /* Process insn definitions.  */
+7221:           for (iter = 0; iter < 2; iter++)
+7222:             for (reg = iter == 0 ? curr_id->regs : curr_static_id->hard_regs;
+7223:                  reg != NULL;
+7224:                  reg = reg->next)
+7225:               if (reg->type != OP_IN
+7226:                   && (dst_regno = reg->regno) < lra_constraint_new_regno_start)
+7227:                 {
+7228:                   if (dst_regno >= FIRST_PSEUDO_REGISTER && reg->type == OP_OUT
+7229:                       && reg_renumber[dst_regno] < 0 && ! reg->subreg_p
+7230:                       && usage_insns[dst_regno].check == curr_usage_insns_check
+7231:                       && (next_usage_insns
+7232:                           = usage_insns[dst_regno].insns) != NULL_RTX)
+7233:                     {
+7234:                       struct lra_insn_reg *r;
+7235:
+7236:                       for (r = curr_id->regs; r != NULL; r = r->next)
+7237:                         if (r->type != OP_OUT && r->regno == dst_regno)
+7238:                           break;
+7239:                       /* Don't do inheritance if the pseudo is also
+7240:                          used in the insn.  */
+7241:                       if (r == NULL)
+7242:                         /* We cannot do inheritance right now
+7243:                            because the current insn reg info (chain
+7244:                            regs) can change after that.  */
+7245:                         add_to_inherit (dst_regno, next_usage_insns);
+7246:                     }
+7247:                   /* We cannot process one reg twice here because of
+7248:                      usage_insns invalidation.  */
+7249:                   if ((dst_regno < FIRST_PSEUDO_REGISTER
+7250:                        || reg_renumber[dst_regno] >= 0)
+7251:                       && ! reg->subreg_p && reg->type != OP_IN)
+7252:                     {
+7253:                       HARD_REG_SET s;
+7254:
+7255:                       if (split_if_necessary (dst_regno, reg->biggest_mode,
+7256:                                               potential_reload_hard_regs,
+7257:                                               false, curr_insn, max_uid))
+7258:                         change_p = true;
+7259:                       CLEAR_HARD_REG_SET (s);
+7260:                       if (dst_regno < FIRST_PSEUDO_REGISTER)
+7261:                         add_to_hard_reg_set (&s, reg->biggest_mode, dst_regno);
+7262:                       else
+7263:                         add_to_hard_reg_set (&s, PSEUDO_REGNO_MODE (dst_regno),
+7264:                                              reg_renumber[dst_regno]);
+7265:                       live_hard_regs &= ~s;
+7266:                       potential_reload_hard_regs &= ~s;
+7267:                     }
+7268:                   /* We should invalidate potential inheritance or
+7269:                      splitting for the current insn usages to the next
+7270:                      usage insns (see code below) as the output pseudo
+7271:                      prevents this.  */
+7272:                   if ((dst_regno >= FIRST_PSEUDO_REGISTER
+7273:                        && reg_renumber[dst_regno] < 0)
+7274:                       || (reg->type == OP_OUT && ! reg->subreg_p
+7275:                           && (dst_regno < FIRST_PSEUDO_REGISTER
+```
+
+## gcc/lra-constraints.cc:7534–7594
+
+```text
+7534: lra_inheritance (void)
+7535: {
+7536:   int i;
+7537:   basic_block bb, start_bb;
+7538:   edge e;
+7539:
+7540:   lra_inheritance_iter++;
+7541:   if (lra_inheritance_iter > LRA_MAX_INHERITANCE_PASSES)
+7542:     return;
+7543:   timevar_push (TV_LRA_INHERITANCE);
+7544:   if (lra_dump_file != NULL)
+7545:     fprintf (lra_dump_file, "\n********** Inheritance #%d: **********\n\n",
+7546:              lra_inheritance_iter);
+7547:   curr_usage_insns_check = 0;
+7548:   usage_insns = XNEWVEC (struct usage_insns, lra_constraint_new_regno_start);
+7549:   for (i = 0; i < lra_constraint_new_regno_start; i++)
+7550:     usage_insns[i].check = 0;
+7551:   bitmap_initialize (&check_only_regs, &reg_obstack);
+7552:   bitmap_initialize (&invalid_invariant_regs, &reg_obstack);
+7553:   bitmap_initialize (&live_regs, &reg_obstack);
+7554:   bitmap_initialize (&temp_bitmap, &reg_obstack);
+7555:   bitmap_initialize (&ebb_global_regs, &reg_obstack);
+7556:   FOR_EACH_BB_FN (bb, cfun)
+7557:     {
+7558:       start_bb = bb;
+7559:       if (lra_dump_file != NULL)
+7560:         fprintf (lra_dump_file, "EBB");
+7561:       /* Form a EBB starting with BB.  */
+7562:       bitmap_clear (&ebb_global_regs);
+7563:       bitmap_ior_into (&ebb_global_regs, df_get_live_in (bb));
+7564:       for (;;)
+7565:         {
+7566:           if (lra_dump_file != NULL)
+7567:             fprintf (lra_dump_file, " %d", bb->index);
+7568:           if (bb->next_bb == EXIT_BLOCK_PTR_FOR_FN (cfun)
+7569:               || LABEL_P (BB_HEAD (bb->next_bb)))
+7570:             break;
+7571:           e = find_fallthru_edge (bb->succs);
+7572:           if (! e)
+7573:             break;
+7574:           if (e->probability.initialized_p ()
+7575:               && e->probability.to_reg_br_prob_base () < EBB_PROBABILITY_CUTOFF)
+7576:             break;
+7577:           bb = bb->next_bb;
+7578:         }
+7579:       bitmap_ior_into (&ebb_global_regs, df_get_live_out (bb));
+7580:       if (lra_dump_file != NULL)
+7581:         fprintf (lra_dump_file, "\n");
+7582:       if (inherit_in_ebb (BB_HEAD (start_bb), BB_END (bb)))
+7583:         /* Remember that the EBB head and tail can change in
+7584:            inherit_in_ebb.  */
+7585:         update_ebb_live_info (BB_HEAD (start_bb), BB_END (bb));
+7586:     }
+7587:   bitmap_release (&ebb_global_regs);
+7588:   bitmap_release (&temp_bitmap);
+7589:   bitmap_release (&live_regs);
+7590:   bitmap_release (&invalid_invariant_regs);
+7591:   bitmap_release (&check_only_regs);
+7592:   free (usage_insns);
+7593:   lra_dump_insns_if_possible ("func after inheritance");
+7594:   timevar_pop (TV_LRA_INHERITANCE);
+```
+
+## gcc/lra-constraints.cc:7666–7871
+
+```text
+7666: remove_inheritance_pseudos (bitmap remove_pseudos)
+7667: {
+7668:   basic_block bb;
+7669:   int regno, sregno, prev_sregno, dregno;
+7670:   rtx restore_rtx;
+7671:   rtx set, prev_set;
+7672:   rtx_insn *prev_insn;
+7673:   bool change_p, done_p;
+7674:
+7675:   change_p = ! bitmap_empty_p (remove_pseudos);
+7676:   /* We cannot finish the function right away if CHANGE_P is true
+7677:      because we need to marks insns affected by previous
+7678:      inheritance/split pass for processing by the subsequent
+7679:      constraint pass.  */
+7680:   FOR_EACH_BB_FN (bb, cfun)
+7681:     {
+7682:       fix_bb_live_info (df_get_live_in (bb), remove_pseudos);
+7683:       fix_bb_live_info (df_get_live_out (bb), remove_pseudos);
+7684:       FOR_BB_INSNS_REVERSE (bb, curr_insn)
+7685:         {
+7686:           if (! INSN_P (curr_insn))
+7687:             continue;
+7688:           done_p = false;
+7689:           sregno = dregno = -1;
+7690:           if (change_p && NONDEBUG_INSN_P (curr_insn)
+7691:               && (set = single_set (curr_insn)) != NULL_RTX)
+7692:             {
+7693:               dregno = get_regno (SET_DEST (set));
+7694:               sregno = get_regno (SET_SRC (set));
+7695:             }
+7696:
+7697:           if (sregno >= 0 && dregno >= 0)
+7698:             {
+7699:               if (bitmap_bit_p (remove_pseudos, dregno)
+7700:                   && ! REG_P (lra_reg_info[dregno].restore_rtx))
+7701:                 {
+7702:                   /* invariant inheritance pseudo <- original pseudo */
+7703:                   if (lra_dump_file != NULL)
+7704:                     {
+7705:                       fprintf (lra_dump_file, "    Removing invariant inheritance:\n");
+7706:                       dump_insn_slim (lra_dump_file, curr_insn);
+7707:                       fprintf (lra_dump_file, "\n");
+7708:                     }
+7709:                   delete_move_and_clobber (curr_insn, dregno);
+7710:                   done_p = true;
+7711:                 }
+7712:               else if (bitmap_bit_p (remove_pseudos, sregno)
+7713:                        && ! REG_P (lra_reg_info[sregno].restore_rtx))
+7714:                 {
+7715:                   /* reload pseudo <- invariant inheritance pseudo */
+7716:                   start_sequence ();
+7717:                   /* We cannot just change the source.  It might be
+7718:                      an insn different from the move.  */
+7719:                   emit_insn (lra_reg_info[sregno].restore_rtx);
+7720:                   rtx_insn *new_insns = end_sequence ();
+7721:                   lra_assert (single_set (new_insns) != NULL
+7722:                               && SET_DEST (set) == SET_DEST (single_set (new_insns)));
+7723:                   lra_process_new_insns (curr_insn, NULL, new_insns,
+7724:                                          "Changing reload<-invariant inheritance");
+7725:                   delete_move_and_clobber (curr_insn, dregno);
+7726:                   done_p = true;
+7727:                 }
+7728:               else if ((bitmap_bit_p (remove_pseudos, sregno)
+7729:                         && (get_regno (lra_reg_info[sregno].restore_rtx) == dregno
+7730:                             || (bitmap_bit_p (remove_pseudos, dregno)
+7731:                                 && get_regno (lra_reg_info[sregno].restore_rtx) >= 0
+7732:                                 && (get_regno (lra_reg_info[sregno].restore_rtx)
+7733:                                     == get_regno (lra_reg_info[dregno].restore_rtx)))))
+7734:                        || (bitmap_bit_p (remove_pseudos, dregno)
+7735:                            && get_regno (lra_reg_info[dregno].restore_rtx) == sregno))
+7736:                 /* One of the following cases:
+7737:                      original <- removed inheritance pseudo
+7738:                      removed inherit pseudo <- another removed inherit pseudo
+7739:                      removed inherit pseudo <- original pseudo
+7740:                    Or
+7741:                      removed_split_pseudo <- original_reg
+7742:                      original_reg <- removed_split_pseudo */
+7743:                 {
+7744:                   if (lra_dump_file != NULL)
+7745:                     {
+7746:                       fprintf (lra_dump_file, "    Removing %s:\n",
+7747:                                bitmap_bit_p (&lra_split_regs, sregno)
+7748:                                || bitmap_bit_p (&lra_split_regs, dregno)
+7749:                                ? "split" : "inheritance");
+7750:                       dump_insn_slim (lra_dump_file, curr_insn);
+7751:                     }
+7752:                   delete_move_and_clobber (curr_insn, dregno);
+7753:                   done_p = true;
+7754:                 }
+7755:               else if (bitmap_bit_p (remove_pseudos, sregno)
+7756:                        && bitmap_bit_p (&lra_inheritance_pseudos, sregno))
+7757:                 {
+7758:                   /* Search the following pattern:
+7759:                        inherit_or_split_pseudo1 <- inherit_or_split_pseudo2
+7760:                        original_pseudo <- inherit_or_split_pseudo1
+7761:                     where the 2nd insn is the current insn and
+7762:                     inherit_or_split_pseudo2 is not removed.  If it is found,
+7763:                     change the current insn onto:
+7764:                        original_pseudo <- inherit_or_split_pseudo2.  */
+7765:                   for (prev_insn = PREV_INSN (curr_insn);
+7766:                        prev_insn != NULL_RTX && ! NONDEBUG_INSN_P (prev_insn);
+7767:                        prev_insn = PREV_INSN (prev_insn))
+7768:                     ;
+7769:                   if (prev_insn != NULL_RTX && BLOCK_FOR_INSN (prev_insn) == bb
+7770:                       && (prev_set = single_set (prev_insn)) != NULL_RTX
+7771:                       /* There should be no subregs in insn we are
+7772:                          searching because only the original reg might
+7773:                          be in subreg when we changed the mode of
+7774:                          load/store for splitting.  */
+7775:                       && REG_P (SET_DEST (prev_set))
+7776:                       && REG_P (SET_SRC (prev_set))
+7777:                       && (int) REGNO (SET_DEST (prev_set)) == sregno
+7778:                       && ((prev_sregno = REGNO (SET_SRC (prev_set)))
+7779:                           >= FIRST_PSEUDO_REGISTER)
+7780:                       && (lra_reg_info[prev_sregno].restore_rtx == NULL_RTX
+7781:                           ||
+7782:                           /* As we consider chain of inheritance or
+7783:                              splitting described in above comment we should
+7784:                              check that sregno and prev_sregno were
+7785:                              inheritance/split pseudos created from the
+7786:                              same original regno.  */
+7787:                           (get_regno (lra_reg_info[sregno].restore_rtx) >= 0
+7788:                            && (get_regno (lra_reg_info[sregno].restore_rtx)
+7789:                                == get_regno (lra_reg_info[prev_sregno].restore_rtx))))
+7790:                       && ! bitmap_bit_p (remove_pseudos, prev_sregno))
+7791:                     {
+7792:                       int restore_regno = get_regno (lra_reg_info[sregno].restore_rtx);
+7793:                       if (restore_regno < 0)
+7794:                         restore_regno = prev_sregno;
+7795:                       lra_assert (GET_MODE (SET_SRC (prev_set))
+7796:                                   == GET_MODE (regno_reg_rtx[restore_regno]));
+7797:                       /* Although we have a single set, the insn can
+7798:                          contain more one sregno register occurrence
+7799:                          as a source.  Change all occurrences.  */
+7800:                       lra_substitute_pseudo_within_insn (curr_insn, sregno,
+7801:                                                          regno_reg_rtx[restore_regno],
+7802:                                                          false);
+7803:                       /* As we are finishing with processing the insn
+7804:                          here, check the destination too as it might
+7805:                          inheritance pseudo for another pseudo.  */
+7806:                       if (bitmap_bit_p (remove_pseudos, dregno)
+7807:                           && bitmap_bit_p (&lra_inheritance_pseudos, dregno)
+7808:                           && (restore_rtx
+7809:                               = lra_reg_info[dregno].restore_rtx) != NULL_RTX)
+7810:                         {
+7811:                           if (GET_CODE (SET_DEST (set)) == SUBREG)
+7812:                             SUBREG_REG (SET_DEST (set)) = restore_rtx;
+7813:                           else
+7814:                             SET_DEST (set) = restore_rtx;
+7815:                         }
+7816:                       lra_push_insn_and_update_insn_regno_info (curr_insn);
+7817:                       lra_set_used_insn_alternative_by_uid
+7818:                         (INSN_UID (curr_insn), LRA_UNKNOWN_ALT);
+7819:                       done_p = true;
+7820:                       if (lra_dump_file != NULL)
+7821:                         {
+7822:                           fprintf (lra_dump_file, "    Change reload insn:\n");
+7823:                           dump_insn_slim (lra_dump_file, curr_insn);
+7824:                         }
+7825:                     }
+7826:                 }
+7827:             }
+7828:           if (! done_p)
+7829:             {
+7830:               struct lra_insn_reg *reg;
+7831:               bool restored_regs_p = false;
+7832:               bool kept_regs_p = false;
+7833:
+7834:               curr_id = lra_get_insn_recog_data (curr_insn);
+7835:               for (reg = curr_id->regs; reg != NULL; reg = reg->next)
+7836:                 {
+7837:                   regno = reg->regno;
+7838:                   restore_rtx = lra_reg_info[regno].restore_rtx;
+7839:                   if (restore_rtx != NULL_RTX)
+7840:                     {
+7841:                       if (change_p && bitmap_bit_p (remove_pseudos, regno))
+7842:                         {
+7843:                           lra_substitute_pseudo_within_insn
+7844:                             (curr_insn, regno, restore_rtx, false);
+7845:                           restored_regs_p = true;
+7846:                         }
+7847:                       else
+7848:                         kept_regs_p = true;
+7849:                     }
+7850:                 }
+7851:               if (NONDEBUG_INSN_P (curr_insn) && kept_regs_p)
+7852:                 {
+7853:                   /* The instruction has changed since the previous
+7854:                      constraints pass.  */
+7855:                   lra_push_insn_and_update_insn_regno_info (curr_insn);
+7856:                   lra_set_used_insn_alternative_by_uid
+7857:                     (INSN_UID (curr_insn), LRA_UNKNOWN_ALT);
+7858:                 }
+7859:               else if (restored_regs_p)
+7860:                 /* The instruction has been restored to the form that
+7861:                    it had during the previous constraints pass.  */
+7862:                 lra_update_insn_regno_info (curr_insn);
+7863:               if (restored_regs_p && lra_dump_file != NULL)
+7864:                 {
+7865:                   fprintf (lra_dump_file, "   Insn after restoring regs:\n");
+7866:                   dump_insn_slim (lra_dump_file, curr_insn);
+7867:                 }
+7868:             }
+7869:         }
+7870:     }
+7871:   return change_p;
+```
+
+## gcc/lra-constraints.cc:7880–8065
+
+```text
+7880: undo_optional_reloads (void)
+7881: {
+7882:   bool change_p, keep_p;
+7883:   unsigned int regno, uid;
+7884:   bitmap_iterator bi, bi2;
+7885:   rtx_insn *insn;
+7886:   rtx set, src, dest;
+7887:   auto_bitmap removed_optional_reload_pseudos (&reg_obstack);
+7888:
+7889:   bitmap_copy (removed_optional_reload_pseudos, &lra_optional_reload_pseudos);
+7890:   EXECUTE_IF_SET_IN_BITMAP (&lra_optional_reload_pseudos, 0, regno, bi)
+7891:     {
+7892:       keep_p = false;
+7893:       /* Keep optional reloads from previous subpasses.  */
+7894:       if (lra_reg_info[regno].restore_rtx == NULL_RTX
+7895:           /* If the original pseudo changed its allocation, just
+7896:              removing the optional pseudo is dangerous as the original
+7897:              pseudo will have longer live range.  */
+7898:           || reg_renumber[REGNO (lra_reg_info[regno].restore_rtx)] >= 0)
+7899:         keep_p = true;
+7900:       else if (reg_renumber[regno] >= 0)
+7901:         EXECUTE_IF_SET_IN_BITMAP (&lra_reg_info[regno].insn_bitmap, 0, uid, bi2)
+7902:           {
+7903:             insn = lra_insn_recog_data[uid]->insn;
+7904:             if ((set = single_set (insn)) == NULL_RTX)
+7905:               continue;
+7906:             src = SET_SRC (set);
+7907:             dest = SET_DEST (set);
+7908:             if ((! REG_P (src) && ! SUBREG_P (src))
+7909:                 || (! REG_P (dest) && ! SUBREG_P (dest)))
+7910:               continue;
+7911:             if (get_regno (dest) == (int) regno
+7912:                 /* Ignore insn for optional reloads itself.  */
+7913:                 && (get_regno (lra_reg_info[regno].restore_rtx)
+7914:                     != get_regno (src))
+7915:                 /* Check only inheritance on last inheritance pass.  */
+7916:                 && get_regno (src) >= new_regno_start
+7917:                 /* Check that the optional reload was inherited.  */
+7918:                 && bitmap_bit_p (&lra_inheritance_pseudos, get_regno (src)))
+7919:               {
+7920:                 keep_p = true;
+7921:                 break;
+7922:               }
+7923:           }
+7924:       if (keep_p)
+7925:         {
+7926:           bitmap_clear_bit (removed_optional_reload_pseudos, regno);
+7927:           if (lra_dump_file != NULL)
+7928:             fprintf (lra_dump_file, "Keep optional reload reg %d\n", regno);
+7929:         }
+7930:     }
+7931:   change_p = ! bitmap_empty_p (removed_optional_reload_pseudos);
+7932:   auto_bitmap insn_bitmap (&reg_obstack);
+7933:   EXECUTE_IF_SET_IN_BITMAP (removed_optional_reload_pseudos, 0, regno, bi)
+7934:     {
+7935:       if (lra_dump_file != NULL)
+7936:         fprintf (lra_dump_file, "Remove optional reload reg %d\n", regno);
+7937:       bitmap_copy (insn_bitmap, &lra_reg_info[regno].insn_bitmap);
+7938:       EXECUTE_IF_SET_IN_BITMAP (insn_bitmap, 0, uid, bi2)
+7939:         {
+7940:           /* We may have already removed a clobber.  */
+7941:           if (!lra_insn_recog_data[uid])
+7942:             continue;
+7943:           insn = lra_insn_recog_data[uid]->insn;
+7944:           if ((set = single_set (insn)) != NULL_RTX)
+7945:             {
+7946:               src = SET_SRC (set);
+7947:               dest = SET_DEST (set);
+7948:               if ((REG_P (src) || SUBREG_P (src))
+7949:                   && (REG_P (dest) || SUBREG_P (dest))
+7950:                   && ((get_regno (src) == (int) regno
+7951:                        && (get_regno (lra_reg_info[regno].restore_rtx)
+7952:                            == get_regno (dest)))
+7953:                       || (get_regno (dest) == (int) regno
+7954:                           && (get_regno (lra_reg_info[regno].restore_rtx)
+7955:                               == get_regno (src)))))
+7956:                 {
+7957:                   if (lra_dump_file != NULL)
+7958:                     {
+7959:                       fprintf (lra_dump_file, "  Deleting move %u\n",
+7960:                                INSN_UID (insn));
+7961:                       dump_insn_slim (lra_dump_file, insn);
+7962:                     }
+7963:                   delete_move_and_clobber (insn, get_regno (dest));
+7964:                   continue;
+7965:                 }
+7966:               /* We should not worry about generation memory-memory
+7967:                  moves here as if the corresponding inheritance did
+7968:                  not work (inheritance pseudo did not get a hard reg),
+7969:                  we remove the inheritance pseudo and the optional
+7970:                  reload.  */
+7971:             }
+7972:           if (GET_CODE (PATTERN (insn)) == CLOBBER
+7973:               && REG_P (SET_DEST (insn))
+7974:               && get_regno (SET_DEST (insn)) == (int) regno)
+7975:             /* Refuse to remap clobbers to preexisting pseudos.  */
+7976:             gcc_unreachable ();
+7977:           lra_substitute_pseudo_within_insn
+7978:             (insn, regno, lra_reg_info[regno].restore_rtx, false);
+7979:           lra_update_insn_regno_info (insn);
+7980:           if (lra_dump_file != NULL)
+7981:             {
+7982:               fprintf (lra_dump_file,
+7983:                        "  Restoring original insn:\n");
+7984:               dump_insn_slim (lra_dump_file, insn);
+7985:             }
+7986:         }
+7987:     }
+7988:   /* Clear restore_regnos.  */
+7989:   EXECUTE_IF_SET_IN_BITMAP (&lra_optional_reload_pseudos, 0, regno, bi)
+7990:     lra_reg_info[regno].restore_rtx = NULL_RTX;
+7991:   return change_p;
+7992: }
+7993:
+7994: /* Entry function for undoing inheritance/split transformation.  Return true
+7995:    if we did any RTL change in this pass.  */
+7996: bool
+7997: lra_undo_inheritance (void)
+7998: {
+7999:   unsigned int regno;
+8000:   int hard_regno;
+8001:   int n_all_inherit, n_inherit, n_all_split, n_split;
+8002:   rtx restore_rtx;
+8003:   bitmap_iterator bi;
+8004:   bool change_p;
+8005:
+8006:   lra_undo_inheritance_iter++;
+8007:   if (lra_undo_inheritance_iter > LRA_MAX_INHERITANCE_PASSES)
+8008:     return false;
+8009:   if (lra_dump_file != NULL)
+8010:     fprintf (lra_dump_file,
+8011:              "\n********** Undoing inheritance #%d: **********\n\n",
+8012:              lra_undo_inheritance_iter);
+8013:   auto_bitmap remove_pseudos (&reg_obstack);
+8014:   n_inherit = n_all_inherit = 0;
+8015:   EXECUTE_IF_SET_IN_BITMAP (&lra_inheritance_pseudos, 0, regno, bi)
+8016:     if (lra_reg_info[regno].restore_rtx != NULL_RTX)
+8017:       {
+8018:         n_all_inherit++;
+8019:         if (reg_renumber[regno] < 0
+8020:             /* If the original pseudo changed its allocation, just
+8021:                removing inheritance is dangerous as for changing
+8022:                allocation we used shorter live-ranges.  */
+8023:             && (! REG_P (lra_reg_info[regno].restore_rtx)
+8024:                 || reg_renumber[REGNO (lra_reg_info[regno].restore_rtx)] < 0))
+8025:           bitmap_set_bit (remove_pseudos, regno);
+8026:         else
+8027:           n_inherit++;
+8028:       }
+8029:   if (lra_dump_file != NULL && n_all_inherit != 0)
+8030:     fprintf (lra_dump_file, "Inherit %d out of %d (%.2f%%)\n",
+8031:              n_inherit, n_all_inherit,
+8032:              (double) n_inherit / n_all_inherit * 100);
+8033:   n_split = n_all_split = 0;
+8034:   EXECUTE_IF_SET_IN_BITMAP (&lra_split_regs, 0, regno, bi)
+8035:     if ((restore_rtx = lra_reg_info[regno].restore_rtx) != NULL_RTX)
+8036:       {
+8037:         int restore_regno = REGNO (restore_rtx);
+8038:
+8039:         n_all_split++;
+8040:         hard_regno = (restore_regno >= FIRST_PSEUDO_REGISTER
+8041:                       ? reg_renumber[restore_regno] : restore_regno);
+8042:         if (hard_regno < 0 || reg_renumber[regno] == hard_regno)
+8043:           bitmap_set_bit (remove_pseudos, regno);
+8044:         else
+8045:           {
+8046:             n_split++;
+8047:             if (lra_dump_file != NULL)
+8048:               fprintf (lra_dump_file, "      Keep split r%d (orig=r%d)\n",
+8049:                        regno, restore_regno);
+8050:           }
+8051:       }
+8052:   if (lra_dump_file != NULL && n_all_split != 0)
+8053:     fprintf (lra_dump_file, "Split %d out of %d (%.2f%%)\n",
+8054:              n_split, n_all_split,
+8055:              (double) n_split / n_all_split * 100);
+8056:   change_p = remove_inheritance_pseudos (remove_pseudos);
+8057:   /* Clear restore_regnos.  */
+8058:   EXECUTE_IF_SET_IN_BITMAP (&lra_inheritance_pseudos, 0, regno, bi)
+8059:     lra_reg_info[regno].restore_rtx = NULL_RTX;
+8060:   EXECUTE_IF_SET_IN_BITMAP (&lra_split_regs, 0, regno, bi)
+8061:     lra_reg_info[regno].restore_rtx = NULL_RTX;
+8062:   change_p = undo_optional_reloads () || change_p;
+8063:   if (change_p)
+8064:     lra_dump_insns_if_possible ("changed func after undoing inheritance");
+8065:   return change_p;
+```
+
+## gcc/lra-eliminations.cc:1504–1563
+
+```text
+1504: lra_eliminate (bool final_p, bool first_p)
+1505: {
+1506:   unsigned int uid;
+1507:   bitmap_head insns_with_changed_offsets;
+1508:   bitmap_iterator bi;
+1509:   class lra_elim_table *ep;
+1510:
+1511:   gcc_assert (! final_p || ! first_p);
+1512:
+1513:   timevar_push (TV_LRA_ELIMINATE);
+1514:
+1515:   if (first_p)
+1516:     {
+1517:       elimination_2sp_occurred_p = false;
+1518:       init_elimination ();
+1519:     }
+1520:
+1521:   bitmap_initialize (&insns_with_changed_offsets, &reg_obstack);
+1522:   if (final_p)
+1523:     {
+1524:       if (flag_checking)
+1525:         {
+1526:           update_reg_eliminate (&insns_with_changed_offsets);
+1527:           gcc_assert (bitmap_empty_p (&insns_with_changed_offsets));
+1528:         }
+1529:       /* We change eliminable hard registers in insns so we should do
+1530:          this for all insns containing any eliminable hard
+1531:          register.  */
+1532:       for (ep = reg_eliminate; ep < &reg_eliminate[NUM_ELIMINABLE_REGS]; ep++)
+1533:         if (elimination_map[ep->from] != NULL)
+1534:           bitmap_ior_into (&insns_with_changed_offsets,
+1535:                            &lra_reg_info[ep->from].insn_bitmap);
+1536:     }
+1537:   else if (! update_reg_eliminate (&insns_with_changed_offsets))
+1538:     goto lra_eliminate_done;
+1539:   if (lra_dump_file != NULL)
+1540:     {
+1541:       fprintf (lra_dump_file, "New elimination table:\n");
+1542:       print_elim_table (lra_dump_file);
+1543:     }
+1544:   EXECUTE_IF_SET_IN_BITMAP (&insns_with_changed_offsets, 0, uid, bi)
+1545:     /* A dead insn can be deleted in process_insn_for_elimination.  */
+1546:     if (lra_insn_recog_data[uid] != NULL)
+1547:       {
+1548:         rtx_insn *insn = lra_insn_recog_data[uid]->insn;
+1549:         start_sequence ();
+1550:         process_insn_for_elimination (insn, final_p, first_p);
+1551:         rtx_insn *first = get_insns ();
+1552:         end_sequence ();
+1553:         if (first != NULL)
+1554:           {
+1555:             lra_assert (!final_p);
+1556:             lra_process_new_insns (insn, first, NULL,
+1557:                                    "Inserting elimination insn", true);
+1558:           }
+1559:       }
+1560:   bitmap_clear (&insns_with_changed_offsets);
+1561:
+1562: lra_eliminate_done:
+1563:   timevar_pop (TV_LRA_ELIMINATE);
+```
+
+## gcc/lra-lives.cc:1373–1424
+
+```text
+1373: lra_create_live_ranges_1 (bool all_p, bool dead_insn_p)
+1374: {
+1375:   basic_block bb;
+1376:   int i, hard_regno, max_regno = max_reg_num ();
+1377:   int curr_point;
+1378:   bool bb_live_change_p, have_referenced_pseudos = false;
+1379:
+1380:   timevar_push (TV_LRA_CREATE_LIVE_RANGES);
+1381:
+1382:   complete_info_p = all_p;
+1383:   if (lra_dump_file != NULL)
+1384:     fprintf (lra_dump_file,
+1385:              "\n********** Pseudo live ranges #%d: **********\n\n",
+1386:              ++lra_live_range_iter);
+1387:   memset (lra_hard_reg_usage, 0, sizeof (lra_hard_reg_usage));
+1388:   for (i = 0; i < max_regno; i++)
+1389:     {
+1390:       lra_reg_info[i].live_ranges = NULL;
+1391:       CLEAR_HARD_REG_SET (lra_reg_info[i].conflict_hard_regs);
+1392:       lra_reg_info[i].preferred_hard_regno1 = -1;
+1393:       lra_reg_info[i].preferred_hard_regno2 = -1;
+1394:       lra_reg_info[i].preferred_hard_regno_profit1 = 0;
+1395:       lra_reg_info[i].preferred_hard_regno_profit2 = 0;
+1396: #ifdef STACK_REGS
+1397:       lra_reg_info[i].no_stack_p = false;
+1398: #endif
+1399:       /* The biggest mode is already set but its value might be to
+1400:          conservative because of recent transformation.  Here in this
+1401:          file we recalculate it again as it costs practically
+1402:          nothing.  */
+1403:       if (!HARD_REGISTER_NUM_P (i) && regno_reg_rtx[i] != NULL_RTX)
+1404:         lra_reg_info[i].biggest_mode = GET_MODE (regno_reg_rtx[i]);
+1405:       else
+1406:         lra_reg_info[i].biggest_mode = VOIDmode;
+1407:       if (!HARD_REGISTER_NUM_P (i)
+1408:           && lra_reg_info[i].nrefs != 0)
+1409:         {
+1410:           if ((hard_regno = reg_renumber[i]) >= 0)
+1411:             lra_hard_reg_usage[hard_regno] += lra_reg_info[i].freq;
+1412:           have_referenced_pseudos = true;
+1413:         }
+1414:     }
+1415:   lra_free_copies ();
+1416:
+1417:   /* Under some circumstances, we can have functions without pseudo
+1418:      registers.  For such functions, lra_live_max_point will be 0,
+1419:      see e.g. PR55604, and there's nothing more to do for us here.  */
+1420:   if (! have_referenced_pseudos)
+1421:     {
+1422:       timevar_pop (TV_LRA_CREATE_LIVE_RANGES);
+1423:       return false;
+1424:     }
+```
+
+## gcc/lra-assigns.cc:1394–1610
+
+```text
+1394: assign_by_spills (void)
+1395: {
+1396:   int i, n, nfails, iter, regno, regno2, hard_regno, cost;
+1397:   rtx restore_rtx;
+1398:   bitmap_head changed_insns, do_not_assign_nonreload_pseudos;
+1399:   unsigned int u, conflict_regno;
+1400:   bitmap_iterator bi;
+1401:   bool reload_p, fails_p = false;
+1402:   int max_regno = max_reg_num ();
+1403:
+1404:   for (n = 0, i = lra_constraint_new_regno_start; i < max_regno; i++)
+1405:     if (reg_renumber[i] < 0 && lra_reg_info[i].nrefs != 0
+1406:         && regno_allocno_class_array[i] != NO_REGS)
+1407:       sorted_pseudos[n++] = i;
+1408:   bitmap_initialize (&insn_conflict_pseudos, &reg_obstack);
+1409:   bitmap_initialize (&spill_pseudos_bitmap, &reg_obstack);
+1410:   bitmap_initialize (&best_spill_pseudos_bitmap, &reg_obstack);
+1411:   update_hard_regno_preference_check = XCNEWVEC (int, max_regno);
+1412:   curr_update_hard_regno_preference_check = 0;
+1413:   memset (try_hard_reg_pseudos_check, 0, sizeof (try_hard_reg_pseudos_check));
+1414:   for (i = 0; i < FIRST_PSEUDO_REGISTER; i++)
+1415:     bitmap_initialize (&try_hard_reg_pseudos[i], &reg_obstack);
+1416:   curr_pseudo_check = 0;
+1417:   bitmap_initialize (&changed_insns, &reg_obstack);
+1418:   bitmap_initialize (&non_reload_pseudos, &reg_obstack);
+1419:   bitmap_ior (&non_reload_pseudos, &lra_inheritance_pseudos, &lra_split_regs);
+1420:   bitmap_ior_into (&non_reload_pseudos, &lra_subreg_reload_pseudos);
+1421:   bitmap_ior_into (&non_reload_pseudos, &lra_optional_reload_pseudos);
+1422:   for (iter = 0; iter <= 1; iter++)
+1423:     {
+1424:       qsort (sorted_pseudos, n, sizeof (int), reload_pseudo_compare_func);
+1425:       nfails = 0;
+1426:       for (i = 0; i < n; i++)
+1427:         {
+1428:           regno = sorted_pseudos[i];
+1429:           if (reg_renumber[regno] >= 0)
+1430:             continue;
+1431:           if (lra_dump_file != NULL)
+1432:             fprintf (lra_dump_file, "    Assigning to %d "
+1433:                      "(cl=%s, orig=%d, freq=%d, tfirst=%d, tfreq=%d)...\n",
+1434:                      regno, reg_class_names[regno_allocno_class_array[regno]],
+1435:                      ORIGINAL_REGNO (regno_reg_rtx[regno]),
+1436:                      lra_reg_info[regno].freq, regno_assign_info[regno].first,
+1437:                      regno_assign_info[regno_assign_info[regno].first].freq);
+1438:           hard_regno = find_hard_regno_for (regno, &cost, -1, iter == 1);
+1439:           reload_p = ! bitmap_bit_p (&non_reload_pseudos, regno);
+1440:           if (hard_regno < 0 && reload_p)
+1441:             hard_regno = spill_for (regno, &all_spilled_pseudos, iter == 1);
+1442:           if (hard_regno < 0)
+1443:             {
+1444:               if (reload_p)
+1445:                 {
+1446:                   /* Put unassigned reload pseudo first in the array.  */
+1447:                   regno2 = sorted_pseudos[nfails];
+1448:                   sorted_pseudos[nfails++] = regno;
+1449:                   sorted_pseudos[i] = regno2;
+1450:                 }
+1451:               else
+1452:                 {
+1453:                   /* Consider all alternatives on the next constraint
+1454:                      subpass.  */
+1455:                   bitmap_set_bit (&all_spilled_pseudos, regno);
+1456:                 }
+1457:             }
+1458:           else
+1459:             {
+1460:               /* This register might have been spilled by the previous
+1461:                  pass.  Indicate that it is no longer spilled.  */
+1462:               bitmap_clear_bit (&all_spilled_pseudos, regno);
+1463:               assign_hard_regno (hard_regno, regno);
+1464:               if (! reload_p || regno_allocno_class_array[regno] == ALL_REGS)
+1465:                 /* As non-reload pseudo assignment is changed we should
+1466:                    reconsider insns referring for the pseudo.  Do the same if a
+1467:                    reload pseudo did not refine its class which can happens
+1468:                    when the pseudo occurs only in reload insns.  */
+1469:                 bitmap_set_bit (&changed_pseudo_bitmap, regno);
+1470:             }
+1471:         }
+1472:       if (nfails == 0 || iter > 0)
+1473:         {
+1474:           fails_p = nfails != 0;
+1475:           break;
+1476:         }
+1477:       /* This is a very rare event.  We cannot assign a hard register
+1478:          to reload pseudo because the hard register was assigned to
+1479:          another reload pseudo on a previous assignment pass.  For x86
+1480:          example, on the 1st pass we assigned CX (although another
+1481:          hard register could be used for this) to reload pseudo in an
+1482:          insn, on the 2nd pass we need CX (and only this) hard
+1483:          register for a new reload pseudo in the same insn.  Another
+1484:          possible situation may occur in assigning to multi-regs
+1485:          reload pseudos when hard regs pool is too fragmented even
+1486:          after spilling non-reload pseudos.
+1487:
+1488:          We should do something radical here to succeed.  Here we
+1489:          spill *all* conflicting pseudos and reassign them.  */
+1490:       if (lra_dump_file != NULL)
+1491:         fprintf (lra_dump_file, "  2nd iter for reload pseudo assignments:\n");
+1492:       sparseset_clear (live_range_hard_reg_pseudos);
+1493:       for (i = 0; i < nfails; i++)
+1494:         {
+1495:           if (lra_dump_file != NULL)
+1496:             fprintf (lra_dump_file, "    Reload r%d assignment failure\n",
+1497:                      sorted_pseudos[i]);
+1498:           find_all_spills_for (sorted_pseudos[i]);
+1499:         }
+1500:       EXECUTE_IF_SET_IN_SPARSESET (live_range_hard_reg_pseudos, conflict_regno)
+1501:         {
+1502:           if ((int) conflict_regno >= lra_constraint_new_regno_start)
+1503:             {
+1504:               sorted_pseudos[nfails++] = conflict_regno;
+1505:               former_reload_pseudo_spill_p = true;
+1506:             }
+1507:           else
+1508:             /* It is better to do reloads before spilling as after the
+1509:                spill-subpass we will reload memory instead of pseudos
+1510:                and this will make reusing reload pseudos more
+1511:                complicated.  Going directly to the spill pass in such
+1512:                case might result in worse code performance or even LRA
+1513:                cycling if we have few registers.  */
+1514:             bitmap_set_bit (&all_spilled_pseudos, conflict_regno);
+1515:           if (lra_dump_file != NULL)
+1516:             fprintf (lra_dump_file, "     Spill %s r%d(hr=%d, freq=%d)\n",
+1517:                      pseudo_prefix_title (conflict_regno), conflict_regno,
+1518:                      reg_renumber[conflict_regno],
+1519:                      lra_reg_info[conflict_regno].freq);
+1520:           update_lives (conflict_regno, true);
+1521:           lra_setup_reg_renumber (conflict_regno, -1, false);
+1522:         }
+1523:       if (n < nfails)
+1524:         n = nfails;
+1525:     }
+1526:   improve_inheritance (&changed_pseudo_bitmap);
+1527:   bitmap_clear (&non_reload_pseudos);
+1528:   bitmap_clear (&changed_insns);
+1529:   if (! lra_simple_p)
+1530:     {
+1531:       /* We should not assign to original pseudos of inheritance
+1532:          pseudos or split pseudos if any its inheritance pseudo did
+1533:          not get hard register or any its split pseudo was not split
+1534:          because undo inheritance/split pass will extend live range of
+1535:          such inheritance or split pseudos.  */
+1536:       bitmap_initialize (&do_not_assign_nonreload_pseudos, &reg_obstack);
+1537:       EXECUTE_IF_SET_IN_BITMAP (&lra_inheritance_pseudos, 0, u, bi)
+1538:         if ((restore_rtx = lra_reg_info[u].restore_rtx) != NULL_RTX
+1539:             && REG_P (restore_rtx)
+1540:             && reg_renumber[u] < 0
+1541:             && bitmap_bit_p (&lra_inheritance_pseudos, u))
+1542:           bitmap_set_bit (&do_not_assign_nonreload_pseudos, REGNO (restore_rtx));
+1543:       EXECUTE_IF_SET_IN_BITMAP (&lra_split_regs, 0, u, bi)
+1544:         if ((restore_rtx = lra_reg_info[u].restore_rtx) != NULL_RTX
+1545:             && reg_renumber[u] >= 0)
+1546:           {
+1547:             lra_assert (REG_P (restore_rtx));
+1548:             bitmap_set_bit (&do_not_assign_nonreload_pseudos, REGNO (restore_rtx));
+1549:           }
+1550:       for (n = 0, i = FIRST_PSEUDO_REGISTER; i < max_regno; i++)
+1551:         if (((i < lra_constraint_new_regno_start
+1552:               && ! bitmap_bit_p (&do_not_assign_nonreload_pseudos, i))
+1553:              || (bitmap_bit_p (&lra_inheritance_pseudos, i)
+1554:                  && lra_reg_info[i].restore_rtx != NULL_RTX)
+1555:              || (bitmap_bit_p (&lra_split_regs, i)
+1556:                  && lra_reg_info[i].restore_rtx != NULL_RTX)
+1557:              || bitmap_bit_p (&lra_subreg_reload_pseudos, i)
+1558:              || bitmap_bit_p (&lra_optional_reload_pseudos, i))
+1559:             && reg_renumber[i] < 0 && lra_reg_info[i].nrefs != 0
+1560:             && regno_allocno_class_array[i] != NO_REGS)
+1561:           sorted_pseudos[n++] = i;
+1562:       bitmap_clear (&do_not_assign_nonreload_pseudos);
+1563:       if (n != 0 && lra_dump_file != NULL)
+1564:         fprintf (lra_dump_file, "  Reassigning non-reload pseudos\n");
+1565:       qsort (sorted_pseudos, n, sizeof (int), pseudo_compare_func);
+1566:       for (i = 0; i < n; i++)
+1567:         {
+1568:           regno = sorted_pseudos[i];
+1569:           hard_regno = find_hard_regno_for (regno, &cost, -1, false);
+1570:           if (hard_regno >= 0)
+1571:             {
+1572:               assign_hard_regno (hard_regno, regno);
+1573:               /* We change allocation for non-reload pseudo on this
+1574:                  iteration -- mark the pseudo for invalidation of used
+1575:                  alternatives of insns containing the pseudo.  */
+1576:               bitmap_set_bit (&changed_pseudo_bitmap, regno);
+1577:             }
+1578:           else
+1579:             {
+1580:               enum reg_class rclass = lra_get_allocno_class (regno);
+1581:               enum reg_class spill_class;
+1582:
+1583:               if (targetm.spill_class == NULL
+1584:                   || lra_reg_info[regno].restore_rtx == NULL_RTX
+1585:                   || ! bitmap_bit_p (&lra_inheritance_pseudos, regno)
+1586:                   || (spill_class
+1587:                       = ((enum reg_class)
+1588:                          targetm.spill_class
+1589:                          ((reg_class_t) rclass,
+1590:                           PSEUDO_REGNO_MODE (regno)))) == NO_REGS)
+1591:                 continue;
+1592:               regno_allocno_class_array[regno] = spill_class;
+1593:               hard_regno = find_hard_regno_for (regno, &cost, -1, false);
+1594:               if (hard_regno < 0)
+1595:                 regno_allocno_class_array[regno] = rclass;
+1596:               else
+1597:                 {
+1598:                   setup_reg_classes
+1599:                     (regno, spill_class, spill_class, spill_class);
+1600:                   assign_hard_regno (hard_regno, regno);
+1601:                   bitmap_set_bit (&changed_pseudo_bitmap, regno);
+1602:                 }
+1603:             }
+1604:         }
+1605:     }
+1606:   free (update_hard_regno_preference_check);
+1607:   bitmap_clear (&best_spill_pseudos_bitmap);
+1608:   bitmap_clear (&spill_pseudos_bitmap);
+1609:   bitmap_clear (&insn_conflict_pseudos);
+1610:   return fails_p;
+```
+
+## gcc/lra-assigns.cc:1624–1717
+
+```text
+1624: lra_assign (bool &fails_p)
+1625: {
+1626:   int i;
+1627:   unsigned int u;
+1628:   bitmap_iterator bi;
+1629:   bitmap_head insns_to_process;
+1630:   bool no_spills_p;
+1631:   int max_regno = max_reg_num ();
+1632:
+1633:   timevar_push (TV_LRA_ASSIGN);
+1634:   lra_assignment_iter++;
+1635:   if (lra_dump_file != NULL)
+1636:     fprintf (lra_dump_file, "\n********** Assignment #%d: **********\n\n",
+1637:              lra_assignment_iter);
+1638:   init_lives ();
+1639:   sorted_pseudos = XNEWVEC (int, max_regno);
+1640:   sorted_reload_pseudos = XNEWVEC (int, max_regno);
+1641:   regno_allocno_class_array = XNEWVEC (enum reg_class, max_regno);
+1642:   regno_live_length = XNEWVEC (int, max_regno);
+1643:   for (i = FIRST_PSEUDO_REGISTER; i < max_regno; i++)
+1644:     {
+1645:       int l;
+1646:       lra_live_range_t r;
+1647:
+1648:       regno_allocno_class_array[i] = lra_get_allocno_class (i);
+1649:       for (l = 0, r = lra_reg_info[i].live_ranges; r != NULL; r = r->next)
+1650:         l  += r->finish - r->start + 1;
+1651:       regno_live_length[i] = l;
+1652:     }
+1653:   former_reload_pseudo_spill_p = false;
+1654:   init_regno_assign_info ();
+1655:   bitmap_initialize (&all_spilled_pseudos, &reg_obstack);
+1656:   create_live_range_start_chains ();
+1657:   setup_live_pseudos_and_spill_after_risky_transforms (&all_spilled_pseudos);
+1658:   if (! lra_hard_reg_split_p && ! lra_asm_error_p && flag_checking)
+1659:     /* Check correctness of allocation but only when there are no hard reg
+1660:        splits and asm errors as in the case of errors explicit insns involving
+1661:        hard regs are added or the asm is removed and this can result in
+1662:        incorrect allocation.  */
+1663:     for (i = FIRST_PSEUDO_REGISTER; i < max_regno; i++)
+1664:       if (lra_reg_info[i].nrefs != 0
+1665:           && reg_renumber[i] >= 0
+1666:           && overlaps_hard_reg_set_p (lra_reg_info[i].conflict_hard_regs,
+1667:                                       PSEUDO_REGNO_MODE (i), reg_renumber[i]))
+1668:         gcc_unreachable ();
+1669:   /* Setup insns to process on the next constraint pass.  */
+1670:   bitmap_initialize (&changed_pseudo_bitmap, &reg_obstack);
+1671:   init_live_reload_and_inheritance_pseudos ();
+1672:   fails_p = assign_by_spills ();
+1673:   finish_live_reload_and_inheritance_pseudos ();
+1674:   bitmap_ior_into (&changed_pseudo_bitmap, &all_spilled_pseudos);
+1675:   no_spills_p = true;
+1676:   EXECUTE_IF_SET_IN_BITMAP (&all_spilled_pseudos, 0, u, bi)
+1677:     /* We ignore spilled pseudos created on last inheritance pass
+1678:        because they will be removed.  */
+1679:     if (lra_reg_info[u].restore_rtx == NULL_RTX)
+1680:       {
+1681:         no_spills_p = false;
+1682:         break;
+1683:       }
+1684:   finish_live_range_start_chains ();
+1685:   bitmap_clear (&all_spilled_pseudos);
+1686:   bitmap_initialize (&insns_to_process, &reg_obstack);
+1687:   EXECUTE_IF_SET_IN_BITMAP (&changed_pseudo_bitmap, 0, u, bi)
+1688:     bitmap_ior_into (&insns_to_process, &lra_reg_info[u].insn_bitmap);
+1689:   bitmap_clear (&changed_pseudo_bitmap);
+1690:   EXECUTE_IF_SET_IN_BITMAP (&insns_to_process, 0, u, bi)
+1691:     {
+1692:       lra_push_insn_by_uid (u);
+1693:       /* Invalidate alternatives for insn should be processed.  */
+1694:       lra_set_used_insn_alternative_by_uid (u, -1);
+1695:     }
+1696:   bitmap_clear (&insns_to_process);
+1697:   finish_regno_assign_info ();
+1698:   free (regno_live_length);
+1699:   free (regno_allocno_class_array);
+1700:   free (sorted_pseudos);
+1701:   free (sorted_reload_pseudos);
+1702:   finish_lives ();
+1703:   timevar_pop (TV_LRA_ASSIGN);
+1704:   if (former_reload_pseudo_spill_p)
+1705:     lra_assignment_iter_after_spill++;
+1706:   /* This is conditional on flag_checking because valid code can take
+1707:      more than this maximum number of iteration, but at the same time
+1708:      the test can uncover errors in machine descriptions.  */
+1709:   if (flag_checking
+1710:       && (lra_assignment_iter_after_spill
+1711:           > LRA_MAX_ASSIGNMENT_ITERATION_NUMBER))
+1712:     internal_error
+1713:       ("maximum number of LRA assignment passes is achieved (%d)",
+1714:        LRA_MAX_ASSIGNMENT_ITERATION_NUMBER);
+1715:   /* Reset the assignment correctness flag: */
+1716:   check_and_force_assignment_correctness_p = false;
+1717:   return no_spills_p;
+```
+
+## gcc/lra-spills.cc:642–651
+
+```text
+642: lra_need_for_spills_p (void)
+643: {
+644:   int i;
+645:
+646:   max_regno = max_reg_num ();
+647:   for (i = FIRST_PSEUDO_REGISTER; i < max_regno; i++)
+648:     if (lra_reg_info[i].nrefs != 0 && lra_get_regno_hard_regno (i) < 0
+649:         && ! ira_former_scratch_p (i))
+650:       return true;
+651:   return false;
+```
+
+## gcc/lra-spills.cc:770–878
+
+```text
+770: lra_final_code_change (void)
+771: {
+772:   int i, hard_regno;
+773:   basic_block bb;
+774:   rtx_insn *insn, *curr;
+775:   rtx set;
+776:   int max_regno = max_reg_num ();
+777:
+778:   for (i = FIRST_PSEUDO_REGISTER; i < max_regno; i++)
+779:     if (lra_reg_info[i].nrefs != 0
+780:         && (hard_regno = lra_get_regno_hard_regno (i)) >= 0)
+781:       SET_REGNO (regno_reg_rtx[i], hard_regno);
+782:   FOR_EACH_BB_FN (bb, cfun)
+783:     FOR_BB_INSNS_SAFE (bb, insn, curr)
+784:       if (INSN_P (insn))
+785:         {
+786:           rtx pat = PATTERN (insn);
+787:
+788:           if (GET_CODE (pat) == USE && XEXP (pat, 0) == const1_rtx)
+789:             {
+790:               /* Remove markers to eliminate critical edges for jump insn
+791:                  output reloads (see code in ira.cc::ira).  */
+792:               lra_invalidate_insn_data (insn);
+793:               delete_insn (insn);
+794:               continue;
+795:             }
+796:           if (GET_CODE (pat) == CLOBBER && LRA_TEMP_CLOBBER_P (pat))
+797:             {
+798:               /* Remove clobbers temporarily created in LRA.  We don't
+799:                  need them anymore and don't want to waste compiler
+800:                  time processing them in a few subsequent passes.  */
+801:               lra_invalidate_insn_data (insn);
+802:               delete_insn (insn);
+803:               continue;
+804:             }
+805:
+806:           /* IRA can generate move insns involving pseudos.  It is
+807:              better remove them earlier to speed up compiler a bit.
+808:              It is also better to do it here as they might not pass
+809:              final RTL check in LRA, (e.g. insn moving a control
+810:              register into itself).  So remove an useless move insn
+811:              unless next insn is USE marking the return reg (we should
+812:              save this as some subsequent optimizations assume that
+813:              such original insns are saved).  */
+814:           if (NONJUMP_INSN_P (insn) && GET_CODE (pat) == SET
+815:               && REG_P (SET_SRC (pat)) && REG_P (SET_DEST (pat))
+816:               && REGNO (SET_SRC (pat)) == REGNO (SET_DEST (pat))
+817:               && REGNO (SET_SRC (pat)) >= FIRST_PSEUDO_REGISTER)
+818:             {
+819:               lra_invalidate_insn_data (insn);
+820:               delete_insn (insn);
+821:               continue;
+822:             }
+823:
+824:           lra_insn_recog_data_t id = lra_get_insn_recog_data (insn);
+825:           struct lra_insn_reg *reg;
+826:
+827:           for (reg = id->regs; reg != NULL; reg = reg->next)
+828:             if (reg->regno >= FIRST_PSEUDO_REGISTER
+829:                 && lra_reg_info [reg->regno].nrefs == 0)
+830:               break;
+831:
+832:           if (reg != NULL)
+833:             {
+834:               /* Pseudos still can be in debug insns in some very rare
+835:                  and complicated cases, e.g. the pseudo was removed by
+836:                  inheritance and the debug insn is not EBBs where the
+837:                  inheritance happened.  It is difficult and time
+838:                  consuming to find what hard register corresponds the
+839:                  pseudo -- so just remove the debug insn.  Another
+840:                  solution could be assigning hard reg/memory but it
+841:                  would be a misleading info.  It is better not to have
+842:                  info than have it wrong.  */
+843:               lra_assert (DEBUG_INSN_P (insn));
+844:               lra_invalidate_insn_data (insn);
+845:               delete_insn (insn);
+846:               continue;
+847:             }
+848:
+849:           struct lra_static_insn_data *static_id = id->insn_static_data;
+850:           bool insn_change_p = false;
+851:
+852:           for (i = id->insn_static_data->n_operands - 1; i >= 0; i--)
+853:             if ((DEBUG_INSN_P (insn) || ! static_id->operand[i].is_operator)
+854:                 && alter_subregs (id->operand_loc[i], ! DEBUG_INSN_P (insn)))
+855:               {
+856:                 lra_update_dup (id, i);
+857:                 insn_change_p = true;
+858:               }
+859:           if ((GET_CODE (pat) == USE || GET_CODE (pat) == CLOBBER)
+860:               && alter_subregs (&XEXP (pat, 0), false))
+861:             insn_change_p = true;
+862:           if (insn_change_p)
+863:             lra_update_operator_dups (id);
+864:
+865:           if ((set = single_set (insn)) != NULL
+866:               && REG_P (SET_SRC (set)) && REG_P (SET_DEST (set))
+867:               && REGNO (SET_SRC (set)) == REGNO (SET_DEST (set)))
+868:             {
+869:               /* Remove an useless move insn.  IRA can generate move
+870:                  insns involving pseudos.  It is better remove them
+871:                  earlier to speed up compiler a bit.  It is also
+872:                  better to do it here as they might not pass final RTL
+873:                  check in LRA, (e.g. insn moving a control register
+874:                  into itself).  */
+875:               lra_invalidate_insn_data (insn);
+876:               delete_insn (insn);
+877:             }
+878:         }
 ```
 
 ## src/silver_arguments.ads (selected Silver API, complete)

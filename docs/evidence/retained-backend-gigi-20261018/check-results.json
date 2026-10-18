@@ -1,6 +1,6 @@
 {
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_checked": 160,
+  "source_files_checked": 167,
   "silver_main_api_files_checked": 2,
   "arithmetic": {
     "binding_push_coefficients": {
@@ -95,6 +95,59 @@
     ],
     "null_pre_IRA_trivial_dead_count_array_length": 98,
     "null_pre_IRA_hard_regs_live_count_array_length": 92,
+    "null_post_reload_block_edge_slot_ceilings": [
+      10,
+      11,
+      12
+    ],
+    "null_post_reload_lifetime_label_note_insn_ceilings": [
+      3,
+      13,
+      10
+    ],
+    "null_post_reload_lifetime_chain_node_ceiling": 26,
+    "null_post_reload_first_unused_chain_uid_ceiling": 27,
+    "null_post_reload_new_dynamic_pseudos_stack_slots_calls_jumps": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "null_post_reload_blockage_nodes_and_vectors_including_unshare": [
+      3,
+      3
+    ],
+    "null_IRA_allocno_and_object_ID_vector_requests": [
+      196,
+      196
+    ],
+    "null_IRA_regno_allocno_map_request": 98,
+    "null_IRA_block_and_root_loop_node_requests": [
+      12,
+      1
+    ],
+    "null_LRA_common_register_info_request": 149,
+    "null_LRA_constraint_vector_and_bitmap_requests": [
+      27,
+      27
+    ],
+    "null_LRA_recognition_pointer_resize_ceiling": 40,
+    "null_LRA_invariant_vector_and_hash_requests": [
+      100,
+      100
+    ],
+    "null_LRA_inheritance_usage_array_request": 99,
+    "null_LRA_assignment_main_and_preference_array_requests": [
+      99,
+      99,
+      99,
+      99,
+      99
+    ],
+    "null_LRA_constraint_and_assignment_iterations": [
+      2,
+      1
+    ],
     "ira_init_once_selected_dynamic_allocation_requests": 0,
     "retained_bind_coefficients": {
       "U": 1,
