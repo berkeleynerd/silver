@@ -1,0 +1,38 @@
+{
+  "kind": "handwritten source case audit; not generated-matcher execution or a proof by text search",
+  "input_family": ["(U-L)+1", "(U+1)-L", "U+(1-L)"],
+  "included_variations": ["commutative order", "comparison reversal", "conditional arm inversion and swapping", "zero, one, or two substituted bound fields"],
+  "matcher_source": "gcc/match.pd",
+  "matcher_cases": [
+    {"lines": [238, 293, 305, 499, 6037, 6045, 6061], "case": "scalar identities", "disposition": "Arithmetic operands are distinct; the extent constant is one and multiplication constant is eight. No x-x, x+x, additive zero, multiplicative zero/one/minus-one or zero-left subtraction."},
+    {"lines": [253, 259, 338, 347, 355, 6054], "case": "real constant identities", "disposition": "All selected values are integral."},
+    {"lines": [2145, 2168, 2200], "case": "negation and easily negatable subtraction RHS", "disposition": "No NEGATE node. Each subtraction RHS in the normalized family is a widening of a bound leaf; negate_expr_p returns false."},
+    {"lines": [2211], "case": "1-a boolean range", "disposition": "Requires SSA_NAME; the helper parameters are declarations and the other leaves are COMPONENT_REF."},
+    {"lines": [2496], "case": "boolean product", "disposition": "Eight is not zero-or-one. Scalar tree_nonzero_bits uses fixed-width inline wide integers without heap-backed range query state."},
+    {"lines": [4362, 4383, 7544], "case": "repeated operand contraction", "disposition": "The two bound fields and their corresponding fresh parameters remain distinct at each partial substitution stage."},
+    {"lines": [4407, 4448, 4467], "case": "two-constant association", "disposition": "The extent has only one constant occurrence and no nested conversion can supply a second constant."},
+    {"lines": [4534], "case": "push widenings through plus/minus", "disposition": "Required outer precision <= inner precision fails: 64 <= 32 is false."},
+    {"lines": [4851, 4875], "case": "factor products through plus/minus", "disposition": "No arithmetic operand of an extent plus/minus is a product; the only MULT is outside its u128 widening."},
+    {"lines": [5721, 9687], "case": "strip conversion or narrow arithmetic", "disposition": "32->64 and 64->128 change type/mode. The u128 outer type fails arithmetic narrowing/type-compatibility guards before unsigned_type_for or replacement construction."},
+    {"lines": [2962, 2971, 3083, 7367, 7579, 8396], "case": "comparison transformations", "disposition": "Selected LT/LE/GT/GE have two distinct nonconstant signed-32 leaves, no EQ/NE, address, SSA range, repeated operand or arithmetic comparison child."},
+    {"lines": [7091, 8428, 8678], "case": "GIMPLE conditional transforms", "disposition": "Disabled for GENERIC."},
+    {"lines": [7185, 7225, 9838], "case": "logical inversion, sign test, min/max", "disposition": "No logical-inverted operand pair, bound-zero comparison, min/max root, or min/max arm."},
+    {"lines": [1725, 2433, 2438], "case": "bitwise roots", "disposition": "The operator lists contain bit_ior/xor or equality roots, absent from the selected arithmetic and relational-comparison roots."},
+    {"lines": [2407, 2424], "case": "truth_not", "disposition": "These define predicates only. The retained backend-capacity source inventory establishes no GENERIC truth_not simplify root."},
+    {"lines": [1293], "case": "multiply to shift", "disposition": "Requires visible lshift(1,...) rather than integer constant eight."}
+  ],
+  "legacy_cases": [
+    {"function": "fold_unary_loc", "lines": [9204, 9525], "result": "one fallback widening node; no conditional distribution or narrowing"},
+    {"function": "fold_comparison and maybe_canonicalize_comparison", "lines": [9774, 10406], "result": "nonconstant distinct integral leaf comparisons; no candidate"},
+    {"function": "split_tree and associate_trees", "lines": [901, 1063], "result": "canonical extent has two pieces; other normalized forms reconstruct U-L and plus-one once"},
+    {"function": "fold_binary_loc association", "lines": [11441, 11664], "result": "at most two binary nodes at outer extent entry, including candidates"},
+    {"function": "extract_muldiv_1", "lines": [6647, 6675], "result": "reject wrapping u64 arithmetic widened to u128 before constant conversion or recursion"},
+    {"function": "fold_ternary_loc", "lines": [12899, 13240], "result": "one ternary node and at most one plain inverted comparison; single swap"},
+    {"function": "fold_build1/2/3_loc", "lines": [13886, 14015], "result": "fallback is allocated only when fold returns null; no preallocated discarded outer node"}
+  ],
+  "output_envelope": {"unary": 10, "binary": 22, "ternary": 4, "events": 36, "caller_bytes": 1392},
+  "new_constants": 0,
+  "new_types": 0,
+  "ordinary_allocations": 0,
+  "independent_review": "pending"
+}
