@@ -48,10 +48,11 @@ RANGES = {
                      (1468, 1547), (1581, 1616), (1696, 1729),
                      (1776, 1953), (2008, 2013), (2482, 2488), (2616, 2636),
                      (2926, 2960), (3834, 3872), (4132, 4170),
+                     (4257, 4377), (4756, 4932),
                      (5840, 5965), (6433, 6492), (7198, 7385),
                      (7460, 7511), (7576, 7668), (8025, 8088),
                      (11637, 12013), (15095, 15129)],
-    "gcc/tree.h": [(5921, 5929)],
+    "gcc/tree.h": [(5460, 5467), (5500, 5517), (5921, 5929)],
     "gcc/tree-core.h": [(1138, 1253), (1565, 1595), (1631, 1648), (1801, 1871)],
     "gcc/stor-layout.cc": [(67, 87), (296, 339), (603, 633), (909, 929),
                             (1962, 2067), (2402, 2427), (2437, 2469), (2558, 2576),
@@ -141,6 +142,16 @@ def check_expression_copy_transfers(all_bytes):
     vector = all_bytes["gcc/vec.h"].decode()
     assert "vec_alloc (new_vec, len PASS_MEM_STAT);" in vector
     assert "new_vec->embedded_init (len, len);" in vector
+    tree = all_bytes["gcc/tree.cc"].decode()
+    start = tree.index("\nsubstitute_placeholder_in_expr (")
+    substitution = tree[start:tree.index("\n}\n", start)]
+    primitive_counts = {
+        name: len(re.findall(r"\b" + name + r"\s*\(", substitution))
+        for name in ("tree_cons", "fold_build1", "fold_build2", "fold_build3",
+                     "build4", "fold", "copy_node")}
+    assert primitive_counts == dict(tree_cons=1, fold_build1=2, fold_build2=1,
+                                   fold_build3=1, build4=1, fold=2, copy_node=1)
+    assert "maybe_inline_call_in_expr" not in substitution
 
     def cost(t):
         kind, children = t
@@ -163,6 +174,8 @@ def check_expression_copy_transfers(all_bytes):
         nonempty_constructor_copy_initial_slots="max(4,k), then GC rounding",
         constructor_copy_new_scalar_or_type_nodes=0,
         occurrence_examples=rows,
+        placeholder_substitution_primitive_sites=primitive_counts,
+        no_placeholder_substitution_tree_or_fold_requests=0,
         native_execution=False,
     )
 

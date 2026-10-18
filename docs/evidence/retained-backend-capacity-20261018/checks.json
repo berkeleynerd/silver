@@ -967,6 +967,16 @@
         "expanded_copy_nodes": 255
       }
     ],
+    "placeholder_substitution_primitive_sites": {
+      "tree_cons": 1,
+      "fold_build1": 2,
+      "fold_build2": 1,
+      "fold_build3": 1,
+      "build4": 1,
+      "fold": 2,
+      "copy_node": 1
+    },
+    "no_placeholder_substitution_tree_or_fold_requests": 0,
     "native_execution": false
   },
   "ordinary_vectors": {

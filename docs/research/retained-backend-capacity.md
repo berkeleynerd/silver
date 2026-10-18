@@ -992,6 +992,62 @@ This result does not cover direct `copy_node(STRING_CST)` conversions already
 charged in the gigi payload row, arbitrary `copy_tree_r` users that can copy
 TYPE_DECL or statement lists, or folder-induced replacement trees.
 
+## Placeholder substitution follows the original expression
+
+The gigi String-template and equality helpers call
+`SUBSTITUTE_PLACEHOLDER_IN_EXPR`, whose macro returns null/constant inputs
+unchanged (`tree.h:5510–5517`). For nonconstant expressions the implementation
+recurses through the **original** operands before constructing a replacement
+parent (`tree.cc:4756–4932`). It does not recursively substitute again inside
+the replacement returned by a fold or inside a matching object expression.
+This is distinct from `substitute_in_expr`, which has a call-inlining route
+and is outside this result.
+
+Use the implementation's traversal occurrences, including repeated DAG paths:
+TREE_LIST follows value/chain; ordinary arity1–4 nodes follow their operands;
+CALL_EXPR follows operand positions1 through its stored length minus one.
+Declarations and constants stop. For counts L of lists, H of placeholders,
+N1/N2/N3/N4 of ordinary nodes by arity, and C of call occurrences, the direct
+upper interface is:
+
+| Request | Bound |
+| --- | ---: |
+| `tree_cons` | L |
+| `fold_build1` | N1+H |
+| `fold_build2` | N2 |
+| `fold_build3` | N3 |
+| Plain `build4`, followed by `fold` | N4 each |
+| `copy_node(CALL_EXPR)`, followed by `fold` | C each |
+
+A changed call allocates its copy only at the first changed operand; later
+operands update that same copy. Its stored operand count is unchanged, so
+the existing input-call length/allocation checks apply. `process_call_operands`
+recomputes flags after folding; it is not another source substitution or
+argument-copy loop (`tree.cc:4257–4283`). Fold internals and any call-metadata
+queries keep their separate transfers.
+
+For each placeholder, at most two searches follow the supplied object's
+reference/operand-zero spine (operand one for a compound or conditional).
+A direct type match returns an existing subtree. A pointer-target match
+requests one folded INDIRECT_REF. No match returns the original placeholder.
+If h bounds this acyclic spine length, at most `2*h*H` object positions are
+examined; that is a traversal bound, not new expression storage. Parent folds
+can still enlarge their results, so the table does not bound their transitive
+allocations by N1+N2+N3+N4+C.
+
+There is a useful closed special case: if no placeholder occurs on any
+traversed path, induction gives **the identical input pointer and zero tree,
+vector or fold requests**. Each child returns unchanged, and every parent
+returns before its reconstruction branch. This includes calls whose arguments
+contain no placeholders; they do not inline on this helper. Do not infer this
+stronger syntactic premise merely from `contains_placeholder_p` returning false:
+that predicate intentionally skips some reference operands and saved-expression
+children (`tree.cc:4286–4377`). Ordinary Main's captured local array bounds can
+use the zero-allocation row once their no-placeholder source argument is joined;
+the fixed unconstrained-String template bounds retain the general row. This
+closes the substitution recursion interface while preserving the actual
+String-bound and folder dependencies.
+
 ## O0 cleanup lowering: no recursive body duplication
 
 The [gigi bridge](retained-backend-gigi.md) separates ordinary normalized Main

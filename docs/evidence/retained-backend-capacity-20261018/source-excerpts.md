@@ -1628,6 +1628,312 @@ LF line numbering; complete file identities checked.
 4170:    outermost non-arithmetic or non-invariant node.  */
 ```
 
+## gcc/tree.cc:4257–4377
+```text
+4257: process_call_operands (tree t)
+4258: {
+4259:   bool side_effects = TREE_SIDE_EFFECTS (t);
+4260:   bool read_only = false;
+4261:   int i = call_expr_flags (t);
+4262:
+4263:   /* Calls have side-effects, except those to const or pure functions.  */
+4264:   if ((i & ECF_LOOPING_CONST_OR_PURE) || !(i & (ECF_CONST | ECF_PURE)))
+4265:     side_effects = true;
+4266:   /* Propagate TREE_READONLY of arguments for const functions.  */
+4267:   if (i & ECF_CONST)
+4268:     read_only = true;
+4269:
+4270:   if (!side_effects || read_only)
+4271:     for (i = 1; i < TREE_OPERAND_LENGTH (t); i++)
+4272:       {
+4273: 	tree op = TREE_OPERAND (t, i);
+4274: 	if (op && TREE_SIDE_EFFECTS (op))
+4275: 	  side_effects = true;
+4276: 	if (op && !TREE_READONLY (op) && !CONSTANT_CLASS_P (op))
+4277: 	  read_only = false;
+4278:       }
+4279:
+4280:   TREE_SIDE_EFFECTS (t) = side_effects;
+4281:   TREE_READONLY (t) = read_only;
+4282: }
+4283:
+4284: /* Return true if EXP contains a PLACEHOLDER_EXPR, i.e. if it represents a
+4285:    size or offset that depends on a field within a record.  */
+4286:
+4287: bool
+4288: contains_placeholder_p (const_tree exp)
+4289: {
+4290:   enum tree_code code;
+4291:
+4292:   if (!exp)
+4293:     return false;
+4294:
+4295:   code = TREE_CODE (exp);
+4296:   if (code == PLACEHOLDER_EXPR)
+4297:     return true;
+4298:
+4299:   switch (TREE_CODE_CLASS (code))
+4300:     {
+4301:     case tcc_reference:
+4302:       /* Don't look at any PLACEHOLDER_EXPRs that might be in index or bit
+4303: 	 position computations since they will be converted into a
+4304: 	 WITH_RECORD_EXPR involving the reference, which will assume
+4305: 	 here will be valid.  */
+4306:       return CONTAINS_PLACEHOLDER_P (TREE_OPERAND (exp, 0));
+4307:
+4308:     case tcc_exceptional:
+4309:       if (code == TREE_LIST)
+4310: 	return (CONTAINS_PLACEHOLDER_P (TREE_VALUE (exp))
+4311: 		|| CONTAINS_PLACEHOLDER_P (TREE_CHAIN (exp)));
+4312:       break;
+4313:
+4314:     case tcc_unary:
+4315:     case tcc_binary:
+4316:     case tcc_comparison:
+4317:     case tcc_expression:
+4318:       switch (code)
+4319: 	{
+4320: 	case COMPOUND_EXPR:
+4321: 	  /* Ignoring the first operand isn't quite right, but works best.  */
+4322: 	  return CONTAINS_PLACEHOLDER_P (TREE_OPERAND (exp, 1));
+4323:
+4324: 	case COND_EXPR:
+4325: 	  return (CONTAINS_PLACEHOLDER_P (TREE_OPERAND (exp, 0))
+4326: 		  || CONTAINS_PLACEHOLDER_P (TREE_OPERAND (exp, 1))
+4327: 		  || CONTAINS_PLACEHOLDER_P (TREE_OPERAND (exp, 2)));
+4328:
+4329: 	case SAVE_EXPR:
+4330: 	  /* The save_expr function never wraps anything containing
+4331: 	     a PLACEHOLDER_EXPR. */
+4332: 	  return false;
+4333:
+4334: 	default:
+4335: 	  break;
+4336: 	}
+4337:
+4338:       switch (TREE_CODE_LENGTH (code))
+4339: 	{
+4340: 	case 1:
+4341: 	  return CONTAINS_PLACEHOLDER_P (TREE_OPERAND (exp, 0));
+4342: 	case 2:
+4343: 	  return (CONTAINS_PLACEHOLDER_P (TREE_OPERAND (exp, 0))
+4344: 		  || CONTAINS_PLACEHOLDER_P (TREE_OPERAND (exp, 1)));
+4345: 	default:
+4346: 	  return false;
+4347: 	}
+4348:
+4349:     case tcc_vl_exp:
+4350:       switch (code)
+4351: 	{
+4352: 	case CALL_EXPR:
+4353: 	  {
+4354: 	    const_tree arg;
+4355: 	    const_call_expr_arg_iterator iter;
+4356: 	    FOR_EACH_CONST_CALL_EXPR_ARG (arg, iter, exp)
+4357: 	      if (CONTAINS_PLACEHOLDER_P (arg))
+4358: 		return true;
+4359: 	    return false;
+4360: 	  }
+4361: 	default:
+4362: 	  return false;
+4363: 	}
+4364:
+4365:     default:
+4366:       return false;
+4367:     }
+4368:   return false;
+4369: }
+4370:
+4371: /* Return true if any part of the structure of TYPE involves a PLACEHOLDER_EXPR
+4372:    directly.  This includes size, bounds, qualifiers (for QUAL_UNION_TYPE) and
+4373:    field positions.  */
+4374:
+4375: static bool
+4376: type_contains_placeholder_1 (const_tree type)
+4377: {
+```
+
+## gcc/tree.cc:4756–4932
+```text
+4756: substitute_placeholder_in_expr (tree exp, tree obj)
+4757: {
+4758:   enum tree_code code = TREE_CODE (exp);
+4759:   tree op0, op1, op2, op3;
+4760:   tree new_tree;
+4761:
+4762:   /* If this is a PLACEHOLDER_EXPR, see if we find a corresponding type
+4763:      in the chain of OBJ.  */
+4764:   if (code == PLACEHOLDER_EXPR)
+4765:     {
+4766:       tree need_type = TYPE_MAIN_VARIANT (TREE_TYPE (exp));
+4767:       tree elt;
+4768:
+4769:       for (elt = obj; elt != 0;
+4770: 	   elt = ((TREE_CODE (elt) == COMPOUND_EXPR
+4771: 		   || TREE_CODE (elt) == COND_EXPR)
+4772: 		  ? TREE_OPERAND (elt, 1)
+4773: 		  : (REFERENCE_CLASS_P (elt)
+4774: 		     || UNARY_CLASS_P (elt)
+4775: 		     || BINARY_CLASS_P (elt)
+4776: 		     || VL_EXP_CLASS_P (elt)
+4777: 		     || EXPRESSION_CLASS_P (elt))
+4778: 		  ? TREE_OPERAND (elt, 0) : 0))
+4779: 	if (TYPE_MAIN_VARIANT (TREE_TYPE (elt)) == need_type)
+4780: 	  return elt;
+4781:
+4782:       for (elt = obj; elt != 0;
+4783: 	   elt = ((TREE_CODE (elt) == COMPOUND_EXPR
+4784: 		   || TREE_CODE (elt) == COND_EXPR)
+4785: 		  ? TREE_OPERAND (elt, 1)
+4786: 		  : (REFERENCE_CLASS_P (elt)
+4787: 		     || UNARY_CLASS_P (elt)
+4788: 		     || BINARY_CLASS_P (elt)
+4789: 		     || VL_EXP_CLASS_P (elt)
+4790: 		     || EXPRESSION_CLASS_P (elt))
+4791: 		  ? TREE_OPERAND (elt, 0) : 0))
+4792: 	if (POINTER_TYPE_P (TREE_TYPE (elt))
+4793: 	    && (TYPE_MAIN_VARIANT (TREE_TYPE (TREE_TYPE (elt)))
+4794: 		== need_type))
+4795: 	  return fold_build1 (INDIRECT_REF, need_type, elt);
+4796:
+4797:       /* If we didn't find it, return the original PLACEHOLDER_EXPR.  If it
+4798: 	 survives until RTL generation, there will be an error.  */
+4799:       return exp;
+4800:     }
+4801:
+4802:   /* TREE_LIST is special because we need to look at TREE_VALUE
+4803:      and TREE_CHAIN, not TREE_OPERANDS.  */
+4804:   else if (code == TREE_LIST)
+4805:     {
+4806:       op0 = SUBSTITUTE_PLACEHOLDER_IN_EXPR (TREE_CHAIN (exp), obj);
+4807:       op1 = SUBSTITUTE_PLACEHOLDER_IN_EXPR (TREE_VALUE (exp), obj);
+4808:       if (op0 == TREE_CHAIN (exp) && op1 == TREE_VALUE (exp))
+4809: 	return exp;
+4810:
+4811:       return tree_cons (TREE_PURPOSE (exp), op1, op0);
+4812:     }
+4813:   else
+4814:     switch (TREE_CODE_CLASS (code))
+4815:       {
+4816:       case tcc_constant:
+4817:       case tcc_declaration:
+4818: 	return exp;
+4819:
+4820:       case tcc_exceptional:
+4821:       case tcc_unary:
+4822:       case tcc_binary:
+4823:       case tcc_comparison:
+4824:       case tcc_expression:
+4825:       case tcc_reference:
+4826:       case tcc_statement:
+4827: 	switch (TREE_CODE_LENGTH (code))
+4828: 	  {
+4829: 	  case 0:
+4830: 	    return exp;
+4831:
+4832: 	  case 1:
+4833: 	    op0 = SUBSTITUTE_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, 0), obj);
+4834: 	    if (op0 == TREE_OPERAND (exp, 0))
+4835: 	      return exp;
+4836:
+4837: 	    new_tree = fold_build1 (code, TREE_TYPE (exp), op0);
+4838: 	    break;
+4839:
+4840: 	  case 2:
+4841: 	    op0 = SUBSTITUTE_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, 0), obj);
+4842: 	    op1 = SUBSTITUTE_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, 1), obj);
+4843:
+4844: 	    if (op0 == TREE_OPERAND (exp, 0) && op1 == TREE_OPERAND (exp, 1))
+4845: 	      return exp;
+4846:
+4847: 	    new_tree = fold_build2 (code, TREE_TYPE (exp), op0, op1);
+4848: 	    break;
+4849:
+4850: 	  case 3:
+4851: 	    op0 = SUBSTITUTE_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, 0), obj);
+4852: 	    op1 = SUBSTITUTE_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, 1), obj);
+4853: 	    op2 = SUBSTITUTE_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, 2), obj);
+4854:
+4855: 	    if (op0 == TREE_OPERAND (exp, 0) && op1 == TREE_OPERAND (exp, 1)
+4856: 		&& op2 == TREE_OPERAND (exp, 2))
+4857: 	      return exp;
+4858:
+4859: 	    new_tree = fold_build3 (code, TREE_TYPE (exp), op0, op1, op2);
+4860: 	    break;
+4861:
+4862: 	  case 4:
+4863: 	    op0 = SUBSTITUTE_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, 0), obj);
+4864: 	    op1 = SUBSTITUTE_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, 1), obj);
+4865: 	    op2 = SUBSTITUTE_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, 2), obj);
+4866: 	    op3 = SUBSTITUTE_PLACEHOLDER_IN_EXPR (TREE_OPERAND (exp, 3), obj);
+4867:
+4868: 	    if (op0 == TREE_OPERAND (exp, 0) && op1 == TREE_OPERAND (exp, 1)
+4869: 		&& op2 == TREE_OPERAND (exp, 2)
+4870: 		&& op3 == TREE_OPERAND (exp, 3))
+4871: 	      return exp;
+4872:
+4873: 	    new_tree
+4874: 	      = fold (build4 (code, TREE_TYPE (exp), op0, op1, op2, op3));
+4875: 	    break;
+4876:
+4877: 	  default:
+4878: 	    gcc_unreachable ();
+4879: 	  }
+4880: 	break;
+4881:
+4882:       case tcc_vl_exp:
+4883: 	{
+4884: 	  int i;
+4885:
+4886: 	  new_tree = NULL_TREE;
+4887:
+4888: 	  for (i = 1; i < TREE_OPERAND_LENGTH (exp); i++)
+4889: 	    {
+4890: 	      tree op = TREE_OPERAND (exp, i);
+4891: 	      tree new_op = SUBSTITUTE_PLACEHOLDER_IN_EXPR (op, obj);
+4892: 	      if (new_op != op)
+4893: 		{
+4894: 		  if (!new_tree)
+4895: 		    new_tree = copy_node (exp);
+4896: 		  TREE_OPERAND (new_tree, i) = new_op;
+4897: 		}
+4898: 	    }
+4899:
+4900: 	  if (new_tree)
+4901: 	    {
+4902: 	      new_tree = fold (new_tree);
+4903: 	      if (TREE_CODE (new_tree) == CALL_EXPR)
+4904: 		process_call_operands (new_tree);
+4905: 	    }
+4906: 	  else
+4907: 	    return exp;
+4908: 	}
+4909: 	break;
+4910:
+4911:       default:
+4912: 	gcc_unreachable ();
+4913:       }
+4914:
+4915:   TREE_READONLY (new_tree) |= TREE_READONLY (exp);
+4916:
+4917:   if (code == INDIRECT_REF || code == ARRAY_REF || code == ARRAY_RANGE_REF)
+4918:     TREE_THIS_NOTRAP (new_tree) |= TREE_THIS_NOTRAP (exp);
+4919:
+4920:   return new_tree;
+4921: }
+4922:
+4923:
+4924: /* Subroutine of stabilize_reference; this is called for subtrees of
+4925:    references.  Any expression with side-effects must be put in a SAVE_EXPR
+4926:    to ensure that it is only evaluated once.
+4927:
+4928:    We don't put SAVE_EXPR nodes around everything, because assigning very
+4929:    simple expressions to temporaries causes us to miss good opportunities
+4930:    for optimizations.  Among other things, the opportunity to fold in the
+4931:    addition of a constant into an addressing mode often gets lost, e.g.
+4932:    "y[i+1] += x;".  In general, we take the approach that we should not make
+```
+
 ## gcc/tree.cc:5840–5965
 ```text
 5840: build_qualified_type (tree type, int type_quals MEM_STAT_DECL)
@@ -13074,6 +13380,40 @@ LF line numbering; complete file identities checked.
 585: {
 586:   return opt_machine_mode ();
 587: }
+```
+
+## gcc/tree.h:5460–5467
+```text
+5460: extern bool contains_placeholder_p (const_tree);
+5461:
+5462: /* This macro calls the above function but short-circuits the common
+5463:    case of a constant to save time.  Also check for null.  */
+5464:
+5465: #define CONTAINS_PLACEHOLDER_P(EXP) \
+5466:   ((EXP) != 0 && ! TREE_CONSTANT (EXP) && contains_placeholder_p (EXP))
+5467:
+```
+
+## gcc/tree.h:5500–5517
+```text
+5500:
+5501: /* This macro calls the above function but short-circuits the common
+5502:    case of a constant to save time and also checks for NULL.  */
+5503:
+5504: #define SUBSTITUTE_IN_EXPR(EXP, F, R) \
+5505:   ((EXP) == 0 || TREE_CONSTANT (EXP) ? (EXP) : substitute_in_expr (EXP, F, R))
+5506:
+5507: /* Similar, but look for a PLACEHOLDER_EXPR in EXP and find a replacement
+5508:    for it within OBJ, a tree that is an object or a chain of references.  */
+5509:
+5510: extern tree substitute_placeholder_in_expr (tree, tree);
+5511:
+5512: /* This macro calls the above function but short-circuits the common
+5513:    case of a constant to save time and also checks for NULL.  */
+5514:
+5515: #define SUBSTITUTE_PLACEHOLDER_IN_EXPR(EXP, OBJ) \
+5516:   ((EXP) == 0 || TREE_CONSTANT (EXP) ? (EXP)	\
+5517:    : substitute_placeholder_in_expr (EXP, OBJ))
 ```
 
 ## gcc/tree.h:5921–5929

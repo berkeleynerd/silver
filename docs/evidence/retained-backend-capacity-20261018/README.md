@@ -65,6 +65,9 @@ String length limit from the scalar-mode lookup's unsigned-int temporary.
 The expression-copy continuation checks the callback/walker stop boundaries and
 constructor-vector copy path, and contrasts shared DAG occurrence counts with
 SAVE-protected inputs. It does not claim a source-to-whole-body copy bound.
+The placeholder-substitution continuation reconciles the primitive sites and
+no-inline route; the source argument distinguishes its original-operand recursion
+from folder allocations and establishes the unchanged, placeholder-free case.
 `checks.json` and `source-excerpts.md`
 retain its outputs. The script does not establish caller coverage or replace
 the report's manual source argument.
