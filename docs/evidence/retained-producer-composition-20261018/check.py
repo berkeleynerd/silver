@@ -265,7 +265,9 @@ def compose(c, schema, fixed_counts, fixed_modules, path_bytes=256):
     undo = 204*(all_nodes+1)+2*preimport[0]+30*scoped_keys
     auxiliary = dict(A_total=all_nodes,E_total=all_entities,
                      common_calls=common_calls,why_calls=why_calls,
-                     why_symbol_map=160*all_entities,undo_peak=undo)
+                     why_symbol_map=160*all_entities,undo_peak=undo,
+                     registered_vcs=preimport[0],vc_entity_map=all_entities,
+                     claim_domain=5*all_entities,subprocess_map=1)
     return dict(A_parse=parse,A_Main=main_nodes,A_shape=shape_nodes,A_shape_total=shape_total,
                 E_Main=entities,V=visits,V_Integer=numeric_visits,K=literals,
                 K_literal=kl,preimport=preimport,unpaid_closes=closes,modules=modules,
@@ -358,7 +360,8 @@ def library_processes(schema,path_bytes=256):
             module_nodes=modules,files=files,lifetime_emitted_bound=emitted,
             per_file_json_bound=file_bound if files else 0,all_root_json_bound=file_bound,
             why_calls=calls['why'],common_calls=calls['entity'],why_symbol_map=160*e,
-            undo_peak=undo,producer_core_fits=fits))
+            undo_peak=undo,registered_vcs=n,vc_entity_map=e,claim_domain=5*e,
+            subprocess_map=files,producer_core_fits=fits))
     return result
 
 

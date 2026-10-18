@@ -46,6 +46,10 @@
       "common_calls": 2571,
       "why_symbol_map": 3187360,
       "undo_peak": 26144848,
+      "registered_vcs": 13070,
+      "vc_entity_map": 19921,
+      "claim_domain": 99605,
+      "subprocess_map": 3,
       "producer_core_fits": true
     },
     {
@@ -64,6 +68,10 @@
       "common_calls": 1901,
       "why_symbol_map": 3173920,
       "undo_peak": 25903246,
+      "registered_vcs": 16547,
+      "vc_entity_map": 19837,
+      "claim_domain": 99185,
+      "subprocess_map": 2,
       "producer_core_fits": true
     },
     {
@@ -82,6 +90,10 @@
       "common_calls": 1253,
       "why_symbol_map": 2972000,
       "undo_peak": 24131092,
+      "registered_vcs": 8714,
+      "vc_entity_map": 18575,
+      "claim_domain": 92875,
+      "subprocess_map": 0,
       "producer_core_fits": true
     },
     {
@@ -100,6 +112,10 @@
       "common_calls": 142,
       "why_symbol_map": 241600,
       "undo_peak": 1983646,
+      "registered_vcs": 7376,
+      "vc_entity_map": 1510,
+      "claim_domain": 7550,
+      "subprocess_map": 0,
       "producer_core_fits": true
     }
   ],
@@ -234,7 +250,11 @@
           "common_calls": 84629,
           "why_calls": 220441,
           "why_symbol_map": 2045600,
-          "undo_peak": 34228992
+          "undo_peak": 34228992,
+          "registered_vcs": 16488,
+          "vc_entity_map": 12785,
+          "claim_domain": 63925,
+          "subprocess_map": 1
         },
         "producer_core_fits": true
       }
@@ -331,7 +351,11 @@
           "common_calls": 84699,
           "why_calls": 240812,
           "why_symbol_map": 2046400,
-          "undo_peak": 34258142
+          "undo_peak": 34258142,
+          "registered_vcs": 18055,
+          "vc_entity_map": 12790,
+          "claim_domain": 63950,
+          "subprocess_map": 1
         },
         "producer_core_fits": true
       }
@@ -427,7 +451,11 @@
           "common_calls": 84657,
           "why_calls": 228033,
           "why_symbol_map": 2045920,
-          "undo_peak": 34245340
+          "undo_peak": 34245340,
+          "registered_vcs": 17072,
+          "vc_entity_map": 12787,
+          "claim_domain": 63935,
+          "subprocess_map": 1
         },
         "producer_core_fits": true
       }
@@ -527,7 +555,11 @@
           "common_calls": 84727,
           "why_calls": 246558,
           "why_symbol_map": 2046720,
-          "undo_peak": 34287670
+          "undo_peak": 34287670,
+          "registered_vcs": 18497,
+          "vc_entity_map": 12792,
+          "claim_domain": 63960,
+          "subprocess_map": 1
         },
         "producer_core_fits": true
       }

@@ -1,0 +1,215 @@
+{
+  "source_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "source_files": 279,
+  "calls_by_name": {
+    "Emit_Always_True_Range_Check": 2,
+    "Emit_Static_Proof_Result": 23,
+    "New_Loc_Label": 1,
+    "New_Shape_Label": 1,
+    "New_VC_Labels": 3,
+    "Register_VC": 2
+  },
+  "calls": [
+    {
+      "file": "src/why/gnat2why-error_messages.adb",
+      "line": 405,
+      "name": "Register_VC",
+      "actual": "Node, Kind, E, Check_Info, Present_In_Why3 => False"
+    },
+    {
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 672,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Node => Loop_Variant, Kind => VC_Loop_Variant, Proved => Result, E => Current_Subp, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 2030,
+      "name": "New_VC_Labels",
+      "actual": "Variant, Reason => VC_Loop_Variant, Check_Info => New_Check_Info"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 3841,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Call, VC_Subprogram_Variant, False, Current_Subp, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 3862,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Call, VC_Subprogram_Variant, Result, Current_Subp, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 4099,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Ada_Node, VC_Unchecked_Union_Restriction, not Violation_Found, Current_Subp, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 9301,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Node => Returned_Expr, Kind => VC_Dynamic_Accessibility_Check, Proved => Compute_Check (Returned_Expr, Under_Access => False), E => Subp"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 11526,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Ada_Node, VC_UC_Same_Size, False, Current_Subp, Explanation => \"overlaid object has mutable discriminants\""
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 11556,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Ada_Node, VC_UC_Same_Size, False, Current_Subp, Explanation => \"overlaid object has a classwide type\""
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 11622,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Ada_Node, VC_UC_Same_Size, Static_Obj_Size = Static_Overlaid_Size, Current_Subp, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 16707,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Subexpr, VC_Range_Check, False, Current_Subp, Explanation => \"empty aggregates cannot be used if there is no\" & \" element before the first element of their\" & \" index type\""
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 22700,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Decl, VC_UC_Source, Valid, Current_Subp, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 22718,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Decl, VC_UC_Target, Valid, Current_Subp, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 22738,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Address, VC_UC_Source, Valid, Current_Subp, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 22756,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Address, VC_UC_Target, Valid, Current_Subp, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 22766,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Decl, VC_UC_Align_Overlay, Valid, Current_Subp, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 25233,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Expr, VC_Resource_Leak, False, Current_Subp, Explanation => \"allocator \" & (if To_Const then \"for an access-to-constant type\" elsif To_Gen then \"for a general access-to-variable type\" else \"inside an assertion\") & \" leaks memory\""
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 25615,
+      "name": "Emit_Always_True_Range_Check",
+      "actual": "Expr, RCK_FP_Overflow"
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 26607,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Expr, VC_Resource_Leak, False, Current_Subp, Explanation => \"call to allocating function inside \" & \"an assertion leaks some resource or memory\""
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 28519,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Expr, Reason, Proved, Current_Subp"
+    },
+    {
+      "file": "src/why/gnat2why-subprograms-pointers.adb",
+      "line": 1376,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Expr, VC_Termination_Check, False, Current_Subp, \"calls via access-to-subprograms inside function taken as\" & \" access might hide recursive calls\""
+    },
+    {
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 6299,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Source, VC_UC_Source, Valid, E, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 6315,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Target, VC_UC_Target, Valid, E, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 6323,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "E, VC_UC_Same_Size, Valid, E, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 6331,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "E, VC_UC_Align_UC, Valid, E, Explanation => To_String (Explanation)"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 1971,
+      "name": "New_Loc_Label",
+      "actual": "Ada_Node => Get_Ada_Node (+E), Sloc => Safe_First_Sloc (Ada_Node), Domain => Get_Domain (+E), Def => E, Marker => Marker"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 2606,
+      "name": "Emit_Always_True_Range_Check",
+      "actual": "Ada_Node, Check_Kind"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 5319,
+      "name": "New_VC_Labels",
+      "actual": "Ada_Node, Reason, Check_Info"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 5350,
+      "name": "Register_VC",
+      "actual": "N, Reason, Current_Subp, Check_Info"
+    },
+    {
+      "file": "src/why/why-gen-expr.adb",
+      "line": 5358,
+      "name": "New_Shape_Label",
+      "actual": "Node => N"
+    },
+    {
+      "file": "src/why/why-gen-progs.adb",
+      "line": 97,
+      "name": "Emit_Static_Proof_Result",
+      "actual": "Ada_Node, To_VC_Kind (Check_Kind), True, Current_Subp"
+    },
+    {
+      "file": "src/why/why-gen-progs.adb",
+      "line": 142,
+      "name": "New_VC_Labels",
+      "actual": "Ada_Node, Reason, Check_Info => New_Check_Info"
+    }
+  ],
+  "library_sha256": {
+    "silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+    "silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+    "silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+    "silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+    "silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+    "silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+  },
+  "scope": "source frontier; full process response/report bounds remain separate"
+}

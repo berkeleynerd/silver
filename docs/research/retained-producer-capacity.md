@@ -2572,12 +2572,18 @@ The [scoped undo derivation](retained-producer-undo.md) now supplies that peak:
 with `X=36 E_total+7 U_Common+1`, it is at most
 `204(A_total+1)+2 B_N+30X`. Distinct-key cardinality alone remains insufficient.
 
-### Two separate symbol pools
+### Why and Common symbol pools
 
 `Why.Gen.Names.NID` calls `GNATCOLL.Symbols.Find` on `Why3_Symbol_Alloc`
 (`why-gen-names.adb:42,816–819`). `Common_Containers.To_Entity_Name` uses a
 different `Intern_Strings` pool (`common_containers.adb:50–63`). These are
 GNATCOLL allocators, not the frontend Namet table.
+
+These are not all the process's symbol pools. The separate
+[registration/output-consumer record](retained-producer-tail.md#assumptions-have-their-own-symbol-pool-and-container-domains)
+identifies `Assumption_Types.Symbol_Table`, its source/name domain and its
+remaining whole-process request count. Do not transfer the Why/Common
+measurements to that allocator.
 
 The retained recipe selects GNATCOLL's `26-sustained` branch. The inspected
 revision is `1d4374ae9187fd14d42ca99a3deb0ab2ff1ebc55`; the complete relevant
@@ -2711,7 +2717,7 @@ a global would instead give 193 million Main prefix requests; using the actual
 metadata domains avoids that unnecessarily loose estimate.
 
 `Get_Filtered_Variables_For_Proof` is called only inside `Get_Fix`, selected by
-the failed-proof Error_Kind branch of `Error_Msg_Proof`
+the failed-proof Check_Kind branch of `Error_Msg_Proof`
 (`flow_error_messages.adb:657–664,950–990`). Ordinary all-proved reporting does
 not use it. A whole-process bound including failed-proof diagnostics must add
 that call count explicitly; the formula above does not silently set it to zero
@@ -3314,6 +3320,11 @@ and evaluated. They are still **not the complete unchanged-tool capacity rule**:
 frontend/native/backend composition and whole-rule review remain required before
 expanded admission. Retained sample executions do not replace
 those arguments, and this record selects no new language threshold.
+
+The [producer-tail record](retained-producer-tail.md) additionally bounds VC
+registration and the claim/PID map domains, but identifies the still separate
+backend-response, diagnostic, third-pool and final-report consumers. A completed
+Why JSON prefix is not a completed gnat2why process-capacity argument.
 
 ## Reproducing the evidence checks
 

@@ -346,6 +346,15 @@ temporary copies and 64-bit allocation/byte-counter arithmetic. They do not
 place a cap on available physical memory. Failed-proof explanatory diagnostics
 after the successful producer prefix remain outside this prefix claim.
 
+The [registration/output-consumer trace](retained-producer-tail.md) also gives
+`registered_VCs<=B.nodes`, `VC_entity_map<=E_total`,
+`claim_domain<=5E_total` and the process-local subprocess-map bound. Those fit
+the existing node/entity representation conditions and are reported by the
+checker. It also identifies the third Assumption_Types intern pool, backend
+response objects and final `.spark` serialization which remain outside this
+core composition. The process-end boundary is explicit; `producer_core_fits`
+does not assert complete producer-process capacity.
+
 ## Nonvacuity and sensitivity
 
 For `P_path=256`, the source fixtures give:
