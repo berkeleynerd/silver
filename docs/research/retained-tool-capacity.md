@@ -88,7 +88,9 @@ accepts this attachment and the initial CF/EH/CFG/root-loop constructor incremen
 The [ALI consumer join](retained-literal-binder-ali.md), separately
 [reviewed](../evidence/retained-literal-binder-ali-20261018/review.md), adds native
 parser tables, signatures and raw-buffer bounds plus additive native/Gprbind
-name requirements. Its fourteen offline cases pass. Complete shared name pools,
+name requirements. Its fourteen offline cases pass; the
+[reviewed aggregate attachment](../reviews/review-literal-ali-attachment-819b6a8cfb.md)
+preserves exact Main-interface equality and all 64 aggregate checks. Complete shared name pools,
 graph backing, the native GPRbuild D/W reader, native collector and
 production-launch composition remain open.
 
