@@ -21,7 +21,8 @@
     "hostparm.ads": "b2196c2e037f2f07f1cc885bef246c3f2b63cab5c6b908b3fe17c9f4a4031895",
     "tbuild.adb": "db30e8c054e8e3f53af3a01f108f8bec563ce936ebe9988734bc007142643b2c",
     "lib.adb": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e",
-    "sem_ch3.adb": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f"
+    "sem_ch3.adb": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
+    "par-ch4.adb": "b6ea201b0bf99ddb4683ecc09ea65bf5009f249fbae7af71d00ec921bd0f79d7"
   },
   "demand_envelope": {
     "kind": "sufficient backing-length bound; no whole-source demand established",
@@ -544,6 +545,122 @@
     "scope": "local calls/source word interning; not generated-name caller counts or qualification/consumer closure"
   },
   "lexical_table_instance_count": 161,
+  "parenthesis_counts": {
+    "lexical_setter_sites": [
+      {
+        "file": "atree.adb",
+        "line_lf": 1247,
+        "source": "Set_Paren_Count (N, Par_Count);"
+      },
+      {
+        "file": "atree.adb",
+        "line_lf": 2331,
+        "source": "procedure Set_Paren_Count (N : Node_Id; Val : Nat) is"
+      },
+      {
+        "file": "atree.adb",
+        "line_lf": 2373,
+        "source": "Set_Paren_Count (Target, Paren_Count (Source));"
+      },
+      {
+        "file": "atree.ads",
+        "line_lf": 479,
+        "source": "procedure Set_Paren_Count (N : Node_Id; Val : Nat);"
+      },
+      {
+        "file": "checks.adb",
+        "line_lf": 8066,
+        "source": "Set_Paren_Count (Cond, 1);"
+      },
+      {
+        "file": "checks.adb",
+        "line_lf": 11124,
+        "source": "Set_Paren_Count (Cond, 1);"
+      },
+      {
+        "file": "contracts.adb",
+        "line_lf": 4450,
+        "source": "Set_Paren_Count (Expr, 1);"
+      },
+      {
+        "file": "exp_ch6.adb",
+        "line_lf": 6471,
+        "source": "Set_Paren_Count (Expr, 0);"
+      },
+      {
+        "file": "exp_pakd.adb",
+        "line_lf": 380,
+        "source": "Set_Paren_Count (Newsub, 1);"
+      },
+      {
+        "file": "exp_pakd.adb",
+        "line_lf": 1014,
+        "source": "Set_Paren_Count (Bits_U1, 1);"
+      },
+      {
+        "file": "exp_pakd.adb",
+        "line_lf": 1417,
+        "source": "Set_Paren_Count (New_Rhs, 1);"
+      },
+      {
+        "file": "exp_util.adb",
+        "line_lf": 10512,
+        "source": "Set_Paren_Count (Size_Expr, 1);"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 2298,
+        "source": "Set_Paren_Count (Expr_Node, 0);"
+      },
+      {
+        "file": "par-ch3.adb",
+        "line_lf": 3913,
+        "source": "Set_Paren_Count (Case_Node, 0);"
+      },
+      {
+        "file": "par-ch4.adb",
+        "line_lf": 1553,
+        "source": "Set_Paren_Count (Expr_Node, Paren_Count (Expr_Node) + 1);"
+      },
+      {
+        "file": "par-ch4.adb",
+        "line_lf": 1561,
+        "source": "Set_Paren_Count (Expr_Node, Paren_Count (Expr_Node) + 1);"
+      },
+      {
+        "file": "par-ch4.adb",
+        "line_lf": 1569,
+        "source": "Set_Paren_Count (Expr_Node, Paren_Count (Expr_Node) + 1);"
+      },
+      {
+        "file": "par-ch4.adb",
+        "line_lf": 1678,
+        "source": "Set_Paren_Count (Expr_Node, Paren_Count (Expr_Node) + 1);"
+      },
+      {
+        "file": "sem_ch13.adb",
+        "line_lf": 4885,
+        "source": "Set_Paren_Count (Expr, 0);"
+      },
+      {
+        "file": "sem_ch6.adb",
+        "line_lf": 380,
+        "source": "Set_Paren_Count (Expr, Paren_Count (Expr) - 1);"
+      },
+      {
+        "file": "sem_res.adb",
+        "line_lf": 6803,
+        "source": "Set_Paren_Count (Index_Node, Paren_Count (N));"
+      }
+    ],
+    "auxiliary_entry_bytes": 8,
+    "entry_demand_bound": "one per ordinary node allocation/copy event",
+    "count_value_bound": "max(1, maximum parser nesting over selected files)",
+    "table_initial": 10,
+    "table_increment_percent": 200,
+    "source_nesting_from_file_bytes": "floor(B/2)",
+    "scope": "manual caller classification; lexical inventory is not a reachability proof"
+  },
   "lexical_table_instances": [
     {
       "file": "ali-util.ads",

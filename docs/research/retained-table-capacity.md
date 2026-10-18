@@ -391,6 +391,43 @@ The unresolved upper-bound problem is the number and kinds of events produced
 by parsing, semantic rewriting, checks, support expansion and every selected
 producer phase. No measured nodes-per-source-byte coefficient fills that gap.
 
+## Auxiliary parenthesis counts
+
+Parenthesized expressions do not allocate a distinct syntax node for each
+pair. On the ordinary expression path, the parser increments the existing
+expression's count (`par-ch4.adb:1663–1682`). Its two-bit field is **not a
+two-level nesting limit**. Counts zero through two stay in that field; three
+marks an entry in `Atree.Paren_Counts`, whose actual count has subtype Nat
+(`atree.adb:114–137,2037–2055,2331–2359`).
+
+`Set_Paren_Count` searches by node identity before appending. Updating an
+existing large count adds no entry; resetting to a small count does not remove
+the old entry. `Set_Paren_Count_Of_Copy` repeats that same lookup/update for
+the target identity (`:2365–2377`). Thus the auxiliary table has at most one
+entry per distinct node identity in its lifetime. Charging **one entry per
+ordinary node allocation/copy event** is sufficient, including discarded and
+later rewritten nodes. Reusing an identity after initialization does not
+defeat the cumulative-event bound. An entry holds one Node_Id and one Nat:
+eight bytes under the pinned 32-bit representations. Its index starts at zero,
+initial allocation is ten entries, and growth increment is 200 percent; apply
+the generic demand envelope and sentinel/byte checks separately.
+
+The retained complete top-level source inventory finds nineteen setter calls
+and its declaration/body headers. Only the four parser
+parenthesization paths increment a count. Other calls copy/preserve a count,
+set zero or one, or remove one pair. Consequently a sufficient value bound
+is the largest parser nesting count in the selected source files, enlarged
+to at least one. For a file of B bytes the nesting count is at most `floor(B/2)`;
+the byte bound also covers the parser's next increment. Repeated copying
+can enlarge auxiliary **entry count** but does not increase this value bound.
+The lexical site inventory in the evidence corroborates this manual caller
+classification; it is not an automated reachability proof.
+
+This closes this auxiliary table's local source/value connection once the
+whole-phase node event count and selected source inventory are supplied. It
+does not establish parser recursion-stack capacity or the other auxiliary
+tables.
+
 ## Individual generated names are another representation
 
 Aggregate name entries/characters do not cover every name representation.
