@@ -1,0 +1,188 @@
+[
+  {
+    "case": "null",
+    "variant": "baseline",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/tmp/silver-native-option-probe-20261018/null-baseline/probe.gpr",
+      "-p",
+      "-j1",
+      "-v"
+    ],
+    "source_bytes": 70,
+    "source_sha256": "eeee9454c12c49124881f49a17d743c82d3e730b48933bef7338f036725cfb25",
+    "build_exit": 0,
+    "run_exit": 0,
+    "stdout": "",
+    "ali_bytes": 344,
+    "longest_ali_record_including_lf": 47,
+    "xref_headers": 1,
+    "stored_switch_records": [
+      "A -gnatA",
+      "A -gnat2022",
+      "A -gnata",
+      "A -gnato",
+      "A -mtune=generic",
+      "A -march=x86-64"
+    ],
+    "compiler": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "gprbuild": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/bin/gprbuild"
+  },
+  {
+    "case": "null",
+    "variant": "proposed",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/tmp/silver-native-option-probe-20261018/null-proposed/probe.gpr",
+      "-p",
+      "-j1",
+      "-v"
+    ],
+    "source_bytes": 70,
+    "source_sha256": "eeee9454c12c49124881f49a17d743c82d3e730b48933bef7338f036725cfb25",
+    "build_exit": 0,
+    "run_exit": 0,
+    "stdout": "",
+    "ali_bytes": 344,
+    "longest_ali_record_including_lf": 47,
+    "xref_headers": 0,
+    "stored_switch_records": [
+      "A -Wno-free-nonheap-object",
+      "A -gnatA",
+      "A -gnat2022",
+      "A -gnata",
+      "A -gnato",
+      "A -gnatx",
+      "A -mtune=generic",
+      "A -march=x86-64"
+    ],
+    "compiler": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "gprbuild": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/bin/gprbuild"
+  },
+  {
+    "case": "literal",
+    "variant": "baseline",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/tmp/silver-native-option-probe-20261018/literal-baseline/probe.gpr",
+      "-p",
+      "-j1",
+      "-v"
+    ],
+    "source_bytes": 101,
+    "source_sha256": "ea55be9405105e19988090532e8ccde54d62d0d4d0c3b57f7f6af21d29bddf12",
+    "build_exit": 0,
+    "run_exit": 0,
+    "stdout": "a",
+    "ali_bytes": 2133,
+    "longest_ali_record_including_lf": 68,
+    "xref_headers": 2,
+    "stored_switch_records": [
+      "A -gnatA",
+      "A -gnat2022",
+      "A -gnata",
+      "A -gnato",
+      "A -mtune=generic",
+      "A -march=x86-64"
+    ],
+    "compiler": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "gprbuild": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/bin/gprbuild"
+  },
+  {
+    "case": "literal",
+    "variant": "proposed",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/tmp/silver-native-option-probe-20261018/literal-proposed/probe.gpr",
+      "-p",
+      "-j1",
+      "-v"
+    ],
+    "source_bytes": 101,
+    "source_sha256": "ea55be9405105e19988090532e8ccde54d62d0d4d0c3b57f7f6af21d29bddf12",
+    "build_exit": 0,
+    "run_exit": 0,
+    "stdout": "a",
+    "ali_bytes": 2061,
+    "longest_ali_record_including_lf": 68,
+    "xref_headers": 0,
+    "stored_switch_records": [
+      "A -Wno-free-nonheap-object",
+      "A -gnatA",
+      "A -gnat2022",
+      "A -gnata",
+      "A -gnato",
+      "A -gnatx",
+      "A -mtune=generic",
+      "A -march=x86-64"
+    ],
+    "compiler": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "gprbuild": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/bin/gprbuild"
+  },
+  {
+    "case": "long_name",
+    "variant": "baseline",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/tmp/silver-native-option-probe-20261018/long_name-baseline/probe.gpr",
+      "-p",
+      "-j1",
+      "-v"
+    ],
+    "source_bytes": 2607,
+    "source_sha256": "82f12073d3331b663320cc0e71f57ac84c2847892b4ce39a01dfdecd6c57280b",
+    "build_exit": 0,
+    "run_exit": 0,
+    "stdout": "",
+    "ali_bytes": 4560,
+    "longest_ali_record_including_lf": 2513,
+    "xref_headers": 2,
+    "stored_switch_records": [
+      "A -gnatA",
+      "A -gnat2022",
+      "A -gnata",
+      "A -gnato",
+      "A -mtune=generic",
+      "A -march=x86-64"
+    ],
+    "compiler": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "gprbuild": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/bin/gprbuild"
+  },
+  {
+    "case": "long_name",
+    "variant": "proposed",
+    "command": [
+      "gprbuild",
+      "-P",
+      "/tmp/silver-native-option-probe-20261018/long_name-proposed/probe.gpr",
+      "-p",
+      "-j1",
+      "-v"
+    ],
+    "source_bytes": 2607,
+    "source_sha256": "82f12073d3331b663320cc0e71f57ac84c2847892b4ce39a01dfdecd6c57280b",
+    "build_exit": 0,
+    "run_exit": 0,
+    "stdout": "",
+    "ali_bytes": 1997,
+    "longest_ali_record_including_lf": 68,
+    "xref_headers": 0,
+    "stored_switch_records": [
+      "A -Wno-free-nonheap-object",
+      "A -gnatA",
+      "A -gnat2022",
+      "A -gnata",
+      "A -gnato",
+      "A -gnatx",
+      "A -mtune=generic",
+      "A -march=x86-64"
+    ],
+    "compiler": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "gprbuild": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/bin/gprbuild"
+  }
+]

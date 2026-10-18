@@ -1939,7 +1939,23 @@ in this research checkpoint, and the current invocation's capacity accounting
 must still include the warning pass. Other ranger users, generic folding,
 required lowering and machine expansion remain independent obligations.
 
+The [focused Linux option experiment](../evidence/retained-native-options-20261018/README.md)
+subsequently built, bound, linked and executed three sources under both the
+baseline and combined `-gnatx -Wno-free-nonheap-object` options. All six passed;
+the verbose binder commands corroborate that the warning option propagates
+to its generated-source compile while `-gnatx` does not. This establishes
+the scoped installed-tool behavior, not production adoption or a complete
+capacity argument. The production flags remain unchanged.
+
 ## Remaining backend closure
+
+The [null-unit IPA join](retained-backend-ipa.md) inventories all 39 top-level
+IPA registrations and preserves the concrete null body under an explicit
+incoming-unit premise. It retains the dummy global, active O0 setup and the
+queued inline transform. Together with the
+[per-function continuation](retained-backend-gigi.md#null-main-through-the-remaining-o0-gimple-stages),
+it narrows null-body expansion to at most two labels and three block notes;
+fixed entry/exit, imported/setup graphs and later RTL still need composition.
 
 The [ELF linker transfer](retained-linker-capacity.md) supplies the separate
 32-bit String-name offset, signed name-length, reference-count, lifetime hash
