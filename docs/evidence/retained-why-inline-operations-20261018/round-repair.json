@@ -1,0 +1,58 @@
+{
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "token_measurements": null,
+  "cost_measurements": null,
+  "host": "Linux 7.0.14 x86_64",
+  "repair_of": "b68756eea4daae31f221eb72eefb9d40665d7b70",
+  "review_freeze": "78db8ca58e6fe68d28cf5f350d859d03e8f1796b",
+  "issues": [
+    "Refs #119",
+    "Fixes #133"
+  ],
+  "measured_interval_start_utc": "2026-10-18T21:12:29+00:00",
+  "measured_interval_end_utc": "2026-10-18T21:22:20.146473+00:00",
+  "measured_elapsed_seconds": 591.146473,
+  "interval_scope": "corrective source/contract audit through packet preparation; excludes subsequent commit, independent repair review and integration",
+  "intended_outcome": "repair the returned-Hsdecl-representative overclaim with explicit conditional arithmetic and an uninstantiated source-checkable contract",
+  "achieved_outcome": "actual representative envelope remains null and local established flag false; source requirements, numeric propagation and returned-old regression are explicit; actual process-state projection remains #119 work",
+  "review_finding": "Decl.Hsdecl may return an older alpha-equal declaration whose stored delayed maps are consumed downstream and are not bounded by captured roots",
+  "significant_rework": [
+    "Move all representation/semantic-dependent operational ceilings, including 1145 Ident and 669 Ty requests, under conditional_arithmetic.",
+    "Require complete selectable-representative coverage, delayed-value closure, per-declaration semantic/shape correspondence and actual opened eligibility attributes.",
+    "Propagate caller numeric E,V,T,A hypotheses while leaving coverage evidence and actual envelope unset; reject arbitrary Boolean or extra-field coverage substitutes.",
+    "Retain selection-independent topology requests and pure Weak/Ephemeron/counter transfers.",
+    "Preserve the original round as historical evidence of the rejected claim, superseded by this corrective round."
+  ],
+  "focused_check": {
+    "command": "python3 -B docs/evidence/retained-why-inline-operations-20261018/check.py",
+    "status": "pass",
+    "elapsed_seconds": 0.354466,
+    "native_runs": 0,
+    "new_checks": [
+      "37 and 128 renamings: select old equal-opened map, then open outer formal and visit 38/129 saved values downstream.",
+      "Larger E=37,V=9,T=5,A=4000 hypotheses propagate into K, opening-map size, R, hidden/validator work, types, Ty requests, attributes and map height.",
+      "Missing coverage leaves actual_representative_envelope null, coverage_evidence null and local established false for default and supplied numeric hypotheses.",
+      "Boolean envelope, coverage_established extra field, Boolean E, zero V and negative T are rejected."
+    ]
+  },
+  "other_checks": [
+    "all packet Python ASTs and JSON parse",
+    "git diff --check",
+    "local Markdown file links"
+  ],
+  "preparation_probe_note": "An initial direct comparison of in-memory inventory to JSON failed because JSON normalizes integer dictionary keys. The existing canonical JSON comparison in the focused checker passed; inventory.json did not change.",
+  "new_native_compiler_prover_debugger_server_solver_build_proof_or_capture_runs": 0,
+  "predecessor_successful_suite_rerun": false,
+  "actual_representative_state_projected": false,
+  "parent_owns": [
+    "independent repair review",
+    "integration",
+    "publication",
+    "issues",
+    "session memory"
+  ],
+  "cli_memory_updated": false,
+  "goal": null
+}

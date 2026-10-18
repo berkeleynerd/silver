@@ -1,312 +1,302 @@
-# Operational demand of the retained inlining invocation
+# Conditional operational demand of the retained inlining invocation
 
 2026-10-18, Linux x86_64, research for
-[#119](https://github.com/berkeleynerd/silver/issues/119), based on
-`28697404fa`. The [accepted semantic refinement](retained-why-inline-refinement.md)
-now has a **transformation-local structural, event and registration transfer**.
-The fresh-identifier increment is at most **1,145**, including declaration
-opening and task validation outside the previous 235-identifier kernel bound.
-Stored delayed substitutions, type instantiation, constructor requests and
-the actual wrapper/cache groups have numerical bounds and callable interfaces.
+[#119](https://github.com/berkeleynerd/silver/issues/119). This packet supplies
+**conditional candidate arithmetic and pure shared-state transfers**. It does
+**not** establish the local structural/registration transfer for the native
+invocation: the envelope and semantic correspondence of old declarations
+returned by `Decl.Hsdecl` are missing. The default result leaves
+`actual_representative_envelope` null and
+`local_structural_and_registration_transfer_established` false.
 
-This covers the **one retained first Input_Is_Valid/cvc5 `inline_trivial`
-entry**, for every unknown `inline:no` exclusion set. It does not close the
-whole transformation's capacity predicate: initial shared counters/backing,
-old hashcons comparands and runtime allocation/collection composition remain
-process inputs. Other entries, later transformations and consumers remain
-separate required work. Neither #119 nor whole-language capacity is complete.
+This corrects the overclaim in `b68756eea4`, identified by the
+[independent review](https://github.com/berkeleynerd/silver/blob/78db8ca58e6fe68d28cf5f350d859d03e8f1796b/docs/reviews/review-why-inline-operations-b68756eea4.md)
+and [#133](https://github.com/berkeleynerd/silver/issues/133). The earlier
+1,145-identifier, 36-key and 21,483-stored-occurrence numbers survive as
+**conditional arithmetic**, not established ceilings for the actual transform.
+The accepted [semantic refinement](retained-why-inline-refinement.md) remains
+an input model; attaching its alternatives to execution after representative
+selection also requires the correspondence premise described below.
 
+The scope is the one retained first Input_Is_Valid/cvc5 `inline_trivial` entry.
 The [offline packet](../evidence/retained-why-inline-operations-20261018/README.md)
-reuses the successful capture and reviewed refinement without another native
-run. It retains complete relevant Why3 sources at
+reuses the successful capture and predecessor evidence without another native
+run. It pins complete relevant Why3 sources at
 `9390baf120ef260547dfa14f08e11c890b203d9c` and OCaml sources at
-`8eb41f72ded84df884c3671734c947f612091f84`. The existing relevant-source/runtime,
-well-formedness and noncolliding-identifier premises apply. The source argument
-is inspected, not machine-checked OCaml semantics. Physical resource availability
-stays at the existing external boundary; no aggregate RAM gate is introduced.
+`8eb41f72ded84df884c3671734c947f612091f84`. Relevant-source/runtime,
+well-formedness and noncolliding-identifier premises remain applicable. The
+source argument is inspected, not machine-checked OCaml semantics. Physical
+resources remain external assumptions; no aggregate RAM gate is introduced.
 
-## Restricted structural facts checked from the complete graph
+## Why the shared table supplies a downstream representation input
 
-The input has 512 task nodes, including 244 logical declarations: 17 type,
-16 data, 68 parameter, 81 singleton logic and 62 proposition declarations.
-The accepted all-exclusion transfer supplies 143 roots with summed term count
-1,613, bound slots 168, pattern nodes 12 and applications 594. Logic bodies
-contribute 418 terms and four bound slots; their formal lists total 123 slots.
-The maximum root mass remains 99, including the reconstructed definition
-axioms. No exclusion set is inferred from the missing Meta payloads.
+`decl_map` reconstructs logic/proposition declarations; `mk_decl` hashconses
+all except goals (`decl.ml:350–419,526–535,621–634`). Declaration equality uses
+`t_equal_strict`, which follows delayed frames reached from variable leaves
+and ignores unused saved-map keys (`term.ml:266–281,325–379`). Strict hashing
+uses the same frame interpretation (`:441–510`). `Hashcons.Make.hashcons`
+returns `WH.merge`'s result (`hashcons.ml:41–45`); a successful weak-table
+comparison returns the old live object (`weak.ml:272–311`).
 
-The new inventory establishes the following additional restrictions on these
-actual inputs and the accepted optional-hit alternatives:
+That old declaration enters used-symbol collection, definition opening,
+eligibility/environment storage and possibly `Task.add_decl`
+(`inlining.ml:64–80`). `known_add_decl` then traverses it again, including
+stored substitution values and match-check opening
+(`decl.ml:518–524,699–709,741–748,780–826`; `task.ml:145–165`). A bound on the
+new candidate's saved maps therefore does not bound these downstream maps.
+Accounting only for collision comparison cost misses this use of the old object.
 
-- All 45 eligible environment bodies are binder-free, with no patterns.
-  Every formal coefficient at every possible hit is at most one. Inlining can
-  drop an argument or move it under binder-free structure; it cannot duplicate
-  its binders or introduce a new binder.
-- The 157 captured binding records contain eight saved substitutions. Six
-  values are variable leaves; two are six-node, binder-free terms. Every value
-  has at most one free-variable occurrence. Neither of the two nonunit keys
-  occurs free in **any** initial saved value, including the six variable values.
-- All 12 patterns are nullary constructor patterns with empty variable sets.
-  Pattern opening creates no variables. `Pattern.check_compile` receives a
-  nonempty scrutinee list, and every constructor argument list it synthesizes
-  is empty; its `id_fresh "_"` and `id_fresh "x"` allocation paths contribute
-  zero registrations (`pattern.ml:141–161`).
-- All 16 data declarations have ground, parameter-free constructors. Their
-  argument-type dependency graph is acyclic. Positivity and foundedness can
-  therefore be bounded directly, including indirect ground data dependencies.
-- Complete term, variable, pattern and signature type traversal finds maximum
-  type occurrence size three and at most two type variables in a signature.
-  Stored `Tyapp` values are normalized, without alias nodes. All constants in
-  possible environment bodies use builtin unbounded integer type `int`; the
-  hit-body smart constant constructor performs no range/float numeric check.
-
-These are fail-closed guards in `inventory.py`, not universal facts about
-Why3 or about other registered tasks. The predecessor's nonrecursion argument
-includes hidden saved values, so it also justifies the empty recursive-call
-graphs used below.
-
-## Delayed substitution and opening
-
-`t_subst_unsafe` visits ordinary children until a binder. At that binder it
-updates the saved substitution map and does not traverse the raw bound body;
-it does recursively map the **old saved values** (`term.ml:739–778`). A variable
-replacement is returned directly, without recursively substituting inside it.
-This distinction is why semantic occurrence counts alone were insufficient.
-
-For this capture, every map value remains binder-free and at most six nodes.
-The initial nonunit keys cannot affect any initial saved value, by the checked
-disjointness property above. Opening subsequently introduces only fresh
-variable leaves. Fresh identities cannot collide with either original nonunit
-key. Composing maps therefore only renames a saved value's single possible
-free leaf; it cannot expand that value. `t_replace_all` does not rewrite hidden
-saved values. A changed binder is closed with an empty map; an unchanged binder
-retains the input binding. The type and final substitution passes operate on
-binder-free hit bodies. Thus they introduce no new delayed argument maps.
-
-For a complete traversal path, use the independent maxima
-`P = 8 + 6 = 14` for body-bound slots plus definition formals. Charge all eight
-initial map entries, since original keys can propagate from ancestor maps.
-The mapping traversal can add at most `P`
-renaming keys along its ancestry. One subsequent validator traversal can add
-at most another `P`. Validators start from the immutable mapped declaration;
-they do not feed their opened result into the next validator. Even
-`check_match`'s additional branch opening is independent of its normal fold.
-Consequently:
+The regression specializes `bv_subst_unsafe` (`term.ml:764–778`) to variable
+renamings of `forall z. P(x0)`, with `z` distinct from every `xi`. Repeated
+`xi -> x(i+1)` substitutions give, after `n` steps:
 
 ```text
-saved-map keys             K <= 8 + 2*14 = 36
-opening-map keys               <= K + 14 = 50
-nodes in each saved value   V <= 6
-stored term occurrences     R <= 99*(1 + K*V) = 21,483.
+bv_vars  = { xn : 1 }
+bv_subst = { x0 -> xn, ..., x(n-1) -> xn }
+raw body = P(x0)
 ```
 
-The raw skeleton cannot exceed its fully opened term count: substitutions
-replace a variable leaf by a nonempty binder-free term. There are at most 99
-binding records in a formula of mass at most 99, including case branches with
-zero bound variables. Charging every binding `K` values of size `V` therefore
-covers unused values, repeated edges and maps preserved by equality fast paths.
-These are representation bounds, not assertions that native execution retains
-21,483 nodes at a time.
+Each value is a leaf. Closing `xn` as an outer formal gives the same opened
+alpha form and strict hash/equality as a clean representation, with the same
+symbols, types, empty attributes and locations. The Python specialization
+selects that old representation on the matching key. Opening its outer formal
+renames the `n` saved values and adds one more key; a downstream stored-value
+fold visits all `n+1` entries. Checks at `n=37` and `n=128` exceed the former
+36-key ceiling. This is a source-valid parametric witness and a focused model
+regression, **not a native observation of this process's table**. It does not
+by itself refute the 1,145 identifier arithmetic.
 
-The recursive opening walks are the original mapper, logic termination and
-task `check_match`. Each body/trigger substitution start can be charged to an
-edge of its opened tree. Add six outer-definition opening sites per logic
-declaration and at most 12 extra branch openings for pattern checking:
+There is a separate eligibility attachment obligation. Strict comparison and
+hashing process the raw node's attributes before `descend`; they do not recheck
+a substituted node's root attributes at that point. Opening uses `t_attr_copy`,
+which unions attributes (`term.ml:646–662,739–778`), and `notdef` observes
+`inline:trivial` (`inlining.ml:119–145`). This packet does not prove that strict
+equality alone preserves the actual opened eligibility decision. The required
+contract explicitly includes opened attributes and forbids extra eligible
+bodies. The 1,145/669 exports are conditional on that contract too.
+
+## Captured facts and the missing representative contract
+
+The inventory covers captured roots only. There are 512 task nodes and 244
+logical declarations: 17 type, 16 data, 68 parameter, 81 singleton logic and
+62 propositions. The accepted model has 143 mapped roots, summed term count
+1,613, body-bound slots 168, patterns 12 and applications 594. Logic bodies
+contribute 418 terms and four body-bound slots; formals total 123. Its maximum
+reconstructed formula mass is 99. Optional hit/miss choices cover unknown
+metadata exclusions; no missing Meta payload is inferred to be empty.
+
+The captured graph has 157 binding records and eight saved entries: six leaf
+values and two six-node binder-free values. All are unary in free occurrences;
+nonunit keys occur in none of the saved values' free sets. Captured patterns
+are nullary constructors with empty variable sets. The 16 ground Ddata
+declarations have acyclic constructor-type dependencies. Types have at most
+three occurrences, signatures at most two type variables and applications at
+most seven arguments. The attribute universe has 80 entries; the known-map
+identifier union has 277. All 45 model-eligible bodies are binder-free and
+pattern-free, their hit formal coefficients are at most one, and possible
+environment constants use builtin unbounded `int`.
+
+`inventory.py` checks these restricted captured facts. It does not check a
+projection of the shared declaration table. `representatives.py` exports the
+missing contract, with exact scope, source references and numeric fields:
+
+| Hypothesis | Required coverage |
+| --- | --- |
+| `E`, seed saved entries per formula | Sum of saved-map entries in every selectable old declaration formula before downstream opening, including unused entries and repeated stored edges |
+| `V`, delayed-value nodes | Every such seed saved value's stored term occurrences |
+| `T`, type occurrences | Every stored type, symbol signature, variable type and map-key type |
+| `A`, attribute-universe entries | Union across captured and selectable terms, symbols, variables and saved-map keys |
+
+The numeric fields are insufficient without these source-checkable invariants:
+
+1. Cover **every** old live declaration any `Hsdecl` merge can return, including
+   previously inserted local candidates. Join a complete initial projection
+   or source/process invariant to each merge/return site; prove closure under
+   local insertions and weak clearing, with no concurrent foreign insertions.
+   Include unused values, keys, types and attributes. A sample is insufficient.
+2. Require finite, acyclic, well-formed stored graphs and caches, correct
+   `bv_vars`, and fresh identities distinct from all projected identifiers.
+   Every seed saved value is binder-free/pattern-free with at most one free
+   occurrence. Across maps that can compose, no key with a non-leaf value is
+   free in any seed value. Subsequent map additions are fresh renamings;
+   independent validators restart from the immutable declaration.
+3. After **actual opening and attribute copying**, selected bodies/formulas
+   correspond modulo fresh alpha names to the accepted alternatives at the
+   corresponding declaration index, preserving types, constants, triggers,
+   patterns, multiplicities and eligibility-relevant attributes. Additional
+   guard exclusions may be optional misses; no extra eligible body or hit may
+   enter the 45-body/85-hit model. Eligible bodies retain the binder-free,
+   pattern-free and coefficient-at-most-one restrictions.
+4. Include all stored symbols and signatures, even in unused values and key
+   types, in the captured validated universe. Introduce no hidden self-reference,
+   alias expansion, recursive data dependency or extra signature variable.
+   Retain normalized types, arity at most seven, at most two signature type
+   variables, and the constant-constructor restriction. Types and the attribute
+   union obey `T,A`; no new named symbols/attributes arise.
+5. Retain declaration kind/index/symbol, singleton nonrecursive logic shape,
+   formal arities, `d_news` and valid cached fields. Per-declaration opened
+   root/body/trigger/binder/pattern coordinates remain within the model's
+   corresponding alternatives. All patterns remain nullary with no variables.
+   Reused data/type/parameter declarations retain the captured dependency graph.
+
+These are obligations to establish from representations and source behavior,
+not caller truth flags. `compose(envelope_hypothesis=...)` accepts only the four
+natural-number hypotheses. It propagates them into **conditional** arithmetic
+but never populates `actual_representative_envelope`, coverage evidence or an
+established flag. The no-argument case uses `(8,6,3,80)` only as an illustrative
+hypothesis copied from captured facts. It is not evidence that any old-table
+projection satisfies those values. Establishing the actual contract remains
+work under #119; repairing the scope/interface resolves the #133 overclaim.
+
+## Conditional propagation through openings and validators
+
+All numerical ceilings in this section require the full preceding contract.
+Set `E*=max(8,E)`, `V*=max(6,V)`, `T*=max(3,T)` and `A*=max(80,A)` to include
+the captured inputs. The immutable mapped declaration can contain either the
+new candidate or an imported old seed. The mapper and an independent validator
+supply at most two renaming ancestries. With the accepted independent maxima
+`P=8+6=14` for body-bound slots plus formals:
+
+```text
+saved-map keys             K <= E* + 2*P
+opening-map keys               <= K + P
+saved-value nodes          V <= V*
+stored formula occurrences R <= 99*(1 + K*V*)
+```
+
+The disjointness/unary condition means saved-value composition only renames
+its one possible free leaf. Fresh identifiers cannot collide with seed keys.
+`t_subst_unsafe` stops at raw binder bodies but recursively visits old saved
+values; `t_replace_all` does not rewrite hidden saved values. Changed binders
+close with empty maps; unchanged binders retain their records. Hit-body type
+and final substitution passes are binder-free. The raw skeleton cannot exceed
+the fully opened count because variable replacement is nonempty and binder-free.
+At most 99 binding records, each charged `K` values of `V*` nodes, give `R`.
+
+The original mapper, logic termination and task match checking account for
+recursive opening. Six outer-formal sites per logic declaration and twelve
+extra branch openings give:
 
 ```text
 opening-substitution starts <= 2*1613 + 418 + 6*81 + 12 = 4,142
-recursive substitution entries <= 4,142*21,483 = 88,982,586.
+recursive substitution entries / binder updates <= 4,142*R
+stored validator entries <= (3*81 + 143)*R
 ```
 
-The same envelope bounds binder-substitution updates. It is deliberately
-loose; it closes the omitted hidden work without an exponential size recurrence.
-The kernel's final 156 substitution entries remain a separate addend.
-The packet also exports a 52,907,301,372 upper bound on free-variable scan
-entries, charging each hidden update up to 99 replacement keys, each with
-six nodes, plus closing/free-variable validation scans. These event counts
-are not native measurements or expected running costs.
+The default **hypothesis** yields `K=36`, opening-map size 50 and `R=21,483`,
+then 88,982,586 hidden substitution entries and 8,292,438 stored validator
+entries. Free-variable scan arithmetic is
+`4142*R*99*V* + (1613+81+143+81*7)*R + 156`, yielding 52,907,301,372 under
+that hypothesis. Semantic occurrence counters and positive intermediate
+sum/products are at most 99 under the unary condition
+(`term.ml:599–622,759–773`). These are event-count arithmetic, not measurements,
+allocation bytes or expected running costs.
 
-Every semantic free-variable count and every intermediate positive sum/product
-used by this path is at most 99. For a binder update, the count of the replaced
-variable is multiplied by at most one free occurrence in the saved value.
-Removing replaced keys before unioning their contributions keeps partial sums
-within the resulting semantic count. Other closing/count folds compute positive
-partial sums of a formula bounded by 99. Hidden unused values obey their own
-six-node/unary bound. This includes the previously unaccounted arithmetic in
-`add_nt_vars` and `vars_union` (`term.ml:599–622,759–773`).
+Six outer-formal opening sites are `decl_map/open_ls_defn_cb`, termination,
+the inlining used-symbol guard, eligibility/environment opening, task
+used-symbol checking, and `decl_fold` for match checking. Counting all six
+is conservative even where branches exclude one another. The conditional
+registration increment is `235 + 6*123 + 4 + 168 = 1,145`. `id_clone` creates
+a pre-identifier; `create_vsymbol` performs registration. Nullary patterns
+avoid pattern compiler variable creation (`pattern.ml:141–161`).
 
-## Declaration and type routes, including reused data declarations
+Reused declarations still undergo task validation. There are at most 16 data
+revalidations, zero Ddata constructors, 16 positivity argument checks, 22
+`ts_extract_pos` calls, 38 foundedness type entries and 22 constructor entries.
+Nonrecursive singleton termination creates at most 162 empty `Hid.create 5`
+tables, without descent-vector arrays or recursive call-list closure. These
+facts use the declaration/hidden-symbol contract, not just equal opened mass.
 
-`decl_map` reconstructs every mapped logic/proposition declaration. Its logic
-path opens the old definition, maps the body, compares before closing, and may
-call `make_ls_defn`; `create_logic_decl` always calls `check_termination`
-(`decl.ml:41–75,273–281,526–535,621–634`). The mapped nonrecursive singleton
-has an empty call graph. The two `Hid.create 5` tables per logic declaration
-remain empty: there is no descent-vector array allocation or recursive
-call-list closure. The singleton variable graph cannot branch because no
-`Por` pattern is present.
+Hit type instantiation visits at most `(156+67)*T*` recursive type entries and
+`Ty.Hsty` requests, including free-variable type work outside the memo. At the
+default hypothesis this is 669. Intermediate type size is at most `(T*)²`;
+source instantiation substitutes each type-variable leaf once. The exported
+type folds and matching arithmetic use that enlarged type bound. Attribute
+set size uses `A*`; stored map-height-plus-two includes `K`, 99, 277, 268 and
+`A*`. A larger hypothesis thus enlarges dependent operations rather than
+leaving the original hidden-work ceilings unchanged.
 
-The inlining guard independently calls `get_used_syms_decl`, and then may open
-the definition again to test/save the body. `Task.add_decl` reaches
-`known_add_decl`, whose complete definition invokes used-symbol checking,
-positivity, foundedness and match checking (`task.ml:145–160`,
-`decl.ml:699–709,741–748,780–826`). Counting only the earlier constructor
-validation would miss this second route.
+## Requests that survive selection, and pure backing transfers
 
-The six outer-formal opening sites are:
+The captured spine fixes at most one declaration reconstruction per mapped
+root, one theory request per logical declaration, and one task request per
+spine node. These **request counts** survive representation selection and
+early failure, assuming valid shared tables and no foreign concurrent
+insertions; they do not bound callback work or initial counter values:
 
-1. `decl_map` / `open_ls_defn_cb`;
-2. `check_termination`;
-3. used-symbol collection in the inlining guard;
-4. the candidate body opened for eligibility/environment storage;
-5. used-symbol collection in `known_add_decl`;
-6. `decl_fold` for `check_match`.
-
-Some sites are mutually exclusive for a chosen metadata set; counting all
-six preserves an upper bound. Full termination adds at most four body-bound
-slots; full match validation adds at most 168. Hence the complete local
-registration increment is
-
-```text
-235 + 6*123 + 4 + 168 = 1,145.
-```
-
-No reached path creates a named type, logic or proposition symbol. A fresh
-variable's cloned name/attributes/location are shared, rather than new name
-strings. `id_clone` alone is a pre-identifier; `create_vsymbol` performs the
-single real registration (`term.ml:36–39,799–831`, `ident.ml:187–213`).
-
-The 17 type, 16 data and 68 parameter declarations are reused by `decl_map`.
-They still undergo task validation when added. In particular there are at most
-16 **data revalidation calls and zero data-declaration constructor calls**.
-The ground data check requires at most 16 initial positivity argument checks,
-22 `ts_extract_pos` calls, 38 foundedness type entries and 22 constructor
-entries. This includes the ground dependencies that `ts_extract_pos` visits
-even when its final type-argument list is empty. No inductive declarations
-are present.
-
-`t_gen_fold` traverses stored substitution values. Used-symbol and type-variable
-validators are therefore charged against `R`, not just 99: the guarded logic
-fold, the task's mapped-root fold, and the two `make_ls_defn` type folds give
-`(3*81 + 143)*R = 8,292,438` stored-term entries. Additional fixed-declaration
-type traversal and the type/binder/pattern subloops are exported separately.
-The packet includes conservative type-matching and free-variable scan bounds;
-it does not collapse them into the kernel subtotal.
-
-At hits, type instantiation scans at most the saved body's term count plus
-its free-variable keys: `(156+67)*3 = 669` recursive type entries and at most
-669 `Ty.Hsty` requests. Instantiation substitutes a type-variable leaf once,
-so intermediate type size is at most `3*3 = 9`, including a typed body node
-later erased by final term substitution. No alias expansion is hidden in this
-bound (`ty.ml:126–143,234–254`, `term.ml:1083–1173`).
-
-## Concrete request groups and shared-state transfers
-
-The exported groups count requests/increments, not deduplicated live objects:
-
-| Shared group | Local upper bound |
+| Shared group | Selection-independent request bound |
 | --- | ---: |
-| `Ident.id_register` | 1,145 increments |
-| `Decl.Hsdecl` | 143 increments / merge-or-unique requests |
-| `Theory.Hstdecl` | 244 increments / merge requests |
-| `Task.Hstask` | 512 increments / merge requests |
-| `Ty.Hsty` | 669 increments / merge requests |
-| `Task.Stdecl`'s Hcpt table | 17,152 increments / insertion requests |
+| `Decl.Hsdecl` | 143 |
+| `Theory.Hstdecl` | 244 |
+| `Task.Hstask` | 512 |
+| `Task.Stdecl` Hcpt | 17,152 |
 
-The last row charges at most 64 Patricia nodes per insertion into one of the
-192 meta or 76 use/clone histories. Keys have 63 OCaml integer bits; a Patricia
-path cannot branch on one bit twice (`hcpt.ml:132–158,176–275`). The value is
-`64*(192+42+34)`. These are task history operations, not recursive theory export:
-this invocation uses `add_tdecl`, not `use_export`.
+The Hcpt allowance is `64*(192+42+34)`, at most 64 Patricia nodes per history
+insertion for 63-bit keys (`hcpt.ml:132–158,176–275`). This route is `add_tdecl`,
+not recursive `use_export`. The captured `d_news` and topology give at most
+277 known keys, 192 metadata keys, 76 clone keys and 268 history-set keys;
+representative-dependent shape and map work remain in conditional arithmetic.
+`Ident`'s 1,145 and `Ty.Hsty`'s 669 are deliberately absent from the independent
+request group because their semantic/eligibility attachment is unresolved.
 
-Output known-identifier maps have at most 277 keys, the environment 45, the
-unknown `inline:no` set 192, meta maps 192, clone maps 76 and each history set
-268. The captured term/identifier attribute universe has 80 entries and the
-invocation creates no attributes. Variable occurrence maps have at most 99
-keys. Extmap tree nodes have fixed width; heights and their `+2` comparisons
-are bounded by these cardinalities. List, pattern and term shapes retain the
-preceding occurrence bounds. No aggregate memory ceiling is inferred.
+The goal-specific wrappers bypass the enclosing store caches. The fresh
+`Wtask.create 63` cache has at most 512 lookups and 511 sets; the fresh
+`Wtds.create 17` metadata cache has one lookup/set. Their backing transfers
+are instantiated independently of term representatives. The hit `Wty` caches
+(at most 85 instances, 156 total lookups/sets and five per instance under the
+model) remain conditional on the representative contract.
 
-The goal-specific `Trans.store` branches bypass the two enclosing store caches.
-The selected callback creates one metadata cache (`Wtds.create 17`) and one
-fold cache (`Wtask.create 63`). The former gets one lookup/set; the latter gets
-at most 512 lookups and 511 sets, since the final goal is not cached. Each hit
-creates a type memo table (`Wty.create 17`): at most 85 instances, with at most
-156 total lookups/sets and at most five per instance. The 162 termination
-tables have no insertions (`trans.ml:49–58,76–108,234–242,294–304`).
+`ephemeron_transfer(L,S,E)` retains dead entries in its input stored size.
+For `N=S+E`, every array has length at most `max(L,4*N)`: resize cleans first
+and grows only if retained size is at least half the old array length. The
+callable also exports twice that bound for resize/threshold arithmetic and
+old-plus-new arrays (`ephemeron.ml:141–211`). Fresh initial arrays round to 64
+for the fold and 32 for metadata/type memos. The fold-array bound is 2,044;
+metadata arrays stay at most 32. Arbitrary weak clearing is allowed.
 
-OCaml's ephemeron tables round those fresh initial arrays to 32, 64 and 16 as
-applicable. `ephemeron_transfer(array, stored_entries, additions)` retains dead
-entries in its input size. If `N = stored_entries + additions`, every array
-is bounded by `A = max(initial_array, 4*N)`: resizing cleans first and grows
-only if the retained size is at least half the old array length. It also
-exports `2*A` for the resize/threshold arithmetic and old-plus-new arrays
-(`ephemeron.ml:141–211`). Thus the fresh fold's individual-array bound is 2,044;
-metadata/type memo arrays stay at most 32. These bounds allow arbitrary weak
-clearing and do not assume the registration prefix's no-collection interval
-continues here.
-
-`weak_transfer(array, max_bucket, allocated_slots, requests)` is the separate
-callable for `Weak.Make`, used by the four hashcons groups. It includes cleared
-slots in the initial backing. Put `N = allocated_slots + requests`. The
-inherited table may resize once from its historical oversized buckets. Every
-new table starts empty; its oversized-bucket count is at most `N`, so a resize
-trigger implies its old array length is below `2*N`. Therefore:
+`weak_transfer(L,B,S,E)` counts all initial allocated slots, including cleared
+slots. Set `N=S+E`. The inherited table may resize once because of historical
+oversized buckets. A rehashed fresh table has at most `N` oversized buckets,
+so a resize trigger implies old outer length below `2*N`. Thus:
 
 ```text
-outer array <= max(L0, floor(3*L0/2)+3, 3*N+3)
-each bucket <= max(B0, floor(3*N/2)+3).
+outer array <= max(L, floor(3*L/2)+3, 3*N+3)
+each bucket <= max(B, floor(3*N/2)+3)
 ```
 
-A bucket only grows when full, so its old length cannot exceed the number of
-live objects then. Clearing, shrinking, reinsertion and internal rehashing do
-not create another logical object. The callable exposes the multiplications
-before `min`, shrink arithmetic, rover/oversize bounds and the maximum number
-of equality callbacks per external request (`weak.ml:123–140,185–285`). The
-caller must check those natural-number values against actual integer/array/
-ephemeron capacities. The source's saturation or `min` does not make an
-overflowing multiplication safe.
+The callable retains pre-saturation multiplication, shrinking, rover/oversize
+and equality-callback count bounds (`weak.ml:123–140,185–285`). Its representation
+conditions must be checked against actual integer/array/ephemeron capacities;
+`min` or saturation after an overflowing multiplication is insufficient.
+`counter_transfer(initial,increments)` requires its natural-number final value
+to fit `2^62-1`. Hash mixing and Patricia bit operations keep their source-defined
+modular meaning. These three pure callables neither infer an initial state nor
+satisfy the missing representative contract.
 
-For every meaningful counter, `counter_transfer(initial, increment)` requires
-the whole interval to fit `2^62-1`. Hash mixing and Patricia bit operations keep
-their source-defined modular meaning; they are not new capacity counters.
-No initial counter, backing size, live count or old comparand is invented.
+## Remaining work and verification
 
-## Exact boundary and verification
+The local call graph has been inventoried through task validation. Its
+representation-dependent operational transfer is **not established**. Remaining
+inputs include the selectable-old-representative contract; unsuccessful old
+collision-comparand frame/attribute costs; shared counters/backing and other
+process-lifetime callers; runtime allocation/collector composition; other
+entry projections, later transformations, printers, serialization and the
+remaining assurance-essential consumer capacities. Neither #119 nor any
+complete transformation, process or whole-pipeline capacity predicate is closed.
 
-The local call graph is now covered through `Task.add_decl`, including reused
-declaration validation and wrapper/table paths. The numerical output is a
-collection of composable demand interfaces. It is **not** a complete allocation
-trace or a completed process capacity predicate. The exact remaining inputs
-for that predicate are:
+The focused offline check replays the frozen conditional output/inventory,
+models returned-old selection at 37 and 128 saved keys, propagates enlarged
+numeric hypotheses, rejects Boolean/extra-field coverage substitutes, and
+asserts missing actual coverage keeps the established flags false. It retains
+the captured malformed-delayed-value rejection, counter boundary tests,
+inherited weak backing and small ephemeron clearing enumeration. It verifies
+source/capture identities and reuses the successful predecessor suite. No
+native capture, compiler, prover, debugger, server, solver, build or proof run
+was started. No Oracle, tool pin, production source or configuration changed.
 
-- Initial counters and weak/ephemeron backing for the six shared groups,
-  including every other caller in their process lifetime. The fresh-group
-  backing is instantiated here; shared backing is a callable conditional
-  transfer.
-- The preexisting declaration comparands reached by `Decl.Hsdecl` collisions.
-  The new candidate's semantic bound limits matched structure, but a complete
-  bound on old stored frames, attribute-map enumeration and corresponding
-  immutable-map work needs the shared-table projection. Local constructor
-  hashing and closing comparisons have separate numerical bounds in the packet.
-- Composition of these term/list/map/record requests and table rehash work
-  with runtime allocation/collector representation counters. Cardinality
-  bounds and term traversal events are not a byte-allocation or GC-lifetime
-  theorem. The source widths, request groups and residual comparator input
-  are explicit; successful source replay does not discharge this obligation.
-- Other task/driver entry projections, later transformations, printers and
-  serialization, and all remaining assurance-essential consumer capacities.
-
-The full offline replay checks the frozen result and inventory, independently
-recomputes the registration/opening arithmetic, tests counter fit boundaries,
-exercises inherited weak backing and enumerates small ephemeron clearing
-choices. A deliberate delayed-value corruption must fail at the disjointness
-guard. This supplements the accepted semantic/exclusion tests without rerunning
-their already-successful suite. Source/capture identities are checked; the
-successful capture is reused. No tool pin, Oracle, admission rule, production
-configuration or executable source changes.
-
-Selected worker setting: GPT-6 Astra / Extra High, as assigned by the parent.
-Runtime confirmation and token/cost data are unavailable. The packet records
-the measured interval and focused checks. The parent owns independent review,
-integration, publication, issue status and durable memory.
+`round.json` is the historical original round and contains its now-superseded
+claim. `round-repair.json` records the corrective round, review finding and
+actual measured checks. Selected worker: GPT-6 Astra / Extra High, assigned by
+the parent; runtime confirmation and token/cost data are unavailable. The
+parent owns independent repair review, integration, publication, issues and
+memory. Scope correction does not supply the actual initial-state projection.

@@ -1,4 +1,4 @@
-"""Operational demand exports for one frozen inline_trivial invocation.
+"""Conditional demand arithmetic for one frozen inline_trivial invocation.
 
 No native run. Natural-number arithmetic only. Shared-state transfers do not
 invent an initial counter/table state or certify the entire process.
@@ -20,6 +20,12 @@ def load(name, path):
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
     return m
+
+
+representatives = load('inline_operations_representatives', HERE / 'representatives.py')
+CONTRACT = representatives.CONTRACT
+numeric_hypothesis = representatives.numeric_hypothesis
+returned_old_map_witness = representatives.returned_old_map_witness
 
 
 def identity(b):
@@ -82,7 +88,13 @@ def weak_transfer(initial_array, initial_bucket_max, initial_allocated_slots, re
             'representation_condition': '3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length'}
 
 
-def compose():
+def compose(envelope_hypothesis=None):
+    """Return conditional arithmetic; never certify representative coverage.
+
+    With no argument, the numerical hypothesis copies the captured profile.
+    That is an illustration of the missing premise, not its instantiation.
+    Numeric caller input changes the conditional arithmetic only.
+    """
     manifest = json.loads((HERE / 'inputs.json').read_text())
     for path, expected in manifest['dependencies'].items():
         assert identity((REPO / path).read_bytes()) == expected, path
@@ -103,12 +115,22 @@ def compose():
     arity = sum(x['arity'] for x in logic)
     root_mass = compact['maximum_reconstructed_formula_mass_upper']
     path_slots = max(x['input'][1] for x in rows) + max(x['arity'] for x in logic)
-    # One inlining traversal plus one independent validation traversal. Repeated
+    captured_profile = {
+        'seed_saved_entries_per_formula': inv['raw_substitution_entries'],
+        'delayed_value_nodes': inv['delayed_value_nodes_max'],
+        'type_occurrence_nodes': inv['type_occurrence_nodes_max'],
+        'attribute_universe_entries': inv['attribute_universe_entries'],
+    }
+    supplied = envelope_hypothesis is not None
+    hypothesis = numeric_hypothesis(envelope_hypothesis if supplied else captured_profile)
+    effective = {k: max(captured_profile[k], hypothesis[k]) for k in captured_profile}
+    # Conditional on CONTRACT, one inlining traversal plus one independent
+    # validation traversal. Old selected declarations are additional seeds. Repeated
     # validators start from the immutable declaration, not a previous validator's
     # freshly opened result. Original keys may propagate from ancestor maps,
     # so charge all eight initial entries, not just the largest original map.
-    k = inv['raw_substitution_entries'] + 2 * path_slots
-    value = inv['delayed_value_nodes_max']
+    k = effective['seed_saved_entries_per_formula'] + 2 * path_slots
+    value = effective['delayed_value_nodes']
     stored = root_mass * (1 + k * value)
     # t_subst_unsafe stops at raw binder bodies and visits their saved values.
     # The full stored-tree envelope also pays for multi-branch/multi-trigger
@@ -119,7 +141,7 @@ def compose():
     hidden = starts * stored
     # These are all fresh registrations. Nullary pattern compilation has none.
     fresh = compact['kernel_events']['fresh_variable_identifiers_inside_kernel_upper'] + 6 * arity + lb + b
-    type_size = inv['type_occurrence_nodes_max']
+    type_size = effective['type_occurrence_nodes']
     hit_nodes = compact['kernel_events']['type_map_term_entries_upper']
     hit_free = sum(sum(c > 0 for c in h['formal_occurrences']) for h in details['symbol_matched_optional_hits'])
     type_calls = (hit_nodes + hit_free) * type_size
@@ -135,7 +157,11 @@ def compose():
     folds = 3 * len(logic) + len(rows)
     fixed_type_visits = inv['known_identifier_keys_upper'] * (inv['application_arity_max'] + 1) * type_size
     free_scans = hidden * root_mass * value + (n + len(logic) + len(rows) + len(logic) * inv['application_arity_max']) * stored + hit_nodes
-    result = {
+    conditional = {
+        'status': 'conditional_on_uninstantiated_representative_contract',
+        'hypothesis_origin': 'caller_numeric_hypothesis' if supplied else 'captured_profile_used_as_hypothesis_only',
+        'numeric_envelope_hypothesis': hypothesis,
+        'effective_envelope_including_capture': effective,
         'scope': compact['scope'],
         'covers_every_metadata_exclusion_set': True,
         'metadata_exclusion_set_known': False,
@@ -156,9 +182,9 @@ def compose():
             'task_meta_map_keys_upper': meta,
             'task_clone_map_keys_upper': 42 + 34,
             'each_history_set_keys_upper': history,
-            'attribute_set_keys_upper': inv['attribute_universe_entries'],
+            'attribute_set_keys_upper': effective['attribute_universe_entries'],
             'variable_count_map_keys_upper': root_mass,
-            'stored_map_height_plus_two_upper': max(k, root_mass, inv['known_identifier_keys_upper'], history) + 2,
+            'stored_map_height_plus_two_upper': max(k, root_mass, inv['known_identifier_keys_upper'], history, effective['attribute_universe_entries']) + 2,
         },
         'events': {
             'kernel': compact['kernel_events'],
@@ -210,16 +236,36 @@ def compose():
             'termination_Hid': {'instances_upper': 2 * len(logic), 'create_argument': 5,
                                 'insertions_upper': 0, 'initial_and_final_array_length': 16},
         },
+    }
+    result = {
+        'scope': compact['scope'],
+        'representative_contract': CONTRACT,
+        'actual_representative_envelope': None,
+        'conditional_arithmetic': conditional,
+        'returned_old_regression': returned_old_map_witness(),
+        'selection_independent_topology_requests': {
+            'premise': 'fixed captured task spine, valid shared tables and no foreign concurrent insertions',
+            'Decl.Hsdecl_requests_upper': len(rows),
+            'Theory.Hstdecl_requests_upper': logical,
+            'Task.Hstask_requests_upper': task_nodes,
+            'Task.Stdecl.Hcpt_additions_upper': patricia,
+            'inline_fold_Wtask': conditional['fresh_groups']['inline_fold_Wtask'],
+            'inline_meta_Wtds': conditional['fresh_groups']['inline_meta_Wtds'],
+            'does_not_bound_callback_work_or_counter_initial_states': True,
+        },
         'call_graph_coverage': {
-            'original_and_hidden_substitution_operations': 'numeric local envelope',
-            'type_map_and_declaration_validators': 'numeric local envelope plus inventory guards',
-            'fresh_ids_outside_kernel': 'all reached registration sites included',
-            'task_meta_clone_and_transform_wrappers': 'bounded cardinalities and request groups',
-            'global_hashcons_and_Patricia_tables': 'local request groups plus callable initial-state transfers',
-            'shared_Decl_Hsdecl_collision_comparands': 'requires preexisting term frame/attribute projections; not captured',
+            'captured_input_inventory': 'checked on captured roots only',
+            'semantic_kernel_runtime_attachment': 'requires opened-body and eligibility representative correspondence',
+            'original_and_hidden_substitution_operations': 'conditional arithmetic; selectable old representative envelope missing',
+            'type_map_and_declaration_validators': 'conditional arithmetic; stored type/symbol/attribute closure missing',
+            'fresh_ids_outside_kernel': 'six opening sites counted; 1145 requires representative semantic/shape contract',
+            'task_meta_clone_and_transform_wrappers': 'selection-independent topology requests; callback work conditional',
+            'global_hashcons_and_Patricia_tables': 'pure initial-state transfers retained; initial state missing',
+            'shared_Decl_Hsdecl_returned_representatives': 'downstream inputs, not merely collision comparands; coverage missing',
+            'shared_Decl_Hsdecl_collision_comparands': 'unsuccessful-comparand frame/attribute costs also uninstantiated',
             'runtime_allocation_and_collection': 'requires process-lifetime allocation/collector composition',
         },
-        'local_structural_and_registration_transfer_established': True,
+        'local_structural_and_registration_transfer_established': False,
         'complete_transform_capacity_established': False,
         'shared_initial_state_instantiated': False,
         'all_fixed_pair_dimensions_established': False,

@@ -1,8 +1,8 @@
 """Read-only structural guards for the frozen first inlining entry.
 
 The accepted Refiner supplies semantic alternatives, not native allocation
-observations. These additional guards justify the restricted operational
-argument in the accompanying research note.
+observations. These guards cover the captured roots only. They do not cover
+old representatives selected by Hsdecl; see representatives.py and the note.
 """
 from collections import Counter
 
