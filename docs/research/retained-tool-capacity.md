@@ -281,6 +281,53 @@ among the 2,627 distinct current files checked by the aggregate. This repairs
 an integration-check failure without rewriting the frozen leaf or treating a
 historical note as current source.
 
+The [selected emission closure](retained-literal-emission-closure.md), frozen
+at `a937eaede5` and [independently accepted](../reviews/review-literal-emission-a937eaede5.md),
+supplies lifetime label-constructor bounds and the complete selected assembly
+writer inventory. Ordinary next-label demand is at most
+`39258 + (7C+7N+45)` and constant next-label demand at most `39257+2C`, each
+guarded by INT32_MAX. Nonempty pending external declarations add no lines
+under the selected visibility configuration. Startup work is allocated even
+where it adds no selected labels or pool entries.
+Its [aggregate attachment](../reviews/review-literal-emission-attachment-1f7dc84115.md),
+frozen at `1f7dc84115`, binds actual source/counts, final RTL and exact assembly
+and ELF interfaces. The 301-case affected check passes. The three downstream
+predicates still remain unknown: their selected emission source requirements
+are closed, but their actual argv/options, source/output/object routing and
+fixed dependency/binder/link-input materialization joins remain open. Complete
+non-label counters, shared backing, collector and whole capacity do not follow.
+The attachment checks 186 repository pins and 2,657 distinct current files;
+the emission manifest's one historical aggregate at `13daeca1e9` is verified
+separately from its 32 current predecessor files and 44 complete sources.
+
+The [original-construction shared-storage packet](retained-literal-original-shared-storage.md),
+frozen at `e12e010fd1` and [independently accepted](../reviews/review-literal-original-shared-e12e010fd1.md),
+joins incoming state to the original Main/String/helper/synthetic demands
+through the return of `finalize_size_functions`, before ordinary Main
+gimplification. It accounts for identifier/type/integer hash backing, global,
+statement and alias vectors, five scalar-finalizer registrations, and selected
+finite counters. Lifetime identifier allocation, including discarded nodes,
+justifies the temporary-name serial guard. The separate unsigned32 hash-shrink
+product is checked. Hello has at most 768 additional shared GGC backing
+requests, identifier history 40,882, next DECL_UID 5,872 and next type UID
+2,306. Ada integer backing, other direct storage, later shared consumers,
+complete collector/counter lifetime and whole capacity remain open.
+Compatibility correction `c2ec0d195e`, with historical-review provenance
+repair `20db3fc952`, is independently accepted for the integrated emission
+aggregate. Three exact input identities changed; all 14 consumed projections,
+owned formulas and accepted results remain the same. Thirty-one focused
+checks cover the combined Context, same-source cases and affected negatives.
+
+The [consumer-specific relocation refinement](retained-literal-relocation-refinement.md),
+frozen at `96b261688a` and [independently accepted](../reviews/review-literal-relocation-refinement-96b261688a.md),
+uses the existing resolved-operand domains to tighten only the common signed
+condition to `max(V+K+15,V+16)<=INT32_MAX`, with K=2,019,040. All 39 other
+linker checks and the assembly/storage joins remain. The 5,000-call example
+passes this refined local conjunction; 30,653/30,654 one-byte calls are its
+adjacent sufficient-rule boundary. These are offline arithmetic results, not
+native cutoffs or admission changes. The aggregate still retains the old
+conservative failure until a separate explicit refinement attachment.
+
 The reviewed [literal producer specialization](retained-literal-producer-specialization.md)
 derives zero Main checks from this source family, hence no Main `.gnat-json`
 file or Main Why3 launch. It removes only the hypothetical Main JSON-byte
@@ -433,6 +480,21 @@ counter and continuing-call scope still need a join. Runtime primitive,
 allocation/collector, other shared states, other entries and downstream
 capacity remain open; source-event counts are not native execution or RAM
 measurements.
+
+The [private identifier-counter packet](retained-why-inline-identifier-state.md),
+frozen at `c8bc383e11` and [accepted after metadata repair](../reviews/review-why-identifier-c8bc383e11.md)
+`554839c115`, supplies the exact starting ref **60,496** for a new retained
+first Input_Is_Valid/cvc5 entry. Complete same-process input/table binding
+attaches the 1,145 accounted source registrations, giving **61,641**. It
+does not infer prior no-wrap history, source-family invariance or a complete
+continuing-call bound. Complete callback registration/reachability and mutable
+hook ownership remain open; selected destructor checks and direct-reference
+scans alone cannot exclude identifier-producing OCaml closures. The review
+corrected three finalizer-state symbols' invalid file-byte slices: they are
+ELF zero-fill storage, with no observed runtime values. All three managed
+capture attempts are retained, including the two diagnosed observer errors;
+none executed inlining, printing or solver submission. Auxiliary counters
+and backing observations supply no continuing capacity claim.
 
 [Finding #126](https://github.com/berkeleynerd/silver/issues/126) corrected the
 active research helpers' treatment of FF/VT as physical column resets. Both

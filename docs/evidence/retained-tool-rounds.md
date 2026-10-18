@@ -771,3 +771,122 @@ remain required. #119 stays active; no research stop is selected.
 
 Runtime-confirmed settings, lead live settings and per-round token/monetary
 costs are unavailable. CLI memory remains unavailable and was not updated.
+
+## Round 11 — emission, shared-state inputs and selected relocation reach
+
+Date: 2026-10-18. This round continues from published `5f32a8fbee`.
+It closes selected component inputs and joins, while keeping the full #119
+objective active. Oracle, installed tools/pins and production admission remain
+unchanged; production #88–#94 is authorized and unstarted.
+
+| Work | Selected model / effort | Frozen result |
+| --- | --- | --- |
+| Selected label/emission source closure | GPT-6 Astra / Extra High | `a937eaede5`, accepted by review `ec96aac40c`: lifetime label endpoints and complete selected writer partition |
+| Emission aggregate attachment | GPT-6 Astra / Extra High | `1f7dc84115`, accepted by review `0c998c422e`: actual source/counts, final RTL and exact assembly/ELF interfaces joined |
+| Original-construction shared storage | GPT-6 Astra / Extra High | `e12e010fd1`, accepted by review `bee47bdef1`: incoming history/backing, selected shared requests and counter endpoints through size-helper finalization |
+| Private Why3 identifier ref | GPT-6 Astra / Extra High | `c8bc383e11`, metadata repair `554839c115`, accepted by review `83f3d905a6`: same-process starting ref plus accounted source registrations |
+| Consumer-specific relocation refinement | Lead live setting unavailable; no switch claimed | `96b261688a`, accepted by review `eef1106232`: replace only the common signed-reach envelope, preserving all other consumers and unresolved joins |
+
+All listed independent reviewers were explicitly selected GPT-6 Astra / Extra
+High. Runtime confirmation and per-task token/monetary measurements are
+unavailable. The explicit selections describe routing, not measured model
+quality. CLI memory is unavailable and was not updated.
+
+The emission leaf bounds ordinary next labels by `39258+(7C+7N+45)` and
+constant next labels by `39257+2C`. Its constructor lifetime count is distinct
+from the final live chain. Default visibility gives zero extra lines from
+pending external declarations; nonemitting startup work still allocates.
+The 302-case leaf check took 0.295065s, with 479.240688s from the recorded
+start through that checkpoint. The aggregate's 301 affected cases took
+5.739840s; default generation took 3.099163s. It checks 186 repository pins
+and 2,657 distinct current files, with the one historical aggregate object
+checked separately. Independent attachment review used 27 focused checks in
+3.826898s and a 116s inspection/check interval, retaining the prior broad
+successes. Three invocation/materialization-dependent predicates remain
+unknown, separately from complete storage/counter/collector obligations.
+
+The shared-storage packet distinguishes 1,579 physical source entries from
+eight specification copies and one possible Image_I body copy. Including the
+translation-unit name gives 1,589 filename lookups; the physical Image_I body
+is already in the runtime union. Lifetime identifier allocations, including
+dead nodes and earlier name hits, justify the temporary-serial no-wrap guard.
+The separate unsigned32 `8*occupancy` hash-shrink product is checked. Hello
+has at most 768 new shared GGC backing requests, identifier history 40,882,
+next DECL_UID 5,872 and next type UID 2,306. These are selected interval
+bounds, not complete native totals. The 208-case worker check took 3.690377s;
+default composition took 3.877460s. Independent review used 15 grouped checks
+in 3.227388s, including growth transitions and exact consumed-interface
+comparison with the emission attachment. Its inspection/check interval was
+165s. The concurrent emission attachment changes three pinned aggregate
+files. Correction `c2ec0d195e` binds those exact identities after comparing
+all 14 consumed projections and the unchanged original builders/recognizer.
+Its 31 focused checks pass in 7.149088s, including fresh combined Context,
+Hello equality, mixed empty/8192-byte literals, 5,000 calls and affected
+negatives; the shared formulas and 208-case evidence stay byte-identical.
+The narrow recheck found that the compatibility helper incorrectly required
+the evolving review report to equal its original bytes. Root repair
+`20db3fc952` instead pins that exact historical acceptance report, retaining
+all current input checks. Review update `4a09b01eef` accepts both corrections
+without repeating the 208 or 31 successes. It also distinguishes 14 consumed
+keys from the original 15 grouped review checks.
+
+The Why3 packet observes the exact private ref at **60,496** and joins its
+complete same-process input graph and declaration table to the accepted
+**1,145** source-registration bound, yielding **61,641**. It leaves complete
+runtime callback registration/reachability and hook ownership open. No
+history-wide no-wrap or source-family invariance follows from this snapshot.
+The worker check took 5.499616s; the recorded work interval was 1,185.113289s.
+Independent review replay took 5.760381s and independently reconciled raw
+graph/table reads. It found three invalid ELF file-byte slices for symbols
+in zero-fill storage. Root correction `554839c115` removes them, records
+the exact load-segment bounds and explicitly denies observed runtime values;
+the affected metadata recheck passed in 0.250476s. Neither the counter nor
+its result/capture changed, and successful counter validation was not rerun
+merely for that correction.
+
+This round contains **three managed capture attempts**, all stopped before
+inlining, printing or solver submission. The first observer expected an
+internal 32-field module instead of its exported 31-field projection. The
+second incorrectly required a tag-zero shallow value where Hcpt Branch has
+tag one. Both failed attempts remain retained. Source-case inventory and
+offline fixtures preceded the successful third capture, which flushes raw
+reads before interpretation and preserves the core before optional data.
+Debugger durations are 5.284053192s, 4.930910454s and 11.077953020s, totaling
+21.292916666s; managed durations total 27.194257249s. No successful native
+capture was repeated. The other work in this round executes no native target;
+there is no compiler audit, proof/build/solver or full-suite run.
+
+The root-authored relocation refinement reuses the accepted operand cases
+to replace `2V+K+15` with `max(V+K+15,V+16)`, K=2,019,040. Rewritten merge
+addends retain their mapped-target argument rather than being bounded by K.
+The independent unsigned, Main/EH, PLT, allocation and `2V+A` layout-trial
+conditions remain. Its focused check took 4.252882s. The first attempt's
+test expected only the common signed condition to fail at the adjacent upper
+case; the unchanged EH condition fails there too. Correcting that assertion
+changed no source bound or consumer guard. The 5,000-call local result now
+passes with common signed bound 1,082,171,536 instead of 2,162,324,017.
+For repeated one-byte calls the adjacent sufficient-rule boundary is
+30,653/30,654, not an observed tool cutoff or adopted language cap. The old
+packet and aggregate retain their historical conservative failure until an
+explicit reviewed refinement attachment supersedes that local condition.
+Independent review inspected the operand cases and used 85 focused checks in
+0.516521s, individually preserving each of the 39 other linker conjuncts and
+the separate storage/page failures. Its inspection/check interval was 109s.
+It found no material defect and reused the successful root and earlier
+inventory checks.
+
+The new evidence reduces specific uncertainty; overlapping worker/reviewer
+intervals are not additive wall-clock or inference time. Complete literal
+native/proof-consumer composition, selected launch joins, the rest of the
+current grammar and full-rule comparison/review remain required. #119 stays
+active; no research stop is selected.
+
+The parent integration check confirms 46 packet files byte-equal to their
+accepted target/correction commits, 291 current-input identity comparisons,
+19 JSON and 13 Python syntax checks, 309 local links across 18 changed
+Markdown files, and clean whitespace. These checks validate this integration;
+they do not repeat the component suites or constitute new source proofs.
+The next investigations are the selected literal invocation/fixed-input graph
+and the remaining Why3 callback reachability argument. Aggregate attachment
+of the accepted shared-storage and refined-linker results remains a separate
+concrete integration step.
