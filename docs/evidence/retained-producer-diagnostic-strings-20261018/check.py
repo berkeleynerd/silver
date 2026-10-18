@@ -92,15 +92,18 @@ def main():
 
     closure = json.loads((PROJECT / identity['local_inputs'][0]['path']).read_text())['import_closure']
     tokens_re = re.compile(r'"(?:\\.|[^"\\])*"|[A-Za-z_][A-Za-z_0-9]*|\S', re.S)
-    keywords = {'valid', 'invalid', 'unknown', 'failure', 'timeout', 'outofmemory', 'steplimitexceeded', 'exitcode'}
+    keywords = {'valid', 'invalid', 'unknown', 'fail', 'failure', 'timeout', 'outofmemory', 'steplimitexceeded', 'exitcode'}
     rules = []
     for name in closure:
         source = sources['installed/libexec/spark/share/why3/drivers/' + name]
         tokens = tokens_re.findall(uncomment(source))
         for i, token in enumerate(tokens):
             if token in keywords:
-                assert token not in ('failure', 'exitcode'), (name, token)
+                assert token not in ('fail', 'failure', 'exitcode'), (name, token)
                 regexp = json.loads(tokens[i+1])
+                # The actual grammar expresses exit codes as (e.g.) valid 0,
+                # not with a separate exitcode keyword.
+                assert isinstance(regexp, str), (name, token, 'answer-valued exit code')
                 replacement = json.loads(tokens[i+2]) if token == 'unknown' else None
                 # Translate only the Str grouping/alternation syntax used by
                 # these exact patterns; ordinary parentheses are literals.
