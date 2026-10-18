@@ -1,0 +1,27 @@
+{
+  "scope": "selected indexed direct literal output research",
+  "source": "../../../samples/hello_world.adb",
+  "shared_inputs": {
+    "configuration": "../unbounded-programs/retained-native-expansion-20261017/null-capacity-fixture.adc",
+    "System": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
+    "silver_io.ads": "../../../src/silver_io.ads",
+    "silver_io.adb": "../../../src/silver_io.adb",
+    "silver_output_libc.ads": "../../../src/silver_output_libc.ads"
+  },
+  "launch": {
+    "native_Main": "/tmp/silver-literal-pipeline-20261018/main.adb",
+    "datarep_Main": "/tmp/silver-literal-pipeline-20261018/main.adb",
+    "phase1_Main": "/tmp/silver-literal-pipeline-20261018/main.adb",
+    "phase2_Main": "/tmp/silver-literal-pipeline-20261018/main.adb",
+    "native_options": [
+      "-gnatx",
+      "-Wno-free-nonheap-object",
+      "-fsplit-wide-types"
+    ],
+    "producer_options": [
+      "-Wno-free-nonheap-object"
+    ],
+    "library_source_directory": "/home/canto/src/github.com/berkeleynerd/silver/src"
+  },
+  "complete_path_bound": 512
+}
