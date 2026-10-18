@@ -316,14 +316,112 @@ that each stored region fits 16 bits and the local integer increment fits;
 neither the global fragment count nor source length is itself the region
 count.
 
+## Null unit sections and final fragments
+
+The [GCC unit-emission transfer](retained-backend-gigi.md#null-compilation-unit-assembly-emission)
+adds one function-entry alignment, the fixed file/function outline, one
+configured identifier of I bytes and up to three 32-byte compiler property
+notes. There is no data definition, constant pool, source assembler, `.loc`,
+include, macro or separate debug output. The CFI configuration premises remain
+explicit in that transfer.
+
+An additional assembler default must be charged: `flag_generate_build_notes`
+comes from `DEFAULT_GENERATE_BUILD_NOTES` (`gas/as.c:113`). Its enabled
+ELF64 branch writes one **36-byte** GNU build-attribute note per ordinary
+code section, with two eight-byte-address relocations. Only `.text` is a
+code section here; the stack marker is non-executable. Thus charge one note
+and two relocations, irrespective of the configured default
+(`gas/write.c:1988–2111`). This is distinct from `.note.gnu.property`.
+
+The generic object-attribute serializer adds no `.gnu.attributes` section.
+The selected x86 backend creates zeroed object state
+(`bfd/elfxx-x86.c:40–44`, `bfd/elf.c:292–321`). Its attribute version starts
+at `OBJ_ATTR_VERSION_NONE=0`; x86 does not define `TC_OBJ_ATTR`, so the
+assembler's attribute-version initialization/directive entries are absent.
+No selected input sets attributes. `bfd_elf_obj_attr_size` returns zero for
+that version and the section creator immediately returns
+(`gas/config/obj-elf.c:118–123,2986–3016`, `bfd/elf-bfd.h:2225–2232`,
+`bfd/elf-attrs.h:26–34`, `bfd/elf-attrs.c:314–330`, `gas/write.c:1901–1925`).
+
+The complete selected GAS section/subsection inventory before BFD serializes
+its ELF metadata is:
+
+| Section | Subsection | Payload bytes, at most |
+| --- | ---: | ---: |
+| `.text` | 0 | 26 |
+| `.data`, `.bss`, `.note.GNU-stack` | 0 each | 0 |
+| `.eh_frame` | 0 | 92 |
+| `.sframe`, when enabled | 0 | 91 |
+| `.note.gnu.property`, charging both producers | 0 | `96+48=144` |
+| `.comment` | 0 | `I+2` |
+| `.gnu.build.attributes`, when enabled | 0 | 36 |
+| Internal register/expression sections | 0 each | 0 |
+
+There are at most **nine ordinary sections plus two internal sections**.
+The assembler initializes `.text`, `.data`, `.bss` and its two internal
+sections (`gas/as.c:1425–1447`); the selected remaining constructors reuse
+their named section and subsection zero. Both the direct CFI section route
+and its linkonce helper select subsection zero, including for `.sframe`
+(`gas/dw2gencfi.c:284–345,1399–1438,2608–2624`). Each distinct pair creates one
+fragment chain and initial fragment (`gas/subsegs.c:131–153`). Internal
+sections are removed before output (`gas/write.c:2131–2146`). File/type/size
+directives and labels add symbol metadata, not another payload section.
+
+`.ident` creates a leading NUL once, then appends the string and its
+terminating NUL (`gas/config/obj-elf.c:2431–2467`, `gas/read.c:6019–6083`).
+The compiler property notes are each 32 bytes and GAS's property note is
+48, so either emission order preserves eight-byte alignment. Function-entry
+alignment is at offset zero; its fill size is zero. For ELF x86,
+`SUB_SEGMENT_ALIGN` is zero and `md_section_align` is the identity
+(`gas/config/tc-i386.h:97,234–236`). Final subsection alignment therefore
+adds no output bytes; `.comment`'s entry size one does not raise it.
+Each subsection still creates one zero-alignment variant plus an empty
+terminal fragment, including the late build-note section
+(`gas/write.c:1835–1897,2106–2111`, `gas/frags.c:311–332,364–374`).
+
+The output payload sum is at most `391+I` bytes, or **420 bytes at I=29**.
+This is neither ELF file size nor address-span accounting: BFD headers,
+symbols, strings, relocation sections, file alignment and final link layout
+remain separate. All per-section payload offsets are already small.
+
+For backing-store events, compiler property notes reserve at most 96 positive
+bytes: each has 28 ordinary bytes and three one-byte alignment patterns,
+so `3*(28+3)=93 <=96`. Add `I+2` comment
+bytes, 36 build-note bytes, one function-alignment pattern and eleven final
+alignment patterns to the earlier 257-byte reservation bound. This gives
+`403+I` positive reservation bytes. The maximum single room/append request
+remains 48, so the one-iteration/4064-byte fragment-chunk transfer still applies.
+
+Charging up to two fragment allocations per positive byte (append plus a
+preliminary expression room check), the earlier twelve preallocation calls,
+the earlier fourteen variant closes plus nine property, one function and
+eleven final alignment closes, and eleven initial fragments gives
+
+```text
+2*(403+I) + 12 + (14+9+1+11) + 11 = 864+2*I.
+```
+
+At I=29 this is **922 fragment allocations**. The global unsigned counter
+starts at zero (`gas/frags.c:28–41`); fixed zero/predefined/dummy fragments
+are static objects, not additional `frag_alloc` calls. Each initial subsection
+also initializes one 4064-byte fragment obstack; its initial chunk is counted
+separately from later growth. The common frchain/notes obstacks and BFD symbol
+objects have their own request types and remain to be composed.
+
+The largest per-section region increment count is ten: nine compiler property
+alignments plus that section's final alignment. `.text` has at most two,
+`.eh_frame` at most three and every other selected section at most one.
+There is no `.org`. These counts fit the actual 16-bit region field; they
+are not inferred from the global fragment count. No assembler was run.
+
 ## Remaining composition
 
-The current record leaves the complete assembly-input transfer, generated section and
-symbol counts, other fragment events, relaxation and fixups, object-file metadata,
-startup state and aggregate allocator demands open. In particular, GAS
-fragments have their own unsigned allocation count and a 16-bit region field
-(`gas/frags.c:28–41,76–94`, `gas/frags.h:67–84`); these are not GCC's UID or
-block counters. Their actual uses and sufficient bounds must be reviewed
-before assigning them any language restriction. The existing
+The current record leaves generated symbol counts and subsidiary storage,
+remaining relaxation/fixup objects, object-file metadata, and fixed startup
+tables open. The selected unit's unsigned fragment-allocation counter and
+16-bit region field now have separate sufficient bounds above; these are not
+GCC's UID or block counters. A broader admitted family still needs its own
+source-to-fragment transfer before any corresponding language restriction
+can be justified. The existing
 [ELF/BFD string-table transfer](retained-linker-capacity.md) supplies a later
 consumer contract, not this missing source-to-object composition.

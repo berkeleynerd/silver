@@ -346,6 +346,30 @@ REPINFO_RANGES = {
 }
 for _name, _ranges in REPINFO_RANGES.items():
     RANGES.setdefault(_name, []).extend(_ranges)
+UNIT_OUTPUT_RANGES = {
+    "gcc/ada/gcc-interface/utils.cc": [(6455, 6490)],
+    "gcc/ada/gcc-interface/misc.cc": [(1477, 1478)],
+    "gcc/varpool.cc": [(565, 603)],
+    "gcc/symtab.cc": [(2550, 2572)],
+    "gcc/tree.cc": [(1342, 1353)],
+    "gcc/defaults.h": [(248, 258), (1038, 1046)],
+    "gcc/config/i386/i386.h": [(820, 827), (3003, 3004)],
+    "gcc/config/i386/i386.cc": [(1728, 1773), (23995, 24010),
+                                 (25558, 25625), (28682, 28683)],
+    "gcc/config/i386/att.h": [(55, 60)],
+    "gcc/config/i386/gas.h": [(53, 57)],
+    "gcc/config/i386/gnu-property.cc": [(29, 132)],
+    "gcc/config/i386/linux-common.h": [(65, 68)],
+    "gcc/config/elfos.h": [(93, 101), (282, 303), (386, 394)],
+    "gcc/varasm.cc": [(536, 544), (599, 613), (691, 696),
+                        (2068, 2265), (8160, 8192), (8630, 8666), (8995, 9010)],
+    "gcc/toplev.cc": [(566, 578)],
+    "gcc/dwarf2cfi.cc": [(3696, 3771)],
+    "gcc/common.opt": [(1706, 1708), (2430, 2432)],
+    "gcc/ira.cc": [(640, 665)],
+}
+for _name, _ranges in UNIT_OUTPUT_RANGES.items():
+    RANGES.setdefault(_name, []).extend(_ranges)
 ALL_INTERFACE = ("cuintp", "decl", "misc", "targtyps", "trans", "utils", "utils2")
 INTERFACE = ("trans", "utils", "utils2", "decl")
 MAIN_APIS = ("src/silver_arguments.ads", "src/silver_io.ads")
@@ -420,6 +444,16 @@ def check_sources(sources, inventory):
     assert "type_annotate_only = (gigi_operating_mode == 1);" in trans
     assert "for Back_End_Mode_Type use (0, 1, 2);" in sources["gcc/ada/back_end.ads"]
     assert "gigi_operating_mode           => Mode);" in sources["gcc/ada/back_end.adb"]
+    assert "if (DECL_HARD_REGISTER (decl))\n    return false;" in sources["gcc/varpool.cc"]
+    assert "#define FUNCTION_BOUNDARY 8" in sources["gcc/config/i386/i386.h"]
+    assert "#define X86_CUSTOM_FUNCTION_TEST 1" in sources["gcc/config/i386/i386.h"]
+    assert "#define LANG_HOOKS_CUSTOM_FUNCTION_DESCRIPTORS true" in sources[
+        "gcc/ada/gcc-interface/misc.cc"]
+    assert "2 * targetm.calls.custom_function_descriptors * BITS_PER_UNIT" in sources["gcc/defaults.h"]
+    prop = sources["gcc/config/i386/gnu-property.cc"]
+    assert prop.count("    emit_gnu_property (") == 3
+    assert prop.count("ASM_OUTPUT_ALIGN (asm_out_file, p2align);") == 3
+    assert "#define IRA_NO_OBSTACK" in sources["gcc/ira.cc"]
     exp6 = sources["gcc/ada/exp_ch6.adb"]
     exp7 = sources["gcc/ada/exp_ch7.adb"]
     passes = sources["gcc/passes.def"]

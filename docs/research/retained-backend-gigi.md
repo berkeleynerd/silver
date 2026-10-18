@@ -2321,12 +2321,16 @@ explicit REG operands does not imply an empty artificial liveness problem.
 
 `pass_ira` and `pass_reload` are mandatory for the selected x86 target
 (`ira.cc:6205–6269`). Their work remains beyond this first join. IRA initializes
-obstacks, runs dataflow, equivalence/alias/loop setup and allocation even at
+its bitmap obstack, runs dataflow, equivalence/alias/loop setup and allocation even at
 O0 (`:5745–5847`); its early PIC hook does return without instructions for
 CM_SMALL/CM_SMALL_PIC (`i386.cc:1831–1840`). The absence of dynamic pseudos
 removes coloring candidates but does not remove those setups. Hardware frame
 setup/teardown, the return, unwind notes, final emission and assembled output
 are still unpaid by the 25-node interface.
+
+The general IRA obstack is compiled out: `ira.cc:642` unconditionally defines
+`IRA_NO_OBSTACK`, and `ira_allocate` uses `xmalloc` (`:655–664`). This does not
+remove the separately initialized bitmap obstack (`:5763–5767`).
 
 #### Null IRA and LRA: shape through reload
 
@@ -2770,6 +2774,89 @@ explicit joins. An unchanged concrete trace is not by itself a universal
 fixed-space bound, and a post-Main process-memory snapshot would also include
 source-dependent trees and metadata. No witness has been executed or assigned
 a numerical whole-initialization capacity by this lane.
+
+## Null compilation-unit assembly emission
+
+The native report's [incoming IPA graph](retained-native-expansion.md#null-mains-incoming-ipa-symbol-graph)
+has one Main function plus the forced private dummy variable created by
+`gnat_write_global_declarations`; the empty elaboration function is not
+finalized. The dummy is marked `DECL_HARD_REGISTER`
+(`gcc-interface/utils.cc:6455–6490`), and `varpool_node::assemble_decl`
+returns before output for exactly that case (`varpool.cc:565–603`). Thus the
+dummy adds no data section, object definition or alias. External runtime
+declarations and the non-finalized empty elaboration body likewise produce
+no definitions. With the already derived zero constant-pool/LSDA demand,
+the selected unit contains just Main's function code.
+
+Main's initial alignment is **two bytes**, even at O0. `FUNCTION_BOUNDARY`
+is 8 bits, but Ada enables generic function descriptors and x86 selects
+descriptor test bit 1. `FUNCTION_ALIGNMENT` therefore raises the alignment
+to `2*1*8=16` bits when the FUNCTION_DECL is created
+(`tree.cc:1342–1353`, `defaults.h:1038–1046`, `i386.h:820–827`,
+`i386.cc:28682–28683`, `gcc-interface/misc.cc:1477–1478`). There is no
+alignment attribute/alias or forced minimum on this null source, and the
+speed-based additional alignment is disabled at O0. The definition-alignment
+walk therefore retains 16 bits (`symtab.cc:2550–2572`).
+`assemble_start_function` emits one alignment to two bytes; it adds no
+payload at the beginning of the otherwise empty `.text` section. The target
+can spell it `.align 2` or `.balign 2`; both selected ELF forms have the
+same meaning (`att.h:55–60`, `gas.h:53–57`, `varasm.cc:2103–2180`).
+
+The remaining ordinary function outline is one global directive, ELF type,
+entry label and measured-size directive. The x86 function-label hook adds
+only the entry label when the absent Microsoft hot-patch attribute is false
+(`i386.cc:1728–1773`; `elfos.h:282–303,386–394`; `defaults.h:248–258`).
+No cold section, patch area, visibility attribute or pool data applies
+(`varasm.cc:2068–2265`). The default function-section route selects `.text`
+without function sections or reordering (`:536–544,599–613,691–696`).
+
+At file start, the selected x86/AT&T route emits `.file "main.adb"`, plus
+possibly the fixed APP-off comment. The basename is fixed independently of
+source trivia; the signed `strlen` assignment still needs the existing full
+path length bound (`varasm.cc:8160–8174,8630–8666`; `i386.cc:23995–24010`).
+No `.loc` or source-level assembler is emitted. File end adds the configured
+GCC `.ident` string and the non-executable `.note.GNU-stack` marker
+(`toplev.cc:566–578`, `varasm.cc:8183–8192,8995–9010`,
+`i386/linux-common.h:65–68`). Let I be that fixed identifier's byte length;
+its assembly line is `I+10` bytes excluding LF, and GAS's `.comment` payload
+is `I+2` including its leading and trailing NUL. The selected recorded
+identifier `GCC: (GNAT-FSF-builds) 16.1.0` has I=29. This build string is a
+configuration value, not an input-source-dependent allocation.
+
+The selected CFI-directive route additionally requires the configured GAS
+CFI/personality support and `flag_dwarf2_cfi_asm` enabled. Its source selector
+accepts absolute/PC-relative encodings; selected x86 small-model encodings
+meet that test. The existing EH-frame demand avoids a separate requirement
+for `.debug_frame`-only support (`dwarf2cfi.cc:3696–3771`,
+`common.opt:1706–1708`, `i386.cc:25558–25625`). These are explicit selected
+configuration premises for the existing directive consumer transfer. No
+unproved raw-DWARF alternative is silently substituted.
+
+The Linux end hook can also emit up to three GNU property notes, one each
+for feature, ISA and indirect-external-access properties. Charge all three
+branches rather than assume their configured defaults. Each selected ELF64
+note has three four-byte header fields, `GNU` plus NUL, three four-byte
+property fields and final four-byte padding: **32 bytes**. Its three
+alignment directives use eight-byte alignment. Starting at offset zero or
+after another such note (or GAS's 48-byte note), the first two add zero and
+the third adds four. The compiler contribution is therefore at most **96
+bytes and nine alignment directives**, with fifteen local numeric label
+definitions (`i386/gnu-property.cc:29–132`). The three forward differences per
+note concern only these tiny in-section distances. GAS's independent
+48-byte property contribution remains additional.
+
+Every emitted line other than the identifier fits 64 bytes under the earlier
+label-counter/name bounds: the largest generated label string is 26 bytes
+including NUL,
+Main's outline uses its fixed `_ada_main` name, CFI uses the small derived
+registers/offsets, and note numeric fields are 32-bit constants. Thus the
+streaming input bound is `L <= max(64,I+10)` for this unit. At I=29 it stays
+within the assembler's initial 65,539-byte scrub buffer. Source comments and
+identifier case do not enlarge these assembly lines. The
+[assembler transfer](retained-assembler-capacity.md#null-unit-sections-and-final-fragments)
+joins the extra payload, fragments and final section actions; symbol/BFD subsidiary
+objects and ELF file layout remain separate. No compiler or assembler was
+run for this extension.
 
 ## Gigi delta for the producer's data-representation compilation
 

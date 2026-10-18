@@ -1,6 +1,6 @@
 {
   "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
-  "source_files_checked": 41,
+  "source_files_checked": 45,
   "scope": "conditional streaming-buffer, instruction and frame consumer transfers; not whole assembler capacity",
   "input_buffer": {
     "read_block_bytes": 32768,
@@ -98,6 +98,27 @@
     "minimum_room_after_new_header": 3873,
     "maximum_grow_loop_iterations": 1,
     "region_increment_events_excluding_other_paths": 2
+  },
+  "selected_unit_emission": {
+    "compiler_property_notes": 3,
+    "compiler_property_payload_bytes": 96,
+    "compiler_property_alignment_events": 9,
+    "compiler_property_numeric_label_definitions": 15,
+    "configured_ident_bytes_example": 29,
+    "comment_payload_bytes": "I+2",
+    "optional_build_note_bytes": 36,
+    "optional_build_note_relocations": 2,
+    "ordinary_GAS_sections": 9,
+    "internal_GAS_sections": 2,
+    "subsections_and_initial_fragments": 11,
+    "final_alignment_and_sentinel_events": 11,
+    "selected_unit_output_payload_bytes": "391+I",
+    "selected_unit_positive_backing_reservations": "403+I",
+    "selected_unit_fragment_allocation_bound": "864+2*I",
+    "fragment_bound_at_I_29": 922,
+    "largest_region_increment_count_per_section": 10,
+    "maximum_assembler_line_bytes": "max(64,I+10)",
+    "scope": "selected null unit payload/fragments; symbol, BFD and ELF metadata storage separate"
   },
   "compiler_runs": 0,
   "assembler_runs": 0,

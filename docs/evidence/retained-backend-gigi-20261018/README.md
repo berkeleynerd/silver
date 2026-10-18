@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Companion to
 [the source argument](../../research/retained-backend-gigi.md).
 
-`source-manifest.json` pins 197 complete files at GCC
+`source-manifest.json` pins 203 complete files at GCC
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; Ada file identities also match the
 previously retained complete Ada inventory, and non-Ada GCC files match the
 full-source manifest independently. Its separate `silver_main_api_files` rows
@@ -161,3 +161,12 @@ select the same gigi branch for the same expanded tree. This does not price
 Ada-side expansion or representation-output changes. The checker verifies
 197 complete GCC/Ada source files plus the two Silver APIs; no native/prover
 run was made.
+
+The compilation-unit emission extension excludes the forced hard-register
+dummy from data output and derives Main's two-byte entry alignment. It pins
+the file/function outline, selected CFI route, identifier and optional GNU
+property notes: at most 96 additional property bytes, nine alignment events
+and fifteen numeric label definitions. The line-length transfer joins the
+assembler's existing scrub-buffer bound. The checker verifies 203 complete
+GCC/Ada source files plus two Silver APIs. Symbol/BFD metadata and ELF layout
+remain separate; no compiler or assembler was run.

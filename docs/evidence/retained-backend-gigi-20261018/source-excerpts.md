@@ -7441,6 +7441,47 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3755:
 ```
 
+## gcc/ada/gcc-interface/utils.cc:6455–6490
+
+```text
+6455: /* Perform final processing on global declarations.  */
+6456:
+6457: static GTY (()) tree dummy_global;
+6458:
+6459: void
+6460: gnat_write_global_declarations (void)
+6461: {
+6462:   unsigned int i;
+6463:   tree iter;
+6464:
+6465:   /* If we have declared types as used at the global level, insert them in
+6466:      the global hash table.  We use a dummy variable for this purpose, but
+6467:      we need to build it unconditionally to avoid -fcompare-debug issues.  */
+6468:   if (first_global_object_name)
+6469:     {
+6470:       struct varpool_node *node;
+6471:       char *label;
+6472:
+6473:       ASM_FORMAT_PRIVATE_NAME (label, first_global_object_name, ULONG_MAX);
+6474:       dummy_global
+6475:         = build_decl (BUILTINS_LOCATION, VAR_DECL, get_identifier (label),
+6476:                       void_type_node);
+6477:       DECL_HARD_REGISTER (dummy_global) = 1;
+6478:       TREE_STATIC (dummy_global) = 1;
+6479:       node = varpool_node::get_create (dummy_global);
+6480:       node->definition = 1;
+6481:       node->force_output = 1;
+6482:
+6483:       if (types_used_by_cur_var_decl)
+6484:         while (!types_used_by_cur_var_decl->is_empty ())
+6485:           {
+6486:             tree t = types_used_by_cur_var_decl->pop ();
+6487:             types_used_by_var_decl_insert (t, dummy_global);
+6488:           }
+6489:     }
+6490:
+```
+
 ## gcc/ada/gcc-interface/decl.cc:352–445
 
 ```text
@@ -12518,6 +12559,23 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 13413:     return SUBSTITUTE_PLACEHOLDER_IN_EXPR (DECL_FIELD_OFFSET (field), exp);
 13414: }
 13415:
+```
+
+## gcc/tree.cc:1342–1353
+
+```text
+1342:       break;
+1343:
+1344:     case tcc_declaration:
+1345:       if (CODE_CONTAINS_STRUCT (code, TS_DECL_COMMON))
+1346:         {
+1347:           if (code == FUNCTION_DECL)
+1348:             {
+1349:               SET_DECL_ALIGN (t, FUNCTION_ALIGNMENT (FUNCTION_BOUNDARY));
+1350:               SET_DECL_MODE (t, FUNCTION_MODE);
+1351:             }
+1352:           else
+1353:             SET_DECL_ALIGN (t, 1);
 ```
 
 ## gcc/tree.def:633–633
@@ -24998,6 +25056,13 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 435:
 ```
 
+## gcc/ada/gcc-interface/misc.cc:1477–1478
+
+```text
+1477: #undef  LANG_HOOKS_CUSTOM_FUNCTION_DESCRIPTORS
+1478: #define LANG_HOOKS_CUSTOM_FUNCTION_DESCRIPTORS true
+```
+
 ## gcc/config/i386/i386.cc:1464–1471
 
 ```text
@@ -27521,6 +27586,158 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 18149:   return 0;
 ```
 
+## gcc/config/i386/i386.cc:1728–1773
+
+```text
+1728: ix86_asm_output_function_label (FILE *out_file, const char *fname,
+1729:                                 tree decl)
+1730: {
+1731:   bool is_ms_hook = ix86_function_ms_hook_prologue (decl);
+1732:
+1733:   if (cfun)
+1734:     cfun->machine->function_label_emitted = true;
+1735:
+1736:   if (is_ms_hook)
+1737:     {
+1738:       int i, filler_count = (TARGET_64BIT ? 32 : 16);
+1739:       unsigned int filler_cc = 0xcccccccc;
+1740:
+1741:       for (i = 0; i < filler_count; i += 4)
+1742:         fprintf (out_file, ASM_LONG " %#x\n", filler_cc);
+1743:     }
+1744:
+1745: #ifdef SUBTARGET_ASM_UNWIND_INIT
+1746:   SUBTARGET_ASM_UNWIND_INIT (out_file);
+1747: #endif
+1748:
+1749:   assemble_function_label_raw (out_file, fname);
+1750:
+1751:   /* Output magic byte marker, if hot-patch attribute is set.  */
+1752:   if (is_ms_hook)
+1753:     {
+1754:       if (TARGET_64BIT)
+1755:         {
+1756:           /* leaq [%rsp + 0], %rsp  */
+1757:           fputs (ASM_BYTE "0x48, 0x8d, 0xa4, 0x24, 0x00, 0x00, 0x00, 0x00\n",
+1758:                  out_file);
+1759:         }
+1760:       else
+1761:         {
+1762:           /* movl.s %edi, %edi
+1763:              push   %ebp
+1764:              movl.s %esp, %ebp */
+1765:           fputs (ASM_BYTE "0x8b, 0xff, 0x55, 0x8b, 0xec\n", out_file);
+1766:         }
+1767:     }
+1768: }
+1769:
+1770: /* Output a user-defined label.  In AT&T syntax, registers are prefixed
+1771:    with %, so labels require no punctuation.  In Intel syntax, registers
+1772:    are unprefixed, so labels may clash with registers or other operators,
+1773:    and require quoting.  */
+```
+
+## gcc/config/i386/i386.cc:23995–24010
+
+```text
+23995: x86_file_start (void)
+23996: {
+23997:   default_file_start ();
+23998:   if (TARGET_16BIT)
+23999:     fputs ("\t.code16gcc\n", asm_out_file);
+24000: #if TARGET_MACHO
+24001:   darwin_file_start ();
+24002: #endif
+24003:   if (X86_FILE_START_VERSION_DIRECTIVE)
+24004:     fputs ("\t.version\t\"01.01\"\n", asm_out_file);
+24005:   if (X86_FILE_START_FLTUSED)
+24006:     fputs ("\t.global\t__fltused\n", asm_out_file);
+24007:   if (ix86_asm_dialect == ASM_INTEL)
+24008:     fputs ("\t.intel_syntax noprefix\n", asm_out_file);
+24009: }
+24010:
+```
+
+## gcc/config/i386/i386.cc:25558–25625
+
+```text
+25558: asm_preferred_eh_data_format (int code, int global)
+25559: {
+25560:   /* PE-COFF is effectively always -fPIC because of the .reloc section.  */
+25561:   if (flag_pic || TARGET_PECOFF || !ix86_direct_extern_access)
+25562:     {
+25563:       int type = DW_EH_PE_sdata8;
+25564:       if (ptr_mode == SImode
+25565:           || ix86_cmodel == CM_SMALL_PIC
+25566:           || (ix86_cmodel == CM_MEDIUM_PIC && (global || code)))
+25567:         type = DW_EH_PE_sdata4;
+25568:       return (global ? DW_EH_PE_indirect : 0) | DW_EH_PE_pcrel | type;
+25569:     }
+25570:
+25571:   if (ix86_cmodel == CM_SMALL
+25572:       || (ix86_cmodel == CM_MEDIUM && code))
+25573:     return DW_EH_PE_udata4;
+25574:
+25575:   return DW_EH_PE_absptr;
+25576: }
+25577:
+25578: /* Worker for ix86_builtin_vectorization_cost and the fallback calls
+25579:    from ix86_vector_costs::add_stmt_cost.  */
+25580: static int
+25581: ix86_default_vector_cost (enum vect_cost_for_stmt type_of_cost,
+25582:                           machine_mode mode)
+25583: {
+25584:   bool fp = FLOAT_MODE_P (mode);
+25585:   int index;
+25586:   switch (type_of_cost)
+25587:     {
+25588:       case scalar_stmt:
+25589:         return fp ? ix86_cost->addss : COSTS_N_INSNS (1);
+25590:
+25591:       case scalar_load:
+25592:         /* load/store costs are relative to register move which is 2. Recompute
+25593:            it to COSTS_N_INSNS so everything have same base.  */
+25594:         return COSTS_N_INSNS (fp ? ix86_cost->sse_load[0]
+25595:                               : ix86_cost->int_load [2]) / 2;
+25596:
+25597:       case scalar_store:
+25598:         return COSTS_N_INSNS (fp ? ix86_cost->sse_store[0]
+25599:                               : ix86_cost->int_store [2]) / 2;
+25600:
+25601:       case vector_stmt:
+25602:         return ix86_vec_cost (mode,
+25603:                               fp ? ix86_cost->addss : ix86_cost->sse_op);
+25604:
+25605:       case vector_load:
+25606:         index = sse_store_index (mode);
+25607:         /* See PR82713 - we may end up being called on non-vector type.  */
+25608:         if (index < 0)
+25609:           index = 2;
+25610:         return COSTS_N_INSNS (ix86_cost->sse_load[index]) / 2;
+25611:
+25612:       case vector_store:
+25613:         index = sse_store_index (mode);
+25614:         /* See PR82713 - we may end up being called on non-vector type.  */
+25615:         if (index < 0)
+25616:           index = 2;
+25617:         return COSTS_N_INSNS (ix86_cost->sse_store[index]) / 2;
+25618:
+25619:       case vec_to_scalar:
+25620:       case scalar_to_vec:
+25621:         return ix86_vec_cost (mode, ix86_cost->sse_op);
+25622:
+25623:       /* We should have separate costs for unaligned loads and gather/scatter.
+25624:          Do that incrementally.  */
+25625:       case unaligned_load:
+```
+
+## gcc/config/i386/i386.cc:28682–28683
+
+```text
+28682: #undef TARGET_CUSTOM_FUNCTION_DESCRIPTORS
+28683: #define TARGET_CUSTOM_FUNCTION_DESCRIPTORS X86_CUSTOM_FUNCTION_TEST
+```
+
 ## gcc/config/i386/i386.h:778–801
 
 ```text
@@ -27643,6 +27860,26 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2169: /* The value of INCOMING_FRAME_SP_OFFSET the assembler assumes in
 2170:    .cfi_startproc.  */
 2171: #define DEFAULT_INCOMING_FRAME_SP_OFFSET UNITS_PER_WORD
+```
+
+## gcc/config/i386/i386.h:820–827
+
+```text
+820: /* Minimum allocation boundary for the code of a function.  */
+821: #define FUNCTION_BOUNDARY 8
+822:
+823: /* We will and with this value to test if a custom function descriptor needs
+824:    a static chain.  The function boundary must the adjusted so that the bit
+825:    this represents is no longer part of the address.  0 Disables the custom
+826:    function descriptors.  */
+827: #define X86_CUSTOM_FUNCTION_TEST 1
+```
+
+## gcc/config/i386/i386.h:3003–3004
+
+```text
+3003: #define X86_FILE_START_VERSION_DIRECTIVE false
+3004: #define X86_FILE_START_FLTUSED false
 ```
 
 ## gcc/config/i386/i386.md:505–513
@@ -28627,6 +28864,61 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 131:   while (0)
 ```
 
+## gcc/config/elfos.h:93–101
+
+```text
+93: #undef TARGET_ASM_OUTPUT_IDENT
+94: #define TARGET_ASM_OUTPUT_IDENT default_asm_output_ident_directive
+95:
+96: #undef  SET_ASM_OP
+97: #define SET_ASM_OP      "\t.set\t"
+98:
+99: /* Most svr4 assemblers want a .file directive at the beginning of
+100:    their input file.  */
+101: #define TARGET_ASM_FILE_START_FILE_DIRECTIVE true
+```
+
+## gcc/config/elfos.h:282–303
+
+```text
+282: #ifndef ASM_DECLARE_RESULT
+283: #define ASM_DECLARE_RESULT(FILE, RESULT)
+284: #endif
+285:
+286: /* These macros generate the special .type and .size directives which
+287:    are used to set the corresponding fields of the linker symbol table
+288:    entries in an ELF object file under SVR4.  These macros also output
+289:    the starting labels for the relevant functions/objects.  */
+290:
+291: /* Write the extra assembler code needed to declare a function properly.
+292:    Some svr4 assemblers need to also have something extra said about the
+293:    function's return value.  We allow for that here.  */
+294:
+295: #ifndef ASM_DECLARE_FUNCTION_NAME
+296: #define ASM_DECLARE_FUNCTION_NAME(FILE, NAME, DECL)             \
+297:   do                                                            \
+298:     {                                                           \
+299:       ASM_OUTPUT_TYPE_DIRECTIVE (FILE, NAME, "function");       \
+300:       ASM_DECLARE_RESULT (FILE, DECL_RESULT (DECL));            \
+301:       ASM_OUTPUT_FUNCTION_LABEL (FILE, NAME, DECL);             \
+302:     }                                                           \
+303:   while (0)
+```
+
+## gcc/config/elfos.h:386–394
+
+```text
+386: #ifndef ASM_DECLARE_FUNCTION_SIZE
+387: #define ASM_DECLARE_FUNCTION_SIZE(FILE, FNAME, DECL)            \
+388:   do                                                            \
+389:     {                                                           \
+390:       if (!flag_inhibit_size_directive)                         \
+391:         ASM_OUTPUT_MEASURED_SIZE (FILE, FNAME);                 \
+392:     }                                                           \
+393:   while (0)
+394: #endif
+```
+
 ## gcc/rtl.h:3019–3024
 
 ```text
@@ -28762,6 +29054,355 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4166:   crtl->varasm.pool = create_constant_pool ();
 4167:   crtl->varasm.deferred_constants = 0;
 4168: }
+```
+
+## gcc/varasm.cc:536–544
+
+```text
+536: hot_function_section (tree decl)
+537: {
+538:   if (decl != NULL_TREE
+539:       && DECL_SECTION_NAME (decl) != NULL
+540:       && targetm_common.have_named_sections)
+541:     return get_named_section (decl, NULL, 0);
+542:   else
+543:     return text_section;
+544: }
+```
+
+## gcc/varasm.cc:599–613
+
+```text
+599: default_function_section (tree decl, enum node_frequency freq,
+600:                           bool startup, bool exit)
+601: {
+602: #if defined HAVE_LD_EH_GC_SECTIONS && defined HAVE_LD_EH_GC_SECTIONS_BUG
+603:   /* Old GNU linkers have buggy --gc-section support, which sometimes
+604:      results in .gcc_except_table* sections being garbage collected.  */
+605:   if (decl
+606:       && symtab_node::get (decl)->implicit_section)
+607:     return NULL;
+608: #endif
+609:
+610:   if (!flag_reorder_functions
+611:       || !targetm_common.have_named_sections)
+612:     return NULL;
+613:   /* Startup code should go to startup subsection unless it is
+```
+
+## gcc/varasm.cc:691–696
+
+```text
+691: #else
+692:   if (targetm.asm_out.function_section)
+693:     section = targetm.asm_out.function_section (decl, freq, startup, exit);
+694:   if (section)
+695:     return section;
+696:   return hot_function_section (decl);
+```
+
+## gcc/varasm.cc:2068–2265
+
+```text
+2068: void
+2069: assemble_start_function (tree decl, const char *fnname)
+2070: {
+2071:   int align;
+2072:   char tmp_label[100];
+2073:   bool hot_label_written = false;
+2074:
+2075:   if (crtl->has_bb_partition)
+2076:     {
+2077:       ASM_GENERATE_INTERNAL_LABEL (tmp_label, "LHOTB", const_labelno);
+2078:       crtl->subsections.hot_section_label = ggc_strdup (tmp_label);
+2079:       ASM_GENERATE_INTERNAL_LABEL (tmp_label, "LCOLDB", const_labelno);
+2080:       crtl->subsections.cold_section_label = ggc_strdup (tmp_label);
+2081:       ASM_GENERATE_INTERNAL_LABEL (tmp_label, "LHOTE", const_labelno);
+2082:       crtl->subsections.hot_section_end_label = ggc_strdup (tmp_label);
+2083:       ASM_GENERATE_INTERNAL_LABEL (tmp_label, "LCOLDE", const_labelno);
+2084:       crtl->subsections.cold_section_end_label = ggc_strdup (tmp_label);
+2085:       const_labelno++;
+2086:       cold_function_name = NULL_TREE;
+2087:     }
+2088:   else
+2089:     {
+2090:       crtl->subsections.hot_section_label = NULL;
+2091:       crtl->subsections.cold_section_label = NULL;
+2092:       crtl->subsections.hot_section_end_label = NULL;
+2093:       crtl->subsections.cold_section_end_label = NULL;
+2094:     }
+2095:
+2096:   /* The following code does not need preprocessing in the assembler.  */
+2097:
+2098:   app_disable ();
+2099:
+2100:   if (CONSTANT_POOL_BEFORE_FUNCTION)
+2101:     output_constant_pool (fnname, decl);
+2102:
+2103:   align = symtab_node::get (decl)->definition_alignment ();
+2104:
+2105:   /* Make sure the not and cold text (code) sections are properly
+2106:      aligned.  This is necessary here in the case where the function
+2107:      has both hot and cold sections, because we don't want to re-set
+2108:      the alignment when the section switch happens mid-function.  */
+2109:
+2110:   if (crtl->has_bb_partition)
+2111:     {
+2112:       first_function_block_is_cold = false;
+2113:
+2114:       switch_to_section (unlikely_text_section ());
+2115:       assemble_align (align);
+2116:       ASM_OUTPUT_LABEL (asm_out_file, crtl->subsections.cold_section_label);
+2117:
+2118:       /* When the function starts with a cold section, we need to explicitly
+2119:          align the hot section and write out the hot section label.
+2120:          But if the current function is a thunk, we do not have a CFG.  */
+2121:       if (!cfun->is_thunk
+2122:           && BB_PARTITION (ENTRY_BLOCK_PTR_FOR_FN (cfun)->next_bb) == BB_COLD_PARTITION)
+2123:         {
+2124:           switch_to_section (text_section);
+2125:           assemble_align (align);
+2126:           ASM_OUTPUT_LABEL (asm_out_file, crtl->subsections.hot_section_label);
+2127:           hot_label_written = true;
+2128:           first_function_block_is_cold = true;
+2129:         }
+2130:       in_cold_section_p = first_function_block_is_cold;
+2131:     }
+2132:
+2133:
+2134:   /* Switch to the correct text section for the start of the function.  */
+2135:
+2136:   switch_to_section (function_section (decl), decl);
+2137:   if (crtl->has_bb_partition && !hot_label_written)
+2138:     ASM_OUTPUT_LABEL (asm_out_file, crtl->subsections.hot_section_label);
+2139:
+2140:   /* Tell assembler to move to target machine's alignment for functions.  */
+2141:   align = floor_log2 (align / BITS_PER_UNIT);
+2142:   /* Handle forced alignment.  This really ought to apply to all functions,
+2143:      since it is used by patchable entries.  */
+2144:   if (flag_min_function_alignment)
+2145:     align = MAX (align, floor_log2 (flag_min_function_alignment));
+2146:
+2147:   if (align > 0)
+2148:     {
+2149:       ASM_OUTPUT_ALIGN (asm_out_file, align);
+2150:     }
+2151:
+2152:   /* Handle a user-specified function alignment.
+2153:      Note that we still need to align to DECL_ALIGN, as above,
+2154:      because ASM_OUTPUT_MAX_SKIP_ALIGN might not do any alignment at all.  */
+2155:   if (! DECL_USER_ALIGN (decl)
+2156:       && align_functions.levels[0].log > align
+2157:       && optimize_function_for_speed_p (cfun))
+2158:     {
+2159: #ifdef ASM_OUTPUT_MAX_SKIP_ALIGN
+2160:       int align_log = align_functions.levels[0].log;
+2161: #endif
+2162:       int max_skip = align_functions.levels[0].maxskip;
+2163:       if (flag_limit_function_alignment && crtl->max_insn_address > 0
+2164:           && max_skip >= crtl->max_insn_address)
+2165:         max_skip = crtl->max_insn_address - 1;
+2166:
+2167: #ifdef ASM_OUTPUT_MAX_SKIP_ALIGN
+2168:       ASM_OUTPUT_MAX_SKIP_ALIGN (asm_out_file, align_log, max_skip);
+2169:       if (max_skip == align_functions.levels[0].maxskip)
+2170:         ASM_OUTPUT_MAX_SKIP_ALIGN (asm_out_file,
+2171:                                    align_functions.levels[1].log,
+2172:                                    align_functions.levels[1].maxskip);
+2173: #else
+2174:       ASM_OUTPUT_ALIGN (asm_out_file, align_functions.levels[0].log);
+2175: #endif
+2176:     }
+2177:
+2178: #ifdef ASM_OUTPUT_FUNCTION_PREFIX
+2179:   ASM_OUTPUT_FUNCTION_PREFIX (asm_out_file, fnname);
+2180: #endif
+2181:
+2182:   if (!DECL_IGNORED_P (decl))
+2183:     (*debug_hooks->begin_function) (decl);
+2184:
+2185:   /* Make function name accessible from other files, if appropriate.  */
+2186:
+2187:   if (TREE_PUBLIC (decl))
+2188:     {
+2189:       notice_global_symbol (decl);
+2190:
+2191:       globalize_decl (decl);
+2192:
+2193:       maybe_assemble_visibility (decl);
+2194:     }
+2195:
+2196:   if (DECL_PRESERVE_P (decl))
+2197:     targetm.asm_out.mark_decl_preserved (fnname);
+2198:
+2199:   unsigned short patch_area_size = crtl->patch_area_size;
+2200:   unsigned short patch_area_entry = crtl->patch_area_entry;
+2201:
+2202:   /* Emit the patching area before the entry label, if any.  */
+2203:   if (patch_area_entry > 0)
+2204:     targetm.asm_out.print_patchable_function_entry (asm_out_file,
+2205:                                                     patch_area_entry, true);
+2206:
+2207:   /* Do any machine/system dependent processing of the function name.  */
+2208: #ifdef ASM_DECLARE_FUNCTION_NAME
+2209:   ASM_DECLARE_FUNCTION_NAME (asm_out_file, fnname, current_function_decl);
+2210: #else
+2211:   /* Standard thing is just output label for the function.  */
+2212:   ASM_OUTPUT_FUNCTION_LABEL (asm_out_file, fnname, current_function_decl);
+2213: #endif /* ASM_DECLARE_FUNCTION_NAME */
+2214:
+2215:   /* And the area after the label.  Record it if we haven't done so yet.  */
+2216:   if (patch_area_size > patch_area_entry)
+2217:     targetm.asm_out.print_patchable_function_entry (asm_out_file,
+2218:                                                     patch_area_size
+2219:                                                     - patch_area_entry,
+2220:                                                     patch_area_entry == 0);
+2221:
+2222:   if (lookup_attribute ("no_split_stack", DECL_ATTRIBUTES (decl)))
+2223:     saw_no_split_stack = true;
+2224: }
+2225:
+2226: /* Output assembler code associated with defining the size of the
+2227:    function.  DECL describes the function.  NAME is the function's name.  */
+2228:
+2229: void
+2230: assemble_end_function (tree decl, const char *fnname ATTRIBUTE_UNUSED)
+2231: {
+2232: #ifdef ASM_DECLARE_FUNCTION_SIZE
+2233:   /* We could have switched section in the middle of the function.  */
+2234:   if (crtl->has_bb_partition)
+2235:     switch_to_section (function_section (decl));
+2236:   ASM_DECLARE_FUNCTION_SIZE (asm_out_file, fnname, decl);
+2237: #endif
+2238:   if (! CONSTANT_POOL_BEFORE_FUNCTION)
+2239:     {
+2240:       output_constant_pool (fnname, decl);
+2241:       switch_to_section (function_section (decl)); /* need to switch back */
+2242:     }
+2243:   /* Output labels for end of hot/cold text sections (to be used by
+2244:      debug info.)  */
+2245:   if (crtl->has_bb_partition)
+2246:     {
+2247:       section *save_text_section;
+2248:
+2249:       save_text_section = in_section;
+2250:       switch_to_section (unlikely_text_section ());
+2251: #ifdef ASM_DECLARE_COLD_FUNCTION_SIZE
+2252:       if (cold_function_name != NULL_TREE)
+2253:         ASM_DECLARE_COLD_FUNCTION_SIZE (asm_out_file,
+2254:                                         IDENTIFIER_POINTER (cold_function_name),
+2255:                                         decl);
+2256: #endif
+2257:       ASM_OUTPUT_LABEL (asm_out_file, crtl->subsections.cold_section_end_label);
+2258:       if (first_function_block_is_cold)
+2259:         switch_to_section (text_section);
+2260:       else
+2261:         switch_to_section (function_section (decl));
+2262:       ASM_OUTPUT_LABEL (asm_out_file, crtl->subsections.hot_section_end_label);
+2263:       switch_to_section (save_text_section);
+2264:     }
+2265: }
+```
+
+## gcc/varasm.cc:8160–8192
+
+```text
+8160: void
+8161: default_file_start (void)
+8162: {
+8163:   if (targetm.asm_file_start_app_off
+8164:       && !(flag_verbose_asm || flag_debug_asm || flag_dump_rtl_in_asm))
+8165:     fputs (ASM_APP_OFF, asm_out_file);
+8166:
+8167:   if (targetm.asm_file_start_file_directive)
+8168:     {
+8169:       /* LTO produced units have no meaningful main_input_filename.  */
+8170:       if (in_lto_p)
+8171:         output_file_directive (asm_out_file, "<artificial>");
+8172:       else
+8173:         output_file_directive (asm_out_file, main_input_filename);
+8174:     }
+8175: }
+8176:
+8177: /* This is a generic routine suitable for use as TARGET_ASM_FILE_END
+8178:    which emits a special section directive used to indicate whether or
+8179:    not this object file needs an executable stack.  This is primarily
+8180:    a GNU extension to ELF but could be used on other targets.  */
+8181:
+8182: int trampolines_created;
+8183:
+8184: void
+8185: file_end_indicate_exec_stack (void)
+8186: {
+8187:   unsigned int flags = SECTION_DEBUG;
+8188:   if (trampolines_created)
+8189:     flags |= SECTION_CODE;
+8190:
+8191:   switch_to_section (get_section (".note.GNU-stack", flags, NULL));
+8192: }
+```
+
+## gcc/varasm.cc:8630–8666
+
+```text
+8630: void
+8631: default_asm_output_source_filename (FILE *file, const char *name)
+8632: {
+8633: #ifdef ASM_OUTPUT_SOURCE_FILENAME
+8634:   ASM_OUTPUT_SOURCE_FILENAME (file, name);
+8635: #else
+8636:   fprintf (file, "\t.file\t");
+8637:   output_quoted_string (file, name);
+8638:   putc ('\n', file);
+8639: #endif
+8640: }
+8641:
+8642: /* Output a file name in the form wanted by System V.  */
+8643:
+8644: void
+8645: output_file_directive (FILE *asm_file, const char *input_name)
+8646: {
+8647:   int len;
+8648:   const char *na;
+8649:
+8650:   if (input_name == NULL)
+8651:     input_name = "<stdin>";
+8652:   else
+8653:     input_name = remap_debug_filename (input_name);
+8654:
+8655:   len = strlen (input_name);
+8656:   na = input_name + len;
+8657:
+8658:   /* NA gets INPUT_NAME sans directory names.  */
+8659:   while (na > input_name)
+8660:     {
+8661:       if (IS_DIR_SEPARATOR (na[-1]))
+8662:         break;
+8663:       na--;
+8664:     }
+8665:
+8666:   targetm.asm_out.output_source_filename (asm_file, na);
+```
+
+## gcc/varasm.cc:8995–9010
+
+```text
+8995: default_asm_output_ident_directive (const char *ident_str)
+8996: {
+8997:   const char *ident_asm_op = "\t.ident\t";
+8998:
+8999:   /* If we are still in the front end, do not write out the string
+9000:      to asm_out_file.  Instead, add a fake top-level asm statement.
+9001:      This allows the front ends to use this hook without actually
+9002:      writing to asm_out_file, to handle #ident or Pragma Ident.  */
+9003:   if (symtab->state == PARSING)
+9004:     {
+9005:       char *buf = ACONCAT ((ident_asm_op, "\"", ident_str, "\"\n", NULL));
+9006:       symtab->finalize_toplevel_asm (build_string (strlen (buf), buf));
+9007:     }
+9008:   else
+9009:     fprintf (asm_out_file, "%s\"%s\"\n", ident_asm_op, ident_str);
+9010: }
 ```
 
 ## gcc/expr.cc:209–213
@@ -32712,6 +33353,22 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3004:
 ```
 
+## gcc/common.opt:1706–1708
+
+```text
+1706: fdwarf2-cfi-asm
+1707: Common Var(flag_dwarf2_cfi_asm) Init(HAVE_GAS_CFI_DIRECTIVE)
+1708: Enable CFI tables via GAS assembler directives.
+```
+
+## gcc/common.opt:2430–2432
+
+```text
+2430: fmin-function-alignment=
+2431: Common Joined RejectNegative UInteger Var(flag_min_function_alignment) Optimization
+2432: Align the start of every function.
+```
+
 ## gcc/config/i386/i386-passes.def:20–40
 
 ```text
@@ -32997,6 +33654,24 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1279:   parse_N_M (str_align_jumps, align_jumps);
 1280:   parse_N_M (str_align_labels, align_labels);
 1281:   parse_N_M (str_align_functions, align_functions);
+```
+
+## gcc/toplev.cc:566–578
+
+```text
+566:   /* Attach a special .ident directive to the end of the file to identify
+567:      the version of GCC which compiled this code.  The format of the .ident
+568:      string is patterned after the ones produced by native SVR4 compilers.  */
+569:   if (!flag_no_ident)
+570:     {
+571:       const char *pkg_version = "(GNU) ";
+572:       char *ident_str;
+573:
+574:       if (strcmp ("(GCC) ", pkgversion_string))
+575:         pkg_version = pkgversion_string;
+576:
+577:       ident_str = ACONCAT (("GCC: ", pkg_version, version_string, NULL));
+578:       targetm.asm_out.output_ident (ident_str);
 ```
 
 ## gcc/ira.cc:1654–1661
@@ -33724,6 +34399,37 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2489:   if (frame_pointer_needed)
 2490:     for (i = 0; i < fp_reg_count; i++)
 2491:       df_set_regs_ever_live (HARD_FRAME_POINTER_REGNUM + i, true);
+```
+
+## gcc/ira.cc:640–665
+
+```text
+640: /* Define the following macro if allocation through malloc if
+641:    preferable.  */
+642: #define IRA_NO_OBSTACK
+643:
+644: #ifndef IRA_NO_OBSTACK
+645: /* Obstack used for storing all dynamic data (except bitmaps) of the
+646:    IRA.  */
+647: static struct obstack ira_obstack;
+648: #endif
+649:
+650: /* Obstack used for storing all bitmaps of the IRA.  */
+651: static struct bitmap_obstack ira_bitmap_obstack;
+652:
+653: /* Allocate memory of size LEN for IRA data.  */
+654: void *
+655: ira_allocate (size_t len)
+656: {
+657:   void *res;
+658:
+659: #ifndef IRA_NO_OBSTACK
+660:   res = obstack_alloc (&ira_obstack, len);
+661: #else
+662:   res = xmalloc (len);
+663: #endif
+664:   return res;
+665: }
 ```
 
 ## gcc/ira-costs.cc:2529–2542
@@ -36493,6 +37199,36 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 454: #define DWARF2_FRAME_REG_OUT(REGNO, FOR_EH) (REGNO)
 ```
 
+## gcc/defaults.h:248–258
+
+```text
+248: #define ASM_OUTPUT_MEASURED_SIZE(STREAM, NAME)          \
+249:   do                                                    \
+250:     {                                                   \
+251:       fputs (SIZE_ASM_OP, STREAM);                      \
+252:       assemble_name (STREAM, NAME);                     \
+253:       fputs (", .-", STREAM);                           \
+254:       assemble_name (STREAM, NAME);                     \
+255:       putc ('\n', STREAM);                              \
+256:     }                                                   \
+257:   while (0)
+258:
+```
+
+## gcc/defaults.h:1038–1046
+
+```text
+1038: /* Force minimum alignment to be able to use the least significant bits
+1039:    for distinguishing descriptor addresses from code addresses.  */
+1040: #define FUNCTION_ALIGNMENT(ALIGN)                                       \
+1041:   (lang_hooks.custom_function_descriptors                               \
+1042:    && targetm.calls.custom_function_descriptors > 0                     \
+1043:    ? MAX ((ALIGN),                                              \
+1044:           2 * targetm.calls.custom_function_descriptors * BITS_PER_UNIT)\
+1045:    : (ALIGN))
+1046:
+```
+
 ## gcc/reorg.cc:3874–3882
 
 ```text
@@ -38776,6 +39512,87 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3817:
 ```
 
+## gcc/dwarf2cfi.cc:3696–3771
+
+```text
+3696: /* Save the result of dwarf2out_do_frame across PCH.
+3697:    This variable is tri-state, with 0 unset, >0 true, <0 false.  */
+3698: static GTY(()) signed char saved_do_cfi_asm = 0;
+3699:
+3700: /* Decide whether to emit EH frame unwind information for the current
+3701:    translation unit.  */
+3702:
+3703: bool
+3704: dwarf2out_do_eh_frame (void)
+3705: {
+3706:   return
+3707:     (flag_unwind_tables || flag_exceptions)
+3708:     && targetm_common.except_unwind_info (&global_options) == UI_DWARF2;
+3709: }
+3710:
+3711: /* Decide whether we want to emit frame unwind information for the current
+3712:    translation unit.  */
+3713:
+3714: bool
+3715: dwarf2out_do_frame (void)
+3716: {
+3717:   /* We want to emit correct CFA location expressions or lists, so we
+3718:      have to return true if we're going to generate debug info, even if
+3719:      we're not going to output frame or unwind info.  */
+3720:   if (dwarf_debuginfo_p () || dwarf_based_debuginfo_p ())
+3721:     return true;
+3722:
+3723:   if (saved_do_cfi_asm > 0)
+3724:     return true;
+3725:
+3726:   if (targetm.debug_unwind_info () == UI_DWARF2)
+3727:     return true;
+3728:
+3729:   if (dwarf2out_do_eh_frame ())
+3730:     return true;
+3731:
+3732:   return false;
+3733: }
+3734:
+3735: /* Decide whether to emit frame unwind via assembler directives.  */
+3736:
+3737: bool
+3738: dwarf2out_do_cfi_asm (void)
+3739: {
+3740:   int enc;
+3741:
+3742:   if (saved_do_cfi_asm != 0)
+3743:     return saved_do_cfi_asm > 0;
+3744:
+3745:   /* Assume failure for a moment.  */
+3746:   saved_do_cfi_asm = -1;
+3747:
+3748:   if (!flag_dwarf2_cfi_asm || !dwarf2out_do_frame ())
+3749:     return false;
+3750:   if (!HAVE_GAS_CFI_PERSONALITY_DIRECTIVE)
+3751:     return false;
+3752:
+3753:   /* Make sure the personality encoding is one the assembler can support.
+3754:      In particular, aligned addresses can't be handled.  */
+3755:   enc = ASM_PREFERRED_EH_DATA_FORMAT (/*code=*/2,/*global=*/1);
+3756:   if ((enc & 0x70) != 0 && (enc & 0x70) != DW_EH_PE_pcrel)
+3757:     return false;
+3758:   enc = ASM_PREFERRED_EH_DATA_FORMAT (/*code=*/0,/*global=*/0);
+3759:   if ((enc & 0x70) != 0 && (enc & 0x70) != DW_EH_PE_pcrel)
+3760:     return false;
+3761:
+3762:   /* If we can't get the assembler to emit only .debug_frame, and we don't need
+3763:      dwarf2 unwind info for exceptions, then emit .debug_frame by hand.  */
+3764:   if (!HAVE_GAS_CFI_SECTIONS_DIRECTIVE && !dwarf2out_do_eh_frame ())
+3765:     return false;
+3766:
+3767:   /* Success!  */
+3768:   saved_do_cfi_asm = 1;
+3769:   return true;
+3770: }
+3771:
+```
+
 ## gcc/dwarf2out.cc:1046–1063
 
 ```text
@@ -39340,6 +40157,217 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1533:
 1534:       Generating_Code := True;
 1535:       Back_End.Call_Back_End (Back_End_Mode);
+```
+
+## gcc/varpool.cc:565–603
+
+```text
+565: {
+566:   /* Aliases are output when their target is produced or by
+567:      output_weakrefs.  */
+568:   if (alias)
+569:     return false;
+570:
+571:   /* Constant pool is output from RTL land when the reference
+572:      survive till this level.  */
+573:   if (DECL_IN_CONSTANT_POOL (decl) && TREE_ASM_WRITTEN (decl))
+574:     return false;
+575:
+576:   /* Decls with VALUE_EXPR should not be in the varpool at all.  They
+577:      are not real variables, but just info for debugging and codegen.
+578:      Unfortunately at the moment emutls is not updating varpool correctly
+579:      after turning real vars into value_expr vars.  */
+580:   if (DECL_HAS_VALUE_EXPR_P (decl)
+581:       && !targetm.have_tls)
+582:     return false;
+583:
+584:   /* Hard register vars do not need to be output.  */
+585:   if (DECL_HARD_REGISTER (decl))
+586:     return false;
+587:
+588:   gcc_checking_assert (!TREE_ASM_WRITTEN (decl)
+589:                        && VAR_P (decl)
+590:                        && !DECL_HAS_VALUE_EXPR_P (decl));
+591:
+592:   if (!in_other_partition
+593:       && !DECL_EXTERNAL (decl))
+594:     {
+595:       get_constructor ();
+596:       assemble_variable (decl, 0, 1, 0);
+597:       gcc_assert (TREE_ASM_WRITTEN (decl));
+598:       gcc_assert (definition);
+599:       assemble_aliases ();
+600:       /* After the parser has generated debugging information, augment
+601:          this information with any new location/etc information that may
+602:          have become available after the compilation proper.  */
+603:       debug_hooks->late_global_decl (decl);
+```
+
+## gcc/symtab.cc:2550–2572
+
+```text
+2550: /* Helper for symtab_node::definition_alignment.  */
+2551:
+2552: static bool
+2553: get_alignment_1 (symtab_node *n, void *v)
+2554: {
+2555:   *((unsigned int *)v) = MAX (*((unsigned int *)v), DECL_ALIGN (n->decl));
+2556:   return false;
+2557: }
+2558:
+2559: /* Return desired alignment of the definition.  This is NOT alignment useful
+2560:    to access THIS, because THIS may be interposable and DECL_ALIGN should
+2561:    be used instead.  It however must be guaranteed when output definition
+2562:    of THIS.  */
+2563:
+2564: unsigned int
+2565: symtab_node::definition_alignment ()
+2566: {
+2567:   unsigned int align = 0;
+2568:   gcc_assert (!alias);
+2569:   call_for_symbol_and_aliases (get_alignment_1, &align, true);
+2570:   return align;
+2571: }
+2572:
+```
+
+## gcc/config/i386/att.h:55–60
+
+```text
+55: /* This is how to output an assembler line
+56:    that says to advance the location counter
+57:    to a multiple of 2**LOG bytes.  */
+58:
+59: #define ASM_OUTPUT_ALIGN(FILE,LOG)      \
+60:     if ((LOG) != 0) fprintf ((FILE), "\t.align %d\n", 1 << (LOG))
+```
+
+## gcc/config/i386/gas.h:53–57
+
+```text
+53: #ifdef HAVE_GAS_BALIGN_AND_P2ALIGN
+54: #undef ASM_OUTPUT_ALIGN
+55: #define ASM_OUTPUT_ALIGN(FILE,LOG) \
+56:   if ((LOG)!=0) fprintf ((FILE), "\t.balign %d\n", 1 << (LOG))
+57: #endif
+```
+
+## gcc/config/i386/gnu-property.cc:29–132
+
+```text
+29: emit_gnu_property (unsigned int type, unsigned int data)
+30: {
+31:   int p2align = ptr_mode == SImode ? 2 : 3;
+32:
+33:   switch_to_section (get_section (".note.gnu.property",
+34:                                   SECTION_NOTYPE, NULL));
+35:
+36:   ASM_OUTPUT_ALIGN (asm_out_file, p2align);
+37:   /* name length.  */
+38:   fprintf (asm_out_file, ASM_LONG "1f - 0f\n");
+39:   /* data length.  */
+40:   fprintf (asm_out_file, ASM_LONG "4f - 1f\n");
+41:   /* note type: NT_GNU_PROPERTY_TYPE_0.  */
+42:   fprintf (asm_out_file, ASM_LONG "5\n");
+43:   fprintf (asm_out_file, "0:\n");
+44:   /* vendor name: "GNU".  */
+45:   fprintf (asm_out_file, STRING_ASM_OP "\"GNU\"\n");
+46:   fprintf (asm_out_file, "1:\n");
+47:   ASM_OUTPUT_ALIGN (asm_out_file, p2align);
+48:   /* pr_type.  */
+49:   fprintf (asm_out_file, ASM_LONG "0x%x\n", type);
+50:   /* pr_datasz.  */
+51:   fprintf (asm_out_file, ASM_LONG "3f - 2f\n");
+52:   fprintf (asm_out_file, "2:\n");
+53:   fprintf (asm_out_file, ASM_LONG "0x%x\n", data);
+54:   fprintf (asm_out_file, "3:\n");
+55:   ASM_OUTPUT_ALIGN (asm_out_file, p2align);
+56:   fprintf (asm_out_file, "4:\n");
+57: }
+58:
+59: void
+60: file_end_indicate_exec_stack_and_gnu_property (void)
+61: {
+62:   file_end_indicate_exec_stack ();
+63:
+64:   if (flag_cf_protection == CF_NONE
+65:       && !ix86_needed
+66:       && !ix86_has_no_direct_extern_access)
+67:     return;
+68:
+69:   unsigned int feature_1 = 0;
+70:
+71:   if (flag_cf_protection & CF_BRANCH)
+72:     /* GNU_PROPERTY_X86_FEATURE_1_IBT.  */
+73:     feature_1 |= 0x1;
+74:
+75:   if (flag_cf_protection & CF_RETURN)
+76:     /* GNU_PROPERTY_X86_FEATURE_1_SHSTK.  */
+77:     feature_1 |= 0x2;
+78:
+79:   /* Generate GNU_PROPERTY_X86_FEATURE_1_AND.  */
+80:   if (feature_1)
+81:     emit_gnu_property (0xc0000002, feature_1);
+82:
+83:   unsigned int isa_1 = 0;
+84:   if (ix86_needed)
+85:     {
+86:       /* GNU_PROPERTY_X86_ISA_1_BASELINE.  */
+87:       if (TARGET_64BIT
+88:           || TARGET_FXSR
+89:           || TARGET_80387
+90:           || TARGET_MMX
+91:           || TARGET_SSE
+92:           || TARGET_SSE2)
+93:         isa_1 |= 1 << 0;
+94:
+95:       /* GNU_PROPERTY_X86_ISA_1_V2.  */
+96:       if (TARGET_CMPXCHG16B
+97:           || (TARGET_64BIT && TARGET_SAHF)
+98:           || TARGET_POPCNT
+99:           || TARGET_SSE3
+100:           || TARGET_SSSE3
+101:           || TARGET_SSE4_1
+102:           || TARGET_SSE4_2)
+103:         isa_1 |= 1 << 1;
+104:
+105:       /* GNU_PROPERTY_X86_ISA_1_V3.  */
+106:       if (TARGET_AVX
+107:           || TARGET_AVX2
+108:           || TARGET_F16C
+109:           || TARGET_FMA
+110:           || TARGET_LZCNT
+111:           || TARGET_MOVBE
+112:           || TARGET_XSAVE)
+113:         isa_1 |= 1 << 2;
+114:
+115:       /* GNU_PROPERTY_X86_ISA_1_V4.  */
+116:       if (TARGET_AVX512F
+117:           || TARGET_AVX512BW
+118:           || TARGET_AVX512CD
+119:           || TARGET_AVX512DQ
+120:           || TARGET_AVX512VL)
+121:         isa_1 |= 1 << 3;
+122:     }
+123:
+124:   /* Generate GNU_PROPERTY_X86_ISA_1_NEEDED.  */
+125:   if (isa_1)
+126:     emit_gnu_property (0xc0008002, isa_1);
+127:
+128:   if (ix86_has_no_direct_extern_access)
+129:     /* Emite a GNU_PROPERTY_1_NEEDED note with
+130:        GNU_PROPERTY_1_NEEDED_INDIRECT_EXTERN_ACCESS.  */
+131:     emit_gnu_property (0xb0008000, (1U << 0));
+132: }
+```
+
+## gcc/config/i386/linux-common.h:65–68
+
+```text
+65: extern void file_end_indicate_exec_stack_and_gnu_property (void);
+66:
+67: #undef TARGET_ASM_FILE_END
+68: #define TARGET_ASM_FILE_END file_end_indicate_exec_stack_and_gnu_property
 ```
 
 ## src/silver_arguments.ads (selected Silver API, complete)

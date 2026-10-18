@@ -188,6 +188,40 @@ Literal LF line numbering.
 1320:     chunksize = 64;
 ```
 
+## gas/as.c:113–113
+
+```text
+113: bool flag_generate_build_notes = DEFAULT_GENERATE_BUILD_NOTES;
+```
+
+## gas/as.c:1425–1447
+
+```text
+1425: #ifndef OBJ_MACH_O
+1426:   /* Create the standard sections, and those the assembler uses
+1427:      internally.  */
+1428:   text_section = subseg_new (TEXT_SECTION_NAME, 0);
+1429:   data_section = subseg_new (DATA_SECTION_NAME, 0);
+1430:   bss_section = subseg_new (BSS_SECTION_NAME, 0);
+1431:   /* @@ FIXME -- we're setting the RELOC flag so that sections are assumed
+1432:      to have relocs, otherwise we don't find out in time.  */
+1433:   flagword applicable = bfd_applicable_section_flags (stdoutput);
+1434:   bfd_set_section_flags (text_section,
+1435:                          applicable & (SEC_ALLOC | SEC_LOAD | SEC_RELOC
+1436:                                        | SEC_CODE | SEC_READONLY));
+1437:   bfd_set_section_flags (data_section,
+1438:                          applicable & (SEC_ALLOC | SEC_LOAD | SEC_RELOC
+1439:                                        | SEC_DATA));
+1440:   bfd_set_section_flags (bss_section, applicable & SEC_ALLOC);
+1441:   seg_info (bss_section)->bss = 1;
+1442: #endif
+1443:   bfd_std_section_init (BFD_ABS_SECTION_NAME);
+1444:   bfd_std_section_init (BFD_UND_SECTION_NAME);
+1445:   reg_section = subseg_new ("*GAS `reg' section*", 0);
+1446:   expr_section = subseg_new ("*GAS `expr' section*", 0);
+1447: }
+```
+
 ## gas/as.h:140–147
 
 ```text
@@ -1295,6 +1329,140 @@ Literal LF line numbering.
 2624:            -32 on x86_64.  */
 ```
 
+## gas/dw2gencfi.c:284–345
+
+```text
+284: static segT
+285: make_debug_seg (segT cseg, char *name, int sflags)
+286: {
+287:   segT save_seg = now_seg;
+288:   int save_subseg = now_subseg;
+289:   segT r;
+290:   flagword flags;
+291:
+292:   r = subseg_new (name, 0);
+293:
+294:   /* Check if code segment is marked as linked once.  */
+295:   if (!cseg)
+296:     flags = 0;
+297:   else
+298:     flags = (bfd_section_flags (cseg)
+299:              & (SEC_LINK_ONCE | SEC_LINK_DUPLICATES_DISCARD
+300:                 | SEC_LINK_DUPLICATES_ONE_ONLY | SEC_LINK_DUPLICATES_SAME_SIZE
+301:                 | SEC_LINK_DUPLICATES_SAME_CONTENTS));
+302:
+303:   /* Add standard section flags.  */
+304:   flags |= sflags;
+305:
+306:   /* Apply possibly linked once flags to new generated segment, too.  */
+307:   if (!bfd_set_section_flags (r, flags))
+308:     as_bad (_("bfd_set_section_flags: %s"),
+309:             bfd_errmsg (bfd_get_error ()));
+310:
+311:   /* Restore to previous segment.  */
+312:   if (save_seg != NULL)
+313:     subseg_set (save_seg, save_subseg);
+314:   return r;
+315: }
+316:
+317: static struct dwcfi_seg_list *
+318: dwcfi_hash_find (char *name)
+319: {
+320:   return (struct dwcfi_seg_list *) str_hash_find (dwcfi_hash, name);
+321: }
+322:
+323: static struct dwcfi_seg_list *
+324: dwcfi_hash_find_or_make (segT cseg, const char *base_name, int flags)
+325: {
+326:   struct dwcfi_seg_list *item;
+327:   char *name;
+328:
+329:   /* Initialize dwcfi_hash once.  */
+330:   if (!dwcfi_hash)
+331:     dwcfi_hash = str_htab_create ();
+332:
+333:   name = get_debugseg_name (cseg, base_name);
+334:
+335:   item = dwcfi_hash_find (name);
+336:   if (!item)
+337:     {
+338:       item = alloc_debugseg_item (make_debug_seg (cseg, name, flags), 0, name);
+339:
+340:       str_hash_insert (dwcfi_hash, item->seg_name, item, 0);
+341:     }
+342:   else
+343:     notes_free (name);
+344:
+345:   return item;
+```
+
+## gas/dw2gencfi.c:1399–1438
+
+```text
+1399: static segT
+1400: get_cfi_seg (segT cseg, const char *base, flagword flags, int align)
+1401: {
+1402:   /* Exclude .debug_frame sections for Compact EH.  */
+1403:   if (SUPPORT_FRAME_LINKONCE || ((flags & SEC_DEBUGGING) == 0 && compact_eh)
+1404:       || ((flags & SEC_DEBUGGING) == 0 && TARGET_MULTIPLE_EH_FRAME_SECTIONS))
+1405:     {
+1406:       segT iseg = cseg;
+1407:       struct dwcfi_seg_list *l;
+1408:
+1409:       l = dwcfi_hash_find_or_make (cseg, base, flags);
+1410:
+1411:       cseg = l->seg;
+1412:       subseg_set (cseg, l->subseg);
+1413:
+1414:       if (TARGET_MULTIPLE_EH_FRAME_SECTIONS
+1415:           && (flags & DWARF2_EH_FRAME_READ_ONLY))
+1416:         {
+1417:           const frchainS *ifrch = seg_info (iseg)->frchainP;
+1418:           const frchainS *frch = seg_info (cseg)->frchainP;
+1419:           expressionS exp;
+1420:
+1421:           exp.X_op = O_symbol;
+1422:           exp.X_add_symbol = (symbolS *) local_symbol_make (cseg->name, cseg, frch->frch_root, 0);
+1423:           exp.X_add_number = 0;
+1424:           subseg_set (iseg, ifrch->frch_subseg);
+1425:           fix_new_exp (ifrch->frch_root, 0, 0, &exp, 0, BFD_RELOC_NONE);
+1426:
+1427:           /* Restore the original segment info.  */
+1428:           subseg_set (cseg, l->subseg);
+1429:         }
+1430:     }
+1431:   else
+1432:     {
+1433:       cseg = subseg_new (base, 0);
+1434:       bfd_set_section_flags (cseg, flags);
+1435:     }
+1436:   record_alignment (cseg, align);
+1437:   return cseg;
+1438: }
+```
+
+## gas/dw2gencfi.c:2608–2624
+
+```text
+2608: #ifdef support_sframe_p
+2609:       if (support_sframe_p () && !SUPPORT_FRAME_LINKONCE)
+2610:         {
+2611:           segT sframe_seg;
+2612:           int alignment = ffs (DWARF2_ADDR_SIZE (stdoutput)) - 1;
+2613:
+2614:           sframe_seg = get_cfi_seg (NULL, ".sframe",
+2615:                                     (SEC_ALLOC | SEC_LOAD | SEC_DATA
+2616:                                      | DWARF2_EH_FRAME_READ_ONLY),
+2617:                                     alignment);
+2618:           elf_section_type (sframe_seg) = SHT_GNU_SFRAME;
+2619:           output_sframe (sframe_seg);
+2620:         }
+2621:       else
+2622: #endif
+2623:         /* Avoid erroring with DEFAULT_SFRAME for non-default options, like
+2624:            -32 on x86_64.  */
+```
+
 ## gas/config/tc-i386.c:205–205
 
 ```text
@@ -2097,6 +2265,40 @@ Literal LF line numbering.
 484: #define sframe_support_flex_fde_p() true
 ```
 
+## gas/config/tc-i386.h:97–97
+
+```text
+97: #define SUB_SEGMENT_ALIGN(SEG, FRCHAIN) 0
+```
+
+## gas/config/tc-i386.h:234–236
+
+```text
+234: #ifndef OBJ_AOUT
+235: #define md_section_align(seg, value) ((void)(seg), (value))
+236: #endif
+```
+
+## gas/config/tc-i386.h:372–386
+
+```text
+372: max_mem_for_rs_align_code (unsigned int p2align, unsigned int max)
+373: {
+374:   unsigned int bytes = 1;
+375:   if (p2align != 0)
+376:     {
+377:       bytes = MAX_MEM_FOR_RS_SPACE_NOP;
+378:       if (bytes > (1ull << p2align) - 1)
+379:         bytes = (1ull << p2align) - 1;
+380:       if (max != 0 && bytes > max)
+381:         bytes = max;
+382:     }
+383:   return bytes;
+384: }
+385: #define MAX_MEM_FOR_RS_ALIGN_CODE(p2align, max) \
+386:   max_mem_for_rs_align_code (p2align, max)
+```
+
 ## gas/symbols.c:251–286
 
 ```text
@@ -2428,6 +2630,49 @@ Literal LF line numbering.
 405: }
 ```
 
+## gas/frags.c:311–332
+
+```text
+311:
+312: void
+313: frag_align (int alignment, int fill_character, int max)
+314: {
+315:   if (now_seg == absolute_section)
+316:     {
+317:       addressT new_off;
+318:       addressT mask;
+319:
+320:       mask = (~(addressT) 0) << alignment;
+321:       new_off = (abs_section_offset + ~mask) & mask;
+322:       if (max == 0 || new_off - abs_section_offset <= (addressT) max)
+323:         abs_section_offset = new_off;
+324:     }
+325:   else
+326:     {
+327:       char *p;
+328:
+329:       p = frag_var (rs_align, 1, 1, max, NULL, alignment, NULL);
+330:       *p = fill_character;
+331:     }
+332: }
+```
+
+## gas/frags.c:364–374
+
+```text
+364: void
+365: frag_align_code (int alignment, int max)
+366: {
+367:   char *p;
+368:
+369:   p = frag_var (rs_align_code, MAX_MEM_FOR_RS_ALIGN_CODE (alignment, max),
+370:                 1, max, NULL, alignment, NULL);
+371:   *p = NOP_OPCODE;
+372: }
+373:
+374: addressT
+```
+
 ## gas/frags.h:38–108
 
 ```text
@@ -2524,6 +2769,52 @@ Literal LF line numbering.
 145:       newP->frch_cfi_data = NULL;
 ```
 
+## gas/subsegs.c:34–46
+
+```text
+34:
+35: void
+36: subsegs_begin (void)
+37: {
+38:   obstack_begin (&frchains, chunksize);
+39: #if __GNUC__ >= 2
+40:   obstack_alignment_mask (&frchains) = __alignof__ (frchainS) - 1;
+41: #endif
+42:
+43:   frchain_now = NULL;           /* Warn new_subseg() that we are booting.  */
+44:   frag_now = &dummy_frag;
+45: }
+46:
+```
+
+## gas/subsegs.c:131–153
+
+```text
+131:   if (frcP == NULL || frcP->frch_subseg != subseg)
+132:     {
+133:       /* This should be the only code that creates a frchainS.  */
+134:
+135:       newP = obstack_alloc (&frchains, sizeof (frchainS));
+136:       newP->frch_subseg = subseg;
+137:       newP->fix_root = NULL;
+138:       newP->fix_tail = NULL;
+139:       obstack_begin (&newP->frch_obstack, chunksize);
+140: #if __GNUC__ >= 2
+141:       obstack_alignment_mask (&newP->frch_obstack) = __alignof__ (fragS) - 1;
+142: #endif
+143:       newP->frch_frag_now = frag_alloc (&newP->frch_obstack, 0);
+144:       newP->frch_frag_now->fr_type = rs_fill;
+145:       newP->frch_cfi_data = NULL;
+146:       newP->frch_ginsn_data = NULL;
+147:
+148:       newP->frch_root = newP->frch_last = newP->frch_frag_now;
+149:
+150:       *lastPP = newP;
+151:       newP->frch_next = frcP;
+152:       frcP = newP;
+153:     }
+```
+
 ## gas/read.c:4547–4559
 
 ```text
@@ -2559,6 +2850,135 @@ Literal LF line numbering.
 4690:       emit_expr_fix (exp, nbytes, frag_now, p, reloc);
 4691:       return;
 4692:     }
+```
+
+## gas/read.c:809–862
+
+```text
+809: do_align (unsigned int n, char *fill, unsigned int len, unsigned int max)
+810: {
+811:   if (now_seg == absolute_section || in_bss ())
+812:     {
+813:       if (fill != NULL)
+814:         while (len-- > 0)
+815:           if (*fill++ != '\0')
+816:             {
+817:               if (now_seg == absolute_section)
+818:                 as_warn (_("ignoring fill value in absolute section"));
+819:               else
+820:                 as_warn (_("ignoring fill value in section `%s'"),
+821:                          segment_name (now_seg));
+822:               break;
+823:             }
+824:       fill = NULL;
+825:       len = 0;
+826:     }
+827:
+828: #ifdef md_flush_pending_output
+829:   md_flush_pending_output ();
+830: #endif
+831:
+832: #ifdef md_do_align
+833:   md_do_align (n, fill, len, max, just_record_alignment);
+834: #endif
+835:
+836:   /* Only make a frag if we HAVE to...  */
+837:   if ((n > OCTETS_PER_BYTE_POWER) && !need_pass_2)
+838:     {
+839:       if (fill == NULL)
+840:         {
+841:           if (subseg_text_p (now_seg))
+842:             frag_align_code (n, max);
+843:           else
+844:             frag_align (n, 0, max);
+845:         }
+846:       else if (len <= 1)
+847:         frag_align (n, *fill, max);
+848:       else
+849:         frag_align_pattern (n, fill, len, max);
+850:     }
+851:
+852: #ifdef md_do_align
+853:  just_record_alignment: ATTRIBUTE_UNUSED_LABEL
+854: #endif
+855:
+856:   if (n > OCTETS_PER_BYTE_POWER)
+857:     record_alignment (now_seg, n - OCTETS_PER_BYTE_POWER);
+858: }
+859:
+860: /* Find first <eol><next_char>NO_APP<eol>, if any, in the supplied buffer.
+861:    Return NULL if there's none, or else the position of <next_char>.
+862:
+```
+
+## gas/read.c:6019–6083
+
+```text
+6019: stringer (int bits_appendzero)
+6020: {
+6021:   const int bitsize = bits_appendzero & ~7;
+6022:   const int append_zero = bits_appendzero & 1;
+6023:   unsigned int c;
+6024: #if !defined(NO_LISTING) && defined (OBJ_ELF)
+6025:   char *start;
+6026: #endif
+6027:
+6028: #ifdef md_flush_pending_output
+6029:   md_flush_pending_output ();
+6030: #endif
+6031:
+6032: #ifdef md_cons_align
+6033:   md_cons_align (1);
+6034: #endif
+6035:
+6036:   /* If we have been switched into the abs_section then we
+6037:      will not have an obstack onto which we can hang strings.  */
+6038:   if (now_seg == absolute_section)
+6039:     {
+6040:       as_bad (_("strings must be placed into a section"));
+6041:       ignore_rest_of_line ();
+6042:       return;
+6043:     }
+6044:
+6045:   /* The following awkward logic is to parse ZERO or more strings,
+6046:      comma separated. Recall a string expression includes spaces
+6047:      before the opening '\"' and spaces after the closing '\"'.
+6048:      We fake a leading ',' if there is (supposed to be)
+6049:      a 1st, expression. We keep demanding expressions for each ','.  */
+6050:   if (is_it_end_of_statement ())
+6051:     {
+6052:       c = 0;                    /* Skip loop.  */
+6053:       ++input_line_pointer;     /* Compensate for end of loop.  */
+6054:     }
+6055:   else
+6056:     {
+6057:       c = ',';                  /* Do loop.  */
+6058:     }
+6059:
+6060:   while (c == ',' || c == '<' || c == '"')
+6061:     {
+6062:       SKIP_WHITESPACE ();
+6063:       switch (*input_line_pointer)
+6064:         {
+6065:         case '\"':
+6066:           ++input_line_pointer; /*->1st char of string.  */
+6067: #if !defined(NO_LISTING) && defined (OBJ_ELF)
+6068:           start = input_line_pointer;
+6069: #endif
+6070:
+6071:           while (is_a_char (c = next_char_of_string ()))
+6072:             stringer_append_char (c, bitsize);
+6073:
+6074:           /* Treat "a" "b" as "ab".  Even if we are appending zeros.  */
+6075:           SKIP_ALL_WHITESPACE ();
+6076:           if (*input_line_pointer == '"')
+6077:             break;
+6078:
+6079:           if (append_zero)
+6080:             stringer_append_char (0, bitsize);
+6081:
+6082: #if !defined(NO_LISTING) && defined (OBJ_ELF)
+6083:           /* In ELF, when gcc is emitting DWARF 1 debugging output, it
 ```
 
 ## gas/write.c:2681–2784
@@ -2668,6 +3088,254 @@ Literal LF line numbering.
 2782:           break;
 2783:
 2784:         default:
+```
+
+## gas/write.c:1835–1897
+
+```text
+1835: subsegs_finish_section (asection *s)
+1836: {
+1837:   struct frchain *frchainP;
+1838:   segment_info_type *seginfo = seg_info (s);
+1839:   if (!seginfo)
+1840:     return;
+1841:
+1842:   /* This now gets called even if we had errors.  In that case, any alignment
+1843:      is meaningless, and, moreover, will look weird if we are generating a
+1844:      listing.  */
+1845:   if (had_errors ())
+1846:     do_not_pad_sections_to_alignment = 1;
+1847:
+1848:   for (frchainP = seginfo->frchainP;
+1849:        frchainP != NULL;
+1850:        frchainP = frchainP->frch_next)
+1851:     {
+1852:       int alignment;
+1853:
+1854:       subseg_set (s, frchainP->frch_subseg);
+1855:
+1856:       alignment = SUB_SEGMENT_ALIGN (now_seg, frchainP);
+1857:       if ((bfd_section_flags (now_seg) & (SEC_MERGE | SEC_STRINGS))
+1858:           && now_seg->entsize)
+1859:         {
+1860:           unsigned int entsize = now_seg->entsize;
+1861:           int entalign = 0;
+1862:
+1863:           while ((entsize & 1) == 0)
+1864:             {
+1865:               ++entalign;
+1866:               entsize >>= 1;
+1867:             }
+1868:
+1869:           if (entalign > alignment)
+1870:             alignment = entalign;
+1871:         }
+1872:
+1873:       if (subseg_text_p (now_seg))
+1874:         frag_align_code (alignment, 0);
+1875:       else
+1876:         frag_align (alignment, 0, 0);
+1877:
+1878:       /* frag_align will have left a new frag.
+1879:          Use this last frag for an empty ".fill".
+1880:
+1881:          For this segment ...
+1882:          Create a last frag. Do not leave a "being filled in frag".  */
+1883:       frag_wane (frag_now);
+1884:       frag_now->fr_fix = 0;
+1885:       know (frag_now->fr_next == NULL);
+1886:     }
+1887: }
+1888:
+1889: static void
+1890: subsegs_finish (void)
+1891: {
+1892:   asection *s;
+1893:
+1894:   for (s = stdoutput->sections; s; s = s->next)
+1895:     subsegs_finish_section (s);
+1896: }
+1897:
+```
+
+## gas/write.c:1901–1925
+
+```text
+1901: create_obj_attrs_section (void)
+1902: {
+1903:   offsetT size = bfd_elf_obj_attr_size (stdoutput);
+1904:   if (size == 0)
+1905:     return;
+1906:
+1907:   const char *name = get_elf_backend_data (stdoutput)->obj_attrs_section;
+1908:   if (name == NULL)
+1909:     /* Note: .gnu.attributes is different from GNU_BUILD_ATTRS_SECTION_NAME
+1910:        (a.k.a .gnu.build.attributes). The first one seems to be used by some
+1911:        backends like PowerPC to store the build attributes. The second one is
+1912:        used to store build notes.  */
+1913:     name = ".gnu.attributes";
+1914:   segT s = subseg_new (name, 0);
+1915:   elf_section_type (s)
+1916:     = get_elf_backend_data (stdoutput)->obj_attrs_section_type;
+1917:   bfd_set_section_flags (s, SEC_READONLY | SEC_DATA);
+1918:   frag_now_fix ();
+1919:   char *p = frag_more (size);
+1920:   bfd_elf_set_obj_attr_contents (stdoutput, (bfd_byte *)p, size);
+1921:
+1922:   subsegs_finish_section (s);
+1923:   relax_segment (seg_info (s)->frchainP->frch_root, s, 0);
+1924:   size_seg (stdoutput, s, NULL);
+1925: }
+```
+
+## gas/write.c:1988–2111
+
+```text
+1988: maybe_generate_build_notes (void)
+1989: {
+1990:   segT      sec;
+1991:   char *    note;
+1992:   offsetT   note_size;
+1993:   offsetT   total_size;
+1994:   offsetT   desc_size;
+1995:   offsetT   desc2_offset;
+1996:   int       desc_reloc;
+1997:   symbolS * sym;
+1998:   asymbol * bsym;
+1999:
+2000:   if (! flag_generate_build_notes
+2001:       || bfd_get_section_by_name (stdoutput,
+2002:                                   GNU_BUILD_ATTRS_SECTION_NAME) != NULL)
+2003:     return;
+2004:
+2005:   /* Create a GNU Build Attribute section.  */
+2006:   sec = subseg_new (GNU_BUILD_ATTRS_SECTION_NAME, false);
+2007:   elf_section_type (sec) = SHT_NOTE;
+2008:   bfd_set_section_flags (sec, (SEC_READONLY | SEC_HAS_CONTENTS | SEC_DATA
+2009:                                | SEC_OCTETS));
+2010:   bfd_set_section_alignment (sec, 2);
+2011:
+2012:   /* Work out the size of the notes that we will create,
+2013:      and the relocation we should use.  */
+2014:   if (bfd_arch_bits_per_address (stdoutput) <= 32)
+2015:     {
+2016:       note_size = 28;
+2017:       desc_size = 8; /* Two 4-byte offsets.  */
+2018:       desc2_offset = 24;
+2019:
+2020:       /* FIXME: The BFD backend for the CRX target does not support the
+2021:          BFD_RELOC_32, even though it really should.  Likewise for the
+2022:          CR16 target.  So we have special case code here...  */
+2023:       if (strstr (bfd_get_target (stdoutput), "-crx") != NULL)
+2024:         desc_reloc = BFD_RELOC_CRX_NUM32;
+2025:       else if (strstr (bfd_get_target (stdoutput), "-cr16") != NULL)
+2026:         desc_reloc = BFD_RELOC_CR16_NUM32;
+2027:       else
+2028:         desc_reloc = BFD_RELOC_32;
+2029:     }
+2030:   else
+2031:     {
+2032:       note_size = 36;
+2033:       desc_size = 16; /* Two  8-byte offsets.  */
+2034:       desc2_offset = 28;
+2035:       /* FIXME: The BFD backend for the IA64 target does not support the
+2036:          BFD_RELOC_64, even though it really should.  The HPPA backend
+2037:          has a similar issue, although it does not support BFD_RELOCs at
+2038:          all!  So we have special case code to handle these targets.  */
+2039:       if (strstr (bfd_get_target (stdoutput), "-ia64") != NULL)
+2040:         desc_reloc = target_big_endian ? BFD_RELOC_IA64_DIR32MSB : BFD_RELOC_IA64_DIR32LSB;
+2041:       else if (strstr (bfd_get_target (stdoutput), "-hppa") != NULL)
+2042:         desc_reloc = 80; /* R_PARISC_DIR64.  */
+2043:       else
+2044:         desc_reloc = BFD_RELOC_64;
+2045:     }
+2046:
+2047:   /* We have to create a note for *each* code section.
+2048:      Linker garbage collection might discard some.  */
+2049:   total_size = 0;
+2050:   note = NULL;
+2051:
+2052:   for (sym = symbol_rootP; sym != NULL; sym = symbol_next (sym))
+2053:     if ((bsym = symbol_get_bfdsym (sym)) != NULL
+2054:         && bsym->flags & BSF_SECTION_SYM
+2055:         && bsym->section != NULL
+2056:         /* Skip linkonce sections - we cannot use these section symbols as they may disappear.  */
+2057:         && (bsym->section->flags & (SEC_CODE | SEC_LINK_ONCE)) == SEC_CODE
+2058:         /* Not all linkonce sections are flagged...  */
+2059:         && !startswith (S_GET_NAME (sym), ".gnu.linkonce"))
+2060:       {
+2061:         /* Create a version note.  */
+2062:         frag_now_fix ();
+2063:         note = frag_more (note_size);
+2064:         memset (note, 0, note_size);
+2065:
+2066:         if (target_big_endian)
+2067:           {
+2068:             note[3] = 8; /* strlen (name) + 1.  */
+2069:             note[7] = desc_size; /* Two N-byte offsets.  */
+2070:             note[10] = NT_GNU_BUILD_ATTRIBUTE_OPEN >> 8;
+2071:             note[11] = NT_GNU_BUILD_ATTRIBUTE_OPEN & 0xff;
+2072:           }
+2073:         else
+2074:           {
+2075:             note[0] = 8; /* strlen (name) + 1.  */
+2076:             note[4] = desc_size; /* Two N-byte offsets.  */
+2077:             note[8] = NT_GNU_BUILD_ATTRIBUTE_OPEN & 0xff;
+2078:             note[9] = NT_GNU_BUILD_ATTRIBUTE_OPEN >> 8;
+2079:           }
+2080:
+2081:         /* The a1 version number indicates that this note was
+2082:            generated by the assembler and not the gcc annobin plugin.  */
+2083:         memcpy (note + 12, "GA$3a1", 8);
+2084:
+2085:         /* Create a relocation to install the start address of the note...  */
+2086:         create_note_reloc (sec, sym, total_size, 20, desc_size / 2, desc_reloc, 0, note);
+2087:
+2088:         /* ...and another one to install the end address.  */
+2089:         create_note_reloc (sec, sym, total_size, desc2_offset,
+2090:                            desc_size / 2,
+2091:                            desc_reloc,
+2092:                            bfd_section_size (bsym->section),
+2093:                            note);
+2094:
+2095:         /* Mark the section symbol used in relocation so that it will be
+2096:            included in the symbol table.  */
+2097:         symbol_mark_used_in_reloc (sym);
+2098:
+2099:         total_size += note_size;
+2100:         /* FIXME: Maybe add a note recording the assembler command line and version ?  */
+2101:       }
+2102:
+2103:   /* Install the note(s) into the section.  */
+2104:   if (total_size)
+2105:     bfd_set_section_contents (stdoutput, sec, (bfd_byte *) note, 0, total_size);
+2106:   subsegs_finish_section (sec);
+2107:   relax_segment (seg_info (sec)->frchainP->frch_root, sec, 0);
+2108:   size_seg (stdoutput, sec, NULL);
+2109: }
+2110: #endif /* OBJ_ELF */
+2111:
+```
+
+## gas/write.c:2131–2146
+
+```text
+2131:
+2132:   /* From now on, we don't care about sub-segments.  Build one frag chain
+2133:      for each segment. Linked through fr_next.  */
+2134:
+2135:   /* Remove the sections created by gas for its own purposes.  */
+2136:   {
+2137:     int i;
+2138:
+2139:     bfd_section_list_remove (stdoutput, reg_section);
+2140:     bfd_section_list_remove (stdoutput, expr_section);
+2141:     stdoutput->section_count -= 2;
+2142:     i = 0;
+2143:     bfd_map_over_sections (stdoutput, renumber_sections, &i);
+2144:   }
+2145:
+2146:   bfd_map_over_sections (stdoutput, chain_frchains_together, NULL);
 ```
 
 ## gas/ehopt.c:390–440
@@ -4438,4 +5106,187 @@ Literal LF line numbering.
 234:   /* The new chunk certainly contains no empty object yet.  */
 235:   h->maybe_empty_object = 0;
 236: }
+```
+
+## gas/config/obj-elf.c:118–123
+
+```text
+118: #ifdef TC_OBJ_ATTR
+119:   {"gnu_attribute", obj_elf_gnu_attribute, 0},
+120: #if TC_OBJ_ATTR_v2
+121:   {"gnu_subsection", obj_elf_gnu_subsection, 0},
+122: #endif /* TC_OBJ_ATTR_v2 */
+123: #endif /* TC_OBJ_ATTR */
+```
+
+## gas/config/obj-elf.c:2431–2467
+
+```text
+2431: obj_elf_ident (int ignore ATTRIBUTE_UNUSED)
+2432: {
+2433:   segT old_section = now_seg;
+2434:   int old_subsection = now_subseg;
+2435:
+2436: #ifdef md_flush_pending_output
+2437:   md_flush_pending_output ();
+2438: #endif
+2439:
+2440:   if (!comment_section)
+2441:     {
+2442:       char *p;
+2443:       comment_section = subseg_new (".comment", 0);
+2444:       bfd_set_section_flags (comment_section, (SEC_READONLY | SEC_HAS_CONTENTS
+2445:                                                | SEC_MERGE | SEC_STRINGS));
+2446:       comment_section->entsize = 1;
+2447: #ifdef md_elf_section_change_hook
+2448:       md_elf_section_change_hook ();
+2449: #endif
+2450:       p = frag_more (1);
+2451:       *p = 0;
+2452:     }
+2453:   else
+2454:     {
+2455:       subseg_set (comment_section, 0);
+2456: #ifdef md_elf_section_change_hook
+2457:       md_elf_section_change_hook ();
+2458: #endif
+2459:     }
+2460:   stringer (8 + 1);
+2461:   subseg_set (old_section, old_subsection);
+2462: #ifdef md_elf_section_change_hook
+2463:   md_elf_section_change_hook ();
+2464: #endif
+2465: }
+2466:
+2467: #ifdef INIT_STAB_SECTION
+```
+
+## gas/config/obj-elf.c:2986–3016
+
+```text
+2986: /* This is called when the assembler starts.  */
+2987:
+2988: void
+2989: elf_begin (void)
+2990: {
+2991:   asection *s;
+2992:
+2993:   /* Add symbols for the known sections to the symbol table.  */
+2994:   s = bfd_get_section_by_name (stdoutput, TEXT_SECTION_NAME);
+2995:   symbol_table_insert (section_symbol (s));
+2996:   s = bfd_get_section_by_name (stdoutput, DATA_SECTION_NAME);
+2997:   symbol_table_insert (section_symbol (s));
+2998:   s = bfd_get_section_by_name (stdoutput, BSS_SECTION_NAME);
+2999:   symbol_table_insert (section_symbol (s));
+3000:   elf_com_section_ptr = bfd_com_section_ptr;
+3001:   previous_section = NULL;
+3002:   previous_subsection = 0;
+3003:   comment_section = NULL;
+3004:   memset (&groups, 0, sizeof (groups));
+3005:
+3006: #ifdef TC_OBJ_ATTR
+3007:   /* Set the object attribute version for the output object to the default
+3008:      value supported by the backend.  */
+3009:   elf_obj_attr_version (stdoutput)
+3010:     = get_elf_backend_data (stdoutput)->default_obj_attr_version;
+3011:
+3012: #if TC_OBJ_ATTR_v1
+3013:   oav1_attr_info_init ();
+3014: #endif /* TC_OBJ_ATTR_v1 */
+3015: #endif /* TC_OBJ_ATTR */
+3016: }
+```
+
+## bfd/elf.c:292–321
+
+```text
+292: /* Create a tdata field OBJECT_SIZE bytes in length, zeroed out and with
+293:    the object_id field of an elf_obj_tdata field set.  */
+294: bool
+295: bfd_elf_allocate_object (bfd *abfd,
+296:                          size_t object_size)
+297: {
+298:   BFD_ASSERT (object_size >= sizeof (struct elf_obj_tdata));
+299:   abfd->tdata.any = bfd_zalloc (abfd, object_size);
+300:   if (abfd->tdata.any == NULL)
+301:     return false;
+302:
+303:   elf_object_id (abfd) = get_elf_backend_data (abfd)->target_id;
+304:   if (abfd->direction != read_direction)
+305:     {
+306:       struct output_elf_obj_tdata *o = bfd_zalloc (abfd, sizeof *o);
+307:       if (o == NULL)
+308:         return false;
+309:       elf_tdata (abfd)->o = o;
+310:       elf_program_header_size (abfd) = (bfd_size_type) -1;
+311:     }
+312:   return true;
+313: }
+314:
+315:
+316: bool
+317: bfd_elf_make_object (bfd *abfd)
+318: {
+319:   return bfd_elf_allocate_object (abfd, sizeof (struct elf_obj_tdata));
+320: }
+321:
+```
+
+## bfd/elfxx-x86.c:40–44
+
+```text
+40: bool
+41: _bfd_x86_elf_mkobject (bfd *abfd)
+42: {
+43:   return bfd_elf_allocate_object (abfd, sizeof (struct elf_x86_obj_tdata));
+44: }
+```
+
+## bfd/elf-bfd.h:2225–2232
+
+```text
+2225:   /* The version of object attributes for this object.
+2226:      For an input object, the format version used to store the data.
+2227:      For an output object, the targeted format version.  */
+2228:   obj_attr_version_t obj_attr_version;
+2229:
+2230:   obj_attribute known_obj_attributes[2][NUM_KNOWN_OBJ_ATTRIBUTES];
+2231:   obj_attribute_list *other_obj_attributes[2];
+2232:
+```
+
+## bfd/elf-attrs.h:26–34
+
+```text
+26:
+27: typedef enum obj_attr_version {
+28:   OBJ_ATTR_VERSION_NONE = 0,
+29:   OBJ_ATTR_VERSION_UNSUPPORTED,
+30:   OBJ_ATTR_V1,
+31:   OBJ_ATTR_V2,
+32:   OBJ_ATTR_VERSION_MAX = OBJ_ATTR_V2,
+33: } obj_attr_version_t;
+34:
+```
+
+## bfd/elf-attrs.c:314–330
+
+```text
+314: bfd_elf_obj_attr_size (bfd *abfd)
+315: {
+316:   obj_attr_version_t version = elf_obj_attr_version (abfd);
+317:   switch (version)
+318:     {
+319:     case OBJ_ATTR_V1:
+320:       return oav1_section_size (abfd);
+321:     case OBJ_ATTR_V2:
+322:       return oav2_section_size (abfd);
+323:     case OBJ_ATTR_VERSION_NONE:
+324:       return 0;
+325:     default:
+326:       abort ();
+327:     }
+328: }
+329:
+330: /* Write VAL in uleb128 format to P, returning a pointer to the
 ```

@@ -985,6 +985,36 @@
       "path": "gcc/ada/gcc-interface/targtyps.cc",
       "bytes": 6209,
       "sha256": "c1e3a6c527e331cf56203616ac1bf32058e13c586bf833d5a4a9cb4d1d805b3d"
+    },
+    {
+      "path": "gcc/varpool.cc",
+      "bytes": 24150,
+      "sha256": "d450a01353495f850293c2266900abfe6e915ee5be50ff068eccd1fd1cddbdf8"
+    },
+    {
+      "path": "gcc/symtab.cc",
+      "bytes": 75509,
+      "sha256": "3aa397543cca3d3fed526a6d72bd8bd9188ec0643a9e30ddc75dad555e17f4dc"
+    },
+    {
+      "path": "gcc/config/i386/att.h",
+      "bytes": 3186,
+      "sha256": "a915b51760c40265932d6e41c37f76d5b5d33dfee9c49e211ebb58a0e8c46e39"
+    },
+    {
+      "path": "gcc/config/i386/gas.h",
+      "bytes": 3601,
+      "sha256": "c6a7d6fefa29ac6a750fa7ac3614556da1426af85ffffd934c8dc46db163b20a"
+    },
+    {
+      "path": "gcc/config/i386/gnu-property.cc",
+      "bytes": 3559,
+      "sha256": "cca3445a442cecb9eb578e57a2ef0bed0cd0c7bba590b3bd3fb7c3768da5d1b4"
+    },
+    {
+      "path": "gcc/config/i386/linux-common.h",
+      "bytes": 2346,
+      "sha256": "2ae3d9a8191788da063cdbe1e82719b4682e7e6499e07b7b66f04aa5eb0f38b0"
     }
   ],
   "silver_main_api_files": [

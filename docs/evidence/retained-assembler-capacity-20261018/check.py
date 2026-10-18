@@ -47,6 +47,23 @@ RANGES = {
     "include/obstack.h": [(105, 125), (137, 163)],
     "libiberty/obstack.c": [(79, 85), (115, 150), (188, 236)],
 }
+UNIT_RANGES = {
+    "gas/as.c": [(113, 113), (1425, 1447)],
+    "gas/config/obj-elf.c": [(118, 123), (2431, 2467), (2986, 3016)],
+    "gas/config/tc-i386.h": [(97, 97), (234, 236), (372, 386)],
+    "gas/read.c": [(809, 862), (6019, 6083)],
+    "gas/frags.c": [(311, 332), (364, 374)],
+    "gas/subsegs.c": [(34, 46), (131, 153)],
+    "gas/dw2gencfi.c": [(284, 345), (1399, 1438), (2608, 2624)],
+    "gas/write.c": [(1835, 1897), (1901, 1925), (1988, 2111), (2131, 2146)],
+    "bfd/elf.c": [(292, 321)],
+    "bfd/elfxx-x86.c": [(40, 44)],
+    "bfd/elf-bfd.h": [(2225, 2232)],
+    "bfd/elf-attrs.h": [(26, 34)],
+    "bfd/elf-attrs.c": [(314, 330)],
+}
+for _name, _ranges in UNIT_RANGES.items():
+    RANGES.setdefault(_name, []).extend(_ranges)
 
 
 def main():
@@ -110,6 +127,16 @@ def main():
     assert "enum debug_info_type debug_type = DEBUG_UNSPECIFIED;" in sources["gas/as.c"]
     assert "if (debug_type != DEBUG_DWARF2" in sources["gas/dwarf2dbg.c"]
     assert "SYNTH_CFI_NONE = 0," in sources["gas/as.h"]
+    assert "bool flag_generate_build_notes = DEFAULT_GENERATE_BUILD_NOTES;" in sources["gas/as.c"]
+    assert "#define SUB_SEGMENT_ALIGN(SEG, FRCHAIN) 0" in sources["gas/config/tc-i386.h"]
+    assert "#define md_section_align(seg, value) ((void)(seg), (value))" in sources["gas/config/tc-i386.h"]
+    assert "TC_OBJ_ATTR" not in sources["gas/config/tc-i386.h"]
+    assert "OBJ_ATTR_VERSION_NONE = 0," in sources["bfd/elf-attrs.h"]
+    assert "case OBJ_ATTR_VERSION_NONE:\n      return 0;" in sources["bfd/elf-attrs.c"]
+    assert "abfd->tdata.any = bfd_zalloc (abfd, object_size);" in sources["bfd/elf.c"]
+    assert "return bfd_elf_allocate_object (abfd, sizeof (struct elf_x86_obj_tdata));" in sources["bfd/elfxx-x86.c"]
+    assert "note_size = 36;" in sources["gas/write.c"]
+    assert "desc_size = 16;" in sources["gas/write.c"]
     sframe = sources["gas/gen-sframe.c"]
     assert "symbolS **fde_fre_symbols = XNEWVEC (symbolS *, num_fdes);" in sframe
     assert "struct sframe_row_entry *fre = XCNEW (struct sframe_row_entry);" in sframe
@@ -226,6 +253,27 @@ def main():
             "minimum_room_after_new_header": room_after_new_header,
             "maximum_grow_loop_iterations": 1,
             "region_increment_events_excluding_other_paths": 2,
+        },
+        "selected_unit_emission": {
+            "compiler_property_notes": 3,
+            "compiler_property_payload_bytes": 3*32,
+            "compiler_property_alignment_events": 3*3,
+            "compiler_property_numeric_label_definitions": 3*5,
+            "configured_ident_bytes_example": len("GCC: (GNAT-FSF-builds) 16.1.0"),
+            "comment_payload_bytes": "I+2",
+            "optional_build_note_bytes": 36,
+            "optional_build_note_relocations": 2,
+            "ordinary_GAS_sections": 9,
+            "internal_GAS_sections": 2,
+            "subsections_and_initial_fragments": 11,
+            "final_alignment_and_sentinel_events": 11,
+            "selected_unit_output_payload_bytes": "391+I",
+            "selected_unit_positive_backing_reservations": "403+I",
+            "selected_unit_fragment_allocation_bound": "864+2*I",
+            "fragment_bound_at_I_29": 2*(403+29)+12+35+11,
+            "largest_region_increment_count_per_section": 10,
+            "maximum_assembler_line_bytes": "max(64,I+10)",
+            "scope": "selected null unit payload/fragments; symbol, BFD and ELF metadata storage separate",
         },
         "compiler_runs": 0, "assembler_runs": 0, "linker_runs": 0, "prover_runs": 0,
     }
