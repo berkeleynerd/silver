@@ -475,10 +475,15 @@
     },
     "sources.tar.gz": {
       "archive": {
-        "bytes": 962336,
-        "sha256": "10ed2e53b1aac3cfcb72318a2ec235a25c72d3a43066f38882a3379f4f33599e"
+        "bytes": 1826574,
+        "sha256": "ed0ce1546641c415dd31b428d895751d07c294c4ff16e23787e0f6f1aa0e4fb6"
       },
       "members": {
+        "gcc/ada/adaint.c": {
+          "bytes": 85922,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/adaint.c",
+          "sha256": "4cc1ffe9386f4164bd613a356a096340463e9f2d26a6e70dbfc9632968b2318c"
+        },
         "gcc/ada/ali-util.adb": {
           "bytes": 18257,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/ali-util.adb",
@@ -569,10 +574,30 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/csets.adb",
           "sha256": "edb837487132b279f89b79f351150190448a532bf93816909eaf67a073a863d4"
         },
+        "gcc/ada/exp_attr.adb": {
+          "bytes": 375242,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/exp_attr.adb",
+          "sha256": "0d89c4982b0c5ae4430dae91539301c0adde232f1cc1f8ab4b8a32dfe9621f4b"
+        },
+        "gcc/ada/exp_ch11.adb": {
+          "bytes": 79867,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/exp_ch11.adb",
+          "sha256": "253fe8e8936d351afff6dc81696c9f0cae042037a39ac9ff31db3fda3d806361"
+        },
         "gcc/ada/exp_dbug.adb": {
           "bytes": 55041,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/exp_dbug.adb",
           "sha256": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0"
+        },
+        "gcc/ada/exp_tss.adb": {
+          "bytes": 16214,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/exp_tss.adb",
+          "sha256": "42f1b3607da3da62f2d203f644f02371188280ad45de536f120d3130bce15a7f"
+        },
+        "gcc/ada/exp_tss.ads": {
+          "bytes": 13151,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/exp_tss.ads",
+          "sha256": "0fa84e56cb745cb95e433beb425bce341f9840aeab2e98c47302d305fdb04bd5"
         },
         "gcc/ada/fmap.adb": {
           "bytes": 15474,
@@ -589,6 +614,11 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/fname.adb",
           "sha256": "979b585c09db7c4c0565cc551f1495cfeae00e0b1efc116eee52ddea26201d0a"
         },
+        "gcc/ada/gcc-interface/ada-builtins.def": {
+          "bytes": 1340,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gcc-interface/ada-builtins.def",
+          "sha256": "90abd4368e9473d0b45331089a76daed28caa921e336cd571e830f7ef244a21c"
+        },
         "gcc/ada/gcc-interface/decl.cc": {
           "bytes": 414991,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gcc-interface/decl.cc",
@@ -598,6 +628,11 @@
           "bytes": 406631,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gcc-interface/trans.cc",
           "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+        },
+        "gcc/ada/gcc-interface/utils.cc": {
+          "bytes": 266602,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gcc-interface/utils.cc",
+          "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
         },
         "gcc/ada/gcc-interface/utils2.cc": {
           "bytes": 122255,
@@ -689,6 +724,11 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sem.adb",
           "sha256": "b216690f3c061cdd7ee229d8182d9863b0f2878e8ac9da67a095372e6c4e0f0d"
         },
+        "gcc/ada/sem_util.adb": {
+          "bytes": 1074489,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sem_util.adb",
+          "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4"
+        },
         "gcc/ada/sinput-l.adb": {
           "bytes": 30951,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sinput-l.adb",
@@ -749,10 +789,120 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/xsnamest.adb",
           "sha256": "37c86e15b931685aaaa6a496a3d5c803750c78cc135f0768b3a16cb7f8950f77"
         },
+        "gcc/builtins.def": {
+          "bytes": 105546,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/builtins.def",
+          "sha256": "578887c6bd0d4de098205170a5800d392ff85b08e12dca905a6b98e6fc69c613"
+        },
         "gcc/cfgrtl.cc": {
           "bytes": 154498,
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cfgrtl.cc",
           "sha256": "7aabb0ebf9549a4e03c0a63a7c5f09e6df23b6b140d1d1ffcdc49deabd95a70c"
+        },
+        "gcc/cgraphclones.cc": {
+          "bytes": 42120,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cgraphclones.cc",
+          "sha256": "acdcec450a29ebbdcd43fb80695de9c67e2e6ea985a2bdce42c1008ac6e68bab"
+        },
+        "gcc/cgraphunit.cc": {
+          "bytes": 81742,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cgraphunit.cc",
+          "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc"
+        },
+        "gcc/config/elfos.h": {
+          "bytes": 18059,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/elfos.h",
+          "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70"
+        },
+        "gcc/config/i386/att.h": {
+          "bytes": 3186,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/att.h",
+          "sha256": "a915b51760c40265932d6e41c37f76d5b5d33dfee9c49e211ebb58a0e8c46e39"
+        },
+        "gcc/config/i386/i386-builtin.def": {
+          "bytes": 621951,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386-builtin.def",
+          "sha256": "8eaa8802efdd64dd43271645e05ef796a2a390d124c4014ecf5f9d193f7e7c22"
+        },
+        "gcc/config/i386/i386-builtins.cc": {
+          "bytes": 78115,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386-builtins.cc",
+          "sha256": "0fbd66512ac51c49223ce88956f185626424b17351cba6e7e684d571f8bc4e40"
+        },
+        "gcc/config/i386/i386-builtins.h": {
+          "bytes": 11282,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386-builtins.h",
+          "sha256": "a69b0672c37f2d80f4c2e910f607b43c8262a7f487f22bcda458aacfd07ab414"
+        },
+        "gcc/config/i386/i386-features.cc": {
+          "bytes": 154425,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386-features.cc",
+          "sha256": "8177560659b4f519c41fe30c025867f075b465cff8e4f6da884d615afebf5c0f"
+        },
+        "gcc/config/i386/i386.cc": {
+          "bytes": 832808,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386.cc",
+          "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+        },
+        "gcc/config/i386/i386.h": {
+          "bytes": 122286,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/i386/i386.h",
+          "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+        },
+        "gcc/coroutine-builtins.def": {
+          "bytes": 1927,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/coroutine-builtins.def",
+          "sha256": "8ce4b9f36014e397c5a2430bd71524ce537251cd8fdcabf4dad6dedcf61e12d9"
+        },
+        "gcc/defaults.h": {
+          "bytes": 42480,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/defaults.h",
+          "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a"
+        },
+        "gcc/gtm-builtins.def": {
+          "bytes": 10158,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/gtm-builtins.def",
+          "sha256": "b8fe0ca2bae450a6cc5fab57ede4cfb1a59c98cc8451837a9e763d168d5f52df"
+        },
+        "gcc/langhooks.cc": {
+          "bytes": 26690,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/langhooks.cc",
+          "sha256": "f014ada9499002acd773d82d7d9ceb0c5046a20e2de8798c8605640969b78c66"
+        },
+        "gcc/omp-builtins.def": {
+          "bytes": 24309,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/omp-builtins.def",
+          "sha256": "d60857469fb7016fdeceec997d5f066d29a230dd2fe0da11a8357897f58146fd"
+        },
+        "gcc/optabs-libfuncs.cc": {
+          "bytes": 27998,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/optabs-libfuncs.cc",
+          "sha256": "0f9306c9fd18404cc14d1010e4bf12afa1750b9f6b2f65e0d0deee37eb8fc555"
+        },
+        "gcc/optabs.def": {
+          "bytes": 27904,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/optabs.def",
+          "sha256": "3dfb1e6e0f9b491a5c9c72055984e5c1040c46e8e3d981eeb3740daeb5e0c1c3"
+        },
+        "gcc/sanitizer.def": {
+          "bytes": 33532,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/sanitizer.def",
+          "sha256": "1493c05f0e0779ffa4166c83c8e3322487face62d64d07e37a8c88f20d52f819"
+        },
+        "gcc/stringpool.cc": {
+          "bytes": 8292,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/stringpool.cc",
+          "sha256": "779d6578fa49c937be8650ea40e8fd92d7698eaf0076ae501450989174331df1"
+        },
+        "gcc/symtab.cc": {
+          "bytes": 75509,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/symtab.cc",
+          "sha256": "3aa397543cca3d3fed526a6d72bd8bd9188ec0643a9e30ddc75dad555e17f4dc"
+        },
+        "gcc/sync-builtins.def": {
+          "bytes": 27679,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/sync-builtins.def",
+          "sha256": "40f9ba305a29fa68389a92b50fa5b04393594c2ab5385a23c0405d3d7f9b64c0"
         },
         "gcc/tree.cc": {
           "bytes": 484431,
@@ -783,6 +933,11 @@
           "bytes": 185437,
           "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-post_compile.adb",
           "sha256": "1d3c92430ce32dca0dc88feb7be644342707dc644b9c46002ed218a07c976d02"
+        },
+        "libcpp/symtab.cc": {
+          "bytes": 9383,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/libcpp/symtab.cc",
+          "sha256": "006987dd5863baf9520478a27958f9d450fbf76b90eed3fe6917e6c7315ff1d9"
         },
         "silver/src/silver.adb": {
           "bytes": 22598,

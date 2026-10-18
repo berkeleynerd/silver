@@ -9946,6 +9946,13 @@
       "system.wch_stw%s"
     ]
   },
+  "compiler_filename_interning": {
+    "each_full_path_bytes": 127,
+    "identifier_contribution_bound": 2,
+    "nul_inclusive_character_contribution_bound": 256,
+    "scope": "Gigi file-info interning only; all other compiler allocations remain separate",
+    "varying_full_path_count": 2
+  },
   "generated_source_bound": {
     "aligned_combined_at_example": 40960,
     "body_constant_bytes": 7483,
@@ -9980,5 +9987,86 @@
       196
     ]
   ],
+  "naming_projection": {
+    "builtin_optab_tables": {
+      "gcc/ada/gcc-interface/ada-builtins.def": {
+        "contains_at": false,
+        "string_literals": 4
+      },
+      "gcc/builtins.def": {
+        "contains_at": false,
+        "string_literals": 840
+      },
+      "gcc/config/i386/i386-builtin.def": {
+        "contains_at": false,
+        "string_literals": 3497
+      },
+      "gcc/coroutine-builtins.def": {
+        "contains_at": false,
+        "string_literals": 4
+      },
+      "gcc/gtm-builtins.def": {
+        "contains_at": false,
+        "string_literals": 96
+      },
+      "gcc/omp-builtins.def": {
+        "contains_at": false,
+        "string_literals": 157
+      },
+      "gcc/optabs.def": {
+        "contains_at": false,
+        "string_literals": 547
+      },
+      "gcc/sanitizer.def": {
+        "contains_at": false,
+        "string_literals": 219
+      },
+      "gcc/sync-builtins.def": {
+        "contains_at": false,
+        "string_literals": 204
+      }
+    },
+    "generated_elaboration_names": [
+      "ada__containers___elabs",
+      "ada__exceptions___elabs",
+      "ada__io_exceptions___elabs",
+      "ada__strings___elabs",
+      "ada__strings__maps___elabs",
+      "ada__strings__maps__constants___elabs",
+      "ada_main___elabb",
+      "interfaces__c___elabs",
+      "system__dwarf_lines___elabs",
+      "system__exception_table___elabb",
+      "system__exceptions___elabs",
+      "system__object_reader___elabs",
+      "system__os_lib___elabb",
+      "system__soft_links___elabs",
+      "system__soft_links__initialize___elabb",
+      "system__traceback__symbolic___elabb"
+    ],
+    "observed_object_additional_names": [
+      "ada__containers___elabs",
+      "ada__exceptions___elabs",
+      "ada__io_exceptions___elabs",
+      "ada__strings___elabs",
+      "ada__strings__maps___elabs",
+      "ada__strings__maps__constants___elabs",
+      "ada_main_E",
+      "ada_main__Tsec_default_sized_stacksBIP",
+      "ada_main___elabb",
+      "interfaces__c___elabs",
+      "system__dwarf_lines___elabs",
+      "system__exception_table___elabb",
+      "system__exceptions___elabs",
+      "system__object_reader___elabs",
+      "system__os_lib___elabb",
+      "system__secondary_stack__ss_stackIP",
+      "system__soft_links___elabs",
+      "system__soft_links__initialize___elabb",
+      "system__traceback__symbolic___elabb"
+    ],
+    "observed_source_external_name_count": 152,
+    "scope": "source naming alphabet and constructors; object counts and name-length bound remain open"
+  },
   "signature_hash_max_bytes": 37
 }

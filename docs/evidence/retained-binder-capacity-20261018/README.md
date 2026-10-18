@@ -12,9 +12,9 @@ separate historical unindexed proposed-option witness and the complete
 specifications. Original paths are in `manifest.json`.
 The installed files were read; no workspace or artifact was modified.
 
-`sources.tar.gz` contains sixty-three complete inspected source files:
-fifty-four GCC Ada files, three GCC backend files, four GPR files and two
-Silver workspace-construction files. The GCC files were reconciled against
+`sources.tar.gz` contains ninety-four complete inspected source files:
+sixty-two GCC Ada files, twenty-five GCC backend files, one libcpp file, four
+GPR files and two Silver workspace-construction files. The GCC/libcpp files were reconciled against
 the earlier complete-source manifests for
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; GPR retains its previously used
 source identity, and all inputs have exact hashes and original paths.
@@ -28,7 +28,9 @@ three indexed objects hash-equal. Only workspace-path comments differ in their
 generated bodies, and their exact noncomment byte projection and code-token
 line/column maps match. The per-installation path lengths and mapping/template
 contributions are also recorded. The checker
-does not infer a universal object bound from those comparisons; the source
+additionally checks builtin/optab naming alphabets and reconciles the observed
+extra object names with generated elaboration/init names. It does not infer
+a universal object bound from those comparisons; the source
 argument and its remaining joins are stated in the component.
 
 Replay without access to the original installations:

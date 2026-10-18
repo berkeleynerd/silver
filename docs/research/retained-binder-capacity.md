@@ -193,10 +193,32 @@ The following source consumers clarify what this specialization preserves:
 | Location-sensitive code generation | File order, source line counts and code coordinates stay fixed. The full-name substitution preserves file equality classes, including the `filename_cmp` fallback used by `cfgrtl.cc:784–800`; the O0 location-nop test therefore receives equivalent locations. |
 
 These joins remove particular path/location objections to reusing the object
-witness. They do **not yet establish the complete frontend/backend transient
-allocation projection** or a universal binder object bound. In particular,
-full-path interning/hash behavior and all selected compilation phases must be
-included before upgrading the observed ELF inventory below.
+witness. The filename-interning step can also be separated from the remaining
+compiler execution. Gigi calls `get_identifier` for each loaded full filename
+(`trans.cc:282–292`); the selected host canonicalization returns that spelling
+unchanged (`adaint.c:3158–3161`). `stringpool.cc:100–126` enters the shared identifier hash;
+`libcpp/symtab.cc:99–175` probes existing entries without allocating, then
+allocates exactly one identifier and `length+1` characters for a new spelling.
+Its 16,384 initial slots grow at three-quarter occupancy by doubling; rehashing
+allocates only the new slot array (`stringpool.cc:48–60`,
+`libcpp/symtab.cc:182–219`). Different filename hashes can change probe counts
+and bucket layout, but not insertion payload sizes or the growth threshold.
+
+At this interface, the varying names are the generated spec/body full paths.
+Each is `K+33` bytes; for the retained `K=94`, together they charge at most
+**two identifiers and 256 character bytes**, including NULs. They cannot
+coincide with each other, an installed runtime path or an Ada symbol: their
+basenames differ, the workspace and runtime roots are distinct, and their
+absolute path syntax is outside the symbol alphabet. The fixed runtime and
+virtual-file names retain their existing contribution. This is an additive
+filename contribution, not a bound assigning the other identifiers zero.
+
+This closes the local filename-hash allocation objection. It does **not yet
+establish the complete frontend/backend transient allocation projection** or
+a universal binder object bound. In particular, a changed bucket layout is
+not an identical whole-compiler execution trace: later table traversal, GC,
+selected compilation phases and all non-filename allocations still need the
+composition argument before upgrading the observed ELF inventory below.
 
 The specialization does not extend to all GPR temporary paths. GPR creates
 `<normalized-temp-root>/GPR.<pid>/GNAT-TEMP-<six digits>.TMP`
@@ -563,11 +585,36 @@ argument (`gnat_argc`, `gnat_argv`, `gnat_envp`, `gnat_exit_status`), and their
 fixed default spellings use that alphabet too. The generated source contains
 no `Machine_Code`, `Asm`, `Asm_Input` or `Asm_Output` construct.
 
-Thus **the generated source interface supplies no `@` name or inline assembly**.
-Compiler-created elaboration/init names still belong to the source-to-object
-join; the source alphabet observation alone is not a proof about every symbol
-the compiler may create. The retained ELF inventory lists all 169 global/weak
-symbol records, including those extra names, and confirms none contains `@`.
+The spelling property can be extended through the selected naming constructors
+without first bounding the number of emitted symbols:
+
+| Naming ingress/constructor | Preservation of the no-`@` alphabet |
+| --- | --- |
+| Ada entities and external interfaces | `Get_External_Name` uses the explicit interface or qualified entity name, `_ada_`/`__`/`___` separators and fixed suffixes (`exp_dbug.adb:764–909`). `create_concat_name`/`concat_name` preserve that spelling; the Windows-only Stdcall adjustment is inactive on this Linux target (`decl.cc:70–86,11282–11319`). |
+| Elaboration and initialization | `Elab_Body`/`Elab_Spec` lower to the fixed qualified prefix plus `___elabb`/`___elabs` (`exp_attr.adb:3735–3813`; Gigi's corresponding route is `trans.cc:7212–7221`). Package counters append `_E` (`sem_util.adb:2057–2165`), and init procedures append `IP` to generated type names (`exp_tss.adb:392–427`, `exp_tss.ads:87`). Temporary names use letters, digits and body/spec suffixes (`tbuild.adb:61–99,719–726`). |
+| GNAT helper calls | Gigi's fixed helper declarations and exception-check template use `__gnat_*`; the latter appends the fixed exception-code name and optional `_ext` (`trans.cc:388–599,724–765`, `exp_ch11.adb:1929–2015`). Runtime source interface spellings in the four selected specs also lack `@`. |
+| Builtins and ordinary libcalls | Ada installs its own, generic and target builtin tables (`utils.cc:7748–7834`). The packet checks all string literals in `ada-builtins.def`, `builtins.def` and its five included definition tables, the x86 builtin table, and `optabs.def`; none contains `@`. Prefix addition/removal preserves this property. Optab name generation concatenates `__`, optional `gnu_`/`bid_`/`dpd_`, operation/mode identifier text and operand-count digits (`optabs-libfuncs.cc:151–181,372–437,508–571,860–942`). The selected x86 libfunc hook supplies fixed `__divmod*`/`__udivmod*` names (`i386.cc:27634–27645`). |
+| Private and clone names | Default private names add a decimal number using `%s.%lu` (`langhooks.cc:138–181`, `defaults.h:38–55`). Clone constructors add the selected `.` separator, fixed compiler suffix and optional decimal number; target attribute suffixes are filtered to letters/digits/underscore (`cgraphclones.cc:557–655`, `symtab.cc:2576–2585`). The selected input has no target/versioning attribute; the x86 hook otherwise retains the name (`i386-features.cc:5511–5534`). Alias resolution only substitutes an existing alias target name. |
+| Assembler spelling | `assemble_name_raw` removes an internal leading `*` marker or calls the target hook; x86 AT&T output writes the empty ELF user prefix and label verbatim (`varasm.cc:2930–2970`, `i386.cc:1775–1781`, `elfos.h:43–44`). Local labels add `.`/fixed prefix/decimal counter (`elfos.h:121–132`). `@PLT`/`@GOT*` in instruction operands and `@function` in type directives are assembler syntax, not characters added to the ELF symbol name. |
+
+The selected descriptor has no plugins, LTO, offload, sanitizer/profile/split
+stack instrumentation, target-clone attributes or user assembly. Generated
+sources and the four selected specs have no `Machine_Attribute`, `Linker_Alias`
+or `Weak_External` pragma; their Import/Export names are checked separately.
+GNU symbol-version aliases require a `symver` attribute
+(`cgraphunit.cc:736–816`), absent here. Fixed runtime helper names and ordinary
+compiler suffixes contain no source-path text. The filename/random-seed global
+name fallback is bypassed by Gigi's fixed `first_global_object_name`, as shown
+above. Thus no remaining selected naming ingress introduces `@`.
+
+Under this descriptor, **generated binder nonlocal symbols have no `@` in
+their names**. This supplies the binder part of the linker's `W=0` suffix
+condition. It is a spelling invariant, independent of the still-open symbol
+count, maximum name-length and object-size bounds. It does not infer those
+bounds from the observed object. The retained inventory reconciles 152 source
+interface spellings with 19 additional object spellings: 16 elaboration names,
+the package counter and two secondary-stack init procedures; two source imports
+are unused. The object has 169 global/weak symbol records, all without `@`.
 No generated name depends on an author identifier in this null family.
 
 The fixed generated call structure comprises `adafinal`, `adainit`, C `main`,
@@ -613,8 +660,10 @@ and options are not normalized into the indexed witness.
    results do not cover the separate GPR/driver or compiler processes.
 3. Complete the compiler/assembler read projection from this fixed code and
    location interface to object shape and transient representations. Account
-   for source buffers, filenames, target/runtime dependencies, generated
-   elaboration/init names and every relevant option. Either justify reuse of
+   for source buffers, target/runtime dependencies, all generated code and
+   every relevant option. Filename interning and the nonlocal no-`@` naming
+   invariant are now separate source-derived joins; they do not establish the
+   complete compiler allocation or object-count projection. Either justify reuse of
    the retained fixed witness for this projected class or identify the exact
    additional state requiring a focused witness; a fresh sample by itself
    would add no family argument.

@@ -80,6 +80,15 @@ def token_locations(raw):
     return result
 
 
+def c_strings(raw):
+    # Comments and character literals must be consumed before quoted strings.
+    # These retained tables use ordinary C strings, with no raw-string syntax.
+    tokens = re.findall(rb"""//[^\n]*|/\*.*?\*/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'""",
+                        raw, re.S)
+    return [t[1:-1].decode("unicode_escape")
+            for t in tokens if t.startswith(b'"')]
+
+
 def analyze(artifacts, sources):
     cases = ["indexed-cr", "indexed-lf", "indexed-uppercase", "unindexed-proposed"]
     indexed_specs, indexed_bodies, indexed_objects = [], [], []
@@ -124,6 +133,40 @@ def analyze(artifacts, sources):
     assert all(token_locations(indexed_bodies[0]) == token_locations(x) for x in indexed_bodies[1:])
     assert len(set(map(len, indexed_bodies))) == 1
     assert len(set(map(outside_comments, indexed_bodies))) == 1
+    # Broad source alphabet checks support the naming argument; neither these
+    # tables nor the observed object census establishes a compilation bound.
+    naming_tables = ["gcc/ada/gcc-interface/ada-builtins.def", "gcc/builtins.def",
+                     "gcc/sync-builtins.def", "gcc/omp-builtins.def", "gcc/gtm-builtins.def",
+                     "gcc/sanitizer.def", "gcc/coroutine-builtins.def",
+                     "gcc/config/i386/i386-builtin.def", "gcc/optabs.def"]
+    naming_literals = {p: c_strings(sources[p]) for p in naming_tables}
+    assert all(values and all("@" not in s for s in values)
+               for values in naming_literals.values())
+    selected_source = b"\n".join([indexed_specs[0], indexed_bodies[0]] +
+        [v for k,v in artifacts.items() if k.startswith("compiler-support/")])
+    assert not re.search(rb"\bpragma\s+(?:Machine_Attribute|Linker_Alias|Weak_External)\b",
+                         outside_comments(selected_source), re.I)
+    selected_interfaces = re.findall(rb'pragma\s+(?:Import|Export)\s*\([^;]+"([^"\n]+)"\s*\)',
+                                    outside_comments(selected_source), re.I)
+    assert all(b"@" not in s for s in selected_interfaces)
+    elab_names = sorted({name.lower().replace(b".", b"__") + b"___elab" + kind[:1].lower()
+                        for name,kind in re.findall(rb"([A-Za-z][A-Za-z0-9_.]*)'Elab_(Body|Spec)",
+                                                    outside_comments(indexed_bodies[0]))})
+    assert len(elab_names) == 16
+    observed_source_names = set(result["cases"]["indexed-lf"]["explicit_external_names"] +
+                                result["cases"]["indexed-lf"]["implicit_c_external_names"])
+    observed_object_names = set(result["cases"]["indexed-lf"]["object"]["external_names"])
+    observed_extra_names = observed_object_names - observed_source_names
+    assert observed_extra_names == {n.decode() for n in elab_names} | {
+        "ada_main_E", "ada_main__Tsec_default_sized_stacksBIP", "system__secondary_stack__ss_stackIP"}
+    result["naming_projection"] = {
+        "builtin_optab_tables": {p: {"string_literals": len(v), "contains_at": False}
+                                 for p,v in naming_literals.items()},
+        "generated_elaboration_names": [n.decode() for n in elab_names],
+        "observed_source_external_name_count": len(observed_source_names),
+        "observed_object_additional_names": sorted(observed_extra_names),
+        "scope": "source naming alphabet and constructors; object counts and name-length bound remain open",
+    }
     # Only the three workspace comment lines change in these retained cases.
     differences = []
     for body in indexed_bodies[1:]:
@@ -138,6 +181,13 @@ def analyze(artifacts, sources):
     workspace_match = re.fullmatch(rb"(.*)(/program-[A-Za-z0-9]{6})/obj/main~1.o", paths[0])
     assert workspace_match
     installation_root, workspace_leaf = workspace_match.groups()
+    result["compiler_filename_interning"] = {
+        "varying_full_path_count": 2,
+        "each_full_path_bytes": len(installation_root)+33,
+        "identifier_contribution_bound": 2,
+        "nul_inclusive_character_contribution_bound": 2*(len(installation_root)+34),
+        "scope": "Gigi file-info interning only; all other compiler allocations remain separate",
+    }
     assert paths[1] == paths[2] == installation_root+workspace_leaf+b"/obj/"
     assert all(len(p) == len(q) for body in indexed_bodies[1:]
                for p, q in zip(paths, [body.split(b"\n")[193][8:]]

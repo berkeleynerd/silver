@@ -78,12 +78,21 @@ def main():
                  "gcc-interface/decl.cc", "exp_dbug.adb", "tbuild.adb", "fmap.adb", "fmap.ads",
                  "libgnat/s-os_lib.adb", "libgnat/s-os_lib.ads",
                  "snames.ads-tmpl", "snames.adb-tmpl", "xsnamest.adb", "bcheck.adb",
-                 "uname.adb", "targparm.adb", "csets.adb", "uintp.adb", "scans.adb", "fname.adb"]
+                 "uname.adb", "targparm.adb", "csets.adb", "uintp.adb", "scans.adb", "fname.adb",
+                 "exp_attr.adb", "exp_tss.adb", "exp_tss.ads", "sem_util.adb", "exp_ch11.adb", "adaint.c",
+                 "gcc-interface/utils.cc", "gcc-interface/ada-builtins.def"]
     for file in ada_files:
         add(sources, "gcc/ada/"+file, args.gcc_ada/file)
-    backend_files = ["cfgrtl.cc", "tree.cc", "varasm.cc"]
+    backend_files = ["cfgrtl.cc", "tree.cc", "varasm.cc", "stringpool.cc",
+                     "langhooks.cc", "cgraphclones.cc", "cgraphunit.cc", "symtab.cc", "defaults.h",
+                     "builtins.def", "sync-builtins.def", "omp-builtins.def", "gtm-builtins.def",
+                     "sanitizer.def", "coroutine-builtins.def", "optabs.def", "optabs-libfuncs.cc",
+                     "config/i386/i386.cc", "config/i386/i386.h", "config/i386/i386-features.cc",
+                     "config/i386/i386-builtins.cc", "config/i386/i386-builtins.h",
+                     "config/i386/i386-builtin.def", "config/i386/att.h", "config/elfos.h"]
     for file in backend_files:
         add(sources, "gcc/"+file, args.gcc_backend/file)
+    add(sources, "libcpp/symtab.cc", args.gcc_backend.parent/"libcpp/symtab.cc")
     for file in ["src/gprbind.adb", "src/gprbuild-post_compile.adb",
                  "gpr/src/gpr_build_util.adb", "gpr/src/gpr-tempdir.adb"]:
         add(sources, "gpr/"+file, args.gpr_source/file)
@@ -99,6 +108,8 @@ def main():
     backend_pins = {f["path"]: f for f in backend_manifest["files"]}
     for file in backend_files:
         assert digest(sources["gcc/"+file][1]) == {k: backend_pins["gcc/"+file][k] for k in ("bytes", "sha256")}
+    assert digest(sources["libcpp/symtab.cc"][1]) == {
+        k: backend_pins["libcpp/symtab.cc"][k] for k in ("bytes", "sha256")}
     result = analyze({k: v for k, (_, v) in artifacts.items()},
                      {k: v for k, (_, v) in sources.items()})
     (args.output/"result.json").write_text(json.dumps(result, indent=2, sort_keys=True)+"\n")
