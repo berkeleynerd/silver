@@ -1134,6 +1134,84 @@ null-result selectors can enter the plain-storage path with checks enabled;
 this suppressed local transfer alone does not close that route or prove
 single compilation-wide analysis multiplicity.
 
+### Generated Integer equality and inequality
+
+The generated selectors and slice guards compare captured length names or
+copied aggregate-length leaves with zero. For one generated `Make_Op_Eq` or
+`Make_Op_Ne`, assume already analyzed/resolved, nonoverloaded operands of the
+same frozen Standard Integer base; Standard Boolean result/context; strict
+overflow and suppressed checks; no errors, dimensions, unset-reference
+diagnostics, transient wrapping or allocating rewrite callbacks. Both the
+operator and its Original_Node are artificial. Neither operand is a Length
+attribute of an entity, even through an artificial type conversion. Their
+finite initializer graphs satisfy the earlier comparison transfer with
+unfolded bound A, including every operand and queried type-bound root.
+
+The additional semantic/expansion envelope is:
+
+```text
+ordinary nodes        40*A + 5
+growing-slot events   2
+Uint appends          160*A + 120
+syntax list headers   1 for equality; 0 for inequality
+entities/names/Elists/String/overload entries  0.
+```
+
+Use the comparison transfer's magnitude bound and multiply the Uint term by
+its base-32768 digit count for cumulative digit words. The two comparison
+queries run sequentially, so their local vector-peak bound is unchanged.
+This deliberately charges both mutually exclusive successful folding routes.
+
+The generated constructor already carries the Standard operator entity.
+`Analyze_Comparison_Equality_Op` installs one interpretation directly;
+`Check_Function_Writable_Actuals` returns for artificial code. With these
+same operand types, Find_Unique_Type is a read-only selection, and both
+Resolve child calls return on Analyzed. Standard/artificial xrefs and the
+source-only low-bound check add nothing
+(`sem_ch4.adb:2069–2201`, `sem_util.adb:2920–2950`,
+`sem_type.adb:2350–2366`, `sem_res.adb:7672–7739`,
+`lib-xref.adb:275–317`, `sem_warn.adb:782–817`).
+
+`Eval_Relational_Op` performs one Compile_Time_Compare, with the earlier
+`20*A` nodes and `80*A+60` Uint envelope. Scalar Integer excludes its array-
+length and real-folding branches. A successful Fold_Uint of Standard Boolean
+adds one Boolean occurrence and at most one saved original/growing event;
+Get_Enum_Lit_From_Pos selects one of the two existing enumeration literals
+without a Uint operation or name insertion. The comparison-specific warning
+paths require a source Original_Node and therefore do not perform an extra
+Test_Comparison (`sem_eval.adb:3548–3638,3720–3870,5150–5222`,
+`sem_util.adb:10598–10662`, `sem_warn.adb:3548–3649,3770–3810`).
+
+When an equality survives semantic folding, **Expand_N_Op_Eq still allocates
+one empty Bodies list**, even for Integer: it is initialized before the
+type dispatch (`exp_ch4.adb:8249–8256`). Integer otherwise bypasses the
+Boolean, array, record, access-equivalent and narrowing branches. Inequality
+selects its elementary Standard-operator branch without this list. Both call
+Rewrite_Comparison, whose Test_Comparison makes one additional
+Compile_Time_Compare. A successful rewrite adds a Boolean occurrence,
+Convert_To's shallow relocation (types already match), and at most one saved
+original/growing event. The new Boolean occurrence has its entity and type
+set, but is **not** already analyzed. Find_Direct_Name selects its existing
+entity without visibility search; Resolve_Entity_Name's enumeration branch
+sets fields and Eval_Entity_Name returns after marking staticness. Native
+entity expansion has no applicable transformation for the existing Boolean
+literal (`sem_ch8.adb:6246–6301`, `sem_res.adb:8096–8105`,
+`sem_eval.adb:2454–2465`, `sem_util.adb:28750–28807`,
+`exp_ch2.adb:372–533`). Optimize_Length_Comparison returns because neither root
+operand has its required attribute shape; it does not follow internal-constant
+initializers to invent that shape
+(`exp_ch4.adb:8532–8588,8760–8844,10162–10258,14665–14700,
+14800–14863,15251–15306`, `sem_eval.adb:7085–7161`,
+`tbuild.adb:105–121,732–802`).
+
+There are at most **2*n+2** direct generated comparisons: up to n lower-bound
+selectors, two null-result equalities, and n slice guards. Consequently one
+initial pass satisfying all premises adds at most `(2*n+2)*(40*A+5)` ordinary
+nodes, `4*n+4` growing events and `(2*n+2)*(160*A+120)` Uint appends, plus at
+most **two syntax lists** for the equality expander. This does not include
+additional comparisons constructed while analyzing inserted range checks,
+first analysis of scalar children, or source-to-reanalysis multiplicity.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
