@@ -315,3 +315,28 @@ need an event argument beyond this constructor count. The
 [offline check](../evidence/retained-linker-symbols-20261018/input-symbol-results.json)
 reconciles ten source identities, the prior pass inventory and this arithmetic;
 it executes no native tool.
+
+The same input route also has a separate successful dynamic-registration bound.
+The main merge and two alias merges each have one possible registration site
+(`:1531`), the default-alias helper has one further site (`:2117`), and the main
+record loop has two (`:5688,5693`). This contributes at most six increments per
+input record. The post-input weak-alias processing has two sites
+(`:6096,6111`). Their targets come from the current input's weak list and symbol
+array. Each such target is registered only while its index is -1; that loop
+does not reset an index. Thus at most two further increments per input record
+cover it, without assuming a particular number of alias-search comparisons.
+
+```text
+dynamic registration increments contributed by input passes <= 8R
+fixed-input contribution <= 392,648.
+```
+
+The counter starts at one (`:8400–8401`), and each successful global registration
+increments it once (`:631–634`). The as-needed table rollback restores entry
+state but does **not** reset this shared counter. Retaining all input-pass
+increments is therefore necessary. This source-derived bound also bounds the
+dynamic-name additions made by those registration calls; other dynamic String
+table users remain separate. It supplies an additive term for the counter
+high-water argument, not a final D: local registration, script and global
+traversals, backend requests, version symbols and renumbering must still be
+joined with their own counts.

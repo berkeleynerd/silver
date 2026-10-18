@@ -34,6 +34,8 @@ anchors = {
         'htab->root.table.count = old_count;',
         'objalloc_free_block ((struct objalloc *) htab->root.table.memory,',
         'false, bed->collect, NULL)))',
+        'table->dynsymcount = 1;',
+        '++elf_hash_table (info)->dynsymcount;',
     ],
     'bfd/linker.c': [
         'if (hashp != NULL && *hashp != NULL)',
@@ -51,6 +53,11 @@ for path, snippets in anchors.items():
     for snippet in snippets:
         assert snippet in sources[path], (path, snippet)
 assert '#define elf_backend_collect' not in sources['bfd/elf64-x86-64.c']
+link = sources['bfd/elflink.c'].split('\n')
+for line in (1531, 2117, 5688, 5693, 6096, 6111):
+    assert 'bfd_elf_link_record_dynamic_symbol' in link[line-1]
+weak_alias_loop = '\n'.join(link[6009:6120])
+assert 'dynindx =' not in weak_alias_loop.replace('dynindx ==', '')
 
 inputs = root.parent/'retained-link-inputs-20261018'
 # These counts are the already reviewed add-symbol pass bounds, not archive
@@ -70,11 +77,13 @@ result = dict(scope='Selected ELF add-object-symbols and warning constructor con
               source_files_verified=len(sources),
               fixed_symbol_record_passes=r, fixed_section_record_passes=q,
               fixed_global_entry_constructor_contribution_upper=bound,
+              fixed_input_dynamic_registration_increments_upper=8*r,
+              input_registration_bound='8*R; includes registrations lost to as-needed rollback',
               general_bound='3*R+2*Q; Q bounds .gnu.warning sections across input passes',
               generated_input_contribution='3*R_generated+2*Q_generated',
               script_and_synthetic_and_output_version_contributions_included=False,
               rollback_snapshots_and_name_copy_requests_included=False,
-              dynamic_symbol_registration_lifetime_included=False,
+              whole_dynamic_symbol_registration_lifetime_included=False,
               whole_link_capacity_established=False, native_execution=False)
 args.output.write_text(json.dumps(result, indent=2)+'\n')
 print(json.dumps(result))
