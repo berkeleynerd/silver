@@ -662,6 +662,76 @@
       "sha256": "2f5f64386117793eafc0042b4c7de51d4ff5e175129c946cfe54f03761ce7f08"
     },
     {
+      "path": "gcc/bb-reorder.cc",
+      "bytes": 95021,
+      "sha256": "16a1b38367359cc0ecc61eaf1222daeccde19184bfc87d506d79a44b6a0eaef2"
+    },
+    {
+      "path": "gcc/sched-rgn.cc",
+      "bytes": 111823,
+      "sha256": "fb4172386f76f8845f68ed15cfcebda59b1e02c26d88eee2ae8ab5ae468962c2"
+    },
+    {
+      "path": "gcc/regrename.cc",
+      "bytes": 61340,
+      "sha256": "9c54759f231aef4a7485ca12003d80598914a62a04a5c6def0ab703519656a05"
+    },
+    {
+      "path": "gcc/fold-mem-offsets.cc",
+      "bytes": 26793,
+      "sha256": "12783b5888e1ef38f54af31d91f500ebd4cb9a855131d987cbd45adbecf37302"
+    },
+    {
+      "path": "gcc/regcprop.cc",
+      "bytes": 45804,
+      "sha256": "26aed52d8a6b380866c38bcbc40c66e663c08841fb9f2f6193459cf0307de27e"
+    },
+    {
+      "path": "gcc/hooks.cc",
+      "bytes": 11088,
+      "sha256": "d24d95d8ceefa76252b0e1341a0194d106318e95fe53f32e694baa6c8fbb53a9"
+    },
+    {
+      "path": "gcc/reg-stack.cc",
+      "bytes": 105931,
+      "sha256": "19d4009ab9c33ec1c961c5eef13f4f7cc16d11dfa36ed04a449b4e9687f523d0"
+    },
+    {
+      "path": "gcc/var-tracking.cc",
+      "bytes": 282896,
+      "sha256": "ce9ede0ed20a41d6fea0c684bb9fe3db89b98f674a4a68da2bdea907fabb6615"
+    },
+    {
+      "path": "gcc/defaults.h",
+      "bytes": 42480,
+      "sha256": "0842df134d44fb33389385aadfe168cbc1304e0605312f015d1d3d27b249e77a"
+    },
+    {
+      "path": "gcc/reorg.cc",
+      "bytes": 129714,
+      "sha256": "dea0304b5700d3a6f7e31acef1477453c54bec9db14851d7f0192effe17372cb"
+    },
+    {
+      "path": "gcc/final.cc",
+      "bytes": 128479,
+      "sha256": "b631c3c19ca97a996608ed93459fa399eb230336a7bc41601c472b6f6474d00b"
+    },
+    {
+      "path": "gcc/insn-addr.h",
+      "bytes": 1881,
+      "sha256": "30f9620e20d5c8e23ace06017b694e372746cb752d79874611c2ee7f9875c0b0"
+    },
+    {
+      "path": "gcc/dwarf2cfi.cc",
+      "bytes": 107474,
+      "sha256": "23fd7f4e2d67966927d05d325e5f5857a52da5291dc2746ff2792d4ace8dfe4a"
+    },
+    {
+      "path": "gcc/dwarf2out.cc",
+      "bytes": 1049405,
+      "sha256": "f9cb86d2637defaf2f6178f4dea84841558caac0aca9f95538c27694751e2d20"
+    },
+    {
       "path": "gcc/fwprop.cc",
       "bytes": 33900,
       "sha256": "5f47c4b15bb38847b910ac950203822cbfdb55c98002b4572c41b85575cefda5"
@@ -732,19 +802,9 @@
       "sha256": "abe7f11eb59f0cadef2994860d5f57e6412ad1a17045af9cb78c8851ecac53f4"
     },
     {
-      "path": "gcc/bb-reorder.cc",
-      "bytes": 95021,
-      "sha256": "16a1b38367359cc0ecc61eaf1222daeccde19184bfc87d506d79a44b6a0eaef2"
-    },
-    {
       "path": "gcc/modulo-sched.cc",
       "bytes": 101945,
       "sha256": "76ef7a7f7869aadf3977acc1701ad9c261eab6678503428d27a715b8399a0f9f"
-    },
-    {
-      "path": "gcc/sched-rgn.cc",
-      "bytes": 111823,
-      "sha256": "fb4172386f76f8845f68ed15cfcebda59b1e02c26d88eee2ae8ab5ae468962c2"
     },
     {
       "path": "gcc/avoid-store-forwarding.cc",

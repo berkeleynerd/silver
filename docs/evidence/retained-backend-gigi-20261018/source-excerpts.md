@@ -19614,6 +19614,21 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2293:
 ```
 
+## gcc/except.cc:2770–2779
+
+```text
+2770:
+2771: bool
+2772: pass_convert_to_eh_region_ranges::gate (function *)
+2773: {
+2774:   /* Nothing to do for SJLJ exceptions or if no regions created.  */
+2775:   if (cfun->eh->region_tree == NULL)
+2776:     return false;
+2777:   if (targetm_common.except_unwind_info (&global_options) == UI_SJLJ)
+2778:     return false;
+2779:   return true;
+```
+
 ## gcc/tree-stdarg.cc:995–1104
 
 ```text
@@ -24133,6 +24148,57 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 6635:   cleanup_cfg (optimize ? CLEANUP_EXPENSIVE : 0);
 ```
 
+## gcc/function.cc:6464–6469
+
+```text
+6464: rest_of_handle_check_leaf_regs (void)
+6465: {
+6466: #ifdef LEAF_REGISTERS
+6467:   crtl->uses_only_leaf_regs
+6468:     = optimize > 0 && only_leaf_regs_used () && leaf_function_p ();
+6469: #endif
+```
+
+## gcc/function.cc:6725–6748
+
+```text
+6725: class pass_late_thread_prologue_and_epilogue : public rtl_opt_pass
+6726: {
+6727: public:
+6728:   pass_late_thread_prologue_and_epilogue (gcc::context *ctxt)
+6729:     : rtl_opt_pass (pass_data_late_thread_prologue_and_epilogue, ctxt)
+6730:   {}
+6731:
+6732:   /* opt_pass methods: */
+6733:   bool gate (function *) final override
+6734:     {
+6735:       return targetm.use_late_prologue_epilogue ();
+6736:     }
+6737:
+6738:   unsigned int execute (function *fn) final override
+6739:     {
+6740:       /* It's not currently possible to have both delay slots and
+6741:          late prologue/epilogue, since the latter has to run before
+6742:          the former, and the former won't honor whatever restrictions
+6743:          the latter is trying to enforce.  */
+6744:       gcc_assert (!DELAY_SLOTS);
+6745:       rest_of_handle_thread_prologue_and_epilogue (fn);
+6746:       return 0;
+6747:     }
+6748: }; // class pass_late_thread_prologue_and_epilogue
+```
+
+## gcc/function.cc:6820–6825
+
+```text
+6820:   if (!zero_regs_type)
+6821:     zero_regs_type = flag_zero_call_used_regs;
+6822:
+6823:   /* No need to zero call-used-regs when no user request is present.  */
+6824:   if (!(zero_regs_type & ENABLED))
+6825:     return 0;
+```
+
 ## gcc/stmt.cc:96–109
 
 ```text
@@ -24731,6 +24797,72 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3969:   /* Avoid infinite loop if any insn of the result matches
 3970:      the original pattern.  */
 3971:   insn_last = seq;
+```
+
+## gcc/emit-rtl.cc:1527–1537
+
+```text
+1527: max_label_num (void)
+1528: {
+1529:   return label_num;
+1530: }
+1531:
+1532: /* Return first label number used in this function (if any were used).  */
+1533:
+1534: int
+1535: get_first_label_num (void)
+1536: {
+1537:   return first_label_num;
+```
+
+## gcc/emit-rtl.cc:4238–4250
+
+```text
+4238: make_note_raw (enum insn_note subtype)
+4239: {
+4240:   /* Some notes are never created this way at all.  These notes are
+4241:      only created by patching out insns.  */
+4242:   gcc_assert (subtype != NOTE_INSN_DELETED_LABEL
+4243:               && subtype != NOTE_INSN_DELETED_DEBUG_LABEL);
+4244:
+4245:   rtx_note *note = as_a <rtx_note *> (rtx_alloc (NOTE));
+4246:   INSN_UID (note) = cur_insn_uid++;
+4247:   NOTE_KIND (note) = subtype;
+4248:   BLOCK_FOR_INSN (note) = NULL;
+4249:   memset (&NOTE_DATA (note), 0, sizeof (NOTE_DATA (note)));
+4250:   return note;
+```
+
+## gcc/emit-rtl.cc:4934–4960
+
+```text
+4934: emit_note_after (enum insn_note subtype, rtx_insn *after)
+4935: {
+4936:   rtx_note *note = make_note_raw (subtype);
+4937:   basic_block bb = BARRIER_P (after) ? NULL : BLOCK_FOR_INSN (after);
+4938:   bool on_bb_boundary_p = (bb != NULL && BB_END (bb) == after);
+4939:
+4940:   if (note_outside_basic_block_p (subtype, on_bb_boundary_p))
+4941:     add_insn_after_nobb (note, after);
+4942:   else
+4943:     add_insn_after (note, after, bb);
+4944:   return note;
+4945: }
+4946:
+4947: /* Emit a note of subtype SUBTYPE before the insn BEFORE.  */
+4948:
+4949: rtx_note *
+4950: emit_note_before (enum insn_note subtype, rtx_insn *before)
+4951: {
+4952:   rtx_note *note = make_note_raw (subtype);
+4953:   basic_block bb = BARRIER_P (before) ? NULL : BLOCK_FOR_INSN (before);
+4954:   bool on_bb_boundary_p = (bb != NULL && BB_HEAD (bb) == before);
+4955:
+4956:   if (note_outside_basic_block_p (subtype, on_bb_boundary_p))
+4957:     add_insn_before_nobb (note, before);
+4958:   else
+4959:     add_insn_before (note, before, bb);
+4960:   return note;
 ```
 
 ## gcc/ada/gcc-interface/misc.cc:402–435
@@ -26879,6 +27011,47 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 21262:   return true;
 ```
 
+## gcc/config/i386/i386.cc:215–223
+
+```text
+215: unsigned int const debugger64_register_map[FIRST_PSEUDO_REGISTER] =
+216: {
+217:   /* general regs */
+218:   0, 1, 2, 3, 4, 5, 6, 7,
+219:   /* fp regs */
+220:   33, 34, 35, 36, 37, 38, 39, 40,
+221:   /* arg, flags, fpsr, frame */
+222:   IGNORED_DWARF_REGNUM, IGNORED_DWARF_REGNUM,
+223:   IGNORED_DWARF_REGNUM, IGNORED_DWARF_REGNUM,
+```
+
+## gcc/config/i386/i386.cc:24740–24761
+
+```text
+24740: ix86_reorg (void)
+24741: {
+24742:   /* We are freeing block_for_insn in the toplev to keep compatibility
+24743:      with old MDEP_REORGS that are not CFG based.  Recompute it now.  */
+24744:   compute_bb_for_insn ();
+24745:
+24746:   if (TARGET_SEH && current_function_has_exception_handlers ())
+24747:     ix86_seh_fixup_eh_fallthru ();
+24748:
+24749:   if (optimize && optimize_function_for_speed_p (cfun))
+24750:     {
+24751:       if (TARGET_SSE2)
+24752:         ix86_split_stlf_stall_load ();
+24753:       if (TARGET_PAD_SHORT_FUNCTION)
+24754:         ix86_pad_short_function ();
+24755:       else if (TARGET_PAD_RETURNS)
+24756:         ix86_pad_returns ();
+24757: #ifdef ASM_OUTPUT_MAX_SKIP_ALIGN
+24758:       if (TARGET_FOUR_JUMP_LIMIT)
+24759:         ix86_avoid_jump_mispredicts ();
+24760: #endif
+24761:     }
+```
+
 ## gcc/config/i386/i386.h:778–801
 
 ```text
@@ -26966,6 +27139,41 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2659: #define NUM_MODES_FOR_MODE_SWITCHING                    \
 2660:   { X86_DIRFLAG_ANY, AVX_U128_ANY,                      \
 2661:     I387_CW_ANY, I387_CW_ANY, I387_CW_ANY, I387_CW_ANY  }
+```
+
+## gcc/config/i386/i386.h:2142–2171
+
+```text
+2142: #define DEBUGGER_REGNO(N) \
+2143:   (TARGET_64BIT ? debugger64_register_map[(N)] : debugger_register_map[(N)])
+2144:
+2145: extern unsigned int const debugger_register_map[FIRST_PSEUDO_REGISTER];
+2146: extern unsigned int const debugger64_register_map[FIRST_PSEUDO_REGISTER];
+2147: extern unsigned int const svr4_debugger_register_map[FIRST_PSEUDO_REGISTER];
+2148:
+2149: /* Before the prologue, RA is at 0(%esp).  */
+2150: #define INCOMING_RETURN_ADDR_RTX \
+2151:   gen_rtx_MEM (Pmode, stack_pointer_rtx)
+2152:
+2153: /* After the prologue, RA is at -4(AP) in the current frame.  */
+2154: #define RETURN_ADDR_RTX(COUNT, FRAME)                                   \
+2155:   ((COUNT) == 0                                                         \
+2156:    ? gen_rtx_MEM (Pmode, plus_constant (Pmode, arg_pointer_rtx,         \
+2157:                                         -UNITS_PER_WORD))               \
+2158:    : gen_rtx_MEM (Pmode, plus_constant (Pmode, (FRAME), UNITS_PER_WORD)))
+2159:
+2160: /* PC is dbx register 8; let's use that column for RA.  */
+2161: #define DWARF_FRAME_RETURN_COLUMN       (TARGET_64BIT ? 16 : 8)
+2162:
+2163: /* Before the prologue, there are return address and error code for
+2164:    exception handler on the top of the frame.  */
+2165: #define INCOMING_FRAME_SP_OFFSET \
+2166:   (cfun->machine->func_type == TYPE_EXCEPTION \
+2167:    ? 2 * UNITS_PER_WORD : UNITS_PER_WORD)
+2168:
+2169: /* The value of INCOMING_FRAME_SP_OFFSET the assembler assumes in
+2170:    .cfi_startproc.  */
+2171: #define DEFAULT_INCOMING_FRAME_SP_OFFSET UNITS_PER_WORD
 ```
 
 ## gcc/config/i386/i386.md:505–513
@@ -27091,6 +27299,101 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 21182:   [(const_int 0)]
 21183:   ""
 21184:   "ix86_expand_epilogue (1); DONE;")
+```
+
+## gcc/config/i386/i386.md:1195–1197
+
+```text
+1195: ;; Double word integer modes.
+1196: (define_mode_iterator DWI [(DI "!TARGET_64BIT")
+1197:                            (TI "TARGET_64BIT")])
+```
+
+## gcc/config/i386/i386.md:2201–2271
+
+```text
+2201: (define_split
+2202:   [(set (match_operand:DWI 0 "push_operand")
+2203:         (match_operand:DWI 1 "general_gr_operand"))]
+2204:   "reload_completed"
+2205:   [(const_int 0)]
+2206:   "ix86_split_long_move (operands); DONE;")
+2207:
+2208: (define_insn "*pushdi2_rex64"
+2209:   [(set (match_operand:DI 0 "push_operand" "=<,<,!<")
+2210:         (match_operand:DI 1 "general_no_elim_operand" "re*m,*v,n"))]
+2211:   "TARGET_64BIT"
+2212:   "@
+2213:    push{q}\t%1
+2214:    #
+2215:    #"
+2216:   [(set_attr "type" "push,multi,multi")
+2217:    (set_attr "mode" "DI")])
+2218:
+2219: ;; Convert impossible pushes of immediate to existing instructions.
+2220: ;; First try to get scratch register and go through it.  In case this
+2221: ;; fails, push sign extended lower part first and then overwrite
+2222: ;; upper part by 32bit move.
+2223:
+2224: (define_peephole2
+2225:   [(match_scratch:DI 2 "r")
+2226:    (set (match_operand:DI 0 "push_operand")
+2227:         (match_operand:DI 1 "immediate_operand"))]
+2228:   "TARGET_64BIT
+2229:    && !symbolic_operand (operands[1], DImode)
+2230:    && !x86_64_immediate_operand (operands[1], DImode)"
+2231:   [(set (match_dup 2) (match_dup 1))
+2232:    (set (match_dup 0) (match_dup 2))])
+2233:
+2234: (define_split
+2235:   [(set (match_operand:DI 0 "push_operand")
+2236:         (match_operand:DI 1 "immediate_operand"))]
+2237:   "TARGET_64BIT && epilogue_completed
+2238:    && !symbolic_operand (operands[1], DImode)
+2239:    && !x86_64_immediate_operand (operands[1], DImode)"
+2240:   [(set (match_dup 0) (match_dup 1))
+2241:    (set (match_dup 2) (match_dup 3))]
+2242: {
+2243:   split_double_mode (DImode, &operands[1], 1, &operands[2], &operands[3]);
+2244:
+2245:   operands[1] = gen_lowpart (DImode, operands[2]);
+2246:   operands[2] = gen_rtx_MEM (SImode,
+2247:                              plus_constant (Pmode, stack_pointer_rtx, 4));
+2248: })
+2249:
+2250: ;; For TARGET_64BIT we always round up to 8 bytes.
+2251: (define_insn "*pushsi2_rex64"
+2252:   [(set (match_operand:SI 0 "push_operand" "=X,X")
+2253:         (match_operand:SI 1 "nonmemory_no_elim_operand" "re,*v"))]
+2254:   "TARGET_64BIT"
+2255:   "@
+2256:    push{q}\t%q1
+2257:    #"
+2258:   [(set_attr "type" "push,multi")
+2259:    (set_attr "mode" "DI")])
+2260:
+2261: (define_insn "*pushsi2"
+2262:   [(set (match_operand:SI 0 "push_operand" "=<,<")
+2263:         (match_operand:SI 1 "general_no_elim_operand" "ri*m,*v"))]
+2264:   "!TARGET_64BIT"
+2265:   "@
+2266:    push{l}\t%1
+2267:    #"
+2268:   [(set_attr "type" "push,multi")
+2269:    (set_attr "mode" "SI")])
+2270:
+2271: (define_split
+```
+
+## gcc/config/i386/i386.md:2784–2789
+
+```text
+2784: (define_split
+2785:   [(set (match_operand:DWI 0 "nonimmediate_gr_operand")
+2786:         (match_operand:DWI 1 "general_gr_operand"))]
+2787:   "reload_completed"
+2788:   [(const_int 0)]
+2789:   "ix86_split_long_move (operands); DONE;")
 ```
 
 ## gcc/config/i386/i386-options.cc:2273–2286
@@ -28957,6 +29260,61 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 2129:     find_sub_basic_blocks (bb);
 ```
 
+## gcc/cfgrtl.cc:432–459
+
+```text
+432: void
+433: compute_bb_for_insn (void)
+434: {
+435:   basic_block bb;
+436:
+437:   FOR_EACH_BB_FN (bb, cfun)
+438:     {
+439:       rtx_insn *end = BB_END (bb);
+440:       rtx_insn *insn;
+441:
+442:       for (insn = BB_HEAD (bb); ; insn = NEXT_INSN (insn))
+443:         {
+444:           BLOCK_FOR_INSN (insn) = bb;
+445:           if (insn == end)
+446:             break;
+447:         }
+448:     }
+449: }
+450:
+451: /* Release the basic_block_for_insn array.  */
+452:
+453: void
+454: free_bb_for_insn (void)
+455: {
+456:   rtx_insn *insn;
+457:   for (insn = get_insns (); insn; insn = NEXT_INSN (insn))
+458:     if (!BARRIER_P (insn))
+459:       BLOCK_FOR_INSN (insn) = NULL;
+```
+
+## gcc/cfgrtl.cc:489–505
+
+```text
+489: unsigned int
+490: pass_free_cfg::execute (function *)
+491: {
+492:   /* The resource.cc machinery uses DF but the CFG isn't guaranteed to be
+493:      valid at that point so it would be too late to call df_analyze.  */
+494:   if (DELAY_SLOTS && optimize > 0 && flag_delayed_branch)
+495:     {
+496:       df_note_add_problem ();
+497:       df_analyze ();
+498:     }
+499:
+500:   if (crtl->has_bb_partition)
+501:     insert_section_boundary_note ();
+502:
+503:   free_bb_for_insn ();
+504:   return 0;
+505: }
+```
+
 ## gcc/cfgbuild.cc:73–119
 
 ```text
@@ -30013,6 +30371,23 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 3293:
 ```
 
+## gcc/cfgcleanup.cc:3317–3328
+
+```text
+3317: class pass_jump2 : public rtl_opt_pass
+3318: {
+3319: public:
+3320:   pass_jump2 (gcc::context *ctxt)
+3321:     : rtl_opt_pass (pass_data_jump2, ctxt)
+3322:   {}
+3323:
+3324:   /* opt_pass methods: */
+3325:   unsigned int execute (function *) final override
+3326:     {
+3327:       cleanup_cfg (flag_crossjumping ? CLEANUP_CROSSJUMP : 0);
+3328:       return 0;
+```
+
 ## gcc/jump.cc:70–101
 
 ```text
@@ -30048,6 +30423,54 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 99: }
 100:
 101: /* This function is like rebuild_jump_labels, but doesn't run over
+```
+
+## gcc/jump.cc:118–160
+
+```text
+118: static unsigned int
+119: cleanup_barriers (void)
+120: {
+121:   rtx_insn *insn;
+122:   for (insn = get_insns (); insn; insn = NEXT_INSN (insn))
+123:     {
+124:       if (BARRIER_P (insn))
+125:         {
+126:           rtx_insn *prev = prev_nonnote_nondebug_insn (insn);
+127:           if (!prev)
+128:             continue;
+129:
+130:           if (BARRIER_P (prev))
+131:             delete_insn (insn);
+132:           else if (prev != PREV_INSN (insn))
+133:             {
+134:               basic_block bb = BLOCK_FOR_INSN (prev);
+135:               rtx_insn *end = PREV_INSN (insn);
+136:               reorder_insns_nobb (insn, insn, prev);
+137:               if (bb)
+138:                 {
+139:                   /* If the backend called in machine reorg compute_bb_for_insn
+140:                      and didn't free_bb_for_insn again, preserve basic block
+141:                      boundaries.  Move the end of basic block to PREV since
+142:                      it is followed by a barrier now, and clear BLOCK_FOR_INSN
+143:                      on the following notes.
+144:                      ???  Maybe the proper solution for the targets that have
+145:                      cfg around after machine reorg is not to run cleanup_barriers
+146:                      pass at all.  */
+147:                   BB_END (bb) = prev;
+148:                   do
+149:                     {
+150:                       prev = NEXT_INSN (prev);
+151:                       if (prev != insn && BLOCK_FOR_INSN (prev) == bb)
+152:                         BLOCK_FOR_INSN (prev) = NULL;
+153:                     }
+154:                   while (prev != end);
+155:                 }
+156:             }
+157:         }
+158:     }
+159:   return 0;
+160: }
 ```
 
 ## gcc/target.def:2140–2155
@@ -30098,6 +30521,45 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 5872: should use LRA, and existing ports are encouraged to convert.",
 5873:  bool, (void),
 5874:  default_lra_p)
+```
+
+## gcc/target.def:4275–4284
+
+```text
+4275: DEFHOOK
+4276: (dwarf_register_span,
+4277:  "Given a register, this hook should return a parallel of registers to\n\
+4278: represent where to find the register pieces.  Define this hook if the\n\
+4279: register and its mode are represented in Dwarf in non-contiguous\n\
+4280: locations, or if the register should be represented in more than one\n\
+4281: register in Dwarf.  Otherwise, this hook should return @code{NULL_RTX}.\n\
+4282: If not defined, the default is to return @code{NULL_RTX}.",
+4283:  rtx, (rtx reg),
+4284:  hook_rtx_rtx_null)
+```
+
+## gcc/target.def:4377–4395
+
+```text
+4377: (use_late_prologue_epilogue,
+4378:  "Return true if the current function's prologue and epilogue should\n\
+4379: be emitted late in the pass pipeline, instead of at the usual point.\n\
+4380: \n\
+4381: Normally, the prologue and epilogue sequences are introduced soon after\n\
+4382: register allocation is complete.  The advantage of this approach is that\n\
+4383: it allows the prologue and epilogue instructions to be optimized and\n\
+4384: scheduled with other code in the function.  However, some targets\n\
+4385: require the prologue and epilogue to be the first and last sequences\n\
+4386: executed by the function, with no variation allowed.  This hook should\n\
+4387: return true on such targets.\n\
+4388: \n\
+4389: The default implementation returns false, which is correct for most\n\
+4390: targets.  The hook should only return true if there is a specific\n\
+4391: target limitation that cannot be described in RTL.  For example,\n\
+4392: the hook might return true if the prologue and epilogue need to switch\n\
+4393: between instruction sets.",
+4394:  bool, (),
+4395:  hook_bool_void_false)
 ```
 
 ## gcc/cfg.cc:278–294
@@ -30545,6 +31007,80 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 4571:     }
 4572:
 4573: }; // class pass_split_after_reload
+```
+
+## gcc/recog.cc:4652–4685
+
+```text
+4652: class pass_split_before_regstack : public rtl_opt_pass
+4653: {
+4654: public:
+4655:   pass_split_before_regstack (gcc::context *ctxt)
+4656:     : rtl_opt_pass (pass_data_split_before_regstack, ctxt)
+4657:   {}
+4658:
+4659:   /* opt_pass methods: */
+4660:   bool gate (function *) final override;
+4661:   unsigned int execute (function *) final override
+4662:     {
+4663:       split_all_insns ();
+4664:       return 0;
+4665:     }
+4666:
+4667: }; // class pass_split_before_regstack
+4668:
+4669: bool
+4670: pass_split_before_regstack::gate (function *)
+4671: {
+4672: #if HAVE_ATTR_length && defined (STACK_REGS)
+4673:   /* If flow2 creates new instructions which need splitting
+4674:      and scheduling after reload is not done, they might not be
+4675:      split until final which doesn't allow splitting
+4676:      if HAVE_ATTR_length.  Selective scheduling can result in
+4677:      further instructions that need splitting.  */
+4678: #ifdef INSN_SCHEDULING
+4679:   return !enable_split_before_sched2 () || flag_selective_scheduling2;
+4680: #else
+4681:   return !enable_split_before_sched2 ();
+4682: #endif
+4683: #else
+4684:   return false;
+4685: #endif
+```
+
+## gcc/recog.cc:4710–4739
+
+```text
+4710:
+4711: class pass_split_for_shorten_branches : public rtl_opt_pass
+4712: {
+4713: public:
+4714:   pass_split_for_shorten_branches (gcc::context *ctxt)
+4715:     : rtl_opt_pass (pass_data_split_for_shorten_branches, ctxt)
+4716:   {}
+4717:
+4718:   /* opt_pass methods: */
+4719:   bool gate (function *) final override
+4720:     {
+4721:       /* The placement of the splitting that we do for shorten_branches
+4722:          depends on whether regstack is used by the target or not.  */
+4723: #if HAVE_ATTR_length && !defined (STACK_REGS)
+4724:       return true;
+4725: #else
+4726:       return false;
+4727: #endif
+4728:     }
+4729:
+4730:   unsigned int execute (function *) final override
+4731:     {
+4732:       split_all_insns_noflow ();
+4733:       return 0;
+4734:     }
+4735:
+4736: }; // class pass_split_for_shorten_branches
+4737:
+4738: } // anon namespace
+4739:
 ```
 
 ## gcc/df-core.cc:684–714
@@ -34654,6 +35190,1818 @@ Excerpts expand tabs to eight columns and trim trailing whitespace.
 1797: {
 1798:   if (!use_shrink_wrapping_separate ())
 1799:     return;
+```
+
+## gcc/bb-reorder.cc:2833–2842
+
+```text
+2833: bool
+2834: pass_duplicate_computed_gotos::gate (function *fun)
+2835: {
+2836:   if (targetm.cannot_modify_jumps_p ())
+2837:     return false;
+2838:   return (optimize > 0
+2839:           && flag_expensive_optimizations
+2840:           && ! optimize_function_for_size_p (fun));
+2841: }
+2842:
+```
+
+## gcc/sched-rgn.cc:3959–3968
+
+```text
+3959: pass_sched_fusion::gate (function *)
+3960: {
+3961: #ifdef INSN_SCHEDULING
+3962:   /* Scheduling fusion relies on peephole2 to do real fusion work,
+3963:      so only enable it if peephole2 is in effect.  */
+3964:   return (optimize > 0 && flag_peephole2
+3965:     && flag_schedule_fusion && targetm.sched.fusion_priority != NULL);
+3966: #else
+3967:   return 0;
+3968: #endif
+```
+
+## gcc/regrename.cc:2036–2039
+
+```text
+2036:   bool gate (function *) final override
+2037:     {
+2038:       return (optimize > 0 && (flag_rename_registers));
+2039:     }
+```
+
+## gcc/fold-mem-offsets.cc:120–123
+
+```text
+120:   virtual bool gate (function *)
+121:     {
+122:       return flag_fold_mem_offsets && optimize >= 2;
+123:     }
+```
+
+## gcc/regcprop.cc:1361–1364
+
+```text
+1361:   bool gate (function *) final override
+1362:     {
+1363:       return (optimize > 0 && (flag_cprop_registers));
+1364:     }
+```
+
+## gcc/hooks.cc:38–42
+
+```text
+38: bool
+39: hook_bool_void_false (void)
+40: {
+41:   return false;
+42: }
+```
+
+## gcc/hooks.cc:407–411
+
+```text
+407: rtx
+408: hook_rtx_rtx_null (rtx)
+409: {
+410:   return NULL;
+411: }
+```
+
+## gcc/reg-stack.cc:3354–3369
+
+```text
+3354: reg_to_stack (void)
+3355: {
+3356:   basic_block bb;
+3357:   int i;
+3358:   int max_uid;
+3359:
+3360:   /* Clean up previous run.  */
+3361:   stack_regs_mentioned_data.release ();
+3362:
+3363:   /* See if there is something to do.  Flow analysis is quite
+3364:      expensive so we might save some compilation time.  */
+3365:   for (i = FIRST_STACK_REG; i <= LAST_STACK_REG; i++)
+3366:     if (df_regs_ever_live_p (i))
+3367:       break;
+3368:   if (i > LAST_STACK_REG)
+3369:     return false;
+```
+
+## gcc/reg-stack.cc:3471–3477
+
+```text
+3471:   bool gate (function *) final override
+3472:     {
+3473: #ifdef STACK_REGS
+3474:       return true;
+3475: #else
+3476:       return false;
+3477: #endif
+```
+
+## gcc/var-tracking.cc:10611–10614
+
+```text
+10611:   bool gate (function *) final override
+10612:     {
+10613:       return (flag_var_tracking && !targetm.delay_vartrack);
+10614:     }
+```
+
+## gcc/defaults.h:441–454
+
+```text
+441: #ifndef DWARF_FRAME_REGNUM
+442: #define DWARF_FRAME_REGNUM(REG) DEBUGGER_REGNO (REG)
+443: #endif
+444:
+445: /* The mapping from dwarf CFA reg number to internal dwarf reg numbers.  */
+446: #ifndef DWARF_REG_TO_UNWIND_COLUMN
+447: #define DWARF_REG_TO_UNWIND_COLUMN(REGNO) (REGNO)
+448: #endif
+449:
+450: /* Map register numbers held in the call frame info that gcc has
+451:    collected using DWARF_FRAME_REGNUM to those that should be output in
+452:    .debug_frame and .eh_frame.  */
+453: #ifndef DWARF2_FRAME_REG_OUT
+454: #define DWARF2_FRAME_REG_OUT(REGNO, FOR_EH) (REGNO)
+```
+
+## gcc/reorg.cc:3874–3882
+
+```text
+3874: bool
+3875: pass_delay_slots::gate (function *)
+3876: {
+3877:   /* At -O0 dataflow info isn't updated after RA.  */
+3878:   if (DELAY_SLOTS)
+3879:     return optimize > 0 && flag_delayed_branch && !crtl->dbr_scheduled_p;
+3880:
+3881:   return false;
+3882: }
+```
+
+## gcc/final.cc:613–626
+
+```text
+613: compute_alignments (void)
+614: {
+615:   basic_block bb;
+616:   align_flags max_alignment;
+617:
+618:   label_align.truncate (0);
+619:
+620:   max_labelno = max_label_num ();
+621:   min_labelno = get_first_label_num ();
+622:   label_align.safe_grow_cleared (max_labelno - min_labelno + 1, true);
+623:
+624:   /* If not optimizing or optimizing for size, don't assign any alignments.  */
+625:   if (! optimize || optimize_function_for_size_p (cfun))
+626:     return;
+```
+
+## gcc/final.cc:825–925
+
+```text
+825: shorten_branches (rtx_insn *first)
+826: {
+827:   rtx_insn *insn;
+828:   int max_uid;
+829:   int i;
+830:   rtx_insn *seq;
+831:   bool something_changed = true;
+832:   char *varying_length;
+833:   rtx body;
+834:   int uid;
+835:   rtx align_tab[MAX_CODE_ALIGN + 1];
+836:
+837:   /* Compute maximum UID and allocate label_align / uid_shuid.  */
+838:   max_uid = get_max_uid ();
+839:
+840:   /* Free uid_shuid before reallocating it.  */
+841:   free (uid_shuid);
+842:
+843:   uid_shuid = XNEWVEC (int, max_uid);
+844:
+845:   if (max_labelno != max_label_num ())
+846:     grow_label_align ();
+847:
+848:   /* Initialize label_align and set up uid_shuid to be strictly
+849:      monotonically rising with insn order.  */
+850:   /* We use alignment here to keep track of the maximum alignment we want to
+851:      impose on the next CODE_LABEL (or the current one if we are processing
+852:      the CODE_LABEL itself).  */
+853:
+854:   align_flags max_alignment;
+855:
+856:   for (insn = get_insns (), i = 1; insn; insn = NEXT_INSN (insn))
+857:     {
+858:       INSN_SHUID (insn) = i++;
+859:       if (INSN_P (insn))
+860:         continue;
+861:
+862:       if (rtx_code_label *label = dyn_cast <rtx_code_label *> (insn))
+863:         {
+864:           /* Merge in alignments computed by compute_alignments.  */
+865:           align_flags alignment = LABEL_TO_ALIGNMENT (label);
+866:           max_alignment = align_flags::max (max_alignment, alignment);
+867:
+868:           rtx_jump_table_data *table = jump_table_for_label (label);
+869:           if (!table)
+870:             {
+871:               align_flags alignment = LABEL_ALIGN (label);
+872:               max_alignment = align_flags::max (max_alignment, alignment);
+873:             }
+874:           /* ADDR_VECs only take room if read-only data goes into the text
+875:              section.  */
+876:           if ((JUMP_TABLES_IN_TEXT_SECTION
+877:                || readonly_data_section == text_section)
+878:               && table)
+879:             {
+880:               align_flags alignment = align_flags (ADDR_VEC_ALIGN (table));
+881:               max_alignment = align_flags::max (max_alignment, alignment);
+882:             }
+883:           LABEL_TO_ALIGNMENT (label) = max_alignment;
+884:           max_alignment = align_flags ();
+885:         }
+886:       else if (BARRIER_P (insn))
+887:         {
+888:           rtx_insn *label;
+889:
+890:           for (label = insn; label && ! INSN_P (label);
+891:                label = NEXT_INSN (label))
+892:             if (LABEL_P (label))
+893:               {
+894:                 align_flags alignment
+895:                   = align_flags (LABEL_ALIGN_AFTER_BARRIER (insn));
+896:                 max_alignment = align_flags::max (max_alignment, alignment);
+897:                 break;
+898:               }
+899:         }
+900:     }
+901:   if (!HAVE_ATTR_length)
+902:     return;
+903:
+904:   /* Allocate the rest of the arrays.  */
+905:   insn_lengths = XNEWVEC (int, max_uid);
+906:   insn_lengths_max_uid = max_uid;
+907:   /* Syntax errors can lead to labels being outside of the main insn stream.
+908:      Initialize insn_addresses, so that we get reproducible results.  */
+909:   INSN_ADDRESSES_ALLOC (max_uid);
+910:
+911:   varying_length = XCNEWVEC (char, max_uid);
+912:
+913:   /* Initialize uid_align.  We scan instructions
+914:      from end to start, and keep in align_tab[n] the last seen insn
+915:      that does an alignment of at least n+1, i.e. the successor
+916:      in the alignment chain for an insn that does / has a known
+917:      alignment of n.  */
+918:   uid_align = XCNEWVEC (rtx, max_uid);
+919:
+920:   for (i = MAX_CODE_ALIGN + 1; --i >= 0;)
+921:     align_tab[i] = NULL_RTX;
+922:   seq = get_last_insn ();
+923:   for (; seq; seq = PREV_INSN (seq))
+924:     {
+925:       int uid = INSN_UID (seq);
+```
+
+## gcc/final.cc:1365–1376
+
+```text
+1365:             {
+1366:               insn_lengths[uid] = new_length;
+1367:               something_changed = true;
+1368:             }
+1369:           else
+1370:             insn_current_address += insn_lengths[uid] - new_length;
+1371:         }
+1372:       /* For a non-optimizing compile, do only a single pass.  */
+1373:       if (!increasing)
+1374:         break;
+1375:     }
+1376:   crtl->max_insn_address = insn_current_address;
+```
+
+## gcc/final.cc:1963–1979
+
+```text
+1963:   /* Output the insns.  */
+1964:   for (insn = first; insn;)
+1965:     {
+1966:       if (HAVE_ATTR_length)
+1967:         {
+1968:           if ((unsigned) INSN_UID (insn) >= INSN_ADDRESSES_SIZE ())
+1969:             {
+1970:               /* This can be triggered by bugs elsewhere in the compiler if
+1971:                  new insns are created after init_insn_lengths is called.  */
+1972:               gcc_assert (NOTE_P (insn));
+1973:               insn_current_address = -1;
+1974:             }
+1975:           else
+1976:             insn_current_address = INSN_ADDRESSES (INSN_UID (insn));
+1977:           /* final can be seen as an iteration of shorten_branches that
+1978:              does nothing (since a fixed point has already been reached).  */
+1979:           insn_last_address = insn_current_address;
+```
+
+## gcc/final.cc:2275–2282
+
+```text
+2275:         case NOTE_INSN_CFI:
+2276:           dwarf2out_emit_cfi (NOTE_CFI (insn));
+2277:           break;
+2278:
+2279:         case NOTE_INSN_CFI_LABEL:
+2280:           ASM_OUTPUT_DEBUG_LABEL (asm_out_file, "LCFI",
+2281:                                   NOTE_LABEL_NUMBER (insn));
+2282:           break;
+```
+
+## gcc/insn-addr.h:27–61
+
+```text
+27: #define INSN_ADDRESSES_ALLOC(size)                      \
+28:   do                                                    \
+29:     {                                                   \
+30:       insn_addresses_.create (size);                    \
+31:       insn_addresses_.safe_grow_cleared (size, true);   \
+32:       memset (insn_addresses_.address (),               \
+33:               0, sizeof (int) * size);                  \
+34:     }                                                   \
+35:   while (0)
+36: #define INSN_ADDRESSES_FREE() (insn_addresses_.release ())
+37: #define INSN_ADDRESSES_SET_P() (insn_addresses_.exists ())
+38: #define INSN_ADDRESSES_SIZE() (insn_addresses_.length ())
+39:
+40: inline void
+41: insn_addresses_new (rtx_insn *insn, int insn_addr)
+42: {
+43:   unsigned insn_uid = INSN_UID ((insn));
+44:
+45:   if (INSN_ADDRESSES_SET_P ())
+46:     {
+47:       size_t size = INSN_ADDRESSES_SIZE ();
+48:       if (size <= insn_uid)
+49:         {
+50:           int *p;
+51:           insn_addresses_.safe_grow (insn_uid + 1, true);
+52:           p = insn_addresses_.address ();
+53:           memset (&p[size],
+54:                   0, sizeof (int) * (insn_uid + 1 - size));
+55:         }
+56:       INSN_ADDRESSES (insn_uid) = insn_addr;
+57:     }
+58: }
+59:
+60: #define INSN_ADDRESSES_NEW(insn, addr)          \
+61:   (insn_addresses_new (insn, addr))
+```
+
+## gcc/dwarf2cfi.cc:384–402
+
+```text
+384: save_point_p (rtx_insn *insn)
+385: {
+386:   /* Labels, except those that are really jump tables.  */
+387:   if (LABEL_P (insn))
+388:     return inside_basic_block_p (insn);
+389:
+390:   /* We split traces at the prologue/epilogue notes because those
+391:      are points at which the unwind info is usually stable.  This
+392:      makes it easier to find spots with identical unwind info so
+393:      that we can use remember/restore_state opcodes.  */
+394:   if (NOTE_P (insn))
+395:     switch (NOTE_KIND (insn))
+396:       {
+397:       case NOTE_INSN_PROLOGUE_END:
+398:       case NOTE_INSN_EPILOGUE_BEG:
+399:         return true;
+400:       }
+401:
+402:   return false;
+```
+
+## gcc/dwarf2cfi.cc:424–459
+
+```text
+424: /* Return a pointer to a newly allocated Call Frame Instruction.  */
+425:
+426: static inline dw_cfi_ref
+427: new_cfi (void)
+428: {
+429:   dw_cfi_ref cfi = ggc_alloc<dw_cfi_node> ();
+430:
+431:   cfi->dw_cfi_oprnd1.dw_cfi_reg_num = 0;
+432:   cfi->dw_cfi_oprnd2.dw_cfi_reg_num = 0;
+433:
+434:   return cfi;
+435: }
+436:
+437: /* Return a newly allocated CFI row, with no defined data.  */
+438:
+439: static dw_cfi_row *
+440: new_cfi_row (void)
+441: {
+442:   dw_cfi_row *row = ggc_cleared_alloc<dw_cfi_row> ();
+443:
+444:   row->cfa.reg.set_by_dwreg (INVALID_REGNUM);
+445:
+446:   return row;
+447: }
+448:
+449: /* Return a copy of an existing CFI row.  */
+450:
+451: static dw_cfi_row *
+452: copy_cfi_row (dw_cfi_row *src)
+453: {
+454:   dw_cfi_row *dst = ggc_alloc<dw_cfi_row> ();
+455:
+456:   *dst = *src;
+457:   dst->reg_save = vec_safe_copy (src->reg_save);
+458:
+459:   return dst;
+```
+
+## gcc/dwarf2cfi.cc:475–500
+
+```text
+475: dwarf2out_cfi_label (void)
+476: {
+477:   int num = dwarf2out_cfi_label_num++;
+478:   char label[20];
+479:
+480:   ASM_GENERATE_INTERNAL_LABEL (label, "LCFI", num);
+481:
+482:   return xstrdup (label);
+483: }
+484:
+485: /* Add CFI either to the current insn stream or to a vector, or both.  */
+486:
+487: static void
+488: add_cfi (dw_cfi_ref cfi)
+489: {
+490:   any_cfis_emitted = true;
+491:
+492:   if (add_cfi_insn != NULL)
+493:     {
+494:       add_cfi_insn = emit_note_after (NOTE_INSN_CFI, add_cfi_insn);
+495:       NOTE_CFI (add_cfi_insn) = cfi;
+496:     }
+497:
+498:   if (add_cfi_vec != NULL)
+499:     vec_safe_push (*add_cfi_vec, cfi);
+500: }
+```
+
+## gcc/dwarf2cfi.cc:535–540
+
+```text
+535: update_row_reg_save (dw_cfi_row *row, unsigned column, dw_cfi_ref cfi)
+536: {
+537:   if (vec_safe_length (row->reg_save) <= column)
+538:     vec_safe_grow_cleared (row->reg_save, column + 1, true);
+539:   (*row->reg_save)[column] = cfi;
+540: }
+```
+
+## gcc/dwarf2cfi.cc:880–1044
+
+```text
+880: def_cfa_0 (dw_cfa_location *old_cfa, dw_cfa_location *new_cfa)
+881: {
+882:   dw_cfi_ref cfi;
+883:
+884:   /* If nothing changed, no need to issue any call frame instructions.  */
+885:   if (cfa_equal_p (old_cfa, new_cfa))
+886:     return NULL;
+887:
+888:   cfi = new_cfi ();
+889:
+890:   HOST_WIDE_INT const_offset;
+891:   if (new_cfa->reg == old_cfa->reg
+892:       && new_cfa->reg.span == 1
+893:       && !new_cfa->indirect
+894:       && !old_cfa->indirect
+895:       && new_cfa->offset.is_constant (&const_offset))
+896:     {
+897:       /* Construct a "DW_CFA_def_cfa_offset <offset>" instruction, indicating
+898:          the CFA register did not change but the offset did.  The data
+899:          factoring for DW_CFA_def_cfa_offset_sf happens in output_cfi, or
+900:          in the assembler via the .cfi_def_cfa_offset directive.  */
+901:       if (const_offset < 0)
+902:         cfi->dw_cfi_opc = DW_CFA_def_cfa_offset_sf;
+903:       else
+904:         cfi->dw_cfi_opc = DW_CFA_def_cfa_offset;
+905:       cfi->dw_cfi_oprnd1.dw_cfi_offset = const_offset;
+906:     }
+907:   else if (new_cfa->offset.is_constant ()
+908:            && known_eq (new_cfa->offset, old_cfa->offset)
+909:            && old_cfa->reg.reg != INVALID_REGNUM
+910:            && new_cfa->reg.span == 1
+911:            && !new_cfa->indirect
+912:            && !old_cfa->indirect)
+913:     {
+914:       /* Construct a "DW_CFA_def_cfa_register <register>" instruction,
+915:          indicating the CFA register has changed to <register> but the
+916:          offset has not changed.  This requires the old CFA to have
+917:          been set as a register plus offset rather than a general
+918:          DW_CFA_def_cfa_expression.  */
+919:       cfi->dw_cfi_opc = DW_CFA_def_cfa_register;
+920:       cfi->dw_cfi_oprnd1.dw_cfi_reg_num = new_cfa->reg.reg;
+921:     }
+922:   else if (new_cfa->indirect == 0
+923:            && new_cfa->offset.is_constant (&const_offset)
+924:            && new_cfa->reg.span == 1)
+925:     {
+926:       /* Construct a "DW_CFA_def_cfa <register> <offset>" instruction,
+927:          indicating the CFA register has changed to <register> with
+928:          the specified offset.  The data factoring for DW_CFA_def_cfa_sf
+929:          happens in output_cfi, or in the assembler via the .cfi_def_cfa
+930:          directive.  */
+931:       if (const_offset < 0)
+932:         cfi->dw_cfi_opc = DW_CFA_def_cfa_sf;
+933:       else
+934:         cfi->dw_cfi_opc = DW_CFA_def_cfa;
+935:       cfi->dw_cfi_oprnd1.dw_cfi_reg_num = new_cfa->reg.reg;
+936:       cfi->dw_cfi_oprnd2.dw_cfi_offset = const_offset;
+937:     }
+938:   else
+939:     {
+940:       /* Construct a DW_CFA_def_cfa_expression instruction to
+941:          calculate the CFA using a full location expression since no
+942:          register-offset pair is available.  */
+943:       struct dw_loc_descr_node *loc_list;
+944:
+945:       cfi->dw_cfi_opc = DW_CFA_def_cfa_expression;
+946:       loc_list = build_cfa_loc (new_cfa, 0);
+947:       cfi->dw_cfi_oprnd1.dw_cfi_loc = loc_list;
+948:       if (!new_cfa->offset.is_constant ()
+949:           || !new_cfa->base_offset.is_constant ())
+950:         /* It's hard to reconstruct the CFA location for a polynomial
+951:            expression, so just cache it instead.  */
+952:         cfi->dw_cfi_oprnd2.dw_cfi_cfa_loc = copy_cfa (new_cfa);
+953:       else
+954:         cfi->dw_cfi_oprnd2.dw_cfi_cfa_loc = NULL;
+955:     }
+956:
+957:   return cfi;
+958: }
+959:
+960: /* Similarly, but take OLD_CFA from CUR_ROW, and update it after the fact.  */
+961:
+962: static void
+963: def_cfa_1 (dw_cfa_location *new_cfa)
+964: {
+965:   dw_cfi_ref cfi;
+966:
+967:   if (cur_trace->cfa_store.reg == new_cfa->reg && new_cfa->indirect == 0)
+968:     cur_trace->cfa_store.offset = new_cfa->offset;
+969:
+970:   cfi = def_cfa_0 (&cur_row->cfa, new_cfa);
+971:   if (cfi)
+972:     {
+973:       cur_row->cfa = *new_cfa;
+974:       cur_row->cfa_cfi = (cfi->dw_cfi_opc == DW_CFA_def_cfa_expression
+975:                           ? cfi : NULL);
+976:
+977:       add_cfi (cfi);
+978:     }
+979: }
+980:
+981: /* Add the CFI for saving a register.  REG is the CFA column number.
+982:    If SREG is INVALID_REGISTER, the register is saved at OFFSET from the CFA;
+983:    otherwise it is saved in SREG.  */
+984:
+985: static void
+986: reg_save (unsigned int reg, struct cfa_reg sreg, poly_int64 offset)
+987: {
+988:   dw_fde_ref fde = cfun ? cfun->fde : NULL;
+989:   dw_cfi_ref cfi = new_cfi ();
+990:
+991:   cfi->dw_cfi_oprnd1.dw_cfi_reg_num = reg;
+992:
+993:   if (sreg.reg == INVALID_REGNUM)
+994:     {
+995:       HOST_WIDE_INT const_offset;
+996:       /* When stack is aligned, store REG using DW_CFA_expression with FP.  */
+997:       if (fde && fde->stack_realign)
+998:         {
+999:           cfi->dw_cfi_opc = DW_CFA_expression;
+1000:           cfi->dw_cfi_oprnd1.dw_cfi_reg_num = reg;
+1001:           cfi->dw_cfi_oprnd2.dw_cfi_loc
+1002:             = build_cfa_aligned_loc (&cur_row->cfa, offset,
+1003:                                      fde->stack_realignment);
+1004:         }
+1005:       else if (offset.is_constant (&const_offset))
+1006:         {
+1007:           if (need_data_align_sf_opcode (const_offset))
+1008:             cfi->dw_cfi_opc = DW_CFA_offset_extended_sf;
+1009:           else if (reg & ~0x3f)
+1010:             cfi->dw_cfi_opc = DW_CFA_offset_extended;
+1011:           else
+1012:             cfi->dw_cfi_opc = DW_CFA_offset;
+1013:           cfi->dw_cfi_oprnd2.dw_cfi_offset = const_offset;
+1014:         }
+1015:       else
+1016:         {
+1017:           cfi->dw_cfi_opc = DW_CFA_expression;
+1018:           cfi->dw_cfi_oprnd1.dw_cfi_reg_num = reg;
+1019:           cfi->dw_cfi_oprnd2.dw_cfi_loc
+1020:             = build_cfa_loc (&cur_row->cfa, offset);
+1021:         }
+1022:     }
+1023:   else if (sreg.reg == reg)
+1024:     {
+1025:       /* While we could emit something like DW_CFA_same_value or
+1026:          DW_CFA_restore, we never expect to see something like that
+1027:          in a prologue.  This is more likely to be a bug.  A backend
+1028:          can always bypass this by using REG_CFA_RESTORE directly.  */
+1029:       gcc_unreachable ();
+1030:     }
+1031:   else if (sreg.span > 1)
+1032:     {
+1033:       cfi->dw_cfi_opc = DW_CFA_expression;
+1034:       cfi->dw_cfi_oprnd1.dw_cfi_reg_num = reg;
+1035:       cfi->dw_cfi_oprnd2.dw_cfi_loc = build_span_loc (sreg);
+1036:     }
+1037:   else
+1038:     {
+1039:       cfi->dw_cfi_opc = DW_CFA_register;
+1040:       cfi->dw_cfi_oprnd2.dw_cfi_reg_num = sreg.reg;
+1041:     }
+1042:
+1043:   add_cfi (cfi);
+1044:   update_row_reg_save (cur_row, reg, cfi);
+```
+
+## gcc/dwarf2cfi.cc:1219–1263
+
+```text
+1219: queue_reg_save (rtx reg, rtx sreg, poly_int64 offset)
+1220: {
+1221:   queued_reg_save *q;
+1222:   queued_reg_save e = {reg, sreg, offset};
+1223:   size_t i;
+1224:
+1225:   /* Duplicates waste space, but it's also necessary to remove them
+1226:      for correctness, since the queue gets output in reverse order.  */
+1227:   FOR_EACH_VEC_ELT (queued_reg_saves, i, q)
+1228:     if (compare_reg_or_pc (q->reg, reg))
+1229:       {
+1230:         *q = e;
+1231:         return;
+1232:       }
+1233:
+1234:   queued_reg_saves.safe_push (e);
+1235: }
+1236:
+1237: /* Output all the entries in QUEUED_REG_SAVES.  */
+1238:
+1239: static void
+1240: dwarf2out_flush_queued_reg_saves (void)
+1241: {
+1242:   queued_reg_save *q;
+1243:   size_t i;
+1244:
+1245:   FOR_EACH_VEC_ELT (queued_reg_saves, i, q)
+1246:     {
+1247:       unsigned int reg;
+1248:       struct cfa_reg sreg;
+1249:
+1250:       record_reg_saved_in_reg (q->saved_reg, q->reg);
+1251:
+1252:       if (q->reg == pc_rtx)
+1253:         reg = DWARF_FRAME_RETURN_COLUMN;
+1254:       else
+1255:         reg = dwf_regno (q->reg);
+1256:       if (q->saved_reg)
+1257:         sreg = dwf_cfa_reg (q->saved_reg);
+1258:       else
+1259:         sreg.set_by_dwreg (INVALID_REGNUM);
+1260:       reg_save (reg, sreg, q->cfa_offset);
+1261:     }
+1262:
+1263:   queued_reg_saves.truncate (0);
+```
+
+## gcc/dwarf2cfi.cc:1318–1331
+
+```text
+1318: dwarf2out_frame_debug_def_cfa (rtx pat)
+1319: {
+1320:   memset (cur_cfa, 0, sizeof (*cur_cfa));
+1321:
+1322:   pat = strip_offset (pat, &cur_cfa->offset);
+1323:   if (MEM_P (pat))
+1324:     {
+1325:       cur_cfa->indirect = 1;
+1326:       pat = strip_offset (XEXP (pat, 0), &cur_cfa->base_offset);
+1327:     }
+1328:   /* ??? If this fails, we could be calling into the _loc functions to
+1329:      define a full expression.  So far no port does that.  */
+1330:   gcc_assert (REG_P (pat));
+1331:   cur_cfa->reg = dwf_cfa_reg (pat);
+```
+
+## gcc/dwarf2cfi.cc:1513–1541
+
+```text
+1513: dwarf2out_frame_debug_cfa_restore (rtx reg, bool emit_cfi)
+1514: {
+1515:   gcc_assert (REG_P (reg));
+1516:
+1517:   rtx span = targetm.dwarf_register_span (reg);
+1518:   if (!span)
+1519:     {
+1520:       unsigned int regno = dwf_regno (reg);
+1521:       if (emit_cfi)
+1522:         add_cfi_restore (regno);
+1523:       update_row_reg_save (cur_row, regno, NULL);
+1524:     }
+1525:   else
+1526:     {
+1527:       /* We have a PARALLEL describing where the contents of REG live.
+1528:          Restore the register for each piece of the PARALLEL.  */
+1529:       gcc_assert (GET_CODE (span) == PARALLEL);
+1530:
+1531:       const int par_len = XVECLEN (span, 0);
+1532:       for (int par_index = 0; par_index < par_len; par_index++)
+1533:         {
+1534:           reg = XVECEXP (span, 0, par_index);
+1535:           gcc_assert (REG_P (reg));
+1536:           unsigned int regno = dwf_regno (reg);
+1537:           if (emit_cfi)
+1538:             add_cfi_restore (regno);
+1539:           update_row_reg_save (cur_row, regno, NULL);
+1540:         }
+1541:     }
+```
+
+## gcc/dwarf2cfi.cc:1830–1878
+
+```text
+1830:     case REG:
+1831:       switch (GET_CODE (src))
+1832:         {
+1833:           /* Setting FP from SP.  */
+1834:         case REG:
+1835:           if (cur_cfa->reg == src)
+1836:             {
+1837:               /* Rule 1 */
+1838:               /* Update the CFA rule wrt SP or FP.  Make sure src is
+1839:                  relative to the current CFA register.
+1840:
+1841:                  We used to require that dest be either SP or FP, but the
+1842:                  ARM copies SP to a temporary register, and from there to
+1843:                  FP.  So we just rely on the backends to only set
+1844:                  RTX_FRAME_RELATED_P on appropriate insns.  */
+1845:               cur_cfa->reg = dwf_cfa_reg (dest);
+1846:               cur_trace->cfa_temp.reg = cur_cfa->reg;
+1847:               cur_trace->cfa_temp.offset = cur_cfa->offset;
+1848:             }
+1849:           else
+1850:             {
+1851:               /* Saving a register in a register.  */
+1852:               gcc_assert (!fixed_regs [REGNO (dest)]
+1853:                           /* For the SPARC and its register window.  */
+1854:                           || (dwf_regno (src) == DWARF_FRAME_RETURN_COLUMN));
+1855:
+1856:               /* After stack is aligned, we can only save SP in FP
+1857:                  if drap register is used.  In this case, we have
+1858:                  to restore stack pointer with the CFA value and we
+1859:                  don't generate this DWARF information.  */
+1860:               if (fde
+1861:                   && fde->stack_realign
+1862:                   && REGNO (src) == STACK_POINTER_REGNUM)
+1863:                 {
+1864:                   gcc_assert (REGNO (dest) == HARD_FRAME_POINTER_REGNUM
+1865:                               && fde->drap_reg != INVALID_REGNUM
+1866:                               && cur_cfa->reg != src
+1867:                               && fde->rule18);
+1868:                   fde->rule18 = 0;
+1869:                   /* The save of hard frame pointer has been deferred
+1870:                      until this point when Rule 18 applied.  Emit it now.  */
+1871:                   queue_reg_save (dest, NULL_RTX, 0);
+1872:                   /* And as the instruction modifies the hard frame pointer,
+1873:                      flush the queue as well.  */
+1874:                   dwarf2out_flush_queued_reg_saves ();
+1875:                 }
+1876:               else
+1877:                 queue_reg_save (src, dest, 0);
+1878:             }
+```
+
+## gcc/dwarf2cfi.cc:2063–2097
+
+```text
+2063:           /* Rule 11 */
+2064:         case PRE_INC:
+2065:         case PRE_DEC:
+2066:         case POST_DEC:
+2067:           offset = GET_MODE_SIZE (GET_MODE (dest));
+2068:           if (GET_CODE (XEXP (dest, 0)) == PRE_INC)
+2069:             offset = -offset;
+2070:
+2071:           gcc_assert ((REGNO (XEXP (XEXP (dest, 0), 0))
+2072:                        == STACK_POINTER_REGNUM)
+2073:                       && cur_trace->cfa_store.reg == dw_stack_pointer_regnum);
+2074:
+2075:           cur_trace->cfa_store.offset += offset;
+2076:
+2077:           /* Rule 18: If stack is aligned, we will use FP as a
+2078:              reference to represent the address of the stored
+2079:              regiser.  */
+2080:           if (fde
+2081:               && fde->stack_realign
+2082:               && REG_P (src)
+2083:               && REGNO (src) == HARD_FRAME_POINTER_REGNUM)
+2084:             {
+2085:               gcc_assert (cur_cfa->reg != dw_frame_pointer_regnum);
+2086:               cur_trace->cfa_store.offset = 0;
+2087:               fde->rule18 = 1;
+2088:             }
+2089:
+2090:           if (cur_cfa->reg == dw_stack_pointer_regnum)
+2091:             cur_cfa->offset = cur_trace->cfa_store.offset;
+2092:
+2093:           if (GET_CODE (XEXP (dest, 0)) == POST_DEC)
+2094:             offset += -cur_trace->cfa_store.offset;
+2095:           else
+2096:             offset = -cur_trace->cfa_store.offset;
+2097:           break;
+```
+
+## gcc/dwarf2cfi.cc:2215–2230
+
+```text
+2215:       if (REG_P (src))
+2216:         span = targetm.dwarf_register_span (src);
+2217:       else
+2218:         span = NULL;
+2219:
+2220:       if (!span)
+2221:         {
+2222:           if (fde->rule18)
+2223:             /* Just verify the hard frame pointer save when doing dynamic
+2224:                realignment uses expected offset.  The actual queue_reg_save
+2225:                needs to be deferred until the instruction that sets
+2226:                hard frame pointer to stack pointer, see PR99334 for
+2227:                details.  */
+2228:             gcc_assert (known_eq (offset, 0));
+2229:           else
+2230:             queue_reg_save (src, NULL_RTX, offset);
+```
+
+## gcc/dwarf2cfi.cc:2260–2447
+
+```text
+2260: dwarf2out_frame_debug (rtx_insn *insn)
+2261: {
+2262:   rtx note, n, pat;
+2263:   bool handled_one = false;
+2264:
+2265:   for (note = REG_NOTES (insn); note; note = XEXP (note, 1))
+2266:     switch (REG_NOTE_KIND (note))
+2267:       {
+2268:       case REG_FRAME_RELATED_EXPR:
+2269:         pat = XEXP (note, 0);
+2270:         goto do_frame_expr;
+2271:
+2272:       case REG_CFA_DEF_CFA:
+2273:         dwarf2out_frame_debug_def_cfa (XEXP (note, 0));
+2274:         handled_one = true;
+2275:         break;
+2276:
+2277:       case REG_CFA_ADJUST_CFA:
+2278:         n = XEXP (note, 0);
+2279:         if (n == NULL)
+2280:           {
+2281:             n = PATTERN (insn);
+2282:             if (GET_CODE (n) == PARALLEL)
+2283:               n = XVECEXP (n, 0, 0);
+2284:           }
+2285:         dwarf2out_frame_debug_adjust_cfa (n);
+2286:         handled_one = true;
+2287:         break;
+2288:
+2289:       case REG_CFA_OFFSET:
+2290:         n = XEXP (note, 0);
+2291:         if (n == NULL)
+2292:           n = single_set (insn);
+2293:         dwarf2out_frame_debug_cfa_offset (n);
+2294:         handled_one = true;
+2295:         break;
+2296:
+2297:       case REG_CFA_REGISTER:
+2298:         n = XEXP (note, 0);
+2299:         if (n == NULL)
+2300:           {
+2301:             n = PATTERN (insn);
+2302:             if (GET_CODE (n) == PARALLEL)
+2303:               n = XVECEXP (n, 0, 0);
+2304:           }
+2305:         dwarf2out_frame_debug_cfa_register (n);
+2306:         handled_one = true;
+2307:         break;
+2308:
+2309:       case REG_CFA_EXPRESSION:
+2310:       case REG_CFA_VAL_EXPRESSION:
+2311:         n = XEXP (note, 0);
+2312:         if (n == NULL)
+2313:           n = single_set (insn);
+2314:
+2315:         if (REG_NOTE_KIND (note) == REG_CFA_EXPRESSION)
+2316:           dwarf2out_frame_debug_cfa_expression (n);
+2317:         else
+2318:           dwarf2out_frame_debug_cfa_val_expression (n);
+2319:
+2320:         handled_one = true;
+2321:         break;
+2322:
+2323:       case REG_CFA_RESTORE:
+2324:       case REG_CFA_NO_RESTORE:
+2325:         n = XEXP (note, 0);
+2326:         if (n == NULL)
+2327:           {
+2328:             n = PATTERN (insn);
+2329:             if (GET_CODE (n) == PARALLEL)
+2330:               n = XVECEXP (n, 0, 0);
+2331:             n = XEXP (n, 0);
+2332:           }
+2333:         dwarf2out_frame_debug_cfa_restore (n, REG_NOTE_KIND (note) == REG_CFA_RESTORE);
+2334:         handled_one = true;
+2335:         break;
+2336:
+2337:       case REG_CFA_SET_VDRAP:
+2338:         n = XEXP (note, 0);
+2339:         if (REG_P (n))
+2340:           {
+2341:             dw_fde_ref fde = cfun->fde;
+2342:             if (fde)
+2343:               {
+2344:                 gcc_assert (fde->vdrap_reg == INVALID_REGNUM);
+2345:                 if (REG_P (n))
+2346:                   fde->vdrap_reg = dwf_regno (n);
+2347:               }
+2348:           }
+2349:         handled_one = true;
+2350:         break;
+2351:
+2352:       case REG_CFA_NEGATE_RA_STATE:
+2353:         dwarf2out_frame_debug_cfa_negate_ra_state ();
+2354:         handled_one = true;
+2355:         break;
+2356:
+2357:       case REG_CFA_WINDOW_SAVE:
+2358:         dwarf2out_frame_debug_cfa_window_save ();
+2359:         handled_one = true;
+2360:         break;
+2361:
+2362:       case REG_CFA_FLUSH_QUEUE:
+2363:         /* The actual flush happens elsewhere.  */
+2364:         handled_one = true;
+2365:         break;
+2366:
+2367:       default:
+2368:         break;
+2369:       }
+2370:
+2371:   if (!handled_one)
+2372:     {
+2373:       pat = PATTERN (insn);
+2374:     do_frame_expr:
+2375:       dwarf2out_frame_debug_expr (pat);
+2376:
+2377:       /* Check again.  A parallel can save and update the same register.
+2378:          We could probably check just once, here, but this is safer than
+2379:          removing the check at the start of the function.  */
+2380:       if (clobbers_queued_reg_save (pat))
+2381:         dwarf2out_flush_queued_reg_saves ();
+2382:     }
+2383: }
+2384:
+2385: /* Emit CFI info to change the state from OLD_ROW to NEW_ROW.  */
+2386:
+2387: static void
+2388: change_cfi_row (dw_cfi_row *old_row, dw_cfi_row *new_row)
+2389: {
+2390:   size_t i, n_old, n_new, n_max;
+2391:   dw_cfi_ref cfi;
+2392:
+2393:   if (new_row->cfa_cfi && !cfi_equal_p (old_row->cfa_cfi, new_row->cfa_cfi))
+2394:     add_cfi (new_row->cfa_cfi);
+2395:   else
+2396:     {
+2397:       cfi = def_cfa_0 (&old_row->cfa, &new_row->cfa);
+2398:       if (cfi)
+2399:         add_cfi (cfi);
+2400:     }
+2401:
+2402:   n_old = vec_safe_length (old_row->reg_save);
+2403:   n_new = vec_safe_length (new_row->reg_save);
+2404:   n_max = MAX (n_old, n_new);
+2405:
+2406:   for (i = 0; i < n_max; ++i)
+2407:     {
+2408:       dw_cfi_ref r_old = NULL, r_new = NULL;
+2409:
+2410:       if (i < n_old)
+2411:         r_old = (*old_row->reg_save)[i];
+2412:       if (i < n_new)
+2413:         r_new = (*new_row->reg_save)[i];
+2414:
+2415:       if (r_old == r_new)
+2416:         ;
+2417:       else if (r_new == NULL)
+2418:         add_cfi_restore (i);
+2419:       else if (!cfi_equal_p (r_old, r_new))
+2420:         add_cfi (r_new);
+2421:     }
+2422:
+2423:   if (!old_row->window_save && new_row->window_save)
+2424:     {
+2425:       dw_cfi_ref cfi = new_cfi ();
+2426:
+2427:       gcc_assert (!old_row->ra_state && !new_row->ra_state);
+2428:       cfi->dw_cfi_opc = DW_CFA_GNU_window_save;
+2429:       add_cfi (cfi);
+2430:     }
+2431:
+2432:   if (old_row->ra_state != new_row->ra_state)
+2433:     {
+2434:       dw_cfi_ref cfi = new_cfi ();
+2435:
+2436:       gcc_assert (!old_row->window_save && !new_row->window_save);
+2437:       cfi->dw_cfi_opc = DW_CFA_AARCH64_negate_ra_state;
+2438:       add_cfi (cfi);
+2439:     }
+2440: }
+2441:
+2442: /* Examine CFI and return true if a cfi label and set_loc is needed
+2443:    beforehand.  Even when generating CFI assembler instructions, we
+2444:    still have to add the cfi to the list so that lookup_cfa_1 works
+2445:    later on.  When -g2 and above we even need to force emitting of
+2446:    CFI labels and add to list a DW_CFA_set_loc for convert_cfa_to_fb_loc_list
+2447:    purposes.  If we're generating DWARF3 output we use DW_OP_call_frame_cfa
+```
+
+## gcc/dwarf2cfi.cc:2451–2532
+
+```text
+2451: cfi_label_required_p (dw_cfi_ref cfi)
+2452: {
+2453:   if (!dwarf2out_do_cfi_asm ())
+2454:     return true;
+2455:
+2456:   if (dwarf_version == 2
+2457:       && debug_info_level > DINFO_LEVEL_TERSE
+2458:       && dwarf_debuginfo_p ())
+2459:     {
+2460:       switch (cfi->dw_cfi_opc)
+2461:         {
+2462:         case DW_CFA_def_cfa_offset:
+2463:         case DW_CFA_def_cfa_offset_sf:
+2464:         case DW_CFA_def_cfa_register:
+2465:         case DW_CFA_def_cfa:
+2466:         case DW_CFA_def_cfa_sf:
+2467:         case DW_CFA_def_cfa_expression:
+2468:         case DW_CFA_restore_state:
+2469:           return true;
+2470:         default:
+2471:           return false;
+2472:         }
+2473:     }
+2474:   return false;
+2475: }
+2476:
+2477: /* Walk the function, looking for NOTE_INSN_CFI notes.  Add the CFIs to the
+2478:    function's FDE, adding CFI labels and set_loc/advance_loc opcodes as
+2479:    necessary.  */
+2480: static void
+2481: add_cfis_to_fde (void)
+2482: {
+2483:   dw_fde_ref fde = cfun->fde;
+2484:   rtx_insn *insn, *next;
+2485:
+2486:   for (insn = get_insns (); insn; insn = next)
+2487:     {
+2488:       next = NEXT_INSN (insn);
+2489:
+2490:       if (NOTE_P (insn) && NOTE_KIND (insn) == NOTE_INSN_SWITCH_TEXT_SECTIONS)
+2491:         fde->dw_fde_switch_cfi_index = vec_safe_length (fde->dw_fde_cfi);
+2492:
+2493:       if (NOTE_P (insn) && NOTE_KIND (insn) == NOTE_INSN_CFI)
+2494:         {
+2495:           bool required = cfi_label_required_p (NOTE_CFI (insn));
+2496:           while (next)
+2497:             if (NOTE_P (next) && NOTE_KIND (next) == NOTE_INSN_CFI)
+2498:               {
+2499:                 required |= cfi_label_required_p (NOTE_CFI (next));
+2500:                 next = NEXT_INSN (next);
+2501:               }
+2502:             else if (active_insn_p (next)
+2503:                      || (NOTE_P (next) && (NOTE_KIND (next)
+2504:                                            == NOTE_INSN_SWITCH_TEXT_SECTIONS)))
+2505:               break;
+2506:             else
+2507:               next = NEXT_INSN (next);
+2508:           if (required)
+2509:             {
+2510:               int num = dwarf2out_cfi_label_num;
+2511:               const char *label = dwarf2out_cfi_label ();
+2512:               dw_cfi_ref xcfi;
+2513:
+2514:               /* Set the location counter to the new label.  */
+2515:               xcfi = new_cfi ();
+2516:               xcfi->dw_cfi_opc = DW_CFA_advance_loc4;
+2517:               xcfi->dw_cfi_oprnd1.dw_cfi_addr = label;
+2518:               vec_safe_push (fde->dw_fde_cfi, xcfi);
+2519:
+2520:               rtx_note *tmp = emit_note_before (NOTE_INSN_CFI_LABEL, insn);
+2521:               NOTE_LABEL_NUMBER (tmp) = num;
+2522:             }
+2523:
+2524:           do
+2525:             {
+2526:               if (NOTE_P (insn) && NOTE_KIND (insn) == NOTE_INSN_CFI)
+2527:                 vec_safe_push (fde->dw_fde_cfi, NOTE_CFI (insn));
+2528:               insn = NEXT_INSN (insn);
+2529:             }
+2530:           while (insn != next);
+2531:         }
+2532:     }
+```
+
+## gcc/dwarf2cfi.cc:2541–2568
+
+```text
+2541: maybe_record_trace_start (rtx_insn *start, rtx_insn *origin)
+2542: {
+2543:   dw_trace_info *ti;
+2544:
+2545:   ti = get_trace_info (start);
+2546:   gcc_assert (ti != NULL);
+2547:
+2548:   if (dump_file)
+2549:     {
+2550:       fprintf (dump_file, "   saw edge from trace %u to %u (via %s %d)\n",
+2551:                cur_trace->id, ti->id,
+2552:                (origin ? rtx_name[(int) GET_CODE (origin)] : "fallthru"),
+2553:                (origin ? INSN_UID (origin) : 0));
+2554:     }
+2555:
+2556:   poly_int64 args_size = cur_trace->end_true_args_size;
+2557:   if (ti->beg_row == NULL)
+2558:     {
+2559:       /* This is the first time we've encountered this trace.  Propagate
+2560:          state across the edge and push the trace onto the work list.  */
+2561:       ti->beg_row = copy_cfi_row (cur_row);
+2562:       ti->beg_true_args_size = args_size;
+2563:
+2564:       ti->cfa_store = cur_trace->cfa_store;
+2565:       ti->cfa_temp = cur_trace->cfa_temp;
+2566:       ti->regs_saved_in_regs = cur_trace->regs_saved_in_regs.copy ();
+2567:
+2568:       trace_work_list.safe_push (ti);
+```
+
+## gcc/dwarf2cfi.cc:2641–2724
+
+```text
+2641: create_trace_edges (rtx_insn *insn)
+2642: {
+2643:   rtx tmp;
+2644:   int i, n;
+2645:
+2646:   if (JUMP_P (insn))
+2647:     {
+2648:       rtx_jump_table_data *table;
+2649:
+2650:       if (find_reg_note (insn, REG_NON_LOCAL_GOTO, NULL_RTX))
+2651:         return;
+2652:
+2653:       if (tablejump_p (insn, NULL, &table))
+2654:         {
+2655:           rtvec vec = table->get_labels ();
+2656:
+2657:           n = GET_NUM_ELEM (vec);
+2658:           for (i = 0; i < n; ++i)
+2659:             {
+2660:               rtx_insn *lab = as_a <rtx_insn *> (XEXP (RTVEC_ELT (vec, i), 0));
+2661:               maybe_record_trace_start (lab, insn);
+2662:             }
+2663:
+2664:           /* Handle casesi dispatch insns.  */
+2665:           if ((tmp = tablejump_casesi_pattern (insn)) != NULL_RTX)
+2666:             {
+2667:               rtx_insn * lab = label_ref_label (XEXP (SET_SRC (tmp), 2));
+2668:               maybe_record_trace_start (lab, insn);
+2669:             }
+2670:         }
+2671:       else if (computed_jump_p (insn))
+2672:         {
+2673:           rtx_insn *temp;
+2674:           unsigned int i;
+2675:           FOR_EACH_VEC_SAFE_ELT (forced_labels, i, temp)
+2676:             maybe_record_trace_start (temp, insn);
+2677:         }
+2678:       else if (returnjump_p (insn))
+2679:         ;
+2680:       else if ((tmp = extract_asm_operands (PATTERN (insn))) != NULL)
+2681:         {
+2682:           n = ASM_OPERANDS_LABEL_LENGTH (tmp);
+2683:           for (i = 0; i < n; ++i)
+2684:             {
+2685:               rtx_insn *lab =
+2686:                 as_a <rtx_insn *> (XEXP (ASM_OPERANDS_LABEL (tmp, i), 0));
+2687:               maybe_record_trace_start (lab, insn);
+2688:             }
+2689:         }
+2690:       else
+2691:         {
+2692:           rtx_insn *lab = JUMP_LABEL_AS_INSN (insn);
+2693:           gcc_assert (lab != NULL);
+2694:           maybe_record_trace_start (lab, insn);
+2695:         }
+2696:     }
+2697:   else if (CALL_P (insn))
+2698:     {
+2699:       /* Sibling calls don't have edges inside this function.  */
+2700:       if (SIBLING_CALL_P (insn))
+2701:         return;
+2702:
+2703:       /* Process non-local goto edges.  */
+2704:       if (can_nonlocal_goto (insn))
+2705:         for (rtx_insn_list *lab = nonlocal_goto_handler_labels;
+2706:              lab;
+2707:              lab = lab->next ())
+2708:           maybe_record_trace_start_abnormal (lab->insn (), insn);
+2709:     }
+2710:   else if (rtx_sequence *seq = dyn_cast <rtx_sequence *> (PATTERN (insn)))
+2711:     {
+2712:       int i, n = seq->len ();
+2713:       for (i = 0; i < n; ++i)
+2714:         create_trace_edges (seq->insn (i));
+2715:       return;
+2716:     }
+2717:
+2718:   /* Process EH edges.  */
+2719:   if (CALL_P (insn) || cfun->can_throw_non_call_exceptions)
+2720:     {
+2721:       eh_landing_pad lp = get_eh_landing_pad_from_rtx (insn);
+2722:       if (lp)
+2723:         maybe_record_trace_start_abnormal (lp->landing_pad, insn);
+2724:     }
+```
+
+## gcc/dwarf2cfi.cc:2741–2801
+
+```text
+2741: scan_trace (dw_trace_info *trace, bool entry)
+2742: {
+2743:   rtx_insn *prev, *insn = trace->head;
+2744:   dw_cfa_location this_cfa;
+2745:
+2746:   if (dump_file)
+2747:     fprintf (dump_file, "Processing trace %u : start at %s %d\n",
+2748:              trace->id, rtx_name[(int) GET_CODE (insn)],
+2749:              INSN_UID (insn));
+2750:
+2751:   trace->end_row = copy_cfi_row (trace->beg_row);
+2752:   trace->end_true_args_size = trace->beg_true_args_size;
+2753:
+2754:   cur_trace = trace;
+2755:   cur_row = trace->end_row;
+2756:
+2757:   this_cfa = cur_row->cfa;
+2758:   cur_cfa = &this_cfa;
+2759:
+2760:   /* If the current function starts with a non-standard incoming frame
+2761:      sp offset, emit a note before the first instruction.  */
+2762:   if (entry
+2763:       && DEFAULT_INCOMING_FRAME_SP_OFFSET != INCOMING_FRAME_SP_OFFSET)
+2764:     {
+2765:       add_cfi_insn = insn;
+2766:       gcc_assert (NOTE_P (insn) && NOTE_KIND (insn) == NOTE_INSN_DELETED);
+2767:       this_cfa.offset = INCOMING_FRAME_SP_OFFSET;
+2768:       def_cfa_1 (&this_cfa);
+2769:     }
+2770:
+2771:   for (prev = insn, insn = NEXT_INSN (insn);
+2772:        insn;
+2773:        prev = insn, insn = NEXT_INSN (insn))
+2774:     {
+2775:       rtx_insn *control;
+2776:
+2777:       /* Do everything that happens "before" the insn.  */
+2778:       add_cfi_insn = prev;
+2779:
+2780:       /* Notice the end of a trace.  */
+2781:       if (BARRIER_P (insn))
+2782:         {
+2783:           /* Don't bother saving the unneeded queued registers at all.  */
+2784:           queued_reg_saves.truncate (0);
+2785:           break;
+2786:         }
+2787:       if (save_point_p (insn))
+2788:         {
+2789:           /* Propagate across fallthru edges.  */
+2790:           dwarf2out_flush_queued_reg_saves ();
+2791:           maybe_record_trace_start (insn, NULL);
+2792:           break;
+2793:         }
+2794:
+2795:       if (DEBUG_INSN_P (insn) || !inside_basic_block_p (insn))
+2796:         continue;
+2797:
+2798:       /* Handle all changes to the row state.  Sequences require special
+2799:          handling for the positioning of the notes.  */
+2800:       if (rtx_sequence *pat = dyn_cast <rtx_sequence *> (PATTERN (insn)))
+2801:         {
+```
+
+## gcc/dwarf2cfi.cc:2885–2943
+
+```text
+2885:       else
+2886:         {
+2887:           /* Flush data before calls and jumps, and of course if necessary.  */
+2888:           if (can_throw_internal (insn))
+2889:             {
+2890:               notice_eh_throw (insn);
+2891:               dwarf2out_flush_queued_reg_saves ();
+2892:             }
+2893:           else if (!NONJUMP_INSN_P (insn)
+2894:                    || clobbers_queued_reg_save (insn)
+2895:                    || find_reg_note (insn, REG_CFA_FLUSH_QUEUE, NULL))
+2896:             dwarf2out_flush_queued_reg_saves ();
+2897:           any_cfis_emitted = false;
+2898:
+2899:           add_cfi_insn = insn;
+2900:           scan_insn_after (insn);
+2901:           control = insn;
+2902:         }
+2903:
+2904:       /* Between frame-related-p and args_size we might have otherwise
+2905:          emitted two cfa adjustments.  Do it now.  */
+2906:       def_cfa_1 (&this_cfa);
+2907:
+2908:       /* Minimize the number of advances by emitting the entire queue
+2909:          once anything is emitted.  */
+2910:       if (any_cfis_emitted
+2911:           || find_reg_note (insn, REG_CFA_FLUSH_QUEUE, NULL))
+2912:         dwarf2out_flush_queued_reg_saves ();
+2913:
+2914:       /* Note that a test for control_flow_insn_p does exactly the
+2915:          same tests as are done to actually create the edges.  So
+2916:          always call the routine and let it not create edges for
+2917:          non-control-flow insns.  */
+2918:       create_trace_edges (control);
+2919:     }
+2920:
+2921:   gcc_assert (!cfun->fde || !cfun->fde->rule18);
+2922:   add_cfi_insn = NULL;
+2923:   cur_row = NULL;
+2924:   cur_trace = NULL;
+2925:   cur_cfa = NULL;
+2926: }
+2927:
+2928: /* Scan the function and create the initial set of CFI notes.  */
+2929:
+2930: static void
+2931: create_cfi_notes (void)
+2932: {
+2933:   dw_trace_info *ti;
+2934:
+2935:   gcc_checking_assert (!queued_reg_saves.exists ());
+2936:   gcc_checking_assert (!trace_work_list.exists ());
+2937:
+2938:   /* Always begin at the entry trace.  */
+2939:   ti = &trace_info[0];
+2940:   scan_trace (ti, true);
+2941:
+2942:   while (!trace_work_list.is_empty ())
+2943:     {
+```
+
+## gcc/dwarf2cfi.cc:2971–3067
+
+```text
+2971: connect_traces (void)
+2972: {
+2973:   unsigned i, n;
+2974:   dw_trace_info *prev_ti, *ti;
+2975:
+2976:   /* ??? Ideally, we should have both queued and processed every trace.
+2977:      However the current representation of constant pools on various targets
+2978:      is indistinguishable from unreachable code.  Assume for the moment that
+2979:      we can simply skip over such traces.  */
+2980:   /* ??? Consider creating a DATA_INSN rtx code to indicate that
+2981:      these are not "real" instructions, and should not be considered.
+2982:      This could be generically useful for tablejump data as well.  */
+2983:   /* Remove all unprocessed traces from the list.  */
+2984:   unsigned ix, ix2;
+2985:   VEC_ORDERED_REMOVE_IF_FROM_TO (trace_info, ix, ix2, ti, 1,
+2986:                                  trace_info.length (), ti->beg_row == NULL);
+2987:   FOR_EACH_VEC_ELT (trace_info, ix, ti)
+2988:     gcc_assert (ti->end_row != NULL);
+2989:
+2990:   /* Work from the end back to the beginning.  This lets us easily insert
+2991:      remember/restore_state notes in the correct order wrt other notes.  */
+2992:   n = trace_info.length ();
+2993:   prev_ti = &trace_info[n - 1];
+2994:   for (i = n - 1; i > 0; --i)
+2995:     {
+2996:       dw_cfi_row *old_row;
+2997:
+2998:       ti = prev_ti;
+2999:       prev_ti = &trace_info[i - 1];
+3000:
+3001:       add_cfi_insn = ti->head;
+3002:
+3003:       /* In dwarf2out_switch_text_section, we'll begin a new FDE
+3004:          for the portion of the function in the alternate text
+3005:          section.  The row state at the very beginning of that
+3006:          new FDE will be exactly the row state from the CIE.  */
+3007:       if (ti->switch_sections)
+3008:         old_row = cie_cfi_row;
+3009:       else
+3010:         {
+3011:           old_row = prev_ti->end_row;
+3012:           /* If there's no change from the previous end state, fine.  */
+3013:           if (cfi_row_equal_p (old_row, ti->beg_row))
+3014:             ;
+3015:           /* Otherwise check for the common case of sharing state with
+3016:              the beginning of an epilogue, but not the end.  Insert
+3017:              remember/restore opcodes in that case.  */
+3018:           else if (cfi_row_equal_p (prev_ti->beg_row, ti->beg_row))
+3019:             {
+3020:               dw_cfi_ref cfi;
+3021:
+3022:               /* Note that if we blindly insert the remember at the
+3023:                  start of the trace, we can wind up increasing the
+3024:                  size of the unwind info due to extra advance opcodes.
+3025:                  Instead, put the remember immediately before the next
+3026:                  state change.  We know there must be one, because the
+3027:                  state at the beginning and head of the trace differ.  */
+3028:               add_cfi_insn = before_next_cfi_note (prev_ti->head);
+3029:               cfi = new_cfi ();
+3030:               cfi->dw_cfi_opc = DW_CFA_remember_state;
+3031:               add_cfi (cfi);
+3032:
+3033:               add_cfi_insn = ti->head;
+3034:               cfi = new_cfi ();
+3035:               cfi->dw_cfi_opc = DW_CFA_restore_state;
+3036:               add_cfi (cfi);
+3037:
+3038:               /* If the target unwinder does not save the CFA as part of the
+3039:                  register state, we need to restore it separately.  */
+3040:               if (targetm.asm_out.should_restore_cfa_state ()
+3041:                   && (cfi = def_cfa_0 (&old_row->cfa, &ti->beg_row->cfa)))
+3042:                 add_cfi (cfi);
+3043:
+3044:               old_row = prev_ti->beg_row;
+3045:             }
+3046:           /* Otherwise, we'll simply change state from the previous end.  */
+3047:         }
+3048:
+3049:       change_cfi_row (old_row, ti->beg_row);
+3050:
+3051:       if (dump_file && add_cfi_insn != ti->head)
+3052:         {
+3053:           rtx_insn *note;
+3054:
+3055:           fprintf (dump_file, "Fixup between trace %u and %u:\n",
+3056:                    prev_ti->id, ti->id);
+3057:
+3058:           note = ti->head;
+3059:           do
+3060:             {
+3061:               note = NEXT_INSN (note);
+3062:               gcc_assert (NOTE_P (note) && NOTE_KIND (note) == NOTE_INSN_CFI);
+3063:               output_cfi_directive (dump_file, NOTE_CFI (note));
+3064:             }
+3065:           while (note != add_cfi_insn);
+3066:         }
+3067:     }
+```
+
+## gcc/dwarf2cfi.cc:3105–3294
+
+```text
+3105: static void
+3106: create_pseudo_cfg (void)
+3107: {
+3108:   bool saw_barrier, switch_sections;
+3109:   dw_trace_info ti;
+3110:   rtx_insn *insn;
+3111:   unsigned i;
+3112:
+3113:   /* The first trace begins at the start of the function,
+3114:      and begins with the CIE row state.  */
+3115:   trace_info.create (16);
+3116:   memset (&ti, 0, sizeof (ti));
+3117:   ti.head = get_insns ();
+3118:   ti.beg_row = cie_cfi_row;
+3119:   ti.cfa_store = cie_cfi_row->cfa;
+3120:   ti.cfa_temp.reg.set_by_dwreg (INVALID_REGNUM);
+3121:   trace_info.quick_push (ti);
+3122:
+3123:   if (cie_return_save)
+3124:     ti.regs_saved_in_regs.safe_push (*cie_return_save);
+3125:
+3126:   /* Walk all the insns, collecting start of trace locations.  */
+3127:   saw_barrier = false;
+3128:   switch_sections = false;
+3129:   for (insn = get_insns (); insn; insn = NEXT_INSN (insn))
+3130:     {
+3131:       if (BARRIER_P (insn))
+3132:         saw_barrier = true;
+3133:       else if (NOTE_P (insn)
+3134:                && NOTE_KIND (insn) == NOTE_INSN_SWITCH_TEXT_SECTIONS)
+3135:         {
+3136:           /* We should have just seen a barrier.  */
+3137:           gcc_assert (saw_barrier);
+3138:           switch_sections = true;
+3139:         }
+3140:       /* Watch out for save_point notes between basic blocks.
+3141:          In particular, a note after a barrier.  Do not record these,
+3142:          delaying trace creation until the label.  */
+3143:       else if (save_point_p (insn)
+3144:                && (LABEL_P (insn) || !saw_barrier))
+3145:         {
+3146:           memset (&ti, 0, sizeof (ti));
+3147:           ti.head = insn;
+3148:           ti.switch_sections = switch_sections;
+3149:           ti.id = trace_info.length ();
+3150:           trace_info.safe_push (ti);
+3151:
+3152:           saw_barrier = false;
+3153:           switch_sections = false;
+3154:         }
+3155:     }
+3156:
+3157:   /* Create the trace index after we've finished building trace_info,
+3158:      avoiding stale pointer problems due to reallocation.  */
+3159:   trace_index
+3160:     = new hash_table<trace_info_hasher> (trace_info.length ());
+3161:   dw_trace_info *tp;
+3162:   FOR_EACH_VEC_ELT (trace_info, i, tp)
+3163:     {
+3164:       dw_trace_info **slot;
+3165:
+3166:       if (dump_file)
+3167:         fprintf (dump_file, "Creating trace %u : start at %s %d%s\n", tp->id,
+3168:                  rtx_name[(int) GET_CODE (tp->head)], INSN_UID (tp->head),
+3169:                  tp->switch_sections ? " (section switch)" : "");
+3170:
+3171:       slot = trace_index->find_slot_with_hash (tp, INSN_UID (tp->head), INSERT);
+3172:       gcc_assert (*slot == NULL);
+3173:       *slot = tp;
+3174:     }
+3175: }
+3176:
+3177: /* Record the initial position of the return address.  RTL is
+3178:    INCOMING_RETURN_ADDR_RTX.  */
+3179:
+3180: static void
+3181: initial_return_save (rtx rtl)
+3182: {
+3183:   struct cfa_reg reg;
+3184:   reg.set_by_dwreg (INVALID_REGNUM);
+3185:   poly_int64 offset = 0;
+3186:
+3187:   switch (GET_CODE (rtl))
+3188:     {
+3189:     case REG:
+3190:       /* RA is in a register.  */
+3191:       reg = dwf_cfa_reg (rtl);
+3192:       break;
+3193:
+3194:     case MEM:
+3195:       /* RA is on the stack.  */
+3196:       rtl = XEXP (rtl, 0);
+3197:       switch (GET_CODE (rtl))
+3198:         {
+3199:         case REG:
+3200:           gcc_assert (REGNO (rtl) == STACK_POINTER_REGNUM);
+3201:           offset = 0;
+3202:           break;
+3203:
+3204:         case PLUS:
+3205:           gcc_assert (REGNO (XEXP (rtl, 0)) == STACK_POINTER_REGNUM);
+3206:           offset = rtx_to_poly_int64 (XEXP (rtl, 1));
+3207:           break;
+3208:
+3209:         case MINUS:
+3210:           gcc_assert (REGNO (XEXP (rtl, 0)) == STACK_POINTER_REGNUM);
+3211:           offset = -rtx_to_poly_int64 (XEXP (rtl, 1));
+3212:           break;
+3213:
+3214:         default:
+3215:           gcc_unreachable ();
+3216:         }
+3217:
+3218:       break;
+3219:
+3220:     case PLUS:
+3221:       /* The return address is at some offset from any value we can
+3222:          actually load.  For instance, on the SPARC it is in %i7+8. Just
+3223:          ignore the offset for now; it doesn't matter for unwinding frames.  */
+3224:       gcc_assert (CONST_INT_P (XEXP (rtl, 1)));
+3225:       initial_return_save (XEXP (rtl, 0));
+3226:       return;
+3227:
+3228:     default:
+3229:       gcc_unreachable ();
+3230:     }
+3231:
+3232:   if (reg.reg != DWARF_FRAME_RETURN_COLUMN)
+3233:     {
+3234:       if (reg.reg != INVALID_REGNUM)
+3235:         record_reg_saved_in_reg (rtl, pc_rtx);
+3236:       reg_save (DWARF_FRAME_RETURN_COLUMN, reg, offset - cur_row->cfa.offset);
+3237:     }
+3238: }
+3239:
+3240: static void
+3241: create_cie_data (void)
+3242: {
+3243:   dw_cfa_location loc;
+3244:   dw_trace_info cie_trace;
+3245:
+3246:   dw_stack_pointer_regnum = dwf_cfa_reg (stack_pointer_rtx);
+3247:
+3248:   memset (&cie_trace, 0, sizeof (cie_trace));
+3249:   cur_trace = &cie_trace;
+3250:
+3251:   add_cfi_vec = &cie_cfi_vec;
+3252:   cie_cfi_row = cur_row = new_cfi_row ();
+3253:
+3254:   /* On entry, the Canonical Frame Address is at SP.  */
+3255:   memset (&loc, 0, sizeof (loc));
+3256:   loc.reg = dw_stack_pointer_regnum;
+3257:   /* create_cie_data is called just once per TU, and when using .cfi_startproc
+3258:      is even done by the assembler rather than the compiler.  If the target
+3259:      has different incoming frame sp offsets depending on what kind of
+3260:      function it is, use a single constant offset for the target and
+3261:      if needed, adjust before the first instruction in insn stream.  */
+3262:   loc.offset = DEFAULT_INCOMING_FRAME_SP_OFFSET;
+3263:   def_cfa_1 (&loc);
+3264:
+3265:   if (targetm.debug_unwind_info () == UI_DWARF2
+3266:       || targetm_common.except_unwind_info (&global_options) == UI_DWARF2)
+3267:     {
+3268:       initial_return_save (INCOMING_RETURN_ADDR_RTX);
+3269:
+3270:       /* For a few targets, we have the return address incoming into a
+3271:          register, but choose a different return column.  This will result
+3272:          in a DW_CFA_register for the return, and an entry in
+3273:          regs_saved_in_regs to match.  If the target later stores that
+3274:          return address register to the stack, we want to be able to emit
+3275:          the DW_CFA_offset against the return column, not the intermediate
+3276:          save register.  Save the contents of regs_saved_in_regs so that
+3277:          we can re-initialize it at the start of each function.  */
+3278:       switch (cie_trace.regs_saved_in_regs.length ())
+3279:         {
+3280:         case 0:
+3281:           break;
+3282:         case 1:
+3283:           cie_return_save = ggc_alloc<reg_saved_in_data> ();
+3284:           *cie_return_save = cie_trace.regs_saved_in_regs[0];
+3285:           cie_trace.regs_saved_in_regs.release ();
+3286:           break;
+3287:         default:
+3288:           gcc_unreachable ();
+3289:         }
+3290:     }
+3291:
+3292:   add_cfi_vec = NULL;
+3293:   cur_row = NULL;
+3294:   cur_trace = NULL;
+```
+
+## gcc/dwarf2cfi.cc:3302–3331
+
+```text
+3302: execute_dwarf2_frame (void)
+3303: {
+3304:   /* Different HARD_FRAME_POINTER_REGNUM might coexist in the same file.  */
+3305:   dw_frame_pointer_regnum = dwf_cfa_reg (hard_frame_pointer_rtx);
+3306:
+3307:   /* The first time we're called, compute the incoming frame state.  */
+3308:   if (cie_cfi_vec == NULL)
+3309:     create_cie_data ();
+3310:
+3311:   dwarf2out_alloc_current_fde ();
+3312:
+3313:   create_pseudo_cfg ();
+3314:
+3315:   /* Do the work.  */
+3316:   create_cfi_notes ();
+3317:   connect_traces ();
+3318:   add_cfis_to_fde ();
+3319:
+3320:   /* Free all the data we allocated.  */
+3321:   {
+3322:     size_t i;
+3323:     dw_trace_info *ti;
+3324:
+3325:     FOR_EACH_VEC_ELT (trace_info, i, ti)
+3326:       ti->regs_saved_in_regs.release ();
+3327:   }
+3328:   trace_info.release ();
+3329:
+3330:   delete trace_index;
+3331:   trace_index = NULL;
+```
+
+## gcc/dwarf2cfi.cc:3696–3733
+
+```text
+3696: /* Save the result of dwarf2out_do_frame across PCH.
+3697:    This variable is tri-state, with 0 unset, >0 true, <0 false.  */
+3698: static GTY(()) signed char saved_do_cfi_asm = 0;
+3699:
+3700: /* Decide whether to emit EH frame unwind information for the current
+3701:    translation unit.  */
+3702:
+3703: bool
+3704: dwarf2out_do_eh_frame (void)
+3705: {
+3706:   return
+3707:     (flag_unwind_tables || flag_exceptions)
+3708:     && targetm_common.except_unwind_info (&global_options) == UI_DWARF2;
+3709: }
+3710:
+3711: /* Decide whether we want to emit frame unwind information for the current
+3712:    translation unit.  */
+3713:
+3714: bool
+3715: dwarf2out_do_frame (void)
+3716: {
+3717:   /* We want to emit correct CFA location expressions or lists, so we
+3718:      have to return true if we're going to generate debug info, even if
+3719:      we're not going to output frame or unwind info.  */
+3720:   if (dwarf_debuginfo_p () || dwarf_based_debuginfo_p ())
+3721:     return true;
+3722:
+3723:   if (saved_do_cfi_asm > 0)
+3724:     return true;
+3725:
+3726:   if (targetm.debug_unwind_info () == UI_DWARF2)
+3727:     return true;
+3728:
+3729:   if (dwarf2out_do_eh_frame ())
+3730:     return true;
+3731:
+3732:   return false;
+3733: }
+```
+
+## gcc/dwarf2cfi.cc:3805–3817
+
+```text
+3805: pass_dwarf2_frame::gate (function *)
+3806: {
+3807:   /* Targets which still implement the prologue in assembler text
+3808:      cannot use the generic dwarf2 unwinding.  */
+3809:   if (!targetm.have_prologue ())
+3810:     return false;
+3811:
+3812:   /* ??? What to do for UI_TARGET unwinding?  They might be able to benefit
+3813:      from the optimized shrink-wrapping annotations that we will compute.
+3814:      For now, only produce the CFI notes for dwarf2.  */
+3815:   return dwarf2out_do_frame ();
+3816: }
+3817:
+```
+
+## gcc/dwarf2out.cc:1046–1063
+
+```text
+1046: dwarf2out_alloc_current_fde (void)
+1047: {
+1048:   dw_fde_ref fde;
+1049:
+1050:   fde = ggc_cleared_alloc<dw_fde_node> ();
+1051:   fde->decl = current_function_decl;
+1052:   fde->funcdef_number = current_function_funcdef_no;
+1053:   fde->fde_index = vec_safe_length (fde_vec);
+1054:   fde->all_throwers_are_sibcalls = crtl->all_throwers_are_sibcalls;
+1055:   fde->uses_eh_lsda = crtl->uses_eh_lsda;
+1056:   fde->nothrow = crtl->nothrow;
+1057:   fde->drap_reg = INVALID_REGNUM;
+1058:   fde->vdrap_reg = INVALID_REGNUM;
+1059:
+1060:   /* Record the FDE associated with this function.  */
+1061:   cfun->fde = fde;
+1062:   vec_safe_push (fde_vec, fde);
+1063:
 ```
 
 ## src/silver_arguments.ads (selected Silver API, complete)

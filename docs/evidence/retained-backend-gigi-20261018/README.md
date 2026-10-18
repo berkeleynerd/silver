@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Companion to
 [the source argument](../../research/retained-backend-gigi.md).
 
-`source-manifest.json` pins 174 complete files at GCC
+`source-manifest.json` pins 186 complete files at GCC
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; Ada file identities also match the
 previously retained complete Ada inventory, and non-Ada GCC files match the
 full-source manifest independently. Its separate `silver_main_api_files` rows
@@ -129,3 +129,16 @@ DWARF CFI records and leaves unwind/final output open. The checker now verifies
 174 GCC/Ada source files and two Silver API specifications; all 152 non-Ada
 full-file identities match the retained full-source manifest. No native/prover
 run was made.
+
+The late-pass/CFI extension follows the O0 split-before-regstack gate, the
+no-x87 conversion return, branch-shortening container requests and DWARF
+frame-rule construction. It charges up to six traces, twelve row objects,
+five function CFI notes and five optional location-label notes. The conditional
+chain ceiling becomes 52, with first unused UID at most 53; the address vector
+stays at its shortening-time length of at most 43 because these note insertions
+do not grow it. Final emission handles later note UIDs without indexing outside
+that vector. CFI objects total at most twelve, including the initial CIE and
+optional location advances. The checker now verifies 186 GCC/Ada source files
+and two Silver API specifications; all 164 non-Ada identities match the retained
+full-source manifest. Generated instruction lengths, final output and complete
+allocator/GC costs remain separate obligations. No native/prover run was made.

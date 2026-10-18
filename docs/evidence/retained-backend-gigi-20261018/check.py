@@ -248,6 +248,40 @@ FRAME_RANGES = {
     "gcc/shrink-wrap.cc": [(647, 653), (1774, 1799)],
     "gcc/cfgrtl.cc": [(2005, 2129)],
 }
+CFI_RANGES = {
+    "gcc/cfgcleanup.cc": [(3317, 3328)],
+    "gcc/bb-reorder.cc": [(2833, 2842)],
+    "gcc/sched-rgn.cc": [(3959, 3968)],
+    "gcc/regrename.cc": [(2036, 2039)],
+    "gcc/fold-mem-offsets.cc": [(120, 123)],
+    "gcc/regcprop.cc": [(1361, 1364)],
+    "gcc/function.cc": [(6464, 6469), (6725, 6748), (6820, 6825)],
+    "gcc/target.def": [(4275, 4284), (4377, 4395)],
+    "gcc/hooks.cc": [(38, 42), (407, 411)],
+    "gcc/recog.cc": [(4652, 4685), (4710, 4739)],
+    "gcc/config/i386/i386.md": [(1195, 1197), (2201, 2271), (2784, 2789)],
+    "gcc/reg-stack.cc": [(3354, 3369), (3471, 3477)],
+    "gcc/var-tracking.cc": [(10611, 10614)],
+    "gcc/cfgrtl.cc": [(432, 459), (489, 505)],
+    "gcc/config/i386/i386.cc": [(215, 223), (24740, 24761)],
+    "gcc/config/i386/i386.h": [(2142, 2171)],
+    "gcc/defaults.h": [(441, 454)],
+    "gcc/jump.cc": [(118, 160)],
+    "gcc/reorg.cc": [(3874, 3882)],
+    "gcc/except.cc": [(2770, 2779)],
+    "gcc/emit-rtl.cc": [(1527, 1537), (4238, 4250), (4934, 4960)],
+    "gcc/final.cc": [(613, 626), (825, 925), (1365, 1376),
+                     (1963, 1979), (2275, 2282)],
+    "gcc/insn-addr.h": [(27, 61)],
+    "gcc/dwarf2cfi.cc": [(384, 402), (424, 459), (475, 500), (535, 540),
+                        (880, 1044), (1219, 1263), (1318, 1331),
+                        (1513, 1541), (1830, 1878), (2063, 2097),
+                        (2215, 2230), (2260, 2447), (2451, 2532),
+                        (2541, 2568), (2641, 2724), (2741, 2801),
+                        (2885, 2943), (2971, 3067), (3105, 3294),
+                        (3302, 3331), (3696, 3733), (3805, 3817)],
+    "gcc/dwarf2out.cc": [(1046, 1063)],
+}
 GATE_FILES = (
     "fwprop.cc", "cprop.cc", "gcse.cc", "store-motion.cc", "ifcvt.cc",
     "loop-init.cc", "web.cc", "dse.cc", "auto-inc-dec.cc", "init-regs.cc",
@@ -266,6 +300,8 @@ for _name, _ranges in EXTRA_RANGES.items():
 for _name, _ranges in RELOAD_RANGES.items():
     RANGES.setdefault(_name, []).extend(_ranges)
 for _name, _ranges in FRAME_RANGES.items():
+    RANGES.setdefault(_name, []).extend(_ranges)
+for _name, _ranges in CFI_RANGES.items():
     RANGES.setdefault(_name, []).extend(_ranges)
 for _name in GATE_FILES:
     RANGES.setdefault("gcc/" + _name, [])
@@ -664,6 +700,27 @@ def check_sources(sources, inventory):
     assert "&& m->fs.sp_offset == frame.hfp_save_offset)\n\tix86_emit_restore_reg_using_pop (hard_frame_pointer_rtx);" in x86
     assert "emit_jump_insn (gen_simple_return_internal ());" in x86
     assert "emit_barrier_after (last);" in sources["gcc/cfgrtl.cc"]
+    cfi = sources["gcc/dwarf2cfi.cc"]
+    assert "trace_info.create (16);" in cfi
+    assert "= new hash_table<trace_info_hasher> (trace_info.length ());" in cfi
+    assert "trace->end_row = copy_cfi_row (trace->beg_row);" in cfi
+    assert "ti->beg_row = copy_cfi_row (cur_row);" in cfi
+    assert "vec_safe_grow_cleared (row->reg_save, column + 1, true);" in cfi
+    assert "vec_safe_push (fde->dw_fde_cfi, xcfi);" in cfi
+    assert "emit_note_before (NOTE_INSN_CFI_LABEL, insn);" in cfi
+    assert "emit_note_after (NOTE_INSN_CFI, add_cfi_insn);" in cfi
+    assert "loc.offset = DEFAULT_INCOMING_FRAME_SP_OFFSET;" in cfi
+    assert "initial_return_save (INCOMING_RETURN_ADDR_RTX);" in cfi
+    assert "if (cfi_row_equal_p (old_row, ti->beg_row))" in cfi
+    assert "INSN_ADDRESSES_NEW" not in sources["gcc/emit-rtl.cc"]
+    final = sources["gcc/final.cc"]
+    assert "label_align.safe_grow_cleared (max_labelno - min_labelno + 1, true);" in final
+    assert "if ((unsigned) INSN_UID (insn) >= INSN_ADDRESSES_SIZE ())" in final
+    assert "gcc_assert (NOTE_P (insn));\n\t      insn_current_address = -1;" in final
+    assert "INSN_ADDRESSES_ALLOC (max_uid);" in final
+    assert "if (!increasing)\n\tbreak;" in final
+    assert "if (i > LAST_STACK_REG)\n    return false;" in sources["gcc/reg-stack.cc"]
+    assert "if (cfun->eh->region_tree == NULL)\n    return false;" in sources["gcc/except.cc"]
     iterator = sources["gcc/tree-iterator.cc"]
     start = iterator.index("\ntsi_link_after (")
     end = iterator.index("\n}\n", start)
@@ -747,6 +804,19 @@ def arithmetic():
         "null_post_frame_new_dynamic_pseudos_stack_slots_calls": [1, 0, 0],
         "null_post_frame_machine_register_save_and_local_allocation_bytes": [8, 0],
         "null_post_frame_initial_prologue_epilogue_hash_requests": [17, 17],
+        "null_shortening_label_alignment_vector_request": 3+1,
+        "null_shortening_UID_indexed_array_requests": [43]*5,
+        "null_CFI_trace_count_and_initial_vector_request": [1+3+2, 16],
+        "null_CFI_trace_hash_request": 1+3+2,
+        "null_CFI_row_and_register_save_vector_ceilings": [1+6+5, 16+1],
+        "null_CFI_CIE_function_and_location_advance_object_ceilings": [2, 2+1+2, 5],
+        "null_CFI_total_object_ceiling": 2+5+5,
+        "null_CFI_FDE_object_CIE_vector_and_FDE_vector_ceilings": [1, 2, 5+5],
+        "null_CFI_queued_saves_and_pending_trace_work_ceilings": [1, 1],
+        "null_post_CFI_lifetime_chain_node_ceiling": 42+5+5,
+        "null_post_CFI_first_unused_chain_uid_ceiling": 1+42+5+5,
+        "null_post_CFI_instruction_address_vector_length_ceiling": 43,
+        "null_CFI_new_machine_instructions_dynamic_pseudos_local_slots": [0, 0, 0],
         "ira_init_once_selected_dynamic_allocation_requests": 0,
         "retained_bind_coefficients": bind,
         "main_fixed_framework_push_requests": push["U"] + 2*push["F"],

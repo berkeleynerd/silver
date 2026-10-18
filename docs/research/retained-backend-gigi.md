@@ -2516,6 +2516,129 @@ DWARF-frame pass and any instructions or notes created there still require
 their own source transfer. This packet retains source-derived shape and selected
 requests, not a whole-backend capacity or machine-code-size result.
 
+#### Late O0 passes and DWARF frame records
+
+The later O0 schedule preserves that machine-instruction shape. The jump2
+pass invokes ordinary CFG cleanup again, but the at most nine merges charged
+above bound the total across both cleanups because no intervening path adds
+blocks (`cfgcleanup.cc:3317–3328`). Duplicate-computed-goto, scheduling fusion,
+peephole, if-conversion, dependency fusion, renaming, memory-offset folding,
+hard-register propagation, fast DCE and reordering require optimization or
+an absent O0 flag. The x86 target insertion gates remain part of this check:
+AVX cleanup, branch-protection/patch-area insertion and optimized alignment are
+absent for the selected defaults. The leaf-register pass only updates metadata.
+The late prologue hook uses its default false implementation, so frame generation
+is not repeated (`function.cc:6464–6469,6725–6748`, `target.def:4377–4395`).
+
+The x86 **split-before-regstack pass does run at O0**, because scheduling after
+reload is off (`recog.cc:4652–4685`). The pinned machine-description closure has
+no splitter matching these patterns:
+
+- Nop, blockage and simple return have no matching structured splitter; the
+  root-wildcard splitter still requires an actual TLS-address MEM.
+- The relevant double-word push/move splitters use `DWI`, which is TI on the
+  selected 64-bit target, not DI (`i386.md:1195–1197,2201–2232,2784–2789`).
+- The other simple SET splitters require an immediate, SSE/FP register, vector
+  or floating mode, or explicit arithmetic/comparison structure. They do not
+  match the DI general-register move, RBP push or RBP pop. In particular, the
+  large-immediate push splitter at `:2234–2269` does not accept a register.
+
+Register-stack conversion then returns before its dataflow/graph work because
+no x87 register is live (`reg-stack.cc:3354–3369`). Zero-call-used-register
+processing returns without an enabled request (`function.cc:6820–6825`).
+Variable tracking is disabled by the selected no-debug options. Free-CFG clears
+block associations without section-boundary construction; x86 machine reorg
+rebuilds those associations but its transformation and padding paths require
+optimization or SEH, absent here (`cfgrtl.cc:432–459,489–505`,
+`i386.cc:24740–24761`). Barrier cleanup only moves/removes barriers
+(`jump.cc:118–160`). Delay-slot processing and the separate
+split-for-shortening gate are false; EH-range conversion is false because the
+region tree is null (`reorg.cc:3874–3882`, `recog.cc:4710–4739`,
+`except.cc:2770–2779`). Thus no extra machine instructions or chain labels
+precede branch shortening or DWARF frame processing.
+
+Alignment setup still requests a label vector. With at most three new label
+numbers since this function's `init_emit`, its requested length is at most
+four, after which O0 returns (`emit-rtl.cc:1527–1537,5982–5989`,
+`final.cc:613–626`). Branch shortening assigns sequential order indices and
+requests five arrays/vectors indexed by the first unused UID: two int arrays,
+an int address vector, a char array and an rtx pointer array, each at most 43
+elements at this boundary (`final.cc:825–925`, `insn-addr.h:27–36`). It performs
+one non-optimizing update pass and does not construct instruction-chain nodes
+(`final.cc:1365–1376`). Generated length-attribute evaluation and its exact
+address arithmetic remain a separate final-emission join; these are typed
+container requests, not a complete shortening cost.
+
+**Unwind remains active without debug output.** `dwarf2out_do_frame` includes
+exception/unwind-table requests, not just debug information. For the selected
+DWARF unwind path, `execute_dwarf2_frame` creates the CIE if needed, allocates
+one FDE, builds traces, emits CFI notes, connects traces and collects the FDE
+vector (`dwarf2cfi.cc:3241–3331,3696–3733,3805–3817`,
+`dwarf2out.cc:1046–1063`). The following bound also safely covers skipping that
+pass; it does not depend on assuming assembler-directive support from a sample.
+
+Trace boundaries are the function entry, each retained ordinary label and the
+two frame notes. Therefore at most six traces are created. They form a linear
+fallthrough sequence ending at the return/barrier: there are no other branch,
+call, EH, section-switch or nonlocal edges (`dwarf2cfi.cc:384–402,2641–2724,
+2740–2801,3105–3180`). Each trace is scanned once. Each non-entry beginning row
+copies its predecessor's end row, so `connect_traces` finds equal adjacent
+states and creates no remember/restore or reconciliation instructions
+(`:2541–2568,2971–3067`).
+
+The selected register mapping gives RBP column 6, RSP column 7 and the return
+address column 16; the target's default register-span hook returns null
+(`i386.cc:215–223`, `i386.h:2142–2171`, `defaults.h:441–454`,
+`target.def:4275–4284`). The initial CIE contains `CFA=RSP+8` and the return
+address saved at `CFA-8`, with two CFI objects and a register-save vector of
+length 17 (`dwarf2cfi.cc:3186–3294`). The three frame instructions have these
+effects:
+
+| Instruction | CFI construction |
+| --- | --- |
+| Push RBP | Change CFA offset to 16 and save RBP at `CFA-16`: two CFI objects/notes. |
+| Move RSP to RBP | Change the CFA register while retaining offset 16: one object/note. |
+| Pop RBP | Set CFA to `RSP+8`, and at most one restore rule from the optional restore regnote: at most two objects/notes. |
+
+The source handlers use simple register-plus-constant rules, not DWARF location
+expression lists (`dwarf2cfi.cc:880–1044,1219–1263,1318–1331,1513–1541,
+1830–1878,2063–2097,2215–2230,2260–2383`). Nops, blockage and the simple return
+do not change the frame rule, and no instruction carries an argument-size
+adjustment. The queued-save vector has at most one entry; the trace work list
+has at most one entry. Register-save vectors never exceed length 17. Counting
+the initial CIE row, one end-row copy per trace and one beginning-row copy per
+non-entry trace gives at most `1+6+5 = 12` row objects.
+
+There are at most five function CFI notes. `add_cfis_to_fde` can additionally
+create one location-label note and one advance-location CFI per nonempty group
+of those notes. Charging five groups covers both assembler-directive and raw
+CFI output without assuming either branch (`:2481–2532`). Thus the conservative
+result at entry to final emission is:
+
+```text
+cumulative instruction-chain nodes <= 42 + 5 CFI + 5 CFI_LABEL = 52
+first unused per-function chain UID <= 53
+CFI objects, including initial CIE and location advances <= 2 + 5 + 5 = 12
+CFI rows <= 12; register-save vector length <= 17 per row
+trace count <= 6; initial trace-vector request = 16; trace-hash request <= 6
+FDE objects = 1; CIE vector length <= 2; FDE CFI vector length <= 10
+queued register saves / pending trace-work entries <= 1 / 1
+new machine instructions, dynamic pseudos and local slots in CFI = 0 / 0 / 0
+```
+
+The CFI note insertion path does not grow the instruction-address vector:
+`emit_note_before`/`emit_note_after` allocate a note and link it into the chain
+without calling `INSN_ADDRESSES_NEW` (`emit-rtl.cc:4238–4250,4934–4960`).
+The shortening-time address vector therefore remains at most 43 elements.
+Final emission explicitly accepts a later note UID beyond the address vector
+and sets its current address to -1 instead of indexing the vector
+(`final.cc:1963–1979`); its CFI-note cases output the rule or label
+(`:2275–2282`). Global label counters,
+the FDE output/assembler directives, section/string/FILE storage, target
+attribute tables and allocator/GC rounding remain separate obligations.
+No compiler, assembler, solver or Lean run established this source-derived
+shape packet, and final assembly/object capacity is not yet closed.
+
 #### Late RTL initialization and retained fixed witnesses
 
 The native initialization witness immediately before
