@@ -1,0 +1,80 @@
+{
+  "offline_cases": [
+    {
+      "name": "retained",
+      "bytes": 69,
+      "kind": "passes arithmetic",
+      "aligned_source_extent": 24576
+    },
+    {
+      "name": "case_and_comment",
+      "bytes": 78,
+      "kind": "passes arithmetic",
+      "aligned_source_extent": 24576
+    },
+    {
+      "name": "long_trivia",
+      "bytes": 10272,
+      "kind": "passes arithmetic",
+      "aligned_source_extent": 32768
+    },
+    {
+      "name": "CR_and_tabs",
+      "bytes": 69,
+      "kind": "passes arithmetic",
+      "aligned_source_extent": 24576
+    },
+    {
+      "name": "one_megabyte_trivia",
+      "bytes": 1000069,
+      "kind": "passes arithmetic",
+      "aligned_source_extent": 1024000
+    },
+    {
+      "name": "overwide_comment",
+      "kind": "column predicate false"
+    },
+    {
+      "name": "changed_construct",
+      "kind": "outside source class"
+    },
+    {
+      "name": "wrong_Main",
+      "kind": "outside source class"
+    },
+    {
+      "name": "extra_pragma",
+      "kind": "outside source class"
+    },
+    {
+      "name": "non_ASCII",
+      "kind": "outside source class"
+    },
+    {
+      "name": "VT_not_current_alphabet",
+      "kind": "outside source class"
+    },
+    {
+      "name": "changed_capture_plan_sha256",
+      "kind": "descriptor rejected"
+    },
+    {
+      "name": "changed_phase_options_sha256",
+      "kind": "descriptor rejected"
+    },
+    {
+      "name": "changed_paths",
+      "kind": "descriptor rejected"
+    },
+    {
+      "name": "changed_complete_path_bound",
+      "kind": "descriptor rejected"
+    }
+  ],
+  "retained_result_matches": true,
+  "table_positions_reconciled": 242,
+  "coherent_range_returns": 68,
+  "managed_run": "20261018T142100-ece0ff83ecae",
+  "native_tool_executions": 0,
+  "whole_toolchain_capacity_established": false
+}

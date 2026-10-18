@@ -1,0 +1,35 @@
+{
+  "scope": "selected indexed null light phases",
+  "complete_path_bound": 222,
+  "capture_plan_sha256": "e37ec18a6c347de7258a42a2bee64dec8d94f5ebf55dc30012e9336d59639715",
+  "paths": [
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin:/usr/bin:/bin",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/system.ali",
+    "/tmp/silver-null-light-20261018",
+    "/tmp/silver-null-light-20261018/counter.py",
+    "/tmp/silver-null-light-20261018/decrease-hooks.json",
+    "/tmp/silver-null-light-20261018/main.adb",
+    "/tmp/silver-null-light-20261018/phase1",
+    "/tmp/silver-null-light-20261018/phase1/GNAT-TEMP-000002.TMP",
+    "/tmp/silver-null-light-20261018/phase1/GNAT-TEMP-000003.TMP",
+    "/tmp/silver-null-light-20261018/phase1/GNAT-TEMP-000004.TMP",
+    "/tmp/silver-null-light-20261018/phase1/options.tmp",
+    "/tmp/silver-null-light-20261018/phase2",
+    "/tmp/silver-null-light-20261018/phase2/GNAT-TEMP-000002.TMP",
+    "/tmp/silver-null-light-20261018/phase2/GNAT-TEMP-000003.TMP",
+    "/tmp/silver-null-light-20261018/phase2/GNAT-TEMP-000004.TMP",
+    "/tmp/silver-null-light-20261018/phase2/options.tmp",
+    "/tmp/silver-null-light-20261018/static-all-tables.json",
+    "/tmp/silver-null-light-20261018/temporary",
+    "C"
+  ],
+  "phase_options_sha256": {
+    "phase1": "5c82dc5479d721ab3a83b08b583fa884617697902e1e4e57003abad0f296e428",
+    "phase2": "1f422d3ac93b699dea4a02075dbd326b59b6d42da18e5578c05e0cb61b7e119c"
+  }
+}
