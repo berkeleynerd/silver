@@ -1,0 +1,54 @@
+{
+  "Main_real_RTL_prepare": {
+    "GGC_events_total": 4,
+    "first_RTL_target_setup_already_charged_separately": true,
+    "individual_raw_requests": [
+      1584,
+      32,
+      48,
+      248
+    ],
+    "new_virtual_REG_objects": 0,
+    "ordinary_reg_alignment_bytes": 198,
+    "section_selection_GGC_events": 0,
+    "struct_function_reallocated": false,
+    "temp_hash_backbone_raw_bytes_already_charged": 488,
+    "temp_hash_is_rooted_empty_table_from_dummy_setup": true,
+    "temp_hash_new_GGC_events": 0
+  },
+  "additional_disjoint_GGC_events": 14,
+  "gigi_struct_function_constructors": {
+    "GGC_events_each": 5,
+    "GGC_events_total": 10,
+    "calls": 2,
+    "default_ABI_and_option_hooks_GGC_events": 0,
+    "funcdef_no_increment": 2,
+    "individual_raw_requests_each": [
+      208,
+      48,
+      40,
+      40,
+      320
+    ],
+    "language_function_and_tree_objects_included": false,
+    "result_and_parameter_relayout_GGC_events": 0
+  },
+  "retained_allocation_immediates_verified": 6,
+  "retained_installed_headers_verified": 24,
+  "scope": "Selected native null-function translation constructors and real RTL initialization, after fixed GCC prefix; source-only continuation of retained first-RTL evidence",
+  "selected_path_premises": {
+    "ABI": "Linux x86-64 SysV with default target options",
+    "additional_unfinalized_function": "empty elaboration procedure",
+    "debug_profile_instrumentation_or_alignment_overrides": false,
+    "emitted_functions": [
+      "Main"
+    ],
+    "first_RTL_setup_and_no_temp_slot_cost_probes_reused": true,
+    "function_specific_target_or_optimization_attributes": false,
+    "optimization": "O0 with no override",
+    "stack_usage_or_callgraph_info": false,
+    "whole_translation_constructor_graph_included": false
+  },
+  "source_files_verified": 23,
+  "whole_native_capacity_established": false
+}

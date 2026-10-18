@@ -7515,6 +7515,140 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
   --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-setup.json
 ```
 
+## Real function construction and RTL startup
+
+This source-only continuation separates gigi's function constructors from
+real RTL preparation. It reuses the selected object layouts and installed
+allocation instructions in the first-RTL packet; it launches no compiler,
+debugger, prover or new capture. The
+[source identity](../evidence/unbounded-programs/retained-native-expansion-20261017/real-function-start-source-identity.json)
+and [offline result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-real-function-start.json)
+record this narrower join. Its premises are the existing null-Main descriptor,
+O0, Linux x86-64 SysV, no function-specific target/optimization attributes,
+no stack-usage/callgraph reporting, and no alignment/profile/instrumentation
+overrides.
+
+### Translation owns two function constructors
+
+Gigi invokes `allocate_struct_function` for Main at `trans.cc:4024` and for
+the empty elaboration procedure at `:5994`. The latter is never finalized,
+as established by the whole-unit inventory above, but its constructor still
+runs. Each invocation allocates the function208, EH state48, two initial EH
+vectors40 each and machine state320, giving **five GGC events each, ten in
+all** (`function.cc:4848–4857`, `except.cc:351–357`,
+`i386-options.cc:1991–2000`). Forty is each vector's raw request before the
+existing GGC rounding rule. Each nonnull declaration increments signed
+`funcdef_no` once (`function.cc:4812–4815,4863–4867`); these two constructors
+add2. The NULL synthetic target-setup function adds none. This incremental
+claim does not substitute a measured declaration UID for the incoming counter.
+
+`allocate_struct_function` relays out the result and any parameters. Both
+procedures have a void result and no parameters. `relayout_decl` clears the
+old result size/mode/RTL before `layout_decl` copies the already initialized
+void type's constant size and mode (`stor-layout.cc:661–705,808–844,852–861`).
+It therefore invokes neither variable-size expansion nor RTL attribute
+construction. `aggregate_value_p` returns false immediately for void
+(`function.cc:2091–2092`); the parameter walk is empty. The x86 target does
+not override `target_option.relayout_function`, whose default is
+`hook_void_tree` (`target.def:7061–7067`). Stack-usage allocation requires
+excluded reporting flags (`function.cc:4912–4913,4958–4959`). The remaining
+field initialization, stdarg test and instrumentation-marker stores allocate
+no object. Main's separate `language_function` at `trans.cc:4025`, as well as
+its declarations/types/body and GIMPLE/cgraph objects, remain in the separate
+translation residual; the ten events here must be removed from that residual
+when composing it.
+
+### Active default hooks do not reinitialize the target
+
+Unlike the dummy setup, the real constructors and cfun switches execute
+`invoke_set_current_function_hook` (`function.cc:4674–4706`). The default
+optimization node is selected because these declarations have no specific
+optimization attributes. Therefore no function-specific optab table is
+created. In the selected O0 configuration the four alignment option strings
+are null: their optimization defaults require O2, and x86 only supplies
+strings when the corresponding alignment flag is enabled
+(`opts.cc:684–687`, `i386-options.cc:1868–1875`). Each `parse_N_M` returns
+before constructing its static cache (`toplev.cc:1215–1220,1276–1281`).
+
+The x86 hook is also bounded by the actual defaults, not by its apparent
+name. Initial option processing sets `target_option_default_node` and
+`target_option_current_node` to the same saved node and copies both FP flags
+before saving it (`i386-options.cc:3107–3116`). No target/optimization
+attribute or pragma in this fragment changes them. Hence old and new target
+nodes agree and `fp_flag_change` is false; the target-option rebuilding/
+restoration branch is not entered (`:3470–3514`). The ABI override uses
+SysV because there is no `ms_abi` attribute (`i386.cc:1660–1690,1787–1790`).
+Normal function type and default call-saved policy are selected from the
+cleared machine object (`i386-options.cc:3265–3349`); indirect branch/return
+settings are copied scalars (`:3355–3445`).
+
+`backend_init` has already initialized register sets before language
+translation (`toplev.cc:1830–1849,2205–2225`). SysV makes SI call-used:
+its mask4 is selected by the64-bit non-MS mask4
+(`i386.h:1042–1047`, `i386.cc:528–541`, `reginfo.cc:250–264`). Thus the
+`reinit_regs` test compares true with false and fails; the alternative
+call-saved-policy test also fails because both previous and current policies
+are default0 (`i386-options.cc:3517–3530,3580`, `i386.h:2828`). Normal
+functions bypass the interrupt/no-caller-saved diagnostics. Switching back
+to NULL uses the same default target node. These hooks add **zero GGC events**
+and do not repeat the fixed target setup. `redirect_edge_var_map_empty` is
+also allocation-free here: no selected null GIMPLE statement creates a PHI
+mapping, so its static map remains null (`tree-ssa.cc:49–67,127–131`).
+
+### Real RTL preparation adds four events
+
+`init_function_start` calls `initialize_rtl`, `prepare_function_start` and
+`decide_function_section`; it does **not** allocate another function object
+(`function.cc:5026–5038`). The first RTL setup's437-event envelope is already
+charged separately. `prepare_function_start` now selects
+`fndecl_abi(cfun->decl)`, rather than the dummy's direct default ABI.
+The x86 target has no `fntype_abi` hook override; its default is NULL, and
+O0 does not enable `flag_ipa_ra` (`target.def:5470–5476`,
+`function-abi.cc:192–213`, `opts.cc:656`). The result is a stack value
+containing a pointer and fixed hard-register mask, not a heap object
+(`function-abi.h:166–181`).
+
+The dummy setup already created the temp-address table. Its cost probes
+create no temporary stack slot, and the selected Main has no such slot.
+The table is an ordinary `GTY(())` root, not a deletable cache
+(`function.cc:604–612`); dummy teardown does not clear its pointer
+(`:5313–5326`). It remains an empty61-pointer table.
+Real `init_temp_slots` calls `empty()`, whose first guard returns without
+`empty_slow` or resizing when there are no elements
+(`function.cc:1239–1251`, `hash-table.h:412`). Its wrapper/backbone have
+already been charged in the cold setup. This zero new-event result relies
+on that source call-path argument, not on observing a cache hit.
+
+The real allocation rows are:
+
+| Object | GGC events | Individual raw request |
+| --- | ---: | ---: |
+| register pointer vector |1|198×8 =1,584 bytes|
+| constant pool |1|32 bytes|
+| constant-pool hash wrapper and initial backbone |2|48 and31×8 =248 bytes|
+| ordinary register alignment vector |0|198 bytes|
+
+`init_emit` copies existing hard/virtual REG pointers into the new vector;
+`init_virtual_regs` creates no REG (`emit-rtl.cc:5782–5790,5979–6040`).
+The installed target include closure has no `INIT_EXPANDERS` definition.
+`init_varasm_status` creates the new pool and hash
+(`varasm.cc:4149–4167`). `init_expr` is a memset and `default_rtl_profile`
+is one scalar assignment (`expr.cc:209–212`, `predict.cc:487–490`).
+Section selection initializes two booleans, with no section attribute on
+this declaration; it performs no section allocation
+(`varasm.cc:2010–2025`). The void result excludes the aggregate-return
+warning. Thus the real preparation adds **four GGC events**, with its own
+ordinary198-byte vector, and this local join adds **fourteen disjoint GGC
+events** including the two translation constructors.
+
+The [reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-real-function-start.py)
+checks23 source files,24 reused installed headers, six reused allocation
+instructions against the selected binary, and the event/request arithmetic.
+The prose supplies the selected-path proof; source pins and string guards
+alone are not semantic certification. No Main translation/GIMPLE/cgraph,
+late RTL, frame-note, CFI or unit-emission residual is silently set to zero.
+This local join does not establish whole native capacity.
+
 ## Null dataflow and register-allocation backing
 
 This continuation prices selected fixed objects beneath the backend's null
@@ -8017,14 +8151,16 @@ For the null function, keep ordinary pools/obstacks separate from GGC events.
 The partial GGC lifetime envelope is
 
 ```text
-E_GGC <= 39257 + 437 + 2 + 2 + 8 + 10
-       + E_metadata + E_Main_translation + E_real_function_start
+E_GGC <= 39257 + 437 + 10 + 4 + 2 + 2 + 8 + 10
+       + E_metadata + E_Main_translation
        + E_RTL_passes + E_regnotes + E_CFI + E_unit_emit
 ```
 
 Here39,257 is the established fixed pre-Main GCC prefix,437 the cold first RTL
-target setup above,2 the selected alias vectors,2 reload-equivalence vector
-events,8 direct elimination-register requests and10 IRA loop-setup events.
+target setup above,10 the two gigi struct-function constructors,4 real Main
+RTL-preparation events,2 the selected alias vectors,2 reload-equivalence
+vector events,8 direct elimination-register requests and10 IRA loop-setup
+events.
 The residuals are
 nonnegative required inputs, never implicit zeros. Their disjoint boundaries
 and constructors still require completion:
@@ -8032,8 +8168,7 @@ and constructors still require completion:
 | Residual | Source route and required input |
 | --- | --- |
 | `E_metadata` |path/source-location/unit/name corrections between the fixed prefix and Main; charge actual source descriptor, argv/path and shared hash inputs |
-| `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation; combine the backend's logical graph with each constructor/allocation route |
-| `E_real_function_start` |real `allocate_struct_function`/`prepare_function_start`/`init_emit`, distinct from the dummy setup; include EH/machine/function objects, RTL vectors and shared constant/temp hash state |
+| `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation, excluding the ten struct-function constructor events charged above; include Main's separate language_function and combine the backend's logical graph with each remaining constructor/allocation route |
 | `E_RTL_passes` |expansion and selected O0 RTL helpers; include underlying pattern/vector copies and pseudo/target frame-layout objects, beyond the52 chain nodes already bounded and excluding the equivalence/elimination/IRA-loop events charged separately |
 | `E_regnotes` |late target/frame register-note construction; DF NOTE constructs none on the selected operand-free instructions |
 | `E_CFI` |dwarf2cfi scan/trace and frame descriptions; needs selected instruction operands, unwind state and emitted row/vector counts |

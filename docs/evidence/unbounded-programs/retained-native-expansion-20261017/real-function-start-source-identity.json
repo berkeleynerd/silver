@@ -1,0 +1,127 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "bytes": 406631,
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "bytes": 221482,
+      "path": "gcc/function.cc",
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "bytes": 27144,
+      "path": "gcc/function.h",
+      "sha256": "f0f30e429adb36d8532e7cf2f911d46387ae67c1815daa8a86c034b4cbc3956e"
+    },
+    {
+      "bytes": 8706,
+      "path": "gcc/function-abi.cc",
+      "sha256": "43700d9a1bf90217656db273fecc32fd504c0a1af697c2787086e97b73318a61"
+    },
+    {
+      "bytes": 12615,
+      "path": "gcc/function-abi.h",
+      "sha256": "fc4c8187f35641bda6c3b9c94eb28254491a8a234392dd681b30da24f4a10cce"
+    },
+    {
+      "bytes": 99184,
+      "path": "gcc/except.cc",
+      "sha256": "90ef6fe4750300cb1985cb1df0af450cc0d806dad85874f631bfd8e411e0e5f0"
+    },
+    {
+      "bytes": 193419,
+      "path": "gcc/emit-rtl.cc",
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "bytes": 271386,
+      "path": "gcc/varasm.cc",
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "bytes": 472318,
+      "path": "gcc/expr.cc",
+      "sha256": "97b7c529f38ae0dbb7fb39a2d85d5c27c18bc145a9d21a08f3e5a5135f571e4f"
+    },
+    {
+      "bytes": 141588,
+      "path": "gcc/predict.cc",
+      "sha256": "270751637ae8a2fa0b43d890abd8525d53515a6072bd5b8b0117a0c9dbcebaa7"
+    },
+    {
+      "bytes": 72691,
+      "path": "gcc/toplev.cc",
+      "sha256": "932825f12e1666583c385749845a24ec2fe3e06e071f84016fc972c72bc4f053"
+    },
+    {
+      "bytes": 66992,
+      "path": "gcc/tree-ssa.cc",
+      "sha256": "b4bcae1ef8545e38573ee2be4dd02f66e9a6976485046acecdda192bddbf5a03"
+    },
+    {
+      "bytes": 109787,
+      "path": "gcc/stor-layout.cc",
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872"
+    },
+    {
+      "bytes": 349626,
+      "path": "gcc/target.def",
+      "sha256": "a4201f0ce18dbbfdbe7b10da98a386e1c79973659be5032abdd3346e125d7763"
+    },
+    {
+      "bytes": 127927,
+      "path": "gcc/opts.cc",
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770"
+    },
+    {
+      "bytes": 39713,
+      "path": "gcc/reginfo.cc",
+      "sha256": "276398df9c9a0f68952ddf0e9f599a2b6f0bb2d064cbdcf42868bb449ecf57ec"
+    },
+    {
+      "bytes": 39688,
+      "path": "gcc/hash-table.h",
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "bytes": 4564,
+      "path": "gcc/hash-table.cc",
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457"
+    },
+    {
+      "bytes": 74232,
+      "path": "gcc/vec.h",
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "bytes": 22283,
+      "path": "gcc/vec.cc",
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "bytes": 832808,
+      "path": "gcc/config/i386/i386.cc",
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "bytes": 138368,
+      "path": "gcc/config/i386/i386-options.cc",
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6"
+    },
+    {
+      "bytes": 122286,
+      "path": "gcc/config/i386/i386.h",
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    }
+  ],
+  "reused_identity": {
+    "bytes": 12725,
+    "path": "rtl-setup-source-identity.json",
+    "sha256": "ec73bd4f5a2b0ad13491daef35019d2c0ef821edf09bebcc112d39da94415134"
+  },
+  "scope": "Selected native null-function translation constructors and real RTL initialization, after fixed GCC prefix; source-only continuation of retained first-RTL evidence",
+  "whole_native_capacity_established": false
+}
