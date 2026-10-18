@@ -989,6 +989,13 @@ LF line numbering; complete file identities checked.
 377:   line_table->default_range_bits = 0;
 ```
 
+## gcc/tree.cc:783–785
+```text
+783:   poly_int_cst_hash_table = hash_table<poly_int_cst_hasher>::create_ggc (64);
+784:
+785:   int_cst_node = make_int_cst (1, 1);
+```
+
 ## gcc/tree.cc:1468–1547
 ```text
 1468: copy_node (tree node MEM_STAT_DECL)
@@ -1073,6 +1080,276 @@ LF line numbering; complete file identities checked.
 1547: 		sizeof (struct cl_optimization));
 ```
 
+## gcc/tree.cc:1581–1616
+```text
+1581: get_int_cst_ext_nunits (tree type, const wide_int &cst)
+1582: {
+1583:   gcc_checking_assert (cst.get_precision () == TYPE_PRECISION (type));
+1584:   /* We need extra HWIs if CST is an unsigned integer with its
+1585:      upper bit set.  */
+1586:   if (TYPE_UNSIGNED (type) && wi::neg_p (cst))
+1587:     return cst.get_precision () / HOST_BITS_PER_WIDE_INT + 1;
+1588:   return cst.get_len ();
+1589: }
+1590:
+1591: /* Return a new INTEGER_CST with value CST and type TYPE.  */
+1592:
+1593: static tree
+1594: build_new_int_cst (tree type, const wide_int &cst)
+1595: {
+1596:   unsigned int len = cst.get_len ();
+1597:   unsigned int ext_len = get_int_cst_ext_nunits (type, cst);
+1598:   tree nt = make_int_cst (len, ext_len);
+1599:
+1600:   if (len < ext_len)
+1601:     {
+1602:       --ext_len;
+1603:       TREE_INT_CST_ELT (nt, ext_len)
+1604: 	= zext_hwi (-1, cst.get_precision () % HOST_BITS_PER_WIDE_INT);
+1605:       for (unsigned int i = len; i < ext_len; ++i)
+1606: 	TREE_INT_CST_ELT (nt, i) = -1;
+1607:     }
+1608:   else if (TYPE_UNSIGNED (type)
+1609: 	   && cst.get_precision () < len * HOST_BITS_PER_WIDE_INT)
+1610:     {
+1611:       len--;
+1612:       TREE_INT_CST_ELT (nt, len)
+1613: 	= zext_hwi (cst.elt (len),
+1614: 		    cst.get_precision () % HOST_BITS_PER_WIDE_INT);
+1615:     }
+1616:
+```
+
+## gcc/tree.cc:1696–1729
+```text
+1696: force_fit_type (tree type, const poly_wide_int_ref &cst,
+1697: 		int overflowable, bool overflowed)
+1698: {
+1699:   signop sign = TYPE_SIGN (type);
+1700:
+1701:   /* If we need to set overflow flags, return a new unshared node.  */
+1702:   if (overflowed || !wi::fits_to_tree_p (cst, type))
+1703:     {
+1704:       if (overflowed
+1705: 	  || overflowable < 0
+1706: 	  || (overflowable > 0 && sign == SIGNED))
+1707: 	{
+1708: 	  poly_wide_int tmp = poly_wide_int::from (cst, TYPE_PRECISION (type),
+1709: 						   sign);
+1710: 	  tree t;
+1711: 	  if (tmp.is_constant ())
+1712: 	    t = build_new_int_cst (type, tmp.coeffs[0]);
+1713: 	  else
+1714: 	    {
+1715: 	      tree coeffs[NUM_POLY_INT_COEFFS];
+1716: 	      for (unsigned int i = 0; i < NUM_POLY_INT_COEFFS; ++i)
+1717: 		{
+1718: 		  coeffs[i] = build_new_int_cst (type, tmp.coeffs[i]);
+1719: 		  TREE_OVERFLOW (coeffs[i]) = 1;
+1720: 		}
+1721: 	      t = build_new_poly_int_cst (type, coeffs);
+1722: 	    }
+1723: 	  TREE_OVERFLOW (t) = 1;
+1724: 	  return t;
+1725: 	}
+1726:     }
+1727:
+1728:   /* Else build a shared node.  */
+1729:   return wide_int_to_tree (type, cst);
+```
+
+## gcc/tree.cc:1776–1953
+```text
+1776: cache_wide_int_in_type_cache (tree type, const wide_int &cst,
+1777: 			      int slot, int max_slots)
+1778: {
+1779:   gcc_checking_assert (slot >= 0);
+1780:   /* Initialize cache.  */
+1781:   if (!TYPE_CACHED_VALUES_P (type))
+1782:     {
+1783:       TYPE_CACHED_VALUES_P (type) = 1;
+1784:       TYPE_CACHED_VALUES (type) = make_tree_vec (max_slots);
+1785:     }
+1786:   tree t = TREE_VEC_ELT (TYPE_CACHED_VALUES (type), slot);
+1787:   if (!t)
+1788:     {
+1789:       /* Create a new shared int.  */
+1790:       t = build_new_int_cst (type, cst);
+1791:       TREE_VEC_ELT (TYPE_CACHED_VALUES (type), slot) = t;
+1792:     }
+1793:   return t;
+1794: }
+1795:
+1796: /* Create an INT_CST node of TYPE and value CST.
+1797:    The returned node is always shared.  For small integers we use a
+1798:    per-type vector cache, for larger ones we use a single hash table.
+1799:    The value is extended from its precision according to the sign of
+1800:    the type to be a multiple of HOST_BITS_PER_WIDE_INT.  This defines
+1801:    the upper bits and ensures that hashing and value equality based
+1802:    upon the underlying HOST_WIDE_INTs works without masking.  */
+1803:
+1804: static tree
+1805: wide_int_to_tree_1 (tree type, const wide_int_ref &pcst)
+1806: {
+1807:   tree t;
+1808:   int ix = -1;
+1809:   int limit = 0;
+1810:
+1811:   gcc_assert (type);
+1812:   unsigned int prec = TYPE_PRECISION (type);
+1813:   signop sgn = TYPE_SIGN (type);
+1814:
+1815:   /* Verify that everything is canonical.  */
+1816:   int l = pcst.get_len ();
+1817:   if (l > 1)
+1818:     {
+1819:       if (pcst.elt (l - 1) == 0)
+1820: 	gcc_checking_assert (pcst.elt (l - 2) < 0);
+1821:       if (pcst.elt (l - 1) == HOST_WIDE_INT_M1)
+1822: 	gcc_checking_assert (pcst.elt (l - 2) >= 0);
+1823:     }
+1824:
+1825:   wide_int cst = wide_int::from (pcst, prec, sgn);
+1826:   unsigned int ext_len = get_int_cst_ext_nunits (type, cst);
+1827:
+1828:   enum tree_code code = TREE_CODE (type);
+1829:   if (code == POINTER_TYPE || code == REFERENCE_TYPE)
+1830:     {
+1831:       /* Cache NULL pointer and zero bounds.  */
+1832:       if (cst == 0)
+1833: 	ix = 0;
+1834:       /* Cache upper bounds of pointers.  */
+1835:       else if (cst == wi::max_value (prec, sgn))
+1836: 	ix = 1;
+1837:       /* Cache 1 which is used for a non-zero range.  */
+1838:       else if (cst == 1)
+1839: 	ix = 2;
+1840:
+1841:       if (ix >= 0)
+1842: 	{
+1843: 	  t = cache_wide_int_in_type_cache (type, cst, ix, 3);
+1844: 	  /* Make sure no one is clobbering the shared constant.  */
+1845: 	  gcc_checking_assert (TREE_TYPE (t) == type
+1846: 			       && cst == wi::to_wide (t));
+1847: 	  return t;
+1848: 	}
+1849:     }
+1850:   if (ext_len == 1)
+1851:     {
+1852:       /* We just need to store a single HOST_WIDE_INT.  */
+1853:       HOST_WIDE_INT hwi;
+1854:       if (TYPE_UNSIGNED (type))
+1855: 	hwi = cst.to_uhwi ();
+1856:       else
+1857: 	hwi = cst.to_shwi ();
+1858:
+1859:       switch (code)
+1860: 	{
+1861: 	case NULLPTR_TYPE:
+1862: 	  gcc_assert (hwi == 0);
+1863: 	  /* Fallthru.  */
+1864:
+1865: 	case POINTER_TYPE:
+1866: 	case REFERENCE_TYPE:
+1867: 	  /* Ignore pointers, as they were already handled above.  */
+1868: 	  break;
+1869:
+1870: 	case BOOLEAN_TYPE:
+1871: 	  /* Cache false or true.  */
+1872: 	  limit = 2;
+1873: 	  if (IN_RANGE (hwi, 0, 1))
+1874: 	    ix = hwi;
+1875: 	  break;
+1876:
+1877: 	case INTEGER_TYPE:
+1878: 	case OFFSET_TYPE:
+1879: 	case BITINT_TYPE:
+1880: 	  if (TYPE_SIGN (type) == UNSIGNED)
+1881: 	    {
+1882: 	      /* Cache [0, N).  */
+1883: 	      limit = param_integer_share_limit;
+1884: 	      if (IN_RANGE (hwi, 0, param_integer_share_limit - 1))
+1885: 		ix = hwi;
+1886: 	    }
+1887: 	  else
+1888: 	    {
+1889: 	      /* Cache [-1, N).  */
+1890: 	      limit = param_integer_share_limit + 1;
+1891: 	      if (IN_RANGE (hwi, -1, param_integer_share_limit - 1))
+1892: 		ix = hwi + 1;
+1893: 	    }
+1894: 	  break;
+1895:
+1896: 	case ENUMERAL_TYPE:
+1897: 	  break;
+1898:
+1899: 	default:
+1900: 	  gcc_unreachable ();
+1901: 	}
+1902:
+1903:       if (ix >= 0)
+1904: 	{
+1905: 	  t = cache_wide_int_in_type_cache (type, cst, ix, limit);
+1906: 	  /* Make sure no one is clobbering the shared constant.  */
+1907: 	  gcc_checking_assert (TREE_TYPE (t) == type
+1908: 			       && TREE_INT_CST_NUNITS (t) == 1
+1909: 			       && TREE_INT_CST_EXT_NUNITS (t) == 1
+1910: 			       && TREE_INT_CST_ELT (t, 0) == hwi);
+1911: 	  return t;
+1912: 	}
+1913:       else
+1914: 	{
+1915: 	  /* Use the cache of larger shared ints, using int_cst_node as
+1916: 	     a temporary.  */
+1917:
+1918: 	  TREE_INT_CST_ELT (int_cst_node, 0) = hwi;
+1919: 	  TREE_TYPE (int_cst_node) = type;
+1920:
+1921: 	  tree *slot = int_cst_hash_table->find_slot (int_cst_node, INSERT);
+1922: 	  t = *slot;
+1923: 	  if (!t)
+1924: 	    {
+1925: 	      /* Insert this one into the hash table.  */
+1926: 	      t = int_cst_node;
+1927: 	      *slot = t;
+1928: 	      /* Make a new node for next time round.  */
+1929: 	      int_cst_node = make_int_cst (1, 1);
+1930: 	    }
+1931: 	}
+1932:     }
+1933:   else
+1934:     {
+1935:       /* The value either hashes properly or we drop it on the floor
+1936: 	 for the gc to take care of.  There will not be enough of them
+1937: 	 to worry about.  */
+1938:
+1939:       tree nt = build_new_int_cst (type, cst);
+1940:       tree *slot = int_cst_hash_table->find_slot (nt, INSERT);
+1941:       t = *slot;
+1942:       if (!t)
+1943: 	{
+1944: 	  /* Insert this one into the hash table.  */
+1945: 	  t = nt;
+1946: 	  *slot = t;
+1947: 	}
+1948:       else
+1949: 	ggc_free (nt);
+1950:     }
+1951:
+1952:   return t;
+1953: }
+```
+
+## gcc/tree.cc:2008–2013
+```text
+2008: wide_int_to_tree (tree type, const poly_wide_int_ref &value)
+2009: {
+2010:   if (value.is_constant ())
+2011:     return wide_int_to_tree_1 (type, value.coeffs[0]);
+2012:   return build_poly_int_cst (type, value);
+2013: }
+```
+
 ## gcc/tree.cc:2482–2488
 ```text
 2482: build_clobber (tree type, enum clobber_kind kind)
@@ -1107,6 +1384,45 @@ LF line numbering; complete file identities checked.
 2634:
 2635:   return s;
 2636: }
+```
+
+## gcc/tree.cc:2926–2960
+```text
+2926: make_int_cst (int len, int ext_len MEM_STAT_DECL)
+2927: {
+2928:   tree t;
+2929:   int length = ((ext_len - 1) * sizeof (HOST_WIDE_INT)
+2930: 		+ sizeof (struct tree_int_cst));
+2931:
+2932:   gcc_assert (len);
+2933:   record_node_allocation_statistics (INTEGER_CST, length);
+2934:
+2935:   t = ggc_alloc_cleared_tree_node_stat (length PASS_MEM_STAT);
+2936:
+2937:   TREE_SET_CODE (t, INTEGER_CST);
+2938:   TREE_INT_CST_NUNITS (t) = len;
+2939:   TREE_INT_CST_EXT_NUNITS (t) = ext_len;
+2940:   TREE_CONSTANT (t) = 1;
+2941:
+2942:   return t;
+2943: }
+2944:
+2945: /* Build a newly constructed TREE_VEC node of length LEN.  */
+2946:
+2947: tree
+2948: make_tree_vec (int len MEM_STAT_DECL)
+2949: {
+2950:   tree t;
+2951:   size_t length = (len - 1) * sizeof (tree) + sizeof (struct tree_vec);
+2952:
+2953:   record_node_allocation_statistics (TREE_VEC, length);
+2954:
+2955:   t = ggc_alloc_cleared_tree_node_stat (length PASS_MEM_STAT);
+2956:
+2957:   TREE_SET_CODE (t, TREE_VEC);
+2958:   TREE_VEC_LENGTH (t) = len;
+2959:
+2960:   return t;
 ```
 
 ## gcc/tree-core.h:1138–1253
@@ -1262,6 +1578,14 @@ LF line numbering; complete file identities checked.
 1593:   int length;
 1594:   char str[1];
 1595: };
+```
+
+## gcc/tree-core.h:1631–1634
+```text
+1631: struct GTY(()) tree_vec {
+1632:   struct tree_common common;
+1633:   tree GTY ((length ("TREE_VEC_LENGTH ((tree)&%h)"))) a[1];
+1634: };
 ```
 
 ## gcc/varasm.cc:870–920
@@ -9381,4 +9705,1104 @@ LF line numbering; complete file identities checked.
 790:
 791:   htab_traverse_noresize (htab, callback, info);
 792: }
+```
+
+## gcc/fold-const.cc:646–669
+```text
+646: fold_negate_expr_1 (location_t loc, tree t)
+647: {
+648:   tree type = TREE_TYPE (t);
+649:   tree tem;
+650:
+651:   switch (TREE_CODE (t))
+652:     {
+653:     /* Convert - (~A) to A + 1.  */
+654:     case BIT_NOT_EXPR:
+655:       if (INTEGRAL_TYPE_P (type))
+656:         return fold_build2_loc (loc, PLUS_EXPR, type, TREE_OPERAND (t, 0),
+657: 				build_one_cst (type));
+658:       break;
+659:
+660:     case INTEGER_CST:
+661:       tem = fold_negate_const (t, type);
+662:       if (TREE_OVERFLOW (tem) == TREE_OVERFLOW (t)
+663: 	  || (ANY_INTEGRAL_TYPE_P (type)
+664: 	      && !TYPE_OVERFLOW_TRAPS (type)
+665: 	      && TYPE_OVERFLOW_WRAPS (type))
+666: 	  || (flag_sanitize & SANITIZE_SI_OVERFLOW) == 0)
+667: 	return tem;
+668:       break;
+669:
+```
+
+## gcc/fold-const.cc:844–853
+```text
+844: fold_negate_expr (location_t loc, tree t)
+845: {
+846:   tree type = TREE_TYPE (t);
+847:   STRIP_SIGN_NOPS (t);
+848:   tree tem = fold_negate_expr_1 (loc, t);
+849:   if (tem == NULL_TREE)
+850:     return NULL_TREE;
+851:   return fold_convert_loc (loc, type, tem);
+852: }
+853:
+```
+
+## gcc/fold-const.cc:1087–1225
+```text
+1087:    evaluate CODE at compile-time.  */
+1088:
+1089: bool
+1090: wide_int_binop (wide_int &res,
+1091: 		enum tree_code code, const wide_int &arg1, const wide_int &arg2,
+1092: 		signop sign, wi::overflow_type *overflow)
+1093: {
+1094:   wide_int tmp;
+1095:   *overflow = wi::OVF_NONE;
+1096:   switch (code)
+1097:     {
+1098:     case BIT_IOR_EXPR:
+1099:       res = wi::bit_or (arg1, arg2);
+1100:       break;
+1101:
+1102:     case BIT_XOR_EXPR:
+1103:       res = wi::bit_xor (arg1, arg2);
+1104:       break;
+1105:
+1106:     case BIT_AND_EXPR:
+1107:       res = wi::bit_and (arg1, arg2);
+1108:       break;
+1109:
+1110:     case LSHIFT_EXPR:
+1111:       if (wi::neg_p (arg2))
+1112: 	return false;
+1113:       res = wi::lshift (arg1, arg2);
+1114:       break;
+1115:
+1116:     case RSHIFT_EXPR:
+1117:       if (wi::neg_p (arg2))
+1118: 	return false;
+1119:       /* It's unclear from the C standard whether shifts can overflow.
+1120: 	 The following code ignores overflow; perhaps a C standard
+1121: 	 interpretation ruling is needed.  */
+1122:       res = wi::rshift (arg1, arg2, sign);
+1123:       break;
+1124:
+1125:     case RROTATE_EXPR:
+1126:     case LROTATE_EXPR:
+1127:       if (wi::neg_p (arg2))
+1128: 	{
+1129: 	  tmp = -arg2;
+1130: 	  if (code == RROTATE_EXPR)
+1131: 	    code = LROTATE_EXPR;
+1132: 	  else
+1133: 	    code = RROTATE_EXPR;
+1134: 	}
+1135:       else
+1136:         tmp = arg2;
+1137:
+1138:       if (code == RROTATE_EXPR)
+1139: 	res = wi::rrotate (arg1, tmp);
+1140:       else
+1141: 	res = wi::lrotate (arg1, tmp);
+1142:       break;
+1143:
+1144:     case PLUS_EXPR:
+1145:       res = wi::add (arg1, arg2, sign, overflow);
+1146:       break;
+1147:
+1148:     case MINUS_EXPR:
+1149:       res = wi::sub (arg1, arg2, sign, overflow);
+1150:       break;
+1151:
+1152:     case MULT_EXPR:
+1153:       res = wi::mul (arg1, arg2, sign, overflow);
+1154:       break;
+1155:
+1156:     case MULT_HIGHPART_EXPR:
+1157:       res = wi::mul_high (arg1, arg2, sign);
+1158:       break;
+1159:
+1160:     case TRUNC_DIV_EXPR:
+1161:     case EXACT_DIV_EXPR:
+1162:       if (arg2 == 0)
+1163: 	return false;
+1164:       res = wi::div_trunc (arg1, arg2, sign, overflow);
+1165:       break;
+1166:
+1167:     case FLOOR_DIV_EXPR:
+1168:       if (arg2 == 0)
+1169: 	return false;
+1170:       res = wi::div_floor (arg1, arg2, sign, overflow);
+1171:       break;
+1172:
+1173:     case CEIL_DIV_EXPR:
+1174:       if (arg2 == 0)
+1175: 	return false;
+1176:       res = wi::div_ceil (arg1, arg2, sign, overflow);
+1177:       break;
+1178:
+1179:     case ROUND_DIV_EXPR:
+1180:       if (arg2 == 0)
+1181: 	return false;
+1182:       res = wi::div_round (arg1, arg2, sign, overflow);
+1183:       break;
+1184:
+1185:     case TRUNC_MOD_EXPR:
+1186:       if (arg2 == 0)
+1187: 	return false;
+1188:       res = wi::mod_trunc (arg1, arg2, sign, overflow);
+1189:       break;
+1190:
+1191:     case FLOOR_MOD_EXPR:
+1192:       if (arg2 == 0)
+1193: 	return false;
+1194:       res = wi::mod_floor (arg1, arg2, sign, overflow);
+1195:       break;
+1196:
+1197:     case CEIL_MOD_EXPR:
+1198:       if (arg2 == 0)
+1199: 	return false;
+1200:       res = wi::mod_ceil (arg1, arg2, sign, overflow);
+1201:       break;
+1202:
+1203:     case ROUND_MOD_EXPR:
+1204:       if (arg2 == 0)
+1205: 	return false;
+1206:       res = wi::mod_round (arg1, arg2, sign, overflow);
+1207:       break;
+1208:
+1209:     case MIN_EXPR:
+1210:       res = wi::min (arg1, arg2, sign);
+1211:       break;
+1212:
+1213:     case MAX_EXPR:
+1214:       res = wi::max (arg1, arg2, sign);
+1215:       break;
+1216:
+1217:     default:
+1218:       return false;
+1219:     }
+1220:   return true;
+1221: }
+1222:
+1223: /* Returns true if we know who is smaller or equal, ARG1 or ARG2, and set the
+1224:    min value to RES.  */
+1225: bool
+```
+
+## gcc/fold-const.cc:1325–1342
+```text
+1325: int_const_binop (enum tree_code code, const_tree arg1, const_tree arg2,
+1326: 		 int overflowable)
+1327: {
+1328:   poly_wide_int poly_res;
+1329:   tree type = TREE_TYPE (arg1);
+1330:   signop sign = TYPE_SIGN (type);
+1331:   wi::overflow_type overflow = wi::OVF_NONE;
+1332:
+1333:   if (!poly_int_tree_p (arg1)
+1334:       || !poly_int_tree_p (arg2)
+1335:       || !poly_int_binop (poly_res, code, arg1, arg2, sign, &overflow))
+1336:     return NULL_TREE;
+1337:   return force_fit_type (type, poly_res, overflowable,
+1338: 			 (((sign == SIGNED || overflowable == -1)
+1339: 			   && overflow)
+1340: 			  | TREE_OVERFLOW (arg1) | TREE_OVERFLOW (arg2)));
+1341: }
+1342:
+```
+
+## gcc/fold-const.cc:1477–1498
+```text
+1477: const_binop (enum tree_code code, tree arg1, tree arg2)
+1478: {
+1479:   /* Sanity check for the recursive cases.  */
+1480:   if (!arg1 || !arg2)
+1481:     return NULL_TREE;
+1482:
+1483:   STRIP_NOPS (arg1);
+1484:   STRIP_NOPS (arg2);
+1485:
+1486:   if (poly_int_tree_p (arg1) && poly_int_tree_p (arg2))
+1487:     {
+1488:       if (code == POINTER_PLUS_EXPR)
+1489: 	return int_const_binop (PLUS_EXPR,
+1490: 				arg1, fold_convert (TREE_TYPE (arg1), arg2));
+1491:
+1492:       return int_const_binop (code, arg1, arg2);
+1493:     }
+1494:
+1495:   if (TREE_CODE (arg1) == REAL_CST && TREE_CODE (arg2) == REAL_CST)
+1496:     {
+1497:       machine_mode mode;
+1498:       REAL_VALUE_TYPE d1;
+```
+
+## gcc/fold-const.cc:1920–2011
+```text
+1920: const_unop (enum tree_code code, tree type, tree arg0)
+1921: {
+1922:   /* Don't perform the operation, other than NEGATE and ABS, if
+1923:      flag_signaling_nans is on and the operand is a signaling NaN.  */
+1924:   if (TREE_CODE (arg0) == REAL_CST
+1925:       && HONOR_SNANS (arg0)
+1926:       && REAL_VALUE_ISSIGNALING_NAN (TREE_REAL_CST (arg0))
+1927:       && code != NEGATE_EXPR
+1928:       && code != ABS_EXPR
+1929:       && code != ABSU_EXPR)
+1930:     return NULL_TREE;
+1931:
+1932:   switch (code)
+1933:     {
+1934:     CASE_CONVERT:
+1935:     case FLOAT_EXPR:
+1936:     case FIX_TRUNC_EXPR:
+1937:     case FIXED_CONVERT_EXPR:
+1938:       return fold_convert_const (code, type, arg0);
+1939:
+1940:     case ADDR_SPACE_CONVERT_EXPR:
+1941:       /* If the source address is 0, and the source address space
+1942: 	 cannot have a valid object at 0, fold to dest type null.  */
+1943:       if (integer_zerop (arg0)
+1944: 	  && !(targetm.addr_space.zero_address_valid
+1945: 	       (TYPE_ADDR_SPACE (TREE_TYPE (TREE_TYPE (arg0))))))
+1946: 	return fold_convert_const (code, type, arg0);
+1947:       break;
+1948:
+1949:     case VIEW_CONVERT_EXPR:
+1950:       return fold_view_convert_expr (type, arg0);
+1951:
+1952:     case NEGATE_EXPR:
+1953:       {
+1954: 	/* Can't call fold_negate_const directly here as that doesn't
+1955: 	   handle all cases and we might not be able to negate some
+1956: 	   constants.  */
+1957: 	tree tem = fold_negate_expr (UNKNOWN_LOCATION, arg0);
+1958: 	if (tem && CONSTANT_CLASS_P (tem))
+1959: 	  return tem;
+1960: 	break;
+1961:       }
+1962:
+1963:     case ABS_EXPR:
+1964:     case ABSU_EXPR:
+1965:       if (TREE_CODE (arg0) == INTEGER_CST || TREE_CODE (arg0) == REAL_CST)
+1966: 	return fold_abs_const (arg0, type);
+1967:       break;
+1968:
+1969:     case CONJ_EXPR:
+1970:       if (TREE_CODE (arg0) == COMPLEX_CST)
+1971: 	{
+1972: 	  tree ipart = fold_negate_const (TREE_IMAGPART (arg0),
+1973: 					  TREE_TYPE (type));
+1974: 	  return build_complex (type, TREE_REALPART (arg0), ipart);
+1975: 	}
+1976:       break;
+1977:
+1978:     case BIT_NOT_EXPR:
+1979:       if (TREE_CODE (arg0) == INTEGER_CST)
+1980: 	return fold_not_const (arg0, type);
+1981:       else if (POLY_INT_CST_P (arg0))
+1982: 	return wide_int_to_tree (type, ~poly_int_cst_value (arg0));
+1983:       /* Perform BIT_NOT_EXPR on each element individually.  */
+1984:       else if (TREE_CODE (arg0) == VECTOR_CST)
+1985: 	{
+1986: 	  tree elem;
+1987:
+1988: 	  /* This can cope with stepped encodings because ~x == -1 - x.  */
+1989: 	  tree_vector_builder elements;
+1990: 	  elements.new_unary_operation (type, arg0, true);
+1991: 	  unsigned int i, count = elements.encoded_nelts ();
+1992: 	  for (i = 0; i < count; ++i)
+1993: 	    {
+1994: 	      elem = VECTOR_CST_ELT (arg0, i);
+1995: 	      elem = const_unop (BIT_NOT_EXPR, TREE_TYPE (type), elem);
+1996: 	      if (elem == NULL_TREE)
+1997: 		break;
+1998: 	      elements.quick_push (elem);
+1999: 	    }
+2000: 	  if (i == count)
+2001: 	    return elements.build ();
+2002: 	}
+2003:       break;
+2004:
+2005:     case TRUTH_NOT_EXPR:
+2006:       if (TREE_CODE (arg0) == INTEGER_CST)
+2007: 	return constant_boolean_node (integer_zerop (arg0), type);
+2008:       break;
+2009:
+2010:     case REALPART_EXPR:
+2011:       if (TREE_CODE (arg0) == COMPLEX_CST)
+```
+
+## gcc/fold-const.cc:2192–2203
+```text
+2192: int_const_convert (tree type, const_tree arg1, int overflowable)
+2193: {
+2194:   /* Given an integer constant, make new constant with new type,
+2195:      appropriately sign-extended or truncated.  Use widest_int
+2196:      so that any extension is done according ARG1's type.  */
+2197:   tree arg1_type = TREE_TYPE (arg1);
+2198:   unsigned prec = MAX (TYPE_PRECISION (arg1_type), TYPE_PRECISION (type));
+2199:   return force_fit_type (type, wide_int::from (wi::to_wide (arg1), prec,
+2200: 					       TYPE_SIGN (arg1_type)),
+2201: 			 overflowable,
+2202: 			 TREE_OVERFLOW (arg1));
+2203: }
+```
+
+## gcc/fold-const.cc:2484–2504
+```text
+2484: fold_convert_const (enum tree_code code, tree type, tree arg1)
+2485: {
+2486:   tree arg_type = TREE_TYPE (arg1);
+2487:   if (arg_type == type)
+2488:     return arg1;
+2489:
+2490:   /* We can't widen types, since the runtime value could overflow the
+2491:      original type before being extended to the new type.  */
+2492:   if (POLY_INT_CST_P (arg1)
+2493:       && (POINTER_TYPE_P (type) || INTEGRAL_TYPE_P (type))
+2494:       && TYPE_PRECISION (type) <= TYPE_PRECISION (arg_type))
+2495:     return build_poly_int_cst (type,
+2496: 			       poly_wide_int::from (poly_int_cst_value (arg1),
+2497: 						    TYPE_PRECISION (type),
+2498: 						    TYPE_SIGN (arg_type)));
+2499:
+2500:   if (POINTER_TYPE_P (type) || INTEGRAL_TYPE_P (type)
+2501:       || TREE_CODE (type) == OFFSET_TYPE)
+2502:     {
+2503:       if (TREE_CODE (arg1) == INTEGER_CST)
+2504: 	return int_const_convert (type, arg1, !POINTER_TYPE_P (arg_type));
+```
+
+## gcc/fold-const.cc:2626–2666
+```text
+2626:     }
+2627: }
+2628:
+2629: /* Convert expression ARG to type TYPE.  Used by the middle-end for
+2630:    simple conversions in preference to calling the front-end's convert.  */
+2631:
+2632: tree
+2633: fold_convert_loc (location_t loc, tree type, tree arg)
+2634: {
+2635:   tree orig = TREE_TYPE (arg);
+2636:   tree tem;
+2637:
+2638:   if (type == orig)
+2639:     return arg;
+2640:
+2641:   if (TREE_CODE (arg) == ERROR_MARK
+2642:       || TREE_CODE (type) == ERROR_MARK
+2643:       || TREE_CODE (orig) == ERROR_MARK)
+2644:     return error_mark_node;
+2645:
+2646:   switch (TREE_CODE (type))
+2647:     {
+2648:     case POINTER_TYPE:
+2649:     case REFERENCE_TYPE:
+2650:       /* Handle conversions between pointers to different address spaces.  */
+2651:       if (POINTER_TYPE_P (orig)
+2652: 	  && (TYPE_ADDR_SPACE (TREE_TYPE (type))
+2653: 	      != TYPE_ADDR_SPACE (TREE_TYPE (orig))))
+2654: 	return fold_build1_loc (loc, ADDR_SPACE_CONVERT_EXPR, type, arg);
+2655:       /* fall through */
+2656:
+2657:     case INTEGER_TYPE: case ENUMERAL_TYPE: case BOOLEAN_TYPE:
+2658:     case OFFSET_TYPE: case BITINT_TYPE:
+2659:       if (TREE_CODE (arg) == INTEGER_CST)
+2660: 	{
+2661: 	  tem = fold_convert_const (NOP_EXPR, type, arg);
+2662: 	  if (tem != NULL_TREE)
+2663: 	    return tem;
+2664: 	}
+2665:       if (INTEGRAL_TYPE_P (orig) || POINTER_TYPE_P (orig)
+2666: 	  || TREE_CODE (orig) == OFFSET_TYPE)
+```
+
+## gcc/fold-const.cc:6994–7007
+```text
+6994: constant_boolean_node (bool value, tree type)
+6995: {
+6996:   if (type == integer_type_node)
+6997:     return value ? integer_one_node : integer_zero_node;
+6998:   else if (type == boolean_type_node)
+6999:     return value ? boolean_true_node : boolean_false_node;
+7000:   else if (VECTOR_TYPE_P (type))
+7001:     return build_vector_from_val (type,
+7002: 				  build_int_cst (TREE_TYPE (type),
+7003: 						 value ? -1 : 0));
+7004:   else
+7005:     return fold_convert (type, value ? integer_one_node : integer_zero_node);
+7006: }
+7007:
+```
+
+## gcc/fold-const.cc:9205–9254
+```text
+9205: {
+9206:   tree tem;
+9207:   tree arg0;
+9208:   enum tree_code_class kind = TREE_CODE_CLASS (code);
+9209:
+9210:   gcc_assert (IS_EXPR_CODE_CLASS (kind)
+9211: 	      && TREE_CODE_LENGTH (code) == 1);
+9212:
+9213:   arg0 = op0;
+9214:   if (arg0)
+9215:     {
+9216:       if (CONVERT_EXPR_CODE_P (code)
+9217: 	  || code == FLOAT_EXPR || code == ABS_EXPR || code == NEGATE_EXPR)
+9218: 	{
+9219: 	  /* Don't use STRIP_NOPS, because signedness of argument type
+9220: 	     matters.  */
+9221: 	  STRIP_SIGN_NOPS (arg0);
+9222: 	}
+9223:       else
+9224: 	{
+9225: 	  /* Strip any conversions that don't change the mode.  This
+9226: 	     is safe for every expression, except for a comparison
+9227: 	     expression because its signedness is derived from its
+9228: 	     operands.
+9229:
+9230: 	     Note that this is done as an internal manipulation within
+9231: 	     the constant folder, in order to find the simplest
+9232: 	     representation of the arguments so that their form can be
+9233: 	     studied.  In any cases, the appropriate type conversions
+9234: 	     should be put back in the tree that will get out of the
+9235: 	     constant folder.  */
+9236: 	  STRIP_NOPS (arg0);
+9237: 	}
+9238:
+9239:       if (CONSTANT_CLASS_P (arg0))
+9240: 	{
+9241: 	  tree tem = const_unop (code, type, arg0);
+9242: 	  if (tem)
+9243: 	    {
+9244: 	      if (TREE_TYPE (tem) != type)
+9245: 		tem = fold_convert_loc (loc, type, tem);
+9246: 	      return tem;
+9247: 	    }
+9248: 	}
+9249:     }
+9250:
+9251:   tem = generic_simplify (loc, code, type, op0);
+9252:   if (tem)
+9253:     return tem;
+9254:
+```
+
+## gcc/fold-const.cc:10986–11056
+```text
+10986: fold_binary_loc (location_t loc, enum tree_code code, tree type,
+10987: 		 tree op0, tree op1)
+10988: {
+10989:   enum tree_code_class kind = TREE_CODE_CLASS (code);
+10990:   tree arg0, arg1, tem;
+10991:   tree t1 = NULL_TREE;
+10992:   bool strict_overflow_p;
+10993:   unsigned int prec;
+10994:
+10995:   gcc_assert (IS_EXPR_CODE_CLASS (kind)
+10996: 	      && TREE_CODE_LENGTH (code) == 2
+10997: 	      && op0 != NULL_TREE
+10998: 	      && op1 != NULL_TREE);
+10999:
+11000:   arg0 = op0;
+11001:   arg1 = op1;
+11002:
+11003:   /* Strip any conversions that don't change the mode.  This is
+11004:      safe for every expression, except for a comparison expression
+11005:      because its signedness is derived from its operands.  So, in
+11006:      the latter case, only strip conversions that don't change the
+11007:      signedness.  MIN_EXPR/MAX_EXPR also need signedness of arguments
+11008:      preserved.
+11009:
+11010:      Note that this is done as an internal manipulation within the
+11011:      constant folder, in order to find the simplest representation
+11012:      of the arguments so that their form can be studied.  In any
+11013:      cases, the appropriate type conversions should be put back in
+11014:      the tree that will get out of the constant folder.  */
+11015:
+11016:   if (kind == tcc_comparison || code == MIN_EXPR || code == MAX_EXPR)
+11017:     {
+11018:       STRIP_SIGN_NOPS (arg0);
+11019:       STRIP_SIGN_NOPS (arg1);
+11020:     }
+11021:   else
+11022:     {
+11023:       STRIP_NOPS (arg0);
+11024:       STRIP_NOPS (arg1);
+11025:     }
+11026:
+11027:   /* Note that TREE_CONSTANT isn't enough: static var addresses are
+11028:      constant but we can't do arithmetic on them.  */
+11029:   if (CONSTANT_CLASS_P (arg0) && CONSTANT_CLASS_P (arg1))
+11030:     {
+11031:       tem = const_binop (code, type, arg0, arg1);
+11032:       if (tem != NULL_TREE)
+11033: 	{
+11034: 	  if (TREE_TYPE (tem) != type)
+11035: 	    tem = fold_convert_loc (loc, type, tem);
+11036: 	  return tem;
+11037: 	}
+11038:     }
+11039:
+11040:   /* If this is a commutative operation, and ARG0 is a constant, move it
+11041:      to ARG1 to reduce the number of tests below.  */
+11042:   if (commutative_tree_code (code)
+11043:       && tree_swap_operands_p (arg0, arg1))
+11044:     return fold_build2_loc (loc, code, type, op1, op0);
+11045:
+11046:   /* Likewise if this is a comparison, and ARG0 is a constant, move it
+11047:      to ARG1 to reduce the number of tests below.  */
+11048:   if (kind == tcc_comparison
+11049:       && tree_swap_operands_p (arg0, arg1))
+11050:     return fold_build2_loc (loc, swap_tree_comparison (code), type, op1, op0);
+11051:
+11052:   tem = generic_simplify (loc, code, type, op0, op1);
+11053:   if (tem)
+11054:     return tem;
+11055:
+11056:   /* ARG0 is the first operand of EXPR, and ARG1 is the second operand.
+```
+
+## gcc/fold-const.cc:13886–14015
+```text
+13886: fold_build1_loc (location_t loc,
+13887: 		 enum tree_code code, tree type, tree op0 MEM_STAT_DECL)
+13888: {
+13889:   tree tem;
+13890: #ifdef ENABLE_FOLD_CHECKING
+13891:   unsigned char checksum_before[16], checksum_after[16];
+13892:   struct md5_ctx ctx;
+13893:   hash_table<nofree_ptr_hash<const tree_node> > ht (32);
+13894:
+13895:   md5_init_ctx (&ctx);
+13896:   fold_checksum_tree (op0, &ctx, &ht);
+13897:   md5_finish_ctx (&ctx, checksum_before);
+13898:   ht.empty ();
+13899: #endif
+13900:
+13901:   tem = fold_unary_loc (loc, code, type, op0);
+13902:   if (!tem)
+13903:     tem = build1_loc (loc, code, type, op0 PASS_MEM_STAT);
+13904:
+13905: #ifdef ENABLE_FOLD_CHECKING
+13906:   md5_init_ctx (&ctx);
+13907:   fold_checksum_tree (op0, &ctx, &ht);
+13908:   md5_finish_ctx (&ctx, checksum_after);
+13909:
+13910:   if (memcmp (checksum_before, checksum_after, 16))
+13911:     fold_check_failed (op0, tem);
+13912: #endif
+13913:   return tem;
+13914: }
+13915:
+13916: /* Fold a binary tree expression with code CODE of type TYPE with
+13917:    operands OP0 and OP1.  LOC is the location of the resulting
+13918:    expression.  Return a folded expression if successful.  Otherwise,
+13919:    return a tree expression with code CODE of type TYPE with operands
+13920:    OP0 and OP1.  */
+13921:
+13922: tree
+13923: fold_build2_loc (location_t loc,
+13924: 		      enum tree_code code, tree type, tree op0, tree op1
+13925: 		      MEM_STAT_DECL)
+13926: {
+13927:   tree tem;
+13928: #ifdef ENABLE_FOLD_CHECKING
+13929:   unsigned char checksum_before_op0[16],
+13930:                 checksum_before_op1[16],
+13931: 		checksum_after_op0[16],
+13932: 		checksum_after_op1[16];
+13933:   struct md5_ctx ctx;
+13934:   hash_table<nofree_ptr_hash<const tree_node> > ht (32);
+13935:
+13936:   md5_init_ctx (&ctx);
+13937:   fold_checksum_tree (op0, &ctx, &ht);
+13938:   md5_finish_ctx (&ctx, checksum_before_op0);
+13939:   ht.empty ();
+13940:
+13941:   md5_init_ctx (&ctx);
+13942:   fold_checksum_tree (op1, &ctx, &ht);
+13943:   md5_finish_ctx (&ctx, checksum_before_op1);
+13944:   ht.empty ();
+13945: #endif
+13946:
+13947:   tem = fold_binary_loc (loc, code, type, op0, op1);
+13948:   if (!tem)
+13949:     tem = build2_loc (loc, code, type, op0, op1 PASS_MEM_STAT);
+13950:
+13951: #ifdef ENABLE_FOLD_CHECKING
+13952:   md5_init_ctx (&ctx);
+13953:   fold_checksum_tree (op0, &ctx, &ht);
+13954:   md5_finish_ctx (&ctx, checksum_after_op0);
+13955:   ht.empty ();
+13956:
+13957:   if (memcmp (checksum_before_op0, checksum_after_op0, 16))
+13958:     fold_check_failed (op0, tem);
+13959:
+13960:   md5_init_ctx (&ctx);
+13961:   fold_checksum_tree (op1, &ctx, &ht);
+13962:   md5_finish_ctx (&ctx, checksum_after_op1);
+13963:
+13964:   if (memcmp (checksum_before_op1, checksum_after_op1, 16))
+13965:     fold_check_failed (op1, tem);
+13966: #endif
+13967:   return tem;
+13968: }
+13969:
+13970: /* Fold a ternary tree expression with code CODE of type TYPE with
+13971:    operands OP0, OP1, and OP2.  Return a folded expression if
+13972:    successful.  Otherwise, return a tree expression with code CODE of
+13973:    type TYPE with operands OP0, OP1, and OP2.  */
+13974:
+13975: tree
+13976: fold_build3_loc (location_t loc, enum tree_code code, tree type,
+13977: 		      tree op0, tree op1, tree op2 MEM_STAT_DECL)
+13978: {
+13979:   tree tem;
+13980: #ifdef ENABLE_FOLD_CHECKING
+13981:   unsigned char checksum_before_op0[16],
+13982:                 checksum_before_op1[16],
+13983:                 checksum_before_op2[16],
+13984: 		checksum_after_op0[16],
+13985: 		checksum_after_op1[16],
+13986: 		checksum_after_op2[16];
+13987:   struct md5_ctx ctx;
+13988:   hash_table<nofree_ptr_hash<const tree_node> > ht (32);
+13989:
+13990:   md5_init_ctx (&ctx);
+13991:   fold_checksum_tree (op0, &ctx, &ht);
+13992:   md5_finish_ctx (&ctx, checksum_before_op0);
+13993:   ht.empty ();
+13994:
+13995:   md5_init_ctx (&ctx);
+13996:   fold_checksum_tree (op1, &ctx, &ht);
+13997:   md5_finish_ctx (&ctx, checksum_before_op1);
+13998:   ht.empty ();
+13999:
+14000:   md5_init_ctx (&ctx);
+14001:   fold_checksum_tree (op2, &ctx, &ht);
+14002:   md5_finish_ctx (&ctx, checksum_before_op2);
+14003:   ht.empty ();
+14004: #endif
+14005:
+14006:   gcc_assert (TREE_CODE_CLASS (code) != tcc_vl_exp);
+14007:   tem = fold_ternary_loc (loc, code, type, op0, op1, op2);
+14008:   if (!tem)
+14009:     tem = build3_loc (loc, code, type, op0, op1, op2 PASS_MEM_STAT);
+14010:
+14011: #ifdef ENABLE_FOLD_CHECKING
+14012:   md5_init_ctx (&ctx);
+14013:   fold_checksum_tree (op0, &ctx, &ht);
+14014:   md5_finish_ctx (&ctx, checksum_after_op0);
+14015:   ht.empty ();
+```
+
+## gcc/fold-const.cc:15842–15938
+```text
+15842: fold_negate_const (tree arg0, tree type)
+15843: {
+15844:   tree t = NULL_TREE;
+15845:
+15846:   switch (TREE_CODE (arg0))
+15847:     {
+15848:     case REAL_CST:
+15849:       t = build_real (type, real_value_negate (&TREE_REAL_CST (arg0)));
+15850:       break;
+15851:
+15852:     case FIXED_CST:
+15853:       {
+15854:         FIXED_VALUE_TYPE f;
+15855:         bool overflow_p = fixed_arithmetic (&f, NEGATE_EXPR,
+15856: 					    &(TREE_FIXED_CST (arg0)), NULL,
+15857: 					    TYPE_SATURATING (type));
+15858: 	t = build_fixed (type, f);
+15859: 	/* Propagate overflow flags.  */
+15860: 	if (overflow_p | TREE_OVERFLOW (arg0))
+15861: 	  TREE_OVERFLOW (t) = 1;
+15862: 	break;
+15863:       }
+15864:
+15865:     default:
+15866:       if (poly_int_tree_p (arg0))
+15867: 	{
+15868: 	  wi::overflow_type overflow;
+15869: 	  poly_wide_int res = wi::neg (wi::to_poly_wide (arg0), &overflow);
+15870: 	  t = force_fit_type (type, res, 1,
+15871: 			      (overflow && ! TYPE_UNSIGNED (type))
+15872: 			      || TREE_OVERFLOW (arg0));
+15873: 	  break;
+15874: 	}
+15875:
+15876:       gcc_unreachable ();
+15877:     }
+15878:
+15879:   return t;
+15880: }
+15881:
+15882: /* Return the tree for abs (ARG0) when ARG0 is known to be either
+15883:    an integer constant or real constant.
+15884:
+15885:    TYPE is the type of the result.  */
+15886:
+15887: tree
+15888: fold_abs_const (tree arg0, tree type)
+15889: {
+15890:   tree t = NULL_TREE;
+15891:
+15892:   switch (TREE_CODE (arg0))
+15893:     {
+15894:     case INTEGER_CST:
+15895:       {
+15896:         /* If the value is unsigned or non-negative, then the absolute value
+15897: 	   is the same as the ordinary value.  */
+15898: 	wide_int val = wi::to_wide (arg0);
+15899: 	wi::overflow_type overflow = wi::OVF_NONE;
+15900: 	if (!wi::neg_p (val, TYPE_SIGN (TREE_TYPE (arg0))))
+15901: 	  ;
+15902:
+15903: 	/* If the value is negative, then the absolute value is
+15904: 	   its negation.  */
+15905: 	else
+15906: 	  val = wi::neg (val, &overflow);
+15907:
+15908: 	/* Force to the destination type, set TREE_OVERFLOW for signed
+15909: 	   TYPE only.  */
+15910: 	t = force_fit_type (type, val, 1, overflow | TREE_OVERFLOW (arg0));
+15911:       }
+15912:     break;
+15913:
+15914:     case REAL_CST:
+15915:       if (REAL_VALUE_NEGATIVE (TREE_REAL_CST (arg0)))
+15916: 	t = build_real (type, real_value_negate (&TREE_REAL_CST (arg0)));
+15917:       else
+15918: 	t =  arg0;
+15919:       break;
+15920:
+15921:     default:
+15922:       gcc_unreachable ();
+15923:     }
+15924:
+15925:   return t;
+15926: }
+15927:
+15928: /* Return the tree for not (ARG0) when ARG0 is known to be an integer
+15929:    constant.  TYPE is the type of the result.  */
+15930:
+15931: static tree
+15932: fold_not_const (const_tree arg0, tree type)
+15933: {
+15934:   gcc_assert (TREE_CODE (arg0) == INTEGER_CST);
+15935:
+15936:   return force_fit_type (type, ~wi::to_wide (arg0), 0, TREE_OVERFLOW (arg0));
+15937: }
+15938:
+```
+
+## gcc/fold-const.cc:15945–16110
+```text
+15945: fold_relational_const (enum tree_code code, tree type, tree op0, tree op1)
+15946: {
+15947:   int result, invert;
+15948:
+15949:   /* From here on, the only cases we handle are when the result is
+15950:      known to be a constant.  */
+15951:
+15952:   if (TREE_CODE (op0) == REAL_CST && TREE_CODE (op1) == REAL_CST)
+15953:     {
+15954:       const REAL_VALUE_TYPE *c0 = TREE_REAL_CST_PTR (op0);
+15955:       const REAL_VALUE_TYPE *c1 = TREE_REAL_CST_PTR (op1);
+15956:
+15957:       /* Handle the cases where either operand is a NaN.  */
+15958:       if (real_isnan (c0) || real_isnan (c1))
+15959: 	{
+15960: 	  switch (code)
+15961: 	    {
+15962: 	    case EQ_EXPR:
+15963: 	    case ORDERED_EXPR:
+15964: 	      result = 0;
+15965: 	      break;
+15966:
+15967: 	    case NE_EXPR:
+15968: 	    case UNORDERED_EXPR:
+15969: 	    case UNLT_EXPR:
+15970: 	    case UNLE_EXPR:
+15971: 	    case UNGT_EXPR:
+15972: 	    case UNGE_EXPR:
+15973: 	    case UNEQ_EXPR:
+15974:               result = 1;
+15975: 	      break;
+15976:
+15977: 	    case LT_EXPR:
+15978: 	    case LE_EXPR:
+15979: 	    case GT_EXPR:
+15980: 	    case GE_EXPR:
+15981: 	    case LTGT_EXPR:
+15982: 	      if (flag_trapping_math)
+15983: 		return NULL_TREE;
+15984: 	      result = 0;
+15985: 	      break;
+15986:
+15987: 	    default:
+15988: 	      gcc_unreachable ();
+15989: 	    }
+15990:
+15991: 	  return constant_boolean_node (result, type);
+15992: 	}
+15993:
+15994:       return constant_boolean_node (real_compare (code, c0, c1), type);
+15995:     }
+15996:
+15997:   if (TREE_CODE (op0) == FIXED_CST && TREE_CODE (op1) == FIXED_CST)
+15998:     {
+15999:       const FIXED_VALUE_TYPE *c0 = TREE_FIXED_CST_PTR (op0);
+16000:       const FIXED_VALUE_TYPE *c1 = TREE_FIXED_CST_PTR (op1);
+16001:       return constant_boolean_node (fixed_compare (code, c0, c1), type);
+16002:     }
+16003:
+16004:   /* Handle equality/inequality of complex constants.  */
+16005:   if (TREE_CODE (op0) == COMPLEX_CST && TREE_CODE (op1) == COMPLEX_CST)
+16006:     {
+16007:       tree rcond = fold_relational_const (code, type,
+16008: 					  TREE_REALPART (op0),
+16009: 					  TREE_REALPART (op1));
+16010:       tree icond = fold_relational_const (code, type,
+16011: 					  TREE_IMAGPART (op0),
+16012: 					  TREE_IMAGPART (op1));
+16013:       if (code == EQ_EXPR)
+16014: 	return fold_build2 (TRUTH_ANDIF_EXPR, type, rcond, icond);
+16015:       else if (code == NE_EXPR)
+16016: 	return fold_build2 (TRUTH_ORIF_EXPR, type, rcond, icond);
+16017:       else
+16018: 	return NULL_TREE;
+16019:     }
+16020:
+16021:   if (TREE_CODE (op0) == VECTOR_CST && TREE_CODE (op1) == VECTOR_CST)
+16022:     {
+16023:       if (!VECTOR_TYPE_P (type))
+16024: 	{
+16025: 	  /* Have vector comparison with scalar boolean result.  */
+16026: 	  gcc_assert ((code == EQ_EXPR || code == NE_EXPR)
+16027: 		      && known_eq (VECTOR_CST_NELTS (op0),
+16028: 				   VECTOR_CST_NELTS (op1)));
+16029: 	  unsigned HOST_WIDE_INT nunits;
+16030: 	  if (!VECTOR_CST_NELTS (op0).is_constant (&nunits))
+16031: 	    return NULL_TREE;
+16032: 	  for (unsigned i = 0; i < nunits; i++)
+16033: 	    {
+16034: 	      tree elem0 = VECTOR_CST_ELT (op0, i);
+16035: 	      tree elem1 = VECTOR_CST_ELT (op1, i);
+16036: 	      tree tmp = fold_relational_const (EQ_EXPR, type, elem0, elem1);
+16037: 	      if (tmp == NULL_TREE)
+16038: 		return NULL_TREE;
+16039: 	      if (integer_zerop (tmp))
+16040: 		return constant_boolean_node (code == NE_EXPR, type);
+16041: 	    }
+16042: 	  return constant_boolean_node (code == EQ_EXPR, type);
+16043: 	}
+16044:       tree_vector_builder elts;
+16045:       if (!elts.new_binary_operation (type, op0, op1, false))
+16046: 	return NULL_TREE;
+16047:       unsigned int count = elts.encoded_nelts ();
+16048:       for (unsigned i = 0; i < count; i++)
+16049: 	{
+16050: 	  tree elem_type = TREE_TYPE (type);
+16051: 	  tree elem0 = VECTOR_CST_ELT (op0, i);
+16052: 	  tree elem1 = VECTOR_CST_ELT (op1, i);
+16053:
+16054: 	  tree tem = fold_relational_const (code, elem_type,
+16055: 					    elem0, elem1);
+16056:
+16057: 	  if (tem == NULL_TREE)
+16058: 	    return NULL_TREE;
+16059:
+16060: 	  elts.quick_push (build_int_cst (elem_type,
+16061: 					  integer_zerop (tem) ? 0 : -1));
+16062: 	}
+16063:
+16064:       return elts.build ();
+16065:     }
+16066:
+16067:   /* From here on we only handle LT, LE, GT, GE, EQ and NE.
+16068:
+16069:      To compute GT, swap the arguments and do LT.
+16070:      To compute GE, do LT and invert the result.
+16071:      To compute LE, swap the arguments, do LT and invert the result.
+16072:      To compute NE, do EQ and invert the result.
+16073:
+16074:      Therefore, the code below must handle only EQ and LT.  */
+16075:
+16076:   if (code == LE_EXPR || code == GT_EXPR)
+16077:     {
+16078:       std::swap (op0, op1);
+16079:       code = swap_tree_comparison (code);
+16080:     }
+16081:
+16082:   /* Note that it is safe to invert for real values here because we
+16083:      have already handled the one case that it matters.  */
+16084:
+16085:   invert = 0;
+16086:   if (code == NE_EXPR || code == GE_EXPR)
+16087:     {
+16088:       invert = 1;
+16089:       code = invert_tree_comparison (code, false);
+16090:     }
+16091:
+16092:   /* Compute a result for LT or EQ if args permit;
+16093:      Otherwise return T.  */
+16094:   if (TREE_CODE (op0) == INTEGER_CST && TREE_CODE (op1) == INTEGER_CST)
+16095:     {
+16096:       if (code == EQ_EXPR)
+16097: 	result = tree_int_cst_equal (op0, op1);
+16098:       else
+16099: 	result = tree_int_cst_lt (op0, op1);
+16100:     }
+16101:   else
+16102:     return NULL_TREE;
+16103:
+16104:   if (invert)
+16105:     result ^= 1;
+16106:   return constant_boolean_node (result, type);
+16107: }
+16108:
+16109: /* If necessary, return a CLEANUP_POINT_EXPR for EXPR with the
+16110:    indicated TYPE.  If no CLEANUP_POINT_EXPR is necessary, return EXPR
+```
+
+## gcc/genmatch.cc:3259–3268
+```text
+3259: 		     int depth, const char *in_type, capture_info *cinfo,
+3260: 		     dt_operand **indexes, int, const char *in_place)
+3261: {
+3262:   id_base *opr = operation;
+3263:   /* When we delay operator substituting during lowering of fors we
+3264:      make sure that for code-gen purposes the effects of each substitute
+3265:      are the same.  Thus just look at that.  */
+3266:   if (user_id *uid = dyn_cast <user_id *> (opr))
+3267:     opr = uid->substitutes[0];
+3268:
+```
+
+## gcc/genmatch.cc:3331–3348
+```text
+3331:     }
+3332:   else
+3333:     fprintf_indent (f, indent,
+3334: 		    "tree _o%d[%u], _r%d;\n", depth, ops.length (), depth);
+3335:   char op0type[64];
+3336:   snprintf (op0type, sizeof (op0type), "TREE_TYPE (_o%d[0])", depth);
+3337:   for (unsigned i = 0; i < ops.length (); ++i)
+3338:     {
+3339:       char dest1[32];
+3340:       snprintf (dest1, sizeof (dest1), "_o%d[%u]", depth, i);
+3341:       const char *optype1
+3342: 	= get_operand_type (opr, i, in_type, expr_type,
+3343: 			    i == 0 ? NULL : op0type);
+3344:       ops[i]->gen_transform (f, indent, dest1, gimple, depth + 1, optype1,
+3345: 			     cinfo, indexes,
+3346: 			     *opr == COND_EXPR && i == 0 ? 1 : 2,
+3347: 			     child_in_place ? "tem_op" : NULL);
+3348:     }
+```
+
+## gcc/genmatch.cc:3445–3485
+```text
+3445:     {
+3446:       if (possible_noop_convert (opr))
+3447: 	{
+3448: 	  fprintf_indent (f, indent, "if (TREE_TYPE (_o%d[0]) != %s)\n",
+3449: 			  depth, type);
+3450: 	  fprintf_indent (f, indent + 2, "{\n");
+3451: 	  indent += 4;
+3452: 	}
+3453:       if (opr->kind == id_base::CODE)
+3454: 	fprintf_indent (f, indent, "_r%d = fold_build%d_loc (loc, %s, %s",
+3455: 			depth, ops.length(), opr_name, type);
+3456:       else
+3457: 	fprintf_indent (f, indent, "_r%d = maybe_build_call_expr_loc (loc, "
+3458: 			"%s, %s, %d", depth, opr_name, type, ops.length());
+3459:       for (unsigned i = 0; i < ops.length (); ++i)
+3460: 	fprintf (f, ", _o%d[%u]", depth, i);
+3461:       fprintf (f, ");\n");
+3462:       if (opr->kind != id_base::CODE)
+3463: 	{
+3464: 	  fprintf_indent (f, indent, "if (!_r%d)\n", depth);
+3465: 	  fprintf_indent (f, indent, "  goto %s;\n", fail_label);
+3466: 	}
+3467:       if (force_leaf)
+3468: 	{
+3469: 	  fprintf_indent (f, indent, "if (EXPR_P (_r%d))\n", depth);
+3470: 	  fprintf_indent (f, indent, "  goto %s;\n", fail_label);
+3471: 	}
+3472:       if (possible_noop_convert (opr))
+3473: 	{
+3474: 	  fprintf_indent (f, indent - 2, "}\n");
+3475: 	  indent -= 4;
+3476: 	  fprintf_indent (f, indent, "else\n");
+3477: 	  fprintf_indent (f, indent, "  _r%d = _o%d[0];\n", depth, depth);
+3478: 	}
+3479:     }
+3480:   fprintf_indent (f, indent, "%s = _r%d;\n", dest, depth);
+3481:   indent -= 2;
+3482:   fprintf_indent (f, indent, "}\n");
+3483: }
+3484:
+3485: /* Generate code for a c_expr which is either the expression inside
+```
+
+## gcc/params.opt:248–250
+```text
+248: -param=integer-share-limit=
+249: Common Joined UInteger Var(param_integer_share_limit) Init(251) IntegerRange(2, 65536) Param
+250: The upper bound for sharing integer constants.
+```
+
+## gcc/match.pd:1–41
+```text
+1: /* Match-and-simplify patterns for shared GENERIC and GIMPLE folding.
+2:    This file is consumed by genmatch which produces gimple-match.cc
+3:    and generic-match.cc from it.
+4:
+5:    Copyright (C) 2014-2026 Free Software Foundation, Inc.
+6:    Contributed by Richard Biener <rguenther@suse.de>
+7:    and Prathamesh Kulkarni  <bilbotheelffriend@gmail.com>
+8:
+9: This file is part of GCC.
+10:
+11: GCC is free software; you can redistribute it and/or modify it under
+12: the terms of the GNU General Public License as published by the Free
+13: Software Foundation; either version 3, or (at your option) any later
+14: version.
+15:
+16: GCC is distributed in the hope that it will be useful, but WITHOUT ANY
+17: WARRANTY; without even the implied warranty of MERCHANTABILITY or
+18: FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+19: for more details.
+20:
+21: You should have received a copy of the GNU General Public License
+22: along with GCC; see the file COPYING3.  If not see
+23: <http://www.gnu.org/licenses/>.  */
+24:
+25:
+26: /* Generic tree predicates we inherit.  */
+27: (define_predicates
+28:    integer_onep integer_zerop integer_all_onesp integer_minus_onep
+29:    integer_each_onep integer_truep integer_nonzerop
+30:    real_zerop real_onep real_minus_onep
+31:    zerop
+32:    initializer_each_zero_or_onep
+33:    CONSTANT_CLASS_P
+34:    poly_int_tree_p
+35:    tree_expr_nonnegative_p
+36:    tree_expr_nonzero_p
+37:    integer_valued_real_p
+38:    integer_pow2p
+39:    uniform_integer_cst_p
+40:    HONOR_NANS
+41:    uniform_vector_p
 ```

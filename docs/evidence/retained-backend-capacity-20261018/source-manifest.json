@@ -430,6 +430,42 @@
       "origin": "retained complete non-tests GCC source inventory",
       "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/libiberty/hashtab.c",
       "archive": "location-sources.tar.gz"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "bytes": 560244,
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506",
+      "git_blob_sha1": "56503e570bc440b65366b0c83a958a14dd3d5712",
+      "origin": "retained complete non-tests GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/fold-const.cc",
+      "archive": "folding-sources.tar.gz"
+    },
+    {
+      "path": "gcc/genmatch.cc",
+      "bytes": 179025,
+      "sha256": "945485502f2a1f25150da0cac471428817b6f231af16cdccff85960272aee08c",
+      "git_blob_sha1": "633ff9e1db2192b7bc0fda1879767b12cb43ab82",
+      "origin": "retained complete non-tests GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/genmatch.cc",
+      "archive": "folding-sources.tar.gz"
+    },
+    {
+      "path": "gcc/params.opt",
+      "bytes": 67891,
+      "sha256": "2dbbbbe2917d9a5427bf0d294e09cf59458e910bb684f7163931edbd8320855f",
+      "git_blob_sha1": "b35ca688cdf15de81915e47be0ec6c19df5a974e",
+      "origin": "retained complete non-tests GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/params.opt",
+      "archive": "folding-sources.tar.gz"
+    },
+    {
+      "path": "gcc/match.pd",
+      "bytes": 435179,
+      "sha256": "276afc08e0347348f040a4402127484adedbff56d017cdaebbb14654d797f35e",
+      "git_blob_sha1": "7b652afb43de4bc10c729a48cc32ae6766dd247e",
+      "origin": "immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/match.pd",
+      "archive": "folding-sources.tar.gz"
     }
   ]
 }

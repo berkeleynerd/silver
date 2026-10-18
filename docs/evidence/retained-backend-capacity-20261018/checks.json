@@ -204,6 +204,22 @@
     {
       "path": "libiberty/hashtab.c",
       "sha256": "fd1f80771bb0317dc96e396010db33c99116eaa921f0dd39b2171c56a9f5ac6f"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506"
+    },
+    {
+      "path": "gcc/genmatch.cc",
+      "sha256": "945485502f2a1f25150da0cac471428817b6f231af16cdccff85960272aee08c"
+    },
+    {
+      "path": "gcc/params.opt",
+      "sha256": "2dbbbbe2917d9a5427bf0d294e09cf59458e910bb684f7163931edbd8320855f"
+    },
+    {
+      "path": "gcc/match.pd",
+      "sha256": "276afc08e0347348f040a4402127484adedbff56d017cdaebbb14654d797f35e"
     }
   ],
   "block_operations": {
@@ -740,6 +756,48 @@
       }
     ],
     "excludes": "CFG cleanup/loop discovery, ad-hoc-location allocator, SSA, RTL"
+  },
+  "integer_constants": {
+    "scalar_constant_nodes_per_request": 1,
+    "initial_spare_constant_nodes": 1,
+    "per_type_cache_vector_slots": 252,
+    "per_type_cache_vector_bytes_lp64": 2040,
+    "cache_vector_count": "min(R,T)",
+    "selected_constant_only_fold_requests": 2,
+    "precision_cases": [
+      {
+        "precision_bound": 1,
+        "extended_limbs": 1,
+        "requested_bytes_lp64": 24
+      },
+      {
+        "precision_bound": 8,
+        "extended_limbs": 1,
+        "requested_bytes_lp64": 24
+      },
+      {
+        "precision_bound": 16,
+        "extended_limbs": 1,
+        "requested_bytes_lp64": 24
+      },
+      {
+        "precision_bound": 32,
+        "extended_limbs": 1,
+        "requested_bytes_lp64": 24
+      },
+      {
+        "precision_bound": 64,
+        "extended_limbs": 2,
+        "requested_bytes_lp64": 32
+      },
+      {
+        "precision_bound": 128,
+        "extended_limbs": 3,
+        "requested_bytes_lp64": 40
+      }
+    ],
+    "scope": "ordinary integer constants and enumerated successful scalar constant folds",
+    "excludes": "symbolic/complex/view-conversion folding, arithmetic scratch, generic types and complete request counts"
   },
   "ordinary_vectors": {
     "heap_maximum_requested_total": 2147483647,

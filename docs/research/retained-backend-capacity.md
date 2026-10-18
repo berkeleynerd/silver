@@ -646,6 +646,94 @@ interface by actual invocations, including failed speculative attempts. This
 closes a length-dependent expansion concern without substituting an observed
 instruction count or an unexplained whole-backend multiplier.
 
+## Integer constants and the boundary of the folder transfer
+
+Generic helper requests need separate classification. For a scalar constant
+path, the local tree allocation is small and does not recurse through
+`match.pd`. For symbolic operands, a call to `fold_build2` is not one tree
+allocation; treating the two cases alike would leave a gap.
+
+### Constant representation and caches
+
+Let P bound the precision of every participating integral/pointer type, with
+`1 <= P <= 128` for this local transfer. This is an input-type premise, not a
+new source restriction or a claim about every GCC internal type. On the
+selected 64-bit host, `get_int_cst_ext_nunits` requires at most
+`floor(P/64)+1` limbs, including the unsigned extension limb when the upper
+bit is set (`tree.cc:1581–1616`). The two limb counts are unsigned shorts
+(`tree-core.h:1195–1204`), so their largest selected value, three, fits.
+`make_int_cst` requests `16+8*extended_limbs` bytes under the LP64 tree layout:
+at most 24, 32 or 40 bytes for P=32, 64 or 128 respectively
+(`tree.cc:2926–2943`, `tree-core.h:1575–1578`). The calculation's signed-int
+intermediate cannot overflow in this domain. Wide-integer arithmetic work
+and its temporary storage are distinct from these retained tree allocations.
+
+One ordinary scalar `force_fit_type`/`wide_int_to_tree` request constructs at
+most one INTEGER_CST. The overflow path creates its own node directly; other
+paths either hit a cache, create a cached value, or allocate one candidate
+that may subsequently be discarded (`tree.cc:1696–1729,1805–1953,2008–2013`).
+The one-limb hash route inserts its preexisting candidate and allocates one
+replacement candidate; count that fresh allocation even though it is for a
+future request. No polynomial constant is involved when the input value is
+an ordinary integer. The fixed initial candidate is a separate one-node
+startup charge (`tree.cc:783–785`).
+
+Small constants can additionally initialize one TREE_VEC per participating
+type. Pointer/reference types use three slots; Boolean types two; the selected
+default integer-share limit is 251, hence a signed type uses at most **252**
+slots (`params.opt:248–250`, `tree.cc:1776–1794,1828–1913`). This vector requests
+at most `24+8*252 = 2040` bytes (`tree.cc:2948–2960`,
+`tree-core.h:1631–1634`). If R is the scalar constant request count and T
+the number of participating type instances, charge at most `min(R,T)` such
+cache vectors and `252*min(R,T)` slots, separately from R constant nodes.
+Type-copy operations clear the copied cache flag and must contribute their
+new type instances to T. Large constants use `int_cst_hash_table`, initialized
+with request 1024; the earlier C++ hash transfer applies to its live entries.
+Do not charge the cache as 252 fresh constants: its initially empty pointer
+slots and later per-value constructor requests are different allocations.
+
+### Constant-only scalar folding
+
+With two INTEGER_CST operands, integral `+`, `-`, `*`, min/max, bitwise
+and/or/xor, nonnegative shifts/rotates, and supported divisions/remainders
+with nonzero divisor go through `int_const_binop` to one `force_fit_type`
+request (`fold-const.cc:1087–1225,1325–1342,1477–1498`). Integer comparison
+uses one scalar Boolean constant request (`15945–16110`). Conversion to an
+integral/pointer type of the same address space uses one `force_fit_type`
+request (`2192–2203,2484–2504,2626–2666`). Negation, absolute value, bitwise
+not and truth-not likewise use at most one scalar constant request
+(`646–669,1920–2011,6994–7007,15842–15938`).
+
+At the enclosing `fold_unary_loc`/`fold_binary_loc`, a successful constant
+result returns **before** the generated pattern matcher. A mismatch between
+its type and the requested result type can add one final constant conversion
+(`9205–9254,10986–11056`). Thus one such selected constant-only fold has at
+most **two scalar constant requests**, each consuming the representation/cache
+transfer above. This is an allocation bound even when the evaluated constant
+carries an overflow flag; it does not assert that such an expression is legal
+Silver. Pointer arithmetic, complex operations, view conversions, invalid
+division/shift operands and symbolic expressions are not included in this
+two-request row. In particular, an unsupported constant operation can fall
+through to the pattern matcher and needs its own classification.
+
+### Symbolic folding remains a separate obligation
+
+`fold_build1/2/3` first invokes its corresponding folder and creates the
+plain node only if that folder returns no result
+(`fold-const.cc:13886–14015`). The symbolic folder calls generated
+`generic_simplify`; `genmatch.cc:3259–3485` recursively emits further
+`fold_build*` calls for replacement expressions. The complete pinned
+`match.pd` is retained with the checker inputs. Merely counting its syntactic
+replacement operators does not bound repeated pattern application, nor does
+the fixed number of rules bound expression-dependent recursion.
+
+This closes constant-node/caching arithmetic and the selected constant-only
+fold requests. A source-sensitive bound for the reachable symbolic rules,
+ordinary conversion/type layout and later GIMPLE folding remains necessary.
+The result must consume the bridge's generated complex overflow pairs,
+String equality and descriptor/reference shapes as well as source scalar
+operators. No undocumented constant multiplier is substituted for that work.
+
 ## O0 cleanup lowering: no recursive body duplication
 
 The [gigi bridge](retained-backend-gigi.md) separates ordinary normalized Main

@@ -44,8 +44,18 @@ RANGES = {
     "gcc/toplev.cc": [(761, 767), (1141, 1150)],
     "gcc/ggc-page.cc": [(1250, 1290), (1292, 1327), (1883, 1922)],
     "gcc/ggc.h": [(230, 258)],
-    "gcc/tree.cc": [(1468, 1547), (2482, 2488), (2616, 2636)],
-    "gcc/tree-core.h": [(1138, 1253), (1565, 1595)],
+    "gcc/tree.cc": [(783, 785), (1468, 1547), (1581, 1616), (1696, 1729),
+                     (1776, 1953), (2008, 2013), (2482, 2488), (2616, 2636),
+                     (2926, 2960)],
+    "gcc/tree-core.h": [(1138, 1253), (1565, 1595), (1631, 1634)],
+    "gcc/params.opt": [(248, 250)],
+    "gcc/fold-const.cc": [(646, 669), (844, 853), (1087, 1225), (1325, 1342),
+                           (1477, 1498), (1920, 2011), (2192, 2203),
+                           (2484, 2504), (2626, 2666), (6994, 7007),
+                           (9205, 9254), (10986, 11056), (13886, 14015),
+                           (15842, 15938), (15945, 16110)],
+    "gcc/genmatch.cc": [(3259, 3268), (3331, 3348), (3445, 3485)],
+    "gcc/match.pd": [(1, 41)],
     "gcc/varasm.cc": [(870, 920), (2304, 2335), (2665, 2667), (3953, 3965),
                        (5627, 5635), (8518, 8527), (76, 85), (2069, 2086),
                        (2976, 2987), (3537, 3553), (3720, 3753), (3804, 3893),
@@ -239,6 +249,40 @@ def check_initial_cfg(all_bytes):
                 new_adhoc_location_requests="S+E_graph",
                 terminal_edge_requests=terminal_requests, cases=rows,
                 excludes="CFG cleanup/loop discovery, ad-hoc-location allocator, SSA, RTL")
+
+
+def check_integer_constant_transfers(all_bytes):
+    source = all_bytes["gcc/tree.cc"].decode()
+    assert "return cst.get_precision () / HOST_BITS_PER_WIDE_INT + 1;" in source
+    assert "int_cst_node = make_int_cst (1, 1);" in source
+    assert "TYPE_CACHED_VALUES (type) = make_tree_vec (max_slots);" in source
+    assert "limit = param_integer_share_limit + 1;" in source
+    assert "Init(251) IntegerRange(2, 65536)" in all_bytes["gcc/params.opt"].decode()
+    folder = all_bytes["gcc/fold-const.cc"].decode()
+    for arity, function in ((1, "unary"), (2, "binary"), (3, "ternary")):
+        start = folder.index(f"\nfold_build{arity}_loc (")
+        body = folder[start:folder.index("\n}\n", start)]
+        assert body.index(f"fold_{function}_loc (") < body.index(
+            f"tem = build{arity}_loc (")
+    generator = all_bytes["gcc/genmatch.cc"].decode()
+    assert '"_r%d = fold_build%d_loc (loc, %s, %s"' in generator
+    rows = []
+    for precision in (1, 8, 16, 32, 64, 128):
+        limbs = precision//64+1
+        requested = 16+8*limbs
+        assert limbs <= 3 < 2**16
+        assert requested <= 40 < 2**31
+        rows.append(dict(precision_bound=precision, extended_limbs=limbs,
+                         requested_bytes_lp64=requested))
+    return dict(scalar_constant_nodes_per_request=1,
+                initial_spare_constant_nodes=1,
+                per_type_cache_vector_slots=252,
+                per_type_cache_vector_bytes_lp64=24+8*252,
+                cache_vector_count="min(R,T)",
+                selected_constant_only_fold_requests=2,
+                precision_cases=rows,
+                scope="ordinary integer constants and enumerated successful scalar constant folds",
+                excludes="symbolic/complex/view-conversion folding, arithmetic scratch, generic types and complete request counts")
 
 
 def check_block_transfers(all_bytes, bundle):
@@ -544,6 +588,7 @@ def main():
         "block_operations": check_block_transfers(all_bytes, bundle),
         "cleanup_lowering": check_cleanup_transfers(all_bytes),
         "initial_cfg": check_initial_cfg(all_bytes),
+        "integer_constants": check_integer_constant_transfers(all_bytes),
         "ordinary_vectors": {
             "heap_maximum_requested_total": int_max,
             "heap_modular_growth_examples": heap_cases,
