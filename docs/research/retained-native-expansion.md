@@ -3442,6 +3442,114 @@ does not close the surrounding block analysis, scope freezing, total enqueue
 multiplicity from initial Image/input/finalizer constructors, fixed-runtime
 qualification, or later backend external/debug-name production.
 
+## Original scalar arithmetic and loop-bound traversal
+
+The source scalar grammar has only Integer literals/names, unary plus/minus,
+and binary addition/subtraction/multiplication. These operations have a
+source-structural transfer under the native options above. Scanner/parser
+work, enclosing declarations/ranges/assignments, first type freezes and shared
+diagnostic/xref/elaboration metadata remain distinct charges.
+
+Let `O_s` count source scalar operators and `O_l` those in loop bounds.
+Let `N_s` count source Integer-name occurrences and `N_l` those in loop bounds;
+assignment targets may be included conservatively. Let `B_l` sum the raw
+loop-range tree sizes, including the range node and both endpoint trees.
+Parentheses do not add nodes. Then sufficient visit allowances are
+
+```text
+T = O_s + 2*O_l
+V = N_s + 2*N_l.
+```
+
+Native compilation also makes **two** raw loop-range copies. The preparation
+pass copies the range at `sem_ch5.adb:3962–3979`; native `Process_Bounds`
+copies/preanalyzes it again at `3207–3255`. The latter replaces the light-mode
+`DS_Copy` branch rather than eliminating that copy. Each raw tree contains
+only scalar leaves/operators, no owned itypes/entities/actions or syntax lists,
+so the two copies add `2*B_l` ordinary nodes. The preanalyses disable expansion
+and freezing (`4868–4886`); the original may then be analyzed natively once.
+Native Resolve_Range does not perform GNATprove's lower-root replay
+(`sem_res.adb:11210–11214`). Loop capture relocates already analyzed syntax,
+and its later constant reference does not reanalyze the initializer. No bound
+expression contains a nested declaration or a String-returning call.
+
+The shared scalar analyzers find one Standard arithmetic interpretation,
+stored directly on the operator, with no All_Interp allocation: Main has no
+user operator declaration and scalar operands have Integer/universal-Integer
+types (`sem_ch4.adb:930–984,6542–6588,6770–6881,7143–7190`). The
+[semantic component's overload derivation](retained-main-semantics.md#overload-records-and-their-index-map)
+supplies this mode-independent fact. Source references to ordinary Integer
+objects are not overloadable. Known scalar values are read from existing
+literal/constant chains; no initializer tree is substituted by Eval_Entity_Name.
+
+One arithmetic evaluation folds at most once: two ordinary nodes, one growing
+event and two Uint appends cover Fold_Uint and signed subtraction's negation
+plus addition. Multiplication's Num_Bits/UI_From_Int guard uses at most64,
+and its comparison constant500000 is also in Uint's direct range
+(`sem_eval.adb:1971–2110,4351–4451,6143–6156`, `uintp.ads:475–476`).
+The original grammar excludes the unparenthesized unary-product warning;
+static intermediates fit Integer, so this family does not enter overflow or
+oversized-static-value diagnostics. Type freezing requested by the common
+resolver epilogue is charged with the owning subtype, not per operator.
+
+At strict overflow mode, Enable_Overflow_Check performs at most two
+Determine_Range queries per unary/binary visit: the root and, for unary minus,
+possibly its operand. O0 returns before the saved-check optimizer
+(`checks.adb:6283–6455`). Native arithmetic uses the target's backend overflow
+checks, so it does not construct widened arithmetic or helper calls.
+Apply_Arithmetic_Overflow_Strict's size multiplication precedes that early
+return; one extra Uint append per visit is conservative even though the
+Integer32 size product is directly represented (`756–966`). Unary minus's
+software `0-expr` rewrite is excluded by the same target flag.
+Native `X+0`, `0+X`, `X-0`, `X*1`, `1*X`, `X*0` and `0*X` rewrites add at
+most another two nodes/one growth event. For multiplication by zero,
+Remove_Side_Effects returns: ordinary scalar names and recursively scalar
+unary/binary expressions are side-effect-free under its default
+`Variable_Ref=False`, even when overflow flags remain
+(`exp_util.adb:14425–14662`, `exp_ch4.adb:7918–7976,9935–10164,10678–10728`).
+Source exponentiation, modular/fixed/real arithmetic and intrinsic operators
+cannot enter their alternative expansions.
+
+For each Integer-name visit, reserve one variable-reference marker and one
+native Current_Value replacement, the latter two ordinary nodes and one
+growing event. The replacement constructs one literal with an existing
+Expr_Rep_Value; it never copies an arithmetic initializer tree
+(`sem_ch8.adb:7118–7128`, `exp_ch2.adb:124–222,482–522`). Reanalysis of that
+literal cannot re-enter identifier expansion. This overcounts readonly names,
+lvalues and preanalysis passes. Marker-associated bookkeeping and xref records
+remain their own common-table contribution.
+
+For these scalar roots alone, set `A=1+max scalar-expression tree size`, also
+including source range-endpoint roots. Captured loop-bound constants contribute
+at most one edge to one such initializer; source cannot refer to a generated
+capture. Ordinary source constants are leaves for Determine_Range, while
+Expr_Value follows their finite declaration-order chain without allocating
+numeric values. Source-loop type bounds are either existing static values or
+fall back to Standard's bounds, not recursively expanded type definitions
+(`checks.adb:5142–5298`). Folding, current-value replacement and identity
+rewrites only decrease this tree envelope. The existing query transfer gives
+6A Uints per Determine_Range. With target width at most128,
+`k=ceil((130*A+2)/15)` is a sufficient base-32768 digit bound for intermediate
+query estimates, including multiplication; it does not infer32-bit estimates
+from the runtime Integer type.
+
+The resulting original scalar-expression subtotal is
+
+```text
+ordinary nodes <= 2*B_l + 4*T + 3*V
+growing events <= 2*T + V
+Uint appends   <= (12*A+3)*T
+Uint digits    <= k*(12*A+3)*T
+entities, new names, syntax lists and String values = 0.
+```
+
+`source_scalar_arithmetic` regenerates this transfer. It covers syntax copies,
+ordinary arithmetic, scalar-name rewrites and their range queries; it does not
+charge the enclosing range's folds/checks, loop-index subtype, bound-capture
+declarations, scalar assignment/initializer range checks, Image/Length
+attributes, relational operators or whole-program metadata. Those distinct
+constructors must be added before claiming Main closure.
+
 ## Fixed input and Main secondary-stack scaffold
 
 The initial input construction and Main's secondary-stack cleanup reduce to

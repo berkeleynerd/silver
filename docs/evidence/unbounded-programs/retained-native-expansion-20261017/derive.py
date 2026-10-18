@@ -741,6 +741,30 @@ def native_integer_image(image_count):
                 whole_local_constructor_closed=True, whole_construct_closed=False)
 
 
+def source_scalar_arithmetic(source_ops, loop_ops, source_names, loop_names,
+                             raw_loop_nodes, largest_scalar_tree):
+    assert 0 <= loop_ops <= source_ops
+    assert 0 <= loop_names <= source_names
+    assert raw_loop_nodes >= 0 and largest_scalar_tree >= 1
+    visits = source_ops + 2 * loop_ops
+    names = source_names + 2 * loop_names
+    a = largest_scalar_tree + 1
+    k = (130 * a + 2 + 14) // 15
+    uint = (12 * a + 3) * visits
+    nodes = 2 * raw_loop_nodes + 4 * visits + 3 * names
+    growth = 2 * visits + names
+    return dict(source_operators=source_ops, loop_bound_operators=loop_ops,
+                source_scalar_names=source_names, loop_bound_names=loop_names,
+                raw_loop_nodes=raw_loop_nodes,
+                largest_scalar_tree=largest_scalar_tree, A=a,
+                operator_visits=visits, name_visits=names,
+                ordinary_nodes=nodes, growth=growth,
+                Uint_appends=uint, Uint_digits=k * uint,
+                digits_per_Uint=k, dynamic_slots=9 * (nodes + growth),
+                entities=0, syntax_lists=0, String_values=0,
+                whole_construct_closed=False)
+
+
 def combined_native_emitter_vector(n, analysis_graph):
     """Closed local emitter; source constructors/runtime load/scope excluded."""
     a = analysis_graph
@@ -1381,6 +1405,21 @@ result = {
         "examples_not_thresholds": [native_integer_image(0), native_integer_image(1),
                                     native_integer_image(10)],
         "excluded": "original source attribute/prefix/scalar-argument semantic analysis and numeric work; runtime first loading/spec freezing and fixed unit-name lookups; context/action-wrapper placement; per-type deferred qualification; backend and physical stack bytes",
+    },
+    "Main_source_scalar_arithmetic": {
+        "scope": "source scalar literal/name/unary +/- and binary +/-/* arithmetic, including both raw loop-bound preanalysis copies; parent range/declaration/assignment checks separate",
+        "operator_visits": "T=O_scalar+2*O_loop",
+        "name_visits": "V=N_scalar_name+2*N_loop_name",
+        "raw_copy_nodes": "2*B_loop",
+        "query_A": "1+largest source scalar expression tree (including all type-bound expression roots); source constants do not unfold in Determine_Range; internal loop capture contributes at most one initializer edge",
+        "ordinary_nodes": "2*B_loop+4*T+3*V",
+        "growth": "2*T+V",
+        "Uint_appends": "(12*A+3)*T",
+        "digits_per_Uint": "ceil((130*A+2)/15), conservative signed-target-width128 query bound",
+        "premises": "current scalar grammar and successful static legality; source values/intermediates fit Integer32; strict overflow/O0/backend overflow enabled; frozen scalar types or their first freezes charged separately; no user operators/types/validity override; syntactic tree copies have no owned decoration",
+        "examples_not_thresholds": [source_scalar_arithmetic(0, 0, 0, 0, 0, 1),
+                                    source_scalar_arithmetic(12, 4, 18, 6, 20, 9)],
+        "excluded": "source scanner/parser; full range/loop/declaration/assignment/attribute processing; capture constructors; first freezes; non-arithmetic diagnostics and shared xref/elaboration metadata; physical recursion stack and backend lowering",
     },
     "Main_input_and_secondary_stack_fixed_skeleton_reduction": {
         "scope": "native initial input construction and Main secondary-stack cleanup, after original literal/source call analysis; fixed capture not included here",
