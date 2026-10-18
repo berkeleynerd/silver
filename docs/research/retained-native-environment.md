@@ -189,6 +189,10 @@ individual-object inequalities. No new compiler, assembler, linker or proof
 execution is involved. Remaining driver work includes the full selected
 spec-interpreter/option-container transfers and other late paths; these local
 path and temporary-name results do not complete driver or program capacity.
+Independent source/math review of this addition at `87c59f8d20` found no
+correction: it checked both search phases, the five implicit specs paths,
+the individual requests and the signed/unsigned promotion in the temporary
+filename expression. The review involved no additional native tool run.
 
 ## Driver-created strings and complete path spellings
 
