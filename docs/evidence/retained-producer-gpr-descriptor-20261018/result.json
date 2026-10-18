@@ -1,5 +1,5 @@
 {
-  "scope": "Candidate production invocation derived offline from selected sources and installed configuration bytes; no installed executable/source attestation.",
+  "scope": "Current indexed null production invocation derived offline from selected sources and installed configuration bytes; no installed executable/source attestation.",
   "compiler_selection": {
     "name": "GNAT",
     "version": "16.1",
@@ -26,11 +26,12 @@
     ]
   ],
   "generated_naming": {
-    "bytes": 244,
-    "lines": 2,
+    "bytes": 327,
+    "lines": 3,
     "source_range_charge": 4096,
     "ALI_dependency_entries": 0,
-    "temporary_basename": "GNAT-TEMP-000000.TMP"
+    "temporary_basename": "GNAT-TEMP-000000.TMP",
+    "source_derived_not_captured": true
   },
   "phase1": {
     "argv_excluding_executable": [
@@ -46,9 +47,12 @@
       "-gnatis",
       "-gnatec=<config>",
       "-gnatem=<map>",
-      "<main>"
+      "<main>",
+      "-o",
+      "main~1.ali",
+      "-gnateI1"
     ],
-    "argc": 13,
+    "argc": 16,
     "A_rows": [
       "-x",
       "ada",
@@ -57,12 +61,13 @@
       "-gnata",
       "-gnato",
       "-gnatc",
-      "-gnatis"
+      "-gnatis",
+      "-gnateI1"
     ],
-    "A": 8,
-    "A_sum": 45,
+    "A": 9,
+    "A_sum": 53,
     "A_max": 9,
-    "argv_payload_bound": "4P+71"
+    "argv_payload_bound": "4P+91"
   },
   "phase2": {
     "argv_excluding_executable": [
@@ -78,9 +83,12 @@
       "-gnatec=<config>",
       "-gnatem=<map>",
       "<main>",
+      "-o",
+      "main~1.spark",
+      "-gnateI1",
       "-gnateO=<objects>"
     ],
-    "argc": 13,
+    "argc": 16,
     "A_rows_if_output_were_enabled": [
       "-x",
       "ada",
@@ -88,12 +96,13 @@
       "-gnat2022",
       "-gnata",
       "-gnato",
-      "-gnatc"
+      "-gnatc",
+      "-gnateI1"
     ],
-    "A": 7,
-    "A_sum": 38,
+    "A": 8,
+    "A_sum": 46,
     "A_max": 9,
-    "argv_payload_bound": "5P+72",
+    "argv_payload_bound": "5P+94",
     "ALI_output_disabled": true
   },
   "data_representation": {
@@ -112,23 +121,41 @@
       "-gnatis",
       "-gnatec=<config>",
       "-gnatem=<map>",
-      "<main>"
+      "<main>",
+      "-o",
+      "main~1.o",
+      "-gnateI1"
     ],
-    "argc": 15,
+    "argc": 18,
     "separate_native_component_required": true
   },
   "generic_ALI_join": {
-    "A": 8,
-    "A_sum": 45,
+    "A": 9,
+    "A_sum": 53,
     "A_max": 9,
     "C_dependencies": 0,
     "ALI_emitted_filename_bound": 10,
     "max_record_bytes_including_lf": 789,
-    "loose_file_byte_bound": 29622766,
-    "reader_buffer_byte_bound": 29622767,
-    "line_count_bound": 77549,
+    "loose_file_byte_bound": 29622777,
+    "reader_buffer_byte_bound": 29622778,
+    "line_count_bound": 77550,
     "writer_record_condition": true,
     "reader_signed32_condition": true
+  },
+  "indexed_frontend_table_delta": {
+    "ordinary_nodes": 18,
+    "dynamic_slots": 162,
+    "syntax_list_headers": 2,
+    "Name_entries": 7,
+    "Name_characters": 74,
+    "String_descriptors": 2,
+    "String_characters": 16,
+    "SFN_Table_entries": 1,
+    "SFN_Table_initial_object_bytes": 120,
+    "SFN_hash_bucket_bytes": 808,
+    "SFN_hash_new_wrapper_bytes": 16,
+    "Uint_entries": 0,
+    "Uint_digits": 0
   },
   "production_orchestration_capacity_closed": false,
   "installed_executable_source_identity_established": false

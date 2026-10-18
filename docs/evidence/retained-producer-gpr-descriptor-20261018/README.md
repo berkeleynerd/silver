@@ -15,8 +15,8 @@ python3 docs/evidence/retained-producer-gpr-descriptor-20261018/check.py
 ```
 
 The checker parses all63 base XML files and their pinned local entities,
-selects the native/default GNAT16.1 branches, reconstructs the244-byte naming
-input, exports argument/A-row descriptors and evaluates the generic ALI join.
+selects the native/default GNAT16.1 branches, reconstructs the 327-byte indexed naming
+input, exports the 16-argument producer and nine/eight stored-switch descriptors and evaluates the generic ALI join.
 `naming.reconstructed.adc` is reconstructed text, not a new runtime capture.
 `result.json` keeps the remaining orchestration/source-identity limitations
 explicit. No compiler, proof, native probe, GPR invocation or installation

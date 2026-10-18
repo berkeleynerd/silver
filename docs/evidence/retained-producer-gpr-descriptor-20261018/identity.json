@@ -1,5 +1,5 @@
 {
-  "scope": "Candidate production invocation derived offline from selected sources and installed configuration bytes; no installed executable/source attestation.",
+  "scope": "Current indexed null production invocation derived offline from selected sources and installed configuration bytes; no installed executable/source attestation.",
   "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "gpr_commit": "bdfb879cf03643ec8e48a09ce07b08c4a6ff0263",
   "spark_commit": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
@@ -594,8 +594,8 @@
   "local_files": [
     {
       "path": "src/silver.adb",
-      "bytes": 22230,
-      "sha256": "9da875a136d52adc818c1ac6a0b2fb217580cf8ee29c18b823538ff91d9b310b"
+      "bytes": 22598,
+      "sha256": "5b52e3225f359740f04f4dbdf2c85ba2c204916fb0b5092fe983f62e9c30e70f"
     },
     {
       "path": "docs/evidence/unbounded-programs/retained-source-closure-20261017/driver-snapshots/293256/GNAT-TEMP-000002.TMP",
@@ -613,5 +613,6 @@
     "native": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/share/gprconfig",
     "xml_and_entity_files": 70,
     "comparison": "byte-identical for every retained XML/entity file; read only"
-  }
+  },
+  "indexed_main_repair": "ce4d2fee363771ae5bd3c4fbe4e53e03dfddca7c"
 }

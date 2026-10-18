@@ -60,6 +60,13 @@ def main():
     has('spark/src/gnatprove/gnatprove.adb','Args.Append ("-gnates=" & Opt_File);')
     has('spark/src/gnatprove/gnatprove.adb','Args.Append ("-gnatis");')
     has('src/silver.adb','"      for Default_Switches (""Ada"") use (""-gnat2022"", ""-gnata"", ""-gnato"");" & LF &')
+    has('src/silver.adb','for Body (""Main"") use ""main.adb"" at 1;')
+    has('gpr/src/gprbuild-compile.adb', 'elsif Id.Index /= 0 then')
+    has('gpr/src/gprbuild-compile.adb', 'Get_Name_String (Id.Object)')
+    has('gpr/src/gprbuild-compile.adb', 'Add_Object_File_Switches (Id); Add_Multi_Unit_Switches (Id); Add_Object_Path_Switches (Id);')
+    has('gpr/gpr/src/gpr-util.adb', 'Source_Index => Source.Index, Index_Separator => Source.Language.Config.Multi_Unit_Object_Separator, Object_File_Suffix => Source.Language.Config.Object_File_Suffix')
+    has('gcc/adabkend.adb', 'if Switch_Chars (First .. Last) = "o"')
+    has('gcc/switch-c.adb', 'Scan_Pos (Switch_Chars, Max, Ptr, Multiple_Unit_Index, C);')
     has('gpr/gpr/src/gpr-env.adb','Get_Name_String (Source.Display_File); Put_Name_Buffer;')
     has('gcc/lib-xref.adb','(Reference_Name (Source_Index (XE.Key.Eun)));')
 
@@ -164,37 +171,44 @@ def main():
         for key,value in {'%s':'.ads','%b':'.adb','%c':'lowercase','%d':'-'}.items():
             text = text.replace(key,value)
         naming_lines.append(text)
-    naming = '\n'.join(naming_lines)+'\n'
+    patterns = '\n'.join(naming_lines)+'\n'
     retained = sources['docs/evidence/unbounded-programs/retained-source-closure-20261017/driver-snapshots/293256/GNAT-TEMP-000002.TMP']
-    assert naming == retained and len(naming.encode()) == 244
+    assert patterns == retained and len(patterns.encode()) == 244
+    template, = string_values(attrs['Config_Body_File_Name_Index'])[:1]
+    indexed_line = template.replace('%u', 'main').replace('%f', 'main.adb').replace('%i', ' 1')+'\n'
+    assert indexed_line == 'pragma Source_File_Name_Project (main, Body_File_Name => "main.adb", Index =>  1);\n'
+    assert len(indexed_line) == 83
+    naming = patterns + indexed_line
+    assert len(naming) == 327
     (HERE/'naming.reconstructed.adc').write_text(naming)
 
     # Indexes are deliberately abstract path placeholders, not shell commands.
     leading = ['-c','-x','ada','-gnatA']
     project = ['-gnat2022','-gnata','-gnato']
-    phase1 = leading + project + ['-gnatc','-gnates=<options>','-gnatis','-gnatec=<config>','-gnatem=<map>','<main>']
-    phase2 = leading + project + ['-gnatc','-gnates=<options>','-gnatec=<config>','-gnatem=<map>','<main>','-gnateO=<objects>']
-    datarep = leading + project + ['-S','-gnatR2js','-gnatws','-gnatx','-gnatis','-gnatec=<config>','-gnatem=<map>','<main>']
-    A1 = ['-x','ada','-gnatA'] + project + ['-gnatc','-gnatis']
-    A2 = A1[:-1]
-    assert (len(A1),sum(map(len,A1)),max(map(len,A1))) == (8,45,9)
-    assert (len(A2),sum(map(len,A2)),max(map(len,A2))) == (7,38,9)
-    assert len(phase1) == len(phase2) == 13 and len(datarep) == 15
+    phase1 = leading + project + ['-gnatc','-gnates=<options>','-gnatis','-gnatec=<config>','-gnatem=<map>','<main>','-o','main~1.ali','-gnateI1']
+    phase2 = leading + project + ['-gnatc','-gnates=<options>','-gnatec=<config>','-gnatem=<map>','<main>','-o','main~1.spark','-gnateI1','-gnateO=<objects>']
+    datarep = leading + project + ['-S','-gnatR2js','-gnatws','-gnatx','-gnatis','-gnatec=<config>','-gnatem=<map>','<main>','-o','main~1.o','-gnateI1']
+    A1 = ['-x','ada','-gnatA'] + project + ['-gnatc','-gnatis','-gnateI1']
+    A2 = [s for s in A1 if s != '-gnatis']
+    assert (len(A1),sum(map(len,A1)),max(map(len,A1))) == (9,53,9)
+    assert (len(A2),sum(map(len,A2)),max(map(len,A2))) == (8,46,9)
+    assert len(phase1) == len(phase2) == 16 and len(datarep) == 18
     for phase,name in [('frames','ALI_File'),('gnat2why','ALI_Closure')]:
         custom = attributes(parse_xml(phase+'/config.xml').find('configuration').findtext('config'))
         assert string_values(custom['Dependency_Kind']) == [name]
     X=25797
     p_ali=10
-    F = (12+5)+64+64+45+3*8+110*56+5+(p_ali+161)+(2*p_ali+81)+2*(2*p_ali+65)+6+10+X*(p_ali+1138)+(16+10)+947
+    F = (12+5)+64+64+53+3*9+110*56+5+(p_ali+161)+(2*p_ali+81)+2*(2*p_ali+65)+6+10+X*(p_ali+1138)+(16+10)+947
     R = max(17,64,12,p_ali+161,2*p_ali+81,2*p_ali+65,789,335,p_ali+14,289,26)
     assert R == 789 and F+1 < 2**31-1
     result = {'scope':identity['scope'],'compiler_selection':{'name':'GNAT','version':'16.1','runtime':'default','canonical_target':'x86_64-linux'},
         'all_base_xml_files_parsed':len(xml_files),'selected_Ada_Compiler_configurations':selected,
-        'generated_naming':{'bytes':len(naming),'lines':2,'source_range_charge':4096,'ALI_dependency_entries':0,'temporary_basename':'GNAT-TEMP-000000.TMP'},
-        'phase1':{'argv_excluding_executable':phase1,'argc':len(phase1),'A_rows':A1,'A':8,'A_sum':45,'A_max':9,'argv_payload_bound':'4P+71'},
-        'phase2':{'argv_excluding_executable':phase2,'argc':len(phase2),'A_rows_if_output_were_enabled':A2,'A':7,'A_sum':38,'A_max':9,'argv_payload_bound':'5P+72','ALI_output_disabled':True},
+        'generated_naming':{'bytes':len(naming),'lines':3,'source_range_charge':4096,'ALI_dependency_entries':0,'temporary_basename':'GNAT-TEMP-000000.TMP','source_derived_not_captured':True},
+        'phase1':{'argv_excluding_executable':phase1,'argc':len(phase1),'A_rows':A1,'A':9,'A_sum':53,'A_max':9,'argv_payload_bound':'4P+91'},
+        'phase2':{'argv_excluding_executable':phase2,'argc':len(phase2),'A_rows_if_output_were_enabled':A2,'A':8,'A_sum':46,'A_max':9,'argv_payload_bound':'5P+94','ALI_output_disabled':True},
         'data_representation':{'argv_excluding_executable':datarep,'argc':len(datarep),'separate_native_component_required':True},
-        'generic_ALI_join':{'A':8,'A_sum':45,'A_max':9,'C_dependencies':0,'ALI_emitted_filename_bound':10,'max_record_bytes_including_lf':R,'loose_file_byte_bound':F,'reader_buffer_byte_bound':F+1,'line_count_bound':8+150+3*X,'writer_record_condition':True,'reader_signed32_condition':True},
+        'generic_ALI_join':{'A':9,'A_sum':53,'A_max':9,'C_dependencies':0,'ALI_emitted_filename_bound':10,'max_record_bytes_including_lf':R,'loose_file_byte_bound':F,'reader_buffer_byte_bound':F+1,'line_count_bound':9+150+3*X,'writer_record_condition':True,'reader_signed32_condition':True},
+        'indexed_frontend_table_delta':{'ordinary_nodes':18,'dynamic_slots':162,'syntax_list_headers':2,'Name_entries':7,'Name_characters':74,'String_descriptors':2,'String_characters':16,'SFN_Table_entries':1,'SFN_Table_initial_object_bytes':120,'SFN_hash_bucket_bytes':808,'SFN_hash_new_wrapper_bytes':16,'Uint_entries':0,'Uint_digits':0},
         'production_orchestration_capacity_closed':False,'installed_executable_source_identity_established':False}
     (HERE/'result.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps(result,indent=2))

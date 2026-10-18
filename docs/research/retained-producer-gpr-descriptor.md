@@ -1,6 +1,7 @@
 # Selected null-producer GPR descriptor
 
 2026-10-18, research [#119](https://github.com/berkeleynerd/silver/issues/119).
+Updated for the delivered [indexed-Main repair](../indexed-main-discovery.md).
 This joins the [generic ALI equations](retained-producer-ali.md) to the
 candidate production invocation derived from the selected GPR/SPARK sources
 and installed configuration bytes. It covers the complete null token family
@@ -12,11 +13,11 @@ execution was performed.
 
 ## Selected configuration branches
 
-Silver emits one executable project with one Ada source, `main.adb`, default
-naming, no imports and the three compiler switches `-gnat2022 -gnata -gnato`
-(`src/silver.adb:103–119`). The selected compiler is GNAT16.1, default runtime,
+Silver emits one executable project with one Ada source, `main.adb`, explicit
+`for Body ("Main") use "main.adb" at 1;`, no imports and the three compiler
+switches `-gnat2022 -gnata -gnato` (`src/silver.adb:103–122`). The selected compiler is GNAT16.1, default runtime,
 canonical target `x86_64-linux`. No owner/project/command-line compiler or
-configuration override, cross target, alternate database, multiunit source,
+configuration override, cross target, alternate database, second source unit,
 CodePeer, distributed build or make jobserver is selected. The fixed effective
 source/search environment and source correspondence remain the existing
 candidate-descriptor premises; a version string alone does not establish them.
@@ -63,35 +64,45 @@ mapping-file selection plus default Use_Include_Path_File=False does not create
 an include-path file through that branch (`:3248–3400`). Inherited search
 variables remain an environment premise, not additional compiler switches.
 
+The explicit index adds `-o main~1.ali -gnateI1` in phase1 and
+`-o main~1.spark -gnateI1` before the object-path argument in translation.
+GPR derives the indexed name with the configured suffix (`gpr-util.adb:2074–2086`);
+its nonzero-index branch supplies `-o` even without Object_File_Switches
+(`gprbuild-compile.adb:2507–2543,2759–2789,3527–3537`). This is source-derived,
+not a retained full argv capture.
+
 The checker retains the ordered path-parameterized argv lists. **Both
-producer phases have13 arguments excluding the executable.** If P bounds each
-full path, phase1 argument payload is at most `4P+71`, translation at most
-`5P+72`, and an individual argument at most `max(9,P+8)`. NUL termination and
+producer phases have 16 arguments excluding the executable.** If P bounds each
+full path, phase1 argument payload is at most `4P+91`, translation at most
+`5P+94`, and an individual argument at most `max(12,P+8)`. NUL termination and
 pointer vectors are additional independent objects; the frontend Args array
-has13 entries. The selected compiler response format is None, so the GCC_GNU
+has 16 entries. The selected compiler response format is None, so the GCC_GNU
 response-file branch is not entered (`:2986–3068`). These argument bounds do
 not establish GPR's other containers or process-launch capacity.
 
 SPARK's alternate Back_End instantiates **Adabkend**, rather than the GCC
 Back_End (`src/why/back_end.adb:45–52,133`). Adabkend discards `-c`, explicitly
 stores both `-x` and `ada`, and sends frontend switches to Switch.C
-(`adabkend.adb:106–200,252–283`). `-gnatA`, the three project switches, `-gnatc`
+(`adabkend.adb:106–200,252–283`). It discards `-o` and consumes its following
+argument (`:110–117`); neither creates a stored A row. `-gnateI1` sets
+Multiple_Unit_Index and is stored (`switch-c.adb:692–696,1692–1694`). `-gnatA`, the three project switches, `-gnatc`
 and `-gnatis` each store one switch. `-gnates=`, `-gnatec=`, `-gnatem=` and
 `-gnateO=` return without storing their pathname payloads
 (`switch-c.adb:311–315,497–529,710–732,738–754,790–812`). Therefore:
 
 | Phase | Stored compilation switches | A / payload sum / longest |
 | --- | --- | --- |
-| Globals/phase1 | `-x`, `ada`, `-gnatA`, `-gnat2022`, `-gnata`, `-gnato`, `-gnatc`, `-gnatis` | 8 / 45 / 9 |
-| Translation | Same without `-gnatis` | 7 / 38 / 9 |
+| Globals/phase1 | `-x`, `ada`, `-gnatA`, `-gnat2022`, `-gnata`, `-gnato`, `-gnatc`, `-gnatis`, `-gnateI1` | 9 / 53 / 9 |
+| Translation | Same without `-gnatis` | 8 / 46 / 9 |
 
-Translation disables ALI output, so its seven switches are table/storage
-population, not seven newly emitted A rows. The phase1 count agrees with the
-old direct probe, but is now derived from the production source route. The
-probe's extra `-I` and non-temporary naming filename are not transferred.
+Translation disables ALI output, so its eight switches are table/storage
+population, not eight newly emitted A rows. The historical unindexed descriptor
+had eight/seven switches. The indexed descriptor supersedes those counts; the
+old direct probe's extra `-I` and non-temporary naming filename are not transferred.
 
-Data representation has15 arguments excluding GCC: the leading/project seven,
-`-S -gnatR2js -gnatws -gnatx -gnatis`, config, map and Main. It remains a
+Data representation has 18 arguments excluding GCC: the leading/project seven,
+`-S -gnatR2js -gnatws -gnatx -gnatis`, config, map, Main, and
+`-o main~1.o -gnateI1`. It remains a
 separate native-invocation join. The ordinary native build's descriptor cannot
 be substituted for it.
 
@@ -99,9 +110,23 @@ be substituted for it.
 
 `Create_Config_File` writes each distinct naming scheme once and adds per-unit
 pragmas only for naming exceptions (`gprbuild-compile.adb:682–703,808–941`). The
-single project/default scheme has none. The two reconstructed lines are
-**244 bytes**, byte-equal to the previously retained generated pattern pair.
-Their fixed aligned source-range charge remains4096. The project supplies no
+single project has two default patterns plus one explicit indexed exception:
+
+```ada
+pragma Source_File_Name_Project (main, Body_File_Name => "main.adb", Index =>  1);
+```
+
+The first two lines remain byte-equal to the retained 244-byte pattern pair.
+The indexed template and Ada index image add 83 bytes including LF, for
+**327 bytes in three lines**. This reconstructed configuration is not a new
+temporary-file capture. Its aligned source-range charge remains 4096.
+The [native indexed analysis](retained-native-expansion.md#indexed-main-invocation-and-source-buffer-delta)
+prices the same frontend parser/configuration route: 18 ordinary nodes,
+162 dynamic slots, two syntax-list headers, seven interned names/74 characters,
+two String descriptors/16 characters, one SFN table entry and one hash wrapper.
+The integer 1 needs no allocated Uint/digit entry. These must be added to
+the producer frontend totals too; the 4096-byte aligned source range alone
+does not account for them. The new pragma has no executable body. The project supplies no
 global/local configuration, and no explicit configuration file is supplied
 on the selected command line.
 
@@ -115,7 +140,7 @@ input is selected. Thus:
 
 ```text
 configuration source files = 1
-configuration source bytes = 244; aligned source charge = 4096
+configuration source bytes = 327; aligned source charge = 4096
 extra registered ALI dependency/unit entries = C_dependencies = 0
 semantic and writer Units population = 2 (Main, System)
 ```
@@ -134,7 +159,8 @@ installation path lengths. `Next_Main_File` strips the absolute argument to
 `main.adb` (`osint.adb:2012–2061`). GPR maps store display filename and resolved
 path separately; the frontend requests the mapped basename
 (`gpr-env.adb:951–984`; `fname-uf.adb:236–243`). Default lookup of System selects
-`system.ads`. With no Source_Reference and no naming exception, X headers use
+`system.ads`. The indexed exception retains the same source filename. With no
+Source_Reference, X headers use
 these same Reference_Name values (`sinput-l.adb:510–529`;
 `lib-xref.adb:2352–2357`). The only U/W/D/X
 file spellings are `main.adb`, `system.ads` and `system.ali`, at most10 bytes.
@@ -145,15 +171,15 @@ other source files.
 Consequently evaluate the generic ALI writer formula with:
 
 ```text
-A=8, A_sum=45, A_max=9, C_dependencies=0, P_ALI_names=10.
+A=9, A_sum=53, A_max=9, C_dependencies=0, P_ALI_names=10.
 R = 789 bytes including LF
-F = 29,622,766 bytes (deliberately loose whole-file bound)
-whole-file reader buffer <= 29,622,767 bytes
-line-count bound = 77,549
+F = 29,622,777 bytes (deliberately loose whole-file bound)
+whole-file reader buffer <= 29,622,778 bytes
+line-count bound = 77,550
 ```
 
 The writer's R<=2112 condition and reader's signed32/one-past conditions hold.
-The generic reader populations become ALIs2, Units2, Withs1, Args18, Sdep3,
+The generic reader populations become ALIs2, Units2, Withs1, Args19, Sdep3,
 five invocation constructs/signatures, and the already documented dummy/empty
 tables. Their initial backing capacities suffice. Writer locals use u2; the
 separate dependency vector reserves u+1=3 entries. The existing Xref sort and
@@ -169,3 +195,9 @@ GPR2/GPRbuild startup/project/configuration/process objects, the data-representa
 native invocation, fixed effective environment, and the complete null-pipeline
 conjunction and independent review remain. #119 stays open; no language,
 implementation, installation or admission bound changed.
+
+Independent review of the indexed delta reproduced the reconstructed naming
+and descriptor byte-for-byte, checked the GPR argument ordering, Adabkend
+output-argument consumption and stored index switch, and accepted the ALI
+arithmetic. The exact LF source citation for Adabkend was corrected. No native
+job was launched; orchestration and whole-pipeline composition remain open.
