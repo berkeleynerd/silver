@@ -123,7 +123,7 @@ gives U<=32766 and a maximum request of 1,048,512 bytes, so that accumulator,
 group count, group-local unsigned-short `vn_cnt`, and 32-bit next offsets fit
 (`elflink.c:2463–2535,7084–7314,7332–7442`). Internal allocation requests
 are 64 bytes per Verneed and 48 per Vernaux on LP64
-(`include/elf/internal.h:213–248`); they use BFD's separately bounded allocator.
+(`include/elf/internal.h:207–235`); they use BFD's separately bounded allocator.
 
 The x86 backend can request `GLIBC_ABI_DT_RELR`, `GLIBC_ABI_GNU2_TLS`,
 `GLIBC_ABI_DT_X86_64_PLT` and fallback `GLIBC_2.36`. Charging four successful
@@ -143,10 +143,48 @@ the hidden bit only for selected local definitions (`elflink.c:11172–11209`).
 ## Remaining joins
 
 The [fixed input inventory](retained-link-inputs.md) bounds fixed symbol
-records but is not a lifetime dynamic-symbol count or a parsed version-name
-inventory. Generated Main/binder inputs, selected/resolved symbols, synthetic
+records but is not a lifetime dynamic-symbol count. The later fixed-version
+join below adds exact input names. Generated Main/binder inputs, selected/resolved symbols, synthetic
 names and registration events must supply D, S, N, V, U and K. The selected
 invocation must supply the nonoptimizing/no-version-script premises. Dynamic
 String-table events, generic symbol/section storage, relocation targets and
 final file/virtual layout remain separate. No compile, link, native proof,
 Lean build or complete test run was used for this packet.
+
+Independent narrow review of `36a32b9e24` accepted the arithmetic and source
+routes above, including the signed shift transition and automatic version
+definitions. It identified an incomplete source citation, now corrected to
+include the Verneed scalar fields. The review did not establish configuration
+writer closure, source-to-count inputs or whole-link storage.
+
+## Fixed symbol and version input join
+
+The [fixed-version capsule](../evidence/retained-linker-symbols-20261018/fixed-version-results.json)
+retains relevant ELF headers, symbol tables, linked string tables and version
+definitions for every fixed ELF object/member in the earlier inventory.
+Its extraction checked complete installed file/member hashes, then retained
+the exact regions for offline parsing. There are1,169 distinct inputs,
+of which1,166 are ordinary ET_REL objects. Weighted symbol counts reproduce
+the earlier48,769-record inventory.
+
+None of those ordinary objects defines a nonlocal symbol containing `@`.
+This excludes such input names as a source of output version definitions;
+generated Main/binder and linker-synthesized names still need their own join.
+The three DSOs have4,46 and7 version definitions respectively:
+libatomic, libc and the loader. Counting even their base versions, retaining
+the earlier allowance of nine loader processings, and charging all four
+possible backend additions gives
+
+```text
+U <= 4 + 46 + 9*7 + 4 = 117
+K <= 1 + 1 + 9 = 11.
+```
+
+Revisited versions need not all survive; charging separate groups and names
+for every revisit is conservative. If the generated/synthetic-name join
+establishes V=0, the maximum output version index is118 and
+`.gnu.version_r` is at most `16(117+11) = 2048` bytes. The output version
+definition section is then absent. These are conditional fixed-domain
+conclusions, not a whole symbol-resolution or no-version-definition proof.
+This capture/replay reads installed or retained bytes only; no assembler,
+linker, compiler or prover executes.
