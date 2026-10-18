@@ -1,0 +1,677 @@
+{
+  "archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "binder_batches": 15,
+  "boundary_coefficient": 204,
+  "call_sites": [
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Driver.Do_Generate_VCs",
+      "file": "src/why/gnat2why-driver.adb",
+      "line": 547
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Gnat2Why.Driver.Translate_CUnit.Register_Symbol",
+      "file": "src/why/gnat2why-driver.adb",
+      "line": 1386
+    },
+    {
+      "call": "Insert_Item",
+      "enclosing_entity": "Gnat2Why.Driver.Translate_CUnit.Register_Symbol",
+      "file": "src/why/gnat2why-driver.adb",
+      "line": 1405
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Deep_Delta_Aggregate.Generate_Context_For_Aggregate",
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 4577
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Deep_Delta_Aggregate.Generate_Context_For_Aggregate",
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 4607
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Deep_Delta_Aggregate.Generate_Context_For_Aggregate",
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 4642
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Deep_Delta_Aggregate.Generate_Simple_Record_Aggregate",
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 5782
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Aggregates.Transform_Deep_Delta_Aggregate.Generate_Simple_Record_Aggregate",
+      "file": "src/why/gnat2why-expr-aggregates.adb",
+      "line": 5799
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Inv.Equality_Of_Preserved_Components",
+      "file": "src/why/gnat2why-expr-loops-inv.adb",
+      "line": 812
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Inv.Equality_Of_Preserved_Components",
+      "file": "src/why/gnat2why-expr-loops-inv.adb",
+      "line": 833
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Transform_Loop_Statement",
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 738
+    },
+    {
+      "call": "Insert_Item",
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Transform_Loop_Statement",
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 748
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Transform_Loop_Statement",
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 755
+    },
+    {
+      "call": "Insert_Item",
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Transform_Loop_Statement",
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 765
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Transform_Loop_Statement.Skip_Empty_Iterations",
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 1679
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Loops.Transform_Loop_Statement.Skip_Empty_Iterations",
+      "file": "src/why/gnat2why-expr-loops.adb",
+      "line": 1680
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Check_Type_With_DIC",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 3228
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Check_Type_With_DIC",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 3269
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Check_Type_With_Invariants",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 3346
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Check_Type_With_Invariants",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 3347
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Check_Type_With_Iterable",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 3543
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Compute_Default_Check.Compute_Default_Check_Rec",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 4970
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Compute_Default_Check.Compute_Default_Check_Rec",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 4993
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Compute_Default_Init.Assume_DIC",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 5957
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Compute_Default_Init.Assume_DIC",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 5966
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Compute_Default_Value.Compute_Default_Value_Rec",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 6225
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Compute_Default_Value.Compute_Default_Value_Rec",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 6228
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.DIC_Expression",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 9041
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.DIC_Expression",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 9050
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Dynamic_Predicate_Expression",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 9118
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Dynamic_Predicate_Expression",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 9125
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Generate_Expr_With_Actions",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 9967
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Generate_Quantified_Expression",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 10594
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Generate_Quantified_Expression",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 10595
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Check_Type_Invariants_For_Call.One_Param",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 14586
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Check_Type_Invariants_For_Call",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 14595
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Actions_Preparation",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 15552
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Generate_Aggregate_Functions",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 16088
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Generate_Aggregate_Functions",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 16089
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Insert_Check_For_Choices.Insert_Checks",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 17077
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Insert_Check_For_Choices.Insert_Checks",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 17080
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Insert_Check_For_Choices",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 17314
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Transform_Array_Component_Associations.Transform_Aggregate_Values.Transform_Complex_Association",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 17975
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Transform_Array_Component_Associations.Transform_Aggregate_Values.Transform_Complex_Association",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 17980
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Array_Aggregate.Transform_Array_Component_Associations.Transform_Aggregate_Values",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 18377
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_At_End_Borrow_Call",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 19443
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_At_End_Borrow_Call",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 19444
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_At_End_Borrow_Call",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 19466
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_At_End_Borrow_Call",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 19467
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_At_End_Borrow_Call",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 19519
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_At_End_Borrow_Call",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 19520
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Declaration.Check_Itypes_Of_Components",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 22448
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Declaration.Check_Itypes_Of_Components",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 22463
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Delta_Aggregate",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 23277
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Delta_Aggregate",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 23293
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Expr",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 24680
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Record_Component_Associations",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 28812
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Transform_Record_Component_Associations",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 28915
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Expr.Type_Invariant_Expression",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 30685
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Expr.Type_Invariant_Expression",
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 30692
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Subprograms.Pointers.Checks_For_Subp_Conversion",
+      "file": "src/why/gnat2why-subprograms-pointers.adb",
+      "line": 316
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Subprograms.Pointers.Checks_For_Subp_Conversion",
+      "file": "src/why/gnat2why-subprograms-pointers.adb",
+      "line": 318
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Subprograms.Pointers.Checks_For_Subp_Conversion",
+      "file": "src/why/gnat2why-subprograms-pointers.adb",
+      "line": 319
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Gnat2Why.Subprograms.Pointers.Checks_For_Subp_Conversion",
+      "file": "src/why/gnat2why-subprograms-pointers.adb",
+      "line": 330
+    },
+    {
+      "call": "Insert_Item",
+      "enclosing_entity": "Gnat2Why.Subprograms.Pointers.Declare_Access_To_Subprogram_Type",
+      "file": "src/why/gnat2why-subprograms-pointers.adb",
+      "line": 963
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Subprograms.Compute_Inlined_Expr",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 3196
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Subprograms.Compute_Inlined_Expr",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 3197
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_VCs_For_Protected_Type.Prepare_Discr",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 4228
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_VCs_For_Protected_Type.Prepare_Discr",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 4248
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_VCs_For_Task_Type",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 6380
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Axiom_For_Lemma",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 6588
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Axiom_For_Lemma",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 6590
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Axiom_For_Post",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 6736
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Axiom_For_Post",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 6737
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Dispatch_Compatibility_Axioms",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 7228
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Dispatch_Compatibility_Axioms",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 7261
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Dispatch_Compatibility_Axioms",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 7264
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Dispatch_Compatibility_Axioms",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 7274
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Dispatch_Compatibility_Axioms",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 7317
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Dispatch_Compatibility_Axioms",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 7346
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Dispatch_Compatibility_Axioms",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 7349
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Dispatch_Compatibility_Axioms",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 7359
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Subprogram_Program_Fun",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 7643
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Gnat2Why.Subprograms.Generate_Subprogram_Program_Fun",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 7654
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Subprograms.Translate_Expression_Function_Body",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 8866
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Subprograms.Translate_Expression_Function_Body",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 8867
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Gnat2Why.Subprograms.Update_Symbol_Table_For_Inherited_Contracts.Relocate_Symbols",
+      "file": "src/why/gnat2why-subprograms.adb",
+      "line": 9155
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Types.Generate_Type_Completion.Create_Axioms_For_Scalar_Bounds.Create_Axiom_For_Expr",
+      "file": "src/why/gnat2why-types.adb",
+      "line": 233
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Types.Generate_Type_Completion.Create_Axioms_For_Scalar_Bounds.Create_Axiom_For_Expr",
+      "file": "src/why/gnat2why-types.adb",
+      "line": 234
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Types.Generate_Type_Completion.Create_Default_Init_Assumption",
+      "file": "src/why/gnat2why-types.adb",
+      "line": 309
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Types.Generate_Type_Completion.Create_Default_Init_Assumption",
+      "file": "src/why/gnat2why-types.adb",
+      "line": 310
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Types.Generate_Type_Completion.Create_Dynamic_Invariant.Create_Dynamic_Invariant",
+      "file": "src/why/gnat2why-types.adb",
+      "line": 428
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Types.Generate_Type_Completion.Create_Dynamic_Invariant.Create_Dynamic_Invariant",
+      "file": "src/why/gnat2why-types.adb",
+      "line": 429
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Gnat2Why.Types.Generate_Type_Completion.Create_Type_Invariant",
+      "file": "src/why/gnat2why-types.adb",
+      "line": 591
+    },
+    {
+      "call": "Push_Binders_To_Symbol_Table",
+      "enclosing_entity": "Gnat2Why.Types.Generate_Type_Completion.Create_Type_Invariant",
+      "file": "src/why/gnat2why-types.adb",
+      "line": 592
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Gnat2Why.Util.Insert_Item",
+      "file": "src/why/gnat2why-util.adb",
+      "line": 1048
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Gnat2Why.Util.Insert_Tmp_Item_For_Entity",
+      "file": "src/why/gnat2why-util.adb",
+      "line": 1058
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Why.Gen.Binders.Push_Binders_To_Symbol_Table",
+      "file": "src/why/why-gen-binders.adb",
+      "line": 1437
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Why.Gen.Binders.Push_Binders_To_Symbol_Table",
+      "file": "src/why/why-gen-binders.adb",
+      "line": 1446
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Why.Gen.Records.Build_Binary_Predicate_For_Record",
+      "file": "src/why/why-gen-records.adb",
+      "line": 311
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Why.Gen.Records.Build_Binary_Predicate_For_Record",
+      "file": "src/why/why-gen-records.adb",
+      "line": 322
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Why.Gen.Records.Create_Validity_Tree_Theory_For_Record",
+      "file": "src/why/why-gen-records.adb",
+      "line": 1362
+    },
+    {
+      "call": "Insert_Tmp_Item_For_Entity",
+      "enclosing_entity": "Why.Gen.Records.Create_Validity_Tree_Theory_For_Record",
+      "file": "src/why/why-gen-records.adb",
+      "line": 1370
+    },
+    {
+      "call": "Ada_Ent_To_Why.Push_Scope",
+      "enclosing_entity": "Why.Inter.Process_Info_Hiding_For_VCs",
+      "file": "src/why/why-inter.adb",
+      "line": 1316
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Why.Inter.Process_Info_Hiding_For_VCs",
+      "file": "src/why/why-inter.adb",
+      "line": 1324
+    },
+    {
+      "call": "Ada_Ent_To_Why.Insert",
+      "enclosing_entity": "Why.Inter.Process_Info_Hiding_For_VCs",
+      "file": "src/why/why-inter.adb",
+      "line": 1330
+    }
+  ],
+  "counts": {
+    "Ada_Ent_To_Why.Insert": 15,
+    "Ada_Ent_To_Why.Push_Scope": 48,
+    "Insert_Item": 4,
+    "Insert_Tmp_Item_For_Entity": 26,
+    "Push_Binders_To_Symbol_Table": 13
+  },
+  "domains": 4,
+  "flow_variants": 7,
+  "generic_instances": [
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 25740
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 25804
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 25970
+    },
+    {
+      "file": "src/why/gnat2why-expr.adb",
+      "line": 26126
+    }
+  ],
+  "limitation": "Checks source identity, complete lexical call inventory and arithmetic. Reachability, strict source descent/domain progress and finite outstanding binder batches are manually argued for the current frontier in retained-producer-undo.md. Not a general GNATprove-program theorem.",
+  "native_tool_executions": 0,
+  "raw_plus_variable_entity_factor": 36,
+  "scope_instances": 51,
+  "undo_peak_bound": "204*(A_total+1) + 2*B_N + 30*(36*E_total+7*U_Common+1)",
+  "variable_facets": 5,
+  "verified_complete_ada_files": 279
+}
