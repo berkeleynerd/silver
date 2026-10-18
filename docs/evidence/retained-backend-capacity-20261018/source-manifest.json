@@ -749,6 +749,32 @@
       "origin": "retained complete GCC source archive",
       "archive": "gimple-sources.tar.gz",
       "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-ssa-alias.h"
+    },
+    {
+      "path": "gcc/tree.def",
+      "bytes": 77644,
+      "sha256": "a4e197d6980769233efcddbe92f5464591e5d27c042f3a4fd1156fee8877439d",
+      "git_blob_sha1": "ad8e676e9421f00f365b61382947a8836c159884",
+      "origin": "exact pinned upstream comparison",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree.def",
+      "archive": "boolean-inversion-sources.tar.gz"
+    },
+    {
+      "path": "gcc/gencfn-macros.cc",
+      "bytes": 8237,
+      "sha256": "84144b223ce079a8faa81061bc454e0f365e61b26b505e5d93caea6f9ebf50ed",
+      "git_blob_sha1": "6aeb11bf94f13518504b1016dc21bf86c89b22a3",
+      "origin": "exact pinned upstream comparison",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/gencfn-macros.cc",
+      "archive": "boolean-inversion-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils2.cc",
+      "bytes": 122255,
+      "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af",
+      "git_blob_sha1": "3604d4df761cb702c326366f3ba6349fb37f4fc6",
+      "origin": "exact pinned upstream comparison",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/utils2.cc"
     }
   ]
 }

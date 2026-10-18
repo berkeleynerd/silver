@@ -53,6 +53,7 @@ RANGES = {
                                       (7265, 7402), (9322, 9520),
                                       (10460, 10501), (10685, 10723), (11324, 11343)],
     "gcc/ada/gcc-interface/misc.cc": [(376, 377), (1475, 1476)],
+    "gcc/ada/gcc-interface/utils2.cc": [(1556, 1566)],
     "gcc/ada/gcc-interface/utils.cc": [(259, 280), (430, 450), (770, 783),
                                       (2410, 2426), (4095, 4390)],
     "gcc/toplev.cc": [(761, 767), (1141, 1150)],
@@ -90,12 +91,16 @@ RANGES = {
     "gcc/params.opt": [(248, 250)],
     "gcc/fold-const.cc": [(254, 266), (646, 669), (844, 853), (1087, 1225), (1325, 1342),
                            (1477, 1498), (1920, 2011), (2092, 2137), (2192, 2203),
-                           (2484, 2504), (2626, 2666), (6994, 7007),
-                           (9205, 9254), (10986, 11056), (13886, 14015),
+                           (2484, 2504), (2626, 2666), (4625, 4785), (6994, 7007),
+                           (9205, 9318), (9566, 9575), (10986, 11056),
+                           (13510, 13574), (13886, 14015),
                            (15842, 15938), (15945, 16110), (16378, 16435)],
     "gcc/genmatch.cc": [(3038, 3180), (3259, 3268), (3331, 3348), (3445, 3485),
-                         (3575, 3605), (4568, 4650)],
-    "gcc/match.pd": [(1, 41), (2680, 2683), (12065, 12078)],
+                         (3575, 3605), (4568, 4650), (5038, 5083),
+                         (5831, 5838), (6438, 6450)],
+    "gcc/match.pd": [(1, 79), (2407, 2424), (2680, 2683), (12065, 12078)],
+    "gcc/tree.def": [(824, 839)],
+    "gcc/gencfn-macros.cc": [(123, 136)],
     "gcc/varasm.cc": [(870, 920), (2304, 2335), (2665, 2667), (3953, 3965),
                        (5627, 5635), (8518, 8527), (76, 85), (2069, 2086),
                        (2976, 2987), (3537, 3553), (3720, 3753), (3804, 3893),
@@ -190,6 +195,68 @@ def check_gimple_tuple_transfers(all_bytes):
         allocation_statistics_disabled_by_selected_configuration=True,
         statement_UIDs_are_pass_assigned=True,
         source_to_all_tuple_counts_closed=False)
+
+
+def check_boolean_inversion_transfer(all_bytes, bundle):
+    source = all_bytes["gcc/fold-const.cc"].decode()
+    start = source.index("\nfold_truth_not_expr (")
+    helper = source[start:source.index("\n}\n", start)]
+    assert "fold_build" not in helper
+    assert "unshare_expr" not in helper and "copy_node" not in helper
+    assert helper.count("build2_loc (") == 9
+    assert helper.count("build3_loc (") == 1
+    assert helper.count("build1_loc (") == 4
+    tree_codes = all_bytes["gcc/tree.def"].decode()
+    assert 'DEFTREECODE (TRUTH_NOT_EXPR, "truth_not_expr", tcc_expression, 1)' in tree_codes
+    # Inspect all literal spellings, including operator lists. The only two
+    # occurrences define predicates; the handwritten argument checks the sole
+    # included generator and token-pasting macro, not a general DSL parser.
+    patterns = all_bytes["gcc/match.pd"].decode()
+    truth_lines = [i for i, line in enumerate(patterns.split("\n"), 1)
+                   if re.search(r"\btruth_not\b", line)]
+    assert truth_lines == [2414, 2417]
+    assert re.findall(r'^#include (.+)$', patterns, re.M) == ['"cfn-operators.pd"']
+    assert 'outermost expression cannot be a predicate' in all_bytes["gcc/genmatch.cc"].decode()
+    generator = all_bytes["gcc/gencfn-macros.cc"].decode()
+    start = generator.index("\nprint_define_operator_list (")
+    printer = generator[start:generator.index("\n}\n", start)]
+    assert 'BUILT_IN_%s%s' in printer and 'IFN_%s' in printer
+    assert 'truth_not' not in printer and 'TRUTH_NOT' not in printer
+    host = (bundle / "selected-auto-host.h").read_text()
+    assert '/* #undef ENABLE_FOLD_CHECKING */' in host
+    assert not re.search(r'^\s*#\s*define\s+ENABLE_FOLD_CHECKING\b', host, re.M)
+    caller = all_bytes["gcc/ada/gcc-interface/utils2.cc"].decode()
+    start = caller.index("    case TRUTH_NOT_EXPR:")
+    arm = caller[start:caller.index("      break;", start)]
+    assert "result = invert_truthvalue_loc" in arm
+    assert "if (!optimize)\n\tresult = fold (result);" in arm
+    # Formula fixtures for the derived occurrence recurrence. They are not
+    # source-program executions or a source-to-GENERIC bound.
+    rows = []
+    for depth in range(9):
+        skeleton = 2**(depth+1)-1
+        comparison_leaves = 2**depth
+        connectives = comparison_leaves-1
+        requests = connectives+comparison_leaves
+        assert requests == skeleton
+        rows.append(dict(binary_boolean_depth=depth,
+                         skeleton_occurrences=skeleton,
+                         comparison_and_connective_requests=requests))
+    return dict(
+        scope="one uniform canonical-Boolean inversion helper; caller fold is separate",
+        generic_truth_not_pattern_lines=truth_lines,
+        generic_truth_not_simplifier_root_present=False,
+        fold_checking_enabled=False,
+        inversion_calls="<= K",
+        plain_expression_node_requests="<= K",
+        plain_expression_operand_positions="<= 3*K",
+        scalar_zero_constant_requests="<= K (only selected bit-and-one atoms)",
+        recursive_capture_copies=0,
+        boundary_payload_occurrences_duplicated=False,
+        same_type_final_conversion_requests=0,
+        O0_gigi_caller_additional_fold_entries=1,
+        source_not_transfer_closed=False,
+        fixtures=rows)
 
 
 def check_generic_capture_transfer(all_bytes):
@@ -1054,6 +1121,7 @@ def main():
         "bitmap_storage": check_bitmap_transfers(all_bytes, bundle),
         "gimple_tuple_storage": check_gimple_tuple_transfers(all_bytes),
         "generic_capture_copies": check_generic_capture_transfer(all_bytes),
+        "boolean_inversion": check_boolean_inversion_transfer(all_bytes, bundle),
         "ordinary_vectors": {
             "heap_maximum_requested_total": int_max,
             "heap_modular_growth_examples": heap_cases,

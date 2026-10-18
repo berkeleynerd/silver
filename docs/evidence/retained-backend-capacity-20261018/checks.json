@@ -364,6 +364,18 @@
     {
       "path": "gcc/tree-ssa-alias.h",
       "sha256": "3b3ee677418cbcae40dd0403a8022265d3a0334058ebc3f511d5a9cd71b7de59"
+    },
+    {
+      "path": "gcc/tree.def",
+      "sha256": "a4e197d6980769233efcddbe92f5464591e5d27c042f3a4fd1156fee8877439d"
+    },
+    {
+      "path": "gcc/gencfn-macros.cc",
+      "sha256": "84144b223ce079a8faa81061bc454e0f365e61b26b505e5d93caea6f9ebf50ed"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils2.cc",
+      "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af"
     }
   ],
   "block_operations": {
@@ -1778,6 +1790,71 @@
     ],
     "source_to_rewrite_attempts_closed": false,
     "embedded_C_helpers_included": false
+  },
+  "boolean_inversion": {
+    "scope": "one uniform canonical-Boolean inversion helper; caller fold is separate",
+    "generic_truth_not_pattern_lines": [
+      2414,
+      2417
+    ],
+    "generic_truth_not_simplifier_root_present": false,
+    "fold_checking_enabled": false,
+    "inversion_calls": "<= K",
+    "plain_expression_node_requests": "<= K",
+    "plain_expression_operand_positions": "<= 3*K",
+    "scalar_zero_constant_requests": "<= K (only selected bit-and-one atoms)",
+    "recursive_capture_copies": 0,
+    "boundary_payload_occurrences_duplicated": false,
+    "same_type_final_conversion_requests": 0,
+    "O0_gigi_caller_additional_fold_entries": 1,
+    "source_not_transfer_closed": false,
+    "fixtures": [
+      {
+        "binary_boolean_depth": 0,
+        "skeleton_occurrences": 1,
+        "comparison_and_connective_requests": 1
+      },
+      {
+        "binary_boolean_depth": 1,
+        "skeleton_occurrences": 3,
+        "comparison_and_connective_requests": 3
+      },
+      {
+        "binary_boolean_depth": 2,
+        "skeleton_occurrences": 7,
+        "comparison_and_connective_requests": 7
+      },
+      {
+        "binary_boolean_depth": 3,
+        "skeleton_occurrences": 15,
+        "comparison_and_connective_requests": 15
+      },
+      {
+        "binary_boolean_depth": 4,
+        "skeleton_occurrences": 31,
+        "comparison_and_connective_requests": 31
+      },
+      {
+        "binary_boolean_depth": 5,
+        "skeleton_occurrences": 63,
+        "comparison_and_connective_requests": 63
+      },
+      {
+        "binary_boolean_depth": 6,
+        "skeleton_occurrences": 127,
+        "comparison_and_connective_requests": 127
+      },
+      {
+        "binary_boolean_depth": 7,
+        "skeleton_occurrences": 255,
+        "comparison_and_connective_requests": 255
+      },
+      {
+        "binary_boolean_depth": 8,
+        "skeleton_occurrences": 511,
+        "comparison_and_connective_requests": 511
+      }
+    ]
   },
   "ordinary_vectors": {
     "heap_maximum_requested_total": 2147483647,

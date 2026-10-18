@@ -811,6 +811,87 @@ The result must consume the bridge's generated complex overflow pairs,
 String equality and descriptor/reference shapes as well as source scalar
 operators. No undocumented constant multiplier is substituted for that work.
 
+### Boolean inversion has a linear local skeleton transfer
+
+One symbolic helper can be separated from the general rewrite problem.
+Consider `invert_truthvalue_loc` on the canonical scalar
+`boolean_type_node`, with the same type at every Boolean position visited
+by the inversion. Any stripped NOP/CONVERT or NON_LVALUE wrapper preserves
+that exact type. Comparisons have integral/pointer operands; vectors,
+floating conversions and differently typed truth values are outside this
+local row. These are incoming-graph premises, still to be connected to the
+whole generated Main graph.
+
+There is no GENERIC simplifier rooted at `TRUTH_NOT_EXPR` in this pin.
+The only two `truth_not` spellings in the complete `match.pd` define
+`truth_valued_p` and `logical_inverted_value` predicates (`:2407–2424`),
+not replacement rules. No operator list names it. The only include,
+`cfn-operators.pd`, is generated exclusively from BUILT_IN/IFN/null
+operators (`gencfn-macros.cc:123–136`); the token-pasting macro in
+`match.pd:70–79` also produces only builtin lists. The main decision tree
+contains `p.simplifiers`, separately from predicate matchers, and dispatches
+on each replacement rule's outer code (`genmatch.cc:5038–5083,6438–6450`).
+The parser also rejects a predicate as the outermost matching expression
+(`:5831–5838`), so those two predicate definitions cannot hide a truth-not
+replacement root.
+Thus the truth-not call returns from that dispatch without a replacement
+or capture copy. This is a narrow negative inventory, not a parser or
+termination argument for the other matcher roots.
+
+`TRUTH_NOT_EXPR` is `tcc_expression`, not `tcc_unary`
+(`tree.def:824–839`), so the generic unary distribution over COMPOUND/COND
+in `fold_unary_loc` does not run. Its truth-not case instead calls
+`fold_truth_not_expr`; that helper uses plain builders and recursively
+inverts selected **original children**, never its newly built result
+(`fold-const.cc:4625–4785,9205–9318,9566–9575`). Define K as the following
+occurrence count, with shared graph edges counted separately:
+
+- Count one for the current Boolean root.
+- At AND/OR/ANDIF/ORIF, continue into both operands; at XOR, conservatively
+  continue into its first operand. The second-NOT shortcut can only reduce
+  that work.
+- At COND, continue into its nonvoid value arms, preserving the condition
+  as an opaque child. At COMPOUND continue into its right operand; at
+  NON_LVALUE, same-type stripped conversions and CLEANUP_POINT, continue
+  into the child.
+- Stop at comparisons, constants, NOT, SAVE and all other atoms. A
+  Boolean conversion that remains after stripping is also a stopping point.
+
+Every recursive call descends one counted original edge. A comparison
+requests one inverted comparison with its original operands; a connective
+or control wrapper requests at most one plain replacement node. NOT returns
+its original child, and canonical Boolean constants return the cached true
+or false node. SAVE, remaining Boolean conversion and unsupported atoms
+receive at most one plain NOT wrapper. BIT_AND by one requests one EQ node
+and one scalar zero; other BIT_AND values use the fallback NOT. The final
+`fold_convert_loc` returns immediately because the result has the requested
+type (`:2633–2640`). Consequently one such inversion has
+
+```text
+inversion entries                 <= K
+plain expression node requests    <= K
+plain expression operand positions <= 3K
+scalar zero-constant requests     <= K
+recursive unshare/capture copies   = 0.
+```
+
+Charge scalar constants through the earlier cache transfer. Opaque payloads
+are reused without duplication by this helper; new wrappers can retain an
+old root, which still belongs in subsequent graph weights. Warning/location
+metadata and later copying remain separate. The selected installed host
+header has `ENABLE_FOLD_CHECKING` undefined, so no checksum-walk allocation
+is added here; the checker binds that header's retained identity. The
+recurrence fixtures exercise occurrence counting, not Silver programs or
+compiler success.
+
+This does **not** close source `not`. Gigi `build_unary_op` calls
+`invert_truthvalue_loc`, then at the selected O0 calls **`fold(result)`**
+again (`gcc-interface/utils2.cc:1556–1566`). An inverted comparison or
+connective then enters the symbolic binary folder (`fold-const.cc:
+13510–13574`). That additional entry and any final gigi conversion remain
+in the bridge's request table. The helper bound supplies its input graph
+without assuming that the caller's second fold is free or linear.
+
 ### The generated matcher copies repeated captures before later unsharing
 
 Counting only replacement operator nodes misses an actual allocation path in

@@ -13704,6 +13704,171 @@ LF line numbering; complete file identities checked.
 2666: 	  || TREE_CODE (orig) == OFFSET_TYPE)
 ```
 
+## gcc/fold-const.cc:4625–4785
+```text
+4625: fold_truth_not_expr (location_t loc, tree arg)
+4626: {
+4627:   tree type = TREE_TYPE (arg);
+4628:   enum tree_code code = TREE_CODE (arg);
+4629:   location_t loc1, loc2;
+4630:
+4631:   /* If this is a comparison, we can simply invert it, except for
+4632:      floating-point non-equality comparisons, in which case we just
+4633:      enclose a TRUTH_NOT_EXPR around what we have.  */
+4634:
+4635:   if (TREE_CODE_CLASS (code) == tcc_comparison)
+4636:     {
+4637:       tree op_type = TREE_TYPE (TREE_OPERAND (arg, 0));
+4638:       if (FLOAT_TYPE_P (op_type)
+4639: 	  && flag_trapping_math
+4640: 	  && code != ORDERED_EXPR && code != UNORDERED_EXPR
+4641: 	  && code != NE_EXPR && code != EQ_EXPR)
+4642: 	return NULL_TREE;
+4643:
+4644:       code = invert_tree_comparison (code, HONOR_NANS (op_type));
+4645:       if (code == ERROR_MARK)
+4646: 	return NULL_TREE;
+4647:
+4648:       tree ret = build2_loc (loc, code, type, TREE_OPERAND (arg, 0),
+4649: 			     TREE_OPERAND (arg, 1));
+4650:       copy_warning (ret, arg);
+4651:       return ret;
+4652:     }
+4653:
+4654:   switch (code)
+4655:     {
+4656:     case INTEGER_CST:
+4657:       return constant_boolean_node (integer_zerop (arg), type);
+4658:
+4659:     case TRUTH_AND_EXPR:
+4660:       loc1 = expr_location_or (TREE_OPERAND (arg, 0), loc);
+4661:       loc2 = expr_location_or (TREE_OPERAND (arg, 1), loc);
+4662:       return build2_loc (loc, TRUTH_OR_EXPR, type,
+4663: 			 invert_truthvalue_loc (loc1, TREE_OPERAND (arg, 0)),
+4664: 			 invert_truthvalue_loc (loc2, TREE_OPERAND (arg, 1)));
+4665:
+4666:     case TRUTH_OR_EXPR:
+4667:       loc1 = expr_location_or (TREE_OPERAND (arg, 0), loc);
+4668:       loc2 = expr_location_or (TREE_OPERAND (arg, 1), loc);
+4669:       return build2_loc (loc, TRUTH_AND_EXPR, type,
+4670: 			 invert_truthvalue_loc (loc1, TREE_OPERAND (arg, 0)),
+4671: 			 invert_truthvalue_loc (loc2, TREE_OPERAND (arg, 1)));
+4672:
+4673:     case TRUTH_XOR_EXPR:
+4674:       /* Here we can invert either operand.  We invert the first operand
+4675: 	 unless the second operand is a TRUTH_NOT_EXPR in which case our
+4676: 	 result is the XOR of the first operand with the inside of the
+4677: 	 negation of the second operand.  */
+4678:
+4679:       if (TREE_CODE (TREE_OPERAND (arg, 1)) == TRUTH_NOT_EXPR)
+4680: 	return build2_loc (loc, TRUTH_XOR_EXPR, type, TREE_OPERAND (arg, 0),
+4681: 			   TREE_OPERAND (TREE_OPERAND (arg, 1), 0));
+4682:       else
+4683: 	return build2_loc (loc, TRUTH_XOR_EXPR, type,
+4684: 			   invert_truthvalue_loc (loc, TREE_OPERAND (arg, 0)),
+4685: 			   TREE_OPERAND (arg, 1));
+4686:
+4687:     case TRUTH_ANDIF_EXPR:
+4688:       loc1 = expr_location_or (TREE_OPERAND (arg, 0), loc);
+4689:       loc2 = expr_location_or (TREE_OPERAND (arg, 1), loc);
+4690:       return build2_loc (loc, TRUTH_ORIF_EXPR, type,
+4691: 			 invert_truthvalue_loc (loc1, TREE_OPERAND (arg, 0)),
+4692: 			 invert_truthvalue_loc (loc2, TREE_OPERAND (arg, 1)));
+4693:
+4694:     case TRUTH_ORIF_EXPR:
+4695:       loc1 = expr_location_or (TREE_OPERAND (arg, 0), loc);
+4696:       loc2 = expr_location_or (TREE_OPERAND (arg, 1), loc);
+4697:       return build2_loc (loc, TRUTH_ANDIF_EXPR, type,
+4698: 			 invert_truthvalue_loc (loc1, TREE_OPERAND (arg, 0)),
+4699: 			 invert_truthvalue_loc (loc2, TREE_OPERAND (arg, 1)));
+4700:
+4701:     case TRUTH_NOT_EXPR:
+4702:       return TREE_OPERAND (arg, 0);
+4703:
+4704:     case COND_EXPR:
+4705:       {
+4706: 	tree arg1 = TREE_OPERAND (arg, 1);
+4707: 	tree arg2 = TREE_OPERAND (arg, 2);
+4708:
+4709: 	loc1 = expr_location_or (TREE_OPERAND (arg, 1), loc);
+4710: 	loc2 = expr_location_or (TREE_OPERAND (arg, 2), loc);
+4711:
+4712: 	/* A COND_EXPR may have a throw as one operand, which
+4713: 	   then has void type.  Just leave void operands
+4714: 	   as they are.  */
+4715: 	return build3_loc (loc, COND_EXPR, type, TREE_OPERAND (arg, 0),
+4716: 			   VOID_TYPE_P (TREE_TYPE (arg1))
+4717: 			   ? arg1 : invert_truthvalue_loc (loc1, arg1),
+4718: 			   VOID_TYPE_P (TREE_TYPE (arg2))
+4719: 			   ? arg2 : invert_truthvalue_loc (loc2, arg2));
+4720:       }
+4721:
+4722:     case COMPOUND_EXPR:
+4723:       loc1 = expr_location_or (TREE_OPERAND (arg, 1), loc);
+4724:       return build2_loc (loc, COMPOUND_EXPR, type,
+4725: 			 TREE_OPERAND (arg, 0),
+4726: 			 invert_truthvalue_loc (loc1, TREE_OPERAND (arg, 1)));
+4727:
+4728:     case NON_LVALUE_EXPR:
+4729:       loc1 = expr_location_or (TREE_OPERAND (arg, 0), loc);
+4730:       return invert_truthvalue_loc (loc1, TREE_OPERAND (arg, 0));
+4731:
+4732:     CASE_CONVERT:
+4733:       if (TREE_CODE (TREE_TYPE (arg)) == BOOLEAN_TYPE)
+4734: 	return build1_loc (loc, TRUTH_NOT_EXPR, type, arg);
+4735:
+4736:       /* fall through */
+4737:
+4738:     case FLOAT_EXPR:
+4739:       loc1 = expr_location_or (TREE_OPERAND (arg, 0), loc);
+4740:       return build1_loc (loc, TREE_CODE (arg), type,
+4741: 			 invert_truthvalue_loc (loc1, TREE_OPERAND (arg, 0)));
+4742:
+4743:     case BIT_AND_EXPR:
+4744:       if (!integer_onep (TREE_OPERAND (arg, 1)))
+4745: 	return NULL_TREE;
+4746:       return build2_loc (loc, EQ_EXPR, type, arg, build_int_cst (type, 0));
+4747:
+4748:     case SAVE_EXPR:
+4749:       return build1_loc (loc, TRUTH_NOT_EXPR, type, arg);
+4750:
+4751:     case CLEANUP_POINT_EXPR:
+4752:       loc1 = expr_location_or (TREE_OPERAND (arg, 0), loc);
+4753:       return build1_loc (loc, CLEANUP_POINT_EXPR, type,
+4754: 			 invert_truthvalue_loc (loc1, TREE_OPERAND (arg, 0)));
+4755:
+4756:     default:
+4757:       return NULL_TREE;
+4758:     }
+4759: }
+4760:
+4761: /* Fold the truth-negation of ARG.  This never alters ARG itself.  We
+4762:    assume that ARG is an operation that returns a truth value (0 or 1
+4763:    for scalars, 0 or -1 for vectors).  Return the folded expression if
+4764:    folding is successful.  Otherwise, return NULL_TREE.  */
+4765:
+4766: static tree
+4767: fold_invert_truthvalue (location_t loc, tree arg)
+4768: {
+4769:   tree type = TREE_TYPE (arg);
+4770:   return fold_unary_loc (loc, VECTOR_TYPE_P (type)
+4771: 			      ? BIT_NOT_EXPR
+4772: 			      : TRUTH_NOT_EXPR,
+4773: 			 type, arg);
+4774: }
+4775:
+4776: /* Return a simplified tree node for the truth-negation of ARG.  This
+4777:    never alters ARG itself.  We assume that ARG is an operation that
+4778:    returns a truth value (0 or 1 for scalars, 0 or -1 for vectors).  */
+4779:
+4780: tree
+4781: invert_truthvalue_loc (location_t loc, tree arg)
+4782: {
+4783:   if (TREE_CODE (arg) == ERROR_MARK)
+4784:     return arg;
+4785:
+```
+
 ## gcc/fold-const.cc:6994–7007
 ```text
 6994: constant_boolean_node (bool value, tree type)
@@ -13722,7 +13887,7 @@ LF line numbering; complete file identities checked.
 7007:
 ```
 
-## gcc/fold-const.cc:9205–9254
+## gcc/fold-const.cc:9205–9318
 ```text
 9205: {
 9206:   tree tem;
@@ -13774,6 +13939,84 @@ LF line numbering; complete file identities checked.
 9252:   if (tem)
 9253:     return tem;
 9254:
+9255:   if (TREE_CODE_CLASS (code) == tcc_unary)
+9256:     {
+9257:       if (TREE_CODE (arg0) == COMPOUND_EXPR)
+9258: 	return build2 (COMPOUND_EXPR, type, TREE_OPERAND (arg0, 0),
+9259: 		       fold_build1_loc (loc, code, type,
+9260: 				    fold_convert_loc (loc, TREE_TYPE (op0),
+9261: 						      TREE_OPERAND (arg0, 1))));
+9262:       else if (TREE_CODE (arg0) == COND_EXPR)
+9263: 	{
+9264: 	  tree arg01 = TREE_OPERAND (arg0, 1);
+9265: 	  tree arg02 = TREE_OPERAND (arg0, 2);
+9266: 	  if (! VOID_TYPE_P (TREE_TYPE (arg01)))
+9267: 	    arg01 = fold_build1_loc (loc, code, type,
+9268: 				 fold_convert_loc (loc,
+9269: 						   TREE_TYPE (op0), arg01));
+9270: 	  if (! VOID_TYPE_P (TREE_TYPE (arg02)))
+9271: 	    arg02 = fold_build1_loc (loc, code, type,
+9272: 				 fold_convert_loc (loc,
+9273: 						   TREE_TYPE (op0), arg02));
+9274: 	  tem = fold_build3_loc (loc, COND_EXPR, type, TREE_OPERAND (arg0, 0),
+9275: 			     arg01, arg02);
+9276:
+9277: 	  /* If this was a conversion, and all we did was to move into
+9278: 	     inside the COND_EXPR, bring it back out.  But leave it if
+9279: 	     it is a conversion from integer to integer and the
+9280: 	     result precision is no wider than a word since such a
+9281: 	     conversion is cheap and may be optimized away by combine,
+9282: 	     while it couldn't if it were outside the COND_EXPR.  Then return
+9283: 	     so we don't get into an infinite recursion loop taking the
+9284: 	     conversion out and then back in.  */
+9285:
+9286: 	  if ((CONVERT_EXPR_CODE_P (code)
+9287: 	       || code == NON_LVALUE_EXPR)
+9288: 	      && TREE_CODE (tem) == COND_EXPR
+9289: 	      && TREE_CODE (TREE_OPERAND (tem, 1)) == code
+9290: 	      && TREE_CODE (TREE_OPERAND (tem, 2)) == code
+9291: 	      && ! VOID_TYPE_P (TREE_TYPE (TREE_OPERAND (tem, 1)))
+9292: 	      && ! VOID_TYPE_P (TREE_TYPE (TREE_OPERAND (tem, 2)))
+9293: 	      && (TREE_TYPE (TREE_OPERAND (TREE_OPERAND (tem, 1), 0))
+9294: 		  == TREE_TYPE (TREE_OPERAND (TREE_OPERAND (tem, 2), 0)))
+9295: 	      && (! (INTEGRAL_TYPE_P (TREE_TYPE (tem))
+9296: 		     && (INTEGRAL_TYPE_P
+9297: 			 (TREE_TYPE (TREE_OPERAND (TREE_OPERAND (tem, 1), 0))))
+9298: 		     && TYPE_PRECISION (TREE_TYPE (tem)) <= BITS_PER_WORD)
+9299: 		  || flag_syntax_only))
+9300: 	    tem = build1_loc (loc, code, type,
+9301: 			      build3 (COND_EXPR,
+9302: 				      TREE_TYPE (TREE_OPERAND
+9303: 						 (TREE_OPERAND (tem, 1), 0)),
+9304: 				      TREE_OPERAND (tem, 0),
+9305: 				      TREE_OPERAND (TREE_OPERAND (tem, 1), 0),
+9306: 				      TREE_OPERAND (TREE_OPERAND (tem, 2),
+9307: 						    0)));
+9308: 	  return tem;
+9309: 	}
+9310:    }
+9311:
+9312:   switch (code)
+9313:     {
+9314:     case NON_LVALUE_EXPR:
+9315:       if (!maybe_lvalue_p (op0))
+9316: 	return fold_convert_loc (loc, type, op0);
+9317:       return NULL_TREE;
+9318:
+```
+
+## gcc/fold-const.cc:9566–9575
+```text
+9566:       return NULL_TREE;
+9567:
+9568:     case TRUTH_NOT_EXPR:
+9569:       /* Note that the operand of this must be an int
+9570: 	 and its values must be 0 or 1.
+9571: 	 ("true" is a fixed value perhaps depending on the language,
+9572: 	 but we don't handle values other than 1 correctly yet.)  */
+9573:       tem = fold_truth_not_expr (loc, arg0);
+9574:       if (!tem)
+9575: 	return NULL_TREE;
 ```
 
 ## gcc/fold-const.cc:10986–11056
@@ -13849,6 +14092,75 @@ LF line numbering; complete file identities checked.
 11054:     return tem;
 11055:
 11056:   /* ARG0 is the first operand of EXPR, and ARG1 is the second operand.
+```
+
+## gcc/fold-const.cc:13510–13574
+```text
+13510:    but we can constant-fold them if they have constant operands.  */
+13511:
+13512: #ifdef ENABLE_FOLD_CHECKING
+13513: # define fold(x) fold_1 (x)
+13514: static tree fold_1 (tree);
+13515: static
+13516: #endif
+13517: tree
+13518: fold (tree expr)
+13519: {
+13520:   const tree t = expr;
+13521:   enum tree_code code = TREE_CODE (t);
+13522:   enum tree_code_class kind = TREE_CODE_CLASS (code);
+13523:   tree tem;
+13524:   location_t loc = EXPR_LOCATION (expr);
+13525:
+13526:   /* Return right away if a constant.  */
+13527:   if (kind == tcc_constant)
+13528:     return t;
+13529:
+13530:   /* CALL_EXPR-like objects with variable numbers of operands are
+13531:      treated specially.  */
+13532:   if (kind == tcc_vl_exp)
+13533:     {
+13534:       if (code == CALL_EXPR)
+13535: 	{
+13536: 	  tem = fold_call_expr (loc, expr, false);
+13537: 	  return tem ? tem : expr;
+13538: 	}
+13539:       return expr;
+13540:     }
+13541:
+13542:   if (IS_EXPR_CODE_CLASS (kind))
+13543:     {
+13544:       tree type = TREE_TYPE (t);
+13545:       tree op0, op1, op2;
+13546:
+13547:       switch (TREE_CODE_LENGTH (code))
+13548: 	{
+13549: 	case 1:
+13550: 	  op0 = TREE_OPERAND (t, 0);
+13551: 	  tem = fold_unary_loc (loc, code, type, op0);
+13552: 	  return tem ? tem : expr;
+13553: 	case 2:
+13554: 	  op0 = TREE_OPERAND (t, 0);
+13555: 	  op1 = TREE_OPERAND (t, 1);
+13556: 	  tem = fold_binary_loc (loc, code, type, op0, op1);
+13557: 	  return tem ? tem : expr;
+13558: 	case 3:
+13559: 	  op0 = TREE_OPERAND (t, 0);
+13560: 	  op1 = TREE_OPERAND (t, 1);
+13561: 	  op2 = TREE_OPERAND (t, 2);
+13562: 	  tem = fold_ternary_loc (loc, code, type, op0, op1, op2);
+13563: 	  return tem ? tem : expr;
+13564: 	default:
+13565: 	  break;
+13566: 	}
+13567:     }
+13568:
+13569:   switch (code)
+13570:     {
+13571:     case ARRAY_REF:
+13572:       {
+13573: 	tree op0 = TREE_OPERAND (t, 0);
+13574: 	tree op1 = TREE_OPERAND (t, 1);
 ```
 
 ## gcc/fold-const.cc:13886–14015
@@ -14668,6 +14980,85 @@ LF line numbering; complete file identities checked.
 4650: 		      needs_label = true;
 ```
 
+## gcc/genmatch.cc:5038–5083
+```text
+5038:
+5039:       if (gimple)
+5040: 	fprintf (f, "  switch (code.get_rep())\n"
+5041: 		 "    {\n");
+5042:       else
+5043: 	fprintf (f, "  switch (code)\n"
+5044: 		 "    {\n");
+5045:       for (unsigned i = 0; i < root->kids.length (); i++)
+5046: 	{
+5047: 	  dt_operand *dop = static_cast<dt_operand *>(root->kids[i]);
+5048: 	  expr *e = static_cast<expr *>(dop->op);
+5049: 	  if (e->ops.length () != n
+5050: 	      /* Builtin simplifications are somewhat premature on
+5051: 		 GENERIC.  The following drops patterns with outermost
+5052: 		 calls.  It's easy to emit overloads for function code
+5053: 		 though if necessary.  */
+5054: 	      || (!gimple
+5055: 		  && e->operation->kind != id_base::CODE))
+5056: 	    continue;
+5057:
+5058: 	  if (*e->operation == CONVERT_EXPR
+5059: 	      || *e->operation == NOP_EXPR)
+5060: 	    fprintf (f, "    CASE_CONVERT:\n");
+5061: 	  else
+5062: 	    fprintf (f, "    case %s%s:\n",
+5063: 		     is_a <fn_id *> (e->operation) ? "-" : "",
+5064: 		     e->operation->id);
+5065: 	  if (gimple)
+5066: 	    fprintf (f, "      return gimple_simplify_%s (res_op, "
+5067: 		     "seq, valueize, code, type", e->operation->id);
+5068: 	  else
+5069: 	    fprintf (f, "      return generic_simplify_%s (loc, code, type",
+5070: 		     e->operation->id);
+5071: 	  for (unsigned j = 0; j < n; ++j)
+5072: 	    fprintf (f, ", _p%d", j);
+5073: 	  fprintf (f, ");\n");
+5074: 	}
+5075:       fprintf (f,       "    default:;\n"
+5076: 	                "    }\n");
+5077:
+5078:       if (gimple)
+5079: 	fprintf (f, "  return false;\n");
+5080:       else
+5081: 	fprintf (f, "  return NULL_TREE;\n");
+5082:       fprintf (f, "}\n");
+5083:     }
+```
+
+## gcc/genmatch.cc:5831–5838
+```text
+5831:   if (match->type == operand::OP_CAPTURE && !matcher)
+5832:     fatal_at (loc, "outermost expression cannot be captured");
+5833:   if (match->type == operand::OP_EXPR
+5834:       && is_a <predicate_id *> (as_a <expr *> (match)->operation))
+5835:     fatal_at (loc, "outermost expression cannot be a predicate");
+5836:
+5837:   /* Splice active_ifs onto result and continue parsing the
+5838:      "then" expr.  */
+```
+
+## gcc/genmatch.cc:6438–6450
+```text
+6438:   /* Lower the main simplifiers and generate code for them.  */
+6439:   lower (p.simplifiers, gimple);
+6440:
+6441:   if (verbose == 2)
+6442:     for (unsigned i = 0; i < p.simplifiers.length (); ++i)
+6443:       print_matches (p.simplifiers[i]);
+6444:
+6445:   decision_tree dt;
+6446:   for (unsigned i = 0; i < p.simplifiers.length (); ++i)
+6447:     dt.insert (p.simplifiers[i], i);
+6448:
+6449:   if (verbose == 2)
+6450:     dt.print (stderr);
+```
+
 ## gcc/params.opt:248–250
 ```text
 248: -param=integer-share-limit=
@@ -14675,7 +15066,7 @@ LF line numbering; complete file identities checked.
 250: The upper bound for sharing integer constants.
 ```
 
-## gcc/match.pd:1–41
+## gcc/match.pd:1–79
 ```text
 1: /* Match-and-simplify patterns for shared GENERIC and GIMPLE folding.
 2:    This file is consumed by genmatch which produces gimple-match.cc
@@ -14718,6 +15109,66 @@ LF line numbering; complete file identities checked.
 39:    uniform_integer_cst_p
 40:    HONOR_NANS
 41:    uniform_vector_p
+42:    expand_vec_cmp_expr_p
+43:    bitmask_inv_cst_vector_p)
+44:
+45: /* Operator lists.  */
+46: (define_operator_list tcc_comparison
+47:   lt   le   eq ne ge   gt   unordered ordered   unlt unle ungt unge uneq ltgt)
+48: (define_operator_list inverted_tcc_comparison
+49:   ge   gt   ne eq lt   le   ordered   unordered ge   gt   le   lt   ltgt uneq)
+50: (define_operator_list inverted_tcc_comparison_with_nans
+51:   unge ungt ne eq unlt unle ordered   unordered ge   gt   le   lt   ltgt uneq)
+52: (define_operator_list swapped_tcc_comparison
+53:   gt   ge   eq ne le   lt   unordered ordered   ungt unge unlt unle uneq ltgt)
+54: (define_operator_list simple_comparison         lt   le   eq ne ge   gt)
+55: (define_operator_list swapped_simple_comparison gt   ge   eq ne le   lt)
+56: (define_operator_list BSWAP BUILT_IN_BSWAP16 BUILT_IN_BSWAP32
+57: 	    BUILT_IN_BSWAP64 BUILT_IN_BSWAP128)
+58:
+59: #include "cfn-operators.pd"
+60:
+61: /* Define operand lists for math rounding functions {,i,l,ll}FN,
+62:    where the versions prefixed with "i" return an int, those prefixed with
+63:    "l" return a long and those prefixed with "ll" return a long long.
+64:
+65:    Also define operand lists:
+66:
+67:      X<FN>F for all float functions, in the order i, l, ll
+68:      X<FN> for all double functions, in the same order
+69:      X<FN>L for all long double functions, in the same order.  */
+70: #define DEFINE_INT_AND_FLOAT_ROUND_FN(FN) \
+71:   (define_operator_list X##FN##F BUILT_IN_I##FN##F \
+72: 				 BUILT_IN_L##FN##F \
+73: 				 BUILT_IN_LL##FN##F) \
+74:   (define_operator_list X##FN BUILT_IN_I##FN \
+75: 			      BUILT_IN_L##FN \
+76: 			      BUILT_IN_LL##FN) \
+77:   (define_operator_list X##FN##L BUILT_IN_I##FN##L \
+78: 				 BUILT_IN_L##FN##L \
+79: 				 BUILT_IN_LL##FN##L)
+```
+
+## gcc/match.pd:2407–2424
+```text
+2407: (match truth_valued_p
+2408:  @0
+2409:  (if (INTEGRAL_TYPE_P (type) && TYPE_PRECISION (type) == 1)))
+2410: (for op (tcc_comparison truth_and truth_andif truth_or truth_orif truth_xor)
+2411:  (match truth_valued_p
+2412:   (op @0 @1)))
+2413: (match truth_valued_p
+2414:   (truth_not @0))
+2415:
+2416: (match (logical_inverted_value @0)
+2417:  (truth_not @0))
+2418: (match (logical_inverted_value @0)
+2419:  (bit_not truth_valued_p@0))
+2420: (match (logical_inverted_value @0)
+2421:  (eq @0 integer_zerop))
+2422: (match (logical_inverted_value @0)
+2423:  (ne truth_valued_p@0 integer_truep))
+2424: (match (logical_inverted_value @0)
 ```
 
 ## gcc/match.pd:2680–2683
@@ -17692,4 +18143,57 @@ LF line numbering; complete file identities checked.
 70: };
 71:
 72:
+```
+
+## gcc/tree.def:824–839
+```text
+824:
+825: /* ANDIF and ORIF allow the second operand not to be computed if the
+826:    value of the expression is determined from the first operand.  AND,
+827:    OR, and XOR always compute the second operand whether its value is
+828:    needed or not (for side effects).  The operand may have
+829:    BOOLEAN_TYPE or INTEGER_TYPE.  In either case, the argument will be
+830:    either zero or one.  For example, a TRUTH_NOT_EXPR will never have
+831:    an INTEGER_TYPE VAR_DECL as its argument; instead, a NE_EXPR will be
+832:    used to compare the VAR_DECL to zero, thereby obtaining a node with
+833:    value zero or one.  */
+834: DEFTREECODE (TRUTH_ANDIF_EXPR, "truth_andif_expr", tcc_expression, 2)
+835: DEFTREECODE (TRUTH_ORIF_EXPR, "truth_orif_expr", tcc_expression, 2)
+836: DEFTREECODE (TRUTH_AND_EXPR, "truth_and_expr", tcc_expression, 2)
+837: DEFTREECODE (TRUTH_OR_EXPR, "truth_or_expr", tcc_expression, 2)
+838: DEFTREECODE (TRUTH_XOR_EXPR, "truth_xor_expr", tcc_expression, 2)
+839: DEFTREECODE (TRUTH_NOT_EXPR, "truth_not_expr", tcc_expression, 1)
+```
+
+## gcc/gencfn-macros.cc:123–136
+```text
+123: print_define_operator_list (const char *name, bool internal_p,
+124: 			    const char *const *suffixes,
+125: 			    const char *floatn)
+126: {
+127:   printf ("(define_operator_list %s%s\n", name, floatn);
+128:   for (unsigned int i = 0; suffixes[i]; ++i)
+129:     printf ("    BUILT_IN_%s%s\n", name, suffixes[i]);
+130:   if (internal_p)
+131:     printf ("    IFN_%s)\n", name);
+132:   else
+133:     printf ("    null)\n");
+134: }
+135:
+136: const char *const builtin_names[] = {
+```
+
+## gcc/ada/gcc-interface/utils2.cc:1556–1566
+```text
+1556:     case TRUTH_NOT_EXPR:
+1557:       gcc_checking_assert
+1558: 	(TREE_CODE (get_base_type (result_type)) == BOOLEAN_TYPE);
+1559:       result = invert_truthvalue_loc (EXPR_LOCATION (operand), operand);
+1560:       /* When not optimizing, fold the result as invert_truthvalue_loc
+1561: 	 doesn't fold the result of comparisons.  This is intended to undo
+1562: 	 the trick used for boolean rvalues in gnat_to_gnu.  */
+1563:       if (!optimize)
+1564: 	result = fold (result);
+1565:       break;
+1566:
 ```
