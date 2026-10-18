@@ -1,0 +1,272 @@
+[
+  {
+    "path": "docs/evidence/retained-assembler-capacity-20261018/event-check-results.json",
+    "bytes": 1835,
+    "sha256": "81cd3ea69b4f7f0eba8ae50fc1804ba85dee691b01cc5764916ea8470f237277"
+  },
+  {
+    "path": "docs/evidence/retained-assembler-capacity-20261018/inner-check-results.json",
+    "bytes": 1700,
+    "sha256": "cdc3547c779b6d1fdb4ae70ec93ad5e645c208b5c7267062175b756e7a0fa84b"
+  },
+  {
+    "path": "docs/evidence/retained-assembler-capacity-20261018/lifecycle-check-results.json",
+    "bytes": 1524,
+    "sha256": "5f36250d12332b3a02f146a65c815508c03f0e10c589631ee362be909af6fe0f"
+  },
+  {
+    "path": "docs/evidence/retained-assembler-capacity-20261018/object-check-results.json",
+    "bytes": 1785,
+    "sha256": "e534dc4c33a8cb10473f58aea6e079ab794dd45fa2466430defc3b00005e2ab3"
+  },
+  {
+    "path": "docs/evidence/retained-binder-capacity-20261018/result.json",
+    "bytes": 285109,
+    "sha256": "ad6c98854bc45a632c9a580308873ae7aeb5c4f10b9f1dcd4abe64ac1aaf7bba"
+  },
+  {
+    "path": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "bytes": 2405544,
+    "sha256": "d6d41649ad0151edb2a3ac1972045f6ab97d0a903922351ce29aace97893e20a"
+  },
+  {
+    "path": "docs/evidence/retained-binder-options-20261018/check.py",
+    "bytes": 20857,
+    "sha256": "9cd51138e4565e597133b85d4b33a0814ee222660f08df1f66d289aa1130a712"
+  },
+  {
+    "path": "docs/evidence/retained-binder-options-20261018/manifest.json",
+    "bytes": 62177,
+    "sha256": "515bf7526196f358976f3a3459ede6fd47c495892bafe77b78924dc1cadaa300"
+  },
+  {
+    "path": "docs/evidence/retained-gpr-parent-20261018/manifest.json",
+    "bytes": 17198,
+    "sha256": "ecafda2c407ded284804878b68832c61beae6aec42e0c03f0d38dc5c1d2d29ff"
+  },
+  {
+    "path": "docs/evidence/retained-gpr-parent-20261018/result.json",
+    "bytes": 1923,
+    "sha256": "b7c30a9b6f5d2c8b1441806fae896be12dac85cca18b6ea614ebeb1278dd9f13"
+  },
+  {
+    "path": "docs/evidence/retained-gpr-parent-20261018/witnesses.tar.gz",
+    "bytes": 915881,
+    "sha256": "2779b0a318ddf14b272b0c58b54b4bb0341db44abfcd61f623b5bd8df02ff9be"
+  },
+  {
+    "path": "docs/evidence/retained-idle-why3server-capacity-20261018/check-results.json",
+    "bytes": 1066,
+    "sha256": "9d1dcb6718f277fe96cace2603a217769f3099d81bf7d2daa9a58b710383d286"
+  },
+  {
+    "path": "docs/evidence/retained-idle-why3server-capacity-20261018/check.py",
+    "bytes": 6564,
+    "sha256": "9fe691f4b60755ecaf63157d2508ac4942edc3758c9edf014b648432ef5e9cd2"
+  },
+  {
+    "path": "docs/evidence/retained-idle-why3server-capacity-20261018/source-manifest.json",
+    "bytes": 3702,
+    "sha256": "ecdaf56f8bf3e259b501dec5f3345593b67b986d1f245e78bf4328cf846f9483"
+  },
+  {
+    "path": "docs/evidence/retained-idle-why3server-capacity-20261018/sources.tar.gz",
+    "bytes": 32742,
+    "sha256": "ecde05d29f1165575dc69ce92a1a980463baa93038a11e6818d2686adcf71a2d"
+  },
+  {
+    "path": "docs/evidence/retained-linker-null-composition-20261018/check.py",
+    "bytes": 11098,
+    "sha256": "732568e16c4d5d6c26a04b3215fbc4c95af6e4cc75b78a24427dec8c32704f49"
+  },
+  {
+    "path": "docs/evidence/retained-linker-null-composition-20261018/inputs.json",
+    "bytes": 4356,
+    "sha256": "3e7a5a0e1cd26a98b8a1ea55115b82383ec8a53332c6db32e4d7513a07784d4c"
+  },
+  {
+    "path": "docs/evidence/retained-producer-composition-20261018/check.py",
+    "bytes": 22520,
+    "sha256": "dc8a9f300223408d6441861de644b573ae794494818dbcb31637dfadde602dc6"
+  },
+  {
+    "path": "docs/evidence/retained-producer-composition-20261018/result.json",
+    "bytes": 26917,
+    "sha256": "99cf6651615344eb7335020697a808187b32288ed8cd418b98e96368851d143b"
+  },
+  {
+    "path": "docs/evidence/retained-producer-datarep-null-20261018/compose.py",
+    "bytes": 3544,
+    "sha256": "48aa87e584972c557b55df7d0ff6104ed47ecf79892d99298debd64cc166ba14"
+  },
+  {
+    "path": "docs/evidence/retained-producer-null-global-20261018/check.py",
+    "bytes": 14039,
+    "sha256": "b12c700879dcc00946c1c005d73c74ee60b2a98f3636e2722ab90561c27343e6"
+  },
+  {
+    "path": "docs/evidence/retained-producer-null-global-20261018/identity.json",
+    "bytes": 10899,
+    "sha256": "6ae327401cabee5a719f774ba308f993e542516a9dd22c637ec419e08f90706c"
+  },
+  {
+    "path": "docs/evidence/retained-producer-null-global-20261018/result.json",
+    "bytes": 6362,
+    "sha256": "3e09fab99e8139c3f0c7444fe6ea07e9af154df98e68d48e343cb33e17ea4f1a"
+  },
+  {
+    "path": "docs/evidence/retained-producer-null-tail-20261018/check.py",
+    "bytes": 13424,
+    "sha256": "67ba27af1fe8d406a42f8c59dcfe1cc8a1fd344bf9c7cad7fce59ff5c4a734cb"
+  },
+  {
+    "path": "docs/evidence/retained-producer-null-tail-20261018/identity.json",
+    "bytes": 11113,
+    "sha256": "78c522c4d25a2403b66aca23bf62cc78ade8e1fb2f83a5b367bf5df5a9dfd10f"
+  },
+  {
+    "path": "docs/evidence/retained-producer-null-tail-20261018/result.json",
+    "bytes": 2378,
+    "sha256": "5c0263615e504fcf577f3e183e637b3b5d60dcee1f379d21849aca28cf9f19c5"
+  },
+  {
+    "path": "docs/evidence/retained-producer-null-tail-20261018/storage.json",
+    "bytes": 2056,
+    "sha256": "5a71c9295743c274ea6bb248b061235c19a38b2a2b4de38f972f9a22684771d7"
+  },
+  {
+    "path": "docs/evidence/retained-producer-options-20261018/check.py",
+    "bytes": 11181,
+    "sha256": "b3d8d395d218ba0216b4b74374800732e669e2bfa8c225017c32c719d0ccba08"
+  },
+  {
+    "path": "docs/evidence/retained-producer-options-20261018/identity.json",
+    "bytes": 3557,
+    "sha256": "7002cac0236330905973dd961844387dcb6cf3c98f284bcb74c9fad223f1be0d"
+  },
+  {
+    "path": "docs/evidence/retained-producer-options-20261018/result.json",
+    "bytes": 2857,
+    "sha256": "7df04b6373c82afc0d7d011e9ec4764b783ab7e13c2ca02671e4fc8ede191eb4"
+  },
+  {
+    "path": "docs/evidence/retained-producer-orchestration-20261018/check.py",
+    "bytes": 6096,
+    "sha256": "7d7dcd06f496fe55c421c0257061da8552becbbdc4268025ee5a6f00063e011e"
+  },
+  {
+    "path": "docs/evidence/retained-producer-orchestration-20261018/observations.tar.gz",
+    "bytes": 101535,
+    "sha256": "3817a283f87ad2dfa236ece92edba89d926abfa7de096ce74c1429fc42ab09eb"
+  },
+  {
+    "path": "docs/evidence/retained-producer-orchestration-20261018/result.json",
+    "bytes": 2058,
+    "sha256": "aa82f548f1b7009132794dbc925731fd0e3920019bee2eb7ac370acf32acbb52"
+  },
+  {
+    "path": "docs/evidence/retained-producer-orchestration-20261018/sources.tar.gz",
+    "bytes": 120256,
+    "sha256": "f3389abd7b406ab41f2037c4e89d62f54ee7d44e3b6e70feef3a80c16d7cf9d8"
+  },
+  {
+    "path": "docs/evidence/retained-producer-parent-20261018/check-parent.py",
+    "bytes": 3777,
+    "sha256": "fd488cc451ae866800c29f80c696e13cc7f8803dedd21ea6760050be644e6fa8"
+  },
+  {
+    "path": "docs/evidence/retained-producer-parent-20261018/prefix-result.json",
+    "bytes": 3918,
+    "sha256": "ad4466c75ecb858ee67f1a0ca1f4366e3b2c96534c059c6b0b029415424a89a3"
+  },
+  {
+    "path": "docs/evidence/retained-producer-sarif-capacity-20261018/check-results.json",
+    "bytes": 1191,
+    "sha256": "11675e8c739010aaf8842caadcb9cedb177936645f8484d144cc9152faae496c"
+  },
+  {
+    "path": "docs/evidence/retained-producer-sarif-capacity-20261018/check.py",
+    "bytes": 6785,
+    "sha256": "39d08cd6f7557de8506180fe0309ffbf5bcd2f743d8af05051dc74ae469162cc"
+  },
+  {
+    "path": "docs/evidence/retained-producer-sarif-capacity-20261018/source-manifest.json",
+    "bytes": 11835,
+    "sha256": "a4c1f859062c8351d609aa78941e5b46a848969a606789212cdcb9896da5e706"
+  },
+  {
+    "path": "docs/evidence/retained-producer-sarif-capacity-20261018/sources.tar.gz",
+    "bytes": 109383,
+    "sha256": "a803fb32cec177576ac83504998b59a92a53a9a953a325f8acad1683b9571bc4"
+  },
+  {
+    "path": "docs/evidence/retained-producer-storage-20261018/serialization.json",
+    "bytes": 34164,
+    "sha256": "aa96e05309bfa259237637f6dbfeb1d1463a8fde75b91ced4a28353d0970f4cc"
+  },
+  {
+    "path": "docs/evidence/retained-split-options-20261018/check.py",
+    "bytes": 8001,
+    "sha256": "29d09e0ba2f2c40e2d99758672e0012931b39414757fc7d3dd2fea4fbc4beff3"
+  },
+  {
+    "path": "docs/evidence/retained-split-options-20261018/result.json",
+    "bytes": 2163,
+    "sha256": "23350b8d404df90367a59982c67006ca681565ffeb18fadedd372409649e6e4b"
+  },
+  {
+    "path": "docs/evidence/retained-split-options-20261018/sources.json",
+    "bytes": 4889,
+    "sha256": "32d3e002382d5e4ce7d0a24e5f1d059f687f5d09a7799932fe868c6e9c5a60f0"
+  },
+  {
+    "path": "docs/evidence/retained-split-options-20261018/sources.tar.gz",
+    "bytes": 668087,
+    "sha256": "3dcc2087f39617446a83c83ac694c451e4869cac7e4ac034ca8ad6519726e3f3"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/compose-null-capacity.py",
+    "bytes": 20379,
+    "sha256": "07d99d6ba3811f2cefe2af12ecf6d9e6b087e424250fe03b9f138801f35d049a"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive.py",
+    "bytes": 209431,
+    "sha256": "dc7b362649dfb8693e79248a1d9c965283bc9b54643bbf124b3de2a6f350b897"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-gcc-prefix-witness.json",
+    "bytes": 3891,
+    "sha256": "bd7b5f8243da91daca3dbc7d7afeeabda69df140e9b2588d4fe85ff16057af95"
+  },
+  {
+    "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/null-capacity-inputs.json",
+    "bytes": 2392,
+    "sha256": "ed4a79080332d76fb8b3617553276a551e98e839d9075f8d1640d2da6f44b503"
+  },
+  {
+    "path": "docs/research/retained-binder-options.md",
+    "bytes": 11421,
+    "sha256": "ba2fa50f007aa4adbe4a9fe39daffb62509e9d200828f793d194b9d7dea20bdb"
+  },
+  {
+    "path": "docs/research/retained-gpr-parent.md",
+    "bytes": 9268,
+    "sha256": "0b57a3177d4367ff05f074a095c5fbf7fa6b26ea8a74a32e539acde40e2dc18d"
+  },
+  {
+    "path": "docs/research/retained-linker-null-composition.md",
+    "bytes": 15571,
+    "sha256": "d395dc9b7b996da396c321d39c810c3344fdad5de73687a47a5873123e5aaa01"
+  },
+  {
+    "path": "docs/research/retained-producer-orchestration.md",
+    "bytes": 8744,
+    "sha256": "b3346ad1afadfa8d2c889f2a3685b6927e586591fded64f8ac9c3d9ea8630b44"
+  },
+  {
+    "path": "docs/research/retained-producer-parent.md",
+    "bytes": 10544,
+    "sha256": "a08adb0650ac6315bcc4554e7eb3f8df8cc7ec1b43185685c31234a2a0badf62"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "scope": "selected indexed null pipeline research",
+  "source": "../../../samples/null.adb",
+  "shared_inputs": {
+    "configuration": "../unbounded-programs/retained-native-expansion-20261017/null-capacity-fixture.adc",
+    "System": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads"
+  },
+  "complete_path_bound": 512,
+  "native_descriptor": "../unbounded-programs/retained-native-expansion-20261017/null-capacity-fixture.json",
+  "datarep_descriptor": "../retained-producer-datarep-null-20261018/fixture.json",
+  "runtime": {
+    "workers": 12,
+    "host_page_bytes": 4096,
+    "socket_directory": "/tmp",
+    "cwd": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+    "binder_source_directory": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
+    "binder_temporary_root": "/tmp/silver-null-pipeline-20261018/ttttttttttttt"
+  }
+}

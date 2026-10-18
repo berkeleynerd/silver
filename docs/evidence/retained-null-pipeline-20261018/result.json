@@ -1,0 +1,588 @@
+{
+  "scope": "selected indexed null pipeline research",
+  "source": {
+    "bytes": 69,
+    "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021"
+  },
+  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-null-pipeline/samples/null.adb",
+  "complete_path_bound": 512,
+  "obligations": {
+    "shared_inputs": {
+      "status": "closed",
+      "conditions": {
+        "source_configuration_System_bytes_shared": true,
+        "runtime_paths_within_P": true,
+        "power_of_two_host_page": true
+      },
+      "source": {
+        "bytes": 69,
+        "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021"
+      },
+      "configuration": {
+        "bytes": 327,
+        "sha256": "46f3acf27365a700a8dbebdd40ad92eb76e2f43091b056a1bb7e0d494045b6e8"
+      },
+      "System": {
+        "bytes": 7503,
+        "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+      },
+      "complete_path_bound": 512
+    },
+    "native_compiler": {
+      "status": "closed",
+      "conditions": {
+        "configuration": true,
+        "core_tables": true,
+        "parser_auxiliary": true,
+        "physical_sources": true,
+        "diagnostic_backing": true,
+        "diagnostic_rendering": true,
+        "invocation": true,
+        "command": true,
+        "ALI": true,
+        "local_numeric": true,
+        "gigi_metadata": true,
+        "remaining_fixed_callbacks": true
+      },
+      "source": {
+        "bytes": 69,
+        "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021",
+        "launch_path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb"
+      },
+      "source_counts": {
+        "tokens": [
+          "procedure",
+          "main",
+          "is",
+          "pragma",
+          "spark_mode",
+          "(",
+          "on",
+          ")",
+          ";",
+          "begin",
+          "null",
+          ";",
+          "end",
+          "main",
+          ";"
+        ],
+        "word_tokens": 10,
+        "word_characters": 49,
+        "max_identifier_length": 10,
+        "scanner_nodes": 20,
+        "parser_nodes": 28,
+        "parser_entities": 1,
+        "parser_slots": 313,
+        "parser_lists": 4
+      },
+      "selected_GGC_events": 40098
+    },
+    "datarep_compiler": {
+      "status": "closed",
+      "conditions": {
+        "configuration": true,
+        "core_tables": true,
+        "parser_auxiliary": true,
+        "physical_sources": true,
+        "diagnostic_backing": true,
+        "diagnostic_rendering": true,
+        "invocation": true,
+        "command": true,
+        "ALI": true,
+        "local_numeric": true,
+        "gigi_metadata": true,
+        "remaining_fixed_callbacks": true,
+        "alternate_binary": true,
+        "complete_replay": true,
+        "no_wrap_or_collection": true,
+        "event_projection": true,
+        "UID_projection": true
+      },
+      "source": {
+        "bytes": 69,
+        "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021",
+        "launch_path": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb"
+      },
+      "representation_output": {
+        "file_bytes": 4,
+        "array_entries": 0,
+        "maximum_payload_line": 1,
+        "additional_Name_find_requests": 2,
+        "additional_Name_entries": 2,
+        "additional_Name_characters": 1026,
+        "independent_source_reasoning_required": true
+      }
+    },
+    "light_frontends": {
+      "status": "closed",
+      "conditions": {
+        "physical_sources": true,
+        "phase1": true,
+        "phase2": true
+      },
+      "source": {
+        "bytes": 69,
+        "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021"
+      },
+      "phase_name_demands": {
+        "phase1": {
+          "namet__name_entries__last_val": 1738,
+          "namet__name_chars__last_val": 56955784
+        },
+        "phase2": {
+          "namet__name_entries__last_val": 1802,
+          "namet__name_chars__last_val": 59052936
+        }
+      }
+    },
+    "native_split_option_delta": {
+      "status": "closed",
+      "conditions": {
+        "original_argv_and_decoded": true,
+        "canonical_argv_and_Ada": true,
+        "option_obstack": true,
+        "stored_switches": true,
+        "explicit_option_vector": true,
+        "Main_ALI_and_reader": true
+      },
+      "gnat1_argc": 25,
+      "canonical_switch_envelope": 50,
+      "Main_ALI_bytes": 399,
+      "source_projection": "retained-split-options.md; selected option preserves frontend/GIMPLE/pass-expand shape"
+    },
+    "parent_source_ALI_interfaces": {
+      "status": "closed",
+      "conditions": {
+        "source_length_and_EOF": true,
+        "shared_source_position": true,
+        "line_table_bit_product": true,
+        "expanded_physical_column": true,
+        "producer_ALI_buffer": true,
+        "datarep_ALI_buffer": true
+      },
+      "actual_source_sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021",
+      "fixed_GPR_extent": 12288,
+      "GPR_ALI_rows": {
+        "ALIs": 1,
+        "Units": 1,
+        "Withs": 1,
+        "Sdep": 2,
+        "Args": 0
+      }
+    },
+    "Why_core": {
+      "status": "closed",
+      "conditions": {
+        "nodes": true,
+        "lists": true,
+        "elements": true,
+        "emitted": true,
+        "why_symbols": true,
+        "common_symbols": true,
+        "entity_symbols": true,
+        "source_nodes": true,
+        "undo": true,
+        "string_lengths": true,
+        "JSON": true
+      },
+      "source_counts": {
+        "W": 10,
+        "I": 10,
+        "S": 0,
+        "N": 0,
+        "null": 1,
+        "shape_regions": [
+          {
+            "null": 1
+          }
+        ]
+      },
+      "A_Main": 39,
+      "totals": [
+        20401,
+        3775,
+        9398,
+        32831
+      ],
+      "JSON_bytes": 135635987
+    },
+    "producer_ALI_GG": {
+      "status": "closed",
+      "conditions": {
+        "writer_record": true,
+        "reader": true,
+        "physical_lines": true,
+        "GG_cursor": true,
+        "read_population": true
+      },
+      "ALI_file_bytes": 29622804,
+      "ALI_record_bytes": 789,
+      "ALI_lines": 77551,
+      "GG_bytes": 947,
+      "GG_rows": 11,
+      "phase2_ALI_rows": {
+        "ALIs": 2,
+        "Units": 2,
+        "Withs": 1,
+        "Args": 20,
+        "Sdep": 3,
+        "Invocation_Signatures": 5,
+        "Invocation_Constructs": 5
+      }
+    },
+    "reports_options_storage": {
+      "status": "closed",
+      "conditions": {
+        "report_file": true,
+        "producer_XString": true,
+        "parser_XString": true,
+        "report_backing": true,
+        "Text_IO_column": true,
+        "JSON_refs": true,
+        "parent_configuration": true,
+        "parent_command": true,
+        "options_files": true,
+        "options_backing": true,
+        "local_graph_counts": true,
+        "local_graph_backing": true,
+        "dominator_size": true,
+        "visibility_graph": true,
+        "SARIF_character_count": true,
+        "SARIF_segment": true,
+        "SARIF_arrays": true,
+        "SARIF_refs": true
+      },
+      "report_file_bytes": 4319,
+      "report_backing_bytes": 6669,
+      "parent_configuration_bytes": 6493,
+      "parent_command_bytes": 725,
+      "options_file_bytes": [
+        5711,
+        9707
+      ],
+      "ordinary_report_bytes": 2231,
+      "SARIF_text_bytes": 725,
+      "no_Main_Why3_or_solver_clients": true
+    },
+    "idle_why3server": {
+      "status": "closed",
+      "conditions": {
+        "worker_count": true,
+        "backlog": true,
+        "poll_index": true,
+        "independent_request": true,
+        "socket_basename": true
+      },
+      "workers": 12,
+      "poll_records": 14,
+      "largest_request": 800,
+      "source_projection": "zero Main client launches; no external clients/logging under selected descriptor"
+    },
+    "Main_assembler_object": {
+      "status": "closed",
+      "conditions": {
+        "scrub": true,
+        "physical_line_counter": true,
+        "explicit_requests": true,
+        "BFD_counter": true,
+        "ELF_object": true,
+        "ordinary_ELF_indices": true,
+        "GAS_inventory": true
+      },
+      "assembly_bytes": 7410,
+      "object_bytes": 14352,
+      "output_path": "main~1.o",
+      "selected_argc": 5
+    },
+    "binder_generation_and_fixed_compiler": {
+      "status": "closed",
+      "conditions": {
+        "same_width_source_directory": true,
+        "same_width_full_source": true,
+        "temporary_output_no_longer_than_witness": true,
+        "Name_Chars": true,
+        "Name_entries": true,
+        "Gprbind_Main_ALI": true,
+        "split_Args": true,
+        "generation_line": true,
+        "statement": true,
+        "no_collection": true,
+        "declaration_UID": true,
+        "type_UID": true,
+        "collector_requests": true,
+        "split_object_dominated": true
+      },
+      "Name_character_demand": 792833,
+      "binder_object": {
+        "bytes": 13424,
+        "sha256": "c7dce906697df7a5b5edc21097d35f807f37deb642dbe98c07a58945d75919dc"
+      },
+      "first_collection_margin": 1087464,
+      "transfer": "null lexical checksum fixed; same-width source path/comment projection; shorter temporary assembly output changes only ordinary argv/path requests; split-option object delta separately verified"
+    },
+    "linker": {
+      "status": "closed",
+      "conditions": {
+        "object_ID": true,
+        "section_ID": true,
+        "start_stop": true,
+        "reader": true,
+        "addresses": true,
+        "relocation": true,
+        "file_offset": true,
+        "host_page_scratch": true
+      },
+      "Main_object_interface": {
+        "sections": 22,
+        "symbols": 98,
+        "relocations": 281
+      },
+      "binder_split_object_sha256": "c7dce906697df7a5b5edc21097d35f807f37deb642dbe98c07a58945d75919dc",
+      "source_projection": "selected no-LTO PIE fixed-input resolution plus reviewed Main and dominated split binder interfaces"
+    },
+    "parent_fixed_read_projection": {
+      "status": "closed",
+      "conditions": {
+        "indexed_GPR2_Main_parser_calls": true,
+        "single_source": true,
+        "source_ALI_interfaces": true,
+        "options_and_report_interfaces": true
+      },
+      "basis": [
+        "retained-gpr-parent.md: complete six-call Sinput frontier and final fixed-context projection",
+        "retained-producer-parent.md: complete indexed discovery route",
+        "retained-producer-orchestration.md: fresh directories, DW parser, remaining generated-input read frontier"
+      ],
+      "transferred": "Fixed project/configuration parser, directory/queue cardinalities, tool selection and command structure under their retained path/option class.",
+      "descriptor_realization_separate": true
+    },
+    "unified_launch_descriptor": {
+      "status": "closed",
+      "conditions": {
+        "fixed_parent_root_width": true,
+        "common_temporary_root_width": true,
+        "safe_normalized_path_spelling": true,
+        "GPR_configuration_extent": true,
+        "native_object_and_binder_directory": true,
+        "binder_source_width": true,
+        "native_naming_TMP": true,
+        "datarep_naming_TMP": true,
+        "all_launch_paths_bounded": true,
+        "light_argc": true,
+        "light_Main_binding": true,
+        "two_light_map_triples": true,
+        "copied_ALI_source": true,
+        "copied_ALI_destination": true,
+        "datarep_JSON_binding": true
+      },
+      "launch_graph": {
+        "project_root": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+        "Main": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+        "native": {
+          "Main": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+          "cwd": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
+          "configuration": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000002.TMP",
+          "mapping": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000003.TMP",
+          "assembly": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/cc000000.s"
+        },
+        "datarep": {
+          "Main": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+          "cwd": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/data_representation",
+          "configuration": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000002.TMP",
+          "mapping": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000003.TMP",
+          "assembly": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/data_representation/main~1.o",
+          "representation_json": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/data_representation/main.adb.json"
+        },
+        "light": [
+          {
+            "phase": "phase1",
+            "cwd": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/phase1",
+            "argv": [
+              "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+              "-c",
+              "-x",
+              "ada",
+              "-gnatA",
+              "-gnat2022",
+              "-gnata",
+              "-gnato",
+              "-Wno-free-nonheap-object",
+              "-gnatc",
+              "-gnates=/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/00af4613.tmp",
+              "-gnatis",
+              "-gnatec=/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000003/GNAT-TEMP-000002.TMP",
+              "-gnatem=/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000003/GNAT-TEMP-000003.TMP",
+              "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+              "-o",
+              "main~1.ali",
+              "-gnateI1"
+            ],
+            "mapping": "main%b\nmain.adb\n/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb\nsystem%s\nsystem.ads\n/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads\n",
+            "mapping_identity": {
+              "bytes": 340,
+              "sha256": "0a421ca01efb501299b8885b75ba8c025d4781f65f3d347e874bae4a67245631"
+            },
+            "options_identity": {
+              "bytes": 5640,
+              "sha256": "a14dfbec5f342b067f421b5cefe31a053e9de9b32fefe0cdc454aed780347ae9"
+            },
+            "phase2_why3_dir": null,
+            "object_path_file": null
+          },
+          {
+            "phase": "phase2",
+            "cwd": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove",
+            "argv": [
+              "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+              "-c",
+              "-x",
+              "ada",
+              "-gnatA",
+              "-gnat2022",
+              "-gnata",
+              "-gnato",
+              "-Wno-free-nonheap-object",
+              "-gnatc",
+              "-gnates=/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/00af4613.tmp",
+              "-gnatec=/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000004/GNAT-TEMP-000002.TMP",
+              "-gnatem=/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000004/GNAT-TEMP-000003.TMP",
+              "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+              "-o",
+              "main~1.spark",
+              "-gnateI1",
+              "-gnateO=/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000004/GNAT-TEMP-000004.TMP"
+            ],
+            "mapping": "main%b\nmain.adb\n/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb\nsystem%s\nsystem.ads\n/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads\n",
+            "mapping_identity": {
+              "bytes": 340,
+              "sha256": "0a421ca01efb501299b8885b75ba8c025d4781f65f3d347e874bae4a67245631"
+            },
+            "options_identity": {
+              "bytes": 6671,
+              "sha256": "a31f810ec9df9683dd5645550da24baf181ce3d5806410277b7f9d53e3a97d08"
+            },
+            "phase2_why3_dir": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/",
+            "object_path_file": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove\n"
+          }
+        ],
+        "parent_configurations": {
+          "native": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000001.TMP",
+          "datarep": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000002/GNAT-TEMP-000001.TMP",
+          "phase1": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000003/GNAT-TEMP-000001.TMP",
+          "phase2": "/tmp/silver-null-pipeline-20261018/ttttttttttttt/GPR.1000000004/GNAT-TEMP-000001.TMP"
+        },
+        "process_ID_decimal_width_upper": 10,
+        "native_Main_ALI": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.ali",
+        "native_Main_object": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.o",
+        "binder_source_directory": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
+        "binder_body": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.adb",
+        "phase1_ALI": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/phase1/main~1.ali",
+        "phase2_ALI": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/main~1.ali",
+        "copied_ALI_edge": {
+          "source": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/phase1/main~1.ali",
+          "destination": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/main~1.ali"
+        },
+        "datarep_ALI": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/data_representation/main~1.ali",
+        "report": "/tmp/silver-null-pipeline-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/gnatprove/main~1.spark"
+      },
+      "parent_configuration_projection": {
+        "native": {
+          "retained_bytes": 6816,
+          "projected_bytes": 6777,
+          "aligned_extent": 8192,
+          "semantic_payload_unchanged": true,
+          "identity": {
+            "bytes": 6777,
+            "sha256": "808dc40cdc2606d1a0e077b2348625399784392a070508778e329a07bb403016"
+          }
+        },
+        "datarep": {
+          "retained_bytes": 6741,
+          "projected_bytes": 6739,
+          "aligned_extent": 8192,
+          "semantic_payload_unchanged": true,
+          "identity": {
+            "bytes": 6739,
+            "sha256": "9054b46c318282d536574439137d2e78aba3f623178d47bf2916242e0d2cb47c"
+          }
+        },
+        "phase1": {
+          "retained_bytes": 6951,
+          "projected_bytes": 6949,
+          "aligned_extent": 8192,
+          "semantic_payload_unchanged": true,
+          "identity": {
+            "bytes": 6949,
+            "sha256": "38063c6b38a087a8f04757d204ae31e1e873b2398c97e05d20134541059f81e2"
+          }
+        },
+        "phase2": {
+          "retained_bytes": 7015,
+          "projected_bytes": 7013,
+          "aligned_extent": 8192,
+          "semantic_payload_unchanged": true,
+          "identity": {
+            "bytes": 7013,
+            "sha256": "0f19169550cd052c397e5004f535500f17816a0ecafdc1f215b341cb778e5ae3"
+          }
+        }
+      },
+      "temporary_path_transfer": "One common 48-byte root preserves native parent width; producer roots shrink from 54, binder assembly output root from 52. Ten-digit PID names are bounded explicitly. Source/semantic path equality classes remain fixed.",
+      "path_substitution_basis": "Existing 32-role frontend correction and documented parent/binder path projections; only phase2 option why3_dir changes.",
+      "no_capture_relabeling": true,
+      "native_TMP_ALI_dependency_delta": "The standalone native .adc fixture overcharges one config dependency; TMP selects C_dependencies=0 and the independent 399-byte no-Xref specialization.",
+      "selected_native_split_option": "GPR command String/argument vectors and the gprbind A-row String receive the explicit bounded one-element split-option delta; project-source syntax is unchanged."
+    }
+  },
+  "closed_obligations": [
+    "shared_inputs",
+    "native_compiler",
+    "datarep_compiler",
+    "light_frontends",
+    "native_split_option_delta",
+    "parent_source_ALI_interfaces",
+    "Why_core",
+    "producer_ALI_GG",
+    "reports_options_storage",
+    "idle_why3server",
+    "Main_assembler_object",
+    "binder_generation_and_fixed_compiler",
+    "linker",
+    "parent_fixed_read_projection",
+    "unified_launch_descriptor"
+  ],
+  "failed_obligations": [],
+  "open_obligations": [],
+  "evaluated_predicates_pass": true,
+  "whole_null_pipeline_capacity_established": true,
+  "next_blocker": null,
+  "next_research_blocker": "non_null_source_to_pipeline_composition",
+  "retained_inputs_verified": 54,
+  "frontend_component_identity": {
+    "compose.py": {
+      "bytes": 17442,
+      "sha256": "5b42dd4a1e10f4b9b8de8edad41f46a0edb151ec734127374e8dba06d15b2529"
+    },
+    "identity.json": {
+      "bytes": 11898,
+      "sha256": "666332ffe4ab789fc7d5f6ace37da7bdfe4f20bdacf018311c2cc3cbd85067b5"
+    },
+    "fixture.json": {
+      "bytes": 2492,
+      "sha256": "fc79435df799dcc5859b6faac80c87f72dcc1fb10c3fb1f256006ddba0ca6c97"
+    }
+  },
+  "conditional_premises": [
+    "Selected installed relevant behavior matches the reviewed external sources and retained fixed-input projections.",
+    "Parent materializes the computed shared launch roles/equalities and fixed project/configuration semantic bytes; process IDs may use any positive signed-32-bit value, within the explicit ten-digit bounds. P covers raw/normalized/resolved/generated/search names.",
+    "Selected runtime/search/option graph, no external Why3 clients, and ordinary supported Linux ABI/services/resources.",
+    "Binder source filenames/comments are same-width; the common temporary root is 48 bytes and its assembly-output argv/path requests are dominated by the 52-byte-root witness."
+  ],
+  "outside_this_research_component": [
+    "Production SPARK/Lean recognizer and counter correspondence; useful broader-language comparison required by #119."
+  ],
+  "production_admission_changed": false,
+  "native_tool_executions": 0,
+  "aggregate_RAM_gate": false
+}

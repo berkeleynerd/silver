@@ -1,0 +1,75 @@
+{
+  "cases": [
+    {
+      "case": "retained",
+      "source_bytes": 69,
+      "evaluated_predicates_pass": true,
+      "failed_obligations": []
+    },
+    {
+      "case": "case_CRLF",
+      "source_bytes": 73,
+      "evaluated_predicates_pass": true,
+      "failed_obligations": []
+    },
+    {
+      "case": "comments_above_old_cap",
+      "source_bytes": 6069,
+      "evaluated_predicates_pass": true,
+      "failed_obligations": []
+    },
+    {
+      "case": "more_physical_lines",
+      "source_bytes": 2069,
+      "evaluated_predicates_pass": true,
+      "failed_obligations": []
+    },
+    {
+      "case": "column_rejected",
+      "source_bytes": 32836,
+      "evaluated_predicates_pass": false,
+      "failed_obligations": [
+        "native_compiler",
+        "datarep_compiler",
+        "light_frontends",
+        "parent_source_ALI_interfaces",
+        "parent_fixed_read_projection"
+      ]
+    },
+    {
+      "case": "worker_overflow",
+      "failed_obligations": [
+        "idle_why3server"
+      ]
+    },
+    {
+      "case": "page_overflow",
+      "failed_obligations": [
+        "linker"
+      ]
+    },
+    {
+      "case": "binder_path_width",
+      "failed_obligations": [
+        "binder_generation_and_fixed_compiler",
+        "unified_launch_descriptor"
+      ]
+    },
+    {
+      "case": "VT_rejected",
+      "rejected": "current ASCII alphabet required"
+    },
+    {
+      "case": "syntax_rejected",
+      "rejected": "source is outside the selected null token class"
+    },
+    {
+      "case": "configuration_mismatch",
+      "rejected": "light and native naming configuration differ"
+    }
+  ],
+  "case_count": 11,
+  "native_tool_executions": 0,
+  "all_checks_pass": true,
+  "conditional_null_conjunction_checked": true
+}
