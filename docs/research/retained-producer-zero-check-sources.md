@@ -91,6 +91,12 @@ solver subprocess to capacity-bound. Native frontend/flow state, orchestration,
 final report storage, compilation and environmental assumptions remain separate
 obligations; this result does not complete #119 for this source by itself.
 
+The subsequent [null-family tail analysis](retained-producer-null-tail.md)
+extends the launch exclusion to the same token class with permitted case and
+trivia, and bounds its third symbol pool and final report shape/bytes. It
+retains the independent frontend source/location domains and remaining
+flow-storage/consumer obligations; it does not lift the current source cap.
+
 ## Literal output source
 
 The second exact fixture is 95 bytes:

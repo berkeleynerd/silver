@@ -1,0 +1,93 @@
+{
+  "native_or_proof_executions": 0,
+  "source_class": "Required_Tokens with permitted ASCII case/trivia; current byte cap unchanged",
+  "why3_launches": 0,
+  "solver_launches": 0,
+  "flow_messages": 0,
+  "proof_messages": 0,
+  "claims_upper_bound": 2,
+  "assumptions_per_claim": 0,
+  "reported_entities": 1,
+  "entity_location_components": 1,
+  "entity_to_subp_request_bound": 4,
+  "assumption_pool_find_calls": 8,
+  "assumption_pool_distinct_strings": 2,
+  "assumption_hashcons_distinct_records": 1,
+  "global_timings": [
+    "globals (basic)",
+    "globals (advanced)",
+    "marking",
+    "properties (advanced)",
+    "flow analysis",
+    "init_why_sections",
+    "translation of standard"
+  ],
+  "main_timings": [
+    "gnat2why.vc_generation"
+  ],
+  "schema": {
+    "values": 41,
+    "max_depth": 5,
+    "objects": 12,
+    "max_object_fields": 12,
+    "fields": 37,
+    "strings": 7,
+    "arrays": 10,
+    "max_array_elements": 2,
+    "numbers": 12
+  },
+  "pretty_bytes": {
+    "constant": 1246,
+    "filename_byte_coefficient": 6
+  },
+  "pretty_bytes_at_P_222": 2578,
+  "pretty_bytes_at_P_256": 2782,
+  "entity_to_subp_complete_call_frontier": [
+    {
+      "file": "src/flow/flow-analysis-assumptions.adb",
+      "line": 56,
+      "actual": "Get_Flow_Scope (Prag).Ent"
+    },
+    {
+      "file": "src/spark/spark_definition.adb",
+      "line": 2339,
+      "actual": "E"
+    },
+    {
+      "file": "src/spark/spark_definition.adb",
+      "line": 2376,
+      "actual": "E"
+    },
+    {
+      "file": "src/utils/errout_wrapper.adb",
+      "line": 138,
+      "actual": "Obj.E"
+    },
+    {
+      "file": "src/why/gnat2why-assumptions.adb",
+      "line": 78,
+      "actual": "C.E"
+    },
+    {
+      "file": "src/why/gnat2why-driver.adb",
+      "line": 567,
+      "actual": "E"
+    },
+    {
+      "file": "src/why/gnat2why-driver.adb",
+      "line": 1127,
+      "actual": "Elt"
+    },
+    {
+      "file": "src/why/gnat2why-driver.adb",
+      "line": 1142,
+      "actual": "Elt"
+    },
+    {
+      "file": "src/why/gnat2why-error_messages.adb",
+      "line": 1155,
+      "actual": "Subp"
+    }
+  ],
+  "scope": "Source specialization and report shape/byte envelope; not whole flow working-storage, JSON refcounts, downstream orchestration or complete tool feasibility."
+}

@@ -191,7 +191,10 @@ removes this unnecessary kind-domain product: per response,
 `R <= V + 2*V_loop <= 3V`, and ordinary Main has `R <= V`. The
 [concrete null and literal-output Main paths](retained-producer-zero-check-sources.md)
 register no Why3 check and launch no Main backend, so their Main counts are
-exactly `G = R = 0`. The five fixed output-library responses remain separate;
+exactly `G = R = 0`;
+the [null-family tail specialization](retained-producer-null-tail.md) now
+bounds the no-output family's third symbol pool and final report shape/bytes.
+The five fixed output-library responses remain separate;
 their [source-derived task calculation](retained-producer-fixed-paths.md)
 now gives combined `G <= 2981` and `R <= 51`, with warning and string terms
 still explicit in the response-size account.
