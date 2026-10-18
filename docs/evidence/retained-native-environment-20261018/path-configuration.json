@@ -1,0 +1,61 @@
+{
+  "captured_at": "2026-10-18T06:54:45.795560+00:00",
+  "implicit_specs_candidates": [
+    {
+      "exists_without_following_symlinks": false,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/specs",
+      "readable": false
+    },
+    {
+      "exists_without_following_symlinks": false,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/specs",
+      "readable": false
+    },
+    {
+      "exists_without_following_symlinks": false,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/lib/x86_64-pc-linux-gnu/16.1.0/specs",
+      "readable": false
+    },
+    {
+      "exists_without_following_symlinks": false,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/lib/specs",
+      "readable": false
+    },
+    {
+      "exists_without_following_symlinks": false,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/specs",
+      "readable": false
+    }
+  ],
+  "inputs": {
+    "TMPDIR": "/tmp/silver-native-environment-20261018/capture/temp",
+    "driver": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+    "early_startfile_prefixes": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/lib/"
+    ],
+    "initial_specs_search": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/specs",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/specs",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/lib/x86_64-pc-linux-gnu/16.1.0/specs",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/lib/specs"
+    ],
+    "library_prefixes": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/lib/",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../",
+      "/lib/",
+      "/usr/lib/"
+    ],
+    "machine_suffix": "x86_64-pc-linux-gnu/16.1.0/",
+    "multiarch_suffix": "x86_64-linux-gnu/",
+    "multilib_os_suffix": "../lib64/",
+    "program_prefixes": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../libexec/gcc/",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/16.1.0/../../../../x86_64-pc-linux-gnu/bin/"
+    ],
+    "separate_specs_override": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/../lib/gcc/x86_64-pc-linux-gnu/specs"
+  },
+  "method": "Python lstat/access only; no compiler or subprocess execution",
+  "production_configuration_check_implemented": false
+}

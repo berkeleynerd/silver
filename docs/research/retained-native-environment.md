@@ -86,6 +86,110 @@ configuration/map files before forwarding that class. The present driver-only
 probe corroborates built-in specs for this installation; it does not implement
 that check or prove the transitive GCC specs interpreter's capacity.
 
+### Exact initial specs candidates for this descriptor
+
+The initial search is smaller than the final library search. At that point
+`process_command` has inserted two startfile-prefix records: the relocated
+`lib/gcc/` prefix and the target's `lib/` prefix. Inherited search variables,
+`-B` and a sysroot override are absent. Relocation succeeds, so the
+unrelocated-prefix fallback is not selected
+(`gcc.cc:4844–4909,4911–5008,5535–5588`). `set_multilib_dir` runs only at the
+end of `set_up_specs`, after both implicit specs reads (`:8733–8735`). Its
+multilib and multiarch pointers are still null during the first search.
+
+Write `E` for the driver's raw relocated `lib/gcc/` prefix, `H` for
+`x86_64-pc-linux-gnu/`, `V` for `16.1.0/`, and
+`D = E + H + V + "../../../../" + H`. Under the selected prefix descriptor,
+the four first-search filenames and separate override are:
+
+```text
+E + H + V + "specs"
+E + "specs"
+D + "lib/" + H + V + "specs"
+D + "lib/specs"
+E + H + "specs"                 (separate override)
+```
+
+Both prefix records have `require_machine_suffix=0`, so `for_each_path`
+visits the versioned path and base path once each (`:2820–2978`). The fifth
+path uses `just_machine_suffix` because this is not an accelerator compiler.
+There is no explicit user-specs record. Excluding readable files at these
+five paths therefore closes the **two initial implicit specs readers** for
+this selected descriptor. It does not establish that arbitrary built-in spec
+functions cannot read other inputs, nor cover another invocation class.
+
+The retained [metadata-only observation](../evidence/retained-native-environment-20261018/path-configuration.json)
+finds all five paths absent, using `lstat` and `access`, with no GCC or child
+process. The observation describes that installation at its recorded time.
+Production must establish the same selected configuration before launch under
+the existing stable-workspace premise; the research checker is not that
+implementation. Unexpected specs require a different justified descriptor or
+a configuration-failure report.
+
+The post-spec path enumeration can also be reconstructed exactly from those
+prefixes. It has two program-prefix records and five library-prefix records;
+four library records use the OS-multilib suffix. The selected suffixes are
+`H+V`, `x86_64-linux-gnu/`, and `../lib64/`, with no nontrivial `multilib_dir`.
+Each program prefix produces three candidates. The library enumeration
+produces three per prefix, then the four unmodified OS-prefix candidates:
+**6 program and 19 library candidates**. This reconstructs every retained
+`-print-search-dirs` spelling, in order. It supports the configuration-specific
+counts used below; they are not estimated from which directories exist.
+
+### Individual path and temporary-name arithmetic
+
+`add_prefix` stores the prefix length in signed `int`; `find_a_file` stores
+the basename and executable-suffix lengths in signed `int`
+(`gcc.cc:3059–3103,3161–3189`). On this Linux path the executable suffix is
+empty. Let `M` bound each prefix length, `S` the longest suffix produced by
+the selected iteration, and `N` each probe basename. Before any narrowing,
+require `M <= INT_MAX` and `N <= INT_MAX`. The individual search-buffer
+request is exactly bounded by
+
+```text
+K = M + S + N + 1 <= PTRDIFF_MAX.
+```
+
+The expression in `for_each_path` uses `size_t` arithmetic. Each callback
+writes a prefix, one suffix, the basename and NUL into that same buffer.
+The selected suffixes only shorten on the second pass. Prefix records are
+linked objects, without a growing aggregate byte-offset field. This check
+does not sum unrelated allocations or limit their aggregate address span.
+The separate specs override allocates its own
+`len(E) + len(H) + 6` bytes. The configured descriptor gives `M=190`, `S=27`,
+`N=5`: **223 bytes** for the path buffer and **153 bytes** for the override.
+The longest priced non-NUL spelling remains 222 characters.
+
+For temporary assembly names, let `T` bound the selected temporary-directory
+base before the separator that `choose_tmpdir` always appends. This includes
+an existing trailing separator if present; do not normalize it away in the
+arithmetic. `choose_tmpdir` narrows `strlen(base)` to `unsigned int` and
+allocates `T+2`, so require `T <= UINT_MAX-2`. For the selected default `cc`
+prefix, six random characters and `.s` suffix, `make_temp_file_with_prefix`
+allocates **`T+12` bytes** including NUL. Its individual lengths and GCC's
+stored complete filename length narrow to signed `int`; the sufficient
+condition is `T+11 <= INT_MAX`, together with `T+12 <= PTRDIFF_MAX`
+(`make-temp-file.c:116–174,197–250`; `gcc.cc:6547–6551`). This accounts for
+the real local counters and individual object, not a bound on the number
+of independent temporary files.
+
+The concrete selected `TMPDIR` has 52 bytes. Under the Linux descriptor whose
+`P_tmpdir` is `/tmp`, the source fallbacks `/var/tmp`, `/tmp` and `.` are
+shorter; `TMP` and `TEMP` are absent from the exact environment. Consequently
+the two individual requests are **54 and 64 bytes**. A descriptor for a
+different configured fallback must price it explicitly. These lengths hold
+even if the temporary-directory choice falls back; they do not promise that
+file creation succeeds or that a fallback preserves the operational workspace.
+Physical storage/permission failures retain their separate outcomes.
+
+The [offline path checker](../evidence/retained-native-environment-20261018/check-paths.py)
+reuses the ten retained complete sources and original driver-only logs. It
+reconciles the five-file metadata capture, both path enumerations, and the
+individual-object inequalities. No new compiler, assembler, linker or proof
+execution is involved. Remaining driver work includes the full selected
+spec-interpreter/option-container transfers and other late paths; these local
+path and temporary-name results do not complete driver or program capacity.
+
 ## Driver-created strings and complete path spellings
 
 Clearing inherited `GCC_EXEC_PREFIX` does not imply that the frontend will see
@@ -161,7 +265,7 @@ An independent source review rechecked the environment exclusions, keyed
 relocation, installed defaults, both implicit-specs routes and local quoting
 arithmetic; it found no material defect under the stated premises.
 Before production adoption, complete the verified-SPARK launcher/configuration
-realization and remaining driver/probe/temporary allocator joins. GNATprove
+realization and remaining driver/spec/late-path allocator joins. GNATprove
 needs a separate descriptor: in particular its producer analysis requires
 `WHY3DEBUG` empty/absent and `GNATWHY3LOG` absent to preserve the recorded
 diagnostic behavior. This native experiment does not validate producer launch,

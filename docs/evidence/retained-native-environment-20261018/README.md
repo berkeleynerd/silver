@@ -20,5 +20,21 @@ Reconcile the retained evidence without invoking any toolchain process:
 python3 docs/evidence/retained-native-environment-20261018/check.py
 ```
 
+`path-configuration.json` separately records a later metadata-only check of
+the four initial specs-search filenames and one override. All were absent.
+`check-paths.py` reconstructs those paths and the retained final search lists,
+and reconciles local path/temp size arithmetic against `path-checks.json`:
+
+```sh
+python3 docs/evidence/retained-native-environment-20261018/check-paths.py
+```
+
+Its ordinary mode reads retained files only. The one-time
+`--capture-configuration` mode uses `lstat`/`access` without launching any
+subprocess and refuses to overwrite the existing record. The installed-prefix
+and Linux temporary-directory descriptor, source correspondence and handwritten
+path argument remain explicit premises. This addition is not another native
+tool run or a production configuration checker.
+
 The source argument and production launcher remain distinct from this evidence.
 No compiler source, tool pin, admission rule or production environment changed.

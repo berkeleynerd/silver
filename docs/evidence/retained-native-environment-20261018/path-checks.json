@@ -1,0 +1,22 @@
+{
+  "compiler_or_prover_execution": false,
+  "complete_driver_or_program_capacity_established": false,
+  "configuration_capture_sha256": "3e3b84204eaaea241e4ae5da301f5652023344d641092e7c991adb153227ab08",
+  "individual_assembly_temp_name_bytes": 64,
+  "individual_search_buffer_bytes": 223,
+  "individual_temp_directory_object_bytes": 54,
+  "initial_specs_search_paths": 4,
+  "max_prefix_bytes": 190,
+  "max_probe_basename_bytes": 5,
+  "max_selected_temp_base_bytes": 52,
+  "max_suffix_bytes": 27,
+  "no_aggregate_RAM_or_address_span_gate": true,
+  "reconstructed_library_candidates": 19,
+  "reconstructed_program_candidates": 6,
+  "retained_run_id": "20261018T063601-938bdebc01d5",
+  "scope": "Selected native GCC initial specs paths and local path/temp arithmetic",
+  "separate_specs_override_object_bytes": 153,
+  "separate_specs_override_paths": 1,
+  "source_argument_required": true,
+  "verified_existing_sources": 10
+}
