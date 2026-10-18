@@ -458,6 +458,332 @@ LF line numbering; complete file identities checked.
 8527: 	  if ((flag_sanitize & SANITIZE_ADDRESS)
 ```
 
+## gcc/varasm.cc:76–85
+```text
+76: class constant_descriptor_rtx;
+77: struct rtx_constant_pool;
+78:
+79: #define n_deferred_constants (crtl->varasm.deferred_constants)
+80:
+81: /* Number for making the label on the next
+82:    constant that is stored in memory.  */
+83:
+84: static GTY(()) int const_labelno;
+85:
+```
+
+## gcc/varasm.cc:2069–2086
+```text
+2069: assemble_start_function (tree decl, const char *fnname)
+2070: {
+2071:   int align;
+2072:   char tmp_label[100];
+2073:   bool hot_label_written = false;
+2074:
+2075:   if (crtl->has_bb_partition)
+2076:     {
+2077:       ASM_GENERATE_INTERNAL_LABEL (tmp_label, "LHOTB", const_labelno);
+2078:       crtl->subsections.hot_section_label = ggc_strdup (tmp_label);
+2079:       ASM_GENERATE_INTERNAL_LABEL (tmp_label, "LCOLDB", const_labelno);
+2080:       crtl->subsections.cold_section_label = ggc_strdup (tmp_label);
+2081:       ASM_GENERATE_INTERNAL_LABEL (tmp_label, "LHOTE", const_labelno);
+2082:       crtl->subsections.hot_section_end_label = ggc_strdup (tmp_label);
+2083:       ASM_GENERATE_INTERNAL_LABEL (tmp_label, "LCOLDE", const_labelno);
+2084:       crtl->subsections.cold_section_end_label = ggc_strdup (tmp_label);
+2085:       const_labelno++;
+2086:       cold_function_name = NULL_TREE;
+```
+
+## gcc/varasm.cc:2976–2987
+```text
+2976: rtx
+2977: assemble_static_space (unsigned HOST_WIDE_INT size)
+2978: {
+2979:   char name[17];
+2980:   const char *namestring;
+2981:   rtx x;
+2982:
+2983:   ASM_GENERATE_INTERNAL_LABEL (name, "LF", const_labelno);
+2984:   ++const_labelno;
+2985:   namestring = ggc_strdup (name);
+2986:
+2987:   x = gen_rtx_SYMBOL_REF (Pmode, namestring);
+```
+
+## gcc/varasm.cc:3537–3553
+```text
+3537:     case FIXED_CST:
+3538:       /* Fixed constants are the same only if the same width of type.  */
+3539:       if (TYPE_PRECISION (TREE_TYPE (t1)) != TYPE_PRECISION (TREE_TYPE (t2)))
+3540: 	return false;
+3541:
+3542:       return FIXED_VALUES_IDENTICAL (TREE_FIXED_CST (t1), TREE_FIXED_CST (t2));
+3543:
+3544:     case STRING_CST:
+3545:       if (TYPE_MODE (TREE_TYPE (t1)) != TYPE_MODE (TREE_TYPE (t2))
+3546: 	  || int_size_in_bytes (TREE_TYPE (t1))
+3547: 	     != int_size_in_bytes (TREE_TYPE (t2)))
+3548: 	return false;
+3549:
+3550:       return (TREE_STRING_LENGTH (t1) == TREE_STRING_LENGTH (t2)
+3551: 	      && ! memcmp (TREE_STRING_POINTER (t1), TREE_STRING_POINTER (t2),
+3552: 			   TREE_STRING_LENGTH (t1)));
+3553:
+```
+
+## gcc/varasm.cc:3720–3753
+```text
+3720: static struct constant_descriptor_tree *
+3721: build_constant_desc (tree exp)
+3722: {
+3723:   struct constant_descriptor_tree *desc;
+3724:   rtx symbol, rtl;
+3725:   char label[256];
+3726:   int labelno;
+3727:   tree decl;
+3728:
+3729:   desc = ggc_alloc<constant_descriptor_tree> ();
+3730:   desc->value = exp;
+3731:
+3732:   /* Create a string containing the label name, in LABEL.  */
+3733:   labelno = const_labelno++;
+3734:   ASM_GENERATE_INTERNAL_LABEL (label, "LC", labelno);
+3735:
+3736:   /* Construct the VAR_DECL associated with the constant.  */
+3737:   decl = build_decl (UNKNOWN_LOCATION, VAR_DECL, get_identifier (label),
+3738: 		     TREE_TYPE (exp));
+3739:   DECL_ARTIFICIAL (decl) = 1;
+3740:   DECL_IGNORED_P (decl) = 1;
+3741:   TREE_READONLY (decl) = 1;
+3742:   TREE_STATIC (decl) = 1;
+3743:   TREE_ADDRESSABLE (decl) = 1;
+3744:   /* We don't set the RTL yet as this would cause varpool to assume that the
+3745:      variable is referenced.  Moreover, it would just be dropped in LTO mode.
+3746:      Instead we set the flag that will be recognized in make_decl_rtl.  */
+3747:   DECL_IN_CONSTANT_POOL (decl) = 1;
+3748:   DECL_INITIAL (decl) = desc->value;
+3749:   /* ??? targetm.constant_alignment hasn't been updated for vector types on
+3750:      most architectures so use DATA_ALIGNMENT as well, except for strings.  */
+3751:   if (TREE_CODE (exp) == STRING_CST)
+3752:     SET_DECL_ALIGN (decl, targetm.constant_alignment (exp, DECL_ALIGN (decl)));
+3753:   else
+```
+
+## gcc/varasm.cc:3804–3893
+```text
+3804: /* Subroutine of output_constant_def and tree_output_constant_def:
+3805:    Add a constant to the hash table that tracks which constants
+3806:    already have labels.  */
+3807:
+3808: static constant_descriptor_tree *
+3809: add_constant_to_table (tree exp, int defer)
+3810: {
+3811:   /* The hash table methods may call output_constant_def for addressed
+3812:      constants, so handle them first.  */
+3813:   output_addressed_constants (exp, defer);
+3814:
+3815:   /* Sanity check to catch recursive insertion.  */
+3816:   static bool inserting;
+3817:   gcc_assert (!inserting);
+3818:   inserting = true;
+3819:
+3820:   /* Look up EXP in the table of constant descriptors.  If we didn't
+3821:      find it, create a new one.  */
+3822:   struct constant_descriptor_tree key;
+3823:   key.value = exp;
+3824:   key.hash = const_hash_1 (exp);
+3825:   constant_descriptor_tree **loc
+3826:     = const_desc_htab->find_slot_with_hash (&key, key.hash, INSERT);
+3827:
+3828:   inserting = false;
+3829:
+3830:   struct constant_descriptor_tree *desc = *loc;
+3831:   if (!desc)
+3832:     {
+3833:       desc = build_constant_desc (exp);
+3834:       desc->hash = key.hash;
+3835:       *loc = desc;
+3836:     }
+3837:
+3838:   return desc;
+3839: }
+3840:
+3841: /* Return an rtx representing a reference to constant data in memory
+3842:    for the constant expression EXP.
+3843:
+3844:    If assembler code for such a constant has already been output,
+3845:    return an rtx to refer to it.
+3846:    Otherwise, output such a constant in memory
+3847:    and generate an rtx for it.
+3848:
+3849:    If DEFER is nonzero, this constant can be deferred and output only
+3850:    if referenced in the function after all optimizations.
+3851:
+3852:    `const_desc_table' records which constants already have label strings.  */
+3853:
+3854: rtx
+3855: output_constant_def (tree exp, int defer)
+3856: {
+3857:   struct constant_descriptor_tree *desc = add_constant_to_table (exp, defer);
+3858:   maybe_output_constant_def_contents (desc, defer);
+3859:   return desc->rtl;
+3860: }
+3861:
+3862: /* Subroutine of output_constant_def: Decide whether or not we need to
+3863:    output the constant DESC now, and if so, do it.  */
+3864: static void
+3865: maybe_output_constant_def_contents (struct constant_descriptor_tree *desc,
+3866: 				    int defer)
+3867: {
+3868:   rtx symbol = XEXP (desc->rtl, 0);
+3869:   tree exp = desc->value;
+3870:
+3871:   if (flag_syntax_only)
+3872:     return;
+3873:
+3874:   if (TREE_ASM_WRITTEN (exp))
+3875:     /* Already output; don't do it again.  */
+3876:     return;
+3877:
+3878:   /* We can always defer constants as long as the context allows
+3879:      doing so.  */
+3880:   if (defer)
+3881:     {
+3882:       /* Increment n_deferred_constants if it exists.  It needs to be at
+3883: 	 least as large as the number of constants actually referred to
+3884: 	 by the function.  If it's too small we'll stop looking too early
+3885: 	 and fail to emit constants; if it's too large we'll only look
+3886: 	 through the entire function when we could have stopped earlier.  */
+3887:       if (cfun)
+3888: 	n_deferred_constants++;
+3889:       return;
+3890:     }
+3891:
+3892:   output_constant_def_contents (symbol);
+3893: }
+```
+
+## gcc/varasm.cc:4150–4168
+```text
+4150: {
+4151:   struct rtx_constant_pool *pool;
+4152:
+4153:   pool = ggc_alloc<rtx_constant_pool> ();
+4154:   pool->const_rtx_htab = hash_table<const_rtx_desc_hasher>::create_ggc (31);
+4155:   pool->first = NULL;
+4156:   pool->last = NULL;
+4157:   pool->offset = 0;
+4158:   return pool;
+4159: }
+4160:
+4161: /* Initialize constant pool hashing for a new function.  */
+4162:
+4163: void
+4164: init_varasm_status (void)
+4165: {
+4166:   crtl->varasm.pool = create_constant_pool ();
+4167:   crtl->varasm.deferred_constants = 0;
+4168: }
+```
+
+## gcc/varasm.cc:4212–4253
+```text
+4212:   /* Lookup the value in the hashtable.  */
+4213:   tmp.constant = x;
+4214:   tmp.mode = mode;
+4215:   hash = const_rtx_hash (x);
+4216:   slot = pool->const_rtx_htab->find_slot_with_hash (&tmp, hash, INSERT);
+4217:   desc = *slot;
+4218:
+4219:   /* If the constant was already present, return its memory.  */
+4220:   if (desc)
+4221:     return copy_rtx (desc->mem);
+4222:
+4223:   /* Otherwise, create a new descriptor.  */
+4224:   desc = ggc_alloc<constant_descriptor_rtx> ();
+4225:   *slot = desc;
+4226:
+4227:   /* Align the location counter as required by EXP's data type.  */
+4228:   machine_mode align_mode = (mode == VOIDmode ? word_mode : mode);
+4229:   align = targetm.static_rtx_alignment (align_mode);
+4230:
+4231:   pool->offset += (align / BITS_PER_UNIT) - 1;
+4232:   pool->offset &= ~ ((align / BITS_PER_UNIT) - 1);
+4233:
+4234:   desc->next = NULL;
+4235:   desc->constant = copy_rtx (tmp.constant);
+4236:   desc->offset = pool->offset;
+4237:   desc->hash = hash;
+4238:   desc->mode = mode;
+4239:   desc->align = align;
+4240:   desc->labelno = const_labelno;
+4241:   desc->mark = 0;
+4242:
+4243:   pool->offset += GET_MODE_SIZE (mode);
+4244:   if (pool->last)
+4245:     pool->last->next = desc;
+4246:   else
+4247:     pool->first = pool->last = desc;
+4248:   pool->last = desc;
+4249:
+4250:   /* Create a string containing the label name, in LABEL.  */
+4251:   ASM_GENERATE_INTERNAL_LABEL (label, "LC", const_labelno);
+4252:   ++const_labelno;
+4253:
+```
+
+## gcc/varasm.cc:4476–4523
+```text
+4476: recompute_pool_offsets (struct rtx_constant_pool *pool)
+4477: {
+4478:   class constant_descriptor_rtx *desc;
+4479:   pool->offset = 0;
+4480:
+4481:   for (desc = pool->first; desc ; desc = desc->next)
+4482:     if (desc->mark)
+4483:       {
+4484: 	  /* Recalculate offset.  */
+4485: 	unsigned int align = desc->align;
+4486: 	pool->offset += (align / BITS_PER_UNIT) - 1;
+4487: 	pool->offset &= ~ ((align / BITS_PER_UNIT) - 1);
+4488: 	desc->offset = pool->offset;
+4489: 	pool->offset += GET_MODE_SIZE (desc->mode);
+4490:       }
+4491: }
+4492:
+4493: /* Mark all constants that are referenced by SYMBOL_REFs in X.
+4494:    Emit referenced deferred strings.  */
+4495:
+4496: static void
+4497: mark_constants_in_pattern (rtx insn)
+4498: {
+4499:   subrtx_iterator::array_type array;
+4500:   FOR_EACH_SUBRTX (iter, array, PATTERN (insn), ALL)
+4501:     {
+4502:       const_rtx x = *iter;
+4503:       if (GET_CODE (x) == SYMBOL_REF)
+4504: 	{
+4505: 	  if (CONSTANT_POOL_ADDRESS_P (x))
+4506: 	    {
+4507: 	      class constant_descriptor_rtx *desc = SYMBOL_REF_CONSTANT (x);
+4508: 	      if (desc->mark == 0)
+4509: 		{
+4510: 		  desc->mark = 1;
+4511: 		  iter.substitute (desc->constant);
+4512: 		}
+4513: 	    }
+4514: 	  else if (TREE_CONSTANT_POOL_ADDRESS_P (x))
+4515: 	    {
+4516: 	      tree decl = SYMBOL_REF_DECL (x);
+4517: 	      if (!TREE_ASM_WRITTEN (DECL_INITIAL (decl)))
+4518: 		{
+4519: 		  n_deferred_constants--;
+4520: 		  output_constant_def_contents (const_cast<rtx> (x));
+4521: 		}
+4522: 	    }
+4523: 	}
+```
+
 ## gcc/opts.cc:470–560
 ```text
 470: static void
@@ -1277,4 +1603,446 @@ LF line numbering; complete file identities checked.
 448:   sized_type_hash_table = hash_table<sized_type_hasher>::create_ggc (512);
 449: }
 450:
+```
+
+## gcc/function.h:162–169
+```text
+162: struct GTY(()) varasm_status {
+163:   /* If we're using a per-function constant pool, this is it.  */
+164:   struct rtx_constant_pool *pool;
+165:
+166:   /* Number of tree-constants deferred during the expansion of this
+167:      function.  */
+168:   unsigned int deferred_constants;
+169: };
+```
+
+## gcc/config/elfos.h:114–132
+```text
+114:    the symbol_ref name of an internal numbered label where
+115:    PREFIX is the class of label and NUM is the number within the class.
+116:    This is suitable for output with `assemble_name'.
+117:
+118:    For most svr4 systems, the convention is that any symbol which begins
+119:    with a period is not put into the linker symbol table by the assembler.  */
+120:
+121: #undef  ASM_GENERATE_INTERNAL_LABEL
+122: #define ASM_GENERATE_INTERNAL_LABEL(LABEL, PREFIX, NUM)		\
+123:   do								\
+124:     {								\
+125:       char *__p;						\
+126:       (LABEL)[0] = '*';						\
+127:       (LABEL)[1] = '.';						\
+128:       __p = stpcpy (&(LABEL)[2], PREFIX);			\
+129:       sprint_ul (__p, (unsigned long) (NUM));			\
+130:     }								\
+131:   while (0)
+132:
+```
+
+## gcc/hash-table.h:295–355
+```text
+295:   hashval_t inv_m2;     /* inverse of prime-2 */
+296:   hashval_t shift;
+297: };
+298:
+299: extern struct prime_ent const prime_tab[];
+300:
+301: /* Limit number of comparisons when calling hash_table<>::verify.  */
+302: extern unsigned int hash_table_sanitize_eq_limit;
+303:
+304: /* Functions for computing hash table indexes.  */
+305:
+306: extern unsigned int hash_table_higher_prime_index (unsigned long n)
+307:    ATTRIBUTE_PURE;
+308:
+309: extern ATTRIBUTE_NORETURN ATTRIBUTE_COLD void hashtab_chk_error ();
+310:
+311: /* Return X % Y using multiplicative inverse values INV and SHIFT.
+312:
+313:    The multiplicative inverses computed above are for 32-bit types,
+314:    and requires that we be able to compute a highpart multiply.
+315:
+316:    FIX: I am not at all convinced that
+317:      3 loads, 2 multiplications, 3 shifts, and 3 additions
+318:    will be faster than
+319:      1 load and 1 modulus
+320:    on modern systems running a compiler.  */
+321:
+322: inline hashval_t
+323: mul_mod (hashval_t x, hashval_t y, hashval_t inv, int shift)
+324: {
+325:    hashval_t t1, t2, t3, t4, q, r;
+326:
+327:    t1 = ((uint64_t)x * inv) >> 32;
+328:    t2 = x - t1;
+329:    t3 = t2 >> 1;
+330:    t4 = t1 + t3;
+331:    q  = t4 >> shift;
+332:    r  = x - (q * y);
+333:
+334:    return r;
+335: }
+336:
+337: /* Compute the primary table index for HASH given current prime index.  */
+338:
+339: inline hashval_t
+340: hash_table_mod1 (hashval_t hash, unsigned int index)
+341: {
+342:   const struct prime_ent *p = &prime_tab[index];
+343:   gcc_checking_assert (sizeof (hashval_t) * CHAR_BIT <= 32);
+344:   return mul_mod (hash, p->prime, p->inv, p->shift);
+345: }
+346:
+347: /* Compute the secondary table index for HASH given current prime index.  */
+348:
+349: inline hashval_t
+350: hash_table_mod2 (hashval_t hash, unsigned int index)
+351: {
+352:   const struct prime_ent *p = &prime_tab[index];
+353:   gcc_checking_assert (sizeof (hashval_t) * CHAR_BIT <= 32);
+354:   return 1 + mul_mod (hash, p->prime - 2, p->inv_m2, p->shift);
+355: }
+```
+
+## gcc/hash-table.h:599–617
+```text
+599:   size_t m_size;
+600:
+601:   /* Current number of elements including also deleted elements.  */
+602:   size_t m_n_elements;
+603:
+604:   /* Current number of deleted elements in the table.  */
+605:   size_t m_n_deleted;
+606:
+607:   /* The following member is used for debugging. Its value is number
+608:      of all calls of `htab_find_slot' for the hash table. */
+609:   unsigned int m_searches;
+610:
+611:   /* The following member is used for debugging.  Its value is number
+612:      of collisions fixed for time of work with the hash table. */
+613:   unsigned int m_collisions;
+614:
+615:   /* Current size (in entries) of the hash table, as an index into the
+616:      table of primes.  */
+617:   unsigned int m_size_prime_index;
+```
+
+## gcc/hash-table.h:656–679
+```text
+656:   m_ggc (ggc), m_sanitize_eq_and_hash (sanitize_eq_and_hash)
+657: #if GATHER_STATISTICS
+658:   , m_gather_mem_stats (gather_mem_stats)
+659: #endif
+660: {
+661:   unsigned int size_prime_index;
+662:
+663:   size_prime_index = hash_table_higher_prime_index (size);
+664:   size = prime_tab[size_prime_index].prime;
+665:
+666:   if (m_gather_mem_stats)
+667:     hash_table_usage ().register_descriptor (this, origin, ggc
+668: 					     FINAL_PASS_MEM_STAT);
+669:
+670:   if (Lazy)
+671:     m_entries = NULL;
+672:   else
+673:     m_entries = alloc_entries (size PASS_MEM_STAT);
+674:   m_size = size;
+675:   m_size_prime_index = size_prime_index;
+676: }
+677:
+678: template<typename Descriptor, bool Lazy,
+679: 	 template<typename Type> class Allocator>
+```
+
+## gcc/hash-table.h:755–778
+```text
+755: inline typename hash_table<Descriptor, Lazy, Allocator>::value_type *
+756: hash_table<Descriptor, Lazy,
+757: 	   Allocator>::alloc_entries (size_t n MEM_STAT_DECL) const
+758: {
+759:   value_type *nentries;
+760:
+761:   if (m_gather_mem_stats)
+762:     hash_table_usage ().register_instance_overhead (sizeof (value_type) * n, this);
+763:
+764:   if (!m_ggc)
+765:     nentries = Allocator <value_type> ::data_alloc (n);
+766:   else
+767:     nentries = ::ggc_cleared_vec_alloc<value_type> (n PASS_MEM_STAT);
+768:
+769:   gcc_assert (nentries != NULL);
+770:   if (!Descriptor::empty_zero_p)
+771:     for (size_t i = 0; i < n; i++)
+772:       mark_empty (nentries[i]);
+773:
+774:   return nentries;
+775: }
+776:
+777: /* Similar to find_slot, but without several unwanted side effects:
+778:     - Does not call equal when it finds an existing entry.
+```
+
+## gcc/hash-table.h:788–821
+```text
+788: 	   Allocator>::find_empty_slot_for_expand (hashval_t hash)
+789: {
+790:   hashval_t index = hash_table_mod1 (hash, m_size_prime_index);
+791:   size_t size = m_size;
+792:   value_type *slot = m_entries + index;
+793:   hashval_t hash2;
+794:
+795:   if (is_empty (*slot))
+796:     return slot;
+797:   gcc_checking_assert (!is_deleted (*slot));
+798:
+799:   hash2 = hash_table_mod2 (hash, m_size_prime_index);
+800:   for (;;)
+801:     {
+802:       index += hash2;
+803:       if (index >= size)
+804:         index -= size;
+805:
+806:       slot = m_entries + index;
+807:       if (is_empty (*slot))
+808:         return slot;
+809:       gcc_checking_assert (!is_deleted (*slot));
+810:     }
+811: }
+812:
+813: /* Return true if the current table is excessively big for ELTS elements.  */
+814:
+815: template<typename Descriptor, bool Lazy,
+816: 	 template<typename Type> class Allocator>
+817: inline bool
+818: hash_table<Descriptor, Lazy, Allocator>::too_empty_p (unsigned int elts)
+819: {
+820:   return elts * 8 < m_size && m_size > 32;
+821: }
+```
+
+## gcc/hash-table.h:833–895
+```text
+833: hash_table<Descriptor, Lazy, Allocator>::expand ()
+834: {
+835:   check_complete_insertion ();
+836:
+837:   value_type *oentries = m_entries;
+838:   unsigned int oindex = m_size_prime_index;
+839:   size_t osize = size ();
+840:   value_type *olimit = oentries + osize;
+841:   size_t elts = elements ();
+842:
+843:   /* Resize only when table after removal of unused elements is either
+844:      too full or too empty.  */
+845:   unsigned int nindex;
+846:   size_t nsize;
+847:   if (elts * 2 > osize || too_empty_p (elts))
+848:     {
+849:       nindex = hash_table_higher_prime_index (elts * 2);
+850:       nsize = prime_tab[nindex].prime;
+851:     }
+852:   else
+853:     {
+854:       nindex = oindex;
+855:       nsize = osize;
+856:     }
+857:
+858:   value_type *nentries = alloc_entries (nsize);
+859:
+860:   if (m_gather_mem_stats)
+861:     hash_table_usage ().release_instance_overhead (this, sizeof (value_type)
+862: 						    * osize);
+863:
+864:   size_t n_deleted = m_n_deleted;
+865:
+866:   m_entries = nentries;
+867:   m_size = nsize;
+868:   m_size_prime_index = nindex;
+869:   m_n_elements -= m_n_deleted;
+870:   m_n_deleted = 0;
+871:
+872:   size_t n_elements = m_n_elements;
+873:
+874:   value_type *p = oentries;
+875:   do
+876:     {
+877:       value_type &x = *p;
+878:
+879:       if (is_empty (x))
+880: 	;
+881:       else if (is_deleted (x))
+882: 	n_deleted--;
+883:       else
+884:         {
+885: 	  n_elements--;
+886:           value_type *q = find_empty_slot_for_expand (Descriptor::hash (x));
+887: 	  new ((void*) q) value_type (std::move (x));
+888: 	  /* After the resources of 'x' have been moved to a new object at 'q',
+889: 	     we now have to destroy the 'x' object, to end its lifetime.  */
+890: 	  x.~value_type ();
+891:         }
+892:
+893:       p++;
+894:     }
+895:   while (p < olimit);
+```
+
+## gcc/hash-table.h:1026–1093
+```text
+1026: 	 template<typename Type> class Allocator>
+1027: typename hash_table<Descriptor, Lazy, Allocator>::value_type *
+1028: hash_table<Descriptor, Lazy, Allocator>
+1029: ::find_slot_with_hash (const compare_type &comparable, hashval_t hash,
+1030: 		       enum insert_option insert)
+1031: {
+1032:   if (Lazy && m_entries == NULL)
+1033:     {
+1034:       if (insert == INSERT)
+1035: 	m_entries = alloc_entries (m_size);
+1036:       else
+1037: 	return NULL;
+1038:     }
+1039:   if (insert == INSERT && m_size * 3 <= m_n_elements * 4)
+1040:     expand ();
+1041:   else
+1042:     check_complete_insertion ();
+1043:
+1044: #if CHECKING_P
+1045:   if (m_sanitize_eq_and_hash)
+1046:     verify (comparable, hash);
+1047: #endif
+1048:
+1049:   m_searches++;
+1050:   value_type *first_deleted_slot = NULL;
+1051:   hashval_t index = hash_table_mod1 (hash, m_size_prime_index);
+1052:   hashval_t hash2 = hash_table_mod2 (hash, m_size_prime_index);
+1053:   value_type *entry = &m_entries[index];
+1054:   size_t size = m_size;
+1055:   if (is_empty (*entry))
+1056:     goto empty_entry;
+1057:   else if (is_deleted (*entry))
+1058:     first_deleted_slot = &m_entries[index];
+1059:   else if (Descriptor::equal (*entry, comparable))
+1060:     return &m_entries[index];
+1061:
+1062:   for (;;)
+1063:     {
+1064:       m_collisions++;
+1065:       index += hash2;
+1066:       if (index >= size)
+1067: 	index -= size;
+1068:
+1069:       entry = &m_entries[index];
+1070:       if (is_empty (*entry))
+1071: 	goto empty_entry;
+1072:       else if (is_deleted (*entry))
+1073: 	{
+1074: 	  if (!first_deleted_slot)
+1075: 	    first_deleted_slot = &m_entries[index];
+1076: 	}
+1077:       else if (Descriptor::equal (*entry, comparable))
+1078: 	return &m_entries[index];
+1079:     }
+1080:
+1081:  empty_entry:
+1082:   if (insert == NO_INSERT)
+1083:     return NULL;
+1084:
+1085:   if (first_deleted_slot)
+1086:     {
+1087:       m_n_deleted--;
+1088:       mark_empty (*first_deleted_slot);
+1089:       return check_insert_slot (first_deleted_slot);
+1090:     }
+1091:
+1092:   m_n_elements++;
+1093:   return check_insert_slot (&m_entries[index]);
+```
+
+## gcc/hash-table.cc:44–78
+```text
+44:   {          7, 0x24924925, 0x9999999b, 2 },
+45:   {         13, 0x3b13b13c, 0x745d1747, 3 },
+46:   {         31, 0x08421085, 0x1a7b9612, 4 },
+47:   {         61, 0x0c9714fc, 0x15b1e5f8, 5 },
+48:   {        127, 0x02040811, 0x0624dd30, 6 },
+49:   {        251, 0x05197f7e, 0x073260a5, 7 },
+50:   {        509, 0x01824366, 0x02864fc8, 8 },
+51:   {       1021, 0x00c0906d, 0x014191f7, 9 },
+52:   {       2039, 0x0121456f, 0x0161e69e, 10 },
+53:   {       4093, 0x00300902, 0x00501908, 11 },
+54:   {       8191, 0x00080041, 0x00180241, 12 },
+55:   {      16381, 0x000c0091, 0x00140191, 13 },
+56:   {      32749, 0x002605a5, 0x002a06e6, 14 },
+57:   {      65521, 0x000f00e2, 0x00110122, 15 },
+58:   {     131071, 0x00008001, 0x00018003, 16 },
+59:   {     262139, 0x00014002, 0x0001c004, 17 },
+60:   {     524287, 0x00002001, 0x00006001, 18 },
+61:   {    1048573, 0x00003001, 0x00005001, 19 },
+62:   {    2097143, 0x00004801, 0x00005801, 20 },
+63:   {    4194301, 0x00000c01, 0x00001401, 21 },
+64:   {    8388593, 0x00001e01, 0x00002201, 22 },
+65:   {   16777213, 0x00000301, 0x00000501, 23 },
+66:   {   33554393, 0x00001381, 0x00001481, 24 },
+67:   {   67108859, 0x00000141, 0x000001c1, 25 },
+68:   {  134217689, 0x000004e1, 0x00000521, 26 },
+69:   {  268435399, 0x00000391, 0x000003b1, 27 },
+70:   {  536870909, 0x00000019, 0x00000029, 28 },
+71:   { 1073741789, 0x0000008d, 0x00000095, 29 },
+72:   { 2147483647, 0x00000003, 0x00000007, 30 },
+73:   /* Avoid "decimal constant so large it is unsigned" for 4294967291.  */
+74:   { 0xfffffffb, 0x00000006, 0x00000008, 31 }
+75: };
+76:
+77: /* Limit number of comparisons when calling hash_table<>::verify.  */
+78: unsigned int hash_table_sanitize_eq_limit;
+```
+
+## gcc/hash-table.cc:87–110
+```text
+87:   unsigned int high = ARRAY_SIZE (prime_tab);
+88:
+89:   while (low != high)
+90:     {
+91:       unsigned int mid = low + (high - low) / 2;
+92:       if (n > prime_tab[mid].prime)
+93: 	low = mid + 1;
+94:       else
+95: 	high = mid;
+96:     }
+97:
+98:   /* If we've run out of primes, abort.  */
+99:   gcc_assert (n <= prime_tab[low].prime);
+100:
+101:   return low;
+102: }
+103:
+104: /* Return a reference to the lazily initialized hash-table usage description.
+105:    This needs to be a function rather than a simple global variable so that it
+106:    is reliably initialized before hash table variables in other files such as
+107:    sem_item::m_type_hash_cache.  */
+108: mem_alloc_description<mem_usage>&
+109: hash_table_usage ()
+110: {
+```
+
+## include/hashtab.h:32–46
+```text
+32: #ifndef __HASHTAB_H__
+33: #define __HASHTAB_H__
+34:
+35: #ifdef __cplusplus
+36: extern "C" {
+37: #endif /* __cplusplus */
+38:
+39: #include "ansidecl.h"
+40:
+41: /* The type for a hash code.  */
+42: typedef unsigned int hashval_t;
+43:
+44: /* Callback function pointer types.  */
+45:
+46: /* Calculate hash of a table entry.  */
 ```

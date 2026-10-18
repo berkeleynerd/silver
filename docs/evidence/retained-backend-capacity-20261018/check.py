@@ -10,6 +10,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
 import tarfile
 
 
@@ -25,7 +26,15 @@ RANGES = {
     "gcc/tree.cc": [(2616, 2636)],
     "gcc/tree-core.h": [(1138, 1253), (1565, 1595)],
     "gcc/varasm.cc": [(870, 920), (2304, 2335), (2665, 2667), (3953, 3965),
-                       (5627, 5635), (8518, 8527)],
+                       (5627, 5635), (8518, 8527), (76, 85), (2069, 2086),
+                       (2976, 2987), (3537, 3553), (3720, 3753), (3804, 3893),
+                       (4150, 4168), (4212, 4253), (4476, 4523)],
+    "gcc/function.h": [(162, 169)],
+    "gcc/config/elfos.h": [(114, 132)],
+    "gcc/hash-table.h": [(295, 355), (599, 617), (656, 679), (755, 778),
+                         (788, 821), (833, 895), (1026, 1093)],
+    "gcc/hash-table.cc": [(44, 78), (87, 110)],
+    "include/hashtab.h": [(32, 46)],
     "gcc/opts.cc": [(470, 560), (596, 605), (819, 825)],
     "gcc/common.opt": [(2411, 2420)],
     "gcc/config/i386/i386-options.cc": [(2275, 2286)],
@@ -109,6 +118,40 @@ def main():
     header_offset = 20
     constructor_bytes = int_max + header_offset + 1
     assert constructor_bytes <= (1 << 32) - 1
+
+    # The constant-label counter is file-local: inventory every increment and
+    # reset in its complete source, not just a selected emitter excerpt.
+    varasm = all_bytes["gcc/varasm.cc"].decode().split("\n")
+    label_increments = [i for i, line in enumerate(varasm, 1)
+                        if re.search(r"const_labelno\s*\+\+|\+\+\s*const_labelno", line)]
+    label_resets = [i for i, line in enumerate(varasm, 1)
+                    if re.search(r"\bconst_labelno\s*=\s*0", line)]
+    assert label_increments == [2085, 2984, 3733, 4252]
+    assert label_resets == [9077]
+    deferred_updates = [i for i, line in enumerate(varasm, 1)
+                        if re.search(r"n_deferred_constants\s*(?:\+\+|--)", line)]
+    assert deferred_updates == [3888, 4519]
+
+    prime_source = all_bytes["gcc/hash-table.cc"].decode()
+    prime_text = prime_source.split("prime_tab[] = {", 1)[1].split("};", 1)[0]
+    primes = [int(x, 0) for x in re.findall(r"\{\s*(0x[0-9a-f]+|[0-9]+),", prime_text)]
+    assert len(primes) == 30 and primes[-2:] == [int_max, 2**32-5]
+    live_limit = int_max // 2
+    hash_cases = []
+    for demand in sorted({0, 1, 23, 24, 765, 766, live_limit} |
+                         {p//2+delta for p in primes[:-1] for delta in (0,1)
+                          if 0 <= p//2+delta <= live_limit}):
+        request = max(1009, 2*demand)
+        capacity = next(p for p in primes if p >= request)
+        assert capacity <= int_max
+        assert 2*capacity-3 <= 2**32-1  # index + secondary step
+        assert 8*capacity <= 8*int_max < 2**34
+        hash_cases.append(dict(live=demand, request=request, capacity=capacity))
+    # Search the exact selected macro lengths; the shortest caller array is LF.
+    label_lengths = {prefix: 2+len(prefix)+len(str(int_max-1))+1
+                     for prefix in ("LF", "LC", "LHOTB", "LCOLDB", "LHOTE", "LCOLDE")}
+    assert label_lengths["LF"] <= 17
+    assert max(label_lengths.values()) <= 100
     results = {
         "scope": "local source-derived arithmetic; no native compiler/prover run",
         "verified_sources": verified,
@@ -130,6 +173,22 @@ def main():
             "maximum_requested_bytes_per_array": 8*int_max,
             "maximum_rounded_bytes_per_array": 2**34,
             "scope": "backbone arithmetic; pointed-to GCC trees are separate",
+        },
+        "constant_pools": {
+            "label_increment_lines": label_increments,
+            "label_reset_lines": label_resets,
+            "maximum_total_label_events": int_max,
+            "label_buffers_including_nul": label_lengths,
+            "deferred_update_lines": deferred_updates,
+            "deferred_counter_bits": 32,
+            "maximum_deferred_increments_per_function": 2**32-1,
+            "decrement_bound_required_separately": True,
+            "hash_prime_table": primes,
+            "maximum_live_hash_entries_for_bounded_probe_arithmetic": live_limit,
+            "maximum_hash_capacity": int_max,
+            "maximum_pointer_backbone_bytes": 8*int_max,
+            "hash_capacity_cases": hash_cases,
+            "scope": "local event-to-representation transfers; source event counts remain required",
         },
         "string": {
             "lp64_header_offset_premise": header_offset,

@@ -132,6 +132,51 @@
       "git_blob_sha1": "3da24fdb61a6d359d1a08a723fb64c9d9bb626d9",
       "origin": "complete Ada source inventory",
       "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/utils.cc"
+    },
+    {
+      "path": "gcc/function.h",
+      "bytes": 27144,
+      "sha256": "f0f30e429adb36d8532e7cf2f911d46387ae67c1815daa8a86c034b4cbc3956e",
+      "git_blob_sha1": "765c71309facd881984ef723cab3612d9e07f0ab",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/function.h",
+      "archive": "pool-sources.tar.gz"
+    },
+    {
+      "path": "gcc/config/elfos.h",
+      "bytes": 18059,
+      "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70",
+      "git_blob_sha1": "354826c95a46ec1d4133b19a46e8abb1573bedd0",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/config/elfos.h",
+      "archive": "pool-sources.tar.gz"
+    },
+    {
+      "path": "gcc/hash-table.h",
+      "bytes": 39688,
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc",
+      "git_blob_sha1": "0bee2850b8cce57bb53b2424c839a5f9fa3a4de4",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/hash-table.h",
+      "archive": "pool-sources.tar.gz"
+    },
+    {
+      "path": "gcc/hash-table.cc",
+      "bytes": 4564,
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457",
+      "git_blob_sha1": "22a08b2735bc9cede8e62e7f98a4c04e25305acc",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/hash-table.cc",
+      "archive": "pool-sources.tar.gz"
+    },
+    {
+      "path": "include/hashtab.h",
+      "bytes": 7398,
+      "sha256": "f8df4e157b05833188c1580dff3462e4faef56919fa865d4584faba6f5cb8c18",
+      "git_blob_sha1": "4ee2858b2e403adbe5b218d7f3cb0d6ae7efcb57",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/include/hashtab.h",
+      "archive": "pool-sources.tar.gz"
     }
   ]
 }

@@ -64,6 +64,26 @@
     {
       "path": "gcc/ada/gcc-interface/utils.cc",
       "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "path": "gcc/function.h",
+      "sha256": "f0f30e429adb36d8532e7cf2f911d46387ae67c1815daa8a86c034b4cbc3956e"
+    },
+    {
+      "path": "gcc/config/elfos.h",
+      "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70"
+    },
+    {
+      "path": "gcc/hash-table.h",
+      "sha256": "68d6418844f2893b1f2a10dbb26b2ae6c52cd088e1b5735a0e103edc477257bc"
+    },
+    {
+      "path": "gcc/hash-table.cc",
+      "sha256": "892e7d90cba0eb4daa482145657c541731bc041e9d716249ead456804ba17457"
+    },
+    {
+      "path": "include/hashtab.h",
+      "sha256": "f8df4e157b05833188c1580dff3462e4faef56919fa865d4584faba6f5cb8c18"
     }
   ],
   "line_map": {
@@ -447,6 +467,386 @@
     "maximum_requested_bytes_per_array": 17179869176,
     "maximum_rounded_bytes_per_array": 17179869184,
     "scope": "backbone arithmetic; pointed-to GCC trees are separate"
+  },
+  "constant_pools": {
+    "label_increment_lines": [
+      2085,
+      2984,
+      3733,
+      4252
+    ],
+    "label_reset_lines": [
+      9077
+    ],
+    "maximum_total_label_events": 2147483647,
+    "label_buffers_including_nul": {
+      "LF": 15,
+      "LC": 15,
+      "LHOTB": 18,
+      "LCOLDB": 19,
+      "LHOTE": 18,
+      "LCOLDE": 19
+    },
+    "deferred_update_lines": [
+      3888,
+      4519
+    ],
+    "deferred_counter_bits": 32,
+    "maximum_deferred_increments_per_function": 4294967295,
+    "decrement_bound_required_separately": true,
+    "hash_prime_table": [
+      7,
+      13,
+      31,
+      61,
+      127,
+      251,
+      509,
+      1021,
+      2039,
+      4093,
+      8191,
+      16381,
+      32749,
+      65521,
+      131071,
+      262139,
+      524287,
+      1048573,
+      2097143,
+      4194301,
+      8388593,
+      16777213,
+      33554393,
+      67108859,
+      134217689,
+      268435399,
+      536870909,
+      1073741789,
+      2147483647,
+      4294967291
+    ],
+    "maximum_live_hash_entries_for_bounded_probe_arithmetic": 1073741823,
+    "maximum_hash_capacity": 2147483647,
+    "maximum_pointer_backbone_bytes": 17179869176,
+    "hash_capacity_cases": [
+      {
+        "live": 0,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 1,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 3,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 4,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 6,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 7,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 15,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 16,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 23,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 24,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 30,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 31,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 63,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 64,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 125,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 126,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 254,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 255,
+        "request": 1009,
+        "capacity": 1021
+      },
+      {
+        "live": 510,
+        "request": 1020,
+        "capacity": 1021
+      },
+      {
+        "live": 511,
+        "request": 1022,
+        "capacity": 2039
+      },
+      {
+        "live": 765,
+        "request": 1530,
+        "capacity": 2039
+      },
+      {
+        "live": 766,
+        "request": 1532,
+        "capacity": 2039
+      },
+      {
+        "live": 1019,
+        "request": 2038,
+        "capacity": 2039
+      },
+      {
+        "live": 1020,
+        "request": 2040,
+        "capacity": 4093
+      },
+      {
+        "live": 2046,
+        "request": 4092,
+        "capacity": 4093
+      },
+      {
+        "live": 2047,
+        "request": 4094,
+        "capacity": 8191
+      },
+      {
+        "live": 4095,
+        "request": 8190,
+        "capacity": 8191
+      },
+      {
+        "live": 4096,
+        "request": 8192,
+        "capacity": 16381
+      },
+      {
+        "live": 8190,
+        "request": 16380,
+        "capacity": 16381
+      },
+      {
+        "live": 8191,
+        "request": 16382,
+        "capacity": 32749
+      },
+      {
+        "live": 16374,
+        "request": 32748,
+        "capacity": 32749
+      },
+      {
+        "live": 16375,
+        "request": 32750,
+        "capacity": 65521
+      },
+      {
+        "live": 32760,
+        "request": 65520,
+        "capacity": 65521
+      },
+      {
+        "live": 32761,
+        "request": 65522,
+        "capacity": 131071
+      },
+      {
+        "live": 65535,
+        "request": 131070,
+        "capacity": 131071
+      },
+      {
+        "live": 65536,
+        "request": 131072,
+        "capacity": 262139
+      },
+      {
+        "live": 131069,
+        "request": 262138,
+        "capacity": 262139
+      },
+      {
+        "live": 131070,
+        "request": 262140,
+        "capacity": 524287
+      },
+      {
+        "live": 262143,
+        "request": 524286,
+        "capacity": 524287
+      },
+      {
+        "live": 262144,
+        "request": 524288,
+        "capacity": 1048573
+      },
+      {
+        "live": 524286,
+        "request": 1048572,
+        "capacity": 1048573
+      },
+      {
+        "live": 524287,
+        "request": 1048574,
+        "capacity": 2097143
+      },
+      {
+        "live": 1048571,
+        "request": 2097142,
+        "capacity": 2097143
+      },
+      {
+        "live": 1048572,
+        "request": 2097144,
+        "capacity": 4194301
+      },
+      {
+        "live": 2097150,
+        "request": 4194300,
+        "capacity": 4194301
+      },
+      {
+        "live": 2097151,
+        "request": 4194302,
+        "capacity": 8388593
+      },
+      {
+        "live": 4194296,
+        "request": 8388592,
+        "capacity": 8388593
+      },
+      {
+        "live": 4194297,
+        "request": 8388594,
+        "capacity": 16777213
+      },
+      {
+        "live": 8388606,
+        "request": 16777212,
+        "capacity": 16777213
+      },
+      {
+        "live": 8388607,
+        "request": 16777214,
+        "capacity": 33554393
+      },
+      {
+        "live": 16777196,
+        "request": 33554392,
+        "capacity": 33554393
+      },
+      {
+        "live": 16777197,
+        "request": 33554394,
+        "capacity": 67108859
+      },
+      {
+        "live": 33554429,
+        "request": 67108858,
+        "capacity": 67108859
+      },
+      {
+        "live": 33554430,
+        "request": 67108860,
+        "capacity": 134217689
+      },
+      {
+        "live": 67108844,
+        "request": 134217688,
+        "capacity": 134217689
+      },
+      {
+        "live": 67108845,
+        "request": 134217690,
+        "capacity": 268435399
+      },
+      {
+        "live": 134217699,
+        "request": 268435398,
+        "capacity": 268435399
+      },
+      {
+        "live": 134217700,
+        "request": 268435400,
+        "capacity": 536870909
+      },
+      {
+        "live": 268435454,
+        "request": 536870908,
+        "capacity": 536870909
+      },
+      {
+        "live": 268435455,
+        "request": 536870910,
+        "capacity": 1073741789
+      },
+      {
+        "live": 536870894,
+        "request": 1073741788,
+        "capacity": 1073741789
+      },
+      {
+        "live": 536870895,
+        "request": 1073741790,
+        "capacity": 2147483647
+      },
+      {
+        "live": 1073741823,
+        "request": 2147483646,
+        "capacity": 2147483647
+      }
+    ],
+    "scope": "local event-to-representation transfers; source event counts remain required"
   },
   "string": {
     "lp64_header_offset_premise": 20,
