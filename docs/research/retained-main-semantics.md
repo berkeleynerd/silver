@@ -6,6 +6,8 @@ GNATprove semantic/light-expansion work. It supplies a source-counted bound on
 Main's allocated node identities, including entities and discarded syntax,
 for the producer's `A_Main` input. **It does not supply a complete frontend
 table/byte bound, whole-process bound or admission predicate.**
+The subsequent aggregate also closes Main's scalar range/comparison query
+invocations and their Uint/digit contribution under the stated source shapes.
 Native expansion is a separate process contribution; no production, proof,
 language, Oracle or tool-pin file changes here.
 
@@ -40,6 +42,7 @@ and `D_s`, `D_lit`, `D_alias`, `K_literal` from
 | `C_lib` | All admitted library calls: argument-bearing calls, Reject and Input_Is_Valid |
 | `N_ref` | Source occurrences of mutable object names, including assignment targets; all source identifier-token occurrences are a conservative alternative |
 | `D_copy <= D_s` | String declarations whose constant-name initializer is replaced by a literal copy; `D_s` is the conservative syntactic bound |
+| `N_assign` | Source assignments of either type; counting String assignments too conservatively covers every scalar assignment |
 
 `B_loop` is computed from recognized source, not a measured decorated tree.
 The static declaration classes can conservatively use `D_lit + D_alias <= D_s`.
@@ -261,9 +264,9 @@ recovery are outside this source shape. `sem_warn.adb` contains no syntax
 constructor or rewrite; its additional scalar comparisons use the same graph.
 
 Consequently these query paths add **zero ordinary-node identities**. They
-still need source-derived invocation, unfolded-expression and Uint charges for
-the complete table bound. This separation permits a syntax bound without
-pretending the numeric resource obligation has been discharged.
+receive source-derived invocation, unfolded-expression and Uint charges below.
+Those charges do not follow from the old 32-bit result premise: intermediate
+range estimates need a separate magnitude bound.
 
 ## Freeze, markers and the enclosing Main
 
@@ -392,12 +395,264 @@ the two terms intentionally overlap because they pay different allocations.
 Every counter can be obtained from recognized source. No measured tree size,
 runtime iteration count or selected safety margin enters this expression.
 
+## Scalar-query aggregate
+
+Keep `Optimization_Level=0` in addition to the phase premises above. This is
+the selected producer analysis configuration; it matters because the saved
+check optimizer in `Enable_Overflow_Check` and `Enable_Range_Check` is otherwise
+another query source (`checks.adb:6430–6455,6595–6620`). Counts below are
+**outermost helper invocations**: recursive calls inside Determine_Range or
+Compile_Time_Compare are already paid by their helper transfers and are not
+multiplied into the root count again. Warnings are allowed, so their query
+paths are charged even when disabled by a selected warning setting.
+
+Define these source-derived visit allowances:
+
+```text
+T_ar    = O + 2O_loop + 3F + R + 3D_lit.
+T_check = D + G + N_assign + H_len.
+Q_range = 6F + 3R + 3D_lit.
+```
+
+`T_ar` is the scalar arithmetic part of the earlier expression traversal:
+source operators, the two raw range copies, lower-root replay, and the two
+generated static String-range operators. Counting every source operator
+overcounts non-arithmetic operations. `T_check` covers source and captured
+object initializers, all assignments and a possible Length conversion. The
+capture declaration's local suppression can only reduce this allowance.
+
+| Reached source route | Range-query roots | Comparison-query roots |
+| --- | ---: | ---: |
+| Arithmetic/unary resolution | `2T_ar` | 0 |
+| Relational evaluation, including generated String equality and its warning | 0 | `2(O+U)` |
+| Range resolution, loop classification and range-check selection | 0 | `Q_range` |
+| Scalar initializer/assignment/conversion check | `T_check` | `2T_check` |
+| Constant declaration's optional subtype refinement | 0 | `2(D+G)` |
+| Length evaluation and conversion's overflow subtype test | 0 | `3H_len` |
+
+The source coverage for these rows is:
+
+- `Resolve_Arithmetic_Op`/`Resolve_Unary_Op` invoke Enable_Overflow_Check once
+  for a surviving operator (`sem_res.adb:6290–6448,12729–12934`). That helper
+  queries the root and may additionally query the operand of unary minus
+  (`checks.adb:6353–6414`). Division, abs, mod/rem restrictions and the
+  unparenthesized unary-product warning do not occur in the admitted grammar.
+- Eval_Relational_Op calls Compile_Time_Compare once through Fold_General_Op
+  and at most once through Warn_On_Constant_Valid_Condition/Test_Comparison
+  (`sem_eval.adb:3550,3622,7118`; `sem_warn.adb:3548–3647`). The native
+  exp_ch4 warning/optimizer is not active. String comparisons either compare
+  existing literal bytes or return Unknown before discrete range analysis
+  (`sem_eval.adb:1321–1420`); charging the scalar-query envelope for them is
+  conservative. Static_Length's direct arithmetic is separate below.
+- Resolve_Range makes at most `3F+R+D_lit` comparisons. Its final condition
+  evaluates the comparison **before** testing whether the parent is a subtype
+  declaration (`sem_res.adb:11277–11289`). Loop classification adds `2F`
+  (`sem_ch5.adb:3489–3490`). Process_Range_Expr_In_Decl adds at most
+  `F+R+D_lit` through Get_Range_Checks/Not_Null_Range; the final subtype
+  declaration compatibility checks add at most `R+D_lit`
+  (`sem_ch3.adb:6363–6378,15474–15497,20478–20761,22588–22734,23676–23707`;
+  `checks.adb:10994`). Their sum is Q_range. Source loops use N_Range, so
+  the five extra subtype-indication comparisons at `sem_ch5.adb:3598–3621`
+  are excluded. Static in-range declarations normally take the direct
+  value-comparison route, but that optimization is not required by the bound.
+- Apply_Scalar_Range_Check has at most one Determine_Range_To_Discrete and
+  one In_Subrange_Of (`checks.adb:3155–3503`). The former delegates once to
+  Determine_Range for these discrete expressions (`:6112–6127`); the latter
+  makes at most two comparisons (`sem_eval.adb:5323–5428`). Is_In_Range and
+  Is_Out_Of_Range use Test_In_Range, which does not recursively call these
+  allocating query helpers on the admitted signed-Integer types
+  (`:7354–7496`). Initializer and assignment callers are `sem_ch3.adb:4851`
+  and `sem_ch5.adb:1031`. The separate known-valid constant refinement is
+  the In_Subrange_Of call at `sem_ch3.adb:4826`.
+- Eval_Attribute.Length makes one comparison (`sem_attr.adb:9949`). A
+  surviving generated conversion has one overflow In_Subrange_Of and one
+  Apply_Scalar_Range_Check (`checks.adb:3810–3920`); the latter is already
+  in T_check. Resolve_Type_Conversion invokes that check once
+  (`sem_res.adb:12337–12476`); integer-to-integer Eval_Type_Conversion reads
+  its existing value, and its final range test uses Test_In_Range
+  (`sem_eval.adb:4178–4343`). The attribute range-check caller at
+  `sem_attr.adb:13613` is Val, not Length or Image.
+
+All admitted library actuals are String `in` parameters. Resolve_Actuals takes
+the array length-check branch, which returns before checking in light mode;
+its scalar and out/in-out branches are inapplicable (`sem_res.adb:4861–4911`).
+The other inspected direct query sites require a source indexing/slice,
+aggregate, power, qualified expression, real/fixed/modular type, address clause,
+Val/Range_Length attribute, discriminator or native expansion. The array-bound
+inspection in `sem_util.adb:8488` calls Is_Null_Range only after proving both
+bounds static, so it uses existing value comparisons rather than the query
+fallback. Main's freeze cases have no address clauses or array packing.
+
+Thus the root allowances are
+
+```text
+Q_R <= 2T_ar + T_check.
+Q_C <= 2(O+U) + Q_range + 2T_check + 2(D+G) + 3H_len.
+```
+
+Using only syntactic upper counts gives
+
+```text
+Q_R <= 2O + 4O_loop + 8F + 2R + 6D_s + D + N_assign + H_len.
+Q_C <= 2O + 2U + 14F + 3R + 3D_s + 4D + 2N_assign + 5H_len.
+```
+
+### Query graph and numeric magnitude from source
+
+The [range/comparison helper transfer](retained-native-expansion.md#scalar-range-analysis-and-comparison-transfer)
+requires a bound on each fully unfolded input tree, including the four
+type-bound roots which a comparison may query. Here that input is source
+derived; it is not an observed decorated-tree measurement. A sufficient bound
+is
+
+```text
+A_q = 3(A_Main+1).
+```
+
+To establish it, consider the extra edges followed by the helper:
+
+1. Ordinary scalar operands form syntax trees. The two raw loop copies and
+   relocations are already included in A_Main. Parenthesis metadata creates no
+   extra operand edge. Is_Same_Value recurses only through the existing
+   operand/prefix trees; Original_Node is inspected without recursively walking
+   an original tree (`sem_eval.adb:1078–1218`).
+2. Determine_Range follows an internally named constant's initializer before
+   consulting its cache (`checks.adb:5142–5163`). Main has only the captured
+   loop-bound constants in this class. A captured initializer is one source
+   scalar expression; source cannot name any captured constant. A source
+   reference to an outer loop index is an ordinary name, not a capture
+   initializer edge. Thus expansion of a capture root adds its already charged
+   initializer tree once; it cannot recursively unfold a chain of generated
+   captures or duplicate that initializer inside one expression tree.
+3. A Length query may revisit both index bounds (`checks.adb:5390–5440`).
+   Main's String types are static ordinary subtypes, literal subtypes or
+   Standard.String. Each index bound is already compile-time known and returns
+   before recursive range refinement. Charge two additional leaf visits for
+   every Length occurrence, including repeated visits to shared bound nodes.
+   Loop-bound syntax contains no Length, and captured bounds cannot introduce
+   one. This is at most two extra visits per Main syntax identity.
+4. Ordinary scalar names do not recursively range-analyze dynamic type bounds.
+   Determine_Range reads a known bound or the known Standard base bound
+   (`checks.adb:5215–5298`). A comparison can separately choose a type bound as
+   a new root, but the helper's at-most-four recursive comparisons already
+   account for those roots. A root from Standard is a known leaf. Source
+   constants are backward references; Expr_Value follows their finite
+   constant/literal chain without allocating numeric values
+   (`sem_eval.adb:4589–4684`).
+
+For any one rooted range tree, its ordinary/captured syntax therefore uses at
+most A_Main distinct identities, with at most two additional known leaves per
+Length. Standard roots add only a leaf. The deliberately looser `3(A_Main+1)`
+covers all those cases. There is no cache-hit premise and no multiplication by
+runtime loop iteration count. String comparisons do not enter the scalar
+graph. Type-bound/current-condition values are included in the scalar leaf
+magnitude below, even when they were not source literals.
+
+Let `b=max(32, Standard_Long_Long_Long_Integer_Size)` for the fixed target and
+`H=2^b`. Universal_Integer is built from that longest signed target type
+(`cstand.adb:1396–1407`). With the separate String representation conditions
+`length <= Int'Last` and the admitted 32-bit scalar rules, H covers every
+existing literal, static index bound, current-condition value and Standard
+scalar bound reachable by these queries. This includes universal-Integer
+Length contexts; using only 32-bit type bounds would be unjustified.
+
+Range refinement can still calculate values outside the runtime base range:
+it returns a disjoint computed interval without clipping it back
+(`checks.adb:5582–5605`). For an unfolded tree of n nodes, the helper's
+add/subtract, multiply, unary/conversion and Length magnitude recurrences are
+all bounded by `(2H+1)^n`. Each recursive edge decreases that tree size;
+the Length step `2*max(B1,B2)+1` and binary products satisfy the same bound.
+The comparison's offset/difference/unit-adjustment arithmetic is bounded by
+`2*(2H+1)^A_q+1`. Consequently this digit count is sufficient without
+constructing that large integer:
+
+```text
+k = ceil(((b+2)*A_q+2)/15).
+```
+
+The denominator is Uint's radix-32768 digit width. Since
+`2H+1 < 2^(b+2)`, the displayed exponent bounds the bit length of all query
+results and intermediates. It is intentionally conservative; a source-local
+range recurrence can be tighter without changing the caller coverage.
+
+### Closed query contribution and discrete subtype size calls
+
+Combine the root counts with the independently derived helper transfer:
+
+```text
+U_query <= 6A_q Q_R + (80A_q+60) Q_C.
+digit_words_query <= k U_query.
+maximum local arithmetic-vector words <= 5k+3.
+UI_Ints insertion events <= U_query.
+```
+
+The 80A_q term retains the generic helper's comparison-fixup allowance even
+though Main's shape proves those syntax/numeric fixups absent. It is harmless
+overcounting, and the separate **syntax contribution remains zero**. Local
+vector words are not whole-process stack bytes: recursive expression/value
+walks and surrounding compiler frames remain separate resource obligations.
+
+One further non-query family now has a source multiplicity. The only new
+signed scalar types are the `R` Integer object subtypes, `D_lit` static String
+index subtypes and `F` loop-index subtypes. Constrain_Integer/Constrain_Index
+each call Set_Discrete_RM_Size once (`sem_ch3.adb:15474–15497`); Make_Index
+copies its base layout (`:20729–20734`). Layout_Type can call the size helper
+once more on first freeze if RM_Size is not known (`layout.adb:370–378`).
+The earlier once-per-entity freeze argument therefore gives
+
+```text
+T_size <= 2R + 2D_lit + F.
+U_discrete_size <= 95T_size.
+digit_words_discrete_size <= 285T_size.
+```
+
+The [32-bit discrete-size helper transfer](retained-native-expansion.md#constrained-subtype-declaration-with-resolved-pure-bounds)
+uses at most 95 Uint appends/285 digit words per call, including cold power
+memo entries, and at most eight local digit words. All these subtypes have
+Integer bounds or use its base fallback, so its magnitude premise holds.
+String alias subtypes reuse their existing index; literal String subtype
+entities are not additional scalar index types. This closes this helper's
+contribution, not every layout operation.
+
+There is also a closed direct-evaluator subtotal. Each arithmetic visit adds
+at most two Uint entries: subtraction may negate and add, while addition,
+multiplication and unary minus need at most one result entry. Multiplication's
+`UI_From_Int(Num_Bits(left)+Num_Bits(right))` guard is included: both operands
+are already folded, admitted 32-bit values, so this value is at most 64 and
+uses Uint's direct representation (`sem_eval.adb:1971–2110,4351–4451`).
+The two static String-range arithmetic operators also have 32-bit bounds
+under the separate String representation conditions. Unknown expressions do
+not compute a scalar folding result. Integer-to-integer conversion folding,
+Boolean folds and Check_Non_Static_Context_For_Overflow only read existing
+values on the successful legality path (`:660–682,4178–4343`).
+
+One Eval_Relational_Op makes at most two Static_Length calls, each adding at
+most three Uint entries under Main's static/unconstrained String types
+(`sem_eval.adb:3654–3718,3753–3754`). One Length evaluation adds at most four
+direct arithmetic entries in addition to its comparison
+(`sem_attr.adb:9936–9966`). Thus
+
+```text
+U_eval <= 2T_ar + 6(O+U) + 4H_len.
+digit_words_eval <= 3U_eval.
+```
+
+These three disjoint families can be added:
+`U_query + U_discrete_size + U_eval`. Their ordinary Uint primitive result
+costs include discarded temporaries; no release/cache credit is required.
+Literal-subtype bookkeeping and remaining freeze size/alignment operations
+still need complete numeric caller/resource coverage. Scanner integer-token
+Uints are a separate existing component. The subtotal is therefore still
+explicitly **not the complete Main Uint bound**.
+
+## Remaining resource obligations
+
 Remaining whole-frontend obligations are:
 
-1. **Semantic query/mutation resource closure.** Establish complete invocation counts
-   for scalar range/constant comparisons, type layout and source folds from
-   all reached declaration/assignment/resolution helpers. Their Uint work
-   remains necessary despite zero additional syntax allocations in these queries.
+1. **Direct numeric helpers and mutations.** Connect literal/subtype and
+   remaining layout Uint work outside the closed query, discrete-size and
+   evaluator contributions above. These operations are not made free by the
+   query envelope.
    Keep overload tables, value caches and per-kind growing mutations distinct
    from node identities. One identity bound is not a slot-event bound.
 2. **Freeze/marker auxiliary storage.** Charge freeze-result lists, scope-stack
