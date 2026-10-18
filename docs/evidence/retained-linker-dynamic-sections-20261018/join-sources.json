@@ -1,0 +1,63 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "archive_sha256": "18a2100da38ac39b32faf7d91d6a4f3cfe8de30417d48ede5c1f03fa57188416",
+  "files": [
+    {
+      "path": "bfd/elf-vxworks.c",
+      "bytes": 9719,
+      "sha256": "a854b2fd3ef05389f95d8862b0e9e5911dc4cd9f3a905db19126b12ab32a6a1d"
+    },
+    {
+      "path": "ld/ldmain.c",
+      "bytes": 59325,
+      "sha256": "44beec50113fef013ed52b0f4755cdf90704d15819b4d76304dec4067b5ddec8"
+    },
+    {
+      "path": "ld/lexsup.c",
+      "bytes": 88366,
+      "sha256": "338937c9ec7057e5799b12f70a6f05d80b65e8b9fcbc94bedbf9d7c2ee77b212"
+    }
+  ],
+  "retained_inputs": [
+    {
+      "path": "retained-linker-layout-20261018/sources.json",
+      "bytes": 8303,
+      "sha256": "54489cc4f18723747c733510c39de9e5667ff39ef79f3b4e3e7bab86e7029ed0"
+    },
+    {
+      "path": "retained-linker-layout-20261018/sources.tar.gz",
+      "bytes": 590526,
+      "sha256": "dc2ddbb7584f37b05ada300faebb2bd754ea831a617b76e175c53c4f31a4d79c"
+    },
+    {
+      "path": "retained-linker-dynamic-sections-20261018/sources.json",
+      "bytes": 2114,
+      "sha256": "4ed03b193cadc8dc7ee5f59a9bdb9fd42aa102d52e16bc2715fb165699207533"
+    },
+    {
+      "path": "retained-linker-dynamic-sections-20261018/sources.tar.gz",
+      "bytes": 99027,
+      "sha256": "9f09fc111ee2434d6e1d0b0449a98e3e7050ed867b63c34e16f1fb3f44bbc8ba"
+    },
+    {
+      "path": "retained-link-inputs-20261018/inventory.json",
+      "bytes": 1404813,
+      "sha256": "2fafbbfb01202dc6bf06307d79155a3397cdb156f3cb4131eba8f17a784ec8a3"
+    },
+    {
+      "path": "retained-assembler-capacity-20261018/object-check-results.json",
+      "bytes": 1785,
+      "sha256": "e534dc4c33a8cb10473f58aea6e079ab794dd45fa2466430defc3b00005e2ab3"
+    },
+    {
+      "path": "retained-linker-symbols-20261018/input-symbol-results.json",
+      "bytes": 832,
+      "sha256": "326dcc3f1618b5b5f0deddc7184ab844e55643b68c919873ffd3088cef614900"
+    },
+    {
+      "path": "retained-linker-symbols-20261018/local-ifunc-results.json",
+      "bytes": 744,
+      "sha256": "984d46c5f6787218d25e4ee0a7e2934d677d8a068892f606fd42b94168cfbf77"
+    }
+  ]
+}

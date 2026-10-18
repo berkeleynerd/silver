@@ -1,0 +1,158 @@
+{
+  "scope": "Selected one-pass x86 GOT/PLT event join and .dynamic tags; binder symbolic",
+  "source_files_verified": 31,
+  "prior_input_identities_verified": 8,
+  "fixed_relocation_record_processing_bound": 546364,
+  "fixed_plus_Main_relocation_bound": 546645,
+  "event_joins": {
+    "K": "1",
+    "W": "<=H",
+    "L": "<=R",
+    "Q": "<=Trel",
+    "N0": "0"
+  },
+  "dynamic_relocation_list_bytes_per_record": 32,
+  "dynamic_relocation_list_record_count": "<=Trel",
+  "local_GOT_metadata_bytes_per_input": "18*local_symbol_count <= 18*R",
+  "late_payload": "184*H + 104*R + 24*Trel + 80",
+  "including_initial_GOT_and_copy_relocations": "208*H + 104*R + 24*Trel + 104",
+  "copy_symbol_storage_included": false,
+  "Main_substituted_payload": "64102152 + 728*R_binder + 416*Q_binder + 24*Trel_binder",
+  "sufficient_jump_count_condition": "H <= 536870911",
+  "caller_byte_and_counter_conditions_preserved": true,
+  "generic_size_dynamic_entry_sites": [
+    {
+      "line": 6994,
+      "tag": "DT_SONAME"
+    },
+    {
+      "line": 7578,
+      "tag": "DT_SYMBOLIC"
+    },
+    {
+      "line": 7594,
+      "tag": "tag"
+    },
+    {
+      "line": 7605,
+      "tag": "DT_FILTER"
+    },
+    {
+      "line": 7620,
+      "tag": "DT_AUXILIARY"
+    },
+    {
+      "line": 7632,
+      "tag": "DT_AUDIT"
+    },
+    {
+      "line": 7643,
+      "tag": "DT_DEPAUDIT"
+    },
+    {
+      "line": 7673,
+      "tag": "DT_INIT"
+    },
+    {
+      "line": 7685,
+      "tag": "DT_FINI"
+    },
+    {
+      "line": 7716,
+      "tag": "DT_PREINIT_ARRAY"
+    },
+    {
+      "line": 7717,
+      "tag": "DT_PREINIT_ARRAYSZ"
+    },
+    {
+      "line": 7723,
+      "tag": "DT_INIT_ARRAY"
+    },
+    {
+      "line": 7724,
+      "tag": "DT_INIT_ARRAYSZ"
+    },
+    {
+      "line": 7730,
+      "tag": "DT_FINI_ARRAY"
+    },
+    {
+      "line": 7731,
+      "tag": "DT_FINI_ARRAYSZ"
+    },
+    {
+      "line": 7746,
+      "tag": "DT_HASH"
+    },
+    {
+      "line": 7749,
+      "tag": "DT_GNU_HASH"
+    },
+    {
+      "line": 7750,
+      "tag": "DT_STRTAB"
+    },
+    {
+      "line": 7751,
+      "tag": "DT_SYMTAB"
+    },
+    {
+      "line": 7752,
+      "tag": "DT_STRSZ"
+    },
+    {
+      "line": 7753,
+      "tag": "DT_SYMENT"
+    },
+    {
+      "line": 7756,
+      "tag": "DT_GNU_FLAGS_1"
+    },
+    {
+      "line": 7777,
+      "tag": "DT_VERDEF"
+    },
+    {
+      "line": 7778,
+      "tag": "DT_VERDEFNUM"
+    },
+    {
+      "line": 7784,
+      "tag": "DT_FLAGS"
+    },
+    {
+      "line": 7789,
+      "tag": "DT_BIND_NOW"
+    },
+    {
+      "line": 7799,
+      "tag": "DT_FLAGS_1"
+    },
+    {
+      "line": 7807,
+      "tag": "DT_VERNEED"
+    },
+    {
+      "line": 7808,
+      "tag": "DT_VERNEEDNUM"
+    },
+    {
+      "line": 7927,
+      "tag": "DT_VERSYM"
+    },
+    {
+      "line": 8205,
+      "tag": "DT_NULL"
+    }
+  ],
+  "generic_add_dynamic_tags_literal_sites": 14,
+  "x86_extra_dynamic_tag_sites": 3,
+  "DT_NEEDED_attempt_upper": 22,
+  "spare_NULL_slot_upper": 9,
+  "dynamic_tag_count_upper": 77,
+  "dynamic_tag_record_bytes": 16,
+  "dynamic_table_bytes_upper": 1232,
+  "whole_link_capacity_established": false,
+  "native_execution": false
+}

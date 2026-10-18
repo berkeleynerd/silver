@@ -16,3 +16,15 @@ The report gives the manual path argument. Its event inputs and complete
 layout join remain open. In particular, ELF64 output fields do not widen
 the unsigned32 `reloc_count * got_entry_size` intermediate. No compiler,
 assembler, linker, prover or large allocation was run for this derivation.
+
+`check-join.py` adds the selected one-pass source-to-event projection for
+GOT/PLT and dynamic relocation sizing, plus the fixed `.dynamic` tag bound.
+It reuses the section/header and original sizing source capsules, adds three
+complete sources, and checks the exact prior input identities:
+
+```sh
+python3 docs/evidence/retained-linker-dynamic-sections-20261018/check-join.py --output /tmp/dynamic-join.json
+```
+
+Binder terms, copied-symbol bytes, later relocation values and other linker
+storage remain explicit. No native tool executes.
