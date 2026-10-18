@@ -88,6 +88,23 @@ pointer request is 65528 bytes; the descriptor example's joined notes chunk
 bound is 65769. The actual production argument/path join, non-hash startup,
 expression/parser subsidiary storage and BFD backing remain separate.
 
+The [installed SFrame default join](../../research/retained-assembler-capacity.md#selected-installed-sframe-default)
+retains the selected assembler's ELF startup fields and the regions needed
+to reread them. `flag_gen_sframe=0`, `cfi_sections=1` and
+`all_cfi_sections=0`, together with the selected argv and emitted null-unit
+directives, exclude SFrame in that invocation. The prior optional union is
+unchanged. The final link's fixed and generated inputs remain separate.
+
+```sh
+python3 docs/evidence/retained-assembler-capacity-20261018/check-defaults.py \
+  --installed --output /tmp/retained-assembler-defaults-check.json
+```
+
+Without `--installed`, the checker uses retained ELF regions only. With it,
+the full pinned executable is also hashed and each region is re-extracted.
+Neither mode executes the assembler. The new execution is limited to
+reading bytes, hashing, source guards and arithmetic.
+
 No compiler, assembler, linker, solver, Lean build, test suite or near-limit
 allocation ran for this evidence. Source retrieval, hashing and arithmetic
 checks were the only new execution.

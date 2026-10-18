@@ -239,6 +239,11 @@ inter-section padding still require the output-inventory join.
 
 ## Selected fragment and obstack growth
 
+The optional-output union above remains the conservative input to the
+fragment, symbol and ELF-object bounds. The later
+[installed-default join](#selected-installed-sframe-default) can exclude
+SFrame for its narrower selected invocation without invalidating that union.
+
 GAS uses the same version-2 `include/obstack.h` and `libiberty/obstack.c`
 bytes as the pinned GCC sources. The [individual-object obstack
 transfer](retained-backend-obstacks.md) therefore applies with GAS's actual
@@ -568,6 +573,43 @@ request bounds. The shared notes obstack has other users, including file/path
 metadata and fixed startup tables. Its chunk composition, allocator overhead,
 BFD output metadata and final object layout are still separate obligations;
 the small requests above do not silently close those obligations.
+
+## Selected installed SFrame default
+
+A later read-only ELF inspection identifies the actual selected assembler's
+startup state, without running it. The retained
+[default-field record](../evidence/retained-assembler-capacity-20261018/installed-defaults.json)
+uses the assembler path selected in the earlier linker-tool descriptor and
+pins the entire 9,792,824-byte executable by SHA256
+`d3619db5dcbcc59a6057a832bab523c9a79b1adcd5c8e98ad52307e4d742186e`.
+Its ELF header, section headers, complete symbol table/name table and four
+initialized data bytes are retained for an offline replay. The installed
+recheck hashes the full executable and matches every retained region.
+
+| Startup field | ELF storage | Initial value |
+| --- | --- | ---: |
+| `flag_gen_sframe` | four bytes in zero-initialized `SHT_NOBITS` | 0 |
+| `cfi_sections` | initialized bytes `01 00 00 00` | 1 |
+| `all_cfi_sections` | four bytes in zero-initialized `SHT_NOBITS` | 0 |
+
+The pinned source maps value 0 to `GEN_SFRAME_DEFAULT_NONE`, and mask value 1 to
+`CFI_EMIT_eh_frame` (`gas/as.h:365–379`, `gas/dw2gencfi.h:250–254`). The
+normal CFI start merges `cfi_sections` into `all_cfi_sections`
+(`gas/dw2gencfi.c:424–426,492–494`). The selected assembler argv has no
+`--gsframe`/`--gsframe-3` enabling option, and the derived null Main output
+has no `.cfi_sections` directive requesting `.sframe`. Consequently its
+SFrame output guard is false (`gas/as.c:1056–1073`,
+`gas/dw2gencfi.c:2598–2606`). This uses the unchanged-source behavior premise
+as well as the read binary values; an ELF field observation alone does not
+prove every later control-flow path.
+
+For this exact selected invocation, no SFrame section/rows/relocations are
+produced. The earlier optional union remains valid for capacity accounting.
+This does not yet exclude SFrame from the final link: fixed inputs and the
+generated binder must independently satisfy their own input/invocation
+joins. A changed assembler binary or added enabling option requires
+re-establishing this narrower premise. No toolchain execution or setting
+change was used to obtain it.
 
 ## Remaining composition
 

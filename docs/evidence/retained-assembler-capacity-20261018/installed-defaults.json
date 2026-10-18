@@ -1,0 +1,75 @@
+{
+  "scope": "Installed assembler startup fields read from ELF, no execution",
+  "selected_tools_sha256": "5e3bebd6eae1c5031712cf4f74cec61a9cfbeeb6ebaca664a6642523e737da6b",
+  "binary_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/x86_64-pc-linux-gnu/bin/as",
+  "binary_bytes": 9792824,
+  "binary_sha256": "d3619db5dcbcc59a6057a832bab523c9a79b1adcd5c8e98ad52307e4d742186e",
+  "archive_sha256": "f7a4b38cd07614cac3d37d06c29f399a0e52182ce76fc1614b3283127253b99d",
+  "regions": [
+    {
+      "member": "elf-header.bin",
+      "file_offset": 0,
+      "bytes": 64,
+      "sha256": "ebaa6901175e8bb49ba2cca7444b8bc5be36c45cd37a96353ddb414eae9cdcf6"
+    },
+    {
+      "member": "section-headers.bin",
+      "file_offset": 9790200,
+      "bytes": 2624,
+      "sha256": "8134038517a8d89b4678eb1931f13334f662cfb8f7289afdbfda6304d72fc044"
+    },
+    {
+      "member": "symbols-38.bin",
+      "file_offset": 9616632,
+      "bytes": 98808,
+      "sha256": "0f73b55c47a93b54ebe0b8f193bcea1f5261794daf3627cb3392e1f7436106bd"
+    },
+    {
+      "member": "symbol-names-38.bin",
+      "file_offset": 9715440,
+      "bytes": 74363,
+      "sha256": "02c3f9f77d1e57324b988c72fcef8369279fcf32191e5c79037a32cc21e7dff7"
+    },
+    {
+      "member": "cfi_sections.bin",
+      "file_offset": 2253968,
+      "bytes": 4,
+      "sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450"
+    }
+  ],
+  "fields": [
+    {
+      "name": "cfi_sections",
+      "symbol_table_index": 38,
+      "symbol_index": 882,
+      "section_index": 27,
+      "section_type": 1,
+      "symbol_value": 2258064,
+      "symbol_bytes": 4,
+      "file_offset": 2253968,
+      "initial_bytes_hex": "01000000"
+    },
+    {
+      "name": "flag_gen_sframe",
+      "symbol_table_index": 38,
+      "symbol_index": 3537,
+      "section_index": 28,
+      "section_type": 8,
+      "symbol_value": 2294920,
+      "symbol_bytes": 4,
+      "file_offset": null,
+      "initial_bytes_hex": "00000000"
+    },
+    {
+      "name": "all_cfi_sections",
+      "symbol_table_index": 38,
+      "symbol_index": 3999,
+      "section_index": 28,
+      "section_type": 8,
+      "symbol_value": 2295448,
+      "symbol_bytes": 4,
+      "file_offset": null,
+      "initial_bytes_hex": "00000000"
+    }
+  ]
+}
