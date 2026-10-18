@@ -679,6 +679,111 @@ nonoverlapping function ranges and relocation targets. The fixed EH evidence
 does not establish those semantics. SFrame has its own format, merger and
 late writer; the EH transfer does not cover it.
 
+## Copy storage and optional-section joins
+
+The [copy/optional checker](../evidence/retained-linker-layout-20261018/check-copy-optional.py)
+joins the fixed symbol-size census to Main's emission bound and the accepted
+binder object-shape transfer. For each input symbol record, charge its ELF
+`st_size` four times. `_bfd_elf_merge_symbol` can assign that size once
+(`bfd/elflink.c:1724–1741`); its ordinary input call and the two default-version
+alias calls give at most three assignments per record
+(`elflink.c:2027–2029,2186–2188,5326–5330`). The ordinary loop can additionally
+assign the same input size at `elflink.c:5580–5601`. The other positive-size
+branch is COMMON (`elflink.c:5610–5611`), absent from all fixed inputs, the
+selected Main stream and the accepted binder transfer.
+
+New ELF hash entries initialize `size` to zero (`elflink.c:8240–8242`). The
+generic and x86 indirect-copy hooks transfer flags, lists and counters without
+copying `size` (`elflink.c:8257–8336`, `bfd/elfxx-x86.c:3143–3186`). The warning
+wrapper copies only the base `bfd_link_hash_entry`, leaving the newly constructed
+ELF size zero (`bfd/linker.c:1839–1849`). As-needed rollback restores old entries
+and removes new ones; it does not leave two live sized entries for the restored
+one (`elflink.c:5834–5893`). Consequently the sum of surviving positive sizes is
+bounded by the fourfold charge across input-processing occurrences, including
+the previously retained extra loader processing allowance.
+
+Dynamic adjustment sets `dynamic_adjusted` before weak-alias recursion, so
+each global entry reaches its backend adjustment at most once
+(`elflink.c:3329–3379`). An x86 weak alias reuses the definition's location and
+returns before allocating storage (`elfxx-x86.c:3525–3542`). The copy path chooses
+`.dynbss` or `.data.rel.ro`, then calls the generic copy allocator
+(`elfxx-x86.c:3592–3639`). That allocator starts with the defining section's
+alignment, only reduces it according to the symbol address, aligns the current
+size once and adds `h->size` (`elflink.c:3413–3440`). Original definitions have
+alignment at most 64; already copied definitions preserve that bound. Thus, if
+`H` bounds the processed global ELF hash entries,
+
+```text
+Copy <= 4 SumSizes + 63 H.
+```
+
+Fixed `SumSizes` is 8,850,737. Main's sole emitted `.size` describes its
+26-byte function. Empty BFD symbols start at zero and the ordinary ELF writer
+preserves their size (`bfd/elf.c:9793,8882`); GAS resolves the size expression
+and can copy sizes between symbols (`gas/config/obj-elf.c:2598–2603,2104–2111`).
+Charge every one of Main's at most 98 outgoing symbols 26 bytes, rather than
+assuming only one is nonzero: `SumSizes_Main <= 2,548`. The accepted binder
+transfer contributes 11,766. Therefore
+
+```text
+SumSizes <= 8,865,051
+Copy     <= 35,460,204 + 63 H.
+```
+
+The component is 49,388,748 bytes when the external symbol join supplies
+`H <= 221,088`. This is a conditional substitution, not a new independent
+derivation of `H`. Add the entire copy-storage bound to both `B` and `Bfile`;
+that is conservative for the NOBITS portion. Copy relocation bytes `24 H`
+remain a separate synthetic-relocation charge. This establishes storage and
+alignment bounds, not the absence of protected-copy diagnostics or relocation
+range errors.
+
+The selected `collect2` argv contains no `--build-id` or `--package-metadata`.
+Their state starts as null globals (`ld/ldelf.c:52–56`), and their positive
+setters are the explicit option handlers (`ld/emultempl/elf.em:859–880`).
+The `sha1` spelling at `elf.em:849` is the default argument of an enabled
+build-id option, not unconditional enablement. The after-open creation gate
+requires a nonnull value (`ldelf.c:1264–1287`). Both new payload contributions
+are therefore zero. Existing input notes are already charged in original
+payload and are not excluded by this statement.
+
+The selected interpreter override is `/lib64/ld-linux-x86-64.so.2`, 28 bytes
+including NUL. The earlier x86 default `/lib/ld64.so.1` is shorter
+(`elfxx-x86.c:29,750–751,4732–4734`), and the late override assigns its exact
+string length (`ldelf.c:1846–1855`). A 28-byte, alignment-one per-item maximum
+covers both phases; it is added once to `B` and `Bfile`.
+
+There are no fixed input SFrame names or types. Main's pinned assembler
+defaults and selected stream leave the SFrame gate false; the binder transfer
+has no SFrame section. The x86 PLT constructor requires an actual input
+`.sframe` section (`elfxx-x86.c:4836–4839`; the scan is
+`bfd/elf-sframe.c:178–189`), so it creates no synthetic SFrame inputs. The later
+mapped-input predicate stays false (`elf-sframe.c:199–212`), and the final
+encoder returns when its merged section is null (`elf-sframe.c:709–715`).
+Thus SFrame contributes no input/synthetic payload or encoder backing requests.
+An empty `.sframe` output declaration in the default script does not invalidate
+this result; this is not a claim that no output-section declaration exists.
+
+The checker separately verifies absence of fixed `.ctf` names, including
+empty sections; zero byte totals alone would not suffice. Main emits none,
+and the binder section inventory has none. `ctf_bfdopen` returns
+`ECTF_NOCTFDATA` before reading section contents when `_CTF_SECTION` is absent
+(`libctf/ctf-open-bfd.c:50–64`; its `.ctf` spelling is
+`libctf/ctf-open.c:35`). `ldlang_open_ctf` therefore leaves `ctf_output` null,
+and both merge and write return (`ld/ldlang.c:3840–3869,3897,3990`). CTF output
+payload is zero. The libctf initialization/debug call is not excluded from
+ordinary process bookkeeping by this payload argument.
+
+Fixed, Main and binder inputs also have no object-attribute sections. The
+selected x86 backend retains null GNU-property/attribute translation hooks
+(`bfd/elfxx-target.h:569–573`), and has no frozen object-attribute configuration
+writer. The input search returns a candidate with no attributes
+(`bfd/elf-attrs.c:712–792`); the null translation hooks return immediately
+(`elf-attrs.c:824–847`), and the empty merge leaves its lists empty
+(`elf-attrs.c:1991–2032`). Setup then returns before creating a section
+(`elf-attrs.c:2153–2183`). Object-attribute output payload is zero. Empty-list
+bookkeeping remains outside this zero-payload claim.
+
 ## Main substitution and residual work
 
 Substitute only the source-derived Main object envelope:

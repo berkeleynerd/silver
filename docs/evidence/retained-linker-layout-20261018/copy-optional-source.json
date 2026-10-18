@@ -1,0 +1,17 @@
+{
+  "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
+  "files": [
+    {
+      "path": "libctf/ctf-open.c",
+      "archive": "copy-optional-ctf-open.c.gz",
+      "bytes": 63250,
+      "sha256": "96b2f36a214cf28222989432fb26859c217d67b77d59a32c90a8556536bd05b6"
+    },
+    {
+      "path": "libctf/ctf-open-bfd.c",
+      "archive": "copy-optional-ctf-open-bfd.c.gz",
+      "bytes": 10706,
+      "sha256": "fa443283e933371e6ef90035dfeda58badd441e75a7ba00f126fd699ae9489c2"
+    }
+  ]
+}

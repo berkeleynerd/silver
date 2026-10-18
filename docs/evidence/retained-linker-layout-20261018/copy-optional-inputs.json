@@ -1,0 +1,50 @@
+[
+  {
+    "key": "fixed",
+    "path": "docs/evidence/retained-linker-layout-20261018/fixed-payload-results.json",
+    "bytes": 20310,
+    "sha256": "c0b09d6839e9da2a4c71ee25ff96eb24fd2827eea1c4daac918baff4c3d0e6c3"
+  },
+  {
+    "key": "binder",
+    "path": "docs/evidence/retained-binder-capacity-20261018/result.json",
+    "bytes": 277437,
+    "sha256": "fa22e21ffa975702d7913365a5c96d7cecb494e83d090d7afd42acdbd62b088b"
+  },
+  {
+    "key": "assembler",
+    "path": "docs/evidence/retained-assembler-capacity-20261018/check-results.json",
+    "bytes": 5622,
+    "sha256": "a0cf4524ceb9a7549f8a0b429dc5126411536453bdc8c159a12422055e330008"
+  },
+  {
+    "key": "object",
+    "path": "docs/evidence/retained-assembler-capacity-20261018/object-check-results.json",
+    "bytes": 1785,
+    "sha256": "e534dc4c33a8cb10473f58aea6e079ab794dd45fa2466430defc3b00005e2ab3"
+  },
+  {
+    "key": "defaults",
+    "path": "docs/evidence/retained-assembler-capacity-20261018/defaults-check-results.json",
+    "bytes": 652,
+    "sha256": "c45ea859e42fe3484091f433e56ffefa06dc5880a3c684cd1a662a8d8f7e3a9e"
+  },
+  {
+    "key": "inventory",
+    "path": "docs/evidence/retained-link-inputs-20261018/inventory.json",
+    "bytes": 1404813,
+    "sha256": "2fafbbfb01202dc6bf06307d79155a3397cdb156f3cb4131eba8f17a784ec8a3"
+  },
+  {
+    "key": "gas_manifest",
+    "path": "docs/evidence/retained-assembler-capacity-20261018/source-manifest.json",
+    "bytes": 26574,
+    "sha256": "ba419a22a6a1ccad3bc8c8ef5d6f4dabeefd71b832ace587413a882719423200"
+  },
+  {
+    "key": "gas_archive",
+    "path": "docs/evidence/retained-assembler-capacity-20261018/sources.tar.gz",
+    "bytes": 1078980,
+    "sha256": "b0b66f685b1d4a3f0a0a48277563d843aa2399a25c7a1389febce0d0035519f6"
+  }
+]

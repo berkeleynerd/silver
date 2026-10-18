@@ -143,3 +143,34 @@ all output relocation-count branches, the nonrelocatable constructor-set
 guard, output private-data copying, and section-number assignment. It
 accepted the conditional dynamic-index transfer; binder substitution and
 whole-link capacity remain separate.
+
+`check-copy-optional.py` joins fixed symbol sizes, Main's source-derived
+symbol/function envelope, and the accepted binder object-shape transfer.
+`copy-optional-inputs.json` pins all prerequisite records and the assembler
+source archive; `copy-optional-source.json` pins two additional complete CTF
+sources. The checker rehashes 108 source files, 15 installed fixed input files
+and 1,161 archive members. It also checks absent optional section names, which
+cannot be inferred from zero byte totals alone.
+
+```sh
+python3 docs/evidence/retained-linker-layout-20261018/check-copy-optional.py --output /tmp/retained-copy-optional-replay.json
+```
+
+During integration, `--prior-repo` can point to the worktree containing the
+accepted prerequisite records, and `--binder-repo` can independently point to
+the binder worktree. All consumed record identities remain pinned.
+
+The resulting copy-storage component is `35,460,204 + 63 H` bytes with
+alignment at most 64, where `H` is the separately established global hash-entry
+bound. It must be added in full to both logical and file-backed envelopes;
+copy relocation records remain separate. Interpreter payload is at most 28
+bytes, with no new build-id/package note, SFrame, CTF or object-attribute
+payload. Existing notes remain in original input bytes. These payload
+statements do not exclude generic initialization or empty-list bookkeeping.
+
+Independent narrow review accepted the copy-size lineage, four assignments
+per original record, alias/warning/rollback handling and once-per-entry dynamic
+adjustment/alignment arguments, and replayed the copy arithmetic byte-equal.
+A second source review confirmed the CTF/attribute early-return paths. Neither
+review claims complete linker capacity or relocation legality. No native
+compiler, assembler, linker, prover or Lean execution was added by this packet.
