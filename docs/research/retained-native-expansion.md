@@ -66,6 +66,83 @@ exactly `n` times. `Get_Known_Bound` visits at most `r` successively larger
 indices. The assignment loop visits at most `r` entries. These compile-time
 counts do not depend on an enclosing program loop's runtime trip count.
 
+### Main source-to-emitter multiplicity
+
+For the admitted Main grammar under the native options above, the surviving
+concat tree can be related to source operators. This does not extend to the
+broader fixed runtime sources or to backend transformations.
+
+The source parents that can contain a String constructor are an object
+initializer, assignment value, equality operand, output actual or another
+String constructor. The first input call takes only a literal. The native
+paths resolve the actual child before the parent's expansion:
+
+| Source position | Relevant source path |
+| --- | --- |
+| Object initializer | `sem_ch3.adb:4701,4748` analyzes/resolves E before initialization expansion |
+| Assignment value | `sem_ch5.adb:790` resolves the String RHS; later access-type reanalysis branches do not apply |
+| Equality/inequality operand | `sem_res.adb:9143–9144` resolves both String operands before comparison expansion |
+| Output actual | `sem_res.adb:4480–4498,4651` resolves A, optionally after establishing a transient scope |
+| Concat operand | `sem_res.adb:10570–10618,10625–10764,10804–10834` walks the left spine and resolves each other operand |
+
+No source declaration/default/specification expression contains another
+Main declaration or body, and there is no generic instantiation, frontend
+inlining, target-name assignment or author conditional String expression.
+The admitted ordinary declaration/assignment/equality/call semantic paths
+do not make a pre-resolution deep copy of a raw String constructor.
+`Resolve_Actuals`' deep default-argument copy is for an omitted library default
+(`sem_res.adb:3985–3995`), not a supplied Main String actual; admitted calls
+supply all their arguments. Source for-range preanalysis copies only scalar
+ranges (`sem_ch5.adb:3207–3255`), which cannot contain String expressions.
+The separate Main light-mode inventory independently confirms these shared
+semantic source-parent observations; native costs still require the native
+expansion argument here.
+
+After child resolution, the current value is a literal, ordinary name or
+the normalized Image/concat view described below. `Resolve` calls expansion
+before returning (`sem_res.adb:3574–3605`); already analyzed roots return at
+2547. `Expand` sets Analyzed before transient wrapping to prevent recursive
+expansion of the moved node (`expander.adb:530–534`). Subsequent side-effect
+captures and check copies use this current value. They do not traverse the
+saved Original_Node as current syntax. The zero-macro-replay result below
+excludes restoration through source String renamings. Current-value
+replacement is also not such a route: `Expand_Current_Value` requires a
+discrete type (`exp_ch2.adb:124–144`) and does not replace String objects.
+Semantic folding can replace a constant String read with a literal, which
+adds no concat or Image constructor.
+
+Admitted if/for statements do not replicate their raw bodies. Ordinary for
+loops analyze their statement list; their native Integer expansion has no
+body cloning (`sem_ch5.adb:4227–4300`, `exp_ch5.adb:5841–6129`). Enumeration
+representation, iterator-filter, predicate and Loop_Entry rewrites are absent.
+If expansion removes or moves already analyzed branch lists and conditions
+(`exp_ch5.adb:4767–5017`); it does not unroll them into raw expression copies.
+Controlled-object handling does not introduce constructors for ordinary
+Integer/String objects. Runtime trip counts therefore do not multiply
+frontend concat expansions.
+
+The native concat/Image emitters themselves construct no new `N_Op_Concat`
+or Integer Image expression in Main: they return the normalized forms and
+generate scalar helpers, runtime calls and assignments. The concat debug
+tree-copy branch is disabled (`exp_ch4.adb:8069–8088`). Fixed imported
+contracts/defaults and runtime-unit processing are separately charged; they
+do not substitute unresolved Main actuals or inline Main source bodies.
+
+Consequently, for **c source `&` operators**, native Main has
+
+```text
+g <= c
+sum_i (n_i - 1) <= c
+sum_i n_i <= 2*c.
+```
+
+Parser/semantic folding can only reduce these counts. For any nonnegative
+per-invocation linear vector `p*n+q`, the Main aggregate is therefore at most
+`(2*p+q)*c`, with zero calls when c=0. This closes the direct emitter's
+source multiplicity, including the direct-copy vector below. It does not
+bound the number or cost of every generated semantic helper, numeric query,
+freeze, contract or runtime-unit action.
+
 ## Direct event envelope
 
 The following charges include constructors, shallow `Convert_To` copies,
@@ -909,8 +986,9 @@ graph from an arbitrary admitted source program. Its expressions have signed
 Integer-family types, literals/names, unary plus/minus, binary `+`, `-`, `*`,
 discrete conversions, scalar conditional expressions, and ordinary String
 `First`, `Last` and `Length` attributes. There are no modular, real, generic,
-discriminant, representation, descriptor, Interfaces-array or expression-action
-cases. Every compile-time-known expression, including a queried scalar-type
+discriminant, representation, descriptor or Interfaces-array cases. A captured
+scalar expression-with-actions may occur as an unrefined leaf, as explained
+below. Every compile-time-known expression, including a queried scalar-type
 bound, reduces to an existing literal or finite constant-name chain. Unknown subtype bounds
 have the usual existing Standard Integer fallback. Current-value conditions
 are well-typed scalar comparisons, so the Boolean-variable special case in
@@ -951,6 +1029,17 @@ Uints. The selected String types avoid `Half_Address_Space`. A conditional
 expression is not recursively range-refined by this implementation; it uses
 the type bounds. Traversal before the cache, static value queries and cache
 updates allocate no syntax or numeric values under the stated shape.
+
+This transfer also covers an internal scalar constant whose already analyzed
+initializer is an expression-with-actions. `Determine_Range` follows the
+initializer, then takes its ordinary unrefined `when others` case
+(`checks.adb:5557–5560`); it does not analyze or visit the actions. Such an EWA
+is not compile-time-known. `Compile_Time_Compare` returns Unknown immediately
+when an exposed EWA fails `Cannot_Raise_Constraint_Error`
+(`sem_util.adb:2409–2542`), while the inner `Is_Same_Value` walk has no EWA
+recursion branch. Count that EWA as one leaf in the query graph. Its existing
+construction/analysis costs remain separate; this extension does not copy or
+reanalyze its action list and does not change the allocation formulas.
 
 One complete `Compile_Time_Compare` query then has the sufficient envelope
 
@@ -2565,8 +2654,9 @@ The following missing addends prevent calling the native construct closed:
   explicit `Freeze_Itype`, up to two runtime-availability and two runtime-entity
   lookups, final analysis, value/comparison helpers and conditional error path.
   Dependency sharing requires a cache invariant.
-- Bound generated/reanalysis multiplicity before replacing expanded-tree `a`
-  with the source `&` count.
+- Bound each remaining generated semantic-helper invocation. The direct native
+  Main emitter multiplicity is now source-bounded; runtime library processing
+  and additional generated-helper work remain separate.
 - Cover caller arithmetic: `List_Length`, `NN`, and the final `J := J+1`
   increment must fit `Nat`, requiring `n+1` to fit. Seven local arrays have
   bounds `1..n` or `0..n` (`exp_ch4.adb:2598–2621`); lengths and representation

@@ -83,6 +83,16 @@
     "libgnat/s-conca9.ads": "de221b475f840622c0716012177f93d390380bf7c59af4445633f1dba4eb2bd5"
   },
   "scope": "native String concat direct emitter and specified primitive helpers; not transitive closure",
+  "Main_source_to_direct_emitter_multiplicity": {
+    "premises": "admitted Main grammar, all source arguments explicit, no generic/frontend inlining/target names/String conditional; native child resolution before parent expansion; normalized value copies; ordinary backend renaming flagFalse; no concat debug wrapping",
+    "source_concat_operators": "c",
+    "emitter_calls": "g<=c",
+    "sum_n_minus_one": "<=c",
+    "sum_n": "<=2*c",
+    "linear_per_call_composition": "p*n+q becomes at most(2*p+q)*c for p,q>=0",
+    "source_runtime_loop_trip_count_multiplier": 1,
+    "excluded": "fixed runtime sources/defaults/contracts; total semantic helper invocations; numeric A; transient placement/freezing; backend"
+  },
   "ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers": {
     "rows": [
       {
