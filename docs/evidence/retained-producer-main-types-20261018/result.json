@@ -1,0 +1,77 @@
+{
+  "source_files": 27,
+  "module_profiles": {
+    "_gnatprove_standard.mlw:Main": {
+      "bytes": 3561,
+      "sha256": "1115c0d076fdee145f23313b94098e45d2e90f98d7d50e6bc5a4b7c36cf80d4d",
+      "match_keywords": 0,
+      "invariant_keywords": 0,
+      "type_declaration_lines": [
+        "  type __type_of_heap",
+        "  type __type_of_heap__ref = { mutable __type_of_heap__content [@model_trace:] : __type_of_heap }",
+        "  type __image",
+        "  type int__ref  = { mutable int__content [@model_trace:]  : int  }",
+        "  type bool__ref = { mutable bool__content [@model_trace:] : bool }",
+        "  type __fixed__ref = { mutable __fixed__content [@model_trace:] : __fixed }",
+        "  type real__ref = { mutable real__content [@model_trace:] : real }",
+        "  type __private__ref = { mutable __private__content [@model_trace:] : __private }"
+      ]
+    },
+    "_gnatprove_standard.mlw:Array__1": {
+      "bytes": 10216,
+      "sha256": "ba57071ef4430e5671a57cee615170d9c9d21c2c70153c42f5465595c54e97b3",
+      "match_keywords": 0,
+      "invariant_keywords": 0,
+      "type_declaration_lines": [
+        "\n  type component_type",
+        "\n  type map",
+        "\n  type map__ref = { mutable map__content [@model_trace:] : map }"
+      ]
+    },
+    "ada__model.mlw:Index_Type": {
+      "bytes": 1408,
+      "sha256": "84d0403d80f56d530711b13e266ccde00b32ec58d94f17dd0dab1a733f6dc94b",
+      "match_keywords": 0,
+      "invariant_keywords": 0,
+      "type_declaration_lines": [
+        "  type base",
+        "  type rep",
+        "  type t = {rec__first : base;"
+      ]
+    },
+    "ada__model.mlw:Unconstr_Array": {
+      "bytes": 3567,
+      "sha256": "9188a3b2346fd062ccc76500a34f9d6147dc938991ac40c9f6e473fa73c48eec",
+      "match_keywords": 0,
+      "invariant_keywords": 0,
+      "type_declaration_lines": [
+        "  type map",
+        "\n  type index_base_type",
+        "  type index_rep_type",
+        "    type      base          = index_base_type,",
+        "    type      rep           = index_rep_type,",
+        "  type __t [@syntax:array:elts] ="
+      ]
+    },
+    "ada__model.mlw:Constr_Array": {
+      "bytes": 1505,
+      "sha256": "7cb7fa9d673a6803c127e1129910776f0b43f350167b0897016d461abb63384f",
+      "match_keywords": 0,
+      "invariant_keywords": 0,
+      "type_declaration_lines": [
+        "  type index_rep_type",
+        "  type map",
+        "\n  type __t = map"
+      ]
+    },
+    "bool.mlw:Bool": {
+      "bytes": 638,
+      "sha256": "730e0f3d8393a3d91c0430e4f2b3a21d5d0f888d8a9418900653588935cf47f1",
+      "match_keywords": 5,
+      "invariant_keywords": 0,
+      "type_declaration_lines": []
+    }
+  },
+  "native_executions": 0,
+  "scope": "Source identities and selected literal/module facts only; type flags and reachability are source-reviewed arguments; no whole-process size closure"
+}

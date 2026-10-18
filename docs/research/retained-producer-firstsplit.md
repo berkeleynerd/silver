@@ -256,3 +256,8 @@ case. A sufficient no-case frontier can exclude that eligible body shape,
 or prove its elimination for each allowed argument shape; this record
 does neither globally. The conditional transfer closes the splitter's
 arithmetic interface without concealing this source dependency.
+
+The subsequent [ordinary Main type record](retained-producer-main-types.md)
+specializes this frontier to its actual scalar/String/reference shapes and
+named-field wrappers. It closes case creation for that family; incoming size
+bounds and the separate fixed library-body processes remain outstanding.
