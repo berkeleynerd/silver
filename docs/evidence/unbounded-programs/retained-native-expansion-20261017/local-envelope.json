@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 42,
+  "source_files_verified": 44,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -43,7 +43,9 @@
     "exp_ch13.adb": "c904c2cb48204bcd7bcd48b6143e3f877adcc1620fb1cb4cc9a1ca780a80b630",
     "nlists.adb": "add9468f104be6152a61a52473fd869fd16f64f1a9456b47eccc60af9854c763",
     "itypes.adb": "1f1482d8147358ca0c8b1de6c665cd61584f3e08527729b92f058b7820cf2e9a",
-    "expander.adb": "5cbfe2783201ea57d9d93290187daa0a24d71757b82b2a49c9280704b148b461"
+    "expander.adb": "5cbfe2783201ea57d9d93290187daa0a24d71757b82b2a49c9280704b148b461",
+    "sem_aux.adb": "a296f7384277d9621774a52de74c2008f8824724603df13abe1065754456af52",
+    "ghost.adb": "efc913c943b84328d081ff3996c85cd6eeb0f718c215784df8ecf9980dcd5f13"
   },
   "scope": "native String concat direct emitter and specified primitive helpers; not transitive closure",
   "ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers": {
@@ -477,6 +479,17 @@
       "ordinary_nodes": 5
     },
     "not_included": "input syntax/resolution/range checks, bound capture/analysis, Insert_Actions context/transient handling, later freezing/backend"
+  },
+  "ordinary_String_slice_pair_freezing": {
+    "premises": "unaltered Set_Slice_Subtype output; artificial local String/index itypes in current scope; standard/ancestor types frozen; index size 32 bits, array Esize unknown, earlier compile-time size check complete; no aspects/predicates/representation/remote/controlled/task flags",
+    "Freeze_Entity_without_delayed_freeze_extra_allocations": 0,
+    "per_unfrozen_member_with_delayed_freeze_max_ordinary_nodes": 1,
+    "per_unfrozen_member_with_delayed_freeze_max_list_headers": 1,
+    "explicit_Freeze_Itype_of_fresh_array_max_ordinary_nodes": 1,
+    "explicit_Freeze_Itype_of_fresh_array_max_list_headers": 1,
+    "freeze_node_analysis_expansion_extra_allocations": 0,
+    "repeated_freeze_extra_allocations": 0,
+    "not_included": "Insert_Actions context/transient handling, out-of-scope freeze analysis, later backend, explicit object-derived subtype construction"
   },
   "lexical_call_sites_not_a_reachable_call_graph": [
     {

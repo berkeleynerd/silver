@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records forty-two inspected files hash-checked against the complete source
+records forty-four inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -644,6 +644,77 @@ checks, incoming bound-expression analysis, separate scalar captures, action
 placement, later type freezing and backend costs. For the three-node
 post-capture range, its ordinary allocation is **five**, not a recursive
 re-expansion of the original Image or concat operand.
+
+### Freezing the slice's String/index subtype pair
+
+The generated pair from `Set_Slice_Subtype` also has a closed freezing case.
+Assume the ordinary local scope remains current; Standard String, Character
+and Integer and any preexisting ancestor subtype are frozen; the generated
+types carry no representation/aspect/predicate/remote/controlled/task flags;
+and their scalar bounds retain the preceding resolved scalar-tree shape.
+The index has the existing Integer size fields (32 bits), while the array
+subtype's `Esize` remains unknown, as initialized by `Create_Itype`. Both types
+are artificial rather than `Comes_From_Source`. These premises describe the
+pair just built, before unrelated whole-scope or backend processing modifies
+its layout or freezing state.
+
+`Freeze_Entity` for this pair adds **no node, entity, list, name, String or Uint
+allocation** unless a caller has explicitly requested delayed freezing. For
+each previously unfrozen member with `Has_Delayed_Freeze`, add at most **one
+ordinary freeze node and one list header**. The analysis/expansion of those
+freeze nodes adds nothing in this class. An explicit `Freeze_Itype` of the
+fresh array subtype therefore costs at most **one node and one list**, before
+its separately charged `Insert_Actions` placement. The untouched pair has no
+delayed-freeze flag: `Create_Itype` and `Set_Slice_Subtype` do not set it
+(`itypes.adb:38–89`, `sem_res.adb:13100–13199`). Repeated freezing returns at the
+`Is_Frozen` guard (`freeze.adb:6537–6552`).
+
+The complete selected routes support that claim:
+
+- The base/ancestor, component and index freeze calls reach already-frozen
+  standard types or the one generated index. `Freeze_And_Append` allocates no
+  wrapper list when its callee returns `No_List`
+  (`freeze.adb:2804–2826,7226–7260,3656–3670`). Subtype aspect inheritance finds
+  no new aspect; the scalar/index and array branches avoid derivation,
+  private, tagged, record, access and concurrency handling. Generated types
+  return before `Check_No_Parts_Violations` can allocate its hierarchy Elists
+  (`3312–3314`). The non-Ghost guard excludes Ghost-type checking
+  (`ghost.adb:1403–1405`).
+- `Freeze_Array_Type` skips its base-type processing, copies Standard String's
+  alignment if needed, and returns from `Adjust_Esize_Alignment` because the
+  array `Esize` is unknown (`freeze.adb:4093–4102`, `layout.adb:77–79`). It
+  never enters the packed-array path. `Set_Component_Alignment_If_Not_Set`
+  returns for a subtype (`freeze.adb:10968–10970`).
+- The earlier size check has already marked a compile-time-sized array known,
+  so another `Check_Compile_Time_Size` returns immediately. An array with an
+  unknown bound still executes no size arithmetic. Scalar size checking is
+  immediate. `Check_Unsigned_Type` reads existing bound values and flags;
+  `Expr_Rep_Value` for the specified scalar leaves/constant-name chains does
+  not allocate (`freeze.adb:2418–2488`, `sem_eval.adb:4505–4531`).
+- Scalar `Layout_Type` reuses the copied size fields. `Set_Elem_Alignment`
+  computes the small direct value 4 from 32/8, without a retained Uint. Array
+  layout has no packed/full-access/representation work, and its discriminant
+  dependence walk only examines bound kinds and sets a flag
+  (`layout.adb:180–220,359–418,426–670,939–1052`). Unknown array `Esize` prevents
+  final size/alignment adjustment. If a caller supplies a different subtype
+  with an as-yet-uncomputed size, the earlier four-Uint size transfer applies
+  instead; do not reuse the zero charge without its prior-size-check premise.
+- Delayed freezing alone creates the freeze node and lazily creates its list
+  (`freeze.adb:8265–8286,2974–2977`). `Freeze_Entity_Checks` has no applicable
+  tagged/record/predicate/aspect case (`sem_ch13.adb:14450–14921`). In the same
+  current scope, `Expand_N_Freeze_Entity` performs no scope-stack insertion.
+  Its array dispatch calls `Expand_Freeze_Array_Type`, which explicitly skips
+  an initialization procedure for Standard String and has no controlled
+  component (`exp_ch13.adb:535–599`, `exp_ch3.adb:5703–5785`).
+  `Freeze_Stream_Operations` returns for artificial types; the itype path
+  bypasses invariant/DIC body generation (`exp_ch3.adb:9775–9776,10155–10156`).
+  No freeze actions or runtime lookups result. Scalar signed-subtype freeze
+  similarly has no enumerated-image or other special expander action.
+
+The class excludes previously modified size fields, foreign/aspect-bearing
+subtypes, out-of-scope freeze-node analysis and later backend elaboration.
+This closes the subtype pair's own freezing cost; it does not close the
+construction of an explicit object-derived String subtype declaration.
 
 ## Required transitive closure
 

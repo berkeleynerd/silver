@@ -30,7 +30,8 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "sem_ch3.adb", "sem.adb", "sem_ch2.adb", "sem_ch8.adb", "checks.adb",
          "freeze.adb", "layout.adb", "lib-xref.adb", "sem_warn.adb",
          "sem_elim.adb", "sem_cat.adb", "einfo-utils.adb", "sem_ch13.adb",
-         "exp_ch13.adb", "nlists.adb", "itypes.adb", "expander.adb"]
+         "exp_ch13.adb", "nlists.adb", "itypes.adb", "expander.adb",
+         "sem_aux.adb", "ghost.adb"]
 sources = {}
 hashes = {}
 for name in files:
@@ -225,6 +226,17 @@ result = {
         "Itype_Reference_invokes_Freeze_Itype": False,
         "leaf_range_example": {"t": 3, "ordinary_nodes": 5},
         "not_included": "input syntax/resolution/range checks, bound capture/analysis, Insert_Actions context/transient handling, later freezing/backend",
+    },
+    "ordinary_String_slice_pair_freezing": {
+        "premises": "unaltered Set_Slice_Subtype output; artificial local String/index itypes in current scope; standard/ancestor types frozen; index size 32 bits, array Esize unknown, earlier compile-time size check complete; no aspects/predicates/representation/remote/controlled/task flags",
+        "Freeze_Entity_without_delayed_freeze_extra_allocations": 0,
+        "per_unfrozen_member_with_delayed_freeze_max_ordinary_nodes": 1,
+        "per_unfrozen_member_with_delayed_freeze_max_list_headers": 1,
+        "explicit_Freeze_Itype_of_fresh_array_max_ordinary_nodes": 1,
+        "explicit_Freeze_Itype_of_fresh_array_max_list_headers": 1,
+        "freeze_node_analysis_expansion_extra_allocations": 0,
+        "repeated_freeze_extra_allocations": 0,
+        "not_included": "Insert_Actions context/transient handling, out-of-scope freeze analysis, later backend, explicit object-derived subtype construction",
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",
