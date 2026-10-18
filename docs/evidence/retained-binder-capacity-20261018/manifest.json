@@ -940,8 +940,8 @@
     },
     "sources.tar.gz": {
       "archive": {
-        "bytes": 2062727,
-        "sha256": "ee6a35ef3b3cc73dcaab7cd81c394dd266ab356c24313d56c07c583221911cab"
+        "bytes": 2125278,
+        "sha256": "0301f9cad039eb2123c07e8dbba19d320b63cefd543755afc9c42567c26e8587"
       },
       "members": {
         "gcc/ada/Make-generated.in": {
@@ -1339,6 +1339,11 @@
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cgraphunit.cc",
           "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc"
         },
+        "gcc/common.opt": {
+          "bytes": 122400,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/common.opt",
+          "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f"
+        },
         "gcc/config/elfos.h": {
           "bytes": 18059,
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/config/elfos.h",
@@ -1418,6 +1423,11 @@
           "bytes": 27904,
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/optabs.def",
           "sha256": "3dfb1e6e0f9b491a5c9c72055984e5c1040c46e8e3d981eeb3740daeb5e0c1c3"
+        },
+        "gcc/opts.cc": {
+          "bytes": 127927,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/opts.cc",
+          "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770"
         },
         "gcc/prefix.cc": {
           "bytes": 8893,

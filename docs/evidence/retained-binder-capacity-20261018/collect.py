@@ -112,7 +112,7 @@ def main():
         add(sources, "gcc/ada/"+file, args.gcc_ada/file)
     backend_files = ["cfgrtl.cc", "tree.cc", "varasm.cc", "stringpool.cc",
                      "langhooks.cc", "cgraphclones.cc", "cgraphunit.cc", "cgraph.cc", "cgraph.h",
-                     "lto-cgraph.cc", "symtab.cc", "defaults.h",
+                     "lto-cgraph.cc", "symtab.cc", "defaults.h", "common.opt", "opts.cc",
                      "builtins.def", "sync-builtins.def", "omp-builtins.def", "gtm-builtins.def",
                      "sanitizer.def", "coroutine-builtins.def", "optabs.def", "optabs-libfuncs.cc",
                      "config/i386/i386.cc", "config/i386/i386.h", "config/i386/i386-features.cc",

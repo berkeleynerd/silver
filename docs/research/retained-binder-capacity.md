@@ -950,6 +950,27 @@ is selected. The zero type-10 (`STT_GNU_IFUNC`) records in each retained binder
 object corroborate this source argument. This supplies the binder's empty
 local-IFUNC contribution independently of the remaining object-count bound.
 
+Two further selected section-kind exclusions follow from source. **No COMMON
+variable is produced.** The compiler's default is `flag_no_common=1`
+(`common.opt:1297–1298`), with no selected override. Gigi's sole ordinary
+COMMON setter additionally requires both its negation and a target without
+global BSS support (`utils.cc:3116–3123`). The generic one-only declaration
+fallback that can set COMMON is inactive: ELF defines `MAKE_DECL_ONE_ONLY`,
+which sets `SUPPORTS_ONE_ONLY=1`, selecting COMDAT instead
+(`varasm.cc:6928–6950`, `elfos.h:227`, `defaults.h:300–305`). Machine attributes,
+user assembly, OpenMP and other frontends are outside the descriptor.
+
+**No allocated merge section is produced.** At O0,
+`OPT_LEVELS_1_PLUS` disables `fmerge_constants`; the options routine explicitly
+applies the inverse zero value (`opts.cc:500–501,541–557,602`). Reading the
+initial value in `common.opt` alone would miss that override. Both string and
+constant merging require the resulting nonzero flag; otherwise they select
+ordinary read-only data (`varasm.cc:865–917,922–943`). No selected target or
+explicit-section/assembly route adds an allocated merge section. This does
+not exclude the assembler's nonallocated `.comment` merge section, which the
+retained object contains. These kind exclusions do not establish a payload,
+section-count or maximum-alignment bound for the generated object.
+
 Under this descriptor, **generated binder nonlocal symbols have no `@` in
 their names**. This supplies the binder part of the linker's `W=0` suffix
 condition. It is a spelling invariant, independent of the still-open symbol

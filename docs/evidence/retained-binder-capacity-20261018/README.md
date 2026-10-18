@@ -19,8 +19,8 @@ complete child environment, exact arguments, temporary inputs, input identities,
 generated sources, empty stdout/stderr and managed-run log/events. Its input
 manifest is preserved separately from the extended packet's later manifest.
 
-`sources.tar.gz` contains one hundred and sixteen complete inspected source files:
-seventy-three GCC Ada files, twenty-nine GCC backend files, one libcpp file, eleven
+`sources.tar.gz` contains one hundred and eighteen complete inspected source files:
+seventy-three GCC Ada files, thirty-one GCC backend files, one libcpp file, eleven
 GPR files and two Silver workspace-construction files. The GCC/libcpp files were reconciled against
 the earlier complete-source manifests for
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; GPR retains its previously used
@@ -87,6 +87,9 @@ the binder/compiler/project vector backing at 8/16/1 slots, and records
 allocation and generated-object transfer remain open. Explicit object layout
 metrics are still witness quantities, including the nonallocated mergeable
 `.comment` section; the packet does not claim all merge sections are absent.
+The selected O0/no-override source routes separately exclude COMMON variables
+and allocated merge sections, without promoting witness payloads or alignment
+into universal bounds.
 
 Replay without access to the original installations:
 

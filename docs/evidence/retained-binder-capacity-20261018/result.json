@@ -10231,6 +10231,17 @@
     "scope": "selected configuration and source-derived exchange/vector bounds; full GPR process allocation and compiler/object transfer remain separate",
     "trailing_options_vector_entries": 0
   },
+  "selected_object_kind_exclusions": {
+    "allocated_merge_sections": 0,
+    "common_variables": 0,
+    "nonallocated_comment_merge_section_excluded": false,
+    "premises": [
+      "selected O0 and no common/merge override",
+      "no Machine_Attribute, Linker_Section, assembly, plugins or OpenMP",
+      "selected Linux ELF target"
+    ],
+    "scope": "source routes; no universal payload, section-count or alignment bound"
+  },
   "selected_search_directories": {
     "each_table_initial_capacity": 10,
     "library_table_demand_including_primary": 3,

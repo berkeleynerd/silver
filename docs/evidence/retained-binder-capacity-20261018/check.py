@@ -168,6 +168,19 @@ def analyze(artifacts, sources):
     assert re.findall(rb'if \(lookup_attribute \("ifunc", DECL_ATTRIBUTES \((\w+)\)\)\)\s+'
                       rb'\w+->ifunc_resolver = true;', sources["gcc/cgraph.cc"]) == [b"decl", b"alias"]
     assert b'node->ifunc_resolver = 1;' in sources["gcc/lto-cgraph.cc"]
+    assert b"fcommon\nCommon Var(flag_no_common,0) Init(1)" in sources["gcc/common.opt"]
+    assert b"{ OPT_LEVELS_1_PLUS, OPT_fmerge_constants, NULL, 1 }" in sources["gcc/opts.cc"]
+    assert b"default_opt->arg, !default_opt->value," in sources["gcc/opts.cc"]
+    assert b"if (!flag_no_common\n      && VAR_P (var_decl)" in sources["gcc/ada/gcc-interface/utils.cc"]
+    assert b"#define MAKE_DECL_ONE_ONLY(DECL) (DECL_WEAK (DECL) = 1)" in sources["gcc/config/elfos.h"]
+    result["selected_object_kind_exclusions"] = {
+        "common_variables": 0, "allocated_merge_sections": 0,
+        "premises": ["selected O0 and no common/merge override",
+                     "no Machine_Attribute, Linker_Section, assembly, plugins or OpenMP",
+                     "selected Linux ELF target"],
+        "nonallocated_comment_merge_section_excluded": False,
+        "scope": "source routes; no universal payload, section-count or alignment bound",
+    }
     selected_interfaces = re.findall(rb'pragma\s+(?:Import|Export)\s*\([^;]+"([^"\n]+)"\s*\)',
                                     outside_comments(selected_source), re.I)
     assert all(b"@" not in s for s in selected_interfaces)
