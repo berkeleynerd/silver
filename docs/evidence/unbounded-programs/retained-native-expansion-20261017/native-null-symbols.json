@@ -1,0 +1,32 @@
+{
+  "builtin_DECL_type_helper_allocation_costs_remain": true,
+  "compiler_or_prover_execution": false,
+  "complete_GCC_capacity_established": false,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "handwritten_source_path_argument_required": true,
+  "incoming_IPA_join": {
+    "aliases": 0,
+    "call_edges": 0,
+    "constructors": 0,
+    "destructors": 0,
+    "function_nodes": 1,
+    "nested_functions": 0,
+    "symbol_references": 0,
+    "thunks": 0,
+    "variable_initializers": 0,
+    "variable_nodes": 1
+  },
+  "null_body_and_effective_configuration_transfers_required": true,
+  "scope": "Exact declaration-free null Main, selected native Linux x86_64 O0/non-LTO configuration",
+  "symbol_ingress": {
+    "Boolean_CONST_DECL_symbol_nodes": 0,
+    "common_and_target_builtin_registration_nodes": 0,
+    "empty_elaboration_function_nodes": 0,
+    "finalized_Main_function_nodes": 1,
+    "fixed_external_ignored_OTHERS_variable_nodes": 0,
+    "fixed_external_runtime_function_nodes": 0,
+    "forced_dummy_variable_nodes": 1,
+    "self_referential_size_function_nodes": 0
+  },
+  "verified_source_files": 39
+}

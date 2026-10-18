@@ -1,0 +1,217 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "url": "https://codeload.github.com/gcc-mirror/gcc/tar.gz/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "scope": "Source identity for handwritten null-unit incoming IPA graph join; not a capacity capture",
+  "selected_target_headers": [
+    "gcc/config/i386/i386.h",
+    "gcc/config/i386/unix.h",
+    "gcc/config/i386/att.h",
+    "gcc/config/elfos.h",
+    "gcc/config/gnu-user.h",
+    "gcc/config/glibc-stdint.h",
+    "gcc/config/i386/x86-64.h",
+    "gcc/config/i386/gnu-user-common.h",
+    "gcc/config/i386/gnu-user64.h",
+    "gcc/config/linux.h",
+    "gcc/config/linux-android.h",
+    "gcc/config/i386/linux-common.h",
+    "gcc/config/i386/linux64.h"
+  ],
+  "files": [
+    {
+      "path": "gcc/ada/gcc-interface/ada-builtins.def",
+      "bytes": 1340,
+      "sha256": "90abd4368e9473d0b45331089a76daed28caa921e336cd571e830f7ef244a21c"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d"
+    },
+    {
+      "path": "gcc/attribs.cc",
+      "bytes": 83680,
+      "sha256": "6cd4c498ea5ebf079130fde6002702cd1cf44f020a2187fe5c09e5ddb368846f"
+    },
+    {
+      "path": "gcc/builtin-attrs.def",
+      "bytes": 22809,
+      "sha256": "926833e856f3348e94fa0cf652c414091188b2f80dfb1c237b66255850380bae"
+    },
+    {
+      "path": "gcc/builtin-types.def",
+      "bytes": 55877,
+      "sha256": "ca18b03a87e8140adb2174a9f8f33195ed661fbca5a45e2cfb480a508eb43ba5"
+    },
+    {
+      "path": "gcc/builtins.def",
+      "bytes": 105546,
+      "sha256": "578887c6bd0d4de098205170a5800d392ff85b08e12dca905a6b98e6fc69c613"
+    },
+    {
+      "path": "gcc/cgraphbuild.cc",
+      "bytes": 15087,
+      "sha256": "1bc891a8d26c101a0d515394ec34382ac622fd40bd8c6d0e79695c029542f6ea"
+    },
+    {
+      "path": "gcc/cgraphunit.cc",
+      "bytes": 81742,
+      "sha256": "530fa98e6219e79d0832e41ddb4be92f01468b57a9868811e997402a4ddafefc"
+    },
+    {
+      "path": "gcc/config.gcc",
+      "bytes": 184546,
+      "sha256": "40e891d89ae0cc4b3d013e2f25593233c580ad15da4c6b93674712a921b73caf"
+    },
+    {
+      "path": "gcc/config/elfos.h",
+      "bytes": 18059,
+      "sha256": "2a8e181375daee0ea98eb88f56008eaea63d9d5027cb94ca7d8de376bfcaaf70"
+    },
+    {
+      "path": "gcc/config/glibc-stdint.h",
+      "bytes": 2854,
+      "sha256": "5d17b0d72057dbaafa517ff1df1bb64a5f6dc132ecfbfd0ddc1b64e2ee8a079b"
+    },
+    {
+      "path": "gcc/config/gnu-user.h",
+      "bytes": 5918,
+      "sha256": "1095b158727a2cddc83cd18832064d2b8824538566b0d23271c57fce92e65be2"
+    },
+    {
+      "path": "gcc/config/i386/att.h",
+      "bytes": 3186,
+      "sha256": "a915b51760c40265932d6e41c37f76d5b5d33dfee9c49e211ebb58a0e8c46e39"
+    },
+    {
+      "path": "gcc/config/i386/gnu-user-common.h",
+      "bytes": 2629,
+      "sha256": "5f064832c02395865e22f4f79ca4de568ff42cfb50c102013d0417ce8be8d4b3"
+    },
+    {
+      "path": "gcc/config/i386/gnu-user64.h",
+      "bytes": 3256,
+      "sha256": "5621c8efa5ae1d62c513af61649c939226d6a9d48ae3b1584e3a2a7f50d545d9"
+    },
+    {
+      "path": "gcc/config/i386/i386-builtin-types.def",
+      "bytes": 61452,
+      "sha256": "7266dff56a3aa085a8e9803b4206e4fb18ce8154c3b03dd5e7923fb3d93eec9b"
+    },
+    {
+      "path": "gcc/config/i386/i386-builtins.cc",
+      "bytes": 78115,
+      "sha256": "0fbd66512ac51c49223ce88956f185626424b17351cba6e7e684d571f8bc4e40"
+    },
+    {
+      "path": "gcc/config/i386/i386-options.cc",
+      "bytes": 138368,
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6"
+    },
+    {
+      "path": "gcc/config/i386/i386.cc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "path": "gcc/config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "path": "gcc/config/i386/linux-common.h",
+      "bytes": 2346,
+      "sha256": "2ae3d9a8191788da063cdbe1e82719b4682e7e6499e07b7b66f04aa5eb0f38b0"
+    },
+    {
+      "path": "gcc/config/i386/linux64.h",
+      "bytes": 1669,
+      "sha256": "faf45947315176aa120a1c3ac787a1a56c172437654323f83a9c8c98940c824d"
+    },
+    {
+      "path": "gcc/config/i386/unix.h",
+      "bytes": 2878,
+      "sha256": "0014a3ae6ab57406e731747c7506525770d0a80cd819e3f550306832fda42cc3"
+    },
+    {
+      "path": "gcc/config/i386/x86-64.h",
+      "bytes": 3089,
+      "sha256": "45e502f21860f7a9140c33570ccbcab2070418b7101ee01a53e4054c1847202c"
+    },
+    {
+      "path": "gcc/config/linux-android.h",
+      "bytes": 1947,
+      "sha256": "9137c99e7e1d3eb5316adf3d0aeda41a2f6fbb7b8977c1ba4a256b1d571f3fdb"
+    },
+    {
+      "path": "gcc/config/linux.h",
+      "bytes": 8737,
+      "sha256": "86809593d0a2ef1ea63972125d27d827310eff3e25b4fbcdc5923dd84f2d742d"
+    },
+    {
+      "path": "gcc/except.cc",
+      "bytes": 99184,
+      "sha256": "90ef6fe4750300cb1985cb1df0af450cc0d806dad85874f631bfd8e411e0e5f0"
+    },
+    {
+      "path": "gcc/ipa-strub.cc",
+      "bytes": 113798,
+      "sha256": "77ebaf56774b4159366e3fe8ce0745babf68de6c9824bf0e4b17515fdce70a0e"
+    },
+    {
+      "path": "gcc/langhooks-def.h",
+      "bytes": 18024,
+      "sha256": "118e301f1c983dcb7c4f1b7a7b30820861cd53420779e29b0dc8c2a3c489c187"
+    },
+    {
+      "path": "gcc/langhooks.cc",
+      "bytes": 26690,
+      "sha256": "f014ada9499002acd773d82d7d9ceb0c5046a20e2de8798c8605640969b78c66"
+    },
+    {
+      "path": "gcc/passes.cc",
+      "bytes": 91818,
+      "sha256": "facb2b07df162fc9f9fa9478e602900e81a34de48ad99200f45dac7d42e179fc"
+    },
+    {
+      "path": "gcc/passes.def",
+      "bytes": 24225,
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872"
+    },
+    {
+      "path": "gcc/target.def",
+      "bytes": 349626,
+      "sha256": "a4201f0ce18dbbfdbe7b10da98a386e1c79973659be5032abdd3346e125d7763"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    {
+      "path": "gcc/varpool.cc",
+      "bytes": 24150,
+      "sha256": "d450a01353495f850293c2266900abfe6e915ee5be50ff068eccd1fd1cddbdf8"
+    }
+  ]
+}

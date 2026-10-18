@@ -4725,6 +4725,125 @@ The output verifies 22 source identities. It is a finite root/shape inventory,
 not a count of every descendant GCC allocation, a new native capture, or the
 complete capacity predicate.
 
+### Null Main's incoming IPA symbol graph
+
+For this exact null source and the selected native Linux x86_64 O0, non-LTO,
+no-plugin configuration, the fixed setup and compilation-unit paths establish
+**one cgraph function node, one varpool variable node, zero call edges and zero
+symbol references** at entry to the IPA schedule. The function is Main; the
+variable is the forced dummy above. This supplies the incoming-unit premise of
+the [whole-unit IPA transfer](retained-backend-ipa.md). It does not extend that
+transfer to an output-capable program or count the fixed setup's allocations.
+The effective options and the separately derived null-body lowering remain
+required premises; this is not a claim about arbitrary ambient GCC options.
+
+**Declaration registration is not symbol registration.** All common builtins
+and the selected x86 builtin registration paths call add_builtin_function or
+its external-scope variant. build_builtin_function makes a public external
+FUNCTION_DECL, applies its attributes and returns it; the language hook calls
+only gnat_pushdecl (`langhooks.cc:746–808`, `utils.cc:3895–3900`). The external-
+scope hook defaults to the same hook (`langhooks-def.h:145`). gnat_pushdecl
+places these declarations in builtin_decls; other global declarations go in
+global_decls. Its add_decl_expr marks external/global trees visited without
+emitting executable statements (`utils.cc:894–991`, `trans.cc:9103–9191`).
+Neither vector insertion calls cgraph/varpool registration.
+
+Common middle-end builtins use local_define_builtin and then the same helper
+(`tree.cc:10049–10303`). GNAT's installed builtin list also funnels through it
+(`utils.cc:7745–7835`). The x86 paths register scalar, MMX/SSE, transactional,
+CPU-query and ABI builtin declarations through that interface
+(`config/i386/i386-builtins.cc:299,398,517,1312,1377–1387,1494–1513`). Their
+attributes set declaration/type flags; they do not create alias, section, TLS,
+constructor or dispatcher symbols. GNAT's internal attribute handlers and the
+x86 ABI handler provide that distinction (`utils.cc:169–257,6902–7733`,
+`i386-options.cc:3884–3921`). The selected Linux target has no
+SUBTARGET_INIT_BUILTINS or SUBTARGET_INSERT_ATTRIBUTES override, and no
+relayout_function override; the corresponding generic hooks do nothing
+(`config.gcc:2123–2132`, `target.def:2333–2346,7061–7068`). This does not rely
+on all builtin declarations being unused to erase their allocation costs.
+
+The two x86 varpool insertions are a different path: fold_builtin_cpu creates
+__cpu_model and, when required, __cpu_features2 **after a CPU-query call is
+being folded**, not during registration (`i386-builtins.cc:2087–2102,
+2181–2209`). Null has no such call. Likewise gnat_init_gcc_eh initializes the
+EH type map; it does not eagerly obtain or register an Ada personality symbol
+(`misc.cc:388–437`, `except.cc:229–346`). The null body has no EH region, so
+function_needs_eh_personality returns none (`except.cc:3291–3323`). Enabling
+exception support alone therefore does not add a function node.
+
+**Fixed runtime and compilation-unit declarations.** create_subprog_decl does
+call rest_of_decl_compilation, but that function explicitly excludes
+FUNCTION_DECL from its varpool-finalization branch; only an alias attribute
+would take its separate symbol-creating branch (`passes.cc:176–250`). The
+fixed runtime helpers have no such attribute; their later callable-strub type
+annotation does not create a function body (`ipa-strub.cc:1301–1304`). The
+three ignored external OTHERS variables have neither initializers nor
+attributes and are excluded from both final global-variable loops. The two
+Boolean enumerals are CONST_DECLs and do not enter those loops either.
+
+Compilation_Unit_to_gnu allocates an elaboration FUNCTION_DECL and a function
+information object, then explicitly sets current_function_decl to null before
+translating Main (`trans.cc:5972–6000`). Thus Main has translation-unit context,
+not a nested-function context. Its definition is finalized once through
+rest_of_subprog_body_compilation (`trans.cc:4285–4289`,
+`utils.cc:3875–3892`), which creates its cgraph node
+(`cgraphunit.cc:452–518`). The saved elaboration body is empty: global
+declarations produce no executable DECL_EXPR and the null Main translation
+contributes no elaboration action. The later empty-body branch sets
+Has_No_Elaboration_Code and **never finalizes the elaboration declaration**
+(`trans.cc:694–713`). Merely allocating its FUNCTION_DECL or struct function
+does not add it to cgraph. The null source has no inlined body, alias, thunk,
+constructor, destructor or nested subprogram; O0 also excludes the optional
+named-return-value walk (`trans.cc:4271–4281`).
+
+**No generated size-function ingress.** finalize_compilation_unit first calls
+finalize_size_functions, before ordinary cgraph analysis
+(`cgraphunit.cc:2562–2575`). The sole append to size_functions is inside
+self_referential_size, reached from variable_size only for a size containing
+a PLACEHOLDER_EXPR (`stor-layout.cc:67–88,155–265,275–293`). The fixed roots
+above have constant scalar/pointer sizes and a seven-field exception record
+with no discriminant or self-dependent field size. The selected common/x86
+builtin type recipes add fixed-width scalar/vector, pointer/reference,
+constant-bound array/va-list and function types; function parameter types do
+not create variable-length objects. Natural is a static scalar subtype and
+A_Char designates Character, so neither brings in a String object's bounds.
+The two procedures have void results and no parameters or local objects.
+Consequently no self-referential size reaches that append. This is a shape
+argument about all these roots, not an inference from an observed empty
+size_functions vector. Their layout and backannotation allocations remain.
+
+**Analysis adds no dependency nodes.** cgraph_node::analyze gimplifies Main and
+runs the complete lowering list; the separately derived null-body transfer
+supplies its label/void-return shape and absence of static locals and EH regions
+(`cgraphunit.cc:632–711`, `passes.def:29–46`). build_cgraph_edges registers
+callees only for call statements, dependencies only for address/load/store
+references and OpenMP children, and private static variables only from local
+VAR_DECLs (`cgraphbuild.cc:218–393`). Null has none. Labels, a void return and
+later the virtual-memory SSA name do not refer to a global symbol. EH recording
+likewise sees no personality or region (`:142–154`). The dummy's varpool
+analysis cannot scan an initializer because it has none
+(`varpool.cc:522–539`). The two analyze_functions sweeps therefore discover no
+additional node through outgoing references, enclosing functions, abstract
+origins or COMDAT partners (`cgraphunit.cc:1176–1350,2590–2596`). There is no
+top-level assembly or alias pair to introduce another path. Only Main and the
+forced dummy remain for IPA; no variable initializer is pending.
+
+Reconcile the pinned sources and critical registration/guard sites:
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-null-symbols.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-null-symbols.json
+```
+
+The checker verifies 39 complete-source identities against the retained
+pinned-GCC source manifest and checks the stated entry/guard sites. The graph
+result still depends on this handwritten source argument and the referenced
+configuration/body transfers; the checker is not a GCC simulation or a Lean
+proof. No new native build, compiler capture, prover or test execution belongs
+to this result. Fixed DECL/type/helper objects, allocator rounding, global
+counters, gigi callbacks and later RTL/object/linker capacity remain separate.
+
 ## Numeric magnitudes in the closed concat stages
 
 The query-root bridge can also supply the missing digit bound for the combined
@@ -6586,9 +6705,12 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
   --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-no-xref-proposal.json
 ```
 
-Adoption still needs production option separation, corresponding invocation
-and provenance records, and focused native compile/bind validation. This
-source derivation is neither that validation nor whole-route capacity.
+The [focused native-option experiment](../evidence/retained-native-options-20261018/README.md)
+has now passed its isolated compile/bind/link and execution checks, including
+the combined options below. Production adoption still needs option separation
+and corresponding invocation/provenance records. That focused validation and
+this source derivation do not establish whole-route capacity; current production
+and proof flags remain unchanged.
 
 ### Combined native option descriptor
 
