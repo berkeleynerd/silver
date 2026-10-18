@@ -94,6 +94,8 @@
     "native_selected_helper_backing": true,
     "native_varpool_and_shared_tree_pool": true,
     "native_graph_and_summary_lifetime": true,
+    "native_SSA_helper_backing": true,
+    "Main_assembler_object_interface": true,
     "Why_core": true,
     "output_binder_checksum_no_collection": true
   },
@@ -812,6 +814,180 @@
     "whole_native_pipeline_capacity_established": false,
     "source_argument": "docs/research/retained-literal-pipeline.md#direct-call-graph-and-ipa-summary-lifetime"
   },
+  "native_SSA_helper_backing": {
+    "source_input": {
+      "calls": 1,
+      "nulls": 0,
+      "SSA_slots_upper": 5,
+      "ordinary_GIMPLE_blocks_upper": 2,
+      "ranger_block_slots_upper": 5
+    },
+    "out_of_SSA": {
+      "variable_map_bytes": 80,
+      "initial_partition_bytes_upper": 88,
+      "partition_view_requests_upper": 2,
+      "each_partition_view_bytes_upper": 20,
+      "block_pointer_vector_bytes_upper": 24,
+      "real_partitions": 0,
+      "tentative_zero_partition_bytes": 8,
+      "zero_xmalloc_or_xcalloc_actual_bytes": 1,
+      "coalesce_record_bytes": 120,
+      "coalesce_hash_wrapper_bytes": 48,
+      "coalesce_hash_backing_bytes": 488,
+      "same_variable_hash_backing_bytes": 104,
+      "coalesce_obstack_chunk_bytes": 65536,
+      "elimination_vector_bytes": [
+        128,
+        88,
+        48,
+        128,
+        88,
+        168,
+        48
+      ],
+      "zero_partition_simple_bitmap_bytes": 8,
+      "shared_default_bitmap_headers_upper": 5,
+      "shared_default_bitmap_elements": 0
+    },
+    "ranger_per_instance": {
+      "ordinary_vectors_raw_bytes_upper": {
+        "statement_list": 48,
+        "block_range_cache": 48,
+        "timestamps": 28,
+        "GORI_definition_chain": 128,
+        "GORI_outgoing": 48,
+        "GORI_incoming": 48,
+        "infer_exit": 152,
+        "infer_nonzero": 56,
+        "propagation_update": 284,
+        "optional_equivalence": 56,
+        "optional_self_equivalence": 56,
+        "optional_partial_equivalence": 152,
+        "optional_relations": 152
+      },
+      "ordinary_object_bytes_upper": {
+        "GORI_compute": 1208,
+        "GORI_map": 144,
+        "gimple_ranger": 456,
+        "infer_manager": 240,
+        "optional_dom_oracle": 280,
+        "temporal_cache": 16,
+        "update_list": 128,
+        "vrange_allocator": 8,
+        "vrange_obstack_allocator": 96
+      },
+      "vrange_allocator_pairs": 3,
+      "default_obstack_initial_chunks_upper": 5,
+      "default_obstack_chunk_bytes": 4064,
+      "bitmap_obstack_initial_chunks_upper": 5,
+      "bitmap_obstack_chunk_bytes": 65536,
+      "bitmap_headers_upper": 18,
+      "bitmap_obstack_all_chunk_requests_upper": 23,
+      "bitmap_elements": 0,
+      "range_cache_entries": 0,
+      "range_clones": 0,
+      "constructor_vector_growth_after_initialization": 0,
+      "Boolean_range_heap_growth": false,
+      "temporal_time_final": 1,
+      "definition_chain_depth_final": 0,
+      "temporary_edge_flag_bit": 18
+    },
+    "sequential_ranger_instances_upper": 2,
+    "additional_GGC_request_events_upper": 0,
+    "conditional_SSA_helper_backing_closed": true,
+    "local_representation_checks": {
+      "initial_partition_signed_count": true,
+      "SSA_plus_one_vector_31_bit": true,
+      "ranger_block_plus_64_signed": true,
+      "partition_and_view_byte_products": true,
+      "ranger_vector_byte_products": true,
+      "private_bitmap_header_count": true
+    },
+    "whole_native_pipeline_capacity_established": false,
+    "source_argument": "docs/research/retained-literal-pipeline.md#literal-sized-ranger-and-out-of-ssa-backing"
+  },
+  "Main_assembler_object_interface": {
+    "counts": {
+      "calls": 1,
+      "nulls": 0,
+      "decoded_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "final_chain": 52,
+    "text_bytes_upper": 53,
+    "assembly": {
+      "lines_upper": 187,
+      "bytes_upper": 11471,
+      "longest_line_excluding_LF_upper": 512,
+      "scrub_buffer_bytes_upper": 65539
+    },
+    "GAS": {
+      "ordinary_sections_upper": 10,
+      "initial_chains_upper": 14,
+      "final_alignment_events_upper": 12,
+      "rodata_bytes_upper": 35,
+      "reservation_bytes_upper": 483,
+      "fragment_allocations_upper": 1030,
+      "each_fragment_chunk_bytes_upper": 4064,
+      "maximum_region_upper": 10,
+      "symbol_allocations_upper": 147,
+      "output_symbols_upper": 145,
+      "BFD_symbol_allocations_upper": 162,
+      "fixups_upper": 282,
+      "relocations_upper": 284,
+      "GOT_symbol_required": false,
+      "symbol_name_bytes_including_NUL_upper": 26
+    },
+    "ELF": {
+      "section_headers_upper": 24,
+      "symbols_including_null_upper": 156,
+      "symbol_string_names_upper": 155,
+      "section_string_names_upper": 23,
+      "symbol_string_positive_references_upper": 155,
+      "section_string_positive_references_upper": 46,
+      "file_parts": {
+        "header": 64,
+        "ordinary_payload": 482,
+        "symbols": 3744,
+        "relocations": 6816,
+        "symbol_strings": 4031,
+        "section_strings": 737,
+        "alignment_padding": 182,
+        "section_headers": 1536
+      },
+      "object_bytes_upper": 17592
+    },
+    "local_checks": {
+      "literal_length": true,
+      "backend_chain": true,
+      "text_and_CFI": true,
+      "physical_lines": true,
+      "fragment_counter": true,
+      "region": true,
+      "symbol_indices": true,
+      "fixup_and_relocation_counts": true,
+      "symbol_string_offsets": true,
+      "section_string_offsets": true,
+      "object_offsets": true,
+      "symbol_record_requests": true,
+      "relocation_record_requests": true,
+      "string_sort_pointer_requests": true
+    },
+    "local_interface_fits": true,
+    "open_joins": [
+      "GAS_subsidiary_lifetimes_and_hash_growth",
+      "BFD_arena_and_string_table_growth",
+      "production_invocation",
+      "fixed_objects_and_binder",
+      "final_link_reach"
+    ],
+    "whole_literal_pipeline_capacity_established": false,
+    "native_tool_executions": 0,
+    "source_identity": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    }
+  },
   "Why_core": {
     "A_parse": 38,
     "A_Main": 55,
@@ -1080,22 +1256,63 @@
   },
   "open_joins": {
     "native_remaining_lifetime_and_collector": {
-      "next_consumer": "z-sized ranger/out-of-SSA backing and complete frontend/gigi/initial-GIMPLE constructor lifetimes, then shared identifier/CONST_INT/reg-attribute pools and GGC collector composition.",
+      "next_consumer": "complete frontend/gigi/initial-GIMPLE constructor lifetimes, then shared identifier/CONST_INT/reg-attribute pools and GGC collector composition.",
       "available": {
         "graph_scan_count_upper": 4,
         "call_edge_creation_events_upper": 4,
         "new_pool_lifecycle_GGC_events_upper": 10,
-        "new_graph_lifecycle_GGC_events_upper": 41
+        "new_graph_lifecycle_GGC_events_upper": 41,
+        "ranger_and_out_of_SSA_backing_closed": true
       },
-      "missing": "Substitute the literal z-sized ranger/out-of-SSA requests and complete source/gigi/initial-GIMPLE constructor multiplicities; join existing RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused."
+      "missing": "Complete source/gigi/initial-GIMPLE constructor multiplicities; join existing RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused."
     },
     "Main_assembler_and_object": {
       "available": {
-        "instruction_lines": 25,
-        "text_bytes": 53,
-        "rodata_bytes": 35
+        "assembly_stream": {
+          "lines_upper": 187,
+          "bytes_upper": 11471,
+          "longest_line_excluding_LF_upper": 512,
+          "scrub_buffer_bytes_upper": 65539
+        },
+        "GAS_interface": {
+          "ordinary_sections_upper": 10,
+          "initial_chains_upper": 14,
+          "final_alignment_events_upper": 12,
+          "rodata_bytes_upper": 35,
+          "reservation_bytes_upper": 483,
+          "fragment_allocations_upper": 1030,
+          "each_fragment_chunk_bytes_upper": 4064,
+          "maximum_region_upper": 10,
+          "symbol_allocations_upper": 147,
+          "output_symbols_upper": 145,
+          "BFD_symbol_allocations_upper": 162,
+          "fixups_upper": 282,
+          "relocations_upper": 284,
+          "GOT_symbol_required": false,
+          "symbol_name_bytes_including_NUL_upper": 26
+        },
+        "ELF_interface": {
+          "section_headers_upper": 24,
+          "symbols_including_null_upper": 156,
+          "symbol_string_names_upper": 155,
+          "section_string_names_upper": 23,
+          "symbol_string_positive_references_upper": 155,
+          "section_string_positive_references_upper": 46,
+          "file_parts": {
+            "header": 64,
+            "ordinary_payload": 482,
+            "symbols": 3744,
+            "relocations": 6816,
+            "symbol_strings": 4031,
+            "section_strings": 737,
+            "alignment_padding": 182,
+            "section_headers": 1536
+          },
+          "object_bytes_upper": 17592
+        },
+        "local_interface_fits": true
       },
-      "missing": "Complete directives/labels/CFI stream, GAS allocation/counter transfer and source-derived ELF symbols/sections/relocations; instruction and data bounds alone are not that interface."
+      "missing": "Complete GAS subsidiary allocation lifetimes/hash growth, BFD arena/string-table growth and the production invocation; the reviewed stream/region/symbol/relocation/ELF envelope is joined."
     },
     "producer_frontends_and_consumers": {
       "missing": "Output-family native/datarep/light frontend and parent ALI/report/flow joins plus required Why/report/server consumers. The null fixed-table and zero-client projections are not assumed for repeated output."
@@ -1109,8 +1326,8 @@
   },
   "whole_literal_pipeline_capacity_established": false,
   "next_repair": "native_remaining_lifetime_and_collector",
-  "fixed_input_count": 48,
-  "external_source_files_verified": 220,
+  "fixed_input_count": 55,
+  "external_source_files_verified": 253,
   "native_tool_executions": 0,
   "production_admission_changed": false,
   "aggregate_RAM_gate": false,

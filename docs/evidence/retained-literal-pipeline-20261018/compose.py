@@ -54,6 +54,7 @@ class Context:
                     {key:row[key] for key in ('bytes','sha256')},
                     'changed aggregate input: '+row['path'])
         self.inputs_verified = len(pins)
+        self.ssa_helper_layout = read(NATIVE/'native-rtl-helpers.json')
         roots = dict(gcc=Path(gcc_root), ada=Path(ada_root),
                      plugin=Path(plugin_include), silver=REPO, packet=NATIVE)
         checked = set()
@@ -90,6 +91,8 @@ class Context:
         self.specialization = runpy.run_path(str(EVIDENCE/
             'retained-literal-producer-specialization-20261018/compose.py'))
         self.specialization_context = self.specialization['Context']()
+        self.assembler = runpy.run_path(str(EVIDENCE/'retained-literal-assembler-20261018/compose.py'))
+        self.assembler_context = self.assembler['Context']()
         self.system = read(NATIVE/'native-indexed-source-buffers.json')['additional_System_input']
         self.configuration = (NATIVE/'null-capacity-fixture.adc').read_bytes()
         checksum = runpy.run_path(str(EVIDENCE/'retained-binder-checksum-closure-20261018/check.py'))
@@ -307,6 +310,60 @@ def native_graph_lifetime(c, n, context):
         source_argument='docs/research/retained-literal-pipeline.md#direct-call-graph-and-ipa-summary-lifetime')
 
 
+def native_ssa_helper_backing(c, n, context):
+    """Transfer ordinary ranger/out-of-SSA backing to literal extents."""
+    require(type(c) is int and c >= 1 and type(n) is int and n >= 0,
+            'literal SSA helper counters')
+    z, b, r = 3*c+2, n+2, n+5
+    vec = lambda count,size: 8+max(4,count)*size
+    fixed = context.ssa_helper_layout
+    vectors = dict(
+        statement_list=vec(z,8),block_range_cache=vec(z,8),timestamps=vec(z,4),
+        GORI_definition_chain=vec(z,24),GORI_outgoing=vec(r,8),GORI_incoming=vec(r,8),
+        infer_exit=vec(r+1,24),infer_nonzero=vec(z+1,8),propagation_update=vec(r+64,4),
+        optional_equivalence=vec(r+1,8),optional_self_equivalence=vec(z+1,8),
+        optional_partial_equivalence=vec(z+1,24),optional_relations=vec(r+1,24))
+    headers = 2*r+8
+    checks = dict(
+        initial_partition_signed_count=z <= I32,
+        SSA_plus_one_vector_31_bit=z+1 <= I32,
+        ranger_block_plus_64_signed=r+64 <= I32,
+        partition_and_view_byte_products=max(8+16*z,4*z) <= I64,
+        ranger_vector_byte_products=max(vectors.values()) <= I64,
+        private_bitmap_header_count=headers <= 2**64-1)
+    return dict(source_input=dict(calls=c,nulls=n,SSA_slots_upper=z,
+                                  ordinary_GIMPLE_blocks_upper=b,ranger_block_slots_upper=r),
+        out_of_SSA=dict(
+            variable_map_bytes=fixed['out_of_SSA']['variable_map_bytes'],
+            initial_partition_bytes_upper=8+16*z,partition_view_requests_upper=2,
+            each_partition_view_bytes_upper=4*z,block_pointer_vector_bytes_upper=8+8*b,
+            real_partitions=0,tentative_zero_partition_bytes=8,
+            zero_xmalloc_or_xcalloc_actual_bytes=1,
+            coalesce_record_bytes=120,coalesce_hash_wrapper_bytes=48,
+            coalesce_hash_backing_bytes=488,same_variable_hash_backing_bytes=104,
+            coalesce_obstack_chunk_bytes=65536,
+            elimination_vector_bytes=fixed['out_of_SSA']['elimination_vector_raw_bytes'],
+            zero_partition_simple_bitmap_bytes=8,
+            shared_default_bitmap_headers_upper=5,shared_default_bitmap_elements=0),
+        ranger_per_instance=dict(
+            ordinary_vectors_raw_bytes_upper=vectors,
+            ordinary_object_bytes_upper=fixed['ranger_per_instance']['ordinary_object_bytes_upper'],
+            vrange_allocator_pairs=3,default_obstack_initial_chunks_upper=5,
+            default_obstack_chunk_bytes=4064,bitmap_obstack_initial_chunks_upper=5,
+            bitmap_obstack_chunk_bytes=65536,bitmap_headers_upper=headers,
+            # One new chunk per completed header is conservative; no oversized object.
+            bitmap_obstack_all_chunk_requests_upper=5+headers,
+            bitmap_elements=0,range_cache_entries=0,range_clones=0,
+            constructor_vector_growth_after_initialization=0,
+            Boolean_range_heap_growth=False,temporal_time_final=1,
+            definition_chain_depth_final=0,temporary_edge_flag_bit=18),
+        sequential_ranger_instances_upper=2,
+        additional_GGC_request_events_upper=0,
+        conditional_SSA_helper_backing_closed=all(checks.values()),
+        local_representation_checks=checks,whole_native_pipeline_capacity_established=False,
+        source_argument='docs/research/retained-literal-pipeline.md#literal-sized-ranger-and-out-of-ssa-backing')
+
+
 def evaluate(descriptor_path, context, source_override=None):
     descriptor_path = Path(descriptor_path).resolve()
     descriptor = read(descriptor_path)
@@ -353,6 +410,7 @@ def evaluate(descriptor_path, context, source_override=None):
     backing = context.backing['backing'](c,n)
     pools = native_pool_lifetime(c,context)
     graph = native_graph_lifetime(c,n,context)
+    ssa_helpers = native_ssa_helper_backing(c,n,context)
     why = context.why['compose'](why_counts,context.schema,context.fixed_counts,context.fixed_modules,p)
     selected_why = context.specialization['evaluate'](raw,context.specialization_context,path_bytes=p)
     require(selected_why['source_counts'] == counts and
@@ -364,6 +422,24 @@ def evaluate(descriptor_path, context, source_override=None):
     require(rtl['first_unused_pseudo_number_upper'] == backing['interface']['register_extent_upper'],
             'post-split pseudo join')
     require(rtl['first_unused_UID_upper'] == 7*c+7*n+46, 'final instruction UID join')
+    require(ssa_helpers['source_input']['SSA_slots_upper'] ==
+            native['conditional_O0_out_of_SSA']['SSA_name_vector_length_upper'] and
+            ssa_helpers['source_input']['ordinary_GIMPLE_blocks_upper'] ==
+            native['conditional_O0_out_of_SSA']['ordinary_blocks_upper'] and
+            ssa_helpers['source_input']['ranger_block_slots_upper'] ==
+            native['CF_EH_CFG']['block_index_slots_upper']+1 and
+            graph['source_input']['post_CFG_statements_upper'] ==
+            native['conditional_O0_out_of_SSA']['live_GIMPLE_statements_upper'],
+            'literal GIMPLE graph/summary/ranger/out-of-SSA join')
+    assembler = context.assembler['evaluate'](raw,context.assembler_context)
+    require(assembler['source_identity'] == identity(raw) and
+            assembler['counts'] == dict(calls=c,nulls=n,
+                decoded_bytes=counts['decoded_literal_bytes'],
+                maximum_literal_length=counts['maximum_literal_length']) and
+            assembler['final_chain'] == rtl['final_chain'] and
+            assembler['text_bytes_upper'] == rtl['shortening_text_bytes_upper'] and
+            assembler['GAS']['rodata_bytes_upper'] == native['conditional_native_constant_data'][
+                'rodata_payload_including_padding_bytes_upper'], 'literal assembler common-input join')
     physical = context.physical(raw)
     line_capacity = 500
     while line_capacity < physical['physical_line_entries_bound']:
@@ -380,6 +456,8 @@ def evaluate(descriptor_path, context, source_override=None):
         native_selected_helper_backing=all(backing['local_representation_checks'].values()),
         native_varpool_and_shared_tree_pool=pools['named_consumer_closed'],
         native_graph_and_summary_lifetime=graph['conditional_graph_and_summary_lifetime_closed'],
+        native_SSA_helper_backing=ssa_helpers['conditional_SSA_helper_backing_closed'],
+        Main_assembler_object_interface=assembler['local_interface_fits'],
         Why_core=selected_why['literal_Main_core_fits'],
         output_binder_checksum_no_collection=context.checksum[
             'universal_rounded_GGC_bytes_bound_subject_to_reviewed_source_projection']
@@ -388,16 +466,17 @@ def evaluate(descriptor_path, context, source_override=None):
     # helper count is never substituted for the null family's lifetime total.
     opens = {
         'native_remaining_lifetime_and_collector': {
-            'next_consumer':'z-sized ranger/out-of-SSA backing and complete frontend/gigi/initial-GIMPLE constructor lifetimes, then shared identifier/CONST_INT/reg-attribute pools and GGC collector composition.',
+            'next_consumer':'complete frontend/gigi/initial-GIMPLE constructor lifetimes, then shared identifier/CONST_INT/reg-attribute pools and GGC collector composition.',
             'available':dict(graph_scan_count_upper=4,call_edge_creation_events_upper=4*c,
                              new_pool_lifecycle_GGC_events_upper=pools['additional_GGC_request_events_upper'],
-                             new_graph_lifecycle_GGC_events_upper=graph['additional_GGC_request_events_upper']),
-            'missing':'Substitute the literal z-sized ranger/out-of-SSA requests and complete source/gigi/initial-GIMPLE constructor multiplicities; join existing RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused.'},
+                             new_graph_lifecycle_GGC_events_upper=graph['additional_GGC_request_events_upper'],
+                             ranger_and_out_of_SSA_backing_closed=ssa_helpers['conditional_SSA_helper_backing_closed']),
+            'missing':'Complete source/gigi/initial-GIMPLE constructor multiplicities; join existing RTL/DF ceilings, identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC event/UID/collector bounds. The null 40098 allowance is not reused.'},
         'Main_assembler_and_object': {
-            'available':dict(instruction_lines=rtl['instruction_text_lines_upper'],
-                             text_bytes=rtl['shortening_text_bytes_upper'],
-                             rodata_bytes=native['conditional_native_constant_data']['rodata_payload_including_padding_bytes_upper']),
-            'missing':'Complete directives/labels/CFI stream, GAS allocation/counter transfer and source-derived ELF symbols/sections/relocations; instruction and data bounds alone are not that interface.'},
+            'available':dict(assembly_stream=assembler['assembly'],GAS_interface=assembler['GAS'],
+                             ELF_interface=assembler['ELF'],
+                             local_interface_fits=assembler['local_interface_fits']),
+            'missing':'Complete GAS subsidiary allocation lifetimes/hash growth, BFD arena/string-table growth and the production invocation; the reviewed stream/region/symbol/relocation/ELF envelope is joined.'},
         'producer_frontends_and_consumers': {
             'missing':'Output-family native/datarep/light frontend and parent ALI/report/flow joins plus required Why/report/server consumers. The null fixed-table and zero-client projections are not assumed for repeated output.'},
         'binder_and_linker_composition': {
@@ -412,7 +491,8 @@ def evaluate(descriptor_path, context, source_override=None):
         evaluated_predicates_pass=all(conditions.values()),
         failed_predicates=[key for key,value in conditions.items() if not value],
         native_lowering_data=native,RTL_shape=rtl,selected_native_backing=backing,
-        native_pool_lifetime=pools,native_graph_lifetime=graph,
+        native_pool_lifetime=pools,native_graph_lifetime=graph,native_SSA_helper_backing=ssa_helpers,
+        Main_assembler_object_interface=assembler,
         Why_core=why,selected_Why_core=selected_why,
         accepted_output_binder_checksum=context.checksum,
         open_joins=opens,whole_literal_pipeline_capacity_established=False,

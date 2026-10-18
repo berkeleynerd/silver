@@ -8,8 +8,8 @@ descriptor. The available arithmetic passes for `samples/hello_world.adb`.
 **Whole literal-pipeline capacity remains unestablished.** The bounds-pool
 declaration lifecycle and shared tree/assembler-name backing now have a
 source-derived join. The direct-call graph and IPA-summary lifetime now also
-have a conditional join. The next native consumer is literal-sized ranger and
-out-of-SSA backing, followed by complete constructor/collector composition.
+have a conditional join, and the literal-sized ranger/out-of-SSA backing is
+substituted. The next native consumer is complete constructor/collector composition.
 No production rule or option changed; #119 remains incomplete.
 
 ## One source counter interface
@@ -57,8 +57,9 @@ counter equality and equality of the general envelope. Its hypothetical JSON
 bound remains diagnostic; fixed-library Why inputs and final reports still
 need their capacity joins. The body/data formulas
 remain conditional on their existing whole-unit Main-preservation and selected
-source/option premises. Neither the text-byte bound nor the instruction count
-is an ELF-object contract.
+source/option premises. The text-byte bound and instruction count alone
+are not an ELF-object contract; the separately reviewed interface below
+supplies that additional selected envelope.
 
 The accepted [binder checksum closure](retained-binder-checksum-closure.md) is
 also replayed once per evaluation context. Its universal 5,167,732 rounded-byte
@@ -66,6 +67,17 @@ bound remains 75,148 bytes below the 5 MiB first-collection threshold. That
 component retains its own fixed binder source/options/path projection; the
 aggregate does not infer a complete binder invocation from the common Main
 path. Checksum variation is no longer an unresolved research obligation.
+
+The separately reviewed [literal assembler interface](retained-literal-assembler.md)
+is also attached to this aggregate. It scans exactly the same source bytes;
+the join checks C/N/W/maximum-length, final RTL chain, text-byte and rodata-byte
+equalities. Its `local_interface_fits` predicate contributes the complete
+selected assembly-stream, alignment-region, symbol/relocation and ELF-object
+envelopes. These are source-derived capacity bounds, not an observed object
+or a complete assembler lifetime. `Main_assembler_and_object` now retains
+only the remaining GAS subsidiary/hash, BFD arena/string-table growth and
+production-invocation joins. Binder/fixed-object/final-link consumers remain
+in their separate aggregate interfaces.
 
 ## Bounds-pool and symbol lifetime join
 
@@ -455,17 +467,127 @@ destructors (`ipa-fnsummary.h:231–239`; `ipa-prop.h:1165–1170`;
 `ipa-prop.cc:4931–4939`; `symbol-summary.h:103–109`; `ggc.h:193–201`).
 Finalizer-vector backing and collector work remain a later shared join.
 
+## Literal-sized ranger and out-of-SSA backing
+
+`native_ssa_helper_backing(C, N, context)` closes the remaining ordinary
+ranger/out-of-SSA constructor interface using the existing literal shape:
+`z=3C+2` SSA slots, `b=N+2` ordinary GIMPLE blocks and `B=N+4` initial block
+slots. The aggregate checks these against its native lowering callable,
+including the post-CFG statement ceiling used by the summary worklist.
+There are still zero real SSA names, PHIs, real partitions or SSA-lowering
+copies. This transfers the fixed layouts from the source-identified
+[helper derivation](retained-native-expansion.md#out-of-ssa-ranger-and-cfg-helper-backing),
+not its null-specific sizes or 100-event expansion subtotal.
+
+The two access-warning gates remain false under the selected invocation.
+The alloca pass enables its ranger then skips every statement because none
+is an alloca (`gimple-ssa-warn-alloca.cc:258–273`). Expansion enables its ranger
+after `construct_init_block` and destroys it before subsequent CFG work
+(`cfgexpand.cc:7233–7255`). The selected calls have no tail-call flag or local
+EH split; pointer-field stores create no scalar SSA name. There is no
+conditional/debug statement, so `expand_gimple_basic_block` does not create
+an additional block during that interval (`:6176–6205,6354–6363,6470–6511`).
+Thus at most two sequential ranger instances use `R=B+1=N+5` block slots.
+Optional dominance-oracle constructor backing is allowed conservatively.
+The larger later RTL graph is outside these ranger lifetimes.
+
+### Ranger vectors and private backing
+
+For a fresh ordinary vector write `V(k,w)=8+w*max(4,k)`. These constructors
+use non-exact initial growth from zero, so this is their actual allocation
+recipe's ceiling; they do not need the repeated-growth factor two.
+
+| Vector | Individual ordinary bytes, at most |
+| --- | ---: |
+| Statement list; block-range cache | V(z,8), each |
+| Temporal timestamps | V(z,4) |
+| GORI definition-chain records | V(z,24) |
+| GORI incoming; outgoing bitmap pointers | V(R,8), each |
+| Inferred exit records; nonzero cache | V(R+1,24); V(z+1,8) |
+| Propagation-update list | V(R+64,4) |
+| Optional equivalence; self-equivalence | V(R+1,8); V(z+1,8) |
+| Optional partial-equivalence; relation records | V(z+1,24); V(R+1,24) |
+
+The source constructors are `gimple-range.cc:40–66`,
+`gimple-range-cache.cc:366–373,540–545,828–835,940–948,998–1022`,
+`gimple-range-gori.cc:96–103,359–366`, `gimple-range-infer.cc:331–351` and
+`value-relation.cc:312–330,1064–1073`. Checks retain the 31-bit vector capacity,
+signed `R+64` addition and LP64 size products. No new SSA name or block appears
+while an instance is active, so these vectors do not grow again.
+
+All SSA names are virtual and fail `gimple_range_ssa_p`
+(`gimple-range-fold.h:89–97`). The constructor's GORI export scan allocates
+two bitmap headers per extant block, but a straight-line block returns at
+`single_succ_p`; entry/exit have no outgoing condition/switch to analyze
+(`gimple-range-gori.cc:479–523`). There is no nonvirtual SSA query to populate
+block/global/inferred/relation range caches. If an expression helper queries
+an address directly, `gimple_ranger::range_of_expr` uses `get_tree_range`
+without entering those caches (`gimple-range.cc:79–85`;
+`value-query.cc:330–398`); selected pointer/Boolean precisions fit the existing
+inline wide-integer/range storage. Aggregate arguments are unsupported range
+types. The global SSA-cache, workback and outgoing-switch vectors remain
+unallocated, temporal time stays one, and definition-chain depth stays zero.
+This does not classify all expression expansion as ranger constructor work.
+
+Retain the fixed ordinary object ceilings: ranger 456 bytes, GORI map 144,
+GORI compute 1208, infer manager 240, optional dominator oracle 280, temporal
+cache 16 and update list 128. Three range-allocator/obstack-allocator pairs
+use 8/96 bytes each, with at most five default 4064-byte initial chunks.
+The existing installed mode-header premise keeps the two embedded Boolean
+ranges within their inline representation. These are layout transfers;
+no constructor is assumed absent because its range population is empty.
+
+Private bitmap headers now depend on R: at most `2R+1` for GORI, one infer,
+one propagation and five optional-oracle headers, **2R+8 total** per instance.
+They remain empty, but the null result's single-chunk claim cannot simply
+be reused for unbounded N. At most five initial bitmap chunks and one new
+chunk per completed 32-byte header give **2R+13 chunk requests**, each at most
+65,536 bytes. `bitmap_alloc` obtains a header from its freelist or `XOBNEW`;
+new-chunk arithmetic sees a fresh object of at most 32 bytes and rounds to
+the configured 65,536-byte chunk size (`bitmap.cc:733–752,779–798`;
+`libiberty/obstack.c:187–218`). This intentionally loose event bound covers
+all replacement chunks without a total-memory admission gate. Each instance
+releases its private chunks before the next. Shared default-obstack users
+remain in the later shared-backing join. The temporary edge flag remains
+bit 18, allocated and released sequentially as in the fixed helper argument.
+
+### Out-of-SSA requests and the closed interface
+
+`init_var_map` receives z before virtual names are filtered. Its partition
+requests `8+16z` bytes and its `_var_map` control is at most 80 bytes; the
+ordinary-block pointer vector reserves exactly b entries, at most `8+8b`
+bytes (`tree-ssa-live.cc:84–121`; `libiberty/partition.c:49–66`). Both selected
+partition views allocate a z-int forward mapping, at most **4z bytes each**;
+their reverse mapping has logical length zero because every SSA name is
+virtual (`tree-ssa-live.cc:198–313`). The signed partition count and both size
+products are checked. Virtual-name multiplicity changes these requests even
+though it does not create a real partition.
+
+The existing zero-real-partition route then transfers unchanged: no coalesce
+pair, sorted-pair vector, liveness/conflict graph or PHI copy is created.
+The coalescer still requests its 120-byte record, 48-byte wrapper,
+488-byte backing and 65,536-byte initial chunk; the same-variable hash
+retains its empty 104-byte backing. The tentative zero-element partition
+requests eight bytes using the previously evaluated unsigned arithmetic;
+other zero-length `xmalloc`/`xcalloc` requests become one byte. Five empty
+32-byte bitmap headers use the shared default obstack. The elimination
+graph's seven vectors request 128, 88, 48, 128, 88, 168 and 48 bytes and its
+zero-bit bitmap eight bytes (`tree-ssa-coalesce.cc:1601–1742,1843–1871`;
+`tree-outof-ssa.cc:137–174,433–438,1012–1049`). These ordinary requests are
+returned explicitly, with **zero new GGC events** from this helper family.
+The preceding DFS/CFG helpers keep their existing separate interface; this
+closure does not silently charge all expansion to the helper result.
+
 ## Exact next native consumer
 
 The callable keeps `native_remaining_lifetime_and_collector` as its next
-repair. The remaining local backing substitution uses the literal SSA-slot
-ceiling `z=3C+2` for ranger and out-of-SSA constructors. The existing selected
-warning gates and no-transform argument are retained; a new warning inventory
-is not required. The next constructor join must then cover source/frontend,
-gigi and initial GIMPLE lifetimes, existing RTL/DF/helper ceilings, shared
+repair. The remaining constructor join must cover source/frontend, gigi and
+initial GIMPLE lifetimes, existing RTL/DF/helper ceilings, shared
 identifier/CONST_INT/reg-attribute backing, Ada callbacks and complete GGC
-pages/finalizers/counters. The separate `5C+5` and `8C+33` deltas are usable
-inputs, not the complete sum; no 40,098-event null allowance is reused.
+pages/finalizers/counters. Ranger/out-of-SSA now supplies its literal-sized
+ordinary requests; the established warning gates are retained. The separate
+`5C+5` and `8C+33` deltas are usable inputs, not the complete sum; no
+40,098-event null allowance is reused.
 
 Main assembler/ELF, producer frontends/consumers, binder/link and complete
 output-launch joins also remain explicit. The descriptor still does not bind
@@ -527,3 +649,19 @@ signed-summary/edge-UID boundaries. No compiler, native tool or solver ran;
 `native_tool_executions=0`. No reliable start timer or token/cost measurement
 is available for this resumed round. Independent review is pending against
 the frozen implementation commit; this paragraph does not claim acceptance.
+
+The following ranger/out-of-SSA round retains the selected GPT-6 Astra /
+Extra High setting, with runtime identity and token/cost measurements
+unavailable. It closes the next ordinary-backing substitution, including
+two variable-sized partition views and `2R+8` private bitmap headers per
+ranger; the null single-chunk allowance is replaced with a source-derived
+chunk-event bound. The aggregate passes 32 offline cases, including SSA-vector
+and signed block-offset boundaries. No native tool ran. There is no separate
+elapsed-time timer or independent review acceptance for this increment yet.
+
+The same checkpoint integrates the independently accepted assembler interface
+from upstream implementation `5794440714` and review `77efbca7123`, unchanged.
+All 32 aggregate checks pass with the new shared-source/RTL/data equality
+checks and the assembler's local predicate. This integration does not claim
+new independent review of the ranger/out-of-SSA extension, complete GAS/BFD
+allocation lifetimes or a complete output launch.

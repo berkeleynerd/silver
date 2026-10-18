@@ -79,6 +79,15 @@ def main():
             assert len(cleanup)==1 and cleanup[0]['requests_upper']==4
             assert cleanup[0]['raw_bytes_upper']==8*graph['call_site_hash_slots_upper']
             assert graph['conditional_graph_and_summary_lifetime_closed']
+            helpers=result['native_SSA_helper_backing']
+            assert helpers['source_input']['SSA_slots_upper']==3*c+2
+            assert helpers['conditional_SSA_helper_backing_closed']
+            assert helpers['additional_GGC_request_events_upper']==0
+            assert helpers['out_of_SSA']['real_partitions']==0
+            assembler=result['Main_assembler_object_interface']
+            assert assembler['local_interface_fits']
+            assert assembler['source_identity']==module.identity(raw)
+            assert assembler['text_bytes_upper']==result['RTL_shape']['shortening_text_bytes_upper']
             expected=True
             assert result['evaluated_predicates_pass']==expected,(name,result['failed_predicates'])
             if name in ('literal_above_old_cap','5000_calls'):
@@ -160,6 +169,16 @@ def main():
             assert graph['local_representation_checks']['cgraph_edge_UID']==expected
             rows.append(dict(case='cgraph_edge_UID_'+str(c),calls=c,
                              endpoint=graph['edge_uid_endpoint_upper'],fits=expected))
+        for c,expected in (((module.I32-3)//3,True),((module.I32-3)//3+1,False)):
+            helpers=module.native_ssa_helper_backing(c,0,context)
+            assert helpers['conditional_SSA_helper_backing_closed']==expected
+            assert helpers['local_representation_checks']['SSA_plus_one_vector_31_bit']==expected
+            rows.append(dict(case='SSA_helper_SSA_slots_'+str(c),calls=c,fits=expected))
+        for n,expected in ((module.I32-69,True),(module.I32-68,False)):
+            helpers=module.native_ssa_helper_backing(1,n,context)
+            assert helpers['conditional_SSA_helper_backing_closed']==expected
+            assert helpers['local_representation_checks']['ranger_block_plus_64_signed']==expected
+            rows.append(dict(case='SSA_helper_ranger_blocks_'+str(n),nulls=n,fits=expected))
     result=dict(case_count=len(rows),cases=rows,all_checks_pass=True,
                 native_tool_executions=0,whole_literal_pipeline_capacity_established=False)
     args.output.write_text(json.dumps(result,indent=2)+'\n')

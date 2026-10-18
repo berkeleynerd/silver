@@ -7,7 +7,8 @@ accepted output-binder checksum checker is replayed once per context.
 
 The [source argument](../../research/retained-literal-pipeline.md) identifies
 the closed bounds-pool/shared-symbol and direct-call/IPA-summary joins,
-and the next literal-sized ranger/out-of-SSA and constructor-lifetime consumers. Passing the instantiated
+the literal-sized ranger/out-of-SSA backing join, and the remaining
+constructor-lifetime consumers. Passing the instantiated
 conditions does not establish whole-pipeline capacity: the result always
 preserves its named open joins and changes no production admission.
 
@@ -22,7 +23,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 28 interface checks. It reuses one context's
+arguments and `--output`, and runs 32 interface checks. It reuses one context's
 successful retained checks across source variations.
 
 `inputs.json` pins formulas, predecessor results and source arguments.
@@ -56,3 +57,15 @@ Its separate GGC delta is `8C+33`, including four possible terminal-empty
 call-site hash backings, with five possible singleton-finalizer registrations.
 These events still require composition with the complete native constructor
 and collector lifetime. No null whole-lifetime allowance is reused.
+
+`native_ssa_helper_backing` substitutes `z=3C+2` SSA slots and `R=N+5`
+ranger block slots, including ordinary vectors, partition views and variable
+private bitmap chunk lifetimes. It checks the native lowering interface,
+returns zero additional GGC events, and leaves frontend/gigi/initial-GIMPLE
+constructors and shared collector composition open.
+
+The independently reviewed literal assembler callable now consumes the same
+source bytes. Its counters, final chain, text bytes and rodata bytes must
+agree with the existing native/RTL results. The selected assembly/ELF envelope
+contributes `local_interface_fits`; remaining GAS/BFD allocation growth and
+production-invocation joins remain open.
