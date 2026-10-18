@@ -103,6 +103,50 @@ the existing source-range argument still must supply F and ensure no extra
 line map is introduced. Ad-hoc location maps, filename intern tables and all
 later GCC structures are separate.
 
+### Ad-hoc location backing and hash arithmetic
+
+Locations carrying a discriminator or a block pointer use the separate
+ad-hoc map. Count all fresh entries in a compilation process as H, including
+those produced before and after initial CFG construction. The earlier
+`S+E_graph` allowance is only one contributor. Repeated requests can reuse
+an entry; assuming every request is fresh is conservative.
+
+The backing starts at 128 entries and doubles when full. Both its current
+index and capacity are 64-bit; each LP64 entry is 40 bytes (three locations,
+one pointer, one unsigned discriminator and padding)
+(`libcpp/include/line-map.h:781–805`, `line-map.cc:175–261`). Under
+**`H <= 1,073,741,823`**, backing capacity is at most `2^30` and the largest
+byte request is **`40*2^30 = 42,949,672,960`**. The selected GGC reallocator
+can round this to `2^36` bytes; the map keeps its requested entry capacity
+and does not turn allocator slack into additional entries. Capacity doubling,
+byte multiplication, pointer offsets, index increment and the location tag
+all fit their respective representations. Physical allocation is separate.
+
+This map uses **libiberty's C `htab`**, not GCC's C++ `hash_table`. Its
+source happens to have the same 30-prime sequence, but the argument checks
+that identity explicitly. Initial request 100 rounds to 127. Growth selects
+the first prime at least twice the live-entry count, or keeps its previous
+size (`libiberty/hashtab.c:134–195,517–575,633–695`). H's sufficient bound
+therefore keeps capacity at most `2^31-1`. The 32-bit probe index plus secondary
+step is at most `2p-3`, so it cannot wrap. Occupancy, deletion counts and
+load-factor products use LP64 size_t here; unlike the C++ table's heuristic,
+even `8*live_entries` is mathematical arithmetic throughout this region.
+The pointer backbone requests at most `8*(2^31-1)` bytes. Search/collision
+counters are unsigned diagnostic counters; their modular wrap cannot change
+lookup or allocation (`include/hashtab.h:94–137`). Hash-value arithmetic is
+also intentionally modular, followed by full entry equality.
+
+The bound is a conservative **local sufficient region**, not a native failure
+threshold. It prices the generic `2*live_entries` growth request rather than
+exploiting the exact insertion-only growth schedule. A tighter schedule-based
+region can be substituted if this term becomes binding in the final useful
+domain comparison; this component does not choose a smaller source cap.
+Ad-hoc backing relocation rebases the existing hash pointers and creates no
+new entries (`line-map.cc:93–106,248–258`). The PCH reconstruction helper has
+the same insertion family, although the selected Ada build does not use that
+route. Counts from other backend stages still need composition before H is
+known from source.
+
 ## GNAT-node association backbones
 
 The backend receives
@@ -831,8 +875,8 @@ keeps the subsequent signed-int parameter conversion representable
 most S+E_graph entries and uses the preceding ordinary GCC hash transfer.
 Each nonzero discriminator can request one ad-hoc location. Add this to all
 earlier gigi/GIMPLE location requests: it does not replace the ordinary source
-line-map charge. Complete ad-hoc-location backing/hash growth remains part of
-the remaining location composition.
+line-map charge. The ad-hoc backing/hash transfer above consumes their aggregate
+H; requests from later phases remain part of the location composition.
 
 This reaches the end of `build_gimple_cfg`, before `execute_build_cfg` invokes
 CFG cleanup and loop discovery. It does not claim the whole CFG pass, later

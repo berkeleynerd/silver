@@ -2099,7 +2099,7 @@ LF line numbering; complete file identities checked.
 471: };
 ```
 
-## libcpp/include/line-map.h:747–777
+## libcpp/include/line-map.h:747–805
 ```text
 747:      (e.g. when a new preprocessing unit starts or ends).  */
 748:   line_map_ordinary * GTY ((length ("%h.used"))) maps;
@@ -2132,6 +2132,203 @@ LF line numbering; complete file identities checked.
 775:      linemap_lookup.  */
 776:   mutable line_map_uint_t m_cache;
 777: };
+778:
+779: /* Data structure to associate a source_range together with an arbitrary
+780:    data pointer with a source location.  */
+781: struct GTY(()) location_adhoc_data {
+782:   location_t locus;
+783:   source_range src_range;
+784:   void * GTY((skip)) data;
+785:   unsigned discriminator;
+786: };
+787:
+788: struct htab;
+789:
+790: /* The following data structure encodes a location with some adhoc data
+791:    and maps it to a new unsigned integer (called an adhoc location)
+792:    that replaces the original location to represent the mapping.
+793:
+794:    The new adhoc_loc uses the highest bit as the enabling bit, i.e. if the
+795:    highest bit is 1, then the number is adhoc_loc. Otherwise, it serves as
+796:    the original location.  Once identified as the adhoc_loc, the lower 62
+797:    bits of the integer is used to index the location_adhoc_data array,
+798:    in which the locus and associated data is stored.  */
+799:
+800: struct GTY(()) location_adhoc_data_map {
+801:   struct htab * GTY((skip)) htab;
+802:   location_t curr_loc;
+803:   line_map_uint_t allocated;
+804:   struct location_adhoc_data GTY((length ("%h.allocated"))) *data;
+805: };
+```
+
+## libcpp/line-map.cc:63–125
+```text
+63: /* Hash function for location_adhoc_data hashtable.  */
+64:
+65: static hashval_t
+66: location_adhoc_data_hash (const void *l)
+67: {
+68:   const struct location_adhoc_data *lb =
+69:       (const struct location_adhoc_data *) l;
+70:   return lb->locus
+71:     + lb->src_range.m_start
+72:     + lb->src_range.m_finish
+73:     + (size_t) lb->data
+74:     + lb->discriminator;
+75: }
+76:
+77: /* Compare function for location_adhoc_data hashtable.  */
+78:
+79: static int
+80: location_adhoc_data_eq (const void *l1, const void *l2)
+81: {
+82:   const struct location_adhoc_data *lb1 =
+83:       (const struct location_adhoc_data *) l1;
+84:   const struct location_adhoc_data *lb2 =
+85:       (const struct location_adhoc_data *) l2;
+86:   return (lb1->locus == lb2->locus
+87: 	  && lb1->src_range.m_start == lb2->src_range.m_start
+88: 	  && lb1->src_range.m_finish == lb2->src_range.m_finish
+89: 	  && lb1->data == lb2->data
+90: 	  && lb1->discriminator == lb2->discriminator);
+91: }
+92:
+93: /* Update the hashtable when location_adhoc_data_map::data is reallocated.
+94:    The param is an array of two pointers, the previous value of the data
+95:    pointer, and then the new value.  The pointers stored in the hash map
+96:    are then rebased to be relative to the new data pointer instead of the
+97:    old one.  */
+98:
+99: static int
+100: location_adhoc_data_update (void **slot_v, void *param_v)
+101: {
+102:   const auto slot = reinterpret_cast<location_adhoc_data **> (slot_v);
+103:   const auto param = static_cast<location_adhoc_data **> (param_v);
+104:   *slot = (*slot - param[0]) + param[1];
+105:   return 1;
+106: }
+107:
+108: /* The adhoc data hash table is not part of the GGC infrastructure, so it was
+109:    not initialized when SET was reconstructed from PCH; take care of that by
+110:    rebuilding it from scratch.  */
+111:
+112: void
+113: rebuild_location_adhoc_htab (line_maps *set)
+114: {
+115:   set->m_location_adhoc_data_map.htab =
+116:       htab_create (100, location_adhoc_data_hash, location_adhoc_data_eq, NULL);
+117:   for (auto p = set->m_location_adhoc_data_map.data,
+118: 	    end = p + set->m_location_adhoc_data_map.curr_loc;
+119:       p != end; ++p)
+120:     {
+121:       const auto slot = reinterpret_cast<location_adhoc_data **>
+122: 	(htab_find_slot (set->m_location_adhoc_data_map.htab, p, INSERT));
+123:       *slot = p;
+124:     }
+125: }
+```
+
+## libcpp/line-map.cc:175–261
+```text
+175: location_t
+176: line_maps::get_or_create_combined_loc (location_t locus,
+177: 				       source_range src_range,
+178: 				       void *data,
+179: 				       unsigned discriminator)
+180: {
+181:   struct location_adhoc_data lb;
+182:   struct location_adhoc_data **slot;
+183:
+184:   if (IS_ADHOC_LOC (locus))
+185:     locus = get_location_from_adhoc_loc (this, locus);
+186:   if (locus == 0 && data == NULL)
+187:     return 0;
+188:
+189:   /* Any ordinary locations ought to be "pure" at this point: no
+190:      compressed ranges.  */
+191:   linemap_assert (locus < RESERVED_LOCATION_COUNT
+192: 		  || locus >= LINE_MAP_MAX_LOCATION_WITH_PACKED_RANGES
+193: 		  || locus >= LINEMAPS_MACRO_LOWEST_LOCATION (this)
+194: 		  || pure_location_p (locus));
+195:
+196:   /* Consider short-range optimization.  */
+197:   if (can_be_stored_compactly_p (locus, src_range, data, discriminator))
+198:     {
+199:       /* The low bits ought to be clear.  */
+200:       linemap_assert (pure_location_p (locus));
+201:       const line_map *map = linemap_lookup (this, locus);
+202:       const line_map_ordinary *ordmap = linemap_check_ordinary (map);
+203:       auto int_diff = src_range.m_finish - src_range.m_start;
+204:       auto col_diff = (int_diff >> ordmap->m_range_bits);
+205:       if (col_diff < (loc_one << ordmap->m_range_bits))
+206: 	{
+207: 	  location_t packed = locus | col_diff;
+208: 	  m_num_optimized_ranges++;
+209: 	  return packed;
+210: 	}
+211:     }
+212:
+213:   /* We can also compactly store locations
+214:      when locus == start == finish (and data is NULL).  */
+215:   if (locus == src_range.m_start
+216:       && locus == src_range.m_finish
+217:       && !data && discriminator == 0)
+218:     return locus;
+219:
+220:   if (!data && discriminator == 0)
+221:     m_num_unoptimized_ranges++;
+222:
+223:   lb.locus = locus;
+224:   lb.src_range = src_range;
+225:   lb.data = data;
+226:   lb.discriminator = discriminator;
+227:   slot = (struct location_adhoc_data **)
+228:       htab_find_slot (m_location_adhoc_data_map.htab, &lb, INSERT);
+229:   if (*slot == NULL)
+230:     {
+231:       if (m_location_adhoc_data_map.curr_loc >=
+232: 	  m_location_adhoc_data_map.allocated)
+233: 	{
+234: 	  const auto orig_data = m_location_adhoc_data_map.data;
+235: 	  /* Cast away extern "C" from the type of xrealloc.  */
+236: 	  line_map_realloc reallocator = (m_reallocator
+237: 					  ? m_reallocator
+238: 					  : (line_map_realloc) xrealloc);
+239:
+240: 	  if (m_location_adhoc_data_map.allocated == 0)
+241: 	    m_location_adhoc_data_map.allocated = 128;
+242: 	  else
+243: 	    m_location_adhoc_data_map.allocated *= 2;
+244: 	  m_location_adhoc_data_map.data = (struct location_adhoc_data *)
+245: 	      reallocator (m_location_adhoc_data_map.data,
+246: 			   m_location_adhoc_data_map.allocated
+247: 			   * sizeof (struct location_adhoc_data));
+248: 	  if (m_location_adhoc_data_map.allocated > 128)
+249: 	    {
+250: 	      location_adhoc_data *param[2]
+251: 		= {orig_data, m_location_adhoc_data_map.data};
+252: 	      htab_traverse (m_location_adhoc_data_map.htab,
+253: 			     location_adhoc_data_update, param);
+254: 	    }
+255: 	}
+256:       *slot = m_location_adhoc_data_map.data
+257: 	      + m_location_adhoc_data_map.curr_loc;
+258:       m_location_adhoc_data_map.data[m_location_adhoc_data_map.curr_loc++]
+259: 	= lb;
+260:     }
+261:   return ((*slot) - m_location_adhoc_data_map.data) | (1 + MAX_LOCATION_T);
+```
+
+## libcpp/line-map.cc:437–443
+```text
+437:   set->highest_location = RESERVED_LOCATION_COUNT - 1;
+438:   set->highest_line = RESERVED_LOCATION_COUNT - 1;
+439:   set->m_location_adhoc_data_map.htab =
+440:       htab_create (100, location_adhoc_data_hash, location_adhoc_data_eq, NULL);
+441:   set->builtin_location = builtin_location;
+442: }
+443:
 ```
 
 ## libcpp/line-map.cc:469–543
@@ -3203,6 +3400,54 @@ LF line numbering; complete file identities checked.
 44: /* Callback function pointer types.  */
 45:
 46: /* Calculate hash of a table entry.  */
+```
+
+## include/hashtab.h:94–137
+```text
+94:
+95: struct htab {
+96:   /* Pointer to hash function.  */
+97:   htab_hash hash_f;
+98:
+99:   /* Pointer to comparison function.  */
+100:   htab_eq eq_f;
+101:
+102:   /* Pointer to cleanup function.  */
+103:   htab_del del_f;
+104:
+105:   /* Table itself.  */
+106:   void **entries;
+107:
+108:   /* Current size (in entries) of the hash table.  */
+109:   size_t size;
+110:
+111:   /* Current number of elements including also deleted elements.  */
+112:   size_t n_elements;
+113:
+114:   /* Current number of deleted elements in the table.  */
+115:   size_t n_deleted;
+116:
+117:   /* The following member is used for debugging. Its value is number
+118:      of all calls of `htab_find_slot' for the hash table. */
+119:   unsigned int searches;
+120:
+121:   /* The following member is used for debugging.  Its value is number
+122:      of collisions fixed for time of work with the hash table. */
+123:   unsigned int collisions;
+124:
+125:   /* Pointers to allocate/free functions.  */
+126:   htab_alloc alloc_f;
+127:   htab_free free_f;
+128:
+129:   /* Alternate allocate/free functions, which take an extra argument.  */
+130:   void *alloc_arg;
+131:   htab_alloc_with_arg alloc_with_arg_f;
+132:   htab_free_with_arg free_with_arg_f;
+133:
+134:   /* Current size (in entries) of the hash table, as an index into the
+135:      table of primes.  */
+136:   unsigned int size_prime_index;
+137: };
 ```
 
 ## gcc/genmodes.cc:828–845
@@ -8815,4 +9060,325 @@ LF line numbering; complete file identities checked.
 1057:   return line_table->get_or_create_combined_loc (locus, src_range, block,
 1058: 						 discriminator);
 1059: }
+```
+
+## libiberty/hashtab.c:134–195
+```text
+134: static struct prime_ent const prime_tab[] = {
+135:   {          7, 0x24924925, 0x9999999b, 2 },
+136:   {         13, 0x3b13b13c, 0x745d1747, 3 },
+137:   {         31, 0x08421085, 0x1a7b9612, 4 },
+138:   {         61, 0x0c9714fc, 0x15b1e5f8, 5 },
+139:   {        127, 0x02040811, 0x0624dd30, 6 },
+140:   {        251, 0x05197f7e, 0x073260a5, 7 },
+141:   {        509, 0x01824366, 0x02864fc8, 8 },
+142:   {       1021, 0x00c0906d, 0x014191f7, 9 },
+143:   {       2039, 0x0121456f, 0x0161e69e, 10 },
+144:   {       4093, 0x00300902, 0x00501908, 11 },
+145:   {       8191, 0x00080041, 0x00180241, 12 },
+146:   {      16381, 0x000c0091, 0x00140191, 13 },
+147:   {      32749, 0x002605a5, 0x002a06e6, 14 },
+148:   {      65521, 0x000f00e2, 0x00110122, 15 },
+149:   {     131071, 0x00008001, 0x00018003, 16 },
+150:   {     262139, 0x00014002, 0x0001c004, 17 },
+151:   {     524287, 0x00002001, 0x00006001, 18 },
+152:   {    1048573, 0x00003001, 0x00005001, 19 },
+153:   {    2097143, 0x00004801, 0x00005801, 20 },
+154:   {    4194301, 0x00000c01, 0x00001401, 21 },
+155:   {    8388593, 0x00001e01, 0x00002201, 22 },
+156:   {   16777213, 0x00000301, 0x00000501, 23 },
+157:   {   33554393, 0x00001381, 0x00001481, 24 },
+158:   {   67108859, 0x00000141, 0x000001c1, 25 },
+159:   {  134217689, 0x000004e1, 0x00000521, 26 },
+160:   {  268435399, 0x00000391, 0x000003b1, 27 },
+161:   {  536870909, 0x00000019, 0x00000029, 28 },
+162:   { 1073741789, 0x0000008d, 0x00000095, 29 },
+163:   { 2147483647, 0x00000003, 0x00000007, 30 },
+164:   /* Avoid "decimal constant so large it is unsigned" for 4294967291.  */
+165:   { 0xfffffffb, 0x00000006, 0x00000008, 31 }
+166: };
+167:
+168: /* The following function returns an index into the above table of the
+169:    nearest prime number which is greater than N, and near a power of two. */
+170:
+171: static unsigned int
+172: higher_prime_index (unsigned long n)
+173: {
+174:   unsigned int low = 0;
+175:   unsigned int high = sizeof(prime_tab) / sizeof(prime_tab[0]);
+176:
+177:   while (low != high)
+178:     {
+179:       unsigned int mid = low + (high - low) / 2;
+180:       if (n > prime_tab[mid].prime)
+181: 	low = mid + 1;
+182:       else
+183: 	high = mid;
+184:     }
+185:
+186:   /* If we've run out of primes, abort.  */
+187:   if (n > prime_tab[low].prime)
+188:     {
+189:       fprintf (stderr, "Cannot find prime bigger than %lu\n", n);
+190:       abort ();
+191:     }
+192:
+193:   return low;
+194: }
+195:
+```
+
+## libiberty/hashtab.c:282–324
+```text
+282: htab_create_alloc (size_t size, htab_hash hash_f, htab_eq eq_f,
+283:                    htab_del del_f, htab_alloc alloc_f, htab_free free_f)
+284: {
+285:   return htab_create_typed_alloc (size, hash_f, eq_f, del_f, alloc_f, alloc_f,
+286: 				  free_f);
+287: }
+288:
+289: /* As above, but uses the variants of ALLOC_F and FREE_F which accept
+290:    an extra argument.  */
+291:
+292: htab_t
+293: htab_create_alloc_ex (size_t size, htab_hash hash_f, htab_eq eq_f,
+294: 		      htab_del del_f, void *alloc_arg,
+295: 		      htab_alloc_with_arg alloc_f,
+296: 		      htab_free_with_arg free_f)
+297: {
+298:   htab_t result;
+299:   unsigned int size_prime_index;
+300:
+301:   size_prime_index = higher_prime_index (size);
+302:   size = prime_tab[size_prime_index].prime;
+303:
+304:   result = (htab_t) (*alloc_f) (alloc_arg, 1, sizeof (struct htab));
+305:   if (result == NULL)
+306:     return NULL;
+307:   result->entries = (void **) (*alloc_f) (alloc_arg, size, sizeof (void *));
+308:   if (result->entries == NULL)
+309:     {
+310:       if (free_f != NULL)
+311: 	(*free_f) (alloc_arg, result);
+312:       return NULL;
+313:     }
+314:   result->size = size;
+315:   result->size_prime_index = size_prime_index;
+316:   result->hash_f = hash_f;
+317:   result->eq_f = eq_f;
+318:   result->del_f = del_f;
+319:   result->alloc_arg = alloc_arg;
+320:   result->alloc_with_arg_f = alloc_f;
+321:   result->free_with_arg_f = free_f;
+322:   return result;
+323: }
+324:
+```
+
+## libiberty/hashtab.c:464–510
+```text
+464:      htab->size = nsize;
+465:      htab->size_prime_index = nindex;
+466:     }
+467:   else
+468:     memset (entries, 0, size * sizeof (void *));
+469:   htab->n_deleted = 0;
+470:   htab->n_elements = 0;
+471: }
+472:
+473: /* Similar to htab_find_slot, but without several unwanted side effects:
+474:     - Does not call htab->eq_f when it finds an existing entry.
+475:     - Does not change the count of elements/searches/collisions in the
+476:       hash table.
+477:    This function also assumes there are no deleted entries in the table.
+478:    HASH is the hash value for the element to be inserted.  */
+479:
+480: static void **
+481: find_empty_slot_for_expand (htab_t htab, hashval_t hash)
+482: {
+483:   hashval_t index = htab_mod (hash, htab);
+484:   size_t size = htab_size (htab);
+485:   void **slot = htab->entries + index;
+486:   hashval_t hash2;
+487:
+488:   if (*slot == HTAB_EMPTY_ENTRY)
+489:     return slot;
+490:   else if (*slot == HTAB_DELETED_ENTRY)
+491:     abort ();
+492:
+493:   hash2 = htab_mod_m2 (hash, htab);
+494:   for (;;)
+495:     {
+496:       index += hash2;
+497:       if (index >= size)
+498: 	index -= size;
+499:
+500:       slot = htab->entries + index;
+501:       if (*slot == HTAB_EMPTY_ENTRY)
+502: 	return slot;
+503:       else if (*slot == HTAB_DELETED_ENTRY)
+504: 	abort ();
+505:     }
+506: }
+507:
+508: /* The following function changes size of memory allocated for the
+509:    entries and repeatedly inserts the table elements.  The occupancy
+510:    of the table after the call will be about 50%.  Naturally the hash
+```
+
+## libiberty/hashtab.c:517–575
+```text
+517: htab_expand (htab_t htab)
+518: {
+519:   void **oentries;
+520:   void **olimit;
+521:   void **p;
+522:   void **nentries;
+523:   size_t nsize, osize, elts;
+524:   unsigned int oindex, nindex;
+525:
+526:   oentries = htab->entries;
+527:   oindex = htab->size_prime_index;
+528:   osize = htab->size;
+529:   olimit = oentries + osize;
+530:   elts = htab_elements (htab);
+531:
+532:   /* Resize only when table after removal of unused elements is either
+533:      too full or too empty.  */
+534:   if (elts * 2 > osize || (elts * 8 < osize && osize > 32))
+535:     {
+536:       nindex = higher_prime_index (elts * 2);
+537:       nsize = prime_tab[nindex].prime;
+538:     }
+539:   else
+540:     {
+541:       nindex = oindex;
+542:       nsize = osize;
+543:     }
+544:
+545:   if (htab->alloc_with_arg_f != NULL)
+546:     nentries = (void **) (*htab->alloc_with_arg_f) (htab->alloc_arg, nsize,
+547: 						    sizeof (void *));
+548:   else
+549:     nentries = (void **) (*htab->alloc_f) (nsize, sizeof (void *));
+550:   if (nentries == NULL)
+551:     return 0;
+552:   htab->entries = nentries;
+553:   htab->size = nsize;
+554:   htab->size_prime_index = nindex;
+555:   htab->n_elements -= htab->n_deleted;
+556:   htab->n_deleted = 0;
+557:
+558:   p = oentries;
+559:   do
+560:     {
+561:       void *x = *p;
+562:
+563:       if (x != HTAB_EMPTY_ENTRY && x != HTAB_DELETED_ENTRY)
+564: 	{
+565: 	  void **q = find_empty_slot_for_expand (htab, (*htab->hash_f) (x));
+566:
+567: 	  *q = x;
+568: 	}
+569:
+570:       p++;
+571:     }
+572:   while (p < olimit);
+573:
+574:   if (htab->free_f != NULL)
+575:     (*htab->free_f) (oentries);
+```
+
+## libiberty/hashtab.c:633–705
+```text
+633: htab_find_slot_with_hash (htab_t htab, const void *element,
+634:                           hashval_t hash, enum insert_option insert)
+635: {
+636:   void **first_deleted_slot;
+637:   hashval_t index, hash2;
+638:   size_t size;
+639:   void *entry;
+640:
+641:   size = htab_size (htab);
+642:   if (insert == INSERT && size * 3 <= htab->n_elements * 4)
+643:     {
+644:       if (htab_expand (htab) == 0)
+645: 	return NULL;
+646:       size = htab_size (htab);
+647:     }
+648:
+649:   index = htab_mod (hash, htab);
+650:
+651:   htab->searches++;
+652:   first_deleted_slot = NULL;
+653:
+654:   entry = htab->entries[index];
+655:   if (entry == HTAB_EMPTY_ENTRY)
+656:     goto empty_entry;
+657:   else if (entry == HTAB_DELETED_ENTRY)
+658:     first_deleted_slot = &htab->entries[index];
+659:   else if ((*htab->eq_f) (entry, element))
+660:     return &htab->entries[index];
+661:
+662:   hash2 = htab_mod_m2 (hash, htab);
+663:   for (;;)
+664:     {
+665:       htab->collisions++;
+666:       index += hash2;
+667:       if (index >= size)
+668: 	index -= size;
+669:
+670:       entry = htab->entries[index];
+671:       if (entry == HTAB_EMPTY_ENTRY)
+672: 	goto empty_entry;
+673:       else if (entry == HTAB_DELETED_ENTRY)
+674: 	{
+675: 	  if (!first_deleted_slot)
+676: 	    first_deleted_slot = &htab->entries[index];
+677: 	}
+678:       else if ((*htab->eq_f) (entry, element))
+679: 	return &htab->entries[index];
+680:     }
+681:
+682:  empty_entry:
+683:   if (insert == NO_INSERT)
+684:     return NULL;
+685:
+686:   if (first_deleted_slot)
+687:     {
+688:       htab->n_deleted--;
+689:       *first_deleted_slot = HTAB_EMPTY_ENTRY;
+690:       return first_deleted_slot;
+691:     }
+692:
+693:   htab->n_elements++;
+694:   return &htab->entries[index];
+695: }
+696:
+697: /* Like htab_find_slot_with_hash, but compute the hash value from the
+698:    element.  */
+699:
+700: void **
+701: htab_find_slot (htab_t htab, const void *element, enum insert_option insert)
+702: {
+703:   return htab_find_slot_with_hash (htab, element, (*htab->hash_f) (element),
+704: 				   insert);
+705: }
+```
+
+## libiberty/hashtab.c:780–792
+```text
+780:
+781: /* Like htab_traverse_noresize, but does resize the table when it is
+782:    too empty to improve effectivity of subsequent calls.  */
+783:
+784: void
+785: htab_traverse (htab_t htab, htab_trav callback, void *info)
+786: {
+787:   size_t size = htab_size (htab);
+788:   if (htab_elements (htab) * 8 < size && size > 32)
+789:     htab_expand (htab);
+790:
+791:   htab_traverse_noresize (htab, callback, info);
+792: }
 ```

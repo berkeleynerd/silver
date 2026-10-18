@@ -421,6 +421,15 @@
       "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/input.cc",
       "archive": "cfg-sources.tar.gz",
       "origin": "previously retained complete pinned GCC non-tests source"
+    },
+    {
+      "path": "libiberty/hashtab.c",
+      "bytes": 29804,
+      "sha256": "fd1f80771bb0317dc96e396010db33c99116eaa921f0dd39b2171c56a9f5ac6f",
+      "git_blob_sha1": "71e4bae950a0131712df69f9eeb8c7c13021682f",
+      "origin": "retained complete non-tests GCC source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/libiberty/hashtab.c",
+      "archive": "location-sources.tar.gz"
     }
   ]
 }

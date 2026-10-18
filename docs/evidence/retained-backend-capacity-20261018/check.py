@@ -74,13 +74,16 @@ RANGES = {
     "gcc/hash-table.h": [(295, 355), (599, 617), (656, 679), (755, 778),
                          (788, 821), (833, 895), (1026, 1093)],
     "gcc/hash-table.cc": [(44, 78), (87, 110)],
-    "include/hashtab.h": [(32, 46)],
+    "include/hashtab.h": [(32, 46), (94, 137)],
+    "libiberty/hashtab.c": [(134, 195), (282, 324), (464, 510), (517, 575),
+                            (633, 705), (780, 792)],
     "gcc/opts.cc": [(470, 560), (596, 605), (819, 825)],
     "gcc/common.opt": [(2080, 2094), (2411, 2420)],
     "gcc/config/i386/i386-options.cc": [(2275, 2286)],
     "gcc/common/config/i386/i386-common.cc": [(2033, 2059)],
-    "libcpp/include/line-map.h": [(48, 55), (295, 324), (425, 471), (747, 777)],
-    "libcpp/line-map.cc": [(469, 543), (570, 608), (662, 680), (890, 999), (1009, 1077)],
+    "libcpp/include/line-map.h": [(48, 55), (295, 324), (425, 471), (747, 805)],
+    "libcpp/line-map.cc": [(63, 125), (175, 261), (437, 443), (469, 543),
+                           (570, 608), (662, 680), (890, 999), (1009, 1077)],
 }
 
 
@@ -437,7 +440,30 @@ def main():
     prime_text = prime_source.split("prime_tab[] = {", 1)[1].split("};", 1)[0]
     primes = [int(x, 0) for x in re.findall(r"\{\s*(0x[0-9a-f]+|[0-9]+),", prime_text)]
     assert len(primes) == 30 and primes[-2:] == [int_max, 2**32-5]
+    c_hash_source = all_bytes["libiberty/hashtab.c"].decode()
+    c_prime_text = c_hash_source.split("prime_tab[] = {", 1)[1].split("};", 1)[0]
+    c_primes = [int(x, 0) for x in re.findall(
+        r"\{\s*(0x[0-9a-f]+|[0-9]+),", c_prime_text)]
+    assert c_primes == primes
+    assert "size_t nsize, osize, elts;" in c_hash_source
+    assert "size * 3 <= htab->n_elements * 4" in c_hash_source
+    line_map = all_bytes["libcpp/line-map.cc"].decode()
+    assert "m_location_adhoc_data_map.allocated = 128;" in line_map
+    assert "m_location_adhoc_data_map.allocated *= 2;" in line_map
     live_limit = int_max // 2
+    adhoc_cases = []
+    for demand in (0, 1, 127, 128, 129, 255, 256, 257, live_limit):
+        capacity = 0 if demand == 0 else 1 << (max(128,demand)-1).bit_length()
+        requested_bytes = 40*capacity
+        rounded_bytes = (0 if capacity == 0 else
+                         1 << (requested_bytes-1).bit_length())
+        assert demand <= capacity <= 2**30
+        assert requested_bytes <= 40*2**30
+        assert rounded_bytes <= 2**36
+        assert capacity*40 <= 2**63-1
+        adhoc_cases.append(dict(entries=demand, requested_capacity=capacity,
+                                requested_bytes=requested_bytes,
+                                rounded_bytes_upper_bound=rounded_bytes))
     hash_cases = []
     for demand in sorted({0, 1, 23, 24, 765, 766, live_limit} |
                          {p//2+delta for p in primes[:-1] for delta in (0,1)
@@ -547,6 +573,22 @@ def main():
             "ordinary_map_bytes_lp64": 32,
             "growth_transitions": map_cases,
             "maximum_map_vector_bytes_from_nat_file_count": 2**36,
+        },
+        "adhoc_location_map": {
+            "sufficient_fresh_entry_bound": live_limit,
+            "initial_backing_capacity": 128,
+            "entry_bytes_lp64_premise": 40,
+            "maximum_backing_capacity": 2**30,
+            "maximum_requested_bytes": 40*2**30,
+            "maximum_rounded_bytes": 2**36,
+            "C_hash_prime_table_matches_CPP_table": True,
+            "C_hash_initial_request": 100,
+            "C_hash_initial_capacity": 127,
+            "C_hash_maximum_capacity": int_max,
+            "C_hash_maximum_requested_bytes": 8*int_max,
+            "growth_cases": adhoc_cases,
+            "scope": "local sufficient region; source and all-phase request total still required",
+            "loss": "generic twice-live growth envelope, without insertion-only schedule refinement",
         },
         "gnat_node_associations": {
             "array_count": 2,

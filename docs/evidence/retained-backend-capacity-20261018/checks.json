@@ -200,6 +200,10 @@
     {
       "path": "gcc/input.cc",
       "sha256": "8016245a4a83cc704e505be8e69bc5b46722721f86338bc23ddc55419a286fc7"
+    },
+    {
+      "path": "libiberty/hashtab.c",
+      "sha256": "fd1f80771bb0317dc96e396010db33c99116eaa921f0dd39b2171c56a9f5ac6f"
     }
   ],
   "block_operations": {
@@ -1266,6 +1270,77 @@
       }
     ],
     "maximum_map_vector_bytes_from_nat_file_count": 68719476736
+  },
+  "adhoc_location_map": {
+    "sufficient_fresh_entry_bound": 1073741823,
+    "initial_backing_capacity": 128,
+    "entry_bytes_lp64_premise": 40,
+    "maximum_backing_capacity": 1073741824,
+    "maximum_requested_bytes": 42949672960,
+    "maximum_rounded_bytes": 68719476736,
+    "C_hash_prime_table_matches_CPP_table": true,
+    "C_hash_initial_request": 100,
+    "C_hash_initial_capacity": 127,
+    "C_hash_maximum_capacity": 2147483647,
+    "C_hash_maximum_requested_bytes": 17179869176,
+    "growth_cases": [
+      {
+        "entries": 0,
+        "requested_capacity": 0,
+        "requested_bytes": 0,
+        "rounded_bytes_upper_bound": 0
+      },
+      {
+        "entries": 1,
+        "requested_capacity": 128,
+        "requested_bytes": 5120,
+        "rounded_bytes_upper_bound": 8192
+      },
+      {
+        "entries": 127,
+        "requested_capacity": 128,
+        "requested_bytes": 5120,
+        "rounded_bytes_upper_bound": 8192
+      },
+      {
+        "entries": 128,
+        "requested_capacity": 128,
+        "requested_bytes": 5120,
+        "rounded_bytes_upper_bound": 8192
+      },
+      {
+        "entries": 129,
+        "requested_capacity": 256,
+        "requested_bytes": 10240,
+        "rounded_bytes_upper_bound": 16384
+      },
+      {
+        "entries": 255,
+        "requested_capacity": 256,
+        "requested_bytes": 10240,
+        "rounded_bytes_upper_bound": 16384
+      },
+      {
+        "entries": 256,
+        "requested_capacity": 256,
+        "requested_bytes": 10240,
+        "rounded_bytes_upper_bound": 16384
+      },
+      {
+        "entries": 257,
+        "requested_capacity": 512,
+        "requested_bytes": 20480,
+        "rounded_bytes_upper_bound": 32768
+      },
+      {
+        "entries": 1073741823,
+        "requested_capacity": 1073741824,
+        "requested_bytes": 42949672960,
+        "rounded_bytes_upper_bound": 68719476736
+      }
+    ],
+    "scope": "local sufficient region; source and all-phase request total still required",
+    "loss": "generic twice-live growth envelope, without insertion-only schedule refinement"
   },
   "gnat_node_associations": {
     "array_count": 2,
