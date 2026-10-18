@@ -12117,6 +12117,247 @@ The offline composition now includes these direct-object counts and the
 two-entry temporary-list ceiling, with 96 source/header identities and eleven
 focused checks. No native compiler or prover was run.
 
+### Literal-output split, alias and direct LRA backing
+
+This transfer consumes the independently reviewed
+[split-wide RTL argument](retained-output-rtl.md) at `80471c09e6`.
+Its proposed stock `-fsplit-wide-types` option is a premise; production
+invocations and language membership remain unchanged. This packet prices
+direct helper requests and simultaneously live typed objects. It does not
+silently turn those counts into all lifetime allocations or total memory.
+The [offline checker](../evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-rtl-backing.py)
+retains a hash-pinned copy of the incoming result and the sources used here.
+Write
+
+```text
+K0 = 98+3C           pre-split first unused register
+K  = 99+5C          first unused register including LRA's unused pseudo
+B  = 2N+10          block-index slots
+M  = 7C+5N+20       conservative real-instruction ceiling at LRA
+U  = 7C+5N+22       first unused UID during LRA
+```
+
+These are deliberately ceilings: M also counts chain objects that are not
+real instructions. The selected LRA schedule has two constraint iterations,
+one live-range construction and one assignment, no new instruction or pseudo
+after its initial unused Pmode register, no spill, and no coalescing pass.
+
+**Wide-split storage.** The first split pass has five32-byte bitmap headers:
+the three contexts and the two propagation temporaries. Only the decomposable
+set and its copied queue are populated, each with C bits below K0, hence at
+most `min(C,ceil(K0/128))` forty-byte elements. The copy graph is an exact
+K0-pointer vector (`8+8K0` bytes including its prefix) with no graph-edge
+bitmap. The empty sub-block simple bitmap requests
+`8+8ceil((N+6)/64)` bytes (`lower-subreg.cc:447–469,1555–1561,1633–1639`).
+At most one operand replacement is pending at a time. The shared recognition
+change log's first allocation of `5*MAX_RECOG_OPERANDS=150` records therefore
+suffices. Its LP64 record is40 bytes, giving one at most6000-byte new request
+if the shared log has no backing (`recog.cc:187–195,254–265`; installed
+`insn-config.h:7`). Its pre-existing capacity and the bitmap obstacks' incoming
+occupancy remain shared-state inputs. Repeated operand substitutions reset
+the pending count; they do not multiply the retained log capacity.
+
+**Alias analysis.** Each of the at most ten iterations sees only whole DI
+symbol definitions, register copies, nops, the blockage and direct calls.
+There is no REG_NOALIAS note and no PLUS source. The selected x86 base-term
+hook returns SYMBOL_REF and REG unchanged; `find_base_value` returns existing
+symbols/base pointers, while `record_set` only updates arrays and bits
+(`i386.cc:13745–13767`, `alias.cc:1409–1456,1548–1664`). Consequently the
+REG_NOALIAS-only `unique_id++` route is absent, `unique_id` remains1, and
+neither `unique_base_value`, `plus_constant` nor address conversion makes a
+fresh RTL object here. This conclusion includes the nonempty SET chain;
+it does not reuse the null family's no-SET premise.
+
+The two GC pointer vectors have logical extents at most K-92 and K. Their
+exact-growth raw requests are `8+8(K-92)` and `8+8K`; the next power of two
+bounds each collector-rounded request. The collector writes the rounded
+capacity back into the vector. Its temporary is unsigned32, but the actual
+`vec_prefix::m_alloc` field has only31 bits, so the checker verifies the
+rounded capacity against `2^31-1` (`alias.cc:3368–3386`,
+`vec.h:243,393–422,1411–1415`,
+`ggc-page.cc:1292–1325`). There are at most two new GC vector requests on this
+call; ten scans do not multiply them. An incoming `old_reg_base_value` can
+reuse larger backing and remains an explicit incoming capacity rather than
+being replaced by this local request ceiling. Ordinary helpers request an
+8K-byte base-pointer array, at most4B bytes for reverse postorder, and simple
+bitmaps of K-92 and K bits. CFG traversal scratch remains a separate join
+(`alias.cc:3386–3393,3413–3420,3533–3554`).
+
+**LRA register records.** LRA creates its unused pseudo before `init_reg_info`.
+With no further pseudo creation, there is one ordinary array of at most
+`floor(3K/2)+1` records, each144 bytes. Every record initialization advances
+`last_reg_value` once. The only other calls to the incrementing helper are
+reload-output constraint repair and coalescing, both excluded by the selected
+schedule (`lra.cc:244–246,1342–1388,1410–1418,2420–2439`,
+`lra-constraints.cc:4998–5001`, `lra-coalesce.cc:345`). Thus the same entry
+count bounds that signed counter. Crucially, `max_reg_num()*3` is a signed
+intermediate: require **3K<=INT_MAX**, not just that its quotient fits.
+This is a retained-tool representation condition, not an independently
+chosen source limit.
+
+**Recognition and operand storage.** There are only four machine-description
+codes before frame insertion: movdi, direct call, nop and blockage. Movdi and
+call have two operands and no duplicates; the other two have none
+(`i386.md:2594–2598,20495–20500,20923–20927,21055–21061`). Thus the ordinary
+static recognition records need at most four requests, each bounded by
+`40+2*24=88` bytes. At most7C live operand-location arrays request16 bytes
+each; no duplicate-location array is required. Each call's two DI argument
+USEs produce a three-int array including the -1 sentinel,12 bytes, and use
+only three of the fixed92 stack slots (`lra.cc:706–746,1095–1160`). There is
+no nonoperand hard register in any of those four patterns: the register
+operands are skipped by the static collector, and its call traversal contains
+only the symbol and size constant (`:877–980`).
+
+The movdi and call constraint tables need at most two ordinary allocations,
+each at most `2*35*24=1680` bytes. The installed maximum is35 alternatives;
+24 bytes conservatively bounds the LP64 `operand_alternative` record with
+zero target register filters. The zero-operand patterns return before
+allocation (`recog.h:29,46–80`, installed `insn-config.h:20`,
+`recog.cc:3055–3079`). This charges the tables once per code; they are shared
+by all instances and may already have been initialized by earlier recognition.
+
+At most M eighty-byte recognition records are simultaneously live, backed
+by ordinary64-KiB pool blocks with an8-byte header: at most
+`ceil(M/819)` blocks. Replacing a record frees the old one first, so repeated
+recognition does not increase this retained-object ceiling
+(`lra.cc:748–810,988–1009,1232–1256`). The UID-indexed pointer array can grow
+to at most `max(floor(3(U-1)/2),U)` entries. Its calculation uses unsigned32
+multiplication followed by a signed-int capacity store; the checker therefore
+requires both **3(U-1)<=UINT_MAX** and a fitting stored capacity
+(`:768–788`). Index and pointer-byte products are checked separately.
+
+Each symbol definition contributes one instruction-register record; each
+register copy contributes two. Thus at most10C24-byte records are live,
+requiring at most `ceil(10C/2730)`64-KiB blocks. The per-register instruction
+bitmaps have at most10C live forty-byte elements in total, a conservative
+one-element-per-reference bound. Updates invalidate and release an instruction's
+old list before rebuilding it, and call hard-register arguments are handled
+by the separate argument array rather than this list
+(`lra.cc:586–613,1516–1543,1602–1691`). Each referenced pseudo has exactly two
+instruction occurrences; its `nrefs` counter never accumulates all C groups.
+This is a peak bound. Shared `reg_obstack` headers and simultaneous users,
+live ranges, copy records, invariant tables, assignment/IRA arrays and any
+behavior-relevant cumulative counters are not inferred from it.
+
+Finally the constraint stack is created with `get_max_uid()` pointer slots
+and an equal-sized membership bitmap. Bitmap deduplication and absence of
+new instructions keep that exact initial reservation sufficient: at most
+`8+8U` and `8+8ceil(U/64)` bytes, with no subsequent growth
+(`lra.cc:1819–1833,2481–2484`). The split graph and constraint stack also
+use the31-bit vector-capacity field; their explicit K0/U checks retain that
+width. Independent source review caught this distinction from the32-bit
+temporary; the stronger combined LRA-register condition already implies it
+for the selected values, but each local check now states the actual width.
+
+The one-call fixture gives K=104, U=29, at most157 register records
+(22,608 bytes),42 recognition pointers, and alias-vector raw/rounded requests
+of104/128 and840/1024 bytes. Focused offline checks cover the signed and
+unsigned multiplication boundaries and typed-pool block transitions. No
+compiler, debugger, prover or Lean process was run. This packet leaves
+all-helper, all-lifetime-GGC and whole-native completion false.
+
+### Literal-output DF lifetime references and notes
+
+A separate read-only source review supplies the dataflow transfer, checked
+against the collector, canonical-register and reload-reset sources during
+integration. It uses the same reviewed RTL shape and the earlier null DF
+schedule's explicit disabled-checking/optimization premises. First splitting
+runs before DF exists, and the later split pass returns before DF/DCE because
+all remaining referenced pseudos are DI (`lower-subreg.cc:1514–1548`). The
+CFG-layout location splits precede O0 DF initialization
+(`passes.def:506–510`). Calls have no local EH/nonlocal/sibling/noreturn
+transfer, and the reviewed frame insertion creates no new block
+(`cfgbuild.cc:73–120`). Therefore the two scan generations and at most four
+analyses remain valid. LRA suppresses incremental rescans and reload ends by
+recreating the scan problem (`lra.cc:2479`, `ira.cc:6138–6140`); routine
+analysis skips SCAN (`df-core.cc:1253–1270`).
+
+The canonical hard-register REGs each span one hard register. Register
+initialization chooses a mode whose `hard_regno_nregs` is1, reuses a previous
+mode only if that count is1, or falls back to word mode
+(`reginfo.cc:489–498,600–653`). On this x86_64 target the DI word-mode fallback
+also spans one register (`i386.cc:21725–21742`), and canonical REG creation
+uses those modes (`emit-rtl.cc:6281`). All explicit post-split operands are
+whole DI. Thus there are **no multiword hard-register descriptors** here.
+Unlike the deliberately loose null `H*H` bound, each artificial collection
+needs at most H=92 references. With the unchanged transition/block argument,
+
+```text
+C_bb <= 2B+2H+3 = 4N+207
+F_art <= H*C_bb = 368N+19044
+```
+
+The instruction side needs a correction that the operand-free null family
+did not expose. `df_update_entry_exit_and_calls` rescans **every call** when
+hard-register liveness changes (`df-scan.cc:3838–3853`). Even an unchanged
+instruction creates temporary refs before comparison, so absence of an RTL
+edit does not make this free (`:1012–1093`). The H monotone false-to-true
+register transitions can trigger at most H such refreshes; charge one
+additional direct frame refresh conservatively. Deferred flags are cleared
+after processing, and setting a bit to its existing value creates no new
+refresh (`:1269–1274,3897–3929`, `function.cc:6314–6325`).
+
+For one call, the hard-register loop makes at most two refs per register,
+and the two argument USEs add two: `A=2H+2=186` refs per collection. This
+bound does not assume `global_regs` is empty (`df-scan.cc:3094–3163`). The
+call pattern adds no register operands, and REG_CALL_DECL and liveness
+notes are ignored by the REG_EQUAL/REG_EQUIV collector (`:3175–3237`).
+The two symbol moves and four register copies contribute ten refs per
+group. Two complete scans, the all-call refreshes and the previously bounded
+frame insertion therefore give
+
+```text
+C_ref <= 2(10+A)C + (H+1)AC + 32 = 17690C+32
+C_mw  = 0
+ref_order_final <= 17690C+368N+19076
+```
+
+Check that final expression against **INT_MAX**, preserving the signed
+subtraction requirement in the comparator even though `ref_order` itself is
+unsigned. It also bounds the per-register/table-free reference counts.
+As in the earlier null schedule, only SCAN, LR, LR_DCE and temporary NOTE
+are selected, and no active problem enables the optional reference tables.
+This is an explicit local tool condition, not an aggregate memory gate or
+the complete admission rule.
+
+LR's monotone solver argument transfers with the larger register/CFG domains:
+per analysis, signed `age` and `dcount` are bounded by `B+K*(2N+9)`. The
+checker requires that expression to fit signed int. The direct arrays also
+transfer without replacing logical extents by observations: register arrays
+use at most `K+floor(K/4)` entries; instruction pointers use at most
+`Uf+1+floor((Uf+1)/4)`, where `Uf=7C+7N+46` is the final first-unused UID;
+scan/LR block arrays use `B+1+floor((B+1)/4)` entries
+(`df-scan.cc:454–548`, `df-core.cc:1651–1668`). Their element sizes remain
+8/4 bytes for register pointer/count arrays,8 for instruction pointers,16
+for scan blocks and128 for LR blocks. At most3K16-byte register-info records
+are retained per scan generation, requiring `ceil(3K/4095)`64-KiB blocks.
+The checks include quarter-growth intermediate arithmetic, stored indices
+and individual byte products. In particular, `block_info_elt_size` is
+unsigned32 (`df.h:280`), so `new_size*block_info_elt_size` is evaluated in
+unsigned32 before the allocator macro's size_t product. Require the larger
+LR product `128*block_slots` to fit unsigned32 as well. Collection-vector growth, the remaining
+reference pools and combined sparse-bitmap-obstack occupancy remain explicit
+joins; a bound on their logical refs is not silently an all-backing claim.
+
+NOTE is active for at most three pre-reload analyses: IRA entry, its possible
+dead-instruction follow-up and `ira_build`. Reload removes it before the
+frame analysis (`ira.cc:5789,5805–5806,6138`, `ira-build.cc:3482`). With no
+multiword refs, each instruction ref can request at most one REG_DEAD or
+REG_UNUSED note, giving at most `3(10+A)C=588C` requests
+(`df-problems.cc:3339–3349,3513–3540,3551–3743`). LRA's single live-range
+traversal contributes at most12C more: six move definitions, four copy uses
+and two hard argument uses per group (`lra-lives.cc:865–1067`). Its static
+call pattern has no additional hard register operand. Hence **600C** is a
+conservative selected note-constructor envelope. Each request uses one
+24-byte EXPR_LIST and retains the existing REG payload; the expression-list
+cache may reuse objects (`rtlanal.cc:2706–2736`). No fresh REG is implied.
+
+For C=1,N=0 the final reference-order ceiling is36,766 and the note ceiling
+is600. The offline packet now verifies the signed reference-order boundary
+alongside the direct backing checks. No native execution was needed. This
+closes selected DF reference/solver widths and those note requests, while
+the all-helper/all-GGC and whole-native flags remain false.
+
 ## Exact remaining obligations
 
 The constructor sum supplies a common A and all source construct rows listed

@@ -1,0 +1,289 @@
+{
+  "scope": "Selected split, alias, direct LRA and DF reference/solver backing",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "peer_RTL_commit": "80471c09e6fb15b6f61cf8d2022500c0fa851e7c",
+  "files": [
+    {
+      "root": "gcc",
+      "path": "gcc/lower-subreg.cc",
+      "bytes": 53494,
+      "sha256": "4999b2c131c4742c5b59981306187c20bf2d723b748e63efbb8ecca9b1056454"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alias.cc",
+      "bytes": 112284,
+      "sha256": "946b1b7ea0abd23f00873024c4514c9ec360bd6fb31a761f8df655cfbbfa93f2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra.cc",
+      "bytes": 80715,
+      "sha256": "d92bb56be94cb506eacbb51c1a0e7b2e9f1aab81fc4093d4bc9827266086482c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-int.h",
+      "bytes": 20763,
+      "sha256": "fd73c4bb99ec40e9ac957268ac5f5f3ccea6692d2655572412c7191b5f5e14a0"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-constraints.cc",
+      "bytes": 270051,
+      "sha256": "a03b8a69bbf4c986ce20f569c240219b3fe4db8d0f62068013ac99075224e305"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-coalesce.cc",
+      "bytes": 11759,
+      "sha256": "30e64caf42a872a3ed9a0ad8d320f0d5632ef92f0de570214833432b7980fe97"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-spills.cc",
+      "bytes": 29811,
+      "sha256": "b7235f8bd56302114b92c557f9fdf9b954c23ab03fd72596bf235b0b3eb9e6fd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-lives.cc",
+      "bytes": 49339,
+      "sha256": "cd3924118ac97c22514602020a9fb1e0f85608d4bc9d53f932415f3b70d48b08"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-assigns.cc",
+      "bytes": 69333,
+      "sha256": "5e3172f83b97c4a6573bf8b160491a3c15ba57467fadea4de107776261bb88f6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/lra-eliminations.cc",
+      "bytes": 51361,
+      "sha256": "1ef368dc765538d358f8e75544e27f63a580cb7fda73e9d002088f26f14e5f07"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/recog.cc",
+      "bytes": 132604,
+      "sha256": "0ffc60369a39773d928014c1e738de033cc7a366fb86b97a48e12f748981ff73"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/recog.h",
+      "bytes": 19888,
+      "sha256": "f95de8e612758e4e35aec029eed601d19fa484d7fa62ac4dea9788b36069e688"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.cc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.md",
+      "bytes": 1013857,
+      "sha256": "2d2c09314aca1b0cd2cd887f7a637142e94a07cebca7847d7094e11353c61bcb"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/bitmap.h",
+      "bytes": 37720,
+      "sha256": "79c70e80f9987702c98a6b6dde5bd1ef87e63823ee3edb9aff0e78e31200987a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/bitmap.cc",
+      "bytes": 72861,
+      "sha256": "879fa506fc99e70274663eb8b6899bb34a67e22236d91b5e30adedb9927b6b3e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/sbitmap.h",
+      "bytes": 10479,
+      "sha256": "77a76f132aeab1883861351cb6b4361336bc01568272982d76a233d924367a2d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/sbitmap.cc",
+      "bytes": 27107,
+      "sha256": "4152646b5167a7bbbab482d6e1399e11934475808933b6111b7a8e126691bf5b"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/memory-block.h",
+      "bytes": 2500,
+      "sha256": "9eef83e41d1d5d8a0fd753a900804a0350e968520c5831fef735ce8a8e3173ac"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/alloc-pool.h",
+      "bytes": 15523,
+      "sha256": "0c667b8aee5aa002b2d859fd6e50120c5d84c7ed782af5e04c83fa5be8821eda"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/regs.h",
+      "bytes": 12632,
+      "sha256": "21a9e28558966cf4b1b31b7aa8c9d7b357e83865a7eb72376fc50fec64e46826"
+    },
+    {
+      "root": "plugin",
+      "path": "insn-config.h",
+      "bytes": 557,
+      "sha256": "43609a26afc202021cdb33192b3b48837b8e3aa12b3f8960fb77751cf3c3803f"
+    },
+    {
+      "root": "plugin",
+      "path": "insn-constants.h",
+      "bytes": 13161,
+      "sha256": "6a81bac1a1db6a7c5590bc54ff598e0f8f62d8857eb6521c8514ba6e1eea3cac"
+    },
+    {
+      "root": "plugin",
+      "path": "insn-modes.h",
+      "bytes": 27388,
+      "sha256": "6de8c9ea5760a673d43344ba92b15620b6d378f8cf82673b4ec0e182eb1d5d85"
+    },
+    {
+      "root": "plugin",
+      "path": "auto-host.h",
+      "bytes": 62999,
+      "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14"
+    },
+    {
+      "root": "plugin",
+      "path": "recog.h",
+      "bytes": 19888,
+      "sha256": "f95de8e612758e4e35aec029eed601d19fa484d7fa62ac4dea9788b36069e688"
+    },
+    {
+      "root": "packet",
+      "path": "derive-literal-output.py",
+      "bytes": 21593,
+      "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+    },
+    {
+      "root": "packet",
+      "path": "literal-rtl-backing-predecessor.json",
+      "bytes": 2972,
+      "sha256": "dc12b11ed48fa41c3961f8bc8986f569d09031f3be50045b89685b58d5312cc3"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-scan.cc",
+      "bytes": 121906,
+      "sha256": "ded9f1492d06364e32669846c8ca29bced387035e5629fd465d6675c0144561d"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-core.cc",
+      "bytes": 73101,
+      "sha256": "7f9ff100ebb6b47a9b2456df6d88047ad0a75b9f73443d2b376f9a5dbcfad9fa"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df-problems.cc",
+      "bytes": 145024,
+      "sha256": "0d4b5382df19fecd93447141a20141762e21064da41eb57565b3ad8f6cf8ab9e"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/df.h",
+      "bytes": 48445,
+      "sha256": "15903c1080da45b1d99b2f4868f25c9a1b7d0bbd3b88659cc7b143e6e45c7a56"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/reginfo.cc",
+      "bytes": 39713,
+      "sha256": "276398df9c9a0f68952ddf0e9f599a2b6f0bb2d064cbdcf42868bb449ecf57ec"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/emit-rtl.cc",
+      "bytes": 193419,
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/function.cc",
+      "bytes": 221482,
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/stack-ptr-mod.cc",
+      "bytes": 3285,
+      "sha256": "2f8e85f23f8396edeafa1e9887c5624431f18972b7b00d3271cbbebae28e304c"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira.cc",
+      "bytes": 198361,
+      "sha256": "343b216c53de39d1b4c01a1fafe3a9612db7405deb95d49e2db55c66adb335d3"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/ira-build.cc",
+      "bytes": 106712,
+      "sha256": "6c53fecf840e57dd804ca369909d78c3576172fb5cbceed86d19df08aec7ec4a"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/passes.def",
+      "bytes": 24225,
+      "sha256": "54530081272174ecfafbbe98a3c8ed12fb9b739ae7c0ec64e88e568e00d34736"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/cfgbuild.cc",
+      "bytes": 24326,
+      "sha256": "9509fe1d1ed2db58755e04b6074000d031e79bfba6dffd552b3f4ca7951620e6"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/rtlanal.cc",
+      "bytes": 201232,
+      "sha256": "b0bcb6db46eee054e11a10b79caad72180f704d7c368b4494cb4c0ce42170333"
+    },
+    {
+      "root": "gcc",
+      "path": "gcc/common.opt",
+      "bytes": 122400,
+      "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f"
+    },
+    {
+      "root": "gcc",
+      "path": "include/libiberty.h",
+      "bytes": 28528,
+      "sha256": "3b4decd8357c7e817ae8855dcbcecf1509710e8e8fd4ecc28d41ee1b5e6bd463"
+    }
+  ]
+}

@@ -195,7 +195,7 @@ optional parameters; the earlier default `derive.py` result remains unchanged.
 
 ### Direct literal-output initial lowering
 
-`literal-output-source-inputs.json` pins 77 GCC/Ada/API source and installed-header identities,
+`literal-output-source-inputs.json` now pins 96 GCC/Ada/API source and installed-header identities,
 including 22 for the initial native/gigi/GIMPLE projection.
 `derive-literal-output.py` scans a canonical direct-literal Put/Put_Line/null
 sequence completely and composes the manual native/gigi/initial-GIMPLE source
@@ -256,3 +256,44 @@ independently of literal length; semantic library limits remain separate.
 The retained hello fixture and nine focused checks replay all77 identities.
 This closes the data delta, not final machine code, Main ELF layout or lifetime
 allocation accounting. No native tool is executed.
+
+The same initial-lowering replay also includes the selected RTX/rtvec,
+register-attribute, memory-attribute and sequence-stack constructor inventory,
+register-array signed doubling,184-byte call-argument arrays, two-entry
+temporary-slot vector and direct tree-pool objects. Its current fixture has
+eleven focused checks. Shared hash populations, varpool helpers and complete
+lifetime allocation accounting remain open.
+
+### Literal-output split, alias, LRA and DF backing
+
+`derive-literal-rtl-backing.py` consumes the reviewed split-wide RTL interface
+from peer commit `80471c09e6`, retained byte-for-byte in
+`literal-rtl-backing-predecessor.json`. Its separate manifest pins the source,
+installed headers, source scanner and predecessor. The manual reachability
+argument is in the research document; the checker does hash/arithmetic work
+only. The reviewed stock `-fsplit-wide-types` option is a premise, and is not
+added to production by this packet.
+
+The direct helper bounds cover split bitmaps/copy graph/change log, alias
+vectors, LRA register and recognition arrays, operands and argument registers,
+typed pools and the constraint stack. Checks preserve the actual signed,
+unsigned32 and stored31-bit intermediate representations. The DF transfer
+charges call rescans during hard-register liveness refreshes, yielding
+`ref_order <= 17690C+368N+19076`, required to fit signed int, and at most600C
+REG_DEAD/REG_UNUSED EXPR_LIST requests. A separate read-only source review
+checked the direct helper argument and found one31-bit field correction,
+which was applied; see `literal-rtl-backing-review.md`.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-rtl-backing.py \
+  --source samples/hello_world.adb \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --plugin-include /path/to/pinned/plugin/include \
+  --output /tmp/native-literal-rtl-backing.json
+```
+
+`native-literal-rtl-backing.json` retains the hello-world instance and eight
+focused arithmetic checks. Complete shared pool/bitmap/IRA/LRA backing,
+all-pass GGC lifetime, final object/link composition and whole-native capacity
+remain unclaimed. No aggregate memory gate, language change or native tool
+execution is introduced.
