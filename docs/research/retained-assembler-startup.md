@@ -134,13 +134,78 @@ Let R include every other positive raw `bfd_alloc`/`bfd_zalloc` request over
 this output BFD's lifetime, including any requests subsequently released.
 The sufficient joined counter condition is `P+8448+R <= 2^64-1`. R includes
 the already bounded symbols, mapping and serialization requests as applicable;
-this packet does not yet provide an exhaustive later-request count. Hash
+the subsequent lifetime join below supplies the selected R. Hash
 arenas allocate directly through objalloc, so their requests do not increment
 this particular counter. This condition protects a tool representation;
 it is not a total-RAM gate or permission to omit later storage analysis.
 
 The output BFD's ID counter advances once and its section count advances at
 most eleven times in this stream. Fixed startup does not approach their
-32-bit limits. The remaining assembler and whole-link joins include the
-complete later allocation inventory, actual production argv/paths, host
-library behavior, binder inputs and final-link layout/relocations.
+32-bit limits. The remaining assembler and whole-link joins still include
+parser/relaxation storage, actual production argv/paths, host-library behavior,
+binder inputs and final-link layout/relocations.
+
+## Selected output-BFD lifetime counter join
+
+GAS closes this output once. Before invoking BFD close, `output_file_close`
+sets `stdoutput=NULL`, so a subsequent exit handler cannot retry the writer
+(`gas/output-file.c:69–101`). `bfd_close` calls the format writer once and
+then closes/releases the BFD (`bfd/opncls.c:859–865`). Section writes and the
+final object writer share `_bfd_elf_compute_section_file_positions`; its
+`output_has_begun` guard and successful final assignment ensure that header
+initialization, numbering, symbol mapping and symbol serialization run once
+(`bfd/elf.c:4695–4790,7221–7231,10035–10045`). A failed initialization aborts
+this selected successful assembly path rather than supplying a retry budget.
+
+In addition to the startup objects, the selected main objalloc receives:
+
+| Request class | Total raw bytes upper | Source |
+|---|---:|---|
+| 102 previously charged BFD symbol objects | 13,056 | `bfd/elf.c:9788–9797` |
+| Nine relocation headers | 720 | `bfd/elf.c:3561–3592,3836–3874` |
+| Nine relocation-name copies | 288 | `bfd/elf.c:3535–3553` |
+| 22 section-header pointers | 176 | `bfd/elf.c:4233–4248` |
+| Null internal section header | 80 | same |
+| Section-symbol map | 104 | `bfd/elf.c:4527–4557` |
+| Reordered symbol pointer array | 776 | `bfd/elf.c:4612–4616` |
+| Serialized relocation buffers, combined | 6,744 | `bfd/elfcode.h:930–975` |
+| Serialized section-header array | 1,408 | `bfd/elfcode.h:1101–1155` |
+| **R** | **23,352** | |
+
+These are the already established symbol and object-writer bounds, joined to
+the counter's allocator domain. In particular, 281 relocations are shared
+across the section buffers: the 6,744-byte bound is their sum, not a per-section
+amount multiplied by nine. The two symbol serialization arrays are ordinary
+`bfd_malloc` requests, not `bfd_alloc` requests (`bfd/elf.c:8764–8783`). Their
+3,920/2,352-byte individual bounds remain required, but they do not increment
+this BFD's `alloc_size`. The two ELF string tables likewise allocate through
+their own hash/ordinary-heap storage; they retain their separate transfer.
+
+No extra main-arena request comes from `bfd_set_symtab`: it retains the supplied
+pointer (`bfd/syms.c:478–488`). Ordinary section writes use an existing buffer
+or pass the bytes to the file writer (`bfd/elf.c:10035–10088`,
+`bfd/libbfd.c:1338–1351`). Selected relocatable output has no segment-map or
+program-header construction, input-object symbol/relocation slurping, groups,
+extended symbol indices, debug compression, CTF rewrite, secondary relocation
+sections or build-id/package callbacks. Those exclusions are the same selected
+writer contract as the [object transfer](retained-elf-object-capacity.md),
+including its target-hook review. They are necessary for this finite request
+list; the count is not a claim about arbitrary BFD API usage.
+
+Relocation names are initialized once with their headers. The alternate late
+name-copy sites at `bfd/elf.c:7180–7187` are inside the delayed debug-compression
+name branch and are absent here; they are not a second unconditional copy.
+The final writer visits each section's relocations once and writes the external
+header array once (`bfd/elf.c:7245–7289`). Thus the selected lifetime counter
+has the sufficient bound
+
+```text
+alloc_size <= P + 8448 + 23352 = P + 31800.
+```
+
+Together with `max(P,6744)+23 <= PTRDIFF_MAX`, this also fits the unsigned
+64-bit cumulative counter for every allowed P; there is no separate RAM
+admission condition. This closes the output BFD's listed main-arena request
+counter for the selected successful stream. Complete GAS lifecycle storage,
+all BFD hash/allocator contexts and whole-link capacity are broader claims
+and remain separate.

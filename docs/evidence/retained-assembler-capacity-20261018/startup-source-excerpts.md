@@ -774,6 +774,18 @@ Literal LF numbering.
 765: }
 ```
 
+## bfd/opncls.c:859–865
+
+```text
+859: bool
+860: bfd_close (bfd *abfd)
+861: {
+862:   bool ret = (!bfd_write_p (abfd)
+863:               || BFD_SEND_FMT (abfd, _bfd_write_contents, (abfd)));
+864:
+865:   return bfd_close_all_done (abfd) && ret;
+```
+
 ## bfd/opncls.c:1985–2010
 
 ```text
@@ -1400,6 +1412,723 @@ Literal LF numbering.
 3342:     }
 3343:
 3344:   return _bfd_generic_new_section_hook (abfd, sec);
+```
+
+## bfd/elf.c:3535–3592
+
+```text
+3535: static bool
+3536: _bfd_elf_set_reloc_sh_name (bfd *abfd,
+3537:                             Elf_Internal_Shdr *rel_hdr,
+3538:                             const char *sec_name,
+3539:                             bool use_rela_p)
+3540: {
+3541:   char *name = (char *) bfd_alloc (abfd,
+3542:                                    sizeof ".rela" + strlen (sec_name));
+3543:   if (name == NULL)
+3544:     return false;
+3545:
+3546:   sprintf (name, "%s%s", use_rela_p ? ".rela" : ".rel", sec_name);
+3547:   rel_hdr->sh_name =
+3548:     (unsigned int) _bfd_elf_strtab_add (elf_shstrtab (abfd), name,
+3549:                                         false);
+3550:   if (rel_hdr->sh_name == (unsigned int) -1)
+3551:     return false;
+3552:
+3553:   return true;
+3554: }
+3555:
+3556: /* Allocate and initialize a section-header for a new reloc section,
+3557:    containing relocations against ASECT.  It is stored in RELDATA.  If
+3558:    USE_RELA_P is TRUE, we use RELA relocations; otherwise, we use REL
+3559:    relocations.  */
+3560:
+3561: static bool
+3562: _bfd_elf_init_reloc_shdr (bfd *abfd,
+3563:                           struct bfd_elf_section_reloc_data *reldata,
+3564:                           const char *sec_name,
+3565:                           bool use_rela_p,
+3566:                           bool delay_sh_name_p)
+3567: {
+3568:   Elf_Internal_Shdr *rel_hdr;
+3569:   elf_backend_data *bed = get_elf_backend_data (abfd);
+3570:
+3571:   BFD_ASSERT (reldata->hdr == NULL);
+3572:   rel_hdr = bfd_zalloc (abfd, sizeof (*rel_hdr));
+3573:   if (rel_hdr == NULL)
+3574:     return false;
+3575:   reldata->hdr = rel_hdr;
+3576:
+3577:   if (delay_sh_name_p)
+3578:     rel_hdr->sh_name = (unsigned int) -1;
+3579:   else if (!_bfd_elf_set_reloc_sh_name (abfd, rel_hdr, sec_name,
+3580:                                         use_rela_p))
+3581:     return false;
+3582:   rel_hdr->sh_type = use_rela_p ? SHT_RELA : SHT_REL;
+3583:   rel_hdr->sh_entsize = (use_rela_p
+3584:                          ? bed->s->sizeof_rela
+3585:                          : bed->s->sizeof_rel);
+3586:   rel_hdr->sh_addralign = (bfd_vma) 1 << bed->s->log_file_align;
+3587:   rel_hdr->sh_flags = 0;
+3588:   rel_hdr->sh_addr = 0;
+3589:   rel_hdr->sh_size = 0;
+3590:   rel_hdr->sh_offset = 0;
+3591:
+3592:   return true;
+```
+
+## bfd/elf.c:3836–3874
+
+```text
+3836:   /* If the section has relocs, set up a section header for the
+3837:      SHT_REL[A] section.  If two relocation sections are required for
+3838:      this section, it is up to the processor-specific back-end to
+3839:      create the other.  */
+3840:   if ((asect->flags & SEC_RELOC) != 0)
+3841:     {
+3842:       /* When doing a relocatable link, create both REL and RELA sections if
+3843:          needed.  */
+3844:       if (arg->link_info
+3845:           /* Do the normal setup if we wouldn't create any sections here.  */
+3846:           && esd->rel.count + esd->rela.count > 0
+3847:           && (bfd_link_relocatable (arg->link_info)
+3848:               || arg->link_info->emitrelocations))
+3849:         {
+3850:           if (esd->rel.count && esd->rel.hdr == NULL
+3851:               && !_bfd_elf_init_reloc_shdr (abfd, &esd->rel, name,
+3852:                                             false, delay_sh_name_p))
+3853:             {
+3854:               arg->failed = true;
+3855:               return;
+3856:             }
+3857:           if (esd->rela.count && esd->rela.hdr == NULL
+3858:               && !_bfd_elf_init_reloc_shdr (abfd, &esd->rela, name,
+3859:                                             true, delay_sh_name_p))
+3860:             {
+3861:               arg->failed = true;
+3862:               return;
+3863:             }
+3864:         }
+3865:       else if (!_bfd_elf_init_reloc_shdr (abfd,
+3866:                                           (asect->use_rela_p
+3867:                                            ? &esd->rela : &esd->rel),
+3868:                                           name,
+3869:                                           asect->use_rela_p,
+3870:                                           delay_sh_name_p))
+3871:         {
+3872:           arg->failed = true;
+3873:           return;
+3874:         }
+```
+
+## bfd/elf.c:4195–4248
+
+```text
+4195:   if (need_symtab)
+4196:     {
+4197:       elf_onesymtab (abfd) = section_number++;
+4198:       _bfd_elf_strtab_addref (elf_shstrtab (abfd), t->symtab_hdr.sh_name);
+4199:       if (section_number > ((SHN_LORESERVE - 2) & 0xFFFF))
+4200:         {
+4201:           elf_section_list *entry;
+4202:
+4203:           BFD_ASSERT (elf_symtab_shndx_list (abfd) == NULL);
+4204:
+4205:           entry = bfd_zalloc (abfd, sizeof (*entry));
+4206:           entry->ndx = section_number++;
+4207:           elf_symtab_shndx_list (abfd) = entry;
+4208:           entry->hdr.sh_name
+4209:             = (unsigned int) _bfd_elf_strtab_add (elf_shstrtab (abfd),
+4210:                                                   ".symtab_shndx", false);
+4211:           if (entry->hdr.sh_name == (unsigned int) -1)
+4212:             return false;
+4213:         }
+4214:       elf_strtab_sec (abfd) = section_number++;
+4215:       _bfd_elf_strtab_addref (elf_shstrtab (abfd), t->strtab_hdr.sh_name);
+4216:     }
+4217:
+4218:   elf_shstrtab_sec (abfd) = section_number++;
+4219:   _bfd_elf_strtab_addref (elf_shstrtab (abfd), t->shstrtab_hdr.sh_name);
+4220:   elf_elfheader (abfd)->e_shstrndx = elf_shstrtab_sec (abfd);
+4221:
+4222:   if (section_number >= SHN_LORESERVE)
+4223:     {
+4224:       /* xgettext:c-format */
+4225:       _bfd_error_handler (_("%pB: too many sections: %u"),
+4226:                           abfd, section_number);
+4227:       return false;
+4228:     }
+4229:
+4230:   elf_numsections (abfd) = section_number;
+4231:   elf_elfheader (abfd)->e_shnum = section_number;
+4232:
+4233:   /* Set up the list of section header pointers, in agreement with the
+4234:      indices.  */
+4235:   amt = section_number * sizeof (Elf_Internal_Shdr *);
+4236:   i_shdrp = (Elf_Internal_Shdr **) bfd_zalloc (abfd, amt);
+4237:   if (i_shdrp == NULL)
+4238:     return false;
+4239:
+4240:   i_shdrp[0] = (Elf_Internal_Shdr *) bfd_zalloc (abfd,
+4241:                                                  sizeof (Elf_Internal_Shdr));
+4242:   if (i_shdrp[0] == NULL)
+4243:     {
+4244:       bfd_release (abfd, i_shdrp);
+4245:       return false;
+4246:     }
+4247:
+4248:   elf_elfsections (abfd) = i_shdrp;
+```
+
+## bfd/elf.c:4527–4557
+
+```text
+4527: elf_map_symbols (bfd *abfd, unsigned int *pnum_locals)
+4528: {
+4529:   unsigned int symcount = bfd_get_symcount (abfd);
+4530:   asymbol **syms = bfd_get_outsymbols (abfd);
+4531:   asymbol **sect_syms;
+4532:   unsigned int num_locals = 0;
+4533:   unsigned int num_globals = 0;
+4534:   unsigned int max_index = 0;
+4535:   unsigned int idx;
+4536:   asection *asect;
+4537:   asymbol **new_syms;
+4538:   size_t amt;
+4539:
+4540: #ifdef DEBUG
+4541:   fprintf (stderr, "elf_map_symbols\n");
+4542:   fflush (stderr);
+4543: #endif
+4544:
+4545:   for (asect = abfd->sections; asect; asect = asect->next)
+4546:     {
+4547:       if (max_index < asect->index)
+4548:         max_index = asect->index;
+4549:     }
+4550:
+4551:   max_index++;
+4552:   amt = max_index * sizeof (asymbol *);
+4553:   sect_syms = (asymbol **) bfd_zalloc (abfd, amt);
+4554:   if (sect_syms == NULL)
+4555:     return false;
+4556:   elf_section_syms (abfd) = sect_syms;
+4557:   elf_num_section_syms (abfd) = max_index;
+```
+
+## bfd/elf.c:4612–4616
+
+```text
+4612:   /* Now sort the symbols so the local symbols are first.  */
+4613:   amt = (num_locals + num_globals) * sizeof (asymbol *);
+4614:   new_syms = (asymbol **) bfd_alloc (abfd, amt);
+4615:   if (new_syms == NULL)
+4616:     return false;
+```
+
+## bfd/elf.c:4695–4790
+
+```text
+4695: _bfd_elf_compute_section_file_positions (bfd *abfd,
+4696:                                          struct bfd_link_info *link_info)
+4697: {
+4698:   elf_backend_data *bed = get_elf_backend_data (abfd);
+4699:   struct fake_section_arg fsargs;
+4700:   bool failed;
+4701:   struct elf_strtab_hash *strtab = NULL;
+4702:   Elf_Internal_Shdr *shstrtab_hdr;
+4703:   bool need_symtab;
+4704:
+4705:   if (abfd->output_has_begun)
+4706:     return true;
+4707:
+4708:   /* Do any elf backend specific processing first.  */
+4709:   if (bed->elf_backend_begin_write_processing)
+4710:     (*bed->elf_backend_begin_write_processing) (abfd, link_info);
+4711:
+4712:   if (!(*bed->elf_backend_init_file_header) (abfd, link_info))
+4713:     return false;
+4714:
+4715:   fsargs.failed = false;
+4716:   fsargs.link_info = link_info;
+4717:   bfd_map_over_sections (abfd, elf_fake_sections, &fsargs);
+4718:   if (fsargs.failed)
+4719:     return false;
+4720:
+4721:   if (!assign_section_numbers (abfd, link_info))
+4722:     return false;
+4723:
+4724:   /* The backend linker builds symbol table information itself.  */
+4725:   need_symtab = (link_info == NULL
+4726:                  && (bfd_get_symcount (abfd) > 0
+4727:                      || ((abfd->flags & (EXEC_P | DYNAMIC | HAS_RELOC))
+4728:                          == HAS_RELOC)));
+4729:   if (need_symtab)
+4730:     {
+4731:       /* Non-zero if doing a relocatable link.  */
+4732:       int relocatable_p = ! (abfd->flags & (EXEC_P | DYNAMIC));
+4733:
+4734:       if (! swap_out_syms (abfd, &strtab, relocatable_p, link_info))
+4735:         return false;
+4736:     }
+4737:
+4738:   failed = false;
+4739:   if (link_info == NULL)
+4740:     {
+4741:       bfd_map_over_sections (abfd, bfd_elf_set_group_contents, &failed);
+4742:       if (failed)
+4743:         goto err_free_strtab;
+4744:     }
+4745:
+4746:   shstrtab_hdr = &elf_tdata (abfd)->shstrtab_hdr;
+4747:   /* sh_name was set in init_file_header.  */
+4748:   shstrtab_hdr->sh_type = SHT_STRTAB;
+4749:   /* sh_flags, sh_addr, sh_entsize, sh_link, sh_info are all zeroed
+4750:      when tdata is allocated.  */
+4751:   /* sh_size is set in _bfd_elf_assign_file_positions_for_non_load.  */
+4752:   /* sh_offset is set in _bfd_elf_assign_file_positions_for_non_load.  */
+4753:   shstrtab_hdr->sh_addralign = 1;
+4754:
+4755:   if (!assign_file_positions_except_relocs (abfd, link_info))
+4756:     goto err_free_strtab;
+4757:
+4758:   if (strtab != NULL)
+4759:     {
+4760:       file_ptr off;
+4761:       Elf_Internal_Shdr *hdr;
+4762:
+4763:       off = elf_next_file_pos (abfd);
+4764:
+4765:       hdr = & elf_symtab_hdr (abfd);
+4766:       off = _bfd_elf_assign_file_position_for_section (hdr, off, true, 0);
+4767:
+4768:       if (elf_symtab_shndx_list (abfd) != NULL)
+4769:         {
+4770:           hdr = & elf_symtab_shndx_list (abfd)->hdr;
+4771:           if (hdr->sh_size != 0)
+4772:             off = _bfd_elf_assign_file_position_for_section (hdr, off, true, 0);
+4773:           /* FIXME: What about other symtab_shndx sections in the list ?  */
+4774:         }
+4775:
+4776:       hdr = &elf_tdata (abfd)->strtab_hdr;
+4777:       off = _bfd_elf_assign_file_position_for_section (hdr, off, true, 0);
+4778:
+4779:       elf_next_file_pos (abfd) = off;
+4780:
+4781:       /* Now that we know where the .strtab section goes, write it
+4782:          out.  */
+4783:       if (bfd_seek (abfd, hdr->sh_offset, SEEK_SET) != 0
+4784:           || ! _bfd_elf_strtab_emit (abfd, strtab))
+4785:         goto err_free_strtab;
+4786:       _bfd_elf_strtab_free (strtab);
+4787:     }
+4788:
+4789:   abfd->output_has_begun = true;
+4790:   return true;
+```
+
+## bfd/elf.c:7154–7188
+
+```text
+7154:           else if (shdrp->sh_name == -1u)
+7155:             {
+7156:               const char *name = sec->name;
+7157:               struct bfd_elf_section_data *d;
+7158:
+7159:               /* Compress DWARF debug sections.  */
+7160:               if (!bfd_compress_section (abfd, sec, shdrp->contents))
+7161:                 return false;
+7162:
+7163:               if (sec->compress_status == COMPRESS_SECTION_DONE
+7164:                   && (abfd->flags & BFD_COMPRESS_GABI) == 0
+7165:                   && name[1] == 'd')
+7166:                 {
+7167:                   /* If section is compressed with zlib-gnu, convert
+7168:                      section name from .debug_* to .zdebug_*.  */
+7169:                   char *new_name = bfd_debug_name_to_zdebug (abfd, name);
+7170:                   if (new_name == NULL)
+7171:                     return false;
+7172:                   name = new_name;
+7173:                 }
+7174:               /* Add section name to section name section.  */
+7175:               shdrp->sh_name
+7176:                 = (unsigned int) _bfd_elf_strtab_add (elf_shstrtab (abfd),
+7177:                                                       name, false);
+7178:               d = elf_section_data (sec);
+7179:
+7180:               /* Add reloc section name to section name section.  */
+7181:               if (d->rel.hdr
+7182:                   && !_bfd_elf_set_reloc_sh_name (abfd, d->rel.hdr,
+7183:                                                   name, false))
+7184:                 return false;
+7185:               if (d->rela.hdr
+7186:                   && !_bfd_elf_set_reloc_sh_name (abfd, d->rela.hdr,
+7187:                                                   name, true))
+7188:                 return false;
+```
+
+## bfd/elf.c:7221–7299
+
+```text
+7221: _bfd_elf_write_object_contents (bfd *abfd)
+7222: {
+7223:   elf_backend_data *bed = get_elf_backend_data (abfd);
+7224:   Elf_Internal_Shdr **i_shdrp;
+7225:   bool failed;
+7226:   unsigned int count, num_sec;
+7227:   struct elf_obj_tdata *t;
+7228:
+7229:   if (! abfd->output_has_begun
+7230:       && ! _bfd_elf_compute_section_file_positions (abfd, NULL))
+7231:     return false;
+7232:   /* Do not rewrite ELF data when the BFD has been opened for update.
+7233:      abfd->output_has_begun was set to TRUE on opening, so creation of
+7234:      new sections, and modification of existing section sizes was
+7235:      restricted.  This means the ELF header, program headers and
+7236:      section headers can't have changed.  If the contents of any
+7237:      sections has been modified, then those changes have already been
+7238:      written to the BFD.  */
+7239:   else if (abfd->direction == both_direction)
+7240:     {
+7241:       BFD_ASSERT (abfd->output_has_begun);
+7242:       return true;
+7243:     }
+7244:
+7245:   i_shdrp = elf_elfsections (abfd);
+7246:
+7247:   failed = false;
+7248:   bfd_map_over_sections (abfd, bed->s->write_relocs, &failed);
+7249:   if (failed)
+7250:     return false;
+7251:
+7252:   if (!_bfd_elf_assign_file_positions_for_non_load (abfd))
+7253:     return false;
+7254:
+7255:   /* After writing the headers, we need to write the sections too...  */
+7256:   num_sec = elf_numsections (abfd);
+7257:   for (count = 1; count < num_sec; count++)
+7258:     {
+7259:       /* Don't set the sh_name field without section header.  */
+7260:       if ((abfd->flags & BFD_NO_SECTION_HEADER) == 0)
+7261:         i_shdrp[count]->sh_name
+7262:           = _bfd_elf_strtab_offset (elf_shstrtab (abfd),
+7263:                                     i_shdrp[count]->sh_name);
+7264:       if (bed->elf_backend_section_processing)
+7265:         if (!(*bed->elf_backend_section_processing) (abfd, i_shdrp[count]))
+7266:           return false;
+7267:       if (i_shdrp[count]->contents)
+7268:         {
+7269:           bfd_size_type amt = i_shdrp[count]->sh_size;
+7270:
+7271:           if (bfd_seek (abfd, i_shdrp[count]->sh_offset, SEEK_SET) != 0
+7272:               || bfd_write (i_shdrp[count]->contents, amt, abfd) != amt)
+7273:             return false;
+7274:         }
+7275:     }
+7276:
+7277:   /* Write out the section header names.  */
+7278:   t = elf_tdata (abfd);
+7279:   if (elf_shstrtab (abfd) != NULL
+7280:       && t->shstrtab_hdr.sh_offset != -1
+7281:       && (bfd_seek (abfd, t->shstrtab_hdr.sh_offset, SEEK_SET) != 0
+7282:           || !_bfd_elf_strtab_emit (abfd, elf_shstrtab (abfd))))
+7283:     return false;
+7284:
+7285:   if (!(*bed->elf_backend_final_write_processing) (abfd))
+7286:     return false;
+7287:
+7288:   if (!bed->s->write_shdrs_and_ehdr (abfd))
+7289:     return false;
+7290:
+7291:   /* This is last since write_shdrs_and_ehdr can touch i_shdrp[0].  */
+7292:   if (t->o->build_id.after_write_object_contents != NULL
+7293:       && !(*t->o->build_id.after_write_object_contents) (abfd))
+7294:     return false;
+7295:   if (t->o->package_metadata.after_write_object_contents != NULL
+7296:       && !(*t->o->package_metadata.after_write_object_contents) (abfd))
+7297:     return false;
+7298:
+7299:   return true;
+```
+
+## bfd/elf.c:8764–8799
+
+```text
+8764:   /* Allocate buffer to swap out the .strtab section.  */
+8765:   if (_bfd_mul_overflow (symcount + 1, sizeof (*symstrtab), &amt)
+8766:       || (symstrtab = (struct elf_sym_strtab *) bfd_malloc (amt)) == NULL)
+8767:     {
+8768:       bfd_set_error (bfd_error_no_memory);
+8769:       _bfd_elf_strtab_free (stt);
+8770:       return false;
+8771:     }
+8772:
+8773:   if (_bfd_mul_overflow (symcount + 1, bed->s->sizeof_sym, &amt)
+8774:       || (outbound_syms = bfd_malloc (amt)) == NULL)
+8775:     {
+8776:     error_no_mem:
+8777:       bfd_set_error (bfd_error_no_memory);
+8778:     error_return:
+8779:       free (symstrtab);
+8780:       _bfd_elf_strtab_free (stt);
+8781:       return false;
+8782:     }
+8783:   symtab_hdr->contents = outbound_syms;
+8784:   outbound_syms_index = 0;
+8785:
+8786:   outbound_shndx = NULL;
+8787:
+8788:   if (elf_symtab_shndx_list (abfd))
+8789:     {
+8790:       symtab_shndx_hdr = & elf_symtab_shndx_list (abfd)->hdr;
+8791:       if (symtab_shndx_hdr->sh_name != 0)
+8792:         {
+8793:           if (_bfd_mul_overflow (symcount + 1,
+8794:                                  sizeof (Elf_External_Sym_Shndx), &amt))
+8795:             goto error_no_mem;
+8796:           outbound_shndx =  (bfd_byte *) bfd_zalloc (abfd, amt);
+8797:           if (outbound_shndx == NULL)
+8798:             goto error_return;
+8799:
+```
+
+## bfd/elf.c:9788–9797
+
+```text
+9788: asymbol *
+9789: _bfd_elf_make_empty_symbol (bfd *abfd)
+9790: {
+9791:   elf_symbol_type *newsym;
+9792:
+9793:   newsym = (elf_symbol_type *) bfd_zalloc (abfd, sizeof (*newsym));
+9794:   if (!newsym)
+9795:     return NULL;
+9796:   newsym->symbol.the_bfd = abfd;
+9797:   return &newsym->symbol;
+```
+
+## bfd/elf.c:10035–10088
+
+```text
+10035: _bfd_elf_set_section_contents (bfd *abfd,
+10036:                                sec_ptr section,
+10037:                                const void *location,
+10038:                                file_ptr offset,
+10039:                                bfd_size_type count)
+10040: {
+10041:   Elf_Internal_Shdr *hdr;
+10042:
+10043:   if (! abfd->output_has_begun
+10044:       && ! _bfd_elf_compute_section_file_positions (abfd, NULL))
+10045:     return false;
+10046:
+10047:   if (!count)
+10048:     return true;
+10049:
+10050:   hdr = &elf_section_data (section)->this_hdr;
+10051:   if (hdr->sh_offset == (file_ptr) -1)
+10052:     {
+10053:       unsigned char *contents;
+10054:
+10055:       if (bfd_section_is_ctf (section))
+10056:         /* Nothing to do with this section: the contents are generated
+10057:            later.  */
+10058:         return true;
+10059:
+10060:       if ((offset + count) > hdr->sh_size)
+10061:         {
+10062:           _bfd_error_handler
+10063:             (_("%pB:%pA: error: attempting to write"
+10064:                " over the end of the section"),
+10065:              abfd, section);
+10066:
+10067:           bfd_set_error (bfd_error_invalid_operation);
+10068:           return false;
+10069:         }
+10070:
+10071:       contents = hdr->contents;
+10072:       if (contents == NULL)
+10073:         {
+10074:           _bfd_error_handler
+10075:             (_("%pB:%pA: error: attempting to write"
+10076:                " section into an empty buffer"),
+10077:              abfd, section);
+10078:
+10079:           bfd_set_error (bfd_error_invalid_operation);
+10080:           return false;
+10081:         }
+10082:
+10083:       memcpy (contents + offset, location, count);
+10084:       return true;
+10085:     }
+10086:
+10087:   return _bfd_generic_set_section_contents (abfd, section,
+10088:                                             location, offset, count);
+```
+
+## bfd/elfcode.h:930–975
+
+```text
+930: elf_write_relocs (bfd *abfd, asection *sec, void *data)
+931: {
+932:   elf_backend_data *bed = get_elf_backend_data (abfd);
+933:   bool *failedp = (bool *) data;
+934:   Elf_Internal_Shdr *rela_hdr;
+935:   bfd_vma addr_offset;
+936:   void (*swap_out) (bfd *, const Elf_Internal_Rela *, bfd_byte *);
+937:   size_t extsize;
+938:   bfd_byte *dst_rela;
+939:   unsigned int idx;
+940:   asymbol *last_sym;
+941:   int last_sym_idx;
+942:   size_t amt;
+943:
+944:   /* If we have already failed, don't do anything.  */
+945:   if (*failedp)
+946:     return;
+947:
+948:   if ((sec->flags & SEC_RELOC) == 0)
+949:     return;
+950:
+951:   /* The linker backend writes the relocs out itself, and sets the
+952:      reloc_count field to zero to inhibit writing them here.  Also,
+953:      sometimes the SEC_RELOC flag gets set even when there aren't any
+954:      relocs.  */
+955:   if (sec->reloc_count == 0)
+956:     return;
+957:
+958:   /* If we have opened an existing file for update, reloc_count may be
+959:      set even though we are not linking.  In that case we have nothing
+960:      to do.  */
+961:   if (sec->orelocation == NULL)
+962:     return;
+963:
+964:   rela_hdr = elf_section_data (sec)->rela.hdr;
+965:   if (rela_hdr == NULL)
+966:     rela_hdr = elf_section_data (sec)->rel.hdr;
+967:
+968:   rela_hdr->sh_size = rela_hdr->sh_entsize * sec->reloc_count;
+969:   if (_bfd_mul_overflow (sec->reloc_count, rela_hdr->sh_entsize, &amt)
+970:       || (rela_hdr->contents = bfd_alloc (abfd, amt)) == NULL)
+971:     {
+972:       bfd_set_error (bfd_error_no_memory);
+973:       *failedp = true;
+974:       return;
+975:     }
+```
+
+## bfd/elfcode.h:1101–1155
+
+```text
+1101: elf_write_shdrs_and_ehdr (bfd *abfd)
+1102: {
+1103:   Elf_External_Ehdr x_ehdr;     /* Elf file header, external form */
+1104:   Elf_Internal_Ehdr *i_ehdrp;   /* Elf file header, internal form */
+1105:   Elf_External_Shdr *x_shdrp;   /* Section header table, external form */
+1106:   Elf_Internal_Shdr **i_shdrp;  /* Section header table, internal form */
+1107:   unsigned int count;
+1108:   size_t amt;
+1109:
+1110:   i_ehdrp = elf_elfheader (abfd);
+1111:   i_shdrp = elf_elfsections (abfd);
+1112:
+1113:   /* swap the header before spitting it out...  */
+1114:
+1115: #if DEBUG & 1
+1116:   elf_debug_file (i_ehdrp);
+1117: #endif
+1118:   elf_swap_ehdr_out (abfd, i_ehdrp, &x_ehdr);
+1119:   amt = sizeof (x_ehdr);
+1120:   if (bfd_seek (abfd, 0, SEEK_SET) != 0
+1121:       || bfd_write (&x_ehdr, amt, abfd) != amt)
+1122:     return false;
+1123:
+1124:   if ((abfd->flags & BFD_NO_SECTION_HEADER) != 0)
+1125:     return true;
+1126:
+1127:   /* Some fields in the first section header handle overflow of ehdr
+1128:      fields.  */
+1129:   if (i_ehdrp->e_phnum >= PN_XNUM)
+1130:     i_shdrp[0]->sh_info = i_ehdrp->e_phnum;
+1131:   if (i_ehdrp->e_shnum >= (SHN_LORESERVE & 0xffff))
+1132:     i_shdrp[0]->sh_size = i_ehdrp->e_shnum;
+1133:   if (i_ehdrp->e_shstrndx >= (SHN_LORESERVE & 0xffff))
+1134:     i_shdrp[0]->sh_link = i_ehdrp->e_shstrndx;
+1135:
+1136:   /* at this point we've concocted all the ELF sections...  */
+1137:   if (_bfd_mul_overflow (i_ehdrp->e_shnum, sizeof (*x_shdrp), &amt))
+1138:     {
+1139:       bfd_set_error (bfd_error_no_memory);
+1140:       return false;
+1141:     }
+1142:   x_shdrp = (Elf_External_Shdr *) bfd_alloc (abfd, amt);
+1143:   if (!x_shdrp)
+1144:     return false;
+1145:
+1146:   for (count = 0; count < i_ehdrp->e_shnum; i_shdrp++, count++)
+1147:     {
+1148: #if DEBUG & 2
+1149:       elf_debug_section (count, *i_shdrp);
+1150: #endif
+1151:       elf_swap_shdr_out (abfd, *i_shdrp, x_shdrp + count);
+1152:     }
+1153:   amt = (bfd_size_type) i_ehdrp->e_shnum * sizeof (*x_shdrp);
+1154:   if (bfd_seek (abfd, i_ehdrp->e_shoff, SEEK_SET) != 0
+1155:       || bfd_write (x_shdrp, amt, abfd) != amt)
+```
+
+## bfd/syms.c:478–488
+
+```text
+478: bfd_set_symtab (bfd *abfd, asymbol **location, unsigned int symcount)
+479: {
+480:   if (abfd->format != bfd_object || bfd_read_p (abfd))
+481:     {
+482:       bfd_set_error (bfd_error_invalid_operation);
+483:       return false;
+484:     }
+485:
+486:   abfd->outsymbols = location;
+487:   abfd->symcount = symcount;
+488:   return true;
+```
+
+## gas/output-file.c:69–101
+
+```text
+69: output_file_close (void)
+70: {
+71:   bool res;
+72:   bfd *obfd = stdoutput;
+73:   struct obstack **obs;
+74:   asection *sec;
+75:   const char *filename;
+76:
+77:   if (obfd == NULL)
+78:     return;
+79:
+80:   /* Prevent an infinite loop - if the close failed we will call as_fatal
+81:      which will call xexit() which may call this function again...  */
+82:   stdoutput = NULL;
+83:
+84:   /* We can't free obstacks attached to the output bfd sections before
+85:      closing the output bfd since data in those obstacks may need to
+86:      be accessed, but we can't access anything in the output bfd after
+87:      it is closed..  */
+88:   for (sec = obfd->sections; sec; sec = sec->next)
+89:     stash_frchain_obs (sec);
+90:   stash_frchain_obs (reg_section);
+91:   stash_frchain_obs (expr_section);
+92:   stash_frchain_obs (bfd_abs_section_ptr);
+93:   stash_frchain_obs (bfd_und_section_ptr);
+94:   obstack_ptr_grow (&notes, NULL);
+95:   obs = obstack_finish (&notes);
+96:
+97:   /* Close the bfd.  */
+98:   if (!flag_always_generate_output && had_errors ())
+99:     res = bfd_close_all_done (obfd);
+100:   else
+101:     res = bfd_close (obfd);
 ```
 
 ## bfd/elf-bfd.h:1855–1947
@@ -2047,6 +2776,25 @@ Literal LF numbering.
 479:   if (res)
 480:     memset (res, 0, (size_t) size);
 481:   return res;
+```
+
+## bfd/libbfd.c:1338–1351
+
+```text
+1338: _bfd_generic_set_section_contents (bfd *abfd,
+1339:                                    sec_ptr section,
+1340:                                    const void *location,
+1341:                                    file_ptr offset,
+1342:                                    bfd_size_type count)
+1343: {
+1344:   if (count == 0)
+1345:     return true;
+1346:
+1347:   if (bfd_seek (abfd, section->filepos + offset, SEEK_SET) != 0
+1348:       || bfd_write (location, count, abfd) != count)
+1349:     return false;
+1350:
+1351:   return true;
 ```
 
 ## include/objalloc.h:44–63

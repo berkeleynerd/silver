@@ -42,19 +42,25 @@ ranges = {
     'libiberty/xatexit.c': [(45, 85)],
     'libiberty/concat.c': [(104, 121)],
     'include/getopt.h': [(81, 93)],
-    'bfd/opncls.c': [(50, 99), (729, 765), (1985, 2010)],
+    'bfd/opncls.c': [(50, 99), (729, 765), (859, 865), (1985, 2010)],
     'bfd/bfd-in2.h': [(337, 374), (435, 453), (687, 849),
                       (1947, 1976), (2080, 2288)],
     'bfd/libbfd.h': [(56, 60)],
     'bfd/elfxx-x86.h': [(750, 763), (963, 966)],
     'bfd/elfxx-x86.c': [(40, 44)],
-    'bfd/elf.c': [(295, 319), (3315, 3344)],
+    'bfd/elf.c': [(295, 319), (3315, 3344), (3535, 3592), (3836, 3874),
+                  (4195, 4248), (4527, 4557), (4612, 4616), (4695, 4790),
+                  (7154, 7188), (7221, 7299), (8764, 8799), (9788, 9797),
+                  (10035, 10088)],
+    'bfd/elfcode.h': [(930, 975), (1101, 1155)],
+    'bfd/syms.c': [(478, 488)],
+    'gas/output-file.c': [(69, 101)],
     'bfd/elf-bfd.h': [(1855, 1947), (1970, 1999), (2049, 2097), (2128, 2281)],
     'bfd/elf-attrs.h': [(145, 155)],
     'include/elf/internal.h': [(65, 82), (102, 118)],
     'bfd/section.c': [(790, 809), (1114, 1152)],
     'bfd/hash.c': [(382, 405), (596, 651), (726, 748)],
-    'bfd/libbfd.c': [(434, 481)],
+    'bfd/libbfd.c': [(434, 481), (1338, 1351)],
     'include/objalloc.h': [(44, 63), (85, 100)],
     'libiberty/objalloc.c': [(55, 81), (85, 170)],
 }
@@ -88,7 +94,13 @@ anchors = {
                      'char *n = bfd_alloc (abfd, len);'],
     'bfd/elfxx-x86.c': ['bfd_elf_allocate_object (abfd, sizeof (struct elf_x86_obj_tdata))'],
     'bfd/elf.c': ['abfd->tdata.any = bfd_zalloc (abfd, object_size);',
-                  'struct output_elf_obj_tdata *o = bfd_zalloc (abfd, sizeof *o);'],
+                  'struct output_elf_obj_tdata *o = bfd_zalloc (abfd, sizeof *o);',
+                  'if (abfd->output_has_begun)\n    return true;',
+                  'abfd->output_has_begun = true;',
+                  'newsym = (elf_symbol_type *) bfd_zalloc (abfd, sizeof (*newsym));',
+                  'symstrtab = (struct elf_sym_strtab *) bfd_malloc (amt)',
+                  'outbound_syms = bfd_malloc (amt)'],
+    'gas/output-file.c': ['stdoutput = NULL;', 'res = bfd_close (obfd);'],
     'bfd/section.c': ['bfd_hash_allocate (table, sizeof (struct section_hash_entry));',
                       'section_hash_lookup (&abfd->section_htab, name, true, false);'],
     'bfd/libbfd.c': ['|| ((signed long) ul_size) < 0)',
@@ -147,6 +159,28 @@ assert entry_count <= next_buckets*3//4
 assert 3 <= 32  # GAS registrations within the static xatexit first block.
 startup_counter_fixed = 4096+192+13*320
 assert startup_counter_fixed == 8448
+object_result = json.loads((root / 'object-check-results.json').read_text())
+gas_result = json.loads((root / 'check-results.json').read_text())
+assert object_result['section_headers_including_null'] == 22
+assert object_result['relocations_upper'] == 281
+assert object_result['outgoing_symbol_entries_including_null'] == 98
+assert gas_result['selected_GAS_symbols_and_fixups']['BFD_symbol_allocations_through_GAS'] == 102
+later_main_arena = {
+    'BFD_symbols': 102*128,
+    'relocation_headers': 9*80,
+    'relocation_names': 9*32,
+    'section_header_pointers': 22*8,
+    'null_section_header': 80,
+    'section_symbol_map': 13*8,
+    'reordered_symbols': 97*8,
+    'serialized_relocations_combined': 281*24,
+    'serialized_section_headers': 22*64,
+}
+assert sum(later_main_arena.values()) == 23352
+lifetime_counter_fixed = startup_counter_fixed+sum(later_main_arena.values())
+assert lifetime_counter_fixed == 31800
+largest_P = (1 << 63)-1-23
+assert largest_P+lifetime_counter_fixed < (1 << 64)
 fixed_requests = {
     'GAS_short_options': (1, short_bytes),
     'GAS_long_options': (1, long_count*32),
@@ -176,6 +210,11 @@ result = {
     'objalloc_request_contract': 'max(P,4096)+23<=PTRDIFF_MAX; 1<=P',
     'BFD_main_arena_startup_raw_bytes_upper': 'P+8448',
     'BFD_lifetime_alloc_size_contract': 'P+8448+R<=2^64-1; R includes all other successful raw requests, even later released',
+    'selected_later_main_arena_raw_bytes_upper_by_class': later_main_arena,
+    'selected_later_main_arena_R_upper': sum(later_main_arena.values()),
+    'selected_BFD_lifetime_alloc_size_upper': 'P+31800',
+    'selected_lifetime_main_arena_request_contract': 'max(P,6744)+23<=PTRDIFF_MAX; 1<=P',
+    'selected_output_BFD_alloc_size_counter_join_complete': True,
     'whole_BFD_request_inventory_complete': False,
     'production_phase_argument_path_join_complete': False,
     'native_execution': False,

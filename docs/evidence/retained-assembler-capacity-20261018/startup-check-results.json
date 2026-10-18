@@ -69,6 +69,21 @@
   "objalloc_request_contract": "max(P,4096)+23<=PTRDIFF_MAX; 1<=P",
   "BFD_main_arena_startup_raw_bytes_upper": "P+8448",
   "BFD_lifetime_alloc_size_contract": "P+8448+R<=2^64-1; R includes all other successful raw requests, even later released",
+  "selected_later_main_arena_raw_bytes_upper_by_class": {
+    "BFD_symbols": 13056,
+    "relocation_headers": 720,
+    "relocation_names": 288,
+    "section_header_pointers": 176,
+    "null_section_header": 80,
+    "section_symbol_map": 104,
+    "reordered_symbols": 776,
+    "serialized_relocations_combined": 6744,
+    "serialized_section_headers": 1408
+  },
+  "selected_later_main_arena_R_upper": 23352,
+  "selected_BFD_lifetime_alloc_size_upper": "P+31800",
+  "selected_lifetime_main_arena_request_contract": "max(P,6744)+23<=PTRDIFF_MAX; 1<=P",
+  "selected_output_BFD_alloc_size_counter_join_complete": true,
   "whole_BFD_request_inventory_complete": false,
   "production_phase_argument_path_join_complete": false,
   "native_execution": false

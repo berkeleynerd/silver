@@ -115,10 +115,12 @@ python3 docs/evidence/retained-assembler-capacity-20261018/check-startup.py \
   --output /tmp/retained-assembler-startup-check.json
 ```
 
-It also exposes the output BFD's cumulative `alloc_size` requirement:
-`P+8448+R<=2^64-1`, where R still requires the complete later-request join.
-Actual production arguments/paths, parser subsidiary storage, the remaining
-BFD requests and host-library behavior remain separate. This packet does not
+It also joins the selected output BFD's cumulative `alloc_size` requirement:
+startup contributes `P+8448`, selected later requests at most 23,352, giving
+`P+31800`. This fits the counter under the individual main-arena request
+condition `max(P,6744)+23<=PTRDIFF_MAX`. Actual production arguments/paths,
+parser subsidiary storage, the other BFD allocator contexts and host-library
+behavior remain separate. This packet does not
 claim whole-assembler closure or add a total-RAM limit.
 
 No compiler, assembler, linker, solver, Lean build, test suite or near-limit

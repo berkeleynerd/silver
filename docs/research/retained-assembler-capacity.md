@@ -618,11 +618,12 @@ supplies notes/frchain chunk arithmetic and CFI/SFrame raw request ceilings.
 The [hash inventory](retained-assembler-hashes.md) and
 [fixed startup transfer](retained-assembler-startup.md) supply the opcode,
 register and pseudo-op tables, option storage and output-BFD metadata.
-Remaining relaxation/parser state, later BFD requests and the actual
+Remaining relaxation/parser state, BFD allocator contexts and the actual
 production argument/path join still need their inventory. The subsequent
 [ELF object transfer](retained-elf-object-capacity.md) supplies the selected
-writer's metadata counts and complete object-file envelope; the cumulative
-BFD allocation counter still needs the later-request join. The selected
+writer's metadata counts and complete object-file envelope; startup's lifetime
+join also bounds the selected output BFD's cumulative allocation counter.
+The selected
 unit's GAS symbol/fixup counts, unsigned fragment-allocation counter and
 16-bit region field now have separate sufficient bounds above; these are not
 GCC's UID or block counters. A broader admitted family still needs its own
