@@ -1,0 +1,76 @@
+{
+  "cases": [
+    {
+      "name": "empty_literal",
+      "passed": true
+    },
+    {
+      "name": "both_imports",
+      "passed": true
+    },
+    {
+      "name": "repeated_calls",
+      "passed": true
+    },
+    {
+      "name": "large_literal",
+      "passed": true
+    },
+    {
+      "name": "comment_variation",
+      "passed": true
+    },
+    {
+      "name": "null_family_not_substituted",
+      "passed": true
+    },
+    {
+      "name": "variable_argument",
+      "passed": true
+    },
+    {
+      "name": "declaration",
+      "passed": true
+    },
+    {
+      "name": "FF_alphabet",
+      "passed": true
+    },
+    {
+      "name": "frontier_open",
+      "passed": true
+    },
+    {
+      "name": "extra_body",
+      "passed": true
+    },
+    {
+      "name": "elaboration_gimplifies",
+      "passed": true
+    },
+    {
+      "name": "helper_RTL",
+      "passed": true
+    },
+    {
+      "name": "different_parameters",
+      "passed": true
+    },
+    {
+      "name": "different_result",
+      "passed": true
+    },
+    {
+      "name": "allocating_finalizer",
+      "passed": true
+    },
+    {
+      "name": "erased_marker_backing",
+      "passed": true
+    }
+  ],
+  "all_passed": true,
+  "input_identities_verified": 45,
+  "native_tool_executions": 0,
+  "elapsed_seconds": 0.022742062999896007
+}

@@ -1,0 +1,42 @@
+{
+  "scope": "Selected literal-output Main process under reviewed source/configuration premises",
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "source_counts": {
+    "source_bytes": 118,
+    "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+    "output_calls": 1,
+    "Put": 0,
+    "Put_Line": 1,
+    "null_statements": 0,
+    "decoded_literal_lengths": [
+      13
+    ],
+    "decoded_literal_bytes": 13,
+    "maximum_literal_length": 13
+  },
+  "selected_literal_collector_callback_effects_closed": true,
+  "value_expression_insertions_upper": 0,
+  "collector_callback_additional_GGC_events": 0,
+  "finalizer_additional_ordinary_allocation_requests": 0,
+  "value_expression_marker": {
+    "ordinary_hash_backing_requests_per_callback": 1,
+    "each_ordinary_hash_backing_bytes": 104,
+    "hash_insertions": 0,
+    "recursive_tree_walks": 0,
+    "dynamic_vector_backing_requests": 0
+  },
+  "actual_collector_call_count": null,
+  "total_GGC_events": null,
+  "total_finalizer_registrations": null,
+  "collector_page_and_finalizer_backing": null,
+  "complete_collector_lifetime_closed": false,
+  "whole_literal_pipeline_capacity_established": false,
+  "aggregate_RAM_admission_gate": false,
+  "source_argument": "docs/research/retained-literal-collector-callbacks.md",
+  "native_tool_executions": 0,
+  "production_admission_changed": false,
+  "inputs_verified": 45
+}
