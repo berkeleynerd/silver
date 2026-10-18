@@ -1,0 +1,111 @@
+{
+  "scope": "fixed five prefixes, selected allocation-charged counters only",
+  "whole_pipeline_capacity_established": false,
+  "managed_run": "20261018T125544-a11ebc3568d2",
+  "pinned_files": 191,
+  "cases": [
+    {
+      "name": "put_line",
+      "minor_delta_words": 86006749,
+      "major_delta_words": 625932,
+      "total_delta_words": 86632681,
+      "minor_end_words": 86036103,
+      "major_end_words": 633603,
+      "minor_custom_fraction": 0.00030517625373250803,
+      "major_custom_fraction": 0.005134110578642445,
+      "table_entries": {
+        "ref_table": 63348,
+        "ephe_ref_table": 142594,
+        "custom_table": 83
+      }
+    },
+    {
+      "name": "put",
+      "minor_delta_words": 85310434,
+      "major_delta_words": 624816,
+      "total_delta_words": 85935250,
+      "minor_end_words": 85339788,
+      "major_end_words": 632487,
+      "minor_custom_fraction": 0.00030517625373250803,
+      "major_custom_fraction": 0.005134110578642445,
+      "table_entries": {
+        "ref_table": 63319,
+        "ephe_ref_table": 142314,
+        "custom_table": 83
+      }
+    },
+    {
+      "name": "first_or_default",
+      "minor_delta_words": 81424058,
+      "major_delta_words": 606251,
+      "total_delta_words": 82030309,
+      "minor_end_words": 81453412,
+      "major_end_words": 613922,
+      "minor_custom_fraction": 0.00030517625373250803,
+      "major_custom_fraction": 0.005134110578642445,
+      "table_entries": {
+        "ref_table": 60535,
+        "ephe_ref_table": 136744,
+        "custom_table": 83
+      }
+    },
+    {
+      "name": "input_is_valid",
+      "minor_delta_words": 77996314,
+      "major_delta_words": 594985,
+      "total_delta_words": 78591299,
+      "minor_end_words": 78025668,
+      "major_end_words": 602656,
+      "minor_custom_fraction": 0.00030517625373250803,
+      "major_custom_fraction": 0.005134110578642445,
+      "table_entries": {
+        "ref_table": 59316,
+        "ephe_ref_table": 133828,
+        "custom_table": 83
+      }
+    },
+    {
+      "name": "is_message",
+      "minor_delta_words": 77194243,
+      "major_delta_words": 592671,
+      "total_delta_words": 77786914,
+      "minor_end_words": 77223597,
+      "major_end_words": 600342,
+      "minor_custom_fraction": 0.00030517625373250803,
+      "major_custom_fraction": 0.005134110578642445,
+      "table_entries": {
+        "ref_table": 59070,
+        "ephe_ref_table": 132819,
+        "custom_table": 83
+      }
+    }
+  ],
+  "stopped_attempts": {
+    "process_entry": {
+      "completed": false,
+      "guards": [
+        "caml_minor_collection"
+      ]
+    },
+    "missing_entity": {
+      "completed": false,
+      "guards": []
+    },
+    "custom_resource": {
+      "completed": false,
+      "guards": [
+        "caml_request_major_slice"
+      ]
+    }
+  },
+  "managed_outcomes": {
+    "20261018T125058-ed97efbc898e": "failure",
+    "20261018T125109-75dbac3c2161": "failure",
+    "20261018T125317-d20cf1a42135": "failure",
+    "20261018T125415-3ad60d9a0950": "failure",
+    "20261018T125544-a11ebc3568d2": "success"
+  },
+  "maximum_prefix_allocation_words": 86632681,
+  "minimum_synthetic_line_limit": 140737488355327,
+  "maximum_signed_ocaml_integer": 4611686018427387903
+}
