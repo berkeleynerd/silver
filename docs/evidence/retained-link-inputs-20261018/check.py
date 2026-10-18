@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Reconcile retained link inputs and local bounds; never invoke a linker."""
 import argparse
+import gzip
 import hashlib
 import json
 from pathlib import Path
@@ -20,11 +21,13 @@ def main():
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     sources = json.loads((BUNDLE / 'sources.json').read_text())
+    text_sources = {}
     with tarfile.open(BUNDLE / 'sources.tar.gz') as tar:
         for row in sources:
             data = tar.extractfile(row['archive_path']).read()
             assert len(data) == row['bytes']
             assert hashlib.sha256(data).hexdigest() == row['sha256']
+            text_sources[row['archive_path']] = data.decode()
 
     capture = json.loads((BUNDLE / 'capture/result.json').read_text())
     assert len(capture['commands']) == 11
@@ -45,6 +48,69 @@ def main():
     command = inventory['collect2_argv']
     assert command[command.index('-rpath') + 1].startswith('$ORIGIN/')
     assert len(inventory['search_directories']) == 14
+    assert len(command) == 54 and not any(a.startswith('@') for a in command)
+    assert command[1] == '-plugin'
+    collect = text_sources['gcc/gcc/collect2.cc']
+    for fragment in ('num_c_args = argc + 9;', 'num_c_args += 8;',
+                     'if (use_plugin)\n      lto_mode = LTO_MODE_NONE;',
+                     'rflag || (! DO_COLLECT_EXPORT_LIST && ! do_collecting)',
+                     'ld1_argv = XCNEWVEC (char *, argc + 4);',
+                     'ld2_argv = XCNEWVEC (char *, argc + 11);',
+                     'object_lst = XCNEWVEC (char *, argc);'):
+        assert fragment in collect
+    utils = text_sources['gcc/gcc/collect-utils.cc']
+    assert 'pex = pex_init (0, "collect2", NULL);' in utils
+    assert 'if (use_atfile && argv[0] != NULL)' in utils
+    finder = text_sources['gcc/gcc/file-find.cc']
+    assert 'int len = pprefix->max_len + strlen (name) + 1;' in finder
+    assert 'char *nstore = XNEWVEC (char, strlen (p) + 3);' in finder
+    driver_bundle = BUNDLE.parent / 'retained-native-driver-20261018'
+    driver_sources = json.loads((driver_bundle / 'sources.json').read_text())
+    with tarfile.open(driver_bundle / 'sources.tar.gz') as tar:
+        selected = {}
+        for name in ('gcc/config.gcc', 'gcc/configure.ac'):
+            data = tar.extractfile(name).read()
+            row = next(r for r in driver_sources['files'] if r['path'] == name)
+            assert len(data) == row['bytes'] and hashlib.sha256(data).hexdigest() == row['sha256']
+            selected[name] = data.decode()
+    assert selected['gcc/config.gcc'].count('use_collect2=yes') == 4
+    assert 'case $use_collect2 in\n  no) use_collect2= ;;\n  "") ;;' in selected['gcc/configure.ac']
+
+    # Parse the retained simple single-quoted field spelling. The source
+    # argument supplies the quoting/length bounds for other configured paths.
+    link_display = gzip.decompress((BUNDLE / 'capture/link-expansion.stderr.gz').read_bytes()).decode()
+    values = {}
+    for key in ('COMPILER_PATH', 'COLLECT_GCC_OPTIONS'):
+        found = {line.partition('=')[2] for line in link_display.split('\n')
+                 if line.startswith(key + '=')}
+        assert len(found) == 1
+        values[key] = found.pop()
+    options = re.findall(r"'([^']*)'", values['COLLECT_GCC_OPTIONS'])
+    assert ' '.join("'" + s + "'" for s in options) == values['COLLECT_GCC_OPTIONS']
+    assert len(options) == 10
+    copied = [s for s in options if s.startswith(('-m', '-f'))]
+    assert copied == ['-mtune=generic', '-march=x86-64']
+    assert not any(s.startswith(('-B', '-EL', '-EB', '-save-temps')) for s in options)
+    assert len(values['COMPILER_PATH'].split(':')) == 3
+    assert len(capture['environment']['PATH'].split(':')) == 3
+    collector = {
+        'argv_positions': len(command),
+        'ld1_pointer_slots': len(command) + 4,
+        'ld1_array_bytes': 8*(len(command) + 4),
+        'ld2_pointer_slots': len(command) + 11,
+        'ld2_array_bytes': 8*(len(command) + 11),
+        'object_pointer_slots': len(command),
+        'object_array_bytes': 8*len(command),
+        'unused_C_command_pointer_slots': len(command) + 9 + 8 + len(copied),
+        'unused_C_command_array_bytes': 8*(len(command) + 9 + 8 + len(copied)),
+        'quoted_environment_fields': len(options),
+        'prefix_list_nodes': 6,
+        'prefix_node_bytes_lp64': 16,
+        'link_launches': 1,
+        'collector_response_files_or_nm_or_C_compiler_launches': 0,
+        'collector_LTO_launches': 0,
+        'scope': 'selected collect2 argument/search/launch containers; plugin and linker remain separate',
+    }
     for resolution in inventory['library_resolution']:
         probes = resolution['ordered_probes']
         assert all(not p['exists'] for p in probes[:-1])
@@ -111,6 +177,7 @@ def main():
                              for member in row['members'])
     result = {'verified_source_files': len(sources),
               'collect2_argv_positions': len(command),
+              'collect2_containers': collector,
               'default_script_extra_search_dirs': len(re.findall(r'\bSEARCH_DIR\s*\(', tokens)),
               'archive_maps': archives,
               'archive_symbol_candidate_visits_bound': candidate_visits,

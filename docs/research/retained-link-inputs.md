@@ -9,7 +9,7 @@ need separate transfers. The whole [capacity rule](retained-tool-capacity.md)
 remains incomplete.
 
 The [evidence](../evidence/retained-link-inputs-20261018/README.md) retains raw
-queries, argv/environment, fixed-file/archive-member identities and nine
+queries, argv/environment, fixed-file/archive-member identities and twelve
 complete source files. It uses the existing relevant-behavior premise for GCC
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea` and Binutils
 `5e56594815854de5eca35c7c04b11705d0f19c02`. This is not a historical build
@@ -89,6 +89,78 @@ files (`:771–781`). LD therefore has no plugin-added statements to rescan
 This is target-link input closure. Runtime libraries used to execute the
 linker/plugin belong to the selected external-tool configuration; they are
 not target sections to add to this inventory.
+
+## Collect2 argument and launch storage
+
+The selected x86-64 Linux configuration leaves `use_collect2` empty.
+The only assignments to `yes` in `config.gcc` select a.out or three AIX
+families; none matches this target. `configure.ac:2662–2675` therefore does
+not define `USE_COLLECT2`. Building the collect2 executable is a separate
+configure choice. In this route `do_collecting=0`; the AIX export-list and
+Darwin post-link hooks are absent (`collect2.cc:146–160,2984–3086`).
+The existing relevant-source-behavior premise includes those target choices.
+
+None of the 54 retained argv positions begins with `@`, so `expandargv`
+does not expand a response file. The Linux `process_args` hook is empty.
+The `-plugin` option sets `use_plugin`, which sets the collector's own
+`lto_mode` to NONE (`collect2.cc:954–960,1036–1037`). This does not disable
+the linker's plugin: its unclaimed-input path still needs its own accounting.
+The collector's early-exit condition is true, so it performs exactly one
+linker launch and returns before nm scanning, constructor/destructor-list
+creation, generated C compilation or relinking (`:1626–1655`). It does not
+launch an LTO worker itself. The source argument, not an observed small
+symbol table, excludes those collector-owned symbol counters.
+
+The four argument backbones are allocated before that early exit:
+
+| Array | Pointer slots | Bytes on LP64 |
+| --- | ---: | ---: |
+| First linker command | 54+4=58 | 464 |
+| Second, unused linker command | 54+11=65 | 520 |
+| Input-object list | 54 | 432 |
+| Unused C command | 54+9+8+2=73 | 584 |
+
+The selected COLLECT_GCC_OPTIONS has ten quoted fields. Only
+`-mtune=generic` and `-march=x86-64` increment `num_c_args` and are copied
+into the unused C command; there is no `-B`, endian or save-temps option
+(`collect2.cc:1011–1047,1208–1251`). The actual C-command write demand is
+18 slots including its terminator. The first linker command copies 53
+arguments plus its executable and terminator, at most 55 slots. The second
+adds one unused constructor-object filename, at most 56. The input list
+cannot contain more than those 53 arguments plus its terminator. All fit
+their separate arrays. No signed argc/count operation approaches its limit.
+
+Environment parsing builds three COMPILER_PATH and three PATH prefix-list
+nodes, 16 bytes each; each prefix is copied separately. If P bounds complete
+raw/normalized path spellings including appended separators and executable
+names, the finder requests at most `2P+1` bytes. Require that quantity to
+fit signed int, since the source narrows the sum to `int`; the existing
+`5P+1 <= INT_MAX` descriptor is stronger. Each environment splitter's
+scratch is `strlen(value)+3` bytes, and its individual copy/index arithmetic
+must fit the existing object/path domain (`file-find.cc:34–105,112–140,
+172–211`). These are configuration inputs, independent of Main source size.
+
+Both option parses finish one obstack string per field and free back to
+the initial mark between passes. A field's output has no more bytes than
+its quoted input plus NUL; the [individual obstack transfer](retained-backend-obstacks.md)
+applies to the largest unfinished field. The two copied `-m` fields and
+dump-prefix string have the same bounded lengths. Collect2 creates two
+unused temporary filenames even on this early-exit route. With selected
+temporary-directory length T, `ccXXXXXX.cdtor.c`/`.cdtor.o` require at most
+`T+18` bytes including separator and NUL; the existing temporary-name
+argument applies with signed filename length `T+17 <= INT_MAX` and an
+individual request within PTRDIFF_MAX. Fallback directories must be included
+in T. This bounds their representation without requiring the files to be
+successfully created under resource failure.
+
+`do_link` passes no response-file request or I/O redirection and selects
+PEX_LAST (`collect2.cc:746–765`, `collect-utils.cc:143–240`). Its fresh PEX
+object therefore has one child and one status, standard descriptors and no
+file actions, as in the [common/Unix process transfer](retained-native-driver.md#selected-unix-canonicalization-and-launch).
+The resolved linker executable and stable search results are configuration
+premises. Filesystem/process/libc internals retain the existing trusted
+boundary. Shared GCC diagnostic initialization and the plugin/linker bodies
+remain separate joins; this is not a whole collect2/link capacity result.
 
 ## Inventory and archive backing
 
@@ -181,7 +253,7 @@ between add-symbol input passes and common-probe scans. This revision repairs
 that scope overstatement. Independent rechecking confirmed the correction at
 `6bd2399eb4`; it does not claim closure of other symbol consumers.
 
-Remaining joins are generated Main/binder objects, collect2/plugin storage
-and launch, linker-created sections/names/reference events, ELF consumers and
+Remaining joins are generated Main/binder objects, shared diagnostic and
+plugin storage, linker-created sections/names/reference events, ELF consumers and
 final code/data/relocation layout. This fixed input closure supports those
 arguments; it does not complete #119.

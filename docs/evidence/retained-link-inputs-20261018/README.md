@@ -20,8 +20,11 @@ preceding missing library candidates, SONAME/DT_NEEDED, archive-map offsets
 and counts. The parser inverts GCC's argv display escaping without shell
 evaluation. Libraries remain at their original paths; their large binary
 contents are not duplicated. Generated sample objects are excluded from
-fixed sums. `sources.json` and `sources.tar.gz` retain nine complete reviewed
+fixed sums. `sources.json` and `sources.tar.gz` retain twelve complete reviewed
 GCC/Binutils files; these pins identify source, not historical build inputs.
+Collect2's target/configure choices reuse two complete files from the native
+driver packet. Its argument/search/launch calculation uses the retained driver
+query and does not launch collect2 or a linker.
 
 Replay into fresh scratch:
 
@@ -30,8 +33,10 @@ python3 docs/evidence/retained-link-inputs-20261018/check.py --output /tmp/link-
 ```
 
 Add `--installed` to reread all original libraries/members and require exact
-inventory equality. This executes only Python. Retained `checks.json` used
-that option. The manual argument supplies file-selection/loop bounds; the
+inventory equality. This executes only Python. The common-probe correction
+rechecked the complete installed inventory; the later collect2-only extension
+reused that unchanged result and reran the affected offline source/arithmetic
+checks. The manual argument supplies file-selection/loop bounds; the
 checker does not formally verify vendor code.
 
 This does not establish complete linker capacity, generated names/references,

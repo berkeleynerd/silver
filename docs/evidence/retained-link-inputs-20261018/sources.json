@@ -79,5 +79,32 @@
     "bytes": 87225,
     "sha256": "a3872d49de464dfcaffef6b68f28b298fb5f460676032b583f7a6e49779c44d9",
     "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/collect2.cc"
+  },
+  {
+    "project": "gcc",
+    "path": "gcc/collect-utils.cc",
+    "archive_path": "gcc/gcc/collect-utils.cc",
+    "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+    "bytes": 6544,
+    "sha256": "16c303bf82117f62b79739c6509af66790f48f91ab94c1f21bf5d91bc5e51d94",
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/collect-utils.cc"
+  },
+  {
+    "project": "gcc",
+    "path": "gcc/file-find.cc",
+    "archive_path": "gcc/gcc/file-find.cc",
+    "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+    "bytes": 4696,
+    "sha256": "7626610968c18286346f6a43821d1d47849356e6af4208dc6071b62a13c48272",
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/file-find.cc"
+  },
+  {
+    "project": "gcc",
+    "path": "gcc/file-find.h",
+    "archive_path": "gcc/gcc/file-find.h",
+    "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+    "bytes": 1717,
+    "sha256": "068aa07106f8b043380dffe0686218a3af9bb5bc43661fe178bcbb79221eb593",
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/file-find.h"
   }
 ]

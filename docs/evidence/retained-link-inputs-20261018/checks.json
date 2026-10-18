@@ -1,6 +1,24 @@
 {
-  "verified_source_files": 9,
+  "verified_source_files": 12,
   "collect2_argv_positions": 54,
+  "collect2_containers": {
+    "argv_positions": 54,
+    "ld1_pointer_slots": 58,
+    "ld1_array_bytes": 464,
+    "ld2_pointer_slots": 65,
+    "ld2_array_bytes": 520,
+    "object_pointer_slots": 54,
+    "object_array_bytes": 432,
+    "unused_C_command_pointer_slots": 73,
+    "unused_C_command_array_bytes": 584,
+    "quoted_environment_fields": 10,
+    "prefix_list_nodes": 6,
+    "prefix_node_bytes_lp64": 16,
+    "link_launches": 1,
+    "collector_response_files_or_nm_or_C_compiler_launches": 0,
+    "collector_LTO_launches": 0,
+    "scope": "selected collect2 argument/search/launch containers; plugin and linker remain separate"
+  },
   "default_script_extra_search_dirs": 10,
   "archive_maps": [
     {
