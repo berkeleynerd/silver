@@ -1361,6 +1361,142 @@ Sem_Warn is in Warn_On_Suspicious_Index, an array-index warning route absent
 from Main (`sem_warn.adb:4117–4246`); this excludes that particular numeric
 route, not general diagnostic buffer allocation.
 
+## Saved checks and dimension analysis
+
+The saved-check optimization has real storage even though Sem_Eval has no
+value-cache table. `checks.adb:145–197` declares 200 `Saved_Check` records and
+100 `Nat` entries in `Saved_Checks_Stack`. A record contains a Boolean, two
+Entity_Ids, a Uint and a Character; byte layout remains a target input. At
+optimization level zero both `Enable_Overflow_Check` and `Enable_Range_Check`
+return before their only calls to `Find_Check`
+(`checks.adb:6432–6454,6599–6620,6695`). Thus Main inserts no saved checks, and
+the `UI_Negate` in Find_Check's subtraction case (`:7131`) adds no Main Uint
+work. This does not eliminate the two fixed arrays.
+
+The nesting counter is different from the array bound. Every
+`Analyze_Statements` calls `Conditional_Statements_Begin` before walking its
+list and `Conditional_Statements_End` afterwards
+(`sem_ch5.adb:4523–4598`). Begin increments `Saved_Checks_TOS` **before** testing
+whether it exceeds 100; overflow of that cache just kills saved checks. End
+still decrements the counter (`checks.adb:4921–4973`). Let `d_stmt` be the
+maximum number of nested source if/for statements, and `T_fixed` the maximum
+number of simultaneously active non-Main statement-list analyses in the
+complete process closure. Then:
+
+```text
+Main simultaneously active Analyze_Statements calls <= 1 + d_stmt.
+Saved_Checks_TOS peak <= T_fixed + 1 + d_stmt.
+Saved_Checks Main records = 0.
+Saved_Checks fixed arrays = 200 Saved_Check + 100 Nat.
+```
+
+The Main handled sequence contributes one call. A loop contributes one body
+list, and an if contributes at most one active arm list: arms/elsif lists are
+analyzed sequentially (`sem_ch5.adb:2010–2081,4278–4294`;
+`sem_ch11.adb:388–445`). Main has no case, handler, finally, block or nested
+subprogram; the established light-expansion closure introduces no statement
+sequence containing another Main statement sequence. `T_fixed` deliberately
+covers dependency analysis while a Main list remains active. The capacity
+rule must ensure the peak is representable in `Nat`; **100 is not a language
+nesting limit**. Actual recursion frames still need the separate traversal
+stack transfer.
+
+Dimension analysis is invoked on ordinary source expressions and declarations;
+it is not sound to exclude the package solely because Silver has no dimension
+syntax. Its storage can nevertheless be closed by an invariant: every Main
+expression/entity and its Integer, String, Boolean or Character type has
+`Null_Dimension`, and none has a dimension system. The Standard roots are not
+dimension declarations, and the admitted fixed library signatures return/use
+these roots. Source has no Dimension/Dimension_System aspect. Generated
+Integer ranges and String subtypes preserve those roots.
+
+The invariant is preserved by the actual active branches:
+
+- `Dimensions_Of` is a table lookup; only `Set_Dimensions` inserts
+  (`sem_dim.adb:2665–2668,3722–3728`). Identifier/type/attribute propagation
+  sets only when the source has a nonempty dimension (`:2086–2164`).
+- Arithmetic and comparisons inspect both dimensions. Add/subtract propagates
+  only a nonempty dimension; multiply/divide enters rational arithmetic only
+  when at least one dimension is nonempty (`:1377–1625`). Unary plus/minus uses
+  Move_Dimensions, which uses guarded Copy_Dimensions and Remove_Dimensions
+  (`:2461–2480,2507–2521,3623–3633,3677–3683`).
+- An object initializer only enters its propagation/warning branch when its
+  dimension differs from its type, impossible for two Null_Dimensions
+  (`:2202–2278`). Both constrained and unconstrained subtype propagation
+  require a nonempty parent dimension (`:2367–2405`). Removal adds nothing.
+- The sole System_Table append belongs to the Dimension_System aspect
+  (`:1121`). Symbol insertion is either the Dimension aspect (`:856`) or the
+  two guarded subtype branches (`:2390,2402`). Dimension I/O is not an admitted
+  callee (`:3583–3592`). Thus its Symbol_Of fallback string construction is
+  not reached by Main (`:3743–3751`).
+
+Consequently Main adds zero System_Table, Dimension_Table or Symbol_Table
+records, zero dimension rational/Uint operations, and zero dimension
+messages/symbol strings. The fixed storage remains: System_Table initially
+5 records with 5-percent growth, and 511 hash headers in each of the two
+Simple_HTable instances (`sem_dim.adb:125–190`). This is a Main transfer;
+fixed dependency aspects, initialization and target record layout remain
+separate inputs.
+
+## Additional semantic numeric caller exclusions
+
+The following source partition removes concrete residual numeric routes; it
+does not yet promote the five-family subtotal to a whole-Main Uint bound.
+
+| Route | Main result and source reason |
+| --- | --- |
+| Current-value condition inference | `Get_Current_Value_Condition` returns in GNATprove mode before reading the current-value condition (`exp_util.adb:7610–7631`). Its Compile_Time_Compare and null/non-null callers add no second numeric traversal through this helper. Entity current-value references remain real fields, already charged. |
+| Saved-check subtraction offsets | Both callers of Find_Check are behind the optimization-level-zero return described above. Its UI_Negate is not another arithmetic charge. |
+| Strict/minimized arithmetic check expansion | All actual callers of Apply_Arithmetic_Overflow_Check are in native `exp_ch4.adb`; Exp_SPARK does not call it. This caller exclusion matters because the strict routine computes `2 * Esize` before its own Expander_Active test (`checks.adb:796–867`). Its native cost is not removed. |
+| Selected length checks | Selected_Length_Checks returns at `not Expander_Active` before the constrained-array length subtraction/addition (`checks.adb:10215–10222,10304–10387`). Light-mode Apply_Length_Check flag behavior remains charged in the earlier syntax partition. |
+| Task counts in object analysis | Count_Tasks really does multiply array lengths (`sem_ch3.adb:4354–4402`), but its only call requires Has_Task and a library-level object (`:5374–5387`); Main Integer/String objects have no tasks. |
+| Static array-bound helper | Matching_Static_Array_Bounds has no caller in the pinned Ada source; its arithmetic (`sem_util.adb:23173–23282`) is not part of Main execution. Number_Of_Elements_In_Array's only caller is native exp_ch3 (`exp_ch3.adb:7453`), outside this process closure. |
+| Boolean fold literal lookup | Get_Enum_Lit_From_Pos reads/converts the Boolean position (0 or 1) and creates the already-counted occurrence; it performs no table-backed Uint arithmetic (`sem_util.adb:10598–10662`). Character spelling code is a separate branch, not the Boolean fold. |
+| Statically_Names_Object | Its only numeric local values are read from an indexed component (`sem_util.adb:29275–29362`); Main names have no indexing. Even those values are read and compared, not arithmetically constructed. |
+| Large mutable-discriminant stack test | Needs_Secondary_Stack's Is_Large_Discrete_Type requires a mutable discriminated record (`sem_util.adb:23612–23711`); Main has none. The UI_To_Int there is read-only. |
+| Dimension arithmetic | Zero by the invariant above, despite active Analyze_Dimension calls. |
+
+The omitted-type families remain excluded by the established Main closure:
+no source scalar/array type definitions, real/fixed/modular arithmetic,
+aggregates, predicates, access, records, representation clauses, generic
+instances or user-defined literal aspects. In particular, the other
+Minimum_Size callers require discriminants, fixed-point/derived types,
+aggregates or representation clauses (`sem_res.adb:725–767`;
+`freeze.adb:9573–9614,10147–10165`; `sem_ch13.adb:14171–14313`), while the
+ordinary discrete subtype calls remain explicitly paid by `U_discrete_size`.
+This exclusion does not replace auditing any remaining arithmetic written
+using overloaded operators or any newly reached helper.
+
+## Additional semantic auxiliary zero routes
+
+The only source pragma is SPARK_Mode (On), and Main has no aspect, contract,
+representation clause, package, generic, concurrent declaration or unchecked
+conversion. The compiler-generated light-mode closure above introduces none
+of those caller prerequisites. This closes the following **Main additions**,
+not their fixed initial/dependency storage:
+
+| Resource | Allocating route excluded from Main | Initial records / growth percent, or fixed headers |
+| --- | --- | --- |
+| Obsolescent_Warnings | pragma Obsolescent (`sem_prag.adb:22898`; `sem_aux.ads:56–62`) | 50 / 200 (`alloc.ads:106–107`) |
+| Assertion_Levels | Insert_Assertion_Level requires an E_Assertion_Level (`sem_prag.adb:34516–34583`) | 30 / 200 (`:142–148`) |
+| Externals | duplicate Export external-name tracking (`sem_prag.adb:6866–6874`) | 100 / 100, low bound 0 (`:282–288`) |
+| Compile_Time_Warnings_Errors | Defer_Compile_Time_Warning_Error_To_BE takes the excluded pragma's argument (`sem_prag.adb:36002–36008`) | 50 / 200 (`:509–515`) |
+| Check_Names, beyond predefined names | pragma Check_Name append (`sem_prag.adb:15732–15738`); fixed initialization still appends Predefined_Check_Id names (`checks.adb:8106–8110`) | 30 / 200 (`checks.ads:977–983`) |
+| Warnings_Off_Pragmas | pragma Warnings entity form (`sem_prag.adb:28936`; `sem_warn.ads:56–62`) | 500 / 100 (`alloc.ads:151–152`) |
+| Unchecked_Conversions | unchecked-conversion validation and enabled Warn_On_Unchecked_Conversion (`sem_ch13.adb:19821–19831`), neither a Main route | 50 / 200 (`:403–409`) |
+| Address_Clause_Checks | Register_Address_Clause_Check is called only by address-clause analysis (`sem_ch13.adb:6993,7037,16638–16647`) | 20 / 200 (`:445–451`) |
+| Alignment_Warnings | Apply_Address_Clause_Check native expansion (`checks.adb:579–750`; `exp_ch13.adb:439`) | 10 / 200, low bound 0 (`checks.ads:131–137`) |
+| Subprogram_Table / Traversed_Table | both writers are local helpers of Analyze_Package_Body_Helper; Main is a procedure body (`sem_ch7.adb:244–686`) | 4093 headers each (`:198–223`) |
+
+These tables' Init calls and fixed library/configuration producers cannot be
+removed merely because Main contributes zero. Contract input/output element
+lists are similarly absent for Main: all calls of
+Collect_Subprogram_Inputs_Outputs are within Sem_Prag contract analysis
+(`sem_prag.adb:2195,2226,3511,29410,30473,30480,33452–33780`). The admitted
+SPARK_Mode handler changes fields and context and does not invoke that helper
+(`:26430–26530`). This further narrows the element-list inventory without
+claiming that every remaining semantic container has now been closed.
+
 ## Remaining resource obligations
 
 Remaining whole-frontend obligations are:

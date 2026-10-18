@@ -138,6 +138,40 @@ RANGES["lib-xref.adb"] += [(275, 316), (684, 690), (849, 938), (976, 1132)]
 RANGES["sem_ch4.adb"] += [(1525, 1533)]
 RANGES["sem_ch6.adb"] += [(4198, 4202), (4745, 4748)]
 
+RANGES.update({
+    "checks.ads": [(126, 138), (970, 986)],
+    "sem_aux.ads": [(56, 62)],
+    "sem_warn.ads": [(56, 62)],
+    "sem_ch7.adb": [(198, 223), (244, 686)],
+    "sem_dim.adb": [(125, 190), (850, 862), (1115, 1124), (1131, 1223),
+                    (1377, 1625), (2086, 2164), (2202, 2278), (2367, 2405),
+                    (2461, 2480), (2507, 2521), (2665, 2668),
+                    (3583, 3592), (3623, 3633), (3677, 3683), (3722, 3751)],
+    "sem_ch13.adb": [(396, 451), (6987, 7003), (7028, 7046),
+                     (14171, 14313), (16638, 16647), (19821, 19831)],
+    "exp_ch3.adb": [(7447, 7458)],
+    "exp_ch13.adb": [(425, 441)],
+})
+RANGES["alloc.ads"] += [(106, 107), (151, 152)]
+RANGES["checks.adb"] += [(145, 197), (579, 750), (796, 867), (4921, 4973),
+                         (6432, 6454), (6599, 6620), (6687, 6705),
+                         (7118, 7138), (8106, 8110), (10215, 10222),
+                         (10304, 10387)]
+RANGES["exp_util.adb"] += [(7610, 7631)]
+RANGES["sem_ch3.adb"] += [(4354, 4402), (5374, 5387)]
+RANGES["sem_ch5.adb"] += [(2010, 2081), (4278, 4294), (4523, 4598)]
+RANGES["sem_ch11.adb"] += [(388, 445)]
+RANGES["sem_util.adb"] += [(10598, 10662), (23173, 23282), (23612, 23711),
+                           (29275, 29362)]
+RANGES["sem_res.adb"] += [(725, 767)]
+RANGES["freeze.adb"] += [(9573, 9614), (10147, 10165)]
+RANGES["sem_prag.adb"] += [(142, 148), (282, 288), (509, 515),
+                           (2190, 2201), (2221, 2232), (3506, 3515),
+                           (6866, 6874), (15732, 15738), (22890, 22905),
+                           (26430, 26530), (28928, 28942),
+                           (29405, 29415), (30467, 30485), (33452, 33780),
+                           (34516, 34583), (36002, 36008)]
+
 SPARK = {
     "src/why/back_end.adb": (
         "a366cc199ce5c10ba35a7ddcfa0faf04d714deb6f53bc18903f087a845bc8775",
@@ -302,6 +336,32 @@ def main():
     }
     assert xref_illustration["old_ordinary_entries"] == 10_488_320_000
     assert xref_illustration["refined_ordinary_entries"] == 16_400
+    checks_source = (args.source / "checks.adb").read_text()
+    assert "Saved_Checks : array (Int range 1 .. 200) of Saved_Check;" in checks_source
+    assert "Saved_Checks_Stack : array (Int range 1 .. 100) of Nat;" in checks_source
+    begin = checks_source.index("   procedure Conditional_Statements_Begin is")
+    body = checks_source[begin:checks_source.index("end Conditional_Statements_Begin;", begin)]
+    assert body.index("Saved_Checks_TOS := Saved_Checks_TOS + 1;") < body.index(
+        "if Saved_Checks_TOS > Saved_Checks_Stack'Last then")
+    dim_source = (args.source / "sem_dim.adb").read_text()
+    assert "Table_Initial        => 5," in dim_source
+    assert "Table_Increment      => 5," in dim_source
+    assert "type Dimension_Table_Range is range 0 .. 510;" in dim_source
+    assert "type Symbol_Table_Range is range 0 .. 510;" in dim_source
+    additional_zero_tables = {
+        "Obsolescent_Warnings": {"initial": 50, "growth_percent": 200},
+        "Assertion_Levels": {"initial": 30, "growth_percent": 200},
+        "Externals": {"initial": 100, "growth_percent": 100, "low_bound": 0},
+        "Compile_Time_Warnings_Errors": {"initial": 50, "growth_percent": 200},
+        "Check_Names": {"initial": 30, "growth_percent": 200,
+                         "fixed_predefined_appends": "Predefined_Check_Id range"},
+        "Warnings_Off_Pragmas": {"initial": 500, "growth_percent": 100},
+        "Unchecked_Conversions": {"initial": 50, "growth_percent": 200},
+        "Address_Clause_Checks": {"initial": 20, "growth_percent": 200},
+        "Alignment_Warnings": {"initial": 10, "growth_percent": 200, "low_bound": 0},
+        "Subprogram_Table": {"hash_headers": 4093},
+        "Traversed_Table": {"hash_headers": 4093},
+    }
     result = {
         "source_commit": PIN,
         "verified_against": str(prior.relative_to(repo)),
@@ -448,6 +508,42 @@ def main():
             "additional_fixed_backing": {"Urefs_initial": 10,
                                           "Urefs_increment_percent": 100,
                                           "NCT_each_hash_headers": 511},
+            "saved_checks": {
+                "Main_records": 0,
+                "fixed_Saved_Check_records": 200,
+                "fixed_stack_Nat_words": 100,
+                "Main_active_Analyze_Statements": "<= 1+d_stmt",
+                "TOS_peak": "<= T_fixed+1+d_stmt",
+                "TOS_scope": "T_fixed includes simultaneously active non-Main statement analyses",
+                "counter_requirement": "peak <= Nat'Last; 100 is not a nesting limit",
+                "Find_Check_Uint_Main": 0,
+            },
+            "dimension_Main": {
+                "System_Table_appends": 0,
+                "Dimension_Table_bindings": 0,
+                "Symbol_Table_bindings": 0,
+                "rational_or_Uint_work": 0,
+                "diagnostics_and_symbol_strings": 0,
+                "invariant": "Null_Dimension and no system for Main expressions/entities/types",
+            },
+            "dimension_fixed_backing": {
+                "System_Table_initial": 5, "System_Table_growth_percent": 5,
+                "Dimension_Table_hash_headers": 511, "Symbol_Table_hash_headers": 511,
+            },
+            "additional_semantic_zero_Main_tables": additional_zero_tables,
+            "additional_numeric_zero_routes": [
+                "Get_Current_Value_Condition in GNATprove mode",
+                "Find_Check with optimization level zero",
+                "Apply_Arithmetic_Overflow_Check: native expansion callers only",
+                "Selected_Length_Checks with Expander_Active false",
+                "Count_Tasks: no Main task-containing object",
+                "Matching_Static_Array_Bounds: no caller in pinned Ada source",
+                "Number_Of_Elements_In_Array: native exp_ch3 caller only",
+                "Get_Enum_Lit_From_Pos Boolean arithmetic: direct/read-only values",
+                "Statically_Names_Object: no Main indexed-component branch",
+                "Needs_Secondary_Stack mutable-discriminant size test",
+                "Dimension arithmetic under null-dimension invariant",
+            ],
             "query_scope": "Root counts exclude helper-internal recursion already paid by transfer",
         },
         "remaining": [
