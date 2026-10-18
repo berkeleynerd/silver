@@ -4,7 +4,8 @@
 This closes the explicit C container sizes and integer operations for an idle
 `why3server` started by the null-program producer. It is conditional on the
 producer's zero-client result and selected launch configuration. It does not
-establish whole producer capacity or bound libc/kernel implementation storage.
+establish whole producer capacity. Libc/kernel allocation and functioning
+services use the existing [trusted boundary](../trusted-boundary.md#trusted-computing-base).
 
 The [source bundle](../evidence/retained-idle-why3server-capacity-20261018/README.md)
 retains Why3 revision `9390baf120ef260547dfa14f08e11c890b203d9c` and the selected
@@ -80,17 +81,19 @@ largest of these individual requests is `max(800, 8*(J+2))`.
 The two `strdup(socketname)` calls each require `S+1` result bytes; both
 copies are freed after binding. `current_dir = getcwd(NULL,0)` retains one
 directory string of `C+1` result bytes for the process lifetime. The libc
-allocator's rounding, `getcwd`'s intermediate buffer requests and pathname
-helpers require their own selected-library transfer; an output-length bound
-alone does not establish that internal allocation bound. Logging is false,
+allocator's rounding, `getcwd`'s internal buffers and pathname helpers remain
+within that existing external-interface/resource premise. This packet bounds
+the server's arguments and owned representations; it adds no libc audit
+requirement. Logging is false,
 so `init_logging` performs no `fopen` and normal startup emits no log messages
 (`logging.c:20–24`).
 
 The fixed local structures include the 110-byte socket address and 152-byte
 `sigaction` records (handler pointer, 128-byte mask, int flags and restorer
 pointer). These procedures have no recursive call chain. Compiler-generated
-frame layout and C-library call frames are separate; summing declared locals
-would not establish a whole-stack byte bound. Startup temporarily holds one
+frame layout and C-library call frames use the existing sufficient-stack
+premise; summing declared locals would not establish a whole-stack byte bound.
+Startup temporarily holds one
 directory descriptor and retains one socket plus the two self-pipe ends;
 signal setup requests no server-owned dynamic buffer.
 

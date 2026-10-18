@@ -128,7 +128,7 @@ def main():
         "worker_representation_max": j_max,
         "largest_malloc_at_worker_representation_max": 8*(j_max+2),
         "strdup_result_requests": ["S+1", "S+1"],
-        "getcwd_result_bytes": "C+1; internal libc requests remain separate",
+        "getcwd_result_bytes": "C+1; internal libc requests use the existing external resource premise",
         "scope": "conditional idle startup and explicit server-owned C storage; not whole producer/libc/kernel capacity",
         "native_runs": 0,
         "solver_runs": 0,

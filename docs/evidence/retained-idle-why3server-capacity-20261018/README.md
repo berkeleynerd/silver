@@ -13,7 +13,8 @@ build provenance. The existing external relevant-behavior premise applies.
 `check.py` reads only this packet, checks full-file identities and selected
 call/field anchors, and recomputes ABI layouts and request arithmetic.
 The report supplies the conditional reachability argument; the checker is
-not a C verifier and does not establish libc/kernel storage bounds.
+not a C verifier. Libc/kernel allocation uses the existing external resource
+premise; this packet adds no requirement to audit those implementations.
 
 ```sh
 python3 docs/evidence/retained-idle-why3server-capacity-20261018/check.py \

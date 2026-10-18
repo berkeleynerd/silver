@@ -25,7 +25,7 @@
     "S+1",
     "S+1"
   ],
-  "getcwd_result_bytes": "C+1; internal libc requests remain separate",
+  "getcwd_result_bytes": "C+1; internal libc requests use the existing external resource premise",
   "scope": "conditional idle startup and explicit server-owned C storage; not whole producer/libc/kernel capacity",
   "native_runs": 0,
   "solver_runs": 0,
