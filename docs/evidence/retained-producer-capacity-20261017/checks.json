@@ -217,7 +217,7 @@
       75
     ],
     "static_string_declaration": [
-      33,
+      35,
       10,
       11,
       55
@@ -254,13 +254,13 @@
         305
       ],
       "static_string_itype": [
-        35,
+        37,
         14,
         11,
         57
       ],
       "static_string_non_itype": [
-        110,
+        112,
         43,
         45,
         143

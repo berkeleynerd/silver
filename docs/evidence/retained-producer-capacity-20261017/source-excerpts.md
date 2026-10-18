@@ -16042,9 +16042,61 @@
    570:
 ```
 
-## src/why/why-gen-names.adb:786-870
+## src/why/why-gen-names.adb:734-910
 
 ```ada
+   734:         New_Identifier
+   735:           (Ada_Node, EW_Term, Name, Namespace, Module, Typ, Attrs);
+   736:    end New_Identifier;
+   737:
+   738:    function New_Identifier
+   739:      (Ada_Node : Node_Id := Empty;
+   740:       Domain   : EW_Domain;
+   741:       Name     : String;
+   742:       Typ      : W_Type_Id := Why_Empty;
+   743:       Attrs    : String_Utils.String_Sets.Set :=
+   744:         String_Utils.String_Sets.Empty_Set) return W_Identifier_Id is
+   745:    begin
+   746:       return
+   747:         New_Identifier
+   748:           (Ada_Node => Ada_Node,
+   749:            Domain   => Domain,
+   750:            Symb     => NID (Name),
+   751:            Typ      => Typ,
+   752:            Attrs    => Attrs);
+   753:    end New_Identifier;
+   754:
+   755:    function New_Identifier
+   756:      (Ada_Node  : Node_Id := Empty;
+   757:       Domain    : EW_Domain;
+   758:       Name      : String;
+   759:       Namespace : Symbol := No_Symbol;
+   760:       Module    : W_Module_Id;
+   761:       Typ       : W_Type_Id := Why_Empty;
+   762:       Attrs     : String_Utils.String_Sets.Set :=
+   763:         String_Utils.String_Sets.Empty_Set) return W_Identifier_Id is
+   764:    begin
+   765:       return
+   766:         New_Identifier
+   767:           (Ada_Node  => Ada_Node,
+   768:            Domain    => Domain,
+   769:            Symb      => NID (Name),
+   770:            Namespace => Namespace,
+   771:            Module    => Module,
+   772:            Typ       => Typ,
+   773:            Attrs     => Attrs);
+   774:    end New_Identifier;
+   775:
+   776:    function New_Identifier (Name : W_Name_Id) return W_Identifier_Id is
+   777:    begin
+   778:       return
+   779:         New_Identifier
+   780:           (Ada_Node => Get_Ada_Node (+Name),
+   781:            Domain   => EW_Term,
+   782:            Symb     => Get_Symb (Name),
+   783:            Module   => Get_Module (Name));
+   784:    end New_Identifier;
+   785:
    786:    function New_Identifier
    787:      (Ada_Node  : Node_Id := Empty;
    788:       Domain    : EW_Domain;
@@ -16130,6 +16182,46 @@
    868:    end New_Temp_Identifier;
    869:
    870:    function New_Generated_Identifier
+   871:      (Ada_Node  : Node_Id := Empty;
+   872:       Typ       : W_Type_Id := Why_Empty;
+   873:       Base_Name : String := "";
+   874:       Attrs     : String_Utils.String_Sets.Set) return W_Identifier_Id is
+   875:
+   876:    begin
+   877:       return
+   878:         New_Identifier
+   879:           (Ada_Node => Ada_Node,
+   880:            Name     => New_Temp_Identifier (Base_Name),
+   881:            Typ      => Typ,
+   882:            Attrs    => Attrs);
+   883:    end New_Generated_Identifier;
+   884:
+   885:    --------------------------
+   886:    -- New_Temp_Identifiers --
+   887:    --------------------------
+   888:
+   889:    function New_Temp_Identifiers
+   890:      (Num : Positive; Typ : W_Type_Id) return W_Identifier_Array
+   891:    is
+   892:       Result : constant W_Identifier_Array (1 .. Num) :=
+   893:         (others => +New_Temp_Identifier (Typ => Typ));
+   894:    begin
+   895:       return Result;
+   896:    end New_Temp_Identifiers;
+   897:
+   898:    ----------------------
+   899:    -- New_Result_Ident --
+   900:    ----------------------
+   901:
+   902:    function New_Result_Ident (Typ : W_Type_Id) return W_Identifier_Id is
+   903:    begin
+   904:       return New_Identifier (Name => "result", Typ => Typ);
+   905:    end New_Result_Ident;
+   906:
+   907:    ----------------
+   908:    -- Ref_Append --
+   909:    ----------------
+   910:
 ```
 
 ## src/why/why-gen-names.adb:911-921

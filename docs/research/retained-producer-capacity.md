@@ -1245,8 +1245,8 @@ are itypes.
 | Static nonempty signed Integer itype | 97 | 39 | 33 | 205 | 3 |
 | Static nonempty signed Integer non-itype | 137 | 53 | 48 | 305 | 4 |
 | Dynamic or empty signed Integer loop/index itype | 68 | 23 | 24 | 147 | 2 |
-| Static rank-one Character String itype, including literal itype | 35 | 14 | 11 | 57 | 2 |
-| Static rank-one Character String non-itype | 110 | 43 | 45 | 143 | 3 |
+| Static rank-one Character String itype, including literal itype | 37 | 14 | 11 | 57 | 2 |
+| Static rank-one Character String non-itype | 112 | 43 | 45 | 143 | 3 |
 
 These are componentwise upper bounds, deliberately using a uniform function
 declaration allowance: even a raw AST function builder with omitted effects
@@ -1313,13 +1313,16 @@ attribute-use callers remain separate.
 | Eager local type name | `1/0/0/0` |
 | Character component alias | `5/1/1/6` |
 | Four map/bounds/equality substitutions | `12/0/0/16` |
-| Two bound functions and their substitutions | `12/8/2/28` |
+| Two bound functions and their substitutions | `14/8/2/28` |
 | Index representation substitution | `2/0/0/3` |
 | Clone skeleton and seven substitution-list entries | `1/1/8/2` |
-| **Total** | **`33/10/11/55`** |
+| **Total** | **`35/10/11/55`** |
 
 The bound-function row includes eleven occurrences per function and three
-per returned substitution. The source has the same two-attribute shape for
+per returned substitution. `New_Identifier (Attr_Name)` copies the supplied
+name as well as allocating an identifier; its two-node charge is distinct
+from a raw builder supplied the same name
+(`src/why/why-gen-names.adb:774–784`). The source has the same two-attribute shape for
 literal subtypes and ordinary static arrays
 (`src/why/why-gen-arrays.adb:1534–1620,2526–2645`). The clone-of-existing-type
 branch is smaller: at most six nodes, one list, two entries and seven
