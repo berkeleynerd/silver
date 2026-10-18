@@ -143,6 +143,71 @@ This establishes the generated source/location interface for the next
 source-to-object argument. It does not claim that every frontend/backend
 allocation or output-name consumer has now been audited.
 
+### Specialization to one installed workspace template
+
+The existing Silver workspace construction permits a stronger descriptor
+without choosing a new path cap. `Create_Workspace` appends exactly six checked
+alphanumeric characters to its installed `program-` prefix
+(`silver_platform.adb:194–233`); `silver.adb:91–101` derives the paths from
+that same directory. Fix the installation and normalized root spelling, retain
+the exact generated project, and exclude a symlink or environment change that
+alters the selected source/object directories. Bootstrap and rebuild after
+moving the installation remains the existing platform policy.
+
+Let `K` be the byte length of the installed artifact root before `/program-`,
+and `R` the complete fixed runtime `adalib/` path length. Then the generated
+comment operands have exact lengths, rather than merely an upper bound:
+
+```text
+workspace leaf = "/program-" + six characters = 15 bytes
+O = K + 28
+D1 = D2 = K + 20
+body_bytes = 7,551 + 3K + R
+```
+
+The retained installation gives **8,014 body bytes**. Together with its fixed
+spec, `q(spec)+q(body) = 24,576`; the conservative runtime/virtual source union
+is then **20,525,056 positions**. All generated-source token byte offsets now
+remain fixed too: the only changed comment bytes are same-width workspace
+suffixes. The replay checker verifies this exact noncomment byte projection,
+not only line/column agreement. The earlier `P` formula remains the broader
+source-range result; it does not make arbitrary installation paths equivalent.
+
+Gprbind constructs `b__main~1.adb` as a relative basename and passes that exact
+name to the compiler, with `-o b__main~1.o`
+(`gprbind.adb:498–503,928–938`). Its fixed leading/trailing options remain part
+of the descriptor. The binder ALI's D records name the generated spec/body
+and four fixed installed specs: `system.ads`, `s-parame.ads`, `s-secsta.ads`
+and `s-stoele.ads`. The packet retains those actual installed sources. This
+dependency reconciliation does not replace the separate virtual-source bound.
+
+The following source consumers clarify what this specialization preserves:
+
+| Consumer | Source-derived transfer |
+| --- | --- |
+| Full source path | `sinput-l.adb:510–515` keeps both the basename and full path. `back_end.adb:126–131` passes full debug names to Gigi; `trans.cc:282–292,339–365` interns them and builds line maps even when debug output is disabled. Their distinctness, lengths and storage remain charged; changing the six-character suffix is not permission to erase these identifiers. |
+| Runtime raise-location text | `utils2.cc:2018–2054` uses `Debug_Source_Name`, the fixed source basename, and logical line/column. Its fallback strips a directory from the location filename. These strings do not acquire the varying full workspace path. |
+| External/generated names | `exp_dbug.adb:764–909` derives external names from explicit interface strings or qualified entity names. `tbuild.adb:61–99,719–726` derives temporary names from unit serial counters and body/spec suffixes, not source offsets or workspace paths. Fixed tokens and source offsets preserve their selected inputs. |
+| GCC special-function names | Gigi assigns `first_global_object_name` from the unit's external name before translation (`trans.cc:367–370`). `tree.cc:9114–9164` therefore takes the fixed-name branch, bypassing its filename/random-seed fallback. |
+| Assembler file name | `varasm.cc:8160–8174,8645–8667` emits the main input basename after removing directories. With the fixed relative compiler input and no remapping option, that name is `b__main~1.adb`. |
+| Location-sensitive code generation | File order, source line counts and code coordinates stay fixed. The full-name substitution preserves file equality classes, including the `filename_cmp` fallback used by `cfgrtl.cc:784–800`; the O0 location-nop test therefore receives equivalent locations. |
+
+These joins remove particular path/location objections to reusing the object
+witness. They do **not yet establish the complete frontend/backend transient
+allocation projection** or a universal binder object bound. In particular,
+full-path interning/hash behavior and all selected compilation phases must be
+included before upgrading the observed ELF inventory below.
+
+The specialization does not extend to all GPR temporary paths. GPR creates
+`<normalized-temp-root>/GPR.<pid>/GNAT-TEMP-<six digits>.TMP`
+(`gpr-tempdir.adb:68–80,103–177`, `s-os_lib.adb:77,780–905`). PID decimal width
+varies. With a positive signed-32-bit Linux PID, these paths are at most
+`T_root + 36` bytes, derived from the template and ten-digit PID width. The
+mapping/response filename does not occur in the generated binder source or
+the binder compiler's arguments. It remains a bounded driver/binder input,
+with fixed normalized temp-root spelling and ordinary accessible temporary
+storage as configuration premises.
+
 ## ALI parser and signature-table capacity
 
 This extension bounds the native binder's ALI parser tables, signature map and
@@ -308,6 +373,34 @@ total demands, preserving its index origin, sentinel, growth and allocation
 arithmetic. This leaves the incoming-pool premise explicit. Startup names,
 argv, mapping files, filesystem search and generated-name contributions still
 need their own inventory before claiming whole-binder name capacity.
+
+### Binder mapping-file contribution
+
+The null project explicitly lists only `main.adb` and has no imported or
+extended project. `Create_Binder_Mapping_File` iterates those project sources
+and emits at most one unit/ALI/path triple per selected source
+(`gpr_build_util.adb:341–525`); runtime lookup does not enumerate new project
+sources. Thus its mapping has **at most one record**, possibly none. This
+upper bound does not assume that the indexed ALI name is found by the mapping
+producer's default-index `Lib_File_Name` call (`:836–859`).
+
+`Fmap.Initialize` interns its mapping filename, then at most the unit, ALI
+basename and complete ALI path (`fmap.adb:278–350`). `Fmap.Add_To_File_Map`
+adds at most one entry to each of its two tables, whose initial capacities
+are 1,000 (`:55–73,113–133`). Let `T` be the complete mapping filename length
+and `A` a bound on the complete Main ALI path; the indexed name gives
+`A = O + 2`. Allowing `main%b` and `main~1.ali` gives:
+
+```text
+mapping raw file bytes <= A + 19; read buffer including EOF <= A + 20
+mapping name additions <= 4 entries and T + A + 20 character slots
+T <= T_root + 36
+```
+
+These contributions remain separate from the parser's 5,736-entry budget.
+They cover the mapping consumer, not all GPR project, response-file or search
+storage. In particular, they do not establish a zero contribution from the
+remaining startup and filesystem-name producers.
 
 ## Fixed library/invocation graph projection
 

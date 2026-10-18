@@ -2,8 +2,8 @@
   "archives": {
     "artifacts.tar.gz": {
       "archive": {
-        "bytes": 197004,
-        "sha256": "bc7132cecb06942baacf747adda4b0238ca6aa01c5e9fce46ef3355ff76f4d61"
+        "bytes": 206335,
+        "sha256": "1e2baea1fe58e347d24595c1024b9958189356245a9c21c0313ab635d923e247"
       },
       "members": {
         "cases/indexed-cr/b__main~1.adb": {
@@ -450,13 +450,33 @@
           "bytes": 2428,
           "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/system.ali",
           "sha256": "0f35668f3b0203c2879afea68ee0f3a045d3d300648e46c60674072c4d2cedf1"
+        },
+        "compiler-support/s-parame.ads": {
+          "bytes": 8691,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-parame.ads",
+          "sha256": "69309e996793d5dfeab1a207beae3658b41d7979f099b1c248823adb7e898ac9"
+        },
+        "compiler-support/s-secsta.ads": {
+          "bytes": 17306,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-secsta.ads",
+          "sha256": "25ddf544c6bd3f278ed5edaf33b6a2aefe83f736507f6e4f5c3e2ee9cd407d76"
+        },
+        "compiler-support/s-stoele.ads": {
+          "bytes": 5401,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-stoele.ads",
+          "sha256": "97f344018fd2716cbd58b046f0c5ec3062594af54ac0d9fa7656f0f75074ef33"
+        },
+        "compiler-support/system.ads": {
+          "bytes": 7503,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/system.ads",
+          "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
         }
       }
     },
     "sources.tar.gz": {
       "archive": {
-        "bytes": 445761,
-        "sha256": "2c4ab4a6ff310ba3edc7ba5abc49afdc4471d2de4920bfd9f9eed538cddd2f1c"
+        "bytes": 894695,
+        "sha256": "635778fd87aae8dc473ef43542c26d9f89b5e5e6a87a35713299e785e3a8d003"
       },
       "members": {
         "gcc/ada/ali-util.adb": {
@@ -483,6 +503,11 @@
           "bytes": 7830,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/alloc.ads",
           "sha256": "789c76d280b91067c6f7e1a39b970de1f4a1dcb73906a6c09521494eb29b405d"
+        },
+        "gcc/ada/back_end.adb": {
+          "bytes": 14372,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/back_end.adb",
+          "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
         },
         "gcc/ada/bindgen.adb": {
           "bytes": 126166,
@@ -534,10 +559,35 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/butil.adb",
           "sha256": "2d89c9a94d8724b80bde25dc07f6cef393b3415df87c51916a4e6e4444571be3"
         },
+        "gcc/ada/exp_dbug.adb": {
+          "bytes": 55041,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/exp_dbug.adb",
+          "sha256": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0"
+        },
+        "gcc/ada/fmap.adb": {
+          "bytes": 15474,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/fmap.adb",
+          "sha256": "831a3334022631e111510e14d27b9ac35f9667490e3c2a5688303c01ee53ac17"
+        },
+        "gcc/ada/fmap.ads": {
+          "bytes": 3870,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/fmap.ads",
+          "sha256": "3b6cfc70a7cdd27ebb20fec4515b7fa8abfb43e6a185afecf0ef2b0caac47a3c"
+        },
+        "gcc/ada/gcc-interface/decl.cc": {
+          "bytes": 414991,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gcc-interface/decl.cc",
+          "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2"
+        },
         "gcc/ada/gcc-interface/trans.cc": {
           "bytes": 406631,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gcc-interface/trans.cc",
           "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+        },
+        "gcc/ada/gcc-interface/utils2.cc": {
+          "bytes": 122255,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/gcc-interface/utils2.cc",
+          "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af"
         },
         "gcc/ada/gnatbind.adb": {
           "bytes": 29989,
@@ -574,6 +624,16 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/gnat.ads",
           "sha256": "ae442ce0c51ff344cb4974db5a48d962ef078c7321f472d11c7a0ddfcfd83cce"
         },
+        "gcc/ada/libgnat/s-os_lib.adb": {
+          "bytes": 90264,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/s-os_lib.adb",
+          "sha256": "9aed35c4ec6eaeacab780262f2c1528c95fb4f263f2f966f8526d0f4e080b201"
+        },
+        "gcc/ada/libgnat/s-os_lib.ads": {
+          "bytes": 53539,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/s-os_lib.ads",
+          "sha256": "ea714bd0754c1fe909b6bc4b9c25575e9f700ad0cdbf6714aa9b05e9ad260b91"
+        },
         "gcc/ada/namet.adb": {
           "bytes": 48624,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/namet.adb",
@@ -609,6 +669,16 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sem.adb",
           "sha256": "b216690f3c061cdd7ee229d8182d9863b0f2878e8ac9da67a095372e6c4e0f0d"
         },
+        "gcc/ada/sinput-l.adb": {
+          "bytes": 30951,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sinput-l.adb",
+          "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd"
+        },
+        "gcc/ada/sinput.adb": {
+          "bytes": 37385,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/sinput.adb",
+          "sha256": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8"
+        },
         "gcc/ada/switch-b.adb": {
           "bytes": 21420,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/switch-b.adb",
@@ -618,6 +688,11 @@
           "bytes": 13959,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/table.adb",
           "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4"
+        },
+        "gcc/ada/tbuild.adb": {
+          "bytes": 30177,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/tbuild.adb",
+          "sha256": "db30e8c054e8e3f53af3a01f108f8bec563ce936ebe9988734bc007142643b2c"
         },
         "gcc/ada/types.ads": {
           "bytes": 46466,
@@ -629,10 +704,45 @@
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/cfgrtl.cc",
           "sha256": "7aabb0ebf9549a4e03c0a63a7c5f09e6df23b6b140d1d1ffcdc49deabd95a70c"
         },
+        "gcc/tree.cc": {
+          "bytes": 484431,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/tree.cc",
+          "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+        },
+        "gcc/varasm.cc": {
+          "bytes": 271386,
+          "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/varasm.cc",
+          "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+        },
+        "gpr/gpr/src/gpr-tempdir.adb": {
+          "bytes": 9084,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tempdir.adb",
+          "sha256": "5583152f80a95f0de5989522c9ccd9debc5c0bd04c412e2a8d0bb0675c363d03"
+        },
+        "gpr/gpr/src/gpr_build_util.adb": {
+          "bytes": 97750,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb",
+          "sha256": "c40e59bc6a1057a4aa2f6061bff83c30f662a94883ea3d3f24d95f4ba893f484"
+        },
         "gpr/src/gprbind.adb": {
           "bytes": 43658,
           "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbind.adb",
           "sha256": "aa716cf88788611d2b90c24eaa26f56aff869bd70309a46af32b1e4d4c2e0802"
+        },
+        "gpr/src/gprbuild-post_compile.adb": {
+          "bytes": 185437,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-post_compile.adb",
+          "sha256": "1d3c92430ce32dca0dc88feb7be644342707dc644b9c46002ed218a07c976d02"
+        },
+        "silver/src/silver.adb": {
+          "bytes": 22598,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/src/silver.adb",
+          "sha256": "5b52e3225f359740f04f4dbdf2c85ba2c204916fb0b5092fe983f62e9c30e70f"
+        },
+        "silver/src/silver_platform.adb": {
+          "bytes": 8708,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/src/silver_platform.adb",
+          "sha256": "8a33d93c63e9b30247173dee1658fb7aad59caacdde1a760195e0ede3a39dc87"
         }
       }
     }

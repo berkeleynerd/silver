@@ -122,6 +122,8 @@ def analyze(artifacts, sources):
             indexed_objects.append(obj)
     assert len(set(indexed_specs)) == len(set(indexed_objects)) == 1
     assert all(token_locations(indexed_bodies[0]) == token_locations(x) for x in indexed_bodies[1:])
+    assert len(set(map(len, indexed_bodies))) == 1
+    assert len(set(map(outside_comments, indexed_bodies))) == 1
     # Only the three workspace comment lines change in these retained cases.
     differences = []
     for body in indexed_bodies[1:]:
@@ -133,6 +135,13 @@ def analyze(artifacts, sources):
     assert all(lines[i].startswith(b"   --   ") for i in range(193, 197))
     paths = [lines[193][8:]] + [lines[i][10:] for i in range(194, 197)]
     assert all(p.startswith(b"/") and all(32 <= b <= 126 for b in p) for p in paths)
+    workspace_match = re.fullmatch(rb"(.*)(/program-[A-Za-z0-9]{6})/obj/main~1.o", paths[0])
+    assert workspace_match
+    installation_root, workspace_leaf = workspace_match.groups()
+    assert paths[1] == paths[2] == installation_root+workspace_leaf+b"/obj/"
+    assert all(len(p) == len(q) for body in indexed_bodies[1:]
+               for p, q in zip(paths, [body.split(b"\n")[193][8:]]
+                               + [body.split(b"\n")[i][10:] for i in range(194, 197)]))
     body_constant = len(indexed_bodies[0]) - sum(map(len, paths))
     assert body_constant == 7483
     q = lambda b: 4096 * ((b + 4096) // 4096)
@@ -142,7 +151,20 @@ def analyze(artifacts, sources):
         "raw_combined_at_example": 14556 + body_constant + 4*4096,
         "aligned_combined_at_example": q(14556) + q(body_constant + 4*4096),
         "source_union_including_fixed_runtime_and_virtual": q(14556) + q(body_constant + 4*4096) + 20496384 + 4096,
+        "fixed_installation_root_bytes": len(installation_root),
+        "fixed_workspace_leaf_bytes": len(workspace_leaf),
+        "fixed_path_occurrence_lengths": list(map(len, paths)),
+        "fixed_installation_body_bytes": body_constant+sum(map(len, paths)),
+        "fixed_installation_noncomment_byte_projection": digest(outside_comments(indexed_bodies[0])),
     }
+    assert body_constant+sum(map(len, paths)) == 7551+3*len(installation_root)+len(paths[3])
+    compiler_support = {k.removeprefix("compiler-support/"): digest(v)
+                        for k,v in artifacts.items() if k.startswith("compiler-support/")}
+    for case in cases[:3]:
+        binder_ali = artifacts[f"cases/{case}/b__main~1.ali"]
+        compiler_dependencies = set(re.findall(rb"^D (\S+)", binder_ali, re.M))
+        assert compiler_dependencies == {b"b__main~1.ads", b"b__main~1.adb"} | {k.encode() for k in compiler_support}
+    result["binder_compiler_retained_dependency_sources"] = compiler_support
     alis = {k.removeprefix("closure/"): v for k, v in artifacts.items() if k.startswith("closure/")}
     units = sorted(u.decode() for v in alis.values() for u in re.findall(rb"^U (\S+)", v, re.M))
     assert len(units) == len(set(units))
@@ -267,6 +289,10 @@ def analyze(artifacts, sources):
         "unit_table_realloc_old_plus_new_bytes_bound": 400*320,
         "signature_node_component_bound": 64,
         "signature_nodes_plus_coexisting_buckets_bytes_bound": (900+1500)*64,
+        "mapping_record_bound": 1, "mapping_name_entry_event_bound": 4,
+        "mapping_raw_bytes_excluding_ali_path_bound": len(b"main%b\nmain~1.ali\n\n"),
+        "mapping_name_character_bytes_excluding_paths_bound": len(b"main%b\0main~1.ali\0\0\0"),
+        "gpr_temp_path_bytes_excluding_normalized_root_bound": len(b"/GPR.")+10+len(b"/GNAT-TEMP-000000.TMP"),
     }
     return result
 

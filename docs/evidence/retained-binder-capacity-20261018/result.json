@@ -5,8 +5,13 @@
     "dependency_mismatch_count": 0,
     "distinct_dependency_names": 124,
     "elaboration_root_count": 0,
+    "gpr_temp_path_bytes_excluding_normalized_root_bound": 36,
     "invocation_relation_count": 0,
     "largest_argument_payload_bytes": 27,
+    "mapping_name_character_bytes_excluding_paths_bound": 20,
+    "mapping_name_entry_event_bound": 4,
+    "mapping_raw_bytes_excluding_ali_path_bound": 19,
+    "mapping_record_bound": 1,
     "max_consumed_line_bytes_without_lf": 108,
     "max_fixed_ali_bytes": 58770,
     "max_retained_signature_hash_bytes": 93,
@@ -123,6 +128,24 @@
     "unit_record_component_bound": 320,
     "unit_record_field_count": 40,
     "unit_table_realloc_old_plus_new_bytes_bound": 128000
+  },
+  "binder_compiler_retained_dependency_sources": {
+    "s-parame.ads": {
+      "bytes": 8691,
+      "sha256": "69309e996793d5dfeab1a207beae3658b41d7979f099b1c248823adb7e898ac9"
+    },
+    "s-secsta.ads": {
+      "bytes": 17306,
+      "sha256": "25ddf544c6bd3f278ed5edaf33b6a2aefe83f736507f6e4f5c3e2ee9cd407d76"
+    },
+    "s-stoele.ads": {
+      "bytes": 5401,
+      "sha256": "97f344018fd2716cbd58b046f0c5ec3062594af54ac0d9fa7656f0f75074ef33"
+    },
+    "system.ads": {
+      "bytes": 7503,
+      "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+    }
   },
   "cases": {
     "indexed-cr": {
@@ -9902,6 +9925,19 @@
   "generated_source_bound": {
     "aligned_combined_at_example": 40960,
     "body_constant_bytes": 7483,
+    "fixed_installation_body_bytes": 8014,
+    "fixed_installation_noncomment_byte_projection": {
+      "bytes": 8014,
+      "sha256": "f3cddb90e01c58a0909817292239b2e9e7bfe259a1af5755781617b78f3e9472"
+    },
+    "fixed_installation_root_bytes": 94,
+    "fixed_path_occurrence_lengths": [
+      122,
+      114,
+      114,
+      181
+    ],
+    "fixed_workspace_leaf_bytes": 15,
     "path_bound_example": 4096,
     "path_occurrences": 4,
     "raw_combined_at_example": 38423,

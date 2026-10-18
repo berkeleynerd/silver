@@ -8,13 +8,16 @@ complete audit, Lean check, test suite, macOS validation or hosted CI is claimed
 projects, Main/binder ALIs, generated binder sources and binder objects from
 the [#123 validation](../../indexed-main-discovery.md). It also retains the
 separate historical unindexed proposed-option witness and the complete
-61-file null binder ALI closure. Original paths are in `manifest.json`.
+61-file null binder ALI closure and four installed binder-compiler dependency
+specifications. Original paths are in `manifest.json`.
 The installed files were read; no workspace or artifact was modified.
 
-`sources.tar.gz` contains thirty-five complete inspected GCC/GPR source files.
-The thirty-three GCC Ada files were reconciled against the earlier complete-source
-manifest for GCC `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; the backend and
-GPR inputs retain their previously used source identities and exact hashes.
+`sources.tar.gz` contains fifty-three complete inspected source files:
+forty-four GCC Ada files, three GCC backend files, four GPR files and two
+Silver workspace-construction files. The GCC files were reconciled against
+the earlier complete-source manifests for
+`6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; GPR retains its previously used
+source identity, and all inputs have exact hashes and original paths.
 These records identify source text, not historical binary build inputs.
 
 `result.json` records source sizes, explicit/default external names, unit and
@@ -22,7 +25,9 @@ dependency inventories, export-version value reconciliation, ALI record/table,
 signature-map and parser-name contribution bounds, and each
 ELF section/symbol and relocation counts. All
 three indexed objects hash-equal. Only workspace-path comments differ in their
-generated bodies, and their code-token line/column maps match. The checker
+generated bodies, and their exact noncomment byte projection and code-token
+line/column maps match. The per-installation path lengths and mapping/template
+contributions are also recorded. The checker
 does not infer a universal object bound from those comparisons; the source
 argument and its remaining joins are stated in the component.
 

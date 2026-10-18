@@ -54,6 +54,8 @@ def main():
     for file in ("main.ali", "b__main.ads", "b__main.adb", "b__main.ali", "b__main.o"):
         add(artifacts, f"cases/unindexed-proposed/{file}", old/"obj"/file)
     adalib = install/".tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib"
+    for file in ["system.ads", "s-parame.ads", "s-secsta.ads", "s-stoele.ads"]:
+        add(artifacts, "compiler-support/"+file, adalib.parent/"adainclude"/file)
     obj = install/".silver/linux-x86_64/program-RibQE3/obj"
     todo, seen = ["main~1.ali", "s-stalib.ali"], set()
     while todo:
@@ -71,16 +73,30 @@ def main():
                  "ali-util.ads", "table.adb", "opt.ads", "osint.adb", "namet.ads", "types.ads",
                  "libgnat/gnat.ads", "libgnat/g-dynhta.ads", "libgnat/g-dynhta.adb",
                  "namet.adb", "alloc.ads", "butil.adb", "switch-b.adb", "bindo-augmentors.adb",
-                 "bindo-writers.adb", "bindo-diagnostics.adb", "bindo-validators.adb"]
+                 "bindo-writers.adb", "bindo-diagnostics.adb", "bindo-validators.adb",
+                 "back_end.adb", "sinput-l.adb", "sinput.adb", "gcc-interface/utils2.cc",
+                 "gcc-interface/decl.cc", "exp_dbug.adb", "tbuild.adb", "fmap.adb", "fmap.ads",
+                 "libgnat/s-os_lib.adb", "libgnat/s-os_lib.ads"]
     for file in ada_files:
         add(sources, "gcc/ada/"+file, args.gcc_ada/file)
-    add(sources, "gcc/cfgrtl.cc", args.gcc_backend/"cfgrtl.cc")
-    add(sources, "gpr/src/gprbind.adb", args.gpr_source/"src/gprbind.adb")
+    backend_files = ["cfgrtl.cc", "tree.cc", "varasm.cc"]
+    for file in backend_files:
+        add(sources, "gcc/"+file, args.gcc_backend/file)
+    for file in ["src/gprbind.adb", "src/gprbuild-post_compile.adb",
+                 "gpr/src/gpr_build_util.adb", "gpr/src/gpr-tempdir.adb"]:
+        add(sources, "gpr/"+file, args.gpr_source/file)
+    for file in ["silver.adb", "silver_platform.adb"]:
+        add(sources, "silver/src/"+file, install/"src"/file)
     gcc_manifest = json.loads((args.gcc_ada.parents[1]/"complete-source-manifest.json").read_text())
     assert gcc_manifest["commit"] == "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
     pins = {f["path"]: f for f in gcc_manifest["files"]}
     for file in ada_files:
         assert digest(sources["gcc/ada/"+file][1]) == {k: pins[file][k] for k in ("bytes", "sha256")}
+    backend_manifest = json.loads((args.gcc_backend.parent/"manifest.json").read_text())
+    assert backend_manifest["commit"] == gcc_manifest["commit"]
+    backend_pins = {f["path"]: f for f in backend_manifest["files"]}
+    for file in backend_files:
+        assert digest(sources["gcc/"+file][1]) == {k: backend_pins["gcc/"+file][k] for k in ("bytes", "sha256")}
     result = analyze({k: v for k, (_, v) in artifacts.items()},
                      {k: v for k, (_, v) in sources.items()})
     (args.output/"result.json").write_text(json.dumps(result, indent=2, sort_keys=True)+"\n")
