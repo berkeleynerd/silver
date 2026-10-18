@@ -1,0 +1,75 @@
+{
+  "scope": "local source-derived arithmetic; no native compiler/prover run",
+  "verified_sources": [
+    {
+      "path": "gcc/ada/back_end.adb",
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d"
+    },
+    {
+      "path": "gcc/tree-core.h",
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71"
+    },
+    {
+      "path": "gcc/varasm.cc",
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
+    },
+    {
+      "path": "gcc/opts.cc",
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770"
+    },
+    {
+      "path": "gcc/common.opt",
+      "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f"
+    },
+    {
+      "path": "gcc/config/i386/i386-options.cc",
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6"
+    },
+    {
+      "path": "gcc/common/config/i386/i386-common.cc",
+      "sha256": "009711c76cc24369f035130487e1e94e2570e065018ee70544b52e1b3ef02c59"
+    },
+    {
+      "path": "libcpp/include/line-map.h",
+      "sha256": "4088fa107d3b3c6d1f750b43e284178aeffd0679d091956744eb62462b9a1ab5"
+    },
+    {
+      "path": "libcpp/line-map.cc",
+      "sha256": "d451c89e3145c6bea1e1f3f413c9071b61139aabbbe15a004dabf81b51e0b8fd"
+    }
+  ],
+  "line_map": {
+    "location_bits": 64,
+    "line_bits": 32,
+    "column_bits": 8,
+    "range_bits": 0,
+    "maximum_lines_without_extra_map": 16777216,
+    "first_line_count_requiring_extra_map": 16777217,
+    "preallocation_charge_at_maximum": 4294967292,
+    "later_column_headroom": 4,
+    "normal_region_exclusive_limit": 2882303761517117440
+  },
+  "string": {
+    "lp64_header_offset_premise": 20,
+    "maximum_signed_length": 2147483647,
+    "constructor_request_at_endpoint": 2147483668,
+    "coexisting_temporary_plus_node_at_endpoint": 4294967315,
+    "largest_stack_temporary": 999,
+    "maximum_chunk_callbacks_at_endpoint": 1073742,
+    "normal_chunk_size": 2000,
+    "base64_chunk_size": 16384,
+    "emission_extra_nul_under_o0_no_override": false
+  }
+}

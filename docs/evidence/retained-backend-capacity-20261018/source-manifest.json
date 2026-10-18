@@ -1,0 +1,102 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "recorded_utc": "2026-10-18",
+  "files": [
+    {
+      "path": "gcc/ada/back_end.adb",
+      "bytes": 14372,
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8",
+      "git_blob_sha1": "a5c0b70f20eea80cfdec60806e167a2475c38eb2",
+      "origin": "complete Ada source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/back_end.adb"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "git_blob_sha1": "6db0aa0a6bec9a8f855167a7989ae36e0df9cb0c",
+      "origin": "complete Ada source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/trans.cc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45",
+      "git_blob_sha1": "547aae5438c88ee4f15699566778eab905a52a3b",
+      "origin": "complete Ada source inventory",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/misc.cc"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "git_blob_sha1": "2868cb0867dd805fa267a4edc890ded63ab17909",
+      "origin": "retained GCC emission archive",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree.cc"
+    },
+    {
+      "path": "gcc/tree-core.h",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71",
+      "git_blob_sha1": "07e9318f5e8b88cc3a03bdf5a9cab3a372b55856",
+      "origin": "retained GCC emission archive",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/tree-core.h"
+    },
+    {
+      "path": "gcc/varasm.cc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e",
+      "git_blob_sha1": "5999f1e5420c440e0ebb09ce43da58b13a5850b5",
+      "origin": "retained GCC emission archive",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/varasm.cc"
+    },
+    {
+      "path": "gcc/opts.cc",
+      "bytes": 127927,
+      "sha256": "2c6ea925c664cd4dd8b6e8ebe6509a574d102541fa5ffa258900895c08e7e770",
+      "git_blob_sha1": "6658b6acd378d6ac03a28acf15a2e7bbe1eac2c7",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/opts.cc"
+    },
+    {
+      "path": "gcc/common.opt",
+      "bytes": 122400,
+      "sha256": "c315b25c2972fba70d562fdec3fcc3ca37087c03aa36f42dc814bab1054a285f",
+      "git_blob_sha1": "5d0e255a40d99c52bb936158e6e0e4e826c0acd3",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/common.opt"
+    },
+    {
+      "path": "gcc/config/i386/i386-options.cc",
+      "bytes": 138368,
+      "sha256": "702f38bd8583ac4e85ff95011b4be76403ed88799bab93ac8ee52ae183075fd6",
+      "git_blob_sha1": "7459cde4ba8b662cf2535fc3e84cd7e1cbd918b7",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/config/i386/i386-options.cc"
+    },
+    {
+      "path": "gcc/common/config/i386/i386-common.cc",
+      "bytes": 85914,
+      "sha256": "009711c76cc24369f035130487e1e94e2570e065018ee70544b52e1b3ef02c59",
+      "git_blob_sha1": "4b924e09b2af334497657ae75270aedc9afbe630",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/common/config/i386/i386-common.cc"
+    },
+    {
+      "path": "libcpp/include/line-map.h",
+      "bytes": 53179,
+      "sha256": "4088fa107d3b3c6d1f750b43e284178aeffd0679d091956744eb62462b9a1ab5",
+      "git_blob_sha1": "23060299e9450eb88d88338cb910a9154c96e647",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/libcpp/include/line-map.h"
+    },
+    {
+      "path": "libcpp/line-map.cc",
+      "bytes": 86805,
+      "sha256": "d451c89e3145c6bea1e1f3f413c9071b61139aabbbe15a004dabf81b51e0b8fd",
+      "git_blob_sha1": "34f3642258d6d9d5b07b303e14c67f6d80a748f7",
+      "origin": "new immutable upstream retrieval",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/libcpp/line-map.cc"
+    }
+  ]
+}
