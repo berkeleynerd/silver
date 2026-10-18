@@ -64,9 +64,12 @@ python3 docs/evidence/retained-assembler-capacity-20261018/check-backing.py \
 
 The thirteen fragment-chain control objects fit one initial 4064-byte chunk.
 Shared notes chunks are bounded by `max(4064,Q+241)`, where
-`Q=max(2248,8*(A+1),P)` records actual argument-count and copied output-path
-inputs. The descriptor example `as --64 -o main.o TEMP.s` gives 4064 bytes;
-the production phase join must supply its actual argument/path inputs.
+`Q=max(2248,8*(A+1),P,H)` records actual argument-count, copied output-path
+and remaining hash-table request inputs. Shared string hashes use
+`notes_calloc`; their pointer arrays are not covered by 2248. The descriptor
+example `as --64 -o main.o TEMP.s` gives `Q=max(2248,H)`; no numerical
+whole-notes chunk bound is claimed. The production phase join must supply
+its actual argument/path inputs and the remaining table inventory must bound H.
 This bounds individual requests, not aggregate RAM or the remaining fixed
 parser/opcode/hash and BFD initialization inventory.
 

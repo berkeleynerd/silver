@@ -49,14 +49,14 @@
   "conditional_directive_initial_chunk_bytes": 4064,
   "conditional_directive_objects": 0,
   "notes_existing_prefix_at_growth_entry_upper": 112,
-  "notes_raw_request_contract": "Q=max(2248,8*(A+1),P)",
+  "notes_raw_request_contract": "Q=max(2248,8*(A+1),P,H)",
   "notes_chunk_contract": "max(4064,Q+241)<=PTRDIFF_MAX; 0<=A<INT_MAX",
   "descriptor_example_inputs": {
     "argc": 5,
     "output_path_bytes_including_NUL": 7
   },
-  "descriptor_example_notes_Q": 2248,
-  "descriptor_example_notes_chunk_bytes_upper": 4064,
+  "descriptor_example_notes_Q": "max(2248,H)",
+  "remaining_hash_request_input_H_bounded": false,
   "production_phase_argument_path_join_complete": false,
   "native_execution": false
 }

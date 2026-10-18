@@ -32,6 +32,7 @@ ranges = {
     'gas/gen-sframe.h': [(59, 153)],
     'gas/gen-sframe.c': [(591, 627), (1070, 1075)],
     'gas/symbols.c': [(245, 303)],
+    'gas/hash.h': [(25, 32), (56, 64), (96, 117)],
     'gas/read.c': [(252, 260), (6341, 6371)],
     'gas/config/obj-elf.c': [(203, 215), (503, 516), (575, 639),
                            (1071, 1124), (1415, 1430)],
@@ -47,7 +48,8 @@ for name, spans in ranges.items():
     for low, high in spans:
         assert 1 <= low <= high <= len(lines)
         excerpts.append(f'\n## {name}:{low}–{high}\n\n```text\n')
-        excerpts.extend(f'{n}: {lines[n-1].expandtabs(8)}\n' for n in range(low, high+1))
+        excerpts.extend(f'{n}: {lines[n-1].expandtabs(8)}'.rstrip()+'\n'
+                        for n in range(low, high+1))
         excerpts.append('```\n')
 excerpts = ''.join(excerpts)
 if args.record_excerpts:
@@ -73,6 +75,8 @@ anchors = {
     'gas/output-file.c': ['obstack_ptr_grow (&notes, &frchp->frch_obstack);',
                           'obstack_ptr_grow (&notes, NULL);',
                           'obs = obstack_finish (&notes);'],
+    'gas/hash.h': ['NULL, notes_calloc, NULL);',
+                   'string_tuple_t *tuple = table->alloc_f (1, sizeof (*tuple));'],
     'libiberty/obstack.c': ['size_t sum1 = obj_size + length;',
                            'size_t sum2 = sum1 + h->alignment_mask;',
                            'size_t new_size = sum2 + (obj_size >> 3) + 100;',
@@ -124,9 +128,7 @@ overhead = partial+alignment_mask+(partial >> 3)+100
 assert partial == 112 and overhead == 241
 argc, output_path_bytes = 5, len('main.o')+1
 q = max(281*ptr, ptr*(argc+1), output_path_bytes)
-notes_chunk = max(chunk, q+overhead)
-assert argc < 2**31-1 and q == 2248 and notes_chunk == 4064
-assert notes_chunk <= 2**63-1
+assert argc < 2**31-1 and q == 2248
 
 result = {
     'scope': 'Selected GAS common backing and frame requests; fixed startup/BFD inventory remains open',
@@ -141,11 +143,11 @@ result = {
     'conditional_directive_initial_chunk_bytes': chunk,
     'conditional_directive_objects': 0,
     'notes_existing_prefix_at_growth_entry_upper': partial,
-    'notes_raw_request_contract': 'Q=max(2248,8*(A+1),P)',
+    'notes_raw_request_contract': 'Q=max(2248,8*(A+1),P,H)',
     'notes_chunk_contract': 'max(4064,Q+241)<=PTRDIFF_MAX; 0<=A<INT_MAX',
     'descriptor_example_inputs': {'argc': argc, 'output_path_bytes_including_NUL': output_path_bytes},
-    'descriptor_example_notes_Q': q,
-    'descriptor_example_notes_chunk_bytes_upper': notes_chunk,
+    'descriptor_example_notes_Q': 'max(2248,H)',
+    'remaining_hash_request_input_H_bounded': False,
     'production_phase_argument_path_join_complete': False,
     'native_execution': False,
 }

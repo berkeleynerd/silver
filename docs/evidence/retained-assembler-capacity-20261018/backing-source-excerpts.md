@@ -5,54 +5,54 @@ Literal LF numbering.
 ## gas/as.c:630–640
 
 ```text
-630: 
+630:
 631:   /* Make a local copy of the old argv.  */
 632:   old_argc = *pargc;
 633:   old_argv = *pargv;
-634: 
+634:
 635:   /* Initialize a new argv that contains no options.  */
 636:   new_argv = notes_alloc (sizeof (char *) * (old_argc + 1));
 637:   new_argv[0] = old_argv[0];
 638:   new_argc = 1;
 639:   new_argv[new_argc] = NULL;
-640: 
+640:
 ```
 
 ## gas/as.c:1160–1176
 
 ```text
-1160: 
+1160:
 1161:         case 'f':
 1162:           flag_no_comments = 1;
 1163:           break;
-1164: 
+1164:
 1165:         case 'I':
 1166:           {                     /* Include file directory.  */
 1167:             char *temp = notes_strdup (optarg);
-1168: 
+1168:
 1169:             add_include_dir (temp);
 1170:             break;
 1171:           }
-1172: 
+1172:
 1173:         case 'o':
 1174:           out_file_name = notes_strdup (optarg);
 1175:           break;
-1176: 
+1176:
 ```
 
 ## gas/as.c:1325–1335
 
 ```text
-1325: 
+1325:
 1326:   out_file_name = OBJ_DEFAULT_OUTPUT_FILE_NAME;
-1327: 
+1327:
 1328:   hex_init ();
 1329:   if (bfd_init () != BFD_INIT_MAGIC)
 1330:     as_fatal (_("libbfd ABI mismatch"));
-1331: 
+1331:
 1332:   obstack_begin (&notes, chunksize);
 1333:   xatexit (free_notes);
-1334: 
+1334:
 1335:   myname = **argvp;
 ```
 
@@ -72,44 +72,44 @@ Literal LF numbering.
 55:   struct frch_cfi_data *frch_cfi_data;
 56:   struct frch_ginsn_data *frch_ginsn_data;
 57: };
-58: 
+58:
 59: typedef struct frchain frchainS;
-60: 
+60:
 61: /* Frchain we are assembling into now.  That is, the current segment's
 62:    frag chain, even if it contains no (complete) frags.  */
 63: extern frchainS *frchain_now;
-64: 
+64:
 65: typedef struct segment_info_struct
 66: {
 67:   frchainS *frchainP;
-68: 
+68:
 69:   /* Fixups for this segment.  This is only valid after the frchains
 70:      are run together.  */
 71:   fixS *fix_root;
 72:   fixS *fix_tail;
-73: 
+73:
 74:   /* NULL, or pointer to the gas symbol that is the section symbol for
 75:      this section.  */
 76:   symbolS *sym;
-77: 
+77:
 78:   /* Used by dwarf2dbg.c for this section's line table entries.  */
 79:   void *dwarf2_line_seg;
-80: 
+80:
 81:   /* This field is set if this is a .bss section which does not really
 82:      have any contents.  Once upon a time a .bss section did not have
 83:      any frags, but that is no longer true.  This field prevent the
 84:      SEC_HAS_CONTENTS flag from being set for the section even if
 85:      there are frags.  */
 86:   unsigned int bss : 1;
-87: 
+87:
 88:   /* Set whenever dwarf2_emit_insn is called, and used to disable
 89:      .eh_frame and .debug_frame optimisation.  This is an anti-fuzzer
 90:      measure.  */
 91:   unsigned int insn_seen : 1;
-92: 
+92:
 93:   /* Used by the stabs code.  */
 94:   unsigned int stab_seen : 1;
-95: 
+95:
 96:   union
 97:   {
 98:     /* Current size of section holding stabs strings.  */
@@ -117,11 +117,11 @@ Literal LF numbering.
 100:     /* Initial frag for ELF.  */
 101:     char *p;
 102:   } stabu;
-103: 
+103:
 104: #ifdef NEED_LITERAL_POOL
 105:   unsigned long literal_pool_size;
 106: #endif
-107: 
+107:
 108: #ifdef TC_SEGMENT_INFO_TYPE
 109:   TC_SEGMENT_INFO_TYPE tc_segment_info_data;
 110: #endif
@@ -146,7 +146,7 @@ Literal LF numbering.
 71: alloc_seginfo (segT seg)
 72: {
 73:   segment_info_type *seginfo;
-74: 
+74:
 75:   seginfo = obstack_alloc (&notes, sizeof (*seginfo));
 76:   memset (seginfo, 0, sizeof (*seginfo));
 77:   bfd_set_section_userdata (seg, seginfo);
@@ -166,7 +166,7 @@ Literal LF numbering.
 91: {
 92:   now_seg = seg;
 93:   now_subseg = subseg;
-94: 
+94:
 95:   if (!seg_info (seg))
 96:     alloc_seginfo (seg);
 97: }
@@ -178,7 +178,7 @@ Literal LF numbering.
 131:   if (frcP == NULL || frcP->frch_subseg != subseg)
 132:     {
 133:       /* This should be the only code that creates a frchainS.  */
-134: 
+134:
 135:       newP = obstack_alloc (&frchains, sizeof (frchainS));
 136:       newP->frch_subseg = subseg;
 137:       newP->fix_root = NULL;
@@ -200,17 +200,17 @@ Literal LF numbering.
 79: #else
 80: #define SUPPORT_FRAME_LINKONCE 0
 81: #endif
-82: 
+82:
 83: #ifdef tc_cfi_reloc_for_encoding
 84: #define SUPPORT_COMPACT_EH 1
 85: #else
 86: #define SUPPORT_COMPACT_EH 0
 87: #endif
-88: 
+88:
 89: #ifndef TARGET_MULTIPLE_EH_FRAME_SECTIONS
 90: #define TARGET_MULTIPLE_EH_FRAME_SECTIONS 0
 91: #endif
-92: 
+92:
 93: #define MULTIPLE_FRAME_SECTIONS (SUPPORT_FRAME_LINKONCE || SUPPORT_COMPACT_EH \
 94:                                  || TARGET_MULTIPLE_EH_FRAME_SECTIONS)
 ```
@@ -235,49 +235,49 @@ Literal LF numbering.
 129:       unsigned reg;
 130:       offsetT offset;
 131:     } ri;
-132: 
+132:
 133:     struct
 134:     {
 135:       unsigned reg1;
 136:       unsigned reg2;
 137:     } rr;
-138: 
+138:
 139:     unsigned r;
 140:     offsetT i;
-141: 
+141:
 142:     struct
 143:     {
 144:       symbolS *lab1;
 145:       symbolS *lab2;
 146:     } ll;
-147: 
+147:
 148:     struct cfi_escape_data *esc;
-149: 
+149:
 150:     struct
 151:     {
 152:       unsigned reg, encoding;
 153:       expressionS exp;
 154:     } ea;
-155: 
+155:
 156:     const char *sym_name;
 157:   } u;
 158: };
-159: 
+159:
 160: /* An enumeration describing the Compact EH header format.  The least
 161:    significant bit is used to distinguish the entries.
-162: 
+162:
 163:    Inline Compact:                      Function offset [0]
 164:                                         Four chars of unwind data.
 165:    Out-of-line Compact:                 Function offset [1]
 166:                                         Compact unwind data offset [0]
 167:    Legacy:                              Function offset [1]
 168:                                         Unwind data offset [1]
-169: 
+169:
 170:    The header type is initialized to EH_COMPACT_UNKNOWN until the
 171:    format is discovered by encountering a .fde_data entry.
 172:    Failure to find a .fde_data entry will cause an EH_COMPACT_LEGACY
 173:    header to be generated.  */
-174: 
+174:
 175: enum {
 176:   EH_COMPACT_UNKNOWN,
 177:   EH_COMPACT_LEGACY,
@@ -287,14 +287,14 @@ Literal LF numbering.
 181:   /* Outline if .cfi_inline_lsda used, otherwise legacy FDE.  */
 182:   EH_COMPACT_HAS_LSDA
 183: };
-184: 
+184:
 185: /* Stack of old CFI data, for save/restore.  */
 186: struct cfa_save_data
 187: {
 188:   struct cfa_save_data *next;
 189:   offsetT cfa_offset;
 190: };
-191: 
+191:
 192: /* Current open FDE entry.  */
 193: struct frch_cfi_data
 194: {
@@ -303,7 +303,7 @@ Literal LF numbering.
 197:   offsetT cur_cfa_offset;
 198:   struct cfa_save_data *cfa_save_stack;
 199: };
-200: 
+200:
 201: struct fde_entry
 202: {
 203:   struct fde_entry *next;
@@ -362,22 +362,22 @@ Literal LF numbering.
 381: #endif
 382:   struct cfi_insn_data *first, *last;
 383: };
-384: 
+384:
 385: /* List of FDE entries.  */
-386: 
+386:
 387: struct fde_entry *all_fde_data;
 388: static struct fde_entry **last_fde_data = &all_fde_data;
-389: 
+389:
 390: /* List of CIEs so that they could be reused.  */
 391: static struct cie_entry *cie_root;
-392: 
+392:
 393: /* Construct a new FDE structure and add it to the end of the fde list.  */
-394: 
+394:
 395: static struct fde_entry *
 396: alloc_fde_entry (void)
 397: {
 398:   struct fde_entry *fde = notes_calloc (1, sizeof (*fde));
-399: 
+399:
 400:   frchain_now->frch_cfi_data = notes_calloc (1, sizeof (struct frch_cfi_data));
 ```
 
@@ -388,7 +388,7 @@ Literal LF numbering.
 431: {
 432:   struct cfi_insn_data *insn = notes_calloc (1, sizeof (*insn));
 433:   struct fde_entry *cur_fde_data = frchain_now->frch_cfi_data->cur_fde_data;
-434: 
+434:
 ```
 
 ## gas/dw2gencfi.c:2256–2275
@@ -400,7 +400,7 @@ Literal LF numbering.
 2259:           return cie;
 2260:         }
 2261:     }
-2262: 
+2262:
 2263:   cie = XNEW (struct cie_entry);
 2264:   cie->next = cie_root;
 2265:   cie_root = cie;
@@ -423,21 +423,21 @@ Literal LF numbering.
 60: {
 61:   /* A linked list.  */
 62:   struct sframe_row_entry *next;
-63: 
+63:
 64:   /* Start and end of the frame row entry.  */
 65:   symbolS *pc_begin;
 66:   symbolS *pc_end;
-67: 
+67:
 68:   /* A frame row entry is a merge candidate if new information can be updated
 69:      on it.  */
 70:   bool merge_candidate;
-71: 
+71:
 72:   /* Whether the return address is mangled with pauth code.  */
 73:   bool mangled_ra_p;
-74: 
+74:
 75:   /* Whether RA is undefined.  */
 76:   bool ra_undefined_p;
-77: 
+77:
 78:   /* Track CFA base (architectural) register ID.  */
 79:   unsigned int cfa_base_reg;
 80:   /* Offset from the CFA base register for recovering CFA.  */
@@ -445,7 +445,7 @@ Literal LF numbering.
 82:   /* Whether CFA recovery needs dereferencing.  This is tracked for
 83:      SFRAME_FDE_TYPE_FLEX FDE type.  */
 84:   bool cfa_deref_p;
-85: 
+85:
 86:   /* Track FP location.  Specify whether it is in register or memory.  */
 87:   unsigned int fp_loc;
 88:   unsigned int fp_reg;
@@ -454,7 +454,7 @@ Literal LF numbering.
 91:   /* Whether FP recovery needs dereferencing.  This is tracked for
 92:      SFRAME_FDE_TYPE_FLEX FDE type.  */
 93:   bool fp_deref_p;
-94: 
+94:
 95:   /* Track RA location.  Specify whether it is in register or memory.  */
 96:   unsigned int ra_loc;
 97:   unsigned int ra_reg;
@@ -464,54 +464,54 @@ Literal LF numbering.
 101:      SFRAME_FDE_TYPE_FLEX.  */
 102:   bool ra_deref_p;
 103: };
-104: 
+104:
 105: /* SFrame Function Description Entry.  */
-106: 
+106:
 107: struct sframe_func_entry
 108: {
 109:   /* A linked list.  */
 110:   struct sframe_func_entry *next;
-111: 
+111:
 112:   /* Reference to the FDE created from CFI in dw2gencfi.  Some information
 113:      like the start_address and the segment is made available via this
 114:      member.  */
 115:   const struct fde_entry *dw_fde;
 116:   /* Whether the current FDE will use SFRAME_FDE_TYPE_FLEX representation.  */
 117:   bool fde_flex_p;
-118: 
+118:
 119:   /* Reference to the first FRE for this function.  */
 120:   struct sframe_row_entry *sframe_fres;
-121: 
+121:
 122:   unsigned int num_fres;
 123: };
-124: 
+124:
 125: /* SFrame Function Description Entry Translation Context.  */
-126: 
+126:
 127: struct sframe_xlate_ctx
 128: {
 129:   /* Reference to the FDE created from CFI in dw2gencfi.  Information
 130:      like the FDE start_address, end_address and the cfi insns are
 131:      made available via this member.  */
 132:   const struct fde_entry *dw_fde;
-133: 
+133:
 134:   /* List of FREs in the current FDE translation context, bounded by first_fre
 135:      and last_fre.  */
-136: 
+136:
 137:   /* Keep track of the first FRE for the purpose of restoring state if
 138:      necessary (for DW_CFA_restore).  */
 139:   struct sframe_row_entry *first_fre;
 140:   /* The last FRE in the list.  */
 141:   struct sframe_row_entry *last_fre;
-142: 
+142:
 143:   /* The current FRE under construction.  */
 144:   struct sframe_row_entry *cur_fre;
 145:   /* Remember FRE for an eventual restore.  */
 146:   struct sframe_row_entry *remember_fre;
-147: 
+147:
 148:   /* Whether the current FRE requires a more flexible frame encoding, hence
 149:      needing SFRAME_FDE_TYPE_FLEX FDE type.  */
 150:   bool flex_p;
-151: 
+151:
 152:   unsigned num_xlate_fres;
 153: };
 ```
@@ -535,10 +535,10 @@ Literal LF numbering.
 604:   fre->mangled_ra_p = false;
 605:   /* Reset the RA undefined status by to zero by default.  */
 606:   fre->ra_undefined_p = false;
-607: 
+607:
 608:   return fre;
 609: }
-610: 
+610:
 611: static void
 612: sframe_row_entry_free (struct sframe_row_entry *fre)
 613: {
@@ -549,9 +549,9 @@ Literal LF numbering.
 618:       fre = fre_next;
 619:     }
 620: }
-621: 
+621:
 622: /* Allocate an SFrame FDE.  */
-623: 
+623:
 624: static struct sframe_func_entry*
 625: sframe_fde_alloc (void)
 626: {
@@ -573,17 +573,17 @@ Literal LF numbering.
 
 ```text
 245: struct obstack notes;
-246: 
+246:
 247: /* Utility functions to allocate and duplicate memory on the notes
 248:    obstack, each like the corresponding function without "notes_"
 249:    prefix.  All of these exit on an allocation failure.  */
-250: 
+250:
 251: void *
 252: notes_alloc (size_t size)
 253: {
 254:   return obstack_alloc (&notes, size);
 255: }
-256: 
+256:
 257: void *
 258: notes_calloc (size_t n, size_t size)
 259: {
@@ -598,7 +598,7 @@ Literal LF numbering.
 268:   memset (ret, 0, amt);
 269:   return ret;
 270: }
-271: 
+271:
 272: void *
 273: notes_memdup (const void *src, size_t copy_size, size_t alloc_size)
 274: {
@@ -608,20 +608,20 @@ Literal LF numbering.
 278:     memset ((char *) ret + copy_size, 0, alloc_size - copy_size);
 279:   return ret;
 280: }
-281: 
+281:
 282: char *
 283: notes_strdup (const char *str)
 284: {
 285:   size_t len = strlen (str) + 1;
 286:   return notes_memdup (str, len, len);
 287: }
-288: 
+288:
 289: char *
 290: notes_concat (const char *first, ...)
 291: {
 292:   va_list args;
 293:   const char *str;
-294: 
+294:
 295:   va_start (args, first);
 296:   for (str = first; str; str = va_arg (args, const char *))
 297:     {
@@ -633,6 +633,60 @@ Literal LF numbering.
 303:   return obstack_finish (&notes);
 ```
 
+## gas/hash.h:25–32
+
+```text
+25: {
+26:   const char *key;
+27:   intptr_t value;
+28: };
+29:
+30: typedef struct string_tuple string_tuple_t;
+31:
+32: /* Hash function for a string_tuple.  */
+```
+
+## gas/hash.h:56–64
+
+```text
+56:   tuple->key = key;
+57:   tuple->value = value;
+58:   return tuple;
+59: }
+60:
+61: static inline void *
+62: str_hash_find (htab_t table, const char *key)
+63: {
+64:   string_tuple_t needle = { key, 0 };
+```
+
+## gas/hash.h:96–117
+
+```text
+96: static inline void **
+97: str_hash_insert_int (htab_t table, const char *key, intptr_t value, int replace)
+98: {
+99:   string_tuple_t *elt = string_tuple_alloc (table, key, value);
+100:   void **slot = htab_insert (table, elt, replace);
+101:   if (slot && !replace && table->free_f)
+102:     table->free_f (elt);
+103:   return slot;
+104: }
+105:
+106: static inline void **
+107: str_hash_insert (htab_t table, const char *key, const void *value, int replace)
+108: {
+109:   return str_hash_insert_int (table, key, (intptr_t) value, replace);
+110: }
+111:
+112: static inline htab_t
+113: str_htab_create (void)
+114: {
+115:   return htab_create_alloc (16, hash_string_tuple, eq_string_tuple,
+116:                             NULL, notes_calloc, NULL);
+117: }
+```
+
 ## gas/read.c:252–260
 
 ```text
@@ -640,10 +694,10 @@ Literal LF numbering.
 253: read_begin (void)
 254: {
 255:   const char *p;
-256: 
+256:
 257:   pobegin ();
 258:   obj_read_begin_hook ();
-259: 
+259:
 260:   obstack_begin (&cond_obstack, chunksize);
 ```
 
@@ -656,13 +710,13 @@ Literal LF numbering.
 6344:   unsigned int c;
 6345:   int len;
 6346:   char *retval;
-6347: 
+6347:
 6348:   len = 0;
 6349:   SKIP_WHITESPACE ();
 6350:   if (*input_line_pointer == '\"')
 6351:     {
 6352:       input_line_pointer++;     /* Skip opening quote.  */
-6353: 
+6353:
 6354:       while (is_a_char (c = next_char_of_string ()))
 6355:         {
 6356:           obstack_1grow (&notes, c);
@@ -691,7 +745,7 @@ Literal LF numbering.
 205:   asymbol *bsym;
 206:   symbolS *sym = symbol_new (s, absolute_section, &zero_address_frag, 0);
 207:   size_t name_length = strlen (s);
-208: 
+208:
 209:   if (name_length > strlen (S_GET_NAME (sym)))
 210:     {
 211:       obstack_grow (&notes, s, name_length + 1);
@@ -737,17 +791,17 @@ Literal LF numbering.
 586:   segT sec;
 587:   flagword flags;
 588:   const struct bfd_elf_special_section *ssect;
-589: 
+589:
 590:   if (match_p == NULL)
 591:     {
 592:       static struct elf_section_match unused_match;
 593:       match_p = &unused_match;
 594:     }
-595: 
+595:
 596: #ifdef md_flush_pending_output
 597:   md_flush_pending_output ();
 598: #endif
-599: 
+599:
 600:   /* Switch to the section, creating it if necessary.  */
 601:   if (push)
 602:     {
@@ -760,9 +814,9 @@ Literal LF numbering.
 609:       elt->prev_subseg = previous_subsection;
 610:       section_stack = elt;
 611:     }
-612: 
+612:
 613:   obj_elf_section_change_hook ();
-614: 
+614:
 615:   unsigned int group_idx = ~0u;
 616:   if (match_p->group_name)
 617:     old_sec = group_section_find (match_p, name, &group_idx);
@@ -780,14 +834,14 @@ Literal LF numbering.
 629:       if (match_p->group_name)
 630:         group_section_insert (match_p, sec, &group_idx);
 631:     }
-632: 
+632:
 633:   elf_backend_data *bed = get_elf_backend_data (stdoutput);
 634:   ssect = (*bed->get_sec_type_attr) (stdoutput, sec);
-635: 
+635:
 636:   if (ssect != NULL)
 637:     {
 638:       bool override = false;
-639: 
+639:
 ```
 
 ## gas/config/obj-elf.c:1071–1124
@@ -796,12 +850,12 @@ Literal LF numbering.
 1071: obj_elf_section_name (void)
 1072: {
 1073:   char *name;
-1074: 
+1074:
 1075:   SKIP_WHITESPACE ();
 1076:   if (*input_line_pointer == '"')
 1077:     {
 1078:       int dummy;
-1079: 
+1079:
 1080:       name = demand_copy_C_string (&dummy);
 1081:       if (name == NULL)
 1082:         {
@@ -812,7 +866,7 @@ Literal LF numbering.
 1087:   else
 1088:     {
 1089:       char *end = input_line_pointer;
-1090: 
+1090:
 1091:       while (!is_whitespace (*end) && !is_end_of_stmt (*end) && *end != ',')
 1092:         end++;
 1093:       if (end == input_line_pointer)
@@ -821,10 +875,10 @@ Literal LF numbering.
 1096:           ignore_rest_of_line ();
 1097:           return NULL;
 1098:         }
-1099: 
+1099:
 1100:       obstack_grow0 (&notes, input_line_pointer, end - input_line_pointer);
 1101:       name = obstack_base (&notes);
-1102: 
+1102:
 1103:       while (flag_sectname_subst)
 1104:         {
 1105:           char *subst = strchr (name, '%');
@@ -833,7 +887,7 @@ Literal LF numbering.
 1108:               size_t head = subst - name;
 1109:               size_t tail = strlen (subst + 2) + 1;
 1110:               size_t slen = strlen (now_seg->name);
-1111: 
+1111:
 1112:               if (slen > 2)
 1113:                 {
 1114:                   obstack_blank (&notes, slen - 2);
@@ -845,7 +899,7 @@ Literal LF numbering.
 1120:           else
 1121:             break;
 1122:         }
-1123: 
+1123:
 1124:       obstack_finish (&notes);
 ```
 
@@ -858,7 +912,7 @@ Literal LF numbering.
 1418:                 {
 1419:                   char c;
 1420:                   unsigned int length;
-1421: 
+1421:
 1422:                   c = get_symbol_name (& beg);
 1423:                   (void) restore_line_pointer (c);
 1424:                   length = input_line_pointer - beg;
@@ -889,7 +943,7 @@ Literal LF numbering.
 302:   subsegT subseg;
 303:   struct i386_segment_info *next;
 304: };
-305: 
+305:
 306: #define TC_SEGMENT_INFO_TYPE struct i386_segment_info
 ```
 
@@ -901,10 +955,10 @@ Literal LF numbering.
 18801: {
 18802:   struct i386_segment_info *info = &seg_info(now_seg)->tc_segment_info_data;
 18803:   struct i386_segment_info *curr, *prev;
-18804: 
+18804:
 18805:   if (info->subseg == now_subseg)
 18806:     return;
-18807: 
+18807:
 18808:   /* Find the (or make a) list entry to save state into.  */
 18809:   for (prev = info; (curr = prev->next) != NULL; prev = curr)
 18810:     if (curr->subseg == info->subseg)
@@ -917,7 +971,7 @@ Literal LF numbering.
 18817:       prev->next = curr;
 18818:     }
 18819:   curr->last_insn = info->last_insn;
-18820: 
+18820:
 18821:   /* Find the list entry to load state from.  */
 18822:   for (curr = info->next; curr; curr = curr->next)
 18823:     if (curr->subseg == now_subseg)
@@ -943,7 +997,7 @@ Literal LF numbering.
 64:       info->frchainP = NULL;
 65:     }
 66: }
-67: 
+67:
 68: void
 69: output_file_close (void)
 70: {
@@ -952,14 +1006,14 @@ Literal LF numbering.
 73:   struct obstack **obs;
 74:   asection *sec;
 75:   const char *filename;
-76: 
+76:
 77:   if (obfd == NULL)
 78:     return;
-79: 
+79:
 80:   /* Prevent an infinite loop - if the close failed we will call as_fatal
 81:      which will call xexit() which may call this function again...  */
 82:   stdoutput = NULL;
-83: 
+83:
 84:   /* We can't free obstacks attached to the output bfd sections before
 85:      closing the output bfd since data in those obstacks may need to
 86:      be accessed, but we can't access anything in the output bfd after
@@ -983,7 +1037,7 @@ Literal LF numbering.
 159:   struct _obstack_chunk *prev;  /* address of prior chunk or NULL */
 160:   char contents[4];             /* objects begin here */
 161: };
-162: 
+162:
 163: struct obstack          /* control current object in current chunk */
 164: {
 165:   _CHUNK_SIZE_T chunk_size;     /* preferred size to allocate chunks in */
@@ -997,7 +1051,7 @@ Literal LF numbering.
 173:     void *p;
 174:   } temp;                       /* Temporary for some macros.  */
 175:   _OBSTACK_SIZE_T alignment_mask;  /* Mask of alignment for each object. */
-176: 
+176:
 177:   /* These prototypes vary based on 'use_extra_arg'.  */
 178:   union
 179:   {
@@ -1009,7 +1063,7 @@ Literal LF numbering.
 185:     void (*plain) (void *);
 186:     void (*extra) (void *, void *);
 187:   } freefun;
-188: 
+188:
 189:   void *extra_arg;              /* first arg for chunk alloc/dealloc funcs */
 190:   unsigned use_extra_arg : 1;     /* chunk alloc/dealloc funcs take extra arg */
 191:   unsigned maybe_empty_object : 1; /* There is a possibility that the current
@@ -1033,7 +1087,7 @@ Literal LF numbering.
 319:        memcpy (__o->next_free, where, __len);                                 \
 320:        __o->next_free += __len;                                               \
 321:        (void) 0; })
-322: 
+322:
 323: # define obstack_grow0(OBSTACK, where, length)                                \
 324:   __extension__                                                               \
 325:     ({ struct obstack *__o = (OBSTACK);                                       \
@@ -1044,32 +1098,32 @@ Literal LF numbering.
 330:        __o->next_free += __len;                                               \
 331:        *(__o->next_free)++ = 0;                                               \
 332:        (void) 0; })
-333: 
+333:
 334: # define obstack_1grow(OBSTACK, datum)                                        \
 335:   __extension__                                                               \
 336:     ({ struct obstack *__o = (OBSTACK);                                       \
 337:        if (obstack_room (__o) < 1)                                            \
 338:          _obstack_newchunk (__o, 1);                                          \
 339:        obstack_1grow_fast (__o, datum); })
-340: 
+340:
 341: /* These assume that the obstack alignment is good enough for pointers
 342:    or ints, and that the data added so far to the current object
 343:    shares that much alignment.  */
-344: 
+344:
 345: # define obstack_ptr_grow(OBSTACK, datum)                                     \
 346:   __extension__                                                               \
 347:     ({ struct obstack *__o = (OBSTACK);                                       \
 348:        if (obstack_room (__o) < sizeof (void *))                              \
 349:          _obstack_newchunk (__o, sizeof (void *));                            \
 350:        obstack_ptr_grow_fast (__o, datum); })
-351: 
+351:
 352: # define obstack_int_grow(OBSTACK, datum)                                     \
 353:   __extension__                                                               \
 354:     ({ struct obstack *__o = (OBSTACK);                                       \
 355:        if (obstack_room (__o) < sizeof (int))                                 \
 356:          _obstack_newchunk (__o, sizeof (int));                               \
 357:        obstack_int_grow_fast (__o, datum); })
-358: 
+358:
 ```
 
 ## libiberty/obstack.c:114–150
@@ -1079,7 +1133,7 @@ Literal LF numbering.
 115:                        _OBSTACK_SIZE_T size, _OBSTACK_SIZE_T alignment)
 116: {
 117:   struct _obstack_chunk *chunk; /* points to new chunk */
-118: 
+118:
 119:   if (alignment == 0)
 120:     alignment = DEFAULT_ALIGNMENT;
 121:   if (size == 0)
@@ -1090,7 +1144,7 @@ Literal LF numbering.
 126:          the extra bytes won't be missed terribly, but if range checking is on
 127:          and we used a larger request, a whole extra 4096 bytes would be
 128:          allocated.
-129: 
+129:
 130:          These number are irrelevant to the new GNU malloc.  I suspect it is
 131:          less sensitive to the size of the request.  */
 132:       int extra = ((((12 + DEFAULT_ROUNDING - 1) & ~(DEFAULT_ROUNDING - 1))
@@ -1098,10 +1152,10 @@ Literal LF numbering.
 134:                    & ~(DEFAULT_ROUNDING - 1));
 135:       size = 4096 - extra;
 136:     }
-137: 
+137:
 138:   h->chunk_size = size;
 139:   h->alignment_mask = alignment - 1;
-140: 
+140:
 141:   chunk = (struct _obstack_chunk *) call_chunkfun (h, h->chunk_size);
 142:   if (!chunk)
 143:     (*obstack_alloc_failed_handler) ();
@@ -1124,7 +1178,7 @@ Literal LF numbering.
 191:   struct _obstack_chunk *new_chunk = 0;
 192:   size_t obj_size = h->next_free - h->object_base;
 193:   char *object_base;
-194: 
+194:
 195:   /* Compute size for new chunk.  */
 196:   size_t sum1 = obj_size + length;
 197:   size_t sum2 = sum1 + h->alignment_mask;
@@ -1133,7 +1187,7 @@ Literal LF numbering.
 200:     new_size = sum2;
 201:   if (new_size < h->chunk_size)
 202:     new_size = h->chunk_size;
-203: 
+203:
 204:   /* Allocate and initialize the new chunk.  */
 205:   if (obj_size <= sum1 && sum1 <= sum2)
 206:     new_chunk = (struct _obstack_chunk *) call_chunkfun (h, new_size);
@@ -1142,14 +1196,14 @@ Literal LF numbering.
 209:   h->chunk = new_chunk;
 210:   new_chunk->prev = old_chunk;
 211:   new_chunk->limit = h->chunk_limit = (char *) new_chunk + new_size;
-212: 
+212:
 213:   /* Compute an aligned object_base in the new chunk */
 214:   object_base =
 215:     __PTR_ALIGN ((char *) new_chunk, new_chunk->contents, h->alignment_mask);
-216: 
+216:
 217:   /* Move the existing object to the new chunk.  */
 218:   memcpy (object_base, h->object_base, obj_size);
-219: 
+219:
 220:   /* If the object just copied was the only data in OLD_CHUNK,
 221:      free that chunk and remove it from the chain.
 222:      But not if that chunk might contain an empty object.  */
@@ -1161,7 +1215,7 @@ Literal LF numbering.
 228:       new_chunk->prev = old_chunk->prev;
 229:       call_freefun (h, old_chunk);
 230:     }
-231: 
+231:
 232:   h->object_base = object_base;
 233:   h->next_free = h->object_base + obj_size;
 234:   /* The new chunk certainly contains no empty object yet.  */

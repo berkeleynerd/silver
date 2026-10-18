@@ -83,10 +83,12 @@ already bounded separately by the previous fragment transfer.
 Let **A** be the assembler argument count including its program-name argument,
 and **P** bound the bytes including NUL in the output-path spelling copied
 by `-o`. Require `0 <= A < INT_MAX`, so the signed `old_argc+1` is
-representable, and a representable P. Define
+representable, and a representable P. Let **H** bound the still-to-be-inventoried
+parser/opcode/register/symbol and other hash-table requests made through
+`notes_calloc`, including their growth. Define
 
 ```text
-Q = max(2248, 8*(A+1), P).
+Q = max(2248, 8*(A+1), P, H).
 ```
 
 The selected GAS symbol, fixup and relocation transfer bounds every typed
@@ -116,9 +118,12 @@ The remaining selected `notes` users have the following bounds:
 There is no listing/debug option, include path, include/macro expansion,
 symbol versioning, general `.reloc`, `.eqv`, CFI escape/personality,
 remember-state or multiple-frame-section path in this selected stream.
-Their additional `notes` users do not enter this transfer. Fixed parser/hash
-initialization uses separate allocators and remains a separate inventory;
-it is not silently charged as a small `notes` request.
+Their additional `notes` users do not enter this transfer. Shared string
+hashes use `notes_calloc` for their control objects, pointer arrays and
+16-byte key/value tuples (`gas/hash.h:25–32,56–64,96–117`). These are
+completed-object requests, but their maximum sizes require the remaining
+table inventory. H explicitly carries that missing input; the 2248-byte
+symbol/relocation array bound does not cover them.
 
 Consequently, at entry to any selected growth/append request, the existing
 unfinished prefix has at most **112 bytes**. Every append/request to `notes`
@@ -143,8 +148,9 @@ object surviving a chunk move; it does not assume a fresh empty chunk for
 each append (`include/obstack.h:314–358`,
 `libiberty/obstack.c:114–150,187–235`).
 
-For the descriptor example `as --64 -o main.o TEMP.s`, A=5 and P=7. Thus
-Q=2248 and every shared-notes chunk is at most **4064 bytes**. The temporary
+For the descriptor example `as --64 -o main.o TEMP.s`, A=5 and P=7, giving
+Q=`max(2248,H)`. No numerical whole-notes chunk bound is claimed until H
+is supplied. The temporary
 input pathname is retained through an argument pointer rather than copied
 by these `notes` sites. The symbolic contract above remains the appropriate
 transfer if the caller changes the output spelling; production GPRbuild may
@@ -154,8 +160,9 @@ introduce an arbitrary path cap.
 
 ## Remaining composition
 
-The selected fragment, symbol/fixup, frame-state and common GAS obstack
-requests now have separate sufficient bounds. The
+The selected fragment, symbol/fixup and frame-state requests now have
+separate sufficient bounds. Common GAS obstack growth has a conditional
+transfer with its remaining hash-table request input H explicit. The
 [ELF object writer](retained-elf-object-capacity.md) supplies its later
 metadata/file envelope. Remaining assembler work includes fixed
 parser/opcode/hash startup, BFD object/section/hash initialization and their
