@@ -5297,6 +5297,12 @@ qualification queue and xrefs. The node-indexed next/previous link arrays includ
 the two extra initialized positions. The separate invocation result preserves
 its container types; a hash map is not silently counted as a Table array.
 
+The Main parser auxiliary row now adds its three element-list headers and2F
+elements, plus F implicit loop-name entries and13F characters. The parser node,
+entity and syntax-list inputs already contain the loop helper constructors, so
+those are not added again. Retaining the full fixed witness and adding the full
+Main parser row deliberately overcounts the witness's own three headers.
+
 The six scanner-pool inputs are mandatory: Name entries/characters, Uint
 entries/digits and String descriptors/characters. They must be supplied by the
 scanner component including its rescan/lookahead behavior. Parser AST/list
@@ -5425,6 +5431,44 @@ serialization/ALI, and the independent proof producer. The selected arithmetic
 checker reports this incomplete scope even when every check in its subtotal
 passes.
 
+## Parser auxiliary backing join
+
+The [existing parser transfers](retained-table-capacity.md#main-parser-auxiliary-transfers)
+also supply two previously unjoined tables. For F source loops and I source
+ifs, `F+I` conservatively bounds their maximum simultaneous nesting. Main's
+parser Scope peak is therefore at most `2+F+I`; its Suspicious_Labels lifetime
+appends are at most F. The latter includes the valid-source bare `Reject; for`
+adjacency and cannot be dismissed as error recovery. Loop_Block_Count increases
+at most F times, contributing the loop-name row in the logical join above.
+
+The concrete fixed AST bound provides a deliberately loose allowance for fixed
+parser state missing from the captured Table-symbol list. Each successful fixed
+scope push belongs to a distinct parsed construct on the active path; the dummy
+entry is separate. Each fixed suspicious-label append belongs to its procedure
+call node, and each fixed loop/block serial increment belongs to its loop/block
+node. Successful parsing has no recovery replay of these constructs. The full
+fixed lifetime node bound N_fixed therefore dominates each fixed peak/counter;
+generated and witness nodes only enlarge it. Use
+
+```text
+Scope live entries       <= N_fixed+2+F+I
+Suspicious_Labels entries<= N_fixed+F
+Loop_Block_Count         <= N_fixed+F.
+```
+
+`Scope_Table_Entry` has nine components, each at most one32-bit scalar on the
+selected ABI. Giving each a four-byte slot supplies the padded upper bound36
+bytes (`par.adb:468–540`); the regenerator checks the nine-field premise.
+Suspicious_Label_Entry is three32-bit fields, hence12 bytes (`:595–605`). Scope
+has low0 and Suspicious_Labels low1; both initialize50 entries and grow by100%.
+`native_parser_auxiliary_backing` applies the same generic backing/sentinel/
+per-object byte contract as the22 core tables, then checks Loop_Block_Count's
+Nat range. Reading `Scope.Last+1` just after a pop uses the already charged
+previous peak. No native recursion-stack byte limit is inferred from this table.
+
+All five real-source examples below pass these two additional table checks and
+the serial-counter check. The complete native frontend remains open.
+
 ## Real-source composition checks
 
 The [representative inputs](../evidence/unbounded-programs/retained-native-expansion-20261017/representative-inputs.json)
@@ -5548,7 +5592,8 @@ above. The native frontend/process is still incomplete at these explicit joins:
   source, line/column and name-buffer components; finish backing/layout and
   individual allocation/caller checks for the unjoined parser auxiliaries,
   copy maps, diagnostic tables/strings, invocation graph/hash/DFS containers
-  and fixed non-table heaps. Temporary numeric vectors, serialization
+  and fixed non-table heaps. Parser Scope/Suspicious_Labels and their loop serial
+  now have the separate backing join above. Temporary numeric vectors, serialization
   (including full ALI), and relevant fixed buffers remain separate. The
   backend's callbacks into Ada Uint/Repinfo allocation are additional to this
   before-gigi constructor sum, even if the AST identity count stays unchanged;

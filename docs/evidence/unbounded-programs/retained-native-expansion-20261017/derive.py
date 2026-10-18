@@ -44,7 +44,7 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "exp_ch7.adb", "exp_ch6.adb", "exp_ch9.adb", "exp_tss.adb", "sem_ch5.adb", "exp_ch5.adb",
          "scng.adb", "scn.adb", "scans.adb", "scans.ads", "par-ch2.adb", "par-ch3.adb",
          "par-ch4.adb", "par-ch5.adb", "par-ch6.adb", "par-ch8.adb", "par-ch10.adb",
-         "par-ch11.adb", "par-util.adb", "par-endh.adb", "par-prag.adb",
+         "par-ch11.adb", "par-util.adb", "par-endh.adb", "par-prag.adb", "par.adb", "par-labl.adb",
          "rtsfind.adb", "libgnat/s-secsta.ads", "libgnat/s-parame.ads",
          "libgnat/s-stoele.ads", "libgnat/s-imgint.ads", "libgnat/s-imagei.ads"
          ] + [f"libgnat/s-conca{i}.ads" for i in range(2, 10)]
@@ -1248,6 +1248,8 @@ def native_frontend_logical_join(*, counts, scanner_pools,
     core = main_native_construct_vector(**counts)
     main = core["total"]
     fixed = native_fixed_frontend(input_identifier_length, pathname_length)
+    parser_auxiliary = native_parser_auxiliary(counts["loops"], counts["ifs"],
+                                               fixed["node_identities"])
     common = native_common_metadata(concats=len(counts["concat_lengths"]),
         words=counts["word_tokens"], short_circuits=counts["short_circuits"],
         images=counts["images"], output_calls=counts["output_calls"],
@@ -1265,15 +1267,15 @@ def native_frontend_logical_join(*, counts, scanner_pools,
         node_identities=fixed["node_identities"]+main["node_identities"],
         dynamic_slots=fixed["dynamic_slots"]+main["dynamic_slots"],
         syntax_list_headers=fixed["syntax_list_headers"]+main["syntax_list_headers"],
-        Elist_headers=fixed["Elist_headers"]+main["pending_elist_headers"]+common["unit_boundary_Elist_headers"],
-        Elist_elements=fixed["Elist_elements"]+main["pending_elist_elements"]+common["unit_boundary_Elist_elements"],
+        Elist_headers=fixed["Elist_headers"]+main["pending_elist_headers"]+common["unit_boundary_Elist_headers"]+parser_auxiliary["Main_Elist_headers"],
+        Elist_elements=fixed["Elist_elements"]+main["pending_elist_elements"]+common["unit_boundary_Elist_elements"]+parser_auxiliary["Main_Elist_elements"],
         Uint_entries=fixed["Uint_entries"]+scanner_pools["Uint_entries"]+main["uint"],
         Uint_digits=fixed["Uint_digits"]+scanner_pools["Uint_digits"]+main["retained_digit_words"],
         Ureal_entries=fixed["Ureal_entries"],
         String_descriptors=fixed["String_descriptors"]+scanner_pools["String_descriptors"]+main["string_descriptors"],
         String_characters=fixed["String_characters"]+scanner_pools["String_characters"]+main["string_characters"],
-        Name_entries=fixed["Name_entries"]+scanner_pools["Name_entries"]+main["generated_name_entries"]+common["qualification_Name_entries"]+invocation["signature_scope_Name_entries"],
-        Name_characters=fixed["Name_characters"]+scanner_pools["Name_characters"]+main["name_characters"]+common["qualification_Name_characters"]+invocation["signature_scope_Name_characters"],
+        Name_entries=fixed["Name_entries"]+scanner_pools["Name_entries"]+main["generated_name_entries"]+common["qualification_Name_entries"]+invocation["signature_scope_Name_entries"]+parser_auxiliary["Main_Name_entries"],
+        Name_characters=fixed["Name_characters"]+scanner_pools["Name_characters"]+main["name_characters"]+common["qualification_Name_characters"]+invocation["signature_scope_Name_characters"]+parser_auxiliary["Main_Name_characters"],
         All_Interp_entries=837+common["All_Interp_Main_entries"],
         Name_Qualify_Units_entries=136+common["Name_Qualify_Units_Main_appends"],
         Xrefs_entries=common["Xrefs_backing_demand"],
@@ -1282,10 +1284,71 @@ def native_frontend_logical_join(*, counts, scanner_pools,
     # the pinned table initialization, not an independent per-constructor term.
     table["node_list_link_entries"] = table["node_identities"]+2
     return dict(tables=table,fixed=fixed,Main_constructor=core,common=common,
-        invocation=invocation,stacks=stacks,scanner_pool_inputs=scanner_pools,
+        invocation=invocation,stacks=stacks,parser_auxiliary=parser_auxiliary,
+        scanner_pool_inputs=scanner_pools,
         diagnostics="native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
         remaining="parser auxiliaries; fixed non-table heaps; all physical layouts/growth/caller arithmetic; recursion and local vectors; complete ALI/debug/backend/object/linker and independent proof producer",
         whole_native_frontend_closed=False)
+
+
+def native_parser_auxiliary(loops, ifs, fixed_nodes):
+    """Join existing parser helper transfers without recounting AST identities.
+
+    Each fixed scope/loop/possible suspicious-call event belongs to a distinct
+    fixed syntax node; the full fixed node count is an intentionally loose
+    allowance for fixed peaks/counters absent from the captured Table symbols.
+    """
+    assert min(loops,ifs,fixed_nodes) >= 0
+    scope_record = re.search(r"type Scope_Table_Entry is record(.*?)end record;",
+                             sources["par.adb"], re.S).group(1)
+    scope_record = re.sub(r"--[^\n]*", "", scope_record)
+    assert len(re.findall(r"\b\w+\s*:",scope_record)) == 9
+    return dict(Main_Elist_headers=3, Main_Elist_elements=2*loops,
+        Main_Name_entries=loops, Main_Name_characters=13*loops,
+        Main_scope_depth_bound=loops+ifs,
+        Scope_live_entries=fixed_nodes+2+loops+ifs,
+        Scope_component_bytes_upper_bound=36,
+        Suspicious_Labels_entries=fixed_nodes+loops,
+        Suspicious_Labels_component_bytes=12,
+        Loop_Block_Count_bound=fixed_nodes+loops,
+        fixed_node_allowance=fixed_nodes,
+        AST_and_syntax_list_additions=0,
+        whole_native_frontend_closed=False)
+
+
+def native_table_backing_row(demand,low,initial,increment,size,nominal_high,
+                             table_factor=1):
+    """The shared generic-Table contract, applied to an actual instance."""
+    assert demand >= 0 and table_factor >= 0
+    i32, i64 = 2**31-1, 2**63-1
+    p = max(demand,initial)
+    capacity = max(initial*table_factor,demand+demand//1000,
+                   p*(100+increment)//100,p+10)
+    last = low+demand-1
+    bytes_with_sentinel = (capacity+1)*size
+    checks = dict(initial_product=initial*table_factor<=i32,
+        growth_product=p*(100+increment)<=i64,
+        backing_length_and_plus_one=capacity+1<=i32,
+        empty_index=low-1>=-2**31,
+        backing_index_and_sentinel=low+capacity<=i32,
+        logical_nominal_index=last<=nominal_high,
+        allocation_and_pointer_difference=bytes_with_sentinel<=i64)
+    return dict(demand=demand,low_bound=low,initial=initial,
+        increment_percent=increment,component_bytes_upper_bound=size,
+        backing_capacity_bound=capacity,bytes_with_sentinel=bytes_with_sentinel,
+        checks=checks,all_selected_checks_pass=all(checks.values()))
+
+
+def native_parser_auxiliary_backing(logical,table_factor=1):
+    auxiliary = logical["parser_auxiliary"]
+    rows = dict(Scope=native_table_backing_row(auxiliary["Scope_live_entries"],
+            0,50,100,auxiliary["Scope_component_bytes_upper_bound"],2**31-1,table_factor),
+        Suspicious_Labels=native_table_backing_row(auxiliary["Suspicious_Labels_entries"],
+            1,50,100,auxiliary["Suspicious_Labels_component_bytes"],2**31-1,table_factor))
+    checks = dict(tables=all(row["all_selected_checks_pass"] for row in rows.values()),
+        Loop_Block_Count=auxiliary["Loop_Block_Count_bound"]<=2**31-1)
+    return dict(tables=rows,checks=checks,all_selected_checks_pass=all(checks.values()),
+        physical_recursive_stack_included=False,whole_native_frontend_closed=False)
 
 
 def native_core_table_backing(logical, *, table_factor=1):
@@ -1330,23 +1393,8 @@ def native_core_table_backing(logical, *, table_factor=1):
     ]
     rows = {}
     for name,demand,low,initial,increment,size,nominal_high in specifications:
-        assert demand >= 0
-        p = max(demand,initial)
-        capacity = max(initial*table_factor,demand+demand//1000,
-                       p*(100+increment)//100,p+10)
-        last = low+demand-1
-        bytes_with_sentinel = (capacity+1)*size
-        checks = dict(initial_product=initial*table_factor<=i32,
-            growth_product=p*(100+increment)<=i64,
-            backing_length_and_plus_one=capacity+1<=i32,
-            empty_index=low-1>=-2**31,
-            backing_index_and_sentinel=low+capacity<=i32,
-            logical_nominal_index=last<=nominal_high,
-            allocation_and_pointer_difference=bytes_with_sentinel<=i64)
-        rows[name] = dict(demand=demand,low_bound=low,initial=initial,
-            increment_percent=increment,component_bytes_upper_bound=size,
-            backing_capacity_bound=capacity,bytes_with_sentinel=bytes_with_sentinel,
-            checks=checks,all_selected_checks_pass=all(checks.values()))
+        rows[name] = native_table_backing_row(demand,low,initial,increment,size,
+                                              nominal_high,table_factor)
     # All New_Interp keys are nodes. The fixed-node overcount pays fixed keys;
     # Main key insertions use the separately source-derived map transfer.
     interp_bindings = logical["fixed"]["node_identities"]+logical["common"]["Interp_Map_Main_bindings"]
@@ -1554,6 +1602,7 @@ def representative_current_programs():
                 parser_ordinary_nodes=ordinary),
             counter_note=item["counter_note"],source_counts=counts,scanner_pools=pools,
             logical_join=logical,selected_backing_checks=physical,
+            parser_auxiliary_backing=native_parser_auxiliary_backing(logical),
             diagnostics=native_diagnostic_metadata(counts["loops"],syntax["with_names"])))
     return dict(scope=inputs["scope"],pathname_length_premise=inputs["pathname_length_premise"],
         scan_multiplicity="two for identifiers/literals/numerals; Name_Find interning is not multiplied",

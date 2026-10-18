@@ -68,7 +68,7 @@
             "node_identities": 41214,
             "dynamic_slots": 441852,
             "syntax_list_headers": 6540,
-            "Elist_headers": 2353,
+            "Elist_headers": 2356,
             "Elist_elements": 1596806,
             "Uint_entries": 24324,
             "Uint_digits": 74958,
@@ -361,6 +361,21 @@
             "physical_call_stack_bytes_included": false,
             "whole_native_frontend_closed": false
           },
+          "parser_auxiliary": {
+            "Main_Elist_headers": 3,
+            "Main_Elist_elements": 0,
+            "Main_Name_entries": 0,
+            "Main_Name_characters": 0,
+            "Main_scope_depth_bound": 0,
+            "Scope_live_entries": 41178,
+            "Scope_component_bytes_upper_bound": 36,
+            "Suspicious_Labels_entries": 41176,
+            "Suspicious_Labels_component_bytes": 12,
+            "Loop_Block_Count_bound": 41176,
+            "fixed_node_allowance": 41176,
+            "AST_and_syntax_list_additions": 0,
+            "whole_native_frontend_closed": false
+          },
           "scanner_pool_inputs": {
             "Name_entries": 10,
             "Name_characters": 59,
@@ -490,13 +505,13 @@
               "all_selected_checks_pass": true
             },
             "Elists": {
-              "demand": 2353,
+              "demand": 2356,
               "low_bound": -199999998,
               "initial": 200,
               "increment_percent": 100,
               "component_bytes_upper_bound": 8,
-              "backing_capacity_bound": 4706,
-              "bytes_with_sentinel": 37656,
+              "backing_capacity_bound": 4712,
+              "bytes_with_sentinel": 37704,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -802,7 +817,7 @@
             "Saved_Checks": 4000,
             "Saved_Checks_stack": 400
           },
-          "selected_tables_reallocation_peak_bytes": 180069634,
+          "selected_tables_reallocation_peak_bytes": 180069730,
           "interned_name_length_bound": 5117,
           "checks": {
             "all_selected_tables": true,
@@ -814,6 +829,55 @@
           "all_selected_checks_pass": true,
           "allocation_success_claimed": false,
           "whole_process_memory_or_capacity_closed": false
+        },
+        "parser_auxiliary_backing": {
+          "tables": {
+            "Scope": {
+              "demand": 41178,
+              "low_bound": 0,
+              "initial": 50,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 36,
+              "backing_capacity_bound": 82356,
+              "bytes_with_sentinel": 2964852,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Suspicious_Labels": {
+              "demand": 41176,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 82352,
+              "bytes_with_sentinel": 988236,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "checks": {
+            "tables": true,
+            "Loop_Block_Count": true
+          },
+          "all_selected_checks_pass": true,
+          "physical_recursive_stack_included": false,
+          "whole_native_frontend_closed": false
         },
         "diagnostics": {
           "attempts": 0,
@@ -907,7 +971,7 @@
             "node_identities": 41236,
             "dynamic_slots": 442208,
             "syntax_list_headers": 6549,
-            "Elist_headers": 2353,
+            "Elist_headers": 2356,
             "Elist_elements": 1596884,
             "Uint_entries": 24331,
             "Uint_digits": 75019,
@@ -1200,6 +1264,21 @@
             "physical_call_stack_bytes_included": false,
             "whole_native_frontend_closed": false
           },
+          "parser_auxiliary": {
+            "Main_Elist_headers": 3,
+            "Main_Elist_elements": 0,
+            "Main_Name_entries": 0,
+            "Main_Name_characters": 0,
+            "Main_scope_depth_bound": 0,
+            "Scope_live_entries": 41178,
+            "Scope_component_bytes_upper_bound": 36,
+            "Suspicious_Labels_entries": 41176,
+            "Suspicious_Labels_component_bytes": 12,
+            "Loop_Block_Count_bound": 41176,
+            "fixed_node_allowance": 41176,
+            "AST_and_syntax_list_additions": 0,
+            "whole_native_frontend_closed": false
+          },
           "scanner_pool_inputs": {
             "Name_entries": 13,
             "Name_characters": 88,
@@ -1329,13 +1408,13 @@
               "all_selected_checks_pass": true
             },
             "Elists": {
-              "demand": 2353,
+              "demand": 2356,
               "low_bound": -199999998,
               "initial": 200,
               "increment_percent": 100,
               "component_bytes_upper_bound": 8,
-              "backing_capacity_bound": 4706,
-              "bytes_with_sentinel": 37656,
+              "backing_capacity_bound": 4712,
+              "bytes_with_sentinel": 37704,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -1641,7 +1720,7 @@
             "Saved_Checks": 4000,
             "Saved_Checks_stack": 400
           },
-          "selected_tables_reallocation_peak_bytes": 180096330,
+          "selected_tables_reallocation_peak_bytes": 180096426,
           "interned_name_length_bound": 5117,
           "checks": {
             "all_selected_tables": true,
@@ -1653,6 +1732,55 @@
           "all_selected_checks_pass": true,
           "allocation_success_claimed": false,
           "whole_process_memory_or_capacity_closed": false
+        },
+        "parser_auxiliary_backing": {
+          "tables": {
+            "Scope": {
+              "demand": 41178,
+              "low_bound": 0,
+              "initial": 50,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 36,
+              "backing_capacity_bound": 82356,
+              "bytes_with_sentinel": 2964852,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Suspicious_Labels": {
+              "demand": 41176,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 82352,
+              "bytes_with_sentinel": 988236,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "checks": {
+            "tables": true,
+            "Loop_Block_Count": true
+          },
+          "all_selected_checks_pass": true,
+          "physical_recursive_stack_included": false,
+          "whole_native_frontend_closed": false
         },
         "diagnostics": {
           "attempts": 1,
@@ -1748,15 +1876,15 @@
             "node_identities": 45465,
             "dynamic_slots": 481501,
             "syntax_list_headers": 6590,
-            "Elist_headers": 2353,
-            "Elist_elements": 1597430,
+            "Elist_headers": 2356,
+            "Elist_elements": 1597432,
             "Uint_entries": 42406,
             "Uint_digits": 441119,
             "Ureal_entries": 60,
             "String_descriptors": 203,
             "String_characters": 7255,
-            "Name_entries": 6299,
-            "Name_characters": 1349085,
+            "Name_entries": 6300,
+            "Name_characters": 1349098,
             "All_Interp_entries": 915,
             "Name_Qualify_Units_entries": 139,
             "Xrefs_entries": 82599,
@@ -2041,6 +2169,21 @@
             "physical_call_stack_bytes_included": false,
             "whole_native_frontend_closed": false
           },
+          "parser_auxiliary": {
+            "Main_Elist_headers": 3,
+            "Main_Elist_elements": 2,
+            "Main_Name_entries": 1,
+            "Main_Name_characters": 13,
+            "Main_scope_depth_bound": 1,
+            "Scope_live_entries": 41179,
+            "Scope_component_bytes_upper_bound": 36,
+            "Suspicious_Labels_entries": 41177,
+            "Suspicious_Labels_component_bytes": 12,
+            "Loop_Block_Count_bound": 41177,
+            "fixed_node_allowance": 41176,
+            "AST_and_syntax_list_additions": 0,
+            "whole_native_frontend_closed": false
+          },
           "scanner_pool_inputs": {
             "Name_entries": 26,
             "Name_characters": 154,
@@ -2170,13 +2313,13 @@
               "all_selected_checks_pass": true
             },
             "Elists": {
-              "demand": 2353,
+              "demand": 2356,
               "low_bound": -199999998,
               "initial": 200,
               "increment_percent": 100,
               "component_bytes_upper_bound": 8,
-              "backing_capacity_bound": 4706,
-              "bytes_with_sentinel": 37656,
+              "backing_capacity_bound": 4712,
+              "bytes_with_sentinel": 37704,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -2189,13 +2332,13 @@
               "all_selected_checks_pass": true
             },
             "Elmts": {
-              "demand": 1597430,
+              "demand": 1597432,
               "low_bound": -299999998,
               "initial": 1200,
               "increment_percent": 100,
               "component_bytes_upper_bound": 8,
-              "backing_capacity_bound": 3194860,
-              "bytes_with_sentinel": 25558888,
+              "backing_capacity_bound": 3194864,
+              "bytes_with_sentinel": 25558920,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -2303,13 +2446,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Entries": {
-              "demand": 6299,
+              "demand": 6300,
               "low_bound": -399999997,
               "initial": 6000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 16,
-              "backing_capacity_bound": 12598,
-              "bytes_with_sentinel": 201584,
+              "backing_capacity_bound": 12600,
+              "bytes_with_sentinel": 201616,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -2322,13 +2465,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Chars": {
-              "demand": 1349085,
+              "demand": 1349098,
               "low_bound": 0,
               "initial": 50000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 1,
-              "backing_capacity_bound": 2698170,
-              "bytes_with_sentinel": 2698171,
+              "backing_capacity_bound": 2698196,
+              "bytes_with_sentinel": 2698197,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -2482,7 +2625,7 @@
             "Saved_Checks": 4000,
             "Saved_Checks_stack": 400
           },
-          "selected_tables_reallocation_peak_bytes": 186935084,
+          "selected_tables_reallocation_peak_bytes": 186935360,
           "interned_name_length_bound": 5117,
           "checks": {
             "all_selected_tables": true,
@@ -2494,6 +2637,55 @@
           "all_selected_checks_pass": true,
           "allocation_success_claimed": false,
           "whole_process_memory_or_capacity_closed": false
+        },
+        "parser_auxiliary_backing": {
+          "tables": {
+            "Scope": {
+              "demand": 41179,
+              "low_bound": 0,
+              "initial": 50,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 36,
+              "backing_capacity_bound": 82358,
+              "bytes_with_sentinel": 2964924,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Suspicious_Labels": {
+              "demand": 41177,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 82354,
+              "bytes_with_sentinel": 988260,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "checks": {
+            "tables": true,
+            "Loop_Block_Count": true
+          },
+          "all_selected_checks_pass": true,
+          "physical_recursive_stack_included": false,
+          "whole_native_frontend_closed": false
         },
         "diagnostics": {
           "attempts": 3,
@@ -2645,7 +2837,7 @@
             "node_identities": 785686,
             "dynamic_slots": 7159516,
             "syntax_list_headers": 7082,
-            "Elist_headers": 2415,
+            "Elist_headers": 2418,
             "Elist_elements": 1604453,
             "Uint_entries": 3194277,
             "Uint_digits": 33954969,
@@ -2938,6 +3130,21 @@
             "physical_call_stack_bytes_included": false,
             "whole_native_frontend_closed": false
           },
+          "parser_auxiliary": {
+            "Main_Elist_headers": 3,
+            "Main_Elist_elements": 0,
+            "Main_Name_entries": 0,
+            "Main_Name_characters": 0,
+            "Main_scope_depth_bound": 1,
+            "Scope_live_entries": 41179,
+            "Scope_component_bytes_upper_bound": 36,
+            "Suspicious_Labels_entries": 41176,
+            "Suspicious_Labels_component_bytes": 12,
+            "Loop_Block_Count_bound": 41176,
+            "fixed_node_allowance": 41176,
+            "AST_and_syntax_list_additions": 0,
+            "whole_native_frontend_closed": false
+          },
           "scanner_pool_inputs": {
             "Name_entries": 34,
             "Name_characters": 267,
@@ -3067,13 +3274,13 @@
               "all_selected_checks_pass": true
             },
             "Elists": {
-              "demand": 2415,
+              "demand": 2418,
               "low_bound": -199999998,
               "initial": 200,
               "increment_percent": 100,
               "component_bytes_upper_bound": 8,
-              "backing_capacity_bound": 4830,
-              "bytes_with_sentinel": 38648,
+              "backing_capacity_bound": 4836,
+              "bytes_with_sentinel": 38696,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -3379,7 +3586,7 @@
             "Saved_Checks": 4000,
             "Saved_Checks_stack": 400
           },
-          "selected_tables_reallocation_peak_bytes": 991060394,
+          "selected_tables_reallocation_peak_bytes": 991060490,
           "interned_name_length_bound": 5120,
           "checks": {
             "all_selected_tables": true,
@@ -3391,6 +3598,55 @@
           "all_selected_checks_pass": true,
           "allocation_success_claimed": false,
           "whole_process_memory_or_capacity_closed": false
+        },
+        "parser_auxiliary_backing": {
+          "tables": {
+            "Scope": {
+              "demand": 41179,
+              "low_bound": 0,
+              "initial": 50,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 36,
+              "backing_capacity_bound": 82358,
+              "bytes_with_sentinel": 2964924,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Suspicious_Labels": {
+              "demand": 41176,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 82352,
+              "bytes_with_sentinel": 988236,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "checks": {
+            "tables": true,
+            "Loop_Block_Count": true
+          },
+          "all_selected_checks_pass": true,
+          "physical_recursive_stack_included": false,
+          "whole_native_frontend_closed": false
         },
         "diagnostics": {
           "attempts": 2,
@@ -3492,15 +3748,15 @@
             "node_identities": 68568,
             "dynamic_slots": 690775,
             "syntax_list_headers": 6624,
-            "Elist_headers": 2353,
-            "Elist_elements": 1597664,
+            "Elist_headers": 2356,
+            "Elist_elements": 1597666,
             "Uint_entries": 142318,
             "Uint_digits": 11450651,
             "Ureal_entries": 60,
             "String_descriptors": 203,
             "String_characters": 7255,
-            "Name_entries": 6323,
-            "Name_characters": 1350234,
+            "Name_entries": 6324,
+            "Name_characters": 1350247,
             "All_Interp_entries": 952,
             "Name_Qualify_Units_entries": 139,
             "Xrefs_entries": 82803,
@@ -3785,6 +4041,21 @@
             "physical_call_stack_bytes_included": false,
             "whole_native_frontend_closed": false
           },
+          "parser_auxiliary": {
+            "Main_Elist_headers": 3,
+            "Main_Elist_elements": 2,
+            "Main_Name_entries": 1,
+            "Main_Name_characters": 13,
+            "Main_scope_depth_bound": 2,
+            "Scope_live_entries": 41180,
+            "Scope_component_bytes_upper_bound": 36,
+            "Suspicious_Labels_entries": 41177,
+            "Suspicious_Labels_component_bytes": 12,
+            "Loop_Block_Count_bound": 41177,
+            "fixed_node_allowance": 41176,
+            "AST_and_syntax_list_additions": 0,
+            "whole_native_frontend_closed": false
+          },
           "scanner_pool_inputs": {
             "Name_entries": 38,
             "Name_characters": 201,
@@ -3914,13 +4185,13 @@
               "all_selected_checks_pass": true
             },
             "Elists": {
-              "demand": 2353,
+              "demand": 2356,
               "low_bound": -199999998,
               "initial": 200,
               "increment_percent": 100,
               "component_bytes_upper_bound": 8,
-              "backing_capacity_bound": 4706,
-              "bytes_with_sentinel": 37656,
+              "backing_capacity_bound": 4712,
+              "bytes_with_sentinel": 37704,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -3933,13 +4204,13 @@
               "all_selected_checks_pass": true
             },
             "Elmts": {
-              "demand": 1597664,
+              "demand": 1597666,
               "low_bound": -299999998,
               "initial": 1200,
               "increment_percent": 100,
               "component_bytes_upper_bound": 8,
-              "backing_capacity_bound": 3195328,
-              "bytes_with_sentinel": 25562632,
+              "backing_capacity_bound": 3195332,
+              "bytes_with_sentinel": 25562664,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -4047,13 +4318,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Entries": {
-              "demand": 6323,
+              "demand": 6324,
               "low_bound": -399999997,
               "initial": 6000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 16,
-              "backing_capacity_bound": 12646,
-              "bytes_with_sentinel": 202352,
+              "backing_capacity_bound": 12648,
+              "bytes_with_sentinel": 202384,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -4066,13 +4337,13 @@
               "all_selected_checks_pass": true
             },
             "Name_Chars": {
-              "demand": 1350234,
+              "demand": 1350247,
               "low_bound": 0,
               "initial": 50000,
               "increment_percent": 100,
               "component_bytes_upper_bound": 1,
-              "backing_capacity_bound": 2700468,
-              "bytes_with_sentinel": 2700469,
+              "backing_capacity_bound": 2700494,
+              "bytes_with_sentinel": 2700495,
               "checks": {
                 "initial_product": true,
                 "growth_product": true,
@@ -4226,7 +4497,7 @@
             "Saved_Checks": 4000,
             "Saved_Checks_stack": 400
           },
-          "selected_tables_reallocation_peak_bytes": 367988394,
+          "selected_tables_reallocation_peak_bytes": 367988670,
           "interned_name_length_bound": 5117,
           "checks": {
             "all_selected_tables": true,
@@ -4238,6 +4509,55 @@
           "all_selected_checks_pass": true,
           "allocation_success_claimed": false,
           "whole_process_memory_or_capacity_closed": false
+        },
+        "parser_auxiliary_backing": {
+          "tables": {
+            "Scope": {
+              "demand": 41180,
+              "low_bound": 0,
+              "initial": 50,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 36,
+              "backing_capacity_bound": 82360,
+              "bytes_with_sentinel": 2964996,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Suspicious_Labels": {
+              "demand": 41177,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 100,
+              "component_bytes_upper_bound": 12,
+              "backing_capacity_bound": 82354,
+              "bytes_with_sentinel": 988260,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "checks": {
+            "tables": true,
+            "Loop_Block_Count": true
+          },
+          "all_selected_checks_pass": true,
+          "physical_recursive_stack_included": false,
+          "whole_native_frontend_closed": false
         },
         "diagnostics": {
           "attempts": 3,
@@ -4383,13 +4703,13 @@
             "all_selected_checks_pass": true
           },
           "Elists": {
-            "demand": 2353,
+            "demand": 2356,
             "low_bound": -199999998,
             "initial": 200,
             "increment_percent": 100,
             "component_bytes_upper_bound": 8,
-            "backing_capacity_bound": 4706,
-            "bytes_with_sentinel": 37656,
+            "backing_capacity_bound": 4712,
+            "bytes_with_sentinel": 37704,
             "checks": {
               "initial_product": true,
               "growth_product": true,
@@ -4695,7 +5015,7 @@
           "Saved_Checks": 4000,
           "Saved_Checks_stack": 400
         },
-        "selected_tables_reallocation_peak_bytes": 180013716,
+        "selected_tables_reallocation_peak_bytes": 180013812,
         "interned_name_length_bound": 5117,
         "checks": {
           "all_selected_tables": true,
@@ -4825,13 +5145,13 @@
             "all_selected_checks_pass": true
           },
           "Elists": {
-            "demand": 2415,
+            "demand": 2418,
             "low_bound": -199999998,
             "initial": 200,
             "increment_percent": 100,
             "component_bytes_upper_bound": 8,
-            "backing_capacity_bound": 4830,
-            "bytes_with_sentinel": 38648,
+            "backing_capacity_bound": 4836,
+            "bytes_with_sentinel": 38696,
             "checks": {
               "initial_product": true,
               "growth_product": true,
@@ -4844,13 +5164,13 @@
             "all_selected_checks_pass": true
           },
           "Elmts": {
-            "demand": 1606247,
+            "demand": 1606249,
             "low_bound": -299999998,
             "initial": 1200,
             "increment_percent": 100,
             "component_bytes_upper_bound": 8,
-            "backing_capacity_bound": 3212494,
-            "bytes_with_sentinel": 25699960,
+            "backing_capacity_bound": 3212498,
+            "bytes_with_sentinel": 25699992,
             "checks": {
               "initial_product": true,
               "growth_product": true,
@@ -4958,13 +5278,13 @@
             "all_selected_checks_pass": true
           },
           "Name_Entries": {
-            "demand": 6715,
+            "demand": 6716,
             "low_bound": -399999997,
             "initial": 6000,
             "increment_percent": 100,
             "component_bytes_upper_bound": 16,
-            "backing_capacity_bound": 13430,
-            "bytes_with_sentinel": 214896,
+            "backing_capacity_bound": 13432,
+            "bytes_with_sentinel": 214928,
             "checks": {
               "initial_product": true,
               "growth_product": true,
@@ -4977,13 +5297,13 @@
             "all_selected_checks_pass": true
           },
           "Name_Chars": {
-            "demand": 1373288,
+            "demand": 1373301,
             "low_bound": 0,
             "initial": 50000,
             "increment_percent": 100,
             "component_bytes_upper_bound": 1,
-            "backing_capacity_bound": 2746576,
-            "bytes_with_sentinel": 2746577,
+            "backing_capacity_bound": 2746602,
+            "bytes_with_sentinel": 2746603,
             "checks": {
               "initial_product": true,
               "growth_product": true,
@@ -5137,7 +5457,7 @@
           "Saved_Checks": 4000,
           "Saved_Checks_stack": 400
         },
-        "selected_tables_reallocation_peak_bytes": 1196856560,
+        "selected_tables_reallocation_peak_bytes": 1196856836,
         "interned_name_length_bound": 5117,
         "checks": {
           "all_selected_tables": true,
@@ -5191,7 +5511,7 @@
           "node_identities": 41183,
           "dynamic_slots": 441573,
           "syntax_list_headers": 6530,
-          "Elist_headers": 2353,
+          "Elist_headers": 2356,
           "Elist_elements": 1596806,
           "Uint_entries": 24324,
           "Uint_digits": 74958,
@@ -5484,6 +5804,21 @@
           "physical_call_stack_bytes_included": false,
           "whole_native_frontend_closed": false
         },
+        "parser_auxiliary": {
+          "Main_Elist_headers": 3,
+          "Main_Elist_elements": 0,
+          "Main_Name_entries": 0,
+          "Main_Name_characters": 0,
+          "Main_scope_depth_bound": 0,
+          "Scope_live_entries": 41178,
+          "Scope_component_bytes_upper_bound": 36,
+          "Suspicious_Labels_entries": 41176,
+          "Suspicious_Labels_component_bytes": 12,
+          "Loop_Block_Count_bound": 41176,
+          "fixed_node_allowance": 41176,
+          "AST_and_syntax_list_additions": 0,
+          "whole_native_frontend_closed": false
+        },
         "scanner_pool_inputs": {
           "Name_entries": 0,
           "Name_characters": 0,
@@ -5501,15 +5836,15 @@
           "node_identities": 711273,
           "dynamic_slots": 6496761,
           "syntax_list_headers": 7252,
-          "Elist_headers": 2415,
-          "Elist_elements": 1606247,
+          "Elist_headers": 2418,
+          "Elist_elements": 1606249,
           "Uint_entries": 2879823,
           "Uint_digits": 48952135,
           "Ureal_entries": 60,
           "String_descriptors": 205,
           "String_characters": 7275,
-          "Name_entries": 6715,
-          "Name_characters": 4626448,
+          "Name_entries": 6716,
+          "Name_characters": 4626461,
           "All_Interp_entries": 996,
           "Name_Qualify_Units_entries": 140,
           "Xrefs_entries": 83433,
@@ -5792,6 +6127,21 @@
           "semantic_scope_depth_additional_Uints": 0,
           "counters_require_signed_Int_headroom": true,
           "physical_call_stack_bytes_included": false,
+          "whole_native_frontend_closed": false
+        },
+        "parser_auxiliary": {
+          "Main_Elist_headers": 3,
+          "Main_Elist_elements": 2,
+          "Main_Name_entries": 1,
+          "Main_Name_characters": 13,
+          "Main_scope_depth_bound": 2,
+          "Scope_live_entries": 41180,
+          "Scope_component_bytes_upper_bound": 36,
+          "Suspicious_Labels_entries": 41177,
+          "Suspicious_Labels_component_bytes": 12,
+          "Loop_Block_Count_bound": 41177,
+          "fixed_node_allowance": 41176,
+          "AST_and_syntax_list_additions": 0,
           "whole_native_frontend_closed": false
         },
         "scanner_pool_inputs": {
@@ -6632,7 +6982,7 @@
     "scope": "residual RTE-cache identities need no duplicate compiler capture"
   },
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 122,
+  "source_files_verified": 124,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -6742,6 +7092,8 @@
     "par-util.adb": "1aec06552dcadb3afc170029c4c69f35f95e4e986f2cc0a987ae36c6c2f59292",
     "par-endh.adb": "da28478447cbf48a35c7e0c8fc787b9a985bcf1fc0c671f7ecb452249597ee11",
     "par-prag.adb": "75b0624149303b6f119608079f7bb28214867eb7a601949401eb2b27bc2b0724",
+    "par.adb": "0660ed38f66cab0e9c2870dadff7d066174bba1c795df35562d0529ad7e4718f",
+    "par-labl.adb": "cf28682a83d42c49b2a762270acf1ba5026dfaebaed68784c8aef387431bc7c8",
     "rtsfind.adb": "4d22bd416ef0dbeace081f78aeb49c92ec4731bb875f4436beee0164970aa4e5",
     "libgnat/s-secsta.ads": "25ddf544c6bd3f278ed5edaf33b6a2aefe83f736507f6e4f5c3e2ee9cd407d76",
     "libgnat/s-parame.ads": "69309e996793d5dfeab1a207beae3658b41d7979f099b1c248823adb7e898ac9",

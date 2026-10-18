@@ -11,7 +11,7 @@ directory and an output path:
 python3 derive.py /path/to/gcc/ada /tmp/native-concat-local-envelope.json
 ```
 
-`derive.py` verifies122 source files against the checked-in complete
+`derive.py` verifies124 source files against the checked-in complete
 manifest. It sums the manually derived control-flow rows and emits a lexical
 call-site list to help inspect coverage. Neither the sums nor the lexical list
 establish transitive helper closure. `local-envelope.json` is the retained
@@ -19,7 +19,8 @@ result; it includes the assumptions/omissions and bounded arithmetic examples.
 `representative-inputs.json` supplies hash-pinned current sample sources and
 manually reviewed syntax counters. The same regeneration derives actual lexical,
 scanner and parser inputs for those five programs and applies the22 selected
-native table checks, conditional on the documented invocation/path premise.
+native table checks plus the parser's two auxiliary tables and loop serial,
+conditional on the documented invocation/path premise.
 The sources all pass those selected checks; these are not complete capacity or
 admission results. Arithmetic fixtures remain separately labelled.
 No native compiler, GNATprove or Lean run was performed for this source
