@@ -1,0 +1,2366 @@
+{
+  "decimal_inflation": 10,
+  "fixed_common_name_bound": 760,
+  "fixed_main_name_bound": 1702,
+  "fixed_path_occurrences": 2,
+  "manual_obligations": [
+    "Fixed-root/source-name template reduction and unchanged branch selection",
+    "Main constructor lineages and the single effective localization bound",
+    "No fixed generic/inlining source chain; paths are actual configuration bytes",
+    "Counter representability and source-to-Main-node bound are supplied separately"
+  ],
+  "native_tool_executions": 0,
+  "optional_projection_suffix": 12,
+  "retained_inputs": {
+    "archive_sha256": "41bb848fdb6752bd0bb552f9b8c706817c58a9681ba4bdec93a8814cee42a495",
+    "observations": {
+      "first_or_default": {
+        "entity": 76,
+        "why": 169
+      },
+      "input_is_valid": {
+        "entity": 76,
+        "why": 167
+      },
+      "put": {
+        "entity": 76,
+        "why": 167
+      },
+      "put_line": {
+        "entity": 76,
+        "why": 167
+      },
+      "reject": {
+        "entity": 76,
+        "why": 167
+      },
+      "silver_arguments": {
+        "entity": 76,
+        "why": 225
+      },
+      "silver_io": {
+        "entity": 76,
+        "why": 211
+      },
+      "silver_output_libc": {
+        "entity": 76,
+        "why": 229
+      },
+      "silver_runtime": {
+        "entity": 46,
+        "why": 221
+      }
+    }
+  },
+  "source_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "source_inventory": {
+    "comment_actuals": 107,
+    "direct_literal_nid_calls": 491,
+    "forwarder_call_counts": {
+      "Get_Model_Trace_Label": 9,
+      "New_Defining_Bool_Axiom": 4,
+      "New_Generated_Identifier": 2,
+      "New_Identifier": 613,
+      "New_Module": 155,
+      "New_Named_Type": 76,
+      "New_Temp_Identifier": 151,
+      "New_Type_Decl": 29,
+      "Prepare_Indexes_Substitutions": 3,
+      "Unit_Param": 1
+    },
+    "maximum_direct_literal_length": 40,
+    "maximum_forwarder_literal_length": 32,
+    "maximum_why_enum_literal_length": 23,
+    "nid_calls": 671,
+    "nonliteral_named_forwarder_actuals": [
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Object_Name",
+        "file": "src/why/gnat2why-decls.adb",
+        "line": 432
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name",
+        "file": "src/why/gnat2why-expr-aggregates.adb",
+        "line": 2576
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & \"___logic_fun\"",
+        "file": "src/why/gnat2why-expr-aggregates.adb",
+        "line": 2579
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & \"___program_fun\"",
+        "file": "src/why/gnat2why-expr-aggregates.adb",
+        "line": 2583
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & To_String (WNE_Axiom_Suffix)",
+        "file": "src/why/gnat2why-expr-aggregates.adb",
+        "line": 2587
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "L_Name & \"__assume\"",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 1524
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "L_Name & \"__assume\"",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 1632
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "L_Name & \"__assume\"",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 1703
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "L_Name & \"__assume\"",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 1786
+      },
+      {
+        "actual": "Base_Name",
+        "constructor": "New_Temp_Identifier",
+        "expression": "Short_Name (Discr)",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 6194
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Short_Name (Quant_Var)",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 10474
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 16051
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & \"___logic_fun\"",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 16054
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & \"___program_fun\"",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 16058
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & To_String (WNE_Axiom_Suffix)",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 16062
+      },
+      {
+        "actual": "Base_Name",
+        "constructor": "New_Temp_Identifier",
+        "expression": "Short_Name (Quant_Var)",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 17069
+      },
+      {
+        "actual": "Base_Name",
+        "constructor": "New_Temp_Identifier",
+        "expression": "Short_Name (Borrowed_Entity)",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 19490
+      },
+      {
+        "actual": "Base_Name",
+        "constructor": "New_Temp_Identifier",
+        "expression": "Short_Name (Discr)",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 22461
+      },
+      {
+        "actual": "Base_Name",
+        "constructor": "New_Temp_Identifier",
+        "expression": "Short_Name (Component)",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 28910
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Name",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 30278
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 30282
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Img (Theory_Name)",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 573
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Img (Theory_Name) & To_String (WNE_Axiom_Suffix)",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 575
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Img (Theory_Name) & \"__post\" & To_String (WNE_Axiom_Suffix)",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 579
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Img (Theory_Name) & \"__\" & Short_Name (Lemma) & \"___post_axiom\"",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 760
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Img (Name)",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 817
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Why_Type (E, Local => True)",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 904
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Name (WNE_Rec_Rep)",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 904
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "To_Name (WNE_Rec_Rep)",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 906
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "To_Why_Type (E, Local => True)",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 916
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 992
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & To_String (WNE_Axiom_Suffix)",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 1030
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Attr_Tag)",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 404
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & \"__subprogram_lsp\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 3552
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Name & \"__result\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 3569
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & \"__package_def\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 3954
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & \"__protected_type\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 4285
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & \"__subprogram_def\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 4465
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Name & \"__result\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 5603
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & \"__task_body\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 6361
+      },
+      {
+        "actual": "Base_Name",
+        "constructor": "New_Temp_Identifier",
+        "expression": "Short_Name (Ada_Node)",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 7253
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Defining_Bool_Axiom",
+        "expression": "Logic_Id",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 8895
+      },
+      {
+        "actual": "Fun_Name",
+        "constructor": "New_Defining_Bool_Axiom",
+        "expression": "To_String (WNE_Is_Initialized_Pred)",
+        "file": "src/why/gnat2why-types.adb",
+        "line": 195
+      },
+      {
+        "actual": "Fun_Name",
+        "constructor": "New_Defining_Bool_Axiom",
+        "expression": "Get (Get_Symb (Get_Name (Name))).all",
+        "file": "src/why/gnat2why-types.adb",
+        "line": 513
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Defining_Bool_Axiom",
+        "expression": "Name",
+        "file": "src/why/gnat2why-types.adb",
+        "line": 513
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Attr_Tag)",
+        "file": "src/why/gnat2why-types.adb",
+        "line": 747
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name & \"__default_checks\"",
+        "file": "src/why/gnat2why-types.adb",
+        "line": 1147
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Attr_Tag)",
+        "file": "src/why/gnat2why-types.adb",
+        "line": 1522
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "To_Why_Type (E, Local => True)",
+        "file": "src/why/gnat2why-types.adb",
+        "line": 1683
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "NID (Img (Get_Name (Module.Module)) & To_String (WNE_Axiom_Suffix))",
+        "file": "src/why/gnat2why-unchecked_conversion.adb",
+        "line": 1443
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Module_Name",
+        "file": "src/why/gnat2why-unchecked_conversion.adb",
+        "line": 1571
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 495
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Img (From_Name) & \"__to__\" & Img (To_Name)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 658
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 902
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 903
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 915
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Name (WNE_Array_Component_Type)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 1044
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Img (Name)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 1080
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Img (Get_Logical_Op_Theory_Name (Name))",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 1112
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Img (Get_Comparison_Theory_Name (Name))",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 1131
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 1171
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 1189
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Why_Name",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 1563
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Clone_Name",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 1563
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Clone_Name",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 1565
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Name (WNE_Array_Component_Type)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 1578
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Append_Num (\"i\", I)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2250
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Append_Num (\"j\", I)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2274
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_Int",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2437
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Of_Int",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2455
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "\"index_\" & Image (Dim_Count, 1) & \"_id\"",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2707
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "\"index_\" & Prefix & \"_one\"",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 3857
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "NID (Prefix)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 3859
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Name",
+        "file": "src/why/why-gen-binders.adb",
+        "line": 1379
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Prefix & \"__void_param\"",
+        "file": "src/why/why-gen-binders.adb",
+        "line": 1634
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Param_Ty_Name",
+        "file": "src/why/why-gen-decl.adb",
+        "line": 193
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Proj_Fun_Name",
+        "file": "src/why/why-gen-decl.adb",
+        "line": 215
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Name",
+        "file": "src/why/why-gen-decl.adb",
+        "line": 287
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Name (WNE_Rec_Rep)",
+        "file": "src/why/why-gen-hardcoded.adb",
+        "line": 349
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Append_Num (S, Count)",
+        "file": "src/why/why-gen-names.adb",
+        "line": 82
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (W)",
+        "file": "src/why/why-gen-names.adb",
+        "line": 1121
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (W)",
+        "file": "src/why/why-gen-names.adb",
+        "line": 1128
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Defining_Bool_Axiom",
+        "expression": "New_Identifier (Symb => NID (To_String (WNE_Is_Moved_Or_Reclaimed)), Module => E_Module (E, Incomp_Move_Tree), Domain => EW_Pred)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 204
+      },
+      {
+        "actual": "Fun_Name",
+        "constructor": "New_Defining_Bool_Axiom",
+        "expression": "To_String (WNE_Is_Moved_Or_Reclaimed)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 204
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 260
+      },
+      {
+        "actual": "S",
+        "constructor": "New_Named_Type",
+        "expression": "WNE_Private_Type",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 321
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Null_Access_Name",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 335
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Null_Access_Name",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 404
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Root_Name",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 449
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 888
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 889
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 940
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 941
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 966
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Why_Type (E, Local => True)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1132
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Name (WNE_Rec_Rep)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1132
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "To_Name (WNE_Rec_Rep)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1134
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "To_Why_Type (E, Local => True)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1144
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Why_Type (E, Local => True, Relaxed_Init => True)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1350
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Name (WNE_Rec_Rep)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1350
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "To_Name (WNE_Rec_Rep)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1352
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1521
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Img (Get_Symb (To_Local (E_Symb (E, WNE_Private_Type))))",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1695
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 661
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 705
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 706
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Open)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 889
+      },
+      {
+        "actual": "Base_Name",
+        "constructor": "New_Temp_Identifier",
+        "expression": "Short_Name (E_Field)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 970
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Hide_Extension)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1063
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Open)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1074
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Open)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1089
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Open)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1140
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Open)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1152
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Hidden_Extension)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1198
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1343
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1344
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1488
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1495
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1524
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1542
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1547
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1625
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Why_Type (Clone, Local => True)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1625
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "To_Why_Type (Clone, Local => True)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1628
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Why_Type (E, Local => True)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1643
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Name (WNE_Rec_Rep)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1643
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "To_Name (WNE_Rec_Rep)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1645
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Fields_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 2019
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 2121
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 2487
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 2752
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Why_Type (Clone, Local => True, Relaxed_Init => True)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 2752
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "To_Why_Type (Clone, Local => True, Relaxed_Init => True)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 2755
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 2772
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_Why_Type (E, Local => True)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 2772
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "To_Why_Type (E, Local => True)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 2775
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 2910
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "To_String (WNE_Rec_Rep)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 3169
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Rec_Split_Discrs)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 3215
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "(if Reuse_Discr then Get_Name (E_Symb (Root, WNE_Rec_Split_Discrs)) else Discr_Name)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 3215
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Attr_Init)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 3234
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Rec_Split_Fields)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 3300
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_Name (WNE_Rec_Split_Fields)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 3300
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Ty_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 3378
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Full_Name (Field)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 3899
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Named_Type",
+        "expression": "Priv_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 4015
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Img (Get_Symb (Priv_Name))",
+        "file": "src/why/why-gen-records.adb",
+        "line": 4025
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Img (Get_Symb (To_Local (E_Symb (E, WNE_Extension_Type))))",
+        "file": "src/why/why-gen-records.adb",
+        "line": 4068
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 4181
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 4184
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (WNE_Extract_Prefix) & To_String (WNE_Rec_Extension_Suffix)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 4201
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "To_String (Prefix) & Full_Name (Orig)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 4221
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 4324
+      },
+      {
+        "actual": "S",
+        "constructor": "New_Named_Type",
+        "expression": "WNE_Private_Type",
+        "file": "src/why/why-gen-records.adb",
+        "line": 4576
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Img (Module_Name)",
+        "file": "src/why/why-gen-scalars.adb",
+        "line": 90
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Img (Module_Name)",
+        "file": "src/why/why-gen-scalars.adb",
+        "line": 218
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Why_Name",
+        "file": "src/why/why-gen-scalars.adb",
+        "line": 844
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Why_Name",
+        "file": "src/why/why-gen-scalars.adb",
+        "line": 851
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Type_Decl",
+        "expression": "Why_Name",
+        "file": "src/why/why-gen-scalars.adb",
+        "line": 864
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Img (Get_Array_Theory_Name (E, Relaxed_Init))",
+        "file": "src/why/why-inter.adb",
+        "line": 1185
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Field",
+        "file": "src/why/why-inter.adb",
+        "line": 1442
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Field",
+        "file": "src/why/why-inter.adb",
+        "line": 1445
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Name",
+        "file": "src/why/why-inter.adb",
+        "line": 1460
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Name",
+        "file": "src/why/why-inter.adb",
+        "line": 1463
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Param",
+        "file": "src/why/why-inter.adb",
+        "line": 1477
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Suffix",
+        "file": "src/why/why-inter.adb",
+        "line": 1481
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Suffix",
+        "file": "src/why/why-inter.adb",
+        "line": 1505
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "SPARK_Xrefs.Name_Of_Heap_Variable",
+        "file": "src/why/why-inter.adb",
+        "line": 1520
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Why_Name",
+        "file": "src/why/why-inter.adb",
+        "line": 1531
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Ada_Name",
+        "file": "src/why/why-inter.adb",
+        "line": 1534
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Identifier",
+        "expression": "Why_Name",
+        "file": "src/why/why-inter.adb",
+        "line": 1534
+      },
+      {
+        "actual": "Name",
+        "constructor": "New_Module",
+        "expression": "Ada_Name",
+        "file": "src/why/why-inter.adb",
+        "line": 1535
+      }
+    ],
+    "nonliteral_nid_calls": [
+      {
+        "enclosing": "Gnat2Why.Expr.Aggregates.Transform_Container_Aggregate.Generate_Aggregate_Functions",
+        "expression": "Name",
+        "file": "src/why/gnat2why-expr-aggregates.adb",
+        "line": 3771
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Aggregates.Transform_Container_Aggregate.Generate_Aggregate_Functions",
+        "expression": "Def_Axiom",
+        "file": "src/why/gnat2why-expr-aggregates.adb",
+        "line": 3898
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Aggregates.Transform_Container_Aggregate",
+        "expression": "Lower_Case_First (Img (Get_Name (M)))",
+        "file": "src/why/gnat2why-expr-aggregates.adb",
+        "line": 4036
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Aggregates.Transform_Deep_Delta_Aggregate.Generate_Aggregate_Functions",
+        "expression": "Name",
+        "file": "src/why/gnat2why-expr-aggregates.adb",
+        "line": 4383
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Aggregates.Transform_Deep_Delta_Aggregate.Generate_Aggregate_Functions",
+        "expression": "Def_Axiom",
+        "file": "src/why/gnat2why-expr-aggregates.adb",
+        "line": 4502
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Aggregates.Transform_Deep_Delta_Aggregate.Generate_Deep_Delta_Aggregate",
+        "expression": "Lower_Case_First (Img (Get_Name (M)))",
+        "file": "src/why/gnat2why-expr-aggregates.adb",
+        "line": 5000
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Loops.Unroll_Loop",
+        "expression": "\"Unrolling of the loop statements\" & (if Sloc (Loop_Id) > 0 then \" of loop \" & Build_Location_String (Sloc (Loop_Id)) else \"\")",
+        "file": "src/why/gnat2why-expr-loops.adb",
+        "line": 2137
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Loops.Unroll_Loop",
+        "expression": "\"Translation of an unrolled Ada loop\" & (if Sloc (Loop_Id) > 0 then \" from \" & Build_Location_String (Sloc (Loop_Id)) else \"\")",
+        "file": "src/why/gnat2why-expr-loops.adb",
+        "line": 2156
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Loops.Wrap_Loop",
+        "expression": "\"Check for absence of RTE in the loop\" & \" invariant and variant\"",
+        "file": "src/why/gnat2why-expr-loops.adb",
+        "line": 2221
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Loops.Wrap_Loop",
+        "expression": "\"Assume implicit invariants from the loop\" & (if Sloc (Loop_Id) > 0 then \" \" & Build_Location_String (Sloc (Loop_Id)) else \"\")",
+        "file": "src/why/gnat2why-expr-loops.adb",
+        "line": 2231
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Loops.Wrap_Loop",
+        "expression": "\"Continuation of loop after loop\" & \" invariant and variant\"",
+        "file": "src/why/gnat2why-expr-loops.adb",
+        "line": 2240
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Loops.Wrap_Loop",
+        "expression": "\"Check for the exit condition and loop\" & \" statements appearing before the loop invariant\" & (if Sloc (Loop_Id) > 0 then \" of loop \" & Build_Location_String (Sloc (Loop_Id)) else \"\")",
+        "file": "src/why/gnat2why-expr-loops.adb",
+        "line": 2251
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Loops.Wrap_Loop",
+        "expression": "\"While loop translating the Ada loop\" & (if Sloc (Loop_Id) > 0 then \" from \" & Build_Location_String (Sloc (Loop_Id)) else \"\")",
+        "file": "src/why/gnat2why-expr-loops.adb",
+        "line": 2285
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Loops.Wrap_Loop",
+        "expression": "\"Translation of an Ada loop\" & (if Sloc (Loop_Id) > 0 then \" from \" & Build_Location_String (Sloc (Loop_Id)) else \"\")",
+        "file": "src/why/gnat2why-expr-loops.adb",
+        "line": 2325
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Compute_Dynamic_Predicate.Add_One_Dynamic_Predicate",
+        "expression": "GP_Inlined_Marker",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 7558
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.New_Predicate_Check.Check_One_Dynamic_Predicate",
+        "expression": "GP_Inlined_Marker",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 13280
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Transform_Array_Aggregate.Generate_Aggregate_Functions",
+        "expression": "Name",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 16122
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Transform_Array_Aggregate.Generate_Aggregate_Functions",
+        "expression": "Def_Axiom",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 16260
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Transform_Array_Aggregate",
+        "expression": "Lower_Case_First (Img (Get_Name (M)))",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 18534
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Transform_String_Literal",
+        "expression": "Axiom_Name",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 30472
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Transform_String_Literal",
+        "expression": "Axiom_Name & \"__well_formed\"",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 30508
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Transform_String_Literal",
+        "expression": "Lower_Case_First (Img (Get_Name (M)))",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 30525
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Warn_On_Dead_Branch_Or_Code",
+        "expression": "\"Check dead branch \" & Build_Location_String (Sloc (N))",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 31200
+      },
+      {
+        "enclosing": "Gnat2Why.Expr.Warn_On_Inconsistent_Assume",
+        "expression": "\"Check inconsistent assume \" & Build_Location_String (Sloc (N))",
+        "file": "src/why/gnat2why-expr.adb",
+        "line": 31257
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Pointers.Create_Theory_For_HO_Specialization_If_Needed",
+        "expression": "Fun_Name",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 595
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Pointers.Create_Theory_For_HO_Specialization_If_Needed",
+        "expression": "Fun_Name",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 602
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Pointers.Create_Theory_For_HO_Specialization_If_Needed",
+        "expression": "Fun_Name & \"__\" & Function_Guard",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 610
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Pointers.Create_Theory_For_HO_Specialization_If_Needed",
+        "expression": "Fun_Name & \"__check_subprogram_variants\"",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 618
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Pointers.Declare_Theory_For_Access_If_Needed",
+        "expression": "To_String (WNE_Attr_Access)",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 1005
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Pointers.Declare_Theory_For_Access_If_Needed",
+        "expression": "Def_Axiom",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 1133
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Pointers.Declare_Theory_For_Access_If_Needed",
+        "expression": "Def_Axiom & \"__\" & Function_Guard",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 1146
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Pointers.Get_Specialization_Theory_Name",
+        "expression": "To_String (Name)",
+        "file": "src/why/gnat2why-subprograms-pointers.adb",
+        "line": 1250
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Declare_Logic_Functions",
+        "expression": "GP_Inline_Marker",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 3357
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_LSP",
+        "expression": "\"Checking that class-wide precondition is\" & \" implied by inherited precondition\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 3656
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_LSP",
+        "expression": "\"Checking that precondition is\" & \" implied by class-wide precondition\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 3702
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_LSP",
+        "expression": "\"Simulate static call to subprogram \" & \"\"\"\" & Get_Name_String (Chars (E)) & \"\"\"\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 3749
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_LSP",
+        "expression": "\"Checking that class-wide postcondition is\" & \" implied by postcondition\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 3759
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_LSP",
+        "expression": "\"Checking that inherited postcondition is\" & \" implied by class-wide postcondition\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 3804
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_LSP",
+        "expression": "\"Checking absence of RTE in\" & \" class-wide postcondition\"",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 3855
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_Subprogram.Assume_For_Input",
+        "expression": "\"Assume dynamic invariants of inputs of the\" & \" subprogram\" & (if Sloc (E) > 0 then \" \" & Build_Location_String (Sloc (E)) else \"\")",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 4605
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_Subprogram.Assume_For_Output",
+        "expression": "\"Assume moved pointers in outputs of the\" & \" subprogram\" & (if Sloc (E) > 0 then \" \" & Build_Location_String (Sloc (E)) else \"\")",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 4638
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_Subprogram.Assume_Or_Assert_Of_Pre",
+        "expression": "\"Assume Pre of the subprogram\" & (if Sloc (E) > 0 then \" \" & Build_Location_String (Sloc (E)) else \"\")",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 4706
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_Subprogram.RTE_Of_Pre",
+        "expression": "\"Check for RTE in the Pre of the subprogram\" & (if Sloc (E) > 0 then \" \" & Build_Location_String (Sloc (E)) else \"\")",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 5371
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_Subprogram.Transform_All_Pragmas",
+        "expression": "Comment & (if Sloc (E) > 0 then \" \" & Build_Location_String (Sloc (E)) else \"\")",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 5394
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_Subprogram.Warn_On_Inconsistent_Post",
+        "expression": "\"Check inconsistency of Post of subprogram\" & (if Sloc (E) > 0 then \" \" & Build_Location_String (Sloc (E)) else \"\")",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 5454
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_VCs_For_Subprogram.Warn_On_Inconsistent_Pre",
+        "expression": "\"Check inconsistency of Pre of subprogram\" & (if Sloc (E) > 0 then \" \" & Build_Location_String (Sloc (E)) else \"\")",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 5509
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_Axiom_For_Lemma",
+        "expression": "Short_Name (E) & \"__\" & Post_Axiom",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 6615
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_Axiom_For_Post.Emit_Post_Axiom",
+        "expression": "Short_Name (E) & \"__\" & Suffix",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 6940
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_Axiom_For_Post.Emit_Post_Axiom",
+        "expression": "Short_Name (E) & \"__\" & Suffix",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 6975
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_Dispatch_Compatibility_Axioms",
+        "expression": "Full_Name (Descendant) & \"__\" & Compat_Axiom",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 7177
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_Dispatch_Compatibility_Axioms",
+        "expression": "Full_Name (Descendant) & \"__\" & Compat_Axiom",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 7410
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_Subprogram_Program_Fun.Create_Function_Decl",
+        "expression": "RAC_Assume_Label",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 7891
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_Subprogram_Program_Fun",
+        "expression": "To_String (WNE_Hidden_Module)",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 7990
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_Subprogram_Program_Fun",
+        "expression": "To_String (WNE_Refine_Module)",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 8105
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_Subprogram_Program_Fun",
+        "expression": "Short_Name (E) & \"__\" & Specific_Post",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 8165
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Generate_Subprogram_Program_Fun",
+        "expression": "To_String (WNE_Refine_Module)",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 8278
+      },
+      {
+        "enclosing": "Gnat2Why.Subprograms.Translate_Expression_Function_Body",
+        "expression": "Short_Name (E) & \"__\" & Pledge_Axiom",
+        "file": "src/why/gnat2why-subprograms.adb",
+        "line": 8965
+      },
+      {
+        "enclosing": "Gnat2Why.Types.Generate_Type_Completion.Create_Type_Invariant",
+        "expression": "GP_Inline_Marker",
+        "file": "src/why/gnat2why-types.adb",
+        "line": 608
+      },
+      {
+        "enclosing": "Gnat2Why.Types.Generate_Type_Completion.Generate_Axioms_For_Equality",
+        "expression": "Full_Name (D) & \"__\" & Compat_Axiom",
+        "file": "src/why/gnat2why-types.adb",
+        "line": 836
+      },
+      {
+        "enclosing": "Gnat2Why.Types.Generate_Type_Completion",
+        "expression": "To_String (WNE_Moved_Tree)",
+        "file": "src/why/gnat2why-types.adb",
+        "line": 1065
+      },
+      {
+        "enclosing": "Gnat2Why.Unchecked_Conversion.Get_UC_Theory_Name",
+        "expression": "To_String (Name)",
+        "file": "src/why/gnat2why-unchecked_conversion.adb",
+        "line": 180
+      },
+      {
+        "enclosing": "Gnat2Why.Unchecked_Conversion.Create_Module_For_UC_If_Needed.Generate_Inversion_Axiom",
+        "expression": "Img (Get_Name (Module.Module)) & To_String (WNE_Axiom_Suffix)",
+        "file": "src/why/gnat2why-unchecked_conversion.adb",
+        "line": 1446
+      },
+      {
+        "enclosing": "Gnat2Why.Unchecked_Conversion.Create_Module_For_UC_If_Needed",
+        "expression": "To_String (WNE_UC_Function)",
+        "file": "src/why/gnat2why-unchecked_conversion.adb",
+        "line": 1574
+      },
+      {
+        "enclosing": "Gnat2Why.Util.Get_Model_Trace_Label",
+        "expression": "Model_Trace_Label & (if E = Empty then \"\" else (if Is_Record_Field then \".\" else \"\") & Trim (Entity_Id'Image (E), Left) & Append & -- Add information whether labels are generated for a -- variable holding result of a function. (if Ekind (E) = E_Function then \"@result\" else \"\"))",
+        "file": "src/why/gnat2why-util.adb",
+        "line": 938
+      },
+      {
+        "enclosing": "Gnat2Why.Util.Get_Model_Trace_Label",
+        "expression": "\"name:\" & Raw_Source_Name (E)",
+        "file": "src/why/gnat2why-util.adb",
+        "line": 954
+      },
+      {
+        "enclosing": "Gnat2Why.Util",
+        "expression": "Model_Trace_Label & Name",
+        "file": "src/why/gnat2why-util.adb",
+        "line": 959
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Get_Profile_Theory_Name",
+        "expression": "To_String (Name)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 389
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Get_Move_Tree_Type",
+        "expression": "To_String (WNE_Move_Tree)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 402
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Get_Validity_Tree_Type",
+        "expression": "To_String (WNE_Validity_Tree)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 456
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Init_Labels",
+        "expression": "Model_Trace_Label",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 2755
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Init_Labels",
+        "expression": "Model_Proj_Label",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 2756
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Init_Labels",
+        "expression": "VC_Annotation_Label",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 2757
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Init_Labels",
+        "expression": "Model_VC_Post_Label",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 2758
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Object_Symbols",
+        "expression": "Name & \"__first__bit\"",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3081
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Object_Symbols",
+        "expression": "Name & \"__last__bit\"",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3089
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Object_Symbols",
+        "expression": "Name & \"__position\"",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3097
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Subprogram_Symbols",
+        "expression": "Name & \"__\" & Function_Guard",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3121
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Subprogram_Symbols",
+        "expression": "Name & \"__\" & Function_Guard",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3133
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Subprogram_Symbols",
+        "expression": "Name & \"__\" & Specific_Post",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3146
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Subprogram_Symbols",
+        "expression": "Name & \"__check_subprogram_variants\"",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3157
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Subprogram_Symbols",
+        "expression": "Name & \"__check_termination_condition\"",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3168
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Shared_Type_Symbols",
+        "expression": "To_String (WNE_Rec_Split_Discrs)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3254
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Shared_Type_Symbols",
+        "expression": "To_String (WNE_Rec_Split_Fields)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3262
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Shared_Type_Symbols",
+        "expression": "First_Str",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3362
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Shared_Type_Symbols",
+        "expression": "Last_Str",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3371
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Shared_Type_Symbols",
+        "expression": "Length_Str",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3380
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Shared_Type_Symbols",
+        "expression": "To_String (WNE_Rec_Comp_Prefix) & Full_Name_Node & \"__is_null_pointer\"",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3422
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Shared_Type_Symbols",
+        "expression": "To_String (WNE_Rec_Comp_Prefix) & Full_Name_Node & \"__pointer_value\"",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3436
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Shared_Type_Symbols",
+        "expression": "To_String (WNE_Dummy_Abstr)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3518
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Shared_Type_Symbols",
+        "expression": "To_String (WNE_Rec_Comp_Prefix) & Full_Name_Node & \"__pointer_value_abstr\"",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3533
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Shared_Type_Symbols",
+        "expression": "To_String (WNE_Open)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3550
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Shared_Type_Symbols",
+        "expression": "To_String (WNE_Close)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3559
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Shared_Type_Symbols",
+        "expression": "To_String (WNE_Static_Constraint)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3573
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Attr_Init)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3633
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Attr_Init)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3650
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Is_Moved_Or_Reclaimed)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3767
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Moved_Tree)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3774
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Move_Tree_Array_Get)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3787
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Move_Tree_Array_Set)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3795
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Move_Tree_Ptr_Is_Moved)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3808
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Move_Tree_Ptr_Value)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3828
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Move_Tree)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3833
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Move_Tree_Open)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3848
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Move_Tree_Close)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3856
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Move_Tree)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3861
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Is_Valid)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3884
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Valid_Value)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3891
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Validity_Tree_Get)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3902
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Validity_Tree_Set)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3911
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Validity_Tree_Slide)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3919
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "To_String (WNE_Valid_Wrapper)",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 3936
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "Name & \"'int\"",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 4023
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "Int_Str",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 4488
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "Base_Range_Str",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 4496
+      },
+      {
+        "enclosing": "Why.Atree.Modules.Insert_Why_Symbols.Insert_Type_Symbols",
+        "expression": "Index_Str",
+        "file": "src/why/why-atree-modules.adb",
+        "line": 4504
+      },
+      {
+        "enclosing": "Why.Gen.Arrays",
+        "expression": "Img (Name) & To_String (WNE_Array_Comparison_Suffix)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 129
+      },
+      {
+        "enclosing": "Why.Gen.Arrays",
+        "expression": "Img (Name) & To_String (WNE_Array_Logical_Op_Suffix)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 135
+      },
+      {
+        "enclosing": "Why.Gen.Arrays.Create_Validity_Tree_Theory_For_Array",
+        "expression": "Axiom_Name",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 1310
+      },
+      {
+        "enclosing": "Why.Gen.Arrays.Create_Validity_Tree_Theory_For_Array",
+        "expression": "Axiom_Name",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 1494
+      },
+      {
+        "enclosing": "Why.Gen.Arrays.Declare_Constrained",
+        "expression": "Append_Num (\"index_rep_type\", 1)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2598
+      },
+      {
+        "enclosing": "Why.Gen.Arrays.Declare_Constrained",
+        "expression": "Append_Num (\"index_rep_type\", Count)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2627
+      },
+      {
+        "enclosing": "Why.Gen.Arrays.Declare_Unconstrained",
+        "expression": "Append_Num (\"index_base_type\", Dim_Count)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2682
+      },
+      {
+        "enclosing": "Why.Gen.Arrays.Declare_Unconstrained",
+        "expression": "Append_Num (\"index_rep_type\", Dim_Count)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2691
+      },
+      {
+        "enclosing": "Why.Gen.Arrays.Declare_Unconstrained",
+        "expression": "Append_Num (\"to_rep\", Dim_Count)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2699
+      },
+      {
+        "enclosing": "Why.Gen.Arrays.Declare_Unconstrained",
+        "expression": "Append_Num (\"rep_to_int\", Dim_Count)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2729
+      },
+      {
+        "enclosing": "Why.Gen.Arrays.Declare_Unconstrained",
+        "expression": "Append_Num (\"rep_to_int\", Dim_Count)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2738
+      },
+      {
+        "enclosing": "Why.Gen.Arrays.Declare_Unconstrained",
+        "expression": "Append_Num (\"index_rep_le\", Dim_Count)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 2770
+      },
+      {
+        "enclosing": "Why.Gen.Arrays.Get_Array_Theory_Name",
+        "expression": "To_String (Name)",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 3035
+      },
+      {
+        "enclosing": "Why.Gen.Arrays.Prepare_Indexes_Substitutions",
+        "expression": "Prefix",
+        "file": "src/why/why-gen-arrays.adb",
+        "line": 3859
+      },
+      {
+        "enclosing": "Why.Gen.Binders.Localize_Binders.Local_Name",
+        "expression": "L_Name",
+        "file": "src/why/why-gen-binders.adb",
+        "line": 644
+      },
+      {
+        "enclosing": "Why.Gen.Binders.New_Defining_Axiom",
+        "expression": "Axiom_Name",
+        "file": "src/why/why-gen-binders.adb",
+        "line": 1170
+      },
+      {
+        "enclosing": "Why.Gen.Binders.New_Defining_Bool_Axiom",
+        "expression": "Axiom_Name",
+        "file": "src/why/why-gen-binders.adb",
+        "line": 1208
+      },
+      {
+        "enclosing": "Why.Gen.Decl.Emit_Projection_Metas",
+        "expression": "Model_Proj_Meta",
+        "file": "src/why/why-gen-decl.adb",
+        "line": 100
+      },
+      {
+        "enclosing": "Why.Gen.Decl.Emit_Projection_Metas",
+        "expression": "\"function \" & Projection_Fun",
+        "file": "src/why/why-gen-decl.adb",
+        "line": 101
+      },
+      {
+        "enclosing": "Why.Gen.Decl.Emit_Projection_Metas",
+        "expression": "\"function \" & Projection_Fun",
+        "file": "src/why/why-gen-decl.adb",
+        "line": 108
+      },
+      {
+        "enclosing": "Why.Gen.Decl.New_Type_Decl",
+        "expression": "Name",
+        "file": "src/why/why-gen-decl.adb",
+        "line": 279
+      },
+      {
+        "enclosing": "Why.Gen.Expr.Insert_Cnt_Loc_Label",
+        "expression": "\"Loop\" & Node_Id'Image (Ada_Node)",
+        "file": "src/why/why-gen-expr.adb",
+        "line": 1967
+      },
+      {
+        "enclosing": "Why.Gen.Expr.New_Check_Label",
+        "expression": "GP_Check_Marker & Image (Integer (Id), 1) & \":\" & VC_Kind'Image (Reason) & \":\" & Location_String (Sloc, Mode => Check_Label_Mode)",
+        "file": "src/why/why-gen-expr.adb",
+        "line": 4276
+      },
+      {
+        "enclosing": "Why.Gen.Expr.New_Shape_Label",
+        "expression": "GP_Shape_Marker & Buf",
+        "file": "src/why/why-gen-expr.adb",
+        "line": 4718
+      },
+      {
+        "enclosing": "Why.Gen.Expr.New_Counterexample_Assign",
+        "expression": "Branch_Id_Label & Ada.Strings.Fixed.Trim (Source => Node_Id'Image (If_Node), Side => Left)",
+        "file": "src/why/why-gen-expr.adb",
+        "line": 4733
+      },
+      {
+        "enclosing": "Why.Gen.Expr",
+        "expression": "GP_Pretty_Ada_Marker & Image (Integer (N), 1)",
+        "file": "src/why/why-gen-expr.adb",
+        "line": 4877
+      },
+      {
+        "enclosing": "Why.Gen.Expr.New_Range_Expr",
+        "expression": "GP_Pretty_Ada_Marker & Integer'Image (Low_Bound_Id)",
+        "file": "src/why/why-gen-expr.adb",
+        "line": 4911
+      },
+      {
+        "enclosing": "Why.Gen.Expr.New_Range_Expr",
+        "expression": "GP_Pretty_Ada_Marker & Integer'Image (High_Bound_Id)",
+        "file": "src/why/why-gen-expr.adb",
+        "line": 4918
+      },
+      {
+        "enclosing": "Why.Gen.Expr",
+        "expression": "To_String (WNE_Valid_Wrapper)",
+        "file": "src/why/why-gen-expr.adb",
+        "line": 5854
+      },
+      {
+        "enclosing": "Why.Gen.Init.Declare_Simple_Wrapper_Type",
+        "expression": "Img (Get_Symb (Get_Name (Dummy))) & \"__def\"",
+        "file": "src/why/why-gen-init.adb",
+        "line": 416
+      },
+      {
+        "enclosing": "Why.Gen.Names.New_Identifier",
+        "expression": "Name",
+        "file": "src/why/why-gen-names.adb",
+        "line": 750
+      },
+      {
+        "enclosing": "Why.Gen.Names.New_Identifier",
+        "expression": "Name",
+        "file": "src/why/why-gen-names.adb",
+        "line": 769
+      },
+      {
+        "enclosing": "Why.Gen.Names.New_Module",
+        "expression": "Capitalize_First (Name)",
+        "file": "src/why/why-gen-names.adb",
+        "line": 829
+      },
+      {
+        "enclosing": "Why.Gen.Names.Ref_Append",
+        "expression": "Img (Get_Symb (Base)) & To_String (WNE_Ref)",
+        "file": "src/why/why-gen-names.adb",
+        "line": 916
+      },
+      {
+        "enclosing": "Why.Gen.Names.To_Name",
+        "expression": "To_String (W)",
+        "file": "src/why/why-gen-names.adb",
+        "line": 1175
+      },
+      {
+        "enclosing": "Why.Gen.Pointers.Complete_Move_Tree_For_Incomplete_Access",
+        "expression": "To_String (WNE_Move_Tree)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 156
+      },
+      {
+        "enclosing": "Why.Gen.Pointers.Complete_Move_Tree_For_Incomplete_Access",
+        "expression": "To_String (WNE_Is_Moved_Or_Reclaimed)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 207
+      },
+      {
+        "enclosing": "Why.Gen.Pointers.Complete_Rep_Pointer_Type.Declare_Access_Function",
+        "expression": "Axiom_Name",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 381
+      },
+      {
+        "enclosing": "Why.Gen.Pointers.Create_Move_Tree_Theory_For_Pointer",
+        "expression": "To_String (WNE_Move_Tree)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 972
+      },
+      {
+        "enclosing": "Why.Gen.Pointers.Create_Move_Tree_Theory_For_Pointer",
+        "expression": "To_String (WNE_Is_Moved_Or_Reclaimed)",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 988
+      },
+      {
+        "enclosing": "Why.Gen.Pointers.Declare_At_End_Function",
+        "expression": "Short_Name (E) & \"__borrowed_at_end\"",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1159
+      },
+      {
+        "enclosing": "Why.Gen.Pointers.Declare_At_End_Function",
+        "expression": "Short_Name (E) & \"__result_at_end\"",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1165
+      },
+      {
+        "enclosing": "Why.Gen.Pointers.Declare_At_End_Ref",
+        "expression": "Short_Name (E) & \"__brower_at_end\"",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1271
+      },
+      {
+        "enclosing": "Why.Gen.Pointers.Declare_At_End_Ref",
+        "expression": "Short_Name (E) & \"__borrowed_at_end\"",
+        "file": "src/why/why-gen-pointers.adb",
+        "line": 1281
+      },
+      {
+        "enclosing": "Why.Gen.Records.Concrete_Extension_Type",
+        "expression": "To_String (WNE_Rec_Extension_Suffix)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 497
+      },
+      {
+        "enclosing": "Why.Gen.Records.Create_Compatible_Tags_Theory.Generate_Axioms_For_Type",
+        "expression": "Axiom_Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 619
+      },
+      {
+        "enclosing": "Why.Gen.Records.Create_Rep_Record_Completion_If_Needed.Complete_Extraction_Functions",
+        "expression": "Img (Get_Symb (Get_Name (Extract_Fun (Field, Rec => E)))) & \"__def\"",
+        "file": "src/why/why-gen-records.adb",
+        "line": 872
+      },
+      {
+        "enclosing": "Why.Gen.Records.Create_Rep_Record_Completion_If_Needed.Complete_Hide_Function",
+        "expression": "To_String (WNE_Hide_Extension) & \"def\"",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1103
+      },
+      {
+        "enclosing": "Why.Gen.Records.Create_Rep_Record_Completion_If_Needed.Complete_Hide_Function",
+        "expression": "To_String (WNE_Extract_Prefix) & To_String (WNE_Rec_Extension_Suffix) & \"def\"",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1129
+      },
+      {
+        "enclosing": "Why.Gen.Records.Declare_Component_Attributes.Declare_Attribute_For_Field",
+        "expression": "Axiom & \"__first__bit_axiom\"",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1958
+      },
+      {
+        "enclosing": "Why.Gen.Records.Declare_Component_Attributes.Declare_Attribute_For_Field",
+        "expression": "Axiom & \"__last__bit_axiom\"",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1969
+      },
+      {
+        "enclosing": "Why.Gen.Records.Declare_Component_Attributes.Declare_Attribute_For_Field",
+        "expression": "Axiom & \"__position_axiom\"",
+        "file": "src/why/why-gen-records.adb",
+        "line": 1980
+      },
+      {
+        "enclosing": "Why.Gen.Records",
+        "expression": "To_String (WNE_Hidden_Extension)",
+        "file": "src/why/why-gen-records.adb",
+        "line": 4412
+      },
+      {
+        "enclosing": "Why.Gen.Records.Hidden_Component_Name",
+        "expression": "Name",
+        "file": "src/why/why-gen-records.adb",
+        "line": 4439
+      },
+      {
+        "enclosing": "Why.Gen.Scalars.Declare_Scalar_Type.Generate_Range_Predicate",
+        "expression": "GP_Inline_Marker",
+        "file": "src/why/why-gen-scalars.adb",
+        "line": 738
+      },
+      {
+        "enclosing": "Why.Gen.Scalars.Get_Fixed_Point_Mult_Div_Theory_Name",
+        "expression": "Name",
+        "file": "src/why/why-gen-scalars.adb",
+        "line": 1515
+      },
+      {
+        "enclosing": "Why.Gen.Scalars.Get_Fixed_Point_Theory_Name",
+        "expression": "Name",
+        "file": "src/why/why-gen-scalars.adb",
+        "line": 1539
+      },
+      {
+        "enclosing": "Why.Inter.Goto_Exception_Name",
+        "expression": "Capitalize_First (Short_Name (E)) & \"__goto\"",
+        "file": "src/why/why-inter.adb",
+        "line": 1025
+      },
+      {
+        "enclosing": "Why.Inter.Loop_Exception_Name",
+        "expression": "Capitalize_First (Short_Name (E)) & Suffix",
+        "file": "src/why/why-inter.adb",
+        "line": 1136
+      },
+      {
+        "enclosing": "Why.Inter.New_Named_Type",
+        "expression": "S",
+        "file": "src/why/why-inter.adb",
+        "line": 1243
+      },
+      {
+        "enclosing": "Why.Inter.Open_Theory",
+        "expression": "Comment",
+        "file": "src/why/why-inter.adb",
+        "line": 1278
+      },
+      {
+        "enclosing": "Why.Inter.To_Why_Id",
+        "expression": "To_String (WNE_Hidden_Module)",
+        "file": "src/why/why-inter.adb",
+        "line": 1499
+      },
+      {
+        "enclosing": "Why.Inter.To_Why_Id",
+        "expression": "To_String (WNE_Refine_Module)",
+        "file": "src/why/why-inter.adb",
+        "line": 1501
+      },
+      {
+        "enclosing": "Why.Inter.To_Why_Type",
+        "expression": "Suffix",
+        "file": "src/why/why-inter.adb",
+        "line": 1562
+      },
+      {
+        "enclosing": "Why.Inter.To_Why_Type",
+        "expression": "Suffix",
+        "file": "src/why/why-inter.adb",
+        "line": 1568
+      }
+    ],
+    "why_enum_literal_arms": 62
+  },
+  "verified_complete_ada_files": 279
+}
