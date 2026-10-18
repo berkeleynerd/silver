@@ -1,8 +1,8 @@
 {
-  "started_utc": "2026-10-18T23:34:47.585260+00:00",
-  "completed_utc": "2026-10-18T23:34:57.841462+00:00",
-  "elapsed_seconds": 10.256185289999848,
-  "checks": 106,
+  "started_utc": "2026-10-18T23:47:51.370451+00:00",
+  "completed_utc": "2026-10-18T23:48:03.329384+00:00",
+  "elapsed_seconds": 11.958925409002404,
+  "checks": 118,
   "passed": [
     {
       "name": "Hello same actual source identities",
@@ -22,6 +22,30 @@
     },
     {
       "name": "Hello all numeric guards conjunctive",
+      "passed": true
+    },
+    {
+      "name": "Hello all new storage guards conjunctive",
+      "passed": true
+    },
+    {
+      "name": "Hello frontend same source numeric paths and node arrays",
+      "passed": true
+    },
+    {
+      "name": "Hello current indexed source and filename population",
+      "passed": true
+    },
+    {
+      "name": "Hello identifier history is corrected actual source",
+      "passed": true
+    },
+    {
+      "name": "Hello warning boundary and delta ownership",
+      "passed": true
+    },
+    {
+      "name": "Hello ordinary line premises and individual Dope bound",
       "passed": true
     },
     {
@@ -65,6 +89,30 @@
       "passed": true
     },
     {
+      "name": "mixed_empty_8192 all new storage guards conjunctive",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 frontend same source numeric paths and node arrays",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 current indexed source and filename population",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 identifier history is corrected actual source",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 warning boundary and delta ownership",
+      "passed": true
+    },
+    {
+      "name": "mixed_empty_8192 ordinary line premises and individual Dope bound",
+      "passed": true
+    },
+    {
       "name": "mixed_empty_8192 immutable core GGC ledger unchanged",
       "passed": true
     },
@@ -94,6 +142,30 @@
     },
     {
       "name": "5000_calls all numeric guards conjunctive",
+      "passed": true
+    },
+    {
+      "name": "5000_calls all new storage guards conjunctive",
+      "passed": true
+    },
+    {
+      "name": "5000_calls frontend same source numeric paths and node arrays",
+      "passed": true
+    },
+    {
+      "name": "5000_calls current indexed source and filename population",
+      "passed": true
+    },
+    {
+      "name": "5000_calls identifier history is corrected actual source",
+      "passed": true
+    },
+    {
+      "name": "5000_calls warning boundary and delta ownership",
+      "passed": true
+    },
+    {
+      "name": "5000_calls ordinary line premises and individual Dope bound",
       "passed": true
     },
     {
@@ -133,6 +205,30 @@
       "passed": true
     },
     {
+      "name": "32766_calls all new storage guards conjunctive",
+      "passed": true
+    },
+    {
+      "name": "32766_calls frontend same source numeric paths and node arrays",
+      "passed": true
+    },
+    {
+      "name": "32766_calls current indexed source and filename population",
+      "passed": true
+    },
+    {
+      "name": "32766_calls identifier history is corrected actual source",
+      "passed": true
+    },
+    {
+      "name": "32766_calls warning boundary and delta ownership",
+      "passed": true
+    },
+    {
+      "name": "32766_calls ordinary line premises and individual Dope bound",
+      "passed": true
+    },
+    {
       "name": "32766_calls immutable core GGC ledger unchanged",
       "passed": true
     },
@@ -149,199 +245,151 @@
       "passed": true
     },
     {
-      "name": "expanded_column_failure same actual source identities",
+      "name": "new guard failure stays independently conjunctive native_frontend_configuration",
       "passed": true
     },
     {
-      "name": "expanded_column_failure all old predicates preserved except three source gaps",
+      "name": "new guard failure stays independently conjunctive native_frontend_core_tables",
       "passed": true
     },
     {
-      "name": "expanded_column_failure selected final diagnostics",
+      "name": "new guard failure stays independently conjunctive native_frontend_parser_auxiliary",
       "passed": true
     },
     {
-      "name": "expanded_column_failure selected source assessments closed independently of production",
+      "name": "new guard failure stays independently conjunctive native_frontend_invocation",
       "passed": true
     },
     {
-      "name": "expanded_column_failure all numeric guards conjunctive",
+      "name": "new guard failure stays independently conjunctive native_frontend_numeric",
       "passed": true
     },
     {
-      "name": "expanded_column_failure immutable core GGC ledger unchanged",
+      "name": "new guard failure stays independently conjunctive native_frontend_physical_sources",
       "passed": true
     },
     {
-      "name": "expanded_column_failure missing totals and broad flags remain open",
+      "name": "new guard failure stays independently conjunctive native_frontend_gigi_array_and_name_input",
       "passed": true
     },
     {
-      "name": "expanded_column_failure 39 linker guards and exact conservative input preserved",
+      "name": "new guard failure stays independently conjunctive native_location_ad_hoc_storage",
       "passed": true
     },
     {
-      "name": "real capacity failure returns full graph and all guards",
+      "name": "new guard failure stays independently conjunctive native_location_later_warning_storage",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive shared_launch_paths",
+      "name": "new guard failure stays independently conjunctive native_location_filename_direct_objects",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive Main_source_EOF",
+      "name": "new guard failure stays independently conjunctive native_location_Main_ordinary_map_lines",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive Main_source_request",
+      "name": "new guard failure stays independently conjunctive native_location_fixed_runtime_ordinary_map_lines",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive Main_line_table",
+      "name": "new guard failure stays independently conjunctive native_location_fixed_extra_ordinary_map_lines",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive Main_expanded_columns",
+      "name": "new guard failure stays independently conjunctive native_location_virtual_template_ordinary_map_lines",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_Main_logical_lines",
+      "name": "new guard failure stays independently conjunctive native_indexed_identifier_historical_insertions_unsigned",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_Main_frontend_literal_length",
+      "name": "new guard failure stays independently conjunctive native_indexed_identifier_slot_threshold_unsigned",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_lowering_and_data",
+      "name": "new guard failure stays independently conjunctive native_indexed_identifier_doubling_unsigned",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_RTL_shape",
+      "name": "new guard failure stays independently conjunctive native_indexed_identifier_individual_request",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_selected_helper_backing",
+      "name": "new guard failure stays independently conjunctive native_indexed_serial_incoming_temporary_name_serial_unsigned",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_varpool_and_shared_tree_pool",
+      "name": "new guard failure stays independently conjunctive native_indexed_serial_temporary_name_serial_unsigned",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_graph_and_summary_lifetime",
+      "name": "new guard failure stays independently conjunctive native_virtual_Dope_Rec_individual_request",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_function_and_symbol_counter_endpoints",
+      "name": "frontend source",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_global_RTL_label_endpoint",
+      "name": "frontend path",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_global_constant_label_endpoint",
+      "name": "frontend actual map",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_SSA_helper_backing",
+      "name": "frontend physical bytes",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_initial_SSA_lifetime",
+      "name": "frontend numeric double charge",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_initial_CF_CFG_lifetime",
+      "name": "frontend node table",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_whole_body_copy_local_interface",
+      "name": "frontend transient ownership",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_initial_warning_map_lifetime",
+      "name": "frontend patterns lifetime",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_collector_callback_local_interface",
+      "name": "location source",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_original_helper_name_arithmetic",
+      "name": "location old warning boundary",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive native_synthetic_individual_request_sizes",
+      "name": "location filename double charge",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive Main_assembler_object_interface",
+      "name": "location prefix double charge",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive Main_GAS_BFD_storage",
+      "name": "location total GGC claim",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive literal_output_linker_representation",
+      "name": "location Main line identity",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive Main_ALI_interface",
+      "name": "retained Hello cannot impersonate actual source-bound shared",
       "passed": true
     },
     {
-      "name": "inherited guard failure stays conjunctive ALI_consumer_local_interfaces",
-      "passed": true
-    },
-    {
-      "name": "inherited guard failure stays conjunctive GPR_parent_DW_local_interface",
-      "passed": true
-    },
-    {
-      "name": "inherited guard failure stays conjunctive Why_core",
-      "passed": true
-    },
-    {
-      "name": "inherited guard failure stays conjunctive output_binder_checksum_no_collection",
-      "passed": true
-    },
-    {
-      "name": "inherited guard failure stays conjunctive native_original_shared_identifier_hash",
-      "passed": true
-    },
-    {
-      "name": "inherited guard failure stays conjunctive native_original_shared_type_hash",
-      "passed": true
-    },
-    {
-      "name": "inherited guard failure stays conjunctive native_original_shared_integer_hash",
-      "passed": true
-    },
-    {
-      "name": "inherited guard failure stays conjunctive native_original_shared_global_decls",
-      "passed": true
-    },
-    {
-      "name": "inherited guard failure stays conjunctive native_original_shared_stmt_list_cache",
-      "passed": true
-    },
-    {
-      "name": "inherited guard failure stays conjunctive native_original_shared_alias_sets",
-      "passed": true
-    },
-    {
-      "name": "inherited guard failure stays conjunctive native_original_shared_scalar_finalizers",
-      "passed": true
-    },
-    {
-      "name": "inherited guard failure stays conjunctive native_original_shared_selected_counter_endpoints",
-      "passed": true
-    },
-    {
-      "name": "inherited guard failure stays conjunctive native_original_shared_filename_ingress",
+      "name": "changed Dope object ABI",
       "passed": true
     },
     {
@@ -519,46 +567,25 @@
         "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
       ]
-    },
-    {
-      "name": "expanded_column_failure",
-      "source": {
-        "bytes": 33094,
-        "sha256": "676f90ff58cfb3bf707b4974bccb239c055726aff632d922f76b0a7c4989c271"
-      },
-      "calls": 1,
-      "demands": {
-        "Uints": 28429,
-        "Udigits": 107797,
-        "Ureals": 67,
-        "Rep_Table": 504
-      },
-      "evaluated_predicates_pass": false,
-      "failed_predicates": [
-        "Main_expanded_columns",
-        "Main_ALI_interface",
-        "ALI_consumer_local_interfaces",
-        "GPR_parent_DW_local_interface"
-      ],
-      "unresolved_predicates": [],
-      "core_unresolved_predicates": [
-        "Main_assembler_object_interface",
-        "Main_GAS_BFD_storage",
-        "literal_output_linker_representation"
-      ]
     }
   ],
   "validation": {
-    "current_attachment_input_records": 21,
+    "current_attachment_input_records": 28,
     "numeric_input_freeze": "64237926eb",
-    "original_numeric_review_scope": "Historical acceptance of 3a7d590389; generated scope-width correction64237926eb requires its own independent disposition.",
-    "historical_acceptance_review_records": 3,
+    "original_numeric_review_scope": "Historical original acceptance; corrected numeric64237926eb and selected-routeb9 accepted separately in b6669b3ff7/0f4ef0ab6f.",
+    "historical_acceptance_review_records": 5,
     "core_current_input_records": 205,
     "core_distinct_current_files": 2711,
     "invocation_current_repository_records": 37,
     "invocation_complete_retained_sources": 16,
     "invocation_installed_configuration_records": 109,
     "numeric_identity_records": 61,
+    "frontend_direct_identity_records": 41,
+    "location_repository_identity_records": 33,
+    "location_complete_source_identity_records": 121,
+    "runtime_census_reused_from": "24e91ed814923ba9b0e5fecf991eac7a2e1016fa",
+    "runtime_census_reinventoried": false,
+    "native_shape_identity_records": 5,
     "counts_overlap_and_must_not_be_added": true,
     "accepted_reviews": [
       {
@@ -578,13 +605,25 @@
         "bytes": 10993,
         "sha256": "e148c176f1ea28b51154d90ff0b8acb19a3723acd87c004ebd38719e0022b565",
         "revision": "9fd3629370f3e3277f6e8768bb2644863594ded9"
+      },
+      {
+        "path": "docs/reviews/review-literal-frontend-numeric-d7034d9520.md",
+        "bytes": 14105,
+        "sha256": "099daf16ea7d7ceaf87398feabe21d414526a61dc64647713d4e26ad500ec6ba",
+        "revision": "0f4ef0ab6f6134702d08aba23b05877260af6951"
+      },
+      {
+        "path": "docs/reviews/review-literal-location-11057399b9.md",
+        "bytes": 13228,
+        "sha256": "1ffb21ade5fc78fbabcbb2c5ec7dd8642e0aba75442a042f48697cd2078b9072",
+        "revision": "ab12d9119a2883759aa3434b1f28b89acd1e2629"
       }
     ]
   },
   "implementation_inputs": {
     "selected-route.py": {
-      "bytes": 19309,
-      "sha256": "e9d8f9c0047bcfd1ec18088bf915982088d62085614cc52daa4fc8b528af21bd"
+      "bytes": 35431,
+      "sha256": "1b9c046e35fb714a8fc547e3bbccb7ff965b0488e6eb8f509e619580c5d173ab"
     },
     "selected-route.json": {
       "bytes": 372,
@@ -595,24 +634,25 @@
       "sha256": "e85eeee8318825a1582a9c87c8a92e9466992c9ed3f393ab505fb244967360d5"
     },
     "selected-route-inputs.json": {
-      "bytes": 5414,
-      "sha256": "44bf947d7d7f35522cd1584302f549862cc95197500c22886f82ff1abf04d4d7"
+      "bytes": 8464,
+      "sha256": "36a48f65c5aec37ec6510962e2c1cb6fe5b063c61d9384f73da9225bd838ea0d"
     },
     "check-selected-route.py": {
-      "bytes": 12802,
-      "sha256": "2389d5bfe4ae892fc3f0929c61f65fbe33ada2f70bb124700ba91a4b7d717ebf"
+      "bytes": 18928,
+      "sha256": "be71f0a74ec273f73d6771dac28f15c413b3996a868eb1b78274943b374f5f96"
     }
   },
   "native_tool_executions": 0,
   "predecessor_suites_rerun": false,
   "broad_suites_rerun": false,
-  "selected_model": null,
-  "selected_effort": null,
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
   "runtime_confirmed_model_effort": null,
   "token_cost_measurements": null,
   "validation_rework": {
-    "scope": "Current scope-width repair; earlier 97-check attachment evidence remains in frozen64e347db16.",
-    "correction": "Retain base-32768 scope digit width across the 32765/32766-call transition.",
-    "rerun_reason": "Numeric formula and dependent exact-source join changed; this affected check includes the former rejection."
+    "scope": "New frontend/location/source-bound indexed shared attachment only.",
+    "initial_new_attachment_smoke": "57 checks passed in11.662330seconds; new guard/ownership/identity assertions added for required coverage, then rerun only this affected harness.",
+    "earlier_selected_route_evidence": "106 checks before9091e36fb2 retained in repository history before this attachment; not rerun as a predecessor suite.",
+    "preserved_leaf_successes": "frontend43/52,location140/191,numeric57/106 retained; no corpus inventory repeated."
   }
 }

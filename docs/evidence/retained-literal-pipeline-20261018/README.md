@@ -455,8 +455,9 @@ argument and scope are in the final section of the linked source note.
 
 `selected-route.py` is the current design-route entry point. It uses the
 unchanged `compose.py` with `selected-core-fixture.json`, then attaches the
-accepted invocation graph and Ada numeric leaf. `fixture.json`, the original
-core result and every pre-existing core/leaf input pin remain unchanged.
+accepted invocation, corrected Ada numeric/frontend-storage and location/
+later-warning leaves. `fixture.json`, the original core result and every
+pre-existing core/leaf input pin remain unchanged.
 
 ```sh
 python3 docs/evidence/retained-literal-pipeline-20261018/selected-route.py \
@@ -477,37 +478,63 @@ job; fixed native reuse does not waive Silver library proof.
 
 `selected-route-result.json` is the current Hello result. Its top-level
 predicates and open joins are final for this attachment. `core_result` is the
-unchanged core evaluation before the outer invocation/numeric join; its three
-unknowns and nested shared diagnostics remain explicitly scoped intermediate
-results. The invocation's conservative linker input likewise stays visible;
-the active joined result is `core_result.literal_output_linker`. All 40 core
-local guards remain, the three unknowns take their existing conditional values,
-and three invocation plus five numeric guards give 48 final predicates.
+unchanged core evaluation before the outer joins; its three unknowns and old
+source-population/identifier/serial fields remain explicitly scoped historical
+intermediates. Current frontend, location and corrected shared outputs are
+`selected_native_frontend_storage`, `selected_native_location_lifetime` and
+`selected_current_source_bound_shared_storage`. The last is recomputed from
+the actual source's core shared interface, never a retained Hello projection.
+The invocation's conservative linker input likewise stays visible; the active
+joined result is `core_result.literal_output_linker`.
 
-Hello, mixed empty/8192 literals and 5,000 calls have all 48 predicates true,
-with no unresolved selected-route condition. The numeric totals are
-28420+9C / 107726+(70+k)C / 67 / 504, with k=uint_digits(C+2); the separate GCC
-partial ledger is unchanged. The scope-width correction (#138) preserves the
-general constructor allowance beyond 32,765 calls. Earlier 97-check evidence
-at `64e347db16` remains historical; the affected recheck adds the former
-32,766-call assertion failure and expects a complete result with numeric
-success and the independent linker condition false.
-Whole native/proof/pipeline capacity, parent storage and production adoption
-remain false, and complete imported totals remain null. No costs are summed
-across these separate intervals.
+All 40 core local guards remain, the three unknowns take their existing
+conditional values, and the prior three invocation/five numeric guards remain.
+Another 21 frontend/location/ordinary-line/corrected-identifier/serial/Dope_Rec
+guards give **69 conjunctive predicates**. Hello, mixed empty/8192 literals and
+5,000 calls pass all 69. The 32,766-call source returns its complete result:
+numeric guards pass and only the independent linker predicate fails. Numeric
+totals remain 28420+9C / 107726+(70+k)C / 67 / 504, with k=uint_digits(C+2).
+
+The joins equate actual source/counts, paths, configuration/map/System/Silver
+bytes, Main/scanner/numeric projections and frontend node/association arrays.
+The selected population is 1,580 physical plus nine virtual sources, hence
+1,589 permanent entries. Only Source_File backing adds the failed-load spare
+to reach 1,590. Filename lookups are 1,590 and direct filename GGC requests
+3,180. Hello's corrected identifier history is 40,847 incoming / 40,883 outgoing,
+with 65,536 slots and each ordinary backing at most 524,288 bytes.
+
+The later-warning input equals the existing R=5 warning boundary. Its new
+location/later-warning delta remains separate (Hello: 13 GGC requests); filename,
+prefix, original warning and shared costs are not added again. The old shared
+GGC delta (Hello: 768) and partial ledger (Hello: 2,312) remain unchanged.
+Source/host ABI pins establish each of the nine virtual Dope_Rec objects as a
+separate eight-byte request. Main, fixed runtime/extra and virtual-template
+ordinary-line predicates are attached; ordinary GCC line-map backing remains
+open. These are individual-storage checks, with no aggregate RAM gate.
+
+The current manifest has 28 attachment file records, five historical accepted
+review identities and five native-shape pins. Context checks retain the
+205 core pins / 2,711 core files, invocation 37/16/109 identities, numeric 61,
+frontend 41 and location 33 repository/121 source identities. These counts
+overlap and must not be summed. The accepted 1,575-file runtime census is
+reused under the stable-installation premise; the corpus was not inventoried
+again. Three virtual templates are checked against their installed copies.
 
 `check-selected-route.py` takes the same source-root flags and `--output`.
-Its original 97 checks passed in 5.222947 seconds, including a real capacity
-failure that still returns the graph, all old/new guard failures and interface
-mutations. The default was generated inside that run. One earlier harness
-expectation missed propagated ALI/consumer/GPR scalar failures for the long-line
-case; one isolated diagnosis and an expectation-only fix preceded the recorded
-success. Existing broad and leaf success evidence was reused without rerunning
-those suites. See `selected-route-check-results.json` and the final section of
-the source note for exact scope, source correspondence, validation counts and
-remaining work. The scope-width repair's 106 affected checks passed in
-10.256185 seconds. The 32,766-call source now returns its complete 48-guard
-result: numeric guards pass and the independently derived linker predicate
-fails. No native execution or unrelated suite was repeated. Lead runtime
-model/effort and token/cost measurements are unavailable for this repair run.
-Independent review of the correction remains required.
+The affected attachment passed **118 checks in 11.958925 seconds**, generating
+Hello once within the same run. It checks the four source variants, independently
+forces every new guard false, and rejects source, path, map, population, node,
+warning, ownership and ABI mismatches. An initial 57-check attachment smoke
+passed; required guard/identity/ownership coverage was then added before this
+affected recheck. Earlier 97/106-check route and frontend43/52, location140/191
+and numeric57/106 results remain historical evidence; no predecessor or broad
+suite was rerun. See `selected-route-check-results.json` and the final section
+of the source note for exact inputs and validation scope.
+
+Selected worker settings were GPT-6.1 Sol / Extra High; runtime confirmation
+and token/cost measurements are unavailable. No native compiler/proof/build or
+corpus inventory ran. Whole native/proof/pipeline capacity, parent storage and
+production adoption remain false; complete imported totals remain null.
+Ordinary line maps, late frontend/shared consumers, complete global counters
+and collector composition remain open. This frozen attachment still requires
+independent review and does not claim #119 or #137 complete.

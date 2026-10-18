@@ -2186,16 +2186,24 @@ result is retained. No compiler, assembler, linker, capture/debugger,
 proof/prover/solver, build or full-suite execution occurred. Only the aggregate
 packet and this note changed; parent owns independent review and integration.
 
-## Selected native design route and Ada numeric attachment
+## Selected native design route, frontend storage and location attachment
 
-The wrapper is based on integrated `6b21533df0` and consumes these accepted
-packets without changing their bytes:
+The current wrapper is based on integrated `9091e36fb2` and consumes these
+accepted packets without changing their bytes:
 
 - Shared/linker attachment `99b7247d18`, reviewed in `b04b32a184`.
 - [Selected invocation graph](retained-literal-invocation-join.md)
   `f3bc1d023b`, reviewed in `a9b1436f3b`.
 - [Ada numeric interval](retained-literal-ada-numeric.md) `3a7d590389`,
-  reviewed in `9fd3629370`.
+  originally reviewed in `9fd3629370`, with correction `64237926eb` and
+  selected-route correction `b9b3ef960e` accepted in `b6669b3ff7` and
+  [the final review addendum](../reviews/review-literal-frontend-numeric-d7034d9520.md)
+  `0f4ef0ab6f`.
+- [Frontend storage](retained-literal-frontend-storage.md) `d7034d9520`, with
+  lifetime correction `24e91ed814`, accepted in that same final addendum.
+- [Location/later-warning lifetime](retained-literal-location-lifetime.md)
+  `11057399b9`, accepted in
+  [review](../reviews/review-literal-location-11057399b9.md) `ab12d9119a`.
 
 `selected-route.json` supplies explicit runtime configuration and points to
 `selected-core-fixture.json`. Native, datarep, phase1 and phase2 all bind the
@@ -2268,38 +2276,130 @@ object constraints inside the accepted leaf.
 This is one selected Ada numeric interval. The shared leaf's historical
 incoming numeric nulls remain visible within its preserved interface; they
 are not current selected-route claims that this particular numeric interval
-is missing. The full frontend, original gigi, native, collector and proof
-capacity claims remain false, with complete imported event/byte totals null.
-The GCC partial event ledger remains unchanged (Hello: 2,312 known events),
-and no numeric or invocation row is added to it. Repeated interface projections
-are correspondence checks, not duplicate costs. Complete cache history and
-aggregate heap/RAM gates are not inferred.
+is missing. No numeric or invocation row is added to the GCC partial event
+ledger. Repeated interface projections check correspondence without charging
+the same cost twice.
 
-`selected-route-inputs.json` adds 21 current attachment input records and
-three exact historical acceptance-review identities. Existing validation
-remains: 205 core pins and 2,711 distinct current core files; invocation's
-37 repository records, 16 complete retained sources and 109 installed
-configuration identities; numeric's 61 identity records. These sets overlap
-and are reported separately, never summed into a unique-file count. The
-wrapper leaves the shared manifest's 35 current and three historical
-aggregate dependencies unchanged. Its new descriptor, wrapper and outputs
-are outside the core and leaf manifests, avoiding cyclic pins.
+The frontend attachment receives the same raw bytes and selected descriptor.
+`join_frontend_location` equates complete source counts, P=512/P+1=513,
+native launch/configuration paths, the actual four-record source map,
+System/configuration/Silver byte identities and physical source identities.
+Its Main constructor and all scanner pools equal the core's source projection;
+its complete numeric component equals the accepted numeric output above.
+The Uint/Udigit/Ureal demands replace the frontend's pre-callback projection;
+neither the fixed rows nor callback demands are added twice. Node_Offsets and
+both independent gigi association arrays bind to the same total node count.
+For Hello that is **41,294 nodes**, with two separate **330,352-byte** raw
+association-array requests. The accepted Pattern String lifetime correction
+remains **eight default plus six configuration requests**, each at most
+21 bytes; table reset does not reclaim their pointees.
 
-The affected check passed **97 checks in 5.222947 seconds**,
-23:12:31–23:12:36 UTC on Linux x86-64. It generated the default selected Hello
-result during that same run. Cases include mixed empty/8,192-byte literals,
-5,000 calls, every inherited and new guard's independent failure, and
-source/count/path/System/emission/ELF/linker/Binder/object/ownership mutations.
-A 33,000-column source returns the full graph with four failures:
-`Main_expanded_columns`, `Main_ALI_interface`, `ALI_consumer_local_interfaces`
-and `GPR_parent_DW_local_interface`. The first run's test incorrectly expected
-only the first; an isolated diagnostic confirmed propagation, then only that
-test expectation was corrected before the successful affected run. No
-implementation correction or repeated successful broad run was needed.
-The checked record retains this rework and the exact implementation hashes.
+The indexed source population is **1,580 physical files plus nine virtual
+copies**, giving **1,589 permanent source entries** and backend File_Info
+entries. Only Source_File backing adds one failed-load transient slot, for
+demand **1,590**. It does not add another backend filename-bearing entry.
+The separate dummy filename lookup yields **1,590 insertion-capable filename
+lookups**, each with a possible identifier-node and character request, hence
+**3,180 direct filename GGC requests**. Hello's aligned physical source extent
+is **20,561,920 bytes**. The accepted installed-runtime census is reused, with
+the checked installation required to remain stable through future use; this
+attachment does not rescan its 1,575 files. The three source templates used by
+the nine virtual copies are directly compared with their installed runtime
+copies. Virtual sources share template text and line arrays; those arrays are
+not charged again.
 
-Selected settings were GPT-6 Astra / Extra High; runtime confirmation and
-token/cost measurements are unavailable. No compiler, assembler, binder,
-linker, prover, solver, debugger, capture, build, predecessor suite or full
-suite ran. Only the owned aggregate note/packet changed; the parent owns
-independent review, integration, index and round records, and publication.
+The location leaf's later-warning input must equal the core's existing
+`native_warning_map_demand.conditional_map_transfer`, with the accepted
+original-gigi residual R=5. Initial ad-hoc controls/hash and initial warning
+requests remain prefix/old-interval costs. The new location/later-warning
+delta contains only combined-location GGC backings and later-warning
+replacement backbones (Hello: **13 requests**), with zero extra controls or
+finalizers. Filename objects are separate. No filename, prefix, original
+warning or shared backing row is added to that delta or to the existing GCC
+partial ledger. Hello's original shared GGC delta remains **768**, and its
+known partial ledger remains **2,312 events**. Neither becomes a total.
+
+The accepted location correction is applied to
+`core_result.native_original_shared_storage.interface` computed from this
+actual source, not the retained Hello interface. It recomputes the indexed
+identifier history/occupancy/slots/request bounds, all four identifier guards
+and both temporary-name-serial guards. For Hello the corrected incoming and
+outgoing histories/serials are **40,847 and 40,883**, with **65,536 slots** and
+each ordinary backing at most **524,288 bytes**. Other source-specific shared
+projections remain unchanged. The corrected state is exported as
+`selected_current_source_bound_shared_storage`; old population/identifier/
+serial fields nested in `core_result` are explicitly historical intermediates
+inside the derivation. The correction adds zero shared GGC backing events.
+
+Ordinary-line predicates now cover actual Main, the fixed runtime/extra
+physical sources and each virtual template separately. Their line identities
+and widths are premises of ordinary location encoding; they do not price GCC
+ordinary line-map backing. The frontend's nine virtual Dope_Rec metadata
+objects retain a separate individual-object proof: `types.ads`, `types.h`,
+`sinput.ads`, `sinput-l.adb` and installed plugin `auto-host.h` establish the
+selected 32-bit Source_Ptr base, the exact 64-bit Dope_Rec representation,
+eight-byte alignment and individual **eight-byte allocation**. There are nine
+such requests. This closes that particular unpriced virtual metadata remainder
+without introducing a summed heap or RAM gate.
+
+All 40 core local guards and the three invocation/five numeric guards remain
+conjunctive. The new seven frontend, three location-storage, four ordinary-line,
+four corrected identifier, two serial and one Dope_Rec guard add 21, giving
+**69 final predicates** in both selected condition maps. Hello, mixed empty/
+8,192-byte literals and 5,000 calls pass all 69, with no unresolved selected
+local predicate. The 32,766-call source returns its complete result with numeric
+demands **323,314 Uints / 2,466,878 Udigits / 67 Ureals / 504 Rep_Table**; only
+the independent refined linker predicate fails. The original conservative
+5,000-call linker failure remains an explicitly separate diagnostic.
+
+The frontend and location outputs remain unmodified accepted component
+outputs, with their scopes explained by the outer join. Complete frontend,
+original gigi, native, collector, proof-pipeline and parent-storage claims
+remain false; complete imported event/byte totals remain null. Ordinary GCC
+line-map backing, other late frontend/name/ALI/local/recursive heaps, later
+shared consumers, remaining passes, RTL/DF ceilings and complete global
+counter/collector lifetimes remain open. Full datarep/light producer, library
+proof and report/Why/server consumer graphs also remain open. No production
+launcher or admission change is adopted. This attachment requires independent
+review before claiming #137's downstream propagation complete; #119 remains
+open regardless of that scoped review.
+
+`selected-route-inputs.json` now records **28 current attachment files**, five
+exact historical acceptance-review identities and the five native-shape pins
+above. Existing validation remains: 205 core pins and 2,711 distinct current
+core files; invocation's 37 repository records, 16 complete retained sources
+and 109 installed configuration identities; numeric's 61 identity records.
+The frontend's **41 direct identities** and location's **33 repository / 121
+complete source identities** are checked. These sets overlap and are reported
+separately, never summed into a unique-file count. The shared manifest's
+35 current and three historical aggregate dependencies remain unchanged.
+Wrapper/descriptor/output identities stay outside core and leaf manifests,
+avoiding cyclic pins.
+
+The affected attachment passed **118 checks in 11.958925 seconds**,
+**23:47:51–23:48:03 UTC** on Linux x86-64, generating the default Hello output
+once within that run. It checks all four actual source variants, independently
+forces each of the 21 new guards false, and retains invocation/numeric
+conjunctivity checks. Mutations reject source/count/path/map/physical-byte,
+node/association, permanent/transient population, Pattern String lifetime,
+R=5 warning, filename/prefix ownership, total-GGC, ordinary-line identity and
+Dope_Rec ABI mismatches. The existing partial ledger is checked unchanged.
+A retained Hello shared interface cannot
+impersonate the actual source's interface. The checker records exact
+implementation/input hashes and overlapping validation counts.
+
+An initial 57-check attachment smoke passed in 11.662330 seconds. Required
+guard/identity/ownership coverage was then added, justifying the affected
+118-check recheck. Earlier route **97 checks / 5.222947 seconds** at
+`64e347db16` and numeric-width repair **106 / 10.256185 seconds** remain
+historical evidence, including the long-column capacity failure and its
+expectation-only correction. Frontend43/52, location140/191 and numeric57/106
+successes were reused; no predecessor suite or corpus inventory was repeated.
+
+Selected attachment worker settings were **GPT-6.1 Sol / Extra High**; runtime
+confirmation and token/cost measurements are unavailable. The original
+invocation/numeric wrapper recorded GPT-6 Astra / Extra High for its earlier
+round. No compiler, assembler, binder, linker, prover, solver, debugger,
+capture, build or full suite ran for this attachment. Only the owned aggregate
+note/packet changed; the parent owns independent review, integration, index
+and round records, issue updates and publication.

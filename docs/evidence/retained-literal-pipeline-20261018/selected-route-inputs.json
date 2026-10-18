@@ -108,6 +108,41 @@
       "path": "docs/research/retained-literal-invocation-join.md",
       "bytes": 16456,
       "sha256": "7e09f996caab8479ea34131787e3d4b9d5a2d42ef482231168c71c998827e22b"
+    },
+    {
+      "path": "docs/evidence/retained-literal-frontend-storage-20261018/compose.py",
+      "bytes": 21512,
+      "sha256": "277b2c44ceeb36bafdd282adc54f5733537b2f66947a3b5114ded544cfcc9e47"
+    },
+    {
+      "path": "docs/evidence/retained-literal-frontend-storage-20261018/inputs.json",
+      "bytes": 8609,
+      "sha256": "17a303dd3012fa69820bcc9997ed1067d83b8113eb3f82369b137130a5d3fc1b"
+    },
+    {
+      "path": "docs/evidence/retained-literal-frontend-storage-20261018/result.json",
+      "bytes": 76180,
+      "sha256": "bd4484fc5d56440f0c4afa96631466b695fd85b9e852d3e682a21214172435ec"
+    },
+    {
+      "path": "docs/evidence/retained-literal-frontend-storage-20261018/correction-check-results.json",
+      "bytes": 4558,
+      "sha256": "b4ff9172e9524ea390e8ba141610491a8653b9bcce6ce4da383643647adc7620"
+    },
+    {
+      "path": "docs/evidence/retained-literal-location-lifetime-20261018/derive.py",
+      "bytes": 18966,
+      "sha256": "f001f6f9262d820c1419517debc37a2d3c86da4e398e704229c4cbbc832caf45"
+    },
+    {
+      "path": "docs/evidence/retained-literal-location-lifetime-20261018/inputs.json",
+      "bytes": 36819,
+      "sha256": "5b59dd65d2fc45e506c59c8046b05d36a84527055d2aa05ff2991f68844b2b66"
+    },
+    {
+      "path": "docs/evidence/retained-literal-location-lifetime-20261018/result.json",
+      "bytes": 6830,
+      "sha256": "a480bed483e335308942ec90f634f5bc32bc039b488756592d44d654ab0a79cd"
     }
   ],
   "reviews": [
@@ -128,7 +163,55 @@
       "bytes": 10993,
       "sha256": "e148c176f1ea28b51154d90ff0b8acb19a3723acd87c004ebd38719e0022b565",
       "revision": "9fd3629370f3e3277f6e8768bb2644863594ded9"
+    },
+    {
+      "path": "docs/reviews/review-literal-frontend-numeric-d7034d9520.md",
+      "bytes": 14105,
+      "sha256": "099daf16ea7d7ceaf87398feabe21d414526a61dc64647713d4e26ad500ec6ba",
+      "revision": "0f4ef0ab6f6134702d08aba23b05877260af6951"
+    },
+    {
+      "path": "docs/reviews/review-literal-location-11057399b9.md",
+      "bytes": 13228,
+      "sha256": "1ffb21ade5fc78fbabcbb2c5ec7dd8642e0aba75442a042f48697cd2078b9072",
+      "revision": "ab12d9119a2883759aa3434b1f28b89acd1e2629"
     }
   ],
-  "original_numeric_review_scope": "Historical acceptance of 3a7d590389; generated scope-width correction64237926eb requires its own independent disposition."
+  "original_numeric_review_scope": "Historical original acceptance; corrected numeric64237926eb and selected-routeb9 accepted separately in b6669b3ff7/0f4ef0ab6f.",
+  "frontend_freeze": "24e91ed814923ba9b0e5fecf991eac7a2e1016fa",
+  "frontend_original_freeze": "d7034d952050df0e015958158131b6ccc2e70f64",
+  "location_freeze": "11057399b9",
+  "numeric_and_frontend_accepted_review": "0f4ef0ab6f",
+  "native_shape_inputs": [
+    {
+      "root": "ada",
+      "path": "types.ads",
+      "bytes": 46466,
+      "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5"
+    },
+    {
+      "root": "ada",
+      "path": "types.h",
+      "bytes": 14364,
+      "sha256": "3b688be6eaba2108885ddaa0342be93416f3f53da12d3e4f6dc2fb38ee787fa3"
+    },
+    {
+      "root": "ada",
+      "path": "sinput.ads",
+      "bytes": 43979,
+      "sha256": "48657f3ca583b754d10f2798fb61c54d85b556c2cd6f10036acff685d57a682b"
+    },
+    {
+      "root": "ada",
+      "path": "sinput-l.adb",
+      "bytes": 30951,
+      "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd"
+    },
+    {
+      "root": "plugin",
+      "path": "auto-host.h",
+      "bytes": 62999,
+      "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14"
+    }
+  ]
 }

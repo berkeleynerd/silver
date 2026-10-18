@@ -1,10 +1,10 @@
 {
-  "scope": "selected literal native design route and numeric attachment; incomplete whole pipeline",
+  "scope": "selected literal native frontend, location and numeric design route; incomplete whole pipeline",
   "source": {
     "bytes": 118,
     "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
   },
-  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/samples/hello_world.adb",
+  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/literal-selected-frontend-location-20261018/samples/hello_world.adb",
   "source_counts": {
     "source_bytes": 118,
     "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
@@ -104,7 +104,28 @@
     "native_Ada_numeric_selected_local_numeric_objects": true,
     "native_Ada_numeric_float_callback_vector": true,
     "native_Ada_numeric_original_constant_callback_digits": true,
-    "native_Ada_numeric_Rep_Table_index_negation": true
+    "native_Ada_numeric_Rep_Table_index_negation": true,
+    "native_frontend_configuration": true,
+    "native_frontend_core_tables": true,
+    "native_frontend_parser_auxiliary": true,
+    "native_frontend_invocation": true,
+    "native_frontend_numeric": true,
+    "native_frontend_physical_sources": true,
+    "native_frontend_gigi_array_and_name_input": true,
+    "native_location_ad_hoc_storage": true,
+    "native_location_later_warning_storage": true,
+    "native_location_filename_direct_objects": true,
+    "native_location_Main_ordinary_map_lines": true,
+    "native_location_fixed_runtime_ordinary_map_lines": true,
+    "native_location_fixed_extra_ordinary_map_lines": true,
+    "native_location_virtual_template_ordinary_map_lines": true,
+    "native_indexed_identifier_historical_insertions_unsigned": true,
+    "native_indexed_identifier_slot_threshold_unsigned": true,
+    "native_indexed_identifier_doubling_unsigned": true,
+    "native_indexed_identifier_individual_request": true,
+    "native_indexed_serial_incoming_temporary_name_serial_unsigned": true,
+    "native_indexed_serial_temporary_name_serial_unsigned": true,
+    "native_virtual_Dope_Rec_individual_request": true
   },
   "conditional_conditions": {
     "shared_launch_paths": true,
@@ -154,7 +175,28 @@
     "native_Ada_numeric_selected_local_numeric_objects": true,
     "native_Ada_numeric_float_callback_vector": true,
     "native_Ada_numeric_original_constant_callback_digits": true,
-    "native_Ada_numeric_Rep_Table_index_negation": true
+    "native_Ada_numeric_Rep_Table_index_negation": true,
+    "native_frontend_configuration": true,
+    "native_frontend_core_tables": true,
+    "native_frontend_parser_auxiliary": true,
+    "native_frontend_invocation": true,
+    "native_frontend_numeric": true,
+    "native_frontend_physical_sources": true,
+    "native_frontend_gigi_array_and_name_input": true,
+    "native_location_ad_hoc_storage": true,
+    "native_location_later_warning_storage": true,
+    "native_location_filename_direct_objects": true,
+    "native_location_Main_ordinary_map_lines": true,
+    "native_location_fixed_runtime_ordinary_map_lines": true,
+    "native_location_fixed_extra_ordinary_map_lines": true,
+    "native_location_virtual_template_ordinary_map_lines": true,
+    "native_indexed_identifier_historical_insertions_unsigned": true,
+    "native_indexed_identifier_slot_threshold_unsigned": true,
+    "native_indexed_identifier_doubling_unsigned": true,
+    "native_indexed_identifier_individual_request": true,
+    "native_indexed_serial_incoming_temporary_name_serial_unsigned": true,
+    "native_indexed_serial_temporary_name_serial_unsigned": true,
+    "native_virtual_Dope_Rec_individual_request": true
   },
   "conditional_arithmetic_pass": true,
   "failed_conditional_predicates": [],
@@ -205,7 +247,7 @@
       "bytes": 118,
       "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
     },
-    "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/samples/hello_world.adb",
+    "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/literal-selected-frontend-location-20261018/samples/hello_world.adb",
     "actual_shared_inputs": {
       "configuration": {
         "bytes": 327,
@@ -9839,7 +9881,7 @@
       "Physical resources and ordinary external OS/libc services remain separate."
     ]
   },
-  "core_result_scope": "Unmodified core evaluated on the selected descriptor before invocation/numeric attachment. Its predicates, open_joins and nested shared diagnostics are intermediate historical-in-derivation diagnostics, not the selected verdict. All original local capacity guards are retained above.",
+  "core_result_scope": "Unmodified core evaluated before selected attachments. Its predicates, old1588/1589/3178 shared population/identifier/serial fields and open joins are scoped historical-in-derivation intermediates. Current populations and corrected shared fields are selected_native_frontend_storage and selected_current_source_bound_shared_storage; all original local guards remain above.",
   "selected_native_invocation": {
     "scope": "selected native literal invocation and pinned fixed-library configuration",
     "source_identity": {
@@ -12544,11 +12586,2873 @@
     "complete_original_gigi": false,
     "complete_native_capacity": false
   },
+  "selected_native_frontend_storage": {
+    "scope": "selected literal Main frontend logical/physical/backing component join",
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "descriptor_identity": {
+      "bytes": 372,
+      "sha256": "d93641709c95115f856ed1ab778dca481616d228b57b1b9dd6e07dec4d2f0562"
+    },
+    "selected_launch": {
+      "Main": "/tmp/silver-literal-route-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+      "native": {
+        "Main": "/tmp/silver-literal-route-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+        "cwd": "/tmp/silver-literal-route-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj",
+        "configuration": "/tmp/silver-literal-route-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000002.TMP",
+        "mapping": "/tmp/silver-literal-route-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000003.TMP",
+        "assembly": "/tmp/silver-literal-route-20261018/ttttttttttttt/cc000000.s"
+      },
+      "path_spelling_characters": 512,
+      "path_bytes_including_NUL": 513,
+      "gnat1_argv_positions_upper": 25,
+      "fixed_Silver_compile_jobs": 0
+    },
+    "configuration_input_identities": {
+      "configuration": {
+        "bytes": 327,
+        "sha256": "46f3acf27365a700a8dbebdd40ad92eb76e2f43091b056a1bb7e0d494045b6e8"
+      },
+      "System": {
+        "bytes": 7503,
+        "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
+      },
+      "silver_io.ads": {
+        "bytes": 2222,
+        "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+      },
+      "silver_io.adb": {
+        "bytes": 3358,
+        "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+      },
+      "silver_output_libc.ads": {
+        "bytes": 1532,
+        "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+      }
+    },
+    "mapping": {
+      "path": "/tmp/silver-literal-route-20261018/ttttttttttttt/GPR.1000000001/GNAT-TEMP-000003.TMP",
+      "bytes": 612,
+      "sha256": "5863954066fade5f89d7758ae34625ceafab60095b383474384df424c6acd9f1",
+      "records": 4
+    },
+    "frontend_logical_join_before_numeric_callbacks": {
+      "tables": {
+        "node_identities": 41294,
+        "dynamic_slots": 442730,
+        "syntax_list_headers": 6556,
+        "Elist_headers": 2356,
+        "Elist_elements": 1596884,
+        "Uint_entries": 24331,
+        "Uint_digits": 75019,
+        "Ureal_entries": 60,
+        "String_descriptors": 215,
+        "String_characters": 7321,
+        "Name_entries": 6296,
+        "Name_characters": 1610493,
+        "All_Interp_entries": 876,
+        "Name_Qualify_Units_entries": 139,
+        "Xrefs_entries": 82360,
+        "Drefs_entries": 0,
+        "node_list_link_entries": 41296
+      },
+      "fixed": {
+        "node_identities": 41234,
+        "entity_identities": 40888,
+        "dynamic_slots": 441971,
+        "syntax_list_headers": 6533,
+        "Elist_headers": 2313,
+        "Elist_elements": 2096,
+        "Uint_entries": 24324,
+        "Uint_digits": 74958,
+        "Ureal_entries": 60,
+        "String_descriptors": 213,
+        "String_characters": 7295,
+        "Name_entries": 6241,
+        "Name_characters": 1607769,
+        "fixed_Name_buffer_bound": 10421,
+        "Xrefs": 353,
+        "semantic_units": 39,
+        "implicit_with_ordinary_nodes": 288,
+        "first_RTE_Elist_headers": 1336,
+        "input_name_character_correction": 0,
+        "pathname_length_input": 512,
+        "gpr_naming_configuration": {
+          "source": "docs/evidence/unbounded-programs/retained-source-closure-20261017/driver-snapshots/293256/GNAT-TEMP-000002.TMP",
+          "sha256": "3d84ea27f99f81f20bd402e0c255538ad3d04c82d26e10ee32ea68c9fd4b1574",
+          "source_bytes": 244,
+          "ordinary_nodes": 40,
+          "dynamic_slots": 360,
+          "syntax_list_headers": 5,
+          "Name_entries": 12,
+          "Name_characters": 160,
+          "String_descriptors": 8,
+          "String_characters": 24,
+          "entities": 0,
+          "Elist_headers": 0,
+          "Elist_elements": 0,
+          "Uint_entries": 0,
+          "Uint_digits": 0,
+          "SFN_Patterns_entries": 2,
+          "SFN_Table_entries": 0,
+          "pattern_String_allocations": 6,
+          "pattern_String_character_sum": 14,
+          "maximum_pattern_String_characters": 5,
+          "filename_map_switch_and_search_storage_included": false,
+          "whole_invocation_delta_closed": false
+        },
+        "additional_gpr_path_map_switch_storage_closed": false,
+        "variable_default_literal_included": false,
+        "whole_native_frontend_closed": false,
+        "indexed_configuration_delta": {
+          "LF_count": 1,
+          "SFN_Patterns_entries": 0,
+          "SFN_Table_entries": 1,
+          "SFN_Table_increment_percent": 200,
+          "SFN_Table_initial": 10,
+          "SFN_Table_initial_object_bytes": 120,
+          "SFN_Table_low": 0,
+          "SFN_Table_record_bytes": 12,
+          "SFN_hash_new_wrapper_bytes": 16,
+          "SFN_hash_static_bucket_bytes": 808,
+          "String_characters": 16,
+          "String_descriptors": 2,
+          "Uint_digits": 0,
+          "Uint_entries": 0,
+          "composed_configuration_bytes": 327,
+          "configured_source_cursor_alignment_delta_upper_bound": 4178,
+          "dynamic_slot_allowance": 162,
+          "evidence_kind": "source-derived additive line; no generated indexed .adc was retained",
+          "helper_Name_characters": 16,
+          "helper_Name_entries": 2,
+          "helper_Name_spellings": [
+            "main%b",
+            "main.adb"
+          ],
+          "maximum_line_characters": 82,
+          "observed_generated_config_file": false,
+          "ordinary_node_allowance": 18,
+          "pattern_String_allocations": 0,
+          "scanner_Name_characters": 58,
+          "scanner_Name_entries": 5,
+          "source_bytes": 83,
+          "syntax_list_header_allowance": 2
+        }
+      },
+      "Main_constructor": {
+        "rows": {
+          "original_scalar": {
+            "ordinary": 0,
+            "lists": 0,
+            "growth": 0,
+            "entities_and_names": 0,
+            "uint": 0
+          },
+          "for_skeleton": {
+            "ordinary": 0,
+            "lists": 0,
+            "growth": 0,
+            "entities_and_names": 0,
+            "name_characters": 0,
+            "uint": 0
+          },
+          "Integer_stores": {
+            "ordinary": 0,
+            "lists": 0,
+            "growth": 0,
+            "entities_and_names": 0,
+            "name_characters": 0,
+            "uint": 0
+          },
+          "String_stores": {
+            "ordinary": 0,
+            "growth": 0,
+            "lists": 0,
+            "entities_and_names": 0,
+            "uint": 0,
+            "name_characters": 0,
+            "dynamic_slots": 0
+          },
+          "standalone_String_literals": {
+            "ordinary": 0,
+            "growth": 0,
+            "lists": 0,
+            "entities_and_names": 1,
+            "name_characters": 13,
+            "uint": 6,
+            "dynamic_slots": 61
+          },
+          "predicates_and_control": {
+            "ordinary": 0,
+            "lists": 0,
+            "growth": 0,
+            "entities_and_names": 0,
+            "name_characters": 0,
+            "uint": 0
+          },
+          "Image": {
+            "elists": 0,
+            "entities_and_names": 0,
+            "growth": 0,
+            "lists": 0,
+            "name_characters": 0,
+            "ordinary": 0,
+            "positive_xref_increments": 0,
+            "uint": 0
+          },
+          "output_wrappers": {
+            "ordinary": 5,
+            "growth": 1,
+            "entities_and_names": 1,
+            "name_entries": 3,
+            "name_characters": 57,
+            "lists": 2,
+            "uint": 1,
+            "retained_digit_words": 1,
+            "Name_Qualify_Units_appends": 1,
+            "dynamic_slots": 115
+          },
+          "source_calls_and_leaves": {
+            "ordinary": 15,
+            "lists": 16,
+            "growth": 4,
+            "entities_and_names": 0,
+            "name_characters": 0,
+            "uint": 0
+          },
+          "concat_emission": {
+            "entities_and_names": 0,
+            "growth": 0,
+            "hash_wrappers": 0,
+            "lists": 0,
+            "name_characters": 0,
+            "ordinary": 0,
+            "pending_elist_elements": 0,
+            "pending_elist_headers": 0,
+            "positive_xref_increments": 0,
+            "uint": 0
+          },
+          "concat_folding_literals": {
+            "ordinary": 0,
+            "growth": 0,
+            "entities_and_names": 0,
+            "name_characters": 0,
+            "uint": 0,
+            "string_descriptors": 0,
+            "string_characters": 0,
+            "lists": 0
+          }
+        },
+        "total": {
+          "ordinary": 20,
+          "growth": 5,
+          "lists": 18,
+          "entities_and_names": 2,
+          "name_characters": 70,
+          "uint": 7,
+          "string_descriptors": 0,
+          "string_characters": 0,
+          "pending_elist_headers": 0,
+          "pending_elist_elements": 0,
+          "hash_wrappers": 0,
+          "positive_xref_increments": 0,
+          "Name_Qualify_Units_appends": 1,
+          "generated_name_entries": 4,
+          "node_identities": 60,
+          "entity_identities": 3,
+          "dynamic_slots": 759,
+          "syntax_list_headers": 23,
+          "retained_digit_words": 61
+        },
+        "source_query_envelope": {
+          "source_bound_H": 2,
+          "effective_bound_H": 4,
+          "root_envelopes": {
+            "source_scalar": 2,
+            "String_index_bounds": 4,
+            "String_Length": 9,
+            "converted_String_Length": 10,
+            "optimized_String_Length": 19,
+            "String_same_value": 17,
+            "Image_local": 17
+          },
+          "A": 19,
+          "descriptors_are_source_input": true,
+          "whole_native_frontend_closed": false
+        },
+        "Uint_digit_rows": {
+          "original_scalar": 0,
+          "for_skeleton": 0,
+          "Integer_stores": 0,
+          "String_stores": 0,
+          "standalone_String_literals": 60,
+          "concat_emission": 0,
+          "predicates_and_control": 0,
+          "Image": 0,
+          "output_wrappers": 1,
+          "concat_folding_literals": 0,
+          "source_calls_and_leaves": 0
+        },
+        "Uint_digit_families": {
+          "scalar_A": 2,
+          "scalar": 18,
+          "additive_String": 10,
+          "additive_String_magnitude": 53084049239666400300286438759355840987136,
+          "scope": 1,
+          "Image": 10,
+          "folded_literal": 3
+        },
+        "earlier_uniform_digit_words": 1155,
+        "common_Uint_digit_bound": 18,
+        "scope": "Main source/generated constructor core, before fixed and common-process residuals",
+        "whole_native_frontend_closed": false
+      },
+      "common": {
+        "All_Interp_Main_entries": 39,
+        "Interp_Map_Main_bindings": 26,
+        "qualification_Name_entries": 3,
+        "qualification_Name_characters": 150,
+        "max_unqualified_name": 15,
+        "max_qualified_name": 49,
+        "qualification_scope_path_members": 4,
+        "Name_Qualify_Units_Main_appends": 3,
+        "Xrefs_backing_demand": 82360,
+        "Xref_sort_vector_Nat_words": 82361,
+        "Drefs_Main_appends": 0,
+        "unit_boundary_Elist_headers": 40,
+        "unit_boundary_Elist_elements": 1594788,
+        "fixed_input_name_character_correction": "4*(input_identifier_length-1), when present; separate from this variable-entity qualification addend",
+        "whole_native_frontend_closed": false
+      },
+      "invocation": {
+        "target_frontier": [
+          "silver_io__put",
+          "silver_io__put_line",
+          "silver_arguments__input_is_valid",
+          "silver_arguments__first_or_default",
+          "silver_arguments__reject",
+          "main",
+          "main___finalizer",
+          "system__img_int__image_integer",
+          "system__secondary_stack__ss_allocate",
+          "system__secondary_stack__ss_mark",
+          "system__secondary_stack__ss_release",
+          "system__concat_2__str_concat_2",
+          "system__concat_3__str_concat_3",
+          "system__concat_4__str_concat_4",
+          "system__concat_5__str_concat_5",
+          "system__concat_6__str_concat_6",
+          "system__concat_7__str_concat_7",
+          "system__concat_8__str_concat_8",
+          "system__concat_9__str_concat_9"
+        ],
+        "Scenario_Reps_Main_entries": 41235,
+        "Node_To_Scenario_Main_bindings": 41235,
+        "Target_Reps_Main_entries": 19,
+        "Entity_To_Target_Main_bindings": 19,
+        "Declaration_Scenarios_Main_members": 41235,
+        "Dynamic_ABE_Check_Main_members": 0,
+        "Library_Body_Main_members": 0,
+        "Library_Spec_Main_members": 0,
+        "SPARK_Main_members": 0,
+        "Early_Call_Regions_Main_bindings": 0,
+        "Unit_To_Attributes_Main_bindings": 0,
+        "Active_Scenario_Stack_Main_peak": 3,
+        "Nested_Scenarios_Main_bindings": 2,
+        "Nested_Scenario_list_headers": 2,
+        "Nested_Scenario_list_elements": 82496,
+        "Traversed_Bodies_Main_peak": 2,
+        "Traversed_Bodies_Main_lifetime_insertions": 4,
+        "Saved_Constructs_Main_members": 19,
+        "Saved_Relations_Main_members": 361,
+        "ALI_Invocation_Constructs": 19,
+        "ALI_Invocation_Relations": 361,
+        "ALI_Invocation_Signatures": 19,
+        "ALI_Signature_Map_bindings": 19,
+        "signature_scope_Name_entries": 19,
+        "signature_scope_Name_characters": 608,
+        "signature_scope_Name_buffer_peak": 31,
+        "instantiation_location_names": 0,
+        "max_serialized_signature_characters": 97,
+        "invocation_ALI_characters": 91980,
+        "signature_location_local_buffer": 2052,
+        "additional_Uint_appends": 0,
+        "whole_native_frontend_closed": false
+      },
+      "stacks": {
+        "Scope_Stack_live_entries": 1120,
+        "Scope_Stack_variable_permanent": 1,
+        "Scope_Stack_temporary_freeze_allowance": 2,
+        "Expander_Flags_live_entries": 581,
+        "Saved_Checks_TOS_peak": 6550,
+        "Saved_Checks_Main_records": 0,
+        "Saved_Checks_fixed_records": 200,
+        "Saved_Checks_Stack_fixed_Nat_words": 100,
+        "semantic_scope_depth_additional_Uints": 0,
+        "counters_require_signed_Int_headroom": true,
+        "physical_call_stack_bytes_included": false,
+        "whole_native_frontend_closed": false
+      },
+      "parser_auxiliary": {
+        "Main_Elist_headers": 3,
+        "Main_Elist_elements": 0,
+        "Main_Name_entries": 0,
+        "Main_Name_characters": 0,
+        "Main_scope_depth_bound": 0,
+        "Scope_live_entries": 41236,
+        "Scope_component_bytes_upper_bound": 36,
+        "Suspicious_Labels_entries": 41234,
+        "Suspicious_Labels_component_bytes": 12,
+        "Loop_Block_Count_bound": 41234,
+        "fixed_node_allowance": 41234,
+        "AST_and_syntax_list_additions": 0,
+        "whole_native_frontend_closed": false
+      },
+      "selected_configuration_storage": {
+        "mapping_records": 4,
+        "mapping_bytes": 612,
+        "maximum_input_map_field": 132,
+        "maximum_future_map_field": 512,
+        "Name_entries": 16,
+        "Name_characters": 1808,
+        "path_files": [],
+        "tables": {
+          "File_Mapping": {
+            "demand": 56,
+            "low_bound": 1,
+            "initial": 1000,
+            "increment_percent": 1000,
+            "component_bytes_upper_bound": 8,
+            "backing_capacity_bound": 11000,
+            "bytes_with_sentinel": 88008,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Path_Mapping": {
+            "demand": 56,
+            "low_bound": 1,
+            "initial": 1000,
+            "increment_percent": 1000,
+            "component_bytes_upper_bound": 8,
+            "backing_capacity_bound": 11000,
+            "bytes_with_sentinel": 88008,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Src_Search_Directories": {
+            "demand": 6,
+            "low_bound": 0,
+            "initial": 10,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 20,
+            "bytes_with_sentinel": 336,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Lib_Search_Directories": {
+            "demand": 4,
+            "low_bound": 0,
+            "initial": 10,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 20,
+            "bytes_with_sentinel": 336,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          }
+        },
+        "checks": {
+          "mapping_read_Lo_plus_length": true,
+          "mapping_Get_Line_plus_two": true,
+          "map_and_filename_Name_Buffer": true,
+          "declared_path_bound": true,
+          "mapping_update_single_line": true,
+          "mapping_update_buffer_addition": true,
+          "mapping_update_iteration_plus_one": true,
+          "mapping_read_single_object": true,
+          "file_paths_single_String": true,
+          "one_config_String_List": true,
+          "map_hash_single_wrapper": true,
+          "map_hash_single_bucket_array": true,
+          "path_files": true,
+          "tables": true
+        },
+        "map_hash_wrappers_each_table_bound": 56,
+        "map_hash_wrapper_bytes": 16,
+        "map_hash_bucket_array_bytes": 8008,
+        "aggregate_hash_bytes_is_not_an_admission_gate": true,
+        "source_cursor_charge_for_map_or_path_files": 0,
+        "all_selected_checks_pass": true,
+        "additional_argv_default_search_and_other_paths_included": false,
+        "installed_GPR_or_producer_source_identity_claimed": false,
+        "whole_invocation_closed": false
+      },
+      "scanner_pool_inputs": {
+        "Name_entries": 13,
+        "Name_characters": 88,
+        "Uint_entries": 0,
+        "Uint_digits": 0,
+        "String_descriptors": 2,
+        "String_characters": 26
+      },
+      "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
+      "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; ALI consumers/debug and backend diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
+      "whole_native_frontend_closed": false
+    },
+    "joined_logical_tables": {
+      "node_identities": 41294,
+      "dynamic_slots": 442730,
+      "syntax_list_headers": 6556,
+      "Elist_headers": 2356,
+      "Elist_elements": 1596884,
+      "Uint_entries": 28429,
+      "Uint_digits": 107797,
+      "Ureal_entries": 67,
+      "String_descriptors": 215,
+      "String_characters": 7321,
+      "Name_entries": 6296,
+      "Name_characters": 1610493,
+      "All_Interp_entries": 876,
+      "Name_Qualify_Units_entries": 139,
+      "Xrefs_entries": 0,
+      "Drefs_entries": 0,
+      "node_list_link_entries": 41296
+    },
+    "numeric_base_projection": {
+      "Uints": 24331,
+      "Udigits": 75019,
+      "Ureals": 60
+    },
+    "numeric_lifetime_projection": {
+      "Uints": 28429,
+      "Udigits": 107797,
+      "Ureals": 67,
+      "Rep_Table": 504
+    },
+    "numeric_added_callback_projection": {
+      "Uints": 4098,
+      "Udigits": 32778,
+      "Ureals": 7
+    },
+    "numeric_accounting": "Three named table projections replaced by accepted lifetime demands; Rep_Table stays in numeric component only.",
+    "components": {
+      "configuration": {
+        "mapping_records": 4,
+        "mapping_bytes": 612,
+        "maximum_input_map_field": 132,
+        "maximum_future_map_field": 512,
+        "Name_entries": 16,
+        "Name_characters": 1808,
+        "path_files": [],
+        "tables": {
+          "File_Mapping": {
+            "demand": 56,
+            "low_bound": 1,
+            "initial": 1000,
+            "increment_percent": 1000,
+            "component_bytes_upper_bound": 8,
+            "backing_capacity_bound": 11000,
+            "bytes_with_sentinel": 88008,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Path_Mapping": {
+            "demand": 56,
+            "low_bound": 1,
+            "initial": 1000,
+            "increment_percent": 1000,
+            "component_bytes_upper_bound": 8,
+            "backing_capacity_bound": 11000,
+            "bytes_with_sentinel": 88008,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Src_Search_Directories": {
+            "demand": 6,
+            "low_bound": 0,
+            "initial": 10,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 20,
+            "bytes_with_sentinel": 336,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Lib_Search_Directories": {
+            "demand": 4,
+            "low_bound": 0,
+            "initial": 10,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 20,
+            "bytes_with_sentinel": 336,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          }
+        },
+        "checks": {
+          "mapping_read_Lo_plus_length": true,
+          "mapping_Get_Line_plus_two": true,
+          "map_and_filename_Name_Buffer": true,
+          "declared_path_bound": true,
+          "mapping_update_single_line": true,
+          "mapping_update_buffer_addition": true,
+          "mapping_update_iteration_plus_one": true,
+          "mapping_read_single_object": true,
+          "file_paths_single_String": true,
+          "one_config_String_List": true,
+          "map_hash_single_wrapper": true,
+          "map_hash_single_bucket_array": true,
+          "path_files": true,
+          "tables": true
+        },
+        "map_hash_wrappers_each_table_bound": 56,
+        "map_hash_wrapper_bytes": 16,
+        "map_hash_bucket_array_bytes": 8008,
+        "aggregate_hash_bytes_is_not_an_admission_gate": true,
+        "source_cursor_charge_for_map_or_path_files": 0,
+        "all_selected_checks_pass": true,
+        "additional_argv_default_search_and_other_paths_included": false,
+        "installed_GPR_or_producer_source_identity_claimed": false,
+        "whole_invocation_closed": false
+      },
+      "core_tables": {
+        "tables": {
+          "Node_Offsets": {
+            "demand": 41294,
+            "low_bound": 0,
+            "initial": 500000,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 1000000,
+            "bytes_with_sentinel": 16000016,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Orig_Nodes": {
+            "demand": 41294,
+            "low_bound": 0,
+            "initial": 500000,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 4,
+            "backing_capacity_bound": 1000000,
+            "bytes_with_sentinel": 4000004,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Next_Node": {
+            "demand": 41296,
+            "low_bound": 0,
+            "initial": 500000,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 4,
+            "backing_capacity_bound": 1000000,
+            "bytes_with_sentinel": 4000004,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Prev_Node": {
+            "demand": 41296,
+            "low_bound": 0,
+            "initial": 500000,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 4,
+            "backing_capacity_bound": 1000000,
+            "bytes_with_sentinel": 4000004,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Slots": {
+            "demand": 442730,
+            "low_bound": 1,
+            "initial": 2000000,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 4,
+            "backing_capacity_bound": 4000000,
+            "bytes_with_sentinel": 16000004,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Lists": {
+            "demand": 6556,
+            "low_bound": -99999999,
+            "initial": 4000,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 12,
+            "backing_capacity_bound": 19668,
+            "bytes_with_sentinel": 236028,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Elists": {
+            "demand": 2356,
+            "low_bound": -199999998,
+            "initial": 200,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 8,
+            "backing_capacity_bound": 4712,
+            "bytes_with_sentinel": 37704,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Elmts": {
+            "demand": 1596884,
+            "low_bound": -299999998,
+            "initial": 1200,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 8,
+            "backing_capacity_bound": 3193768,
+            "bytes_with_sentinel": 25550152,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Uints": {
+            "demand": 28429,
+            "low_bound": -699999999,
+            "initial": 5000,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 8,
+            "backing_capacity_bound": 56858,
+            "bytes_with_sentinel": 454872,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Udigits": {
+            "demand": 107797,
+            "low_bound": 0,
+            "initial": 10000,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 4,
+            "backing_capacity_bound": 215594,
+            "bytes_with_sentinel": 862380,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Ureals": {
+            "demand": 67,
+            "low_bound": -599999998,
+            "initial": 200,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 400,
+            "bytes_with_sentinel": 6416,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Strings": {
+            "demand": 215,
+            "low_bound": -499999998,
+            "initial": 500,
+            "increment_percent": 150,
+            "component_bytes_upper_bound": 8,
+            "backing_capacity_bound": 1250,
+            "bytes_with_sentinel": 10008,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "String_Chars": {
+            "demand": 7321,
+            "low_bound": 0,
+            "initial": 2500,
+            "increment_percent": 150,
+            "component_bytes_upper_bound": 4,
+            "backing_capacity_bound": 18302,
+            "bytes_with_sentinel": 73212,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Name_Entries": {
+            "demand": 6296,
+            "low_bound": -399999997,
+            "initial": 6000,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 12592,
+            "bytes_with_sentinel": 201488,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Name_Chars": {
+            "demand": 1610493,
+            "low_bound": 0,
+            "initial": 50000,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 1,
+            "backing_capacity_bound": 3220986,
+            "bytes_with_sentinel": 3220987,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "All_Interp": {
+            "demand": 876,
+            "low_bound": 0,
+            "initial": 1000,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 2000,
+            "bytes_with_sentinel": 32016,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Name_Qualify_Units": {
+            "demand": 139,
+            "low_bound": 1,
+            "initial": 200,
+            "increment_percent": 300,
+            "component_bytes_upper_bound": 4,
+            "backing_capacity_bound": 800,
+            "bytes_with_sentinel": 3204,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Xrefs": {
+            "demand": 0,
+            "low_bound": 1,
+            "initial": 5000,
+            "increment_percent": 300,
+            "component_bytes_upper_bound": 40,
+            "backing_capacity_bound": 20000,
+            "bytes_with_sentinel": 800040,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Scope_Stack": {
+            "demand": 1120,
+            "low_bound": 0,
+            "initial": 10,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 320,
+            "backing_capacity_bound": 3360,
+            "bytes_with_sentinel": 1075520,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Expander_Flags": {
+            "demand": 581,
+            "low_bound": 0,
+            "initial": 32,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 1,
+            "backing_capacity_bound": 1743,
+            "bytes_with_sentinel": 1744,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Paren_Counts": {
+            "demand": 41294,
+            "low_bound": 0,
+            "initial": 10,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 8,
+            "backing_capacity_bound": 123882,
+            "bytes_with_sentinel": 991064,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Parents_Stack": {
+            "demand": 41295,
+            "low_bound": 1,
+            "initial": 256,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 4,
+            "backing_capacity_bound": 82590,
+            "bytes_with_sentinel": 330364,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          }
+        },
+        "auxiliary_bytes": {
+          "Interp_Map_buckets": 24632,
+          "Interp_Map_wrapper_bytes": 660160,
+          "Xref_static_hash_headers": 262144,
+          "Xref_sort_vector": 4,
+          "Saved_Checks": 4000,
+          "Saved_Checks_stack": 400
+        },
+        "selected_tables_reallocation_peak_bytes": 156725802,
+        "interned_name_length_bound": 10421,
+        "checks": {
+          "all_selected_tables": true,
+          "interned_name_Short_length": true,
+          "name_buffer": true,
+          "saved_check_counter": true,
+          "auxiliary_single_objects": true
+        },
+        "all_selected_checks_pass": true,
+        "allocation_success_claimed": false,
+        "whole_process_memory_or_capacity_closed": false
+      },
+      "parser_auxiliary": {
+        "tables": {
+          "Scope": {
+            "demand": 41236,
+            "low_bound": 0,
+            "initial": 50,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 36,
+            "backing_capacity_bound": 82472,
+            "bytes_with_sentinel": 2969028,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Suspicious_Labels": {
+            "demand": 41234,
+            "low_bound": 1,
+            "initial": 50,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 12,
+            "backing_capacity_bound": 82468,
+            "bytes_with_sentinel": 989628,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          }
+        },
+        "checks": {
+          "tables": true,
+          "Loop_Block_Count": true
+        },
+        "all_selected_checks_pass": true,
+        "physical_recursive_stack_included": false,
+        "whole_native_frontend_closed": false
+      },
+      "invocation": {
+        "tables": {
+          "Scenario_Reps": {
+            "demand": 41247,
+            "low_bound": 1,
+            "initial": 1000,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 160,
+            "backing_capacity_bound": 123741,
+            "bytes_with_sentinel": 19798720,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Target_Reps": {
+            "demand": 22,
+            "low_bound": 1,
+            "initial": 1000,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 160,
+            "backing_capacity_bound": 3000,
+            "bytes_with_sentinel": 480160,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Active_Scenario_Stack": {
+            "demand": 27,
+            "low_bound": 1,
+            "initial": 50,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 4,
+            "backing_capacity_bound": 150,
+            "bytes_with_sentinel": 604,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Elaboration_Attributes": {
+            "demand": 0,
+            "low_bound": 1,
+            "initial": 250,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 8,
+            "backing_capacity_bound": 750,
+            "bytes_with_sentinel": 6008,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "ALI_Invocation_Constructs": {
+            "demand": 20,
+            "low_bound": 1,
+            "initial": 2500,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 7500,
+            "bytes_with_sentinel": 120016,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "ALI_Invocation_Relations": {
+            "demand": 363,
+            "low_bound": 1,
+            "initial": 2500,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 7500,
+            "bytes_with_sentinel": 120016,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "ALI_Invocation_Signatures": {
+            "demand": 22,
+            "low_bound": 1,
+            "initial": 2500,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 20,
+            "backing_capacity_bound": 7500,
+            "bytes_with_sentinel": 150020,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          }
+        },
+        "hashes": {
+          "Node_To_Scenario": {
+            "pair_bound": 41247,
+            "initial_buckets": 500,
+            "bucket_count_bound": 82494,
+            "node_bytes_upper_bound": 24,
+            "bucket_array_bytes_with_descriptor": 1979872,
+            "iterator_peak_bound": 0,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "Entity_To_Target": {
+            "pair_bound": 22,
+            "initial_buckets": 500,
+            "bucket_count_bound": 500,
+            "node_bytes_upper_bound": 24,
+            "bucket_array_bytes_with_descriptor": 12016,
+            "iterator_peak_bound": 0,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "Declaration_Scenarios": {
+            "pair_bound": 82469,
+            "initial_buckets": 1000,
+            "bucket_count_bound": 164938,
+            "node_bytes_upper_bound": 24,
+            "bucket_array_bytes_with_descriptor": 3958528,
+            "iterator_peak_bound": 1,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "Dynamic_ABE_Check": {
+            "pair_bound": 41234,
+            "initial_buckets": 500,
+            "bucket_count_bound": 82468,
+            "node_bytes_upper_bound": 24,
+            "bucket_array_bytes_with_descriptor": 1979248,
+            "iterator_peak_bound": 1,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "Library_Body": {
+            "pair_bound": 41234,
+            "initial_buckets": 1000,
+            "bucket_count_bound": 82468,
+            "node_bytes_upper_bound": 24,
+            "bucket_array_bytes_with_descriptor": 1979248,
+            "iterator_peak_bound": 1,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "Library_Spec": {
+            "pair_bound": 41234,
+            "initial_buckets": 1000,
+            "bucket_count_bound": 82468,
+            "node_bytes_upper_bound": 24,
+            "bucket_array_bytes_with_descriptor": 1979248,
+            "iterator_peak_bound": 1,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "SPARK": {
+            "pair_bound": 41234,
+            "initial_buckets": 100,
+            "bucket_count_bound": 82468,
+            "node_bytes_upper_bound": 24,
+            "bucket_array_bytes_with_descriptor": 1979248,
+            "iterator_peak_bound": 1,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "Early_Call_Regions": {
+            "pair_bound": 41234,
+            "initial_buckets": 100,
+            "bucket_count_bound": 82468,
+            "node_bytes_upper_bound": 24,
+            "bucket_array_bytes_with_descriptor": 1979248,
+            "iterator_peak_bound": 0,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "Unit_To_Attributes": {
+            "pair_bound": 0,
+            "initial_buckets": 250,
+            "bucket_count_bound": 250,
+            "node_bytes_upper_bound": 24,
+            "bucket_array_bytes_with_descriptor": 6016,
+            "iterator_peak_bound": 0,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "Nested_Scenarios": {
+            "pair_bound": 2,
+            "initial_buckets": 250,
+            "bucket_count_bound": 250,
+            "node_bytes_upper_bound": 32,
+            "bucket_array_bytes_with_descriptor": 8016,
+            "iterator_peak_bound": 0,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "Traversed_Bodies": {
+            "pair_bound": 2,
+            "initial_buckets": 250,
+            "bucket_count_bound": 250,
+            "node_bytes_upper_bound": 24,
+            "bucket_array_bytes_with_descriptor": 6016,
+            "iterator_peak_bound": 0,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "Saved_Constructs": {
+            "pair_bound": 20,
+            "initial_buckets": 100,
+            "bucket_count_bound": 100,
+            "node_bytes_upper_bound": 24,
+            "bucket_array_bytes_with_descriptor": 2416,
+            "iterator_peak_bound": 0,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "Saved_Relations": {
+            "pair_bound": 363,
+            "initial_buckets": 200,
+            "bucket_count_bound": 726,
+            "node_bytes_upper_bound": 32,
+            "bucket_array_bytes_with_descriptor": 23248,
+            "iterator_peak_bound": 0,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          },
+          "ALI_Signature_Map": {
+            "pair_bound": 22,
+            "initial_buckets": 500,
+            "bucket_count_bound": 500,
+            "node_bytes_upper_bound": 40,
+            "bucket_array_bytes_with_descriptor": 20016,
+            "iterator_peak_bound": 0,
+            "checks": {
+              "initial_Positive": true,
+              "pair_increment": true,
+              "iterator_increment": true,
+              "bucket_modulus_length_and_iterator_successor": true,
+              "single_bucket_array": true,
+              "single_pair_node": true,
+              "single_attributes_object": true
+            },
+            "all_selected_checks_pass": true,
+            "aggregate_pair_allocations_is_not_an_admission_gate": true
+          }
+        },
+        "lists": {
+          "headers": 2,
+          "elements_total_bound": 82496,
+          "element_bytes_upper_bound": 24,
+          "header_bytes_upper_bound": 32,
+          "iterator_peak_per_list": 2,
+          "checks": {
+            "element_counter": true,
+            "iterator_counter": true,
+            "individual_node_and_header": true
+          }
+        },
+        "record_field_counts": {
+          "Scenario_Rep_Record": 10,
+          "Target_Rep_Record": 10,
+          "Elaboration_Attributes_Record": 2,
+          "Invocation_Construct_Record": 4,
+          "Invocation_Relation_Record": 4,
+          "Invocation_Signature_Record": 5
+        },
+        "checks": {
+          "tables": true,
+          "hashes": true,
+          "lists": true,
+          "signature_location_local_vector": true
+        },
+        "fixed_non_table_key_allowance": 41234,
+        "all_selected_checks_pass": true,
+        "complete_ALI_serialization_and_other_process_heaps_included": false,
+        "whole_native_frontend_closed": false
+      },
+      "numeric": {
+        "source": {
+          "bytes": 118,
+          "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+          "output_calls": 1,
+          "null_statements": 0
+        },
+        "scope": "selected frontend and original gigi Ada numeric table/backing projection",
+        "demand_rows": {
+          "fixed_all_roots_lifetime_allowance": {
+            "Uints": 24324,
+            "Udigits": 74958,
+            "Ureals": 60,
+            "Rep_Table": 504
+          },
+          "selected_scanner": {
+            "Uints": 0,
+            "Udigits": 0,
+            "Ureals": 0,
+            "Rep_Table": 0
+          },
+          "Main_constructor": {
+            "Uints": 7,
+            "Udigits": 61,
+            "Ureals": 0,
+            "Rep_Table": 0
+          },
+          "fixed_Standard_float_callbacks": {
+            "Uints": 4096,
+            "Udigits": 32768,
+            "Ureals": 7,
+            "Rep_Table": 0
+          },
+          "original_Main_constant_size_callbacks": {
+            "Uints": 2,
+            "Udigits": 10,
+            "Ureals": 0,
+            "Rep_Table": 0
+          }
+        },
+        "demands": {
+          "Uints": 28429,
+          "Udigits": 107797,
+          "Ureals": 67,
+          "Rep_Table": 504
+        },
+        "tables": {
+          "Uints": {
+            "demand": 28429,
+            "low_bound": -699999999,
+            "initial": 5000,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 8,
+            "backing_capacity_bound": 56858,
+            "bytes_with_sentinel": 454872,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Udigits": {
+            "demand": 107797,
+            "low_bound": 0,
+            "initial": 10000,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 4,
+            "backing_capacity_bound": 215594,
+            "bytes_with_sentinel": 862380,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Ureals": {
+            "demand": 67,
+            "low_bound": -599999998,
+            "initial": 200,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 16,
+            "backing_capacity_bound": 400,
+            "bytes_with_sentinel": 6416,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Rep_Table": {
+            "demand": 504,
+            "low_bound": 1,
+            "initial": 1000,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 32,
+            "backing_capacity_bound": 3000,
+            "bytes_with_sentinel": 96032,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          }
+        },
+        "local_numeric_predecessor": {
+          "Uint_operand_digit_bound": 74958,
+          "maximum_UI_Vector_elements": 149916,
+          "UI_From_Int_hash_wrapper_bytes": 16,
+          "UI_From_Int_static_bucket_array_bytes": 8184,
+          "maximum_concat_operands": 0,
+          "concat_individual_array_bytes": {
+            "Is_Fixed_Length": 0,
+            "Operands": 0,
+            "Fixed_Length": 0,
+            "Max_Length": 0,
+            "Opnd_Low_Bound": 0,
+            "Var_Length": 0,
+            "Aggr_Length": 4
+          },
+          "checks": {
+            "Uint_vector_dimension_and_index_additions": true,
+            "Num_Bits": true,
+            "Decimal_Digits_High": true,
+            "Decimal_Digits_Low": true,
+            "single_UI_Vector": true,
+            "UI_From_Int_hash_single_wrapper": true,
+            "UI_From_Int_static_bucket_array": true,
+            "concat_N_and_terminal_successor": true,
+            "concat_single_arrays": true
+          },
+          "all_selected_checks_pass": true,
+          "retained_digit_growth_recounted": false,
+          "aggregate_stack_or_heap_bytes_is_not_an_admission_gate": true,
+          "backend_callback_numeric_arguments_included": false,
+          "other_local_vectors_and_recursive_depth_arithmetic_included": false,
+          "whole_native_frontend_closed": false
+        },
+        "selected_callback_arguments_joined": true,
+        "UI_Ints": {
+          "static_bucket_array_bytes": 8184,
+          "individual_wrapper_bytes": 16,
+          "original_Main_wrapper_calls": 2,
+          "fixed_float_wrapper_calls": 4096,
+          "aggregate_heap_gate": false
+        },
+        "checks": {
+          "numeric_tables": true,
+          "selected_local_numeric_objects": true,
+          "float_callback_vector": true,
+          "original_constant_callback_digits": true,
+          "Rep_Table_index_negation": true
+        },
+        "all_selected_checks_pass": true,
+        "premises": [
+          "accepted fixed-root/freezing and all-miss source reduction",
+          "selected literal shell, native phase and indexed naming configuration",
+          "accepted source/installed-tool correspondence",
+          "selected cold String and original Main source paths"
+        ],
+        "complete_native_frontend": false,
+        "complete_original_gigi": false,
+        "complete_native_capacity": false,
+        "production_admission_changed": false,
+        "native_tool_executions": 0
+      },
+      "physical_sources": {
+        "runtime": {
+          "directory": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+          "file_count": 1575,
+          "manifest_sha256": "76a5413f5083da098347755f795a1d1d84804c9984ffc97da8199b0c3e77014c",
+          "aligned_source_extent": 20496384,
+          "source_buffer_individual_bytes_upper": 784306,
+          "line_table_individual_bytes_upper": 64000,
+          "physical_line_entries_bound_maximum": 12565,
+          "max_expanded_final_column": 172,
+          "all_per_source_checks_pass": true,
+          "logical_line_table_objects": 0,
+          "shape_projection_sha256": "d9f164ecf558d33865223206ec7d34c380ad1912736692a156c52235e59263b5"
+        },
+        "extra_physical_objects": {
+          "Main": {
+            "bytes": 118,
+            "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+            "physical_line_entries_bound": 7,
+            "max_expanded_final_column": 41,
+            "aligned_source_extent": 4096,
+            "source_buffer_individual_bytes_upper": 135,
+            "line_table_capacity_bound": 500,
+            "line_table_individual_bytes": 2000,
+            "logical_line_table_objects": 0,
+            "checks": {
+              "source_length_and_EOF": true,
+              "individual_source_buffer": true,
+              "line_capacity_bit_product": true,
+              "line_successor": true,
+              "expanded_column": true,
+              "no_Source_Reference": true,
+              "no_VT_or_FF": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "configuration": {
+            "bytes": 327,
+            "sha256": "46f3acf27365a700a8dbebdd40ad92eb76e2f43091b056a1bb7e0d494045b6e8",
+            "physical_line_entries_bound": 4,
+            "max_expanded_final_column": 122,
+            "aligned_source_extent": 4096,
+            "source_buffer_individual_bytes_upper": 344,
+            "line_table_capacity_bound": 500,
+            "line_table_individual_bytes": 2000,
+            "logical_line_table_objects": 0,
+            "checks": {
+              "source_length_and_EOF": true,
+              "individual_source_buffer": true,
+              "line_capacity_bit_product": true,
+              "line_successor": true,
+              "expanded_column": true,
+              "no_Source_Reference": true,
+              "no_VT_or_FF": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "additional_indexed_System": {
+            "bytes": 7503,
+            "sha256": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95",
+            "physical_line_entries_bound": 156,
+            "max_expanded_final_column": 80,
+            "aligned_source_extent": 8192,
+            "source_buffer_individual_bytes_upper": 7520,
+            "line_table_capacity_bound": 500,
+            "line_table_individual_bytes": 2000,
+            "logical_line_table_objects": 0,
+            "checks": {
+              "source_length_and_EOF": true,
+              "individual_source_buffer": true,
+              "line_capacity_bit_product": true,
+              "line_successor": true,
+              "expanded_column": true,
+              "no_Source_Reference": true,
+              "no_VT_or_FF": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "silver_io.ads": {
+            "bytes": 2222,
+            "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+            "physical_line_entries_bound": 38,
+            "max_expanded_final_column": 84,
+            "aligned_source_extent": 4096,
+            "source_buffer_individual_bytes_upper": 2239,
+            "line_table_capacity_bound": 500,
+            "line_table_individual_bytes": 2000,
+            "logical_line_table_objects": 0,
+            "checks": {
+              "source_length_and_EOF": true,
+              "individual_source_buffer": true,
+              "line_capacity_bit_product": true,
+              "line_successor": true,
+              "expanded_column": true,
+              "no_Source_Reference": true,
+              "no_VT_or_FF": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "silver_output_libc.ads": {
+            "bytes": 1532,
+            "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+            "physical_line_entries_bound": 27,
+            "max_expanded_final_column": 81,
+            "aligned_source_extent": 4096,
+            "source_buffer_individual_bytes_upper": 1549,
+            "line_table_capacity_bound": 500,
+            "line_table_individual_bytes": 2000,
+            "logical_line_table_objects": 0,
+            "checks": {
+              "source_length_and_EOF": true,
+              "individual_source_buffer": true,
+              "line_capacity_bit_product": true,
+              "line_successor": true,
+              "expanded_column": true,
+              "no_Source_Reference": true,
+              "no_VT_or_FF": true
+            },
+            "all_selected_checks_pass": true
+          }
+        },
+        "virtual_sources": [
+          {
+            "template": "libgnat/a-unccon.ads",
+            "copies_upper": 7,
+            "aligned_extent_each": 4096,
+            "shared_physical_text_and_line_arrays": true,
+            "new_text_or_line_array_objects": 0,
+            "Dope_Rec_metadata_objects_upper": 7,
+            "Dope_Rec_metadata_storage_priced_here": false
+          },
+          {
+            "template": "libgnat/s-imagei.ads",
+            "copies_upper": 1,
+            "aligned_extent_each": 4096,
+            "shared_physical_text_and_line_arrays": true,
+            "new_text_or_line_array_objects": 0,
+            "Dope_Rec_metadata_objects_upper": 1,
+            "Dope_Rec_metadata_storage_priced_here": false
+          },
+          {
+            "template": "libgnat/s-imagei.adb",
+            "copies_upper": 1,
+            "aligned_extent_each": 8192,
+            "shared_physical_text_and_line_arrays": true,
+            "new_text_or_line_array_objects": 0,
+            "Dope_Rec_metadata_objects_upper": 1,
+            "Dope_Rec_metadata_storage_priced_here": false
+          }
+        ],
+        "physical_files_upper": 1580,
+        "virtual_files_upper": 9,
+        "permanent_source_entries_upper": 1589,
+        "failed_load_transient_slots_upper": 1,
+        "Source_File_backing_demand": 1590,
+        "backend_File_Info_entries_upper": 1589,
+        "insertion_capable_filename_lookups_upper": 1590,
+        "direct_filename_identifier_calls_upper": 3180,
+        "aligned_source_extent": 20561920,
+        "Source_Last_bound": 20561919,
+        "tables": {
+          "Source_File": {
+            "demand": 1590,
+            "low_bound": 1,
+            "initial": 10,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 464,
+            "backing_capacity_bound": 4770,
+            "bytes_with_sentinel": 2213744,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "Instances": {
+            "demand": 10,
+            "low_bound": 0,
+            "initial": 10,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 4,
+            "backing_capacity_bound": 30,
+            "bytes_with_sentinel": 124,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "SFN_Patterns": {
+            "demand": 6,
+            "low_bound": 1,
+            "initial": 10,
+            "increment_percent": 100,
+            "component_bytes_upper_bound": 64,
+            "backing_capacity_bound": 20,
+            "bytes_with_sentinel": 1344,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          },
+          "SFN_Table": {
+            "demand": 1,
+            "low_bound": 0,
+            "initial": 10,
+            "increment_percent": 200,
+            "component_bytes_upper_bound": 12,
+            "backing_capacity_bound": 30,
+            "bytes_with_sentinel": 372,
+            "checks": {
+              "initial_product": true,
+              "growth_product": true,
+              "backing_length_and_plus_one": true,
+              "empty_index": true,
+              "backing_index_and_sentinel": true,
+              "logical_nominal_index": true,
+              "allocation_and_pointer_difference": true
+            },
+            "all_selected_checks_pass": true
+          }
+        },
+        "backend_File_Info_Array_individual_bytes_upper": 19084,
+        "Source_File_Index_static_entries": 524289,
+        "indexed_SFN_hash_wrapper_bytes": 16,
+        "indexed_SFN_hash_bucket_array_bytes": 808,
+        "pattern_String_allocations_upper": 14,
+        "pattern_String_individual_bytes_upper": 21,
+        "pattern_String_allocation_rows": {
+          "default_initialization_calls": 2,
+          "String_objects_per_initialization": 4,
+          "default_lifetime_objects": 8,
+          "configuration_pattern_pragmas": 2,
+          "String_objects_per_pattern_pragma": 3,
+          "configuration_delta_objects": 6,
+          "reset_reclaims_String_pointees": false
+        },
+        "virtual_source_Dope_Rec_metadata_objects_upper": 9,
+        "virtual_source_Dope_Rec_metadata_storage_priced_here": false,
+        "checks": {
+          "runtime_individual_objects": true,
+          "extra_individual_objects": true,
+          "source_cursor_and_final_block_increment": true,
+          "source_tables": true,
+          "backend_File_Info_Array": true,
+          "source_file_index_static_array": true
+        },
+        "all_selected_checks_pass": true,
+        "GCC_line_maps_combined_locations_shared_identifiers_and_later_heaps_included": false
+      },
+      "gigi_array_and_name_input": {
+        "joined_frontend_node_identities_upper": 41294,
+        "association_array_requests": 2,
+        "each_association_array_raw_bytes_upper": 330352,
+        "selected_frontend_encoded_name_bytes_upper": 737,
+        "Main_qualified_name_characters_upper": 49,
+        "fixed_nonpath_name_before_selected_encoding": 700,
+        "all_interned_name_characters_upper": 10421,
+        "complete_path_spelling_characters_upper": 512,
+        "filename_bytes_including_NUL_upper": 513,
+        "checks": {
+          "max_gnat_nodes_Argument": true,
+          "each_association_array_raw_request": true,
+          "selected_frontend_encoded_name": true,
+          "complete_path_spelling_and_NUL": true
+        },
+        "all_selected_checks_pass": true,
+        "GGC_rounding_location_maps_filename_identifier_growth_and_later_name_constructors_included": false
+      }
+    },
+    "component_checks": {
+      "configuration": true,
+      "core_tables": true,
+      "parser_auxiliary": true,
+      "invocation": true,
+      "numeric": true,
+      "physical_sources": true,
+      "gigi_array_and_name_input": true
+    },
+    "all_selected_component_checks_pass": true,
+    "exported_source_entry_bounds": {
+      "physical_files_upper": 1580,
+      "virtual_files_upper": 9,
+      "permanent_source_entries_upper": 1589,
+      "failed_load_transient_slots_upper": 1,
+      "Source_File_backing_demand": 1590,
+      "backend_File_Info_entries_upper": 1589,
+      "insertion_capable_filename_lookups_upper": 1590,
+      "direct_filename_identifier_calls_upper": 3180
+    },
+    "remaining": [
+      "Complete combined source locations, ordinary line maps and shared filename identifiers.",
+      "Per-virtual-source Dope_Rec metadata allocations (up to nine) outside shared text/line arrays.",
+      "Later frontend/warning/ALI/command/name consumers and recursive/local objects outside these named transfers.",
+      "All other gigi/GCC/native phases, materializing parent, and independent proof producer.",
+      "Aggregate source/path equality attachment and production correspondence/adoption."
+    ],
+    "complete_native_frontend": false,
+    "complete_gigi": false,
+    "complete_native_capacity": false,
+    "whole_toolchain_capacity_established": false,
+    "complete_parent_storage": false,
+    "independent_proof_producer_closed": false,
+    "aggregate_attachment_complete": false,
+    "production_admission_changed": false,
+    "aggregate_RAM_or_address_space_gate": false,
+    "native_tool_executions": 0
+  },
+  "selected_native_location_lifetime": {
+    "scope": "Selected literal Main process: complete combined-location request sources and later dependent warning puts",
+    "counts": {
+      "output_calls": 1,
+      "null_statements": 0
+    },
+    "source_family_location_request_bound_closed": true,
+    "source_family_later_warning_put_bound_closed": true,
+    "initial_ad_hoc_state": {
+      "occupied": 0,
+      "allocated_entries": 0,
+      "C_hash_slots": 127,
+      "initial_hash_pointer_bytes": 1016,
+      "initial_hash_control_bytes_upper": 128,
+      "initial_objects_owned_by_fixed_prefix": true
+    },
+    "location_requests": {
+      "initial_call_builder_upper": 1,
+      "CF_block_attachment_upper": 6,
+      "CFG_discriminator_upper": 8,
+      "original_and_helper_additional_upper": 0,
+      "later_SSA_RTL_emission_additional_upper": 0,
+      "insertion_capable_lookup_calls_upper": 15,
+      "fresh_entries_upper": 15,
+      "counts_include_early_return_hit_and_replacement_attempts": true
+    },
+    "ad_hoc_storage": {
+      "allocated_entries_upper": 128,
+      "additional_GGC_backing_requests_upper": 1,
+      "each_caller_bytes_upper": 5120,
+      "each_rounded_bytes_upper": 8192,
+      "hash_slots_upper": 127,
+      "lookup_ordinary_hash_backings_upper": 15,
+      "relocation_traversal_possible_hash_backings_upper": 0,
+      "additional_ordinary_hash_backings_upper": 15,
+      "each_hash_pointer_backing_bytes_upper": 1016,
+      "initial_ordinary_objects_added_again": 0,
+      "additional_finalizer_registrations": 0,
+      "relocation_rebases_existing_entries": true,
+      "deletion_or_GC_recreation": false
+    },
+    "discriminators": {
+      "CFG_block_ID_endpoint_upper": 5,
+      "per_line_discriminator_upper": 5,
+      "public_interface_signed_bits": 32
+    },
+    "later_warning": {
+      "incoming": {
+        "original_gigi_put_call_ceiling": 7,
+        "incoming_live_or_occupied_ceiling": 4100,
+        "outgoing_live_or_occupied_ceiling": 4103,
+        "incoming_capacity_ceiling": 16381,
+        "outgoing_capacity_ceiling": 16381,
+        "request_groups": [
+          {
+            "name": "possible_original_gigi_control",
+            "count": 1,
+            "raw_bytes_each": 64,
+            "rounded_bytes_each_ceiling": 64
+          },
+          {
+            "name": "original_gigi_initial_or_replacement_backbones",
+            "count": 7,
+            "raw_bytes_each": 262096,
+            "rounded_bytes_each_ceiling": 262144
+          },
+          {
+            "name": "selected_gimplifier_replacement_backbones",
+            "count": 3,
+            "raw_bytes_each": 262096,
+            "rounded_bytes_each_ceiling": 262144
+          }
+        ],
+        "additive_GGC_event_ceiling": 11,
+        "additional_singleton_finalizer_registrations_ceiling": 1,
+        "additional_vector_finalizer_registrations": 0,
+        "checks": {
+          "live_and_occupied_sufficient_region": true,
+          "prime_exists": true,
+          "prime_probe_region": true,
+          "probe_addition": true,
+          "entry_request_and_pointer_span": true,
+          "load_factor_products": true
+        },
+        "conditional_map_interface_fits": true
+      },
+      "CF_put_calls_upper": 6,
+      "CFG_statement_setter_put_calls_upper": 5,
+      "CFG_edge_location_put_calls": 0,
+      "RTL_call_tree_copy_put_calls_upper": 1,
+      "insertion_capable_put_calls_upper": 12,
+      "outgoing_live_or_occupied_upper": 4115,
+      "outgoing_capacity_upper": 16381,
+      "additional_GGC_backing_requests_upper": 12,
+      "each_caller_bytes_upper": 262096,
+      "each_rounded_bytes_upper": 262144,
+      "additional_controls": 0,
+      "additional_finalizer_registrations": 0,
+      "original_and_initial_warning_requests_added_again": 0,
+      "full_post_prefix_warning_GGC_events_diagnostic": 23,
+      "same_key_and_failed_source_lookup_calls_not_subtracted": true
+    },
+    "filename_ingress": {
+      "scope": "Separate metadata ingress with indexed System multiplicity correction",
+      "predecessor_source_file_entries_upper": 1588,
+      "predecessor_lookup_calls_upper": 1589,
+      "indexed_additional_Source_File_records_upper": 1,
+      "source_file_entries_upper": 1589,
+      "lookup_calls_upper": 1590,
+      "identifier_node_requests_upper": 1590,
+      "each_node_caller_bytes": 40,
+      "each_node_rounded_bytes_upper": 64,
+      "character_requests_upper": 1590,
+      "each_character_caller_bytes_upper": 513,
+      "each_character_rounded_bytes_upper": 1024,
+      "direct_GGC_requests_upper": 3180,
+      "shared_identifier_backing_owned_elsewhere": true,
+      "corrected_shared_identifier_projection_required": true,
+      "original_shared_packet_modified": false,
+      "included_in_new_location_warning_delta": false
+    },
+    "additional_location_and_later_warning_GGC_events_upper": 13,
+    "additional_location_and_later_warning_finalizer_registrations": 0,
+    "conditions": {
+      "ad_hoc_storage": true,
+      "later_warning_storage": true,
+      "filename_direct_objects": true
+    },
+    "local_checks": {
+      "locations": {
+        "selected_ad_hoc_request_region": true,
+        "hash_prime_exists": true,
+        "C_hash_probe_unsigned": true,
+        "C_hash_load_products": true,
+        "C_hash_pointer_request": true,
+        "map_capacity_doubling_and_index": true,
+        "map_request_pointer_and_allocator_region": true,
+        "location_tag_and_difference": true,
+        "CFG_block_ID_unsigned_endpoint": true,
+        "discriminator_unsigned_to_signed_int": true
+      },
+      "later_warning": {
+        "predecessor_fits": true,
+        "occupied_sufficient_region": true,
+        "hash_prime_exists": true,
+        "probe_unsigned": true,
+        "load_products": true,
+        "request_pointer_and_allocator_region": true
+      },
+      "filenames": {
+        "spelling_short": true,
+        "identifier_length_unsigned": true,
+        "terminal_NUL": true,
+        "source_file_count_signed": true
+      }
+    },
+    "ordinary_map_and_frontend_node_association_storage_included": false,
+    "whole_original_gigi_allocation_events": null,
+    "total_GGC_events": null,
+    "complete_global_counter_lifetime_closed": false,
+    "complete_collector_lifetime_closed": false,
+    "complete_gimplifier_lifetime_closed": false,
+    "whole_literal_pipeline_capacity_established": false,
+    "production_admission_changed": false,
+    "aggregate_RAM_gate": false,
+    "native_tool_executions": 0,
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "Main_physical_line_entries_upper": 7,
+    "Main_ordinary_map_line_guard": true,
+    "fixed_and_virtual_ordinary_map_line_guards": "separate existing source-inventory premises",
+    "repository_inputs_verified": 33,
+    "complete_source_files_verified": 121
+  },
+  "frontend_location_join": {
+    "frontend_source_path_numeric_and_node_projections_equal": true,
+    "indexed_permanent_transient_and_filename_populations_equal": true,
+    "warning_incoming_equals_existing_R5_boundary": true,
+    "ordinary_map_line_checks": {
+      "Main_ordinary_map_lines": true,
+      "fixed_runtime_ordinary_map_lines": true,
+      "fixed_extra_ordinary_map_lines": true,
+      "virtual_template_ordinary_map_lines": true
+    },
+    "virtual_Dope_Rec": {
+      "Source_Ptr_Base_bits": 32,
+      "Dope_Rec_bits": 64,
+      "alignment_bytes": 8,
+      "individual_caller_bytes": 8,
+      "selected_Linux_Int_and_pointer_bytes": [
+        4,
+        8
+      ],
+      "source_and_selected_host_ABI_checked": true,
+      "aggregate_RAM_gate": false,
+      "objects_upper": 9,
+      "individual_storage_closed_under_selected_ABI": true,
+      "individual_request_fits": true,
+      "leaf_remainder_discharged_by_this_attachment": "Per-virtual-source Dope_Rec individual object only; no summed RAM gate."
+    },
+    "corrected_shared_identifier_projection": {
+      "scope": "Source-bound indexed System filename correction to accepted original shared identifier fields",
+      "source": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      },
+      "source_counts": {
+        "source_bytes": 118,
+        "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          13
+        ],
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "predecessor_identifier_hash": {
+        "incoming_historical_insertions_upper": 40846,
+        "incoming_occupied_upper": 40846,
+        "incoming_allocated_slots_upper": 65536,
+        "historical_insertions_upper": 40882,
+        "occupied_upper": 40882,
+        "allocated_slots_upper": 65536,
+        "each_ordinary_backing_bytes_upper": 524288,
+        "variable_ingress_backing_requests_upper": 1589,
+        "post_prefix_backing_requests_upper": 36,
+        "checks": {
+          "historical_insertions_unsigned": true,
+          "slot_threshold_unsigned": true,
+          "doubling_unsigned": true,
+          "individual_request": true
+        },
+        "fits": true
+      },
+      "indexed_Source_File_delta": 1,
+      "filename_lookups_upper": 1590,
+      "direct_filename_GGC_requests_upper": 3180,
+      "identifier_hash": {
+        "incoming_historical_insertions_upper": 40847,
+        "incoming_occupied_upper": 40847,
+        "incoming_allocated_slots_upper": 65536,
+        "historical_insertions_upper": 40883,
+        "occupied_upper": 40883,
+        "allocated_slots_upper": 65536,
+        "each_ordinary_backing_bytes_upper": 524288,
+        "variable_ingress_backing_requests_upper": 1590,
+        "post_prefix_backing_requests_upper": 36,
+        "checks": {
+          "historical_insertions_unsigned": true,
+          "slot_threshold_unsigned": true,
+          "doubling_unsigned": true,
+          "individual_request": true
+        },
+        "fits": true
+      },
+      "temporary_name_serial": {
+        "incoming_upper": 40847,
+        "next_upper": 40883,
+        "checks": {
+          "incoming_temporary_name_serial_unsigned": true,
+          "temporary_name_serial_unsigned": true
+        },
+        "fits": true
+      },
+      "original_shared_GGC_backing_delta_unchanged": 768,
+      "extra_shared_GGC_backing_events": 0,
+      "extra_ordinary_identifier_ingress_requests_upper": 1,
+      "original_shared_packet_modified": false,
+      "aggregate_attachment_complete": false,
+      "complete_global_counter_lifetime_closed": false,
+      "native_tool_executions": 0
+    },
+    "current_source_bound_shared_storage": {
+      "source": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      },
+      "source_counts": {
+        "source_bytes": 118,
+        "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+        "output_calls": 1,
+        "Put": 0,
+        "Put_Line": 1,
+        "null_statements": 0,
+        "decoded_literal_lengths": [
+          13
+        ],
+        "decoded_literal_bytes": 13,
+        "maximum_literal_length": 13
+      },
+      "filename_ingress": {
+        "scope": "Separate metadata ingress with indexed System multiplicity correction",
+        "predecessor_source_file_entries_upper": 1588,
+        "predecessor_lookup_calls_upper": 1589,
+        "indexed_additional_Source_File_records_upper": 1,
+        "source_file_entries_upper": 1589,
+        "lookup_calls_upper": 1590,
+        "identifier_node_requests_upper": 1590,
+        "each_node_caller_bytes": 40,
+        "each_node_rounded_bytes_upper": 64,
+        "character_requests_upper": 1590,
+        "each_character_caller_bytes_upper": 513,
+        "each_character_rounded_bytes_upper": 1024,
+        "direct_GGC_requests_upper": 3180,
+        "shared_identifier_backing_owned_elsewhere": true,
+        "corrected_shared_identifier_projection_required": true,
+        "original_shared_packet_modified": false,
+        "included_in_new_location_warning_delta": false
+      },
+      "identifier_hash": {
+        "incoming_historical_insertions_upper": 40847,
+        "incoming_occupied_upper": 40847,
+        "incoming_allocated_slots_upper": 65536,
+        "historical_insertions_upper": 40883,
+        "occupied_upper": 40883,
+        "allocated_slots_upper": 65536,
+        "each_ordinary_backing_bytes_upper": 524288,
+        "variable_ingress_backing_requests_upper": 1590,
+        "post_prefix_backing_requests_upper": 36,
+        "checks": {
+          "historical_insertions_unsigned": true,
+          "slot_threshold_unsigned": true,
+          "doubling_unsigned": true,
+          "individual_request": true
+        },
+        "fits": true
+      },
+      "counter_endpoints": {
+        "incoming_DECL_UID_upper": 5832,
+        "next_DECL_UID_upper": 5872,
+        "incoming_type_UID_upper": 2278,
+        "next_type_UID_upper": 2306,
+        "incoming_temporary_name_serial_upper": 40847,
+        "next_temporary_name_serial_upper": 40883,
+        "alias_ID_upper": 414854,
+        "function_definition_numbers": {
+          "empty_elaboration": 0,
+          "Main": 1,
+          "String_bit_size_helper": 2,
+          "String_byte_size_helper": 3
+        },
+        "next_function_definition_number": 4,
+        "helper_name_fnno_next": 2,
+        "checks": {
+          "DECL_UID_signed": true,
+          "type_UID_unsigned": true,
+          "alias_ID_signed": true,
+          "temporary_name_serial_unsigned": true,
+          "incoming_temporary_name_serial_unsigned": true
+        }
+      },
+      "unchanged_other_shared_projections": {
+        "type_hash": {
+          "incoming_occupied_upper": 39257,
+          "incoming_allocated_slots_upper": 131071,
+          "additional_insertion_capable_lookups": 6,
+          "additional_new_entries_upper": 6,
+          "occupied_upper": 39263,
+          "allocated_slots_upper": 131071,
+          "additional_GGC_backing_requests_upper": 6,
+          "each_caller_bytes_upper": 1048568,
+          "each_rounded_bytes_upper": 1048576,
+          "successful_lookup_can_replace_backing": true,
+          "checks": {
+            "prime_exists": true,
+            "load_products": true,
+            "empty_threshold_unsigned": true,
+            "probe_addition": true,
+            "request_and_pointer_span": true,
+            "allocator_order_region": true
+          },
+          "fits": true
+        },
+        "integer_hash": {
+          "incoming_occupied_upper": 39257,
+          "incoming_allocated_slots_upper": 131071,
+          "additional_insertion_capable_lookups": 317,
+          "additional_new_entries_upper": 317,
+          "occupied_upper": 39574,
+          "allocated_slots_upper": 131071,
+          "additional_GGC_backing_requests_upper": 317,
+          "each_caller_bytes_upper": 1048568,
+          "each_rounded_bytes_upper": 1048576,
+          "successful_lookup_can_replace_backing": true,
+          "checks": {
+            "prime_exists": true,
+            "load_products": true,
+            "empty_threshold_unsigned": true,
+            "probe_addition": true,
+            "request_and_pointer_span": true,
+            "allocator_order_region": true
+          },
+          "fits": true
+        },
+        "global_decls": {
+          "incoming_occupied_upper": 414851,
+          "incoming_allocated_slots_upper": 414851,
+          "additional_pushes": 9,
+          "additional_GGC_backing_requests_upper": 9,
+          "occupied_upper": 414860,
+          "allocated_slots_upper": 1048575,
+          "each_caller_bytes_upper": 8388608,
+          "each_rounded_bytes_upper": 8388608,
+          "checks": {
+            "length_unsigned": true,
+            "growth_unsigned": true,
+            "normalized_capacity_31_bits": true,
+            "request_and_pointer_span": true,
+            "allocator_order_region": true
+          },
+          "fits": true
+        },
+        "stmt_list_cache": {
+          "incoming_occupied_upper": 0,
+          "incoming_allocated_slots_upper": 0,
+          "additional_pushes": 432,
+          "additional_GGC_backing_requests_upper": 432,
+          "occupied_upper": 432,
+          "allocated_slots_upper": 1023,
+          "each_caller_bytes_upper": 8192,
+          "each_rounded_bytes_upper": 8192,
+          "checks": {
+            "length_unsigned": true,
+            "growth_unsigned": true,
+            "normalized_capacity_31_bits": true,
+            "request_and_pointer_span": true,
+            "allocator_order_region": true
+          },
+          "fits": true
+        },
+        "alias_sets": {
+          "incoming_occupied_upper": 414851,
+          "incoming_allocated_slots_upper": 414851,
+          "additional_pushes": 4,
+          "additional_GGC_backing_requests_upper": 4,
+          "occupied_upper": 414855,
+          "allocated_slots_upper": 1048575,
+          "each_caller_bytes_upper": 8388608,
+          "each_rounded_bytes_upper": 8388608,
+          "checks": {
+            "length_unsigned": true,
+            "growth_unsigned": true,
+            "normalized_capacity_31_bits": true,
+            "request_and_pointer_span": true,
+            "allocator_order_region": true
+          },
+          "fits": true
+        },
+        "scalar_finalizers": {
+          "incoming_occupied_upper": 39257,
+          "incoming_allocated_slots_upper": 58884,
+          "additional_pushes": 5,
+          "additional_ordinary_backing_requests_upper": 5,
+          "occupied_upper": 39262,
+          "allocated_slots_upper": 58891,
+          "each_ordinary_backing_bytes_upper": 942264,
+          "checks": {
+            "length_unsigned": true,
+            "growth_unsigned": true,
+            "capacity_31_bits": true,
+            "request_span": true
+          },
+          "fits": true
+        }
+      },
+      "additional_shared_GGC_backing_request_events_upper": 768,
+      "extra_shared_GGC_backing_events": 0,
+      "corrected_identifier_projection_applied_to_actual_source": true,
+      "complete_global_counter_lifetime_closed": false,
+      "complete_collector_lifetime_closed": false
+    },
+    "guards": {
+      "native_frontend_configuration": true,
+      "native_frontend_core_tables": true,
+      "native_frontend_parser_auxiliary": true,
+      "native_frontend_invocation": true,
+      "native_frontend_numeric": true,
+      "native_frontend_physical_sources": true,
+      "native_frontend_gigi_array_and_name_input": true,
+      "native_location_ad_hoc_storage": true,
+      "native_location_later_warning_storage": true,
+      "native_location_filename_direct_objects": true,
+      "native_location_Main_ordinary_map_lines": true,
+      "native_location_fixed_runtime_ordinary_map_lines": true,
+      "native_location_fixed_extra_ordinary_map_lines": true,
+      "native_location_virtual_template_ordinary_map_lines": true,
+      "native_indexed_identifier_historical_insertions_unsigned": true,
+      "native_indexed_identifier_slot_threshold_unsigned": true,
+      "native_indexed_identifier_doubling_unsigned": true,
+      "native_indexed_identifier_individual_request": true,
+      "native_indexed_serial_incoming_temporary_name_serial_unsigned": true,
+      "native_indexed_serial_temporary_name_serial_unsigned": true,
+      "native_virtual_Dope_Rec_individual_request": true
+    },
+    "location_delta_ownership": "New combined-location backings and later warning puts only; no filename, prefix, old warning or original shared delta added again.",
+    "partial_ledger_ownership": "Existing source-specific partial ledger remains separate and unchanged; no total GGC count follows.",
+    "ordinary_line_map_backing_and_other_late_shared_storage_closed": false
+  },
+  "selected_current_source_bound_shared_storage": {
+    "source": {
+      "bytes": 118,
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+    },
+    "source_counts": {
+      "source_bytes": 118,
+      "source_sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "output_calls": 1,
+      "Put": 0,
+      "Put_Line": 1,
+      "null_statements": 0,
+      "decoded_literal_lengths": [
+        13
+      ],
+      "decoded_literal_bytes": 13,
+      "maximum_literal_length": 13
+    },
+    "filename_ingress": {
+      "scope": "Separate metadata ingress with indexed System multiplicity correction",
+      "predecessor_source_file_entries_upper": 1588,
+      "predecessor_lookup_calls_upper": 1589,
+      "indexed_additional_Source_File_records_upper": 1,
+      "source_file_entries_upper": 1589,
+      "lookup_calls_upper": 1590,
+      "identifier_node_requests_upper": 1590,
+      "each_node_caller_bytes": 40,
+      "each_node_rounded_bytes_upper": 64,
+      "character_requests_upper": 1590,
+      "each_character_caller_bytes_upper": 513,
+      "each_character_rounded_bytes_upper": 1024,
+      "direct_GGC_requests_upper": 3180,
+      "shared_identifier_backing_owned_elsewhere": true,
+      "corrected_shared_identifier_projection_required": true,
+      "original_shared_packet_modified": false,
+      "included_in_new_location_warning_delta": false
+    },
+    "identifier_hash": {
+      "incoming_historical_insertions_upper": 40847,
+      "incoming_occupied_upper": 40847,
+      "incoming_allocated_slots_upper": 65536,
+      "historical_insertions_upper": 40883,
+      "occupied_upper": 40883,
+      "allocated_slots_upper": 65536,
+      "each_ordinary_backing_bytes_upper": 524288,
+      "variable_ingress_backing_requests_upper": 1590,
+      "post_prefix_backing_requests_upper": 36,
+      "checks": {
+        "historical_insertions_unsigned": true,
+        "slot_threshold_unsigned": true,
+        "doubling_unsigned": true,
+        "individual_request": true
+      },
+      "fits": true
+    },
+    "counter_endpoints": {
+      "incoming_DECL_UID_upper": 5832,
+      "next_DECL_UID_upper": 5872,
+      "incoming_type_UID_upper": 2278,
+      "next_type_UID_upper": 2306,
+      "incoming_temporary_name_serial_upper": 40847,
+      "next_temporary_name_serial_upper": 40883,
+      "alias_ID_upper": 414854,
+      "function_definition_numbers": {
+        "empty_elaboration": 0,
+        "Main": 1,
+        "String_bit_size_helper": 2,
+        "String_byte_size_helper": 3
+      },
+      "next_function_definition_number": 4,
+      "helper_name_fnno_next": 2,
+      "checks": {
+        "DECL_UID_signed": true,
+        "type_UID_unsigned": true,
+        "alias_ID_signed": true,
+        "temporary_name_serial_unsigned": true,
+        "incoming_temporary_name_serial_unsigned": true
+      }
+    },
+    "unchanged_other_shared_projections": {
+      "type_hash": {
+        "incoming_occupied_upper": 39257,
+        "incoming_allocated_slots_upper": 131071,
+        "additional_insertion_capable_lookups": 6,
+        "additional_new_entries_upper": 6,
+        "occupied_upper": 39263,
+        "allocated_slots_upper": 131071,
+        "additional_GGC_backing_requests_upper": 6,
+        "each_caller_bytes_upper": 1048568,
+        "each_rounded_bytes_upper": 1048576,
+        "successful_lookup_can_replace_backing": true,
+        "checks": {
+          "prime_exists": true,
+          "load_products": true,
+          "empty_threshold_unsigned": true,
+          "probe_addition": true,
+          "request_and_pointer_span": true,
+          "allocator_order_region": true
+        },
+        "fits": true
+      },
+      "integer_hash": {
+        "incoming_occupied_upper": 39257,
+        "incoming_allocated_slots_upper": 131071,
+        "additional_insertion_capable_lookups": 317,
+        "additional_new_entries_upper": 317,
+        "occupied_upper": 39574,
+        "allocated_slots_upper": 131071,
+        "additional_GGC_backing_requests_upper": 317,
+        "each_caller_bytes_upper": 1048568,
+        "each_rounded_bytes_upper": 1048576,
+        "successful_lookup_can_replace_backing": true,
+        "checks": {
+          "prime_exists": true,
+          "load_products": true,
+          "empty_threshold_unsigned": true,
+          "probe_addition": true,
+          "request_and_pointer_span": true,
+          "allocator_order_region": true
+        },
+        "fits": true
+      },
+      "global_decls": {
+        "incoming_occupied_upper": 414851,
+        "incoming_allocated_slots_upper": 414851,
+        "additional_pushes": 9,
+        "additional_GGC_backing_requests_upper": 9,
+        "occupied_upper": 414860,
+        "allocated_slots_upper": 1048575,
+        "each_caller_bytes_upper": 8388608,
+        "each_rounded_bytes_upper": 8388608,
+        "checks": {
+          "length_unsigned": true,
+          "growth_unsigned": true,
+          "normalized_capacity_31_bits": true,
+          "request_and_pointer_span": true,
+          "allocator_order_region": true
+        },
+        "fits": true
+      },
+      "stmt_list_cache": {
+        "incoming_occupied_upper": 0,
+        "incoming_allocated_slots_upper": 0,
+        "additional_pushes": 432,
+        "additional_GGC_backing_requests_upper": 432,
+        "occupied_upper": 432,
+        "allocated_slots_upper": 1023,
+        "each_caller_bytes_upper": 8192,
+        "each_rounded_bytes_upper": 8192,
+        "checks": {
+          "length_unsigned": true,
+          "growth_unsigned": true,
+          "normalized_capacity_31_bits": true,
+          "request_and_pointer_span": true,
+          "allocator_order_region": true
+        },
+        "fits": true
+      },
+      "alias_sets": {
+        "incoming_occupied_upper": 414851,
+        "incoming_allocated_slots_upper": 414851,
+        "additional_pushes": 4,
+        "additional_GGC_backing_requests_upper": 4,
+        "occupied_upper": 414855,
+        "allocated_slots_upper": 1048575,
+        "each_caller_bytes_upper": 8388608,
+        "each_rounded_bytes_upper": 8388608,
+        "checks": {
+          "length_unsigned": true,
+          "growth_unsigned": true,
+          "normalized_capacity_31_bits": true,
+          "request_and_pointer_span": true,
+          "allocator_order_region": true
+        },
+        "fits": true
+      },
+      "scalar_finalizers": {
+        "incoming_occupied_upper": 39257,
+        "incoming_allocated_slots_upper": 58884,
+        "additional_pushes": 5,
+        "additional_ordinary_backing_requests_upper": 5,
+        "occupied_upper": 39262,
+        "allocated_slots_upper": 58891,
+        "each_ordinary_backing_bytes_upper": 942264,
+        "checks": {
+          "length_unsigned": true,
+          "growth_unsigned": true,
+          "capacity_31_bits": true,
+          "request_span": true
+        },
+        "fits": true
+      }
+    },
+    "additional_shared_GGC_backing_request_events_upper": 768,
+    "extra_shared_GGC_backing_events": 0,
+    "corrected_identifier_projection_applied_to_actual_source": true,
+    "complete_global_counter_lifetime_closed": false,
+    "complete_collector_lifetime_closed": false
+  },
+  "frontend_leaf_scope": "Unmodified accepted leaf; its Dope_Rec individual-object remainder is discharged by frontend_location_join.virtual_Dope_Rec. Its other remaining/global flags stay scoped to that leaf.",
+  "location_leaf_scope": "Unmodified accepted actual-source leaf. Frontend/ordinary-line premises and actual-source indexed identifier correction are supplied by frontend_location_join. Total GGC, ordinary line-map backing and later shared lifetimes remain open.",
   "selected_current_linker_result": "core_result.literal_output_linker",
   "selected_current_GGC_partial_ledger": "core_result.native_original_shared_storage.partial_ledger",
-  "accounting": "No invocation/numeric rows are added to the GCC partial ledger. Repeated component projections are correspondence checks, not additive costs.",
+  "accounting": "No invocation/numeric/frontend/filename/prefix/old-warning/shared rows are added to the GCC partial ledger. The location/later-warning delta is separate. Repeated projections check correspondence; current corrected shared state supersedes only the scoped old identifier/filename/serial projections.",
   "open_joins": {
-    "native_remaining_lifetime_and_collector": "Other metadata/physical/late heaps, later shared/warning consumers, remaining passes, RTL/DF ceilings and complete global event/UID/collector lifetimes. Numeric selected interval is attached; no complete original or native total follows.",
+    "native_remaining_lifetime_and_collector": "Ordinary source line-map backing, other late frontend/name/ALI/local/recursive heaps, later shared consumers, remaining passes, RTL/DF ceilings and complete global event/UID/collector lifetimes. Named frontend/numeric/location/later-warning intervals are attached; no complete original or native total follows.",
     "native_materializing_parent_storage": "Complete selected parent source/map/project/driver/library graph storage and shared name pools remain open. Fixed Silver compile regeneration is not a job on this graph.",
     "producer_frontends_and_consumers": "Complete datarep/light frontend, producer launch, fixed Silver library proof jobs, report/flow/Why/server consumers and final reports remain open. Common Main path binding does not supply their argv graph.",
     "production_adoption": "Selected design graph is computable but no production launcher is adopted."
@@ -12564,16 +15468,22 @@
   "aggregate_RAM_gate": false,
   "native_tool_executions": 0,
   "validation": {
-    "current_attachment_input_records": 21,
+    "current_attachment_input_records": 28,
     "numeric_input_freeze": "64237926eb",
-    "original_numeric_review_scope": "Historical acceptance of 3a7d590389; generated scope-width correction64237926eb requires its own independent disposition.",
-    "historical_acceptance_review_records": 3,
+    "original_numeric_review_scope": "Historical original acceptance; corrected numeric64237926eb and selected-routeb9 accepted separately in b6669b3ff7/0f4ef0ab6f.",
+    "historical_acceptance_review_records": 5,
     "core_current_input_records": 205,
     "core_distinct_current_files": 2711,
     "invocation_current_repository_records": 37,
     "invocation_complete_retained_sources": 16,
     "invocation_installed_configuration_records": 109,
     "numeric_identity_records": 61,
+    "frontend_direct_identity_records": 41,
+    "location_repository_identity_records": 33,
+    "location_complete_source_identity_records": 121,
+    "runtime_census_reused_from": "24e91ed814923ba9b0e5fecf991eac7a2e1016fa",
+    "runtime_census_reinventoried": false,
+    "native_shape_identity_records": 5,
     "counts_overlap_and_must_not_be_added": true,
     "accepted_reviews": [
       {
@@ -12593,6 +15503,18 @@
         "bytes": 10993,
         "sha256": "e148c176f1ea28b51154d90ff0b8acb19a3723acd87c004ebd38719e0022b565",
         "revision": "9fd3629370f3e3277f6e8768bb2644863594ded9"
+      },
+      {
+        "path": "docs/reviews/review-literal-frontend-numeric-d7034d9520.md",
+        "bytes": 14105,
+        "sha256": "099daf16ea7d7ceaf87398feabe21d414526a61dc64647713d4e26ad500ec6ba",
+        "revision": "0f4ef0ab6f6134702d08aba23b05877260af6951"
+      },
+      {
+        "path": "docs/reviews/review-literal-location-11057399b9.md",
+        "bytes": 13228,
+        "sha256": "1ffb21ade5fc78fbabcbb2c5ec7dd8642e0aba75442a042f48697cd2078b9072",
+        "revision": "ab12d9119a2883759aa3434b1f28b89acd1e2629"
       }
     ]
   },
@@ -12606,8 +15528,8 @@
     "Checked filesystem inputs remain stable through materialization and use; ordinary external resources/services remain assumptions."
   ],
   "offline_run": {
-    "started_utc": "2026-10-18T23:34:47.585260+00:00",
-    "completed_utc": "2026-10-18T23:34:57.838802+00:00",
+    "started_utc": "2026-10-18T23:47:51.370451+00:00",
+    "completed_utc": "2026-10-18T23:48:03.325965+00:00",
     "scope": "Hello generated once within affected attachment check; no separate replay"
   }
 }
