@@ -132,9 +132,11 @@ arithmetic for this table family; available RAM remains a separate condition.
 
 ## Remaining native composition
 
-The compiler's actual generated symbols/sections, linker-created names, fixed
-dependencies and reference event counts must supply D, l, B and R. Final live
-object contents alone cannot supply lifetime counts across link rollback.
+The [fixed input closure](retained-link-inputs.md) supplies the selected null
+link's dependency inventory, archive-map storage and conservative repeated
+input-pass counts. The compiler's generated symbols/sections, linker-created
+names and reference events must still supply D, l, B and R. Final live object
+contents alone cannot supply lifetime counts across link rollback.
 GCC/assembler containers, code/data/frame sizes, relocation reach and linker
 layout still need their transfers. In particular, x86-64 PC32/PLT32/GOTPCREL
 relocations retain signed 32-bit displacement checks

@@ -159,9 +159,9 @@ at most `121+P` bytes. At P=4096 the configuration is at most 49,465 bytes and
 the ordinary report at most 5,815 bytes.
 
 The SARIF call is unconditional (`spark_report.adb:1576–1580`). Its result
-vector is empty for null, but its fixed rule descriptors, invocation, typed
-vectors and VSS output writer require their own source join. This document
-does **not** dismiss those allocations because there are no checks, or claim
-complete report-executable feasibility without that join. Generic project
+vector is empty for null; the [SARIF/VSS join](retained-producer-sarif-capacity.md)
+separately bounds its fixed rule descriptors, invocation, typed vectors and
+output writer. These transfers do not establish complete report-executable
+feasibility. Generic project
 loading/process orchestration, non-GG ALI data, native compilation and the
 remaining fixed startup representations also remain separate. #119 is open.

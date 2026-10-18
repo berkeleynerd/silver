@@ -141,9 +141,10 @@ then reaches at most 42 cumulative chain nodes, including conservative
 location-preserving merge nops, with an eight-byte frame-pointer save and no
 local/spill slots. Late CFI reaches 52 cumulative chain nodes, with at most
 43 shortening slots and a source-derived instruction-address ceiling of 26.
-The [assembler transfer](retained-assembler-capacity.md) adds streaming-buffer
-arithmetic and conditional null CFI/eh_frame bounds; actual assembly encoding,
-configuration (including SFrame), object and link joins remain open.
+The [assembler transfer](retained-assembler-capacity.md) connects the selected
+instruction encodings to that 26-byte bound, charges optional SFrame and GNU
+property output, and bounds their fragment/individual-obstack growth. Complete
+unit directives, other fragment/symbol events, object and layout joins remain.
 
 The [fixed-setup witness assessment](retained-native-expansion.md#fixed-gcc-initialization-witness-boundary-and-counter-requirements)
 identifies a one-time capture boundary before Main translation and
@@ -159,8 +160,11 @@ The capture intentionally stops before Main translation; it is not a completed
 compile. Its observed byte sum is not an aggregate memory admission limit.
 Other source classes must match the read projection before reusing it.
 The GGC storage join bounds individual requests, real page indices and finalizer
-backbones. First RTL initialization, fixed pass setup, later requests and
-whole-phase counter sums remain outstanding.
+backbones. The [first RTL setup](retained-native-expansion.md#first-target-rtl-setup-read-projection-and-backing)
+has its own source-independent read projection and one 310-event witness,
+with a conservative 437-event allowance covering cold sequence and shared
+constant-hash state. Incoming shared-hash demand remains separately priced;
+later pass setup and whole-phase counter sums are still outstanding.
 
 The proposed native-only `-gnatx` removes cross-reference construction/output
 and its long-local-name ALI analysis loss; combining it with
@@ -191,6 +195,13 @@ The reusable [individual-obstack transfer](retained-backend-obstacks.md) joins
 the already-bounded native environment strings to chunk requests without
 imposing an aggregate memory or address-span gate.
 
+The [fixed linker inputs](retained-link-inputs.md) now close target-input file
+selection for the selected null link, including both library scripts, the
+default script and transitive DSO dependencies. Every fixed archive member is
+inventoried; repeated group/loader passes are separately bounded. The source
+transfer includes archive-map backing, while generated Main/binder objects,
+linker-created names/reference events and final relocation/layout remain open.
+
 The [diagnostic-string transfer](retained-producer-diagnostic-strings.md) joins
 selected prover answers and consecutive-answer warnings to raw solver-output
 bytes, with reviewed linear coefficients. Its five-fixed-response constants
@@ -206,8 +217,13 @@ apply to the null token/trivia family, whose launch guard skips that process.
 Its [producer-tail transfer](retained-producer-null-tail.md) instead bounds
 the third symbol pool and final report: at most eight Find requests, two strings,
 one entity, and `1247+6P` emitted Linux `.spark` bytes including Text_IO's closing
-LF. Flow working storage, JSON aliases/backing and downstream orchestration
-remain separate; null-only closure would not complete the broader design.
+LF. Its [local storage join](retained-producer-null-storage.md) bounds JSON
+aliases/backing and 89 local flow vertices. The [global/report join](retained-producer-null-global.md)
+adds four visibility vertices, five generated-global ALI rows, configuration
+and ordinary report consumers. The unconditional [SARIF/VSS transfer](retained-producer-sarif-capacity.md)
+prices 167 fixed rules and streaming output despite the empty result vector.
+Non-GG ALI, data-representation generation and remaining orchestration/startup
+joins are still separate; null closure would not complete the broader design.
 
 These are source-derived components with their own premises and review scope.
 They do not yet select a safe whole-program threshold or unlock production
