@@ -1,0 +1,297 @@
+{
+  "archives": {
+    "sources.tar.gz": {
+      "archive": {
+        "bytes": 266565,
+        "sha256": "306d87821775477fa250a8683d402691607b8c1dd6f202b8a653c57cc646b15a"
+      },
+      "members": {
+        "gpr/src/gpr-ali.adb": {
+          "bytes": 45361,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ali.adb",
+          "sha256": "9d2c334d8b72a3d9aa64e0ad62ebe6d5026c31367aaee4b90bb5e87125059dde"
+        },
+        "gpr/src/gpr-ali.ads": {
+          "bytes": 22579,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ali.ads",
+          "sha256": "c9f4ba8eeb3f53c749803554571bf0ec1e83213f5f002f27f95b53637d0fcfca"
+        },
+        "gpr/src/gpr-conf.adb": {
+          "bytes": 97869,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb",
+          "sha256": "6928e3f989efe3b38d6d1de0633041aea4de0c98ba704f46b183a2c0f7a7ba9b"
+        },
+        "gpr/src/gpr-err-scanner.adb": {
+          "bytes": 86476,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-err-scanner.adb",
+          "sha256": "e8a78516d52bc3671cd60f45507b2501c6962021ee3cbb248ad4778d6241d6c2"
+        },
+        "gpr/src/gpr-nmsc.adb": {
+          "bytes": 351928,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+          "sha256": "2d0ad863a31167033790d21008a81bbce73d26a737c37a8ed8f6d32a5ddfb094"
+        },
+        "gpr/src/gpr-opt.ads": {
+          "bytes": 13222,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-opt.ads",
+          "sha256": "cc1bbe85525f51f0556b0da441342377d77f384540ad09b84d2b955ceb521443"
+        },
+        "gpr/src/gpr-osint.adb": {
+          "bytes": 18397,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-osint.adb",
+          "sha256": "637eb0db41a84c58c15be7d87d30767d0528a8d94fcddd93a9e3bb0fea12ec59"
+        },
+        "gpr/src/gpr-osint.ads": {
+          "bytes": 12122,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-osint.ads",
+          "sha256": "8b5db9685c2a83c3982419800c05c18ee870fa5d8f222e2a357dbddfd398e0c7"
+        },
+        "gpr/src/gpr-part.adb": {
+          "bytes": 82098,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+          "sha256": "08f730f8c484b8a8e34a4fb16e19ba68dccee8bb42a0f9de6b46553251848fec"
+        },
+        "gpr/src/gpr-sinput.adb": {
+          "bytes": 22873,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-sinput.adb",
+          "sha256": "6edc1791ef4423d45221353893849f59f3f6c4f49d11eae7e2a0f1c8d4dab427"
+        },
+        "gpr/src/gpr-sinput.ads": {
+          "bytes": 16449,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-sinput.ads",
+          "sha256": "d141dea2955863797cee2df213394d4ac910dac3e1882bb3de29ab356f4c8305"
+        },
+        "gpr/src/gpr-util.adb": {
+          "bytes": 200047,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+          "sha256": "ea41517db36fa2cb3a09bfcf6f2827d5d7d1fbaf3dbafd9f3ded491196821ca1"
+        },
+        "gpr/src/gpr.adb": {
+          "bytes": 71838,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.adb",
+          "sha256": "81ee58400cd270a4046da8d72b0668a1481f7dc30ba7ad4e78321e9f325afd49"
+        },
+        "gpr/src/gpr.ads": {
+          "bytes": 122737,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.ads",
+          "sha256": "375cae80791bdbea2ee55253de326ab2e25a83acc23b11a74b6c471008286f1b"
+        },
+        "src/gprbuild-compile.adb": {
+          "bytes": 138514,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-compile.adb",
+          "sha256": "6a0a2bb3cad840f8d5330b829e4b83e4ff0a0f8d08fe15b36b034d8c6bbffcad"
+        },
+        "src/gprbuild-post_compile.adb": {
+          "bytes": 185437,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-post_compile.adb",
+          "sha256": "1d3c92430ce32dca0dc88feb7be644342707dc644b9c46002ed218a07c976d02"
+        }
+      }
+    },
+    "witnesses.tar.gz": {
+      "archive": {
+        "bytes": 915881,
+        "sha256": "2779b0a318ddf14b272b0c58b54b4bb0341db44abfcd61f623b5bd8df02ff9be"
+      },
+      "members": {
+        "ordinary/invocation.json": {
+          "bytes": 3504,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/invocation.json",
+          "sha256": "74492913c9cd69fdab885a98a7fdd13efdb9104a6783ba86d4e9941dbae4fd13"
+        },
+        "ordinary/managed/events.jsonl": {
+          "bytes": 12083,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T122943-c12e0db35e8a/events.jsonl",
+          "sha256": "7d44d1ecc7cca02a7685f57a512a6b5de046d2d10c29f11dedce430b48e15cf7"
+        },
+        "ordinary/managed/native.log": {
+          "bytes": 1816,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T122943-c12e0db35e8a/native.log",
+          "sha256": "46dfb7e6185b8b44cf03fa0910019e047a7b84e12bfd0c97b281dbde00575237"
+        },
+        "ordinary/result.json": {
+          "bytes": 2126,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/result.json",
+          "sha256": "170807d616a9089700e9876160707beb05becc1ba714655d0709f61f97e294d2"
+        },
+        "ordinary/run.py": {
+          "bytes": 2989,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/run.py",
+          "sha256": "d5c5df27994f10d1daf4d2c5204f22118792dabfc65d263cb7cfb2055c5eceeb"
+        },
+        "ordinary/stderr": {
+          "bytes": 0,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "ordinary/stdout": {
+          "bytes": 246,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/stdout",
+          "sha256": "306ae77681e4f5c2e856e2e97abe0c5a14d482f0cdfc64fcd160fd6781c84b60"
+        },
+        "ordinary/work/bin/main": {
+          "bytes": 1049784,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/bin/main",
+          "sha256": "6154e4a7dced9e880a787aaa273ec5839eb774ead185115f7240e7d64c6fc87e"
+        },
+        "ordinary/work/main.adb": {
+          "bytes": 69,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+          "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021"
+        },
+        "ordinary/work/obj/b__main~1.adb": {
+          "bytes": 7987,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.adb",
+          "sha256": "c868038d576c3b511c9e5c01cdf401eae1434b7512b17d94a19662f22ca731cc"
+        },
+        "ordinary/work/obj/b__main~1.ads": {
+          "bytes": 14556,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.ads",
+          "sha256": "7cb2980d7078c9302955efd641b09d7ec110e5d810d232b1fca08690c9b3161e"
+        },
+        "ordinary/work/obj/b__main~1.ali": {
+          "bytes": 8151,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.ali",
+          "sha256": "a3ef98320b4ad7bcf6de6919507f533f44b2cea968b7e65fe2117e77ad67a412"
+        },
+        "ordinary/work/obj/b__main~1.o": {
+          "bytes": 13432,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.o",
+          "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+        },
+        "ordinary/work/obj/main.adb.stderr": {
+          "bytes": 0,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main.adb.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "ordinary/work/obj/main.adb.stdout": {
+          "bytes": 0,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main.adb.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "ordinary/work/obj/main~1.ali": {
+          "bytes": 355,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.ali",
+          "sha256": "60c609d2d27b531d84b348470dc1bb75b98bf0041ec33a757d344bc2bd1b5d10"
+        },
+        "ordinary/work/obj/main~1.bexch": {
+          "bytes": 1021,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.bexch",
+          "sha256": "62334e532dc0b4ef4296e353c9d0a646907fd192d0aab7591ff80a258a976026"
+        },
+        "ordinary/work/obj/main~1.o": {
+          "bytes": 1224,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.o",
+          "sha256": "16ef610e9d611c17a21c37af7bdab21e2950a5b3a466a4c7a5bf91776544e097"
+        },
+        "ordinary/work/program.gpr": {
+          "bytes": 411,
+          "original_path": "/tmp/silver-gpr-parent-fixed-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/program.gpr",
+          "sha256": "3fea33f3703b0dcf49aadf65bf8a1cf50e68982ab0dfb16f2dafc3b9594b8458"
+        },
+        "retained-config/invocation.json": {
+          "bytes": 3675,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/invocation.json",
+          "sha256": "2ea546243cf7b8a251d059c893dc1cda229a6a8b777253a5f166d0a7a6193819"
+        },
+        "retained-config/managed/events.jsonl": {
+          "bytes": 12104,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T123112-8c4245919445/events.jsonl",
+          "sha256": "9a2db16729c3e45f2de0112e0cb20922a98a9ba33fb5cd443dd24686e48ce751"
+        },
+        "retained-config/managed/native.log": {
+          "bytes": 1927,
+          "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261018T123112-8c4245919445/native.log",
+          "sha256": "835159c3746d594b0ade841b53473b8944cc8f27d9ba8c3395cafbd9b650f740"
+        },
+        "retained-config/result.json": {
+          "bytes": 2259,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/result.json",
+          "sha256": "275c02d7715c30bfe8a1d6657abf792f5e12868c4723d94921ff0962de4186f9"
+        },
+        "retained-config/run.py": {
+          "bytes": 3062,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/run.py",
+          "sha256": "86b0eb42fd506eec86aeea978bdf4885d55882e94caf70b47ffe3e3d35244bbd"
+        },
+        "retained-config/stderr": {
+          "bytes": 0,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "retained-config/stdout": {
+          "bytes": 269,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/stdout",
+          "sha256": "00aaeaadd149a1dcd40876ece28d4a6d02ce9fdae3e50fcf83e3860536f137da"
+        },
+        "retained-config/work/bin/main": {
+          "bytes": 1049784,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/bin/main",
+          "sha256": "6154e4a7dced9e880a787aaa273ec5839eb774ead185115f7240e7d64c6fc87e"
+        },
+        "retained-config/work/main.adb": {
+          "bytes": 69,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/main.adb",
+          "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021"
+        },
+        "retained-config/work/obj/b__main~1.adb": {
+          "bytes": 7987,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.adb",
+          "sha256": "9ee54a68f2456b243bce8c98807849e9997bd7ee194ccf50187445e735aa17a2"
+        },
+        "retained-config/work/obj/b__main~1.ads": {
+          "bytes": 14556,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.ads",
+          "sha256": "7cb2980d7078c9302955efd641b09d7ec110e5d810d232b1fca08690c9b3161e"
+        },
+        "retained-config/work/obj/b__main~1.ali": {
+          "bytes": 8151,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.ali",
+          "sha256": "79b81ebf5b804dbcf8f8b3b648b3c6a7d98e326e2d8a97c7e24f2ee3ceb4db7b"
+        },
+        "retained-config/work/obj/b__main~1.o": {
+          "bytes": 13432,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/b__main~1.o",
+          "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+        },
+        "retained-config/work/obj/main.adb.stderr": {
+          "bytes": 0,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main.adb.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "retained-config/work/obj/main.adb.stdout": {
+          "bytes": 0,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main.adb.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "retained-config/work/obj/main~1.ali": {
+          "bytes": 355,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.ali",
+          "sha256": "e6047f1f7110015093afffafc98c2e2b93299146acdb94ed2ff29706bae2e6bc"
+        },
+        "retained-config/work/obj/main~1.bexch": {
+          "bytes": 1021,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.bexch",
+          "sha256": "8083e535ea0918a8f8f6b6822985e25667af52052d292060e8eea75a5e7b9589"
+        },
+        "retained-config/work/obj/main~1.o": {
+          "bytes": 1224,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/obj/main~1.o",
+          "sha256": "16ef610e9d611c17a21c37af7bdab21e2950a5b3a466a4c7a5bf91776544e097"
+        },
+        "retained-config/work/program.gpr": {
+          "bytes": 411,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/program.gpr",
+          "sha256": "3fea33f3703b0dcf49aadf65bf8a1cf50e68982ab0dfb16f2dafc3b9594b8458"
+        },
+        "retained-config/work/selected.cgpr": {
+          "bytes": 6816,
+          "original_path": "/tmp/silver-gpr-parent-retain-20261018/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/selected.cgpr",
+          "sha256": "a1e3e2e2868afb03bf89463c56ee542cee7d5e1678da6ca27aef78d11445e63f"
+        }
+      }
+    }
+  },
+  "scope": "two retained small native GPR builds; offline collection only",
+  "source_commit": "bdfb879cf03643ec8e48a09ce07b08c4a6ff0263"
+}

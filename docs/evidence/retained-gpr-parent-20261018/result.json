@@ -1,0 +1,76 @@
+{
+  "ALI_buffer_bytes": 379,
+  "Main_ALI_parser_population": {
+    "ALIs": 1,
+    "Args": 0,
+    "Sdep": 2,
+    "Units": 1,
+    "Withs": 0
+  },
+  "aligned_source_extent": 16384,
+  "all_selected_arithmetic_pass": true,
+  "conditions": {
+    "ALI_reader_index_and_EOF": true,
+    "line_table_doubling_and_bits": true,
+    "physical_columns": true,
+    "source_buffer_individual_requests": true,
+    "source_cursor_and_block_increment": true,
+    "source_lengths_and_EOF": true
+  },
+  "line_capacities": [
+    500,
+    500,
+    500
+  ],
+  "physical_sources": {
+    "Main": {
+      "aligned_extent": 4096,
+      "bytes": 69,
+      "line_capacity": 500,
+      "max_expanded_final_column": 27,
+      "physical_line_entries_bound": 5,
+      "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021"
+    },
+    "configuration": {
+      "aligned_extent": 8192,
+      "bytes": 6816,
+      "line_capacity": 500,
+      "max_expanded_final_column": 323,
+      "physical_line_entries_bound": 143,
+      "sha256": "a1e3e2e2868afb03bf89463c56ee542cee7d5e1678da6ca27aef78d11445e63f"
+    },
+    "project": {
+      "aligned_extent": 4096,
+      "bytes": 411,
+      "line_capacity": 500,
+      "max_expanded_final_column": 74,
+      "physical_line_entries_bound": 15,
+      "sha256": "3fea33f3703b0dcf49aadf65bf8a1cf50e68982ab0dfb16f2dafc3b9594b8458"
+    }
+  },
+  "scope": "selected native GPR source/ALI component with fixed-context projection",
+  "source_files": 3,
+  "whole_pipeline_capacity_established": false,
+  "witnesses": {
+    "ordinary": {
+      "ALI_bytes": 355,
+      "ALI_records": {
+        "A": 9,
+        "D": 2,
+        "U": 1,
+        "W": 0
+      },
+      "duration_seconds": 0.45909077300166246
+    },
+    "retained-config": {
+      "ALI_bytes": 355,
+      "ALI_records": {
+        "A": 9,
+        "D": 2,
+        "U": 1,
+        "W": 0
+      },
+      "duration_seconds": 0.3446158779988764
+    }
+  }
+}
