@@ -2,6 +2,240 @@
 
 LF line numbering.
 
+## uintp.ads:275–299
+
+```text
+275:    --  Used to determine whether UI_Image/UI_Write output is in hexadecimal
+276:    --  or decimal format. Auto, the default setting, lets the routine make a
+277:    --  decision based on the value.
+278:
+279:    UI_Image_Max    : constant := 1024;
+280:    UI_Image_Buffer : String (1 .. UI_Image_Max);
+281:    UI_Image_Length : Natural;
+282:    --  Buffer used for UI_Image as described below
+283:
+284:    procedure UI_Image (Input : Uint; Format : UI_Format := Auto);
+285:    --  Places a representation of Uint, consisting of a possible minus sign,
+286:    --  followed by the value in UI_Image_Buffer. The form of the value is an
+287:    --  integer literal in either decimal (no base) or hexadecimal (base 16)
+288:    --  format. If Hex is True on entry, then hex mode is forced, otherwise
+289:    --  UI_Image makes a guess at which output format is more convenient. The
+290:    --  value must fit in UI_Image_Buffer. The actual length of the result is
+291:    --  returned in UI_Image_Length. If necessary to meet this requirement, the
+292:    --  result is an approximation of the proper value, using an exponential
+293:    --  format. The image of No_Uint is output as a single question mark.
+294:
+295:    function UI_Image (Input : Uint; Format : UI_Format := Auto) return String;
+296:    --  Functional form, in which the result is returned as a string. This call
+297:    --  also leaves the result in UI_Image_Buffer/Length as described above.
+298:
+299:    procedure UI_Write (Input : Uint; Format : UI_Format := Auto);
+```
+
+## uintp.adb:257–455
+
+```text
+257:    -- Image_Out --
+258:    ---------------
+259:
+260:    procedure Image_Out
+261:      (Input     : Uint;
+262:       To_Buffer : Boolean;
+263:       Format    : UI_Format)
+264:    is
+265:       Marks  : constant Uintp.Save_Mark := Uintp.Mark;
+266:       Base   : Valid_Uint;
+267:       Ainput : Valid_Uint;
+268:
+269:       Digs_Output : Natural := 0;
+270:       --  Counts digits output. In hex mode, but not in decimal mode, we
+271:       --  put an underline after every four hex digits that are output.
+272:
+273:       Exponent : Natural := 0;
+274:       --  If the number is too long to fit in the buffer, we switch to an
+275:       --  approximate output format with an exponent. This variable records
+276:       --  the exponent value.
+277:
+278:       function Better_In_Hex return Boolean;
+279:       --  Determines if it is better to generate digits in base 16 (result
+280:       --  is true) or base 10 (result is false). The choice is purely a
+281:       --  matter of convenience and aesthetics, so it does not matter which
+282:       --  value is returned from a correctness point of view.
+283:
+284:       procedure Image_Char (C : Character);
+285:       --  Output one character
+286:
+287:       procedure Image_String (S : String);
+288:       --  Output characters
+289:
+290:       procedure Image_Exponent (N : Natural);
+291:       --  Output non-zero exponent. Note that we only use the exponent form in
+292:       --  the buffer case, so we know that To_Buffer is true.
+293:
+294:       procedure Image_Uint (U : Valid_Uint);
+295:       --  Internal procedure to output characters of non-negative Uint
+296:
+297:       -------------------
+298:       -- Better_In_Hex --
+299:       -------------------
+300:
+301:       function Better_In_Hex return Boolean is
+302:          T16 : constant Valid_Uint := Uint_2**Int'(16);
+303:          A   : Valid_Uint := UI_Abs (Input);
+304:
+305:       begin
+306:          --  Small values up to 2**16 can always be in decimal
+307:
+308:          if A < T16 then
+309:             return False;
+310:          end if;
+311:
+312:          --  Otherwise, see if we are a power of 2 or one less than a power
+313:          --  of 2. For the moment these are the only cases printed in hex.
+314:
+315:          if A mod Uint_2 = Uint_1 then
+316:             A := A + Uint_1;
+317:          end if;
+318:
+319:          loop
+320:             if A mod T16 /= Uint_0 then
+321:                return False;
+322:
+323:             else
+324:                A := A / T16;
+325:             end if;
+326:
+327:             exit when A < T16;
+328:          end loop;
+329:
+330:          while A > Uint_2 loop
+331:             if A mod Uint_2 /= Uint_0 then
+332:                return False;
+333:
+334:             else
+335:                A := A / Uint_2;
+336:             end if;
+337:          end loop;
+338:
+339:          return True;
+340:       end Better_In_Hex;
+341:
+342:       ----------------
+343:       -- Image_Char --
+344:       ----------------
+345:
+346:       procedure Image_Char (C : Character) is
+347:       begin
+348:          if To_Buffer then
+349:             if UI_Image_Length + 6 > UI_Image_Max then
+350:                Exponent := Exponent + 1;
+351:             else
+352:                UI_Image_Length := UI_Image_Length + 1;
+353:                UI_Image_Buffer (UI_Image_Length) := C;
+354:             end if;
+355:          else
+356:             Write_Char (C);
+357:          end if;
+358:       end Image_Char;
+359:
+360:       --------------------
+361:       -- Image_Exponent --
+362:       --------------------
+363:
+364:       procedure Image_Exponent (N : Natural) is
+365:       begin
+366:          if N >= 10 then
+367:             Image_Exponent (N / 10);
+368:          end if;
+369:
+370:          UI_Image_Length := UI_Image_Length + 1;
+371:          UI_Image_Buffer (UI_Image_Length) :=
+372:            Character'Val (Character'Pos ('0') + N mod 10);
+373:       end Image_Exponent;
+374:
+375:       ------------------
+376:       -- Image_String --
+377:       ------------------
+378:
+379:       procedure Image_String (S : String) is
+380:       begin
+381:          for X of S loop
+382:             Image_Char (X);
+383:          end loop;
+384:       end Image_String;
+385:
+386:       ----------------
+387:       -- Image_Uint --
+388:       ----------------
+389:
+390:       procedure Image_Uint (U : Valid_Uint) is
+391:          H : constant array (Int range 0 .. 15) of Character :=
+392:                "0123456789ABCDEF";
+393:
+394:          Q, R : Valid_Uint;
+395:       begin
+396:          UI_Div_Rem (U, Base, Q, R);
+397:
+398:          if Q > Uint_0 then
+399:             Image_Uint (Q);
+400:          end if;
+401:
+402:          if Digs_Output = 4 and then Base = Uint_16 then
+403:             Image_Char ('_');
+404:             Digs_Output := 0;
+405:          end if;
+406:
+407:          Image_Char (H (UI_To_Int (R)));
+408:
+409:          Digs_Output := Digs_Output + 1;
+410:       end Image_Uint;
+411:
+412:    --  Start of processing for Image_Out
+413:
+414:    begin
+415:       if No (Input) then
+416:          Image_String ("No_Uint");
+417:          return;
+418:       end if;
+419:
+420:       UI_Image_Length := 0;
+421:
+422:       if Input < Uint_0 then
+423:          Image_Char ('-');
+424:          Ainput := -Input;
+425:       else
+426:          Ainput := Input;
+427:       end if;
+428:
+429:       if Format = Hex
+430:         or else (Format = Auto and then Better_In_Hex)
+431:       then
+432:          Base := Uint_16;
+433:          Image_Char ('1');
+434:          Image_Char ('6');
+435:          Image_Char ('#');
+436:          Image_Uint (Ainput);
+437:          Image_Char ('#');
+438:
+439:       else
+440:          Base := Uint_10;
+441:          Image_Uint (Ainput);
+442:       end if;
+443:
+444:       if Exponent /= 0 then
+445:          UI_Image_Length := UI_Image_Length + 1;
+446:          UI_Image_Buffer (UI_Image_Length) := 'E';
+447:          Image_Exponent (Exponent);
+448:       end if;
+449:
+450:       Uintp.Release (Marks);
+451:    end Image_Out;
+452:
+453:    -------------------
+454:    -- Init_Operand --
+455:    -------------------
+```
+
 ## libgnat/a-contai.ads:16–28
 
 ```text

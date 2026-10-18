@@ -8,6 +8,8 @@ import tarfile
 from pathlib import Path
 
 RANGES = {
+    'uintp.ads': [(275, 299)],
+    'uintp.adb': [(257, 455)],
     'libgnat/a-contai.ads': [(16, 28)],
     'libgnat/a-coinve.ads': [(409, 432)],
     'libgnat/a-coinve.adb': [(214, 248), (297, 315), (1200, 1283),

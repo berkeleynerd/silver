@@ -1,0 +1,1811 @@
+{
+  "source_manifest": [
+    {
+      "path": "src/utils/outputs.adb",
+      "bytes": 5093,
+      "sha256": "6a729fa922f882458ef3bd33fb8000407f22f58bd79ab1a71d2d0ea8d427bbb2"
+    },
+    {
+      "path": "src/utils/outputs.ads",
+      "bytes": 4286,
+      "sha256": "3f88827c01180e657de92414ed804027e5b6db74dd3088997fb91ec16e4cc912"
+    },
+    {
+      "path": "src/why/gnat2why-driver.adb",
+      "bytes": 60922,
+      "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304"
+    },
+    {
+      "path": "src/why/xgen/why-atree-to_json.adb-tmpl",
+      "bytes": 4655,
+      "sha256": "634f218e59e225ced82095a509f1e074a5681d5143e71f2a32dd886f3882465e"
+    },
+    {
+      "path": "src/why/xgen/xtree_why_ast.adb",
+      "bytes": 37203,
+      "sha256": "65277b8c3d31fbd9eac3da32ae562a660cf9f174878bf2a9e3f10c7be2d63af7"
+    },
+    {
+      "path": "src/why/xgen/xtree_sinfo.adb",
+      "bytes": 22859,
+      "sha256": "76c87d6da16443965af3754d7daae987d846aae51fb05d5b83bca4f3cf5ffb9b"
+    },
+    {
+      "path": "src/why/xgen/xtree_tables.adb",
+      "bytes": 17605,
+      "sha256": "5cfb08ec5889062b91b0aee72ad2e2b4ea041093979b4612bc141a65d803051a"
+    },
+    {
+      "path": "src/why/why-sinfo.ads",
+      "bytes": 26389,
+      "sha256": "c283273320e7412b039d55caa7ce7d5456531fed330d7e6fa9f6783ecb7cce40"
+    }
+  ],
+  "enum_cardinalities": {
+    "EW_Assert_Kind": 3,
+    "EW_Axiom_Dep_Kind": 2,
+    "EW_Clone_Type": 3,
+    "EW_Connector": 6,
+    "EW_Literal": 2,
+    "EW_ODomain": 5,
+    "EW_Subst_Type": 6,
+    "EW_Theory_Type": 2,
+    "EW_Type": 3
+  },
+  "field_count": 177,
+  "kind_count": 63,
+  "schema": {
+    "W_TYPE": [
+      {
+        "name": "Type_Kind",
+        "type": "EW_Type",
+        "modifier": ""
+      },
+      {
+        "name": "Name",
+        "type": "W_Name",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Is_Mutable",
+        "type": "Boolean",
+        "modifier": "\"False\""
+      },
+      {
+        "name": "Relaxed_Init",
+        "type": "Boolean",
+        "modifier": "\"False\""
+      }
+    ],
+    "W_NAME": [
+      {
+        "name": "Symb",
+        "type": "Symbol",
+        "modifier": ""
+      },
+      {
+        "name": "Namespace",
+        "type": "Symbol",
+        "modifier": "\"No_Symbol\""
+      },
+      {
+        "name": "Module",
+        "type": "W_Module",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Infix",
+        "type": "Boolean",
+        "modifier": "\"False\""
+      }
+    ],
+    "W_EFFECTS": [
+      {
+        "name": "Reads",
+        "type": "W_Identifier",
+        "modifier": "Id_Set"
+      },
+      {
+        "name": "Writes",
+        "type": "W_Identifier",
+        "modifier": "Id_Set"
+      },
+      {
+        "name": "Raises",
+        "type": "W_Raise_Effect",
+        "modifier": "Id_Set"
+      }
+    ],
+    "W_RAISE_EFFECT": [
+      {
+        "name": "Name",
+        "type": "W_Name",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Arg_Id",
+        "type": "W_Identifier",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Post",
+        "type": "W_Pred",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_BINDER": [
+      {
+        "name": "Name",
+        "type": "W_Identifier",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Arg_Type",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_TRANSPARENT_TYPE_DEFINITION": [
+      {
+        "name": "Type_Definition",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_RECORD_BINDER": [
+      {
+        "name": "Name",
+        "type": "W_Identifier",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Arg_Type",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Labels",
+        "type": "Symbol_Set",
+        "modifier": ""
+      },
+      {
+        "name": "Is_Mutable",
+        "type": "Boolean",
+        "modifier": "\"False\""
+      }
+    ],
+    "W_RECORD_DEFINITION": [
+      {
+        "name": "Fields",
+        "type": "W_Record_Binder",
+        "modifier": "Id_Some"
+      }
+    ],
+    "W_RANGE_TYPE_DEFINITION": [
+      {
+        "name": "First",
+        "type": "Uint",
+        "modifier": ""
+      },
+      {
+        "name": "Last",
+        "type": "Uint",
+        "modifier": ""
+      }
+    ],
+    "W_TRIGGERS": [
+      {
+        "name": "Triggers",
+        "type": "W_Trigger",
+        "modifier": "Id_Some"
+      }
+    ],
+    "W_TRIGGER": [
+      {
+        "name": "Terms",
+        "type": "W_Expr",
+        "modifier": "Id_Some"
+      }
+    ],
+    "W_AXIOM_DEP": [
+      {
+        "name": "Name",
+        "type": "W_Identifier",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Kind",
+        "type": "EW_Axiom_Dep_Kind",
+        "modifier": ""
+      }
+    ],
+    "W_HANDLER": [
+      {
+        "name": "Name",
+        "type": "W_Name",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Arg_Id",
+        "type": "W_Identifier",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Def",
+        "type": "W_Prog",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_FIELD_ASSOCIATION": [
+      {
+        "name": "Field",
+        "type": "W_Identifier",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Value",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_VARIANT": [
+      {
+        "name": "Cmp_Op",
+        "type": "W_Identifier",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Labels",
+        "type": "Symbol_Set",
+        "modifier": ""
+      },
+      {
+        "name": "Expr",
+        "type": "W_Term",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_VARIANTS": [
+      {
+        "name": "Variants",
+        "type": "W_Variant",
+        "modifier": "Id_Some"
+      }
+    ],
+    "W_UNIVERSAL_QUANTIF": [
+      {
+        "name": "Binders",
+        "type": "W_Binder",
+        "modifier": "Id_Some"
+      },
+      {
+        "name": "Labels",
+        "type": "Symbol_Set",
+        "modifier": ""
+      },
+      {
+        "name": "Triggers",
+        "type": "W_Triggers",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Pred",
+        "type": "W_Pred",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_EXISTENTIAL_QUANTIF": [
+      {
+        "name": "Binders",
+        "type": "W_Binder",
+        "modifier": "Id_Some"
+      },
+      {
+        "name": "Labels",
+        "type": "Symbol_Set",
+        "modifier": ""
+      },
+      {
+        "name": "Pred",
+        "type": "W_Pred",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_NOT": [
+      {
+        "name": "Right",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_CONNECTION": [
+      {
+        "name": "Left",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Op",
+        "type": "EW_Connector",
+        "modifier": ""
+      },
+      {
+        "name": "Right",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "More_Right",
+        "type": "W_Expr",
+        "modifier": "Id_Set"
+      }
+    ],
+    "W_LABEL": [
+      {
+        "name": "Labels",
+        "type": "Symbol_Set",
+        "modifier": ""
+      },
+      {
+        "name": "Def",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_LOC_LABEL": [
+      {
+        "name": "Sloc",
+        "type": "Source_Ptr",
+        "modifier": ""
+      },
+      {
+        "name": "Def",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Marker",
+        "type": "Symbol",
+        "modifier": "\"No_Symbol\""
+      }
+    ],
+    "W_IDENTIFIER": [
+      {
+        "name": "Name",
+        "type": "W_Name",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Labels",
+        "type": "String_Sets.Set",
+        "modifier": "\"String_Sets.Empty_Set\""
+      }
+    ],
+    "W_TAGGED": [
+      {
+        "name": "Tag",
+        "type": "Symbol",
+        "modifier": ""
+      },
+      {
+        "name": "Def",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_CALL": [
+      {
+        "name": "Name",
+        "type": "W_Identifier",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Args",
+        "type": "W_Expr",
+        "modifier": "Id_Set"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_LITERAL": [
+      {
+        "name": "Value",
+        "type": "EW_Literal",
+        "modifier": ""
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_BINDING": [
+      {
+        "name": "Name",
+        "type": "W_Identifier",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Def",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Context",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_ELSIF": [
+      {
+        "name": "Condition",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Then_Part",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_EPSILON": [
+      {
+        "name": "Name",
+        "type": "W_Identifier",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Pred",
+        "type": "W_Pred",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_CONDITIONAL": [
+      {
+        "name": "Condition",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Then_Part",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Elsif_Parts",
+        "type": "W_Expr",
+        "modifier": "Id_Set"
+      },
+      {
+        "name": "Else_Part",
+        "type": "W_Expr",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_INTEGER_CONSTANT": [
+      {
+        "name": "Value",
+        "type": "Uint",
+        "modifier": ""
+      }
+    ],
+    "W_RANGE_CONSTANT": [
+      {
+        "name": "Value",
+        "type": "Uint",
+        "modifier": ""
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_MODULAR_CONSTANT": [
+      {
+        "name": "Value",
+        "type": "Uint",
+        "modifier": ""
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_FIXED_CONSTANT": [
+      {
+        "name": "Value",
+        "type": "Uint",
+        "modifier": ""
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_REAL_CONSTANT": [
+      {
+        "name": "Value",
+        "type": "Ureal",
+        "modifier": ""
+      }
+    ],
+    "W_FLOAT_CONSTANT": [
+      {
+        "name": "Value",
+        "type": "Ureal",
+        "modifier": ""
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_COMMENT": [
+      {
+        "name": "Comment",
+        "type": "Symbol",
+        "modifier": ""
+      }
+    ],
+    "W_DEREF": [
+      {
+        "name": "Right",
+        "type": "W_Identifier",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_RECORD_ACCESS": [
+      {
+        "name": "Name",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Field",
+        "type": "W_Identifier",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_RECORD_UPDATE": [
+      {
+        "name": "Name",
+        "type": "W_Expr",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Updates",
+        "type": "W_Field_Association",
+        "modifier": "Id_Some"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_RECORD_AGGREGATE": [
+      {
+        "name": "Associations",
+        "type": "W_Field_Association",
+        "modifier": "Id_Some"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_ANY_EXPR": [
+      {
+        "name": "Effects",
+        "type": "W_Effects",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Pre",
+        "type": "W_Pred",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Post",
+        "type": "W_Pred",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Return_Type",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Labels",
+        "type": "Symbol_Set",
+        "modifier": ""
+      }
+    ],
+    "W_ASSIGNMENT": [
+      {
+        "name": "Name",
+        "type": "W_Identifier",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Value",
+        "type": "W_Prog",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Labels",
+        "type": "Symbol_Set",
+        "modifier": ""
+      }
+    ],
+    "W_BINDING_REF": [
+      {
+        "name": "Name",
+        "type": "W_Identifier",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Def",
+        "type": "W_Prog",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Context",
+        "type": "W_Prog",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_LOOP": [
+      {
+        "name": "Code_Before",
+        "type": "W_Prog",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Invariants",
+        "type": "W_Pred",
+        "modifier": "Id_Set"
+      },
+      {
+        "name": "Variants",
+        "type": "W_Variants",
+        "modifier": "Id_Set"
+      },
+      {
+        "name": "Code_After",
+        "type": "W_Prog",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_STATEMENT_SEQUENCE": [
+      {
+        "name": "Statements",
+        "type": "W_Prog",
+        "modifier": "Id_Some"
+      }
+    ],
+    "W_ABSTRACT_EXPR": [
+      {
+        "name": "Expr",
+        "type": "W_Prog",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Post",
+        "type": "W_Pred",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_ASSERT": [
+      {
+        "name": "Pred",
+        "type": "W_Pred",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Assert_Kind",
+        "type": "EW_Assert_Kind",
+        "modifier": ""
+      }
+    ],
+    "W_RAISE": [
+      {
+        "name": "Name",
+        "type": "W_Name",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Arg",
+        "type": "W_Expr",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_TRY_BLOCK": [
+      {
+        "name": "Prog",
+        "type": "W_Prog",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Handler",
+        "type": "W_Handler",
+        "modifier": "Id_Some"
+      },
+      {
+        "name": "Typ",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_FUNCTION_DECL": [
+      {
+        "name": "Name",
+        "type": "W_Identifier",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Binders",
+        "type": "W_Binder",
+        "modifier": "Id_Set"
+      },
+      {
+        "name": "Effects",
+        "type": "W_Effects",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Pre",
+        "type": "W_Pred",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Post",
+        "type": "W_Pred",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Return_Type",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Def",
+        "type": "W_Expr",
+        "modifier": "Id_Lone"
+      },
+      {
+        "name": "Labels",
+        "type": "Symbol_Set",
+        "modifier": ""
+      },
+      {
+        "name": "Location",
+        "type": "Source_Ptr",
+        "modifier": ""
+      }
+    ],
+    "W_AXIOM": [
+      {
+        "name": "Name",
+        "type": "Symbol",
+        "modifier": ""
+      },
+      {
+        "name": "Def",
+        "type": "W_Pred",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Dep",
+        "type": "W_Axiom_Dep",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_GOAL": [
+      {
+        "name": "Name",
+        "type": "Symbol",
+        "modifier": ""
+      },
+      {
+        "name": "Def",
+        "type": "W_Pred",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_TYPE_DECL": [
+      {
+        "name": "Args",
+        "type": "W_Identifier",
+        "modifier": "Id_Set"
+      },
+      {
+        "name": "Name",
+        "type": "W_Name",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Labels",
+        "type": "Symbol_Set",
+        "modifier": ""
+      },
+      {
+        "name": "Definition",
+        "type": "W_Type_Definition",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_GLOBAL_REF_DECLARATION": [
+      {
+        "name": "Name",
+        "type": "W_Identifier",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Ref_Type",
+        "type": "W_Type",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Labels",
+        "type": "Symbol_Set",
+        "modifier": ""
+      },
+      {
+        "name": "Location",
+        "type": "Source_Ptr",
+        "modifier": ""
+      }
+    ],
+    "W_NAMESPACE_DECLARATION": [
+      {
+        "name": "Declarations",
+        "type": "W_Declaration",
+        "modifier": "Id_Set"
+      },
+      {
+        "name": "Name",
+        "type": "Symbol",
+        "modifier": ""
+      }
+    ],
+    "W_EXCEPTION_DECLARATION": [
+      {
+        "name": "Name",
+        "type": "W_Name",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Arg",
+        "type": "W_Type",
+        "modifier": "Id_Lone"
+      }
+    ],
+    "W_META_DECLARATION": [
+      {
+        "name": "Name",
+        "type": "Symbol",
+        "modifier": ""
+      },
+      {
+        "name": "Parameter",
+        "type": "Symbol",
+        "modifier": ""
+      }
+    ],
+    "W_CLONE_DECLARATION": [
+      {
+        "name": "Origin",
+        "type": "W_Module",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "As_Name",
+        "type": "Symbol",
+        "modifier": ""
+      },
+      {
+        "name": "Clone_Kind",
+        "type": "EW_Clone_Type",
+        "modifier": ""
+      },
+      {
+        "name": "Substitutions",
+        "type": "W_Clone_Substitution",
+        "modifier": "Id_Set"
+      },
+      {
+        "name": "Theory_Kind",
+        "type": "EW_Theory_Type",
+        "modifier": ""
+      }
+    ],
+    "W_CLONE_SUBSTITUTION": [
+      {
+        "name": "Kind",
+        "type": "EW_Subst_Type",
+        "modifier": ""
+      },
+      {
+        "name": "Orig_Name",
+        "type": "W_Name",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Image",
+        "type": "W_Name",
+        "modifier": "Id_One"
+      }
+    ],
+    "W_INCLUDE_DECLARATION": [
+      {
+        "name": "Module",
+        "type": "W_Module",
+        "modifier": "Id_One"
+      },
+      {
+        "name": "Kind",
+        "type": "EW_Theory_Type",
+        "modifier": ""
+      },
+      {
+        "name": "Use_Kind",
+        "type": "EW_Clone_Type",
+        "modifier": ""
+      }
+    ],
+    "W_THEORY_DECLARATION": [
+      {
+        "name": "Declarations",
+        "type": "W_Declaration",
+        "modifier": "Id_Set"
+      },
+      {
+        "name": "Name",
+        "type": "Symbol",
+        "modifier": ""
+      },
+      {
+        "name": "Kind",
+        "type": "EW_Theory_Type",
+        "modifier": ""
+      },
+      {
+        "name": "Includes",
+        "type": "W_Include_Declaration",
+        "modifier": "Id_Set"
+      },
+      {
+        "name": "Comment",
+        "type": "Symbol",
+        "modifier": ""
+      }
+    ],
+    "W_MODULE": [
+      {
+        "name": "File",
+        "type": "Symbol",
+        "modifier": ""
+      },
+      {
+        "name": "Name",
+        "type": "Symbol",
+        "modifier": ""
+      }
+    ]
+  },
+  "local_weight_coefficient_order": [
+    "1",
+    "u",
+    "h",
+    "u*h",
+    "d"
+  ],
+  "local_weight_coefficients": {
+    "W_TYPE": [
+      41,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_NAME": [
+      42,
+      4,
+      0,
+      0,
+      0
+    ],
+    "W_EFFECTS": [
+      43,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_RAISE_EFFECT": [
+      44,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_BINDER": [
+      33,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_TRANSPARENT_TYPE_DEFINITION": [
+      49,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_RECORD_BINDER": [
+      49,
+      0,
+      3,
+      2,
+      0
+    ],
+    "W_RECORD_DEFINITION": [
+      41,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_RANGE_TYPE_DEFINITION": [
+      48,
+      0,
+      0,
+      0,
+      2
+    ],
+    "W_TRIGGERS": [
+      32,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_TRIGGER": [
+      31,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_AXIOM_DEP": [
+      34,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_HANDLER": [
+      35,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_FIELD_ASSOCIATION": [
+      40,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_VARIANT": [
+      33,
+      0,
+      3,
+      2,
+      0
+    ],
+    "W_VARIANTS": [
+      32,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_UNIVERSAL_QUANTIF": [
+      50,
+      0,
+      3,
+      2,
+      0
+    ],
+    "W_EXISTENTIAL_QUANTIF": [
+      47,
+      0,
+      3,
+      2,
+      0
+    ],
+    "W_NOT": [
+      25,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_CONNECTION": [
+      41,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_LABEL": [
+      35,
+      0,
+      3,
+      2,
+      0
+    ],
+    "W_LOC_LABEL": [
+      51,
+      4,
+      0,
+      0,
+      0
+    ],
+    "W_IDENTIFIER": [
+      40,
+      0,
+      3,
+      2,
+      0
+    ],
+    "W_TAGGED": [
+      36,
+      2,
+      0,
+      0,
+      0
+    ],
+    "W_CALL": [
+      36,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_LITERAL": [
+      36,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_BINDING": [
+      36,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_ELSIF": [
+      33,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_EPSILON": [
+      31,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_CONDITIONAL": [
+      49,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_INTEGER_CONSTANT": [
+      40,
+      0,
+      0,
+      0,
+      1
+    ],
+    "W_RANGE_CONSTANT": [
+      39,
+      0,
+      0,
+      0,
+      1
+    ],
+    "W_MODULAR_CONSTANT": [
+      41,
+      0,
+      0,
+      0,
+      1
+    ],
+    "W_FIXED_CONSTANT": [
+      39,
+      0,
+      0,
+      0,
+      1
+    ],
+    "W_REAL_CONSTANT": [
+      60,
+      0,
+      0,
+      0,
+      2
+    ],
+    "W_FLOAT_CONSTANT": [
+      62,
+      0,
+      0,
+      0,
+      2
+    ],
+    "W_COMMENT": [
+      31,
+      2,
+      0,
+      0,
+      0
+    ],
+    "W_DEREF": [
+      28,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_RECORD_ACCESS": [
+      41,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_RECORD_UPDATE": [
+      43,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_RECORD_AGGREGATE": [
+      45,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_ANY_EXPR": [
+      48,
+      0,
+      3,
+      2,
+      0
+    ],
+    "W_ASSIGNMENT": [
+      37,
+      0,
+      3,
+      2,
+      0
+    ],
+    "W_BINDING_REF": [
+      36,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_LOOP": [
+      37,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_STATEMENT_SEQUENCE": [
+      42,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_ABSTRACT_EXPR": [
+      41,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_ASSERT": [
+      31,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_RAISE": [
+      37,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_TRY_BLOCK": [
+      39,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_FUNCTION_DECL": [
+      85,
+      2,
+      3,
+      2,
+      0
+    ],
+    "W_AXIOM": [
+      35,
+      2,
+      0,
+      0,
+      0
+    ],
+    "W_GOAL": [
+      29,
+      2,
+      0,
+      0,
+      0
+    ],
+    "W_TYPE_DECL": [
+      44,
+      0,
+      3,
+      2,
+      0
+    ],
+    "W_GLOBAL_REF_DECLARATION": [
+      65,
+      2,
+      3,
+      2,
+      0
+    ],
+    "W_NAMESPACE_DECLARATION": [
+      50,
+      2,
+      0,
+      0,
+      0
+    ],
+    "W_EXCEPTION_DECLARATION": [
+      48,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_META_DECLARATION": [
+      43,
+      4,
+      0,
+      0,
+      0
+    ],
+    "W_CLONE_DECLARATION": [
+      53,
+      2,
+      0,
+      0,
+      0
+    ],
+    "W_CLONE_SUBSTITUTION": [
+      44,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_INCLUDE_DECLARATION": [
+      47,
+      0,
+      0,
+      0,
+      0
+    ],
+    "W_THEORY_DECLARATION": [
+      58,
+      4,
+      0,
+      0,
+      0
+    ],
+    "W_MODULE": [
+      33,
+      4,
+      0,
+      0,
+      0
+    ]
+  },
+  "retained_outputs": [
+    {
+      "file": "silver_arguments/obj/silver_arguments__first_or_default.gnat-json",
+      "bytes": 286340,
+      "p_characters": 286339,
+      "occurrences": 6994,
+      "primitive_maxima": {
+        "u": 189,
+        "h": 3,
+        "d": 11
+      },
+      "kind_occurrences": {
+        "W_ABSTRACT_EXPR": 5,
+        "W_ANY_EXPR": 4,
+        "W_ASSERT": 11,
+        "W_ASSIGNMENT": 11,
+        "W_AXIOM": 8,
+        "W_AXIOM_DEP": 8,
+        "W_BINDER": 93,
+        "W_BINDING": 32,
+        "W_CALL": 281,
+        "W_CLONE_DECLARATION": 10,
+        "W_CLONE_SUBSTITUTION": 54,
+        "W_COMMENT": 4,
+        "W_CONDITIONAL": 18,
+        "W_CONNECTION": 53,
+        "W_DEREF": 20,
+        "W_EFFECTS": 45,
+        "W_EPSILON": 2,
+        "W_FUNCTION_DECL": 62,
+        "W_GLOBAL_REF_DECLARATION": 3,
+        "W_HANDLER": 3,
+        "W_IDENTIFIER": 831,
+        "W_INCLUDE_DECLARATION": 281,
+        "W_INTEGER_CONSTANT": 56,
+        "W_LABEL": 101,
+        "W_LITERAL": 127,
+        "W_LOC_LABEL": 39,
+        "W_META_DECLARATION": 24,
+        "W_MODULE": 947,
+        "W_NAME": 2329,
+        "W_NAMESPACE_DECLARATION": 1,
+        "W_NOT": 1,
+        "W_RAISE": 7,
+        "W_RANGE_TYPE_DEFINITION": 3,
+        "W_RECORD_ACCESS": 12,
+        "W_RECORD_BINDER": 7,
+        "W_RECORD_DEFINITION": 7,
+        "W_STATEMENT_SEQUENCE": 41,
+        "W_THEORY_DECLARATION": 41,
+        "W_TRANSPARENT_TYPE_DEFINITION": 7,
+        "W_TRIGGER": 5,
+        "W_TRIGGERS": 5,
+        "W_TRY_BLOCK": 3,
+        "W_TYPE": 1362,
+        "W_TYPE_DECL": 18,
+        "W_UNIVERSAL_QUANTIF": 12
+      },
+      "weighted_bound": 4078095,
+      "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+    },
+    {
+      "file": "silver_arguments/obj/silver_arguments__input_is_valid.gnat-json",
+      "bytes": 121828,
+      "p_characters": 121827,
+      "occurrences": 3068,
+      "primitive_maxima": {
+        "u": 186,
+        "h": 3,
+        "d": 11
+      },
+      "kind_occurrences": {
+        "W_ABSTRACT_EXPR": 2,
+        "W_ASSIGNMENT": 5,
+        "W_AXIOM": 2,
+        "W_AXIOM_DEP": 2,
+        "W_BINDER": 67,
+        "W_BINDING": 7,
+        "W_CALL": 99,
+        "W_CLONE_DECLARATION": 8,
+        "W_CLONE_SUBSTITUTION": 40,
+        "W_COMMENT": 4,
+        "W_CONDITIONAL": 9,
+        "W_CONNECTION": 23,
+        "W_DEREF": 1,
+        "W_EFFECTS": 36,
+        "W_EPSILON": 1,
+        "W_FUNCTION_DECL": 41,
+        "W_GLOBAL_REF_DECLARATION": 1,
+        "W_HANDLER": 1,
+        "W_IDENTIFIER": 384,
+        "W_INCLUDE_DECLARATION": 122,
+        "W_INTEGER_CONSTANT": 18,
+        "W_LABEL": 33,
+        "W_LITERAL": 79,
+        "W_LOC_LABEL": 10,
+        "W_META_DECLARATION": 20,
+        "W_MODULE": 302,
+        "W_NAME": 1072,
+        "W_NAMESPACE_DECLARATION": 1,
+        "W_RAISE": 4,
+        "W_RANGE_TYPE_DEFINITION": 3,
+        "W_RECORD_ACCESS": 7,
+        "W_RECORD_BINDER": 5,
+        "W_RECORD_DEFINITION": 5,
+        "W_STATEMENT_SEQUENCE": 18,
+        "W_THEORY_DECLARATION": 21,
+        "W_TRANSPARENT_TYPE_DEFINITION": 3,
+        "W_TRIGGER": 1,
+        "W_TRIGGERS": 1,
+        "W_TRY_BLOCK": 1,
+        "W_TYPE": 591,
+        "W_TYPE_DECL": 12,
+        "W_UNIVERSAL_QUANTIF": 6
+      },
+      "weighted_bound": 1758490,
+      "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+    },
+    {
+      "file": "silver_arguments/obj/silver_arguments__is_message.gnat-json",
+      "bytes": 85809,
+      "p_characters": 85808,
+      "occurrences": 2114,
+      "primitive_maxima": {
+        "u": 182,
+        "h": 3,
+        "d": 11
+      },
+      "kind_occurrences": {
+        "W_ABSTRACT_EXPR": 3,
+        "W_ANY_EXPR": 2,
+        "W_ASSERT": 1,
+        "W_ASSIGNMENT": 1,
+        "W_AXIOM": 1,
+        "W_AXIOM_DEP": 1,
+        "W_BINDER": 44,
+        "W_BINDING": 8,
+        "W_CALL": 71,
+        "W_CLONE_DECLARATION": 7,
+        "W_CLONE_SUBSTITUTION": 36,
+        "W_COMMENT": 4,
+        "W_CONDITIONAL": 6,
+        "W_CONNECTION": 16,
+        "W_EFFECTS": 21,
+        "W_FUNCTION_DECL": 26,
+        "W_GLOBAL_REF_DECLARATION": 1,
+        "W_IDENTIFIER": 264,
+        "W_INCLUDE_DECLARATION": 69,
+        "W_INTEGER_CONSTANT": 12,
+        "W_LABEL": 15,
+        "W_LITERAL": 46,
+        "W_LOC_LABEL": 1,
+        "W_META_DECLARATION": 18,
+        "W_MODULE": 210,
+        "W_NAME": 762,
+        "W_RANGE_TYPE_DEFINITION": 2,
+        "W_RECORD_ACCESS": 4,
+        "W_RECORD_BINDER": 4,
+        "W_RECORD_DEFINITION": 4,
+        "W_STATEMENT_SEQUENCE": 9,
+        "W_THEORY_DECLARATION": 12,
+        "W_TRANSPARENT_TYPE_DEFINITION": 3,
+        "W_TYPE": 416,
+        "W_TYPE_DECL": 10,
+        "W_UNIVERSAL_QUANTIF": 4
+      },
+      "weighted_bound": 1193345,
+      "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+    },
+    {
+      "file": "silver_io/obj/silver_io__put.gnat-json",
+      "bytes": 274756,
+      "p_characters": 274755,
+      "occurrences": 6652,
+      "primitive_maxima": {
+        "u": 171,
+        "h": 3,
+        "d": 11
+      },
+      "kind_occurrences": {
+        "W_ABSTRACT_EXPR": 5,
+        "W_ANY_EXPR": 2,
+        "W_ASSERT": 10,
+        "W_ASSIGNMENT": 15,
+        "W_AXIOM": 1,
+        "W_AXIOM_DEP": 1,
+        "W_BINDER": 82,
+        "W_BINDING": 24,
+        "W_CALL": 204,
+        "W_CLONE_DECLARATION": 13,
+        "W_CLONE_SUBSTITUTION": 66,
+        "W_COMMENT": 10,
+        "W_CONDITIONAL": 15,
+        "W_CONNECTION": 40,
+        "W_DEREF": 44,
+        "W_EFFECTS": 47,
+        "W_EXCEPTION_DECLARATION": 2,
+        "W_FUNCTION_DECL": 61,
+        "W_GLOBAL_REF_DECLARATION": 13,
+        "W_HANDLER": 3,
+        "W_IDENTIFIER": 769,
+        "W_INCLUDE_DECLARATION": 326,
+        "W_INTEGER_CONSTANT": 38,
+        "W_LABEL": 95,
+        "W_LITERAL": 131,
+        "W_LOC_LABEL": 63,
+        "W_LOOP": 1,
+        "W_META_DECLARATION": 28,
+        "W_MODULAR_CONSTANT": 1,
+        "W_MODULE": 928,
+        "W_NAME": 2192,
+        "W_RAISE": 5,
+        "W_RANGE_TYPE_DEFINITION": 6,
+        "W_RECORD_ACCESS": 12,
+        "W_RECORD_BINDER": 9,
+        "W_RECORD_DEFINITION": 9,
+        "W_STATEMENT_SEQUENCE": 37,
+        "W_THEORY_DECLARATION": 46,
+        "W_TRANSPARENT_TYPE_DEFINITION": 6,
+        "W_TRIGGER": 1,
+        "W_TRIGGERS": 1,
+        "W_TRY_BLOCK": 3,
+        "W_TYPE": 1259,
+        "W_TYPE_DECL": 22,
+        "W_UNIVERSAL_QUANTIF": 6
+      },
+      "weighted_bound": 3565361,
+      "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+    },
+    {
+      "file": "silver_io/obj/silver_io__put_line.gnat-json",
+      "bytes": 288617,
+      "p_characters": 288616,
+      "occurrences": 7120,
+      "primitive_maxima": {
+        "u": 174,
+        "h": 3,
+        "d": 11
+      },
+      "kind_occurrences": {
+        "W_ABSTRACT_EXPR": 5,
+        "W_ANY_EXPR": 2,
+        "W_ASSERT": 12,
+        "W_ASSIGNMENT": 19,
+        "W_AXIOM": 1,
+        "W_AXIOM_DEP": 1,
+        "W_BINDER": 82,
+        "W_BINDING": 26,
+        "W_CALL": 224,
+        "W_CLONE_DECLARATION": 13,
+        "W_CLONE_SUBSTITUTION": 66,
+        "W_COMMENT": 10,
+        "W_CONDITIONAL": 16,
+        "W_CONNECTION": 44,
+        "W_DEREF": 52,
+        "W_EFFECTS": 47,
+        "W_EXCEPTION_DECLARATION": 2,
+        "W_FUNCTION_DECL": 61,
+        "W_GLOBAL_REF_DECLARATION": 13,
+        "W_HANDLER": 3,
+        "W_IDENTIFIER": 826,
+        "W_INCLUDE_DECLARATION": 326,
+        "W_INTEGER_CONSTANT": 47,
+        "W_LABEL": 110,
+        "W_LITERAL": 131,
+        "W_LOC_LABEL": 82,
+        "W_LOOP": 1,
+        "W_META_DECLARATION": 28,
+        "W_MODULAR_CONSTANT": 1,
+        "W_MODULE": 978,
+        "W_NAME": 2356,
+        "W_RAISE": 6,
+        "W_RANGE_TYPE_DEFINITION": 6,
+        "W_RECORD_ACCESS": 13,
+        "W_RECORD_BINDER": 9,
+        "W_RECORD_DEFINITION": 9,
+        "W_STATEMENT_SEQUENCE": 42,
+        "W_THEORY_DECLARATION": 46,
+        "W_TRANSPARENT_TYPE_DEFINITION": 6,
+        "W_TRIGGER": 1,
+        "W_TRIGGERS": 1,
+        "W_TRY_BLOCK": 3,
+        "W_TYPE": 1365,
+        "W_TYPE_DECL": 22,
+        "W_UNIVERSAL_QUANTIF": 6
+      },
+      "weighted_bound": 3884397,
+      "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+    }
+  ],
+  "scope": "schema transfer and retained-file byte equality; source bounds for u,h,d and occurrence counts remain separate"
+}

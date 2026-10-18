@@ -179,12 +179,114 @@ concerns arithmetic in the reviewed path, not an observed failure at that
 file size or a newly selected source cap. It makes no assumption that a runtime
 built with checks suppressed would diagnose an overflow safely.
 
-The existing occurrence recurrence counts nodes, not emitted characters, so
-it does not alone establish T_file. Extend it with serialized primitive-field
-lengths, collection delimiters and repeated labels to obtain that weight from
-source. The fixed probes retain actual emitted files for their finite cases;
-variable Main's complete byte transfer remains required. These proof-input
-output constraints cannot be dismissed as optional report formatting.
+The occurrence recurrence counts nodes, not emitted characters. The following
+schema transfer connects those occurrences to bytes, with explicit primitive
+length premises. These proof-input output constraints cannot be dismissed as
+optional report formatting.
+
+### From the schema to a serialized-byte weight
+
+The complete schema has 63 usable node kinds and 177 variant fields
+(`src/why/xgen/xtree_sinfo.adb:35–756`). Every emitted node also has its kind,
+occurrence ID and Domain. The generator excludes Ada_Node and Checked from
+serialization (`xtree_why_ast.adb:169–230`); `xtree_tables.adb:496–563` supplies
+the common/variant-field and multiplicity mapping. All nine serialized enums
+have implicit representations in 0 through 9 (`why-sinfo.ads:809–848`), so
+their Integer Image occupies two characters including the leading space.
+
+For one output file, let:
+
+- `u` bound the byte length of every emitted symbol, label-set member and
+  source filename, including fixed dependencies and generated names/comments;
+- `h` bound each primitive set's cardinality; the
+  [label construction argument](retained-producer-capacity.md#serialized-label-sets-have-cardinality-at-most-three)
+  supplies `h=3` for the current source domain;
+- `d` bound the exact signed decimal image length of every serialized valid
+  Uint, including Ureal numerators and denominators; and
+- `O_k` count occurrences of kind k in this file, with `O=sum(O_k)`.
+
+`d <= 1019` ensures that Uint serialization uses the exact value.
+`Uint_To_Json` calls `UI_Image(I, Decimal)`. Its Image_Char keeps at most 1019
+characters in the 1024-character fixed buffer; further characters enter an
+approximation/exponent path (`gcc/ada/uintp.adb:257–455`, `uintp.ads:275–299`).
+Do not treat that path as a semantics-preserving way of printing arbitrary
+integers. This condition concerns values actually passed to the serializer,
+not huge scanner powers that never reach it. Decimal conversion's arithmetic
+scratch remains part of the separate Uint allocation argument.
+
+For a symbol of length `s`, output length is `s + quotes(s) + 2 <= 2s+2`.
+The template's remaining primitive-field transfers are:
+
+| Field | Upper bound on emitted characters |
+| --- | ---: |
+| Boolean | 5 |
+| Enumerated value | 2 |
+| Symbol | `2u+2` |
+| Symbol_Set or String_Sets.Set | `2+h*(2u+3)` |
+| Source_Ptr | `2u+16` (also covers absent `null`) |
+| Uint | `d+2` |
+| Ureal | `2d+25` |
+
+The Ureal row includes two quoted Uint images, a Natural image of at most
+eleven characters, a Boolean, two brackets and three commas. The Source_Ptr
+row includes a quoted filename, physical line image, brackets and comma.
+Set commas are charged within that set's row. These follow the complete
+serializer template `why-atree-to_json.adb-tmpl:17–156`.
+
+Define `w_k(u,h,d)` as the local cost of node kind k, excluding its children's
+bytes. Start with `len(kind)+19`: brackets, quoted kind, occurrence ID image
+of at most eleven characters, two commas and the Domain image. Add one comma
+per variant field and its primitive weight above. For child fields add zero
+for a required node, four for an optional node, two for a required list or
+four for an optional list. These latter costs cover brackets or `null`;
+present child occurrences are counted separately. Every comma between node
+list entries can be charged to its following occurrence, at most one per
+emitted node across the whole file, including the top-level theory list.
+
+The exact schema therefore gives the compositional upper bound
+
+```text
+T_file <= 29 + O + sum(O_k * w_k(u,h,d)).
+```
+
+The 29 consists of the 26-character header, outer list brackets and final
+brace. Close's terminating newline is outside T_file. Shared DAG nodes count
+again each time serialized; a count of distinct node IDs cannot replace O.
+The [schema checker](../evidence/retained-producer-storage-20261018/serialization.py)
+retains all 63 coefficient rows, rather than selecting a multiplier from
+measurements. Only three rows are undominated for nonnegative parameters:
+`58+4u`, `62+2d`, and `85+2u+3h+2uh`. With `h=3`, a simpler sufficient envelope is
+
+```text
+T_file <= 29 + O * max(95+8u, 63+2d).
+```
+
+This gives a direct composition with the existing occurrence transfers. The
+per-kind sum is tighter; tracking actual per-field lengths is tighter again.
+The global-maximum envelope may be unnecessarily restrictive for many short
+builtin names plus one long source name. Compare those alternatives when
+selecting the whole capacity predicate; this research does not adopt the
+coarser rule as language membership. Generated-name/comment/filename bounds,
+serialized numeric bounds and the complete per-file occurrence count must
+still supply `u`, `d` and `O_k` from the source and configuration.
+
+Without a new producer run, the checker reconstructed all five retained fixed
+library JSON files **byte for byte**, including native image whitespace,
+quoting and Close's newline, then checked the weighted inequality:
+
+| File's entity | P characters | Occurrences | Observed `(u,h,d)` | Per-kind upper bound |
+| --- | ---: | ---: | --- | ---: |
+| First_Or_Default | 286,339 | 6,994 | (189,3,11) | 4,078,095 |
+| Input_Is_Valid | 121,827 | 3,068 | (186,3,11) | 1,758,490 |
+| Is_Message | 85,808 | 2,114 | (182,3,11) | 1,193,345 |
+| Put | 274,755 | 6,652 | (171,3,11) | 3,565,361 |
+| Put_Line | 288,616 | 7,120 | (174,3,11) | 3,884,397 |
+
+These measured maxima apply to those files; they are not universal Main name
+or numeric bounds. The finite checks corroborate the schema traversal and
+counting implementation, while the source derivation supplies the general
+transfer. The complete fixed output bytes already satisfy the per-file column
+condition independently of these conservative weights.
 
 ## Scope and reproduction
 
@@ -199,6 +301,6 @@ still the explicit [source-identity premise](retained-tool-source-identity.md).
 This covers the two Why storage vectors, retained Why list lengths, standard
 hashed-map arithmetic and the stated JSON output conditions. Symbol
 storage, other auxiliary maps/sets/vectors, temporary container multiplicities,
-tampering counters, complete serialization bytes, recursion and other phases
+tampering counters, source-derived serialization parameters, recursion and other phases
 are not proved safe merely by these local conditions. They remain in the whole-process
 capacity inventory. No production admission or tool pin changes here.
