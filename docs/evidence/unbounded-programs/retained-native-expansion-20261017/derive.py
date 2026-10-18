@@ -1128,8 +1128,8 @@ def native_fixed_frontend(input_identifier_length, pathname_length):
     assert implicit == 288
     input_correction = 4*max(0,input_identifier_length-1)
     normalized_names = 10*raw["namet__name_chars__last_val"]
-    paths = fixed_native_inputs["names"]["path_spelling_allowance"]
-    assert paths == 60
+    paths = fixed_native_inputs["names"]["path_occurrence_allowance"]
+    assert paths == 835
     return dict(node_identities=40888+implicit,
         entity_identities=40888,
         dynamic_slots=raw["atree__atree_private_part__slots__last_val"]+9*implicit,
@@ -1144,7 +1144,8 @@ def native_fixed_frontend(input_identifier_length, pathname_length):
         Name_entries=raw["namet__name_entries__last_val"],
         Name_characters=normalized_names+paths*(pathname_length+1)+input_correction,
         fixed_Name_buffer_bound=(10*fixed_native_inputs["names"]["maximum_recorded_spelling_length"]
-                                +pathname_length+max(0,input_identifier_length-1)),
+                                +fixed_native_inputs["names"]["max_path_occurrences_per_spelling"]*(pathname_length+1)
+                                +max(0,input_identifier_length-1)),
         Xrefs=raw["lib__xref__xrefs__last_valXn"],
         semantic_units=39, implicit_with_ordinary_nodes=implicit,
         first_RTE_Elist_headers=len(re_ids),

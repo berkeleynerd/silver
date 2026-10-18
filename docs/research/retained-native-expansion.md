@@ -4400,20 +4400,26 @@ Let P bound a **complete pathname** in the controlled invocation. Preserve the
 selected search-directory/invocation shape and fixed filenames: variable
 installation/workspace path prefixes occupy the slash-bearing pathname roles;
 fixed basename and relative-directory tokens remain prescribed. The corrected
-retained name inventory has 56 slash-bearing spellings. Its 112914 decoded
+retained name inventory has 56 slash-bearing spellings, containing 831 slash
+characters in total. All are absolute or `./` paths in this capture, but do not
+assume that a generated name contains only one path. Charge one complete path
+per original slash. Every variable path occupies a slash-bearing role, so this
+overcounts even a name concatenating several paths/options. The 112914 decoded
 characters including NUL, plus the 5000-character lock reserve, leave four
 characters of positive-growth excess. Treat each of those four characters as
-another pathname rather than assuming an unrecorded spelling. Thus 60*(P+1)
-characters safely pay complete replacement path spellings, retaining all old
-path bytes too. It does not assume that this workspace's historical paths will
+another pathname rather than assuming an unrecorded spelling. Thus 835*(P+1)
+characters safely pay replacement path occurrences, retaining all old path
+bytes too. The largest decoded spelling has 17 slashes, which also dominates
+the four unrepresented characters; use 17 replacement paths in one name for
+the buffer bound. It does not assume that this workspace's historical paths will
 be used later, or permit extra search directories under the same constant.
 
 For input-binding length d (zero when absent), the sufficient fixed name charge
 is
 
 ```text
-Name characters = 10*117918 + 60*(P+1) + 4*max(0,d-1).
-fixed Name_Buffer demand <= 1700 + P + max(0,d-1).
+Name characters = 10*117918 + 835*(P+1) + 4*max(0,d-1).
+fixed Name_Buffer demand <= 1700 + 17*(P+1) + max(0,d-1).
 ```
 
 The buffer bound uses the recorded maximum spelling length170 and the same

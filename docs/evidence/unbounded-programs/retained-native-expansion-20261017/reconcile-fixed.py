@@ -81,6 +81,10 @@ undecoded_characters = name_characters-5000-live_characters
 assert undecoded_characters == 4
 path_names = sum("/" in x for x in names)
 assert path_names == 56
+path_occurrences = sum(x.count("/") for x in names)
+assert path_occurrences == 831
+max_path_occurrences = max(max(x.count("/") for x in names), undecoded_characters)
+assert max_path_occurrences == 17
 result = dict(
     scope="Source-selected Main fixed unit closure reconciled with the retained complete all-roots capture; no execution. Manual root/freezing reduction is required for constant promotion.",
     capture_files_sha256={name:digest(args.capture/name) for name in ("summary.json","inputs.json","decoded-names.json")},
@@ -92,14 +96,16 @@ result = dict(
     names=dict(decoded_entries=len(names), decoded_characters_including_NUL=live_characters,
         locked_character_reserve=5000, undecoded_lifetime_characters=undecoded_characters,
         slash_bearing_spellings=path_names,
-        path_spelling_allowance=path_names+undecoded_characters,
+        path_occurrence_allowance=path_occurrences+undecoded_characters,
+        slash_occurrences=path_occurrences,
+        max_path_occurrences_per_spelling=max_path_occurrences,
         maximum_recorded_spelling_length=max(map(len,names)),
         decimal_serial_digit_allowance=10,
-        normalization="10*fixed_character_growth + path_spelling_allowance*(P+1) + 4*(input_identifier_length-1); P bounds each complete pathname under the same search/invocation shape",
-        fixed_Name_buffer_bound="10*maximum_recorded_spelling_length + P + max(0,input_identifier_length-1)"),
+        normalization="10*fixed_character_growth + path_occurrence_allowance*(P+1) + 4*(input_identifier_length-1); P bounds each complete pathname under the same search/invocation shape",
+        fixed_Name_buffer_bound="10*maximum_recorded_spelling_length + max_path_occurrences_per_spelling*(P+1) + max(0,input_identifier_length-1)"),
     additional_implicit_with_nodes=8*36,
     source_sensitive_unit_scope_saves_included=False,
     physical_representations_included=False,
     whole_native_frontend_closed=False)
 args.output.write_text(json.dumps(result,indent=2,sort_keys=True)+"\n")
-print(json.dumps(dict(selected_specs=len(selected),semantic_units=39,generic_copies=8,path_spellings=path_names+undecoded_characters,retained_table_counters=len(counts))))
+print(json.dumps(dict(selected_specs=len(selected),semantic_units=39,generic_copies=8,path_occurrences=path_occurrences+undecoded_characters,retained_table_counters=len(counts))))
