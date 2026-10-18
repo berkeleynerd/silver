@@ -7515,6 +7515,248 @@ python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reco
   --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-rtl-setup.json
 ```
 
+## Null dataflow and register-allocation backing
+
+This continuation prices selected fixed objects beneath the backend's null
+shape, using its source-derived interfaces rather than an execution maximum.
+Use `R=99` for the largest register count, `U=53` for the first unused final
+instruction UID and `B=12` for block-index slots. At LRA itself, `U_LRA<=27`
+and there are at most ten real instructions: nops and one operand-free
+blockage, with no referenced pseudo, call, SET, scratch or exceptional edge.
+The [backend derivation](retained-backend-gigi.md#null-ira-and-lra-shape-through-reload)
+supplies those premises. The selected Linux LP64 ABI has eight-byte pointers
+and longs, four-byte ints, `CHECKING_P=0` and `GATHER_STATISTICS=0`.
+
+### Pool and bitmap backing
+
+`base_pool_allocator` rounds each type's size up to eight bytes, with a
+minimum of one pointer. There is no checking-ID prefix in this build. Each
+block has an eight-byte link header and exactly65,536 bytes; its capacity is
+`floor((65536-8)/aligned_type_size)` (`alloc-pool.h:253–299,348–426`,
+`memory-block.h:28–68`). These are ordinary allocations, not GGC events.
+Returned slots and returned64-KiB blocks can be reused. No multiplier over
+this table is an aggregate RAM gate.
+
+| Type | Object bytes | Objects per pool block |
+| --- | ---: | ---: |
+| DF base reference |64|1023|
+| DF artificial/regular reference |72|910|
+| DF instruction information |48|1365|
+| DF register information |16|4095|
+| DF multiword hard-register descriptor |32|2047|
+| LRA instruction recognition record |80|819|
+
+The layouts follow `df.h:342–435,513–519` and `lra-int.h:204–241`.
+Pool wrapper objects themselves are136 bytes, confirmed by installed
+`df_scan_alloc` allocation immediates; they are not included in a block's
+typed-object count. Pool counters are `size_t`; the pool ID is an unsigned
+long. `last_id` advances once when a pool is initialized, not for each object.
+If `N` objects may be simultaneously retained in a pool generation, its
+backbone needs at most `ceil(N/objects_per_block)` blocks. A lifetime-object
+count is also a conservative input. This bound does not justify silently
+dropping generation counts or the shared incoming pool-ID state.
+
+Sparse bitmap headers are32 bytes and elements40 bytes, with128 represented
+bits per element (`bitmap.h:277–351`). Register sets below99, block sets below12
+and instruction sets below53 therefore need at most one element per live
+bitmap. Bitmap operations recycle free elements; their lifetime create/delete
+count is distinct from peak elements. `bitmap_obstack_initialize` immediately
+requests a64-KiB chunk even for a permanently empty bitmap family
+(`bitmap.cc:733–752`, `coretypes.h:375–389`). A completed32- or40-byte object
+cannot force a larger chunk: `_obstack_newchunk` sees no partial object and
+chooses the maximum of65,536 and at most`40+7+100` bytes
+(`include/obstack.h:375–415`, `libiberty/obstack.c:199–218`). A conservative
+fresh-chunk count is one per initialization plus one per fresh object;
+recycling only decreases it. The installed initializer's chunk and alignment
+arguments are65,536 and8. Shared `reg_obstack` users still require their
+combined incoming/live demand.
+
+For simple bitmaps, `sbitmap_alloc(n)` requests `8+8*ceil(n/64)` bytes; its
+`n+63`, word count, stored byte count and final request use unsigned32;
+the `sizeof` byte product is computed in `size_t` before that assignment
+(`sbitmap.h:80–96`, `sbitmap.cc:42–54`). The installed allocation computes that
+same expression. A Briggs sparse set requests `32+8*n` bytes for positive n
+(`sparseset.h:83–98`, `sparseset.cc:28–44`); the requested byte count is also
+unsigned32. These expressions yield16/24 bytes for6/98 simple-bitmap bits and
+824 bytes for a99-element sparse set. They are local bounds, not claims for
+unbounded n.
+
+### DF scan generations and local arrays
+
+There are two complete scan generations on the selected null path: the initial
+DF setup (`df-core.cc:697`) and the post-LRA reset (`ira.cc:6139`). The other
+selected x86 reset (`i386.cc:9093`) is excluded: initial stack realignment is
+false (`cfgexpand.cc:6899–6901`), incoming alignment is128, the leaf's largest
+used slot needs at most128, no spill raises it, and optimization is zero. All
+three disjuncts at `i386.cc:9031–9033` are therefore false. The landing-pad
+partition reset at `bb-reorder.cc:3066` requires a landing-pad array, absent
+on this body; other-target resets are not compiled. Although the scan problem
+has an allocation callback, `df_analyze_1` explicitly skips DF_SCAN
+(`df-core.cc:1253–1270`). Routine DF analysis does not add whole scan generations.
+
+| Selected request | Capacity / individual bytes |
+| --- | --- |
+| Three register-info pointer arrays | `R+floor(R/4)<=123` slots,984 bytes each |
+| Four register begin/count arrays |123 unsigneds,492 bytes each |
+| Instruction-info pointer array | `U+1+floor((U+1)/4)<=67` slots,536 bytes |
+| DF scan block array | `B+1+floor((B+1)/4)<=16` entries,256 bytes |
+| DF LR block array |16 entries of four32-byte bitmap heads,2048 bytes |
+| Scan-problem object |256 bytes |
+| Six scan pool wrappers |136 bytes each |
+| Two scan bitmap obstacks |one65,536-byte initial chunk each |
+| Register-info pool |at most`3R=297` objects per scan generation, one block |
+| Hard-register live counts |92 unsigneds,368 bytes, once per DF instance |
+
+Array growth and initialization are at `df-scan.cc:454–548` and
+`df-core.cc:1651–1668`; fixed setup is at `df-scan.cc:229–280` and
+`df-core.cc:684–714`. Scan reset destroys its pools and arrays. LR has its own
+bitmap obstack and problem lifetime; its local byte bound is not an assertion
+that every scan reset recreates LR (`df-problems.cc:724–792`). Initializing the
+scan's five register bitmaps and three instruction bitmaps does not imply that
+they remain empty.
+
+The remaining DF reference equation is explicit. Let `C_bb` be all calls that
+collect a block's artificial refs, including initial scans, entry/exit updates
+and block recreation; let `C_ref` and `C_mw` count instruction/REG_NOTE reference
+and multiword-descriptor creations across all deferred rescans. Then
+
+```text
+F_art <= 92*92*C_bb
+ref_order_final <= 92*92*C_bb + C_ref + C_mw
+```
+
+Each artificial collection enumerates a hard-register bitmap of at most92
+members, and `df_ref_record` can expand a register into at most92 individual
+hard-register refs. The squared factor deliberately avoids assuming every
+raw mode occupies one hard register. Null excludes EH/nonlocal-goto additions
+(`df-scan.cc:3270–3322,3582–3592,3742–3761`). Every reference and multiword
+descriptor increments the unsigned32 `df->ref_order`
+(`:2470–2516,2580–2628`); full scan reset does **not** reset this counter.
+Thus the final right-hand side must fit unsigned32 even when peak storage is
+small. Per-reference-table resize separately needs
+`F_peak+bitmap_addend+floor(F_peak/4)<=INT_MAX` and an eight-byte pointer product
+in `size_t` (`:503–529`); its assignment and addition use a signed `int`.
+The pass schedule must still supply `C_bb`, `C_ref`, `C_mw`, peak refs and the
+actual bitmap addends. Two scan generations alone do not bound those values.
+
+### Alias analysis and LRA's nonempty fixed setup
+
+The selected pre-LRA alias call sees98 registers. Its two GC pointer vectors
+request56 and792 raw bytes, bounded after GGC rounding by64 and1024 bytes,
+respectively. GC vector capacity may exceed logical request because
+`va_gc::reserve` rounds before storing capacity (`vec.h:393–422`). The ordinary
+requests are a16-byte equivalence bitmap,24-byte seen bitmap,784-byte new-base
+array and a reverse-postorder output array of at most48 bytes
+(`alias.cc:3368–3393`). CFG traversal helper scratch remains separate.
+There are at most ten alias iterations. The incoming nop/blockage chain has
+neither SET nor REG_NOALIAS; `record_set` cannot create a unique base, and no
+pseudo SET reaches `plus_constant`. `unique_id` resets to1 per iteration and
+stays1 (`alias.cc:1548–1600,3420,3451–3511,3533`). The two vector allocations
+are at most two GGC events; the iteration count does not multiply them.
+
+LRA's initialization still creates149 register records of144 bytes each:
+21,456 bytes. `last_reg_value` advances149 times even though no pseudo is
+referenced (`lra.cc:1341–1388`). The installed allocation multiplies the record
+count by`9*16`, independently confirming the size. Live-solver setup creates
+up to12 block records of72 bytes each (864 bytes), and two populated bitmap
+elements for the hard-register set and all-block set
+(`lra-lives.cc:480–503`). It runs before the no-referenced-pseudo return.
+
+The nop and blockage MD patterns contain no operand, duplication or register
+(`i386.md:20923–20927,21055–21061`). Therefore recognition needs at most two
+40-byte static records, at most ten simultaneously live80-byte instruction
+records, and a pointer-index array of at most40 slots/320 bytes
+(`lra.cc:706–789,988–1130`). One64-KiB recognition pool block suffices; freed
+records can be reused. Operand, duplication, implicit-call-register,
+instruction-register and operand-alternative arrays have no allocation on
+these patterns: `preprocess_insn_constraints` returns immediately for zero
+operands (`recog.cc:3055–3064`). This conclusion applies at LRA, before the
+later prologue/epilogue introduce hard-register operands.
+
+The remaining selected LRA requests now include:
+
+| Request | Individual backing |
+| --- | --- |
+| Constraint stack |at most27 pointers plus8-byte vector header:224 bytes |
+| Constraint membership bitmap |27 bits:16 bytes |
+| Initial invariant vector |100 pointers plus header:808 bytes |
+| Empty invariant hash |112-byte wrapper and127 pointer slots:1016-byte backbone |
+| Invariant allocator wrapper |136 bytes; no invariant object on this shape |
+| Optional inheritance usage array |99 records of24 bytes:2376 bytes |
+| Assignment sparse sets |three824-byte objects |
+| Assignment int/class arrays |six396-byte arrays |
+| Assignment thread records |99 records of12 bytes:1188 bytes |
+| Three arrays indexed by live point |logical length zero; one-byte library request each |
+| Assignment bitmap obstacks |two initial65,536-byte chunks |
+
+`vec::create` uses exact reservation; ordinary pointer vectors retain the
+eight-byte prefix (`vec.h:253–261,304–321,2015–2020`). The100-entry invariant
+hash request chooses prime127 (`lra-constraints.cc:5914–5922`,
+`libiberty/hashtab.c:134–140,347–375`). Invariants require the SET/operand cases
+excluded by the null shape. The assignment arrays include the four main
+arrays, live-pseudo renumbering and preference checks; sparse sets and
+live-point arrays are allocated even when their member sets are empty
+(`lra-assigns.cc:165–180,272–277,342–354,411–421,1411,1638–1672`).
+`xmalloc`/`xcalloc` convert zero requests to one byte
+(`libiberty/xmalloc.c:143–163`). Live-point count remains its initial zero:
+`lra_create_live_ranges_1` returns before the traversal that would change it
+(`lra-lives.cc:1373–1438`), and the selected translation unit contains only this
+function. No live-range object, spill slot or coalescing graph follows.
+
+### Counter composition and finite remaining frontier
+
+For the null function, keep ordinary pools/obstacks separate from GGC events.
+The partial GGC lifetime envelope is
+
+```text
+E_GGC <= 39257 + 437 + 2
+       + E_metadata + E_Main_translation + E_real_function_start
+       + E_RTL_passes + E_regnotes + E_CFI + E_unit_emit
+```
+
+Here39,257 is the established fixed pre-Main GCC prefix,437 the cold first RTL
+target setup above, and2 the selected alias vectors. The residuals are
+nonnegative required inputs, never implicit zeros. Their disjoint boundaries
+and constructors still require completion:
+
+| Residual | Source route and required input |
+| --- | --- |
+| `E_metadata` |path/source-location/unit/name corrections between the fixed prefix and Main; charge actual source descriptor, argv/path and shared hash inputs |
+| `E_Main_translation` |gigi's Main declarations/types/body and GIMPLE/cgraph/IPA preparation; combine the backend's logical graph with each constructor/allocation route |
+| `E_real_function_start` |real `allocate_struct_function`/`prepare_function_start`/`init_emit`, distinct from the dummy setup; include EH/machine/function objects, RTL vectors and shared constant/temp hash state |
+| `E_RTL_passes` |expansion and selected O0 RTL/IRA/LRA helpers; include underlying pattern/vector copies and pseudo/equivalence/register-class objects, beyond the52 chain nodes already bounded |
+| `E_regnotes` |DF NOTE and late register-note construction; needs DF analysis invocations, artificial/instruction ref lifetime counts and each note's RTL allocation |
+| `E_CFI` |dwarf2cfi scan/trace and frame descriptions; needs selected instruction operands, unwind state and emitted row/vector counts |
+| `E_unit_emit` |final/varasm/debug/cgraph unit finalization; needs the selected unit's symbol/string/output and shared-cache growth terms |
+
+For ordinary backing, the remaining concrete joins are DF optional-problem
+and solver scratch (`df-core.cc`, `df-problems.cc`), IRA root-loop maps/costs/
+coloring/emission and register-class/equivalence helpers (`ira-build.cc`,
+`ira-costs.cc`, `ira-color.cc`, `ira-emit.cc`, `reginfo.cc`, `reload1.cc`), LRA
+equivalence/elimination helpers (`lra-constraints.cc`, `lra-eliminations.cc`),
+and shared bitmap/pool incoming demand. The known no-allocno/no-live-pseudo
+shape excludes candidate-dependent objects; it does not remove their setup.
+The global DF reference-order equation above, pool-ID initializations and
+shared GGC page/finalizer counts must join the same full function schedule.
+This enumerates the remaining native frontier; it does not assert whole
+native capacity or account for the independent GNATprove producer.
+
+The [offline reconciler](../evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-df-backing.py)
+checks38 source hashes, seven retained installed headers,131 installed ELF
+instruction fragments and the local arithmetic. The
+[result](../evidence/unbounded-programs/retained-native-expansion-20261017/native-df-backing.json)
+preserves the source-shape premises and unresolved inputs explicitly. The
+only new native-tool use was read-only `nm`/`objdump` inspection; there was no
+compiler execution, debugger capture, solver, Lean build or full test run.
+The successful earlier prefix/setup witnesses were not repeated.
+
+```sh
+python3 docs/evidence/unbounded-programs/retained-native-expansion-20261017/reconcile-df-backing.py \
+  --gcc-root /tmp/silver-backend-compose-20261018/full-source \
+  --gnat1 /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1 \
+  --output docs/evidence/unbounded-programs/retained-native-expansion-20261017/native-df-backing.json
+```
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available

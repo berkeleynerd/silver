@@ -1,0 +1,142 @@
+{
+  "scope": "Local null DF/alias/IRA/LRA backing and explicit residual counter inputs; not complete capacity",
+  "source_files_verified": 38,
+  "installed_headers_verified": 7,
+  "instruction_fragments_verified": 131,
+  "backend_interface_premises": {
+    "registers": 99,
+    "first_unused_uid": 53,
+    "block_index_slots": 12,
+    "lra_first_unused_uid": 27,
+    "lra_live_real_insns": 10,
+    "lra_instruction_patterns": [
+      "CONST_INT 0",
+      "UNSPEC_VOLATILE [CONST_INT 0]"
+    ],
+    "lra_referenced_pseudos": 0,
+    "these_are_source_shape_inputs_not_observations": true
+  },
+  "df_each_scan_generation": {
+    "scan_generations": 2,
+    "register_slots": 123,
+    "register_pointer_arrays": {
+      "count": 3,
+      "each_bytes": 984
+    },
+    "register_count_arrays": {
+      "count": 4,
+      "each_bytes": 492
+    },
+    "insn_slots": 67,
+    "insn_pointer_bytes": 536,
+    "block_slots": 16,
+    "scan_block_bytes": 256,
+    "LR_block_bytes": 2048,
+    "scan_problem_bytes": 256,
+    "allocator_wrappers": {
+      "count": 6,
+      "each_bytes": 136
+    },
+    "scan_bitmap_initial_chunks": {
+      "count": 2,
+      "each_bytes": 65536
+    },
+    "reg_pool_objects_bound": 297,
+    "reg_pool_blocks_bound": 1,
+    "hard_regs_live_count_bytes": 368,
+    "hard_regs_live_count_created_once_per_df_instance": true
+  },
+  "alias_selected_pre_LRA_call": {
+    "maximum_iterations": 10,
+    "no_SET_or_REG_NOALIAS_on_selected_chain": true,
+    "unique_id_peak": 1,
+    "reg_known_value_raw_request": 56,
+    "reg_known_value_GGC_rounded_upper": 64,
+    "reg_base_value_raw_request": 792,
+    "reg_base_value_GGC_rounded_upper": 1024,
+    "known_equiv_bitmap_bytes": 16,
+    "seen_bitmap_bytes": 24,
+    "new_base_pointer_array_bytes": 784,
+    "reverse_postorder_array_bytes_bound": 48,
+    "CFG_traversal_helpers_not_included": true
+  },
+  "lra_selected_local_requests": {
+    "reg_info_entries": 149,
+    "reg_info_each_bytes": 144,
+    "reg_info_array_bytes": 21456,
+    "last_reg_value_after_initialization": 149,
+    "live_solver_block_array_bytes_bound": 864,
+    "live_solver_populated_bitmap_elements": 2,
+    "live_points": 0,
+    "constraint_pointer_vector_bytes_bound": 224,
+    "constraint_bitmap_bytes": 16,
+    "recog_pointer_array_bytes_bound": 320,
+    "static_recog_records": {
+      "count_bound": 2,
+      "each_bytes": 40
+    },
+    "recog_pool_blocks_bound": 1,
+    "operand_dup_arg_arrays_or_operand_alternatives": 0,
+    "insn_reg_pool_objects": 0,
+    "invariant_vector_bytes": 808,
+    "invariant_hash": {
+      "wrapper_bytes": 112,
+      "slots": 127,
+      "backbone_bytes": 1016
+    },
+    "invariant_allocator_wrapper_bytes": 136,
+    "inheritance_usage_array_bytes_bound": 2376,
+    "assignment_sparse_sets": {
+      "count": 3,
+      "each_bytes": 824
+    },
+    "assignment_int_arrays": {
+      "count": 6,
+      "each_bytes": 396
+    },
+    "assignment_thread_array_bytes": 1188,
+    "assignment_empty_arrays": {
+      "count": 3,
+      "each_library_bytes": 1
+    },
+    "assignment_bitmap_initial_chunks": {
+      "count": 2,
+      "each_bytes": 65536
+    }
+  },
+  "pool_backing": {
+    "individual_block_bytes": 65536,
+    "header_bytes": 8,
+    "typed_object_sizes": {
+      "df_base_ref": 64,
+      "df_artificial_ref": 72,
+      "df_regular_ref": 72,
+      "df_insn_info": 48,
+      "df_reg_info": 16,
+      "df_mw_hardreg": 32,
+      "lra_insn_recog_data": 80
+    },
+    "objects_per_block": {
+      "df_base_ref": 1023,
+      "df_artificial_ref": 910,
+      "df_regular_ref": 910,
+      "df_insn_info": 1365,
+      "df_reg_info": 4095,
+      "df_mw_hardreg": 2047,
+      "lra_insn_recog_data": 819
+    }
+  },
+  "unresolved_whole_function_inputs": [
+    "A: DF analysis/optional-problem invocations and solver scratch lifetimes",
+    "C_bb: total artificial-reference block collections including entry/exit updates",
+    "C_ref: instruction/REG_NOTE reference creations including deferred rescans",
+    "C_mw: multiword hard-register descriptor creations",
+    "F_peak and bitmap_addend: DF ref-table backing and signed resize intermediates",
+    "IRA root/cost/color/emit and register-class/equivalence helper requests",
+    "LRA equivalence/elimination helpers and shared reg_obstack incoming demand",
+    "real-function startup and later RTL/regnote/CFI/unit-emission GGC events"
+  ],
+  "whole_native_capacity_established": false,
+  "aggregate_memory_gate": false,
+  "compiler_or_prover_executed_by_reconciler": false
+}

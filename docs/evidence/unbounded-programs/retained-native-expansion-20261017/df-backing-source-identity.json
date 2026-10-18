@@ -1,0 +1,251 @@
+{
+  "scope": "Local null DF/alias/IRA/LRA backing and explicit residual counter inputs; not complete capacity",
+  "upstream_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": [
+    {
+      "path": "gcc/alloc-pool.h",
+      "bytes": 15523,
+      "sha256": "0c667b8aee5aa002b2d859fd6e50120c5d84c7ed782af5e04c83fa5be8821eda"
+    },
+    {
+      "path": "gcc/memory-block.h",
+      "bytes": 2500,
+      "sha256": "9eef83e41d1d5d8a0fd753a900804a0350e968520c5831fef735ce8a8e3173ac"
+    },
+    {
+      "path": "gcc/memory-block.cc",
+      "bytes": 2268,
+      "sha256": "16f4beb0f9a9354ba461e8cf519bc2055db9754193e00e43ff17ee71624963dd"
+    },
+    {
+      "path": "gcc/coretypes.h",
+      "bytes": 16377,
+      "sha256": "9d46c5017b22872206f8fa0961b23c916dde1bfd23b33ca221bbff333c7d1d87"
+    },
+    {
+      "path": "gcc/bitmap.h",
+      "bytes": 37720,
+      "sha256": "79c70e80f9987702c98a6b6dde5bd1ef87e63823ee3edb9aff0e78e31200987a"
+    },
+    {
+      "path": "gcc/bitmap.cc",
+      "bytes": 72861,
+      "sha256": "879fa506fc99e70274663eb8b6899bb34a67e22236d91b5e30adedb9927b6b3e"
+    },
+    {
+      "path": "gcc/sbitmap.h",
+      "bytes": 10479,
+      "sha256": "77a76f132aeab1883861351cb6b4361336bc01568272982d76a233d924367a2d"
+    },
+    {
+      "path": "gcc/sbitmap.cc",
+      "bytes": 27107,
+      "sha256": "4152646b5167a7bbbab482d6e1399e11934475808933b6111b7a8e126691bf5b"
+    },
+    {
+      "path": "gcc/sparseset.h",
+      "bytes": 6812,
+      "sha256": "22beaa4d9bb2b3ebf9ddc5778fc56fa2dd33a0ced5a6eaee365cc04cacd8937a"
+    },
+    {
+      "path": "gcc/sparseset.cc",
+      "bytes": 5396,
+      "sha256": "14312f0e83a83b3831adcc95bfecf98568bf28ddfe2e38e7462919a374b151e7"
+    },
+    {
+      "path": "gcc/df.h",
+      "bytes": 48445,
+      "sha256": "15903c1080da45b1d99b2f4868f25c9a1b7d0bbd3b88659cc7b143e6e45c7a56"
+    },
+    {
+      "path": "gcc/df-core.cc",
+      "bytes": 73101,
+      "sha256": "7f9ff100ebb6b47a9b2456df6d88047ad0a75b9f73443d2b376f9a5dbcfad9fa"
+    },
+    {
+      "path": "gcc/df-scan.cc",
+      "bytes": 121906,
+      "sha256": "ded9f1492d06364e32669846c8ca29bced387035e5629fd465d6675c0144561d"
+    },
+    {
+      "path": "gcc/df-problems.cc",
+      "bytes": 145024,
+      "sha256": "0d4b5382df19fecd93447141a20141762e21064da41eb57565b3ad8f6cf8ab9e"
+    },
+    {
+      "path": "gcc/alias.cc",
+      "bytes": 112284,
+      "sha256": "946b1b7ea0abd23f00873024c4514c9ec360bd6fb31a761f8df655cfbbfa93f2"
+    },
+    {
+      "path": "gcc/ira.cc",
+      "bytes": 198361,
+      "sha256": "343b216c53de39d1b4c01a1fafe3a9612db7405deb95d49e2db55c66adb335d3"
+    },
+    {
+      "path": "gcc/ira.h",
+      "bytes": 9893,
+      "sha256": "4cfd3ec48e6b2a318744aed0275bb8c78749032e248f8c7cd4c1f2ede20c829b"
+    },
+    {
+      "path": "gcc/ira-build.cc",
+      "bytes": 106712,
+      "sha256": "6c53fecf840e57dd804ca369909d78c3576172fb5cbceed86d19df08aec7ec4a"
+    },
+    {
+      "path": "gcc/ira-costs.cc",
+      "bytes": 88610,
+      "sha256": "234e7f97ab15dbf8725e453a58880b7377ee5c518fe77f2dbab71af5aac17333"
+    },
+    {
+      "path": "gcc/lra.cc",
+      "bytes": 80715,
+      "sha256": "d92bb56be94cb506eacbb51c1a0e7b2e9f1aab81fc4093d4bc9827266086482c"
+    },
+    {
+      "path": "gcc/lra-int.h",
+      "bytes": 20763,
+      "sha256": "fd73c4bb99ec40e9ac957268ac5f5f3ccea6692d2655572412c7191b5f5e14a0"
+    },
+    {
+      "path": "gcc/lra-lives.cc",
+      "bytes": 49339,
+      "sha256": "cd3924118ac97c22514602020a9fb1e0f85608d4bc9d53f932415f3b70d48b08"
+    },
+    {
+      "path": "gcc/lra-assigns.cc",
+      "bytes": 69333,
+      "sha256": "5e3172f83b97c4a6573bf8b160491a3c15ba57467fadea4de107776261bb88f6"
+    },
+    {
+      "path": "gcc/lra-constraints.cc",
+      "bytes": 270051,
+      "sha256": "a03b8a69bbf4c986ce20f569c240219b3fe4db8d0f62068013ac99075224e305"
+    },
+    {
+      "path": "gcc/lra-eliminations.cc",
+      "bytes": 51361,
+      "sha256": "1ef368dc765538d358f8e75544e27f63a580cb7fda73e9d002088f26f14e5f07"
+    },
+    {
+      "path": "gcc/recog.cc",
+      "bytes": 132604,
+      "sha256": "0ffc60369a39773d928014c1e738de033cc7a366fb86b97a48e12f748981ff73"
+    },
+    {
+      "path": "gcc/config/i386/i386.md",
+      "bytes": 1013857,
+      "sha256": "2d2c09314aca1b0cd2cd887f7a637142e94a07cebca7847d7094e11353c61bcb"
+    },
+    {
+      "path": "gcc/config/i386/i386.cc",
+      "bytes": 832808,
+      "sha256": "e0c877d4a0015c92b63906b2aa3678b5c147495d6aeb0752becb829850f45973"
+    },
+    {
+      "path": "gcc/bb-reorder.cc",
+      "bytes": 95021,
+      "sha256": "16a1b38367359cc0ecc61eaf1222daeccde19184bfc87d506d79a44b6a0eaef2"
+    },
+    {
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "path": "gcc/ggc-page.cc",
+      "bytes": 78408,
+      "sha256": "b53c8013c54fce8bac7ff79506bffaec5b7e2b96afcbb3c7f5f29472720592d2"
+    },
+    {
+      "path": "include/hashtab.h",
+      "bytes": 7398,
+      "sha256": "f8df4e157b05833188c1580dff3462e4faef56919fa865d4584faba6f5cb8c18"
+    },
+    {
+      "path": "include/obstack.h",
+      "bytes": 22405,
+      "sha256": "068560c0942ddd718dea6414f6ea332c77251c9a5d246eb869f9634af35a1632"
+    },
+    {
+      "path": "libiberty/hashtab.c",
+      "bytes": 29804,
+      "sha256": "fd1f80771bb0317dc96e396010db33c99116eaa921f0dd39b2171c56a9f5ac6f"
+    },
+    {
+      "path": "libiberty/obstack.c",
+      "bytes": 13005,
+      "sha256": "bd202f89c53690fce0d8ba7430f10d5ff6b8b71700de1499644147bb022eb658"
+    },
+    {
+      "path": "libiberty/xmalloc.c",
+      "bytes": 4712,
+      "sha256": "2827a341649452de6053745c924c5b79f93a71384eef2747e6c7e84d1107c8a8"
+    },
+    {
+      "path": "gcc/cfgexpand.cc",
+      "bytes": 226526,
+      "sha256": "31027cc2a135939da3d49147e647e4f95f50bfeaa5597b82dddef38ae1aced53"
+    }
+  ],
+  "selected_headers": [
+    {
+      "path": "auto-host.h",
+      "bytes": 62999,
+      "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14"
+    },
+    {
+      "path": "insn-config.h",
+      "bytes": 557,
+      "sha256": "43609a26afc202021cdb33192b3b48837b8e3aa12b3f8960fb77751cf3c3803f"
+    },
+    {
+      "path": "insn-constants.h",
+      "bytes": 13161,
+      "sha256": "6a81bac1a1db6a7c5590bc54ff598e0f8f62d8857eb6521c8514ba6e1eea3cac"
+    },
+    {
+      "path": "config/i386/i386.h",
+      "bytes": 122286,
+      "sha256": "72bdbc22b7fa8061c2fd4f7e5492ce3e946ed6c91417a2833226d178845c6380"
+    },
+    {
+      "path": "coretypes.h",
+      "bytes": 16377,
+      "sha256": "9d46c5017b22872206f8fa0961b23c916dde1bfd23b33ca221bbff333c7d1d87"
+    },
+    {
+      "path": "hard-reg-set.h",
+      "bytes": 17942,
+      "sha256": "115f8f2adef71b952c390ab0c8ec8c70bf0251dd9f72dfa9bf95f3b596991631"
+    },
+    {
+      "path": "hwint.h",
+      "bytes": 12336,
+      "sha256": "888841ebffd486a935a1ed8299ed3f74c71107d0cd59402b06a91483a2035f8a"
+    }
+  ],
+  "headers_archive": {
+    "path": "df-backing-selected-headers.tar.gz",
+    "bytes": 63619,
+    "sha256": "c3c4572152ecd0cca813207d7c1c29e9f30f897d7884b7af2cdbc0e890ed5cfe"
+  },
+  "disassembly": {
+    "path": "df-backing.disassembly.gz",
+    "bytes": 2044,
+    "sha256": "b19da86c0e4e293efdb26f89afd77c7d5e47cc815cea3a7b8a7a2532e2ca8b2a",
+    "raw_bytes": 7491,
+    "raw_sha256": "f39ca95b57aa284c1ca776407575b5534a75b481a6e784a8b8fdbe724572da8b"
+  },
+  "binary": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/libexec/gcc/x86_64-pc-linux-gnu/16.1.0/gnat1",
+    "sha256": "5bf9b821ec0388ca6a6962dbc4bcb5773799926445fede6356069357c48dd58e"
+  },
+  "native_compiler_executed": false,
+  "proof_or_solver_executed": false
+}
