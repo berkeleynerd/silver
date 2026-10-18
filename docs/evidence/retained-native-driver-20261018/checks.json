@@ -1,6 +1,6 @@
 {
   "scope": "Selected standalone native Main driver; not GPR/binder/link/producer",
-  "source_files_checked": 24,
+  "source_files_checked": 25,
   "configured_named_specs": 47,
   "initial_argv_positions": 13,
   "retained_switches": 11,
@@ -37,5 +37,11 @@
   "multilib_multiarch_string_bytes": 17,
   "per_execute_pex_object_bytes_lp64": 144,
   "per_execute_common_pex_child_count": 1,
-  "per_execute_child_and_status_array_bytes_each": 4
+  "per_execute_child_and_status_array_bytes_each": 4,
+  "lrealpath_local_buffer_bytes": 4096,
+  "lrealpath_result_bytes_at_selected_P": 223,
+  "per_execute_posix_file_action_count": 0,
+  "per_execute_unix_argument_or_environment_copies": 0,
+  "per_execute_unix_wait_status_list_nodes": 0,
+  "libc_and_OS_existing_interface_premises_required": true
 }

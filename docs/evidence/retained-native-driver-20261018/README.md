@@ -2,9 +2,9 @@
 
 Offline source/configuration/arithmetic checks for #119. The
 [source argument](../../research/retained-native-driver.md) specifies the exact
-command class and excluded routes. The source archive contains sixteen complete
+command class and excluded routes. The source archive contains seventeen complete
 GCC files; gcc.cc is reused from the environment bundle. The pinned configure.ac
-was retrieved from the same GCC revision; the other fifteen hashes match the
+was retrieved from the same GCC revision; the other sixteen hashes match the
 retained full-source manifest. No compiler/prover/build was executed.
 
 `installed-configuration.json` retains a static ELF string reading, including
@@ -13,6 +13,12 @@ configuration under the existing source/tool premise; it is not binary
 attestation or complete correspondence. The checker uses previously captured
 driver-only specs and actual frontend exec arguments, rather than recapturing
 them. Its optional `--gcc PATH` verifies the static string against the executable.
+`unix-selection.json` and `unix-disassembly.txt` retain three installed code
+regions for the fixed-buffer canonicalization and POSIX launch/wait selection.
+The optional installed check also compares their complete instruction bytes.
+The selection does not replace the source-behavior premise or extend the
+documented boundary into libc/kernel internals. Only objdump read the binary;
+no compiler or child program was executed.
 
 ```sh
 python3 docs/evidence/retained-native-driver-20261018/check.py

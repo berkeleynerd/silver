@@ -54,6 +54,27 @@ if args.gcc:
     offset = config['configuration_file_offset']
     assert binary[offset:offset + len(configured) + 1] == configured + b'\0'
 
+unix_selection = json.loads((here / 'unix-selection.json').read_text())
+assert unix_selection['binary_sha256'] == config['binary_sha256']
+disassembly = (here / 'unix-disassembly.txt').read_bytes()
+assert sha(disassembly) == unix_selection['disassembly_sha256']
+assert [row['name'] for row in unix_selection['regions']] == [
+    'lrealpath', 'pex_unix_exec_child', 'pex_unix_wait']
+for row in unix_selection['regions']:
+    data = bytes.fromhex(row['hex'])
+    assert len(data) == row['bytes'] == row['virtual_end_exclusive'] - row['virtual_start']
+    assert sha(data) == row['sha256']
+    if args.gcc:
+        offset = row['file_offset']
+        assert binary[offset:offset + len(data)] == data
+for symbol in ('realpath', 'strdup', 'posix_spawnattr_init',
+               'posix_spawn_file_actions_init', 'posix_spawn',
+               'posix_spawnp', 'waitpid'):
+    assert f'<{symbol}@plt>'.encode() in disassembly
+# Fixed local buffer/frame reservations in the retained selected instructions.
+assert bytes.fromhex('4881ec00100000') in bytes.fromhex(unix_selection['regions'][0]['hex'])
+assert bytes.fromhex('4881ecb8010000') in bytes.fromhex(unix_selection['regions'][1]['hex'])
+
 for fragment in ('int opt_array_len = argc;',
                  'opt_array = XNEWVEC (struct cl_decoded_option, opt_array_len);',
                  '"diagnostics-plain-output"',
@@ -136,6 +157,20 @@ for fragment in ('obj->count = 0;', '++obj->count;',
                  'XRESIZEVEC (pid_t, obj->children, obj->count)',
                  'XRESIZEVEC (int, obj->status, obj->count)'):
     assert fragment in pex
+realpath = sources['libiberty/lrealpath.c']
+for fragment in ('char buf[REALPATH_LIMIT];',
+                 'const char *rp = realpath (filename, buf);',
+                 'if (rp == NULL)\n      rp = filename;', 'return strdup (rp);'):
+    assert fragment in realpath
+unix = sources['libiberty/pex-unix.c']
+spawn = unix.split('#elif defined(HAVE_POSIX_SPAWN) && defined(HAVE_POSIX_SPAWNP)', 1)[1].split(
+    '/* Implementation of pex->exec_child using standard vfork + exec.  */', 1)[0]
+for fragment in ('if (in != STDIN_FILE_NO)', 'if (out != STDOUT_FILE_NO)',
+                 'if (errdes != STDERR_FILE_NO)', 'if (toclose >= 0)',
+                 'if ((flags & PEX_STDERR_TO_STDOUT) != 0)',
+                 'argv, env ? env : environ'):
+    assert fragment in spawn
+assert 'if (time == NULL)\n    return waitpid (pid, status, 0);' in unix
 
 # LP64 field layouts and explicit request arithmetic; no compiler execution.
 pointer = 8
@@ -191,6 +226,12 @@ result = {
     'per_execute_pex_object_bytes_lp64': 144,
     'per_execute_common_pex_child_count': 1,
     'per_execute_child_and_status_array_bytes_each': 4,
+    'lrealpath_local_buffer_bytes': 4096,
+    'lrealpath_result_bytes_at_selected_P': P + 1,
+    'per_execute_posix_file_action_count': 0,
+    'per_execute_unix_argument_or_environment_copies': 0,
+    'per_execute_unix_wait_status_list_nodes': 0,
+    'libc_and_OS_existing_interface_premises_required': True,
     'aggregate_memory_or_address_span_gate': False,
     'source_argument_required': True,
     'compiler_or_prover_executed': False,

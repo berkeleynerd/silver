@@ -183,16 +183,50 @@ stay at most one; its two separate PID/status arrays each request four bytes
 on Linux. pex_obj is 144 bytes on LP64 and the driver's local status array
 four bytes (`libiberty/pex-common.h:54–95`, `pex-common.c:53–80,182–350,
 518–540`; `gcc.cc:3438–3488`). The two commands have independent objects, so
-their counts do not accumulate in a shared backing array. The Unix exec/wait
-backend and libc/OS launch machinery retain their own platform assumptions;
-this is the common PEX storage bound, not a new claim about those dependencies.
+their counts do not accumulate in a shared backing array.
+
+## Selected Unix canonicalization and launch
+
+The installed driver's static instruction regions corroborate the selected
+`REALPATH_LIMIT` and POSIX-spawn branches. The evidence retains their bytes,
+file offsets, disassembly and the same executable digest as the configure
+string. This checks these branch selections under the existing source-behavior
+premise; it does not attest the compiler or execute a compilation.
+
+`lrealpath` uses a fixed **4,096-byte** local buffer, calls `realpath`, and
+duplicates either its result or the original filename on failure
+(`libiberty/lrealpath.c:209–217`, installed addresses `0x5012a0..0x5012ce`).
+There is no dynamic path-buffer doubling in this selected wrapper. P already
+bounds both the raw and resolved complete names, so the `strdup` result needs
+at most **P+1 bytes**. The successful `realpath` interface must respect its
+platform buffer limit. P remains a checked configuration input; arbitrary
+symlink expansion is not bounded by the raw spelling. Libc's own allocation
+and filesystem behavior use the documented external-interface premises.
+
+The common PEX route above passes `in=0`, `out=1`, `errdes=2`, `toclose=-1`
+and no stderr redirection. All five file-action branches in the POSIX backend
+are therefore false (`libiberty/pex-unix.c:565–733`). It initializes one
+attribute and one action object, adds **zero file actions**, passes the
+existing argv/environment pointers directly to `posix_spawn` or `posix_spawnp`,
+and destroys the initialized objects. It creates no wrapper-owned action
+vector, argument copy, environment copy or retry counter. The executable is
+an absolute path; even the `spawnp` form does not search PATH when the name
+contains a slash. This conclusion depends on the selected descriptor, not
+on the mere presence of POSIX imports.
+
+The selected wait implementation has `wait4` and `waitpid`. With no timing
+request it calls `waitpid` directly (`libiberty/pex-unix.c:125–150`); the
+fallback platform's growing child-status list is absent. A wait interrupted
+by a signal reuses the same child/status storage. Fixed local launch/wait
+objects introduce no source-dependent storage demand. The existing libc/OS
+process, ABI, resource-allocation and sufficient-stack premises apply at
+these interfaces; this derivation adds no libc/kernel audit obligation.
 
 ## Remaining joins
 
 This closes selected option counts, argument-vector growth, the named-spec
-dispatch, relocation arithmetic, selected multilib arrays and common PEX
-storage above. It does not price every canonicalization, platform process-spawn
-or diagnostic object. Those remaining objects,
+dispatch, relocation arithmetic, selected multilib arrays, canonicalization
+wrapper and common/Unix PEX storage above. Diagnostic objects,
 production launcher realization, frontend/backend consumers, assembler,
 binder and linker still need composition. In particular no whole-program
 capacity predicate or enlarged admission follows from this component.

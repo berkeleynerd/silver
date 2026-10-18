@@ -1,0 +1,347 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000005012a0 <_obstack_begin@@Base-0xd80>:
+  5012a0:	f3 0f 1e fa          	endbr64
+  5012a4:	53                   	push   %rbx
+  5012a5:	48 89 fb             	mov    %rdi,%rbx
+  5012a8:	48 81 ec 00 10 00 00 	sub    $0x1000,%rsp
+  5012af:	48 89 e6             	mov    %rsp,%rsi
+  5012b2:	e8 39 21 f0 ff       	call   4033f0 <realpath@plt>
+  5012b7:	48 85 c0             	test   %rax,%rax
+  5012ba:	48 0f 45 d8          	cmovne %rax,%rbx
+  5012be:	48 89 df             	mov    %rbx,%rdi
+  5012c1:	e8 ca 23 f0 ff       	call   403690 <strdup@plt>
+  5012c6:	48 81 c4 00 10 00 00 	add    $0x1000,%rsp
+  5012cd:	5b                   	pop    %rbx
+  5012ce:	c3                   	ret
+
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000005032e0 <_obstack_memory_used@@Base+0x1010>:
+  5032e0:	f3 0f 1e fa          	endbr64
+  5032e4:	41 57                	push   %r15
+  5032e6:	4d 89 c7             	mov    %r8,%r15
+  5032e9:	41 56                	push   %r14
+  5032eb:	41 89 f6             	mov    %esi,%r14d
+  5032ee:	41 55                	push   %r13
+  5032f0:	49 89 cd             	mov    %rcx,%r13
+  5032f3:	41 54                	push   %r12
+  5032f5:	49 89 d4             	mov    %rdx,%r12
+  5032f8:	55                   	push   %rbp
+  5032f9:	44 89 cd             	mov    %r9d,%ebp
+  5032fc:	53                   	push   %rbx
+  5032fd:	48 81 ec b8 01 00 00 	sub    $0x1b8,%rsp
+  503304:	48 8b 9c 24 10 02 00 	mov    0x210(%rsp),%rbx
+  50330b:	00 
+  50330c:	48 8d 7c 24 60       	lea    0x60(%rsp),%rdi
+  503311:	c7 44 24 0c ff ff ff 	movl   $0xffffffff,0xc(%rsp)
+  503318:	ff 
+  503319:	c7 03 00 00 00 00    	movl   $0x0,(%rbx)
+  50331f:	e8 ec 04 f0 ff       	call   403810 <posix_spawnattr_init@plt>
+  503324:	85 c0                	test   %eax,%eax
+  503326:	74 30                	je     503358 <_obstack_memory_used@@Base+0x1088>
+  503328:	89 03                	mov    %eax,(%rbx)
+  50332a:	48 8b 84 24 08 02 00 	mov    0x208(%rsp),%rax
+  503331:	00 
+  503332:	48 8d 0d 68 2c 03 00 	lea    0x32c68(%rip),%rcx        # 535fa1 <_obstack_memory_used@@Base+0x33cd1>
+  503339:	48 89 08             	mov    %rcx,(%rax)
+  50333c:	8b 44 24 0c          	mov    0xc(%rsp),%eax
+  503340:	48 81 c4 b8 01 00 00 	add    $0x1b8,%rsp
+  503347:	5b                   	pop    %rbx
+  503348:	5d                   	pop    %rbp
+  503349:	41 5c                	pop    %r12
+  50334b:	41 5d                	pop    %r13
+  50334d:	41 5e                	pop    %r14
+  50334f:	41 5f                	pop    %r15
+  503351:	c3                   	ret
+  503352:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  503358:	be 40 00 00 00       	mov    $0x40,%esi
+  50335d:	48 8d 7c 24 60       	lea    0x60(%rsp),%rdi
+  503362:	e8 39 05 f0 ff       	call   4038a0 <posix_spawnattr_setflags@plt>
+  503367:	85 c0                	test   %eax,%eax
+  503369:	0f 84 f1 00 00 00    	je     503460 <_obstack_memory_used@@Base+0x1190>
+  50336f:	89 03                	mov    %eax,(%rbx)
+  503371:	48 8b 84 24 08 02 00 	mov    0x208(%rsp),%rax
+  503378:	00 
+  503379:	48 8d 15 36 2c 03 00 	lea    0x32c36(%rip),%rdx        # 535fb6 <_obstack_memory_used@@Base+0x33ce6>
+  503380:	48 89 10             	mov    %rdx,(%rax)
+  503383:	48 8d 7c 24 60       	lea    0x60(%rsp),%rdi
+  503388:	e8 e3 fe ef ff       	call   403270 <posix_spawnattr_destroy@plt>
+  50338d:	8b 0b                	mov    (%rbx),%ecx
+  50338f:	85 c9                	test   %ecx,%ecx
+  503391:	0f 94 c0             	sete   %al
+  503394:	85 ed                	test   %ebp,%ebp
+  503396:	74 28                	je     5033c0 <_obstack_memory_used@@Base+0x10f0>
+  503398:	84 c0                	test   %al,%al
+  50339a:	74 24                	je     5033c0 <_obstack_memory_used@@Base+0x10f0>
+  50339c:	89 ef                	mov    %ebp,%edi
+  50339e:	e8 2d fd ef ff       	call   4030d0 <close@plt>
+  5033a3:	85 c0                	test   %eax,%eax
+  5033a5:	0f 85 4d 01 00 00    	jne    5034f8 <_obstack_memory_used@@Base+0x1228>
+  5033ab:	8b 13                	mov    (%rbx),%edx
+  5033ad:	85 d2                	test   %edx,%edx
+  5033af:	0f 94 c0             	sete   %al
+  5033b2:	0f 1f 00             	nopl   (%rax)
+  5033b5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  5033bc:	00 00 00 00 
+  5033c0:	83 bc 24 f0 01 00 00 	cmpl   $0x1,0x1f0(%rsp)
+  5033c7:	01 
+  5033c8:	74 40                	je     50340a <_obstack_memory_used@@Base+0x113a>
+  5033ca:	84 c0                	test   %al,%al
+  5033cc:	74 3c                	je     50340a <_obstack_memory_used@@Base+0x113a>
+  5033ce:	8b bc 24 f0 01 00 00 	mov    0x1f0(%rsp),%edi
+  5033d5:	e8 f6 fc ef ff       	call   4030d0 <close@plt>
+  5033da:	85 c0                	test   %eax,%eax
+  5033dc:	0f 84 e6 00 00 00    	je     5034c8 <_obstack_memory_used@@Base+0x11f8>
+  5033e2:	48 8b 84 24 08 02 00 	mov    0x208(%rsp),%rax
+  5033e9:	00 
+  5033ea:	48 8d 15 35 5d 02 00 	lea    0x25d35(%rip),%rdx        # 529126 <_obstack_memory_used@@Base+0x26e56>
+  5033f1:	48 89 10             	mov    %rdx,(%rax)
+  5033f4:	e8 77 02 f0 ff       	call   403670 <__errno_location@plt>
+  5033f9:	c7 44 24 0c ff ff ff 	movl   $0xffffffff,0xc(%rsp)
+  503400:	ff 
+  503401:	8b 00                	mov    (%rax),%eax
+  503403:	85 c0                	test   %eax,%eax
+  503405:	89 03                	mov    %eax,(%rbx)
+  503407:	0f 94 c0             	sete   %al
+  50340a:	83 bc 24 f8 01 00 00 	cmpl   $0x2,0x1f8(%rsp)
+  503411:	02 
+  503412:	0f 84 24 ff ff ff    	je     50333c <_obstack_memory_used@@Base+0x106c>
+  503418:	84 c0                	test   %al,%al
+  50341a:	0f 84 1c ff ff ff    	je     50333c <_obstack_memory_used@@Base+0x106c>
+  503420:	8b bc 24 f8 01 00 00 	mov    0x1f8(%rsp),%edi
+  503427:	e8 a4 fc ef ff       	call   4030d0 <close@plt>
+  50342c:	85 c0                	test   %eax,%eax
+  50342e:	0f 84 08 ff ff ff    	je     50333c <_obstack_memory_used@@Base+0x106c>
+  503434:	48 8b 84 24 08 02 00 	mov    0x208(%rsp),%rax
+  50343b:	00 
+  50343c:	48 8d 35 e3 5c 02 00 	lea    0x25ce3(%rip),%rsi        # 529126 <_obstack_memory_used@@Base+0x26e56>
+  503443:	48 89 30             	mov    %rsi,(%rax)
+  503446:	e8 25 02 f0 ff       	call   403670 <__errno_location@plt>
+  50344b:	8b 00                	mov    (%rax),%eax
+  50344d:	89 03                	mov    %eax,(%rbx)
+  50344f:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+  503454:	e9 e7 fe ff ff       	jmp    503340 <_obstack_memory_used@@Base+0x1070>
+  503459:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  503460:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+  503465:	e8 96 ff ef ff       	call   403400 <posix_spawn_file_actions_init@plt>
+  50346a:	85 c0                	test   %eax,%eax
+  50346c:	75 6a                	jne    5034d8 <_obstack_memory_used@@Base+0x1208>
+  50346e:	85 ed                	test   %ebp,%ebp
+  503470:	0f 85 3a 01 00 00    	jne    5035b0 <_obstack_memory_used@@Base+0x12e0>
+  503476:	83 bc 24 f0 01 00 00 	cmpl   $0x1,0x1f0(%rsp)
+  50347d:	01 
+  50347e:	0f 84 a4 00 00 00    	je     503528 <_obstack_memory_used@@Base+0x1258>
+  503484:	8b b4 24 f0 01 00 00 	mov    0x1f0(%rsp),%esi
+  50348b:	ba 01 00 00 00       	mov    $0x1,%edx
+  503490:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+  503495:	e8 66 03 f0 ff       	call   403800 <posix_spawn_file_actions_adddup2@plt>
+  50349a:	85 c0                	test   %eax,%eax
+  50349c:	0f 84 8e 01 00 00    	je     503630 <_obstack_memory_used@@Base+0x1360>
+  5034a2:	89 03                	mov    %eax,(%rbx)
+  5034a4:	48 8b 84 24 08 02 00 	mov    0x208(%rsp),%rax
+  5034ab:	00 
+  5034ac:	48 8d 0d 05 dc 07 00 	lea    0x7dc05(%rip),%rcx        # 5810b8 <_obstack_memory_used@@Base+0x7ede8>
+  5034b3:	48 89 08             	mov    %rcx,(%rax)
+  5034b6:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+  5034bb:	e8 10 ff ef ff       	call   4033d0 <posix_spawn_file_actions_destroy@plt>
+  5034c0:	e9 be fe ff ff       	jmp    503383 <_obstack_memory_used@@Base+0x10b3>
+  5034c5:	0f 1f 00             	nopl   (%rax)
+  5034c8:	8b 03                	mov    (%rbx),%eax
+  5034ca:	85 c0                	test   %eax,%eax
+  5034cc:	0f 94 c0             	sete   %al
+  5034cf:	e9 36 ff ff ff       	jmp    50340a <_obstack_memory_used@@Base+0x113a>
+  5034d4:	0f 1f 40 00          	nopl   0x0(%rax)
+  5034d8:	89 03                	mov    %eax,(%rbx)
+  5034da:	48 8b 84 24 08 02 00 	mov    0x208(%rsp),%rax
+  5034e1:	00 
+  5034e2:	48 8d 35 e6 2a 03 00 	lea    0x32ae6(%rip),%rsi        # 535fcf <_obstack_memory_used@@Base+0x33cff>
+  5034e9:	48 89 30             	mov    %rsi,(%rax)
+  5034ec:	e9 92 fe ff ff       	jmp    503383 <_obstack_memory_used@@Base+0x10b3>
+  5034f1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  5034f8:	48 8b 84 24 08 02 00 	mov    0x208(%rsp),%rax
+  5034ff:	00 
+  503500:	48 8d 15 1f 5c 02 00 	lea    0x25c1f(%rip),%rdx        # 529126 <_obstack_memory_used@@Base+0x26e56>
+  503507:	48 89 10             	mov    %rdx,(%rax)
+  50350a:	e8 61 01 f0 ff       	call   403670 <__errno_location@plt>
+  50350f:	c7 44 24 0c ff ff ff 	movl   $0xffffffff,0xc(%rsp)
+  503516:	ff 
+  503517:	8b 00                	mov    (%rax),%eax
+  503519:	85 c0                	test   %eax,%eax
+  50351b:	89 03                	mov    %eax,(%rbx)
+  50351d:	0f 94 c0             	sete   %al
+  503520:	e9 9b fe ff ff       	jmp    5033c0 <_obstack_memory_used@@Base+0x10f0>
+  503525:	0f 1f 00             	nopl   (%rax)
+  503528:	83 bc 24 f8 01 00 00 	cmpl   $0x2,0x1f8(%rsp)
+  50352f:	02 
+  503530:	0f 85 aa 00 00 00    	jne    5035e0 <_obstack_memory_used@@Base+0x1310>
+  503536:	8b b4 24 00 02 00 00 	mov    0x200(%rsp),%esi
+  50353d:	85 f6                	test   %esi,%esi
+  50353f:	0f 89 3b 01 00 00    	jns    503680 <_obstack_memory_used@@Base+0x13b0>
+  503545:	41 f6 c6 08          	test   $0x8,%r14b
+  503549:	0f 85 81 01 00 00    	jne    5036d0 <_obstack_memory_used@@Base+0x1400>
+  50354f:	4d 85 ff             	test   %r15,%r15
+  503552:	4c 89 f8             	mov    %r15,%rax
+  503555:	48 8d 7c 24 0c       	lea    0xc(%rsp),%rdi
+  50355a:	4d 89 e8             	mov    %r13,%r8
+  50355d:	48 0f 44 05 7b 4a 15 	cmove  0x154a7b(%rip),%rax        # 657fe0 <__environ@GLIBC_2.2.5>
+  503564:	00 
+  503565:	41 83 e6 02          	and    $0x2,%r14d
+  503569:	48 8d 4c 24 60       	lea    0x60(%rsp),%rcx
+  50356e:	4c 89 e6             	mov    %r12,%rsi
+  503571:	48 8d 54 24 10       	lea    0x10(%rsp),%rdx
+  503576:	49 89 c1             	mov    %rax,%r9
+  503579:	0f 84 21 01 00 00    	je     5036a0 <_obstack_memory_used@@Base+0x13d0>
+  50357f:	e8 2c 01 f0 ff       	call   4036b0 <posix_spawnp@plt>
+  503584:	85 c0                	test   %eax,%eax
+  503586:	0f 84 2a ff ff ff    	je     5034b6 <_obstack_memory_used@@Base+0x11e6>
+  50358c:	89 03                	mov    %eax,(%rbx)
+  50358e:	48 8b 84 24 08 02 00 	mov    0x208(%rsp),%rax
+  503595:	00 
+  503596:	48 8d 0d 50 2a 03 00 	lea    0x32a50(%rip),%rcx        # 535fed <_obstack_memory_used@@Base+0x33d1d>
+  50359d:	c7 44 24 0c ff ff ff 	movl   $0xffffffff,0xc(%rsp)
+  5035a4:	ff 
+  5035a5:	48 89 08             	mov    %rcx,(%rax)
+  5035a8:	e9 09 ff ff ff       	jmp    5034b6 <_obstack_memory_used@@Base+0x11e6>
+  5035ad:	0f 1f 00             	nopl   (%rax)
+  5035b0:	31 d2                	xor    %edx,%edx
+  5035b2:	89 ee                	mov    %ebp,%esi
+  5035b4:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+  5035b9:	e8 42 02 f0 ff       	call   403800 <posix_spawn_file_actions_adddup2@plt>
+  5035be:	85 c0                	test   %eax,%eax
+  5035c0:	0f 84 a2 00 00 00    	je     503668 <_obstack_memory_used@@Base+0x1398>
+  5035c6:	89 03                	mov    %eax,(%rbx)
+  5035c8:	48 8b 84 24 08 02 00 	mov    0x208(%rsp),%rax
+  5035cf:	00 
+  5035d0:	48 8d 15 e1 da 07 00 	lea    0x7dae1(%rip),%rdx        # 5810b8 <_obstack_memory_used@@Base+0x7ede8>
+  5035d7:	48 89 10             	mov    %rdx,(%rax)
+  5035da:	e9 d7 fe ff ff       	jmp    5034b6 <_obstack_memory_used@@Base+0x11e6>
+  5035df:	90                   	nop
+  5035e0:	8b b4 24 f8 01 00 00 	mov    0x1f8(%rsp),%esi
+  5035e7:	ba 02 00 00 00       	mov    $0x2,%edx
+  5035ec:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+  5035f1:	e8 0a 02 f0 ff       	call   403800 <posix_spawn_file_actions_adddup2@plt>
+  5035f6:	85 c0                	test   %eax,%eax
+  5035f8:	0f 85 a4 fe ff ff    	jne    5034a2 <_obstack_memory_used@@Base+0x11d2>
+  5035fe:	8b b4 24 f8 01 00 00 	mov    0x1f8(%rsp),%esi
+  503605:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+  50360a:	e8 41 fe ef ff       	call   403450 <posix_spawn_file_actions_addclose@plt>
+  50360f:	85 c0                	test   %eax,%eax
+  503611:	0f 84 1f ff ff ff    	je     503536 <_obstack_memory_used@@Base+0x1266>
+  503617:	89 03                	mov    %eax,(%rbx)
+  503619:	48 8b 84 24 08 02 00 	mov    0x208(%rsp),%rax
+  503620:	00 
+  503621:	48 8d 15 b8 da 07 00 	lea    0x7dab8(%rip),%rdx        # 5810e0 <_obstack_memory_used@@Base+0x7ee10>
+  503628:	48 89 10             	mov    %rdx,(%rax)
+  50362b:	e9 86 fe ff ff       	jmp    5034b6 <_obstack_memory_used@@Base+0x11e6>
+  503630:	8b b4 24 f0 01 00 00 	mov    0x1f0(%rsp),%esi
+  503637:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+  50363c:	e8 0f fe ef ff       	call   403450 <posix_spawn_file_actions_addclose@plt>
+  503641:	85 c0                	test   %eax,%eax
+  503643:	0f 84 df fe ff ff    	je     503528 <_obstack_memory_used@@Base+0x1258>
+  503649:	89 03                	mov    %eax,(%rbx)
+  50364b:	48 8b 84 24 08 02 00 	mov    0x208(%rsp),%rax
+  503652:	00 
+  503653:	48 8d 35 86 da 07 00 	lea    0x7da86(%rip),%rsi        # 5810e0 <_obstack_memory_used@@Base+0x7ee10>
+  50365a:	48 89 30             	mov    %rsi,(%rax)
+  50365d:	e9 54 fe ff ff       	jmp    5034b6 <_obstack_memory_used@@Base+0x11e6>
+  503662:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  503668:	89 ee                	mov    %ebp,%esi
+  50366a:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+  50366f:	e8 dc fd ef ff       	call   403450 <posix_spawn_file_actions_addclose@plt>
+  503674:	85 c0                	test   %eax,%eax
+  503676:	0f 84 fa fd ff ff    	je     503476 <_obstack_memory_used@@Base+0x11a6>
+  50367c:	eb cb                	jmp    503649 <_obstack_memory_used@@Base+0x1379>
+  50367e:	66 90                	xchg   %ax,%ax
+  503680:	8b b4 24 00 02 00 00 	mov    0x200(%rsp),%esi
+  503687:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+  50368c:	e8 bf fd ef ff       	call   403450 <posix_spawn_file_actions_addclose@plt>
+  503691:	85 c0                	test   %eax,%eax
+  503693:	0f 84 ac fe ff ff    	je     503545 <_obstack_memory_used@@Base+0x1275>
+  503699:	eb ae                	jmp    503649 <_obstack_memory_used@@Base+0x1379>
+  50369b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  5036a0:	e8 cb fd ef ff       	call   403470 <posix_spawn@plt>
+  5036a5:	85 c0                	test   %eax,%eax
+  5036a7:	0f 84 09 fe ff ff    	je     5034b6 <_obstack_memory_used@@Base+0x11e6>
+  5036ad:	89 03                	mov    %eax,(%rbx)
+  5036af:	48 8b 84 24 08 02 00 	mov    0x208(%rsp),%rax
+  5036b6:	00 
+  5036b7:	48 8d 35 3c 29 03 00 	lea    0x3293c(%rip),%rsi        # 535ffa <_obstack_memory_used@@Base+0x33d2a>
+  5036be:	c7 44 24 0c ff ff ff 	movl   $0xffffffff,0xc(%rsp)
+  5036c5:	ff 
+  5036c6:	48 89 30             	mov    %rsi,(%rax)
+  5036c9:	e9 e8 fd ff ff       	jmp    5034b6 <_obstack_memory_used@@Base+0x11e6>
+  5036ce:	66 90                	xchg   %ax,%ax
+  5036d0:	ba 02 00 00 00       	mov    $0x2,%edx
+  5036d5:	be 01 00 00 00       	mov    $0x1,%esi
+  5036da:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+  5036df:	e8 1c 01 f0 ff       	call   403800 <posix_spawn_file_actions_adddup2@plt>
+  5036e4:	85 c0                	test   %eax,%eax
+  5036e6:	0f 84 63 fe ff ff    	je     50354f <_obstack_memory_used@@Base+0x127f>
+  5036ec:	e9 d5 fe ff ff       	jmp    5035c6 <_obstack_memory_used@@Base+0x12f6>
+
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000503740 <_obstack_memory_used@@Base+0x1470>:
+  503740:	f3 0f 1e fa          	endbr64
+  503744:	41 56                	push   %r14
+  503746:	89 f7                	mov    %esi,%edi
+  503748:	49 89 d2             	mov    %rdx,%r10
+  50374b:	4d 89 ce             	mov    %r9,%r14
+  50374e:	53                   	push   %rbx
+  50374f:	48 89 cb             	mov    %rcx,%rbx
+  503752:	48 81 ec a8 00 00 00 	sub    $0xa8,%rsp
+  503759:	45 85 c0             	test   %r8d,%r8d
+  50375c:	75 42                	jne    5037a0 <_obstack_memory_used@@Base+0x14d0>
+  50375e:	48 85 db             	test   %rbx,%rbx
+  503761:	74 5e                	je     5037c1 <_obstack_memory_used@@Base+0x14f1>
+  503763:	48 8d 4c 24 10       	lea    0x10(%rsp),%rcx
+  503768:	31 d2                	xor    %edx,%edx
+  50376a:	4c 89 d6             	mov    %r10,%rsi
+  50376d:	e8 7e fe ef ff       	call   4035f0 <wait4@plt>
+  503772:	66 0f 6f 44 24 10    	movdqa 0x10(%rsp),%xmm0
+  503778:	0f 11 03             	movups %xmm0,(%rbx)
+  50377b:	66 0f 6f 44 24 20    	movdqa 0x20(%rsp),%xmm0
+  503781:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+  503785:	85 c0                	test   %eax,%eax
+  503787:	78 44                	js     5037cd <_obstack_memory_used@@Base+0x14fd>
+  503789:	31 c0                	xor    %eax,%eax
+  50378b:	48 81 c4 a8 00 00 00 	add    $0xa8,%rsp
+  503792:	5b                   	pop    %rbx
+  503793:	41 5e                	pop    %r14
+  503795:	c3                   	ret
+  503796:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  50379d:	00 00 00 
+  5037a0:	be 0f 00 00 00       	mov    $0xf,%esi
+  5037a5:	89 7c 24 04          	mov    %edi,0x4(%rsp)
+  5037a9:	48 89 54 24 08       	mov    %rdx,0x8(%rsp)
+  5037ae:	e8 3d fd ef ff       	call   4034f0 <kill@plt>
+  5037b3:	4c 8b 54 24 08       	mov    0x8(%rsp),%r10
+  5037b8:	8b 7c 24 04          	mov    0x4(%rsp),%edi
+  5037bc:	48 85 db             	test   %rbx,%rbx
+  5037bf:	75 a2                	jne    503763 <_obstack_memory_used@@Base+0x1493>
+  5037c1:	31 d2                	xor    %edx,%edx
+  5037c3:	4c 89 d6             	mov    %r10,%rsi
+  5037c6:	e8 15 fe ef ff       	call   4035e0 <waitpid@plt>
+  5037cb:	eb b8                	jmp    503785 <_obstack_memory_used@@Base+0x14b5>
+  5037cd:	e8 9e fe ef ff       	call   403670 <__errno_location@plt>
+  5037d2:	8b 10                	mov    (%rax),%edx
+  5037d4:	48 8b 84 24 c0 00 00 	mov    0xc0(%rsp),%rax
+  5037db:	00 
+  5037dc:	89 10                	mov    %edx,(%rax)
+  5037de:	48 8d 15 4b cf 02 00 	lea    0x2cf4b(%rip),%rdx        # 530730 <_obstack_memory_used@@Base+0x2e460>
+  5037e5:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+  5037ea:	49 89 16             	mov    %rdx,(%r14)
+  5037ed:	eb 9c                	jmp    50378b <_obstack_memory_used@@Base+0x14bb>

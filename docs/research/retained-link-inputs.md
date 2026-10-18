@@ -164,7 +164,7 @@ section/symbol names**. These are inputs to ordinary symbol-loading passes,
 not a bound on all symbol-record visits.
 
 In particular, `elf_link_is_defined_archive_symbol`
-(`bfd/elflink.c:3702–3796`), reached for common candidates in the archive-map
+(`bfd/elflink.c:3699–3788`), reached for common candidates in the archive-map
 loop, rereads and scans a member's external symbol table. The largest complete
 symbol table in any fixed archive member has **711 records** (`g-spipat.o` in
 libgnat.a); an external-only scan cannot exceed it. Charging a full scan for
@@ -178,7 +178,8 @@ functions of the appropriate input and event allowances.
 Focused independent review of `849a24f688` confirmed input selection, seven
 GROUP passes and nine loader processings, and identified the missing distinction
 between add-symbol input passes and common-probe scans. This revision repairs
-that scope overstatement; it does not claim closure of other symbol consumers.
+that scope overstatement. Independent rechecking confirmed the correction at
+`6bd2399eb4`; it does not claim closure of other symbol consumers.
 
 Remaining joins are generated Main/binder objects, collect2/plugin storage
 and launch, linker-created sections/names/reference events, ELF consumers and

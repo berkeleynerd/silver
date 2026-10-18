@@ -1,7 +1,7 @@
 {
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "source_base_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/",
-  "archive_sha256": "246e4739557e1b642032552600e47738e9c2ddd33caf2c0870a51bd6fffbb0ea",
+  "archive_sha256": "2d2d805d07034276fd1ed2f3cd949cf553c17be6144a8e4aa19fe518a3954188",
   "files": [
     {
       "path": "gcc/opts.h",
@@ -82,6 +82,11 @@
       "path": "gcc/common/config/i386/i386-common.cc",
       "bytes": 85914,
       "sha256": "009711c76cc24369f035130487e1e94e2570e065018ee70544b52e1b3ef02c59"
+    },
+    {
+      "path": "libiberty/lrealpath.c",
+      "bytes": 8257,
+      "sha256": "a6f81d53c05787946f5a2260ddec290316eceac0640ca0175778265e44340cb1"
     }
   ]
 }
