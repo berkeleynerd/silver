@@ -28,7 +28,7 @@ RANGES = {
     "gcc/ada/gcc-interface/misc.cc": [(376, 377)],
     "gcc/ada/gcc-interface/utils.cc": [(259, 280), (430, 450), (770, 783)],
     "gcc/toplev.cc": [(761, 767), (1141, 1150)],
-    "gcc/ggc-page.cc": [(1292, 1327), (1883, 1905)],
+    "gcc/ggc-page.cc": [(1250, 1290), (1292, 1327), (1883, 1922)],
     "gcc/ggc.h": [(230, 258)],
     "gcc/tree.cc": [(2616, 2636)],
     "gcc/tree-core.h": [(1138, 1253), (1565, 1595)],
@@ -36,7 +36,15 @@ RANGES = {
                        (5627, 5635), (8518, 8527), (76, 85), (2069, 2086),
                        (2976, 2987), (3537, 3553), (3720, 3753), (3804, 3893),
                        (4001, 4038), (4150, 4168), (4184, 4253), (4476, 4523)],
-    "gcc/function.h": [(162, 169)],
+    "gcc/function.h": [(34, 70), (162, 169)],
+    "gcc/function.cc": [(203, 218), (5133, 5144)],
+    "gcc/vec.h": [(220, 260), (302, 325), (393, 425), (599, 660), (1394, 1415)],
+    "gcc/vec.cc": [(150, 169)],
+    "gcc/emit-rtl.cc": [(80, 85), (1184, 1232), (1239, 1262), (5980, 6005)],
+    "gcc/rtl.h": [(4091, 4146)],
+    "gcc/bb-reorder.cc": [(2616, 2641), (2665, 2672), (2977, 3011)],
+    "gcc/config/i386/i386.md": [(500, 515)],
+    "gcc/read-rtl-function.cc": [(1435, 1450)],
     "gcc/genmodes.cc": [(828, 845), (1012, 1023)],
     "gcc/config/elfos.h": [(114, 132)],
     "gcc/hash-table.h": [(295, 355), (599, 617), (656, 679), (755, 778),
@@ -58,13 +66,59 @@ def read_tar(archive, name):
             return member.read()
 
 
+def check_configuration_inventory(bundle, gcc_root, plugin):
+    record = json.loads((bundle / "configuration-inventory.json").read_text())
+    if gcc_root:
+        seen = []
+        found = {k: [] for k in record["results"]}
+        patterns = {
+            "assemble_static_space": r"\bassemble_static_space\s*\(",
+            "partition_writers": r"\bhas_bb_partition\s*=",
+            "register_writers": r"\breg_rtx_no\s*(?:\+\+|--|[-+*/]?=)",
+        }
+        for path in sorted((gcc_root / "gcc").rglob("*")):
+            if path.suffix not in (".cc", ".c", ".h") or "testsuite" in path.parts:
+                continue
+            data = path.read_bytes()
+            name = str(path.relative_to(gcc_root))
+            seen.append((name, hashlib.sha256(data).hexdigest()))
+            source = data.decode(errors="replace")
+            for kind, pattern in patterns.items():
+                for match in re.finditer(pattern, source):
+                    found[kind].append(dict(path=name, line=source.count(
+                        "\n", 0, match.start())+1, text=match.group()))
+        assert len(seen) == record["source_file_count"]
+        assert hashlib.sha256(json.dumps(seen, separators=(",", ":")).encode()
+                              ).hexdigest() == record["source_file_list_sha256"]
+        assert found == record["results"]
+    if plugin:
+        headers, hits = [], []
+        for path in sorted(plugin.rglob("*.h")):
+            data = path.read_bytes()
+            name = str(path.relative_to(plugin))
+            headers.append((name, hashlib.sha256(data).hexdigest()))
+            if b"PCC_STATIC_STRUCT_RETURN" in data:
+                hits.append(name)
+        expected = record["plugin_headers"]
+        assert len(headers) == expected["files"]
+        assert hashlib.sha256(json.dumps(headers, separators=(",", ":")).encode()
+                              ).hexdigest() == expected["list_sha256"]
+        assert hits == expected["pcc_static_struct_return_hits"] == []
+        assert (plugin / "tm.h").read_text() == expected["tm_h"]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ada", required=True, type=Path,
                         help="Pinned gcc/ada directory")
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--gcc-root", type=Path,
+                        help="Optional complete pinned GCC source for caller inventory")
+    parser.add_argument("--plugin-include", type=Path,
+                        help="Optional selected compiler headers for configuration inventory")
     args = parser.parse_args()
     bundle = Path(__file__).resolve().parent
+    check_configuration_inventory(bundle, args.gcc_root, args.plugin_include)
     evidence = bundle.parent
     manifest = json.loads((bundle / "source-manifest.json").read_text())
     assert manifest["commit"] == "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
@@ -160,6 +214,41 @@ def main():
                      for prefix in ("LF", "LC", "LHOTB", "LCOLDB", "LHOTE", "LCOLDE")}
     assert label_lengths["LF"] <= 17
     assert max(label_lengths.values()) <= 100
+
+    # Heap capacity remains valid even when its unsigned growth heuristic wraps.
+    heap_cases = []
+    for old in (0, 4, 8, 15, 16, int_max//2, (2**32-1)//3,
+                (2**32-1)//3+1, int_max-1):
+        desired = old+1
+        raw = 4 if not old else (old*2 if old < 16 else
+                                ((old*3) & (2**32-1))//2)
+        capacity = max(raw, desired)
+        assert desired <= capacity <= int_max
+        heap_cases.append(dict(old=old, desired=desired, capacity=capacity))
+    gc_vectors = []
+    for element_size in (1, 2, 4, 8, 16, 24, 32, 40, 64, 128):
+        bound_bytes = 8+element_size*int_max
+        rounding_ceiling = 1 << (bound_bytes.bit_length()-1)
+        capacity = (rounding_ceiling-8)//element_size
+        demand = 2*capacity//3+1
+        assert demand <= capacity <= int_max
+        assert 3*(demand-1)//2 <= capacity
+        assert 8+element_size*capacity <= rounding_ceiling <= 2**63
+        assert (rounding_ceiling-8)//element_size <= int_max
+        gc_vectors.append(dict(element_bytes=element_size,
+                               rounding_ceiling_bytes=rounding_ceiling,
+                               recovered_capacity_bound=capacity,
+                               sufficient_requested_total=demand))
+    request = 8+4*int_max
+    rounded = 1 << (request-1).bit_length()
+    recovered = (rounded-8)//4
+    assert request == 2**33+4 and rounded == 2**34
+    assert recovered == 2**32-2 and (recovered & int_max) < int_max
+    reg_capacities = [198]
+    while 2*reg_capacities[-1] <= int_max:
+        reg_capacities.append(2*reg_capacities[-1])
+    assert reg_capacities[-1] == 1660944384
+    assert reg_capacities[-1]-98 == 1660944286
     # The alignment mask is unsigned int before conversion to HOST_WIDE_INT.
     # genmodes emits BITS_PER_UNIT as a plain decimal int literal.
     mode_generator = all_bytes["gcc/genmodes.cc"].decode()
@@ -187,6 +276,24 @@ def main():
     results = {
         "scope": "local source-derived arithmetic; no native compiler/prover run",
         "verified_sources": verified,
+        "ordinary_vectors": {
+            "heap_maximum_requested_total": int_max,
+            "heap_modular_growth_examples": heap_cases,
+            "gc_header_bytes": 8,
+            "gc_sufficient_regions": gc_vectors,
+            "gc_counterexample": dict(element_bytes=4, requested_total=int_max,
+                                      requested_bytes=request, rounded_bytes=rounded,
+                                      recovered_capacity=recovered,
+                                      stored_capacity=recovered & int_max),
+            "scope": "ordinary reserve preconditions; element alignment at most eight bytes",
+        },
+        "pseudo_register_backbones": {
+            "initial_next_number": 98, "capacity_sequence": reg_capacities,
+            "maximum_fresh_register_events": reg_capacities[-1]-98,
+            "maximum_byte_array_request": reg_capacities[-1],
+            "maximum_pointer_array_request": 8*reg_capacities[-1],
+            "scope": "ordinary non-RTL-reader Ada path; source-to-event bound separate",
+        },
         "line_map": {
             "location_bits": 64, "line_bits": line_bits,
             "column_bits": column_bits, "range_bits": 0,
@@ -210,6 +317,7 @@ def main():
             "label_increment_lines": label_increments,
             "label_reset_lines": label_resets,
             "maximum_total_label_events": int_max,
+            "selected_O0_exclusions": {"C_space": 0, "C_part": 0},
             "label_buffers_including_nul": label_lengths,
             "deferred_update_lines": deferred_updates,
             "deferred_counter_bits": 32,

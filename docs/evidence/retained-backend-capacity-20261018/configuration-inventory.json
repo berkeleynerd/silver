@@ -1,0 +1,61 @@
+{
+  "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_file_count": 3547,
+  "scan_scope": "all retained gcc non-tests .cc/.c/.h files; immutable full-source tarball",
+  "source_file_list_sha256": "af50ca5a4ccaaa3cd8cb400ed38ee9eae8eab3779278e991f5fbf57c2ac14b36",
+  "results": {
+    "assemble_static_space": [
+      {
+        "path": "gcc/function.cc",
+        "line": 5139,
+        "text": "assemble_static_space ("
+      },
+      {
+        "path": "gcc/varasm.cc",
+        "line": 2977,
+        "text": "assemble_static_space ("
+      },
+      {
+        "path": "gcc/varasm.h",
+        "line": 78,
+        "text": "assemble_static_space ("
+      }
+    ],
+    "partition_writers": [
+      {
+        "path": "gcc/bb-reorder.cc",
+        "line": 2641,
+        "text": "has_bb_partition ="
+      },
+      {
+        "path": "gcc/bb-reorder.cc",
+        "line": 3011,
+        "text": "has_bb_partition ="
+      }
+    ],
+    "register_writers": [
+      {
+        "path": "gcc/emit-rtl.cc",
+        "line": 1231,
+        "text": "reg_rtx_no++"
+      },
+      {
+        "path": "gcc/emit-rtl.cc",
+        "line": 5988,
+        "text": "reg_rtx_no ="
+      },
+      {
+        "path": "gcc/read-rtl-function.cc",
+        "line": 1446,
+        "text": "reg_rtx_no ="
+      }
+    ]
+  },
+  "plugin_headers": {
+    "root": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/plugin/include",
+    "files": 565,
+    "list_sha256": "d4f8c68756140323c638acf26c503bfcdc4dff4c84366afffc56d3639d791b6e",
+    "pcc_static_struct_return_hits": [],
+    "tm_h": "#ifndef GCC_TM_H\n#define GCC_TM_H\n#ifndef LIBC_GLIBC\n# define LIBC_GLIBC 1\n#endif\n#ifndef LIBC_UCLIBC\n# define LIBC_UCLIBC 2\n#endif\n#ifndef LIBC_BIONIC\n# define LIBC_BIONIC 3\n#endif\n#ifndef LIBC_MUSL\n# define LIBC_MUSL 4\n#endif\n#ifndef DEFAULT_LIBC\n# define DEFAULT_LIBC LIBC_GLIBC\n#endif\n#ifndef ANDROID_DEFAULT\n# define ANDROID_DEFAULT 0\n#endif\n#ifndef HEAP_TRAMPOLINES_INIT\n# define HEAP_TRAMPOLINES_INIT 0\n#endif\n#ifdef IN_GCC\n# include \"options.h\"\n# include \"insn-constants.h\"\n# include \"config/vxworks-dummy.h\"\n# include \"config/i386/biarch64.h\"\n# include \"config/i386/i386.h\"\n# include \"config/i386/unix.h\"\n# include \"config/i386/att.h\"\n# include \"config/elfos.h\"\n# include \"config/gnu-user.h\"\n# include \"config/glibc-stdint.h\"\n# include \"config/i386/x86-64.h\"\n# include \"config/i386/gnu-user-common.h\"\n# include \"config/i386/gnu-user64.h\"\n# include \"config/linux.h\"\n# include \"config/linux-android.h\"\n# include \"config/i386/linux-common.h\"\n# include \"config/i386/linux64.h\"\n# include \"config/initfini-array.h\"\n#endif\n#if defined IN_GCC && !defined GENERATOR_FILE && !defined USED_FOR_TARGET\n# include \"insn-flags.h\"\n#endif\n#if defined IN_GCC && !defined GENERATOR_FILE\n# include \"insn-modes.h\"\n#endif\n# include \"defaults.h\"\n#endif /* GCC_TM_H */\n"
+  }
+}

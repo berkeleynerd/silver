@@ -406,6 +406,111 @@ they are not fresh descriptors. Actual allowed modes, alignments, descriptor
 counts and RTL-copy multiplicities must still come from source lowering and
 the selected target. The recurrence is not an aggregate emitted-code bound.
 
+## Ordinary GCC vector allocation
+
+GCC's ordinary `vec` has a **31-bit capacity field**, despite its 32-bit
+unsigned length (`gcc/vec.h:220–260`). Heap and garbage-collected vectors
+have different capacity transfers. This component covers their ordinary
+reserve operations with element alignment at most eight bytes on LP64; such
+vectors have an eight-byte header. Specialized embedded/automatic storage,
+other alignments and caller-specific size arithmetic require their own bounds.
+Let D bound every requested total `length + reserve`, including explicit
+reservations, not merely the eventual live length. Require ordinary reservation
+preconditions, including growth only when the requested total exceeds capacity.
+
+For **heap vectors**, `D<=2^31-1` suffices for the capacity field. Exact
+reservation returns D; an empty inexact reservation returns `max(4,D)`;
+otherwise the helper doubles capacities below sixteen or computes
+`old_capacity*3/2`, then takes the maximum with D
+(`vec.cc:150–169`, `vec.h:302–325`). The multiplication is unsigned and may
+wrap. Its result after division is still at most `2^31-1`, and the subsequent
+maximum preserves the requested capacity. Thus that particular wrap does not
+invalidate storage; requiring mathematical multiplication throughout would
+unnecessarily restrict this helper. The requested allocation is
+`8 + capacity*sizeof(T)`, using size_t (`vec.h:1394–1415`). Its product and
+sum must separately fit size_t for the actual T.
+
+For **GC vectors**, allocator rounding is copied back into that 31-bit field
+(`vec.h:393–425`). Checking only D misses this second capacity change.
+For element size e and the eight-byte header, choose
+
+```text
+S = largest power of two <= 8 + e*(2^31-1)
+C = floor((S-8)/e)
+D_gc = floor(2*C/3) + 1.
+```
+
+Assume S is in `1024 .. 2^63`, C>=16, and every requested total is at most
+D_gc. Initially reserve's raw capacity is at most `max(4,D_gc)<=C`.
+At a later actual growth, old capacity is less than the requested total, so
+`old<=D_gc-1`. Hence the mathematical `floor(3*old/2)<=C`; any modular
+multiplication result is no larger. Exact requests also fit C. Each raw byte
+request is consequently at most S, and the reviewed GGC rounding returns at
+most S. Recovered capacity is at most C and fits the 31-bit field, closing
+the induction. Requests below 512 use the small-object lookup table, whose
+selected sizes are at most 512; requests from 512 through 1024 select 1024.
+Both fit S. The S condition also keeps
+the power-of-two search within the initialized 64-bit object-size table
+(`ggc-page.cc:1292–1327,1883–1894`).
+
+This is a general sufficient region, not the sharp threshold for every element
+size or append sequence. For e=4 it gives `D_gc=1,431,655,765`; for e=8 or 16,
+`1,431,655,765`; for e=24, `954,437,177`. For example, an exact request of
+`2^31-1` four-byte elements needs `2^33+4` bytes; rounding to `2^34` yields
+`2^32-2` elements and then truncates the capacity field. That arithmetic
+counterexample explains why the nominal length limit alone is insufficient.
+It is not a near-limit native experiment. An actual construct's element count,
+T and reservation multiplicities remain composition inputs. Coexisting old/new
+arrays and cumulative allocations are physical costs, not aggregate RAM gates.
+
+## Pseudo-register numbering and its two backing arrays
+
+The selected x86 target defines FIRST_PSEUDO_REG=92
+(`config/i386/i386.md:511`), and LAST_VIRTUAL_REGISTER adds five
+(`rtl.h:4091–4146`). Each function starts with next pseudo-register number 98
+and backing capacity 198 (`emit-rtl.cc:5980–6005`). A fresh pseudo is assigned
+the current number and increments it; the ordinary source path's sole writer
+is `gen_reg_rtx` (`:1184–1232`). The alternative number-setting caller belongs
+to the RTL text reader, absent from Ada compilation. These are allocation
+events, including registers later discarded; current live registers do not
+suffice. A complex-mode recursive request must count each allocated part.
+
+The grower doubles a signed-int capacity until the index fits
+(`:1239–1262`). The largest capacity in its exact sequence that fits int is
+`198*2^23 = 1,660,944,384`; the next doubling overflows signed int. Therefore,
+for R fresh pseudo-register allocations in one function,
+
+```text
+98 + R <= 1,660,944,384
+```
+
+is sufficient for the number and backbone-growth arithmetic. The final
+increment can equal the capacity because the last written index is one less;
+another allocation would require the excluded doubling. The byte-alignment
+array requests at most 1,660,944,384 bytes and the pointer array at most
+13,287,555,072 bytes; products, copying/zero-fill lengths and GGC rounding fit
+LP64. This is separate from the register allocator's other structures, RTL
+instruction IDs and the source-to-R transfer.
+
+## Two constant-label event classes are absent at selected O0
+
+For the selected native configuration, the earlier label formula simplifies to
+`C_label=C_tree+C_rtl`. `C_space=0`: the sole call of assemble_static_space is
+inside `PCC_STATIC_STRUCT_RETURN` (`function.cc:5133–5144`), absent from the
+selected x86/Linux target headers. This is a build-configuration premise;
+changing the target/header configuration requires rechecking it.
+
+`C_part=0`: fresh RTL function state has no partition flag. The only assignment
+of true is the partition pass, gated by positive optimization
+(`bb-reorder.cc:2977–3011`). Its other writer, insert_section_boundary_note,
+returns immediately if the flag is false (`:2616–2641`). The block-reordering
+pass also requires positive optimization (`:2665–2672`). No native LTO or RTL
+text input is selected. A full pinned GCC non-tests source search found only
+the named call and two flag writers; the source and installed target-header
+inventories are retained with this component. This exclusion does not bound
+C_tree or C_rtl, or imply that every optimization/transformation is disabled
+at O0.
+
 ## Remaining backend closure
 
 The [ELF linker transfer](retained-linker-capacity.md) supplies the separate

@@ -194,6 +194,70 @@
       "git_blob_sha1": "4ccc8d7a0e10950c784bf95471644a4e201ed63f",
       "origin": "complete Ada source inventory",
       "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/gcc-interface/decl.cc"
+    },
+    {
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1",
+      "git_blob_sha1": "0d4cffd0c3a61b10843951fdeb09209485d0a6b2",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/vec.h",
+      "archive": "vector-sources.tar.gz"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd",
+      "git_blob_sha1": "0740e49584803a18455d604614a2aac0a79760cd",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/vec.cc",
+      "archive": "vector-sources.tar.gz"
+    },
+    {
+      "path": "gcc/emit-rtl.cc",
+      "bytes": 193419,
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90",
+      "git_blob_sha1": "e41ec2283b8fa3cf97ed04c270308131701dc003",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/emit-rtl.cc",
+      "archive": "vector-sources.tar.gz"
+    },
+    {
+      "path": "gcc/rtl.h",
+      "bytes": 162393,
+      "sha256": "0dc2f54d53a6149d7bb6363dc1a947101c7003e1154233b6b0d417cddd1f7f3e",
+      "git_blob_sha1": "eebcc18a4f1adaa397ab6152a3259bbf716298ed",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/rtl.h",
+      "archive": "vector-sources.tar.gz"
+    },
+    {
+      "path": "gcc/function.cc",
+      "bytes": 221482,
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68",
+      "git_blob_sha1": "109821c16fc96e4cd77d0721babca21dcdf82419",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/function.cc",
+      "archive": "vector-sources.tar.gz"
+    },
+    {
+      "path": "gcc/bb-reorder.cc",
+      "bytes": 95021,
+      "sha256": "16a1b38367359cc0ecc61eaf1222daeccde19184bfc87d506d79a44b6a0eaef2",
+      "git_blob_sha1": "4e863bdac99869f325b4566e07e08c7563157dbe",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/bb-reorder.cc",
+      "archive": "vector-sources.tar.gz"
+    },
+    {
+      "path": "gcc/config/i386/i386.md",
+      "bytes": 1013857,
+      "sha256": "2d2c09314aca1b0cd2cd887f7a637142e94a07cebca7847d7094e11353c61bcb",
+      "git_blob_sha1": "648b9b1b9518b0f9e2df7f43fde686952ea1e2ee",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/config/i386/i386.md",
+      "archive": "vector-sources.tar.gz"
+    },
+    {
+      "path": "gcc/read-rtl-function.cc",
+      "bytes": 62604,
+      "sha256": "658b151d970faf4046ef98fd21d227abea1fd6c5b1878acc4403ce40a7f21072",
+      "git_blob_sha1": "7490a6eb81b735599ab78c7de98166b104ff61ce",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/read-rtl-function.cc",
+      "archive": "vector-sources.tar.gz"
     }
   ]
 }

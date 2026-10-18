@@ -2377,6 +2377,51 @@ LF line numbering; complete file identities checked.
 1150:   init_ttree ();
 ```
 
+## gcc/ggc-page.cc:1250–1290
+```text
+1250: #define NUM_SIZE_LOOKUP 512
+1251: static unsigned char size_lookup[NUM_SIZE_LOOKUP] =
+1252: {
+1253:   3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4,
+1254:   4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+1255:   5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+1256:   6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+1257:   6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+1258:   7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+1259:   7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+1260:   7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+1261:   7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+1262:   8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+1263:   8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+1264:   8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+1265:   8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+1266:   8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+1267:   8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+1268:   8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+1269:   8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1270:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1271:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1272:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1273:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1274:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1275:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1276:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1277:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1278:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1279:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1280:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1281:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1282:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1283:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+1284:   9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9
+1285: };
+1286:
+1287: /* For a given size of memory requested for allocation, return the
+1288:    actual size that is going to be allocated, as well as the size
+1289:    order.  */
+1290:
+```
+
 ## gcc/ggc-page.cc:1292–1327
 ```text
 1292: ggc_round_alloc_size_1 (size_t requested_size,
@@ -2417,7 +2462,7 @@ LF line numbering; complete file identities checked.
 1327:
 ```
 
-## gcc/ggc-page.cc:1883–1905
+## gcc/ggc-page.cc:1883–1922
 ```text
 1883:
 1884:   /* Initialize the object size table.  */
@@ -2442,6 +2487,23 @@ LF line numbering; complete file identities checked.
 1903:       compute_inverse (order);
 1904:     }
 1905:
+1906:   /* Reset the size_lookup array to put appropriately sized objects in
+1907:      the special orders.  All objects bigger than the previous power
+1908:      of two, but no greater than the special size, should go in the
+1909:      new order.  */
+1910:   for (order = HOST_BITS_PER_PTR; order < NUM_ORDERS; ++order)
+1911:     {
+1912:       int o;
+1913:       int i;
+1914:
+1915:       i = OBJECT_SIZE (order);
+1916:       if (i >= NUM_SIZE_LOOKUP)
+1917: 	continue;
+1918:
+1919:       for (o = size_lookup[i]; o == size_lookup [i]; --i)
+1920: 	size_lookup[i] = order;
+1921:     }
+1922:
 ```
 
 ## gcc/ggc.h:230–258
@@ -2544,6 +2606,47 @@ LF line numbering; complete file identities checked.
 781:   free_binding_level = level;
 782: }
 783:
+```
+
+## gcc/function.h:34–70
+```text
+34: };
+35:
+36: struct GTY(()) emit_status {
+37:   void ensure_regno_capacity ();
+38:
+39:   /* This is reset to LAST_VIRTUAL_REGISTER + 1 at the start of each function.
+40:      After rtl generation, it is 1 plus the largest register number used.  */
+41:   int x_reg_rtx_no;
+42:
+43:   /* Lowest label number in current function.  */
+44:   int x_first_label_num;
+45:
+46:   /* seq.first and seq.last are the ends of the doubly-linked chain of
+47:      rtl for the current function.  Both are reset to null at the
+48:      start of rtl generation for the function.
+49:
+50:      start_sequence saves both of these on seq.next and then starts
+51:      a new, nested sequence of insns.
+52:
+53:      seq.next is a stack of pending (incomplete) sequences saved by
+54:      start_sequence.  Each element describes one pending sequence.
+55:      The main insn-chain is the last element of the chain.  */
+56:   struct sequence_stack seq;
+57:
+58:   /* INSN_UID for next insn emitted.
+59:      Reset to 1 for each function compiled.  */
+60:   int x_cur_insn_uid;
+61:
+62:   /* INSN_UID for next debug insn emitted.  Only used if
+63:      --param min-nondebug-insn-uid=<value> is given with nonzero value.  */
+64:   int x_cur_debug_insn_uid;
+65:
+66:   /* The length of the regno_pointer_align, regno_decl, and x_regno_reg_rtx
+67:      vectors.  Since these vectors are needed during the expansion phase when
+68:      the total number of registers in the function is not yet known, the
+69:      vectors are copied and made bigger when necessary.  */
+70:   int regno_pointer_align_length;
 ```
 
 ## gcc/function.h:162–169
@@ -3175,4 +3278,568 @@ LF line numbering; complete file identities checked.
 3175: 					      convert (gnu_string_index_type,
 3176: 						       integer_one_node)));
 3177: 	tree gnu_index_type
+```
+
+## gcc/vec.h:220–260
+```text
+220: {
+221:   /* FIXME - These fields should be private, but we need to cater to
+222: 	     compilers that have stricter notions of PODness for types.  */
+223:
+224:   /* Memory allocation support routines in vec.cc.  */
+225:   void register_overhead (void *, size_t, size_t CXX_MEM_STAT_INFO);
+226:   void release_overhead (void *, size_t, size_t, bool CXX_MEM_STAT_INFO);
+227:   static unsigned calculate_allocation (vec_prefix *, unsigned, bool);
+228:   static unsigned calculate_allocation_1 (unsigned, unsigned);
+229:
+230:   /* Note that vec_prefix should be a base class for vec, but we use
+231:      offsetof() on vector fields of tree structures (e.g.,
+232:      tree_binfo::base_binfos), and offsetof only supports base types.
+233:
+234:      To compensate, we make vec_prefix a field inside vec and make
+235:      vec a friend class of vec_prefix so it can access its fields.  */
+236:   template <typename, typename, typename> friend struct vec;
+237:
+238:   /* The allocator types also need access to our internals.  */
+239:   friend struct va_gc;
+240:   friend struct va_gc_atomic;
+241:   friend struct va_heap;
+242:
+243:   unsigned m_alloc : 31;
+244:   unsigned m_using_auto_storage : 1;
+245:   unsigned m_num;
+246: };
+247:
+248: /* Calculate the number of slots to reserve a vector, making sure that
+249:    RESERVE slots are free.  If EXACT grow exactly, otherwise grow
+250:    exponentially.  PFX is the control data for the vector.  */
+251:
+252: inline unsigned
+253: vec_prefix::calculate_allocation (vec_prefix *pfx, unsigned reserve,
+254: 				  bool exact)
+255: {
+256:   if (exact)
+257:     return (pfx ? pfx->m_num : 0) + reserve;
+258:   else if (!pfx)
+259:     return MAX (4, reserve);
+260:   return calculate_allocation_1 (pfx->m_alloc, pfx->m_num + reserve);
+```
+
+## gcc/vec.h:302–325
+```text
+302: template<typename T>
+303: inline void
+304: va_heap::reserve (vec<T, va_heap, vl_embed> *&v, unsigned reserve, bool exact
+305: 		  MEM_STAT_DECL)
+306: {
+307:   size_t elt_size = sizeof (T);
+308:   unsigned alloc
+309:     = vec_prefix::calculate_allocation (v ? &v->m_vecpfx : 0, reserve, exact);
+310:   gcc_checking_assert (alloc);
+311:
+312:   if (GATHER_STATISTICS && v)
+313:     v->m_vecpfx.release_overhead (v, elt_size * v->allocated (),
+314: 				  v->allocated (), false);
+315:
+316:   size_t size = vec<T, va_heap, vl_embed>::embedded_size (alloc);
+317:   unsigned nelem = v ? v->length () : 0;
+318:   v = static_cast <vec<T, va_heap, vl_embed> *> (xrealloc (v, size));
+319:   v->embedded_init (alloc, nelem);
+320:
+321:   if (GATHER_STATISTICS)
+322:     v->m_vecpfx.register_overhead (v, alloc, elt_size PASS_MEM_STAT);
+323: }
+324:
+325:
+```
+
+## gcc/vec.h:393–425
+```text
+393: void
+394: va_gc::reserve (vec<T, A, vl_embed> *&v, unsigned reserve, bool exact
+395: 		MEM_STAT_DECL)
+396: {
+397:   unsigned alloc
+398:     = vec_prefix::calculate_allocation (v ? &v->m_vecpfx : 0, reserve, exact);
+399:   if (!alloc)
+400:     {
+401:       ::ggc_free (v);
+402:       v = NULL;
+403:       return;
+404:     }
+405:
+406:   /* Calculate the amount of space we want.  */
+407:   size_t size = vec<T, A, vl_embed>::embedded_size (alloc);
+408:
+409:   /* Ask the allocator how much space it will really give us.  */
+410:   size = ::ggc_round_alloc_size (size);
+411:
+412:   /* Adjust the number of slots accordingly.  */
+413:   size_t vec_offset = sizeof (vec_prefix);
+414:   size_t elt_size = sizeof (T);
+415:   alloc = (size - vec_offset) / elt_size;
+416:
+417:   /* And finally, recalculate the amount of space we ask for.  */
+418:   size = vec_offset + alloc * elt_size;
+419:
+420:   unsigned nelem = v ? v->length () : 0;
+421:   v = static_cast <vec<T, A, vl_embed> *> (::ggc_realloc (v, size
+422: 							       PASS_MEM_STAT));
+423:   v->embedded_init (alloc, nelem);
+424: }
+425:
+```
+
+## gcc/vec.h:599–660
+```text
+599: struct GTY((user)) vec<T, A, vl_embed>
+600: {
+601: public:
+602:   unsigned allocated (void) const { return m_vecpfx.m_alloc; }
+603:   unsigned length (void) const { return m_vecpfx.m_num; }
+604:   bool is_empty (void) const { return m_vecpfx.m_num == 0; }
+605:   T *address (void) { return reinterpret_cast <T *> (this + 1); }
+606:   const T *address (void) const
+607:     { return reinterpret_cast <const T *> (this + 1); }
+608:   T *begin () { return address (); }
+609:   const T *begin () const { return address (); }
+610:   T *end () { return address () + length (); }
+611:   const T *end () const { return address () + length (); }
+612:   const T &operator[] (unsigned) const;
+613:   T &operator[] (unsigned);
+614:   const T &last (void) const;
+615:   T &last (void);
+616:   bool space (unsigned) const;
+617:   bool iterate (unsigned, T *) const;
+618:   bool iterate (unsigned, T **) const;
+619:   vec *copy (ALONE_CXX_MEM_STAT_INFO) const;
+620:   void splice (const vec &);
+621:   void splice (const vec *src);
+622:   T *quick_push (const T &);
+623:   using pop_ret_type
+624:     = typename std::conditional <std::is_trivially_destructible <T>::value,
+625: 				 T &, void>::type;
+626:   pop_ret_type pop (void);
+627:   void truncate (unsigned);
+628:   void quick_insert (unsigned, const T &);
+629:   void ordered_remove (unsigned);
+630:   void unordered_remove (unsigned);
+631:   void block_remove (unsigned, unsigned);
+632:   void qsort (int (*) (const void *, const void *));
+633:   void sort (int (*) (const void *, const void *, void *), void *);
+634:   void stablesort (int (*) (const void *, const void *, void *), void *);
+635:   T *bsearch (const void *key, int (*compar) (const void *, const void *));
+636:   T *bsearch (const void *key,
+637: 	      int (*compar)(const void *, const void *, void *), void *);
+638:   unsigned lower_bound (const T &, bool (*) (const T &, const T &)) const;
+639:   bool contains (const T &search) const;
+640:   static size_t embedded_size (unsigned);
+641:   void embedded_init (unsigned, unsigned = 0, unsigned = 0);
+642:   void quick_grow (unsigned len);
+643:   void quick_grow_cleared (unsigned len);
+644:
+645:   /* vec class can access our internal data and functions.  */
+646:   template <typename, typename, typename> friend struct vec;
+647:
+648:   /* The allocator types also need access to our internals.  */
+649:   friend struct va_gc;
+650:   friend struct va_gc_atomic;
+651:   friend struct va_heap;
+652:
+653:   /* FIXME - This field should be private, but we need to cater to
+654: 	     compilers that have stricter notions of PODness for types.  */
+655:   /* Align m_vecpfx to simplify address ().  */
+656:   alignas (T) alignas (vec_prefix) vec_prefix m_vecpfx;
+657: };
+658:
+659:
+660: /* Convenience wrapper functions to use when dealing with pointers to
+```
+
+## gcc/vec.h:1394–1415
+```text
+1394: vec<T, A, vl_embed>::embedded_size (unsigned alloc)
+1395: {
+1396:   struct alignas (T) U { char data[sizeof (T)]; };
+1397:   typedef vec<U, A, vl_embed> vec_embedded;
+1398:   typedef typename std::conditional<std::is_standard_layout<T>::value,
+1399: 				    vec, vec_embedded>::type vec_stdlayout;
+1400:   static_assert (sizeof (vec_stdlayout) == sizeof (vec), "");
+1401:   static_assert (alignof (vec_stdlayout) == alignof (vec), "");
+1402:   return sizeof (vec_stdlayout) + alloc * sizeof (T);
+1403: }
+1404:
+1405:
+1406: /* Initialize the vector to contain room for ALLOC elements and
+1407:    NUM active elements.  */
+1408:
+1409: template<typename T, typename A>
+1410: inline void
+1411: vec<T, A, vl_embed>::embedded_init (unsigned alloc, unsigned num, unsigned aut)
+1412: {
+1413:   m_vecpfx.m_alloc = alloc;
+1414:   m_vecpfx.m_using_auto_storage = aut;
+1415:   m_vecpfx.m_num = num;
+```
+
+## gcc/vec.cc:150–169
+```text
+150: vec_prefix::calculate_allocation_1 (unsigned alloc, unsigned desired)
+151: {
+152:   /* We must have run out of room.  */
+153:   gcc_assert (alloc < desired);
+154:
+155:   /* Exponential growth. */
+156:   if (!alloc)
+157:     alloc = 4;
+158:   else if (alloc < 16)
+159:     /* Double when small.  */
+160:     alloc = alloc * 2;
+161:   else
+162:     /* Grow slower when large.  */
+163:     alloc = (alloc * 3 / 2);
+164:
+165:   /* If this is still too small, set it to the right size. */
+166:   if (alloc < desired)
+167:     alloc = desired;
+168:   return alloc;
+169: }
+```
+
+## gcc/emit-rtl.cc:80–85
+```text
+80: scalar_int_mode ptr_mode;	/* Mode whose width is POINTER_SIZE.  */
+81:
+82: /* Datastructures maintained for currently processed function in RTL form.  */
+83:
+84: struct rtl_data x_rtl;
+85:
+```
+
+## gcc/emit-rtl.cc:1184–1232
+```text
+1184: /* Generate a REG rtx for a new pseudo register of mode MODE.
+1185:    This pseudo is assigned the next sequential register number.  */
+1186:
+1187: rtx
+1188: gen_reg_rtx (machine_mode mode)
+1189: {
+1190:   rtx val;
+1191:   unsigned int align = GET_MODE_ALIGNMENT (mode);
+1192:
+1193:   gcc_assert (can_create_pseudo_p ());
+1194:
+1195:   /* If a virtual register with bigger mode alignment is generated,
+1196:      increase stack alignment estimation because it might be spilled
+1197:      to stack later.  */
+1198:   if (SUPPORTS_STACK_ALIGNMENT
+1199:       && crtl->stack_alignment_estimated < align
+1200:       && !crtl->stack_realign_processed)
+1201:     {
+1202:       unsigned int min_align = MINIMUM_ALIGNMENT (NULL, mode, align);
+1203:       if (crtl->stack_alignment_estimated < min_align)
+1204: 	crtl->stack_alignment_estimated = min_align;
+1205:     }
+1206:
+1207:   if (generating_concat_p
+1208:       && (GET_MODE_CLASS (mode) == MODE_COMPLEX_FLOAT
+1209: 	  || GET_MODE_CLASS (mode) == MODE_COMPLEX_INT))
+1210:     {
+1211:       /* For complex modes, don't make a single pseudo.
+1212: 	 Instead, make a CONCAT of two pseudos.
+1213: 	 This allows noncontiguous allocation of the real and imaginary parts,
+1214: 	 which makes much better code.  Besides, allocating DCmode
+1215: 	 pseudos overstrains reload on some machines like the 386.  */
+1216:       rtx realpart, imagpart;
+1217:       machine_mode partmode = GET_MODE_INNER (mode);
+1218:
+1219:       realpart = gen_reg_rtx (partmode);
+1220:       imagpart = gen_reg_rtx (partmode);
+1221:       return gen_rtx_CONCAT (mode, realpart, imagpart);
+1222:     }
+1223:
+1224:   /* Do not call gen_reg_rtx with uninitialized crtl.  */
+1225:   gcc_assert (crtl->emit.regno_pointer_align_length);
+1226:
+1227:   crtl->emit.ensure_regno_capacity ();
+1228:   gcc_assert (reg_rtx_no < crtl->emit.regno_pointer_align_length);
+1229:
+1230:   val = gen_raw_REG (mode, reg_rtx_no);
+1231:   regno_reg_rtx[reg_rtx_no++] = val;
+1232:   return val;
+```
+
+## gcc/emit-rtl.cc:1239–1262
+```text
+1239: emit_status::ensure_regno_capacity ()
+1240: {
+1241:   int old_size = regno_pointer_align_length;
+1242:
+1243:   if (reg_rtx_no < old_size)
+1244:     return;
+1245:
+1246:   int new_size = old_size * 2;
+1247:   while (reg_rtx_no >= new_size)
+1248:     new_size *= 2;
+1249:
+1250:   char *tmp = XRESIZEVEC (char, regno_pointer_align, new_size);
+1251:   memset (tmp + old_size, 0, new_size - old_size);
+1252:   regno_pointer_align = (unsigned char *) tmp;
+1253:
+1254:   rtx *new1 = GGC_RESIZEVEC (rtx, regno_reg_rtx, new_size);
+1255:   memset (new1 + old_size, 0, (new_size - old_size) * sizeof (rtx));
+1256:   regno_reg_rtx = new1;
+1257:
+1258:   crtl->emit.regno_pointer_align_length = new_size;
+1259: }
+1260:
+1261: /* Return TRUE if REG is a PARM_DECL, FALSE otherwise.  */
+1262:
+```
+
+## gcc/emit-rtl.cc:5980–6005
+```text
+5980: {
+5981:   set_first_insn (NULL);
+5982:   set_last_insn (NULL);
+5983:   if (param_min_nondebug_insn_uid)
+5984:     cur_insn_uid = param_min_nondebug_insn_uid;
+5985:   else
+5986:     cur_insn_uid = 1;
+5987:   cur_debug_insn_uid = 1;
+5988:   reg_rtx_no = LAST_VIRTUAL_REGISTER + 1;
+5989:   first_label_num = label_num;
+5990:   get_current_sequence ()->next = NULL;
+5991:
+5992:   /* Init the tables that describe all the pseudo regs.  */
+5993:
+5994:   crtl->emit.regno_pointer_align_length = LAST_VIRTUAL_REGISTER + 101;
+5995:
+5996:   crtl->emit.regno_pointer_align
+5997:     = XCNEWVEC (unsigned char, crtl->emit.regno_pointer_align_length);
+5998:
+5999:   regno_reg_rtx
+6000:     = ggc_cleared_vec_alloc<rtx> (crtl->emit.regno_pointer_align_length);
+6001:
+6002:   /* Put copies of all the hard registers into regno_reg_rtx.  */
+6003:   memcpy (regno_reg_rtx,
+6004: 	  initial_regno_reg_rtx,
+6005: 	  FIRST_PSEUDO_REGISTER * sizeof (rtx));
+```
+
+## gcc/rtl.h:4091–4146
+```text
+4091: #define FIRST_VIRTUAL_REGISTER	(FIRST_PSEUDO_REGISTER)
+4092:
+4093: /* This points to the first word of the incoming arguments passed on the stack,
+4094:    either by the caller or by the callee when pretending it was passed by the
+4095:    caller.  */
+4096:
+4097: #define virtual_incoming_args_rtx       (global_rtl[GR_VIRTUAL_INCOMING_ARGS])
+4098:
+4099: #define VIRTUAL_INCOMING_ARGS_REGNUM	(FIRST_VIRTUAL_REGISTER)
+4100:
+4101: /* If FRAME_GROWS_DOWNWARD, this points to immediately above the first
+4102:    variable on the stack.  Otherwise, it points to the first variable on
+4103:    the stack.  */
+4104:
+4105: #define virtual_stack_vars_rtx	        (global_rtl[GR_VIRTUAL_STACK_ARGS])
+4106:
+4107: #define VIRTUAL_STACK_VARS_REGNUM	((FIRST_VIRTUAL_REGISTER) + 1)
+4108:
+4109: /* This points to the location of dynamically-allocated memory on the stack
+4110:    immediately after the stack pointer has been adjusted by the amount
+4111:    desired.  */
+4112:
+4113: #define virtual_stack_dynamic_rtx	(global_rtl[GR_VIRTUAL_STACK_DYNAMIC])
+4114:
+4115: #define VIRTUAL_STACK_DYNAMIC_REGNUM	((FIRST_VIRTUAL_REGISTER) + 2)
+4116:
+4117: /* This points to the location in the stack at which outgoing arguments should
+4118:    be written when the stack is pre-pushed (arguments pushed using push
+4119:    insns always use sp).  */
+4120:
+4121: #define virtual_outgoing_args_rtx	(global_rtl[GR_VIRTUAL_OUTGOING_ARGS])
+4122:
+4123: #define VIRTUAL_OUTGOING_ARGS_REGNUM	((FIRST_VIRTUAL_REGISTER) + 3)
+4124:
+4125: /* This points to the Canonical Frame Address of the function.  This
+4126:    should correspond to the CFA produced by INCOMING_FRAME_SP_OFFSET,
+4127:    but is calculated relative to the arg pointer for simplicity; the
+4128:    frame pointer nor stack pointer are necessarily fixed relative to
+4129:    the CFA until after reload.  */
+4130:
+4131: #define virtual_cfa_rtx			(global_rtl[GR_VIRTUAL_CFA])
+4132:
+4133: #define VIRTUAL_CFA_REGNUM		((FIRST_VIRTUAL_REGISTER) + 4)
+4134:
+4135: #define LAST_VIRTUAL_POINTER_REGISTER	((FIRST_VIRTUAL_REGISTER) + 4)
+4136:
+4137: /* This is replaced by crtl->preferred_stack_boundary / BITS_PER_UNIT
+4138:    when finalized.  */
+4139:
+4140: #define virtual_preferred_stack_boundary_rtx \
+4141: 	(global_rtl[GR_VIRTUAL_PREFERRED_STACK_BOUNDARY])
+4142:
+4143: #define VIRTUAL_PREFERRED_STACK_BOUNDARY_REGNUM \
+4144: 					((FIRST_VIRTUAL_REGISTER) + 5)
+4145:
+4146: #define LAST_VIRTUAL_REGISTER		((FIRST_VIRTUAL_REGISTER) + 5)
+```
+
+## gcc/function.cc:203–218
+```text
+203: /* Clear out all parts of the state in F that can safely be discarded
+204:    after the function has been compiled, to let garbage collection
+205:    reclaim the memory.  */
+206:
+207: void
+208: free_after_compilation (struct function *f)
+209: {
+210:   prologue_insn_hash = NULL;
+211:   epilogue_insn_hash = NULL;
+212:
+213:   free (crtl->emit.regno_pointer_align);
+214:
+215:   memset (crtl, 0, sizeof (struct rtl_data));
+216:   f->eh = NULL;
+217:   f->machine = NULL;
+218:   f->cfg = NULL;
+```
+
+## gcc/function.cc:5133–5144
+```text
+5133:       rtx value_address = 0;
+5134:
+5135: #ifdef PCC_STATIC_STRUCT_RETURN
+5136:       if (cfun->returns_pcc_struct)
+5137: 	{
+5138: 	  int size = int_size_in_bytes (TREE_TYPE (res));
+5139: 	  value_address = assemble_static_space (size);
+5140: 	}
+5141:       else
+5142: #endif
+5143: 	{
+5144: 	  rtx sv = targetm.calls.struct_value_rtx (TREE_TYPE (subr), 2);
+```
+
+## gcc/bb-reorder.cc:2616–2641
+```text
+2616: insert_section_boundary_note (void)
+2617: {
+2618:   basic_block bb;
+2619:   bool switched_sections = false;
+2620:   int current_partition = 0;
+2621:
+2622:   if (!crtl->has_bb_partition)
+2623:     return;
+2624:
+2625:   FOR_EACH_BB_FN (bb, cfun)
+2626:     {
+2627:       if (!current_partition)
+2628: 	current_partition = BB_PARTITION (bb);
+2629:       if (BB_PARTITION (bb) != current_partition)
+2630: 	{
+2631: 	  gcc_assert (!switched_sections);
+2632:           switched_sections = true;
+2633:           emit_note_before (NOTE_INSN_SWITCH_TEXT_SECTIONS, BB_HEAD (bb));
+2634:           current_partition = BB_PARTITION (bb);
+2635: 	}
+2636:     }
+2637:
+2638:   /* Make sure crtl->has_bb_partition matches reality even if bbpart finds
+2639:      some hot and some cold basic blocks, but later one of those kinds is
+2640:      optimized away.  */
+2641:   crtl->has_bb_partition = switched_sections;
+```
+
+## gcc/bb-reorder.cc:2665–2672
+```text
+2665:
+2666:   /* opt_pass methods: */
+2667:   bool gate (function *) final override
+2668:     {
+2669:       if (targetm.cannot_modify_jumps_p ())
+2670: 	return false;
+2671:       return (optimize > 0
+2672: 	      && (flag_reorder_blocks || flag_reorder_blocks_and_partition));
+```
+
+## gcc/bb-reorder.cc:2977–3011
+```text
+2977: pass_partition_blocks::gate (function *fun)
+2978: {
+2979:   /* The optimization to partition hot/cold basic blocks into separate
+2980:      sections of the .o file does not work well with linkonce or with
+2981:      user defined section attributes or with naked attribute.  Don't call
+2982:      it if either case arises.  */
+2983:   return (flag_reorder_blocks_and_partition
+2984: 	  && optimize
+2985: 	  /* See pass_reorder_blocks::gate.  We should not partition if
+2986: 	     we are going to omit the reordering.  */
+2987: 	  && optimize_function_for_speed_p (fun)
+2988: 	  && !DECL_COMDAT_GROUP (current_function_decl)
+2989: 	  && !lookup_attribute ("section", DECL_ATTRIBUTES (fun->decl))
+2990: 	  && !lookup_attribute ("naked", DECL_ATTRIBUTES (fun->decl))
+2991: 	  /* Workaround a bug in GDB where read_partial_die doesn't cope
+2992: 	     with DIEs with DW_AT_ranges, see PR81115.  */
+2993: 	  && !(in_lto_p && MAIN_NAME_P (DECL_NAME (fun->decl))));
+2994: }
+2995:
+2996: unsigned
+2997: pass_partition_blocks::execute (function *fun)
+2998: {
+2999:   vec<edge> crossing_edges;
+3000:
+3001:   if (n_basic_blocks_for_fn (fun) <= NUM_FIXED_BLOCKS + 1)
+3002:     return 0;
+3003:
+3004:   df_set_flags (DF_DEFER_INSN_RESCAN);
+3005:
+3006:   crossing_edges = find_rarely_executed_basic_blocks_and_crossing_edges ();
+3007:   if (!crossing_edges.exists ())
+3008:     /* Make sure to process deferred rescans and clear changeable df flags.  */
+3009:     return TODO_df_finish;
+3010:
+3011:   crtl->has_bb_partition = true;
+```
+
+## gcc/config/i386/i386.md:500–515
+```text
+500:    (R21_REG			81)
+501:    (R22_REG			82)
+502:    (R23_REG			83)
+503:    (R24_REG			84)
+504:    (R25_REG			85)
+505:    (R26_REG			86)
+506:    (R27_REG			87)
+507:    (R28_REG			88)
+508:    (R29_REG			89)
+509:    (R30_REG			90)
+510:    (R31_REG			91)
+511:    (FIRST_PSEUDO_REG		92)
+512:   ])
+513:
+514: ;; Insn callee abi index.
+515: (define_constants
+```
+
+## gcc/read-rtl-function.cc:1435–1450
+```text
+1435:
+1436: /* Ensure that the backend can cope with a REG with regno REGNO.
+1437:    Normally REG instances are created by gen_reg_rtx which updates
+1438:    regno_reg_rtx, growing it as necessary.
+1439:    The REG instances created from the dumpfile weren't created this
+1440:    way, so we need to manually update regno_reg_rtx.  */
+1441:
+1442: static void
+1443: ensure_regno (int regno)
+1444: {
+1445:   if (reg_rtx_no < regno + 1)
+1446:     reg_rtx_no = regno + 1;
+1447:
+1448:   crtl->emit.ensure_regno_capacity ();
+1449:   gcc_assert (regno < crtl->emit.regno_pointer_align_length);
+1450: }
 ```

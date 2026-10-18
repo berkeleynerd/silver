@@ -92,8 +92,195 @@
     {
       "path": "gcc/ada/gcc-interface/decl.cc",
       "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2"
+    },
+    {
+      "path": "gcc/vec.h",
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd"
+    },
+    {
+      "path": "gcc/emit-rtl.cc",
+      "sha256": "1ca51346aad1db375bd2736fdac1b13a59f5d8c4b427821fad46ebd689743b90"
+    },
+    {
+      "path": "gcc/rtl.h",
+      "sha256": "0dc2f54d53a6149d7bb6363dc1a947101c7003e1154233b6b0d417cddd1f7f3e"
+    },
+    {
+      "path": "gcc/function.cc",
+      "sha256": "f51479ff5d33310efb295bc76032126a0de57f70eefa8c55f5eacc1d05186a68"
+    },
+    {
+      "path": "gcc/bb-reorder.cc",
+      "sha256": "16a1b38367359cc0ecc61eaf1222daeccde19184bfc87d506d79a44b6a0eaef2"
+    },
+    {
+      "path": "gcc/config/i386/i386.md",
+      "sha256": "2d2c09314aca1b0cd2cd887f7a637142e94a07cebca7847d7094e11353c61bcb"
+    },
+    {
+      "path": "gcc/read-rtl-function.cc",
+      "sha256": "658b151d970faf4046ef98fd21d227abea1fd6c5b1878acc4403ce40a7f21072"
     }
   ],
+  "ordinary_vectors": {
+    "heap_maximum_requested_total": 2147483647,
+    "heap_modular_growth_examples": [
+      {
+        "old": 0,
+        "desired": 1,
+        "capacity": 4
+      },
+      {
+        "old": 4,
+        "desired": 5,
+        "capacity": 8
+      },
+      {
+        "old": 8,
+        "desired": 9,
+        "capacity": 16
+      },
+      {
+        "old": 15,
+        "desired": 16,
+        "capacity": 30
+      },
+      {
+        "old": 16,
+        "desired": 17,
+        "capacity": 24
+      },
+      {
+        "old": 1073741823,
+        "desired": 1073741824,
+        "capacity": 1610612734
+      },
+      {
+        "old": 1431655765,
+        "desired": 1431655766,
+        "capacity": 2147483647
+      },
+      {
+        "old": 1431655766,
+        "desired": 1431655767,
+        "capacity": 1431655767
+      },
+      {
+        "old": 2147483646,
+        "desired": 2147483647,
+        "capacity": 2147483647
+      }
+    ],
+    "gc_header_bytes": 8,
+    "gc_sufficient_regions": [
+      {
+        "element_bytes": 1,
+        "rounding_ceiling_bytes": 2147483648,
+        "recovered_capacity_bound": 2147483640,
+        "sufficient_requested_total": 1431655761
+      },
+      {
+        "element_bytes": 2,
+        "rounding_ceiling_bytes": 4294967296,
+        "recovered_capacity_bound": 2147483644,
+        "sufficient_requested_total": 1431655763
+      },
+      {
+        "element_bytes": 4,
+        "rounding_ceiling_bytes": 8589934592,
+        "recovered_capacity_bound": 2147483646,
+        "sufficient_requested_total": 1431655765
+      },
+      {
+        "element_bytes": 8,
+        "rounding_ceiling_bytes": 17179869184,
+        "recovered_capacity_bound": 2147483647,
+        "sufficient_requested_total": 1431655765
+      },
+      {
+        "element_bytes": 16,
+        "rounding_ceiling_bytes": 17179869184,
+        "recovered_capacity_bound": 1073741823,
+        "sufficient_requested_total": 715827883
+      },
+      {
+        "element_bytes": 24,
+        "rounding_ceiling_bytes": 34359738368,
+        "recovered_capacity_bound": 1431655765,
+        "sufficient_requested_total": 954437177
+      },
+      {
+        "element_bytes": 32,
+        "rounding_ceiling_bytes": 34359738368,
+        "recovered_capacity_bound": 1073741823,
+        "sufficient_requested_total": 715827883
+      },
+      {
+        "element_bytes": 40,
+        "rounding_ceiling_bytes": 68719476736,
+        "recovered_capacity_bound": 1717986918,
+        "sufficient_requested_total": 1145324613
+      },
+      {
+        "element_bytes": 64,
+        "rounding_ceiling_bytes": 68719476736,
+        "recovered_capacity_bound": 1073741823,
+        "sufficient_requested_total": 715827883
+      },
+      {
+        "element_bytes": 128,
+        "rounding_ceiling_bytes": 137438953472,
+        "recovered_capacity_bound": 1073741823,
+        "sufficient_requested_total": 715827883
+      }
+    ],
+    "gc_counterexample": {
+      "element_bytes": 4,
+      "requested_total": 2147483647,
+      "requested_bytes": 8589934596,
+      "rounded_bytes": 17179869184,
+      "recovered_capacity": 4294967294,
+      "stored_capacity": 2147483646
+    },
+    "scope": "ordinary reserve preconditions; element alignment at most eight bytes"
+  },
+  "pseudo_register_backbones": {
+    "initial_next_number": 98,
+    "capacity_sequence": [
+      198,
+      396,
+      792,
+      1584,
+      3168,
+      6336,
+      12672,
+      25344,
+      50688,
+      101376,
+      202752,
+      405504,
+      811008,
+      1622016,
+      3244032,
+      6488064,
+      12976128,
+      25952256,
+      51904512,
+      103809024,
+      207618048,
+      415236096,
+      830472192,
+      1660944384
+    ],
+    "maximum_fresh_register_events": 1660944286,
+    "maximum_byte_array_request": 1660944384,
+    "maximum_pointer_array_request": 13287555072,
+    "scope": "ordinary non-RTL-reader Ada path; source-to-event bound separate"
+  },
   "line_map": {
     "location_bits": 64,
     "line_bits": 32,
@@ -487,6 +674,10 @@
       9077
     ],
     "maximum_total_label_events": 2147483647,
+    "selected_O0_exclusions": {
+      "C_space": 0,
+      "C_part": 0
+    },
     "label_buffers_including_nul": {
       "LF": 15,
       "LC": 15,
