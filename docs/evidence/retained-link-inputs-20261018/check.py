@@ -100,16 +100,25 @@ def main():
     # Seven scans of the only group plus two DT_NEEDED hooks can visit the
     # loader nine times; its first occurrence is already in the raw inventory.
     loader = dsos['ld-linux-x86-64.so.2']
-    visits = {key: total + 8*loader[key]
-              for key, total in summary['weighted_fixed_sums'].items()}
+    add_symbol_inputs = {key: total + 8*loader[key]
+                         for key, total in summary['weighted_fixed_sums'].items()}
+    candidate_visits = sum(a['symbol_candidate_visits_bound'] for a in archives)
+    # Each common-symbol candidate can independently reread/scan the member's
+    # external symbols. Complete symbol counts conservatively bound that scan;
+    # this is cumulative work, not one live array or a shared integer counter.
+    max_member_symbols = max(member['symbol_records']
+                             for row in fixed if row['kind'] == 'archive'
+                             for member in row['members'])
     result = {'verified_source_files': len(sources),
               'collect2_argv_positions': len(command),
               'default_script_extra_search_dirs': len(re.findall(r'\bSEARCH_DIR\s*\(', tokens)),
               'archive_maps': archives,
-              'archive_symbol_candidate_visits_bound': sum(a['symbol_candidate_visits_bound'] for a in archives),
+              'archive_symbol_candidate_visits_bound': candidate_visits,
+              'maximum_archive_member_symbol_records': max_member_symbols,
+              'common_probe_symbol_visits_bound': candidate_visits*max_member_symbols,
               'maximum_archive_map_allocation': max(a['canonical_map_allocation'] for a in archives),
-              'fixed_input_pass_bounds_with_loader_revisits': visits,
-              'scope': 'fixed input selection, archive maps and input visits; not generated names, string references or final layout',
+              'fixed_add_symbol_input_bounds_with_loader_revisits': add_symbol_inputs,
+              'scope': 'fixed input selection, archive maps, add-symbol input passes and separate common-probe work; not all symbol visits, generated names, string references or final layout',
               'whole_capacity_established': False}
     if args.installed:
         target = args.output / 'installed-inventory.json'

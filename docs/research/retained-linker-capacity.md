@@ -133,8 +133,10 @@ arithmetic for this table family; available RAM remains a separate condition.
 ## Remaining native composition
 
 The [fixed input closure](retained-link-inputs.md) supplies the selected null
-link's dependency inventory, archive-map storage and conservative repeated
-input-pass counts. The compiler's generated symbols/sections, linker-created
+link's dependency inventory, archive-map storage, conservative repeated
+add-symbol input-pass counts and a separate common-probe scan bound. These
+work counts are not shared integer counters or live-storage demands. The
+compiler's generated symbols/sections, linker-created
 names and reference events must still supply D, l, B and R. Final live object
 contents alone cannot supply lifetime counts across link rollback.
 GCC/assembler containers, code/data/frame sizes, relocation reach and linker

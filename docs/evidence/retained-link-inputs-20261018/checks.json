@@ -45,8 +45,10 @@
     }
   ],
   "archive_symbol_candidate_visits_bound": 15108335,
+  "maximum_archive_member_symbol_records": 711,
+  "common_probe_symbol_visits_bound": 10742026185,
   "maximum_archive_map_allocation": 936621,
-  "fixed_input_pass_bounds_with_loader_revisits": {
+  "fixed_add_symbol_input_bounds_with_loader_revisits": {
     "sections": 36433,
     "symbol_records": 49081,
     "relocation_records": 546364,
@@ -56,6 +58,6 @@
     "unshared_input_name_bytes": 1568528,
     "string_table_bytes": 1449652
   },
-  "scope": "fixed input selection, archive maps and input visits; not generated names, string references or final layout",
+  "scope": "fixed input selection, archive maps, add-symbol input passes and separate common-probe work; not all symbol visits, generated names, string references or final layout",
   "whole_capacity_established": false
 }

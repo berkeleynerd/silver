@@ -142,7 +142,8 @@ An archive rescan repeats only after loading a member that appends undefined
 symbols. Cached members cannot be loaded twice into that input chain
 (`bfd/elflink.c:6292–6434`; `ld/ldmain.c:1417–1427`). With M members, at most
 M+1 scans of its C entries occur per invocation, including the final
-unproductive scan. This also charges repeated common-symbol probes.
+unproductive scan. This bounds the number of repeated common-symbol probes;
+their inner symbol scans are charged separately below.
 
 The only GROUP contains libc, four libc_nonshared members and the loader.
 A productive group pass must newly load at least one of those six objects.
@@ -157,10 +158,27 @@ This bounds work/events, not live symbols or retained allocations.
 The two DT_NEEDED hooks each traverse unique dependency names once
 (`ld/ldelf.c:1062–1070,1217–1232,1412–1413`). Allowing a loader reopening in
 each plus all seven group visits charges its metadata at most nine times.
-Adding eight copies to the inventory's first copy gives **49,081 symbol-record
-visits**, **36,433 section visits** and **72,019 section/symbol-name visits**.
-Aliases, reference increments and generated per-pass structures remain
-separate functions of those input allowances.
+Adding eight copies to the inventory's first copy gives add-symbol input-pass
+bounds of **49,081 symbol records**, **36,433 sections** and **72,019
+section/symbol names**. These are inputs to ordinary symbol-loading passes,
+not a bound on all symbol-record visits.
+
+In particular, `elf_link_is_defined_archive_symbol`
+(`bfd/elflink.c:3702–3796`), reached for common candidates in the archive-map
+loop, rereads and scans a member's external symbol table. The largest complete
+symbol table in any fixed archive member has **711 records** (`g-spipat.o` in
+libgnat.a); an external-only scan cannot exceed it. Charging a full scan for
+every candidate therefore adds at most
+**15,108,335 × 711 = 10,742,026,185 common-probe symbol visits**. This product
+is cumulative work, not a live array, shared 32-bit counter or admission cap.
+Each scan's pointer/index starts anew and is bounded by its member's own table.
+Aliases, reference increments and generated per-pass structures remain separate
+functions of the appropriate input and event allowances.
+
+Focused independent review of `849a24f688` confirmed input selection, seven
+GROUP passes and nine loader processings, and identified the missing distinction
+between add-symbol input passes and common-probe scans. This revision repairs
+that scope overstatement; it does not claim closure of other symbol consumers.
 
 Remaining joins are generated Main/binder objects, collect2/plugin storage
 and launch, linker-created sections/names/reference events, ELF consumers and
