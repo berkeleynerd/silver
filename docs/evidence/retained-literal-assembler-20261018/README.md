@@ -21,3 +21,10 @@ interface does not admit a program to Silver or establish whole-tool capacity.
 Author: lead session; no lead model/effort switch claimed. Token/cost totals and
 isolated authoring elapsed time unavailable. Independent review is recorded
 separately against its exact commit. Native executions: zero.
+
+The subsequent [storage composition](../../research/retained-literal-assembler-storage.md)
+uses `storage.py` and `storage-inputs.json` to join variable GAS hashes/notes
+and output-BFD/string-table storage. Replay its retained `storage-result.json`
+with `check-storage.py --output /tmp/literal-assembler-storage.json`. This
+extension preserves the reviewed stream/object packet and its review target.
+Production invocation and the other whole-pipeline joins remain separate.

@@ -1,0 +1,67 @@
+[
+  {
+    "path": "docs/evidence/retained-literal-assembler-20261018/compose.py",
+    "bytes": 6698,
+    "sha256": "310b893cd75b5bb5eb799be2bb43550208dff34a86acdad68f222fea7872d021"
+  },
+  {
+    "path": "docs/evidence/retained-literal-assembler-20261018/result.json",
+    "bytes": 17911,
+    "sha256": "f01c688c72336ad38444ef43fe56994d2718c25d3fb4e418d3378e2cd047e66a"
+  },
+  {
+    "path": "docs/evidence/retained-literal-assembler-20261018/inputs.json",
+    "bytes": 1615,
+    "sha256": "03cd4159b56e544075676c79cf981cce523f4d2d998ff60d38f6f2ccbc7b9806"
+  },
+  {
+    "path": "docs/evidence/retained-literal-assembler-20261018/review.md",
+    "bytes": 5224,
+    "sha256": "85f6d5b33ff95ccce55c840ec9126b07f6a7a679fb09024e39149de9c908b5da"
+  },
+  {
+    "path": "docs/research/retained-literal-assembler.md",
+    "bytes": 9308,
+    "sha256": "0ec3b783c448d930cdc7c062198808f1d5c6ca3b2e0f806080425dca68ebb2d4"
+  },
+  {
+    "path": "docs/research/retained-assembler-inner-allocation.md",
+    "bytes": 14056,
+    "sha256": "8eb0e04fbaa2fa379a316451ca8373a77ac05c253bbd078a4bbedb1e125537ba"
+  },
+  {
+    "path": "docs/research/retained-assembler-startup.md",
+    "bytes": 21025,
+    "sha256": "9f18bb0c0c87a7d823707da9e9806120646f6721d9911f1838ff1d5f571eeec0"
+  },
+  {
+    "path": "docs/research/retained-assembler-backing.md",
+    "bytes": 9341,
+    "sha256": "30003d2e5d65cf76270372d42440220aa9dd2ea028078955a6f435ae7347b70d"
+  },
+  {
+    "path": "docs/research/retained-assembler-hashes.md",
+    "bytes": 5829,
+    "sha256": "082bf6a35209c2486049b7c2939a1839e0a305af837f3ff3f17b66de1c53da42"
+  },
+  {
+    "path": "docs/research/retained-assembler-invocation.md",
+    "bytes": 10048,
+    "sha256": "f0ef824e18c5d42d36b78381f4a975c652d9aa18d2abdbfe5d3a8c5f299e5933"
+  },
+  {
+    "path": "docs/evidence/retained-assembler-capacity-20261018/inner-source-manifest.json",
+    "bytes": 13303,
+    "sha256": "a24e8ba1e811aee1f0c88a37e193ae241a77154605511ebba3a9838c71684b8a"
+  },
+  {
+    "path": "docs/evidence/retained-assembler-capacity-20261018/inner-sources.tar.gz",
+    "bytes": 94607,
+    "sha256": "c123b44d81ef7ad8d0e3facad775c5cd742f75b15addcd8cd92976150c59e7b7"
+  },
+  {
+    "path": "docs/evidence/retained-assembler-capacity-20261018/inner-allocation-inventory.json",
+    "bytes": 56744,
+    "sha256": "0b7ea5b481d991f3282011834deaea69e34ffc66b8ce20be470857d6d7c3b445"
+  }
+]

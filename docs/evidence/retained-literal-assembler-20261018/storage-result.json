@@ -1,0 +1,815 @@
+{
+  "case_count": 9,
+  "cases": [
+    {
+      "case": "hello",
+      "result": {
+        "path_bytes": 512,
+        "assembler_argv_count": 5,
+        "symbol_hash_capacity_upper": 2039,
+        "symbol_hash_array_bytes_upper": 16312,
+        "notes_request_bytes_upper": 65528,
+        "notes_unfinished_prefix_upper": 120,
+        "notes_chunk_bytes_upper": 65778,
+        "parser_scratch_bytes_upper": 67,
+        "frchain_objects_upper": 14,
+        "frchains_initial_chunks": 1,
+        "BFD_main_arena_parts": {
+          "path": 512,
+          "object_data": 4096,
+          "output_data": 192,
+          "section_data": 4480,
+          "symbols": 20736,
+          "relocation_headers": 800,
+          "relocation_names": 320,
+          "header_pointers": 192,
+          "null_header": 80,
+          "section_symbol_map": 112,
+          "reordered_symbol_pointers": 1240,
+          "relocation_buffers": 6816,
+          "serialized_section_headers": 1536
+        },
+        "BFD_main_arena_raw_lifetime_bytes_upper": 41112,
+        "BFD_largest_main_arena_request_upper": 6816,
+        "BFD_section_hash_capacities": [
+          13,
+          31
+        ],
+        "ELF_string_tables": [
+          {
+            "role": "symbols",
+            "distinct_names_upper": 155,
+            "bytes_per_name_including_NUL_upper": 26,
+            "positive_reference_events_upper": 155,
+            "hash_capacities": [
+              4051
+            ],
+            "each_hash_entry_bytes_upper": 64,
+            "hash_name_copies": 0,
+            "pointer_array_capacity_upper": 256,
+            "sorting_array_bytes_upper": 1248,
+            "checks": {
+              "distinct_names": true,
+              "unshared_name_bytes": true,
+              "positive_references": true,
+              "growth_no_wrap": true,
+              "array_slots": true,
+              "individual_requests": true
+            }
+          },
+          {
+            "role": "sections",
+            "distinct_names_upper": 23,
+            "bytes_per_name_including_NUL_upper": 32,
+            "positive_reference_events_upper": 46,
+            "hash_capacities": [
+              4051
+            ],
+            "each_hash_entry_bytes_upper": 64,
+            "hash_name_copies": 0,
+            "pointer_array_capacity_upper": 64,
+            "sorting_array_bytes_upper": 192,
+            "checks": {
+              "distinct_names": true,
+              "unshared_name_bytes": true,
+              "positive_references": true,
+              "growth_no_wrap": true,
+              "array_slots": true,
+              "individual_requests": true
+            }
+          }
+        ],
+        "local_checks": {
+          "local_interface": true,
+          "symbol_hash_prime_and_probe": true,
+          "symbol_hash_array": true,
+          "notes_growth": true,
+          "frchains_single_chunk": true,
+          "BFD_individual_requests": true,
+          "BFD_lifetime_counter": true,
+          "ELF_string_tables": true
+        },
+        "selected_GAS_BFD_storage_fits": true,
+        "whole_literal_pipeline_capacity_established": false,
+        "aggregate_RAM_gate": false,
+        "open_joins": [
+          "production_invocation",
+          "fixed_objects_and_binder",
+          "final_link_reach"
+        ],
+        "native_tool_executions": 0
+      }
+    },
+    {
+      "case": "empty_and_quote",
+      "result": {
+        "path_bytes": 512,
+        "assembler_argv_count": 5,
+        "symbol_hash_capacity_upper": 2039,
+        "symbol_hash_array_bytes_upper": 16312,
+        "notes_request_bytes_upper": 65528,
+        "notes_unfinished_prefix_upper": 120,
+        "notes_chunk_bytes_upper": 65778,
+        "parser_scratch_bytes_upper": 67,
+        "frchain_objects_upper": 14,
+        "frchains_initial_chunks": 1,
+        "BFD_main_arena_parts": {
+          "path": 512,
+          "object_data": 4096,
+          "output_data": 192,
+          "section_data": 4480,
+          "symbols": 22784,
+          "relocation_headers": 800,
+          "relocation_names": 320,
+          "header_pointers": 192,
+          "null_header": 80,
+          "section_symbol_map": 112,
+          "reordered_symbol_pointers": 1368,
+          "relocation_buffers": 6888,
+          "serialized_section_headers": 1536
+        },
+        "BFD_main_arena_raw_lifetime_bytes_upper": 43360,
+        "BFD_largest_main_arena_request_upper": 6888,
+        "BFD_section_hash_capacities": [
+          13,
+          31
+        ],
+        "ELF_string_tables": [
+          {
+            "role": "symbols",
+            "distinct_names_upper": 171,
+            "bytes_per_name_including_NUL_upper": 26,
+            "positive_reference_events_upper": 171,
+            "hash_capacities": [
+              4051
+            ],
+            "each_hash_entry_bytes_upper": 64,
+            "hash_name_copies": 0,
+            "pointer_array_capacity_upper": 256,
+            "sorting_array_bytes_upper": 1376,
+            "checks": {
+              "distinct_names": true,
+              "unshared_name_bytes": true,
+              "positive_references": true,
+              "growth_no_wrap": true,
+              "array_slots": true,
+              "individual_requests": true
+            }
+          },
+          {
+            "role": "sections",
+            "distinct_names_upper": 23,
+            "bytes_per_name_including_NUL_upper": 32,
+            "positive_reference_events_upper": 46,
+            "hash_capacities": [
+              4051
+            ],
+            "each_hash_entry_bytes_upper": 64,
+            "hash_name_copies": 0,
+            "pointer_array_capacity_upper": 64,
+            "sorting_array_bytes_upper": 192,
+            "checks": {
+              "distinct_names": true,
+              "unshared_name_bytes": true,
+              "positive_references": true,
+              "growth_no_wrap": true,
+              "array_slots": true,
+              "individual_requests": true
+            }
+          }
+        ],
+        "local_checks": {
+          "local_interface": true,
+          "symbol_hash_prime_and_probe": true,
+          "symbol_hash_array": true,
+          "notes_growth": true,
+          "frchains_single_chunk": true,
+          "BFD_individual_requests": true,
+          "BFD_lifetime_counter": true,
+          "ELF_string_tables": true
+        },
+        "selected_GAS_BFD_storage_fits": true,
+        "whole_literal_pipeline_capacity_established": false,
+        "aggregate_RAM_gate": false,
+        "open_joins": [
+          "production_invocation",
+          "fixed_objects_and_binder",
+          "final_link_reach"
+        ],
+        "native_tool_executions": 0
+      }
+    },
+    {
+      "case": "large_literal",
+      "result": {
+        "path_bytes": 512,
+        "assembler_argv_count": 5,
+        "symbol_hash_capacity_upper": 2039,
+        "symbol_hash_array_bytes_upper": 16312,
+        "notes_request_bytes_upper": 65528,
+        "notes_unfinished_prefix_upper": 120,
+        "notes_chunk_bytes_upper": 65778,
+        "parser_scratch_bytes_upper": 67,
+        "frchain_objects_upper": 14,
+        "frchains_initial_chunks": 1,
+        "BFD_main_arena_parts": {
+          "path": 512,
+          "object_data": 4096,
+          "output_data": 192,
+          "section_data": 4480,
+          "symbols": 20736,
+          "relocation_headers": 800,
+          "relocation_names": 320,
+          "header_pointers": 192,
+          "null_header": 80,
+          "section_symbol_map": 112,
+          "reordered_symbol_pointers": 1240,
+          "relocation_buffers": 6816,
+          "serialized_section_headers": 1536
+        },
+        "BFD_main_arena_raw_lifetime_bytes_upper": 41112,
+        "BFD_largest_main_arena_request_upper": 6816,
+        "BFD_section_hash_capacities": [
+          13,
+          31
+        ],
+        "ELF_string_tables": [
+          {
+            "role": "symbols",
+            "distinct_names_upper": 155,
+            "bytes_per_name_including_NUL_upper": 26,
+            "positive_reference_events_upper": 155,
+            "hash_capacities": [
+              4051
+            ],
+            "each_hash_entry_bytes_upper": 64,
+            "hash_name_copies": 0,
+            "pointer_array_capacity_upper": 256,
+            "sorting_array_bytes_upper": 1248,
+            "checks": {
+              "distinct_names": true,
+              "unshared_name_bytes": true,
+              "positive_references": true,
+              "growth_no_wrap": true,
+              "array_slots": true,
+              "individual_requests": true
+            }
+          },
+          {
+            "role": "sections",
+            "distinct_names_upper": 23,
+            "bytes_per_name_including_NUL_upper": 32,
+            "positive_reference_events_upper": 46,
+            "hash_capacities": [
+              4051
+            ],
+            "each_hash_entry_bytes_upper": 64,
+            "hash_name_copies": 0,
+            "pointer_array_capacity_upper": 64,
+            "sorting_array_bytes_upper": 192,
+            "checks": {
+              "distinct_names": true,
+              "unshared_name_bytes": true,
+              "positive_references": true,
+              "growth_no_wrap": true,
+              "array_slots": true,
+              "individual_requests": true
+            }
+          }
+        ],
+        "local_checks": {
+          "local_interface": true,
+          "symbol_hash_prime_and_probe": true,
+          "symbol_hash_array": true,
+          "notes_growth": true,
+          "frchains_single_chunk": true,
+          "BFD_individual_requests": true,
+          "BFD_lifetime_counter": true,
+          "ELF_string_tables": true
+        },
+        "selected_GAS_BFD_storage_fits": true,
+        "whole_literal_pipeline_capacity_established": false,
+        "aggregate_RAM_gate": false,
+        "open_joins": [
+          "production_invocation",
+          "fixed_objects_and_binder",
+          "final_link_reach"
+        ],
+        "native_tool_executions": 0
+      }
+    },
+    {
+      "case": "5000_calls",
+      "result": {
+        "path_bytes": 512,
+        "assembler_argv_count": 5,
+        "symbol_hash_capacity_upper": 131071,
+        "symbol_hash_array_bytes_upper": 1048568,
+        "notes_request_bytes_upper": 361088,
+        "notes_unfinished_prefix_upper": 120,
+        "notes_chunk_bytes_upper": 361338,
+        "parser_scratch_bytes_upper": 67,
+        "frchain_objects_upper": 14,
+        "frchains_initial_chunks": 1,
+        "BFD_main_arena_parts": {
+          "path": 512,
+          "object_data": 4096,
+          "output_data": 192,
+          "section_data": 4480,
+          "symbols": 5779584,
+          "relocation_headers": 800,
+          "relocation_names": 320,
+          "header_pointers": 192,
+          "null_header": 80,
+          "section_symbol_map": 112,
+          "reordered_symbol_pointers": 361168,
+          "relocation_buffers": 366744,
+          "serialized_section_headers": 1536
+        },
+        "BFD_main_arena_raw_lifetime_bytes_upper": 6519816,
+        "BFD_largest_main_arena_request_upper": 366744,
+        "BFD_section_hash_capacities": [
+          13,
+          31
+        ],
+        "ELF_string_tables": [
+          {
+            "role": "symbols",
+            "distinct_names_upper": 45146,
+            "bytes_per_name_including_NUL_upper": 26,
+            "positive_reference_events_upper": 45146,
+            "hash_capacities": [
+              4051,
+              4093,
+              8191,
+              16381,
+              32749,
+              65521
+            ],
+            "each_hash_entry_bytes_upper": 64,
+            "hash_name_copies": 0,
+            "pointer_array_capacity_upper": 65536,
+            "sorting_array_bytes_upper": 361176,
+            "checks": {
+              "distinct_names": true,
+              "unshared_name_bytes": true,
+              "positive_references": true,
+              "growth_no_wrap": true,
+              "array_slots": true,
+              "individual_requests": true
+            }
+          },
+          {
+            "role": "sections",
+            "distinct_names_upper": 23,
+            "bytes_per_name_including_NUL_upper": 32,
+            "positive_reference_events_upper": 46,
+            "hash_capacities": [
+              4051
+            ],
+            "each_hash_entry_bytes_upper": 64,
+            "hash_name_copies": 0,
+            "pointer_array_capacity_upper": 64,
+            "sorting_array_bytes_upper": 192,
+            "checks": {
+              "distinct_names": true,
+              "unshared_name_bytes": true,
+              "positive_references": true,
+              "growth_no_wrap": true,
+              "array_slots": true,
+              "individual_requests": true
+            }
+          }
+        ],
+        "local_checks": {
+          "local_interface": true,
+          "symbol_hash_prime_and_probe": true,
+          "symbol_hash_array": true,
+          "notes_growth": true,
+          "frchains_single_chunk": true,
+          "BFD_individual_requests": true,
+          "BFD_lifetime_counter": true,
+          "ELF_string_tables": true
+        },
+        "selected_GAS_BFD_storage_fits": true,
+        "whole_literal_pipeline_capacity_established": false,
+        "aggregate_RAM_gate": false,
+        "open_joins": [
+          "production_invocation",
+          "fixed_objects_and_binder",
+          "final_link_reach"
+        ],
+        "native_tool_executions": 0
+      }
+    },
+    {
+      "case": "last_sufficient_region",
+      "result": {
+        "path_bytes": 512,
+        "assembler_argv_count": 5,
+        "symbol_hash_capacity_upper": 1048573,
+        "symbol_hash_array_bytes_upper": 8388584,
+        "notes_request_bytes_upper": 2360312,
+        "notes_unfinished_prefix_upper": 120,
+        "notes_chunk_bytes_upper": 2360562,
+        "parser_scratch_bytes_upper": 67,
+        "frchain_objects_upper": 14,
+        "frchains_initial_chunks": 1,
+        "BFD_main_arena_parts": {
+          "path": 512,
+          "object_data": 4096,
+          "output_data": 192,
+          "section_data": 4480,
+          "symbols": 37767168,
+          "relocation_headers": 800,
+          "relocation_names": 320,
+          "header_pointers": 192,
+          "null_header": 80,
+          "section_symbol_map": 112,
+          "reordered_symbol_pointers": 2360392,
+          "relocation_buffers": 2365968,
+          "serialized_section_headers": 1536
+        },
+        "BFD_main_arena_raw_lifetime_bytes_upper": 42505848,
+        "BFD_largest_main_arena_request_upper": 2365968,
+        "BFD_section_hash_capacities": [
+          13,
+          31
+        ],
+        "ELF_string_tables": [
+          {
+            "role": "symbols",
+            "distinct_names_upper": 295049,
+            "bytes_per_name_including_NUL_upper": 26,
+            "positive_reference_events_upper": 295049,
+            "hash_capacities": [
+              4051,
+              4093,
+              8191,
+              16381,
+              32749,
+              65521,
+              131071,
+              262139,
+              524287
+            ],
+            "each_hash_entry_bytes_upper": 64,
+            "hash_name_copies": 0,
+            "pointer_array_capacity_upper": 524288,
+            "sorting_array_bytes_upper": 2360400,
+            "checks": {
+              "distinct_names": true,
+              "unshared_name_bytes": true,
+              "positive_references": true,
+              "growth_no_wrap": true,
+              "array_slots": true,
+              "individual_requests": true
+            }
+          },
+          {
+            "role": "sections",
+            "distinct_names_upper": 23,
+            "bytes_per_name_including_NUL_upper": 32,
+            "positive_reference_events_upper": 46,
+            "hash_capacities": [
+              4051
+            ],
+            "each_hash_entry_bytes_upper": 64,
+            "hash_name_copies": 0,
+            "pointer_array_capacity_upper": 64,
+            "sorting_array_bytes_upper": 192,
+            "checks": {
+              "distinct_names": true,
+              "unshared_name_bytes": true,
+              "positive_references": true,
+              "growth_no_wrap": true,
+              "array_slots": true,
+              "individual_requests": true
+            }
+          }
+        ],
+        "local_checks": {
+          "local_interface": true,
+          "symbol_hash_prime_and_probe": true,
+          "symbol_hash_array": true,
+          "notes_growth": true,
+          "frchains_single_chunk": true,
+          "BFD_individual_requests": true,
+          "BFD_lifetime_counter": true,
+          "ELF_string_tables": true
+        },
+        "selected_GAS_BFD_storage_fits": true,
+        "whole_literal_pipeline_capacity_established": false,
+        "aggregate_RAM_gate": false,
+        "open_joins": [
+          "production_invocation",
+          "fixed_objects_and_binder",
+          "final_link_reach"
+        ],
+        "native_tool_executions": 0
+      }
+    },
+    {
+      "case": "region_exceeded",
+      "result": {
+        "path_bytes": 512,
+        "assembler_argv_count": 5,
+        "symbol_hash_capacity_upper": 1048573,
+        "symbol_hash_array_bytes_upper": 8388584,
+        "notes_request_bytes_upper": 2360384,
+        "notes_unfinished_prefix_upper": 120,
+        "notes_chunk_bytes_upper": 2360634,
+        "parser_scratch_bytes_upper": 67,
+        "frchain_objects_upper": 14,
+        "frchains_initial_chunks": 1,
+        "BFD_main_arena_parts": {
+          "path": 512,
+          "object_data": 4096,
+          "output_data": 192,
+          "section_data": 4480,
+          "symbols": 37768320,
+          "relocation_headers": 800,
+          "relocation_names": 320,
+          "header_pointers": 192,
+          "null_header": 80,
+          "section_symbol_map": 112,
+          "reordered_symbol_pointers": 2360464,
+          "relocation_buffers": 2366040,
+          "serialized_section_headers": 1536
+        },
+        "BFD_main_arena_raw_lifetime_bytes_upper": 42507144,
+        "BFD_largest_main_arena_request_upper": 2366040,
+        "BFD_section_hash_capacities": [
+          13,
+          31
+        ],
+        "ELF_string_tables": [
+          {
+            "role": "symbols",
+            "distinct_names_upper": 295058,
+            "bytes_per_name_including_NUL_upper": 26,
+            "positive_reference_events_upper": 295058,
+            "hash_capacities": [
+              4051,
+              4093,
+              8191,
+              16381,
+              32749,
+              65521,
+              131071,
+              262139,
+              524287
+            ],
+            "each_hash_entry_bytes_upper": 64,
+            "hash_name_copies": 0,
+            "pointer_array_capacity_upper": 524288,
+            "sorting_array_bytes_upper": 2360472,
+            "checks": {
+              "distinct_names": true,
+              "unshared_name_bytes": true,
+              "positive_references": true,
+              "growth_no_wrap": true,
+              "array_slots": true,
+              "individual_requests": true
+            }
+          },
+          {
+            "role": "sections",
+            "distinct_names_upper": 23,
+            "bytes_per_name_including_NUL_upper": 32,
+            "positive_reference_events_upper": 46,
+            "hash_capacities": [
+              4051
+            ],
+            "each_hash_entry_bytes_upper": 64,
+            "hash_name_copies": 0,
+            "pointer_array_capacity_upper": 64,
+            "sorting_array_bytes_upper": 192,
+            "checks": {
+              "distinct_names": true,
+              "unshared_name_bytes": true,
+              "positive_references": true,
+              "growth_no_wrap": true,
+              "array_slots": true,
+              "individual_requests": true
+            }
+          }
+        ],
+        "local_checks": {
+          "local_interface": false,
+          "symbol_hash_prime_and_probe": true,
+          "symbol_hash_array": true,
+          "notes_growth": true,
+          "frchains_single_chunk": true,
+          "BFD_individual_requests": true,
+          "BFD_lifetime_counter": true,
+          "ELF_string_tables": true
+        },
+        "selected_GAS_BFD_storage_fits": false,
+        "whole_literal_pipeline_capacity_established": false,
+        "aggregate_RAM_gate": false,
+        "open_joins": [
+          "production_invocation",
+          "fixed_objects_and_binder",
+          "final_link_reach"
+        ],
+        "native_tool_executions": 0
+      }
+    },
+    {
+      "case": "same_source_join",
+      "result": {
+        "interface": {
+          "counts": {
+            "calls": 1,
+            "nulls": 0,
+            "decoded_bytes": 1,
+            "maximum_literal_length": 1
+          },
+          "final_chain": 52,
+          "text_bytes_upper": 53,
+          "assembly": {
+            "lines_upper": 175,
+            "bytes_upper": 11315,
+            "longest_line_excluding_LF_upper": 512,
+            "scrub_buffer_bytes_upper": 65539
+          },
+          "GAS": {
+            "ordinary_sections_upper": 10,
+            "initial_chains_upper": 14,
+            "final_alignment_events_upper": 12,
+            "rodata_bytes_upper": 23,
+            "reservation_bytes_upper": 471,
+            "fragment_allocations_upper": 1006,
+            "each_fragment_chunk_bytes_upper": 4064,
+            "maximum_region_upper": 10,
+            "symbol_allocations_upper": 147,
+            "output_symbols_upper": 145,
+            "BFD_symbol_allocations_upper": 162,
+            "fixups_upper": 282,
+            "relocations_upper": 284,
+            "GOT_symbol_required": false,
+            "symbol_name_bytes_including_NUL_upper": 26
+          },
+          "ELF": {
+            "section_headers_upper": 24,
+            "symbols_including_null_upper": 156,
+            "symbol_string_names_upper": 155,
+            "section_string_names_upper": 23,
+            "symbol_string_positive_references_upper": 155,
+            "section_string_positive_references_upper": 46,
+            "file_parts": {
+              "header": 64,
+              "ordinary_payload": 470,
+              "symbols": 3744,
+              "relocations": 6816,
+              "symbol_strings": 4031,
+              "section_strings": 737,
+              "alignment_padding": 182,
+              "section_headers": 1536
+            },
+            "object_bytes_upper": 17580
+          },
+          "local_checks": {
+            "literal_length": true,
+            "backend_chain": true,
+            "text_and_CFI": true,
+            "physical_lines": true,
+            "fragment_counter": true,
+            "region": true,
+            "symbol_indices": true,
+            "fixup_and_relocation_counts": true,
+            "symbol_string_offsets": true,
+            "section_string_offsets": true,
+            "object_offsets": true,
+            "symbol_record_requests": true,
+            "relocation_record_requests": true,
+            "string_sort_pointer_requests": true
+          },
+          "local_interface_fits": true,
+          "open_joins": [
+            "GAS_subsidiary_lifetimes_and_hash_growth",
+            "BFD_arena_and_string_table_growth",
+            "production_invocation",
+            "fixed_objects_and_binder",
+            "final_link_reach"
+          ],
+          "whole_literal_pipeline_capacity_established": false,
+          "native_tool_executions": 0,
+          "source_identity": {
+            "bytes": 94,
+            "sha256": "2dce2b87192ae5f422d4963dd5c4cb0f4faaad0e39d5c19fad792a8b43d381da"
+          }
+        },
+        "storage": {
+          "path_bytes": 512,
+          "assembler_argv_count": 5,
+          "symbol_hash_capacity_upper": 2039,
+          "symbol_hash_array_bytes_upper": 16312,
+          "notes_request_bytes_upper": 65528,
+          "notes_unfinished_prefix_upper": 120,
+          "notes_chunk_bytes_upper": 65778,
+          "parser_scratch_bytes_upper": 67,
+          "frchain_objects_upper": 14,
+          "frchains_initial_chunks": 1,
+          "BFD_main_arena_parts": {
+            "path": 512,
+            "object_data": 4096,
+            "output_data": 192,
+            "section_data": 4480,
+            "symbols": 20736,
+            "relocation_headers": 800,
+            "relocation_names": 320,
+            "header_pointers": 192,
+            "null_header": 80,
+            "section_symbol_map": 112,
+            "reordered_symbol_pointers": 1240,
+            "relocation_buffers": 6816,
+            "serialized_section_headers": 1536
+          },
+          "BFD_main_arena_raw_lifetime_bytes_upper": 41112,
+          "BFD_largest_main_arena_request_upper": 6816,
+          "BFD_section_hash_capacities": [
+            13,
+            31
+          ],
+          "ELF_string_tables": [
+            {
+              "role": "symbols",
+              "distinct_names_upper": 155,
+              "bytes_per_name_including_NUL_upper": 26,
+              "positive_reference_events_upper": 155,
+              "hash_capacities": [
+                4051
+              ],
+              "each_hash_entry_bytes_upper": 64,
+              "hash_name_copies": 0,
+              "pointer_array_capacity_upper": 256,
+              "sorting_array_bytes_upper": 1248,
+              "checks": {
+                "distinct_names": true,
+                "unshared_name_bytes": true,
+                "positive_references": true,
+                "growth_no_wrap": true,
+                "array_slots": true,
+                "individual_requests": true
+              }
+            },
+            {
+              "role": "sections",
+              "distinct_names_upper": 23,
+              "bytes_per_name_including_NUL_upper": 32,
+              "positive_reference_events_upper": 46,
+              "hash_capacities": [
+                4051
+              ],
+              "each_hash_entry_bytes_upper": 64,
+              "hash_name_copies": 0,
+              "pointer_array_capacity_upper": 64,
+              "sorting_array_bytes_upper": 192,
+              "checks": {
+                "distinct_names": true,
+                "unshared_name_bytes": true,
+                "positive_references": true,
+                "growth_no_wrap": true,
+                "array_slots": true,
+                "individual_requests": true
+              }
+            }
+          ],
+          "local_checks": {
+            "local_interface": true,
+            "symbol_hash_prime_and_probe": true,
+            "symbol_hash_array": true,
+            "notes_growth": true,
+            "frchains_single_chunk": true,
+            "BFD_individual_requests": true,
+            "BFD_lifetime_counter": true,
+            "ELF_string_tables": true
+          },
+          "selected_GAS_BFD_storage_fits": true,
+          "whole_literal_pipeline_capacity_established": false,
+          "aggregate_RAM_gate": false,
+          "open_joins": [
+            "production_invocation",
+            "fixed_objects_and_binder",
+            "final_link_reach"
+          ],
+          "native_tool_executions": 0
+        }
+      }
+    },
+    {
+      "case": "notes_growth_path_boundary",
+      "last_path": 9223372036854775557
+    },
+    {
+      "case": "BFD_growth_and_pointer_boundaries"
+    }
+  ],
+  "all_checks_pass": true,
+  "verified_additional_inputs": 13,
+  "verified_supplementary_sources": 33,
+  "native_tool_executions": 0,
+  "whole_literal_pipeline_capacity_established": false
+}
