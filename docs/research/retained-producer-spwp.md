@@ -25,11 +25,11 @@ their own position and again at each use; ordinary constructors add one.
 Type/variable metadata, attributes and temporary allocations are separate.
 
 All `adjustment` and `advancement` substitutions in SP/WP map variables to
-variables (`vc.ml:1190–1206`). Capture-avoiding renaming preserves this
+variables (`vc.ml:1186–1192`). Capture-avoiding renaming preserves this
 measure. It is not an arbitrary term substitution.
 The `wrt_forall`/`wrt_exists` helpers also only clone logical variables,
 substitute those variables, and add the respective trigger-free quantifier
-(`:1373–1393`). Write-location attributes do not change term-node counts.
+(`:1353–1372`). Write-location attributes do not change term-node counts.
 
 For a term of cost `a>=1` and a formula of cost `b>=1`, use
 
@@ -55,7 +55,7 @@ code and its contracts. SP destination/read/write maps use subsets of these
 keys. Fresh post-write **logical** names are map values, not new keys.
 `sp_complete` adds at most one equality and conjunction per differing key,
 at most `4*U`; merging two outcome postconditions adds at most `8*U+1`
-(`:1332–1348`). A conditional outcome merge costs at most `8*U+5`.
+(`:1319–1330`). A conditional outcome merge costs at most `8*U+5`.
 
 ## Flat-reference havoc
 
@@ -76,7 +76,7 @@ sides in this branch are typed variables; no arbitrary value-expression
 substitution hides inside these constants. This is specific to the flat
 Main frontier, not the general havoc fallback.
 
-In particular, `name_regions` (`:1227–1240`) starts from destination
+In particular, `name_regions` (`:1224–1236`) starts from destination
 variables. `explore_paths` stops at each pure field, so no nontrivial field
 path can become the name of another affected region. Every region name
 used by `havoc` here is therefore a variable. The WP fallback let binds a
@@ -97,6 +97,11 @@ Let `H` bound the number of outcome keys exposed at the current call.
 Keeping actual key sets/cardinalities is more precise than replacing every
 `H` by a global exception count. Every row below bounds retained results,
 including a true safety formula where the implementation returns it.
+`Kcase` is deliberately outside these rows: the earlier source-to-kode
+transfer must exclude it for ordinary Main. A case-free input contract or
+an all-solid type list alone is not a proof that no program match introduced
+a `Kcase`. Generated unit/variable handlers and the reviewed converter paths
+are the relevant source restriction.
 
 | Intermediate form | Sufficient bound on `W` |
 | --- | --- |
@@ -112,7 +117,7 @@ including a true safety formula where the implementation returns it.
 | Off/Out tags | The child's bound; filtering removes outcomes |
 
 The special sequence `Kseq(Klet(v,t,f),0,k2)` is handled before the general
-sequence branch (`:1429–1436`). If `h2` outcomes of `k2` remain exported,
+sequence branch (`:1421–1427`). If `h2` outcomes of `k2` remain exported,
 its bound is
 
 ```text
@@ -123,7 +128,7 @@ Each safety/postcondition receives `f`, followed by the same let closure;
 the formula follows by summing `Let(a,1+b+child_cost)`. It charges definition
 reuse explicitly.
 
-For the general `Kseq(k1,i,k2)` (`:1437–1489`), let `s0` be `k1`'s
+For the general `Kseq(k1,i,k2)` (`:1428–1491`), let `s0` be `k1`'s
 postcondition for the consumed outcome `i`, and `h2` the number of retained
 outcomes of `k2`. Then
 
@@ -199,3 +204,8 @@ Retained formula bounds also leave temporary traversals/maps, generated names,
 type substitutions, context/lemma declarations, the fixed library-body
 processes and other essential Why3/solver representations outstanding. The
 whole producer rule and useful-domain comparison remain incomplete.
+
+Independent source review on 2026-10-18 found no material issue in the flat
+havoc allowance or either sequence recurrence. It corrected source anchors
+and requested the explicit Kcase restriction above. That review performed
+no native or Lean execution and did not establish the earlier source join.
