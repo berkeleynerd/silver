@@ -1,0 +1,33 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "source_files_checked": 19,
+  "selected_ABI": "Linux x86_64 LP64 with ordinary System V field layout",
+  "queue_header_bytes": 24,
+  "queue_initial_capacity": 100,
+  "queue_backing_bytes": 800,
+  "list_header_bytes": 24,
+  "list_backings_each": [
+    "4*J",
+    "8*J"
+  ],
+  "poll_record_bytes": 8,
+  "poll_capacity": "J+2",
+  "idle_poll_count": 2,
+  "sockaddr_un_bytes": 110,
+  "socket_basename_max_bytes": 107,
+  "sigaction_bytes": 152,
+  "direct_malloc_calls": 9,
+  "direct_malloc_raw_bytes": "888+32*J",
+  "individual_malloc_request_max": "max(800,8*(J+2))",
+  "worker_representation_max": 1073741823,
+  "largest_malloc_at_worker_representation_max": 8589934600,
+  "strdup_result_requests": [
+    "S+1",
+    "S+1"
+  ],
+  "getcwd_result_bytes": "C+1; internal libc requests remain separate",
+  "scope": "conditional idle startup and explicit server-owned C storage; not whole producer/libc/kernel capacity",
+  "native_runs": 0,
+  "solver_runs": 0,
+  "lean_builds": 0
+}

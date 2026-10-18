@@ -1,0 +1,106 @@
+{
+  "why3_repository": "https://github.com/AdaCore/why3",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "why3_zip_url": "https://codeload.github.com/AdaCore/why3/zip/9390baf120ef260547dfa14f08e11c890b203d9c",
+  "why3_zip_sha256": "8d4a8dcdcdf965ce3cc6935bdd60c1378a5ec47b4a0bdedae6651ee50ed03f8c",
+  "why3_source_check": "All selected Why3 files exactly match the retained complete zip entries.",
+  "header_origin": "/usr/include/x86_64-linux-gnu on Linux x86_64; selected interface declarations, not historical build attestation",
+  "bundle_sha256": "ecde05d29f1165575dc69ce92a1a980463baa93038a11e6818d2686adcf71a2d",
+  "files": [
+    {
+      "path": "linux-headers/bits/sigaction.h",
+      "bytes": 2935,
+      "sha256": "9ea3eaaf51055ef3a49117b554fb3711105e1f7c23c4cd4674deb51197242daf"
+    },
+    {
+      "path": "linux-headers/bits/sockaddr.h",
+      "bytes": 1514,
+      "sha256": "e9c4b4f870e2c6306c3d219acde15e041ca3c166d01f17049d9a4567f58ee89c"
+    },
+    {
+      "path": "linux-headers/bits/types/__sigset_t.h",
+      "bytes": 206,
+      "sha256": "05291a7d38bb1d0da1ed01c09fe85fa2b1f4d5bc708e06bb930efec672db08d5"
+    },
+    {
+      "path": "linux-headers/sys/poll.h",
+      "bytes": 3030,
+      "sha256": "a06e7534727af34cb7a0c7eb47e23fbdd750921f1b45a93d441ac14cced813f4"
+    },
+    {
+      "path": "linux-headers/sys/un.h",
+      "bytes": 1498,
+      "sha256": "baff6e49d79eebce4c4cfdf74a349aaaaa4b156d4defea58bdbcbc43590bce73"
+    },
+    {
+      "path": "why3/Makefile.in",
+      "bytes": 80689,
+      "sha256": "9656fe9d535a6fb3b1d51232ebb9e70faa9e5140b39ad6d379810cd25dc7a1b8"
+    },
+    {
+      "path": "why3/src/server/arraylist.c",
+      "bytes": 2201,
+      "sha256": "09662f4bca8c763f7a0c293feeb652fdad23d13510674e99139a60b7eb65c874"
+    },
+    {
+      "path": "why3/src/server/arraylist.h",
+      "bytes": 2095,
+      "sha256": "1f9a0079f7d775204688acfbe2948dca2307a0fef499f49f4c997aa682fbe9d4"
+    },
+    {
+      "path": "why3/src/server/logging.c",
+      "bytes": 1148,
+      "sha256": "e1049e0fe7bdefd4f5be0c30f1e0f63f076faba8a0ac6edf3d999d6e63a90f5e"
+    },
+    {
+      "path": "why3/src/server/logging.h",
+      "bytes": 807,
+      "sha256": "4f02f26bde1b072954871d825ab19792a7355b9173249d98beec55c1c52de4d3"
+    },
+    {
+      "path": "why3/src/server/options.c",
+      "bytes": 2539,
+      "sha256": "9a428e7c601fb38f7c4353f3ee22a9033cb2289e75bc58c4ae80646b5fe2c2e8"
+    },
+    {
+      "path": "why3/src/server/options.h",
+      "bytes": 1048,
+      "sha256": "ec9f6b93697dd20d83d111d4d7e186fb57065003b00ddb94b28ceb00d522cd99"
+    },
+    {
+      "path": "why3/src/server/proc.c",
+      "bytes": 1638,
+      "sha256": "bccc723c9c31a2f9302d447c469eeb804cb0a30e350e04ed7ce99f2be82cc1f2"
+    },
+    {
+      "path": "why3/src/server/proc.h",
+      "bytes": 1339,
+      "sha256": "e08a94c1fd9b14143605ae51a80d2721b1558272884e3196441881a374b229a9"
+    },
+    {
+      "path": "why3/src/server/queue.c",
+      "bytes": 2047,
+      "sha256": "882cf358579fe8edefbb0981028a271cbf012f321d151bd0696467c547e41e2e"
+    },
+    {
+      "path": "why3/src/server/queue.h",
+      "bytes": 1835,
+      "sha256": "3042706500a2304b74c71c78a4242728b5d213da5615995ed2e78a101f6d2d26"
+    },
+    {
+      "path": "why3/src/server/request.c",
+      "bytes": 5295,
+      "sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b"
+    },
+    {
+      "path": "why3/src/server/request.h",
+      "bytes": 1913,
+      "sha256": "9b1a92da5d3eadb26b979e368222efd106bc2bc14c8eee2e56be336b8cc4f450"
+    },
+    {
+      "path": "why3/src/server/server-unix.c",
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    }
+  ]
+}
