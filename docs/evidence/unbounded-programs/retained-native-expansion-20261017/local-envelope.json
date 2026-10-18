@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 52,
+  "source_files_verified": 54,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -53,7 +53,9 @@
     "opt.ads": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e",
     "sem_attr.adb": "2186f019b336c853f7e3f5ae3a40fd91514ba188694c4fd592282c7ce63185d0",
     "exp_attr.adb": "0d89c4982b0c5ae4430dae91539301c0adde232f1cc1f8ab4b8a32dfe9621f4b",
-    "sem.ads": "4a1dedc5f04b41e701b97aedd148fedb355e7f924add812fa4ad09329eec3e5f"
+    "sem.ads": "4a1dedc5f04b41e701b97aedd148fedb355e7f924add812fa4ad09329eec3e5f",
+    "exp_dbug.adb": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0",
+    "namet.ads": "129dcfd8cf6688ead4f5af052f80f8a86ad31f13ce36eb29d57c547d7b51efd8"
   },
   "scope": "native String concat direct emitter and specified primitive helpers; not transitive closure",
   "ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers": {
@@ -457,6 +459,13 @@
     "name_characters_including_NUL": 13,
     "retention": "E_Allocator_Type remains retained after expression type replaced with named access type",
     "not_included": "direct allocator syntax, enclosing object/renaming declaration, runtime lookup/loading, later whole-scope/backend processing"
+  },
+  "concat_allocator_object_and_constrained_renaming_skeletons": {
+    "premises": "fresh artificial non-Ghost local pointer variable initialized by preceding new ConstrT No_Initialization allocator, then constrained String renaming of its plain dereference; exact frozen named access/designated/index types; no aspects/predicates/delayed-freeze/address/foreign/special-return/volatile/transient/diagnostic/callback; checks suppressed",
+    "extra_ordinary_entity_name_list_elist_Uint_String_allocations": 0,
+    "debug_renaming_helper": "does run because concat entity needs debug info; prepends only XA to existing bounded buffer, marks Materialize_Entity, returns Empty before debug object/name creation",
+    "name_scratch_buffer_characters": 2,
+    "not_included": "direct input syntax; allocator semantic/native transfer and runtime lookup; unfrozen access/subtype transfer; later renaming references; source-to-shape, transient/action placement and backend effects"
   },
   "scalar_variable_bound_capture": {
     "premises": "already-analyzed nonvolatile ordinary local Integer-family variable identifier; no renaming/current value/actual subtype/OK_To_Rename/pending Do_Range_Check; relevant types frozen; fresh internal non-Ghost constant with no aspects/delayed freeze; empty Related_Id",

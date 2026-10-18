@@ -33,7 +33,7 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "exp_ch13.adb", "nlists.adb", "itypes.adb", "expander.adb",
          "sem_aux.adb", "ghost.adb", "sem_type.adb", "restrict.adb",
          "local_restrict.adb", "accessibility.adb", "opt.ads",
-         "sem_attr.adb", "exp_attr.adb", "sem.ads"]
+         "sem_attr.adb", "exp_attr.adb", "sem.ads", "exp_dbug.adb", "namet.ads"]
 sources = {}
 hashes = {}
 for name in files:
@@ -204,6 +204,13 @@ result = {
         "name_characters_including_NUL": 13,
         "retention": "E_Allocator_Type remains retained after expression type replaced with named access type",
         "not_included": "direct allocator syntax, enclosing object/renaming declaration, runtime lookup/loading, later whole-scope/backend processing",
+    },
+    "concat_allocator_object_and_constrained_renaming_skeletons": {
+        "premises": "fresh artificial non-Ghost local pointer variable initialized by preceding new ConstrT No_Initialization allocator, then constrained String renaming of its plain dereference; exact frozen named access/designated/index types; no aspects/predicates/delayed-freeze/address/foreign/special-return/volatile/transient/diagnostic/callback; checks suppressed",
+        "extra_ordinary_entity_name_list_elist_Uint_String_allocations": 0,
+        "debug_renaming_helper": "does run because concat entity needs debug info; prepends only XA to existing bounded buffer, marks Materialize_Entity, returns Empty before debug object/name creation",
+        "name_scratch_buffer_characters": 2,
+        "not_included": "direct input syntax; allocator semantic/native transfer and runtime lookup; unfrozen access/subtype transfer; later renaming references; source-to-shape, transient/action placement and backend effects",
     },
     "scalar_variable_bound_capture": {
         "premises": "already-analyzed nonvolatile ordinary local Integer-family variable identifier; no renaming/current value/actual subtype/OK_To_Rename/pending Do_Range_Check; relevant types frozen; fresh internal non-Ghost constant with no aspects/delayed freeze; empty Related_Id",

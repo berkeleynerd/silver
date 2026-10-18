@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records fifty-two inspected files hash-checked against the complete source
+records fifty-four inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -526,9 +526,76 @@ silently credited as reclaiming storage.
 Combining **only these access-type and allocator semantic transfers**, the
 secondary-storage path needs one extra ordinary node, one extra entity/name,
 one syntax-list header and one empty Elist header, beyond the direct emitter
-count. This does not include `ConstrT` construction/freezing, the allocator's
-enclosing object/renaming declarations, action placement, runtime loading or
-backend data. Do not treat it as the completed secondary-storage branch.
+count. The next transfer closes the enclosing object/renaming skeletons with
+their specified premises. `ConstrT` construction/freezing, action placement,
+runtime loading and backend data remain additional. Do not treat it as the
+completed secondary-storage branch.
+
+### Allocator object and constrained renaming skeletons
+
+The emitter's `Rxx : Ayy := new ConstrT` object and
+`Sxx : ConstrT renames Rxx.all` add **zero further ordinary nodes, entities,
+names, syntax/Elists, Uint or String values** through semantic/native
+declaration processing after the allocator transfer above has been charged.
+Assume the named access type and its designated constrained ordinary String
+subtype are already frozen, and the fresh local declarations have no aspects,
+predicates, delayed freezes, address clauses, foreign convention or special
+return property. Both declarations are artificial, non-Ghost and nonvolatile,
+in an ordinary nontransient scope; checks are suppressed as at their actual
+Insert_Action calls. There is no diagnostic or allocating rewrite callback.
+The existing direct declaration/type/dereference syntax is already charged.
+
+The object skeleton differs from the earlier pointer-capture constant only
+in being a variable initialized by an allocator. Analyze/Resolve performs the
+separately charged allocator transfer, then keeps the exact named access type.
+No actual-subtype construction applies to an access type. The static length
+checker compares the identical designated/index types and returns no check;
+this remains necessary to establish despite check suppression. Compile-time
+known-value testing does not classify the allocator as a scalar constant, so
+the variable Current_Value branch does not retain it as a replacement value.
+Known_Non_Null returns immediately from Null_Status's allocator branch, setting
+the object's non-null flag without numeric or syntax allocation
+(`sem_ch3.adb:4704–4852`, `sem_util.adb:10270–10374,22698–22741,
+26498–26543`, `checks.adb:10251–10412`).
+
+Native explicit-initialization expansion skips even its constraint check for
+an allocator carrying No_Initialization. The remaining access-object path
+only updates the non-null flag; a plain allocator is neither a captured
+function dereference nor an OK_To_Rename reference. Named access excludes
+anonymous-access accessibility objects, and ordinary String excludes
+controlled/task/unaligned/BIP transformations
+(`exp_ch3.adb:8395–8715,8750–8817`, `exp_util.adb:8896–8916`). Freezing the
+ordinary pointer object reuses its frozen access type and needs no delayed
+freeze node or object layout allocation. If the access type is not yet
+frozen, its earlier one-node/one-list first-freeze transfer is additional.
+
+For the renaming, Find_Type selects the existing ConstrT. Analysis of the
+two-node dereference reads the existing pointer and designated subtype,
+without interpretation-table entries. Resolve's access check is suppressed;
+the designated type is already constrained and nonpacked, so no actual
+subtype is manufactured (`sem_ch4.adb:2182–2326`,
+`sem_res.adb:9253–9380`, `checks.adb:8458–8509`). In Analyze_Object_Renaming,
+Check_Constrained_Object's allocating branch requires an **unconstrained**
+type; the actual-subtype lookup and subsequent variable/type/atomic/renamed-
+object assignments only reuse existing values. Artificial declarations skip
+the source object-reference legality and debug-prefix checks; aspects and
+dimensions are empty (`sem_ch8.adb:761–960,1080–1198,1360–1602`).
+
+The renaming expander's Evaluation_Required returns false for an explicit
+dereference, and ordinary String has no class-wide or build-in-place route
+(`exp_ch8.adb:105–215`). The emitter explicitly marks Sxx as needing debug
+information, so Debug_Renaming_Declaration **does run**. It walks the simple
+dereference/name, prepends only `XA` to the existing bounded name buffer, then
+finds no packed/package reason to enable an encoding. It marks Sxx as
+Materialize_Entity and returns Empty **before** constructing or interning any
+debug object/name (`exp_dbug.adb:290–412,488–516`, `namet.ads:161`). The
+two-character scratch-buffer use is bounded; Materialize_Entity's backend
+effects are separate. Ignoring the debug helper merely because this renaming
+is generated would have been incorrect.
+
+These skeletons do not cover unconstrained renamings, later references to the
+renamed object, first analysis of result bounds, generated-subtype freezing,
+transient/action placement, RTE dependency loading or backend elaboration.
 
 ## Scalar bound capture and slice subtype transfer
 
