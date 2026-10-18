@@ -94,6 +94,45 @@ stored list. The same per-list length condition covers that copy's arithmetic.
 These temporary link nodes remain separate physical storage. A retained-node
 counter is not a claim that the peak temporary storage equals the retained sum.
 
+## Standard hashed-map capacity rounding
+
+The producer also uses standard Ada hashed maps, including its symbol-to-theory
+map and module-keyed dependency maps. Their element count and bucket-array
+capacity are different representations. `a-chtgop.adb:125–132` returns bucket
+array length as signed `Count_Type`, whereas bucket indexes and the prime
+table use modular 32-bit `Hash_Type`.
+
+`Reserve_Capacity` rounds a positive request up to the next entry of the fixed
+prime table (`a-chtgop.adb:677–758`; `a-coprnu.ads:40–46`). The last table entry
+that fits `Count_Type` is **1,610,612,741**. The next is 3,221,225,473 and would
+not fit Capacity's return type. Therefore a local sufficient condition is
+that every explicit reserve request and every map cardinality be at most
+1,610,612,741. The nominal Count_Type endpoint alone is insufficient for this
+implementation. This is a source-derived rounding condition, not an observed
+native failure or a selected source limit.
+
+Ordinary one-key map insertion requests capacity one on an empty map, inserts
+at most one distinct key, and reserves the resulting length only when needed
+(`a-cohama.adb:628–644`). The generic insertion increments Length once only
+for a new key (`a-chtgke.adb:148–199`). The prime search has 28 fixed entries;
+its index arithmetic is independent of program size. With the condition above,
+bucket indexes, lengths and capacity conversions fit. Rehash decrements a
+saved length to zero and then restores it; it does not transiently double the
+map's element count (`a-chtgop.adb:766–836`). Copying a map allocates the same
+bucket length and increments its own element count up to the source length
+(`:49–113`). Bucket pointer storage is at most `8*1,610,612,741` bytes under
+the LP64 layout premise, separately from per-key payload and transient copies.
+
+For a map whose distinct keys are Why node IDs and whose only reservations
+are zero or its length, the existing `N <= 2^30-1` node condition is already
+stricter: its largest possible rounded capacity is 1,610,612,741. The same
+applies to the symbol-to-theory map when each distinct key is charged to a
+distinct allocated theory node. This does not automatically cover maps keyed
+by source nodes, key tuples, arbitrary symbols or external state; their actual
+cardinality and reserve requests still need a source-derived bound. Nor does
+this claim coverage of ordered, indefinite or GNATCOLL containers merely
+because they are called maps.
+
 ## Scope and reproduction
 
 The [evidence checker](../evidence/retained-producer-storage-20261018/README.md)
@@ -104,8 +143,9 @@ executing a compiler. The source is GCC
 SPARK candidate. Their relevant correspondence to the installed producer is
 still the explicit [source-identity premise](retained-tool-source-identity.md).
 
-This covers the two Why storage vectors and retained Why list lengths. Symbol
-storage, auxiliary maps/sets/vectors, temporary container multiplicities,
+This covers the two Why storage vectors, retained Why list lengths and the
+stated standard hashed-map capacity arithmetic. Symbol
+storage, other auxiliary maps/sets/vectors, temporary container multiplicities,
 tampering counters, serialization, recursion and other phases are not proved
 safe merely by these three inequalities. They remain in the whole-process
 capacity inventory. No production admission or tool pin changes here.

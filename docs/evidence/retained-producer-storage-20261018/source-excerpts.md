@@ -648,3 +648,412 @@ LF line numbering.
 905:       Container.Length := Container.Length + 1;
 906:    end Insert_Internal;
 ```
+
+## libgnat/a-cohama.adb:628–644
+
+```text
+628:       HT : Hash_Table_Type renames Container.HT;
+629:
+630:    --  Start of processing for Insert
+631:
+632:    begin
+633:       if HT_Ops.Capacity (HT) = 0 then
+634:          HT_Ops.Reserve_Capacity (HT, 1);
+635:       end if;
+636:
+637:       Local_Insert (HT, Key, Position.Node, Inserted);
+638:
+639:       if Inserted
+640:         and then HT.Length > HT_Ops.Capacity (HT)
+641:       then
+642:          HT_Ops.Reserve_Capacity (HT, HT.Length);
+643:       end if;
+644:
+```
+
+## libgnat/a-chtgke.adb:148–199
+
+```text
+148:    procedure Generic_Conditional_Insert
+149:      (HT       : in out Hash_Table_Type;
+150:       Key      : Key_Type;
+151:       Node     : out Node_Access;
+152:       Inserted : out Boolean)
+153:    is
+154:       Indx : Hash_Type;
+155:
+156:    begin
+157:       --  Per AI05-0022, the container implementation is required to detect
+158:       --  element tampering by a generic actual subprogram.
+159:
+160:       TC_Check (HT.TC);
+161:
+162:       Indx := Checked_Index (HT, Key);
+163:       Node := HT.Buckets (Indx);
+164:
+165:       if Node = null then
+166:          if Checks and then HT.Length = Count_Type'Last then
+167:             raise Constraint_Error;
+168:          end if;
+169:
+170:          Node := New_Node (Next => null);
+171:          Inserted := True;
+172:
+173:          HT.Buckets (Indx) := Node;
+174:          HT.Length := HT.Length + 1;
+175:
+176:          return;
+177:       end if;
+178:
+179:       loop
+180:          if Checked_Equivalent_Keys (HT, Key, Node) then
+181:             Inserted := False;
+182:             return;
+183:          end if;
+184:
+185:          Node := Next (Node);
+186:
+187:          exit when Node = null;
+188:       end loop;
+189:
+190:       if Checks and then HT.Length = Count_Type'Last then
+191:          raise Constraint_Error;
+192:       end if;
+193:
+194:       Node := New_Node (Next => HT.Buckets (Indx));
+195:       Inserted := True;
+196:
+197:       HT.Buckets (Indx) := Node;
+198:       HT.Length := HT.Length + 1;
+199:    end Generic_Conditional_Insert;
+```
+
+## libgnat/a-chtgop.adb:49–132
+
+```text
+49:    procedure Adjust (HT : in out Hash_Table_Type) is
+50:       Src_Buckets : constant Buckets_Access := HT.Buckets;
+51:       N           : constant Count_Type := HT.Length;
+52:       Src_Node    : Node_Access;
+53:       Dst_Prev    : Node_Access;
+54:
+55:    begin
+56:       --  If the counts are nonzero, execution is technically erroneous, but
+57:       --  it seems friendly to allow things like concurrent "=" on shared
+58:       --  constants.
+59:
+60:       Zero_Counts (HT.TC);
+61:
+62:       HT.Buckets := null;
+63:       HT.Length := 0;
+64:
+65:       if N = 0 then
+66:          return;
+67:       end if;
+68:
+69:       --  Technically it isn't necessary to allocate the exact same length
+70:       --  buckets array, because our only requirement is that following
+71:       --  assignment the source and target containers compare equal (that is,
+72:       --  operator "=" returns True). We can satisfy this requirement with any
+73:       --  hash table length, but we decide here to match the length of the
+74:       --  source table. This has the benefit that when iterating, elements of
+75:       --  the target are delivered in the exact same order as for the source.
+76:
+77:       HT.Buckets := New_Buckets (Length => Src_Buckets'Length);
+78:
+79:       for Src_Index in Src_Buckets'Range loop
+80:          Src_Node := Src_Buckets (Src_Index);
+81:
+82:          if Src_Node /= null then
+83:             declare
+84:                Dst_Node : constant Node_Access := Copy_Node (Src_Node);
+85:
+86:                --  See note above
+87:
+88:                pragma Assert (Checked_Index (HT, Dst_Node) = Src_Index);
+89:
+90:             begin
+91:                HT.Buckets (Src_Index) := Dst_Node;
+92:                HT.Length := HT.Length + 1;
+93:
+94:                Dst_Prev := Dst_Node;
+95:             end;
+96:
+97:             Src_Node := Next (Src_Node);
+98:             while Src_Node /= null loop
+99:                declare
+100:                   Dst_Node : constant Node_Access := Copy_Node (Src_Node);
+101:
+102:                   --  See note above
+103:
+104:                   pragma Assert (Checked_Index (HT, Dst_Node) = Src_Index);
+105:
+106:                begin
+107:                   Set_Next (Node => Dst_Prev, Next => Dst_Node);
+108:                   HT.Length := HT.Length + 1;
+109:
+110:                   Dst_Prev := Dst_Node;
+111:                end;
+112:
+113:                Src_Node := Next (Src_Node);
+114:             end loop;
+115:          end if;
+116:       end loop;
+117:
+118:       pragma Assert (HT.Length = N);
+119:    end Adjust;
+120:
+121:    --------------
+122:    -- Capacity --
+123:    --------------
+124:
+125:    function Capacity (HT : Hash_Table_Type) return Count_Type is
+126:    begin
+127:       if HT.Buckets = null then
+128:          return 0;
+129:       end if;
+130:
+131:       return HT.Buckets'Length;
+132:    end Capacity;
+```
+
+## libgnat/a-chtgop.adb:613–623
+
+```text
+613:    function New_Buckets (Length : Hash_Type) return Buckets_Access is
+614:       subtype Rng is Hash_Type range 0 .. Length - 1;
+615:
+616:    begin
+617:       --  Allocate in Buckets_Allocation'Storage_Pool, then convert to
+618:       --  Buckets_Access.
+619:
+620:       return Buckets_Access (Buckets_Allocation'(new Buckets_Type (Rng)));
+621:    end New_Buckets;
+622:
+623:    ----------
+```
+
+## libgnat/a-chtgop.adb:677–836
+
+```text
+677:    procedure Reserve_Capacity
+678:      (HT : in out Hash_Table_Type;
+679:       N  : Count_Type)
+680:    is
+681:       NN : Hash_Type;
+682:
+683:    begin
+684:       if HT.Buckets = null then
+685:          if N > 0 then
+686:             NN := Prime_Numbers.To_Prime (N);
+687:             HT.Buckets := New_Buckets (Length => NN);
+688:          end if;
+689:
+690:          return;
+691:       end if;
+692:
+693:       if HT.Length = 0 then
+694:
+695:          --  This is the easy case. There are no nodes, so no rehashing is
+696:          --  necessary. All we need to do is allocate a new buckets array
+697:          --  having a length implied by the specified capacity. (We say
+698:          --  "implied by" because bucket arrays are always allocated with a
+699:          --  length that corresponds to a prime number.)
+700:
+701:          if N = 0 then
+702:             Free_Buckets (HT.Buckets);
+703:             return;
+704:          end if;
+705:
+706:          if N = HT.Buckets'Length then
+707:             return;
+708:          end if;
+709:
+710:          NN := Prime_Numbers.To_Prime (N);
+711:
+712:          if NN = HT.Buckets'Length then
+713:             return;
+714:          end if;
+715:
+716:          declare
+717:             X : Buckets_Access := HT.Buckets;
+718:             pragma Warnings (Off, X);
+719:          begin
+720:             HT.Buckets := New_Buckets (Length => NN);
+721:             Free_Buckets (X);
+722:          end;
+723:
+724:          return;
+725:       end if;
+726:
+727:       if N = HT.Buckets'Length then
+728:          return;
+729:       end if;
+730:
+731:       if N < HT.Buckets'Length then
+732:
+733:          --  This is a request to contract the buckets array. The amount of
+734:          --  contraction is bounded in order to preserve the invariant that the
+735:          --  buckets array length is never smaller than the number of elements
+736:          --  (the load factor is 1).
+737:
+738:          if HT.Length >= HT.Buckets'Length then
+739:             return;
+740:          end if;
+741:
+742:          NN := Prime_Numbers.To_Prime (HT.Length);
+743:
+744:          if NN >= HT.Buckets'Length then
+745:             return;
+746:          end if;
+747:
+748:       else
+749:          NN := Prime_Numbers.To_Prime (Count_Type'Max (N, HT.Length));
+750:
+751:          if NN = HT.Buckets'Length then -- can't expand any more
+752:             return;
+753:          end if;
+754:       end if;
+755:
+756:       TC_Check (HT.TC);
+757:
+758:       Rehash : declare
+759:          Dst_Buckets : Buckets_Access := New_Buckets (Length => NN);
+760:          Src_Buckets : Buckets_Access := HT.Buckets;
+761:          pragma Warnings (Off, Src_Buckets);
+762:
+763:          L : Count_Type renames HT.Length;
+764:          LL : constant Count_Type := L;
+765:
+766:          Src_Index : Hash_Type := Src_Buckets'First;
+767:
+768:       begin
+769:          while L > 0 loop
+770:             declare
+771:                Src_Bucket : Node_Access renames Src_Buckets (Src_Index);
+772:
+773:             begin
+774:                while Src_Bucket /= null loop
+775:                   declare
+776:                      Src_Node : constant Node_Access := Src_Bucket;
+777:
+778:                      Dst_Index : constant Hash_Type :=
+779:                        Checked_Index (HT, Dst_Buckets.all, Src_Node);
+780:
+781:                      Dst_Bucket : Node_Access renames Dst_Buckets (Dst_Index);
+782:
+783:                   begin
+784:                      Src_Bucket := Next (Src_Node);
+785:
+786:                      Set_Next (Src_Node, Dst_Bucket);
+787:
+788:                      Dst_Bucket := Src_Node;
+789:                   end;
+790:
+791:                   pragma Assert (L > 0);
+792:                   L := L - 1;
+793:                end loop;
+794:
+795:             exception
+796:                when others =>
+797:
+798:                   --  If there's an error computing a hash value during a
+799:                   --  rehash, then AI-302 says the nodes "become lost." The
+800:                   --  issue is whether to actually deallocate these lost nodes,
+801:                   --  since they might be designated by extant cursors. Here
+802:                   --  we decide to deallocate the nodes, since it's better to
+803:                   --  solve real problems (storage consumption) rather than
+804:                   --  imaginary ones (the user might, or might not, dereference
+805:                   --  a cursor designating a node that has been deallocated),
+806:                   --  and because we have a way to vet a dangling cursor
+807:                   --  reference anyway, and hence can actually detect the
+808:                   --  problem.
+809:
+810:                   for Dst_Index in Dst_Buckets'Range loop
+811:                      declare
+812:                         B : Node_Access renames Dst_Buckets (Dst_Index);
+813:                         X : Node_Access;
+814:                      begin
+815:                         while B /= null loop
+816:                            X := B;
+817:                            B := Next (X);
+818:                            Free (X);
+819:                         end loop;
+820:                      end;
+821:                   end loop;
+822:
+823:                   Free_Buckets (Dst_Buckets);
+824:                   raise Program_Error with
+825:                     "hash function raised exception during rehash";
+826:             end;
+827:
+828:             Src_Index := Src_Index + 1;
+829:          end loop;
+830:
+831:          HT.Buckets := Dst_Buckets;
+832:          HT.Length := LL;
+833:
+834:          Free_Buckets (Src_Buckets);
+835:       end Rehash;
+836:    end Reserve_Capacity;
+```
+
+## libgnat/a-coprnu.ads:30–51
+
+```text
+30: --  This package declares the prime numbers array used to implement hashed
+31: --  containers. Bucket arrays are always allocated with a prime-number
+32: --  length (computed using To_Prime below), as this produces better scatter
+33: --  when hash values are folded.
+34:
+35: package Ada.Containers.Prime_Numbers is
+36:    pragma Pure;
+37:
+38:    type Primes_Type is array (Positive range <>) of Hash_Type;
+39:
+40:    Primes : constant Primes_Type :=
+41:      [53,         97,         193,       389,       769,
+42:       1543,       3079,       6151,      12289,     24593,
+43:       49157,      98317,      196613,    393241,    786433,
+44:       1572869,    3145739,    6291469,   12582917,  25165843,
+45:       50331653,   100663319,  201326611, 402653189, 805306457,
+46:       1610612741, 3221225473, 4294967291];
+47:
+48:    function To_Prime (Length : Count_Type) return Hash_Type;
+49:    --  Returns the smallest value in Primes not less than Length
+50:
+51: end Ada.Containers.Prime_Numbers;
+```
+
+## libgnat/a-coprnu.adb:32–59
+
+```text
+32:    --------------
+33:    -- To_Prime --
+34:    --------------
+35:
+36:    function To_Prime (Length : Count_Type) return Hash_Type is
+37:       I, J, K : Integer'Base;
+38:       Index   : Integer'Base;
+39:
+40:    begin
+41:       I := Primes'Last - Primes'First;
+42:       Index := Primes'First;
+43:       while I > 0 loop
+44:          J := I / 2;
+45:          K := Index + J;
+46:
+47:          if Primes (K) < Hash_Type (Length) then
+48:             Index := K + 1;
+49:             I := I - J - 1;
+50:          else
+51:             I := J;
+52:          end if;
+53:       end loop;
+54:
+55:       return Primes (Index);
+56:    end To_Prime;
+57:
+58: end Ada.Containers.Prime_Numbers;
+59:
+```

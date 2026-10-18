@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 
 RANGES = {
@@ -12,6 +13,11 @@ RANGES = {
                             (1330, 1396), (1498, 1591), (2467, 2494), (2890, 2935)],
     'libgnat/a-cdlili.ads': [(269, 289)],
     'libgnat/a-cdlili.adb': [(114, 171), (763, 813), (865, 906)],
+    'libgnat/a-cohama.adb': [(628, 644)],
+    'libgnat/a-chtgke.adb': [(148, 199)],
+    'libgnat/a-chtgop.adb': [(49, 132), (613, 623), (677, 836)],
+    'libgnat/a-coprnu.ads': [(30, 51)],
+    'libgnat/a-coprnu.adb': [(32, 59)],
 }
 
 
@@ -52,15 +58,27 @@ def main():
         records.append(dict(path=name, bytes=len(data), sha256=digest))
         lines = data.decode().split('\n')
         for start, end in ranges:
+            assert 1 <= start <= end <= len(lines), (name,start,end,len(lines))
             excerpts.append(f'\n## {name}:{start}–{end}\n\n```text\n')
             excerpts.extend(f'{i}: {lines[i-1]}'.rstrip()+'\n' for i in range(start, end+1))
             excerpts.append('```\n')
     cases = sorted({1,2,3,2**30} | {2**k+delta for k in range(1,30) for delta in (-1,0,1)})
     rows = [transition(first,d) for first in (0,2**30) for d in cases]
+    prime_text = (args.ada/'libgnat/a-coprnu.ads').read_text()
+    values = re.search(r'Primes : constant Primes_Type :=\s*\[(.*?)\];',prime_text,re.S).group(1)
+    primes = [int(x) for x in re.findall(r'\d+',values)]
+    assert len(primes) == 28 and sorted(set(primes)) == primes
+    safe_prime = max(p for p in primes if p <= 2**31-1)
+    assert safe_prime == 1610612741
+    assert next(p for p in primes if p > safe_prime) == 3221225473
+    assert next(p for p in primes if p >= 2**30) == safe_prime
     result = dict(source_commit=old['commit'], sources=records, transitions=rows,
                   maximum_usable_nodes=2**30-1, maximum_lists=2**30,
                   sufficient_total_retained_elements=2**31-1,
                   retained_link_bytes_at_count_limit=24*(2**31-1),
+                  standard_hash_maximum_safe_request=safe_prime,
+                  standard_hash_next_rounded_capacity=3221225473,
+                  standard_hash_bucket_bytes_at_safe_capacity=8*safe_prime,
                   scope='local append/growth arithmetic, not caller coverage or whole-tool capacity')
     assert result['retained_link_bytes_at_count_limit'] < 2**63
     args.output.mkdir(parents=True,exist_ok=True)

@@ -25,6 +25,31 @@
       "path": "libgnat/a-cdlili.adb",
       "bytes": 60440,
       "sha256": "e70f3d8ec52c18c52749e2d4b0de470b2756ddad5148d1d04ed1ef1cced608ec"
+    },
+    {
+      "path": "libgnat/a-cohama.adb",
+      "bytes": 33301,
+      "sha256": "8c0baf7959a574604cbef9586f30a952b0d574d1346fc2008de57fd2ff3b31ae"
+    },
+    {
+      "path": "libgnat/a-chtgke.adb",
+      "bytes": 10093,
+      "sha256": "c27417b4dcfdc3fcd4f7b8135117afcb79e9875484abbcaa73d8d887529984a7"
+    },
+    {
+      "path": "libgnat/a-chtgop.adb",
+      "bytes": 23338,
+      "sha256": "6047a8a3e2b30b458aef97eac07dadfe60da8065bd1c1e82e5c677ffc95f5d45"
+    },
+    {
+      "path": "libgnat/a-coprnu.ads",
+      "bytes": 3132,
+      "sha256": "d9b639565748b8a2045646dc1a1e9a7ff17d529c62b13a0518f1b8f993ec2226"
+    },
+    {
+      "path": "libgnat/a-coprnu.adb",
+      "bytes": 2839,
+      "sha256": "1d3bc1ccfe806f300aa6ce37c4e7e269bd9d35d20ed1aa103130caa26a5edfc7"
     }
   ],
   "transitions": [
@@ -1599,5 +1624,8 @@
   "maximum_lists": 1073741824,
   "sufficient_total_retained_elements": 2147483647,
   "retained_link_bytes_at_count_limit": 51539607528,
+  "standard_hash_maximum_safe_request": 1610612741,
+  "standard_hash_next_rounded_capacity": 3221225473,
+  "standard_hash_bucket_bytes_at_safe_capacity": 12884901928,
   "scope": "local append/growth arithmetic, not caller coverage or whole-tool capacity"
 }
