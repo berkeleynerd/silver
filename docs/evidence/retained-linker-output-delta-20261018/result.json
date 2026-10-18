@@ -1,0 +1,234 @@
+{
+  "scope": "Fixed library and binder interface delta for direct literal output/null sequences",
+  "prior_input_identities": 9,
+  "historical_option_artifacts_verified": 38,
+  "artifact_members": 153,
+  "source_members": 13,
+  "fixed_object_metrics": {
+    "silver_io.o": {
+      "R": 10,
+      "Q": 14,
+      "Qrel": 2,
+      "Trel": 14,
+      "original_payload": 1483,
+      "name_occurrences": 21,
+      "name_NUL_bytes": 252,
+      "maximum_name_bytes": 22,
+      "global_records": 7,
+      "symbol_size_sum": 493,
+      "maximum_symbol_size": 259,
+      "maximum_alignment": 8
+    },
+    "silver_output_libc.o": {
+      "R": 3,
+      "Q": 10,
+      "Qrel": 0,
+      "Trel": 0,
+      "original_payload": 286,
+      "name_occurrences": 11,
+      "name_NUL_bytes": 131,
+      "maximum_name_bytes": 22,
+      "global_records": 1,
+      "symbol_size_sum": 2,
+      "maximum_symbol_size": 2,
+      "maximum_alignment": 8
+    },
+    "indexed_output_binder.o": {
+      "R": 243,
+      "Q": 16,
+      "Qrel": 3,
+      "Trel": 134,
+      "original_payload": 27168,
+      "name_occurrences": 253,
+      "name_NUL_bytes": 5637,
+      "maximum_name_bytes": 46,
+      "global_records": 232,
+      "symbol_size_sum": 12206,
+      "maximum_symbol_size": 10320,
+      "maximum_alignment": 32
+    }
+  },
+  "fixed_object_identities": {
+    "silver_io.o": {
+      "bytes": 2456,
+      "sha256": "3e8c216efea1ea6de110f96f02dd15403f7616025db7f0ab8dcfb183b4e179de"
+    },
+    "silver_output_libc.o": {
+      "bytes": 1000,
+      "sha256": "26c296b728cf4ea439c698f09621612683efba75624df2c79675d02bc4212f4d"
+    },
+    "indexed_output_binder.o": {
+      "bytes": 17952,
+      "sha256": "0e6e0066f8e24a0f5e3a158d429e1730c50f3938d02f5c9b27a927878b682290"
+    }
+  },
+  "library_source_identities": {
+    "silver/src/silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+    "silver/src/silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+    "silver/src/silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+  },
+  "runtime_definitions": {
+    "__gnat_set_exit_status": [
+      {
+        "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib/libgnat.a(exit.o)",
+        "index": 8,
+        "name": "__gnat_set_exit_status",
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "section": 1,
+        "value": 0,
+        "bytes": 7
+      }
+    ],
+    "fflush": [
+      {
+        "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+        "index": 951,
+        "name": "fflush",
+        "binding": 2,
+        "type": 2,
+        "visibility": 0,
+        "section": 15,
+        "value": 573648,
+        "bytes": 398
+      }
+    ],
+    "putchar": [
+      {
+        "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+        "index": 932,
+        "name": "putchar",
+        "binding": 1,
+        "type": 2,
+        "visibility": 0,
+        "section": 15,
+        "value": 592800,
+        "bytes": 395
+      }
+    ],
+    "silver_io_E": [],
+    "silver_io__max_length": [],
+    "silver_io__put": [],
+    "silver_io__put_line": [],
+    "silver_output_libc_E": []
+  },
+  "ALI_closure": {
+    "files": 83,
+    "units": 140,
+    "runtime_files": 80,
+    "version_exports": 140,
+    "fixed_incoming_Main_signatures": 0
+  },
+  "indexed_binder_bridge": {
+    "differing_sections": [
+      ".rodata",
+      ".symtab",
+      ".strtab"
+    ],
+    "mainB": {
+      "index": 101,
+      "name": "mainB",
+      "binding": 1,
+      "type": 1,
+      "visibility": 0,
+      "section": 5,
+      "value": 8,
+      "bytes": 4
+    },
+    "executable_identity": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/indexed-main-discovery/.silver/linux-x86_64/program-v86o6J/bin/main",
+      "bytes": 1384744,
+      "sha256": "b6d8ad5359c7ecfcf171056a6f311ef519f1a623f6cc68ec83edb062080b6e6d",
+      "matches_prior_record": true
+    }
+  },
+  "EH": {
+    "silver_io.o": {
+      "bytes": 96,
+      "CIEs": 1,
+      "FDEs": 2,
+      "entries": [
+        {
+          "offset": 0,
+          "length": 20,
+          "CIE_pointer": 0
+        },
+        {
+          "offset": 24,
+          "length": 32,
+          "CIE_pointer": 28
+        },
+        {
+          "offset": 60,
+          "length": 32,
+          "CIE_pointer": 64
+        }
+      ]
+    },
+    "indexed_output_binder.o": {
+      "bytes": 224,
+      "CIEs": 1,
+      "FDEs": 6,
+      "entries": [
+        {
+          "offset": 0,
+          "length": 20,
+          "CIE_pointer": 0
+        },
+        {
+          "offset": 24,
+          "length": 36,
+          "CIE_pointer": 28
+        },
+        {
+          "offset": 64,
+          "length": 28,
+          "CIE_pointer": 68
+        },
+        {
+          "offset": 96,
+          "length": 28,
+          "CIE_pointer": 100
+        },
+        {
+          "offset": 128,
+          "length": 28,
+          "CIE_pointer": 132
+        },
+        {
+          "offset": 160,
+          "length": 28,
+          "CIE_pointer": 164
+        },
+        {
+          "offset": 192,
+          "length": 28,
+          "CIE_pointer": 196
+        }
+      ]
+    }
+  },
+  "symbolic_link_offsets": {
+    "R": 49337,
+    "Q": 36473,
+    "Qrel": 7910,
+    "Trel": 546512,
+    "original_payload": 46235378,
+    "P": 1485
+  },
+  "fixed_generated_names": {
+    "occurrences": 285,
+    "NUL_bytes": 6020,
+    "maximum_bytes": 46
+  },
+  "fixed_generated_symbol_size_sum": 12701,
+  "fixed_input_delta_checked": true,
+  "historical_output_link_witness_used_explicit_no_plugin": false,
+  "output_Main_object_envelope_established_here": false,
+  "output_binder_compiler_lifetime_capacity_established_here": false,
+  "whole_output_link_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "current_library_semantic_limit_changed": false,
+  "native_executions": 0
+}

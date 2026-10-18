@@ -1,0 +1,56 @@
+[
+  {
+    "key": "options_identity",
+    "path": "docs/evidence/retained-native-options-20261018/identity.json",
+    "bytes": 17238,
+    "sha256": "44c508abdce497e6c4601a16122254f531dcabd354ee9985fe7b5496a4f41c6c"
+  },
+  {
+    "key": "options_results",
+    "path": "docs/evidence/retained-native-options-20261018/result.json",
+    "bytes": 5737,
+    "sha256": "65d1d0633fe1fcb664f232d0533c71a55fe560dc88566a61ae972dbf66e85390"
+  },
+  {
+    "key": "indexed_programs",
+    "path": "docs/evidence/indexed-main-20261018/programs.json",
+    "bytes": 1796,
+    "sha256": "04283302bb740b3bd5869047b09cf2205e452b9db98597cc31e462bdcfda80b8"
+  },
+  {
+    "key": "inventory",
+    "path": "docs/evidence/retained-link-inputs-20261018/inventory.json",
+    "bytes": 1404813,
+    "sha256": "2fafbbfb01202dc6bf06307d79155a3397cdb156f3cb4131eba8f17a784ec8a3"
+  },
+  {
+    "key": "null_join",
+    "path": "docs/evidence/retained-linker-join-20261018/result.json",
+    "bytes": 3474,
+    "sha256": "740d92666f469837acaefd8d06fd300e956bc7f463b86840a549619ad2fe5a7f"
+  },
+  {
+    "key": "null_binder",
+    "path": "docs/evidence/retained-linker-join-20261018/binder-object.json",
+    "bytes": 50410,
+    "sha256": "f1abbb0e5795ef2eb9277c5536d2bad7bfc325f0d9ab435629c6028945288b97"
+  },
+  {
+    "key": "fixed",
+    "path": "docs/evidence/retained-linker-layout-20261018/fixed-payload-results.json",
+    "bytes": 20310,
+    "sha256": "c0b09d6839e9da2a4c71ee25ff96eb24fd2827eea1c4daac918baff4c3d0e6c3"
+  },
+  {
+    "key": "indices",
+    "path": "docs/evidence/retained-linker-layout-20261018/section-index-results.json",
+    "bytes": 3620,
+    "sha256": "11bc877c5113ff5c8e3d672ef41e37fc5ca5b309b6188f24d8b348b80136cba9"
+  },
+  {
+    "key": "dynamic",
+    "path": "docs/evidence/retained-linker-dynamic-sections-20261018/join-results.json",
+    "bytes": 3124,
+    "sha256": "343800db633b1c38898d5dc25bad3f2355288f7aac85ffc78bc51b4345f9503b"
+  }
+]
