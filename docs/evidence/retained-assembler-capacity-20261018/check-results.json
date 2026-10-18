@@ -1,6 +1,6 @@
 {
   "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
-  "source_files_checked": 45,
+  "source_files_checked": 48,
   "scope": "conditional streaming-buffer, instruction and frame consumer transfers; not whole assembler capacity",
   "input_buffer": {
     "read_block_bytes": 32768,
@@ -120,6 +120,52 @@
     "largest_region_increment_count_per_section": 10,
     "maximum_assembler_line_bytes": "max(64,I+10)",
     "scope": "selected null unit payload/fragments; symbol, BFD and ELF metadata storage separate"
+  },
+  "selected_GAS_symbols_and_fixups": {
+    "GAS_symbol_creation_rows": {
+      "compiler_named_and_numeric_labels": 26,
+      "CFI_direct_temporary_expression_requests": 19,
+      "SFrame_direct_temporary_expression_requests": 27,
+      "GAS_section_symbols": 13,
+      "file_symbol": 1,
+      "size_current_location": 1,
+      "gasversion_startup": 1
+    },
+    "GAS_symbol_objects": 88,
+    "maximum_name_copy_bytes_including_NUL": 26,
+    "local_conversions_per_symbol_at_most": 1,
+    "BFD_symbol_allocations_through_GAS": 102,
+    "expression_location_records": 26,
+    "size_expression_objects": 1,
+    "selected_LP64_raw_request_upper_bytes": {
+      "full_symbol_and_xsymbol": 160,
+      "local_symbol": 64,
+      "converted_xsymbol": 96,
+      "ELF_BFD_symbol": 128,
+      "expression": 40,
+      "expression_location_record": 32,
+      "fixS": 128,
+      "arelent": 32,
+      "relocation_symbol_pointer": 8,
+      "build_note_reloc_list": 72
+    },
+    "fixS_objects": 279,
+    "maximum_fixup_field_bytes": 8,
+    "extra_build_note_reloc_list_objects": 2,
+    "maximum_relocation_pointer_slots": 281,
+    "maximum_relocation_pointer_array_bytes": 2248,
+    "maximum_symbol_pointer_array_bytes": 704,
+    "numeric_property_label_numbers": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "maximum_numeric_label_instances_each": 3,
+    "numeric_label_sparse_array_allocations": 0,
+    "later_BFD_generated_ELF_metadata_symbols_included": false,
+    "global_notes_obstack_or_allocator_storage_established": false
   },
   "compiler_runs": 0,
   "assembler_runs": 0,

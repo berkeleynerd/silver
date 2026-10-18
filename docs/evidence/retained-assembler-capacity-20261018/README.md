@@ -3,7 +3,7 @@
 2026-10-18, Linux x86_64, Refs #119. Supports the
 [source derivation](../../research/retained-assembler-capacity.md).
 
-`sources.tar.gz` retains 45 complete files from Binutils release commit
+`sources.tar.gz` retains 48 complete files from Binutils release commit
 `5e56594815854de5eca35c7c04b11705d0f19c02`. `source-manifest.json` records
 their byte counts, SHA256 identities and immutable retrieval URLs. The checker
 also matches the commit against the previously retained linker release-tag
@@ -33,6 +33,13 @@ line-length bound fits the initial scrub buffer. These are not ELF file size,
 whole assembler capacity, complete allocator storage or final relocation reach.
 Configuration can independently enable SFrame/property/build-note output;
 all three branches are charged.
+
+The symbol/fixup extension bounds GAS symbol objects by 88, BFD symbols
+allocated through GAS by 102, fixup objects by 279, and optional build-note
+relocations by two. Its selected LP64 raw request ceilings are separate from
+shared-obstack chunk storage. The largest relocation pointer array is 2248
+bytes and the GAS output symbol pointer array is 704 bytes. This excludes
+later BFD-generated ELF metadata symbols and final relocation reach.
 
 No compiler, assembler, linker, solver, Lean build, test suite or near-limit
 allocation ran for this evidence. Source retrieval, hashing and arithmetic

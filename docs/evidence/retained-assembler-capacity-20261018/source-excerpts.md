@@ -237,6 +237,32 @@ Literal LF line numbering.
 1447: }
 ```
 
+## gas/as.c:1368–1388
+
+```text
+1368:   symbol_begin ();
+1369:   frag_init ();
+1370:   subsegs_begin ();
+1371:   read_begin ();
+1372:   input_scrub_begin ();
+1373:   expr_begin ();
+1374:   eh_begin ();
+1375:
+1376:   macro_init ();
+1377:
+1378:   dwarf2_init ();
+1379:
+1380:   local_symbol_make (".gasversion.", absolute_section,
+1381:                      &predefined_address_frag, BFD_VERSION / 10000UL);
+1382:
+1383:   /* Note: Put new initialisation calls that don't depend on stdoutput
+1384:      being open above this point.  stdoutput must be open for anything
+1385:      that might use stdoutput objalloc memory, eg. calling bfd_alloc
+1386:      or creating global symbols (via bfd_make_empty_symbol).  */
+1387:   xatexit (output_file_close);
+1388:   output_file_create (out_file_name);
+```
+
 ## gas/as.h:140–147
 
 ```text
@@ -2226,6 +2252,83 @@ Literal LF line numbering.
 18762: }
 ```
 
+## gas/config/tc-i386.c:13331–13352
+
+```text
+13331: /* x86_cons_fix_new is called via the expression parsing code when a
+13332:    reloc is needed.  We use this hook to get the correct .got reloc.  */
+13333: static int cons_sign = -1;
+13334:
+13335: void
+13336: x86_cons_fix_new (fragS *frag, unsigned int off, unsigned int len,
+13337:                   expressionS *exp, bfd_reloc_code_real_type r)
+13338: {
+13339:   r = reloc (len, 0, cons_sign, r);
+13340:
+13341: #ifdef TE_PE
+13342:   if (exp->X_op == O_secrel)
+13343:     {
+13344:       exp->X_op = O_symbol;
+13345:       r = BFD_RELOC_32_SECREL;
+13346:     }
+13347:   else if (exp->X_op == O_secidx)
+13348:     r = BFD_RELOC_16_SECIDX;
+13349: #endif
+13350:
+13351:   fix_new_exp (frag, off, len, exp, 0, r);
+13352: }
+```
+
+## gas/config/tc-i386.c:18268–18284
+
+```text
+18268: md_undefined_symbol (char *name)
+18269: {
+18270:   if (name[0] == GLOBAL_OFFSET_TABLE_NAME[0]
+18271:       && name[1] == GLOBAL_OFFSET_TABLE_NAME[1]
+18272:       && name[2] == GLOBAL_OFFSET_TABLE_NAME[2]
+18273:       && strcmp (name, GLOBAL_OFFSET_TABLE_NAME) == 0)
+18274:     {
+18275:       if (!GOT_symbol)
+18276:         {
+18277:           if (symbol_find (name))
+18278:             as_bad (_("GOT already in symbol table"));
+18279:           GOT_symbol = symbol_new (name, undefined_section,
+18280:                                    &zero_address_frag, 0);
+18281:         };
+18282:       return GOT_symbol;
+18283:     }
+18284:   return NULL;
+```
+
+## gas/config/tc-i386.c:18617–18639
+
+```text
+18617:   if ((code == BFD_RELOC_32
+18618:        || code == BFD_RELOC_32_PCREL
+18619:        || code == BFD_RELOC_X86_64_32S)
+18620:       && GOT_symbol
+18621:       && fixp->fx_addsy == GOT_symbol)
+18622:     {
+18623:       if (!object_64bit)
+18624:         code = BFD_RELOC_386_GOTPC;
+18625:       else
+18626:         code = BFD_RELOC_X86_64_GOTPC32;
+18627:     }
+18628:   if ((code == BFD_RELOC_64 || code == BFD_RELOC_64_PCREL)
+18629:       && GOT_symbol
+18630:       && fixp->fx_addsy == GOT_symbol)
+18631:     {
+18632:       code = BFD_RELOC_X86_64_GOTPC64;
+18633:     }
+18634:
+18635:   rel = notes_alloc (sizeof (arelent));
+18636:   rel->sym_ptr_ptr = notes_alloc (sizeof (asymbol *));
+18637:   *rel->sym_ptr_ptr = symbol_get_bfdsym (fixp->fx_addsy);
+18638:
+18639:   rel->address = fixp->fx_frag->fr_address + fixp->fx_where;
+```
+
 ## gas/config/tc-i386.h:308–338
 
 ```text
@@ -2314,6 +2417,20 @@ Literal LF line numbering.
 386:   max_mem_for_rs_align_code (p2align, max)
 ```
 
+## gas/config/tc-i386.h:120–122
+
+```text
+120: #define TC_CONS_FIX_NEW(FRAG, OFF, LEN, EXP, RELOC)     \
+121:   x86_cons_fix_new(FRAG, OFF, LEN, EXP, RELOC)
+122: extern void x86_cons_fix_new
+```
+
+## gas/config/tc-i386.h:343–343
+
+```text
+343: #define WORKING_DOT_WORD 1
+```
+
 ## gas/symbols.c:251–286
 
 ```text
@@ -2382,6 +2499,610 @@ Literal LF line numbering.
 924: }
 ```
 
+## gas/symbols.c:35–172
+
+```text
+35: struct symbol_flags
+36: {
+37:   /* Whether the symbol is a local_symbol.  */
+38:   unsigned int local_symbol : 1;
+39:
+40:   /* Weather symbol has been written.  */
+41:   unsigned int written : 1;
+42:
+43:   /* Whether symbol value has been completely resolved (used during
+44:      final pass over symbol table).  */
+45:   unsigned int resolved : 1;
+46:
+47:   /* Whether the symbol value is currently being resolved (used to
+48:      detect loops in symbol dependencies).  */
+49:   unsigned int resolving : 1;
+50:
+51:   /* Whether the symbol value is used in a reloc.  This is used to
+52:      ensure that symbols used in relocs are written out, even if they
+53:      are local and would otherwise not be.  */
+54:   unsigned int used_in_reloc : 1;
+55:
+56:   /* Whether the symbol is used as an operand or in an expression.
+57:      NOTE:  Not all the backends keep this information accurate;
+58:      backends which use this bit are responsible for setting it when
+59:      a symbol is used in backend routines.  */
+60:   unsigned int used : 1;
+61:
+62:   /* Whether the symbol can be re-defined.  */
+63:   unsigned int volatil : 1;
+64:
+65:   /* Whether the symbol is a forward reference, and whether such has
+66:      been determined.  */
+67:   unsigned int forward_ref : 1;
+68:   unsigned int forward_resolved : 1;
+69:
+70:   /* This is set if the symbol is defined in an MRI common section.
+71:      We handle such sections as single common symbols, so symbols
+72:      defined within them must be treated specially by the relocation
+73:      routines.  */
+74:   unsigned int mri_common : 1;
+75:
+76:   /* This is set if the symbol is set with a .weakref directive.  */
+77:   unsigned int weakrefr : 1;
+78:
+79:   /* This is set when the symbol is referenced as part of a .weakref
+80:      directive, but only if the symbol was not in the symbol table
+81:      before.  It is cleared as soon as any direct reference to the
+82:      symbol is present.  */
+83:   unsigned int weakrefd : 1;
+84:
+85:   /* Whether the symbol has been marked to be removed by a .symver
+86:      directive.  */
+87:   unsigned int removed : 1;
+88:
+89:   /* Set when a warning about the symbol containing multibyte characters
+90:      is generated.  */
+91:   unsigned int multibyte_warned : 1;
+92: };
+93:
+94: /* A pointer in the symbol may point to either a complete symbol
+95:    (struct symbol below) or to a local symbol (struct local_symbol
+96:    defined here).  The symbol code can detect the case by examining
+97:    the first field which is present in both structs.
+98:
+99:    We do this because we ordinarily only need a small amount of
+100:    information for a local symbol.  The symbol table takes up a lot of
+101:    space, and storing less information for a local symbol can make a
+102:    big difference in assembler memory usage when assembling a large
+103:    file.  */
+104:
+105: struct local_symbol
+106: {
+107:   /* Symbol flags.  Only local_symbol and resolved are relevant.  */
+108:   struct symbol_flags flags;
+109:
+110:   /* Hash value calculated from name.  */
+111:   hashval_t hash;
+112:
+113:   /* The symbol name.  */
+114:   const char *name;
+115:
+116:   /* The symbol frag.  */
+117:   fragS *frag;
+118:
+119:   /* The symbol section.  */
+120:   asection *section;
+121:
+122:   /* The value of the symbol.  */
+123:   valueT value;
+124: };
+125:
+126: /* The information we keep for a symbol.  The symbol table holds
+127:    pointers both to this and to local_symbol structures.  The first
+128:    three fields must be identical to struct local_symbol, and the size
+129:    should be the same as or smaller than struct local_symbol.
+130:    Fields that don't fit go to an extension structure.  */
+131:
+132: struct symbol
+133: {
+134:   /* Symbol flags.  */
+135:   struct symbol_flags flags;
+136:
+137:   /* Hash value calculated from name.  */
+138:   hashval_t hash;
+139:
+140:   /* The symbol name.  */
+141:   const char *name;
+142:
+143:   /* Pointer to the frag this symbol is attached to, if any.
+144:      Otherwise, NULL.  */
+145:   fragS *frag;
+146:
+147:   /* BFD symbol */
+148:   asymbol *bsym;
+149:
+150:   /* Extra symbol fields that won't fit.  */
+151:   struct xsymbol *x;
+152: };
+153:
+154: /* Extra fields to make up a full symbol.  */
+155:
+156: struct xsymbol
+157: {
+158:   /* The value of the symbol.  */
+159:   expressionS value;
+160:
+161:   /* Forwards and backwards chain pointers.  */
+162:   struct symbol *next;
+163:   struct symbol *previous;
+164:
+165: #ifdef OBJ_SYMFIELD_TYPE
+166:   OBJ_SYMFIELD_TYPE obj;
+167: #endif
+168:
+169: #ifdef TC_SYMFIELD_TYPE
+170:   TC_SYMFIELD_TYPE tc;
+171: #endif
+172: };
+```
+
+## gas/symbols.c:330–424
+
+```text
+330: symbolS *
+331: symbol_new (const char *name, segT segment, fragS *frag, valueT valu)
+332: {
+333:   symbolS *symbolP = symbol_create (name, segment, frag, valu);
+334:
+335:   /* Link to end of symbol chain.  */
+336:   symbol_append (symbolP, symbol_lastP, &symbol_rootP, &symbol_lastP);
+337:
+338:   return symbolP;
+339: }
+340:
+341: /* Save a symbol name on a permanent obstack, and convert it according
+342:    to the object file format.  */
+343:
+344: static const char *
+345: save_symbol_name (const char *name)
+346: {
+347:   char *ret;
+348:
+349:   gas_assert (name != NULL);
+350:   ret = notes_strdup (name);
+351:
+352: #ifdef tc_canonicalize_symbol_name
+353:   ret = tc_canonicalize_symbol_name (ret);
+354: #endif
+355:
+356:   if (! symbols_case_sensitive)
+357:     {
+358:       char *s;
+359:
+360:       for (s = ret; *s != '\0'; s++)
+361:         *s = TOUPPER (*s);
+362:     }
+363:
+364:   return ret;
+365: }
+366:
+367: static void
+368: symbol_init (symbolS *symbolP, const char *name, asection *sec,
+369:              fragS *frag, valueT valu)
+370: {
+371:   symbolP->frag = frag;
+372:   symbolP->bsym = bfd_make_empty_symbol (stdoutput);
+373:   if (symbolP->bsym == NULL)
+374:     as_fatal ("bfd_make_empty_symbol: %s", bfd_errmsg (bfd_get_error ()));
+375:   symbolP->bsym->name = name;
+376:   symbolP->bsym->section = sec;
+377:
+378:   if (multibyte_handling == multibyte_warn_syms
+379:       && ! symbolP->flags.local_symbol
+380:       && sec != undefined_section
+381:       && ! symbolP->flags.multibyte_warned
+382:       && scan_for_multibyte_characters ((const unsigned char *) name,
+383:                                         (const unsigned char *) name + strlen (name),
+384:                                         false /* Do not warn.  */))
+385:     {
+386:       as_warn (_("symbol '%s' contains multibyte characters"), name);
+387:       symbolP->flags.multibyte_warned = 1;
+388:     }
+389:
+390:   S_SET_VALUE (symbolP, valu);
+391:   if (sec == reg_section)
+392:     symbolP->x->value.X_op = O_register;
+393:
+394:   symbol_clear_list_pointers (symbolP);
+395:
+396:   obj_symbol_new_hook (symbolP);
+397:
+398: #ifdef tc_symbol_new_hook
+399:   tc_symbol_new_hook (symbolP);
+400: #endif
+401: }
+402:
+403: /* Create a symbol.  NAME is copied, the caller can destroy/modify.  */
+404:
+405: symbolS *
+406: symbol_create (const char *name, segT segment, fragS *frag, valueT valu)
+407: {
+408:   const char *preserved_copy_of_name;
+409:   symbolS *symbolP;
+410:   size_t size;
+411:
+412:   preserved_copy_of_name = save_symbol_name (name);
+413:
+414:   size = sizeof (symbolS) + sizeof (struct xsymbol);
+415:   symbolP = notes_alloc (size);
+416:
+417:   /* symbol must be born in some fixed state.  This seems as good as any.  */
+418:   memset (symbolP, 0, size);
+419:   symbolP->name = preserved_copy_of_name;
+420:   symbolP->x = (struct xsymbol *) (symbolP + 1);
+421:
+422:   symbol_init (symbolP, preserved_copy_of_name, segment, frag, valu);
+423:
+424:   return symbolP;
+```
+
+## gas/symbols.c:439–487
+
+```text
+439: local_symbol_make (const char *name, segT section, fragS *frag, valueT val)
+440: {
+441:   const char *name_copy;
+442:   struct local_symbol *ret;
+443:   struct symbol_flags flags = { .local_symbol = 1, .resolved = 0 };
+444:
+445:   ++local_symbol_count;
+446:
+447:   name_copy = save_symbol_name (name);
+448:
+449:   ret = notes_alloc (sizeof *ret);
+450:   ret->flags = flags;
+451:   ret->hash = 0;
+452:   ret->name = name_copy;
+453:   ret->frag = frag;
+454:   ret->section = section;
+455:   ret->value = val;
+456:
+457:   htab_insert (sy_hash, ret, 1);
+458:
+459:   return ret;
+460: }
+461:
+462: /* Convert a local symbol into a real symbol.  */
+463:
+464: static symbolS *
+465: local_symbol_convert (void *sym)
+466: {
+467:   symbol_entry_t *ent = sym;
+468:   struct xsymbol *xtra;
+469:   valueT val;
+470:
+471:   gas_assert (ent->lsy.flags.local_symbol);
+472:
+473:   ++local_symbol_conversion_count;
+474:
+475:   xtra = notes_alloc (sizeof (*xtra));
+476:   memset (xtra, 0, sizeof (*xtra));
+477:   val = ent->lsy.value;
+478:   ent->sy.x = xtra;
+479:
+480:   /* Local symbols are always either defined or used.  */
+481:   ent->sy.flags.used = 1;
+482:   ent->sy.flags.local_symbol = 0;
+483:
+484:   symbol_init (&ent->sy, ent->lsy.name, ent->lsy.section, ent->lsy.frag, val);
+485:   symbol_append (&ent->sy, symbol_lastP, &symbol_rootP, &symbol_lastP);
+486:
+487:   return &ent->sy;
+```
+
+## gas/symbols.c:659–683
+
+```text
+659:       else
+660:         {
+661:           /* Don't blow up if the definition is the same.  */
+662:           if (!(frag_now == symbolP->frag
+663:                 && S_GET_VALUE (symbolP) == frag_now_fix ()
+664:                 && S_GET_SEGMENT (symbolP) == now_seg))
+665:             {
+666:               as_bad (_("symbol `%s' is already defined"), sym_name);
+667:               symbolP = symbol_clone (symbolP, 0);
+668:               define_sym_at_dot (symbolP);
+669:             }
+670:         }
+671:
+672:     }
+673:   else if (! flag_keep_locals && bfd_is_local_label_name (stdoutput, sym_name))
+674:     {
+675:       symbolP = (symbolS *) local_symbol_make (sym_name, now_seg, frag_now,
+676:                                                frag_now_fix ());
+677:     }
+678:   else
+679:     {
+680:       symbolP = symbol_new (sym_name, now_seg, frag_now, frag_now_fix ());
+681:
+682:       symbol_table_insert (symbolP);
+683:     }
+```
+
+## gas/symbols.c:730–761
+
+```text
+730:
+731:   if (symbolP == NULL)
+732:     {
+733:       if (! flag_keep_locals && bfd_is_local_label_name (stdoutput, name))
+734:         {
+735:           symbolP = md_undefined_symbol ((char *) name);
+736:           if (symbolP != NULL)
+737:             return symbolP;
+738:
+739:           symbolP = (symbolS *) local_symbol_make (name, undefined_section,
+740:                                                    &zero_address_frag, 0);
+741:           return symbolP;
+742:         }
+743:
+744:       symbolP = symbol_make (name);
+745:
+746:       symbol_table_insert (symbolP);
+747:     }                           /* if symbol wasn't found */
+748:
+749:   return symbolP;
+750: }
+751:
+752: symbolS *
+753: symbol_make (const char *name)
+754: {
+755:   symbolS *symbolP;
+756:
+757:   /* Let the machine description default it, e.g. for register names.  */
+758:   symbolP = md_undefined_symbol ((char *) name);
+759:
+760:   if (!symbolP)
+761:     symbolP = symbol_new (name, undefined_section, &zero_address_frag, 0);
+```
+
+## gas/symbols.c:839–897
+
+```text
+839: symbol_clone_if_forward_ref (symbolS *symbolP, int is_forward)
+840: {
+841:   if (symbolP
+842:       && !symbolP->flags.local_symbol
+843:       && !symbolP->flags.forward_resolved)
+844:     {
+845:       symbolS *orig_add_symbol = symbolP->x->value.X_add_symbol;
+846:       symbolS *orig_op_symbol = symbolP->x->value.X_op_symbol;
+847:       symbolS *add_symbol = orig_add_symbol;
+848:       symbolS *op_symbol = orig_op_symbol;
+849:
+850:       if (symbolP->flags.forward_ref)
+851:         is_forward = 1;
+852:
+853:       if (is_forward)
+854:         {
+855:           /* assign_symbol() clones volatile symbols; pre-existing expressions
+856:              hold references to the original instance, but want the current
+857:              value.  Just repeat the lookup.  */
+858:           if (add_symbol && S_IS_VOLATILE (add_symbol))
+859:             add_symbol = symbol_find_exact (S_GET_NAME (add_symbol));
+860:           if (op_symbol && S_IS_VOLATILE (op_symbol))
+861:             op_symbol = symbol_find_exact (S_GET_NAME (op_symbol));
+862:         }
+863:
+864:       /* Re-using resolving here, as this routine cannot get called from
+865:          symbol resolution code.  */
+866:       if ((symbolP->bsym->section == expr_section
+867:            || symbolP->flags.forward_ref)
+868:           && !symbolP->flags.resolving)
+869:         {
+870:           symbolP->flags.resolving = 1;
+871:           add_symbol = symbol_clone_if_forward_ref (add_symbol, is_forward);
+872:           op_symbol = symbol_clone_if_forward_ref (op_symbol, is_forward);
+873:           symbolP->flags.resolving = 0;
+874:         }
+875:
+876:       if (symbolP->flags.forward_ref
+877:           || add_symbol != orig_add_symbol
+878:           || op_symbol != orig_op_symbol)
+879:         {
+880:           if (symbolP != &dot_symbol)
+881:             {
+882:               symbolP = symbol_clone (symbolP, 0);
+883:               symbolP->flags.resolving = 0;
+884:             }
+885:           else
+886:             {
+887:               symbolP = symbol_temp_new_now ();
+888: #ifdef tc_new_dot_label
+889:               tc_new_dot_label (symbolP);
+890: #endif
+891:             }
+892:         }
+893:
+894:       symbolP->x->value.X_add_symbol = add_symbol;
+895:       symbolP->x->value.X_op_symbol = op_symbol;
+896:       symbolP->flags.forward_resolved = 1;
+897:     }
+```
+
+## gas/symbols.c:2037–2165
+
+```text
+2037:    entire assembly, not one set per (sub)segment like in most assemblers. This
+2038:    implies that one can refer to a label in another segment, and indeed some
+2039:    crufty compilers have done just that.
+2040:
+2041:    Since there could be a LOT of these things, treat them as a sparse
+2042:    array.  */
+2043:
+2044: #define FB_LABEL_SPECIAL (10)
+2045:
+2046: typedef unsigned int fb_ent;
+2047: static fb_ent fb_low_counter[FB_LABEL_SPECIAL];
+2048: static fb_ent *fb_labels;
+2049: static fb_ent *fb_label_instances;
+2050: static size_t fb_label_count;
+2051: static size_t fb_label_max;
+2052:
+2053: /* This must be more than FB_LABEL_SPECIAL.  */
+2054: #define FB_LABEL_BUMP_BY (FB_LABEL_SPECIAL + 6)
+2055:
+2056: static void
+2057: fb_label_init (void)
+2058: {
+2059:   memset (fb_low_counter, 0, sizeof (fb_low_counter));
+2060: }
+2061:
+2062: /* Add one to the instance number of this fb label.  */
+2063:
+2064: void
+2065: fb_label_instance_inc (unsigned int label)
+2066: {
+2067:   fb_ent *i;
+2068:
+2069:   if (label < FB_LABEL_SPECIAL)
+2070:     {
+2071:       ++fb_low_counter[label];
+2072:       return;
+2073:     }
+2074:
+2075:   if (fb_labels != NULL)
+2076:     {
+2077:       for (i = fb_labels + FB_LABEL_SPECIAL;
+2078:            i < fb_labels + fb_label_count; ++i)
+2079:         {
+2080:           if (*i == label)
+2081:             {
+2082:               ++fb_label_instances[i - fb_labels];
+2083:               return;
+2084:             }                   /* if we find it  */
+2085:         }                       /* for each existing label  */
+2086:     }
+2087:
+2088:   /* If we get to here, we don't have label listed yet.  */
+2089:
+2090:   if (fb_labels == NULL)
+2091:     {
+2092:       fb_labels = XNEWVEC (fb_ent, FB_LABEL_BUMP_BY);
+2093:       fb_label_instances = XNEWVEC (fb_ent, FB_LABEL_BUMP_BY);
+2094:       fb_label_max = FB_LABEL_BUMP_BY;
+2095:       fb_label_count = FB_LABEL_SPECIAL;
+2096:
+2097:     }
+2098:   else if (fb_label_count == fb_label_max)
+2099:     {
+2100:       fb_label_max += FB_LABEL_BUMP_BY;
+2101:       fb_labels = XRESIZEVEC (fb_ent, fb_labels, fb_label_max);
+2102:       fb_label_instances = XRESIZEVEC (fb_ent, fb_label_instances,
+2103:                                        fb_label_max);
+2104:     }                           /* if we needed to grow  */
+2105:
+2106:   fb_labels[fb_label_count] = label;
+2107:   fb_label_instances[fb_label_count] = 1;
+2108:   ++fb_label_count;
+2109: }
+2110:
+2111: static unsigned int
+2112: fb_label_instance (unsigned int label)
+2113: {
+2114:   fb_ent *i;
+2115:
+2116:   if (label < FB_LABEL_SPECIAL)
+2117:     return (fb_low_counter[label]);
+2118:
+2119:   if (fb_labels != NULL)
+2120:     {
+2121:       for (i = fb_labels + FB_LABEL_SPECIAL;
+2122:            i < fb_labels + fb_label_count; ++i)
+2123:         {
+2124:           if (*i == label)
+2125:             return (fb_label_instances[i - fb_labels]);
+2126:         }
+2127:     }
+2128:
+2129:   /* We didn't find the label, so this must be a reference to the
+2130:      first instance.  */
+2131:   return 0;
+2132: }
+2133:
+2134: /* Caller must copy returned name: we re-use the area for the next name.
+2135:
+2136:    The mth occurrence of label n: is turned into the symbol "Ln^Bm"
+2137:    where n is the label number and m is the instance number. "L" makes
+2138:    it a label discarded unless debugging and "^B"('\2') ensures no
+2139:    ordinary symbol SHOULD get the same name as a local label
+2140:    symbol. The first "4:" is "L4^B1" - the m numbers begin at 1.
+2141:
+2142:    dollar labels get the same treatment, except that ^A is used in
+2143:    place of ^B.
+2144:
+2145:    AUGEND is 0 for nb, 1 for n:, nf.  */
+2146:
+2147: char *
+2148: fb_label_name (unsigned int n, unsigned int augend)
+2149: {
+2150:   /* Returned to caller, then copied.  Used for created names ("4f").  */
+2151:   static char symbol_name_build[24];
+2152:   char *p = symbol_name_build;
+2153:
+2154: #ifdef TC_MMIX
+2155:   know (augend <= 2 /* See mmix_fb_label.  */);
+2156: #else
+2157:   know (augend <= 1);
+2158: #endif
+2159:
+2160: #ifdef LOCAL_LABEL_PREFIX
+2161:   *p++ = LOCAL_LABEL_PREFIX;
+2162: #endif
+2163:   sprintf (p, "L%u%c%u",
+2164:            n, LOCAL_LABEL_CHAR, fb_label_instance (n) + augend);
+2165:   return symbol_name_build;
+```
+
+## gas/symbols.c:3131–3167
+
+```text
+3131: void
+3132: symbol_begin (void)
+3133: {
+3134:   symbol_lastP = NULL;
+3135:   symbol_rootP = NULL;          /* In case we have 0 symbols (!!)  */
+3136:   sy_hash = htab_create_alloc (1024, hash_symbol_entry, eq_symbol_entry,
+3137:                                NULL, xcalloc, free);
+3138:
+3139: #if defined (EMIT_SECTION_SYMBOLS) || !defined (RELOC_REQUIRES_SYMBOL)
+3140:   abs_symbol.bsym = bfd_abs_section_ptr->symbol;
+3141: #endif
+3142:   abs_symbol.x = &abs_symbol_x;
+3143:   abs_symbol.x->value.X_op = O_constant;
+3144:   abs_symbol.frag = &zero_address_frag;
+3145:
+3146:   if (LOCAL_LABELS_FB)
+3147:     fb_label_init ();
+3148: }
+3149:
+3150: void
+3151: symbol_end (void)
+3152: {
+3153:   htab_delete (sy_hash);
+3154: }
+3155:
+3156: void
+3157: dot_symbol_init (void)
+3158: {
+3159:   dot_symbol.name = ".";
+3160:   dot_symbol.flags.forward_ref = 1;
+3161:   dot_symbol.bsym = bfd_make_empty_symbol (stdoutput);
+3162:   if (dot_symbol.bsym == NULL)
+3163:     as_fatal ("bfd_make_empty_symbol: %s", bfd_errmsg (bfd_get_error ()));
+3164:   dot_symbol.bsym->name = ".";
+3165:   dot_symbol.x = &dot_symbol_x;
+3166:   dot_symbol.x->value.X_op = O_constant;
+3167: }
+```
+
 ## gas/expr.c:57–100
 
 ```text
@@ -2429,6 +3150,142 @@ Literal LF line numbering.
 98:   expr_symbol_lines = n;
 99:
 100:   return symbolP;
+```
+
+## gas/expr.c:38–100
+
+```text
+38: /* We keep a mapping of expression symbols to file positions, so that
+39:    we can provide better error messages.  */
+40:
+41: struct expr_symbol_line {
+42:   struct expr_symbol_line *next;
+43:   symbolS *sym;
+44:   const char *file;
+45:   unsigned int line;
+46: };
+47:
+48: static struct expr_symbol_line *expr_symbol_lines;
+49:
+50: static const expressionS zero = { .X_op = O_constant };
+51:
+52: /* Build a dummy symbol to hold a complex expression.  This is how we
+53:    build expressions up out of other expressions.  The symbol is put
+54:    into the fake section expr_section.  */
+55:
+56: symbolS *
+57: make_expr_symbol (const expressionS *expressionP)
+58: {
+59:   symbolS *symbolP;
+60:   struct expr_symbol_line *n;
+61:
+62:   if (expressionP->X_op == O_symbol
+63:       && expressionP->X_add_number == 0)
+64:     return expressionP->X_add_symbol;
+65:
+66:   if (expressionP->X_op == O_big)
+67:     {
+68:       /* This won't work, because the actual value is stored in
+69:          generic_floating_point_number or generic_bignum, and we are
+70:          going to lose it if we haven't already.  */
+71:       if (expressionP->X_add_number > 0)
+72:         as_bad (_("bignum invalid"));
+73:       else
+74:         as_bad (_("floating point number invalid"));
+75:       expressionP = &zero;
+76:     }
+77:
+78:   /* Putting constant symbols in absolute_section rather than
+79:      expr_section is convenient for the old a.out code, for which
+80:      S_GET_SEGMENT does not always retrieve the value put in by
+81:      S_SET_SEGMENT.  */
+82:   symbolP = symbol_create (FAKE_LABEL_NAME,
+83:                            (expressionP->X_op == O_constant
+84:                             ? absolute_section
+85:                             : expressionP->X_op == O_register
+86:                               ? reg_section
+87:                               : expr_section),
+88:                            &zero_address_frag, 0);
+89:   symbol_set_value_expression (symbolP, expressionP);
+90:
+91:   if (expressionP->X_op == O_constant)
+92:     resolve_symbol_value (symbolP);
+93:
+94:   n = notes_alloc (sizeof (*n));
+95:   n->sym = symbolP;
+96:   n->file = as_where (&n->line);
+97:   n->next = expr_symbol_lines;
+98:   expr_symbol_lines = n;
+99:
+100:   return symbolP;
+```
+
+## gas/expr.c:729–750
+
+```text
+729: void
+730: current_location (expressionS *expressionp, enum expr_mode mode)
+731: {
+732:   if (now_seg == absolute_section)
+733:     {
+734:       expressionp->X_op = O_constant;
+735:       expressionp->X_add_number = abs_section_offset;
+736:     }
+737:   else
+738:     {
+739:       expressionp->X_op = O_symbol;
+740:       if (mode != expr_defer_incl_dot)
+741:         {
+742:           expressionp->X_add_symbol = symbol_temp_new_now ();
+743: #ifdef tc_new_dot_label
+744:           tc_new_dot_label (expressionp->X_add_symbol);
+745: #endif
+746:         }
+747:       else
+748:           expressionp->X_add_symbol = &dot_symbol;
+749:       expressionp->X_add_number = 0;
+750:     }
+```
+
+## gas/expr.c:2108–2143
+
+```text
+2108:       else if (resultP->X_op == O_symbol
+2109:                && right.X_op == O_symbol
+2110:                && (op_left == O_add
+2111:                    || op_left == O_subtract
+2112:                    || (resultP->X_add_number == 0
+2113:                        && right.X_add_number == 0)))
+2114:         {
+2115:           /* Symbol OP symbol.  */
+2116:           resultP->X_op = op_left;
+2117:           resultP->X_op_symbol = right.X_add_symbol;
+2118:           if (op_left == O_add)
+2119:             add_to_result (resultP, right.X_add_number, right.X_extrabit);
+2120:           else if (op_left == O_subtract)
+2121:             {
+2122:               subtract_from_result (resultP, right.X_add_number,
+2123:                                     right.X_extrabit);
+2124:               if (retval == rightseg
+2125:                   && SEG_NORMAL (retval)
+2126:                   && !S_FORCE_RELOC (resultP->X_add_symbol, 0)
+2127:                   && !S_FORCE_RELOC (right.X_add_symbol, 0))
+2128:                 {
+2129:                   retval = absolute_section;
+2130:                   rightseg = absolute_section;
+2131:                 }
+2132:             }
+2133:         }
+2134:       else
+2135:         {
+2136:         general:
+2137:           /* The general case.  */
+2138:           resultP->X_add_symbol = make_expr_symbol (resultP);
+2139:           resultP->X_op_symbol = make_expr_symbol (&right);
+2140:           resultP->X_op = op_left;
+2141:           resultP->X_add_number = 0;
+2142:           resultP->X_extrabit = 0;
+2143:         }
 ```
 
 ## gas/frags.c:28–41
@@ -2830,6 +3687,58 @@ Literal LF line numbering.
 153:     }
 ```
 
+## gas/subsegs.c:235–281
+
+```text
+235: symbolS *
+236: section_symbol (segT sec)
+237: {
+238:   segment_info_type *seginfo = seg_info (sec);
+239:   symbolS *s;
+240:
+241:   if (seginfo == 0)
+242:     abort ();
+243:   if (seginfo->sym)
+244:     return seginfo->sym;
+245:
+246: #ifndef EMIT_SECTION_SYMBOLS
+247: #define EMIT_SECTION_SYMBOLS 1
+248: #endif
+249:
+250:   if (! EMIT_SECTION_SYMBOLS || symbol_table_frozen)
+251:     {
+252:       /* Here we know it won't be going into the symbol table.  */
+253:       s = symbol_create (sec->symbol->name, sec, &zero_address_frag, 0);
+254:     }
+255:   else
+256:     {
+257:       segT seg;
+258:       s = symbol_find (sec->symbol->name);
+259:       /* We have to make sure it is the right symbol when we
+260:          have multiple sections with the same section name.  */
+261:       if (s == NULL
+262:           || ((seg = S_GET_SEGMENT (s)) != sec
+263:               && seg != undefined_section))
+264:         s = symbol_new (sec->symbol->name, sec, &zero_address_frag, 0);
+265:       else if (seg == undefined_section)
+266:         {
+267:           S_SET_SEGMENT (s, sec);
+268:           symbol_set_frag (s, &zero_address_frag);
+269:         }
+270:     }
+271:
+272:   S_CLEAR_EXTERNAL (s);
+273:
+274:   /* Use the BFD section symbol, if possible.  */
+275:   if (obj_sec_sym_ok_for_reloc (sec))
+276:     symbol_set_bfdsym (s, sec->symbol);
+277:   else
+278:     symbol_get_bfdsym (s)->flags |= BSF_SECTION_SYM;
+279:
+280:   seginfo->sym = s;
+281:   return s;
+```
+
 ## gas/read.c:4547–4559
 
 ```text
@@ -2994,6 +3903,85 @@ Literal LF line numbering.
 6081:
 6082: #if !defined(NO_LISTING) && defined (OBJ_ELF)
 6083:           /* In ELF, when gcc is emitting DWARF 1 debugging output, it
+```
+
+## gas/read.c:3366–3385
+
+```text
+3366:         {
+3367:           as_bad (_("symbol `%s' is already defined"), name);
+3368:           ignore_rest_of_line ();
+3369:           input_line_pointer--;
+3370:           return;
+3371:         }
+3372:       /* If the symbol is volatile, copy the symbol and replace the
+3373:          original with the copy, so that previous uses of the symbol will
+3374:          retain the value of the symbol at the point of use.  */
+3375:       else if (S_IS_VOLATILE (symbolP))
+3376:         symbolP = symbol_clone (symbolP, 1);
+3377:       S_CLEAR_WEAKREFR (symbolP);
+3378:     }
+3379:
+3380:   if (mode == 0)
+3381:     S_SET_VOLATILE (symbolP);
+3382:   else if (mode < 0)
+3383:     S_SET_FORWARD_REF (symbolP);
+3384:
+3385:   pseudo_set (symbolP);
+```
+
+## gas/read.c:4868–4916
+
+```text
+4868:   /* Generate a fixS to record the symbol value.  */
+4869:
+4870: #ifdef TC_CONS_FIX_NEW
+4871:   TC_CONS_FIX_NEW (frag, p - frag->fr_literal + offset, size, exp, r);
+4872: #else
+4873:   if (r != TC_PARSE_CONS_RETURN_NONE)
+4874:     {
+4875:       reloc_howto_type *reloc_howto;
+4876:
+4877:       reloc_howto = bfd_reloc_type_lookup (stdoutput, r);
+4878:       size = bfd_get_reloc_size (reloc_howto);
+4879:
+4880:       if (size > nbytes)
+4881:         {
+4882:           as_bad (ngettext ("%s relocations do not fit in %u byte",
+4883:                             "%s relocations do not fit in %u bytes",
+4884:                             nbytes),
+4885:                   reloc_howto->name, nbytes);
+4886:           return;
+4887:         }
+4888:       else if (target_big_endian)
+4889:         offset = nbytes - size;
+4890:     }
+4891:   else
+4892:     switch (size)
+4893:       {
+4894:       case 1:
+4895:         r = BFD_RELOC_8;
+4896:         break;
+4897:       case 2:
+4898:         r = BFD_RELOC_16;
+4899:         break;
+4900:       case 3:
+4901:         r = BFD_RELOC_24;
+4902:         break;
+4903:       case 4:
+4904:         r = BFD_RELOC_32;
+4905:         break;
+4906:       case 8:
+4907:         r = BFD_RELOC_64;
+4908:         break;
+4909:       default:
+4910:         as_bad (_("unsupported BFD relocation size %u"), size);
+4911:         return;
+4912:       }
+4913:   fix_new_exp (frag, p - frag->fr_literal + offset, size,
+4914:                exp, 0, r);
+4915: #endif
+4916: }
 ```
 
 ## gas/write.c:2681–2784
@@ -3351,6 +4339,518 @@ Literal LF line numbering.
 2144:   }
 2145:
 2146:   bfd_map_over_sections (stdoutput, chain_frchains_together, NULL);
+```
+
+## gas/write.c:129–215
+
+```text
+129: static unsigned int n_fixups;
+130:
+131: #define RELOC_ENUM enum bfd_reloc_code_real
+132:
+133: /* Create a fixS in obstack 'notes'.  */
+134:
+135: static fixS *
+136: fix_new_internal (fragS *frag,          /* Which frag?  */
+137:                   unsigned long where,  /* Where in that frag?  */
+138:                   unsigned long size,   /* 1, 2, or 4 usually.  */
+139:                   symbolS *add_symbol,  /* X_add_symbol.  */
+140:                   symbolS *sub_symbol,  /* X_op_symbol.  */
+141:                   offsetT offset,       /* X_add_number.  */
+142:                   int pcrel,            /* TRUE if PC-relative relocation.  */
+143:                   RELOC_ENUM r_type     /* Relocation type.  */,
+144:                   int at_beginning)     /* Add to the start of the list?  */
+145: {
+146:   fixS *fixP;
+147:
+148:   n_fixups++;
+149:
+150:   fixP = obstack_alloc (&notes, sizeof (fixS));
+151:
+152:   fixP->fx_frag = frag;
+153:   fixP->fx_where = where;
+154:   fixP->fx_size = size;
+155:   /* We've made fx_size a narrow field; check that it's wide enough.  */
+156:   if (fixP->fx_size != size)
+157:     {
+158:       as_bad (_("field fx_size too small to hold %lu"), size);
+159:       abort ();
+160:     }
+161:   fixP->fx_addsy = add_symbol;
+162:   fixP->fx_subsy = sub_symbol;
+163:   fixP->fx_offset = offset;
+164:   fixP->fx_dot_frag = symbol_get_frag_and_value (&dot_symbol,
+165:                                                  &fixP->fx_dot_value);
+166:   fixP->fx_pcrel = pcrel;
+167:   fixP->fx_r_type = r_type;
+168:   fixP->fx_pcrel_adjust = 0;
+169:   fixP->fx_addnumber = 0;
+170:   fixP->fx_tcbit = 0;
+171:   fixP->fx_tcbit2 = 0;
+172:   fixP->fx_tcbit3 = 0;
+173:   fixP->fx_done = 0;
+174:   fixP->fx_no_overflow = 0;
+175:   fixP->fx_signed = 0;
+176:
+177: #ifdef USING_CGEN
+178:   fixP->fx_cgen.insn = NULL;
+179:   fixP->fx_cgen.opinfo = 0;
+180: #endif
+181:
+182: #ifdef TC_FIX_TYPE
+183:   TC_INIT_FIX_DATA (fixP);
+184: #endif
+185:
+186:   fixP->fx_file = as_where (&fixP->fx_line);
+187:
+188:   {
+189:
+190:     fixS **seg_fix_rootP = (frags_chained
+191:                             ? &seg_info (now_seg)->fix_root
+192:                             : &frchain_now->fix_root);
+193:     fixS **seg_fix_tailP = (frags_chained
+194:                             ? &seg_info (now_seg)->fix_tail
+195:                             : &frchain_now->fix_tail);
+196:
+197:     if (at_beginning)
+198:       {
+199:         fixP->fx_next = *seg_fix_rootP;
+200:         *seg_fix_rootP = fixP;
+201:         if (fixP->fx_next == NULL)
+202:           *seg_fix_tailP = fixP;
+203:       }
+204:     else
+205:       {
+206:         fixP->fx_next = NULL;
+207:         if (*seg_fix_tailP)
+208:           (*seg_fix_tailP)->fx_next = fixP;
+209:         else
+210:           *seg_fix_rootP = fixP;
+211:         *seg_fix_tailP = fixP;
+212:       }
+213:   }
+214:
+215:   return fixP;
+```
+
+## gas/write.c:238–287
+
+```text
+238: fix_new_exp (fragS *frag,               /* Which frag?  */
+239:              unsigned long where,       /* Where in that frag?  */
+240:              unsigned long size,        /* 1, 2, or 4 usually.  */
+241:              const expressionS *exp,    /* Expression.  */
+242:              int pcrel,                 /* TRUE if PC-relative relocation.  */
+243:              RELOC_ENUM r_type          /* Relocation type.  */)
+244: {
+245:   symbolS *add = NULL;
+246:   symbolS *sub = NULL;
+247:   offsetT off = 0;
+248:
+249:   switch (exp->X_op)
+250:     {
+251:     case O_absent:
+252:       break;
+253:
+254:     case O_register:
+255:       as_bad (_("register value used as expression"));
+256:       break;
+257:
+258:     case O_symbol_rva:
+259:       add = exp->X_add_symbol;
+260:       off = exp->X_add_number;
+261:       r_type = BFD_RELOC_RVA;
+262:       break;
+263:
+264:     case O_uminus:
+265:       sub = exp->X_add_symbol;
+266:       off = exp->X_add_number;
+267:       break;
+268:
+269:     case O_subtract:
+270:       sub = exp->X_op_symbol;
+271:       /* Fall through.  */
+272:     case O_symbol:
+273:       add = exp->X_add_symbol;
+274:       /* Fall through.  */
+275:     case O_constant:
+276:       off = exp->X_add_number;
+277:       break;
+278:
+279:     case O_add: /* This comes up when _GLOBAL_OFFSET_TABLE_+(.-L0) is read, if
+280:                    the difference expression cannot immediately be reduced.  */
+281:     default:
+282:       add = make_expr_symbol (exp);
+283:       break;
+284:     }
+285:
+286:   return fix_new_internal (frag, where, size, add, sub, off, pcrel,
+287:                            r_type, false);
+```
+
+## gas/write.c:955–1030
+
+```text
+955: fixup_segment (fixS *fixP, segT this_segment)
+956: {
+957:   valueT add_number;
+958:   fragS *fragP;
+959:
+960:   if (fixP != NULL && abs_section_sym == NULL)
+961:     abs_section_sym = section_symbol (absolute_section);
+962:
+963:   /* If the linker is doing the relaxing, we must not do any fixups.
+964:
+965:      Well, strictly speaking that's not true -- we could do any that
+966:      are PC-relative and don't cross regions that could change size.  */
+967:   if (linkrelax && TC_LINKRELAX_FIXUP (this_segment))
+968:     {
+969:       for (; fixP; fixP = fixP->fx_next)
+970:         if (!fixP->fx_done)
+971:           {
+972:             if (fixP->fx_addsy == NULL)
+973:               {
+974:                 /* There was no symbol required by this relocation.
+975:                    However, BFD doesn't really handle relocations
+976:                    without symbols well. So fake up a local symbol in
+977:                    the absolute section.  */
+978:                 fixP->fx_addsy = abs_section_sym;
+979:               }
+980:             symbol_mark_used_in_reloc (fixP->fx_addsy);
+981:             if (fixP->fx_subsy != NULL)
+982:               symbol_mark_used_in_reloc (fixP->fx_subsy);
+983:           }
+984:       return;
+985:     }
+986:
+987:   for (; fixP; fixP = fixP->fx_next)
+988:     {
+989:       segT add_symbol_segment = absolute_section;
+990:
+991: #ifdef DEBUG5
+992:       fprintf (stderr, "\nprocessing fixup:\n");
+993:       print_fixup (fixP);
+994: #endif
+995:
+996:       fragP = fixP->fx_frag;
+997:       know (fragP);
+998: #ifdef TC_VALIDATE_FIX
+999:       TC_VALIDATE_FIX (fixP, this_segment, skip);
+1000: #endif
+1001:       add_number = fixP->fx_offset;
+1002:
+1003:       if (fixP->fx_addsy != NULL)
+1004:         add_symbol_segment = S_GET_SEGMENT (fixP->fx_addsy);
+1005:
+1006:       if (fixP->fx_subsy != NULL)
+1007:         {
+1008:           segT sub_symbol_segment;
+1009:
+1010:           resolve_symbol_value (fixP->fx_subsy);
+1011:           sub_symbol_segment = S_GET_SEGMENT (fixP->fx_subsy);
+1012:
+1013:           if (fixP->fx_addsy != NULL
+1014:               && sub_symbol_segment == add_symbol_segment
+1015:               && !S_FORCE_RELOC (fixP->fx_addsy, 0)
+1016:               && !S_FORCE_RELOC (fixP->fx_subsy, 0)
+1017:               && !TC_FORCE_RELOCATION_SUB_SAME (fixP, add_symbol_segment))
+1018:             {
+1019:               add_number += S_GET_VALUE_WHERE (fixP->fx_addsy, fixP->fx_file, fixP->fx_line);
+1020:               add_number -= S_GET_VALUE_WHERE (fixP->fx_subsy, fixP->fx_file, fixP->fx_line);
+1021:               fixP->fx_offset = add_number;
+1022:               fixP->fx_addsy = NULL;
+1023:               fixP->fx_subsy = NULL;
+1024: #ifdef TC_M68K
+1025:               /* See the comment below about 68k weirdness.  */
+1026:               fixP->fx_pcrel = 0;
+1027: #endif
+1028:             }
+1029:           else if (sub_symbol_segment == absolute_section
+1030:                    && !S_FORCE_RELOC (fixP->fx_subsy, 0)
+```
+
+## gas/write.c:1258–1388
+
+```text
+1258: static void
+1259: write_relocs (bfd *abfd ATTRIBUTE_UNUSED, asection *sec,
+1260:               void *xxx ATTRIBUTE_UNUSED)
+1261: {
+1262:   segment_info_type *seginfo = seg_info (sec);
+1263:   unsigned int n;
+1264:   struct reloc_list *my_reloc_list, **rp, *r;
+1265:   arelent **relocs;
+1266:   fixS *fixp;
+1267:   fragS *last_frag;
+1268:
+1269:   /* If seginfo is NULL, we did not create this section; don't do
+1270:      anything with it.  */
+1271:   if (seginfo == NULL)
+1272:     return;
+1273:
+1274:   n = 0;
+1275:   for (fixp = seginfo->fix_root; fixp; fixp = fixp->fx_next)
+1276:     if (!fixp->fx_done)
+1277:       n++;
+1278:
+1279: #ifdef RELOC_EXPANSION_POSSIBLE
+1280:   n *= MAX_RELOC_EXPANSION;
+1281: #endif
+1282:
+1283:   /* Extract relocs for this section from reloc_list.  */
+1284:   rp = &reloc_list;
+1285:
+1286:   my_reloc_list = NULL;
+1287:   while ((r = *rp) != NULL)
+1288:     {
+1289:       if (r->u.b.sec == sec)
+1290:         {
+1291:           *rp = r->next;
+1292:           r->next = my_reloc_list;
+1293:           my_reloc_list = r;
+1294:           n++;
+1295:         }
+1296:       else
+1297:         rp = &r->next;
+1298:     }
+1299:
+1300:   relocs = notes_alloc (n * sizeof (arelent *));
+1301:
+1302:   n = 0;
+1303:   r = my_reloc_list;
+1304:   last_frag = NULL;
+1305:   for (fixp = seginfo->fix_root; fixp != NULL; fixp = fixp->fx_next)
+1306:     {
+1307:       int fx_size, slack;
+1308:       valueT loc;
+1309:       arelent **reloc;
+1310: #ifndef RELOC_EXPANSION_POSSIBLE
+1311:       arelent *rel;
+1312:
+1313:       reloc = &rel;
+1314: #endif
+1315:
+1316:       if (fixp->fx_done)
+1317:         continue;
+1318:
+1319:       fx_size = fixp->fx_size;
+1320:       slack = TC_FX_SIZE_SLACK (fixp);
+1321:       if (slack > 0)
+1322:         fx_size = fx_size > slack ? fx_size - slack : 0;
+1323:       loc = fixp->fx_where + fx_size;
+1324:       if (slack >= 0 && loc > fixp->fx_frag->fr_fix)
+1325:         as_bad_where (fixp->fx_file, fixp->fx_line,
+1326:                       _("internal error: fixup not contained within frag"));
+1327:
+1328: #ifdef obj_fixup_removed_symbol
+1329:       if (fixp->fx_addsy && symbol_removed_p (fixp->fx_addsy))
+1330:         obj_fixup_removed_symbol (&fixp->fx_addsy);
+1331:       if (fixp->fx_subsy && symbol_removed_p (fixp->fx_subsy))
+1332:         obj_fixup_removed_symbol (&fixp->fx_subsy);
+1333: #endif
+1334:
+1335: #ifndef RELOC_EXPANSION_POSSIBLE
+1336:       *reloc = tc_gen_reloc (sec, fixp);
+1337: #else
+1338:       reloc = tc_gen_reloc (sec, fixp);
+1339: #endif
+1340:
+1341:       while (*reloc)
+1342:         {
+1343:           while (r != NULL && r->u.b.r.address < (*reloc)->address)
+1344:             {
+1345:               fragS *f = get_frag_for_reloc (last_frag, seginfo, r);
+1346:               if (f != NULL)
+1347:                 {
+1348:                   last_frag = f;
+1349:                   relocs[n++] = &r->u.b.r;
+1350:                   install_reloc (sec, &r->u.b.r, f, r->file, r->line);
+1351:                 }
+1352:               r = r->next;
+1353:             }
+1354: #ifdef GAS_SORT_RELOCS
+1355:           if (n != 0 && (*reloc)->address < relocs[n - 1]->address)
+1356:             {
+1357:               size_t lo = 0;
+1358:               size_t hi = n - 1;
+1359:               bfd_vma look = (*reloc)->address;
+1360:               while (lo < hi)
+1361:                 {
+1362:                   size_t mid = (lo + hi) / 2;
+1363:                   if (relocs[mid]->address > look)
+1364:                     hi = mid;
+1365:                   else
+1366:                     {
+1367:                       lo = mid + 1;
+1368:                       if (relocs[mid]->address == look)
+1369:                         break;
+1370:                     }
+1371:                 }
+1372:               while (lo < hi && relocs[lo]->address == look)
+1373:                 lo++;
+1374:               memmove (relocs + lo + 1, relocs + lo,
+1375:                        (n - lo) * sizeof (*relocs));
+1376:               n++;
+1377:               relocs[lo] = *reloc;
+1378:             }
+1379:           else
+1380: #endif
+1381:             relocs[n++] = *reloc;
+1382:           install_reloc (sec, *reloc, fixp->fx_frag,
+1383:                          fixp->fx_file, fixp->fx_line);
+1384: #ifndef RELOC_EXPANSION_POSSIBLE
+1385:           break;
+1386: #else
+1387:           reloc++;
+1388: #endif
+```
+
+## gas/write.c:1764–1810
+
+```text
+1764: set_symtab (void)
+1765: {
+1766:   int nsyms;
+1767:   asymbol **asympp;
+1768:   symbolS *symp;
+1769:   bool result;
+1770:
+1771:   /* Count symbols.  We can't rely on a count made by the loop in
+1772:      write_object_file, because *_frob_file may add a new symbol or
+1773:      two.  Generate unused section symbols only if needed.  */
+1774:   nsyms = 0;
+1775:   for (symp = symbol_rootP; symp; symp = symbol_next (symp))
+1776:     if (!symbol_removed_p (symp)
+1777:         && (bfd_keep_unused_section_symbols (stdoutput)
+1778:             || !symbol_section_p (symp)
+1779:             || symbol_used_in_reloc_p (symp)))
+1780:       nsyms++;
+1781:
+1782:   if (nsyms)
+1783:     {
+1784:       int i;
+1785:
+1786:       asympp = notes_alloc (nsyms * sizeof (asymbol *));
+1787:       symp = symbol_rootP;
+1788:       for (i = 0; i < nsyms; symp = symbol_next (symp))
+1789:         if (!symbol_removed_p (symp)
+1790:             && (bfd_keep_unused_section_symbols (stdoutput)
+1791:                 || !symbol_section_p (symp)
+1792:                 || symbol_used_in_reloc_p (symp)))
+1793:           {
+1794:             asympp[i] = symbol_get_bfdsym (symp);
+1795:             if (asympp[i]->flags != BSF_SECTION_SYM
+1796:                 || !(bfd_is_const_section (asympp[i]->section)
+1797:                      && asympp[i]->section->symbol == asympp[i]))
+1798:               asympp[i]->flags |= BSF_KEEP;
+1799:             symbol_mark_written (symp);
+1800:             /* Include this section symbol in the symbol table.  */
+1801:             if (symbol_section_p (symp))
+1802:               asympp[i]->flags |= BSF_SECTION_SYM_USED;
+1803:             i++;
+1804:           }
+1805:     }
+1806:   else
+1807:     asympp = 0;
+1808:   result = bfd_set_symtab (stdoutput, asympp, nsyms);
+1809:   gas_assert (result);
+1810:   symbol_table_frozen = 1;
+```
+
+## gas/write.c:1927–1985
+
+```text
+1927: /* Create a relocation against an entry in a GNU Build attribute section.  */
+1928:
+1929: static void
+1930: create_note_reloc (segT           sec,
+1931:                    symbolS *      sym,
+1932:                    bfd_size_type  note_offset,
+1933:                    bfd_size_type  desc2_offset,
+1934:                    offsetT        desc2_size,
+1935:                    int            reloc_type,
+1936:                    bfd_vma        addend,
+1937:                    char *         note)
+1938: {
+1939:   struct reloc_list * reloc;
+1940:
+1941:   reloc = notes_alloc (sizeof (*reloc));
+1942:
+1943:   /* We create a .b type reloc as resolve_reloc_expr_symbols() has already been called.  */
+1944:   reloc->u.b.sec           = sec;
+1945:   reloc->u.b.s             = symbol_get_bfdsym (sym);
+1946:   reloc->u.b.r.sym_ptr_ptr = & reloc->u.b.s;
+1947:   reloc->u.b.r.address     = note_offset + desc2_offset;
+1948:   reloc->u.b.r.addend      = addend;
+1949:   reloc->u.b.r.howto       = bfd_reloc_type_lookup (stdoutput, reloc_type);
+1950:
+1951:   if (reloc->u.b.r.howto == NULL)
+1952:     {
+1953:       as_bad (_("unable to create reloc for build note"));
+1954:       return;
+1955:     }
+1956:
+1957:   reloc->file = N_("<gnu build note>");
+1958:   reloc->line = 0;
+1959:
+1960:   reloc->next = reloc_list;
+1961:   reloc_list = reloc;
+1962:
+1963:   /* For REL relocs, store the addend in the section.  */
+1964:   if (! sec->use_rela_p
+1965:       /* The SH target is a special case that uses RELA relocs
+1966:          but still stores the addend in the word being relocated.  */
+1967:       || strstr (bfd_get_target (stdoutput), "-sh") != NULL)
+1968:     {
+1969:       offsetT i;
+1970:
+1971:       /* Zero out the addend, since it is now stored in the note.  */
+1972:       reloc->u.b.r.addend = 0;
+1973:
+1974:       if (target_big_endian)
+1975:         {
+1976:           for (i = desc2_size; addend != 0 && i > 0; addend >>= 8, i--)
+1977:             note[desc2_offset + i - 1] = (addend & 0xff);
+1978:         }
+1979:       else
+1980:         {
+1981:           for (i = 0; addend != 0 && i < desc2_size; addend >>= 8, i++)
+1982:             note[desc2_offset + i] = (addend & 0xff);
+1983:         }
+1984:     }
+1985: }
+```
+
+## gas/write.c:2211–2237
+
+```text
+2211: #ifndef WORKING_DOT_WORD
+2212:   {
+2213:     struct broken_word *lie;
+2214:     struct broken_word **prevP;
+2215:
+2216:     prevP = &broken_words;
+2217:     for (lie = broken_words; lie; lie = lie->next_broken_word)
+2218:       if (!lie->added)
+2219:         {
+2220:           expressionS exp;
+2221:
+2222:           subseg_change (lie->seg, lie->subseg);
+2223:           exp.X_op = O_subtract;
+2224:           exp.X_add_symbol = lie->add;
+2225:           exp.X_op_symbol = lie->sub;
+2226:           exp.X_add_number = lie->addnum;
+2227: #ifdef TC_CONS_FIX_NEW
+2228:           TC_CONS_FIX_NEW (lie->frag,
+2229:                            lie->word_goes_here - lie->frag->fr_literal,
+2230:                            2, &exp, TC_PARSE_CONS_RETURN_NONE);
+2231: #else
+2232:           fix_new_exp (lie->frag,
+2233:                        lie->word_goes_here - lie->frag->fr_literal,
+2234:                        2, &exp, 0, BFD_RELOC_16);
+2235: #endif
+2236:           *prevP = lie->next_broken_word;
+2237:         }
 ```
 
 ## gas/ehopt.c:390–440
@@ -5212,6 +6712,206 @@ Literal LF line numbering.
 3016: }
 ```
 
+## gas/config/obj-elf.c:203–234
+
+```text
+203: elf_file_symbol (const char *s)
+204: {
+205:   asymbol *bsym;
+206:   symbolS *sym = symbol_new (s, absolute_section, &zero_address_frag, 0);
+207:   size_t name_length = strlen (s);
+208:
+209:   if (name_length > strlen (S_GET_NAME (sym)))
+210:     {
+211:       obstack_grow (&notes, s, name_length + 1);
+212:       S_SET_NAME (sym, obstack_finish (&notes));
+213:     }
+214:   else
+215:     strcpy ((char *) S_GET_NAME (sym), s);
+216:
+217:   symbol_get_bfdsym (sym)->flags |= BSF_FILE;
+218:
+219:   if (symbol_rootP != sym
+220:       && ((bsym = symbol_get_bfdsym (symbol_rootP)) == NULL
+221:           || (bsym->flags & BSF_FILE) == 0))
+222:     {
+223:       symbol_remove (sym, &symbol_rootP, &symbol_lastP);
+224:       symbol_insert (sym, symbol_rootP, &symbol_rootP, &symbol_lastP);
+225:     }
+226:
+227: #ifdef DEBUG
+228:   verify_symbol_chain (symbol_rootP, symbol_lastP);
+229: #endif
+230:
+231: #ifdef NEED_ECOFF_DEBUG
+232:   ecoff_new_file (s);
+233: #endif
+234: }
+```
+
+## gas/config/obj-elf.c:2086–2098
+
+```text
+2086: elf_obj_symbol_new_hook (symbolS *symbolP)
+2087: {
+2088:   struct elf_obj_sy *sy_obj;
+2089:
+2090:   sy_obj = symbol_get_obj (symbolP);
+2091:   sy_obj->size = NULL;
+2092:   sy_obj->versioned_name = NULL;
+2093:
+2094: #ifdef NEED_ECOFF_DEBUG
+2095:   if (ECOFF_DEBUGGING)
+2096:     ecoff_symbol_new_hook (symbolP);
+2097: #endif
+2098: }
+```
+
+## gas/config/obj-elf.c:2183–2231
+
+```text
+2183: static void
+2184: obj_elf_size (int ignore ATTRIBUTE_UNUSED)
+2185: {
+2186:   char *name;
+2187:   char c = get_symbol_name (&name);
+2188:   char *p;
+2189:   expressionS exp;
+2190:   symbolS *sym;
+2191:
+2192:   p = input_line_pointer;
+2193:   restore_line_pointer (c);
+2194:   SKIP_WHITESPACE ();
+2195:   if (*input_line_pointer != ',')
+2196:     {
+2197:       *p = 0;
+2198:       as_bad (_("expected comma after name `%s' in .size directive"), name);
+2199:       *p = c;
+2200:       ignore_rest_of_line ();
+2201:       return;
+2202:     }
+2203:   input_line_pointer++;
+2204:   expression (&exp);
+2205:   if (exp.X_op == O_absent)
+2206:     {
+2207:       as_bad (_("missing expression in .size directive"));
+2208:       exp.X_op = O_constant;
+2209:       exp.X_add_number = 0;
+2210:     }
+2211:   *p = 0;
+2212:   sym = symbol_find_or_make (name);
+2213:   *p = c;
+2214:   if (exp.X_op == O_constant)
+2215:     {
+2216:       S_SET_SIZE (sym, exp.X_add_number);
+2217:       symbol_get_obj (sym)->size = NULL;
+2218:     }
+2219:   else
+2220:     {
+2221:       symbol_get_obj (sym)->size = notes_alloc (sizeof (exp));
+2222:       *symbol_get_obj (sym)->size = exp;
+2223:     }
+2224:
+2225:   /* If the symbol in the directive matches the current function being
+2226:      processed, indicate end of the current stream of ginsns.  */
+2227:   if (flag_synth_cfi
+2228:       && S_IS_FUNCTION (sym) && sym == ginsn_data_func_symbol ())
+2229:     ginsn_data_end (symbol_temp_new_now ());
+2230:
+2231:   demand_empty_rest_of_line ();
+```
+
+## gas/config/obj-elf.c:2728–2813
+
+```text
+2728:
+2729:   /* Replace the removed symbol with the versioned symbol.  */
+2730:   symp = symbol_find (sy_obj->versioned_name->name);
+2731:   *sympp = symp;
+2732: }
+2733:
+2734: /* Create symbols for group signature.  */
+2735:
+2736: void
+2737: elf_adjust_symtab (void)
+2738: {
+2739:   unsigned int i;
+2740:
+2741:   /* Make the SHT_GROUP sections that describe each section group.  We
+2742:      can't set up the section contents here yet, because elf section
+2743:      indices have yet to be calculated.  elf.c:set_group_contents does
+2744:      the rest of the work.  */
+2745:  for (i = 0; i < groups.num_group; i++)
+2746:     {
+2747:       const char *group_name = elf_group_name (groups.head[i]);
+2748:       const char *sec_name;
+2749:       asection *s;
+2750:       flagword flags;
+2751:       struct symbol *sy;
+2752:
+2753:       flags = SEC_READONLY | SEC_HAS_CONTENTS | SEC_IN_MEMORY | SEC_GROUP;
+2754:       for (s = groups.head[i]; s != NULL; s = elf_next_in_group (s))
+2755:         if ((s->flags ^ flags) & SEC_LINK_ONCE)
+2756:           {
+2757:             flags |= SEC_LINK_ONCE | SEC_LINK_DUPLICATES_DISCARD;
+2758:             if (s != groups.head[i])
+2759:               {
+2760:                 as_warn (_("assuming all members of group `%s' are COMDAT"),
+2761:                          group_name);
+2762:                 break;
+2763:               }
+2764:           }
+2765:
+2766:       sec_name = ".group";
+2767:       s = subseg_force_new (sec_name, 0);
+2768:       if (s == NULL
+2769:           || !bfd_set_section_flags (s, flags)
+2770:           || !bfd_set_section_alignment (s, 2))
+2771:         {
+2772:           as_fatal (_("can't create group: %s"),
+2773:                     bfd_errmsg (bfd_get_error ()));
+2774:         }
+2775:       elf_section_type (s) = SHT_GROUP;
+2776:
+2777:       /* Pass a pointer to the first section in this group.  */
+2778:       elf_next_in_group (s) = groups.head[i];
+2779:       elf_sec_group (groups.head[i]) = s;
+2780:       /* Make sure that the signature symbol for the group has the
+2781:          name of the group.  */
+2782:       sy = symbol_find_exact (group_name);
+2783:       if (!sy || !symbol_on_chain (sy, symbol_rootP, symbol_lastP))
+2784:         {
+2785:           /* Create the symbol now.  */
+2786:           sy = symbol_new (group_name, now_seg, frag_now, 0);
+2787: #ifdef TE_SOLARIS
+2788:           /* Before Solaris 11 build 154, Sun ld rejects local group
+2789:              signature symbols, so make them weak hidden instead.  */
+2790:           symbol_get_bfdsym (sy)->flags |= BSF_WEAK;
+2791:           S_SET_OTHER (sy, STV_HIDDEN);
+2792: #else
+2793:           symbol_get_obj (sy)->local = 1;
+2794: #endif
+2795:           symbol_table_insert (sy);
+2796:         }
+2797:       elf_group_id (s) = symbol_get_bfdsym (sy);
+2798:       /* Mark the group signature symbol as used so that it will be
+2799:          included in the symbol table.  */
+2800:       symbol_mark_used_in_reloc (sy);
+2801:     }
+2802: }
+2803:
+2804: void
+2805: elf_frob_file (void)
+2806: {
+2807:   bfd_map_over_sections (stdoutput, set_additional_section_info, NULL);
+2808:
+2809: #ifdef elf_tc_final_processing
+2810:   elf_tc_final_processing ();
+2811: #endif
+2812: }
+2813:
+```
+
 ## bfd/elf.c:292–321
 
 ```text
@@ -5247,6 +6947,21 @@ Literal LF line numbering.
 321:
 ```
 
+## bfd/elf.c:9788–9797
+
+```text
+9788: asymbol *
+9789: _bfd_elf_make_empty_symbol (bfd *abfd)
+9790: {
+9791:   elf_symbol_type *newsym;
+9792:
+9793:   newsym = (elf_symbol_type *) bfd_zalloc (abfd, sizeof (*newsym));
+9794:   if (!newsym)
+9795:     return NULL;
+9796:   newsym->symbol.the_bfd = abfd;
+9797:   return &newsym->symbol;
+```
+
 ## bfd/section.c:1114–1132
 
 ```text
@@ -5271,6 +6986,50 @@ Literal LF line numbering.
 1132:   else
 ```
 
+## bfd/section.c:817–855
+
+```text
+817: /* Create a symbol whose only job is to point to this section.  This
+818:    is useful for things like relocs which are relative to the base
+819:    of a section.  */
+820:
+821: bool
+822: _bfd_generic_new_section_hook (bfd *abfd, asection *newsect)
+823: {
+824:   newsect->symbol = bfd_make_empty_symbol (abfd);
+825:   if (newsect->symbol == NULL)
+826:     return false;
+827:
+828:   newsect->symbol->name = newsect->name;
+829:   newsect->symbol->value = 0;
+830:   newsect->symbol->section = newsect;
+831:   newsect->symbol->flags = BSF_SECTION_SYM;
+832:
+833:   return true;
+834: }
+835:
+836: unsigned int _bfd_section_id = 0x10;  /* id 0 to 3 used by STD_SECTION.  */
+837:
+838: /* Initializes a new section.  NEWSECT->NAME is already set.  */
+839:
+840: static asection *
+841: bfd_section_init (bfd *abfd, asection *newsect)
+842: {
+843:   /* Locking needed for the _bfd_section_id access.  */
+844:   if (!bfd_lock ())
+845:     return NULL;
+846:
+847:   newsect->id = _bfd_section_id;
+848:   newsect->index = abfd->section_count;
+849:   newsect->owner = abfd;
+850:
+851:   if (! BFD_SEND (abfd, _new_section_hook, (abfd, newsect)))
+852:     return NULL;
+853:
+854:   _bfd_section_id++;
+855:   abfd->section_count++;
+```
+
 ## bfd/elfxx-x86.c:40–44
 
 ```text
@@ -5292,6 +7051,32 @@ Literal LF line numbering.
 2230:   obj_attribute known_obj_attributes[2][NUM_KNOWN_OBJ_ATTRIBUTES];
 2231:   obj_attribute_list *other_obj_attributes[2];
 2232:
+```
+
+## bfd/elf-bfd.h:74–94
+
+```text
+74: typedef struct
+75: {
+76:   /* The BFD symbol.  */
+77:   asymbol symbol;
+78:   /* ELF symbol information.  */
+79:   Elf_Internal_Sym internal_elf_sym;
+80:   /* Backend specific information.  */
+81:   union
+82:     {
+83:       unsigned int hppa_arg_reloc;
+84:       void *mips_extr;
+85:       void *any;
+86:     }
+87:   tc_data;
+88:
+89:   /* Version information.  This is from an Elf_Internal_Versym
+90:      structure in a SHT_GNU_versym section.  It is zero if there is no
+91:      version information.  */
+92:   unsigned short version;
+93:
+94: } elf_symbol_type;
 ```
 
 ## bfd/elf-attrs.h:26–34
@@ -5328,4 +7113,312 @@ Literal LF line numbering.
 328: }
 329:
 330: /* Write VAL in uleb128 format to P, returning a pointer to the
+```
+
+## gas/expr.h:116–158
+
+```text
+116: typedef struct expressionS
+117: {
+118:   /* The main symbol.  */
+119:   symbolS *X_add_symbol;
+120:   /* The second symbol, if needed.  */
+121:   symbolS *X_op_symbol;
+122:   /* A number to add.  */
+123:   offsetT X_add_number;
+124:
+125:   /* The type of the expression.  */
+126:   ENUM_BITFIELD (operatorT) X_op : 8;
+127:
+128:   /* Non-zero if the expression value should be regarded as unsigned.  This is
+129:      only valid for
+130:      - O_constant expressions, where it is only used when an O_constant must be
+131:        extended into a bignum (i.e., it is not used when performing arithmetic
+132:        on these values),
+133:      - O_big integer expressions, i.e. when X_add_number is positive.
+134:      FIXME: This field is not set very reliably.  */
+135:   unsigned int X_unsigned : 1;
+136:   /* This is used to implement "word size + 1 bit" arithmetic, so that e.g.
+137:      expressions used with .sleb128 directives can use the full range available
+138:      for an unsigned word, but can also properly represent all values of a
+139:      signed word.  */
+140:   unsigned int X_extrabit : 1;
+141:
+142:   /* Machine dependent field.  */
+143:   unsigned short X_md;
+144: } expressionS;
+145:
+146: enum expr_mode
+147: {
+148:   expr_evaluate,
+149:   expr_normal,
+150:   expr_defer,
+151:   expr_defer_incl_dot,
+152: };
+153:
+154: #define expr_defer_p(m) ((m) >= expr_defer)
+155:
+156: /* "result" should be type (expressionS *).  */
+157: #define expression(result) expr (0, result, expr_normal)
+158: #define expression_and_evaluate(result) expr (0, result, expr_evaluate)
+```
+
+## gas/config/obj-elf.h:72–101
+
+```text
+72: /* Additional information we keep for each symbol.  */
+73: struct elf_obj_sy
+74: {
+75:   /* Whether the symbol has been marked as local.  */
+76:   unsigned int local : 1;
+77:
+78:   /* Whether the symbol has been marked for rename with @@@.  */
+79:   unsigned int rename : 1;
+80:
+81:   /* Whether the symbol has a bad version name.  */
+82:   unsigned int bad_version : 1;
+83:
+84:   /* Whether visibility of the symbol should be changed.  */
+85:   ENUM_BITFIELD (elf_visibility) visibility : 2;
+86:
+87:   /* Use this to keep track of .size expressions that involve
+88:      differences that we can't compute yet.  */
+89:   expressionS *size;
+90:
+91:   /* The list of names specified by the .symver directive.  */
+92:   struct elf_versioned_name_list *versioned_name;
+93:
+94: #ifdef ECOFF_DEBUGGING
+95:   /* If we are generating ECOFF debugging information, we need some
+96:      additional fields for each symbol.  */
+97:   struct efdr *ecoff_file;
+98:   struct localsym *ecoff_symbol;
+99:   valueT ecoff_extern_size;
+100: #endif
+101: };
+```
+
+## gas/config/obj-elf.h:127–129
+
+```text
+127: #ifndef LOCAL_LABEL_PREFIX
+128: #define LOCAL_LABEL_PREFIX '.'
+129: #endif
+```
+
+## gas/write.h:47–169
+
+```text
+47: struct fix
+48: {
+49:   /* Next fixS in linked list, or NULL.  */
+50:   struct fix *fx_next;
+51:
+52:   /* These small fields are grouped together for compactness of
+53:      this structure, and efficiency of access on some architectures.  */
+54:
+55:   /* pc-relative offset adjust (only used by some CPU specific code).
+56:      A 4-bit field would be sufficient for most uses, except for ppc
+57:      which pokes an operand table index here.  Bits may be stolen
+58:      from here should that be necessary, provided PPC_OPINDEX_MAX is
+59:      adjusted suitably.  */
+60:   int fx_pcrel_adjust : 16;
+61:
+62:   /* How many bytes are involved? */
+63:   unsigned fx_size : 8;
+64:
+65:   /* Is this a pc-relative relocation?  */
+66:   unsigned fx_pcrel : 1;
+67:
+68:   /* Has this relocation already been applied?  */
+69:   unsigned fx_done : 1;
+70:
+71:   /* Suppress overflow complaints on large addends.  This is used
+72:      in the PowerPC ELF config to allow large addends on the
+73:      BFD_RELOC_{LO16,HI16,HI16_S} relocations.
+74:
+75:      @@ Can this be determined from BFD?  */
+76:   unsigned fx_no_overflow : 1;
+77:
+78:   /* The value is signed when checking for overflow.  */
+79:   unsigned fx_signed : 1;
+80:
+81:   /* Some bits for the CPU specific code.  */
+82:   unsigned fx_tcbit : 1;
+83:   unsigned fx_tcbit2 : 1;
+84:   unsigned fx_tcbit3 : 1;
+85:
+86:   /* Spare bits.  */
+87:   unsigned fx_unused : 1;
+88:
+89:   bfd_reloc_code_real_type fx_r_type;
+90:
+91:   /* Which frag does this fix apply to?  */
+92:   fragS *fx_frag;
+93:
+94:   /* The location within the frag where the fixup occurs.  */
+95:   unsigned long fx_where;
+96:
+97:   /* NULL or Symbol whose value we add in.  */
+98:   symbolS *fx_addsy;
+99:
+100:   /* NULL or Symbol whose value we subtract.  */
+101:   symbolS *fx_subsy;
+102:
+103:   /* Absolute number we add in.  */
+104:   valueT fx_offset;
+105:
+106:   /* The value of dot when the fixup expression was parsed.  */
+107:   addressT fx_dot_value;
+108:
+109:   /* The frag fx_dot_value is based on.  */
+110:   fragS *fx_dot_frag;
+111:
+112:   /* This field is sort of misnamed.  It appears to be a sort of random
+113:      scratch field, for use by the back ends.  The main gas code doesn't
+114:      do anything but initialize it to zero.  The use of it does need to
+115:      be coordinated between the cpu and format files, though.  E.g., some
+116:      coff targets pass the `addend' field from the cpu file via this
+117:      field.  I don't know why the `fx_offset' field above can't be used
+118:      for that; investigate later and document. KR  */
+119:   valueT fx_addnumber;
+120:
+121:   /* The location of the instruction which created the reloc, used
+122:      in error messages.  */
+123:   const char *fx_file;
+124:   unsigned fx_line;
+125:
+126: #ifdef USING_CGEN
+127:   struct {
+128:     /* CGEN_INSN entry for this instruction.  */
+129:     const struct cgen_insn *insn;
+130:     /* Target specific data, usually reloc number.  */
+131:     int opinfo;
+132:     /* Which ifield this fixup applies to. */
+133:     struct cgen_maybe_multi_ifield * field;
+134:     /* is this field is the MSB field in a set? */
+135:     int msb_field_p;
+136:   } fx_cgen;
+137: #endif
+138:
+139: #ifdef TC_FIX_TYPE
+140:   /* Location where a backend can attach additional data
+141:      needed to perform fixups.  */
+142:   TC_FIX_TYPE tc_fix_data;
+143: #endif
+144: };
+145:
+146: typedef struct fix fixS;
+147:
+148: struct reloc_list
+149: {
+150:   struct reloc_list *next;
+151:   union
+152:   {
+153:     struct
+154:     {
+155:       symbolS *offset_sym;
+156:       reloc_howto_type *howto;
+157:       symbolS *sym;
+158:       bfd_vma addend;
+159:     } a;
+160:     struct
+161:     {
+162:       asection *sec;
+163:       asymbol *s;
+164:       arelent r;
+165:     } b;
+166:   } u;
+167:   const char *file;
+168:   unsigned int line;
+169: };
+```
+
+## bfd/syms.c:177–197
+
+```text
+177: .typedef struct bfd_symbol
+178: .{
+179: .  {* A pointer to the BFD which owns the symbol. This information
+180: .     is necessary so that a back end can work out what additional
+181: .     information (invisible to the application writer) is carried
+182: .     with the symbol.
+183: .
+184: .     This field is *almost* redundant, since you can use section->owner
+185: .     instead, except that some symbols point to the global sections
+186: .     bfd_{abs,com,und}_section.  This could be fixed by making
+187: .     these globals be per-bfd (or per-target-flavor).  FIXME.  *}
+188: .  struct bfd *the_bfd; {* Use bfd_asymbol_bfd(sym) to access this field.  *}
+189: .
+190: .  {* The text of the symbol. The name is left alone, and not copied; the
+191: .     application may not alter it.  *}
+192: .  const char *name;
+193: .
+194: .  {* The value of the symbol.  This really should be a union of a
+195: .     numeric value with a pointer, since some flags indicate that
+196: .     a pointer to another symbol is stored here.  *}
+197: .  symvalue value;
+```
+
+## bfd/syms.c:306–324
+
+```text
+306: .  {* This symbol underwent section merge resolution.  *}
+307: .#define BSF_MERGE_RESOLVED      (1 << 25)
+308: .
+309: .  flagword flags;
+310: .
+311: .  {* A pointer to the section to which this symbol is
+312: .     relative.  This will always be non NULL, there are special
+313: .     sections for undefined and absolute symbols.  *}
+314: .  struct bfd_section *section;
+315: .
+316: .  {* Back end special data.  *}
+317: .  union
+318: .    {
+319: .      void *p;
+320: .      bfd_vma i;
+321: .    }
+322: .  udata;
+323: .}
+324: .asymbol;
+```
+
+## bfd/reloc.c:100–115
+
+```text
+100: CODE_FRAGMENT
+101: .struct reloc_cache_entry
+102: .{
+103: .  {* A pointer into the canonical table of pointers.  *}
+104: .  struct bfd_symbol **sym_ptr_ptr;
+105: .
+106: .  {* offset in section.  *}
+107: .  bfd_size_type address;
+108: .
+109: .  {* addend for relocation value.  *}
+110: .  bfd_vma addend;
+111: .
+112: .  {* Pointer to how to perform the required relocation.  *}
+113: .  reloc_howto_type *howto;
+114: .
+115: .};
+```
+
+## include/elf/internal.h:128–140
+
+```text
+128: /* Symbol table entry */
+129:
+130: struct elf_internal_sym {
+131:   bfd_vma       st_value;               /* Value of the symbol */
+132:   bfd_vma       st_size;                /* Associated symbol size */
+133:   unsigned long st_name;                /* Symbol name, index in string tbl */
+134:   unsigned char st_info;                /* Type and binding attributes */
+135:   unsigned char st_other;               /* Visibilty, and target specific */
+136:   unsigned char st_target_internal;     /* Internal-only information */
+137:   unsigned int  st_shndx;               /* Associated section index */
+138: };
+139:
+140: typedef struct elf_internal_sym Elf_Internal_Sym;
 ```

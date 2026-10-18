@@ -270,6 +270,24 @@
       "bytes": 143875,
       "sha256": "d3b089435efad4528b6cb4565819d997f50480ec35fbcbb0d90b06d20b57d517",
       "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/elfxx-x86.c"
+    },
+    {
+      "path": "bfd/syms.c",
+      "bytes": 45426,
+      "sha256": "f32e7be22b562782e7e54138d2db4ad07f8eefcb4de9048105b194c3772c3e7c",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/syms.c"
+    },
+    {
+      "path": "include/elf/internal.h",
+      "bytes": 15972,
+      "sha256": "668f2caebcbd004b35e7547556915aa94adf54412aaafc0972310c4c99db24e2",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/elf/internal.h"
+    },
+    {
+      "path": "bfd/reloc.c",
+      "bytes": 195271,
+      "sha256": "cab5a4894f4301eda7b12d7d011fb3cce26e14f03995093e9018278e2fbae249",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/bfd/reloc.c"
     }
   ]
 }

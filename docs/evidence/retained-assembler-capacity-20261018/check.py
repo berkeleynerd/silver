@@ -65,6 +65,31 @@ UNIT_RANGES = {
 }
 for _name, _ranges in UNIT_RANGES.items():
     RANGES.setdefault(_name, []).extend(_ranges)
+SYMBOL_RANGES = {
+    "gas/as.c": [(1368, 1388)],
+    "gas/symbols.c": [(35, 172), (330, 424), (439, 487), (659, 683),
+                      (730, 761), (839, 897), (2037, 2165), (3131, 3167)],
+    "gas/expr.c": [(38, 100), (729, 750), (2108, 2143)],
+    "gas/expr.h": [(116, 158)],
+    "gas/config/obj-elf.c": [(203, 234), (2086, 2098), (2183, 2231),
+                            (2728, 2813)],
+    "gas/config/obj-elf.h": [(72, 101), (127, 129)],
+    "gas/subsegs.c": [(235, 281)],
+    "gas/read.c": [(3366, 3385), (4868, 4916)],
+    "gas/write.c": [(129, 215), (238, 287), (955, 1030), (1258, 1388),
+                    (1764, 1810), (1927, 1985), (2211, 2237)],
+    "gas/write.h": [(47, 169)],
+    "gas/config/tc-i386.c": [(13331, 13352), (18268, 18284), (18617, 18639)],
+    "gas/config/tc-i386.h": [(120, 122), (343, 343)],
+    "bfd/section.c": [(817, 855)],
+    "bfd/syms.c": [(177, 197), (306, 324)],
+    "bfd/elf-bfd.h": [(74, 94)],
+    "bfd/elf.c": [(9788, 9797)],
+    "bfd/reloc.c": [(100, 115)],
+    "include/elf/internal.h": [(128, 140)],
+}
+for _name, _ranges in SYMBOL_RANGES.items():
+    RANGES.setdefault(_name, []).extend(_ranges)
 
 
 def main():
@@ -156,6 +181,22 @@ def main():
     assert "int debug_memory = 0;" in sources["gas/as.c"]
     assert "obstack_begin (&newP->frch_obstack, chunksize);" in sources["gas/subsegs.c"]
     assert "new_size = sum2 + (obj_size >> 3) + 100;" in sources["libiberty/obstack.c"]
+    symbols = sources["gas/symbols.c"]
+    assert 'local_symbol_make (".gasversion.", absolute_section,' in sources["gas/as.c"]
+    assert 'size = sizeof (symbolS) + sizeof (struct xsymbol);' in symbols
+    assert 'ent->sy.flags.local_symbol = 0;' in symbols
+    assert 'dot_symbol.bsym = bfd_make_empty_symbol (stdoutput);' in symbols
+    assert '#define FB_LABEL_SPECIAL (10)' in symbols
+    assert 'static char symbol_name_build[24];' in symbols
+    assert 'if (seginfo->sym)\n    return seginfo->sym;' in sources["gas/subsegs.c"]
+    assert 'newsym = (elf_symbol_type *) bfd_zalloc (abfd, sizeof (*newsym));' in sources["bfd/elf.c"]
+    assert '#define WORKING_DOT_WORD 1' in sources["gas/config/tc-i386.h"]
+    for excluded in ['TC_SYMFIELD_TYPE', 'TC_FIX_TYPE', 'RELOC_EXPANSION_POSSIBLE',
+                     'OBJ_COMPLEX_RELC']:
+        assert excluded not in sources["gas/config/tc-i386.h"]
+        assert excluded not in sources["gas/config/obj-elf.h"]
+    assert 'rel->sym_ptr_ptr = notes_alloc (sizeof (asymbol *));' in x86
+    assert 'relocs = notes_alloc (n * sizeof (arelent *));' in sources["gas/write.c"]
 
     b = 32768
     ptrdiff_max = 2**63-1
@@ -206,6 +247,23 @@ def main():
     room_after_new_header = chunk-16-mask-header_high
     assert room_after_new_header >= append_high
     assert chunk+mask <= ptrdiff_max
+    # Every selected textual name, temporary or expression request can create
+    # one GAS object; conversion does not create another name or GAS identity.
+    gas_symbol_rows = {
+        "compiler_named_and_numeric_labels": 3+5+2+1+3*5,
+        "CFI_direct_temporary_expression_requests": 19,
+        "SFrame_direct_temporary_expression_requests": 27,
+        "GAS_section_symbols": 9+2+2,
+        "file_symbol": 1, "size_current_location": 1, "gasversion_startup": 1,
+    }
+    gas_symbols = sum(gas_symbol_rows.values())
+    assert gas_symbols == 88
+    bfd_symbols = gas_symbols+13+1
+    assert bfd_symbols == 102
+    fixups = eh_frame+sframe_bytes+3*32
+    assert fixups == 279 and fixups+2 == 281
+    assert gas_symbols < 2**31 and bfd_symbols < 2**32 and fixups < 2**32
+    assert (fixups+2)*8 == 2248 and gas_symbols*8 == 704
     result = {
         "commit": PIN,
         "source_files_checked": len(sources),
@@ -276,6 +334,33 @@ def main():
             "largest_region_increment_count_per_section": 10,
             "maximum_assembler_line_bytes": "max(64,I+10)",
             "scope": "selected null unit payload/fragments; symbol, BFD and ELF metadata storage separate",
+        },
+        "selected_GAS_symbols_and_fixups": {
+            "GAS_symbol_creation_rows": gas_symbol_rows,
+            "GAS_symbol_objects": gas_symbols,
+            "maximum_name_copy_bytes_including_NUL": 26,
+            "local_conversions_per_symbol_at_most": 1,
+            "BFD_symbol_allocations_through_GAS": bfd_symbols,
+            "expression_location_records": 5+21,
+            "size_expression_objects": 1,
+            "selected_LP64_raw_request_upper_bytes": {
+                "full_symbol_and_xsymbol": 160, "local_symbol": 64,
+                "converted_xsymbol": 96, "ELF_BFD_symbol": 128,
+                "expression": 40, "expression_location_record": 32,
+                "fixS": 128, "arelent": 32, "relocation_symbol_pointer": 8,
+                "build_note_reloc_list": 72,
+            },
+            "fixS_objects": fixups,
+            "maximum_fixup_field_bytes": 8,
+            "extra_build_note_reloc_list_objects": 2,
+            "maximum_relocation_pointer_slots": fixups+2,
+            "maximum_relocation_pointer_array_bytes": (fixups+2)*8,
+            "maximum_symbol_pointer_array_bytes": gas_symbols*8,
+            "numeric_property_label_numbers": list(range(5)),
+            "maximum_numeric_label_instances_each": 3,
+            "numeric_label_sparse_array_allocations": 0,
+            "later_BFD_generated_ELF_metadata_symbols_included": False,
+            "global_notes_obstack_or_allocator_storage_established": False,
         },
         "compiler_runs": 0, "assembler_runs": 0, "linker_runs": 0, "prover_runs": 0,
     }

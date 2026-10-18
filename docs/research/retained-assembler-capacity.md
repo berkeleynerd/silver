@@ -3,8 +3,8 @@
 2026-10-18, Linux x86_64, [#119](https://github.com/berkeleynerd/silver/issues/119).
 This joins selected GNU assembler representations to the
 [null Main backend shape](retained-backend-gigi.md). It covers the selected
-instruction encodings and frame serializers, but does not yet close every
-output section, ELF symbol generation or linking.
+instruction encodings, frame serializers, GAS symbols and fixups, but does
+not yet close BFD's ELF metadata generation or linking.
 
 The reviewed source is Binutils 2.46.1 commit
 `5e56594815854de5eca35c7c04b11705d0f19c02`, the release already selected by the
@@ -427,11 +427,153 @@ the absolute/undefined startup calls. The corrected count is thirteen;
 payload and final-alignment counts are unchanged. This is a correction to
 source accounting, not a new execution result.
 
+## GAS symbols and fixups
+
+The fixed unit outline and selected frame serializers give the following
+upper bound on GAS symbol creation requests. A forward reference and its
+later definition reuse one symbol; declarations such as `.globl` and `.type`
+also reuse the named symbol (`gas/symbols.c:659–683,730–761`).
+
+| Producer | GAS symbols, at most |
+| --- | ---: |
+| Compiler ordinary labels, CFI labels, FDE labels, Main and property labels | `3+5+2+1+15=26` |
+| CFI direct temporary/expression requests derived above | 19 |
+| SFrame direct temporary/expression requests derived above | 27 |
+| One cached section symbol per ordinary, internal and ABS/UND section | 13 |
+| `.file "main.adb"` | 1 |
+| Current location in `.size _ada_main, .-_ada_main` | 1 |
+| Startup `.gasversion.` local symbol | 1 |
+| **Total** | **88** |
+
+The startup local is created before the output BFD opens
+(`gas/as.c:1368–1388`). Section symbols are cached in `seginfo->sym`; a
+second request returns the existing object (`gas/subsegs.c:235–281`). The
+`.file` directive creates one symbol and retains the same spelling, so its
+name-extension branch does not allocate another copy
+(`gas/config/obj-elf.c:203–234`). `.size` reads its expression in normal mode:
+the single `.` creates one location temporary, and a nonconstant difference
+retains at most one `expressionS` (`gas/expr.h:157`, `gas/expr.c:729–750`,
+`gas/config/obj-elf.c:2183–2231`). It does not emit another data field.
+
+These selected expressions are constants, symbols or differences of two
+symbols. Numeric property forward references do not set the separate
+`.eqv`/deferred-expression `forward_ref` flag. There are no volatile
+assignments, redefinitions, weak references, symbol versions, groups,
+`.startof`/`.sizeof`, GOT references or debug directives. Thus the clone and
+general-complex-expression routes add no symbols
+(`gas/read.c:3366–3385`, `gas/symbols.c:839–897`,
+`gas/expr.c:2108–2143`, `gas/config/obj-elf.c:2728–2813`,
+`gas/config/tc-i386.c:18268–18284`). The direct composite SFrame expression
+constructors are already included in its 21 expression-symbol allowance;
+their emitted field expressions reference those symbols. Synthetic CFI is
+disabled, so the `.type`/`.size` ginsn hooks are absent. The selected ELF
+symbol hook only initializes two pointers; ECOFF and target symbol extensions
+are absent (`gas/config/obj-elf.c:2086–2098`). These exclusions are properties
+of the selected generated stream and target, not of arbitrary assembly.
+
+Each full symbol copies its name once and allocates `symbolS+xsymbol` in one
+request, then one BFD symbol. A local symbol first allocates its smaller
+object and copied name; conversion allocates one `xsymbol` and one BFD
+symbol, resets `local_symbol` and reuses the original object/name
+(`gas/symbols.c:330–424,439–487`). Hence conversion is charged at most once,
+including when a local is first used in a relocation. The 88 GAS objects
+cause at most 88 BFD symbol allocations. BFD section construction adds at
+most thirteen, including the two standard-section hooks, and initializing
+the static dot symbol adds one. The bound is therefore **102 BFD symbol
+allocations through GAS**, including section-symbol allocations that are
+subsequently replaced by an existing section symbol
+(`bfd/section.c:817–855`, `gas/as.c:1352–1361`,
+`gas/symbols.c:3131–3167`). Later BFD-generated ELF metadata symbols are
+outside this count.
+
+The selected symbol names fit 26 bytes including NUL: the compiler's
+previously bounded local labels dominate the fixed section, file, Main and
+fake-symbol spellings. The property notes use only labels 0 through 4, each
+defined at most three times. They use the ten static low-label counters,
+never the heap sparse-label arrays. Their `.Ln\002m` spelling needs at most
+six bytes including NUL, within the static 24-byte formatting buffer
+(`gas/symbols.c:2037–2165`, `gas/config/obj-elf.h:127–129`).
+
+For individual raw requests, the selected LP64 field layouts give these
+conservative ceilings. They are source-derived ABI bounds, not new `sizeof`
+measurements or aggregate memory requirements.
+
+| Request | Bytes, at most |
+| --- | ---: |
+| Full GAS symbol plus extension | 160 |
+| Initial local symbol | 64 |
+| Local-to-full extension | 96 |
+| ELF BFD symbol | 128 |
+| Retained `.size` expression | 40 |
+| Expression-location record | 32 |
+| `fixS` | 128 |
+| `arelent` and its separate symbol-pointer cell | 32 and 8 |
+| Optional build-note `reloc_list`, including embedded `arelent` | 72 |
+
+The GAS symbol layouts have four pointer/value fields plus flags/hash; the
+extension has one expression, two pointers and the ELF symbol extension.
+Charging at most 40 bytes for the expression and 32 for the ELF extension
+fits the 96-byte extension ceiling (`gas/symbols.c:35–172`,
+`gas/expr.h:116–144`, `gas/config/obj-elf.h:72–101`). ELF's BFD object combines
+a 48-byte `asymbol`, 32-byte internal ELF symbol, eight-byte union and
+version/padding, within 128 bytes. Its constructor makes exactly that one
+request (`bfd/syms.c:177–197,306–324`, `include/elf/internal.h:128–140`,
+`bfd/elf-bfd.h:74–94`, `bfd/elf.c:9788–9797`). The 26 previously counted
+expression-location records each contain three pointers and one unsigned
+line number (`gas/expr.c:38–100`). There are no CGEN or target `fixS`
+extensions; its ten pointer/value fields, flags, relocation enum and line
+number fit 128 bytes. The relocation record contains four eight-byte fields,
+and `reloc_list` combines it with four additional pointer-sized fields and
+the line number/padding (`gas/write.h:47–169`, `bfd/reloc.c:100–115`).
+
+Every selected `fix_new`/`fix_new_exp` attaches to a positive-width field,
+with width at most eight bytes. Each field creates at most one fixup via
+`emit_expr_fix` and `x86_cons_fix_new`, or the mutually exclusive direct CFI
+relocation branch (`gas/read.c:4868–4916`,
+`gas/config/tc-i386.c:13331–13352`, `gas/dw2gencfi.c:2075–2115`). Charging one
+fixup per reserved byte therefore gives
+
+```text
+F <= 92 CFI + 91 SFrame + 96 compiler property bytes = 279.
+```
+
+The zero-width linkonce CFI relocation is excluded by the existing selected
+CFI configuration. The instruction encodings are register-only and create no
+fixups. The comment, alignment patterns and GAS property note write bytes
+directly. The x86 `WORKING_DOT_WORD` definition excludes late broken-word
+fixup reconstruction; selected relaxation variants serialize directly rather
+than create another fixup for an already charged field
+(`gas/config/tc-i386.h:343`, `gas/write.c:2211–2237`).
+`fix_new_exp` retains the existing symbols for constants/symbols/subtractions;
+it does not create expression wrappers for these selected fields
+(`gas/write.c:238–287`). The unsigned `n_fixups` counter therefore stays at
+most 279, and every `fx_size` fits its eight-bit field
+(`gas/write.c:129–215`).
+
+Fixup processing reuses the fixups and cached section symbols. Each unresolved
+fixup yields at most one `arelent` and one symbol-pointer cell; the x86 ELF
+target has no relocation-expansion macro
+(`gas/write.c:955–1030,1258–1388`, `gas/config/tc-i386.c:18617–18639`). The
+optional build note adds two `reloc_list` objects, each embedding its own
+`arelent` and symbol pointer, without allocating `fixS`
+(`gas/write.c:1927–1985`). Thus the per-section relocation pointer array has
+at most **281 slots / 2248 bytes**, conservatively charging every fixup and
+both note relocations to one section. Its unsigned count and multiplication
+fit. The final GAS symbol pointer array has at most **88 slots / 704 bytes**;
+the signed count and index in `set_symtab` fit independently
+(`gas/write.c:1764–1810`). Neither count establishes ELF relocation reach.
+
+This closes the selected GAS symbol/fixup object counts and their individual
+request bounds. The shared notes obstack has other users, including file/path
+metadata and fixed startup tables. Its chunk composition, allocator overhead,
+BFD output metadata and final object layout are still separate obligations;
+the small requests above do not silently close those obligations.
+
 ## Remaining composition
 
-The current record leaves generated symbol counts and subsidiary storage,
-remaining relaxation/fixup objects, object-file metadata, and fixed startup
-tables open. The selected unit's unsigned fragment-allocation counter and
+The current record leaves common notes/frchain backing, remaining relaxation
+state, object-file metadata, and fixed startup tables open. The selected
+unit's GAS symbol/fixup counts, unsigned fragment-allocation counter and
 16-bit region field now have separate sufficient bounds above; these are not
 GCC's UID or block counters. A broader admitted family still needs its own
 source-to-fragment transfer before any corresponding language restriction
