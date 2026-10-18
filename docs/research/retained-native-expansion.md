@@ -5157,8 +5157,66 @@ have initial capacity 2500 and 200-percent growth, and their signature map
 starts with a Create(500) request (`ali.adb:129–174`). Existing elaboration
 container initial sizes from the shared primitive inventory still apply even
 when Main adds zero members. Table/hash/list target layouts and growth peaks
-must be joined separately. No extra source constructor, Uint or dependency
-body work is hidden in these metadata rows.
+are now joined by `native_invocation_backing`, as follows. No extra source
+constructor, Uint or dependency body work is hidden in these metadata rows.
+
+The seven Table instances are Scenario_Reps, Target_Reps, Active_Scenario_Stack,
+Elaboration_Attributes and the three ALI invocation tables. The first two
+records each have ten fields;160bytes is a conservative aligned component
+upper bound. The active stack has four-byte Node IDs. Elaboration attributes
+have two four-byte IDs and zero demand on this route. The ALI construct and
+relation records have four fields each (16bytes); signatures have five
+(20bytes). Their nominal IDs stop at99999999, which is checked separately
+from signed-Int backing arithmetic. Fixed captured additions12/3/24 and
+1/2/3 are retained respectively; the variable terms above are added. All
+seven retain initial backing and use the generic table checks.
+
+Fourteen dynamic maps/sets use the actual primitive in
+`libgnat/g-dynhta.ads:460–513` and `.adb:399–410,546–558,1215–1291`.
+Membership sets instantiate that same hash with Boolean values
+(`g-sets.ads:160–175`). Every bucket contains a **full Node dummy head**,
+not just a pointer. Node size includes its key, value, two eight-byte links
+and alignment. Node/entity-to-ID maps therefore use24bytes per head/node;
+node-to-list maps use32, relation sets32, and the signature map40. The
+attributes object is bounded separately by64bytes. Individually allocated
+pair nodes are not treated as one combined object.
+
+For p maximum pairs and an initial request i, use
+
+```text
+bucket_count <= max(8, i, 2p).
+```
+
+The selected expansion factor is2 and load threshold1.5. Expansion requires
+`Float(Pairs)/Float(Buckets)>1.5`, which implies Pairs>Buckets even with
+rounding, by monotonic positive Float conversion. New capacity is2*old<2p.
+Compression and reset do not enlarge this envelope. The primitive guards its
+modular multiplication; the join also checks pair/iterator Natural counters,
+the32-bit modular length/index successor, and each actual bucket array's
+byte product/descriptor. Initial buckets stay allocated for empty sets.
+
+No missing fixed heap measurement is inferred to be zero. For the
+node/entity-keyed Declaration, Dynamic_ABE, Library_Body, Library_Spec,
+SPARK and Early_Call containers, the full fixed-node bound covers every
+possible distinct fixed key, plus the stated Main delta. The paired
+Scenario/Target/ALI tables bound their maps directly; Unit_To_Attributes has
+zero demand because creating its binding appends the corresponding table
+record. The source closure of the Main DFS permits only Main and its
+finalizer, so Nested_Scenarios and Traversed_Bodies retain the two-body bounds
+above rather than an arbitrary imported-body multiplier. The five top-level
+scenario-set iterations are sequential and have at most one live iterator
+per set (`sem_elab.adb:14273–14313`); the internal lookup maps are not iterated
+on this route. Nested-list iteration has at most two active Main/finalizer
+levels and cannot accumulate with source loop trip count.
+
+The two cached scenario lists use24-byte element nodes and32-byte headers
+(`g-lists.ads:214–242`); their Natural element counts are bounded by
+2*(S_call+W). The bound counts aggregate elements to dominate each list's
+counter, but checks only each real header/node allocation. The fixed2052-byte
+signature-location vector is also checked. All seven tables, fourteen hashes
+and list/counter/object checks pass for the five current-source examples.
+Complete ALI serialization, rendering and unrelated process heaps are still
+separate components.
 
 ## Native scope, check and expander stack peaks
 
@@ -5763,6 +5821,18 @@ scanner/parser input, logical join and selected backing check. Validation was
 source/hash inspection and arithmetic regeneration only. No compiler,
 GNATprove, Lean, full test suite or application execution was performed.
 
+Each example now also carries one `selected_native_predicate`: the conjunction
+of the core tables, parser auxiliaries, source/line/name checks, supplied
+configuration-file storage, diagnostic storage and invocation containers.
+All six component groups pass for all five examples. This is the composed
+**selected-component** result; its `complete_native_capacity_predicate` stays
+false. The output lists the remaining obligations in dependency order:
+complete argv/effective-search/late-path descriptor; remaining local vectors,
+caller arithmetic, copies and full ALI/debug/diagnostic rendering; backend
+Uint/Repinfo callbacks and phase unlock plus GCC/object/linker; other fixed
+process classes and the independent proof producer. General verified source
+counters and model/source correspondence are required for production use.
+
 ## Required transitive closure
 
 At optimization level zero, two through nine retained operands use an available
@@ -5829,18 +5899,19 @@ above. The native frontend/process is still incomplete at these explicit joins:
   input. The native diagnostic join supplies
   warning attempts/history/text under the recorded defaults and fixed-source
   pragma inventory. The native stack join bounds scope/check/expander peaks;
-  common auxiliary containers and physical layouts still need their own
-  counts even where constructors are zero.
+  diagnostic and invocation container backing now joins those logical counts,
+  including fixed initial storage where constructors are zero. Unrelated
+  auxiliary heaps and late consumers remain separate.
 - **Representations and late consumers:** the22 selected backing joins and
   five source-counted examples now compose actual scanner/parser inputs for
   those examples. A general source counter/descriptor implementation and its
   correspondence remain required. The physical/virtual source, line/column
   and selected frontend name-buffer components now have a concrete join above;
   finish backing/layout and
-  individual allocation/caller checks for the unjoined parser auxiliaries,
-  copy maps, diagnostic tables/strings, invocation graph/hash/DFS containers
-  and fixed non-table heaps. Parser Scope/Suspicious_Labels and their loop serial
-  now have the separate backing join above. Temporary numeric vectors, serialization
+  individual allocation/caller checks for copy maps and remaining fixed
+  non-table heaps. Parser Scope/Suspicious_Labels and their loop serial,
+  diagnostic tables/strings, and invocation graph/hash/DFS containers now
+  have the composed backing joins above. Temporary numeric vectors, serialization
   (including full ALI), and relevant fixed buffers remain separate. The
   backend's callbacks into Ada Uint/Repinfo allocation are additional to this
   before-gigi constructor sum, even if the AST identity count stays unchanged;

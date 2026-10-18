@@ -29,6 +29,8 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "exp_imgv.adb", "exp_put_image.adb", "exp_ch2.adb", "exp_ch3.adb",
          "exp_ch8.adb", "sem_ch4.adb", "sem_dim.adb", "rtsfind.ads",
          "elists.adb", "libgnat/g-htable.ads", "libgnat/s-htable.adb",
+         "libgnat/gnat.ads", "libgnat/g-dynhta.ads", "libgnat/g-dynhta.adb",
+         "libgnat/g-lists.ads", "libgnat/g-lists.adb", "libgnat/g-sets.ads", "libgnat/g-sets.adb",
          "sem_ch3.adb", "sem.adb", "sem_ch2.adb", "sem_ch6.adb", "sem_ch8.adb", "checks.adb",
          "freeze.adb", "layout.adb", "lib-xref.adb", "sem_warn.adb", "sem_warn.ads",
          "sem_elim.adb", "sem_cat.adb", "einfo-utils.adb", "sem_ch13.adb",
@@ -1432,7 +1434,7 @@ def native_frontend_logical_join(*, counts, scanner_pools,
         selected_configuration_storage=configuration_storage,
         scanner_pool_inputs=scanner_pools,
         diagnostics="native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-        remaining="parser auxiliaries; fixed non-table heaps; all physical layouts/growth/caller arithmetic; recursion and local vectors; complete ALI/debug/backend/object/linker and independent proof producer",
+        remaining="complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
         whole_native_frontend_closed=False)
 
 
@@ -1554,6 +1556,97 @@ def native_diagnostic_backing(diagnostic,table_factor=1):
         all_selected_checks_pass=all(checks.values()),
         rendering_backend_and_other_fixed_heaps_included=False,
         aggregate_lifetime_bytes_is_not_an_admission_gate=True,
+        whole_native_frontend_closed=False)
+
+
+def native_dynamic_hash_backing(pairs,initial,key_bytes,value_bytes,iterator_peak):
+    """Selected 1.5-load, factor-two GNAT.Dynamic_HTables instances.
+
+    Growing requires float(Pairs)/float(Buckets) > 1.5, hence Pairs > Buckets;
+    monotone nonnegative Float conversion suffices, without exact load rounding.
+    After growth buckets=2*old <2*Pairs. Compression/reset never raise that
+    envelope. Bucket heads are full Nodes, not bare pointers.
+    """
+    i32,i64 = 2**31-1,2**63-1
+    assert "type Bucket_Range_Type is mod 2 ** 32;" in sources["libgnat/gnat.ads"]
+    assert min(pairs,initial,key_bytes,value_bytes,iterator_peak)>=0 and initial>0
+    buckets = max(8,initial,2*pairs)
+    node_bytes = 8*((key_bytes+value_bytes+16+7)//8)
+    checks = dict(initial_Positive=1<=initial<=i32,pair_increment=pairs<=i32,
+        iterator_increment=iterator_peak<=i32,
+        bucket_modulus_length_and_iterator_successor=buckets<2**32,
+        single_bucket_array=buckets*node_bytes+16<=i64,
+        single_pair_node=node_bytes<=i64,single_attributes_object=64<=i64)
+    return dict(pair_bound=pairs,initial_buckets=initial,bucket_count_bound=buckets,
+        node_bytes_upper_bound=node_bytes,bucket_array_bytes_with_descriptor=buckets*node_bytes+16,
+        iterator_peak_bound=iterator_peak,checks=checks,
+        all_selected_checks_pass=all(checks.values()),
+        aggregate_pair_allocations_is_not_an_admission_gate=True)
+
+
+def native_invocation_backing(logical,table_factor=1):
+    """Compose native elaboration/invocation counters with their real containers."""
+    i32,i64 = 2**31-1,2**63-1
+    inv = logical["invocation"]
+    raw = fixed_native_inputs["fixed_lifetime_table_growth"]
+    fixed_nodes = logical["fixed"]["node_identities"]
+    scenarios = raw["sem_elab__internal_representation__scenario_reps__last_valXb"]+inv["Scenario_Reps_Main_entries"]
+    targets = raw["sem_elab__internal_representation__target_reps__last_valXb"]+inv["Target_Reps_Main_entries"]
+    constructs = raw["ali__invocation_constructs__last_valX"]+inv["ALI_Invocation_Constructs"]
+    relations = raw["ali__invocation_relations__last_valX"]+inv["ALI_Invocation_Relations"]
+    signatures = raw["ali__invocation_signatures__last_valX"]+inv["ALI_Invocation_Signatures"]
+    fields = {}
+    for file,name,expected in [("sem_elab.adb","Scenario_Rep_Record",10),
+        ("sem_elab.adb","Target_Rep_Record",10),("sem_elab.adb","Elaboration_Attributes_Record",2),
+        ("ali.adb","Invocation_Construct_Record",4),("ali.adb","Invocation_Relation_Record",4),
+        ("ali.adb","Invocation_Signature_Record",5)]:
+        body = re.search(r"type "+name+r" is record(.*?)end record;",sources[file],re.S).group(1)
+        body = re.sub(r"--[^\n]*","",body)
+        fields[name] = len(re.findall(r"\b\w+\s*:(?!=)",body))
+        assert fields[name] == expected,(name,fields[name])
+    assert raw["sem_elab__elaborated_units__elaboration_attributes__last_valXb"] == 0
+    tables = dict(Scenario_Reps=native_table_backing_row(scenarios,1,1000,200,160,i32,table_factor),
+        Target_Reps=native_table_backing_row(targets,1,1000,200,160,i32,table_factor),
+        Active_Scenario_Stack=native_table_backing_row(
+            raw["sem_elab__active_scenarios__active_scenario_stack__last_valX"]
+            +inv["Active_Scenario_Stack_Main_peak"],1,50,200,4,i32,table_factor),
+        Elaboration_Attributes=native_table_backing_row(0,1,250,200,8,i32,table_factor),
+        ALI_Invocation_Constructs=native_table_backing_row(constructs,1,2500,200,16,99999999,table_factor),
+        ALI_Invocation_Relations=native_table_backing_row(relations,1,2500,200,16,99999999,table_factor),
+        ALI_Invocation_Signatures=native_table_backing_row(signatures,1,2500,200,20,99999999,table_factor))
+    # Fixed node/entity-keyed sets/maps have no more distinct keys than the
+    # fixed node identities. Whole fixed-node allowance avoids assuming their
+    # unrecorded heap occupancy is zero. Main deltas are the source transfer.
+    map_specs = [
+        ("Node_To_Scenario",scenarios,500,4,4,0),
+        ("Entity_To_Target",targets,500,4,4,0),
+        ("Declaration_Scenarios",fixed_nodes+inv["Declaration_Scenarios_Main_members"],1000,4,1,1),
+        ("Dynamic_ABE_Check",fixed_nodes,500,4,1,1),
+        ("Library_Body",fixed_nodes,1000,4,1,1),
+        ("Library_Spec",fixed_nodes,1000,4,1,1),
+        ("SPARK",fixed_nodes,100,4,1,1),
+        ("Early_Call_Regions",fixed_nodes,100,4,4,0),
+        ("Unit_To_Attributes",0,250,4,4,0),
+        ("Nested_Scenarios",inv["Nested_Scenarios_Main_bindings"],250,4,8,0),
+        ("Traversed_Bodies",inv["Traversed_Bodies_Main_peak"],250,4,1,0),
+        ("Saved_Constructs",constructs,100,4,1,0),
+        ("Saved_Relations",relations,200,8,1,0),
+        ("ALI_Signature_Map",signatures,500,20,4,0)]
+    hashes = {name:native_dynamic_hash_backing(pairs,initial,key,value,iters)
+              for name,pairs,initial,key,value,iters in map_specs}
+    elements = inv["Nested_Scenario_list_elements"]
+    lists = dict(headers=inv["Nested_Scenario_list_headers"],elements_total_bound=elements,
+        element_bytes_upper_bound=24,header_bytes_upper_bound=32,iterator_peak_per_list=2,
+        checks=dict(element_counter=elements<=i32,iterator_counter=2<=i32,
+                    individual_node_and_header=32<=i64))
+    checks = dict(tables=all(x["all_selected_checks_pass"] for x in tables.values()),
+        hashes=all(x["all_selected_checks_pass"] for x in hashes.values()),
+        lists=all(lists["checks"].values()),
+        signature_location_local_vector=inv["signature_location_local_buffer"]+16<=i64)
+    return dict(tables=tables,hashes=hashes,lists=lists,record_field_counts=fields,checks=checks,
+        fixed_non_table_key_allowance=fixed_nodes,
+        all_selected_checks_pass=all(checks.values()),
+        complete_ALI_serialization_and_other_process_heaps_included=False,
         whole_native_frontend_closed=False)
 
 
@@ -1894,7 +1987,21 @@ def representative_current_programs():
             logical_join=logical,selected_backing_checks=physical,
             parser_auxiliary_backing=native_parser_auxiliary_backing(logical),
             source_and_frontend_name_backing=native_source_and_frontend_name_backing(logical,raw),
-            diagnostics=diagnostics,diagnostic_backing=native_diagnostic_backing(diagnostics)))
+            diagnostics=diagnostics,diagnostic_backing=native_diagnostic_backing(diagnostics),
+            invocation_backing=native_invocation_backing(logical)))
+        selected = result[-1]
+        component_checks = {name:selected[name]["all_selected_checks_pass"] for name in
+            ("selected_backing_checks","parser_auxiliary_backing","source_and_frontend_name_backing",
+             "diagnostic_backing","invocation_backing")}
+        component_checks["selected_configuration_storage"] = logical["selected_configuration_storage"]["all_selected_checks_pass"]
+        selected["selected_native_predicate"] = dict(components=component_checks,
+            all_selected_component_checks_pass=all(component_checks.values()),
+            complete_native_capacity_predicate=False,
+            remaining_in_dependency_order=[
+                "complete argv/effective search/late path descriptor and pre-launch realization",
+                "remaining selected local vectors, caller arithmetic, copies and full ALI/debug/diagnostic rendering",
+                "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
+                "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"])
     return dict(scope=inputs["scope"],pathname_length_premise=inputs["pathname_length_premise"],
         scan_multiplicity="two for identifiers/literals/numerals; Name_Find interning is not multiplied",
         compiler_or_prover_execution=False,complete_capacity_result=False,programs=result)

@@ -541,7 +541,7 @@
             "String_characters": 0
           },
           "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-          "remaining": "parser auxiliaries; fixed non-table heaps; all physical layouts/growth/caller arithmetic; recursion and local vectors; complete ALI/debug/backend/object/linker and independent proof producer",
+          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
           "whole_native_frontend_closed": false
         },
         "selected_backing_checks": {
@@ -2042,6 +2042,459 @@
           "rendering_backend_and_other_fixed_heaps_included": false,
           "aggregate_lifetime_bytes_is_not_an_admission_gate": true,
           "whole_native_frontend_closed": false
+        },
+        "invocation_backing": {
+          "tables": {
+            "Scenario_Reps": {
+              "demand": 41228,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 160,
+              "backing_capacity_bound": 123684,
+              "bytes_with_sentinel": 19789600,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Target_Reps": {
+              "demand": 22,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 160,
+              "backing_capacity_bound": 3000,
+              "bytes_with_sentinel": 480160,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Active_Scenario_Stack": {
+              "demand": 27,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 150,
+              "bytes_with_sentinel": 604,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Elaboration_Attributes": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 250,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 8,
+              "backing_capacity_bound": 750,
+              "bytes_with_sentinel": 6008,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Constructs": {
+              "demand": 20,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 16,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 120016,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Relations": {
+              "demand": 363,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 16,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 120016,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Signatures": {
+              "demand": 22,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 20,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 150020,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "hashes": {
+            "Node_To_Scenario": {
+              "pair_bound": 41228,
+              "initial_buckets": 500,
+              "bucket_count_bound": 82456,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978960,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Entity_To_Target": {
+              "pair_bound": 22,
+              "initial_buckets": 500,
+              "bucket_count_bound": 500,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 12016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Declaration_Scenarios": {
+              "pair_bound": 82432,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 164864,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 3956752,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Dynamic_ABE_Check": {
+              "pair_bound": 41216,
+              "initial_buckets": 500,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Library_Body": {
+              "pair_bound": 41216,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Library_Spec": {
+              "pair_bound": 41216,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "SPARK": {
+              "pair_bound": 41216,
+              "initial_buckets": 100,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Early_Call_Regions": {
+              "pair_bound": 41216,
+              "initial_buckets": 100,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Unit_To_Attributes": {
+              "pair_bound": 0,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 6016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Nested_Scenarios": {
+              "pair_bound": 2,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 32,
+              "bucket_array_bytes_with_descriptor": 8016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Traversed_Bodies": {
+              "pair_bound": 2,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 6016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Saved_Constructs": {
+              "pair_bound": 20,
+              "initial_buckets": 100,
+              "bucket_count_bound": 100,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 2416,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Saved_Relations": {
+              "pair_bound": 363,
+              "initial_buckets": 200,
+              "bucket_count_bound": 726,
+              "node_bytes_upper_bound": 32,
+              "bucket_array_bytes_with_descriptor": 23248,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "ALI_Signature_Map": {
+              "pair_bound": 22,
+              "initial_buckets": 500,
+              "bucket_count_bound": 500,
+              "node_bytes_upper_bound": 40,
+              "bucket_array_bytes_with_descriptor": 20016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            }
+          },
+          "lists": {
+            "headers": 2,
+            "elements_total_bound": 82452,
+            "element_bytes_upper_bound": 24,
+            "header_bytes_upper_bound": 32,
+            "iterator_peak_per_list": 2,
+            "checks": {
+              "element_counter": true,
+              "iterator_counter": true,
+              "individual_node_and_header": true
+            }
+          },
+          "record_field_counts": {
+            "Scenario_Rep_Record": 10,
+            "Target_Rep_Record": 10,
+            "Elaboration_Attributes_Record": 2,
+            "Invocation_Construct_Record": 4,
+            "Invocation_Relation_Record": 4,
+            "Invocation_Signature_Record": 5
+          },
+          "checks": {
+            "tables": true,
+            "hashes": true,
+            "lists": true,
+            "signature_location_local_vector": true
+          },
+          "fixed_non_table_key_allowance": 41216,
+          "all_selected_checks_pass": true,
+          "complete_ALI_serialization_and_other_process_heaps_included": false,
+          "whole_native_frontend_closed": false
+        },
+        "selected_native_predicate": {
+          "components": {
+            "selected_backing_checks": true,
+            "parser_auxiliary_backing": true,
+            "source_and_frontend_name_backing": true,
+            "diagnostic_backing": true,
+            "invocation_backing": true,
+            "selected_configuration_storage": true
+          },
+          "all_selected_component_checks_pass": true,
+          "complete_native_capacity_predicate": false,
+          "remaining_in_dependency_order": [
+            "complete argv/effective search/late path descriptor and pre-launch realization",
+            "remaining selected local vectors, caller arithmetic, copies and full ALI/debug/diagnostic rendering",
+            "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
+            "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"
+          ]
         }
       },
       {
@@ -2586,7 +3039,7 @@
             "String_characters": 26
           },
           "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-          "remaining": "parser auxiliaries; fixed non-table heaps; all physical layouts/growth/caller arithmetic; recursion and local vectors; complete ALI/debug/backend/object/linker and independent proof producer",
+          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
           "whole_native_frontend_closed": false
         },
         "selected_backing_checks": {
@@ -4087,6 +4540,459 @@
           "rendering_backend_and_other_fixed_heaps_included": false,
           "aggregate_lifetime_bytes_is_not_an_admission_gate": true,
           "whole_native_frontend_closed": false
+        },
+        "invocation_backing": {
+          "tables": {
+            "Scenario_Reps": {
+              "demand": 41229,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 160,
+              "backing_capacity_bound": 123687,
+              "bytes_with_sentinel": 19790080,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Target_Reps": {
+              "demand": 22,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 160,
+              "backing_capacity_bound": 3000,
+              "bytes_with_sentinel": 480160,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Active_Scenario_Stack": {
+              "demand": 27,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 150,
+              "bytes_with_sentinel": 604,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Elaboration_Attributes": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 250,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 8,
+              "backing_capacity_bound": 750,
+              "bytes_with_sentinel": 6008,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Constructs": {
+              "demand": 20,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 16,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 120016,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Relations": {
+              "demand": 363,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 16,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 120016,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Signatures": {
+              "demand": 22,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 20,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 150020,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "hashes": {
+            "Node_To_Scenario": {
+              "pair_bound": 41229,
+              "initial_buckets": 500,
+              "bucket_count_bound": 82458,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1979008,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Entity_To_Target": {
+              "pair_bound": 22,
+              "initial_buckets": 500,
+              "bucket_count_bound": 500,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 12016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Declaration_Scenarios": {
+              "pair_bound": 82433,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 164866,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 3956800,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Dynamic_ABE_Check": {
+              "pair_bound": 41216,
+              "initial_buckets": 500,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Library_Body": {
+              "pair_bound": 41216,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Library_Spec": {
+              "pair_bound": 41216,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "SPARK": {
+              "pair_bound": 41216,
+              "initial_buckets": 100,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Early_Call_Regions": {
+              "pair_bound": 41216,
+              "initial_buckets": 100,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Unit_To_Attributes": {
+              "pair_bound": 0,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 6016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Nested_Scenarios": {
+              "pair_bound": 2,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 32,
+              "bucket_array_bytes_with_descriptor": 8016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Traversed_Bodies": {
+              "pair_bound": 2,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 6016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Saved_Constructs": {
+              "pair_bound": 20,
+              "initial_buckets": 100,
+              "bucket_count_bound": 100,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 2416,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Saved_Relations": {
+              "pair_bound": 363,
+              "initial_buckets": 200,
+              "bucket_count_bound": 726,
+              "node_bytes_upper_bound": 32,
+              "bucket_array_bytes_with_descriptor": 23248,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "ALI_Signature_Map": {
+              "pair_bound": 22,
+              "initial_buckets": 500,
+              "bucket_count_bound": 500,
+              "node_bytes_upper_bound": 40,
+              "bucket_array_bytes_with_descriptor": 20016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            }
+          },
+          "lists": {
+            "headers": 2,
+            "elements_total_bound": 82460,
+            "element_bytes_upper_bound": 24,
+            "header_bytes_upper_bound": 32,
+            "iterator_peak_per_list": 2,
+            "checks": {
+              "element_counter": true,
+              "iterator_counter": true,
+              "individual_node_and_header": true
+            }
+          },
+          "record_field_counts": {
+            "Scenario_Rep_Record": 10,
+            "Target_Rep_Record": 10,
+            "Elaboration_Attributes_Record": 2,
+            "Invocation_Construct_Record": 4,
+            "Invocation_Relation_Record": 4,
+            "Invocation_Signature_Record": 5
+          },
+          "checks": {
+            "tables": true,
+            "hashes": true,
+            "lists": true,
+            "signature_location_local_vector": true
+          },
+          "fixed_non_table_key_allowance": 41216,
+          "all_selected_checks_pass": true,
+          "complete_ALI_serialization_and_other_process_heaps_included": false,
+          "whole_native_frontend_closed": false
+        },
+        "selected_native_predicate": {
+          "components": {
+            "selected_backing_checks": true,
+            "parser_auxiliary_backing": true,
+            "source_and_frontend_name_backing": true,
+            "diagnostic_backing": true,
+            "invocation_backing": true,
+            "selected_configuration_storage": true
+          },
+          "all_selected_component_checks_pass": true,
+          "complete_native_capacity_predicate": false,
+          "remaining_in_dependency_order": [
+            "complete argv/effective search/late path descriptor and pre-launch realization",
+            "remaining selected local vectors, caller arithmetic, copies and full ALI/debug/diagnostic rendering",
+            "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
+            "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"
+          ]
         }
       },
       {
@@ -4633,7 +5539,7 @@
             "String_characters": 0
           },
           "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-          "remaining": "parser auxiliaries; fixed non-table heaps; all physical layouts/growth/caller arithmetic; recursion and local vectors; complete ALI/debug/backend/object/linker and independent proof producer",
+          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
           "whole_native_frontend_closed": false
         },
         "selected_backing_checks": {
@@ -6134,6 +7040,459 @@
           "rendering_backend_and_other_fixed_heaps_included": false,
           "aggregate_lifetime_bytes_is_not_an_admission_gate": true,
           "whole_native_frontend_closed": false
+        },
+        "invocation_backing": {
+          "tables": {
+            "Scenario_Reps": {
+              "demand": 41230,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 160,
+              "backing_capacity_bound": 123690,
+              "bytes_with_sentinel": 19790560,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Target_Reps": {
+              "demand": 22,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 160,
+              "backing_capacity_bound": 3000,
+              "bytes_with_sentinel": 480160,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Active_Scenario_Stack": {
+              "demand": 27,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 150,
+              "bytes_with_sentinel": 604,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Elaboration_Attributes": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 250,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 8,
+              "backing_capacity_bound": 750,
+              "bytes_with_sentinel": 6008,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Constructs": {
+              "demand": 20,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 16,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 120016,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Relations": {
+              "demand": 363,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 16,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 120016,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Signatures": {
+              "demand": 22,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 20,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 150020,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "hashes": {
+            "Node_To_Scenario": {
+              "pair_bound": 41230,
+              "initial_buckets": 500,
+              "bucket_count_bound": 82460,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1979056,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Entity_To_Target": {
+              "pair_bound": 22,
+              "initial_buckets": 500,
+              "bucket_count_bound": 500,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 12016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Declaration_Scenarios": {
+              "pair_bound": 82434,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 164868,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 3956848,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Dynamic_ABE_Check": {
+              "pair_bound": 41216,
+              "initial_buckets": 500,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Library_Body": {
+              "pair_bound": 41216,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Library_Spec": {
+              "pair_bound": 41216,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "SPARK": {
+              "pair_bound": 41216,
+              "initial_buckets": 100,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Early_Call_Regions": {
+              "pair_bound": 41216,
+              "initial_buckets": 100,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Unit_To_Attributes": {
+              "pair_bound": 0,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 6016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Nested_Scenarios": {
+              "pair_bound": 2,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 32,
+              "bucket_array_bytes_with_descriptor": 8016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Traversed_Bodies": {
+              "pair_bound": 2,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 6016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Saved_Constructs": {
+              "pair_bound": 20,
+              "initial_buckets": 100,
+              "bucket_count_bound": 100,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 2416,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Saved_Relations": {
+              "pair_bound": 363,
+              "initial_buckets": 200,
+              "bucket_count_bound": 726,
+              "node_bytes_upper_bound": 32,
+              "bucket_array_bytes_with_descriptor": 23248,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "ALI_Signature_Map": {
+              "pair_bound": 22,
+              "initial_buckets": 500,
+              "bucket_count_bound": 500,
+              "node_bytes_upper_bound": 40,
+              "bucket_array_bytes_with_descriptor": 20016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            }
+          },
+          "lists": {
+            "headers": 2,
+            "elements_total_bound": 82488,
+            "element_bytes_upper_bound": 24,
+            "header_bytes_upper_bound": 32,
+            "iterator_peak_per_list": 2,
+            "checks": {
+              "element_counter": true,
+              "iterator_counter": true,
+              "individual_node_and_header": true
+            }
+          },
+          "record_field_counts": {
+            "Scenario_Rep_Record": 10,
+            "Target_Rep_Record": 10,
+            "Elaboration_Attributes_Record": 2,
+            "Invocation_Construct_Record": 4,
+            "Invocation_Relation_Record": 4,
+            "Invocation_Signature_Record": 5
+          },
+          "checks": {
+            "tables": true,
+            "hashes": true,
+            "lists": true,
+            "signature_location_local_vector": true
+          },
+          "fixed_non_table_key_allowance": 41216,
+          "all_selected_checks_pass": true,
+          "complete_ALI_serialization_and_other_process_heaps_included": false,
+          "whole_native_frontend_closed": false
+        },
+        "selected_native_predicate": {
+          "components": {
+            "selected_backing_checks": true,
+            "parser_auxiliary_backing": true,
+            "source_and_frontend_name_backing": true,
+            "diagnostic_backing": true,
+            "invocation_backing": true,
+            "selected_configuration_storage": true
+          },
+          "all_selected_component_checks_pass": true,
+          "complete_native_capacity_predicate": false,
+          "remaining_in_dependency_order": [
+            "complete argv/effective search/late path descriptor and pre-launch realization",
+            "remaining selected local vectors, caller arithmetic, copies and full ALI/debug/diagnostic rendering",
+            "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
+            "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"
+          ]
         }
       },
       {
@@ -6736,7 +8095,7 @@
             "String_characters": 26
           },
           "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-          "remaining": "parser auxiliaries; fixed non-table heaps; all physical layouts/growth/caller arithmetic; recursion and local vectors; complete ALI/debug/backend/object/linker and independent proof producer",
+          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
           "whole_native_frontend_closed": false
         },
         "selected_backing_checks": {
@@ -8237,6 +9596,459 @@
           "rendering_backend_and_other_fixed_heaps_included": false,
           "aggregate_lifetime_bytes_is_not_an_admission_gate": true,
           "whole_native_frontend_closed": false
+        },
+        "invocation_backing": {
+          "tables": {
+            "Scenario_Reps": {
+              "demand": 41234,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 160,
+              "backing_capacity_bound": 123702,
+              "bytes_with_sentinel": 19792480,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Target_Reps": {
+              "demand": 22,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 160,
+              "backing_capacity_bound": 3000,
+              "bytes_with_sentinel": 480160,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Active_Scenario_Stack": {
+              "demand": 27,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 150,
+              "bytes_with_sentinel": 604,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Elaboration_Attributes": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 250,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 8,
+              "backing_capacity_bound": 750,
+              "bytes_with_sentinel": 6008,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Constructs": {
+              "demand": 20,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 16,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 120016,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Relations": {
+              "demand": 363,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 16,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 120016,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Signatures": {
+              "demand": 22,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 20,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 150020,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "hashes": {
+            "Node_To_Scenario": {
+              "pair_bound": 41234,
+              "initial_buckets": 500,
+              "bucket_count_bound": 82468,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1979248,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Entity_To_Target": {
+              "pair_bound": 22,
+              "initial_buckets": 500,
+              "bucket_count_bound": 500,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 12016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Declaration_Scenarios": {
+              "pair_bound": 82438,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 164876,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 3957040,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Dynamic_ABE_Check": {
+              "pair_bound": 41216,
+              "initial_buckets": 500,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Library_Body": {
+              "pair_bound": 41216,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Library_Spec": {
+              "pair_bound": 41216,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "SPARK": {
+              "pair_bound": 41216,
+              "initial_buckets": 100,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Early_Call_Regions": {
+              "pair_bound": 41216,
+              "initial_buckets": 100,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Unit_To_Attributes": {
+              "pair_bound": 0,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 6016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Nested_Scenarios": {
+              "pair_bound": 2,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 32,
+              "bucket_array_bytes_with_descriptor": 8016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Traversed_Bodies": {
+              "pair_bound": 2,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 6016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Saved_Constructs": {
+              "pair_bound": 20,
+              "initial_buckets": 100,
+              "bucket_count_bound": 100,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 2416,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Saved_Relations": {
+              "pair_bound": 363,
+              "initial_buckets": 200,
+              "bucket_count_bound": 726,
+              "node_bytes_upper_bound": 32,
+              "bucket_array_bytes_with_descriptor": 23248,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "ALI_Signature_Map": {
+              "pair_bound": 22,
+              "initial_buckets": 500,
+              "bucket_count_bound": 500,
+              "node_bytes_upper_bound": 40,
+              "bucket_array_bytes_with_descriptor": 20016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            }
+          },
+          "lists": {
+            "headers": 2,
+            "elements_total_bound": 82512,
+            "element_bytes_upper_bound": 24,
+            "header_bytes_upper_bound": 32,
+            "iterator_peak_per_list": 2,
+            "checks": {
+              "element_counter": true,
+              "iterator_counter": true,
+              "individual_node_and_header": true
+            }
+          },
+          "record_field_counts": {
+            "Scenario_Rep_Record": 10,
+            "Target_Rep_Record": 10,
+            "Elaboration_Attributes_Record": 2,
+            "Invocation_Construct_Record": 4,
+            "Invocation_Relation_Record": 4,
+            "Invocation_Signature_Record": 5
+          },
+          "checks": {
+            "tables": true,
+            "hashes": true,
+            "lists": true,
+            "signature_location_local_vector": true
+          },
+          "fixed_non_table_key_allowance": 41216,
+          "all_selected_checks_pass": true,
+          "complete_ALI_serialization_and_other_process_heaps_included": false,
+          "whole_native_frontend_closed": false
+        },
+        "selected_native_predicate": {
+          "components": {
+            "selected_backing_checks": true,
+            "parser_auxiliary_backing": true,
+            "source_and_frontend_name_backing": true,
+            "diagnostic_backing": true,
+            "invocation_backing": true,
+            "selected_configuration_storage": true
+          },
+          "all_selected_component_checks_pass": true,
+          "complete_native_capacity_predicate": false,
+          "remaining_in_dependency_order": [
+            "complete argv/effective search/late path descriptor and pre-launch realization",
+            "remaining selected local vectors, caller arithmetic, copies and full ALI/debug/diagnostic rendering",
+            "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
+            "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"
+          ]
         }
       },
       {
@@ -8789,7 +10601,7 @@
             "String_characters": 0
           },
           "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-          "remaining": "parser auxiliaries; fixed non-table heaps; all physical layouts/growth/caller arithmetic; recursion and local vectors; complete ALI/debug/backend/object/linker and independent proof producer",
+          "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
           "whole_native_frontend_closed": false
         },
         "selected_backing_checks": {
@@ -10290,6 +12102,459 @@
           "rendering_backend_and_other_fixed_heaps_included": false,
           "aggregate_lifetime_bytes_is_not_an_admission_gate": true,
           "whole_native_frontend_closed": false
+        },
+        "invocation_backing": {
+          "tables": {
+            "Scenario_Reps": {
+              "demand": 41230,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 160,
+              "backing_capacity_bound": 123690,
+              "bytes_with_sentinel": 19790560,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Target_Reps": {
+              "demand": 22,
+              "low_bound": 1,
+              "initial": 1000,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 160,
+              "backing_capacity_bound": 3000,
+              "bytes_with_sentinel": 480160,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Active_Scenario_Stack": {
+              "demand": 27,
+              "low_bound": 1,
+              "initial": 50,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 4,
+              "backing_capacity_bound": 150,
+              "bytes_with_sentinel": 604,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "Elaboration_Attributes": {
+              "demand": 0,
+              "low_bound": 1,
+              "initial": 250,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 8,
+              "backing_capacity_bound": 750,
+              "bytes_with_sentinel": 6008,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Constructs": {
+              "demand": 20,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 16,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 120016,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Relations": {
+              "demand": 363,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 16,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 120016,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            },
+            "ALI_Invocation_Signatures": {
+              "demand": 22,
+              "low_bound": 1,
+              "initial": 2500,
+              "increment_percent": 200,
+              "component_bytes_upper_bound": 20,
+              "backing_capacity_bound": 7500,
+              "bytes_with_sentinel": 150020,
+              "checks": {
+                "initial_product": true,
+                "growth_product": true,
+                "backing_length_and_plus_one": true,
+                "empty_index": true,
+                "backing_index_and_sentinel": true,
+                "logical_nominal_index": true,
+                "allocation_and_pointer_difference": true
+              },
+              "all_selected_checks_pass": true
+            }
+          },
+          "hashes": {
+            "Node_To_Scenario": {
+              "pair_bound": 41230,
+              "initial_buckets": 500,
+              "bucket_count_bound": 82460,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1979056,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Entity_To_Target": {
+              "pair_bound": 22,
+              "initial_buckets": 500,
+              "bucket_count_bound": 500,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 12016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Declaration_Scenarios": {
+              "pair_bound": 82434,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 164868,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 3956848,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Dynamic_ABE_Check": {
+              "pair_bound": 41216,
+              "initial_buckets": 500,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Library_Body": {
+              "pair_bound": 41216,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Library_Spec": {
+              "pair_bound": 41216,
+              "initial_buckets": 1000,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "SPARK": {
+              "pair_bound": 41216,
+              "initial_buckets": 100,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 1,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Early_Call_Regions": {
+              "pair_bound": 41216,
+              "initial_buckets": 100,
+              "bucket_count_bound": 82432,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 1978384,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Unit_To_Attributes": {
+              "pair_bound": 0,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 6016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Nested_Scenarios": {
+              "pair_bound": 2,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 32,
+              "bucket_array_bytes_with_descriptor": 8016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Traversed_Bodies": {
+              "pair_bound": 2,
+              "initial_buckets": 250,
+              "bucket_count_bound": 250,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 6016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Saved_Constructs": {
+              "pair_bound": 20,
+              "initial_buckets": 100,
+              "bucket_count_bound": 100,
+              "node_bytes_upper_bound": 24,
+              "bucket_array_bytes_with_descriptor": 2416,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "Saved_Relations": {
+              "pair_bound": 363,
+              "initial_buckets": 200,
+              "bucket_count_bound": 726,
+              "node_bytes_upper_bound": 32,
+              "bucket_array_bytes_with_descriptor": 23248,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            },
+            "ALI_Signature_Map": {
+              "pair_bound": 22,
+              "initial_buckets": 500,
+              "bucket_count_bound": 500,
+              "node_bytes_upper_bound": 40,
+              "bucket_array_bytes_with_descriptor": 20016,
+              "iterator_peak_bound": 0,
+              "checks": {
+                "initial_Positive": true,
+                "pair_increment": true,
+                "iterator_increment": true,
+                "bucket_modulus_length_and_iterator_successor": true,
+                "single_bucket_array": true,
+                "single_pair_node": true,
+                "single_attributes_object": true
+              },
+              "all_selected_checks_pass": true,
+              "aggregate_pair_allocations_is_not_an_admission_gate": true
+            }
+          },
+          "lists": {
+            "headers": 2,
+            "elements_total_bound": 82512,
+            "element_bytes_upper_bound": 24,
+            "header_bytes_upper_bound": 32,
+            "iterator_peak_per_list": 2,
+            "checks": {
+              "element_counter": true,
+              "iterator_counter": true,
+              "individual_node_and_header": true
+            }
+          },
+          "record_field_counts": {
+            "Scenario_Rep_Record": 10,
+            "Target_Rep_Record": 10,
+            "Elaboration_Attributes_Record": 2,
+            "Invocation_Construct_Record": 4,
+            "Invocation_Relation_Record": 4,
+            "Invocation_Signature_Record": 5
+          },
+          "checks": {
+            "tables": true,
+            "hashes": true,
+            "lists": true,
+            "signature_location_local_vector": true
+          },
+          "fixed_non_table_key_allowance": 41216,
+          "all_selected_checks_pass": true,
+          "complete_ALI_serialization_and_other_process_heaps_included": false,
+          "whole_native_frontend_closed": false
+        },
+        "selected_native_predicate": {
+          "components": {
+            "selected_backing_checks": true,
+            "parser_auxiliary_backing": true,
+            "source_and_frontend_name_backing": true,
+            "diagnostic_backing": true,
+            "invocation_backing": true,
+            "selected_configuration_storage": true
+          },
+          "all_selected_component_checks_pass": true,
+          "complete_native_capacity_predicate": false,
+          "remaining_in_dependency_order": [
+            "complete argv/effective search/late path descriptor and pre-launch realization",
+            "remaining selected local vectors, caller arithmetic, copies and full ALI/debug/diagnostic rendering",
+            "backend Uint/Repinfo callbacks, phase unlock and GCC/object/linker composition",
+            "other fixed process classes and independent GNATprove producer; verified general source counters/correspondence"
+          ]
         }
       }
     ]
@@ -11589,7 +13854,7 @@
           "String_characters": 0
         },
         "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-        "remaining": "parser auxiliaries; fixed non-table heaps; all physical layouts/growth/caller arithmetic; recursion and local vectors; complete ALI/debug/backend/object/linker and independent proof producer",
+        "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
         "whole_native_frontend_closed": false
       },
       {
@@ -11940,7 +14205,7 @@
           "String_characters": 0
         },
         "diagnostics": "native_diagnostic_metadata(loops, source_with_names), separate until source_with_names is supplied",
-        "remaining": "parser auxiliaries; fixed non-table heaps; all physical layouts/growth/caller arithmetic; recursion and local vectors; complete ALI/debug/backend/object/linker and independent proof producer",
+        "remaining": "complete invocation/search descriptor; unjoined fixed heaps, caller arithmetic/local vectors and copies; complete ALI/debug/diagnostic rendering; backend callbacks/phase unlock, GCC/object/linker and independent proof producer",
         "whole_native_frontend_closed": false
       }
     ],
@@ -12769,7 +15034,7 @@
     "scope": "residual RTE-cache identities need no duplicate compiler capture"
   },
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 136,
+  "source_files_verified": 143,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -12810,6 +15075,13 @@
     "elists.adb": "c3808beb8857481e1ef462529410997f43cc5a5a813f08040b4aa27c819669dc",
     "libgnat/g-htable.ads": "05260b3914cb6dd7bced43716cf97ba80f1fc93e3d8c7f3f17eaed33bd3c2dc5",
     "libgnat/s-htable.adb": "b734b51a0eba840292b2d2ac0ace88782bc713755cf020f97ef8fa08158b69f8",
+    "libgnat/gnat.ads": "ae442ce0c51ff344cb4974db5a48d962ef078c7321f472d11c7a0ddfcfd83cce",
+    "libgnat/g-dynhta.ads": "f5974932d644929f906716abf69a51a42eca74a2f57378338abd52b3fb7a8b3a",
+    "libgnat/g-dynhta.adb": "375eb69170cc0df545d2ba4aa9e17c4eaa7cdda41980746cc82aaa60b49e0494",
+    "libgnat/g-lists.ads": "193c022fc50a2c231ace140d620307bb5b5e105058ae8d98a35109c5f5513485",
+    "libgnat/g-lists.adb": "f9dbbc6b1a827ba7cca2ab75f7a1c4cc8e3b47c3173df0aaec331ab2f424a7e8",
+    "libgnat/g-sets.ads": "23c8df7520ff9727a875caaa53819920afe5a2e463f963d295ab62b909ca638b",
+    "libgnat/g-sets.adb": "4efbcbccd029b8c88e1b1a98c48127b393d3294227120b9d1fdff08935082550",
     "sem_ch3.adb": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
     "sem.adb": "b216690f3c061cdd7ee229d8182d9863b0f2878e8ac9da67a095372e6c4e0f0d",
     "sem_ch2.adb": "7a454f2a24e4e16174229efbf17be5f934f78abb188c23f74d8af2490e261e9c",
