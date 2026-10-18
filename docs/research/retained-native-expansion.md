@@ -4844,6 +4844,92 @@ proof. No new native build, compiler capture, prover or test execution belongs
 to this result. Fixed DECL/type/helper objects, allocator rounding, global
 counters, gigi callbacks and later RTL/object/linker capacity remain separate.
 
+### Fixed GCC initialization witness: boundary and counter requirements
+
+A single retained native witness is a useful route for the **fixed setup
+component**, provided its source-independent input projection is established
+first. It cannot by itself replace the variable Main graph or certify every
+allocation in the compiler. No new capture has been made for this proposal,
+and no measured setup constant is supplied here.
+
+The natural post boundary is immediately before
+`Compilation_Unit_to_gnu (gnat_root)` (`trans.cc:685`). At that point the
+runtime declarations, fixed Standard roots, EH/FP initialization, common and
+target builtins, empty label stacks and optimization-default resave have run.
+No Main body, compilation-unit elaboration procedure or forced dummy has yet
+been constructed. The dummy is created after gigi returns. Lazy initialize_rtl
+and per-function prepare_function_start are later still and belong to the
+separate RTL transfer; this prefix must not absorb their costs.
+
+Use gigi entry as a second boundary, and gnat_install_builtins entry/return as
+optional subdivisions of the **same** witness. A gigi-entry baseline omits
+earlier GCC startup: init_ggc/stringpool/ttree, the pass manager and symbol table,
+plus gnat_init's common trees (`toplev.cc:1141–1176,1910–1914`,
+`misc.cc:358–378`). The process-start-to-post-boundary prefix includes that
+work; a difference across gigi alone does not. The narrow builtin interval has
+no direct application-AST traversal (`utils.cc:6625–6850,7745–7835`), but its
+entry type caches and options must still correspond to those established by
+the earlier initialization. It is not legitimate to start with arbitrary warm
+caches and call the resulting allocation count a universal maximum.
+
+There are explicit nonconstant objects before the post boundary. The source
+file loop adds filename identifiers and line maps (`trans.cc:293–363`), and
+init_gnat_utils allocates **two** arrays of max_gnat_nodes tree pointers
+(`utils.cc:433–439`). File count, line/column metadata, path bytes, those two
+arrays and the shared identifier-hash growth must retain their own source-
+sensitive bounds. The Standard/root inventory fixes semantic types, widths,
+fields and runtime signatures; the author-controlled source has not been
+translated into a GCC type or body yet. Nevertheless the four uncached roots
+are reached through the generic gnat_to_gnu_entity helper, which reads such
+fields as Needs_Debug_Info, Esize, representation attributes and scope
+(`decl.cc:296–520`). Before transferring one numeric witness across all shell
+classes, check that read projection against the selected fixed frontend
+descriptors, including any frontend-updated flags. Numeric entity IDs, source
+locations and path identifiers may vary while the semantic shape agrees.
+The no-debug setting alone does not justify erasing those helper reads.
+
+The following counters have different meanings; they cannot be substituted
+for one another:
+
+| Candidate observation | What it can establish |
+| --- | --- |
+| `next_decl_uid` | Signed monotone declaration identity allocation in the prefix, including discarded declarations. Its increments are not undone. Later PTA's direct UID allocations belong to a later phase. |
+| `next_type_uid` | Current next identity only. `type_hash_canon` can decrement it after discarding the newest type, so the final value is not a lifetime constructor count or an established peak. |
+| `tree_node_counts`, `tree_code_counts`, `tree_node_sizes` | Optional GATHER_STATISTICS accounting, decremented by free_node. A final snapshot misses discarded candidates and does not cover all allocator objects. |
+| `G.allocated` | Current GGC accounting, decreased by explicit frees and recomputed during collection. It is not cumulative allocation or a maximum. |
+| `timevar_ggc_mem_total` | Unconditional cumulative rounded GGC allocation bytes, increased only in ggc_internal_alloc_; no subtraction at free/collection. Subject to verifying its size_t arithmetic did not wrap, its increment bounds the number of positive GGC allocation events in the interval. |
+
+The source sites are `tree.cc:140–145,1296–1315,1344–1369,1436–1450,
+1468–1521,6453–6479`, `ggc-page.cc:1493–1510,1753,2312–2315` and
+`timevar.cc:35`. Every fresh type UID in make_node/copy_node follows a positive
+GGC allocation. Thus cumulative GGC bytes give a conservative upper bound on
+**all type-constructor events**, including candidates later discarded or
+assigned an identity that is rolled back. This is a way to obtain a fixed
+constructor-count constant; it is not an aggregate RAM or address-space
+admission rule. It does not bound an unobserved request's individual size,
+non-GGC allocations, stack objects or recursion by itself.
+
+A usable witness must retain the unchanged executable/options/input identity,
+the actual pre/post markers, counter availability and widths, and sufficient
+allocation/identity event or high-water evidence to exclude counter wrap and
+missed temporary peaks. Endpoint subtraction alone cannot establish those
+properties. The record must identify shared-cache/GC effects and use the
+existing table-growth bounds for source-varying metadata. Do not subtract a
+sample's metadata bytes and treat the unexplained remainder as a universal
+constant. A conservative fixed event constant may retain sampled overhead,
+while the general metadata allocation and backing checks are paid separately.
+
+The remaining source argument before capture is therefore narrow but real:
+close the fixed-root helper read projection, identify the supported executable's
+observable lifetime counters, and separate variable metadata/shared-container
+growth and Ada Uint/Repinfo callback effects. A witness satisfying those
+conditions can replace repeated hand enumeration of fixed builtin/helper
+constructor counts. Dynamic Main graphs, later pass setup, individual allocation
+arithmetic, callbacks, and object/linker consumers remain separate obligations.
+The [13-file source identity record](../evidence/unbounded-programs/retained-native-expansion-20261017/fixed-gcc-prefix-source-identity.json)
+pins the boundary and counter implementations at the selected GCC commit; it
+contains no native measurement.
+
 ## Numeric magnitudes in the closed concat stages
 
 The query-root bridge can also supply the missing digit bound for the combined
