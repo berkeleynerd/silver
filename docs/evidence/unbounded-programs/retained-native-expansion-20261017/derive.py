@@ -33,7 +33,9 @@ files = ["exp_ch4.adb", "exp_util.adb", "sem_util.adb", "sem_res.adb",
          "exp_ch13.adb", "nlists.adb", "itypes.adb", "expander.adb",
          "sem_aux.adb", "ghost.adb", "sem_type.adb", "restrict.adb",
          "local_restrict.adb", "accessibility.adb", "opt.ads",
-         "sem_attr.adb", "exp_attr.adb", "sem.ads", "exp_dbug.adb", "namet.ads"]
+         "sem_attr.adb", "exp_attr.adb", "sem.ads", "exp_dbug.adb", "namet.ads",
+         "sem_ch11.adb", "exp_ch11.adb", "sem_elab.adb", "errout.adb",
+         "targparm.adb", "targparm.ads", "libgnat/system-linux-x86.ads"]
 sources = {}
 hashes = {}
 for name in files:
@@ -124,6 +126,56 @@ for n, input_bound in [(2, 4096), (9, 4096), (10, 4096), (64, 4096),
                      "direct_uint_entries": 7 * n + 6,
                      "including_index_helper_arithmetic_uint_entries": 13 * n + 6,
                      "including_index_helper_arithmetic_digit_words": digits * (13 * n + 6)})
+
+def enabled_range_check(b, lists, analysis_graph):
+    """Specified pure resolved Integer bounds; excludes first bound analysis."""
+    assert b >= 2 and lists >= 0 and analysis_graph >= 1
+    a = analysis_graph
+    rows = {
+        "builder_and_selection": dict(ordinary=2*b+28+20*a, lists=2*lists,
+                                       growth=0, uint=80*a+60),
+        "three_order_comparisons": dict(ordinary=3*(40*a+5), lists=0,
+                                        growth=6, uint=3*(160*a+120)),
+        "two_Positive_bound_attributes": dict(ordinary=4, lists=0, growth=2, uint=0),
+        "at_most_six_same_Integer_conversions": dict(ordinary=12, lists=0,
+                                                    growth=6, uint=36*a),
+        "two_short_circuits_including_empty_left_wrappers": dict(ordinary=16,
+                                                                 lists=2, growth=6, uint=0),
+        "conditional_raise_analysis": dict(ordinary=2, lists=0, growth=1, uint=0),
+    }
+    total = {key: sum(row[key] for row in rows.values())
+             for key in ("ordinary", "lists", "growth", "uint")}
+    assert total == dict(ordinary=2*b+140*a+77, lists=2*lists+2,
+                         growth=21, uint=596*a+420)
+    return dict(b=b, bound_syntax_lists=lists, analysis_graph=a, rows=rows, total=total)
+
+
+def direct_and_scalar_concat(n, analysis_graph):
+    """Partial stage aggregate; excludes open copies/storage/calls/placement."""
+    assert n >= 2 and analysis_graph >= 1
+    a = analysis_graph
+    rows = {
+        "direct_including_simple_aggregate_leaf_copies": dict(
+            ordinary=26*n+47, lists=3*n+11, growth=1, uint=13*n+6),
+        "initial_arithmetic_with_enabled_check_envelope": dict(
+            ordinary=2*(4*n+2), lists=0, growth=4*n+2, uint=(4*n+2)*(6*a+2)),
+        "initial_scalar_conditionals": dict(ordinary=2*(n+2), lists=0, growth=n+2, uint=0),
+        "initial_Eq_Ne_comparisons": dict(ordinary=(2*n+2)*(40*a+5), lists=2,
+                                          growth=4*n+4, uint=(2*n+2)*(160*a+120)),
+        "initial_String_attributes": dict(ordinary=20*n*a+6*n+4, lists=0,
+                                           growth=3*n+2, uint=n*(80*a+64)),
+        "two_initial_same_Integer_conversions": dict(ordinary=4, lists=0,
+                                                       growth=2, uint=12*a),
+        "direct_lower_bound_selection_comparisons": dict(ordinary=20*n*a,
+                                                          lists=0, growth=0, uint=n*(80*a+60)),
+    }
+    total = {key: sum(row[key] for row in rows.values())
+             for key in ("ordinary", "lists", "growth", "uint")}
+    assert total == dict(ordinary=(120*n+80)*a+52*n+73, lists=3*n+13,
+                         growth=12*n+13, uint=(504*n+344)*a+385*n+250)
+    total.update(entities_and_names=2*n+4, name_characters=13*(2*n+4))
+    return dict(operands=n, analysis_graph=a, rows=rows, total=total)
+
 
 result = {
     "source_commit": pin,
@@ -420,6 +472,44 @@ result = {
         "mutually_exclusive_semantic_fold": {"ordinary_nodes": 2, "growing_slot_events": 1},
         "finalization_processing_extra_allocations_for_stated_action_types": 0,
         "not_included": "first child/action analysis; other action types; pending-freeze scope exits; transient placement; replay and source-to-invocation multiplicity; whole-scope/backend costs",
+    },
+    "enabled_scalar_helper_extensions": {
+        "premises": "earlier local frozen exact Standard Integer/Boolean classes, resolved children; strict overflow,O0, Linux x86 Backend_Overflow_Checks=True; no diagnostic; same-Integer parent conversion; no transient/rewrite callback; A bounds finite unfolded queries",
+        "arithmetic_or_same_Integer_conversion_additional_Uint": "6*A per operation",
+        "arithmetic_or_same_Integer_conversion_additional_other_allocations": 0,
+        "ordering_comparison_extra": {"ordinary_nodes": "40*A+5", "growth": 2,
+                                       "Uint": "160*A+120", "syntax_lists": 0},
+        "scalar_conditional_and_artificial_String_attribute_costs": "same as suppressed local transfer after child analysis",
+        "Standard_Positive_First_or_Last_extra": {"ordinary_nodes": 2, "growth": 1},
+    },
+    "empty_action_Standard_Boolean_short_circuit": {
+        "premises": "generated nonoverloaded Standard Boolean operator/context; pure already-resolved children; empty actions; frozen ordinary nontransient context; no diagnostics/callbacks",
+        "ordinary_nodes": 8, "growth": 3, "syntax_lists": 1,
+        "other_entity_name_Uint_Elist_String_allocations": 0,
+        "resolver_left_EWA": "unconditional New_List/relocate/EWA/rewrite; Resolve without Analyze, so no block entity or scope entry; later empty wrapper is folded away",
+    },
+    "enabled_pure_range_check": {
+        "premises": "resolved pure bounds of exact Standard Integer base, b ordinary nodes/l lists, no owned entities/itypes/actions or pending range checks; Standard Positive target; A covers queries; no static error; native no local-raise optimization/transient/callback; fixed generated check grammar",
+        "ordinary_nodes": "2*b+140*A+77", "syntax_lists": "2*l+2",
+        "growth": 21, "Uint": "596*A+420",
+        "extra_entity_name_Elist_String_allocations": 0,
+        "result_subtype_with_index_layout_and_bound_folds": {
+            "ordinary_nodes": "2*b+140*A+81", "syntax_lists": "2*l+2",
+            "growth": 23, "Uint": "596*A+515", "entities_and_names": 1,
+            "name_characters": "L+4",
+        },
+        "composition_examples_not_thresholds": [enabled_range_check(2, 0, 1),
+                                               enabled_range_check(31, 4, 127)],
+    },
+    "direct_and_scalar_concat_aggregate": {
+        "premises": "first generated scalar passes meet local helper premises; A bounds every unfolded graph query, including direct Get_Known_Bound comparisons; input numeric values fit and no diagnostic",
+        "ordinary_nodes": "(120*n+80)*A+52*n+73", "entities_and_names": "2*n+4",
+        "syntax_lists": "3*n+13", "growth": "12*n+13",
+        "Uint": "(504*n+344)*A+385*n+250", "name_characters": "13*(2*n+4)",
+        "excluded": "remaining direct copies and duplicators; result-subtype/storage/call/assignment analysis; wrapper/transient placement; reanalysis and source-to-invocation multiplicity",
+        "composition_examples_not_thresholds": [direct_and_scalar_concat(2, 1),
+                                               direct_and_scalar_concat(9, 127),
+                                               direct_and_scalar_concat(64, 4095)],
     },
     "lexical_call_sites_not_a_reachable_call_graph": calls,
     "limitations": ["no native compiler/prover/build execution", "no complete source-to-event bound",

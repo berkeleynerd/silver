@@ -9,7 +9,7 @@ syntax alone misses allocations made while GNAT analyzes that syntax.
 The source is GCC Ada commit
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. The
 [retained evidence](../evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json)
-records fifty-four inspected files hash-checked against the complete source
+records sixty-one inspected files hash-checked against the complete source
 manifest. Adjacent `derive.py` regenerates the arithmetic and lexical inspection
 aid from that source directory. Its rows encode the manual control-flow argument
 below; it is not an automatic reachability proof or a membership implementation.
@@ -1614,6 +1614,177 @@ scope exits, enclosing transient handling, repeated wrappers and source-to-
 invocation multiplicity remain separate. In particular, the immediate
 Insert_Actions branch on an already-analyzed short-circuit must charge the
 first analysis of its new actions before reusing this transfer.
+
+## Composed scalar and enabled-check transfers
+
+The following closes the generated **range-check** stage of an ordinary
+constrained String subtype, including its condition analysis. It also provides
+an executable aggregate for the concat emitter and its scalar expressions.
+These are composable stages, with input-shape premises below; the final native
+concat transfer still needs operand decoration, storage-object, call/slice,
+transient and invocation closure. `derive.py` computes the aggregate from the
+individual rows and checks its polynomial, rather than using a measured
+compiler coefficient.
+
+### Scalar helpers with checks enabled
+
+The earlier artificial same-type Integer conversion and generated `+`/`-`
+transfers extend to enabled checks with at most **6*A additional Uint appends
+per operation**, and no extra syntax beyond their existing two-node/one-growth
+bound. They still require the frozen Standard Integer base, no diagnostic,
+already resolved children, strict overflow and optimization level zero.
+Any parent conversion uses that same Integer base; no wider-type conversion
+optimization applies. The selected Linux x86 target has
+Backend_Overflow_Checks=True (`libgnat/system-linux-x86.ads:132`,
+`targparm.adb:802`). This target selection remains part of source/tool identity.
+
+For arithmetic, Enable_Overflow_Check performs one Determine_Range query,
+then returns or sets a flag before the optimizer's saved-check table path.
+Strict native arithmetic returns at the backend-overflow guard; its two small
+size products are directly represented Uint values, not retained appends
+(`checks.adb:410–455,756–814,850–966,6283–6450`). For an exact-type conversion,
+In_Subrange_Of's identity test prevents the overflow branch. Its scalar range
+check may run one Determine_Range query, then either the bounds fit or the
+same-type identity test returns; the no-diagnostic premise excludes a disjoint
+estimated interval. No check syntax is constructed
+(`checks.adb:3325–3479,3805–3919`, `sem_eval.adb:5336–5337`).
+
+The earlier scalar conditional transfer requires no suppression once its
+children are resolved to the exact context type: Apply_Check returns on type
+identity. An already generated child overflow flag is permitted; the
+conditional does not reanalyze that child. Ordinary generated String bound
+attributes likewise retain their earlier cost with enabled checks: the
+universal-attribute check returns for an artificial attribute
+(`sem_res.adb:9521–9689`, `checks.adb:3978–4007`).
+
+For artificial **ordering** comparisons `<`, `>`, `<=`, `>=`, the same
+`40*A+5` nodes, two growing events and `160*A+120` Uint envelope as Eq/Ne
+applies with **zero** new syntax lists. Suppression is unnecessary when the
+children are already analyzed/resolved with no pending range checks: comparison
+resolution only resolves those existing children, and strict native expansion
+has no additional checking route. Standard Integer excludes array/Boolean/
+universal narrowing, and the existing no-root-Length premise excludes the
+length optimization (`sem_res.adb:7672–7743`,
+`exp_ch4.adb:9494–9697,15251–15301`).
+
+### Empty wrappers in short-circuit checks
+
+One artificial Standard Boolean short-circuit with already resolved,
+side-effect-free scalar-comparison/Boolean children, no actions, no diagnostics
+and the ordinary frozen/nontransient context costs at most **eight ordinary
+nodes, three growing events and one syntax-list header**, with no entity,
+name, Uint, Elist or String additions. Child costs remain separate. This
+includes a native resolver action absent from the direct source grammar:
+Resolve_Short_Circuit always relocates its left operand, constructs an EWA
+with a **fresh empty list**, and rewrites the old left node. Save_Interps does
+nothing for these nonoverloaded children (`sem_res.adb:11668–11700`,
+`sem_type.adb:3324–3346`).
+
+That wrapper is **resolved without Analyze**. It therefore does not invoke
+Analyze_Expression_With_Actions and creates no E_Block entity or scope entry.
+Resolve_Expression_With_Actions either rewrites its known expression directly,
+or the native empty-action case relocates the existing expression and rewrites
+the wrapper. Charge at most five nodes/two growing events including wrapper
+creation. The short-circuit's own semantic fold or native known-operand rewrite
+adds at most two more nodes/one growing event; eight is a conservative envelope
+(`sem_res.adb:2567–2581,9483–9512`,
+`exp_ch4.adb:5690–5740,13167–13274`, `sem_eval.adb:3906–3998,5150–5222`).
+Standard Boolean adjustment is a no-op, the empty action list is not useful,
+and purity makes Remove_Side_Effects return. Dead-code handling only removes
+existing warnings/scenario records for these scalar trees; it creates no new
+syntax or recorded values (`exp_util.adb:10227–10378,12717–12729`,
+`errout.adb:3367–3475`, `sem_elab.adb:13667–13689,14258–14269`). The generated
+wrapper is a rewrite substitution even if a caller preserves source flags, so
+it does not enter Resolve_Declare_Expression's allocating hidden-map path.
+
+### Enabled range-check composition
+
+Take the preceding Get_Range_Checks shape: two already-resolved pure bound
+trees with b ordinary nodes and l list headers, no owned itypes/entities/actions,
+and exact Integer-base scalar values. Target subtype is Standard Positive.
+The scalar graph bound A includes every comparison/conversion query root.
+Known values fit their selected types; no static-error diagnostic occurs.
+The children are side-effect-free under Variable_Ref, and no pending range
+checks remain. Native local-raise optimization is off (default debug flags,
+no No_Exception_Propagation restriction). The enclosing declaration is an
+ordinary nontransient local declaration with no allocating rewrite callbacks.
+
+The one dynamic check has this fixed generated shape:
+
+```text
+raise Constraint_Error when
+  high >= low and then
+    (low < Positive'First or else high > Positive'Last)
+```
+
+Its builder was already bounded by `2*b+28` ordinary nodes and `2*l` lists.
+Copies preserve Analyzed flags; Remove_Checks changes check flags without
+clearing Analyzed. Its six Convert_To sites can conservatively be charged as
+six same-type conversions even where they return only a shallow relocation
+(`sem_util.adb:24637–24721`, `checks.adb:9822–9887,10609–10703,11139–11156`).
+The two Positive attributes fold existing type bounds for two nodes/one growth
+each, with zero numeric appends; their scalar-prefix path selects the Integer
+base directly (`sem_attr.adb:1866–1882,8339–8354,9590–9620,9817–9847`).
+There are three ordering comparisons and two short-circuits. Finally,
+Analyze_Raise_xxx_Error may replace the raise with a null statement, adding
+at most two nodes/one growth. Its native expander only adjusts Standard Boolean
+and returns from disabled local-raise optimization
+(`sem_ch11.adb:674–755`, `exp_ch11.adb:1319–1332,1697–1710`).
+
+Adding all condition-analysis rows gives `120*A+49` ordinary nodes,
+21 growing events, two lists and `516*A+360` Uint appends. Insert_Range_Checks
+splices the existing conditional raise after the declaration and analyzes it;
+it creates no insertion-wrapper list (`checks.adb:8117–8161`). Combining the
+builder, the selection comparison and the full condition analysis yields:
+
+```text
+complete enabled range check:
+  ordinary nodes       2*b + 140*A + 77
+  syntax lists         2*l + 2
+  growing events       21
+  Uint appends         596*A + 420
+  entities/names/Elists/String values 0.
+```
+
+Consequently the earlier explicit constrained String subtype declaration,
+with its already-resolved bounds and all other local premises unchanged, has
+the enabled-check envelope `2*b+140*A+81` ordinary nodes, `2*l+2` lists,
+23 growing events, `596*A+515` Uint appends, one index entity/name and L+4
+name characters. It includes index layout and the at-most-two bound folds.
+First bound analysis, any Force_Evaluation capture, the enclosing result object
+and subsequent freezing remain separately charged stages. The enabled case
+cannot use the earlier zero-list suppression shortcut.
+
+### Executable direct-plus-scalar concat aggregate
+
+For n operands, assume each first generated scalar pass meets the preceding
+helper premises and A bounds all of its unfolded query graphs. Charge enabled
+arithmetic/conversions even when an actual insertion suppresses their checks.
+The collected Integer declarations add only their already-counted syntax.
+The lower-bound selection makes at most n direct Compile_Time_Compare queries
+(`exp_ch4.adb:3176–3208`); the final Is_Out_Of_Range test only reads known
+values or returns Unknown (`sem_eval.adb:5667–5677,7354–7496`).
+
+Summing the direct emitter, initial generated arithmetic, conditionals,
+comparisons, attributes, conversions and those selection queries gives:
+
+```text
+ordinary nodes       (120*n+80)*A + 52*n + 73
+entities/names       2*n + 4
+syntax lists         3*n + 13
+growing events       12*n + 13
+Uint appends         (504*n+344)*A + 385*n + 250
+name characters      13*(2*n+4).
+```
+
+The aggregate **includes** the n+2 closed scalar-leaf copies, but **excludes**
+the remaining direct copies/duplicators, result-subtype/storage/assignment/call
+analysis, wrapper placement and repeated invocations. It is a sum of proved
+local stages, not a whole-native or source-to-demand bound. A must bound the
+actual generated query graphs; neither 4096 source bytes nor the runtime
+String-length bound can simply be substituted for it. The executable rows
+make these remaining composition obligations visible rather than absorbing
+them into an unexplained multiplier.
 
 ## Required transitive closure
 

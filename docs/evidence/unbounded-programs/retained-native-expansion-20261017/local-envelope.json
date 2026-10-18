@@ -1,6 +1,6 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
-  "source_files_verified": 54,
+  "source_files_verified": 61,
   "source_sha256": {
     "exp_ch4.adb": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
     "exp_util.adb": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
@@ -55,7 +55,14 @@
     "exp_attr.adb": "0d89c4982b0c5ae4430dae91539301c0adde232f1cc1f8ab4b8a32dfe9621f4b",
     "sem.ads": "4a1dedc5f04b41e701b97aedd148fedb355e7f924add812fa4ad09329eec3e5f",
     "exp_dbug.adb": "51cb27a590e381e03ee65e45a25223111cda4fce26221bd159fa46d8d28184f0",
-    "namet.ads": "129dcfd8cf6688ead4f5af052f80f8a86ad31f13ce36eb29d57c547d7b51efd8"
+    "namet.ads": "129dcfd8cf6688ead4f5af052f80f8a86ad31f13ce36eb29d57c547d7b51efd8",
+    "sem_ch11.adb": "da85956c0774465abf448452b9c7c1ef7bc06b7c47818bfbd7e6ac815fcac865",
+    "exp_ch11.adb": "253fe8e8936d351afff6dc81696c9f0cae042037a39ac9ff31db3fda3d806361",
+    "sem_elab.adb": "f2452a63f2fe2603c660445e51c4c687f96ed5f21784da9d5f88ab9f94cd3b0c",
+    "errout.adb": "ba9c6654fed11edaa6b8c2e5a0eab6cfa1f91ef2a60d31d2ba3875ef93ea93b2",
+    "targparm.adb": "a4a4720e4859263138a9138587521b9d2df7ba6da88f45a81ea86570b3438596",
+    "targparm.ads": "46778f4a0d8f838a87c19163d3ee159e8573475d29c9209021c5c0f167d95d21",
+    "libgnat/system-linux-x86.ads": "545339a0b49ad059358dcfcc69d47d04dfb3e5acb245cb39a1d590b13d693c95"
   },
   "scope": "native String concat direct emitter and specified primitive helpers; not transitive closure",
   "ordinary_allocations_excluding_New_Copy_Tree_and_open_helpers": {
@@ -716,6 +723,326 @@
     },
     "finalization_processing_extra_allocations_for_stated_action_types": 0,
     "not_included": "first child/action analysis; other action types; pending-freeze scope exits; transient placement; replay and source-to-invocation multiplicity; whole-scope/backend costs"
+  },
+  "enabled_scalar_helper_extensions": {
+    "premises": "earlier local frozen exact Standard Integer/Boolean classes, resolved children; strict overflow,O0, Linux x86 Backend_Overflow_Checks=True; no diagnostic; same-Integer parent conversion; no transient/rewrite callback; A bounds finite unfolded queries",
+    "arithmetic_or_same_Integer_conversion_additional_Uint": "6*A per operation",
+    "arithmetic_or_same_Integer_conversion_additional_other_allocations": 0,
+    "ordering_comparison_extra": {
+      "ordinary_nodes": "40*A+5",
+      "growth": 2,
+      "Uint": "160*A+120",
+      "syntax_lists": 0
+    },
+    "scalar_conditional_and_artificial_String_attribute_costs": "same as suppressed local transfer after child analysis",
+    "Standard_Positive_First_or_Last_extra": {
+      "ordinary_nodes": 2,
+      "growth": 1
+    }
+  },
+  "empty_action_Standard_Boolean_short_circuit": {
+    "premises": "generated nonoverloaded Standard Boolean operator/context; pure already-resolved children; empty actions; frozen ordinary nontransient context; no diagnostics/callbacks",
+    "ordinary_nodes": 8,
+    "growth": 3,
+    "syntax_lists": 1,
+    "other_entity_name_Uint_Elist_String_allocations": 0,
+    "resolver_left_EWA": "unconditional New_List/relocate/EWA/rewrite; Resolve without Analyze, so no block entity or scope entry; later empty wrapper is folded away"
+  },
+  "enabled_pure_range_check": {
+    "premises": "resolved pure bounds of exact Standard Integer base, b ordinary nodes/l lists, no owned entities/itypes/actions or pending range checks; Standard Positive target; A covers queries; no static error; native no local-raise optimization/transient/callback; fixed generated check grammar",
+    "ordinary_nodes": "2*b+140*A+77",
+    "syntax_lists": "2*l+2",
+    "growth": 21,
+    "Uint": "596*A+420",
+    "extra_entity_name_Elist_String_allocations": 0,
+    "result_subtype_with_index_layout_and_bound_folds": {
+      "ordinary_nodes": "2*b+140*A+81",
+      "syntax_lists": "2*l+2",
+      "growth": 23,
+      "Uint": "596*A+515",
+      "entities_and_names": 1,
+      "name_characters": "L+4"
+    },
+    "composition_examples_not_thresholds": [
+      {
+        "b": 2,
+        "bound_syntax_lists": 0,
+        "analysis_graph": 1,
+        "rows": {
+          "builder_and_selection": {
+            "ordinary": 52,
+            "lists": 0,
+            "growth": 0,
+            "uint": 140
+          },
+          "three_order_comparisons": {
+            "ordinary": 135,
+            "lists": 0,
+            "growth": 6,
+            "uint": 840
+          },
+          "two_Positive_bound_attributes": {
+            "ordinary": 4,
+            "lists": 0,
+            "growth": 2,
+            "uint": 0
+          },
+          "at_most_six_same_Integer_conversions": {
+            "ordinary": 12,
+            "lists": 0,
+            "growth": 6,
+            "uint": 36
+          },
+          "two_short_circuits_including_empty_left_wrappers": {
+            "ordinary": 16,
+            "lists": 2,
+            "growth": 6,
+            "uint": 0
+          },
+          "conditional_raise_analysis": {
+            "ordinary": 2,
+            "lists": 0,
+            "growth": 1,
+            "uint": 0
+          }
+        },
+        "total": {
+          "ordinary": 221,
+          "lists": 2,
+          "growth": 21,
+          "uint": 1016
+        }
+      },
+      {
+        "b": 31,
+        "bound_syntax_lists": 4,
+        "analysis_graph": 127,
+        "rows": {
+          "builder_and_selection": {
+            "ordinary": 2630,
+            "lists": 8,
+            "growth": 0,
+            "uint": 10220
+          },
+          "three_order_comparisons": {
+            "ordinary": 15255,
+            "lists": 0,
+            "growth": 6,
+            "uint": 61320
+          },
+          "two_Positive_bound_attributes": {
+            "ordinary": 4,
+            "lists": 0,
+            "growth": 2,
+            "uint": 0
+          },
+          "at_most_six_same_Integer_conversions": {
+            "ordinary": 12,
+            "lists": 0,
+            "growth": 6,
+            "uint": 4572
+          },
+          "two_short_circuits_including_empty_left_wrappers": {
+            "ordinary": 16,
+            "lists": 2,
+            "growth": 6,
+            "uint": 0
+          },
+          "conditional_raise_analysis": {
+            "ordinary": 2,
+            "lists": 0,
+            "growth": 1,
+            "uint": 0
+          }
+        },
+        "total": {
+          "ordinary": 17919,
+          "lists": 10,
+          "growth": 21,
+          "uint": 76112
+        }
+      }
+    ]
+  },
+  "direct_and_scalar_concat_aggregate": {
+    "premises": "first generated scalar passes meet local helper premises; A bounds every unfolded graph query, including direct Get_Known_Bound comparisons; input numeric values fit and no diagnostic",
+    "ordinary_nodes": "(120*n+80)*A+52*n+73",
+    "entities_and_names": "2*n+4",
+    "syntax_lists": "3*n+13",
+    "growth": "12*n+13",
+    "Uint": "(504*n+344)*A+385*n+250",
+    "name_characters": "13*(2*n+4)",
+    "excluded": "remaining direct copies and duplicators; result-subtype/storage/call/assignment analysis; wrapper/transient placement; reanalysis and source-to-invocation multiplicity",
+    "composition_examples_not_thresholds": [
+      {
+        "operands": 2,
+        "analysis_graph": 1,
+        "rows": {
+          "direct_including_simple_aggregate_leaf_copies": {
+            "ordinary": 99,
+            "lists": 17,
+            "growth": 1,
+            "uint": 32
+          },
+          "initial_arithmetic_with_enabled_check_envelope": {
+            "ordinary": 20,
+            "lists": 0,
+            "growth": 10,
+            "uint": 80
+          },
+          "initial_scalar_conditionals": {
+            "ordinary": 8,
+            "lists": 0,
+            "growth": 4,
+            "uint": 0
+          },
+          "initial_Eq_Ne_comparisons": {
+            "ordinary": 270,
+            "lists": 2,
+            "growth": 12,
+            "uint": 1680
+          },
+          "initial_String_attributes": {
+            "ordinary": 56,
+            "lists": 0,
+            "growth": 8,
+            "uint": 288
+          },
+          "two_initial_same_Integer_conversions": {
+            "ordinary": 4,
+            "lists": 0,
+            "growth": 2,
+            "uint": 12
+          },
+          "direct_lower_bound_selection_comparisons": {
+            "ordinary": 40,
+            "lists": 0,
+            "growth": 0,
+            "uint": 280
+          }
+        },
+        "total": {
+          "ordinary": 497,
+          "lists": 19,
+          "growth": 37,
+          "uint": 2372,
+          "entities_and_names": 8,
+          "name_characters": 104
+        }
+      },
+      {
+        "operands": 9,
+        "analysis_graph": 127,
+        "rows": {
+          "direct_including_simple_aggregate_leaf_copies": {
+            "ordinary": 281,
+            "lists": 38,
+            "growth": 1,
+            "uint": 123
+          },
+          "initial_arithmetic_with_enabled_check_envelope": {
+            "ordinary": 76,
+            "lists": 0,
+            "growth": 38,
+            "uint": 29032
+          },
+          "initial_scalar_conditionals": {
+            "ordinary": 22,
+            "lists": 0,
+            "growth": 11,
+            "uint": 0
+          },
+          "initial_Eq_Ne_comparisons": {
+            "ordinary": 101700,
+            "lists": 2,
+            "growth": 40,
+            "uint": 408800
+          },
+          "initial_String_attributes": {
+            "ordinary": 22918,
+            "lists": 0,
+            "growth": 29,
+            "uint": 92016
+          },
+          "two_initial_same_Integer_conversions": {
+            "ordinary": 4,
+            "lists": 0,
+            "growth": 2,
+            "uint": 1524
+          },
+          "direct_lower_bound_selection_comparisons": {
+            "ordinary": 22860,
+            "lists": 0,
+            "growth": 0,
+            "uint": 91980
+          }
+        },
+        "total": {
+          "ordinary": 147861,
+          "lists": 40,
+          "growth": 121,
+          "uint": 623475,
+          "entities_and_names": 22,
+          "name_characters": 286
+        }
+      },
+      {
+        "operands": 64,
+        "analysis_graph": 4095,
+        "rows": {
+          "direct_including_simple_aggregate_leaf_copies": {
+            "ordinary": 1711,
+            "lists": 203,
+            "growth": 1,
+            "uint": 838
+          },
+          "initial_arithmetic_with_enabled_check_envelope": {
+            "ordinary": 516,
+            "lists": 0,
+            "growth": 258,
+            "uint": 6339576
+          },
+          "initial_scalar_conditionals": {
+            "ordinary": 132,
+            "lists": 0,
+            "growth": 66,
+            "uint": 0
+          },
+          "initial_Eq_Ne_comparisons": {
+            "ordinary": 21294650,
+            "lists": 2,
+            "growth": 260,
+            "uint": 85191600
+          },
+          "initial_String_attributes": {
+            "ordinary": 5241988,
+            "lists": 0,
+            "growth": 194,
+            "uint": 20970496
+          },
+          "two_initial_same_Integer_conversions": {
+            "ordinary": 4,
+            "lists": 0,
+            "growth": 2,
+            "uint": 49140
+          },
+          "direct_lower_bound_selection_comparisons": {
+            "ordinary": 5241600,
+            "lists": 0,
+            "growth": 0,
+            "uint": 20970240
+          }
+        },
+        "total": {
+          "ordinary": 31780601,
+          "lists": 205,
+          "growth": 781,
+          "uint": 133521890,
+          "entities_and_names": 132,
+          "name_characters": 1716
+        }
+      }
+    ]
   },
   "lexical_call_sites_not_a_reachable_call_graph": [
     {
