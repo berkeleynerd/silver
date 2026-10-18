@@ -1506,14 +1506,110 @@ LoopCost = (69,23,43,267) + q_i*(16,5,6,57) + q_s*(49,19,27,126)
            + BodyAndList + Prog(low) + Prog(high) + Term(low) + Term(high).
 ```
 
-For the Main-visible unrefined contract roots just enumerated, the coarse
-root bound is `sum(q_i+q_s) <= F_loops*(D+4)`; the source-derived descendant
-write sets are sharper. The call/dependency analysis must justify that
-`Get_Proof_Globals` at Main's scope retains that opaque File_System state
-rather than introducing visible constituents; the `Is_Object` exclusion
-alone does not prove its refinement policy. Neither numeric trip
+`Get_Proof_Globals` does expand abstract states independently of ordinary
+scope visibility, so opacity must also cover that route. Its
+`Expand_Abstract_State` converts every non-SPARK constituent object to
+`Magic_String`; an unknown abstract state is also a magic string
+(`src/flow/flow_utility.adb:2519–2681`,
+`src/flow/flow_generated_globals-phase_2.adb:4793–4875`). The selected
+Ada.Text_IO body declares its File_System refinement under `SPARK_Mode (Off)`
+(`gcc/ada/libgnat/a-textio.adb:46–58`). Thus both the visible abstract entity
+and expanded constituents are excluded from this frame helper. The selected
+Silver sources add no `Part_Of` constituents. The call companion retains the
+fixed specification/dependency scope; this does not cover arbitrary changes
+to those external or Silver library sources.
+
+The coarse root bound is consequently `sum(q_i+q_s) <= F_loops*(D+4)`;
+the source-derived descendant write sets are sharper. Neither numeric trip
 count nor the number of repeated assignments to one root multiplies this
 producer cost.
+
+### Generated declaration and action wrappers
+
+`Check_Scalar_Range` for an ordinary signed Integer range with a supplied
+static Integer/Positive base has the compositional upper bound
+
+```text
+allocations <= (17,7,10) + Term(low) + Term(high)
+                         + Prog(low) + Prog(high)
+occurrences <= 69 + 2*Term_O(low) + 2*Term_O(high)
+                  + Prog_O(low) + Prog_O(high).
+```
+
+The optional program-domain evaluations occur only when the corresponding
+endpoint comes from source and is not an OK static expression. The two
+term-domain results are each **allocated once but serialized twice**, in a
+range-membership comparison and the nonempty-range guard. The fixed core is
+`7/5/6/41`: three comparisons with cached static base attributes, conjunction,
+implication, any-expression and location. Each optional endpoint evaluation
+adds an ignore wrapper `4/0/0/13` and a prepending sequence `1/1/2/1`.
+Source: `src/why/gnat2why-expr.adb:3707–3834`,
+`src/why/why-gen-progs.adb:126–150,199–215,275–280`.
+The enclosing generated scalar subtype declaration adds at most one location
+node/occurrence. No absent or dynamic base type is silently covered by this
+helper row; those would need their own base-attribute translations.
+
+For a static range that is empty or fits its static base,
+`Check_Scalar_Range` returns the shared Void immediately, with no endpoint
+translations. A static Integer subtype declaration normally skips the call
+altogether. Ordinary generated static String aliases/index subtypes have no
+component constraint, fixed-lower-bound aspect or nonstatic index expression;
+any reached range check also has the immediate-return condition. Thus a
+static generated subtype declaration contributes at most **1/0/0/5**,
+its final location wrapper around Void. This executable-declaration row is
+separate from the type-theory contents priced above
+(`src/why/gnat2why-expr.adb:22840–23012,23187–23194`).
+
+Generated bound-capture objects can use the existing ordinary Integer
+declaration/binder/theory rows when their initializer type is the captured
+source object's static nonempty subtype or predefined Integer. They are
+distinct declarations: charge their initializer translation and any entity
+term-domain replay, then charge the loop's references to those captures as
+references. Do not charge the unrewritten complex bound at every reference.
+The frontend analysis must provide that rewrite/count map; the numeric
+wrapper does not establish it.
+
+There are two additional finite wrapper families, kept explicit until their
+actual generated-node multiplicities are established:
+
+- `N_Itype_Reference` with an associated node having an Etype calls
+  `Transform_Prog` on that node and wraps it in `New_Ignore`. The wrapper is
+  at most **4/0/0/14**, with the associated expression once. It returns before
+  the declaration's final location-label path. Other associated-node kinds
+  return shared Void. This is a possible additional translation caller,
+  rather than permission to assume every initializer is translated only
+  twice (`src/why/gnat2why-expr.adb:23122–23134`). Main's lack of source access,
+  slices, records, user profiles and body inlining excludes many such
+  frontend sites, but full reference-site closure still belongs to the
+  frontend invocation map.
+- An ordinary scalar constant in an `Actions` list receives one local
+  `Mk_Item` during preparation and another during the reverse binding pass.
+  The two visits plus the binding cost **11/0/0/8**, excluding the initializer,
+  which is translated once into its binder's supplied expected type. The
+  surrounding expression occurs once in the binding context. Type
+  declarations in these lists are ignored by both passes. Itype-reference
+  actions in the program domain instead invoke the preceding wrapper and
+  prepend its result (`src/why/gnat2why-expr.adb:15420–15569`).
+
+**List wrappers.** `Transform_Declarations` creates one Void sequence and
+appends each returned declaration. In these ordinary families a declaration
+has at most two immediate statement entries if its final source location
+label is absent; a label or other node contributes one. `Append` flattens
+only that immediate list, not every descendant. For `d` declarations this
+list wrapper costs at most **`(1,1,2d+1,5)`**, excluding all supplied
+declaration results. A declaration-block wrapper additionally appends the
+core's immediate statement entries without making a new Why node/list
+(`src/why/gnat2why-expr.adb:23201–23232`,
+`src/why/why-gen-progs.adb:52–102,366–370`).
+
+For a mixed executable list of `m` source statements and `g` such ordinary
+generated declarations, the earlier source-list bound becomes
+**`(m+g+1,1,m+2g+1,m+g+5)`**. It allows a separate outer source-location
+wrapper for every entry, including generated entries if they carry a
+positive location; without that wrapper, at most two immediate entries are
+copied. This is disjoint from the declaration's own final location label.
+No labels, goto or Assert_And_Cut are admitted, so those list-restructuring
+branches do not apply (`src/why/gnat2why-expr.adb:30068–30155`).
 
 ## Aggregate formula and finite remaining helper families
 
@@ -1574,6 +1670,12 @@ again as standalone conversions.
 | Main type translation/completion | Five classified rows in the preceding table; representation attempts and symbol caches separate |
 | Ordinary object/loop symbol and outer theory setup | [Object component](retained-producer-objects.md): per-visit regular/split `Mk_Item`, constant/mutable definitions, constant axioms and loop exception theory pair |
 | Ordinary range loop, excluding supplied body/endpoints | `(69,23,43,267) + q_i*(16,5,6,57) + q_s*(49,19,27,126)`; outer entity theories separate |
+| Static generated subtype declaration | `(1,0,0,5)`; type-theory generation separate |
+| Scalar range check with static signed Integer base | `(17,7,10,69)` plus endpoint formula above; term children emitted twice |
+| Ordinary scalar action preparation/binding | `(11,0,0,8)` plus one initializer translation |
+| Declaration-list wrapper with `d` declarations | `(1,1,2d+1,5)`; supplied declarations separate |
+| Mixed statement list with `m` source and `g` generated entries | `(m+g+1,1,m+2g+1,m+g+5)` |
+| Selected library call wrappers | [Call component](retained-producer-calls.md): Put/Put_Line `(9,6,4,9)`, Reject `(4,6,4,13)`, First_Or_Default `(18,9,9,74)`, Input_Is_Valid `(18,9,9,78)`; argument/result conversions separate |
 
 Thus write the single pre-import sum as
 
@@ -1592,9 +1694,7 @@ coverage obligation, not a claim that the whole producer is already bounded.
 | --- | --- |
 | `K_fixed` | One-time predefined and selected dependency theories, package processing, symbol initialization, external-constant assumptions, fixed entry/exit work and non-Main entity/list contribution; separate producer processes if the invocation plan has more than one. |
 | Generated/library object setup and visit counts | The [object component](retained-producer-objects.md) closes ordinary regular/split binder visits and source object/loop theory contents. Map actual setup visits to source/generated declarations, and price richer fixed-library shapes separately. |
-| `K_generated_decl` | Executable checks/wrappers for generated static object subtypes, static String index/alias subtypes, loop-index subtypes and at most two loop bound-capture declarations. Attribute/bound-expression translations must be charged here or to the closed expression rows, once consistently. |
-| Generated actions and declaration-list wrappers | The [control component](retained-producer-control.md) closes source Length, if skeletons and ordinary source statement lists. It keeps frontend Actions/generated statements without source locations and the distinct `Transform_Declarations` list helper separate; add those actual callers here. |
-| `K_call[j]` | One wrapper family for each admitted library operation: Put, Put_Line, First_Or_Default, Input_Is_Valid and Reject. Count source call sites and any immutable initializer replay; price actual binding, conversions, checks, contracts/effects and globals. The frontend report excludes body inlining into Main, but fixed package source size alone is not a per-call bound. |
+| Generated declaration/action invocation map | The preceding rows price static subtype declarations, dynamic scalar range checks with static base, ordinary bound-capture declaration wrappers, scalar actions and both list wrappers. Establish exact generated shapes/counts and any Itype-reference associated-expression replay; apply bound/capture rewrites and term/program multiplicities consistently. |
 | Invocation map and counters | Close `n_q(P)` and `n_h(P)` from the source grammar and frontend-generated counts, including expected-type construction and all conversion/lookups. Ordinary initializers need at most program plus term translation; Main-local constants have no third assumption pass. Generated captures, type helpers and fixed call wrappers still require their own counts. Bound `M`, `C`, `F <= E_list` and the temporary-name counter from the same accounting. |
 
 The [frontend report](retained-frontend-entities.md) now supplies the Main entity,

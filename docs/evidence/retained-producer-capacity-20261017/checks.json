@@ -54,6 +54,50 @@
     "occurrence_overhead_max": 459,
     "premise": "rank-one Character; static-constrained or unconstrained; no FLB/wrappers/predicates/qualification/element conversion"
   },
+  "generated_declaration_helpers": {
+    "declaration_list": "(1,1,2d+1,5) beyond the supplied d ordinary declaration results",
+    "itype_reference_ignore_wrapper_max": [
+      4,
+      0,
+      0,
+      14
+    ],
+    "mixed_statement_list": "(m+g+1,1,m+2g+1,m+g+5), m source statements and g ordinary generated declarations",
+    "optional_each_endpoint_program_check": [
+      5,
+      1,
+      2,
+      14
+    ],
+    "program_endpoint_multiplicity_max": 1,
+    "regular_scalar_action_preparation_and_binding": [
+      11,
+      0,
+      0,
+      8
+    ],
+    "scalar_range_check_max": [
+      17,
+      7,
+      10,
+      69
+    ],
+    "scalar_range_check_static_base_core": [
+      7,
+      5,
+      6,
+      41
+    ],
+    "scope": "per-helper costs only; generated-node counts, initializer/endpoint/itype replay and action occurrence multiplicities must follow frontend shape",
+    "static_subtype_decl_location_max": [
+      1,
+      0,
+      0,
+      5
+    ],
+    "term_endpoint_allocation_multiplicity": 1,
+    "term_endpoint_occurrence_multiplicity": 2
+  },
   "limitation": "Arithmetic and retained-fixture checks; not whole-producer bound or source correspondence proof",
   "literal_component_examples": [
     {
@@ -264,7 +308,7 @@
       2,
       42
     ],
-    "scope": "no unrolling, explicit range bounds, no source invariant/variant/filter/body declaration; supplied body and endpoint translations separate; G4 uses Main-visible unrefined contract roots",
+    "scope": "no unrolling, explicit range bounds, no source invariant/variant/filter/body declaration; supplied body and endpoint translations separate; selected library G4 uses opaque non-SPARK File_System expansion",
     "string_frame_entire_object": [
       49,
       19,

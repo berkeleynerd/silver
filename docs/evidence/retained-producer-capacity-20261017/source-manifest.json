@@ -1,6 +1,42 @@
 {
   "files": [
     {
+      "bytes": 175085,
+      "lf_lines": 4877,
+      "path": "src/flow/flow_generated_globals-phase_2.adb",
+      "retained_line_ranges": [
+        [
+          4793,
+          4875
+        ]
+      ],
+      "sha256": "b4ac652e535a98d65f558cfb2d362a7b2a86478fba9012e7ae8c63b1679bf5bb"
+    },
+    {
+      "bytes": 309882,
+      "lf_lines": 8466,
+      "path": "src/flow/flow_utility.adb",
+      "retained_line_ranges": [
+        [
+          966,
+          1000
+        ],
+        [
+          2035,
+          2062
+        ],
+        [
+          2519,
+          2681
+        ],
+        [
+          6352,
+          6359
+        ]
+      ],
+      "sha256": "822c171fc085df6148d2bb6cb73fb7b412265e4c5d275a9aa13c747522251dcc"
+    },
+    {
       "bytes": 601572,
       "lf_lines": 15037,
       "path": "src/spark/spark_definition.adb",
@@ -400,6 +436,30 @@
         [
           2707,
           2894
+        ],
+        [
+          3707,
+          3834
+        ],
+        [
+          3910,
+          3927
+        ],
+        [
+          15420,
+          15569
+        ],
+        [
+          22840,
+          23012
+        ],
+        [
+          23117,
+          23232
+        ],
+        [
+          30068,
+          30088
         ]
       ],
       "sha256": "750ed73091af62c0b522077c2e59e10f496b91a4bee323b3b822fba15094dd14"
@@ -880,6 +940,10 @@
         [
           52,
           102
+        ],
+        [
+          126,
+          150
         ],
         [
           329,

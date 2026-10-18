@@ -44,6 +44,8 @@ RANGES = {
     "src/spark/spark_definition.adb": [[248, 263], [11836, 11895], [12186, 12248], [14999, 15035]],
     "src/spark/spark_util-types.adb": [[1521, 1620], [3050, 3064]],
     "src/spark/spark_util-types.ads": [[128, 146]],
+    "src/flow/flow_utility.adb": [[966, 1000], [2035, 2062], [2519, 2681], [6352, 6359]],
+    "src/flow/flow_generated_globals-phase_2.adb": [[4793, 4875]],
 }
 
 # Additional helper paths for ordinary Main type translation/completion.
@@ -55,8 +57,9 @@ RANGES["src/why/gnat2why-expr-loops.adb"].extend([[619, 651], [690, 787], [970, 
 RANGES["src/why/gnat2why-expr-loops-inv.adb"].append([327, 343])
 RANGES["src/why/gnat2why-expr-loops-inv.adb"].extend([[1404, 1460], [1641, 1689]])
 RANGES["src/why/why-gen-expr.adb"].append([3485, 3572])
-RANGES["src/why/why-gen-progs.adb"].extend([[52, 102], [329, 370]])
+RANGES["src/why/why-gen-progs.adb"].extend([[52, 102], [126, 150], [329, 370]])
 RANGES["src/why/xgen/xtree_sinfo.adb"].extend([[488, 511], [558, 576]])
+RANGES["src/why/gnat2why-expr.adb"].extend([[3707, 3834], [3910, 3927], [15420, 15569], [22840, 23012], [23117, 23232], [30068, 30088]])
 
 
 def sha(data):
@@ -227,7 +230,21 @@ def main():
             "integer_frame_not_written": [2 + 2 + 1 + 3 + 1, 1 + 1, 2, 23 + 18 + 1],
             "string_frame_entire_object": [6 + 25 + 4 + 13 + 1, 3 + 12 + 3 + 1, 5 + 17 + 5, 69 + 56 + 1],
             "string_frame_not_written": [6 + 4 + 1 + 13 + 1, 3 + 1 + 3 + 1, 5 + 2 + 5, 61 + 56 + 1],
-            "scope": "no unrolling, explicit range bounds, no source invariant/variant/filter/body declaration; supplied body and endpoint translations separate; G4 uses Main-visible unrefined contract roots",
+            "scope": "no unrolling, explicit range bounds, no source invariant/variant/filter/body declaration; supplied body and endpoint translations separate; selected library G4 uses opaque non-SPARK File_System expansion",
+        },
+        "generated_declaration_helpers": {
+            "scalar_range_check_static_base_core": [3 + 2 + 2, 3 + 2, 6, 3 * 8 + 2 * 5 + 2 + 5],
+            "optional_each_endpoint_program_check": [4 + 1, 1, 2, 13 + 1],
+            "scalar_range_check_max": [7 + 2 * 5, 5 + 2, 6 + 4, 41 + 2 * 14],
+            "term_endpoint_allocation_multiplicity": 1,
+            "term_endpoint_occurrence_multiplicity": 2,
+            "program_endpoint_multiplicity_max": 1,
+            "static_subtype_decl_location_max": [1, 0, 0, 5],
+            "itype_reference_ignore_wrapper_max": [4, 0, 0, 14],
+            "regular_scalar_action_preparation_and_binding": [2 * 5 + 1, 0, 0, 8],
+            "declaration_list": "(1,1,2d+1,5) beyond the supplied d ordinary declaration results",
+            "mixed_statement_list": "(m+g+1,1,m+2g+1,m+g+5), m source statements and g ordinary generated declarations",
+            "scope": "per-helper costs only; generated-node counts, initializer/endpoint/itype replay and action occurrence multiplicities must follow frontend shape",
         },
         "ordinary_type_translation_completion": {
             "convention": "componentwise conservative bounds; raw function builders are allowed the binder helper's empty effects/True pre/post even where absent",
