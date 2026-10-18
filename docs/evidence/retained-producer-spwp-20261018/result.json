@@ -1,0 +1,11 @@
+{
+  "source_archive_sha256": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910",
+  "vc_ml_sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1",
+  "native_executions": 0,
+  "arithmetic_fixtures": [
+    "let closure",
+    "special let sequence",
+    "general sequence before outcome merging"
+  ],
+  "scope": "Source identity and arithmetic fixtures only; typed-code inputs, shape-sensitive E1 join and whole-producer closure remain open"
+}
