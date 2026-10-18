@@ -198,6 +198,54 @@
       "bytes": 88373,
       "sha256": "4f81324863a60ca0b6fae07f87faa7a1b91b17f8948662e14a4da80823d2cf8a",
       "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/dwarf2dbg.c"
+    },
+    {
+      "path": "opcodes/i386-opc.tbl",
+      "bytes": 288089,
+      "sha256": "de4beff7c3ffa6ad0c85b34a74d1caba0d4ed47b84bde26093224f891f9fe272",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/opcodes/i386-opc.tbl"
+    },
+    {
+      "path": "opcodes/i386-opc.h",
+      "bytes": 32454,
+      "sha256": "875ad755f4f62788b5915d19ecbdbc67b629d17d55f6c7b71ebc81003fca86b6",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/opcodes/i386-opc.h"
+    },
+    {
+      "path": "opcodes/i386-reg.tbl",
+      "bytes": 19355,
+      "sha256": "a1c0d38098cccc042f6c7764faaf33a636f19aeea67c0d4be1c4cbb0f7aa5807",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/opcodes/i386-reg.tbl"
+    },
+    {
+      "path": "gas/gen-sframe.c",
+      "bytes": 82127,
+      "sha256": "53d0601ee4f6b55c55639724d676255be1262b072bdd4129d97920db456e97b3",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/gen-sframe.c"
+    },
+    {
+      "path": "gas/gen-sframe.h",
+      "bytes": 6218,
+      "sha256": "dd82f1a0505ced21baa1f2322a2bc99c968ccc586f0c9db12382b87ae992328f",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/gen-sframe.h"
+    },
+    {
+      "path": "include/sframe.h",
+      "bytes": 23817,
+      "sha256": "5d37d074fb2c9d866d2d1a076e575806448d0470094abb0b1b9d79614b9847a3",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/sframe.h"
+    },
+    {
+      "path": "include/sframe-api.h",
+      "bytes": 13171,
+      "sha256": "8d035f3bc60204d15642fd3909669ddddbc9c156f306da9a8a6042e71342aea1",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/include/sframe-api.h"
+    },
+    {
+      "path": "gas/sframe-opt.c",
+      "bytes": 6149,
+      "sha256": "4329d51ef3ca63427ba4d82ffbb6a33791b72776cab09bf5775ac4401dd6bb30",
+      "url": "https://raw.githubusercontent.com/RTEMS/sourceware-mirror-binutils-gdb/5e56594815854de5eca35c7c04b11705d0f19c02/gas/sframe-opt.c"
     }
   ]
 }

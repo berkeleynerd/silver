@@ -12,19 +12,34 @@ PIN = "5e56594815854de5eca35c7c04b11705d0f19c02"
 RANGES = {
     "gas/input-file.c": [(40, 40), (69, 74)],
     "gas/input-scrub.c": [(50, 74), (141, 151), (380, 438)],
-    "gas/as.c": [(105, 123)],
-    "gas/as.h": [(140, 147)],
+    "gas/as.c": [(75, 75), (105, 123), (1012, 1018)],
+    "gas/as.h": [(140, 147), (331, 337)],
     "gas/dw2gencfi.c": [(47, 91), (113, 149), (393, 459), (499, 553),
                        (573, 640), (802, 883), (1337, 1394),
                        (1658, 1790), (1910, 2154), (2208, 2290),
                        (2385, 2500), (2598, 2624)],
-    "gas/config/tc-i386.c": [(3744, 3758), (7785, 7795), (18757, 18762)],
+    "gas/config/tc-i386.c": [(205, 205), (728, 749), (777, 777),
+                             (3744, 3758), (4281, 4287), (4837, 4919),
+                             (6672, 6674), (6752, 6754), (7780, 7796),
+                             (10466, 10507), (11581, 11603),
+                             (12045, 12185), (12289, 12357),
+                             (12603, 12640), (12689, 12861), (18757, 18762)],
+    "gas/config/tc-i386.h": [(472, 484)],
     "gas/symbols.c": [(251, 286), (903, 924)],
     "gas/expr.c": [(57, 100)],
     "gas/frags.c": [(28, 41), (76, 94)],
     "gas/frags.h": [(73, 84)],
     "gas/ehopt.c": [(480, 582)],
-    "gas/dwarf2dbg.c": [(3108, 3118)],
+    "gas/dwarf2dbg.c": [(1071, 1082), (3108, 3118)],
+    "opcodes/i386-opc.tbl": [(192, 192), (246, 248), (260, 262),
+                             (521, 524), (636, 636)],
+    "opcodes/i386-reg.tbl": [(135, 136)],
+    "gas/gen-sframe.c": [(54, 59), (210, 225), (392, 421), (428, 506), (526, 627),
+                          (649, 738), (742, 1037), (1070, 1117),
+                          (1204, 1303), (1310, 1454), (1600, 1637),
+                          (2398, 2437), (2467, 2521)],
+    "include/sframe.h": [(148, 188), (279, 319)],
+    "gas/sframe-opt.c": [(34, 190)],
 }
 
 
@@ -80,6 +95,22 @@ def main():
     assert "cfi_add_CFA_def_cfa (object_64bit ? REG_SP : 4, -x86_cie_data_alignment);" in sources["gas/config/tc-i386.c"]
     assert "cfi_add_CFA_offset (x86_dwarf2_return_column, x86_cie_data_alignment);" in sources["gas/config/tc-i386.c"]
     assert "frag->fr_subtype = (frag->fr_subtype & ~7) | (ret & 7);" in sources["gas/ehopt.c"]
+    x86 = sources["gas/config/tc-i386.c"]
+    assert "static int align_branch_power = 0;" in x86
+    assert "static int lfence_after_load = 0;" in x86
+    assert "i.rm.mode = 3;" in x86
+    assert "FRAG_APPEND_1_CHAR (i.tm.base_opcode);" in x86
+    assert "p = frag_more (4 + 4 + 4 + 4 + descsz);" in x86
+    assert "enum debug_info_type debug_type = DEBUG_UNSPECIFIED;" in sources["gas/as.c"]
+    assert "if (debug_type != DEBUG_DWARF2" in sources["gas/dwarf2dbg.c"]
+    assert "SYNTH_CFI_NONE = 0," in sources["gas/as.h"]
+    sframe = sources["gas/gen-sframe.c"]
+    assert "symbolS **fde_fre_symbols = XNEWVEC (symbolS *, num_fdes);" in sframe
+    assert "struct sframe_row_entry *fre = XCNEW (struct sframe_row_entry);" in sframe
+    assert "gas_assert (sframe_fde->num_fres <= UINT16_MAX);" in sframe
+    assert "gas_assert (flag_gen_sframe_version == GEN_SFRAME_VERSION_3);" in sframe
+    assert "#define sframe_ra_tracking_p() false" in sources["gas/config/tc-i386.h"]
+    assert "frag->fr_fix += frag->fr_subtype & 7;" in sources["gas/sframe-opt.c"]
 
     b = 32768
     ptrdiff_max = 2**63-1
@@ -107,10 +138,20 @@ def main():
     rules, advances = 2+5, 5
     eh_frame = cie_fixed+fde_fixed+3+7+rules*3+advances*5
     assert cie_fixed == 19 and fde_fixed == 17 and eh_frame == 92
+    instruction_bytes = 18 + 2 + 3 + 2 + 1
+    assert instruction_bytes == 26 < 2**32
+    sframe_rows = 1+advances
+    sframe_header = 2+1+1+1+1+1+1+5*4
+    sframe_fde_index = 8+4+4
+    sframe_fde_attrs = 2+1+1+1
+    sframe_bytes = sframe_header+sframe_fde_index+sframe_fde_attrs+sframe_rows*(4+1+2)
+    assert sframe_rows <= 2**16-1 and sframe_bytes == 91
+    x86_property_bytes = 4*4+2*((12+7)//8*8)
+    assert x86_property_bytes == 48
     result = {
         "commit": PIN,
         "source_files_checked": len(sources),
-        "scope": "conditional streaming-buffer and CFI consumer transfers; not whole assembler capacity",
+        "scope": "conditional streaming-buffer, instruction and frame consumer transfers; not whole assembler capacity",
         "input_buffer": {"read_block_bytes": b, "cases": cases},
         "selected_cfi": {
             "FDE_objects": 1, "per_frchain_state_objects": 1,
@@ -123,10 +164,30 @@ def main():
             "direct_temporary_expression_symbol_requests": 7+3+2+1+1+advances,
             "expression_location_record_requests": advances,
         },
+        "selected_instructions": {
+            "ordinary_instruction_count": 18+4,
+            "encoded_function_bytes": instruction_bytes,
+            "instruction_fixups": 0,
+            "instruction_relaxation_fragments": 0,
+        },
+        "optional_SFrame": {
+            "translation_context_requests": 1, "FDE_requests": 1,
+            "row_requests": sframe_rows, "row_count": sframe_rows,
+            "symbol_pointer_array_bytes": 8,
+            "header_bytes": sframe_header, "FDE_index_bytes": sframe_fde_index,
+            "FDE_attribute_bytes": sframe_fde_attrs,
+            "row_reservation_bytes": 4+1+2,
+            "section_contribution_bytes": sframe_bytes,
+            "variant_fragment_requests": 1+sframe_rows,
+            "direct_temporary_symbol_requests": 4+1+1,
+            "direct_expression_symbol_requests": 3*(1+sframe_rows),
+            "expression_location_record_requests": 3*(1+sframe_rows),
+        },
+        "optional_x86_property_note_payload_bytes": x86_property_bytes,
         "compiler_runs": 0, "assembler_runs": 0, "linker_runs": 0, "prover_runs": 0,
     }
     args.output.write_text(json.dumps(result, indent=2)+"\n")
-    print(f"Verified {len(sources)} Binutils files and local buffer/CFI arithmetic")
+    print(f"Verified {len(sources)} Binutils files and local buffer/instruction/frame arithmetic")
 
 
 if __name__ == "__main__":

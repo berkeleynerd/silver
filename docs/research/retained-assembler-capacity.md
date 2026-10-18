@@ -2,8 +2,9 @@
 
 2026-10-18, Linux x86_64, [#119](https://github.com/berkeleynerd/silver/issues/119).
 This joins selected GNU assembler representations to the
-[null Main backend shape](retained-backend-gigi.md). It does not yet close
-instruction encoding, every output section, ELF symbol generation or linking.
+[null Main backend shape](retained-backend-gigi.md). It covers the selected
+instruction encodings and frame serializers, but does not yet close every
+output section, ELF symbol generation or linking.
 
 The reviewed source is Binutils 2.46.1 commit
 `5e56594815854de5eca35c7c04b11705d0f19c02`, the release already selected by the
@@ -93,9 +94,9 @@ Every selected non-advance rule needs at most three bytes: its register,
 positive CFA offset or scaled saved-register offset fits one LEB128 byte.
 There are at most seven such rules. An advance needs at most five bytes,
 including the cross-fragment case's one fixed byte plus four reserved bytes.
-Require its final nonnegative displacement to fit 32 bits; connecting this
-to actual machine encoding is still a separate join. The argument takes no
-credit for the smaller one-byte advance expected for null Main
+Require its final nonnegative displacement to fit 32 bits; the selected
+instruction transfer below supplies this condition. The argument takes no
+credit for the smaller one-byte advance available for null Main
 (`gas/dw2gencfi.c:1658–1790`). The cross-fragment relaxation helper retains
 at most four payload bytes beyond the opcode, and may delete the opcode for
 a zero advance (`gas/ehopt.c:480–582`).
@@ -124,18 +125,121 @@ expression-location records** for these CFI paths. These are calls at the
 listed sites, not every symbol/BFD allocation caused transitively by them
 (`gas/expr.c:57–100`, `gas/symbols.c:903–924`).
 
-## Configuration and remaining composition
+## Selected instruction encodings
+
+Use the native driver's selected assembler command, `as --64 -o main.o TEMP.s`,
+and the already derived register-only frame sequence: at most eighteen plain
+`nop` instructions, one `pushq %rbp`, one `movq %rsp,%rbp`, one `popq %rbp`
+and one operand-free `ret`. This is a consumer transfer from that shape;
+it does not replace the frontend/backend source-correspondence argument.
+
+The opcode table supplies base-space register forms: push/pop permit a short
+register opcode or an opcode with ModR/M, the register move uses one opcode
+and one ModR/M byte, and plain nop/ret each use one opcode. `%rsp` and `%rbp` have low register
+numbers 4 and 5, without extended-register flags. The qword move sets REX.W;
+push/pop/ret carry `NoRex64`. Register addressing sets ModR/M mode 3, so there
+is no SIB, displacement or immediate (`opcodes/i386-opc.tbl:192,246–248,260–262,
+521–524,636`; `opcodes/i386-reg.tbl:135–136`;
+`gas/config/tc-i386.c:4281–4287,4837–4919,10466–10507,11581–11603`).
+
+The ordinary output branch writes those prefixes/opcode/ModR/M bytes once.
+The selected forms do not enter jump relaxation, vector encodings or the
+fence replacement branch (`gas/config/tc-i386.c:12603–12640,12689–12861`).
+The same conservative instruction bounds used by the backend give:
+
+| Instruction | Count | Bytes each, at most |
+| --- | ---: | ---: |
+| nop | 18 | 1 |
+| pushq | 1 | 2 |
+| movq | 1 | 3 |
+| popq | 1 | 2 |
+| ret | 1 | 1 |
+
+Thus the function's selected instruction contribution is at most **26 bytes**,
+now derived from the assembler output path as well as GCC's length attribute.
+There are no instruction fixups or instruction-dependent relaxation fragments
+on these register/no-operand forms. Internal compiler label alignment is zero,
+as established in the backend record; any function-entry section alignment is
+outside the start/end frame interval. Therefore each nonnegative CFI advance
+and the FDE function size are at most 26 and fit their four-byte fields.
+Final cross-section PC-relative relocation reach remains separate.
+
+Assembler branch-alignment power starts at zero; all three automatic
+padding/prefix helpers return immediately. The command supplies no option
+which changes that state. LFENCE injection flags likewise start at zero and
+are not selected (`gas/config/tc-i386.c:728–749,777,6672–6674,6752–6754,
+12289–12357`). Synthesized CFI has a zero-initialized `SYNTH_CFI_NONE` flag;
+only its explicit option enables it (`gas/as.h:331–337`, `gas/as.c:1012–1018`).
+No debug option or `.loc` directive is present, so `dwarf2_emit_insn` returns
+before allocating line information (`gas/as.c:75`,
+`gas/dwarf2dbg.c:1071–1082`). The ordinary `.file` directive does not enable
+that path by itself.
+
+## Optional SFrame and x86 property sections
 
 No-debug GCC output does not establish the absence of assembler-generated
 SFrame. `gas/as.c:116–120` initializes `flag_gen_sframe` from `DEFAULT_SFRAME`;
 `gas/dw2gencfi.c:2598–2624` runs that serializer when enabled by configuration,
-an option or a selected CFI section. The configured default or that additional
-serializer must be discharged. Synthesized CFI is another separate path,
-guarded by `flag_synth_cfi` after each assembled instruction
-(`gas/config/tc-i386.c:7785–7795`). Neither branch is silently excluded by the
-version string.
+an option or a selected CFI section. Charge the enabled branch too. The selected
+source emits only SFrame version 3 (`gas/as.c:123`,
+`gas/gen-sframe.c:2509–2521`). Its AMD64 hook supports the ABI, uses fixed
+return-address offset -8 and disables per-row return-address tracking
+(`gas/config/tc-i386.c:12158–12185`, `gas/config/tc-i386.h:472–484`).
 
-The current record leaves instruction parsing/encoding, generated section and
+The serializer requests one translation context and one function descriptor.
+The first `def_cfa` creates the initial row. Only advance-location creates a
+further row on the selected five-rule path; each of the at most five advances
+creates at most one. The last scratch row is linked without another allocation.
+No remember/restore-state stack is used. Thus **six row allocations** suffice,
+and the emitted row count also fits six, well below the actual 16-bit FDE row
+field (`gas/gen-sframe.c:591–627,1070–1117,1204–1243,1250–1303,
+2398–2437,2467–2505`).
+
+The CFA is always SP/FP based, its offset is 8 or 16, and the saved FP offset
+is -16 when present. The return-address rule stays at its fixed -8 offset.
+The selected rule handlers therefore leave `flex_p` false; all data words
+fit signed one-byte values. Each ordinary AMD64 row has one CFA data word
+and at most one FP data word (`gas/gen-sframe.c:1310–1454,1600–1637,
+392–421,428–506,649–738`). All offset and register checks succeed for these
+values; no SFrame warning/failure branch is needed for this CFI class.
+
+The header is 28 bytes, the function descriptor index 16 bytes, and its
+attributes five bytes. Each row reserves at most four start-address bytes,
+one info byte and two data bytes. The local section contribution is therefore
+
+```text
+28 + 16 + 5 + 6*(4+1+2) = 91 bytes.
+```
+
+The field widths are declared in `include/sframe.h:148–188,279–319`; the
+serializer is `gas/gen-sframe.c:742–1037`. Its seven possible `rs_sframe`
+reservations comprise one one-byte function-info field and at most six
+four-byte row-start fields. Relaxation selects only 1, 2 or 4 bytes for a row
+start and one byte for function info; final conversion writes only that chosen
+length (`gas/sframe-opt.c:34–190`). Function size and all local row offsets
+are at most 26, so this transfer takes no credit for their eventual one-byte
+encoding. Cross-section function-start relocation remains a layout obligation.
+
+The enabled path's direct additional requests are one one-pointer symbol
+array (eight bytes on LP64), six temporary symbols (four section markers,
+one per-FDE row marker and one function-offset marker), and three expression
+symbols per function-info/row-start composite: at most **21 expression
+symbols plus 21 expression-location records**. This is at most 27 direct
+temporary/expression-symbol requests, in addition to the earlier CFI count
+(`gas/gen-sframe.c:526–588,761–767,830–837,878–885,921–930`). As before,
+transitive symbol/BFD allocations and fragment backing are separate.
+
+GAS also initializes `x86_used_note` from `DEFAULT_X86_USED_NOTE`
+(`gas/config/tc-i386.c:205`). Charging either setting avoids assuming the
+configured default: the enabled ELF64 path allocates exactly **48 payload
+bytes** for a 16-byte GNU note header and two 16-byte aligned property
+records (`:12045–12146`). Its section alignment is eight bytes. This is GAS's
+own note contribution; a compiler-produced property note, other sections and
+inter-section padding still require the output-inventory join.
+
+## Remaining composition
+
+The current record leaves the complete assembly-input transfer, generated section and
 symbol counts, fragment events, relaxation and fixups, object-file metadata,
 startup state and aggregate allocator demands open. In particular, GAS
 fragments have their own unsigned allocation count and a 16-bit region field

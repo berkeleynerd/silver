@@ -1,7 +1,7 @@
 {
   "commit": "5e56594815854de5eca35c7c04b11705d0f19c02",
-  "source_files_checked": 33,
-  "scope": "conditional streaming-buffer and CFI consumer transfers; not whole assembler capacity",
+  "source_files_checked": 41,
+  "scope": "conditional streaming-buffer, instruction and frame consumer transfers; not whole assembler capacity",
   "input_buffer": {
     "read_block_bytes": 32768,
     "cases": [
@@ -63,6 +63,29 @@
     "direct_temporary_expression_symbol_requests": 19,
     "expression_location_record_requests": 5
   },
+  "selected_instructions": {
+    "ordinary_instruction_count": 22,
+    "encoded_function_bytes": 26,
+    "instruction_fixups": 0,
+    "instruction_relaxation_fragments": 0
+  },
+  "optional_SFrame": {
+    "translation_context_requests": 1,
+    "FDE_requests": 1,
+    "row_requests": 6,
+    "row_count": 6,
+    "symbol_pointer_array_bytes": 8,
+    "header_bytes": 28,
+    "FDE_index_bytes": 16,
+    "FDE_attribute_bytes": 5,
+    "row_reservation_bytes": 7,
+    "section_contribution_bytes": 91,
+    "variant_fragment_requests": 7,
+    "direct_temporary_symbol_requests": 6,
+    "direct_expression_symbol_requests": 21,
+    "expression_location_record_requests": 21
+  },
+  "optional_x86_property_note_payload_bytes": 48,
   "compiler_runs": 0,
   "assembler_runs": 0,
   "linker_runs": 0,
