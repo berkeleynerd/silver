@@ -775,9 +775,96 @@ for both commands at the retained `/tmp` descriptor, including executable
 paths (`gprbind.adb:143–148,197–221`).
 
 This closes the selected exchange-row and argument-vector representations.
-It does not bound the entire GPR process: its Main-ALI read/scan, name tables,
-filesystem and Text_IO internals, path search/spawn and allocation totals
-remain separate, as do the generated-source compiler and assembler.
+The following joins cover Gprbind's Main-ALI read/scan and generated-output
+scan. Whole GPR process storage, including elaboration, filesystem and Text_IO
+internals and path search/spawn, remains separate from these components.
+
+### Gprbind's separate Main-ALI parser
+
+Gprbind does not parse the binder's entire runtime closure. It initializes its
+own GPR tables, reads **only Main's ALI**, and requests `Read_Lines => "A"`
+(`gprbind.adb:875–901`). GPR's scanner also always reads U records and the
+version header; `Ignore` starts with U enabled and then enables A
+(`gpr-ali.adb:673–677,715–769,897–936`). The proposed no-Xref Main bound above
+is 378 bytes. `Find_File` checks that same pathname without adding a search
+directory or name; `Read_Library_Info_From_Full` allocates its length plus
+one EOF byte (`gpr-osint.adb:298–315,441–453,459–553`). Thus this separately
+owned buffer is at most **379 bytes**, and its cursor/line increments remain
+far below the signed index domains. Coherent regular-file contents are the
+same artifact premise used by the binder.
+
+The selected input yields one ALI, one unit, nine proposed argument rows,
+zero with entries and zero dependency entries. D rows are skipped because D
+is disabled; unknown G rows, including variable coordinates, are skipped
+without parsing their numbers (`gpr-ali.adb:276–292,1170–1181,1314–1330`).
+The unit's casing flags change scalar enum values, not table cardinality.
+Version text, arguments, unit name and source basename are fixed. No runtime
+ALI recursion occurs in this Gprbind path.
+
+| GPR parser table | Demand | Backing slot bound |
+| --- | ---: | ---: |
+| ALIs | 1 | 500 |
+| Units | 1 | 100 |
+| Args | 9 | 1,000 |
+| Withs | 0 | 0 |
+| Sdep | 0 | 0 |
+
+The capacities come from `gpr-ali.ads:200–205,356–361,414–440,492–497`.
+`GNAT.Table` delegates to `GNAT.Dynamic_Tables`; its empty instance allocates
+on first growth, using the selected initial capacity, and `Init` leaves an
+empty table unallocated (`g-table.ads:60–65`, `g-dyntab.adb:134–209,227–247`).
+No selected table reaches a second growth. These bounds include the initial
+backing arrays; they are not nine entries substituted for a 1,000-slot
+argument allocation.
+
+Each A record allocates its own String (`gpr-ali.adb:794–832`). The nine
+strings total **92 payload bytes**, maximum **24**. The filter's local
+`Argv` copy is at most another 24 bytes (`gprbind.adb:912–929`), separate from
+the surviving compiler-vector elements and their argument-list copies.
+The version conversion also uses its fixed 32-byte scratch array
+(`gpr-ali.ads:75`, `gpr-ali.adb:753–765`).
+
+There are at most four new GPR name entries from this path: the 124-byte full
+Main ALI name, `GNAT 16`, `main%b` and `main.adb`, totaling **145 value bytes**.
+These are GPR's own names, separate from GNAT binder `Namet`.
+`GPR.Names` stores each value in a discriminated `Name_Entry` with a hash link
+and integer metadata, through an indefinite vector (`gpr-names.adb:44–78,
+395–473`). Unlike the earlier GNAT name pool, this record's `Value` does not
+allocate an extra NUL byte; the explicit C-call terminator is written into
+the shared scratch. Its hash table has 65,536 static slots and its scratch
+has 1,000,000 bytes (`gpr-names.ads:29`, `gpr-names.adb:44–58`). Each payload
+and the 125-byte C filename use fit that scratch. Hash collisions only change
+chain probes; they add no name or payload. For incoming name count E, vector
+storage still must be charged through the capacity for E+4 and any coexisting
+growth arrays; these four entries do not erase earlier process/elaboration
+names or record metadata.
+
+### Gprbind's generated-output scan
+
+After compilation Gprbind reads the binder's object list and generated body,
+then rewrites the exchange file (`gprbind.adb:975–1047`). The source projection
+above supplies exactly one 122-character object row. The linked `Bound_Files`
+list therefore has one record and one separately allocated 122-byte name
+(`:998–1007`). The generated body has 203 lines, each at most 191 characters
+at this installation, preserving both loop bounds and the 1,000-character
+line-buffer capacity. This is a consequence of the fixed generated-source
+family, not a maximum inferred from varying author source samples.
+
+The option list has the Main object, two workspace `-L` paths, the fixed runtime
+`-L` path, `-static`, `-lgnat` and `-ldl`. Only the fixed runtime directory
+contains `libgnat.a` under this installation descriptor. Its allocated
+`Adalib_Dir` is 181 characters. Prefix construction appends at most two
+ancestor directory copies, each no longer than that original path, and two
+separators (`gprbind.adb:1106–1197`); **545 characters** suffice for every
+intermediate and the final separate `Prefix_Path` String. The selected options
+never call the optional `libaddr2line`/`libbfd`/`libgnatmon`/`libiberty` search
+helper, and the shared-library run-path branch is inactive. The final exchange
+has 18 rows, each at most 190 characters, including the full `libgnat.a` path.
+
+The scanner and its per-row payloads are bounded independently of author
+trivia. The remaining process join still includes Text_IO file/control storage,
+temporary-path/filesystem operations, spawn internals and fixed elaboration
+state. None is assigned zero by the small scan/vector bounds.
 
 ### Selected search-directory and default-relocation projection
 
@@ -1071,6 +1158,9 @@ corroborates that argument; it does not replace it.
 | Sections, including null | 16 |
 | Symbol records, including null and local | 179 |
 | Global/weak symbol records | 169 |
+| Sum of symbol `st_size`, all records | 11,766 |
+| Sum of symbol `st_size`, global/weak only | 1,443 |
+| Maximum symbol `st_size` | 10,320 |
 | Maximum global/weak name length | 40 |
 | Relocations | 95: 89 text, 1 read-only data, 5 EH frame |
 | Executable-section bytes | 1,000 |
@@ -1096,10 +1186,11 @@ and options are not normalized into the indexed witness.
    fixed source/object search, printable single-line generated paths and
    matching artifacts. Bounds on variable Main ALI input length remain
    upstream; the Xref ignore rule does not remove reading that buffer.
-2. Complete the remaining driver/process storage, including Gprbind's own
-   Main-ALI parser/name tables and filesystem/Text_IO/spawn internals. Selected
+2. Complete the remaining driver/process storage, including fixed elaboration
+   and filesystem/Text_IO/spawn internals. Selected
    binder arguments/search directories, exchange rows, argument vectors,
-   generation buffers, name tables and graph core are bounded above; those
+   Main-ALI parser/name contributions, generated-output scans, generation
+   buffers, name tables and graph core are bounded above; those
    results do not cover every allocation in the GPR/driver or compiler process.
 3. Complete the compiler/assembler transient-capacity composition. The fixed
    semantic request and object-shape transfer now closes the linker-input

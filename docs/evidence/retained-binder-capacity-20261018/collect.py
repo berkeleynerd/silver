@@ -117,7 +117,9 @@ def main():
                  "gcc-interface/utils.cc", "gcc-interface/misc.cc", "gcc-interface/ada-builtins.def",
                  "osint.ads", "output.adb", "output.ads", "hostparm.ads", "link.c", "Make-generated.in",
                  "libgnat/g-md5.ads", "libgnat/g-sechas.ads", "libgnat/g-sehamd.ads",
-                 "libgnat/a-coinve.ads", "libgnat/a-coinve.adb"]
+                 "libgnat/a-coinve.ads", "libgnat/a-coinve.adb",
+                 "libgnat/g-table.ads", "libgnat/g-table.adb",
+                 "libgnat/g-dyntab.ads", "libgnat/g-dyntab.adb"]
     for file in ada_files:
         add(sources, "gcc/ada/"+file, args.gcc_ada/file)
     backend_files = ["cfgrtl.cc", "tree.cc", "tree-core.h", "varasm.cc", "stringpool.cc",
@@ -139,6 +141,9 @@ def main():
                  "gpr/src/gpr-util.ads", "src/gprbuild-compile.adb", "gpr/src/gpr-opt.ads",
                  "gpr/src/gpr-util.adb", "gpr/src/gpr.ads", "src/gprexch.ads", "src/gprexch.adb"]:
         add(sources, "gpr/"+file, args.gpr_source/file)
+    for file in ["gpr-ali.adb", "gpr-ali.ads", "gpr-names.adb", "gpr-names.ads",
+                 "gpr-osint.adb", "gpr-osint.ads"]:
+        add(sources, "gpr/gpr/src/"+file, args.gpr_source/"gpr/src"/file)
     for file in ["silver.adb", "silver_platform.adb"]:
         add(sources, "silver/src/"+file, install/"src"/file)
     gcc_manifest = json.loads((args.gcc_ada.parents[1]/"complete-source-manifest.json").read_text())

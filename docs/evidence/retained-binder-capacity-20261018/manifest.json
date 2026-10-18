@@ -1005,8 +1005,8 @@
     },
     "sources.tar.gz": {
       "archive": {
-        "bytes": 2247228,
-        "sha256": "3f315331757fe4b9f2e9b93ad4d295985e9773a6c0270ae650d01287530554ad"
+        "bytes": 2280941,
+        "sha256": "9fa4f9975f72fd7c79343adf7190a3c55d648f7957acc49f2f1041f015ee7da7"
       },
       "members": {
         "gcc/ada/Make-generated.in": {
@@ -1224,6 +1224,16 @@
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-dynhta.ads",
           "sha256": "f5974932d644929f906716abf69a51a42eca74a2f57378338abd52b3fb7a8b3a"
         },
+        "gcc/ada/libgnat/g-dyntab.adb": {
+          "bytes": 15566,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-dyntab.adb",
+          "sha256": "ae4c7d63c71f4c863eaf375b81c65822ecf08f38321c02e247c0d5692986faf6"
+        },
+        "gcc/ada/libgnat/g-dyntab.ads": {
+          "bytes": 13857,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-dyntab.ads",
+          "sha256": "9679446a2e77d227ca3339d93f8fcb7ad479a7768ddd337dca5dfe02b4935aae"
+        },
         "gcc/ada/libgnat/g-md5.ads": {
           "bytes": 3064,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-md5.ads",
@@ -1238,6 +1248,16 @@
           "bytes": 3739,
           "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-sehamd.ads",
           "sha256": "8b1d6c0c94f32b59c416862933082c45a35abdd7f97335483275791fb72f6021"
+        },
+        "gcc/ada/libgnat/g-table.adb": {
+          "bytes": 5600,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-table.adb",
+          "sha256": "9746442a0aa3547bb66f449cdd16d1d81d69c5bebcb434fb61980269ab59cb47"
+        },
+        "gcc/ada/libgnat/g-table.ads": {
+          "bytes": 6084,
+          "original_path": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/libgnat/g-table.ads",
+          "sha256": "52ead8fb89273493f3e63e90ac18f76457745883eb4c1e7280e8cb27a7ef495f"
         },
         "gcc/ada/libgnat/gnat.ads": {
           "bytes": 3510,
@@ -1554,10 +1574,40 @@
           "original_path": "/tmp/silver-backend-compose-20261018/full-source/gcc/varasm.cc",
           "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e"
         },
+        "gpr/gpr/src/gpr-ali.adb": {
+          "bytes": 45361,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ali.adb",
+          "sha256": "9d2c334d8b72a3d9aa64e0ad62ebe6d5026c31367aaee4b90bb5e87125059dde"
+        },
+        "gpr/gpr/src/gpr-ali.ads": {
+          "bytes": 22579,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ali.ads",
+          "sha256": "c9f4ba8eeb3f53c749803554571bf0ec1e83213f5f002f27f95b53637d0fcfca"
+        },
+        "gpr/gpr/src/gpr-names.adb": {
+          "bytes": 20318,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+          "sha256": "659c231b025a5bc7c7e52e9a4ad36e5741eef9c6342826346b10251da182ed1c"
+        },
+        "gpr/gpr/src/gpr-names.ads": {
+          "bytes": 9967,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.ads",
+          "sha256": "2beba90411ea03b2cf43b4010835533a94713ec453ec6c1be633e422ed7fc41e"
+        },
         "gpr/gpr/src/gpr-opt.ads": {
           "bytes": 13222,
           "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-opt.ads",
           "sha256": "cc1bbe85525f51f0556b0da441342377d77f384540ad09b84d2b955ceb521443"
+        },
+        "gpr/gpr/src/gpr-osint.adb": {
+          "bytes": 18397,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-osint.adb",
+          "sha256": "637eb0db41a84c58c15be7d87d30767d0528a8d94fcddd93a9e3bb0fea12ec59"
+        },
+        "gpr/gpr/src/gpr-osint.ads": {
+          "bytes": 12122,
+          "original_path": "/tmp/silver-retained-gpr-source-20261017/gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-osint.ads",
+          "sha256": "8b5db9685c2a83c3982419800c05c18ee870fa5d8f222e2a357dbddfd398e0c7"
         },
         "gpr/gpr/src/gpr-tempdir.adb": {
           "bytes": 9084,

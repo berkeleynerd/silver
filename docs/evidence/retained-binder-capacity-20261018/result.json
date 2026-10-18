@@ -522,9 +522,11 @@
           "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
         },
         "maximum_section_alignment": 32,
+        "maximum_symbol_st_size": 10320,
         "merge_sections": [
           ".comment"
         ],
+        "nonlocal_symbol_st_size_sum": 1443,
         "relocation_count": 95,
         "relocations": [
           {
@@ -674,6 +676,7 @@
         "sframe_bytes": 0,
         "sframe_section_count": 0,
         "symbol_count": 179,
+        "symbol_st_size_sum": 11766,
         "symbols": [
           {
             "binding": 0,
@@ -2852,9 +2855,11 @@
           "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
         },
         "maximum_section_alignment": 32,
+        "maximum_symbol_st_size": 10320,
         "merge_sections": [
           ".comment"
         ],
+        "nonlocal_symbol_st_size_sum": 1443,
         "relocation_count": 95,
         "relocations": [
           {
@@ -3004,6 +3009,7 @@
         "sframe_bytes": 0,
         "sframe_section_count": 0,
         "symbol_count": 179,
+        "symbol_st_size_sum": 11766,
         "symbols": [
           {
             "binding": 0,
@@ -5184,9 +5190,11 @@
           "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
         },
         "maximum_section_alignment": 32,
+        "maximum_symbol_st_size": 10320,
         "merge_sections": [
           ".comment"
         ],
+        "nonlocal_symbol_st_size_sum": 1443,
         "relocation_count": 95,
         "relocations": [
           {
@@ -5336,6 +5344,7 @@
         "sframe_bytes": 0,
         "sframe_section_count": 0,
         "symbol_count": 179,
+        "symbol_st_size_sum": 11766,
         "symbols": [
           {
             "binding": 0,
@@ -7514,9 +7523,11 @@
           "sha256": "e3262ab76ba603391cfc0b96f891d901db5553a0c2a95e89b1265d399a308a61"
         },
         "maximum_section_alignment": 32,
+        "maximum_symbol_st_size": 10320,
         "merge_sections": [
           ".comment"
         ],
+        "nonlocal_symbol_st_size_sum": 1443,
         "relocation_count": 95,
         "relocations": [
           {
@@ -7666,6 +7677,7 @@
         "sframe_bytes": 0,
         "sframe_section_count": 0,
         "symbol_count": 179,
+        "symbol_st_size_sum": 11766,
         "symbols": [
           {
             "binding": 0,
@@ -10074,6 +10086,47 @@
     ],
     "variable_path_comments_bypass_statement_buffer": true
   },
+  "gprbind_generated_output_scan": {
+    "adalib_directory_string_bytes": 181,
+    "binder_body_line_bytes_bound": 191,
+    "binder_body_line_count": 203,
+    "bound_file_name_payload_bytes": 122,
+    "bound_file_nodes": 1,
+    "object_list_line_bytes_bound": 122,
+    "object_list_rows": 1,
+    "prefix_path_string_bytes_bound": 545,
+    "result_exchange_line_bytes_bound": 190,
+    "result_exchange_rows": 18,
+    "scope": "selected fixed generated-source/object-list projection; Text_IO/filesystem/spawn internals separate"
+  },
+  "gprbind_main_ali_parser": {
+    "argument_filter_local_copy_bytes_bound": 24,
+    "argument_string_payload_bytes": 92,
+    "maximum_argument_string_payload_bytes": 24,
+    "maximum_name_value_bytes_bound": 124,
+    "name_buffer_static_bytes": 1000000,
+    "name_entry_event_bound": 4,
+    "name_hash_static_slots": 65536,
+    "name_value_payload_bytes_bound": 145,
+    "raw_buffer_bytes_with_EOF_bound": 379,
+    "raw_file_bytes_bound": 378,
+    "scope": "separate GPR Main-only parser; additive names, not complete process/elaboration storage",
+    "table_backing_slot_bounds": {
+      "ALIs": 500,
+      "Args": 1000,
+      "Sdep": 0,
+      "Units": 100,
+      "Withs": 0
+    },
+    "table_demands": {
+      "ALIs": 1,
+      "Args": 9,
+      "Sdep": 0,
+      "Units": 1,
+      "Withs": 0
+    },
+    "version_scratch_bytes": 32
+  },
   "indexed_body_differing_lines": [
     [
       194,
@@ -10210,14 +10263,17 @@
         "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
       },
       "maximum_section_alignment": 32,
+      "maximum_symbol_st_size": 10320,
       "merge_sections": [
         ".comment"
       ],
+      "nonlocal_symbol_st_size_sum": 1443,
       "relocation_count": 95,
       "section_count": 16,
       "sframe_bytes": 0,
       "sframe_section_count": 0,
       "symbol_count": 179,
+      "symbol_st_size_sum": 11766,
       "text_bytes": 1000
     },
     "premises": [

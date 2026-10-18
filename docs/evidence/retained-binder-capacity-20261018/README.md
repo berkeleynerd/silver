@@ -20,8 +20,8 @@ complete child environment, exact arguments, temporary inputs, input identities,
 generated sources, empty stdout/stderr and managed-run log/events. Its input
 manifest is preserved separately from the extended packet's later manifest.
 
-`sources.tar.gz` contains one hundred and twenty-four complete inspected source files:
-seventy-four GCC Ada files, thirty-five GCC backend files, two libcpp files, eleven
+`sources.tar.gz` contains one hundred and thirty-four complete inspected source files:
+seventy-eight GCC Ada files, thirty-five GCC backend files, two libcpp files, seventeen
 GPR files and two Silver workspace-construction files. The GCC/libcpp files were reconciled against
 the earlier complete-source manifests for
 `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`; GPR retains its previously used
@@ -102,6 +102,16 @@ emission inputs, transferring object shape to the selected null binder family.
 The packet retains the exact environment, command, script, query, outputs and
 managed records. GC traversal scratch and other whole compiler intermediates
 remain separate capacity obligations; object size is not their bound.
+
+The Gprbind extension separately bounds its Main-only ALI parser: 379 raw
+buffer bytes including EOF, one ALI/unit, nine argument Strings totaling 92
+payload bytes, and four possible name entries totaling 145 value bytes. Its
+table initial capacities are charged separately. The generated-output scan
+uses one object row and 203 body lines of at most 191 characters; the final
+exchange has 18 rows of at most 190 characters. Text_IO/filesystem/spawn and
+fixed elaboration storage remain outside those local bounds. The object
+inventory now also records sum `st_size` 11,766 across all symbols, for the
+separate linker copy-storage join. These extensions execute no native tools.
 
 Replay without access to the original installations:
 

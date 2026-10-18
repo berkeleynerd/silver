@@ -58,6 +58,9 @@ def elf(raw):
     return {"file": digest(raw), "sections": sections, "symbols": symbols,
             "relocations": relocations,
             "section_count": len(sections), "symbol_count": len(symbols),
+            "symbol_st_size_sum": sum(s["size"] for s in symbols),
+            "nonlocal_symbol_st_size_sum": sum(s["size"] for s in symbols if s["binding"]),
+            "maximum_symbol_st_size": max(s["size"] for s in symbols),
             "relocation_count": sum(r["count"] for r in relocations),
             "external_names": sorted(s["name"] for s in symbols if s["binding"]),
             "maximum_section_alignment": max(s["alignment"] for s in sections),
@@ -762,6 +765,59 @@ def analyze(artifacts, sources):
         "namet_normalized_temp_root_occurrences_in_character_bound": 2,
         "namet_character_bound_at_tmp_root": namet_char_constant+2*len(b"/tmp"),
         "namet_character_table_old_plus_new_bytes_at_tmp_root": 400000+800000,
+    }
+    # Gprbind reads only Main and requests A records; U and the V header
+    # are unconditional in GPR.ALI. Coordinate/dependency records add no rows.
+    gpr_ali = sources["gpr/gpr/src/gpr-ali.adb"]
+    gpr_osint = sources["gpr/gpr/src/gpr-osint.adb"]
+    assert b"Read_Lines    => \"A\"" in sources["gpr/src/gprbind.adb"]
+    assert b"Ignore := ('U' => False, others => True);" in gpr_ali
+    assert b"Args.Table (Args.Last) := new String'(Name_Buffer (1 .. Name_Len));" in gpr_ali
+    assert b"Text := new Text_Buffer (Lo .. Hi);" in gpr_osint
+    assert b"Found := N;" in gpr_osint
+    assert b"Name_Buffer : String (1 .. 1_000_000);" in sources["gpr/gpr/src/gpr-names.ads"]
+    assert b"Hash_Num : constant Int := 2**16;" in sources["gpr/gpr/src/gpr-names.adb"]
+    assert b"New_Allocated_Length := Table_Length_Type (Table_Initial);" in sources["gcc/ada/libgnat/g-dyntab.adb"]
+    main_args = re.findall(rb"^A (.*)$", artifacts["cases/unindexed-proposed/main.ali"], re.M)+[b"-gnateI1"]
+    assert len(main_args) == 9 and sum(map(len,main_args)) == 92
+    assert max(map(len,main_args)) == 24
+    gpr_names = [paths[0][:-2]+b".ali", b"GNAT 16", b"main%b", b"main.adb"]
+    assert len(gpr_names[0]) == main_ali_path == 124
+    assert sum(map(len,gpr_names)) == 145
+    for name, initial in (("ALIs",500),("Units",100),("Args",1000),("Withs",5000),("Sdep",5000)):
+        pattern = rb"package "+name.encode()+rb" is new GNAT.Table \((.*?)\);"
+        declaration, = re.findall(pattern,sources["gpr/gpr/src/gpr-ali.ads"],re.S)
+        assert b"Table_Initial        => "+str(initial).encode() in declaration
+    result["gprbind_main_ali_parser"] = {
+        "raw_file_bytes_bound": main_proposed_bound,
+        "raw_buffer_bytes_with_EOF_bound": main_proposed_bound+1,
+        "table_demands": {"ALIs":1,"Units":1,"Args":9,"Withs":0,"Sdep":0},
+        "table_backing_slot_bounds": {"ALIs":500,"Units":100,"Args":1000,"Withs":0,"Sdep":0},
+        "argument_string_payload_bytes":92,"maximum_argument_string_payload_bytes":24,
+        "argument_filter_local_copy_bytes_bound":24,
+        "name_entry_event_bound":4,"name_value_payload_bytes_bound":145,
+        "maximum_name_value_bytes_bound":124,
+        "name_hash_static_slots":65536,"name_buffer_static_bytes":1000000,
+        "version_scratch_bytes":32,
+        "scope":"separate GPR Main-only parser; additive names, not complete process/elaboration storage",
+    }
+    # The already-established generated source family also bounds Gprbind's
+    # post-binder text scans. These checks reconcile the fixed read projection.
+    body_lines = indexed_bodies[0].splitlines()
+    assert len(body_lines) == 203 and max(map(len,body_lines)) == 191
+    marker = b"--  BEGIN Object file/option list"
+    body_options = indexed_bodies[0].split(marker+b"\n",1)[1].split(b"--  END Object file/option list",1)[0]
+    option_lines = [line[8:] for line in body_options.splitlines()]
+    assert option_lines == [paths[0],b"-L"+paths[1],b"-L"+paths[2],b"-L"+paths[3],b"-static",b"-lgnat",b"-ldl"]
+    result["gprbind_generated_output_scan"] = {
+        "binder_body_line_count":203,"binder_body_line_bytes_bound":191,
+        "object_list_rows":1,"object_list_line_bytes_bound":len(paths[0]),
+        "bound_file_nodes":1,"bound_file_name_payload_bytes":len(paths[0]),
+        "adalib_directory_string_bytes":len(paths[3]),
+        "prefix_path_string_bytes_bound":3*len(paths[3])+2,
+        "result_exchange_rows":18,
+        "result_exchange_line_bytes_bound":len(paths[3])+len(b"libgnat.a"),
+        "scope":"selected fixed generated-source/object-list projection; Text_IO/filesystem/spawn internals separate",
     }
     return result
 
