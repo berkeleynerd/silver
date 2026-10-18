@@ -8,6 +8,12 @@ logical/physical population and numeric replacement arguments are acceptable,
 but correct **F1's exported allocation count before attaching this packet**.
 Complete frontend, native, producer, parent and toolchain capacity remain open.
 
+**Correction disposition:** accept frontend correction
+`24e91ed814923ba9b0e5fecf991eac7a2e1016fa` together with the initial packet
+within the reviewed component scope. F1 / [#139](https://github.com/berkeleynerd/silver/issues/139)
+is fixed. The narrow addendum below preserves the initial review as history;
+all broader capacity and adoption obligations remain open.
+
 ## Exact scope and reviewer
 
 - Frontend packet: `d7034d952050df0e015958158131b6ccc2e70f64`, its seven new
@@ -170,3 +176,52 @@ diagnostic heaps, ALI/command/name consumers, recursive/local storage, remaining
 native phases, materializing parent and independent proof producer remain
 separate obligations. All broad completion and production-adoption flags stay
 false; this report does not close #119 or justify removing current language caps.
+
+## #139 correction addendum — 2026-10-18
+
+**Accepted, F1 fixed.** Exact target
+`24e91ed814923ba9b0e5fecf991eac7a2e1016fa`, whose parent is exactly
+`d7034d952050df0e015958158131b6ccc2e70f64`. This is the same reviewer's bounded
+correction review, selected **GPT-6 Astra, Extra High**. Runtime model/effort
+confirmation and token/cost measurements remain unavailable. The narrow
+source/diff and frozen-artifact inspection ran from **23:40:34 to 23:40:55 UTC**,
+an elapsed **21 seconds**; report writing and commit time are additional.
+
+The new `pattern_string_storage` reads the four relevant source witnesses and
+the actual selected configuration. Its two initialization sites, four default
+Strings per site and three requests per configuration pattern match the source
+reachability reasoning in F1. It exports the separate eight/default and
+six/configuration rows, totals **14 lifetime requests**, retains the
+**21-byte individual bound**, and explicitly denies pointee reclamation by
+table reset. `par-prag.adb` and `table.adb` are now direct identity records,
+raising that manifest from 39 to 41 records. No semantic table demand or
+source population is changed by this heap-allocation correction.
+
+The virtual-source rows export **7+1+1 Dope_Rec objects**. Each row and the
+physical component explicitly mark their storage as unpriced, and the overall
+remaining-obligations list names the nine-object metadata residual. This
+resolves the ambiguity noted in the initial report without pretending the
+descriptor objects are text/line arrays or that their storage has been joined.
+Their eventual pricing remains required before complete frontend closure.
+
+The correction evidence is **52 focused checks in 0.067179 seconds**, retained
+from the author's affected run. Its script recomputes only the changed physical
+function, using the previously verified runtime census and two extracted,
+unchanged arithmetic/configuration definitions. It checks all 41 direct input
+identities and compares the remaining physical projection to the original.
+The full check script's two new assertions are for future use; no full rerun
+is represented by its preserved historical 43-check result.
+
+The reviewer reused that evidence and the prior 43/57/106/16-check records,
+read the complete correction diff and affected source/check logic, and compared
+the frozen JSON artifacts directly. Removing only the corrected pattern-count
+fields and new Dope_Rec residual fields from the corrected result reproduces
+the entire original result exactly. The original 43-check artifact is also
+byte-identical. This comparison executes no capacity model or corpus scan.
+No loader, suite, compiler, capture, proof or native execution was repeated.
+
+No material finding remains in this corrected frontend component. The numeric
+and selected-route acceptances above are unchanged. Frontend aggregate
+attachment, #137's downstream population propagation, virtual metadata pricing
+and the other recorded capacity obligations are outside this correction's
+completion claim.
