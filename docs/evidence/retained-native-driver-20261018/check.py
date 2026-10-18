@@ -116,6 +116,27 @@ assert len(ada_selected) + len(' %<dumpdir %<dumpbase %<dumpbase-ext %{d*} %:dum
 assert '%{g*&m*&f*}' in ada_selected
 assert '%{!gnatc*:%{!gnats*:%(invoke_as)}}' in ada_selected
 
+assert {name: len(specs[name]) for name in ('multilib', 'multilib_matches',
+        'multilib_defaults', 'multilib_options', 'multilib_exclusions',
+        'multilib_reuse', 'multilib_extra')} == {
+    'multilib': 84, 'multilib_matches': 16, 'multilib_defaults': 3,
+    'multilib_options': 7, 'multilib_exclusions': 0, 'multilib_reuse': 0,
+    'multilib_extra': 0}
+assert specs['multilib_matches'].count(';') == 2
+assert specs['multilib_defaults'] == 'm64'
+assert 'n_mdswitches + (n_switches ? n_switches : 1)' in gcc
+assert 'TARGET_COMPUTE_MULTILIB' not in sources['gcc/common/config/i386/i386-common.cc']
+assert 'return multilib;' in sources['gcc/common/common-targhooks.cc']
+relocation = sources['libiberty/make-relative-prefix.c']
+for fragment in ('int needed_len;', 'sizeof (char *) * (num_dirs + 2)',
+                 'needed_len += sizeof (DIR_UP) * (bin_num - common);'):
+    assert fragment in relocation
+pex = sources['libiberty/pex-common.c']
+for fragment in ('obj->count = 0;', '++obj->count;',
+                 'XRESIZEVEC (pid_t, obj->children, obj->count)',
+                 'XRESIZEVEC (int, obj->status, obj->count)'):
+    assert fragment in pex
+
 # LP64 field layouts and explicit request arithmetic; no compiler execution.
 pointer = 8
 decoded_size = 12 * pointer  # 11 eight-byte fields plus int/padding
@@ -132,6 +153,8 @@ assert arg_capacity == 20
 P = 222
 local_strings = max(2902, P + 9, 6 * P + 37)
 assert local_strings <= 2**31 - 1
+assert 5 * P + 1 <= 2**31 - 1
+assert 8 * (P + 2) <= 2**63 - 1
 result = {
     'scope': 'Selected standalone native Main driver; not GPR/binder/link/producer',
     'source_files_checked': len(sources),
@@ -156,6 +179,18 @@ result = {
     'spec_function_calls': 3,
     'selected_P_example': P,
     'local_spec_string_object_bound': local_strings,
+    'relocation_directory_pointer_array_bytes': 8 * (P + 2),
+    'relocation_component_string_bytes': P + 1,
+    'relocation_result_bytes': 5 * P + 1,
+    'multilib_max_partial_string_bytes': len(specs['multilib']) + 1,
+    'multilib_default_record_bytes': 16,
+    'multilib_temporary_match_array_bytes': 2 * 24,
+    'multilib_retained_match_array_bytes': (1 + retained_switches) * 24,
+    'multilib_os_directory_string_bytes': len('../lib64') + 1,
+    'multilib_multiarch_string_bytes': len('x86_64-linux-gnu') + 1,
+    'per_execute_pex_object_bytes_lp64': 144,
+    'per_execute_common_pex_child_count': 1,
+    'per_execute_child_and_status_array_bytes_each': 4,
     'aggregate_memory_or_address_span_gate': False,
     'source_argument_required': True,
     'compiler_or_prover_executed': False,

@@ -1,7 +1,7 @@
 {
   "commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "source_base_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/",
-  "archive_sha256": "556c7b717ba61730d5be59c346d170d13b88301b1a4503be3789b1eed7fe0097",
+  "archive_sha256": "246e4739557e1b642032552600e47738e9c2ddd33caf2c0870a51bd6fffbb0ea",
   "files": [
     {
       "path": "gcc/opts.h",
@@ -47,6 +47,41 @@
       "path": "gcc/configure.ac",
       "bytes": 255641,
       "sha256": "fdddffbe4b5c1a9863b864924a9ddccd99db74b65dfc3d56accb280a7ca48dcd"
+    },
+    {
+      "path": "libiberty/make-relative-prefix.c",
+      "bytes": 10923,
+      "sha256": "56b167f63ba85fe71bae427535f8c74c4dcc4d4584a7d40294bf8be48ed2ca47"
+    },
+    {
+      "path": "libiberty/pex-common.c",
+      "bytes": 15342,
+      "sha256": "f9a07443cf074f66ffb3befa3d397fcc4f203f8864ea8e0ab68ae93d192524aa"
+    },
+    {
+      "path": "libiberty/pex-common.h",
+      "bytes": 6182,
+      "sha256": "7fb6507eda97eacc1d56d34a8e7a66bfeed29e7f4feab7ba60a06a7ab53a79c7"
+    },
+    {
+      "path": "libiberty/pex-unix.c",
+      "bytes": 24939,
+      "sha256": "08c8e42cea627fbff79c4c80ace491e906c7311fe9cabf12c4158571c71ad7fb"
+    },
+    {
+      "path": "gcc/common/common-targhooks.cc",
+      "bytes": 2710,
+      "sha256": "a48b081943f8bbeba2bcbbf6d5ad654d13bb8d324cc2ad4f937a11bd32051866"
+    },
+    {
+      "path": "gcc/common/common-target.def",
+      "bytes": 4884,
+      "sha256": "83e786ef8a83d7e4cb33495a5e23c21c37020fd12a69f91c323b5cf92632c854"
+    },
+    {
+      "path": "gcc/common/config/i386/i386-common.cc",
+      "bytes": 85914,
+      "sha256": "009711c76cc24369f035130487e1e94e2570e065018ee70544b52e1b3ef02c59"
     }
   ]
 }

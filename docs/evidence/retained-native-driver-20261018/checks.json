@@ -1,6 +1,6 @@
 {
   "scope": "Selected standalone native Main driver; not GPR/binder/link/producer",
-  "source_files_checked": 18,
+  "source_files_checked": 24,
   "configured_named_specs": 47,
   "initial_argv_positions": 13,
   "retained_switches": 11,
@@ -25,5 +25,17 @@
   "aggregate_memory_or_address_span_gate": false,
   "source_argument_required": true,
   "compiler_or_prover_executed": false,
-  "whole_driver_or_program_capacity_established": false
+  "whole_driver_or_program_capacity_established": false,
+  "relocation_directory_pointer_array_bytes": 1792,
+  "relocation_component_string_bytes": 223,
+  "relocation_result_bytes": 1111,
+  "multilib_max_partial_string_bytes": 85,
+  "multilib_default_record_bytes": 16,
+  "multilib_temporary_match_array_bytes": 48,
+  "multilib_retained_match_array_bytes": 288,
+  "multilib_os_directory_string_bytes": 9,
+  "multilib_multiarch_string_bytes": 17,
+  "per_execute_pex_object_bytes_lp64": 144,
+  "per_execute_common_pex_child_count": 1,
+  "per_execute_child_and_status_array_bytes_each": 4
 }

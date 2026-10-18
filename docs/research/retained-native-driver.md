@@ -23,7 +23,7 @@ priced naming-only configuration and one-unit map. All path spellings remain
 subject to the earlier descriptor. There is no inherited option or response
 file: none of these arguments begins with `@`. The C driver's language hook
 only adds `-shared-libgcc` for `.m` or `.mi` inputs, so it adds nothing here
-(`c/gccspec.cc:29–111`). This result is not a bound for GPR's own argv, binder
+(`c/gccspec.cc:28–107`). This result is not a bound for GPR's own argv, binder
 compilation, the link driver, or GNATprove's different native invocations.
 
 The installed ELF's retained configure string has no `--with-specs` or
@@ -132,11 +132,67 @@ obstack request from 22,863 to **22,887 bytes**. The actual eleven-switch route
 is smaller than either envelope; the correction makes the stated 21-field
 calculation self-contained. The seven initial entries remain independent.
 
+Independent source review of this component at `456db16b4a`, including the
+earlier quote/dump arithmetic, found no material correction. It corrected
+the C-hook citation above. Later relocation/multilib/process additions below
+are outside that frozen review.
+
+## Relocation, multilib and common process storage
+
+The relocation helper has its own signed-int boundary. Let P bound each
+complete raw/resolved executable, compiled-in bin prefix and target prefix
+used at that call. With an absolute executable, its PATH-search branch is
+skipped. Each split path has at most P directory components; its pointer
+array requests at most `8*(P+2)` bytes and each copied component at most P+1.
+The returned relative prefix contains at most P executable-directory bytes,
+three bytes per removed bin-prefix component, P target-prefix bytes and NUL.
+Thus **`5P+1 <= INT_MAX`** suffices for its signed needed_len accumulator,
+directory counts including num_dirs+2, and component save_string's len+1.
+The individual pointer request must also fit PTRDIFF_MAX. At P=222 these
+requests are at most **1,792 / 223 / 1,111 bytes**, respectively
+(`libiberty/make-relative-prefix.c:118–199,231–402`). Canonical-path production
+is still an external/configuration input to P; this argument does not bound
+arbitrary symlink expansion by the raw spelling alone.
+
+Multilib handling consumes only the configured strings, not source contents.
+The retained selected strings have lengths 84 (selection), 16 (matches),
+3 (defaults), 7 (options), and zero (exclusions/reuse/extra). Building their
+obstack strings makes no partial object longer than 85 bytes including NUL
+(`gcc.cc:8438–8488`). There is one default `m64` and two match pairs. Hence
+mdswitches requests one 16-byte record, its copied default four bytes, the
+temporary match array two 24-byte records, and the retained match array
+`(1+11)*24 = 288` bytes (`:9603–9759,9909–9949`). No original switch is m32
+or m64, so only the default contributes a retained match. Recursive used_arg
+calls encounter the already allocated array and cannot re-enter initialization.
+All remaining scans are through the fixed strings with int/unsigned lengths
+at most 84.
+
+The selected directory remains null, with `../lib64` and `x86_64-linux-gnu`
+copies of nine and seventeen bytes. The x86 common target uses the default
+compute_multilib hook, which returns its input unchanged; no second directory
+search is needed (`gcc.cc:10089–10171`, `common/common-target.def`,
+`common/common-targhooks.cc:96–108`, `common/config/i386/i386-common.cc`).
+This recovers the earlier six/nineteen candidate descriptor without treating
+an observed search list as a general result for every installation.
+
+Each execute call creates a fresh pex object and passes one command with
+PEX_LAST, no output/error filename and no timing request. Therefore the common
+PEX layer uses stdin/stdout/stderr, creates no pipeline temporary file or
+remove-list entry, and records one child. Its signed count and number_waited
+stay at most one; its two separate PID/status arrays each request four bytes
+on Linux. pex_obj is 144 bytes on LP64 and the driver's local status array
+four bytes (`libiberty/pex-common.h:54–95`, `pex-common.c:53–80,182–350,
+518–540`; `gcc.cc:3438–3488`). The two commands have independent objects, so
+their counts do not accumulate in a shared backing array. The Unix exec/wait
+backend and libc/OS launch machinery retain their own platform assumptions;
+this is the common PEX storage bound, not a new claim about those dependencies.
+
 ## Remaining joins
 
-This closes selected option counts, argument-vector growth and the named-spec
-dispatch above. It does not price every driver relocation/canonicalization,
-multilib-parser, process-spawn or diagnostic object. Those remaining objects,
+This closes selected option counts, argument-vector growth, the named-spec
+dispatch, relocation arithmetic, selected multilib arrays and common PEX
+storage above. It does not price every canonicalization, platform process-spawn
+or diagnostic object. Those remaining objects,
 production launcher realization, frontend/backend consumers, assembler,
 binder and linker still need composition. In particular no whole-program
 capacity predicate or enlarged admission follows from this component.

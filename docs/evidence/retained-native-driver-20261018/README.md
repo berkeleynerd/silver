@@ -2,9 +2,9 @@
 
 Offline source/configuration/arithmetic checks for #119. The
 [source argument](../../research/retained-native-driver.md) specifies the exact
-command class and excluded routes. The source archive contains nine complete
+command class and excluded routes. The source archive contains sixteen complete
 GCC files; gcc.cc is reused from the environment bundle. The pinned configure.ac
-was retrieved from the same GCC revision; the other eight hashes match the
+was retrieved from the same GCC revision; the other fifteen hashes match the
 retained full-source manifest. No compiler/prover/build was executed.
 
 `installed-configuration.json` retains a static ELF string reading, including
