@@ -2523,7 +2523,10 @@ whole-process name/counter domains.
 Separate compiler/prover processes for library bodies are fixed-input cases
 of their own. Their phase-one prerequisite generation is not a measurement of
 their Why allocations, and Main's five imported-specification witnesses do
-not cover those body processes.
+not cover those body processes. The separate four fixed-unit measurements
+are now retained in the [fixed-process record](retained-producer-fixed.md#separate-fixed-library-processes);
+their per-process resource domains must be checked independently rather than
+added to Main's simultaneous table lengths.
 
 ## Auxiliary map domains and interned-name arithmetic
 
@@ -2630,6 +2633,39 @@ an already populated representation map. All Main String types share that
 ordinary rank-one Character key, but every lookup still increments the pool
 counter. Therefore neither `U_pool` nor `B_N` alone establishes `F_pool`.
 
+The inventory permits a tighter separation than treating all 671 sites as
+unpriced. The 639 calls lexically inside constructors have an allocation
+charge: raw name/identifier/module/axiom/comment/label/meta/namespace/theory
+builders allocate, while the identifier, guarded-axiom and function-declaration
+wrappers reach their raw builders. At most two direct `NID` calls share one
+such constructor invocation; those two-site cases are the meta declarations
+at `why-gen-decl.adb:100–110`. This contributes at most `2B_N` calls. The 32
+remaining sites partition as follows:
+
+| Sites/family | Lifetime call bound and allocation connection |
+| --- | --- |
+| Ten initialization literals | Exactly ten calls at `why-atree-modules.adb:514–519,894,2755–2758`, all outside source-sized loops. |
+| Three trace-label sites | At most `2B_N`. The entity overload interns twice; the string overload once. All requests accompany a fresh constant/function/global-ref declaration, quantifier or local record-field identifier. `Emit_Global_Ref_Or_Function` allocates in all three branches (`gnat2why-decls.adb:526–575`), including when `Get_Counterexample_Labels` discards labels for a generated entity. Direct record calls have `To_Why_Id(..., Local => True)` or their freshly allocated field association (`why-gen-records.adb:1389–1410,3183–3202,3252–3267`). |
+| Two VC-label sites | At most `2B_N`: `New_VC_Labels` interns one check and at most one shape. Its three callers allocate a fresh label, any-expression or variant (`why-gen-expr.adb:5309–5323`; `why-gen-progs.adb:135–147`; `gnat2why-expr-loops.adb:2026–2038`). |
+| String module overload | At most `B_N`, charged to its fresh module (`why-gen-names.adb:825–834`). |
+| Loop-head and branch markers | Together at most `B_N`, charged to distinct fresh location-label or assignment nodes (`why-gen-expr.adb:1956–1981,4728–4750`). |
+| Four exception/namespace sites | Together at most `B_N`: goto and loop-exception helpers return fresh names, and the two mutually exclusive namespace arms return a fresh identifier (`why-inter.adb:1023–1028,1127–1146,1496–1513`). |
+| Eager inline marker | At most `B_N`, charged to the eager `Result_Id` temporary constructed before the marker in each `Declare_Logic_Functions` invocation (`gnat2why-subprograms.adb:3342–3358`), even if later code chooses another declaration branch. |
+| Comparison/logical-array theory suffixes | Together at most `B_N`; their only uses construct fresh modules on a representation-cache miss (`why-gen-arrays.adb:1111–1114,1130–1133`). |
+| One pretty-expression marker | Charge its requests separately as `F_pretty`. The ordinary `Transform_Expr` caller interns before the constant-True/False early returns (`gnat2why-expr.adb:23630,23654–23656`), so a fresh label at `25502–25508` cannot fund every request. The other caller allocates a label at `25847–25853`. |
+| One array-representation name site | Charge every lookup as `F_array`, including hits (`why-gen-arrays.adb:3035`). String-literal-subtype recursion delegates and does not intern an additional name. |
+| Two fixed-point name sites | Charge requests as `F_fixed_point` (`why-gen-scalars.adb:1515,1539`). These are confined to fixed Standard work for the current Main grammar and selected API contracts, but their exact fixed total is separate from Why-node measurements. |
+| Three profile/specialization/unchecked-conversion sites | Unreachable from the current Main grammar and selected fixed interface shapes; preserve a separate `F_special` if that shape set is extended (`gnat2why-subprograms-pointers.adb:1250`; `gnat2why-unchecked_conversion.adb:180`; `why-atree-modules.adb:389`). |
+
+Thus the current process can use the compositional bound
+`F_Why <= 10 + 11B_N + F_pretty + F_array + F_fixed_point`, with
+`F_special = 0` for the specified domain. The coefficient 11 is the sum of
+the allocation charges above, not a fitted multiplier. It remains necessary
+to connect the three residual request counts to source invocations/fixed work;
+introducing their names is not itself that connection. In particular distinct
+array keys do not bound `F_array`, and emitted pretty labels do not bound
+`F_pretty`.
+
 Several compositional length costs are already explicit:
 
 | Name operation | Additional characters or bound |
@@ -2652,6 +2688,40 @@ the frontend name argument. `New_Internal_Name` itself contributes one prefix,
 at most ten serial digits and one body/spec character
 (`gcc/ada/tbuild.adb:61–99,719–726`); its serial counter must also fit.
 
+For the classified **Main light-expansion entity frontier**, the underlying
+`Chars` input can be made source-sized. Let `I_max` be the largest source
+identifier length (zero if none) and `F` the number of source loops. Source
+objects and loop indices retain their identifier spelling. Generated object
+subtypes add `T` and `S`, and the rank-one String index subtype adds at most
+another `T`, `P` and the digit `1`
+(`gcc/ada/sem_ch3.adb:5832–5840,14339–14484,15317–15343,19120–19123`;
+`itypes.adb:51–61`). Literal, alias and loop-index itypes use internal names
+of at most twelve characters (`sem_res.adb:13224`; `exp_util.adb:5985`;
+`sem_ch5.adb:3434`; `sem_ch3.adb:20478–20483,20712–20724`). A captured bound
+uses an internal temporary or appends `_FIRST`/`_LAST` to its loop subtype's
+internal name, hence at most eighteen characters
+(`exp_util.adb:12575–12608`; `sem_ch3.adb:22715–22718`). Object and String
+index bounds are static here and introduce no extra related-name capture chain.
+Consequently `Chars_Main_max <= max(I_max+5,18)` for this entity frontier,
+conditional on the independently required serial/count arithmetic.
+
+Parser-created loop scope names are `L_` plus a Natural counter, also at most
+twelve characters (`gcc/ada/par-ch5.adb:2344–2352`). Main has no nested
+subprogram, package, block, generic or type scope; the remaining scope chain
+contains Main and at most `F` loop scopes. Full qualification of `Chars` is
+skipped in GNATprove mode (`frontend.adb:506–508`), so repeated scope prefixes
+are not hidden in these raw names. Applying the conservative twelve-character
+homonym suffix even to each loop and Main, plus separators, gives
+
+```text
+Full_Name_Main_max <= max(I_max+5,18) + 26F + 30.
+```
+
+This bound deliberately counts all loops rather than only nesting depth.
+Fixed dependency names and their scope forms remain separate. The bound is
+an input to the Why-name composition table, not a bound on all completed
+Why strings or on native-code expansion names.
+
 VC/trace labels add source names, node/VC decimal IDs, source locations and
 `Shape_Of_Node`. The latter walks the parent path, not a complete repeated
 subtree (`spark_util.adb:7005–7338`); its loop-name and source-name contributions
@@ -2660,8 +2730,8 @@ must be charged along that path. Location labels follow instantiation locations
 inlining, while fixed dependencies remain fixed cases. These functions cannot
 be replaced by a fixed short-label assumption.
 
-The remaining closure work is precise: bound all lifetime representation-name
-queries, trace/VC-label requests and metadata-name calls from the source
+The remaining closure work is precise: bound lifetime array-representation-name
+queries, precomputed pretty-expression markers, fixed-point and metadata-name calls from the source
 invocation counts; propagate the frontend name and path lengths through the
 listed constructors; and bound scoped undo peaks. The additive fixed Why
 measurements do not supply these quantities. The checked map domains and
@@ -2778,7 +2848,7 @@ coverage obligation, not a claim that the whole producer is already bounded.
 
 | Remaining family | Exact work and source-count connection still required |
 | --- | --- |
-| `K_fixed` | Bootstrap/Standard plus selected imported dependencies now have the additive four-component envelope above; Main external-constant assumptions are zero. Other fixed entry/exit work and non-Main frontend entity/list contribution remain separate, as do distinct producer processes for library bodies. |
+| `K_fixed` | Bootstrap/Standard plus selected imported dependencies now have the additive four-component envelope above; Main external-constant assumptions are zero. Other fixed entry/exit work and non-Main frontend entity/list contribution remain separate. Distinct fixed library processes have their own measured four-component results in the linked fixed-process record. |
 | Auxiliary producer domains | Source/Why map key domains, projection counters and GNATCOLL 64-bit string sums are bounded above. Lifetime intern calls, generated-name lengths and undo-stack peaks still require source connections; the four-component fixed envelope does not supply them. |
 | Frontend node input | The linked Main semantic-node aggregate supplies `A_Main` used by the ignored-entry/list transfer. Separate fixed dependency node/entity counts remain to be resolved. |
 | Whole-process counters | Use `M <= B_N` or a sharper explicit module sum and finish the total close count with fixed setup. `F <= E_list` and `temporary counter <= B_N` are established. |
