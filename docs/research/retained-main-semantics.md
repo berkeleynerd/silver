@@ -2,9 +2,10 @@
 
 Research for [#119](https://github.com/berkeleynerd/silver/issues/119),
 2026-10-18, Linux x86_64. This connects the source-counted parser to ordinary
-GNATprove semantic/light-expansion work. It supplies a structural subtotal and
-explicit remaining obligations for the producer's `A_Main` input. **It does not
-yet supply a complete `A_Main`, whole-process bound or admission predicate.**
+GNATprove semantic/light-expansion work. It supplies a source-counted bound on
+Main's allocated node identities, including entities and discarded syntax,
+for the producer's `A_Main` input. **It does not supply a complete frontend
+table/byte bound, whole-process bound or admission predicate.**
 Native expansion is a separate process contribution; no production, proof,
 language, Oracle or tool-pin file changes here.
 
@@ -37,6 +38,7 @@ and `D_s`, `D_lit`, `D_alias`, `K_literal` from
 | `H_len` | Length attributes |
 | `V0` | Parameterless Input_Is_Valid calls |
 | `C_lib` | All admitted library calls: argument-bearing calls, Reject and Input_Is_Valid |
+| `N_ref` | Source occurrences of mutable object names, including assignment targets; all source identifier-token occurrences are a conservative alternative |
 | `D_copy <= D_s` | String declarations whose constant-name initializer is replaced by a literal copy; `D_s` is the conservative syntactic bound |
 
 `B_loop` is computed from recognized source, not a measured decorated tree.
@@ -130,8 +132,8 @@ Consequently the existing `K_literal` entity and String-pool formulas survive,
 but a count of **literal node identities** must add `D_copy`, and a total of
 their decoded lengths must add the initializer's length at each such declaration.
 The producer keys a static literal theory by actual node identity, so these
-copies cannot silently share the prior literal's module. The producer lane is
-updating its `K` and aggregate length allowances; ordinary expression visit
+copies cannot silently share the prior literal's module. The producer component
+adds them to its `K` and aggregate length allowances; ordinary expression visit
 count stays unchanged because a source name is replaced by one leaf.
 
 ## Expression skeleton and folding
@@ -171,16 +173,21 @@ or String_Id; computing that value has a separate Uint/String cost.
 Define the **ordinary fold-call allowance**
 
 ```text
-T_fold = O + P + 2O_loop + 3F + R + 3D_lit + 2U + 2H_len.
+T_fold = O + P + 2O_loop + 3F + R + 3D_lit + 2U + 3H_len.
 ```
 
 The terms charge source operators/artificial parser concatenations, the two
 range-copy operator passes, lower-root replay, two generated literal-range
-arithmetic operators per `D_lit`, the two inequality operators, and Length
-plus its conversion. Leaf names retain their values without copying their
+arithmetic operators per `D_lit`, the two inequality operators, and two Length
+fold calls plus its conversion. `Eval_Attribute.Length` can first fold from
+known bounds and then fold again from `Compile_Time_Compare`; there is no
+return between those branches (`sem_attr.adb:9898–9970`). The third charge
+allows a conversion fold without relying on branch exclusivity. Leaf names
+retain their values without copying their
 initializers during Eval_Entity_Name (`sem_eval.adb:2454–2532`); the late
 declaration copy above is a distinct route. This allowance covers the listed
-ordinary evaluators, not all transitive semantic helpers or diagnostics.
+ordinary evaluators. The query closure below excludes additional ordinary-node
+construction in their reached semantic helpers.
 Their syntax-fold subtotal is `2T_fold` nodes and `T_fold` growing events.
 
 ## Range-check construction is live allocation, even when discarded
@@ -209,10 +216,139 @@ attributes do not enter the ordinary semantic query graph. The source
 short-circuit handler's empty expression-with-actions wrapper also requires
 Expander_Active (`sem_res.adb:11680–11698`) and is absent here.
 
-## Aggregate checkpoint and exact gaps
+## Query graph: no additional ordinary-node identities
 
-The preceding **covered structural subtotal**, excluding parser entities and
-the following residuals, is
+The zero-syntax result here is specific to this grammar and light expansion;
+it does not make numeric queries allocation-free. Consider the graph reached
+from source scalar expressions by operand, constant-initializer, captured-bound,
+current-value and scalar-type-bound edges. Its leaves are existing integer or
+Boolean values and existing entity references. Explicit Integer bounds contain
+only scalar arithmetic and earlier Ada-static constants. Captured loop bounds
+preserve that shape; their declarations do not manufacture an attribute.
+Generated String indexes are static literal arithmetic, and aliases share a
+previous static index. Nonstatic String initializers retain Standard.String.
+Source attributes are only Integer Image and a declared String name's Length.
+
+The reviewed `Determine_Range` closure constructs Uint values but no syntax.
+The sole syntax allocation in `Compile_Time_Compare` is `Compare_Fixup`'s
+materialized Last of an `E_String_Literal_Subtype`
+(`sem_eval.adb:995–1067`). Neither the graph above nor current-value expressions
+introduce First/Last. Discarded loop checks may contain such attributes, but
+the checks are not analyzed, and their constructor's comparison queries use
+the existing scalar operands and bounds. Static range checks on generated
+declaration subtypes have static operands and return without building checks.
+
+`Eval_Relational_Op.Decompose_Expr` can allocate an occurrence when unfolding
+a captured bound (`sem_eval.adb:3489–3505`). Its only caller is the final,
+dynamic-index branch of the nested `Static_Length` helper. Main Strings are
+literal subtypes, static ordinary subtypes or unconstrained Standard.String;
+each returns in an earlier branch (`:3645–3718`). Thus that constructor is
+unreachable here, including comparisons of Image/input expressions. String
+length-check insertion also exits before constructing anything when
+`Expander_Active=False` (`checks.adb:2234–2286,3509–3534`). Successful scalar
+assignment checks set flags or issue the numeric queries, with no syntax
+constructor on the admitted non-error path (`:3155–3503`).
+
+`Eval_Attribute.Set_Bounds` materializes a high-bound literal only for a
+literal-subtype prefix (`sem_attr.adb:8308–8405`). The grammar requires a
+declared String name before Length; its declared type is an ordinary String
+subtype or Standard.String, not the initializer's literal subtype. Its bounds
+therefore already exist. Integer Image does not fold: the only Image folding
+branch requires an enumeration literal (`:9717–9751`). The remaining reached
+evaluators fold at most as charged above; array indexing, slices, aggregates,
+predicates, real/fixed arithmetic, user-defined/intrinsic calls and error-tree
+recovery are outside this source shape. `sem_warn.adb` contains no syntax
+constructor or rewrite; its additional scalar comparisons use the same graph.
+
+Consequently these query paths add **zero ordinary-node identities**. They
+still need source-derived invocation, unfolded-expression and Uint charges for
+the complete table bound. This separation permits a syntax bound without
+pretending the numeric resource obligation has been discharged.
+
+## Freeze, markers and the enclosing Main
+
+### At most one freeze node per Main entity
+
+`Freeze_Entity` returns for an already frozen entity, marks the first ordinary
+visit frozen, and reuses an existing freeze node or allocates one
+(`freeze.adb:6536–6550,6809,8265–8283`). The cases that clear the flag require
+incomplete/private/class-wide types or an incomplete formal profile, absent
+from Main. Its type helpers do not create another type or support subprogram:
+
+| Helper | Reached Main case and syntax result |
+| --- | --- |
+| `Layout_Object`, `layout.adb:225–231` | Null procedure. |
+| `Layout_Type`, `:235–664` | Literal String subtype clears size fields; signed Integer and ordinary String subtypes set/inherit size and alignment. No syntax constructors. |
+| `Check_Compile_Time_Size`, `freeze.adb:750–912` | Elementary types are immediate; one-dimensional String size uses existing bounds and Uint arithmetic. |
+| `Freeze_Array_Type`, `:3641–4276` | Ordinary subtype of Standard.String; bit-packed implementation, full-access and record/invariant branches are excluded. |
+| `Freeze_Object_Declaration`, `:4282–4605` | Modular-array size check and delayed-aspect/address rewriting require native expansion; no user aspects/imports apply. |
+| `Freeze_Static_Object`, `:10223–10390` | Existing types/bounds/flags only. |
+| `Freeze_Profile`, `:4748–5094` | Main is a procedure with no formals; no profile traversal or return type. |
+| `Freeze_Subprogram`, `:10402–10771` | Ordinary nonimported procedure; `Create_Extra_Formals` returns when expansion is disabled (`sem_ch6.adb:8934–8946`), and `Set_Mechanisms` has no Main formal or result. |
+| `SPARK_Freeze_Type`, `exp_spark.adb:1138–1254` | No invariant, DIC or tagged-type support for these types. |
+
+The bound is `A_freeze <= E_Main`, with `E_Main` supplied by the entity
+component. It deliberately includes object and scope entities that may never
+need a freeze node. It does not include dependency entities; their allocations
+belong to the fixed contribution. `Add_To_Result` uses `Append_New_To`
+(`freeze.adb:2974–2977`), so list headers/links and recursive concatenation of
+freeze-result lists need their own table charge, not a claim of one list per
+entity inferred from the node count.
+
+### Call and variable-reference markers are live in light mode
+
+Elaboration recording is initialized active (`sem_elab.adb:10196–10208`),
+including GNATprove. `Build_Call_Marker` allocates at most one node per ordinary
+library call resolution (`:3563–3776`). Image remains an attribute; it does not
+add a call. The admitted call resolution reaches the terminal marker site
+(`sem_res.adb:7341`); earlier entry, indexed-call and Character-result ambiguity
+routes are absent.
+
+`Find_Direct_Name` and `Find_Expanded_Name` also create variable-reference
+markers, including assignment targets (`sem_ch8.adb:7107–7130,7781–7805`).
+Calls defer their simple-variable actual to `Resolve_Actuals`
+(`sem_res.adb:4247–4276`). These alternatives do not duplicate the marker.
+`Needs_Variable_Reference_Marker` requires a source reference to a source
+SPARK variable and excludes preanalysis (`sem_util.adb:23907–24033`). Constants,
+loop indexes and generated captures fail its entity-kind/source guards.
+Each eligible name is analyzed once: both Analyze and Resolve return for
+analyzed children (`sem.adb:113`; `sem_res.adb:2547`), lower-root replay is
+Resolve rather than name analysis, and the two range copies are preanalyzed.
+Hence `M_marker <= C_lib + N_ref` nodes and the same number of immediate
+Insert_Action list wrappers.
+
+Marker insertion does not add expression-with-actions wrappers here. Before
+the enclosing short-circuit's first resolution finishes, its Analyzed flag is
+false, so insertion stores/appends the marker in its existing Actions field
+(`exp_util.adb:8143–8191`). No admitted replay contains a call or short-circuit
+expression. Other insertions reach the enclosing declaration/statement or an
+elsif condition action list (`:8290–8417`). Marker analysis is null
+(`sem.adb:634–640`) and cannot recursively generate more markers. Later ABE
+check generation and invocation-graph recording are disabled in GNATprove
+(`sem_elab.adb:4084–4102,12226–12248`). Scenario maps/sets/stacks still need
+their independent resource bounds.
+
+### No additional ordinary syntax for Main's shell
+
+Main's specification mutates its parsed defining entity; it has no parameters,
+result, contracts, aspects or separate specification (`sem_ch6.adb:5440–5623`).
+The GNATprove synthetic-spec route requires a body that is a list member;
+library Main is a compilation unit (`:3738–3764`). Extra formals are disabled
+as above; tagged, access-result, dispatching and inlined-body paths are absent.
+The compilation-unit synthetic-spec route requires a child unit
+(`sem_ch10.adb:989–1042`), which Main is not. The with clauses name only the
+selected fixed library units. The use-implies-with constructor requires
+`All_Extensions_Allowed`, absent the selected options
+(`sem_ch8.adb:4362–4400`). SPARK_Mode(On) sets the current pragma/context; its
+instance-only null rewrite is inapplicable (`sem_prag.adb:26242–26325,26507`).
+Main has no exception handlers; handled-sequence and statement traversal reuse
+the parsed nodes (`sem_ch11.adb:388–465`; `sem_ch5.adb:4523–4595`). The parser
+already supplied the implicit loop identifier/declaration, so the semantic
+missing-identifier fallback at `sem_ch5.adb:4110` is not another allocation.
+
+## Node-identity aggregate and remaining resource obligations
+
+The direct structural subtotal is
 
 ```text
 A_struct = 4B_loop + 28F + 2R + 13D_lit + 4D_alias + 5G
@@ -223,50 +359,62 @@ E_generated <= R + 2D_s + 3F + K_literal.
 
 `E_generated` is the prior entity bound minus the parser's `1+D+2F` source
 and implicit-loop entities. It includes index types and captured constants;
-do not add the fresh-entity column again. The intended complete decomposition is
+do not add the fresh-entity column again.
+
+Adding the closed query, freeze, marker and shell cases gives the source-derived
+node-identity bound
 
 ```text
-A_Main <= A_parse + F + E_generated + A_struct + A_residual.
+M_marker <= C_lib + N_ref.
+E_Main <= 1 + D + R + 2D_s + 5F + K_literal.
+A_Main <= A_parse + F + E_generated + A_struct + E_Main + C_lib + N_ref.
 ```
 
-The `F` beside A_parse is its fresh loop-scope entity allocation, which the
-parser's ordinary-node counter excludes. `A_residual` is **unfinished work, not
-a free coefficient or a chosen safety margin**. The current exact gaps are:
+`A_parse` includes the scanner identities later promoted to Main, object and
+index entities. The separate `F` is the parser's fresh implicit-loop entities;
+the semantic phase reuses them. `E_generated` adds only later generated entity
+identities; `E_Main` in this expression charges their possible **ordinary
+freeze nodes**, not a second entity allocation. The query/shell syntax residual
+is zero under the stated grammar, type and phase premises. This is the
+`A_Main` input for the producer's ignored-entry/list traversal transfer. It
+does not establish bytes or any other frontend representation bound.
 
-1. **Semantic query/mutation closure.** Establish complete invocation counts
+Using `G <= 2F`, `D_lit + D_alias <= D_s`, `D_copy <= D_s` and
+`K_literal <= S + 3A + 5P` gives a fully syntactic, less precise form:
+
+```text
+A_Main <= A_parse + 4B_loop + 53F + 6R + 25D_s + D + 2S + 6A
+          + 7U + 10H_len + V0 + 2O + 12P + 4O_loop + C_lib + N_ref + 1.
+```
+
+Here `A` counts String concatenations, whereas `O` counts all source operators;
+the two terms intentionally overlap because they pay different allocations.
+Every counter can be obtained from recognized source. No measured tree size,
+runtime iteration count or selected safety margin enters this expression.
+
+Remaining whole-frontend obligations are:
+
+1. **Semantic query/mutation resource closure.** Establish complete invocation counts
    for scalar range/constant comparisons, type layout and source folds from
    all reached declaration/assignment/resolution helpers. Their Uint work
-   remains necessary even where syntax allocation is zero. In the reviewed
-   Compile_Time_Compare helper the sole syntax constructor is Compare_Fixup
-   for a constrained literal String's Last (`sem_eval.adb:995–1067`). The
-   ordinary source graph has no First/Last, and generated check attributes are
-   discarded; completing that graph invariant can set this helper's ordinary
-   node charge to zero instead of importing its native `20A` envelope.
-   Eval_Relational_Op has another conditional New_Occurrence_Of for a captured
-   constant (`:3489–3505`); close its caller exclusion or multiplicity separately.
+   remains necessary despite zero additional syntax allocations in these queries.
    Keep overload tables, value caches and per-kind growing mutations distinct
    from node identities. One identity bound is not a slot-event bound.
-2. **Freeze/marker and enclosing Main closure.** Freeze_Entity marks entities
-   frozen and reuses/creates at most one freeze node per ordinary entity
-   (`freeze.adb:6536–6550,6809,8265–8283`). Verify all reached layout/freezing
-   helpers and the enclosing procedure/context/SPARK_Mode path before replacing
-   this residual by that simple count. Main's types exclude packed, modular,
-   invariant/DIC and tagged cases; light SPARK freezing builds none of their
-   support. Build_Call_Marker directly adds at most one marker/action list per
-   ordinary call resolution (`sem_elab.adb:3563–3776`), but complete marker
-   placement/elaboration bookkeeping remains part of this closure. C_lib is
-   the source count to connect; Image is not another source library call here.
+2. **Freeze/marker auxiliary storage.** Charge freeze-result lists, scope-stack
+   operations, elaboration maps/sets and traversal stacks. Their ordinary syntax
+   nodes are covered above; it would be incorrect to infer their complete
+   storage cost from that node-identity count.
 3. **Complete table/resource connection.** Add all remaining ordinary/entity
    slot mutations, name spelling/qualification, auxiliary table events,
    Uint layout/query work and peak/growth arithmetic to the existing table and
    value components. Fixed dependency work remains outside Main. The producer
-   may use A_Main only after the residual is closed; this subtotal does not
-   silently satisfy that prerequisite.
+   can use this A_Main for the stated frontend-node input, while the separate
+   frontend capacities still need every listed resource bound.
 
-The meaningful new connection is source-derived ordinary semantic shape work,
-including discarded work and explicit replay. The late String-copy path also
-requires a concrete producer correction. These results do not establish the
-complete capacity rule, source-to-installed-producer identity or permission to
+The connection includes discarded work, explicit replay and markers. The late
+String-copy path requires the producer's separate copied-literal correction.
+These results do not establish the complete capacity rule,
+source-to-installed-producer identity or permission to
 remove any current language limit.
 
 ## Reproduction

@@ -1,7 +1,7 @@
 {
   "source_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
   "verified_against": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
-  "scope": "Pinned-source identity and partial-equation arithmetic only",
+  "scope": "Pinned-source identity and node-identity-equation arithmetic only",
   "files": [
     {
       "path": "atree.adb",
@@ -27,6 +27,18 @@
       "bytes": 408092,
       "sha256": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c",
       "cited_ranges": [
+        [
+          2234,
+          2286
+        ],
+        [
+          3044,
+          3080
+        ],
+        [
+          3155,
+          3503
+        ],
         [
           3509,
           3534
@@ -66,6 +78,10 @@
           204
         ],
         [
+          601,
+          766
+        ],
+        [
           772,
           881
         ],
@@ -91,6 +107,18 @@
         [
           5873,
           6012
+        ],
+        [
+          7984,
+          7997
+        ],
+        [
+          8143,
+          8191
+        ],
+        [
+          8290,
+          8417
         ],
         [
           10664,
@@ -127,16 +155,24 @@
       "sha256": "245a9badc89a6f74f3084481150eca8e0a329b378815c44d2081b1f8d7339f7d",
       "cited_ranges": [
         [
-          4100,
-          4153
+          750,
+          912
+        ],
+        [
+          2974,
+          2977
+        ],
+        [
+          3641,
+          4276
         ],
         [
           4282,
-          4398
+          4605
         ],
         [
-          4555,
-          4605
+          4748,
+          5094
         ],
         [
           6536,
@@ -152,7 +188,56 @@
         ],
         [
           10223,
-          10355
+          10390
+        ],
+        [
+          10402,
+          10771
+        ]
+      ]
+    },
+    {
+      "path": "layout.adb",
+      "bytes": 43148,
+      "sha256": "80f2563a117facff81cfbbadb9371aed8bccdf2e7c1329e8b3ba2b1e085fd057",
+      "cited_ranges": [
+        [
+          225,
+          664
+        ]
+      ]
+    },
+    {
+      "path": "sem.adb",
+      "bytes": 83263,
+      "sha256": "b216690f3c061cdd7ee229d8182d9863b0f2878e8ac9da67a095372e6c4e0f0d",
+      "cited_ranges": [
+        [
+          107,
+          116
+        ],
+        [
+          634,
+          640
+        ]
+      ]
+    },
+    {
+      "path": "sem_attr.adb",
+      "bytes": 481322,
+      "sha256": "2186f019b336c853f7e3f5ae3a40fd91514ba188694c4fd592282c7ce63185d0",
+      "cited_ranges": [
+        [
+          8308,
+          8405
+        ],
+        [
+          9717,
+          9751
+        ],
+        [
+          9898,
+          9970
         ]
       ]
     },
@@ -201,8 +286,76 @@
           3979
         ],
         [
+          4050,
+          4117
+        ],
+        [
+          4523,
+          4595
+        ],
+        [
           4868,
           4886
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch6.adb",
+      "bytes": 545826,
+      "sha256": "4dbe4ecbf943e6d2fef4fb90882da7c8570752c46c05c682a3e2beba955d7089",
+      "cited_ranges": [
+        [
+          3738,
+          3764
+        ],
+        [
+          5440,
+          5623
+        ],
+        [
+          8934,
+          8946
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch8.adb",
+      "bytes": 425484,
+      "sha256": "e876e072ced17418b2507f15ec39cfaf3bf5aa68806876f8519ae4fe38508d99",
+      "cited_ranges": [
+        [
+          4362,
+          4400
+        ],
+        [
+          7107,
+          7130
+        ],
+        [
+          7781,
+          7805
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch10.adb",
+      "bytes": 276225,
+      "sha256": "234e1a651e8121eda2042d4b26fdd0c16732524262fd51316fe6df670d5e1a58",
+      "cited_ranges": [
+        [
+          989,
+          1042
+        ]
+      ]
+    },
+    {
+      "path": "sem_ch11.adb",
+      "bytes": 27189,
+      "sha256": "da85956c0774465abf448452b9c7c1ef7bc06b7c47818bfbd7e6ac815fcac865",
+      "cited_ranges": [
+        [
+          388,
+          465
         ]
       ]
     },
@@ -216,16 +369,50 @@
           1067
         ],
         [
+          2342,
+          2443
+        ],
+        [
           2454,
           2532
         ],
         [
           3425,
-          3510
+          3718
+        ],
+        [
+          3914,
+          3998
         ],
         [
           5118,
           5222
+        ]
+      ]
+    },
+    {
+      "path": "sem_mech.adb",
+      "bytes": 13179,
+      "sha256": "a0c8379c9193f23eb86b77c8d3cdccf1830ef532c1165f19f5a67ed74a882bc9",
+      "cited_ranges": [
+        [
+          107,
+          128
+        ]
+      ]
+    },
+    {
+      "path": "sem_prag.adb",
+      "bytes": 1304902,
+      "sha256": "492afe76210ea5539460fd417bbc03cad3bde8fd86889d56144522d71c931093",
+      "cited_ranges": [
+        [
+          26242,
+          26325
+        ],
+        [
+          26500,
+          26512
         ]
       ]
     },
@@ -241,6 +428,14 @@
         [
           2545,
           2551
+        ],
+        [
+          4247,
+          4276
+        ],
+        [
+          7337,
+          7345
         ],
         [
           11200,
@@ -264,6 +459,22 @@
         [
           3563,
           3776
+        ],
+        [
+          3782,
+          3851
+        ],
+        [
+          4084,
+          4102
+        ],
+        [
+          10196,
+          10208
+        ],
+        [
+          12226,
+          12248
         ]
       ]
     },
@@ -275,6 +486,21 @@
         [
           10821,
           10915
+        ],
+        [
+          23907,
+          24033
+        ]
+      ]
+    },
+    {
+      "path": "sem_warn.adb",
+      "bytes": 187139,
+      "sha256": "698effea285660dfe3513e64231d0947e0579b3635cb7b55420e9ebf35dd1e55",
+      "cited_ranges": [
+        [
+          3548,
+          3650
         ]
       ]
     }
@@ -283,7 +509,7 @@
     "T_fold_coefficients": {
       "D_lit": 3,
       "F": 3,
-      "H_len": 2,
+      "H_len": 3,
       "O": 1,
       "O_loop": 2,
       "P": 1,
@@ -309,7 +535,7 @@
       "D_lit": 19,
       "F": 34,
       "G": 5,
-      "H_len": 8,
+      "H_len": 10,
       "O": 2,
       "O_loop": 4,
       "P": 2,
@@ -324,12 +550,68 @@
       "G": 1
     },
     "E_generated": "<= R + 2*D_s + 3*F + K_literal",
-    "A_Main_decomposition": "<= A_parse + F + E_generated + A_struct + A_residual",
-    "A_residual": "UNFINISHED; not a numeric coefficient or allowance"
+    "E_Main_coefficients": {
+      "D": 1,
+      "D_s": 2,
+      "F": 5,
+      "K_literal": 1,
+      "R": 1,
+      "one": 1
+    },
+    "A_Main_decomposition": "<= A_parse + F + E_generated + A_struct + E_Main + C_lib + N_ref",
+    "A_Main_expanded_coefficients": {
+      "A_parse": 1,
+      "B_loop": 4,
+      "C_lib": 1,
+      "D": 1,
+      "D_alias": 4,
+      "D_copy": 2,
+      "D_lit": 19,
+      "D_s": 4,
+      "F": 43,
+      "G": 5,
+      "H_len": 10,
+      "K_literal": 2,
+      "N_ref": 1,
+      "O": 2,
+      "O_loop": 4,
+      "P": 2,
+      "R": 6,
+      "U": 7,
+      "V0": 1,
+      "one": 1
+    },
+    "A_Main_syntactic_coefficients": {
+      "A": 6,
+      "A_parse": 1,
+      "B_loop": 4,
+      "C_lib": 1,
+      "D": 1,
+      "D_s": 25,
+      "F": 53,
+      "H_len": 10,
+      "N_ref": 1,
+      "O": 2,
+      "O_loop": 4,
+      "P": 12,
+      "R": 6,
+      "S": 2,
+      "U": 7,
+      "V0": 1,
+      "one": 1
+    },
+    "syntactic_substitutions": [
+      "G <= 2*F",
+      "D_lit+D_alias <= D_s",
+      "D_copy <= D_s",
+      "K_literal <= S+3*A+5*P"
+    ],
+    "query_and_shell_additional_syntax": 0,
+    "syntax_zero_scope": "Manual grammar/type/phase caller argument in derivation"
   },
   "remaining": [
-    "Complete semantic query counts, mutations and helper coverage",
-    "Freeze/layout, marker placement and enclosing Main/context closure",
+    "Complete semantic query invocation/Uint counts and growing mutations",
+    "Freeze-result lists and elaboration/scope auxiliary storage",
     "Complete table/growth, numeric, name and auxiliary-resource connection",
     "Fixed dependency contributions and source-to-installed-tool relation"
   ],
