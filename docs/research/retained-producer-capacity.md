@@ -2866,6 +2866,7 @@ Several compositional length costs are already explicit:
 | Entity modules | `Full_Name` plus one of the 27 fixed suffixes (`why-atree-modules.adb:134–167`); this concatenation happens before a module-cache hit returns. |
 | Projection name | Type-name length + field-name length + 25: separating underscore, optional `__` and at most ten digits, then `__projection` (`why-gen-decl.adb:171–190`). The occurrence counter bound above makes those digits representable. |
 | `To_Local` | No change to the symbol length: all three overloads copy `Get_Symb` unchanged while clearing the module (`why-gen-names.adb:1137–1171`). Localization does not concatenate a qualification prefix. |
+| `Localize_Binders` (separate from `To_Local`) | One call adds at most module-name length + namespace length + 9 + suffix length. It clears the module and namespace, so a later call on the same derived name adds only 3 + suffix length (`why-gen-binders.adb:628–649`). Its composition depth remains separate from the zero-growth `To_Local` result. |
 
 `Full_Name` delegates to frontend `Unique_Name` except for Standard Boolean
 (`spark_util.adb:2323–2340`). For an ordinary non-child, non-generic scope path
@@ -3001,8 +3002,9 @@ python3 docs/evidence/retained-producer-capacity-20261017/string_lengths.py \
 
 The remaining closure work is precise: bound Common-pool metadata-name calls
 from source/load invocation counts; propagate the frontend name and path lengths through the
-remaining identifier constructors; and bound scoped undo peaks. Comments and
-localization are closed by the preceding source argument. The additive fixed Why
+remaining identifier constructors, including `Localize_Binders` composition;
+and bound scoped undo peaks. Comments and `To_Local` are closed by the preceding
+source argument. The additive fixed Why
 measurements do not supply these quantities. The checked map domains and
 64-bit-sum reduction above remain usable independently of that unfinished
 connection.

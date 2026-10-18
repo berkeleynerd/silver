@@ -1182,10 +1182,10 @@
     }
   ],
   "instantiation_location_bound": "D_loc (P_ref + 28)",
-  "localization_changes_symbol_length": false,
   "main_location_bound": "P_ref + 11",
   "maximum_fixed_text_bound": 226,
   "scope": "Checks source identities, inventory and arithmetic. Manual source argument covers the forwarded Comment and Object_Name parameters; this is not an exhaustive bound on all strings.",
+  "to_local_changes_symbol_length": false,
   "toolchain_or_proof_processes_run": false,
   "verified_complete_ada_files": 279
 }

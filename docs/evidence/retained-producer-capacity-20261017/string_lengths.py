@@ -122,7 +122,7 @@ if __name__ == "__main__":
         "comment_bound": "2 Q + 2 L_build + 226",
         "main_location_bound": "P_ref + 11",
         "instantiation_location_bound": "D_loc (P_ref + 28)",
-        "localization_changes_symbol_length": False,
+        "to_local_changes_symbol_length": False,
         "comment_inventory": rows,
         "scope": "Checks source identities, inventory and arithmetic. Manual "
                  "source argument covers the forwarded Comment and Object_Name "
