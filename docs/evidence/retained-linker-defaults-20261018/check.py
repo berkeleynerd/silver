@@ -33,9 +33,10 @@ assert capture['returncode'] == 0 and capture['executable_unchanged']
 assert sha(Path(capture['argv'][0]).read_bytes()) == capture['executable_sha256']
 assert records['capture/stderr'] == ''
 assert re.search(r'--compress-debug-sections=\[.*\]\n\s*Compress DWARF debug sections\n\s*Default: none\n', records['capture/stdout'])
+assert re.search(r'-z noseparate-code[^\n]*\(default\)', records['capture/stdout'])
 argv = records['inventory']['collect2_argv']
 assert not any('compress-debug-sections' in x or 'pack-relative-relocs' == x
-               or 'enable-linker-version' in x for x in argv)
+               or 'enable-linker-version' in x or x == 'separate-code' for x in argv)
 anchors = {
     'ld/lexsup.c': ['bfd_get_compression_algorithm_name (config.compress_debug)',
                    'enable_linker_version = true;'],
@@ -131,6 +132,7 @@ result = {
     'compression_default': 'none',
     'selected_compression': False,
     'selected_packed_relative_relocations': False,
+    'selected_link_info_separate_code': False,
     'fixed_STABS_or_compressed_sections': 0,
     'generated_STABS_or_compressed_sections': 0,
     'script_explicit_data_constructors': 0,

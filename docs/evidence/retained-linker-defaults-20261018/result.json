@@ -8,6 +8,7 @@
   "compression_default": "none",
   "selected_compression": false,
   "selected_packed_relative_relocations": false,
+  "selected_link_info_separate_code": false,
   "fixed_STABS_or_compressed_sections": 0,
   "generated_STABS_or_compressed_sections": 0,
   "script_explicit_data_constructors": 0,

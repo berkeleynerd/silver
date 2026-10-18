@@ -166,8 +166,9 @@ objects and 104 BFD symbol allocations and 281 relocation-pointer slots. The
 [ELF object transfer](retained-elf-object-capacity.md) then bounds22 section
 headers,98 serialized symbol entries and14,352 complete object-file bytes.
 The emitted-line interface bounds114 assembly lines/events and7,410 bytes,
-including zero-byte directives. Remaining assembler backing, binder objects
-and final link layout are separate.
+including zero-byte directives. Remaining assembler backing and final link
+layout are separate; the binder object-shape transfer below now supplies its
+selected-family input.
 The [shared assembler backing](retained-assembler-backing.md) now includes
 all reached fixed hashes: the largest notes-backed hash request is 65,528
 bytes. Its chunk rule retains actual argv/path parameters and is not a total
@@ -260,9 +261,10 @@ exact argument comparison preserves target inputs and ordering, and the
 selected linker hash matches the expected tool. Production flags remain
 unchanged. The [dynamic-section transfer](retained-linker-dynamic-sections.md)
 adds a conditional GOT/PLT sizing equation and identifies the unsigned32
-jump-count multiplication before its 64-bit destination. Its source-to-event
-join, shared diagnostics, generated Main/binder objects, linker-created
-names/reference events and final relocation/layout remain open.
+jump-count multiplication before its 64-bit destination. Its one-pass event
+join now supplies `208H+104R+24Trel+104` bytes including initial GOT and copy
+relocations, plus at most77 dynamic tags. Shared diagnostics, remaining
+auxiliary requests and final relocation/layout remain separate.
 The [binder projection](retained-binder-capacity.md) derives the generated null
 spec/body sizes and isolates four variable paths in trailing comments. Its
 61-ALI/101-unit closure and fixed token locations support later source-to-object
@@ -271,8 +273,15 @@ are now composed: at most8,282 name-entry events and `792737+2T_root`
 character slots on the retained installation. The temporary root remains a
 configuration parameter. Selected search-directory storage and default
 relocation now have a source projection and one controlled binder-only
-witness. GPR exchange/vector storage and the compiler/object join remain
-open; the observed binder object size is not yet a universal bound.
+witness. GPR exchange/vector, Main-ALI scanning, generated-file scanning,
+runtime argument/Text_IO and selected path-buffer requests now have bounds;
+a no-argument diagnostic supports the fixed initialization read projection.
+The source-derived filename/token/semantic projection now transfers the
+13,432-byte binder object's shape to the selected null family. It supplies
+16 sections,179 symbols,95 relocations and maximum alignment32 under the
+selected installation/path/options premises. Exact proposed-options compilation
+corroborates that transfer; the compiler's transient storage and whole GPR
+process composition remain unfinished.
 
 The [dynamic-symbol/version transfer](retained-linker-symbols.md) now bounds
 the selected hash and version output representations, including signed
@@ -284,16 +293,27 @@ aliases, giving `V <= 51+W` and maximum version index `169+W` for an additional
 generated/synthetic suffix budget W. It does not assume V=0. Main and binder
 symbol naming and generated warning-section coverage now supply W=0 for the
 selected null link: V<=51 and maximum version index169. The `.dynstr` lifetime transfer supplies distinct-name,
-unshared-byte and positive-reference bounds, including rollback losses; its
-generated count/length and section-visit inputs remain open. The global
+unshared-byte and positive-reference bounds, including rollback losses. The
+accepted Main/binder and section-walk joins now supply its selected null inputs.
+Ordinary `.symtab`, `.strtab` and `.shstrtab` have separate output-count,
+name-length, lifetime-reference and intermediate-product bounds. The global
 hash join now bounds actual count high water, record/backbone requests and
 as-needed rollback snapshots. Its objalloc has no cumulative byte counter;
 the separate BFD cache statistics are now shown unobserved under the
 selected configuration. Other allocation requests remain open. The
 [section/header join](retained-linker-layout.md) supplies input/output walk
 bounds and actual/reserved ELF header counts. Conditional virtual/file
-placement includes reverted RELRO trials; payload/alignment inputs, mapping
-convergence and relocation reach remain open. Fixed symbols plus generated
+placement includes reverted RELRO trials. The
+[numerical composition](retained-linker-join.md) now joins fixed/Main/binder
+counts and per-item payload maxima:48,965 output sections,3,243,678 dynamic
+symbol high-water and462,778,637 payload bytes. The dynamic section-index
+guard and the component arithmetic conditions pass. With effective alignment
+4096 as an incoming premise, the retained/trial address endpoints are
+871,701,307/1,743,402,614; this does not establish relocation reach. Effective
+alignment, mapping convergence, operand/addend domains and remaining auxiliary
+requests still need composition. The [selected defaults](retained-linker-defaults.md)
+exclude compression, RELR packing, STABS rewriting and additional script data.
+Fixed symbols plus generated
 Main/binder type projection establish an empty local-IFUNC table, leaving
 only its fixed startup allocations; regular global IFUNC paths remain.
 
@@ -317,15 +337,20 @@ and source/location joins, the known GGC subtotal is40,098. The cgraph lifecycle
 zero GGC events and establishes one lowering and expansion of Main. The
 source/location join adds12 events under its path/node premises, bounding
 at most three files and twelve ad-hoc location requests. Ada callbacks and
-shared collector/process composition remain explicit in the native
-expansion record. The
+selected collector constructors/finalizers/custom markers are now joined:
+no additional GGC events, with the104-byte ordinary cache-marker scratch kept.
+The selected argument/diagnostic buffers and explicit successful GCC cleanup
+are bounded; the config/map option prefix correction uses `P+8`, including
+the equals sign. Fixed startup-manager/target requests and remaining process
+composition remain open in the native expansion record. The
 [unwind sizing transfer](retained-linker-eh-frame.md) bounds conditional input
 editing and header/CIE storage, including narrower32-bit intermediates;
 emitted-field validity and final relocation reach remain separate obligations.
 Its fixed-input join now parses888 distinct ET_REL unwind sections and
 accounts for1,175 weighted occurrences, with14,948 FDEs. Fixed fields fit
-their narrow representations; generated Main/binder/linker additions and
-CFA/relocation meaning still require composition.
+their narrow representations; Main/binder/PLT payload additions are now
+composed, with a direct parse establishing the binder's five FDEs. CFA/relocation
+meaning still requires composition.
 
 The delivered indexed naming adds three GCC-to-gnat1 arguments and one stored
 ALI switch. The source-derived generated configuration grows from244 to327

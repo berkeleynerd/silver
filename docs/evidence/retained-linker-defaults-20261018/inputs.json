@@ -13,9 +13,9 @@
   },
   {
     "key": "binder",
-    "path": "docs/evidence/retained-binder-capacity-20261018/result.json",
-    "bytes": 277437,
-    "sha256": "fa22e21ffa975702d7913365a5c96d7cecb494e83d090d7afd42acdbd62b088b"
+    "path": "docs/evidence/retained-linker-join-20261018/binder-object.json",
+    "bytes": 50410,
+    "sha256": "f1abbb0e5795ef2eb9277c5536d2bad7bfc325f0d9ab435629c6028945288b97"
   },
   {
     "key": "Main",

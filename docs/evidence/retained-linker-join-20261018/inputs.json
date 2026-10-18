@@ -1,0 +1,110 @@
+[
+  {
+    "key": "binder",
+    "path": "docs/evidence/retained-linker-join-20261018/binder-object.json",
+    "bytes": 50410,
+    "sha256": "f1abbb0e5795ef2eb9277c5536d2bad7bfc325f0d9ab435629c6028945288b97"
+  },
+  {
+    "key": "fixed",
+    "path": "docs/evidence/retained-linker-layout-20261018/fixed-payload-results.json",
+    "bytes": 20310,
+    "sha256": "c0b09d6839e9da2a4c71ee25ff96eb24fd2827eea1c4daac918baff4c3d0e6c3"
+  },
+  {
+    "key": "Main",
+    "path": "docs/evidence/retained-assembler-capacity-20261018/object-check-results.json",
+    "bytes": 1785,
+    "sha256": "e534dc4c33a8cb10473f58aea6e079ab794dd45fa2466430defc3b00005e2ab3"
+  },
+  {
+    "key": "indices",
+    "path": "docs/evidence/retained-linker-layout-20261018/section-index-results.json",
+    "bytes": 3620,
+    "sha256": "11bc877c5113ff5c8e3d672ef41e37fc5ca5b309b6188f24d8b348b80136cba9"
+  },
+  {
+    "key": "global",
+    "path": "docs/evidence/retained-linker-symbols-20261018/global-name-results.json",
+    "bytes": 1622,
+    "sha256": "261137e98fbe243f67287b81ae193cb739d27443b8258255c5de2e462dd6e1be"
+  },
+  {
+    "key": "versions",
+    "path": "docs/evidence/retained-linker-symbols-20261018/version-name-results.json",
+    "bytes": 3618,
+    "sha256": "bae6a092723fbe1405369b7629c3af5233a5065910b998f511bf5458f63fa1b9"
+  },
+  {
+    "key": "dynamic",
+    "path": "docs/evidence/retained-linker-dynamic-sections-20261018/join-results.json",
+    "bytes": 3124,
+    "sha256": "343800db633b1c38898d5dc25bad3f2355288f7aac85ffc78bc51b4345f9503b"
+  },
+  {
+    "key": "dynstr",
+    "path": "docs/evidence/retained-linker-symbols-20261018/dynamic-string-results.json",
+    "bytes": 2793,
+    "sha256": "aa463b21e020892bb5ba9f7ee18f47472b00dee75c57c1d0445ddf83c2e60aa9"
+  },
+  {
+    "key": "symtab",
+    "path": "docs/evidence/retained-linker-symbols-20261018/symtab-results.json",
+    "bytes": 1235,
+    "sha256": "04d6d13656b7e809b59c1a9c174eec745719858dfa06f07dfb566e1bcb6d93ff"
+  },
+  {
+    "key": "shstrtab",
+    "path": "docs/evidence/retained-linker-symbols-20261018/shstrtab-results.json",
+    "bytes": 1003,
+    "sha256": "bc77c650e633ad63ca714d61deb69469ba0df2eb5cf6b161375024fb3d14b53b"
+  },
+  {
+    "key": "copy",
+    "path": "docs/evidence/retained-linker-layout-20261018/copy-optional-results.json",
+    "bytes": 1432,
+    "sha256": "a907aee181764b280d0c0f25d3c4502146cb1acd8bd9f6e74702912db19c9b65"
+  },
+  {
+    "key": "property",
+    "path": "docs/evidence/retained-linker-layout-20261018/property-results.json",
+    "bytes": 1607,
+    "sha256": "98ab1d8254eba1ebfd7a060011ad3ef20602cc398e514d6ef74d5a366676f01f"
+  },
+  {
+    "key": "EH",
+    "path": "docs/evidence/retained-linker-layout-20261018/unwind-join-results.json",
+    "bytes": 1560,
+    "sha256": "81c4212c210947c7d2456b583164e29f4ce6778279fa6979b108e26ef8dab93f"
+  },
+  {
+    "key": "virtual",
+    "path": "docs/evidence/retained-linker-layout-20261018/virtual-results.json",
+    "bytes": 1536,
+    "sha256": "db7ec5932faa27582d43ccf14a47dcd3d6fba30884742b8166c9fc5bb46d25e6"
+  },
+  {
+    "key": "file",
+    "path": "docs/evidence/retained-linker-layout-20261018/file-results.json",
+    "bytes": 1817,
+    "sha256": "d3e1bf22d2ace5092421a3e261e14b15a97a7075c8be90534d4fbd2b9685d904"
+  },
+  {
+    "key": "defaults",
+    "path": "docs/evidence/retained-linker-defaults-20261018/result.json",
+    "bytes": 991,
+    "sha256": "340ce76194469a18645ae71be74f1b0323b87e0d7480b821abde6dfd42d39654"
+  },
+  {
+    "key": "inventory",
+    "path": "docs/evidence/retained-link-inputs-20261018/inventory.json",
+    "bytes": 1404813,
+    "sha256": "2fafbbfb01202dc6bf06307d79155a3397cdb156f3cb4131eba8f17a784ec8a3"
+  },
+  {
+    "key": "binder_ELF",
+    "path": "docs/evidence/retained-linker-join-20261018/binder-object.elf",
+    "bytes": 13432,
+    "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+  }
+]

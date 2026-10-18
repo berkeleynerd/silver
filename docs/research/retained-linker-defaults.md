@@ -28,6 +28,13 @@ disabled, and the x86 relaxation hook returns before its packing/layout
 work (`bfd/elfxx-x86.c:1093–1097`). This excludes that transformation; it does
 not by itself prove that the separate segment-mapping retry loop converges.
 
+The same retained help reports `-z noseparate-code` as the default.
+`lexsup.c:2202–2211` reads `DEFAULT_LD_Z_SEPARATE_CODE`, the macro used to
+initialize `link_info.separate_code` in `ld/emultempl/elf.em:95`. No selected
+argument overrides it. Thus that flag is false. The distinct
+`config.separate_code` initialization and script/emulation selection belong
+to the layout argument; the two similarly named fields are not conflated.
+
 ## STABS and script-generated payload
 
 The complete fixed input census contains no section name starting with

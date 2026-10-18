@@ -1,0 +1,119 @@
+{
+  "scope": "Selected null linker count/payload composition; layout alignment, convergence, relocation and auxiliary storage not completed",
+  "prior_inputs_verified": 18,
+  "binder_EH_entries": [
+    {
+      "offset": 0,
+      "length": 20,
+      "CIE_pointer": 0
+    },
+    {
+      "offset": 24,
+      "length": 36,
+      "CIE_pointer": 28
+    },
+    {
+      "offset": 64,
+      "length": 28,
+      "CIE_pointer": 68
+    },
+    {
+      "offset": 96,
+      "length": 28,
+      "CIE_pointer": 100
+    },
+    {
+      "offset": 128,
+      "length": 28,
+      "CIE_pointer": 132
+    },
+    {
+      "offset": 160,
+      "length": 28,
+      "CIE_pointer": 164
+    }
+  ],
+  "counts": {
+    "R": 49358,
+    "Q": 36471,
+    "P": 1483,
+    "Qrel": 7917,
+    "Trel": 546740,
+    "H": 221088,
+    "I": 48872,
+    "S": 48965,
+    "N": 48970,
+    "T": 146908,
+    "D": 3243678,
+    "Z": 763072
+  },
+  "generated_name_occurrences": 307,
+  "generated_name_NUL_inclusive_bytes": 7255,
+  "GNU_hash": {
+    "maximum_selected_symbols": 221088,
+    "exponent": 21,
+    "bloom_words": 32768
+  },
+  "payload_components": {
+    "original_fixed_sections": 46206441,
+    "original_Main_sections": 12712,
+    "original_binder_sections": 22644,
+    "full_fixed_merge_output": 3168199,
+    "full_generated_merge_output": 62,
+    "full_EH_edited_output_including_PLT_templates": 743934,
+    "EH_header": 119668,
+    "full_property_rewrite": 344,
+    "copy_storage": 49388748,
+    "interpreter": 28,
+    "dynsym": 77848272,
+    "versym": 6487356,
+    "SysV_hash": 13105804,
+    "GNU_hash": 1277596,
+    "ordinary_symtab": 18313728,
+    "optional_symtab_indices": 3052288,
+    "ordinary_strtab": 150325185,
+    "shstrtab": 26882518,
+    "GOT_PLT_and_dynamic_relocations_including_copy_relocations": 64241400,
+    "dynamic_tags": 1232,
+    "dynstr": 1576974,
+    "version_definitions": 1456,
+    "version_requirements": 2048
+  },
+  "payload_union_bytes": 462778637,
+  "conditional_layout": {
+    "alignment_premise": 4096,
+    "padding": 400695758,
+    "headers": 8226912,
+    "retained_endpoint": 871701307,
+    "trial_endpoint": 1743402614,
+    "file_payload_with_padding": 863474395,
+    "file_endpoint": 42687993785710
+  },
+  "component_arithmetic_conditions": {
+    "dynamic_section_index": true,
+    "external_section_header_product": true,
+    "external_program_header_product": true,
+    "dynamic_symbol_count": true,
+    "global_hash_domain": true,
+    "GNU_hash_signed_shift": true,
+    "ordinary_symbol_uint32_product": true,
+    "ordinary_string_bytes": true,
+    "ordinary_string_length": true,
+    "dynstr_bytes": true,
+    "dynstr_names": true,
+    "dynstr_positive_references": true,
+    "section_string_bytes": true,
+    "section_string_references": true,
+    "version_index": true,
+    "PLT_jump_count": true,
+    "property_writer_size": true,
+    "EH_edit_size": true,
+    "EH_FDE_count": true,
+    "conditional_trial_address_arithmetic": true,
+    "conditional_file_offset_arithmetic": true
+  },
+  "trial_span_is_signed32": true,
+  "trial_span_alone_establishes_relocation_reach": false,
+  "whole_link_capacity_established": false,
+  "native_execution": false
+}

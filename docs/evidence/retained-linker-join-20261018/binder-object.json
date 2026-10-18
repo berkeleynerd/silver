@@ -1,0 +1,2000 @@
+{
+  "origin": {
+    "commit": "98fe62e588",
+    "path": "docs/evidence/retained-binder-capacity-20261018/result.json",
+    "sha256": "fa22e21ffa975702d7913365a5c96d7cecb494e83d090d7afd42acdbd62b088b",
+    "selection": "selected_binder_object_transfer and its named case object; accepted source transfer, unchanged by later runtime-interface records"
+  },
+  "selected_binder_object_transfer": {
+    "full_inventory_equal_to_case": "indexed-cr",
+    "maximum_nonlocal_name_bytes": 40,
+    "nonlocal_symbol_count": 169,
+    "object_summary": {
+      "allocated_bytes": 12023,
+      "allocated_merge_section_count": 0,
+      "common_symbol_count": 0,
+      "eh_frame_bytes": 192,
+      "eh_frame_section_count": 1,
+      "file": {
+        "bytes": 13432,
+        "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+      },
+      "maximum_section_alignment": 32,
+      "maximum_symbol_st_size": 10320,
+      "merge_sections": [
+        ".comment"
+      ],
+      "nonlocal_symbol_st_size_sum": 1443,
+      "relocation_count": 95,
+      "section_count": 16,
+      "sframe_bytes": 0,
+      "sframe_section_count": 0,
+      "symbol_count": 179,
+      "symbol_st_size_sum": 11766,
+      "text_bytes": 1000
+    },
+    "premises": [
+      "selected proposed indexed options and installed target/runtime",
+      "fixed code, token offsets, file order and logical locations",
+      "injective same-length full-filename substitution disjoint from all existing identifier strings",
+      "no debug, PCH, LTO, plugin, offload, instrumentation or user assembly"
+    ],
+    "scope": "object shape under the documented source read projection; whole compiler/GC transient storage remains open"
+  },
+  "cases": {
+    "indexed-cr": {
+      "object": {
+        "allocated_bytes": 12023,
+        "allocated_merge_section_count": 0,
+        "common_symbol_count": 0,
+        "eh_frame_bytes": 192,
+        "eh_frame_section_count": 1,
+        "external_names": [
+          "__gl_default_stack_size",
+          "__gl_detect_blocking",
+          "__gl_interrupt_states",
+          "__gl_locking_policy",
+          "__gl_main_cpu",
+          "__gl_main_priority",
+          "__gl_num_interrupt_states",
+          "__gl_num_specific_dispatching",
+          "__gl_priority_specific_dispatching",
+          "__gl_queuing_policy",
+          "__gl_task_dispatching_policy",
+          "__gl_time_slice_val",
+          "__gl_unreserve_all_interrupts",
+          "__gl_wc_encoding",
+          "__gnat_ada_main_program_name",
+          "__gnat_binder_ss_count",
+          "__gnat_default_ss_pool",
+          "__gnat_default_ss_size",
+          "__gnat_finalize",
+          "__gnat_finalize_library_objects",
+          "__gnat_initialize",
+          "__gnat_runtime_finalize",
+          "__gnat_runtime_initialize",
+          "__gnat_version",
+          "__gnat_version_address",
+          "_ada_main",
+          "adaS",
+          "ada__charactersS",
+          "ada__characters__handlingB",
+          "ada__characters__handlingS",
+          "ada__characters__latin_1S",
+          "ada__containersS",
+          "ada__containers_E",
+          "ada__containers___elabs",
+          "ada__exceptionsB",
+          "ada__exceptionsS",
+          "ada__exceptions_E",
+          "ada__exceptions___elabs",
+          "ada__exceptions__last_chance_handlerB",
+          "ada__exceptions__last_chance_handlerS",
+          "ada__exceptions__tracebackB",
+          "ada__exceptions__tracebackS",
+          "ada__io_exceptionsS",
+          "ada__io_exceptions_E",
+          "ada__io_exceptions___elabs",
+          "ada__stringsS",
+          "ada__strings_E",
+          "ada__strings___elabs",
+          "ada__strings__mapsB",
+          "ada__strings__mapsS",
+          "ada__strings__maps_E",
+          "ada__strings__maps___elabs",
+          "ada__strings__maps__constantsS",
+          "ada__strings__maps__constants_E",
+          "ada__strings__maps__constants___elabs",
+          "ada_main_E",
+          "ada_main__Tsec_default_sized_stacksBIP",
+          "ada_main___elabb",
+          "adafinal",
+          "adainit",
+          "gnat_argc",
+          "gnat_argv",
+          "gnat_envp",
+          "gnat_exit_status",
+          "interfacesS",
+          "interfaces__cB",
+          "interfaces__cS",
+          "interfaces__c_E",
+          "interfaces__c___elabs",
+          "main",
+          "mainB",
+          "systemS",
+          "system__address_imageB",
+          "system__address_imageS",
+          "system__atomic_operationsS",
+          "system__atomic_operations__test_and_setB",
+          "system__atomic_operations__test_and_setS",
+          "system__atomic_primitivesB",
+          "system__atomic_primitivesS",
+          "system__bit_opsB",
+          "system__bit_opsS",
+          "system__bounded_stringsB",
+          "system__bounded_stringsS",
+          "system__case_utilB",
+          "system__case_utilS",
+          "system__case_util_nssB",
+          "system__case_util_nssS",
+          "system__crtlB",
+          "system__crtlS",
+          "system__dwarf_linesB",
+          "system__dwarf_linesS",
+          "system__dwarf_lines_E",
+          "system__dwarf_lines___elabs",
+          "system__exception_tableB",
+          "system__exception_tableS",
+          "system__exception_table_E",
+          "system__exception_table___elabb",
+          "system__exception_tracesB",
+          "system__exception_tracesS",
+          "system__exceptionsS",
+          "system__exceptions_E",
+          "system__exceptions___elabs",
+          "system__exceptions__machineB",
+          "system__exceptions__machineS",
+          "system__exceptions_debugB",
+          "system__exceptions_debugS",
+          "system__img_address_32S",
+          "system__img_address_64S",
+          "system__img_intS",
+          "system__img_unsS",
+          "system__ioB",
+          "system__ioS",
+          "system__memoryB",
+          "system__memoryS",
+          "system__mmapB",
+          "system__mmapS",
+          "system__mmap__os_interfaceB",
+          "system__mmap__os_interfaceS",
+          "system__mmap__unixS",
+          "system__object_readerB",
+          "system__object_readerS",
+          "system__object_reader_E",
+          "system__object_reader___elabs",
+          "system__os_libB",
+          "system__os_libS",
+          "system__os_lib_E",
+          "system__os_lib___elabb",
+          "system__parametersB",
+          "system__parametersS",
+          "system__secondary_stackB",
+          "system__secondary_stackS",
+          "system__secondary_stack__ss_stackIP",
+          "system__soft_linksB",
+          "system__soft_linksS",
+          "system__soft_links_E",
+          "system__soft_links___elabs",
+          "system__soft_links__initializeB",
+          "system__soft_links__initializeS",
+          "system__soft_links__initialize_E",
+          "system__soft_links__initialize___elabb",
+          "system__stack_checkingB",
+          "system__stack_checkingS",
+          "system__standard_libraryB",
+          "system__standard_libraryS",
+          "system__standard_library__adafinal",
+          "system__storage_elementsS",
+          "system__stringsB",
+          "system__stringsS",
+          "system__tracebackB",
+          "system__tracebackS",
+          "system__traceback__symbolicB",
+          "system__traceback__symbolicS",
+          "system__traceback__symbolic_E",
+          "system__traceback__symbolic___elabb",
+          "system__traceback_entriesB",
+          "system__traceback_entriesS",
+          "system__unsigned_typesS",
+          "system__val_lliS",
+          "system__val_lluS",
+          "system__val_utilB",
+          "system__val_utilS",
+          "system__wch_cnvB",
+          "system__wch_cnvS",
+          "system__wch_conB",
+          "system__wch_conS",
+          "system__wch_jisB",
+          "system__wch_jisS",
+          "system__wch_stwB",
+          "system__wch_stwS"
+        ],
+        "file": {
+          "bytes": 13432,
+          "sha256": "368b82296a24b933d1154f07b54bdad7af2f291302d4db23196f9d89128e2883"
+        },
+        "maximum_section_alignment": 32,
+        "maximum_symbol_st_size": 10320,
+        "merge_sections": [
+          ".comment"
+        ],
+        "nonlocal_symbol_st_size_sum": 1443,
+        "relocation_count": 95,
+        "relocations": [
+          {
+            "count": 89,
+            "section": ".rela.text"
+          },
+          {
+            "count": 1,
+            "section": ".rela.data.rel.ro.local"
+          },
+          {
+            "count": 5,
+            "section": ".rela.eh_frame"
+          }
+        ],
+        "section_count": 16,
+        "sections": [
+          {
+            "alignment": 0,
+            "flags": 0,
+            "index": 0,
+            "name": "",
+            "size": 0,
+            "type": 0
+          },
+          {
+            "alignment": 2,
+            "flags": 6,
+            "index": 1,
+            "name": ".text",
+            "size": 1000,
+            "type": 1
+          },
+          {
+            "alignment": 8,
+            "flags": 64,
+            "index": 2,
+            "name": ".rela.text",
+            "size": 2136,
+            "type": 4
+          },
+          {
+            "alignment": 2,
+            "flags": 3,
+            "index": 3,
+            "name": ".data",
+            "size": 3,
+            "type": 1
+          },
+          {
+            "alignment": 32,
+            "flags": 3,
+            "index": 4,
+            "name": ".bss",
+            "size": 10320,
+            "type": 8
+          },
+          {
+            "alignment": 16,
+            "flags": 2,
+            "index": 5,
+            "name": ".rodata",
+            "size": 452,
+            "type": 1
+          },
+          {
+            "alignment": 8,
+            "flags": 3,
+            "index": 6,
+            "name": ".data.rel.ro.local",
+            "size": 8,
+            "type": 1
+          },
+          {
+            "alignment": 8,
+            "flags": 64,
+            "index": 7,
+            "name": ".rela.data.rel.ro.local",
+            "size": 24,
+            "type": 4
+          },
+          {
+            "alignment": 1,
+            "flags": 48,
+            "index": 8,
+            "name": ".comment",
+            "size": 31,
+            "type": 1
+          },
+          {
+            "alignment": 1,
+            "flags": 0,
+            "index": 9,
+            "name": ".note.GNU-stack",
+            "size": 0,
+            "type": 1
+          },
+          {
+            "alignment": 8,
+            "flags": 2,
+            "index": 10,
+            "name": ".note.gnu.property",
+            "size": 48,
+            "type": 7
+          },
+          {
+            "alignment": 8,
+            "flags": 2,
+            "index": 11,
+            "name": ".eh_frame",
+            "size": 192,
+            "type": 1
+          },
+          {
+            "alignment": 8,
+            "flags": 64,
+            "index": 12,
+            "name": ".rela.eh_frame",
+            "size": 120,
+            "type": 4
+          },
+          {
+            "alignment": 8,
+            "flags": 0,
+            "index": 13,
+            "name": ".symtab",
+            "size": 4296,
+            "type": 2
+          },
+          {
+            "alignment": 1,
+            "flags": 0,
+            "index": 14,
+            "name": ".strtab",
+            "size": 3874,
+            "type": 3
+          },
+          {
+            "alignment": 1,
+            "flags": 0,
+            "index": 15,
+            "name": ".shstrtab",
+            "size": 140,
+            "type": 3
+          }
+        ],
+        "sframe_bytes": 0,
+        "sframe_section_count": 0,
+        "symbol_count": 179,
+        "symbol_st_size_sum": 11766,
+        "symbols": [
+          {
+            "binding": 0,
+            "name": "",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 0,
+            "name": "b__main~1.adb",
+            "other": 0,
+            "section": 65521,
+            "size": 0,
+            "type": 4,
+            "value": 0
+          },
+          {
+            "binding": 0,
+            "name": "",
+            "other": 0,
+            "section": 1,
+            "size": 0,
+            "type": 3,
+            "value": 0
+          },
+          {
+            "binding": 0,
+            "name": "",
+            "other": 0,
+            "section": 3,
+            "size": 0,
+            "type": 3,
+            "value": 0
+          },
+          {
+            "binding": 0,
+            "name": "",
+            "other": 0,
+            "section": 4,
+            "size": 0,
+            "type": 3,
+            "value": 0
+          },
+          {
+            "binding": 0,
+            "name": "ada_main__is_elaborated",
+            "other": 0,
+            "section": 3,
+            "size": 1,
+            "type": 1,
+            "value": 2
+          },
+          {
+            "binding": 0,
+            "name": "ada_main__local_priority_specific_dispatching",
+            "other": 0,
+            "section": 5,
+            "size": 1,
+            "type": 1,
+            "value": 450
+          },
+          {
+            "binding": 0,
+            "name": "ada_main__local_interrupt_states",
+            "other": 0,
+            "section": 5,
+            "size": 1,
+            "type": 1,
+            "value": 451
+          },
+          {
+            "binding": 0,
+            "name": "ada_main__sec_default_sized_stacks",
+            "other": 0,
+            "section": 4,
+            "size": 10320,
+            "type": 1,
+            "value": 0
+          },
+          {
+            "binding": 0,
+            "name": "",
+            "other": 0,
+            "section": 5,
+            "size": 0,
+            "type": 3,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada_main__Tsec_default_sized_stacksBIP",
+            "other": 0,
+            "section": 1,
+            "size": 251,
+            "type": 2,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__secondary_stack__ss_stackIP",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "adafinal",
+            "other": 0,
+            "section": 1,
+            "size": 40,
+            "type": 2,
+            "value": 252
+          },
+          {
+            "binding": 1,
+            "name": "__gnat_runtime_finalize",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__standard_library__adafinal",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "adainit",
+            "other": 0,
+            "section": 1,
+            "size": 558,
+            "type": 2,
+            "value": 292
+          },
+          {
+            "binding": 1,
+            "name": "__gl_main_priority",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_time_slice_val",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_wc_encoding",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_locking_policy",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_queuing_policy",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_task_dispatching_policy",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_priority_specific_dispatching",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_num_specific_dispatching",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_main_cpu",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_interrupt_states",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_num_interrupt_states",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_unreserve_all_interrupts",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_detect_blocking",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gl_default_stack_size",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada_main___elabb",
+            "other": 0,
+            "section": 1,
+            "size": 38,
+            "type": 2,
+            "value": 962
+          },
+          {
+            "binding": 1,
+            "name": "__gnat_default_ss_size",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gnat_binder_ss_count",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gnat_default_ss_pool",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gnat_runtime_initialize",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gnat_finalize_library_objects",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada__exceptions___elabs",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__soft_links___elabs",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__exception_table___elabb",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__exception_table_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada__containers___elabs",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada__containers_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada__io_exceptions___elabs",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada__io_exceptions_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada__strings___elabs",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada__strings_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada__strings__maps___elabs",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada__strings__maps_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada__strings__maps__constants___elabs",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada__strings__maps__constants_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "interfaces__c___elabs",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "interfaces__c_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__exceptions___elabs",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__exceptions_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__object_reader___elabs",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__object_reader_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__dwarf_lines___elabs",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__dwarf_lines_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__os_lib___elabb",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__os_lib_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__soft_links__initialize___elabb",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__soft_links__initialize_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__soft_links_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__traceback__symbolic___elabb",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "system__traceback__symbolic_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada__exceptions_E",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "main",
+            "other": 0,
+            "section": 1,
+            "size": 111,
+            "type": 2,
+            "value": 850
+          },
+          {
+            "binding": 1,
+            "name": "__gnat_ada_main_program_name",
+            "other": 0,
+            "section": 5,
+            "size": 10,
+            "type": 1,
+            "value": 440
+          },
+          {
+            "binding": 1,
+            "name": "gnat_argc",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "gnat_argv",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "gnat_envp",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gnat_initialize",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "_ada_main",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "__gnat_finalize",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "gnat_exit_status",
+            "other": 0,
+            "section": 0,
+            "size": 0,
+            "type": 0,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "ada_main_E",
+            "other": 0,
+            "section": 3,
+            "size": 2,
+            "type": 1,
+            "value": 0
+          },
+          {
+            "binding": 1,
+            "name": "mainB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 8
+          },
+          {
+            "binding": 1,
+            "name": "system__standard_libraryB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 12
+          },
+          {
+            "binding": 1,
+            "name": "system__standard_libraryS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 16
+          },
+          {
+            "binding": 1,
+            "name": "systemS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 20
+          },
+          {
+            "binding": 1,
+            "name": "system__memoryB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 24
+          },
+          {
+            "binding": 1,
+            "name": "system__memoryS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 28
+          },
+          {
+            "binding": 1,
+            "name": "ada__exceptionsB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 32
+          },
+          {
+            "binding": 1,
+            "name": "ada__exceptionsS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 36
+          },
+          {
+            "binding": 1,
+            "name": "adaS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 40
+          },
+          {
+            "binding": 1,
+            "name": "ada__exceptions__last_chance_handlerB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 44
+          },
+          {
+            "binding": 1,
+            "name": "ada__exceptions__last_chance_handlerS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 48
+          },
+          {
+            "binding": 1,
+            "name": "system__soft_linksB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 52
+          },
+          {
+            "binding": 1,
+            "name": "system__soft_linksS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 56
+          },
+          {
+            "binding": 1,
+            "name": "system__secondary_stackB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 60
+          },
+          {
+            "binding": 1,
+            "name": "system__secondary_stackS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 64
+          },
+          {
+            "binding": 1,
+            "name": "system__parametersB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 68
+          },
+          {
+            "binding": 1,
+            "name": "system__parametersS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 72
+          },
+          {
+            "binding": 1,
+            "name": "system__storage_elementsS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 76
+          },
+          {
+            "binding": 1,
+            "name": "system__soft_links__initializeB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 80
+          },
+          {
+            "binding": 1,
+            "name": "system__soft_links__initializeS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 84
+          },
+          {
+            "binding": 1,
+            "name": "system__stack_checkingB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 88
+          },
+          {
+            "binding": 1,
+            "name": "system__stack_checkingS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 92
+          },
+          {
+            "binding": 1,
+            "name": "system__exception_tableB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 96
+          },
+          {
+            "binding": 1,
+            "name": "system__exception_tableS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 100
+          },
+          {
+            "binding": 1,
+            "name": "system__exceptionsS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 104
+          },
+          {
+            "binding": 1,
+            "name": "system__exceptions__machineB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 108
+          },
+          {
+            "binding": 1,
+            "name": "system__exceptions__machineS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 112
+          },
+          {
+            "binding": 1,
+            "name": "system__exceptions_debugB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 116
+          },
+          {
+            "binding": 1,
+            "name": "system__exceptions_debugS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 120
+          },
+          {
+            "binding": 1,
+            "name": "system__img_intS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 124
+          },
+          {
+            "binding": 1,
+            "name": "system__tracebackB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 128
+          },
+          {
+            "binding": 1,
+            "name": "system__tracebackS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 132
+          },
+          {
+            "binding": 1,
+            "name": "system__traceback_entriesB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 136
+          },
+          {
+            "binding": 1,
+            "name": "system__traceback_entriesS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 140
+          },
+          {
+            "binding": 1,
+            "name": "system__traceback__symbolicB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 144
+          },
+          {
+            "binding": 1,
+            "name": "system__traceback__symbolicS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 148
+          },
+          {
+            "binding": 1,
+            "name": "ada__containersS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 152
+          },
+          {
+            "binding": 1,
+            "name": "ada__exceptions__tracebackB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 156
+          },
+          {
+            "binding": 1,
+            "name": "ada__exceptions__tracebackS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 160
+          },
+          {
+            "binding": 1,
+            "name": "interfacesS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 164
+          },
+          {
+            "binding": 1,
+            "name": "interfaces__cB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 168
+          },
+          {
+            "binding": 1,
+            "name": "interfaces__cS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 172
+          },
+          {
+            "binding": 1,
+            "name": "system__bounded_stringsB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 176
+          },
+          {
+            "binding": 1,
+            "name": "system__bounded_stringsS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 180
+          },
+          {
+            "binding": 1,
+            "name": "system__crtlB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 184
+          },
+          {
+            "binding": 1,
+            "name": "system__crtlS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 188
+          },
+          {
+            "binding": 1,
+            "name": "system__dwarf_linesB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 192
+          },
+          {
+            "binding": 1,
+            "name": "system__dwarf_linesS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 196
+          },
+          {
+            "binding": 1,
+            "name": "ada__charactersS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 200
+          },
+          {
+            "binding": 1,
+            "name": "ada__characters__handlingB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 204
+          },
+          {
+            "binding": 1,
+            "name": "ada__characters__handlingS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 208
+          },
+          {
+            "binding": 1,
+            "name": "ada__characters__latin_1S",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 212
+          },
+          {
+            "binding": 1,
+            "name": "ada__stringsS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 216
+          },
+          {
+            "binding": 1,
+            "name": "ada__strings__mapsB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 220
+          },
+          {
+            "binding": 1,
+            "name": "ada__strings__mapsS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 224
+          },
+          {
+            "binding": 1,
+            "name": "system__bit_opsB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 228
+          },
+          {
+            "binding": 1,
+            "name": "system__bit_opsS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 232
+          },
+          {
+            "binding": 1,
+            "name": "system__unsigned_typesS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 236
+          },
+          {
+            "binding": 1,
+            "name": "ada__strings__maps__constantsS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 240
+          },
+          {
+            "binding": 1,
+            "name": "system__address_imageB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 244
+          },
+          {
+            "binding": 1,
+            "name": "system__address_imageS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 248
+          },
+          {
+            "binding": 1,
+            "name": "system__img_address_32S",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 252
+          },
+          {
+            "binding": 1,
+            "name": "system__img_address_64S",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 256
+          },
+          {
+            "binding": 1,
+            "name": "system__img_unsS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 260
+          },
+          {
+            "binding": 1,
+            "name": "system__ioB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 264
+          },
+          {
+            "binding": 1,
+            "name": "system__ioS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 268
+          },
+          {
+            "binding": 1,
+            "name": "system__mmapB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 272
+          },
+          {
+            "binding": 1,
+            "name": "system__mmapS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 276
+          },
+          {
+            "binding": 1,
+            "name": "ada__io_exceptionsS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 280
+          },
+          {
+            "binding": 1,
+            "name": "system__mmap__os_interfaceB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 284
+          },
+          {
+            "binding": 1,
+            "name": "system__mmap__os_interfaceS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 288
+          },
+          {
+            "binding": 1,
+            "name": "system__mmap__unixS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 292
+          },
+          {
+            "binding": 1,
+            "name": "system__os_libB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 296
+          },
+          {
+            "binding": 1,
+            "name": "system__os_libS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 300
+          },
+          {
+            "binding": 1,
+            "name": "system__atomic_operations__test_and_setB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 304
+          },
+          {
+            "binding": 1,
+            "name": "system__atomic_operations__test_and_setS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 308
+          },
+          {
+            "binding": 1,
+            "name": "system__atomic_operationsS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 312
+          },
+          {
+            "binding": 1,
+            "name": "system__atomic_primitivesB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 316
+          },
+          {
+            "binding": 1,
+            "name": "system__atomic_primitivesS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 320
+          },
+          {
+            "binding": 1,
+            "name": "system__case_utilB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 324
+          },
+          {
+            "binding": 1,
+            "name": "system__case_utilS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 328
+          },
+          {
+            "binding": 1,
+            "name": "system__case_util_nssB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 332
+          },
+          {
+            "binding": 1,
+            "name": "system__case_util_nssS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 336
+          },
+          {
+            "binding": 1,
+            "name": "system__stringsB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 340
+          },
+          {
+            "binding": 1,
+            "name": "system__stringsS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 344
+          },
+          {
+            "binding": 1,
+            "name": "system__object_readerB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 348
+          },
+          {
+            "binding": 1,
+            "name": "system__object_readerS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 352
+          },
+          {
+            "binding": 1,
+            "name": "system__val_lliS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 356
+          },
+          {
+            "binding": 1,
+            "name": "system__val_lluS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 360
+          },
+          {
+            "binding": 1,
+            "name": "system__val_utilB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 364
+          },
+          {
+            "binding": 1,
+            "name": "system__val_utilS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 368
+          },
+          {
+            "binding": 1,
+            "name": "system__exception_tracesB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 372
+          },
+          {
+            "binding": 1,
+            "name": "system__exception_tracesS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 376
+          },
+          {
+            "binding": 1,
+            "name": "system__wch_conB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 380
+          },
+          {
+            "binding": 1,
+            "name": "system__wch_conS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 384
+          },
+          {
+            "binding": 1,
+            "name": "system__wch_stwB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 388
+          },
+          {
+            "binding": 1,
+            "name": "system__wch_stwS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 392
+          },
+          {
+            "binding": 1,
+            "name": "system__wch_cnvB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 396
+          },
+          {
+            "binding": 1,
+            "name": "system__wch_cnvS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 400
+          },
+          {
+            "binding": 1,
+            "name": "system__wch_jisB",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 404
+          },
+          {
+            "binding": 1,
+            "name": "system__wch_jisS",
+            "other": 0,
+            "section": 5,
+            "size": 4,
+            "type": 1,
+            "value": 408
+          },
+          {
+            "binding": 1,
+            "name": "__gnat_version",
+            "other": 0,
+            "section": 5,
+            "size": 21,
+            "type": 1,
+            "value": 416
+          },
+          {
+            "binding": 1,
+            "name": "__gnat_version_address",
+            "other": 0,
+            "section": 6,
+            "size": 8,
+            "type": 1,
+            "value": 0
+          }
+        ],
+        "text_bytes": 1000
+      }
+    }
+  }
+}
