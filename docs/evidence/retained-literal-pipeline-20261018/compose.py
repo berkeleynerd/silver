@@ -178,7 +178,7 @@ def shared_counts(raw, context):
 
 
 def native_pool_lifetime(c, context):
-    """Source-derived symbol/pool join; excludes the remaining pass/GC join.
+    """Conditional symbol/pool arithmetic; imported constructors remain open.
 
     A request group represents individual requests, never a sum-RAM gate.
     The fixed prefix is an incoming population ceiling, not null's lifetime.
@@ -265,13 +265,16 @@ def native_pool_lifetime(c, context):
         excluded_already_charged_direct_pool_GGC_events=10*c,
         fixed_Main_callee_dummy_node_requests_not_in_delta=4,
         local_representation_checks=checks,
-        named_consumer_closed=all(checks.values()),
+        conditional_arithmetic_fits=all(checks.values()),
+        imported_constructor_frontier_established=False,
+        required_premise='No extra post-prefix imported pool/symbol contribution, or a separately composed bound (#131).',
+        named_consumer_closed=False,
         whole_native_pipeline_capacity_established=False,
         source_argument='docs/research/retained-literal-pipeline.md#bounds-pool-and-symbol-lifetime-join')
 
 
 def native_graph_lifetime(c, n, context):
-    """Selected direct-call graph and summary lifetimes, without null totals."""
+    """Conditional one-body graph arithmetic, without null lifetime totals."""
     require(type(c) is int and c >= 1 and type(n) is int and n >= 0,
             'literal graph counters')
     prime = lambda request: next((p for p in context.primes if p >= request),None)
@@ -362,7 +365,10 @@ def native_graph_lifetime(c, n, context):
         individual_GGC_request_groups=ggc,ordinary_requests=ordinary,
         additional_GGC_request_events_upper=sum(row['requests_upper'] for row in ggc),
         additional_singleton_finalizer_registrations_upper=5,
-        conditional_graph_and_summary_lifetime_closed=all(checks.values()),
+        conditional_arithmetic_fits=all(checks.values()),
+        imported_constructor_frontier_established=False,
+        required_premise='Main is the sole defined body, or additional imported helpers are separately composed (#131).',
+        conditional_graph_and_summary_lifetime_closed=False,
         local_representation_checks=checks,whole_native_pipeline_capacity_established=False,
         source_argument='docs/research/retained-literal-pipeline.md#direct-call-graph-and-ipa-summary-lifetime')
 
@@ -915,8 +921,8 @@ def evaluate(descriptor_path, context, source_override=None):
         native_lowering_and_data=all(native['local_representation_checks'].values()),
         native_RTL_shape=all(rtl['local_representation_checks'].values()),
         native_selected_helper_backing=all(backing['local_representation_checks'].values()),
-        native_varpool_and_shared_tree_pool=pools['named_consumer_closed'],
-        native_graph_and_summary_lifetime=graph['conditional_graph_and_summary_lifetime_closed'],
+        native_varpool_and_shared_tree_pool=pools['conditional_arithmetic_fits'],
+        native_graph_and_summary_lifetime=graph['conditional_arithmetic_fits'],
         native_SSA_helper_backing=ssa_helpers['conditional_SSA_helper_backing_closed'],
         native_initial_SSA_lifetime=initial_ssa['conditional_initial_SSA_lifetime_closed'],
         native_initial_CF_CFG_lifetime=initial_cf_cfg['conditional_initial_CF_CFG_lifetime_closed'],
@@ -933,17 +939,36 @@ def evaluate(descriptor_path, context, source_override=None):
         output_binder_checksum_no_collection=context.checksum[
             'universal_rounded_GGC_bytes_bound_subject_to_reviewed_source_projection']
             < context.checksum['first_collection_threshold'])
+    # #131: Main's constant literal extents do not exclude helper construction
+    # from imported String's placeholder-based layout. Preserve the arithmetic
+    # only as conditional data; None is unknown, not a failed capacity test.
+    conditional_conditions=conditions.copy()
+    unit_dependent=('native_varpool_and_shared_tree_pool',
+        'native_graph_and_summary_lifetime','Main_assembler_object_interface',
+        'Main_GAS_BFD_storage','literal_output_linker_representation')
+    for key in unit_dependent:
+        conditions[key]=None
+    frontier=dict(imported_constructor_frontier_established=False,
+        Main_is_only_defined_body_established=False,
+        Main_is_only_emitted_body_established=False,
+        additional_imported_pool_symbol_events_upper=None,
+        additional_imported_defined_bodies_upper=None,
+        additional_emitted_stream_interface=None,
+        affected_predicates=list(unit_dependent),
+        missing='Exclude or bound Standard.String template/array/object layout and its possible size-function helpers; Main preservation alone is insufficient.',
+        finding='https://github.com/berkeleynerd/silver/issues/131')
     # These fields deliberately name the actual unclosed consumers. A partial
     # helper count is never substituted for the null family's lifetime total.
     opens = {
+        'native_post_prefix_imported_frontier':frontier,
         'native_remaining_lifetime_and_collector': {
             'next_consumer':'original frontend/gigi constructors and remaining gimplifier helper lifetimes, then remaining pass, shared-pool and GGC collector composition.',
-            'available':dict(graph_scan_count_upper=4,call_edge_creation_events_upper=4*c,
+            'available':dict(conditional_graph_scan_count_upper=4,conditional_call_edge_creation_events_upper=4*c,
                              Main_frontend_node_identities_upper=frontend['Main_constructor']['total']['node_identities'],
                              Main_frontend_entity_identities_upper=frontend['Main_constructor']['total']['entity_identities'],
                              Main_gigi_source_syntax_visits_upper=frontend['gigi_source_interface']['Main_source_syntax_visit_bound'],
-                             new_pool_lifecycle_GGC_events_upper=pools['additional_GGC_request_events_upper'],
-                             new_graph_lifecycle_GGC_events_upper=graph['additional_GGC_request_events_upper'],
+                             conditional_pool_lifecycle_GGC_events_upper=pools['additional_GGC_request_events_upper'],
+                             conditional_graph_lifecycle_GGC_events_upper=graph['additional_GGC_request_events_upper'],
                              ranger_and_out_of_SSA_backing_closed=ssa_helpers['conditional_SSA_helper_backing_closed'],
                              initial_SSA_GGC_events_upper=initial_ssa['additional_GGC_request_events_upper'],
                              initial_CF_CFG_GGC_events_upper=initial_cf_cfg['additional_GGC_request_events_upper'],
@@ -959,7 +984,7 @@ def evaluate(descriptor_path, context, source_override=None):
                              ELF_interface=assembler['ELF'],
                              GAS_BFD_storage=assembler_storage['storage'],
                              local_interface_fits=assembler['local_interface_fits']),
-            'missing':'Complete production-invocation/materialization join; selected stream/region/symbol/relocation/ELF and GAS/BFD storage interfaces are conditionally joined.'},
+            'missing':'Complete production-invocation/materialization and imported emitted-body joins (#131); selected stream/region/symbol/relocation/ELF and GAS/BFD storage arithmetic is conditional on that stream being complete.'},
         'producer_frontends_and_consumers': {
             'missing':'Output-family native/datarep/light frontend and parent ALI/report/flow joins plus required Why/report/server consumers. The null fixed-table and zero-client projections are not assumed for repeated output.'},
         'binder_and_linker_composition': {
@@ -977,8 +1002,13 @@ def evaluate(descriptor_path, context, source_override=None):
         launch=launch,complete_path_bound=p,
         source_counts=counts,Why_source_counts=why_counts,
         physical_Main=physical,conditions=conditions,
-        evaluated_predicates_pass=all(conditions.values()),
-        failed_predicates=[key for key,value in conditions.items() if not value],
+        conditional_conditions=conditional_conditions,
+        conditional_arithmetic_pass=all(conditional_conditions.values()),
+        failed_conditional_predicates=[key for key,value in conditional_conditions.items() if not value],
+        evaluated_predicates_pass=all(value is True for value in conditions.values()),
+        failed_predicates=[key for key,value in conditions.items() if value is False],
+        unresolved_predicates=[key for key,value in conditions.items() if value is None],
+        native_unit_frontier=frontier,
         native_lowering_data=native,RTL_shape=rtl,selected_native_backing=backing,
         native_pool_lifetime=pools,native_graph_lifetime=graph,native_SSA_helper_backing=ssa_helpers,
         native_initial_SSA_lifetime=initial_ssa,

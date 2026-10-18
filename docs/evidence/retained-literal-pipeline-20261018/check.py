@@ -81,7 +81,9 @@ def main():
             assert pools['symbols']['next_uid_upper']==c+5
             assert pools['bounds_lifecycle']['initializer_outgoing_references']==0
             assert pools['additional_GGC_request_events_upper']==5*c+5
-            assert pools['named_consumer_closed']
+            assert pools['conditional_arithmetic_fits']
+            assert not pools['named_consumer_closed']
+            assert not pools['imported_constructor_frontier_established']
             assert 'native_varpool_and_shared_tree_pool' not in result['open_joins']
             graph=result['native_graph_lifetime']
             assert graph['edge_creation_events_upper']==4*c
@@ -92,7 +94,9 @@ def main():
                      if row['object']=='call-site hash terminal-empty backing']
             assert len(cleanup)==1 and cleanup[0]['requests_upper']==4
             assert cleanup[0]['raw_bytes_upper']==8*graph['call_site_hash_slots_upper']
-            assert graph['conditional_graph_and_summary_lifetime_closed']
+            assert graph['conditional_arithmetic_fits']
+            assert not graph['conditional_graph_and_summary_lifetime_closed']
+            assert not graph['imported_constructor_frontier_established']
             helpers=result['native_SSA_helper_backing']
             assert helpers['source_input']['SSA_slots_upper']==3*c+2
             assert helpers['conditional_SSA_helper_backing_closed']
@@ -170,7 +174,8 @@ def main():
             storage=result['Main_GAS_BFD_storage']
             assert storage['selected_GAS_BFD_storage_fits']
             assert storage['path_bytes']==fixture['complete_path_bound']+1
-            assert result['conditions']['Main_GAS_BFD_storage']
+            assert result['conditional_conditions']['Main_GAS_BFD_storage']
+            assert result['conditions']['Main_GAS_BFD_storage'] is None
             assert assembler['source_identity']==module.identity(raw)
             assert assembler['text_bytes_upper']==result['RTL_shape']['shortening_text_bytes_upper']
             linker=result['literal_output_linker']
@@ -204,17 +209,33 @@ def main():
             assert not parent['whole_native_parent_capacity_established']
             assert not parent['output_launch_descriptor_materialized']
             expected=name!='5000_calls'
-            assert result['evaluated_predicates_pass']==expected,(name,result['failed_predicates'])
+            assert result['conditional_arithmetic_pass']==expected,(name,result['failed_conditional_predicates'])
+            assert not result['evaluated_predicates_pass']
+            assert result['failed_predicates']==[]
+            assert set(result['unresolved_predicates'])=={
+                'native_varpool_and_shared_tree_pool','native_graph_and_summary_lifetime',
+                'Main_assembler_object_interface','Main_GAS_BFD_storage',
+                'literal_output_linker_representation'}
+            frontier=result['native_unit_frontier']
+            assert frontier==result['open_joins']['native_post_prefix_imported_frontier']
+            assert not frontier['Main_is_only_defined_body_established']
+            assert not frontier['Main_is_only_emitted_body_established']
+            assert frontier['additional_imported_pool_symbol_events_upper'] is None
+            assert frontier['additional_imported_defined_bodies_upper'] is None
+            assert frontier['additional_emitted_stream_interface'] is None
             assert linker['link']['failed_sufficient_checks']==(
                 ['fixed_signed_relocation_reach'] if name=='5000_calls' else [])
             if name=='5000_calls':
-                assert result['failed_predicates']==['literal_output_linker_representation']
+                assert result['failed_conditional_predicates']==['literal_output_linker_representation']
             if name in ('literal_above_old_cap','5000_calls'):
                 assert not result['Why_core']['producer_core_fits']
                 assert result['selected_Why_core']['literal_Main_core_fits']
                 assert result['selected_Why_core']['Main_gnat_json_bytes']==0
             rows.append(dict(case=name,source_bytes=len(raw),calls=c,nulls=n,decoded_characters=characters,
-                             evaluated_predicates_pass=expected,
+                             conditional_arithmetic_pass=expected,
+                             evaluated_predicates_pass=False,
+                             unresolved_predicates=result['unresolved_predicates'],
+                             failed_conditional_predicates=result['failed_conditional_predicates'],
                              failed_predicates=result['failed_predicates'],
                              hypothetical_general_Why_JSON_byte_bound=result['Why_core']['json_bytes'],
                              source_selected_Main_JSON_bytes=0,
@@ -366,11 +387,12 @@ def main():
         boundary=(1073741823-context.pool_seed)//2
         for c,expected in ((boundary,True),(boundary+1,False)):
             pools=module.native_pool_lifetime(c,context)
-            assert pools['named_consumer_closed']==expected
+            assert pools['conditional_arithmetic_fits']==expected
+            assert not pools['named_consumer_closed']
             assert pools['local_representation_checks']['tree_pool_live_and_probe']==expected
             rows.append(dict(case='tree_pool_prime_region_'+str(c),calls=c,
                              capacity=pools['tree_pool']['capacity_upper'],
-                             named_consumer_closed=expected))
+                             conditional_arithmetic_fits=expected,named_consumer_closed=False))
         # Expansion happens before lookup equality: even an existing key
         # at the first 13-slot load boundary incurs a backing request.
         size,occupied=13,10
@@ -394,11 +416,12 @@ def main():
         size_boundary=(module.I32-7)//26
         for c,expected in ((size_boundary,True),(size_boundary+1,False)):
             graph=module.native_graph_lifetime(c,0,context)
-            assert graph['conditional_graph_and_summary_lifetime_closed']==expected
+            assert graph['conditional_arithmetic_fits']==expected
+            assert not graph['conditional_graph_and_summary_lifetime_closed']
             assert graph['local_representation_checks']['summary_signed_size_and_rounding']==expected
             rows.append(dict(case='summary_signed_size_'+str(c),calls=c,
                              rounding_numerator=graph['summary_rounding_numerator_upper'],
-                             named_consumer_closed=expected))
+                             conditional_arithmetic_fits=expected,named_consumer_closed=False))
         edge_boundary=(module.I32-1)//4
         for c,expected in ((edge_boundary,True),(edge_boundary+1,False)):
             graph=module.native_graph_lifetime(c,0,context)

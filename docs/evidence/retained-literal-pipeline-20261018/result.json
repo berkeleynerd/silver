@@ -4,7 +4,7 @@
     "bytes": 118,
     "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
   },
-  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-literal-native-frontend-attachment/samples/hello_world.adb",
+  "source_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/samples/hello_world.adb",
   "actual_shared_inputs": {
     "configuration": {
       "bytes": 327,
@@ -93,6 +93,32 @@
     "native_lowering_and_data": true,
     "native_RTL_shape": true,
     "native_selected_helper_backing": true,
+    "native_varpool_and_shared_tree_pool": null,
+    "native_graph_and_summary_lifetime": null,
+    "native_SSA_helper_backing": true,
+    "native_initial_SSA_lifetime": true,
+    "native_initial_CF_CFG_lifetime": true,
+    "native_whole_body_copy_local_interface": true,
+    "Main_assembler_object_interface": null,
+    "Main_GAS_BFD_storage": null,
+    "literal_output_linker_representation": null,
+    "Main_ALI_interface": true,
+    "ALI_consumer_local_interfaces": true,
+    "GPR_parent_DW_local_interface": true,
+    "Why_core": true,
+    "output_binder_checksum_no_collection": true
+  },
+  "conditional_conditions": {
+    "shared_launch_paths": true,
+    "Main_source_EOF": true,
+    "Main_source_request": true,
+    "Main_line_table": true,
+    "Main_expanded_columns": true,
+    "native_Main_logical_lines": true,
+    "native_Main_frontend_literal_length": true,
+    "native_lowering_and_data": true,
+    "native_RTL_shape": true,
+    "native_selected_helper_backing": true,
     "native_varpool_and_shared_tree_pool": true,
     "native_graph_and_summary_lifetime": true,
     "native_SSA_helper_backing": true,
@@ -108,8 +134,34 @@
     "Why_core": true,
     "output_binder_checksum_no_collection": true
   },
-  "evaluated_predicates_pass": true,
+  "conditional_arithmetic_pass": true,
+  "failed_conditional_predicates": [],
+  "evaluated_predicates_pass": false,
   "failed_predicates": [],
+  "unresolved_predicates": [
+    "native_varpool_and_shared_tree_pool",
+    "native_graph_and_summary_lifetime",
+    "Main_assembler_object_interface",
+    "Main_GAS_BFD_storage",
+    "literal_output_linker_representation"
+  ],
+  "native_unit_frontier": {
+    "imported_constructor_frontier_established": false,
+    "Main_is_only_defined_body_established": false,
+    "Main_is_only_emitted_body_established": false,
+    "additional_imported_pool_symbol_events_upper": null,
+    "additional_imported_defined_bodies_upper": null,
+    "additional_emitted_stream_interface": null,
+    "affected_predicates": [
+      "native_varpool_and_shared_tree_pool",
+      "native_graph_and_summary_lifetime",
+      "Main_assembler_object_interface",
+      "Main_GAS_BFD_storage",
+      "literal_output_linker_representation"
+    ],
+    "missing": "Exclude or bound Standard.String template/array/object layout and its possible size-function helpers; Main preservation alone is insufficient.",
+    "finding": "https://github.com/berkeleynerd/silver/issues/131"
+  },
   "native_lowering_data": {
     "native_Main": {
       "procedure_bodies": 1,
@@ -656,7 +708,10 @@
       "reference_request_size": true,
       "tree_constant_label_counter": true
     },
-    "named_consumer_closed": true,
+    "conditional_arithmetic_fits": true,
+    "imported_constructor_frontier_established": false,
+    "required_premise": "No extra post-prefix imported pool/symbol contribution, or a separately composed bound (#131).",
+    "named_consumer_closed": false,
     "whole_native_pipeline_capacity_established": false,
     "source_argument": "docs/research/retained-literal-pipeline.md#bounds-pool-and-symbol-lifetime-join"
   },
@@ -803,7 +858,10 @@
     },
     "additional_GGC_request_events_upper": 41,
     "additional_singleton_finalizer_registrations_upper": 5,
-    "conditional_graph_and_summary_lifetime_closed": true,
+    "conditional_arithmetic_fits": true,
+    "imported_constructor_frontier_established": false,
+    "required_premise": "Main is the sole defined body, or additional imported helpers are separately composed (#131).",
+    "conditional_graph_and_summary_lifetime_closed": false,
     "local_representation_checks": {
       "cgraph_edge_UID": true,
       "call_site_hash_live_and_probe": true,
@@ -3446,16 +3504,33 @@
     }
   },
   "open_joins": {
+    "native_post_prefix_imported_frontier": {
+      "imported_constructor_frontier_established": false,
+      "Main_is_only_defined_body_established": false,
+      "Main_is_only_emitted_body_established": false,
+      "additional_imported_pool_symbol_events_upper": null,
+      "additional_imported_defined_bodies_upper": null,
+      "additional_emitted_stream_interface": null,
+      "affected_predicates": [
+        "native_varpool_and_shared_tree_pool",
+        "native_graph_and_summary_lifetime",
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ],
+      "missing": "Exclude or bound Standard.String template/array/object layout and its possible size-function helpers; Main preservation alone is insufficient.",
+      "finding": "https://github.com/berkeleynerd/silver/issues/131"
+    },
     "native_remaining_lifetime_and_collector": {
       "next_consumer": "original frontend/gigi constructors and remaining gimplifier helper lifetimes, then remaining pass, shared-pool and GGC collector composition.",
       "available": {
-        "graph_scan_count_upper": 4,
-        "call_edge_creation_events_upper": 4,
+        "conditional_graph_scan_count_upper": 4,
+        "conditional_call_edge_creation_events_upper": 4,
         "Main_frontend_node_identities_upper": 60,
         "Main_frontend_entity_identities_upper": 3,
         "Main_gigi_source_syntax_visits_upper": 154,
-        "new_pool_lifecycle_GGC_events_upper": 10,
-        "new_graph_lifecycle_GGC_events_upper": 41,
+        "conditional_pool_lifecycle_GGC_events_upper": 10,
+        "conditional_graph_lifecycle_GGC_events_upper": 41,
         "ranger_and_out_of_SSA_backing_closed": true,
         "initial_SSA_GGC_events_upper": 17,
         "initial_CF_CFG_GGC_events_upper": 24,
@@ -3610,7 +3685,7 @@
         },
         "local_interface_fits": true
       },
-      "missing": "Complete production-invocation/materialization join; selected stream/region/symbol/relocation/ELF and GAS/BFD storage interfaces are conditionally joined."
+      "missing": "Complete production-invocation/materialization and imported emitted-body joins (#131); selected stream/region/symbol/relocation/ELF and GAS/BFD storage arithmetic is conditional on that stream being complete."
     },
     "producer_frontends_and_consumers": {
       "missing": "Output-family native/datarep/light frontend and parent ALI/report/flow joins plus required Why/report/server consumers. The null fixed-table and zero-client projections are not assumed for repeated output."
@@ -3650,8 +3725,8 @@
     "Physical resources and ordinary external OS/libc services remain separate."
   ],
   "offline_run": {
-    "started_utc": "2026-10-18T19:57:15.204540+00:00",
-    "completed_utc": "2026-10-18T19:57:18.886715+00:00",
-    "elapsed_seconds": 3.682163841000147
+    "started_utc": "2026-10-18T20:00:07.310686+00:00",
+    "completed_utc": "2026-10-18T20:00:10.259829+00:00",
+    "elapsed_seconds": 2.9491423399995256
   }
 }

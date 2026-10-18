@@ -7,7 +7,16 @@
       "calls": 1,
       "nulls": 0,
       "decoded_characters": 13,
-      "evaluated_predicates_pass": true,
+      "conditional_arithmetic_pass": true,
+      "evaluated_predicates_pass": false,
+      "unresolved_predicates": [
+        "native_varpool_and_shared_tree_pool",
+        "native_graph_and_summary_lifetime",
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ],
+      "failed_conditional_predicates": [],
       "failed_predicates": [],
       "hypothetical_general_Why_JSON_byte_bound": 189744712,
       "source_selected_Main_JSON_bytes": 0,
@@ -19,7 +28,16 @@
       "calls": 1,
       "nulls": 0,
       "decoded_characters": 13,
-      "evaluated_predicates_pass": true,
+      "conditional_arithmetic_pass": true,
+      "evaluated_predicates_pass": false,
+      "unresolved_predicates": [
+        "native_varpool_and_shared_tree_pool",
+        "native_graph_and_summary_lifetime",
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ],
+      "failed_conditional_predicates": [],
       "failed_predicates": [],
       "hypothetical_general_Why_JSON_byte_bound": 189744712,
       "source_selected_Main_JSON_bytes": 0,
@@ -31,7 +49,16 @@
       "calls": 2,
       "nulls": 1,
       "decoded_characters": 2,
-      "evaluated_predicates_pass": true,
+      "conditional_arithmetic_pass": true,
+      "evaluated_predicates_pass": false,
+      "unresolved_predicates": [
+        "native_varpool_and_shared_tree_pool",
+        "native_graph_and_summary_lifetime",
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ],
+      "failed_conditional_predicates": [],
       "failed_predicates": [],
       "hypothetical_general_Why_JSON_byte_bound": 234228269,
       "source_selected_Main_JSON_bytes": 0,
@@ -43,7 +70,16 @@
       "calls": 2,
       "nulls": 0,
       "decoded_characters": 3,
-      "evaluated_predicates_pass": true,
+      "conditional_arithmetic_pass": true,
+      "evaluated_predicates_pass": false,
+      "unresolved_predicates": [
+        "native_varpool_and_shared_tree_pool",
+        "native_graph_and_summary_lifetime",
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ],
+      "failed_conditional_predicates": [],
       "failed_predicates": [],
       "hypothetical_general_Why_JSON_byte_bound": 233303941,
       "source_selected_Main_JSON_bytes": 0,
@@ -55,7 +91,16 @@
       "calls": 1,
       "nulls": 0,
       "decoded_characters": 13,
-      "evaluated_predicates_pass": true,
+      "conditional_arithmetic_pass": true,
+      "evaluated_predicates_pass": false,
+      "unresolved_predicates": [
+        "native_varpool_and_shared_tree_pool",
+        "native_graph_and_summary_lifetime",
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ],
+      "failed_conditional_predicates": [],
       "failed_predicates": [],
       "hypothetical_general_Why_JSON_byte_bound": 189744712,
       "source_selected_Main_JSON_bytes": 0,
@@ -67,7 +112,16 @@
       "calls": 1,
       "nulls": 0,
       "decoded_characters": 8192,
-      "evaluated_predicates_pass": true,
+      "conditional_arithmetic_pass": true,
+      "evaluated_predicates_pass": false,
+      "unresolved_predicates": [
+        "native_varpool_and_shared_tree_pool",
+        "native_graph_and_summary_lifetime",
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
+        "literal_output_linker_representation"
+      ],
+      "failed_conditional_predicates": [],
       "failed_predicates": [],
       "hypothetical_general_Why_JSON_byte_bound": 2519295400,
       "source_selected_Main_JSON_bytes": 0,
@@ -79,10 +133,19 @@
       "calls": 5000,
       "nulls": 0,
       "decoded_characters": 5000,
+      "conditional_arithmetic_pass": false,
       "evaluated_predicates_pass": false,
-      "failed_predicates": [
+      "unresolved_predicates": [
+        "native_varpool_and_shared_tree_pool",
+        "native_graph_and_summary_lifetime",
+        "Main_assembler_object_interface",
+        "Main_GAS_BFD_storage",
         "literal_output_linker_representation"
       ],
+      "failed_conditional_predicates": [
+        "literal_output_linker_representation"
+      ],
+      "failed_predicates": [],
       "hypothetical_general_Why_JSON_byte_bound": 240757785483,
       "source_selected_Main_JSON_bytes": 0,
       "whole_pipeline_closed": false
@@ -234,12 +297,14 @@
       "case": "tree_pool_prime_region_536851283",
       "calls": 536851283,
       "capacity": 2147483647,
-      "named_consumer_closed": true
+      "conditional_arithmetic_fits": true,
+      "named_consumer_closed": false
     },
     {
       "case": "tree_pool_prime_region_536851284",
       "calls": 536851284,
       "capacity": null,
+      "conditional_arithmetic_fits": false,
       "named_consumer_closed": false
     },
     {
@@ -273,12 +338,14 @@
       "case": "summary_signed_size_82595524",
       "calls": 82595524,
       "rounding_numerator": 2147483631,
-      "named_consumer_closed": true
+      "conditional_arithmetic_fits": true,
+      "named_consumer_closed": false
     },
     {
       "case": "summary_signed_size_82595525",
       "calls": 82595525,
       "rounding_numerator": 2147483657,
+      "conditional_arithmetic_fits": false,
       "named_consumer_closed": false
     },
     {
@@ -486,8 +553,8 @@
   "native_tool_executions": 0,
   "whole_literal_pipeline_capacity_established": false,
   "offline_run": {
-    "started_utc": "2026-10-18T19:57:15.190192+00:00",
-    "completed_utc": "2026-10-18T19:57:19.607517+00:00",
-    "elapsed_seconds": 4.417314489999626
+    "started_utc": "2026-10-18T20:00:03.308000+00:00",
+    "completed_utc": "2026-10-18T20:00:07.163517+00:00",
+    "elapsed_seconds": 3.8555128569987573
   }
 }

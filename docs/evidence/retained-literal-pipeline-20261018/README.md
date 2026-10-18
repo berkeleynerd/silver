@@ -6,7 +6,7 @@ checked common naming/System/library bytes and selected launch roles. The
 accepted output-binder checksum checker is replayed once per context.
 
 The [source argument](../../research/retained-literal-pipeline.md) identifies
-the closed bounds-pool/shared-symbol and direct-call/IPA-summary joins,
+the conditional bounds-pool/shared-symbol and direct-call/IPA-summary transfers,
 the literal-sized ranger/out-of-SSA, initial-SSA and initial-CF/CFG joins, and the remaining
 constructor-lifetime consumers. Passing the instantiated
 conditions does not establish whole-pipeline capacity: the result always
@@ -23,7 +23,7 @@ python3 docs/evidence/retained-literal-pipeline-20261018/compose.py \
 `--source FILE` substitutes the same bytes into every source-counted component.
 `--descriptor FILE` selects the checked shared inputs and partial launch record;
 the default is `fixture.json`. `check.py` accepts the same three source-root
-arguments and `--output`, and runs 73 interface checks. It reuses one context's
+arguments and `--output`, and runs 83 interface checks. It reuses one context's
 successful retained checks across source variations. `--gcc-match FILE` selects
 the pinned `match.pd`; by default its retained source-manifest path is used.
 
@@ -50,6 +50,17 @@ are conservative transfer bounds, not observed occupancies. This does not reuse
 null's 40,098-event lifetime. The remaining collector and pipeline joins stay
 open. The source manifest includes all files used by the transferred fixed
 prefix/symbol ingress and the new lifecycle argument.
+
+Finding [#131](https://github.com/berkeleynerd/silver/issues/131) retracts the
+earlier exclusion of additional imported helper bodies: Main's literal extents
+do not discharge Standard.String's placeholder-derived layout. The numerical
+pool and graph transfers now expose `conditional_arithmetic_fits` with false
+closure flags. The aggregate's pool, graph, complete assembly, GAS storage and
+link conditions are `null` until that frontier is excluded or bounded. They
+appear in `unresolved_predicates`, never as failed capacity checks. The raw
+arithmetic remains in `conditional_conditions`; `evaluated_predicates_pass`
+is false while any condition is unresolved. Main-only interfaces survive;
+complete emitted-stream correspondence requires its own additional premise.
 
 `native_graph_lifetime` adds the direct-call edge/summary lifecycle, ordinary
 IPA backing, signed-size and edge-ID checks, seven fixed symbol constructor
@@ -109,9 +120,10 @@ changing their formulas. Source identity/counts and the complete text/ELF link
 substitution must agree with the existing components. Linker path bytes include
 the terminal NUL (`P+1`); ALI path bytes are spelling-only (`P`). The returned
 `literal_output_linker` and `Main_ALI_interface` preserve their full conditional
-results. Hello and the 8192-byte literal pass; 5000 calls fail only the linker's
-conservative signed-relocation sufficient bound, while the other instantiated
-components still pass. This is not an observed native failure or adopted cap.
+results. Hello and the 8192-byte literal pass the conditional arithmetic;
+5000 calls fail only the linker's conservative signed-relocation sufficient
+bound. All retain the five unknown source-family conditions above. This is not
+an observed native failure or adopted cap.
 ALI parser/graph/driver and complete launch joins remain open.
 
 The accepted ALI consumer packet is attached as `ALI_consumer_interfaces`,

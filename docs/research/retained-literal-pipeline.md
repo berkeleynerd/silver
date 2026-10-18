@@ -4,11 +4,13 @@
 The [callable aggregate](../evidence/retained-literal-pipeline-20261018/README.md)
 now drives the established literal-output native and Why formulas from one
 actual source byte string and a checked common configuration/System/library
-descriptor. The available arithmetic passes for `samples/hello_world.adb`.
-**Whole literal-pipeline capacity remains unestablished.** The bounds-pool
-declaration lifecycle and shared tree/assembler-name backing now have a
-source-derived join. The direct-call graph and IPA-summary lifetime now also
-have a conditional join, and the literal-sized ranger/out-of-SSA backing is
+descriptor. The conditional arithmetic passes for `samples/hello_world.adb`.
+**Whole literal-pipeline capacity remains unestablished.** Following
+[finding #131](https://github.com/berkeleynerd/silver/issues/131), the shared
+pool/symbol, graph and complete emitted-stream joins retain an unproved imported
+constructor premise. The aggregate reports those five conditions as unknown,
+separately from arithmetic failure; its evaluated-predicates result is false
+even for Hello. The literal-sized ranger/out-of-SSA backing is
 substituted. Initial SSA infrastructure and renaming also have a separate
 constructor delta. Initial CF/EH/CFG/root-loop constructors now also have a
 conditional join. The next native consumer is the remaining frontend/gigi and
@@ -143,9 +145,10 @@ proof run occurred. The attachment itself awaits independent review.
 
 ## Bounds-pool and symbol lifetime join
 
-The callable's `native_pool_lifetime(C, context)` now closes the named
-`native_varpool_and_shared_tree_pool` interface under the selected native
-configuration and existing whole-unit Main-preservation premise. It returns
+The callable's `native_pool_lifetime(C, context)` supplies conditional arithmetic
+for `native_varpool_and_shared_tree_pool` under the selected native
+configuration and an additional imported-constructor premise described below.
+Main-preservation alone does not establish that premise. It returns
 individual request groups, counter checks and allocation-event deltas. This
 is a handwritten source argument checked against complete source identities;
 the offline arithmetic checker does not prove C++ semantics. Relevant installed
@@ -185,21 +188,28 @@ this prefix bounds its incoming capacity by
 `prime(max(1009, 2*D_in)) = 131071`. These are conservative upper bounds, not
 measurements of pool occupancy and not an assumption that the pool is empty.
 
-There is no uncharged post-prefix dependency body before Main. The native
+The explicit imported procedure-declaration route does not by itself establish
+the absence of post-prefix helper bodies. The native
 `N_With_Clause` path either returns an empty list or constructs namespace
 metadata (`trans.cc:8333–8339,6455–6515`). The recursive all-entities walk is
 exclusive to `type_annotate_only` (`:9670–9720`), which is not this native
 phase. The called Silver_IO declarations are external procedures with no
 native body, initializer, alias or Inline_Always attribute. Static Ghost state
 and static contracts are erased; Main does not reference the package variables
-or Max_Length. The imported String profile contributes types and bound
-placeholders, not a constant object to the tree pool. The actual literal
-subtypes have constant extents; there is no self-referential size-function
-body. `create_subprog_decl`/`rest_of_decl_compilation` does not finalize these
-external FUNCTION_DECLs (`utils.cc:3772`; `passes.cc:176–250`). Thus the only
-post-prefix tree-pool additions for this family are the previously derived
-bounds/literal roots. This native projection does not cover datarep or producer
-frontend translation of dependencies.
+or Max_Length. `create_subprog_decl`/`rest_of_decl_compilation` does not finalize
+these external FUNCTION_DECLs (`utils.cc:3772`; `passes.cc:176–250`).
+However, imported Standard.String has a separate template, unconstrained-array
+and object-record layout. Its placeholder-derived sizes can reach
+`variable_size`, `self_referential_size` and `finalize_size_functions`
+(`decl.cc:2433–2545,7265–7390`; `stor-layout.cc:67–85,155–291`). Constant
+extents of Main's literal subtypes do not prove that this imported route
+simplifies away. No helper creation or emission is asserted as an observation;
+its absence or bounded contribution is unresolved. Therefore the calculations
+below assume no additional imported pool/symbol/body contribution. The
+callables retain that premise explicitly, return false closure flags, and
+expose their numerical checks as `conditional_arithmetic_fits`. The aggregate
+does not turn those values into established source-family fit. This native
+projection also does not cover datarep or producer dependency translation.
 
 The existing [fixed symbol-ingress argument](retained-native-expansion.md#null-mains-incoming-ipa-symbol-graph)
 transfers only its prefix portion: builtins register declarations, not cgraph
@@ -209,7 +219,8 @@ The symbol table starts with `cgraph_max_uid=1`, `order=0`, no nodes and no
 assembler-name hash (`cgraph.h:2558–2575`). Main finalization and the forced
 hard-register dummy add two nodes before gimplification. At most two distinct
 external callees are added during graph building, and at most C bounds nodes
-are added by gimplification. Thus cumulative registrations are at most `C+4`,
+are added by Main gimplification. Under the unestablished imported-frontier
+premise, cumulative registrations are at most `C+4`,
 next UID at most `C+5` and order at most `C+4`. This transfers no null-body
 edge count, null IPA allocation bound or null whole-lifetime constant.
 
@@ -348,7 +359,9 @@ and physical resource availability remain external assumptions.
 `native_graph_lifetime(C, N, context)` replaces the null-only graph inputs
 in the established [39-registration IPA partition](retained-backend-ipa.md)
 with Main, at most two external callees, at most C bounds variables and the
-forced dummy. Main remains the only defined function body. Calls are direct,
+forced dummy. This transfer assumes Main is the only defined function body;
+the imported-frontier argument above has not established that assumption.
+Main's calls are direct,
 nonrecursive and have no callback, always-inline, clone, thunk or target
 attribute. The variables have no outgoing initializer reference. The selected
 O0/non-LTO options and prior per-function shape argument still apply.
